@@ -404,6 +404,10 @@ const SelectList = React.forwardRef(
       }
       const indexOfMatch = getIndexOfMatch(highlightedValue);
 
+      if (indexOfMatch === -1) {
+        return;
+      }
+
       setCurrentOptionsListIndex(indexOfMatch);
 
       virtualizer.scrollToIndex(indexOfMatch, SCROLL_OPTIONS);

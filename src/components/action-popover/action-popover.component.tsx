@@ -21,6 +21,7 @@ import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.compone
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
 import ActionPopoverContext from "./action-popover-context";
+import useModalManager from "../../hooks/__internal__/useModalManager";
 
 interface RenderButtonProps {
   tabIndex: number;
@@ -171,6 +172,19 @@ export const ActionPopover = ({
     },
     [itemCount, setOpen]
   );
+
+  const handleEscapeKey = useCallback(
+    (e) => {
+      /* istanbul ignore else */
+      if (Events.isEscKey(e)) {
+        setOpen(false);
+        focusButton();
+      }
+    },
+    [setOpen, focusButton]
+  );
+
+  useModalManager(isOpen, handleEscapeKey, buttonRef);
 
   useEffect(() => {
     const handler = ({ target }: MouseEvent) => {

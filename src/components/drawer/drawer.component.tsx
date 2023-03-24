@@ -54,7 +54,9 @@ export interface DrawerProps {
   stickyFooter?: boolean;
 }
 
-const DrawerSidebarContext = React.createContext({});
+const DrawerSidebarContext = React.createContext<
+  Partial<DrawerSidebarContextProps>
+>({});
 
 export const Drawer = ({
   defaultExpanded = true,

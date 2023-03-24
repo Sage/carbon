@@ -358,10 +358,8 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 <div
-  aria-haspopup="true"
   className="c0"
   data-component="multi-action-button"
-  onClick={[Function]}
   onMouseLeave={[Function]}
 >
   <button
@@ -373,6 +371,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
     data-element="toggle-button"
     disabled={false}
     draggable={false}
+    onClick={[Function]}
     onKeyDown={[Function]}
     onMouseEnter={[Function]}
     onTouchStart={[Function]}

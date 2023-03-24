@@ -1,9 +1,19 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import LinkTo from "@storybook/addon-links/react";
+
 import ButtonToggle from ".";
 import ButtonToggleGroup from "../button-toggle-group";
 
-<Meta title="Button Toggle" parameters={{ info: { disable: true } }} />
+import * as stories from "./button-toggle.stories";
+
+<Meta 
+  title="Button Toggle"
+  parameters={{
+    info: { disable: true },
+    themeProvider: { chromatic: { theme: "sage" } },
+  }}
+/>
 
 # Button Toggle
 
@@ -38,70 +48,25 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle name="default" value="foo">
-        Foo
-      </ButtonToggle>
-      <ButtonToggle name="default" value="bar">
-        Bar
-      </ButtonToggle>
-      <ButtonToggle name="default" value="baz">
-        Baz
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="default" story={stories.Default} />
+</Canvas>
+
+### Default with wrapped text
+
+<Canvas>
+  <Story name="default with wrapped text" story={stories.DefaultWrappedText} />
 </Canvas>
 
 ### Default with small icon
 
 <Canvas>
-  <Story name="default with small icon">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle name="sizes" value="foo" buttonIcon="add">
-        Add
-      </ButtonToggle>
-      <ButtonToggle name="sizes" value="bar" buttonIcon="share">
-        Share
-      </ButtonToggle>
-      <ButtonToggle name="sizes" value="baz" buttonIcon="tick">
-        Tick
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="default with small icon" story={stories.DefaultSmallIcon} />
 </Canvas>
 
 ### Default with large icon
 
 <Canvas>
-  <Story name="default with large icon">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle
-        name="sizes"
-        value="foo"
-        buttonIcon="add"
-        buttonIconSize="large"
-      >
-        Add
-      </ButtonToggle>
-      <ButtonToggle
-        name="sizes"
-        value="bar"
-        buttonIcon="share"
-        buttonIconSize="large"
-      >
-        Share
-      </ButtonToggle>
-      <ButtonToggle
-        name="sizes"
-        value="baz"
-        buttonIcon="tick"
-        buttonIconSize="large"
-      >
-        Tick
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="default with large icon" story={stories.DefaultLargeIcon} />
 </Canvas>
 
 ### Icon only
@@ -109,208 +74,55 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
 While we do not advocate the use of icon-only buttons for accessibility reasons, the `aria-label` or `aria-labelledby` props can be used with `buttonIcon` so assistive techniques are aware of the action that will be taken when the component pressed.
 
 <Canvas>
-  <Story name="icon only">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle
-        name="sizes"
-        value="foo"
-        buttonIcon="add"
-        aria-label="add"
-      />
-      <ButtonToggle
-        name="sizes"
-        value="bar"
-        buttonIcon="share"
-        aria-label="share"
-      />
-      <ButtonToggle
-        name="sizes"
-        value="baz"
-        buttonIcon="tick"
-        aria-label="tick"
-      />
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="icon only" story={stories.iconOnly} />
 </Canvas>
 
 ### Small
 
 <Canvas>
-  <Story name="small">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle size="small" name="sizes" value="foo">
-        Add
-      </ButtonToggle>
-      <ButtonToggle size="small" name="sizes" value="bar">
-        Share
-      </ButtonToggle>
-      <ButtonToggle size="small" name="sizes" value="baz">
-        Tick
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="small" story={stories.small} />
 </Canvas>
 
 ### Small with small icon
 
 <Canvas>
-  <Story name="small with small icon">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle size="small" name="sizes" value="foo" buttonIcon="add">
-        Add
-      </ButtonToggle>
-      <ButtonToggle size="small" name="sizes" value="bar" buttonIcon="share">
-        Share
-      </ButtonToggle>
-      <ButtonToggle size="small" name="sizes" value="baz" buttonIcon="tick">
-        Tick
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="small with small icon" story={stories.smallSmallIcon} />
 </Canvas>
 
 ### Small with large icon
 
 <Canvas>
-  <Story name="small with large icon">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle
-        size="small"
-        name="sizes"
-        value="foo"
-        buttonIcon="add"
-        buttonIconSize="large"
-      >
-        Add
-      </ButtonToggle>
-      <ButtonToggle
-        size="small"
-        name="sizes"
-        value="bar"
-        buttonIcon="share"
-        buttonIconSize="large"
-      >
-        Share
-      </ButtonToggle>
-      <ButtonToggle
-        size="small"
-        name="sizes"
-        value="baz"
-        buttonIcon="tick"
-        buttonIconSize="large"
-      >
-        Tick
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="small with large icon" story={stories.smallLargeIcon} />
 </Canvas>
 
 ### Large
 
 <Canvas>
-  <Story name="large">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle size="large" name="sizes" value="foo">
-        Add
-      </ButtonToggle>
-      <ButtonToggle size="large" name="sizes" value="bar">
-        Share
-      </ButtonToggle>
-      <ButtonToggle size="large" name="sizes" value="baz">
-        Tick
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="large" story={stories.large} />
 </Canvas>
 
 ### Large with small icon
 
 <Canvas>
-  <Story name="large with small icon">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle size="large" name="sizes" value="foo" buttonIcon="add">
-        Add
-      </ButtonToggle>
-      <ButtonToggle size="large" name="sizes" value="bar" buttonIcon="share">
-        Share
-      </ButtonToggle>
-      <ButtonToggle size="large" name="sizes" value="baz" buttonIcon="tick">
-        Tick
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="large with small icon" story={stories.largeSmallIcon} />
 </Canvas>
 
 ### Large with large icon
 
 <Canvas>
-  <Story name="large with large icon">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle
-        size="large"
-        name="sizes"
-        value="foo"
-        buttonIcon="add"
-        buttonIconSize="large"
-      >
-        Add
-      </ButtonToggle>
-      <ButtonToggle
-        size="large"
-        name="sizes"
-        value="bar"
-        buttonIcon="share"
-        buttonIconSize="large"
-      >
-        Share
-      </ButtonToggle>
-      <ButtonToggle
-        size="large"
-        name="sizes"
-        value="baz"
-        buttonIcon="tick"
-        buttonIconSize="large"
-      >
-        Tick
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="large with large icon" story={stories.largeLargeIcon} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle name="disabled" value="foo" disabled>
-        Foo
-      </ButtonToggle>
-      <ButtonToggle name="disabled" value="bar" disabled>
-        Bar
-      </ButtonToggle>
-      <ButtonToggle name="disabled" value="baz" disabled>
-        Baz
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="disabled" story={stories.disabled} />
 </Canvas>
 
 ### Grouped
 
 <Canvas>
-  <Story name="grouped">
-    <ButtonToggleGroup id="button-toggle-group-id" name="grouped-options">
-      <ButtonToggle name="grouped" value="foo" grouped>
-        Foo
-      </ButtonToggle>
-      <ButtonToggle name="grouped" value="bar" grouped>
-        Bar
-      </ButtonToggle>
-      <ButtonToggle name="grouped" value="baz" grouped>
-        Baz
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Story>
+  <Story name="grouped" story={stories.grouped} />
 </Canvas>
 
 ## Props

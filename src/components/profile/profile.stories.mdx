@@ -4,6 +4,8 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Profile from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
+import * as stories from "./profile.stories";
+
 <Meta title="Profile" parameters={{ info: { disable: true } }} />
 
 # Profile
@@ -38,9 +40,7 @@ import Profile from "carbon-react/lib/components/profile";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Profile email="email@email.com" initials="JD" name="John Doe" />
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Src
@@ -48,32 +48,13 @@ import Profile from "carbon-react/lib/components/profile";
 To use an image, simply pass any valid image URL as a `src` prop.
 
 <Canvas>
-  <Story name="src">
-    <Profile
-      email="email@email.com"
-      initials="JD"
-      name="John Doe"
-      src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-    />
-  </Story>
+  <Story name="src" story={stories.Src} />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {() =>
-      ["XS", "S", "M", "ML", "L", "XL", "XXL"].map((size) => (
-        <Profile
-          email="email@email.com"
-          initials="JD"
-          name="John Doe"
-          size={size}
-          key={size}
-        />
-      ))
-    }
-  </Story>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### Responsive Example
@@ -81,42 +62,8 @@ To use an image, simply pass any valid image URL as a `src` prop.
 <Canvas>
   <Story 
     name="responsive"
-    parameters={
-      { 
-        chromatic: { 
-          viewports: [1300, 900] 
-        } 
-      }
-    }
-  >
-    {() => {
-      const largeScreen = useMediaQuery("(min-width: 1260px)");
-      const mediumScreen = useMediaQuery("(min-width: 960px)");
-      const smallScreen = useMediaQuery("(max-width: 600px)");
-      const setCorrectScreenSize = () => {
-        if (largeScreen) {
-          return "XL";
-        }
-        if (mediumScreen) {
-          return "ML";
-        }
-        if (smallScreen) {
-          return "S";
-        }
-        return "M";
-      };
-      return (
-        <div>
-          <Profile
-            email="email@email.com"
-            initials="JD"
-            name="John Doe"
-            size={setCorrectScreenSize()}
-          />
-        </div>
-      );
-    }}
-  </Story>
+    story={stories.Responsive}
+  />
 </Canvas>
 
 ## Props

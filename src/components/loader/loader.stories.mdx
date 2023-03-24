@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import Loader from ".";
-import Button from "../button/button.component";
-import Box from "../box";
+
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import Loader from ".";
+
+import * as stories from "./loader.stories";
 
 <Meta
   title="Loader"
@@ -47,9 +49,7 @@ import Loader from "carbon-react/lib/components/loader";
 This example of the Loader component demonstrates how it will appear as default.
 
 <Canvas>
-  <Story name="default">
-    <Loader />
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Small
@@ -57,9 +57,7 @@ This example of the Loader component demonstrates how it will appear as default.
 This is an example of a small Loader component.
 
 <Canvas>
-  <Story name="small">
-    <Loader size="small" />
-  </Story>
+  <Story name="small" story={stories.Small} />
 </Canvas>
 
 ### Large
@@ -67,9 +65,7 @@ This is an example of a small Loader component.
 This is an example of the large Loader component. The larger size is only used when a whole page is loading.
 
 <Canvas>
-  <Story name="large">
-    <Loader size="large" />
-  </Story>
+  <Story name="large" story={stories.Large} />
 </Canvas>
 
 ### Inside Buttons
@@ -78,31 +74,7 @@ These examples show a `Loader` nested inside of a `Button` component. To ensure 
 please remember to pass the `isInsideButton` prop to the `Loader` component.
 
 <Canvas>
-  <Story name="inside Buttons">
-    <Button buttonType="primary" aria-label="Loading">
-      <Loader isInsideButton />
-    </Button>
-    <Button ml={2} buttonType="primary" destructive aria-label="Loading">
-      <Loader isInsideButton />
-    </Button>
-    <Button ml={2} destructive aria-label="Loading">
-      <Loader isInsideButton />
-    </Button>
-    <Button ml={2} buttonType="tertiary" aria-label="Loading">
-      <Loader isInsideButton />
-    </Button>
-    <Button ml={2} buttonType="secondary" aria-label="Loading">
-      <Loader isInsideButton />
-    </Button>
-    <Button ml={2} buttonType="dashed" aria-label="Loading">
-      <Loader isInsideButton />
-    </Button>
-    <Box id="dark-background" mt={2} p={2} width="fit-content" bg="#000000">
-      <Button m={2} buttonType="darkBackground" aria-label="Loading">
-        <Loader isInsideButton />
-      </Button>
-    </Box>
-  </Story>
+  <Story name="inside Buttons" story={stories.InsideButtons} />
 </Canvas>
 
 ## Props

@@ -51,7 +51,7 @@ export interface AdvancedColorPickerProps extends MarginProps {
   selectedColor?: string;
 }
 
-const AdvancedColorPicker = ({
+export const AdvancedColorPicker = ({
   "aria-describedby": ariaDescribedBy,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,

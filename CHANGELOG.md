@@ -1,3 +1,86 @@
+### [116.1.3](https://github.com/Sage/carbon/compare/v116.1.2...v116.1.3) (2023-03-23)
+
+
+### Bug Fixes
+
+* **date:** enable width customization ([8807c18](https://github.com/Sage/carbon/commit/8807c183b840094c4822330b68f70c747b191fa7)), closes [#5787](https://github.com/Sage/carbon/issues/5787)
+
+### [116.1.2](https://github.com/Sage/carbon/compare/v116.1.1...v116.1.2) (2023-03-21)
+
+
+### Bug Fixes
+
+* **button-toggle:** ensure text wraps correctly ([243badb](https://github.com/Sage/carbon/commit/243badbe6709d7d5cc669dfe951468859436d1c7)), closes [#FE-5682](https://github.com/Sage/carbon/issues/FE-5682)
+
+### [116.1.1](https://github.com/Sage/carbon/compare/v116.1.0...v116.1.1) (2023-03-21)
+
+
+### Bug Fixes
+
+* **focus-trap:** ensure focus trap behaviour does not work except in the top modal ([de53a06](https://github.com/Sage/carbon/commit/de53a060c05d1346623ee8fbc17cf99c572358cc)), closes [#5754](https://github.com/Sage/carbon/issues/5754)
+* **focus-trap:** utilise tab guards to avoid calling preventDefault except when necessary ([9fadf91](https://github.com/Sage/carbon/commit/9fadf911a41de72dfa324f8c078ed55492c80791)), closes [#5749](https://github.com/Sage/carbon/issues/5749)
+
+## [116.1.0](https://github.com/Sage/carbon/compare/v116.0.1...v116.1.0) (2023-03-20)
+
+
+### Features
+
+* **badge:** allow component to be display only ([856ecc2](https://github.com/Sage/carbon/commit/856ecc2a1681705051250ac6c27aba4a5f62e585)), closes [#5706](https://github.com/Sage/carbon/issues/5706)
+
+### [116.0.1](https://github.com/Sage/carbon/compare/v116.0.0...v116.0.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* **select:** prevent crash when the value does not match any child ([a184f95](https://github.com/Sage/carbon/commit/a184f95e2c1c6eb1a8be0d7a4d7130ed067ba518)), closes [#5905](https://github.com/Sage/carbon/issues/5905)
+
+## [116.0.0](https://github.com/Sage/carbon/compare/v115.0.2...v116.0.0) (2023-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tile-select:** The name prop is now required for
+TileSelect. Additionally, the onChange handler in TileSelect and
+TileSelectGroup components has been updated to properly
+type arguments, including custom events. Also inputRef prop has been removed.
+
+### Code Refactoring
+
+* **tile-select:** convert component to typescript ([382ef95](https://github.com/Sage/carbon/commit/382ef95c38c6805bb97dad33efb70db6780a5528))
+
+### [115.0.2](https://github.com/Sage/carbon/compare/v115.0.1...v115.0.2) (2023-03-14)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** open menu on click ([3c01e7b](https://github.com/Sage/carbon/commit/3c01e7ba98eec26700f9676843440f928dab576b)), closes [#5615](https://github.com/Sage/carbon/issues/5615)
+
+### [115.0.1](https://github.com/Sage/carbon/compare/v115.0.0...v115.0.1) (2023-03-13)
+
+
+### Bug Fixes
+
+* **action-popover:** resolve issue with Select component closing parent Dialog on escape key press ([e942dbf](https://github.com/Sage/carbon/commit/e942dbf57b3aa77b6b0afe2f158234c2abc9e08c))
+
+## [115.0.0](https://github.com/Sage/carbon/compare/v114.18.2...v115.0.0) (2023-03-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textbox, textarea, checkbox, inline-inputs:** inline inputs are no longer automatically labelled
+by the label prop, please use aria-label or aria-labelledby directly
+on components passed as InlineInputs children.
+* **textbox:** labelId prop is removed
+
+### Bug Fixes
+
+* **textbox, textarea, checkbox, inline-inputs:** allow aria-labelledby to be passed to the input ([f62ade2](https://github.com/Sage/carbon/commit/f62ade2dae47ed35be5a47071279ab169ef50f05))
+
+
+### Code Refactoring
+
+* **textbox:** remove labelId prop ([85aa922](https://github.com/Sage/carbon/commit/85aa92250edcd6480b578d30bae5a50fb87a6441))
+
 ### [114.18.2](https://github.com/Sage/carbon/compare/v114.18.1...v114.18.2) (2023-03-09)
 
 

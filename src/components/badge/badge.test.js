@@ -51,15 +51,17 @@ context("Testing Badge component", () => {
 
     it.each([[0], [-12], ["test"], [CHARACTERS.SPECIALCHARACTERS]])(
       "should check Badge counter is not visible when using %s param",
-      (incorectValue) => {
-        CypressMountWithProviders(<BadgeComponent counter={incorectValue} />);
+      (incorrectValue) => {
+        CypressMountWithProviders(<BadgeComponent counter={incorrectValue} />);
 
         badge().should("not.exist");
       }
     );
 
     it("badge should display cross icon when hovered over", () => {
-      CypressMountWithProviders(<BadgeComponent counter="99" />);
+      CypressMountWithProviders(
+        <BadgeComponent onClick={() => {}} counter="99" />
+      );
 
       badge()
         .realHover()
@@ -68,6 +70,18 @@ context("Testing Badge component", () => {
           expect($el).contains("rgb(0, 126, 69)");
         });
       badgeCrossIcon().should("be.visible");
+    });
+
+    it("badge should not display cross icon when hovered over with no onClick function passed to component", () => {
+      CypressMountWithProviders(<BadgeComponent counter="99" />);
+
+      badge()
+        .realHover()
+        .should("have.css", "background")
+        .then(($el) => {
+          expect($el).contains("rgb(255, 255, 255)");
+        });
+      badgeCrossIcon().should("not.exist");
     });
 
     it("should call onClick callback when a click event is triggered", () => {
@@ -84,12 +98,20 @@ context("Testing Badge component", () => {
           expect(callback).to.have.been.calledOnce;
         });
     });
+
+    it("should check ariaLabel for Badge component", () => {
+      CypressMountWithProviders(
+        <BadgeComponent counter={9} aria-label="cypress-aria" />
+      );
+      badge().should("exist");
+      badge().should("have.attr", "aria-label", "cypress-aria");
+    });
   });
 
   describe("Accessibility tests for Badge component", () => {
     // FE-5596
-    it.skip("should pass accessibilty tests for Badge default story", () => {
-      CypressMountWithProviders(<BadgeComponent counter />);
+    it.skip("should pass accessibility tests for Badge default story", () => {
+      CypressMountWithProviders(<BadgeComponent counter={9} />);
       cy.checkAccessibility();
     });
 

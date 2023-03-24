@@ -581,11 +581,6 @@ describe("ActionPopover", () => {
             });
           },
         ],
-        [
-          "Escape",
-          (item: ReactWrapper<ActionPopoverItemProps>) =>
-            simulate.keydown.pressEscape(item),
-        ],
       ])("Pressing %s key closes the menu", (key, mutator) => {
         render();
         const { menubutton } = getElements();
@@ -606,16 +601,24 @@ describe("ActionPopover", () => {
         // support for native events is implemented in cypress https://github.com/cypress-io/cypress/issues/311
       });
 
-      it("Pressing Escape focuses the MenuButton", () => {
+      it("Pressing Escape focuses the MenuButton and closes the Menu", () => {
         render();
-        const { menubutton, buttonIcon } = getElements();
+        const escapeKeyUpEvent = new KeyboardEvent("keyup", {
+          key: "Escape",
+          bubbles: true,
+        });
+
+        const { menubutton } = getElements();
         simulate.keydown.pressArrowDown(menubutton);
 
-        const { items } = getElements();
+        act(() => {
+          container?.dispatchEvent(escapeKeyUpEvent);
+        });
+        wrapper.update();
 
-        simulate.keydown.pressEscape(items.first());
-
+        const { menu, buttonIcon } = getElements();
         expect(buttonIcon).toBeFocused();
+        expect(menu.exists()).toBe(false);
       });
 
       it.each([

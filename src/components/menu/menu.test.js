@@ -19,6 +19,7 @@ import {
   menuComponent,
   submenuItem,
   fullscreenMenu,
+  fullScreenMenuWrapper,
   menu,
   menuItem,
   fullScreenMenuItem,
@@ -1178,14 +1179,17 @@ context("Testing Menu component", () => {
     });
 
     it("should verify that close icon is focused in Menu Fullscreen", () => {
-      pressTABKey(1);
+      fullScreenMenuWrapper().tab();
       closeIconButton().then(($el) => {
         checkGoldenOutline($el);
       });
     });
 
     it("should verify that inner Menu is available with tabbing in Menu Fullscreen", () => {
-      pressTABKey(5);
+      fullScreenMenuWrapper().tab();
+      for (let i = 0; i < 4; i++) {
+        cy.focused().tab();
+      }
       fullScreenMenuItem(positionOfElement("fourth"))
         .find("ul > li")
         .eq(1)
@@ -1209,7 +1213,10 @@ context("Testing Menu component", () => {
     });
 
     it("should verify that inner Menu is available with shift-tabbing in Menu Fullscreen", () => {
-      pressTABKey(6);
+      fullScreenMenuWrapper().tab();
+      for (let i = 0; i < 5; i++) {
+        cy.focused().tab();
+      }
       cy.focused().tab({ shift: true });
       fullScreenMenuItem(positionOfElement("fourth"))
         .find("ul > li")

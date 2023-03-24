@@ -217,6 +217,7 @@ export const OverflowWrap: ComponentStory<typeof Box> = () => {
     </div>
   );
 };
+OverflowWrap.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Scroll: ComponentStory<typeof Box> = () => {
   return (
@@ -285,3 +286,4 @@ export const Scroll: ComponentStory<typeof Box> = () => {
     </div>
   );
 };
+Scroll.parameters = { chromatic: { disableSnapshot: true } };

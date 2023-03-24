@@ -18,8 +18,10 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 
+const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
-guid.mockImplementation(() => "guid-12345");
+
+guid.mockReturnValue(mockedGuid);
 
 describe("FilterableSelect", () => {
   testStyledSystemMargin((props) => getSelect(props));
@@ -71,6 +73,41 @@ describe("FilterableSelect", () => {
       const wrapper = mount(<WrapperComponent />);
 
       expect(mockRef).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+  });
+
+  describe("when the id prop is set", () => {
+    const mockId = "foo";
+    const wrapper = renderSelect({ id: mockId, label: "bar" });
+
+    it("then it should be passed to the Textbox component", () => {
+      expect(wrapper.find(Textbox).prop("id")).toBe(mockId);
+    });
+
+    it("then a label id based on that prop should be passed to the SelectList component", () => {
+      expect(wrapper.find(SelectList).prop("labelId")).toBe(`${mockId}-label`);
+    });
+
+    it("then a label id based on that prop should be passed to the Textbox component", () => {
+      expect(wrapper.find(Textbox).prop("labelId")).toBe(`${mockId}-label`);
+    });
+  });
+
+  describe("when the id prop is not set", () => {
+    const wrapper = renderSelect({ id: undefined, label: "bar" });
+
+    it("then a randomly generated id should be passed to the Textbox component", () => {
+      expect(wrapper.find(Textbox).prop("id")).toBe(mockedGuid);
+    });
+
+    it("then a label id based on randomly generated id should be passed to the SelectList component", () => {
+      expect(wrapper.find(SelectList).prop("labelId")).toBe(
+        `${mockedGuid}-label`
+      );
+    });
+
+    it("then a label id based on a randomly generated id should be passed to the Textbox component", () => {
+      expect(wrapper.find(Textbox).prop("labelId")).toBe(`${mockedGuid}-label`);
     });
   });
 

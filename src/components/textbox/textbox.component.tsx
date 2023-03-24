@@ -28,6 +28,8 @@ export interface CommonTextboxProps
   extends ValidationProps,
     MarginProps,
     Omit<CommonInputProps, "size"> {
+  /** Prop to specify the aria-labelledby property of the component */
+  "aria-labelledby"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -45,7 +47,11 @@ export interface CommonTextboxProps
    * real value is an ID but you want to show a human-readable version.
    */
   formattedValue?: string;
-  /** Unique identifier for the input. Will use a randomly generated GUID if none is provided */
+  /**
+   * Unique identifier for the input.
+   * Label id will be based on it, using following pattern: [id]-label.
+   * Will use a randomly generated GUID if none is provided.
+   */
   id?: string;
   /** Type of the icon that will be rendered next to the input */
   inputIcon?: IconType;
@@ -114,8 +120,6 @@ export interface TextboxProps extends CommonTextboxProps {
   isOptional?: boolean;
   /** Container for DatePicker or SelectList components */
   positionedChildren?: React.ReactNode;
-  /** Label id passed from Select component */
-  labelId?: string;
   /** Character limit of the textarea */
   characterLimit?: string | number;
   /** Stop the user typing over the characterLimit */
@@ -129,13 +133,13 @@ let deprecateInputRefWarnTriggered = false;
 export const Textbox = React.forwardRef(
   (
     {
+      "aria-labelledby": ariaLabelledBy,
       align = "left",
       autoFocus,
       children,
       disabled,
       inputIcon,
       leftChildren,
-      labelId: externalLabelId,
       label,
       labelAlign,
       labelHelp,
@@ -210,7 +214,7 @@ export const Textbox = React.forwardRef(
     }
 
     const {
-      labelId: internalLabelId,
+      labelId,
       validationIconId,
       fieldHelpId,
       ariaDescribedBy,
@@ -222,8 +226,6 @@ export const Textbox = React.forwardRef(
       label,
       fieldHelp,
     });
-
-    const labelId = label ? externalLabelId || internalLabelId : "";
 
     const hasIconInside = !!(
       inputIcon ||
@@ -254,7 +256,7 @@ export const Textbox = React.forwardRef(
           {...(required && { required })}
           align={align}
           aria-invalid={!!error}
-          aria-labelledby={labelId}
+          aria-labelledby={ariaLabelledBy}
           aria-describedby={
             validationRedesignOptIn ? undefined : ariaDescribedBy
           }

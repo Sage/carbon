@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
 import React from "react";
 import DraggableContainer from "./draggable-container.component";
 import DraggableItem from "./draggable-item.component";

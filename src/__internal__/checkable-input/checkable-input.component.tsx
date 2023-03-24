@@ -43,7 +43,7 @@ export interface CommonCheckableInputProps
   reverse?: boolean;
   /** Size of the component */
   size?: "small" | "large";
-  /** The id of the element that labels the input */
+  /** Prop to specify the aria-labelledby attribute of the input */
   ariaLabelledBy?: string;
   /** When true, displays validation icon on label */
   validationOnLabel?: boolean;
@@ -65,7 +65,7 @@ export interface CheckableInputProps extends CommonCheckableInputProps {
 const CheckableInput = React.forwardRef(
   (
     {
-      ariaLabelledBy: externalAriaLabelledBy,
+      ariaLabelledBy,
       autoFocus,
       checked,
       children,
@@ -103,7 +103,6 @@ const CheckableInput = React.forwardRef(
       fieldHelpId,
       validationIconId,
       ariaDescribedBy,
-      ariaLabelledBy,
     } = useInputAccessibility({
       id,
       error,
@@ -142,7 +141,7 @@ const CheckableInput = React.forwardRef(
 
     const inputProps = {
       "aria-describedby": ariaDescribedBy,
-      "aria-labelledby": externalAriaLabelledBy || ariaLabelledBy,
+      "aria-labelledby": ariaLabelledBy,
       "aria-invalid": !!error,
       autoFocus,
       checked,

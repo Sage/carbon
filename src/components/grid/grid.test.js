@@ -1,6 +1,7 @@
 import React from "react";
 import GridContainer from "./grid-container/grid-container.component";
 import GridItem from "./grid-item/grid-item.component";
+import * as stories from "./grid-test.stories";
 import { gridItem, gridContainer } from "../../../cypress/locators/grid";
 import Pod from "../pod";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -33,42 +34,6 @@ const viewportSize = (sizeOfViewport) => {
   }
 };
 
-const SimpleGridExample = ({ ...itemProps }) => {
-  return (
-    <GridContainer>
-      <GridItem alignSelf="stretch" justifySelf="stretch" {...itemProps}>
-        <Pod>Item 1</Pod>
-      </GridItem>
-    </GridContainer>
-  );
-};
-
-const GridLayoutExample = () => {
-  return (
-    <GridContainer>
-      <GridItem alignSelf="stretch" justifySelf="stretch">
-        <Pod>Item 1</Pod>
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="1 / 6"
-        gridRow="2 / 3"
-      >
-        <Pod>Item 2</Pod>
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="7 / 13"
-        gridRow="4 / 5"
-      >
-        <Pod>Item 3</Pod>
-      </GridItem>
-    </GridContainer>
-  );
-};
-
 context("Testing Grid component", () => {
   describe("should render Grid component", () => {
     it.each([
@@ -78,7 +43,7 @@ context("Testing Grid component", () => {
     ])(
       "when viewport size is default, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
-        CypressMountWithProviders(<GridLayoutExample />);
+        CypressMountWithProviders(<stories.GridLayoutExample />);
 
         viewportSize("default");
         gridItem(itemNumber - 1)
@@ -97,7 +62,7 @@ context("Testing Grid component", () => {
     ])(
       "when viewport size is extra small, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
-        CypressMountWithProviders(<GridLayoutExample />);
+        CypressMountWithProviders(<stories.GridLayoutExample />);
 
         viewportSize("extra small");
         gridItem(itemNumber - 1)
@@ -116,7 +81,7 @@ context("Testing Grid component", () => {
     ])(
       "when viewport size is small, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
-        CypressMountWithProviders(<GridLayoutExample />);
+        CypressMountWithProviders(<stories.GridLayoutExample />);
 
         viewportSize("small");
         gridItem(itemNumber - 1)
@@ -135,7 +100,7 @@ context("Testing Grid component", () => {
     ])(
       "when viewport size is medium, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
-        CypressMountWithProviders(<GridLayoutExample />);
+        CypressMountWithProviders(<stories.GridLayoutExample />);
 
         viewportSize("medium");
         gridItem(itemNumber - 1)
@@ -154,7 +119,7 @@ context("Testing Grid component", () => {
     ])(
       "when viewport size is large, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
-        CypressMountWithProviders(<GridLayoutExample />);
+        CypressMountWithProviders(<stories.GridLayoutExample />);
 
         viewportSize("large");
         gridItem(itemNumber - 1)
@@ -173,7 +138,7 @@ context("Testing Grid component", () => {
     ])(
       "when viewport size is extra large, grid item %s should have correct grid-row, grid-column and width",
       (itemNumber, row, col, expectedWidth) => {
-        CypressMountWithProviders(<GridLayoutExample />);
+        CypressMountWithProviders(<stories.GridLayoutExample />);
 
         viewportSize("extra large");
         gridItem(itemNumber - 1)
@@ -194,7 +159,7 @@ context("Testing Grid component", () => {
     ])(
       "when viewport size is %s, grid container has correct padding and row gap size",
       (size, padding, gridGap) => {
-        CypressMountWithProviders(<SimpleGridExample />);
+        CypressMountWithProviders(<stories.SimpleGridExample />);
 
         viewportSize(size);
 
@@ -208,7 +173,9 @@ context("Testing Grid component", () => {
     it.each(["start", "end", "center", "stretch"])(
       "grid item correctly has alignment set to %",
       (alignment) => {
-        CypressMountWithProviders(<SimpleGridExample alignSelf={alignment} />);
+        CypressMountWithProviders(
+          <stories.SimpleGridExample alignSelf={alignment} />
+        );
 
         gridItem(0).should("have.css", "align-self", alignment);
       }
@@ -218,7 +185,7 @@ context("Testing Grid component", () => {
       "grid item correctly has justification set to %s",
       (justification) => {
         CypressMountWithProviders(
-          <SimpleGridExample justifySelf={justification} />
+          <stories.SimpleGridExample justifySelf={justification} />
         );
 
         gridItem(0).should("have.css", "justify-self", justification);
@@ -226,7 +193,9 @@ context("Testing Grid component", () => {
     );
 
     it("grid item has correct start and end columns when gridColumn prop is passed", () => {
-      CypressMountWithProviders(<SimpleGridExample gridColumn="4 / 10" />);
+      CypressMountWithProviders(
+        <stories.SimpleGridExample gridColumn="4 / 10" />
+      );
 
       gridItem(0)
         .should("have.css", "grid-column-start", "4")
@@ -234,7 +203,7 @@ context("Testing Grid component", () => {
     });
 
     it("grid item has correct start and end rows when gridRow prop is passed", () => {
-      CypressMountWithProviders(<SimpleGridExample gridRow="4 / 11" />);
+      CypressMountWithProviders(<stories.SimpleGridExample gridRow="4 / 11" />);
 
       gridItem(0)
         .should("have.css", "grid-row-start", "4")
@@ -243,7 +212,7 @@ context("Testing Grid component", () => {
 
     it("grid item has correct start and end columns and rows when gridArea prop is passed", () => {
       CypressMountWithProviders(
-        <SimpleGridExample gridArea="3 / 4 / 11 / 10" />
+        <stories.SimpleGridExample gridArea="3 / 4 / 11 / 10" />
       );
 
       gridItem(0)
@@ -362,6 +331,154 @@ context("Testing Grid component", () => {
         .then(($element) =>
           expect(parseFloat($element.css("width"))).to.be.within(1285, 1288)
         );
+    });
+  });
+
+  describe("Accessibility tests for Grid component", () => {
+    it("should pass accessibility tests for simple Grid", () => {
+      CypressMountWithProviders(<stories.SimpleGridExample />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Grid layout", () => {
+      CypressMountWithProviders(<stories.GridLayoutExample />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["start", "end", "center", "stretch"])(
+      "should pass accessibility tests for Grid with alignment set to %",
+      (alignment) => {
+        CypressMountWithProviders(
+          <stories.SimpleGridExample alignSelf={alignment} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["start", "end", "center", "stretch"])(
+      "should pass accessibility tests for Grid with justification set to %s",
+      (justification) => {
+        CypressMountWithProviders(
+          <stories.SimpleGridExample justifySelf={justification} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for Grid when gridColumn prop is passed", () => {
+      CypressMountWithProviders(
+        <stories.SimpleGridExample gridColumn="4 / 10" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Grid when gridRow prop is passed", () => {
+      CypressMountWithProviders(<stories.SimpleGridExample gridRow="4 / 11" />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Grid when gridArea prop is passed", () => {
+      CypressMountWithProviders(
+        <stories.SimpleGridExample gridArea="3 / 4 / 11 / 10" />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Grid when grid items each have responsive settings passed", () => {
+      CypressMountWithProviders(
+        <GridContainer>
+          <GridItem
+            responsiveSettings={[
+              {
+                maxWidth: "1500px",
+                gridColumn: "1 / 7",
+                gridRow: "1 / 1",
+                alignSelf: "stretch",
+                justifySelf: "stretch",
+              },
+              {
+                maxWidth: "1300px",
+                gridColumn: "1 / 13",
+                gridRow: "1 / 1",
+                alignSelf: "stretch",
+                justifySelf: "stretch",
+              },
+              {
+                maxWidth: "900px",
+                gridColumn: "1 / 9",
+                gridRow: "2 / 2",
+                alignSelf: "stretch",
+                justifySelf: "stretch",
+              },
+            ]}
+          >
+            <Pod>Item 1</Pod>
+          </GridItem>
+          <GridItem
+            responsiveSettings={[
+              {
+                maxWidth: "1500px",
+                gridColumn: "6 / 13",
+                gridRow: "1 / 1",
+                alignSelf: "end",
+                justifySelf: "end",
+              },
+              {
+                maxWidth: "1300px",
+                gridColumn: "1 / 13",
+                gridRow: "2 / 2",
+                alignSelf: "end",
+                justifySelf: "end",
+              },
+              {
+                maxWidth: "900px",
+                gridColumn: "1 / 9",
+                gridRow: "3 / 3",
+                alignSelf: "end",
+                justifySelf: "end",
+              },
+            ]}
+          >
+            <Pod>Item 2</Pod>
+          </GridItem>
+          <GridItem
+            responsiveSettings={[
+              {
+                maxWidth: "1500px",
+                gridColumn: "1 / 13",
+                gridRow: "3 / 3",
+                alignSelf: "start",
+                justifySelf: "stretch",
+              },
+              {
+                maxWidth: "1300px",
+                gridColumn: "1 / 13",
+                gridRow: "2 / 2",
+                alignSelf: "start",
+                justifySelf: "stretch",
+              },
+              {
+                maxWidth: "900px",
+                gridColumn: "1 / 9",
+                gridRow: "3 / 3",
+                alignSelf: "start",
+                justifySelf: "stretch",
+              },
+            ]}
+          >
+            <Pod>Item 3</Pod>
+          </GridItem>
+        </GridContainer>
+      );
+
+      cy.checkAccessibility();
     });
   });
 });
