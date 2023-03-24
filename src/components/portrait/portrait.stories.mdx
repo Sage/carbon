@@ -5,6 +5,8 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import Box from "../box";
 import Portrait from ".";
 
+import * as stories from "./portrait.stories";
+
 <Meta title="Portrait" parameters={{ info: { disable: true } }} />
 
 # Portrait
@@ -38,9 +40,7 @@ import Portrait from "carbon-react/lib/components/portrait";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Portrait />
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Initials
@@ -48,9 +48,7 @@ import Portrait from "carbon-react/lib/components/portrait";
 Basic way of using the `Portrait` component is to simply pass your initials as `initials` prop.
 
 <Canvas>
-  <Story name="initials">
-    <Portrait initials="MK" />
-  </Story>
+  <Story name="initials" story={stories.Initials} />
 </Canvas>
 
 ### Src
@@ -58,9 +56,7 @@ Basic way of using the `Portrait` component is to simply pass your initials as `
 To use an image, simply pass any valid image URL as a `src` prop.
 
 <Canvas>
-  <Story name="src">
-    <Portrait src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" />
-  </Story>
+  <Story name="src" story={stories.Src} />
 </Canvas>
 
 ### Gravatar
@@ -68,9 +64,7 @@ To use an image, simply pass any valid image URL as a `src` prop.
 Portrait also supports `gravatar`, to use it simply pass your email address registered with Gravatar as a `gravatar` prop.
 
 <Canvas>
-  <Story name="gravatar">
-    <Portrait gravatar="chris.barber@sage.com" />
-  </Story>
+  <Story name="gravatar" story={stories.Gravatar} />
 </Canvas>
 
 ### IconType
@@ -78,9 +72,7 @@ Portrait also supports `gravatar`, to use it simply pass your email address regi
 Portrait also supports the declaration of a icon to fallback on when `src`, `gravatar` and `initials` are falsy.
 
 <Canvas>
-  <Story name="iconType">
-    <Portrait iconType="image" />
-  </Story>
+  <Story name="iconType" story={stories.IconType} />
 </Canvas>
 
 ### With tooltip
@@ -88,49 +80,25 @@ Portrait also supports the declaration of a icon to fallback on when `src`, `gra
 By providing a node element to the `tooltipMessage` prop, a tooltip can be displayed when hovering over the Portrait.
 
 <Canvas>
-  <Story name="with tooltip">
-    <Box margin={8}>
-      <Portrait
-        tooltipMessage="Rebecca Smith"
-        tooltipPosition="bottom"
-        tooltipBgColor="rebeccapurple"
-        src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-      />
-    </Box>
-  </Story>
+  <Story name="with tooltip" story={stories.WithTooltip} />
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {() =>
-      ["XS", "S", "M", "ML", "L", "XL", "XXL"].map((size) => (
-        <Portrait key={size} size={size} />
-      ))
-    }
-  </Story>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### Shapes
 
 <Canvas>
-  <Story name="shapes">
-    {() =>
-      ["circle", "square"].map((shape) => (
-        <Portrait key={shape} shape={shape} />
-      ))
-    }
-  </Story>
+  <Story name="shapes" story={stories.Shapes} />
 </Canvas>
 
 ### Dark background
 
 <Canvas>
-  <Story name="dark background">
-    <Portrait darkBackground />
-    <Portrait initials="MK" darkBackground />
-  </Story>
+  <Story name="dark background" story={stories.DarkBackground} />
 </Canvas>
 
 ### With margin
@@ -141,12 +109,7 @@ To see a full list of available margin props, please visit the props table at th
 [Vist Props Table](#props)
 
 <Canvas>
-  <Story name="with margin">
-    <Portrait m={3} />
-    <Portrait darkBackground m={2} />
-    <Portrait shape="circle" m="25px" />
-    <Portrait size="L" m="30px" />
-  </Story>
+  <Story name="with margin" story={stories.WithMargin} />
 </Canvas>
 
 ## Props

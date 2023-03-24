@@ -66,6 +66,9 @@ const DateInput = React.forwardRef(
       tooltipPosition,
       value,
       inputRef,
+      inputWidth,
+      labelWidth,
+      maxWidth,
       ...rest
     },
     ref
@@ -372,6 +375,8 @@ const DateInput = React.forwardRef(
         data-role={dataRole}
         {...marginProps}
         applyDateRangeStyling={!!inputRefMap}
+        maxWidth={maxWidth}
+        inputWidth={inputWidth}
       >
         <Textbox
           {...filterOutStyledSystemSpacingProps(rest)}
@@ -395,6 +400,9 @@ const DateInput = React.forwardRef(
           size={size}
           disabled={disabled}
           readOnly={readOnly}
+          inputWidth={inputWidth}
+          labelWidth={labelWidth}
+          maxWidth={maxWidth}
           m={0}
         />
         <DatePicker

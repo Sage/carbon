@@ -1,3 +1,25 @@
+### [116.1.3](https://github.com/Sage/carbon/compare/v116.1.2...v116.1.3) (2023-03-23)
+
+
+### Bug Fixes
+
+* **date:** enable width customization ([8807c18](https://github.com/Sage/carbon/commit/8807c183b840094c4822330b68f70c747b191fa7)), closes [#5787](https://github.com/Sage/carbon/issues/5787)
+
+### [116.1.2](https://github.com/Sage/carbon/compare/v116.1.1...v116.1.2) (2023-03-21)
+
+
+### Bug Fixes
+
+* **button-toggle:** ensure text wraps correctly ([243badb](https://github.com/Sage/carbon/commit/243badbe6709d7d5cc669dfe951468859436d1c7)), closes [#FE-5682](https://github.com/Sage/carbon/issues/FE-5682)
+
+### [116.1.1](https://github.com/Sage/carbon/compare/v116.1.0...v116.1.1) (2023-03-21)
+
+
+### Bug Fixes
+
+* **focus-trap:** ensure focus trap behaviour does not work except in the top modal ([de53a06](https://github.com/Sage/carbon/commit/de53a060c05d1346623ee8fbc17cf99c572358cc)), closes [#5754](https://github.com/Sage/carbon/issues/5754)
+* **focus-trap:** utilise tab guards to avoid calling preventDefault except when necessary ([9fadf91](https://github.com/Sage/carbon/commit/9fadf911a41de72dfa324f8c078ed55492c80791)), closes [#5749](https://github.com/Sage/carbon/issues/5749)
+
 ## [116.1.0](https://github.com/Sage/carbon/compare/v116.0.1...v116.1.0) (2023-03-20)
 
 

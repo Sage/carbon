@@ -122,17 +122,39 @@ describe("Date", () => {
     <DateInput onChange={jest.fn} value="" {...props} />
   ));
 
-  describe("styles", () => {
-    it.each([
+  describe("when the size pop is set", () => {
+    describe.each([
       ["small", "120px"],
       ["medium", "135px"],
       ["large", "140px"],
-    ])("render correctly for %s size", (size, width) => {
-      assertStyleMatch(
-        { flex: "none", width },
-        mount(<StyledDateInput size={size} />),
-        { modifier: `& ${StyledInputPresentation}` }
-      );
+    ])("to %s", (size, expectedValue) => {
+      it("then the width attribute of StyledInputPresentation should match expected value", () => {
+        assertStyleMatch(
+          { width: expectedValue },
+          mount(<StyledDateInput size={size} />),
+          { modifier: `& ${StyledInputPresentation}` }
+        );
+      });
+
+      describe("with the inputWidth prop set", () => {
+        it("then the width attribute of StyledInputPresentation should be undefined", () => {
+          assertStyleMatch(
+            { width: undefined },
+            mount(<StyledDateInput size={size} inputWidth={50} />),
+            { modifier: `& ${StyledInputPresentation}` }
+          );
+        });
+      });
+
+      describe("with the maxWidth prop set", () => {
+        it("then the width attribute of StyledInputPresentation should be undefined", () => {
+          assertStyleMatch(
+            { width: undefined },
+            mount(<StyledDateInput size={size} maxWidth="300px" />),
+            { modifier: `& ${StyledInputPresentation}` }
+          );
+        });
+      });
     });
   });
 

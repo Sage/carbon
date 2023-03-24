@@ -1,12 +1,9 @@
 import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import InlineInputs from ".";
-import Textbox from "../textbox";
-import Decimal from "../decimal";
-import { Select, Option } from "../select";
-import { useState } from "react";
 import { INLINE_INPUTS_SIZES } from "./inline-inputs.config";
-import Box from "../box";
+
+import * as stories from "./inline-inputs.stories";
 
 <Meta
   title="Inline Inputs"
@@ -46,47 +43,8 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
 <Canvas>
   <Story
     name="default"
-    args={{
-      gutter: "none",
-      label: "Inline Inputs",
-    }}
-  >
-    {({ label, ...args }) => {
-      let validationProps = {};
-      validationProps = {
-        hasWarning: true,
-        inputIcon: "warning",
-        tooltipMessage: "warning",
-      };
-      const [decimalValue, setDecimalValue] = useState("0.00");
-      const [selectValue, setSelectValue] = useState("");
-      const handleDecimalChange = (ev) => {
-        setDecimalValue(ev.target.value.rawValue);
-      };
-      const handleSelectChange = (ev) => {
-        setSelectValue(ev.target.value);
-      };
-      return (
-        <InlineInputs label={label} labelId="inline-inputs-default" {...args}>
-          <Textbox aria-labelledby="inline-inputs-default" {...validationProps} />
-          <Decimal aria-labelledby="inline-inputs-default" value={decimalValue} onChange={handleDecimalChange} />
-          <Select value={selectValue} onChange={handleSelectChange}>
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </Select>
-        </InlineInputs>
-      );
-    }}
-  </Story>
+    story={stories.Default}
+  />
 </Canvas>
 
 ## with adaptiveLabelBreakpoint
@@ -94,48 +52,14 @@ import InlineInputs from "carbon-react/lib/components/inline-inputs";
 <Canvas>
   <Story
     name="with adaptiveLabelBreakpoint"
-    args={{
-      gutter: "none",
-      label: "My Inline Inputs",
-    }}
-  >
-    {({ label, ...args }) => {
-      return (
-        <Box p={4}>
-          <InlineInputs
-            label={label}
-            labelId="inline-inputs-adaptive"
-            adaptiveLabelBreakpoint={768}
-            labelWidth={30}
-            {...args}
-          >
-            <Textbox aria-labelledby="inline-inputs-adaptive" />
-            <Textbox aria-labelledby="inline-inputs-adaptive" />
-          </InlineInputs>
-          <Textbox label="My Textbox" adaptiveLabelBreakpoint={768} />
-        </Box>
-      );
-    }}
-  </Story>
+    story={stories.WithAdaptiveLabelBreakpoint}
+  />
 </Canvas>
 
 ## required
 
 <Canvas>
-  <Story name="required" parameters={{ controls: { disable: true }}}>
-    {() => {
-      return (
-        <InlineInputs
-          label="Inline Inputs"
-          labelId="inline-inputs-required"
-          required
-        >
-          <Textbox aria-labelledby="inline-inputs-required" />
-          <Textbox aria-labelledby="inline-inputs-required" />
-        </InlineInputs>
-      );
-    }}
-  </Story>
+  <Story name="required" story={stories.Required} />
 </Canvas>
 
 ## Props

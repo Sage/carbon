@@ -40,6 +40,7 @@ const StyledButtonToggleContentWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  flex-flow: wrap;
 `;
 
 export interface StyledButtonToggleLabelProps {
@@ -57,6 +58,7 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
   display: inline-block;
   position: relative;
   box-sizing: border-box;
+  max-width: 100%;
   ${({ size }) => css`
     height: ${heightConfig[size]}px;
     padding: 0 ${paddingConfig[size]}px;

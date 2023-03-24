@@ -2,7 +2,6 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -10,14 +9,19 @@ import React, {
 
 import {
   defaultFocusableSelectors,
-  getNextElement,
   setElementFocus,
+  onTabGuardFocus,
+  trapFunction,
 } from "./focus-trap-utils";
 import {
   ModalContext,
   ModalContextProps,
 } from "../../components/modal/modal.component";
 import usePrevious from "../../hooks/__internal__/usePrevious";
+import TopModalContext from "../../components/carbon-provider/top-modal-context";
+
+const TAB_GUARD_TOP = "tab-guard-top";
+const TAB_GUARD_BOTTOM = "tab-guard-bottom";
 
 // TODO investigate why React.RefObject<T> produces a failed prop type when current = null
 export type CustomRefObject<T> = {
@@ -38,7 +42,7 @@ export interface FocusTrapProps {
   /** optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** a ref to the container wrapping the focusable elements */
-  wrapperRef?: CustomRefObject<HTMLElement>;
+  wrapperRef: CustomRefObject<HTMLElement>;
   /* whether the modal (etc.) component that the focus trap is inside is open or not */
   isOpen?: boolean;
   /** an optional array of refs to containers whose content should also be reachable from the FocusTrap */
@@ -56,11 +60,6 @@ const FocusTrap = ({
   additionalWrapperRefs,
 }: FocusTrapProps) => {
   const trapRef = useRef<HTMLDivElement>(null);
-  const [focusableElements, setFocusableElements] = useState<
-    HTMLElement[] | undefined
-  >();
-  const [firstElement, setFirstElement] = useState<HTMLElement | undefined>();
-  const [lastElement, setLastElement] = useState<HTMLElement | undefined>();
   const [currentFocusedElement, setCurrentFocusedElement] = useState<
     HTMLElement | undefined
   >();
@@ -69,16 +68,11 @@ const FocusTrap = ({
     triggerRefocusFlag,
   } = useContext<ModalContextProps>(ModalContext);
 
-  const hasNewInputs = useCallback(
-    (candidate) => {
-      if (!focusableElements || candidate.length !== focusableElements.length) {
-        return true;
-      }
-
-      return Array.from(candidate).some((el, i) => el !== focusableElements[i]);
-    },
-    [focusableElements]
-  );
+  const { topModal } = useContext(TopModalContext);
+  // we ensure that isTopModal is true if there is no TopModalContext, so that consumers who have not
+  // wrapped their app in CarbonProvider do not have all FocusTrap behaviour broken
+  const isTopModal =
+    !topModal || (wrapperRef.current && topModal.contains(wrapperRef.current));
 
   const trapWrappers = useMemo(
     () =>
@@ -88,57 +82,63 @@ const FocusTrap = ({
     [additionalWrapperRefs, wrapperRef]
   );
 
-  const allRefs: Array<HTMLElement | undefined | null> = trapWrappers.map(
-    (ref: CustomRefObject<HTMLElement> | undefined) => ref?.current
+  const onTabGuardTopFocus = useMemo(
+    () => onTabGuardFocus(trapWrappers, focusableSelectors, "top"),
+    [focusableSelectors, trapWrappers]
   );
 
-  const updateFocusableElements = useCallback(() => {
-    const elements: Element[] = [];
-    allRefs.forEach((ref) => {
-      if (ref) {
-        elements.push(
-          ...Array.from(
-            ref.querySelectorAll(
-              focusableSelectors || defaultFocusableSelectors
-            )
-          ).filter((el) => Number((el as HTMLElement).tabIndex) !== -1)
-        );
-      }
-    });
-
-    if (hasNewInputs(elements)) {
-      setFocusableElements(Array.from(elements) as HTMLElement[]);
-      setFirstElement(elements[0] as HTMLElement);
-      setLastElement(elements[elements.length - 1] as HTMLElement);
-    }
-  }, [hasNewInputs, allRefs, focusableSelectors]);
+  const onTabGuardBottomFocus = useMemo(
+    () => onTabGuardFocus(trapWrappers, focusableSelectors, "bottom"),
+    [focusableSelectors, trapWrappers]
+  );
 
   useEffect(() => {
-    const observer = new MutationObserver(updateFocusableElements);
-
-    trapWrappers.forEach((wrapper) => {
-      if (wrapper?.current) {
-        observer.observe(wrapper?.current as Node, {
-          subtree: true,
-          childList: true,
-          attributes: true,
-          characterData: true,
-        });
+    additionalWrapperRefs?.forEach((ref) => {
+      const { current: containerElement } = ref;
+      // istanbul ignore else
+      if (containerElement) {
+        // istanbul ignore else
+        if (
+          !containerElement.previousElementSibling?.matches(
+            `[data-element=${TAB_GUARD_TOP}]`
+          )
+        ) {
+          const topTabGuard = document.createElement("div");
+          topTabGuard.tabIndex = 0;
+          topTabGuard.dataset.element = TAB_GUARD_TOP;
+          containerElement.insertAdjacentElement("beforebegin", topTabGuard);
+          topTabGuard.addEventListener("focus", onTabGuardTopFocus(ref));
+        }
+        // istanbul ignore else
+        if (
+          !containerElement.nextElementSibling?.matches(
+            `[data-element=${TAB_GUARD_BOTTOM}]`
+          )
+        ) {
+          const bottomTabGuard = document.createElement("div");
+          bottomTabGuard.tabIndex = 0;
+          bottomTabGuard.dataset.element = TAB_GUARD_BOTTOM;
+          containerElement.insertAdjacentElement("afterend", bottomTabGuard);
+          bottomTabGuard.addEventListener("focus", onTabGuardBottomFocus(ref));
+        }
       }
     });
 
-    return () => observer.disconnect();
-  }, [updateFocusableElements, trapWrappers]);
+    return () => {
+      additionalWrapperRefs?.forEach((ref) => {
+        const previousElement = ref.current?.previousElementSibling;
+        if (previousElement?.matches(`[data-element=${TAB_GUARD_TOP}]`)) {
+          previousElement.remove();
+        }
+        const nextElement = ref.current?.nextElementSibling;
+        if (nextElement?.matches(`[data-element=${TAB_GUARD_BOTTOM}]`)) {
+          nextElement.remove();
+        }
+      });
+    };
+  }, [additionalWrapperRefs, onTabGuardTopFocus, onTabGuardBottomFocus]);
 
-  useLayoutEffect(() => {
-    updateFocusableElements();
-  }, [children, updateFocusableElements]);
-
-  const shouldSetFocus =
-    autoFocus &&
-    isOpen &&
-    isAnimationComplete &&
-    (focusFirstElement || wrapperRef?.current);
+  const shouldSetFocus = autoFocus && isOpen && isAnimationComplete;
 
   const prevShouldSetFocus = usePrevious(shouldSetFocus);
 
@@ -148,45 +148,49 @@ const FocusTrap = ({
         focusFirstElement && "current" in focusFirstElement
           ? focusFirstElement.current
           : focusFirstElement;
-      setElementFocus(
-        (candidateFirstElement || wrapperRef?.current) as HTMLElement
-      );
+      const elementToFocus =
+        (candidateFirstElement as HTMLElement | null | undefined) ||
+        wrapperRef.current;
+      // istanbul ignore else
+      if (elementToFocus) {
+        setElementFocus(elementToFocus);
+      }
     }
   }, [shouldSetFocus, prevShouldSetFocus, focusFirstElement, wrapperRef]);
 
+  const getFocusableElements = useCallback(
+    (selector: string) => {
+      const elements: Element[] = [];
+      trapWrappers.forEach((ref) => {
+        // istanbul ignore else
+        if (ref.current) {
+          elements.push(
+            ...Array.from(ref.current.querySelectorAll(selector)).filter(
+              (el) => Number((el as HTMLElement).tabIndex) !== -1
+            )
+          );
+        }
+      });
+      return elements as HTMLElement[];
+    },
+    [trapWrappers]
+  );
+
   useEffect(() => {
     const trapFn = (ev: KeyboardEvent) => {
-      if (bespokeTrap) {
-        bespokeTrap(ev, firstElement, lastElement);
+      // block focus trap from working if it's not the topmost trap
+      if (!isTopModal) {
         return;
       }
 
-      if (ev.key !== "Tab") return;
-
-      if (!focusableElements?.length) {
-        /* Block the trap */
-        ev.preventDefault();
-        return;
-      }
-
-      const activeElement = document.activeElement as HTMLElement;
-
-      const isWrapperFocused = activeElement === wrapperRef?.current;
-
-      const elementWhenWrapperFocused = ev.shiftKey
-        ? (firstElement as HTMLElement)
-        : (lastElement as HTMLElement);
-
-      const elementToFocus = getNextElement(
-        isWrapperFocused ? elementWhenWrapperFocused : activeElement,
+      const focusableElements = getFocusableElements(defaultFocusableSelectors);
+      trapFunction(
+        ev,
         focusableElements,
-        ev.shiftKey
+        document.activeElement === wrapperRef.current,
+        focusableSelectors,
+        bespokeTrap
       );
-
-      if (elementToFocus) {
-        setElementFocus(elementToFocus);
-        ev.preventDefault();
-      }
     };
 
     document.addEventListener("keydown", trapFn, true);
@@ -194,9 +198,18 @@ const FocusTrap = ({
     return function cleanup() {
       document.removeEventListener("keydown", trapFn, true);
     };
-  }, [firstElement, lastElement, focusableElements, bespokeTrap, wrapperRef]);
+  }, [
+    bespokeTrap,
+    wrapperRef,
+    focusableSelectors,
+    getFocusableElements,
+    isTopModal,
+  ]);
 
   const updateCurrentFocusedElement = useCallback(() => {
+    const focusableElements = getFocusableElements(
+      focusableSelectors || defaultFocusableSelectors
+    );
     const element = focusableElements?.find(
       (el) => el === document.activeElement
     );
@@ -204,22 +217,32 @@ const FocusTrap = ({
     if (element) {
       setCurrentFocusedElement(element);
     }
-  }, [focusableElements]);
+  }, [getFocusableElements, focusableSelectors]);
 
   const refocusTrap = useCallback(() => {
-    /* istanbul ignore else */
     if (
       currentFocusedElement &&
       !currentFocusedElement.hasAttribute("disabled")
     ) {
       // the trap breaks if it tries to refocus a disabled element
       setElementFocus(currentFocusedElement);
-    } else if (wrapperRef?.current?.hasAttribute("tabindex")) {
+    } else if (wrapperRef.current?.hasAttribute("tabindex")) {
       setElementFocus(wrapperRef.current);
-    } else if (firstElement) {
-      setElementFocus(firstElement);
+    } else {
+      const focusableElements = getFocusableElements(
+        focusableSelectors || defaultFocusableSelectors
+      );
+      /* istanbul ignore else */
+      if (focusableElements.length) {
+        setElementFocus(focusableElements[0]);
+      }
     }
-  }, [currentFocusedElement, firstElement, wrapperRef]);
+  }, [
+    currentFocusedElement,
+    wrapperRef,
+    focusableSelectors,
+    getFocusableElements,
+  ]);
 
   useEffect(() => {
     if (triggerRefocusFlag) {
@@ -260,17 +283,17 @@ const FocusTrap = ({
   return (
     <div ref={trapRef}>
       <div
-        data-element="tab-guard-top"
+        data-element={TAB_GUARD_TOP}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
-        onFocus={() => setElementFocus(lastElement as HTMLElement)}
+        onFocus={onTabGuardTopFocus(wrapperRef)}
       />
       {clonedChildren}
       <div
-        data-element="tab-guard-bottom"
+        data-element={TAB_GUARD_BOTTOM}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
-        onFocus={() => setElementFocus(firstElement as HTMLElement)}
+        onFocus={onTabGuardBottomFocus(wrapperRef)}
       />
     </div>
   );
