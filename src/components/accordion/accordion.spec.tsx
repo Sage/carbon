@@ -530,21 +530,45 @@ describe("Accordion", () => {
       }
     );
 
-    it.each(Array.from({ length: 10 }).map((_, i) => 100 + i))(
-      "sets the width of the button to the value passed in via the buttonWidth prop",
-      (buttonWidth) => {
+    describe("sets the width of the button to the value passed in via the buttonWidth prop", () => {
+      it.each(["140px", "20%", "0.2"])(
+        "when passed as a %s string",
+        (mockButtonWidth) => {
+          wrapper = mount(
+            <Accordion
+              title="Title"
+              buttonHeading
+              buttonWidth={mockButtonWidth}
+            />
+          ).find(StyledAccordionTitleContainer);
+
+          assertStyleMatch(
+            {
+              width: `${mockButtonWidth}`,
+            },
+            wrapper
+          );
+        }
+      );
+
+      it("when passed as a number", () => {
+        const mockButtonWidth = 140;
         wrapper = mount(
-          <Accordion title="Title" buttonHeading buttonWidth={buttonWidth} />
+          <Accordion
+            title="Title"
+            buttonHeading
+            buttonWidth={mockButtonWidth}
+          />
         ).find(StyledAccordionTitleContainer);
 
         assertStyleMatch(
           {
-            width: `${buttonWidth}px`,
+            width: `${mockButtonWidth}px`,
           },
           wrapper
         );
-      }
-    );
+      });
+    });
 
     describe("when openTitle prop set", () => {
       it("should display the title when closed", () => {

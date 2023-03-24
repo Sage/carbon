@@ -300,8 +300,8 @@ context("Testing Accordion component", () => {
         .and("have.attr", "type", "info");
     });
 
-    it.each([[100], [200], [300]])(
-      "should check accordion heading is a button with width %spx",
+    it.each(["100px", "200px", "300px"])(
+      "should check accordion heading is a button with width %s",
       (widths) => {
         CypressMountWithProviders(
           <AccordionComponent
