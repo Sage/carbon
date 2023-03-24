@@ -207,14 +207,15 @@ describe("Textarea", () => {
         };
 
         describe.each(["info", "warning", "error"])(
-          "and %s are present",
+          "with %s prop set as a string and the textarea element focused",
           (validationType) => {
             const textarea = mount(
               <Textarea {...commonProps} {...{ [validationType]: "test" }} />
             );
+            textarea.find("textarea").simulate("focus");
 
-            it('should render a valid "aria-describedby"', () => {
-              expect(textarea.find(Input).prop("aria-describedby")).toBe(
+            it('then the id of the validation tooltip should be added to "aria-describedby" in the textarea element', () => {
+              expect(textarea.find("textarea").prop("aria-describedby")).toBe(
                 `${id}-validation`
               );
             });
@@ -234,7 +235,7 @@ describe("Textarea", () => {
 
           it("should render a valid 'aria-describedby' on input", () => {
             wrapper = mount(<Textarea inputHint="baz" />);
-            expect(wrapper.find(Input).prop("aria-describedby")).toBe(
+            expect(wrapper.find("textarea").prop("aria-describedby")).toBe(
               mockedGuid
             );
           });
@@ -246,7 +247,7 @@ describe("Textarea", () => {
               <Textarea {...commonProps} fieldHelp="baz" />
             );
 
-            expect(textarea.find(Input).prop("aria-describedby")).toBe(
+            expect(textarea.find("textarea").prop("aria-describedby")).toBe(
               `${id}-field-help`
             );
           });
@@ -261,7 +262,7 @@ describe("Textarea", () => {
           });
 
           describe.each(["info", "warning", "error"])(
-            "and %s is present too",
+            "with %s prop set as a string and the textarea element focused",
             (validationType) => {
               const textarea = mount(
                 <Textarea
@@ -270,9 +271,10 @@ describe("Textarea", () => {
                   {...{ [validationType]: "test" }}
                 />
               );
+              textarea.find("textarea").simulate("focus");
 
-              it('should render a valid "aria-describedby"', () => {
-                expect(textarea.find(Input).prop("aria-describedby")).toBe(
+              it('then the id of the validation tooltip should be added to "aria-describedby" in the textarea element', () => {
+                expect(textarea.find("textarea").prop("aria-describedby")).toBe(
                   `${id}-field-help ${id}-validation`
                 );
               });
@@ -515,10 +517,11 @@ describe("componentWillUnmount", () => {
   });
 
   describe("new validations", () => {
-    const renderWithNewValidations = ({ error, warning }: TextareaProps) =>
+    const renderWithNewValidations = ({ id, error, warning }: TextareaProps) =>
       mount(
         <CarbonProvider validationRedesignOptIn>
           <Textarea
+            id={id}
             labelHelp="Example hint text"
             error={error}
             warning={warning}
@@ -528,6 +531,15 @@ describe("componentWillUnmount", () => {
           />
         </CarbonProvider>
       );
+
+    it('the id of the validation text should be added to "aria-describedby" in the textarea element', () => {
+      const mockId = "foo";
+      const wrapper = renderWithNewValidations({ id: mockId, error: "bar" });
+
+      expect(wrapper.find("textarea").prop("aria-describedby")).toBe(
+        `${mockId}-validation`
+      );
+    });
 
     describe("label width and align props", () => {
       it("default to undefined", () => {

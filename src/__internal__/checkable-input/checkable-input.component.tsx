@@ -139,7 +139,7 @@ const CheckableInput = React.forwardRef(
     };
 
     const inputProps = {
-      "aria-describedby": ariaDescribedBy,
+      ariaDescribedBy,
       "aria-labelledby": ariaLabelledBy,
       "aria-invalid": !!error,
       autoFocus,
@@ -154,6 +154,7 @@ const CheckableInput = React.forwardRef(
       onFocus,
       required,
       ref,
+      validationIconId: validationId,
       ...props,
     };
 

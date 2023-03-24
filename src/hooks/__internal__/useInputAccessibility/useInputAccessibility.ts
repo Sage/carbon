@@ -1,5 +1,6 @@
 export default function useInputAccessibility({
   id,
+  validationRedesignOptIn,
   error,
   warning,
   info,
@@ -7,6 +8,7 @@ export default function useInputAccessibility({
   fieldHelp,
 }: {
   id: string;
+  validationRedesignOptIn?: boolean;
   error?: string | boolean;
   warning?: string | boolean;
   info?: string | boolean;
@@ -27,8 +29,15 @@ export default function useInputAccessibility({
     : undefined;
 
   const fieldHelpId = fieldHelp ? `${id}-field-help` : undefined;
+  const descriptionList = fieldHelpId ? [fieldHelpId] : [];
 
-  const ariaDescribedBy = [fieldHelpId, validationId].filter(Boolean).join(" ");
+  if (validationRedesignOptIn && validationId) {
+    descriptionList.push(validationId);
+  }
+
+  const ariaDescribedBy = descriptionList.length
+    ? descriptionList.filter(Boolean).join(" ")
+    : undefined;
 
   return {
     labelId,

@@ -226,6 +226,7 @@ export const Textarea = React.forwardRef(
       ariaDescribedBy,
     } = useInputAccessibility({
       id,
+      validationRedesignOptIn,
       error,
       warning,
       info,
@@ -299,7 +300,7 @@ export const Textarea = React.forwardRef(
         <Input
           aria-invalid={!!error}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={combinedAriaDescribedBy}
+          ariaDescribedBy={combinedAriaDescribedBy}
           autoFocus={autoFocus}
           name={name}
           value={value}
@@ -314,6 +315,7 @@ export const Textarea = React.forwardRef(
           id={id}
           as="textarea"
           inputRef={inputRef}
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
           {...rest}
         />
         {children}

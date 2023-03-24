@@ -325,13 +325,15 @@ describe("Textbox", () => {
         };
 
         describe.each(["info", "warning", "error"])(
-          "and %s are present",
+          "with %s prop set as a string and the input focused",
           (validationType) => {
             const wrapper = mount(
               <Textbox {...commonProps} {...{ [validationType]: "test" }} />
             );
-            it('should render a valid "aria-describedby"', () => {
-              expect(wrapper.find(Input).prop("aria-describedby")).toBe(
+            wrapper.find("input").simulate("focus");
+
+            it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
+              expect(wrapper.find("input").prop("aria-describedby")).toBe(
                 `${id}-validation`
               );
             });
@@ -341,20 +343,22 @@ describe("Textbox", () => {
         describe("and fieldHelp props are present", () => {
           it("should render a valid 'aria-describedby'", () => {
             const wrapper = mount(<Textbox {...commonProps} fieldHelp="baz" />);
-            expect(wrapper.find(Input).prop("aria-describedby")).toBe(
+
+            expect(wrapper.find("input").prop("aria-describedby")).toBe(
               `${id}-field-help`
             );
           });
 
           it("should pass fieldHelpId to FormField", () => {
             const wrapper = mount(<Textbox {...commonProps} fieldHelp="baz" />);
+
             expect(wrapper.find(FormField).prop("fieldHelpId")).toBe(
               `${id}-field-help`
             );
           });
 
-          it.each(["info", "warning", "error"])(
-            "and %s is present too",
+          describe.each(["info", "warning", "error"])(
+            "with %s prop set as a string and the input focused",
             (validationType) => {
               const wrapper = mount(
                 <Textbox
@@ -363,10 +367,13 @@ describe("Textbox", () => {
                   {...{ [validationType]: "test" }}
                 />
               );
+              wrapper.find("input").simulate("focus");
 
-              expect(wrapper.find(Input).prop("aria-describedby")).toBe(
-                `${id}-field-help ${id}-validation`
-              );
+              it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
+                expect(wrapper.find("input").prop("aria-describedby")).toBe(
+                  `${id}-field-help ${id}-validation`
+                );
+              });
             }
           );
         });
@@ -387,7 +394,7 @@ describe("Textbox", () => {
 
     it("should render a valid 'aria-describedby' on input", () => {
       const wrapper = mount(<Textbox inputHint="baz" />);
-      expect(wrapper.find(Input).prop("aria-describedby")).toBe(mockedGuid);
+      expect(wrapper.find("input").prop("aria-describedby")).toBe(mockedGuid);
     });
   });
 
@@ -417,15 +424,18 @@ describe("Textbox", () => {
 
   describe("new validations", () => {
     const renderWithNewValidations = ({
+      id,
       error,
       warning,
     }: {
+      id?: string;
       error?: string;
       warning?: string;
     }) =>
       mount(
         <CarbonProvider validationRedesignOptIn>
           <Textbox
+            id={id}
             labelHelp="Example hint text"
             error={error}
             warning={warning}
@@ -436,6 +446,15 @@ describe("Textbox", () => {
           />
         </CarbonProvider>
       );
+
+    it('the id of the validation text should be added to "aria-describedby" in the input', () => {
+      const mockId = "foo";
+      const wrapper = renderWithNewValidations({ id: mockId, error: "bar" });
+
+      expect(wrapper.find("input").prop("aria-describedby")).toBe(
+        `${mockId}-validation`
+      );
+    });
 
     describe("label width and align props", () => {
       it("default to undefined", () => {

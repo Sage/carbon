@@ -115,8 +115,7 @@ export const Label = ({
       return (
         <StyledIconWrapper>
           <ValidationIcon
-            iconId={validationIconId}
-            tooltipId={tooltipId}
+            tooltipId={validationIconId}
             error={error}
             warning={warning}
             info={info}

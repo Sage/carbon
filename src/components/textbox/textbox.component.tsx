@@ -221,6 +221,7 @@ export const Textbox = React.forwardRef(
       ariaDescribedBy,
     } = useInputAccessibility({
       id: uniqueId,
+      validationRedesignOptIn,
       error,
       warning,
       info,
@@ -271,7 +272,7 @@ export const Textbox = React.forwardRef(
           align={align}
           aria-invalid={!!error}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={combinedAriaDescribedBy}
+          ariaDescribedBy={combinedAriaDescribedBy}
           autoFocus={autoFocus}
           deferTimeout={deferTimeout}
           disabled={disabled}
@@ -289,6 +290,7 @@ export const Textbox = React.forwardRef(
           readOnly={readOnly}
           value={typeof formattedValue === "string" ? formattedValue : value}
           maxLength={maxLength}
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
           {...props}
         />
         {children}
