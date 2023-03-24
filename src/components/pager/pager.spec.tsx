@@ -602,7 +602,7 @@ describe("Pager", () => {
             .find(SelectList)
             .find(StyledOption)
             .at(1)
-            .prop("onClick")(selectOptions);
+            .prop("onClick")(selectOptions.value);
         });
 
         act(() => {

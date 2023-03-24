@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import MultiSelect from "../../../../src/components/select/multi-select/multi-select.component";
-import Option from "../../../../src/components/select/option/option.component";
+import { MultiSelect, Option } from "../../../../src/components/select";
 import OptionRow from "../../../../src/components/select/option-row/option-row.component";
 import Button from "../../../../src/components/button/button.component";
 import CypressMountWithProviders from "../../../support/component-helper/cypress-mount";

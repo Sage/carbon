@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import SimpleSelect from "../../../../src/components/select/simple-select/simple-select.component";
-import Option from "../../../../src/components/select/option/option.component";
+import { Select as SimpleSelect, Option } from "../../../../src/components/select";
 import OptionRow from "../../../../src/components/select/option-row/option-row.component";
 import OptionGroupHeader from "../../../../src/components/select/option-group-header/option-group-header.component";
 import Icon from "../../../../src/components/icon";
