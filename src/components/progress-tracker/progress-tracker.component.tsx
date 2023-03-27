@@ -1,10 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
-
+import { MarginProps } from "styled-system";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import {
   StyledProgressBar,
   InnerBar,
@@ -15,9 +12,45 @@ import {
 } from "./progress-tracker.style";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+export interface ProgressTrackerProps extends MarginProps {
+  /** Specifies an aria label to the component */
+  "aria-label"?: string;
+  /** Specifies the aria describedby for the component */
+  "aria-describedby"?: string;
+  /** The value of progress to be read out to the user. */
+  "aria-valuenow"?: number;
+  /** The minimum value of the progress tracker */
+  "aria-valuemin"?: number;
+  /** The maximum value of the progress tracker */
+  "aria-valuemax"?: number;
+  /** Prop to define the human readable text alternative of aria-valuenow
+   * if aria-valuenow is not a number
+   */
+  "aria-valuetext"?: string;
+  /** Size of the progress bar. */
+  size?: "small" | "medium" | "large";
+  /** Length of the progress bar, any valid css string. */
+  length?: string;
+  /** Current progress (percentage). */
+  progress?: number;
+  /** If error occurs. */
+  error?: boolean;
+  /** Flag to control whether the default value labels (as percentages) should be rendered. */
+  description?: string;
+  /** Value to add a description to the label */
+  showDefaultLabels?: boolean;
+  /** Value to display as current progress. */
+  currentProgressLabel?: string;
+  /** Value to display as the maximum progress limit. */
+  maxProgressLabel?: string;
+  /** Value of the preposition defined between Value1 and Value2 on the label. */
+  customValuePreposition?: string;
+  /**
+   * The position the value label are rendered in.
+   * Top/bottom apply to horizontal and left/right to vertical orientation.
+   */
+  labelsPosition?: "top" | "bottom";
+}
 
 const ProgressTracker = ({
   "aria-label": ariaLabel = "progress tracker",
@@ -37,14 +70,14 @@ const ProgressTracker = ({
   maxProgressLabel,
   labelsPosition,
   ...rest
-}) => {
+}: ProgressTrackerProps) => {
   const l = useLocale();
-  const barRef = useRef();
-  const [barLength, setBarLength] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
+  const [barLength, setBarLength] = useState("0px");
   const prefixLabels = labelsPosition !== "bottom";
 
   const updateBarLength = useCallback(() => {
-    setBarLength(`${barRef.current.offsetWidth}px`);
+    setBarLength(`${barRef.current?.offsetWidth}px`);
   }, []);
 
   useLayoutEffect(() => {
@@ -60,7 +93,7 @@ const ProgressTracker = ({
       return null;
     }
 
-    const label = (value, defaultValue) => {
+    const label = (value?: string, defaultValue?: string) => {
       if (value) {
         return value;
       }
@@ -76,7 +109,7 @@ const ProgressTracker = ({
     const displayedMaxProgressLabel = label(maxProgressLabel, "100%");
 
     return (
-      <StyledValuesLabel position={labelsPosition} size={size}>
+      <StyledValuesLabel labelsPosition={labelsPosition} size={size}>
         {displayedCurrentProgressLabel && (
           <StyledValue>{displayedCurrentProgressLabel}</StyledValue>
         )}
@@ -98,7 +131,6 @@ const ProgressTracker = ({
 
   return (
     <StyledProgressTracker
-      size={size}
       length={length}
       {...rest}
       {...tagComponent("progress-bar", rest)}
@@ -131,45 +163,6 @@ const ProgressTracker = ({
   );
 };
 
-ProgressTracker.propTypes = {
-  ...marginPropTypes,
-  /** Specifies an aria label to the component */
-  "aria-label": PropTypes.string,
-  /** Specifies the aria describedby for the component */
-  "aria-describedby": PropTypes.string,
-  /** The value of progress to be read out to the user. */
-  "aria-valuenow": PropTypes.number,
-  /** The minimum value of the progress tracker */
-  "aria-valuemin": PropTypes.number,
-  /** The maximum value of the progress tracker */
-  "aria-valuemax": PropTypes.number,
-  /** Prop to define the human readable text alternative of aria-valuenow
-   * if aria-valuenow is not a number
-   */
-  "aria-valuetext": PropTypes.string,
-  /** Size of the progress bar. */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  /** Length of the progress bar, any valid css string. */
-  length: PropTypes.string,
-  /** Current progress (percentage). */
-  progress: PropTypes.number,
-  /** If error occurs. */
-  error: PropTypes.bool,
-  /** Flag to control whether the default value labels (as percentages) should be rendered. */
-  description: PropTypes.string,
-  /** Value to add a description to the label */
-  showDefaultLabels: PropTypes.bool,
-  /** Value to display as current progress. */
-  currentProgressLabel: PropTypes.string,
-  /** Value to display as the maximum progress limit. */
-  maxProgressLabel: PropTypes.string,
-  /** Value of the preposition defined between Value1 and Value2 on the label. */
-  customValuePreposition: PropTypes.string,
-  /**
-   * The position the value label are rendered in.
-   * Top/bottom apply to horizontal and left/right to vertical orientation.
-   */
-  labelsPosition: PropTypes.oneOf(["top", "bottom"]),
-};
+ProgressTracker.displayName = "ProgressTracker";
 
 export default ProgressTracker;
