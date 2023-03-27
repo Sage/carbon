@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useRef } from "react";
 import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 
-import StickyFooter from "./sticky-footer.component";
+import StickyFooter, { StickyFooterProps } from "./sticky-footer.component";
 import StyledStickyFooter from "./sticky-footer.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
-const mockRef = React.createRef();
+function renderStickyFooter(props: Partial<StickyFooterProps> = {}) {
+  const MockFooterContainer = () => {
+    const mockRef = useRef(null);
+
+    return (
+      <div id="container" ref={mockRef}>
+        <StickyFooter containerRef={mockRef} {...props}>
+          Some content
+        </StickyFooter>
+      </div>
+    );
+  };
+
+  return mount(<MockFooterContainer />);
+}
 
 describe("StickyFooter component", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   describe("styling", () => {
-    const assertPaddingMatch = (footer) => {
+    const assertPaddingMatch = (footer: ReactWrapper) => {
       assertStyleMatch(
         {
           padding: "var(--spacing200) var(--spacing400)",
@@ -23,22 +37,12 @@ describe("StickyFooter component", () => {
     };
 
     it("should have correct padding when sticky", () => {
-      wrapper = mount(
-        <div id="container" ref={mockRef}>
-          <StickyFooter containerRef={mockRef}>Some content</StickyFooter>
-        </div>
-      );
+      wrapper = renderStickyFooter();
       assertPaddingMatch(wrapper.find(StyledStickyFooter));
     });
 
     it("should have correct padding when not sticky", () => {
-      wrapper = mount(
-        <div id="container" ref={mockRef}>
-          <StickyFooter containerRef={mockRef} disableSticky>
-            Some content
-          </StickyFooter>
-        </div>
-      );
+      wrapper = renderStickyFooter({ disableSticky: true });
       assertPaddingMatch(wrapper.find(StyledStickyFooter));
     });
   });
@@ -46,11 +50,7 @@ describe("StickyFooter component", () => {
   describe("scroll behaviour", () => {
     beforeEach(() => {
       jest.useFakeTimers();
-      wrapper = mount(
-        <div id="container" ref={mockRef}>
-          <StickyFooter containerRef={mockRef}>Some content</StickyFooter>
-        </div>
-      );
+      wrapper = renderStickyFooter();
     });
 
     afterEach(() => {
@@ -128,13 +128,8 @@ describe("StickyFooter component", () => {
 
   describe("when disableSticky prop set", () => {
     it("should disable the sticky behaviour", () => {
-      wrapper = mount(
-        <div id="container" ref={mockRef}>
-          <StickyFooter containerRef={mockRef} disableSticky>
-            Some content
-          </StickyFooter>
-        </div>
-      );
+      wrapper = renderStickyFooter({ disableSticky: true });
+
       expect(wrapper.find(StyledStickyFooter).props().sticky).toEqual(false);
     });
   });
