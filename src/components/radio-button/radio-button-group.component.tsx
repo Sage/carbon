@@ -8,7 +8,9 @@ import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint"
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../__internal__/validations";
+import Logger from "../../__internal__/utils/logger";
 
+let deprecateUncontrolledWarnTriggered = false;
 export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLegendBreakpoint?: number;
@@ -66,6 +68,13 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     required,
     tooltipPosition,
   } = props;
+
+  if (!deprecateUncontrolledWarnTriggered && !onChange) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  }
 
   const marginProps = filterStyledSystemMarginProps(props);
 

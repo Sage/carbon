@@ -69,6 +69,7 @@ export interface SearchProps extends ValidationProps, MarginProps {
 }
 
 let deprecateInputRefWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
 export const Search = React.forwardRef(
   (
@@ -106,6 +107,13 @@ export const Search = React.forwardRef(
       deprecateInputRefWarnTriggered = true;
       Logger.deprecate(
         "The `inputRef` prop in `Search` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
+
+    if (!deprecateUncontrolledWarnTriggered && !isControlled) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
     }
 

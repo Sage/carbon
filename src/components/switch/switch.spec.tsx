@@ -27,6 +27,8 @@ import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
 
+jest.mock("../../__internal__/utils/logger");
+
 const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
 
@@ -76,6 +78,33 @@ function renderWithTheme(
 }
 
 describe("Switch", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+    jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      <Switch name="my-switch" defaultValue="test" />;
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe("Styled System", () => {
     testStyledSystemMargin((props) => <Switch {...props} />);
   });
@@ -84,7 +113,6 @@ describe("Switch", () => {
     let wrapper: ReactWrapper;
 
     it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
       const ref = { current: null };
 
       wrapper = render({ inputRef: ref });

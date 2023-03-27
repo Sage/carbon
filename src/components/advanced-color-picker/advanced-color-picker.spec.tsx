@@ -10,10 +10,13 @@ import { SimpleColor } from "../simple-color-picker";
 import guid from "../../__internal__/utils/helpers/guid";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import { StyledAdvancedColorPickerPreview } from "./advanced-color-picker.style";
+import Logger from "../../__internal__/utils/logger";
 
 const mockedGuid = "mocked-guid";
 
 config.disabled = true;
+
+jest.mock("../../__internal__/utils/logger");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
@@ -88,9 +91,35 @@ const MockComponent = () => {
 };
 
 describe("AdvancedColorPicker", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
   testStyledSystemMargin((props) => (
     <AdvancedColorPicker {...requiredProps} {...props} />
   ));
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      jest.restoreAllMocks();
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      render({ ...requiredProps });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe("when focused on color picker cell button", () => {
     const keyDownEvents = [

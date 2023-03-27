@@ -22,6 +22,8 @@ import StyledValidationMessage from "../../__internal__/validation-message/valid
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
 
+jest.mock("../../__internal__/utils/logger");
+
 const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
 
@@ -30,6 +32,33 @@ jest.mock("../../__internal__/utils/helpers/guid");
 );
 
 describe("Textbox", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+    jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      <Textbox name="my-textbox" defaultValue="test" />;
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   testStyledSystemMargin(
     (props) => <Textbox {...props} />,
     undefined,
@@ -76,7 +105,6 @@ describe("Textbox", () => {
     let wrapper: ReactWrapper;
 
     it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
       const ref = () => {};
 
       wrapper = mount(<Textbox inputRef={ref} />);

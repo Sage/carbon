@@ -20,6 +20,8 @@ import Logger from "../../__internal__/utils/logger";
 // input, not calling the prop directly, this is important. By mounting we can make these assertions with
 // confidence that the `onChange` will not be dispatched if e.preventDefault has been called
 
+jest.mock("../../__internal__/utils/logger");
+
 describe("Decimal", () => {
   let wrapper: ReactWrapper;
   let container: HTMLDivElement | null;
@@ -134,6 +136,8 @@ describe("Decimal", () => {
     return press({ clipboardData }, where, "paste");
   };
 
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
   beforeEach(() => {
     container = document.createElement("div");
     document.body.appendChild(container);
@@ -160,6 +164,28 @@ describe("Decimal", () => {
   });
 
   describe("Uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      jest.restoreAllMocks();
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning for uncontrolled support", () => {
+      enzymeMount(<Decimal defaultValue="0.01" />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+
     it("has a defaultValue of 0.00", () => {
       render();
       expect(value()).toBe("0.00");
@@ -1390,7 +1416,6 @@ describe("Decimal", () => {
 
   describe("refs", () => {
     it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
       const ref = () => {};
 
       wrapper = enzymeMount(<Decimal inputRef={ref} />);
@@ -1402,7 +1427,6 @@ describe("Decimal", () => {
       // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
       wrapper.setProps({ prop1: true });
       expect(loggerSpy).toHaveBeenCalledTimes(2);
-      loggerSpy.mockRestore();
     });
 
     it("accepts ref as a ref object", () => {

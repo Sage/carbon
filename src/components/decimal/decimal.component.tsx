@@ -72,6 +72,7 @@ export interface DecimalProps
 }
 
 let deprecateInputRefWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
 export const Decimal = React.forwardRef(
   (
@@ -326,6 +327,13 @@ export const Decimal = React.forwardRef(
       toStandardDecimal,
       value,
     ]);
+
+    if (!deprecateUncontrolledWarnTriggered && !isControlled) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+    }
 
     return (
       <>

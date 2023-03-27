@@ -3,6 +3,8 @@ import Textbox, { TextboxProps } from "../textbox";
 import Logger from "../../__internal__/utils/logger";
 
 let deprecateInputRefWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
+
 export interface NumberProps extends Omit<TextboxProps, "value"> {
   /** Value passed to the input */
   value?: string;
@@ -27,6 +29,13 @@ export const Number = React.forwardRef(
       deprecateInputRefWarnTriggered = true;
       Logger.deprecate(
         "The `inputRef` prop in `Number` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
+
+    if (!deprecateUncontrolledWarnTriggered && !onChange) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
     }
 
