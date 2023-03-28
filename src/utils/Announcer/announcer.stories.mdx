@@ -1,0 +1,72 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import * as stories from "./announcer.stories.tsx";
+
+<Meta
+  title="Documentation/Utilties/Announcer"
+  parameters={{ info: { disable: true } }}
+/>
+
+# Announcer
+
+`Announcer` is an accessibility utility for dispatching messages which screen readers will vocally announce to users. It should be utilised for patterns where screen reader users need to be made aware of a dynamic change that has occurred on the page.
+
+```ts
+import Announcer from "carbon-react/lib/utils/Announcer";
+```
+
+## Contents
+
+- [Reference](#reference)
+  - [Returned values](#returns)
+- [Usage](#usage)
+
+## Reference
+
+The utility provides two announcement functions, `announcePolitely` and `announceAssertively`, which dispatch messages for screen readers to announce to users.
+
+The two announcement functions use [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions), which screen readers are setup to monitor for changes and speak any content added into them. Both announcement functions have a single, corresponding live region in the DOM where messages will be inserted into. These live regions are visually hidden and placed at a high level in the DOM to ensure they remain rendered on a page.
+
+```tsx
+import Announcer from "carbon-react/lib/utils/Announcer";
+import Button from "carbon-react/lib/components/button";
+
+const MyComponent = () => {
+  const handleClick = () => {
+    Announcer.announcePolitely("You pressed the button, didn't you?");
+  };
+
+  return <Button onClick={handleClick}>Announce message</Button>;
+};
+```
+
+### Returns
+
+Returns an object containing two functions:
+
+- `announcePolitely`: Function that accepts a message to be as a string. Message will be announced at the next available opportunity once the user is idle, to avoid interrupting any current announcements being spoken.
+- `announceAssertively`: Function that accepts a message as a string. The announcement will be made immediately and interrupt any other announcements the screen reader may be making. For this reason, assertive announcements **should be used sparingly and for critical, time-sensitive alerts only**, to avoid overwhelming screen reader users with announcements.
+
+## Usage
+
+### Announce loading a new page
+
+<Canvas>
+  <Story name="announce loading a new page" story={stories.AnnouncePageLoad} />
+</Canvas>
+
+### Announce loading new content
+
+<Canvas>
+  <Story
+    name="announce loading new content"
+    story={stories.AnnounceContentLoad}
+  />
+</Canvas>
+
+### Form validation messages
+
+Since validation messages are generally non-interactive, a screen reader will not be aware of them when the user submits an erroneous form. The `useAnnouncer` hook can be used to notify the user of any errors so they can go back and correct. For multiple messages, it is recommended to combine them into a single summary message to reduce the number of announcements.
+
+<Canvas>
+  <Story name="form validation messages" story={stories.FormValidation} />
+</Canvas>
