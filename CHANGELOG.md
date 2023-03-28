@@ -1,3 +1,10 @@
+### [116.2.1](https://github.com/Sage/carbon/compare/v116.2.0...v116.2.1) (2023-03-28)
+
+
+### Bug Fixes
+
+* **select:** stop select list triggering refocus if closed inside a modal ([2505dc4](https://github.com/Sage/carbon/commit/2505dc4eed3d19ca154aa13bc59929cbcd223d5a)), closes [#5898](https://github.com/Sage/carbon/issues/5898)
+
 ## [116.2.0](https://github.com/Sage/carbon/compare/v116.1.3...v116.2.0) (2023-03-24)
 
 
