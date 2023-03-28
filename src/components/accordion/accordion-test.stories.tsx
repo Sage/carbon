@@ -363,7 +363,7 @@ export const AccordionOpeningButton = () => {
         borders="none"
         iconAlign="left"
         buttonHeading
-        buttonWidth={200}
+        buttonWidth="200px"
         error="hello"
       >
         <div>Content</div>
@@ -378,7 +378,7 @@ export const AccordionOpeningButton = () => {
         borders="none"
         iconAlign="right"
         buttonHeading
-        buttonWidth={200}
+        buttonWidth="200px"
       >
         <div>Content</div>
         <div>Content</div>
@@ -394,7 +394,7 @@ export const AccordionOpeningButton = () => {
         headerSpacing={{
           px: 0,
         }}
-        buttonWidth={96}
+        buttonWidth="96px"
       >
         <div>Content</div>
         <div>Content</div>
@@ -408,7 +408,7 @@ export const AccordionOpeningButton = () => {
         openTitle="Less info"
         iconAlign="left"
         buttonHeading
-        buttonWidth={120}
+        buttonWidth="120px"
         headerSpacing={{
           px: 1,
         }}

@@ -2,6 +2,7 @@ import React from "react";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import Image from ".";
+import * as stories from "./image.stories";
 import carbonLogo from "../../../logo/carbon-logo.png";
 
 context("Image component", () => {
@@ -15,5 +16,31 @@ context("Image component", () => {
       <Image src={carbonLogo} alt="Carbon logo" hidden />
     );
     cy.get("img").should("not.be.visible");
+  });
+
+  describe("Accessibility tests for Image component", () => {
+    it("should pass accessibility tests for Image default story", () => {
+      CypressMountWithProviders(<stories.DefaultStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Image component AsAnImg story", () => {
+      CypressMountWithProviders(<stories.AsAnImg />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Image component CustomResponsiveBehaviour story", () => {
+      CypressMountWithProviders(<stories.CustomResponsiveBehaviour />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Image component DecorativeStory", () => {
+      CypressMountWithProviders(<stories.DecorativeStory />);
+
+      cy.checkAccessibility();
+    });
   });
 });

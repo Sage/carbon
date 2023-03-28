@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "116.1.2",
+  "version": "116.2.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -20,7 +20,7 @@
     "copy-files": "node ./scripts/copy-files.js",
     "precompile": "npm run type-check && npm run clean-lib && npm run build && npm run build:types && npm run copy-files",
     "prepublishOnly": "npm run precompile",
-    "postinstall": "node ./scripts/check_rfcs/check_rfcs.js",
+    "postinstall": "node ./scripts/check_rfcs/index.js",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "build-storybook": "cross-env STORYBOOK_BUILD=true NODE_OPTIONS=--openssl-legacy-provider build-storybook -c .storybook",
     "start-storybook": "cross-env STORYBOOK_BUILD=true NODE_OPTIONS=--openssl-legacy-provider start-storybook -c .storybook",
