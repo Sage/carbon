@@ -124,7 +124,7 @@ const StyledAccordionHeadingsContainer = styled.div<StyledAccordionHeadingsConta
 
 interface StyledAccordionTitleContainerProps {
   buttonHeading?: boolean;
-  buttonWidth?: number;
+  buttonWidth?: number | string;
   hasButtonProps?: boolean;
   iconAlign?: "left" | "right";
   size?: "large" | "small";
@@ -195,7 +195,9 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
 
       ${buttonWidth &&
       css`
-        width: ${buttonWidth}px;
+        width: ${typeof buttonWidth === "number"
+          ? `${buttonWidth}px`
+          : buttonWidth};
       `}
     `}
   `}
