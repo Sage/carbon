@@ -5,7 +5,8 @@
   "files": [
     "lib",
     "esm",
-    "scripts/check_rfcs/check_rfcs.js"
+    "scripts/check_rfcs/check_rfcs.js",
+    "scripts/check_rfcs/index.js"
   ],
   "scripts": {
     "start": "node ./scripts/check_node_version.js && NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 9001 -c .storybook",
