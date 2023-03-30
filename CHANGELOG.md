@@ -1,3 +1,10 @@
+### [116.2.2](https://github.com/Sage/carbon/compare/v116.2.1...v116.2.2) (2023-03-30)
+
+
+### Bug Fixes
+
+* **check_rfcs:** ship the index file in the published package ([ca9665e](https://github.com/Sage/carbon/commit/ca9665e288b5c37ae2fabd536cefe53535fa981e))
+
 ### [116.2.1](https://github.com/Sage/carbon/compare/v116.2.0...v116.2.1) (2023-03-28)
 
 
