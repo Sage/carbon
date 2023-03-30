@@ -20,6 +20,17 @@ const enGB: Locale = {
     no: () => "No",
     yes: () => "Yes",
   },
+  characterCount: {
+    hintString: () => "Input contains a character counter",
+    tooManyCharacters: (count, formattedCount) =>
+      count === 1
+        ? `You have ${formattedCount} character too many`
+        : `You have ${formattedCount} characters too many`,
+    charactersLeft: (count, formattedCount) =>
+      count === 1
+        ? `You have ${formattedCount} character remaining`
+        : `You have ${formattedCount} characters remaining`,
+  },
   date: {
     dateFnsLocale: () => enGBDateLocale,
   },

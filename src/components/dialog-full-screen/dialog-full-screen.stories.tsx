@@ -670,7 +670,7 @@ export const WithHideableHeaderChildren = () => {
       borders="none"
       disableContentPadding
       buttonHeading
-      buttonWidth={120}
+      buttonWidth="120px"
       ml="-13px"
     >
       <Box py="16px" pl="14px">

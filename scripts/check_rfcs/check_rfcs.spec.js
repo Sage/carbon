@@ -41,14 +41,7 @@ const dataWithoutRFCLabels = [
 describe("checkRfcs script", () => {
   let consoleLogMock;
 
-  // configure nock to intercept the octakit request
-  nock("https://api.github.com")
-    .persist()
-    .get("/repos/sage/carbon/pulls")
-    .query({})
-    .reply(200, dataWithRFCLabels);
-
-  beforeAll(() => {
+  beforeEach(() => {
     consoleLogMock = jest.spyOn(console, "log").mockImplementation(() => {});
   });
 
@@ -57,39 +50,46 @@ describe("checkRfcs script", () => {
     nock.cleanAll();
   });
 
+  it("should not run the script when being run in CI", async () => {
+    const OLD_ENV = process.env.NODE_ENV;
+
+    ci.isCI = true;
+    process.env.NODE_ENV = "NOT-TEST";
+    await checkRfcs();
+
+    expect(consoleLogMock).not.toHaveBeenCalled();
+    process.env.NODE_ENV = OLD_ENV;
+  });
+
   describe("when not being run in CI", () => {
-    it("should run and call console log", async () => {
-      jest.resetModules();
-      const OLD_ENV = process.env.NODE_ENV;
-      process.env.NODE_ENV = "test";
+    it("if script retrieves pull request data, should run and call console log once", async () => {
+      nock("https://api.github.com")
+        .get("/repos/sage/carbon/pulls")
+        .query({})
+        .reply(200, dataWithRFCLabels);
+
       await checkRfcs();
-
-      expect(consoleLogMock).toHaveBeenCalled();
-
-      process.env.NODE_ENV = OLD_ENV;
+      expect(consoleLogMock).toHaveBeenCalledTimes(1);
     });
 
-    it("should run but not console log if there are no items with RFC labels", async () => {
+    it("if script retrieves pull requests but none have a RFC label, should run but not call console log", async () => {
       nock("https://api.github.com")
-        .persist()
         .get("/repos/sage/carbon/pulls")
         .query({})
         .reply(200, dataWithoutRFCLabels);
 
       await checkRfcs();
-
       expect(consoleLogMock).not.toHaveBeenCalled();
     });
-  });
 
-  it("should not run the script when being run in CI", async () => {
-    ci.isCI = true;
-    const OLD_ENV = process.env.NODE_ENV;
-    process.env.NODE_ENV = "NOT-TEST";
-    await checkRfcs();
+    it("if script fails to retrieve pull requests, should still resolve and call console log once", async () => {
+      nock("https://api.github.com")
+        .get("/repos/sage/carbon/pulls")
+        .query({})
+        .reply(403, { message: "API rate limit exceeded" });
 
-    expect(consoleLogMock).not.toHaveBeenCalled();
-
-    process.env.NODE_ENV = OLD_ENV;
+      await expect(checkRfcs()).resolves.toBeUndefined();
+      expect(consoleLogMock).toHaveBeenCalledTimes(1);
+    });
   });
 });

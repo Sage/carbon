@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
-import Box from "../box";
-import Typography from "../typography";
 import { Carousel, Slide } from ".";
+
+import * as stories from "./carousel.stories";
 
 <Meta title="Carousel" parameters={{ info: { disable: true } }} />
 
@@ -37,136 +37,19 @@ import { Carousel, Slide } from "carbon-react/lib/components/carousel";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Carousel>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#003349"
-        >
-          <Typography variant="h1" color="#090">
-            Slide 1
-          </Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Typography variant="h1">Slide 2</Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#69418f"
-        >
-          <Typography variant="h1" color="#fff">
-            Slide 3
-          </Typography>
-        </Box>
-      </Slide>
-    </Carousel>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Without buttons
 
 <Canvas>
-  <Story name="without buttons">
-    <Carousel enableNextButton={false} enablePreviousButton={false}>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#003349"
-        >
-          <Typography variant="h1" color="#090">
-            Slide 1
-          </Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Typography variant="h1">Slide 2</Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#69418f"
-        >
-          <Typography variant="h1" color="#fff">
-            Slide 3
-          </Typography>
-        </Box>
-      </Slide>
-    </Carousel>
-  </Story>
+  <Story name="without buttons" story={stories.WithoutButtons} />
 </Canvas>
 
 ### Without slideSelectors
 
 <Canvas>
-  <Story name="without slideSelectors">
-    <Carousel enableSlideSelector={false}>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#003349"
-        >
-          <Typography variant="h1" color="#090">
-            Slide 1
-          </Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Typography variant="h1">Slide 2</Typography>
-        </Box>
-      </Slide>
-      <Slide>
-        <Box
-          height={200}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          bg="#69418f"
-        >
-          <Typography variant="h1" color="#fff">
-            Slide 3
-          </Typography>
-        </Box>
-      </Slide>
-    </Carousel>
-  </Story>
+  <Story name="without slideSelectors" story={stories.WithoutSlideSelectors} />
 </Canvas>
 
 ## Props

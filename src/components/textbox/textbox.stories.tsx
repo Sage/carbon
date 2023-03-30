@@ -4,6 +4,7 @@ import { ComponentStory } from "@storybook/react";
 import Textbox from ".";
 import Box from "../box";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import I18nProvider from "../i18n-provider";
 
 export const SIZES = ["small", "medium", "large"] as const;
 export const VALIDATIONS = ["error", "warning", "info"] as const;
@@ -26,10 +27,44 @@ export const CharacterCounter: ComponentStory<typeof Textbox> = () => {
       label="Textbox"
       value={state}
       onChange={setValue}
-      characterLimit="10"
+      characterLimit={10}
       enforceCharacterLimit={false}
-      warnOverLimit
     />
+  );
+};
+
+export const CharacterCounterTranslations: ComponentStory<
+  typeof Textbox
+> = () => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <I18nProvider
+      locale={{
+        locale: () => "fr-FR",
+        characterCount: {
+          hintString: () => "L'entrée contient un compteur de caractères",
+          tooManyCharacters: (count, formattedCount) =>
+            count === 1
+              ? `Vous avez ${formattedCount} personnage de trop`
+              : `Vous avez ${formattedCount} personnages de trop`,
+          charactersLeft: (count, formattedCount) =>
+            count === 1
+              ? `Il vous reste ${formattedCount} personnage`
+              : `Il vous reste ${formattedCount} personnages`,
+        },
+      }}
+    >
+      <Textbox
+        label="Textbox"
+        value={state}
+        onChange={setValue}
+        characterLimit={10}
+        enforceCharacterLimit={false}
+      />
+    </I18nProvider>
   );
 };
 
@@ -80,6 +115,7 @@ export const AutoFocus: ComponentStory<typeof Textbox> = () => {
     </Box>
   );
 };
+AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled: ComponentStory<typeof Textbox> = () => {
   return <Textbox label="Textbox" value="Textbox" disabled />;
@@ -92,6 +128,7 @@ export const ReadOnly: ComponentStory<typeof Textbox> = () => {
 export const WithLabelInline: ComponentStory<typeof Textbox> = () => {
   return <Textbox label="Textbox" value="Textbox" labelInline />;
 };
+WithLabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomLabelWidthAndInputWidth: ComponentStory<
   typeof Textbox
@@ -190,6 +227,9 @@ export const ValidationsAsAStringWithTooltipCustom: ComponentStory<
     </Box>
   );
 };
+ValidationsAsAStringWithTooltipCustom.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const ValidationsAsAStringDisplayedOnLabel: ComponentStory<
   typeof Textbox
@@ -270,6 +310,9 @@ export const ValidationsAsAStringWithTooltipDefault: ComponentStory<
       ))}
     </Box>
   );
+};
+ValidationsAsAStringWithTooltipDefault.parameters = {
+  chromatic: { disableSnapshot: true },
 };
 
 export const ValidationsAsABoolean: ComponentStory<typeof Textbox> = () => {

@@ -19,6 +19,7 @@ import {
   menuComponent,
   submenuItem,
   fullscreenMenu,
+  fullScreenMenuWrapper,
   menu,
   menuItem,
   fullScreenMenuItem,
@@ -261,6 +262,114 @@ const MenuComponentItems = ({ ...props }) => {
         </MenuItem>
       </Menu>
     </Box>
+  );
+};
+
+const MenuComponentScrollableParent = () => {
+  const items = ["apple", "banana", "carrot", "grapefruit", "melon", "orange"];
+  const [itemSearch, setItemSearch] = React.useState(items);
+  const [searchString, setSearchString] = React.useState("");
+
+  const handleTextChange = (e) => {
+    const searchStr = e.target.value;
+    setSearchString(searchStr);
+    let found;
+
+    if (searchStr.length > 0) {
+      found = items.filter((item) => item.includes(searchStr));
+    } else {
+      found = items;
+    }
+
+    setItemSearch(found);
+  };
+
+  return (
+    <Box mb={300}>
+      <Menu>
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <ScrollableBlock
+            variant="alternate"
+            height="200px"
+            parent={
+              <Search
+                placeholder="search"
+                value={searchString}
+                onChange={handleTextChange}
+              />
+            }
+          >
+            {itemSearch.map((item) => (
+              <MenuItem key={item} href="#">
+                {item}
+              </MenuItem>
+            ))}
+          </ScrollableBlock>
+        </MenuItem>
+      </Menu>
+    </Box>
+  );
+};
+
+const MenuComponentWithIcon = () => {
+  return (
+    <Box mb={150}>
+      {["white", "light", "dark", "black"].map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            <MenuItem icon="home" href="#">
+              Home
+            </MenuItem>
+            <MenuItem icon="person" href="#" ariaLabel="Account" />
+            <MenuItem icon="settings" submenu="Settings">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuDivider />
+              <MenuItem icon="settings" href="#" ariaLabel="settings" />
+              <MenuItem href="#">Item Submenu Four</MenuItem>
+            </MenuItem>
+            <MenuItem icon="arrow_right" submenu ariaLabel="Actions">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
+  );
+};
+
+const MenuComponentButtonIcon = () => {
+  return (
+    <div
+      style={{
+        minHeight: "250px",
+      }}
+    >
+      <Menu menuType="dark">
+        <MenuItem icon="settings" submenu="Settings">
+          <MenuItem href="#" icon="settings" onClick={() => {}}>
+            onClick and Icon
+          </MenuItem>
+          <MenuItem onClick={() => {}}>
+            <Box ml="21px">onClick</Box>
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem icon="settings" href="#">
+            href and Icon
+          </MenuItem>
+          <MenuItem href="#">
+            <Box ml="21px">href</Box>
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </div>
   );
 };
 
@@ -1178,14 +1287,17 @@ context("Testing Menu component", () => {
     });
 
     it("should verify that close icon is focused in Menu Fullscreen", () => {
-      pressTABKey(1);
+      fullScreenMenuWrapper().tab();
       closeIconButton().then(($el) => {
         checkGoldenOutline($el);
       });
     });
 
     it("should verify that inner Menu is available with tabbing in Menu Fullscreen", () => {
-      pressTABKey(5);
+      fullScreenMenuWrapper().tab();
+      for (let i = 0; i < 4; i++) {
+        cy.focused().tab();
+      }
       fullScreenMenuItem(positionOfElement("fourth"))
         .find("ul > li")
         .eq(1)
@@ -1209,7 +1321,10 @@ context("Testing Menu component", () => {
     });
 
     it("should verify that inner Menu is available with shift-tabbing in Menu Fullscreen", () => {
-      pressTABKey(6);
+      fullScreenMenuWrapper().tab();
+      for (let i = 0; i < 5; i++) {
+        cy.focused().tab();
+      }
       cy.focused().tab({ shift: true });
       fullScreenMenuItem(positionOfElement("fourth"))
         .find("ul > li")
@@ -1392,5 +1507,451 @@ context("Testing Menu component", () => {
           expect(callback).to.have.been.calledOnce;
         });
     });
+  });
+
+  describe("Accessibility tests for Menu component", () => {
+    it("should pass accessibility tests for Menu default", () => {
+      CypressMountWithProviders(<MenuComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Menu expanded", () => {
+      CypressMountWithProviders(<MenuComponent />);
+
+      submenu()
+        .eq(positionOfElement("first"), div)
+        .trigger("mouseover")
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it.each(["default", "large"])(
+      "should pass accessibility tests for Menu when divider size is %s",
+      (divider) => {
+        CypressMountWithProviders(<MenuComponent size={divider} />);
+
+        submenu()
+          .eq(positionOfElement("first"), div)
+          .trigger("mouseover")
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            cy.checkAccessibility();
+          });
+      }
+    );
+
+    it("should pass accessibility tests for Menu when search component is focused", () => {
+      CypressMountWithProviders(<MenuComponentSearch />);
+
+      pressTABKey(1);
+      cy.wait(50);
+      cy.focused().trigger("keydown", keyCode("Enter"));
+      cy.wait(50);
+      pressTABKey(0);
+      cy.wait(50);
+      cy.focused()
+        .trigger("keydown", keyCode("downarrow"))
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Menu when a submenu has a long label", () => {
+      CypressMountWithProviders(
+        <Box mb={150}>
+          <Menu menuType="white">
+            <MenuItem submenu="Menu Item One">
+              <MenuItem href="#">
+                Item Submenu One Is A Very Long Submenu Item Indeed
+              </MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Two
+              </MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>
+      );
+
+      submenu()
+        .eq(positionOfElement("first"))
+        .trigger("mouseover")
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it("should pass accessibility tests for Menu when a menu item has a long label", () => {
+      CypressMountWithProviders(
+        <Box mb={150}>
+          <Menu menuType="white">
+            <MenuItem submenu="Menu Item One Has A Very Long Menu Title For No Reason Whatsoever">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Two
+              </MenuItem>
+            </MenuItem>
+          </Menu>
+        </Box>
+      );
+
+      submenu().eq(positionOfElement("first")).trigger("mouseover");
+      submenu()
+        .eq(positionOfElement("first"))
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
+
+    it.each(["450px", "675px", "1200px"])(
+      "should pass accessibility tests for Menu when width is %s",
+      (width) => {
+        CypressMountWithProviders(<MenuComponent width={width} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["10px", "30px", "50px"])(
+      "should pass accessibility tests for Menu when height is s",
+      (propValue) => {
+        CypressMountWithProviders(<MenuComponent height={propValue} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([250, 750, 1350])(
+      "should pass accessibility tests for Menu when size is %spx",
+      (size) => {
+        CypressMountWithProviders(<MenuComponent size={size} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["block", "inline-block", "flex", "contents", "list-item", "none"])(
+      "should pass accessibility tests for Menu when display is %s",
+      (display) => {
+        CypressMountWithProviders(<MenuComponent display={display} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "baseline",
+      "bottom",
+      "middle",
+      "sub",
+      "super",
+      "text-bottom",
+      "text-top",
+      "top",
+    ])(
+      "should pass accessibility tests for Menu when alignItmes is %s",
+      (alignment) => {
+        CypressMountWithProviders(<MenuComponent verticalAlign={alignment} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "clip", "hidden", "scroll", "visible"])(
+      "should pass accessibility tests for Menu when overflow is %s",
+      (overflow) => {
+        CypressMountWithProviders(<Menu overflow={overflow} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "clip", "hidden", "scroll", "visible"])(
+      "should pass accessibility tests for Menu when overflowX is %s",
+      (overflow) => {
+        CypressMountWithProviders(<MenuComponent overflowX={overflow} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "clip", "hidden", "scroll", "visible"])(
+      "should pass accessibility tests for Menu when overflowY is %s",
+      (overflow) => {
+        CypressMountWithProviders(<MenuComponent overflowY={overflow} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "normal",
+      "stretch",
+      "baseline",
+      "center",
+      "flex-start",
+      "flex-end",
+    ])(
+      "should pass accessibility tests for Menu when alignItems is %s",
+      (alignment) => {
+        CypressMountWithProviders(<MenuComponent alignItems={alignment} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "normal",
+      "baseline",
+      "center",
+      "flex-start",
+      "flex-end",
+      "space-between",
+      "space-around",
+      "stretch",
+    ])(
+      "should pass accessibility tests for Menu when alignContent is %s",
+      (alignment) => {
+        CypressMountWithProviders(<MenuComponent alignContent={alignment} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "left",
+      "center",
+      "right",
+      "flex-start",
+      "flex-end",
+      "normal",
+      "stretch",
+    ])(
+      "should pass accessibility tests for Menu when justifyItems is %s",
+      (justified) => {
+        CypressMountWithProviders(<MenuComponent justifyItems={justified} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "left",
+      "center",
+      "right",
+      "flex-start",
+      "flex-end",
+      "normal",
+      "space-between",
+      "space-around",
+      "stretch",
+    ])(
+      "should pass accessibility tests for Menu when justifyContent is %s",
+      (justified) => {
+        CypressMountWithProviders(<MenuComponent justifyContent={justified} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["nowrap", "wrap", "wrap-reverse"])(
+      "should pass accessibility tests for Menu when flexWrap is %s",
+      (wrap) => {
+        CypressMountWithProviders(<MenuComponent flexWrap={wrap} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["column", "column-reverse", "row", "row-reverse"])(
+      "should pass accessibility tests for Menu when flexDirection is %s",
+      (direction) => {
+        CypressMountWithProviders(<MenuComponent flexDirection={direction} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
+      "should pass accessibility tests for Menu when flex is %s",
+      (flex) => {
+        CypressMountWithProviders(<MenuComponent flex={flex} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([10, 50, 100])(
+      "should pass accessibility tests for Menu when flexGrow is %s",
+      (value) => {
+        CypressMountWithProviders(
+          <MenuComponent flex="auto" flexGrow={value} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([10, 50, 100])(
+      "should pass accessibility tests for Menu when flexShrink is %s",
+      (value) => {
+        CypressMountWithProviders(
+          <MenuComponent flex="auto" flexShrink={value} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["auto", "content", "fit-content", "max-content", "min-content"])(
+      "should pass accessibility tests for Menu when flexBasis is %s",
+      (basis) => {
+        CypressMountWithProviders(<MenuComponent flexBasis={basis} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "auto",
+      "baseline",
+      "left",
+      "normal",
+      "right",
+      "stretch",
+      "center",
+      "flex-start",
+      "flex-end",
+    ])(
+      "should pass accessibility tests for Menu when justifySelf is %s",
+      (justify) => {
+        CypressMountWithProviders(<MenuComponent justifySelf={justify} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "auto",
+      "baseline",
+      "normal",
+      "stretch",
+      "center",
+      "flex-start",
+      "flex-end",
+    ])(
+      "should pass accessibility tests for Menu when alignSelf is %s",
+      (align) => {
+        CypressMountWithProviders(<MenuComponent alignSelf={align} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      CHARACTERS.STANDARD,
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ])(
+      "should pass accessibility tests for Menu when item text is %s",
+      (text) => {
+        CypressMountWithProviders(<MenuComponentItems submenu={text} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["default", "alternate"])(
+      "should pass accessibility tests for Menu when scroll block has a variant background color",
+      (variant) => {
+        CypressMountWithProviders(
+          <MenuComponentScrollable variant={variant} />
+        );
+
+        submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["default", "alternate"])(
+      "should pass accessibility tests for Menu when Segment Title has a variant background color",
+      (variant) => {
+        CypressMountWithProviders(
+          <Box mb={150}>
+            <Menu menuType="white">
+              <MenuItem submenu="Menu Item One">
+                <MenuItem href="#">
+                  Item Submenu One Is A Very Long Submenu Item Indeed
+                </MenuItem>
+                <MenuSegmentTitle variant={variant}>
+                  Segment Title
+                </MenuSegmentTitle>
+              </MenuItem>
+            </Menu>
+          </Box>
+        );
+
+        submenu().eq(positionOfElement("first")).trigger("mouseover");
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibility tests for Menu with parent item", () => {
+      CypressMountWithProviders(<MenuComponentScrollableParent />);
+
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Menu with button icon", () => {
+      CypressMountWithProviders(<MenuComponentButtonIcon />);
+
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+      cy.checkAccessibility();
+    });
+
+    // Test skipped because of issue FE-5731
+    it.skip("should pass accessibility tests for Menu with icon", () => {
+      CypressMountWithProviders(<MenuComponentWithIcon />);
+
+      cy.checkAccessibility();
+    });
+  });
+
+  describe("Accessibility tests for Menu Fullscreen component", () => {
+    beforeEach(() => {
+      cy.viewport(1200, 800);
+      CypressMountWithProviders(<MenuComponentFullScreen />);
+      menuItem().eq(positionOfElement("first"), div).click();
+    });
+
+    it("should pass accessibility tests for Menu Fullscreen", () => {
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Menu Fullscreen when close icon is clicked", () => {
+      closeIconButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Menu Fullscreen when menu item is highlighted", () => {
+      pressTABKey(5);
+      cy.checkAccessibility();
+    });
+
+    it.each(["left", "right"])(
+      "should pass accessibility tests for Menu Fullscreen when start position is %s",
+      (side) => {
+        CypressMountWithProviders(
+          <MenuComponentFullScreen startPosition={side} />
+        );
+        cy.checkAccessibility();
+      }
+    );
   });
 });

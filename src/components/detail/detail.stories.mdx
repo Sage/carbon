@@ -1,9 +1,7 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import Detail from "./detail.component";
-import Card from "../card";
-import Tile from "../tile";
-import Hr from "../hr";
+import * as stories from "./detail.stories.tsx"
+import Detail from "."
 
 <Meta title="Detail" parameters={{ info: { disable: true } }} />
 
@@ -34,9 +32,7 @@ import Detail from "carbon-react/lib/components/detail";
 This is an example of how the Detail component will look in its default format.
 
 <Canvas>
-  <Story name="default">
-    <Detail>This is where the children will live.</Detail>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Detail with a Footnote
@@ -44,11 +40,7 @@ This is an example of how the Detail component will look in its default format.
 Detail can also have a footnote by using the `footnote` prop.
 
 <Canvas>
-  <Story name="with Footnote">
-    <Detail footnote="This is a footnote.">
-      This is where the children will live.
-    </Detail>
-  </Story>
+  <Story name="with Footnote" story={stories.DetailWithFootnote} />
 </Canvas>
 
 ### Default with Icon
@@ -56,11 +48,7 @@ Detail can also have a footnote by using the `footnote` prop.
 Detail can also have an icon that renders to the left.
 
 <Canvas>
-  <Story name="with icon">
-    <Detail icon="bin" footnote="This is a footnote">
-      This is where the children will live.
-    </Detail>
-  </Story>
+  <Story name="with icon" story={stories.DetailWithIcon} />
 </Canvas>
 
 ### Inside of Components
@@ -70,25 +58,7 @@ Detail can also have an icon that renders to the left.
 Detail can be nested inside of components. Inside of this example it is nested inside of the `Card` component.
 
 <Canvas>
-  <Story name="inside of card">
-    <Card cardWidth="300px">
-      <div style={{ paddingTop: "16px" }}>
-        <Detail>This example of Detail just has children.</Detail>
-      </div>
-      <Hr />
-      <div style={{ paddingTop: "8px" }}>
-        <Detail footnote="This is a footnote">
-          This example of Detail has children and also a footnote.
-        </Detail>
-      </div>
-      <Hr />
-      <div style={{ paddingBottom: "16px" }}>
-        <Detail icon="settings" footnote="This is a footnote">
-          Where as this example of Detail has a footnote and icon.
-        </Detail>
-      </div>
-    </Card>
-  </Story>
+  <Story name="inside of card" story={stories.DetailInsideCard} />
 </Canvas>
 
 #### Inside of Tile
@@ -96,23 +66,7 @@ Detail can be nested inside of components. Inside of this example it is nested i
 In this example, Detail is nested inside of the `Tile` component.
 
 <Canvas>
-  <Story name="inside of tile">
-    <Tile width="60%">
-      <div style={{ paddingTop: "16px" }}>
-        <Detail>This example of Detail just has children.</Detail>
-      </div>
-      <div style={{ paddingTop: "8px" }}>
-        <Detail footnote="This is a footnote">
-          This example of Detail has children and also a footnote.
-        </Detail>
-      </div>
-      <div style={{ paddingBottom: "16px" }}>
-        <Detail icon="settings" footnote="This is a footnote">
-          Where as this example of Detail has a footnote and icon.
-        </Detail>
-      </div>
-    </Tile>
-  </Story>
+  <Story name="inside of tile" story={stories.DetailInsideTile} />
 </Canvas>
 
 ## Props

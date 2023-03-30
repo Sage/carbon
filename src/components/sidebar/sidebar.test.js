@@ -222,12 +222,22 @@ context("Testing Sidebar component", () => {
     it("should render Sidebar with first input and button as focusableSelectors", () => {
       CypressMountWithProviders(<SidebarComponentFocusable />);
 
-      sidebarPreview().trigger("keydown", keyCode("Tab"));
-      sidebarPreview().trigger("keydown", keyCode("Tab"));
+      sidebarPreview().tab();
+      cy.focused().tab();
       getDataElementByValue("input").eq(0).should("be.focused");
-      sidebarPreview().trigger("keydown", keyCode("Tab"));
+      cy.focused().tab();
       getDataElementByValue("input").eq(1).should("not.be.focused");
       getDataElementByValue("open-toast").should("be.focused");
+    });
+
+    it("should return focus to the Toast within Sidebar after non-focusable content has been selected", () => {
+      CypressMountWithProviders(<SidebarComponentFocusable />);
+
+      getComponent("toast").should("not.exist");
+      getDataElementByValue("open-toast").click();
+      getComponent("toast").should("exist");
+      cy.get("body").click().tab();
+      closeIconButton().eq(1).should("be.focused");
     });
 
     it("should call onCancel callback when a click event is triggered", () => {

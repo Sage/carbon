@@ -13,6 +13,7 @@ import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Numeral Date/Test",
+  includeStories: "Default",
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -158,5 +159,22 @@ export const TooltipPosition = () => {
         tooltipPosition="right"
       />
     </>
+  );
+};
+
+export const NumeralDateComponent = ({ ...props }) => {
+  const [value, setValue] = React.useState({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+
+  return (
+    <NumeralDate
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      label="Default"
+      {...props}
+    />
   );
 };

@@ -1,3 +1,66 @@
+## [117.0.0](https://github.com/Sage/carbon/compare/v116.2.2...v117.0.0) (2023-03-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea, textbox:** The `warnOverLimit` prop is no longer consumed by both components and the styling
+the prop applied has now been made the default. Also the type of the `characterLimit` prop has been
+changed to solely a number opposed to a number or a string.
+
+### Bug Fixes
+
+* **textarea, textbox:** accessibility refactor of character count functionality ([182afc9](https://github.com/Sage/carbon/commit/182afc9ef94b3cd127d43ab3362b6374633dc64c)), closes [#5717](https://github.com/Sage/carbon/issues/5717)
+
+### [116.2.2](https://github.com/Sage/carbon/compare/v116.2.1...v116.2.2) (2023-03-30)
+
+
+### Bug Fixes
+
+* **check_rfcs:** ship the index file in the published package ([ca9665e](https://github.com/Sage/carbon/commit/ca9665e288b5c37ae2fabd536cefe53535fa981e))
+
+### [116.2.1](https://github.com/Sage/carbon/compare/v116.2.0...v116.2.1) (2023-03-28)
+
+
+### Bug Fixes
+
+* **select:** stop select list triggering refocus if closed inside a modal ([2505dc4](https://github.com/Sage/carbon/commit/2505dc4eed3d19ca154aa13bc59929cbcd223d5a)), closes [#5898](https://github.com/Sage/carbon/issues/5898)
+
+## [116.2.0](https://github.com/Sage/carbon/compare/v116.1.3...v116.2.0) (2023-03-24)
+
+
+### Features
+
+* **accordion:** allow buttonWidth to accept string values ([34aa10c](https://github.com/Sage/carbon/commit/34aa10c46af31aea3d9d81d081362d18e2127833)), closes [#5897](https://github.com/Sage/carbon/issues/5897)
+
+### [116.1.3](https://github.com/Sage/carbon/compare/v116.1.2...v116.1.3) (2023-03-23)
+
+
+### Bug Fixes
+
+* **date:** enable width customization ([8807c18](https://github.com/Sage/carbon/commit/8807c183b840094c4822330b68f70c747b191fa7)), closes [#5787](https://github.com/Sage/carbon/issues/5787)
+
+### [116.1.2](https://github.com/Sage/carbon/compare/v116.1.1...v116.1.2) (2023-03-21)
+
+
+### Bug Fixes
+
+* **button-toggle:** ensure text wraps correctly ([243badb](https://github.com/Sage/carbon/commit/243badbe6709d7d5cc669dfe951468859436d1c7)), closes [#FE-5682](https://github.com/Sage/carbon/issues/FE-5682)
+
+### [116.1.1](https://github.com/Sage/carbon/compare/v116.1.0...v116.1.1) (2023-03-21)
+
+
+### Bug Fixes
+
+* **focus-trap:** ensure focus trap behaviour does not work except in the top modal ([de53a06](https://github.com/Sage/carbon/commit/de53a060c05d1346623ee8fbc17cf99c572358cc)), closes [#5754](https://github.com/Sage/carbon/issues/5754)
+* **focus-trap:** utilise tab guards to avoid calling preventDefault except when necessary ([9fadf91](https://github.com/Sage/carbon/commit/9fadf911a41de72dfa324f8c078ed55492c80791)), closes [#5749](https://github.com/Sage/carbon/issues/5749)
+
+## [116.1.0](https://github.com/Sage/carbon/compare/v116.0.1...v116.1.0) (2023-03-20)
+
+
+### Features
+
+* **badge:** allow component to be display only ([856ecc2](https://github.com/Sage/carbon/commit/856ecc2a1681705051250ac6c27aba4a5f62e585)), closes [#5706](https://github.com/Sage/carbon/issues/5706)
+
 ### [116.0.1](https://github.com/Sage/carbon/compare/v116.0.0...v116.0.1) (2023-03-15)
 
 

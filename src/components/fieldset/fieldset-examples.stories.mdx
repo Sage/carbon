@@ -1,9 +1,8 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import Fieldset from "./";
-import { RadioButton, RadioButtonGroup } from "../radio-button";
-import { Select, Option } from "../select";
-import Textbox from "../textbox";
+
+import * as stories from "./fieldset-examples.stories";
 
 <Meta
   title="Fieldset/Address Fieldset Examples"
@@ -15,24 +14,7 @@ import Textbox from "../textbox";
 Address Fieldset for Canada.
 
 <Canvas>
-  <Story name="Canada">
-    <Fieldset>
-      <Textbox label="Address line 1" labelInline labelAlign="right" />
-      <Textbox label="Address line 2" labelInline labelAlign="right" />
-      <Textbox label="Town/City" labelInline labelAlign="right" />
-      <Select label="Province" labelInline labelAlign="right">
-        <Option key="ab" text="Alberta" value="ab" />
-        <Option key="on" text="Ontario" value="on" />
-        <Option key="qc" text="Quebec" value="qc" />
-      </Select>
-      <Textbox
-        label="ZIP Code"
-        labelInline
-        labelAlign="right"
-        inputWidth={10}
-      />
-    </Fieldset>
-  </Story>
+  <Story name="Canada" story={stories.Canada} />
 </Canvas>
 
 ### EU
@@ -40,25 +22,7 @@ Address Fieldset for Canada.
 Address Fieldset for EU.
 
 <Canvas>
-  <Story name="EU">
-    <Fieldset>
-      <Textbox label="Address line 1" labelInline labelAlign="right" />
-      <Textbox label="Address line 2" labelInline labelAlign="right" />
-      <Textbox
-        label="Postal Code"
-        labelInline
-        labelAlign="right"
-        inputWidth={10}
-      />
-      <Textbox label="Town/City" labelInline labelAlign="right" />
-      <Select label="Country" labelInline labelAlign="right">
-        <Option key="dk" text="Denmark" value="dk" />
-        <Option key="fr" text="France" value="fr" />
-        <Option key="de" text="Germany" value="de" />
-        <Option key="es" text="Spain" value="es" />
-      </Select>
-    </Fieldset>
-  </Story>
+  <Story name="EU" story={stories.EU} />
 </Canvas>
 
 ### UK and Ireland
@@ -66,24 +30,7 @@ Address Fieldset for EU.
 Address Fieldset for UK and Ireland.
 
 <Canvas>
-  <Story name="UK and Ireland">
-    <Fieldset>
-      <Textbox label="Address line 1" labelInline labelAlign="right" />
-      <Textbox label="Address line 2" labelInline labelAlign="right" />
-      <Textbox label="Town/City" labelInline labelAlign="right" />
-      <Textbox label="County" labelInline labelAlign="right" />
-      <Select label="Country" labelInline labelAlign="right" defaultValue="uk">
-        <Option key="uk" text="United Kingdom" value="uk" />
-        <Option key="irl" text="Ireland" value="irl" />
-      </Select>
-      <Textbox
-        label="Postcode"
-        labelInline
-        labelAlign="right"
-        inputWidth={10}
-      />
-    </Fieldset>
-  </Story>
+  <Story name="UK and Ireland" story={stories.UkAndIreland} />
 </Canvas>
 
 ### United States
@@ -91,24 +38,7 @@ Address Fieldset for UK and Ireland.
 Address Fieldset for United States.
 
 <Canvas>
-  <Story name="United States">
-    <Fieldset>
-      <Textbox label="Address line 1" labelInline labelAlign="right" />
-      <Textbox label="Address line 2" labelInline labelAlign="right" />
-      <Textbox label="Town/City" labelInline labelAlign="right" />
-      <Select label="State" labelInline labelAlign="right">
-        <Option key="ca" text="California" value="ca" />
-        <Option key="ny" text="New York" value="ny" />
-        <Option key="tx" text="Texas" value="tx" />
-      </Select>
-      <Textbox
-        label="ZIP Code"
-        labelInline
-        labelAlign="right"
-        inputWidth={10}
-      />
-    </Fieldset>
-  </Story>
+  <Story name="United States" story={stories.UnitedStates} />
 </Canvas>
 
 ### Other
@@ -116,22 +46,5 @@ Address Fieldset for United States.
 Address Fieldset for other countries.
 
 <Canvas>
-  <Story name="Other">
-    <Fieldset>
-      <Textbox label="Address line 1" labelInline labelAlign="right" />
-      <Textbox label="Address line 2" labelInline labelAlign="right" />
-      <Textbox label="Town/City" labelInline labelAlign="right" />
-      <Textbox label="Province / State" labelInline labelAlign="right" />
-      <Textbox
-        label="Postal Code"
-        labelInline
-        labelAlign="right"
-        inputWidth={10}
-      />
-      <Select label="Country" labelInline labelAlign="right">
-        <Option key="au" text="Australia" value="au" />
-        <Option key="cn" text="China" value="cn" />
-      </Select>
-    </Fieldset>
-  </Story>
+  <Story name="Other" story={stories.Other} />
 </Canvas>
