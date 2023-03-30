@@ -1,3 +1,16 @@
+## [117.0.0](https://github.com/Sage/carbon/compare/v116.2.2...v117.0.0) (2023-03-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea, textbox:** The `warnOverLimit` prop is no longer consumed by both components and the styling
+the prop applied has now been made the default. Also the type of the `characterLimit` prop has been
+changed to solely a number opposed to a number or a string.
+
+### Bug Fixes
+
+* **textarea, textbox:** accessibility refactor of character count functionality ([182afc9](https://github.com/Sage/carbon/commit/182afc9ef94b3cd127d43ab3362b6374633dc64c)), closes [#5717](https://github.com/Sage/carbon/issues/5717)
+
 ### [116.2.2](https://github.com/Sage/carbon/compare/v116.2.1...v116.2.2) (2023-03-30)
 
 

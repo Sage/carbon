@@ -27,7 +27,6 @@ export interface DateInputProps
     | "iconOnMouseDown"
     | "enforceCharacterLimit"
     | "characterLimit"
-    | "warnOverLimit"
     | "iconTabIndex"
   > {
   /** Boolean to allow the input to have an empty value */
