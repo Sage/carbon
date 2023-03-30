@@ -168,17 +168,20 @@ context("Tests for Textarea component", () => {
     });
 
     it.each([
-      ["11", "11", "rgba(0, 0, 0, 0.55)"],
-      ["11", "10", "rgb(203, 55, 74)"],
+      [11, 11, "rgba(0, 0, 0, 0.55)"],
+      [11, 10, "rgb(203, 55, 74)"],
     ])(
       "should input %s characters and warn if over character limit of %s in Textarea",
       (charactersUsed, limit, color) => {
         const inputValue = "12345678901";
+        const underCharacters =
+          limit - charactersUsed === 1 ? "character" : "characters";
+        const overCharacters =
+          charactersUsed - limit === 1 ? "character" : "characters";
 
         CypressMountWithProviders(
           <TextareaComponent
             enforceCharacterLimit={false}
-            warnOverLimit
             characterLimit={limit}
           />
         );
@@ -187,9 +190,54 @@ context("Tests for Textarea component", () => {
           .type(inputValue)
           .then(() => {
             commonInputCharacterLimit()
-              .should("have.text", `${charactersUsed}/${limit}`)
+              .should(
+                "have.text",
+                `${
+                  charactersUsed - limit
+                    ? `You have ${
+                        charactersUsed - limit
+                      } ${overCharacters} too many`
+                    : `You have ${
+                        charactersUsed - limit
+                      } ${underCharacters} remaining`
+                }`
+              )
               .and("have.css", "color", color);
           });
+      }
+    );
+
+    it.each([
+      ["foo", "exist"],
+      ["", "not.exist"],
+    ])(
+      "input hint should be conditionally rendered",
+      (inputHint, renderStatus) => {
+        CypressMountWithProviders(
+          <TextareaComponent
+            enforceCharacterLimit={false}
+            inputHint={inputHint}
+          />
+        );
+
+        getDataElementByValue("input-hint").should(renderStatus);
+      }
+    );
+
+    it.each([
+      [4, "exist"],
+      ["", "not.exist"],
+    ])(
+      "character counter hint should be conditionally rendered",
+      (characterLimit, renderStatus) => {
+        CypressMountWithProviders(
+          <TextareaComponent
+            enforceCharacterLimit={false}
+            characterLimit={characterLimit}
+          />
+        );
+
+        getDataElementByValue("input-hint").should(renderStatus);
       }
     );
 
@@ -215,23 +263,35 @@ context("Tests for Textarea component", () => {
     });
 
     it.each([
-      ["11", "11"],
-      ["10", "10"],
+      [11, 11],
+      [10, 10],
     ])(
       "should input %s characters and enforce character limit of %s in Textarea",
       (charactersUsed, limit) => {
+        const inputValue = "12345678901";
+        const underCharacters =
+          limit - charactersUsed === 1 ? "character" : "characters";
+        const overCharacters =
+          charactersUsed - limit === 1 ? "character" : "characters";
+
         CypressMountWithProviders(
           <TextareaComponent enforceCharacterLimit characterLimit={limit} />
         );
-
-        const inputValue = "12345678901";
 
         textareaChildren()
           .type(inputValue)
           .then(() => {
             commonInputCharacterLimit().should(
               "have.text",
-              `${charactersUsed}/${limit}`
+              `${
+                charactersUsed - limit
+                  ? `You have ${
+                      limit - charactersUsed
+                    } ${underCharacters} too many`
+                  : `You have ${
+                      charactersUsed - limit
+                    } ${overCharacters} remaining`
+              }`
             );
           });
       }

@@ -56,6 +56,19 @@ import Textbox from "carbon-react/lib/components/textbox";
   <Story name="character counter" story={stories.CharacterCounter} />
 </Canvas>
 
+### Character counter with translations
+
+Various translations can be applied to both the hint message which appears before the input, and the character 
+counter below the input. 
+
+These translations have been split up to include a number which represents the current character count which
+is over/under the set `characterLimit`. Please see below how this has been achieved with a French translation.
+Include the formatted number count wherever makes sense for the language you're translating too.
+
+<Canvas>
+  <Story name="character counter with translations" story={stories.CharacterCounterTranslations} />
+</Canvas>
+
 ### Prefix
 
 <Canvas>
