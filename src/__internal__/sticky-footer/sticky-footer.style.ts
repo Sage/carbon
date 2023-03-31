@@ -5,7 +5,7 @@ const FormButtonAnimation = keyframes`
   100% { transform: translateY(0px); }
 `;
 
-const StyledStickyFooter = styled.div`
+const StyledStickyFooter = styled.div<{ sticky: boolean }>`
   padding: var(--spacing200) var(--spacing400);
   box-sizing: border-box;
   width: 100%;

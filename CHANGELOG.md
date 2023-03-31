@@ -1,3 +1,19 @@
+### [117.1.1](https://github.com/Sage/carbon/compare/v117.1.0...v117.1.1) (2023-03-31)
+
+
+### Bug Fixes
+
+* **date:** add missing ref TS type ([d27984b](https://github.com/Sage/carbon/commit/d27984ba97c856398bcf7cf0505ac0e883b4d38c)), closes [#5929](https://github.com/Sage/carbon/issues/5929)
+
+## [117.1.0](https://github.com/Sage/carbon/compare/v117.0.0...v117.1.0) (2023-03-30)
+
+
+### Features
+
+* **filterable-select:** add aria-label and aria-labelledby props ([e656d2b](https://github.com/Sage/carbon/commit/e656d2b65d6e6dee26fa2ff6c9c68cc674696582))
+* **multi-select:** add aria-label and aria-labelledby props ([422627f](https://github.com/Sage/carbon/commit/422627f3b4ad7ad231a9c05e746cbb824ca316d8))
+* **select:** add aria-label and aria-labelledby props ([f4e11d2](https://github.com/Sage/carbon/commit/f4e11d22f22980cb777170086b50bcf6befab883))
+
 ## [117.0.0](https://github.com/Sage/carbon/compare/v116.2.2...v117.0.0) (2023-03-30)
 
 
