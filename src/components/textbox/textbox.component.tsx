@@ -216,11 +216,12 @@ export const Textbox = React.forwardRef(
 
     const {
       labelId,
-      validationIconId,
+      validationId,
       fieldHelpId,
       ariaDescribedBy,
     } = useInputAccessibility({
       id: uniqueId,
+      validationRedesignOptIn,
       error,
       warning,
       info,
@@ -240,19 +241,11 @@ export const Textbox = React.forwardRef(
       ? characterCountHintIdValue
       : inputHintIdValue;
 
-    const ariaDescribedByValues = [
-      validationRedesignOptIn ? undefined : ariaDescribedBy,
-      hintIdValue,
-    ];
-
-    const ariaDescribedByValue = ariaDescribedByValues
+    const combinedAriaDescribedBy = [ariaDescribedBy, hintIdValue]
       .filter(Boolean)
       .join(" ");
 
-    const hasIconInside = !!(
-      inputIcon ||
-      (validationIconId && !validationOnLabel)
-    );
+    const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
 
     const input = (
       <InputPresentation
@@ -279,7 +272,7 @@ export const Textbox = React.forwardRef(
           align={align}
           aria-invalid={!!error}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={ariaDescribedByValue}
+          ariaDescribedBy={combinedAriaDescribedBy}
           autoFocus={autoFocus}
           deferTimeout={deferTimeout}
           disabled={disabled}
@@ -297,6 +290,7 @@ export const Textbox = React.forwardRef(
           readOnly={readOnly}
           value={typeof formattedValue === "string" ? formattedValue : value}
           maxLength={maxLength}
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
           {...props}
         />
         {children}
@@ -313,9 +307,7 @@ export const Textbox = React.forwardRef(
           size={size}
           useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
           warning={warning}
-          validationIconId={
-            validationRedesignOptIn ? undefined : validationIconId
-          }
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
         />
       </InputPresentation>
     );
@@ -350,7 +342,7 @@ export const Textbox = React.forwardRef(
             data-role={dataRole}
             data-element={dataElement}
             validationIconId={
-              validationRedesignOptIn ? undefined : validationIconId
+              validationRedesignOptIn ? undefined : validationId
             }
             validationRedesignOptIn={validationRedesignOptIn}
             {...filterStyledSystemMarginProps(props)}
@@ -365,7 +357,11 @@ export const Textbox = React.forwardRef(
             )}
             {validationRedesignOptIn ? (
               <Box position="relative">
-                <ValidationMessage error={error} warning={warning} />
+                <ValidationMessage
+                  error={error}
+                  validationId={validationId}
+                  warning={warning}
+                />
                 {!disableErrorBorder && (error || warning) && (
                   <ErrorBorder warning={!!(!error && warning)} />
                 )}

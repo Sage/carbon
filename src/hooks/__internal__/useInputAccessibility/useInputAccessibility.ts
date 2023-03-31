@@ -1,5 +1,6 @@
 export default function useInputAccessibility({
   id,
+  validationRedesignOptIn,
   error,
   warning,
   info,
@@ -7,6 +8,7 @@ export default function useInputAccessibility({
   fieldHelp,
 }: {
   id: string;
+  validationRedesignOptIn?: boolean;
   error?: string | boolean;
   warning?: string | boolean;
   info?: string | boolean;
@@ -14,27 +16,32 @@ export default function useInputAccessibility({
   fieldHelp?: React.ReactNode;
 }): {
   labelId?: string;
-  validationIconId?: string;
+  validationId?: string;
   fieldHelpId?: string;
   ariaDescribedBy?: string;
 } {
   const labelId = label ? `${id}-label` : undefined;
 
-  const validationIconId = [error, warning, info].filter(
+  const validationId = [error, warning, info].filter(
     (validation) => validation && typeof validation === "string"
   ).length
-    ? `${id}-validation-icon`
+    ? `${id}-validation`
     : undefined;
 
   const fieldHelpId = fieldHelp ? `${id}-field-help` : undefined;
+  const descriptionList = fieldHelpId ? [fieldHelpId] : [];
 
-  const ariaDescribedBy = [fieldHelpId, validationIconId]
-    .filter(Boolean)
-    .join(" ");
+  if (validationRedesignOptIn && validationId) {
+    descriptionList.push(validationId);
+  }
+
+  const ariaDescribedBy = descriptionList.length
+    ? descriptionList.filter(Boolean).join(" ")
+    : undefined;
 
   return {
     labelId,
-    validationIconId,
+    validationId,
     fieldHelpId,
     ariaDescribedBy,
   };

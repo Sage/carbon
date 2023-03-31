@@ -45,6 +45,8 @@ export interface DateInputProps
   pickerProps?: DayPickerProps;
 }
 
-declare function DateInput(props: DateInputProps): JSX.Element;
+declare function DateInput(
+  props: SimpleSelectProps & React.RefAttributes<HTMLInputElement>
+): JSX.Element;
 
 export default DateInput;

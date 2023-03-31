@@ -235,30 +235,24 @@ context("Testing Checkbox component", () => {
     checkboxSvg().should("have.css", "border-bottom-color", VALIDATION.INFO);
   });
 
-  it("should render Checkbox component with error message", () => {
+  it("should render Checkbox component with error icon", () => {
     CypressMountWithProviders(<CheckboxComponent error="Error has occurred" />);
 
-    checkboxIcon()
-      .should("have.attr", "aria-label", "Error has occurred")
-      .should("have.attr", "data-element", "error");
+    checkboxIcon().should("have.attr", "data-element", "error");
   });
 
-  it("should render Checkbox component with warning message", () => {
+  it("should render Checkbox component with warning icon", () => {
     CypressMountWithProviders(
       <CheckboxComponent warning="Warning has occurred" />
     );
 
-    checkboxIcon()
-      .should("have.attr", "aria-label", "Warning has occurred")
-      .should("have.attr", "data-element", "warning");
+    checkboxIcon().should("have.attr", "data-element", "warning");
   });
 
-  it("should render Checkbox component with info message", () => {
+  it("should render Checkbox component with info icon", () => {
     CypressMountWithProviders(<CheckboxComponent info="Info has occurred" />);
 
-    checkboxIcon()
-      .should("have.attr", "aria-label", "Info has occurred")
-      .should("have.attr", "data-element", "info");
+    checkboxIcon().should("have.attr", "data-element", "info");
   });
 
   it.each([
@@ -415,9 +409,7 @@ context("Testing Checkbox component", () => {
           <CheckboxGroupComponent error="Error has occurred" />
         );
 
-        checkboxGroupIcon()
-          .should("have.attr", "aria-label", "Error has occurred")
-          .should("have.attr", "data-element", "error");
+        checkboxGroupIcon().should("have.attr", "data-element", "error");
       });
 
       it("should render CheckboxGroup component with warning message", () => {
@@ -425,9 +417,7 @@ context("Testing Checkbox component", () => {
           <CheckboxGroupComponent warning="Warning has occurred" />
         );
 
-        checkboxGroupIcon()
-          .should("have.attr", "aria-label", "Warning has occurred")
-          .should("have.attr", "data-element", "warning");
+        checkboxGroupIcon().should("have.attr", "data-element", "warning");
       });
 
       it("should render CheckboxGroup component with info message", () => {
@@ -435,9 +425,7 @@ context("Testing Checkbox component", () => {
           <CheckboxGroupComponent info="Info has occurred" />
         );
 
-        checkboxGroupIcon()
-          .should("have.attr", "aria-label", "Info has occurred")
-          .should("have.attr", "data-element", "info");
+        checkboxGroupIcon().should("have.attr", "data-element", "info");
       });
 
       it.each([
@@ -642,31 +630,26 @@ context("Testing Checkbox component", () => {
       }
     );
 
-    // FE-5382
-    describe.skip("skip", () => {
-      it("should pass accessibility tests for Checkbox component with error message", () => {
-        CypressMountWithProviders(
-          <CheckboxComponent error="Error has occurred" />
-        );
+    it("should pass accessibility tests for Checkbox component with error message", () => {
+      CypressMountWithProviders(
+        <CheckboxComponent error="Error has occurred" />
+      );
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
+    });
 
-      it("should pass accessibility tests for Checkbox component with warning message", () => {
-        CypressMountWithProviders(
-          <CheckboxComponent warning="Warning has occurred" />
-        );
+    it("should pass accessibility tests for Checkbox component with warning message", () => {
+      CypressMountWithProviders(
+        <CheckboxComponent warning="Warning has occurred" />
+      );
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
+    });
 
-      it("should pass accessibility tests for Checkbox component with info message", () => {
-        CypressMountWithProviders(
-          <CheckboxComponent info="Info has occurred" />
-        );
+    it("should pass accessibility tests for Checkbox component with info message", () => {
+      CypressMountWithProviders(<CheckboxComponent info="Info has occurred" />);
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
     });
   });
 
@@ -734,27 +717,24 @@ context("Testing Checkbox component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    describe.skip("skip", () => {
-      it.each(["top", "bottom", "left", "right"])(
-        "should pass accessibility tests for CheckboxGroupComponent component with tooltip positioned to the %s",
-        (position) => {
-          CypressMountWithProviders(
-            <CheckboxGroupComponent
-              legend="Checkbox Legend"
-              error="Something is wrong"
-              tooltipPosition={position}
-            />
-          );
+    it.each(["top", "bottom", "left", "right"])(
+      "should pass accessibility tests for CheckboxGroupComponent component with tooltip positioned to the %s",
+      (position) => {
+        CypressMountWithProviders(
+          <CheckboxGroupComponent
+            legend="Checkbox Legend"
+            error="Something is wrong"
+            tooltipPosition={position}
+          />
+        );
 
-          checkboxGroupIcon()
-            .trigger("mouseover")
-            .then(() => {
-              // eslint-disable-next-line no-unused-expressions
-              cy.checkAccessibility();
-            });
-        }
-      );
-    });
+        checkboxGroupIcon()
+          .trigger("mouseover")
+          .then(() => {
+            // eslint-disable-next-line no-unused-expressions
+            cy.checkAccessibility();
+          });
+      }
+    );
   });
 });

@@ -1,6 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
+import guid from "../utils/helpers/guid";
 import Icon from "../../components/icon";
 import ValidationIconStyle from "./validation-icon.style";
 import {
@@ -82,6 +83,7 @@ export const ValidationIcon = ({
   tooltipFlipOverrides,
   ...rest
 }: ValidationIconProps) => {
+  const validationTooltipId = useRef(tooltipId || guid());
   const flipBehaviourCheck =
     Array.isArray(tooltipFlipOverrides) &&
     tooltipFlipOverrides.every((override) =>
@@ -130,10 +132,11 @@ export const ValidationIcon = ({
       {...filterStyledSystemMarginProps(rest)}
     >
       <Icon
+        aria-describedby={validationTooltipId.current}
         key={`${validationType}-icon`}
         type={validationType}
         tabIndex={tabIndex}
-        tooltipId={tooltipId}
+        tooltipId={validationTooltipId.current}
         tooltipMessage={validationMessage}
         tooltipPosition={tooltipPosition}
         tooltipVisible={
@@ -151,7 +154,6 @@ export const ValidationIcon = ({
         isPartOfInput={isPartOfInput}
         inputSize={size}
         id={iconId}
-        ariaLabel={validationMessage}
         focusable={tabIndex !== -1}
       />
     </ValidationIconStyle>
