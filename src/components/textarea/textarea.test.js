@@ -759,29 +759,25 @@ context("Tests for Textarea component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    it.skip("should pass accessibility tests for Textarea ValidationLabelPositionStory", () => {
+    it("should pass accessibility tests for Textarea ValidationLabelPositionStory", () => {
       CypressMountWithProviders(<stories.ValidationLabelPositionStory />);
 
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    it.skip("should pass accessibility tests for Textarea ValidationLabelStory", () => {
+    it("should pass accessibility tests for Textarea ValidationLabelStory", () => {
       CypressMountWithProviders(<stories.ValidationLabelStory />);
 
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    it.skip("should pass accessibility tests for Textarea ValidationStringPositionStory", () => {
+    it("should pass accessibility tests for Textarea ValidationStringPositionStory", () => {
       CypressMountWithProviders(<stories.ValidationStringPositionStory />);
 
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    it.skip("should pass accessibility tests for Textarea ValidationStringStory", () => {
+    it("should pass accessibility tests for Textarea ValidationStringStory", () => {
       CypressMountWithProviders(<stories.ValidationStringStory />);
 
       cy.checkAccessibility();

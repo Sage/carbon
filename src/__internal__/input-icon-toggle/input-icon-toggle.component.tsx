@@ -68,7 +68,7 @@ const InputIconToggle = ({
           onBlur={onBlur}
           isPartOfInput
           tabIndex={iconTabIndex}
-          iconId={validationIconId}
+          tooltipId={validationIconId}
           tooltipPosition={align === "right" ? "left" : "right"}
         />
       </InputIconToggleStyle>
