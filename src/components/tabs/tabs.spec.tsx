@@ -540,78 +540,109 @@ describe("Tabs", () => {
     });
   });
 
-  describe("When a TabTitle has a keydown event", () => {
+  describe("When a key is pressed on TabTitle", () => {
+    let container: HTMLDivElement | null;
+    let wrapper: ReactWrapper;
+
+    beforeEach(() => {
+      container = document.createElement("div");
+      container.id = "enzymeContainer";
+      document.body.appendChild(container);
+    });
+
+    afterEach(() => {
+      if (container && container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+
+      container = null;
+    });
+
+    const getTabNode = (index: number): HTMLButtonElement =>
+      wrapper
+        .find(StyledTabTitleButton)
+        .at(index)
+        .getDOMNode() as HTMLButtonElement;
+
     describe('and the component has position "top" (default)', () => {
       it.each([0, 1, 2])(
-        "updates to make the associated Tab visible when the right key is pressed",
+        "focuses the next TabTitle when the right key is pressed",
         (index) => {
-          const wrapper = render();
+          wrapper = render({}, { attachTo: container });
           act(() => {
             simulate.keydown.pressArrowRight(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
-          expect(wrapper.find(Tab).at(newIndex).props().isTabSelected).toEqual(
-            true
-          );
+          expect(getTabNode(newIndex)).toEqual(document.activeElement);
         }
       );
 
       it.each([0, 2, 1])(
-        "updates to make the associated Tab visible when the left key is pressed",
+        "focuses the previous TabTitle when the left key is pressed",
         (index) => {
-          const wrapper = render();
+          wrapper = render({}, { attachTo: container });
           act(() => {
             simulate.keydown.pressArrowLeft(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
-          expect(wrapper.find(Tab).at(newIndex).props().isTabSelected).toEqual(
-            true
-          );
+          expect(getTabNode(newIndex)).toEqual(document.activeElement);
         }
       );
     });
 
     describe('and the component has position "left"', () => {
       it.each([0, 1, 2])(
-        "updates to make the associated Tab visible when the down key is pressed",
+        "focuses the next TabTitle when the down key is pressed",
         (index) => {
-          const wrapper = render({ position: "left" });
+          wrapper = render({ position: "left" }, { attachTo: container });
           act(() => {
             simulate.keydown.pressArrowDown(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
-          expect(wrapper.find(Tab).at(newIndex).props().isTabSelected).toEqual(
-            true
-          );
+          expect(getTabNode(newIndex)).toEqual(document.activeElement);
         }
       );
 
       it.each([0, 2, 1])(
-        "updates to make the associated Tab visible when the up key is pressed",
+        "focuses the previous TabTitle when the up key is pressed",
         (index) => {
-          const wrapper = render({ position: "left" });
+          wrapper = render({ position: "left" }, { attachTo: container });
           act(() => {
             simulate.keydown.pressArrowUp(wrapper.find(TabTitle).at(index));
           });
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
-          expect(wrapper.find(Tab).at(newIndex).props().isTabSelected).toEqual(
-            true
-          );
+          expect(getTabNode(newIndex)).toEqual(document.activeElement);
         }
       );
     });
 
+    it.each([0, 1, 2])(
+      "activates the Tab when the enter key is pressed",
+      (index) => {
+        wrapper = render({}, { attachTo: container });
+        act(() => {
+          // Click event is used because thats the event handler that is used in the component
+          // In the browser the click event is fired when the enter key is pressed
+          // Enzyme does not simulate this behaviour correctly
+          wrapper.find(StyledTabTitleButton).at(index).simulate("click");
+        });
+        wrapper.update();
+        expect(wrapper.find(Tab).at(index).props().isTabSelected).toEqual(true);
+      }
+    );
+
     it.each([0, 1, 2])("does nothing if key is not an arrow key", (index) => {
-      const wrapper = render();
+      wrapper = render({}, { attachTo: container });
+      getTabNode(0).focus();
       act(() => {
         simulate.keydown.pressD(wrapper.find(TabTitle).at(index));
       });
       wrapper.update();
-      expect(wrapper.find(Tab).at(0).props().isTabSelected).toEqual(true);
+      expect(getTabNode(0)).toEqual(document.activeElement);
     });
   });
 

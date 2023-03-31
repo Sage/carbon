@@ -1,6 +1,10 @@
 import React from "react";
 import { Tabs, Tab } from "./tabs.component";
-import { tabById, tabContentById } from "../../../cypress/locators/tabs";
+import {
+  tabById,
+  tabContentById,
+  tabTitleById,
+} from "../../../cypress/locators/tabs";
 import Box from "../box/box.component";
 import Icon from "../icon/icon.component";
 import Pill from "../pill/pill.component";
@@ -372,9 +376,7 @@ context("Testing Tabs component", () => {
       "should verify Tabs component is %s aligned",
       (alignment, value, startValue) => {
         CypressMountWithProviders(<TabsComponent align={alignment} />);
-
-        tabById(1)
-          .parent()
+        cy.get(`[role="tablist"]`)
           .should(value, "text-align", alignment)
           .and(value, "justify-content", "flex-end")
           .and(startValue, "justify-content", "normal");
@@ -681,25 +683,34 @@ context("Testing Tabs component", () => {
           });
       });
 
-      it("should call onTabChange callback when right arrow key event is triggered", () => {
+      it("should call onTabChange callback when an enter key is pressed", () => {
         CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
 
-        tabById(1)
-          .trigger("keydown", keyCode("rightarrow"))
+        tabById(2)
+          .type("{enter}")
           .then(() => {
             // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
           });
       });
 
-      it("should call onTabChange callback when left arrow key event is triggered", () => {
-        CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
+      it("should focus next tab title when right arrow key event is triggered", () => {
+        CypressMountWithProviders(<TabsComponent />);
+
+        tabById(1)
+          .trigger("keydown", keyCode("rightarrow"))
+          .then(() => {
+            tabTitleById(2).should("have.focus");
+          });
+      });
+
+      it("should focus previous tab title when left arrow key event is triggered", () => {
+        CypressMountWithProviders(<TabsComponent />);
 
         tabById(2)
           .trigger("keydown", keyCode("leftarrow"))
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
+            tabTitleById(1).should("have.focus");
           });
       });
     });
@@ -724,29 +735,36 @@ context("Testing Tabs component", () => {
           });
       });
 
-      it("should call onTabChange callback when down arrow key event is triggered", () => {
+      it("should call onTabChange callback when an enter key is pressed", () => {
         CypressMountWithProviders(
           <TabsComponent position="left" onTabChange={callback} />
         );
 
-        tabById(1)
-          .trigger("keydown", keyCode("downarrow"))
+        tabById(2)
+          .type("{enter}")
           .then(() => {
             // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
           });
       });
 
-      it("should call onTabChange callback when up arrow key event is triggered", () => {
-        CypressMountWithProviders(
-          <TabsComponent position="left" onTabChange={callback} />
-        );
+      it("should focus next tab title when down arrow key event is triggered", () => {
+        CypressMountWithProviders(<TabsComponent position="left" />);
+
+        tabById(1)
+          .trigger("keydown", keyCode("downarrow"))
+          .then(() => {
+            tabTitleById(2).should("have.focus");
+          });
+      });
+
+      it("should focus previous tab title when up arrow key event is triggered", () => {
+        CypressMountWithProviders(<TabsComponent position="left" />);
 
         tabById(2)
           .trigger("keydown", keyCode("uparrow"))
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
+            tabTitleById(1).should("have.focus");
           });
       });
     });
@@ -773,22 +791,7 @@ context("Testing Tabs component", () => {
           });
       });
 
-      it("should call onTabChange callback when down arrow key event is triggered", () => {
-        CypressMountWithProviders(
-          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-            <TabsComponent onTabChange={callback} />
-          </DrawerSidebarContext.Provider>
-        );
-
-        tabById(1)
-          .trigger("keydown", keyCode("downarrow"))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
-      });
-
-      it("should call onTabChange callback when up arrow key event is triggered", () => {
+      it("should call onTabChange callback when an enter key is pressed", () => {
         CypressMountWithProviders(
           <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
             <TabsComponent onTabChange={callback} />
@@ -796,10 +799,38 @@ context("Testing Tabs component", () => {
         );
 
         tabById(2)
-          .trigger("keydown", keyCode("uparrow"))
+          .type("{enter}")
           .then(() => {
             // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
+          });
+      });
+
+      it("should focus next tab title when down arrow key event is triggered", () => {
+        CypressMountWithProviders(
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+            <TabsComponent />
+          </DrawerSidebarContext.Provider>
+        );
+
+        tabById(1)
+          .trigger("keydown", keyCode("downarrow"))
+          .then(() => {
+            tabTitleById(2).should("have.focus");
+          });
+      });
+
+      it("should focus previous tab title when up arrow key event is triggered", () => {
+        CypressMountWithProviders(
+          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+            <TabsComponent />
+          </DrawerSidebarContext.Provider>
+        );
+
+        tabById(2)
+          .trigger("keydown", keyCode("uparrow"))
+          .then(() => {
+            tabTitleById(1).should("have.focus");
           });
       });
     });

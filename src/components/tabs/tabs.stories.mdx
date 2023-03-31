@@ -60,19 +60,28 @@ The tabs widget also allows you to select a tab on page load. By default this is
 ### Positioned top and aligned right
 
 <Canvas>
-  <Story name="positioned top aligned right" story={stories.PositionedTopAlignedRight} />
+  <Story
+    name="positioned top aligned right"
+    story={stories.PositionedTopAlignedRight}
+  />
 </Canvas>
 
 ### Positoned left and aligned left
 
 <Canvas>
-  <Story name="positioned left and aligned left" story={stories.PositionedLeftAndAlignedLeft} />
+  <Story
+    name="positioned left and aligned left"
+    story={stories.PositionedLeftAndAlignedLeft}
+  />
 </Canvas>
 
 ### Positoned left and aligned right
 
 <Canvas>
-  <Story name="positioned left and aligned right" story={stories.PositionedLeftAndAlignedRight} />
+  <Story
+    name="positioned left and aligned right"
+    story={stories.PositionedLeftAndAlignedRight}
+  />
 </Canvas>
 
 ### With Link as a Tab
@@ -88,7 +97,10 @@ To set a different tab on page load pass a `tabId` to the `selectedTabId` prop a
 To set a different tab on page load pass a `tabId` to the `selectedTabId` prop as shown in the example below.
 
 <Canvas>
-  <Story name="with specified tab visible" story={stories.WithSpecifiedTabVisible} />
+  <Story
+    name="with specified tab visible"
+    story={stories.WithSpecifiedTabVisible}
+  />
 </Canvas>
 
 ### Without extended dividing line
@@ -97,7 +109,10 @@ By setting the `extendedLine` prop to "false" it is possible to trim the excess 
 is set to "true".
 
 <Canvas>
-  <Story name="without extended dividing line" story={stories.WithoutExtendedDividingLine} />
+  <Story
+    name="without extended dividing line"
+    story={stories.WithoutExtendedDividingLine}
+  />
 </Canvas>
 
 ### Large tabs
@@ -107,13 +122,19 @@ The `size` prop can be used to set the `TabTitle` to either "default" or "large"
 #### Positioned top
 
 <Canvas>
-  <Story name="with large tabs positioned top" story={stories.WithLargeTabsPositionedTop} />
+  <Story
+    name="with large tabs positioned top"
+    story={stories.WithLargeTabsPositionedTop}
+  />
 </Canvas>
 
 #### Positioned left
 
 <Canvas>
-  <Story name="with large tabs positioned left"story={stories.WithLargeTabsPositionedLeft} />
+  <Story
+    name="with large tabs positioned left"
+    story={stories.WithLargeTabsPositionedLeft}
+  />
 </Canvas>
 
 ### With borders
@@ -124,43 +145,67 @@ The `borders` prop can be used to add a combination of borders to the `TabTitle`
 #### Positioned top, borders on
 
 <Canvas>
-  <Story name="with borders positioned top" story={stories.WithBordersPositionedTop} />
+  <Story
+    name="with borders positioned top"
+    story={stories.WithBordersPositionedTop}
+  />
 </Canvas>
 
 #### Positioned top, borders with no sides
 
 <Canvas>
-  <Story name="with no sides positioned top" story={stories.WithNoSidesPositionedTop} />
+  <Story
+    name="with no sides positioned top"
+    story={stories.WithNoSidesPositionedTop}
+  />
 </Canvas>
 
 #### Positioned left, borders on
 
 <Canvas>
-  <Story name="with borders positioned left" story={stories.WithBordersPositionedLeft} />
+  <Story
+    name="with borders positioned left"
+    story={stories.WithBordersPositionedLeft}
+  />
 </Canvas>
 
 #### Positioned left, borders with no sides
 
 <Canvas>
-  <Story name="with no sides positioned left" story={stories.WithNoSidesPositionedLeft} />
+  <Story
+    name="with no sides positioned left"
+    story={stories.WithNoSidesPositionedLeft}
+  />
 </Canvas>
 
 ### With validations
 
 <Canvas>
-  <Story name="with validations positioned top" story={stories.WithValidationsPositionedTop} />
+  <Story
+    name="with validations positioned top"
+    story={stories.WithValidationsPositionedTop}
+  />
 </Canvas>
 
 <Canvas>
-  <Story name="with validations sized large positioned top" story={stories.WithValidationsSizedLargePositionedTop} />
+  <Story
+    name="with validations sized large positioned top"
+    story={stories.WithValidationsSizedLargePositionedTop}
+  />
 </Canvas>
 
 <Canvas>
-  <Story name="with validations positioned left" story={stories.WithValidationsPositionedLeft} />
+  <Story
+    name="with validations positioned left"
+    story={stories.WithValidationsPositionedLeft}
+  />
 </Canvas>
 
 <Canvas>
-  <Story name="with validations sized large positioned left" story={stories.WithValidationsSizedLargePositionedLeft} />
+  <Story
+    name="with validations sized large positioned left"
+    story={stories.WithValidationsSizedLargePositionedLeft}
+  />
 </Canvas>
 
 ### With additional title siblings
@@ -169,11 +214,17 @@ It is possible to add additional elements to the a TabTitle by using the `siblin
 can be used to render the `title` "before" (default) or "after" the additional elements.
 
 <Canvas>
-  <Story name="with additional title siblings" story={stories.WithAdditionalTitleSiblings} />
+  <Story
+    name="with additional title siblings"
+    story={stories.WithAdditionalTitleSiblings}
+  />
 </Canvas>
 
 <Canvas>
-  <Story name="with additional title siblings size large" story={stories.WithAdditionalTitleSiblingsSizeLarge} />
+  <Story
+    name="with additional title siblings size large"
+    story={stories.WithAdditionalTitleSiblingsSizeLarge}
+  />
 </Canvas>
 
 ### With custom layout
@@ -209,6 +260,15 @@ CSS string.
 
 <Canvas>
   <Story name="with custom spacing" story={stories.WithCustomSpacing} />
+</Canvas>
+
+### Responsive
+
+This story is best viewed in the `canvas` view and by adjusting the size of the window. The position of the `Tabs` component
+will change when the screen size is smaller or larger than `900px`.
+
+<Canvas>
+  <Story name="responsive" story={stories.Responsive} />
 </Canvas>
 
 ### With string validations summarised

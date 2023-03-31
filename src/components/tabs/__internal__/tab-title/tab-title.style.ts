@@ -282,6 +282,7 @@ const tabTitleStyles = css<TabTitleProps>`
   text-decoration: none;
   outline-offset: 0px;
   margin: 0;
+  ${({ position }) => position === "top" && "white-space: nowrap"};
 
   a:visited {
     color: inherit;
