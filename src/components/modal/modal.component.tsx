@@ -85,7 +85,7 @@ const Modal = ({
     [disableClose, disableEscKey, onCancel]
   );
 
-  useModalManager(open, closeModal, ref, setTriggerRefocusFlag);
+  useModalManager({ open, closeModal, modalRef: ref, setTriggerRefocusFlag });
 
   let background;
   let content;

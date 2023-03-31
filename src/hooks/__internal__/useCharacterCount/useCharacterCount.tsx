@@ -1,19 +1,23 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import CharacterCount from "../../../__internal__/character-count";
 import useLocale from "../useLocale";
-
-const getFormatNumber = (value: number, locale: string) =>
-  new Intl.NumberFormat(locale).format(value);
+import guid from "../../../__internal__/utils/helpers/guid";
 
 const useCharacterCount = (
   value = "",
   characterLimit?: number,
-  warnOverLimit = false,
   enforceCharacterLimit = true
-): [number | undefined, JSX.Element | null] => {
+): [
+  number | undefined,
+  JSX.Element | null,
+  string | undefined,
+  string | null
+] => {
   const isCharacterLimitValid =
     typeof characterLimit === "number" && !Number.isNaN(characterLimit);
   const l = useLocale();
+  const hintString = l.characterCount.hintString();
+  const hintId = useRef(guid());
   const isOverLimit = useMemo(() => {
     if (value && isCharacterLimitValid) {
       return value.length > characterLimit;
@@ -25,12 +29,14 @@ const useCharacterCount = (
     enforceCharacterLimit && isCharacterLimitValid ? characterLimit : undefined,
     isCharacterLimitValid ? (
       <CharacterCount
-        isOverLimit={isOverLimit && warnOverLimit}
-        value={getFormatNumber(value.length, l.locale())}
-        limit={getFormatNumber(characterLimit, l.locale())}
+        isOverLimit={isOverLimit}
+        value={value.length}
+        limit={characterLimit}
         data-element="character-limit"
       />
     ) : null,
+    hintId.current,
+    isCharacterLimitValid ? hintString : null,
   ];
 };
 
