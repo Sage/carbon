@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MessageContent when rendered should render correctly 1`] = `
-<styled.div>
+<styled.div
+  data-element="message-content"
+>
   <Content>
     children
   </Content>
