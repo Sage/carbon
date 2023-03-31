@@ -1,3 +1,10 @@
+### [117.1.1](https://github.com/Sage/carbon/compare/v117.1.0...v117.1.1) (2023-03-31)
+
+
+### Bug Fixes
+
+* **date:** add missing ref TS type ([d27984b](https://github.com/Sage/carbon/commit/d27984ba97c856398bcf7cf0505ac0e883b4d38c)), closes [#5929](https://github.com/Sage/carbon/issues/5929)
+
 ## [117.1.0](https://github.com/Sage/carbon/compare/v117.0.0...v117.1.0) (2023-03-30)
 
 
