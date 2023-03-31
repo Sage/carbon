@@ -379,7 +379,11 @@ export const Textarea = React.forwardRef(
               )}
               {validationRedesignOptIn ? (
                 <Box position="relative">
-                  <ValidationMessage error={error} warning={warning} />
+                  <ValidationMessage
+                    error={error}
+                    validationId={validationId}
+                    warning={warning}
+                  />
                   {(error || warning) && (
                     <ErrorBorder warning={!!(!error && warning)} />
                   )}
