@@ -1,3 +1,13 @@
+### [117.1.2](https://github.com/Sage/carbon/compare/v117.1.1...v117.1.2) (2023-03-31)
+
+
+### Bug Fixes
+
+* **textarea:** add missing error message id ([d2d3bea](https://github.com/Sage/carbon/commit/d2d3bead736a90e385f76b0b0b8c1629f2baacfa))
+* **textbox, textarea, checkbox, radio-button:** fix ARIA descriptions ([1989d4a](https://github.com/Sage/carbon/commit/1989d4afd2f3d5bb776cc990e404473e280aad9a))
+* **validations:** add aria-describedby to validation icon ([d5a5892](https://github.com/Sage/carbon/commit/d5a589293493a9c39adf51d13dfea96fb0e40f6f)), closes [#5498](https://github.com/Sage/carbon/issues/5498) [#5411](https://github.com/Sage/carbon/issues/5411) [#5594](https://github.com/Sage/carbon/issues/5594)
+* **validations:** add error anouncement for redesigned validations ([1ea2bbe](https://github.com/Sage/carbon/commit/1ea2bbed1c45126d99cfa73ad9764de8caf6df23)), closes [#5828](https://github.com/Sage/carbon/issues/5828)
+
 ### [117.1.1](https://github.com/Sage/carbon/compare/v117.1.0...v117.1.1) (2023-03-31)
 
 
