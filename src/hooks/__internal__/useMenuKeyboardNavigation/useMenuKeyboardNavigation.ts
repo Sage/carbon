@@ -28,7 +28,11 @@ export default (
 
   // useModalmanager is used here to handle the escape key
   // and to ensure that closing the menu does not close the modal
-  useModalManager(isOpen, handleEscapeKey, mainControlRef);
+  useModalManager({
+    open: isOpen,
+    closeModal: handleEscapeKey,
+    modalRef: mainControlRef,
+  });
 
   const handleKeyDown = useCallback(
     (ev) => {

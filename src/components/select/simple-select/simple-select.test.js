@@ -1257,5 +1257,15 @@ context("Tests for Simple Select component", () => {
           alertDialogPreview().should("not.exist");
         });
     });
+
+    it("should not refocus the select textbox when closing it by clicking outside", () => {
+      CypressMountWithProviders(<SimpleSelectNestedInDialog />);
+
+      selectText().click();
+      body().click();
+
+      selectList().should("not.be.visible");
+      commonDataElementInputPreview().should("not.be.focused");
+    });
   });
 });

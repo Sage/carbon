@@ -21,7 +21,7 @@ export interface AccordionProps
   extends StyledAccordionContainerProps,
     SpaceProps {
   /** Width of the buttonHeading when it's set, defaults to 150px */
-  buttonWidth?: number;
+  buttonWidth?: number | string;
   /** Content of the Accordion component */
   children?: React.ReactNode;
   /** Set the default state of expansion of the Accordion if component is meant to be used as uncontrolled */
@@ -95,7 +95,7 @@ export const Accordion = React.forwardRef<
       warning,
       info,
       buttonHeading,
-      buttonWidth = 150,
+      buttonWidth = "150px",
       openTitle,
       ...rest
     }: AccordionProps & AccordionInternalProps,

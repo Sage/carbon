@@ -17,7 +17,11 @@ import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import {
+  ErrorBorder,
+  StyledHintText,
+  StyledInputHint,
+} from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import StyledTextarea from "./textarea.style";
 import Logger from "../../__internal__/utils/logger";
@@ -217,6 +221,25 @@ describe("Textarea", () => {
           }
         );
 
+        describe("and inputHint props are present", () => {
+          it("renders a character counter hint", () => {
+            wrapper = mount(<Textarea value="test string" inputHint="foo" />);
+            expect(wrapper.find(StyledInputHint).text()).toBe("foo");
+          });
+
+          it("assigns a character counter hint via guid", () => {
+            wrapper = mount(<Textarea value="test string" inputHint="bar" />);
+            expect(wrapper.find(StyledInputHint).prop("id")).toBe(mockedGuid);
+          });
+
+          it("should render a valid 'aria-describedby' on input", () => {
+            wrapper = mount(<Textarea inputHint="baz" />);
+            expect(wrapper.find(Input).prop("aria-describedby")).toBe(
+              mockedGuid
+            );
+          });
+        });
+
         describe("and fieldHelp props are present", () => {
           it("should render a valid 'aria-describedby'", () => {
             const textarea = mount(
@@ -257,6 +280,45 @@ describe("Textarea", () => {
           );
         });
       });
+    });
+  });
+
+  describe(`when the characterLimit prop is passed`, () => {
+    it.each([2, 3, 4])("renders a character counter", (characterLimit) => {
+      const valueString = "foo";
+      const limitMinusValue = characterLimit - valueString.length >= 0;
+      wrapper = mount(
+        <Textarea value={valueString} characterLimit={characterLimit} />
+      );
+      const underCharacters =
+        characterLimit - valueString.length === 1 ? "character" : "characters";
+      const overCharacters =
+        valueString.length - characterLimit === 1 ? "character" : "characters";
+
+      expect(wrapper.find(CharacterCount).text()).toBe(
+        `${
+          limitMinusValue
+            ? `You have ${
+                characterLimit - valueString.length
+              } ${underCharacters} remaining`
+            : `You have ${
+                valueString.length - characterLimit
+              } ${overCharacters} too many`
+        }`
+      );
+    });
+
+    it("renders a character counter hint", () => {
+      wrapper = mount(<Textarea value="foo" characterLimit={4} />);
+
+      expect(wrapper.find(StyledInputHint).text()).toBe(
+        "Input contains a character counter"
+      );
+    });
+
+    it("character counter hint is given a valid id", () => {
+      wrapper = mount(<Textarea value="test string" characterLimit={4} />);
+      expect(wrapper.find(StyledInputHint).prop("id")).toBe(mockedGuid);
     });
   });
 
@@ -314,22 +376,6 @@ describe("Textarea", () => {
 
       it("should have a CharacterCount as it's child", () => {
         expect(wrapper.find(CharacterCount).exists()).toBe(true);
-      });
-
-      describe("and when warnOverLimit prop is true and a limit is over", () => {
-        it("should be styled for warn over limit", () => {
-          wrapper.setProps({
-            warnOverLimit: true,
-            value: "abcdefg",
-            onChange: jest.fn(),
-          });
-          assertStyleMatch(
-            {
-              color: "var(--colorsSemanticNegative500)",
-            },
-            wrapper.find(CharacterCount)
-          );
-        });
       });
     });
   });

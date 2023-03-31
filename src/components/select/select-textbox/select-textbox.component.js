@@ -23,6 +23,8 @@ const floatingMiddleware = [
 const SelectTextbox = React.forwardRef(
   (
     {
+      ariaLabel,
+      ariaLabelledBy,
       accessibilityLabelId,
       labelId,
       "aria-controls": ariaControls,
@@ -116,13 +118,17 @@ const SelectTextbox = React.forwardRef(
     function getInputAriaAttributes() {
       const joinIds = (...ids) =>
         ids.filter((item) => item !== undefined).join(" ");
-      const ariaLabelledby = hasTextCursor
-        ? joinIds(labelId, accessibilityLabelId)
-        : joinIds(labelId, textId.current);
+      const combinedAriaLabelledBy = hasTextCursor
+        ? joinIds(
+            ariaLabelledBy || labelId,
+            accessibilityLabelId || textId.current
+          )
+        : joinIds(ariaLabelledBy || labelId, textId.current);
 
       return {
         "aria-expanded": readOnly ? undefined : isOpen,
-        "aria-labelledby": ariaLabelledby || undefined,
+        "aria-labelledby":
+          ariaLabel && !ariaLabelledBy ? undefined : combinedAriaLabelledBy,
         "aria-activedescendant": activeDescendantId,
         "aria-controls": ariaControls,
         "aria-autocomplete": hasTextCursor ? "both" : undefined,
@@ -154,6 +160,7 @@ const SelectTextbox = React.forwardRef(
 
     return (
       <Textbox
+        aria-label={ariaLabel}
         data-element="select-input"
         inputIcon="dropdown"
         autoComplete="off"
@@ -181,6 +188,10 @@ const formInputPropTypes = {
    * @ignore
    */
   accessibilityLabelId: PropTypes.string,
+  /** Prop to specify the aria-label attribute of the component input */
+  ariaLabel: PropTypes.string,
+  /** Prop to specify the aria-labeledby property of the component input */
+  ariaLabelledBy: PropTypes.string,
   /** Id attribute of the input element */
   id: PropTypes.string,
   /** Name attribute of the input element */

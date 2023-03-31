@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import {
   StyledProgressTracker,
@@ -18,17 +18,19 @@ import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 
+const mockedUseResizeObserver = useResizeObserver as jest.Mock<() => void>;
+
 describe("ProgressTracker", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   const originalOffsetHeight = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,
     "offsetHeight"
-  );
+  ) as PropertyDescriptor;
   const originalOffsetWidth = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,
     "offsetWidth"
-  );
+  ) as PropertyDescriptor;
 
   beforeAll(() => {
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -82,8 +84,8 @@ describe("ProgressTracker", () => {
       wrapper = mount(<ProgressTracker progress={50} />);
 
       act(() => {
-        useResizeObserver.mock.calls[
-          useResizeObserver.mock.calls.length - 1
+        mockedUseResizeObserver.mock.calls[
+          mockedUseResizeObserver.mock.calls.length - 1
         ][1]();
       });
 
@@ -332,7 +334,7 @@ describe("labels", () => {
       );
     });
 
-    it("renders labels above the progress bar", () => {
+    it("renders labels below the progress bar", () => {
       wrapper = mount(
         <ProgressTracker
           progress={50}
@@ -362,7 +364,7 @@ it("applies the correct background colour when it is in progress", () => {
 });
 
 describe("Accessibility", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
   beforeEach(() => {
     wrapper = mount(
       <ProgressTracker
@@ -390,7 +392,7 @@ describe("Accessibility", () => {
     ["aria-valuenow", 10],
     ["aria-valuemax", 100],
     ["aria-valuetext", "Bar"],
-  ])("should allow a value to be passed to %s ", (prop, value) => {
+  ])("should allow a value to be passed to %s", (prop, value) => {
     expect(wrapper.prop(prop)).toBe(value);
   });
 });

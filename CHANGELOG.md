@@ -1,3 +1,46 @@
+## [117.1.0](https://github.com/Sage/carbon/compare/v117.0.0...v117.1.0) (2023-03-30)
+
+
+### Features
+
+* **filterable-select:** add aria-label and aria-labelledby props ([e656d2b](https://github.com/Sage/carbon/commit/e656d2b65d6e6dee26fa2ff6c9c68cc674696582))
+* **multi-select:** add aria-label and aria-labelledby props ([422627f](https://github.com/Sage/carbon/commit/422627f3b4ad7ad231a9c05e746cbb824ca316d8))
+* **select:** add aria-label and aria-labelledby props ([f4e11d2](https://github.com/Sage/carbon/commit/f4e11d22f22980cb777170086b50bcf6befab883))
+
+## [117.0.0](https://github.com/Sage/carbon/compare/v116.2.2...v117.0.0) (2023-03-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea, textbox:** The `warnOverLimit` prop is no longer consumed by both components and the styling
+the prop applied has now been made the default. Also the type of the `characterLimit` prop has been
+changed to solely a number opposed to a number or a string.
+
+### Bug Fixes
+
+* **textarea, textbox:** accessibility refactor of character count functionality ([182afc9](https://github.com/Sage/carbon/commit/182afc9ef94b3cd127d43ab3362b6374633dc64c)), closes [#5717](https://github.com/Sage/carbon/issues/5717)
+
+### [116.2.2](https://github.com/Sage/carbon/compare/v116.2.1...v116.2.2) (2023-03-30)
+
+
+### Bug Fixes
+
+* **check_rfcs:** ship the index file in the published package ([ca9665e](https://github.com/Sage/carbon/commit/ca9665e288b5c37ae2fabd536cefe53535fa981e))
+
+### [116.2.1](https://github.com/Sage/carbon/compare/v116.2.0...v116.2.1) (2023-03-28)
+
+
+### Bug Fixes
+
+* **select:** stop select list triggering refocus if closed inside a modal ([2505dc4](https://github.com/Sage/carbon/commit/2505dc4eed3d19ca154aa13bc59929cbcd223d5a)), closes [#5898](https://github.com/Sage/carbon/issues/5898)
+
+## [116.2.0](https://github.com/Sage/carbon/compare/v116.1.3...v116.2.0) (2023-03-24)
+
+
+### Features
+
+* **accordion:** allow buttonWidth to accept string values ([34aa10c](https://github.com/Sage/carbon/commit/34aa10c46af31aea3d9d81d081362d18e2127833)), closes [#5897](https://github.com/Sage/carbon/issues/5897)
+
 ### [116.1.3](https://github.com/Sage/carbon/compare/v116.1.2...v116.1.3) (2023-03-23)
 
 

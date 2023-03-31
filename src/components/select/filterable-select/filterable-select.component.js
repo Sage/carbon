@@ -24,6 +24,8 @@ const FilterableSelectList = withFilter(SelectList);
 const FilterableSelect = React.forwardRef(
   (
     {
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledby,
       value,
       defaultValue,
       id,
@@ -572,7 +574,9 @@ const FilterableSelect = React.forwardRef(
         <div ref={containerRef}>
           <SelectTextbox
             activeDescendantId={activeDescendantId}
-            labelId={labelId}
+            ariaLabel={ariaLabel}
+            ariaLabelledby={ariaLabelledby}
+            labelId={label ? labelId : undefined}
             aria-controls={selectListId.current}
             isOpen={isOpen}
             hasTextCursor
@@ -588,6 +592,10 @@ const FilterableSelect = React.forwardRef(
 
 FilterableSelect.propTypes = {
   ...formInputPropTypes,
+  /** Prop to specify the aria-label attribute of the component input */
+  "aria-label": PropTypes.string,
+  /** Prop to specify the aria-labeledby property of the component input */
+  "aria-labelledby": PropTypes.string,
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component": PropTypes.string,
   /** Identifier used for testing purposes, applied to the root element of the component. */
