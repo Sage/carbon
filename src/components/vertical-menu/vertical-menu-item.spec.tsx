@@ -279,6 +279,18 @@ describe("VerticalMenuItem", () => {
     });
   });
 
+  describe("when the defaultOpen prop is set", () => {
+    it("then the item content should be rendered", () => {
+      render(
+        <VerticalMenuItem title="Item1" defaultOpen>
+          <VerticalMenuItem title="ChildItem1" />
+        </VerticalMenuItem>
+      );
+
+      expect(screen.getByText("ChildItem1")).toBeTruthy();
+    });
+  });
+
   it("should have the expected data attributes", () => {
     render(
       <VerticalMenuItem
