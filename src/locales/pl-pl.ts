@@ -35,6 +35,9 @@ const plPL: Locale = {
   batchSelection: {
     selected: (count) => `${count} wybrano`,
   },
+  breadcrumbs: {
+    ariaLabel: () => "okruszki",
+  },
   confirm: {
     no: () => "Nie",
     yes: () => "Tak",
