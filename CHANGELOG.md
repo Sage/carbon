@@ -1,3 +1,10 @@
+## [117.2.0](https://github.com/Sage/carbon/compare/v117.1.2...v117.2.0) (2023-04-03)
+
+
+### Features
+
+* **breadcrumbs:** new component ([f7dde02](https://github.com/Sage/carbon/commit/f7dde02f8d50892e32e66cae37792bbdd2afa034))
+
 ### [117.1.2](https://github.com/Sage/carbon/compare/v117.1.1...v117.1.2) (2023-03-31)
 
 
