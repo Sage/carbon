@@ -274,7 +274,7 @@ describe("InputIconToggle", () => {
     });
 
     describe("validationIconId", () => {
-      it("passes iconId to ValidationIcon", () => {
+      it("passes tooltipId to ValidationIcon", () => {
         const validationIconId = "validation-id";
         const wrapper = mount(
           renderInputIconToggle({
@@ -284,7 +284,7 @@ describe("InputIconToggle", () => {
           })
         );
 
-        expect(wrapper.find(ValidationIcon).props().iconId).toBe(
+        expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(
           validationIconId
         );
       });

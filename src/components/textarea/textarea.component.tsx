@@ -221,11 +221,12 @@ export const Textarea = React.forwardRef(
 
     const {
       labelId,
-      validationIconId,
+      validationId,
       fieldHelpId,
       ariaDescribedBy,
     } = useInputAccessibility({
       id,
+      validationRedesignOptIn,
       error,
       warning,
       info,
@@ -265,10 +266,7 @@ export const Textarea = React.forwardRef(
       };
     }, [expandable]);
 
-    const hasIconInside = !!(
-      inputIcon ||
-      (validationIconId && !validationOnLabel)
-    );
+    const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
 
     const hintId = useRef(guid());
 
@@ -282,12 +280,7 @@ export const Textarea = React.forwardRef(
       ? characterCountHintIdValue
       : inputHintIdValue;
 
-    const ariaDescribedByValues = [
-      validationRedesignOptIn ? undefined : ariaDescribedBy,
-      hintIdValue,
-    ];
-
-    const ariaDescribedByValue = ariaDescribedByValues
+    const combinedAriaDescribedBy = [ariaDescribedBy, hintIdValue]
       .filter(Boolean)
       .join(" ");
 
@@ -307,7 +300,7 @@ export const Textarea = React.forwardRef(
         <Input
           aria-invalid={!!error}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={ariaDescribedByValue}
+          ariaDescribedBy={combinedAriaDescribedBy}
           autoFocus={autoFocus}
           name={name}
           value={value}
@@ -322,6 +315,7 @@ export const Textarea = React.forwardRef(
           id={id}
           as="textarea"
           inputRef={inputRef}
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
           {...rest}
         />
         {children}
@@ -333,9 +327,7 @@ export const Textarea = React.forwardRef(
           error={error}
           warning={warning}
           info={info}
-          validationIconId={
-            validationRedesignOptIn ? undefined : validationIconId
-          }
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
           useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
         />
       </InputPresentation>
@@ -387,7 +379,11 @@ export const Textarea = React.forwardRef(
               )}
               {validationRedesignOptIn ? (
                 <Box position="relative">
-                  <ValidationMessage error={error} warning={warning} />
+                  <ValidationMessage
+                    error={error}
+                    validationId={validationId}
+                    warning={warning}
+                  />
                   {(error || warning) && (
                     <ErrorBorder warning={!!(!error && warning)} />
                   )}

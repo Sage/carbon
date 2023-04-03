@@ -95,22 +95,23 @@ describe("CheckableInput", () => {
         };
 
         describe.each(["info", "warning", "error"])(
-          "and %s are present",
+          "with %s prop set as a string and the input focused",
           (validationType) => {
             const wrapper = mountInput({
               ...commonProps,
               [validationType]: "test",
             });
+            wrapper.find("input").simulate("focus");
 
-            it('should render a valid "aria-describedby"', () => {
+            it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
               expect(
                 wrapper.find(HiddenCheckableInputStyle).prop("aria-describedby")
-              ).toBe(`${id}-validation-icon`);
+              ).toBe(`${id}-validation`);
             });
 
-            it("should pass validationIconId prop to FormField", () => {
+            it("then the id of the validation tooltip should be passed in validationIconId prop to FormField", () => {
               expect(wrapper.find(FormField).prop("validationIconId")).toBe(
-                `${id}-validation-icon`
+                `${id}-validation`
               );
             });
           }
@@ -139,20 +140,21 @@ describe("CheckableInput", () => {
             );
           });
 
-          it.each(["info", "warning", "error"])(
-            "and %s is present too",
+          describe.each(["info", "warning", "error"])(
+            "with %s prop set as a string and the input focused",
             (validationType) => {
-              const hiddenCheckableInputStyle = mountInput({
+              const wrapper = mountInput({
                 ...commonProps,
                 fieldHelp: "baz",
                 [validationType]: "test",
               });
+              wrapper.find("input").simulate("focus");
 
-              expect(
-                hiddenCheckableInputStyle
-                  .find(HiddenCheckableInputStyle)
-                  .prop("aria-describedby")
-              ).toBe(`${id}-field-help ${id}-validation-icon`);
+              it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
+                expect(wrapper.find("input").prop("aria-describedby")).toBe(
+                  `${id}-field-help ${id}-validation`
+                );
+              });
             }
           );
         });

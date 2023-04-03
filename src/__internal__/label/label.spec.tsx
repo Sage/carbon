@@ -282,12 +282,14 @@ describe("Label", () => {
       });
 
       it("passes tooltipId prop if provided", () => {
-        const tooltipId = "tooltip-test";
+        const validationIconId = "tooltip-test";
         const wrapper = render(
-          { [vType]: "Message", useValidationIcon: true, tooltipId },
+          { [vType]: "Message", useValidationIcon: true, validationIconId },
           mount
         );
-        expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(tooltipId);
+        expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(
+          validationIconId
+        );
       });
     }
   );

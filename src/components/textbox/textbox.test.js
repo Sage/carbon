@@ -871,15 +871,13 @@ context("Tests for Textbox component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    it.skip("should pass accessibility tests for Textbox ValidationsAsAString story", () => {
+    it("should pass accessibility tests for Textbox ValidationsAsAString story", () => {
       CypressMountWithProviders(<defaultStories.ValidationsAsAString />);
 
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    it.skip("should pass accessibility tests for Textbox ValidationsAsAStringDisplayedOnLabel story", () => {
+    it("should pass accessibility tests for Textbox ValidationsAsAStringDisplayedOnLabel story", () => {
       CypressMountWithProviders(
         <defaultStories.ValidationsAsAStringDisplayedOnLabel />
       );
@@ -887,8 +885,7 @@ context("Tests for Textbox component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    it.skip("should pass accessibility tests for Textbox ValidationsAsAStringWithTooltipCustom story", () => {
+    it("should pass accessibility tests for Textbox ValidationsAsAStringWithTooltipCustom story", () => {
       CypressMountWithProviders(
         <defaultStories.ValidationsAsAStringWithTooltipCustom />
       );
@@ -896,8 +893,7 @@ context("Tests for Textbox component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    it.skip("should pass accessibility tests for Textbox ValidationsAsAStringWithTooltipDefault story", () => {
+    it("should pass accessibility tests for Textbox ValidationsAsAStringWithTooltipDefault story", () => {
       CypressMountWithProviders(
         <defaultStories.ValidationsAsAStringWithTooltipDefault />
       );
