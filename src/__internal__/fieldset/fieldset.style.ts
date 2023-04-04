@@ -3,6 +3,7 @@ import { margin } from "styled-system";
 import BaseTheme from "../../style/themes/base";
 
 const StyledFieldset = styled.fieldset`
+  margin: 0;
   ${margin}
   border: none;
   padding: 0;

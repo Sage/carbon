@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import Fieldset, { FieldsetProps } from "./fieldset.component";
 
 import {
@@ -27,9 +27,38 @@ const render = (props?: Partial<FieldsetProps>) =>
 const validationTypes = ["error", "warning", "info"] as const;
 
 describe("Fieldset", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   testStyledSystemMargin((props) => <RenderComponent {...props} />);
+
+  // added as `testStyledSystemMargin` will not catch if there is a regression and refactoring that will affect all tests that use it
+  it.each([
+    [undefined, { margin: 0 }],
+    [{ m: 8 }, { margin: "var(--spacing800)" }],
+    [
+      { mx: 8 },
+      { marginLeft: "var(--spacing800)", marginRight: "var(--spacing800)" },
+    ],
+    [
+      { my: 8 },
+      { marginTop: "var(--spacing800)", marginBottom: "var(--spacing800)" },
+    ],
+    [
+      { mt: 8, mr: 8, mb: 8, ml: 8 },
+      {
+        marginTop: "var(--spacing800)",
+        marginBottom: "var(--spacing800)",
+        marginLeft: "var(--spacing800)",
+        marginRight: "var(--spacing800)",
+      },
+    ],
+  ])(
+    "has the expected margin when %s passed as margin props",
+    (props, style) => {
+      wrapper = render({ legend: "Legend", ...props });
+      expect(wrapper.getDOMNode()).toHaveStyle(style);
+    }
+  );
 
   it("renders passed on children", () => {
     wrapper = render();
