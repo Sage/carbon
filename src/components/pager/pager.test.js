@@ -701,20 +701,28 @@ context("Test for Pager component", () => {
       }
     );
 
-    // FE-4659
-    describe.skip("should render Pager component for accessibility tests", () => {
-      it.each([true, false])(
-        "should render Pager with showPageSizeLabelBefore prop set to %s for accessibility tests",
-        (boolVal) => {
-          CypressMountWithProviders(
-            <PagerComponent
-              showPageSizeLabelBefore={boolVal}
-              showPageSizeSelection
-            />
-          );
-          cy.checkAccessibility();
-        }
-      );
-    });
+    it.each([true, false])(
+      "should render Pager with showPageSizeLabelBefore prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent
+            showPageSizeLabelBefore={boolVal}
+            showPageSizeSelection
+          />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([false, true])(
+      "should render Pager with interactivePageNumber prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={1} interactivePageNumber={boolVal} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
   });
 });
