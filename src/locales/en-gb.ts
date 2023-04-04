@@ -13,6 +13,11 @@ const enGB: Locale = {
   actionPopover: {
     ariaLabel: () => "actions",
   },
+  advancedColorPicker: {
+    ariaLabel: () => "Change colour",
+    currentColorDescriptionTerm: () => "Current color assigned: ",
+    currentColorAssigned: (currentColor) => currentColor,
+  },
   batchSelection: {
     selected: (count) => `${count} selected`,
   },
