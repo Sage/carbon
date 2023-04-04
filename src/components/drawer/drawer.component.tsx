@@ -242,7 +242,6 @@ export const Drawer = ({
             <StickyFooter
               containerRef={scrollableContentRef}
               disableSticky={!stickyFooter}
-              isExpanded={isExpanded}
             >
               {footer}
             </StickyFooter>

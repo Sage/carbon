@@ -477,41 +477,41 @@ context("Test for Search component", () => {
       cy.checkAccessibility();
     });
 
+    it.each(validationTypes)(
+      "should check accessibility for Search and set type to %s as string",
+      (type) => {
+        CypressMountWithProviders(
+          <SearchComponent {...{ [type]: "Message" }} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["top", "bottom", "left", "right"])(
+      "should check accessibility for Search with the tooltip in the %s position",
+      (tooltipPositionValue) => {
+        CypressMountWithProviders(
+          <Box width="700px" height="108px">
+            <div
+              style={{
+                padding: "100px",
+              }}
+            >
+              <SearchComponent
+                error={testCypress}
+                tooltipPosition={tooltipPositionValue}
+              />
+            </div>
+          </Box>
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
     // FE-4670
     describe.skip("should render Search component", () => {
-      it.each(validationTypes)(
-        "should check accessibility for Search and set type to %s as string",
-        (type) => {
-          CypressMountWithProviders(
-            <SearchComponent {...{ [type]: "Message" }} />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(["top", "bottom", "left", "right"])(
-        "should check accessibility for Search with the tooltip in the %s position",
-        (tooltipPositionValue) => {
-          CypressMountWithProviders(
-            <Box width="700px" height="108px">
-              <div
-                style={{
-                  padding: "100px",
-                }}
-              >
-                <SearchComponent
-                  error={testCypress}
-                  tooltipPosition={tooltipPositionValue}
-                />
-              </div>
-            </Box>
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
       it.each(["default", "dark"])(
         "should check accessibility for Search with variant prop set to %s",
         (variant) => {

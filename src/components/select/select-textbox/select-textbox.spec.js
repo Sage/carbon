@@ -172,38 +172,81 @@ describe("SelectTextbox", () => {
   });
 
   describe("ARIA", () => {
-    let labelId;
+    const mockTextId = "mockTextId";
 
     beforeEach(() => {
-      guid.mockImplementationOnce(() => "labelId-guid");
-      labelId = guid();
+      guid.mockImplementationOnce(() => mockTextId);
     });
 
-    describe.each([true, false])(
-      "when labelId has been passed, and hasTextCursor is %s",
-      (hasTextCursor) => {
-        it("aria-labelledby includes labelId", () => {
-          const wrapper = mount(
-            <SelectTextbox hasTextCursor={hasTextCursor} labelId={labelId} />
-          );
-          const ariaLabelledBy = wrapper.find(Textbox).prop("aria-labelledby");
-          expect(ariaLabelledBy).toEqual(expect.stringContaining(labelId));
+    it("the ariaLabel prop value should be passed down to the aria-label prop in the Textbox", () => {
+      const mockAriaLabel = "foo";
+      const wrapper = mount(<SelectTextbox ariaLabel="foo" />);
+      const ariaLabel = wrapper.find(Textbox).prop("aria-label");
+      expect(ariaLabel).toBe(mockAriaLabel);
+    });
+
+    describe.each([
+      ["set", "ariaLabelledBy", "foo"],
+      ["not set", "labelId", undefined],
+    ])(
+      "when the ariaLabelledBy prop is %s",
+      (description, propName, mockAriaLabelledBy) => {
+        const mockLabelId = "baz";
+
+        describe("with the hasTextCursor prop set to true", () => {
+          it(`then the aria-labelledby in the Textbox should contain ${propName} and the id of the SelectText`, () => {
+            const wrapper = mount(
+              <SelectTextbox
+                ariaLabelledBy={mockAriaLabelledBy}
+                hasTextCursor
+                labelId={mockLabelId}
+              />
+            );
+            const ariaLabelledBy = wrapper
+              .find(Textbox)
+              .prop("aria-labelledby");
+
+            expect(ariaLabelledBy).toEqual(
+              expect.stringContaining(mockAriaLabelledBy || mockLabelId)
+            );
+            expect(ariaLabelledBy).toEqual(expect.stringContaining(mockTextId));
+          });
+
+          describe("and the accessibilityLabelId prop", () => {
+            it("then the aria-labelledby in the Textbox should contain both id's", () => {
+              const mockAccessibilityLabelId = "bar";
+              const wrapper = mount(
+                <SelectTextbox
+                  accessibilityLabelId={mockAccessibilityLabelId}
+                  ariaLabelledBy={mockAriaLabelledBy}
+                  hasTextCursor
+                  labelId={mockLabelId}
+                />
+              );
+              const ariaLabelledBy = wrapper
+                .find(Textbox)
+                .prop("aria-labelledby");
+
+              expect(ariaLabelledBy).toEqual(
+                expect.stringContaining(mockAriaLabelledBy || mockLabelId)
+              );
+              expect(ariaLabelledBy).toEqual(
+                expect.stringContaining(mockAccessibilityLabelId)
+              );
+            });
+          });
         });
       }
     );
 
-    describe.each([true, false])(
-      "when labelId is undefined, and hasTextCursor is %s",
-      (hasTextCursor) => {
-        it("aria-labelledby does not point to a non-existent label", () => {
-          const wrapper = mount(
-            <SelectTextbox hasTextCursor={hasTextCursor} labelId={undefined} />
-          );
-          const ariaLabelledBy = wrapper.find(Textbox).prop("aria-labelledby");
-          expect(ariaLabelledBy).not.toEqual(expect.stringContaining(labelId));
-        });
-      }
-    );
+    describe("when the ariaLabel prop is set without ariaLabelledBy", () => {
+      it("then the aria-labelledby prop of the Textbox should be undefined", () => {
+        const wrapper = mount(<SelectTextbox ariaLabel="bar" />);
+        const ariaLabelledBy = wrapper.find(Textbox).prop("aria-labelledby");
+
+        expect(ariaLabelledBy).toBe(undefined);
+      });
+    });
   });
 });
 

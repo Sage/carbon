@@ -6,7 +6,7 @@ import Dialog, { DialogProps } from "./dialog.component";
 import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
-import DateInput from "../date";
+import DateInput, { DateChangeEvent } from "../date";
 import Toast from "../toast";
 import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
@@ -133,7 +133,9 @@ export const Default = ({
             name="date"
             label="Birthday"
             value={date}
-            onChange={(e) => setDate(e.target.value.formattedValue)}
+            onChange={(e: DateChangeEvent) =>
+              setDate(e.target.value.formattedValue)
+            }
           />
           <Select label="Color">
             {selectOptions.map((option) => (
@@ -145,7 +147,7 @@ export const Default = ({
             name="date"
             label="Pet's birthday"
             value={date}
-            onChange={(e) => setDate(e.target.value.rawValue)}
+            onChange={(e: DateChangeEvent) => setDate(e.target.value.rawValue)}
           />
           <TextEditor
             onChange={handleEditorChange}

@@ -10,10 +10,13 @@ import Events from "../../__internal__/utils/helpers/events";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import LocaleContext from "../../__internal__/i18n-context";
 import StyledPod from "./show-edit-pod.style";
+import Logger from "../../__internal__/utils/logger";
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
+
+let deprecateWarnTriggered = false;
 
 const ShowEditPod = ({
   border = false,
@@ -39,6 +42,13 @@ const ShowEditPod = ({
   variant = "transparent",
   ...rest
 }) => {
+  if (!deprecateWarnTriggered) {
+    deprecateWarnTriggered = true;
+    Logger.deprecate(
+      "The ShowEditPod component is deprecated and will soon be removed. Please use alternatives such as the Fieldset, Form or Pod components instead."
+    );
+  }
+
   const locale = useContext(LocaleContext);
 
   const ref = useRef();

@@ -42,7 +42,10 @@ import {
   fieldHelpPreview,
 } from "../../../cypress/locators";
 import { keyCode } from "../../../cypress/support/helper";
-import { verifyRequiredAsteriskForLabel } from "../../../cypress/support/component-helper/common-steps";
+import {
+  verifyRequiredAsteriskForLabel,
+  useJQueryCssValueAndAssert,
+} from "../../../cypress/support/component-helper/common-steps";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   SIZE,
@@ -324,6 +327,54 @@ context("Test for DateInput component", () => {
         .invoke("height")
         .should("be.greaterThan", minValue)
         .and("be.lessThan", maxValue);
+    });
+
+    it.each([
+      [10, 90, 135, 1229],
+      [30, 70, 409, 956],
+      [80, 20, 1092, 273],
+    ])(
+      "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
+      (label, input, labelRatio, inputRatio) => {
+        CypressMountWithProviders(
+          <DateInputCustom labelInline labelWidth={label} inputWidth={input} />
+        );
+
+        getDataElementByValue("label")
+          .parent()
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", labelRatio);
+          });
+
+        getDataElementByValue("input")
+          .parent()
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", inputRatio);
+          });
+      }
+    );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should check maxWidth as %s for Date Input component",
+      (maxWidth) => {
+        CypressMountWithProviders(<DateInputCustom maxWidth={maxWidth} />);
+
+        getDataElementByValue("input")
+          .parent()
+          .parent()
+          .should("have.css", "max-width", maxWidth);
+      }
+    );
+
+    it("when maxWidth has no value it should render as 100%", () => {
+      CypressMountWithProviders(
+        <DateInputCustom inputWidth={100} maxWidth="" />
+      );
+
+      getDataElementByValue("input")
+        .parent()
+        .parent()
+        .should("have.css", "max-width", "100%");
     });
   });
 
@@ -701,52 +752,15 @@ context("Test for DateInput component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    describe.skip("skip for each test", () => {
-      it.each(["error", "warning", "info"])(
-        "should check accessibility for DateInput with %s validation icon on label",
-        (type) => {
-          CypressMountWithProviders(
-            <DateInputCustom
-              labelInline
-              labelAlign="right"
-              validationOnLabel
-              {...{ [type]: "Message" }}
-            />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(["error", "warning", "info"])(
-        "should check accessibility for DateInput with %s validation icon",
-        (type) => {
-          CypressMountWithProviders(
-            <DateInputCustom
-              labelInline
-              labelAlign="right"
-              {...{ [type]: "Message" }}
-            />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-    });
-
-    it.each([
-      [VALIDATION.ERROR, "error", true],
-      [VALIDATION.WARNING, "warning", true],
-      [VALIDATION.INFO, "info", true],
-    ])(
-      "should check accessibility for DateInput is %s when validation is %s and boolean prop is %s",
-      (borderColor, type, bool) => {
+    it.each(["error", "warning", "info"])(
+      "should check accessibility for DateInput with %s validation icon on label",
+      (type) => {
         CypressMountWithProviders(
           <DateInputCustom
             labelInline
             labelAlign="right"
-            {...{ [type]: bool }}
+            validationOnLabel
+            {...{ [type]: "Message" }}
           />
         );
 
@@ -754,10 +768,40 @@ context("Test for DateInput component", () => {
       }
     );
 
-    it("should check accessibility for component with new validation", () => {
-      CypressMountWithProviders(<DateInputValidationNewDesign />);
+    it.each(["error", "warning", "info"])(
+      "should check accessibility for DateInput with %s validation icon",
+      (type) => {
+        CypressMountWithProviders(
+          <DateInputCustom
+            labelInline
+            labelAlign="right"
+            {...{ [type]: "Message" }}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+  });
+
+  it.each([
+    [VALIDATION.ERROR, "error", true],
+    [VALIDATION.WARNING, "warning", true],
+    [VALIDATION.INFO, "info", true],
+  ])(
+    "should check accessibility for DateInput is %s when validation is %s and boolean prop is %s",
+    (borderColor, type, bool) => {
+      CypressMountWithProviders(
+        <DateInputCustom labelInline labelAlign="right" {...{ [type]: bool }} />
+      );
 
       cy.checkAccessibility();
-    });
+    }
+  );
+
+  it("should check accessibility for component with new validation", () => {
+    CypressMountWithProviders(<DateInputValidationNewDesign />);
+
+    cy.checkAccessibility();
   });
 });

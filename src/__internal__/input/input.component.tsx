@@ -6,6 +6,8 @@ export interface CommonInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /* The default value alignment on the input */
   align?: "right" | "left";
+  /** The id of the element that describe the input. */
+  ariaDescribedBy?: string;
   /** Override the variant component */
   as?: React.ElementType;
   /** If true the Component will be focused when rendered */
@@ -36,6 +38,8 @@ export interface CommonInputProps
   readOnly?: boolean;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** Id of the validation icon */
+  validationIconId?: string;
 }
 
 export interface InputProps extends CommonInputProps {
@@ -80,6 +84,7 @@ const Input = React.forwardRef<
     {
       align,
       "aria-labelledby": ariaLabelledBy,
+      ariaDescribedBy,
       placeholder,
       disabled,
       readOnly,
@@ -95,6 +100,7 @@ const Input = React.forwardRef<
       type = "text",
       id,
       name,
+      validationIconId,
       ...rest
     }: InputProps,
     ref
@@ -193,9 +199,27 @@ const Input = React.forwardRef<
       handleDeferred(ev);
     };
 
+    const hasValidationPart =
+      (context.hasFocus ||
+        groupContext.hasFocus ||
+        context.hasMouseOver ||
+        groupContext.hasMouseOver) &&
+      validationIconId;
+
+    const descriptionList = ariaDescribedBy ? [ariaDescribedBy] : [];
+
+    if (hasValidationPart) {
+      descriptionList.push(validationIconId);
+    }
+
+    const combinedDescription = descriptionList.length
+      ? descriptionList.filter(Boolean).join(" ")
+      : undefined;
+
     return (
       <StyledInput
         {...rest}
+        aria-describedby={combinedDescription}
         aria-labelledby={ariaLabelledBy}
         align={align}
         placeholder={placeholder}

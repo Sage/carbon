@@ -4,6 +4,25 @@ import { pl as plDateLocale } from "./date-fns-locales";
 const isSingular = (count: string | number): boolean =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
 
+export const PolishPlural = (
+  singularNominativ: string,
+  pluralNominativ: string,
+  pluralGenitive: string,
+  value: number
+) => {
+  if (value === 1) {
+    return singularNominativ;
+  }
+  if (
+    value % 10 >= 2 &&
+    value % 10 <= 4 &&
+    (value % 100 < 10 || value % 100 >= 20)
+  ) {
+    return pluralNominativ;
+  }
+  return pluralGenitive;
+};
+
 const plPL: Locale = {
   locale: () => "pl-PL",
   actions: {
@@ -16,10 +35,31 @@ const plPL: Locale = {
   batchSelection: {
     selected: (count) => `${count} wybrano`,
   },
+  breadcrumbs: {
+    ariaLabel: () => "okruszki",
+  },
   confirm: {
     no: () => "Nie",
     yes: () => "Tak",
   },
+  characterCount: {
+    hintString: () => "Pole zawiera licznik znaków",
+    tooManyCharacters: (count, formattedCount) =>
+      `Masz o ${formattedCount} ${PolishPlural(
+        "znak",
+        "znaki",
+        "znaków",
+        count
+      )} za dużo`,
+    charactersLeft: (count, formattedCount) =>
+      `Masz ${formattedCount} ${PolishPlural(
+        "pozostały",
+        "pozostałe",
+        "pozostałych",
+        count
+      )} ${PolishPlural("znak", "znaki", "znaków", count)}`,
+  },
+
   date: {
     dateFnsLocale: () => plDateLocale,
   },
@@ -137,4 +177,5 @@ const plPL: Locale = {
   },
 };
 
+export { PolishPlural as PolishPlurals };
 export default plPL;
