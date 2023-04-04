@@ -2,6 +2,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import styled from "styled-components";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import DeprecationWarning from "../../__internal__/DeprecationWarning";
 
 import ShowEditPod from "./";
 import Heading from "../heading";
@@ -12,6 +13,10 @@ import Textbox from "../textbox";
 <Meta title="ShowEditPod" parameters={{ info: { disable: true } }} />
 
 # ShowEditPod
+
+<DeprecationWarning>
+We've deprecated ShowEditPod. It's no longer available in the Design System and we recommend that you do not use it in new products. See Related Components section for alternatives.
+</DeprecationWarning>
 
 ## Contents
 

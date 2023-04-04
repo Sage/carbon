@@ -16,6 +16,9 @@ const enGB: Locale = {
   batchSelection: {
     selected: (count) => `${count} selected`,
   },
+  breadcrumbs: {
+    ariaLabel: () => "breadcrumbs",
+  },
   confirm: {
     no: () => "No",
     yes: () => "Yes",

@@ -12,6 +12,9 @@ interface Locale {
   batchSelection: {
     selected: (count: number | string) => string;
   };
+  breadcrumbs: {
+    ariaLabel: () => string;
+  };
   characterCount: {
     hintString: () => string;
     tooManyCharacters: (count: number, formattedCount: string) => string;

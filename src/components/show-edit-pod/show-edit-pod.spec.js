@@ -11,9 +11,31 @@ import {
   rootTagTest,
 } from "../../__internal__/utils/helpers/tags/tags-specs";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
 
 describe("ShowEditPod", () => {
   testStyledSystemMargin((props) => <ShowEditPod {...props} />);
+
+  it("when user uses the component, a deprecation warning is raised in the console", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    jest.restoreAllMocks();
+    mount(
+      <>
+        <ShowEditPod />
+        <ShowEditPod />
+      </>
+    );
+
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The ShowEditPod component is deprecated and will soon be removed. Please use alternatives such as the Fieldset, Form or Pod components instead."
+    );
+
+    loggerSpy.mockRestore();
+    loggerSpy.mockClear();
+  });
 
   describe('when the "editing" prop is set on mount', () => {
     let wrapper;
