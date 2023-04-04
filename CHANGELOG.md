@@ -1,3 +1,10 @@
+### [117.2.1](https://github.com/Sage/carbon/compare/v117.2.0...v117.2.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* **advanced-color-picker:** add visually hidden description list to describe selected color ([8b5d433](https://github.com/Sage/carbon/commit/8b5d4334d0039b56758217b73298e2fc09fc088d))
+
 ## [117.2.0](https://github.com/Sage/carbon/compare/v117.1.2...v117.2.0) (2023-04-03)
 
 

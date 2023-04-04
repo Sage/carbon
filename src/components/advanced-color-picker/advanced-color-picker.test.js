@@ -3,6 +3,7 @@ import CypressMountWithProviders from "../../../cypress/support/component-helper
 import AdvancedColorPicker from "./advanced-color-picker.component";
 import {
   simpleColorPicker,
+  currentColorDescription,
   advancedColorPickerCell,
   advancedColorPicker,
   simpleColorPickerInput,
@@ -135,6 +136,18 @@ context("Testing AdvancedColorPicker component", () => {
         "have.attr",
         "aria-label",
         testPropValue
+      );
+    });
+
+    it("should render AdvancedColorPicker open button with aria-label prop", () => {
+      CypressMountWithProviders(
+        <AdvancedColorPickerCustom aria-label="Change colour" />
+      );
+
+      advancedColorPickerCell().should(
+        "have.attr",
+        "aria-label",
+        "Change colour"
       );
     });
 
@@ -289,9 +302,15 @@ context("Testing AdvancedColorPicker component", () => {
     });
   });
 
+  describe("Should render a current color description list", () => {
+    it("description is correct when color is selected", () => {
+      CypressMountWithProviders(<AdvancedColorPickerCustom />);
+      currentColorDescription().contains("Current color assigned: orchid");
+    });
+  });
+
   describe("Accessibility tests for AdvancedColorPicker component", () => {
-    // Test skipped because of issue FE-5591
-    it.skip("should pass accessibility tests for AdvancedColorPicker default", () => {
+    it("should pass accessibility tests for AdvancedColorPicker default", () => {
       CypressMountWithProviders(<AdvancedColorPickerCustom />);
 
       cy.checkAccessibility();
