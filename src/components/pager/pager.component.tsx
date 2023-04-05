@@ -47,6 +47,8 @@ export interface PagerProps {
   ) => void;
   /** Current visible page */
   currentPage?: number | string;
+  /** If true, page number navigation will be changed to a non-interactive label */
+  interactivePageNumber?: boolean;
   /** If true, sets css property visibility: hidden on all disabled elements  */
   hideDisabledElements?: boolean;
   /** Total number of records */
@@ -76,6 +78,7 @@ export interface PagerProps {
 export const Pager = ({
   currentPage = 1,
   hideDisabledElements = false,
+  interactivePageNumber = true,
   pageSizeSelectionOptions = [
     { id: "10", name: 10 },
     { id: "25", name: 25 },
@@ -258,6 +261,7 @@ export const Pager = ({
       <PagerNavigation
         pageSize={currentPageSize}
         currentPage={page}
+        interactivePageNumber={interactivePageNumber}
         hideDisabledElements={hideDisabledElements}
         setCurrentPage={setPage}
         onNext={handleOnNext}
