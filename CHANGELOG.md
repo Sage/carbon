@@ -1,3 +1,10 @@
+## [117.3.0](https://github.com/Sage/carbon/compare/v117.2.2...v117.3.0) (2023-04-05)
+
+
+### Features
+
+* **pager:** surface interactivePageNumber prop to ensure selecting page number is optional ([b1ef242](https://github.com/Sage/carbon/commit/b1ef242936073f8794932beab566b26c35d2c215)), closes [#5674](https://github.com/Sage/carbon/issues/5674)
+
 ### [117.2.2](https://github.com/Sage/carbon/compare/v117.2.1...v117.2.2) (2023-04-04)
 
 
