@@ -5,6 +5,10 @@ import { FormInputPropTypes } from "../select-textbox/select-textbox";
 
 export interface FilterableSelectProps
   extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
+  /** Prop to specify the aria-label attribute of the component input */
+  "aria-label"?: string;
+  /** Prop to specify the aria-labeledby property of the component input */
+  "aria-labelledby"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */

@@ -300,8 +300,8 @@ context("Testing Accordion component", () => {
         .and("have.attr", "type", "info");
     });
 
-    it.each([[100], [200], [300]])(
-      "should check accordion heading is a button with width %spx",
+    it.each(["100px", "200px", "300px"])(
+      "should check accordion heading is a button with width %s",
       (widths) => {
         CypressMountWithProviders(
           <AccordionComponent
@@ -526,8 +526,7 @@ context("Testing Accordion component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5090 to fix the issue with aria-label for span
-    it.skip("should pass accessibility tests for AccordionGroupValidation", () => {
+    it("should pass accessibility tests for AccordionGroupValidation", () => {
       CypressMountWithProviders(<AccordionGroupValidation />);
 
       cy.checkAccessibility();

@@ -70,6 +70,23 @@ const shiftTabKey = new KeyboardEvent("keydown", {
   shiftKey: true,
 });
 
+const MockComponent = () => {
+  const [color, setColor] = useState<string>();
+
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setColor(e.target.value);
+  }
+
+  return (
+    <AdvancedColorPicker
+      {...requiredProps}
+      selectedColor={color}
+      onChange={handleOnChange}
+      open
+    />
+  );
+};
+
 describe("AdvancedColorPicker", () => {
   testStyledSystemMargin((props) => (
     <AdvancedColorPicker {...requiredProps} {...props} />
@@ -110,12 +127,60 @@ describe("AdvancedColorPicker", () => {
     );
   });
 
+  describe("color description list", () => {
+    let wrapper: ReactWrapper;
+
+    it("description is correct when no color is selected - uses currentColor instead", () => {
+      wrapper = mount(
+        <AdvancedColorPicker {...requiredProps} selectedColor="orchid" />
+      );
+      expect(
+        wrapper
+          .find('[data-element="current-color-description"]')
+          .first()
+          .text()
+      ).toBe(`Current color assigned: orchid`);
+      wrapper.unmount();
+    });
+
+    it.each([0, 1, 2])(
+      "description is correct when color is selected",
+      (colorIndex) => {
+        wrapper = mount(<MockComponent />);
+        jest.runAllTimers();
+        const color = wrapper.find(SimpleColor).at(colorIndex);
+
+        color.find("input").first().getDOMNode<HTMLInputElement>().click();
+        wrapper.update();
+
+        expect(
+          wrapper
+            .find('[data-element="current-color-description"]')
+            .first()
+            .text()
+        ).toBe(`Current color assigned: ${demoColors[colorIndex].label}`);
+        wrapper.unmount();
+      }
+    );
+  });
+
   describe("color picker cell button", () => {
     it("should have the color prop set to defaultColor", () => {
       const wrapper = render({ ...requiredProps });
       expect(
         wrapper.find('[data-element="color-picker-cell"]').first().prop("color")
       ).toBe(defaultColor);
+      wrapper.unmount();
+    });
+
+    it("should have the correct aria-label", () => {
+      const wrapper = render({ ...requiredProps });
+      expect(
+        wrapper
+          .find('[data-element="color-picker-cell"]')
+          .first()
+          .prop("aria-label")
+      ).toBe("Change colour");
       wrapper.unmount();
     });
 
@@ -233,22 +298,6 @@ describe("AdvancedColorPicker", () => {
 
   describe("when the component value is controlled, and a color is selected", () => {
     // eslint-disable-next-line react/prop-types
-    const MockComponent = () => {
-      const [color, setColor] = useState<string>();
-
-      function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setColor(e.target.value);
-      }
-
-      return (
-        <AdvancedColorPicker
-          {...requiredProps}
-          selectedColor={color}
-          onChange={handleOnChange}
-          open
-        />
-      );
-    };
     let wrapper: ReactWrapper;
 
     beforeEach(() => {

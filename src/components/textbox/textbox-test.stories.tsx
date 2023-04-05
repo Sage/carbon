@@ -32,7 +32,6 @@ export const getCommonTextboxArgs = (
     required: false,
     enforceCharacterLimit: false,
     characterLimit: undefined,
-    warnOverLimit: false,
     error: "",
     warning: "",
   };

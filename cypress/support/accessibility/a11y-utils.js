@@ -110,6 +110,10 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("global-header") &&
       !prepareUrl[0].startsWith("grid") &&
       !prepareUrl[0].startsWith("image") &&
+      !prepareUrl[0].startsWith("navigation-bar") &&
+      !prepareUrl[0].startsWith("popover-container") &&
+      !prepareUrl[0].startsWith("menu") &&
+      !prepareUrl[0].startsWith("inline-inputs") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);

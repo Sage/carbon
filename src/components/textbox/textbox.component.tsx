@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { MarginProps } from "styled-system";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -17,12 +17,13 @@ import StyledPrefix from "./__internal__/prefix.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
-import { ErrorBorder, StyledHintText } from "./textbox.style";
+import { ErrorBorder, StyledInputHint, StyledHintText } from "./textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import NumeralDateContext from "../numeral-date/numeral-date-context";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
+import guid from "../../__internal__/utils/helpers/guid";
 
 export interface CommonTextboxProps
   extends ValidationProps,
@@ -40,6 +41,8 @@ export interface CommonTextboxProps
   adaptiveLabelBreakpoint?: number;
   /** Integer to determine a timeout for the deferred callback */
   deferTimeout?: number;
+  /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
+  inputHint?: string;
   /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /**
@@ -112,7 +115,6 @@ export interface CommonTextboxProps
   helpAriaLabel?: string;
 }
 
-// TODO: Change characterLimit type to number - batch with other breaking changes
 export interface TextboxProps extends CommonTextboxProps {
   /** Content to be rendered next to the input */
   children?: React.ReactNode;
@@ -121,11 +123,9 @@ export interface TextboxProps extends CommonTextboxProps {
   /** Container for DatePicker or SelectList components */
   positionedChildren?: React.ReactNode;
   /** Character limit of the textarea */
-  characterLimit?: string | number;
+  characterLimit?: number;
   /** Stop the user typing over the characterLimit */
   enforceCharacterLimit?: boolean;
-  /** Whether to display the character count message in red */
-  warnOverLimit?: boolean;
 }
 
 let deprecateInputRefWarnTriggered = false;
@@ -147,6 +147,7 @@ export const Textbox = React.forwardRef(
       labelSpacing,
       id,
       formattedValue,
+      inputHint,
       fieldHelp,
       error,
       warning,
@@ -183,20 +184,20 @@ export const Textbox = React.forwardRef(
       "data-role": dataRole,
       enforceCharacterLimit = true,
       characterLimit,
-      warnOverLimit = false,
       helpAriaLabel,
       ...props
     }: TextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const characterCountValue = typeof value === "string" ? value : "";
-    const [maxLength, characterCount] = useCharacterCount(
+    const [
+      maxLength,
+      characterCount,
+      characterCountHintId,
+      characterCountHint,
+    ] = useCharacterCount(
       characterCountValue,
-      // TODO: Can be removed after the characterLimit type is changed to number
-      typeof characterLimit === "string"
-        ? parseInt(characterLimit, 10)
-        : characterLimit,
-      warnOverLimit,
+      characterLimit,
       enforceCharacterLimit
     );
     const { validationRedesignOptIn } = useContext(NewValidationContext);
@@ -215,11 +216,12 @@ export const Textbox = React.forwardRef(
 
     const {
       labelId,
-      validationIconId,
+      validationId,
       fieldHelpId,
       ariaDescribedBy,
     } = useInputAccessibility({
       id: uniqueId,
+      validationRedesignOptIn,
       error,
       warning,
       info,
@@ -227,10 +229,23 @@ export const Textbox = React.forwardRef(
       fieldHelp,
     });
 
-    const hasIconInside = !!(
-      inputIcon ||
-      (validationIconId && !validationOnLabel)
-    );
+    const hintId = useRef(guid());
+
+    const characterCountHintIdValue = characterCount
+      ? characterCountHintId
+      : undefined;
+
+    const inputHintIdValue = inputHint ? hintId.current : undefined;
+
+    const hintIdValue = characterLimit
+      ? characterCountHintIdValue
+      : inputHintIdValue;
+
+    const combinedAriaDescribedBy = [ariaDescribedBy, hintIdValue]
+      .filter(Boolean)
+      .join(" ");
+
+    const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
 
     const input = (
       <InputPresentation
@@ -257,9 +272,7 @@ export const Textbox = React.forwardRef(
           align={align}
           aria-invalid={!!error}
           aria-labelledby={ariaLabelledBy}
-          aria-describedby={
-            validationRedesignOptIn ? undefined : ariaDescribedBy
-          }
+          ariaDescribedBy={combinedAriaDescribedBy}
           autoFocus={autoFocus}
           deferTimeout={deferTimeout}
           disabled={disabled}
@@ -277,6 +290,7 @@ export const Textbox = React.forwardRef(
           readOnly={readOnly}
           value={typeof formattedValue === "string" ? formattedValue : value}
           maxLength={maxLength}
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
           {...props}
         />
         {children}
@@ -293,9 +307,7 @@ export const Textbox = React.forwardRef(
           size={size}
           useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
           warning={warning}
-          validationIconId={
-            validationRedesignOptIn ? undefined : validationIconId
-          }
+          validationIconId={validationRedesignOptIn ? undefined : validationId}
         />
       </InputPresentation>
     );
@@ -330,17 +342,26 @@ export const Textbox = React.forwardRef(
             data-role={dataRole}
             data-element={dataElement}
             validationIconId={
-              validationRedesignOptIn ? undefined : validationIconId
+              validationRedesignOptIn ? undefined : validationId
             }
             validationRedesignOptIn={validationRedesignOptIn}
             {...filterStyledSystemMarginProps(props)}
           >
+            {characterLimit || inputHint ? (
+              <StyledInputHint id={hintIdValue} data-element="input-hint">
+                {characterCountHint || inputHint}
+              </StyledInputHint>
+            ) : null}
             {validationRedesignOptIn && labelHelp && (
               <StyledHintText>{labelHelp}</StyledHintText>
             )}
             {validationRedesignOptIn ? (
               <Box position="relative">
-                <ValidationMessage error={error} warning={warning} />
+                <ValidationMessage
+                  error={error}
+                  validationId={validationId}
+                  warning={warning}
+                />
                 {!disableErrorBorder && (error || warning) && (
                   <ErrorBorder warning={!!(!error && warning)} />
                 )}

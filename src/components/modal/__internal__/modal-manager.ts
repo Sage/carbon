@@ -64,7 +64,7 @@ class ModalManagerInstance {
     return modal === topModal;
   }
 
-  removeModal(modal: HTMLElement | null) {
+  removeModal(modal: HTMLElement | null, triggerRefocusOnClose = true) {
     const modalIndex = this.modalList.findIndex(({ modal: m }) => m === modal);
 
     if (modalIndex === -1) {
@@ -80,7 +80,7 @@ class ModalManagerInstance {
 
     const { setTriggerRefocusFlag } = this.getTopModal();
 
-    if (setTriggerRefocusFlag) {
+    if (setTriggerRefocusFlag && triggerRefocusOnClose) {
       setTriggerRefocusFlag(true);
     }
   }

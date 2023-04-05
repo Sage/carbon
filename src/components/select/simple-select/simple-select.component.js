@@ -28,6 +28,8 @@ let deprecateInputRefWarnTriggered = false;
 const SimpleSelect = React.forwardRef(
   (
     {
+      "aria-label": ariaLabel,
+      "aria-labelledby": ariaLabelledby,
       value,
       defaultValue,
       id,
@@ -452,8 +454,10 @@ const SimpleSelect = React.forwardRef(
       >
         <div ref={containerRef}>
           <SelectTextbox
+            ariaLabel={ariaLabel}
             aria-controls={selectListId.current}
             activeDescendantId={activeDescendantId}
+            ariaLabelledby={ariaLabelledby}
             isOpen={isOpen}
             textboxRef={textboxRef}
             {...getTextboxProps()}
@@ -469,6 +473,10 @@ SimpleSelect.propTypes = {
   /** Styled system spacing props */
   ...propTypes.space,
   ...formInputPropTypes,
+  /** Prop to specify the aria-label attribute of the component input */
+  "aria-label": PropTypes.string,
+  /** Prop to specify the aria-labeledby property of the component input */
+  "aria-labelledby": PropTypes.string,
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component": PropTypes.string,
   /** Identifier used for testing purposes, applied to the root element of the component. */

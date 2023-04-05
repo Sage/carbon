@@ -8,6 +8,8 @@ export interface CommonHiddenCheckableInputProps
     React.InputHTMLAttributes<HTMLInputElement>,
     "value" | "size" | "type"
   > {
+  /** The id of the element that describe the input. */
+  ariaDescribedBy?: string;
   /** Prop to specify the aria-labelledby attribute of the input */
   ariaLabelledBy?: string;
   /** If true the Component will be focused when page load */
@@ -26,6 +28,8 @@ export interface CommonHiddenCheckableInputProps
   onMouseLeave?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** OnMouseEnter event handler */
   onMouseEnter?: (ev: React.MouseEvent<HTMLInputElement>) => void;
+  /** Id of the validation icon */
+  validationIconId?: string;
   /** Value of the input */
   value?: string;
 }
@@ -41,6 +45,7 @@ export interface HiddenCheckableInputProps
 const HiddenCheckableInput = React.forwardRef(
   (
     {
+      ariaDescribedBy,
       ariaLabelledBy,
       name,
       checked,
@@ -49,18 +54,26 @@ const HiddenCheckableInput = React.forwardRef(
       onChange,
       autoFocus,
       role,
+      validationIconId,
       ...props
     }: HiddenCheckableInputProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
-    const { onBlur, onFocus, onMouseEnter, onMouseLeave } = useContext(
-      InputContext
-    );
+    const {
+      onBlur,
+      onFocus,
+      onMouseEnter,
+      onMouseLeave,
+      hasFocus,
+      hasMouseOver,
+    } = useContext(InputContext);
     const {
       onBlur: onBlurGroup,
       onFocus: onFocusGroup,
       onMouseEnter: onMouseEnterGroup,
       onMouseLeave: onMouseLeaveGroup,
+      hasFocus: hasGroupFocus,
+      hasMouseOver: hasGroupMouseOver,
     } = useContext(InputGroupContext);
 
     const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
@@ -87,8 +100,23 @@ const HiddenCheckableInput = React.forwardRef(
       if (onMouseLeaveGroup) onMouseLeaveGroup();
     };
 
+    const hasValidationPart =
+      (hasFocus || hasGroupFocus || hasMouseOver || hasGroupMouseOver) &&
+      validationIconId;
+
+    const descriptionList = ariaDescribedBy ? [ariaDescribedBy] : [];
+
+    if (hasValidationPart) {
+      descriptionList.push(validationIconId);
+    }
+
+    const combinedDescription = descriptionList.length
+      ? descriptionList.filter(Boolean).join(" ")
+      : undefined;
+
     return (
       <HiddenCheckableInputStyle
+        aria-describedby={combinedDescription}
         aria-labelledby={ariaLabelledBy}
         autoFocus={autoFocus}
         aria-checked={checked}

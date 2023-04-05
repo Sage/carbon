@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import ValidationIcon from "./validation-icon.component";
@@ -7,6 +7,7 @@ import ValidationIconStyle from "./validation-icon.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import Tooltip from "../../components/tooltip";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import Icon from "../../components/icon/icon.component";
 
 function renderWithInputContext(
   inputContextValue = {},
@@ -203,6 +204,33 @@ describe("ValidationIcon", () => {
       }).toThrow(errorMessage);
 
       mockGlobal.mockReset();
+    });
+  });
+
+  describe("when the tooltipId prop is set", () => {
+    const mockId = "foo";
+    let wrapper: ReactWrapper;
+
+    beforeEach(() => {
+      wrapper = mount(<ValidationIcon tooltipId={mockId} error="bar" />);
+    });
+
+    it("then aria-describedby prop on the Icon component should have the same value", () => {
+      expect(wrapper.find(Icon).prop("aria-describedby")).toBe(mockId);
+    });
+  });
+
+  describe("when the tooltipId prop is not set", () => {
+    let wrapper: ReactWrapper;
+
+    beforeEach(() => {
+      wrapper = mount(<ValidationIcon error="bar" />);
+    });
+
+    it("then aria-describedby prop on the Icon component should have the same value as it's tooltipId prop", () => {
+      expect(wrapper.find(Icon).prop("aria-describedby")).toBe(
+        wrapper.find(Icon).prop("tooltipId")
+      );
     });
   });
 });

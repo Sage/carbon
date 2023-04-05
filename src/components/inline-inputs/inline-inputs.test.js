@@ -4,6 +4,7 @@ import Decimal from "../decimal/decimal.component";
 import SimpleSelect from "../select/simple-select/simple-select.component";
 import Option from "../select/option/option.component";
 import InlineInputs from "./inline-inputs.component";
+import * as stories from "./inline-inputs.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import {
   inlineInputContainer,
@@ -116,5 +117,24 @@ context("Tests for InlineInputs component", () => {
         inlineLabel().should("have.attr", "for", htmlFor);
       }
     );
+  });
+  describe("Accessibility tests for InlineInputs component", () => {
+    it("should pass accessibility tests for InlineInputs Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for InlineInputs WithAdaptiveLabelBreakpoint story", () => {
+      CypressMountWithProviders(<stories.WithAdaptiveLabelBreakpoint />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for InlineInputs Required story", () => {
+      CypressMountWithProviders(<stories.Required />);
+
+      cy.checkAccessibility();
+    });
   });
 });
