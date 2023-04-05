@@ -1,3 +1,24 @@
+## [117.3.0](https://github.com/Sage/carbon/compare/v117.2.2...v117.3.0) (2023-04-05)
+
+
+### Features
+
+* **pager:** surface interactivePageNumber prop to ensure selecting page number is optional ([b1ef242](https://github.com/Sage/carbon/commit/b1ef242936073f8794932beab566b26c35d2c215)), closes [#5674](https://github.com/Sage/carbon/issues/5674)
+
+### [117.2.2](https://github.com/Sage/carbon/compare/v117.2.1...v117.2.2) (2023-04-04)
+
+
+### Bug Fixes
+
+* **fieldset:** ensure Fieldset components accept custom margin values ([f35af48](https://github.com/Sage/carbon/commit/f35af4866ec8aac1a9be48fdf8788e54875ddf49)), closes [#5902](https://github.com/Sage/carbon/issues/5902)
+
+### [117.2.1](https://github.com/Sage/carbon/compare/v117.2.0...v117.2.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* **advanced-color-picker:** add visually hidden description list to describe selected color ([8b5d433](https://github.com/Sage/carbon/commit/8b5d4334d0039b56758217b73298e2fc09fc088d))
+
 ## [117.2.0](https://github.com/Sage/carbon/compare/v117.1.2...v117.2.0) (2023-04-03)
 
 

@@ -19,6 +19,7 @@ import {
   firstArrow,
   lastArrow,
   currentPageWrapper,
+  currentPageLabelWrapper,
   currentPageInput,
   pagerSummary,
   pageSelectElement,
@@ -254,6 +255,44 @@ context("Test for Pager component", () => {
       );
       firstArrow().should("be.visible");
       previousArrow().should("be.visible");
+    });
+
+    it.each([
+      [false, "not.exist"],
+      [true, "be.visible"],
+    ])(
+      "when interactivePageNumber is %s, standard pager nav number input rendered correctly",
+      (boolVal, assertion) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={1} interactivePageNumber={boolVal} />
+        );
+
+        currentPageWrapper().should(assertion);
+      }
+    );
+
+    it.each([
+      [true, "not.exist"],
+      [false, "be.visible"],
+    ])(
+      "when interactivePageNumber is %s, pager nav label is rendered correctly",
+      (boolVal, assertion) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={1} interactivePageNumber={boolVal} />
+        );
+
+        currentPageLabelWrapper().should(assertion);
+      }
+    );
+
+    it("when interactivePageNumber is false, pager nav label is rendered with correct styling", () => {
+      CypressMountWithProviders(
+        <PagerComponent currentPage={1} interactivePageNumber={false} />
+      );
+
+      currentPageLabelWrapper()
+        .should("have.css", "padding", "9px 12px")
+        .and("have.css", "margin", "4px 0px");
     });
   });
 
@@ -662,20 +701,28 @@ context("Test for Pager component", () => {
       }
     );
 
-    // FE-4659
-    describe.skip("should render Pager component for accessibility tests", () => {
-      it.each([true, false])(
-        "should render Pager with showPageSizeLabelBefore prop set to %s for accessibility tests",
-        (boolVal) => {
-          CypressMountWithProviders(
-            <PagerComponent
-              showPageSizeLabelBefore={boolVal}
-              showPageSizeSelection
-            />
-          );
-          cy.checkAccessibility();
-        }
-      );
-    });
+    it.each([true, false])(
+      "should render Pager with showPageSizeLabelBefore prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent
+            showPageSizeLabelBefore={boolVal}
+            showPageSizeSelection
+          />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([false, true])(
+      "should render Pager with interactivePageNumber prop set to %s for accessibility tests",
+      (boolVal) => {
+        CypressMountWithProviders(
+          <PagerComponent currentPage={1} interactivePageNumber={boolVal} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
   });
 });

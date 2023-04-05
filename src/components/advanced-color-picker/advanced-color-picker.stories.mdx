@@ -1,9 +1,11 @@
 import { Meta, Canvas, Story } from "@storybook/addon-docs";
 import AdvancedColorPicker from ".";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import { useState } from "react";
+import * as stories from "./advanced-color-picker.stories.tsx"
 
-<Meta title="Advanced Color Picker" />
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+<Meta title="Advanced Color Picker" parameters={{ info: { disable: true } }} />
 
 # Advanced Color Picker
 
@@ -30,45 +32,7 @@ import AdvancedColorPicker from "carbon-react/lib/components/advanced-color-pick
 Shows how the color picker can be used to select a color from a predefined set.
 
 <Canvas>
-  <Story name="default" parameters={{ info: { disable: true } }}>
-    {() => {
-      const [open, setOpen] = useState(true);
-      const [color, setColor] = useState();
-      const onChange = (e) => {
-        const { value } = e.target;
-        setColor(value);
-      };
-      return (
-        <AdvancedColorPicker
-          name="advancedPicker"
-          availableColors={[
-            { value: "#FFFFFF", label: "white" },
-            { value: "transparent", label: "transparent" },
-            { value: "#000000", label: "black" },
-            { value: "#A3CAF0", label: "blue" },
-            { value: "#FD9BA3", label: "pink" },
-            { value: "#B4AEEA", label: "purple" },
-            { value: "#ECE6AF", label: "goldenrod" },
-            { value: "#EBAEDE", label: "orchid" },
-            { value: "#EBC7AE", label: "desert" },
-            { value: "#AEECEB", label: "turquoise" },
-            { value: "#AEECD6", label: "mint" },
-          ]}
-          defaultColor="#EBAEDE"
-          selectedColor={color}
-          onChange={onChange}
-          onOpen={() => {
-            setOpen(!open);
-          }}
-          onClose={() => {
-            setOpen(false);
-          }}
-          onBlur={() => {}}
-          open={open}
-        />
-      );
-    }}
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ## Props
@@ -76,3 +40,31 @@ Shows how the color picker can be used to select a color from a predefined set.
 ### AdvancedColorPicker
 
 <StyledSystemProps of={AdvancedColorPicker} noHeader margin />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "advancedColorPicker.currentColorDescriptionTerm",
+      description: "The text which specifies the term in the visually hidden color description list",
+      type: "func",
+      returnType: "string",
+    },
+        {
+      name: "advancedColorPicker.currentColorAssigned",
+      description: "The text which specifies the currently selected color in the visually hidden color description list",
+      type: "func",
+      returnType: "string",
+    },
+            {
+      name: "advancedColorPicker.ariaLabel",
+      description: "The text which specifies the aria-label which will be applied to the color picker cell button which opens the component",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

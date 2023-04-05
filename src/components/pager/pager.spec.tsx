@@ -10,6 +10,7 @@ import SelectList from "../select/select-list/select-list.component";
 import {
   StyledPagerLink,
   StyledPagerNavInner,
+  StyledPagerNavLabel,
   StyledPagerSizeOptionsInner,
   StyledPagerSummary,
   StyledSelectContainer,
@@ -196,6 +197,36 @@ describe("Pager", () => {
           visibility: undefined,
         },
         wrapper.find(StyledPagerLink).at(2)
+      );
+    });
+
+    it("when interactivePageNumber is false, pager nav number input is not rendered", () => {
+      wrapper = getWrapper({ interactivePageNumber: false });
+      expect(wrapper.find(StyledPagerNavInner).exists()).toEqual(false);
+    });
+
+    it.each([1, 5, 10])(
+      "when interactivePageNumber is false, pager nav label is rendered with correct inner text",
+      (pageIndex) => {
+        wrapper = getWrapper({
+          interactivePageNumber: false,
+          currentPage: pageIndex,
+        });
+        expect(wrapper.find(StyledPagerNavLabel).text()).toBe(
+          `Page ${pageIndex} of 10`
+        );
+      }
+    );
+
+    it("when interactivePageNumber is false, pager nav label is rendered with correct styling", () => {
+      wrapper = getWrapper({ interactivePageNumber: false, currentPage: 1 });
+
+      assertStyleMatch(
+        {
+          padding: "9px 12px",
+          margin: "4px 0",
+        },
+        wrapper.find(StyledPagerNavLabel)
       );
     });
 
