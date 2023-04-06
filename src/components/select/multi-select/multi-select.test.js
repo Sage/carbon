@@ -5,6 +5,8 @@ import OptionRow from "../option-row/option-row.component";
 import Button from "../../button/button.component";
 import CypressMountWithProviders from "../../../../cypress/support/component-helper/cypress-mount";
 import Dialog from "../../dialog";
+import Box from "../../box";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 import {
   getDataElementByValue,
@@ -503,6 +505,52 @@ const MultiSelectNestedInDialog = () => {
         <Option value="opt4" text="black" />
       </MultiSelect>
     </Dialog>
+  );
+};
+
+const MultiSelectErrorOnChangeNewValidation = () => {
+  const [selectedPills, setSelectedPills] = useState([]);
+  const [showError, setShowError] = useState(false);
+
+  const handleOnChange = (event) => {
+    if (event.target.value.length < 3) {
+      setShowError(false);
+      setSelectedPills(event.target.value);
+    } else {
+      setShowError(true);
+    }
+  };
+
+  const handleError = showError ? "Error" : "";
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      Open dropdown and try to select more than 2 pills
+      <Box width="300px" ml={10} mt={10}>
+        <MultiSelect
+          name="testing"
+          value={selectedPills}
+          onChange={handleOnChange}
+          disablePortal
+          openOnFocus
+          label="Test"
+          placeholder="FooBar"
+          error={handleError}
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </MultiSelect>
+      </Box>
+    </CarbonProvider>
   );
 };
 
@@ -1417,6 +1465,22 @@ context("Tests for Multi Select component", () => {
 
       selectList().should("not.be.visible");
       commonDataElementInputPreview().should("not.be.focused");
+    });
+  });
+
+  describe("When error is triggered by onChange", () => {
+    it("should display correctly", () => {
+      CypressMountWithProviders(<MultiSelectErrorOnChangeNewValidation />);
+
+      dropdownButton().click();
+      selectListText(option1).click();
+      selectListText(option2).click();
+      selectListText(option3).click();
+
+      /* This is <p>Error</p> that displays the error message in the new validations. 
+         It does not have a data-element or data-component prop to target the element with. 
+         This can be refactored once this is implemented. */
+      cy.get("p").should("be.visible").should("have.text", "Error");
     });
   });
 });
