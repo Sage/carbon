@@ -3,7 +3,7 @@ import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
 
-import { Select, Option } from "..";
+import { Select, Option, SimpleSelectProps } from "..";
 
 export default {
   component: Select,
@@ -84,7 +84,7 @@ export default {
   },
 };
 
-export const Default = (args) => {
+export const Default = (args: SimpleSelectProps) => {
   return (
     <Box width={400}>
       <Select name="simple" id="simple" label="label" labelInline {...args}>
