@@ -386,26 +386,23 @@ context("Testing Button-Toggle-Group component", () => {
       }
     );
 
-    // FE-5382
-    describe.skip("skip", () => {
-      it.each([
-        ["error", "Error Message", "", ""],
-        ["warning", "", "Warning Message", ""],
-        ["info", "", "", "Info Message"],
-      ])(
-        "should pass accessibility tests for Button-Toggle-Group with %s icon",
-        (prop, errorMessage, warningMessage, infoMessage) => {
-          CypressMountWithProviders(
-            <stories.ButtonToggleGroupComponent
-              error={errorMessage}
-              warning={warningMessage}
-              info={infoMessage}
-            />
-          );
+    it.each([
+      ["error", "Error Message", "", ""],
+      ["warning", "", "Warning Message", ""],
+      ["info", "", "", "Info Message"],
+    ])(
+      "should pass accessibility tests for Button-Toggle-Group with %s icon",
+      (prop, errorMessage, warningMessage, infoMessage) => {
+        CypressMountWithProviders(
+          <stories.ButtonToggleGroupComponent
+            error={errorMessage}
+            warning={warningMessage}
+            info={infoMessage}
+          />
+        );
 
-          cy.checkAccessibility();
-        }
-      );
-    });
+        cy.checkAccessibility();
+      }
+    );
   });
 });

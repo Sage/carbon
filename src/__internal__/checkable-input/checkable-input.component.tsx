@@ -5,7 +5,7 @@ import {
   StyledCheckableInputWrapper,
 } from "./checkable-input.style";
 import { InputBehaviour } from "../input-behaviour";
-import FormField from "../form-field";
+import FormField, { FormFieldProps } from "../form-field";
 import HiddenCheckableInput, {
   CommonHiddenCheckableInputProps,
 } from "./hidden-checkable-input.component";
@@ -101,7 +101,7 @@ const CheckableInput = React.forwardRef(
     const {
       labelId,
       fieldHelpId,
-      validationIconId,
+      validationId,
       ariaDescribedBy,
     } = useInputAccessibility({
       id,
@@ -114,7 +114,7 @@ const CheckableInput = React.forwardRef(
 
     const isRadio = type === "radio";
 
-    const formFieldProps = {
+    const formFieldProps: FormFieldProps = {
       disabled,
       error,
       fieldHelp,
@@ -129,10 +129,9 @@ const CheckableInput = React.forwardRef(
       labelId,
       labelInline,
       labelSpacing,
-      name: id,
       reverse,
       warning,
-      validationIconId,
+      validationIconId: validationId,
       // We don't want an asterisk on each radio control, only the legend
       // However, we still want the input element to receive the required prop
       isRequired: isRadio ? undefined : required,
@@ -140,7 +139,7 @@ const CheckableInput = React.forwardRef(
     };
 
     const inputProps = {
-      "aria-describedby": ariaDescribedBy,
+      ariaDescribedBy,
       "aria-labelledby": ariaLabelledBy,
       "aria-invalid": !!error,
       autoFocus,
@@ -155,6 +154,7 @@ const CheckableInput = React.forwardRef(
       onFocus,
       required,
       ref,
+      validationIconId: validationId,
       ...props,
     };
 

@@ -7,7 +7,7 @@ import Textbox from "../textbox";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Textarea from "../textarea";
 import Dialog from "../dialog";
-import DateInput from "../date";
+import DateInput, { DateChangeEvent } from "../date";
 import { Select, MultiSelect, Option } from "../select";
 import DialogFullScreen from "../dialog-full-screen";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
@@ -312,7 +312,9 @@ export const InDialogWithStickyFooter = () => {
             label="Date"
             name="dateinput"
             value={date}
-            onChange={(ev) => setDate(ev.target.value.formattedValue)}
+            onChange={(ev: DateChangeEvent) =>
+              setDate(ev.target.value.formattedValue)
+            }
             disablePortal
           />
           <Select
@@ -450,7 +452,9 @@ export const InDialogFullScreenWithStickyFooter = () => {
             label="Date"
             name="dateinput"
             value={date}
-            onChange={(ev) => setDate(ev.target.value.formattedValue)}
+            onChange={(ev: DateChangeEvent) =>
+              setDate(ev.target.value.formattedValue)
+            }
           />
           <Select name="simple" id="simple" label="label">
             <Option text="Amber" value="1" />
@@ -541,7 +545,9 @@ export const FormAlignmentExample = () => {
         labelInline
         labelWidth={10}
         value={date}
-        onChange={(ev) => setDate(ev.target.value.formattedValue)}
+        onChange={(ev: DateChangeEvent) =>
+          setDate(ev.target.value.formattedValue)
+        }
       />
       <RadioButtonGroup
         name="nolegend"

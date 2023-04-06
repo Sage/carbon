@@ -386,7 +386,7 @@ context("Test for DateRange component", () => {
         .and("have.attr", "disabled");
     });
 
-    it.each([["top"], ["bottom"], ["left"], ["right"]])(
+    it.each(["top", "bottom", "left", "right"])(
       "should check the tooltipPosition is set to %s",
       (position) => {
         CypressMountWithProviders(
@@ -506,204 +506,193 @@ context("Test for DateRange component", () => {
       }
     );
 
-    // FE-5382
-    describe.skip("skip", () => {
-      it.each(testData)(
-        "should check accessibility with the startError as string renders as %s",
-        (startError) => {
-          CypressMountWithProviders(
-            <DateRangeCustom startError={startError} />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(testData)(
-        "should check accessibility with the endError as string renders as %s",
-        (endError) => {
-          CypressMountWithProviders(<DateRangeCustom endError={endError} />);
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(testData)(
-        "should check accessibility with the startWarning as string renders as %s",
-        (startWarning) => {
-          CypressMountWithProviders(
-            <DateRangeCustom startWarning={startWarning} />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(testData)(
-        "should check accessibility with the endWarning as string renders as %s",
-        (endWarning) => {
-          CypressMountWithProviders(
-            <DateRangeCustom endWarning={endWarning} />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(testData)(
-        "should check accessibility with the startInfo as string renders as %s",
-        (startInfo) => {
-          CypressMountWithProviders(<DateRangeCustom startInfo={startInfo} />);
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(testData)(
-        "should check accessibility with the endInfo as string renders as %s",
-        (endInfo) => {
-          CypressMountWithProviders(<DateRangeCustom endInfo={endInfo} />);
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(testData)(
-        "should check accessibility with the validationOnLabel with error state",
-        (error) => {
-          CypressMountWithProviders(
-            <DateRangeCustom
-              startError={error}
-              endError={error}
-              validationOnLabel
-            />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(testData)(
-        "should check accessibility with the validationOnLabel with warning state",
-        (warning) => {
-          CypressMountWithProviders(
-            <DateRangeCustom
-              startWarning={warning}
-              endWarning={warning}
-              validationOnLabel
-            />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(testData)(
-        "should check accessibility with the validationOnLabel with info state",
-        (info) => {
-          CypressMountWithProviders(
-            <DateRangeCustom
-              startInfo={info}
-              endInfo={info}
-              validationOnLabel
-            />
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each([["top"], ["bottom"], ["left"], ["right"]])(
-        "should check accessibility with the tooltipPosition is set to %s",
-        (position) => {
-          CypressMountWithProviders(
-            <DateRangeCustom
-              m={9}
-              tooltipPosition={position}
-              startError={testCypressText}
-            />
-          );
-
-          icon().realHover();
-          cy.checkAccessibility();
-          cyRoot().realHover({ position: "topRight" });
-        }
-      );
-    });
-
-    it("should check accessibility with the startError as boolean", () => {
-      CypressMountWithProviders(<DateRangeCustom startError />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should check accessibility with the endError as boolean", () => {
-      CypressMountWithProviders(<DateRangeCustom endError />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should check accessibility with the startWarning as boolean", () => {
-      CypressMountWithProviders(<DateRangeCustom startWarning />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should check accessibility with the endWarning as boolean", () => {
-      CypressMountWithProviders(<DateRangeCustom endWarning />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should check accessibility with the startInfo as boolean", () => {
-      CypressMountWithProviders(<DateRangeCustom startInfo />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should check accessibility with the endInfo as boolean", () => {
-      CypressMountWithProviders(<DateRangeCustom endInfo />);
-
-      cy.checkAccessibility();
-    });
-
-    it.each([true, false])(
-      "should check accessibility with the labelsInline prop is set to %s",
-      (boolean) => {
-        CypressMountWithProviders(<DateRangeCustom labelsInline={boolean} />);
+    it.each(testData)(
+      "should check accessibility with the startError as string renders as %s",
+      (startError) => {
+        CypressMountWithProviders(<DateRangeCustom startError={startError} />);
 
         cy.checkAccessibility();
       }
     );
 
-    it("should check accessibility with the startDateProps prop", () => {
-      CypressMountWithProviders(
-        <DateRangeCustom
-          startDateProps={{
-            disabled: true,
-          }}
-        />
-      );
+    it.each(testData)(
+      "should check accessibility with the endError as string renders as %s",
+      (endError) => {
+        CypressMountWithProviders(<DateRangeCustom endError={endError} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check accessibility with the startWarning as string renders as %s",
+      (startWarning) => {
+        CypressMountWithProviders(
+          <DateRangeCustom startWarning={startWarning} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check accessibility with the endWarning as string renders as %s",
+      (endWarning) => {
+        CypressMountWithProviders(<DateRangeCustom endWarning={endWarning} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check accessibility with the startInfo as string renders as %s",
+      (startInfo) => {
+        CypressMountWithProviders(<DateRangeCustom startInfo={startInfo} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check accessibility with the endInfo as string renders as %s",
+      (endInfo) => {
+        CypressMountWithProviders(<DateRangeCustom endInfo={endInfo} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check accessibility with the validationOnLabel with error state",
+      (error) => {
+        CypressMountWithProviders(
+          <DateRangeCustom
+            startError={error}
+            endError={error}
+            validationOnLabel
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check accessibility with the validationOnLabel with warning state",
+      (warning) => {
+        CypressMountWithProviders(
+          <DateRangeCustom
+            startWarning={warning}
+            endWarning={warning}
+            validationOnLabel
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check accessibility with the validationOnLabel with info state",
+      (info) => {
+        CypressMountWithProviders(
+          <DateRangeCustom startInfo={info} endInfo={info} validationOnLabel />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["top", "bottom", "left", "right"])(
+      "should check accessibility with the tooltipPosition is set to %s",
+      (position) => {
+        CypressMountWithProviders(
+          <DateRangeCustom
+            m={9}
+            tooltipPosition={position}
+            startError={testCypressText}
+          />
+        );
+
+        icon().realHover();
+        cy.checkAccessibility();
+        cyRoot().realHover({ position: "topRight" });
+      }
+    );
+  });
+
+  it("should check accessibility with the startError as boolean", () => {
+    CypressMountWithProviders(<DateRangeCustom startError />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should check accessibility with the endError as boolean", () => {
+    CypressMountWithProviders(<DateRangeCustom endError />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should check accessibility with the startWarning as boolean", () => {
+    CypressMountWithProviders(<DateRangeCustom startWarning />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should check accessibility with the endWarning as boolean", () => {
+    CypressMountWithProviders(<DateRangeCustom endWarning />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should check accessibility with the startInfo as boolean", () => {
+    CypressMountWithProviders(<DateRangeCustom startInfo />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should check accessibility with the endInfo as boolean", () => {
+    CypressMountWithProviders(<DateRangeCustom endInfo />);
+
+    cy.checkAccessibility();
+  });
+
+  it.each([true, false])(
+    "should check accessibility with the labelsInline prop is set to %s",
+    (boolean) => {
+      CypressMountWithProviders(<DateRangeCustom labelsInline={boolean} />);
 
       cy.checkAccessibility();
-    });
+    }
+  );
 
-    it("should check accessibility with the endDateProps prop", () => {
-      CypressMountWithProviders(
-        <DateRangeCustom
-          endDateProps={{
-            disabled: true,
-          }}
-        />
-      );
+  it("should check accessibility with the startDateProps prop", () => {
+    CypressMountWithProviders(
+      <DateRangeCustom
+        startDateProps={{
+          disabled: true,
+        }}
+      />
+    );
 
-      cy.checkAccessibility();
-    });
+    cy.checkAccessibility();
+  });
 
-    it("should check accessibility with new validation", () => {
-      CypressMountWithProviders(<DateRangeNewValidation />);
+  it("should check accessibility with the endDateProps prop", () => {
+    CypressMountWithProviders(
+      <DateRangeCustom
+        endDateProps={{
+          disabled: true,
+        }}
+      />
+    );
 
-      cy.checkAccessibility();
-    });
+    cy.checkAccessibility();
+  });
+
+  it("should check accessibility with new validation", () => {
+    CypressMountWithProviders(<DateRangeNewValidation />);
+
+    cy.checkAccessibility();
   });
 });

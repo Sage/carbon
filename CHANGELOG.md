@@ -1,3 +1,77 @@
+## [117.3.0](https://github.com/Sage/carbon/compare/v117.2.2...v117.3.0) (2023-04-05)
+
+
+### Features
+
+* **pager:** surface interactivePageNumber prop to ensure selecting page number is optional ([b1ef242](https://github.com/Sage/carbon/commit/b1ef242936073f8794932beab566b26c35d2c215)), closes [#5674](https://github.com/Sage/carbon/issues/5674)
+
+### [117.2.2](https://github.com/Sage/carbon/compare/v117.2.1...v117.2.2) (2023-04-04)
+
+
+### Bug Fixes
+
+* **fieldset:** ensure Fieldset components accept custom margin values ([f35af48](https://github.com/Sage/carbon/commit/f35af4866ec8aac1a9be48fdf8788e54875ddf49)), closes [#5902](https://github.com/Sage/carbon/issues/5902)
+
+### [117.2.1](https://github.com/Sage/carbon/compare/v117.2.0...v117.2.1) (2023-04-04)
+
+
+### Bug Fixes
+
+* **advanced-color-picker:** add visually hidden description list to describe selected color ([8b5d433](https://github.com/Sage/carbon/commit/8b5d4334d0039b56758217b73298e2fc09fc088d))
+
+## [117.2.0](https://github.com/Sage/carbon/compare/v117.1.2...v117.2.0) (2023-04-03)
+
+
+### Features
+
+* **breadcrumbs:** new component ([f7dde02](https://github.com/Sage/carbon/commit/f7dde02f8d50892e32e66cae37792bbdd2afa034))
+
+### [117.1.2](https://github.com/Sage/carbon/compare/v117.1.1...v117.1.2) (2023-03-31)
+
+
+### Bug Fixes
+
+* **textarea:** add missing error message id ([d2d3bea](https://github.com/Sage/carbon/commit/d2d3bead736a90e385f76b0b0b8c1629f2baacfa))
+* **textbox, textarea, checkbox, radio-button:** fix ARIA descriptions ([1989d4a](https://github.com/Sage/carbon/commit/1989d4afd2f3d5bb776cc990e404473e280aad9a))
+* **validations:** add aria-describedby to validation icon ([d5a5892](https://github.com/Sage/carbon/commit/d5a589293493a9c39adf51d13dfea96fb0e40f6f)), closes [#5498](https://github.com/Sage/carbon/issues/5498) [#5411](https://github.com/Sage/carbon/issues/5411) [#5594](https://github.com/Sage/carbon/issues/5594)
+* **validations:** add error anouncement for redesigned validations ([1ea2bbe](https://github.com/Sage/carbon/commit/1ea2bbed1c45126d99cfa73ad9764de8caf6df23)), closes [#5828](https://github.com/Sage/carbon/issues/5828)
+
+### [117.1.1](https://github.com/Sage/carbon/compare/v117.1.0...v117.1.1) (2023-03-31)
+
+
+### Bug Fixes
+
+* **date:** add missing ref TS type ([d27984b](https://github.com/Sage/carbon/commit/d27984ba97c856398bcf7cf0505ac0e883b4d38c)), closes [#5929](https://github.com/Sage/carbon/issues/5929)
+
+## [117.1.0](https://github.com/Sage/carbon/compare/v117.0.0...v117.1.0) (2023-03-30)
+
+
+### Features
+
+* **filterable-select:** add aria-label and aria-labelledby props ([e656d2b](https://github.com/Sage/carbon/commit/e656d2b65d6e6dee26fa2ff6c9c68cc674696582))
+* **multi-select:** add aria-label and aria-labelledby props ([422627f](https://github.com/Sage/carbon/commit/422627f3b4ad7ad231a9c05e746cbb824ca316d8))
+* **select:** add aria-label and aria-labelledby props ([f4e11d2](https://github.com/Sage/carbon/commit/f4e11d22f22980cb777170086b50bcf6befab883))
+
+## [117.0.0](https://github.com/Sage/carbon/compare/v116.2.2...v117.0.0) (2023-03-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea, textbox:** The `warnOverLimit` prop is no longer consumed by both components and the styling
+the prop applied has now been made the default. Also the type of the `characterLimit` prop has been
+changed to solely a number opposed to a number or a string.
+
+### Bug Fixes
+
+* **textarea, textbox:** accessibility refactor of character count functionality ([182afc9](https://github.com/Sage/carbon/commit/182afc9ef94b3cd127d43ab3362b6374633dc64c)), closes [#5717](https://github.com/Sage/carbon/issues/5717)
+
+### [116.2.2](https://github.com/Sage/carbon/compare/v116.2.1...v116.2.2) (2023-03-30)
+
+
+### Bug Fixes
+
+* **check_rfcs:** ship the index file in the published package ([ca9665e](https://github.com/Sage/carbon/commit/ca9665e288b5c37ae2fabd536cefe53535fa981e))
+
 ### [116.2.1](https://github.com/Sage/carbon/compare/v116.2.0...v116.2.1) (2023-03-28)
 
 

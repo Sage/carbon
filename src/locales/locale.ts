@@ -9,8 +9,21 @@ interface Locale {
   actionPopover: {
     ariaLabel: () => string;
   };
+  advancedColorPicker: {
+    ariaLabel: () => string;
+    currentColorDescriptionTerm: (currentColor: string) => string;
+    currentColorAssigned: (currentColor: string) => string;
+  };
   batchSelection: {
     selected: (count: number | string) => string;
+  };
+  breadcrumbs: {
+    ariaLabel: () => string;
+  };
+  characterCount: {
+    hintString: () => string;
+    tooManyCharacters: (count: number, formattedCount: string) => string;
+    charactersLeft: (count: number, formattedCount: string) => string;
   };
   confirm: {
     no: () => string;

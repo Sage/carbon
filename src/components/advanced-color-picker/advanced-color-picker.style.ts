@@ -11,10 +11,17 @@ import Dialog from "../dialog/dialog.component";
 import StyledIconButton from "../icon-button/icon-button.style";
 import checkerBoardSvg from "../simple-color-picker/simple-color/checker-board.svg";
 import baseTheme from "../../style/themes/base";
+import visuallyHiddenStyles from "../../style/utils/visually-hidden";
+import { Dl } from "../definition-list";
 
 const StyledAdvancedColorPickerWrapper = styled.div`
   ${margin}
   display: inline-block;
+`;
+
+/** To be replaced by accessibly hidden class added in FE-5503 */
+const HiddenCurrentColorList = styled(Dl)`
+  ${visuallyHiddenStyles}
 `;
 
 StyledAdvancedColorPickerWrapper.defaultProps = {
@@ -85,6 +92,7 @@ const DialogStyle = styled(Dialog)`
 
 export {
   StyledAdvancedColorPickerWrapper,
+  HiddenCurrentColorList,
   StyledAdvancedColorPickerCell,
   StyledAdvancedColorPickerPreview,
   DialogStyle,

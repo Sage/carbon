@@ -1,11 +1,12 @@
 {
   "name": "carbon-react",
-  "version": "116.2.1",
+  "version": "117.3.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
     "esm",
-    "scripts/check_rfcs/check_rfcs.js"
+    "scripts/check_rfcs/check_rfcs.js",
+    "scripts/check_rfcs/index.js"
   ],
   "scripts": {
     "start": "node ./scripts/check_node_version.js && NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 9001 -c .storybook",
