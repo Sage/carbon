@@ -1,9 +1,7 @@
 import React from "react";
 import Tile from ".";
 import Content from "../content";
-import { Dl, Dt, Dd } from "../definition-list";
-import Accordion from "../accordion/accordion.component";
-import Button from "../button/button.component";
+import * as testStories from "./tile-test.stories";
 import TileFooter from "./tile-footer";
 import Typography from "../typography/typography.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -18,69 +16,6 @@ import {
 
 const testData = ["left", "center", "right"];
 
-const TileComponent = ({ ...props }) => {
-  return (
-    <Tile {...props}>
-      <Content title="Test Title One">Test Body One</Content>
-      <Content title="Test Title Two">Test Body Two</Content>
-      <Content title="Test Title Three">Test Body Three</Content>
-    </Tile>
-  );
-};
-
-const TileFooterComponent = ({ ...props }) => {
-  return (
-    <Tile p={0} orientation="vertical">
-      <Accordion
-        p={0}
-        headerSpace={{
-          p: 3,
-        }}
-        borders="none"
-        title="Accordion"
-      >
-        <Dl dtTextAlign="left" ddTextAlign="right">
-          <Dt>Coffee Subscription</Dt>
-          <Dd>£7.00 a month</Dd>
-          <Dt>Grind Size</Dt>
-          <Dd>Espresso</Dd>
-          <Dt>Quantity</Dt>
-          <Dd>3kg</Dd>
-          <Dd>
-            <Button
-              buttonType="tertiary"
-              href="https://goo.gl/maps/GMReLoBpbn9mdZVZ7"
-            >
-              Have a promo code?
-            </Button>
-          </Dd>
-        </Dl>
-      </Accordion>
-      <TileFooter {...props} p={3}>
-        <Typography pr={2} display="inline" variant="b">
-          Example footer text
-        </Typography>
-        <Typography display="inline">Example text</Typography>
-      </TileFooter>
-    </Tile>
-  );
-};
-
-const DlTileComponent = ({ ...props }) => {
-  return (
-    <div>
-      <Dl data-element="dl" {...props}>
-        <Dt>Coffee Subscription</Dt>
-        <Dd data-element="dd">£7.00 a month</Dd>
-        <Dt>Grind Size</Dt>
-        <Dd>Espresso</Dd>
-        <Dt>Quantity</Dt>
-        <Dd>3kg</Dd>
-      </Dl>
-    </div>
-  );
-};
-
 context("Tests for Tile component", () => {
   describe("check props for Tile component", () => {
     it.each([
@@ -90,7 +25,9 @@ context("Tests for Tile component", () => {
     ])(
       "should check %s variant for Tile component",
       (variant, borderColor, backGroundColor) => {
-        CypressMountWithProviders(<TileComponent variant={variant} />);
+        CypressMountWithProviders(
+          <testStories.TileComponent variant={variant} />
+        );
         tile()
           .should("have.css", "border-color", borderColor)
           .and("have.css", "background-color", backGroundColor);
@@ -103,7 +40,9 @@ context("Tests for Tile component", () => {
     ])(
       "should check %s orientation for Tile component",
       (orientation, height) => {
-        CypressMountWithProviders(<TileComponent orientation={orientation} />);
+        CypressMountWithProviders(
+          <testStories.TileComponent orientation={orientation} />
+        );
         tile().then(($el) => {
           useJQueryCssValueAndAssert($el, "height", height);
         });
@@ -117,7 +56,9 @@ context("Tests for Tile component", () => {
     ])(
       "should check width as %s for Tile component",
       (widthInPercentage, widthInPixel) => {
-        CypressMountWithProviders(<TileComponent width={widthInPercentage} />);
+        CypressMountWithProviders(
+          <testStories.TileComponent width={widthInPercentage} />
+        );
         tile().then(($el) => {
           useJQueryCssValueAndAssert($el, "width", widthInPixel);
         });
@@ -136,7 +77,9 @@ context("Tests for Tile component", () => {
     it.each(testData)(
       "should check ddTextAlign as %s for Tile component",
       (align) => {
-        CypressMountWithProviders(<DlTileComponent ddTextAlign={align} />);
+        CypressMountWithProviders(
+          <testStories.DlTileComponent ddTextAlign={align} />
+        );
         getDataElementByValue("dd").should("have.css", "text-align", align);
       }
     );
@@ -145,7 +88,10 @@ context("Tests for Tile component", () => {
       "should check dtTextAlign as %s for Tile component",
       (align) => {
         CypressMountWithProviders(
-          <DlTileComponent dtTextAlign={align} ddTextAlign="right" />
+          <testStories.DlTileComponent
+            dtTextAlign={align}
+            ddTextAlign="right"
+          />
         );
         getDataElementByValue("dt").should("have.css", "text-align", align);
       }
@@ -153,7 +99,7 @@ context("Tests for Tile component", () => {
 
     it("should check single column for Tile component", () => {
       CypressMountWithProviders(
-        <DlTileComponent dtTextAlign="left" asSingleColumn />
+        <testStories.DlTileComponent dtTextAlign="left" asSingleColumn />
       );
       getDataElementByValue("dt")
         .should("have.css", "text-align", "left")
@@ -173,7 +119,11 @@ context("Tests for Tile component", () => {
       "should check dtTextAlign as %s for Tile component",
       (w, dtWidth, ddWidth) => {
         CypressMountWithProviders(
-          <DlTileComponent w={w} dtTextAlign="left" ddTextAlign="left" />
+          <testStories.DlTileComponent
+            w={w}
+            dtTextAlign="left"
+            ddTextAlign="left"
+          />
         );
         getDataElementByValue("dt")
           .should("have.css", "text-align", "left")
@@ -199,9 +149,11 @@ context("Tests for Tile component", () => {
       ["transparent", "rgba(0, 0, 0, 0)"],
       ["black", "rgb(0, 0, 0)"],
     ])(
-      "should check tile footer variant as %s for Tile component",
+      "should check Tile Footer variant as %s for Tile component",
       (variant, backGroundColor) => {
-        CypressMountWithProviders(<TileFooterComponent variant={variant} />);
+        CypressMountWithProviders(
+          <testStories.TileFooterComponent variant={variant} />
+        );
         tileFooter()
           .should("have.css", "background-color", backGroundColor)
           .then((elem) => {
@@ -218,7 +170,7 @@ context("Tests for Tile component", () => {
     );
 
     it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
-      "should check tile footer children as %s for Tile component",
+      "should check Tile Footer children as %s for Tile component",
       (children) => {
         CypressMountWithProviders(
           <Tile>
@@ -238,7 +190,7 @@ context("Tests for Tile component", () => {
       [30, 385],
       [60, 795],
     ])("should check w as %s for Tile component", (w, dtWidth) => {
-      CypressMountWithProviders(<DlTileComponent w={w} />);
+      CypressMountWithProviders(<testStories.DlTileComponent w={w} />);
       getDataElementByValue("dt").then(($el) => {
         useJQueryCssValueAndAssert($el, "width", dtWidth);
       });
@@ -252,10 +204,10 @@ context("Tests for Tile component", () => {
       ["caution", "rgb(239, 103, 0)"],
       ["info", "rgb(0, 96, 167)"],
     ])(
-      "should check border variant as %s for tile component",
+      "should check border variant as %s for Tile component",
       (borderVariant, borderColor) => {
         CypressMountWithProviders(
-          <TileComponent borderVariant={borderVariant} />
+          <testStories.TileComponent borderVariant={borderVariant} />
         );
         tile().should("have.css", "border-color", borderColor);
       }
@@ -268,12 +220,172 @@ context("Tests for Tile component", () => {
       ["borderWidth300", 3],
       ["borderWidth400", 4],
     ])(
-      "should check border width as %s for tile component",
+      "should check border width as %s for Tile component",
       (borderWidth, pixelWidth) => {
-        CypressMountWithProviders(<TileComponent borderWidth={borderWidth} />);
+        CypressMountWithProviders(
+          <testStories.TileComponent borderWidth={borderWidth} />
+        );
         tile().then(($el) => {
           useJQueryCssValueAndAssert($el, "border-width", pixelWidth);
         });
+      }
+    );
+  });
+
+  describe("check Accessibility for Tile component", () => {
+    it.each(["tile", "transparent", "active"])(
+      "should check Accessibility for %s variant for Tile component",
+      (variant) => {
+        CypressMountWithProviders(
+          <testStories.TileComponent variant={variant} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["vertical", "horizontal"])(
+      "should check Accessibility for %s orientation for Tile component",
+      (orientation) => {
+        CypressMountWithProviders(
+          <testStories.TileComponent orientation={orientation} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["30%", "50%", 0])(
+      "should check Accessibility for width as %s for Tile component",
+      (widthInPercentage) => {
+        CypressMountWithProviders(
+          <testStories.TileComponent width={widthInPercentage} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check Accessibility for children for Tile component", () => {
+      CypressMountWithProviders(
+        <Tile>
+          <Content title="children_test" />
+        </Tile>
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each(testData)(
+      "should check Accessibility for ddTextAlign as %s for Tile component",
+      (align) => {
+        CypressMountWithProviders(
+          <testStories.DlTileComponent ddTextAlign={align} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should check Accessibility for dtTextAlign as %s for Tile component",
+      (align) => {
+        CypressMountWithProviders(
+          <testStories.DlTileComponent
+            dtTextAlign={align}
+            ddTextAlign="right"
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check Accessibility for single column for Tile component", () => {
+      CypressMountWithProviders(
+        <testStories.DlTileComponent dtTextAlign="left" asSingleColumn />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each([10, 30])(
+      "should check Accessibility for dtTextAlign as %s for Tile component",
+      (w) => {
+        CypressMountWithProviders(
+          <testStories.DlTileComponent
+            w={w}
+            dtTextAlign="left"
+            ddTextAlign="left"
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["default", "transparent", "black"])(
+      "should check Accessibility for Tile Footer variant as %s for Tile component",
+      (variant) => {
+        CypressMountWithProviders(
+          <testStories.TileFooterComponent variant={variant} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
+      "should check Accessibility for Tile Footer children as %s for Tile component",
+      (children) => {
+        CypressMountWithProviders(
+          <Tile>
+            <TileFooter p={3}>
+              <Typography pr={2} display="inline" variant="b">
+                {children}
+              </Typography>
+            </TileFooter>
+          </Tile>
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([10, 30, 60])(
+      "should check Accessibility for w as %s for Tile component",
+      (w) => {
+        CypressMountWithProviders(<testStories.DlTileComponent w={w} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["default", "selected", "positive", "negative", "caution", "info"])(
+      "should check Accessibility for border variant as %s for Tile component",
+      (borderVariant) => {
+        CypressMountWithProviders(
+          <testStories.TileComponent borderVariant={borderVariant} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      "borderWidth000",
+      "borderWidth100",
+      "borderWidth200",
+      "borderWidth300",
+      "borderWidth400",
+    ])(
+      "should check Accessibility for border width as %s for Tile component",
+      (borderWidth) => {
+        CypressMountWithProviders(
+          <testStories.TileComponent borderWidth={borderWidth} />
+        );
+
+        cy.checkAccessibility();
       }
     );
   });
