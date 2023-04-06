@@ -1,6 +1,10 @@
 import React from "react";
 import RadioButton from "./radio-button.component";
-import RadioButtonGroup from "./radio-button-group.component";
+import {
+  RadioButtonComponent,
+  RadioButtonGroupComponent,
+} from "./radio-button-test.stories";
+import * as stories from "./radio-button.stories";
 import {
   SIZE,
   VALIDATION,
@@ -36,58 +40,11 @@ const radioContainerWidth = 400;
 const radioInputWidth = 16;
 const labelContainerWidth = 40;
 
-const RadiobuttonComponent = ({ ...props }) => {
-  const [setIsChecked] = React.useState(false);
-  return (
-    <>
-      <div
-        style={{
-          marginTop: "64px",
-          marginLeft: "64px",
-          width: radioContainerWidth,
-        }}
-      >
-        <RadioButton
-          id="radio-1"
-          value="radio1"
-          label="Radiobutton 1"
-          checked={() => setIsChecked(false)}
-          onChange={(e) => setIsChecked(e.target.checked)}
-          {...props}
-        />
-      </div>
-    </>
-  );
-};
-
-const RadiobuttonGroupComponent = ({ children, ...props }) => {
-  return (
-    <div
-      style={{
-        marginTop: "64px",
-        marginLeft: "64px",
-      }}
-    >
-      <RadioButtonGroup
-        name="radiobuttongroup"
-        legend="Radio group legend"
-        {...props}
-      >
-        <RadioButton id="radio-1" value="radio1" label="Yes" />
-        <RadioButton id="radio-2" value="radio2" label="No" />
-        <RadioButton id="radio-3" value="radio3" label="Maybe" />
-
-        <>{children}</>
-      </RadioButtonGroup>
-    </div>
-  );
-};
-
 context("Testing RadioButton component", () => {
   describe("should render RadioButton component", () => {
-    it("should render Radiobutton component with data-component", () => {
+    it("should render RadioButton component with data-component", () => {
       CypressMountWithProviders(
-        <RadiobuttonComponent data-component={CHARACTERS.STANDARD} />
+        <RadioButtonComponent data-component={CHARACTERS.STANDARD} />
       );
       getComponent(CHARACTERS.STANDARD).should(
         "have.attr",
@@ -96,9 +53,9 @@ context("Testing RadioButton component", () => {
       );
     });
 
-    it("should render Radiobutton component with data-element", () => {
+    it("should render RadioButton component with data-element", () => {
       CypressMountWithProviders(
-        <RadiobuttonComponent data-element={CHARACTERS.STANDARD} />
+        <RadioButtonComponent data-element={CHARACTERS.STANDARD} />
       );
       radiobuttonComponent().should(
         "have.attr",
@@ -107,9 +64,9 @@ context("Testing RadioButton component", () => {
       );
     });
 
-    it("should render Radiobutton component with data-role", () => {
+    it("should render RadioButton component with data-role", () => {
       CypressMountWithProviders(
-        <RadiobuttonComponent data-role={CHARACTERS.STANDARD} />
+        <RadioButtonComponent data-role={CHARACTERS.STANDARD} />
       );
       radiobuttonComponent().should(
         "have.attr",
@@ -122,246 +79,258 @@ context("Testing RadioButton component", () => {
       [true, "be.checked"],
       [false, "not.be.checked"],
     ])(
-      "should render Radiobutton component with checked state set to %s",
+      "should render RadioButton component with checked state set to %s",
       (booleanValue, assertion) => {
         CypressMountWithProviders(
-          <RadiobuttonComponent checked={booleanValue} />
+          <RadioButtonComponent checked={booleanValue} />
         );
         radiobuttonRole().should(assertion);
       }
     );
-  });
 
-  it.each(testData)(
-    "should render Radiobutton component with %s as a label",
-    (label) => {
-      CypressMountWithProviders(<RadiobuttonComponent label={label} />);
+    it.each(testData)(
+      "should render RadioButton component with %s as a label",
+      (label) => {
+        CypressMountWithProviders(<RadioButtonComponent label={label} />);
 
-      radiobuttonLabel().should("have.text", label);
-    }
-  );
-
-  it.each(testData)(
-    "should render Radiobutton component with %s as fieldHelp",
-    (fieldHelp) => {
-      CypressMountWithProviders(<RadiobuttonComponent fieldHelp={fieldHelp} />);
-
-      fieldHelpPreview().should("have.text", fieldHelp);
-    }
-  );
-
-  it("should render Radiobutton component with inline fieldHelp", () => {
-    CypressMountWithProviders(
-      <RadiobuttonComponent fieldHelp="Inline fieldhelp" fieldHelpInline />
+        radiobuttonLabel().should("have.text", label);
+      }
     );
 
-    radiobuttonInlineFieldHelp().should("have.text", "Inline fieldhelp");
-  });
+    it.each(testData)(
+      "should render RadioButton component with %s as fieldHelp",
+      (fieldHelp) => {
+        CypressMountWithProviders(
+          <RadioButtonComponent fieldHelp={fieldHelp} />
+        );
 
-  it.each([
-    [true, "be.disabled"],
-    [false, "not.be.disabled"],
-  ])(
-    "should render Radiobutton component with disabled prop set to %s",
-    (booleanValue, assertion) => {
-      CypressMountWithProviders(
-        <RadiobuttonComponent disabled={booleanValue} />
-      );
-      radiobuttonRole().should(assertion);
-    }
-  );
-
-  it("should render Radiobutton component with id", () => {
-    CypressMountWithProviders(
-      <RadiobuttonComponent id={CHARACTERS.STANDARD} />
+        fieldHelpPreview().should("have.text", fieldHelp);
+      }
     );
-    radiobuttonRole().should("have.id", CHARACTERS.STANDARD);
-  });
 
-  it("should render Radiobutton component with name", () => {
-    CypressMountWithProviders(<RadiobuttonComponent name="radiobutton name" />);
-    radiobuttonRole().should("have.attr", "name", "radiobutton name");
-  });
+    it("should render RadioButton component with inline fieldHelp", () => {
+      CypressMountWithProviders(
+        <RadioButtonComponent fieldHelp="Inline fieldhelp" fieldHelpInline />
+      );
 
-  it("should render Radiobutton component with value prop", () => {
-    CypressMountWithProviders(
-      <RadiobuttonComponent value="radiobuttonvalue" />
+      radiobuttonInlineFieldHelp().should("have.text", "Inline fieldhelp");
+    });
+
+    it.each([
+      [true, "be.disabled"],
+      [false, "not.be.disabled"],
+    ])(
+      "should render RadioButton component with disabled prop set to %s",
+      (booleanValue, assertion) => {
+        CypressMountWithProviders(
+          <RadioButtonComponent disabled={booleanValue} />
+        );
+        radiobuttonRole().should(assertion);
+      }
     );
-    radiobuttonRole().should("have.value", "radiobuttonvalue");
-  });
 
-  it.each([
-    [SIZE.SMALL, 16],
-    [SIZE.LARGE, 24],
-  ])(
-    "should render Radiobutton component with size set to %s",
-    (size, heightAndWidth) => {
-      CypressMountWithProviders(<RadiobuttonComponent size={size} />);
-      radiobuttonRole().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", heightAndWidth);
-        useJQueryCssValueAndAssert($el, "width", heightAndWidth);
-      });
-    }
-  );
-
-  it.each([
-    [1, "8px"],
-    [2, "16px"],
-  ])(
-    "should render Radiobutton component with %s as labelSpacing",
-    (spacing, padding) => {
+    it("should render RadioButton component with id", () => {
       CypressMountWithProviders(
-        <RadiobuttonComponent labelSpacing={spacing} />
+        <RadioButtonComponent id={CHARACTERS.STANDARD} />
       );
+      radiobuttonRole().should("have.id", CHARACTERS.STANDARD);
+    });
 
-      radiobuttonLabel().parent().should("have.css", "padding-left", padding);
-    }
-  );
-
-  it.each([100, 75, 50, 25, 10])(
-    "should render Radiobutton using %s as labelWidth with correct width",
-    (labelWidth) => {
+    it("should render RadioButton component with name", () => {
       CypressMountWithProviders(
-        <RadiobuttonComponent
-          labelWidth={labelWidth}
-          reverse
-          inputWidth={labelWidth === 100 ? undefined : 10}
-        />
+        <RadioButtonComponent name="radiobutton name" />
       );
+      radiobuttonRole().should("have.attr", "name", "radiobutton name");
+    });
 
-      // if labelWidth is 100% it will still need to allow for input width of 16px
-      const parentWidth =
-        labelWidth === 100
-          ? radioContainerWidth - radioInputWidth
-          : radioContainerWidth * (labelWidth / 100);
-      radiobuttonLabel()
-        .parent()
-        .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", parentWidth);
+    it("should render RadioButton component with value prop", () => {
+      CypressMountWithProviders(
+        <RadioButtonComponent value="radiobuttonvalue" />
+      );
+      radiobuttonRole().should("have.value", "radiobuttonvalue");
+    });
+
+    it.each([
+      [SIZE.SMALL, 16],
+      [SIZE.LARGE, 24],
+    ])(
+      "should render RadioButton component with size set to %s",
+      (size, heightAndWidth) => {
+        CypressMountWithProviders(<RadioButtonComponent size={size} />);
+        radiobuttonRole().then(($el) => {
+          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
+          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
         });
-    }
-  );
+      }
+    );
 
-  it.each([100, 75, 50, 25, 10])(
-    "should render Radiobutton using %s as inputWidth and render it with correct width",
-    (inputWidth) => {
+    it.each([
+      [1, "8px"],
+      [2, "16px"],
+    ])(
+      "should render RadioButton component with %s as labelSpacing",
+      (spacing, padding) => {
+        CypressMountWithProviders(
+          <RadioButtonComponent labelSpacing={spacing} />
+        );
+
+        radiobuttonLabel().parent().should("have.css", "padding-left", padding);
+      }
+    );
+
+    it.each([100, 75, 50, 25, 10])(
+      "should render RadioButton using %s as labelWidth with correct width",
+      (labelWidth) => {
+        CypressMountWithProviders(
+          <RadioButtonComponent
+            labelWidth={labelWidth}
+            reverse
+            inputWidth={labelWidth === 100 ? undefined : 10}
+          />
+        );
+
+        // if labelWidth is 100% it will still need to allow for input width of 16px
+        const parentWidth =
+          labelWidth === 100
+            ? radioContainerWidth - radioInputWidth
+            : radioContainerWidth * (labelWidth / 100);
+        radiobuttonLabel()
+          .parent()
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", parentWidth);
+          });
+      }
+    );
+
+    it.each([100, 75, 50, 25, 10])(
+      "should render RadioButton using %s as inputWidth and render it with correct width",
+      (inputWidth) => {
+        CypressMountWithProviders(
+          <RadioButtonComponent
+            labelWidth={10}
+            reverse
+            inputWidth={inputWidth}
+          />
+        );
+
+        // if inputWidth is 100% it will still need to allow for label container width of 32px + 8px
+        const parentWidth =
+          inputWidth === 100
+            ? radioContainerWidth - labelContainerWidth
+            : radioContainerWidth * (inputWidth / 100);
+        radiobuttonRole()
+          .parent()
+          .then(($el) => {
+            useJQueryCssValueAndAssert($el, "width", parentWidth);
+          });
+      }
+    );
+
+    it("should render RadioButton component with autoFocus", () => {
+      CypressMountWithProviders(<RadioButtonComponent autoFocus />);
+      radiobuttonRole().should("be.focused");
+    });
+
+    it("should render RadioButton component with error", () => {
+      CypressMountWithProviders(<RadioButtonComponent error />);
+
+      radiobuttonSvg().should(
+        "have.css",
+        "border-bottom-color",
+        VALIDATION.ERROR
+      );
+    });
+
+    it("should render RadioButton component with warning", () => {
+      CypressMountWithProviders(<RadioButtonComponent warning />);
+
+      radiobuttonSvg().should(
+        "have.css",
+        "border-bottom-color",
+        VALIDATION.WARNING
+      );
+    });
+
+    it("should render RadioButton component with info", () => {
+      CypressMountWithProviders(<RadioButtonComponent info />);
+
+      radiobuttonSvg().should(
+        "have.css",
+        "border-bottom-color",
+        VALIDATION.INFO
+      );
+    });
+
+    it("should render RadioButton component with error message", () => {
       CypressMountWithProviders(
-        <RadiobuttonComponent labelWidth={10} reverse inputWidth={inputWidth} />
+        <RadioButtonComponent error="Error has occurred" />
       );
 
-      // if inputWidth is 100% it will still need to allow for label container width of 32px + 8px
-      const parentWidth =
-        inputWidth === 100
-          ? radioContainerWidth - labelContainerWidth
-          : radioContainerWidth * (inputWidth / 100);
+      radiobuttonIcon().should("have.attr", "data-element", "error");
+    });
+
+    it("should render RadioButton component with warning message", () => {
+      CypressMountWithProviders(
+        <RadioButtonComponent warning="Warning has occurred" />
+      );
+
+      radiobuttonIcon().should("have.attr", "data-element", "warning");
+    });
+
+    it("should render RadioButton component with info message", () => {
+      CypressMountWithProviders(
+        <RadioButtonComponent info="Info has occurred" />
+      );
+
+      radiobuttonIcon().should("have.attr", "data-element", "info");
+    });
+
+    it.each([
+      [true, "0"],
+      [false, "1"],
+    ])(
+      "should render RadioButton with reverse prop set to %s",
+      (reverseValue, position) => {
+        CypressMountWithProviders(
+          <RadioButtonComponent
+            label="Radiobutton Label"
+            reverse={reverseValue}
+          />
+        );
+
+        radiobuttonComponent()
+          .find("div:nth-child(1) > div > div:nth-child(1)")
+          .children()
+          .eq(position)
+          .should("have.text", "Radiobutton Label");
+      }
+    );
+
+    it.each(["bottom", "left", "right", "top"])(
+      "should render RadioButton component with tooltip positioned to the %s",
+      (position) => {
+        CypressMountWithProviders(
+          <RadioButtonComponent
+            labelHelp="Tooltip info"
+            tooltipPosition={position}
+          />
+        );
+        radiobuttonIcon().trigger("mouseover");
+        tooltipPreview()
+          .should("have.text", "Tooltip info")
+          .should("have.attr", "data-placement", position);
+      }
+    );
+
+    it("should render RadioButton component with fill color set to black by default", () => {
+      CypressMountWithProviders(<RadioButtonComponent checked />);
       radiobuttonRole()
-        .parent()
-        .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", parentWidth);
-        });
-    }
-  );
-
-  it("should render Radiobutton component with autoFocus", () => {
-    CypressMountWithProviders(<RadiobuttonComponent autoFocus />);
-    radiobuttonRole().should("be.focused");
+        .should("be.checked")
+        .should("have.css", "color", COLOR.BLACK);
+    });
   });
 
-  it("should render Radiobutton component with error", () => {
-    CypressMountWithProviders(<RadiobuttonComponent error />);
-
-    radiobuttonSvg().should(
-      "have.css",
-      "border-bottom-color",
-      VALIDATION.ERROR
-    );
-  });
-
-  it("should render Radiobutton component with warning", () => {
-    CypressMountWithProviders(<RadiobuttonComponent warning />);
-
-    radiobuttonSvg().should(
-      "have.css",
-      "border-bottom-color",
-      VALIDATION.WARNING
-    );
-  });
-
-  it("should render Radiobutton component with info", () => {
-    CypressMountWithProviders(<RadiobuttonComponent info />);
-
-    radiobuttonSvg().should("have.css", "border-bottom-color", VALIDATION.INFO);
-  });
-
-  it("should render Radiobutton component with error message", () => {
-    CypressMountWithProviders(
-      <RadiobuttonComponent error="Error has occurred" />
-    );
-
-    radiobuttonIcon().should("have.attr", "data-element", "error");
-  });
-
-  it("should render Radiobutton component with warning message", () => {
-    CypressMountWithProviders(
-      <RadiobuttonComponent warning="Warning has occurred" />
-    );
-
-    radiobuttonIcon().should("have.attr", "data-element", "warning");
-  });
-
-  it("should render Radiobutton component with info message", () => {
-    CypressMountWithProviders(
-      <RadiobuttonComponent info="Info has occurred" />
-    );
-
-    radiobuttonIcon().should("have.attr", "data-element", "info");
-  });
-
-  it.each([
-    [true, "0"],
-    [false, "1"],
-  ])(
-    "should render Radiobutton with reverse prop set to %s",
-    (reverseValue, position) => {
-      CypressMountWithProviders(
-        <RadiobuttonComponent
-          label="Radiobutton Label"
-          reverse={reverseValue}
-        />
-      );
-
-      radiobuttonComponent()
-        .find("div:nth-child(1) > div > div:nth-child(1)")
-        .children()
-        .eq(position)
-        .should("have.text", "Radiobutton Label");
-    }
-  );
-
-  it.each(["bottom", "left", "right", "top"])(
-    "should render RadiobuttonComponent component with tooltip positioned to the %s",
-    (position) => {
-      CypressMountWithProviders(
-        <RadiobuttonComponent
-          labelHelp="Tooltip info"
-          tooltipPosition={position}
-        />
-      );
-      radiobuttonIcon().trigger("mouseover");
-      tooltipPreview()
-        .should("have.text", "Tooltip info")
-        .should("have.attr", "data-placement", position);
-    }
-  );
-
-  it("should render Radiobutton component with fill color set to black by default", () => {
-    CypressMountWithProviders(<RadiobuttonComponent checked />);
-    radiobuttonRole()
-      .should("be.checked")
-      .should("have.css", "color", COLOR.BLACK);
-  });
-
-  describe("should render Radiobutton component and check events", () => {
+  describe("should render RadioButton component and check events", () => {
     let callback;
 
     beforeEach(() => {
@@ -369,7 +338,7 @@ context("Testing RadioButton component", () => {
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
-      CypressMountWithProviders(<RadiobuttonComponent onBlur={callback} />);
+      CypressMountWithProviders(<RadioButtonComponent onBlur={callback} />);
 
       radiobuttonRole()
         .focus()
@@ -381,7 +350,7 @@ context("Testing RadioButton component", () => {
     });
 
     it("should call onChange callback when a check event is triggered", () => {
-      CypressMountWithProviders(<RadiobuttonComponent onChange={callback} />);
+      CypressMountWithProviders(<RadioButtonComponent onChange={callback} />);
 
       radiobuttonRole()
         .check()
@@ -392,7 +361,7 @@ context("Testing RadioButton component", () => {
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
-      CypressMountWithProviders(<RadiobuttonComponent onFocus={callback} />);
+      CypressMountWithProviders(<RadioButtonComponent onFocus={callback} />);
 
       radiobuttonRole()
         .focus()
@@ -403,7 +372,7 @@ context("Testing RadioButton component", () => {
     });
 
     it("should call onClick callback when a click event is triggered", () => {
-      CypressMountWithProviders(<RadiobuttonComponent onClick={callback} />);
+      CypressMountWithProviders(<RadioButtonComponent onClick={callback} />);
 
       radiobuttonRole()
         .click()
@@ -412,187 +381,261 @@ context("Testing RadioButton component", () => {
           expect(callback).to.have.been.calledOnce;
         });
     });
+  });
 
-    describe("Testing RadiobuttonGroup component", () => {
-      it.each(testData)(
-        "should render RadiobuttonGroup component with %s as legend",
-        (legendValue) => {
-          CypressMountWithProviders(
-            <RadiobuttonGroupComponent legend={legendValue} />
-          );
-          radiobuttonGroupLegend().should("have.text", legendValue);
-        }
+  describe("Testing RadioButtonGroup component", () => {
+    it.each(testData)(
+      "should render RadioButtonGroup component with %s as legend",
+      (legendValue) => {
+        CypressMountWithProviders(
+          <RadioButtonGroupComponent legend={legendValue} />
+        );
+        radiobuttonGroupLegend().should("have.text", legendValue);
+      }
+    );
+
+    it("should render RadioButtonGroup component with error", () => {
+      CypressMountWithProviders(<RadioButtonGroupComponent error />);
+
+      radiobuttonSvg().should(
+        "have.css",
+        "border-bottom-color",
+        VALIDATION.ERROR
+      );
+    });
+
+    it("should render RadioButtonGroup component with warning", () => {
+      CypressMountWithProviders(<RadioButtonGroupComponent warning />);
+
+      radiobuttonSvg().should(
+        "have.css",
+        "border-bottom-color",
+        VALIDATION.WARNING
+      );
+    });
+
+    it("should render RadioButtonGroup component with info", () => {
+      CypressMountWithProviders(<RadioButtonGroupComponent info />);
+
+      radiobuttonSvg().should(
+        "have.css",
+        "border-bottom-color",
+        VALIDATION.INFO
+      );
+    });
+
+    it("should render RadioButtonGroup component with error message", () => {
+      CypressMountWithProviders(
+        <RadioButtonGroupComponent error="Error has occurred" />
       );
 
-      it("should render RadiobuttonGroup component with error", () => {
-        CypressMountWithProviders(<RadiobuttonGroupComponent error />);
+      radiobuttonGroupIcon().should("have.attr", "data-element", "error");
+    });
 
-        radiobuttonSvg().should(
+    it("should render RadioButtonGroup component with warning message", () => {
+      CypressMountWithProviders(
+        <RadioButtonGroupComponent warning="Warning has occurred" />
+      );
+
+      radiobuttonGroupIcon().should("have.attr", "data-element", "warning");
+    });
+
+    it("should render RadioButtonGroup component with info message", () => {
+      CypressMountWithProviders(
+        <RadioButtonGroupComponent info="Info has occurred" />
+      );
+
+      radiobuttonGroupIcon().should("have.attr", "data-element", "info");
+    });
+
+    it.each([
+      ["left", "start"],
+      ["right", "end"],
+    ])(
+      "should render RadioButtonGroup component with inline legend aligned to %s",
+      (position, assertion) => {
+        CypressMountWithProviders(
+          <RadioButtonGroupComponent
+            legendWidth={20}
+            legendAlign={position}
+            legendInline
+          />
+        );
+        radiobuttonGroupLegend().should(
           "have.css",
-          "border-bottom-color",
-          VALIDATION.ERROR
+          "justify-content",
+          `flex-${assertion}`
         );
-      });
+      }
+    );
 
-      it("should render RadiobuttonGroup component with warning", () => {
-        CypressMountWithProviders(<RadiobuttonGroupComponent warning />);
-
-        radiobuttonSvg().should(
-          "have.css",
-          "border-bottom-color",
-          VALIDATION.WARNING
-        );
-      });
-
-      it("should render RadiobuttonGroup component with info", () => {
-        CypressMountWithProviders(<RadiobuttonGroupComponent info />);
-
-        radiobuttonSvg().should(
-          "have.css",
-          "border-bottom-color",
-          VALIDATION.INFO
-        );
-      });
-
-      it("should render RadiobuttonGroup component with error message", () => {
+    it.each([20, 40])(
+      "should render RadioButtonGroup component with inline legend width set to %s",
+      (width) => {
         CypressMountWithProviders(
-          <RadiobuttonGroupComponent error="Error has occurred" />
+          <RadioButtonGroupComponent legendWidth={width} legendInline />
         );
+        radiobuttonGroupLegend().should("have.attr", "width", width);
+      }
+    );
 
-        radiobuttonGroupIcon().should("have.attr", "data-element", "error");
-      });
+    it("should render RadioButtonGroup component with children", () => {
+      CypressMountWithProviders(
+        <RadioButtonGroupComponent>
+          <RadioButton id="radio-4" value="radio4" label="Don't Know" />
+        </RadioButtonGroupComponent>
+      );
+      radiobuttonGroup().should("contain.text", "Don't Know");
+    });
 
-      it("should render RadiobuttonGroup component with warning message", () => {
+    it.each([
+      [1, "8px"],
+      [2, "16px"],
+    ])(
+      "should render RadioButtonGroup component with legendSpacing set to %s",
+      (spacing, padding) => {
         CypressMountWithProviders(
-          <RadiobuttonGroupComponent warning="Warning has occurred" />
+          <RadioButtonGroupComponent
+            legendSpacing={spacing}
+            legendWidth="10"
+            legendInline
+          />
         );
+        radiobuttonGroupLegend().should("have.css", "padding-right", padding);
+      }
+    );
 
-        radiobuttonGroupIcon().should("have.attr", "data-element", "warning");
-      });
-
-      it("should render RadiobuttonGroup component with info message", () => {
+    it.each(["top", "bottom", "left", "right"])(
+      "should render RadioButtonGroup component with tooltip positioned to the %s",
+      (position) => {
         CypressMountWithProviders(
-          <RadiobuttonGroupComponent info="Info has occurred" />
+          <RadioButtonGroupComponent
+            error="Something is wrong"
+            tooltipPosition={position}
+          />
         );
 
-        radiobuttonGroupIcon().should("have.attr", "data-element", "info");
-      });
+        radiobuttonGroupIcon().trigger("mouseover");
+        tooltipPreview()
+          .should("have.text", "Something is wrong")
+          .should("have.attr", "data-placement", position);
+      }
+    );
 
-      it.each([
-        ["left", "start"],
-        ["right", "end"],
-      ])(
-        "should render RadiobuttonGroup component with inline legend aligned to %s",
-        (position, assertion) => {
-          CypressMountWithProviders(
-            <RadiobuttonGroupComponent
-              legendWidth={20}
-              legendAlign={position}
-              legendInline
-            />
-          );
-          radiobuttonGroupLegend().should(
-            "have.css",
-            "justify-content",
-            `flex-${assertion}`
-          );
-        }
-      );
+    it("should render RadioButtonGroup component as a required field", () => {
+      CypressMountWithProviders(<RadioButtonGroupComponent required />);
 
-      it.each([20, 40])(
-        "should render RadiobuttonGroup component with inline legend width set to %s",
-        (width) => {
-          CypressMountWithProviders(
-            <RadiobuttonGroupComponent legendWidth={width} legendInline />
-          );
-          radiobuttonGroupLegend().should("have.attr", "width", width);
-        }
-      );
+      verifyRequiredAsteriskForLegend();
+    });
 
-      it("should render RadiobuttonGroup component with children", () => {
+    it("should render RadioButtonGroup component with radiobuttons inline", () => {
+      CypressMountWithProviders(<RadioButtonGroupComponent inline />);
+
+      radiobutton(0)
+        .should("have.css", "margin-bottom", "12px")
+        .should("have.css", "margin-left", "0px");
+
+      radiobutton(1)
+        .should("have.css", "margin-bottom", "12px")
+        .should("have.css", "margin-left", "32px");
+
+      radiobutton(2)
+        .should("have.css", "margin-bottom", "0px")
+        .should("have.css", "margin-left", "32px");
+    });
+
+    it.each([
+      ["inline", "399", "left"],
+      ["inline", "400", "left"],
+      ["above", "401", "none"],
+    ])(
+      "should check RadioButtonGroup legend is %s with adaptiveLabelBreakpoint %s and viewport 400",
+      (alignment, breakpoint, float) => {
+        cy.viewport(400, 300);
+
         CypressMountWithProviders(
-          <RadiobuttonGroupComponent>
-            <RadioButton id="radio-4" value="radio4" label="Don't Know" />
-          </RadiobuttonGroupComponent>
+          <RadioButtonGroupComponent
+            adaptiveLegendBreakpoint={breakpoint}
+            adaptiveSpacingBreakpoint={breakpoint}
+          />
         );
-        radiobuttonGroup().should("contain.text", "Don't Know");
-      });
 
-      it.each([
-        [1, "8px"],
-        [2, "16px"],
-      ])(
-        "should render RadiobuttonGroup component with legendSpacing set to %s",
-        (spacing, padding) => {
-          CypressMountWithProviders(
-            <RadiobuttonGroupComponent
-              legendSpacing={spacing}
-              legendWidth="10"
-              legendInline
-            />
-          );
-          radiobuttonGroupLegend().should("have.css", "padding-right", padding);
-        }
-      );
+        radiobuttonGroupLegend().should("have.css", "float", float);
+      }
+    );
+  });
 
-      it.each(["top", "bottom", "left", "right"])(
-        "should render RadiobuttonGroupComponent component with tooltip positioned to the %s",
-        (position) => {
-          CypressMountWithProviders(
-            <RadiobuttonGroupComponent
-              error="Something is wrong"
-              tooltipPosition={position}
-            />
-          );
+  describe("Accessibility tests for RadioButton component", () => {
+    it("should pass accessibilty tests for RadioButton Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
 
-          radiobuttonGroupIcon().trigger("mouseover");
-          tooltipPreview()
-            .should("have.text", "Something is wrong")
-            .should("have.attr", "data-placement", position);
-        }
-      );
+      cy.checkAccessibility();
+    });
 
-      it("should render RadiobuttonGroup component as a required field", () => {
-        CypressMountWithProviders(<RadiobuttonGroupComponent required />);
+    it("should pass accessibilty tests for RadioButton WithLegendAndLabels story", () => {
+      CypressMountWithProviders(<stories.WithLegendAndLabels />);
 
-        verifyRequiredAsteriskForLegend();
-      });
+      cy.checkAccessibility();
+    });
 
-      it("should render RadiobuttonGroup with radiobuttons inline", () => {
-        CypressMountWithProviders(<RadiobuttonGroupComponent inline />);
+    it("should pass accessibilty tests for RadioButton WithInlineLegend story", () => {
+      CypressMountWithProviders(<stories.WithInlineLegend />);
 
-        radiobutton(0)
-          .should("have.css", "margin-bottom", "12px")
-          .should("have.css", "margin-left", "0px");
+      cy.checkAccessibility();
+    });
 
-        radiobutton(1)
-          .should("have.css", "margin-bottom", "12px")
-          .should("have.css", "margin-left", "32px");
+    it("should pass accessibilty tests for RadioButton WithLeftMargin story", () => {
+      CypressMountWithProviders(<stories.WithLeftMargin />);
 
-        radiobutton(2)
-          .should("have.css", "margin-bottom", "0px")
-          .should("have.css", "margin-left", "32px");
-      });
+      cy.checkAccessibility();
+    });
 
-      it.each([
-        ["inline", "399", "left"],
-        ["inline", "400", "left"],
-        ["above", "401", "none"],
-      ])(
-        "should check RadiobuttonGroup legend is %s with adaptiveLabelBreakpoint %s and viewport 400",
-        (alignment, breakpoint, float) => {
-          cy.viewport(400, 300);
+    it("should pass accessibilty tests for RadioButton EnableAdaptiveBehaviour story", () => {
+      CypressMountWithProviders(<stories.EnableAdaptiveBehaviour />);
 
-          CypressMountWithProviders(
-            <RadiobuttonGroupComponent
-              adaptiveLegendBreakpoint={breakpoint}
-              adaptiveSpacingBreakpoint={breakpoint}
-            />
-          );
+      cy.checkAccessibility();
+    });
 
-          radiobuttonGroupLegend().should("have.css", "float", float);
-        }
-      );
+    it("should pass accessibilty tests for RadioButton DifferentLabelSpacing story", () => {
+      CypressMountWithProviders(<stories.DifferentLabelSpacing />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for RadioButton InlineRadioButtons story", () => {
+      CypressMountWithProviders(<stories.InlineRadioButtons />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for RadioButton ReverseRadioButtons story", () => {
+      CypressMountWithProviders(<stories.ReverseRadioButtons />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for RadioButton DisableRadioButtons story", () => {
+      CypressMountWithProviders(<stories.DisableRadioButtons />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for RadioButton WithFieldHelp story", () => {
+      CypressMountWithProviders(<stories.WithFieldHelp />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for RadioButton WithLargeRadioButtons story", () => {
+      CypressMountWithProviders(<stories.WithLargeRadioButtons />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for RadioButton WithCustomStyledLabels story", () => {
+      CypressMountWithProviders(<stories.WithCustomStyledLabels />);
+
+      cy.checkAccessibility();
     });
   });
 });
