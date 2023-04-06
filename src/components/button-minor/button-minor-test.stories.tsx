@@ -11,7 +11,7 @@ import {
 
 export default {
   title: "Button Minor/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: { disableSnapshot: true },

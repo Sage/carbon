@@ -7,6 +7,7 @@ import { Carousel, Slide } from ".";
 
 export default {
   title: "Carousel/Test",
+  includeStories: ["CarouselStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

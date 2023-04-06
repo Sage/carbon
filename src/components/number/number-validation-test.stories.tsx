@@ -4,7 +4,6 @@ import { ComponentMeta } from "@storybook/react";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Number, { NumberProps } from "./number.component";
 import {
-  CommonTextboxArgs,
   commonTextboxArgTypes,
   getCommonTextboxArgs,
 } from "../textbox/textbox-test.stories";
@@ -110,7 +109,7 @@ export const StringValidationOnLabelWithTooltipPositionOverriden = () => (
   </>
 );
 
-StringValidationOnLabel.storyName =
+StringValidationOnLabelWithTooltipPositionOverriden.storyName =
   "string validation on label with tooltipPosition overriden";
 
 export const BooleanValidation = () => (
@@ -137,14 +136,7 @@ export const BooleanValidation = () => (
 
 BooleanValidation.storyName = "boolean validation";
 
-export const NewValidation = ({
-  onKeyDownEnabled,
-  onChangeDeferredEnabled,
-  ...args
-}: CommonTextboxArgs & {
-  onKeyDownEnabled: boolean;
-  onChangeDeferredEnabled: boolean;
-}) => {
+export const NewValidation = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       {["error", "warning"].map((validationType) =>

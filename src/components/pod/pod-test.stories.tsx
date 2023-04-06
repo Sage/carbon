@@ -5,7 +5,7 @@ import { POD_ALIGNMENTS, POD_SIZES, POD_VARIANTS } from "./pod.config";
 
 export default {
   title: "Pod/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

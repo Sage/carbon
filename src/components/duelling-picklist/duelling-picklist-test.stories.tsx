@@ -13,7 +13,7 @@ import { Checkbox } from "../checkbox";
 
 export default {
   title: "DuellingPicklist/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

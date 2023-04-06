@@ -10,7 +10,7 @@ import {
 
 export default {
   title: "Step Sequence/Test",
-  includeStories: "StepSequenceStory",
+  includeStories: ["StepSequenceStory", "StepSequenceItemStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

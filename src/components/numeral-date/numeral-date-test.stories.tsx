@@ -13,7 +13,7 @@ import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Numeral Date/Test",
-  includeStories: "Default",
+  excludeStories: ["NumeralDateComponent"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -142,6 +142,8 @@ export const Required = () => {
   return <NumeralDate label="Date of Birth" required />;
 };
 
+Required.storyName = "required";
+
 export const TooltipPosition = () => {
   return (
     <>
@@ -161,6 +163,8 @@ export const TooltipPosition = () => {
     </>
   );
 };
+
+TooltipPosition.storyName = "tooltip position";
 
 export const NumeralDateComponent = ({ ...props }) => {
   const [value, setValue] = React.useState({

@@ -3,7 +3,7 @@ import Heading, { HeadingProps } from ".";
 
 export default {
   title: "Heading/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

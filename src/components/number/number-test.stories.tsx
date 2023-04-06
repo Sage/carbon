@@ -11,7 +11,7 @@ import {
 
 export default {
   title: "Number Input/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

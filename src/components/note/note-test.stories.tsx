@@ -5,7 +5,7 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 
 export default {
   title: "Note/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

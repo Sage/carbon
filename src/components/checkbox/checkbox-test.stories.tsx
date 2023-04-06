@@ -5,7 +5,7 @@ import { Checkbox, CheckboxProps, CheckboxGroup } from ".";
 
 export default {
   title: "Checkbox/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

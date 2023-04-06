@@ -4,7 +4,7 @@ import SettingsRow, { SettingsRowProps } from ".";
 export default {
   component: SettingsRow,
   title: "Setting Row/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
