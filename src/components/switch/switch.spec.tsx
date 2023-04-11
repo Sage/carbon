@@ -394,8 +394,8 @@ describe("Switch", () => {
         const wrapper = render({ size: "large" });
 
         const largeSizes = {
-          height: "40px",
-          width: "78px",
+          height: "44px",
+          width: "82px",
         };
 
         it("applies the correct CheckableInput styles", () => {

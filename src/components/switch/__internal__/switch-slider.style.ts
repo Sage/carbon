@@ -24,19 +24,20 @@ const StyledSwitchSlider = styled.span`
     display: flex;
     font-size: 12px;
     font-weight: bold;
-    height: 24px;
+    height: 28px;
     left: 0;
     letter-spacing: 1px;
     position: absolute;
     text-transform: uppercase;
     top: 0;
-    width: 60px;
+    width: 64px;
     min-width: fit-content;
     z-index: 2;
     border-radius: 90px;
     border-style: solid;
     border-color: var(--colorsActionMinor400);
     border-width: var(--borderWidth200);
+    box-sizing: border-box;
 
     &::before {
       background-color: var(--colorsActionMinor400);
