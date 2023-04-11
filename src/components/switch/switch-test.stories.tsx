@@ -4,7 +4,7 @@ import Switch, { SwitchProps } from "./switch.component";
 
 export default {
   title: "Switch/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

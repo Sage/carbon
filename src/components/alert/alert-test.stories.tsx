@@ -5,7 +5,7 @@ import Button from "../button";
 
 export default {
   title: "Alert/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

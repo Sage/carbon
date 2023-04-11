@@ -6,7 +6,7 @@ import Link, { LinkProps } from "./link.component";
 
 export default {
   title: "Link/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

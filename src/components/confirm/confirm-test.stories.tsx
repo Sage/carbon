@@ -7,6 +7,7 @@ import { CONFIRM_SIZES } from "./confirm.config";
 
 export default {
   title: "Confirm/Test",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

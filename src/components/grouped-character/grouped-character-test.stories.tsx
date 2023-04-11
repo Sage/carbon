@@ -14,7 +14,7 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "GroupedCharacter/Test",
-  includeStories: "Default",
+  includeStories: ["Default", "NewValidation"],
   parameters: {
     info: { disable: true },
     chromatic: {

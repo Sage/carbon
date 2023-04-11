@@ -10,7 +10,7 @@ import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
 
 export default {
   title: "Tile/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

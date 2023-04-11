@@ -7,6 +7,7 @@ import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
 
 export default {
   component: Sidebar,
+  includeStories: ["Default"],
   title: "Sidebar/Test",
   parameters: {
     info: { disable: true },

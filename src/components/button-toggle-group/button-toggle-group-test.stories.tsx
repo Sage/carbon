@@ -6,7 +6,7 @@ import ButtonToggleGroup from ".";
 
 export default {
   title: "Button Toggle Group/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
