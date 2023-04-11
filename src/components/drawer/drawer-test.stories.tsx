@@ -17,7 +17,7 @@ import Button from "../button";
 
 export default {
   title: "Drawer/Test",
-  includeStories: "Default",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

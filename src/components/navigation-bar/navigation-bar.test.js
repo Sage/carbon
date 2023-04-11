@@ -2,6 +2,7 @@ import React from "react";
 import Box from "../box/box.component";
 import NavigationBar from "./navigation-bar.component";
 import { Menu, MenuItem } from "../menu";
+import * as stories from "./navigation-bar.stories";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 
 import navigationBar from "../../../cypress/locators/navigation-bar";
@@ -177,5 +178,67 @@ context("Testing NavigationBar component", () => {
         navigationBar().eq(1).should("be.visible");
       }
     );
+  });
+
+  describe("Accessibility tests for NavigationBar component", () => {
+    it("should pass accessibility tests for NavigationBar Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar DarkTheme story", () => {
+      CypressMountWithProviders(<stories.DarkTheme />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar WhiteTheme story", () => {
+      CypressMountWithProviders(<stories.WhiteTheme />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar BlackTheme story", () => {
+      CypressMountWithProviders(<stories.BlackTheme />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar ExampleWithMenu story", () => {
+      CypressMountWithProviders(<stories.ExampleWithMenu />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar IsLoading story", () => {
+      CypressMountWithProviders(<stories.IsLoading />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar WithCustomSpacing story", () => {
+      CypressMountWithProviders(<stories.WithCustomSpacing />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar ContentMaxWidthBox story", () => {
+      CypressMountWithProviders(<stories.ContentMaxWidthBox />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar Sticky story", () => {
+      CypressMountWithProviders(<stories.Sticky />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for NavigationBar Fixed story", () => {
+      CypressMountWithProviders(<stories.Fixed />);
+
+      cy.checkAccessibility();
+    });
   });
 });

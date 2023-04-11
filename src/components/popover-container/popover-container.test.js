@@ -1,8 +1,12 @@
 import React from "react";
 import PopoverContainer from "./popover-container.component";
+import {
+  PopoverContainerComponent,
+  PopoverContainerWithSelect,
+} from "./popover-container-test.stories";
+import * as stories from "./popover-container.stories";
 import Button from "../button";
 import Portrait from "../portrait";
-import { Select, Option } from "../select";
 
 import { getDataElementByValue, getComponent } from "../../../cypress/locators";
 import {
@@ -22,52 +26,6 @@ import { CHARACTERS } from "../../../cypress/support/component-helper/constants"
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
-
-const PopoverContainerComponent = ({ ...props }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
-
-  const onOpen = () => setIsOpen(isOpen);
-  const onClose = () => setIsOpen(!isOpen);
-
-  return (
-    <div
-      style={{
-        height: 150,
-        margin: "100px",
-      }}
-    >
-      <PopoverContainer
-        title="Cypress is awesome"
-        containerAriaLabel="popover-container"
-        openButtonAriaLabel="open"
-        open={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        {...props}
-      >
-        Contents
-      </PopoverContainer>
-    </div>
-  );
-};
-
-const PopoverContainerWithSelect = () => {
-  return (
-    <div style={{ height: 100 }}>
-      <PopoverContainer
-        containerAriaLabel="popover-container"
-        openButtonAriaLabel="open"
-        title="select example"
-      >
-        <Select label="my select">
-          <Option value="red" text="red" />
-          <Option value="green" text="green" />
-          <Option value="blue" text="blue" />
-        </Select>
-      </PopoverContainer>
-    </div>
-  );
-};
 
 context("Test for Popover Container component", () => {
   describe("check props for Popover Container component", () => {
@@ -357,5 +315,79 @@ context("Test for Popover Container component", () => {
           });
       }
     );
+  });
+
+  describe("Accessibility tests for Popover Container component", () => {
+    it("should pass accessibilty tests for Popover Container Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
+
+      popoverSettingsIcon().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Popover Container Title story", () => {
+      CypressMountWithProviders(<stories.Title />);
+
+      popoverSettingsIcon().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Popover Container Position story", () => {
+      CypressMountWithProviders(<stories.Position />);
+
+      popoverSettingsIcon().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Popover Container CoverButton story", () => {
+      CypressMountWithProviders(<stories.CoverButton />);
+
+      popoverSettingsIcon().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Popover Container RenderProps story", () => {
+      CypressMountWithProviders(<stories.RenderProps />);
+
+      popoverSettingsIcon().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Popover Container Controlled story", () => {
+      CypressMountWithProviders(<stories.Controlled />);
+
+      popoverSettingsIcon().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Popover Container Complex story", () => {
+      CypressMountWithProviders(<stories.Complex />);
+
+      popoverSettingsIcon().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Popover Container Filter story", () => {
+      CypressMountWithProviders(<stories.Filter />);
+
+      popoverSettingsIcon().click();
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Popover Container Filter story with filter button clicked", () => {
+      CypressMountWithProviders(<stories.Filter />);
+
+      popoverSettingsIcon().click();
+      cy.get(`[role="checkbox"]`).eq(0).check();
+      cy.get(`[role="checkbox"]`).eq(1).check();
+      cy.get(`[role="checkbox"]`).eq(2).check();
+      getDataElementByValue("main-text")
+        .eq(1)
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          cy.checkAccessibility();
+        });
+    });
   });
 });

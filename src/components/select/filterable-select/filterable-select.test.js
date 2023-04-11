@@ -1570,5 +1570,15 @@ context("Tests for Filterable Select component", () => {
           alertDialogPreview().should("not.exist");
         });
     });
+
+    it("should not refocus the select textbox when closing it by clicking outside", () => {
+      CypressMountWithProviders(<FilterableSelectNestedInDialog />);
+
+      dropdownButton().click();
+      body().click();
+
+      selectList().should("not.be.visible");
+      commonDataElementInputPreview().should("not.be.focused");
+    });
   });
 });

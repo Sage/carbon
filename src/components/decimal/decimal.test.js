@@ -417,19 +417,16 @@ context("Tests for Decimal component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-5382
-    describe.skip("skip", () => {
-      it("should pass accessibility tests for Decimal with tooltip", () => {
-        CypressMountWithProviders(<stories.ValidationsTooltip />);
+    it("should pass accessibility tests for Decimal with tooltip", () => {
+      CypressMountWithProviders(<stories.ValidationsTooltip />);
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
+    });
 
-      it("should pass accessibility tests for Decimal with tooltip label", () => {
-        CypressMountWithProviders(<stories.ValidationsTooltipLabel />);
+    it("should pass accessibility tests for Decimal with tooltip label", () => {
+      CypressMountWithProviders(<stories.ValidationsTooltipLabel />);
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
     });
   });
 });

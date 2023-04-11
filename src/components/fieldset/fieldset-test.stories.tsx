@@ -5,7 +5,7 @@ import Checkbox from "../checkbox/checkbox.component";
 
 export default {
   title: "Fieldset/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

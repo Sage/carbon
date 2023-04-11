@@ -22,7 +22,7 @@ import InlineInputs from "../inline-inputs";
 
 export default {
   title: "Form/Test",
-  includeStories: "DefaultWithStickyFooter",
+  excludeStories: ["FormComponent"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -87,7 +87,7 @@ export const FormComponent = ({ ...props }) => {
 export const FormAlignmentCustomMarginsTextInputs = () => {
   return (
     <Form onSubmit={() => console.log("submit")} fieldSpacing={4} px="25%">
-      <Fieldset legend="Fieldset" mb={0}>
+      <Fieldset legend="Fieldset" mb={1}>
         <Textbox
           label="Textbox in Fieldset"
           labelInline
@@ -110,7 +110,7 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         labelWidth={10}
         inputWidth={30}
         fieldHelp="This is some help text"
-        mb={0}
+        mb={1}
       />
       <Textbox
         label="Textbox"
@@ -120,7 +120,7 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         labelWidth={10}
         inputWidth={30}
         labelSpacing={2}
-        mb={0}
+        mb={1}
       />
       <Number
         label="Number"
@@ -130,7 +130,7 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         labelWidth={10}
         inputWidth={30}
         labelSpacing={2}
-        mb={0}
+        mb={1}
       />
       <GroupedCharacter
         placeholder="placeholder"
@@ -139,7 +139,7 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         labelInline
         groups={[2, 2, 3]}
         separator="-"
-        mb={0}
+        mb={1}
       />
       <Textarea
         key="input-three"
@@ -149,7 +149,7 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         labelInline
         labelWidth={10}
         inputWidth={30}
-        mb={0}
+        mb={1}
       />
       <DateInput
         name="date"
@@ -158,7 +158,7 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         labelWidth={10}
         value=""
         onChange={() => {}}
-        mb={0}
+        mb={1}
       />
       <DateRange
         name="date"
@@ -168,10 +168,10 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         endDateProps={{ labelInline: true }}
         value={["", ""]}
         onChange={() => {}}
-        mb={0}
+        mb={1}
       />
       <Select
-        mb={0}
+        mb={1}
         name="simple-select"
         id="simple-select"
         labelInline
@@ -190,7 +190,7 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         <Option text="Yellow" value="11" />
       </Select>
       <FilterableSelect
-        mb={0}
+        mb={1}
         name="fiterable-select"
         id="fiterable-select"
         labelInline
@@ -210,7 +210,7 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         <Option text="Yellow" value="11" />
       </FilterableSelect>
       <MultiSelect
-        mb={0}
+        mb={1}
         name="multi-select"
         id="multi-select"
         labelInline
@@ -229,8 +229,8 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </MultiSelect>
-      <NumeralDate label="Numeral date" labelInline mb={0} />
-      <InlineInputs label="Inline inputs" mb={0}>
+      <NumeralDate label="Numeral date" labelInline mb={1} />
+      <InlineInputs label="Inline inputs" mb={1}>
         <Textbox />
         <Textbox />
         <Textbox />
@@ -240,6 +240,8 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
   );
 };
 
+FormAlignmentCustomMarginsTextInputs.storyName =
+  "form alignment custom margins text inputs";
 FormAlignmentCustomMarginsTextInputs.parameters = {
   chromatic: {
     disableSnapshot: false, // we want chromatic to capture this to catch any future regressions
@@ -257,7 +259,7 @@ export const FormAlignmentCustomMarginNonTextInputs = () => {
         legendInline
         legendWidth={10}
         legendSpacing={2}
-        mb={0}
+        mb={1}
       >
         <RadioButton
           id="group-1-input-1"
@@ -276,9 +278,9 @@ export const FormAlignmentCustomMarginNonTextInputs = () => {
         name="checkbox1"
         onChange={() => console.log("CHECKBOX 1")}
         label="Checkbox 1"
-        mb={0}
+        mb={1}
       />
-      <CheckboxGroup legend="Checkbox Group" mb={0}>
+      <CheckboxGroup legend="Checkbox Group" mb={1}>
         {["One", "Two", "Three"].map((label) => (
           <Checkbox
             id={`checkbox-group-${label}`}
@@ -295,12 +297,12 @@ export const FormAlignmentCustomMarginNonTextInputs = () => {
         onChange={() => console.log("SWITCH")}
         labelWidth={10}
         labelSpacing={2}
-        mb={0}
+        mb={1}
       />
       <SimpleColorPicker
         name="picker-disabled-example"
         legend="Simple Color Picker"
-        mb={0}
+        mb={1}
       >
         {[
           { color: "transparent", label: "transparent" },
@@ -321,6 +323,8 @@ export const FormAlignmentCustomMarginNonTextInputs = () => {
   );
 };
 
+FormAlignmentCustomMarginNonTextInputs.storyName =
+  "form alignment custom margin non-text inputs";
 FormAlignmentCustomMarginNonTextInputs.parameters = {
   chromatic: {
     disableSnapshot: false, // we want chromatic to capture this to catch any future regressions

@@ -27,7 +27,6 @@ export interface DateInputProps
     | "iconOnMouseDown"
     | "enforceCharacterLimit"
     | "characterLimit"
-    | "warnOverLimit"
     | "iconTabIndex"
   > {
   /** Boolean to allow the input to have an empty value */
@@ -46,6 +45,8 @@ export interface DateInputProps
   pickerProps?: DayPickerProps;
 }
 
-declare function DateInput(props: DateInputProps): JSX.Element;
+declare function DateInput(
+  props: SimpleSelectProps & React.RefAttributes<HTMLInputElement>
+): JSX.Element;
 
 export default DateInput;

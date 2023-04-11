@@ -6,7 +6,7 @@ import Portrait, { PortraitProps } from "./portrait.component";
 
 export default {
   title: "Portrait/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

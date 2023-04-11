@@ -13,12 +13,31 @@ const enGB: Locale = {
   actionPopover: {
     ariaLabel: () => "actions",
   },
+  advancedColorPicker: {
+    ariaLabel: () => "Change colour",
+    currentColorDescriptionTerm: () => "Current color assigned: ",
+    currentColorAssigned: (currentColor) => currentColor,
+  },
   batchSelection: {
     selected: (count) => `${count} selected`,
+  },
+  breadcrumbs: {
+    ariaLabel: () => "breadcrumbs",
   },
   confirm: {
     no: () => "No",
     yes: () => "Yes",
+  },
+  characterCount: {
+    hintString: () => "Input contains a character counter",
+    tooManyCharacters: (count, formattedCount) =>
+      count === 1
+        ? `You have ${formattedCount} character too many`
+        : `You have ${formattedCount} characters too many`,
+    charactersLeft: (count, formattedCount) =>
+      count === 1
+        ? `You have ${formattedCount} character remaining`
+        : `You have ${formattedCount} characters remaining`,
   },
   date: {
     dateFnsLocale: () => enGBDateLocale,

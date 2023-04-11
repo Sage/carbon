@@ -4,6 +4,7 @@ import {
   StyledPagerNavigation,
   StyledPagerNavInner,
   StyledPagerNoSelect,
+  StyledPagerNavLabel,
 } from "../pager.style";
 import NumberInput from "../../number";
 import Events from "../../../__internal__/utils/helpers/events";
@@ -52,6 +53,8 @@ export interface PagerNavigationProps {
   showPreviousAndNextButtons?: boolean;
   /** Should the page count input be shown */
   showPageCount?: boolean;
+  /** If true, page number navigation will be changed to a non-interactive label */
+  interactivePageNumber?: boolean;
   /** If true, sets css property visibility: hidden on all disabled elements  */
   hideDisabledElements?: boolean;
 }
@@ -69,11 +72,15 @@ const PagerNavigation = ({
   showFirstAndLastButtons = true,
   showPreviousAndNextButtons = true,
   showPageCount = true,
+  interactivePageNumber = true,
   hideDisabledElements = false,
 }: PagerNavigationProps) => {
   const l = useLocale();
   const guid = useRef(createGuid());
   const currentPageId = `Pager_${guid.current}`;
+  const navLabelString = `${l.pager.pageX()} ${currentPage.toString()} ${l.pager.ofY(
+    pageCount
+  )}`;
   const hasOnePage = pageCount <= 1;
   const hasTwoPages = pageCount === 2;
   const pagerNavigationProps = {
@@ -161,24 +168,33 @@ const PagerNavigation = ({
   return (
     <StyledPagerNavigation>
       {!hasOnePage && renderButtonsBeforeCount()}
-      {showPageCount && (
-        <StyledPagerNavInner>
-          <label htmlFor={currentPageId}>
-            <StyledPagerNoSelect>{l.pager.pageX()}</StyledPagerNoSelect>
-          </label>
-          <NumberInput
-            value={currentPage.toString()}
-            data-element="current-page"
-            onChange={handleCurrentPageChange}
-            onBlur={handlePageInputChange}
+      {showPageCount &&
+        (interactivePageNumber ? (
+          <StyledPagerNavInner>
+            <label htmlFor={currentPageId}>
+              <StyledPagerNoSelect>{l.pager.pageX()}</StyledPagerNoSelect>
+            </label>
+            <NumberInput
+              value={currentPage.toString()}
+              data-element="current-page"
+              onChange={handleCurrentPageChange}
+              onBlur={handlePageInputChange}
+              id={currentPageId}
+              onKeyUp={(ev) =>
+                Events.isEnterKey(ev) ? handlePageInputChange(ev) : false
+              }
+            />
+            <StyledPagerNoSelect>{l.pager.ofY(pageCount)}</StyledPagerNoSelect>
+          </StyledPagerNavInner>
+        ) : (
+          <StyledPagerNavLabel
+            data-element="current-page-label"
             id={currentPageId}
-            onKeyUp={(ev) =>
-              Events.isEnterKey(ev) ? handlePageInputChange(ev) : false
-            }
-          />
-          <StyledPagerNoSelect>{l.pager.ofY(pageCount)}</StyledPagerNoSelect>
-        </StyledPagerNavInner>
-      )}
+            aria-live="polite"
+          >
+            {navLabelString}
+          </StyledPagerNavLabel>
+        ))}
       {!hasOnePage && renderButtonsAfterCount()}
     </StyledPagerNavigation>
   );

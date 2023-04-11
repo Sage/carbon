@@ -10,7 +10,6 @@ exports[`Fieldset renders correctly 1`] = `
 >
   <styled.fieldset
     data-component="fieldset"
-    m={0}
     theme="[ theme object ]"
   >
     <styled.div

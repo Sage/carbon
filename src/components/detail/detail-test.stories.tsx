@@ -5,7 +5,7 @@ import Detail, { DetailProps } from ".";
 export default {
   component: Detail,
   title: "Detail/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

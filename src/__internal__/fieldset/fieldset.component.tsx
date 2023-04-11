@@ -61,12 +61,7 @@ const Fieldset = ({
 
   return (
     <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
-      <StyledFieldset
-        data-component="fieldset"
-        m={0}
-        {...marginProps}
-        {...rest}
-      >
+      <StyledFieldset data-component="fieldset" {...rest} {...marginProps}>
         {legend && (
           <InputGroupContext.Consumer>
             {({ onMouseEnter, onMouseLeave }) => (

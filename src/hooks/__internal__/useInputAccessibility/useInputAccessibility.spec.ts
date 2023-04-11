@@ -11,7 +11,7 @@ describe("useInputAccessibility", () => {
   it("returns all aria related props when all arguments are passed", () => {
     expect(useInputAccessibility({ id, label, fieldHelp })).toMatchObject({
       labelId: `${id}-label`,
-      validationIconId: undefined,
+      validationId: undefined,
       fieldHelpId: `${id}-field-help`,
       ariaDescribedBy: `${id}-field-help`,
     });
@@ -20,20 +20,62 @@ describe("useInputAccessibility", () => {
   it("returns aria props without labelId when label is not provided", () => {
     expect(useInputAccessibility({ id, fieldHelp })).toMatchObject({
       labelId: undefined,
-      validationIconId: undefined,
+      validationId: undefined,
       fieldHelpId: `${id}-field-help`,
       ariaDescribedBy: `${id}-field-help`,
     });
   });
 
-  it.each([error, info, warning])(
-    "returns proper validationIconId when %s is provided",
+  describe("when the fieldHelp is provided and string validation is set, with validationRedesignOptIn set to true", () => {
+    it("returns ariaDescribedBy with fieldHelp and validationId combined", () => {
+      expect(
+        useInputAccessibility({
+          id,
+          fieldHelp,
+          error,
+          validationRedesignOptIn: true,
+        })
+      ).toEqual(
+        expect.objectContaining({
+          ariaDescribedBy: `${id}-field-help ${id}-validation`,
+        })
+      );
+    });
+  });
+
+  describe.each([error, info, warning])(
+    "when the id and %s prop is provided",
     (key) => {
-      expect(useInputAccessibility({ id, [key]: key })).toMatchObject({
-        labelId: undefined,
-        validationIconId: `${id}-validation-icon`,
-        fieldHelpId: undefined,
-        ariaDescribedBy: `${id}-validation-icon`,
+      it("returns validationIconId based on that id", () => {
+        expect(useInputAccessibility({ id, [key]: key })).toEqual(
+          expect.objectContaining({
+            validationId: `${id}-validation`,
+          })
+        );
+      });
+
+      it("returns undefined ariaDescribedby prop", () => {
+        expect(useInputAccessibility({ id, [key]: key })).toEqual(
+          expect.objectContaining({
+            ariaDescribedBy: undefined,
+          })
+        );
+      });
+
+      describe("with validationRedesignOptIn set to true", () => {
+        it("returns ariaDescribedBy containing validationId based on that id", () => {
+          expect(
+            useInputAccessibility({
+              id,
+              [key]: key,
+              validationRedesignOptIn: true,
+            })
+          ).toEqual(
+            expect.objectContaining({
+              ariaDescribedBy: `${id}-validation`,
+            })
+          );
+        });
       });
     }
   );

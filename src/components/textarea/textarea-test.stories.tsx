@@ -8,7 +8,7 @@ interface TextareaTestProps extends TextareaProps {
 
 export default {
   title: "Textarea/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -101,7 +101,6 @@ export default {
     fieldHelp: "",
     characterLimit: undefined,
     inputWidth: 100,
-    warnOverLimit: false,
     enforceCharacterLimit: true,
     label: "Textarea",
     labelHelp: "",

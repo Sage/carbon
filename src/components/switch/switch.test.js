@@ -366,7 +366,7 @@ context("Testing Switch component", () => {
 
     it.each([
       [SIZE.SMALL, 60, 24],
-      [SIZE.LARGE, 78, 40],
+      [SIZE.LARGE, 82, 44],
     ])("verify Switch component with size set to %s", (size, width, height) => {
       CypressMountWithProviders(<SwitchComponent size={size} />);
 
@@ -689,55 +689,52 @@ context("Testing Switch component", () => {
       cy.checkAccessibility();
     });
 
-    // FE-4678
-    describe.skip("should check Switch component validation accessibility", () => {
-      it("check Switch component accessibility with validation", () => {
-        CypressMountWithProviders(<SwitchComponentValidations />);
+    it("check Switch component accessibility with validation", () => {
+      CypressMountWithProviders(<SwitchComponentValidations />);
 
-        cy.checkAccessibility();
-      });
+      cy.checkAccessibility();
+    });
 
-      it("check Switch component accessibility with validation on label", () => {
+    it("check Switch component accessibility with validation on label", () => {
+      CypressMountWithProviders(
+        <SwitchComponentValidations validationOnLabel />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each(validationTypes)(
+      "should check accessibility for Switch and set type to %s as string",
+      (type) => {
         CypressMountWithProviders(
-          <SwitchComponentValidations validationOnLabel />
+          <SwitchComponent {...{ [type]: "Message" }} />
         );
 
         cy.checkAccessibility();
-      });
+      }
+    );
 
-      it.each(validationTypes)(
-        "should check accessibility for Switch and set type to %s as string",
-        (type) => {
-          CypressMountWithProviders(
-            <SwitchComponent {...{ [type]: "Message" }} />
-          );
+    it.each(["top", "bottom", "left", "right"])(
+      "should check accessibility for Switch with the tooltip in the %s position",
+      (tooltipPositionValue) => {
+        CypressMountWithProviders(
+          <Box width="700px" height="108px">
+            <div
+              style={{
+                padding: "100px",
+              }}
+            >
+              <SwitchComponent
+                error={testCypress}
+                tooltipPosition={tooltipPositionValue}
+              />
+            </div>
+          </Box>
+        );
 
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(["top", "bottom", "left", "right"])(
-        "should check accessibility for Switch with the tooltip in the %s position",
-        (tooltipPositionValue) => {
-          CypressMountWithProviders(
-            <Box width="700px" height="108px">
-              <div
-                style={{
-                  padding: "100px",
-                }}
-              >
-                <SwitchComponent
-                  error={testCypress}
-                  tooltipPosition={tooltipPositionValue}
-                />
-              </div>
-            </Box>
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-    });
+        cy.checkAccessibility();
+      }
+    );
 
     it.each([true, false])(
       "check Switch component accessibility reverse set to %s",

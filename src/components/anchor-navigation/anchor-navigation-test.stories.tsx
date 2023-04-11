@@ -13,6 +13,7 @@ import {
 
 export default {
   component: AnchorNavigation,
+  includeStories: ["DefaultStory", "InFullScreenDialogStory"],
   title: "Anchor Navigation/Test",
   parameters: {
     info: { disable: true },

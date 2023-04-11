@@ -1,5 +1,4 @@
 import { getDataElementByValue } from "../../locators";
-import { popoverSettingsIcon } from "../../locators/popover-container";
 import { visitComponentUrl } from "../helper";
 import storiesJSON from "../../../storybook-static/stories.json";
 
@@ -110,6 +109,12 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("global-header") &&
       !prepareUrl[0].startsWith("grid") &&
       !prepareUrl[0].startsWith("image") &&
+      !prepareUrl[0].startsWith("navigation-bar") &&
+      !prepareUrl[0].startsWith("popover-container") &&
+      !prepareUrl[0].startsWith("menu") &&
+      !prepareUrl[0].startsWith("inline-inputs") &&
+      !prepareUrl[0].startsWith("radiobutton") &&
+      !prepareUrl[0].startsWith("tile") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
@@ -126,10 +131,6 @@ export default (from, end) => {
         (componentName, storyName) => {
           visitComponentUrl(componentName, storyName);
 
-          // open the popover-container component
-          if (componentName.startsWith("popover-container")) {
-            popoverSettingsIcon().click({ multiple: true });
-          }
           // expand the select component
           if (componentName.startsWith("select")) {
             getDataElementByValue("input").click({

@@ -8,10 +8,12 @@ import Textbox from "../textbox";
 import Button from "../button";
 
 export const Default: ComponentStory<typeof Hr> = () => <Hr />;
+Default.storyName = "default";
 
 export const DifferentSpacing: ComponentStory<typeof Hr> = () => (
   <Hr mt={7} mb={7} />
 );
+DifferentSpacing.storyName = "different spacing";
 
 export const InsideForm: ComponentStory<typeof Hr> = () => (
   <Form
@@ -32,6 +34,8 @@ export const InsideForm: ComponentStory<typeof Hr> = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+
+InsideForm.storyName = "inside form";
 
 export const InsideFormInlineLabels: ComponentStory<typeof Hr> = () => (
   <Form
@@ -70,8 +74,10 @@ export const InsideFormInlineLabels: ComponentStory<typeof Hr> = () => (
     />
   </Form>
 );
+InsideFormInlineLabels.storyName = "inside form inline labels";
 
 export const EnablingAdaptiveBehaviour: ComponentStory<typeof Hr> = () => (
   <Hr mb={7} mt={7} ml="10%" mr="40%" adaptiveMxBreakpoint={960} />
 );
+EnablingAdaptiveBehaviour.storyName = "enabling adaptive behaviour";
 EnablingAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };

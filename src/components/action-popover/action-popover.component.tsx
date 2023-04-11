@@ -184,7 +184,11 @@ export const ActionPopover = ({
     [setOpen, focusButton]
   );
 
-  useModalManager(isOpen, handleEscapeKey, buttonRef);
+  useModalManager({
+    open: isOpen,
+    closeModal: handleEscapeKey,
+    modalRef: buttonRef,
+  });
 
   useEffect(() => {
     const handler = ({ target }: MouseEvent) => {

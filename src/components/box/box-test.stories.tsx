@@ -5,7 +5,7 @@ import RadioButton, { RadioButtonGroup } from "../radio-button";
 
 export default {
   title: "Box/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

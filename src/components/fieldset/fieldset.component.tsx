@@ -42,7 +42,6 @@ export const Fieldset = ({
       <FieldsetStyle
         {...tagComponent("fieldset", rest)}
         {...rest}
-        m={0}
         {...marginProps}
       >
         <FieldsetContentStyle data-component="fieldset-style" inline={inline}>

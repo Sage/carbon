@@ -18,7 +18,7 @@ import {
 
 export default {
   title: "Action Popover/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

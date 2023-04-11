@@ -6,7 +6,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default {
   title: "Pager/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

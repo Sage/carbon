@@ -1,10 +1,12 @@
 import React from "react";
 import { mount, shallow } from "enzyme";
+
 import TabsHeader, { TabHeaderProps } from "./tabs-header.component";
 import {
   StyledTabsHeaderWrapper,
   StyledTabsHeaderList,
   StyledTabsHeaderListProps,
+  StyledTabsBottomBorder,
 } from "./tabs-header.style";
 import TabTitle from "../tab-title/tab-title.component";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
@@ -28,18 +30,17 @@ describe("TabsHeader", () => {
     assertStyleMatch(
       {
         display: "flex",
-        boxShadow: "inset 0px -2px 0px 0px var(--colorsActionMinor100)",
         cursor: "default",
         listStyle: "none",
-        margin: "0",
-        padding: "0",
+        margin: "-3px",
+        padding: "3px",
       },
       renderStyles()
     );
   });
 
   it("renders children correctly", () => {
-    expect(render().find(StyledTabsHeaderList).children()).toHaveLength(2);
+    expect(render().find(TabTitle)).toHaveLength(2);
   });
 
   it("has the role of a role prop value", () => {
@@ -78,6 +79,18 @@ describe("TabsHeader", () => {
         renderStyles({ position: "left", noRightBorder: true })
       );
     });
+
+    it("does not render the bottom border element", () => {
+      const wrapper = render({ position: "left" }, mount);
+      expect(wrapper.find(StyledTabsBottomBorder)).toHaveLength(0);
+    });
+  });
+
+  describe("when position prop is set to top", () => {
+    it("renders the bottom border element", () => {
+      const wrapper = render({ position: "top" }, mount);
+      expect(wrapper.find(StyledTabsBottomBorder)).toHaveLength(1);
+    });
   });
 
   describe("when align prop is set to right", () => {
@@ -112,31 +125,11 @@ describe("TabsHeader", () => {
     });
   });
 
-  describe("when alternateStyling is true", () => {
-    it("applies proper styles", () => {
-      assertStyleMatch(
-        {
-          boxShadow: "inset 0px -1px 0px 0px var(--colorsActionMinor100)",
-        },
-        renderStyles({ alternateStyling: true })
-      );
-    });
-
-    it("applies proper styles when position left", () => {
-      assertStyleMatch(
-        {
-          boxShadow: "none",
-        },
-        renderStyles({ alternateStyling: true, position: "left" })
-      );
-    });
-  });
-
   describe("custom target styling", () => {
     const wrapper = render({ isInSidebar: true, position: "left" }, mount);
     assertStyleMatch(
       {
-        margin: "0",
+        margin: "-3px",
       },
       wrapper.find(StyledTabsHeaderList)
     );
@@ -146,5 +139,166 @@ describe("TabsHeader", () => {
       },
       wrapper.find(StyledTabsHeaderWrapper)
     );
+  });
+
+  describe("horizontal scroll", () => {
+    const mockScroll = ({
+      element,
+      ...values
+    }: {
+      element: HTMLElement;
+      scrollWidth?: number;
+      clientWidth?: number;
+      scrollLeft?: number;
+    }) => {
+      Object.entries(values).forEach(([key, value]) => {
+        Object.defineProperty(element, key, {
+          configurable: true,
+          value,
+        });
+      });
+    };
+
+    describe("when is scrollable", () => {
+      it("renders before and after pseudoelements", () => {
+        const wrapper = render({}, mount);
+
+        const list = wrapper.find(StyledTabsHeaderList).getDOMNode();
+        mockScroll({
+          element: list,
+          scrollWidth: 512,
+          clientWidth: 256,
+        });
+
+        wrapper.setProps({});
+
+        assertStyleMatch(
+          {
+            pointerEvents: "none",
+            content: '""',
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "16px 48px",
+            backgroundAttachment: "scroll",
+            zIndex: "1000",
+            position: "sticky",
+            minWidth: "16px",
+            transition: "opacity 0.1s ease-in-out",
+            background:
+              "radial-gradient( farthest-side at 0 50%, rgba(0,0,0,0.2), rgba(0,0,0,0) )",
+            backgroundPosition: "left calc(50% - 4px)",
+            left: "-3px",
+            marginRight: "-16px",
+          },
+          list,
+          { modifier: ":before" }
+        );
+
+        assertStyleMatch(
+          {
+            pointerEvents: "none",
+            content: '""',
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "16px 48px",
+            backgroundAttachment: "scroll",
+            zIndex: "1000",
+            position: "sticky",
+            minWidth: "16px",
+            transition: "opacity 0.1s ease-in-out",
+            background:
+              "radial-gradient( farthest-side at 100% 50%, rgba(0,0,0,0.2), rgba(0,0,0,0) )",
+            backgroundPosition: "right calc(50% - 4px)",
+            right: "-3px",
+            marginLeft: "-16px",
+          },
+          list,
+          { modifier: ":after" }
+        );
+      });
+
+      it.each([
+        [0, "0"],
+        [64, "0.5"],
+        [128, "1"],
+        [256, "1"],
+      ])(
+        "renders before element with correct opacity",
+        (scrollLeft, opacity) => {
+          const wrapper = render({}, mount);
+          const list = wrapper.find(StyledTabsHeaderList).getDOMNode();
+
+          mockScroll({
+            element: list,
+            scrollWidth: 768,
+            clientWidth: 256,
+            scrollLeft,
+          });
+
+          wrapper.setProps({});
+
+          wrapper.find(StyledTabsHeaderList).simulate("scroll");
+
+          assertStyleMatch(
+            {
+              opacity,
+            },
+            list,
+            { modifier: ":before" }
+          );
+        }
+      );
+
+      it.each([
+        [256, "1"],
+        [384, "1"],
+        [448, "0.5"],
+        [512, "0"],
+      ])(
+        "renders after element with correct opacity",
+        (scrollLeft, opacity) => {
+          const wrapper = render({}, mount);
+          const list = wrapper.find(StyledTabsHeaderList).getDOMNode();
+
+          mockScroll({
+            element: list,
+            scrollWidth: 768,
+            clientWidth: 256,
+            scrollLeft,
+          });
+
+          wrapper.setProps({});
+
+          wrapper.find(StyledTabsHeaderList).simulate("scroll");
+
+          assertStyleMatch(
+            {
+              opacity,
+            },
+            list,
+            { modifier: ":after" }
+          );
+        }
+      );
+    });
+
+    describe("when is not scrollable", () => {
+      it("does not render before and after pseudoelements", () => {
+        const wrapper = render({}, mount);
+        const list = wrapper.find(StyledTabsHeaderList).getDOMNode();
+
+        mockScroll({
+          element: list,
+          scrollWidth: 256,
+          clientWidth: 256,
+        });
+
+        wrapper.setProps({});
+
+        const afterPseudo = window.getComputedStyle(list, ":after");
+        const beforePseudo = window.getComputedStyle(list, ":before");
+
+        expect(afterPseudo.content).toBe("");
+        expect(beforePseudo.content).toBe("");
+      });
+    });
   });
 });

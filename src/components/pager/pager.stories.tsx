@@ -29,6 +29,33 @@ Default.argTypes = {
   },
 };
 
+export const InteractivePageNumber: ComponentStory<typeof Pager> = (
+  args: PagerProps
+) => <Pager {...args} />;
+
+InteractivePageNumber.args = {
+  totalRecords: "100",
+  interactivePageNumber: false,
+  showPageSizeSelection: false,
+  currentPage: "1",
+  pageSizeSelectionOptions: [
+    { id: "1", name: 1 },
+    { id: "10", name: 10 },
+    { id: "25", name: 25 },
+    { id: "50", name: 50 },
+    { id: "100", name: 100 },
+  ],
+};
+
+InteractivePageNumber.argTypes = {
+  pageSize: {
+    options: [1, 10, 25, 50, 100],
+    control: {
+      type: "select",
+    },
+  },
+};
+
 export const HideDisabledElements: ComponentStory<typeof Pager> = (
   args: PagerProps
 ) => <Pager {...args} />;

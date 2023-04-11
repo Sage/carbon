@@ -5,6 +5,7 @@ import { LOADER_SIZES } from "./loader.config";
 
 export default {
   title: "Loader/Test",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

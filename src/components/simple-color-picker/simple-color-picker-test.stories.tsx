@@ -105,6 +105,7 @@ export const ValidationsStringComponent = () => {
   ));
 };
 
+ValidationsStringComponent.storyName = "validations string component";
 ValidationsStringComponent.parameters = {
   chromatic: {
     disableSnapshot: false,
@@ -146,6 +147,7 @@ export const ValidationsStringLabel = () => {
   ));
 };
 
+ValidationsStringLabel.storyName = "validations string label";
 ValidationsStringLabel.parameters = {
   chromatic: {
     disableSnapshot: false,
@@ -186,6 +188,7 @@ export const ValidationsBoolean = () => {
   ));
 };
 
+ValidationsBoolean.storyName = "validations boolean";
 ValidationsBoolean.parameters = {
   chromatic: {
     disableSnapshot: false,
