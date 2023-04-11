@@ -1,3 +1,10 @@
+### [117.4.1](https://github.com/Sage/carbon/compare/v117.4.0...v117.4.1) (2023-04-11)
+
+
+### Bug Fixes
+
+* **switch:** fix styling defect caused by box-sizing border-box css ([9228a3f](https://github.com/Sage/carbon/commit/9228a3fd2f0fc48121a4005295d2cc7eb81085f2))
+
 ## [117.4.0](https://github.com/Sage/carbon/compare/v117.3.0...v117.4.0) (2023-04-11)
 
 
