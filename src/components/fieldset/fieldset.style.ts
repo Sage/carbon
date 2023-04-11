@@ -13,6 +13,7 @@ export interface StyledFieldsetProps {
 }
 
 const FieldsetStyle = styled.fieldset`
+  margin: 0;
   ${margin}
   border: none;
   padding: 0;

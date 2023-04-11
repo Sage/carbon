@@ -4,6 +4,13 @@ import { RadioButtonGroup, RadioButton } from ".";
 
 export default {
   title: "RadioButton/Test",
+  includeStories: [
+    "Required",
+    "WithValidationsOnButtons",
+    "WithValidationsOnRadioGroup",
+    "WithTooltipPosition",
+    "WithTooltipPositionOnRadioGroup",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -131,3 +138,58 @@ export const WithTooltipPositionOnRadioGroup: ComponentStory<
 
 WithTooltipPositionOnRadioGroup.storyName =
   "with tooltip position on RadioGroup";
+
+const radioContainerWidth = 400;
+
+export const RadioButtonComponent = ({ ...props }) => {
+  const [isChecked, setIsChecked] = React.useState(false);
+  return (
+    <>
+      <div
+        style={{
+          marginTop: "64px",
+          marginLeft: "64px",
+          width: radioContainerWidth,
+        }}
+      >
+        <RadioButton
+          id="radio-1"
+          value="radio1"
+          label="Radiobutton 1"
+          // checked={() => setIsChecked(false)}
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
+          {...props}
+        />
+      </div>
+    </>
+  );
+};
+
+export const RadioButtonGroupComponent = ({
+  children,
+  ...props
+}: {
+  children: string;
+}) => {
+  return (
+    <div
+      style={{
+        marginTop: "64px",
+        marginLeft: "64px",
+      }}
+    >
+      <RadioButtonGroup
+        name="radiobuttongroup"
+        legend="Radio group legend"
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton id="radio-3" value="radio3" label="Maybe" />
+
+        <>{children}</>
+      </RadioButtonGroup>
+    </div>
+  );
+};

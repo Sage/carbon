@@ -109,6 +109,12 @@ const StyledPagerNavInner = styled.div`
   }
 `;
 
+const StyledPagerNavLabel = styled.label`
+  white-space: nowrap;
+  padding: 9px 12px;
+  margin: 4px 0;
+`;
+
 const StyledPagerLink = styled(Link)<
   Pick<StyledPagerProps, "hideDisabledButtons">
 >`
@@ -143,6 +149,7 @@ export {
   StyledPagerSizeOptionsInner,
   StyledPagerNavigation,
   StyledPagerNavInner,
+  StyledPagerNavLabel,
   StyledPagerLink,
   StyledPagerNoSelect,
   StyledPagerSummary,

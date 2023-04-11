@@ -23,6 +23,35 @@ export const PolishPlural = (
   return pluralGenitive;
 };
 
+const translateColor = (color: string) => {
+  switch (color.toLowerCase()) {
+    case "white":
+      return "biały";
+    case "transparent":
+      return "przezroczysty";
+    case "black":
+      return "czarny";
+    case "blue":
+      return "niebieski";
+    case "pink":
+      return "różowy";
+    case "purple":
+      return "fioletowy";
+    case "goldenrod":
+      return "złoty";
+    case "orchid":
+      return "ciemny róż";
+    case "desert":
+      return "pustynny";
+    case "turquoise":
+      return "turkusowy";
+    case "mint":
+      return "miętowy";
+    default:
+      return color;
+  }
+};
+
 const plPL: Locale = {
   locale: () => "pl-PL",
   actions: {
@@ -32,8 +61,20 @@ const plPL: Locale = {
   actionPopover: {
     ariaLabel: () => "akcje",
   },
+  advancedColorPicker: {
+    ariaLabel: () => "Zmień kolor",
+    currentColorDescriptionTerm: (currentColor: string) =>
+      translateColor(currentColor) === "biały"
+        ? "Aktualny przypisany kolor: "
+        : "Aktualnie przypisany kolor: ",
+    currentColorAssigned: (currentColor: string) =>
+      translateColor(currentColor),
+  },
   batchSelection: {
     selected: (count) => `${count} wybrano`,
+  },
+  breadcrumbs: {
+    ariaLabel: () => "okruszki",
   },
   confirm: {
     no: () => "Nie",
