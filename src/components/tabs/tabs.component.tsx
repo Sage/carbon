@@ -111,7 +111,7 @@ const Tabs = ({
   const [selectedTabIdState, setSelectedTabIdState] = useState<
     string | undefined
   >(selectedTabId || filteredChildren[0].props.tabId);
-  const [tabStopId, setTabStopId] = useState();
+
   const { isInSidebar } = useContext(DrawerSidebarContext);
   const [tabsErrors, setTabsErrors] = useState<
     Record<string, Record<string, string | boolean>>
@@ -140,22 +140,17 @@ const Tabs = ({
     selectedTabIdState,
   ]);
 
-  const hasTabStop = useCallback((tabId) => tabId === tabStopId, [tabStopId]);
-
   /** Updates the currently visible tab */
   const updateVisibleTab = useCallback(
     (tabid) => {
       if (!isTabSelected(tabid)) {
         setSelectedTabIdState(tabid);
       }
-      if (!hasTabStop(tabid)) {
-        setTabStopId(tabid);
-      }
       if (onTabChange) {
         onTabChange(tabid);
       }
     },
-    [onTabChange, isTabSelected, hasTabStop]
+    [onTabChange, isTabSelected]
   );
 
   const blurPreviousSelectedTab = useCallback(() => {
@@ -208,9 +203,8 @@ const Tabs = ({
     } else if (index === tabIds.length) {
       newIndex = 0;
     }
-    const nextTabId = tabIds[newIndex];
     const nextRef = tabRefs[newIndex];
-    updateVisibleTab(nextTabId);
+
     focusTab(nextRef);
   };
 
@@ -305,7 +299,7 @@ const Tabs = ({
           onClick={handleTabClick}
           onKeyDown={handleKeyDown(index)}
           ref={tabRefs[index]}
-          tabIndex={isTabSelected(tabId) || hasTabStop(tabId) ? 0 : -1}
+          tabIndex={isTabSelected(tabId) ? 0 : -1}
           title={title}
           href={href}
           isTabSelected={isTabSelected(tabId)}
@@ -335,7 +329,6 @@ const Tabs = ({
         position={isInSidebar ? "left" : position}
         role="tablist"
         extendedLine={extendedLine}
-        alternateStyling={variant === "alternate" || isInSidebar}
         noRightBorder={["no right side", "no sides"].includes(borders)}
         isInSidebar={isInSidebar}
       >

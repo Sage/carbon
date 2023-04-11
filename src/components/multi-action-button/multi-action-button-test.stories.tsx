@@ -13,7 +13,7 @@ import {
 
 export default {
   title: "Multi Action Button/Test",
-  includeStories: "MultiActionButtonStory",
+  includeStories: ["MultiActionButtonStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

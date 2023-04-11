@@ -4,7 +4,7 @@ import { Crumb } from "./crumb";
 
 export default {
   title: "Breadcrumbs/Test",
-  includeStories: "DefaultCrumb",
+  includeStories: ["DefaultCrumb"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -49,4 +49,4 @@ export const DefaultCrumb = ({ ...args }) => {
 };
 
 Default.storyName = "default";
-DefaultCrumb.storyName = "default crumb";
+DefaultCrumb.storyName = "single crumb";

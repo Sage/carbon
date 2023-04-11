@@ -366,7 +366,7 @@ context("Testing Switch component", () => {
 
     it.each([
       [SIZE.SMALL, 60, 24],
-      [SIZE.LARGE, 78, 40],
+      [SIZE.LARGE, 82, 44],
     ])("verify Switch component with size set to %s", (size, width, height) => {
       CypressMountWithProviders(<SwitchComponent size={size} />);
 

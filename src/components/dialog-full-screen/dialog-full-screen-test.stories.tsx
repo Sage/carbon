@@ -11,7 +11,7 @@ import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Dialog Full Screen/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

@@ -23,6 +23,8 @@ export interface VerticalMenuItemProps<T = React.ElementType>
     TagProps {
   /** Children of the menu item - another level of VerticalMenuItems */
   children?: React.ReactNode;
+  /** Default open state of the component */
+  defaultOpen?: boolean;
   /** Title of the menu item */
   title: string;
   /** Adornment of the menu item meant to be rendered on the right side */
@@ -45,6 +47,7 @@ type InferredComponentProps<T extends React.ElementType> = Omit<
 >;
 
 export const VerticalMenuItem = <T,>({
+  defaultOpen = false,
   title,
   iconType,
   adornment,
@@ -57,7 +60,7 @@ export const VerticalMenuItem = <T,>({
 }: T extends React.ElementType
   ? InferredComponentProps<T> & VerticalMenuItemProps<T>
   : VerticalMenuItemProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const handleOnClick = () => {
     setIsOpen((state) => !state);

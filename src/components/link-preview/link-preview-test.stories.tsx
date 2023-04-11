@@ -5,7 +5,7 @@ import LinkPreview from "./link-preview.component";
 
 export default {
   title: "Link Preview/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

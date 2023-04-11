@@ -9,7 +9,7 @@ import Button from "../button";
 
 export default {
   title: "Pages/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

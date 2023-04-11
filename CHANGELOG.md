@@ -1,3 +1,25 @@
+## [117.5.0](https://github.com/Sage/carbon/compare/v117.4.1...v117.5.0) (2023-04-11)
+
+
+### Features
+
+* **vertical-menu:** add default open state to menu item ([aae55b8](https://github.com/Sage/carbon/commit/aae55b816279f24b8168536f9b876fa87a28722f)), closes [#5822](https://github.com/Sage/carbon/issues/5822)
+
+### [117.4.1](https://github.com/Sage/carbon/compare/v117.4.0...v117.4.1) (2023-04-11)
+
+
+### Bug Fixes
+
+* **switch:** fix styling defect caused by box-sizing border-box css ([9228a3f](https://github.com/Sage/carbon/commit/9228a3fd2f0fc48121a4005295d2cc7eb81085f2))
+
+## [117.4.0](https://github.com/Sage/carbon/compare/v117.3.0...v117.4.0) (2023-04-11)
+
+
+### Features
+
+* add internal useThrottle hook ([26c7a56](https://github.com/Sage/carbon/commit/26c7a565da42ca6bc647ef960ac4242c42ff0f18))
+* **tabs:** enhance tabs component ([eb003a2](https://github.com/Sage/carbon/commit/eb003a2db720aef25abbfefef384489f03378857))
+
 ## [117.3.0](https://github.com/Sage/carbon/compare/v117.2.2...v117.3.0) (2023-04-05)
 
 

@@ -4,7 +4,7 @@ import { PROFILE_SIZES } from "./profile.config";
 
 export default {
   title: "Profile/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

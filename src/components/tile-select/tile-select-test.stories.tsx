@@ -15,7 +15,7 @@ import Image from "../image";
 
 export default {
   title: "Tile Select/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -84,6 +84,8 @@ export const DefaultStory = () => {
     </TileSelectGroup>
   );
 };
+
+DefaultStory.storyName = "default";
 
 export const TileSelectComponent = ({
   multiSelect,

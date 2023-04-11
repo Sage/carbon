@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+import useMediaQuery from "../../hooks/useMediaQuery";
 import { Tabs, Tab } from ".";
 import { Checkbox } from "../checkbox";
 import Pill from "../pill";
@@ -1661,4 +1663,33 @@ export const WithStringValidationsSummarised = () => {
 
 WithStringValidationsSummarised.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+export const Responsive = () => {
+  const fullscreenViewBreakPoint = useMediaQuery("(max-width: 900px)");
+
+  let position: "top" | "left" = "top";
+
+  if (fullscreenViewBreakPoint) {
+    position = "left";
+  }
+
+  const tabsData = Array(20)
+    .fill(0)
+    .map((_, index) => ({
+      tabId: `tab-${index + 1}`,
+      title: `Tab ${index + 1}`,
+      key: `tab-${index + 1}`,
+      content: `Content for tab ${index + 1}`,
+    }));
+
+  return (
+    <Box p="4px">
+      <Tabs align="left" position={position}>
+        {tabsData.map((tabData) => (
+          <Tab {...tabData} key={tabData.key} />
+        ))}
+      </Tabs>
+    </Box>
+  );
 };

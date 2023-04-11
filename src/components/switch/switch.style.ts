@@ -138,8 +138,8 @@ const StyledSwitch = styled.div`
     ${size === "large" &&
     css`
       ${StyledCheckableInput}, ${HiddenCheckableInputStyle}, ${StyledSwitchSlider} {
-        height: 40px;
-        width: 78px;
+        height: 44px;
+        width: 82px;
         min-width: fit-content;
       }
 

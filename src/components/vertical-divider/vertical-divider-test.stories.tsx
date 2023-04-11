@@ -3,7 +3,7 @@ import VerticalDivider from "./vertical-divider.component";
 
 export default {
   title: "VerticalDivider/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

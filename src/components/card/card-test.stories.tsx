@@ -12,7 +12,7 @@ import Box from "../box";
 
 export default {
   title: "Card/Test",
-  includeStoris: "DefaultStory",
+  includeStories: ["DefaultStory"],
   component: Card,
   parameters: {
     docs: {

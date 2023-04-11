@@ -22,6 +22,7 @@ import InlineInputs from "../inline-inputs";
 
 export default {
   title: "Form/Test",
+  excludeStories: ["FormComponent"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -239,6 +240,8 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
   );
 };
 
+FormAlignmentCustomMarginsTextInputs.storyName =
+  "form alignment custom margins text inputs";
 FormAlignmentCustomMarginsTextInputs.parameters = {
   chromatic: {
     disableSnapshot: false, // we want chromatic to capture this to catch any future regressions
@@ -320,6 +323,8 @@ export const FormAlignmentCustomMarginNonTextInputs = () => {
   );
 };
 
+FormAlignmentCustomMarginNonTextInputs.storyName =
+  "form alignment custom margin non-text inputs";
 FormAlignmentCustomMarginNonTextInputs.parameters = {
   chromatic: {
     disableSnapshot: false, // we want chromatic to capture this to catch any future regressions

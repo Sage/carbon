@@ -5,7 +5,7 @@ import ButtonToggle from ".";
 
 export default {
   title: "Button Toggle/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -14,7 +14,7 @@ export default {
   },
 };
 
-export const DefaultStory = ({ children, ...args }: { children: string }) => (
+export const DefaultStory = () => (
   <div>
     <ButtonToggle
       name="new-button-toggle"
@@ -22,9 +22,8 @@ export const DefaultStory = ({ children, ...args }: { children: string }) => (
       onChange={() => action("onChange")("foo")}
       onFocus={() => action("onFocus")("foo")}
       onBlur={() => action("onBlur")("foo")}
-      {...args}
     >
-      {children}
+      Foo
     </ButtonToggle>
     <ButtonToggle
       name="new-button-toggle"
@@ -32,9 +31,8 @@ export const DefaultStory = ({ children, ...args }: { children: string }) => (
       onChange={() => action("onChange")("bar")}
       onFocus={() => action("onFocus")("bar")}
       onBlur={() => action("onBlur")("bar")}
-      {...args}
     >
-      {children}
+      Bar
     </ButtonToggle>
     <ButtonToggle
       name="new-button-toggle"
@@ -42,9 +40,8 @@ export const DefaultStory = ({ children, ...args }: { children: string }) => (
       onChange={() => action("onChange")("baz")}
       onFocus={() => action("onFocus")("baz")}
       onBlur={() => action("onBlur")("baz")}
-      {...args}
     >
-      {children}
+      Baz
     </ButtonToggle>
   </div>
 );

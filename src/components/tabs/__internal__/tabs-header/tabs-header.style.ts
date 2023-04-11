@@ -1,16 +1,8 @@
 import styled, { css } from "styled-components";
 import { TabHeaderProps } from "./tabs-header.component";
+import BaseTheme from "../../../../style/themes/base";
 
-const computeLineWidth = ({
-  alternateStyling,
-  isInSidebar,
-  position,
-}: Pick<TabHeaderProps, "alternateStyling" | "isInSidebar" | "position">) => {
-  if (isInSidebar && position === "left") {
-    return "0px";
-  }
-  return alternateStyling ? "-1px" : "-2px";
-};
+const outlineWidth = "3px";
 
 type StyledTabsHeaderWrapperProps = Pick<
   TabHeaderProps,
@@ -39,19 +31,30 @@ const StyledTabsHeaderWrapper = styled.div<StyledTabsHeaderWrapperProps>`
     `}
 `;
 
-export type StyledTabsHeaderListProps = Pick<
-  TabHeaderProps,
-  | "align"
-  | "alternateStyling"
-  | "extendedLine"
-  | "noRightBorder"
-  | "isInSidebar"
-  | "position"
->;
+const commonShadowStyles = css`
+  pointer-events: none;
+  content: "";
+  background-repeat: no-repeat;
+  background-size: 16px 48px;
+  background-attachment: scroll;
+  z-index: ${({ theme }) => theme.zIndex.overlay};
+  position: sticky;
+  min-width: 16px;
+  transition: opacity 0.1s ease-in-out;
+`;
+
+export interface StyledTabsHeaderListProps
+  extends Pick<
+    TabHeaderProps,
+    "align" | "extendedLine" | "noRightBorder" | "isInSidebar" | "position"
+  > {
+  leftScrollOpacity?: number;
+  rightScrollOpacity?: number;
+  isScrollable?: boolean;
+}
 
 const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
   display: flex;
-  box-shadow: inset 0px ${computeLineWidth} 0px 0px var(--colorsActionMinor100);
   ${({ extendedLine = true }) =>
     !extendedLine &&
     css`
@@ -59,8 +62,53 @@ const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
     `}
   cursor: default;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: -${outlineWidth};
+  padding: ${outlineWidth};
+  overflow-x: auto;
+  position: relative;
+  ${({ position }) => position === "top" && "white-space: nowrap"};
+
+  ${({ isScrollable, leftScrollOpacity, rightScrollOpacity }) =>
+    isScrollable &&
+    css`
+      &:before {
+        ${commonShadowStyles}
+        background: radial-gradient(
+          farthest-side at 0 50%,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0)
+        );
+        background-position: left calc(50% - 4px);
+        left: -${outlineWidth};
+        margin-right: -16px;
+        opacity: ${leftScrollOpacity};
+      }
+
+      &:after {
+        ${commonShadowStyles}
+        background: radial-gradient(
+          farthest-side at 100% 50%,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0)
+        );
+        background-position: right calc(50% - 4px);
+        right: -${outlineWidth};
+        margin-left: -16px;
+        opacity: ${rightScrollOpacity};
+      }
+    `}
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    background: var(--colorsUtilityMajor025);
+    height: 8px;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--colorsUtilityMajor300);
+    cursor: pointer;
+  }
 
   ${({ align = "left" }) =>
     align === "right" &&
@@ -87,4 +135,37 @@ const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
     `}
 `;
 
-export { StyledTabsHeaderWrapper, StyledTabsHeaderList };
+StyledTabsHeaderList.defaultProps = {
+  theme: BaseTheme,
+};
+
+const StyledTabsWrapper = styled.div`
+  position: relative;
+  min-width: max-content;
+  width: 100%;
+  height: 100%;
+`;
+
+const StyledTabsBottomBorderWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: auto;
+  bottom: 0;
+`;
+
+const StyledTabsBottomBorder = styled.div`
+  position: sticky;
+  bottom: 2px;
+  left: ${outlineWidth};
+  right: ${outlineWidth};
+  height: 2px;
+  background-color: var(--colorsActionMinor100);
+`;
+
+export {
+  StyledTabsHeaderWrapper,
+  StyledTabsHeaderList,
+  StyledTabsWrapper,
+  StyledTabsBottomBorderWrapper,
+  StyledTabsBottomBorder,
+};

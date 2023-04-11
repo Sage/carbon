@@ -5,7 +5,7 @@ import { SearchEvent } from "./search.component";
 
 export default {
   title: "Search/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {

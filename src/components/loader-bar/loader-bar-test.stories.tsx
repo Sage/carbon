@@ -4,7 +4,7 @@ import { LOADER_BAR_SIZES } from "./loader-bar.config";
 
 export default {
   title: "Loader Bar/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
