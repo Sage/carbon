@@ -1,3 +1,11 @@
+## [117.4.0](https://github.com/Sage/carbon/compare/v117.3.0...v117.4.0) (2023-04-11)
+
+
+### Features
+
+* add internal useThrottle hook ([26c7a56](https://github.com/Sage/carbon/commit/26c7a565da42ca6bc647ef960ac4242c42ff0f18))
+* **tabs:** enhance tabs component ([eb003a2](https://github.com/Sage/carbon/commit/eb003a2db720aef25abbfefef384489f03378857))
+
 ## [117.3.0](https://github.com/Sage/carbon/compare/v117.2.2...v117.3.0) (2023-04-05)
 
 
