@@ -1,3 +1,10 @@
+## [117.5.0](https://github.com/Sage/carbon/compare/v117.4.1...v117.5.0) (2023-04-11)
+
+
+### Features
+
+* **vertical-menu:** add default open state to menu item ([aae55b8](https://github.com/Sage/carbon/commit/aae55b816279f24b8168536f9b876fa87a28722f)), closes [#5822](https://github.com/Sage/carbon/issues/5822)
+
 ### [117.4.1](https://github.com/Sage/carbon/compare/v117.4.0...v117.4.1) (2023-04-11)
 
 
