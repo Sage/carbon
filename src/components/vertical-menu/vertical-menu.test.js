@@ -109,7 +109,7 @@ context("Testing Vertical Menu component", () => {
       verticalMenuItem().eq(1).should("not.exist");
     });
 
-    it("should render Vertical Menu Item with adornment prop", () => {
+    it("should render Vertical Menu Item with iconType prop", () => {
       CypressMountWithProviders(<VerticalMenuItemCustom iconType="filter" />);
 
       verticalMenuItem()
@@ -120,7 +120,7 @@ context("Testing Vertical Menu component", () => {
         .and("be.visible");
     });
 
-    it("should render Vertical Menu Item with adornment prop", () => {
+    it("should render Vertical Menu Item with active prop", () => {
       CypressMountWithProviders(
         <VerticalMenuItemCustom active={(isOpen) => !isOpen} />
       );
@@ -169,6 +169,21 @@ context("Testing Vertical Menu component", () => {
         .should("have.attr", "href", "/item-1")
         .and("be.visible");
     });
+
+    it.each([
+      [true, "be.visible"],
+      [false, "not.exist"],
+    ])(
+      "should render Vertical Menu Item opened with defaultOpen set to %s",
+      (boolean, assertion) => {
+        CypressMountWithProviders(
+          <VerticalMenuItemCustom defaultOpen={boolean} />
+        );
+
+        cy.contains("ChildItem 1").should(assertion);
+        cy.contains("ChildItem 2").should(assertion);
+      }
+    );
 
     describe("with beforeEach for VerticalMenuFullScreen", () => {
       beforeEach(() => {

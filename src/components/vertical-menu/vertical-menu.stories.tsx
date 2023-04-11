@@ -60,6 +60,7 @@ export const Default = () => {
         <VerticalMenuItem
           iconType="home"
           title="Item 3"
+          defaultOpen
           active={(isOpen) => !isOpen}
           adornment={(isOpen) =>
             !isOpen && (
