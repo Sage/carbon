@@ -612,7 +612,7 @@ describe("Link", () => {
         <MenuContext.Provider
           value={{
             inMenu: true,
-            menuType: "",
+            menuType: "light",
             openSubmenuId: null,
             setOpenSubmenuId: () => {},
           }}
