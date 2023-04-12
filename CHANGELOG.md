@@ -1,3 +1,10 @@
+### [117.6.1](https://github.com/Sage/carbon/compare/v117.6.0...v117.6.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* **message:** add conditional padding based on the showCloseIcon props truth value ([cf8d7b2](https://github.com/Sage/carbon/commit/cf8d7b272b00011463d945268ba26f9e94d526bf)), closes [#5904](https://github.com/Sage/carbon/issues/5904)
+
 ## [117.6.0](https://github.com/Sage/carbon/compare/v117.5.0...v117.6.0) (2023-04-12)
 
 
