@@ -20,6 +20,9 @@ import ValidationIcon from "../../__internal__/validations/validation-icon.compo
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { ValidationProps } from "../../__internal__/validations";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecateUncontrolledWarnTriggered = false;
 
 export interface SimpleColorPickerProps extends ValidationProps, MarginProps {
   /** The SimpleColor components to be rendered in the group */
@@ -287,6 +290,13 @@ export const SimpleColorPicker = React.forwardRef<
     warning,
     info,
   };
+
+  if (!deprecateUncontrolledWarnTriggered && !onChange) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  }
 
   return (
     <Fieldset

@@ -18,6 +18,8 @@ import StyledHelp from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
 import checkableInput from "../../__internal__/checkable-input";
 
+jest.mock("../../__internal__/utils/logger");
+
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
   () => "guid-12345"
@@ -57,6 +59,33 @@ function getValidationBorderColor(
 }
 
 describe("Checkbox", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+    jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      mount(<Checkbox name="my-checkbox" />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   testStyledSystemMargin((props) => (
     <Checkbox name="my-checkbox" value="test" {...props} />
   ));
@@ -65,7 +94,6 @@ describe("Checkbox", () => {
     let wrapper: ReactWrapper;
 
     it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
       const ref = { current: null };
 
       wrapper = renderCheckbox({ inputRef: ref });

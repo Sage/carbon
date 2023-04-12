@@ -19,11 +19,40 @@ import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 
 const mockedGuid = "mocked-guid";
+jest.mock("../../../__internal__/utils/logger");
+
 jest.mock("../../../__internal__/utils/helpers/guid");
 
 guid.mockReturnValue(mockedGuid);
 
 describe("FilterableSelect", () => {
+  let loggerSpy;
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      jest.restoreAllMocks();
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      renderSelect({ defaultValue: "opt1" });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   testStyledSystemMargin((props) => getSelect(props));
 
   it('the Textbox should have type of "text"', () => {
@@ -162,19 +191,22 @@ describe("FilterableSelect", () => {
   });
 
   describe("when the inputRef function prop is specified", () => {
-    it("should display deprecation warning when the inputRef prop is usedll", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
+    it("should display deprecation warning when the inputRef prop is used", () => {
       const inputRefFn = jest.fn();
       const wrapper = renderSelect({ inputRef: inputRefFn });
 
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `FilterableSelect` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
+      expect(loggerSpy.mock.calls).toEqual([
+        [
+          "The `inputRef` prop in `Filterable Select` component is deprecated and will soon be removed. Please use `ref` instead.",
+        ],
+        [
+          "The `inputRef` prop in `Textbox` component is deprecated and will soon be removed. Please use `ref` instead.",
+        ],
+      ]);
       expect(loggerSpy).toHaveBeenCalledTimes(2);
       // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
       wrapper.setProps({ prop1: true });
       expect(loggerSpy).toHaveBeenCalledTimes(2);
-      loggerSpy.mockRestore();
     });
 
     it("then the input reference should be returned on call", () => {

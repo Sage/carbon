@@ -123,6 +123,7 @@ export interface TextareaProps
 }
 
 let deprecateInputRefWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
 export const Textarea = React.forwardRef(
   (
@@ -198,6 +199,13 @@ export const Textarea = React.forwardRef(
       deprecateInputRefWarnTriggered = true;
       Logger.deprecate(
         "The `inputRef` prop in `Textarea` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
+
+    if (!deprecateUncontrolledWarnTriggered && !onChange) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
     }
 

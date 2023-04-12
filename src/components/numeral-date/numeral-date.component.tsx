@@ -17,6 +17,9 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import NumeralDateContext from "./numeral-date-context";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecateUncontrolledWarnTriggered = false;
 
 export const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -329,6 +332,13 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   const internalWarning = enableInternalWarning
     ? internalMessage + warning
     : warning;
+
+  if (!deprecateUncontrolledWarnTriggered && !isControlled.current) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  }
 
   return (
     <TooltipProvider helpAriaLabel={helpAriaLabel}>
