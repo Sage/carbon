@@ -14,6 +14,10 @@ import ButtonToggleInput, {
 
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 
+import Logger from "../../__internal__/utils/logger";
+
+let deprecateUncontrolledWarnTriggered = false;
+
 export interface ButtonToggleProps
   extends ButtonToggleInputProps,
     Partial<StyledButtonToggleLabelProps> {
@@ -76,6 +80,13 @@ export const ButtonToggle = ({
 
   function handleClick() {
     inputRef.current?.focus();
+  }
+
+  if (!deprecateUncontrolledWarnTriggered && !onChange) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
   }
 
   return (

@@ -13,7 +13,9 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { Dt, Dd } from "../definition-list";
+import Logger from "../../__internal__/utils/logger";
 
+let deprecateUncontrolledWarnTriggered = false;
 export interface AdvancedColor {
   label: string;
   value: string;
@@ -205,6 +207,13 @@ export const AdvancedColorPicker = ({
     },
     [onBlur]
   );
+
+  if (!deprecateUncontrolledWarnTriggered && !onChange) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  }
 
   return (
     <StyledAdvancedColorPickerWrapper

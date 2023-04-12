@@ -20,6 +20,9 @@ import StyledHelp from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
 
 const ddmmMessage =
   "Day should be a number within a 1-31 range.\n" +
@@ -68,6 +71,33 @@ describe("NumeralDate", () => {
   beforeEach(() => {
     onBlur.mockReset();
     onChange.mockReset();
+  });
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      jest.restoreAllMocks();
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      renderWrapper({});
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe("propTypes", () => {

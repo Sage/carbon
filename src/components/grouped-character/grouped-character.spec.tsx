@@ -13,6 +13,8 @@ import Label from "../../__internal__/label";
 import { InputPresentation } from "../../__internal__/input";
 import Logger from "../../__internal__/utils/logger";
 
+jest.mock("../../__internal__/utils/logger");
+
 const mountComponent = (props: GroupedCharacterProps) =>
   mount(<GroupedCharacter {...props} />);
 
@@ -37,6 +39,33 @@ describe("GroupedCharacter", () => {
     (wrapper) => wrapper.find(FormFieldStyle),
     { modifier: "&&&" }
   );
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      jest.restoreAllMocks();
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      mount(<GroupedCharacter groups={[2, 2, 3]} separator="-" />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe("uncontrolled behaviour", () => {
     let instance: ReactWrapper;
@@ -288,7 +317,6 @@ describe("GroupedCharacter", () => {
     let wrapper: ReactWrapper;
 
     it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
       const ref = () => {};
 
       wrapper = renderGroupedCharacter({ inputRef: ref });

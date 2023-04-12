@@ -40,6 +40,7 @@ export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
 }
 
 let deprecateInputRefWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
 export const Checkbox = React.forwardRef(
   (
@@ -95,6 +96,13 @@ export const Checkbox = React.forwardRef(
       deprecateInputRefWarnTriggered = true;
       Logger.deprecate(
         "The `inputRef` prop in `Checkbox` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
+
+    if (!deprecateUncontrolledWarnTriggered && !onChange) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
     }
 
