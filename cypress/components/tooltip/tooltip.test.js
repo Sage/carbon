@@ -1,9 +1,7 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/button-has-type */
-import React, { forwardRef, useState } from "react";
-import Tooltip from "../../../src/components/tooltip/tooltip.component";
+import React from "react";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-
+import * as testStories from "../../../src/components/tooltip/tooltip-test.stories";
+import * as stories from "../../../src/components/tooltip/tooltip.stories";
 import {
   tooltipPreview,
   tooltipTrigger,
@@ -15,91 +13,25 @@ import {
   CHARACTERS,
 } from "../../support/component-helper/constants";
 import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { getDataElementByValue } from "../../locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const backgroundColors = [COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN];
-
-const Button = forwardRef(({ children }, ref) => (
-  <button
-    tabIndex="0"
-    data-component="tooltip-trigger"
-    style={{
-      backgroundColor: "#00815D",
-      color: "white",
-      cursor: "pointer",
-      border: "none",
-      padding: "8px",
-    }}
-    ref={ref}
-  >
-    {children}
-  </button>
-));
-
-const SecondaryButton = forwardRef(({ children }, ref) => (
-  <button tabIndex="0" data-component="tooltip-trigger" ref={ref}>
-    {children}
-  </button>
-));
-
-const TooltipComponent = ({ ...props }) => (
-  <div
-    style={{
-      padding: "60px 60px 60px 160px",
-    }}
-  >
-    <Tooltip message="I am a tooltip!" isVisible {...props}>
-      <Button>target</Button>
-    </Tooltip>
-  </div>
-);
-
-const UncontrolledTooltipComponent = () => (
-  <div
-    style={{
-      padding: "60px 60px 60px 160px",
-    }}
-  >
-    <Tooltip message="I am a tooltip!">
-      <Button>target</Button>
-    </Tooltip>
-  </div>
-);
-
-const TooltipWithChangingTargetComponent = () => {
-  const [displayOther, setDisplayOther] = useState(false);
-
-  return (
-    <>
-      <button
-        data-component="tooltip-trigger-toggle"
-        onClick={() => setDisplayOther(!displayOther)}
-      >
-        Change target
-      </button>
-      <Tooltip message="I am a tooltip!">
-        {displayOther ? (
-          <SecondaryButton>Secondary target</SecondaryButton>
-        ) : (
-          <Button>Target</Button>
-        )}
-      </Tooltip>
-    </>
-  );
-};
 
 context("Tests for Tooltip component", () => {
   describe("should check Tooltip component properties", () => {
     it.each(testData)(
       "should check %s as message for Tooltip component",
       (message) => {
-        CypressMountWithProviders(<TooltipComponent message={message} />);
+        CypressMountWithProviders(
+          <testStories.TooltipComponent message={message} />
+        );
         tooltipPreview().should("have.text", message);
       }
     );
 
     it.each(testData)("should check %s as Id for Tooltip component", (id) => {
-      CypressMountWithProviders(<TooltipComponent id={id} />);
+      CypressMountWithProviders(<testStories.TooltipComponent id={id} />);
       tooltipPreview().should("have.id", id);
     });
 
@@ -109,7 +41,9 @@ context("Tests for Tooltip component", () => {
     ])(
       "should check when tooltip visibility is %s for Tooltip component",
       (bool, state) => {
-        CypressMountWithProviders(<TooltipComponent isVisible={bool} />);
+        CypressMountWithProviders(
+          <testStories.TooltipComponent isVisible={bool} />
+        );
         tooltipPreview().should(state);
       }
     );
@@ -118,9 +52,9 @@ context("Tests for Tooltip component", () => {
       "should check %s position of tooltip for Tooltip component",
       (position) => {
         CypressMountWithProviders(
-          <TooltipComponent position={position}>
+          <testStories.TooltipComponent position={position}>
             {`This tooltip is positioned ${position}`}
-          </TooltipComponent>
+          </testStories.TooltipComponent>
         );
         tooltipPreview().should("be.visible").and("have.css", position);
       }
@@ -129,7 +63,7 @@ context("Tests for Tooltip component", () => {
     it.each(["undefined", "error"])(
       "should check %s type for Tooltip component",
       (type) => {
-        CypressMountWithProviders(<TooltipComponent type={type} />);
+        CypressMountWithProviders(<testStories.TooltipComponent type={type} />);
         tooltipPreview().should("have.attr", "type", type);
       }
     );
@@ -137,7 +71,9 @@ context("Tests for Tooltip component", () => {
     it.each(backgroundColors)(
       "should check tooltip background-color as %s for Tooltip component",
       (color) => {
-        CypressMountWithProviders(<TooltipComponent bgColor={color} />);
+        CypressMountWithProviders(
+          <testStories.TooltipComponent bgColor={color} />
+        );
         tooltipPreview().should("have.css", "background-color", color);
       }
     );
@@ -145,7 +81,9 @@ context("Tests for Tooltip component", () => {
     it.each(backgroundColors)(
       "should check tooltip font color as %s for Tooltip component",
       (color) => {
-        CypressMountWithProviders(<TooltipComponent fontColor={color} />);
+        CypressMountWithProviders(
+          <testStories.TooltipComponent fontColor={color} />
+        );
         tooltipPreview().should("have.css", "color", color);
       }
     );
@@ -154,7 +92,7 @@ context("Tests for Tooltip component", () => {
       [SIZE.MEDIUM, 14],
       [SIZE.LARGE, 16],
     ])("should check %s size for Tooltip component", (size, fontSize) => {
-      CypressMountWithProviders(<TooltipComponent size={size} />);
+      CypressMountWithProviders(<testStories.TooltipComponent size={size} />);
       tooltipPreview().should("have.css", "font-size", `${fontSize}px`);
     });
 
@@ -174,7 +112,7 @@ context("Tests for Tooltip component", () => {
       (flipPosition, tooltipPosition, scrollPosition) => {
         CypressMountWithProviders(
           <div style={{ padding: "60px 60px 60px 60px" }}>
-            <TooltipComponent
+            <testStories.TooltipComponent
               flipOverrides={[flipPosition]}
               position={tooltipPosition}
             />
@@ -197,7 +135,7 @@ context("Tests for Tooltip component", () => {
           "when inputSize is %s should have correct styles applied",
           (inputSize, offset) => {
             CypressMountWithProviders(
-              <TooltipComponent
+              <testStories.TooltipComponent
                 isPartOfInput
                 inputSize={inputSize}
                 position={position}
@@ -213,14 +151,14 @@ context("Tests for Tooltip component", () => {
     );
 
     it("should show tooltip when target is hovered", () => {
-      CypressMountWithProviders(<UncontrolledTooltipComponent />);
+      CypressMountWithProviders(<testStories.UncontrolledTooltipComponent />);
       tooltipPreview().should("not.exist");
       tooltipTrigger().trigger("mouseenter");
       tooltipPreview().should("be.visible");
     });
 
     it("should hide tooltip when mouse leaves target", () => {
-      CypressMountWithProviders(<UncontrolledTooltipComponent />);
+      CypressMountWithProviders(<testStories.UncontrolledTooltipComponent />);
       tooltipPreview().should("not.exist");
       tooltipTrigger().trigger("mouseenter");
       tooltipPreview().should("be.visible");
@@ -229,14 +167,14 @@ context("Tests for Tooltip component", () => {
     });
 
     it("should show tooltip when target is focused", () => {
-      CypressMountWithProviders(<UncontrolledTooltipComponent />);
+      CypressMountWithProviders(<testStories.UncontrolledTooltipComponent />);
       tooltipPreview().should("not.exist");
       tooltipTrigger().focus();
       tooltipPreview().should("be.visible");
     });
 
     it("should hide tooltip when target is blurred", () => {
-      CypressMountWithProviders(<UncontrolledTooltipComponent />);
+      CypressMountWithProviders(<testStories.UncontrolledTooltipComponent />);
       tooltipPreview().should("not.exist");
       tooltipTrigger().focus();
       tooltipPreview().should("be.visible");
@@ -245,7 +183,9 @@ context("Tests for Tooltip component", () => {
     });
 
     it("new tooltip target should still trigger tooltip visibility", () => {
-      CypressMountWithProviders(<TooltipWithChangingTargetComponent />);
+      CypressMountWithProviders(
+        <testStories.TooltipWithChangingTargetComponent />
+      );
       tooltipTrigger().should("have.text", "Target");
 
       tooltipTrigger().trigger("mouseenter");
@@ -260,6 +200,87 @@ context("Tests for Tooltip component", () => {
       tooltipPreview().should("be.visible");
       tooltipTrigger().trigger("mouseleave");
       tooltipPreview().should("not.exist");
+    });
+  });
+
+  describe("Accessibility tests for Tooltip component", () => {
+    it("should pass accessibilty tests for Tooltip Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
+
+      getDataElementByValue("main-text")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for Tooltip Controlled story", () => {
+      CypressMountWithProviders(<stories.Controlled />);
+
+      getDataElementByValue("main-text")
+        .eq(0)
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each([
+      ["top", 0],
+      ["bottom", 1],
+      ["left", 2],
+      ["right", 3],
+    ])(
+      "should pass accessibilty tests for Tooltip Positioning story %s position",
+      (position, button) => {
+        CypressMountWithProviders(<stories.Positioning />);
+
+        getDataElementByValue("main-text")
+          .eq(button)
+          .click()
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it("should pass accessibilty tests for Tooltip FlipBehviourOverrides story", () => {
+      CypressMountWithProviders(<stories.FlipBehviourOverrides />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for Tooltip LargeTooltip story", () => {
+      CypressMountWithProviders(<stories.LargeTooltip />);
+
+      getDataElementByValue("main-text")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for Tooltip Types story", () => {
+      CypressMountWithProviders(<stories.Types />);
+
+      getDataElementByValue("main-text")
+        .eq(1)
+        .click()
+        .then(() => {
+          // eslint-disable-next-line no-unused-expressions
+          getDataElementByValue("main-text")
+            .eq(2)
+            .click()
+            .then(() => cy.checkAccessibility());
+        });
+    });
+
+    it("should pass accessibilty tests for Tooltip ColorOverrides story", () => {
+      CypressMountWithProviders(<stories.ColorOverrides />);
+
+      getDataElementByValue("main-text")
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for Tooltip ColorOverrides story", () => {
+      CypressMountWithProviders(<stories.ColorOverrides />);
+
+      getDataElementByValue("main-text")
+        .click()
+        .then(() => cy.checkAccessibility());
     });
   });
 });
