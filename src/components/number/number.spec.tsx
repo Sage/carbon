@@ -7,6 +7,8 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import Logger from "../../__internal__/utils/logger";
 
+jest.mock("../../__internal__/utils/logger");
+
 function renderNumberInput(
   props: NumberProps & React.RefAttributes<HTMLInputElement>
 ) {
@@ -32,6 +34,33 @@ describe("Number Input", () => {
   const selectionStart = 2;
   const selectionEnd = 4;
   const defaultInputValue = "123456789";
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+    jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      mount(<Number />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe("when rendered", () => {
     it("should have the Textbox component as it's child", () => {
@@ -179,7 +208,7 @@ describe("Number Input", () => {
 
   describe("refs", () => {
     it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      loggerSpy = jest.spyOn(Logger, "deprecate");
       const ref = () => {};
 
       wrapper = renderNumberInput({ inputRef: ref });

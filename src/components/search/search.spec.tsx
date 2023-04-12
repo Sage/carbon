@@ -17,6 +17,8 @@ import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Logger from "../../__internal__/utils/logger";
 
+jest.mock("../../__internal__/utils/logger");
+
 describe("Search", () => {
   let wrapper: ReactWrapper;
   let onBlur: jest.Mock;
@@ -32,6 +34,33 @@ describe("Search", () => {
   ) {
     return mount(<Search {...props} />);
   }
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      jest.restoreAllMocks();
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      wrapper = renderSearch({ defaultValue: "foo" });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe("styles", () => {
     it("matches the expected styles", () => {
@@ -609,7 +638,6 @@ describe("Search", () => {
 
   describe("refs", () => {
     it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
       const ref = { current: null };
 
       wrapper = renderSearch({ inputRef: ref, value: "" });

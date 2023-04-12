@@ -26,7 +26,7 @@ export interface CommonInputProps
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on change */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  /** pecify a callback triggered on click */
+  /** Specify a callback triggered on click */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on focus */
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
@@ -45,9 +45,9 @@ export interface CommonInputProps
 export interface InputProps extends CommonInputProps {
   /** The visible width of the text control, in average character widths */
   cols?: number;
-  /** Integer to determine a timeout for the defered callback */
+  /** Integer to determine a timeout for the deferred callback */
   deferTimeout?: number;
-  /** Defered callback to be called after the onChange event */
+  /** Deferred callback to be called after the onChange event */
   onChangeDeferred?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** The number of visible text lines for the control */
   rows?: number;

@@ -26,6 +26,8 @@ import StyledValidationMessage from "../../__internal__/validation-message/valid
 import StyledTextarea from "./textarea.style";
 import Logger from "../../__internal__/utils/logger";
 
+jest.mock("../../__internal__/utils/logger");
+
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
@@ -39,6 +41,33 @@ function renderTextarea(
 
 describe("Textarea", () => {
   let wrapper: ReactWrapper;
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+    jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      <Textarea name="my-textarea" defaultValue="test" />;
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   testStyledSystemMargin((props) => <Textarea {...props} />);
   describe("when textarea is rendered with default props", () => {
@@ -605,7 +634,7 @@ describe("componentWillUnmount", () => {
       );
 
       wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
       loggerSpy.mockRestore();
     });
 

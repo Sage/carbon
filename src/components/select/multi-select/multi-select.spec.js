@@ -11,12 +11,12 @@ import Textbox from "../../textbox";
 import Option from "../option/option.component";
 import SelectList from "../select-list/select-list.component";
 import { StyledSelectList } from "../select-list/select-list.style";
+import StyledSelectListContainer from "../select-list/select-list-container.style";
 import Pill from "../../pill";
 import Label from "../../../__internal__/label";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
-import StyledSelectListContainer from "../select-list/select-list-container.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 
 const mockedGuid = "mocked-guid";
@@ -24,7 +24,36 @@ jest.mock("../../../__internal__/utils/helpers/guid");
 
 guid.mockReturnValue(mockedGuid);
 
+jest.mock("../../../__internal__/utils/logger");
+
 describe("MultiSelect", () => {
+  let loggerSpy;
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      jest.restoreAllMocks();
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      renderSelect({ defaultValue: ["opt2", "opt1"] });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   testStyledSystemMargin((props) => getSelect(props));
 
   it("when text is passed in placeholder prop, input element in textbox uses it as placeholder text", () => {
@@ -163,14 +192,18 @@ describe("MultiSelect", () => {
   });
 
   describe("when the inputRef function prop is specified", () => {
-    it("should display deprecation warning when the inputRef prop is usedll", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
+    it("should display deprecation warning when the inputRef prop is used", () => {
       const inputRefFn = jest.fn();
       const wrapper = renderSelect({ inputRef: inputRefFn });
 
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `MultiSelect` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
+      expect(loggerSpy.mock.calls).toEqual([
+        [
+          "The `inputRef` prop in `Multi Select` component is deprecated and will soon be removed. Please use `ref` instead.",
+        ],
+        [
+          "The `inputRef` prop in `Textbox` component is deprecated and will soon be removed. Please use `ref` instead.",
+        ],
+      ]);
       expect(loggerSpy).toHaveBeenCalledTimes(2);
       // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
       wrapper.setProps({ prop1: true });

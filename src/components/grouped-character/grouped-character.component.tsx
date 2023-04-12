@@ -49,6 +49,7 @@ export interface GroupedCharacterProps
 }
 
 let deprecateInputRefWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
 export const GroupedCharacter = React.forwardRef(
   (
@@ -76,6 +77,13 @@ export const GroupedCharacter = React.forwardRef(
       deprecateInputRefWarnTriggered = true;
       Logger.deprecate(
         "The `inputRef` prop in `GroupedCharacter` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
+
+    if (!deprecateUncontrolledWarnTriggered && !isControlled) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
     }
 

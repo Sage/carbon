@@ -24,6 +24,7 @@ import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
 let deprecateInputRefWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
 const SimpleSelect = React.forwardRef(
   (
@@ -90,7 +91,17 @@ const SimpleSelect = React.forwardRef(
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
       Logger.deprecate(
-        "The `inputRef` prop in `Select` component is deprecated and will soon be removed. Please use `ref` instead."
+        "The `inputRef` prop in `Simple Select` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
+
+    const componentIsUncontrolled =
+      !isControlled || (!onChange && defaultValue);
+
+    if (!deprecateUncontrolledWarnTriggered && componentIsUncontrolled) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Simple Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
     }
 
