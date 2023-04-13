@@ -554,4 +554,123 @@ context("Testing SimpleColorPicker component", () => {
         });
     });
   });
+
+  describe("check Accessibility for SimpleColorPicker component", () => {
+    it("should check Accessibility for all proper colors ", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(testData)(
+      "should render SimpleColorPicker and set legend to %s for Accessibility tests",
+      (legend) => {
+        CypressMountWithProviders(<SimpleColorPickerCustom legend={legend} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should render SimpleColorPicker and set name to %s for Accessibility tests",
+      (name) => {
+        CypressMountWithProviders(<SimpleColorPickerCustom name={name} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["250", "450"])(
+      "should render SimpleColorPicker with maxWidth prop set to %s for Accessibility tests",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <SimpleColorPickerCustom maxWidth={maxWidth} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["300", "75"],
+      ["100", "60"],
+    ])(
+      "should render SimpleColorPicker with childWidth prop set to %s for Accessibility tests",
+      (maxWidth, childWidth) => {
+        CypressMountWithProviders(
+          <SimpleColorPickerCustom
+            maxWidth={maxWidth}
+            childWidth={childWidth}
+          />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should render SimpleColorPicker with required prop for Accessibility tests", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom required />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["error", "warning", "info"])(
+      "should render SimpleColorPicker and set type to %s and set as string for Accessibility tests",
+      (type) => {
+        CypressMountWithProviders(
+          <SimpleColorPickerCustom {...{ [type]: "Message" }} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "should render SimpleColorPicker and set type to %s as string and have validationOnLegend prop for Accessibility tests",
+      (type) => {
+        CypressMountWithProviders(
+          <SimpleColorPickerCustom
+            {...{ [type]: "Message" }}
+            validationOnLegend
+          />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["error", "warning", "info"])(
+      "should render SimpleColorPicker and set type to %s as boolean for Accessibility tests",
+      (type) => {
+        CypressMountWithProviders(
+          <SimpleColorPickerCustom {...{ [type]: true }} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check the value prop in SimpleColor item for Accessibility tests", () => {
+      CypressMountWithProviders(<SimpleColorCustom value={colors[7].color} />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check the name prop in SimpleColor item for Accessibility tests", () => {
+      CypressMountWithProviders(<SimpleColorCustom name={testPropValue} />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([true, false])(
+      "should check the checked prop is set to %s in SimpleColor item for Accessibility tests",
+      (checkedBool) => {
+        CypressMountWithProviders(<SimpleColorCustom checked={checkedBool} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check the className prop in SimpleColor item for Accessibility tests", () => {
+      CypressMountWithProviders(
+        <SimpleColorCustom className={testPropValue} />
+      );
+      cy.checkAccessibility();
+    });
+  });
 });
