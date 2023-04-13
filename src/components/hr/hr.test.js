@@ -1,5 +1,6 @@
 import React from "react";
 import Hr from "./hr.component";
+import * as stories from "./hr.stories";
 import hrComponent from "../../../cypress/locators/hr";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../../cypress/support/component-helper/common-steps";
@@ -39,5 +40,37 @@ context("Testing Hr component", () => {
         });
       }
     );
+  });
+
+  describe("Accessibility tests for Hr component", () => {
+    it("should pass accessibility tests for Default story", () => {
+      CypressMountWithProviders(<stories.Default />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for DifferentSpacing story", () => {
+      CypressMountWithProviders(<stories.DifferentSpacing />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for EnablingAdaptiveBehaviour story", () => {
+      CypressMountWithProviders(<stories.EnablingAdaptiveBehaviour />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for InsideForm story", () => {
+      CypressMountWithProviders(<stories.InsideForm />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for InsideFormInlineLabels story", () => {
+      CypressMountWithProviders(<stories.InsideFormInlineLabels />);
+
+      cy.checkAccessibility();
+    });
   });
 });

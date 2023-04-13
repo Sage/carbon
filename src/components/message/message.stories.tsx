@@ -20,6 +20,15 @@ export const Default: ComponentStory<typeof Message> = () => {
   );
 };
 
+export const ShowCloseIcon: ComponentStory<typeof Message> = () => (
+  <Box width="600px">
+    <Message showCloseIcon={false} open>
+      A longer custom message which now shows the close icon is not rendered and
+      padding is equal on both sides
+    </Message>
+  </Box>
+);
+
 export const Error: ComponentStory<typeof Message> = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (

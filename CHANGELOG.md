@@ -1,3 +1,24 @@
+### [117.6.1](https://github.com/Sage/carbon/compare/v117.6.0...v117.6.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* **message:** add conditional padding based on the showCloseIcon props truth value ([cf8d7b2](https://github.com/Sage/carbon/commit/cf8d7b272b00011463d945268ba26f9e94d526bf)), closes [#5904](https://github.com/Sage/carbon/issues/5904)
+
+## [117.6.0](https://github.com/Sage/carbon/compare/v117.5.0...v117.6.0) (2023-04-12)
+
+
+### Features
+
+* add tag props interface to all public Menu components ([8f04b2d](https://github.com/Sage/carbon/commit/8f04b2d354b99eb1938b2474414d55a3d4b5958a))
+* **menu-item:** add padding interface to menu item ([1ada0ec](https://github.com/Sage/carbon/commit/1ada0ec2c4ba4debe98a21f66b67aa001016ab11))
+
+
+### Bug Fixes
+
+* **menu-item:** ensure icons have correct colour when items are focused ([ee34138](https://github.com/Sage/carbon/commit/ee3413800923dc09696cdcf5f6a3e870641f6829)), closes [#5613](https://github.com/Sage/carbon/issues/5613)
+* **submenu:** ensure keyboard navigation order is correct when children update ([9148868](https://github.com/Sage/carbon/commit/9148868c8ff718c82295c0b76251b0742d2a16f6)), closes [#5916](https://github.com/Sage/carbon/issues/5916)
+
 ## [117.5.0](https://github.com/Sage/carbon/compare/v117.4.1...v117.5.0) (2023-04-11)
 
 

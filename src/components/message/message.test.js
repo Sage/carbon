@@ -11,6 +11,7 @@ import {
   messageChildren,
   messageTitle,
   messageDismissIcon,
+  messageContent,
   variantPreview,
 } from "../../../cypress/locators/message/index";
 import {
@@ -107,14 +108,27 @@ context("Tests for Message component", () => {
       }
     );
 
-    it.each([true, false])(
+    it.each([
+      [true, 50],
+      [false, 20],
+    ])(
       "should check showCloseIcon when it's %s for Message component",
-      (boolVal) => {
+      (boolVal, paddingVal) => {
         CypressMountWithProviders(<MessageComponent showCloseIcon={boolVal} />);
         if (boolVal === true) {
           messageDismissIcon().should("be.visible");
+          messageContent().should(
+            "have.css",
+            "padding",
+            `15px ${paddingVal}px 15px 20px`
+          );
         } else {
           messageDismissIcon().should("not.exist");
+          messageContent().should(
+            "have.css",
+            "padding",
+            `15px ${paddingVal}px`
+          );
         }
       }
     );

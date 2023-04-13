@@ -79,7 +79,9 @@ export const Message = ({
       {...marginProps}
     >
       <TypeIcon variant={variant} transparent={transparent} />
-      <MessageContent title={title}>{children}</MessageContent>
+      <MessageContent showCloseIcon={showCloseIcon} title={title}>
+        {children}
+      </MessageContent>
       {renderCloseIcon()}
     </MessageStyle>
   ) : null;
