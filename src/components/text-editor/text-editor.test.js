@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import TextEditor, {
   TextEditorState as EditorState,
@@ -342,5 +341,43 @@ context("Test for TextEditor component", () => {
           });
       });
     });
+  });
+
+  describe("Accessibility tests for TextEditor component", () => {
+    it("should check accessibility for TextEditor component", () => {
+      CypressMountWithProviders(<TextEditorCustom />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(testData)(
+      "should check accessibility for TextEditor with %s as a label",
+      (labelValue) => {
+        CypressMountWithProviders(<TextEditorCustom labelText={labelValue} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should check accessibility for TextEditor with required prop", () => {
+      CypressMountWithProviders(<TextEditorCustom required />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for TextEditor validation state", () => {
+      CypressMountWithProviders(<TextEditorCustomValidation />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([2, 4])(
+      "should check accessibility when TextEditor with rows prop sets to %s",
+      (rows) => {
+        CypressMountWithProviders(<TextEditorCustom rows={rows} />);
+
+        cy.checkAccessibility();
+      }
+    );
   });
 });
