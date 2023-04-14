@@ -9,7 +9,7 @@
     "scripts/check_rfcs/index.js"
   ],
   "scripts": {
-    "start": "node ./scripts/check_node_version.js && NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 9001 -c .storybook",
+    "start": "node ./scripts/check_node_version.js && cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 9001 -c .storybook",
     "start:debug-theme": "cross-env STORYBOOK_DEBUG_THEME=true npm run start",
     "test": "jest --config=./jest.config.json",
     "test-update": "jest --config=./jest.config.json --updateSnapshot",
