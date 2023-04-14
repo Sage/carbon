@@ -1,18 +1,10 @@
 type SetTriggerRefocusFlag = (boolean: boolean) => void;
 
-type ModalList = {
+export type ModalList = {
   modal: HTMLElement;
   setTriggerRefocusFlag?: SetTriggerRefocusFlag;
 }[];
 
-declare global {
-  interface Window {
-    __CARBON_INTERNALS_MODAL_LIST?: ModalList;
-    __CARBON_INTERNALS_MODAL_SETTER_LIST?: ((
-      topModal: HTMLElement | null
-    ) => void)[];
-  }
-}
 class ModalManagerInstance {
   private modalList: ModalList;
 
