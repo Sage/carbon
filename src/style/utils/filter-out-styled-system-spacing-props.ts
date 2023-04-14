@@ -1,12 +1,15 @@
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { SpaceProps } from "styled-system";
+import { marginPropertyNames } from "./filter-styled-system-margin-props";
+import { paddingPropertyNames } from "./filter-styled-system-padding-props";
 
 const filterOutStyledSystemSpacingProps = (
-  // method should accept any react prop
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  props: Record<string, any>
+  props: Record<string, unknown> | SpaceProps
 ): Record<string, unknown> =>
   Object.fromEntries(
-    Object.entries(props).filter(([key]) => !styledSystemPropTypes.space[key])
+    Object.entries(props).filter(
+      ([key]) =>
+        ![...marginPropertyNames, ...paddingPropertyNames].includes(key)
+    )
   );
 
 export default filterOutStyledSystemSpacingProps;

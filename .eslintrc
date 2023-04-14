@@ -112,10 +112,7 @@
     "global": false,
     "process": false,
     "test": false,
-    "Given": true,
-    "When": true,
-    "Then": true,
-    "And": true
+    "cypress": true
   },
   "overrides": [
     {
@@ -125,9 +122,9 @@
         "ecmaFeatures": {
           "jsx": true
         },
-        "project": ["./tsconfig.json"]
+        "project": ["./tsconfig.json", "./cypress/tsconfig.json"]
       },
-      "plugins": ["@typescript-eslint", "jest"],
+      "plugins": ["cypress", "@typescript-eslint", "jest"],
       "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
@@ -135,7 +132,8 @@
         "prettier",
         "prettier/@typescript-eslint",
         "plugin:react-hooks/recommended",
-        "plugin:jest/recommended"
+        "plugin:jest/recommended",
+        "plugin:cypress/recommended"
         // TODO: Uncomment after transition to RTL has started
         // "plugin:jest-dom/recommended",
       ],

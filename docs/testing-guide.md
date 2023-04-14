@@ -2,15 +2,18 @@
 
 ## Contents
 
-- [Introduction](#introduction)
-- [Component Testing](#component-testing)
-  - [Custom utilities](#custom-utilities)
-  - [Use of Snapshot tests](#use-of-snapshot-tests)
-- [Functional Browser Testing](#functional-browser-testing)
-  - [Cypress File Structure](#cypress-file-structure)
-  - [Locators](#locators)
-- [Visual Testing](#visual-testing)
-  - [Adding new tests](#adding-new-visual-tests)
+- [Testing guide](#testing-guide)
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+  - [Component testing](#component-testing)
+    - [Custom utilities](#custom-utilities)
+    - [Use of Snapshot tests](#use-of-snapshot-tests)
+    - [Continuous Integration (CI)](#continuous-integration-ci)
+  - [Functional Browser Testing](#functional-browser-testing)
+    - [Cypress File Structure](#cypress-file-structure)
+    - [Locators](#locators)
+  - [Visual Testing](#visual-testing)
+    - [Adding new visual tests](#adding-new-visual-tests)
 
 ## Introduction
 
@@ -72,7 +75,9 @@ All Cypress tests must go within `*.test.js` for the relevant component.
 ```none
 .
 ├── cypress/
-│   │
+│   ├── components/
+│   │   └── [component-name]/
+│   │       └── [component-name].test.{js|tsx}
 │   ├── locators/
 │   │   └── [component-name]/
 │   │       ├── index.js
@@ -85,19 +90,14 @@ All Cypress tests must go within `*.test.js` for the relevant component.
 │   ├── tsconfig.json
 │   └── README.md
 │
-├── src/components/
-│   └── [component-name]/
-│       └── [component-name].test.js
-│
 ├── .eslintrc
-├── cypress.config.js
-└── tsconfig.json
+└── cypress.config.ts
 ```
 
-A typical `*.test.js` file may look like the following:
+A typical `*.test.{js|tsx}` file may look like the following:
 
 ```jsx
-// inside src/components/button/button.test.js...
+// inside cypress/components/button/button.test.js...
 import Button from "./button.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
 import { buttonDataComponent } from "../../../cypress/locators/button";
