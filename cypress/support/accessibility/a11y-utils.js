@@ -115,6 +115,7 @@ export default (from, end) => {
       !prepareUrl[0].startsWith("inline-inputs") &&
       !prepareUrl[0].startsWith("radiobutton") &&
       !prepareUrl[0].startsWith("tile") &&
+      !prepareUrl[0].startsWith("text-editor") &&
       !prepareUrl[0].startsWith("hr") &&
       !prepareUrl[0].startsWith("simple-color-picker") &&
       !prepareUrl[0].endsWith("test")
