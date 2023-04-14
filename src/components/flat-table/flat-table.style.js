@@ -14,9 +14,6 @@ const STICKY_FOOTER_OVERLAY_INCREMENT = 1;
 const ROW_HEADER_OVERLAY_INCREMENT = 5;
 
 const StyledTableContainer = styled.div`
-  display: grid;
-  grid-auto-rows: min-content;
-
   ${({ width, overflowX }) =>
     width &&
     css`
@@ -89,6 +86,8 @@ StyledFlatTable.defaultProps = {
 };
 
 const StyledFlatTableWrapper = styled(Box)`
+  min-width: fit-content;
+
   ${({ isInSidebar }) =>
     css`
       box-sizing: border-box;
@@ -109,7 +108,6 @@ const StyledFlatTableWrapper = styled(Box)`
         ? "min-width: fit-content"
         : `box-shadow: inset 0px 0px 0px 1px var(--colorsUtilityMajor100)`};
     `}
-
   ${({ colorTheme }) => {
     switch (colorTheme) {
       case "light":
@@ -180,8 +178,7 @@ const StyledFlatTableWrapper = styled(Box)`
         `;
     }
   }}
-
-  ${({ isInSidebar }) =>
+      ${({ isInSidebar }) =>
     isInSidebar &&
     css`
       ${StyledFlatTableHeader}, ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
@@ -192,8 +189,7 @@ const StyledFlatTableWrapper = styled(Box)`
         border-bottom-color: var(--colorsUtilityMajor100);
       }
     `}
-
-  ${({ hasStickyHead, theme }) =>
+      ${({ hasStickyHead, theme }) =>
     hasStickyHead &&
     css`
       ${StyledFlatTableHead} {
@@ -203,10 +199,9 @@ const StyledFlatTableWrapper = styled(Box)`
         z-index: ${theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
       }
     `}
-
-  ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
-  ${StyledFlatTableHeader}.isSticky,
-  ${StyledFlatTableHead} ${StyledFlatTableCheckbox}.isSticky {
+      ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
+    ${StyledFlatTableHeader}.isSticky,
+    ${StyledFlatTableHead} ${StyledFlatTableCheckbox}.isSticky {
     z-index: ${({ theme }) =>
       theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
   }
