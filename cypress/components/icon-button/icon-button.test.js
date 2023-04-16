@@ -1,19 +1,9 @@
 import React from "react";
-import IconButton from "../../../src/components/icon-button";
-import Icon from "../../../src/components/icon";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { icon } from "../../locators";
-
+import { IconButtonComponent } from "../../../src/components/icon-button/icon-button-test.stories";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import { keyCode } from "../../../cypress/support/helper";
-
-const IconButtonComponent = ({ ...props }) => {
-  return (
-    <IconButton aria-label="icon-button" onClick={() => {}} {...props}>
-      <Icon type="home" />
-    </IconButton>
-  );
-};
 
 context("Tests for IconButton component", () => {
   describe("check props for IconButton component", () => {
@@ -128,5 +118,24 @@ context("Tests for IconButton component", () => {
           });
       }
     );
+  });
+
+  describe("check props for IconButton component", () => {
+    it("should pass accessibility tests for aria-label prop", () => {
+      CypressMountWithProviders(
+        <IconButtonComponent aria-label={CHARACTERS.STANDARD} />
+      );
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for children prop", () => {
+      CypressMountWithProviders(<IconButtonComponent />);
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for disabled prop", () => {
+      CypressMountWithProviders(<IconButtonComponent disabled />);
+      cy.checkAccessibility();
+    });
   });
 });
