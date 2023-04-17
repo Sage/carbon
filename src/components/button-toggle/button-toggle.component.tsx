@@ -116,7 +116,7 @@ export const ButtonToggle = ({
     }
   };
 
-  const inputGuid = guid();
+  const inputGuid = useRef(guid());
 
   let icon;
 
@@ -195,7 +195,7 @@ export const ButtonToggle = ({
         buttonIconSize={buttonIconSize}
         data-element="button-toggle-button"
         disabled={disabled}
-        id={inputGuid}
+        id={inputGuid.current}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         size={size}
