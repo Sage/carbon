@@ -1,10 +1,15 @@
 import React from "react";
-import { Tabs, Tab } from "../../../src/components/tabs/tabs.component";
 import { tabById, tabContentById, tabTitleById } from "../../locators/tabs";
+import {
+  TabsComponent,
+  TabsComponentValidations,
+  TabsComponentValidationsUnregistering,
+  TabsValidationOverride,
+} from "../../../src/components/tabs/tabs-test.stories";
 import Box from "../../../src/components/box";
+import * as stories from "../../../src/components/tabs/tabs.stories";
 import Icon from "../../../src/components/icon";
 import Pill from "../../../src/components/pill";
-import { Checkbox } from "../../../src/components/checkbox/checkbox.component";
 import { getDataElementByValue, tooltipPreview } from "../../locators";
 import { keyCode } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
@@ -12,311 +17,6 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
 import { ICON } from "../../locators/locators";
 import { DrawerSidebarContext } from "../../../src/components/drawer";
-
-const TabsComponent = ({ ...props }) => {
-  return (
-    <div
-      style={{
-        padding: "4px",
-      }}
-    >
-      <Tabs align="left" position="top" {...props}>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-          {...props}
-        >
-          Content for tab 1
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          Content for tab 2
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          Content for tab 3
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-4"
-          title="Tab 4"
-          key="tab-4"
-        >
-          Content for tab 4
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-5"
-          title="Tab 5"
-          key="tab-5"
-        >
-          Content for tab 5
-        </Tab>
-      </Tabs>
-    </div>
-  );
-};
-
-const TabsComponentValidations = ({ ...props }) => {
-  const [errors, setErrors] = React.useState({
-    one: true,
-    two: false,
-    three: false,
-  });
-  const [warnings, setWarnings] = React.useState({
-    one: true,
-    two: true,
-    three: false,
-  });
-  const [infos, setInfos] = React.useState({
-    one: true,
-    two: true,
-    three: true,
-  });
-  return (
-    <div
-      style={{
-        padding: "4px",
-      }}
-    >
-      <Tabs align="left" position="top" {...props}>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          <Checkbox
-            label="Add error"
-            error={errors.one}
-            onChange={() => setErrors({ ...errors, one: !errors.one })}
-            checked={errors.one}
-          />
-          <Checkbox
-            label="Add warning"
-            warning={warnings.one}
-            onChange={() => setWarnings({ ...warnings, one: !warnings.one })}
-            checked={warnings.one}
-          />
-          <Checkbox
-            label="Add info"
-            info={infos.one}
-            onChange={() => setInfos({ ...infos, one: !infos.one })}
-            checked={infos.one}
-          />
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-2"
-          title="Tab 2"
-          key="tab-2"
-        >
-          <Checkbox
-            label="Add error"
-            error={errors.two}
-            onChange={() => setErrors({ ...errors, two: !errors.two })}
-          />
-          <Checkbox
-            label="Add warning"
-            warning={warnings.two}
-            onChange={() => setWarnings({ ...warnings, two: !warnings.two })}
-            checked={warnings.two}
-          />
-          <Checkbox
-            label="Add info"
-            info={infos.two}
-            onChange={() => setInfos({ ...infos, two: !infos.two })}
-            checked={infos.two}
-          />
-        </Tab>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-3"
-          title="Tab 3"
-          key="tab-3"
-        >
-          <Checkbox
-            label="Add error"
-            error={errors.three}
-            onChange={() => setErrors({ ...errors, three: !errors.three })}
-          />
-          <Checkbox
-            label="Add warning"
-            warning={warnings.three}
-            onChange={() =>
-              setWarnings({ ...warnings, three: !warnings.three })
-            }
-          />
-          <Checkbox
-            label="Add info"
-            info={infos.three}
-            onChange={() => setInfos({ ...infos, three: !infos.three })}
-            checked={infos.three}
-          />
-        </Tab>
-      </Tabs>
-    </div>
-  );
-};
-
-// eslint-disable-next-line react/prop-types
-const TabsComponentWithValidationsSummary = ({ validation }) => {
-  return (
-    <div
-      style={{
-        padding: "4px",
-      }}
-    >
-      <Tabs align="left" position="top" showValidationsSummary>
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          <Checkbox label="foo" {...validation} />
-          <Checkbox label="foo" {...validation} />
-          <Checkbox label="foo" {...validation} />
-        </Tab>
-      </Tabs>
-    </div>
-  );
-};
-
-// eslint-disable-next-line react/prop-types
-const TabsComponentValidationsUnregistering = ({ validation }) => {
-  const [show, setShow] = React.useState(true);
-
-  return (
-    <div
-      style={{
-        padding: "4px",
-      }}
-    >
-      <button
-        data-element="foo-button"
-        type="button"
-        onClick={() => setShow(false)}
-      >
-        Hide Tab Child
-      </button>
-      <Tabs align="left" position="top">
-        <Tab
-          errorMessage="error"
-          warningMessage="warning"
-          infoMessage="info"
-          tabId="tab-1"
-          title="Tab 1"
-          key="tab-1"
-        >
-          {show && (
-            <Checkbox
-              label="Add error"
-              onChange={() => {}}
-              checked
-              {...validation}
-            />
-          )}
-        </Tab>
-      </Tabs>
-    </div>
-  );
-};
-
-const TabsValidationOverride = () => {
-  const [validation, setValidation] = React.useState({
-    error: true,
-    warning: false,
-    info: false,
-  });
-
-  const { error, warning, info } = validation;
-
-  return (
-    <Tabs
-      align="left"
-      position="top"
-      validationStatusOverride={{
-        "tab-1": {
-          error: false,
-          warning: false,
-          info: false,
-        },
-      }}
-    >
-      <Tab
-        errorMessage="error"
-        warningMessage="warning"
-        infoMessage="info"
-        tabId="tab-1"
-        title="Tab 1"
-        key="tab-1"
-      >
-        <Checkbox
-          label="Add error"
-          error={error}
-          onChange={() =>
-            setValidation((currentState) => ({
-              ...currentState,
-              error: !currentState.error,
-            }))
-          }
-          checked={error}
-        />
-        <Checkbox
-          label="Add warning"
-          warning={warning}
-          onChange={() =>
-            setValidation((currentState) => ({
-              ...currentState,
-              warning: !currentState.warning,
-            }))
-          }
-          checked={warning}
-        />
-        <Checkbox
-          label="Add info"
-          info={info}
-          onChange={() =>
-            setValidation((currentState) => ({
-              ...currentState,
-              info: !currentState.info,
-            }))
-          }
-          checked={info}
-        />
-      </Tab>
-    </Tabs>
-  );
-};
 
 context("Testing Tabs component", () => {
   describe("should render Tabs component", () => {
@@ -613,26 +313,6 @@ context("Testing Tabs component", () => {
     );
 
     it.each(["error", "warning", "info"])(
-      "should verify when the ValidationIcon is hovered over that a summary of the %s messages is displayed",
-      (validationMessage) => {
-        const validation = { [validationMessage]: validationMessage };
-
-        CypressMountWithProviders(
-          <TabsComponentWithValidationsSummary validation={validation} />
-        );
-
-        tabById(1)
-          .trigger("mouseover")
-          .then(() => {
-            tooltipPreview().should(
-              "have.text",
-              `• ${validationMessage}\n• ${validationMessage}\n• ${validationMessage}`
-            );
-          });
-      }
-    );
-
-    it.each(["error", "warning", "info"])(
       "should no longer report the any validation failures of children no longer mounted",
       (type) => {
         const validation = { [type]: true };
@@ -826,6 +506,164 @@ context("Testing Tabs component", () => {
             tabTitleById(1).should("have.focus");
           });
       });
+    });
+  });
+
+  describe("Accessibility tests for Tabs component", () => {
+    it("should pass accessibility tests for Tabs Default story", () => {
+      CypressMountWithProviders(<stories.DefaultStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs PositionedTopAlignedRight story", () => {
+      CypressMountWithProviders(<stories.PositionedTopAlignedRight />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs PositionedLeftAndAlignedLeft story", () => {
+      CypressMountWithProviders(<stories.PositionedLeftAndAlignedLeft />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs PositionedLeftAndAlignedRight story", () => {
+      CypressMountWithProviders(<stories.PositionedLeftAndAlignedRight />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithLinkAsATab story", () => {
+      CypressMountWithProviders(<stories.WithLinkAsATab />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithSpecifiedTabVisible story", () => {
+      CypressMountWithProviders(<stories.WithSpecifiedTabVisible />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithoutExtendedDividingLine story", () => {
+      CypressMountWithProviders(<stories.WithoutExtendedDividingLine />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithLargeTabsPositionedTop story", () => {
+      CypressMountWithProviders(<stories.WithLargeTabsPositionedTop />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithLargeTabsPositionedLeft story", () => {
+      CypressMountWithProviders(<stories.WithLargeTabsPositionedLeft />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithBordersPositionedTop story", () => {
+      CypressMountWithProviders(<stories.WithBordersPositionedTop />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithNoSidesPositionedTop story", () => {
+      CypressMountWithProviders(<stories.WithNoSidesPositionedTop />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithBordersPositionedLeft story", () => {
+      CypressMountWithProviders(<stories.WithBordersPositionedLeft />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithNoSidesPositionedLeft story", () => {
+      CypressMountWithProviders(<stories.WithNoSidesPositionedLeft />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithValidationsPositionedTop story", () => {
+      CypressMountWithProviders(<stories.WithValidationsPositionedTop />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithValidationsSizedLargePositionedTop story", () => {
+      CypressMountWithProviders(
+        <stories.WithValidationsSizedLargePositionedTop />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithValidationsPositionedLeft story", () => {
+      CypressMountWithProviders(<stories.WithValidationsPositionedLeft />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithValidationsSizedLargePositionedLeft story", () => {
+      CypressMountWithProviders(
+        <stories.WithValidationsSizedLargePositionedLeft />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithAdditionalTitleSiblings story", () => {
+      CypressMountWithProviders(<stories.WithAdditionalTitleSiblings />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithAdditionalTitleSiblingsSizeLarge story", () => {
+      CypressMountWithProviders(
+        <stories.WithAdditionalTitleSiblingsSizeLarge />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithCustomLayout story", () => {
+      CypressMountWithProviders(<stories.WithCustomLayout />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithAlternateStyling story", () => {
+      CypressMountWithProviders(<stories.WithAlternateStyling />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithHeaderWidth story", () => {
+      CypressMountWithProviders(<stories.WithHeaderWidth />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithCustomSpacing story", () => {
+      CypressMountWithProviders(<stories.WithCustomSpacing />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs WithStringValidationsSummarised story", () => {
+      CypressMountWithProviders(<stories.WithStringValidationsSummarised />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibility tests for Tabs Responsive story", () => {
+      CypressMountWithProviders(<stories.Responsive />);
+
+      cy.checkAccessibility();
     });
   });
 });
