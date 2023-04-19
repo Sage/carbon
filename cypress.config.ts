@@ -47,6 +47,7 @@ export default defineConfig({
       bundler: "webpack",
       webpackConfig,
     },
+    setupNodeEvents,
     watchForFileChanges: true,
     excludeSpecPattern: ["**/examples/*", "**/*.spec.{js|ts*}"],
     specPattern: [
