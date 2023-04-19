@@ -8,4 +8,5 @@ export default css`
   padding: 0;
   position: absolute;
   width: 1px;
+  white-space: nowrap;
 `;
