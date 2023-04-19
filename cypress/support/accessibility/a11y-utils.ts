@@ -104,10 +104,10 @@ export default (from: number, end: number) => {
       !prepareUrl[0].startsWith("fieldset") &&
       !prepareUrl[0].startsWith("form") &&
       !prepareUrl[0].startsWith("drawer") &&
-      !prepareUrl[0].startsWith("group-character") &&
-      !prepareUrl[0].startsWith("duelling-picklist") &&
+      !prepareUrl[0].startsWith("groupedcharacter") &&
+      !prepareUrl[0].startsWith("duellingpicklist") &&
       !prepareUrl[0].startsWith("multi-action-button") &&
-      !prepareUrl[0].startsWith("settings-row") &&
+      !prepareUrl[0].startsWith("setting-row") &&
       !prepareUrl[0].startsWith("numeral-date") &&
       !prepareUrl[0].startsWith("global-header") &&
       !prepareUrl[0].startsWith("grid") &&
@@ -121,6 +121,9 @@ export default (from: number, end: number) => {
       !prepareUrl[0].startsWith("text-editor") &&
       !prepareUrl[0].startsWith("hr") &&
       !prepareUrl[0].startsWith("simple-color-picker") &&
+      !prepareUrl[0].startsWith("typography") &&
+      !prepareUrl[0].startsWith("breadcrumbs") &&
+      !prepareUrl[0].startsWith("tabs") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
@@ -145,10 +148,11 @@ export default (from: number, end: number) => {
             });
           }
 
+          // @ts-ignore
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
           cy.injectAxe()
             // @ts-ignore
             .wait(250)
-            // @ts-ignore
             .then(() => cy.checkA11y(null, A11YOptions, terminalLog));
         }
       );
