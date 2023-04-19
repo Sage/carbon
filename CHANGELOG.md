@@ -1,3 +1,10 @@
+## [117.7.0](https://github.com/Sage/carbon/compare/v117.6.1...v117.7.0) (2023-04-19)
+
+
+### Features
+
+* add white-space: nowrap CSS property to visually hidden class ([b8fd55e](https://github.com/Sage/carbon/commit/b8fd55e11d26b1f35c0e4857d65b902024073f3f))
+
 ### [117.6.1](https://github.com/Sage/carbon/compare/v117.6.0...v117.6.1) (2023-04-12)
 
 
