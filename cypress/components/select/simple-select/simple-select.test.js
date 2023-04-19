@@ -1,11 +1,6 @@
-import React, { useState } from "react";
-import { Select as SimpleSelect, Option } from "../../../../src/components/select";
-import OptionRow from "../../../../src/components/select/option-row/option-row.component";
-import OptionGroupHeader from "../../../../src/components/select/option-group-header/option-group-header.component";
-import Icon from "../../../../src/components/icon";
-import Box from "../../../../src/components/box";
+import React from "react";
+import * as stories from "../../../../src/components/select/simple-select/simple-select-test.stories";
 import CypressMountWithProviders from "../../../support/component-helper/cypress-mount";
-import Dialog from "../../../../src/components/dialog";
 
 import {
   getDataElementByValue,
@@ -50,470 +45,14 @@ import { SIZE, CHARACTERS } from "../../../support/component-helper/constants";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
 
-const SimpleSelectComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState("");
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <SimpleSelect
-      label="simple select"
-      labelInline
-      value={value}
-      onChange={onChangeHandler}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option
-        text="Like a lot of intelligent animals, most crows are quite social. For instance, American crows spend most of the year living in pairs or small family groups. During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night"
-        value="8"
-      />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </SimpleSelect>
-  );
-};
-
-const SimpleSelectWithLazyLoadingComponent = ({ ...props }) => {
-  const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState("black");
-  const [isLoading, setIsLoading] = React.useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = React.useState([
-    <Option text="Black" value="black" key="Black" />,
-  ]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-
-  return (
-    <SimpleSelect
-      name="isLoading"
-      id="isLoading"
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      onOpen={() => loadList()}
-      isLoading={isLoading}
-      {...props}
-    >
-      {optionList}
-    </SimpleSelect>
-  );
-};
-
-const SimpleSelectWithInfiniteScrollComponent = ({ ...props }) => {
-  const preventLoading = React.useRef(false);
-  const preventLazyLoading = React.useRef(false);
-  const lazyLoadingCounter = React.useRef(0);
-  const [value, setValue] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-
-  const getLazyLoaded = () => {
-    const counter = lazyLoadingCounter.current;
-    return [
-      <Option
-        text={`Lazy Loaded A${counter}`}
-        value={`lazyA${counter}`}
-        key={`lazyA${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded B${counter}`}
-        value={`lazyB${counter}`}
-        key={`lazyB${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded C${counter}`}
-        value={`lazyC${counter}`}
-        key={`lazyC${counter}`}
-      />,
-    ];
-  };
-
-  const [optionList, setOptionList] = React.useState([]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-
-  function onLazyLoading() {
-    if (preventLazyLoading.current) {
-      return;
-    }
-
-    preventLazyLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      preventLazyLoading.current = false;
-      lazyLoadingCounter.current += 1;
-      setIsLoading(false);
-      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-    }, 2000);
-  }
-
-  return (
-    <SimpleSelect
-      name="infiniteScroll"
-      id="infiniteScroll"
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      onOpen={() => loadList()}
-      isLoading={isLoading}
-      onListScrollBottom={onLazyLoading}
-      {...props}
-    >
-      {optionList}
-    </SimpleSelect>
-  );
-};
-
-const SimpleSelectObjectAsValueComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState({
-    id: "Green",
-    value: 5,
-    text: "Green",
-  });
-  const optionList = React.useRef([
-    <Option
-      text="Amber"
-      key="Amber"
-      value={{
-        id: "Amber",
-        value: 1,
-        text: "Amber",
-      }}
-    />,
-    <Option
-      text="Black"
-      key="Black"
-      value={{
-        id: "Black",
-        value: 2,
-        text: "Black",
-      }}
-    />,
-    <Option
-      text="Blue"
-      key="Blue"
-      value={{
-        id: "Blue",
-        value: 3,
-        text: "Blue",
-      }}
-    />,
-    <Option
-      text="Brown"
-      key="Brown"
-      value={{
-        id: "Brown",
-        value: 4,
-        text: "Brown",
-      }}
-    />,
-    <Option
-      text="Green"
-      key="Green"
-      value={{
-        id: "Green",
-        value: 5,
-        text: "Green",
-      }}
-    />,
-    <Option
-      text="Orange"
-      key="Orange"
-      value={{
-        id: "Orange",
-        value: 6,
-        text: "Orange",
-      }}
-    />,
-    <Option
-      text="Pink"
-      key="Pink"
-      value={{
-        id: "Pink",
-        value: 7,
-        text: "Pink",
-      }}
-    />,
-    <Option
-      text="Purple"
-      key="Purple"
-      value={{
-        id: "Purple",
-        value: 8,
-        text: "Purple",
-      }}
-    />,
-    <Option
-      text="Red"
-      key="Red"
-      value={{
-        id: "Red",
-        value: 9,
-        text: "Red",
-      }}
-    />,
-    <Option
-      text="White"
-      key="White"
-      value={{
-        id: "White",
-        value: 10,
-        text: "White",
-      }}
-    />,
-    <Option
-      text="Yellow"
-      key="Yellow"
-      value={{
-        id: "Yellow",
-        value: 11,
-        text: "Yellow",
-      }}
-    />,
-  ]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <SimpleSelect
-      id="withObject"
-      name="withObject"
-      value={value}
-      onChange={onChangeHandler}
-      {...props}
-    >
-      {optionList.current}
-    </SimpleSelect>
-  );
-};
-
-const SimpleSelectMultipleColumnsComponent = ({ ...props }) => {
-  return (
-    <SimpleSelect
-      name="withMultipleColumns"
-      id="withMultipleColumns"
-      multiColumn
-      defaultValue="2"
-      {...props}
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-    >
-      <OptionRow value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </SimpleSelect>
-  );
-};
-
-const SimpleSelectCustomOptionChildrenComponent = ({ ...props }) => {
-  return (
-    <SimpleSelect
-      name="customOptionChildren"
-      id="customOptionChildren"
-      defaultValue="4"
-      disablePortal
-      label="Pick your favourite color"
-      {...props}
-    >
-      <Option text="Orange" value="1">
-        <Icon type="favourite" color="orange" mr={1} /> Orange
-      </Option>
-      <Option text="Black" value="2">
-        <Icon type="money_bag" color="black" mr={1} /> Black
-      </Option>
-      <Option text="Blue" value="3">
-        <Icon type="gift" color="blue" mr={1} /> Blue
-      </Option>
-    </SimpleSelect>
-  );
-};
-
-const SimpleSelectGroupComponent = ({ ...props }) => {
-  return (
-    <SimpleSelect name="optGroups" id="optGroups" {...props}>
-      <OptionGroupHeader label="Group one" icon="individual" />
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <OptionGroupHeader label="Group two" icon="shop" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <OptionGroupHeader label="Group three" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </SimpleSelect>
-  );
-};
-
-const SimpleSelectEventsComponent = ({ onChange, ...props }) => {
-  const [state, setState] = React.useState("");
-
-  const setValue = ({ target }) => {
-    setState(target.value.rawValue);
-    if (onChange) {
-      onChange(target);
-    }
-  };
-
-  return (
-    <SimpleSelect
-      label="color"
-      value={state}
-      labelInline
-      onChange={setValue}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </SimpleSelect>
-  );
-};
-
-const SimpleSelectWithLongWrappingTextComponent = () => (
-  <Box width={400}>
-    <SimpleSelect name="simple" id="simple" label="label" labelInline>
-      <Option
-        text="Like a lot of intelligent animals, most crows are quite social. 
-        For instance, American crows spend most of the year living in pairs or small family groups.
-        During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night."
-        value="1"
-      />
-    </SimpleSelect>
-  </Box>
-);
-
-const SimpleSelectWithManyOptionsAndVirtualScrolling = () => (
-  <SimpleSelect
-    name="virtualised"
-    id="virtualised"
-    label="choose an option"
-    labelInline
-    enableVirtualScroll
-    virtualScrollOverscan={10}
-  >
-    {Array(10000)
-      .fill()
-      .map((_, index) => (
-        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
-      ))}
-  </SimpleSelect>
-);
-
-const SimpleSelectNestedInDialog = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <SimpleSelect name="testSelect" id="testSelect">
-        <Option value="opt1" text="red" />
-        <Option value="opt2" text="green" />
-        <Option value="opt3" text="blue" />
-        <Option value="opt4" text="black" />
-      </SimpleSelect>
-    </Dialog>
-  );
-};
-
-context("Tests for Simple Select component", () => {
-  describe("check props for Simple Select component", () => {
+context("Tests for SimpleSelect component", () => {
+  describe("check props for SimpleSelect component", () => {
     it.each(testData)(
-      "should render Simple Select label using %s special characters",
+      "should render SimpleSelect label using %s special characters",
       (labelValue) => {
-        CypressMountWithProviders(<SimpleSelectComponent label={labelValue} />);
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent label={labelValue} />
+        );
 
         getDataElementByValue("label").should("have.text", labelValue);
       }
@@ -523,7 +62,7 @@ context("Tests for Simple Select component", () => {
       "should render labelHelp message using %s special characters",
       (labelHelpValue) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent labelHelp={labelHelpValue} />
+          <stories.SimpleSelectComponent labelHelp={labelHelpValue} />
         );
 
         helpIcon().trigger("mouseover");
@@ -535,16 +74,16 @@ context("Tests for Simple Select component", () => {
       "should render placeholder using %s special characters",
       (placeholderValue) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent placeholder={placeholderValue} />
+          <stories.SimpleSelectComponent placeholder={placeholderValue} />
         );
 
         selectText().should("have.text", placeholderValue);
       }
     );
 
-    it("should render Simple Select with data-component prop set to cypress_data", () => {
+    it("should render SimpleSelect with data-component prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <SimpleSelectComponent data-component={testPropValue} />
+        <stories.SimpleSelectComponent data-component={testPropValue} />
       );
 
       selectElementInput()
@@ -553,9 +92,9 @@ context("Tests for Simple Select component", () => {
         .should("have.attr", "data-component", testPropValue);
     });
 
-    it("should render Simple Select with data-element prop set to cypress_data", () => {
+    it("should render SimpleSelect with data-element prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <SimpleSelectComponent data-element={testPropValue} />
+        <stories.SimpleSelectComponent data-element={testPropValue} />
       );
 
       selectElementInput()
@@ -564,9 +103,9 @@ context("Tests for Simple Select component", () => {
         .should("have.attr", "data-element", testPropValue);
     });
 
-    it("should render Simple Select with data-role prop set to cypress_data", () => {
+    it("should render SimpleSelect with data-role prop set to cypress_data", () => {
       CypressMountWithProviders(
-        <SimpleSelectComponent data-role={testPropValue} />
+        <stories.SimpleSelectComponent data-role={testPropValue} />
       );
 
       selectElementInput()
@@ -584,7 +123,7 @@ context("Tests for Simple Select component", () => {
       "should render the help tooltip in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent
+          <stories.SimpleSelectComponent
             labelHelp="Help"
             tooltipPosition={tooltipPositionValue}
             mt={top}
@@ -601,16 +140,16 @@ context("Tests for Simple Select component", () => {
       }
     );
 
-    it("should check Simple Select is disabled", () => {
-      CypressMountWithProviders(<SimpleSelectComponent disabled />);
+    it("should check SimpleSelect is disabled", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent disabled />);
 
       commonDataElementInputPreview()
         .should("be.disabled")
         .and("have.attr", "disabled");
     });
 
-    it("should render Simple Select as read only", () => {
-      CypressMountWithProviders(<SimpleSelectComponent readOnly />);
+    it("should render SimpleSelect as read only", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent readOnly />);
 
       selectText().click();
       commonDataElementInputPreview().should("have.attr", "readOnly");
@@ -618,8 +157,8 @@ context("Tests for Simple Select component", () => {
       selectListWrapper().should("not.be.visible");
     });
 
-    it("should render Simple Select as transparent", () => {
-      CypressMountWithProviders(<SimpleSelectComponent transparent />);
+    it("should render SimpleSelect as transparent", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent transparent />);
 
       getDataElementByValue("input").should(
         "have.css",
@@ -633,9 +172,11 @@ context("Tests for Simple Select component", () => {
       [SIZE.MEDIUM, "40px"],
       [SIZE.LARGE, "48px"],
     ])(
-      "should use %s as size and render Simple Select with %s as height",
+      "should use %s as size and render SimpleSelect with %s as height",
       (size, height) => {
-        CypressMountWithProviders(<SimpleSelectComponent size={size} />);
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent size={size} />
+        );
 
         commonDataElementInputPreview()
           .parent()
@@ -643,20 +184,20 @@ context("Tests for Simple Select component", () => {
       }
     );
 
-    it("should check Simple Select has autofocus", () => {
-      CypressMountWithProviders(<SimpleSelectComponent autoFocus />);
+    it("should check SimpleSelect has autofocus", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent autoFocus />);
 
       commonDataElementInputPreview().should("be.focused");
     });
 
-    it("should check Simple Select is required", () => {
-      CypressMountWithProviders(<SimpleSelectComponent required />);
+    it("should check SimpleSelect is required", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent required />);
 
       verifyRequiredAsteriskForLabel();
     });
 
-    it("should check Simple Select label is inline", () => {
-      CypressMountWithProviders(<SimpleSelectComponent labelInline />);
+    it("should check SimpleSelect label is inline", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent labelInline />);
 
       getDataElementByValue("label")
         .parent()
@@ -670,7 +211,7 @@ context("Tests for Simple Select component", () => {
       "should use %s as labelAligment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent labelInline labelAlign={alignment} />
+          <stories.SimpleSelectComponent labelInline labelAlign={alignment} />
         );
 
         getDataElementByValue("label")
@@ -688,7 +229,7 @@ context("Tests for Simple Select component", () => {
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent
+          <stories.SimpleSelectComponent
             labelInline
             labelWidth={label}
             inputWidth={input}
@@ -713,7 +254,7 @@ context("Tests for Simple Select component", () => {
       "should check maxWidth as %s for SimpleSelect component",
       (maxWidth) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent maxWidth={maxWidth} />
+          <stories.SimpleSelectComponent maxWidth={maxWidth} />
         );
 
         getDataElementByValue("input")
@@ -724,7 +265,7 @@ context("Tests for Simple Select component", () => {
     );
 
     it("when maxWidth has no value it should render as 100%", () => {
-      CypressMountWithProviders(<SimpleSelectComponent maxWidth="" />);
+      CypressMountWithProviders(<stories.SimpleSelectComponent maxWidth="" />);
 
       getDataElementByValue("input")
         .parent()
@@ -733,7 +274,7 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should open the list with mouse click on Select input", () => {
-      CypressMountWithProviders(<SimpleSelectComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
       selectText().click();
       commonDataElementInputPreview().should(
@@ -745,14 +286,14 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should open the list with mouse click on dropdown button", () => {
-      CypressMountWithProviders(<SimpleSelectComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
     });
 
     it("should close the list with the Tab key", () => {
-      CypressMountWithProviders(<SimpleSelectComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
       selectText().click();
       selectListWrapper().should("be.visible");
@@ -762,7 +303,7 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should close the list with the Esc key", () => {
-      CypressMountWithProviders(<SimpleSelectComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
       selectText().click();
       selectListWrapper().should("be.visible");
@@ -772,7 +313,7 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should close the list by clicking out of the component", () => {
-      CypressMountWithProviders(<SimpleSelectComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
       selectText().click();
       selectListWrapper().should("be.visible");
@@ -784,7 +325,7 @@ context("Tests for Simple Select component", () => {
     it.each([["downarrow"], ["uparrow"], ["Space"], ["Home"], ["End"]])(
       "should open the list when %s is pressed with Select input in focus",
       (key) => {
-        CypressMountWithProviders(<SimpleSelectComponent />);
+        CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
         commonDataElementInputPreview().focus();
         selectInput().trigger("keydown", { ...keyCode(key), force: true });
@@ -795,7 +336,7 @@ context("Tests for Simple Select component", () => {
     it.each([["Amber"], ["Yellow"]])(
       "should select option %s when clicked from the list",
       (option) => {
-        CypressMountWithProviders(<SimpleSelectComponent />);
+        CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
         selectText().click();
         selectListText(option).click();
@@ -806,7 +347,7 @@ context("Tests for Simple Select component", () => {
     );
 
     it("should render an option that wraps onto more than one line correctly", () => {
-      CypressMountWithProviders(<SimpleSelectComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
       const optionValue8 =
         "Like a lot of intelligent animals, most crows are quite social. For instance, American crows spend most of the year living in pairs or small family groups. During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night";
@@ -824,7 +365,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should render the lazy loader when the prop is set", () => {
-      CypressMountWithProviders(<SimpleSelectWithLazyLoadingComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithLazyLoadingComponent />
+      );
 
       selectText().click();
       selectListWrapper().should("be.visible");
@@ -834,7 +377,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should render a lazy loaded option when the infinite scroll prop is set", () => {
-      CypressMountWithProviders(<SimpleSelectWithInfiniteScrollComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithInfiniteScrollComponent />
+      );
 
       const option = "Lazy Loaded A1";
 
@@ -853,7 +398,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it("infinite scroll example should not cycle back to the start when using down arrow key", () => {
-      CypressMountWithProviders(<SimpleSelectWithInfiniteScrollComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithInfiniteScrollComponent />
+      );
 
       const pressDownArrow = () =>
         commonDataElementInputPreview().trigger("keydown", {
@@ -883,7 +430,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it("keyboard navigation should work correctly in multicolumn mode and ensure the selected option is visible", () => {
-      CypressMountWithProviders(<SimpleSelectMultipleColumnsComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectMultipleColumnsComponent />
+      );
 
       const pressDownArrow = () =>
         commonDataElementInputPreview().trigger("keydown", {
@@ -903,7 +452,7 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should open correct list and select one when an object is already set as a value", () => {
-      CypressMountWithProviders(<SimpleSelectObjectAsValueComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectObjectAsValueComponent />);
 
       const position = "first";
       const positionValue = "Amber";
@@ -920,7 +469,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should render list options with multiple columns", () => {
-      CypressMountWithProviders(<SimpleSelectMultipleColumnsComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectMultipleColumnsComponent />
+      );
 
       const columns = 3;
 
@@ -940,7 +491,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should check table header content in list with multiple columns", () => {
-      CypressMountWithProviders(<SimpleSelectMultipleColumnsComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectMultipleColumnsComponent />
+      );
 
       const headerCol1 = "Name";
       const headerCol2 = "Surname";
@@ -966,7 +519,7 @@ context("Tests for Simple Select component", () => {
       "should render list option %s with custom option %s icon and custom icon color %s",
       (option, type, color) => {
         CypressMountWithProviders(
-          <SimpleSelectCustomOptionChildrenComponent />
+          <stories.SimpleSelectCustomOptionChildrenComponent />
         );
 
         selectText().click();
@@ -978,7 +531,7 @@ context("Tests for Simple Select component", () => {
     );
 
     it("should list option group header Group one", () => {
-      CypressMountWithProviders(<SimpleSelectGroupComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectGroupComponent />);
 
       selectText().click();
       selectListWrapper().should("be.visible");
@@ -988,7 +541,7 @@ context("Tests for Simple Select component", () => {
     it("should render option list with proper maxHeight value", () => {
       const maxHeight = 200;
       CypressMountWithProviders(
-        <SimpleSelectComponent listMaxHeight={maxHeight} />
+        <stories.SimpleSelectComponent listMaxHeight={maxHeight} />
       );
       selectText().click();
       selectListWrapper()
@@ -1005,7 +558,7 @@ context("Tests for Simple Select component", () => {
       "should render list in %s position when margins are top %s, bottom %s, left %s and right %s",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent
+          <stories.SimpleSelectComponent
             listPlacement={position}
             mt={top}
             mb={bottom}
@@ -1030,7 +583,7 @@ context("Tests for Simple Select component", () => {
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent
+          <stories.SimpleSelectComponent
             listPlacement={position}
             flipEnabled
             mt={top}
@@ -1070,7 +623,12 @@ context("Tests for Simple Select component", () => {
       "should render list in %s position with the most space when listPosition is not set",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent mt={top} mb={bottom} ml={left} mr={right} />
+          <stories.SimpleSelectComponent
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
         );
 
         selectText().click();
@@ -1088,7 +646,7 @@ context("Tests for Simple Select component", () => {
       (state, numberOfChildren) => {
         CypressMountWithProviders(
           <div>
-            <SimpleSelectComponent disablePortal={state} />
+            <stories.SimpleSelectComponent disablePortal={state} />
           </div>
         );
 
@@ -1100,7 +658,7 @@ context("Tests for Simple Select component", () => {
     );
 
     it("should have correct hover state of list option", () => {
-      CypressMountWithProviders(<SimpleSelectComponent />);
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
       const optionValue3 = "Blue";
 
@@ -1109,20 +667,34 @@ context("Tests for Simple Select component", () => {
         .realHover()
         .should("have.css", "background-color", "rgb(204, 214, 219)");
     });
+
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
+      selectInput().should("have.css", "border-radius", "4px");
+      selectListWrapper().should("have.css", "border-radius", "4px");
+    });
   });
 
   describe("check height of Select list when opened", () => {
     it("should not cut off any text with long option text", () => {
-      CypressMountWithProviders(<SimpleSelectWithLongWrappingTextComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithLongWrappingTextComponent />
+      );
 
       selectText().click();
       selectListWrapper()
         .should("have.css", "height", "152px")
         .and("be.visible");
     });
+
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
+      selectInput().should("have.css", "border-radius", "4px");
+      selectListWrapper().should("have.css", "border-radius", "4px");
+    });
   });
 
-  describe("check events for Simple Select component", () => {
+  describe("check events for SimpleSelect component", () => {
     let callback;
     beforeEach(() => {
       callback = cy.stub();
@@ -1130,7 +702,7 @@ context("Tests for Simple Select component", () => {
 
     it("should call onChange event when a list option is selected", () => {
       CypressMountWithProviders(
-        <SimpleSelectEventsComponent onChange={callback} />
+        <stories.SimpleSelectEventsComponent onChange={callback} />
       );
 
       const position = "first";
@@ -1145,7 +717,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should call onBlur event when the list is closed", () => {
-      CypressMountWithProviders(<SimpleSelectComponent onBlur={callback} />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectComponent onBlur={callback} />
+      );
 
       selectText().click();
       commonDataElementInputPreview()
@@ -1157,7 +731,9 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should call onClick event when mouse is clicked on text input", () => {
-      CypressMountWithProviders(<SimpleSelectComponent onClick={callback} />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectComponent onClick={callback} />
+      );
 
       commonDataElementInputPreview()
         .realClick()
@@ -1167,8 +743,10 @@ context("Tests for Simple Select component", () => {
         });
     });
 
-    it("should call onOpen when Simple Select is opened", () => {
-      CypressMountWithProviders(<SimpleSelectComponent onOpen={callback} />);
+    it("should call onOpen when SimpleSelect is opened", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectComponent onOpen={callback} />
+      );
 
       commonDataElementInputPreview()
         .realClick()
@@ -1178,8 +756,10 @@ context("Tests for Simple Select component", () => {
         });
     });
 
-    it("should call onFocus when Simple Select is brought into focus", () => {
-      CypressMountWithProviders(<SimpleSelectComponent onFocus={callback} />);
+    it("should call onFocus when SimpleSelect is brought into focus", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectComponent onFocus={callback} />
+      );
 
       commonDataElementInputPreview()
         .focus()
@@ -1193,7 +773,7 @@ context("Tests for Simple Select component", () => {
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
-          <SimpleSelectComponent onKeyDown={callback} />
+          <stories.SimpleSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
@@ -1210,7 +790,7 @@ context("Tests for Simple Select component", () => {
   describe("check virtual scrolling", () => {
     it("renders only an appropriate number of options into the DOM when first opened", () => {
       CypressMountWithProviders(
-        <SimpleSelectWithManyOptionsAndVirtualScrolling />
+        <stories.SimpleSelectWithManyOptionsAndVirtualScrolling />
       );
 
       selectText().click();
@@ -1222,7 +802,7 @@ context("Tests for Simple Select component", () => {
 
     it("changes the rendered options when you scroll down", () => {
       CypressMountWithProviders(
-        <SimpleSelectWithManyOptionsAndVirtualScrolling />
+        <stories.SimpleSelectWithManyOptionsAndVirtualScrolling />
       );
 
       selectText().click();
@@ -1237,7 +817,7 @@ context("Tests for Simple Select component", () => {
 
   describe("when nested inside of a Dialog component", () => {
     it("should not close the Dialog when Select is closed by pressing an escape key", () => {
-      CypressMountWithProviders(<SimpleSelectNestedInDialog />);
+      CypressMountWithProviders(<stories.SimpleSelectNestedInDialog />);
 
       selectText().click();
       commonDataElementInputPreview()
@@ -1255,7 +835,7 @@ context("Tests for Simple Select component", () => {
     });
 
     it("should not refocus the select textbox when closing it by clicking outside", () => {
-      CypressMountWithProviders(<SimpleSelectNestedInDialog />);
+      CypressMountWithProviders(<stories.SimpleSelectNestedInDialog />);
 
       selectText().click();
       body().click();
@@ -1265,9 +845,330 @@ context("Tests for Simple Select component", () => {
     });
   });
 
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<SimpleSelectComponent />);
-    selectInput().should("have.css", "border-radius", "4px");
-    selectListWrapper().should("have.css", "border-radius", "4px");
+  describe("Accessibility tests for SimpleSelect component", () => {
+    it("should pass accessibilty tests for SimpleSelect", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each(testData)(
+      "should pass accessibilty tests for SimpleSelect label prop using %s special characters",
+      (labelValue) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent label={labelValue} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should pass accessibilty tests for SimpleSelect labelHelp prop using %s special characters",
+      (labelHelpValue) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent labelHelp={labelHelpValue} />
+        );
+
+        helpIcon()
+          .trigger("mouseover")
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it.each(testData)(
+      "should pass accessibilty tests for SimpleSelect placeholder prop using %s special characters",
+      (placeholderValue) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent placeholder={placeholderValue} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ])(
+      "should pass accessibilty tests for SimpleSelect tooltip prop in the %s position",
+      (tooltipPositionValue, top, bottom, left, right) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent
+            labelHelp="Help"
+            tooltipPosition={tooltipPositionValue}
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
+        );
+
+        helpIcon()
+          .trigger("mouseover")
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it("should pass accessibilty tests for SimpleSelect disabled prop", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for SimpleSelect readOnly prop", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent readOnly />);
+
+      cy.checkAccessibility();
+      selectText()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for SimpleSelect transparent prop", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent transparent />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+      "should pass accessibilty tests for SimpleSelect size prop",
+      (size) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent size={size} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibilty tests for SimpleSelect autoFocus prop", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent autoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for SimpleSelect required prop", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent required />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for SimpleSelect labelInline prop", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent labelInline />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["right", "left"])(
+      "should pass accessibilty tests for SimpleSelect labelAlign prop set as %s",
+      (alignment) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent labelInline labelAlign={alignment} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["10", "90"],
+      ["30", "70"],
+      ["80", "20"],
+    ])(
+      "should pass accessibilty tests for SimpleSelect labelWidth prop set as %s and inputWidth set as %s",
+      (label, input) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent
+            labelInline
+            labelWidth={label}
+            inputWidth={input}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should pass accessibilty tests for SimpleSelect maxWidth prop set as %s",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent maxWidth={maxWidth} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibilty tests for SimpleSelect isLoading prop", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithLazyLoadingComponent />
+      );
+
+      selectText().click();
+      loader(1).should("be.visible");
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for SimpleSelect onListScrollBottom prop", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithInfiniteScrollComponent />
+      );
+
+      selectText()
+        .click()
+        .then(() => cy.checkAccessibility());
+      selectListWrapper()
+        .scrollTo("bottom")
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for SimpleSelect with multiple columns", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectMultipleColumnsComponent />
+      );
+
+      commonDataElementInputPreview().trigger("keydown", {
+        ...keyCode("downarrow"),
+        force: true,
+      });
+      commonDataElementInputPreview()
+        .focus()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for SimpleSelect with object as value", () => {
+      CypressMountWithProviders(<stories.SimpleSelectObjectAsValueComponent />);
+
+      selectText().click();
+      selectOption(positionOfElement("first"))
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each(["1", "2", "3"])(
+      "should pass accessibilty tests for SimpleSelect with custom option %s icon and custom icon color %s",
+      (option) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectCustomOptionChildrenComponent />
+        );
+
+        selectText().click();
+        selectListCustomChild(option).then(() => cy.checkAccessibility());
+      }
+    );
+
+    it("should pass accessibilty tests for SimpleSelect group component", () => {
+      CypressMountWithProviders(<stories.SimpleSelectGroupComponent />);
+
+      selectText()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for SimpleSelect listMaxHeight prop", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectComponent listMaxHeight={200} />
+      );
+
+      selectText()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each([
+      ["top", "300px", "0px", "200px", "20px"],
+      ["bottom", "0px", "0px", "0px", "20px"],
+      ["left", "200px", "0px", "500px", "20px"],
+      ["right", "200px", "0px", "0px", "500px"],
+    ])(
+      "should pass accessibilty tests for SimpleSelect listPlacement prop",
+      (position, top, bottom, left, right) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent
+            listPlacement={position}
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
+        );
+
+        selectText()
+          .click()
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it.each([
+      ["top", "0px", "0px", "0px", "20px"],
+      ["bottom", "600px", "0px", "0px", "20px"],
+      ["left", "200px", "0px", "0px", "900px"],
+      ["right", "200px", "0px", "500px", "20px"],
+    ])(
+      "should pass accessibilty tests for SimpleSelect flipEnabled prop",
+      (position, top, bottom, left, right) => {
+        CypressMountWithProviders(
+          <stories.SimpleSelectComponent
+            listPlacement={position}
+            flipEnabled
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
+        );
+
+        selectText()
+          .click()
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    // FE-5764
+    it.skip("should pass accessibilty tests for SimpleSelect disablePortal prop", () => {
+      CypressMountWithProviders(
+        <div>
+          <stories.SimpleSelectComponent disablePortal />
+        </div>
+      );
+
+      selectText()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for SimpleSelect with long option text", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithLongWrappingTextComponent />
+      );
+
+      selectText()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for SimpleSelect with virtual scrolling", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      selectText()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for SimpleSelect in nested dialog", () => {
+      CypressMountWithProviders(<stories.SimpleSelectNestedInDialog />);
+
+      selectText()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
   });
 });
