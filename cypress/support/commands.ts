@@ -28,8 +28,6 @@ const terminalLog = (violations: Result[]) => {
   );
   // pluck specific keys to keep the table readable
   const violationData = violations.map(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     ({ id, impact, description, nodes }) => ({
       id,
       impact,
