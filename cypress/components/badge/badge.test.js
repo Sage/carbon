@@ -105,8 +105,7 @@ context("Testing Badge component", () => {
   });
 
   describe("Accessibility tests for Badge component", () => {
-    // FE-5596
-    it.skip("should pass accessibility tests for Badge default story", () => {
+    it("should pass accessibility tests for Badge default story", () => {
       CypressMountWithProviders(<BadgeComponent counter={9} />);
       cy.checkAccessibility();
     });
