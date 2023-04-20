@@ -15,7 +15,7 @@ jobs:
       - run: npm run lint
       - run: npm run type-check
   test:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [16, 18]
