@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import Button from "../button";
 import Box from "../box";
 import { ICONS } from "../icon/icon-config";
+import Dialog from "../dialog";
 import {
   SPLIT_BUTTON_ALIGNMENTS,
   SPLIT_BUTTON_ICON_POSITIONS,
   SPLIT_BUTTON_SIZES,
   SPLIT_BUTTON_THEMES,
 } from "./split-button.config";
-import SplitButton from "./split-button.component";
+import SplitButton, { SplitButtonProps } from "./split-button.component";
 
 export default {
   title: "Split Button/Test",
@@ -53,44 +54,31 @@ export default {
   },
 };
 
-/* eslint-disable react/prop-types */
 export const SplitButtonStory = ({
   buttonType,
-  dataElement,
-  dataRole,
-  text,
   subtext,
-  iconType,
-  iconPosition,
   ...args
-  /* eslint-enable */
-}) => {
-  return (
-    <Box height={400} mt={100} ml={100}>
-      <SplitButton
-        buttonType={buttonType}
-        data-element={dataElement}
-        data-role={dataRole}
-        text={text}
-        subtext={subtext}
-        iconType={iconType}
-        iconPosition={iconPosition}
-        {...args}
-        onClick={action("click")}
-      >
-        <Button {...args} onClick={action("click")}>
-          Example Button
-        </Button>
-        <Button {...args} onClick={action("click")}>
-          Example Button with long text
-        </Button>
-        <Button {...args} onClick={action("click")}>
-          Short
-        </Button>
-      </SplitButton>
-    </Box>
-  );
-};
+}: Partial<SplitButtonProps>) => (
+  <Box height={400} mt={100} ml={100}>
+    <SplitButton
+      buttonType={buttonType}
+      text="text"
+      subtext={subtext}
+      {...args}
+      onClick={action("click")}
+    >
+      <Button {...args} onClick={action("click")}>
+        Example Button
+      </Button>
+      <Button {...args} onClick={action("click")}>
+        Example Button with long text
+      </Button>
+      <Button {...args} onClick={action("click")}>
+        Short
+      </Button>
+    </SplitButton>
+  </Box>
+);
 
 SplitButtonStory.story = {
   name: "default",
@@ -106,4 +94,27 @@ SplitButtonStory.story = {
     text: "Example Split Button",
     subtext: "",
   },
+};
+
+export const SplitButtonList = ({ ...props }) => {
+  return (
+    <SplitButton text="default text" {...props}>
+      <Button>Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </SplitButton>
+  );
+};
+
+export const SplitButtonNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <SplitButton text="default text">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+    </Dialog>
+  );
 };
