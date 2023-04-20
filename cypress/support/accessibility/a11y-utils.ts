@@ -126,6 +126,7 @@ export default (from: number, end: number) => {
       !prepareUrl[0].startsWith("tabs") &&
       !prepareUrl[0].startsWith("tooltip") &&
       !prepareUrl[0].startsWith("split-button") &&
+      !prepareUrl[0].startsWith("flat-table") &&
       !prepareUrl[0].endsWith("test")
     ) {
       urlList.push([prepareUrl[0], prepareUrl[1]]);
