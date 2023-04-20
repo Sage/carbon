@@ -77,7 +77,7 @@ const PagerNavigationLink = ({
     }
   }, [disabled]);
 
-  const handleOnCLick = (
+  const handleOnClick = (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>
@@ -98,7 +98,7 @@ const PagerNavigationLink = ({
       onClick={
         // Type assertion due to the fact that StyledPagerLink
         // will always return a button element
-        handleOnCLick as LinkProps["onClick"]
+        handleOnClick as LinkProps["onClick"]
       }
       ref={linkRef}
     >
