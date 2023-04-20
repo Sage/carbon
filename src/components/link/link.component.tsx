@@ -140,6 +140,10 @@ export const Link = React.forwardRef<
       ...ariaProps,
     };
 
+    const buttonProps = {
+      type: "button",
+    };
+
     const createLinkBasedOnType = () => {
       let type = "a";
 
@@ -149,12 +153,18 @@ export const Link = React.forwardRef<
 
       return React.createElement(
         type,
-        {
-          ...componentProps,
-          ...(placeholderTabIndex &&
-            href === undefined &&
-            !onClick && { tabIndex: -1 }),
-        },
+        type === "button"
+          ? {
+              ...componentProps,
+              ...buttonProps,
+              placeholderTabIndex,
+            }
+          : {
+              ...componentProps,
+              ...(placeholderTabIndex &&
+                href === undefined &&
+                !onClick && { tabIndex: -1 }),
+            },
         <>
           {renderLinkIcon()}
 

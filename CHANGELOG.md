@@ -1,3 +1,10 @@
+### [117.7.1](https://github.com/Sage/carbon/compare/v117.7.0...v117.7.1) (2023-04-20)
+
+
+### Bug Fixes
+
+* **link:** ensure button has a type when used ([065c206](https://github.com/Sage/carbon/commit/065c20694bce9c59188218e2780a746a7af3299e)), closes [#5676](https://github.com/Sage/carbon/issues/5676)
+
 ## [117.7.0](https://github.com/Sage/carbon/compare/v117.6.1...v117.7.0) (2023-04-19)
 
 
