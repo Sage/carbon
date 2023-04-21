@@ -737,4 +737,16 @@ context("Testing Checkbox component", () => {
       }
     );
   });
+
+  it.each(["small", "large"])(
+    "should render with the expected border radius styling when size is %s",
+    (size) => {
+      CypressMountWithProviders(<CheckboxComponent size={size} />);
+      checkboxSvg().should(
+        "have.css",
+        "border-radius",
+        size === "small" ? "2px" : "4px"
+      );
+    }
+  );
 });
