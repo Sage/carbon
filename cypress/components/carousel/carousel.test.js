@@ -180,4 +180,15 @@ context("Testing Carousel component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<CarouselComponent />);
+    nextArrowButton().should("have.css", "border-radius", "32px");
+    previousArrowButton().should("have.css", "border-radius", "32px");
+    slide(0).should("have.css", "border-radius", "16px");
+    slide(1).should("have.css", "border-radius", "16px");
+    slide(2).should("have.css", "border-radius", "16px");
+    slide(3).should("have.css", "border-radius", "16px");
+    slide(4).should("have.css", "border-radius", "16px");
+  });
 });
