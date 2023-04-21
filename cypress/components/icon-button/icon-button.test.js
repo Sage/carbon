@@ -138,4 +138,12 @@ context("Tests for IconButton component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("render with the expected border radius when roundness is %s", () => {
+    CypressMountWithProviders(<IconButtonComponent />);
+    icon()
+      .parent()
+      .focus()
+      .then(() => icon().parent().should("have.css", "border-radius", "4px"));
+  });
 });

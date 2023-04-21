@@ -151,16 +151,23 @@ describe("IconButton component", () => {
       );
     });
 
-    describe("on baseTheme", () => {
-      it("renders correct style for focused IconButton", () => {
-        assertStyleMatch(
-          {
-            outline: "solid 3px var(--colorsSemanticFocus500)",
-          },
-          wrapper.find(IconButton).first(),
-          { modifier: ":focus" }
-        );
-      });
+    it("renders correct style for focused IconButton", () => {
+      assertStyleMatch(
+        {
+          outline: "solid 3px var(--colorsSemanticFocus500)",
+        },
+        wrapper.find(IconButton),
+        { modifier: ":focus" }
+      );
+    });
+
+    it("renders with expected border radius", () => {
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius050)",
+        },
+        wrapper.find(IconButton)
+      );
     });
 
     describe("if disabled prop provided", () => {
