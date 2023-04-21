@@ -16,6 +16,7 @@ import Label from "../../../__internal__/label";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 import guid from "../../../__internal__/utils/helpers/guid";
+import StyledInput from "../../../__internal__/input/input.style";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
@@ -990,6 +991,19 @@ describe("SimpleSelect", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
     });
+  });
+
+  it("has the expected border radius styling", () => {
+    const wrapper = renderSelect({});
+    assertStyleMatch(
+      { borderRadius: "var(--borderRadius050)" },
+      wrapper.find(StyledInput)
+    );
+
+    assertStyleMatch(
+      { borderRadius: "var(--borderRadius050)" },
+      wrapper.find(StyledSelectListContainer)
+    );
   });
 });
 

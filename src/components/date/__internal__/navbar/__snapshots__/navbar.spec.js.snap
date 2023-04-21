@@ -22,6 +22,7 @@ exports[`Navbar Navbar Button renders presentational div and context provider fo
   width: var(--sizing500);
   padding: var(--spacing150);
   box-sizing: border-box;
+  border-radius: var(--borderRadius050);
 }
 
 .c0:focus {

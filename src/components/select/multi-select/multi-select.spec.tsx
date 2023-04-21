@@ -17,6 +17,7 @@ import InputPresentationStyle from "../../../__internal__/input/input-presentati
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 import guid from "../../../__internal__/utils/helpers/guid";
+import StyledInput from "../../../__internal__/input/input.style";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
@@ -1169,6 +1170,19 @@ describe("aria-selected attribute for options", () => {
         wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected")
       ).toBe("false");
     });
+  });
+
+  it("has the expected border radius styling", () => {
+    wrapper = renderSelect({});
+    assertStyleMatch(
+      { borderRadius: "var(--borderRadius050)" },
+      wrapper.find(StyledInput)
+    );
+
+    assertStyleMatch(
+      { borderRadius: "var(--borderRadius050)" },
+      wrapper.find(StyledSelectListContainer)
+    );
   });
 });
 

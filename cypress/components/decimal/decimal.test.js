@@ -9,6 +9,7 @@ import {
   tooltipPreview,
   commonDataElementInputPreview,
   cyRoot,
+  getElement,
 } from "../../locators/index";
 
 import { CHARACTERS } from "../../support/component-helper/constants";
@@ -428,5 +429,10 @@ context("Tests for Decimal component", () => {
 
       cy.checkAccessibility();
     });
+  });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<Decimal />);
+    getElement("input").should("have.css", "border-radius", "4px");
   });
 });

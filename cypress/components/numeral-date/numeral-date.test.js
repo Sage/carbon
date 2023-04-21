@@ -531,4 +531,14 @@ context("Tests for NumeralDate component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should have the expected border radius styling when no search button enabled", () => {
+    CypressMountWithProviders(<NumeralDateComponent />);
+    numeralDateInputByPosition(0)
+      .parent()
+      .should("have.css", "border-radius", "4px 0px 0px 4px");
+    numeralDateInputByPosition(2)
+      .parent()
+      .should("have.css", "border-radius", "0px 4px 4px 0px");
+  });
 });

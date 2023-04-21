@@ -13,6 +13,7 @@ import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import I18nProvider from "../i18n-provider";
 import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
@@ -1551,5 +1552,14 @@ describe("Decimal", () => {
         wrapper.find(InputPresentation)
       );
     });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      enzymeMount(<Decimal />).find(StyledInput)
+    );
   });
 });

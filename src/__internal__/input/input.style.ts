@@ -6,6 +6,7 @@ const StyledInput = styled.input<
 >`
   background: transparent;
   border: none;
+  border-radius: var(--borderRadius050);
   color: var(--colorsUtilityYin090);
   flex-grow: 1;
   font-size: var(--fontSizes100);

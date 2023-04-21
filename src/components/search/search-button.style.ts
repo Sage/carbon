@@ -18,6 +18,11 @@ const StyledSearchButton = styled.div`
   & ${StyledButton} {
     background-color: var(--colorsActionMajor500);
     border-color: var(--colorsActionMajorTransparent);
+    border-bottom-left-radius: var(--borderRadius000);
+    border-top-left-radius: var(--borderRadius000);
+    border-bottom-right-radius: var(--borderRadius050);
+    border-top-right-radius: var(--borderRadius050);
+
     :hover {
       background: var(--colorsActionMajor600);
       border-color: var(--colorsActionMajorTransparent);
