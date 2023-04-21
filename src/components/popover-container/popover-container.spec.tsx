@@ -753,4 +753,13 @@ describe("open state when click event triggered", () => {
     expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
     expect(onCloseFn).not.toHaveBeenCalled();
   });
+
+  it("should render with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius100)",
+      },
+      render({ open: true }).find(PopoverContainerContentStyle)
+    );
+  });
 });
