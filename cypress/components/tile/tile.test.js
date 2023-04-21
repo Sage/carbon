@@ -389,4 +389,16 @@ context("Tests for Tile component", () => {
       }
     );
   });
+
+  it.each(["default", "large"])(
+    "render with the expected border radius when roundness is %s",
+    (roundness) => {
+      CypressMountWithProviders(
+        <testStories.TileComponent roundness={roundness} />
+      );
+      const result = roundness === "default" ? "8px" : "16px";
+
+      tile().should("have.css", "border-radius", result);
+    }
+  );
 });
