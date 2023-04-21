@@ -732,4 +732,45 @@ describe("Pod", () => {
       assertStyleMatch({ padding: "0px" }, wrapper.find(StyledBlock));
     });
   });
+
+  describe("rounded corners", () => {
+    it("has the expected border radius styling for the main container and edit and delete buttons", () => {
+      const wrapper = render({ onEdit: () => {}, onDelete: () => {} });
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledBlock)
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledEditAction),
+        { modifier: "&&" }
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledDeleteButton),
+        { modifier: "&&" }
+      );
+    });
+
+    it("has the expected border radius styling for the soft/undo delete button", () => {
+      const wrapper = render({ onUndo: () => {}, softDelete: true });
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledUndoButton),
+        { modifier: "&&" }
+      );
+    });
+  });
 });
