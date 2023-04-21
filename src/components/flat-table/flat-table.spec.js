@@ -29,6 +29,8 @@ import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import cellSizes from "./cell-sizes.style";
 import { FLAT_TABLE_SIZES } from "./flat-table.config";
+import { StyledPagerContainer } from "../pager/pager.style";
+import Pager from "../pager/pager.component";
 
 const RenderComponent = (props) => (
   <FlatTable {...props}>
@@ -648,6 +650,171 @@ describe("FlatTable", () => {
         );
       }
     );
+  });
+
+  describe("rounded corners", () => {
+    it("has the expected border radius styling when no footer rendered", () => {
+      const wrapper = mount(
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>heading one</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>child one</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius100)",
+          borderTopRightRadius: "var(--borderRadius100)",
+          borderBottomLeftRadius: "var(--borderRadius100)",
+          borderBottomRightRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledFlatTableWrapper)
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        {
+          modifier: `thead ${StyledFlatTableRow}:first-of-type th:first-of-type`,
+        }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        {
+          modifier: `thead ${StyledFlatTableRow}:first-of-type th:last-of-type`,
+        }
+      );
+
+      assertStyleMatch(
+        {
+          borderBottomLeftRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        {
+          modifier: `tbody ${StyledFlatTableRow}:last-of-type td:first-child`,
+        }
+      );
+
+      assertStyleMatch(
+        {
+          borderBottomRightRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        { modifier: `tbody ${StyledFlatTableRow}:last-of-type td:last-child` }
+      );
+    });
+
+    it("has the expected border radius styling when sticky footer rendered", () => {
+      const wrapper = mount(
+        <FlatTable hasStickyFooter footer={<Pager />}>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>heading one</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>child one</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius100)",
+          borderTopRightRadius: "var(--borderRadius100)",
+          borderBottomLeftRadius: undefined,
+          borderBottomRightRadius: undefined,
+        },
+        wrapper.find(StyledFlatTableWrapper)
+      );
+
+      assertStyleMatch(
+        {
+          borderBottomLeftRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+        },
+        wrapper.find(StyledFlatTableFooter),
+        { modifier: `${StyledPagerContainer}` }
+      );
+    });
+
+    it("has the expected border radius styling when the first column has rowspan that spans over bottom row", () => {
+      const wrapper = mount(
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>heading one</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell rowspan="2">child one</FlatTableCell>
+              <FlatTableCell>child two</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>child one</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      assertStyleMatch(
+        {
+          borderBottomLeftRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        {
+          modifier: `tbody ${StyledFlatTableRow}:nth-of-type(1) td:first-child`,
+        }
+      );
+    });
+
+    it("has the expected border radius styling when the last column has rowspan that spans over bottom row", () => {
+      const wrapper = mount(
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>heading one</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>child one</FlatTableCell>
+              <FlatTableCell rowspan="2">child two</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>child one</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      assertStyleMatch(
+        {
+          borderBottomRightRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledFlatTableWrapper),
+        {
+          modifier: `tbody ${StyledFlatTableRow}:nth-of-type(1) td:last-child`,
+        }
+      );
+    });
   });
 });
 
