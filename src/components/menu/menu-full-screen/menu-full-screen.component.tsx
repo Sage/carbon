@@ -47,6 +47,34 @@ export const MenuFullscreen = ({
     if (Events.isEscKey(ev)) {
       onClose(ev);
     }
+
+    if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
+      const search = menuWrapperRef.current?.querySelector(
+        '[data-component="search"'
+      );
+      const searchInput = search?.querySelector("input");
+      const searchButton = search?.querySelector("button");
+
+      // if there is no value in the search input the button disappears when the input blurs
+      // this means we need to programatically set focus to the next menu item
+      if (
+        searchButton &&
+        searchInput &&
+        !searchInput.value &&
+        searchInput === document.activeElement
+      ) {
+        ev.preventDefault();
+
+        const elements = Array.from(
+          menuWrapperRef.current?.querySelectorAll(
+            "a, input, button"
+          ) as NodeListOf<HTMLElement>
+        );
+
+        const index = elements.indexOf(searchInput);
+        elements[index + 2]?.focus();
+      }
+    }
   };
 
   return (

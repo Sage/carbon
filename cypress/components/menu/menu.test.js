@@ -27,6 +27,7 @@ import {
 import {
   searchDefaultInput,
   searchCrossIcon,
+  searchButton,
 } from "../../locators/search/index";
 import { getComponent, closeIconButton, icon } from "../../locators";
 import {
@@ -287,6 +288,24 @@ const MenuComponentItems = ({ ...props }) => {
     </Box>
   );
 };
+
+/* eslint-disable-next-line react/prop-types */
+const MenuFullScreenWithSearchButton = ({ searchValue }) => (
+  <MenuFullscreen isOpen onClose={() => {}}>
+    <MenuItem href="#">Menu Item before Search</MenuItem>
+    <MenuItem variant="alternate">
+      <Search
+        placeholder="Dark variant"
+        variant="dark"
+        defaultValue={searchValue}
+        searchButton
+      />
+    </MenuItem>
+    <MenuItem variant="alternate" href="#">
+      Menu Item after Search
+    </MenuItem>
+  </MenuFullscreen>
+);
 
 const MenuComponentScrollableParent = () => {
   const items = ["apple", "banana", "carrot", "grapefruit", "melon", "orange"];
@@ -1457,6 +1476,34 @@ context("Testing Menu component", () => {
         );
       }
     );
+
+    it("should focus the next menu item on tab press when the current item has a Search input with searchButton but no value", () => {
+      CypressMountWithProviders(
+        <MenuFullScreenWithSearchButton searchValue="" />
+      );
+
+      menuItem().first().find("a").focus();
+      cy.tab();
+      searchDefaultInput().should("have.focus");
+      cy.tab();
+      menuItem().last().find("a").should("have.focus");
+    });
+
+    it("should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value", () => {
+      CypressMountWithProviders(
+        <MenuFullScreenWithSearchButton searchValue="foo" />
+      );
+
+      menuItem().first().find("a").focus();
+      cy.tab();
+      searchDefaultInput().should("have.focus");
+      cy.tab();
+      searchCrossIcon().parent().should("have.focus");
+      cy.tab();
+      searchButton().should("have.focus");
+      cy.tab();
+      menuItem().last().find("a").should("have.focus");
+    });
   });
 
   describe("check events for Menu component", () => {

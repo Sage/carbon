@@ -419,6 +419,7 @@ export const ScrollableSubmenuWithParent: ComponentStory<typeof Menu> = () => {
                 placeholder="search"
                 value={searchString}
                 onChange={handleTextChange}
+                searchButton
               />
             }
           >

@@ -218,7 +218,7 @@ export const MenuItem = ({
         document.activeElement === inputRef.current &&
         inputRef.current?.value;
 
-      // let natural tab order move focus if input icon is tabbable
+      // let natural tab order move focus if input icon is tabbable or input with button exists
       if (
         Events.isTabKey(event) &&
         ((!Events.isShiftKey(event) && shouldFocusIcon) ||
