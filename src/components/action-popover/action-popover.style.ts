@@ -13,6 +13,7 @@ const Menu = styled.div`
   padding: var(--spacing100) 0;
   box-shadow: var(--boxShadow100);
   position: absolute;
+  border-radius: var(--borderRadius100);
   background-color: var(--colorsUtilityYang100);
   z-index: ${({ theme }) =>
     `${theme.zIndex.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
@@ -46,6 +47,7 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
   &:focus {
     outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
     z-index: 1;
+    border-radius: var(--borderRadius000);
   }
 
   ${({ isDisabled }) =>
@@ -102,6 +104,7 @@ const ButtonIcon = styled(Icon)`
 const StyledButtonIcon = styled.div`
   &:focus {
     outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+    border-radius: var(--borderRadius050);
   }
 `;
 

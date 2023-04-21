@@ -294,6 +294,16 @@ describe("ActionPopover", () => {
     expect(icon.prop("type")).toBe("ellipsis_vertical");
   });
 
+  it("has expected border radius when trigger button is focused", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledButtonIcon),
+      { modifier: ":focus" }
+    );
+  });
+
   it("has proper data attributes applied to elements", () => {
     render();
     openMenu();
