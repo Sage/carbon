@@ -34,9 +34,11 @@ describe("LoaderBar", () => {
           backgroundColor: "var(--colorsActionMajor150)",
           width: "100%",
           height: "8px",
+          borderRadius: "var(--borderRadius400)",
         },
         wrapper.find(StyledLoaderBar)
       );
+
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsActionMajor500)",
