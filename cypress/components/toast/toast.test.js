@@ -216,4 +216,10 @@ context("Testing Toast component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("render with the expected border radius", () => {
+    CypressMountWithProviders(<ToastComponent open />);
+
+    toastComponent().should("have.css", "border-radius", "8px");
+  });
 });
