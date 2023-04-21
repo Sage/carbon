@@ -1,6 +1,6 @@
 import React from "react";
 import Pill from "../../../src/components/pill";
-import { pillPreview } from "../../locators/pill/index";
+import { pillPreview, pillCloseIcon } from "../../locators/pill/index";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { checkOutlineCss } from "../../support/component-helper/common-steps";
 import { closeIconButton } from "../../locators/index";
@@ -322,4 +322,26 @@ context("Testing Pill component", () => {
       );
     });
   });
+
+  it.each(["S", "M", "L", "XL"])(
+    "should have the expected border radius styling when size is %s",
+    (size) => {
+      CypressMountWithProviders(
+        <PillComponent size={size} onDelete={() => {}}>
+          Pill
+        </PillComponent>
+      );
+      pillPreview().should("have.css", "border-radius", "2px");
+      pillCloseIcon().should("have.css", "border-radius", "0px");
+      pillCloseIcon()
+        .focus()
+        .then(() => {
+          pillCloseIcon().should(
+            "have.css",
+            "border-radius",
+            "0px 2px 2px 0px"
+          );
+        });
+    }
+  );
 });
