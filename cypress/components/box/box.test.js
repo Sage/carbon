@@ -886,4 +886,25 @@ context("Testing Box component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it.each([
+    [undefined, "0px"],
+    ["borderRadius025", "2px"],
+    ["borderRadius050", "4px"],
+    ["borderRadius100", "8px"],
+    ["borderRadius200", "16px"],
+    ["borderRadius400", "32px"],
+  ])(
+    "applies the expected border radius when %s passed to borderRadius prop",
+    (borderRadius, expected) => {
+      CypressMountWithProviders(
+        <testStories.Default borderRadius={borderRadius} />
+      );
+      getDataElementByValue("box").should(
+        "have.css",
+        "border-radius",
+        expected
+      );
+    }
+  );
 });

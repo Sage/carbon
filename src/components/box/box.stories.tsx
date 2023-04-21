@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory } from "@storybook/react";
 
-import Box from ".";
+import Box, { BoxProps } from ".";
 import Button from "../button";
 import Typography from "../typography";
 
@@ -287,3 +287,30 @@ export const Scroll: ComponentStory<typeof Box> = () => {
   );
 };
 Scroll.parameters = { chromatic: { disableSnapshot: true } };
+
+const radiusTokens: BoxProps["borderRadius"][] = [
+  "borderRadius000",
+  "borderRadius010",
+  "borderRadius025",
+  "borderRadius050",
+  "borderRadius100",
+  "borderRadius200",
+  "borderRadius400",
+  "borderRadiusCircle",
+];
+
+export const RoundedCorners = () => (
+  <Box display="flex" justifyContent="space-between">
+    {radiusTokens.map((token) => (
+      <Box
+        key={`${token}-example`}
+        backgroundColor="primary"
+        height="100px"
+        width="100px"
+        borderRadius={token}
+      />
+    ))}
+  </Box>
+);
+
+RoundedCorners.parameters = { chromatic: { disableSnapshot: false } };
