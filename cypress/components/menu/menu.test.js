@@ -708,11 +708,7 @@ context("Testing Menu component", () => {
 
       submenu().eq(positionOfElement("first")).trigger("mouseover");
       innerMenu(positionOfElement("second"), span).then(($item) => {
-        submenuBlock()
-          // .then($el => {
-          //   useJQueryCssValueAndAssert($el, "width", i)
-          // })
-          .should("have.css", "width", `${$item.width()}px`);
+        submenuBlock().should("have.css", "width", `${$item.width()}px`);
       });
     });
 
@@ -1349,7 +1345,11 @@ context("Testing Menu component", () => {
       });
     });
 
-    it("should verify that inner Menu is available with tabbing in Menu Fullscreen", () => {
+    it("should verify that inner Menu is available with tabbing and styles are correct", () => {
+      cy.viewport(1200, 800);
+      CypressMountWithProviders(<MenuComponentFullScreen />);
+      menuItem().eq(positionOfElement("first"), div).click();
+
       fullScreenMenuWrapper().tab();
       for (let i = 0; i < 4; i++) {
         cy.focused().tab();
@@ -1373,10 +1373,21 @@ context("Testing Menu component", () => {
         .eq(1)
         .children()
         .children()
+        .should("have.css", "color")
+        .and("contain", "rgb(255, 255, 255)");
+      fullScreenMenuItem(positionOfElement("fourth"))
+        .find("ul > li")
+        .eq(1)
+        .children()
+        .children()
         .should("be.focused");
     });
 
-    it("should verify that inner Menu is available with shift-tabbing in Menu Fullscreen", () => {
+    it("should verify that inner Menu is available with shift-tabbing and styles are correct", () => {
+      cy.viewport(1200, 800);
+      CypressMountWithProviders(<MenuComponentFullScreen />);
+      menuItem().eq(positionOfElement("first"), div).click();
+
       fullScreenMenuWrapper().tab();
       for (let i = 0; i < 5; i++) {
         cy.focused().tab();
@@ -1396,6 +1407,13 @@ context("Testing Menu component", () => {
         .children()
         .should("have.css", "background-color")
         .and("contain", "rgb(0, 126, 69)");
+      fullScreenMenuItem(positionOfElement("fourth"))
+        .find("ul > li")
+        .eq(1)
+        .children()
+        .children()
+        .should("have.css", "color")
+        .and("contain", "rgb(255, 255, 255)");
       fullScreenMenuItem(positionOfElement("fourth"))
         .find("ul > li")
         .eq(1)

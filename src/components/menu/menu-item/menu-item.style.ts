@@ -357,20 +357,22 @@ const StyledMenuItemWrapper = styled.a.attrs({
         position: relative;
       }
 
-      a:focus,
-      a:hover,
-      button:focus,
-      button:hover {
-        background-color: var(--colorsComponentsMenuAutumnStandard600);
-        color: var(--colorsComponentsMenuYang100);
+      && {
+        a:focus,
+        a:hover,
+        button:focus,
+        button:hover {
+          background-color: var(--colorsComponentsMenuAutumnStandard600);
+          color: var(--colorsComponentsMenuYang100);
 
-          ${
-            !hasInput &&
+            ${
+              !hasInput &&
+              `
+              [data-component="icon"] {
+                color: var(--colorsComponentsMenuYang100);
+              }
             `
-            [data-component="icon"] {
-              color: var(--colorsComponentsMenuYang100);
             }
-          `
           }
         }
       }
