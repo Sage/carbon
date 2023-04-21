@@ -380,4 +380,12 @@ context("Test for TextEditor component", () => {
       }
     );
   });
+
+  it("render with the expected border radius on the toolbar buttons", () => {
+    CypressMountWithProviders(<TextEditorCustom />);
+    textEditorToolbar("bold").should("have.css", "border-radius", "4px");
+    textEditorToolbar("italic").should("have.css", "border-radius", "4px");
+    textEditorToolbar("bullet-list").should("have.css", "border-radius", "4px");
+    textEditorToolbar("number-list").should("have.css", "border-radius", "4px");
+  });
 });
