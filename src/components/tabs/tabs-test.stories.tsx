@@ -285,7 +285,11 @@ export const TabsComponentValidations = ({ ...props }: TabsProps) => {
   );
 };
 
-export const TabsComponentValidationsUnregistering = () => {
+export const TabsComponentValidationsUnregistering = ({
+  validationType,
+}: {
+  validationType: "error" | "warning" | "info";
+}) => {
   const [show, setShow] = React.useState(true);
 
   return (
@@ -310,7 +314,14 @@ export const TabsComponentValidationsUnregistering = () => {
           title="Tab 1"
           key="tab-1"
         >
-          {show && <Checkbox label="Add error" onChange={() => {}} checked />}
+          {show && (
+            <Checkbox
+              label={`Add ${validationType}`}
+              onChange={() => {}}
+              checked
+              {...{ [validationType]: true }}
+            />
+          )}
         </Tab>
       </Tabs>
     </div>
