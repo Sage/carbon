@@ -19,6 +19,7 @@ describe("Loader square", () => {
         height: "12px",
         width: "12px",
         marginRight: "6px",
+        borderRadius: "var(--borderRadiusCircle)",
       },
       wrapper.toJSON()
     );
