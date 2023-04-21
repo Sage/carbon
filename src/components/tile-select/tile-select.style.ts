@@ -36,9 +36,14 @@ const StyledDescription = styled.p`
   margin: 0;
 `;
 
-const StyledTileSelect = styled.div<{ checked?: boolean; disabled?: boolean }>`
+const StyledTileSelect = styled.div<{
+  checked?: boolean;
+  disabled?: boolean;
+  hasAccordion?: boolean;
+}>`
   background: var(--colorsActionMinorYang100);
   padding: 24px;
+
   ${({ checked }) =>
     checked &&
     css`
@@ -65,6 +70,9 @@ const StyledFocusWrapper = styled.div<{
   ${({ checked, hasFocus }) => css`
     position: relative;
     border: 1px solid var(--colorsActionMinor250);
+    border-radius: var(--borderRadius100);
+    overflow: hidden;
+
     ${checked &&
     css`
       border-color: var(--colorsActionMajor500);
@@ -87,6 +95,7 @@ const StyledTileSelectContainer = styled.div<{
 
   width: 100%;
   position: relative;
+
   & + & ${StyledFocusWrapper} {
     margin-top: -1px;
   }
@@ -113,6 +122,9 @@ const StyledAccordionFooterWrapper = styled.div<{
   position: relative;
   z-index: 200;
   left: -12px;
+
+  border-bottom-right-radius: var(--borderRadius100);
+  border-bottom-left-radius: var(--borderRadius100);
 
   ${({ accordionExpanded }) => `
       span[data-element="chevron_down"] {

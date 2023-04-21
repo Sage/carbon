@@ -599,4 +599,14 @@ describe("TileSelectGroup", () => {
       expect(consoleSpy).not.toHaveBeenCalled();
     });
   });
+
+  it("should render with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius100)",
+        overflow: "hidden",
+      },
+      wrapper.find(StyledFocusWrapper)
+    );
+  });
 });
