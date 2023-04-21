@@ -2,6 +2,32 @@ import styled, { css } from "styled-components";
 import BaseTheme, { ThemeObject } from "../../style/themes/base";
 import StyledButton from "../button/button.style";
 
+export const borderRadiusStyling = `
+  > {
+    &:first-child:last-child {
+      border-radius: var(--borderRadius100);
+    }
+
+    &:first-child:not(:last-child) {
+      border-top-left-radius: var(--borderRadius100);
+      border-top-right-radius: var(--borderRadius100);
+      border-bottom-right-radius: var(--borderRadius000);
+      border-bottom-left-radius: var(--borderRadius000);
+    }
+
+    &:not(:first-child):not(:last-child) {
+      border-radius: var(--borderRadius000);
+    }
+
+    &:last-child:not(:first-child) {
+      border-top-right-radius: var(--borderRadius000);
+      border-top-left-radius: var(--borderRadius000);
+      border-bottom-left-radius: var(--borderRadius100);
+      border-bottom-right-radius: var(--borderRadius100);
+    }
+  }
+`;
+
 type StyledSplitButtonChildrenContainerProps = {
   theme: ThemeObject;
   align: "left" | "right";
@@ -9,12 +35,15 @@ type StyledSplitButtonChildrenContainerProps = {
 };
 
 const StyledSplitButtonChildrenContainer = styled.div<StyledSplitButtonChildrenContainerProps>`
+  border-radius: var(--borderRadius100);
   ${({ theme, align, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
     min-width: ${minWidth}px;
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
     box-shadow: var(--boxShadow100);
+
+    ${borderRadiusStyling}
 
     ${StyledButton} {
       border: 1px solid var(--colorsActionMajorTransparent);

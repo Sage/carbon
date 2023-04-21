@@ -421,4 +421,12 @@ context("Test for Button Minor component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should have the expected border radius and focus styling", () => {
+    CypressMountWithProviders(<ButtonMinor>Foo</ButtonMinor>);
+    buttonDataComponent().should("have.css", `border-radius`, "4px");
+    buttonDataComponent()
+      .focus()
+      .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+  });
 });

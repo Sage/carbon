@@ -904,4 +904,53 @@ describe("SplitButton", () => {
 
     wrapper.unmount();
   });
+
+  describe("rounded corner styling", () => {
+    it("renders toggle button with expected border radius", () => {
+      wrapper = mount(
+        <SplitButton text="foo">
+          <Button>bar</Button>
+        </SplitButton>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius400)",
+        },
+        wrapper.find(StyledSplitButton).find(StyledButton).last()
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius000)",
+        },
+        wrapper.find(StyledSplitButtonToggle)
+      );
+    });
+
+    it("renders the main button with expected border radius styling", () => {
+      wrapper = mount(
+        <SplitButton text="foo">
+          <Button>bar</Button>
+        </SplitButton>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius400)",
+        },
+        wrapper.find(StyledSplitButton).find(StyledButton).first()
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: `${StyledButton}:first-of-type` }
+      );
+    });
+  });
 });

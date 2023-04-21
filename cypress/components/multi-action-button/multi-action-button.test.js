@@ -1,7 +1,9 @@
 import React from "react";
 import {
   MultiActionButtonList,
+  MultiActionButtonWithOneChild,
   MultiActionNestedInDialog,
+  MultiActionWithHrefChildren,
 } from "../../../src/components/multi-action-button/multi-action-button-test.stories";
 import { Accordion } from "../../../src/components/accordion/accordion.component";
 import * as stories from "../../../src/components/multi-action-button/multi-action-button.stories";
@@ -584,5 +586,69 @@ describe("should check colors for MultiActionButton component", () => {
 
       cy.checkAccessibility();
     });
+  });
+
+  it("should have the expected border radius and focus styling on main button", () => {
+    CypressMountWithProviders(<MultiActionButtonList />);
+    multiActionButton().should("have.css", "border-radius", "32px");
+    multiActionButton()
+      .focus()
+      .should("have.css", "border", "3px solid rgb(255, 181, 0)");
+  });
+
+  it("should have the expected border radius on children container and buttons", () => {
+    CypressMountWithProviders(<MultiActionButtonList />);
+
+    multiActionButton()
+      .eq(0)
+      .trigger("mouseover")
+      .then(() => {
+        multiActionButtonListContainer().should(
+          "have.css",
+          "border-radius",
+          "8px"
+        );
+        multiActionButtonList()
+          .eq(0)
+          .should("have.css", "border-radius", "8px 8px 0px 0px");
+        multiActionButtonList()
+          .eq(1)
+          .should("have.css", "border-radius", "0px");
+        multiActionButtonList()
+          .eq(2)
+          .should("have.css", "border-radius", "0px 0px 8px 8px");
+      });
+  });
+
+  it("should have the expected border radius when some children buttons have href prop", () => {
+    CypressMountWithProviders(<MultiActionWithHrefChildren />);
+
+    multiActionButton()
+      .eq(0)
+      .trigger("mouseover")
+      .then(() => {
+        multiActionButtonList()
+          .eq(0)
+          .should("have.css", "border-radius", "8px 8px 0px 0px");
+        multiActionButtonList()
+          .eq(1)
+          .should("have.css", "border-radius", "0px");
+        multiActionButtonList()
+          .eq(2)
+          .should("have.css", "border-radius", "0px 0px 8px 8px");
+      });
+  });
+
+  it("should have the expected border radius when there is only on one child button", () => {
+    CypressMountWithProviders(<MultiActionButtonWithOneChild />);
+
+    multiActionButton()
+      .eq(0)
+      .trigger("mouseover")
+      .then(() => {
+        multiActionButtonList()
+          .eq(0)
+          .should("have.css", "border-radius", "8px");
+      });
   });
 });

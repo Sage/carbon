@@ -19,6 +19,9 @@ const StyledSplitButtonToggle = styled(
   StyledButton
 )<StyledSplitButtonToggleProps>`
   ${({ buttonType, disabled, displayed, size }) => css`
+    border-top-left-radius: var(--borderRadius000);
+    border-bottom-left-radius: var(--borderRadius000);
+
     ${!disabled && displayed
       ? css`
           background-color: var(--colorsActionMajor500);
@@ -36,7 +39,8 @@ const StyledSplitButtonToggle = styled(
       : ""}
     ${!disabled &&
     buttonType === "primary" &&
-    `position: relative;
+    `
+      position: relative;
       &::before {
         content: '';
         width: 2px;
@@ -47,6 +51,7 @@ const StyledSplitButtonToggle = styled(
         z-index: 2;
       }  
     `}
+
     ${buttonType === "secondary" && "border-left-width: 0;"}
     padding: 0 ${horizontalPaddingSizes[size]}px;
 
