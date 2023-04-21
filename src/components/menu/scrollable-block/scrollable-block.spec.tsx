@@ -11,6 +11,9 @@ import MenuDivider from "../menu-divider/menu-divider.component";
 import Search from "../../search";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledScrollableBlock from "./scrollable-block.style";
+import Box from "../../box/box.component";
+import { StyledMenuItem } from "../menu.style";
+import { StyledLink } from "../../link/link.style";
 
 const handleKeyDownFn = jest.fn();
 
@@ -66,9 +69,6 @@ describe("ScrollableBlock", () => {
       document.body.removeChild(container);
       container = null;
     }
-    if (wrapper) {
-      wrapper.unmount();
-    }
   });
 
   describe.each<MenuType>(["white", "light", "dark", "black"])(
@@ -99,6 +99,34 @@ describe("ScrollableBlock", () => {
           );
         });
       });
+
+      it("should apply the expected border-radius styling on the list container element", () => {
+        assertStyleMatch(
+          {
+            borderRadius: "var(--borderRadius000)",
+          },
+          render(menuType, { variant: "default" }),
+          { modifier: `${Box}` }
+        );
+      });
+
+      it.each([
+        ["StyledLink", `${StyledLink}`],
+        ["a", "a"],
+        ["button", "button"],
+      ])(
+        "should apply the expected border-radius styling on the %s element of the last menu item",
+        (_, modifier) => {
+          assertStyleMatch(
+            {
+              borderBottomLeftRadius: "var(--borderRadius100)",
+              borderBottomRightRadius: "var(--borderRadius000)",
+            },
+            (wrapper = render(menuType, { variant: "default" })),
+            { modifier: `${Box} ${StyledMenuItem}:last-child ${modifier}` }
+          );
+        }
+      );
     }
   );
 
