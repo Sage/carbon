@@ -7,6 +7,7 @@ import {
   BUTTON_BAR_ICON_POSITIONS,
   BUTTON_BAR_SIZES,
 } from "./button-bar.config";
+import ButtonMinor from "../button-minor";
 
 export default {
   title: "Button Bar/Test",
@@ -54,6 +55,14 @@ export const DefaultWithWrapper = ({ ...args }) => {
     </ButtonBar>
   );
 };
+
+export const ButtonBarWithMinorButtonChildren = () => (
+  <ButtonBar>
+    <ButtonMinor iconType="search">Example ButtonMinor</ButtonMinor>
+    <ButtonMinor iconType="pdf">Example ButtonMinor</ButtonMinor>
+    <ButtonMinor iconType="csv">Example ButtonMinor</ButtonMinor>
+  </ButtonBar>
+);
 
 export const Default = ({ ...args }) => (
   <ButtonBar {...args}>
