@@ -19,6 +19,7 @@ import { SimpleColorPicker, SimpleColor } from "../simple-color-picker";
 import NumeralDate from "../numeral-date";
 import Hr from "../hr";
 import InlineInputs from "../inline-inputs";
+import Pager from "../pager";
 
 export default {
   title: "Form/Test",
@@ -331,3 +332,57 @@ FormAlignmentCustomMarginNonTextInputs.parameters = {
   },
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+export const DefaultWithPager = () => (
+  <Form
+    onSubmit={() => console.log("submit")}
+    leftSideButtons={
+      <Button onClick={() => console.log("cancel")}>Cancel</Button>
+    }
+    saveButton={
+      <Button buttonType="primary" type="submit">
+        Save
+      </Button>
+    }
+    stickyFooter
+  >
+    <Tabs mb={2}>
+      <Tab
+        pl="3px"
+        customLayout={
+          <Box mx="16px" my="10px">
+            Tab1
+          </Box>
+        }
+        tabId="tab1"
+      />
+    </Tabs>
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Textbox label="Textbox" />
+    <Pager
+      totalRecords={25}
+      currentPage={1}
+      pageSize={5}
+      showPageSizeSelection={false}
+      showFirstAndLastButtons={false}
+      onNext={(e) => {
+        console.log("on next");
+        e.preventDefault();
+      }}
+      onPrevious={(e) => {
+        console.log("on prev");
+        e.preventDefault();
+      }}
+      onPagination={(page) => {
+        console.log("on pagination", page);
+      }}
+    />
+  </Form>
+);
+
+DefaultWithPager.storyName = "default with pager";
