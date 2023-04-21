@@ -33,6 +33,7 @@ const StyledAdvancedColorPickerPreview = styled.div`
   height: 25px;
   margin-bottom: 15px;
   border: 1px solid var(--colorsUtilityYin090);
+  border-radius: var(--borderRadius050);
 
   ${({ color }) =>
     color !== "transparent" &&

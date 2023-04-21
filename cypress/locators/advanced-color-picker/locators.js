@@ -4,3 +4,4 @@ export const CURRENT_COLOR_DESCRIPTION =
   '[data-element="current-color-description"]';
 export const SIMPLE_COLOR = '[data-component="simple-color"]';
 export const SIMPLE_COLOR_PICKER = '[data-component="simple-color-picker"]';
+export const ADVANCED_COLOR_PREVIEW = '[data-element="color-picker-preview"]';

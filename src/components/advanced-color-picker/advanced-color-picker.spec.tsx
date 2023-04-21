@@ -8,7 +8,10 @@ import AdvancedColorPicker, {
 import Dialog from "../dialog/dialog.component";
 import { SimpleColor } from "../simple-color-picker";
 import guid from "../../__internal__/utils/helpers/guid";
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import {
+  assertStyleMatch,
+  testStyledSystemMargin,
+} from "../../__spec_helper__/test-utils";
 import { StyledAdvancedColorPickerPreview } from "./advanced-color-picker.style";
 import Logger from "../../__internal__/utils/logger";
 
@@ -470,5 +473,14 @@ describe("AdvancedColorPicker", () => {
 
       expect(dialog.prop("open")).toBe(true);
     });
+  });
+
+  it("has the expected border radius styling", () => {
+    const wrapper = render({ open: true, ...requiredProps });
+
+    assertStyleMatch(
+      { borderRadius: "var(--borderRadius050)" },
+      wrapper.find(StyledAdvancedColorPickerPreview)
+    );
   });
 });
