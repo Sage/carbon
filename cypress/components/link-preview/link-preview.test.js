@@ -162,4 +162,15 @@ context("Test for Link Preview component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should render with the expected border radius styling", () => {
+    CypressMountWithProviders(<LinkPreviewComponent />);
+
+    linkPreview().should("have.css", "border-radius", "8px");
+    cy.get('[data-component="link preview image placeholder"').should(
+      "have.css",
+      "border-radius",
+      "8px 0px 0px 8px"
+    );
+  });
 });

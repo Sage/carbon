@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledPlaceHolder = styled.div`
+export const StyledPlaceHolder = styled.div`
   overflow: hidden;
   position: relative;
   height: 152px;
   min-width: 152px;
   background-color: var(--colorsUtilityMajor025);
+  border-bottom-left-radius: var(--borderRadius100);
+  border-top-left-radius: var(--borderRadius100);
 `;
 
 const Circle = styled.div`
@@ -19,7 +21,7 @@ const Circle = styled.div`
   top: 30px;
 `;
 
-const Square = styled.div`
+const Square = styled.div<{ top: string; left: string }>`
   height: 200px;
   width: 200px;
   transform: rotate(45deg);
