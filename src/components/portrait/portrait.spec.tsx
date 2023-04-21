@@ -63,6 +63,7 @@ describe("PortraitComponent", () => {
           verticalAlign: "middle",
           boxSizing: "border-box",
           outline: "1px solid var(--colorsUtilityMajor200)",
+          borderRadius: "var(--borderRadiusCircle)",
         },
         wrapper.find(StyledPortraitInitials)
       );
