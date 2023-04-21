@@ -101,5 +101,14 @@ describe("Badge", () => {
         wrapper.find(StyledBadge)
       );
     });
+    it("should apply correct border radius for counter", () => {
+      const wrapper = mount(renderComponent({ counter: 9 }));
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadiusCircle)",
+        },
+        wrapper.find(StyledBadge)
+      );
+    });
   });
 });
