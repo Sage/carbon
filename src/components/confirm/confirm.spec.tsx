@@ -12,6 +12,7 @@ import Heading from "../heading";
 import Loader from "../loader";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
+import { StyledDialog } from "../dialog/dialog.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
@@ -467,6 +468,15 @@ describe("Confirm", () => {
 
         expect(button.props().iconPosition).toBe(position);
       }
+    );
+  });
+
+  it("has the expected border radius styling", () => {
+    assertStyleMatch(
+      { borderRadius: "var(--borderRadius200)" },
+      mount(<Confirm onCancel={() => {}} onConfirm={() => {}} open />).find(
+        StyledDialog
+      )
     );
   });
 });

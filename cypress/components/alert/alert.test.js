@@ -146,4 +146,9 @@ context("Testing Alert component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<AlertComponent />);
+    alertDialogPreview().should("have.css", "border-radius", "16px");
+  });
 });
