@@ -119,6 +119,7 @@ export const ButtonToggle = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         size={size}
+        grouped={grouped}
       >
         <StyledButtonToggleContentWrapper>
           {icon}

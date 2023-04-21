@@ -20,15 +20,13 @@ export const Default: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const DefaultWrappedText: ComponentStory<typeof ButtonToggle> = () => (
-  <Box margin={4} width="250px">
-    <ButtonToggleGroup id="button-toggle-group-id" name="options">
-      <ButtonToggle name="default" value="wraps" grouped>
-        Some text that wraps
-      </ButtonToggle>
-      <ButtonToggle name="default" value="foobar" grouped>
-        FooBar
-      </ButtonToggle>
-    </ButtonToggleGroup>
+  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+    <ButtonToggle name="default" value="wraps" grouped>
+      Some text that wraps
+    </ButtonToggle>
+    <ButtonToggle name="default" value="foobar" grouped>
+      FooBar
+    </ButtonToggle>
   </Box>
 );
 

@@ -405,4 +405,32 @@ context("Testing Button-Toggle-Group component", () => {
       }
     );
   });
+
+  describe("rounded corners", () => {
+    it("should have the expected border-radius styling when the children have the grouped prop set", () => {
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponentGroupedChildren />
+      );
+
+      buttonToggleLabelPreview(1).should(
+        "have.css",
+        "border-radius",
+        "32px 0px 0px 32px"
+      );
+      buttonToggleLabelPreview(2).should("have.css", "border-radius", "0px");
+      buttonToggleLabelPreview(3).should(
+        "have.css",
+        "border-radius",
+        "0px 32px 32px 0px"
+      );
+    });
+
+    it("should have the expected border-radius styling when children do not have grouped prop set", () => {
+      CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+
+      buttonToggleLabelPreview(1).should("have.css", "border-radius", "32px");
+      buttonToggleLabelPreview(2).should("have.css", "border-radius", "32px");
+      buttonToggleLabelPreview(3).should("have.css", "border-radius", "32px");
+    });
+  });
 });

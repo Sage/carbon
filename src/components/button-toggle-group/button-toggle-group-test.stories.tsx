@@ -90,3 +90,32 @@ export const ButtonToggleGroupDefaultChecked = () => {
     </div>
   );
 };
+
+export const ButtonToggleGroupComponentGroupedChildren = ({ ...props }) => {
+  return (
+    <div>
+      <ButtonToggleGroup
+        id="button-toggle-group-default-id"
+        name="button-toggle-group-default"
+        label="Default example"
+        labelHelp="help message"
+        helpAriaLabel="Help"
+        fieldHelp="field help message"
+        onChange={function noRefCheck() {
+          ("");
+        }}
+        {...props}
+      >
+        <ButtonToggle key="foo" value="foo" grouped>
+          Foo
+        </ButtonToggle>
+        <ButtonToggle key="bar" value="bar" grouped>
+          Bar
+        </ButtonToggle>
+        <ButtonToggle key="baz" value="baz" grouped>
+          Baz
+        </ButtonToggle>
+      </ButtonToggleGroup>
+    </div>
+  );
+};
