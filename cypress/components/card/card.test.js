@@ -25,6 +25,7 @@ import {
   draggableCard,
   draggableContainer,
   columnCard,
+  footerCard,
 } from "../../locators/card/index";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 import {
@@ -257,4 +258,18 @@ context("Tests for Card component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it.each(["default", "large"])(
+    "should have the expected border radius styling when roundness is %s",
+    (roundness) => {
+      const result = roundness === "default" ? "8px" : "16px";
+      CypressMountWithProviders(<CardComponent roundness={roundness} />);
+      card().should("have.css", "border-radius", result);
+      footerCard().should(
+        "have.css",
+        "border-radius",
+        `0px 0px ${result} ${result}`
+      );
+    }
+  );
 });

@@ -13,3 +13,5 @@ export const draggableContainer = (index) =>
 
 export const columnCard = () =>
   cy.get(`[data-element="card-column"]`).find("div:nth-child(2)");
+
+export const footerCard = () => cy.get(`[data-element="card-footer"]`);
