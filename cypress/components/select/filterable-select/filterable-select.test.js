@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import FilterableSelect from "../../../../src/components/select/filterable-select/filterable-select.component";
-import Option from "../../../../src/components/select/option/option.component";
+import { FilterableSelect, Option } from "../../../../src/components/select";
 import OptionRow from "../../../../src/components/select/option-row/option-row.component";
 import Button from "../../../../src/components/button";
 import Dialog from "../../../../src/components/dialog";
