@@ -313,17 +313,16 @@ context("Testing Tabs component", () => {
     );
 
     it.each(["error", "warning", "info"])(
-      "should no longer report the any validation failures of children no longer mounted",
+      "should no longer report any %s validation failures of children no longer mounted",
       (type) => {
-        const validation = { [type]: true };
-
         CypressMountWithProviders(
-          <TabsComponentValidationsUnregistering validation={validation} />
+          <TabsComponentValidationsUnregistering validationType={type} />
         );
 
+        tabById(1).get(ICON).should("exist");
         getDataElementByValue("foo-button").click();
 
-        tabById(1).children().children().should("not.exist");
+        tabById(1).get(ICON).should("not.exist");
       }
     );
 

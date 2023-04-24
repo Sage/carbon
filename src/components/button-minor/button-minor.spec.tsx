@@ -6,6 +6,7 @@ import {
   ButtonTypes,
   SizeOptions,
 } from "../button/button.component";
+import StyledIcon from "../icon/icon.style";
 import ButtonMinor from "./button-minor.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
@@ -87,6 +88,28 @@ describe("Button Minor", () => {
       assertStyleMatch({ ...styles }, wrapper);
     }
   );
+
+  it("with icon and text children, icon's position is undefined", () => {
+    const wrapper = mount(<ButtonMinor iconType="bin">Foo </ButtonMinor>);
+    assertStyleMatch(
+      {
+        position: undefined,
+      },
+      wrapper,
+      { modifier: `${StyledIcon}` }
+    );
+  });
+
+  it("when icon only, icon's position is absolute", () => {
+    const wrapper = mount(<ButtonMinor iconType="bin" />);
+    assertStyleMatch(
+      {
+        position: "absolute",
+      },
+      wrapper,
+      { modifier: `${StyledIcon}` }
+    );
+  });
 
   it("when destructive prop is passed, renders with destructive styling", () => {
     const wrapper = mount(<ButtonMinor destructive>foo</ButtonMinor>);
