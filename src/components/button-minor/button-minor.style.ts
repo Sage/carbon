@@ -17,6 +17,14 @@ function makeColors(color: string) {
 }
 
 const StyledButtonMinor = styled(Button)`
+  ${({ children }) =>
+    !children &&
+    css`
+      ${StyledIcon} {
+        position: absolute;
+      }
+    `}
+
   ${({ buttonType, destructive, disabled }) =>
     !destructive &&
     !disabled &&
