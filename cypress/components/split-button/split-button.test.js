@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import SplitButton from "../../../src/components/split-button";
-import Button from "../../../src/components/button";
+import React from "react";
+import {
+  SplitButtonList,
+  SplitButtonNestedInDialog,
+} from "../../../src/components/split-button/split-button-test.stories.tsx";
 import { Accordion } from "../../../src/components/accordion";
-import Dialog from "../../../src/components/dialog";
+import * as stories from "../../../src/components/split-button/split-button.stories.tsx";
 
 import { buttonSubtextPreview } from "../../locators/button";
 import { keyCode, positionOfElement } from "../../../cypress/support/helper";
-import { icon, getDataElementByValue } from "../../locators";
+import { cyRoot, icon, getDataElementByValue } from "../../locators";
 
 import {
   splitToggleButton,
@@ -23,33 +25,10 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-const SplitButtonList = ({ ...props }) => {
-  return (
-    <SplitButton text="default text" {...props}>
-      <Button>Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </SplitButton>
-  );
-};
-
-const SplitButtonNestedInDialog = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <SplitButton text="default text">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </Dialog>
-  );
-};
-
-context("Tests for Split Button component", () => {
-  describe("check props for Split Button component", () => {
+context("Tests for SplitButton component", () => {
+  describe("check props for SplitButton component", () => {
     it.each(testData)(
-      "should render Split Button text using %s as special characters",
+      "should render SplitButton text using %s as special characters",
       (text) => {
         CypressMountWithProviders(<SplitButtonList text={text} />);
 
@@ -58,7 +37,7 @@ context("Tests for Split Button component", () => {
     );
 
     it.each(testData)(
-      "should render Split Button subtext with %s as special characters",
+      "should render SplitButton subtext with %s as special characters",
       (subtext) => {
         CypressMountWithProviders(
           <SplitButtonList size="large" subtext={subtext} />
@@ -68,7 +47,7 @@ context("Tests for Split Button component", () => {
       }
     );
 
-    it("should check Split Button data element prop", () => {
+    it("should check SplitButton data element prop", () => {
       CypressMountWithProviders(
         <SplitButtonList data-element="split-button-cypress-element" />
       );
@@ -80,7 +59,7 @@ context("Tests for Split Button component", () => {
       );
     });
 
-    it("should check Split Button data role prop", () => {
+    it("should check SplitButton data role prop", () => {
       CypressMountWithProviders(
         <SplitButtonList data-role="split-button-cypress-role" />
       );
@@ -93,7 +72,7 @@ context("Tests for Split Button component", () => {
     });
 
     it.each(["left", "right"])(
-      "should align the Split Button to the %s",
+      "should align the SplitButton to the %s",
       (alignment) => {
         CypressMountWithProviders(<SplitButtonList align={alignment} />);
 
@@ -101,7 +80,7 @@ context("Tests for Split Button component", () => {
       }
     );
 
-    it("should check Split Button is disabled", () => {
+    it("should check SplitButton is disabled", () => {
       CypressMountWithProviders(<SplitButtonList disabled />);
 
       mainButton().trigger("mouseover", { force: true });
@@ -115,7 +94,7 @@ context("Tests for Split Button component", () => {
       ["after", "left"],
       ["before", "right"],
     ])(
-      "should set position to %s for icon in a Split Button",
+      "should set position to %s for icon in a SplitButton",
       (iconPosition, margin) => {
         CypressMountWithProviders(
           <SplitButtonList iconType="add" iconPosition={iconPosition}>
@@ -127,7 +106,7 @@ context("Tests for Split Button component", () => {
       }
     );
 
-    it("should invoke Split Button component and expands", () => {
+    it("should invoke SplitButton component and expands", () => {
       CypressMountWithProviders(<SplitButtonList />);
 
       getDataElementByValue("dropdown").trigger("mouseover");
@@ -137,7 +116,7 @@ context("Tests for Split Button component", () => {
       splitToggleButton().should("have.attr", "aria-expanded", "true");
     });
 
-    it("should click a main element of Split Button component", () => {
+    it("should click a main element of SplitButton component", () => {
       const callback = cy.stub();
 
       CypressMountWithProviders(<SplitButtonList onClick={callback} />);
@@ -150,7 +129,7 @@ context("Tests for Split Button component", () => {
         });
     });
 
-    it("should invoke Split Button component in a hidden container", () => {
+    it("should invoke SplitButton component in a hidden container", () => {
       CypressMountWithProviders(
         <Accordion title="Heading">
           <SplitButtonList />
@@ -460,12 +439,12 @@ context("Tests for Split Button component", () => {
     }
   );
   // https://github.com/cypress-io/cypress/issues/21511
-  describe("should check colors for Split Button component", () => {
+  describe("should check colors for SplitButton component", () => {
     it.each([
       ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
       ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
     ])(
-      "check %s type of Split Button uses %s as background color and %s as color and %s as border color",
+      "check %s type of SplitButton uses %s as background color and %s as color and %s as border color",
       (buttonType, backgroundColor, color, borderColor) => {
         CypressMountWithProviders(<SplitButtonList buttonType={buttonType} />);
 
@@ -482,7 +461,7 @@ context("Tests for Split Button component", () => {
     );
   });
 
-  describe("when nested inside of a Dialog component", () => {
+  describe("when SplitButton is nested inside of a Dialog component", () => {
     it("should not close the Dialog when SplitButton is closed by pressing an escape key", () => {
       CypressMountWithProviders(<SplitButtonNestedInDialog />);
 
@@ -497,5 +476,118 @@ context("Tests for Split Button component", () => {
       splitToggleButton().eq(0).type("{esc}");
       alertDialogPreview().should("not.exist");
     });
+  });
+});
+
+describe("check accessibility for SplitButton component", () => {
+  it("should pass accessibility tests for SplitButton Default story", () => {
+    CypressMountWithProviders(<stories.Default />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton Default story when the additional buttons are opened", () => {
+    CypressMountWithProviders(<stories.Default />);
+
+    splitToggleButton().eq(0).trigger("click");
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton Disabled story", () => {
+    CypressMountWithProviders(<stories.Disabled />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton ButtonTypes story", () => {
+    CypressMountWithProviders(<stories.ButtonTypes />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton ButtonTypes story Primary type", () => {
+    CypressMountWithProviders(<stories.ButtonTypes />);
+
+    splitToggleButton().eq(0).trigger("click");
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton ButtonTypes story Primary type hover main button", () => {
+    CypressMountWithProviders(<stories.ButtonTypes />);
+
+    splitMainButtonDataComponent(positionOfElement("first")).realHover();
+
+    cy.checkAccessibility();
+
+    // to reset hover()
+    cyRoot().realHover({ position: "topLeft" });
+  });
+
+  it("should pass accessibility tests for SplitButton ButtonTypes story Primary type hover additional button", () => {
+    CypressMountWithProviders(<stories.ButtonTypes />);
+
+    splitToggleButton().eq(0).realHover();
+
+    cy.checkAccessibility();
+
+    // to reset hover()
+    cyRoot().realHover({ position: "topLeft" });
+  });
+
+  it("should pass accessibility tests for SplitButton ButtonTypes story Secondary type hover main button", () => {
+    CypressMountWithProviders(<stories.ButtonTypes />);
+
+    splitMainButtonDataComponent(positionOfElement("third")).realHover();
+
+    cy.checkAccessibility();
+
+    // to reset hover()
+    cyRoot().realHover({ position: "topLeft" });
+  });
+
+  it("should pass accessibility tests for SplitButton ButtonTypes story Secondary type hover additional button", () => {
+    CypressMountWithProviders(<stories.ButtonTypes />);
+
+    splitToggleButton().eq(1).realHover();
+
+    cy.checkAccessibility();
+
+    // to reset hover()
+    cyRoot().realHover({ position: "topLeft" });
+  });
+
+  it("should pass accessibility tests for SplitButton Sizes story", () => {
+    CypressMountWithProviders(<stories.Sizes />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton Align story", () => {
+    CypressMountWithProviders(<stories.Align />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton Subtext story", () => {
+    CypressMountWithProviders(<stories.Subtext />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton WithIcon story", () => {
+    CypressMountWithProviders(<stories.WithIcon />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for SplitButton InOverflowHiddenContainer story", () => {
+    CypressMountWithProviders(<stories.InOverflowHiddenContainer />);
+
+    accordionDefaultTitle().click();
+    splitToggleButton().eq(0).trigger("click");
+
+    cy.checkAccessibility();
   });
 });

@@ -94,6 +94,11 @@ context("Test for Button Minor component", () => {
       }
     );
 
+    it("when icon only, icon's position is absolute", () => {
+      CypressMountWithProviders(<ButtonMinor iconType="bin" />);
+      icon().should("have.css", "position", "absolute");
+    });
+
     it.each([
       [BUTTON_SIZES[0], 32],
       [BUTTON_SIZES[1], 40],

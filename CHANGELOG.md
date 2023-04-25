@@ -1,3 +1,21 @@
+## [118.1.0](https://github.com/Sage/carbon/compare/v118.0.0...v118.1.0) (2023-04-24)
+
+
+### Features
+
+* **minor-button:** add position: absolute property to icon when component is icon only ([72af0f4](https://github.com/Sage/carbon/commit/72af0f441d98e6647d64a77e10f8675ce8b4b1f3)), closes [#5946](https://github.com/Sage/carbon/issues/5946)
+
+## [118.0.0](https://github.com/Sage/carbon/compare/v117.7.1...v118.0.0) (2023-04-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* Please see updated LICENSE file.
+
+### Miscellaneous Chores
+
+* update copyright holder ([0ea7d05](https://github.com/Sage/carbon/commit/0ea7d059ce33f2a96107ead5e6f9b402fa67b100))
+
 ### [117.7.1](https://github.com/Sage/carbon/compare/v117.7.0...v117.7.1) (2023-04-20)
 
 

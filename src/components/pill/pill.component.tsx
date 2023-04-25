@@ -19,7 +19,7 @@ export interface PillProps extends StyledPillProps {
   onClick?: (ev: React.MouseEvent<HTMLSpanElement>) => void;
   /** Callback function for when the remove icon is clicked. */
   onDelete?: (
-    ev:
+    ev?:
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>
   ) => void;
@@ -27,6 +27,8 @@ export interface PillProps extends StyledPillProps {
   pillRole?: "tag" | "status";
   /** Sets custom aria-label attribute on the remove button */
   ariaLabelOfRemoveButton?: string;
+  /** @private @ignore title attribute passed down to underlying element */
+  title?: string;
 }
 
 export const Pill = ({

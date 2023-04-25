@@ -1,8 +1,7 @@
 import React from "react";
 import Textbox from "../../../src/components/textbox";
 import Decimal from "../../../src/components/decimal";
-import SimpleSelect from "../../../src/components/select/simple-select/simple-select.component";
-import Option from "../../../src/components/select/option/option.component";
+import { Option, Select as SimpleSelect } from "../../../src/components/select";
 import InlineInputs from "../../../src/components/inline-inputs/inline-inputs.component";
 import * as stories from "../../../src/components/inline-inputs/inline-inputs.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
