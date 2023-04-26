@@ -11,6 +11,7 @@ import {
   MenuItemIcon,
   SubMenuItemIcon,
   StyledMenuItem,
+  StyledMenuItemWrapper,
 } from "../action-popover.style";
 import Events from "../../../__internal__/utils/helpers/events";
 import createGuid from "../../../__internal__/utils/helpers/guid";
@@ -196,7 +197,7 @@ export const ActionPopoverItem = ({
   );
 
   const onKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    (e: React.KeyboardEvent<HTMLElement>) => {
       if (Events.isSpaceKey(e)) {
         e.preventDefault();
         e.stopPropagation();
@@ -232,7 +233,8 @@ export const ActionPopoverItem = ({
             ref.current?.click();
           }
           e.preventDefault();
-          onClick(e);
+          // this type assertion should be safe as the onclick handler is designed to catch events propagating from the inner buttons
+          onClick(e as React.KeyboardEvent<HTMLButtonElement>);
         }
       } else if (Events.isEnterKey(e)) {
         e.stopPropagation();
@@ -243,23 +245,6 @@ export const ActionPopoverItem = ({
 
   const itemSubmenuProps = {
     ...(!disabled && {
-      onMouseEnter: (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (mouseEnterTimer.current) clearTimeout(mouseEnterTimer.current);
-
-        setFocusIndex(-1);
-        mouseEnterTimer.current = setTimeout(() => {
-          setOpen(true);
-        }, INTERVAL);
-        e.stopPropagation();
-      },
-      onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (mouseLeaveTimer.current) clearTimeout(mouseLeaveTimer.current);
-
-        mouseLeaveTimer.current = setTimeout(() => {
-          setOpen(false);
-        }, INTERVAL);
-        e.stopPropagation();
-      },
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
         setOpen(true);
         ref.current?.focus();
@@ -273,48 +258,73 @@ export const ActionPopoverItem = ({
     "aria-expanded": isOpen,
   };
 
+  const wrapperDivProps = {
+    ...(!disabled && {
+      onMouseEnter: (e: React.MouseEvent<HTMLDivElement>) => {
+        if (mouseEnterTimer.current) clearTimeout(mouseEnterTimer.current);
+
+        setFocusIndex(-1);
+        mouseEnterTimer.current = setTimeout(() => {
+          setOpen(true);
+        }, INTERVAL);
+        e.stopPropagation();
+      },
+      onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
+        if (mouseLeaveTimer.current) clearTimeout(mouseLeaveTimer.current);
+
+        mouseLeaveTimer.current = setTimeout(() => {
+          setOpen(false);
+        }, INTERVAL);
+        e.stopPropagation();
+      },
+    }),
+  };
+
   const renderMenuItemIcon = () => {
     return icon && <MenuItemIcon as={undefined} type={icon} />;
   };
 
   return (
-    <StyledMenuItem
-      {...rest}
-      ref={ref}
-      onClick={onClick}
-      onKeyDown={onKeyDown}
-      type="button"
-      tabIndex={0}
-      role="menuitem"
-      isDisabled={disabled}
-      horizontalAlignment={horizontalAlignment}
-      {...(disabled && { "aria-disabled": true })}
-      {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
-      {...(submenu && itemSubmenuProps)}
-    >
-      {React.isValidElement(submenu)
-        ? React.cloneElement(submenu, {
-            parentID: `ActionPopoverItem_${guid}`,
-            menuID: `ActionPopoverMenu_${guid}`,
-            "data-element": "action-popover-submenu",
-            isOpen,
-            ref: submenuRef,
-            style: containerPosition,
-            setOpen,
-            setFocusIndex,
-            focusIndex,
-          })
-        : null}
-      {submenu && checkRef(ref) && isLeftAligned ? (
-        <SubMenuItemIcon type="chevron_left" />
-      ) : null}
-      {horizontalAlignment === "left" ? renderMenuItemIcon() : null}
-      {children}
-      {horizontalAlignment === "right" ? renderMenuItemIcon() : null}
-      {submenu && checkRef(ref) && !isLeftAligned ? (
-        <SubMenuItemIcon type="chevron_right" />
-      ) : null}
-    </StyledMenuItem>
+    <StyledMenuItemWrapper {...(submenu && wrapperDivProps)}>
+      <div onKeyDown={onKeyDown} role="presentation">
+        <StyledMenuItem
+          {...rest}
+          ref={ref}
+          onClick={onClick}
+          type="button"
+          role="menuitem"
+          tabIndex={0}
+          isDisabled={disabled}
+          horizontalAlignment={horizontalAlignment}
+          {...(disabled && { "aria-disabled": true })}
+          {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
+          {...(submenu && itemSubmenuProps)}
+        >
+          {submenu && checkRef(ref) && isLeftAligned ? (
+            <SubMenuItemIcon type="chevron_left" />
+          ) : null}
+          {horizontalAlignment === "left" ? renderMenuItemIcon() : null}
+          {children}
+          {horizontalAlignment === "right" ? renderMenuItemIcon() : null}
+          {submenu && checkRef(ref) && !isLeftAligned ? (
+            <SubMenuItemIcon type="chevron_right" />
+          ) : null}
+        </StyledMenuItem>
+        {React.isValidElement(submenu)
+          ? React.cloneElement(submenu, {
+              parentID: `ActionPopoverItem_${guid}`,
+              menuID: `ActionPopoverMenu_${guid}`,
+              "data-element": "action-popover-submenu",
+              isOpen,
+              ref: submenuRef,
+              style: containerPosition,
+              setOpen,
+              setFocusIndex,
+              focusIndex,
+            })
+          : null}
+      </div>
+    </StyledMenuItemWrapper>
   );
 };
 

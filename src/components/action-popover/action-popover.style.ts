@@ -16,7 +16,7 @@ const Menu = styled.div`
   border-radius: var(--borderRadius100);
   background-color: var(--colorsUtilityYang100);
   z-index: ${({ theme }) =>
-    `${theme.zIndex.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
+    `${theme.zIndex?.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
 `;
 
 type StyledMenuItemProps = {
@@ -73,6 +73,10 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
         cursor: pointer;
       }
     `}
+`;
+
+const StyledMenuItemWrapper = styled.div`
+  position: relative;
 `;
 
 const MenuItemDivider = styled.div.attrs({
@@ -159,4 +163,5 @@ export {
   SubMenuItemIcon,
   MenuButtonOverrideWrapper,
   StyledMenuItem,
+  StyledMenuItemWrapper,
 };
