@@ -516,3 +516,118 @@ export const FlatTableStory = ({
     }}
   </Story>
 </Canvas>
+
+### with sticky footer with horizontal overflow, width and overflowX
+
+<Canvas>
+  <Story 
+    name="with sticky footer with horizontal overflow, width and overflowX"
+    parameters={{
+      chromatic: { viewports: [600, 1800] },
+    }}>
+    {() => {
+      const rows = [
+    <FlatTableRow key="0">
+      <FlatTableCell>
+        John Doe
+        LoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsum
+      </FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="1">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="2">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="3">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>5</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="4">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="5">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>
+  ];
+  const [recordsRange, setRecordsRange] = useState({
+    start: 0,
+    end: 5
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const renderRows = () => {
+    const { start, end } = recordsRange;
+    if (start < 0) return rows;
+    if (end > rows.length) return rows.slice(start, rows.length);
+    return rows.slice(start, end);
+  };
+  const handlePagination = (newPage, newPageSize) => {
+    const start = (newPage - 1) * newPageSize;
+    const end = start + newPageSize;
+    setRecordsRange({
+      start,
+      end
+    });
+    setCurrentPage(newPage);
+  };
+  return (
+    <>
+      <Box height="220px" marginBottom="16px">
+        <FlatTable
+          hasStickyHead
+          hasStickyFooter
+          width="310px"
+          overflowX="auto"
+          footer={
+            <Pager
+              totalRecords={rows.length}
+              showPageSizeSelection
+              pageSize={5}
+              currentPage={currentPage}
+              onPagination={(next, size) => handlePagination(next, size)}
+              pageSizeSelectionOptions={[
+                {
+                  id: "1",
+                  name: 1
+                },
+                {
+                  id: "5",
+                  name: 5
+                }
+              ]}
+            />
+          }
+        >
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Name</FlatTableHeader>
+              <FlatTableHeader>Location</FlatTableHeader>
+              <FlatTableHeader>Relationship Status</FlatTableHeader>
+              <FlatTableHeader>Dependents</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>{renderRows()}</FlatTableBody>
+        </FlatTable>
+      </Box>
+    </>
+  );
+    }}
+  </Story>
+</Canvas>
