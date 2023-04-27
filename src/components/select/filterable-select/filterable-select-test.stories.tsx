@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import partialAction from "../../../__internal__/utils/storybook/partial-action";
+import partialAction from "../../../../.storybook/utils/partial-action";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import OptionRow from "../option-row/option-row.component";
 import Dialog from "../../dialog";

@@ -2,7 +2,7 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import styled from "styled-components";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-import DeprecationWarning from "../../__internal__/DeprecationWarning";
+import DeprecationWarning from "../../../.storybook/docs-helpers/components/deprecation-warning";
 
 import ShowEditPod from "./";
 import Heading from "../heading";
@@ -15,7 +15,9 @@ import Textbox from "../textbox";
 # ShowEditPod
 
 <DeprecationWarning>
-We've deprecated ShowEditPod. It's no longer available in the Design System and we recommend that you do not use it in new products. See Related Components section for alternatives.
+  We've deprecated ShowEditPod. It's no longer available in the Design System
+  and we recommend that you do not use it in new products. See Related
+  Components section for alternatives.
 </DeprecationWarning>
 
 ## Contents
@@ -196,7 +198,10 @@ import ShowEditPod from "carbon-react/lib/components/show-edit-pod";
 ### Custom transition
 
 <Canvas>
-  <Story name="custom transition" parameters={{ chromatic: { disableSnapshot: true } }}>
+  <Story
+    name="custom transition"
+    parameters={{ chromatic: { disableSnapshot: true } }}
+  >
     {() => {
       const StyledContainer = styled.div`
         .custom-transition-name-enter {

@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const DeprecationWarning = ({ children }) => (
+const DeprecationWarning = ({ children }: { children: React.ReactNode }) => (
   <div
     style={{
       backgroundColor: "red",
@@ -15,9 +14,5 @@ const DeprecationWarning = ({ children }) => (
     {children}
   </div>
 );
-
-DeprecationWarning.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default DeprecationWarning;
