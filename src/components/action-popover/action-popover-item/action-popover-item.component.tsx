@@ -19,7 +19,9 @@ import ActionPopoverContext from "../action-popover-context";
 import useLocale from "../../../hooks/__internal__/useLocale";
 
 import { IconType } from "../../icon";
-import ActionPopoverMenu from "../action-popover-menu/action-popover-menu.component";
+import ActionPopoverMenu, {
+  ActionPopoverMenuProps,
+} from "../action-popover-menu/action-popover-menu.component";
 
 export interface ActionPopoverItemProps {
   /** The text label to display for this Item */
@@ -311,17 +313,20 @@ export const ActionPopoverItem = ({
           ) : null}
         </StyledMenuItem>
         {React.isValidElement(submenu)
-          ? React.cloneElement(submenu, {
-              parentID: `ActionPopoverItem_${guid}`,
-              menuID: `ActionPopoverMenu_${guid}`,
-              "data-element": "action-popover-submenu",
-              isOpen,
-              ref: submenuRef,
-              style: containerPosition,
-              setOpen,
-              setFocusIndex,
-              focusIndex,
-            })
+          ? React.cloneElement<ActionPopoverMenuProps>(
+              submenu as React.ReactElement<ActionPopoverMenuProps>,
+              {
+                parentID: `ActionPopoverItem_${guid}`,
+                menuID: `ActionPopoverMenu_${guid}`,
+                "data-element": "action-popover-submenu",
+                isOpen,
+                ref: submenuRef,
+                style: containerPosition,
+                setOpen,
+                setFocusIndex,
+                focusIndex,
+              }
+            )
           : null}
       </div>
     </StyledMenuItemWrapper>
