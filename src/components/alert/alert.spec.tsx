@@ -7,8 +7,9 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledDialog } from "../dialog/dialog.style";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(guid as jest.MockedFunction<any>).mockImplementation(() => "guid-12345");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(
+  () => "guid-12345"
+);
 
 describe("Alert", () => {
   let wrapper: ReactWrapper;
