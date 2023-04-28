@@ -90,7 +90,7 @@ describe("SimpleColorPicker", () => {
 
   describe("Deprecation warning for uncontrolled", () => {
     it("should display deprecation warning once", () => {
-      <SimpleColor id="1" key={`radio-key-${1}`} value="#0073C1" />;
+      mount(<SimpleColorPicker legend="uncontrolled" name="uncontrolled" />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
         "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
