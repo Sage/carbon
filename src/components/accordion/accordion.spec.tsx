@@ -620,13 +620,25 @@ describe("AccordionGroup", () => {
     wrapper = mount(
       <AccordionGroup>
         <Accordion title="Title_1" defaultExpanded>
-          <Textbox label="Textbox in an Accordion" />
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
         </Accordion>
         <Accordion title="Title_2" defaultExpanded>
-          <Textbox label="Textbox in an Accordion" />
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
         </Accordion>
         <Accordion title="Title_3" defaultExpanded>
-          <Textbox label="Textbox in an Accordion" />
+          <Textbox
+            label="Textbox in an Accordion"
+            value=""
+            onChange={() => {}}
+          />
         </Accordion>
       </AccordionGroup>,
       { attachTo: document.getElementById("enzymeContainer") }
@@ -651,13 +663,13 @@ describe("AccordionGroup", () => {
   testStyledSystemMargin((props) => (
     <AccordionGroup {...props}>
       <Accordion title="Title_1" defaultExpanded>
-        <Textbox label="Textbox in an Accordion" />
+        <Textbox label="Textbox in an Accordion" value="" onChange={() => {}} />
       </Accordion>
       <Accordion title="Title_2" defaultExpanded>
-        <Textbox label="Textbox in an Accordion" />
+        <Textbox label="Textbox in an Accordion" value="" onChange={() => {}} />
       </Accordion>
       <Accordion title="Title_3" defaultExpanded>
-        <Textbox label="Textbox in an Accordion" />
+        <Textbox label="Textbox in an Accordion" value="" onChange={() => {}} />
       </Accordion>
     </AccordionGroup>
   ));
