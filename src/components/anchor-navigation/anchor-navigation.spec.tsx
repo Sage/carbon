@@ -41,7 +41,7 @@ const Content = React.forwardRef<HTMLDivElement, ContentProps>(
   ({ title, noTextbox, tabIndex }: ContentProps, ref) => (
     <>
       <div ref={ref} className="focusableContent" tabIndex={tabIndex}>
-        {!noTextbox && <Textbox label={title} />}
+        {!noTextbox && <Textbox label={title} value="" onChange={() => {}} />}
         <h2>{title}</h2>
       </div>
     </>
