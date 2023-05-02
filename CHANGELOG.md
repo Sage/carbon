@@ -1,3 +1,10 @@
+### [118.1.1](https://github.com/Sage/carbon/compare/v118.1.0...v118.1.1) (2023-05-02)
+
+
+### Bug Fixes
+
+* **tabs:** add type="button" to tab title ([ad352ae](https://github.com/Sage/carbon/commit/ad352aefdcbbe0dbe7cf0fc178968db692797cf3)), closes [#5740](https://github.com/Sage/carbon/issues/5740)
+
 ## [118.1.0](https://github.com/Sage/carbon/compare/v118.0.0...v118.1.0) (2023-04-24)
 
 
