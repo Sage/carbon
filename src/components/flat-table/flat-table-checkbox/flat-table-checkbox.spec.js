@@ -39,20 +39,30 @@ describe("FlatTableCheckbox", () => {
       ).toEqual("test");
     });
   });
-  describe("should stop the event propagation", () => {
-    it("when is clicked", () => {
+  describe("event propagation", () => {
+    it("is stopped on click", () => {
       const stopPropagation = jest.fn();
       const wrapper = render({ onClick: () => {} });
       wrapper.find(Checkbox).props().onClick({ stopPropagation });
       expect(stopPropagation).toHaveBeenCalledTimes(1);
     });
 
-    it("when key is pressed", () => {
+    it("is stopped on keydown and key is not ArrowDown or ArrowUp", () => {
       const stopPropagation = jest.fn();
       const wrapper = render({});
-      wrapper.find(Checkbox).props().onKeyDown({ stopPropagation });
+      wrapper.find(Checkbox).props().onKeyDown({ key: "a", stopPropagation });
       expect(stopPropagation).toHaveBeenCalledTimes(1);
     });
+
+    it.each(["ArrowDown", "ArrowUp"])(
+      "is not stopped when key is %s",
+      (key) => {
+        const stopPropagation = jest.fn();
+        const wrapper = render({});
+        wrapper.find(Checkbox).props().onKeyDown({ key, stopPropagation });
+        expect(stopPropagation).not.toHaveBeenCalled();
+      }
+    );
   });
 
   describe("onClick handler", () => {

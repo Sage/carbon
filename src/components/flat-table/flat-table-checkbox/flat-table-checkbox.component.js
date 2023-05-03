@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import StyledFlatTableCheckbox from "./flat-table-checkbox.style";
 import { Checkbox } from "../../checkbox";
+import Events from "../../../__internal__/utils/helpers/events/events";
 
 const FlatTableCheckbox = ({
   as = "td",
@@ -32,7 +33,9 @@ const FlatTableCheckbox = ({
   };
 
   const handleKeyDown = (event) => {
-    event.stopPropagation();
+    if (!Events.isDownKey(event) && !Events.isUpKey(event)) {
+      event.stopPropagation();
+    }
   };
 
   return (

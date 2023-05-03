@@ -18,6 +18,12 @@ import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.c
 import FlatTableHeader from "../flat-table-header/flat-table-header.component";
 import { FlatTableBodyDraggable } from "..";
 import { FlatTableThemeContext } from "../flat-table.component";
+import guid from "../../../__internal__/utils/helpers/guid";
+
+const mockedGuid = "guid-12345";
+jest.mock("../../../__internal__/utils/helpers/guid");
+
+guid.mockImplementation(() => mockedGuid);
 
 const events = {
   enter: {
@@ -62,7 +68,7 @@ describe("FlatTableRow", () => {
     });
 
     it("then the component should have tabIndex set to 0", () => {
-      expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(0);
+      expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(-1);
     });
 
     it("then the component should have isRowInteractive prop set to true", () => {
@@ -300,7 +306,7 @@ describe("FlatTableRow", () => {
       );
     });
 
-    it('applies a "background-color" to the "FLatTableRowHeader"', () => {
+    it('applies a "background-color" to the "FlatTableRowHeader"', () => {
       wrapper = renderFlatTableRow({
         highlighted: true,
         onClick: jest.fn(),
