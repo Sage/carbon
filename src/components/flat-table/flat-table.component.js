@@ -44,8 +44,6 @@ const FlatTable = ({
     tableStylingProps["aria-describedby"] = ariaDescribedby;
   }
 
-  const shouldRenderFooterOutsideContainer = footer && !width && !overflowX;
-
   return (
     <DrawerSidebarContext.Consumer>
       {({ isInSidebar }) => (
@@ -80,17 +78,12 @@ const FlatTable = ({
                 {children}
               </FlatTableThemeContext.Provider>
             </StyledFlatTable>
-            {!shouldRenderFooterOutsideContainer && (
+            {footer && (
               <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
                 {footer}
               </StyledFlatTableFooter>
             )}
           </StyledTableContainer>
-          {shouldRenderFooterOutsideContainer && (
-            <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
-              {footer}
-            </StyledFlatTableFooter>
-          )}
         </StyledFlatTableWrapper>
       )}
     </DrawerSidebarContext.Consumer>

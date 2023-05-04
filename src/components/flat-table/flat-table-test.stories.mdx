@@ -14,6 +14,7 @@ import {
 import Pager from "../pager";
 import guid from "../../__internal__/utils/helpers/guid";
 import Link from "../link";
+import Box from "../box";
 import { FLAT_TABLE_SIZES, FLAT_TABLE_THEMES } from "./flat-table.config";
 import { FlatTableSortableStory } from "./flat-table.stories.mdx";
 
@@ -403,7 +404,7 @@ export const FlatTableStory = ({
   </Story>
 </Canvas>
 
-
+<!-- The fix should keep this story as it is now -->
 ### with sticky footer with horizontal overflow 
 
 <Canvas>
@@ -517,6 +518,7 @@ export const FlatTableStory = ({
   </Story>
 </Canvas>
 
+<!-- The fix should keep this story as it is now -->
 ### with sticky footer with horizontal overflow, width and overflowX
 
 <Canvas>
@@ -596,7 +598,7 @@ export const FlatTableStory = ({
           width="310px"
           overflowX="auto"
           footer={
-            <Pager
+              <Pager
               totalRecords={rows.length}
               showPageSizeSelection
               pageSize={5}

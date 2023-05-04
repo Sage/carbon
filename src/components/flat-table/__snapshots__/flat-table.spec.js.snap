@@ -139,6 +139,31 @@ exports[`FlatTable when rendered with proper table data should have expected str
   font-weight: 700;
 }
 
+.c1 {
+  display: grid;
+  grid-auto-rows: min-content;
+}
+
+.c2 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.c2 .c5 {
+  height: 40px;
+}
+
+.c2 .c11 > div,
+.c2 .c9 > div,
+.c2 .c7 > div,
+.c2 .c14 > div {
+  font-size: 14px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -147,9 +172,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
   box-sizing: border-box;
   box-shadow: inset 0px 0px 0px 1px var(--colorsUtilityMajor100);
 }
@@ -203,33 +225,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
 .c0 .c11.isSticky,
 .c0 tbody .c14.isSticky {
   z-index: 1000;
-}
-
-.c1 {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
-  gap: 0px 0px;
-}
-
-.c2 {
-  border-collapse: separate;
-  border-radius: 0px;
-  border-spacing: 0;
-  width: 100%;
-}
-
-.c2 .c5 {
-  height: 40px;
-}
-
-.c2 .c11 > div,
-.c2 .c9 > div,
-.c2 .c7 > div,
-.c2 .c14 > div {
-  font-size: 14px;
-  padding-left: 16px;
-  padding-right: 16px;
 }
 
 <div
@@ -377,9 +372,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
         </tr>
       </tbody>
     </table>
-    <div
-      className=""
-    />
   </div>
 </div>
 `;

@@ -13,8 +13,82 @@ const HEADER_OVERLAY_INCREMENT = 3;
 const STICKY_FOOTER_OVERLAY_INCREMENT = 1;
 const ROW_HEADER_OVERLAY_INCREMENT = 5;
 
+const StyledTableContainer = styled.div`
+  display: grid;
+  grid-auto-rows: min-content;
+
+  ${({ width, overflowX }) =>
+    width &&
+    css`
+      width: ${width};
+
+      ${overflowX && `overflow-x: ${overflowX};`}
+    `}
+`;
+
+const StyledFlatTable = styled.table`
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  width: 100%;
+
+  ${({ caption }) =>
+    caption &&
+    css`
+      caption {
+        clip: rect(1px, 1px, 1px, 1px);
+        height: 1px;
+        overflow: hidden;
+        width: 1px;
+        position: absolute;
+        top: -99999px;
+      }
+    `}
+
+  ${({ size }) => {
+    const { height, fontSize, paddingSize } = cellSizes[size];
+
+    return css`
+      ${StyledFlatTableRow} {
+        height: ${height};
+      }
+
+      ${StyledFlatTableCell} > div,
+      ${StyledFlatTableHeader} > div,
+      ${StyledFlatTableRowHeader} > div,
+      ${StyledFlatTableCheckbox} > div {
+        font-size: ${fontSize};
+        padding-left: ${paddingSize};
+        padding-right: ${paddingSize};
+      }
+    `;
+  }}
+
+  ${({ isZebra }) =>
+    isZebra &&
+    css`
+      ${StyledFlatTableRow}:nth-child(2n) {
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCell},
+        ${StyledFlatTableCheckbox} {
+          background-color: var(--colorsUtilityMajor010);
+        }
+      }
+      ${StyledFlatTableRow}:hover {
+        ${StyledFlatTableCell},
+        ${StyledFlatTableRowHeader},
+        ${StyledFlatTableCheckbox}:not(th) {
+          background-color: var(--colorsUtilityMajor025);
+        }
+      }
+    `}
+`;
+
+StyledFlatTable.defaultProps = {
+  size: "medium",
+};
+
 const StyledFlatTableWrapper = styled(Box)`
-  min-width: fit-content;
   ${({ isInSidebar }) =>
     css`
       box-sizing: border-box;
@@ -35,6 +109,7 @@ const StyledFlatTableWrapper = styled(Box)`
         ? "min-width: fit-content"
         : `box-shadow: inset 0px 0px 0px 1px var(--colorsUtilityMajor100)`};
     `}
+
   ${({ colorTheme }) => {
     switch (colorTheme) {
       case "light":
@@ -105,7 +180,8 @@ const StyledFlatTableWrapper = styled(Box)`
         `;
     }
   }}
-      ${({ isInSidebar }) =>
+
+  ${({ isInSidebar }) =>
     isInSidebar &&
     css`
       ${StyledFlatTableHeader}, ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
@@ -116,7 +192,8 @@ const StyledFlatTableWrapper = styled(Box)`
         border-bottom-color: var(--colorsUtilityMajor100);
       }
     `}
-      ${({ hasStickyHead, theme }) =>
+
+  ${({ hasStickyHead, theme }) =>
     hasStickyHead &&
     css`
       ${StyledFlatTableHead} {
@@ -126,9 +203,10 @@ const StyledFlatTableWrapper = styled(Box)`
         z-index: ${theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
       }
     `}
-      ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
-    ${StyledFlatTableHeader}.isSticky,
-    ${StyledFlatTableHead} ${StyledFlatTableCheckbox}.isSticky {
+
+  ${StyledFlatTableHead} ${StyledFlatTableRowHeader},
+  ${StyledFlatTableHeader}.isSticky,
+  ${StyledFlatTableHead} ${StyledFlatTableCheckbox}.isSticky {
     z-index: ${({ theme }) =>
       theme.zIndex.overlay + ROW_HEADER_OVERLAY_INCREMENT};
   }
@@ -152,82 +230,6 @@ const StyledFlatTableWrapper = styled(Box)`
 
 StyledFlatTableWrapper.defaultProps = {
   theme: baseTheme,
-};
-
-const StyledTableContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
-  gap: 0px 0px;
-
-  ${({ width, overflowX }) =>
-    width &&
-    css`
-      width: ${width};
-      ${overflowX && `overflow-x: ${overflowX};`}
-    `}
-`;
-
-const StyledFlatTable = styled.table`
-  border-collapse: separate;
-  border-radius: 0px;
-  border-spacing: 0;
-  width: 100%;
-
-  ${({ caption }) =>
-    caption &&
-    css`
-      caption {
-        clip: rect(1px, 1px, 1px, 1px);
-        height: 1px;
-        overflow: hidden;
-        width: 1px;
-        position: absolute;
-        top: -99999px;
-      }
-    `}
-
-  ${({ size }) => {
-    const { height, fontSize, paddingSize } = cellSizes[size];
-
-    return css`
-      ${StyledFlatTableRow} {
-        height: ${height};
-      }
-
-      ${StyledFlatTableCell} > div,
-      ${StyledFlatTableHeader} > div,
-      ${StyledFlatTableRowHeader} > div,
-      ${StyledFlatTableCheckbox} > div {
-        font-size: ${fontSize};
-        padding-left: ${paddingSize};
-        padding-right: ${paddingSize};
-      }
-    `;
-  }}
-
-  ${({ isZebra }) =>
-    isZebra &&
-    css`
-      ${StyledFlatTableRow}:nth-child(2n) {
-        ${StyledFlatTableRowHeader},
-        ${StyledFlatTableCell},
-        ${StyledFlatTableCheckbox} {
-          background-color: var(--colorsUtilityMajor010);
-        }
-      }
-      ${StyledFlatTableRow}:hover {
-        ${StyledFlatTableCell},
-        ${StyledFlatTableRowHeader},
-        ${StyledFlatTableCheckbox}:not(th) {
-          background-color: var(--colorsUtilityMajor025);
-        }
-      }
-    `}
-`;
-
-StyledFlatTable.defaultProps = {
-  size: "medium",
 };
 
 const StyledFlatTableFooter = styled.div`
