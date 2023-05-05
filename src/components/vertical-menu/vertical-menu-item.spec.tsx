@@ -309,4 +309,16 @@ describe("VerticalMenuItem", () => {
     expect(listItem?.getAttribute("data-element")).toEqual("foo");
     expect(listItem?.getAttribute("data-role")).toEqual("bar");
   });
+
+  it("renders with the expected border radius styling when the item is active", () => {
+    render(<VerticalMenuItem title="Item1" active />);
+
+    expect(screen.getByRole("listitem").firstChild).toHaveStyleRule(
+      "border-radius",
+      "var(--borderRadius100)",
+      {
+        modifier: ":before",
+      }
+    );
+  });
 });

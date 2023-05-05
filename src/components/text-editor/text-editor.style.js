@@ -14,6 +14,8 @@ StyledEditorWrapper.defaultProps = {
 };
 
 const StyledEditorContainer = styled.div`
+  border-radius: var(--borderRadius050);
+
   ${({ hasError, rows, hasPreview }) => css`
     min-height: ${rows
       ? `${rows * lineHeight}`
@@ -63,6 +65,7 @@ const StyledEditorContainer = styled.div`
 
 const StyledEditorOutline = styled.div`
   ${({ isFocused, hasError }) => css`
+    border-radius: var(--borderRadius050);
     outline: none;
     min-width: 320px;
 

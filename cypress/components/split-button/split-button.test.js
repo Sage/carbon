@@ -5,7 +5,8 @@ import {
 } from "../../../src/components/split-button/split-button-test.stories.tsx";
 import { Accordion } from "../../../src/components/accordion";
 import * as stories from "../../../src/components/split-button/split-button.stories.tsx";
-
+import SplitButton from "../../../src/components/split-button"
+import Button from "../../../src/components/button"
 import { buttonSubtextPreview } from "../../locators/button";
 import { keyCode, positionOfElement } from "../../../cypress/support/helper";
 import { cyRoot, icon, getDataElementByValue } from "../../locators";
@@ -476,6 +477,58 @@ context("Tests for SplitButton component", () => {
       splitToggleButton().eq(0).type("{esc}");
       alertDialogPreview().should("not.exist");
     });
+  });
+
+  it("should have the expected border radius and focus styling on main and toggle buttons", () => {
+    CypressMountWithProviders(<SplitButtonList />);
+    mainButton().should("have.css", "border-radius", "32px 0px 0px 32px");
+    mainButton()
+      .focus()
+      .should("have.css", "border", "3px solid rgb(255, 181, 0)");
+    splitToggleButton().should(
+      "have.css",
+      "border-radius",
+      "0px 32px 32px 0px"
+    );
+    splitToggleButton()
+      .focus()
+      .should("have.css", "border", "3px solid rgb(255, 181, 0)");
+  });
+
+  it("should have the expected border radius on children container and buttons", () => {
+    CypressMountWithProviders(<SplitButtonList />);
+
+    splitToggleButton().eq(0).click();
+    additionalButtonsContainer().should("have.css", "border-radius", "8px");
+    additionalButton(0).should("have.css", "border-radius", "8px 8px 0px 0px");
+    additionalButton(1).should("have.css", "border-radius", "0px");
+    additionalButton(2).should("have.css", "border-radius", "0px 0px 8px 8px");
+  });
+
+  it("should have the expected border radius when some children buttons have href prop", () => {
+    CypressMountWithProviders(
+      <SplitButton text="default text">
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button href="#">Button 3</Button>
+      </SplitButton>
+    );
+
+    splitToggleButton().eq(0).click();
+    additionalButton(0).should("have.css", "border-radius", "8px 8px 0px 0px");
+    additionalButton(1).should("have.css", "border-radius", "0px");
+    additionalButton(2).should("have.css", "border-radius", "0px 0px 8px 8px");
+  });
+
+  it("should have the expected border radius when there is only on one child button", () => {
+    CypressMountWithProviders(
+      <SplitButton text="default text">
+        <Button>Button 1</Button>
+      </SplitButton>
+    );
+
+    splitToggleButton().eq(0).click();
+    additionalButton(0).should("have.css", "border-radius", "8px");
   });
 });
 

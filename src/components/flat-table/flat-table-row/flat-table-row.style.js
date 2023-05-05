@@ -209,6 +209,13 @@ const StyledFlatTableRow = styled.tr`
             pointer-events: none;
           }
 
+          :last-child {
+            :after {
+              border-bottom-left-radius: var(--borderRadius100);
+              border-bottom-right-radius: var(--borderRadius100);
+            }
+          }
+
           :first-child {
             :after {
               top: 0px;

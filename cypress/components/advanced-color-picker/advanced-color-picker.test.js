@@ -8,6 +8,7 @@ import {
   advancedColorPicker,
   simpleColorPickerInput,
   simpleColorPickerComponent,
+  advancedColorPickerPreview,
 } from "../../locators/advanced-color-picker";
 import { alertDialogPreview as advancedColorPickerParent } from "../../locators/dialog";
 import { closeIconButton } from "../../locators";
@@ -315,5 +316,10 @@ context("Testing AdvancedColorPicker component", () => {
 
       cy.checkAccessibility();
     });
+  });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<AdvancedColorPickerCustom open />);
+    advancedColorPickerPreview().should("have.css", "border-radius", "4px");
   });
 });

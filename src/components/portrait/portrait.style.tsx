@@ -35,7 +35,8 @@ function stylingForShape({ shape }: StylingForShape) {
   let cssString = "overflow: hidden;";
 
   if (shape === "square") cssString += "border-radius: 0px;";
-  if (shape === "circle") cssString += "border-radius: 50%;";
+  if (shape === "circle")
+    cssString += "border-radius: var(--borderRadiusCircle);";
 
   return css`
     ${cssString}
@@ -61,7 +62,6 @@ function stylingForIcon({ size, darkBackground }: StylingForIcon) {
   return css`
     background-color: ${backgroundColor};
     color: ${color};
-
     ::before {
       font-size: ${params?.iconDimensions}px;
     }
@@ -96,7 +96,6 @@ export const StyledPortraitInitials = styled.div<StyledPortraitInitialsProps>`
   ${stylingForSize}
   ${stylingForShape}
   outline: 1px solid var(--colorsUtilityMajor200);
-
   /* Styling for safari. This ensures that there is no outline on the component but that a border is still present 
      to achieve the same styling as Chrome and Firefox */
   @media not all and (min-resolution: 0.001dpcm) {

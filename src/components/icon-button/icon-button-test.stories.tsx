@@ -3,7 +3,7 @@ import Icon from "../icon";
 import IconButton from ".";
 
 export default {
-  title: "IconButton/Test",
+  title: "Icon Button/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

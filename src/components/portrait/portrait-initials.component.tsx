@@ -25,7 +25,7 @@ export interface PortraitInitialsProps {
 const PortraitInitials = ({
   initials,
   size,
-  shape = "square",
+  shape = "circle",
   darkBackground,
   alt,
 }: PortraitInitialsProps) => {

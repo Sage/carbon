@@ -33,13 +33,17 @@ export interface TileProps extends SpaceProps, WidthProps {
     | "negative"
     | "caution"
     | "info";
+  /** Sets the level of roundness of the corners, "default" is 8px and "large" is 16px */
+  roundness?: "default" | "large";
 }
+
 export const Tile = ({
   variant = "tile",
   p = 3,
   children,
   orientation = "horizontal",
   width,
+  roundness = "default",
   ...props
 }: TileProps) => {
   const isHorizontal = orientation === "horizontal";
@@ -84,6 +88,7 @@ export const Tile = ({
       data-component="tile"
       isHorizontal={isHorizontal}
       p={p}
+      roundness={roundness}
       {...props}
     >
       {wrappedChildren}

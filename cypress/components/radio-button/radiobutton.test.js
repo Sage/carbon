@@ -638,4 +638,10 @@ context("Testing RadioButton component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<RadioButtonComponent />);
+
+    radiobuttonSvg().should("have.css", "border-radius", "50%");
+  });
 });

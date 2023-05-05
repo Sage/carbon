@@ -1434,4 +1434,28 @@ describe("TabTitle", () => {
       expect(wrapper.update().find(Tooltip).prop("isVisible")).toBe(true);
     });
   });
+
+  it.each<TabTitleProps["position"]>(["top", "left"])(
+    "has the expected border radius styling when position is %s",
+    (position) => {
+      const radiusStyling =
+        position === "top"
+          ? {
+              borderTopLeftRadius: "var(--borderRadius100)",
+              borderTopRightRadius: "var(--borderRadius100)",
+              borderBottomRightRadius: "var(--borderRadius000)",
+              borderBottomLeftRadius: "var(--borderRadius000)",
+            }
+          : {
+              borderTopLeftRadius: "var(--borderRadius100)",
+              borderTopRightRadius: "var(--borderRadius000)",
+              borderBottomRightRadius: "var(--borderRadius000)",
+              borderBottomLeftRadius: "var(--borderRadius100)",
+            };
+      assertStyleMatch(
+        radiusStyling,
+        render({ position }, mount).find(StyledTitleContent)
+      );
+    }
+  );
 });

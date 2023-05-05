@@ -434,4 +434,24 @@ context("Testing Duelling-Picklist component", () => {
       });
     });
   });
+
+  it("should render the items with the expected border radius styling", () => {
+    CypressMountWithProviders(<DuellingPicklistComponent />);
+
+    for (let i = 0; i < 5; i++) {
+      addButton(i).click();
+    }
+
+    unassignedPicklistItems().eq(0).should("have.css", "border-radius", "8px");
+    unassignedPicklistItems().eq(1).should("have.css", "border-radius", "8px");
+    unassignedPicklistItems().eq(2).should("have.css", "border-radius", "8px");
+    unassignedPicklistItems().eq(3).should("have.css", "border-radius", "8px");
+    unassignedPicklistItems().eq(4).should("have.css", "border-radius", "8px");
+
+    assignedPicklistItems().eq(0).should("have.css", "border-radius", "8px");
+    assignedPicklistItems().eq(1).should("have.css", "border-radius", "8px");
+    assignedPicklistItems().eq(2).should("have.css", "border-radius", "8px");
+    assignedPicklistItems().eq(3).should("have.css", "border-radius", "8px");
+    assignedPicklistItems().eq(4).should("have.css", "border-radius", "8px");
+  });
 });

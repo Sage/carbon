@@ -21,6 +21,7 @@ import { ErrorBorder, StyledHintText, StyledInputHint } from "./textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -534,5 +535,14 @@ describe("Textbox", () => {
         expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
       });
     });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      mount(<Textbox />).find(StyledInput)
+    );
   });
 });

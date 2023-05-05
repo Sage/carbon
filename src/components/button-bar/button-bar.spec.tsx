@@ -1,6 +1,5 @@
 import React from "react";
 import { mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
 import Icon, { IconType } from "../icon";
 import Button from "../button";
 import ButtonBar from "./button-bar.component";
@@ -17,7 +16,11 @@ const renderButtonBar = (
 ) => {
   const buttons = [];
   for (let i = 0; i < numberOfBtns; i++) {
-    buttons.push(<Button {...btnProps}>{text}</Button>);
+    buttons.push(
+      <Button key={String(i)} {...btnProps}>
+        {text}
+      </Button>
+    );
   }
   return mount(<ButtonBar {...props}>{buttons}</ButtonBar>);
 };
@@ -26,7 +29,7 @@ const renderButtonWithIconBar = (icons: IconType[], props = {}) => {
   const buttons = [];
   for (const icon of icons) {
     buttons.push(
-      <IconButton onClick={() => {}}>
+      <IconButton key={String(buttons.length)} onClick={() => {}}>
         <Icon type={icon} />
       </IconButton>
     );
@@ -60,6 +63,38 @@ describe("Button Bar", () => {
     });
   });
 
+  describe("rounded corners", () => {
+    it("has the expected border radius styling when major button passed as children", () => {
+      const wrapper = renderButtonBar("foo", 3);
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: "button:not(:first-child):not(:last-child)" }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: "button:first-child:not(:last-child)" }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: "button:last-child:not(:first-child)" }
+      );
+    });
+  });
+
   describe("with fullWidth", () => {
     it("renders correctly with single button", () => {
       const wrapper = renderButtonBar("fullWidth", 1, { fullWidth: true });
@@ -69,26 +104,24 @@ describe("Button Bar", () => {
     it("renders correctly with multiple buttons", () => {
       const wrapper = renderButtonBar("fullWidth", 3, { fullWidth: true });
 
-      assertStyleMatch({ width: "100%" }, wrapper.find(ButtonBar));
+      assertStyleMatch({ width: "100%" }, wrapper);
     });
 
     it("renders correctly with small size", () => {
-      const wrapper = TestRenderer.create(
-        <ButtonBar fullWidth size="small">
-          <Button>fullWidth</Button>
-          <Button>fullWidth</Button>
-        </ButtonBar>
-      );
-      assertStyleMatch({ width: "100%" }, wrapper.toJSON());
+      const wrapper = renderButtonBar("fullWidth", 2, {
+        size: "small",
+        fullWidth: true,
+      });
+
+      assertStyleMatch({ width: "100%" }, wrapper);
     });
     it("renders correctly with large size", () => {
-      const wrapper = TestRenderer.create(
-        <ButtonBar fullWidth size="large">
-          <Button>fullWidth</Button>
-          <Button>fullWidth</Button>
-        </ButtonBar>
-      );
-      assertStyleMatch({ width: "100%" }, wrapper.toJSON());
+      const wrapper = renderButtonBar("fullWidth", 2, {
+        size: "large",
+        fullWidth: true,
+      });
+
+      assertStyleMatch({ width: "100%" }, wrapper);
     });
   });
 

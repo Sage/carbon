@@ -4388,11 +4388,11 @@ context("Tests for Flat Table component", () => {
         CypressMountWithProviders(<FlatTablePagerStickyHeaderComponent />);
 
         flatTableBodyRows().should("have.length", 5).and("be.visible");
-        pageSelectInput().trigger("keydown", keyCode("Enter"));
+        pageSelectInput().trigger("keydown", keyCode("Enter"), { force: true });
         flatTablePageSelectListPosition()
           .children()
           .contains(numberOfItems)
-          .click();
+          .click({ force: true });
         flatTableBodyRows()
           .should("have.length", numberOfItems)
           .and("be.visible");
@@ -4656,6 +4656,391 @@ context("Tests for Flat Table component", () => {
           // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
+    });
+  });
+
+  describe("check accessibility tests for Flat Table component", () => {
+    it("should render Flat Table with ariaDescribedBy for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableComponent />);
+      cy.checkAccessibility();
+    });
+
+    it.each([CHARACTERS.SPECIALCHARACTERS, CHARACTERS.DIACRITICS])(
+      "should render Flat Table with caption prop set as %s for accessibility tests",
+      (captionValue) => {
+        CypressMountWithProviders(
+          <FlatTableComponent caption={captionValue} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    // a11y error!scrollable-region-focusable on 1 Node. Ticket FE-5604 logged to investigate
+    it.skip("should render Flat Table Row with cell nodes as children for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableSpanComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with truncated cells for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableTruncateBgComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
+    it.skip("should render Flat Table Checkbox with ariaLabelledBy for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableColorRowSelectableComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with sticky header for accessibility tests", () => {
+      CypressMountWithProviders(
+        <div style={{ height: "150px" }}>
+          <FlatTableComponent hasStickyHead />
+        </div>
+      );
+      cy.wait(300);
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with sticky footer for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableFooterComponent hasStickyFooter />);
+      cy.checkAccessibility();
+    });
+
+    it.each(colorThemes)(
+      "should render Flat Table in the %s theme for accessibility tests",
+      (colorTheme) => {
+        CypressMountWithProviders(
+          <FlatTableComponent colorTheme={colorTheme} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should render Flat Table with zebra stripes for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableComponent isZebra />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(sizes)(
+      "should check Flat Table size is %s for accessibility tests",
+      (sizeName) => {
+        CypressMountWithProviders(<FlatTableComponent size={sizeName} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(heightWidth)(
+      "should render Flat Table with %spx as a height parameter for accessibility tests",
+      (height) => {
+        CypressMountWithProviders(
+          <FlatTableComponent height={`${height}px`} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([150, 249, 250, 251, 300])(
+      "should render Flat Table with %spx as a height parameter and minHeight set to 250px for accessibility tests",
+      (height) => {
+        CypressMountWithProviders(
+          <FlatTableComponent height={`${height}px`} minHeight="250px" />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should render Flat Table with hasMaxHeight parameter for accessibility tests", () => {
+      CypressMountWithProviders(
+        <FlatTableComponent height="400px" hasMaxHeight />
+      );
+      cy.checkAccessibility();
+    });
+
+    it.each(heightWidth)(
+      "should render Flat Table with %spx as a width parameter for accessibility tests",
+      (width) => {
+        CypressMountWithProviders(<FlatTableComponent width={`${width}px`} />);
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["visible", "hidden", "clip", "scroll", "auto"])(
+      "should render Flat Table with %s as a overflowX parameter and width set to 500px for accessibility tests",
+      (overflow) => {
+        CypressMountWithProviders(
+          <FlatTableComponent width="500px" overflowX={overflow} />
+        );
+        cy.checkAccessibility();
+      }
+    );
+
+    // a11y error!scrollable-region-focusable on 1 Node. Ticket FE-5604 logged to investigate
+    it.skip("should render Flat Table with rowSpan set to make header cells span 2 rows for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableSpanComponent width="500px" />);
+      cy.checkAccessibility();
+    });
+
+    // a11y error!scrollable-region-focusable on 1 Node. Ticket FE-5604 logged to investigate
+    it.skip("should render Flat Table with multiple sticky row headers for accessibility tests", () => {
+      cy.viewport(700, 700);
+
+      CypressMountWithProviders(<FlatTableMutipleStickyComponent />);
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with colSpan set to make cells span 4 columns for accessibility tests", () => {
+      CypressMountWithProviders(
+        <FlatTableCellColSpanComponent width="500px" />
+      );
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with rowSpan set to make cells span 3 rows for accessibility tests", () => {
+      CypressMountWithProviders(
+        <FlatTableCellRowSpanComponent width="500px" />
+      );
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with FlatTableFooterComponent for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableFooterComponent />);
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with FlatTableCustomPaddingComponent for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableCustomPaddingComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table Header and Cells with FlatTableVerticalBordersComponent for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableVerticalBordersComponent />);
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with custom horizontal borders for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableHorizontalBordersComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
+    it.skip("should render Flat Table with custom color row for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableColorRowSelectableComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
+    it.skip("should render Flat Table rows with the mouse for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableHighlightableComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table Row Header with truncated string in header for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableTruncateHeaderComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table Row Header with title for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableTitleAlignComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render sorted Flat Table for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableSortingComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with all expandable rows closed for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableNoAccSubRowComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("when first column of expandable row is opened, rendered Flat Table passes accessibility checks", () => {
+      CypressMountWithProviders(<FlatTableFirstColExpandableComponent />);
+      flatTableCell(0).focus().trigger("keydown", keyCode("Space"));
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with all expandable rows expanded for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableAlreadyExpandedComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
+    it.skip("should render Flat Table with parent expandable and child subrows selectable for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableAllSubrowSelectableComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
+    it.skip("should render Flat Table with parent expandable row only selectable for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableParentSubrowSelectableComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    // a11y error!color-contrast on 1 Node. Ticket FE-5766 logged to investigate
+    it.skip("should render Flat Table with child subrow only selectable for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableChildSubrowSelectableComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    // a11y error! empty-table-header on 1 Node. Ticket FE-5767 logged to investigate
+    it.skip("should render Flat Table with FlatTableDraggableComponent for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTableDraggableComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should render Flat Table with pager and sticky header for accessibility tests", () => {
+      CypressMountWithProviders(<FlatTablePagerStickyHeaderComponent />);
+
+      cy.checkAccessibility();
+    });
+  });
+
+  describe("rounded corners", () => {
+    it("has the expected border radius styling when no footer is rendered", () => {
+      CypressMountWithProviders(<FlatTableComponent />);
+
+      flatTableWrapper().should("have.css", "border-radius", "8px");
+      flatTableHeaderCells()
+        .first()
+        .should("have.css", "border-radius", "8px 0px 0px");
+      flatTableHeaderCells()
+        .last()
+        .should("have.css", "border-radius", "0px 8px 0px 0px");
+      flatTableCell(20).should("have.css", "border-radius", "0px 0px 0px 8px");
+      flatTableCell(23).should("have.css", "border-radius", "0px 0px 8px");
+    });
+
+    it("has the expected border radius styling when sticky footer is rendered", () => {
+      CypressMountWithProviders(<FlatTableFooterComponent hasStickyFooter />);
+
+      flatTableWrapper().should("have.css", "border-radius", "8px 8px 0px 0px");
+      flatTableHeaderCells()
+        .first()
+        .should("have.css", "border-radius", "8px 0px 0px");
+      flatTableHeaderCells().last().should("have.css", "border-radius", "0px");
+      flatTableCell(16).should("have.css", "border-radius", "0px");
+      flatTableCell(19).should("have.css", "border-radius", "0px");
+      flatTablePager().should("have.css", "border-radius", "0px");
+    });
+
+    it("has the expected border radius styling when horizontal scrollbar exists", () => {
+      CypressMountWithProviders(
+        <FlatTable
+          width="200px"
+          overflowX="auto"
+          aria-label="Horizontal scroll table"
+        >
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Foo</FlatTableHeader>
+              <FlatTableHeader>Bar</FlatTableHeader>
+              <FlatTableHeader>Wiz</FlatTableHeader>
+              <FlatTableHeader>Foo</FlatTableHeader>
+              <FlatTableHeader>Bar</FlatTableHeader>
+              <FlatTableHeader>Wiz</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      flatTableCell(6).should("have.css", "border-radius", "0px");
+      flatTableCell(11).should("have.css", "border-radius", "0px");
+    });
+
+    it("has the expected border radius styling when first column has rowspan", () => {
+      CypressMountWithProviders(
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Foo</FlatTableHeader>
+              <FlatTableHeader>Bar</FlatTableHeader>
+              <FlatTableHeader>Wiz</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell rowspan="2">Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      flatTableCell(0).should("have.css", "border-radius", "0px 0px 0px 8px");
+      flatTableCell(3).should("have.css", "border-radius", "0px");
+      flatTableCell(4).should("have.css", "border-radius", "0px 0px 8px");
+    });
+
+    it("has the expected border radius styling when last column has rowspan", () => {
+      CypressMountWithProviders(
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Foo</FlatTableHeader>
+              <FlatTableHeader>Bar</FlatTableHeader>
+              <FlatTableHeader>Wiz</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell rowspan="2">Wiz</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      flatTableCell(2).should("have.css", "border-radius", "0px 0px 8px");
+      flatTableCell(3).should("have.css", "border-radius", "0px 0px 0px 8px");
+      flatTableCell(4).should("have.css", "border-radius", "0px");
     });
   });
 });

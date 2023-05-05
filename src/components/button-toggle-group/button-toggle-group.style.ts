@@ -14,6 +14,24 @@ type StyledButtonToggleGroupProps = ValidationProps &
 const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
   display: flex;
 
+  ${StyledButtonToggleLabel}:not(:first-of-type):not(:last-of-type) {
+    border-radius: var(--borderRadius000);
+  }
+
+  ${StyledButtonToggle}:first-of-type ${StyledButtonToggleLabel} {
+    border-top-left-radius: var(--borderRadius400);
+    border-bottom-left-radius: var(--borderRadius400);
+    border-top-right-radius: var(--borderRadius000);
+    border-bottom-right-radius: var(--borderRadius000);
+  }
+
+  ${StyledButtonToggle}:last-of-type ${StyledButtonToggleLabel} {
+    border-top-left-radius: var(--borderRadius000);
+    border-bottom-left-radius: var(--borderRadius000);
+    border-top-right-radius: var(--borderRadius400);
+    border-bottom-right-radius: var(--borderRadius400);
+  }
+
   ${({ fullWidth }) =>
     fullWidth &&
     css`
@@ -23,20 +41,20 @@ const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
       ${StyledButtonToggle} {
         flex: auto;
       }
-    `};
+    `}
 
   ${({ inputWidth }) =>
     inputWidth &&
     css`
       width: ${`${inputWidth}%`};
-    `};
+    `}
 
   ${StyledButtonToggleLabel} {
     ${({ info }) =>
       info &&
       css`
         border-color: var(--colorsSemanticInfo500);
-      `};
+      `}
     ${({ warning }) =>
       warning &&
       css`

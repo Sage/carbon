@@ -665,4 +665,18 @@ context("Testing Tabs component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it.each(["top", "left"])(
+    "has the expected border radius styling when position is %s",
+    (position) => {
+      CypressMountWithProviders(<TabsComponent position={position} />);
+      const result = position === "top" ? "8px 8px 0px 0px" : "8px 0px 0px 8px";
+
+      tabById(1).should("have.css", "border-radius", result);
+      tabById(2).should("have.css", "border-radius", result);
+      tabById(3).should("have.css", "border-radius", result);
+      tabById(4).should("have.css", "border-radius", result);
+      tabById(5).should("have.css", "border-radius", result);
+    }
+  );
 });

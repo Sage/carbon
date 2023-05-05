@@ -48,7 +48,7 @@ Default.args = {
   initials: "",
   iconType: undefined,
   size: "M",
-  shape: "square",
+  shape: "circle",
 };
 
 export const PortraitDefaultComponent = ({ ...props }) => {

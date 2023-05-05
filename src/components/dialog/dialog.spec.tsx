@@ -750,4 +750,22 @@ describe("Dialog", () => {
       }
     );
   });
+
+  it("applies the expected border radius to the main container and footer elements", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius200)",
+      },
+      wrapper.find(StyledDialog)
+    );
+
+    assertStyleMatch(
+      {
+        borderBottomRightRadius: "var(--borderRadius200)",
+        borderBottomLeftRadius: "var(--borderRadius200)",
+      },
+      wrapper.find(StyledDialog),
+      { modifier: `${StyledFormFooter}.sticky` }
+    );
+  });
 });

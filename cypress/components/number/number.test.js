@@ -425,4 +425,9 @@ context("Tests for Number component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<NumberInputComponent />);
+    getElement("input").should("have.css", "border-radius", "4px");
+  });
 });

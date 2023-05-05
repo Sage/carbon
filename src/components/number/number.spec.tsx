@@ -6,6 +6,7 @@ import Label from "../../__internal__/label";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -245,5 +246,14 @@ describe("Number Input", () => {
 
       expect(ref.current).toBe(null);
     });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      mount(<Number />).find(StyledInput)
+    );
   });
 });

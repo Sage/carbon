@@ -38,7 +38,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   min-width: -moz-fit-content;
   min-width: fit-content;
   z-index: 2;
-  border-radius: 90px;
+  border-radius: var(--borderRadius400);
   border-style: solid;
   border-color: var(--colorsActionMinor400);
   border-width: var(--borderWidth200);

@@ -929,4 +929,9 @@ context("Tests for Textbox component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<stories.TextboxComponent />);
+    getElement("input").should("have.css", "border-radius", "4px");
+  });
 });

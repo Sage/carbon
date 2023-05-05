@@ -7,7 +7,7 @@ import NumeralDate, {
   ValidDateFormat,
 } from "./numeral-date.component";
 import Textbox from "../textbox";
-import { StyledNumeralDate } from "./numeral-date.style";
+import { StyledDateField, StyledNumeralDate } from "./numeral-date.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -21,6 +21,7 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import Logger from "../../__internal__/utils/logger";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -688,5 +689,26 @@ describe("NumeralDate", () => {
         expect(ref.current).toBe(null);
       });
     });
+  });
+
+  it("renders with the expected border radius styling on first and last inputs", () => {
+    wrapper = renderWrapper({ value: { dd: "02", mm: "01", yyyy: "2020" } });
+    assertStyleMatch(
+      {
+        borderTopLeftRadius: "var(--borderRadius050)",
+        borderBottomLeftRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledDateField).first(),
+      { modifier: `${StyledInputPresentation}` }
+    );
+
+    assertStyleMatch(
+      {
+        borderTopRightRadius: "var(--borderRadius050)",
+        borderBottomRightRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledDateField).last(),
+      { modifier: `${StyledInputPresentation}` }
+    );
   });
 });

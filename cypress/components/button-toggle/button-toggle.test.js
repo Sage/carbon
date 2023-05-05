@@ -274,4 +274,14 @@ context("Testing Button-Toggle component", () => {
       }
     );
   });
+
+  it("has the expected border-radius styling", () => {
+    CypressMountWithProviders(
+      <ButtonToggleComponent>Foo</ButtonToggleComponent>
+    );
+
+    buttonToggleLabelPreview(0).should("have.css", "border-radius", "32px");
+    buttonToggleLabelPreview(1).should("have.css", "border-radius", "32px");
+    buttonToggleLabelPreview(2).should("have.css", "border-radius", "32px");
+  });
 });

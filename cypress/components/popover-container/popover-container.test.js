@@ -387,4 +387,10 @@ context("Test for Popover Container component", () => {
         });
     });
   });
+
+  it("should render with the expected border radius styling", () => {
+    CypressMountWithProviders(<PopoverContainerComponent title="Foo" open />);
+
+    popoverContainerContent().should("have.css", "border-radius", "8px");
+  });
 });

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,
 } from "../../../style/utils";
 import StyledCardFooter, { StyledCardFooterProps } from "./card-footer.style";
+import CardContext from "../__internal__/card-context";
 
 export interface CardFooterProps extends Partial<StyledCardFooterProps> {
   /** Child nodes */
@@ -16,6 +17,8 @@ const CardFooter = ({
   variant = "default",
   ...rest
 }: CardFooterProps) => {
+  const { roundness } = useContext(CardContext);
+
   return (
     <StyledCardFooter
       key="card-footer"
@@ -24,6 +27,7 @@ const CardFooter = ({
       variant={variant}
       {...filterStyledSystemMarginProps(rest)}
       {...filterStyledSystemPaddingProps(rest)}
+      roundness={roundness}
     >
       {children}
     </StyledCardFooter>

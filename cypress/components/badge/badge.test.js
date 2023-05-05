@@ -115,4 +115,9 @@ context("Testing Badge component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should render with expected border radius styling", () => {
+    CypressMountWithProviders(<BadgeComponent counter={9} />);
+    badge().should("have.css", "border-radius", "50%");
+  });
 });

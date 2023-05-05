@@ -82,7 +82,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
     }
 
     return css`
-      border-radius: 12px;
       font-size: 10px;
       letter-spacing: 0.7px;
       font-weight: 600;
@@ -92,6 +91,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
       align-items: center;
       justify-content: center;
       border: 2px solid ${pillColor};
+      border-radius: var(--borderRadius025);
       height: auto;
       ${!wrapText &&
       css`
@@ -146,7 +146,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
       css`
         button {
           -webkit-appearance: none;
-          border-radius: 0 6px 6px 0;
+          border-radius: var(--borderRadius000);
           border: none;
           bottom: 0;
           font-size: 100%;
@@ -161,6 +161,9 @@ const StyledPill = styled.span<AllStyledPillProps>`
             outline: none;
             box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
             background-color: ${buttonFocusColor};
+            border-radius: var(--borderRadius000) var(--borderRadius025)
+              var(--borderRadius025) var(--borderRadius000);
+
             & {
               color: ${contentColor};
             }
@@ -208,7 +211,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
           button {
             padding: 0;
-            border-radius: 0 8px 8px 0;
             line-height: 14px;
 
             ${addStyleToPillIcon("7px")}
@@ -218,12 +220,10 @@ const StyledPill = styled.span<AllStyledPillProps>`
         ${size === "M" &&
         css`
           padding: 0 32px 0 11px;
-          border-radius: 12px;
 
           button {
             width: 24px;
             padding: 0;
-            border-radius: 0 10px 10px 0;
             line-height: 15px;
 
             ${addStyleToPillIcon("10px")}
@@ -233,12 +233,10 @@ const StyledPill = styled.span<AllStyledPillProps>`
         ${size === "L" &&
         css`
           padding: 0 36px 0 15px;
-          border-radius: 13px;
 
           button {
             width: 28px;
             padding: 0;
-            border-radius: 0 11px 11px 0;
             line-height: 16px;
 
             ${addStyleToPillIcon("12px")}
@@ -248,12 +246,10 @@ const StyledPill = styled.span<AllStyledPillProps>`
         ${size === "XL" &&
         css`
           padding: 0 41px 0 19px;
-          border-radius: 15px;
 
           button {
             width: 32px;
             padding: 0;
-            border-radius: 0 12px 12px 0;
             line-height: 18px;
 
             ${addStyleToPillIcon("13px")}
@@ -275,36 +271,30 @@ const StyledPill = styled.span<AllStyledPillProps>`
         ${size === "M" &&
         css`
           padding: 0 11px;
-          border-radius: 12px;
 
           button {
             width: 24px;
             padding: 0;
-            border-radius: 0 8px 8px 0;
           }
         `}
 
         ${size === "L" &&
         css`
           padding: 0 15px;
-          border-radius: 13px;
 
           button {
             width: 28px;
             padding: 0;
-            border-radius: 0 10px 10px 0;
           }
         `}
 
         ${size === "XL" &&
         css`
           padding: 0 19px;
-          border-radius: 15px;
 
           button {
             width: 32px;
             padding: 0;
-            border-radius: 0 12px 12px 0;
           }
         `}
       `}

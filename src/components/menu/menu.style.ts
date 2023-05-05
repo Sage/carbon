@@ -33,13 +33,18 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
         display: inline-block;
         vertical-align: bottom;
         background-color: ${menuConfigVariants[menuType].background};
-
         ${menuType === "dark" &&
         css`
-          color: ${menuConfigVariants[menuType].color};
+          display: inline-block;
+          vertical-align: bottom;
+          background-color: ${menuConfigVariants[menuType].background};
+
+          ${menuType === "dark" &&
+          css`
+            color: ${menuConfigVariants[menuType].color};
+          `}
         `}
       `}
-
     ${StyledDivider} {
       position: relative;
       top: -1px;
@@ -55,15 +60,18 @@ interface StyledMenuItemProps extends Pick<MenuProps, "menuType" | "maxWidth"> {
 const StyledMenuItem = styled.li<StyledMenuItemProps>`
   ${layout}
   ${flexbox}
-  
+
+  ${StyledLink} a:focus, ${StyledLink} button:focus {
+    border-radius: var(--borderRadius000);
+  }
+
   ${({ inSubmenu }) => css`
     ${inSubmenu &&
     css`
       display: list-item;
     `}
   `}
-
-    ${({ inFullscreenView }) =>
+  ${({ inFullscreenView }) =>
     inFullscreenView &&
     css`
       padding-top: 16px;

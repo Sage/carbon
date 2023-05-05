@@ -146,6 +146,21 @@ context("Testing Vertical Menu component", () => {
       }
     );
 
+    it("should render an active Vertical Menu Item with expected border radius styling", () => {
+      CypressMountWithProviders(<VerticalMenuItemCustom active />);
+
+      verticalMenuItem().then(($els) => {
+        // get Window reference from element
+        const win = $els[0].ownerDocument.defaultView;
+        // use getComputedStyle to read the pseudo selector
+        const before = win.getComputedStyle($els[0], "before");
+        // read the value of the `border-radius` CSS property
+        const radiusValue = before.getPropertyValue("border-radius");
+        // the returned value will have double quotes around it, but this is correct
+        expect(radiusValue).to.eq("8px");
+      });
+    });
+
     it("should render Vertical Menu Item without href prop", () => {
       CypressMountWithProviders(<VerticalMenuItemCustomHref />);
 

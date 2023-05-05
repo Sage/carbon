@@ -8,6 +8,7 @@ import {
   openPreviewButton,
 } from "../../locators/dialog";
 import { textEditorInput, textEditorToolbar } from "../../locators/text-editor";
+import { formFooterComponent } from "../../locators/form";
 import { keyCode } from "../../../cypress/support/helper";
 import { buttonDataComponent } from "../../locators/button";
 import {
@@ -671,5 +672,15 @@ context("Testing Dialog component", () => {
           cy.checkAccessibility();
         });
     });
+  });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<stories.Default stickyFooter title="foo" />);
+    dialogPreview().should("have.css", "border-radius", "16px");
+    formFooterComponent().should(
+      "have.css",
+      "border-radius",
+      "0px 0px 16px 16px"
+    );
   });
 });

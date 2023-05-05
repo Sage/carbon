@@ -10,6 +10,7 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
 
   ${({ as }) => css`
     border: 1px solid var(--colorsUtilityMajor050);
+    border-radius: var(--borderRadius100);
     background-color: var(--colorsUtilityMajor025);
     color: var(--colorsUtilityYin090);
 

@@ -16,3 +16,5 @@ export const dayPickerWrapper = () => cy.get(DAY_PICKER_WRAPPER);
 export const dayPickerParent = () =>
   cy.get(DAY_PICKER_WRAPPER).parent().parent();
 export const dayPickerHeading = () => cy.get(DAY_PICKER_HEADING).children();
+export const dayPickerNavButtons = (index) =>
+  cy.get(".DayPicker-NavBar").children().eq(index);

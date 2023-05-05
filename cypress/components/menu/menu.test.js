@@ -2099,4 +2099,28 @@ context("Testing Menu component", () => {
       }
     );
   });
+
+  describe("rounded corners", () => {
+    it("has the expected border radius styling on the Submenu", () => {
+      CypressMountWithProviders(<MenuComponent />);
+
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+      submenuBlock().should("have.css", "border-radius", "0px 0px 8px 8px");
+      submenu()
+        .find("a")
+        .last()
+        .should("have.css", "border-radius", "0px 0px 8px 8px");
+    });
+
+    it("has the expected border radius styling on the Submenu Scrollable Block", () => {
+      CypressMountWithProviders(<MenuComponentScrollable />);
+
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+      scrollBlock().should("have.css", "border-radius", "0px 0px 0px 8px");
+      scrollBlock()
+        .find("a")
+        .last()
+        .should("have.css", "border-radius", "0px 0px 0px 8px");
+    });
+  });
 });

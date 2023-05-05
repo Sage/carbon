@@ -16,6 +16,7 @@ import InputIconToggle from "../../../__internal__/input-icon-toggle";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
+import StyledInput from "../../../__internal__/input/input.style";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
@@ -1229,6 +1230,19 @@ describe("FilterableSelect", () => {
         expect(wrapper.find(SelectList).prop("labelId")).toBe(undefined);
       });
     });
+  });
+
+  it("has the expected border radius styling", () => {
+    const wrapper = renderSelect({});
+    assertStyleMatch(
+      { borderRadius: "var(--borderRadius050)" },
+      wrapper.find(StyledInput)
+    );
+
+    assertStyleMatch(
+      { borderRadius: "var(--borderRadius050)" },
+      wrapper.find(StyledSelectListContainer)
+    );
   });
 });
 

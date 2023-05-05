@@ -164,4 +164,17 @@ describe("Tile", () => {
       ));
     });
   });
+
+  it.each<TileProps["roundness"]>(["default", "large"])(
+    "render with the expected border radius when roundness is %s",
+    (roundness) => {
+      const wrapper = renderTile({ roundness });
+      const result =
+        roundness === "default"
+          ? "var(--borderRadius100)"
+          : "var(--borderRadius200)";
+
+      assertStyleMatch({ borderRadius: result }, wrapper);
+    }
+  );
 });

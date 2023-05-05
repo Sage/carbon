@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
-.c4 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -21,7 +21,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   flex-flow: wrap;
 }
 
-.c2 {
+.c3 {
   display: inline-block;
   position: relative;
   box-sizing: border-box;
@@ -34,52 +34,66 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   border: 1px solid var(--colorsActionMinor500);
 }
 
-.c2 .c8 {
+.c3 .c10 {
   color: var(--colorsActionMinor500);
 }
 
-input:checked ~ .c2.c2 {
+input:checked ~ .c3.c3 {
   background-color: var(--colorsActionMinor300);
   color: var(--colorsActionMinor600);
   cursor: auto;
 }
 
-input:focus ~ .c2 {
+input:focus ~ .c3 {
   outline: 3px solid var(--colorsSemanticFocus500);
   z-index: 100;
 }
 
-input:not(:checked):not(:disabled) ~ .c2:hover {
+input:not(:checked):not(:disabled) ~ .c3:hover {
   background-color: var(--colorsActionMinor200);
   border-color: var(--colorsActionMinor500);
   color: var(--colorsActionMinor500);
 }
 
-input:not(:checked):not(:disabled) ~ .c2:hover .c8 {
+input:not(:checked):not(:disabled) ~ .c3:hover .c10 {
   color: var(--colorsActionMinor500);
 }
 
-.c5 .c3 {
+.c6 .c4 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
 }
 
-.c6 .c3 {
+.c7 .c4 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
 }
 
-.c7 .c3 {
+.c8 .c4 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+}
+
+.c9.c9.c9.c9 .c2 {
+  border-radius: var(--borderRadius400);
 }
 
 .c0 {
   display: inline-block;
   vertical-align: middle;
+}
+
+.c0.c0.c0.c0:first-of-type .c2 {
+  border-top-left-radius: var(--borderRadius400);
+  border-bottom-left-radius: var(--borderRadius400);
+}
+
+.c0.c0.c0.c0:last-of-type .c2 {
+  border-top-right-radius: var(--borderRadius400);
+  border-bottom-right-radius: var(--borderRadius400);
 }
 
 .c0:not(:first-of-type) {
@@ -112,12 +126,12 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c8 {
       type="radio"
     />
     <label
-      className="c2"
+      className="c2 c3"
       htmlFor="guid-12345"
       size="medium"
     >
       <div
-        className="c3 c4"
+        className="c4 c5"
       >
         Text
       </div>
@@ -137,12 +151,12 @@ input:not(:checked):not(:disabled) ~ .c2:hover .c8 {
       type="radio"
     />
     <label
-      className="c2"
+      className="c2 c3"
       htmlFor="guid-12345"
       size="medium"
     >
       <div
-        className="c3 c4"
+        className="c4 c5"
       >
         Text
       </div>

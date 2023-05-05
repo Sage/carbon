@@ -8,6 +8,7 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 import {
   anchorNavigationStickyNavigation,
   anchorNavigationStickyMainPage,
+  anchorNavigationItem,
 } from "../../locators/anchor-navigation";
 import { getDataElementByValue } from "../../locators";
 
@@ -60,5 +61,35 @@ context("Testing AnchorNavigation component", () => {
           cy.checkAccessibility();
         });
     });
+  });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<AnchorNavigationComponent />);
+
+    anchorNavigationItem(0).should(
+      "have.css",
+      "border-radius",
+      "0px 8px 8px 0px"
+    );
+    anchorNavigationItem(1).should(
+      "have.css",
+      "border-radius",
+      "0px 8px 8px 0px"
+    );
+    anchorNavigationItem(2).should(
+      "have.css",
+      "border-radius",
+      "0px 8px 8px 0px"
+    );
+    anchorNavigationItem(3).should(
+      "have.css",
+      "border-radius",
+      "0px 8px 8px 0px"
+    );
+    anchorNavigationItem(4).should(
+      "have.css",
+      "border-radius",
+      "0px 8px 8px 0px"
+    );
   });
 });

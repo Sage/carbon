@@ -7,6 +7,7 @@ import {
   getDataElementByValue,
   tooltipPreview,
   commonDataElementInputPreview,
+  getElement,
 } from "../../locators/index";
 import { verifyRequiredAsteriskForLabel } from "../../support/component-helper/common-steps";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
@@ -347,5 +348,10 @@ context("Tests for GroupedCharacter component", () => {
         });
       });
     });
+  });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<GroupedCharacterComponent />);
+    getElement("input").should("have.css", "border-radius", "4px");
   });
 });

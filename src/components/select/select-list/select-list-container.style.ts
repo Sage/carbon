@@ -18,6 +18,7 @@ const StyledSelectListContainer = styled.div<StyledSelectListContainerProps>`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  border-radius: var(--borderRadius050);
 
   ${({ isLoading }) => isLoading && "min-height: 150px"};
 

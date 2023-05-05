@@ -62,6 +62,20 @@ describe("Card", () => {
     );
   });
 
+  it.each<CardProps["roundness"]>(["default", "large"])(
+    "renders with the expected border radius styling when roundness is %s",
+    (roundness) => {
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            roundness === "default" ? "1" : "2"
+          }00)`,
+        },
+        render({ roundness })
+      );
+    }
+  );
+
   describe("when spacing prop is not set, styled-system props are used", () => {
     it("there is only one child row", () => {
       const wrapper = mount(

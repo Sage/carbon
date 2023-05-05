@@ -156,7 +156,6 @@ export const RadioButtonComponent = ({ ...props }) => {
           id="radio-1"
           value="radio1"
           label="Radiobutton 1"
-          // checked={() => setIsChecked(false)}
           checked={isChecked}
           onChange={(e) => setIsChecked(e.target.checked)}
           {...props}

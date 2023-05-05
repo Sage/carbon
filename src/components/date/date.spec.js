@@ -40,6 +40,8 @@ import {
   enUS as enUSLocale,
 } from "../../locales/date-fns-locales";
 import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
+import StyledButton from "./__internal__/navbar/button.style";
 
 const locales = {
   "en-GB": {
@@ -983,6 +985,54 @@ describe("Date", () => {
     it("the isRequired prop is passed to the label", () => {
       expect(label.prop("isRequired")).toBe(true);
     });
+  });
+
+  it("renders with expected border radius styling", () => {
+    wrapper = render({ value: "", onChange: () => {} });
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledInput)
+    );
+
+    simulateFocusOnInput(wrapper);
+    wrapper.update();
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius400)",
+      },
+      wrapper.find(StyledDayPicker),
+      { modifier: ".DayPicker-Day" }
+    );
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledDayPicker),
+      { modifier: ".DayPicker" }
+    );
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius400)",
+      },
+      wrapper.find(StyledDayPicker),
+      {
+        modifier:
+          ".DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)",
+      }
+    );
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledButton)
+    );
   });
 });
 

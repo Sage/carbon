@@ -117,4 +117,12 @@ context("Tests for BatchSelection component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it.each(["dark", "light", "white", "transparent"])(
+    "should render with expected border radius styling when colorTheme is %s",
+    (colorTheme) => {
+      CypressMountWithProviders(<BatchSelection colorTheme={colorTheme} />);
+      batchSelectionComponent().should("have.css", "border-radius", "8px");
+    }
+  );
 });

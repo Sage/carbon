@@ -465,6 +465,13 @@ describe("ToastStyle", () => {
       },
       wrapper
     );
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius100)",
+      },
+      wrapper.find(ToastStyle)
+    );
   });
 
   describe("when the toast is displayed", () => {

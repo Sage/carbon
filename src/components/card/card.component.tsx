@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-
+import CardContext, { CardContextProps } from "./__internal__/card-context";
 import StyledCard from "./card.style";
 import Icon from "../icon";
 import { CardRow, CardRowProps, CardFooter, CardFooterProps } from ".";
@@ -12,7 +12,7 @@ import Logger from "../../__internal__/utils/logger";
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
-export interface CardProps extends MarginProps {
+export interface CardProps extends MarginProps, CardContextProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -61,6 +61,7 @@ const Card = ({
   spacing = "medium",
   boxShadow,
   hoverBoxShadow,
+  roundness = "default",
   ...rest
 }: CardProps) => {
   if (!isDeprecationWarningTriggered && oldDataRole) {
@@ -122,10 +123,13 @@ const Card = ({
       onClick={interactive && !draggable ? action : undefined}
       height={height}
       {...(interactive && { tabIndex: 0, type: "button" })}
+      roundness={roundness}
       {...filterStyledSystemMarginProps(rest)}
     >
       {draggable && <Icon type="drag" />}
-      {renderChildren()}
+      <CardContext.Provider value={{ roundness }}>
+        {renderChildren()}
+      </CardContext.Provider>
     </StyledCard>
   );
 };

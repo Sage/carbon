@@ -47,6 +47,7 @@ export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
     css`
       &:before {
         background: var(--colorsComponentsLeftnavWinterStandardSelected);
+        border-radius: var(--borderRadius100);
         content: "";
         height: calc(100% - 16px);
         left: 24px;

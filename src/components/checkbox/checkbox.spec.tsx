@@ -16,7 +16,9 @@ import Label from "../../__internal__/label";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
-import checkableInput from "../../__internal__/checkable-input";
+import CheckableInput, {
+  CommonCheckableInputProps,
+} from "../../__internal__/checkable-input";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -622,7 +624,7 @@ describe("Checkbox", () => {
       const labelId = "foo";
       const wrapper = renderCheckbox({ "aria-labelledby": labelId });
 
-      expect(wrapper.find(checkableInput).prop("ariaLabelledBy")).toBe(labelId);
+      expect(wrapper.find(CheckableInput).prop("ariaLabelledBy")).toBe(labelId);
     });
   });
 
@@ -637,4 +639,51 @@ describe("Checkbox", () => {
       expect(position).toEqual("bottom");
     });
   });
+
+  it.each<CommonCheckableInputProps["size"]>(["small", "large"])(
+    "renders with the expected border radius styling when size is %s",
+    (size) => {
+      const wrapper = renderCheckbox({ size }, mount);
+
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            size === "small" ? "025" : "050"
+          })`,
+        },
+        wrapper,
+        { modifier: `${StyledCheckableInput}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            size === "small" ? "025" : "050"
+          })`,
+        },
+        wrapper,
+        { modifier: `${StyledCheckableInput}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            size === "small" ? "025" : "050"
+          })`,
+        },
+        wrapper,
+        { modifier: `${StyledCheckableInputSvgWrapper}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            size === "small" ? "025" : "050"
+          })`,
+        },
+        wrapper,
+        { modifier: "svg" }
+      );
+    }
+  );
 });

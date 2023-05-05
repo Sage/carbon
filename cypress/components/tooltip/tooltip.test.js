@@ -283,4 +283,9 @@ context("Tests for Tooltip component", () => {
         .then(() => cy.checkAccessibility());
     });
   });
+
+  it("should render the Tooltip with the expected border radius styling", () => {
+    CypressMountWithProviders(<testStories.TooltipComponent />);
+    tooltipPreview().should("have.css", "border-radius", "4px");
+  });
 });

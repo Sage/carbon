@@ -31,11 +31,13 @@ export interface DismissibleBoxProps
 export const DismissibleBox = ({
   children,
   onClose,
+  borderRadius = "borderRadius100",
   ...rest
 }: DismissibleBoxProps) => (
   <StyledDismissibleBox
     p="20px 24px 20px 20px"
     data-component="dismissible-box"
+    borderRadius={borderRadius}
     {...rest}
   >
     {children}

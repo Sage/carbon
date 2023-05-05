@@ -34,6 +34,7 @@ describe("DismissibleBox", () => {
           display: "flex",
           justifyContent: "space-between",
           backgroundColor: "#FFFFFF",
+          borderRadius: "var(--borderRadius100)",
         },
         wrapper
       );

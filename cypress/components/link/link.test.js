@@ -183,7 +183,8 @@ context("Test for Link component", () => {
       .children()
       .focus()
       .should("have.css", "background-color", "rgb(255, 218, 128)")
-      .and("have.css", "color", "rgba(0, 0, 0, 0.9)");
+      .and("have.css", "color", "rgba(0, 0, 0, 0.9)")
+      .and("have.css", "border-radius", "4px");
   });
 
   describe("check events for Link component", () => {

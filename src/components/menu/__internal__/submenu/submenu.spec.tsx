@@ -491,6 +491,34 @@ describe("Submenu component", () => {
         tempWrapper.find(StyledSubmenu)
       );
     });
+
+    it("should have the expected border-radius styling on the submenu container", () => {
+      assertStyleMatch(
+        {
+          borderBottomRightRadius: "var(--borderRadius100)",
+          borderBottomLeftRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledSubmenu)
+      );
+
+      assertStyleMatch({}, wrapper.find(StyledSubmenu), {
+        modifier: `${StyledMenuItem}:last-child`,
+      });
+    });
+
+    it.each([`a`, `button`, `> span`, `> div`])(
+      "should have the expected border-radius styling on the %s element of the last menu item",
+      (modifier) => {
+        assertStyleMatch(
+          {
+            borderBottomRightRadius: "var(--borderRadius100)",
+            borderBottomLeftRadius: "var(--borderRadius100)",
+          },
+          wrapper.find(StyledSubmenu),
+          { modifier: `${StyledMenuItem}:last-child ${modifier}` }
+        );
+      }
+    );
   });
 
   describe("keyboard navigation", () => {

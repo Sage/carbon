@@ -328,4 +328,22 @@ context("Testing ShowEditPod component", () => {
       });
     });
   });
+
+  describe("rounded corners", () => {
+    it("should render with expected border radius styling on the main container and edit button", () => {
+      CypressMountWithProviders(<ShowEditPodComponent />);
+      showEditPodBlock().should("have.css", "border-radius", "8px");
+      showEditPodEditButton().should("have.css", "border-radius", "8px");
+    });
+
+    it("should render with expected border radius styling on the soft delete/ undo button", () => {
+      CypressMountWithProviders(
+        <ShowEditPodComponent onUndo={() => {}} softDelete>
+          Foo
+        </ShowEditPodComponent>
+      );
+
+      showEditPodUndoButton().should("have.css", "border-radius", "8px");
+    });
+  });
 });

@@ -4,6 +4,7 @@ import Icon from "../../icon";
 import StyledIcon from "../../icon/icon.style";
 
 const StyledPicklistItem = styled.li<{ locked?: boolean }>`
+  border-radius: var(--borderRadius100);
   ${({ locked }) => css`
     display: flex;
     align-items: center;
@@ -35,6 +36,25 @@ const StyledPicklistItem = styled.li<{ locked?: boolean }>`
 `;
 
 const StyledButton = styled(Button)`
+  border-bottom-right-radius: var(--borderRadius100);
+  border-top-right-radius: var(--borderRadius100);
+  border-bottom-left-radius: var(--borderRadius000);
+  border-top-left-radius: var(--borderRadius000);
+
+  :hover {
+    border-bottom-right-radius: var(--borderRadius100);
+    border-top-right-radius: var(--borderRadius100);
+    border-bottom-left-radius: var(--borderRadius000);
+    border-top-left-radius: var(--borderRadius000);
+  }
+
+  :focus {
+    border-bottom-right-radius: var(--borderRadius100);
+    border-top-right-radius: var(--borderRadius100);
+    border-bottom-left-radius: var(--borderRadius000);
+    border-top-left-radius: var(--borderRadius000);
+  }
+
   ${({ iconType }) => css`
     padding: 0;
     margin-right: 0;

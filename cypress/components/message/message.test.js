@@ -238,4 +238,10 @@ context("Tests for Message component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should render with expected border radius styling", () => {
+    CypressMountWithProviders(<MessageComponent />);
+
+    messagePreview().should("have.css", "border-radius", "8px");
+  });
 });

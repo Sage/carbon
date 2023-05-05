@@ -80,6 +80,7 @@ const StyledSearch = styled.div<StyledSearchProps>`
         }
       `}
 
+
       ${StyledInput} {
         ::-moz-placeholder {
           color: var(--colorsUtilityYin055);
@@ -114,6 +115,13 @@ const StyledSearch = styled.div<StyledSearchProps>`
         background-color: ${searchHasValue || isFocused
           ? "var(--colorsUtilityYang100)"
           : "transparent"};
+
+        ${showSearchButton &&
+        css`
+          border-top-right-radius: var(--borderRadius000);
+          border-bottom-right-radius: var(--borderRadius000);
+        `}
+
         flex: 1;
         font-size: 14px;
         font-weight: 700;

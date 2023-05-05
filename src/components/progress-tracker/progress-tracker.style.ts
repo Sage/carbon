@@ -53,7 +53,7 @@ const StyledProgressBar = styled.span<
     position: relative;
     background-color: var(--colorsSemanticNeutral200);
     border: 1px solid ${getBorderColour({ progress, error })};
-    border-radius: 25px;
+    border-radius: var(--borderRadius400);
     overflow-x: hidden;
     height: ${getHeight(size)};
     width: 100%;
@@ -96,7 +96,7 @@ const InnerBar = styled.span<
     position: relative;
     left: 0;
     background-color: ${getBackgroundColour({ progress, error })};
-    border-radius: 25px;
+    border-radius: var(--borderRadius400);
     width: calc(${length} * ${progress && progress / 100});
     min-width: 2px;
     height: ${getHeight(size)};

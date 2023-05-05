@@ -380,6 +380,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
             data-component="numeral-date"
           >
             {dateFormat.map((datePart, index) => {
+              const isStart = index === 0;
               const isEnd = index === dateFormat.length - 1;
               const isMiddle = index === 1;
 
@@ -413,6 +414,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                   <StyledDateField
                     key={datePart}
                     isYearInput={datePart.length === 4}
+                    isStart={isStart}
                     isMiddle={isMiddle}
                     isEnd={isEnd}
                     hasValidationIcon={hasValidationIcon}

@@ -16,6 +16,8 @@ import Icon from "../icon";
 import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
+import StyledButton from "../button/button.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -673,5 +675,38 @@ describe("Search", () => {
 
       expect(ref.current).toBe(null);
     });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    wrapper = renderSearch({ value: "" });
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledInput)
+    );
+  });
+
+  it("renders with the expected border radius styling when searchButton is enabled and input has value", () => {
+    wrapper = renderSearch({ value: "foo", searchButton: true });
+    assertStyleMatch(
+      {
+        borderTopRightRadius: "var(--borderRadius000)",
+        borderBottomRightRadius: "var(--borderRadius000)",
+      },
+      wrapper,
+      { modifier: `${StyledTextInput}` }
+    );
+
+    assertStyleMatch(
+      {
+        borderTopLeftRadius: "var(--borderRadius000)",
+        borderBottomLeftRadius: "var(--borderRadius000)",
+        borderTopRightRadius: "var(--borderRadius050)",
+        borderBottomRightRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledSearchButton),
+      { modifier: `& ${StyledButton}` }
+    );
   });
 });

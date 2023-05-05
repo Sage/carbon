@@ -36,6 +36,7 @@ import {
   dayPickerParent,
   dayPickerHeading,
   dayPickerByText,
+  dayPickerNavButtons,
 } from "../../locators/date-input";
 
 import { getDataElementByValue, fieldHelpPreview } from "../../locators";
@@ -803,5 +804,16 @@ context("Test for DateInput component", () => {
     CypressMountWithProviders(<DateInputValidationNewDesign />);
 
     cy.checkAccessibility();
+  });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<DateInputCustom />);
+    dateInputParent().click();
+
+    dateInput().should("have.css", "border-radius", "4px");
+    dayPickerDay("Sun 1 May 2022").should("have.css", "border-radius", "32px");
+    dayPickerDay("Mon 2 May 2022").should("have.css", "border-radius", "32px");
+    dayPickerNavButtons(0).should("have.css", "border-radius", "4px");
+    dayPickerNavButtons(1).should("have.css", "border-radius", "4px");
   });
 });

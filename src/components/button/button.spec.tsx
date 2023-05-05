@@ -278,6 +278,7 @@ describe("Button", () => {
           color: "var(--colorsActionMajor500)",
           fontSize: "var(--fontSizes100)",
           minHeight: "40px",
+          borderRadius: "var(--borderRadius400)",
         },
         wrapper
       );

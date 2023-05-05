@@ -12,7 +12,9 @@ import {
 import { StyledPreview } from "../preview/preview.style";
 import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
 import Image from "../image";
-import Placeholder from "./__internal__/placeholder.component";
+import Placeholder, {
+  StyledPlaceHolder,
+} from "./__internal__/placeholder.component";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
@@ -35,6 +37,7 @@ describe("LinkPreview", () => {
           backgroundColor: "var(--colorsUtilityMajor025)",
           textDecoration: "none",
           color: "var(--colorsUtilityYin090)",
+          borderRadius: "var(--borderRadius100)",
         },
         wrapper.find(StyledLinkPreview)
       );
@@ -61,6 +64,14 @@ describe("LinkPreview", () => {
         },
         wrapper.find(StyledPreviewWrapper),
         { modifier: `${StyledPreviewPlaceholder}:not(:first-of-type)` }
+      );
+
+      assertStyleMatch(
+        {
+          borderBottomLeftRadius: "var(--borderRadius100)",
+          borderTopLeftRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledPlaceHolder)
       );
     });
 

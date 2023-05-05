@@ -27,6 +27,7 @@ export type Gap = AllowedNumericalValues | string;
 
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
+type BorderRadiusType = Extract<DesignTokensType, `borderRadius${string}`>;
 
 export interface BoxProps
   extends SpaceProps,
@@ -52,6 +53,8 @@ export interface BoxProps
   rowGap?: Gap;
   /** Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. */
   boxShadow?: BoxShadowsType;
+  /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. */
+  borderRadius?: BorderRadiusType;
 }
 
 let isDeprecationWarningTriggered = false;
@@ -81,6 +84,9 @@ export const Box = styled.div<BoxProps>`
   ${layout}
   ${flexbox}
   ${calculatePosition}
+
+  ${({ borderRadius = "borderRadius000" }) =>
+    `border-radius: var(--${borderRadius});`}
 
   ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}

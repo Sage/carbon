@@ -2,6 +2,7 @@ import React from "react";
 import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
+  ButtonBarWithMinorButtonChildren,
 } from "../../../src/components/button-bar/button-bar-test.stories";
 import {
   BUTTON_BAR_SIZES,
@@ -148,5 +149,29 @@ context("Test for Button-Bar component", () => {
       icon().eq(3).parent().should("be.focused");
       buttonDataComponent().eq(2).should("not.be.focused");
     });
+  });
+
+  it("has the expected border radius styling when major button children passed", () => {
+    CypressMountWithProviders(<ButtonBarCustom />);
+
+    buttonDataComponent()
+      .eq(0)
+      .should("have.css", "border-radius", "32px 0px 0px 32px");
+    buttonDataComponent().eq(1).should("have.css", "border-radius", "0px");
+    buttonDataComponent()
+      .eq(2)
+      .should("have.css", "border-radius", "0px 32px 32px 0px");
+  });
+
+  it("has the expected border radius styling when minor button children passed", () => {
+    CypressMountWithProviders(<ButtonBarWithMinorButtonChildren />);
+
+    buttonDataComponent()
+      .eq(0)
+      .should("have.css", "border-radius", "4px 0px 0px 4px");
+    buttonDataComponent().eq(1).should("have.css", "border-radius", "0px");
+    buttonDataComponent()
+      .eq(2)
+      .should("have.css", "border-radius", "0px 4px 4px 0px");
   });
 });

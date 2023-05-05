@@ -192,6 +192,7 @@ const StyledSidebarToggleButton = styled.button.attrs({
     border: none;
     z-index: 1;
     animation: ${buttonClose} ${animationDuration} ease-in-out;
+    border-radius: var(--borderRadius050);
 
     &:focus {
       outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);

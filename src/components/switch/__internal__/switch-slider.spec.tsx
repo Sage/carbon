@@ -153,15 +153,6 @@ describe("SwitchSlider", () => {
       describe("default", () => {
         const wrapper = render({ size: "large" }).toJSON();
 
-        it("applies the correct border-radius", () => {
-          assertStyleMatch(
-            {
-              borderRadius: "30px",
-            },
-            wrapper
-          );
-        });
-
         it("applies the correct ::before styles", () => {
           assertStyleMatch(
             {
@@ -283,4 +274,14 @@ describe("SwitchSlider", () => {
       });
     }
   );
+
+  it("applies the expected border radius styling", () => {
+    const wrapper = render({ size: "large" }).toJSON();
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius400)",
+      },
+      wrapper
+    );
+  });
 });
