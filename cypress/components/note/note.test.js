@@ -46,7 +46,6 @@ context("Tests for Note component", () => {
           .should("have.attr", "width", width)
           .then(($el) => {
             const value = $el.css("width");
-            // console.log(value);
             expect(parseInt(value)).to.be.within(widthInPx - 1, widthInPx + 1);
           });
       }
@@ -225,5 +224,11 @@ context("Tests for Note component", () => {
 
       cy.checkAccessibility();
     });
+  });
+
+  it("should render with expected border radius styling", () => {
+    CypressMountWithProviders(<NoteComponent />);
+
+    noteComponent().should("have.css", "border-radius", "8px");
   });
 });

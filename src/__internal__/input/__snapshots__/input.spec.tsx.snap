@@ -4,6 +4,7 @@ exports[`Input renders with an input 1`] = `
 .c0 {
   background: transparent;
   border: none;
+  border-radius: var(--borderRadius050);
   color: var(--colorsUtilityYin090);
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;

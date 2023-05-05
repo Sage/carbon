@@ -832,4 +832,12 @@ context("Testing Switch component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("renders with the expected border radius", () => {
+    CypressMountWithProviders(<SwitchComponent />);
+
+    switchDataComponent()
+      .find("div > div > div > div > span")
+      .should("have.css", "border-radius", "32px");
+  });
 });

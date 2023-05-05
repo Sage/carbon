@@ -57,6 +57,7 @@ const StyledBlock = styled.div<StyledBlockProps>`
   }) =>
     css`
       box-sizing: border-box;
+      border-radius: var(--borderRadius100);
       display: flex;
       flex-direction: column;
       background-color: ${blockBackgrounds[variant]};
@@ -142,6 +143,8 @@ interface StyledFooterProps extends Pick<PodProps, "softDelete"> {
 const StyledFooter = styled.div<StyledFooterProps>`
   ${({ variant, size, softDelete }) => css`
     background-color: var(--colorsUtilityMajor025);
+    border-bottom-left-radius: var(--borderRadius100);
+    border-bottom-right-radius: var(--borderRadius100);
     box-shadow: inset 0px 1px 1px 0 rgba(0, 0, 0, 0.1);
     color: var(--colorsUtilityYin090);
     padding: ${footerPaddings[size]};
@@ -217,6 +220,7 @@ const StyledEditAction = styled.a<StyledEditActionProps>`
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: var(--borderRadius100);
 
       ${StyledIcon} {
         top: -2px;
@@ -278,6 +282,7 @@ const StyledDeleteButton = styled(IconButton)<CommonPodButtonProps>`
       box-sizing: border-box;
       height: ${`${actionButtonSizes[size]}px`};
       width: ${`${actionButtonSizes[size]}px`};
+      border-radius: var(--borderRadius100);
 
       ${StyledIcon} {
         top: -2px;
@@ -330,6 +335,7 @@ const StyledUndoButton = styled(IconButton)<CommonPodButtonProps>`
       box-sizing: border-box;
       height: ${`${actionButtonSizes[size]}px`};
       width: ${`${actionButtonSizes[size]}px`};
+      border-radius: var(--borderRadius100);
 
       ${StyledIcon} {
         top: -2px;

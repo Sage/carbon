@@ -22,6 +22,8 @@ const MessageStyle = styled.div<MessageStyleProps & MarginProps>`
   display: flex;
   justify-content: flex-start;
   align-content: center;
+  border-radius: var(--borderRadius100);
+  overflow: hidden;
   border: 1px solid ${({ variant }) => variant && messageVariants[variant]};
   background-color: var(--colorsUtilityYang100);
   min-height: 38px;

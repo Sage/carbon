@@ -634,4 +634,14 @@ describe("Link", () => {
       assertStyleMatch({ display: undefined }, wrapper, { modifier: "a" });
     });
   });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      renderLink(),
+      { modifier: "a:focus" }
+    );
+  });
 });

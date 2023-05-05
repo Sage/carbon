@@ -33,7 +33,7 @@ const StyledSwitchSlider = styled.span`
     width: 64px;
     min-width: fit-content;
     z-index: 2;
-    border-radius: 90px;
+    border-radius: var(--borderRadius400);
     border-style: solid;
     border-color: var(--colorsActionMinor400);
     border-width: var(--borderWidth200);
@@ -92,7 +92,6 @@ const StyledSwitchSlider = styled.span`
 
     ${size === "large" &&
     css`
-      border-radius: 30px;
       &::before {
         height: 32px;
         width: 32px;

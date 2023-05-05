@@ -53,6 +53,18 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
       display: flex;
       width: 100%;
       justify-content: ${align === "right" ? "flex-end" : "flex-start"};
+      border-top-left-radius: var(--borderRadius100);
+      border-bottom-left-radius: var(--borderRadius100);
+      border-bottom-right-radius: var(--borderRadius000);
+      border-top-right-radius: var(--borderRadius000);
+    `}
+
+    ${position === "top" &&
+    css`
+      border-top-left-radius: var(--borderRadius100);
+      border-top-right-radius: var(--borderRadius100);
+      border-bottom-right-radius: var(--borderRadius000);
+      border-bottom-left-radius: var(--borderRadius000);
     `}
 
     ${hasHref &&
@@ -125,8 +137,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
       padding: 10px 16px;
 
       ${borders && `padding-bottom: 9px;`}
-    `}
- 
+    `} 
 
     ${(warning || info) &&
     css`
@@ -273,6 +284,8 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
 const tabTitleStyles = css<TabTitleProps>`
   background-color: transparent;
   display: inline-block;
+  border-top-left-radius: var(--borderRadius100);
+  border-top-right-radius: var(--borderRadius100);
   font-weight: bold;
   position: relative;
   border: none;
@@ -283,6 +296,13 @@ const tabTitleStyles = css<TabTitleProps>`
   outline-offset: 0px;
   margin: 0;
   ${({ position }) => position === "top" && "white-space: nowrap"};
+
+  ${({ position }) => css`
+    ${position === "left" &&
+    css`
+      border-top-right-radius: var(--borderRadius000);
+    `}
+  `}
 
   a:visited {
     color: inherit;

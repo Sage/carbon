@@ -538,6 +538,8 @@ describe("Pager", () => {
             alignItems: "center",
             borderTopWidth: "0",
             color: "var(--colorsUtilityYin090)",
+            borderBottomLeftRadius: "var(--borderRadius100)",
+            borderBottomRightRadius: "var(--borderRadius100)",
           },
           wrapper
         );

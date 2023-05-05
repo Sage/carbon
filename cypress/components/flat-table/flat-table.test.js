@@ -4388,11 +4388,11 @@ context("Tests for Flat Table component", () => {
         CypressMountWithProviders(<FlatTablePagerStickyHeaderComponent />);
 
         flatTableBodyRows().should("have.length", 5).and("be.visible");
-        pageSelectInput().trigger("keydown", keyCode("Enter"));
+        pageSelectInput().trigger("keydown", keyCode("Enter"), { force: true });
         flatTablePageSelectListPosition()
           .children()
           .contains(numberOfItems)
-          .click();
+          .click({ force: true });
         flatTableBodyRows()
           .should("have.length", numberOfItems)
           .and("be.visible");
@@ -4912,6 +4912,135 @@ context("Tests for Flat Table component", () => {
       CypressMountWithProviders(<FlatTablePagerStickyHeaderComponent />);
 
       cy.checkAccessibility();
+    });
+  });
+
+  describe("rounded corners", () => {
+    it("has the expected border radius styling when no footer is rendered", () => {
+      CypressMountWithProviders(<FlatTableComponent />);
+
+      flatTableWrapper().should("have.css", "border-radius", "8px");
+      flatTableHeaderCells()
+        .first()
+        .should("have.css", "border-radius", "8px 0px 0px");
+      flatTableHeaderCells()
+        .last()
+        .should("have.css", "border-radius", "0px 8px 0px 0px");
+      flatTableCell(20).should("have.css", "border-radius", "0px 0px 0px 8px");
+      flatTableCell(23).should("have.css", "border-radius", "0px 0px 8px");
+    });
+
+    it("has the expected border radius styling when sticky footer is rendered", () => {
+      CypressMountWithProviders(<FlatTableFooterComponent hasStickyFooter />);
+
+      flatTableWrapper().should("have.css", "border-radius", "8px 8px 0px 0px");
+      flatTableHeaderCells()
+        .first()
+        .should("have.css", "border-radius", "8px 0px 0px");
+      flatTableHeaderCells().last().should("have.css", "border-radius", "0px");
+      flatTableCell(16).should("have.css", "border-radius", "0px");
+      flatTableCell(19).should("have.css", "border-radius", "0px");
+      flatTablePager().should("have.css", "border-radius", "0px");
+    });
+
+    it("has the expected border radius styling when horizontal scrollbar exists", () => {
+      CypressMountWithProviders(
+        <FlatTable
+          width="200px"
+          overflowX="auto"
+          aria-label="Horizontal scroll table"
+        >
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Foo</FlatTableHeader>
+              <FlatTableHeader>Bar</FlatTableHeader>
+              <FlatTableHeader>Wiz</FlatTableHeader>
+              <FlatTableHeader>Foo</FlatTableHeader>
+              <FlatTableHeader>Bar</FlatTableHeader>
+              <FlatTableHeader>Wiz</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      flatTableCell(6).should("have.css", "border-radius", "0px");
+      flatTableCell(11).should("have.css", "border-radius", "0px");
+    });
+
+    it("has the expected border radius styling when first column has rowspan", () => {
+      CypressMountWithProviders(
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Foo</FlatTableHeader>
+              <FlatTableHeader>Bar</FlatTableHeader>
+              <FlatTableHeader>Wiz</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell rowspan="2">Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell>Wiz</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      flatTableCell(0).should("have.css", "border-radius", "0px 0px 0px 8px");
+      flatTableCell(3).should("have.css", "border-radius", "0px");
+      flatTableCell(4).should("have.css", "border-radius", "0px 0px 8px");
+    });
+
+    it("has the expected border radius styling when last column has rowspan", () => {
+      CypressMountWithProviders(
+        <FlatTable>
+          <FlatTableHead>
+            <FlatTableRow>
+              <FlatTableHeader>Foo</FlatTableHeader>
+              <FlatTableHeader>Bar</FlatTableHeader>
+              <FlatTableHeader>Wiz</FlatTableHeader>
+            </FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+              <FlatTableCell rowspan="2">Wiz</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>Foo</FlatTableCell>
+              <FlatTableCell>Bar</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      flatTableCell(2).should("have.css", "border-radius", "0px 0px 8px");
+      flatTableCell(3).should("have.css", "border-radius", "0px 0px 0px 8px");
+      flatTableCell(4).should("have.css", "border-radius", "0px");
     });
   });
 });

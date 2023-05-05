@@ -6,7 +6,7 @@ import { SlideStyle } from "./slide/slide.style";
 const CarouselNavigationStyle = styled.div`
   margin-top: -32.5px;
   position: absolute;
-  top: 50%;
+  top: 52%;
   z-index: 20;
 `;
 
@@ -37,8 +37,9 @@ const CarouselStyledIconRight = styled(CarouselStyledIcon)`
 const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
   ${({ disabled }) => css`
     border: none;
+    border-radius: var(--borderRadius400);
     width: 40px;
-    height: 64px;
+    height: 40px;
     border-width: var(--borderWidth200);
     border-color: var(--colorsActionMajorTransparent);
     background-color: ${disabled
@@ -92,6 +93,7 @@ const CarouselSelectorInputStyle = styled.input`
 
 const CarouselSelectorLabelStyle = styled.label`
   display: inline-block;
+  border-radius: var(--borderRadius100);
   width: 10px;
   height: 10px;
   background: var(--colorsActionMinor200);

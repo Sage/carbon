@@ -123,4 +123,25 @@ context("Test for DismissibleBox component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it.each([
+    [undefined, "8px"],
+    ["borderRadius000", "0px"],
+    ["borderRadius025", "2px"],
+    ["borderRadius050", "4px"],
+    ["borderRadius200", "16px"],
+    ["borderRadius400", "32px"],
+  ])(
+    "applies the expected border radius when %s passed to borderRadius prop",
+    (borderRadius, expected) => {
+      CypressMountWithProviders(
+        <DismissibleBoxCustomComponent borderRadius={borderRadius} />
+      );
+      dismissibleBoxDataComponent().should(
+        "have.css",
+        "border-radius",
+        expected
+      );
+    }
+  );
 });

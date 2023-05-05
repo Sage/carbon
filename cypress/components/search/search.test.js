@@ -539,4 +539,17 @@ context("Test for Search component", () => {
       }
     );
   });
+
+  it("should have the expected border radius styling when no search button enabled", () => {
+    CypressMountWithProviders(<SearchComponent />);
+    searchDefaultInput().should("have.css", "border-radius", "4px");
+    searchDefaultInput().parent().should("have.css", "border-radius", "4px");
+  });
+
+  it("should have the expected border radius styling when search button enabled", () => {
+    CypressMountWithProviders(<SearchComponent searchButton value="foo" />);
+    searchDefaultInput()
+      .parent()
+      .should("have.css", "border-radius", "4px 0px 0px 4px");
+  });
 });

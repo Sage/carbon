@@ -484,4 +484,24 @@ context("Testing Pod component", () => {
       cy.checkAccessibility();
     });
   });
+
+  describe("rounded corners", () => {
+    it("should render with expected border radius styling on the main container and edit and delete buttons", () => {
+      CypressMountWithProviders(<PodExample>Foo</PodExample>);
+
+      podBlock().should("have.css", "border-radius", "8px");
+      podEdit().should("have.css", "border-radius", "8px");
+      podDelete().should("have.css", "border-radius", "8px");
+    });
+
+    it("should render with expected border radius styling on the soft delete/ undo button", () => {
+      CypressMountWithProviders(
+        <PodExample onUndo={() => {}} softDelete>
+          Foo
+        </PodExample>
+      );
+
+      podUndo().should("have.css", "border-radius", "8px");
+    });
+  });
 });

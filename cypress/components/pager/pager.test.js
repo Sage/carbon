@@ -725,4 +725,9 @@ context("Test for Pager component", () => {
       }
     );
   });
+
+  it("should render with the expected border radius styling", () => {
+    CypressMountWithProviders(<PagerComponent />);
+    pager().should("have.css", "border-radius", "0px 0px 8px 8px");
+  });
 });

@@ -488,4 +488,9 @@ context("Testing Confirm component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<ConfirmComponent />);
+    dialogPreview().should("have.css", "border-radius", "16px");
+  });
 });

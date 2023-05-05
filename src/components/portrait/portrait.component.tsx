@@ -71,7 +71,7 @@ export const Portrait = ({
   gravatar,
   iconType = "individual",
   initials,
-  shape = "square",
+  shape = "circle",
   size = "M",
   src,
   onClick,

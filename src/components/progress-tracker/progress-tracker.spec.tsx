@@ -114,6 +114,13 @@ describe("ProgressTracker", () => {
         },
         wrapper.find(ProgressTracker)
       );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius400)",
+        },
+        wrapper.find(StyledProgressBar)
+      );
     });
 
     it("renders inner bar as expected", () => {
@@ -122,7 +129,7 @@ describe("ProgressTracker", () => {
           backgroundColor: "var(--colorsSemanticNeutral500)",
           width: "calc(256px * 0.5)",
           height: "var(--sizing100)",
-          borderRadius: "25px",
+          borderRadius: "var(--borderRadius400)",
         },
         wrapper.find(InnerBar)
       );

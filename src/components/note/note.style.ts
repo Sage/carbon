@@ -112,6 +112,7 @@ const StyledNote = styled.div<{ width: number }>`
   ${({ width }) => css`
     background-color: var(--colorsUtilityYang100);
     border: 1px solid var(--colorsUtilityMajor100);
+    border-radius: var(--borderRadius100);
     display: flex;
     flex-direction: column;
     padding: 24px;

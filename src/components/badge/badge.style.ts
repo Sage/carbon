@@ -5,7 +5,7 @@ import Icon from "../icon";
 
 const commonStyles = `
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: var(--borderRadiusCircle);
   position: absolute;
   top: -11px;
   right: -11px;

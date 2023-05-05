@@ -11,6 +11,7 @@ const StyledIconButton = styled.button.attrs({ type: "button" })`
     }
     background: transparent;
     border: none;
+    border-radius: var(--borderRadius050);
 
     &:focus {
       background-color: transparent;

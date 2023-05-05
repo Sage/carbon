@@ -484,4 +484,14 @@ describe("should render TileSelect component and check events", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should render with the expected border radius styling", () => {
+    CypressMountWithProviders(<testStories.TileSelectComponent />);
+
+    tileSelectDataComponent()
+      .children()
+      .first()
+      .should("have.css", "border-radius", "8px")
+      .and("have.css", "overflow", "hidden");
+  });
 });

@@ -89,7 +89,7 @@ export const Carousel = ({
 
     if (isNewIndexUndefined || isTheSameIndex) return;
 
-    if (newIndex > selectedSlideIndex) {
+    if (Number(newIndex) > Number(selectedSlideIndex)) {
       transitionDirection.current = NEXT;
     } else {
       transitionDirection.current = PREVIOUS;

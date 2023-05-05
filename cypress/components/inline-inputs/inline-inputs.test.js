@@ -114,6 +114,7 @@ context("Tests for InlineInputs component", () => {
       }
     );
   });
+
   describe("Accessibility tests for InlineInputs component", () => {
     it("should pass accessibility tests for InlineInputs Default story", () => {
       CypressMountWithProviders(<stories.Default />);
@@ -132,5 +133,101 @@ context("Tests for InlineInputs component", () => {
 
       cy.checkAccessibility();
     });
+  });
+
+  describe("rounded corners", () => {
+    it.each([
+      "none",
+      "extra-small",
+      "small",
+      "medium-small",
+      "medium",
+      "medium-large",
+      "large",
+      "extra-large",
+    ])(
+      "should have the expected border radius styling when gutter is %s and has three input children",
+      (gutter) => {
+        const firstInputResult = gutter === "none" ? "4px 0px 0px 4px" : "4px";
+        const middleInputResult = gutter === "none" ? "0px" : "4px";
+        const lastInputResult = gutter === "none" ? "0px 4px 4px 0px" : "4px";
+
+        CypressMountWithProviders(<InlineInputComponent gutter={gutter} />);
+        inlineInputContainer()
+          .children()
+          .find('[role="presentation"]')
+          .first()
+          .should("have.css", "border-radius", firstInputResult);
+        inlineInputContainer()
+          .children()
+          .find('[role="presentation"]')
+          .eq(1)
+          .should("have.css", "border-radius", middleInputResult);
+        inlineInputContainer()
+          .children()
+          .find('[role="presentation"]')
+          .last()
+          .should("have.css", "border-radius", lastInputResult);
+      }
+    );
+
+    it.each([
+      "none",
+      "extra-small",
+      "small",
+      "medium-small",
+      "medium",
+      "medium-large",
+      "large",
+      "extra-large",
+    ])(
+      "should have the expected border radius styling when gutter is %s and has two input children",
+      (gutter) => {
+        const firstInputResult = gutter === "none" ? "4px 0px 0px 4px" : "4px";
+        const lastInputResult = gutter === "none" ? "0px 4px 4px 0px" : "4px";
+
+        CypressMountWithProviders(
+          <InlineInputs label="Inline Input" gutter={gutter}>
+            <Textbox hasWarning inputIcon="warning" tooltipMessage="warning" />
+            <Decimal onChange={function noRefCheck() {}} value="0.00" />
+          </InlineInputs>
+        );
+        inlineInputContainer()
+          .children()
+          .find('[role="presentation"]')
+          .first()
+          .should("have.css", "border-radius", firstInputResult);
+        inlineInputContainer()
+          .children()
+          .find('[role="presentation"]')
+          .last()
+          .should("have.css", "border-radius", lastInputResult);
+      }
+    );
+
+    it.each([
+      "none",
+      "extra-small",
+      "small",
+      "medium-small",
+      "medium",
+      "medium-large",
+      "large",
+      "extra-large",
+    ])(
+      "should have the expected border radius styling when gutter is %s and has one input child",
+      (gutter) => {
+        CypressMountWithProviders(
+          <InlineInputs label="Inline Input" gutter={gutter}>
+            <Textbox hasWarning inputIcon="warning" tooltipMessage="warning" />
+          </InlineInputs>
+        );
+        inlineInputContainer()
+          .children()
+          .find('[role="presentation"]')
+          .first()
+          .should("have.css", "border-radius", "4px");
+      }
+    );
   });
 });

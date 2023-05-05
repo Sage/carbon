@@ -41,6 +41,7 @@ describe("Message", () => {
         display: "flex",
         justifyContent: "flex-start",
         alignContent: "center",
+        borderRadius: "var(--borderRadius100)",
       },
       mount(<Message>Message</Message>)
     );

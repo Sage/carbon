@@ -759,4 +759,15 @@ context("Test for ActionPopover component", () => {
         });
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<ActionPopoverCustom />);
+
+    actionPopoverButton()
+      .eq(0)
+      .focus()
+      .should("have.css", "border-radius", "4px");
+    actionPopoverButton().eq(0).click();
+    actionPopover().should("have.css", "border-radius", "8px");
+  });
 });

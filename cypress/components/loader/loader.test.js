@@ -127,4 +127,13 @@ context("Test for Loader component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should render with expected border radius styling", () => {
+    CypressMountWithProviders(<Loader />);
+    loader(positionOfElement("first")).should(
+      "have.css",
+      "border-radius",
+      "50%"
+    );
+  });
 });

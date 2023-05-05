@@ -103,3 +103,17 @@ export const MultiActionNestedInDialog = () => {
     </Dialog>
   );
 };
+
+export const MultiActionWithHrefChildren = () => (
+  <MultiActionButton text="default text">
+    <Button href="#">Button 1</Button>
+    <Button>Button 2</Button>
+    <Button href="#">Button 3</Button>
+  </MultiActionButton>
+);
+
+export const MultiActionButtonWithOneChild = () => (
+  <MultiActionButton text="default text">
+    <Button>Button 1</Button>
+  </MultiActionButton>
+);

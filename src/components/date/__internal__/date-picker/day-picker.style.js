@@ -195,6 +195,7 @@ const StyledDayPicker = styled.div`
     padding: var(--spacing300);
     text-align: center;
     user-select: none;
+    border-radius: var(--borderRadius050);
   }
 
   .DayPicker * {
@@ -214,6 +215,7 @@ const StyledDayPicker = styled.div`
     padding: 0;
     &:focus {
       outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+      border-radius: var(--borderRadius050);
     }
   }
 
@@ -252,6 +254,7 @@ const StyledDayPicker = styled.div`
     font-weight: var(--fontWeights700);
     font-size: var(--fontSizes100);
     line-height: var(--lineHeights500);
+    border-radius: var(--borderRadius400);
 
     &:hover {
       background-color: var(--colorsActionMinor050);
@@ -296,6 +299,7 @@ const StyledDayPicker = styled.div`
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
     background-color: var(--colorsActionMajor500);
     color: var(--colorsUtilityYang100);
+    border-radius: var(--borderRadius400);
   }
 
   .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {

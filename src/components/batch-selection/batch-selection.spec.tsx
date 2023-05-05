@@ -36,6 +36,7 @@ describe("BatchSelection component", () => {
         {
           backgroundColor: "var(--colorsUtilityMajor500)",
           color: "var(--colorsUtilityYang100)",
+          borderRadius: "var(--borderRadius100)",
         },
         wrapper
       );
@@ -61,6 +62,7 @@ describe("BatchSelection component", () => {
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsUtilityMajor150)",
+          borderRadius: "var(--borderRadius100)",
         },
         wrapper
       );
@@ -77,6 +79,7 @@ describe("BatchSelection component", () => {
         {
           backgroundColor: "var(--colorsUtilityYang100)",
           boxShadow: "var(--boxShadow100)",
+          borderRadius: "var(--borderRadius100)",
         },
         wrapper
       );

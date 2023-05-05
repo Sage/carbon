@@ -1479,4 +1479,10 @@ context("Tests for Multi Select component", () => {
       cy.get("p").should("be.visible").should("have.text", "Error");
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<MultiSelectComponent />);
+    selectInput().should("have.css", "border-radius", "4px");
+    selectListWrapper().should("have.css", "border-radius", "4px");
+  });
 });

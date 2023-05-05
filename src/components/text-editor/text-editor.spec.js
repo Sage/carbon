@@ -122,6 +122,7 @@ describe("TextEditor", () => {
           minWidth: "320px",
           backgroundColor: "var(--colorsUtilityYang100)",
           outline: "1px solid var(--colorsUtilityMajor200)",
+          borderRadius: "var(--borderRadius050)",
         },
         wrapper.find(StyledEditorContainer)
       );

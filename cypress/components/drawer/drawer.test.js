@@ -641,4 +641,10 @@ context("Test for Drawer component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("has the expected border radius styling on the sidebar control", () => {
+    CypressMountWithProviders(<DrawerCustom showControls />);
+
+    drawerToggle().focus().should("have.css", "border-radius", "4px");
+  });
 });

@@ -12,6 +12,7 @@ import {
   StyledButtonToggleLabel,
   StyledButtonToggleInput,
   ButtonToggleIconSizes,
+  StyledButtonToggle,
 } from "./button-toggle.style";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 import { ThemeObject } from "../../style/themes/base";
@@ -290,6 +291,7 @@ describe("ButtonToggle", () => {
         { modifier: "&" }
       );
     });
+
     it("renders correctly with small icon", () => {
       const wrapper = renderButtonToggle({
         buttonIcon: "add",
@@ -302,6 +304,7 @@ describe("ButtonToggle", () => {
         wrapper.find(StyledButtonToggleIcon)
       );
     });
+
     it("renders correctly when grouped", () => {
       const props = {
         grouped: true,
@@ -335,5 +338,15 @@ describe("ButtonToggle", () => {
 
   describe("coverage filler for else path", () => {
     mount(<ButtonToggle buttonIcon="add">toggle</ButtonToggle>);
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius400)",
+      },
+      mount(<ButtonToggle>toggle</ButtonToggle>).find(StyledButtonToggle),
+      { modifier: `&&&& ${StyledButtonToggleLabel}` }
+    );
   });
 });

@@ -72,6 +72,8 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
       box-sizing: border-box;
       min-width: 16px;
       width: 16px;
+      border-radius: var(--borderRadius025);
+      ${size === "large" && `border-radius: var(--borderRadius050)`};
     }
 
     // prettier-ignore

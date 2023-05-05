@@ -327,4 +327,15 @@ describe("AnchorNavigation", () => {
       }
     );
   });
+
+  it("has the expected border radius styling on the navigation items", () => {
+    assertStyleMatch(
+      {
+        borderTopRightRadius: "var(--borderRadius100)",
+        borderBottomRightRadius: "var(--borderRadius100)",
+      },
+      wrapper.find(StyledNavigationItem),
+      { modifier: "a" }
+    );
+  });
 });

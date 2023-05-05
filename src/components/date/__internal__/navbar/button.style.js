@@ -12,6 +12,8 @@ const StyledButton = styled.button.attrs({ type: "button" })`
   width: var(--sizing500);
   padding: var(--spacing150);
   box-sizing: border-box;
+  border-radius: var(--borderRadius050);
+
   &:focus {
     outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
   }

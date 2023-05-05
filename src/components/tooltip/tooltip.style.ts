@@ -29,6 +29,7 @@ const StyledTooltip = styled.div<
     right: auto;
     max-width: 300px;
     width: max-content;
+    border-radius: var(--borderRadius050);
     position: absolute;
     animation: ${fadeIn} 0.2s linear;
     z-index: ${theme.zIndex

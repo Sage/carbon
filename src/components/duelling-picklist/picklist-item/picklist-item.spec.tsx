@@ -5,6 +5,7 @@ import PicklistItem, { PicklistItemProps } from "./picklist-item.component";
 import { StyledButton } from "./picklist-item.style";
 import StyledIcon from "../../icon/icon.style";
 import FocusContext from "../duelling-picklist.context";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 
 const setElementToFocus = jest.fn();
 
@@ -94,5 +95,14 @@ describe("PicklistItem component", () => {
 
       expect(setElementToFocus).toHaveBeenCalledWith(0, 0, undefined);
     });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius100)",
+      },
+      render({ type: "remove", onChange: () => {}, item: 1 })
+    );
   });
 });

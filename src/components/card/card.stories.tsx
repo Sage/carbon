@@ -58,6 +58,9 @@ WithCardWidthProvided.args = { cardWidth: "500px" };
 export const WithCustomHeight = DefaultStory.bind({});
 WithCustomHeight.args = { height: "500px" };
 
+export const WithExtraRoundness = DefaultStory.bind({});
+WithExtraRoundness.args = { roundness: "large" };
+
 export const Interactive: StoryFn = () => {
   const [clickCounter, setClickCounter] = useState(0);
   return (
@@ -154,6 +157,13 @@ DifferentCardRowPadding.parameters = { chromatic: { disableSnapshot: true } };
 export const DifferentCardFooterPadding: StoryFn = () => (
   <Box>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={1} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -168,6 +178,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={2} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -182,6 +199,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={3} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -196,6 +220,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={4} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -210,6 +241,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={5} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -224,6 +262,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={5} py={2}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -246,6 +291,13 @@ DifferentCardFooterPadding.parameters = {
 export const MoreExamplesOfCardFooter: StoryFn = () => (
   <Box>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter p={1}>
         <Box
           alignItems="center"
@@ -277,6 +329,13 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card cardWidth="400px">
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={2} py={1}>
         <Box
           width="100%"
@@ -316,6 +375,13 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card cardWidth="400px">
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter variant="transparent" px={2} py={1}>
         <Box
           width="100%"
@@ -355,6 +421,13 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter p={2}>
         <Box display="flex" width="100%" justifyContent="center">
           <Link icon="link" href="https://carbon.sage.com/">

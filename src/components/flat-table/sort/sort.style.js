@@ -22,6 +22,7 @@ const StyledSort = styled.div`
 
   :focus {
     outline: 1px solid var(--colorsSemanticFocus500);
+    border-radius: var(--borderRadius025);
   }
 `;
 

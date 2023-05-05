@@ -72,7 +72,7 @@ const minorColors: [ButtonTypes, VariantColorProperties][] = [
 
 describe("Button Minor", () => {
   it.each(minorSizesPadding)(
-    "when size is %s the padding is %s",
+    "renders with correct spacing when size is %s the padding is %s",
     (size, padding) => {
       const wrapper = mount(<ButtonMinor size={size}>Foo</ButtonMinor>);
       assertStyleMatch({ padding }, wrapper);
@@ -80,7 +80,7 @@ describe("Button Minor", () => {
   );
 
   it.each(minorColors)(
-    "when buttonType is %s, renders with correct styling",
+    "renders with correct styling when buttonType is %s",
     (buttonType, styles) => {
       const wrapper = mount(
         <ButtonMinor buttonType={buttonType}>Foo</ButtonMinor>
@@ -111,7 +111,7 @@ describe("Button Minor", () => {
     );
   });
 
-  it("when destructive prop is passed, renders with destructive styling", () => {
+  it("renders with destructive styling when destructive prop is passed", () => {
     const wrapper = mount(<ButtonMinor destructive>foo</ButtonMinor>);
     assertStyleMatch(
       {
@@ -121,7 +121,8 @@ describe("Button Minor", () => {
       wrapper
     );
   });
-  it("when disabled prop is passed, renders with disabled styling", () => {
+
+  it("renders with disabled styling when disabled prop is passed", () => {
     const wrapper = mount(<ButtonMinor disabled>foo</ButtonMinor>);
     assertStyleMatch(
       {
@@ -129,6 +130,15 @@ describe("Button Minor", () => {
         color: "var(--colorsActionMajorYin030)",
       },
       wrapper
+    );
+  });
+
+  it("renders with expected border radius", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      mount(<ButtonMinor>foo</ButtonMinor>)
     );
   });
 });

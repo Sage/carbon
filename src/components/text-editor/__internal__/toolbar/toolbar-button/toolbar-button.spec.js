@@ -37,6 +37,7 @@ describe("ToolbarButton", () => {
           width: "32px",
           fontSize: "14px",
           height: "32px",
+          borderRadius: "var(--borderRadius050)",
         },
         wrapper
       );

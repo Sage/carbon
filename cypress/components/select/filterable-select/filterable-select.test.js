@@ -1577,4 +1577,10 @@ context("Tests for Filterable Select component", () => {
       commonDataElementInputPreview().should("not.be.focused");
     });
   });
+
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<FilterableSelectComponent />);
+    selectInput().should("have.css", "border-radius", "4px");
+    selectListWrapper().should("have.css", "border-radius", "4px");
+  });
 });

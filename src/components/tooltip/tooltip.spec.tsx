@@ -107,6 +107,7 @@ describe("Tooltip", () => {
             lineHeight: "1.5rem",
             fontWeight: "400",
             backgroundColor: "var(--colorsSemanticNeutral500)",
+            borderRadius: "var(--borderRadius050)",
           });
         });
 

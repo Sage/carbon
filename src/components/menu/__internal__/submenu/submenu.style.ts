@@ -77,6 +77,20 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       }
     `}
 
+    ${!inFullscreenView &&
+    css`
+      border-bottom-right-radius: var(--borderRadius100);
+      border-bottom-left-radius: var(--borderRadius100);
+
+      ${StyledMenuItem}:last-child a,
+      ${StyledMenuItem}:last-child button,
+      ${StyledMenuItem}:last-child > span,
+      ${StyledMenuItem}:last-child > div {
+        border-bottom-left-radius: var(--borderRadius100);
+        border-bottom-right-radius: var(--borderRadius100);
+      }
+    `}
+
     display: block;
     list-style: none;
     margin: 0;

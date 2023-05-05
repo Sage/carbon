@@ -3,6 +3,7 @@ import {
   CURRENT_COLOR_DESCRIPTION,
   SIMPLE_COLOR,
   SIMPLE_COLOR_PICKER,
+  ADVANCED_COLOR_PREVIEW,
 } from "./locators";
 
 export const simpleColorPickerInput = (index) =>
@@ -15,3 +16,4 @@ export const advancedColorPicker = (index) => {
   return cy.get(SIMPLE_COLOR).eq(index);
 };
 export const simpleColorPickerComponent = () => cy.get(SIMPLE_COLOR_PICKER);
+export const advancedColorPickerPreview = () => cy.get(ADVANCED_COLOR_PREVIEW);

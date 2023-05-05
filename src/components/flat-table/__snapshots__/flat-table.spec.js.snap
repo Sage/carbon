@@ -129,13 +129,13 @@ exports[`FlatTable when rendered with proper table data should have expected str
   border-left: 1px solid var(--colorsUtilityMajor400);
 }
 
-.c4.c4.c4 .c14 {
+.c4.c4.c4 .c15 {
   border-left: none;
   border-right: none;
 }
 
 .c4.c4.c4 .c7,
-.c4.c4.c4 .c14 {
+.c4.c4.c4 .c15 {
   font-weight: 700;
 }
 
@@ -146,7 +146,6 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c2 {
   border-collapse: separate;
-  border-radius: 0px;
   border-spacing: 0;
   width: 100%;
 }
@@ -158,7 +157,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
 .c2 .c11 > div,
 .c2 .c9 > div,
 .c2 .c7 > div,
-.c2 .c14 > div {
+.c2 .c15 > div {
   font-size: 14px;
   padding-left: 16px;
   padding-right: 16px;
@@ -172,6 +171,11 @@ exports[`FlatTable when rendered with proper table data should have expected str
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  border-radius: var(--borderRadius000);
+  border-top-left-radius: var(--borderRadius100);
+  border-top-right-radius: var(--borderRadius100);
+  border-bottom-left-radius: var(--borderRadius100);
+  border-bottom-right-radius: var(--borderRadius100);
   box-sizing: border-box;
   box-shadow: inset 0px 0px 0px 1px var(--colorsUtilityMajor100);
 }
@@ -188,7 +192,7 @@ exports[`FlatTable when rendered with proper table data should have expected str
   outline: 2px solid var(--colorsSemanticFocus500);
 }
 
-.c0 .c3 .c14,
+.c0 .c3 .c15,
 .c0 .c9,
 .c0 .c3 {
   background-color: var(--colorsUtilityMajor400);
@@ -207,24 +211,99 @@ exports[`FlatTable when rendered with proper table data should have expected str
 
 .c0 .c3 .c7,
 .c0 .c9.isSticky,
-.c0 .c3 .c14.isSticky {
+.c0 .c3 .c15.isSticky {
   z-index: 1005;
 }
 
 .c0 thead .c9.isSticky,
-.c0 .c14.isSticky {
+.c0 .c15.isSticky {
   border-right: none;
 }
 
 .c0 .c9,
-.c0 .c14 {
+.c0 .c15 {
   z-index: 1003;
+}
+
+.c0 thead .c5:first-of-type th:first-of-type {
+  border-top-left-radius: var(--borderRadius100);
+}
+
+.c0 thead .c5:first-of-type th:last-of-type {
+  border-top-right-radius: var(--borderRadius100);
 }
 
 .c0 tbody .c7,
 .c0 .c11.isSticky,
-.c0 tbody .c14.isSticky {
+.c0 tbody .c15.isSticky {
   z-index: 1000;
+}
+
+.c0 tbody .c5:last-of-type th:first-child,
+.c0 tbody .c5:last-of-type td:first-child {
+  border-bottom-left-radius: var(--borderRadius100);
+}
+
+.c0 tbody .c5:last-of-type th:last-child,
+.c0 tbody .c5:last-of-type td:last-child {
+  border-bottom-right-radius: var(--borderRadius100);
+}
+
+.c14 .c3 .c15,
+.c14 .c9,
+.c14 .c3 {
+  background-color: var(--colorsUtilityMajor400);
+  border-right: 1px solid var(--colorsUtilityMajor300);
+  color: var(--colorsUtilityYang100);
+  border-bottom-color: var(--colorsUtilityMajor300);
+}
+
+.c14 .c3 .c7 {
+  background-color: var(--colorsUtilityMajor400);
+  color: var(--colorsUtilityYang100);
+  border-bottom-color: var(--colorsUtilityMajor300);
+  border-right-color: var(--colorsUtilityMajor300);
+  border-left-color: var(--colorsUtilityMajor300);
+}
+
+.c14 .c3 .c7,
+.c14 .c9.isSticky,
+.c14 .c3 .c15.isSticky {
+  z-index: 1005;
+}
+
+.c14 thead .c9.isSticky,
+.c14 .c15.isSticky {
+  border-right: none;
+}
+
+.c14 .c9,
+.c14 .c15 {
+  z-index: 1003;
+}
+
+.c14 thead .c5:first-of-type th:first-of-type {
+  border-top-left-radius: var(--borderRadius100);
+}
+
+.c14 thead .c5:first-of-type th:last-of-type {
+  border-top-right-radius: var(--borderRadius100);
+}
+
+.c14 tbody .c7,
+.c14 .c11.isSticky,
+.c14 tbody .c15.isSticky {
+  z-index: 1000;
+}
+
+.c14 tbody .c5:nth-of-type(1) th:last-child,
+.c14 tbody .c5:nth-of-type(1) td:last-child {
+  border-bottom-right-radius: var(--borderRadius100);
+}
+
+.c14 tbody .c5:last-of-type th:first-child,
+.c14 tbody .c5:last-of-type td:first-child {
+  border-bottom-left-radius: var(--borderRadius100);
 }
 
 <div

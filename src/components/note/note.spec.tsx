@@ -52,6 +52,7 @@ describe("Note", () => {
           padding: "24px",
           position: "relative",
           width: "100%",
+          borderRadius: "var(--borderRadius100)",
         },
         wrapper
       );

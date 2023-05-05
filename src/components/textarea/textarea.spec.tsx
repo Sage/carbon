@@ -8,6 +8,7 @@ import {
 import CharacterCount from "../../__internal__/character-count";
 import Textarea, { TextareaProps } from ".";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import { Input } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
 import Label from "../../__internal__/label";
@@ -660,5 +661,14 @@ describe("componentWillUnmount", () => {
 
       expect(ref.current).toBe(null);
     });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      mount(<Textarea />).find(StyledInputPresentation)
+    );
   });
 });

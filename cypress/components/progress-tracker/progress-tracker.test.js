@@ -330,4 +330,10 @@ context("Tests for ProgressTracker component", () => {
       }
     );
   });
+
+  it("has the expected border radius styling", () => {
+    CypressMountWithProviders(<ProgressTrackerComponent progress={35} />);
+    progressTrackerLine().parent().should("have.css", "border-radius", "32px");
+    progressTrackerLine().should("have.css", "border-radius", "32px");
+  });
 });

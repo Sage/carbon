@@ -125,7 +125,7 @@ describe("Inline Inputs", () => {
       wrapper = render({ gutter: gutterValue });
     });
 
-    it("then the borderLeft css property of the adjacent input should be set to none", () => {
+    it("sets the borderLeft css property of the adjacent input should to none", () => {
       assertStyleMatch(
         {
           borderLeft: "none",
@@ -133,6 +133,44 @@ describe("Inline Inputs", () => {
         wrapper.find(StyledContentContainer),
         {
           modifier: `${StyledInlineInput} + ${StyledInlineInput} ${InputPresentation}`,
+        }
+      );
+    });
+
+    it("sets the expected border radius styling", () => {
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius000)",
+        },
+        wrapper.find(StyledContentContainer),
+        {
+          modifier: `${StyledInlineInput}:not(:first-of-type):not(:last-of-type) ${InputPresentation}`,
+        }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+          borderTopLeftRadius: "var(--borderRadius050)",
+          borderBottomLeftRadius: "var(--borderRadius050)",
+        },
+        wrapper.find(StyledContentContainer),
+        {
+          modifier: `${StyledInlineInput}:first-of-type:not(:last-of-type) ${InputPresentation}`,
+        }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius050)",
+          borderBottomRightRadius: "var(--borderRadius050)",
+          borderTopLeftRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius000)",
+        },
+        wrapper.find(StyledContentContainer),
+        {
+          modifier: `${StyledInlineInput}:last-of-type:not(:first-of-type) ${InputPresentation}`,
         }
       );
     });

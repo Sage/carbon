@@ -55,4 +55,10 @@ context("Tests for LoaderBar component", () => {
       cy.checkAccessibility();
     });
   });
+
+  it("should render with the expected border radius styling", () => {
+    CypressMountWithProviders(<LoaderBarComponent />);
+
+    loaderBar().children().first().should("have.css", "border-radius", "32px");
+  });
 });

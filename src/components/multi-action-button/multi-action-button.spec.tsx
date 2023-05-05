@@ -717,4 +717,21 @@ describe("MultiActionButton", () => {
       );
     });
   });
+
+  describe("rounded corner styling", () => {
+    it("renders the main button with expected border radius styling", () => {
+      wrapper = mount(
+        <MultiActionButton text="foo">
+          <Button>bar</Button>
+        </MultiActionButton>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius400)",
+        },
+        wrapper.find(StyledMultiActionButton).find(StyledButton)
+      );
+    });
+  });
 });

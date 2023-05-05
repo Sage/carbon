@@ -292,4 +292,24 @@ describe("RadioButton", () => {
       expect(ariaLabel).toEqual(text);
     });
   });
+
+  it("has the expected border radius styling", () => {
+    const wrapper = mount(<RadioButtonStyle />);
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadiusCircle)",
+      },
+      wrapper,
+      { modifier: `${StyledCheckableInputSvgWrapper}` }
+    );
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadiusCircle)",
+      },
+      wrapper,
+      { modifier: "svg" }
+    );
+  });
 });
