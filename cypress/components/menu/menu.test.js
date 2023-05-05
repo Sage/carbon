@@ -27,6 +27,7 @@ import {
 import {
   searchDefaultInput,
   searchCrossIcon,
+  searchButton,
 } from "../../locators/search/index";
 import { getComponent, closeIconButton, icon } from "../../locators";
 import {
@@ -287,6 +288,24 @@ const MenuComponentItems = ({ ...props }) => {
     </Box>
   );
 };
+
+/* eslint-disable-next-line react/prop-types */
+const MenuFullScreenWithSearchButton = ({ searchValue }) => (
+  <MenuFullscreen isOpen onClose={() => {}}>
+    <MenuItem href="#">Menu Item before Search</MenuItem>
+    <MenuItem variant="alternate">
+      <Search
+        placeholder="Dark variant"
+        variant="dark"
+        defaultValue={searchValue}
+        searchButton
+      />
+    </MenuItem>
+    <MenuItem variant="alternate" href="#">
+      Menu Item after Search
+    </MenuItem>
+  </MenuFullscreen>
+);
 
 const MenuComponentScrollableParent = () => {
   const items = ["apple", "banana", "carrot", "grapefruit", "melon", "orange"];
@@ -708,11 +727,7 @@ context("Testing Menu component", () => {
 
       submenu().eq(positionOfElement("first")).trigger("mouseover");
       innerMenu(positionOfElement("second"), span).then(($item) => {
-        submenuBlock()
-          // .then($el => {
-          //   useJQueryCssValueAndAssert($el, "width", i)
-          // })
-          .should("have.css", "width", `${$item.width()}px`);
+        submenuBlock().should("have.css", "width", `${$item.width()}px`);
       });
     });
 
@@ -1349,7 +1364,11 @@ context("Testing Menu component", () => {
       });
     });
 
-    it("should verify that inner Menu is available with tabbing in Menu Fullscreen", () => {
+    it("should verify that inner Menu is available with tabbing and styles are correct", () => {
+      cy.viewport(1200, 800);
+      CypressMountWithProviders(<MenuComponentFullScreen />);
+      menuItem().eq(positionOfElement("first"), div).click();
+
       fullScreenMenuWrapper().tab();
       for (let i = 0; i < 4; i++) {
         cy.focused().tab();
@@ -1373,10 +1392,21 @@ context("Testing Menu component", () => {
         .eq(1)
         .children()
         .children()
+        .should("have.css", "color")
+        .and("contain", "rgb(255, 255, 255)");
+      fullScreenMenuItem(positionOfElement("fourth"))
+        .find("ul > li")
+        .eq(1)
+        .children()
+        .children()
         .should("be.focused");
     });
 
-    it("should verify that inner Menu is available with shift-tabbing in Menu Fullscreen", () => {
+    it("should verify that inner Menu is available with shift-tabbing and styles are correct", () => {
+      cy.viewport(1200, 800);
+      CypressMountWithProviders(<MenuComponentFullScreen />);
+      menuItem().eq(positionOfElement("first"), div).click();
+
       fullScreenMenuWrapper().tab();
       for (let i = 0; i < 5; i++) {
         cy.focused().tab();
@@ -1396,6 +1426,13 @@ context("Testing Menu component", () => {
         .children()
         .should("have.css", "background-color")
         .and("contain", "rgb(0, 126, 69)");
+      fullScreenMenuItem(positionOfElement("fourth"))
+        .find("ul > li")
+        .eq(1)
+        .children()
+        .children()
+        .should("have.css", "color")
+        .and("contain", "rgb(255, 255, 255)");
       fullScreenMenuItem(positionOfElement("fourth"))
         .find("ul > li")
         .eq(1)
@@ -1439,6 +1476,34 @@ context("Testing Menu component", () => {
         );
       }
     );
+
+    it("should focus the next menu item on tab press when the current item has a Search input with searchButton but no value", () => {
+      CypressMountWithProviders(
+        <MenuFullScreenWithSearchButton searchValue="" />
+      );
+
+      menuItem().first().find("a").focus();
+      cy.tab();
+      searchDefaultInput().should("have.focus");
+      cy.tab();
+      menuItem().last().find("a").should("have.focus");
+    });
+
+    it("should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value", () => {
+      CypressMountWithProviders(
+        <MenuFullScreenWithSearchButton searchValue="foo" />
+      );
+
+      menuItem().first().find("a").focus();
+      cy.tab();
+      searchDefaultInput().should("have.focus");
+      cy.tab();
+      searchCrossIcon().parent().should("have.focus");
+      cy.tab();
+      searchButton().should("have.focus");
+      cy.tab();
+      menuItem().last().find("a").should("have.focus");
+    });
   });
 
   describe("check events for Menu component", () => {
