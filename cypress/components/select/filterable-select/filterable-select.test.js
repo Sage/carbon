@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { FilterableSelect, Option } from "../../../../src/components/select";
-import OptionRow from "../../../../src/components/select/option-row/option-row.component";
-import Button from "../../../../src/components/button";
-import Dialog from "../../../../src/components/dialog";
+import React from "react";
+import * as stories from "../../../../src/components/select/filterable-select/filterable-select-test.stories";
 import CypressMountWithProviders from "../../../support/component-helper/cypress-mount";
 
 import {
@@ -49,578 +46,19 @@ import { keyCode, positionOfElement } from "../../../../cypress/support/helper";
 
 import { SIZE, CHARACTERS } from "../../../support/component-helper/constants";
 
-const FilterableSelectComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState("");
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <FilterableSelect
-      label="filterable select"
-      labelInline
-      value={value}
-      onChange={onChangeHandler}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectWithLazyLoadingComponent = ({ ...props }) => {
-  const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState("black");
-  const [isLoading, setIsLoading] = React.useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = React.useState([
-    <Option text="Black" value="black" key="Black" />,
-  ]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-
-  return (
-    <FilterableSelect
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      onOpen={() => loadList()}
-      isLoading={isLoading}
-      {...props}
-    >
-      {optionList}
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectLazyLoadTwiceComponent = ({ ...props }) => {
-  const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = React.useState([]);
-
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-  function clearData() {
-    setOptionList([]);
-    setValue("");
-    preventLoading.current = false;
-  }
-
-  return (
-    <div>
-      <Button onClick={clearData} mb={2} data-element="reset-button">
-        reset
-      </Button>
-      <FilterableSelect
-        label="color"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        onOpen={() => loadList()}
-        isLoading={isLoading}
-        {...props}
-      >
-        {optionList}
-      </FilterableSelect>
-    </div>
-  );
-};
-
-const FilterableSelectWithInfiniteScrollComponent = ({ ...props }) => {
-  const preventLoading = React.useRef(false);
-  const preventLazyLoading = React.useRef(false);
-  const lazyLoadingCounter = React.useRef(0);
-  const [value, setValue] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-
-  const getLazyLoaded = () => {
-    const counter = lazyLoadingCounter.current;
-    return [
-      <Option
-        text={`Lazy Loaded A${counter}`}
-        value={`lazyA${counter}`}
-        key={`lazyA${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded B${counter}`}
-        value={`lazyB${counter}`}
-        key={`lazyB${counter}`}
-      />,
-      <Option
-        text={`Lazy Loaded C${counter}`}
-        value={`lazyC${counter}`}
-        key={`lazyC${counter}`}
-      />,
-    ];
-  };
-
-  const [optionList, setOptionList] = React.useState([]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-
-  function onLazyLoading() {
-    if (preventLazyLoading.current) {
-      return;
-    }
-
-    preventLazyLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      preventLazyLoading.current = false;
-      lazyLoadingCounter.current += 1;
-      setIsLoading(false);
-      setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-    }, 2000);
-  }
-
-  return (
-    <FilterableSelect
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      onOpen={() => loadList()}
-      isLoading={isLoading}
-      onListScrollBottom={onLazyLoading}
-      {...props}
-    >
-      {optionList}
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectObjectAsValueComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState({
-    id: "Green",
-    value: 5,
-    text: "Green",
-  });
-  const optionList = React.useRef([
-    <Option
-      text="Amber"
-      key="Amber"
-      value={{
-        id: "Amber",
-        value: 1,
-        text: "Amber",
-      }}
-    />,
-    <Option
-      text="Black"
-      key="Black"
-      value={{
-        id: "Black",
-        value: 2,
-        text: "Black",
-      }}
-    />,
-    <Option
-      text="Blue"
-      key="Blue"
-      value={{
-        id: "Blue",
-        value: 3,
-        text: "Blue",
-      }}
-    />,
-    <Option
-      text="Brown"
-      key="Brown"
-      value={{
-        id: "Brown",
-        value: 4,
-        text: "Brown",
-      }}
-    />,
-    <Option
-      text="Green"
-      key="Green"
-      value={{
-        id: "Green",
-        value: 5,
-        text: "Green",
-      }}
-    />,
-    <Option
-      text="Orange"
-      key="Orange"
-      value={{
-        id: "Orange",
-        value: 6,
-        text: "Orange",
-      }}
-    />,
-    <Option
-      text="Pink"
-      key="Pink"
-      value={{
-        id: "Pink",
-        value: 7,
-        text: "Pink",
-      }}
-    />,
-    <Option
-      text="Purple"
-      key="Purple"
-      value={{
-        id: "Purple",
-        value: 8,
-        text: "Purple",
-      }}
-    />,
-    <Option
-      text="Red"
-      key="Red"
-      value={{
-        id: "Red",
-        value: 9,
-        text: "Red",
-      }}
-    />,
-    <Option
-      text="White"
-      key="White"
-      value={{
-        id: "White",
-        value: 10,
-        text: "White",
-      }}
-    />,
-    <Option
-      text="Yellow"
-      key="Yellow"
-      value={{
-        id: "Yellow",
-        value: 11,
-        text: "Yellow",
-      }}
-    />,
-  ]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <FilterableSelect value={value} onChange={onChangeHandler} {...props}>
-      {optionList.current}
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectMultiColumnsComponent = ({ ...props }) => {
-  return (
-    <FilterableSelect
-      multiColumn
-      defaultValue="2"
-      {...props}
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-    >
-      <OptionRow value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectMultiColumnsNestedComponent = ({ ...props }) => {
-  return (
-    <FilterableSelect
-      multiColumn
-      defaultValue="2"
-      {...props}
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-      listActionButton={
-        <Button iconType="add" iconPosition="after">
-          Add a New Element
-        </Button>
-      }
-      onListAction={() => console.log("Action")}
-    >
-      <OptionRow value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectWithActionButtonComponent = () => {
-  const [value, setValue] = React.useState("");
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [optionList, setOptionList] = React.useState([
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-    <Option text="Amber" value="amber1" key="Amber1" />,
-    <Option text="Black" value="black1" key="Black1" />,
-    <Option text="Blue" value="blue1" key="Blue1" />,
-    <Option text="Brown" value="brown1" key="Brown1" />,
-    <Option text="Green" value="green1" key="Green1" />,
-  ]);
-
-  function addNew() {
-    const counter = optionList.length.toString();
-    setOptionList((newOptionList) => [
-      ...newOptionList,
-      <Option
-        text={`New${counter}`}
-        value={`val${counter}`}
-        key={`New${counter}`}
-      />,
-    ]);
-    setIsOpen(false);
-    setValue(`val${counter}`);
-  }
-
-  return (
-    <>
-      <FilterableSelect
-        label="color"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        listActionButton={
-          <Button iconType="add" iconPosition="after">
-            Add a New Element
-          </Button>
-        }
-        onListAction={() => setIsOpen(true)}
-      >
-        {optionList}
-      </FilterableSelect>
-      <Dialog
-        open={isOpen}
-        onCancel={() => setIsOpen(false)}
-        title="Dialog component triggered on action"
-      >
-        <Button onClick={addNew}>Add new</Button>
-      </Dialog>
-    </>
-  );
-};
-
-const FilterableSelectOnChangeEventComponent = ({ onChange, ...props }) => {
-  const [state, setState] = React.useState("");
-
-  const setValue = ({ target }) => {
-    setState(target.value.rawValue);
-    if (onChange) {
-      onChange(target);
-    }
-  };
-
-  return (
-    <FilterableSelect
-      label="color"
-      value={state}
-      labelInline
-      onChange={setValue}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectListActionEventComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState("");
-
-  return (
-    <FilterableSelect
-      label="color"
-      value={value}
-      labelInline
-      onChange={(event) => setValue(event.target.value)}
-      {...props}
-      listActionButton={
-        <Button iconType="add" iconPosition="after">
-          Add a New Element
-        </Button>
-      }
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-    </FilterableSelect>
-  );
-};
-
-const FilterableSelectWithManyOptionsAndVirtualScrolling = () => (
-  <FilterableSelect
-    name="virtualised"
-    id="virtualised"
-    label="choose an option"
-    labelInline
-    enableVirtualScroll
-    virtualScrollOverscan={10}
-  >
-    {Array(10000)
-      .fill()
-      .map((_, index) => (
-        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
-      ))}
-  </FilterableSelect>
-);
-
-const FilterableSelectNestedInDialog = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <FilterableSelect name="testSelect" id="testSelect">
-        <Option value="opt1" text="red" />
-        <Option value="opt2" text="green" />
-        <Option value="opt3" text="blue" />
-        <Option value="opt4" text="black" />
-      </FilterableSelect>
-    </Dialog>
-  );
-};
-
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
 const addElementText = "Add a New Element";
 const columns = 3;
 const icon = "add";
 
-context("Tests for Filterable Select component", () => {
-  describe("check props for Filterable Select component", () => {
+context("Tests for FilterableSelect component", () => {
+  describe("check props for FilterableSelect component", () => {
     it.each(testData)(
-      "should render Filterable Select label using %s special characters",
+      "should render FilterableSelect label using %s special characters",
       (labelValue) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent label={labelValue} />
+          <stories.FilterableSelectComponent label={labelValue} />
         );
 
         getDataElementByValue("label").should("have.text", labelValue);
@@ -631,7 +69,7 @@ context("Tests for Filterable Select component", () => {
       "should render labelHelp message using %s special characters",
       (labelHelpValue) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent labelHelp={labelHelpValue} />
+          <stories.FilterableSelectComponent labelHelp={labelHelpValue} />
         );
 
         helpIcon().trigger("mouseover");
@@ -643,16 +81,16 @@ context("Tests for Filterable Select component", () => {
       "should render placeholder using %s special characters",
       (placeholderValue) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent placeholder={placeholderValue} />
+          <stories.FilterableSelectComponent placeholder={placeholderValue} />
         );
 
         selectInput().should("have.attr", "placeholder", placeholderValue);
       }
     );
 
-    it("should render Filterable Select with name prop set to test value", () => {
+    it("should render FilterableSelect with name prop set to test value", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent name={testPropValue} />
+        <stories.FilterableSelectComponent name={testPropValue} />
       );
 
       commonDataElementInputPreview().should(
@@ -662,17 +100,17 @@ context("Tests for Filterable Select component", () => {
       );
     });
 
-    it("should render Filterable Select with id prop prop set to test value", () => {
+    it("should render FilterableSelect with id prop prop set to test value", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent id={testPropValue} />
+        <stories.FilterableSelectComponent id={testPropValue} />
       );
 
       commonDataElementInputPreview().should("have.attr", "id", testPropValue);
     });
 
-    it("should render Filterable Select with data-component prop set to test value", () => {
+    it("should render FilterableSelect with data-component prop set to test value", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent data-component={testPropValue} />
+        <stories.FilterableSelectComponent data-component={testPropValue} />
       );
 
       selectElementInput()
@@ -681,9 +119,9 @@ context("Tests for Filterable Select component", () => {
         .should("have.attr", "data-component", testPropValue);
     });
 
-    it("should render Filterable Select with data-element prop set to test value", () => {
+    it("should render FilterableSelect with data-element prop set to test value", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent data-element={testPropValue} />
+        <stories.FilterableSelectComponent data-element={testPropValue} />
       );
 
       selectElementInput()
@@ -692,9 +130,9 @@ context("Tests for Filterable Select component", () => {
         .should("have.attr", "data-element", testPropValue);
     });
 
-    it("should render Filterable Select with data-role prop set to test value", () => {
+    it("should render FilterableSelect with data-role prop set to test value", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent data-role={testPropValue} />
+        <stories.FilterableSelectComponent data-role={testPropValue} />
       );
 
       selectElementInput()
@@ -712,7 +150,7 @@ context("Tests for Filterable Select component", () => {
       "should render the help tooltip in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <stories.FilterableSelectComponent
             labelHelp="Help"
             tooltipPosition={tooltipPositionValue}
             mt={top}
@@ -729,16 +167,16 @@ context("Tests for Filterable Select component", () => {
       }
     );
 
-    it("should check Filterable Select is disabled", () => {
-      CypressMountWithProviders(<FilterableSelectComponent disabled />);
+    it("should check FilterableSelect is disabled", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent disabled />);
 
       commonDataElementInputPreview()
         .should("be.disabled")
         .and("have.attr", "disabled");
     });
 
-    it("should render Filterable Select as read only", () => {
-      CypressMountWithProviders(<FilterableSelectComponent readOnly />);
+    it("should render FilterableSelect as read only", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent readOnly />);
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
@@ -750,9 +188,11 @@ context("Tests for Filterable Select component", () => {
       [SIZE.MEDIUM, 40],
       [SIZE.LARGE, 48],
     ])(
-      "should use %s as size and render Filterable Select with %s as height",
+      "should use %s as size and render FilterableSelect with %s as height",
       (size, height) => {
-        CypressMountWithProviders(<FilterableSelectComponent size={size} />);
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent size={size} />
+        );
 
         commonDataElementInputPreview()
           .parent()
@@ -762,20 +202,24 @@ context("Tests for Filterable Select component", () => {
       }
     );
 
-    it("should check Filterable Select has autofocus", () => {
-      CypressMountWithProviders(<FilterableSelectComponent autoFocus />);
+    it("should check FilterableSelect has autofocus", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent autoFocus />
+      );
 
       commonDataElementInputPreview().should("be.focused");
     });
 
-    it("should check Filterable Select is required", () => {
-      CypressMountWithProviders(<FilterableSelectComponent required />);
+    it("should check FilterableSelect is required", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent required />);
 
       verifyRequiredAsteriskForLabel();
     });
 
-    it("should check Filterable Select label is inline", () => {
-      CypressMountWithProviders(<FilterableSelectComponent labelInline />);
+    it("should check FilterableSelect label is inline", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent labelInline />
+      );
 
       getDataElementByValue("label")
         .parent()
@@ -787,12 +231,12 @@ context("Tests for Filterable Select component", () => {
       ["flex", "400"],
       ["block", "401"],
     ])(
-      "should check Filterable Select label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
+      "should check FilterableSelect label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint) => {
         cy.viewport(400, 300);
 
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <stories.FilterableSelectComponent
             labelInline
             adaptiveLabelBreakpoint={breakpoint}
           />
@@ -812,7 +256,10 @@ context("Tests for Filterable Select component", () => {
       "should use %s as labelAligment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent labelInline labelAlign={alignment} />
+          <stories.FilterableSelectComponent
+            labelInline
+            labelAlign={alignment}
+          />
         );
 
         getDataElementByValue("label")
@@ -830,7 +277,7 @@ context("Tests for Filterable Select component", () => {
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <stories.FilterableSelectComponent
             labelInline
             labelWidth={label}
             inputWidth={input}
@@ -855,7 +302,7 @@ context("Tests for Filterable Select component", () => {
       "should check maxWidth as %s for FilterableSelect component",
       (maxWidth) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent maxWidth={maxWidth} />
+          <stories.FilterableSelectComponent maxWidth={maxWidth} />
         );
 
         getDataElementByValue("input")
@@ -866,7 +313,9 @@ context("Tests for Filterable Select component", () => {
     );
 
     it("when maxWidth has no value it should render as 100%", () => {
-      CypressMountWithProviders(<FilterableSelectComponent maxWidth="" />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent maxWidth="" />
+      );
 
       getDataElementByValue("input")
         .parent()
@@ -874,8 +323,8 @@ context("Tests for Filterable Select component", () => {
         .should("have.css", "max-width", "100%");
     });
 
-    it("should not open the list with focus on Filterable Select input", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+    it("should not open the list with focus on FilterableSelect input", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       commonDataElementInputPreview().focus();
       commonDataElementInputPreview()
@@ -884,8 +333,8 @@ context("Tests for Filterable Select component", () => {
       selectListWrapper().should("not.be.visible");
     });
 
-    it("should not open the list with mouse click on Filterable Select input", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+    it("should not open the list with mouse click on FilterableSelect input", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       commonDataElementInputPreview().click();
       commonDataElementInputPreview()
@@ -895,14 +344,14 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should open the list with mouse click on dropdown button", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
     });
 
     it("should close the list with mouse click on dropdown button", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       dropdownButton().click();
       dropdownButton().click();
@@ -910,7 +359,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should close the list with the Tab key", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -920,7 +369,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should close the list with the Esc key", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -930,7 +379,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should close the list by clicking out of the component", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -946,9 +395,9 @@ context("Tests for Filterable Select component", () => {
       ["open", "End"],
       ["not open", "Enter"],
     ])(
-      "should %s the list when %s is pressed with Filterable Select input in focus",
+      "should %s the list when %s is pressed with FilterableSelect input in focus",
       (state, key) => {
-        CypressMountWithProviders(<FilterableSelectComponent />);
+        CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
         commonDataElementInputPreview().focus();
         selectInput().trigger("keydown", { ...keyCode(key), force: true });
@@ -963,7 +412,7 @@ context("Tests for Filterable Select component", () => {
     it.each([["Amber"], ["Yellow"]])(
       "should select option %s when clicked from the list",
       (option) => {
-        CypressMountWithProviders(<FilterableSelectComponent />);
+        CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
         dropdownButton().click();
         selectListText(option).click();
@@ -979,7 +428,7 @@ context("Tests for Filterable Select component", () => {
     ])(
       "should filter options when %s is typed",
       (text, optionValue1, optionValue2, optionValue3) => {
-        CypressMountWithProviders(<FilterableSelectComponent />);
+        CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
         commonDataElementInputPreview().type(text);
         selectInput().should("have.attr", "aria-expanded", "true");
@@ -1000,7 +449,9 @@ context("Tests for Filterable Select component", () => {
     );
 
     it("should render the lazy loader when the prop is set", () => {
-      CypressMountWithProviders(<FilterableSelectWithLazyLoadingComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithLazyLoadingComponent />
+      );
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -1011,7 +462,9 @@ context("Tests for Filterable Select component", () => {
 
     // FE-5300 raised to fix the issue with the loader not reappeearing
     it.skip("should render the lazy loader when the prop is set and list is opened again", () => {
-      CypressMountWithProviders(<FilterableSelectLazyLoadTwiceComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectLazyLoadTwiceComponent />
+      );
 
       const option = "Amber";
 
@@ -1032,7 +485,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should render a lazy loaded option when the infinite scroll prop is set", () => {
       CypressMountWithProviders(
-        <FilterableSelectWithInfiniteScrollComponent />
+        <stories.FilterableSelectWithInfiniteScrollComponent />
       );
 
       const option = "Lazy Loaded A1";
@@ -1052,7 +505,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should list options when value is set and select list is opened again", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       const option = "Amber";
       const count = 11;
@@ -1071,7 +524,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should check list is open when input is focussed and openOnFocus is set", () => {
-      CypressMountWithProviders(<FilterableSelectComponent openOnFocus />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent openOnFocus />
+      );
 
       commonDataElementInputPreview().focus();
       selectInput().should("have.attr", "aria-expanded", "true");
@@ -1079,7 +534,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should check list is open when input is clicked and openOnFocus is set", () => {
-      CypressMountWithProviders(<FilterableSelectComponent openOnFocus />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent openOnFocus />
+      );
 
       commonDataElementInputPreview().click();
       selectInput().should("have.attr", "aria-expanded", "true");
@@ -1087,7 +544,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should open correct list and select one when an object is already set as a value", () => {
-      CypressMountWithProviders(<FilterableSelectObjectAsValueComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectObjectAsValueComponent />
+      );
 
       const position = "first";
       const positionValue = "Amber";
@@ -1106,7 +565,7 @@ context("Tests for Filterable Select component", () => {
     it("should render option list with proper maxHeight value", () => {
       const maxHeight = 200;
       CypressMountWithProviders(
-        <FilterableSelectComponent listMaxHeight={maxHeight} />
+        <stories.FilterableSelectComponent listMaxHeight={maxHeight} />
       );
       dropdownButton().click();
       selectListWrapper()
@@ -1123,7 +582,7 @@ context("Tests for Filterable Select component", () => {
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <stories.FilterableSelectComponent
             listPlacement={position}
             flipEnabled
             mt={top}
@@ -1166,7 +625,7 @@ context("Tests for Filterable Select component", () => {
       "should render list in %s position with the most space when listPosition is not set",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent
+          <stories.FilterableSelectComponent
             mt={top}
             mb={bottom}
             ml={left}
@@ -1189,7 +648,7 @@ context("Tests for Filterable Select component", () => {
       (state, numberOfChildren) => {
         CypressMountWithProviders(
           <div>
-            <FilterableSelectComponent disablePortal={state} />
+            <stories.FilterableSelectComponent disablePortal={state} />
           </div>
         );
 
@@ -1201,7 +660,9 @@ context("Tests for Filterable Select component", () => {
     );
 
     it("should render list options with multiple columns", () => {
-      CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -1219,7 +680,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should check table header content in list with multiple columns", () => {
-      CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
 
       const headerCol1 = "Name";
       const headerCol2 = "Surname";
@@ -1238,7 +701,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should indicate a matched filtered string with bold and underline", () => {
-      CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
 
       const text = "Do";
 
@@ -1251,7 +716,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should indicate no results match entered string", () => {
-      CypressMountWithProviders(<FilterableSelectMultiColumnsComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
 
       const text = "Xyz";
 
@@ -1266,7 +733,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should render list options with multiple columns and nested component", () => {
       CypressMountWithProviders(
-        <FilterableSelectMultiColumnsNestedComponent />
+        <stories.FilterableSelectMultiColumnsNestedComponent />
       );
 
       dropdownButton().click();
@@ -1286,7 +753,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should render list options with an action button and trigger Dialog on action", () => {
-      CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithActionButtonComponent />
+      );
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -1301,7 +770,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should render list options with an action button that is visible without scrolling and without affecting the list height", () => {
-      CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithActionButtonComponent />
+      );
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -1316,7 +787,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("when navigating with the keyboard, the selected option is not hidden behind an action button", () => {
-      CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithActionButtonComponent />
+      );
 
       dropdownButton().click();
 
@@ -1330,7 +803,9 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should add new list option from Add new Dialog", () => {
-      CypressMountWithProviders(<FilterableSelectWithActionButtonComponent />);
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithActionButtonComponent />
+      );
 
       const newOption = "New10";
 
@@ -1343,7 +818,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should have correct hover state of list option", () => {
-      CypressMountWithProviders(<FilterableSelectComponent />);
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
       const optionValue = "Blue";
 
@@ -1352,9 +827,15 @@ context("Tests for Filterable Select component", () => {
         .realHover()
         .should("have.css", "background-color", "rgb(204, 214, 219)");
     });
+
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
+      selectInput().should("have.css", "border-radius", "4px");
+      selectListWrapper().should("have.css", "border-radius", "4px");
+    });
   });
 
-  describe("check events for Filterable Select component", () => {
+  describe("check events for FilterableSelect component", () => {
     let callback;
     beforeEach(() => {
       callback = cy.stub();
@@ -1362,7 +843,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onClick event when mouse is clicked on text input", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent onClick={callback} />
+        <stories.FilterableSelectComponent onClick={callback} />
       );
 
       dropdownButton()
@@ -1373,9 +854,9 @@ context("Tests for Filterable Select component", () => {
         });
     });
 
-    it("should call onFocus when Filterable Select is brought into focus", () => {
+    it("should call onFocus when FilterableSelect is brought into focus", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent onFocus={callback} />
+        <stories.FilterableSelectComponent onFocus={callback} />
       );
 
       commonDataElementInputPreview()
@@ -1386,9 +867,9 @@ context("Tests for Filterable Select component", () => {
         });
     });
 
-    it("should call onOpen when Filterable Select is opened by focusing the input", () => {
+    it("should call onOpen when FilterableSelect is opened by focusing the input", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent openOnFocus onOpen={callback} />
+        <stories.FilterableSelectComponent openOnFocus onOpen={callback} />
       );
 
       commonDataElementInputPreview()
@@ -1399,9 +880,9 @@ context("Tests for Filterable Select component", () => {
         });
     });
 
-    it("should call onOpen when Filterable Select is opened by clicking on Icon", () => {
+    it("should call onOpen when FilterableSelect is opened by clicking on Icon", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent onOpen={callback} />
+        <stories.FilterableSelectComponent onOpen={callback} />
       );
 
       dropdownButton()
@@ -1414,7 +895,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onBlur event when the list is closed", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent onBlur={callback} />
+        <stories.FilterableSelectComponent onBlur={callback} />
       );
 
       dropdownButton().click();
@@ -1428,7 +909,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onChange event when a list option is selected", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent onChange={callback} />
+        <stories.FilterableSelectComponent onChange={callback} />
       );
 
       const position = "first";
@@ -1449,7 +930,7 @@ context("Tests for Filterable Select component", () => {
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
-          <FilterableSelectComponent onKeyDown={callback} />
+          <stories.FilterableSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
@@ -1464,7 +945,9 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onFilterChange event when a filter string is input", () => {
       CypressMountWithProviders(
-        <FilterableSelectOnChangeEventComponent onFilterChange={callback} />
+        <stories.FilterableSelectOnChangeEventComponent
+          onFilterChange={callback}
+        />
       );
 
       const text = "B";
@@ -1481,7 +964,9 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onListAction event when the Action Button is clicked", () => {
       CypressMountWithProviders(
-        <FilterableSelectListActionEventComponent onListAction={callback} />
+        <stories.FilterableSelectListActionEventComponent
+          onListAction={callback}
+        />
       );
 
       dropdownButton().click();
@@ -1495,7 +980,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should call onListScrollBottom event when the list is scrolled to the bottom", () => {
       CypressMountWithProviders(
-        <FilterableSelectComponent onListScrollBottom={callback} />
+        <stories.FilterableSelectComponent onListScrollBottom={callback} />
       );
 
       dropdownButton().click();
@@ -1512,7 +997,7 @@ context("Tests for Filterable Select component", () => {
   describe("check virtual scrolling", () => {
     it("renders only an appropriate number of options into the DOM when first opened", () => {
       CypressMountWithProviders(
-        <FilterableSelectWithManyOptionsAndVirtualScrolling />
+        <stories.FilterableSelectWithManyOptionsAndVirtualScrolling />
       );
 
       dropdownButton().click();
@@ -1524,7 +1009,7 @@ context("Tests for Filterable Select component", () => {
 
     it("changes the rendered options when you scroll down", () => {
       CypressMountWithProviders(
-        <FilterableSelectWithManyOptionsAndVirtualScrolling />
+        <stories.FilterableSelectWithManyOptionsAndVirtualScrolling />
       );
 
       dropdownButton().click();
@@ -1538,7 +1023,7 @@ context("Tests for Filterable Select component", () => {
 
     it("should filter options when text is typed, taking into account non-rendered options", () => {
       CypressMountWithProviders(
-        <FilterableSelectWithManyOptionsAndVirtualScrolling />
+        <stories.FilterableSelectWithManyOptionsAndVirtualScrolling />
       );
 
       commonDataElementInputPreview().type("Option 100");
@@ -1550,7 +1035,7 @@ context("Tests for Filterable Select component", () => {
 
   describe("when nested inside of a Dialog component", () => {
     it("should not close the Dialog when Select is closed by pressing an escape key", () => {
-      CypressMountWithProviders(<FilterableSelectNestedInDialog />);
+      CypressMountWithProviders(<stories.FilterableSelectNestedInDialog />);
 
       dropdownButton().click();
       commonDataElementInputPreview()
@@ -1568,7 +1053,7 @@ context("Tests for Filterable Select component", () => {
     });
 
     it("should not refocus the select textbox when closing it by clicking outside", () => {
-      CypressMountWithProviders(<FilterableSelectNestedInDialog />);
+      CypressMountWithProviders(<stories.FilterableSelectNestedInDialog />);
 
       dropdownButton().click();
       body().click();
@@ -1578,9 +1063,324 @@ context("Tests for Filterable Select component", () => {
     });
   });
 
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<FilterableSelectComponent />);
-    selectInput().should("have.css", "border-radius", "4px");
-    selectListWrapper().should("have.css", "border-radius", "4px");
+  describe("Accessibility tests for FilterableSelect component", () => {
+    it("should pass accessibilty tests for FilterableSelect", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each(testData)(
+      "should pass accessibilty tests for FilterableSelect label prop using %s special characters",
+      (labelValue) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent label={labelValue} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should pass accessibilty tests for FilterableSelect labelHelp prop using %s special characters",
+      (labelHelpValue) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent labelHelp={labelHelpValue} />
+        );
+
+        helpIcon()
+          .trigger("mouseover")
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it.each(testData)(
+      "should pass accessibilty tests for FilterableSelect placeholder prop using %s special characters",
+      (placeholderValue) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent placeholder={placeholderValue} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ])(
+      "should pass accessibilty tests for FilterableSelect tooltip prop in the %s position",
+      (tooltipPositionValue, top, bottom, left, right) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent
+            labelHelp="Help"
+            tooltipPosition={tooltipPositionValue}
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
+        );
+
+        helpIcon()
+          .trigger("mouseover")
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it("should pass accessibilty tests for FilterableSelect disabled prop", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for FilterableSelect readOnly prop", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent readOnly />);
+
+      cy.checkAccessibility();
+      selectInput()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+      "should pass accessibilty tests for FilterableSelect size prop",
+      (size) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent size={size} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibilty tests for FilterableSelect autoFocus prop", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent autoFocus />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for FilterableSelect required prop", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent required />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for FilterableSelect labelInline prop", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent labelInline />
+      );
+
+      cy.checkAccessibility();
+    });
+
+    it.each([
+      ["flex", "399"],
+      ["flex", "400"],
+      ["block", "401"],
+    ])(
+      "should pass accessibilty tests for FilterableSelect adaptiveLabelBreakpoint prop set as %s and viewport 400",
+      (displayValue, breakpoint) => {
+        cy.viewport(400, 300);
+
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent
+            labelInline
+            adaptiveLabelBreakpoint={breakpoint}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["right", "left"])(
+      "should pass accessibilty tests for FilterableSelect labelAlign prop set as %s",
+      (alignment) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent
+            labelInline
+            labelAlign={alignment}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["10", "90"],
+      ["30", "70"],
+      ["80", "20"],
+    ])(
+      "should pass accessibilty tests for FilterableSelect labelWidth prop set as %s and inputWidth set as %s",
+      (label, input) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent
+            labelInline
+            labelWidth={label}
+            inputWidth={input}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should pass accessibilty tests for FilterableSelect maxWidth prop set as %s",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent maxWidth={maxWidth} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibilty tests for FilterableSelect isLoading prop", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithLazyLoadingComponent />
+      );
+
+      dropdownButton().click();
+      loader(1).should("be.visible");
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for FilterableSelect onListScrollBottom prop", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithInfiniteScrollComponent />
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+      selectListWrapper()
+        .scrollTo("bottom")
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for FilterableSelect openOnFocus prop", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent openOnFocus />
+      );
+
+      commonDataElementInputPreview()
+        .focus()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for FilterableSelect with object as value", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectObjectAsValueComponent />
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for FilterableSelect listMaxHeight prop", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent listMaxHeight={200} />
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each([
+      ["top", "0px", "0px", "0px", "20px"],
+      ["bottom", "600px", "0px", "0px", "20px"],
+      ["left", "200px", "0px", "0px", "900px"],
+      ["right", "200px", "0px", "500px", "20px"],
+    ])(
+      "should pass accessibilty tests for FilterableSelect listPlacement and flipEnabled props",
+      (position, top, bottom, left, right) => {
+        CypressMountWithProviders(
+          <stories.FilterableSelectComponent
+            listPlacement={position}
+            flipEnabled
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
+        );
+
+        dropdownButton()
+          .click()
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it("should pass accessibilty tests for FilterableSelect with multiple columns", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for FilterableSelect with multiple columns and nested component", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsNestedComponent />
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for FilterableSelect with an action button and trigger Dialog on action", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithActionButtonComponent />
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for FilterableSelect with virtual scrolling", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for FilterableSelect in nested dialog", () => {
+      CypressMountWithProviders(<stories.FilterableSelectNestedInDialog />);
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    // FE-5764
+    it.skip("should pass accessibilty tests for FilterableSelect disablePortal prop", () => {
+      CypressMountWithProviders(
+        <div>
+          <stories.FilterableSelectComponent disablePortal />
+        </div>
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
   });
 });

@@ -1,11 +1,6 @@
-import React, { useState } from "react";
-import { MultiSelect, Option } from "../../../../src/components/select";
-import OptionRow from "../../../../src/components/select/option-row/option-row.component";
-import Button from "../../../../src/components/button/button.component";
+import React from "react";
+import * as stories from "../../../../src/components/select/multi-select/multi-select-test.stories";
 import CypressMountWithProviders from "../../../support/component-helper/cypress-mount";
-import Dialog from "../../../../src/components/dialog";
-import Box from "../../../../src/components/box";
-import CarbonProvider from "../../../../src/components/carbon-provider/carbon-provider.component";
 
 import {
   getDataElementByValue,
@@ -52,504 +47,6 @@ import {
 import { positionOfElement } from "../../../../cypress/support/helper";
 import { SIZE, CHARACTERS } from "../../../support/component-helper/constants";
 
-const MultiSelectComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState([]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <MultiSelect
-      label="color"
-      labelInline
-      value={value}
-      onChange={onChangeHandler}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-};
-
-const MultiSelectDefaultValueComponent = ({ ...props }) => {
-  return (
-    <MultiSelect label="color" labelInline {...props}>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-};
-
-const MultiSelectLongPillComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState([]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <div
-      style={{
-        maxWidth: "200px",
-      }}
-    >
-      <MultiSelect
-        label="color"
-        labelInline
-        value={value}
-        onChange={onChangeHandler}
-        {...props}
-      >
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue as the sky on a summer's day" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green as the grass in a spring meadow" value="5" />
-        <Option text="Orange" value="6" />
-        <Option text="Pink" value="7" />
-        <Option text="Purple" value="8" />
-        <Option text="Red" value="9" />
-        <Option text="White" value="10" />
-        <Option text="Yellow" value="11" />
-      </MultiSelect>
-    </div>
-  );
-};
-
-const MultiSelectWithLazyLoadingComponent = ({ ...props }) => {
-  const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = React.useState([]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-
-  return (
-    <MultiSelect
-      label="color"
-      value={value}
-      onChange={onChangeHandler}
-      onOpen={() => loadList()}
-      isLoading={isLoading}
-      {...props}
-    >
-      {optionList}
-    </MultiSelect>
-  );
-};
-
-const MultiSelectLazyLoadTwiceComponent = ({ ...props }) => {
-  const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const asyncList = [
-    <Option text="Amber" value="amber" key="Amber" />,
-    <Option text="Black" value="black" key="Black" />,
-    <Option text="Blue" value="blue" key="Blue" />,
-    <Option text="Brown" value="brown" key="Brown" />,
-    <Option text="Green" value="green" key="Green" />,
-  ];
-  const [optionList, setOptionList] = React.useState([]);
-
-  function loadList() {
-    if (preventLoading.current) {
-      return;
-    }
-    preventLoading.current = true;
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setOptionList(asyncList);
-    }, 2000);
-  }
-
-  function clearData() {
-    setOptionList([]);
-    setValue("");
-    preventLoading.current = false;
-  }
-
-  return (
-    <div>
-      <Button onClick={clearData} mb={2} data-element="reset-button">
-        reset
-      </Button>
-      <MultiSelect
-        label="color"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        onOpen={() => loadList()}
-        isLoading={isLoading}
-        {...props}
-      >
-        {optionList}
-      </MultiSelect>
-    </div>
-  );
-};
-
-const MultiSelectObjectAsValueComponent = ({ ...props }) => {
-  const [value, setValue] = React.useState([
-    {
-      id: "Green",
-      value: 5,
-      text: "Green",
-    },
-  ]);
-  const optionList = React.useRef([
-    <Option
-      text="Amber"
-      key="Amber"
-      value={{
-        id: "Amber",
-        value: 1,
-        text: "Amber",
-      }}
-    />,
-    <Option
-      text="Black"
-      key="Black"
-      value={{
-        id: "Black",
-        value: 2,
-        text: "Black",
-      }}
-    />,
-    <Option
-      text="Blue"
-      key="Blue"
-      value={{
-        id: "Blue",
-        value: 3,
-        text: "Blue",
-      }}
-    />,
-    <Option
-      text="Brown"
-      key="Brown"
-      value={{
-        id: "Brown",
-        value: 4,
-        text: "Brown",
-      }}
-    />,
-    <Option
-      text="Green"
-      key="Green"
-      value={{
-        id: "Green",
-        value: 5,
-        text: "Green",
-      }}
-    />,
-    <Option
-      text="Orange"
-      key="Orange"
-      value={{
-        id: "Orange",
-        value: 6,
-        text: "Orange",
-      }}
-    />,
-    <Option
-      text="Pink"
-      key="Pink"
-      value={{
-        id: "Pink",
-        value: 7,
-        text: "Pink",
-      }}
-    />,
-    <Option
-      text="Purple"
-      key="Purple"
-      value={{
-        id: "Purple",
-        value: 8,
-        text: "Purple",
-      }}
-    />,
-    <Option
-      text="Red"
-      key="Red"
-      value={{
-        id: "Red",
-        value: 9,
-        text: "Red",
-      }}
-    />,
-    <Option
-      text="White"
-      key="White"
-      value={{
-        id: "White",
-        value: 10,
-        text: "White",
-      }}
-    />,
-    <Option
-      text="Yellow"
-      key="Yellow"
-      value={{
-        id: "Yellow",
-        value: 11,
-        text: "Yellow",
-      }}
-    />,
-  ]);
-
-  function onChangeHandler(event) {
-    setValue(event.target.value);
-  }
-
-  return (
-    <MultiSelect value={value} onChange={onChangeHandler} {...props}>
-      {optionList.current}
-    </MultiSelect>
-  );
-};
-
-const MultiSelectMultiColumnsComponent = ({ ...props }) => {
-  return (
-    <MultiSelect
-      multiColumn
-      defaultValue={["2"]}
-      {...props}
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-    >
-      <OptionRow value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </MultiSelect>
-  );
-};
-
-const MultiSelectMaxOptionsComponent = ({ ...props }) => {
-  const maxSelectionsAllowed = 2;
-  const [selectedPills, setSelectedPills] = React.useState([]);
-
-  function onChangeHandler(event) {
-    if (event.target.value.length <= maxSelectionsAllowed) {
-      setSelectedPills(event.target.value);
-    }
-  }
-
-  return (
-    <MultiSelect
-      value={selectedPills}
-      onChange={onChangeHandler}
-      disablePortal
-      openOnFocus
-      label="color"
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
-  );
-};
-
-const MultiSelectOnFilterChangeEventComponent = ({ onChange, ...props }) => {
-  const [state, setState] = React.useState("");
-
-  const setValue = ({ target }) => {
-    setState(target.value.rawValue);
-    if (onChange) {
-      onChange(target);
-    }
-  };
-
-  return (
-    <MultiSelect
-      label="color"
-      value={state}
-      labelInline
-      onChange={setValue}
-      {...props}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-    </MultiSelect>
-  );
-};
-
-const MultiSelectCustomColorComponent = ({ ...props }) => {
-  return (
-    <MultiSelect label="color" labelInline defaultValue={["1", "3"]} {...props}>
-      <Option text="Amber" value="1" borderColor="#FFBF00" fill />
-      <Option text="Black" value="2" borderColor="blackOpacity65" fill />
-      <Option text="Blue" value="3" borderColor="productBlue" />
-      <Option text="Brown" value="4" borderColor="brown" fill />
-      <Option text="Green" value="5" borderColor="productGreen" />
-      <Option text="Orange" value="6" borderColor="orange" />
-      <Option text="Pink" value="7" borderColor="pink" />
-      <Option text="Purple" value="8" borderColor="purple" />
-      <Option text="Red" value="9" borderColor="red" fill />
-      <Option text="White" value="10" borderColor="white" />
-      <Option text="Yellow" value="11" borderColor="yellow" fill />
-    </MultiSelect>
-  );
-};
-
-const MultiSelectWithManyOptionsAndVirtualScrolling = () => (
-  <MultiSelect
-    name="virtualised"
-    id="virtualised"
-    label="choose an option"
-    labelInline
-    enableVirtualScroll
-    virtualScrollOverscan={10}
-  >
-    {Array(10000)
-      .fill()
-      .map((_, index) => (
-        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
-      ))}
-  </MultiSelect>
-);
-
-const MultiSelectNestedInDialog = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <MultiSelect name="testSelect" id="testSelect">
-        <Option value="opt1" text="red" />
-        <Option value="opt2" text="green" />
-        <Option value="opt3" text="blue" />
-        <Option value="opt4" text="black" />
-      </MultiSelect>
-    </Dialog>
-  );
-};
-
-const MultiSelectErrorOnChangeNewValidation = () => {
-  const [selectedPills, setSelectedPills] = useState([]);
-  const [showError, setShowError] = useState(false);
-
-  const handleOnChange = (event) => {
-    if (event.target.value.length < 3) {
-      setShowError(false);
-      setSelectedPills(event.target.value);
-    } else {
-      setShowError(true);
-    }
-  };
-
-  const handleError = showError ? "Error" : "";
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      Open dropdown and try to select more than 2 pills
-      <Box width="300px" ml={10} mt={10}>
-        <MultiSelect
-          name="testing"
-          value={selectedPills}
-          onChange={handleOnChange}
-          disablePortal
-          openOnFocus
-          label="Test"
-          placeholder="FooBar"
-          error={handleError}
-        >
-          <Option text="Amber" value="1" />
-          <Option text="Black" value="2" />
-          <Option text="Blue" value="3" />
-          <Option text="Brown" value="4" />
-          <Option text="Green" value="5" />
-          <Option text="Orange" value="6" />
-          <Option text="Pink" value="7" />
-          <Option text="Purple" value="8" />
-          <Option text="Red" value="9" />
-          <Option text="White" value="10" />
-          <Option text="Yellow" value="11" />
-        </MultiSelect>
-      </Box>
-    </CarbonProvider>
-  );
-};
-
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
 const columns = 3;
@@ -558,12 +55,14 @@ const option2 = "Purple";
 const option3 = "Yellow";
 const defaultValue = ["10"];
 
-context("Tests for Multi Select component", () => {
-  describe("check props for Multi Select component", () => {
+context("Tests for MultiSelect component", () => {
+  describe("check props for MultiSelect component", () => {
     it.each(testData)(
-      "should render Multi Select label using %s special characters",
+      "should render MultiSelect label using %s special characters",
       (labelValue) => {
-        CypressMountWithProviders(<MultiSelectComponent label={labelValue} />);
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent label={labelValue} />
+        );
 
         getDataElementByValue("label").should("have.text", labelValue);
       }
@@ -573,7 +72,7 @@ context("Tests for Multi Select component", () => {
       "should render labelHelp message using %s special characters",
       (labelHelpValue) => {
         CypressMountWithProviders(
-          <MultiSelectComponent labelHelp={labelHelpValue} />
+          <stories.MultiSelectComponent labelHelp={labelHelpValue} />
         );
 
         helpIcon().trigger("mouseover");
@@ -585,15 +84,17 @@ context("Tests for Multi Select component", () => {
       "should render placeholder using %s special characters",
       (placeholderValue) => {
         CypressMountWithProviders(
-          <MultiSelectComponent placeholder={placeholderValue} />
+          <stories.MultiSelectComponent placeholder={placeholderValue} />
         );
 
         selectInput().should("have.attr", "placeholder", placeholderValue);
       }
     );
 
-    it("should render Multi Select with name prop set to test value", () => {
-      CypressMountWithProviders(<MultiSelectComponent name={testPropValue} />);
+    it("should render MultiSelect with name prop set to test value", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectComponent name={testPropValue} />
+      );
 
       commonDataElementInputPreview().should(
         "have.attr",
@@ -602,15 +103,17 @@ context("Tests for Multi Select component", () => {
       );
     });
 
-    it("should render Multi Select with id prop set to test value", () => {
-      CypressMountWithProviders(<MultiSelectComponent id={testPropValue} />);
+    it("should render MultiSelect with id prop set to test value", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectComponent id={testPropValue} />
+      );
 
       commonDataElementInputPreview().should("have.attr", "id", testPropValue);
     });
 
-    it("should render Multi Select with data-component prop set to test value", () => {
+    it("should render MultiSelect with data-component prop set to test value", () => {
       CypressMountWithProviders(
-        <MultiSelectComponent data-component={testPropValue} />
+        <stories.MultiSelectComponent data-component={testPropValue} />
       );
 
       selectElementInput()
@@ -619,9 +122,9 @@ context("Tests for Multi Select component", () => {
         .should("have.attr", "data-component", testPropValue);
     });
 
-    it("should render Multi Select with data-element prop set to test value", () => {
+    it("should render MultiSelect with data-element prop set to test value", () => {
       CypressMountWithProviders(
-        <MultiSelectComponent data-element={testPropValue} />
+        <stories.MultiSelectComponent data-element={testPropValue} />
       );
 
       selectElementInput()
@@ -630,9 +133,9 @@ context("Tests for Multi Select component", () => {
         .should("have.attr", "data-element", testPropValue);
     });
 
-    it("should render Multi Select with data-role prop set to test value", () => {
+    it("should render MultiSelect with data-role prop set to test value", () => {
       CypressMountWithProviders(
-        <MultiSelectComponent data-role={testPropValue} />
+        <stories.MultiSelectComponent data-role={testPropValue} />
       );
 
       selectElementInput()
@@ -650,7 +153,7 @@ context("Tests for Multi Select component", () => {
       "should render the help tooltip in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <MultiSelectComponent
+          <stories.MultiSelectComponent
             labelHelp="Help"
             tooltipPosition={tooltipPositionValue}
             mt={top}
@@ -667,16 +170,16 @@ context("Tests for Multi Select component", () => {
       }
     );
 
-    it("should check Multi Select is disabled", () => {
-      CypressMountWithProviders(<MultiSelectComponent disabled />);
+    it("should check MultiSelect is disabled", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent disabled />);
 
       commonDataElementInputPreview()
         .should("be.disabled")
         .and("have.attr", "disabled");
     });
 
-    it("should render Multi Select as read only", () => {
-      CypressMountWithProviders(<MultiSelectComponent readOnly />);
+    it("should render MultiSelect as read only", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent readOnly />);
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
@@ -688,9 +191,9 @@ context("Tests for Multi Select component", () => {
       [SIZE.MEDIUM, 40],
       [SIZE.LARGE, 48],
     ])(
-      "should use %s as size and render Multi Select with %s as height",
+      "should use %s as size and render MultiSelect with %s as height",
       (size, height) => {
-        CypressMountWithProviders(<MultiSelectComponent size={size} />);
+        CypressMountWithProviders(<stories.MultiSelectComponent size={size} />);
 
         commonDataElementInputPreview()
           .parent()
@@ -700,20 +203,20 @@ context("Tests for Multi Select component", () => {
       }
     );
 
-    it("should check Multi Select has autofocus", () => {
-      CypressMountWithProviders(<MultiSelectComponent autoFocus />);
+    it("should check MultiSelect has autofocus", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent autoFocus />);
 
       commonDataElementInputPreview().should("be.focused");
     });
 
-    it("should check Multi Select is required", () => {
-      CypressMountWithProviders(<MultiSelectComponent required />);
+    it("should check MultiSelect is required", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent required />);
 
       verifyRequiredAsteriskForLabel();
     });
 
-    it("should check Multi Select label is inline", () => {
-      CypressMountWithProviders(<MultiSelectComponent labelInline />);
+    it("should check MultiSelect label is inline", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent labelInline />);
 
       getDataElementByValue("label")
         .parent()
@@ -725,12 +228,12 @@ context("Tests for Multi Select component", () => {
       ["flex", "400"],
       ["block", "401"],
     ])(
-      "should check Multi Select label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
+      "should check MultiSelect label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint) => {
         cy.viewport(400, 300);
 
         CypressMountWithProviders(
-          <MultiSelectComponent
+          <stories.MultiSelectComponent
             labelInline
             adaptiveLabelBreakpoint={breakpoint}
           />
@@ -750,7 +253,7 @@ context("Tests for Multi Select component", () => {
       "should use %s as labelAligment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
-          <MultiSelectComponent labelInline labelAlign={alignment} />
+          <stories.MultiSelectComponent labelInline labelAlign={alignment} />
         );
 
         getDataElementByValue("label")
@@ -768,7 +271,7 @@ context("Tests for Multi Select component", () => {
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
-          <MultiSelectComponent
+          <stories.MultiSelectComponent
             labelInline
             labelWidth={label}
             inputWidth={input}
@@ -792,7 +295,9 @@ context("Tests for Multi Select component", () => {
     it.each(["10%", "30%", "50%", "80%", "100%"])(
       "should check maxWidth as %s for MultiSelect component",
       (maxWidth) => {
-        CypressMountWithProviders(<MultiSelectComponent maxWidth={maxWidth} />);
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent maxWidth={maxWidth} />
+        );
 
         getDataElementByValue("input")
           .parent()
@@ -802,7 +307,7 @@ context("Tests for Multi Select component", () => {
     );
 
     it("when maxWidth has no value it should render as 100%", () => {
-      CypressMountWithProviders(<MultiSelectComponent maxWidth="" />);
+      CypressMountWithProviders(<stories.MultiSelectComponent maxWidth="" />);
 
       getDataElementByValue("input")
         .parent()
@@ -810,8 +315,8 @@ context("Tests for Multi Select component", () => {
         .should("have.css", "max-width", "100%");
     });
 
-    it("should not open the list with focus on Multi Select input", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+    it("should not open the list with focus on MultiSelect input", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       commonDataElementInputPreview().focus();
       commonDataElementInputPreview()
@@ -820,8 +325,8 @@ context("Tests for Multi Select component", () => {
       selectListWrapper().should("not.be.visible");
     });
 
-    it("should not open the list with mouse click on Multi Select input", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+    it("should not open the list with mouse click on MultiSelect input", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       commonDataElementInputPreview().click();
       commonDataElementInputPreview()
@@ -831,14 +336,14 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should open the list with mouse click on dropdown button", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
     });
 
     it("should close the list with mouse click on dropdown button", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       dropdownButton().click();
       dropdownButton().click();
@@ -846,7 +351,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should close the list with the Tab key", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -856,7 +361,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should close the list with the Esc key", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -866,7 +371,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should close the list by clicking out of the component", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -882,9 +387,9 @@ context("Tests for Multi Select component", () => {
       ["open", "End"],
       ["not open", "Enter"],
     ])(
-      "should %s the list when %s is pressed with Multi Select input in focus",
+      "should %s the list when %s is pressed with MultiSelect input in focus",
       (state, key) => {
-        CypressMountWithProviders(<MultiSelectComponent />);
+        CypressMountWithProviders(<stories.MultiSelectComponent />);
 
         commonDataElementInputPreview().focus();
         selectInput().realPress(key);
@@ -899,7 +404,7 @@ context("Tests for Multi Select component", () => {
     it.each([["Amber"], ["Yellow"]])(
       "should select option %s when clicked from the list and create option pill in the input",
       (option) => {
-        CypressMountWithProviders(<MultiSelectComponent />);
+        CypressMountWithProviders(<stories.MultiSelectComponent />);
 
         dropdownButton().click();
         selectListText(option).click();
@@ -910,7 +415,7 @@ context("Tests for Multi Select component", () => {
     );
 
     it("should select two options and create option pills in the input", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       dropdownButton().click();
       selectListText(option1).click();
@@ -923,7 +428,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should check number of selected options are limited to 2", () => {
-      CypressMountWithProviders(<MultiSelectMaxOptionsComponent />);
+      CypressMountWithProviders(<stories.MultiSelectMaxOptionsComponent />);
 
       const length = 2;
 
@@ -945,7 +450,7 @@ context("Tests for Multi Select component", () => {
     ])(
       "should filter options when %s is typed",
       (text, optionValue1, optionValue2, optionValue3) => {
-        CypressMountWithProviders(<MultiSelectComponent />);
+        CypressMountWithProviders(<stories.MultiSelectComponent />);
 
         commonDataElementInputPreview().type(text);
         selectInput().should("have.attr", "aria-expanded", "true");
@@ -966,7 +471,9 @@ context("Tests for Multi Select component", () => {
     );
 
     it("should render the lazy loader when the prop is set", () => {
-      CypressMountWithProviders(<MultiSelectWithLazyLoadingComponent />);
+      CypressMountWithProviders(
+        <stories.MultiSelectWithLazyLoadingComponent />
+      );
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -976,7 +483,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should render the lazy loader when the prop is set and list is opened again", () => {
-      CypressMountWithProviders(<MultiSelectLazyLoadTwiceComponent />);
+      CypressMountWithProviders(<stories.MultiSelectLazyLoadTwiceComponent />);
 
       const option = "Amber";
 
@@ -996,7 +503,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should list options when value is set and select list is opened again", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       const option = "Amber";
       const count = 11;
@@ -1015,7 +522,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should check list is open when input is focussed and openOnFocus is set", () => {
-      CypressMountWithProviders(<MultiSelectComponent openOnFocus />);
+      CypressMountWithProviders(<stories.MultiSelectComponent openOnFocus />);
 
       commonDataElementInputPreview().focus();
       selectInput().should("have.attr", "aria-expanded", "true");
@@ -1023,7 +530,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should check list is open when input is clicked and openOnFocus is set", () => {
-      CypressMountWithProviders(<MultiSelectComponent openOnFocus />);
+      CypressMountWithProviders(<stories.MultiSelectComponent openOnFocus />);
 
       commonDataElementInputPreview().click();
       selectInput().should("have.attr", "aria-expanded", "true");
@@ -1031,7 +538,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should open correct list and select one when an object is already set as a value", () => {
-      CypressMountWithProviders(<MultiSelectObjectAsValueComponent />);
+      CypressMountWithProviders(<stories.MultiSelectObjectAsValueComponent />);
 
       multiSelectPill().should("have.attr", "title", option1);
       selectInput().should("have.attr", "aria-expanded", "false");
@@ -1050,7 +557,7 @@ context("Tests for Multi Select component", () => {
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <MultiSelectComponent
+          <stories.MultiSelectComponent
             listPlacement={position}
             flipEnabled
             mt={top}
@@ -1093,7 +600,12 @@ context("Tests for Multi Select component", () => {
       "should render list in %s position with the most space when listPosition is not set",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
-          <MultiSelectComponent mt={top} mb={bottom} ml={left} mr={right} />
+          <stories.MultiSelectComponent
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
         );
 
         dropdownButton().click();
@@ -1111,7 +623,7 @@ context("Tests for Multi Select component", () => {
       (state, numberOfChildren) => {
         CypressMountWithProviders(
           <div>
-            <MultiSelectComponent disablePortal={state} />
+            <stories.MultiSelectComponent disablePortal={state} />
           </div>
         );
 
@@ -1123,7 +635,7 @@ context("Tests for Multi Select component", () => {
     );
 
     it("should render list options with multiple columns", () => {
-      CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
+      CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
 
       dropdownButton().click();
       selectListWrapper().should("be.visible");
@@ -1141,7 +653,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should check table header content in list with multiple columns", () => {
-      CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
+      CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
 
       const headerCol1 = "Name";
       const headerCol2 = "Surname";
@@ -1160,7 +672,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should indicate a matched filtered string with bold and underline", () => {
-      CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
+      CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
 
       const text = "Do";
 
@@ -1175,7 +687,7 @@ context("Tests for Multi Select component", () => {
     it.each(["Xyz", " "])(
       'should indicate no results match entered string "%s"',
       (text) => {
-        CypressMountWithProviders(<MultiSelectMultiColumnsComponent />);
+        CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
 
         commonDataElementInputPreview().click().should("be.focused");
         commonDataElementInputPreview().type(text);
@@ -1194,7 +706,7 @@ context("Tests for Multi Select component", () => {
       "should set defaultValue prop to %s and show option pill %s preselected",
       (value, option) => {
         CypressMountWithProviders(
-          <MultiSelectDefaultValueComponent defaultValue={[value]} />
+          <stories.MultiSelectDefaultValueComponent defaultValue={[value]} />
         );
 
         multiSelectPill().should("have.attr", "title", option);
@@ -1202,13 +714,13 @@ context("Tests for Multi Select component", () => {
     );
 
     it("should have no pill option preselected if defaultValue prop is not set", () => {
-      CypressMountWithProviders(<MultiSelectDefaultValueComponent />);
+      CypressMountWithProviders(<stories.MultiSelectDefaultValueComponent />);
 
       multiSelectPill().should("not.exist");
     });
 
-    it("should render Multi Select with custom coloured pills", () => {
-      CypressMountWithProviders(<MultiSelectCustomColorComponent />);
+    it("should render MultiSelect with custom coloured pills", () => {
+      CypressMountWithProviders(<stories.MultiSelectCustomColorComponent />);
 
       multiSelectPillByPosition(0)
         .should("have.css", "borderColor", "rgb(255, 191, 0)")
@@ -1225,7 +737,7 @@ context("Tests for Multi Select component", () => {
       "should select %s list option and show pill with complete long text wrapped in the input",
       (option, text) => {
         CypressMountWithProviders(
-          <MultiSelectLongPillComponent wrapPillText />
+          <stories.MultiSelectLongPillComponent wrapPillText />
         );
 
         dropdownButton().click();
@@ -1236,7 +748,7 @@ context("Tests for Multi Select component", () => {
 
     it("should show selected pill option with correctly formatted delete button when focussed", () => {
       CypressMountWithProviders(
-        <MultiSelectDefaultValueComponent defaultValue={defaultValue} />
+        <stories.MultiSelectDefaultValueComponent defaultValue={defaultValue} />
       );
 
       multiSelectPill().should("have.attr", "title", "White");
@@ -1248,7 +760,7 @@ context("Tests for Multi Select component", () => {
 
     it("should delete pill option with delete button", () => {
       CypressMountWithProviders(
-        <MultiSelectDefaultValueComponent defaultValue={defaultValue} />
+        <stories.MultiSelectDefaultValueComponent defaultValue={defaultValue} />
       );
 
       multiSelectPill().should("have.attr", "title", "White");
@@ -1258,7 +770,7 @@ context("Tests for Multi Select component", () => {
 
     it("should delete pill option with backspace key", () => {
       CypressMountWithProviders(
-        <MultiSelectDefaultValueComponent defaultValue={defaultValue} />
+        <stories.MultiSelectDefaultValueComponent defaultValue={defaultValue} />
       );
 
       multiSelectPill().should("have.attr", "title", "White");
@@ -1267,7 +779,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should delete all selected pill options and leave list open", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       dropdownButton().click();
       selectListText(option1).click();
@@ -1283,23 +795,31 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should have correct hover state of list option", () => {
-      CypressMountWithProviders(<MultiSelectComponent />);
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
 
       dropdownButton().click();
       selectListText(option1)
         .realHover()
         .should("have.css", "background-color", "rgb(204, 214, 219)");
     });
+
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
+      selectInput().should("have.css", "border-radius", "4px");
+      selectListWrapper().should("have.css", "border-radius", "4px");
+    });
   });
 
-  describe("check events for Multi Select component", () => {
+  describe("check events for MultiSelect component", () => {
     let callback;
     beforeEach(() => {
       callback = cy.stub();
     });
 
     it("should call onClick event when mouse is clicked on text input", () => {
-      CypressMountWithProviders(<MultiSelectComponent onClick={callback} />);
+      CypressMountWithProviders(
+        <stories.MultiSelectComponent onClick={callback} />
+      );
 
       commonDataElementInputPreview()
         .click()
@@ -1309,8 +829,10 @@ context("Tests for Multi Select component", () => {
         });
     });
 
-    it("should call onFocus when Multi Select is brought into focus", () => {
-      CypressMountWithProviders(<MultiSelectComponent onFocus={callback} />);
+    it("should call onFocus when MultiSelect is brought into focus", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectComponent onFocus={callback} />
+      );
 
       commonDataElementInputPreview()
         .focus()
@@ -1320,8 +842,10 @@ context("Tests for Multi Select component", () => {
         });
     });
 
-    it("should call onOpen when Multi Select is opened", () => {
-      CypressMountWithProviders(<MultiSelectComponent onOpen={callback} />);
+    it("should call onOpen when MultiSelect is opened", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectComponent onOpen={callback} />
+      );
 
       dropdownButton()
         .click()
@@ -1332,7 +856,9 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should call onBlur event when the list is closed", () => {
-      CypressMountWithProviders(<MultiSelectComponent onBlur={callback} />);
+      CypressMountWithProviders(
+        <stories.MultiSelectComponent onBlur={callback} />
+      );
 
       dropdownButton().click();
       selectInput()
@@ -1344,7 +870,9 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should call onChange event once when a list option is selected", () => {
-      CypressMountWithProviders(<MultiSelectComponent onChange={callback} />);
+      CypressMountWithProviders(
+        <stories.MultiSelectComponent onChange={callback} />
+      );
 
       const position = "first";
       const option = ["1"];
@@ -1364,7 +892,7 @@ context("Tests for Multi Select component", () => {
       "should call onKeyDown event when %s key is pressed",
       (key) => {
         CypressMountWithProviders(
-          <MultiSelectComponent onKeyDown={callback} />
+          <stories.MultiSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
@@ -1379,7 +907,9 @@ context("Tests for Multi Select component", () => {
 
     it("should call onFilterChange event when a filter string is input", () => {
       CypressMountWithProviders(
-        <MultiSelectOnFilterChangeEventComponent onFilterChange={callback} />
+        <stories.MultiSelectOnFilterChangeEventComponent
+          onFilterChange={callback}
+        />
       );
 
       const text = "B";
@@ -1398,7 +928,7 @@ context("Tests for Multi Select component", () => {
   describe("check virtual scrolling", () => {
     it("renders only an appropriate number of options into the DOM when first opened", () => {
       CypressMountWithProviders(
-        <MultiSelectWithManyOptionsAndVirtualScrolling />
+        <stories.MultiSelectWithManyOptionsAndVirtualScrolling />
       );
 
       dropdownButton().click();
@@ -1410,7 +940,7 @@ context("Tests for Multi Select component", () => {
 
     it("changes the rendered options when you scroll down", () => {
       CypressMountWithProviders(
-        <MultiSelectWithManyOptionsAndVirtualScrolling />
+        <stories.MultiSelectWithManyOptionsAndVirtualScrolling />
       );
 
       dropdownButton().click();
@@ -1424,7 +954,7 @@ context("Tests for Multi Select component", () => {
 
     it("should filter options when text is typed, taking into account non-rendered options", () => {
       CypressMountWithProviders(
-        <MultiSelectWithManyOptionsAndVirtualScrolling />
+        <stories.MultiSelectWithManyOptionsAndVirtualScrolling />
       );
 
       commonDataElementInputPreview().type("Option 100");
@@ -1436,7 +966,7 @@ context("Tests for Multi Select component", () => {
 
   describe("when nested inside of a Dialog component", () => {
     it("should not close the Dialog when Select is closed by pressing an escape key", () => {
-      CypressMountWithProviders(<MultiSelectNestedInDialog />);
+      CypressMountWithProviders(<stories.MultiSelectNestedInDialog />);
 
       dropdownButton().click();
       commonDataElementInputPreview()
@@ -1454,7 +984,7 @@ context("Tests for Multi Select component", () => {
     });
 
     it("should not refocus the select textbox when closing it by clicking outside", () => {
-      CypressMountWithProviders(<MultiSelectNestedInDialog />);
+      CypressMountWithProviders(<stories.MultiSelectNestedInDialog />);
 
       dropdownButton().click();
       body().click();
@@ -1466,7 +996,9 @@ context("Tests for Multi Select component", () => {
 
   describe("When error is triggered by onChange", () => {
     it("should display correctly", () => {
-      CypressMountWithProviders(<MultiSelectErrorOnChangeNewValidation />);
+      CypressMountWithProviders(
+        <stories.MultiSelectErrorOnChangeNewValidation />
+      );
 
       dropdownButton().click();
       selectListText(option1).click();
@@ -1480,9 +1012,312 @@ context("Tests for Multi Select component", () => {
     });
   });
 
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<MultiSelectComponent />);
-    selectInput().should("have.css", "border-radius", "4px");
-    selectListWrapper().should("have.css", "border-radius", "4px");
+  describe("Accessibility tests for MultiSelect component", () => {
+    it("should pass accessibilty tests for MultiSelect", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each(testData)(
+      "should pass accessibilty tests for MultiSelect label prop using %s special characters",
+      (labelValue) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent label={labelValue} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(testData)(
+      "should pass accessibilty tests for MultiSelect labelHelp prop using %s special characters",
+      (labelHelpValue) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent labelHelp={labelHelpValue} />
+        );
+
+        helpIcon()
+          .trigger("mouseover")
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it.each(testData)(
+      "should pass accessibilty tests for MultiSelect placeholder prop using %s special characters",
+      (placeholderValue) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent placeholder={placeholderValue} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["top", "200px", "0px", "0px", "0px"],
+      ["bottom", "0px", "0px", "0px", "0px"],
+      ["left", "200px", "0px", "200px", "0px"],
+      ["right", "200px", "0px", "0px", "200px"],
+    ])(
+      "should pass accessibilty tests for MultiSelect tooltip prop in the %s position",
+      (tooltipPositionValue, top, bottom, left, right) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent
+            labelHelp="Help"
+            tooltipPosition={tooltipPositionValue}
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
+        );
+
+        helpIcon()
+          .trigger("mouseover")
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it("should pass accessibilty tests for MultiSelect disabled prop", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent disabled />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for MultiSelect readOnly prop", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent readOnly />);
+
+      cy.checkAccessibility();
+      selectInput()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+      "should pass accessibilty tests for MultiSelect size prop",
+      (size) => {
+        CypressMountWithProviders(<stories.MultiSelectComponent size={size} />);
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibilty tests for MultiSelect autoFocus prop", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent autoFocus />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for MultiSelect required prop", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent required />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for MultiSelect labelInline prop", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent labelInline />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each([
+      ["flex", "399"],
+      ["flex", "400"],
+      ["block", "401"],
+    ])(
+      "should pass accessibilty tests for MultiSelect adaptiveLabelBreakpoint prop set as %s and viewport 400",
+      (displayValue, breakpoint) => {
+        cy.viewport(400, 300);
+
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent
+            labelInline
+            adaptiveLabelBreakpoint={breakpoint}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["right", "left"])(
+      "should pass accessibilty tests for MultiSelect labelAlign prop set as %s",
+      (alignment) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent labelInline labelAlign={alignment} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each([
+      ["10", "90"],
+      ["30", "70"],
+      ["80", "20"],
+    ])(
+      "should pass accessibilty tests for MultiSelect labelWidth prop set as %s and inputWidth set as %s",
+      (label, input) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent
+            labelInline
+            labelWidth={label}
+            inputWidth={input}
+          />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it.each(["10%", "30%", "50%", "80%", "100%"])(
+      "should pass accessibilty tests for MultiSelect maxWidth prop set as %s",
+      (maxWidth) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent maxWidth={maxWidth} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibilty tests for MultiSelect isLoading prop", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectWithLazyLoadingComponent />
+      );
+
+      dropdownButton().click();
+      loader(1).should("be.visible");
+      cy.checkAccessibility();
+    });
+
+    it("should pass accessibilty tests for MultiSelect openOnFocus prop", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent openOnFocus />);
+
+      commonDataElementInputPreview()
+        .focus()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for MultiSelect with object as value", () => {
+      CypressMountWithProviders(<stories.MultiSelectObjectAsValueComponent />);
+
+      dropdownButton().click();
+      selectListText(option2)
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each([
+      ["top", "0px", "0px", "0px", "20px"],
+      ["bottom", "600px", "0px", "0px", "20px"],
+      ["left", "200px", "0px", "0px", "900px"],
+      ["right", "200px", "0px", "500px", "20px"],
+    ])(
+      "should pass accessibilty tests for MultiSelect listPlacement and flipEnabled props",
+      (position, top, bottom, left, right) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectComponent
+            listPlacement={position}
+            flipEnabled
+            mt={top}
+            mb={bottom}
+            ml={left}
+            mr={right}
+          />
+        );
+
+        dropdownButton()
+          .click()
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    // FE-5764
+    it.skip("should pass accessibilty tests for MultiSelect disablePortal prop", () => {
+      CypressMountWithProviders(
+        <div>
+          <stories.MultiSelectComponent disablePortal />
+        </div>
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for MultiSelect with multiple columns", () => {
+      CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it.each(["3", "7"])(
+      "should pass accessibilty tests for MultiSelect defaultValue prop",
+      (value) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectDefaultValueComponent defaultValue={[value]} />
+        );
+
+        cy.checkAccessibility();
+      }
+    );
+
+    it("should pass accessibilty tests for MultiSelect with custom coloured pills", () => {
+      CypressMountWithProviders(<stories.MultiSelectCustomColorComponent />);
+
+      cy.checkAccessibility();
+    });
+
+    it.each(["third", "fifth"])(
+      "should pass accessibilty tests for MultiSelect wrapPillText prop",
+      (option) => {
+        CypressMountWithProviders(
+          <stories.MultiSelectLongPillComponent wrapPillText />
+        );
+
+        dropdownButton().click();
+        selectOption(positionOfElement(option))
+          .click()
+          .then(() => cy.checkAccessibility());
+      }
+    );
+
+    it("should pass accessibilty tests for MultiSelect with virtual scrolling", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectWithManyOptionsAndVirtualScrolling />
+      );
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    it("should pass accessibilty tests for MultiSelect in nested dialog", () => {
+      CypressMountWithProviders(<stories.MultiSelectNestedInDialog />);
+
+      dropdownButton()
+        .click()
+        .then(() => cy.checkAccessibility());
+    });
+
+    // FE-5764
+    it.skip("should pass accessibilty tests for MultiSelect When error is triggered by onChange", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectErrorOnChangeNewValidation />
+      );
+
+      dropdownButton().click();
+      selectListText(option1).click();
+      selectListText(option2).click();
+      selectListText(option3).click();
+
+      cy.checkAccessibility();
+    });
   });
 });
