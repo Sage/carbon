@@ -23,11 +23,8 @@ async function setupNodeEvents(
 
 export default defineConfig({
   blockHosts: ["www.google-analytics.com", "sockjs*", "countries*"],
-  env: {
-    TAGS: "not @ignore",
-    iframe: "iframe.html?id=",
-  },
   video: false,
+  screenshotOnRunFailure: false,
   viewportWidth: 1366,
   viewportHeight: 768,
   chromeWebSecurity: false,
@@ -35,11 +32,6 @@ export default defineConfig({
   retries: {
     runMode: 1,
     openMode: 1,
-  },
-  e2e: {
-    setupNodeEvents,
-    baseUrl: "http://127.0.0.1:9001/",
-    specPattern: "./cypress/e2e/**/*.test.ts",
   },
   component: {
     devServer: {

@@ -1,58 +1,3 @@
-import DEBUG_FLAG from "./e2e";
-
-const stringToURL = (str: string) => str.toLowerCase().replace(/ /g, "-");
-
-function prepareUrl(component: string, suffix = "default story") {
-  let url = Cypress.config().baseUrl;
-  const story = Cypress.env("iframe");
-  url += story;
-  return `${url}${stringToURL(component)}--${stringToURL(suffix)}`;
-}
-
-export function visitComponentUrl(component: string, suffix: string) {
-  const onBeforeLoad = cy.spy();
-  cy.visit(prepareUrl(component, suffix), {
-    onBeforeLoad,
-  });
-  cy.get("#root :first-child", { timeout: 10000 }).should("exist");
-}
-
-export function visitComponentUrlWithParameters(
-  component: string,
-  story: string,
-  json = "",
-  path = "",
-  nameOfObject = ""
-) {
-  const onBeforeLoad = cy.spy();
-  cy.fixture(`${path}/${json}`).then(($json) => {
-    const el = $json[nameOfObject];
-    let url = "";
-    const args = [];
-    const globals = [];
-    for (const prop in el) {
-      if (prop === "theme") {
-        globals.push(`${prop}:${encodeURIComponent(el[prop])}`);
-      } else {
-        args.push(`${prop}:${encodeURIComponent(el[prop])}`);
-      }
-    }
-
-    if (args.length) {
-      url += `&args=${args.join(";")}`;
-    }
-
-    if (globals.length) {
-      url += `&globals=${globals.join(";")}`;
-    }
-
-    cy.visit(`${prepareUrl(component, story)}${url}`, {
-      onBeforeLoad,
-    });
-    cy.get("#root :first-child", { timeout: 10000 }).should("exist");
-  });
-}
-
 export function dragAndDrop(
   draggableElement: Cypress.Chainable,
   destinationPosition: number,
@@ -76,12 +21,11 @@ export function dragAndDrop(
       .trigger("mousemove", {
         clientY: i,
         force: true,
-        log: DEBUG_FLAG,
         release: false,
       })
       .trigger("mousemove", "topRight", { force: true, release: false })
       .trigger("mousemove", "topLeft", { force: true, release: false })
-      .wait(100, { log: DEBUG_FLAG });
+      .wait(100);
   }
   draggableElement.trigger("mouseup", { force: true, release: true });
 }
