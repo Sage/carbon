@@ -20,8 +20,8 @@ import {
 import usePrevious from "../../hooks/__internal__/usePrevious";
 import TopModalContext from "../../components/carbon-provider/top-modal-context";
 
-const TAB_GUARD_TOP = "tab-guard-top";
-const TAB_GUARD_BOTTOM = "tab-guard-bottom";
+export const TAB_GUARD_TOP = "tab-guard-top";
+export const TAB_GUARD_BOTTOM = "tab-guard-bottom";
 
 // TODO investigate why React.RefObject<T> produces a failed prop type when current = null
 export type CustomRefObject<T> = {

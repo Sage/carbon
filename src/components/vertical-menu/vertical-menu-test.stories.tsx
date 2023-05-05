@@ -295,3 +295,17 @@ export const VerticalMenuFullScreenCustom: ComponentStory<
   }
   return <VerticalMenu>{menuItems}</VerticalMenu>;
 };
+
+export const VerticalMenuFullScreenBackgroundScrollTest = () => {
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <VerticalMenuFullScreen isOpen onClose={() => {}}>
+        <VerticalMenuItem title="Menu Item One" href="#" />
+        <VerticalMenuItem title="Menu Item Two" href="#" />
+      </VerticalMenuFullScreen>
+    </Box>
+  );
+};

@@ -47,9 +47,9 @@ export function pressShiftTABKey(count: number) {
   }
 }
 
-export function continuePressingTABKey(count: number) {
+export function continuePressingTABKey(count: number, shift = false) {
   for (let i = 0; i < count; i++) {
-    cy.focused().tab();
+    cy.focused().tab({ shift });
   }
 }
 
