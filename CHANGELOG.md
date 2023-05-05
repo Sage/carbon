@@ -1,3 +1,11 @@
+### [118.2.1](https://github.com/Sage/carbon/compare/v118.2.0...v118.2.1) (2023-05-05)
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** ensure correct tab order when Search with button rendered as a child ([ddabef9](https://github.com/Sage/carbon/commit/ddabef96a12165bc5e3d5e44140e303ee1e6a715)), closes [#5959](https://github.com/Sage/carbon/issues/5959)
+* **menu-item:** ensure text colour is correct when item is focused in full screen view ([82b543b](https://github.com/Sage/carbon/commit/82b543b4ba7f6ed342bede80be1fe03bf13651fa))
+
 ## [118.2.0](https://github.com/Sage/carbon/compare/v118.1.1...v118.2.0) (2023-05-05)
 
 
