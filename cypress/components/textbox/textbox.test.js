@@ -47,6 +47,37 @@ const verifyOptional = (element) =>
 
 context("Tests for Textbox component", () => {
   describe("check props for Textbox component", () => {
+    it.each([
+      [SIZE.SMALL, "32px", "--sizing400"],
+      [SIZE.MEDIUM, "40px", "--sizing500"],
+      [SIZE.LARGE, "48px", "--sizing600"],
+    ])(
+      "should use %s as size and render Textbox with %s as height",
+      (size, height, token) => {
+        CypressMountWithProviders(<stories.TextboxComponent size={size} />);
+
+        textbox().should("have.css", "min-height", height);
+        textbox()
+          .getDesignTokensByCssProperty("min-height")
+          .should(($el) => {
+            expect($el[0]).to.equal(token);
+          });
+      }
+    );
+
+    it.each([
+      ["background", "--colorsUtilityYang100"],
+      ["border", "--colorsUtilityMajor300"],
+    ])("should check %s token for Textbox", (cssProp, token) => {
+      CypressMountWithProviders(<stories.TextboxComponent size="medium" />);
+
+      textbox()
+        .getDesignTokensByCssProperty(cssProp)
+        .should(($el) => {
+          expect($el[0]).to.equal(token);
+        });
+    });
+
     it("should render Textbox with isOptional prop", () => {
       CypressMountWithProviders(<stories.TextboxComponent isOptional />);
 
@@ -467,19 +498,6 @@ context("Tests for Textbox component", () => {
           .eq(1)
           .find(secondElement)
           .should("be.visible");
-      }
-    );
-
-    it.each([
-      [SIZE.SMALL, "32px"],
-      [SIZE.MEDIUM, "40px"],
-      [SIZE.LARGE, "48px"],
-    ])(
-      "should use %s as size and render Textbox with %s as height",
-      (size, height) => {
-        CypressMountWithProviders(<stories.TextboxComponent size={size} />);
-
-        textbox().should("have.css", "min-height", height);
       }
     );
 

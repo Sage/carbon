@@ -62,6 +62,7 @@
     "@babel/types": "^7.16.0",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@dlgshi/cypress-plugin-designtokens": "^0.0.1-development",
     "@sage/design-tokens": "^2.65.0",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.2",

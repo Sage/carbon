@@ -6,6 +6,7 @@ import type { Options } from "cypress-axe";
 import { mount } from "cypress/react";
 import { CY_ROOT } from "../locators/locators";
 import "cypress-plugin-tab";
+import "@dlgshi/cypress-plugin-designtokens";
 
 /* eslint-disable @typescript-eslint/no-namespace */
 declare global {
@@ -13,6 +14,7 @@ declare global {
     interface Chainable {
       mount: typeof mount;
       checkAccessibility: typeof checkAccessibility;
+      getDesignTokensByCssProperty(cssProperty: string): Chainable<string[]>;
     }
   }
 }
