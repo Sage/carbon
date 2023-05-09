@@ -149,7 +149,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `a > ${StyledIcon}` }
       );
     });
 
@@ -162,7 +162,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `a > ${StyledIcon}` }
       );
     });
 
@@ -177,7 +177,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `a > ${StyledIcon}` }
       );
     });
 

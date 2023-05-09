@@ -162,7 +162,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
         text-decoration: underline;
         ${isMenuItem && "display: inline-block;"}
 
-        ${StyledIcon} {
+        > ${StyledIcon} {
           display: inline-block;
           position: relative;
           vertical-align: middle;
