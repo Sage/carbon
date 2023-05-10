@@ -2,11 +2,11 @@ import React from "react";
 import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
-  ButtonBarWithMinorButtonChildren
+  ButtonBarWithMinorButtonChildren,
 } from "../../../src/components/button-bar/button-bar-test.stories";
 import {
   BUTTON_BAR_SIZES,
-  BUTTON_BAR_ICON_POSITIONS
+  BUTTON_BAR_ICON_POSITIONS,
 } from "../../../src/components/button-bar/button-bar.config";
 
 import { buttonDataComponent } from "../../locators/button";
@@ -17,23 +17,29 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 context("Test for Button-Bar component", () => {
   describe("check props for Button-Bar component", () => {
     it.each([
-      [BUTTON_BAR_SIZES[0] as string, 32],
-      [BUTTON_BAR_SIZES[1] as string, 40],
-      [BUTTON_BAR_SIZES[2] as string, 48]
-    ])("should set size to %s for a Button-Bar", (size: string, px: number) => {
+      [BUTTON_BAR_SIZES[0] as string, 32, "--spacing200"],
+      [BUTTON_BAR_SIZES[1] as string, 40, "--spacing300"],
+      [BUTTON_BAR_SIZES[2] as string, 48, "--spacing400"],
+    ])("should set size to %s for a Button-Bar", (size, px, token) => {
       CypressMountWithProviders(<ButtonBarCustom size={size} />);
-
-      buttonDataComponent().eq(0).should("have.css", "min-height", `${px}px`);
-      buttonDataComponent().eq(1).should("have.css", "min-height", `${px}px`);
-      buttonDataComponent().eq(2).should("have.css", "min-height", `${px}px`);
+      for (let i = 0; i < 3; i++) {
+        buttonDataComponent().eq(i).should("have.css", "min-height", `${px}px`);
+        buttonDataComponent()
+          .eq(i)
+          .getDesignTokensByCssProperty("padding-left")
+          .then(($el) => {
+            // eslint-disable-next-line jest/valid-expect
+            expect($el[0]).to.equal(token);
+          });
+      }
     });
 
     it.each([
       [BUTTON_BAR_ICON_POSITIONS[0] as string, "right"],
-      [BUTTON_BAR_ICON_POSITIONS[1] as string, "left"]
+      [BUTTON_BAR_ICON_POSITIONS[1] as string, "left"],
     ])(
       "should set position to %s for icon in a Button-Bar",
-      (iconPosition: string, margin: string) => {
+      (iconPosition, margin) => {
         CypressMountWithProviders(
           <ButtonBarCustom iconPosition={iconPosition} />
         );
@@ -56,7 +62,7 @@ context("Test for Button-Bar component", () => {
   describe("accessibility tests", () => {
     it.each([BUTTON_BAR_SIZES[0], BUTTON_BAR_SIZES[1], BUTTON_BAR_SIZES[2]])(
       "should check accessibility for %s size for a Button-Bar",
-      (size: string) => {
+      (size) => {
         CypressMountWithProviders(<ButtonBarCustom size={size} />);
 
         cy.checkAccessibility();
@@ -65,7 +71,7 @@ context("Test for Button-Bar component", () => {
 
     it.each([BUTTON_BAR_ICON_POSITIONS[0], BUTTON_BAR_ICON_POSITIONS[1]])(
       "should check accessibility for %s icon position in a Button-Bar",
-      (iconPosition: string) => {
+      (iconPosition) => {
         CypressMountWithProviders(
           <ButtonBarCustom iconPosition={iconPosition} />
         );
@@ -114,10 +120,10 @@ context("Test for Button-Bar component", () => {
 
     it.each([
       ["after", "left"],
-      ["before", "right"]
+      ["before", "right"],
     ])(
       "Button Icon position is %s text when the iconPosition is set and passed to ButtonBar",
-      (iconPosition: string, margin: string) => {
+      (iconPosition, margin) => {
         CypressMountWithProviders(
           <ButtonBarWithWrapper iconPosition={iconPosition} />
         );

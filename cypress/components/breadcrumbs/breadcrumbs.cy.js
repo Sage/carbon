@@ -1,11 +1,8 @@
 import React from "react";
-import * as testStories from "./breadcrumbs-test.stories";
-import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import {
-  breadcrumbsComponent,
-  crumb,
-} from "../../../cypress/locators/breadcrumbs";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import * as testStories from "../../../src/components/breadcrumbs/breadcrumbs-test.stories";
+import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
+import { breadcrumbsComponent, crumb } from "../../locators/breadcrumbs";
+import { CHARACTERS } from "../../support/component-helper/constants";
 
 context("Testing Breadcrumbs component", () => {
   describe("should render Breadcrumbs component", () => {

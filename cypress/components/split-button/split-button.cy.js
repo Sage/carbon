@@ -7,9 +7,9 @@ import { Accordion } from "../../../src/components/accordion";
 import * as stories from "../../../src/components/split-button/split-button.stories";
 import SplitButton from "../../../src/components/split-button";
 import Button from "../../../src/components/button";
-import { buttonSubtextPreview } from "../../locators/button/index";
+import { buttonSubtextPreview } from "../../locators/button";
 import { keyCode, positionOfElement } from "../../support/helper";
-import { cyRoot, icon, getDataElementByValue } from "../../locators/index";
+import { cyRoot, icon, getDataElementByValue } from "../../locators";
 
 import {
   splitToggleButton,
@@ -18,11 +18,11 @@ import {
   splitMainButtonDataComponent,
   mainButton,
   splitMainButton,
-} from "../../locators/split-button/index.js";
-import { accordionDefaultTitle } from "../../locators/accordion/index.js";
-import { alertDialogPreview } from "../../locators/dialog/index.js";
-import { CHARACTERS } from "../../support/component-helper/constants.js";
-import CypressMountWithProviders from "../../support/component-helper/cypress-mount.js";
+} from "../../locators/split-button";
+import { accordionDefaultTitle } from "../../locators/accordion";
+import { alertDialogPreview } from "../../locators/dialog";
+import { CHARACTERS } from "../../support/component-helper/constants";
+import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
