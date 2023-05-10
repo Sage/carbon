@@ -1,14 +1,15 @@
 import React from "react";
 import { shallow } from "enzyme";
 import useUniqueId from ".";
-import createGuid from "../guid";
+import createGuid from "../../../__internal__/utils/helpers/guid";
 
 const guid = "guid-12345";
 
-jest.mock("../guid");
+jest.mock("../../../__internal__/utils/helpers/guid");
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(createGuid as jest.MockedFunction<any>).mockImplementation(() => guid);
+(createGuid as jest.MockedFunction<typeof createGuid>).mockImplementation(
+  () => guid
+);
 
 interface Props {
   id?: string;

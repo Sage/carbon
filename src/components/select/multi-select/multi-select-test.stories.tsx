@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MultiSelect, Option, MultiSelectProps } from "..";
-import partialAction from "../../../__internal__/utils/storybook/partial-action";
+import partialAction from "../../../../.storybook/utils/partial-action";
 import OptionRow from "../option-row/option-row.component";
 import Button from "../../button/button.component";
 import Dialog from "../../dialog";

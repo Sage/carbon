@@ -34,8 +34,9 @@ import StyledButton from "../button/button.style";
 import guid from "../../__internal__/utils/helpers/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(guid as jest.MockedFunction<any>).mockImplementation(() => "guid-12345");
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(
+  () => "guid-12345"
+);
 jest.useFakeTimers();
 
 describe("ActionPopover", () => {
