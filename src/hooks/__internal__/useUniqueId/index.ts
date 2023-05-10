@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import createGuid from "../guid";
+import createGuid from "../../../__internal__/utils/helpers/guid";
 
 export default (id?: string, name?: string): string[] => {
   const createdId = useRef<string>(createGuid());

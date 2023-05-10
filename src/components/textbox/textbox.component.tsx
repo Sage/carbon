@@ -11,7 +11,7 @@ import { ValidationProps } from "../../__internal__/validations";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import FormField from "../../__internal__/form-field";
 import { IconType } from "../icon";
-import useUniqueId from "../../__internal__/utils/helpers/useUniqueId";
+import useUniqueId from "../../hooks/__internal__/useUniqueId";
 import { InputBehaviour } from "../../__internal__/input-behaviour";
 import StyledPrefix from "./__internal__/prefix.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";

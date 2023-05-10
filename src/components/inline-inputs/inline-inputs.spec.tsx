@@ -20,8 +20,7 @@ import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(guid as jest.MockedFunction<any>).mockImplementation(() => mockedGuid);
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 function render(props: InlineInputsProps = {}) {
   return mount(
