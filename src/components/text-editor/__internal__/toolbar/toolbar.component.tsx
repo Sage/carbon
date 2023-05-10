@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import {
   StyledToolbar,
   StyledEditorStyleControls,
@@ -10,11 +9,37 @@ import Events from "../../../../__internal__/utils/helpers/events";
 import Icon from "../../../icon";
 import Tooltip from "../../../tooltip";
 import useLocale from "../../../../hooks/__internal__/useLocale";
+import {
+  BOLD,
+  ITALIC,
+  UNORDERED_LIST,
+  ORDERED_LIST,
+  InlineStyleType,
+  BlockType,
+} from "../../types";
 
-const BOLD = "BOLD";
-const ITALIC = "ITALIC";
-const UNORDERED_LIST = "unordered-list-item";
-const ORDERED_LIST = "ordered-list-item";
+export interface ToolbarProps {
+  /** Used to override the active status of the inline controls */
+  activeControls: Record<InlineStyleType | BlockType, boolean>;
+  /** Flag to trigger control focusing */
+  canFocus?: boolean;
+  /** Callback to handle setting the inline styles */
+  setInlineStyle: (
+    ev:
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
+    inlineType: InlineStyleType
+  ) => void;
+  /** Callback to handle setting the block styles */
+  setBlockStyle: (
+    ev:
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
+    blockType: BlockType
+  ) => void;
+  /** Additional elements to be rendered in the Toolbar, e.g. Save and Cancel Button */
+  toolbarElements?: React.ReactNode;
+}
 
 const Toolbar = ({
   activeControls,
@@ -22,34 +47,53 @@ const Toolbar = ({
   toolbarElements,
   setBlockStyle,
   setInlineStyle,
-}) => {
+}: ToolbarProps) => {
   const { textEditor } = useLocale();
   const { tooltipMessages, ariaLabels } = textEditor;
-  const controlRefs = [useRef(), useRef(), useRef(), useRef()];
-  const [focusIndex, setFocusIndex] = useState(0);
+  const controlRefs = useRef([
+    React.createRef<HTMLButtonElement>(),
+    React.createRef<HTMLButtonElement>(),
+    React.createRef<HTMLButtonElement>(),
+    React.createRef<HTMLButtonElement>(),
+  ]);
+
+  const [focusIndex, setFocusIndex] = useState<number | null>(null);
   const [tabbable, setTabbable] = useState(true);
   const [activeTooltip, setActiveTooltip] = useState("");
 
   const handleInlineStyleChange = useCallback(
-    (ev, inlineType) => {
+    (
+      ev:
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+      inlineType: InlineStyleType
+    ) => {
       setInlineStyle(ev, inlineType);
     },
     [setInlineStyle]
   );
 
   const handleBlockType = useCallback(
-    (ev, blockType) => {
+    (
+      ev:
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+      blockType: BlockType
+    ) => {
       setBlockStyle(ev, blockType);
     },
     [setBlockStyle]
   );
 
   const handleKeyDown = useCallback(
-    (ev, type) => {
+    (
+      ev: React.KeyboardEvent<HTMLButtonElement>,
+      type: InlineStyleType | BlockType
+    ) => {
       if (Events.isTabKey(ev)) {
         setFocusIndex(null);
       } else if (Events.isSpaceKey(ev) || Events.isEnterKey(ev)) {
-        if ([BOLD, ITALIC].includes(type)) {
+        if (type === BOLD || type === ITALIC) {
           handleInlineStyleChange(ev, type);
         } else {
           handleBlockType(ev, type);
@@ -58,25 +102,26 @@ const Toolbar = ({
         setTabbable(true);
       } else if (Events.isLeftKey(ev)) {
         if (focusIndex === null || focusIndex === 0) {
-          controlRefs[3].current.focus();
+          controlRefs.current[3].current?.focus();
           setFocusIndex(3);
         } else {
-          controlRefs[focusIndex - 1].current.focus();
+          controlRefs.current[focusIndex - 1].current?.focus();
           setFocusIndex(focusIndex - 1);
         }
         setTabbable(false);
       } else if (Events.isRightKey(ev)) {
         if (focusIndex === 3) {
-          controlRefs[0].current.focus();
+          controlRefs.current[0].current?.focus();
           setFocusIndex(0);
         } else {
-          controlRefs[focusIndex + 1].current.focus();
-          setFocusIndex(focusIndex + 1);
+          const currentIndex = focusIndex === null ? 0 : focusIndex;
+          controlRefs.current[currentIndex + 1].current?.focus();
+          setFocusIndex(currentIndex + 1);
         }
         setTabbable(false);
       }
     },
-    [controlRefs, focusIndex, handleBlockType, handleInlineStyleChange]
+    [focusIndex, handleBlockType, handleInlineStyleChange]
   );
 
   useEffect(() => {
@@ -91,16 +136,13 @@ const Toolbar = ({
     }
   }, [canFocus]);
 
-  const isTabbable = useCallback(
-    (index) => {
-      if (!controlRefs[index] || !controlRefs[index].current) {
-        return false;
-      }
+  const isTabbable = (index: number) => {
+    if (!controlRefs.current[index] || !controlRefs.current[index].current) {
+      return false;
+    }
 
-      return controlRefs[index].current === document.activeElement;
-    },
-    [controlRefs]
-  );
+    return controlRefs.current[index].current === document.activeElement;
+  };
 
   return (
     <StyledToolbar data-component="text-editor-toolbar">
@@ -115,7 +157,7 @@ const Toolbar = ({
             onKeyDown={(ev) => handleKeyDown(ev, BOLD)}
             onMouseDown={(ev) => handleInlineStyleChange(ev, BOLD)}
             activated={activeControls.BOLD}
-            ref={controlRefs[0]}
+            ref={controlRefs.current[0]}
             tabbable={tabbable}
             onMouseOver={() => setActiveTooltip("Bold")}
             onMouseLeave={() => setActiveTooltip("")}
@@ -135,7 +177,7 @@ const Toolbar = ({
             onKeyDown={(ev) => handleKeyDown(ev, ITALIC)}
             onMouseDown={(ev) => handleInlineStyleChange(ev, ITALIC)}
             activated={activeControls.ITALIC}
-            ref={controlRefs[1]}
+            ref={controlRefs.current[1]}
             tabbable={isTabbable(1)}
             onMouseOver={() => setActiveTooltip("Italic")}
             onMouseLeave={() => setActiveTooltip("")}
@@ -155,7 +197,7 @@ const Toolbar = ({
             onKeyDown={(ev) => handleKeyDown(ev, UNORDERED_LIST)}
             onMouseDown={(ev) => handleBlockType(ev, UNORDERED_LIST)}
             activated={activeControls[UNORDERED_LIST]}
-            ref={controlRefs[2]}
+            ref={controlRefs.current[2]}
             tabbable={isTabbable(2)}
             onMouseOver={() => setActiveTooltip("Bulleted List")}
             onMouseLeave={() => setActiveTooltip("")}
@@ -175,7 +217,7 @@ const Toolbar = ({
             onKeyDown={(ev) => handleKeyDown(ev, ORDERED_LIST)}
             onMouseDown={(ev) => handleBlockType(ev, ORDERED_LIST)}
             activated={activeControls[ORDERED_LIST]}
-            ref={controlRefs[3]}
+            ref={controlRefs.current[3]}
             tabbable={isTabbable(3)}
             onMouseOver={() => setActiveTooltip("Numbered List")}
             onMouseLeave={() => setActiveTooltip("")}
@@ -194,19 +236,6 @@ const Toolbar = ({
       )}
     </StyledToolbar>
   );
-};
-
-Toolbar.propTypes = {
-  /** Used to override the active status of the inline controls */
-  activeControls: PropTypes.object.isRequired,
-  /** Flag to trigger control focusing */
-  canFocus: PropTypes.bool,
-  /** Callback to handle setting the inline styles */
-  setInlineStyle: PropTypes.func.isRequired,
-  /** Callback to handle setting the block styles */
-  setBlockStyle: PropTypes.func.isRequired,
-  /** Additional elements to be rendered in the Toolbar, e.g. Save and Cancel Button */
-  toolbarElements: PropTypes.node,
 };
 
 export default Toolbar;

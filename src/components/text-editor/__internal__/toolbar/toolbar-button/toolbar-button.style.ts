@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
 import StyledIcon from "../../../../icon/icon.style";
 
-const StyledToolbarButton = styled.button.attrs({ type: "button" })`
+const StyledToolbarButton = styled.button.attrs({ type: "button" })<{
+  isActive?: boolean;
+}>`
   background-color: inherit;
   border-radius: var(--borderRadius050);
   border: none;

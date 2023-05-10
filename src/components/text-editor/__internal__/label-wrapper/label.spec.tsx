@@ -1,11 +1,11 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, ShallowWrapper } from "enzyme";
 import Label from "../../../../__internal__/label";
-import LabelWrapper from "./label-wrapper.component";
+import LabelWrapper, { LabelWrapperProps } from "./label-wrapper.component";
 
 describe("LabelWrapper", () => {
-  let wrapper;
-  let clickFn;
+  let wrapper: ShallowWrapper<LabelWrapperProps>;
+  let clickFn: jest.Mock;
 
   beforeEach(() => {
     clickFn = jest.fn();
@@ -21,7 +21,7 @@ describe("LabelWrapper", () => {
   });
 
   it("should run onClick handler correctly", () => {
-    wrapper.props().onClick();
+    wrapper.props().onClick({} as React.MouseEvent<HTMLSpanElement>);
     expect(clickFn).toHaveBeenCalled();
   });
 });

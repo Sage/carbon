@@ -14,7 +14,7 @@ import {
 } from "../../locators/text-editor";
 
 import { getDataElementByValue } from "../../locators";
-import { positionOfElement, keyCode } from "../../../cypress/support/helper";
+import { positionOfElement, keyCode, pressShiftTABKey } from "../../../cypress/support/helper";
 import { verifyRequiredAsteriskForLabel } from "../../support/component-helper/common-steps";
 import {
   VALIDATION,
@@ -257,6 +257,28 @@ context("Test for TextEditor component", () => {
 
       textEditorCounter().should("have.text", 0);
       innerText().should("have.text", longTextAssert);
+    });
+
+    it("should focus the first button when focus is moved to the input from the toolbar and tab key pressed", () => {
+      CypressMountWithProviders(<TextEditorCustom />);
+      textEditorInput().focus().tab();
+      textEditorToolbar("bold").should("be.focused");
+      cy.focused().trigger("keydown", keyCode("rightarrow"));
+      textEditorToolbar("italic").should("be.focused");
+      cy.root().click();
+      textEditorInput().focus().tab();
+      textEditorToolbar("bold").should("be.focused");
+    });
+
+    it("should focus the first button when focus is moved outside of the component from the toolbar and shift-tab key pressed", () => {
+      CypressMountWithProviders(<TextEditorCustom />);
+      textEditorInput().focus().tab();
+      textEditorToolbar("bold").should("be.focused");
+      cy.focused().trigger("keydown", keyCode("rightarrow"));
+      textEditorToolbar("italic").should("be.focused");
+      textEditorToolbar("italic").tab();
+      pressShiftTABKey(1);
+      textEditorToolbar("bold").should("be.focused");
     });
 
     describe("check props for TextEditor component", () => {

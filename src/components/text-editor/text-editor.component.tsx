@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+import { MarginProps } from "styled-system";
 import {
   ContentState,
   EditorState,
-  Editor,
+  EditorCommand,
   RichUtils,
   getDefaultKeyBinding,
   Modifier,
+  Editor,
+  DraftHandleValue,
 } from "draft-js";
 import {
   computeBlockType,
@@ -34,19 +35,52 @@ import Label from "../../__internal__/label";
 import Events from "../../__internal__/utils/helpers/events";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import LabelWrapper from "./__internal__/label-wrapper";
-import { filterStyledSystemMarginProps } from "../../style/utils";
-
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+import {
+  BOLD,
+  ITALIC,
+  UNORDERED_LIST,
+  ORDERED_LIST,
+  InlineStyleType,
+  BlockType,
+} from "./types";
+import { LinkPreviewProps } from "../link-preview";
 
 const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-const INLINE_STYLES = ["BOLD", "ITALIC"];
-const BLOCK_TYPES = ["unordered-list-item", "ordered-list-item"];
+const INLINE_STYLES = [BOLD, ITALIC] as const;
 
-export const EditorContext = React.createContext({});
+export const EditorContext = React.createContext<{
+  onLinkAdded?: (url: string) => void;
+  editMode?: boolean;
+}>({});
 
-const TextEditor = React.forwardRef(
+export interface TextEditorProps extends MarginProps {
+  /** The maximum characters that the input will accept */
+  characterLimit?: number;
+  /** The text for the editor's label */
+  labelText: string;
+  /** onChange callback to control value updates */
+  onChange: (event: EditorState) => void;
+  /** Additional elements to be rendered in the Editor Toolbar, e.g. Save and Cancel Button */
+  toolbarElements?: React.ReactNode;
+  /** The value of the input, this is an EditorState immutable object */
+  value: EditorState;
+  /** Flag to configure component as mandatory */
+  required?: boolean;
+  /** Message to be displayed when there is an error */
+  error?: string;
+  /** Message to be displayed when there is a warning */
+  warning?: string;
+  /** Message to be displayed when there is an info */
+  info?: string;
+  /** Number greater than 2 multiplied by line-height (21px) to override the default min-height of the editor */
+  rows?: number;
+  /** The previews to display of any links added to the Editor */
+  previews?: React.ReactNode;
+  /** Callback to report a url when a link is added */
+  onLinkAdded?: (url: string) => void;
+}
+
+export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
   (
     {
       characterLimit = 3000,
@@ -62,22 +96,31 @@ const TextEditor = React.forwardRef(
       previews,
       onLinkAdded,
       ...rest
-    },
+    }: TextEditorProps,
     ref
   ) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [inlines, setInlines] = useState([]);
-    const [activeInlines, setActiveInlines] = useState({});
+    const [inlines, setInlines] = useState<InlineStyleType[]>([]);
+    const [activeInlines, setActiveInlines] = useState<
+      Partial<Record<InlineStyleType, boolean>>
+    >({});
     const [focusToolbar, setFocusToolbar] = useState(false);
 
-    const editorRef = useRef();
+    const editorRef = useRef<Editor>(null);
     const editor = ref || editorRef;
     const contentLength = getContent(value).getPlainText("").length;
     const moveCursor = useRef(contentLength > 0);
-    const lastKeyPressed = useRef();
+    const lastKeyPressed = useRef<null | string>();
     const labelId = useRef(`text-editor-label-${createGuid()}`);
 
-    const keyBindingFn = (ev) => {
+    if (rows && (typeof rows !== "number" || rows < 2)) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `Prop rows must be a number value that is 2 or greater to override the min-height of the \`${TextEditor.displayName}\``
+      );
+    }
+
+    const keyBindingFn = (ev: React.KeyboardEvent<HTMLInputElement>) => {
       if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
         setFocusToolbar(true);
       }
@@ -85,7 +128,9 @@ const TextEditor = React.forwardRef(
       return getDefaultKeyBinding(ev);
     };
 
-    const handleKeyCommand = (command) => {
+    const BLOCK_TYPES = ["unordered-list-item", "ordered-list-item"];
+
+    const handleKeyCommand = (command: EditorCommand) => {
       // bail out if the enter is pressed and limit has been reached
       if (command.includes("split-block") && contentLength === characterLimit) {
         return "handled";
@@ -93,33 +138,38 @@ const TextEditor = React.forwardRef(
 
       // if the backspace or enter is pressed get block type and text
       if (command.includes("backspace") || command.includes("split-block")) {
-        const { blockType, blockLength } = getContentInfo(value);
+        const { blockLength, blockType } = getContentInfo(value);
 
         // if a block control is active and there is no text, deactivate it and reset the block
         if (BLOCK_TYPES.includes(blockType) && !blockLength) {
           onChange(resetBlockType(value, "unstyled"));
 
-          return true;
+          return "handled";
         }
       }
 
       const style = command.toUpperCase();
 
       // if formatting shortcut used eg. command is "bold" or "italic"
-      if (INLINE_STYLES.includes(style)) {
-        onChange(RichUtils.handleKeyCommand(value, command));
-        setActiveInlines({
-          ...activeInlines,
-          [style]: !hasInlineStyle(value, style),
-        });
+      if (style === BOLD || style === ITALIC) {
+        const update = RichUtils.handleKeyCommand(value, command);
 
-        return true;
+        // istanbul ignore else
+        if (update) {
+          onChange(update);
+          setActiveInlines({
+            ...activeInlines,
+            [style]: !hasInlineStyle(value, style),
+          });
+
+          return "handled";
+        }
       }
 
-      return false;
+      return "not-handled";
     };
 
-    const handleBeforeInput = (str, newState) => {
+    const handleBeforeInput = (str: string, newState: EditorState) => {
       // short circuit if exceeds character limit
       if (contentLength >= characterLimit) {
         return "handled";
@@ -131,9 +181,7 @@ const TextEditor = React.forwardRef(
       // prevent the editor from crashing until a fix can be added to their codebase
       if (lastKeyPressed.current === " " && !isASCIIChar(str)) {
         lastKeyPressed.current = null;
-        onChange(
-          replaceText(newState, " ", newState.getCurrentInlineStyle(), true)
-        );
+        onChange(replaceText(newState, " ", newState.getCurrentInlineStyle()));
 
         return "handled";
       }
@@ -141,13 +189,13 @@ const TextEditor = React.forwardRef(
       if (str === " ") {
         lastKeyPressed.current = str;
 
-        return false;
+        return "not-handled";
       }
 
       lastKeyPressed.current = null;
       // short circuit if str does not match expected chars
       if (![".", "*"].includes(str)) {
-        return false;
+        return "not-handled";
       }
 
       const { blockType, blockLength, blockText } = getContentInfo(value);
@@ -157,8 +205,8 @@ const TextEditor = React.forwardRef(
         (blockLength === 0 && str === "*")
       ) {
         const newBlockType = computeBlockType(str, blockType);
-        const hasNumberList = hasBlockStyle(value, BLOCK_TYPES[0]);
-        const hasBulletList = hasBlockStyle(value, BLOCK_TYPES[1]);
+        const hasNumberList = hasBlockStyle(value, ORDERED_LIST);
+        const hasBulletList = hasBlockStyle(value, UNORDERED_LIST);
 
         if (
           BLOCK_TYPES.includes(newBlockType) &&
@@ -167,19 +215,19 @@ const TextEditor = React.forwardRef(
         ) {
           onChange(resetBlockType(value, newBlockType));
           setActiveInlines({
-            BOLD: hasInlineStyle(value, INLINE_STYLES[0]),
-            ITALIC: hasInlineStyle(value, INLINE_STYLES[1]),
+            BOLD: hasInlineStyle(value, BOLD),
+            ITALIC: hasInlineStyle(value, ITALIC),
           });
 
-          return true;
+          return "handled";
         }
       }
       onChange(value);
 
-      return false;
+      return "not-handled";
     };
 
-    const handlePastedText = (pastedText) => {
+    const handlePastedText = (pastedText: string) => {
       const selectedTextLength = getSelectedLength(value);
       const newLength = contentLength + pastedText?.length - selectedTextLength;
       // if the pastedText will exceed the limit trim the excess
@@ -223,33 +271,39 @@ const TextEditor = React.forwardRef(
       BOLD:
         activeInlines.BOLD !== undefined
           ? activeInlines.BOLD
-          : hasInlineStyle(editorState, INLINE_STYLES[0]),
+          : hasInlineStyle(editorState, BOLD),
       ITALIC:
         activeInlines.ITALIC !== undefined
           ? activeInlines.ITALIC
-          : hasInlineStyle(editorState, INLINE_STYLES[1]),
-      "unordered-list-item": hasBlockStyle(editorState, BLOCK_TYPES[0]),
-      "ordered-list-item": hasBlockStyle(editorState, BLOCK_TYPES[1]),
+          : hasInlineStyle(editorState, ITALIC),
+      "unordered-list-item": hasBlockStyle(editorState, UNORDERED_LIST),
+      "ordered-list-item": hasBlockStyle(editorState, ORDERED_LIST),
     };
 
     const handleEditorFocus = useCallback(
-      (focusValue) => {
+      (focusValue: boolean) => {
         moveCursor.current = true;
         setIsFocused(focusValue);
 
         if (
           !isFocused &&
           focusValue &&
+          typeof editor === "object" &&
           editor.current !== document.activeElement
         ) {
-          editor.current.focus();
+          editor.current?.focus();
           setFocusToolbar(false);
         }
       },
       [editor, isFocused]
     );
 
-    const handleInlineStyleChange = (ev, style) => {
+    const handleInlineStyleChange = (
+      ev:
+        | React.MouseEvent<HTMLButtonElement>
+        | React.KeyboardEvent<HTMLButtonElement>,
+      style: InlineStyleType
+    ) => {
       ev.preventDefault();
       setActiveInlines({
         ...activeInlines,
@@ -259,11 +313,16 @@ const TextEditor = React.forwardRef(
       setInlines([...inlines, style]);
     };
 
-    const handleBlockStyleChange = (ev, newBlockType) => {
+    const handleBlockStyleChange = (
+      ev:
+        | React.MouseEvent<HTMLButtonElement, MouseEvent>
+        | React.KeyboardEvent<HTMLButtonElement>,
+      newBlockType: BlockType
+    ) => {
       ev.preventDefault();
       handleEditorFocus(true);
       onChange(RichUtils.toggleBlockType(value, newBlockType));
-      const temp = [];
+      const temp: InlineStyleType[] = [];
       INLINE_STYLES.forEach((style) => {
         if (activeInlines[style] !== undefined) {
           temp.push(style);
@@ -301,9 +360,17 @@ const TextEditor = React.forwardRef(
       value,
     ]);
 
-    const handlePreviewClose = (onClose, url) => {
-      onClose(url);
-      editor.current.focus();
+    const handlePreviewClose = (
+      onClose: (url: string) => void,
+      url?: string
+    ) => {
+      // istanbul ignore else
+      if (url) onClose(url);
+
+      // istanbul ignore else
+      if (typeof editor === "object") {
+        editor.current?.focus();
+      }
     };
 
     return (
@@ -317,7 +384,6 @@ const TextEditor = React.forwardRef(
           <StyledEditorOutline isFocused={isFocused} hasError={!!error}>
             <StyledEditorContainer
               data-component="text-editor-container"
-              ariaLabelledBy={labelId.current}
               hasError={!!error}
               rows={rows}
               hasPreview={!!React.Children.count(previews)}
@@ -335,9 +401,18 @@ const TextEditor = React.forwardRef(
                 onBlur={() => handleEditorFocus(false)}
                 editorState={editorState}
                 onChange={onChange}
-                handleBeforeInput={handleBeforeInput}
+                handleBeforeInput={
+                  handleBeforeInput as (
+                    chars: string,
+                    state: EditorState
+                  ) => DraftHandleValue
+                }
                 handlePastedText={handlePastedText}
-                handleKeyCommand={handleKeyCommand}
+                handleKeyCommand={
+                  handleKeyCommand as (
+                    command: EditorCommand
+                  ) => DraftHandleValue
+                }
                 ariaLabelledBy={labelId.current}
                 ariaDescribedBy={labelId.current}
                 blockStyleFn={blockStyleFn}
@@ -345,22 +420,24 @@ const TextEditor = React.forwardRef(
                 tabIndex={0}
               />
               {React.Children.map(previews, (preview) => {
-                const { onClose } = preview.props;
-                return React.cloneElement(preview, {
-                  as: "div",
-                  onClose: onClose
-                    ? (url) => handlePreviewClose(onClose, url)
-                    : undefined,
-                });
+                if (React.isValidElement<LinkPreviewProps>(preview)) {
+                  const { onClose } = preview?.props;
+                  return React.cloneElement(preview, {
+                    as: "div",
+                    onClose: onClose
+                      ? (url?: string) => handlePreviewClose(onClose, url)
+                      : undefined,
+                  });
+                }
+                return null;
               })}
               <Toolbar
                 setBlockStyle={(ev, newBlockType) =>
                   handleBlockStyleChange(ev, newBlockType)
                 }
-                setInlineStyle={(ev, inlineStyle, keyboardUsed) =>
-                  handleInlineStyleChange(ev, inlineStyle, keyboardUsed)
+                setInlineStyle={(ev, inlineStyle) =>
+                  handleInlineStyleChange(ev, inlineStyle)
                 }
-                editorState={editorState}
                 activeControls={activeControls}
                 canFocus={focusToolbar}
                 toolbarElements={toolbarElements}
@@ -372,45 +449,6 @@ const TextEditor = React.forwardRef(
     );
   }
 );
-
-TextEditor.propTypes = {
-  ...marginPropTypes,
-  /** The maximum characters that the input will accept */
-  characterLimit: PropTypes.number,
-  /** The text for the editor's label */
-  labelText: PropTypes.string.isRequired,
-  /** onChange callback to control value updates */
-  onChange: PropTypes.func.isRequired,
-  /** The value of the input, this is an EditorState immutable object */
-  value: PropTypes.object.isRequired,
-  /** Flag to configure component as mandatory */
-  required: PropTypes.bool,
-  /** Message to be displayed when there is an error */
-  error: PropTypes.string,
-  /** Message to be displayed when there is a warning */
-  warning: PropTypes.string,
-  /** Message to be displayed when there is an info */
-  info: PropTypes.string,
-  /** Additional elements to be rendered in the Editor Toolbar, e.g. Save and Cancel Button */
-  toolbarElements: PropTypes.node,
-  /** Number greater than 2 multiplied by line-height (21px) to override the default min-height of the editor */
-  rows: (props, propName, component) => {
-    if (
-      props[propName] &&
-      (typeof props[propName] !== "number" || props[propName] < 2)
-    ) {
-      return new Error(
-        `Prop \`${propName}\` must be a number value greater than 2 to override the min-height of the \`${component}\``
-      );
-    }
-
-    return null;
-  },
-  /** The previews to display of any links added to the Editor */
-  previews: PropTypes.arrayOf(PropTypes.node),
-  /** Callback to report a url when a link is added */
-  onLinkAdded: PropTypes.func,
-};
 
 export const TextEditorState = EditorState;
 export const TextEditorContentState = ContentState;

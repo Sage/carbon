@@ -1,11 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
-import Counter from "./editor-counter.component";
+import Counter, { EditorCounterProps } from "./editor-counter.component";
 import { StyledCounter } from "./editor-counter.style";
 import ValidationIcon from "../../../../__internal__/validations";
 
-const render = (props = {}, renderer = mount) => {
+const render = (props: EditorCounterProps = {}, renderer = mount) => {
   return renderer(<Counter {...props} />);
 };
 
@@ -50,16 +50,17 @@ describe("EditorCounter", () => {
       expect(render().find(ValidationIcon).exists()).toEqual(false);
     });
 
-    it.each([{ error: "error" }, { warning: "warning" }, { info: "info" }])(
-      "renders the icon when a message is provided",
-      (msg) => {
-        expect(
-          render({ ...msg })
-            .find(ValidationIcon)
-            .exists()
-        ).toEqual(true);
-      }
-    );
+    it.each([
+      { error: "error" },
+      { warning: "warning" },
+      { info: "info" },
+    ] as const)("renders the icon when a message is provided", (msg) => {
+      expect(
+        render({ ...msg })
+          .find(ValidationIcon)
+          .exists()
+      ).toEqual(true);
+    });
 
     it("has expected styling overrides applied when there is an error", () => {
       const wrapper = render({ error: "error" });

@@ -29,7 +29,7 @@ describe("computeBlockType", () => {
 });
 
 describe("resetBlockType", () => {
-  it.each(["ordered-list-item", "unordered-list-item"])(
+  it.each(["ordered-list-item", "unordered-list-item"] as const)(
     "returns editorState with block replaced with given %s type",
     (type) => {
       const value = EditorState.createEmpty();
@@ -50,18 +50,17 @@ describe("resetBlockType", () => {
 });
 
 describe("getSelectedLength", () => {
-  const makeSelection = (value, anchor, focus) => {
+  const currentSelectionInfo = (value: EditorState) => {
     const content = value.getCurrentContent();
 
-    return value.getSelection().merge({
+    return {
       anchorKey: content.getFirstBlock().getKey(),
-      anchorOffset: anchor,
-      focusOffset: focus,
       focusKey: content.getLastBlock().getKey(),
-    });
+      focusOffset: content.getLastBlock().getText().length,
+    };
   };
 
-  const makeBlock = (value) => {
+  const makeBlock = (value: EditorState) => {
     const content = value.getCurrentContent();
 
     const newBlock = new ContentBlock({
@@ -70,14 +69,14 @@ describe("getSelectedLength", () => {
       text: "foo",
       characterList: List(),
     });
-
-    const newBlockMap = content.getBlockMap().set(newBlock.key, newBlock);
+    const newBlockMap = content.getBlockMap().set(newBlock.getKey(), newBlock);
 
     return EditorState.push(
       value,
       ContentState.createFromBlockArray(newBlockMap.toArray())
         .set("selectionBefore", content.getSelectionBefore())
-        .set("selectionAfter", content.getSelectionAfter())
+        .set("selectionAfter", content.getSelectionAfter()) as ContentState,
+      "insert-fragment"
     );
   };
 
@@ -90,10 +89,17 @@ describe("getSelectedLength", () => {
     const editorState = EditorState.createWithContent(
       ContentState.createFromText("foo")
     );
-    const selection = makeSelection(editorState, 1, 1);
+    const { anchorKey, focusKey } = currentSelectionInfo(editorState);
     const newValue = EditorState.acceptSelection(
       editorState,
-      editorState.getSelection().merge(selection)
+      editorState.getSelection().merge({
+        anchorKey,
+        anchorOffset: 1,
+        focusOffset: 1,
+        focusKey,
+        isBackward: false,
+        hasFocus: false,
+      })
     );
     expect(getSelectedLength(newValue)).toEqual(0);
   });
@@ -102,10 +108,17 @@ describe("getSelectedLength", () => {
     const editorState = EditorState.createWithContent(
       ContentState.createFromText("foo")
     );
-    const selection = makeSelection(editorState, 0, 1);
+    const { anchorKey, focusKey } = currentSelectionInfo(editorState);
     const newValue = EditorState.acceptSelection(
       editorState,
-      editorState.getSelection().merge(selection)
+      editorState.getSelection().merge({
+        anchorKey,
+        anchorOffset: 0,
+        focusOffset: 1,
+        focusKey,
+        isBackward: false,
+        hasFocus: false,
+      })
     );
     expect(getSelectedLength(newValue)).toEqual(1);
   });
@@ -114,15 +127,19 @@ describe("getSelectedLength", () => {
     const editorState = makeBlock(
       EditorState.createWithContent(ContentState.createFromText("foo"))
     );
-    const content = editorState.getCurrentContent();
-    const selection = makeSelection(
-      editorState,
-      0,
-      content.getLastBlock().getText().length
+    const { anchorKey, focusKey, focusOffset } = currentSelectionInfo(
+      editorState
     );
     const newValue = EditorState.acceptSelection(
       editorState,
-      editorState.getSelection().merge(selection)
+      editorState.getSelection().merge({
+        anchorKey,
+        anchorOffset: 0,
+        focusOffset,
+        focusKey,
+        isBackward: false,
+        hasFocus: false,
+      })
     );
     expect(getSelectedLength(newValue)).toEqual(7);
   });
@@ -132,15 +149,20 @@ describe("getSelectedLength", () => {
       EditorState.createWithContent(ContentState.createFromText("foo"))
     );
     editorState = makeBlock(editorState);
-    const content = editorState.getCurrentContent();
-    const selection = makeSelection(
-      editorState,
-      0,
-      content.getLastBlock().getText().length
+    const { anchorKey, focusKey, focusOffset } = currentSelectionInfo(
+      editorState
     );
+
     const newValue = EditorState.acceptSelection(
       editorState,
-      editorState.getSelection().merge(selection)
+      editorState.getSelection().merge({
+        anchorKey,
+        anchorOffset: 0,
+        focusOffset,
+        focusKey,
+        isBackward: false,
+        hasFocus: false,
+      })
     );
     expect(getSelectedLength(newValue)).toEqual(11);
   });
