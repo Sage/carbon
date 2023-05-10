@@ -22,6 +22,8 @@ type OriginalValues = {
   top: string | null;
   left: string | null;
   position: string;
+  width: string;
+  height: string;
 };
 
 const useFloating = ({
@@ -42,8 +44,8 @@ const useFloating = ({
     const floatingElement = floating.current;
 
     if (referenceElement && floatingElement && isOpen) {
-      const { left, top, position } = floatingElement.style;
-      originalValues.current = { left, top, position };
+      const { left, top, position, width, height } = floatingElement.style;
+      originalValues.current = { left, top, position, width, height };
 
       Object.assign(floatingElement.style, {
         position: strategy,
