@@ -203,7 +203,7 @@ context("Testing Pod component", () => {
 
       podDelete().focus();
 
-      podDelete().should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+      podDelete().should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
       podBlock().should("have.css", "border", "1px solid rgb(204, 214, 219)");
     });
 

@@ -133,7 +133,7 @@ context("Tests for MultiActionButton component", () => {
           expect(parseInt(values[0])).to.be.within(1, 3);
           expect(values[1]).to.equals("solid");
           expect(`${values[2]}${values[3]}${values[4]}`.trim()).to.equals(
-            "rgb(255,181,0)"
+            "rgb(255,188,25)"
           );
         });
     });
@@ -593,7 +593,7 @@ describe("should check colors for MultiActionButton component", () => {
     multiActionButton().should("have.css", "border-radius", "32px");
     multiActionButton()
       .focus()
-      .should("have.css", "border", "3px solid rgb(255, 181, 0)");
+      .should("have.css", "border", "3px solid rgb(255, 188, 25)");
   });
 
   it("should have the expected border radius on children container and buttons", () => {
