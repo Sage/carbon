@@ -25,7 +25,7 @@
     "build-storybook": "cross-env STORYBOOK_BUILD=true NODE_OPTIONS=--openssl-legacy-provider build-storybook -c .storybook",
     "start-storybook": "cross-env STORYBOOK_BUILD=true NODE_OPTIONS=--openssl-legacy-provider start-storybook -c .storybook",
     "start:static": "npx http-server -p 9001 ./storybook-static",
-    "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/*.spec.ts','**/*.spec.tsx','**/*.test.js','**/*.d.ts' --quiet --extensions '.js','.ts','.tsx'",
+    "babel": "cross-env NODE_ENV=production babel ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*.spec.js','**/*.spec.ts','**/*.spec.tsx','**/*.d.ts' --quiet --extensions '.js','.ts','.tsx'",
     "clean-lib": "rimraf ./lib && rimraf ./esm",
     "commit": "git-cz",
     "generate-metadata": "node ./scripts/generate_metadata/index.mjs",
