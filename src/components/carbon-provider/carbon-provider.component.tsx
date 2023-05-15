@@ -12,20 +12,24 @@ export interface CarbonProviderProps {
   theme?: Partial<ThemeObject>;
   children: React.ReactNode;
   validationRedesignOptIn?: boolean;
+  roundedCornersOptOut?: boolean;
 }
 
 export const NewValidationContext = createContext<
-  Pick<CarbonProviderProps, "validationRedesignOptIn">
+  Pick<CarbonProviderProps, "validationRedesignOptIn" | "roundedCornersOptOut">
 >({});
 
 export const CarbonProvider = ({
   children,
   theme = mintTheme,
   validationRedesignOptIn = false,
+  roundedCornersOptOut = false,
 }: CarbonProviderProps) => (
   <ThemeProvider theme={theme}>
-    <CarbonScopedTokensProvider>
-      <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
+    <CarbonScopedTokensProvider roundedCornersOptOut={roundedCornersOptOut}>
+      <NewValidationContext.Provider
+        value={{ validationRedesignOptIn, roundedCornersOptOut }}
+      >
         <TopModalContextProvider>{children}</TopModalContextProvider>
       </NewValidationContext.Provider>
     </CarbonScopedTokensProvider>

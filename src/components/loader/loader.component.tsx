@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -10,6 +10,7 @@ import StyledLoader from "./loader.style";
 import StyledLoaderSquare, {
   StyledLoaderSquareProps,
 } from "./loader-square.style";
+import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
 
 export interface LoaderProps
   extends StyledLoaderSquareProps,
@@ -32,6 +33,8 @@ export const Loader = ({
     "screen and (prefers-reduced-motion: no-preference)"
   );
 
+  const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
+
   return (
     <StyledLoader
       aria-label={ariaLabel || l.loader.loading()}
@@ -47,16 +50,19 @@ export const Loader = ({
             isInsideButton={isInsideButton}
             isActive={isActive}
             size={size}
+            roundedCornersOptOut={roundedCornersOptOut}
           />
           <StyledLoaderSquare
             isInsideButton={isInsideButton}
             isActive={isActive}
             size={size}
+            roundedCornersOptOut={roundedCornersOptOut}
           />
           <StyledLoaderSquare
             isInsideButton={isInsideButton}
             isActive={isActive}
             size={size}
+            roundedCornersOptOut={roundedCornersOptOut}
           />
         </>
       )}

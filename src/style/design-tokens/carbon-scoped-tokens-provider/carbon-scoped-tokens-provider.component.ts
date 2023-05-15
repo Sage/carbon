@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { baseTheme } from "../../themes";
 import { ThemeObject } from "../../themes/base";
 import generateCssVariables from "../generate-css-variables.util";
+import { CarbonProviderProps } from "../../../components/carbon-provider";
 
 /**
  *
@@ -10,13 +11,16 @@ import generateCssVariables from "../generate-css-variables.util";
  *
  */
 
-const CarbonScopedTokensProvider = styled.div<ThemeObject>`
+const CarbonScopedTokensProvider = styled.div<
+  ThemeObject & Pick<CarbonProviderProps, "roundedCornersOptOut">
+>`
   margin: 0;
   padding: 0;
   width: auto;
   display: inline;
 
-  ${({ theme }) => generateCssVariables(theme.compatibility)}
+  ${({ theme, roundedCornersOptOut }) =>
+    generateCssVariables(theme.compatibility, roundedCornersOptOut)}
 `;
 
 CarbonScopedTokensProvider.defaultProps = {

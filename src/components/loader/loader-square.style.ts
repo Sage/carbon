@@ -7,6 +7,11 @@ export interface StyledLoaderSquareProps {
   isInsideButton?: boolean;
   /** Applies slate color. Available only when isInsideButton is true. */
   isActive?: boolean;
+  /**
+   * @private @ignore
+   * Flag to opt out of rounded corners styles
+   */
+  roundedCornersOptOut?: boolean;
 }
 
 const loaderAnimation = keyframes`
@@ -20,42 +25,41 @@ const loaderAnimation = keyframes`
   }
 `;
 
-const getDimentions = (size: StyledLoaderSquareProps["size"]) => {
+const getDimentions = (
+  size: StyledLoaderSquareProps["size"],
+  roundedCornersOptOut: StyledLoaderSquareProps["roundedCornersOptOut"]
+) => {
   let width;
   let marginRight;
-  let borderRadius;
 
   switch (size) {
     case "medium":
       width = "16px";
       marginRight = "8px";
-      borderRadius = "var(--borderRadiusCircle)";
       break;
     case "large":
       width = "20px";
       marginRight = "8px";
-      borderRadius = "var(--borderRadiusCircle)";
       break;
     default:
       width = "12px";
       marginRight = "6px";
-      borderRadius = "var(--borderRadiusCircle)";
   }
 
   return css`
     width: ${width};
     height: ${width};
     margin-right: ${marginRight};
-    border-radius: ${borderRadius};
+    ${!roundedCornersOptOut && "border-radius: var(--borderRadiusCircle);"}
   `;
 };
 
 const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
-  ${({ size, isInsideButton, isActive }) => css`
+  ${({ size, isInsideButton, isActive, roundedCornersOptOut }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
     background-color: var(--colorsActionMajor500);
     display: inline-block;
-    ${getDimentions(size)}
+    ${getDimentions(size, roundedCornersOptOut)}
 
     ${isInsideButton &&
     css`
