@@ -10,6 +10,7 @@ const MockComponent = ({
   strategy,
   placement,
   animationFrame,
+  middleware,
 }: Partial<UseFloatingProps>) => {
   const reference = useRef<HTMLDivElement>(null);
   const floating = useRef<HTMLDivElement>(null);
@@ -20,10 +21,15 @@ const MockComponent = ({
     strategy,
     placement,
     animationFrame,
+    middleware,
   });
 
   return (
-    <div ref={reference} data-testid="reference-element">
+    <div
+      ref={reference}
+      data-testid="reference-element"
+      style={{ width: "100px", height: "20px" }}
+    >
       <div
         style={{ top: "100px", left: "50px", position: "static" }}
         ref={floating}
@@ -97,6 +103,37 @@ describe("useFloating", () => {
       top: "100px",
       left: "50px",
     });
+  });
+
+  it("when using size middleware, the original width and height are restored after closing", async () => {
+    const middleWare = [
+      floatingUi.size({
+        apply({ rects, elements }) {
+          elements.floating.style.height = `${rects.reference.height}px`;
+          elements.floating.style.width = `${rects.reference.width}px`;
+        },
+      }),
+    ];
+
+    const { rerender } = await render(
+      <MockComponent isOpen middleware={middleWare} />
+    );
+
+    await waitFor(() => {
+      const positionedStyle = window.getComputedStyle(
+        screen.getByTestId("floating-element")
+      );
+      expect(positionedStyle.width).not.toBe("");
+      expect(positionedStyle.height).not.toBe("");
+    });
+
+    rerender(<MockComponent isOpen={false} />);
+    const originalStyle = window.getComputedStyle(
+      screen.getByTestId("floating-element")
+    );
+
+    expect(originalStyle.height).toBe("");
+    expect(originalStyle.width).toBe("");
   });
 
   it("adds data-floating-placement attribute to the floating element", async () => {
