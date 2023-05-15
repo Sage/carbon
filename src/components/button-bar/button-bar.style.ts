@@ -1,15 +1,20 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import BaseTheme from "../../style/themes/base";
+import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
 import { ButtonBarProps } from "./button-bar.component";
 
 type StyledButtonBarProps = SpaceProps &
   Pick<ButtonBarProps, "size" | "fullWidth">;
 
+const commonHoverStyles = `
+  background-color: var(--colorsActionMajor600);
+  border-color: var(--colorsActionMajor600);
+`;
+
 const StyledButtonBar = styled.div<StyledButtonBarProps>`
   ${space}
-
   ${({ fullWidth, size }) => css`
     ${fullWidth &&
     css`
@@ -28,7 +33,19 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
     button {
       margin: 0;
       border: 2px solid var(--colorsActionMajor500);
+      :not(:first-child):not(:last-child) {
+        border-radius: var(--borderRadius000);
+      }
+      :first-child:not(:last-child) {
+        border-top-right-radius: var(--borderRadius000);
+        border-bottom-right-radius: var(--borderRadius000);
+      }
+      :last-child:not(:first-child) {
+        border-top-left-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius000);
+      }
 
+<<<<<<< HEAD
       :not(:first-child):not(:last-child) {
         border-radius: var(--borderRadius000);
       }
@@ -43,6 +60,13 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
         border-bottom-left-radius: var(--borderRadius000);
       }
 
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 25c2c6b51 (feat(button-minor): rebase)
+=======
+>>>>>>> 26a9891d9 (style(button-bar): bring back rm styles)
+>>>>>>> af00e29c4 (feat(button bar): add support for rendering button minor children)
       &:not(:last-of-type) {
         border-right-color: transparent;
       }
@@ -54,23 +78,50 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
       &:focus {
         position: relative;
         z-index: 2;
-        border-right-color: var(--colorsActionMajor500);
       }
 
       &:hover {
+<<<<<<< HEAD
         background-color: var(--colorsActionMajor600);
         border-color: var(--colorsActionMajor600);
 
         & + button {
           border-left-color: var(--colorsActionMajor600);
         }
+=======
+>>>>>>> af00e29c4 (feat(button bar): add support for rendering button minor children)
         & ${StyledIcon} {
+          ${commonHoverStyles}
           color: white;
         }
       }
 
       & ${StyledIcon} {
         color: var(--colorsActionMajor500);
+      }
+    }
+
+    [data-component="button"] {
+      :hover {
+        ${commonHoverStyles}
+        & + ${StyledButton} {
+          border-left-color: var(--colorsActionMajor600);
+        }
+      }
+    }
+
+    [data-component="button-minor"] {
+      & ${StyledIcon} {
+        color: var(--colorsActionMinor500);
+      }
+    }
+
+    [data-component="button-minor"]:hover {
+      color: var(--colorsActionMinorYang100);
+      background-color: var(--colorsActionMinor500);
+      border-color: var(--colorsActionMinor500);
+      & + ${StyledButton} {
+        border-left-color: var(--colorsActionMinor500);
       }
     }
   `}

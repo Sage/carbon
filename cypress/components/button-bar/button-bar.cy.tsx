@@ -1,16 +1,21 @@
 import React from "react";
+import { ButtonTypes } from "components/button/button.component";
 import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
   ButtonBarWithMinorButtonChildren,
 } from "../../../src/components/button-bar/button-bar-test.stories";
+
 import {
   BUTTON_BAR_SIZES,
   BUTTON_BAR_ICON_POSITIONS,
 } from "../../../src/components/button-bar/button-bar.config";
 
-import { buttonDataComponent } from "../../locators/button";
-import { icon } from "../../locators";
+import {
+  buttonDataComponent,
+  buttonMinorComponent,
+} from "../../locators/button";
+import { cyRoot, icon } from "../../locators";
 import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 

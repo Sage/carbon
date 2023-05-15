@@ -72,6 +72,14 @@ export const Default = ({ ...args }) => (
   </ButtonBar>
 );
 
+export const DefaultWithButtonMinor = ({ ...args }) => (
+  <ButtonBar {...args}>
+    <ButtonMinor iconType="search">Example Button</ButtonMinor>
+    <ButtonMinor iconType="pdf">Example Button</ButtonMinor>
+    <ButtonMinor iconType="csv">Example Button</ButtonMinor>
+  </ButtonBar>
+);
+
 export const Preview = () => {
   return (
     <>

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import StyledButtonMinor from "./button-minor.style";
 import { ButtonProps } from "../button";
+import { ButtonBarContext } from "../button-bar/button-bar.component";
 
 export interface ButtonMinorProps extends ButtonProps {
   /** @private @ignore */
@@ -8,18 +9,34 @@ export interface ButtonMinorProps extends ButtonProps {
 }
 
 export const ButtonMinor = ({
-  buttonType = "secondary",
-  size = "medium",
-  isInPassword,
+  buttonType: buttonTypeProp = "secondary",
+  size: sizeProp = "medium",
+  iconPosition: iconPositionProp = "before",
+  fullWidth: fullWidthProp = false,
   ...rest
-}: ButtonMinorProps) => (
-  <StyledButtonMinor
-    size={size}
-    buttonType={buttonType}
-    isInPassword={isInPassword}
-    {...rest}
-  />
-);
+}: ButtonMinorProps) => {
+  const {
+    buttonType: buttonTypeContext,
+    size: sizeContext,
+    iconPosition: iconPositionContext,
+    fullWidth: fullWidthContext,
+  } = useContext(ButtonBarContext);
+
+  const buttonType = buttonTypeContext || buttonTypeProp;
+  const size = sizeContext || sizeProp;
+  const iconPosition = iconPositionContext || iconPositionProp;
+  const fullWidth = fullWidthContext || fullWidthProp;
+  return (
+    <StyledButtonMinor
+      data-component="button-minor"
+      size={size}
+      fullWidth={fullWidth}
+      iconPosition={iconPosition}
+      buttonType={buttonType}
+      {...rest}
+    />
+  );
+};
 
 ButtonMinor.displayName = "ButtonMinor";
 
