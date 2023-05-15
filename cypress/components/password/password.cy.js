@@ -11,7 +11,7 @@ import {
   icon,
   cyRoot,
 } from "../../locators/index";
-import { buttonDataComponent } from "../../locators/button";
+import { buttonMinorComponent } from "../../locators/button";
 import { verifyRequiredAsteriskForLabel } from "../../support/component-helper/common-steps";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 
@@ -20,6 +20,7 @@ const transparent = "rgba(0, 0, 0, 0)";
 const colorsActionMinor500 = "rgb(51, 91, 112)";
 const colorsUtilityMajor300 = "rgb(102, 132, 148)";
 
+// eslint-disable-next-line react/prop-types
 const PasswordComponent = ({ onChange, ...props }) => {
   const [state, setState] = React.useState("test");
 
@@ -56,7 +57,7 @@ context("Tests for Password component", () => {
     it("input type should change from password to text on click", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .click()
         .then(() => {
           getDataElementByValue("input")
@@ -87,13 +88,13 @@ context("Tests for Password component", () => {
     it("button should be disabled", () => {
       CypressMountWithProviders(<PasswordComponent disabled />);
 
-      buttonDataComponent().should("be.disabled").and("have.attr", "disabled");
+      buttonMinorComponent().should("be.disabled").and("have.attr", "disabled");
     });
 
     it("when 'forceObscurity' is 'true', button should be disabled", () => {
       CypressMountWithProviders(<PasswordComponent forceObscurity />);
 
-      buttonDataComponent().should("be.disabled").and("have.attr", "disabled");
+      buttonMinorComponent().should("be.disabled").and("have.attr", "disabled");
     });
   });
 
@@ -101,7 +102,7 @@ context("Tests for Password component", () => {
     it("aria-controls attribute is correct'", () => {
       CypressMountWithProviders(<PasswordComponent id="baz" />);
 
-      buttonDataComponent().should("have.attr", "aria-controls", "baz");
+      buttonMinorComponent().should("have.attr", "aria-controls", "baz");
     });
 
     it("default iconType should be 'view'", () => {
@@ -113,7 +114,7 @@ context("Tests for Password component", () => {
     it("iconType should change from 'view' to 'hide' onClick", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .click()
         .then(() => {
           icon().should("have.attr", "type", "hide");
@@ -127,38 +128,38 @@ context("Tests for Password component", () => {
 
     it("default size should be 'small'", () => {
       CypressMountWithProviders(<PasswordComponent />);
-      buttonDataComponent().should("have.css", "min-height", "32px");
+      buttonMinorComponent().should("have.css", "min-height", "32px");
     });
 
     it("default label should be 'Show'", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent().contains("Show");
+      buttonMinorComponent().contains("Show");
     });
 
     it("label should change from 'Show' to 'Hide' onClick", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .click()
         .then(() => {
-          buttonDataComponent().contains("Hide");
+          buttonMinorComponent().contains("Hide");
         });
     });
 
     it("default aria-label should be 'Show password'", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent().should("have.attr", "aria-label", "Show password");
+      buttonMinorComponent().should("have.attr", "aria-label", "Show password");
     });
 
     it("aria-label should change from 'Show password' to 'Hide password' onClick", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .click()
         .then(() => {
-          buttonDataComponent().should(
+          buttonMinorComponent().should(
             "have.attr",
             "aria-label",
             "Hide password"
@@ -169,11 +170,11 @@ context("Tests for Password component", () => {
     it("buttonType is 'tertiary', when in password default styling should be correct", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .should("be.visible")
         .and("have.css", "background-color", transparent)
         .and("have.css", "color", colorsActionMinor500);
-      buttonDataComponent()
+      buttonMinorComponent()
         .getDesignTokensByCssProperty("color")
         .should(($el) => {
           expect($el[1]).to.deep.equal("--colorsActionMinor500");
@@ -183,14 +184,14 @@ context("Tests for Password component", () => {
     it("buttonType is 'tertiary', when in password default styling should be correct onHover", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .realHover()
         .then(() => {
-          buttonDataComponent()
+          buttonMinorComponent()
             .should("be.visible")
             .and("have.css", "background-color", transparent)
             .and("have.css", "color", colorsActionMinor500);
-          buttonDataComponent()
+          buttonMinorComponent()
             .getDesignTokensByCssProperty("color")
             .then(($el) => {
               expect($el[2]).to.equal("--colorsActionMinor500");
@@ -217,7 +218,7 @@ context("Tests for Password component", () => {
     it("icon color is 'colorsActionMajorYang300' onHover'", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .realHover()
         .then(() => {
           icon()
@@ -244,7 +245,7 @@ context("Tests for Password component", () => {
     it("when user clicks to show password, aria-live region should contain the correct text", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .click()
         .then(() => {
           cy.get("p").contains(

@@ -76,8 +76,8 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
   font-style: normal;
   font-weight: normal;
   vertical-align: middle;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: var(--sizing250);
+  line-height: var(--sizing250);
   display: block;
 }
 
