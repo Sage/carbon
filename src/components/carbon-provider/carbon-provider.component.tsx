@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
 import { ThemeProvider } from "styled-components";
 
 import mintTheme from "../../style/themes/mint";
@@ -12,24 +12,41 @@ export interface CarbonProviderProps {
   theme?: Partial<ThemeObject>;
   children: React.ReactNode;
   validationRedesignOptIn?: boolean;
+  roundedCornersOptOut?: boolean;
 }
 
 export const NewValidationContext = createContext<
-  Pick<CarbonProviderProps, "validationRedesignOptIn">
+  Pick<CarbonProviderProps, "validationRedesignOptIn" | "roundedCornersOptOut">
 >({});
 
 export const CarbonProvider = ({
   children,
   theme = mintTheme,
   validationRedesignOptIn = false,
-}: CarbonProviderProps) => (
-  <ThemeProvider theme={theme}>
-    <CarbonScopedTokensProvider>
-      <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
-        <TopModalContextProvider>{children}</TopModalContextProvider>
-      </NewValidationContext.Provider>
-    </CarbonScopedTokensProvider>
-  </ThemeProvider>
-);
+  roundedCornersOptOut = false,
+}: CarbonProviderProps) => {
+  const { roundedCornersOptOut: existingRoundedCornersOptOut } = useContext(
+    NewValidationContext
+  );
+
+  const roundedCornersOptOutValue =
+    existingRoundedCornersOptOut || roundedCornersOptOut;
+  return (
+    <ThemeProvider
+      theme={{ ...theme, roundedCornersOptOut: roundedCornersOptOutValue }}
+    >
+      <CarbonScopedTokensProvider>
+        <NewValidationContext.Provider
+          value={{
+            validationRedesignOptIn,
+            roundedCornersOptOut: roundedCornersOptOutValue,
+          }}
+        >
+          <TopModalContextProvider>{children}</TopModalContextProvider>
+        </NewValidationContext.Provider>
+      </CarbonScopedTokensProvider>
+    </ThemeProvider>
+  );
+};
 
 export default CarbonProvider;

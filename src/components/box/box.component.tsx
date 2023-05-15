@@ -53,7 +53,7 @@ export interface BoxProps
   rowGap?: Gap;
   /** Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. */
   boxShadow?: BoxShadowsType;
-  /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. */
+  /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. **This prop will not do anything if you have the roundedCornerOptOut flag set in the CarbonProvider** */
   borderRadius?: BorderRadiusType;
 }
 
@@ -85,8 +85,11 @@ export const Box = styled.div<BoxProps>`
   ${flexbox}
   ${calculatePosition}
 
-  ${({ borderRadius = "borderRadius000" }) =>
-    `border-radius: var(--${borderRadius});`}
+  ${({ theme, borderRadius = "borderRadius000" }) =>
+    !theme.roundedCornersOptOut &&
+    css`
+      border-radius: var(--${borderRadius});
+    `}
 
   ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}

@@ -29,7 +29,9 @@ function stylingForSize({ size, initials }: StylingForSize) {
   `;
 }
 
-type StylingForShape = { shape?: PortraitShapes };
+interface StylingForShape {
+  shape?: PortraitShapes;
+}
 
 function stylingForShape({ shape }: StylingForShape) {
   let cssString = "overflow: hidden;";
