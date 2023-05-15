@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import tokens from "@sage/design-tokens/js/base/common";
 
 import { PortraitSizes, PortraitShapes } from "./portrait.component";
@@ -8,6 +8,7 @@ import {
   getColorsForInitials,
 } from "./portrait.style";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
+import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
 
 export interface PortraitInitialsProps {
   /** The user's initials to render. */
@@ -30,6 +31,7 @@ const PortraitInitials = ({
   alt,
 }: PortraitInitialsProps) => {
   const [cachedImageDataUrl, setCachedImageDataUrl] = useState<string>();
+  const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
 
   useEffect(() => {
     setCachedImageDataUrl("");
@@ -87,6 +89,7 @@ const PortraitInitials = ({
       size={size}
       shape={shape}
       initials={initials}
+      roundedCornersOptOut={roundedCornersOptOut}
     >
       <StyledPortraitInitialsImg src={generateDataUrl()} alt={alt} />
     </StyledPortraitInitials>

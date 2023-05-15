@@ -19,6 +19,7 @@ import {
 import PortraitInitials from "./portrait-initials.component";
 import PortraitGravatar from "./portrait-gravatar.component";
 import Tooltip from "../tooltip";
+import CarbonProvider from "../carbon-provider";
 
 function renderDLS(element: JSX.Element) {
   return mount(
@@ -63,7 +64,6 @@ describe("PortraitComponent", () => {
           verticalAlign: "middle",
           boxSizing: "border-box",
           outline: "1px solid var(--colorsUtilityMajor200)",
-          borderRadius: "var(--borderRadiusCircle)",
         },
         wrapper.find(StyledPortraitInitials)
       );
@@ -378,5 +378,61 @@ describe("PortraitComponent", () => {
     );
 
     expect(wrapper.find(Tooltip).exists()).toBeTruthy();
+  });
+
+  describe("roundedCornersOptOut", () => {
+    it("sets the default shape to square when true", () => {
+      const shape = mount(
+        <CarbonProvider roundedCornersOptOut>
+          <Portrait initials="AB" tooltipMessage="message" />
+        </CarbonProvider>
+      )
+        .find(StyledPortraitInitials)
+        .prop("shape");
+
+      expect(shape).toEqual("square");
+    });
+
+    it("sets the default shape to circle when false", () => {
+      const shape = mount(
+        <CarbonProvider>
+          <Portrait initials="AB" tooltipMessage="message" />
+        </CarbonProvider>
+      )
+        .find(StyledPortraitInitials)
+        .prop("shape");
+
+      expect(shape).toEqual("circle");
+    });
+
+    it("sets the border radius to borderRadiusCircle if false", () => {
+      const wrapper = mount(
+        <CarbonProvider>
+          <Portrait initials="AB" tooltipMessage="message" />
+        </CarbonProvider>
+      ).find(StyledPortraitInitials);
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadiusCircle)",
+        },
+        wrapper
+      );
+    });
+
+    it("sets the border radius to 50% if true", () => {
+      const wrapper = mount(
+        <CarbonProvider roundedCornersOptOut>
+          <Portrait initials="AB" shape="circle" />
+        </CarbonProvider>
+      ).find(StyledPortraitInitials);
+
+      assertStyleMatch(
+        {
+          borderRadius: "50%",
+        },
+        wrapper
+      );
+    });
   });
 });

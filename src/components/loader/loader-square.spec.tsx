@@ -1,12 +1,12 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
+import { mount } from "enzyme";
 import StyledLoaderSquare, {
   StyledLoaderSquareProps,
 } from "./loader-square.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 function render(props: StyledLoaderSquareProps = {}) {
-  return TestRenderer.create(<StyledLoaderSquare {...props} />);
+  return mount(<StyledLoaderSquare {...props} />);
 }
 
 describe("Loader square", () => {
@@ -21,7 +21,7 @@ describe("Loader square", () => {
         marginRight: "6px",
         borderRadius: "var(--borderRadiusCircle)",
       },
-      wrapper.toJSON()
+      wrapper
     );
   });
 
@@ -32,7 +32,7 @@ describe("Loader square", () => {
         {
           backgroundColor: "var(--colorsUtilityYang100)",
         },
-        wrapper.toJSON()
+        wrapper
       );
     });
 
@@ -43,7 +43,7 @@ describe("Loader square", () => {
           {
             backgroundColor: "var(--colorsSemanticNeutral500)",
           },
-          wrapper.toJSON()
+          wrapper
         );
       });
     });
@@ -58,7 +58,7 @@ describe("Loader square", () => {
           width: "20px",
           marginRight: "8px",
         },
-        wrapper.toJSON()
+        wrapper
       );
     });
   });
@@ -72,8 +72,17 @@ describe("Loader square", () => {
           width: "16px",
           marginRight: "8px",
         },
-        wrapper.toJSON()
+        wrapper
       );
     });
+  });
+
+  it("has expected border radius token", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadiusCircle)",
+      },
+      render({})
+    );
   });
 });

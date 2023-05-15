@@ -29,14 +29,22 @@ function stylingForSize({ size, initials }: StylingForSize) {
   `;
 }
 
-type StylingForShape = { shape?: PortraitShapes };
+interface RoundedCornersOptOut {
+  roundedCornersOptOut?: boolean;
+}
 
-function stylingForShape({ shape }: StylingForShape) {
+interface StylingForShape extends RoundedCornersOptOut {
+  shape?: PortraitShapes;
+}
+
+function stylingForShape({ shape, roundedCornersOptOut }: StylingForShape) {
   let cssString = "overflow: hidden;";
 
   if (shape === "square") cssString += "border-radius: 0px;";
   if (shape === "circle")
-    cssString += "border-radius: var(--borderRadiusCircle);";
+    cssString += `border-radius: ${
+      roundedCornersOptOut ? "50%" : "var(--borderRadiusCircle)"
+    };`;
 
   return css`
     ${cssString}
@@ -89,7 +97,9 @@ type StyledPortraitInitialsProps = PortraitSizeAndShape & {
   initials?: string;
 };
 
-export const StyledPortraitInitials = styled.div<StyledPortraitInitialsProps>`
+export const StyledPortraitInitials = styled.div<
+  StyledPortraitInitialsProps & RoundedCornersOptOut
+>`
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
@@ -110,14 +120,18 @@ export const StyledPortraitInitialsImg = styled.img`
   display: block;
 `;
 
-export const StyledPortraitGravatar = styled.img<PortraitSizeAndShape>`
+export const StyledPortraitGravatar = styled.img<
+  PortraitSizeAndShape & RoundedCornersOptOut
+>`
   display: inline-block;
   vertical-align: middle;
   ${stylingForSize}
   ${stylingForShape}
 `;
 
-export const StyledCustomImg = styled.img<PortraitSizeAndShape>`
+export const StyledCustomImg = styled.img<
+  PortraitSizeAndShape & RoundedCornersOptOut
+>`
   display: block;
   ${stylingForSize}
   ${stylingForShape}
@@ -125,12 +139,14 @@ export const StyledCustomImg = styled.img<PortraitSizeAndShape>`
 
 // && is used here to increase the specificity
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const StyledIcon = styled(Icon)<{
-  size: PortraitSizes;
-  shape?: PortraitShapes;
-  darkBackground: boolean;
-  type: IconType;
-}>`
+export const StyledIcon = styled(Icon)<
+  {
+    size: PortraitSizes;
+    shape?: PortraitShapes;
+    darkBackground: boolean;
+    type: IconType;
+  } & RoundedCornersOptOut
+>`
   && {
     box-sizing: border-box;
     line-height: 14px;

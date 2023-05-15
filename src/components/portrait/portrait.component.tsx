@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
@@ -11,8 +11,8 @@ import {
   StyledIcon,
   StyledPortraitContainer,
 } from "./portrait.style";
-
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
 
 export type PortraitShapes = "circle" | "square";
 
@@ -71,7 +71,7 @@ export const Portrait = ({
   gravatar,
   iconType = "individual",
   initials,
-  shape = "circle",
+  shape,
   size = "M",
   src,
   onClick,
@@ -86,6 +86,8 @@ export const Portrait = ({
   ...rest
 }: PortraitProps) => {
   const [externalError, setExternalError] = useState(false);
+  const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
+  const defaultShape = roundedCornersOptOut ? "square" : "circle";
 
   useEffect(() => {
     setExternalError(false);
@@ -98,8 +100,9 @@ export const Portrait = ({
       <StyledIcon
         type={iconType}
         size={size}
-        shape={shape}
+        shape={shape || defaultShape}
         darkBackground={darkBackground}
+        roundedCornersOptOut={roundedCornersOptOut}
       />
     );
 
@@ -107,7 +110,7 @@ export const Portrait = ({
       portrait = (
         <PortraitInitials
           size={size}
-          shape={shape}
+          shape={shape || defaultShape}
           initials={initials}
           darkBackground={darkBackground}
           alt={alt}
@@ -121,9 +124,10 @@ export const Portrait = ({
           src={src}
           alt={alt}
           size={size}
-          shape={shape}
+          shape={shape || defaultShape}
           data-element="user-image"
           onError={() => setExternalError(true)}
+          roundedCornersOptOut={roundedCornersOptOut}
         />
       );
     }
@@ -132,7 +136,7 @@ export const Portrait = ({
       portrait = (
         <PortraitGravatar
           gravatarEmail={gravatar}
-          shape={shape}
+          shape={shape || defaultShape}
           size={size}
           alt={alt}
           errorCallback={() => setExternalError(true)}

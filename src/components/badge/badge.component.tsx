@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   StyledBadgeWrapper,
   StyledCrossIcon,
   StyledCounter,
   StyledBadge,
+  StyledBadgeAsButton,
 } from "./badge.style";
+import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
 
 export interface BadgeProps {
   /** Prop to specify an aria-label for the component */
@@ -23,25 +25,34 @@ export const Badge = ({
   counter = 0,
   onClick,
 }: BadgeProps) => {
-  const shouldDisplayCounter = counter > 0;
-  const counterToDisplay = counter > 99 ? 99 : counter;
+  const shouldDisplayCounter = Number(counter) > 0;
+  const counterToDisplay = Number(counter) > 99 ? 99 : counter;
+  const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
 
   const renderCorrectBadge = () => {
-    const props = onClick
-      ? {
-          buttonType: "secondary",
-          onClick,
-        }
-      : {
-          "aria-label": ariaLabel,
-        };
-
     if (shouldDisplayCounter) {
-      return (
-        <StyledBadge data-component="badge" {...props}>
-          {onClick && (
+      if (onClick) {
+        return (
+          <StyledBadgeAsButton
+            roundedCornersOptOut={roundedCornersOptOut}
+            data-component="badge"
+            buttonType="secondary"
+            onClick={onClick}
+          >
             <StyledCrossIcon data-element="badge-cross-icon" type="cross" />
-          )}
+            <StyledCounter data-element="badge-counter">
+              {counterToDisplay}
+            </StyledCounter>
+          </StyledBadgeAsButton>
+        );
+      }
+
+      return (
+        <StyledBadge
+          roundedCornersOptOut={roundedCornersOptOut}
+          data-component="badge"
+          aria-label={ariaLabel}
+        >
           <StyledCounter data-element="badge-counter">
             {counterToDisplay}
           </StyledCounter>

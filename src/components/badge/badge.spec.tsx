@@ -4,8 +4,9 @@ import { ThemeProvider } from "styled-components";
 import { assertStyleMatch } from "__spec_helper__/test-utils";
 import Badge from "./badge.component";
 import Button from "../button";
-import { StyledCounter, StyledBadge } from "./badge.style";
+import { StyledCounter, StyledBadge, StyledBadgeAsButton } from "./badge.style";
 import { baseTheme } from "../../style/themes";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 const renderComponent = (props = {}) => (
   <ThemeProvider theme={baseTheme}>
@@ -67,7 +68,7 @@ describe("Badge", () => {
 
     it("should render as a button element when onClick is present", () => {
       wrapper = mount(renderComponent({ counter: 9, onClick: () => {} }));
-      expect(wrapper.find(StyledBadge).exists()).toBe(true);
+      expect(wrapper.find(StyledBadgeAsButton).exists()).toBe(true);
       expect(wrapper.find("button").exists()).toBe(true);
     });
 
@@ -101,6 +102,7 @@ describe("Badge", () => {
         wrapper.find(StyledBadge)
       );
     });
+
     it("should apply correct border radius for counter", () => {
       const wrapper = mount(renderComponent({ counter: 9 }));
       assertStyleMatch(
@@ -108,6 +110,50 @@ describe("Badge", () => {
           borderRadius: "var(--borderRadiusCircle)",
         },
         wrapper.find(StyledBadge)
+      );
+    });
+
+    it("should apply correct border radius for counter when roundedCornersOptOut is true", () => {
+      const wrapper = mount(
+        <CarbonProvider roundedCornersOptOut>
+          <Badge counter={9}>
+            <Button buttonType="primary">Button</Button>
+          </Badge>
+        </CarbonProvider>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "50%",
+        },
+        wrapper.find(StyledBadge)
+      );
+    });
+
+    it("should apply correct border radius for counter and onClick set", () => {
+      const wrapper = mount(renderComponent({ counter: 9, onClick: () => {} }));
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadiusCircle)",
+        },
+        wrapper.find(StyledBadgeAsButton)
+      );
+    });
+
+    it("should apply correct border radius for counter when roundedCornersOptOut is true and onClick set", () => {
+      const wrapper = mount(
+        <CarbonProvider roundedCornersOptOut>
+          <Badge onClick={() => {}} counter={9}>
+            <Button buttonType="primary">Button</Button>
+          </Badge>
+        </CarbonProvider>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "50%",
+        },
+        wrapper.find(StyledBadgeAsButton)
       );
     });
   });
