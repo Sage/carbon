@@ -6,6 +6,11 @@ import {
   ButtonMinorDifferentTypes,
 } from "../../../src/components/button-minor/button-minor-test.stories";
 
+import {
+  buttonSubtextPreview,
+  buttonMinorComponent,
+} from "../../locators/button";
+
 import * as stories from "../../../src/components/button-minor/button-minor.stories.tsx";
 
 import {
@@ -15,18 +20,23 @@ import {
 
 import {
   buttonSubtextPreview,
-  buttonDataComponent,
+  buttonMinorComponent,
 } from "../../locators/button";
 
 import { cyRoot, icon, tooltipPreview } from "../../locators";
-import { positionOfElement } from "../../../cypress/support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-const destructive = "rgb(203, 55, 74)";
+const buttonTypesAndBackgrounds = [
+  ["1st", "primary", 0, "rgb(162, 44, 59)"],
+  ["2nd", "secondary", 1, "rgba(0, 0, 0, 0)"],
+  ["3rd", "tertiary", 2, "rgba(0, 0, 0, 0)"],
+];
+
+const destructive = "rgb(162, 44, 59)";
 const transparent = "rgba(0, 0, 0, 0)";
 
 context("Test for Button Minor component", () => {
@@ -36,7 +46,7 @@ context("Test for Button Minor component", () => {
         <ButtonMinorCustom aria-label="cypress-aria" />
       );
 
-      buttonDataComponent().should("have.attr", "aria-label", "cypress-aria");
+      buttonMinorComponent().should("have.attr", "aria-label", "cypress-aria");
     });
 
     it.each(testData)(
@@ -44,7 +54,7 @@ context("Test for Button Minor component", () => {
       (label) => {
         CypressMountWithProviders(<ButtonMinor>{label}</ButtonMinor>);
 
-        buttonDataComponent().should("have.text", label);
+        buttonMinorComponent().should("have.text", label);
       }
     );
 
@@ -64,7 +74,7 @@ context("Test for Button Minor component", () => {
       (name) => {
         CypressMountWithProviders(<ButtonMinorCustom name={name} />);
 
-        buttonDataComponent().should("have.attr", "name", name);
+        buttonMinorComponent().should("have.attr", "name", name);
       }
     );
 
@@ -73,7 +83,7 @@ context("Test for Button Minor component", () => {
       (id) => {
         CypressMountWithProviders(<ButtonMinorCustom id={id} />);
 
-        buttonDataComponent().should("have.attr", "id", id);
+        buttonMinorComponent().should("have.attr", "id", id);
       }
     );
 
@@ -88,11 +98,16 @@ context("Test for Button Minor component", () => {
           />
         );
 
-        buttonDataComponent().children().last().realHover();
+        buttonMinorComponent().children().last().realHover();
         tooltipPreview().should("have.text", tooltipMessage);
         cyRoot().realHover({ position: "topLeft" });
       }
     );
+
+    it("when icon only, icon's position is absolute", () => {
+      CypressMountWithProviders(<ButtonMinor iconType="bin" />);
+      icon().should("have.css", "position", "absolute");
+    });
 
     it.each([
       [BUTTON_SIZES[0], 32],
@@ -101,7 +116,7 @@ context("Test for Button Minor component", () => {
     ])("should render Button Minor in %s size", (size, minHeight) => {
       CypressMountWithProviders(<ButtonMinor size={size}>{size}</ButtonMinor>);
 
-      buttonDataComponent().should("have.css", "min-height", `${minHeight}px`);
+      buttonMinorComponent().should("have.css", "min-height", `${minHeight}px`);
     });
 
     it.each([
@@ -121,7 +136,7 @@ context("Test for Button Minor component", () => {
     it("should render Button Minor with full width", () => {
       CypressMountWithProviders(<ButtonMinorCustom fullWidth />);
 
-      buttonDataComponent().then(($el) => {
+      buttonMinorComponent().then(($el) => {
         useJQueryCssValueAndAssert($el, "width", 1365);
       });
     });
@@ -131,7 +146,7 @@ context("Test for Button Minor component", () => {
         <ButtonMinorCustom href="https://carbon.sage.com/" />
       );
 
-      buttonDataComponent().should(
+      buttonMinorComponent().should(
         "have.attr",
         "href",
         "https://carbon.sage.com/"
@@ -153,69 +168,93 @@ context("Test for Button Minor component", () => {
           </ButtonMinor>
         );
 
-        buttonDataComponent().should("have.css", cssValue, assertion);
+        buttonMinorComponent().should("have.css", cssValue, assertion);
       }
     );
 
-    it("should check Button Minor is disabled", () => {
-      CypressMountWithProviders(<ButtonMinorDifferentTypes disabled />);
+<<<<<<< HEAD
+<<<<<<<< HEAD:cypress/components/button-minor/button-minor.test.js
+<<<<<<< HEAD:cypress/components/button-minor/button-minor.test.js
+========
+>>>>>>>> 2218625eb (test(button-minor): rebase):cypress/components/button-minor/button-minor.cy.js
+=======
+>>>>>>> 2218625eb (test(button-minor): rebase)
+    it.each([
+      buttonTypesAndBackgrounds[0][2],
+      buttonTypesAndBackgrounds[1][2],
+      buttonTypesAndBackgrounds[2][2],
+    ])(
+<<<<<<< HEAD
+<<<<<<<< HEAD:cypress/components/button-minor/button-minor.test.js
+=======
+    it.each(buttonTypesAndBackgrounds)(
+>>>>>>> 25c2c6b51 (feat(button-minor): rebase):cypress/components/button-minor/button-minor.cy.js
+========
+>>>>>>>> 2218625eb (test(button-minor): rebase):cypress/components/button-minor/button-minor.cy.js
+=======
+>>>>>>> 2218625eb (test(button-minor): rebase)
+      "should check Button Minor is disabled for the button at index %s",
+      (index) => {
+        CypressMountWithProviders(<ButtonMinorDifferentTypes disabled />);
 
-      for (let i = 0; i < 3; i++) {
-        buttonDataComponent()
-          .eq(i)
+        buttonMinorComponent(index)
           .should("be.disabled")
           .and("have.attr", "disabled");
       }
-    });
+    );
 
-    it("should check Button Minor is enabled", () => {
-      CypressMountWithProviders(<ButtonMinorDifferentTypes />);
+    it.each(buttonTypesAndBackgrounds)(
+      "should check Button Minor is enabled for the button at index %s",
+<<<<<<< HEAD
+<<<<<<< HEAD:cypress/components/button-minor/button-minor.test.js
+<<<<<<< HEAD:cypress/components/button-minor/button-minor.test.js
+=======
+>>>>>>> 2218625eb (test(button-minor): rebase)
+      (buttonTypeAndBackground) => {
+        CypressMountWithProviders(<ButtonMinorDifferentTypes />);
 
-      for (let i = 0; i < 3; i++) {
-        buttonDataComponent().eq(i).should("be.enabled");
+        buttonMinorComponent(buttonTypeAndBackground[2][2]).should(
+          "be.enabled"
+        );
+<<<<<<< HEAD
+=======
+      (index) => {
+        CypressMountWithProviders(<ButtonMinorDifferentTypes />);
+
+        buttonMinorComponent(index).should("be.enabled");
+>>>>>>> 25c2c6b51 (feat(button-minor): rebase):cypress/components/button-minor/button-minor.cy.js
+=======
+      (buttonTypeAndBackground) => {
+        CypressMountWithProviders(<ButtonMinorDifferentTypes />);
+
+<<<<<<<< HEAD:cypress/components/button-minor/button-minor.test.js
+        buttonMinorComponent(buttonTypeAndBackground[2]).should("be.enabled");
+>>>>>>> f2093a439 (test(button-minor): correct cypress tests):cypress/components/button-minor/button-minor.cy.js
+========
+        buttonMinorComponent(buttonTypeAndBackground[2][2]).should(
+          "be.enabled"
+        );
+>>>>>>>> 2218625eb (test(button-minor): rebase):cypress/components/button-minor/button-minor.cy.js
+=======
+>>>>>>> 2218625eb (test(button-minor): rebase)
       }
-    });
+    );
 
-    it("should check Button Minor is destructive", () => {
-      CypressMountWithProviders(<ButtonMinorDifferentTypes destructive />);
+    it.each(buttonTypesAndBackgrounds)(
+      "should check Button Minor is destructive for the button at index %s",
+      (buttonTypeAndBackground) => {
+        CypressMountWithProviders(<ButtonMinorDifferentTypes destructive />);
 
-      cyRoot().realHover({ position: "topRight" });
+        buttonMinorComponent(buttonTypeAndBackground[2][2]).realHover();
 
-      buttonDataComponent()
-        .eq(positionOfElement("first"))
-        .should(
-          "have.css",
-          "background",
-          `${destructive} none repeat scroll 0% 0% / auto padding-box border-box`
-        )
-        .and("have.css", "border-color", transparent)
-        .and("have.css", "color", "rgb(255, 255, 255)");
-      buttonDataComponent()
-        .eq(positionOfElement("second"))
-        .should(
-          "have.css",
-          "background",
-          `${transparent} none repeat scroll 0% 0% / auto padding-box border-box`
-        )
-        .and("have.css", "border-color", destructive)
-        .and("have.css", "color", destructive);
-      buttonDataComponent()
-        .eq(positionOfElement("third"))
-        .should(
-          "have.css",
-          "background",
-          "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"
-        )
-        .and("have.css", "border-color", transparent)
-        .and("have.css", "color", destructive);
-    });
-
-    it.each(["noopener", "noreferrer", "opener"])(
-      "should render Button Minor with rel prop set to %s",
-      (rel) => {
-        CypressMountWithProviders(<ButtonMinorCustom rel={rel} />);
-
-        buttonDataComponent().should("have.attr", "rel", rel);
+        buttonMinorComponent(buttonTypeAndBackground[2][2])
+          .should(
+            "have.css",
+            "background",
+            `${destructive} none repeat scroll 0% 0% / auto padding-box border-box`
+          )
+          .and("have.css", "border-color", transparent)
+          .and("have.css", "color", "rgb(255, 255, 255)");
       }
     );
 
@@ -224,7 +263,7 @@ context("Test for Button Minor component", () => {
       (target) => {
         CypressMountWithProviders(<ButtonMinorCustom target={target} />);
 
-        buttonDataComponent().should("have.attr", "target", target);
+        buttonMinorComponent().should("have.attr", "target", target);
       }
     );
 
@@ -233,7 +272,7 @@ context("Test for Button Minor component", () => {
       (type) => {
         CypressMountWithProviders(<ButtonMinorCustom type={type} />);
 
-        buttonDataComponent().should("have.attr", "type", type);
+        buttonMinorComponent().should("have.attr", "type", type);
       }
     );
   });
@@ -248,7 +287,7 @@ context("Test for Button Minor component", () => {
     it("should call onClick callback when a click event is triggered", () => {
       CypressMountWithProviders(<ButtonMinorCustom onClick={callback} />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .click()
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
@@ -259,7 +298,7 @@ context("Test for Button Minor component", () => {
     it("should call onBlur callback when a blur event is triggered", () => {
       CypressMountWithProviders(<ButtonMinorCustom onBlur={callback} />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .focus()
         .blur()
         .then(() => {
@@ -273,7 +312,7 @@ context("Test for Button Minor component", () => {
       (key) => {
         CypressMountWithProviders(<ButtonMinorCustom onKeyDown={callback} />);
 
-        buttonDataComponent()
+        buttonMinorComponent()
           .focus()
           .realPress(key)
           .then(() => {
@@ -286,7 +325,7 @@ context("Test for Button Minor component", () => {
     it("should call onFocus callback when a focus event is triggered", () => {
       CypressMountWithProviders(<ButtonMinorCustom onFocus={callback} />);
 
-      buttonDataComponent()
+      buttonMinorComponent()
         .focus()
         .then(() => {
           // eslint-disable-next-line no-unused-expressions
@@ -416,4 +455,44 @@ context("Test for Button Minor component", () => {
       cy.checkAccessibility();
     });
   });
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<<< HEAD:cypress/components/button-minor/button-minor.test.js
+========
+=======
+>>>>>>> d79568bb4 (test(button-minor): rebase)
+=======
+>>>>>>> 2218625eb (test(button-minor): rebase)
+
+  it("should have the expected border radius and focus styling", () => {
+    CypressMountWithProviders(<ButtonMinor>Foo</ButtonMinor>);
+    buttonMinorComponent().should("have.css", `border-radius`, "4px");
+    buttonMinorComponent()
+      .focus()
+<<<<<<< HEAD
+<<<<<<< HEAD:cypress/components/button-minor/button-minor.test.js
+<<<<<<< HEAD
+      .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+=======
+      .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+>>>>>>> 914262e27 (test(button-minor): test cypress corrections):cypress/components/button-minor/button-minor.cy.js
+  });
+>>>>>>>> d79568bb4 (test(button-minor): rebase):cypress/components/button-minor/button-minor.cy.js
+=======
+      .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+  });
+<<<<<<< HEAD
+>>>>>>> d79568bb4 (test(button-minor): rebase)
 });
+=======
+});
+>>>>>>> a47119482 (test(button-minor): cypress test)
+=======
+      .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
+  });
+<<<<<<< HEAD
+});
+>>>>>>> 2218625eb (test(button-minor): rebase)
+=======
+});
+>>>>>>> a0a4bd887 (test(button-minor): cypress test)

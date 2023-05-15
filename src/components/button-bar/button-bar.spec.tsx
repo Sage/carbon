@@ -1,6 +1,16 @@
 import React from "react";
+<<<<<<< HEAD
+<<<<<<< HEAD
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
+=======
+import { mount, ReactWrapper } from "enzyme";
+import ButtonMinor from "components/button-minor/button-minor.component";
+>>>>>>> 54d54d080 (feat(button-minor): rebase)
+=======
+import { mount, ReactWrapper } from "enzyme";
+import ButtonMinor from "components/button-minor/button-minor.component";
+>>>>>>> 25c2c6b51 (feat(button-minor): rebase)
 import Icon, { IconType } from "../icon";
 import Button from "../button";
 import ButtonBar from "./button-bar.component";
@@ -277,5 +287,31 @@ describe("with different button props", () => {
       { subtext: "subtext" }
     );
     expect(wrapper.containsMatchingElement(<span>subtext</span>)).toBeTruthy();
+  });
+
+  describe("Button Minor children", () => {
+    let wrapper: ReactWrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <ButtonBar>
+          <ButtonMinor>Click me</ButtonMinor>
+          <ButtonMinor>Click me</ButtonMinor>
+          <ButtonMinor>Click me</ButtonMinor>
+        </ButtonBar>
+      );
+    });
+
+    it("changes color, background-color, and border-color on hover", () => {
+      const button = wrapper.find('[data-component="button-minor"]').first();
+      button.simulate("mouseenter");
+      assertStyleMatch(
+        {
+          color: `var(--colorsActionMinor500)`,
+          borderColor: `var(--colorsActionMinor500)`,
+        },
+        button
+      );
+    });
   });
 });

@@ -109,3 +109,113 @@ describe("Button Minor", () => {
     );
   });
 });
+
+describe("when the fullWidth prop is provided for Button Minor component", () => {
+  it.each(minorSizesPadding)(
+    'applies the expected style to the "%s" button',
+    () => {
+      const buttonMinorComp = mount(<ButtonMinor fullWidth>foo</ButtonMinor>);
+      expect(buttonMinorComp.props().fullWidth).toBeDefined();
+    }
+  );
+});
+
+describe("when the iconPosition prop and iconType are being passed to Button Minor component", () => {
+  it.each(minorSizesPadding)(
+    "renders the default props and children with the iconPosition prop set to before",
+    (size, ...expectedPadding) => {
+      const wrapper = mount(
+        <ButtonMinor size={size} iconPosition="before" iconType="bin" />
+      );
+      assertStyleMatch(
+        {
+          padding: expectedPadding.join(" "),
+        },
+        wrapper
+      );
+    }
+  );
+
+  it.each(minorSizesPadding)(
+    "renders the default props and children with the iconPosition prop set to after",
+    (size, ...expectedPadding) => {
+      const wrapper = mount(
+        <ButtonMinor size={size} iconPosition="after" iconType="bin" />
+      );
+      assertStyleMatch(
+        {
+          padding: expectedPadding.join(" "),
+        },
+        wrapper
+      );
+    }
+  );
+
+  it.each(minorSizesPadding)(
+    'applies the expected style to the "%s" button',
+    () => {
+      const buttonMinorComp = mount(<ButtonMinor fullWidth iconType="bin" />);
+      assertStyleMatch(
+        {
+          width: "100%",
+        },
+        buttonMinorComp
+      );
+    }
+  );
+});
+
+describe("when the fullWidth prop is provided for Button Minor component", () => {
+  it.each(minorSizesPadding)(
+    'applies the expected style to the "%s" button',
+    () => {
+      const buttonMinorComp = mount(<ButtonMinor fullWidth>foo</ButtonMinor>);
+      expect(buttonMinorComp.props().fullWidth).toBeDefined();
+    }
+  );
+});
+
+describe("when the iconPosition prop and iconType are being passed to Button Minor component", () => {
+  it.each(minorSizesPadding)(
+    "renders the default props and children with the iconPosition prop set to before",
+    (size, ...expectedPadding) => {
+      const wrapper = mount(
+        <ButtonMinor size={size} iconPosition="before" iconType="bin" />
+      );
+      assertStyleMatch(
+        {
+          padding: expectedPadding.join(" "),
+        },
+        wrapper
+      );
+    }
+  );
+
+  it.each(minorSizesPadding)(
+    "renders the default props and children with the iconPosition prop set to after",
+    (size, ...expectedPadding) => {
+      const wrapper = mount(
+        <ButtonMinor size={size} iconPosition="after" iconType="bin" />
+      );
+      assertStyleMatch(
+        {
+          padding: expectedPadding.join(" "),
+        },
+        wrapper
+      );
+    }
+  );
+
+  it.each(minorSizesPadding)(
+    'applies the expected style to the "%s" button',
+    () => {
+      const buttonMinorComp = mount(<ButtonMinor fullWidth iconType="bin" />);
+      assertStyleMatch(
+        {
+          width: "100%",
+        },
+        buttonMinorComp
+      );
+    }
+  );
+});

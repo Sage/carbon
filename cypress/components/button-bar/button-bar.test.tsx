@@ -1,15 +1,21 @@
 import React from "react";
+import { ButtonTypes } from "components/button/button.component";
 import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
+  DefaultWithButtonMinor as ButtonBarMinor,
 } from "../../../src/components/button-bar/button-bar-test.stories";
+
 import {
   BUTTON_BAR_SIZES,
   BUTTON_BAR_ICON_POSITIONS,
 } from "../../../src/components/button-bar/button-bar.config";
 
-import { buttonDataComponent } from "../../locators/button";
-import { icon } from "../../locators";
+import {
+  buttonDataComponent,
+  buttonMinorComponent,
+} from "../../locators/button";
+import { cyRoot, icon } from "../../locators";
 import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
@@ -147,6 +153,75 @@ context("Test for Button-Bar component", () => {
       buttonDataComponent().eq(2).tab();
       icon().eq(3).parent().should("be.focused");
       buttonDataComponent().eq(2).should("not.be.focused");
+    });
+  });
+
+  describe("renders with ButtonMinor children", () => {
+    const buttonTypesAndBackgrounds = [
+      ["1st", "primary", 0, "rgb(162, 44, 59)"],
+      ["2nd", "secondary", 1, "rgba(0, 0, 0, 0)"],
+      ["3rd", "tertiary", 2, "rgba(0, 0, 0, 0)"],
+    ];
+
+    describe("renders with ButtonMinor children", () => {
+      it.each(buttonTypesAndBackgrounds)(
+        "should apply correct background-color on hover for %s button when %s ButtonMinor children passed",
+
+        // https://github.com/bahmutov/cypress-each/issues/2
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        (_: any, buttonType: ButtonTypes, index: number, result: string) => {
+          CypressMountWithProviders(<ButtonBarMinor buttonType={buttonType} />);
+
+          buttonMinorComponent(index).should(
+            "have.css",
+            "background-color",
+            result
+          );
+          buttonMinorComponent(index).realHover();
+
+          // reset focus
+          cyRoot().realHover({ position: "topLeft" });
+        }
+      );
+
+      it.each(buttonTypesAndBackgrounds)(
+        "should apply the correct color to the %s button when %s ButtonMinor children passed",
+
+        // https://github.com/bahmutov/cypress-each/issues/2
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        (_: any, buttonType: ButtonTypes, index: number, result: string) => {
+          CypressMountWithProviders(<ButtonBarMinor buttonType={buttonType} />);
+
+          buttonMinorComponent(index).should("have.css", "color", result);
+          buttonMinorComponent(index).realHover();
+
+          // reset focus
+          cyRoot().realHover({ position: "topLeft" });
+        }
+      );
+
+      it.each(buttonTypesAndBackgrounds)(
+        "should check Button Minor Bar have correct border-color for the button at index %n",
+
+        // https://github.com/bahmutov/cypress-each/issues/2
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        (_: any, buttonType: ButtonTypes, index: number, result: string) => {
+          CypressMountWithProviders(<ButtonBarMinor buttonType={buttonType} />);
+
+          buttonMinorComponent(index).should(
+            "have.css",
+            "border-color",
+            result
+          );
+          buttonMinorComponent(index).realHover();
+
+          // reset focus
+          cyRoot().realHover({ position: "topLeft" });
+        }
+      );
     });
   });
 });
