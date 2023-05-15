@@ -109,7 +109,7 @@ const colorThemes = [
   ["transparent-white", "rgb(255, 255, 255)", "rgb(255, 255, 255)"],
 ];
 
-const gold = "rgb(255, 181, 0)";
+const gold = "rgb(255, 188, 25)";
 const black = "rgba(0, 0, 0, 0.9)";
 const lightGold = "rgb(255, 188, 26)";
 const greyBlack = "rgba(0, 0, 0, 0.65)";
