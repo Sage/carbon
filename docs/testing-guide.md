@@ -66,11 +66,9 @@ We use the [Cypress](https://www.cypress.io) framework to test component behavio
 
 Further details on installing Cypress and our configuration for it can be found in our [Getting started with Cypress](../cypress/README.md) guide.
 
-> **NOTE**: As of November 2022, we are refactoring our older Cypress tests using Cucumber in favour of JavaScript. For information about our old style tests, see our [legacy E2E Cypress tests guide](../cypress/legacy-e2e-tests-guide.md).
-
 ### Cypress File Structure
 
-All Cypress tests must go within `*.test.js` for the relevant component.
+All Cypress tests must go within `*.cy.*` for the relevant component.
 
 ```none
 .
@@ -94,7 +92,7 @@ All Cypress tests must go within `*.test.js` for the relevant component.
 └── cypress.config.ts
 ```
 
-A typical `*.test.{js|tsx}` file may look like the following:
+A typical `*.cy.*` file may look like the following:
 
 ```jsx
 // inside cypress/components/button/button.test.js...

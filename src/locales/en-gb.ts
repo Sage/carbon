@@ -107,6 +107,11 @@ const enGB: Locale = {
     pageX: () => "Page",
     ofY: (count) => `of ${count}`,
   },
+  password: {
+    ariaLiveShownMessage: () =>
+      "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so.",
+    ariaLiveHiddenMessage: () => "Your Password is currently hidden.",
+  },
   progressTracker: {
     of: () => "of",
   },

@@ -29,7 +29,7 @@ export const checkGoldenOutline = (
   outline = "outline"
 ) => {
   const outlineWidth = parseToIntElement(elem.css(`${outline}-width`));
-  expect(elem.css(`${outline}-color`)).to.equals("rgb(255, 181, 0)");
+  expect(elem.css(`${outline}-color`)).to.equals("rgb(255, 188, 25)");
   expect(elem.css(`${outline}-style`)).to.equals("solid");
   expect(outlineWidth).to.be.within(outlineWidthPx - 1, outlineWidthPx + 1);
 };

@@ -15,9 +15,6 @@ async function run(bundle) {
 
   const extensions = [".js", ".ts", ".tsx"];
   const ignore = [
-    "**/*.test.js",
-    "**/*.test.ts",
-    "**/*.test.tsx",
     "**/*.spec.js",
     "**/*.spec.ts",
     "**/*.spec.tsx",

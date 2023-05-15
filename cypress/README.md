@@ -44,7 +44,7 @@ We have implemented a new approach for cypress tests, using cypress-react framew
 1. Open a new terminal in the root path of the project.
 2. To run Cypress using the `cypress` runner, run `npx cypress open --component`, select the type Component Testing and then the required test file. Test results can be seen directly in the Cypress Test Runner UI.
 3. To run the suite of Cypress tests in CI mode, run `npx cypress run --component`. Test results can be seen in the console run summary.
-4. To run specific Cypress tests at the command line (headless browser for continuous integration) run `npx cypress run --component --spec './cypress/components/[component]/*.test.*'`. Test results can be seen in the console run summary.
+4. To run specific Cypress tests at the command line (headless browser for continuous integration) run `npx cypress run --component --spec './cypress/components/[component]/*.cy.*'`. Test results can be seen in the console run summary.
 5. To run in the Chrome/Firefox browser add `--browser chrome` or `--browser firefox` to the above command.
 
 
@@ -54,7 +54,7 @@ Every commit/pull request in the repository initiates a Cypress test run using G
 
 ### GitHub Actions
 1. `cypress.yml`
-- `npx cypress run --component --browser chrome --parallel -–record --spec './cypress/components/**/*.test.*' --group ubuntu-cypress-react` - runs the complete test suite including refactored accessibility tests.
+- `npx cypress run --component --browser chrome --parallel -–record --spec './cypress/components/**/*.cy.*' --group ubuntu-cypress-react` - runs the complete test suite including refactored accessibility tests.
 
 The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
 

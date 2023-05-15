@@ -43,8 +43,8 @@ export default defineConfig({
     watchForFileChanges: true,
     excludeSpecPattern: ["**/examples/*", "**/*.spec.{js|ts*}"],
     specPattern: [
-      "./cypress/components/**/*.test.js",
-      "./cypress/components/**/*.test.tsx",
+      "./cypress/components/**/*.cy.js",
+      "./cypress/components/**/*.cy.tsx",
     ],
   },
 });
