@@ -1,3 +1,10 @@
+### [118.3.2](https://github.com/Sage/carbon/compare/v118.3.1...v118.3.2) (2023-05-16)
+
+
+### Bug Fixes
+
+* **submenu:** ensure that the search cross icon is centred when focused ([94bbfa2](https://github.com/Sage/carbon/commit/94bbfa24248ac637f1e17cefdb83077e555d30db)), closes [#FE-5694](https://github.com/Sage/carbon/issues/FE-5694)
+
 ### [118.3.1](https://github.com/Sage/carbon/compare/v118.3.0...v118.3.1) (2023-05-15)
 
 
