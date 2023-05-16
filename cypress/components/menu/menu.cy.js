@@ -667,6 +667,36 @@ context("Testing Menu component", () => {
       searchCrossIcon().parent().should("have.focus");
     });
 
+    it("should verify the Search component close icon is centred when focused", () => {
+      CypressMountWithProviders(<MenuComponentSearch />);
+      const bottomLess = 201;
+      const topLess = 181;
+      const leftLess = 134;
+
+      // additionVal is to compensate for the outline.
+      const additionVal = 2;
+
+      pressTABKey(1);
+      cy.wait(50);
+      cy.focused().trigger("keydown", keyCode("Enter"));
+      cy.wait(50);
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.wait(50);
+      searchDefaultInput().clear().type("FooBar");
+      cy.wait(50);
+      searchDefaultInput().tab();
+      searchCrossIcon().parent().should("have.focus");
+      searchCrossIcon().then(($el) => {
+        const position = $el[0].getBoundingClientRect();
+        expect(position.bottom).to.be.lessThan(bottomLess + additionVal);
+        expect(position.bottom).to.be.greaterThan(bottomLess);
+        expect(position.top).to.be.lessThan(topLess + additionVal);
+        expect(position.top).to.be.greaterThan(topLess);
+        expect(position.left).to.be.lessThan(leftLess + additionVal);
+        expect(position.left).to.be.greaterThan(leftLess);
+      });
+    });
+
     it("should verify the Search component close icon is focusable when using keyboard to navigate up the list of items", () => {
       CypressMountWithProviders(<MenuComponentSearch />);
 

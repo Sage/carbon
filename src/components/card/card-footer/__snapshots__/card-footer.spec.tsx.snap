@@ -124,8 +124,8 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   text-decoration: underline;
 }
 
-.c1 a .c2,
-.c1 button .c2 {
+.c1 a > .c2,
+.c1 button > .c2 {
   display: inline-block;
   position: relative;
   vertical-align: middle;
