@@ -1554,7 +1554,7 @@ context("Testing Menu component", () => {
     let callback;
 
     beforeEach(() => {
-      callback = cy.stub();
+      callback = cy.stub().as("callback");
     });
 
     it("should call onClick callback when a click event is triggered", () => {
@@ -1579,13 +1579,9 @@ context("Testing Menu component", () => {
         </Box>
       );
 
-      submenu()
-        .eq(positionOfElement("first"), div)
-        .trigger("mouseover")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
     it("should call onSubmenuOpen callback when a click event is triggered", () => {
@@ -1603,43 +1599,42 @@ context("Testing Menu component", () => {
         </Box>
       );
 
-      menuComponent(positionOfElement("second"))
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      menuComponent(positionOfElement("second")).click();
+
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
-    // "Skipped test of Space/Enter/downArrow/upArrow because of ticket FE-5510"
-    it.skip("should call onSubmenuOpen callback when a keyboard event is triggered", (key) => {
-      CypressMountWithProviders(
-        <Box mb={150}>
-          <Menu>
-            <MenuItem
-              clickToOpen
-              onSubmenuOpen={callback}
-              submenu="Menu Item One"
-            >
-              <MenuSegmentTitle />
-            </MenuItem>
-          </Menu>
-        </Box>
-      );
+    it.each(["Space", "Enter", "downarrow", "uparrow"])(
+      "should call onSubmenuOpen callback when a keyboard event is triggered",
+      (key) => {
+        CypressMountWithProviders(
+          <Box mb={150}>
+            <Menu>
+              <MenuItem
+                clickToOpen
+                onSubmenuOpen={callback}
+                submenu="Menu Item One"
+              >
+                <MenuSegmentTitle />
+              </MenuItem>
+            </Menu>
+          </Box>
+        );
 
-      menuComponent(positionOfElement("second"))
-        .trigger("keydown", keyCode(key))
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
-    });
+        menuComponent(positionOfElement("second")).trigger(
+          "keydown",
+          keyCode(key)
+        );
+
+        cy.get("@callback").should("have.been.calledOnce");
+      }
+    );
 
     it("should call onSubmenuClose callback when menu is closed", () => {
       CypressMountWithProviders(
         <Box mb={150}>
           <Menu>
-            <MenuItem onSubmenuOpen={callback} submenu="Menu Item One">
+            <MenuItem onSubmenuClose={callback} submenu="Menu Item One">
               <MenuSegmentTitle />
             </MenuItem>
             <MenuItem submenu="Menu Item Two">
@@ -1650,13 +1645,9 @@ context("Testing Menu component", () => {
       );
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
-      submenu()
-        .eq(positionOfElement("second"), div)
-        .trigger("mouseover")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      submenu().eq(positionOfElement("second"), div).trigger("mouseover");
+
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
     it("should call onClose callback when Menu Fullscreen is closed", () => {

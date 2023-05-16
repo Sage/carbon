@@ -23,6 +23,7 @@ import {
   ALL_CHILDREN_SELECTOR,
 } from "../locators";
 import { VariantType } from "../../menu-item";
+import useStableCallback from "../../../../hooks/__internal__/useStableCallback/useStableCallback";
 
 export interface SubmenuProps {
   /** Children elements */
@@ -89,7 +90,7 @@ const Submenu = React.forwardRef<
       href,
       maxWidth,
       asPassiveItem,
-      onSubmenuOpen,
+      onSubmenuOpen: onSubmenuOpenProp,
       onSubmenuClose,
       onClick,
       ...rest
@@ -112,6 +113,8 @@ const Submenu = React.forwardRef<
     const shiftTabPressed = useRef(false);
     const focusFirstMenuItemOnOpen = useRef(false);
     const numberOfChildren = submenuItemIds.length;
+
+    const onSubmenuOpen = useStableCallback(onSubmenuOpenProp);
 
     const blockIndex = useMemo(() => {
       const items = submenuRef.current?.querySelectorAll(BLOCK_INDEX_SELECTOR);
@@ -156,10 +159,13 @@ const Submenu = React.forwardRef<
     const openSubmenu = useCallback(() => {
       setSubmenuOpen(true);
       setOpenSubmenuId(submenuId.current);
-      if (onSubmenuOpen) {
+    }, [setOpenSubmenuId]);
+
+    useEffect(() => {
+      if (submenuOpen && onSubmenuOpen) {
         onSubmenuOpen();
       }
-    }, [onSubmenuOpen, setOpenSubmenuId]);
+    }, [submenuOpen, onSubmenuOpen]);
 
     const closeSubmenu = useCallback(() => {
       shiftTabPressed.current = false;
