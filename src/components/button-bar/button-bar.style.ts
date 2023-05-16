@@ -44,8 +44,6 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
         border-top-left-radius: var(--borderRadius000);
         border-bottom-left-radius: var(--borderRadius000);
       }
-
-<<<<<<< HEAD
       :not(:first-child):not(:last-child) {
         border-radius: var(--borderRadius000);
       }
@@ -59,14 +57,6 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
         border-top-left-radius: var(--borderRadius000);
         border-bottom-left-radius: var(--borderRadius000);
       }
-
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 25c2c6b51 (feat(button-minor): rebase)
-=======
->>>>>>> 26a9891d9 (style(button-bar): bring back rm styles)
->>>>>>> af00e29c4 (feat(button bar): add support for rendering button minor children)
       &:not(:last-of-type) {
         border-right-color: transparent;
       }
@@ -81,15 +71,13 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
       }
 
       &:hover {
-<<<<<<< HEAD
         background-color: var(--colorsActionMajor600);
         border-color: var(--colorsActionMajor600);
 
         & + button {
           border-left-color: var(--colorsActionMajor600);
         }
-=======
->>>>>>> af00e29c4 (feat(button bar): add support for rendering button minor children)
+
         & ${StyledIcon} {
           ${commonHoverStyles}
           color: white;

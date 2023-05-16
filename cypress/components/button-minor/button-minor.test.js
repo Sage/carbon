@@ -5,7 +5,7 @@ import {
   ButtonMinorCustom,
   ButtonMinorDifferentTypes,
 } from "../../../src/components/button-minor/button-minor-test.stories";
-import * as stories from "../../../src/components/button-minor/button-minor.stories";
+
 import {
   buttonSubtextPreview,
   buttonMinorComponent,
@@ -24,7 +24,6 @@ import {
 } from "../../locators/button";
 
 import { cyRoot, icon, tooltipPreview } from "../../locators";
-import { positionOfElement } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
@@ -172,12 +171,12 @@ context("Test for Button Minor component", () => {
         buttonMinorComponent().should("have.css", cssValue, assertion);
       }
     );
-
     it.each([
       buttonTypesAndBackgrounds[0][2],
       buttonTypesAndBackgrounds[1][2],
       buttonTypesAndBackgrounds[2][2],
     ])(
+    it.each(buttonTypesAndBackgrounds)(
       "should check Button Minor is disabled for the button at index %s",
       (index) => {
         CypressMountWithProviders(<ButtonMinorDifferentTypes disabled />);
@@ -186,7 +185,7 @@ context("Test for Button Minor component", () => {
           .should("be.disabled")
           .and("have.attr", "disabled");
       }
-    )
+    );
 
     it.each(buttonTypesAndBackgrounds)(
       "should check Button Minor is enabled for the button at index %s",
@@ -196,18 +195,14 @@ context("Test for Button Minor component", () => {
         buttonMinorComponent(buttonTypeAndBackground[2][2]).should(
           "be.enabled"
         );
-      (index) => {
-        CypressMountWithProviders(<ButtonMinorDifferentTypes />);
-
-        buttonMinorComponent(index).should("be.enabled");
       (buttonTypeAndBackground) => {
         CypressMountWithProviders(<ButtonMinorDifferentTypes />);
-
         buttonMinorComponent(buttonTypeAndBackground[2]).should("be.enabled");
         buttonMinorComponent(buttonTypeAndBackground[2][2]).should(
           "be.enabled"
         );
       }
+    );
 
     it.each(buttonTypesAndBackgrounds)(
       "should check Button Minor is destructive for the button at index %s",
@@ -245,7 +240,6 @@ context("Test for Button Minor component", () => {
       }
     );
   });
-  
 
   describe("check events for Button Minor component", () => {
     let callback;
@@ -425,13 +419,6 @@ context("Test for Button Minor component", () => {
       cy.checkAccessibility();
     });
   });
-  it("should have the expected border radius and focus styling", () => {
-    CypressMountWithProviders(<ButtonMinor>Foo</ButtonMinor>);
-    buttonDataComponent().should("have.css", `border-radius`, "4px");
-    buttonDataComponent()
-      .focus()
-      .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
-  });
 
   it("should have the expected border radius and focus styling", () => {
     CypressMountWithProviders(<ButtonMinor>Foo</ButtonMinor>);
@@ -443,5 +430,4 @@ context("Test for Button Minor component", () => {
       .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
       .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
   });
-});
 });
