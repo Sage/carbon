@@ -411,6 +411,16 @@ context("Test for Button component", () => {
     buttonDataComponent().should("have.css", `border-radius`, "32px");
     buttonDataComponent()
       .focus()
-      .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+      .should(
+        "have.css",
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      );
+    buttonDataComponent()
+      .getDesignTokensByCssProperty("box-shadow")
+      .then(($el) => {
+        expect($el[0]).to.equal("--colorsSemanticFocus500");
+        expect($el[1]).to.equal("--colorsUtilityYin090");
+      });
   });
 });
