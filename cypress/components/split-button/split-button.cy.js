@@ -484,7 +484,7 @@ context("Tests for SplitButton component", () => {
     mainButton().should("have.css", "border-radius", "32px 0px 0px 32px");
     mainButton()
       .focus()
-      .should("have.css", "border", "3px solid rgb(255, 181, 0)");
+      .should("have.css", "border", "3px solid rgb(255, 188, 25)");
     splitToggleButton().should(
       "have.css",
       "border-radius",
@@ -492,7 +492,7 @@ context("Tests for SplitButton component", () => {
     );
     splitToggleButton()
       .focus()
-      .should("have.css", "border", "3px solid rgb(255, 181, 0)");
+      .should("have.css", "border", "3px solid rgb(255, 188, 25)");
   });
 
   it("should have the expected border radius on children container and buttons", () => {

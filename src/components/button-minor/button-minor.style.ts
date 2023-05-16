@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import Button from "../button";
+import { ButtonMinorProps } from "./button-minor.component";
 
 import StyledIcon from "../icon/icon.style";
 import StyledLoaderSquare from "../loader/loader-square.style";
@@ -16,7 +17,7 @@ function makeColors(color: string) {
   `;
 }
 
-const StyledButtonMinor = styled(Button)`
+const StyledButtonMinor = styled(Button)<ButtonMinorProps>`
   border-radius: var(--borderRadius050);
 
   ${({ children }) =>
@@ -63,6 +64,23 @@ const StyledButtonMinor = styled(Button)`
           background: var(--colorsActionMinor600);
         }
       `}
+    `}
+    
+    ${({ isInPassword, disabled }) =>
+    isInPassword &&
+    !disabled &&
+    css`
+      ${StyledIcon} {
+        color: var(--colorsUtilityMajor300);
+      }
+
+      &:hover {
+        ${StyledIcon} {
+          color: var(--colorsUtilityMajor300);
+        }
+        color: var(--colorsActionMinor500);
+        background: transparent;
+      }
     `}
 
   ${({ size }) => css`

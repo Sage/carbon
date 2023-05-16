@@ -80,6 +80,10 @@ interface Locale {
     pageX: () => string;
     ofY: (count: string | number) => string;
   };
+  password: {
+    ariaLiveShownMessage: () => string;
+    ariaLiveHiddenMessage: () => string;
+  };
   progressTracker: {
     of: () => string;
   };

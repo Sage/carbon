@@ -754,7 +754,7 @@ context("Tests for MultiSelect component", () => {
       multiSelectPill().should("have.attr", "title", "White");
       pillCloseIcon()
         .focus()
-        .should("have.css", "box-shadow", "rgb(255, 181, 0) 0px 0px 0px 3px")
+        .should("have.css", "box-shadow", "rgb(255, 188, 25) 0px 0px 0px 3px")
         .and("have.css", "background-color", "rgb(0, 103, 56)");
     });
 

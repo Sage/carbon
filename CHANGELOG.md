@@ -1,3 +1,17 @@
+### [118.3.1](https://github.com/Sage/carbon/compare/v118.3.0...v118.3.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **select:** reset height and width after closing ([dfe70bf](https://github.com/Sage/carbon/commit/dfe70bf623b74c011d1b0e75ad2a6f28e566dc85)), closes [#5981](https://github.com/Sage/carbon/issues/5981)
+
+## [118.3.0](https://github.com/Sage/carbon/compare/v118.2.1...v118.3.0) (2023-05-12)
+
+
+### Features
+
+* **password:** add new component ([f141b72](https://github.com/Sage/carbon/commit/f141b7273f10883318a9f9a660849663a9534d91)), closes [#5614](https://github.com/Sage/carbon/issues/5614)
+
 ### [118.2.1](https://github.com/Sage/carbon/compare/v118.2.0...v118.2.1) (2023-05-05)
 
 

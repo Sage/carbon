@@ -1379,7 +1379,7 @@ context("Testing Menu component", () => {
         .children()
         .children()
         .should("have.css", "box-shadow")
-        .and("contain", "rgb(255, 181, 0)");
+        .and("contain", "rgb(255, 188, 25)");
       fullScreenMenuItem(positionOfElement("fourth"))
         .find("ul > li")
         .eq(1)
@@ -1418,7 +1418,7 @@ context("Testing Menu component", () => {
         .children()
         .children()
         .should("have.css", "box-shadow")
-        .and("contain", "rgb(255, 181, 0)");
+        .and("contain", "rgb(255, 188, 25)");
       fullScreenMenuItem(positionOfElement("fourth"))
         .find("ul > li")
         .eq(1)
