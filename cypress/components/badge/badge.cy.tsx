@@ -1,28 +1,12 @@
 import React from "react";
-import Badge from "../../../src/components/badge";
-import Button from "../../../src/components/button";
+import { BadgeComponent } from "../../../src/components/badge/badge-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { badge, badgeCounter, badgeCrossIcon } from "../../locators/badge";
 import { CHARACTERS } from "../../support/component-helper/constants";
 
-const BadgeComponent = ({ ...props }) => {
-  return (
-    <Badge {...props}>
-      <Button
-        style={{
-          marginRight: 0,
-        }}
-        buttonType="tertiary"
-      >
-        Filter
-      </Button>
-    </Badge>
-  );
-};
-
 context("Testing Badge component", () => {
   describe("should render Badge component", () => {
-    it.each([[1], [99]])("should check Badge counter is set to %s", (value) => {
+    it.each([1, 99])("should check Badge counter is set to %s", (value) => {
       CypressMountWithProviders(<BadgeComponent counter={value} />);
 
       badgeCounter()
@@ -32,7 +16,7 @@ context("Testing Badge component", () => {
         .and("contain", value);
     });
 
-    it.each([[100], [999]])(
+    it.each([100, 999])(
       "should check Badge counter is set to 99 using %s as input",
       (value) => {
         CypressMountWithProviders(<BadgeComponent counter={value} />);
@@ -45,7 +29,7 @@ context("Testing Badge component", () => {
       }
     );
 
-    it.each([[0], [-12], ["test"], [CHARACTERS.SPECIALCHARACTERS]])(
+    it.each([0, -12, "test", CHARACTERS.SPECIALCHARACTERS])(
       "should check Badge counter is not visible when using %s param",
       (incorrectValue) => {
         CypressMountWithProviders(<BadgeComponent counter={incorrectValue} />);
@@ -58,7 +42,7 @@ context("Testing Badge component", () => {
       CypressMountWithProviders(
         <BadgeComponent onClick={() => {}} counter="99" />
       );
-
+      // eslint-disable-next-line jest/valid-expect-in-promise
       badge()
         .realHover()
         .should("have.css", "background")
@@ -70,7 +54,7 @@ context("Testing Badge component", () => {
 
     it("badge should not display cross icon when hovered over with no onClick function passed to component", () => {
       CypressMountWithProviders(<BadgeComponent counter="99" />);
-
+      // eslint-disable-next-line jest/valid-expect-in-promise
       badge()
         .realHover()
         .should("have.css", "background")
@@ -82,17 +66,20 @@ context("Testing Badge component", () => {
 
     it("should call onClick callback when a click event is triggered", () => {
       const callback = cy.stub();
-
       CypressMountWithProviders(
         <BadgeComponent counter="5" onClick={callback} />
       );
-
       badge()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
+          // eslint-disable-next-line no-unused-expressions, jest/valid-expect
           expect(callback).to.have.been.calledOnce;
         });
+    });
+
+    it("should render with expected border radius styling", () => {
+      CypressMountWithProviders(<BadgeComponent counter={9} />);
+      badge().should("have.css", "border-radius", "50%");
     });
 
     it("should check ariaLabel for Badge component", () => {
@@ -114,10 +101,5 @@ context("Testing Badge component", () => {
       CypressMountWithProviders(<BadgeComponent onClick={() => {}} />);
       cy.checkAccessibility();
     });
-  });
-
-  it("should render with expected border radius styling", () => {
-    CypressMountWithProviders(<BadgeComponent counter={9} />);
-    badge().should("have.css", "border-radius", "50%");
   });
 });
