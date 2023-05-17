@@ -1,4 +1,6 @@
 import React from "react";
+import type { ThemeObject } from "../../../src/style/themes/base";
+import type Locale from "../../../src/locales";
 import GlobalStyle from "../../../src/style/global-style";
 import CarbonProvider from "../../../src/components/carbon-provider/carbon-provider.component";
 import I18nProvider from "../../../src/components/i18n-provider/i18n-provider.component";
@@ -7,9 +9,9 @@ import sageTheme from "../../../src/style/themes/sage/index";
 import "../../../src/style/fonts.css";
 
 const CypressMountWithProviders = (
-  children,
-  theme = sageTheme,
-  locale = enGB
+  children: React.ReactNode,
+  theme: Partial<ThemeObject> = sageTheme,
+  locale: Locale = enGB
 ) => {
   return cy.mount(
     <CarbonProvider theme={theme}>
