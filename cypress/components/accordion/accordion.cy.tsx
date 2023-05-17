@@ -77,11 +77,18 @@ context("Testing Accordion component", () => {
 
       accordionTitleContainer().focus();
 
+      accordionTitleContainer().should(
+        "have.css",
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      );
+      
       accordionDefaultTitle()
-        .then(($el) => {
-          checkGoldenOutline($el);
-        })
-        .and("be.visible");
+      .getDesignTokensByCssProperty("box-shadow")
+      .then(($el) => {
+        expect($el[0]).to.equal("--colorsSemanticFocus500");
+        expect($el[1]).to.equal("--colorsUtilityYin090");
+      });
     });
 
     it.each([["chevron_down"], ["dropdown"]])(

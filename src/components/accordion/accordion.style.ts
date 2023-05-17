@@ -4,6 +4,7 @@ import { space, margin } from "styled-system";
 import Icon from "../icon";
 import { baseTheme } from "../../style/themes";
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
+import  addFocusStyling  from "../../style/utils/add-focus-styling";
 
 const StyledAccordionGroup = styled.div`
   ${margin}
@@ -147,9 +148,7 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
     cursor: pointer;
     z-index: 1;
 
-    &:focus {
-      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
-    }
+    ${addFocusStyling()}
 
     ${!buttonHeading &&
     css`
