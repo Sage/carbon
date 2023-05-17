@@ -1,35 +1,3 @@
-export function dragAndDrop(
-  draggableElement: Cypress.Chainable,
-  destinationPosition: number,
-  startFromHight: number
-) {
-  const ROW_HIGHT = 45;
-  const TEN_PIXEL_MOVE = 10;
-
-  draggableElement
-    .trigger("mousedown", { force: true, release: false })
-    .wait(500) // required for correct drag&drop headless browser (500ms)
-    .trigger("mousemove", { force: true, release: false })
-    .wait(100); // required for correct drag&drop headless browser (100ms)
-  // put row record on top of page, then move down every TEN_PIXEL_MOVE
-  for (
-    let i = 0;
-    i < startFromHight + destinationPosition * ROW_HIGHT;
-    i += TEN_PIXEL_MOVE
-  ) {
-    draggableElement
-      .trigger("mousemove", {
-        clientY: i,
-        force: true,
-        release: false,
-      })
-      .trigger("mousemove", "topRight", { force: true, release: false })
-      .trigger("mousemove", "topLeft", { force: true, release: false })
-      .wait(100);
-  }
-  draggableElement.trigger("mouseup", { force: true, release: true });
-}
-
 export function pressESCKey() {
   // using Shift+Esc - because of storybook shortcuts override
   cy.get("body").type("{shift}{esc}");
