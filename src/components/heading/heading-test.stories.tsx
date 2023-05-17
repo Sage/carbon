@@ -36,7 +36,7 @@ Default.args = {
   titleId: "",
 };
 
-export const HeadingComponent = ({ ...props }) => {
+export const HeadingComponent = (props: HeadingProps) => {
   return (
     <Heading
       title="This is a Title"
