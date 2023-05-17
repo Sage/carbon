@@ -95,6 +95,28 @@ context("Testing AdvancedColorPicker component", () => {
       }
     );
 
+    it("should have a focus state with black and yellow border", () => {
+      advancedColorPickerParent().should(
+        "have.css",
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      );
+      advancedColorPickerParent()
+        .getDesignTokensByCssProperty("box-shadow")
+        .then(($el) => {
+          expect($el[0]).to.equal("--colorsSemanticFocus500");
+          expect($el[1]).to.equal("--colorsUtilityYin090");
+        });
+    });
+
+    it.each(["Space", "Enter"])(
+      "should close AdvancedColorPicker using %s on selected color",
+      (key) => {
+        simpleColorPicker(7).trigger("keydown", keyCode(key));
+        simpleColorPickerComponent().should("not.exist");
+      }
+    );
+
     it.each([1, 2, 3])(
       "should confirm dedicated %s color was selected",
       (index) => {

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const transparentSvg =
   "%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%" +
@@ -29,9 +30,7 @@ const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
     cursor: pointer;
   }
 
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  ${addFocusStyling}
 
   &::-moz-focus-inner {
     border: none;
