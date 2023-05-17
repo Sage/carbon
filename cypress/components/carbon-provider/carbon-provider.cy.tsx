@@ -31,9 +31,12 @@ import { splitMainButton } from "../../locators/split-button";
 
 const themes = [mintTheme, aegeanTheme, noTheme, sageTheme];
 
-const buildTestArray = (array) =>
+const buildTestArray = (array: string[]) =>
   themes.map((theme, i) => [theme.name, theme, array[i]]);
-const buildTestDataWithTwoArrays = (firstArray, secondArray) =>
+const buildTestDataWithTwoArrays = (
+  firstArray: string[],
+  secondArray: string[]
+) =>
   themes.map((theme, i) => [theme.name, theme, firstArray[i], secondArray[i]]);
 
 const commonColors = [
@@ -148,9 +151,10 @@ context("Testing Carbon Provider component", () => {
           themeName
         );
 
-        getDataElementByValue("tab-selected-indicator").then(($el) => {
+        return getDataElementByValue("tab-selected-indicator").then(($el) => {
           const colorVal = $el.css("box-shadow").split(")");
 
+          // eslint-disable-next-line jest/valid-expect
           expect(`${colorVal[0]})`).to.be.equals(color);
         });
       });
@@ -158,16 +162,17 @@ context("Testing Carbon Provider component", () => {
   );
 
   describe.each(buildTestArray(commonColorsOnHover))(
-    "should render components with %s theme onHover",
+    "should render components with %s theme commonColorsOnHover",
     (theme, themeName, color) => {
       it("Button component and verify theme color", () => {
         CypressMountWithProviders(<Button>Small</Button>, themeName);
 
-        buttonDataComponent()
+        return buttonDataComponent()
           .realHover()
           .then(($el) => {
             const colorVal = $el.css("background").split(")");
 
+            // eslint-disable-next-line jest/valid-expect
             expect(`${colorVal[0]})`).to.be.equals(color);
           });
       });
@@ -200,13 +205,14 @@ context("Testing Carbon Provider component", () => {
           themeName
         );
 
-        splitMainButton()
+        return splitMainButton()
           .children()
           .eq(0)
           .realHover()
           .then(($el) => {
             const colorVal = $el.css("background").split(")");
 
+            // eslint-disable-next-line jest/valid-expect
             expect(`${colorVal[0]})`).to.be.equals(color);
           });
       });
@@ -214,7 +220,7 @@ context("Testing Carbon Provider component", () => {
   );
 
   describe.each(buildTestArray(multiButtonOnHover))(
-    "should render components with %s theme onHover",
+    "should render components with %s theme multiButtononHover",
     (theme, themeName, color) => {
       it("MultiActionButton component and verify theme color", () => {
         CypressMountWithProviders(
@@ -226,12 +232,13 @@ context("Testing Carbon Provider component", () => {
           themeName
         );
 
-        multiActionButtonComponent()
+        return multiActionButtonComponent()
           .find("button")
           .trigger("mouseover")
           .then(($el) => {
             const colorVal = $el.css("background").split(")");
 
+            // eslint-disable-next-line jest/valid-expect
             expect(`${colorVal[0]})`).to.be.equals(color);
           });
       });
@@ -239,7 +246,7 @@ context("Testing Carbon Provider component", () => {
   );
 
   describe.each(buildTestDataWithTwoArrays(loaderBarColors, commonColors))(
-    "should render components with %s theme",
+    "should render components with %s theme with two arrays",
     (theme, themeName, loaderBarcolor, color) => {
       it("LoaderBar component and verify theme color", () => {
         CypressMountWithProviders(<LoaderBar />, themeName);
@@ -256,7 +263,7 @@ context("Testing Carbon Provider component", () => {
   );
 
   describe.each(buildTestArray(stepSequnceColors))(
-    "should render components with %s theme",
+    "should render components with %s theme stepSequenceColors",
     (theme, themeName, color) => {
       it("StepSequence component and verify theme color", () => {
         CypressMountWithProviders(
