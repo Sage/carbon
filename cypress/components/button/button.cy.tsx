@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../../src/components/button";
+import Button, { ButtonProps } from "../../../src/components/button";
 import * as stories from "../../../src/components/button/button-test.stories";
 import * as storiesDefault from "../../../src/components/button/button.stories";
 
@@ -8,7 +8,12 @@ import {
   buttonDataComponent,
 } from "../../locators/button";
 
-import { cyRoot, icon, tooltipPreview } from "../../locators";
+import {
+  cyRoot,
+  getDataElementByValue,
+  icon,
+  tooltipPreview,
+} from "../../locators";
 import { positionOfElement, keyCode } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -60,7 +65,7 @@ context("Test for Button component", () => {
     it.each([
       ["after", "left"],
       ["before", "right"],
-    ])(
+    ] as [ButtonProps["iconPosition"], string][])(
       "should set position to %s for icon in a button",
       (iconPosition, margin) => {
         CypressMountWithProviders(
@@ -82,26 +87,20 @@ context("Test for Button component", () => {
     });
 
     it.each([
-      ["true", "white-space"],
-      ["false", "flex-wrap"],
+      [true, "nowrap"],
+      [false, "normal"],
     ])(
-      "should render the Button text without wrapping when noWrap is called",
+      "should render the Button text with noWrap prop %s",
       (booleanState, cssValue) => {
         CypressMountWithProviders(
           <Button noWrap={booleanState}> Long long long long long text </Button>
         );
 
-        if (booleanState === true) {
-          buttonDataComponent()
-            .children()
-            .children()
-            .should("have.value", cssValue, "wrap");
-        } else {
-          buttonDataComponent()
-            .children()
-            .children()
-            .should("not.have.value", cssValue, "wrap");
-        }
+        getDataElementByValue("main-text").should(
+          "have.css",
+          "white-space",
+          cssValue
+        );
       }
     );
 
@@ -141,56 +140,39 @@ context("Test for Button component", () => {
   });
 
   describe("check events for Button component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: ButtonProps["onClick"] = cy.stub().as("onClick");
       CypressMountWithProviders(<Button onClick={callback}>Foo</Button>);
 
-      buttonDataComponent()
-        .click({ force: true })
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonDataComponent().click({ force: true });
+      cy.get("@onClick").should("have.been.calledOnce");
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: ButtonProps["onBlur"] = cy.stub().as("onBlur");
       CypressMountWithProviders(<Button onBlur={callback}>Foo</Button>);
 
-      buttonDataComponent()
-        .focus()
-        .blur({ force: true })
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonDataComponent().focus().blur({ force: true });
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call onKeyDown callback when a keydown event is triggered", () => {
+      const callback: ButtonProps["onKeyDown"] = cy.stub().as("onKeyDown");
       CypressMountWithProviders(<Button onKeyDown={callback}>Foo</Button>);
 
-      buttonDataComponent()
-        .trigger("keydown", { force: true }, keyCode("rightarrow"))
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonDataComponent().trigger("keydown", {
+        force: true,
+        key: keyCode("rightarrow"),
+      });
+      cy.get("@onKeyDown").should("have.been.calledOnce");
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: ButtonProps["onFocus"] = cy.stub().as("onFocus");
       CypressMountWithProviders(<Button onFocus={callback}>Foo</Button>);
 
-      buttonDataComponent()
-        .focus()
-        .blur({ force: true })
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonDataComponent().focus().blur({ force: true });
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
   });
 
@@ -373,13 +355,13 @@ context("Test for Button component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibility tests for TertiaryButtonFullWitdth", () => {
+    it("should pass accessibility tests for TertiaryButtonFullWidth", () => {
       CypressMountWithProviders(<storiesDefault.TertiaryButtonFullWitdth />);
 
       cy.checkAccessibility();
     });
 
-    it("should pass accessibility tests for TertiaryButtonFullWitdth", () => {
+    it("should pass accessibility tests for TertiaryButtonNoWrap", () => {
       CypressMountWithProviders(<storiesDefault.TertiaryButtonNoWrap />);
 
       cy.checkAccessibility();
@@ -406,11 +388,13 @@ context("Test for Button component", () => {
     });
   });
 
-  it("should have the expected border radius and focus styling", () => {
-    CypressMountWithProviders(<Button>Foo</Button>);
-    buttonDataComponent().should("have.css", `border-radius`, "32px");
-    buttonDataComponent()
-      .focus()
-      .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+  describe("Tests for Button component radius and focus", () => {
+    it("should have the expected border radius and focus styling", () => {
+      CypressMountWithProviders(<Button>Foo</Button>);
+      buttonDataComponent().should("have.css", `border-radius`, "32px");
+      buttonDataComponent()
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
   });
 });
