@@ -11,17 +11,10 @@ import {
   buttonMinorComponent,
 } from "../../locators/button";
 
-import * as stories from "../../../src/components/button-minor/button-minor.stories.tsx";
-
 import {
   BUTTON_SIZES,
   BUTTON_ICON_POSITIONS,
 } from "../../../src/components/button/button.config";
-
-import {
-  buttonSubtextPreview,
-  buttonMinorComponent,
-} from "../../locators/button";
 
 import { cyRoot, icon, tooltipPreview } from "../../locators";
 import { positionOfElement } from "../../support/helper";
@@ -32,9 +25,9 @@ import { useJQueryCssValueAndAssert } from "../../support/component-helper/commo
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 const buttonTypesAndBackgrounds = [
-  ["1st", "primary", 0, "rgb(162, 44, 59)"],
-  ["2nd", "secondary", 1, "rgba(0, 0, 0, 0)"],
-  ["3rd", "tertiary", 2, "rgba(0, 0, 0, 0)"],
+  ["1st", "primary", 0],
+  ["2nd", "secondary", 1],
+  ["3rd", "tertiary", 2],
 ];
 
 const destructive = "rgb(162, 44, 59)";
@@ -244,7 +237,7 @@ context("Test for Button Minor component", () => {
         buttonMinorComponent().should("have.attr", "type", type);
       }
     );
-  });
+  }
   
 
   describe("check events for Button Minor component", () => {
