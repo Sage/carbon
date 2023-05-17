@@ -1,3 +1,10 @@
+### [118.3.3](https://github.com/Sage/carbon/compare/v118.3.2...v118.3.3) (2023-05-17)
+
+
+### Bug Fixes
+
+* **focus-trap:** prevent scroll to bottom when tabbing through ([472d58e](https://github.com/Sage/carbon/commit/472d58ea9fc54682802a1e7b122038075932f388)), closes [#5986](https://github.com/Sage/carbon/issues/5986)
+
 ### [118.3.2](https://github.com/Sage/carbon/compare/v118.3.1...v118.3.2) (2023-05-16)
 
 
