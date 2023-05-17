@@ -46,9 +46,9 @@ Default.args = {
 export const BatchSelectionComponent = ({
   children,
   selectedCount = 0,
-  ...args
+  ...rest
 }: Partial<BatchSelectionProps>) => (
-  <BatchSelection {...args} selectedCount={selectedCount}>
+  <BatchSelection {...rest} selectedCount={selectedCount}>
     <IconButton aria-label="icon-button" onClick={() => {}}>
       <Icon type="csv" />
     </IconButton>

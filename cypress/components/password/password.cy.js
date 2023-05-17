@@ -9,6 +9,7 @@ import {
   tooltipPreview,
   commonDataElementInputPreview,
   icon,
+  cyRoot,
 } from "../../locators/index";
 import { buttonDataComponent } from "../../locators/button";
 import { verifyRequiredAsteriskForLabel } from "../../support/component-helper/common-steps";
@@ -195,6 +196,9 @@ context("Tests for Password component", () => {
               expect($el[2]).to.equal("--colorsActionMinor500");
             });
         });
+
+      // reset the hover state
+      cyRoot().realHover({ position: "topLeft" });
     });
 
     it("icon color is 'colorsActionMajorYang300'", () => {
@@ -218,13 +222,15 @@ context("Tests for Password component", () => {
         .then(() => {
           icon()
             .should("be.visible")
-            .and("have.css", "color", colorsUtilityMajor300);
-          icon()
+            .and("have.css", "color", colorsUtilityMajor300)
             .getDesignTokensByCssProperty("color")
             .should(($el) => {
               expect($el[4]).to.equal("--colorsUtilityMajor300");
             });
         });
+
+      // reset the hover state
+      cyRoot().realHover({ position: "topLeft" });
     });
   });
 
