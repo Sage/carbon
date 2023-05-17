@@ -4,6 +4,7 @@ import StyledInput from "./input.style";
 import { CommonInputPresentationProps } from "./input-presentation.component";
 import { InputContextProps } from "../input-behaviour";
 import { CarbonProviderProps } from "../../components/carbon-provider";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 export const StyledInputPresentationContainer = styled.div<
   Pick<CommonInputPresentationProps, "inputWidth" | "maxWidth">
@@ -104,6 +105,8 @@ const InputPresentationStyle = styled.div<
         z-index: 2;
       }
     `}
+
+  ${addFocusStyling}
 
   ${stylingForValidations}
 

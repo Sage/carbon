@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 export interface StyledNavigationItemProps {
   isSelected?: boolean;
@@ -19,9 +20,7 @@ const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
     border-top-right-radius: var(--borderRadius100);
     border-bottom-right-radius: var(--borderRadius100);
 
-    &:focus {
-      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
-    }
+    ${addFocusStyling}
 
     &:hover {
       ${({ isSelected }) =>
