@@ -1,4 +1,8 @@
 import { createGlobalStyle } from "styled-components";
+import {
+  TAB_GUARD_TOP,
+  TAB_GUARD_BOTTOM,
+} from "../__internal__/focus-trap/focus-trap.component";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -21,6 +25,10 @@ const GlobalStyle = createGlobalStyle`
   h4, .h4 { font-size: 18px; font-weight: 700; margin-bottom: 22px; }
   h5, .h5 { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
   h6, .h6 { font-size: 14px; font-weight: 700; margin-bottom: 18px; }
+
+  [data-element=${TAB_GUARD_TOP}], [data-element=${TAB_GUARD_BOTTOM}] {
+    position: fixed;
+  }
 `;
 
 export default GlobalStyle;

@@ -260,6 +260,20 @@ const MenuComponentFullScreen = ({ ...props }) => {
   ];
 };
 
+const MenuFullScreenBackgroundScrollTest = () => {
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <MenuFullscreen isOpen onClose={() => {}}>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+      </MenuFullscreen>
+    </Box>
+  );
+};
+
 const MenuComponentItems = ({ ...props }) => {
   return (
     <Box mb={150}>
@@ -2151,6 +2165,28 @@ context("Testing Menu component", () => {
         .find("a")
         .last()
         .should("have.css", "border-radius", "0px 0px 0px 8px");
+    });
+  });
+
+  describe("MenuFullScreen test background scroll when tabbing", () => {
+    it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+
+      continuePressingTABKey(4);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+
+      continuePressingTABKey(3, true);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
     });
   });
 });
