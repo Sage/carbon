@@ -152,4 +152,19 @@ context("Testing Alert component", () => {
     CypressMountWithProviders(<AlertComponent />);
     alertDialogPreview().should("have.css", "border-radius", "16px");
   });
+
+  it("should have the black and yellow border in focus state", () => {
+    CypressMountWithProviders(<AlertComponent />);
+    alertDialogPreview().should(
+      "have.css",
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+    );
+    alertDialogPreview()
+      .getDesignTokensByCssProperty("box-shadow")
+      .then(($el) => {
+        expect($el[0]).to.equal("--colorsSemanticFocus500");
+        expect($el[1]).to.equal("--colorsUtilityYin090");
+      });
+  });
 });

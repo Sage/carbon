@@ -6,6 +6,7 @@ import BaseTheme from "../../style/themes/base";
 import buttonTypes from "./button-types.style";
 import StyledIcon from "../icon/icon.style";
 import { ButtonProps, SizeOptions } from "./button.component";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 function additionalIconStyle(iconType?: IconType) {
   if (iconType === "services") return "6px";
@@ -85,9 +86,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     text-decoration: none;
     border-radius: var(--borderRadius400);
 
-    &:focus {
-      outline: solid 3px var(--colorsSemanticFocus500);
-    }
+    ${addFocusStyling}
 
     ${stylingForType}
   `}
