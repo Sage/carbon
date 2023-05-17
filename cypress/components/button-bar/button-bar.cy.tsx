@@ -13,7 +13,7 @@ import {
 
 import { buttonDataComponent } from "../../locators/button";
 import { icon } from "../../locators";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
 context("Test for Button-Bar component", () => {
@@ -60,7 +60,7 @@ context("Test for Button-Bar component", () => {
       buttonDataComponent()
         .parent()
         .then(($el: JQuery<HTMLElement>) => {
-          useJQueryCssValueAndAssert($el, "width", 1366);
+          assertCssValueIsApproximately($el, "width", 1366);
         });
     });
   });
@@ -112,7 +112,7 @@ context("Test for Button-Bar component", () => {
       CypressMountWithProviders(<ButtonBarWithWrapper size="small" />);
 
       buttonDataComponent().then(($el: JQuery<HTMLElement>) => {
-        useJQueryCssValueAndAssert($el, "width", 81);
+        assertCssValueIsApproximately($el, "width", 81);
       });
     });
 
@@ -120,7 +120,7 @@ context("Test for Button-Bar component", () => {
       CypressMountWithProviders(<ButtonBarWithWrapper fullWidth />);
 
       buttonDataComponent().then(($el: JQuery<HTMLElement>) => {
-        useJQueryCssValueAndAssert($el, "width", 339);
+        assertCssValueIsApproximately($el, "width", 339);
       });
     });
 

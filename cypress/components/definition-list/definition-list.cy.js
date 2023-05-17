@@ -9,7 +9,7 @@ import Typography from "../../../src/components/typography";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../locators/index";
 import { CHARACTERS } from "../../support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const specialCharacters = [
   CHARACTERS.STANDARD,
@@ -95,13 +95,13 @@ context("Testing Definition List component", () => {
         getDataElementByValue("dl")
           .children()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", dtPixels);
+            assertCssValueIsApproximately($el, "width", dtPixels);
           });
         getDataElementByValue("dl")
           .children()
           .eq(1)
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", ddPixels);
+            assertCssValueIsApproximately($el, "width", ddPixels);
           });
       }
     );
@@ -142,13 +142,13 @@ context("Testing Definition List component", () => {
       getDataElementByValue("dt")
         .should("have.css", "text-align", "left")
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", 1366);
+          assertCssValueIsApproximately($el, "width", 1366);
         });
       getDataElementByValue("dd")
         .should("have.css", "text-align", "left")
         .and("have.css", "margin-left", "0px")
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", 1366);
+          assertCssValueIsApproximately($el, "width", 1366);
         });
     });
 

@@ -5,7 +5,7 @@ import {
 } from "../../../src/components/portrait/portrait-test.stories";
 import Box from "../../../src/components/box";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import { icon, getDataElementByValue } from "../../locators";
 import {
   PORTRAIT_SIZES,
@@ -77,8 +77,8 @@ context("Tests for Portrait component", () => {
       (size, heightAndWidth) => {
         CypressMountWithProviders(<PortraitDefaultComponent size={size} />);
         portraitPreview().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
-          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+          assertCssValueIsApproximately($el, "height", heightAndWidth);
+          assertCssValueIsApproximately($el, "width", heightAndWidth);
         });
       }
     );
@@ -119,8 +119,8 @@ context("Tests for Portrait component", () => {
           <PortraitDefaultComponent initials={passInitials} />
         );
         portraitInitials().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", 38);
-          useJQueryCssValueAndAssert($el, "width", 38);
+          assertCssValueIsApproximately($el, "height", 38);
+          assertCssValueIsApproximately($el, "width", 38);
         });
       }
     );
@@ -217,7 +217,7 @@ context("Tests for Portrait component", () => {
         getDataElementByValue("tooltip")
           .should("be.visible")
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "font-size", parseInt(fontSize));
+            assertCssValueIsApproximately($el, "font-size", parseInt(fontSize));
           });
       }
     );

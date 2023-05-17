@@ -3,7 +3,7 @@ import * as testStories from "../../../src/components/box/box-test.stories";
 import * as stories from "../../../src/components/box/box.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../locators";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 import { radiobuttonComponent } from "../../locators/radiobutton";
 
@@ -191,7 +191,7 @@ context("Testing Box component", () => {
         getDataElementByValue("box")
           .should("have.attr", "width", percentage)
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", parseInt(width));
+            assertCssValueIsApproximately($el, "width", parseInt(width));
           });
       }
     );
@@ -206,7 +206,7 @@ context("Testing Box component", () => {
         getDataElementByValue("box")
           .should("have.attr", "width", number)
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", parseInt(width));
+            assertCssValueIsApproximately($el, "width", parseInt(width));
           });
       }
     );
@@ -221,7 +221,7 @@ context("Testing Box component", () => {
         getDataElementByValue("box")
           .should("have.attr", "width", width)
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", parseInt(width));
+            assertCssValueIsApproximately($el, "width", parseInt(width));
           });
       }
     );
@@ -236,7 +236,7 @@ context("Testing Box component", () => {
         getDataElementByValue("box")
           .should("have.attr", "height", number)
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "height", parseInt(height));
+            assertCssValueIsApproximately($el, "height", parseInt(height));
           });
       }
     );
@@ -251,7 +251,7 @@ context("Testing Box component", () => {
         getDataElementByValue("box")
           .should("have.attr", "height", height)
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "height", parseInt(height));
+            assertCssValueIsApproximately($el, "height", parseInt(height));
           });
       }
     );
@@ -262,8 +262,8 @@ context("Testing Box component", () => {
         CypressMountWithProviders(<testStories.Default size={number} />);
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", parseInt(pixels));
-          useJQueryCssValueAndAssert($el, "height", parseInt(pixels));
+          assertCssValueIsApproximately($el, "width", parseInt(pixels));
+          assertCssValueIsApproximately($el, "height", parseInt(pixels));
         });
       }
     );
@@ -274,8 +274,8 @@ context("Testing Box component", () => {
         CypressMountWithProviders(<testStories.Default size={pixels} />);
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", parseInt(pixels));
-          useJQueryCssValueAndAssert($el, "height", parseInt(pixels));
+          assertCssValueIsApproximately($el, "width", parseInt(pixels));
+          assertCssValueIsApproximately($el, "height", parseInt(pixels));
         });
       }
     );
@@ -352,7 +352,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", minWidth);
+          assertCssValueIsApproximately($el, "width", minWidth);
         });
       }
     );
@@ -368,7 +368,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", minWidth);
+          assertCssValueIsApproximately($el, "width", minWidth);
         });
       }
     );
@@ -384,7 +384,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", minWidth);
+          assertCssValueIsApproximately($el, "width", minWidth);
         });
       }
     );
@@ -400,7 +400,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", maxWidth);
+          assertCssValueIsApproximately($el, "width", maxWidth);
         });
       }
     );
@@ -416,7 +416,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", maxWidth);
+          assertCssValueIsApproximately($el, "width", maxWidth);
         });
       }
     );
@@ -432,7 +432,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", maxWidth);
+          assertCssValueIsApproximately($el, "width", maxWidth);
         });
       }
     );
@@ -448,7 +448,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", minHeight);
+          assertCssValueIsApproximately($el, "height", minHeight);
         });
       }
     );
@@ -464,7 +464,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", minHeight);
+          assertCssValueIsApproximately($el, "height", minHeight);
         });
       }
     );
@@ -480,7 +480,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", maxHeight);
+          assertCssValueIsApproximately($el, "height", maxHeight);
         });
       }
     );
@@ -496,7 +496,7 @@ context("Testing Box component", () => {
         );
 
         getDataElementByValue("box").then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", maxHeight);
+          assertCssValueIsApproximately($el, "height", maxHeight);
         });
       }
     );

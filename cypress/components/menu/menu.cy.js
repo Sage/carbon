@@ -39,7 +39,7 @@ import {
 import { CHARACTERS, COLOR } from "../../support/component-helper/constants";
 import {
   checkGoldenOutline,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 import useMediaQuery from "../../../src/hooks/useMediaQuery";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -584,7 +584,7 @@ context("Testing Menu component", () => {
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
       menuDivider().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", size);
+        assertCssValueIsApproximately($el, "height", size);
       });
     });
 
@@ -813,7 +813,7 @@ context("Testing Menu component", () => {
         CypressMountWithProviders(<MenuComponent width={width} />);
 
         menu().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", pixels);
+          assertCssValueIsApproximately($el, "width", pixels);
         });
       }
     );
@@ -831,7 +831,7 @@ context("Testing Menu component", () => {
         CypressMountWithProviders(<MenuComponent height={propValue} />);
 
         menu().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", pixels);
+          assertCssValueIsApproximately($el, "height", pixels);
         });
       }
     );
@@ -849,7 +849,7 @@ context("Testing Menu component", () => {
         );
 
         menu().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", pixels);
+          assertCssValueIsApproximately($el, "width", pixels);
         });
       }
     );
@@ -867,7 +867,7 @@ context("Testing Menu component", () => {
         );
 
         menu().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", pixels);
+          assertCssValueIsApproximately($el, "width", pixels);
         });
       }
     );
@@ -885,7 +885,7 @@ context("Testing Menu component", () => {
         );
 
         menu().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", pixels);
+          assertCssValueIsApproximately($el, "height", pixels);
         });
       }
     );
@@ -903,7 +903,7 @@ context("Testing Menu component", () => {
         );
 
         menu().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", pixels);
+          assertCssValueIsApproximately($el, "height", pixels);
         });
       }
     );
@@ -914,8 +914,8 @@ context("Testing Menu component", () => {
         CypressMountWithProviders(<MenuComponent size={size} />);
 
         menu().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", size);
-          useJQueryCssValueAndAssert($el, "width", size);
+          assertCssValueIsApproximately($el, "height", size);
+          assertCssValueIsApproximately($el, "width", size);
         });
       }
     );
@@ -1235,9 +1235,9 @@ context("Testing Menu component", () => {
 
         submenu().eq(positionOfElement("first")).trigger("mouseover");
         menuDivider().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
-          useJQueryCssValueAndAssert($el, "margin-left", margin);
-          useJQueryCssValueAndAssert($el, "width", width);
+          assertCssValueIsApproximately($el, "height", height);
+          assertCssValueIsApproximately($el, "margin-left", margin);
+          assertCssValueIsApproximately($el, "width", width);
         });
       }
     );
@@ -1254,7 +1254,7 @@ context("Testing Menu component", () => {
 
         submenu().eq(positionOfElement("first"), div).trigger("mouseover");
         scrollBlock().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", pixels);
+          assertCssValueIsApproximately($el, "height", pixels);
         });
       }
     );

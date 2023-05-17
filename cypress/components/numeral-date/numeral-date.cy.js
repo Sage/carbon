@@ -5,7 +5,7 @@ import { NumeralDateComponent } from "../../../src/components/numeral-date/numer
 import * as stories from "../../../src/components/numeral-date/numeral-date.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
   verifyRequiredAsteriskForLabel,
 } from "../../support/component-helper/common-steps";
 
@@ -160,7 +160,7 @@ context("Tests for NumeralDate component", () => {
         getDataElementByValue("label")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", labelRatio);
+            assertCssValueIsApproximately($el, "width", labelRatio);
           });
       }
     );
@@ -366,7 +366,7 @@ context("Tests for NumeralDate component", () => {
         CypressMountWithProviders(<NumeralDateComponent size={size} />);
 
         numeralDateInputByPosition(0).then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
+          assertCssValueIsApproximately($el, "height", height);
         });
       }
     );

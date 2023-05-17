@@ -11,7 +11,7 @@ import {
 import { getDataElementByValue, icon } from "../../locators/index";
 import { positionOfElement, keyCode } from "../../support/helper";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const heights = [
@@ -92,7 +92,7 @@ context("Testing Confirm component", () => {
         }
 
         dialogPreview().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", resultHeight);
+          assertCssValueIsApproximately($el, "height", resultHeight);
         });
       }
     );
@@ -111,7 +111,7 @@ context("Testing Confirm component", () => {
         CypressMountWithProviders(<ConfirmComponent size={sizeName} />);
 
         dialogPreview().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", size);
+          assertCssValueIsApproximately($el, "width", size);
         });
       }
     );

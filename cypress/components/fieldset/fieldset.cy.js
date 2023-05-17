@@ -11,7 +11,7 @@ import {
   VALIDATION,
   CHARACTERS,
 } from "../../support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import { ICON } from "../../locators/locators";
 
 const specialCharacters = [
@@ -46,11 +46,11 @@ context("Testing Fieldset component", () => {
         CypressMountWithProviders(<FieldsetComponent inline={bool} />);
 
         getDataElementByValue("label").then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", labelHeight);
-          useJQueryCssValueAndAssert($el, "width", labelWidth);
+          assertCssValueIsApproximately($el, "height", labelHeight);
+          assertCssValueIsApproximately($el, "width", labelWidth);
         });
         getDataElementByValue("input").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", inputWidth);
+          assertCssValueIsApproximately($el, "width", inputWidth);
         });
       }
     );

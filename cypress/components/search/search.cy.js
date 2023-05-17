@@ -13,10 +13,7 @@ import {
   searchIcon,
   searchFindIcon,
 } from "../../locators/search/index";
-import {
-  parseToIntElement,
-  checkGoldenOutline,
-} from "../../support/component-helper/common-steps";
+import { checkGoldenOutline } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { keyCode } from "../../support/helper";
 import {
@@ -100,9 +97,9 @@ context("Test for Search component", () => {
         );
 
         searchDefault().then(($el) => {
-          expect($el[0].getBoundingClientRect().width).to.be.within(
-            parseToIntElement(widthVal) - 1,
-            parseToIntElement(widthVal) + 2
+          expect($el[0].getBoundingClientRect().width).to.be.approximately(
+            parseInt(widthVal),
+            2
           );
         });
       }
@@ -114,9 +111,9 @@ context("Test for Search component", () => {
         CypressMountWithProviders(<SearchComponent searchWidth={width} />);
 
         searchDefault().then(($el) => {
-          expect($el[0].getBoundingClientRect().width).to.be.within(
-            parseToIntElement(width) - 1,
-            parseToIntElement(width) + 2
+          expect($el[0].getBoundingClientRect().width).to.be.approximately(
+            parseInt(width),
+            2
           );
         });
       }
@@ -135,9 +132,9 @@ context("Test for Search component", () => {
         );
 
         searchDefault().then(($el) => {
-          expect($el[0].getBoundingClientRect().width).to.be.within(
-            parseToIntElement(widthVal) - 1,
-            parseToIntElement(widthVal) + 2
+          expect($el[0].getBoundingClientRect().width).to.be.approximately(
+            parseInt(widthVal),
+            2
           );
         });
       }
@@ -147,9 +144,9 @@ context("Test for Search component", () => {
       CypressMountWithProviders(<SearchComponent maxWidth="" />);
 
       searchDefault().then(($el) => {
-        expect($el[0].getBoundingClientRect().width).to.be.within(
-          parseToIntElement("1366") - 1,
-          parseToIntElement("1366") + 2
+        expect($el[0].getBoundingClientRect().width).to.be.approximately(
+          parseInt("1366px"),
+          2
         );
       });
     });

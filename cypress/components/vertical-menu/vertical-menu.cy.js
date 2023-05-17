@@ -12,7 +12,7 @@ import * as stories from "../../../src/components/vertical-menu/vertical-menu.st
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
   checkGoldenOutline,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 import {
   verticalMenuComponent,
@@ -51,7 +51,7 @@ context("Testing Vertical Menu component", () => {
         CypressMountWithProviders(<Default width={`${width}px`} />);
 
         verticalMenuComponent().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", width);
+          assertCssValueIsApproximately($el, "width", width);
         });
       }
     );
@@ -67,7 +67,7 @@ context("Testing Vertical Menu component", () => {
 
         verticalMenuComponent().then(($el) => {
           expect($el).to.have.attr("height").to.equals(height);
-          useJQueryCssValueAndAssert($el, "height", heightInPx);
+          assertCssValueIsApproximately($el, "height", heightInPx);
         });
       }
     );
@@ -277,7 +277,7 @@ context("Testing Vertical Menu component", () => {
 
         verticalMenuTrigger().then(($el) => {
           expect($el).to.have.attr("height").to.equals(height);
-          useJQueryCssValueAndAssert($el, "min-height", parseInt(height));
+          assertCssValueIsApproximately($el, "min-height", parseInt(height));
         });
       }
     );

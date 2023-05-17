@@ -21,7 +21,7 @@ import { accordionDefaultTitle } from "../../locators/accordion";
 import { alertDialogPreview } from "../../locators/dialog";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -79,7 +79,7 @@ context("Tests for MultiActionButton component", () => {
       CypressMountWithProviders(<MultiActionButtonList size={size} />);
 
       multiActionButtonComponent().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", height);
+        assertCssValueIsApproximately($el, "height", height);
       });
     });
 
@@ -189,7 +189,7 @@ context("Tests for MultiActionButton component", () => {
       CypressMountWithProviders(<MultiActionButtonList width="70%" />);
 
       multiActionButton().then(($el) => {
-        useJQueryCssValueAndAssert($el, "width", 956);
+        assertCssValueIsApproximately($el, "width", 956);
       });
     });
   });

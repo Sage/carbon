@@ -11,7 +11,7 @@ import { CHARACTERS } from "../../support/component-helper/constants";
 import { tile, tileFooter } from "../../locators/tile/index";
 import {
   checkOutlineCss,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 
 const testData = ["left", "center", "right"];
@@ -44,7 +44,7 @@ context("Tests for Tile component", () => {
           <testStories.TileComponent orientation={orientation} />
         );
         tile().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
+          assertCssValueIsApproximately($el, "height", height);
         });
       }
     );
@@ -60,7 +60,7 @@ context("Tests for Tile component", () => {
           <testStories.TileComponent width={widthInPercentage} />
         );
         tile().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", widthInPixel);
+          assertCssValueIsApproximately($el, "width", widthInPixel);
         });
       }
     );
@@ -104,11 +104,11 @@ context("Tests for Tile component", () => {
       getDataElementByValue("dt")
         .should("have.css", "text-align", "left")
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", 1366);
+          assertCssValueIsApproximately($el, "width", 1366);
         });
       getDataElementByValue("dd").then(($el) => {
-        useJQueryCssValueAndAssert($el, "width", 1366);
-        useJQueryCssValueAndAssert($el, "margin-left", 0);
+        assertCssValueIsApproximately($el, "width", 1366);
+        assertCssValueIsApproximately($el, "margin-left", 0);
       });
     });
 
@@ -128,18 +128,18 @@ context("Tests for Tile component", () => {
         getDataElementByValue("dt")
           .should("have.css", "text-align", "left")
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", dtWidth);
-            useJQueryCssValueAndAssert($el, "margin-block-start", 0);
-            useJQueryCssValueAndAssert($el, "margin-block-end", 16);
-            useJQueryCssValueAndAssert($el, "margin-left", 0);
+            assertCssValueIsApproximately($el, "width", dtWidth);
+            assertCssValueIsApproximately($el, "margin-block-start", 0);
+            assertCssValueIsApproximately($el, "margin-block-end", 16);
+            assertCssValueIsApproximately($el, "margin-left", 0);
           });
         getDataElementByValue("dd")
           .should("have.css", "text-align", "left")
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", ddWidth);
-            useJQueryCssValueAndAssert($el, "margin-block-start", 0);
-            useJQueryCssValueAndAssert($el, "margin-block-end", 16);
-            useJQueryCssValueAndAssert($el, "margin-left", 0);
+            assertCssValueIsApproximately($el, "width", ddWidth);
+            assertCssValueIsApproximately($el, "margin-block-start", 0);
+            assertCssValueIsApproximately($el, "margin-block-end", 16);
+            assertCssValueIsApproximately($el, "margin-left", 0);
           });
       }
     );
@@ -192,7 +192,7 @@ context("Tests for Tile component", () => {
     ])("should check w as %s for Tile component", (w, dtWidth) => {
       CypressMountWithProviders(<testStories.DlTileComponent w={w} />);
       getDataElementByValue("dt").then(($el) => {
-        useJQueryCssValueAndAssert($el, "width", dtWidth);
+        assertCssValueIsApproximately($el, "width", dtWidth);
       });
     });
 
@@ -226,7 +226,7 @@ context("Tests for Tile component", () => {
           <testStories.TileComponent borderWidth={borderWidth} />
         );
         tile().then(($el) => {
-          useJQueryCssValueAndAssert($el, "border-width", pixelWidth);
+          assertCssValueIsApproximately($el, "border-width", pixelWidth);
         });
       }
     );

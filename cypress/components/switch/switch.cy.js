@@ -20,7 +20,7 @@ import {
 } from "../../locators/index";
 import { keyCode } from "../../support/helper";
 import {
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
   verifyRequiredAsteriskForLabel,
 } from "../../support/component-helper/common-steps";
 import {
@@ -210,9 +210,9 @@ context("Testing Switch component", () => {
           .parent()
           .should(have, "box-sizing", "border-box")
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "height", height);
-            useJQueryCssValueAndAssert($el, "margin-bottom", margin);
-            useJQueryCssValueAndAssert($el, "padding-right", padding);
+            assertCssValueIsApproximately($el, "height", height);
+            assertCssValueIsApproximately($el, "margin-bottom", margin);
+            assertCssValueIsApproximately($el, "padding-right", padding);
           });
       }
     );
@@ -229,7 +229,7 @@ context("Testing Switch component", () => {
         switchLabel()
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", labelRatio);
+            assertCssValueIsApproximately($el, "width", labelRatio);
           });
       }
     );
@@ -248,7 +248,7 @@ context("Testing Switch component", () => {
         switchInput()
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", inputRatio);
+            assertCssValueIsApproximately($el, "width", inputRatio);
           });
       }
     );
@@ -280,7 +280,7 @@ context("Testing Switch component", () => {
       switchLabel()
         .parent()
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "padding-right", padding);
+          assertCssValueIsApproximately($el, "padding-right", padding);
         });
     });
 
@@ -371,8 +371,8 @@ context("Testing Switch component", () => {
       CypressMountWithProviders(<SwitchComponent size={size} />);
 
       switchInput().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", height);
-        useJQueryCssValueAndAssert($el, "width", width);
+        assertCssValueIsApproximately($el, "height", height);
+        assertCssValueIsApproximately($el, "width", width);
       });
     });
 
@@ -398,7 +398,7 @@ context("Testing Switch component", () => {
           .parent()
           .should(attribute, "box-sizing", "border-box")
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "height", height);
+            assertCssValueIsApproximately($el, "height", height);
           });
       }
     );

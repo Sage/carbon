@@ -29,7 +29,7 @@ import {
 } from "../../locators/card/index";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 import {
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
   disableTheAnimationAndTransitions,
 } from "../../support/component-helper/common-steps";
 import { cyRoot } from "../../locators";
@@ -48,8 +48,8 @@ context("Tests for Card component", () => {
       (spacing, paddings) => {
         CypressMountWithProviders(<CardComponent spacing={spacing} />);
         card().then(($el) => {
-          useJQueryCssValueAndAssert($el, "padding-left", paddings);
-          useJQueryCssValueAndAssert($el, "padding-right", paddings);
+          assertCssValueIsApproximately($el, "padding-left", paddings);
+          assertCssValueIsApproximately($el, "padding-right", paddings);
         });
       }
     );
@@ -67,7 +67,7 @@ context("Tests for Card component", () => {
       (width) => {
         CypressMountWithProviders(<CardComponent cardWidth={`${width}px`} />);
         card().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", width);
+          assertCssValueIsApproximately($el, "width", width);
         });
       }
     );
@@ -165,7 +165,7 @@ context("Tests for Card component", () => {
       (height) => {
         CypressMountWithProviders(<CardComponent height={`${height}px`} />);
         card().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
+          assertCssValueIsApproximately($el, "height", height);
         });
       }
     );

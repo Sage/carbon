@@ -12,7 +12,7 @@ import {
   COLOR,
   CHARACTERS,
 } from "../../support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import { getDataElementByValue } from "../../locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -142,7 +142,7 @@ context("Tests for Tooltip component", () => {
               />
             );
             tooltipPreview().then(($el) => {
-              useJQueryCssValueAndAssert($el, position, offset[position]);
+              assertCssValueIsApproximately($el, position, offset[position]);
               Cypress.dom.isVisible($el);
             });
           }

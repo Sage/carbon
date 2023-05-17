@@ -43,7 +43,7 @@ import { getDataElementByValue, fieldHelpPreview } from "../../locators";
 import { keyCode } from "../../support/helper";
 import {
   verifyRequiredAsteriskForLabel,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
@@ -344,13 +344,13 @@ context("Test for DateInput component", () => {
         getDataElementByValue("label")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", labelRatio);
+            assertCssValueIsApproximately($el, "width", labelRatio);
           });
 
         getDataElementByValue("input")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", inputRatio);
+            assertCssValueIsApproximately($el, "width", inputRatio);
           });
       }
     );

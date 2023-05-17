@@ -18,7 +18,7 @@ import {
   VALIDATION,
   CHARACTERS,
 } from "../../support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
 const testPropValue = CHARACTERS.STANDARD;
@@ -235,7 +235,7 @@ context("Testing Button-Toggle-Group component", () => {
           .parent()
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", width);
+            assertCssValueIsApproximately($el, "width", width);
           });
       }
     );
@@ -326,7 +326,7 @@ context("Testing Button-Toggle-Group component", () => {
       );
 
       buttonToggleLabelPreview(1).then(($el) => {
-        useJQueryCssValueAndAssert($el, "width", 450);
+        assertCssValueIsApproximately($el, "width", 450);
       });
     });
   });

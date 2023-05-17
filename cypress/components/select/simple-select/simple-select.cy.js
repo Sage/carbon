@@ -35,7 +35,7 @@ import { alertDialogPreview } from "../../../locators/dialog";
 import { loader } from "../../../locators/loader";
 
 import {
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
   verifyRequiredAsteriskForLabel,
 } from "../../../support/component-helper/common-steps";
 
@@ -239,13 +239,13 @@ context("Tests for SimpleSelect component", () => {
         getDataElementByValue("label")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", labelRatio);
+            assertCssValueIsApproximately($el, "width", labelRatio);
           });
 
         getDataElementByValue("input")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", inputRatio);
+            assertCssValueIsApproximately($el, "width", inputRatio);
           });
       }
     );

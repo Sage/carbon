@@ -71,7 +71,7 @@ import { CHARACTERS } from "../../support/component-helper/constants";
 
 import {
   checkOutlineCss,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 
 import {
@@ -2988,7 +2988,7 @@ context("Tests for Flat Table component", () => {
         CypressMountWithProviders(<FlatTableComponent size={sizeName} />);
 
         flatTableHeader().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", rowHeight);
+          assertCssValueIsApproximately($el, "height", rowHeight);
         });
 
         for (let i = 0; i < 4; i++) {
@@ -3194,7 +3194,7 @@ context("Tests for Flat Table component", () => {
         flatTableHeaderCells()
           .eq(column)
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", width);
+            assertCssValueIsApproximately($el, "width", width);
           });
       }
     );
