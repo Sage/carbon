@@ -27,6 +27,6 @@ export const DefaultStory = ({ size, ...args }: LoaderBarProps) => {
 
 DefaultStory.storyName = "default";
 
-export const LoaderBarComponentTest = ({ ...args }) => {
-  return <LoaderBar mt={2} size="medium" {...args} />;
+export const LoaderBarComponentTest = (props: LoaderBarProps) => {
+  return <LoaderBar mt={2} size="medium" {...props} />;
 };
