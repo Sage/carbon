@@ -749,4 +749,17 @@ context("Testing Checkbox component", () => {
       );
     }
   );
+
+  it.each(["small", "large"])(
+    "should have expected double focus box-shadow with correct design tokens",
+    (size) => {
+      CypressMountWithProviders(<CheckboxComponent size={size} />);
+      checkboxSvg()
+        .getDesignTokensByCssProperty("box-shadow")
+        .then(($el) => {
+          expect($el[0]).to.equal("--colorsSemanticFocus500");
+          expect($el[1]).to.equal("--colorsUtilityYin090");
+        });
+    }
+  );
 });

@@ -80,7 +80,7 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
     ${StyledHiddenCheckableInput}:not([disabled]) {
       &:focus + ${StyledCheckableInputSvgWrapper},
       &:hover + ${StyledCheckableInputSvgWrapper} {
-        box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
       }
     }
 
