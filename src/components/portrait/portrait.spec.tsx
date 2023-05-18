@@ -404,35 +404,5 @@ describe("PortraitComponent", () => {
 
       expect(shape).toEqual("circle");
     });
-
-    it("sets the border radius to borderRadiusCircle if false", () => {
-      const wrapper = mount(
-        <CarbonProvider>
-          <Portrait initials="AB" tooltipMessage="message" />
-        </CarbonProvider>
-      ).find(StyledPortraitInitials);
-
-      assertStyleMatch(
-        {
-          borderRadius: "var(--borderRadiusCircle)",
-        },
-        wrapper
-      );
-    });
-
-    it("sets the border radius to 50% if true", () => {
-      const wrapper = mount(
-        <CarbonProvider roundedCornersOptOut>
-          <Portrait initials="AB" shape="circle" />
-        </CarbonProvider>
-      ).find(StyledPortraitInitials);
-
-      assertStyleMatch(
-        {
-          borderRadius: "50%",
-        },
-        wrapper
-      );
-    });
   });
 });

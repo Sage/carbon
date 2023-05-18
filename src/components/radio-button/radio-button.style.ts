@@ -14,16 +14,9 @@ const RadioButtonStyle = styled(CheckboxStyle)<
   Pick<
     RadioButtonProps,
     "disabled" | "fieldHelpInline" | "reverse" | "size"
-  > & { inline?: boolean; roundedCornersOptOut?: boolean }
+  > & { inline?: boolean }
 >`
-  ${({
-    disabled,
-    fieldHelpInline,
-    reverse,
-    size,
-    inline,
-    roundedCornersOptOut,
-  }) => css`
+  ${({ disabled, fieldHelpInline, reverse, size, inline }) => css`
     margin-bottom: var(--spacing150);
 
     :last-of-type {
@@ -39,9 +32,7 @@ const RadioButtonStyle = styled(CheckboxStyle)<
     }
 
     ${StyledCheckableInputSvgWrapper}, svg {
-      border-radius: ${roundedCornersOptOut
-        ? "50%"
-        : "var(--borderRadiusCircle)"};
+      border-radius: var(--borderRadiusCircle);
     }
 
     ${StyledCheckableInput},

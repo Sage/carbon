@@ -15,7 +15,11 @@ export default (
 ): string =>
   Object.entries(theme)
     .map(([key, value]) => {
-      if (roundedCornersOptOupt && key.startsWith("borderRadius")) {
+      if (
+        roundedCornersOptOupt &&
+        key.startsWith("borderRadius") &&
+        key !== "borderRadiusCircle"
+      ) {
         return `--${key}: 0px;`;
       }
       return `--${key}: ${value};`;

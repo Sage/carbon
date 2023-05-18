@@ -19,8 +19,8 @@ const CarbonScopedTokensProvider = styled.div<
   width: auto;
   display: inline;
 
-  ${({ theme, roundedCornersOptOut }) =>
-    generateCssVariables(theme.compatibility, roundedCornersOptOut)}
+  ${({ theme }) =>
+    generateCssVariables(theme.compatibility, theme.roundedCornersOptOut)}
 `;
 
 CarbonScopedTokensProvider.defaultProps = {

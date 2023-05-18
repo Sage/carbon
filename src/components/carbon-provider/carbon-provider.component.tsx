@@ -25,8 +25,8 @@ export const CarbonProvider = ({
   validationRedesignOptIn = false,
   roundedCornersOptOut = false,
 }: CarbonProviderProps) => (
-  <ThemeProvider theme={theme}>
-    <CarbonScopedTokensProvider roundedCornersOptOut={roundedCornersOptOut}>
+  <ThemeProvider theme={{ ...theme, roundedCornersOptOut }}>
+    <CarbonScopedTokensProvider>
       <NewValidationContext.Provider
         value={{ validationRedesignOptIn, roundedCornersOptOut }}
       >

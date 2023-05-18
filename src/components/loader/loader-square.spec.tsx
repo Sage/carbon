@@ -77,12 +77,23 @@ describe("Loader square", () => {
     });
   });
 
-  it("has expected border radius token", () => {
-    assertStyleMatch(
-      {
-        borderRadius: "var(--borderRadiusCircle)",
-      },
-      render({})
-    );
+  describe("rounded corners opt out", () => {
+    it("overrides the border radius on the loader square when flag is true", () => {
+      assertStyleMatch(
+        {
+          borderRadius: undefined,
+        },
+        render({ roundedCornersOptOut: true })
+      );
+    });
+
+    it("does not override the border radius on the loader square when flag is false", () => {
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadiusCircle)",
+        },
+        render({ roundedCornersOptOut: false })
+      );
+    });
   });
 });

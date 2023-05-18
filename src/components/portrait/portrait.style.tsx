@@ -29,22 +29,16 @@ function stylingForSize({ size, initials }: StylingForSize) {
   `;
 }
 
-interface RoundedCornersOptOut {
-  roundedCornersOptOut?: boolean;
-}
-
-interface StylingForShape extends RoundedCornersOptOut {
+interface StylingForShape {
   shape?: PortraitShapes;
 }
 
-function stylingForShape({ shape, roundedCornersOptOut }: StylingForShape) {
+function stylingForShape({ shape }: StylingForShape) {
   let cssString = "overflow: hidden;";
 
   if (shape === "square") cssString += "border-radius: 0px;";
   if (shape === "circle")
-    cssString += `border-radius: ${
-      roundedCornersOptOut ? "50%" : "var(--borderRadiusCircle)"
-    };`;
+    cssString += "border-radius: var(--borderRadiusCircle);";
 
   return css`
     ${cssString}
@@ -97,9 +91,7 @@ type StyledPortraitInitialsProps = PortraitSizeAndShape & {
   initials?: string;
 };
 
-export const StyledPortraitInitials = styled.div<
-  StyledPortraitInitialsProps & RoundedCornersOptOut
->`
+export const StyledPortraitInitials = styled.div<StyledPortraitInitialsProps>`
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
@@ -120,18 +112,14 @@ export const StyledPortraitInitialsImg = styled.img`
   display: block;
 `;
 
-export const StyledPortraitGravatar = styled.img<
-  PortraitSizeAndShape & RoundedCornersOptOut
->`
+export const StyledPortraitGravatar = styled.img<PortraitSizeAndShape>`
   display: inline-block;
   vertical-align: middle;
   ${stylingForSize}
   ${stylingForShape}
 `;
 
-export const StyledCustomImg = styled.img<
-  PortraitSizeAndShape & RoundedCornersOptOut
->`
+export const StyledCustomImg = styled.img<PortraitSizeAndShape>`
   display: block;
   ${stylingForSize}
   ${stylingForShape}
@@ -139,14 +127,12 @@ export const StyledCustomImg = styled.img<
 
 // && is used here to increase the specificity
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const StyledIcon = styled(Icon)<
-  {
-    size: PortraitSizes;
-    shape?: PortraitShapes;
-    darkBackground: boolean;
-    type: IconType;
-  } & RoundedCornersOptOut
->`
+export const StyledIcon = styled(Icon)<{
+  size: PortraitSizes;
+  shape?: PortraitShapes;
+  darkBackground: boolean;
+  type: IconType;
+}>`
   && {
     box-sizing: border-box;
     line-height: 14px;

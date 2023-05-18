@@ -24,7 +24,6 @@ describe("generateCssVariables", () => {
     borderRadius050: "4px",
     borderRadius150: "12px",
     borderRadius250: "20px",
-    borderRadiusCircel: "50%",
   };
   let output: string;
 

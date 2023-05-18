@@ -102,7 +102,6 @@ export const Portrait = ({
         size={size}
         shape={shape || defaultShape}
         darkBackground={darkBackground}
-        roundedCornersOptOut={roundedCornersOptOut}
       />
     );
 
@@ -127,7 +126,6 @@ export const Portrait = ({
           shape={shape || defaultShape}
           data-element="user-image"
           onError={() => setExternalError(true)}
-          roundedCornersOptOut={roundedCornersOptOut}
         />
       );
     }

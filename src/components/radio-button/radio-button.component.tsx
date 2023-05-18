@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
@@ -8,7 +8,6 @@ import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
-import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
 
 interface InternalRadioButtonProps {
   inline?: boolean;
@@ -81,8 +80,6 @@ export const RadioButton = React.forwardRef<
     ref
   ) => {
     const marginProps = filterStyledSystemMarginProps(props);
-    const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
-
     const handleChange = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
         /* istanbul ignore else */
@@ -161,7 +158,6 @@ export const RadioButton = React.forwardRef<
           size={size}
           {...commonProps}
           {...marginProps}
-          roundedCornersOptOut={roundedCornersOptOut}
         >
           <CheckableInput {...inputProps}>
             <RadioButtonSvg />

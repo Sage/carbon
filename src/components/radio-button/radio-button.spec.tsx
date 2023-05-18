@@ -293,45 +293,23 @@ describe("RadioButton", () => {
     });
   });
 
-  describe("roundedCornersOptOut", () => {
-    it("uses the borderRadiusCircle token when flag is false", () => {
-      const wrapper = mount(<RadioButtonStyle />);
+  it("has the expected border radius styling", () => {
+    const wrapper = mount(<RadioButtonStyle />);
 
-      assertStyleMatch(
-        {
-          borderRadius: "var(--borderRadiusCircle)",
-        },
-        wrapper,
-        { modifier: `${StyledCheckableInputSvgWrapper}` }
-      );
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadiusCircle)",
+      },
+      wrapper,
+      { modifier: `${StyledCheckableInputSvgWrapper}` }
+    );
 
-      assertStyleMatch(
-        {
-          borderRadius: "var(--borderRadiusCircle)",
-        },
-        wrapper,
-        { modifier: "svg" }
-      );
-    });
-
-    it("does not use the borderRadiusCircle token when flag is true", () => {
-      const wrapper = mount(<RadioButtonStyle roundedCornersOptOut />);
-
-      assertStyleMatch(
-        {
-          borderRadius: "50%",
-        },
-        wrapper,
-        { modifier: `${StyledCheckableInputSvgWrapper}` }
-      );
-
-      assertStyleMatch(
-        {
-          borderRadius: "50%",
-        },
-        wrapper,
-        { modifier: "svg" }
-      );
-    });
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadiusCircle)",
+      },
+      wrapper,
+      { modifier: "svg" }
+    );
   });
 });
