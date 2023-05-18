@@ -196,4 +196,22 @@ context("Testing Carousel component", () => {
       slide(4).should("have.css", "border-radius", "16px");
     });
   });
+
+  it("should have expected double focus box-shadow with correct design tokens", () => {
+    CypressMountWithProviders(<CarouselComponent />);
+
+    nextArrowButton()
+      .getDesignTokensByCssProperty("box-shadow")
+      .then(($el) => {
+        expect($el[0]).to.equal("--colorsSemanticFocus500");
+        expect($el[1]).to.equal("--colorsUtilityYin090");
+      });
+
+    previousArrowButton()
+      .getDesignTokensByCssProperty("box-shadow")
+      .then(($el) => {
+        expect($el[0]).to.equal("--colorsSemanticFocus500");
+        expect($el[1]).to.equal("--colorsUtilityYin090");
+      });
+  });
 });

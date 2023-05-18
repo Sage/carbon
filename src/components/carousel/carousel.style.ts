@@ -73,7 +73,9 @@ const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
     }
 
     &:focus {
-      outline: 2px solid var(--colorsSemanticFocus500);
+      outline: none;
+      box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+        0 0 0 4px var(--colorsUtilityYin090);
 
       ::-moz-focus-inner {
         border: 0;
