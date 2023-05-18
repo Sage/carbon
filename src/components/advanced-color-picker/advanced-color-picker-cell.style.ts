@@ -30,8 +30,6 @@ const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
     cursor: pointer;
   }
 
-  ${addFocusStyling}
-
   &::-moz-focus-inner {
     border: none;
   }

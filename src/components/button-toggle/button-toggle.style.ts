@@ -81,7 +81,6 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
     outline: 3px solid var(--colorsSemanticFocus500);
     z-index: 100;
   }
-
   input:not(:checked):not(:disabled) ~ &:hover {
     background-color: var(--colorsActionMinor200);
     border-color: var(--colorsActionMinor500);
