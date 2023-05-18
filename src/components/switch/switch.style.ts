@@ -36,7 +36,9 @@ const StyledSwitch = styled.div`
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider} {
-        outline: solid 3px var(--colorsSemanticFocus500);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+          0 0 0 4px var(--colorsUtilityYin090);
       }
     }
 
