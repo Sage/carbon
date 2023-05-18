@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Detail from "../../../src/components/detail";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
