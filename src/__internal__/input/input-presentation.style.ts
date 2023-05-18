@@ -101,7 +101,8 @@ const InputPresentationStyle = styled.div<
     hasFocus &&
     css`
       & {
-        outline: 3px solid var(--colorsSemanticFocus500);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
         z-index: 2;
       }
     `}
