@@ -17,7 +17,9 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
     ${as !== "div" &&
     css`
       :focus {
-        outline: 2px solid var(--colorsSemanticFocus500);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+          0 0 0 4px var(--colorsUtilityYin090);
         outline-offset: -1px;
       }
 
