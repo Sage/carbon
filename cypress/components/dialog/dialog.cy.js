@@ -9,7 +9,7 @@ import {
 } from "../../locators/dialog";
 import { textEditorInput, textEditorToolbar } from "../../locators/text-editor";
 import { formFooterComponent } from "../../locators/form";
-import { keyCode } from "../../support/helper";
+import { keyCode, continuePressingTABKey } from "../../support/helper";
 import { buttonDataComponent } from "../../locators/button";
 import {
   backgroundUILocator,
@@ -682,5 +682,55 @@ context("Testing Dialog component", () => {
       "border-radius",
       "0px 0px 16px 16px"
     );
+  });
+
+  describe("test background scroll when tabbing", () => {
+    it("tabbing forward through the dialog and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <stories.DialogBackgroundScrollTestComponent />
+      );
+
+      continuePressingTABKey(3);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing backward through the dialog and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <stories.DialogBackgroundScrollTestComponent />
+      );
+
+      continuePressingTABKey(2, true);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing forward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <stories.DialogBackgroundScrollWithOtherFocusableContainers />
+      );
+
+      continuePressingTABKey(6);
+
+      closeIconButton().eq(0).should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing backward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <stories.DialogBackgroundScrollWithOtherFocusableContainers />
+      );
+
+      continuePressingTABKey(7, true);
+
+      closeIconButton().eq(0).should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
   });
 });

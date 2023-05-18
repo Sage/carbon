@@ -135,7 +135,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
         text-decoration: none;
       }
 
-      ${StyledIcon} {
+      > ${StyledIcon} {
         width: 16px;
         height: 16px;
         margin-right: 5px;

@@ -1,7 +1,11 @@
 import React from "react";
 import Sidebar from "../../../src/components/sidebar";
 import { sidebarPreview } from "../../locators/sidebar";
-import { SidebarComponent } from "../../../src/components/sidebar/sidebar-test.stories";
+import {
+  SidebarComponent,
+  SidebarBackgroundScrollTestComponent,
+  SidebarBackgroundScrollWithOtherFocusableContainers,
+} from "../../../src/components/sidebar/sidebar-test.stories";
 import {
   backgroundUILocator,
   closeIconButton,
@@ -12,7 +16,7 @@ import Button from "../../../src/components/button";
 import Textbox from "../../../src/components/textbox";
 import Toast from "../../../src/components/toast";
 import Typography from "../../../src/components/typography";
-import { keyCode } from "../../support/helper";
+import { keyCode, continuePressingTABKey } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import {
   SIDEBAR_SIZES,
@@ -295,6 +299,52 @@ context("Testing Sidebar component", () => {
       CypressMountWithProviders(<SidebarComponent size={size} />);
 
       cy.checkAccessibility();
+    });
+  });
+
+  describe("test background scroll when tabbing", () => {
+    it("tabbing forward through the sidebar and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(<SidebarBackgroundScrollTestComponent />);
+
+      continuePressingTABKey(3);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing backward through the sidebar and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(<SidebarBackgroundScrollTestComponent />);
+
+      continuePressingTABKey(2, true);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing forward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <SidebarBackgroundScrollWithOtherFocusableContainers />
+      );
+
+      continuePressingTABKey(6);
+
+      closeIconButton().eq(0).should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing backward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <SidebarBackgroundScrollWithOtherFocusableContainers />
+      );
+
+      continuePressingTABKey(7, true);
+
+      closeIconButton().eq(0).should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
     });
   });
 });

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { action } from "@storybook/addon-actions";
 
 import Button from "../button";
 import Sidebar, { SidebarProps } from ".";
 import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
+import Box from "../box";
+import Toast from "../toast";
+import Textbox from "../textbox";
 
 export default {
   component: Sidebar,
@@ -119,5 +122,43 @@ export const SidebarComponent = ({ ...props }) => {
         </div>
       </Sidebar>
     </>
+  );
+};
+
+export const SidebarBackgroundScrollTestComponent = () => {
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <Sidebar open onCancel={() => {}}>
+        <Textbox label="textbox" />
+      </Sidebar>
+    </Box>
+  );
+};
+
+export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
+  const toast1Ref = useRef(null);
+  const toast2Ref = useRef(null);
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <Sidebar
+        open
+        onCancel={() => {}}
+        focusableContainers={[toast1Ref, toast2Ref]}
+      >
+        <Textbox label="textbox" />
+      </Sidebar>
+      <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
+        Toast message 1
+      </Toast>
+      <Toast open onDismiss={() => {}} ref={toast2Ref} targetPortalId="stacked">
+        Toast message 2
+      </Toast>
+    </Box>
   );
 };

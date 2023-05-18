@@ -11,6 +11,7 @@ import Toast from "../toast";
 import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
 import TextEditor from "../text-editor";
+import Box from "../box";
 import { DIALOG_SIZES } from "./dialog.config";
 
 export default {
@@ -245,5 +246,43 @@ export const DialogComponentWithTextEditor = ({
         <Textbox label="Textbox3" value="Textbox3" />
       </Dialog>
     </>
+  );
+};
+
+export const DialogBackgroundScrollTestComponent = () => {
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <Dialog open onCancel={() => {}}>
+        <Textbox label="textbox" />
+      </Dialog>
+    </Box>
+  );
+};
+
+export const DialogBackgroundScrollWithOtherFocusableContainers = () => {
+  const toast1Ref = useRef(null);
+  const toast2Ref = useRef(null);
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <Dialog
+        open
+        onCancel={() => {}}
+        focusableContainers={[toast1Ref, toast2Ref]}
+      >
+        <Textbox label="textbox" />
+      </Dialog>
+      <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
+        Toast message 1
+      </Toast>
+      <Toast open onDismiss={() => {}} ref={toast2Ref} targetPortalId="stacked">
+        Toast message 2
+      </Toast>
+    </Box>
   );
 };

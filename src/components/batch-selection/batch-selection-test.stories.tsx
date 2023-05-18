@@ -42,3 +42,22 @@ Default.args = {
   selectedCount: 0,
   colorTheme: "transparent",
 };
+
+export const BatchSelectionComponent = ({
+  children,
+  selectedCount = 0,
+  ...rest
+}: Partial<BatchSelectionProps>) => (
+  <BatchSelection {...rest} selectedCount={selectedCount}>
+    <IconButton aria-label="icon-button" onClick={() => {}}>
+      <Icon type="csv" />
+    </IconButton>
+    <IconButton aria-label="icon-button" onClick={() => {}}>
+      <Icon type="bin" />
+    </IconButton>
+    <IconButton aria-label="icon-button" onClick={() => {}}>
+      <Icon type="pdf" />
+    </IconButton>
+    {children}
+  </BatchSelection>
+);

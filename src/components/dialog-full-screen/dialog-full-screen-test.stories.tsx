@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { action } from "@storybook/addon-actions";
 import DialogFullScreen, { DialogFullScreenProps } from ".";
 import Dialog from "../dialog";
@@ -8,6 +8,7 @@ import Textbox from "../textbox";
 import Pill from "../pill";
 import Box from "../box";
 import CarbonProvider from "../carbon-provider";
+import Toast from "../toast";
 
 export default {
   title: "Dialog Full Screen/Test",
@@ -281,5 +282,43 @@ export const DialogFullScreenWithHeaderChildren = () => {
         </Form>
       </DialogFullScreen>
     </>
+  );
+};
+
+export const DialogFullScreenBackgroundScrollTestComponent = () => {
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <DialogFullScreen open onCancel={() => {}}>
+        <Textbox label="textbox" />
+      </DialogFullScreen>
+    </Box>
+  );
+};
+
+export const DialogFullScreenBackgroundScrollWithOtherFocusableContainers = () => {
+  const toast1Ref = useRef(null);
+  const toast2Ref = useRef(null);
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <DialogFullScreen
+        open
+        onCancel={() => {}}
+        focusableContainers={[toast1Ref, toast2Ref]}
+      >
+        <Textbox label="textbox" />
+      </DialogFullScreen>
+      <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
+        Toast message 1
+      </Toast>
+      <Toast open onDismiss={() => {}} ref={toast2Ref} targetPortalId="stacked">
+        Toast message 2
+      </Toast>
+    </Box>
   );
 };

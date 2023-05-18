@@ -1,4 +1,6 @@
+/* eslint-disable jest/valid-expect */
 import React from "react";
+import { ButtonBarProps } from "components/button-bar";
 import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
@@ -17,27 +19,31 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 context("Test for Button-Bar component", () => {
   describe("check props for Button-Bar component", () => {
     it.each([
-      [BUTTON_BAR_SIZES[0] as string, 32, "--spacing200"],
-      [BUTTON_BAR_SIZES[1] as string, 40, "--spacing300"],
-      [BUTTON_BAR_SIZES[2] as string, 48, "--spacing400"],
-    ])("should set size to %s for a Button-Bar", (size, px, token) => {
-      CypressMountWithProviders(<ButtonBarCustom size={size} />);
-      for (let i = 0; i < 3; i++) {
-        buttonDataComponent().eq(i).should("have.css", "min-height", `${px}px`);
-        buttonDataComponent()
-          .eq(i)
-          .getDesignTokensByCssProperty("padding-left")
-          .then(($el) => {
-            // eslint-disable-next-line jest/valid-expect
-            expect($el[0]).to.equal(token);
-          });
+      [BUTTON_BAR_SIZES[0], 32, "--spacing200"],
+      [BUTTON_BAR_SIZES[1], 40, "--spacing300"],
+      [BUTTON_BAR_SIZES[2], 48, "--spacing400"],
+    ] as [ButtonBarProps["size"], number, string][])(
+      "should set size to %s for a Button-Bar",
+      (size, px, token) => {
+        CypressMountWithProviders(<ButtonBarCustom size={size} />);
+        for (let i = 0; i < 3; i++) {
+          buttonDataComponent()
+            .eq(i)
+            .should("have.css", "min-height", `${px}px`);
+          buttonDataComponent()
+            .eq(i)
+            .getDesignTokensByCssProperty("padding-left")
+            .then(($el) => {
+              expect($el[0]).to.equal(token);
+            });
+        }
       }
-    });
+    );
 
     it.each([
-      [BUTTON_BAR_ICON_POSITIONS[0] as string, "right"],
-      [BUTTON_BAR_ICON_POSITIONS[1] as string, "left"],
-    ])(
+      [BUTTON_BAR_ICON_POSITIONS[0], "right"],
+      [BUTTON_BAR_ICON_POSITIONS[1], "left"],
+    ] as [ButtonBarProps["iconPosition"], string][])(
       "should set position to %s for icon in a Button-Bar",
       (iconPosition, margin) => {
         CypressMountWithProviders(

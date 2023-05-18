@@ -41,7 +41,6 @@ import {
 } from "../../../src/components/accordion/accordion-test.stories";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const accWidths = [["700px"], ["900px"], ["1100px"], ["1300px"]];
 
 context("Testing Accordion component", () => {
   describe("should render Accordion component", () => {
@@ -95,7 +94,8 @@ context("Testing Accordion component", () => {
           .and("be.visible")
           .and("have.css", "transform")
           .then((cssString) =>
-            expect(getRotationAngle(cssString)).to.equal(90)
+            // eslint-disable-next-line jest/valid-expect
+            expect(getRotationAngle(cssString.toString())).to.equal(90)
           );
       }
     );
@@ -132,7 +132,7 @@ context("Testing Accordion component", () => {
           accordionTitleContainer()
             .should("have.css", "justify-content", "space-between")
             .and("not.have.css", "flex-direction", "row-reverse");
-          accordionTitleContainer(positionOfElement("first"))
+          accordionTitleContainerByPosition(positionOfElement("first"))
             .first()
             .should("have.css", "margin-right", "0px");
         } else {
@@ -174,7 +174,7 @@ context("Testing Accordion component", () => {
         accordionTitleContainer()
           .click()
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
+            // eslint-disable-next-line no-unused-expressions, jest/valid-expect
             expect(callback).to.have.been.calledOnce;
           });
       }
@@ -259,13 +259,16 @@ context("Testing Accordion component", () => {
       accordion().should("have.css", "background-color", colour);
     });
 
-    it.each(accWidths)("should check Accordion width is %s", (widths) => {
-      CypressMountWithProviders(<AccordionComponent width={widths} />);
+    it.each(["700px", "900px", "1100px", "1300px"])(
+      "should check Accordion width is %s",
+      (widths) => {
+        CypressMountWithProviders(<AccordionComponent width={widths} />);
 
-      accordion().then(($el) => {
-        useJQueryCssValueAndAssert($el, "width", parseInt(widths));
-      });
-    });
+        accordion().then(($el) => {
+          useJQueryCssValueAndAssert($el, "width", parseInt(widths));
+        });
+      }
+    );
 
     it("should verify Accordion has an error message in the tooltip", () => {
       CypressMountWithProviders(<AccordionGroupWithError />);
@@ -425,7 +428,7 @@ context("Testing Accordion component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibility tests for Accordion with disableContentPadding ", () => {
+    it("should pass accessibility tests for Accordion with disableContentPadding", () => {
       CypressMountWithProviders(<AccordionDefault disableContentPadding />);
 
       cy.checkAccessibility();

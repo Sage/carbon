@@ -7,6 +7,8 @@ import {
   DialogFullScreenWithHeaderChildren,
   mainDialogTitle,
   nestedDialogTitle,
+  DialogFullScreenBackgroundScrollTestComponent,
+  DialogFullScreenBackgroundScrollWithOtherFocusableContainers,
 } from "../../../src/components/dialog-full-screen/dialog-full-screen-test.stories";
 import {
   Default as DefaultDocsStory,
@@ -40,7 +42,7 @@ import {
 import { buttonDataComponent } from "../../locators/button";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { contentElement } from "../../locators/content/index";
-import { keyCode } from "../../support/helper";
+import { keyCode, continuePressingTABKey } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -379,6 +381,56 @@ context("Testing DialogFullScreen component", () => {
         .contains("Open DialogFullScreen")
         .click()
         .then(() => cy.checkAccessibility());
+    });
+  });
+
+  describe("test background scroll when tabbing", () => {
+    it("tabbing forward through the dialog and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <DialogFullScreenBackgroundScrollTestComponent />
+      );
+
+      continuePressingTABKey(3);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing backward through the dialog and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <DialogFullScreenBackgroundScrollTestComponent />
+      );
+
+      continuePressingTABKey(2, true);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing forward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />
+      );
+
+      continuePressingTABKey(6);
+
+      closeIconButton().eq(0).should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing backward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(
+        <DialogFullScreenBackgroundScrollWithOtherFocusableContainers />
+      );
+
+      continuePressingTABKey(7, true);
+
+      closeIconButton().eq(0).should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
     });
   });
 });

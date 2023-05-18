@@ -5,6 +5,7 @@ import {
   VerticalMenuTriggerCustom,
   VerticalMenuItemCustomHref,
   VerticalMenuFullScreenCustom,
+  VerticalMenuFullScreenBackgroundScrollTest,
 } from "../../../src/components/vertical-menu/vertical-menu-test.stories";
 import VerticalMenuTrigger from "../../../src/components/vertical-menu/vertical-menu-trigger.component";
 import * as stories from "../../../src/components/vertical-menu/vertical-menu.stories";
@@ -21,6 +22,7 @@ import {
 } from "../../locators/vertical-menu";
 import { closeIconButton } from "../../locators/index";
 import { CHARACTERS } from "../../support/component-helper/constants";
+import { continuePressingTABKey } from "../../support/helper";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = CHARACTERS.STANDARD;
@@ -470,7 +472,30 @@ context("Testing Vertical Menu component", () => {
     });
   });
 
+  describe("VerticalMenuFullScreen test background scroll when tabbing", () => {
+    it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(<VerticalMenuFullScreenBackgroundScrollTest />);
+
+      continuePressingTABKey(4);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
+      CypressMountWithProviders(<VerticalMenuFullScreenBackgroundScrollTest />);
+
+      continuePressingTABKey(3, true);
+
+      closeIconButton().should("be.focused");
+
+      cy.checkNotInViewport("#bottom-box");
+    });
+  });
+
   describe("href redirect", () => {
+    // this test must be last in the test suite as the navigation to a new page messes up any later tests
     it("should navigate to the children href", () => {
       CypressMountWithProviders(<Default />);
 
