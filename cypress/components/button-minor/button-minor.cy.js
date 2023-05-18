@@ -4,8 +4,8 @@ import {
   Default as ButtonMinor,
   ButtonMinorCustom,
   ButtonMinorDifferentTypes,
-} from "../../../src/components/button-minor/button-minor-test.stories";
-import * as stories from "../../../src/components/button-minor/button-minor.stories";
+} from "../../../src/components/button-minor/button-minor-test.Stories";
+import * as Stories from "../../../src/components/button-minor/button-minor.Stories";
 import {
   buttonSubtextPreview,
   buttonMinorComponent,
@@ -17,7 +17,6 @@ import {
 } from "../../../src/components/button/button.config";
 
 import { cyRoot, icon, tooltipPreview } from "../../locators";
-import { positionOfElement } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
@@ -166,50 +165,36 @@ context("Test for Button Minor component", () => {
       }
     );
 
-    it.each([
-      buttonTypesAndBackgrounds[0][2],
-      buttonTypesAndBackgrounds[1][2],
-      buttonTypesAndBackgrounds[2][2],
-    ])(
-      "should check Button Minor is disabled for the button at index %s",
-      (index) => {
+    it.each(buttonTypesAndBackgrounds)(
+      "should check Button Minor is disabled for the %s button",
+      (position, type, index) => {
         CypressMountWithProviders(<ButtonMinorDifferentTypes disabled />);
 
         buttonMinorComponent(index)
           .should("be.disabled")
           .and("have.attr", "disabled");
       }
-    )
+    );
 
     it.each(buttonTypesAndBackgrounds)(
-      "should check Button Minor is enabled for the button at index %s",
-      (buttonTypeAndBackground) => {
-        CypressMountWithProviders(<ButtonMinorDifferentTypes />);
-
-        buttonMinorComponent(buttonTypeAndBackground[2][2]).should(
-          "be.enabled"
-        );
-      (index) => {
+      "should check Button Minor is enabled for the %s button",
+      (position, type, index) => {
         CypressMountWithProviders(<ButtonMinorDifferentTypes />);
 
         buttonMinorComponent(index).should("be.enabled");
-      (buttonTypeAndBackground) => {
-        CypressMountWithProviders(<ButtonMinorDifferentTypes />);
-
-        buttonMinorComponent(buttonTypeAndBackground[2]).should("be.enabled");
-        buttonMinorComponent(buttonTypeAndBackground[2][2]).should(
-          "be.enabled"
-        );
       }
+    );
 
     it.each(buttonTypesAndBackgrounds)(
-      "should check Button Minor is destructive for the button at index %s",
-      (buttonTypeAndBackground) => {
-        CypressMountWithProviders(<ButtonMinorDifferentTypes destructive />);
+      "should check Button Minor is destructive for the %s button when buttonType is %s",
+      (_, type, index) => {
+        CypressMountWithProviders(
+          <ButtonMinorDifferentTypes buttonType={type} destructive />
+        );
 
-        buttonMinorComponent(buttonTypeAndBackground[2][2]).realHover();
+        buttonMinorComponent(index).realHover();
 
-        buttonMinorComponent(buttonTypeAndBackground[2][2])
+        buttonMinorComponent(index)
           .should(
             "have.css",
             "background",
@@ -237,8 +222,7 @@ context("Test for Button Minor component", () => {
         buttonMinorComponent().should("have.attr", "type", type);
       }
     );
-  }
-  
+  });
 
   describe("check events for Button Minor component", () => {
     let callback;
@@ -299,131 +283,124 @@ context("Test for Button Minor component", () => {
 
   describe("accessibility tests", () => {
     it("should check accessibility for primary Button Minor", () => {
-      CypressMountWithProviders(<stories.PrimaryButton />);
+      CypressMountWithProviders(<Stories.PrimaryButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for primary destructive Button Minor", () => {
-      CypressMountWithProviders(<stories.PrimaryDestructiveButton />);
+      CypressMountWithProviders(<Stories.PrimaryDestructiveButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for primary disabled Button Minor", () => {
-      CypressMountWithProviders(<stories.PrimaryDisabledButton />);
+      CypressMountWithProviders(<Stories.PrimaryDisabledButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for primary icon before and after Button Minor", () => {
-      CypressMountWithProviders(<stories.PrimaryIconButton />);
+      CypressMountWithProviders(<Stories.PrimaryIconButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for primary full width Button Minor", () => {
-      CypressMountWithProviders(<stories.PrimaryFullWidthButton />);
+      CypressMountWithProviders(<Stories.PrimaryFullWidthButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for primary no wrap Button Minor", () => {
-      CypressMountWithProviders(<stories.PrimaryNoWrapButton />);
+      CypressMountWithProviders(<Stories.PrimaryNoWrapButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for secondary Button Minor", () => {
-      CypressMountWithProviders(<stories.SecondaryButton />);
+      CypressMountWithProviders(<Stories.SecondaryButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for secondary destrictive Button Minor", () => {
-      CypressMountWithProviders(<stories.SecondaryDestructiveButton />);
+      CypressMountWithProviders(<Stories.SecondaryDestructiveButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for secondary disabled Button Minor", () => {
-      CypressMountWithProviders(<stories.SecondaryDisabledButton />);
+      CypressMountWithProviders(<Stories.SecondaryDisabledButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for secondary icon before and after Button Minor", () => {
-      CypressMountWithProviders(<stories.SecondaryIconButton />);
+      CypressMountWithProviders(<Stories.SecondaryIconButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for secondary full width Button Minor", () => {
-      CypressMountWithProviders(<stories.SecondaryFullWidthButton />);
+      CypressMountWithProviders(<Stories.SecondaryFullWidthButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for secondary no wrap Button Minor", () => {
-      CypressMountWithProviders(<stories.SecondaryNoWrapButton />);
+      CypressMountWithProviders(<Stories.SecondaryNoWrapButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for tertiary Button Minor", () => {
-      CypressMountWithProviders(<stories.TertiaryButton />);
+      CypressMountWithProviders(<Stories.TertiaryButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for tertiary destructive Button Minor", () => {
-      CypressMountWithProviders(<stories.TertiaryDestructiveButton />);
+      CypressMountWithProviders(<Stories.TertiaryDestructiveButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for tertiary disabled Button Minor", () => {
-      CypressMountWithProviders(<stories.TertiaryDisabledButton />);
+      CypressMountWithProviders(<Stories.TertiaryDisabledButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for tertiary icon before and after Button Minor", () => {
-      CypressMountWithProviders(<stories.TertiaryIconButton />);
+      CypressMountWithProviders(<Stories.TertiaryIconButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for tertiary full width Button Minor", () => {
-      CypressMountWithProviders(<stories.TertiaryFullWidthButton />);
+      CypressMountWithProviders(<Stories.TertiaryFullWidthButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for tertiary no wrap Button Minor", () => {
-      CypressMountWithProviders(<stories.TertiaryNoWrapButton />);
+      CypressMountWithProviders(<Stories.TertiaryNoWrapButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for icon only Button Minor", () => {
-      CypressMountWithProviders(<stories.IconOnlyButton />);
+      CypressMountWithProviders(<Stories.IconOnlyButton />);
 
       cy.checkAccessibility();
     });
 
     it("should check accessibility for icon only with tooltip Button Minor", () => {
-      CypressMountWithProviders(<stories.IconOnlyWithTooltipButton />);
+      CypressMountWithProviders(<Stories.IconOnlyWithTooltipButton />);
 
       cy.checkAccessibility();
     });
-  });
-  it("should have the expected border radius and focus styling", () => {
-    CypressMountWithProviders(<ButtonMinor>Foo</ButtonMinor>);
-    buttonDataComponent().should("have.css", `border-radius`, "4px");
-    buttonDataComponent()
-      .focus()
-      .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
   });
 
   it("should have the expected border radius and focus styling", () => {
@@ -432,9 +409,5 @@ context("Test for Button Minor component", () => {
     buttonMinorComponent()
       .focus()
       .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
-      .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
-      .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
-      .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
   });
-});
 });
