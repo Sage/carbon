@@ -408,6 +408,6 @@ context("Test for Button Minor component", () => {
     buttonMinorComponent().should("have.css", `border-radius`, "4px");
     buttonMinorComponent()
       .focus()
-      .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+      .should("have.css", "outline", "rgb(255, 181, 0) solid 3px");
   });
 });

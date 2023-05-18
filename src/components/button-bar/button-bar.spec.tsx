@@ -1,6 +1,6 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
-import ButtonMinor from "components/button-minor/button-minor.component";
+import ButtonMinor from "../button-minor";
 import Icon, { IconType } from "../icon";
 import Button from "../button";
 import ButtonBar from "./button-bar.component";
@@ -8,6 +8,7 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledButton from "../button/button.style";
 import StyledIconButton from "../icon-button/icon-button.style";
+import StyledButtonMinor from "../button-minor/button-minor.style";
 
 const renderButtonBar = (
   text?: string,
@@ -319,22 +320,18 @@ describe("with different button props", () => {
     beforeEach(() => {
       wrapper = mount(
         <ButtonBar>
-          <ButtonMinor>Click me</ButtonMinor>
-          <ButtonMinor>Click me</ButtonMinor>
-          <ButtonMinor>Click me</ButtonMinor>
+          <ButtonMinor buttonType="primary">Click me</ButtonMinor>
+          <ButtonMinor buttonType="secondary">Click me</ButtonMinor>
+          <ButtonMinor buttonType="tertiary">Click me</ButtonMinor>
         </ButtonBar>
       );
     });
 
-    it("changes color, background-color, and border-color on hover", () => {
-      const button = wrapper.find('[data-component="button-minor"]').first();
-      button.simulate("mouseenter");
-      assertStyleMatch(
-        {
-          color: `var(--colorsActionMinor500)`,
-          borderColor: `var(--colorsActionMinor500)`,
-        },
-        button
+    it("overrides the buttonType of the children", () => {
+      const buttons = wrapper.find(StyledButtonMinor);
+
+      buttons.forEach((button) =>
+        expect(button.prop("buttonType")).toBe("secondary")
       );
     });
   });

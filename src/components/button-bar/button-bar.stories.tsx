@@ -10,7 +10,7 @@ import IconButton from "../icon-button";
 
 export const buttonBarSizes: ComponentStory<typeof ButtonBar> = () => (
   <>
-    <ButtonBar size="small" ml={2} mt={2}>
+    <ButtonBar size="small" ml={2} mt={2} buttonType="primary">
       <Button>Small</Button>
       <Button>Small</Button>
       <Button>Small</Button>
@@ -35,7 +35,7 @@ export const buttonBarSizes: ComponentStory<typeof ButtonBar> = () => (
 
 export const buttonBarMinorSizes: ComponentStory<typeof ButtonBar> = () => (
   <>
-    <ButtonBar size="small" ml={2} mt={2}>
+    <ButtonBar size="small" ml={2} mt={2} buttonType="primary">
       <ButtonMinor>Small</ButtonMinor>
       <ButtonMinor>Small</ButtonMinor>
       <ButtonMinor>Small</ButtonMinor>

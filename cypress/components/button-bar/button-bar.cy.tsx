@@ -1,5 +1,4 @@
 import React from "react";
-import { ButtonTypes } from "components/button/button.component";
 import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
@@ -154,71 +153,76 @@ context("Test for Button-Bar component", () => {
   });
 
   describe("renders with ButtonMinor children", () => {
-    const buttonTypesAndBackgrounds = [
-      ["1st", "primary", 0, "rgb(162, 44, 59)"],
-      ["2nd", "secondary", 1, "rgba(0, 0, 0, 0)"],
-      ["3rd", "tertiary", 2, "rgba(0, 0, 0, 0)"],
-    ];
+    it("should apply correct background-color on hover for all ButtonMinor children", () => {
+      CypressMountWithProviders(<ButtonBarMinor />);
 
-    describe("renders with ButtonMinor children", () => {
-      it.each(buttonTypesAndBackgrounds)(
-        "should apply correct background-color on hover for %s button when %s ButtonMinor children passed",
-
-        // https://github.com/bahmutov/cypress-each/issues/2
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        (_: any, buttonType: ButtonTypes, index: number, result: string) => {
-          CypressMountWithProviders(<ButtonBarMinor buttonType={buttonType} />);
-
-          buttonMinorComponent(index).should(
-            "have.css",
-            "background-color",
-            result
-          );
-          buttonMinorComponent(index).realHover();
-
-          // reset focus
-          cyRoot().realHover({ position: "topLeft" });
-        }
+      buttonMinorComponent(0).should(
+        "have.css",
+        "background-color",
+        "rgba(0, 0, 0, 0)"
       );
+      buttonMinorComponent(0).realHover();
 
-      it.each(buttonTypesAndBackgrounds)(
-        "should apply the correct color to the %s button when %s ButtonMinor children passed",
-
-        // https://github.com/bahmutov/cypress-each/issues/2
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        (_: any, buttonType: ButtonTypes, index: number, result: string) => {
-          CypressMountWithProviders(<ButtonBarMinor buttonType={buttonType} />);
-
-          buttonMinorComponent(index).should("have.css", "color", result);
-          buttonMinorComponent(index).realHover();
-
-          // reset focus
-          cyRoot().realHover({ position: "topLeft" });
-        }
+      buttonMinorComponent(1).should(
+        "have.css",
+        "background-color",
+        "rgba(0, 0, 0, 0)"
       );
+      buttonMinorComponent(1).realHover();
 
-      it.each(buttonTypesAndBackgrounds)(
-        "should check Button Minor Bar have correct border-color for the button at index %n",
-
-        // https://github.com/bahmutov/cypress-each/issues/2
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        (_: any, buttonType: ButtonTypes, index: number, result: string) => {
-          CypressMountWithProviders(<ButtonBarMinor buttonType={buttonType} />);
-
-          buttonMinorComponent(index).should(
-            "have.css",
-            "border-color",
-            result
-          );
-          buttonMinorComponent(index).realHover();
-
-          // reset focus
-          cyRoot().realHover({ position: "topLeft" });
-        }
+      buttonMinorComponent(2).should(
+        "have.css",
+        "background-color",
+        "rgba(0, 0, 0, 0)"
       );
+      buttonMinorComponent(2).realHover();
+
+      // reset focus
+      cyRoot().realHover({ position: "topLeft" });
+    });
+
+    it("should apply the correct color to the all ButtonMinor children", () => {
+      CypressMountWithProviders(<ButtonBarMinor />);
+
+      buttonMinorComponent(0).should("have.css", "color", "rgb(51, 91, 112)");
+      buttonMinorComponent(0).realHover();
+
+      buttonMinorComponent(1).should("have.css", "color", "rgb(51, 91, 112)");
+      buttonMinorComponent(1).realHover();
+
+      buttonMinorComponent(2).should("have.css", "color", "rgb(51, 91, 112)");
+      buttonMinorComponent(2).realHover();
+
+      // reset focus
+      cyRoot().realHover({ position: "topLeft" });
+    });
+
+    it("should check Button Minor Bar have correct border-color for the button at index %n", () => {
+      CypressMountWithProviders(<ButtonBarMinor />);
+
+      buttonMinorComponent(0).should(
+        "have.css",
+        "border-color",
+        "rgb(51, 91, 112) rgba(0, 0, 0, 0) rgb(51, 91, 112) rgb(51, 91, 112)"
+      );
+      buttonMinorComponent(1).realHover();
+
+      buttonMinorComponent(1).should(
+        "have.css",
+        "border-color",
+        "rgb(51, 91, 112) rgba(0, 0, 0, 0) rgb(51, 91, 112) rgb(51, 91, 112)"
+      );
+      buttonMinorComponent(0).realHover();
+
+      buttonMinorComponent(2).should(
+        "have.css",
+        "border-color",
+        "rgb(51, 91, 112)"
+      );
+      buttonMinorComponent(2).realHover();
+
+      // reset focus
+      cyRoot().realHover({ position: "topLeft" });
     });
   });
 });

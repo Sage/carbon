@@ -26,6 +26,7 @@ export const ButtonMinor = ({
   const size = sizeContext || sizeProp;
   const iconPosition = iconPositionContext || iconPositionProp;
   const fullWidth = fullWidthContext || fullWidthProp;
+
   return (
     <StyledButtonMinor
       data-component="button-minor"

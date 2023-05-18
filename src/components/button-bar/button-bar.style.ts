@@ -32,7 +32,7 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
 
     button {
       margin: 0;
-      border: 2px solid var(--colorsActionMajor500);
+
       :not(:first-child):not(:last-child) {
         border-radius: var(--borderRadius000);
       }
@@ -44,19 +44,7 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
         border-top-left-radius: var(--borderRadius000);
         border-bottom-left-radius: var(--borderRadius000);
       }
-      :not(:first-child):not(:last-child) {
-        border-radius: var(--borderRadius000);
-      }
 
-      :first-child:not(:last-child) {
-        border-top-right-radius: var(--borderRadius000);
-        border-bottom-right-radius: var(--borderRadius000);
-      }
-
-      :last-child:not(:first-child) {
-        border-top-left-radius: var(--borderRadius000);
-        border-bottom-left-radius: var(--borderRadius000);
-      }
       &:not(:last-of-type) {
         border-right-color: transparent;
       }
@@ -104,12 +92,15 @@ const StyledButtonBar = styled.div<StyledButtonBarProps>`
       }
     }
 
-    [data-component="button-minor"]:hover {
-      color: var(--colorsActionMinorYang100);
-      background-color: var(--colorsActionMinor500);
-      border-color: var(--colorsActionMinor500);
-      & + ${StyledButton} {
-        border-left-color: var(--colorsActionMinor500);
+    [data-component="button-minor"] {
+      :hover {
+        color: var(--colorsActionMinorYang100);
+        background-color: var(--colorsActionMinor500);
+        border-color: var(--colorsActionMinor500);
+
+        & + ${StyledButton} {
+          border-left-color: var(--colorsActionMinor500);
+        }
       }
     }
   `}
