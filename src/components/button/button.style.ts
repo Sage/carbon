@@ -70,9 +70,15 @@ type StyledButtonProps = SpaceProps &
     iconOnly?: boolean;
   };
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const StyledButton = styled.button<StyledButtonProps>`
   ${space}
-  ${({ disabled, noWrap }) => css`
+  ${({ disabled, noWrap, theme }) => css`
     align-items: center;
     cursor: ${disabled ? "not-allowed" : "pointer"};
     display: inline-flex;
@@ -86,7 +92,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     text-decoration: none;
     border-radius: var(--borderRadius400);
 
-    ${addFocusStyling()}
+    ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
 
     ${stylingForType}
   `}

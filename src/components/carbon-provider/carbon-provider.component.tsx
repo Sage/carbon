@@ -12,6 +12,7 @@ export interface CarbonProviderProps {
   theme?: Partial<ThemeObject>;
   children: React.ReactNode;
   validationRedesignOptIn?: boolean;
+  focusRedesignOptOut?: boolean;
 }
 
 export const NewValidationContext = createContext<
@@ -22,8 +23,9 @@ export const CarbonProvider = ({
   children,
   theme = mintTheme,
   validationRedesignOptIn = false,
+  focusRedesignOptOut = false,
 }: CarbonProviderProps) => (
-  <ThemeProvider theme={theme}>
+  <ThemeProvider theme={{ ...theme, focusRedesignOptOut }}>
     <CarbonScopedTokensProvider>
       <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
         <TopModalContextProvider>{children}</TopModalContextProvider>
