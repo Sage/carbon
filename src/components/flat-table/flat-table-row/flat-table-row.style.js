@@ -205,7 +205,9 @@ const StyledFlatTableRow = styled.tr`
             right: 0px;
             top: 0;
             bottom: 0px;
-            border: 2px solid var(--colorsSemanticFocus500);
+            outline: none;
+            box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+              0 0 0 4px var(--colorsUtilityYin090);
             pointer-events: none;
           }
 
@@ -275,7 +277,8 @@ const StyledFlatTableRow = styled.tr`
           cursor: pointer;
 
           :focus {
-            outline: 2px solid var(--colorsSemanticFocus500);
+            box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+              0 0 0 4px var(--colorsUtilityYin090);
             outline-offset: -1px;
           }
 

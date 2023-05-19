@@ -21,7 +21,9 @@ const StyledSort = styled.div`
   }
 
   :focus {
-    outline: 1px solid var(--colorsSemanticFocus500);
+    outline: none;
+    box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+      0 0 0 4px var(--colorsUtilityYin090);
     border-radius: var(--borderRadius025);
   }
 `;
