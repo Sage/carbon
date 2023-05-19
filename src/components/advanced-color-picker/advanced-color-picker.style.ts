@@ -13,7 +13,6 @@ import checkerBoardSvg from "../simple-color-picker/simple-color/checker-board.s
 import baseTheme from "../../style/themes/base";
 import visuallyHiddenStyles from "../../style/utils/visually-hidden";
 import { Dl } from "../definition-list";
-import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledAdvancedColorPickerWrapper = styled.div`
   ${margin}
@@ -35,7 +34,7 @@ const StyledAdvancedColorPickerPreview = styled.div`
   margin-bottom: 15px;
   border: 1px solid var(--colorsUtilityYin090);
   border-radius: var(--borderRadius050);
-  ${addFocusStyling()}
+  outline: none;
 
   ${({ color }) =>
     color !== "transparent" &&
@@ -75,6 +74,9 @@ const DialogStyle = styled(Dialog)`
 
       &:hover {
         transform: scale(1.1);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+          0 0 0 4px var(--colorsUtilityYin090);
       }
     }
   }
