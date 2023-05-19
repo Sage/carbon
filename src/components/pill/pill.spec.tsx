@@ -19,6 +19,7 @@ import {
   sageTheme,
 } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
+import CarbonProvider from "../carbon-provider";
 
 const modernStyleTypes = [
   "neutral",
@@ -609,6 +610,33 @@ describe("Pill", () => {
           hyphens: "auto",
         },
         wrapper.find(StyledPill)
+      );
+    });
+
+    describe("when roundedCornersOptOut is true", () => {
+      it.each([
+        ["S", "12px", "0 10px 10px 0"],
+        ["M", "12px", "0 10px 10px 0"],
+        ["L", "13px", "0 11px 11px 0"],
+        ["XL", "15px", "0 12px 12px 0"],
+      ] as const)(
+        "it sets the expected border radius styling for when size is %s",
+        (size, borderRadiusSpan, borderRadiusButton) => {
+          const wrapper = mount(
+            <CarbonProvider roundedCornersOptOut>
+              {renderPillComponent({
+                children: "My Text",
+                size,
+              })}
+            </CarbonProvider>
+          ).find(StyledPill);
+
+          assertStyleMatch({ borderRadius: borderRadiusSpan }, wrapper);
+
+          assertStyleMatch({ borderRadius: borderRadiusButton }, wrapper, {
+            modifier: "button",
+          });
+        }
       );
     });
   });

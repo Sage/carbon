@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
-import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
 
 interface PortalContextProps {
   renderInRoot?: boolean;
@@ -26,7 +25,6 @@ const Portal = ({ children, className, id, onReposition }: PortalProps) => {
   const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
   const uniqueId = useMemo(() => guid(), []);
   const { renderInRoot } = useContext(PortalContext);
-  const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
 
   useEffect(() => {
     if (onReposition) {
@@ -95,9 +93,7 @@ const Portal = ({ children, className, id, onReposition }: PortalProps) => {
   return (
     <span data-portal-entrance={uniqueId}>
       {ReactDOM.createPortal(
-        <CarbonScopedTokensProvider roundedCornersOptOut={roundedCornersOptOut}>
-          {children}
-        </CarbonScopedTokensProvider>,
+        <CarbonScopedTokensProvider>{children}</CarbonScopedTokensProvider>,
         getPortalContainer()
       )}
     </span>
