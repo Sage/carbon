@@ -6,7 +6,7 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 import {
   verifyRequiredAsteriskForLabel,
   checkGoldenOutline,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 
 import {
@@ -202,13 +202,13 @@ context("Tests for Textbox component", () => {
         getDataElementByValue("label")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", labelRatio);
+            assertCssValueIsApproximately($el, "width", labelRatio);
           });
 
         getDataElementByValue("input")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", inputRatio);
+            assertCssValueIsApproximately($el, "width", inputRatio);
           });
       }
     );

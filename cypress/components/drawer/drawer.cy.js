@@ -15,7 +15,7 @@ import { stickyFooter } from "../../locators";
 
 import { positionOfElement } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 context("Test for Drawer component", () => {
   describe("check props for Drawer component", () => {
@@ -97,7 +97,7 @@ context("Test for Drawer component", () => {
         .children()
         .first()
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", 887);
+          assertCssValueIsApproximately($el, "width", 887);
         });
     });
 

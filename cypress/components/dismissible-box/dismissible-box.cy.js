@@ -5,7 +5,7 @@ import dismissibleBoxDataComponent from "../../locators/dismissible-box";
 import { icon } from "../../locators/index.js";
 import { keyCode } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 context("Test for DismissibleBox component", () => {
   describe("check props for DismissibleBox component", () => {
@@ -37,7 +37,7 @@ context("Test for DismissibleBox component", () => {
         dismissibleBoxDataComponent()
           .should("have.attr", "width", `${width}px`)
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", width);
+            assertCssValueIsApproximately($el, "width", width);
           });
       }
     );

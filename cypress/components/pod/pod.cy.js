@@ -24,7 +24,7 @@ import {
 
 import {
   checkOutlineCss,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 
@@ -92,8 +92,8 @@ context("Testing Pod component", () => {
     (size, expectedHeight, expectedWidth) => {
       CypressMountWithProviders(<PodExample size={size} />);
       podBlock().then(($element) => {
-        useJQueryCssValueAndAssert($element, "height", expectedHeight);
-        useJQueryCssValueAndAssert($element, "width", expectedWidth);
+        assertCssValueIsApproximately($element, "height", expectedHeight);
+        assertCssValueIsApproximately($element, "width", expectedWidth);
       });
     }
   );
@@ -163,7 +163,7 @@ context("Testing Pod component", () => {
     (boolVal, expectedWidth) => {
       CypressMountWithProviders(<PodExample editContentFullWidth={boolVal} />);
       podBlock().then(($element) => {
-        useJQueryCssValueAndAssert($element, "width", expectedWidth);
+        assertCssValueIsApproximately($element, "width", expectedWidth);
       });
     }
   );
@@ -285,7 +285,7 @@ context("Testing Pod component", () => {
       (boolVal, expectedWidth) => {
         CypressMountWithProviders(<PodExample internalEditButton={boolVal} />);
         podBlock().then(($element) => {
-          useJQueryCssValueAndAssert($element, "width", expectedWidth);
+          assertCssValueIsApproximately($element, "width", expectedWidth);
         });
       }
     );

@@ -28,7 +28,7 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 import {
   verifyRequiredAsteriskForLegend,
   verifyRequiredAsteriskForLabel,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 import {
   SIZE,
@@ -159,8 +159,8 @@ context("Testing Checkbox component", () => {
     (size, sizeInPx) => {
       CypressMountWithProviders(<CheckboxComponent size={size} />);
       checkboxRole().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", sizeInPx);
-        useJQueryCssValueAndAssert($el, "width", sizeInPx);
+        assertCssValueIsApproximately($el, "height", sizeInPx);
+        assertCssValueIsApproximately($el, "width", sizeInPx);
       });
     }
   );
@@ -195,12 +195,12 @@ context("Testing Checkbox component", () => {
       checkboxLabel()
         .parent()
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", labelRatio);
+          assertCssValueIsApproximately($el, "width", labelRatio);
         });
       checkboxRole()
         .parent()
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", inputRatio);
+          assertCssValueIsApproximately($el, "width", inputRatio);
         });
     }
   );

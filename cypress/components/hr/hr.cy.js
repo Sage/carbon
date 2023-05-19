@@ -3,7 +3,7 @@ import Hr from "../../../src/components/hr";
 import * as stories from "../../../src/components/hr/hr.stories";
 import hrComponent from "../../locators/hr";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 context("Testing Hr component", () => {
   describe("check props for Hr component", () => {
@@ -35,8 +35,8 @@ context("Testing Hr component", () => {
         );
 
         hrComponent().then(($el) => {
-          useJQueryCssValueAndAssert($el, "margin-left", leftMargin);
-          useJQueryCssValueAndAssert($el, "margin-right", rightMargin);
+          assertCssValueIsApproximately($el, "margin-left", leftMargin);
+          assertCssValueIsApproximately($el, "margin-right", rightMargin);
         });
       }
     );

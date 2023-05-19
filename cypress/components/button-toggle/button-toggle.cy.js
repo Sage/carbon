@@ -10,7 +10,7 @@ import { icon } from "../../locators";
 import { positionOfElement } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 context("Testing Button-Toggle component", () => {
   describe("should render Button-Toggle component", () => {
@@ -96,7 +96,7 @@ context("Testing Button-Toggle component", () => {
         );
 
         buttonTogglePreview().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
+          assertCssValueIsApproximately($el, "height", height);
         });
       }
     );

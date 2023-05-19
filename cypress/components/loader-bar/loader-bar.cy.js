@@ -3,7 +3,7 @@ import loaderBar from "../../locators/loader-bar/index";
 import { LOADER_BAR_SIZES } from "../../../src/components/loader-bar/loader-bar.config";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { LoaderBarComponentTest as LoaderBarComponent } from "../../../src/components/loader-bar/loader-bar-test.stories";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 context("Tests for LoaderBar component", () => {
   describe("should check LoaderBar component properties", () => {
@@ -17,13 +17,13 @@ context("Tests for LoaderBar component", () => {
       loaderBar()
         .children()
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
+          assertCssValueIsApproximately($el, "height", height);
         });
       loaderBar()
         .children()
         .children()
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
+          assertCssValueIsApproximately($el, "height", height);
           expect($el.css("animation-duration")).to.equals("2s");
           expect($el.css("animation-play-state")).to.equals("running");
         });

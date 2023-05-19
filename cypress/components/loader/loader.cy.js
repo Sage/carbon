@@ -10,7 +10,7 @@ import { positionOfElement } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
   checkGoldenOutline,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 
 context("Test for Loader component", () => {
@@ -25,20 +25,20 @@ context("Test for Loader component", () => {
         CypressMountWithProviders(<Loader size={size} />);
 
         loader(positionOfElement("first")).then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
-          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
-          useJQueryCssValueAndAssert($el, "margin-right", margin);
+          assertCssValueIsApproximately($el, "height", heightAndWidth);
+          assertCssValueIsApproximately($el, "width", heightAndWidth);
+          assertCssValueIsApproximately($el, "margin-right", margin);
           expect($el.css("animation-delay")).to.equals("0s");
         });
         loader(positionOfElement("second")).then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
-          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
-          useJQueryCssValueAndAssert($el, "margin-right", margin);
+          assertCssValueIsApproximately($el, "height", heightAndWidth);
+          assertCssValueIsApproximately($el, "width", heightAndWidth);
+          assertCssValueIsApproximately($el, "margin-right", margin);
           expect($el.css("animation-delay")).to.equals("0.2s");
         });
         loader(positionOfElement("third")).then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
-          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+          assertCssValueIsApproximately($el, "height", heightAndWidth);
+          assertCssValueIsApproximately($el, "width", heightAndWidth);
           expect($el.css("margin-right")).to.equals("0px");
           expect($el.css("animation-delay")).to.equals("0.4s");
         });
@@ -54,7 +54,7 @@ context("Test for Loader component", () => {
 
       loaderInsideButton().then(($el) => {
         expect($el.css("height")).to.equals("40px");
-        useJQueryCssValueAndAssert($el, "width", width);
+        assertCssValueIsApproximately($el, "width", width);
       });
     });
 

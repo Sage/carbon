@@ -20,7 +20,7 @@ import {
 } from "../../locators/accordion/locators";
 import {
   checkGoldenOutline,
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 
@@ -207,7 +207,7 @@ context("Testing Accordion component", () => {
         CypressMountWithProviders(<AccordionComponent size={size} />);
 
         accordionTitleContainer().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
+          assertCssValueIsApproximately($el, "height", height);
         });
       }
     );
@@ -265,7 +265,7 @@ context("Testing Accordion component", () => {
         CypressMountWithProviders(<AccordionComponent width={widths} />);
 
         accordion().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", parseInt(widths));
+          assertCssValueIsApproximately($el, "width", parseInt(widths));
         });
       }
     );
@@ -394,23 +394,23 @@ context("Testing Accordion component", () => {
     it("should have proper height", () => {
       CypressMountWithProviders(<DynamicContent />);
       accordionContent().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", 49);
+        assertCssValueIsApproximately($el, "height", 49);
       });
       getDataElementByValue(ACCORDION_ADD_CONTENT).click();
       accordionContent().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", 66);
+        assertCssValueIsApproximately($el, "height", 66);
       });
       getDataElementByValue(ACCORDION_ADD_CONTENT).click();
       accordionContent().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", 83);
+        assertCssValueIsApproximately($el, "height", 83);
       });
       getDataElementByValue(ACCORDION_REMOVE_CONTENT).click();
       accordionContent().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", 66);
+        assertCssValueIsApproximately($el, "height", 66);
       });
       getDataElementByValue(ACCORDION_REMOVE_CONTENT).click();
       accordionContent().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", 49);
+        assertCssValueIsApproximately($el, "height", 49);
       });
     });
   });

@@ -31,7 +31,7 @@ import {
 } from "../../locators/index";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
   verifyRequiredAsteriskForLegend,
 } from "../../support/component-helper/common-steps";
 
@@ -158,8 +158,8 @@ context("Testing RadioButton component", () => {
       (size, heightAndWidth) => {
         CypressMountWithProviders(<RadioButtonComponent size={size} />);
         radiobuttonRole().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", heightAndWidth);
-          useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+          assertCssValueIsApproximately($el, "height", heightAndWidth);
+          assertCssValueIsApproximately($el, "width", heightAndWidth);
         });
       }
     );
@@ -197,7 +197,7 @@ context("Testing RadioButton component", () => {
         radiobuttonLabel()
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", parentWidth);
+            assertCssValueIsApproximately($el, "width", parentWidth);
           });
       }
     );
@@ -221,7 +221,7 @@ context("Testing RadioButton component", () => {
         radiobuttonRole()
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", parentWidth);
+            assertCssValueIsApproximately($el, "width", parentWidth);
           });
       }
     );
