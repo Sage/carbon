@@ -16,7 +16,7 @@ const dlsConfig = {
     circle: "50%",
   },
   iconSize: {
-    small: "16px",
+    small: "20px",
     medium: "24px",
     large: "32px",
     "extra-large": "48px",
@@ -106,6 +106,8 @@ export const ICONS: IconType[] = [
   "chart_line",
   "chart_pie",
   "chat_notes",
+  "check_all",
+  "check_none",
   "chevron_down",
   "chevron_left",
   "chevron_right",
