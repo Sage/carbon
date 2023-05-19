@@ -1,5 +1,4 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
 
 import aegeanTheme from "../../style/themes/aegean";
 import baseTheme from "../../style/themes/base";
@@ -8,7 +7,7 @@ import Box from "../box";
 import Button from "../button";
 import CarbonProvider from ".";
 
-export const Default: ComponentStory<typeof CarbonProvider> = () => {
+export const Default = () => {
   return (
     <CarbonProvider>
       <Button buttonType="primary">Button</Button>
@@ -16,7 +15,7 @@ export const Default: ComponentStory<typeof CarbonProvider> = () => {
   );
 };
 
-export const Theming: ComponentStory<typeof CarbonProvider> = () => {
+export const Theming = () => {
   return (
     <CarbonProvider theme={aegeanTheme}>
       <Button buttonType="primary">Button</Button>
@@ -24,7 +23,7 @@ export const Theming: ComponentStory<typeof CarbonProvider> = () => {
   );
 };
 
-export const Mixing: ComponentStory<typeof CarbonProvider> = () => {
+export const Mixing = () => {
   return (
     <Box>
       <CarbonProvider>

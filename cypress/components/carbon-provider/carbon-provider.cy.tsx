@@ -1,4 +1,5 @@
 import React from "react";
+import type { ThemeObject } from "../../../src/style/themes/base";
 import * as stories from "../../../src/components/carbon-provider/carbon-provider.stories";
 import Button from "../../../src/components/button";
 import Link from "../../../src/components/link";
@@ -36,7 +37,7 @@ const buildTestArray = (array: string[]) =>
 const buildTestDataWithTwoArrays = (
   firstArray: string[],
   secondArray: string[]
-) =>
+): [string, Partial<ThemeObject>, string, string][] =>
   themes.map((theme, i) => [theme.name, theme, firstArray[i], secondArray[i]]);
 
 const commonColors = [
@@ -121,7 +122,7 @@ context("Testing Carbon Provider component", () => {
       });
 
       it("Pill component and verify theme color", () => {
-        CypressMountWithProviders(<Pill />, themeName);
+        CypressMountWithProviders(<Pill>Whatever</Pill>, themeName);
 
         pillPreview().should("have.css", "border-color", color);
       });
