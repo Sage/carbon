@@ -96,7 +96,7 @@ export const globalTypes = {
   roundedCorners: {
     name: "Rounded Corners",
     description: "Toggle rounded corner opt out",
-    defaultValue: "on",
+    defaultValue: "off",
     toolbar: {
       icon: "circlehollow",
       title: "Rounded corners",
