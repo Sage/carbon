@@ -385,7 +385,8 @@ const tabTitleStyles = css<TabTitleProps>`
     `}
 
     &:focus {
-      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+      box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+        0 0 0 4px var(--colorsUtilityYin090);
       z-index: 2;
 
       ${isInSidebar &&
