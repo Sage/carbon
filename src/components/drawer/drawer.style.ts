@@ -2,6 +2,7 @@ import styled, { css, keyframes } from "styled-components";
 import StyledTabs from "../tabs/tabs.style";
 import Box from "../box";
 import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const defaultExpandedWidth = "var(--sizing500)";
 
@@ -194,9 +195,7 @@ const StyledSidebarToggleButton = styled.button.attrs({
     animation: ${buttonClose} ${animationDuration} ease-in-out;
     border-radius: var(--borderRadius050);
 
-    &:focus {
-      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
-    }
+    ${addFocusStyling}
 
     &:hover {
       cursor: pointer;
