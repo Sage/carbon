@@ -26,7 +26,8 @@ exports[`Navbar Navbar Button renders presentational div and context provider fo
 }
 
 .c0:focus {
-  outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),0 0 0 4px var(--colorsUtilityYin090);
 }
 
 <button

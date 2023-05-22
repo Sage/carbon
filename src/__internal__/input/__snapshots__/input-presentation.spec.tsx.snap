@@ -39,6 +39,11 @@ exports[`InputPresentation renders presentational div and context provider for i
   padding: 0 var(--spacing150);
 }
 
+.c1:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),0 0 0 4px var(--colorsUtilityYin090);
+}
+
 .c1 input::-ms-clear {
   display: none;
 }

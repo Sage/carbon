@@ -226,7 +226,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 .c0 .DayPicker-wrapper:focus {
-  outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+  box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),0 0 0 4px var(--colorsUtilityYin090);
   border-radius: var(--borderRadius050);
 }
 
@@ -271,7 +271,8 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 .c0 .DayPicker-Day:focus {
-  outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),0 0 0 4px var(--colorsUtilityYin090);
 }
 
 .c0 .DayPicker-Day + * {

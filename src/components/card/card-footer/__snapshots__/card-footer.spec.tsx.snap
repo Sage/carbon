@@ -116,6 +116,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
 .c1 button:focus {
   background-color: var(--colorsSemanticFocus250);
   border-radius: var(--borderRadius050);
+  box-shadow: inset 0 -4px 0 0 var(--colorsSemanticFocus500), inset 0 -6px 0 0 var(--colorsUtilityYin090);
 }
 
 .c1 a,
