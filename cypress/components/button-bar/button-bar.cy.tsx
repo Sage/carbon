@@ -4,15 +4,24 @@ import { ButtonBarProps } from "components/button-bar";
 import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
-  ButtonBarWithMinorButtonChildren,
+  DefaultWithButtonMinor as ButtonBarMinor,
 } from "../../../src/components/button-bar/button-bar-test.stories";
+
 import {
   BUTTON_BAR_SIZES,
   BUTTON_BAR_ICON_POSITIONS,
 } from "../../../src/components/button-bar/button-bar.config";
 
+<<<<<<< HEAD
 import { buttonDataComponent } from "../../locators/button";
 import { icon } from "../../locators";
+=======
+import {
+  buttonDataComponent,
+  buttonMinorComponent,
+} from "../../locators/button";
+import { cyRoot, icon } from "../../locators";
+>>>>>>> 33ffdbc3b (test(button-minor button-bar): change useJQueryCssValueAndAssert to assertCssValuesApproximately)
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
@@ -154,27 +163,77 @@ context("Test for Button-Bar component", () => {
     });
   });
 
-  it("has the expected border radius styling when major button children passed", () => {
-    CypressMountWithProviders(<ButtonBarCustom />);
+  describe("renders with ButtonMinor children", () => {
+    it("should apply correct background-color on hover for all ButtonMinor children", () => {
+      CypressMountWithProviders(<ButtonBarMinor />);
 
-    buttonDataComponent()
-      .eq(0)
-      .should("have.css", "border-radius", "32px 0px 0px 32px");
-    buttonDataComponent().eq(1).should("have.css", "border-radius", "0px");
-    buttonDataComponent()
-      .eq(2)
-      .should("have.css", "border-radius", "0px 32px 32px 0px");
-  });
+      buttonMinorComponent(0).should(
+        "have.css",
+        "background-color",
+        "rgba(0, 0, 0, 0)"
+      );
+      buttonMinorComponent(0).realHover();
 
-  it("has the expected border radius styling when minor button children passed", () => {
-    CypressMountWithProviders(<ButtonBarWithMinorButtonChildren />);
+      buttonMinorComponent(1).should(
+        "have.css",
+        "background-color",
+        "rgba(0, 0, 0, 0)"
+      );
+      buttonMinorComponent(1).realHover();
 
-    buttonDataComponent()
-      .eq(0)
-      .should("have.css", "border-radius", "4px 0px 0px 4px");
-    buttonDataComponent().eq(1).should("have.css", "border-radius", "0px");
-    buttonDataComponent()
-      .eq(2)
-      .should("have.css", "border-radius", "0px 4px 4px 0px");
+      buttonMinorComponent(2).should(
+        "have.css",
+        "background-color",
+        "rgba(0, 0, 0, 0)"
+      );
+      buttonMinorComponent(2).realHover();
+
+      // reset focus
+      cyRoot().realHover({ position: "topLeft" });
+    });
+
+    it("should apply the correct color to the all ButtonMinor children", () => {
+      CypressMountWithProviders(<ButtonBarMinor />);
+
+      buttonMinorComponent(0).should("have.css", "color", "rgb(51, 91, 112)");
+      buttonMinorComponent(0).realHover();
+
+      buttonMinorComponent(1).should("have.css", "color", "rgb(51, 91, 112)");
+      buttonMinorComponent(1).realHover();
+
+      buttonMinorComponent(2).should("have.css", "color", "rgb(51, 91, 112)");
+      buttonMinorComponent(2).realHover();
+
+      // reset focus
+      cyRoot().realHover({ position: "topLeft" });
+    });
+
+    it("should check Button Minor Bar have correct border-color for the button at index %n", () => {
+      CypressMountWithProviders(<ButtonBarMinor />);
+
+      buttonMinorComponent(0).should(
+        "have.css",
+        "border-color",
+        "rgb(51, 91, 112) rgba(0, 0, 0, 0) rgb(51, 91, 112) rgb(51, 91, 112)"
+      );
+      buttonMinorComponent(1).realHover();
+
+      buttonMinorComponent(1).should(
+        "have.css",
+        "border-color",
+        "rgb(51, 91, 112) rgba(0, 0, 0, 0) rgb(51, 91, 112) rgb(51, 91, 112)"
+      );
+      buttonMinorComponent(0).realHover();
+
+      buttonMinorComponent(2).should(
+        "have.css",
+        "border-color",
+        "rgb(51, 91, 112)"
+      );
+      buttonMinorComponent(2).realHover();
+
+      // reset focus
+      cyRoot().realHover({ position: "topLeft" });
+    });
   });
 });
