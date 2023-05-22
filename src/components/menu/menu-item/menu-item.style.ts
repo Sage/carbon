@@ -84,8 +84,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
       && {
         a:focus,
         button:focus {
-          box-shadow: inset 0 0 0 var(--borderWidth300)
-            var(--colorsSemanticFocus500);
+          box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+            0 0 0 4px var(--colorsUtilityYin090);
           background-color: ${menuConfigVariants[menuType].background};
           color: ${menuConfigVariants[menuType].color};
           z-index: 1;
@@ -183,6 +183,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
       a:focus,
       button:focus {
         background-color: ${menuConfigVariants[menuType].selected};
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+          0 0 0 4px var(--colorsUtilityYin090);
       }
 
       a:hover,
@@ -201,6 +203,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
       &&& a:focus,
       &&& button:focus {
         background-color: ${menuConfigVariants[menuType].alternate};
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+          0 0 0 4px var(--colorsUtilityYin090);
       }
 
       ${!hasInput &&
@@ -229,6 +233,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
       button:focus {
         background-color: ${menuConfigVariants[menuType].submenuBackground};
         color: ${menuConfigVariants[menuType].color};
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+          0 0 0 4px var(--colorsUtilityYin090);
 
         [data-component="icon"] {
           color: ${menuConfigVariants[menuType].color};
@@ -268,6 +274,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
         a:focus,
         button:focus {
           background-color: ${menuConfigVariants[menuType].submenuSelected};
+          box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+            0 0 0 4px var(--colorsUtilityYin090);
         }
 
         a:hover,
@@ -351,8 +359,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
       a:focus,
       button:focus {
-        box-shadow: inset 0 0 0 var(--borderWidth300)
-          var(--colorsSemanticFocus500);
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
         z-index: 1;
         position: relative;
       }
@@ -363,6 +370,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
         button:focus,
         button:hover {
           background-color: var(--colorsComponentsMenuAutumnStandard600);
+          box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
           color: var(--colorsComponentsMenuYang100);
 
             ${
