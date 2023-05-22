@@ -1,5 +1,9 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable no-unused-expressions */
 import React from "react";
-import ButtonToggle from "../../../src/components/button-toggle";
+import ButtonToggle, {
+  ButtonToggleProps,
+} from "../../../src/components/button-toggle";
 import { ButtonToggleComponent } from "../../../src/components/button-toggle/button-toggle-test.stories";
 import {
   buttonToggleLabelPreview,
@@ -88,7 +92,7 @@ context("Testing Button-Toggle component", () => {
       [SIZE.SMALL, 32],
       [SIZE.MEDIUM, 40],
       [SIZE.LARGE, 48],
-    ])(
+    ] as [ButtonToggleProps["size"], number][])(
       "should check when prop is %s that Button-Toggle height is %s",
       (size, height) => {
         CypressMountWithProviders(
@@ -101,7 +105,7 @@ context("Testing Button-Toggle component", () => {
       }
     );
 
-    it.each(["add", "share", "tick"])(
+    it.each(["add", "share", "tick"] as ButtonToggleProps["buttonIcon"][])(
       "should check that Button-Toggle has %s icon",
       (type) => {
         CypressMountWithProviders(
@@ -115,7 +119,11 @@ context("Testing Button-Toggle component", () => {
       }
     );
 
-    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+    it.each([
+      SIZE.SMALL,
+      SIZE.MEDIUM,
+      SIZE.LARGE,
+    ] as ButtonToggleProps["buttonIconSize"][])(
       "should check that Button-Toggle icon size is %s",
       (iconSize) => {
         CypressMountWithProviders(
@@ -171,13 +179,9 @@ context("Testing Button-Toggle component", () => {
   });
 
   describe("should render Button-Toggle component for event tests", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should render Button-Toggle disabled", () => {
+      const callback: ButtonToggleProps["onClick"] = cy.stub();
+
       CypressMountWithProviders(<ButtonToggleComponent disabled />);
 
       buttonToggleInput().should("have.attr", "disabled");
@@ -185,12 +189,13 @@ context("Testing Button-Toggle component", () => {
         .eq(positionOfElement("first"))
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).not.to.have.been.called;
         });
     });
 
     it("should call onChange callback when a click event is triggered", () => {
+      const callback: ButtonToggleProps["onChange"] = cy.stub();
+
       CypressMountWithProviders(<ButtonToggleComponent onChange={callback} />);
 
       buttonTogglePreview()
@@ -203,6 +208,8 @@ context("Testing Button-Toggle component", () => {
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: ButtonToggleProps["onFocus"] = cy.stub();
+
       CypressMountWithProviders(<ButtonToggleComponent onFocus={callback} />);
 
       buttonToggleInput()
@@ -215,6 +222,8 @@ context("Testing Button-Toggle component", () => {
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: ButtonToggleProps["onBlur"] = cy.stub();
+
       CypressMountWithProviders(<ButtonToggleComponent onBlur={callback} />);
 
       buttonToggleInput().eq(positionOfElement("first")).focus();
@@ -252,15 +261,18 @@ context("Testing Button-Toggle component", () => {
       [SIZE.SMALL, 32],
       [SIZE.MEDIUM, 40],
       [SIZE.LARGE, 48],
-    ])("should pass accessibility tests for Button-Toggle %s", (size) => {
-      CypressMountWithProviders(
-        <ButtonToggleComponent size={size}> {size}</ButtonToggleComponent>
-      );
+    ] as [ButtonToggleProps["size"], number][])(
+      "should pass accessibility tests for Button-Toggle %s",
+      (size) => {
+        CypressMountWithProviders(
+          <ButtonToggleComponent size={size}> {size}</ButtonToggleComponent>
+        );
 
-      cy.checkAccessibility();
-    });
+        cy.checkAccessibility();
+      }
+    );
 
-    it.each(["add", "share", "tick"])(
+    it.each(["add", "share", "tick"] as ButtonToggleProps["buttonIcon"][])(
       "should pass accessibility tests for Button-Toggle with %s icon",
       (type) => {
         CypressMountWithProviders(

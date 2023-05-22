@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 
-import ButtonToggle from ".";
+import ButtonToggle, { ButtonToggleProps } from ".";
 
 export default {
   title: "Button Toggle/Test",
@@ -52,7 +52,7 @@ export const ButtonToggleComponent = ({
   // eslint-disable-next-line react/prop-types
   children = "This is an example of an alert",
   ...props
-}) => {
+}: ButtonToggleProps) => {
   return (
     <div>
       <ButtonToggle
