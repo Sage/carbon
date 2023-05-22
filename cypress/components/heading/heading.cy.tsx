@@ -151,15 +151,13 @@ context("Testing Heading component", () => {
     );
 
     describe("when headingType prop is provided", () => {
-      it.each(["h1", "h2", "h3", "h4", "h5"] as NonNullable<
-        HeadingProps["headingType"]
-      >[])(
+      it.each(["h1", "h2", "h3", "h4", "h5"] as HeadingProps["headingType"][])(
         "should check HTML heading element is correct when headingType is %s",
         (headingType) => {
           CypressMountWithProviders(
             <HeadingComponent headingType={headingType} title="foo" />
           );
-          cy.get(headingType).contains("foo");
+          cy.get(String(headingType)).contains("foo");
         }
       );
     });

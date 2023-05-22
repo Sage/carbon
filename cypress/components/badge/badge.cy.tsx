@@ -1,3 +1,5 @@
+/* eslint-disable jest/valid-expect-in-promise, jest/valid-expect */
+/* eslint-disable no-unused-expressions */
 import React from "react";
 import { BadgeComponent } from "../../../src/components/badge/badge-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -42,7 +44,6 @@ context("Testing Badge component", () => {
       CypressMountWithProviders(
         <BadgeComponent onClick={() => {}} counter="99" />
       );
-      // eslint-disable-next-line jest/valid-expect-in-promise
       badge()
         .realHover()
         .should("have.css", "background")
@@ -54,7 +55,6 @@ context("Testing Badge component", () => {
 
     it("badge should not display cross icon when hovered over with no onClick function passed to component", () => {
       CypressMountWithProviders(<BadgeComponent counter="99" />);
-      // eslint-disable-next-line jest/valid-expect-in-promise
       badge()
         .realHover()
         .should("have.css", "background")
@@ -72,7 +72,6 @@ context("Testing Badge component", () => {
       badge()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions, jest/valid-expect
           expect(callback).to.have.been.calledOnce;
         });
     });
