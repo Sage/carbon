@@ -1,5 +1,7 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable no-unused-expressions */
 import React from "react";
-import * as stories from "../../../src/components/button-toggle-group/button-toggle-group-test.stories";
+import { ButtonToggleGroupProps } from "components/button-toggle-group";
 import {
   buttonTogglePreview,
   buttonToggleLabelPreview,
@@ -20,6 +22,7 @@ import {
 } from "../../support/component-helper/constants";
 import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
+import * as stories from "../../../src/components/button-toggle-group/button-toggle-group-test.stories";
 
 const testPropValue = CHARACTERS.STANDARD;
 
@@ -274,13 +277,8 @@ context("Testing Button-Toggle-Group component", () => {
   });
 
   describe("should render Button-Toggle-Group component for event tests", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange callback when a click event is triggered", () => {
+      const callback: ButtonToggleGroupProps["onChange"] = cy.stub();
       CypressMountWithProviders(
         <stories.ButtonToggleGroupComponent onChange={callback} />
       );
@@ -289,12 +287,12 @@ context("Testing Button-Toggle-Group component", () => {
         .eq(positionOfElement("first"))
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: ButtonToggleGroupProps["onBlur"] = cy.stub();
       CypressMountWithProviders(
         <stories.ButtonToggleGroupComponent onBlur={callback} />
       );
