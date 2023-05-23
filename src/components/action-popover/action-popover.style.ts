@@ -46,7 +46,9 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
     horizontalAlignment === "left" ? "flex-start" : "flex-end"};
 
   &:focus {
-    ${addFocusStyling()}
+    ${addFocusStyling}
+    z-index: 1;
+    border-radius: var(--borderRadius000);
   }
 
   ${({ isDisabled }) =>
