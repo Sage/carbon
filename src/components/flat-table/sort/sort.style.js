@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import StyledIcon from "../../icon/icon.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledSort = styled.div`
   display: inline-flex;
@@ -21,9 +22,7 @@ const StyledSort = styled.div`
   }
 
   :focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-      0 0 0 4px var(--colorsUtilityYin090);
+    ${addFocusStyling()}
     border-radius: var(--borderRadius025);
   }
 `;

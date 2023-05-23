@@ -6,6 +6,7 @@ import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledIcon from "../../icon/icon.style";
 import { toColor } from "../../../style/utils/color";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 const horizontalBorderSizes = {
   medium: "2px",
@@ -205,9 +206,7 @@ const StyledFlatTableRow = styled.tr`
             right: 0px;
             top: 0;
             bottom: 0px;
-            outline: none;
-            box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-              0 0 0 4px var(--colorsUtilityYin090);
+            ${addFocusStyling()}
             pointer-events: none;
           }
 
