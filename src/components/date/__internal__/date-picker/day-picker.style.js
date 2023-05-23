@@ -215,7 +215,8 @@ const StyledDayPicker = styled.div`
   .DayPicker-wrapper {
     padding: 0;
     &:focus {
-      box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
+      box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+        0 0 0 4px var(--colorsUtilityYin090);
       border-radius: var(--borderRadius050);
     }
   }
@@ -262,7 +263,9 @@ const StyledDayPicker = styled.div`
       color: var(--colorsActionMajorYin090);
     }
 
-    ${addFocusStyling}
+    &:focus {
+      ${addFocusStyling}
+    }
 
     + * {
       border-left: 1px;
