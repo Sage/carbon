@@ -102,12 +102,12 @@ const InputPresentationStyle = styled.div<
     css`
       & {
         outline: none;
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
+        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
+          0 0 0 4px var(--colorsUtilityYin090);
         z-index: 2;
       }
     `}
 
-  ${addFocusStyling}
 
   ${stylingForValidations}
 
