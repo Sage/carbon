@@ -1,3 +1,10 @@
+## [118.4.0](https://github.com/Sage/carbon/compare/v118.3.3...v118.4.0) (2023-05-23)
+
+
+### Features
+
+* add feature flag to allow consumers to opt out of rounded corners update ([ab11660](https://github.com/Sage/carbon/commit/ab116604a60104ca15241750558a211f4c326d0b))
+
 ### [118.3.3](https://github.com/Sage/carbon/compare/v118.3.2...v118.3.3) (2023-05-17)
 
 
