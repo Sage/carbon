@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import { Checkbox, CheckboxProps, CheckboxGroup } from ".";
+import { Checkbox, CheckboxProps, CheckboxGroup, CheckboxGroupProps } from ".";
 
 export default {
   title: "Checkbox/Test",
@@ -117,10 +117,9 @@ export const CheckboxComponent = ({ ...props }) => {
 };
 
 export const CheckboxGroupComponent = ({
-  // eslint-disable-next-line react/prop-types
-  children = "This is an example of a checkbox",
+  children,
   ...props
-}) => {
+}: Partial<CheckboxGroupProps>) => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <div
@@ -130,17 +129,20 @@ export const CheckboxGroupComponent = ({
       }}
     >
       <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
-        {["One", "Two", "Three"].map((label) => (
-          <Checkbox
-            label={label}
-            id={`checkbox-group-${label}`}
-            key={`checkbox-group-${label}`}
-            name={`checkbox-group-${label}`}
-            checked={isChecked}
-            onChange={(e) => setIsChecked(e.target.checked)}
-          />
-        ))}
-        {children}
+        {children || (
+          <>
+            {["One", "Two", "Three"].map((label) => (
+              <Checkbox
+                label={label}
+                id={`checkbox-group-${label}`}
+                key={`checkbox-group-${label}`}
+                name={`checkbox-group-${label}`}
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              />
+            ))}
+          </>
+        )}
       </CheckboxGroup>
     </div>
   );
