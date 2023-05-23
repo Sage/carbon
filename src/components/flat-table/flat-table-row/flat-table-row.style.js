@@ -206,6 +206,7 @@ const StyledFlatTableRow = styled.tr`
             right: 0px;
             top: 0;
             bottom: 0px;
+            outline: none;
             ${addFocusStyling()}
             pointer-events: none;
           }
