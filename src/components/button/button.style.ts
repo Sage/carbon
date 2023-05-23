@@ -86,7 +86,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     text-decoration: none;
     border-radius: var(--borderRadius400);
 
-    ${addFocusStyling}
+    ${addFocusStyling()}
 
     ${stylingForType}
   `}
