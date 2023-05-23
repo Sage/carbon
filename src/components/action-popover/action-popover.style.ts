@@ -45,13 +45,9 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
   justify-content: ${({ horizontalAlignment }) =>
     horizontalAlignment === "left" ? "flex-start" : "flex-end"};
 
-  /* &:focus {
-    outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
-    z-index: 1;
-    border-radius: var(--borderRadius000);
-  } */
-
-  ${addFocusStyling()}
+  &:focus {
+    ${addFocusStyling()}
+  }
 
   ${({ isDisabled }) =>
     isDisabled &&
@@ -105,9 +101,9 @@ const ButtonIcon = styled(Icon)`
 `;
 
 const StyledButtonIcon = styled.div`
-  ${addFocusStyling}
   &:focus {
     border-radius: var(--borderRadius050);
+    ${addFocusStyling}
   }
 `;
 
