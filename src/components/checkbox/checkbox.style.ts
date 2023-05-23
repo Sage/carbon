@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import StyledFieldHelp from "../../__internal__/field-help/field-help.style";
@@ -80,7 +81,7 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
     ${StyledHiddenCheckableInput}:not([disabled]) {
       &:focus + ${StyledCheckableInputSvgWrapper},
       &:hover + ${StyledCheckableInputSvgWrapper} {
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
+        ${addFocusStyling()}
       }
     }
 
