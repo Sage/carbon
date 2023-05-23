@@ -1,3 +1,4 @@
+import addFocusStyling from "style/utils/add-focus-styling";
 import styled, { css } from "styled-components";
 import sizes from "../input/input-sizes.style";
 import { ValidationProps } from "../validations";
@@ -33,9 +34,7 @@ const InputIconToggleStyle = styled.span.attrs(
   `}
 
   &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-      0 0 0 4px var(--colorsUtilityYin090);
+    ${addFocusStyling}
   }
 `;
 
