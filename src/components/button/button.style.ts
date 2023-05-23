@@ -70,11 +70,7 @@ type StyledButtonProps = SpaceProps &
     iconOnly?: boolean;
   };
 
-const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
-`;
+const oldFocusStyling = "outline: solid 3px var(--colorsSemanticFocus500);";
 
 const StyledButton = styled.button<StyledButtonProps>`
   ${space}
@@ -92,7 +88,9 @@ const StyledButton = styled.button<StyledButtonProps>`
     text-decoration: none;
     border-radius: var(--borderRadius400);
 
-    ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
+    &:focus {
+      ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
+    }
 
     ${stylingForType}
   `}

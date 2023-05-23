@@ -8,11 +8,12 @@ import "../../../src/style/fonts.css";
 
 const CypressMountWithProviders = (
   children,
+  featureFlags = {},
   theme = sageTheme,
   locale = enGB
 ) => {
   return cy.mount(
-    <CarbonProvider theme={theme}>
+    <CarbonProvider theme={theme} {...featureFlags}>
       <GlobalStyle />
       <I18nProvider locale={locale}>{children}</I18nProvider>
     </CarbonProvider>

@@ -22,6 +22,7 @@ import StyledIcon from "../icon/icon.style";
 import { BUTTON_VARIANTS } from "./button.config";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
+import CarbonProvider from "../carbon-provider";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const render = (props: ButtonProps, renderer: any = shallow) => {
@@ -849,5 +850,37 @@ describe("Button", () => {
         );
       }
     );
+  });
+
+  describe("focus styling", () => {
+    it("renders with the expected when focusRedesignOptOut is true", () => {
+      assertStyleMatch(
+        {
+          outline: "solid 3px var(--colorsSemanticFocus500)",
+        },
+        mount(
+          <CarbonProvider focusRedesignOptOut>
+            <Button>Foo</Button>
+          </CarbonProvider>
+        ).find(StyledButton),
+        { modifier: ":focus" }
+      );
+    });
+
+    it("renders with the expected when focusRedesignOptOut is false", () => {
+      assertStyleMatch(
+        {
+          outline: "none",
+          boxShadow:
+            "0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090)",
+        },
+        mount(
+          <CarbonProvider>
+            <Button>Foo</Button>
+          </CarbonProvider>
+        ).find(StyledButton),
+        { modifier: ":focus" }
+      );
+    });
   });
 });
