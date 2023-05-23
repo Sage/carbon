@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
 
@@ -79,7 +80,7 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
   }
   input:focus ~ & {
     z-index: 100;
-    outline: none;
+    ${addFocusStyling()}
     box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
       0 0 0 4px var(--colorsUtilityYin090);
   }
