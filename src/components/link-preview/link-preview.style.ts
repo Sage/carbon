@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import addFocusStyling from "style/utils/add-focus-styling";
 import { StyledPreview } from "../preview/preview.style";
 import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
 
@@ -18,8 +19,7 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
     css`
       :focus {
         outline: none;
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-          0 0 0 4px var(--colorsUtilityYin090);
+        ${addFocusStyling()}
         outline-offset: -1px;
       }
 

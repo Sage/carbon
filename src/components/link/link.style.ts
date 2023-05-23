@@ -109,9 +109,22 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
           }
 
           &:focus {
-            background-color: var(--colorsUtilityYang100);
-            box-shadow: inset 0 -2px 0 0 rgb(231, 28, 28),
-              inset 0 -4px 0 0 rgb(33, 206, 33);
+            background-color: var(--colorsSemanticFocus250);
+            border-radius: var(--borderRadius050);
+            text-decoration: none;
+            position: relative;
+
+            ::after {
+              content: "";
+              left: 0;
+              bottom: -2px;
+              position: absolute;
+              right: 0;
+              height: 3px;
+              background-color: var(--colorsUtilityYin090);
+              border-bottom-left-radius: var(--borderRadius050);
+              border-bottom-right-radius: var(--borderRadius050);
+            }
           }
         }
 

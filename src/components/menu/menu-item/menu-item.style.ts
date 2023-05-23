@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 import { padding, PaddingProps } from "styled-system";
+import addFocusStyling from "style/utils/add-focus-styling";
+import Link from "../../link";
 import { StyledLink } from "../../link/link.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import menuConfigVariants from "../menu.config";
 import { MenuType } from "../menu.context";
 import { MenuWithChildren } from "./menu-item.component";
-import Link from "../../link";
 import { baseTheme } from "../../../style/themes";
 
 interface StyledMenuItemWrapperProps
@@ -84,8 +85,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       && {
         a:focus,
         button:focus {
-          box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-            0 0 0 4px var(--colorsUtilityYin090);
+          ${addFocusStyling()}
           background-color: ${menuConfigVariants[menuType].background};
           color: ${menuConfigVariants[menuType].color};
           z-index: 1;
@@ -183,8 +183,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       a:focus,
       button:focus {
         background-color: ${menuConfigVariants[menuType].selected};
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-          0 0 0 4px var(--colorsUtilityYin090);
+        ${addFocusStyling()}
       }
 
       a:hover,
@@ -203,8 +202,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       &&& a:focus,
       &&& button:focus {
         background-color: ${menuConfigVariants[menuType].alternate};
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-          0 0 0 4px var(--colorsUtilityYin090);
+        ${addFocusStyling()}
       }
 
       ${!hasInput &&
@@ -233,8 +231,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       button:focus {
         background-color: ${menuConfigVariants[menuType].submenuBackground};
         color: ${menuConfigVariants[menuType].color};
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-          0 0 0 4px var(--colorsUtilityYin090);
+        ${addFocusStyling()}
 
         [data-component="icon"] {
           color: ${menuConfigVariants[menuType].color};
@@ -274,8 +271,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
         a:focus,
         button:focus {
           background-color: ${menuConfigVariants[menuType].submenuSelected};
-          box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-            0 0 0 4px var(--colorsUtilityYin090);
+          ${addFocusStyling()}
         }
 
         a:hover,
@@ -359,7 +355,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
       a:focus,
       button:focus {
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
+        ${addFocusStyling()}
         z-index: 1;
         position: relative;
       }
@@ -370,7 +366,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
         button:focus,
         button:hover {
           background-color: var(--colorsComponentsMenuAutumnStandard600);
-          box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
+          ${addFocusStyling()}
           color: var(--colorsComponentsMenuYang100);
 
             ${

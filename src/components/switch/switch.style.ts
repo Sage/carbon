@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-
+import addFocusStyling from "style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
@@ -36,9 +36,7 @@ const StyledSwitch = styled.div`
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider} {
-        outline: none;
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-          0 0 0 4px var(--colorsUtilityYin090);
+        ${addFocusStyling()}
       }
     }
 

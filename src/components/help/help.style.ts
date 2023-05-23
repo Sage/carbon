@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 interface StyledHelpProps {
   href?: string;
@@ -37,8 +38,7 @@ const StyledHelp = styled.div<StyledHelpProps>`
   }
 
   &:focus ${StyledIcon} {
-    box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-      0 0 0 4px var(--colorsUtilityYin090);
+    ${addFocusStyling()}
   }
 
   ${margin}

@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import StyledIcon from "../../../icon/icon.style";
 import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
 import { TabTitleProps } from ".";
+import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
 interface StyledTitleContentProps
   extends Pick<
@@ -385,8 +386,7 @@ const tabTitleStyles = css<TabTitleProps>`
     `}
 
     &:focus {
-      box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-        0 0 0 4px var(--colorsUtilityYin090);
+      ${addFocusStyling()}
       z-index: 2;
 
       ${isInSidebar &&

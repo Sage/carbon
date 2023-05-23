@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import addFocusStyling from "style/utils/add-focus-styling";
 import { margin } from "styled-system";
 import Fieldset from "../fieldset";
 import { Input } from "../../__internal__/input";
@@ -82,8 +83,7 @@ const StyledFocusWrapper = styled.div<{
     ${hasFocus &&
     css`
       outline: none;
-      box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-        0 0 0 4px var(--colorsUtilityYin090);
+      ${addFocusStyling()}
       z-index: 15;
     `}
   `}

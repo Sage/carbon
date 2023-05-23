@@ -689,4 +689,10 @@ context("Test for DateRange component", () => {
 
     cy.checkAccessibility();
   });
+
+  it("should check accessibility with new validation", () => {
+    CypressMountWithProviders(<DateRangeNewValidation />);
+
+    cy.checkAccessibility();
+  });
 });

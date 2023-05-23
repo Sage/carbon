@@ -14,7 +14,11 @@ const StyledIconButton = styled.button.attrs({ type: "button" })`
     border: none;
     border-radius: var(--borderRadius050);
 
-    ${addFocusStyling}
+    &:focus {
+      background-color: transparent;
+      ${addFocusStyling()}
+      z-index: 1;
+    }
 
     &:hover {
       cursor: ${!disabled ? "pointer" : "not-allowed"};
