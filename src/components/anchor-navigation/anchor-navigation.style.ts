@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledAnchorNavigation = styled.div`
   display: flex;
