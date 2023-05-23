@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import sizes from "./input-sizes.style";
 import StyledInput from "./input.style";
 import { CommonInputPresentationProps } from "./input-presentation.component";
 import { InputContextProps } from "../input-behaviour";
 import { CarbonProviderProps } from "../../components/carbon-provider";
-import addFocusStyling from "../../style/utils/add-focus-styling";
 
 export const StyledInputPresentationContainer = styled.div<
   Pick<CommonInputPresentationProps, "inputWidth" | "maxWidth">
@@ -101,9 +101,7 @@ const InputPresentationStyle = styled.div<
     hasFocus &&
     css`
       & {
-        outline: none;
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-          0 0 0 4px var(--colorsUtilityYin090);
+        ${addFocusStyling()}
         z-index: 2;
       }
     `}
