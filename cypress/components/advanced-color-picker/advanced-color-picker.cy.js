@@ -99,7 +99,7 @@ context("Testing AdvancedColorPicker component", () => {
       advancedColorPickerParent().should(
         "have.css",
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        "rgb(255, 188, 25) 0px 0px 0px 2px, rgba(0, 0, 0, 0.9) 0px 0px 0px 4px"
       );
       advancedColorPickerParent()
         .getDesignTokensByCssProperty("box-shadow")
