@@ -20,7 +20,10 @@ const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
     border-top-right-radius: var(--borderRadius100);
     border-bottom-right-radius: var(--borderRadius100);
 
-    ${addFocusStyling()}
+    &:focus {
+      ${addFocusStyling}
+      position: relative;
+    }
 
     &:hover {
       ${({ isSelected }) =>
