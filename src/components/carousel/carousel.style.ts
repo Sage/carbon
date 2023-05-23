@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import Icon from "../icon";
 import { slideAnimation, fadeAnimation } from "./slide.config";
 import { SlideStyle } from "./slide/slide.style";
@@ -74,8 +75,7 @@ const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-        0 0 0 4px var(--colorsUtilityYin090);
+      ${addFocusStyling()}
 
       ::-moz-focus-inner {
         border: 0;
