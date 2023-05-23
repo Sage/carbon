@@ -1,6 +1,8 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable jest/valid-expect */
+/* eslint-disable jest/valid-expect-in-promise */
 import React from "react";
-import { Card } from "../../../src/components/card";
+import { Card, CardProps } from "../../../src/components/card";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
   CardComponent,
@@ -43,8 +45,8 @@ context("Tests for Card component", () => {
       [SIZE.SMALL, 24],
       [SIZE.MEDIUM, 32],
       [SIZE.LARGE, 48],
-    ])(
-      "should check %s spacing and padding for Card component ",
+    ] as [CardProps["spacing"], number][])(
+      "should check %s spacing and padding for Card component",
       (spacing, paddings) => {
         CypressMountWithProviders(<CardComponent spacing={spacing} />);
         card().then(($el) => {
@@ -179,7 +181,6 @@ context("Tests for Card component", () => {
       card()
         .click({ force: true })
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(setClickCounter).to.have.been.calledOnce;
         });
     });
@@ -259,7 +260,7 @@ context("Tests for Card component", () => {
     });
   });
 
-  it.each(["default", "large"])(
+  it.each(["default", "large"] as CardProps["roundness"][])(
     "should have the expected border radius styling when roundness is %s",
     (roundness) => {
       const result = roundness === "default" ? "8px" : "16px";
