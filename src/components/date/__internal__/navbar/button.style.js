@@ -15,7 +15,9 @@ const StyledButton = styled.button.attrs({ type: "button" })`
   box-sizing: border-box;
   border-radius: var(--borderRadius050);
 
-  ${addFocusStyling()}
+  &:focus {
+    ${addFocusStyling}
+  }
 `;
 
 export default StyledButton;
