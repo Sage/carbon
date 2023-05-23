@@ -1,4 +1,7 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable no-unused-expressions */
 import React from "react";
+import { CarouselProps } from "components/carousel";
 import { CarouselComponent } from "../../../src/components/carousel/carousel-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
@@ -8,7 +11,7 @@ import {
   slideSelector,
 } from "../../locators/carousel";
 
-function clickCarouselButton(direction) {
+function clickCarouselButton(direction: "left" | "right") {
   switch (direction) {
     case "left":
       previousArrowButton().click();
@@ -144,7 +147,7 @@ context("Testing Carousel component", () => {
   });
 
   describe("check events for Carousel component", () => {
-    let callback;
+    let callback: CarouselProps["onSlideChange"];
 
     beforeEach(() => {
       callback = cy.stub();
@@ -156,18 +159,18 @@ context("Testing Carousel component", () => {
       nextArrowButton()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onSlideChange when previous arrow clicked", () => {
-      CypressMountWithProviders(<CarouselComponent onSlideChange={callback} />);
+      CypressMountWithProviders(
+        <CarouselComponent onSlideChange={callback} slideIndex={2} />
+      );
 
-      nextArrowButton()
+      previousArrowButton()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
@@ -181,14 +184,16 @@ context("Testing Carousel component", () => {
     });
   });
 
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<CarouselComponent />);
-    nextArrowButton().should("have.css", "border-radius", "32px");
-    previousArrowButton().should("have.css", "border-radius", "32px");
-    slide(0).should("have.css", "border-radius", "16px");
-    slide(1).should("have.css", "border-radius", "16px");
-    slide(2).should("have.css", "border-radius", "16px");
-    slide(3).should("have.css", "border-radius", "16px");
-    slide(4).should("have.css", "border-radius", "16px");
+  describe("should check border radius styling for Carousel component", () => {
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<CarouselComponent />);
+      nextArrowButton().should("have.css", "border-radius", "32px");
+      previousArrowButton().should("have.css", "border-radius", "32px");
+      slide(0).should("have.css", "border-radius", "16px");
+      slide(1).should("have.css", "border-radius", "16px");
+      slide(2).should("have.css", "border-radius", "16px");
+      slide(3).should("have.css", "border-radius", "16px");
+      slide(4).should("have.css", "border-radius", "16px");
+    });
   });
 });
