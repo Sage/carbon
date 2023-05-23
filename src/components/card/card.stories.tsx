@@ -3,7 +3,7 @@ import { ComponentStory, StoryFn } from "@storybook/react";
 
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Card, CardRow, CardFooter, CardColumn } from ".";
+import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
 import Typography from "../typography";
 import Heading from "../heading";
@@ -14,7 +14,7 @@ import Button from "../button";
 import VerticalDivider from "../vertical-divider";
 import IconButton from "../icon-button";
 
-export const DefaultStory: ComponentStory<typeof Card> = (args) => (
+export const DefaultStory: ComponentStory<typeof Card> = (args: CardProps) => (
   <Card {...args}>
     <CardRow>
       <CardColumn align="left">
@@ -46,20 +46,165 @@ export const DefaultStory: ComponentStory<typeof Card> = (args) => (
   </Card>
 );
 
-export const SmallSpacing = DefaultStory.bind({});
-SmallSpacing.args = { spacing: "small" };
+export const SmallSpacing = () => (
+  <Card spacing="small">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
-export const LargeSpacing = DefaultStory.bind({});
-LargeSpacing.args = { spacing: "large" };
+export const LargeSpacing = () => (
+  <Card spacing="large">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
-export const WithCardWidthProvided = DefaultStory.bind({});
-WithCardWidthProvided.args = { cardWidth: "500px" };
+export const WithCardWidthProvided = () => (
+  <Card cardWidth="500px">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
-export const WithCustomHeight = DefaultStory.bind({});
-WithCustomHeight.args = { height: "500px" };
+export const WithCustomHeight = () => (
+  <Card height="500px">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
-export const WithExtraRoundness = DefaultStory.bind({});
-WithExtraRoundness.args = { roundness: "large" };
+export const WithExtraRoundness = () => (
+  <Card roundness="large">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
 export const Interactive: StoryFn = () => {
   const [clickCounter, setClickCounter] = useState(0);
@@ -105,12 +250,37 @@ export const Interactive: StoryFn = () => {
 };
 Interactive.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithCustomBoxShadow = DefaultStory.bind({});
-WithCustomBoxShadow.args = {
-  boxShadow: "boxShadow400",
-  hoverBoxShadow: "boxShadow200",
-  interactive: true,
-};
+export const WithCustomBoxShadow = () => (
+  <Card boxShadow="boxShadow400" hoverBoxShadow="boxShadow200">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
 export const DifferentCardRowPadding: StoryFn = () => (
   <Card>

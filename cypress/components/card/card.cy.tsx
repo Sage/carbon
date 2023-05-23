@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable jest/valid-expect */
-/* eslint-disable jest/valid-expect-in-promise */
+/* eslint-disable no-unused-expressions, jest/valid-expect, jest/valid-expect-in-promise */
 import React from "react";
 import { Card, CardProps } from "../../../src/components/card";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
