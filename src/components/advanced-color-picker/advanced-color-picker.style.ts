@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
+import addFocusStyling from "style/utils/add-focus-styling";
 import StyledAdvancedColorPickerCell from "./advanced-color-picker-cell.style";
 import { StyledColorOptions } from "../simple-color-picker/simple-color-picker.style";
 import { StyledSimpleColor } from "../simple-color-picker/simple-color/simple-color.style";
@@ -34,7 +35,7 @@ const StyledAdvancedColorPickerPreview = styled.div`
   margin-bottom: 15px;
   border: 1px solid var(--colorsUtilityYin090);
   border-radius: var(--borderRadius050);
-  outline: none;
+  ${addFocusStyling()}
 
   ${({ color }) =>
     color !== "transparent" &&

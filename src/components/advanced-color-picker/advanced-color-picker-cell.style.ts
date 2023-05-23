@@ -28,6 +28,7 @@ const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
 
   &:hover {
     cursor: pointer;
+    outline: none;
   }
 
   &::-moz-focus-inner {
