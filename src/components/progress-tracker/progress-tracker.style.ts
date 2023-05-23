@@ -48,12 +48,14 @@ const StyledProgressTracker = styled.div<
 const StyledProgressBar = styled.span<
   Pick<ProgressTrackerProps, "size" | "progress" | "error">
 >`
-  ${({ size, progress, error }) => css`
+  ${({ size, progress, error, theme }) => css`
     display: flex;
     position: relative;
     background-color: var(--colorsSemanticNeutral200);
     border: 1px solid ${getBorderColour({ progress, error })};
-    border-radius: var(--borderRadius400);
+    border-radius: ${theme.roundedCornersOptOut
+      ? "25px"
+      : "var(--borderRadius400)"};
     overflow-x: hidden;
     height: ${getHeight(size)};
     width: 100%;
@@ -92,16 +94,26 @@ const StyledValuesLabel = styled.span<
 const InnerBar = styled.span<
   Pick<ProgressTrackerProps, "progress" | "size" | "length" | "error">
 >`
-  ${({ progress, size = "medium", length, error }) => css`
+  ${({ progress, size = "medium", length, error, theme }) => css`
     position: relative;
     left: 0;
     background-color: ${getBackgroundColour({ progress, error })};
-    border-radius: var(--borderRadius400);
+    border-radius: ${theme.roundedCornersOptOut
+      ? "25px"
+      : "var(--borderRadius400)"};
     width: calc(${length} * ${progress && progress / 100});
     min-width: 2px;
     height: ${getHeight(size)};
   `}
 `;
+
+InnerBar.defaultProps = {
+  theme: baseTheme,
+};
+
+StyledProgressBar.defaultProps = {
+  theme: baseTheme,
+};
 
 StyledProgressTracker.defaultProps = {
   theme: baseTheme,

@@ -15,6 +15,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import ProgressTracker from "./progress-tracker.component";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 
@@ -140,6 +141,28 @@ describe("ProgressTracker", () => {
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsSemanticNegative500)",
+        },
+        wrapper.find(InnerBar)
+      );
+    });
+
+    it("renders with expected border radius values when roundedCornersOptOut is true", () => {
+      wrapper = mount(
+        <CarbonProvider roundedCornersOptOut>
+          <ProgressTracker progress={100} />
+        </CarbonProvider>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "25px",
+        },
+        wrapper.find(StyledProgressBar)
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "25px",
         },
         wrapper.find(InnerBar)
       );
