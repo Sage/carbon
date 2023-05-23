@@ -55,7 +55,7 @@ context("Testing AnchorNavigation component", () => {
     it("should pass accessibility tests for Anchor Navigation in full screen dialog", () => {
       CypressMountWithProviders(<InFullScreenDialogStory />);
 
-      getDataElementByValue("main-text")
+      return getDataElementByValue("main-text")
         .click()
         .then(() => {
           cy.checkAccessibility();

@@ -49,7 +49,7 @@ describe("FlatTableRow", () => {
 
 Snapshots are left up to the developer to be used where there is value. If you do want to use them, ensure they are small, focused and effective.
 
-> Further information on snapshots can be found on [Jest's offical docs](https://jestjs.io/docs/snapshot-testing).
+> Further information on snapshots can be found on [Jest's official docs](https://jestjs.io/docs/snapshot-testing).
 
 ### Continuous Integration (CI)
 
@@ -62,7 +62,7 @@ GitHub Actions runs unit tests for a Pull Request on creation and every commit p
 
 ## Functional Browser Testing
 
-We use the [Cypress](https://www.cypress.io) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does need to be tested again using Cypress, unless it would be benefitical to test the behaviour in a manner similar to how a user would in a browser.
+We use the [Cypress](https://www.cypress.io) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Cypress, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
 
 Further details on installing Cypress and our configuration for it can be found in our [Getting started with Cypress](../cypress/README.md) guide.
 

@@ -21,7 +21,7 @@ import {
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import toastComponent from "../../locators/toast";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -46,7 +46,7 @@ context("Testing Dialog component", () => {
         }
 
         dialogPreview().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", resultHeight);
+          assertCssValueIsApproximately($el, "height", resultHeight);
         });
       }
     );
@@ -85,7 +85,7 @@ context("Testing Dialog component", () => {
         CypressMountWithProviders(<stories.DialogComponent size={size} />);
 
         dialogPreview().then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", width);
+          assertCssValueIsApproximately($el, "width", width);
         });
       }
     );

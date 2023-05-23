@@ -74,7 +74,7 @@ context("Tests for BatchSelection component", () => {
   });
 
   describe("should check BatchSelection buttons are focused", () => {
-    it.each(["first", "second", "third"])(
+    it.each(["first" as const, "second" as const, "third" as const])(
       "should check BatchSelection %s button is focused",
       (index) => {
         CypressMountWithProviders(

@@ -22,7 +22,7 @@ import { cyRoot, icon, tooltipPreview } from "../../locators";
 import { positionOfElement } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -127,7 +127,7 @@ context("Test for Button Minor component", () => {
       CypressMountWithProviders(<ButtonMinorCustom fullWidth />);
 
       buttonDataComponent().then(($el) => {
-        useJQueryCssValueAndAssert($el, "width", 1365);
+        assertCssValueIsApproximately($el, "width", 1365);
       });
     });
 

@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import StyledValidationIcon from "../../../__internal__/validations/validation-icon.style";
 import { SwitchSliderProps } from "./switch-slider.component";
+import baseTheme, { ThemeObject } from "../../../style/themes/base";
 
 interface StyledSwitchSliderProps
   extends Pick<
@@ -10,6 +11,7 @@ interface StyledSwitchSliderProps
     "checked" | "disabled" | "size" | "error" | "warning"
   > {
   isLoading?: boolean;
+  theme?: Partial<ThemeObject>;
 }
 
 const StyledSwitchSlider = styled.span`
@@ -20,6 +22,7 @@ const StyledSwitchSlider = styled.span`
     size,
     error,
     warning,
+    theme,
   }: StyledSwitchSliderProps) => css`
     display: flex;
     font-size: 12px;
@@ -33,7 +36,9 @@ const StyledSwitchSlider = styled.span`
     width: 64px;
     min-width: fit-content;
     z-index: 2;
-    border-radius: var(--borderRadius400);
+    border-radius: ${theme?.roundedCornersOptOut
+      ? "90px"
+      : "var(--borderRadius400)"};
     border-style: solid;
     border-color: var(--colorsActionMinor400);
     border-width: var(--borderWidth200);
@@ -92,6 +97,7 @@ const StyledSwitchSlider = styled.span`
 
     ${size === "large" &&
     css`
+      ${theme?.roundedCornersOptOut ? "border-radius: 30px;" : ""}
       &::before {
         height: 32px;
         width: 32px;
@@ -129,5 +135,9 @@ const StyledSwitchSlider = styled.span`
     }
   `}
 `;
+
+StyledSwitchSlider.defaultProps = {
+  theme: baseTheme,
+};
 
 export default StyledSwitchSlider;

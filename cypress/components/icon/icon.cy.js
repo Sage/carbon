@@ -10,7 +10,7 @@ import {
   COLOR,
   CHARACTERS,
 } from "../../support/component-helper/constants";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const colorData = [COLOR.ORANGE, COLOR.RED, COLOR.BLACK, COLOR.BROWN];
@@ -34,8 +34,8 @@ context("Tests for Icon component", () => {
     ])("should check %s bgSize for Icon component", (size, pixelSize) => {
       CypressMountWithProviders(<IconComponent bgSize={size} />);
       icon().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", pixelSize);
-        useJQueryCssValueAndAssert($el, "width", pixelSize);
+        assertCssValueIsApproximately($el, "height", pixelSize);
+        assertCssValueIsApproximately($el, "width", pixelSize);
       });
     });
 
@@ -60,8 +60,8 @@ context("Tests for Icon component", () => {
     ])("should check %s fontSize for Icon component", (fontSize, pixelSize) => {
       CypressMountWithProviders(<IconComponent fontSize={fontSize} />);
       icon().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", pixelSize);
-        useJQueryCssValueAndAssert($el, "width", pixelSize);
+        assertCssValueIsApproximately($el, "height", pixelSize);
+        assertCssValueIsApproximately($el, "width", pixelSize);
       });
     });
 

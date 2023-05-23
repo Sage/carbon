@@ -14,7 +14,7 @@ import { getDataElementByValue, tooltipPreview } from "../../locators";
 import { keyCode } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import { ICON } from "../../locators/locators";
 import { DrawerSidebarContext } from "../../../src/components/drawer";
 
@@ -86,7 +86,7 @@ context("Testing Tabs component", () => {
         .parent()
         .should("have.css", "flex-direction", flex)
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
+          assertCssValueIsApproximately($el, "height", height);
         });
     });
 
@@ -99,8 +99,8 @@ context("Testing Tabs component", () => {
         CypressMountWithProviders(<TabsComponent size={size} />);
 
         tabById(1).then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", height);
-          useJQueryCssValueAndAssert($el, "width", width);
+          assertCssValueIsApproximately($el, "height", height);
+          assertCssValueIsApproximately($el, "width", width);
         });
       }
     );
@@ -171,7 +171,7 @@ context("Testing Tabs component", () => {
         .parent()
         .parent()
         .then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", 440);
+          assertCssValueIsApproximately($el, "width", 440);
         });
     });
 

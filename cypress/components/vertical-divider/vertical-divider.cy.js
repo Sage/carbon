@@ -1,6 +1,6 @@
 import React from "react";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import { VerticalDividerComponent } from "../../../src/components/vertical-divider/vertical-divider-test.stories";
 
 import verticalDividerComponent from "../../locators/vertical-divider/index";
@@ -14,7 +14,7 @@ context("Tests for VerticalDivider component", () => {
         verticalDividerComponent()
           .then(($el) => {
             const val = Number.isNaN(h) ? h : parseInt(h);
-            useJQueryCssValueAndAssert($el, "height", val);
+            assertCssValueIsApproximately($el, "height", val);
           })
           .should("have.attr", "height", h);
 
@@ -29,7 +29,7 @@ context("Tests for VerticalDivider component", () => {
         verticalDividerComponent()
           .then(($el) => {
             const val = Number.isNaN(height) ? height : parseInt(height);
-            useJQueryCssValueAndAssert($el, "height", val);
+            assertCssValueIsApproximately($el, "height", val);
           })
           .should("have.attr", "height", height);
 

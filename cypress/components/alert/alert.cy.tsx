@@ -1,3 +1,5 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable no-unused-expressions */
 import React from "react";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { AlertComponentTest as AlertComponent } from "../../../src/components/alert/alert-test.stories";
@@ -108,7 +110,7 @@ context("Testing Alert component", () => {
       [SIZE.MEDIUMLARGE, 850],
       [SIZE.LARGE, 960],
       [SIZE.EXTRALARGE, 1080],
-    ])(
+    ] as [string, number][])(
       "should render Alert component with %s as a size and has width property set to %s",
       (size, width) => {
         CypressMountWithProviders(
@@ -133,7 +135,6 @@ context("Testing Alert component", () => {
       closeIconButton()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });

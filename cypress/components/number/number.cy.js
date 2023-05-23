@@ -13,7 +13,7 @@ import {
   commonInputCharacterLimit,
 } from "../../locators";
 import {
-  useJQueryCssValueAndAssert,
+  assertCssValueIsApproximately,
   verifyRequiredAsteriskForLabel,
 } from "../../support/component-helper/common-steps";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
@@ -250,13 +250,13 @@ context("Tests for Number component", () => {
         getDataElementByValue("label")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", labelRatio);
+            assertCssValueIsApproximately($el, "width", labelRatio);
           });
 
         getDataElementByValue("input")
           .parent()
           .then(($el) => {
-            useJQueryCssValueAndAssert($el, "width", inputRatio);
+            assertCssValueIsApproximately($el, "width", inputRatio);
           });
       }
     );

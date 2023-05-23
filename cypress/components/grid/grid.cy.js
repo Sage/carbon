@@ -5,7 +5,7 @@ import * as stories from "../../../src/components/grid/grid-test.stories";
 import { gridItem, gridContainer } from "../../locators/grid";
 import Pod from "../../../src/components/pod";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const viewportSize = (sizeOfViewport) => {
   switch (sizeOfViewport) {
@@ -50,7 +50,7 @@ context("Testing Grid component", () => {
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
           .then(($element) =>
-            useJQueryCssValueAndAssert($element, "width", expectedWidth)
+            assertCssValueIsApproximately($element, "width", expectedWidth)
           );
       }
     );
@@ -69,7 +69,7 @@ context("Testing Grid component", () => {
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
           .then(($element) => {
-            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+            assertCssValueIsApproximately($element, "width", expectedWidth);
           });
       }
     );
@@ -88,7 +88,7 @@ context("Testing Grid component", () => {
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
           .then(($element) => {
-            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+            assertCssValueIsApproximately($element, "width", expectedWidth);
           });
       }
     );
@@ -107,7 +107,7 @@ context("Testing Grid component", () => {
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
           .then(($element) => {
-            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+            assertCssValueIsApproximately($element, "width", expectedWidth);
           });
       }
     );
@@ -126,7 +126,7 @@ context("Testing Grid component", () => {
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
           .then(($element) => {
-            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+            assertCssValueIsApproximately($element, "width", expectedWidth);
           });
       }
     );
@@ -145,7 +145,7 @@ context("Testing Grid component", () => {
           .should("have.css", "grid-row", row)
           .should("have.css", "grid-column", col)
           .then(($element) => {
-            useJQueryCssValueAndAssert($element, "width", expectedWidth);
+            assertCssValueIsApproximately($element, "width", expectedWidth);
           });
       }
     );
@@ -164,8 +164,8 @@ context("Testing Grid component", () => {
         viewportSize(size);
 
         gridContainer().then(($element) => {
-          useJQueryCssValueAndAssert($element, "padding-left", padding);
-          useJQueryCssValueAndAssert($element, "row-gap", gridGap);
+          assertCssValueIsApproximately($element, "padding-left", padding);
+          assertCssValueIsApproximately($element, "row-gap", gridGap);
         });
       }
     );

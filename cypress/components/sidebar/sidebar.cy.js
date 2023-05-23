@@ -23,7 +23,7 @@ import {
   SIDEBAR_SIZES_CSS,
 } from "../../../src/components/sidebar/sidebar.config";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const CUSTOM_SELECTOR = "button, .focusable-container input";
 
@@ -93,8 +93,8 @@ context("Testing Sidebar component", () => {
       CypressMountWithProviders(<SidebarComponent position={boolVal} />);
 
       sidebarPreview().then(($el) => {
-        useJQueryCssValueAndAssert($el, "left", left);
-        useJQueryCssValueAndAssert($el, "right", right);
+        assertCssValueIsApproximately($el, "left", left);
+        assertCssValueIsApproximately($el, "right", right);
       });
     });
 
@@ -142,7 +142,7 @@ context("Testing Sidebar component", () => {
       CypressMountWithProviders(<SidebarComponent size={size} />);
 
       sidebarPreview().then(($el) => {
-        useJQueryCssValueAndAssert($el, "width", parseInt(width));
+        assertCssValueIsApproximately($el, "width", parseInt(width));
       });
     });
 

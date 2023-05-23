@@ -1,7 +1,7 @@
 import React from "react";
 import { ProfileComponentTest as ProfileComponent } from "../../../src/components/profile/profile-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import { PROFILE_SIZES } from "../../../src/components/profile/profile.config";
 
@@ -76,8 +76,8 @@ context("Tests for Profile component", () => {
     ])("should check %s size for Profile component", (size, heightAndWidth) => {
       CypressMountWithProviders(<ProfileComponent size={size} />);
       initialPreview().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", heightAndWidth);
-        useJQueryCssValueAndAssert($el, "width", heightAndWidth);
+        assertCssValueIsApproximately($el, "height", heightAndWidth);
+        assertCssValueIsApproximately($el, "width", heightAndWidth);
       });
     });
 
@@ -91,8 +91,8 @@ context("Tests for Profile component", () => {
           <ProfileComponent initials={passInitials} name={name} />
         );
         initialPreview().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", 38);
-          useJQueryCssValueAndAssert($el, "width", 38);
+          assertCssValueIsApproximately($el, "height", 38);
+          assertCssValueIsApproximately($el, "width", 38);
         });
       }
     );

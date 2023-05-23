@@ -5,7 +5,7 @@ import Textbox from "../../../src/components/textbox";
 import Button from "../../../src/components/button";
 import * as stories from "../../../src/components/form/form.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { useJQueryCssValueAndAssert } from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import { getElement, getComponent } from "../../locators/index";
 import {
   formPreview,
@@ -65,7 +65,7 @@ context("Tests for Form component", () => {
           <FormComponent fieldSpacing={fieldSpacing} />
         );
         formPreview().then(($el) => {
-          useJQueryCssValueAndAssert($el, "height", formHeight);
+          assertCssValueIsApproximately($el, "height", formHeight);
         });
       }
     );
@@ -172,7 +172,7 @@ context("Tests for Form component", () => {
     ])("should check height for Form component", (height, heightVal) => {
       CypressMountWithProviders(<FormComponent height={height} />);
       formPreview().then(($el) => {
-        useJQueryCssValueAndAssert($el, "height", heightVal);
+        assertCssValueIsApproximately($el, "height", heightVal);
       });
     });
 
@@ -193,7 +193,7 @@ context("Tests for Form component", () => {
           />
         );
         getComponent("button").then(($el) => {
-          useJQueryCssValueAndAssert($el, "width", buttonWidth);
+          assertCssValueIsApproximately($el, "width", buttonWidth);
         });
       }
     );
