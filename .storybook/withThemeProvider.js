@@ -24,12 +24,15 @@ if (process.env.STORYBOOK_DEBUG_THEME === "true") {
   themes["sage-debug"] = sageDebugTheme;
 }
 
-const render = (Story, themeName, roundedCornersOptOut) => (
-  <CarbonProvider
-    theme={themes[themeName]}
-    roundedCornersOptOut={roundedCornersOptOut}
-  >
-    <Story themeName={themeName} />
+const render = (Story, themeName, focusRedesignOptOut) => (
+  <CarbonProvider theme={themes[themeName]}>
+    {" "}
+    <CarbonProvider
+      theme={themes[themeName]}
+      focusRedesignOptOut={focusRedesignOptOut}
+    >
+      <Story themeName={themeName} /> <Story themeName={themeName} />
+    </CarbonProvider>{" "}
   </CarbonProvider>
 );
 
@@ -105,7 +108,7 @@ const withThemeProvider = makeDecorator({
               {render(
                 Story,
                 themeName,
-                context.globals.roundedCorners === "off"
+                context.globals.focusRedesign === "off"
               )}
             </div>
           ))}
@@ -118,7 +121,7 @@ const withThemeProvider = makeDecorator({
       isChromaticBuild && chromaticTheme
         ? chromaticTheme
         : context.globals.theme,
-      context.globals.roundedCorners === "off"
+      context.globals.focusRedesign === "off"
     );
   },
 });

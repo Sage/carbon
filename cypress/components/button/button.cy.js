@@ -12,11 +12,47 @@ import { cyRoot, icon, tooltipPreview } from "../../locators";
 import { positionOfElement, keyCode } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
+// eslint-disable-next-line import/named
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Test for Button component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<Button>Foo</Button>);
+      buttonDataComponent().should("have.css", `border-radius`, "32px");
+      buttonDataComponent()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 2px, rgba(0, 0, 0, 0.9) 0px 0px 0px 4px"
+        );
+      buttonDataComponent()
+        .getDesignTokensByCssProperty("box-shadow")
+        ?.then(($el) => {
+          expect($el[0]).to.equal("--colorsSemanticFocus500");
+          expect($el[1]).to.equal("--colorsUtilityYin090");
+        });
+    });
+  });
+
+  it("should have the expected border radius and focus styling when the focusRedesignOptOut is false", () => {
+    CypressMountWithProviders(<Button>Foo</Button>, {
+      focusRedesignOptOut: true,
+    });
+    buttonDataComponent().should("have.css", `border-radius`, "32px");
+    buttonDataComponent()
+      .focus()
+      .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    buttonDataComponent()
+      .getDesignTokensByCssProperty("outline")
+      ?.then(($el) => {
+        expect($el[0]).to.equal("--colorsSemanticFocus500");
+      });
+  });
+
   describe("Check props for Button component", () => {
     it.each(testData)(
       "should render Button label using %s special characters",

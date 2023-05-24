@@ -47,6 +47,7 @@ input:checked ~ .c3.c3 {
 input:focus ~ .c3 {
   z-index: 100;
   outline: none;
+  box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),0 0 0 4px var(--colorsUtilityYin090);
   box-shadow: 0 0 0 2px var(--colorsSemanticFocus500), 0 0 0 4px var(--colorsUtilityYin090);
 }
 

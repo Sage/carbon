@@ -34,7 +34,7 @@ const InputIconToggleStyle = styled.span.attrs(
   `}
 
   &:focus {
-    ${addFocusStyling}
+    ${addFocusStyling()}
   }
 `;
 
