@@ -1,11 +1,9 @@
-/* eslint-disable no-undef */
-import React, { useState } from "react";
-import Button from "../../../src/components/button";
-import Message from "../../../src/components/message";
+/* eslint-disable jest/valid-expect, no-unused-expressions */
+import React from "react";
+import Message, { MessageProps } from "../../../src/components/message";
+import { MessageComponent } from "../../../src/components/message/message-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-
 import { getDataElementByValue } from "../../locators";
-
 import {
   messagePreview,
   messageChildren,
@@ -21,18 +19,6 @@ import {
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-const MessageComponent = ({ ...props }) => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <div>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
-      <Message open={isOpen} onDismiss={() => setIsOpen(false)} {...props}>
-        Some custom message
-      </Message>
-    </div>
-  );
-};
-
 context("Tests for Message component", () => {
   describe("should check Message component properties", () => {
     it.each([
@@ -40,7 +26,7 @@ context("Tests for Message component", () => {
       ["error", VALIDATION.ERROR],
       ["success", "rgb(0, 138, 33)"],
       ["warning", VALIDATION.WARNING],
-    ])(
+    ] as [MessageProps["variant"], string][])(
       "should check %s variant for Message component",
       (variant, backgroundColor) => {
         CypressMountWithProviders(<MessageComponent variant={variant} />);
@@ -154,14 +140,18 @@ context("Tests for Message component", () => {
       messageDismissIcon()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
   });
 
   describe("Accessibility tests for Message component", () => {
-    it.each(["info", "error", "success", "warning"])(
+    it.each([
+      "info",
+      "error",
+      "success",
+      "warning",
+    ] as MessageProps["variant"][])(
       "should check %s as variant for accessibility tests",
       (variant) => {
         CypressMountWithProviders(<MessageComponent variant={variant} />);

@@ -54,3 +54,15 @@ Default.args = {
   children: "This is some information from the Message Component.",
   showCloseIcon: true,
 };
+
+export const MessageComponent = (props: MessageProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <div>
+      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      <Message open={isOpen} onDismiss={() => setIsOpen(false)} {...props}>
+        Some custom message
+      </Message>
+    </div>
+  );
+};
