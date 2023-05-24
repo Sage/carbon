@@ -129,6 +129,10 @@ const StyledFlatTableRow = styled.tr`
         color: var(--colorsActionMinor500);
       }
 
+      :focus-visible {
+        outline: none;
+      }
+
       ${allCellTypes} {
         ${backgroundColor && `background-color: ${backgroundColor};`}
 

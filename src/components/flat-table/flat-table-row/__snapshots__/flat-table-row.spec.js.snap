@@ -35,6 +35,10 @@ exports[`FlatTableRow should have expected styles 1`] = `
   color: var(--colorsActionMinor500);
 }
 
+.c0:focus-visible {
+  outline: none;
+}
+
 .c0 .c2 + td {
   border-left: none;
 }
