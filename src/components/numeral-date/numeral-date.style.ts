@@ -14,12 +14,9 @@ interface StyledDateFieldProps {
 
 export const StyledNumeralDate = styled.div<{ name?: string }>`
   display: inline-flex;
-  border: 1px solid transparent;
   height: 40px;
   font-size: 14px;
   font-weight: 400;
-  padding-bottom: 2px;
-  padding-top: 1px;
 
   ${StyledFormField} {
     margin-top: 0px;
