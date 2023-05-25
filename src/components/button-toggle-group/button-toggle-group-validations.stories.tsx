@@ -26,6 +26,7 @@ export const Error: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-error-grouped-id"
       name="button-toggle-group-error-grouped"
       label="Grouped"
@@ -45,6 +46,7 @@ export const Error: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-error-label-id"
       name="button-toggle-group-error-label"
       label="Error on the Label"
@@ -65,6 +67,7 @@ export const Error: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-error-empty-id"
       name="button-toggle-group-error-empty"
       label="Without a message"
@@ -108,6 +111,7 @@ export const Warning: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-warning-grouped-id"
       name="button-toggle-group-warning-grouped"
       label="Grouped"
@@ -127,6 +131,7 @@ export const Warning: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-warning-label-id"
       name="button-toggle-group-warning-label"
       label="Error on the Label"
@@ -147,6 +152,7 @@ export const Warning: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-warning-empty-id"
       name="button-toggle-group-warning-empty"
       label="Without a message"
@@ -190,6 +196,7 @@ export const Info: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-info-grouped-id"
       name="button-toggle-group-info-grouped"
       label="Grouped"
@@ -209,6 +216,7 @@ export const Info: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-info-label-id"
       name="button-toggle-group-info-label"
       label="Error on the Label"
@@ -229,6 +237,7 @@ export const Info: ComponentStory<typeof ButtonToggleGroup> = () => (
       </ButtonToggle>
     </ButtonToggleGroup>
     <ButtonToggleGroup
+      mt={2}
       id="button-toggle-group-info-empty-id"
       name="button-toggle-group-info-empty"
       label="Without a message"

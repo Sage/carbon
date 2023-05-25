@@ -3,6 +3,7 @@ import {
   StyledButtonToggleLabel,
   StyledButtonToggle,
 } from "../button-toggle/button-toggle.style";
+
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
 
 import { ButtonToggleGroupProps } from ".";

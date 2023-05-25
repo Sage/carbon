@@ -24,10 +24,10 @@ export const Controlled: ComponentStory<typeof NumeralDate> = () => {
 export const AllowedDateFormats: ComponentStory<typeof NumeralDate> = () => (
   <>
     <NumeralDate label="DD/MM/YYYY - default" />
-    <NumeralDate label="MM/DD/YYYY" dateFormat={["mm", "dd", "yyyy"]} />
-    <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} />
-    <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} />
-    <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} />
+    <NumeralDate label="MM/DD/YYYY" dateFormat={["mm", "dd", "yyyy"]} mt={2} />
+    <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} mt={2} />
+    <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} mt={2} />
+    <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} mt={2} />
   </>
 );
 
@@ -134,11 +134,13 @@ export const Size: ComponentStory<typeof NumeralDate> = () => (
       label="Date of Birth"
       dateFormat={["dd", "mm", "yyyy"]}
       size="medium"
+      mt={2}
     />
     <NumeralDate
       label="Date of Birth"
       dateFormat={["dd", "mm", "yyyy"]}
       size="large"
+      mt={2}
     />
   </>
 );

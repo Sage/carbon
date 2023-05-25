@@ -170,8 +170,9 @@ export const Required: ComponentStory<typeof Textbox> = () => {
 export const LabelAlign: ComponentStory<typeof Textbox> = () => {
   return (
     <Box>
-      {(["right", "left"] as const).map((alignment) => (
+      {(["right", "left"] as const).map((alignment, index) => (
         <Textbox
+          mt={index === 0 ? 0 : 2}
           label="Textbox"
           value="Textbox"
           labelInline

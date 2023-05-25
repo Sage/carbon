@@ -52,8 +52,9 @@ export const WithLabelAlign: ComponentStory<typeof Number> = () => {
 
   return (
     <>
-      {alignments.map((alignment) => (
+      {alignments.map((alignment, index) => (
         <Number
+          mt={index === 0 ? 0 : 2}
           label="Number"
           labelInline
           value="123456"

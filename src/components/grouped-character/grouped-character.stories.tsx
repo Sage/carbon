@@ -198,8 +198,9 @@ export const LabelAlign = () => {
     setState({ ...state, [alignment]: e.target.value.rawValue });
   };
 
-  return (["right", "left"] as const).map((alignment) => (
+  return (["right", "left"] as const).map((alignment, index) => (
     <GroupedCharacter
+      mt={index === 0 ? 0 : 2}
       label="GroupedCharacter"
       value={state[alignment]}
       onChange={handleChange(alignment)}
@@ -228,8 +229,9 @@ export const VariousSeparators = () => {
     setState({ ...state, [separator]: e.target.value.rawValue });
   };
 
-  return ([".", ",", " ", "-", "/", "|"] as const).map((separator) => (
+  return ([".", ",", " ", "-", "/", "|"] as const).map((separator, index) => (
     <GroupedCharacter
+      mt={index === 0 ? 0 : 2}
       label="GroupedCharacter"
       value={state[separator]}
       onChange={handleChange(separator)}
@@ -257,8 +259,9 @@ export const VariousGroups = () => {
     [1, 2, 4],
     [3, 2, 2],
     [3, 1, 3],
-  ].map((group) => (
+  ].map((group, index) => (
     <GroupedCharacter
+      mt={index === 0 ? 0 : 2}
       label="GroupedCharacter"
       value={state[group.join("-") as keyof typeof state]}
       onChange={handleChange(group.join("-"))}
