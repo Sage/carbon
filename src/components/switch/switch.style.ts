@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import addFocusStyling from "style/utils/add-focus-styling";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
@@ -15,6 +15,12 @@ type StyledSwitchProps = Pick<
   SwitchProps,
   "fieldHelpInline" | "labelInline" | "reverse" | "size"
 >;
+
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
 
 const StyledSwitch = styled.div`
   ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
@@ -36,7 +42,8 @@ const StyledSwitch = styled.div`
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider} {
-        ${addFocusStyling()}
+        ${({ theme }) =>
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       }
     }
 

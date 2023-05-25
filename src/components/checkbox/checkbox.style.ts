@@ -23,6 +23,12 @@ export interface StyledCheckboxProps extends ValidationProps, MarginProps {
   adaptiveSpacingSmallScreen?: boolean;
 }
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const StyledCheckbox = styled.div<StyledCheckboxProps>`
   ${margin}
   ${({
@@ -81,7 +87,8 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
     ${StyledHiddenCheckableInput}:not([disabled]) {
       &:focus + ${StyledCheckableInputSvgWrapper},
       &:hover + ${StyledCheckableInputSvgWrapper} {
-        ${addFocusStyling()}
+        ${({ theme }) =>
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       }
     }
 

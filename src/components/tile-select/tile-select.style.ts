@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
-import addFocusStyling from "style/utils/add-focus-styling";
 import { margin } from "styled-system";
 import Fieldset from "../fieldset";
 import { Input } from "../../__internal__/input";
 import { LegendContainerStyle } from "../fieldset/fieldset.style";
 import StyledIcon from "../icon/icon.style";
 import { baseTheme } from "../../style/themes";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledTitle = styled.h3`
   font-size: 16px;
@@ -64,11 +64,17 @@ const StyledTileSelect = styled.div<{
     `}
 `;
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const StyledFocusWrapper = styled.div<{
   checked?: boolean;
   hasFocus: boolean;
 }>`
-  ${({ checked, hasFocus }) => css`
+  ${({ checked, hasFocus, theme }) => css`
     position: relative;
     border: 1px solid var(--colorsActionMinor250);
     border-radius: var(--borderRadius100);
@@ -83,7 +89,7 @@ const StyledFocusWrapper = styled.div<{
     ${hasFocus &&
     css`
       outline: none;
-      ${addFocusStyling()}
+      ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()};
       z-index: 15;
     `}
   `}

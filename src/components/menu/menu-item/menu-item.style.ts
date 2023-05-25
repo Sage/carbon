@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding, PaddingProps } from "styled-system";
-import addFocusStyling from "style/utils/add-focus-styling";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
 import Link from "../../link";
 import { StyledLink } from "../../link/link.style";
 import StyledIcon from "../../icon/icon.style";
@@ -33,6 +33,12 @@ interface StyledMenuItemWrapperProps
   asDiv?: boolean;
   hasInput?: boolean;
 }
+
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
 
 const StyledMenuItemWrapper = styled.a.attrs({
   as: Link,
@@ -85,7 +91,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
       && {
         a:focus,
         button:focus {
-          ${addFocusStyling()}
+          ${({ theme }) =>
+            `${
+              theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()
+            }`};
           background-color: ${menuConfigVariants[menuType].background};
           color: ${menuConfigVariants[menuType].color};
           z-index: 1;
@@ -183,7 +192,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
       a:focus,
       button:focus {
         background-color: ${menuConfigVariants[menuType].selected};
-        ${addFocusStyling()}
+        ${({ theme }) =>
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       }
 
       a:hover,
@@ -202,7 +212,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
       &&& a:focus,
       &&& button:focus {
         background-color: ${menuConfigVariants[menuType].alternate};
-        ${addFocusStyling()}
+        ${({ theme }) =>
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       }
 
       ${!hasInput &&
@@ -231,7 +242,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
       button:focus {
         background-color: ${menuConfigVariants[menuType].submenuBackground};
         color: ${menuConfigVariants[menuType].color};
-        ${addFocusStyling()}
+        ${({ theme }) =>
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
 
         [data-component="icon"] {
           color: ${menuConfigVariants[menuType].color};
@@ -271,7 +283,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
         a:focus,
         button:focus {
           background-color: ${menuConfigVariants[menuType].submenuSelected};
-          ${addFocusStyling()}
+          ${({ theme }) =>
+            `${
+              theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()
+            }`};
         }
 
         a:hover,
@@ -355,7 +370,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
       a:focus,
       button:focus {
-        ${addFocusStyling()}
+        ${({ theme }) =>
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
         z-index: 1;
         position: relative;
       }
@@ -366,7 +382,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
         button:focus,
         button:hover {
           background-color: var(--colorsComponentsMenuAutumnStandard600);
-          ${addFocusStyling()}
+          ${({ theme }) =>
+            `${
+              theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()
+            }`};
           color: var(--colorsComponentsMenuYang100);
 
             ${

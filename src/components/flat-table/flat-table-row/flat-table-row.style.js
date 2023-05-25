@@ -13,6 +13,12 @@ const horizontalBorderSizes = {
   large: "4px",
 };
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const getLeftStickyStyling = (index) =>
   index === 0 &&
   css`
@@ -207,7 +213,7 @@ const StyledFlatTableRow = styled.tr`
             top: 0;
             bottom: 0px;
             outline: none;
-            ${addFocusStyling()}
+            ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()};
             pointer-events: none;
           }
 

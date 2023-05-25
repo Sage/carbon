@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
-import addFocusStyling from "style/utils/add-focus-styling";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import StyledAdvancedColorPickerCell from "./advanced-color-picker-cell.style";
 import { StyledColorOptions } from "../simple-color-picker/simple-color-picker.style";
 import { StyledSimpleColor } from "../simple-color-picker/simple-color/simple-color.style";
@@ -29,13 +29,21 @@ StyledAdvancedColorPickerWrapper.defaultProps = {
   theme: baseTheme,
 };
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const StyledAdvancedColorPickerPreview = styled.div`
   width: 25px;
   height: 25px;
   margin-bottom: 15px;
   border: 1px solid var(--colorsUtilityYin090);
   border-radius: var(--borderRadius050);
-  ${addFocusStyling()}
+
+  ${({ theme }) =>
+    `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
 
   ${({ color }) =>
     color !== "transparent" &&

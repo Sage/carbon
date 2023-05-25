@@ -2,6 +2,12 @@ import styled from "styled-components";
 import baseTheme from "../../../../style/themes/base";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 // Styles copied from https://github.com/gpbl/react-day-picker/blob/v6.1.1/src/style.css
 const addReactDayPickerStyles = () => `
   .DayPicker {
@@ -263,9 +269,8 @@ const StyledDayPicker = styled.div`
       color: var(--colorsActionMajorYin090);
     }
 
-    &:focus {
-      ${addFocusStyling}
-    }
+    ${({ theme }) =>
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
 
     + * {
       border-left: 1px;

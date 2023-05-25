@@ -5,6 +5,12 @@ import StyledIcon from "../icon/icon.style";
 import { baseTheme } from "../../style/themes";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const StyledIconButton = styled.button.attrs({ type: "button" })`
   ${({ disabled }: { disabled?: boolean }) => css`
     && {
@@ -16,7 +22,8 @@ const StyledIconButton = styled.button.attrs({ type: "button" })`
 
     &:focus {
       background-color: transparent;
-      ${addFocusStyling()}
+      ${({ theme }) =>
+        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       z-index: 1;
     }
 

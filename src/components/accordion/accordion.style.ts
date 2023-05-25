@@ -131,8 +131,21 @@ interface StyledAccordionTitleContainerProps {
   size?: "large" | "small";
 }
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerProps>`
-  ${({ buttonHeading, buttonWidth, iconAlign, size, hasButtonProps }) => css`
+  ${({
+    buttonHeading,
+    buttonWidth,
+    iconAlign,
+    size,
+    hasButtonProps,
+    theme,
+  }) => css`
     padding: ${size === "small" ? "var(--spacing200)" : "var(--spacing300)"};
     ${space}
     display: flex;
@@ -148,7 +161,7 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
     cursor: pointer;
     z-index: 1;
 
-    ${addFocusStyling}
+    ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
 
     ${!buttonHeading &&
     css`

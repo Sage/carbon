@@ -155,11 +155,20 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
               }
             }
 
-            &:focus {
+            &:focus-within {
               background-color: var(--colorsSemanticFocus250);
               border-radius: var(--borderRadius050);
-              box-shadow: inset 0 -4px 0 0 var(--colorsSemanticFocus500),
-                inset 0 -6px 0 0 var(--colorsUtilityYin090);
+              a {
+                outline: none;
+                text-decoration: none;
+                background-color: yellow;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+              }
+
+              box-shadow: 0 4px 0 0 black;
+              border-bottom-left-radius: 4px;
+              border-bottom-right-radius: 4px;
             }
           `}
 

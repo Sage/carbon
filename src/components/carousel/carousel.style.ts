@@ -35,6 +35,12 @@ const CarouselStyledIconRight = styled(CarouselStyledIcon)`
   transform: rotate(-90deg);
 `;
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
   ${({ disabled }) => css`
     border: none;
@@ -73,9 +79,11 @@ const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
       border: none;
     }
 
+    ${({ theme }) =>
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+
     &:focus {
       outline: none;
-      ${addFocusStyling()}
 
       ::-moz-focus-inner {
         border: 0;

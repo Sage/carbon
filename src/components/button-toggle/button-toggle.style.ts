@@ -56,6 +56,12 @@ export interface StyledButtonToggleLabelProps {
   grouped?: boolean;
 }
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
   display: inline-block;
   position: relative;
@@ -80,7 +86,8 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
   }
   input:focus ~ & {
     z-index: 100;
-    ${addFocusStyling()}
+    ${({ theme }) =>
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
     box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
       0 0 0 4px var(--colorsUtilityYin090);
   }

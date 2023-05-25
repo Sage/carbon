@@ -1,7 +1,13 @@
 import styled, { css } from "styled-components";
-import addFocusStyling from "style/utils/add-focus-styling";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 import { StyledPreview } from "../preview/preview.style";
 import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
+
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
 
 const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
   display: flex;
@@ -19,7 +25,8 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
     css`
       :focus {
         outline: none;
-        ${addFocusStyling()}
+        ${({ theme }) =>
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
         outline-offset: -1px;
       }
 

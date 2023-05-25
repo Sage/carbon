@@ -7,6 +7,12 @@ import StyledButton from "../button/button.style";
 import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const Menu = styled.div`
   ${({ isOpen }: { isOpen?: boolean }) =>
     isOpen ? "display: block;" : "visibility: hidden;"}
@@ -45,8 +51,9 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
   justify-content: ${({ horizontalAlignment }) =>
     horizontalAlignment === "left" ? "flex-start" : "flex-end"};
 
+  ${({ theme }) =>
+    `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
   &:focus {
-    ${addFocusStyling}
     z-index: 1;
     border-radius: var(--borderRadius000);
   }
@@ -103,10 +110,9 @@ const ButtonIcon = styled(Icon)`
 `;
 
 const StyledButtonIcon = styled.div`
-  &:focus {
-    border-radius: var(--borderRadius050);
-    ${addFocusStyling}
-  }
+  ${({ theme }) =>
+    `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+  border-radius: var(--borderRadius050);
 `;
 
 const MenuItemIcon = styled(Icon)`

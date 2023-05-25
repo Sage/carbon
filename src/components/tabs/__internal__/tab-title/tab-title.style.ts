@@ -25,6 +25,12 @@ interface StyledTitleContentProps
   hasSiblings?: boolean;
 }
 
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
+
 const StyledTitleContent = styled.span<StyledTitleContentProps>`
   outline: none;
   display: inline-block;
@@ -386,7 +392,8 @@ const tabTitleStyles = css<TabTitleProps>`
     `}
 
     &:focus {
-      ${addFocusStyling()}
+      ${({ theme }) =>
+        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       z-index: 2;
 
       ${isInSidebar &&
