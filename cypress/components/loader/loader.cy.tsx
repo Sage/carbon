@@ -1,11 +1,9 @@
+/* eslint-disable jest/valid-expect */
 import React from "react";
-import Loader from "../../../src/components/loader";
-
+import Loader, { LoaderProps } from "../../../src/components/loader";
 import { LoaderInsideButtonTest as LoaderInsideButton } from "../../../src/components/loader/loader-test.stories";
 import { LOADER_SIZES } from "../../../src/components/loader/loader.config";
-
 import { loader, loaderInsideButton } from "../../locators/loader";
-
 import { positionOfElement } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
@@ -19,7 +17,7 @@ context("Test for Loader component", () => {
       [LOADER_SIZES[0], 12, 6],
       [LOADER_SIZES[1], 16, 8],
       [LOADER_SIZES[2], 20, 8],
-    ])(
+    ] as [LoaderProps["size"], number, number][])(
       "should render Loader using %s as size",
       (size, heightAndWidth, margin) => {
         CypressMountWithProviders(<Loader size={size} />);
@@ -49,14 +47,17 @@ context("Test for Loader component", () => {
       [LOADER_SIZES[0], 100],
       [LOADER_SIZES[1], 116],
       [LOADER_SIZES[2], 128],
-    ])("should render Loader using %s as size in Button", (size, width) => {
-      CypressMountWithProviders(<LoaderInsideButton size={size} />);
+    ] as [LoaderProps["size"], number][])(
+      "should render Loader using %s as size in Button",
+      (size, width) => {
+        CypressMountWithProviders(<LoaderInsideButton size={size} />);
 
-      loaderInsideButton().then(($el) => {
-        expect($el.css("height")).to.equals("40px");
-        assertCssValueIsApproximately($el, "width", width);
-      });
-    });
+        loaderInsideButton().then(($el) => {
+          expect($el.css("height")).to.equals("40px");
+          assertCssValueIsApproximately($el, "width", width);
+        });
+      }
+    );
 
     it("should render Loader inside the Button component with correct color", () => {
       CypressMountWithProviders(<LoaderInsideButton />);
