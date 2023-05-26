@@ -161,7 +161,9 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
     cursor: pointer;
     z-index: 1;
 
-    ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
+    &:focus {
+      ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
+    }
 
     ${!buttonHeading &&
     css`

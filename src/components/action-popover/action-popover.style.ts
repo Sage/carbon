@@ -6,6 +6,7 @@ import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 import addFocusStyling from "../../style/utils/add-focus-styling";
+import baseTheme from "../../style/themes/base";
 
 const oldFocusStyling = `
   &:focus {
@@ -51,11 +52,11 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
   justify-content: ${({ horizontalAlignment }) =>
     horizontalAlignment === "left" ? "flex-start" : "flex-end"};
 
-  ${({ theme }) =>
-    `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
   &:focus {
     z-index: 1;
     border-radius: var(--borderRadius000);
+    ${({ theme }) =>
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
   }
 
   ${({ isDisabled }) =>
@@ -82,6 +83,10 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
       }
     `}
 `;
+
+StyledMenuItem.defaultProps = {
+  theme: baseTheme,
+};
 
 const MenuItemDivider = styled.div.attrs({
   "data-element": "action-popover-divider",
@@ -114,6 +119,10 @@ const StyledButtonIcon = styled.div`
     `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
   border-radius: var(--borderRadius050);
 `;
+
+StyledButtonIcon.defaultProps = {
+  theme: baseTheme,
+};
 
 const MenuItemIcon = styled(Icon)`
   padding: var(--spacing100);
