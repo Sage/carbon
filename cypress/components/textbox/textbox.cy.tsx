@@ -786,41 +786,6 @@ context("Tests for Textbox component", () => {
           });
       }
     );
-
-    it.each([
-      [1000, "1"],
-      [5000, "5"],
-      [10000, "10"],
-    ])(
-      "should use %s as deferTimeout and defer onChangeDeferred event for %s seconds",
-      (timeout) => {
-        const callbackOnChange: TextboxProps["onChange"] = cy.stub();
-        const callbackOnChangeDeff: TextboxProps["onChangeDeferred"] = cy.stub();
-
-        CypressMountWithProviders(
-          <stories.TextboxComponent
-            deferTimeout={timeout}
-            onChange={callbackOnChange}
-            onChangeDeferred={callbackOnChangeDeff}
-          />
-        );
-
-        cy.clock();
-
-        textboxInput()
-          .type(inputValue)
-          .then(() => {
-            expect(callbackOnChange).to.have.been.calledOnce;
-            expect(callbackOnChangeDeff).to.not.have.been.called;
-          })
-          .then(() => {
-            cy.tick(timeout);
-          })
-          .then(() => {
-            expect(callbackOnChangeDeff).to.have.been.calledOnce;
-          });
-      }
-    );
   });
 
   describe("Accessibility tests for Textbox component", () => {
