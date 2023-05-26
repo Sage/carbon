@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
 import { margin } from "styled-system";
 
 import baseTheme from "../../style/themes/base";
@@ -8,6 +7,7 @@ import StyledInputPresentation from "../../__internal__/input/input-presentation
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import StyledLabel from "../../__internal__/label/label.style";
+import { DateInputProps } from "./date.component";
 
 const datePickerWidth = {
   large: "140px",
@@ -15,12 +15,20 @@ const datePickerWidth = {
   small: "120px",
 };
 
-const StyledDateInput = styled.div`
+interface StyledDateInputProps
+  extends Pick<
+    DateInputProps,
+    "inputWidth" | "size" | "maxWidth" | "labelInline"
+  > {
+  applyDateRangeStyling?: boolean;
+}
+
+const StyledDateInput = styled.div<StyledDateInputProps>`
   ${margin}
 
   & ${StyledInputPresentation} {
     flex: none;
-    width: ${({ inputWidth, maxWidth, size }) =>
+    width: ${({ inputWidth, maxWidth, size = "medium" }) =>
       maxWidth || inputWidth ? "" : datePickerWidth[size]};
 
     ${StyledInput} {
@@ -28,7 +36,7 @@ const StyledDateInput = styled.div`
     }
   }
 
-  ${({ applyDateRangeStyling, maxWidth, size, labelInline }) =>
+  ${({ applyDateRangeStyling, maxWidth, size = "medium", labelInline }) =>
     applyDateRangeStyling &&
     !labelInline &&
     css`
@@ -42,13 +50,8 @@ const StyledDateInput = styled.div`
     `}
 `;
 
-StyledDateInput.propTypes = {
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-};
-
 StyledDateInput.defaultProps = {
   theme: baseTheme,
-  size: "medium",
 };
 
 export default StyledDateInput;

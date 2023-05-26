@@ -6,8 +6,7 @@ import React, {
   useState,
   useCallback,
 } from "react";
-import PropTypes from "prop-types";
-import styledSystemPropTypes from "@styled-system/prop-types";
+
 import {
   additionalYears,
   findMatchedFormatAndValue,
@@ -21,26 +20,88 @@ import {
 } from "./__internal__/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
 import Events from "../../__internal__/utils/helpers/events";
-import {
-  filterStyledSystemMarginProps,
-  filterOutStyledSystemSpacingProps,
-} from "../../style/utils";
+import { filterOutStyledSystemSpacingProps } from "../../style/utils";
 import getFormatData from "./__internal__/date-formats";
 import StyledDateInput from "./date.style";
-import Textbox from "../textbox";
-import DatePicker from "./__internal__/date-picker";
-import DateRangeContext from "../date-range/date-range.context";
+import Textbox, { TextboxProps } from "../textbox";
+import DatePicker, { PickerProps } from "./__internal__/date-picker";
+import DateRangeContext, { InputName } from "../date-range/date-range.context";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
-const marginPropTypes = filterStyledSystemMarginProps(
-  styledSystemPropTypes.space
-);
+interface CustomDateEvent {
+  type: string;
+  target: {
+    id?: string;
+    name?: string;
+    value: string;
+  };
+}
+
+export interface DateChangeEvent {
+  target: {
+    id?: string;
+    name?: string;
+    value: {
+      formattedValue: string;
+      rawValue: string | null;
+    };
+  };
+}
+
+export interface DateInputProps
+  extends Omit<
+    TextboxProps,
+    | "value"
+    | "formattedValue"
+    | "rawValue"
+    | "onChange"
+    | "onBlur"
+    | "onMouseDown"
+    | "onChangeDeferred"
+    | "deferTimeout"
+    | "children"
+    | "leftChildren"
+    | "placeholder"
+    | "iconOnClick"
+    | "iconOnMouseDown"
+    | "enforceCharacterLimit"
+    | "characterLimit"
+    | "warnOverLimit"
+    | "iconTabIndex"
+    | "inputIcon"
+  > {
+  /** Boolean to allow the input to have an empty value */
+  allowEmptyValue?: boolean;
+  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
+  disablePortal?: boolean;
+  /** Minimum possible date YYYY-MM-DD */
+  minDate?: string;
+  /** Maximum possible date YYYY-MM-DD */
+  maxDate?: string;
+  /** Specify a callback triggered on change */
+  onChange: (ev: DateChangeEvent) => void;
+  /** Specify a callback triggered on blur */
+  onBlur?: (ev: DateChangeEvent) => void;
+  /** The current date string */
+  value: string;
+  /**
+   * Pass any props that match the DayPickerProps interface to override default behaviors
+   * See [DayPickerProps](https://react-day-picker-v7.netlify.app/docs/getting-started/) for a full list of available props
+   * */
+  pickerProps?: PickerProps;
+  /**
+   * @private
+   * @ignore
+   * Name passed from DateRange to allow it to know which input is updating
+   * */
+  inputName?: InputName;
+}
 
 let deprecateInputRefWarnTriggered = false;
 
-const DateInput = React.forwardRef(
+export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
   (
     {
       adaptiveLabelBreakpoint,
@@ -69,13 +130,14 @@ const DateInput = React.forwardRef(
       inputWidth,
       labelWidth,
       maxWidth,
+      inputName,
       ...rest
-    },
+    }: DateInputProps,
     ref
   ) => {
-    const wrapperRef = useRef();
-    const parentRef = useRef();
-    const internalInputRef = useRef();
+    const wrapperRef = useRef(null);
+    const parentRef = useRef(null);
+    const internalInputRef = useRef<HTMLInputElement | null>(null);
     const alreadyFocused = useRef(false);
     const isBlurBlocked = useRef(false);
     const focusedViaPicker = useRef(false);
@@ -85,7 +147,6 @@ const DateInput = React.forwardRef(
       dateFnsLocale,
     ]);
     const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
-    const inputName = dataElement?.split("-")[0];
     const [open, setOpen] = useState(false);
     const [selectedDays, setSelectedDays] = useState(
       checkISOFormatAndLength(value)
@@ -101,10 +162,10 @@ const DateInput = React.forwardRef(
       );
     }
 
-    const computeInvalidRawValue = (inputValue) =>
+    const computeInvalidRawValue = (inputValue: string) =>
       allowEmptyValue && !inputValue.length ? inputValue : null;
 
-    const buildCustomEvent = (ev) => {
+    const buildCustomEvent = (ev: CustomDateEvent) => {
       const { id, name } = ev.target;
 
       const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
@@ -120,24 +181,26 @@ const DateInput = React.forwardRef(
         ? formatToISO(...additionalYears(matchedFormat, matchedValue))
         : computeInvalidRawValue(ev.target.value);
 
-      ev.target = {
-        ...(name && { name }),
-        ...(id && { id }),
-        value: {
-          formattedValue: formattedValueString,
-          rawValue,
+      const customEvent = {
+        target: {
+          ...(name && { name }),
+          ...(id && { id }),
+          value: {
+            formattedValue: formattedValueString,
+            rawValue,
+          },
         },
       };
 
-      return ev;
+      return customEvent;
     };
 
     const handleClickAway = () => {
       if (open) {
         alreadyFocused.current = true;
-        internalInputRef.current.focus();
+        internalInputRef.current?.focus();
         isBlurBlocked.current = false;
-        internalInputRef.current.blur();
+        internalInputRef.current?.blur();
         setOpen(false);
         alreadyFocused.current = false;
       }
@@ -148,7 +211,7 @@ const DateInput = React.forwardRef(
       "mousedown"
     );
 
-    const handleChange = (ev) => {
+    const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       isInitialValue.current = false;
       onChange(buildCustomEvent(ev));
     };
@@ -158,7 +221,10 @@ const DateInput = React.forwardRef(
       internalInputRef.current?.focus();
     };
 
-    const handleDayClick = (day, ev) => {
+    const handleDayClick = (
+      day: Date,
+      ev: React.MouseEvent<HTMLDivElement>
+    ) => {
       setSelectedDays(day);
       onChange(
         buildCustomEvent({
@@ -173,12 +239,12 @@ const DateInput = React.forwardRef(
       setOpen(false);
     };
 
-    const handleBlur = (ev) => {
+    const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
       if (disabled || readOnly) {
         return;
       }
 
-      let event;
+      let event: DateChangeEvent;
 
       if (isDateValid(selectedDays)) {
         event = buildCustomEvent(ev);
@@ -197,16 +263,16 @@ const DateInput = React.forwardRef(
       } else {
         const { id, name } = ev.target;
 
-        ev.target = {
-          ...(name && { name }),
-          ...(id && { id }),
-          value: {
-            formattedValue: ev.target.value,
-            rawValue: computeInvalidRawValue(ev.target.value),
+        event = {
+          target: {
+            ...(name && { name }),
+            ...(id && { id }),
+            value: {
+              formattedValue: ev.target.value,
+              rawValue: computeInvalidRawValue(ev.target.value),
+            },
           },
         };
-
-        event = ev;
       }
 
       if (isBlurBlocked.current) {
@@ -218,7 +284,7 @@ const DateInput = React.forwardRef(
       }
     };
 
-    const handleFocus = (ev) => {
+    const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
       if (disabled || readOnly) {
         return;
       }
@@ -236,7 +302,7 @@ const DateInput = React.forwardRef(
       }
     };
 
-    const handleKeyDown = (ev) => {
+    const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
       if (onKeyDown) {
         onKeyDown(ev);
       }
@@ -247,7 +313,9 @@ const DateInput = React.forwardRef(
       }
     };
 
-    const handleClick = (ev) => {
+    const handleClick = (
+      ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    ) => {
       if (disabled || readOnly) {
         return;
       }
@@ -257,8 +325,8 @@ const DateInput = React.forwardRef(
       }
     };
 
-    const handleMouseDown = (ev) => {
-      handleClickInside(ev);
+    const handleMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
+      handleClickInside();
 
       if (disabled || readOnly) {
         return;
@@ -268,22 +336,24 @@ const DateInput = React.forwardRef(
         isBlurBlocked.current = true;
       }
 
-      if (ev.target.type === "text" && !open) {
-        setOpen(true);
-      } else if (ev.target.type !== "text") {
+      const { type } = ev.target as HTMLInputElement;
+
+      if (type !== "text") {
         alreadyFocused.current = true;
         setOpen((prev) => !prev);
+      } else if (!open) {
+        setOpen(true);
       }
     };
 
-    const handleIconMouseDown = (e) => {
+    const handleIconMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
       isBlurBlocked.current = true;
-      handleMouseDown(e);
+      handleMouseDown(ev);
     };
 
-    const handlePickerMouseDown = (ev) => {
+    const handlePickerMouseDown = () => {
       isBlurBlocked.current = true;
-      handleClickInside(ev);
+      handleClickInside();
     };
 
     const assignInput = useCallback(
@@ -299,8 +369,12 @@ const DateInput = React.forwardRef(
           }
         }
 
-        if (inputRefMap && inputRefMap[inputName]?.setOpen !== setOpen) {
-          setInputRefMap({
+        if (
+          inputName &&
+          inputRefMap?.[inputName as keyof typeof inputRefMap]?.setOpen !==
+            setOpen
+        ) {
+          setInputRefMap?.({
             [inputName]: { isBlurBlocked, setOpen },
           });
         }
@@ -410,7 +484,6 @@ const DateInput = React.forwardRef(
           inputElement={parentRef}
           pickerProps={pickerProps}
           selectedDays={selectedDays}
-          setSelectedDays={setSelectedDays}
           onDayClick={handleDayClick}
           minDate={minDate}
           maxDate={maxDate}
@@ -421,27 +494,6 @@ const DateInput = React.forwardRef(
     );
   }
 );
-
-DateInput.propTypes = {
-  ...Textbox.propTypes,
-  ...marginPropTypes,
-  /** Pass any props that match the [DayPickerProps](https://react-day-picker-v7.netlify.app/docs/getting-started/)
-   * interface to override default behaviors
-   * */
-  pickerProps: PropTypes.object,
-  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
-  disablePortal: PropTypes.bool,
-  /** Minimum possible date YYYY-MM-DD */
-  minDate: PropTypes.string,
-  /** Maximum possible date YYYY-MM-DD */
-  maxDate: PropTypes.string,
-  /** Specify a callback triggered on change */
-  onChange: PropTypes.func.isRequired,
-  /** The current date string */
-  value: PropTypes.string.isRequired,
-  /** Boolean to allow the input to have an empty value */
-  allowEmptyValue: PropTypes.bool,
-};
 
 DateInput.displayName = "DateInput";
 

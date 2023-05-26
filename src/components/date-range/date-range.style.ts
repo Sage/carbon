@@ -5,7 +5,11 @@ import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import { StyledInputPresentationContainer } from "../../__internal__/input/input-presentation.style";
 import baseTheme from "../../style/themes/base";
 
-const StyledDateRange = styled.div`
+export interface StyledDateRangeProps {
+  /** Display labels inline */
+  labelsInline?: boolean;
+}
+const StyledDateRange = styled.div<StyledDateRangeProps>`
   ${margin}
 
   & ${StyledDateInput} {
@@ -14,7 +18,7 @@ const StyledDateRange = styled.div`
     vertical-align: ${({ labelsInline }) => (labelsInline ? "top" : "bottom")};
   }
 
-  & ${StyledDateInput}:first-child {
+  & ${StyledDateInput}:first-of-type {
     margin-right: var(--spacing300);
   }
 

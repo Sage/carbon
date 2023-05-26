@@ -1,30 +1,40 @@
 import { format, formatISO, isMatch, parse, parseISO } from "date-fns/fp";
+import { Modifier } from "react-day-picker";
 
-export function parseDate(formatString, valueString) {
-  if (!valueString || !formatString) return null;
+const DATE_STRING_LENGTH = 10;
+const THRESHOLD_FOR_ADDITIONAL_YEARS = 69;
+
+export function parseDate(formatString?: string, valueString?: string) {
+  if (!valueString || !formatString) return undefined;
 
   return parse(new Date(), formatString, valueString);
 }
 
-export function formatToISO(formatString, valueString) {
+export function isDateValid(date?: Date) {
+  return date && date.toString() !== "Invalid Date";
+}
+
+export function formatToISO(formatString?: string, valueString?: string) {
   const dateValue = parseDate(formatString, valueString);
 
-  if (!isDateValid(dateValue)) {
+  if (!dateValue || !isDateValid(dateValue)) {
     return null;
   }
 
   return formatISO(dateValue).split("T")[0];
 }
 
-export function formattedValue(formatString, value) {
+export function formattedValue(formatString: string, value?: Date) {
+  if (!value) return "";
   return format(formatString, value);
 }
 
-export function isDateValid(date) {
-  return date && date.toString() !== "Invalid Date";
-}
-
-function hasMatchedFormat(formatString, valueString, fullFormat, fullValue) {
+function hasMatchedFormat(
+  formatString: string,
+  valueString: string,
+  fullFormat: string[],
+  fullValue: string[]
+) {
   if (formatString.includes("d")) {
     return (
       formatString.length === valueString.length &&
@@ -38,9 +48,7 @@ function hasMatchedFormat(formatString, valueString, fullFormat, fullValue) {
   );
 }
 
-const THRESHOLD_FOR_ADDITIONAL_YEARS = 69;
-
-export function additionalYears(formatString, value) {
+export function additionalYears(formatString: string, value: string) {
   if (formatString.split("y").length - 1 !== 2) {
     return [formatString, value];
   }
@@ -81,23 +89,25 @@ export function additionalYears(formatString, value) {
   ];
 }
 
-function makeSeparatedValues(arr, str) {
+function makeSeparatedValues(arr: number[], str: string) {
   return arr.map((_, i) => str.substring(arr[i], arr[i + 1]));
 }
 
-function checkForCompleteMatch(formatArray, valueArray) {
+function checkForCompleteMatch(formatArray: string[], valueArray: string[]) {
   return formatArray.every((formatString, i) =>
     hasMatchedFormat(formatString, valueArray[i], formatArray, valueArray)
   );
 }
 
-function findMatchWithNoSeparators(valueString, formatString) {
-  const indexArray = formatString.split("").reduce((arr, char, index) => {
-    if (index === 0 || char !== formatString[index - 1]) {
-      return [...arr, index];
-    }
-    return arr;
-  }, []);
+function findMatchWithNoSeparators(valueString: string, formatString: string) {
+  const indexArray = formatString
+    .split("")
+    .reduce((arr: number[], char: string, index: number) => {
+      if (index === 0 || char !== formatString[index - 1]) {
+        return [...arr, index];
+      }
+      return arr;
+    }, []);
 
   const formatArray = makeSeparatedValues(indexArray, formatString);
   const valueArray = makeSeparatedValues(indexArray, valueString);
@@ -109,7 +119,11 @@ function findMatchWithNoSeparators(valueString, formatString) {
   return null;
 }
 
-function findMatchWithSeparators(valueString, formatString, separator) {
+function findMatchWithSeparators(
+  valueString: string,
+  formatString: string,
+  separator: string
+) {
   const formatArray = formatString.split(separator);
   const valueArray = valueString.split(separator);
 
@@ -120,7 +134,7 @@ function findMatchWithSeparators(valueString, formatString, separator) {
   return null;
 }
 
-export const getSeparator = (value) => {
+export const getSeparator = (value: string) => {
   const separator = ["", ".", ",", "-", "/", " ", ":"]
     .slice(1)
     .find((char) => value.includes(char));
@@ -128,7 +142,10 @@ export const getSeparator = (value) => {
   return separator || "";
 };
 
-export function findMatchedFormatAndValue(valueString, formats) {
+export function findMatchedFormatAndValue(
+  valueString: string,
+  formats: string[]
+) {
   if (!valueString) {
     return ["", ""];
   }
@@ -140,66 +157,52 @@ export function findMatchedFormatAndValue(valueString, formats) {
       getSeparator(formatString) === valueSeparator
   );
 
-  const matchedFormatAndValue = filteredFormats.reduce((acc, formatString) => {
-    const formatSeparator = getSeparator(formatString);
-    if (valueSeparator === "" && formatSeparator === "") {
-      // This check is added as there is a bug in date-fns https://github.com/date-fns/date-fns/issues/2785
-      // it incorrectly matches or fails to parse valid dates with no separators
-      const match = findMatchWithNoSeparators(valueString, formatString);
+  const matchedFormatAndValue = filteredFormats.reduce(
+    (acc: string[], formatString: string) => {
+      const formatSeparator = getSeparator(formatString);
+      if (valueSeparator === "" && formatSeparator === "") {
+        // This check is added as there is a bug in date-fns https://github.com/date-fns/date-fns/issues/2785
+        // it incorrectly matches or fails to parse valid dates with no separators
+        const match = findMatchWithNoSeparators(valueString, formatString);
 
-      if (match) {
-        return match;
+        if (match) {
+          return match;
+        }
       }
-    }
 
-    if (
-      valueSeparator &&
-      formatSeparator &&
-      valueSeparator === formatSeparator
-    ) {
-      const match = findMatchWithSeparators(
-        valueString,
-        formatString,
-        valueSeparator
-      );
+      if (
+        valueSeparator &&
+        formatSeparator &&
+        valueSeparator === formatSeparator
+      ) {
+        const match = findMatchWithSeparators(
+          valueString,
+          formatString,
+          valueSeparator
+        );
 
-      if (match) {
-        return match;
+        if (match) {
+          return match;
+        }
       }
-    }
-    return acc;
-  }, []);
+      return acc;
+    },
+    []
+  );
 
   return matchedFormatAndValue;
 }
 
-export function parseISODate(value) {
+export function parseISODate(value: string) {
   return parseISO(value);
 }
 
-/**
- * Returns the disabled array of days specified by props maxDate and minDate
- */
-export function getDisabledDays(minDate, maxDate) {
-  const days = [];
-
-  if (!minDate && !maxDate) {
-    return null;
-  }
-
-  if (checkISOFormatAndLength(minDate)) {
-    days.push({ before: parseISODate(minDate) });
-  }
-
-  if (checkISOFormatAndLength(maxDate)) {
-    days.push({ after: parseISODate(maxDate) });
-  }
-
-  return days;
+function isValidISODate(dateString: string) {
+  return parseISODate(dateString).toString() !== "Invalid Date";
 }
 
-export function checkISOFormatAndLength(value) {
-  if (!value || value.length !== 10 || !isValidISODate(value)) {
+export function checkISOFormatAndLength(value: string) {
+  if (value.length !== DATE_STRING_LENGTH || !isValidISODate(value)) {
     return false;
   }
   const array = value.split("-");
@@ -211,6 +214,26 @@ export function checkISOFormatAndLength(value) {
   );
 }
 
-function isValidISODate(dateString) {
-  return parseISODate(dateString).toString() !== "Invalid Date";
+/**
+ * Returns the disabled array of days specified by props maxDate and minDate
+ */
+export function getDisabledDays(
+  minDate = "",
+  maxDate = ""
+): Modifier | Modifier[] {
+  const days = [];
+
+  if (!minDate && !maxDate) {
+    return undefined;
+  }
+
+  if (checkISOFormatAndLength(minDate)) {
+    days.push({ before: parseISODate(minDate) });
+  }
+
+  if (checkISOFormatAndLength(maxDate)) {
+    days.push({ after: parseISODate(maxDate) });
+  }
+
+  return days;
 }

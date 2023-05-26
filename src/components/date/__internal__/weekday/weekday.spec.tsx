@@ -1,10 +1,10 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 
-import Weekday from "./weekday.component";
+import Weekday, { WeekdayProps } from "./weekday.component";
 
 describe("Weekday", () => {
-  const render = (props) => {
+  const render = (props: WeekdayProps) => {
     return TestRenderer.create(<Weekday {...props}>sample children</Weekday>);
   };
 

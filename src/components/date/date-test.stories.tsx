@@ -1,29 +1,29 @@
-import { useState } from "react";
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import DateInput from "./date.component";
+import DateInput, { DateChangeEvent } from "./date.component";
 import {
+  CommonTextboxArgs,
   commonTextboxArgTypes,
   getCommonTextboxArgs,
   getCommonTextboxArgsWithSpecialCaracters,
 } from "../textbox/textbox-test.stories";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
-<Meta
-  title="Date Input/Test"
-  parameters={{
+export default {
+  title: "Date Input/Test",
+  parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
     },
-  }}
-  argTypes={commonTextboxArgTypes()}
-/>
+  },
+  argTypes: commonTextboxArgTypes(),
+};
 
-export const DateStory = (args) => {
+export const DateStory = (args: CommonTextboxArgs) => {
   const [state, setState] = useState("2019-04-04");
-  const setValue = (ev) => {
+  const setValue = (ev: DateChangeEvent) => {
     action("onChange")(ev.target.value);
     setState(ev.target.value.formattedValue);
   };
@@ -35,16 +35,26 @@ export const DateStory = (args) => {
       onBlur={(ev) => {
         action("onBlur")(ev.target.value);
       }}
-      onKeyDown={(ev) => action("onKeyDown")(ev.target.value)}
-      onClick={(ev) => action("onClick")(ev.target.value)}
+      onKeyDown={(ev) =>
+        action("onKeyDown")((ev.target as HTMLInputElement).value)
+      }
+      onClick={(ev) => action("onClick")((ev.target as HTMLInputElement).value)}
       {...getCommonTextboxArgsWithSpecialCaracters(args)}
     />
   );
 };
 
-export const NewValidationStory = (args) => {
+DateStory.args = {
+  minDate: "",
+  maxDate: "",
+  allowEmptyValue: false,
+  mt: 0,
+  ...getCommonTextboxArgs(),
+};
+
+export const NewValidationStory = (args: CommonTextboxArgs) => {
   const [state, setState] = useState("2019-04-04");
-  const setValue = (ev) => {
+  const setValue = (ev: DateChangeEvent) => {
     action("onChange")(ev.target.value);
     setState(ev.target.value.formattedValue);
   };
@@ -58,46 +68,22 @@ export const NewValidationStory = (args) => {
         onBlur={(ev) => {
           action("onBlur")(ev.target.value);
         }}
-        onKeyDown={(ev) => action("onKeyDown")(ev.target.value)}
-        onClick={(ev) => action("onClick")(ev.target.value)}
+        onKeyDown={(ev) =>
+          action("onKeyDown")((ev.target as HTMLInputElement).value)
+        }
+        onClick={(ev) =>
+          action("onClick")((ev.target as HTMLInputElement).value)
+        }
         {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
     </CarbonProvider>
   );
 };
 
-# Date
-
-### Default
-
-<Canvas>
-  <Story
-    name="default"
-    args={{
-      minDate: "",
-      maxDate: "",
-      allowEmptyValue: false,
-      mt: 0,
-      ...getCommonTextboxArgs(),
-    }}
-  >
-    {DateStory.bind({})}
-  </Story>
-</Canvas>
-
-### New Validation
-
-<Canvas>
-  <Story
-    name="new validation"
-    args={{
-      minDate: "",
-      maxDate: "",
-      allowEmptyValue: false,
-      mt: 0,
-      ...getCommonTextboxArgs(),
-    }}
-  >
-    {NewValidationStory.bind({})}
-  </Story>
-</Canvas>
+NewValidationStory.args = {
+  minDate: "",
+  maxDate: "",
+  allowEmptyValue: false,
+  mt: 0,
+  ...getCommonTextboxArgs(),
+};

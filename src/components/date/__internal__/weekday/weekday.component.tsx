@@ -1,18 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
 import StyledWeekday from "./weekday.style";
 import StyledAbbr from "./abbr.style";
 
-const Weekday = ({ className, title, children, ...props }) => (
+export interface WeekdayProps {
+  className?: string;
+  title?: string;
+  children?: React.ReactNode;
+}
+
+export const Weekday = ({
+  className,
+  title,
+  children,
+  ...props
+}: WeekdayProps) => (
   <StyledWeekday className={className} role="columnheader" {...props}>
     <StyledAbbr title={title}>{children}</StyledAbbr>
   </StyledWeekday>
 );
-
-Weekday.propTypes = {
-  className: PropTypes.string,
-  title: PropTypes.string,
-  children: PropTypes.node,
-};
 
 export default Weekday;

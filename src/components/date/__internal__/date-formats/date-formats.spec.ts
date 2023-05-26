@@ -442,45 +442,46 @@ const huFormats = [
   "MM. dd",
 ];
 
-const formatMap = [...euLocales, ...naLocales, ...cnLocales].reduce(
-  (acc, code) => {
-    if (["de", "pl", "bg"].includes(code)) {
-      return {
-        ...acc,
-        [code]: "dd.MM.yyyy",
-      };
-    }
-
-    if (code === "hu") {
-      return {
-        ...acc,
-        [code]: "yyyy. MM. dd.",
-      };
-    }
-
-    if (naLocales.includes(code)) {
-      return {
-        ...acc,
-        [code]: "MM/dd/yyyy",
-      };
-    }
-
-    if (cnLocales.includes(code)) {
-      return {
-        ...acc,
-        [code]: "yyyy/MM/dd",
-      };
-    }
-
+const formatMap: Record<string, string> = [
+  ...euLocales,
+  ...naLocales,
+  ...cnLocales,
+].reduce((acc, code) => {
+  if (["de", "pl", "bg"].includes(code)) {
     return {
       ...acc,
-      [code]: "dd/MM/yyyy",
+      [code]: "dd.MM.yyyy",
     };
-  },
-  {}
-);
+  }
 
-const getExpectedFormatForLocale = (locale) => {
+  if (code === "hu") {
+    return {
+      ...acc,
+      [code]: "yyyy. MM. dd.",
+    };
+  }
+
+  if (naLocales.includes(code)) {
+    return {
+      ...acc,
+      [code]: "MM/dd/yyyy",
+    };
+  }
+
+  if (cnLocales.includes(code)) {
+    return {
+      ...acc,
+      [code]: "yyyy/MM/dd",
+    };
+  }
+
+  return {
+    ...acc,
+    [code]: "dd/MM/yyyy",
+  };
+}, {});
+
+const getExpectedFormatForLocale = (locale: string) => {
   if (naLocales.includes(locale)) {
     return naFormats;
   }
@@ -496,12 +497,12 @@ const getExpectedFormatForLocale = (locale) => {
   return euFormats;
 };
 
-describe.each([...euLocales, ...naLocales, ...cnLocales])(
+describe.each([...euLocales, ...naLocales, ...cnLocales] as const)(
   "getFormatData for `%s` returns",
-  (locale) => {
-    const { formats, format } = getFormatData({ code: locale });
-
+  (locale: string) => {
     it("the expected formats", () => {
+      const { formats } = getFormatData({ code: locale });
+
       const expectedFormats = getExpectedFormatForLocale(locale);
 
       expect(
@@ -511,7 +512,22 @@ describe.each([...euLocales, ...naLocales, ...cnLocales])(
     });
 
     it("the expected format", () => {
+      const { format } = getFormatData({ code: locale });
+
       expect(format).toEqual(formatMap[locale]);
+    });
+
+    it("defaults to en-GB locale if no locale code string passed", () => {
+      const { formats, format } = getFormatData({ code: undefined });
+
+      const expectedFormats = getExpectedFormatForLocale("en-GB");
+
+      expect(
+        expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
+          formats.length === expectedFormats.length
+      ).toEqual(true);
+
+      expect(format).toEqual(formatMap["en-GB"]);
     });
   }
 );

@@ -1,6 +1,10 @@
 import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import DayPicker from "react-day-picker";
+import DayPicker, {
+  DayPickerProps,
+  DayModifiers,
+  Modifier,
+  LocaleUtils,
+} from "react-day-picker";
 import { flip, offset } from "@floating-ui/dom";
 
 import { getDisabledDays } from "../utils";
@@ -10,6 +14,45 @@ import Navbar from "../navbar";
 import Weekday from "../weekday";
 import StyledDayPicker from "./day-picker.style";
 
+type CustomRefObject<T> = {
+  current?: T | null;
+};
+
+/** there is an issue with typescript-to-proptypes package that means we need to override these types */
+interface Modifiers {
+  today: NonNullable<Modifier> | NonNullable<Modifier>[];
+  outside: NonNullable<Modifier> | NonNullable<Modifier>[];
+  [other: string]: NonNullable<Modifier> | NonNullable<Modifier>[];
+}
+
+export interface PickerProps
+  extends Omit<DayPickerProps, "disabledDays" | "modifiers" | "selectedDays"> {
+  disabledDays?: NonNullable<Modifier> | NonNullable<Modifier>[] | undefined[];
+  modifiers?: Partial<Modifiers>;
+  selectedDays?: NonNullable<Modifier> | NonNullable<Modifier>[] | undefined[];
+}
+
+export interface DatePickerProps {
+  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
+  disablePortal?: boolean;
+  /** Minimum possible date YYYY-MM-DD */
+  minDate?: string;
+  /** Maximum possible date YYYY-MM-DD */
+  maxDate?: string;
+  /** Pass any props that match the DayPickerProps interface to override default behaviors */
+  pickerProps?: PickerProps;
+  /** Element that the DatePicker will be displayed under */
+  inputElement: CustomRefObject<HTMLElement>;
+  /** Currently selected date */
+  selectedDays?: Date;
+  /** Callback to handle mousedown event on picker container */
+  pickerMouseDown?: () => void;
+  /** Sets whether the picker should be displayed */
+  open?: boolean;
+  /** Callback triggered when a Day is clicked */
+  onDayClick?: (date: Date, ev: React.MouseEvent<HTMLDivElement>) => void;
+}
+
 const popoverMiddleware = [
   offset(3),
   flip({
@@ -17,7 +60,7 @@ const popoverMiddleware = [
   }),
 ];
 
-const DatePicker = React.forwardRef(
+export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
   (
     {
       inputElement,
@@ -29,16 +72,16 @@ const DatePicker = React.forwardRef(
       pickerMouseDown,
       pickerProps,
       open,
-    },
+    }: DatePickerProps,
     ref
   ) => {
     const l = useLocale();
     const { localize, options } = l.date.dateFnsLocale();
-    const { weekStartsOn } = options;
+    const { weekStartsOn } = options || /* istanbul ignore next */ {};
     const monthsLong = useMemo(
       () =>
         Array.from({ length: 12 }).map((_, i) => {
-          const month = localize.month(i);
+          const month = localize?.month(i);
           return month[0].toUpperCase() + month.slice(1);
         }),
       [localize]
@@ -46,19 +89,19 @@ const DatePicker = React.forwardRef(
     const monthsShort = useMemo(
       () =>
         Array.from({ length: 12 }).map((_, i) =>
-          localize.month(i, { width: "abbreviated" }).substring(0, 3)
+          localize?.month(i, { width: "abbreviated" }).substring(0, 3)
         ),
       [localize]
     );
     const weekdaysLong = useMemo(
-      () => Array.from({ length: 7 }).map((_, i) => localize.day(i)),
+      () => Array.from({ length: 7 }).map((_, i) => localize?.day(i)),
       [localize]
     );
     const weekdaysShort = useMemo(() => {
-      const isGivenLocale = (str) => l.locale().includes(str);
+      const isGivenLocale = (str: string) => l.locale().includes(str);
       return Array.from({ length: 7 }).map((_, i) =>
         localize
-          .day(
+          ?.day(
             i,
             ["de", "pl"].some(isGivenLocale)
               ? { width: "wide" }
@@ -68,19 +111,24 @@ const DatePicker = React.forwardRef(
       );
     }, [l, localize]);
 
-    const handleDayClick = (date, { disabled }, ev) => {
-      if (!disabled) {
-        const { id, name } = inputElement?.current?.firstChild;
+    const handleDayClick = (
+      date: Date,
+      modifiers: DayModifiers,
+      ev: React.MouseEvent<HTMLDivElement>
+    ) => {
+      if (!modifiers.disabled) {
+        const { id, name } = inputElement?.current
+          ?.firstChild as HTMLInputElement;
         ev.target = {
           ...ev.target,
           id,
           name,
-        };
-        onDayClick(date, ev);
+        } as HTMLInputElement;
+        onDayClick?.(date, ev);
       }
     };
 
-    const formatDay = (date) =>
+    const formatDay = (date: Date) =>
       `${weekdaysShort[date.getDay()]} ${date.getDate()} ${
         monthsShort[date.getMonth()]
       } ${date.getFullYear()}`;
@@ -88,6 +136,8 @@ const DatePicker = React.forwardRef(
     if (!open) {
       return null;
     }
+
+    const localeUtils = { formatDay } as LocaleUtils;
 
     return (
       <Popover
@@ -103,7 +153,6 @@ const DatePicker = React.forwardRef(
             firstDayOfWeek={weekStartsOn}
             onDayClick={handleDayClick}
             selectedDays={selectedDays}
-            date={selectedDays}
             weekdayElement={(weekdayElementProps) => {
               const { className, weekday } = weekdayElementProps;
 
@@ -117,9 +166,8 @@ const DatePicker = React.forwardRef(
             fixedWeeks
             initialMonth={selectedDays || undefined}
             disabledDays={getDisabledDays(minDate, maxDate)}
-            inline
             locale={l.locale()}
-            localeUtils={{ formatDay }}
+            localeUtils={localeUtils}
             {...pickerProps}
           />
         </StyledDayPicker>
@@ -128,25 +176,6 @@ const DatePicker = React.forwardRef(
   }
 );
 
-DatePicker.propTypes = {
-  /** Minimum possible date */
-  minDate: PropTypes.string,
-  /** Maximum possible date */
-  maxDate: PropTypes.string,
-  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
-  disablePortal: PropTypes.bool,
-  /** Element that the DatePicker will be displayed under */
-  inputElement: PropTypes.object.isRequired,
-  /** Currently selected date */
-  selectedDays: PropTypes.instanceOf(Date),
-  /** Callback to set selected date */
-  onDayClick: PropTypes.func,
-  /** Pass any props that match the DayPickerProps interface to override default behaviors */
-  pickerProps: PropTypes.object,
-  /** Callback to handle mousedown event on picker */
-  pickerMouseDown: PropTypes.func,
-  /** Sets whether the picker should be displayed */
-  open: PropTypes.bool,
-};
+DatePicker.displayName = "DatePicker";
 
 export default DatePicker;

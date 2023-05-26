@@ -1,3 +1,5 @@
+import { Locale as DateFnsLocale } from "date-fns";
+
 // The order of this array is important, when an input value matches more than one format the last one is used
 const EU_FORMATS = [
   "d M yyyy",
@@ -55,16 +57,22 @@ const CN_FORMATS = [
   "MM dd",
 ];
 
-const SEPARATORS = ["", ".", ",", "-", "/", ":"];
+const SEPARATORS = ["", ".", ",", "-", "/", ":"] as const;
 
 const STANDARD_FORMAT_LENGTH = 10;
 
-const generateFormats = (formatArray, separator, trailingChar) => {
+type Separator = typeof SEPARATORS[number];
+
+const generateFormats = (
+  formatArray: string[],
+  separator: Separator,
+  trailingChar?: string
+): string[] => {
   const separators = SEPARATORS.includes(separator)
     ? SEPARATORS
     : [...SEPARATORS, separator];
 
-  return formatArray.reduce((arr, formatString) => {
+  return formatArray.reduce((arr: string[], formatString) => {
     const array = [...arr, formatString];
     if (formatString.includes(" ")) {
       separators.forEach((char) => {
@@ -78,7 +86,7 @@ const generateFormats = (formatArray, separator, trailingChar) => {
   }, []);
 };
 
-const getOutputFormatForLocale = (localeCode) => {
+const getOutputFormatForLocale = (localeCode: string) => {
   const formatMap = {
     day: "dd",
     month: "MM",
@@ -86,16 +94,16 @@ const getOutputFormatForLocale = (localeCode) => {
   };
 
   const formatter = new Intl.DateTimeFormat(localeCode);
-  let separator;
+  let separator: Separator = "";
 
   const format = formatter
     .formatToParts(new Date())
     .map(({ type, value }) => {
-      if (type !== "literal") {
-        return formatMap[type];
+      if (["day", "month", "year"].includes(type)) {
+        return formatMap[type as keyof typeof formatMap];
       }
       if (!separator) {
-        separator = value;
+        separator = value as Separator;
       }
       return value;
     })
@@ -109,7 +117,7 @@ const getOutputFormatForLocale = (localeCode) => {
   return { format, separator };
 };
 
-const getInputFormatsArrayForLocale = (format) => {
+const getInputFormatsArrayForLocale = (format: string) => {
   if (format.startsWith("y")) {
     return CN_FORMATS;
   }
@@ -121,13 +129,18 @@ const getInputFormatsArrayForLocale = (format) => {
 };
 
 // we need this to handle for formats that add extra chars at the end of the format
-const getTrailingChar = (format) => {
-  const lastChar = format.split("").pop();
+const getTrailingChar = (format: string) => {
+  const lastChar = format.split("").pop() as string;
 
   return ["y", "M", "d"].includes(lastChar) ? "" : lastChar;
 };
 
-const getFormatData = ({ code }) => {
+interface LocaleFormats {
+  formats: string[];
+  format: string;
+}
+
+const getFormatData = ({ code = "en-GB" }: DateFnsLocale): LocaleFormats => {
   if (["en-CA", "en-US"].includes(code)) {
     const format = "MM/dd/yyyy";
     const formats = getInputFormatsArrayForLocale(format);
