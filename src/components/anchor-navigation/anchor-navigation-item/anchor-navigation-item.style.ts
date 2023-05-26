@@ -26,9 +26,11 @@ const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
     border-top-right-radius: var(--borderRadius100);
     border-bottom-right-radius: var(--borderRadius100);
 
-    ${({ theme }) =>
-      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
-    position: relative;
+    &:focus {
+      ${({ theme }) =>
+        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+      position: relative;
+    }
 
     &:hover {
       ${({ isSelected }) =>
