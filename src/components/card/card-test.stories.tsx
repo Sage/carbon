@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Card, CardRow, CardFooter, CardColumn } from ".";
+import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
 import Link from "../link";
 import Heading from "../heading";
@@ -30,7 +30,9 @@ export default {
   },
 } as ComponentMeta<typeof Card>;
 
-export const DefaultStory: ComponentStory<typeof Card> = (args) => {
+export const DefaultStory: ComponentStory<typeof Card> = (
+  args: Partial<CardProps>
+) => {
   return (
     <Card interactive {...args}>
       <CardRow>
@@ -63,7 +65,7 @@ export const DefaultStory: ComponentStory<typeof Card> = (args) => {
 };
 DefaultStory.storyName = "default";
 
-export const CardComponent = ({ ...props }) => {
+export const CardComponent = (props: Partial<CardProps>) => {
   return (
     <Card {...props}>
       <CardRow>
