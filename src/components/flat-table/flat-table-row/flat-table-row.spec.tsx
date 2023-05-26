@@ -576,7 +576,7 @@ describe("FlatTableRow", () => {
             <FlatTableRow>
               <FlatTableHeader>test 1</FlatTableHeader>
               <FlatTableCell>test 2</FlatTableCell>
-              <FlatTableCheckbox />
+              <FlatTableCheckbox onChange={() => {}} />
               <FlatTableRowHeader>test 3</FlatTableRowHeader>
               <FlatTableHeader>test 4</FlatTableHeader>
               <FlatTableCell>test 5</FlatTableCell>
@@ -635,7 +635,7 @@ describe("FlatTableRow", () => {
                 <FlatTableRowHeader stickyAlignment="right">
                   test 3
                 </FlatTableRowHeader>
-                <FlatTableCheckbox />
+                <FlatTableCheckbox onChange={() => {}} />
                 <FlatTableHeader>test 4</FlatTableHeader>
                 <FlatTableCell>test 5</FlatTableCell>
               </FlatTableRow>
@@ -700,7 +700,7 @@ describe("FlatTableRow", () => {
               <FlatTableRow>
                 <FlatTableHeader>test 1</FlatTableHeader>
                 <FlatTableCell>test 2</FlatTableCell>
-                <FlatTableCheckbox />
+                <FlatTableCheckbox onChange={() => {}} />
                 <FlatTableRowHeader stickyAlignment="right">
                   test 3
                 </FlatTableRowHeader>
@@ -725,7 +725,7 @@ describe("FlatTableRow", () => {
             <FlatTableRow onClick={() => {}}>
               <FlatTableHeader>test 1</FlatTableHeader>
               <FlatTableCell>test 2</FlatTableCell>
-              <FlatTableCheckbox />
+              <FlatTableCheckbox onChange={() => {}} />
               <FlatTableRowHeader>test 3</FlatTableRowHeader>
               <FlatTableHeader>test 4</FlatTableHeader>
               <FlatTableCell>test 5</FlatTableCell>
@@ -956,11 +956,11 @@ describe("FlatTableRow", () => {
       it("should add the expandable icon to the second child", () => {
         const CheckboxSubRows = [
           <FlatTableRow key="sub-row-1">
-            <FlatTableCheckbox />
+            <FlatTableCheckbox onChange={() => {}} />
             <FlatTableCell>sub1cell2</FlatTableCell>
           </FlatTableRow>,
           <FlatTableRow key="sub-row-2">
-            <FlatTableCheckbox />
+            <FlatTableCheckbox onChange={() => {}} />
             <FlatTableCell>sub2cell2</FlatTableCell>
           </FlatTableRow>,
         ];
@@ -969,7 +969,7 @@ describe("FlatTableRow", () => {
           <table>
             <tbody>
               <FlatTableRow expandable subRows={CheckboxSubRows} expanded>
-                <FlatTableCheckbox />
+                <FlatTableCheckbox onChange={() => {}} />
                 <FlatTableCell>cell2</FlatTableCell>
               </FlatTableRow>
             </tbody>
@@ -1295,7 +1295,7 @@ describe("FlatTableRow", () => {
             >
               <FlatTableHeader>test 1</FlatTableHeader>
               <FlatTableCell>test 2</FlatTableCell>
-              <FlatTableCheckbox />
+              <FlatTableCheckbox onChange={() => {}} />
               <FlatTableRowHeader>test 3</FlatTableRowHeader>
               <FlatTableHeader>test 4</FlatTableHeader>
               <FlatTableCell>test 5</FlatTableCell>
@@ -1437,7 +1437,7 @@ describe("FlatTableRow", () => {
             >
               <FlatTableHeader>test 1</FlatTableHeader>
               <FlatTableCell>test 2</FlatTableCell>
-              <FlatTableCheckbox />
+              <FlatTableCheckbox onChange={() => {}} />
               <FlatTableRowHeader>test 3</FlatTableRowHeader>
               <FlatTableHeader>test 4</FlatTableHeader>
               <FlatTableCell>test 5</FlatTableCell>
