@@ -13,7 +13,7 @@ import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 function render(props: FieldsetProps = {}, renderer: any = shallow) {
   return renderer(
     <Fieldset {...props}>
-      <Textbox />
+      <Textbox onChange={() => {}} />
     </Fieldset>
   );
 }
@@ -23,7 +23,7 @@ const basicWrapper = render();
 describe("Fieldset", () => {
   testStyledSystemMargin((props) => (
     <Fieldset {...props}>
-      <Textbox />
+      <Textbox onChange={() => {}} />
     </Fieldset>
   ));
 
