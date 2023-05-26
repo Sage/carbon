@@ -25,9 +25,9 @@ const mockedGuid = "guid-12345";
 function render(props: InlineInputsProps = {}) {
   return mount(
     <InlineInputs {...props}>
-      <Textbox />
-      <Textbox />
-      <Checkbox />
+      <Textbox onChange={() => {}} />
+      <Textbox onChange={() => {}} />
+      <Checkbox onChange={() => {}} />
     </InlineInputs>
   );
 }
@@ -245,7 +245,7 @@ describe("Inline Inputs", () => {
     });
 
     it("renders a single child", () => {
-      wrapper.setProps({ children: <Textbox /> });
+      wrapper.setProps({ children: <Textbox onChange={() => {}} /> });
       expect(wrapper.find(Textbox).length).toEqual(1);
     });
 
@@ -272,9 +272,9 @@ describe("Inline Inputs", () => {
             labelWidth={30}
             adaptiveLabelBreakpoint={500}
           >
-            <Textbox />
-            <Textbox />
-            <Checkbox />
+            <Textbox onChange={() => {}} />
+            <Textbox onChange={() => {}} />
+            <Checkbox onChange={() => {}} />
           </InlineInputs>
         );
 
@@ -297,9 +297,9 @@ describe("Inline Inputs", () => {
             labelWidth={30}
             adaptiveLabelBreakpoint={500}
           >
-            <Textbox />
-            <Textbox />
-            <Checkbox />
+            <Textbox onChange={() => {}} />
+            <Textbox onChange={() => {}} />
+            <Checkbox onChange={() => {}} />
           </InlineInputs>
         );
 
