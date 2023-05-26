@@ -1,5 +1,12 @@
 import styled, { css } from "styled-components";
 import { CommonInputProps } from "./input.component";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+
+const oldFocusStyling = `
+  &:focus {
+    outline: solid 3px var(--colorsSemanticFocus500);
+  }
+`;
 
 const StyledInput = styled.input<
   Pick<CommonInputProps, "align" | "disabled" | "readOnly">
@@ -18,6 +25,11 @@ const StyledInput = styled.input<
   &:-webkit-autofill {
     background-clip: text;
     -webkit-background-clip: text;
+  }
+
+  &:focus {
+    ${({ theme }) =>
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
   }
 
   ${({ align }) =>
