@@ -195,7 +195,7 @@ export const PrefixWithSizes = () => {
 
 PrefixWithSizes.storyName = "prefix with sizes";
 
-export const TextboxComponent = ({ ...props }) => {
+export const TextboxComponent = (props: Partial<TextboxProps>) => {
   const [state, setState] = useState("Textbox");
 
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,6 +222,8 @@ export const TextboxComponentInputRef = () => {
         Focus Textbox
       </Button>
       <TextboxComponent
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         inputRef={(el: React.ChangeEvent<HTMLInputElement>) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore

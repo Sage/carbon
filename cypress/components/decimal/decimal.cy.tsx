@@ -1,5 +1,9 @@
+/* eslint-disable array-callback-return, no-unused-expressions, jest/valid-expect-in-promise, jest/valid-expect */
 import React from "react";
-import Decimal from "../../../src/components/decimal";
+import Decimal, {
+  CustomEvent,
+  DecimalProps,
+} from "../../../src/components/decimal";
 import * as stories from "../../../src/components/decimal/decimal.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
@@ -13,6 +17,19 @@ import {
 } from "../../locators/index";
 
 import { CHARACTERS } from "../../support/component-helper/constants";
+
+const eventOutput = (formattedVal: string, rawVal: string) => {
+  return {
+    target: {
+      id: undefined,
+      name: undefined,
+      value: {
+        formattedValue: formattedVal,
+        rawValue: rawVal,
+      },
+    },
+  };
+};
 
 context("Tests for Decimal component", () => {
   describe("check props for Decimal component", () => {
@@ -94,7 +111,7 @@ context("Tests for Decimal component", () => {
       [15, "1a3.55", "1a3.55"],
       [15, "1.12345", "1.123450000000000"],
       [15, "1a.23", "1a.23"],
-    ];
+    ] as [DecimalProps["precision"], string, string][];
 
     it.each(input)(
       "should use %s as precision and %s as input value to produce %s output value",
@@ -127,7 +144,7 @@ context("Tests for Decimal component", () => {
       ["no-NO", "1 1 11,21", "1 111,210"],
       ["no-No", "111 1 1,25", "11 111,250"],
       ["no-NO", "1  1  1  1  1,25", "1  1  1  1  1,25"],
-    ];
+    ] as [DecimalProps["locale"], string, string][];
 
     it.each(inputLocale)(
       "should use %s locale and %s input value to produce %s output value",
@@ -140,9 +157,11 @@ context("Tests for Decimal component", () => {
         commonDataElementInputPreview()
           .invoke("val")
           .then(($el) => {
-            for (let number = 0; number < $el.length; number++) {
+            for (let number = 0; number < String($el).length; number++) {
               expect(
-                $el.replace(/(\s)|(&nbsp;)|(\u00a0)/g, " ").charCodeAt(number)
+                String($el)
+                  .replace(/(\s)|(&nbsp;)|(\u00a0)/g, " ")
+                  .charCodeAt(number)
               ).to.equals(outputValue.charCodeAt(number));
             }
           });
@@ -230,9 +249,11 @@ context("Tests for Decimal component", () => {
         commonDataElementInputPreview()
           .invoke("val")
           .then(($el) => {
-            for (let number = 0; number < $el.length; number++) {
+            for (let number = 0; number < String($el).length; number++) {
               expect(
-                $el.replace(/(\s)|(&nbsp;)|(\u00a0)/g, " ").charCodeAt(number)
+                String($el)
+                  .replace(/(\s)|(&nbsp;)|(\u00a0)/g, " ")
+                  .charCodeAt(number)
               ).to.equals(specificValue.charCodeAt(number));
             }
           });
@@ -253,39 +274,32 @@ context("Tests for Decimal component", () => {
       ["1", "1.00"],
       ["12", "12.00"],
       ["123", "123.00"],
-    ];
-    let callback;
+    ] as [string, string][];
 
-    beforeEach(() => {
-      callback = cy.stub();
-    });
+    it.each(iterable)(
+      "should call onChange callback when a type event is triggered with %s value",
+      (rawValueTest, formattedValueTest) => {
+        const callback: DecimalProps["onChange"] = cy.stub().as("onChange");
 
-    it("should call onChange callback when a type event is triggered with %s value", () => {
-      CypressMountWithProviders(<Decimal onChange={callback} />);
+        CypressMountWithProviders(<Decimal onChange={callback} />);
 
-      commonDataElementInputPreview()
-        .type(inputValue)
-        .blur({ force: true })
+        commonDataElementInputPreview()
+          .type(rawValueTest)
+          .blur({ force: true })
 
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledThrice;
-          // eslint-disable-next-line array-callback-return
-          iterable.map((item, index) => {
-            expect(
-              callback.getCalls()[index].args[0].target.value.rawValue
-            ).to.equals(item[0]);
-            expect(
-              callback.getCalls()[index].args[0].target.value.formattedValue
-            ).to.equals(item[1]);
+          .then(() => {
+            cy.get("@onChange").should(
+              "have.been.calledWith",
+              eventOutput(formattedValueTest, rawValueTest)
+            );
           });
-        });
-    });
+      }
+    );
 
     it("can have a custom onChange handler", () => {
-      const CustomDecimalComponent = ({ onChange, value, ...props }) => {
+      const CustomDecimalComponent = (props: DecimalProps) => {
         const [state, setState] = React.useState("0.01");
-        const handleChange = ({ target }) => {
+        const handleChange = ({ target }: CustomEvent) => {
           let newValue = target.value.rawValue;
           if (newValue.startsWith("22.22")) newValue = "22.22";
           setState(newValue);
@@ -303,36 +317,43 @@ context("Tests for Decimal component", () => {
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: DecimalProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(<Decimal onBlur={callback} />);
 
       commonDataElementInputPreview()
         .type(inputValue)
         .blur({ force: true })
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
+          cy.get("@onBlur").should(
+            "have.been.calledWith",
+            eventOutput("123.00", inputValue)
+          );
           expect(callback).to.have.been.calledOnce;
-          expect(
-            callback.getCalls()[0].args[0].target.value.rawValue
-          ).to.equals(inputValue);
-          expect(
-            callback.getCalls()[0].args[0].target.value.formattedValue
-          ).to.equals("123.00");
         });
     });
   });
 
   describe("Accessibility tests for Decimal component", () => {
-    it("should pass accessibility tests for Decimal with different input sizes", () => {
-      CypressMountWithProviders(<stories.Sizes />);
+    it.each(["small", "medium", "large"] as DecimalProps["size"][])(
+      "should pass accessibility tests for Decimal with %s input size",
+      (size) => {
+        CypressMountWithProviders(<stories.DefaultStory size={size} />);
 
-      cy.checkAccessibility();
-    });
+        cy.checkAccessibility();
+      }
+    );
 
-    it("should pass accessibility tests for Decimal with label aligned left", () => {
-      CypressMountWithProviders(<stories.LabelAlign />);
+    it.each(["left", "right"] as DecimalProps["labelAlign"][])(
+      "should pass accessibility tests for Decimal with label aligned %s",
+      (labelAlign) => {
+        CypressMountWithProviders(
+          <stories.DefaultStory labelAlign={labelAlign} />
+        );
 
-      cy.checkAccessibility();
-    });
+        cy.checkAccessibility();
+      }
+    );
 
     it("should pass accessibility tests for Decimal with custom precision", () => {
       CypressMountWithProviders(<stories.WithCustomPrecision />);
@@ -364,7 +385,6 @@ context("Tests for Decimal component", () => {
       getDataElementByValue("question")
         .trigger("mouseover")
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           cy.checkAccessibility();
         });
     });
@@ -397,7 +417,9 @@ context("Tests for Decimal component", () => {
       CypressMountWithProviders(
         <Decimal
           label="Decimal"
-          onChange={function noRefCheck() {}}
+          onChange={function noRefCheck() {
+            ("");
+          }}
           value="0.01"
         />
       );
@@ -409,7 +431,9 @@ context("Tests for Decimal component", () => {
       CypressMountWithProviders(
         <Decimal
           label="Decimal"
-          onChange={function noRefCheck() {}}
+          onChange={function noRefCheck() {
+            ("");
+          }}
           value="0.01"
           readOnly
         />
