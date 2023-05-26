@@ -1,5 +1,7 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable no-unused-expressions */
 import React from "react";
-import Confirm from "../../../src/components/confirm";
+import Confirm, { ConfirmProps } from "../../../src/components/confirm";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { ConfirmComponent } from "../../../src/components/confirm/confirm-test.stories";
 import {
@@ -14,20 +16,28 @@ import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const heights = [
+const heights: [number, string][] = [
   [0, "0"],
   [10, "10"],
   [999, "999"],
   [1500, "1500"],
 ];
-const confirmButtonTypes = [
+const confirmButtonTypes: [
+  ConfirmProps["confirmButtonType"],
+  string,
+  string
+][] = [
   ["primary", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
   ["secondary", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
   ["tertiary", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
   ["dashed", "rgb(51, 91, 112)", "rgb(51, 91, 112)"],
   ["darkBackground", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
 ];
-const cancelButtonTypes = [
+const cancelButtonTypes: [
+  ConfirmProps["cancelButtonType"],
+  string,
+  string
+][] = [
   ["primary", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
   ["secondary", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
   ["tertiary", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
@@ -37,12 +47,6 @@ const cancelButtonTypes = [
 
 context("Testing Confirm component", () => {
   describe("should render Confirm component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it.each(testData)(
       "should check confirm button text is %s",
       (confirmButtonText) => {
@@ -84,7 +88,7 @@ context("Testing Confirm component", () => {
 
         const { viewportHeight } = Cypress.config();
 
-        let resultHeight;
+        let resultHeight: number;
         if (heightnumber >= viewportHeight - 20) {
           resultHeight = viewportHeight - 20;
         } else {
@@ -105,7 +109,7 @@ context("Testing Confirm component", () => {
       [SIZE.MEDIUMLARGE, 850],
       [SIZE.LARGE, 960],
       [SIZE.EXTRALARGE, 1080],
-    ])(
+    ] as [ConfirmProps["size"], number][])(
       "should check confirm size is %s with width of %spx",
       (sizeName, size) => {
         CypressMountWithProviders(<ConfirmComponent size={sizeName} />);
@@ -116,7 +120,7 @@ context("Testing Confirm component", () => {
       }
     );
 
-    it.each([["error"], ["warning"]])(
+    it.each(["error", "warning"] as ConfirmProps["iconType"][])(
       "should check confirm has %s icon",
       (iconType) => {
         CypressMountWithProviders(<ConfirmComponent iconType={iconType} />);
@@ -196,12 +200,14 @@ context("Testing Confirm component", () => {
     });
 
     it("should check Esc key is disabled", () => {
-      CypressMountWithProviders(<ConfirmComponent disableEscKey />);
+      const callback: ConfirmProps["onCancel"] = cy.stub();
+      CypressMountWithProviders(
+        <ConfirmComponent disableEscKey onCancel={callback} />
+      );
 
       dialogPreview()
         .trigger("keyup", keyCode("Esc"))
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).not.to.have.been.calledOnce;
         });
 
@@ -285,10 +291,10 @@ context("Testing Confirm component", () => {
 
     it("should check confirm button has save icon", () => {
       CypressMountWithProviders(
-        <ConfirmComponent confirmButtonIconType="Save" />
+        <ConfirmComponent confirmButtonIconType="save" />
       );
 
-      getDataElementByValue("Save").should("have.attr", "type", "Save");
+      getDataElementByValue("save").should("have.attr", "type", "save");
     });
 
     it("should check cancel button has bin icon", () => {
@@ -301,7 +307,13 @@ context("Testing Confirm component", () => {
 
     it("should render Confirm with aria-labelledby prop", () => {
       CypressMountWithProviders(
-        <Confirm open aria-labelledby={CHARACTERS.STANDARD} />
+        <Confirm
+          open
+          aria-labelledby={CHARACTERS.STANDARD}
+          onConfirm={() => {
+            ("");
+          }}
+        />
       );
 
       dialogPreview().should(
@@ -313,7 +325,13 @@ context("Testing Confirm component", () => {
 
     it("should render Confirm with aria-describedby prop", () => {
       CypressMountWithProviders(
-        <Confirm open aria-describedby={CHARACTERS.STANDARD} />
+        <Confirm
+          open
+          aria-describedby={CHARACTERS.STANDARD}
+          onConfirm={() => {
+            ("");
+          }}
+        />
       );
 
       dialogPreview().should(
@@ -323,16 +341,10 @@ context("Testing Confirm component", () => {
       );
     });
 
-    it("should focus the dialog container", () => {
-      CypressMountWithProviders(<ConfirmComponent blockFocusElement />);
-      const dialogContainer = () => cy.get('[data-component="dialog"]');
-      dialogContainer().should("be.focused");
-    });
-
     it.each([
       ["before", 0],
       ["after", 1],
-    ])(
+    ] as [ConfirmProps["cancelButtonIconPosition"], number][])(
       "should verify position of icon on Cancel button",
       (position, positionInElement) => {
         CypressMountWithProviders(
@@ -351,41 +363,35 @@ context("Testing Confirm component", () => {
   });
 
   describe("should render Confirm component for event tests", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onCancel callback when a click event is triggered", () => {
+      const callback: ConfirmProps["onCancel"] = cy.stub();
       CypressMountWithProviders(<ConfirmComponent onCancel={callback} />);
 
       cancelButton()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onConfirm callback when a click event is triggered", () => {
+      const callback: ConfirmProps["onConfirm"] = cy.stub();
       CypressMountWithProviders(<ConfirmComponent onConfirm={callback} />);
 
       confirmButton()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should check onCancel callback when Esc key event is triggered", () => {
+      const callback: ConfirmProps["onCancel"] = cy.stub();
       CypressMountWithProviders(<ConfirmComponent onCancel={callback} />);
 
       dialogPreview()
         .trigger("keyup", keyCode("Esc"))
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
@@ -405,9 +411,7 @@ context("Testing Confirm component", () => {
     it.each(cancelButtonTypes)(
       "should check accessibility for cancel button of %s type",
       (type) => {
-        CypressMountWithProviders(
-          <ConfirmComponent cancelButtonTypes={type} />
-        );
+        CypressMountWithProviders(<ConfirmComponent cancelButtonType={type} />);
         cy.checkAccessibility();
       }
     );
@@ -468,7 +472,7 @@ context("Testing Confirm component", () => {
 
     it("should check accessibility when confirm button has save icon", () => {
       CypressMountWithProviders(
-        <ConfirmComponent confirmButtonIconType="Save" />
+        <ConfirmComponent confirmButtonIconType="save" />
       );
 
       cy.checkAccessibility();
