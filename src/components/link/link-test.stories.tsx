@@ -94,7 +94,7 @@ DefaultStory.args = {
   isDarkBackground: false,
 };
 
-export const LinkComponent = ({ ...props }) => {
+export const LinkComponent = (props: LinkProps) => {
   return (
     <div
       style={{
