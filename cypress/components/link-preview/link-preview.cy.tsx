@@ -1,6 +1,8 @@
+/* eslint-disable jest/valid-expect, no-unused-expressions */
 import React from "react";
 import { LinkPreviewComponentTest as LinkPreviewComponent } from "../../../src/components/link-preview/link-preview-test.stories";
 import { getComponent } from "../../locators";
+import { LinkPreviewProps } from "../../../src/components/link-preview";
 import {
   linkPreview,
   linkPreviewCloseIcon,
@@ -15,10 +17,11 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
 const urlProp = "./carbon-by-sage-logo.png";
+const keysToTrigger = ["Space", "Enter"] as const;
 
 context("Test for Link Preview component", () => {
   describe("check props for Link Preview component", () => {
-    it.each([["div"], ["a"]])(
+    it.each(["div", "a"] as LinkPreviewProps["as"][])(
       "should render Link Preview as prop using %s",
       (as) => {
         CypressMountWithProviders(<LinkPreviewComponent as={as} />);
@@ -110,13 +113,8 @@ context("Test for Link Preview component", () => {
   });
 
   describe("check events for Link Preview component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onClose callback when a click event is triggered", () => {
+      const callback: LinkPreviewProps["onClose"] = cy.stub();
       CypressMountWithProviders(
         <LinkPreviewComponent as="div" onClose={callback} />
       );
@@ -124,14 +122,15 @@ context("Test for Link Preview component", () => {
       linkPreviewCloseIcon()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([keysToTrigger])(
       "should call onClose callback when a keyboard event is triggered",
       (key) => {
+        const callback: LinkPreviewProps["onClose"] = cy.stub();
+
         CypressMountWithProviders(
           <LinkPreviewComponent as="div" onClose={callback} />
         );
@@ -139,7 +138,6 @@ context("Test for Link Preview component", () => {
         linkPreviewCloseIcon()
           .trigger("keydown", keyCode(key))
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
           });
       }

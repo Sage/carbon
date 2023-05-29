@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 
-import LinkPreview from "./link-preview.component";
+import LinkPreview, { LinkPreviewProps } from "./link-preview.component";
 
 export default {
   title: "Link Preview/Test",
@@ -26,7 +26,7 @@ export const Default = () => (
 
 Default.storyName = "default";
 
-export const LinkPreviewComponentTest = ({ ...props }) => {
+export const LinkPreviewComponentTest = (props: LinkPreviewProps) => {
   return (
     <LinkPreview
       title="This is an example of a title"
