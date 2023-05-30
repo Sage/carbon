@@ -24,9 +24,7 @@ export interface StyledCheckboxProps extends ValidationProps, MarginProps {
 }
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledCheckbox = styled.div<StyledCheckboxProps>`
@@ -85,13 +83,14 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
 
     // prettier-ignore
     ${StyledHiddenCheckableInput}:not([disabled]) {
-      &:focus + ${StyledCheckableInputSvgWrapper}
       ${({ theme }) =>
-      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+      `
+        &:focus + ${StyledCheckableInputSvgWrapper} ,
+        &:hover + ${StyledCheckableInputSvgWrapper} {
+          ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
+        }
+      `}
       }
-    ,
-    &:hover + ${StyledCheckableInputSvgWrapper} {
-    }
 
     ${StyledLabelContainer} {
       width: auto;

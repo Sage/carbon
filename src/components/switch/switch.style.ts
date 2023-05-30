@@ -17,9 +17,7 @@ type StyledSwitchProps = Pick<
 >;
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledSwitch = styled.div`
@@ -43,7 +41,7 @@ const StyledSwitch = styled.div`
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider} {
         ${({ theme }) =>
-          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
       }
     }
 

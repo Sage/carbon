@@ -14,9 +14,7 @@ const horizontalBorderSizes = {
 };
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const getLeftStickyStyling = (index) =>
@@ -213,7 +211,7 @@ const StyledFlatTableRow = styled.tr`
             top: 0;
             bottom: 0px;
             outline: none;
-            ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()};
+            ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
             pointer-events: none;
           }
 

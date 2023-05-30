@@ -34,10 +34,22 @@ interface StyledMenuItemWrapperProps
   hasInput?: boolean;
 }
 
-const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
+const overrideLinkFocusStyling = (fullScreenView?: boolean) => `
+  &:focus-within {
+    box-shadow: none;
+
+    a {
+      background-color: ${
+        fullScreenView
+          ? "var(--colorsComponentsMenuAutumnStandard600)"
+          : "transparent"
+      };
+    }
   }
+`;
+
+const oldFocusStyling = `
+  box-shadow: inset 0 0 0 var(--borderWidth300) var(--colorsSemanticFocus500);
 `;
 
 const StyledMenuItemWrapper = styled.a.attrs({
@@ -70,6 +82,21 @@ const StyledMenuItemWrapper = styled.a.attrs({
     button {
       cursor: pointer;
     }
+
+    &&& {
+      ${overrideLinkFocusStyling(inFullscreenView)}
+    }
+
+    &&& {
+      a:focus,
+      button:focus {
+        ${({ theme }) =>
+          `${
+            theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling(true)
+          }`}
+      }
+    }
+
     ${!overrideColor &&
     css`
       background-color: ${menuConfigVariants[menuType].background};
@@ -91,10 +118,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
       && {
         a:focus,
         button:focus {
-          ${({ theme }) =>
-            `${
-              theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()
-            }`};
           background-color: ${menuConfigVariants[menuType].background};
           color: ${menuConfigVariants[menuType].color};
           z-index: 1;
@@ -192,8 +215,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
       a:focus,
       button:focus {
         background-color: ${menuConfigVariants[menuType].selected};
-        ${({ theme }) =>
-          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       }
 
       a:hover,
@@ -212,8 +233,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
       &&& a:focus,
       &&& button:focus {
         background-color: ${menuConfigVariants[menuType].alternate};
-        ${({ theme }) =>
-          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       }
 
       ${!hasInput &&
@@ -242,8 +261,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
       button:focus {
         background-color: ${menuConfigVariants[menuType].submenuBackground};
         color: ${menuConfigVariants[menuType].color};
-        ${({ theme }) =>
-          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
 
         [data-component="icon"] {
           color: ${menuConfigVariants[menuType].color};
@@ -283,10 +300,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
         a:focus,
         button:focus {
           background-color: ${menuConfigVariants[menuType].submenuSelected};
-          ${({ theme }) =>
-            `${
-              theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()
-            }`};
         }
 
         a:hover,
@@ -370,8 +383,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
       a:focus,
       button:focus {
-        ${({ theme }) =>
-          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
         z-index: 1;
         position: relative;
       }
@@ -382,10 +393,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
         button:focus,
         button:hover {
           background-color: var(--colorsComponentsMenuAutumnStandard600);
-          ${({ theme }) =>
-            `${
-              theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()
-            }`};
           color: var(--colorsComponentsMenuYang100);
 
             ${

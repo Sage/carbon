@@ -30,9 +30,7 @@ StyledAdvancedColorPickerWrapper.defaultProps = {
 };
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledAdvancedColorPickerPreview = styled.div`
@@ -43,7 +41,11 @@ const StyledAdvancedColorPickerPreview = styled.div`
   border-radius: var(--borderRadius050);
 
   ${({ theme }) =>
-    `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+    `
+    :focus {
+      ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
+    }
+  `}
 
   ${({ color }) =>
     color !== "transparent" &&
@@ -83,9 +85,6 @@ const DialogStyle = styled(Dialog)`
 
       &:hover {
         transform: scale(1.1);
-        outline: none;
-        box-shadow: 0 0 0 2px var(--colorsSemanticFocus500),
-          0 0 0 4px var(--colorsUtilityYin090);
       }
     }
   }

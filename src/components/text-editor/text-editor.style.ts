@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const lineHeight = 21;
 
@@ -70,17 +71,27 @@ const StyledEditorOutline = styled.div<{
   isFocused?: boolean;
   hasError?: boolean;
 }>`
-  ${({ isFocused, hasError }) => css`
+  ${({ isFocused, hasError, theme }) => css`
     border-radius: var(--borderRadius050);
     outline: none;
     min-width: 320px;
 
     ${isFocused &&
     css`
-      outline: 3px solid var(--colorsSemanticFocus500);
-      outline-offset: ${hasError ? "2px;" : "1px;"};
+      ${theme.focusRedisignOptOut &&
+      css`
+        outline: 3px solid var(--colorsSemanticFocus500);
+        outline-offset: ${hasError ? "2px;" : "1px;"};
+      `}
+
+      ${!theme.focusRedisignOptOut &&
+      css`
+        ${addFocusStyling()}
+      `}
     `}
   `}
 `;
+
+StyledEditorOutline.defaultProps = { theme: baseTheme };
 
 export { StyledEditorWrapper, StyledEditorContainer, StyledEditorOutline };

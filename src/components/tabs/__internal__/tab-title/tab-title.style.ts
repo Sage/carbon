@@ -26,9 +26,7 @@ interface StyledTitleContentProps
 }
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledTitleContent = styled.span<StyledTitleContentProps>`
@@ -335,7 +333,7 @@ const tabTitleStyles = css<TabTitleProps>`
       ${borders &&
       !(noRightBorder || noLeftBorder) &&
       css`
-        &:nth-of-type(n + 1) {
+        &:nth-of-type(n + 1):not(:first-of-type) {
           margin-left: -1px;
         }
         &:first-child {
@@ -347,7 +345,7 @@ const tabTitleStyles = css<TabTitleProps>`
     css`
       ${borders &&
       css`
-        &:nth-of-type(n + 1) {
+        &:nth-of-type(n + 1):not(:first-of-type) {
           margin-top: -1px;
         }
         &:first-child {
@@ -393,7 +391,7 @@ const tabTitleStyles = css<TabTitleProps>`
 
     &:focus {
       ${({ theme }) =>
-        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
       z-index: 2;
 
       ${isInSidebar &&
@@ -562,19 +560,19 @@ const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
     css`
       bottom: 0px;
       left: 0px;
+      right: 0px;
       box-shadow: inset 0px calc(-1 * var(--sizing025)) 0px
         var(--colorsActionMajor500);
-      width: 100%;
       height: var(--sizing025);
     `}
 
     ${position === "left" &&
     css`
       top: 0px;
+      bottom: 0px;
       right: 0px;
       box-shadow: inset calc(-1 * var(--sizing025)) 0px 0px 0px
         var(--colorsActionMajor500);
-      height: 100%;
       width: var(--sizing025);
     `}
   `}

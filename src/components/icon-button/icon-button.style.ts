@@ -6,9 +6,7 @@ import { baseTheme } from "../../style/themes";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledIconButton = styled.button.attrs({ type: "button" })`
@@ -21,10 +19,8 @@ const StyledIconButton = styled.button.attrs({ type: "button" })`
     border-radius: var(--borderRadius050);
 
     &:focus {
-      background-color: transparent;
       ${({ theme }) =>
-        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
-      z-index: 1;
+        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
     }
 
     &:hover {

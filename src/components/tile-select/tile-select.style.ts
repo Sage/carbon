@@ -65,9 +65,7 @@ const StyledTileSelect = styled.div<{
 `;
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledFocusWrapper = styled.div<{
@@ -88,8 +86,7 @@ const StyledFocusWrapper = styled.div<{
 
     ${hasFocus &&
     css`
-      outline: none;
-      ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()};
+      ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
       z-index: 15;
     `}
   `}

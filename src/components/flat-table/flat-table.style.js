@@ -9,6 +9,7 @@ import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import cellSizes from "./cell-sizes.style";
 import Box from "../box";
 import { StyledPagerContainer } from "../pager/pager.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const HEADER_OVERLAY_INCREMENT = 3;
 const STICKY_FOOTER_OVERLAY_INCREMENT = 1;
@@ -105,20 +106,28 @@ const StyledFlatTableWrapper = styled(Box)`
       border-bottom-right-radius: var(--borderRadius100);
     `}
 
-  ${({ isInSidebar }) =>
+  ${({ isInSidebar, theme }) =>
     css`
       box-sizing: border-box;
 
       :focus {
-        outline: 2px solid var(--colorsSemanticFocus500);
-
-        :not(:focus-visible) {
-          outline: none;
-        }
-
-        :focus-visible {
+        ${theme.focusRedesignOptOut &&
+        `
           outline: 2px solid var(--colorsSemanticFocus500);
-        }
+
+          :not(:focus-visible) {
+            outline: none;
+          }
+
+          :focus-visible {
+            outline: 2px solid var(--colorsSemanticFocus500);
+          }
+        `}
+
+        ${!theme.focusRedesignOptOut &&
+        `
+          ${addFocusStyling()}
+        `}
       }
 
       ${isInSidebar

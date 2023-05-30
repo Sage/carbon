@@ -9,9 +9,7 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const Menu = styled.div`
@@ -56,7 +54,7 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
     z-index: 1;
     border-radius: var(--borderRadius000);
     ${({ theme }) =>
-      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
   }
 
   ${({ isDisabled }) =>
@@ -116,7 +114,11 @@ const ButtonIcon = styled(Icon)`
 
 const StyledButtonIcon = styled.div`
   ${({ theme }) =>
-    `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+    `
+    :focus {
+      ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
+    }    
+  `}
   border-radius: var(--borderRadius050);
 `;
 

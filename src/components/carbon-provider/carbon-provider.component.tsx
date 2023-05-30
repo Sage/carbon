@@ -17,7 +17,10 @@ export interface CarbonProviderProps {
 }
 
 export const NewValidationContext = createContext<
-  Pick<CarbonProviderProps, "validationRedesignOptIn" | "roundedCornersOptOut">
+  Pick<
+    CarbonProviderProps,
+    "validationRedesignOptIn" | "roundedCornersOptOut" | "focusRedesignOptOut"
+  >
 >({});
 
 export const CarbonProvider = ({
@@ -27,17 +30,21 @@ export const CarbonProvider = ({
   roundedCornersOptOut = false,
   focusRedesignOptOut = false,
 }: CarbonProviderProps) => {
-  const { roundedCornersOptOut: existingRoundedCornersOptOut } = useContext(
-    NewValidationContext
-  );
+  const {
+    roundedCornersOptOut: existingRoundedCornersOptOut,
+    focusRedesignOptOut: existingFocusRedesignOptOut,
+  } = useContext(NewValidationContext);
 
   const roundedCornersOptOutValue =
     existingRoundedCornersOptOut || roundedCornersOptOut;
+  const focusRedisignOptOutValue =
+    existingFocusRedesignOptOut || focusRedesignOptOut;
+
   return (
     <ThemeProvider
       theme={{
         ...theme,
-        focusRedesignOptOut,
+        focusRedesignOptOut: focusRedisignOptOutValue,
         roundedCornersOptOut: roundedCornersOptOutValue,
       }}
     >

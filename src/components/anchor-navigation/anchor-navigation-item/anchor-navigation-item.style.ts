@@ -6,9 +6,7 @@ export interface StyledNavigationItemProps {
 }
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
@@ -28,7 +26,7 @@ const StyledNavigationItem = styled.li<StyledNavigationItemProps>`
 
     &:focus {
       ${({ theme }) =>
-        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
       position: relative;
     }
 

@@ -132,9 +132,7 @@ interface StyledAccordionTitleContainerProps {
 }
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerProps>`

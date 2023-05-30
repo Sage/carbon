@@ -9,9 +9,7 @@ interface StyledHelpProps {
 }
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledHelp = styled.div<StyledHelpProps>`
@@ -42,10 +40,10 @@ const StyledHelp = styled.div<StyledHelpProps>`
     color: var(--colorsUtilityYin090);
     text-decoration: none;
   }
-
   &:focus ${StyledIcon} {
+    border-radius: var(--borderRadius050);
     ${({ theme }) =>
-      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
   }
 
   ${margin}

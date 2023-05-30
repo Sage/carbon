@@ -4,9 +4,8 @@ import { StyledPreview } from "../preview/preview.style";
 import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
+  outline-offset: -1px;
 `;
 
 const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
@@ -24,10 +23,8 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
     ${as !== "div" &&
     css`
       :focus {
-        outline: none;
         ${({ theme }) =>
-          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
-        outline-offset: -1px;
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
       }
 
       :hover {

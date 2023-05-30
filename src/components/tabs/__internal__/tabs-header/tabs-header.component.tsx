@@ -5,6 +5,7 @@ import {
   StyledTabsBottomBorder,
   StyledTabsWrapper,
   StyledTabsBottomBorderWrapper,
+  StyledVerticalTabsWrapper,
 } from "./tabs-header.style";
 import useThrottle from "../../../../hooks/__internal__/useThrottle";
 
@@ -88,7 +89,7 @@ const TabsHeader = ({
             {children}
           </StyledTabsWrapper>
         ) : (
-          children
+          <StyledVerticalTabsWrapper>{children}</StyledVerticalTabsWrapper>
         )}
       </StyledTabsHeaderList>
     </StyledTabsHeaderWrapper>

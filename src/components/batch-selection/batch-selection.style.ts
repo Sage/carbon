@@ -6,9 +6,7 @@ import { BatchSelectionProps } from ".";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledBatchSelection = styled.div<
@@ -25,7 +23,7 @@ const StyledBatchSelection = styled.div<
       color: var(--colorsActionMajorYin065);
       &:focus {
         ${({ theme }) =>
-          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+          `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
       }
     }
 
@@ -68,7 +66,7 @@ const StyledBatchSelection = styled.div<
     ${StyledIconButton}:focus {
       border-radius: var(--borderRadius100);
       ${({ theme }) =>
-        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
     }
 
     ${disabled &&

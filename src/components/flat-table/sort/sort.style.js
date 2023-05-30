@@ -3,9 +3,7 @@ import StyledIcon from "../../icon/icon.style";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledSort = styled.div`
@@ -29,7 +27,7 @@ const StyledSort = styled.div`
 
   :focus {
     ${({ theme }) =>
-      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`}
     border-radius: var(--borderRadius025);
   }
 `;

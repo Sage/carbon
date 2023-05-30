@@ -145,10 +145,17 @@ StyledTabsHeaderList.defaultProps = {
 };
 
 const StyledTabsWrapper = styled.div`
+  margin: 3px;
   position: relative;
   min-width: max-content;
   width: 100%;
   height: 100%;
+`;
+
+const StyledVerticalTabsWrapper = styled.div`
+  margin: 3px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledTabsBottomBorderWrapper = styled.div`
@@ -173,4 +180,5 @@ export {
   StyledTabsWrapper,
   StyledTabsBottomBorderWrapper,
   StyledTabsBottomBorder,
+  StyledVerticalTabsWrapper,
 };

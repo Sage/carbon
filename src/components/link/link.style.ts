@@ -109,22 +109,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
           }
 
           &:focus {
-            background-color: var(--colorsSemanticFocus250);
-            border-radius: var(--borderRadius050);
-            text-decoration: none;
-            position: relative;
-
-            ::after {
-              content: "";
-              left: 0;
-              bottom: -2px;
-              position: absolute;
-              right: 0;
-              height: 3px;
-              background-color: var(--colorsUtilityYin090);
-              border-bottom-left-radius: var(--borderRadius050);
-              border-bottom-right-radius: var(--borderRadius050);
-            }
+            background-color: var(--colorsUtilityYang100);
           }
         }
 
@@ -136,6 +121,24 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
 
       ${!isSkipLink &&
       css`
+        ${!disabled &&
+        !theme.focusRedesignOptOut &&
+        css`
+          &:focus-within {
+            a {
+              outline: none;
+              text-decoration: none;
+              background-color: var(--colorsSemanticFocus250);
+              border-bottom-left-radius: var(--borderRadius000);
+              border-bottom-right-radius: var(--borderRadius000);
+            }
+
+            box-shadow: 0 4px 0 0 var(--colorsUtilityYin100);
+            border-bottom-left-radius: var(--borderRadius050);
+            border-bottom-right-radius: var(--borderRadius050);
+          }
+        `}
+
         a,
         button {
           font-size: 14px;
@@ -155,21 +158,13 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
               }
             }
 
-            &:focus-within {
-              background-color: var(--colorsSemanticFocus250);
-              border-radius: var(--borderRadius050);
-              a {
-                outline: none;
-                text-decoration: none;
-                background-color: yellow;
-                border-bottom-left-radius: 0px;
-                border-bottom-right-radius: 0px;
+            ${theme.focusRedesignOptOut &&
+            css`
+              &:focus {
+                background-color: var(--colorsSemanticFocus250);
+                border-radius: var(--borderRadius050);
               }
-
-              box-shadow: 0 4px 0 0 black;
-              border-bottom-left-radius: 4px;
-              border-bottom-right-radius: 4px;
-            }
+            `}
           `}
 
           ${disabled &&

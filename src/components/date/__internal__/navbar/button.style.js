@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
+import { baseTheme } from "../../../../style/themes";
 
 const oldFocusStyling = `
-  &:focus {
-    outline: solid 3px var(--colorsSemanticFocus500);
-  }
+  outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
 const StyledButton = styled.button.attrs({ type: "button" })`
@@ -22,7 +21,15 @@ const StyledButton = styled.button.attrs({ type: "button" })`
   border-radius: var(--borderRadius050);
 
   ${({ theme }) =>
-    `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+    `
+      :focus {
+        ${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}
+      }
+  `}
 `;
+
+StyledButton.defaultProps = {
+  theme: baseTheme,
+};
 
 export default StyledButton;

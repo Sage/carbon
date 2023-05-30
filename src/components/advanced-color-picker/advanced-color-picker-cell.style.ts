@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import baseTheme from "../../style/themes/base";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const transparentSvg =
   "%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%" +
@@ -27,12 +29,27 @@ const StyledAdvancedColorPickerCell = styled.button.attrs({ type: "button" })`
 
   &:hover {
     cursor: pointer;
-    outline: none;
+  }
+
+  :focus {
+    ${({ theme }) => css`
+      ${theme.focusRedesignOptOut &&
+      `
+        outline: solid 3px var(--colorsSemanticFocus500);
+      `}
+
+      ${!theme.focusRedesignOptOut &&
+      `
+        ${addFocusStyling()}
+      `}
+    `}
   }
 
   &::-moz-focus-inner {
     border: none;
   }
 `;
+
+StyledAdvancedColorPickerCell.defaultProps = { theme: baseTheme };
 
 export default StyledAdvancedColorPickerCell;
