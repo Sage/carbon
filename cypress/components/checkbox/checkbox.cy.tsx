@@ -1,11 +1,13 @@
-/* eslint-disable no-shadow */
+/* eslint-disable no-shadow, jest/valid-expect, no-unused-expressions */
 import React from "react";
+import { CheckboxGroupProps } from "components/checkbox";
 import Box from "../../../src/components/box";
-import { Checkbox } from "../../../src/components/checkbox/checkbox.component";
+import { Checkbox, CheckboxProps } from "../../../src/components/checkbox";
 import {
   CheckboxComponent,
   CheckboxGroupComponent,
 } from "../../../src/components/checkbox/checkbox-test.stories";
+
 import * as stories from "../../../src/components/checkbox/checkbox.stories";
 import {
   checkboxComponent,
@@ -256,8 +258,8 @@ context("Testing Checkbox component", () => {
   });
 
   it.each([
-    [true, "0"],
-    [false, "1"],
+    [true, 0],
+    [false, 1],
   ])(
     "should render Checkbox with reverse prop set to %s",
     (reverseValue, position) => {
@@ -299,36 +301,31 @@ context("Testing Checkbox component", () => {
   });
 
   describe("should render CheckBox component and check events", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: CheckboxProps["onBlur"] = cy.stub();
       CypressMountWithProviders(<CheckboxComponent onBlur={callback} />);
 
       checkboxRole()
         .focus()
         .blur()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onChange callback when a check event is triggered", () => {
+      const callback: CheckboxProps["onChange"] = cy.stub();
       CypressMountWithProviders(<CheckboxComponent onChange={callback} />);
 
       checkboxRole()
         .check()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onChange callback when an uncheck event is triggered", () => {
+      const callback: CheckboxProps["onChange"] = cy.stub();
       CypressMountWithProviders(
         <CheckboxComponent checked onChange={callback} />
       );
@@ -336,29 +333,28 @@ context("Testing Checkbox component", () => {
       checkboxRole()
         .uncheck()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: CheckboxProps["onFocus"] = cy.stub();
       CypressMountWithProviders(<CheckboxComponent onFocus={callback} />);
 
       checkboxRole()
         .focus()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: CheckboxProps["onClick"] = cy.stub();
       CypressMountWithProviders(<CheckboxComponent onClick={callback} />);
 
       checkboxRole()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
@@ -431,7 +427,7 @@ context("Testing Checkbox component", () => {
       it.each([
         ["left", "flex-start"],
         ["right", "flex-end"],
-      ])(
+      ] as [CheckboxGroupProps["legendAlign"], string][])(
         "should render CheckboxGroup component with inline legend aligned to %s",
         (position, assertion) => {
           CypressMountWithProviders(
@@ -468,7 +464,7 @@ context("Testing Checkbox component", () => {
         CypressMountWithProviders(
           <CheckboxGroupComponent>
             <Checkbox
-              id="checkbox_id-three"
+              id="checkbox_id three"
               key="checkbox_id-three"
               name="checkbox_id-three"
               label="Checkbox 3"
@@ -481,14 +477,14 @@ context("Testing Checkbox component", () => {
       it.each([
         [1, "8px"],
         [2, "16px"],
-      ])(
+      ] as [CheckboxGroupProps["legendSpacing"], string][])(
         "should render CheckboxGroup component with legendSpacing set to %s",
         (spacing, padding) => {
           CypressMountWithProviders(
             <CheckboxGroupComponent
               legend="AVeryVeryLongLegend"
               legendSpacing={spacing}
-              legendWidth="10"
+              legendWidth={10}
               legendInline
             />
           );
@@ -496,7 +492,12 @@ context("Testing Checkbox component", () => {
         }
       );
 
-      it.each(["top", "bottom", "left", "right"])(
+      it.each([
+        "top",
+        "bottom",
+        "left",
+        "right",
+      ] as CheckboxGroupProps["tooltipPosition"][])(
         "should render CheckboxGroupComponent component with tooltip positioned to the %s",
         (position) => {
           CypressMountWithProviders(
@@ -554,12 +555,8 @@ context("Testing Checkbox component", () => {
         <CheckboxComponent label="Label For CheckBox" labelHelp="Label Help" />
       );
 
-      checkboxIcon()
-        .trigger("mouseover")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      checkboxIcon().trigger("mouseover");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Checkbox disabled", () => {
@@ -624,7 +621,6 @@ context("Testing Checkbox component", () => {
         checkboxIcon()
           .trigger("mouseover")
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
             cy.checkAccessibility();
           });
       }
@@ -662,7 +658,7 @@ context("Testing Checkbox component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(["left", "right"])(
+    it.each(["left", "right"] as CheckboxGroupProps["legendAlign"][])(
       "should pass accessibility tests for CheckboxGroup component with inline legend aligned to %s",
       (position) => {
         CypressMountWithProviders(
@@ -693,14 +689,14 @@ context("Testing Checkbox component", () => {
       }
     );
 
-    it.each([1, 2])(
+    it.each([1, 2] as CheckboxGroupProps["legendSpacing"][])(
       "should pass accessibility tests for CheckboxGroup component with legendSpacing set to %s",
       (spacing) => {
         CypressMountWithProviders(
           <CheckboxGroupComponent
             legend="AVeryVeryLongLegend"
             legendSpacing={spacing}
-            legendWidth="10"
+            legendWidth={10}
             legendInline
           />
         );
@@ -717,7 +713,12 @@ context("Testing Checkbox component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as CheckboxGroupProps["tooltipPosition"][])(
       "should pass accessibility tests for CheckboxGroupComponent component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
@@ -731,7 +732,6 @@ context("Testing Checkbox component", () => {
         checkboxGroupIcon()
           .trigger("mouseover")
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
             cy.checkAccessibility();
           });
       }

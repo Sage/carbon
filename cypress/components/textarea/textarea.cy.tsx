@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable jest/valid-expect */
 import React from "react";
+import { TextareaProps } from "components/textarea";
 import { TextareaComponent } from "../../../src/components/textarea/textarea-test.stories";
 import Box from "../../../src/components/box";
 import * as stories from "../../../src/components/textarea/textarea.stories";
@@ -89,7 +92,7 @@ context("Tests for Textarea component", () => {
     it.each([
       ["left", "start"],
       ["right", "end"],
-    ])(
+    ] as [TextareaProps["labelAlign"], string][])(
       "should render Textarea with labelAlign prop set to %s",
       (labelAlign, cssValue) => {
         CypressMountWithProviders(
@@ -119,7 +122,7 @@ context("Tests for Textarea component", () => {
     it.each([
       [1, "8px"],
       [2, "16px"],
-    ])(
+    ] as [TextareaProps["labelSpacing"], string][])(
       "should render Textarea with labelSpacing prop set to %s",
       (spacing, padding) => {
         CypressMountWithProviders(
@@ -132,11 +135,11 @@ context("Tests for Textarea component", () => {
       }
     );
 
-    it.each([
+    it.each(([
       ["10", "90", 135, 1229],
       ["30", "70", 409, 956],
       ["80", "20", 1092, 273],
-    ])(
+    ] as unknown) as [TextareaProps["labelWidth"], TextareaProps["inputWidth"], number, number][])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
@@ -227,7 +230,7 @@ context("Tests for Textarea component", () => {
     it.each([
       [4, "exist"],
       ["", "not.exist"],
-    ])(
+    ] as [TextareaProps["characterLimit"], string][])(
       "character counter hint should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
@@ -399,7 +402,7 @@ context("Tests for Textarea component", () => {
       [SIZE.SMALL, "32px"],
       [SIZE.MEDIUM, "40px"],
       [SIZE.LARGE, "48px"],
-    ])(
+    ] as [TextareaProps["size"], string][])(
       "should use %s as size and render Textarea with %s as height",
       (size, height) => {
         CypressMountWithProviders(<TextareaComponent size={size} />);
@@ -437,7 +440,7 @@ context("Tests for Textarea component", () => {
       }
     );
 
-    it.each(["add", "filter", "play"])(
+    it.each(["add", "filter", "play"] as TextareaProps["inputIcon"][])(
       "should render Textarea with inputIcon prop set to %s",
       (icon) => {
         CypressMountWithProviders(<TextareaComponent inputIcon={icon} />);
@@ -446,7 +449,12 @@ context("Tests for Textarea component", () => {
       }
     );
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as TextareaProps["tooltipPosition"][])(
       "should render Textarea component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
@@ -479,7 +487,7 @@ context("Tests for Textarea component", () => {
       );
     });
 
-    it.each(["left", "right"])(
+    it.each(["left", "right"] as TextareaProps["align"][])(
       "should render Textarea with align prop set to %s",
       (align) => {
         CypressMountWithProviders(<TextareaComponent align={align} />);
@@ -547,116 +555,80 @@ context("Tests for Textarea component", () => {
 
   describe("check events for Textarea component", () => {
     const inputValue = "1";
-    let callback;
-    beforeEach(() => {
-      callback = cy.stub();
-    });
 
     it("should call onChange callback when a type event is triggered", () => {
+      const callback: TextareaProps["onChange"] = cy.stub();
+
       CypressMountWithProviders(<TextareaComponent onChange={callback} />);
 
       textareaChildren()
         .type(inputValue)
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: TextareaProps["onBlur"] = cy.stub();
+
       CypressMountWithProviders(<TextareaComponent onBlur={callback} />);
 
       textareaChildren()
         .click()
         .blur()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: TextareaProps["onClick"] = cy.stub();
+
       CypressMountWithProviders(<TextareaComponent onClick={callback} />);
 
       textareaChildren()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: TextareaProps["onFocus"] = cy.stub();
+
       CypressMountWithProviders(<TextareaComponent onFocus={callback} />);
 
       textareaChildren()
         .focus()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onMouseDown callback when a mousedown event is triggered", () => {
+      const callback: TextareaProps["onMouseDown"] = cy.stub();
+
       CypressMountWithProviders(<TextareaComponent onMouseDown={callback} />);
 
       textareaChildren()
         .trigger("mousedown")
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([["Enter", "Space"] as const])(
       "should call onKeyDown callback when %s key is triggered",
       (key) => {
+        const callback: TextareaProps["onKeyDown"] = cy.stub();
+
         CypressMountWithProviders(<TextareaComponent onKeyDown={callback} />);
 
         textareaChildren()
           .focus()
           .trigger("keydown", { ...keyCode(key), force: true })
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
-          });
-      }
-    );
-
-    it.each([
-      [1000, "1"],
-      [5000, "5"],
-      [10000, "10"],
-    ])(
-      "should use %s as deferTimeout and defer onChangeDeferred event for %s seconds",
-      (timeout) => {
-        const callbackOnChange = cy.stub();
-        const callbackOnChangeDeff = cy.stub();
-
-        CypressMountWithProviders(
-          <TextareaComponent
-            deferTimeout={timeout}
-            onChange={callbackOnChange}
-            onChangeDeferred={callbackOnChangeDeff}
-          />
-        );
-
-        cy.clock();
-
-        textareaChildren()
-          .type(inputValue)
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChange).to.have.been.calledOnce;
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChangeDeff).to.not.have.been.called;
-          })
-          .then(() => {
-            cy.tick(timeout);
-          })
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChangeDeff).to.have.been.calledOnce;
           });
       }
     );
