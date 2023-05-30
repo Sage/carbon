@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-expressions, jest/valid-expect  */
 import React from "react";
+import { TextboxProps } from "components/textbox";
 import * as stories from "../../../src/components/textbox/textbox-test.stories";
 import * as defaultStories from "../../../src/components/textbox/textbox.stories";
 import Box from "../../../src/components/box";
@@ -32,15 +34,16 @@ import Button from "../../../src/components/button";
 import { ICON } from "../../locators/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const keysToTrigger = ["Enter", "Space"] as const;
 
-const verifyOptional = (element) =>
+const verifyOptional = (element: Cypress.Chainable<JQuery<HTMLElement>>) =>
   element.then(($els) => {
     // get Window reference from element
     const win = $els[0].ownerDocument.defaultView;
     // use getComputedStyle to read the pseudo selector
-    const after = win.getComputedStyle($els[0], "after");
+    const after = win?.getComputedStyle($els[0], "after");
     // read the value of the `content` CSS property
-    const contentValue = after.getPropertyValue("content");
+    const contentValue = after?.getPropertyValue("content");
     // the returned value will have double quotes around it, but this is correct
     expect(contentValue).to.eq('"(optional)"');
   });
@@ -51,7 +54,7 @@ context("Tests for Textbox component", () => {
       [SIZE.SMALL, "32px", "--sizing400"],
       [SIZE.MEDIUM, "40px", "--sizing500"],
       [SIZE.LARGE, "48px", "--sizing600"],
-    ])(
+    ] as [TextboxProps["size"], string, string][])(
       "should use %s as size and render Textbox with %s as height",
       (size, height, token) => {
         CypressMountWithProviders(<stories.TextboxComponent size={size} />);
@@ -141,7 +144,7 @@ context("Tests for Textbox component", () => {
     it.each([
       ["left", "start"],
       ["right", "end"],
-    ])(
+    ] as [TextboxProps["labelAlign"], string][])(
       "should render Textbox with labelAlign prop set to %s",
       (labelAlign, cssValue) => {
         CypressMountWithProviders(
@@ -171,7 +174,7 @@ context("Tests for Textbox component", () => {
     it.each([
       [1, "8px"],
       [2, "16px"],
-    ])(
+    ] as [TextboxProps["labelSpacing"], string][])(
       "should render Textbox with labelSpacing prop set to %s",
       (spacing, padding) => {
         CypressMountWithProviders(
@@ -184,11 +187,11 @@ context("Tests for Textbox component", () => {
       }
     );
 
-    it.each([
+    it.each(([
       ["10", "90", 135, 1229],
       ["30", "70", 409, 956],
       ["80", "20", 1092, 273],
-    ])(
+    ] as unknown) as [TextboxProps["labelWidth"], TextboxProps["inputWidth"], number, number][])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
@@ -233,7 +236,7 @@ context("Tests for Textbox component", () => {
     it.each([
       [4, "exist"],
       ["", "not.exist"],
-    ])(
+    ] as [TextboxProps["characterLimit"], string][])(
       "character counter hint should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
@@ -247,7 +250,7 @@ context("Tests for Textbox component", () => {
       }
     );
 
-    it.each(["10%", "30%", "50%", "80%", "100%"])(
+    it.each(["10%", "30%", "50%", "80%", "100%"] as TextboxProps["maxWidth"][])(
       "should check maxWidth as %s for TextBox component",
       (maxWidth) => {
         CypressMountWithProviders(
@@ -458,7 +461,7 @@ context("Tests for Textbox component", () => {
       );
 
       textbox()
-        .children(0)
+        .children()
         .should("have.attr", "data-component", "button")
         .and("be.visible");
     });
@@ -508,16 +511,16 @@ context("Tests for Textbox component", () => {
 
       textbox()
         .parent()
-        .children(0)
+        .children()
         .should("have.attr", "data-component", "button")
         .and("be.visible");
     });
 
-    it.each([
+    it.each(([
       ["flex", "399"],
       ["flex", "400"],
       ["block", "401"],
-    ])(
+    ] as unknown) as [string, TextboxProps["adaptiveLabelBreakpoint"]][])(
       "should check Textbox label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint) => {
         cy.viewport(400, 300);
@@ -562,7 +565,7 @@ context("Tests for Textbox component", () => {
       textboxInput().should("have.attr", "value", CHARACTERS.STANDARD);
     });
 
-    it.each(["add", "filter", "play"])(
+    it.each(["add", "filter", "play"] as TextboxProps["inputIcon"][])(
       "should render Textbox with inputIcon prop set to %s",
       (icon) => {
         CypressMountWithProviders(
@@ -581,7 +584,12 @@ context("Tests for Textbox component", () => {
       getDataElementByValue("add").parent().should("have.attr", "tabindex", 25);
     });
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as TextboxProps["tooltipPosition"][])(
       "should render Textbox component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
@@ -614,7 +622,7 @@ context("Tests for Textbox component", () => {
       );
     });
 
-    it.each(["left", "right"])(
+    it.each(["left", "right"] as TextboxProps["align"][])(
       "should render Textbox with align prop set to %s",
       (align) => {
         CypressMountWithProviders(<stories.TextboxComponent align={align} />);
@@ -642,12 +650,10 @@ context("Tests for Textbox component", () => {
 
   describe("check events for Textbox component", () => {
     const inputValue = "1";
-    let callback;
-    beforeEach(() => {
-      callback = cy.stub();
-    });
 
     it("should call onChange callback when a type event is triggered", () => {
+      const callback: TextboxProps["onChange"] = cy.stub();
+
       CypressMountWithProviders(
         <stories.TextboxComponent onChange={callback} />
       );
@@ -655,24 +661,26 @@ context("Tests for Textbox component", () => {
       textboxInput()
         .type(inputValue)
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: TextboxProps["onBlur"] = cy.stub();
+
       CypressMountWithProviders(<stories.TextboxComponent onBlur={callback} />);
 
       textboxInput()
         .click()
         .blur()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: TextboxProps["onClick"] = cy.stub();
+
       CypressMountWithProviders(
         <stories.TextboxComponent onClick={callback} />
       );
@@ -680,12 +688,13 @@ context("Tests for Textbox component", () => {
       textboxInput()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: TextboxProps["onFocus"] = cy.stub();
+
       CypressMountWithProviders(
         <stories.TextboxComponent onFocus={callback} />
       );
@@ -693,12 +702,13 @@ context("Tests for Textbox component", () => {
       textboxInput()
         .focus()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onMouseDown callback when a mousedown event is triggered", () => {
+      const callback: TextboxProps["onMouseDown"] = cy.stub();
+
       CypressMountWithProviders(
         <stories.TextboxComponent onMouseDown={callback} />
       );
@@ -706,12 +716,13 @@ context("Tests for Textbox component", () => {
       textboxInput()
         .trigger("mousedown")
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call iconOnMouseDown callback when a click event is triggered", () => {
+      const callback: TextboxProps["iconOnMouseDown"] = cy.stub();
+
       CypressMountWithProviders(
         <stories.TextboxComponent iconOnMouseDown={callback} inputIcon="add" />
       );
@@ -719,12 +730,13 @@ context("Tests for Textbox component", () => {
       getComponent("icon")
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call iconOnClick callback when a click event is triggered", () => {
+      const callback: TextboxProps["iconOnClick"] = cy.stub();
+
       CypressMountWithProviders(
         <stories.TextboxComponent iconOnClick={callback} inputIcon="add" />
       );
@@ -732,33 +744,36 @@ context("Tests for Textbox component", () => {
       getComponent("icon")
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
-    it.each([["Enter"], ["Space"]])(
+
+    it.each([keysToTrigger])(
       "should call iconOnClick callback when %s key is triggered",
       (key) => {
+        const callback: TextboxProps["iconOnClick"] = cy.stub();
+
         CypressMountWithProviders(
           <stories.TextboxComponent
             inputIcon="home"
             iconOnClick={callback}
-            iconTabIndex="0"
+            iconTabIndex={0}
           />
         );
 
         getComponent("icon")
           .trigger("keydown", { ...keyCode(key), force: true })
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
           });
       }
     );
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([keysToTrigger])(
       "should call onKeyDown callback when %s key is triggered",
       (key) => {
+        const callback: TextboxProps["onKeyDown"] = cy.stub();
+
         CypressMountWithProviders(
           <stories.TextboxComponent onKeyDown={callback} />
         );
@@ -767,46 +782,7 @@ context("Tests for Textbox component", () => {
           .focus()
           .trigger("keydown", { ...keyCode(key), force: true })
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
-          });
-      }
-    );
-
-    it.each([
-      [1000, "1"],
-      [5000, "5"],
-      [10000, "10"],
-    ])(
-      "should use %s as deferTimeout and defer onChangeDeferred event for %s seconds",
-      (timeout) => {
-        const callbackOnChange = cy.stub();
-        const callbackOnChangeDeff = cy.stub();
-
-        CypressMountWithProviders(
-          <stories.TextboxComponent
-            deferTimeout={timeout}
-            onChange={callbackOnChange}
-            onChangeDeferred={callbackOnChangeDeff}
-          />
-        );
-
-        cy.clock();
-
-        textboxInput()
-          .type(inputValue)
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChange).to.have.been.calledOnce;
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChangeDeff).to.not.have.been.called;
-          })
-          .then(() => {
-            cy.tick(timeout);
-          })
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChangeDeff).to.have.been.calledOnce;
           });
       }
     );

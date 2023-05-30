@@ -144,7 +144,7 @@ export const Default = ({
 
 Default.storyName = "default";
 
-export const TextareaComponent = ({ ...props }) => {
+export const TextareaComponent = (props: Partial<TextareaProps>) => {
   const [state, setState] = React.useState("");
 
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {

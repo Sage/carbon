@@ -1,7 +1,12 @@
+/* eslint-disable jest/valid-expect, jest/no-disabled-tests, no-unused-expressions */
 import React from "react";
-import Box from "../../../src/components/box";
+import { LinkProps } from "components/link";
 import { LinkComponent } from "../../../src/components/link/link-test.stories";
-
+import { skipLink } from "../../locators/link/index";
+import { keyCode } from "../../support/helper";
+import { CHARACTERS } from "../../support/component-helper/constants";
+import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
+import Box from "../../../src/components/box";
 import {
   icon,
   tooltipPreview,
@@ -10,10 +15,6 @@ import {
   body,
   cyRoot,
 } from "../../locators";
-import { skipLink } from "../../locators/link/index";
-import { keyCode } from "../../support/helper";
-import { CHARACTERS } from "../../support/component-helper/constants";
-import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
@@ -45,7 +46,7 @@ context("Test for Link component", () => {
     it.each([
       ["left", 0],
       ["right", 1],
-    ])(
+    ] as [LinkProps["iconAlign"], number][])(
       "should render Link with iconAlign prop set to %s",
       (iconAlign, iconPosition) => {
         CypressMountWithProviders(
@@ -71,7 +72,12 @@ context("Test for Link component", () => {
       tooltipPreview().should("have.text", testCypress);
     });
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as LinkProps["tooltipPosition"][])(
       "should render Link with tooltipPosition prop set to %s",
       (tooltipPosition) => {
         CypressMountWithProviders(
@@ -139,7 +145,7 @@ context("Test for Link component", () => {
     ["default", "rgb(0, 126, 69)"],
     ["negative", "rgb(203, 55, 74)"],
     ["neutral", "rgba(0, 0, 0, 0.9)"],
-  ])(
+  ] as [LinkProps["variant"], string][])(
     "should render Link with variant prop set to %s",
     (variant, defaultColor) => {
       CypressMountWithProviders(<LinkComponent variant={variant} />);
@@ -152,7 +158,7 @@ context("Test for Link component", () => {
     ["default", "rgb(0, 103, 56)"],
     ["negative", "rgb(162, 44, 59)"],
     ["neutral", "rgb(0, 103, 56)"],
-  ])(
+  ] as [LinkProps["variant"], string][])(
     "should render Link with correct hover state with variant prop set to %s",
     (variant, hoverColor) => {
       CypressMountWithProviders(<LinkComponent variant={variant} />);
@@ -165,7 +171,7 @@ context("Test for Link component", () => {
     ["default", "rgb(25, 142, 89)"],
     ["negative", "rgb(208, 75, 92)"],
     ["neutral", "rgb(25, 142, 89)"],
-  ])(
+  ] as [LinkProps["variant"], string][])(
     "should render Link with correct hover state with isDarkBackground prop set with %s variant",
     (variant, hoverColor) => {
       CypressMountWithProviders(
@@ -188,41 +194,34 @@ context("Test for Link component", () => {
   });
 
   describe("check events for Link component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: LinkProps["onClick"] = cy.stub();
       CypressMountWithProviders(<LinkComponent onClick={callback} />);
 
       link()
         .click()
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onKeyDown callback when a blur event is triggered", () => {
+      const callback: LinkProps["onKeyDown"] = cy.stub();
       CypressMountWithProviders(<LinkComponent onKeyDown={callback} />);
 
       link()
         .trigger("keydown", keyCode("rightarrow"))
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
 
     it("should call onMouseDown callback when a keydown event is triggered", () => {
+      const callback: LinkProps["onMouseDown"] = cy.stub();
       CypressMountWithProviders(<LinkComponent onMouseDown={callback} />);
-
       link()
         .trigger("mousedown")
         .then(() => {
-          // eslint-disable-next-line no-unused-expressions
           expect(callback).to.have.been.calledOnce;
         });
     });
@@ -255,7 +254,7 @@ context("Test for Link component", () => {
         cy.checkAccessibility();
       });
 
-      it.each(["left", "right"])(
+      it.each(["left", "right"] as LinkProps["iconAlign"][])(
         "should render Link with iconAlign prop set to %s and check accessibility",
         (iconAlign) => {
           CypressMountWithProviders(
@@ -272,7 +271,12 @@ context("Test for Link component", () => {
         cy.checkAccessibility();
       });
 
-      it.each(["top", "bottom", "left", "right"])(
+      it.each([
+        "top",
+        "bottom",
+        "left",
+        "right",
+      ] as LinkProps["tooltipPosition"][])(
         "should render Link with tooltipPosition prop set to %s and check accessibility",
         (tooltipPosition) => {
           CypressMountWithProviders(
@@ -284,7 +288,6 @@ context("Test for Link component", () => {
               />
             </Box>
           );
-
           cy.checkAccessibility();
         }
       );
@@ -293,14 +296,12 @@ context("Test for Link component", () => {
         "should render Link with target prop set to %s and check accessibility",
         (target) => {
           CypressMountWithProviders(<LinkComponent target={target} />);
-
           cy.checkAccessibility();
         }
       );
 
       it("should render Link with ariaLabel prop and check accessibility", () => {
         CypressMountWithProviders(<LinkComponent ariaLabel={testCypress} />);
-
         cy.checkAccessibility();
       });
 
@@ -308,16 +309,14 @@ context("Test for Link component", () => {
         "should render Link with rel prop set to %s and check accessibility",
         (rel) => {
           CypressMountWithProviders(<LinkComponent rel={rel} />);
-
           cy.checkAccessibility();
         }
       );
 
-      it.each(["default", "negative", "neutral"])(
+      it.each(["default", "negative", "neutral"] as LinkProps["variant"][])(
         "should render Link with variant prop set to %s and check accessibility",
         (variant) => {
           CypressMountWithProviders(<LinkComponent variant={variant} />);
-
           cy.checkAccessibility();
         }
       );
