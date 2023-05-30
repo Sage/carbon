@@ -87,13 +87,13 @@ export const GroupedCharacterComponent = ({
   groups,
   separator,
   ...props
-}: GroupedCharacterProps) => {
+}: Partial<GroupedCharacterProps>) => {
   const [state, setState] = React.useState("");
 
-  const setValue = (ev: CustomEvent) => {
-    setState(ev.target.value.rawValue);
+  const setValue = (event: CustomEvent) => {
+    setState(event.target.value.rawValue);
     if (onChange) {
-      onChange(ev);
+      onChange(event);
     }
   };
 
