@@ -85,11 +85,12 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
 
     // prettier-ignore
     ${StyledHiddenCheckableInput}:not([disabled]) {
-      &:focus + ${StyledCheckableInputSvgWrapper},
-      &:hover + ${StyledCheckableInputSvgWrapper} {
-        ${({ theme }) =>
+      &:focus + ${StyledCheckableInputSvgWrapper}
+      ${({ theme }) =>
       `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
       }
+    ,
+    &:hover + ${StyledCheckableInputSvgWrapper} {
     }
 
     ${StyledLabelContainer} {

@@ -79,8 +79,10 @@ const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
       border: none;
     }
 
-    ${({ theme }) =>
-      `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+    &:focus {
+      ${({ theme }) =>
+        `${theme.focusRedesignOptOut ? oldFocusStyling : addFocusStyling()}`};
+    }
 
     &:focus {
       outline: none;
