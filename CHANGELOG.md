@@ -1,3 +1,10 @@
+### [118.4.1](https://github.com/Sage/carbon/compare/v118.4.0...v118.4.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* **action-popover:** change html structure so buttons are not nested inside buttons ([3a1bb50](https://github.com/Sage/carbon/commit/3a1bb50393c0ec45bfffaa6c7a255e0211498f1f))
+
 ## [118.4.0](https://github.com/Sage/carbon/compare/v118.3.3...v118.4.0) (2023-05-23)
 
 

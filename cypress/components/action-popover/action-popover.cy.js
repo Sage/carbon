@@ -456,7 +456,7 @@ context("Test for ActionPopover component", () => {
 
         actionPopoverButton().eq(0).click();
         actionPopover()
-          .children()
+          .get("button")
           .should("have.css", "justify-content", `flex-${attrValue}`);
       }
     );
