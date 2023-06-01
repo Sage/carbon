@@ -1,4 +1,6 @@
+/* eslint-disable jest/valid-expect, no-unused-expressions */
 import React from "react";
+import { DismissibleBoxProps } from "components/dismissible-box";
 import { Default as DismissibleBoxCustomComponent } from "../../../src/components/dismissible-box/dismissible-box-test.stories";
 import * as stories from "../../../src/components/dismissible-box/dismissible-box.stories";
 import dismissibleBoxDataComponent from "../../locators/dismissible-box";
@@ -6,6 +8,8 @@ import { icon } from "../../locators/index.js";
 import { keyCode } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
+
+const keysToTrigger = ["Space", "Enter"] as const;
 
 context("Test for DismissibleBox component", () => {
   describe("check props for DismissibleBox component", () => {
@@ -45,7 +49,7 @@ context("Test for DismissibleBox component", () => {
     it.each([
       ["light", "rgb(255, 255, 255)"],
       ["dark", "rgb(230, 235, 237)"],
-    ])(
+    ] as [DismissibleBoxProps["variant"], string][])(
       "should render DismissibleBox with variant prop set to %s",
       (variant, color) => {
         CypressMountWithProviders(
@@ -61,13 +65,8 @@ context("Test for DismissibleBox component", () => {
     );
 
     describe("check events for DismissibleBox component", () => {
-      let callback;
-
-      beforeEach(() => {
-        callback = cy.stub();
-      });
-
       it("should call onClose callback when a mouse click event is triggered", () => {
+        const callback: DismissibleBoxProps["onClose"] = cy.stub();
         CypressMountWithProviders(
           <DismissibleBoxCustomComponent onClose={callback} />
         );
@@ -75,14 +74,14 @@ context("Test for DismissibleBox component", () => {
         icon()
           .click()
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
             expect(callback).to.have.been.calledOnce;
           });
       });
 
-      it.each([["Space"], ["Enter"]])(
+      it.each([keysToTrigger[0], keysToTrigger[1]])(
         "should call onClose callback when a keyboard key %s event is triggered",
         (key) => {
+          const callback: DismissibleBoxProps["onClose"] = cy.stub();
           CypressMountWithProviders(
             <DismissibleBoxCustomComponent onClose={callback} />
           );
@@ -90,7 +89,6 @@ context("Test for DismissibleBox component", () => {
           icon()
             .trigger("keydown", keyCode(key))
             .then(() => {
-              // eslint-disable-next-line no-unused-expressions
               expect(callback).to.have.been.calledOnce;
             });
         }
@@ -100,25 +98,31 @@ context("Test for DismissibleBox component", () => {
 
   describe("Accessibility tests for DismissibleBox", () => {
     it("should pass accessibility tests for DismissibleBox DefaultDarkVariant story", () => {
-      CypressMountWithProviders(<stories.DefaultDarkVariant />);
+      CypressMountWithProviders(
+        <stories.DefaultDarkVariant onClose={() => {}} />
+      );
 
       cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for DismissibleBox DefaultLightVariant story", () => {
-      CypressMountWithProviders(<stories.DefaultLightVariant />);
+      CypressMountWithProviders(
+        <stories.DefaultLightVariant onClose={() => {}} />
+      );
 
       cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for DismissibleBox WidthOverridden story", () => {
-      CypressMountWithProviders(<stories.WidthOverridden />);
+      CypressMountWithProviders(<stories.WidthOverridden onClose={() => {}} />);
 
       cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for DismissibleBox WithNoLeftBorderHighlight story", () => {
-      CypressMountWithProviders(<stories.WithNoLeftBorderHighlight />);
+      CypressMountWithProviders(
+        <stories.WithNoLeftBorderHighlight onClose={() => {}} />
+      );
 
       cy.checkAccessibility();
     });
@@ -131,7 +135,7 @@ context("Test for DismissibleBox component", () => {
     ["borderRadius050", "4px"],
     ["borderRadius200", "16px"],
     ["borderRadius400", "32px"],
-  ])(
+  ] as [DismissibleBoxProps["borderRadius"], string][])(
     "applies the expected border radius when %s passed to borderRadius prop",
     (borderRadius, expected) => {
       CypressMountWithProviders(

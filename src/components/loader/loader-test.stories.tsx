@@ -60,7 +60,7 @@ Default.args = {
   size: "medium",
 };
 
-export const LoaderInsideButtonTest = ({ ...props }) => {
+export const LoaderInsideButtonTest = (props: LoaderProps) => {
   return (
     <Button buttonType="primary" aria-label="Loading">
       <Loader isInsideButton {...props} />

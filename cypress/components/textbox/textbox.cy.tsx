@@ -748,7 +748,7 @@ context("Tests for Textbox component", () => {
         });
     });
 
-    it.each([keysToTrigger])(
+    it.each([keysToTrigger[0], keysToTrigger[1]])(
       "should call iconOnClick callback when %s key is triggered",
       (key) => {
         const callback: TextboxProps["iconOnClick"] = cy.stub();
@@ -769,7 +769,7 @@ context("Tests for Textbox component", () => {
       }
     );
 
-    it.each([keysToTrigger])(
+    it.each([keysToTrigger[0], keysToTrigger[1]])(
       "should call onKeyDown callback when %s key is triggered",
       (key) => {
         const callback: TextboxProps["onKeyDown"] = cy.stub();
