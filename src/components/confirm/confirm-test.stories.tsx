@@ -95,7 +95,7 @@ Default.args = {
   cancelButtonType: "secondary",
 };
 
-export const ConfirmComponent = ({ ...props }) => {
+export const ConfirmComponent = (props: Partial<ConfirmProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>
