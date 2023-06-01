@@ -1,6 +1,8 @@
+/* eslint-disable jest/valid-expect */
 import React from "react";
+import { AdvancedColorPickerProps } from "components/advanced-color-picker";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import AdvancedColorPicker from "../../../src/components/advanced-color-picker";
+import { AdvancedColorPickerCustom } from "../../../src/components/advanced-color-picker/advanced-color-picker-test.stories";
 import {
   simpleColorPicker,
   currentColorDescription,
@@ -15,47 +17,26 @@ import { closeIconButton } from "../../locators";
 import { keyCode } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 
-const AdvancedColorPickerCustom = ({ onChange, ...props }) => {
-  const [open, setOpen] = React.useState(true);
-  const [color, setColor] = React.useState();
+const keyToTrigger = ["Space", "Enter"] as const;
+const keyToTriggerArrow = ["leftarrow", "rightarrow", "uparrow"] as const;
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    if (onChange) {
-      onChange(value);
-    }
-    setColor(value);
-  };
-  return (
-    <AdvancedColorPicker
-      name="advancedColor"
-      availableColors={[
-        { value: "#FFFFFF", label: "white" },
-        { value: "transparent", label: "transparent" },
-        { value: "#000000", label: "black" },
-        { value: "#A3CAF0", label: "blue" },
-        { value: "#FD9BA3", label: "pink" },
-        { value: "#B4AEEA", label: "purple" },
-        { value: "#ECE6AF", label: "goldenrod" },
-        { value: "#EBAEDE", label: "orchid" },
-        { value: "#EBC7AE", label: "desert" },
-        { value: "#AEECEB", label: "turquoise" },
-        { value: "#AEECD6", label: "mint" },
-      ]}
-      defaultColor="#EBAEDE"
-      selectedColor={color}
-      onChange={handleChange}
-      onOpen={() => {
-        setOpen(open);
-      }}
-      onClose={() => {
-        setOpen(false);
-      }}
-      onBlur={() => {}}
-      open={open}
-      {...props}
-    />
-  );
+const indexByKey = (key: string) => {
+  let index;
+  switch (key) {
+    case keyToTriggerArrow[0]:
+      index = 6;
+      break;
+    case keyToTriggerArrow[1]:
+      index = 8;
+      break;
+    case keyToTriggerArrow[2]:
+      index = 2;
+      break;
+    default:
+      throw new Error(`${key} is not acceptable.`);
+  }
+
+  return index;
 };
 
 context("Testing AdvancedColorPicker component", () => {
@@ -64,15 +45,18 @@ context("Testing AdvancedColorPicker component", () => {
       CypressMountWithProviders(<AdvancedColorPickerCustom />);
     });
 
-    it.each([
-      ["leftarrow", 6],
-      ["rightarrow", 8],
-      ["uparrow", 2],
-    ])("should use %s key and move selection to %s cell", (key, index) => {
-      advancedColorPicker(7).trigger("keydown", keyCode(key));
+    it.each([keyToTriggerArrow[0], keyToTriggerArrow[1], keyToTriggerArrow[2]])(
+      "should use %s key and move selection",
+      (key) => {
+        advancedColorPicker(7).trigger("keydown", keyCode(key));
 
-      simpleColorPickerInput(index).should("have.attr", "aria-checked", "true");
-    });
+        simpleColorPickerInput(indexByKey(key)).should(
+          "have.attr",
+          "aria-checked",
+          "true"
+        );
+      }
+    );
 
     it("should move selection down using downarrow", () => {
       simpleColorPicker(7).trigger("keydown", keyCode("uparrow"));
@@ -82,12 +66,12 @@ context("Testing AdvancedColorPicker component", () => {
     });
 
     it("should regain focus on color after second tab", () => {
-      simpleColorPicker(7).tab().tab();
+      simpleColorPicker(7).click().tab().tab();
 
       simpleColorPickerInput(7).should("be.focused");
     });
 
-    it.each(["Space", "Enter"])(
+    it.each([keyToTrigger[0], keyToTrigger[1]])(
       "should close AdvancedColorPicker using %s on selected color",
       (key) => {
         simpleColorPicker(7).trigger("keydown", keyCode(key));
@@ -184,18 +168,16 @@ context("Testing AdvancedColorPicker component", () => {
       CypressMountWithProviders(
         <AdvancedColorPickerCustom
           availableColors={colors}
-          selectedColor="#333555"
+          selectedColor="#111222"
         />
       );
 
-      simpleColorPicker(0).should((el) => {
-        expect(el).to.have.attr("value").to.equal(colors[0].value);
-        expect(el).to.have.attr("aria-label").to.equal(colors[0].label);
-      });
-      simpleColorPicker(1).should((el) => {
-        expect(el).to.have.attr("value").to.equal(colors[1].value);
-        expect(el).to.have.attr("aria-label").to.equal(colors[1].label);
-      });
+      simpleColorPicker(0)
+        .should("have.attr", "value", colors[0].value)
+        .and("have.attr", "aria-label", colors[0].label);
+      simpleColorPicker(1)
+        .should("have.attr", "value", colors[1].value)
+        .and("have.attr", "aria-label", colors[1].label);
     });
 
     it("should render AdvancedColorPicker with selectedColor prop", () => {
@@ -206,10 +188,9 @@ context("Testing AdvancedColorPicker component", () => {
         />
       );
 
-      cy.focused().should((el) => {
-        expect(el).to.have.attr("value").to.equal(colors[1].value);
-        expect(el).to.have.attr("aria-label").to.equal(colors[1].label);
-      });
+      cy.focused()
+        .should("have.attr", "value", colors[1].value)
+        .and("have.attr", "aria-label", colors[1].label);
     });
 
     it("should render AdvancedColorPicker with defaultColor prop", () => {
@@ -220,10 +201,11 @@ context("Testing AdvancedColorPicker component", () => {
         />
       );
 
-      cy.focused().should((el) => {
-        expect(el).to.have.attr("value").to.equal(colors[0].value);
-        expect(el).to.have.attr("aria-label").to.equal(colors[0].label);
-      });
+      advancedColorPickerPreview().should(
+        "have.attr",
+        "color",
+        colors[0].value
+      );
     });
 
     it.each([
@@ -242,64 +224,58 @@ context("Testing AdvancedColorPicker component", () => {
   });
 
   describe("should render AdvancedColorPicker component and check events", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange callback when a click event is triggered", () => {
+      const callback: AdvancedColorPickerProps["onChange"] = cy
+        .stub()
+        .as("onChange");
+
       CypressMountWithProviders(
         <AdvancedColorPickerCustom onChange={callback} />
       );
 
-      simpleColorPickerInput(0)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      simpleColorPickerInput(0).click();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onOpen callback when a click event is triggered", () => {
+      const callback: AdvancedColorPickerProps["onOpen"] = cy
+        .stub()
+        .as("onOpen");
+
       CypressMountWithProviders(
         <AdvancedColorPickerCustom onOpen={callback} />
       );
 
       closeIconButton().click();
-      advancedColorPickerCell()
-        .first()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      advancedColorPickerCell().first().click();
+
+      cy.get("@onOpen").should("have.been.calledOnce");
     });
 
     it("should call onClose callback when a click event is triggered", () => {
+      const callback: AdvancedColorPickerProps["onClose"] = cy
+        .stub()
+        .as("onClose");
+
       CypressMountWithProviders(
         <AdvancedColorPickerCustom onClose={callback} />
       );
 
-      closeIconButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      closeIconButton().click();
+      cy.get("@onClose").should("have.been.calledOnce");
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: AdvancedColorPickerProps["onBlur"] = cy
+        .stub()
+        .as("onBlur");
+
       CypressMountWithProviders(
-        <AdvancedColorPickerCustom onBlur={callback} />
+        <AdvancedColorPickerCustom onBlur={callback} selectedColor="#FD9BA3" />
       );
 
-      cy.focused()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      cy.focused().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
   });
 

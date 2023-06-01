@@ -126,8 +126,8 @@ context("Test for Link Preview component", () => {
         });
     });
 
-    it.each([keysToTrigger])(
-      "should call onClose callback when a keyboard event is triggered",
+    it.each([keysToTrigger[0], keysToTrigger[1]])(
+      "should call onClose callback when a keyboard %s event is triggered",
       (key) => {
         const callback: LinkPreviewProps["onClose"] = cy.stub();
 

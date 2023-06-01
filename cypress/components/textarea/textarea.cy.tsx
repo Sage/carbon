@@ -617,7 +617,9 @@ context("Tests for Textarea component", () => {
         });
     });
 
-    it.each([["Enter", "Space"] as const])(
+    const keyToTrigger = ["Enter", "Space"] as const;
+
+    it.each([keyToTrigger[0], keyToTrigger[1]])(
       "should call onKeyDown callback when %s key is triggered",
       (key) => {
         const callback: TextareaProps["onKeyDown"] = cy.stub();
