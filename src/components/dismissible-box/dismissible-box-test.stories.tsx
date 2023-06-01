@@ -30,7 +30,7 @@ export default {
   },
 };
 
-export const Default = ({ ...props }: Partial<DismissibleBoxProps>) => {
+export const Default = (props: Partial<DismissibleBoxProps>) => {
   return (
     <Box p={2}>
       <DismissibleBox onClose={() => {}} {...props}>
