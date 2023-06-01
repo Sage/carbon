@@ -86,8 +86,8 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   font-style: normal;
   font-weight: normal;
   vertical-align: middle;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 20px;
+  line-height: 20px;
   display: block;
 }
 

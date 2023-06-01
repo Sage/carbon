@@ -57,6 +57,8 @@ export type IconType =
   | "chart_line"
   | "chart_pie"
   | "chat_notes"
+  | "check_all"
+  | "check_none"
   | "chevron_down"
   | "chevron_left"
   | "chevron_right"
