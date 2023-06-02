@@ -1,18 +1,16 @@
 import React from "react";
+import { DrawerProps } from "components/drawer";
 import { DrawerCustom } from "../../../src/components/drawer/drawer-test.stories";
 import Box from "../../../src/components/box";
 import Button from "../../../src/components/button";
 import { Checkbox } from "../../../src/components/checkbox";
-
 import {
   drawer,
   drawerToggle,
   drawerSidebar,
   drawerSidebarContentInnerElement,
 } from "../../locators/drawer";
-
 import { stickyFooter } from "../../locators";
-
 import { positionOfElement } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
@@ -109,10 +107,8 @@ context("Test for Drawer component", () => {
       drawer()
         .children()
         .first()
-        .should(($el) => {
-          expect($el).to.have.css("background-color").to.equal(color);
-          expect($el).to.have.css("border-right-color").to.equal(color);
-        });
+        .should("have.css", "background-color", color)
+        .and("have.css", "border-right-color", color);
     });
 
     it("should render component with custom height", () => {
@@ -392,36 +388,24 @@ context("Test for Drawer component", () => {
   });
 
   describe("check events for Drawer component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange callback when a component is closed", () => {
+      const callback: DrawerProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(
         <DrawerCustom onChange={callback} showControls />
       );
 
-      drawerToggle()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      drawerToggle().click();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onChange callback when a component is expanded", () => {
+      const callback: DrawerProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(
         <DrawerCustom onChange={callback} showControls expanded={false} />
       );
 
-      drawerToggle()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      drawerToggle().click();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
   });
 
