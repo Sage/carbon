@@ -106,6 +106,8 @@ const batchActions = {
   pdf: "\\e91f",
   duplicate: "\\e921",
   copy: "\\e91b",
+  check_all: "\\f028",
+  check_none: "\\f029",
 };
 
 const navigation = {
