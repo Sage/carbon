@@ -3,6 +3,7 @@ import {
   StepSequenceComponent,
   StepSequenceItemCustom,
 } from "../../../src/components/step-sequence/step-sequence-test.stories";
+import { StepSequenceItemProps } from "../../../src/components/step-sequence";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
   stepSequenceItemIndicator,
@@ -43,20 +44,24 @@ context("Testing StepSequence component", () => {
   describe("should render StepSequenceItem component", () => {
     it("should render StepSequenceItem with children", () => {
       CypressMountWithProviders(<StepSequenceItemCustom />);
-
       stepSequenceDataComponentItem()
         .find("span")
         .eq(1)
         .should("have.text", "Name");
     });
 
-    it.each([["-100"], ["0"], ["999"], testData[0], testData[1]])(
+    it.each([
+      "-100",
+      "0",
+      "999",
+      testData[0],
+      testData[1],
+    ] as StepSequenceItemProps["indicator"][])(
       "should render StepSequenceItem with indicator set to %s",
       (indicator) => {
         CypressMountWithProviders(
           <StepSequenceItemCustom status="incomplete" indicator={indicator} />
         );
-
         stepSequenceItemIndicator().should("have.text", indicator);
       }
     );
@@ -67,7 +72,6 @@ context("Testing StepSequence component", () => {
         CypressMountWithProviders(
           <StepSequenceItemCustom aria-label={ariaLabel} />
         );
-
         stepSequenceDataComponentItem().should(
           "have.attr",
           "aria-label",
@@ -80,7 +84,7 @@ context("Testing StepSequence component", () => {
       ["complete", "rgb(0, 138, 33)"],
       ["current", "rgba(0, 0, 0, 0.9)"],
       ["incomplete", "rgba(0, 0, 0, 0.55)"],
-    ])(
+    ] as [StepSequenceItemProps["status"], string][])(
       "should render StepSequenceItem with status set to %s",
       (status, color) => {
         CypressMountWithProviders(<StepSequenceItemCustom status={status} />);
@@ -101,7 +105,6 @@ context("Testing StepSequence component", () => {
             hiddenCompleteLabel={hiddenCompleteLabel}
           />
         );
-
         stepSequenceDataComponentItem()
           .children()
           .eq(0)
@@ -118,7 +121,6 @@ context("Testing StepSequence component", () => {
             hiddenCurrentLabel={hiddenCurrentLabel}
           />
         );
-
         stepSequenceDataComponentItem()
           .children()
           .eq(0)
@@ -130,13 +132,12 @@ context("Testing StepSequence component", () => {
       ["complete", "be.visible", 2],
       ["current", "not.exist", 1],
       ["incomplete", "not.exist", 0],
-    ])(
+    ] as [StepSequenceItemProps["status"], string, number][])(
       "should render StepSequenceItem with hideIndicator prop and status set to %s",
       (status, assertion, spanCount) => {
         CypressMountWithProviders(
           <StepSequenceItemCustom status={status} hideIndicator />
         );
-
         stepSequenceDataComponentItem().find(ICON).should(assertion);
         stepSequenceDataComponentItem()
           .find("span")
@@ -164,7 +165,13 @@ context("Testing StepSequence component", () => {
         cy.checkAccessibility();
       });
 
-      it.each([["-100"], ["0"], ["999"], testData[0], testData[1]])(
+      it.each([
+        "-100",
+        "0",
+        "999",
+        testData[0],
+        testData[1],
+      ] as StepSequenceItemProps["indicator"][])(
         "should check StepSequenceItem with indicator set to %s for accessibility tests",
         (indicator) => {
           CypressMountWithProviders(
@@ -184,7 +191,11 @@ context("Testing StepSequence component", () => {
         }
       );
 
-      it.each(["complete", "current", "incomplete"])(
+      it.each([
+        "complete",
+        "current",
+        "incomplete",
+      ] as StepSequenceItemProps["status"][])(
         "should check StepSequenceItem with status set to %s for accessibility tests",
         (status) => {
           CypressMountWithProviders(<StepSequenceItemCustom status={status} />);
@@ -218,7 +229,11 @@ context("Testing StepSequence component", () => {
         }
       );
 
-      it.each(["complete", "current", "incomplete"])(
+      it.each([
+        "complete",
+        "current",
+        "incomplete",
+      ] as StepSequenceItemProps["status"][])(
         "should check StepSequenceItem with hideIndicator prop and status set to %s for accessibility tests",
         (status) => {
           CypressMountWithProviders(
