@@ -1,3 +1,10 @@
+## [118.5.0](https://github.com/Sage/carbon/compare/v118.4.1...v118.5.0) (2023-06-01)
+
+
+### Features
+
+* **icon:** new icon font added with 20px size and 2 new icons added to the icon font ([fbab091](https://github.com/Sage/carbon/commit/fbab091a851046b976fcf5b34610b19cb0a28aec))
+
 ### [118.4.1](https://github.com/Sage/carbon/compare/v118.4.0...v118.4.1) (2023-05-30)
 
 

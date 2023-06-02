@@ -30,8 +30,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   font-style: normal;
   font-weight: normal;
   vertical-align: middle;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 20px;
+  line-height: 20px;
   display: block;
 }
 
@@ -2100,8 +2100,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   font-style: normal;
   font-weight: normal;
   vertical-align: middle;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 20px;
+  line-height: 20px;
   display: block;
 }
 
