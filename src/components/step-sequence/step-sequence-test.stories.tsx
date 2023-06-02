@@ -179,7 +179,9 @@ export const StepSequenceComponent = ({ ...props }) => {
   );
 };
 
-export const StepSequenceItemCustom = ({ ...props }) => {
+export const StepSequenceItemCustom = (
+  props: Partial<StepSequenceItemProps>
+) => {
   return (
     <StepSequence>
       <StepSequenceItem
