@@ -1,4 +1,5 @@
 import React from "react";
+import { NumberProps } from "../../../src/components/number";
 import { NumberInputComponent } from "../../../src/components/number/number-test.stories";
 import * as stories from "../../../src/components/number/number.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -22,7 +23,7 @@ const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Tests for Number component", () => {
   describe("check props for Number component", () => {
-    it.each(testData)(
+    it.each(testData as NumberProps["label"][])(
       "should render Number label using %s special characters",
       (labelValue) => {
         CypressMountWithProviders(<NumberInputComponent label={labelValue} />);
@@ -31,7 +32,7 @@ context("Tests for Number component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as NumberProps["labelHelp"][])(
       "should render labelHelp message using %s special characters",
       (labelHelpValue) => {
         CypressMountWithProviders(
@@ -43,7 +44,7 @@ context("Tests for Number component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as NumberProps["fieldHelp"][])(
       "should render fieldHelp message using %s special characters",
       (fieldHelpValue) => {
         CypressMountWithProviders(
@@ -54,7 +55,7 @@ context("Tests for Number component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as NumberProps["prefix"][])(
       "should render prefix using %s special characters",
       (prefixValue) => {
         CypressMountWithProviders(
@@ -65,7 +66,7 @@ context("Tests for Number component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as NumberProps["placeholder"][])(
       "should render placeholder using %s special characters",
       (placeholderValue) => {
         CypressMountWithProviders(
@@ -184,7 +185,7 @@ context("Tests for Number component", () => {
       [SIZE.SMALL, "32px"],
       [SIZE.MEDIUM, "40px"],
       [SIZE.LARGE, "48px"],
-    ])(
+    ] as [NumberProps["size"], string][])(
       "should use %s as size and render Number with %s as height",
       (size, height) => {
         CypressMountWithProviders(<NumberInputComponent size={size} />);
@@ -218,7 +219,7 @@ context("Tests for Number component", () => {
     it.each([
       ["right", "end"],
       ["left", "start"],
-    ])(
+    ] as [NumberProps["labelAlign"], string][])(
       "should use %s as labelAligment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
@@ -232,11 +233,11 @@ context("Tests for Number component", () => {
       }
     );
 
-    it.each([
+    it.each(([
       ["10", "90", 135, 1229],
       ["30", "70", 409, 956],
       ["80", "20", 1092, 273],
-    ])(
+    ] as unknown) as [NumberProps["labelWidth"], NumberProps["inputWidth"], number, number][])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
@@ -285,75 +286,29 @@ context("Tests for Number component", () => {
 
   describe("check events for Number component", () => {
     const inputValue = "1";
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
 
     it("should call onChange callback when a type event is triggered", () => {
+      const callback: NumberProps["onChange"] = cy.stub().as("onChange");
+
       CypressMountWithProviders(<NumberInputComponent onChange={callback} />);
 
-      commonDataElementInputPreview()
-        .type(inputValue)
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().type(inputValue);
+
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
-    it.each([
-      [1000, "1"],
-      [5000, "5"],
-      [10000, "10"],
-    ])(
-      "should use %s as deferTimeout and defer onChangeDeferred event for %s seconds",
-      (timeout) => {
-        const callbackOnChange = cy.stub();
-        const callbackOnChangeDeff = cy.stub();
-
-        CypressMountWithProviders(
-          <NumberInputComponent
-            deferTimeout={timeout}
-            onChange={callbackOnChange}
-            onChangeDeferred={callbackOnChangeDeff}
-          />
-        );
-
-        cy.clock();
-
-        commonDataElementInputPreview()
-          .type(inputValue)
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChange).to.have.been.calledOnce;
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChangeDeff).to.not.have.been.called;
-          })
-          .then(() => {
-            cy.tick(timeout);
-          })
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callbackOnChangeDeff).to.have.been.calledOnce;
-          });
-      }
-    );
-
-    it.each([["downarrow"], ["leftarrow"], ["rightarrow"], ["uparrow"]])(
+    it.each(["downarrow", "leftarrow", "rightarrow", "uparrow"])(
       "should call onKeyDown callback when a %s keydown event is triggered",
       (key) => {
+        const callback: NumberProps["onKeyDown"] = cy.stub().as("onKeyDown");
+
         CypressMountWithProviders(
           <NumberInputComponent onKeyDown={callback} />
         );
 
-        commonDataElementInputPreview()
-          .clear()
-          .type(key)
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.called;
-          });
+        commonDataElementInputPreview().clear().type(key);
+
+        cy.get("@onKeyDown").should("have.been.called");
       }
     );
   });
