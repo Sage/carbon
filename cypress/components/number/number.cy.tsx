@@ -233,11 +233,11 @@ context("Tests for Number component", () => {
       }
     );
 
-    it.each(([
-      ["10", "90", 135, 1229],
-      ["30", "70", 409, 956],
-      ["80", "20", 1092, 273],
-    ] as unknown) as [NumberProps["labelWidth"], NumberProps["inputWidth"], number, number][])(
+    it.each([
+      [10, 90, 135, 1229],
+      [30, 70, 409, 956],
+      [80, 20, 1092, 273],
+    ] as [NumberProps["labelWidth"], NumberProps["inputWidth"], number, number][])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
