@@ -377,7 +377,7 @@ const StyledFlatTableRow = styled.tr`
       ${draggable &&
       css`
         ${StyledIcon}:first-of-type {
-          font-size: 16px;
+          font-size: 20px;
           color: var(--colorsActionMinor500);
         }
       `}

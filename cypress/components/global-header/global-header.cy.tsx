@@ -1,3 +1,4 @@
+/* eslint-disable jest/valid-expect, jest/valid-expect-in-promise */
 import React from "react";
 import GlobalHeader from "../../../src/components/global-header";
 import { FullMenuExample } from "../../../src/components/global-header/global-header-test.stories";
@@ -10,18 +11,13 @@ import { globalHeader, globalHeaderLogo } from "../../locators/global-header";
 context("Testing Global Header component", () => {
   it("should check that z-index of component is greater than that of NavigationBar", () => {
     CypressMountWithProviders(<FullMenuExample />);
+    globalHeader().invoke("css", "zIndex").as("globalHeaderZIndex");
 
-    globalHeader()
-      .invoke("css", "z-index")
-      .then(parseInt)
-      .then(($globalHeaderZIndex) => {
-        navigationBar()
-          .invoke("css", "z-index")
-          .then(parseInt)
-          .should(($navigationBarZIndex) => {
-            expect($globalHeaderZIndex).to.be.greaterThan($navigationBarZIndex);
-          });
-      });
+    navigationBar().invoke("css", "zIndex").as("navigationBarZIndex");
+    const globalIndex = parseInt(cy.get("@globalHeaderZIndex").toString());
+    const NavIndex = parseInt(cy.get("@navigationBarZIndex").toString());
+
+    expect(globalIndex > NavIndex);
   });
 
   it("should check when logo prop is passed, the height of the logo element never exceeds the maximum height of the component", () => {

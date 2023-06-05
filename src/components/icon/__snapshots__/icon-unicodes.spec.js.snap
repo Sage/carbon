@@ -60,6 +60,8 @@ Object {
   "chart_pie": "\\\\e913",
   "chat": "\\\\e914",
   "chat_notes": "\\\\e956",
+  "check_all": "\\\\f028",
+  "check_none": "\\\\f029",
   "chevron_down": "\\\\e915",
   "chevron_down_thick": "\\\\e99c",
   "chevron_left": "\\\\e916",
