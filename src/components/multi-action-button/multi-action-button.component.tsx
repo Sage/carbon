@@ -18,7 +18,7 @@ import useMenuKeyboardNavigation from "../../hooks/__internal__/useMenuKeyboardN
 
 export interface MultiActionButtonProps
   extends WidthProps,
-    Omit<SplitButtonProps, "buttonType"> {
+    Omit<SplitButtonProps, "buttonType" | "iconPosition" | "iconType"> {
   /** Button type: "primary" | "secondary" | "tertiary" */
   buttonType?: "primary" | "secondary" | "tertiary";
   /** Second text child, renders under main text, only when size is "large" */
