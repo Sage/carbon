@@ -1,6 +1,8 @@
 import React from "react";
+import { PicklistItemProps } from "../../../src/components/duelling-picklist/picklist-item/picklist-item.component";
 import {
   DuellingPicklistComponent,
+  DuellingPicklistComponentPicklistItemProps,
   DuellingPicklistComponentPicklistProps,
 } from "../../../src/components/duelling-picklist/duelling-picklist-test.stories";
 import PicklistPlaceholder from "../../../src/components/duelling-picklist/picklist-placeholder/picklist-placeholder.component";
@@ -30,6 +32,7 @@ const specialCharacters = [
   CHARACTERS.DIACRITICS,
   CHARACTERS.SPECIALCHARACTERS,
 ];
+const keyToTrigger = ["Space", "Enter"] as const;
 
 context("Testing Duelling-Picklist component", () => {
   describe("should render Duelling-Picklist component", () => {
@@ -98,7 +101,7 @@ context("Testing Duelling-Picklist component", () => {
       assignedPicklistItems().should("have.length", 0);
     });
 
-    it.each(["Enter", "Space"])(
+    it.each([...keyToTrigger])(
       "should verify item is added to assigned picklist when %s key is pressed",
       (pressed) => {
         CypressMountWithProviders(<DuellingPicklistComponent />);
@@ -109,7 +112,7 @@ context("Testing Duelling-Picklist component", () => {
       }
     );
 
-    it.each(["Enter", "Space"])(
+    it.each([...keyToTrigger])(
       "should verify item is removed from assigned picklist when %s key is pressed",
       (pressed) => {
         CypressMountWithProviders(<DuellingPicklistComponent />);
@@ -185,7 +188,7 @@ context("Testing Duelling-Picklist component", () => {
   });
 
   describe("should render Duelling-Picklist component to test Picklist props", () => {
-    it.each(specialCharacters)(
+    it.each([...specialCharacters])(
       "should verify picklist placeholder is set to %s",
       (chars) => {
         CypressMountWithProviders(
@@ -208,7 +211,7 @@ context("Testing Duelling-Picklist component", () => {
       "should verify picklist item is %s when locked prop is %s",
       (state, bool, attribute, backColor) => {
         CypressMountWithProviders(
-          <DuellingPicklistComponentPicklistProps locked={bool} />
+          <DuellingPicklistComponentPicklistItemProps locked={bool} />
         );
 
         unassignedPicklistItems().should(
@@ -224,7 +227,7 @@ context("Testing Duelling-Picklist component", () => {
 
     it("should verify picklist tooltip is 'Item Locked' when locked prop is true", () => {
       CypressMountWithProviders(
-        <DuellingPicklistComponentPicklistProps
+        <DuellingPicklistComponentPicklistItemProps
           locked
           tooltipMessage="Item Locked"
         />
@@ -301,67 +304,53 @@ context("Testing Duelling-Picklist component", () => {
   });
 
   describe("check events for Duelling-Picklist component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange when add button clicked", () => {
+      const callback: PicklistItemProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(
-        <DuellingPicklistComponentPicklistProps onChange={callback} />
+        <DuellingPicklistComponentPicklistItemProps onChange={callback} />
       );
 
-      addButton(0)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      addButton(0).click();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onChange when remove button clicked", () => {
+      const callback: PicklistItemProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(
-        <DuellingPicklistComponentPicklistProps onChange={callback} />
+        <DuellingPicklistComponentPicklistItemProps onChange={callback} />
       );
 
-      removeButton(0)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      removeButton(0).click();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
-    it.each(["Enter", "Space"])(
+    it.each([...keyToTrigger])(
       "should call onChange when %s key pressed on add button",
       (pressed) => {
+        const callback: PicklistItemProps["onChange"] = cy
+          .stub()
+          .as("onChange");
         CypressMountWithProviders(
-          <DuellingPicklistComponentPicklistProps onChange={callback} />
+          <DuellingPicklistComponentPicklistItemProps onChange={callback} />
         );
 
-        addButton(0)
-          .trigger("keydown", keyCode(pressed))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        addButton(0).trigger("keydown", keyCode(pressed));
+        cy.get("@onChange").should("have.been.calledOnce");
       }
     );
 
-    it.each(["Enter", "Space"])(
+    it.each([...keyToTrigger])(
       "should call onChange when %s key pressed on remove button",
       (pressed) => {
+        const callback: PicklistItemProps["onChange"] = cy
+          .stub()
+          .as("onChange");
         CypressMountWithProviders(
-          <DuellingPicklistComponentPicklistProps onChange={callback} />
+          <DuellingPicklistComponentPicklistItemProps onChange={callback} />
         );
 
-        removeButton(0)
-          .trigger("keydown", keyCode(pressed))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        removeButton(0).trigger("keydown", keyCode(pressed));
+        cy.get("@onChange").should("have.been.calledOnce");
       }
     );
   });
@@ -388,12 +377,8 @@ context("Testing Duelling-Picklist component", () => {
     it("should pass accessibility tests for Duelling-Picklist InDialog story", () => {
       CypressMountWithProviders(<stories.InDialog />);
 
-      getDataElementByValue("main-text")
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      getDataElementByValue("main-text").click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Duelling-Picklist AddItem story", () => {
@@ -417,15 +402,12 @@ context("Testing Duelling-Picklist component", () => {
     it("should pass accessibility tests for Duelling-Picklist CustomTooltipMessage story", () => {
       CypressMountWithProviders(<stories.CustomTooltipMessage />);
 
-      getDataElementByValue("locked")
-        .realHover()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      getDataElementByValue("locked").realHover();
+      cy.checkAccessibility();
     });
 
     // FE-5711
+    // eslint-disable-next-line jest/no-disabled-tests
     describe.skip("skip", () => {
       it("should pass accessibility tests for Duelling-Picklist disabled", () => {
         CypressMountWithProviders(<DuellingPicklistComponent disabled />);
