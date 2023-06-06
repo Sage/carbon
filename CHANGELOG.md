@@ -1,3 +1,10 @@
+### [118.5.1](https://github.com/Sage/carbon/compare/v118.5.0...v118.5.1) (2023-06-06)
+
+
+### Bug Fixes
+
+* **multi-action-button:** remove unused props from interface ([b4fd915](https://github.com/Sage/carbon/commit/b4fd9152a358860e59d551c1c850f6e55467818f)), closes [#6059](https://github.com/Sage/carbon/issues/6059)
+
 ## [118.5.0](https://github.com/Sage/carbon/compare/v118.4.1...v118.5.0) (2023-06-01)
 
 
