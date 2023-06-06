@@ -1602,7 +1602,7 @@ context("Testing Menu component", () => {
     });
 
     it.each(["Space", "Enter", "downarrow", "uparrow"])(
-      "should call onSubmenuOpen callback when a keyboard event is triggered",
+      "should call onSubmenuOpen callback when a %s keyboard event is triggered",
       (key) => {
         CypressMountWithProviders(
           <Box mb={150}>
