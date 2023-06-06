@@ -32,7 +32,7 @@ export const flatTableBodyRows = () => flatTable().find("tbody tr");
 export const flatTableClickableRow = (index) =>
   cy.get(FLAT_TABLE_COMPONENT).find("tbody tr").eq(index);
 export const flatTableSortable = () =>
-  cy.get(FLAT_TABLE_COMPONENT).find("thead tr th div [type=button]");
+  cy.get(FLAT_TABLE_COMPONENT).find("thead tr th div [role=button]");
 export const flatTableCell = (index) => cy.get(FLAT_TABLE_CELL).eq(index);
 export const flatTableCheckboxCell = (index) =>
   cy.get(FLAT_TABLE_CHECKBOX_CELL).eq(index);
