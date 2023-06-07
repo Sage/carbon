@@ -1,4 +1,5 @@
 import React from "react";
+import { PagerProps } from "components/pager";
 import { selectListWrapper } from "../../locators/select/index";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { keyCode } from "../../support/helper";
@@ -46,9 +47,11 @@ const recordsDiff = [
   },
 ];
 
+const keysToTrigger = ["Enter", "Space"] as const;
+
 context("Test for Pager component", () => {
   describe("check props for Pager component", () => {
-    it.each([[2], [5], [7]])(
+    it.each([2, 5, 7])(
       "should render Pager with currentPage prop set to %s",
       (currentPage) => {
         CypressMountWithProviders(<PagerComponent currentPage={currentPage} />);
@@ -56,7 +59,7 @@ context("Test for Pager component", () => {
       }
     );
 
-    it.each([[50], [100], [235]])(
+    it.each([50, 100, 235])(
       "should render Pager with totalRecords prop set to %s",
       (totalRecords) => {
         CypressMountWithProviders(
@@ -207,15 +210,14 @@ context("Test for Pager component", () => {
     it.each([
       ["default", "rgb(250, 251, 251)"],
       ["alternate", "rgb(237, 241, 242)"],
-    ])(
+    ] as [PagerProps["variant"], string][])(
       "should render Pager with variant prop set to %s",
       (variant, backgroundColor) => {
         CypressMountWithProviders(<PagerComponent variant={variant} />);
 
-        pager().then(($el) => {
-          expect($el.css("background-color")).to.equals(backgroundColor);
-          expect($el.css("border-color")).to.equals("rgb(204, 214, 219)");
-        });
+        pager()
+          .should("have.css", "background-color", backgroundColor)
+          .and("have.css", "border-color", "rgb(204, 214, 219)");
       }
     );
 
@@ -297,7 +299,7 @@ context("Test for Pager component", () => {
   });
 
   describe("check funtionality for Pager component", () => {
-    it.each([[-1], [-10], [-100], testData[0], testData[1]])(
+    it.each([-1, -10, -100, ...testData])(
       "should set totalRecords out of scope to %s",
       (totalRecords) => {
         CypressMountWithProviders(
@@ -381,13 +383,9 @@ context("Test for Pager component", () => {
   });
 
   describe("check events for Pager component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onPagination callback when a select event is triggered", () => {
+      const callback: PagerProps["onPagination"] = cy.stub().as("onPagination");
+
       CypressMountWithProviders(
         <PagerComponent
           onPagination={callback}
@@ -397,121 +395,100 @@ context("Test for Pager component", () => {
       );
 
       pageSelect().click();
-      selectListWrapper()
-        .find("li")
-        .contains("25")
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      selectListWrapper().find("li").contains("25").click();
+
+      cy.get("@onPagination").should("have.been.calledOnce");
     });
 
     it("should call onNext callback when a click event is triggered", () => {
+      const callback: PagerProps["onNext"] = cy.stub().as("onNext");
+
       CypressMountWithProviders(<PagerComponent onNext={callback} />);
 
-      nextArrow()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      nextArrow().click();
+      cy.get("@onNext").should("have.been.calledOnce");
     });
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([...keysToTrigger])(
       "should call onNext callback when a keyboard event is triggered",
       (key) => {
+        const callback: PagerProps["onNext"] = cy.stub().as("onNext");
+
         CypressMountWithProviders(<PagerComponent onNext={callback} />);
 
-        nextArrow()
-          .trigger("keydown", keyCode(key))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        nextArrow().trigger("keydown", keyCode(key));
+        cy.get("@onNext").should("have.been.calledOnce");
       }
     );
 
     it("should call onPrevious callback when a click event is triggered", () => {
+      const callback: PagerProps["onPrevious"] = cy.stub().as("onPrevious");
+
       CypressMountWithProviders(
         <PagerComponent onPrevious={callback} currentPage={5} />
       );
 
-      previousArrow()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      previousArrow().click();
+      cy.get("@onPrevious").should("have.been.calledOnce");
     });
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([...keysToTrigger])(
       "should call onPrevious callback when a keyboard event is triggered",
       (key) => {
+        const callback: PagerProps["onPrevious"] = cy.stub().as("onPrevious");
+
         CypressMountWithProviders(
           <PagerComponent onPrevious={callback} currentPage={5} />
         );
 
-        previousArrow()
-          .trigger("keydown", keyCode(key))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        previousArrow().trigger("keydown", keyCode(key));
+        cy.get("@onPrevious").should("have.been.calledOnce");
       }
     );
 
     it("should call onFirst callback when a click event is triggered", () => {
+      const callback: PagerProps["onFirst"] = cy.stub().as("onFirst");
+
       CypressMountWithProviders(
         <PagerComponent onFirst={callback} currentPage={5} />
       );
 
-      firstArrow()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      firstArrow().click();
+      cy.get("@onFirst").should("have.been.calledOnce");
     });
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([...keysToTrigger])(
       "should call onFirst callback when a keyboard event is triggered",
       (key) => {
+        const callback: PagerProps["onFirst"] = cy.stub().as("onFirst");
+
         CypressMountWithProviders(
           <PagerComponent onFirst={callback} currentPage={5} />
         );
 
-        firstArrow()
-          .trigger("keydown", keyCode(key))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        firstArrow().trigger("keydown", keyCode(key));
+        cy.get("@onFirst").should("have.been.calledOnce");
       }
     );
 
     it("should call onLast callback when a click event is triggered", () => {
+      const callback: PagerProps["onLast"] = cy.stub().as("onLast");
+
       CypressMountWithProviders(<PagerComponent onLast={callback} />);
 
-      lastArrow()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      lastArrow().click();
+      cy.get("@onLast").should("have.been.calledOnce");
     });
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([...keysToTrigger])(
       "should call onLast callback when a keyboard event is triggered",
       (key) => {
+        const callback: PagerProps["onLast"] = cy.stub().as("onLast");
+
         CypressMountWithProviders(<PagerComponent onLast={callback} />);
 
-        lastArrow()
-          .trigger("keydown", keyCode(key))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        lastArrow().trigger("keydown", keyCode(key));
+        cy.get("@onLast").should("have.been.calledOnce");
       }
     );
   });
@@ -521,6 +498,11 @@ context("Test for Pager component", () => {
       CypressMountWithProviders(<PagerInForm />);
 
       currentPageWrapper().should("have.css", "margin-bottom", "0px");
+    });
+
+    it("should render with the expected border radius styling", () => {
+      CypressMountWithProviders(<PagerComponent />);
+      pager().should("have.css", "border-radius", "0px 0px 8px 8px");
     });
   });
 
@@ -623,7 +605,7 @@ context("Test for Pager component", () => {
       }
     );
 
-    it.each(["default", "alternate"])(
+    it.each(["default", "alternate"] as PagerProps["variant"][])(
       "should render Pager with variant prop set to %s for accessibility tests",
       (variant) => {
         CypressMountWithProviders(<PagerComponent variant={variant} />);
@@ -658,7 +640,7 @@ context("Test for Pager component", () => {
       cy.checkAccessibility();
     });
 
-    it.each([-1, -10, -100, testData[0], testData[1]])(
+    it.each([-1, -10, -100, ...testData])(
       "should set totalRecords out of scope to %s for accessibility tests",
       (totalRecords) => {
         CypressMountWithProviders(
@@ -724,10 +706,5 @@ context("Test for Pager component", () => {
         cy.checkAccessibility();
       }
     );
-  });
-
-  it("should render with the expected border radius styling", () => {
-    CypressMountWithProviders(<PagerComponent />);
-    pager().should("have.css", "border-radius", "0px 0px 8px 8px");
   });
 });
