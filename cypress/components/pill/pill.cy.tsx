@@ -1,5 +1,6 @@
 import React from "react";
-import Pill from "../../../src/components/pill";
+import Pill, { PillProps } from "../../../src/components/pill";
+import { PillComponent } from "../../../src/components/pill/pill-test.stories";
 import { pillPreview, pillCloseIcon } from "../../locators/pill/index";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { checkOutlineCss } from "../../support/component-helper/common-steps";
@@ -26,14 +27,6 @@ const medium = "M";
 const large = "L";
 const extraLarge = "XL";
 
-const PillComponent = ({ ...props }) => {
-  return (
-    <>
-      <Pill onDelete="noop" {...props} />
-    </>
-  );
-};
-
 context("Testing Pill component", () => {
   describe("should render Pill component with props", () => {
     it.each(specialCharacters)(
@@ -50,7 +43,7 @@ context("Testing Pill component", () => {
       ["neutral", neutral],
       ["negative", negative],
       ["positive", positive],
-    ])(
+    ] as [PillProps["colorVariant"], string][])(
       "should render Pill component with colorVariant set to %s",
       (color, output) => {
         CypressMountWithProviders(
@@ -82,7 +75,7 @@ context("Testing Pill component", () => {
       ["neutral", neutral],
       ["negative", negative],
       ["positive", positive],
-    ])(
+    ] as [PillProps["colorVariant"], string][])(
       "should render Pill component with color fill to %s",
       (color, output) => {
         CypressMountWithProviders(
@@ -91,18 +84,19 @@ context("Testing Pill component", () => {
           </PillComponent>
         );
 
-        pillPreview().then((elem) => {
-          checkOutlineCss(elem, 1, "border", "solid", output);
-          expect(elem.css("background-color")).to.equals(output);
-        });
+        pillPreview()
+          .then((elem) => {
+            checkOutlineCss(elem, 1, "border", "solid", output);
+          })
+          .should("have.css", "background-color", output);
       }
     );
 
     it.each([
       ["tag", tag],
       ["status", status],
-    ])(
-      "should render Dialog component with pillRole set to %s",
+    ] as [PillProps["pillRole"], string][])(
+      "should render Pill component with pillRole set to %s",
       (role, output) => {
         CypressMountWithProviders(
           <PillComponent pillRole={role}>{role}</PillComponent>
@@ -155,7 +149,7 @@ context("Testing Pill component", () => {
       [medium, "20px", "12px", "0px 11px"],
       [large, "24px", "14px", "0px 15px"],
       [extraLarge, "26px", "16px", "0px 19px"],
-    ])(
+    ] as [PillProps["size"], string, string, string][])(
       "should render Pill component with size set to %s",
       (size, height, fontSize, padding) => {
         CypressMountWithProviders(<Pill size={size}>Pill</Pill>);
@@ -187,31 +181,22 @@ context("Testing Pill component", () => {
     );
 
     describe("should render Pill component and check events", () => {
-      let callback;
-
-      beforeEach(() => {
-        callback = cy.stub();
-      });
       it("should call the delete action after the CloseIcon is clicked", () => {
+        const callback: PillProps["onDelete"] = cy.stub().as("onDelete");
+
         CypressMountWithProviders(<PillComponent onDelete={callback} />);
 
-        closeIconButton()
-          .click()
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        closeIconButton().click();
+        cy.get("@onDelete").should("have.been.calledOnce");
       });
 
       it("should call the click action after the Pill is clicked", () => {
+        const callback: PillProps["onClick"] = cy.stub().as("onClick");
+
         CypressMountWithProviders(<PillComponent onClick={callback} />);
 
-        pillPreview()
-          .click()
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        pillPreview().click();
+        cy.get("@onClick").should("have.been.calledOnce");
       });
     });
 
@@ -225,7 +210,12 @@ context("Testing Pill component", () => {
         }
       );
 
-      it.each(["warning", "neutral", "negative", "positive"])(
+      it.each([
+        "warning",
+        "neutral",
+        "negative",
+        "positive",
+      ] as PillProps["colorVariant"][])(
         "should render Pill component with colorVariant set to %s for accessibility tests",
         (color) => {
           CypressMountWithProviders(
@@ -247,7 +237,12 @@ context("Testing Pill component", () => {
         cy.checkAccessibility();
       });
 
-      it.each(["warning", "neutral", "negative", "positive"])(
+      it.each([
+        "warning",
+        "neutral",
+        "negative",
+        "positive",
+      ] as PillProps["colorVariant"][])(
         "should render Pill component with color fill to %s for accessibility tests",
         (color) => {
           CypressMountWithProviders(
@@ -259,8 +254,8 @@ context("Testing Pill component", () => {
         }
       );
 
-      it.each(["tag", "status"])(
-        "should render Dialog component with pillRole set to %s for accessibility tests",
+      it.each(["tag", "status"] as PillProps["pillRole"][])(
+        "should render Pill component with pillRole set to %s for accessibility tests",
         (role) => {
           CypressMountWithProviders(
             <PillComponent pillRole={role}>{role}</PillComponent>
@@ -279,7 +274,7 @@ context("Testing Pill component", () => {
         }
       );
 
-      it.each([small, medium, large, extraLarge])(
+      it.each([small, medium, large, extraLarge] as PillProps["size"][])(
         "should render Pill component with size set to %s for accessibility tests",
         (size) => {
           CypressMountWithProviders(<Pill size={size}>Pill</Pill>);
@@ -323,7 +318,7 @@ context("Testing Pill component", () => {
     });
   });
 
-  it.each(["S", "M", "L", "XL"])(
+  it.each(["S", "M", "L", "XL"] as PillProps["size"][])(
     "should have the expected border radius styling when size is %s",
     (size) => {
       CypressMountWithProviders(
