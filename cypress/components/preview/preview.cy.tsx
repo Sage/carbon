@@ -1,5 +1,6 @@
 import React from "react";
 import Preview from "../../../src/components/preview";
+import { PreviewComponent } from "../../../src/components/preview/preview-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { cyRoot } from "../../locators/index";
 import { previewComponent, lineComponent } from "../../locators/preview/index";
@@ -9,13 +10,9 @@ import { assertCssValueIsApproximately } from "../../support/component-helper/co
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const pixelsData = [256, 275, 300];
 
-const PreviewComponent = ({ ...props }) => {
-  return <Preview loading {...props} />;
-};
-
 context("Tests for Preview component", () => {
   describe("should check Preview component properties", () => {
-    it.each(pixelsData)(
+    it.each([...pixelsData])(
       "should check height as %spx for Preview component",
       (height) => {
         CypressMountWithProviders(<PreviewComponent height={`${height}px`} />);
@@ -25,7 +22,7 @@ context("Tests for Preview component", () => {
       }
     );
 
-    it.each(pixelsData)(
+    it.each([...pixelsData])(
       "should check width as %spx for Preview component",
       (width) => {
         CypressMountWithProviders(<PreviewComponent width={`${width}px`} />);
@@ -64,7 +61,7 @@ context("Tests for Preview component", () => {
   });
 
   describe("Accessibility tests for Preview component", () => {
-    it.each(pixelsData)(
+    it.each([...pixelsData])(
       "should pass accessibilty tests for Preview height story",
       (height) => {
         CypressMountWithProviders(<PreviewComponent height={`${height}px`} />);
@@ -72,7 +69,7 @@ context("Tests for Preview component", () => {
       }
     );
 
-    it.each(pixelsData)(
+    it.each([...pixelsData])(
       "should pass accessibilty tests for Preview width story",
       (width) => {
         CypressMountWithProviders(<PreviewComponent width={`${width}px`} />);
