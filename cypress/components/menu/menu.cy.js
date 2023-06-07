@@ -1554,18 +1554,15 @@ context("Testing Menu component", () => {
     let callback;
 
     beforeEach(() => {
-      callback = cy.stub();
+      callback = cy.stub().as("callback");
     });
 
     it("should call onClick callback when a click event is triggered", () => {
       CypressMountWithProviders(<MenuComponent onClick={callback} />);
 
-      menuComponent(positionOfElement("fifth"))
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      menuComponent(positionOfElement("fifth")).click();
+
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
     it("should call onSubmenuOpen callback when mouseover event is triggered", () => {
@@ -1579,13 +1576,9 @@ context("Testing Menu component", () => {
         </Box>
       );
 
-      submenu()
-        .eq(positionOfElement("first"), div)
-        .trigger("mouseover")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
     it("should call onSubmenuOpen callback when a click event is triggered", () => {
@@ -1603,43 +1596,42 @@ context("Testing Menu component", () => {
         </Box>
       );
 
-      menuComponent(positionOfElement("second"))
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      menuComponent(positionOfElement("second")).click();
+
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
-    // "Skipped test of Space/Enter/downArrow/upArrow because of ticket FE-5510"
-    it.skip("should call onSubmenuOpen callback when a keyboard event is triggered", (key) => {
-      CypressMountWithProviders(
-        <Box mb={150}>
-          <Menu>
-            <MenuItem
-              clickToOpen
-              onSubmenuOpen={callback}
-              submenu="Menu Item One"
-            >
-              <MenuSegmentTitle />
-            </MenuItem>
-          </Menu>
-        </Box>
-      );
+    it.each(["Space", "Enter", "downarrow", "uparrow"])(
+      "should call onSubmenuOpen callback when a %s keyboard event is triggered",
+      (key) => {
+        CypressMountWithProviders(
+          <Box mb={150}>
+            <Menu>
+              <MenuItem
+                clickToOpen
+                onSubmenuOpen={callback}
+                submenu="Menu Item One"
+              >
+                <MenuSegmentTitle />
+              </MenuItem>
+            </Menu>
+          </Box>
+        );
 
-      menuComponent(positionOfElement("second"))
-        .trigger("keydown", keyCode(key))
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
-    });
+        menuComponent(positionOfElement("second")).trigger(
+          "keydown",
+          keyCode(key)
+        );
+
+        cy.get("@callback").should("have.been.calledOnce");
+      }
+    );
 
     it("should call onSubmenuClose callback when menu is closed", () => {
       CypressMountWithProviders(
         <Box mb={150}>
           <Menu>
-            <MenuItem onSubmenuOpen={callback} submenu="Menu Item One">
+            <MenuItem onSubmenuClose={callback} submenu="Menu Item One">
               <MenuSegmentTitle />
             </MenuItem>
             <MenuItem submenu="Menu Item Two">
@@ -1650,13 +1642,9 @@ context("Testing Menu component", () => {
       );
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
-      submenu()
-        .eq(positionOfElement("second"), div)
-        .trigger("mouseover")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      submenu().eq(positionOfElement("second"), div).trigger("mouseover");
+
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
     it("should call onClose callback when Menu Fullscreen is closed", () => {
@@ -1664,13 +1652,9 @@ context("Testing Menu component", () => {
 
       cy.viewport(1200, 800);
       menuItem().eq(positionOfElement("first"), div).click();
-      closeIconButton()
-        .eq(0)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      closeIconButton().eq(0).click();
+
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
     it("should have correct keyboard navigation order when children of submenu update", () => {
@@ -1708,13 +1692,9 @@ context("Testing Menu component", () => {
     it("should pass accessibility tests for Menu expanded", () => {
       CypressMountWithProviders(<MenuComponent />);
 
-      submenu()
-        .eq(positionOfElement("first"), div)
-        .trigger("mouseover")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+
+      cy.checkAccessibility();
     });
 
     it.each(["default", "large"])(
@@ -1722,13 +1702,9 @@ context("Testing Menu component", () => {
       (divider) => {
         CypressMountWithProviders(<MenuComponent size={divider} />);
 
-        submenu()
-          .eq(positionOfElement("first"), div)
-          .trigger("mouseover")
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            cy.checkAccessibility();
-          });
+        submenu().eq(positionOfElement("first"), div).trigger("mouseover");
+
+        cy.checkAccessibility();
       }
     );
 
@@ -1741,12 +1717,9 @@ context("Testing Menu component", () => {
       cy.wait(50);
       pressTABKey(0);
       cy.wait(50);
-      cy.focused()
-        .trigger("keydown", keyCode("downarrow"))
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Menu when a submenu has a long label", () => {
@@ -1765,13 +1738,9 @@ context("Testing Menu component", () => {
         </Box>
       );
 
-      submenu()
-        .eq(positionOfElement("first"))
-        .trigger("mouseover")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      submenu().eq(positionOfElement("first")).trigger("mouseover");
+
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Menu when a menu item has a long label", () => {
@@ -1789,12 +1758,8 @@ context("Testing Menu component", () => {
       );
 
       submenu().eq(positionOfElement("first")).trigger("mouseover");
-      submenu()
-        .eq(positionOfElement("first"))
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+
+      cy.checkAccessibility();
     });
 
     it.each(["450px", "675px", "1200px"])(
