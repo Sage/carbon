@@ -1,3 +1,10 @@
+### [118.5.2](https://github.com/Sage/carbon/compare/v118.5.1...v118.5.2) (2023-06-07)
+
+
+### Bug Fixes
+
+* **menu:** ensure onSubmenuOpen only fires once when submenu opens ([b0fbfd7](https://github.com/Sage/carbon/commit/b0fbfd73af363eafc2bf154ce9cdff0af3a4b0a7))
+
 ### [118.5.1](https://github.com/Sage/carbon/compare/v118.5.0...v118.5.1) (2023-06-06)
 
 
