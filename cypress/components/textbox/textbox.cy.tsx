@@ -187,11 +187,11 @@ context("Tests for Textbox component", () => {
       }
     );
 
-    it.each(([
-      ["10", "90", 135, 1229],
-      ["30", "70", 409, 956],
-      ["80", "20", 1092, 273],
-    ] as unknown) as [TextboxProps["labelWidth"], TextboxProps["inputWidth"], number, number][])(
+    it.each([
+      [10, 90, 135, 1229],
+      [30, 70, 409, 956],
+      [80, 20, 1092, 273],
+    ] as [TextboxProps["labelWidth"], TextboxProps["inputWidth"], number, number][])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
         CypressMountWithProviders(
@@ -516,11 +516,11 @@ context("Tests for Textbox component", () => {
         .and("be.visible");
     });
 
-    it.each(([
-      ["flex", "399"],
-      ["flex", "400"],
-      ["block", "401"],
-    ] as unknown) as [string, TextboxProps["adaptiveLabelBreakpoint"]][])(
+    it.each([
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
+    ] as [string, TextboxProps["adaptiveLabelBreakpoint"]][])(
       "should check Textbox label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint) => {
         cy.viewport(400, 300);

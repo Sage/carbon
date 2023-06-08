@@ -123,7 +123,7 @@ export const records = [
   },
 ];
 
-export const PagerComponent = ({ ...props }) => {
+export const PagerComponent = (props: Partial<PagerProps>) => {
   return (
     <Pager
       currentPage="1"

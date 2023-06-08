@@ -1,32 +1,15 @@
+/* eslint-disable jest/valid-expect, jest/no-conditional-expect */
 import React from "react";
-import { sprintf } from "sprintf-js";
 import Box from "../../../src/components/box";
-import Help from "../../../src/components/help";
+import Help, { HelpProps } from "../../../src/components/help/help.component";
+import { HelpComponent } from "../../../src/components/help/help-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-
 import { getDataElementByValue, getComponent } from "../../locators";
-
 import { keyCode } from "../../support/helper";
 import { COLOR, CHARACTERS } from "../../support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const tooltipText = "Some helpful text goes here";
-const errorMsg = (msg, param) => sprintf(msg, param, "");
-
-const HelpComponent = ({ ...props }) => {
-  return (
-    <div
-      style={{
-        marginLeft: "200px",
-        marginRight: "64px",
-        marginTop: "64px",
-        marginBottom: "64px",
-      }}
-    >
-      <Help {...props} />
-    </div>
-  );
-};
 
 context("Tests for Help component", () => {
   describe("should check Help component properties", () => {
@@ -54,12 +37,12 @@ context("Tests for Help component", () => {
       getComponent("help").should("have.id", id);
     });
 
-    it.each(["-1", "0", "1", "5"])(
+    it.each([-1, 0, 1, 5])(
       "should check %s as tabIndex for Help component",
       (tabIndex) => {
         CypressMountWithProviders(<HelpComponent tabIndex={tabIndex} />);
 
-        if (tabIndex === "-1") {
+        if (tabIndex === -1) {
           getComponent("help").trigger("keydown", {
             ...keyCode("Tab"),
             force: true,
@@ -73,38 +56,31 @@ context("Tests for Help component", () => {
     );
 
     describe("check as prop for Help component", () => {
-      const asElem = "foo";
-      const error = errorMsg(
-        "Warning: The tag <%s> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.%s",
-        asElem
-      );
-      let errors;
-      beforeEach(() => {
-        cy.window().then((win) => {
-          errors = cy.spy(win.console, "error").as("spyWinConsoleError");
-        });
-      });
       it("should throw a console error when invalid html elements are used", () => {
-        CypressMountWithProviders(<HelpComponent as={asElem} />);
-        cy.wrap(errors).then(() => {
-          if (errors.getCalls().length) {
-            const consoleError = errors.getCalls()[0].args[0];
-            const consoleErrorTrim = consoleError.replace("\n", "");
-            expect(errorMsg(consoleErrorTrim, asElem)).to.equal(error);
-          }
-        });
+        cy.spy(window.console, "error").as("consoleErrorSpy");
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore:next-line
+        CypressMountWithProviders(<HelpComponent as="foo" />);
+        cy.get("@consoleErrorSpy").should("have.been.called");
       });
     });
 
-    it.each(["bottom", "left", "right", "top"])(
+    it.each([
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ] as HelpProps["tooltipPosition"][])(
       "should check %s position of tooltip for Help component",
-      (position) => {
+      (tooltipPosition) => {
         CypressMountWithProviders(
-          <HelpComponent tooltipPosition={position} isFocused>
-            {`This tooltip is positioned ${position}`}
+          <HelpComponent tooltipPosition={tooltipPosition} isFocused>
+            {`This tooltip is positioned ${tooltipPosition}`}
           </HelpComponent>
         );
-        getComponent("help").should("be.visible").and("have.css", position);
+        getComponent("help")
+          .should("be.visible")
+          .and("have.css", tooltipPosition);
       }
     );
 
@@ -158,7 +134,7 @@ context("Tests for Help component", () => {
       }
     );
 
-    it.each(["top", "bottom", "right", "left"])(
+    it.each(["top", "bottom", "right", "left"] as HelpProps["position"][])(
       "should check flip position to the %s for Help component",
       (position) => {
         CypressMountWithProviders(
@@ -198,7 +174,7 @@ context("Tests for Help component", () => {
       }
     );
 
-    it.each(["error", "add", "minus", "settings"])(
+    it.each(["error", "add", "minus", "settings"] as HelpProps["type"][])(
       "should check %s icon for Help component",
       (icon) => {
         CypressMountWithProviders(<HelpComponent isFocused type={icon} />);
@@ -234,7 +210,7 @@ context("Tests for Help component", () => {
 
     // FE-5625
     describe.skip("check accessibility for tabIndex", () => {
-      it.each(["-1", "0", "1"])(
+      it.each([-1, 0, 1])(
         "should check tabIndex as %s for accessibility tests",
         (tabIndex) => {
           CypressMountWithProviders(<HelpComponent tabIndex={tabIndex} />);
@@ -243,7 +219,12 @@ context("Tests for Help component", () => {
       );
     });
 
-    it.each(["bottom", "left", "right", "top"])(
+    it.each([
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ] as HelpProps["tooltipPosition"][])(
       "should check tooltipPosition as %s for accessibility tests",
       (position) => {
         CypressMountWithProviders(
@@ -297,7 +278,7 @@ context("Tests for Help component", () => {
       }
     );
 
-    it.each(["top", "bottom", "right", "left"])(
+    it.each(["top", "bottom", "right", "left"] as HelpProps["position"][])(
       "should check tooltipFlipOverrides position as %s for accessibility tests",
       (position) => {
         CypressMountWithProviders(
@@ -331,7 +312,7 @@ context("Tests for Help component", () => {
       }
     );
 
-    it.each(["error", "add", "minus", "settings"])(
+    it.each(["error", "add", "minus", "settings"] as HelpProps["type"][])(
       "should check type as %s for accessibility tests",
       (icon) => {
         CypressMountWithProviders(<HelpComponent isFocused type={icon} />);

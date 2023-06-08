@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { action } from "@storybook/addon-actions";
 
-import Drawer from ".";
+import Drawer, { DrawerProps } from ".";
 import {
   FlatTable,
   FlatTableHead,
@@ -475,7 +475,7 @@ export const DefaultStory = () => {
 
 DefaultStory.storyName = "default";
 
-export const DrawerCustom = ({ ...props }) => {
+export const DrawerCustom = (props: Partial<DrawerProps>) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
   const onChangeHandler = React.useCallback(() => {
     setIsExpanded(!isExpanded);
