@@ -1,3 +1,15 @@
+## [118.6.0](https://github.com/Sage/carbon/compare/v118.5.2...v118.6.0) (2023-06-09)
+
+
+### Features
+
+* **breadcrumbs:** add padding and margin interfaces to component ([9de6f0b](https://github.com/Sage/carbon/commit/9de6f0b2f923046dd54d9ab48d4aaddeccb906fc)), closes [#6096](https://github.com/Sage/carbon/issues/6096)
+
+
+### Bug Fixes
+
+* **crumb:** ensure all props in interface are passed down and remove href as required prop ([dab8805](https://github.com/Sage/carbon/commit/dab88055fc7fc6ce091e53ac0d5aea38412102bc)), closes [#6105](https://github.com/Sage/carbon/issues/6105)
+
 ### [118.5.2](https://github.com/Sage/carbon/compare/v118.5.1...v118.5.2) (2023-06-07)
 
 
