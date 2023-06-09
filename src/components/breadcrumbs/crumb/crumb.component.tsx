@@ -25,20 +25,20 @@ export interface CrumbProps
     TagProps {
   /** This sets the Crumb to current, does not render Link */
   isCurrent?: boolean;
-  /** The href string for Crumb Link */
-  href: string;
 }
 
 const Crumb = React.forwardRef<HTMLLinkElement, CrumbProps>(
-  ({ href, isCurrent, children, ...rest }: CrumbProps, ref) => (
+  ({ href, isCurrent, children, onClick, ...rest }: CrumbProps, ref) => (
     <li>
       <StyledCrumb
         ref={ref}
         isCurrent={isCurrent}
         aria-current={isCurrent ? "page" : undefined}
         {...tagComponent("crumb", rest)}
+        {...rest}
         {...(!isCurrent && {
           href,
+          onClick,
         })}
       >
         {children}

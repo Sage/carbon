@@ -43,20 +43,20 @@ describe("Crumb", () => {
     const link = screen.getByText(LINK_TEXT);
     await userEvent.click(link);
 
-    expect(handleClickFn).toHaveBeenCalledTimes(0);
+    expect(handleClickFn).toHaveBeenCalledTimes(1);
   });
 
   it("does not call the handleClick callback if one is passed and isCurrent is true", async () => {
     const handleClickFn = jest.fn();
 
     render(
-      <Crumb href="#" onClick={handleClickFn}>
+      <Crumb href="#" onClick={handleClickFn} isCurrent>
         {LINK_TEXT}
       </Crumb>
     );
     const link = screen.getByText(LINK_TEXT);
     await userEvent.click(link);
 
-    expect(handleClickFn).not.toHaveBeenCalledTimes(1);
+    expect(handleClickFn).toHaveBeenCalledTimes(0);
   });
 });
