@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ComponentStory } from "@storybook/react";
 
 import Message from ".";
@@ -134,6 +134,35 @@ export const WithMargin: ComponentStory<typeof Message> = () => {
         m="16px"
       >
         Some custom message
+      </Message>
+    </>
+  );
+};
+
+export const WithFocus: ComponentStory<typeof Message> = () => {
+  const [isMessageOpen, setIsMessageOpen] = useState(true);
+
+  const messageRef: React.Ref<HTMLDivElement> = useRef(null);
+
+  useEffect(() => {
+    if (isMessageOpen) {
+      messageRef.current?.focus();
+    }
+  }, [isMessageOpen]);
+
+  return (
+    <>
+      {!isMessageOpen && (
+        <Button onClick={() => setIsMessageOpen(true)}>Open Message</Button>
+      )}
+      <Message
+        open={isMessageOpen}
+        onDismiss={() => setIsMessageOpen(false)}
+        variant="error"
+        mb={1}
+        ref={messageRef}
+      >
+        This is message one.
       </Message>
     </>
   );
