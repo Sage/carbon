@@ -1,3 +1,10 @@
+### [119.0.1](https://github.com/Sage/carbon/compare/v119.0.0...v119.0.1) (2023-06-12)
+
+
+### Bug Fixes
+
+* **popover-container:** prevent click outside calling onclose when container is not open ([cba4e17](https://github.com/Sage/carbon/commit/cba4e1714c326d771129a6c9f75d1fb5f8c761c3)), closes [#6066](https://github.com/Sage/carbon/issues/6066)
+
 ## [119.0.0](https://github.com/Sage/carbon/compare/v118.6.0...v119.0.0) (2023-06-12)
 
 
