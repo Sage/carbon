@@ -1,3 +1,15 @@
+## [119.1.0](https://github.com/Sage/carbon/compare/v119.0.1...v119.1.0) (2023-06-12)
+
+
+### Features
+
+* **flat-table:** update keyboard navigation behaviour when rows are ([b688349](https://github.com/Sage/carbon/commit/b688349eb84775d4955a66120ebc1510444ff9db))
+
+
+### Bug Fixes
+
+* **flat-table-row:** overrides user agent focus styling ([55e4aa0](https://github.com/Sage/carbon/commit/55e4aa0586bdb4d180ec70406784093a5c9d4919)), closes [#5991](https://github.com/Sage/carbon/issues/5991)
+
 ### [119.0.1](https://github.com/Sage/carbon/compare/v119.0.0...v119.0.1) (2023-06-12)
 
 
