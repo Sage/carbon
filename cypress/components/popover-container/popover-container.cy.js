@@ -256,18 +256,14 @@ context("Test for Popover Container component", () => {
     let callback;
 
     beforeEach(() => {
-      callback = cy.stub();
+      callback = cy.stub().as("callback");
     });
 
     it("should call onOpen callback when a click event is triggered", () => {
       CypressMountWithProviders(<PopoverContainer onOpen={callback} />);
 
-      popoverSettingsIcon()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      popoverSettingsIcon().click();
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
     it.each([["Enter"], ["Space"]])(
@@ -275,12 +271,8 @@ context("Test for Popover Container component", () => {
       (key) => {
         CypressMountWithProviders(<PopoverContainer onOpen={callback} />);
 
-        popoverSettingsIcon()
-          .trigger("keydown", keyCode(key))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        popoverSettingsIcon().trigger("keydown", keyCode(key));
+        cy.get("@callback").should("have.been.calledOnce");
       }
     );
 
@@ -289,12 +281,8 @@ context("Test for Popover Container component", () => {
         <PopoverContainerComponent onClose={callback} open />
       );
 
-      popoverCloseIcon()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      popoverCloseIcon().click();
+      cy.get("@callback").should("have.been.calledOnce");
     });
 
     it.each([["Enter"], ["Space"]])(
@@ -304,14 +292,28 @@ context("Test for Popover Container component", () => {
           <PopoverContainerComponent onClose={callback} open />
         );
 
-        popoverCloseIcon()
-          .trigger("keydown", keyCode(key))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        popoverCloseIcon().trigger("keydown", keyCode(key));
+        cy.get("@callback").should("have.been.calledOnce");
       }
     );
+
+    it("should call onClose callback when a click event is triggered outside the container", () => {
+      CypressMountWithProviders(
+        <PopoverContainerComponent onClose={callback} open />
+      );
+
+      cy.root().click();
+      cy.get("@callback").should("have.been.calledOnce");
+    });
+
+    it("should not call onClose callback when a click event is triggered outside the container and the container is closed", () => {
+      CypressMountWithProviders(
+        <PopoverContainerComponent onClose={callback} open={false} />
+      );
+
+      cy.root().click();
+      cy.get("@callback").should("not.have.been.called");
+    });
   });
 
   describe("Accessibility tests for Popover Container component", () => {
