@@ -1,3 +1,50 @@
+## [119.0.0](https://github.com/Sage/carbon/compare/v118.6.0...v119.0.0) (2023-06-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button-toggle, button-toggle-group:** Changes to props in the ButtonToggle component:
+- `defaultChecked`, `guid` and `onChange` have been removed
+- `onClick`, `onBlur` and `onFocus` have new types
+Changes to props in the ButtonToggleGroup component:
+- all validation-related props (`validationOnLabel`, `error`, `warning` and `info`) have been
+removed
+- `onBlur` has also been removed (the main purpose of this will have been to perform validation)
+- the `onChange` prop has a new type. The event argument now has an HTML `button` as its target,
+with the `value` and `name` props of the corresponding `ButtonToggle` component passed as optional
+second and third arguments
+Other important changes to be aware of:
+- import paths changed: both components are now named exports from `components/button-toggle`
+- these components can no longer be used in an "uncontrolled" fashion, the state of which button
+(if any) has been selected must be managed by consumers using React
+- the `name` prop on ButtonToggleGroup is no longer mandatory. Both this and the corresponding
+prop on ButtonToggle now provide nothing except an internal label which can be used in an
+`onChange` handler. These have been kept for backwards compatibility and will soon be removed
+- the `checked` prop on ButtonToggle has likewise been kept only temporarily for backwards
+compatibility, and is an alias for the new `pressed` prop which sets the `aria-pressed`
+attribute on the underlying HTML button
+
+### Features
+
+* **button-toggle, button-toggle-group:** update HTML for accessibility ([d621521](https://github.com/Sage/carbon/commit/d62152131ec87704df7dff6980e76b46f770f2f1))
+
+
+### Bug Fixes
+
+* **button-toggle:** ensure id is consistent between renders ([55c40d0](https://github.com/Sage/carbon/commit/55c40d0b62e71cf3ec999c68f092d71c50abc923))
+
+## [118.6.0](https://github.com/Sage/carbon/compare/v118.5.2...v118.6.0) (2023-06-09)
+
+
+### Features
+
+* **breadcrumbs:** add padding and margin interfaces to component ([9de6f0b](https://github.com/Sage/carbon/commit/9de6f0b2f923046dd54d9ab48d4aaddeccb906fc)), closes [#6096](https://github.com/Sage/carbon/issues/6096)
+
+
+### Bug Fixes
+
+* **crumb:** ensure all props in interface are passed down and remove href as required prop ([dab8805](https://github.com/Sage/carbon/commit/dab88055fc7fc6ce091e53ac0d5aea38412102bc)), closes [#6105](https://github.com/Sage/carbon/issues/6105)
+
 ### [118.5.2](https://github.com/Sage/carbon/compare/v118.5.1...v118.5.2) (2023-06-07)
 
 
