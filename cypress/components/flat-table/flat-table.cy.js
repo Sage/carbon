@@ -77,7 +77,6 @@ import {
 import {
   keyCode,
   positionOfElement,
-  pressTABKey,
   getRotationAngle,
 } from "../../support/helper";
 
@@ -2749,6 +2748,39 @@ const FlatTablePagerStickyHeaderComponent = () => {
   );
 };
 
+const FlatTablePartiallySelectedOrHighlightedRows = ({
+  highlighted,
+  selected,
+}) => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Status</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow onClick={() => {}}>
+          <FlatTableCell>Not selected or highlighted</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow
+          onClick={() => {}}
+          selected={selected}
+          highlighted={highlighted}
+        >
+          <FlatTableCell>
+            {selected && "Selected"}
+            {highlighted && "Highlighted"}
+          </FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow onClick={() => {}}>
+          <FlatTableCell>Not selected or highlighted</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
 context("Tests for Flat Table component", () => {
   describe("check props for Flat Table component", () => {
     it("should render Flat Table with ariaDescribedBy", () => {
@@ -3998,7 +4030,9 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRowByPosition(0).click();
       flatTableSubrowByPosition(0).should("exist");
       flatTableSubrowByPosition(1).should("exist");
-      flatTableBodyRowByPosition(0).tab().tab();
+      flatTableBodyRowByPosition(0)
+        .tab()
+        .trigger("keydown", keyCode("downarrow"));
       flatTableBodyRowByPosition(3)
         .find("td")
         .eq(3)
@@ -4017,7 +4051,10 @@ context("Tests for Flat Table component", () => {
         .trigger("keydown", keyCode("Space"));
       flatTableSubrowByPosition(0).should("exist");
       flatTableSubrowByPosition(1).should("exist");
-      flatTableBodyRowByPosition(0).tab().tab().wait(250);
+      flatTableBodyRowByPosition(0)
+        .tab()
+        .trigger("keydown", keyCode("downarrow"))
+        .wait(250);
       flatTableBodyRowByPosition(3)
         .find("td")
         .eq(3)
@@ -4036,7 +4073,10 @@ context("Tests for Flat Table component", () => {
         .trigger("keydown", keyCode("Enter"));
       flatTableSubrowByPosition(0).should("exist");
       flatTableSubrowByPosition(1).should("exist");
-      flatTableBodyRowByPosition(0).tab().tab().wait(250);
+      flatTableBodyRowByPosition(0)
+        .tab()
+        .trigger("keydown", keyCode("downarrow"))
+        .wait(250);
       flatTableBodyRowByPosition(3)
         .find("td")
         .eq(3)
@@ -4051,7 +4091,7 @@ context("Tests for Flat Table component", () => {
       relLink().click();
     });
 
-    it("should render Flat Table with expandable rows expanded by mouse, can tab to subrows", () => {
+    it("should render Flat Table with expandable rows expanded by mouse, can focus subrows with down arrow keypress", () => {
       CypressMountWithProviders(<FlatTableAccSubRowComponent />);
 
       flatTableExpandableIcon(0)
@@ -4061,12 +4101,12 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRowByPosition(0).click();
       flatTableSubrowByPosition(0).should("exist");
       flatTableSubrowByPosition(1).should("exist");
-      flatTableBodyRowByPosition(0).tab();
+      flatTableBodyRowByPosition(0).trigger("keydown", keyCode("downarrow"));
       flatTableBodyRowByPosition(1)
         .find("td")
         .eq(3)
         .should("have.css", "border-right", `2px solid ${gold}`);
-      flatTableBodyRowByPosition(1).tab();
+      flatTableBodyRowByPosition(1).trigger("keydown", keyCode("downarrow"));
       flatTableBodyRowByPosition(2)
         .find("td")
         .eq(3)
@@ -4231,40 +4271,173 @@ context("Tests for Flat Table component", () => {
         .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
     });
 
-    it("can tab through correct order with multiple tabbable elements in Flat Table content", () => {
-      CypressMountWithProviders(<FlatTableAllSubrowSelectableComponent />);
+    it("can focus the first row by tabbing but no further rows are focused on tab press", () => {
+      CypressMountWithProviders(<FlatTableComponent />);
 
       cy.get("body").tab();
-      for (let i = 0; i < 8; i++) {
-        cy.focused().tab();
-      }
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).then(checkFocus);
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).should("not.be.focused");
+      flatTableBodyRowByPosition(1).should("not.be.focused");
+      flatTableBodyRowByPosition(3).should("not.be.focused");
+    });
+
+    it("sets the last selected row as the tab stop and removes it from any other ones", () => {
+      CypressMountWithProviders(
+        <FlatTablePartiallySelectedOrHighlightedRows selected />
+      );
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+
+      flatTableBodyRowByPosition(0).should("not.be.focused");
       flatTableBodyRowByPosition(1).then(checkFocus);
     });
 
-    it("can Shift tab through correct order with multiple tabbable elements in Flat Table content", () => {
+    it("sets the last highlighted row as the tab stop and removes it from any other ones", () => {
+      CypressMountWithProviders(
+        <FlatTablePartiallySelectedOrHighlightedRows highlighted />
+      );
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+
+      flatTableBodyRowByPosition(0).should("not.be.focused");
+      flatTableBodyRowByPosition(1).then(checkFocus);
+    });
+
+    it("can use tab and down arrow key to navigate the clickable rows and tabbable elements", () => {
+      CypressMountWithProviders(<FlatTableAllSubrowSelectableComponent />);
+
+      cy.get("body").tab();
+
+      // tab through batch selection
+      for (let i = 0; i < 5; i++) {
+        cy.focused().tab();
+      }
+
+      flatTableBodyRowByPosition(0).then(checkFocus);
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).find("input").eq(0).should("be.focused");
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(1).then(checkFocus);
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(2).then(checkFocus);
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(3).then(checkFocus);
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(3).then(checkFocus);
+    });
+
+    it("can use up arrow to navigate the clickable rows and tabbable elements", () => {
       CypressMountWithProviders(<FlatTableAllSubrowSelectableComponent />);
 
       cyRoot();
       cy.get("body").tab();
-      for (let i = 0; i < 6; i++) {
-        cy.focused().tab({ shift: true });
-      }
+
+      flatTableBodyRowByPosition(3).find("input").eq(0).focus();
+      flatTableBodyRowByPosition(3).find("input").eq(0).should("be.focused");
+      cy.focused().trigger("keydown", keyCode("uparrow"));
       flatTableBodyRowByPosition(2).then(checkFocus);
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      flatTableBodyRowByPosition(1).then(checkFocus);
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      flatTableBodyRowByPosition(0).then(checkFocus);
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      flatTableBodyRowByPosition(0).then(checkFocus);
     });
 
-    it.each([["up"], ["down"], ["left"], ["right"]])(
-      "can not navigate through Flat Table rows using arrow keys",
+    it.each([["leftarrow"], ["rightarrow"]])(
+      "can not navigate through Flat Table rows using %s keys",
       (arrow) => {
         CypressMountWithProviders(<FlatTableAllSubrowSelectableComponent />);
 
-        cyRoot();
-        pressTABKey(6);
-        flatTableBodyRowByPosition(0)
-          .focus()
-          .trigger("keydown", keyCode(arrow))
-          .then(checkFocus);
+        cy.get("body").tab();
+
+        // tab through batch selection
+        for (let i = 0; i < 5; i++) {
+          cy.focused().tab();
+        }
+
+        flatTableBodyRowByPosition(0).then(checkFocus);
+        flatTableBodyRowByPosition(0).trigger("keydown", keyCode(arrow));
+        flatTableBodyRowByPosition(0).then(checkFocus);
       }
     );
+
+    it("should navigate the first column of cells with down arrow key press when expandableArea is set to 'firstColumn'", () => {
+      CypressMountWithProviders(<FlatTableFirstColExpandableComponent />);
+
+      cy.get("body").tab();
+      cy.focused().tab();
+      flatTableCell(0).should("be.focused");
+      flatTableCell(0).trigger("keydown", keyCode("downarrow"));
+      flatTableCell(4).should("be.focused");
+      flatTableCell(4).trigger("keydown", keyCode("downarrow"));
+      flatTableCell(8).should("be.focused");
+      flatTableCell(8).trigger("keydown", keyCode("downarrow"));
+      flatTableCell(12).should("be.focused");
+      flatTableCell(12).trigger("keydown", keyCode("downarrow"));
+      flatTableCell(12).should("be.focused");
+    });
+
+    it("should navigate the first column of cells with up arrow key press when expandableArea is set to 'firstColumn'", () => {
+      CypressMountWithProviders(<FlatTableFirstColExpandableComponent />);
+
+      flatTableCell(12).focus();
+      flatTableCell(12).should("be.focused");
+      flatTableCell(12).trigger("keydown", keyCode("uparrow"));
+      flatTableCell(8).should("be.focused");
+      flatTableCell(8).trigger("keydown", keyCode("uparrow"));
+      flatTableCell(4).should("be.focused");
+      flatTableCell(4).trigger("keydown", keyCode("uparrow"));
+      flatTableCell(0).should("be.focused");
+      flatTableCell(0).trigger("keydown", keyCode("uparrow"));
+      flatTableCell(0).should("be.focused");
+    });
+
+    it("should navigate any focusable rows, including expanded sub rows, with down arrow key", () => {
+      CypressMountWithProviders(<FlatTableAccSubRowComponent />);
+
+      cy.get("body").tab();
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).should("be.focused");
+      flatTableBodyRowByPosition(0).click();
+      flatTableBodyRowByPosition(1).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(1).should("be.focused");
+      flatTableBodyRowByPosition(1).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(2).should("be.focused");
+      flatTableBodyRowByPosition(2).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(3).should("be.focused");
+      flatTableBodyRowByPosition(3).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(4).should("be.focused");
+      flatTableBodyRowByPosition(4).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(5).should("be.focused");
+    });
+
+    it("should navigate any focusable rows, including expanded sub rows, with up arrow key", () => {
+      CypressMountWithProviders(<FlatTableAccSubRowComponent />);
+
+      cy.get("body").tab();
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).should("be.focused");
+      flatTableBodyRowByPosition(0).click();
+      flatTableBodyRowByPosition(1).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(1).should("be.focused");
+      flatTableBodyRowByPosition(1).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(2).should("be.focused");
+      flatTableBodyRowByPosition(2).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(3).should("be.focused");
+      flatTableBodyRowByPosition(3).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(4).should("be.focused");
+      flatTableBodyRowByPosition(4).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(5).should("be.focused");
+    });
 
     it("should render Flat Table with action popover in a cell opened by mouse", () => {
       CypressMountWithProviders(<FlatTableAllSubrowSelectableComponent />);

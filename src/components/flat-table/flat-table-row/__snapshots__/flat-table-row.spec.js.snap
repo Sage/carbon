@@ -35,6 +35,10 @@ exports[`FlatTableRow should have expected styles 1`] = `
   color: var(--colorsActionMinor500);
 }
 
+.c0:focus-visible {
+  outline: none;
+}
+
 .c0 .c2 + td {
   border-left: none;
 }
@@ -52,11 +56,13 @@ exports[`FlatTableRow should have expected styles 1`] = `
     <tr
       className="c0"
       data-element="flat-table-row"
+      id="guid-12345"
       onClick={[Function]}
     >
       <td
         className="c1"
         data-element="flat-table-cell"
+        id="guid-12345"
       >
         <div
           className=""
@@ -67,6 +73,7 @@ exports[`FlatTableRow should have expected styles 1`] = `
       <td
         className="c1"
         data-element="flat-table-cell"
+        id="guid-12345"
       >
         <div
           className=""

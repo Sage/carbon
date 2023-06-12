@@ -1,4 +1,10 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, {
+  useLayoutEffect,
+  useRef,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
 
@@ -8,6 +14,8 @@ import {
 } from "./flat-table-cell.style";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import Icon from "../../icon";
+import { FlatTableThemeContext } from "../flat-table.component";
+import guid from "../../../__internal__/utils/helpers/guid";
 
 const paddingPropTypes = filterStyledSystemPaddingProps(
   styledSystemPropTypes.space
@@ -32,12 +40,19 @@ const FlatTableCell = ({
   ...rest
 }) => {
   const ref = useRef(null);
+  const id = useRef(guid());
+  const [tabIndex, setTabIndex] = useState(-1);
+  const { selectedId } = useContext(FlatTableThemeContext);
 
   useLayoutEffect(() => {
     if (ref.current && reportCellWidth) {
       reportCellWidth(ref.current.offsetWidth, cellIndex);
     }
   }, [reportCellWidth, cellIndex]);
+
+  useEffect(() => {
+    setTabIndex(selectedId === id.current ? 0 : -1);
+  }, [selectedId]);
 
   return (
     <StyledFlatTableCell
@@ -52,11 +67,12 @@ const FlatTableCell = ({
       rowSpan={rowspan}
       pl={pl}
       onClick={expandable && onClick ? onClick : undefined}
-      tabIndex={expandable && onClick ? 0 : undefined}
+      tabIndex={expandable && onClick ? tabIndex : undefined}
       onKeyDown={expandable && onKeyDown ? onKeyDown : undefined}
       colWidth={width}
       isTruncated={truncate}
       expandable={expandable}
+      id={id.current}
       {...rest}
     >
       <StyledCellContent
