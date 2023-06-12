@@ -1,5 +1,6 @@
 import React from "react";
 import Fieldset from "../../../src/components/fieldset";
+import { FormProps }  from "../../../src/components/form";
 import { FieldsetComponent } from "../../../src/components/fieldset/fieldset-test.stories";
 import legendPreview from "../../locators/fieldset";
 import Textbox from "../../../src/components/textbox";
@@ -140,7 +141,7 @@ context("Testing Fieldset component", () => {
       [0, 0],
       [32, 4],
       [56, 7],
-    ])(
+    ] as [number, FormProps["fieldSpacing"]][])(
       "should verify Fieldset displayed inside a Form and field spacing is %spx",
       (margin, spacing) => {
         CypressMountWithProviders(
@@ -218,7 +219,7 @@ context("Testing Fieldset component", () => {
       }
     );
 
-    it.each([0, 4, 7])(
+    it.each([0, 4, 7] as FormProps["fieldSpacing"][])(
       "should pass accessibility tests for Fieldset displayed inside a Form when field spacing is %s",
       (spacing) => {
         CypressMountWithProviders(
@@ -230,55 +231,51 @@ context("Testing Fieldset component", () => {
             <Textbox label="Separate Field" labelInline />
           </Form>
         );
+        cy.checkAccessibility();
+      }
+    );  
+
+    it.each(["error", "warning", "info"])(
+      "should pass accessibility tests for Fieldset with %s validation icon on input",
+      (type) => {
+        CypressMountWithProviders(
+          <Fieldset
+            key={`${type}-string-component`}
+            legend={`Fieldset ${type} on component`}
+          >
+            <Textbox
+              label="Address"
+              labelInline
+              labelAlign="right"
+              {...{ [type]: "Message" }}
+            />
+          </Fieldset>
+        );
 
         cy.checkAccessibility();
       }
     );
 
-    // FE-5382
-    describe.skip("skip", () => {
-      it.each(["error", "warning", "info"])(
-        "should pass accessibility tests for Fieldset with %s validation icon on input",
-        (type) => {
-          CypressMountWithProviders(
-            <Fieldset
-              key={`${type}-string-component`}
-              legend={`Fieldset ${type} on component`}
-            >
-              <Textbox
-                label="Address"
-                labelInline
-                labelAlign="right"
-                {...{ [type]: "Message" }}
-              />
-            </Fieldset>
-          );
+    it.each(["error", "warning", "info"])(
+      "should pass accessibility tests for Fieldset with %s validation icon on label",
+      (type) => {
+        CypressMountWithProviders(
+          <Fieldset
+            key={`${type}-string-label`}
+            legend={`Fieldset ${type} on label`}
+          >
+            <Textbox
+              label="Address"
+              labelInline
+              labelAlign="right"
+              validationOnLabel
+              {...{ [type]: "Message" }}
+            />
+          </Fieldset>
+        );
 
-          cy.checkAccessibility();
-        }
-      );
-
-      it.each(["error", "warning", "info"])(
-        "should pass accessibility tests for Fieldset with %s validation icon on label",
-        (type) => {
-          CypressMountWithProviders(
-            <Fieldset
-              key={`${type}-string-label`}
-              legend={`Fieldset ${type} on label`}
-            >
-              <Textbox
-                label="Address"
-                labelInline
-                labelAlign="right"
-                validationOnLabel
-                {...{ [type]: "Message" }}
-              />
-            </Fieldset>
-          );
-
-          cy.checkAccessibility();
-        }
-      );
-    });
+        cy.checkAccessibility();
+      }
+    );
   });
 });
