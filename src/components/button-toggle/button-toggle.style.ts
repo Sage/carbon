@@ -43,7 +43,7 @@ const StyledButtonToggleContentWrapper = styled.div`
   flex-flow: wrap;
 `;
 
-export interface StyledButtonToggleLabelProps {
+export interface StyledButtonToggleProps {
   /** The icon to be rendered inside of the button */
   buttonIcon?: IconType;
   /** Sets the size of the buttonIcon (eg. large) */
@@ -53,10 +53,14 @@ export interface StyledButtonToggleLabelProps {
   /** ButtonToggle size */
   size: "small" | "medium" | "large";
   grouped?: boolean;
+  /** set this to true to allow the button to be deselected when already selected */
+  allowDeselect?: boolean;
 }
 
-const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
-  display: inline-block;
+const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   box-sizing: border-box;
   max-width: 100%;
@@ -67,22 +71,29 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
     font-size: ${fontSizeConfig[size]}px;
   `}
   font-weight: 700;
+  background-color: transparent;
   cursor: pointer;
+  text-align: start;
+  color: inherit;
+
   border: 1px solid var(--colorsActionMinor500);
-  ${StyledIcon} {
-    color: var(--colorsActionMinor500);
-  }
-  input:checked ~ && {
-    background-color: var(--colorsActionMinor300);
-    color: var(--colorsActionMinor600);
-    cursor: auto;
-  }
-  input:focus ~ & {
+
+  :focus {
     outline: 3px solid var(--colorsSemanticFocus500);
     z-index: 100;
   }
 
-  input:not(:checked):not(:disabled) ~ &:hover {
+  &[aria-pressed="true"] {
+    background-color: var(--colorsActionMinor300);
+    color: var(--colorsActionMinor600);
+    ${({ allowDeselect }) =>
+      !allowDeselect &&
+      css`
+        cursor: auto;
+      `}
+  }
+
+  :not([aria-pressed="true"]):not(:disabled):hover {
     background-color: var(--colorsActionMinor200);
     border-color: var(--colorsActionMinor500);
     color: var(--colorsActionMinor500);
@@ -90,15 +101,18 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
       color: var(--colorsActionMinor500);
     }
   }
+
+  ${StyledIcon} {
+    color: var(--colorsActionMinor500);
+  }
+
   ${({ buttonIcon, buttonIconSize, size }) =>
     buttonIcon &&
     buttonIconSize === "large" &&
     css`
       height: ${heightLargeIconConfig[size]}px;
       padding: 0 ${paddingLargeIconConfig[size]}px;
-      ${StyledButtonToggleContentWrapper} {
-        flex-direction: column;
-      }
+      flex-direction: column;
     `}
   ${({ disabled }) =>
     disabled &&
@@ -147,11 +161,11 @@ const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
     `}
 `;
 
-export interface StyledButtonToggleProps {
+export interface StyledButtonToggleWrapperProps {
   grouped?: boolean;
 }
 
-const StyledButtonToggle = styled.div<StyledButtonToggleProps>`
+const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
   display: inline-block;
   vertical-align: middle;
 
@@ -160,7 +174,7 @@ const StyledButtonToggle = styled.div<StyledButtonToggleProps>`
       ${!grouped &&
       css`
         &&&& {
-          ${StyledButtonToggleLabel} {
+          ${StyledButtonToggle} {
             border-radius: var(--borderRadius400);
           }
         }
@@ -170,14 +184,14 @@ const StyledButtonToggle = styled.div<StyledButtonToggleProps>`
       css`
         &&&& {
           :first-of-type {
-            ${StyledButtonToggleLabel} {
+            ${StyledButtonToggle} {
               border-top-left-radius: var(--borderRadius400);
               border-bottom-left-radius: var(--borderRadius400);
             }
           }
 
           :last-of-type {
-            ${StyledButtonToggleLabel} {
+            ${StyledButtonToggle} {
               border-top-right-radius: var(--borderRadius400);
               border-bottom-right-radius: var(--borderRadius400);
             }
@@ -199,17 +213,9 @@ const StyledButtonToggle = styled.div<StyledButtonToggleProps>`
     `};
 `;
 
-const StyledButtonToggleInput = styled.input`
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
-`;
-
 export {
   StyledButtonToggle,
-  StyledButtonToggleLabel,
+  StyledButtonToggleWrapper,
   StyledButtonToggleIcon,
-  StyledButtonToggleInput,
   StyledButtonToggleContentWrapper,
 };

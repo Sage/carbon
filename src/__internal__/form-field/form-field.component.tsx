@@ -11,7 +11,7 @@ import invariant from "invariant";
 
 import { ValidationProps } from "../validations";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
-import Label from "../label";
+import Label, { LabelProps } from "../label";
 import FieldHelp from "../field-help";
 import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
 import { TabContext, TabContextProps } from "../../components/tabs/tab";
@@ -44,6 +44,8 @@ interface CommonFormFieldProps extends MarginProps, ValidationProps {
   labelSpacing?: 1 | 2;
   /** Label width */
   labelWidth?: number;
+  /* To use a different HTML element other than <label> */
+  labelAs?: LabelProps["as"];
   /** If true the label switches position with the input */
   reverse?: boolean;
   /** Id of the validation icon */
@@ -93,6 +95,7 @@ const FormField = ({
   labelInline,
   labelSpacing = 2,
   labelWidth,
+  labelAs,
   id,
   reverse,
   isOptional,
@@ -192,6 +195,7 @@ const FormField = ({
             pl={reverse ? labelSpacing : undefined}
             isRequired={isRequired}
             validationIconId={validationIconId}
+            as={labelAs}
           >
             {label}
           </Label>

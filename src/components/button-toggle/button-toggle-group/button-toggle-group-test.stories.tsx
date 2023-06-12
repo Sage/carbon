@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import ButtonToggle from "../button-toggle";
-import ButtonToggleGroup from ".";
+import { ButtonToggle, ButtonToggleGroup } from "..";
 
 export default {
-  title: "Button Toggle Group/Test",
+  title: "Button Toggle/Button Toggle Group/Test",
   includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
@@ -17,9 +16,12 @@ export default {
 
 export const DefaultStory = () => {
   const [value, setValue] = useState("bar");
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
-    action("value set")(event.target.value);
+  function onChangeHandler(
+    event: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string
+  ) {
+    setValue(selectedValue as string);
+    action("value set")(selectedValue);
   }
   return (
     <ButtonToggleGroup
@@ -70,24 +72,35 @@ export const ButtonToggleGroupComponent = ({ ...props }) => {
   );
 };
 
-export const ButtonToggleGroupDefaultChecked = () => {
+export const WithOutsideButtons = () => {
+  const [value, setValue] = useState<string>();
+  function onChangeHandler(
+    event: React.MouseEvent<HTMLButtonElement>,
+    selectedValue?: string
+  ) {
+    setValue(selectedValue);
+    action("value set")(selectedValue);
+  }
   return (
-    <div>
+    <>
+      <button type="button" id="button-before">
+        button before
+      </button>
       <ButtonToggleGroup
-        fieldHelp="field help mesage"
-        helpAriaLabel="Help"
-        id="button-toggle-group-controlled-id-sage"
-        label="Controlled example"
-        labelHelp="help message"
-        name="button-toggle-group-controlled-sage"
+        id="button-toggle-group"
+        name="button-toggle-group"
+        label="Button Toggle Group test"
+        onChange={onChangeHandler}
+        value={value}
       >
         <ButtonToggle value="foo">Foo</ButtonToggle>
-        <ButtonToggle value="bar" defaultChecked>
-          Bar
-        </ButtonToggle>
+        <ButtonToggle value="bar">Bar</ButtonToggle>
         <ButtonToggle value="baz">Baz</ButtonToggle>
       </ButtonToggleGroup>
-    </div>
+      <button type="button" id="button-after">
+        button after
+      </button>
+    </>
   );
 };
 
