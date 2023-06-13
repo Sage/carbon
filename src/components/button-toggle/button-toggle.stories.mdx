@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import LinkTo from "@storybook/addon-links/react";
-
-import ButtonToggle from ".";
-import ButtonToggleGroup from "../button-toggle-group";
+import { ButtonToggle } from ".";
 
 import * as stories from "./button-toggle.stories";
+import * as groupStories from "./button-toggle-group/button-toggle-group.stories";
 
 <Meta 
   title="Button Toggle"
@@ -36,8 +35,7 @@ Press one of the buttons to make selection. This component should be used when u
 ## Quick Start
 
 ```javascript
-import ButtonToggle from "carbon-react/lib/components/button-toggle";
-import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
+import { ButtonToggle, ButtonToggleGroup } from "carbon-react/lib/components/button-toggle";
 ```
 
 - You should use the <LinkTo kind="Button Toggle Group" story="default">ButtonToggleGroup component</LinkTo> if you need to wrap multiple `ButtonToggle` components together.
@@ -57,16 +55,62 @@ import ButtonToggleGroup from "carbon-react/lib/components/button-toggle-group";
   <Story name="default with wrapped text" story={stories.DefaultWrappedText} />
 </Canvas>
 
-### Default with small icon
+### Controlled
 
 <Canvas>
-  <Story name="default with small icon" story={stories.DefaultSmallIcon} />
+  <Story name="controlled" story={groupStories.Controlled} />
 </Canvas>
 
-### Default with large icon
+### With aria-label
+
+If you do not want a visible label to appear above the group, you should use the aria-label prop to give it a non-visible
+accessible name to be used by screenreaders. Failure to do this will result in accessibility violations.
 
 <Canvas>
-  <Story name="default with large icon" story={stories.DefaultLargeIcon} />
+  <Story name="aria-label" story={groupStories.AriaLabel} />
+</Canvas>
+
+### With fullWidth
+
+When the `fullWidth` prop is `true`, the buttons will expand in size to take up the full width of the container.
+
+<Canvas>
+  <Story name="fullWidth" story={groupStories.FullWidth} />
+</Canvas>
+
+### With field help inline
+
+<Canvas>
+  <Story name="fieldhelp inline" story={groupStories.FieldHelp} />
+</Canvas>
+
+### With label inline
+
+<Canvas>
+  <Story name="label inline" story={groupStories.LabelInline} />
+</Canvas>
+
+### Allowing deselection
+
+By default, in a `ButtonToggleGroup` there is no way to deselect the currently-selected toggle button except by selecting another one.
+The `allowDeselect` prop changes this behaviour, making it possible for there to be no selection.
+
+If you use this, you should include text in the `fieldHelp` prop which makes clear that deselection is allowed, as in the example below.
+
+<Canvas>
+  <Story name="allowDeselect" story={groupStories.AllowDeselection} />
+</Canvas>
+
+### with small icon
+
+<Canvas>
+  <Story name="with small icon" story={stories.DefaultSmallIcon} />
+</Canvas>
+
+### with large icon
+
+<Canvas>
+  <Story name="with large icon" story={stories.DefaultLargeIcon} />
 </Canvas>
 
 ### Icon only

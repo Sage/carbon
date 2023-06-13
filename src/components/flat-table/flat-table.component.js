@@ -9,12 +9,17 @@ import {
 } from "./flat-table.style";
 import { DrawerSidebarContext } from "../drawer";
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import Events from "../../__internal__/utils/helpers/events/events";
 
-export const FlatTableThemeContext = React.createContext({});
+export const FlatTableThemeContext = React.createContext({
+  setSelectedId: () => {},
+});
 
 const marginPropTypes = filterStyledSystemMarginProps(
   styledSystemPropTypes.space
 );
+
+const FOCUSABLE_ROW_AND_CELL_QUERY = "tbody tr, tbody tr td, tbody tr th";
 
 const FlatTable = ({
   caption,
@@ -39,6 +44,7 @@ const FlatTable = ({
   const [hasHorizontalScrollbar, setHasHorizontalScrollbar] = useState(false);
   const [firstColRowSpanIndex, setFirstColRowSpanIndex] = useState(-1);
   const [lastColRowSpanIndex, setLastColRowSpanIndex] = useState(-1);
+  const [selectedId, setSelectedId] = useState("");
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
   const tableStylingProps = {
     caption,
@@ -61,6 +67,7 @@ const FlatTable = ({
         return rowSpan >= index + 1;
       });
 
+    /* istanbul ignore else */
     if (wrapperRef.current && tableRef.current) {
       const { offsetHeight, offsetWidth } = wrapperRef.current;
       const {
@@ -90,6 +97,88 @@ const FlatTable = ({
       }
     }
   }, [footer, children, height, minHeight]);
+
+  const findParentIndexOfFocusedChild = (array) =>
+    array.findIndex((el) => {
+      const focusableRowElements = el.querySelectorAll(
+        "button, input, a, [tabindex]"
+      );
+
+      /* istanbul ignore else */
+      if (focusableRowElements) {
+        const focusableRowElementsArray = Array.from(focusableRowElements);
+
+        if (
+          focusableRowElementsArray.find(
+            (el2) => el2 === document.activeElement
+          )
+        ) {
+          return true;
+        }
+      }
+
+      return false;
+    });
+
+  const handleKeyDown = (ev) => {
+    const focusableElements = tableRef.current?.querySelectorAll(
+      FOCUSABLE_ROW_AND_CELL_QUERY
+    );
+
+    /* istanbul ignore if */
+    if (!focusableElements) {
+      return;
+    }
+
+    const focusableElementsArray = Array.from(focusableElements).filter(
+      (el) => el.getAttribute("tabindex") !== null
+    );
+
+    const currentFocusIndex = focusableElementsArray.findIndex(
+      (el) => el === document.activeElement
+    );
+
+    if (Events.isDownKey(ev)) {
+      if (
+        currentFocusIndex !== -1 &&
+        currentFocusIndex < focusableElementsArray.length
+      ) {
+        focusableElementsArray[currentFocusIndex + 1]?.focus();
+      } else {
+        // it may be that an element within the row currently has focus
+        const index = findParentIndexOfFocusedChild(focusableElementsArray);
+
+        if (index !== -1 && index < focusableElementsArray.length) {
+          focusableElementsArray[index + 1]?.focus();
+        }
+      }
+    } else if (Events.isUpKey(ev)) {
+      if (currentFocusIndex > 0) {
+        focusableElementsArray[currentFocusIndex - 1]?.focus();
+      } else {
+        // it may be that an element within the row currently has focus
+        const index = findParentIndexOfFocusedChild(focusableElementsArray);
+
+        if (index > 0) {
+          focusableElementsArray[index - 1]?.focus();
+        }
+      }
+    }
+  };
+
+  useLayoutEffect(() => {
+    const focusableElements = tableRef.current?.querySelectorAll(
+      FOCUSABLE_ROW_AND_CELL_QUERY
+    );
+
+    // if no other menu item is selected, we need to make the first row a tab stop
+    if (focusableElements && !selectedId) {
+      const focusableArray = Array.from(focusableElements).filter(
+        (el) => el.getAttribute("tabindex") !== null
+      );
+      setSelectedId(focusableArray[0]?.getAttribute("id") || "");
+    }
+  }, [selectedId]);
 
   return (
     <DrawerSidebarContext.Consumer>
@@ -123,6 +212,7 @@ const FlatTable = ({
           hasFooter={!!footer}
           firstColRowSpanIndex={firstColRowSpanIndex}
           lastColRowSpanIndex={lastColRowSpanIndex}
+          onKeyDown={handleKeyDown}
           {...rest}
         >
           <StyledTableContainer overflowX={overflowX} width={width}>
@@ -132,7 +222,9 @@ const FlatTable = ({
               {...tableStylingProps}
             >
               {caption ? <caption>{caption}</caption> : null}
-              <FlatTableThemeContext.Provider value={{ colorTheme, size }}>
+              <FlatTableThemeContext.Provider
+                value={{ colorTheme, size, setSelectedId, selectedId }}
+              >
                 {children}
               </FlatTableThemeContext.Provider>
             </StyledFlatTable>

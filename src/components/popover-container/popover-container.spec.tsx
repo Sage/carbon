@@ -682,6 +682,18 @@ describe("open state when click event triggered", () => {
     );
   });
 
+  it("should call the onClose callback when uncontrolled and target is outside wrapper element", () => {
+    const onCloseFn = jest.fn();
+    const wrapper = render({ onClose: onCloseFn });
+    act(() => {
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
+    });
+    act(() => {
+      document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    });
+    expect(onCloseFn).toHaveBeenCalledTimes(1);
+  });
+
   it("should not close the container when uncontrolled and target is inside wrapper element", () => {
     const wrapper = render({});
     act(() => {
@@ -722,6 +734,23 @@ describe("open state when click event triggered", () => {
     });
     expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(false);
     expect(onCloseFn).toHaveBeenCalled();
+  });
+
+  it("should not call the onClose callback when target is outside wrapper element and container is currently closed", () => {
+    const onCloseFn = jest.fn();
+
+    mount(
+      <PopoverContainer
+        title="PopoverContainerSettings"
+        open={false}
+        onClose={onCloseFn}
+      />
+    );
+
+    act(() => {
+      document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    });
+    expect(onCloseFn).not.toHaveBeenCalled();
   });
 
   it("should not close the container when controlled and target is inside wrapper element", () => {

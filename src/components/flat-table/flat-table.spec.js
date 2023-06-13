@@ -10,6 +10,7 @@ import FlatTableRow from "./flat-table-row/flat-table-row.component";
 import FlatTableHeader from "./flat-table-header/flat-table-header.component";
 import FlatTableCell from "./flat-table-cell/flat-table-cell.component";
 import FlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.component";
+import FlatTableCheckbox from "./flat-table-checkbox";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -43,13 +44,13 @@ const RenderComponent = (props) => (
       </FlatTableRow>
     </FlatTableHead>
     <FlatTableBody>
-      <FlatTableRow>
+      <FlatTableRow id="row-1">
         <FlatTableRowHeader>row header</FlatTableRowHeader>
         <FlatTableCell>cell1</FlatTableCell>
         <FlatTableCell>cell2</FlatTableCell>
         <FlatTableCell rowspan="2">cell3</FlatTableCell>
       </FlatTableRow>
-      <FlatTableRow>
+      <FlatTableRow id="row-2">
         <FlatTableRowHeader>row header</FlatTableRowHeader>
         <FlatTableCell colspan="2">cell1</FlatTableCell>
       </FlatTableRow>
@@ -74,18 +75,6 @@ describe("FlatTable", () => {
       expect(wrapper.find(StyledFlatTableWrapper).props()["data-role"]).toEqual(
         "test"
       );
-    });
-  });
-
-  describe("when rendered with proper table data", () => {
-    let wrapper;
-
-    beforeEach(() => {
-      wrapper = renderFlatTable();
-    });
-
-    it("should have expected structure and styles", () => {
-      expect(wrapper.toJSON()).toMatchSnapshot();
     });
   });
 
@@ -814,6 +803,937 @@ describe("FlatTable", () => {
           modifier: `tbody ${StyledFlatTableRow}:nth-of-type(1) td:last-child`,
         }
       );
+    });
+  });
+
+  describe("keyboard navigation", () => {
+    const arrowDown = { key: "ArrowDown" };
+    const arrowUp = { key: "ArrowUp" };
+    const arrowLeft = { key: "ArrowLeft" };
+
+    describe("when rows are clickable", () => {
+      it("should not move focus to first row when down arrow pressed and table wrapper focused", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).getDOMNode().focus();
+        });
+        expect(wrapper.find(StyledFlatTableWrapper)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.find(StyledFlatTableWrapper)).toBeFocused();
+      });
+
+      it("should set the first row's tabindex to 0 if no other rows are selected or highlighted", () => {
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+
+        expect(
+          wrapper.update().find(StyledFlatTableRow).at(0).prop("tabIndex")
+        ).toBe(0);
+        expect(
+          wrapper.update().find(StyledFlatTableRow).at(1).prop("tabIndex")
+        ).toBe(-1);
+      });
+
+      it("should set the a row's tabindex to 0 when it is selected", () => {
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}} selected>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+
+        expect(
+          wrapper.update().find(StyledFlatTableRow).at(0).prop("tabIndex")
+        ).toBe(-1);
+        expect(
+          wrapper.update().find(StyledFlatTableRow).at(1).prop("tabIndex")
+        ).toBe(0);
+      });
+
+      it("should set a row's tabindex to 0 when it is highlighted", () => {
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}} highlighted>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+
+        expect(
+          wrapper.update().find(StyledFlatTableRow).at(0).prop("tabIndex")
+        ).toBe(-1);
+        expect(
+          wrapper.update().find(StyledFlatTableRow).at(1).prop("tabIndex")
+        ).toBe(0);
+      });
+
+      it("should move focus to the next row with an onClick when the down arrow key is pressed but not loop to the first when last reached", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>five</FlatTableCell>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>seven</FlatTableCell>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(0).getDOMNode().focus();
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(0)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(1)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(2)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(3)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(3)).toBeFocused();
+      });
+
+      it("should move focus to the previous row with an onClick when the up arrow key is pressed but not loop to the last when first reached", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>five</FlatTableCell>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>seven</FlatTableCell>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(3).getDOMNode().focus();
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(3)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(2)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(1)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(0)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(0)).toBeFocused();
+      });
+
+      it("should not move focus from currently focused row when left arrow key pressed", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>five</FlatTableCell>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>seven</FlatTableCell>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(3).getDOMNode().focus();
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(3)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowLeft);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(3)).toBeFocused();
+      });
+
+      it("should move focus to the next expandable row when the down arrow key is pressed but not loop to the first when last reached", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandable>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable>
+                <FlatTableCell>five</FlatTableCell>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable>
+                <FlatTableCell>seven</FlatTableCell>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(0).getDOMNode().focus();
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(0)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(1)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(2)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(3)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(3)).toBeFocused();
+      });
+
+      it("should move focus to the previous expandable row when the up arrow key is pressed but not loop to the last when first reached", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandable>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable>
+                <FlatTableCell>five</FlatTableCell>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandable>
+                <FlatTableCell>seven</FlatTableCell>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(3).getDOMNode().focus();
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(3)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(2)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(1)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(0)).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(0)).toBeFocused();
+      });
+
+      it("should move focus to the next row when the down arrow key is pressed whilst a checkbox input child is focused", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCheckbox />
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find("input")
+            .getDOMNode()
+            .focus();
+        });
+
+        expect(
+          wrapper.find(StyledFlatTableRow).at(0).find("input")
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(1)).toBeFocused();
+      });
+
+      it("should move focus to the previous row when the up arrow key is pressed whilst a checkbox input child is focused", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCheckbox />
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(1)
+            .find("input")
+            .getDOMNode()
+            .focus();
+        });
+
+        expect(
+          wrapper.find(StyledFlatTableRow).at(1).find("input")
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(wrapper.update().find(StyledFlatTableRow).at(0)).toBeFocused();
+      });
+    });
+
+    describe("when the first column is expandable", () => {
+      it("should set the first cell's tabindex to 0", () => {
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .prop("tabIndex")
+        ).toBe(0);
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(1)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .prop("tabIndex")
+        ).toBe(-1);
+      });
+
+      it("should set the first row header's tabindex to 0", () => {
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>one</FlatTableRowHeader>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>three</FlatTableRowHeader>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+
+        expect(
+          wrapper.update().find(StyledFlatTableRowHeader).at(0).prop("tabIndex")
+        ).toBe(0);
+        expect(
+          wrapper.update().find(StyledFlatTableRowHeader).at(1).prop("tabIndex")
+        ).toBe(-1);
+      });
+
+      it("should move focus to the next focusable cell when the down arrow key is pressed but not loop to the first when last reached", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>five</FlatTableCell>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>seven</FlatTableCell>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .getDOMNode()
+            .focus();
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(1)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(2)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(3)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(3)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+      });
+
+      it("should move focus to the previous focusable cell when the up arrow key is pressed but not loop to the last when first reached", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>five</FlatTableCell>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell>seven</FlatTableCell>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(3)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .getDOMNode()
+            .focus();
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(3)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(2)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(1)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableCell)
+            .at(0)
+        ).toBeFocused();
+      });
+
+      it("should move focus to the next focusable cell when the down arrow key is pressed but not loop to the first when last reached", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>one</FlatTableRowHeader>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>three</FlatTableRowHeader>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>five</FlatTableRowHeader>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>seven</FlatTableRowHeader>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+            .getDOMNode()
+            .focus();
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(1)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(2)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(3)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowDown);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(3)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+      });
+
+      it("should move focus to the previous focusable cell when the up arrow key is pressed but not loop to the last when first reached", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>one</FlatTableRowHeader>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>three</FlatTableRowHeader>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>five</FlatTableRowHeader>
+                <FlatTableCell>six</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader>seven</FlatTableRowHeader>
+                <FlatTableCell>eight</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>,
+          { attachTo: htmlElement }
+        );
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(3)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+            .getDOMNode()
+            .focus();
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(3)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(2)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(1)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+
+        act(() => {
+          wrapper.find(StyledFlatTableWrapper).props().onKeyDown(arrowUp);
+        });
+
+        expect(
+          wrapper
+            .update()
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableRowHeader)
+            .at(0)
+        ).toBeFocused();
+      });
     });
   });
 });

@@ -1,13 +1,20 @@
-import React, { useCallback } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useContext,
+  useState,
+  useRef,
+} from "react";
 import PropTypes from "prop-types";
 import styledSystemPropTypes from "@styled-system/prop-types";
-
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import Icon from "../../icon";
 import {
   StyledFlatTableRowHeader,
   StyledFlatTableRowHeaderContent,
 } from "./flat-table-row-header.style";
+import { FlatTableThemeContext } from "../flat-table.component";
+import guid from "../../../__internal__/utils/helpers/guid";
 
 const paddingPropTypes = filterStyledSystemPaddingProps(
   styledSystemPropTypes.space
@@ -29,6 +36,10 @@ const FlatTableRowHeader = ({
   stickyAlignment = "left",
   ...rest
 }) => {
+  const id = useRef(guid());
+  const [tabIndex, setTabIndex] = useState(-1);
+  const { selectedId } = useContext(FlatTableThemeContext);
+
   const handleOnClick = useCallback(
     (ev) => {
       if (expandable && onClick) onClick(ev);
@@ -42,6 +53,10 @@ const FlatTableRowHeader = ({
     [expandable, onKeyDown]
   );
 
+  useEffect(() => {
+    setTabIndex(selectedId === id.current ? 0 : -1);
+  }, [selectedId]);
+
   return (
     <StyledFlatTableRowHeader
       leftPosition={stickyAlignment === "left" ? leftPosition || 0 : undefined}
@@ -54,11 +69,12 @@ const FlatTableRowHeader = ({
       py={py || "10px"}
       px={px || 3}
       onClick={handleOnClick}
-      tabIndex={expandable && onClick ? 0 : undefined}
+      tabIndex={expandable && onClick ? tabIndex : undefined}
       onKeyDown={handleOnKeyDown}
       isTruncated={truncate}
       expandable={expandable}
       stickyAlignment={stickyAlignment}
+      id={id.current}
       {...rest}
     >
       <StyledFlatTableRowHeaderContent

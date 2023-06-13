@@ -44,6 +44,6 @@ Default.args = {
   divider: true,
 };
 
-export const SettingsRowComponent = ({ ...props }) => {
+export const SettingsRowComponent = (props: SettingsRowProps) => {
   return <SettingsRow title="title" description="description" {...props} />;
 };

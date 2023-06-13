@@ -18,9 +18,9 @@ import * as stories from "./menu.stories";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/59e0bd-menu"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Provides navigation for an app, which can be used via mouse or keyboard.
@@ -47,6 +47,7 @@ import {
 ## Examples
 
 ### Default
+
 <Canvas>
   <Story name="default" story={stories.DefaultStory} />
 </Canvas>
@@ -90,7 +91,10 @@ import {
 ### Submenu direction left
 
 <Canvas>
-  <Story name="submenu direction left" story={stories.SubmenuDirectionLeftStory} />
+  <Story
+    name="submenu direction left"
+    story={stories.SubmenuDirectionLeftStory}
+  />
 </Canvas>
 
 ### With icon
@@ -105,7 +109,10 @@ The example below has set the `showDropdownArrow` to false for the MenuItem with
 is rendered.
 
 <Canvas>
-  <Story name="no submenu dropdown arrow" story={stories.NoDropdwonArrowOnSubmenuStory} />
+  <Story
+    name="no submenu dropdown arrow"
+    story={stories.NoDropdwonArrowOnSubmenuStory}
+  />
 </Canvas>
 
 ### Split submenu into separate component
@@ -113,7 +120,10 @@ is rendered.
 If you need to split out a submenu into a separate component, it must be done as shown below in order for the keyboard navigation to work as intended.
 
 <Canvas>
-  <Story name="submenu separate component" story={stories.SplitSubmenuIntoSeparateComponentStory} />
+  <Story
+    name="submenu separate component"
+    story={stories.SplitSubmenuIntoSeparateComponentStory}
+  />
 </Canvas>
 
 ### Submenu icon and text alignment
@@ -145,7 +155,10 @@ item that is not connected to the Search - in this example there is a clear sema
 scrollable list so the `parent` prop should be used to ensure screenreaders make the relationship clear to their users.
 
 <Canvas>
-  <Story name="scrollable submenu with parent item" story={stories.ScrollableSubmenuWithParent} />
+  <Story
+    name="scrollable submenu with parent item"
+    story={stories.ScrollableSubmenuWithParent}
+  />
 </Canvas>
 
 ### Submenu with search
@@ -169,7 +182,10 @@ This story is best viewed in the `canvas` view and by adjusting the size of the 
 at the different breakpoints.
 
 <Canvas>
-  <Story name="responsive composition" story={stories.ResponsiveCompositionStory} />
+  <Story
+    name="responsive composition"
+    story={stories.ResponsiveCompositionStory}
+  />
 </Canvas>
 
 ### Fullscreen view
@@ -190,7 +206,7 @@ as such any `maxWidth` value passed will not be set when they are children of `M
 
 ### MenuItem
 
-<StyledSystemProps of={MenuItem} flexBox layout noHeader />
+<StyledSystemProps of={MenuItem} flexBox layout padding noHeader />
 
 ### ScrollableBlock
 

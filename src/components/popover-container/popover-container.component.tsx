@@ -209,7 +209,7 @@ export const PopoverContainer = ({
 
   const handleClickAway = (e: Event) => {
     if (!isControlled) setIsOpenInternal(false);
-    if (onClose) onClose(e);
+    if (onClose && isOpen) onClose(e);
   };
 
   const handleClick = useClickAwayListener(handleClickAway, "mousedown");

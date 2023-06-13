@@ -3,6 +3,7 @@ import Link from "../../../src/components/link";
 import { SettingsRowComponent } from "../../../src/components/settings-row/settings-row-test.stories";
 import * as stories from "../../../src/components/settings-row/settings-row.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
+import { SettingsRowProps } from "../../../src/components/settings-row";
 import { getDataElementByValue } from "../../locators";
 import {
   settingsRowPreview,
@@ -24,7 +25,13 @@ context("Tests for SettingsRow component", () => {
       }
     );
 
-    it.each(["h1", "h2", "h3", "h4", "h5"])(
+    it.each([
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+    ] as SettingsRowProps["headingType"][])(
       "should check HTML heading element is correct when headingType is %s",
       (headingType) => {
         CypressMountWithProviders(
@@ -35,7 +42,7 @@ context("Tests for SettingsRow component", () => {
           />
         );
 
-        cy.get(headingType).contains("foo");
+        cy.get(String(headingType)).contains("foo");
       }
     );
 
@@ -75,7 +82,7 @@ context("Tests for SettingsRow component", () => {
               "solid",
               "rgb(230, 235, 237)"
             );
-            expect(elem.css("padding-bottom")).to.equals("30px");
+            settingsRowPreview().should("have.css", "padding-bottom", "30px");
           });
         } else {
           settingsRowPreview()

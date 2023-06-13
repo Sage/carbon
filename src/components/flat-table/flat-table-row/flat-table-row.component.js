@@ -17,6 +17,7 @@ import FlatTableCheckbox from "../flat-table-checkbox";
 import FlatTableRowHeader from "../flat-table-row-header";
 import FlatTableRowDraggable from "./__internal__/flat-table-row-draggable.component";
 import { FlatTableThemeContext } from "../flat-table.component";
+import guid from "../../../__internal__/utils/helpers/guid";
 
 const FlatTableRow = React.forwardRef(
   (
@@ -44,6 +45,7 @@ const FlatTableRow = React.forwardRef(
     },
     ref
   ) => {
+    const internalId = useRef(id ?? guid());
     const [isExpanded, setIsExpanded] = useState(expanded);
     let rowRef = useRef();
     if (ref) rowRef = ref;
@@ -73,6 +75,7 @@ const FlatTableRow = React.forwardRef(
         ),
       [childrenArray]
     );
+    const [tabIndex, setTabIndex] = useState(-1);
 
     const noStickyColumnsOverlap = useMemo(() => {
       const hasLhsColumn = lhsRowHeaderIndex !== -1;
@@ -87,7 +90,9 @@ const FlatTableRow = React.forwardRef(
       `Do not render a right hand side \`${FlatTableRowHeader.displayName}\` before left hand side \`${FlatTableRowHeader.displayName}\``
     );
 
-    const themeContext = useContext(FlatTableThemeContext);
+    const { colorTheme, size, setSelectedId, selectedId } = useContext(
+      FlatTableThemeContext
+    );
 
     const reportCellWidth = useCallback(
       (width, index) => {
@@ -135,7 +140,9 @@ const FlatTableRow = React.forwardRef(
     }
 
     function handleClick(ev) {
-      if (onClick) onClick(ev);
+      if (onClick) {
+        onClick(ev);
+      }
       if (expandable && !firstColumnExpandable) {
         toggleExpanded();
       }
@@ -144,7 +151,7 @@ const FlatTableRow = React.forwardRef(
     if (onClick || expandable) {
       interactiveRowProps = {
         isRowInteractive: !firstColumnExpandable,
-        tabIndex: firstColumnExpandable ? undefined : 0,
+        tabIndex: firstColumnExpandable ? undefined : tabIndex,
         onKeyDown,
         isFirstColumnInteractive: firstColumnExpandable,
         isExpanded,
@@ -195,6 +202,16 @@ const FlatTableRow = React.forwardRef(
       setIsExpanded(expanded);
     }, [expanded]);
 
+    useEffect(() => {
+      if (highlighted || selected) {
+        setSelectedId(internalId.current);
+      }
+    }, [highlighted, selected, setSelectedId]);
+
+    useEffect(() => {
+      setTabIndex(selectedId === internalId.current ? 0 : -1);
+    }, [selectedId]);
+
     const rowComponent = (isInSidebar) => (
       <StyledFlatTableRow
         isInSidebar={isInSidebar}
@@ -209,8 +226,8 @@ const FlatTableRow = React.forwardRef(
         ref={rowRef}
         lhsRowHeaderIndex={lhsRowHeaderIndex}
         rhsRowHeaderIndex={rhsRowHeaderIndex}
-        colorTheme={themeContext.colorTheme}
-        size={themeContext.size}
+        colorTheme={colorTheme}
+        size={size}
         stickyOffset={stickyOffset}
         bgColor={bgColor}
         horizontalBorderColor={horizontalBorderColor}
@@ -218,6 +235,7 @@ const FlatTableRow = React.forwardRef(
         applyBorderLeft={applyBorderLeft}
         draggable={draggable}
         totalChildren={childrenArray.length}
+        id={internalId.current}
         {...interactiveRowProps}
         {...rest}
       >
@@ -250,7 +268,11 @@ const FlatTableRow = React.forwardRef(
     );
 
     const draggableComponent = (isInSidebar) => (
-      <FlatTableRowDraggable id={id} moveItem={moveItem} findItem={findItem}>
+      <FlatTableRowDraggable
+        id={internalId.current}
+        moveItem={moveItem}
+        findItem={findItem}
+      >
         {rowComponent(isInSidebar)}
       </FlatTableRowDraggable>
     );

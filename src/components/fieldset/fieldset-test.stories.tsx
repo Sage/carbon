@@ -1,5 +1,6 @@
 import React from "react";
 import Fieldset from "./fieldset.component";
+import { FieldsetProps } from "../../../src/components/fieldset";
 import Textbox from "../textbox";
 import Checkbox from "../checkbox/checkbox.component";
 
@@ -48,7 +49,7 @@ export const Default = ({ legend }: FieldsetStoryProps) => {
 
 Default.storyName = "default";
 
-export const FieldsetComponent = ({ ...props }) => {
+export const FieldsetComponent = (props: FieldsetProps) => {
   return (
     <div>
       <Fieldset legend="Fieldset" {...props}>

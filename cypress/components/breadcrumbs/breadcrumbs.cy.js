@@ -77,6 +77,31 @@ context("Testing Breadcrumbs component", () => {
           });
       }
     });
+
+    it("should call the onClick callback when clicked", () => {
+      const callback = cy.stub().as("onClick");
+      CypressMountWithProviders(
+        <testStories.DefaultCrumb onClick={callback} />
+      );
+
+      crumb(0).click();
+      cy.get("@onClick").should("have.been.calledOnce");
+    });
+
+    it("should not set the onClick or href props when isCurrent is true", () => {
+      const callback = cy.stub().as("onClick");
+      CypressMountWithProviders(
+        <testStories.DefaultCrumb
+          href={CHARACTERS.STANDARD}
+          onClick={callback}
+          isCurrent
+        />
+      );
+
+      crumb(0).click();
+      cy.get("@onClick").should("not.have.been.called");
+      crumb(0).find("a").should("not.have.attr", "href");
+    });
   });
 
   describe("Accessibility tests for Breadcrumbs component", () => {
