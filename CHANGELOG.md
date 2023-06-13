@@ -1,3 +1,10 @@
+### [119.1.1](https://github.com/Sage/carbon/compare/v119.1.0...v119.1.1) (2023-06-13)
+
+
+### Bug Fixes
+
+* **numeral-date:** remove superfluous css from component ([dce29cb](https://github.com/Sage/carbon/commit/dce29cbed15b7056b23421576bd42f3aa18ea6dd)), closes [#6024](https://github.com/Sage/carbon/issues/6024)
+
 ## [119.1.0](https://github.com/Sage/carbon/compare/v119.0.1...v119.1.0) (2023-06-12)
 
 
