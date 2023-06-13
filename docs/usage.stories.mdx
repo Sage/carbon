@@ -1,0 +1,77 @@
+import LinkTo from "@storybook/addon-links/react";
+
+<Meta title="Getting Started/Usage" />
+
+# Usage
+
+## Contents
+
+- [Quickstart](#quickstart)
+- [Globals](#globals)
+  - [Global styles](#global-styles)
+  - [Theming](#theming)
+  - [Localisation](#localisation)
+
+## Quickstart
+
+A basic project `index.js` file would resemble this example:
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+import GlobalStyle from "carbon-react/lib/style/global-style";
+import sageTheme from "carbon-react/lib/style/themes/sage";
+import "carbon-react/lib/style/fonts.css";
+import Typography from "carbon-react/lib/components/typography";
+
+const App = (props) => {
+  return (
+    <CarbonProvider theme={sageTheme}>
+      <GlobalStyle />
+      <Typography>Hello Carbon</Typography>
+    </CarbonProvider>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("app"));
+```
+
+This can also be found in our Codesandbox templates:
+
+- [JavaScript quickstart](https://codesandbox.io/s/carbon-quickstart-j5pb2).
+- [TypeScript quickstart](https://codesandbox.io/s/carbon-quickstart-typescript-6sjfuz)
+
+## Globals
+
+### Global styles
+
+We recommend using our global stylesheet, which can be used by including the global `GlobalStyle` component within your app like so:
+
+```ts
+import React from "react";
+import ReactDOM from "react-dom";
+import GlobalStyle from 'carbon-react/lib/style/global-style';
+
+ReactDOM.render(
+  <CarbonProvider>
+    <GlobalStyle/>
+    ...
+  </CarbonProvider>
+, ...);
+```
+
+### Theming
+
+Carbon supports two theming systems - the latest which uses Design Tokens in form of CSS custom properties maintained by designers, and legacy themes which use old theme properties from the ThemeProvider from the [styled-components library](https://styled-components.com/docs/advanced#theming). Currently both systems are being supported to aid projects using older versions of Carbon with upgrading.
+
+The themes available in Carbon include:
+
+- **sage** - the latest theme which uses Design Tokens in form of CSS custom properties. _Note this theme requires installation of `@sage/design-tokens` library, otherwise styles fallback to the old mint theme for compatability._
+- **mint**, **aegean** and **none** - legacy themes that use old theme properties consumed by [ThemeProvider from the styled-components library](https://styled-components.com/docs/advanced#theming).
+
+To supply the theme styles to your components, you can pass them via the <a href="../?path=/docs/carbon-provider--sage-theme" target="_self">Carbon Provider</a>.
+
+### Localisation
+
+We also provide a `i18nProvider` global for handling different locales. For more information on how to use this in your app, <a href="../?path=/docs/documentation-i18n--page#i18n">see our i18n docs</a>.
