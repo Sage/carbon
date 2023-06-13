@@ -17,6 +17,7 @@ import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledInput from "../../../__internal__/input/input.style";
+import SelectTextbox from "../select-textbox";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
@@ -38,12 +39,6 @@ function renderSelect(props = {}, renderer = mount) {
   return renderer(getSelect(props));
 }
 
-function simulateSelectTextEvent(container: ReactWrapper, eventType: string) {
-  const selectText = container.find("[data-element='select-text']").first();
-
-  selectText.simulate(eventType);
-}
-
 function simulateSelectTextboxEvent(
   container: ReactWrapper,
   eventType: string
@@ -53,10 +48,18 @@ function simulateSelectTextboxEvent(
   selectText.simulate(eventType);
 }
 
-function simulateKeyDown(container: ReactWrapper, key: string, options = {}) {
-  const selectText = container.find("[data-element='select-text']").first();
+function simulateKeyDown(
+  container: ReactWrapper,
+  key: string,
+  options: Partial<React.KeyboardEvent> = {}
+) {
+  const selectText = container.find(SelectTextbox).first();
 
-  selectText.simulate("keydown", { key, ...options });
+  selectText.prop("onKeyDown")?.({
+    key,
+    preventDefault: () => {},
+    ...options,
+  } as React.KeyboardEvent<HTMLInputElement>);
 }
 
 jest.mock("../../../__internal__/utils/logger");
@@ -135,7 +138,7 @@ describe("SimpleSelect", () => {
 
     describe("and that element is an Option of the Select List", () => {
       it("then the SelectList should be closed", () => {
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -157,7 +160,7 @@ describe("SimpleSelect", () => {
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -393,7 +396,7 @@ describe("SimpleSelect", () => {
 
         describe("and the focus triggered by mouseDown", () => {
           it("then that prop should not be called", () => {
-            simulateSelectTextEvent(wrapper, "mousedown");
+            simulateSelectTextboxEvent(wrapper, "mousedown");
             simulateSelectTextboxEvent(wrapper, "focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
@@ -440,7 +443,7 @@ describe("SimpleSelect", () => {
 
       describe("with the SelectList already open", () => {
         it("the onOpen prop should not be called", () => {
-          simulateSelectTextEvent(wrapper, "click");
+          simulateSelectTextboxEvent(wrapper, "click");
           onOpenFn.mockReset();
           wrapper
             .find(Option)
@@ -486,7 +489,7 @@ describe("SimpleSelect", () => {
     it("the SelectList should be rendered", () => {
       const wrapper = renderSelect();
 
-      simulateSelectTextEvent(wrapper, "click");
+      simulateSelectTextboxEvent(wrapper, "click");
       wrapper
         .find(Option)
         .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -499,14 +502,14 @@ describe("SimpleSelect", () => {
           const onClickFn = jest.fn();
           const wrapper = renderSelect({ onClick: onClickFn, [prop]: true });
 
-          simulateSelectTextEvent(wrapper, "click");
+          simulateSelectTextboxEvent(wrapper, "click");
           expect(onClickFn).not.toHaveBeenCalled();
         });
 
         it("then the SelectList should not be rendered", () => {
           const wrapper = renderSelect({ [prop]: true });
 
-          simulateSelectTextEvent(wrapper, "click");
+          simulateSelectTextboxEvent(wrapper, "click");
           wrapper
             .find(Option)
             .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
@@ -519,7 +522,7 @@ describe("SimpleSelect", () => {
         const onClickFn = jest.fn();
         const wrapper = renderSelect({ onClick: onClickFn });
 
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         expect(onClickFn).toHaveBeenCalled();
       });
     });
@@ -529,7 +532,7 @@ describe("SimpleSelect", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn });
 
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         expect(onOpenFn).toHaveBeenCalled();
       });
     });
@@ -538,11 +541,11 @@ describe("SimpleSelect", () => {
       it("then the SelectList should be closed", () => {
         const wrapper = renderSelect();
 
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
@@ -554,7 +557,7 @@ describe("SimpleSelect", () => {
       (listPlacement) => {
         const wrapper = renderSelect({ listPlacement });
 
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
           listPlacement
         );
@@ -564,7 +567,7 @@ describe("SimpleSelect", () => {
     it("the flipEnabled prop should be passed", () => {
       const wrapper = renderSelect({ flipEnabled: false });
 
-      simulateSelectTextEvent(wrapper, "click");
+      simulateSelectTextboxEvent(wrapper, "click");
       expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(false);
       wrapper.setProps({ flipEnabled: true });
       expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(true);
@@ -736,7 +739,7 @@ describe("SimpleSelect", () => {
       it("the SelectList should be closed", () => {
         const wrapper = renderSelect();
 
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -753,7 +756,7 @@ describe("SimpleSelect", () => {
       const wrapper = renderSelect();
 
       beforeAll(() => {
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(navigationKeyOptionObject);
         });
@@ -784,7 +787,7 @@ describe("SimpleSelect", () => {
         const onChangeFn = jest.fn();
         const wrapper = renderSelect({ ...textboxProps, onChange: onChangeFn });
 
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
@@ -796,7 +799,7 @@ describe("SimpleSelect", () => {
       it("then the SelectList should be closed", () => {
         const wrapper = renderSelect();
 
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -815,7 +818,7 @@ describe("SimpleSelect", () => {
     it("the SelectList should be closed", () => {
       const wrapper = renderSelect();
 
-      simulateSelectTextEvent(wrapper, "click");
+      simulateSelectTextboxEvent(wrapper, "click");
       wrapper
         .find(Option)
         .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -837,10 +840,7 @@ describe("SimpleSelect", () => {
       const onKeyDownFn = jest.fn();
       const wrapper = renderSelect({ onKeyDown: onKeyDownFn });
 
-      wrapper
-        .find("[data-element='select-text']")
-        .first()
-        .simulate("keyDown", expectedEventObject);
+      simulateKeyDown(wrapper, "ArrowDown");
 
       expect(onKeyDownFn).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -901,7 +901,7 @@ describe("SimpleSelect", () => {
 
     describe("and an option is selected", () => {
       it("then the onChange prop should be called with expected value", () => {
-        simulateSelectTextEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "click");
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());

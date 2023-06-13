@@ -8,11 +8,9 @@ function renderSelectText(props: SelectTextProps = {}) {
 }
 
 describe("SelectText", () => {
-  it("renders span that has a role of 'button' and is hidden from screen readers", () => {
+  it("renders span that is hidden from screen readers", () => {
     const wrapper = renderSelectText();
-    expect(wrapper.find("span[data-element='select-text']").prop("role")).toBe(
-      "button"
-    );
+
     expect(
       wrapper.find("span[data-element='select-text']").prop("aria-hidden")
     ).toBe(true);

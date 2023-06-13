@@ -1,10 +1,9 @@
-import React, { useRef, useMemo } from "react";
+import React, { useMemo } from "react";
 import { offset, size as sizeMiddleware } from "@floating-ui/dom";
 
 import useFloating from "../../../hooks/__internal__/useFloating";
 import Textbox, { CommonTextboxProps } from "../../textbox";
 import SelectText from "../__internal__/select-text";
-import guid from "../../../__internal__/utils/helpers/guid";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../__internal__/validations";
 
@@ -157,7 +156,6 @@ const SelectTextbox = React.forwardRef(
     });
 
     const l = useLocale();
-    const textId = useRef(guid());
 
     function handleTextboxClick(
       event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
@@ -185,70 +183,31 @@ const SelectTextbox = React.forwardRef(
       }
     }
 
-    function handleSelectTextKeydown(event: React.KeyboardEvent<HTMLElement>) {
-      if (event.key.length === 1) {
-        onChange?.({
-          target: { value: event.key },
-        } as React.ChangeEvent<HTMLInputElement>);
-      }
-    }
+    const textboxProps = {
+      disabled,
+      id,
+      readOnly,
+      required,
+      onClick: handleTextboxClick,
+      onFocus: handleTextboxFocus,
+      onBlur: handleTextboxBlur,
+      labelId,
+      type: "text",
+      ref,
+      onKeyDown,
+      ...restProps,
+    };
 
-    function getTextboxProps() {
-      return {
-        disabled,
-        id,
-        readOnly,
-        required,
-        onClick: handleTextboxClick,
-        onFocus: handleTextboxFocus,
-        onBlur: handleTextboxBlur,
-        labelId,
-        type: "text",
-        ref,
-        onKeyDown,
-        ...restProps,
-      };
-    }
-
-    function getInputAriaAttributes() {
-      const joinIds = (...ids: (string | undefined)[]) =>
-        ids.filter((item) => item !== undefined).join(" ");
-      const combinedAriaLabelledBy = hasTextCursor
-        ? joinIds(
-            ariaLabelledby || labelId,
-            accessibilityLabelId || textId.current
-          )
-        : joinIds(ariaLabelledby || labelId, textId.current);
-
-      return {
-        "aria-expanded": readOnly ? undefined : isOpen,
-        "aria-labelledby":
-          ariaLabel && !ariaLabelledby ? undefined : combinedAriaLabelledBy,
-        "aria-activedescendant": activeDescendantId,
-        "aria-controls": ariaControls,
-        "aria-autocomplete": hasTextCursor ? ("both" as const) : undefined,
-        role: readOnly ? undefined : "combobox",
-      };
-    }
-
-    function renderSelectText() {
-      return (
-        <SelectText
-          textId={textId.current}
-          transparent={transparent}
-          onKeyDown={
-            (onKeyDown as (ev: React.KeyboardEvent<HTMLElement>) => void) ||
-            handleSelectTextKeydown
-          }
-          placeholder={placeholder || l.select.placeholder()}
-          onClick={handleTextboxClick}
-          disabled={disabled}
-          readOnly={readOnly}
-          size={size}
-          {...restProps}
-        />
-      );
-    }
+    const inputAriaAttributes = {
+      "aria-expanded": readOnly ? undefined : isOpen,
+      "aria-labelledby": accessibilityLabelId
+        ? `${ariaLabelledby || labelId} ${accessibilityLabelId}`
+        : ariaLabelledby,
+      "aria-activedescendant": activeDescendantId,
+      "aria-controls": ariaControls,
+      "aria-autocomplete": hasTextCursor ? ("both" as const) : undefined,
+      role: readOnly ? undefined : "combobox",
+    };
 
     const hasStringValue =
       typeof selectedValue === "string" ||
@@ -268,11 +227,21 @@ const SelectTextbox = React.forwardRef(
         placeholder={
           hasTextCursor ? placeholder || l.select.placeholder() : undefined
         }
-        {...getInputAriaAttributes()}
-        {...getTextboxProps()}
+        {...inputAriaAttributes}
+        {...textboxProps}
         my={0} // prevents any form spacing being applied
       >
-        {!hasTextCursor && renderSelectText()}
+        {!hasTextCursor && (
+          <SelectText
+            transparent={transparent}
+            placeholder={placeholder || l.select.placeholder()}
+            onClick={handleTextboxClick}
+            disabled={disabled}
+            readOnly={readOnly}
+            size={size}
+            {...restProps}
+          />
+        )}
       </Textbox>
     );
   }

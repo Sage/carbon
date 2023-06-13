@@ -119,11 +119,10 @@ describe("SelectTextbox", () => {
   });
 
   describe("when a descendent of SimpleSelect", () => {
-    it('renders span overlay in the textbox, that has role of "button" and is hidden from screen readers', () => {
+    it("renders span overlay in the textbox, that is hidden from screen readers", () => {
       const wrapper = mount(<SelectTextbox hasTextCursor={undefined} />);
       const selectText = wrapper.find("span[data-element='select-text']");
       expect(selectText.exists()).toBe(true);
-      expect(selectText.prop("role")).toBe("button");
       expect(selectText.prop("aria-hidden")).toBe(true);
     });
 
@@ -143,31 +142,6 @@ describe("SelectTextbox", () => {
         Translation.select.placeholder()
       );
     });
-
-    describe("when the span overlaying textbox is in focus", () => {
-      it("and character key has been pressed, onChange callback prop should be called with that key as target value", () => {
-        const key = "a";
-        const onChangeFn = jest.fn();
-        const wrapper = mount(<SelectTextbox onChange={onChangeFn} />);
-
-        wrapper.find("span[data-element='select-text']").simulate("focus");
-        wrapper
-          .find("span[data-element='select-text']")
-          .simulate("keydown", { key });
-        expect(onChangeFn).toHaveBeenCalledWith({ target: { value: key } });
-      });
-
-      it("and non-character has been pressed, onChange callback prop should not be called", () => {
-        const onChangeFn = jest.fn();
-        const wrapper = mount(<SelectTextbox onChange={onChangeFn} />);
-
-        wrapper.find("span[data-element='select-text']").simulate("focus");
-        wrapper
-          .find("span[data-element='select-text']")
-          .simulate("keydown", { key: "shift" });
-        expect(onChangeFn).not.toHaveBeenCalled();
-      });
-    });
   });
 
   describe("ARIA", () => {
@@ -185,15 +159,15 @@ describe("SelectTextbox", () => {
     });
 
     describe.each([
-      ["set", "ariaLabelledBy", "foo"],
-      ["not set", "labelId", undefined],
+      ["set", "foo"],
+      ["not set", undefined],
     ])(
       "when the ariaLabelledBy prop is %s",
-      (description, propName, mockAriaLabelledBy) => {
+      (description, mockAriaLabelledBy) => {
         const mockLabelId = "baz";
 
         describe("with the hasTextCursor prop set to true", () => {
-          it(`then the aria-labelledby in the Textbox should contain ${propName} and the id of the SelectText`, () => {
+          it("then the aria-labelledby in the Textbox should be the value of the ariaLabelledBy prop", () => {
             const wrapper = mount(
               <SelectTextbox
                 ariaLabelledby={mockAriaLabelledBy}
@@ -205,10 +179,7 @@ describe("SelectTextbox", () => {
               .find(Textbox)
               .prop("aria-labelledby");
 
-            expect(ariaLabelledBy).toEqual(
-              expect.stringContaining(mockAriaLabelledBy || mockLabelId)
-            );
-            expect(ariaLabelledBy).toEqual(expect.stringContaining(mockTextId));
+            expect(ariaLabelledBy).toBe(mockAriaLabelledBy);
           });
 
           describe("and the accessibilityLabelId prop", () => {
