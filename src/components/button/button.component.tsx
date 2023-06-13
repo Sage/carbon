@@ -131,12 +131,14 @@ RenderChildrenProps) {
     bgSize: "extra-small",
   };
 
+  const isValidChildren = children !== undefined && children !== false;
+
   return (
     <>
-      {iconType && iconPosition === "before" && children && (
+      {iconType && iconPosition === "before" && isValidChildren && (
         <Icon type={iconType} {...iconProps} />
       )}
-      {children && (
+      {isValidChildren && (
         <span>
           <span data-element="main-text">{children}</span>
           {size === "large" && (
@@ -146,7 +148,7 @@ RenderChildrenProps) {
           )}
         </span>
       )}
-      {iconType && !children && (
+      {iconType && !isValidChildren && (
         <TooltipProvider
           disabled={disabled}
           focusable={false}
@@ -209,7 +211,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const fullWidth = fullWidthContext || fullWidthProp;
 
     invariant(
-      !!(children || iconType),
+      children !== undefined || !!iconType,
       "Either prop `iconType` must be defined or this node must have children."
     );
     if (subtext) {
@@ -269,9 +271,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       [ref, forwardRef]
     );
 
+    const isValidChildren = children !== undefined && children !== false;
+
     return (
       <StyledButton
-        aria-label={!children && iconType ? ariaLabel || iconType : ariaLabel}
+        aria-label={
+          !isValidChildren && iconType ? ariaLabel || iconType : ariaLabel
+        }
         as={!disabled && href ? "a" : "button"}
         onKeyDown={href ? handleLinkKeyDown : undefined}
         draggable={false}
@@ -285,7 +291,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         px={px ?? paddingX}
         m={m}
         noWrap={noWrap}
-        iconOnly={!!(!children && iconType)}
+        iconOnly={!isValidChildren && !!iconType}
         iconPosition={iconPosition}
         target={target}
         rel={rel}
