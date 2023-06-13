@@ -7,7 +7,7 @@ import Pod from "../../../src/components/pod";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
-const viewportSize = (sizeOfViewport) => {
+const viewportSize = (sizeOfViewport: string) => {
   switch (sizeOfViewport) {
     case "default":
       cy.viewport(1958, 900);
@@ -312,25 +312,22 @@ context("Testing Grid component", () => {
         .and("have.css", "grid-row", "1 / 1")
         .and("have.css", "align-self", "stretch")
         .and("have.css", "justify-self", "stretch")
-        .then(($element) =>
-          expect(parseFloat($element.css("width"))).to.be.within(630, 632)
-        );
+        .then(($element) => parseFloat($element.css("width")))
+        .should("be.within", 630, 632);
       gridItem(1)
         .should("have.css", "grid-column", "6 / 13")
         .and("have.css", "grid-row", "1 / 1")
         .and("have.css", "align-self", "end")
         .and("have.css", "justify-self", "end")
-        .then(($element) =>
-          expect(parseFloat($element.css("width"))).to.be.within(72, 74)
-        );
+        .then(($element) => parseFloat($element.css("width")))
+        .should("be.within", 72, 74);
       gridItem(2)
         .should("have.css", "grid-column", "1 / 13")
         .and("have.css", "grid-row", "3 / 3")
         .and("have.css", "align-self", "start")
         .and("have.css", "justify-self", "stretch")
-        .then(($element) =>
-          expect(parseFloat($element.css("width"))).to.be.within(1285, 1288)
-        );
+        .then(($element) => parseFloat($element.css("width")))
+        .should("be.within", 1285, 1288);
     });
   });
 
