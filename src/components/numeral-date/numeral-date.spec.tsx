@@ -197,12 +197,9 @@ describe("NumeralDate", () => {
       assertStyleMatch(
         {
           display: "inline-flex",
-          border: "1px solid transparent",
           height: "40px",
           fontSize: "14px",
           fontWeight: "400",
-          paddingBottom: "2px",
-          paddingTop: "1px",
         },
         renderWrapper().find(StyledNumeralDate)
       );

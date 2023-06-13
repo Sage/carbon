@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
+import Textbox from "../textbox";
 import NumeralDate from ".";
 import Box from "../box";
 import {
@@ -53,6 +54,52 @@ export const Default = (args: NumeralDateProps) => {
 Default.storyName = "default";
 Default.args = {
   dateFormat: ["dd", "mm", "yyyy"],
+};
+
+export const DefaultWithOtherInputs = (args: NumeralDateProps) => {
+  const [dateValue, setDateValue] = useState<FullDate>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  const handleChange = (event: NumeralDateEvent) => {
+    setDateValue(event.target.value as FullDate);
+    action("change")(event);
+  };
+  const handleBlur = (event: NumeralDateEvent) => {
+    action("blur")(event);
+  };
+  return (
+    <Box display="flex" margin="56px 25px">
+      <Textbox mr={1} label="Textbox One" />
+      <Textbox mr={1} mt={0} label="Textbox Two" />
+      <NumeralDate
+        mr={1}
+        mt={0}
+        onChange={handleChange}
+        label="Numeral date"
+        onBlur={handleBlur}
+        value={dateValue}
+        name="numeralDate_name"
+        id="numeralDate_id"
+        {...args}
+      />
+      <Textbox mr={1} mt={0} label="Textbox Three" />
+    </Box>
+  );
+};
+
+DefaultWithOtherInputs.storyName = "with other inputs";
+DefaultWithOtherInputs.args = {
+  dateFormat: ["dd", "mm", "yyyy"],
+};
+DefaultWithOtherInputs.story = {
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+    },
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
 };
 
 export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
