@@ -28,6 +28,10 @@ const MessageStyle = styled.div<MessageStyleProps & MarginProps>`
   background-color: var(--colorsUtilityYang100);
   min-height: 38px;
 
+  :focus {
+    outline: none;
+  }
+
   ${({ transparent }) =>
     transparent &&
     css`

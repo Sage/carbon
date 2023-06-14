@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ComponentStory } from "@storybook/react";
 
 import Message from ".";
@@ -107,33 +107,82 @@ export const WithRichContent: ComponentStory<typeof Message> = () => {
 };
 
 export const WithMargin: ComponentStory<typeof Message> = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState({
+    MessageOne: true,
+    MessageTwo: true,
+    MessageThree: true,
+  });
+
+  const displayButton = Object.values({ ...isOpen }).every(
+    (value) => value === false
+  );
   return (
     <>
-      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      {displayButton && (
+        <Button
+          onClick={() =>
+            setIsOpen({
+              MessageOne: true,
+              MessageTwo: true,
+              MessageThree: true,
+            })
+          }
+        >
+          Open Message
+        </Button>
+      )}
       <Message
-        open={isOpen}
-        onDismiss={() => setIsOpen(false)}
+        open={isOpen.MessageOne}
+        onDismiss={() => setIsOpen({ ...isOpen, MessageOne: false })}
         variant="warning"
         m={1}
       >
-        Some custom message
+        This is message one.
       </Message>
       <Message
-        open={isOpen}
-        onDismiss={() => setIsOpen(false)}
+        open={isOpen.MessageTwo}
+        onDismiss={() => setIsOpen({ ...isOpen, MessageTwo: false })}
         variant="warning"
         m={3}
       >
-        Some custom message
+        This is message two.
       </Message>
       <Message
-        open={isOpen}
-        onDismiss={() => setIsOpen(false)}
+        open={isOpen.MessageThree}
+        onDismiss={() => setIsOpen({ ...isOpen, MessageThree: false })}
         variant="warning"
         m="16px"
       >
-        Some custom message
+        This is message three.
+      </Message>
+    </>
+  );
+};
+
+export const WithFocus: ComponentStory<typeof Message> = () => {
+  const [isMessageOpen, setIsMessageOpen] = useState(true);
+
+  const messageRef: React.Ref<HTMLDivElement> = useRef(null);
+
+  useEffect(() => {
+    if (isMessageOpen) {
+      messageRef.current?.focus();
+    }
+  }, [isMessageOpen]);
+
+  return (
+    <>
+      {!isMessageOpen && (
+        <Button onClick={() => setIsMessageOpen(true)}>Open Message</Button>
+      )}
+      <Message
+        open={isMessageOpen}
+        onDismiss={() => setIsMessageOpen(false)}
+        variant="error"
+        mb={1}
+        ref={messageRef}
+      >
+        This is message one.
       </Message>
     </>
   );
