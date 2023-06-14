@@ -228,12 +228,12 @@ const FlatTable = ({
                 {children}
               </FlatTableThemeContext.Provider>
             </StyledFlatTable>
-            {footer && (
-              <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
-                {footer}
-              </StyledFlatTableFooter>
-            )}
           </StyledTableContainer>
+          {footer && (
+            <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
+              {footer}
+            </StyledFlatTableFooter>
+          )}
         </StyledFlatTableWrapper>
       )}
     </DrawerSidebarContext.Consumer>
