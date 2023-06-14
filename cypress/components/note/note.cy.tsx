@@ -4,6 +4,7 @@ import {
   NoteComponentWithInlineControl,
 } from "../../../src/components/note/note-test.stories";
 import Box from "../../../src/components/box";
+import { NoteProps } from "../../../src/components/note";
 import LinkPreview from "../../../src/components/link-preview";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { cyRoot, tooltipPreview } from "../../locators";
@@ -19,6 +20,7 @@ import {
   noteContent,
 } from "../../locators/note";
 import { actionPopoverWrapper } from "../../locators/action-popover";
+
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -45,8 +47,10 @@ context("Tests for Note component", () => {
         noteComponent()
           .should("have.attr", "width", width)
           .then(($el) => {
-            const value = $el.css("width");
-            expect(parseInt(value)).to.be.within(widthInPx - 1, widthInPx + 1);
+            const value = parseInt($el.css("width"));
+            cy.wrap(value).should("be.gte", widthInPx - 1)
+            .and("be.lte", widthInPx + 1);
+           
           });
       }
     );
@@ -73,9 +77,9 @@ context("Tests for Note component", () => {
     });
 
     it("should render Note with createdDate prop", () => {
-      const createdDate = "25 June 2022, 11:57 AM";
+      const createdDate = "25 June 2022, 11:57 AM" as string;
 
-      CypressMountWithProviders(<NoteComponent createdDate={createdDate} />);
+      CypressMountWithProviders(<NoteComponent createdDate={createdDate}  />);
 
       noteFooterChangeTime().should("have.text", createdDate);
     });
@@ -101,11 +105,13 @@ context("Tests for Note component", () => {
     it("should render Note with previews prop", () => {
       const previews = [
         <LinkPreview
+          key="linkPreview1" 
           title="This is an example of a title"
           url="https://www.bbc.co.uk"
           description="Captain, why are we out here chasing comets?"
         />,
         <LinkPreview
+          key="linkPreview2" 
           title="This is an example of a title"
           url="https://www.sage.com"
           description="Captain, why are we out here chasing comets?"
@@ -118,16 +124,13 @@ context("Tests for Note component", () => {
     });
 
     it("should call onLinkAdded callback when a valid url is detected by Note component", () => {
-      const callback = cy.stub();
+      const callback: NoteProps["onLinkAdded"] = cy.stub().as("onLinkAdded");
 
       CypressMountWithProviders(
         <NoteComponent onLinkAdded={callback} text="https://carbon.s" />
       );
 
-      noteComponent().then(() => {
-        // eslint-disable-next-line no-unused-expressions
-        expect(callback).to.have.been.calledOnce;
-      });
+      cy.get("@onLinkAdded").should("have.been.calledOnce");
     });
   });
 
@@ -174,7 +177,7 @@ context("Tests for Note component", () => {
     );
 
     it("should render Note with createdDate prop for accessibility tests", () => {
-      const createdDate = "25 June 2022, 11:57 AM";
+      const createdDate = "25 June 2022, 11:57 AM" as string;
 
       CypressMountWithProviders(<NoteComponent createdDate={createdDate} />);
 
@@ -199,11 +202,13 @@ context("Tests for Note component", () => {
     it("should render Note with previews prop for accessibility tests", () => {
       const previews = [
         <LinkPreview
+          key="linkPreview1" 
           title="This is an example of a title"
           url="https://www.bbc.co.uk"
           description="Captain, why are we out here chasing comets?"
         />,
         <LinkPreview
+          key="linkPreview2" 
           title="This is an example of a title"
           url="https://www.sage.com"
           description="Captain, why are we out here chasing comets?"
