@@ -72,6 +72,15 @@ context("Test for Search component", () => {
       searchDefaultInput().should("have.attr", "aria-label", testCypress);
     });
 
+    it("should render Search button with aria-label prop", () => {
+      CypressMountWithProviders(
+        <SearchComponent searchButton searchButtonAriaLabel={testCypress} />
+      );
+
+      searchDefaultInput().clear().type(testCypress);
+      searchButton().should("have.attr", "aria-label", testCypress);
+    });
+
     it.each([
       [true, "be.visible"],
       [false, "not.exist"],
@@ -430,6 +439,14 @@ context("Test for Search component", () => {
 
     it("should check accessibility for searchButton", () => {
       CypressMountWithProviders(<SearchComponent searchButton />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for searchButton with searchButtonAriaLabel", () => {
+      CypressMountWithProviders(
+        <SearchComponent searchButton searchButtonAriaLabel={testCypress} />
+      );
 
       cy.checkAccessibility();
     });
