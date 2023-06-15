@@ -23,7 +23,7 @@ import ActionPopoverDivider from "./action-popover-divider/action-popover-divide
 import ActionPopoverContext from "./action-popover-context";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 
-interface RenderButtonProps {
+export interface RenderButtonProps {
   tabIndex: number;
   "data-element": string;
   ariaAttributes: {
