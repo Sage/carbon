@@ -36,7 +36,7 @@ DefaultStory.story = {
   },
 };
 
-export const ProfileComponentTest = ({ ...props }) => {
+export const ProfileComponentTest = (props: Partial<ProfileProps>) => {
   return (
     <Profile email="email@email.com" initials="JD" name="John Doe" {...props} />
   );

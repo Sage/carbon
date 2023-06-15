@@ -213,7 +213,7 @@ export const TooltipPosition = () => {
 
 TooltipPosition.storyName = "tooltip position";
 
-export const NumeralDateComponent = ({ ...props }) => {
+export const NumeralDateComponent = (props: Partial<NumeralDateProps>) => {
   const [value, setValue] = React.useState({
     dd: "",
     mm: "",

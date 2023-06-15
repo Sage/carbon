@@ -1,5 +1,7 @@
 import React from "react";
-import NumeralDate from "../../../src/components/numeral-date";
+import NumeralDate, {
+  NumeralDateProps,
+} from "../../../src/components/numeral-date";
 import Box from "../../../src/components/box";
 import { NumeralDateComponent } from "../../../src/components/numeral-date/numeral-date-test.stories";
 import * as stories from "../../../src/components/numeral-date/numeral-date.stories";
@@ -31,14 +33,6 @@ import {
 import { ICON } from "../../locators/locators";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const ALLOWED_DATE_FORMATS = [
-  ["dd", "mm", "yyyy"],
-  ["mm", "dd", "yyyy"],
-  ["dd", "mm"],
-  ["mm", "dd"],
-  ["mm", "yyyy"],
-];
 
 context("Tests for NumeralDate component", () => {
   describe("check props for NumeralDate component", () => {
@@ -103,7 +97,7 @@ context("Tests for NumeralDate component", () => {
     it.each([
       ["left", "start"],
       ["right", "end"],
-    ])(
+    ] as [NumeralDateProps["labelAlign"], string][])(
       "should render NumeralDate with labelAlign prop set to %s",
       (labelAlign, cssValue) => {
         CypressMountWithProviders(
@@ -112,9 +106,7 @@ context("Tests for NumeralDate component", () => {
 
         getDataElementByValue("label")
           .parent()
-          .should(($element) =>
-            expect($element).to.have.css("justify-content", `flex-${cssValue}`)
-          );
+          .should("have.css", "justify-content", `flex-${cssValue}`);
       }
     );
 
@@ -133,7 +125,7 @@ context("Tests for NumeralDate component", () => {
     it.each([
       [1, "8px"],
       [2, "16px"],
-    ])(
+    ] as [NumeralDateProps["labelSpacing"], string][])(
       "should render NumeralDate with labelSpacing prop set to %s",
       (spacing, padding) => {
         CypressMountWithProviders(
@@ -147,10 +139,10 @@ context("Tests for NumeralDate component", () => {
     );
 
     it.each([
-      ["10", 135],
-      ["30", 409],
-      ["80", 1092],
-    ])(
+      [10, 135],
+      [30, 409],
+      [80, 1092],
+    ] as [NumeralDateProps["labelWidth"], number][])(
       "should use %s as labelWidth and render it with correct label ratio",
       (label, labelRatio) => {
         CypressMountWithProviders(
@@ -292,36 +284,50 @@ context("Tests for NumeralDate component", () => {
       }
     );
 
-    it.each(ALLOWED_DATE_FORMATS)(
-      "should render NumeralDate with dateFormat prop",
-      (firstInput, secondInput, thirdInput) => {
-        const outputFormat = thirdInput
-          ? [firstInput, secondInput, thirdInput]
-          : [firstInput, secondInput];
+    it('should render NumeralDate with `["dd", "mm", "yyyy"]` dateFormat prop', () => {
+      CypressMountWithProviders(
+        <NumeralDateComponent dateFormat={["dd", "mm", "yyyy"]} />
+      );
+      numeralDateInputByPosition(0).should("have.attr", "placeholder", "dd");
+      numeralDateInputByPosition(1).should("have.attr", "placeholder", "mm");
+      numeralDateInputByPosition(2).should("have.attr", "placeholder", "yyyy");
+    });
 
-        CypressMountWithProviders(
-          <NumeralDateComponent dateFormat={outputFormat} />
-        );
+    it('should render NumeralDate with `["mm", "dd", "yyyy"]` dateFormat prop', () => {
+      CypressMountWithProviders(
+        <NumeralDateComponent dateFormat={["mm", "dd", "yyyy"]} />
+      );
+      numeralDateInputByPosition(0).should("have.attr", "placeholder", "mm");
+      numeralDateInputByPosition(1).should("have.attr", "placeholder", "dd");
+      numeralDateInputByPosition(2).should("have.attr", "placeholder", "yyyy");
+    });
 
-        numeralDateInputByPosition(0).should(
-          "have.attr",
-          "placeholder",
-          firstInput
-        );
-        numeralDateInputByPosition(1).should(
-          "have.attr",
-          "placeholder",
-          secondInput
-        );
-        if (thirdInput) {
-          numeralDateInputByPosition(2).should(
-            "have.attr",
-            "placeholder",
-            thirdInput
-          );
-        }
-      }
-    );
+    it('should render NumeralDate with `["dd", "mm"]` dateFormat prop', () => {
+      CypressMountWithProviders(
+        <NumeralDateComponent dateFormat={["dd", "mm"]} />
+      );
+      numeralDateInputByPosition(0).should("have.attr", "placeholder", "dd");
+      numeralDateInputByPosition(1).should("have.attr", "placeholder", "mm");
+      numeralDateInputByPosition(2).should("not.exist");
+    });
+
+    it('should render NumeralDate with `["mm", "dd"]` dateFormat prop', () => {
+      CypressMountWithProviders(
+        <NumeralDateComponent dateFormat={["mm", "dd"]} />
+      );
+      numeralDateInputByPosition(0).should("have.attr", "placeholder", "mm");
+      numeralDateInputByPosition(1).should("have.attr", "placeholder", "dd");
+      numeralDateInputByPosition(2).should("not.exist");
+    });
+
+    it('should render NumeralDate with `["mm", "yyyy"]` dateFormat prop', () => {
+      CypressMountWithProviders(
+        <NumeralDateComponent dateFormat={["mm", "yyyy"]} />
+      );
+      numeralDateInputByPosition(0).should("have.attr", "placeholder", "mm");
+      numeralDateInputByPosition(1).should("have.attr", "placeholder", "yyyy");
+      numeralDateInputByPosition(2).should("not.exist");
+    });
 
     it.each([
       [VALIDATION.ERROR, "error", true],
@@ -343,16 +349,10 @@ context("Tests for NumeralDate component", () => {
 
         numeralDateInputByPosition(2)
           .parent()
-          .should(($el) => {
-            expect($el).to.have.css("border-top-color").to.equals(borderColor);
-            expect($el)
-              .to.have.css("border-bottom-color")
-              .to.equals(borderColor);
-            expect($el).to.have.css("border-left-color").to.equals(borderColor);
-            expect($el)
-              .to.have.css("border-right-color")
-              .to.equals(borderColor);
-          });
+          .should("have.css", "border-top-color", borderColor)
+          .and("have.css", "border-bottom-color", borderColor)
+          .and("have.css", "border-left-color", borderColor)
+          .and("have.css", "border-right-color", borderColor);
       }
     );
 
@@ -360,7 +360,7 @@ context("Tests for NumeralDate component", () => {
       [SIZE.SMALL, 30],
       [SIZE.MEDIUM, 38],
       [SIZE.LARGE, 46],
-    ])(
+    ] as [NumeralDateProps["size"], number][])(
       "should use %s as size and render NumeralDate with %s as height",
       (size, height) => {
         CypressMountWithProviders(<NumeralDateComponent size={size} />);
@@ -402,7 +402,12 @@ context("Tests for NumeralDate component", () => {
       }
     );
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as NumeralDateProps["tooltipPosition"][])(
       "should render NumeralDate component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
@@ -435,38 +440,38 @@ context("Tests for NumeralDate component", () => {
         CHARACTERS.STANDARD
       );
     });
+
+    it("should have the expected border radius styling when no search button enabled", () => {
+      CypressMountWithProviders(<NumeralDateComponent />);
+      numeralDateInputByPosition(0)
+        .parent()
+        .should("have.css", "border-radius", "4px 0px 0px 4px");
+      numeralDateInputByPosition(2)
+        .parent()
+        .should("have.css", "border-radius", "0px 4px 4px 0px");
+    });
   });
 
   describe("check events for NumeralDate component", () => {
     const inputValue = "1";
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
 
     it("should call onChange callback when a type event is triggered", () => {
+      const callback: NumeralDateProps["onChange"] = cy.stub().as("onChange");
+
       CypressMountWithProviders(<NumeralDateComponent onChange={callback} />);
 
-      numeralDateInputByPosition(0)
-        .type(inputValue)
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      numeralDateInputByPosition(0).type(inputValue);
+
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: NumeralDateProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(<NumeralDateComponent onBlur={callback} />);
 
-      numeralDateInputByPosition(0)
-        .focus()
-        .blur()
-        .wait(50)
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      numeralDateInputByPosition(0).focus().blur().wait(50);
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
   });
 
@@ -530,15 +535,5 @@ context("Tests for NumeralDate component", () => {
 
       cy.checkAccessibility();
     });
-  });
-
-  it("should have the expected border radius styling when no search button enabled", () => {
-    CypressMountWithProviders(<NumeralDateComponent />);
-    numeralDateInputByPosition(0)
-      .parent()
-      .should("have.css", "border-radius", "4px 0px 0px 4px");
-    numeralDateInputByPosition(2)
-      .parent()
-      .should("have.css", "border-radius", "0px 4px 4px 0px");
   });
 });

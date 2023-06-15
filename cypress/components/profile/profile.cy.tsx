@@ -1,4 +1,5 @@
 import React from "react";
+import { ProfileProps } from "components/profile/profile.component";
 import { ProfileComponentTest as ProfileComponent } from "../../../src/components/profile/profile-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
@@ -73,13 +74,16 @@ context("Tests for Profile component", () => {
       [PROFILE_SIZES[4], 70],
       [PROFILE_SIZES[5], 102],
       [PROFILE_SIZES[6], 126],
-    ])("should check %s size for Profile component", (size, heightAndWidth) => {
-      CypressMountWithProviders(<ProfileComponent size={size} />);
-      initialPreview().then(($el) => {
-        assertCssValueIsApproximately($el, "height", heightAndWidth);
-        assertCssValueIsApproximately($el, "width", heightAndWidth);
-      });
-    });
+    ] as [ProfileProps["size"], number][])(
+      "should check %s size for Profile component",
+      (size, heightAndWidth) => {
+        CypressMountWithProviders(<ProfileComponent size={size} />);
+        initialPreview().then(($el) => {
+          assertCssValueIsApproximately($el, "height", heightAndWidth);
+          assertCssValueIsApproximately($el, "width", heightAndWidth);
+        });
+      }
+    );
 
     it.each([
       ["Dan Jin", "DJ"],
