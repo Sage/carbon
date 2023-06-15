@@ -1,4 +1,6 @@
 import React from "react";
+import Typography from "../../../src/components/typography";
+import { PageProps, PagesProps } from "../../../src/components/pages";
 import * as stories from "../../../src/components/pages/pages-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
@@ -29,7 +31,7 @@ context("Testing Pages component", () => {
       });
     });
 
-    it.each(["slide", "fade"])(
+    it.each(["slide", "fade"] as PagesProps["transition"][])(
       "should render Pages component with transition set to %s",
       (transition) => {
         CypressMountWithProviders(
@@ -47,12 +49,12 @@ context("Testing Pages component", () => {
     it("should render Pages component and go next to Second page", () => {
       CypressMountWithProviders(<stories.PagesComponent />);
 
-      dataComponentButtonByText("Open Preview")
+      dataComponentButtonByText("Open Preview").click().as("waitForClick");
+      cy.get("@waitForClick");
+      dataComponentButtonByText("Go to second page")
         .click()
-        .then(() => {
-          dataComponentButtonByText("Go to second page").click();
-        });
-
+        .as("secondWaitForClick");
+      cy.get("@secondWaitForClick");
       getDataElementByValue("title").should("have.text", "My Second Page");
     });
 
@@ -61,12 +63,12 @@ context("Testing Pages component", () => {
         <stories.PagesComponent initialPageIndex={1} />
       );
 
-      dataComponentButtonByText("Open Preview")
+      dataComponentButtonByText("Open Preview").click().as("waitForClick");
+      cy.get("@waitForClick");
+      dataComponentButtonByText("Go to third page")
         .click()
-        .then(() => {
-          dataComponentButtonByText("Go to third page").click();
-        });
-
+        .as("secondWaitForClick");
+      cy.get("@secondWaitForClick");
       getDataElementByValue("title").should("have.text", "My Third Page");
     });
 
@@ -75,12 +77,10 @@ context("Testing Pages component", () => {
         <stories.PagesComponent initialPageIndex={2} />
       );
 
-      dataComponentButtonByText("Open Preview")
-        .click()
-        .then(() => {
-          backArrow().click();
-        });
-
+      dataComponentButtonByText("Open Preview").click().as("waitForClick");
+      cy.get("@waitForClick");
+      backArrow().click().as("waitForBackClick");
+      cy.get("@waitForBackClick");
       getDataElementByValue("title").should("have.text", "My Second Page");
     });
 
@@ -89,25 +89,25 @@ context("Testing Pages component", () => {
         <stories.PagesComponent initialPageIndex={1} />
       );
 
-      dataComponentButtonByText("Open Preview")
-        .click()
-        .then(() => {
-          backArrow().click();
-        });
-
+      dataComponentButtonByText("Open Preview").click().as("waitForClick");
+      cy.get("@waitForClick");
+      backArrow().click().as("waitForBackClick");
+      cy.get("@waitForBackClick");
       getDataElementByValue("title").should("have.text", "My First Page");
     });
   });
 
   describe("should render Page component", () => {
-    it.each([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS])(
-      "with title prop set to %s",
-      (title) => {
-        CypressMountWithProviders(<stories.PageComponent title={title} />);
+    it.each([
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ] as PageProps["title"][])("with title prop set to %s", (title) => {
+      CypressMountWithProviders(
+        <stories.PageComponent title={<Typography>{title}</Typography>} />
+      );
 
-        getComponent("page").should("have.text", title);
-      }
-    );
+      getComponent("page").should("have.text", title);
+    });
   });
 
   describe("should render Pages component and check accessibility", () => {
@@ -121,27 +121,23 @@ context("Testing Pages component", () => {
 
           CypressMountWithProviders(<stories.PagesComponent {...props} />);
 
-          dataComponentButtonByText("Open Preview")
-            .click()
-            .then(() => {
-              cy.checkAccessibility();
-            });
+          dataComponentButtonByText("Open Preview").click().as("waitForClick");
+          cy.get("@waitForClick");
+          cy.checkAccessibility();
         });
       });
     });
 
-    it.each(["slide", "fade"])(
+    it.each(["slide", "fade"] as PagesProps["transition"][])(
       "should render Pages component with transition set to %s and check accessibility",
       (transition) => {
         CypressMountWithProviders(
           <stories.PagesComponent transition={transition} />
         );
 
-        dataComponentButtonByText("Open Preview")
-          .click()
-          .then(() => {
-            cy.checkAccessibility();
-          });
+        dataComponentButtonByText("Open Preview").click().as("waitForClick");
+        cy.get("@waitForClick");
+        cy.checkAccessibility();
       }
     );
 
@@ -150,11 +146,9 @@ context("Testing Pages component", () => {
         <stories.PagesComponent initialPageIndex={1} />
       );
 
-      dataComponentButtonByText("Open Preview")
-        .click()
-        .then(() => {
-          cy.checkAccessibility();
-        });
+      dataComponentButtonByText("Open Preview").click().as("waitForClick");
+      cy.get("@waitForClick");
+      cy.checkAccessibility();
     });
 
     it("should render Page component with different padding and check accessibility", () => {
