@@ -1,3 +1,10 @@
+## [119.3.0](https://github.com/Sage/carbon/compare/v119.2.0...v119.3.0) (2023-06-15)
+
+
+### Features
+
+* **search:** add searchButtonAriaLabel prop to component ([5de15f0](https://github.com/Sage/carbon/commit/5de15f0b0e0f63d6ee92a704d84a9466d93a918d))
+
 ## [119.2.0](https://github.com/Sage/carbon/compare/v119.1.1...v119.2.0) (2023-06-14)
 
 
