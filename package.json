@@ -14,7 +14,7 @@
     "test": "jest --config=./jest.config.json",
     "test-update": "jest --config=./jest.config.json --updateSnapshot",
     "cypress:react": "npx cypress open --component --browser chrome",
-    "format": "prettier --write './src/**/*.{js,jsx,ts,tsx}'",
+    "format": "prettier --write './{src,cypress}/**/*.{js,jsx,ts,tsx}'",
     "lint": "eslint ./src",
     "build": "node ./scripts/build.js",
     "copy-files": "node ./scripts/copy-files.js",

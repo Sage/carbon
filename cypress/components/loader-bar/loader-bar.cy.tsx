@@ -18,20 +18,21 @@ context("Tests for LoaderBar component", () => {
       (size, height) => {
         CypressMountWithProviders(<LoaderBarComponent size={size} mt={2} />);
 
-      loaderBar()
-        .children()
-        .then(($el) => {
-          assertCssValueIsApproximately($el, "height", height);
-        });
-      loaderBar()
-        .children()
-        .children()
-        .then(($el) => {
-          assertCssValueIsApproximately($el, "height", height);
-          expect($el.css("animation-duration")).to.equals("2s");
-          expect($el.css("animation-play-state")).to.equals("running");
-        });
-    });
+        loaderBar()
+          .children()
+          .then(($el) => {
+            assertCssValueIsApproximately($el, "height", height);
+          });
+        loaderBar()
+          .children()
+          .children()
+          .then(($el) => {
+            assertCssValueIsApproximately($el, "height", height);
+            expect($el.css("animation-duration")).to.equals("2s");
+            expect($el.css("animation-play-state")).to.equals("running");
+          });
+      }
+    );
   });
 
   describe("Accessibility tests for LoaderBar", () => {

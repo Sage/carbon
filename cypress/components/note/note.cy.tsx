@@ -21,7 +21,6 @@ import {
 } from "../../locators/note";
 import { actionPopoverWrapper } from "../../locators/action-popover";
 
-
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Tests for Note component", () => {
@@ -48,9 +47,9 @@ context("Tests for Note component", () => {
           .should("have.attr", "width", width)
           .then(($el) => {
             const value = parseInt($el.css("width"));
-            cy.wrap(value).should("be.gte", widthInPx - 1)
-            .and("be.lte", widthInPx + 1);
-           
+            cy.wrap(value)
+              .should("be.gte", widthInPx - 1)
+              .and("be.lte", widthInPx + 1);
           });
       }
     );
@@ -79,7 +78,7 @@ context("Tests for Note component", () => {
     it("should render Note with createdDate prop", () => {
       const createdDate = "25 June 2022, 11:57 AM" as string;
 
-      CypressMountWithProviders(<NoteComponent createdDate={createdDate}  />);
+      CypressMountWithProviders(<NoteComponent createdDate={createdDate} />);
 
       noteFooterChangeTime().should("have.text", createdDate);
     });
@@ -105,13 +104,13 @@ context("Tests for Note component", () => {
     it("should render Note with previews prop", () => {
       const previews = [
         <LinkPreview
-          key="linkPreview1" 
+          key="linkPreview1"
           title="This is an example of a title"
           url="https://www.bbc.co.uk"
           description="Captain, why are we out here chasing comets?"
         />,
         <LinkPreview
-          key="linkPreview2" 
+          key="linkPreview2"
           title="This is an example of a title"
           url="https://www.sage.com"
           description="Captain, why are we out here chasing comets?"
@@ -202,13 +201,13 @@ context("Tests for Note component", () => {
     it("should render Note with previews prop for accessibility tests", () => {
       const previews = [
         <LinkPreview
-          key="linkPreview1" 
+          key="linkPreview1"
           title="This is an example of a title"
           url="https://www.bbc.co.uk"
           description="Captain, why are we out here chasing comets?"
         />,
         <LinkPreview
-          key="linkPreview2" 
+          key="linkPreview2"
           title="This is an example of a title"
           url="https://www.sage.com"
           description="Captain, why are we out here chasing comets?"
