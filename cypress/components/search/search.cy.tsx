@@ -13,7 +13,7 @@ import {
   searchIcon,
   searchFindIcon,
 } from "../../locators/search/index";
-import { checkGoldenOutline, assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
+import { checkGoldenOutline } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { keyCode } from "../../support/helper";
 import {
