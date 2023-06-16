@@ -2,7 +2,10 @@
 /* eslint-disable jest/valid-expect, no-unused-expressions */
 import React from "react";
 import Message, { MessageProps } from "../../../src/components/message";
-import { MessageComponent, MessageComponentWithRef } from "../../../src/components/message/message-test.stories";
+import {
+  MessageComponent,
+  MessageComponentWithRef,
+} from "../../../src/components/message/message-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../locators";
 import {

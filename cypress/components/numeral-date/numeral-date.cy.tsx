@@ -1,6 +1,6 @@
 import React from "react";
 import NumeralDate, {
-  NumeralDateProps
+  NumeralDateProps,
 } from "../../../src/components/numeral-date";
 import Box from "../../../src/components/box";
 import { NumeralDateComponent } from "../../../src/components/numeral-date/numeral-date-test.stories";
@@ -8,7 +8,7 @@ import * as stories from "../../../src/components/numeral-date/numeral-date.stor
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
   assertCssValueIsApproximately,
-  verifyRequiredAsteriskForLabel
+  verifyRequiredAsteriskForLabel,
 } from "../../support/component-helper/common-steps";
 
 import {
@@ -18,17 +18,17 @@ import {
   tooltipPreview,
   fieldHelpPreview,
   errorIcon,
-  warningIcon
+  warningIcon,
 } from "../../locators";
 import {
   numeralDateComponent,
-  numeralDateInputByPosition
+  numeralDateInputByPosition,
 } from "../../locators/numeralDate";
 
 import {
   CHARACTERS,
   SIZE,
-  VALIDATION
+  VALIDATION,
 } from "../../support/component-helper/constants";
 import { ICON } from "../../locators/locators";
 
@@ -96,7 +96,7 @@ context("Tests for NumeralDate component", () => {
 
     it.each([
       ["left", "start"],
-      ["right", "end"]
+      ["right", "end"],
     ] as [NumeralDateProps["labelAlign"], string][])(
       "should render NumeralDate with labelAlign prop set to %s",
       (labelAlign, cssValue) => {
@@ -124,7 +124,7 @@ context("Tests for NumeralDate component", () => {
 
     it.each([
       [1, "8px"],
-      [2, "16px"]
+      [2, "16px"],
     ] as [NumeralDateProps["labelSpacing"], string][])(
       "should render NumeralDate with labelSpacing prop set to %s",
       (spacing, padding) => {
@@ -141,7 +141,7 @@ context("Tests for NumeralDate component", () => {
     it.each([
       [10, 135],
       [30, 409],
-      [80, 1092]
+      [80, 1092],
     ] as [NumeralDateProps["labelWidth"], number][])(
       "should use %s as labelWidth and render it with correct label ratio",
       (label, labelRatio) => {
@@ -243,7 +243,7 @@ context("Tests for NumeralDate component", () => {
     it.each([
       [0, "Day should be a number within a 1-31 range."],
       [1, "Month should be a number within a 1-12 range."],
-      [2, "Year should be a number within a 1800-2200 range."]
+      [2, "Year should be a number within a 1800-2200 range."],
     ])(
       "should render NumeralDate with enableInternalError prop",
       (inputIndex, tooltipText) => {
@@ -264,7 +264,7 @@ context("Tests for NumeralDate component", () => {
     it.each([
       [0, "Day should be a number within a 1-31 range."],
       [1, "Month should be a number within a 1-12 range."],
-      [2, "Year should be a number within a 1800-2200 range."]
+      [2, "Year should be a number within a 1800-2200 range."],
     ])(
       "should render NumeralDate with enableInternalWarning prop",
       (inputIndex, tooltipText) => {
@@ -335,7 +335,7 @@ context("Tests for NumeralDate component", () => {
       [VALIDATION.INFO, "info", true],
       ["rgb(102, 132, 148)", "error", false],
       ["rgb(102, 132, 148)", "warning", false],
-      ["rgb(102, 132, 148)", "info", false]
+      ["rgb(102, 132, 148)", "info", false],
     ])(
       "should verify NumeralDate input border colour is %s when validation is %s and boolean prop is %s",
       (borderColor, type, bool) => {
@@ -359,7 +359,7 @@ context("Tests for NumeralDate component", () => {
     it.each([
       [SIZE.SMALL, 30],
       [SIZE.MEDIUM, 38],
-      [SIZE.LARGE, 46]
+      [SIZE.LARGE, 46],
     ] as [NumeralDateProps["size"], number][])(
       "should use %s as size and render NumeralDate with %s as height",
       (size, height) => {
@@ -374,7 +374,7 @@ context("Tests for NumeralDate component", () => {
     it.each([
       ["flex", 399],
       ["flex", 400],
-      ["block", 401]
+      ["block", 401],
     ])(
       "should check NumeralDate label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint) => {
@@ -406,7 +406,7 @@ context("Tests for NumeralDate component", () => {
       "top",
       "bottom",
       "left",
-      "right"
+      "right",
     ] as NumeralDateProps["tooltipPosition"][])(
       "should render NumeralDate component with tooltip positioned to the %s",
       (position) => {
