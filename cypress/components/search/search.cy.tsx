@@ -1,5 +1,5 @@
 import React from "react";
-import Search from "../../../src/components/search/search.component";
+import Search, { SearchProps } from "../../../src/components/search/search.component";
 import { SearchComponent } from "../../../src/components/search/search-test.stories";
 import Box from "../../../src/components/box";
 
@@ -13,7 +13,7 @@ import {
   searchIcon,
   searchFindIcon,
 } from "../../locators/search/index";
-import { checkGoldenOutline } from "../../support/component-helper/common-steps";
+import { checkGoldenOutline, assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { keyCode } from "../../support/helper";
 import {
@@ -23,7 +23,8 @@ import {
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = CHARACTERS.STANDARD;
-const validationTypes = [
+const keysToTrigger = ["Enter", "Space"] as const;
+const validationTypes: [string,string][] = [
   ["error", VALIDATION.ERROR],
   ["warning", VALIDATION.WARNING],
   ["info", VALIDATION.INFO],
@@ -90,17 +91,14 @@ context("Test for Search component", () => {
       ["34%", "464px"],
       ["70%", "956px"],
     ])(
-      "should render Search with searchWidth prop set to %s",
+      "should render Search with searchWidth prop set to %s percentage",
       (widthInPercentage, widthVal) => {
         CypressMountWithProviders(
           <SearchComponent searchWidth={widthInPercentage} />
         );
 
         searchDefault().then(($el) => {
-          expect($el[0].getBoundingClientRect().width).to.be.approximately(
-            parseInt(widthVal),
-            2
-          );
+          cy.wrap($el[0].getBoundingClientRect().width).should('be.approximately', parseInt(widthVal), 2);
         });
       }
     );
@@ -111,10 +109,7 @@ context("Test for Search component", () => {
         CypressMountWithProviders(<SearchComponent searchWidth={width} />);
 
         searchDefault().then(($el) => {
-          expect($el[0].getBoundingClientRect().width).to.be.approximately(
-            parseInt(width),
-            2
-          );
+          cy.wrap($el[0].getBoundingClientRect().width).should('be.approximately', parseInt(width), 2);
         });
       }
     );
@@ -132,10 +127,7 @@ context("Test for Search component", () => {
         );
 
         searchDefault().then(($el) => {
-          expect($el[0].getBoundingClientRect().width).to.be.approximately(
-            parseInt(widthVal),
-            2
-          );
+          cy.wrap($el[0].getBoundingClientRect().width).should('be.approximately', parseInt(widthVal), 2);
         });
       }
     );
@@ -143,18 +135,15 @@ context("Test for Search component", () => {
     it("when maxWidth has no value it should render as 100%", () => {
       CypressMountWithProviders(<SearchComponent maxWidth="" />);
 
-      searchDefault().then(($el) => {
-        expect($el[0].getBoundingClientRect().width).to.be.approximately(
-          parseInt("1366px"),
-          2
-        );
+      return searchDefault().then(($el) => {
+        cy.wrap($el[0].getBoundingClientRect().width).should('be.approximately', parseInt("1366px"), 2);
       });
     });
 
     it.each([
       ["default", "rgb(102, 132, 148)"],
       ["dark", "rgb(153, 173, 183)"],
-    ])(
+    ] as [SearchProps["variant"], string][])(
       "should render Search with variant prop set to %s",
       (variant, backgroundColor) => {
         CypressMountWithProviders(
@@ -181,7 +170,7 @@ context("Test for Search component", () => {
     it.each([
       ["default", "rgb(51, 91, 112)"],
       ["dark", "rgb(204, 214, 219)"],
-    ])(
+    ]as [SearchProps["variant"], string][])(
       "should render Search with variant prop set to %s on hover",
       (variant, hoverColor) => {
         CypressMountWithProviders(
@@ -217,9 +206,8 @@ context("Test for Search component", () => {
 
         searchDefaultInput()
           .parent()
-          .then(($el) => {
-            expect($el.css("border-color")).to.equals(color);
-          });
+          .should("have.css", "border-color", color);
+
         getDataElementByValue(type).should("be.visible");
       }
     );
@@ -231,13 +219,11 @@ context("Test for Search component", () => {
 
         searchDefaultInput()
           .parent()
-          .then(($el) => {
-            expect($el.css("border-color")).to.equals(color);
-          });
+          .should("have.css", "border-color", color);
       }
     );
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each(["top", "bottom", "left", "right"] as SearchProps["tooltipPosition"][])(
       "should render Search with the tooltip in the %s position",
       (tooltipPositionValue) => {
         CypressMountWithProviders(
@@ -319,73 +305,74 @@ context("Test for Search component", () => {
   });
 
   describe("check events for Search component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
 
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: SearchProps["onClick"] = cy.stub().as("onClick");
+
       CypressMountWithProviders(
         <Search onClick={callback} defaultValue={testCypress} searchButton />
       );
 
-      searchButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      searchButton().click();
+      cy.get("@onClick").should("have.been.calledOnce");
+      
     });
 
     it("should call onChange callback when a type event is triggered", () => {
+      const callback: SearchProps["onChange"] = cy.stub().as("onChange");
+
       CypressMountWithProviders(<SearchComponent onChange={callback} />);
 
-      searchDefaultInput()
-        .type("1")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      searchDefaultInput().type("1");
+      cy.get("@onChange").should("have.been.calledOnce");
+      
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: SearchProps["onFocus"] = cy.stub().as("onFocus");
+
       CypressMountWithProviders(<SearchComponent onFocus={callback} />);
 
-      searchDefaultInput()
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      searchDefaultInput().focus();
+      cy.get("@onFocus").should("have.been.calledOnce");  
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: SearchProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(<SearchComponent onBlur={callback} />);
 
-      searchDefaultInput()
-        .focus()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      searchDefaultInput().focus().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");    
     });
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([keysToTrigger[0], keysToTrigger[1]])(
       "should call onKeyDown callback when a keyboard event is triggered",
       (key) => {
+        const callback: SearchProps["onKeyDown"] = cy.stub().as("onKeyDown");
+
         CypressMountWithProviders(<SearchComponent onKeyDown={callback} />);
 
-        searchDefaultInput()
-          .trigger("keydown", keyCode(key))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        searchDefaultInput().trigger("keydown", keyCode(key));
+        cy.get("@onKeyDown").should("have.been.calledOnce"); 
+          
       }
     );
+
+    it("should have the expected border radius styling when no search button enabled", () => {
+      CypressMountWithProviders(<SearchComponent />);
+      searchDefaultInput().should("have.css", "border-radius", "4px");
+      searchDefaultInput().parent().should("have.css", "border-radius", "4px");
+    });
+  
+    it("should have the expected border radius styling when search button enabled", () => {
+      CypressMountWithProviders(<SearchComponent searchButton value="foo" />);
+      searchDefaultInput()
+        .parent()
+        .should("have.css", "border-radius", "4px 0px 0px 4px");
+    });
   });
+
   describe("Accessibility tests for Search", () => {
     it.each(testData)(
       "should check accessibility for Search with placeholder using %s as special characters",
@@ -435,7 +422,7 @@ context("Test for Search component", () => {
     });
 
     it.each(["34%", "70%"])(
-      "should check accessibility for Search with searchWidth prop set to %s",
+      "should check accessibility for Search with searchWidth prop set to %s percentage",
       (widthInPercentage) => {
         CypressMountWithProviders(
           <SearchComponent searchWidth={widthInPercentage} />
@@ -482,7 +469,7 @@ context("Test for Search component", () => {
       }
     );
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each(["top", "bottom", "left", "right"] as SearchProps["tooltipPosition"][])(
       "should check accessibility for Search with the tooltip in the %s position",
       (tooltipPositionValue) => {
         CypressMountWithProviders(
@@ -506,7 +493,7 @@ context("Test for Search component", () => {
 
     // FE-4670
     describe.skip("should render Search component", () => {
-      it.each(["default", "dark"])(
+      it.each(["default", "dark"] as SearchProps["variant"][])(
         "should check accessibility for Search with variant prop set to %s",
         (variant) => {
           CypressMountWithProviders(
@@ -526,6 +513,7 @@ context("Test for Search component", () => {
         }
       );
     });
+  
 
     it.each(validationTypes)(
       "should check accessibility for Search and set type to %s as boolean",
@@ -535,18 +523,5 @@ context("Test for Search component", () => {
         cy.checkAccessibility();
       }
     );
-  });
-
-  it("should have the expected border radius styling when no search button enabled", () => {
-    CypressMountWithProviders(<SearchComponent />);
-    searchDefaultInput().should("have.css", "border-radius", "4px");
-    searchDefaultInput().parent().should("have.css", "border-radius", "4px");
-  });
-
-  it("should have the expected border radius styling when search button enabled", () => {
-    CypressMountWithProviders(<SearchComponent searchButton value="foo" />);
-    searchDefaultInput()
-      .parent()
-      .should("have.css", "border-radius", "4px 0px 0px 4px");
   });
 });
