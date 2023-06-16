@@ -16,6 +16,29 @@ type StyledSwitchProps = Pick<
   "fieldHelpInline" | "labelInline" | "reverse" | "size"
 >;
 
+export const ErrorBorder = styled.span`
+  ${({ warning }: { warning: boolean }) =>
+    css`
+      position: absolute;
+      z-index: 6;
+      width: 2px;
+      background-color: ${warning
+        ? "var(--colorsSemanticCaution500)"
+        : "var(--colorsSemanticNegative500)"};
+      left: -12px;
+      bottom: -4px;
+      top: 2px;
+    `}
+`;
+
+export const StyledHintText = styled.div`
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: var(--colorsUtilityYin055);
+  font-size: 14px;
+  font-weight: 400;
+`;
+
 const StyledSwitch = styled.div`
   ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
     ${margin}
