@@ -42,8 +42,12 @@ DefaultStory.story = {
 
 export const NoteComponent = ({
   text,
+  createdDate = "23 May 2020, 12:08 PM",
   ...props
-}: Omit<NoteProps, "noteContent" | "createdDate"> & { text?: string }) => {
+}: Omit<NoteProps, "noteContent" | "createdDate"> & {
+  text?: string;
+  createdDate?: string;
+}) => {
   const initialValue = text
     ? EditorState.createWithContent(ContentState.createFromText(text))
     : EditorState.createEmpty();
@@ -53,7 +57,7 @@ export const NoteComponent = ({
       title="Here is a Title"
       name="Lauren Smith"
       noteContent={initialValue}
-      createdDate="23 May 2020, 12:08 PM"
+      createdDate={createdDate}
       {...props}
     />
   );

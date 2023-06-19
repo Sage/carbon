@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import Pages from ".";
-import Page from "./page/page.component";
+import Pages, { PagesProps } from ".";
+import Page, { PageProps } from "./page/page.component";
 import DialogFullScreen from "../dialog-full-screen";
 import Heading from "../heading";
 import Button from "../button";
@@ -32,7 +32,9 @@ interface PageStoryProps {
   children?: string | Node;
 }
 
-export const DefaultStory = ({ initialPageIndex }: PageStoryProps) => {
+export const DefaultStory = ({
+  initialPageIndex,
+}: PageStoryProps & Partial<PageProps>) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(Number(initialPageIndex) || 0);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -124,7 +126,9 @@ export const DefaultStory = ({ initialPageIndex }: PageStoryProps) => {
 DefaultStory.storyName = "default";
 DefaultStory.parameters = { args: { initialPageIndex: 0 } };
 
-export const PagesComponent = ({ ...props }: PageStoryProps) => {
+export const PagesComponent = (
+  props: Partial<PageStoryProps> & Partial<PagesProps>
+) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(
     Number(props.initialPageIndex)
@@ -203,7 +207,10 @@ export const PagesComponent = ({ ...props }: PageStoryProps) => {
   );
 };
 
-export const PageComponent = ({ children, ...props }: PageStoryProps) => {
+export const PageComponent = ({
+  children,
+  ...props
+}: Partial<PageStoryProps> & Partial<PageProps>) => {
   return (
     <Page title={<Heading title="My First Page" />} {...props}>
       {children}

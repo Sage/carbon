@@ -1,10 +1,9 @@
 import React from "react";
 import Fieldset from "../../../src/components/fieldset";
-import { FormProps }  from "../../../src/components/form";
+import Form, { FormProps } from "../../../src/components/form";
 import { FieldsetComponent } from "../../../src/components/fieldset/fieldset-test.stories";
 import legendPreview from "../../locators/fieldset";
 import Textbox from "../../../src/components/textbox";
-import Form from "../../../src/components/form";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../locators/index";
 import { positionOfElement } from "../../support/helper";
@@ -233,7 +232,7 @@ context("Testing Fieldset component", () => {
         );
         cy.checkAccessibility();
       }
-    );  
+    );
 
     it.each(["error", "warning", "info"])(
       "should pass accessibility tests for Fieldset with %s validation icon on input",

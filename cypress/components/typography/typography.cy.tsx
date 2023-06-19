@@ -1,6 +1,8 @@
 import React from "react";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import Typography from "../../../src/components/typography";
+import Typography, {
+  TypographyProps,
+} from "../../../src/components/typography";
 import * as testStories from "../../../src/components/typography/typography-test.stories";
 import * as stories from "../../../src/components/typography/typography.stories";
 import { CHARACTERS } from "../../support/component-helper/constants";
@@ -30,7 +32,9 @@ const VARIANT_TYPES = [
   "ol",
 ];
 
-const getAs = (variant) => {
+type VariantTypes = typeof VARIANT_TYPES[number];
+
+const getAs = (variant: VariantTypes) => {
   switch (variant) {
     case "h1-large":
       return "h1";
@@ -46,7 +50,7 @@ const getAs = (variant) => {
   }
 };
 
-const getSize = (variant) => {
+const getSize = (variant: VariantTypes) => {
   switch (variant) {
     case "h1-large":
       return "32px";
@@ -78,7 +82,7 @@ const getSize = (variant) => {
   }
 };
 
-const getLineHeight = (variant) => {
+const getLineHeight = (variant: VariantTypes) => {
   switch (variant) {
     case "h1-large":
       return "40px";
@@ -110,7 +114,7 @@ const getLineHeight = (variant) => {
   }
 };
 
-const getWeight = (variant) => {
+const getWeight = (variant: VariantTypes) => {
   switch (variant) {
     case "h1-large":
     case "h1":
@@ -137,14 +141,14 @@ const getWeight = (variant) => {
   }
 };
 
-const getTransform = (variant) => {
+const getTransform = (variant: VariantTypes) => {
   if (variant === "segment-subheader-alt") {
     return "uppercase";
   }
   return "none";
 };
 
-const getDecoration = (variant) => {
+const getDecoration = (variant: VariantTypes) => {
   if (variant === "em") {
     return "underline";
   }
@@ -153,84 +157,84 @@ const getDecoration = (variant) => {
 
 context("Tests for Typography component", () => {
   describe("should check Typography component properties", () => {
-    it.each(VARIANT_TYPES)(
+    it.each(VARIANT_TYPES as TypographyProps["variant"][])(
       "should check variant prop set to %s for Typography component",
       (variant) => {
         CypressMountWithProviders(
           <Typography variant={variant}>{testCypress}</Typography>
         );
 
-        const variantElem = getAs(variant);
+        const variantElem = getAs(String(variant));
 
         cy.get(variantElem).should("have.text", testCypress);
       }
     );
 
-    it.each(VARIANT_TYPES)(
+    it.each(VARIANT_TYPES as TypographyProps["variant"][])(
       "should check font-size for %s variant prop for Typography component",
       (variant) => {
         CypressMountWithProviders(
           <Typography variant={variant}>{testCypress}</Typography>
         );
 
-        const variantElem = getAs(variant);
-        const fontSize = getSize(variant);
+        const variantElem = getAs(String(variant));
+        const fontSize = getSize(String(variant));
 
         cy.get(variantElem).should("have.css", "font-size", fontSize);
       }
     );
 
-    it.each(VARIANT_TYPES)(
+    it.each(VARIANT_TYPES as TypographyProps["variant"][])(
       "should check line-height for %s variant prop for Typography component",
       (variant) => {
         CypressMountWithProviders(
           <Typography variant={variant}>{testCypress}</Typography>
         );
 
-        const variantElem = getAs(variant);
-        const lineHeight = getLineHeight(variant);
+        const variantElem = getAs(String(variant));
+        const lineHeight = getLineHeight(String(variant));
 
         cy.get(variantElem).should("have.css", "line-height", lineHeight);
       }
     );
 
-    it.each(VARIANT_TYPES)(
+    it.each(VARIANT_TYPES as TypographyProps["variant"][])(
       "should check font-weight for %s variant prop for Typography component",
       (variant) => {
         CypressMountWithProviders(
           <Typography variant={variant}>{testCypress}</Typography>
         );
 
-        const variantElem = getAs(variant);
-        const fontWeight = getWeight(variant);
+        const variantElem = getAs(String(variant));
+        const fontWeight = getWeight(String(variant));
 
         cy.get(variantElem).should("have.css", "font-weight", fontWeight);
       }
     );
 
-    it.each(VARIANT_TYPES)(
+    it.each(VARIANT_TYPES as TypographyProps["variant"][])(
       "should check text-transform for %s variant prop for Typography component",
       (variant) => {
         CypressMountWithProviders(
           <Typography variant={variant}>{testCypress}</Typography>
         );
 
-        const variantElem = getAs(variant);
-        const textTransform = getTransform(variant);
+        const variantElem = getAs(String(variant));
+        const textTransform = getTransform(String(variant));
 
         cy.get(variantElem).should("have.css", "text-transform", textTransform);
       }
     );
 
-    it.each(VARIANT_TYPES)(
+    it.each(VARIANT_TYPES as TypographyProps["variant"][])(
       "should check text-decoration-line for %s variant prop for Typography component",
       (variant) => {
         CypressMountWithProviders(
           <Typography variant={variant}>{testCypress}</Typography>
         );
 
-        const variantElem = getAs(variant);
-        const textDecorationLine = getDecoration(variant);
+        const variantElem = getAs(String(variant));
+        const textDecorationLine = getDecoration(String(variant));
 
         cy.get(variantElem).should(
           "have.css",

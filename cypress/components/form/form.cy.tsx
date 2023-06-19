@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "../../../src/components/form";
+import Form, { FormProps } from "../../../src/components/form";
 import { FormComponent } from "../../../src/components/form/form-test.stories";
 import Textbox from "../../../src/components/textbox";
 import Button from "../../../src/components/button";
@@ -19,7 +19,7 @@ context("Tests for Form component", () => {
     it.each([
       ["left", "start"],
       ["right", "end"],
-    ])(
+    ] as [FormProps["buttonAlignment"], string][])(
       "should check buttonAlignment set as %s for Form component",
       (buttonAlignment, webkitAlign) => {
         CypressMountWithProviders(
@@ -58,7 +58,7 @@ context("Tests for Form component", () => {
       [3, 329],
       [5, 361],
       [7, 401],
-    ])(
+    ] as [FormProps["fieldSpacing"], number][])(
       "should check fieldSpacing as %s for Form component",
       (fieldSpacing, formHeight) => {
         CypressMountWithProviders(
@@ -99,15 +99,26 @@ context("Tests for Form component", () => {
       }
     );
 
-    it("should call onSubmit callback when a click event is triggered", () => {
-      const callback = cy.stub();
-      CypressMountWithProviders(<FormComponent onSubmit={callback} />);
-      formPreview()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback);
-        });
+    it("should call onSubmit callback, when onSubmit prop is passed and save button is triggered", () => {
+      const onSubmit: FormProps["onSubmit"] = (event) => {
+        event.preventDefault(); // this prevents the default reloading behaviour
+      };
+
+      const onSubmitSpy = cy.spy(onSubmit).as("onSubmitSpy");
+
+      CypressMountWithProviders(
+        <FormComponent
+          onSubmit={onSubmitSpy}
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        />
+      );
+
+      cy.contains("Save").click();
+      cy.get("@onSubmitSpy").should("have.been.called");
     });
 
     it("should check rightSideButtons for Form component", () => {
@@ -215,41 +226,29 @@ context("Tests for Form component", () => {
     it("should pass accessibility tests for InDialog story", () => {
       CypressMountWithProviders(<stories.InDialog />);
 
-      dataComponentButtonByText("Open Preview")
-        .click()
-        .then(() => {
-          cy.checkAccessibility();
-        });
+      dataComponentButtonByText("Open Preview").click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for InDialogFullScreen story", () => {
       CypressMountWithProviders(<stories.InDialogFullScreen />);
 
-      dataComponentButtonByText("Open Preview")
-        .click()
-        .then(() => {
-          cy.checkAccessibility();
-        });
+      dataComponentButtonByText("Open Preview").click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for InDialogFullScreenWithStickyFooter story", () => {
       CypressMountWithProviders(<stories.InDialogFullScreenWithStickyFooter />);
 
-      dataComponentButtonByText("Open Preview")
-        .click()
-        .then(() => {
-          cy.checkAccessibility();
-        });
+      dataComponentButtonByText("Open Preview").click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for InDialogWithStickyFooter story", () => {
       CypressMountWithProviders(<stories.InDialogWithStickyFooter />);
 
-      dataComponentButtonByText("Open Preview")
-        .click()
-        .then(() => {
-          cy.checkAccessibility();
-        });
+      dataComponentButtonByText("Open Preview").click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for OverrideFieldSpacing story", () => {

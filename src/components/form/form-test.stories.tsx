@@ -1,5 +1,5 @@
 import React from "react";
-import Form from ".";
+import Form, { FormProps } from ".";
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
 import Box from "../box";
@@ -68,7 +68,7 @@ export const DefaultWithStickyFooter = () => (
 
 DefaultWithStickyFooter.storyName = "default";
 
-export const FormComponent = ({ ...props }) => {
+export const FormComponent = (props: Partial<FormProps>) => {
   return (
     <Form
       saveButton={

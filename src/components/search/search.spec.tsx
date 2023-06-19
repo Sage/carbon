@@ -278,6 +278,39 @@ describe("Search", () => {
         { modifier: `${StyledIcon}:hover` }
       );
     });
+
+    it("renders with the expected border radius styling", () => {
+      wrapper = renderSearch({ value: "" });
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius050)",
+        },
+        wrapper.find(StyledInput)
+      );
+    });
+
+    it("renders with the expected border radius styling when searchButton is enabled and input has value", () => {
+      wrapper = renderSearch({ value: "foo", searchButton: true });
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: `${StyledTextInput}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius000)",
+          borderTopRightRadius: "var(--borderRadius050)",
+          borderBottomRightRadius: "var(--borderRadius050)",
+        },
+        wrapper.find(StyledSearchButton),
+        { modifier: `& ${StyledButton}` }
+      );
+    });
   });
 
   describe("When button is true and textbox is active", () => {
@@ -677,36 +710,33 @@ describe("Search", () => {
     });
   });
 
-  it("renders with the expected border radius styling", () => {
-    wrapper = renderSearch({ value: "" });
-    assertStyleMatch(
-      {
-        borderRadius: "var(--borderRadius050)",
-      },
-      wrapper.find(StyledInput)
-    );
-  });
+  describe("aria-label", () => {
+    it("has a default aria-label passed to Search", () => {
+      wrapper = renderSearch({ defaultValue: "foo" });
+      const search = wrapper.find(TextBox);
+      expect(search.prop("aria-label")).toEqual("search");
+    });
 
-  it("renders with the expected border radius styling when searchButton is enabled and input has value", () => {
-    wrapper = renderSearch({ value: "foo", searchButton: true });
-    assertStyleMatch(
-      {
-        borderTopRightRadius: "var(--borderRadius000)",
-        borderBottomRightRadius: "var(--borderRadius000)",
-      },
-      wrapper,
-      { modifier: `${StyledTextInput}` }
-    );
+    it("has a default aria-label passed to Search button", () => {
+      wrapper = renderSearch({ defaultValue: "foo", searchButton: true });
+      const searchButton = wrapper.find(Button);
+      expect(searchButton.prop("aria-label")).toEqual("search button");
+    });
 
-    assertStyleMatch(
-      {
-        borderTopLeftRadius: "var(--borderRadius000)",
-        borderBottomLeftRadius: "var(--borderRadius000)",
-        borderTopRightRadius: "var(--borderRadius050)",
-        borderBottomRightRadius: "var(--borderRadius050)",
-      },
-      wrapper.find(StyledSearchButton),
-      { modifier: `& ${StyledButton}` }
-    );
+    it("supports a custom aria-label passed to Search", () => {
+      wrapper = renderSearch({ defaultValue: "foo", "aria-label": "foobar" });
+      const search = wrapper.find(Search);
+      expect(search.prop("aria-label")).toEqual("foobar");
+    });
+
+    it("supports a custom aria-label passed to Search button", () => {
+      wrapper = renderSearch({
+        defaultValue: "foo",
+        searchButtonAriaLabel: "foobar button",
+        searchButton: true,
+      });
+      const searchButton = wrapper.find(Button);
+      expect(searchButton.prop("aria-label")).toEqual("foobar button");
+    });
   });
 });
