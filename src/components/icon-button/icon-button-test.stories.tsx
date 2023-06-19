@@ -1,6 +1,6 @@
 import React from "react";
 import Icon from "../icon";
-import IconButton from ".";
+import IconButton, { IconButtonProps } from ".";
 
 export default {
   title: "Icon Button/Test",
@@ -13,7 +13,7 @@ export default {
   },
 };
 
-export const Default = ({ ...props }) => {
+export const Default = (props: IconButtonProps) => {
   return (
     <IconButton aria-label="icon-button" onClick={() => {}} {...props}>
       <Icon type="home" />
@@ -23,7 +23,7 @@ export const Default = ({ ...props }) => {
 
 Default.storyName = "default";
 
-export const IconButtonComponent = ({ ...props }) => {
+export const IconButtonComponent = (props: Partial<IconButtonProps>) => {
   return (
     <IconButton aria-label="icon-button" onClick={() => {}} {...props}>
       <Icon type="home" />
