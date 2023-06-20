@@ -1,9 +1,10 @@
 import React from "react";
-import Pod from "../../../src/components/pod";
-import Content from "../../../src/components/content";
+import Pod, { PodProps } from "../../../src/components/pod";
 import {
   PodExample,
   PodDefault,
+  SoftDeleteExample,
+  SoftDeleteExampleWithChildren,
 } from "../../../src/components/pod/pod-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
@@ -30,32 +31,12 @@ import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-const SoftDeleteExample = ({ ...props }) => {
-  return (
-    <Pod
-      title="Title"
-      subtitle="Subtitle"
-      footer="Footer"
-      onUndo={() => {}}
-      softDelete
-      {...props}
-    />
-  );
-};
-
-const SoftDeleteExampleWithChildren = () => (
-  <Pod softDelete onUndo={() => {}}>
-    Content
-    <Content>More content</Content>
-  </Pod>
-);
-
 context("Testing Pod component", () => {
   it.each([
     [true, 1, "solid", "rgb(204, 214, 219)"],
     [false, 0, "none", "rgba(0, 0, 0, 0.9)"],
   ])(
-    "should check when border is %s the border value is %s for Pod component ",
+    "should check when border is %s the border value is %s for Pod component",
     (boolVal, px, style, color) => {
       CypressMountWithProviders(<PodExample border={boolVal} />);
       podBlock().then((elem) => {
@@ -87,7 +68,7 @@ context("Testing Pod component", () => {
     [SIZE.MEDIUM, 136, 82],
     [SIZE.LARGE, 184, 98],
     [SIZE.EXTRALARGE, 216, 130],
-  ])(
+  ] as [PodProps["size"], number, number][])(
     "should check %s size for Pod component when height is %s and width is %s",
     (size, expectedHeight, expectedWidth) => {
       CypressMountWithProviders(<PodExample size={size} />);
@@ -104,7 +85,7 @@ context("Testing Pod component", () => {
     ["tertiary", "rgb(237, 241, 242)", "none"],
     ["tile", "rgb(255, 255, 255)", "rgba(2, 18, 36, 0.2) 0px 2px 3px 0px"],
     ["transparent", "rgba(0, 0, 0, 0)", "none"],
-  ])(
+  ] as [PodProps["variant"], string, string][])(
     "should check %s variant for Pod component when the color is %s and boxShadow is %s",
     (variant, color, boxShadow) => {
       CypressMountWithProviders(<PodExample variant={variant} />);
@@ -131,7 +112,7 @@ context("Testing Pod component", () => {
     }
   );
 
-  it.each(["left", "center", "right"])(
+  it.each(["left", "center", "right"] as PodProps["alignTitle"][])(
     "should check title alignment for Pod component when text is aligned to the %s",
     (alignTitle) => {
       CypressMountWithProviders(<PodExample alignTitle={alignTitle} />);
@@ -184,14 +165,10 @@ context("Testing Pod component", () => {
 
   describe("when onDelete prop is passed", () => {
     it("should call onDelete callback when a click event is triggered for Pod component", () => {
-      const callback = cy.stub();
+      const callback: PodProps["onDelete"] = cy.stub().as("onDelete");
       CypressMountWithProviders(<PodExample onDelete={callback} />);
-      podDelete()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      podDelete().click();
+      cy.get("@onDelete").should("have.been.calledOnce");
     });
 
     it("when delete button is focused and internalEditButton prop is true, delete button and Pod component have correct border styles", () => {
@@ -200,14 +177,12 @@ context("Testing Pod component", () => {
           Content
         </Pod>
       );
-
       podDelete().focus();
-
       podDelete().should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
       podBlock().should("have.css", "border", "1px solid rgb(204, 214, 219)");
     });
 
-    it("when delete button is hovered over and internalEditButton prop is true, delete button does not have default hover colours ", () => {
+    it("when delete button is hovered over and internalEditButton prop is true, delete button does not have default hover colours", () => {
       CypressMountWithProviders(
         <Pod onDelete={() => {}} internalEditButton>
           Content
@@ -322,14 +297,10 @@ context("Testing Pod component", () => {
     );
 
     it("should call onUndo callback when a click event is triggered for Pod component", () => {
-      const callback = cy.stub();
+      const callback: PodProps["onUndo"] = cy.stub().as("onUndo");
       CypressMountWithProviders(<SoftDeleteExample onUndo={callback} />);
-      podUndo()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      podUndo().click();
+      cy.get("@onUndo").should("have.been.calledOnce");
     });
 
     it("undo button does not have default hover colours when hovered over and internalEditButton prop is true", () => {
@@ -370,7 +341,13 @@ context("Testing Pod component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(["primary", "secondary", "tertiary", "tile", "transparent"])(
+    it.each([
+      "primary",
+      "secondary",
+      "tertiary",
+      "tile",
+      "transparent",
+    ] as PodProps["variant"][])(
       "should check %s variant accessibility for Pod component",
       (variant) => {
         CypressMountWithProviders(<PodDefault variant={variant} />);
@@ -379,7 +356,7 @@ context("Testing Pod component", () => {
       }
     );
 
-    it.each(["left", "center", "right"])(
+    it.each(["left", "center", "right"] as PodProps["alignTitle"][])(
       "should check title alignment accessbility for Pod component when text is aligned to the %s",
       (alignTitle) => {
         CypressMountWithProviders(<PodDefault alignTitle={alignTitle} />);
@@ -394,7 +371,7 @@ context("Testing Pod component", () => {
       SIZE.MEDIUM,
       SIZE.LARGE,
       SIZE.EXTRALARGE,
-    ])(
+    ] as PodProps["size"][])(
       "should check accessbility when size is %s for Pod component",
       (size) => {
         CypressMountWithProviders(<PodDefault size={size} />);
@@ -418,7 +395,6 @@ context("Testing Pod component", () => {
         CypressMountWithProviders(
           <PodDefault editContentFullWidth={boolVal} />
         );
-
         cy.checkAccessibility();
       }
     );
@@ -480,7 +456,6 @@ context("Testing Pod component", () => {
 
     it("should check accessbility for SoftDelete with chidlren", () => {
       CypressMountWithProviders(<SoftDeleteExampleWithChildren />);
-
       cy.checkAccessibility();
     });
   });
