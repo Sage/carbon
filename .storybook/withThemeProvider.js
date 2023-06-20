@@ -129,9 +129,9 @@ export const globalThemeProvider = {
     description: "Global theme for components",
     defaultValue: sageTheme.name,
     toolbar: {
+      title: "Theme",
       icon: "paintbrush",
       items: Object.keys(themes),
-      showName: true,
     },
   },
 };
