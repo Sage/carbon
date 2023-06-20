@@ -16,9 +16,9 @@ context("Testing Hr component", () => {
     });
 
     it.each([
-      ["799", 78, 320],
-      ["800", 78, 320],
-      ["801", 0, 0],
+      [799, 78, 320],
+      [800, 78, 320],
+      [801, 0, 0],
     ])(
       "verify Hr component adaptiveMxBreakpoint prop sets left and right margins to 0px when larger than viewport",
       (breakpoint, leftMargin, rightMargin) => {

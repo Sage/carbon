@@ -22,6 +22,8 @@ export interface SearchEvent {
 export interface SearchProps extends ValidationProps, MarginProps {
   /** Prop to specify the aria-label of the search component */
   "aria-label"?: string;
+  /** Prop to specify the aria-label of the search button */
+  searchButtonAriaLabel?: string;
   /** Prop for `uncontrolled` use */
   defaultValue?: string;
   /** Prop for `id` */
@@ -87,6 +89,7 @@ export const Search = React.forwardRef(
       searchWidth,
       maxWidth,
       searchButton,
+      searchButtonAriaLabel = "search button",
       placeholder,
       variant = "default",
       "aria-label": ariaLabel = "search",
@@ -286,7 +289,12 @@ export const Search = React.forwardRef(
         {searchButton && (
           <StyledSearchButton>
             {isSearchTyped && (
-              <Button size="medium" px="16px" {...buttonProps}>
+              <Button
+                aria-label={searchButtonAriaLabel}
+                size="medium"
+                px="16px"
+                {...buttonProps}
+              >
                 <StyledButtonIcon>
                   <Icon type="search" />
                 </StyledButtonIcon>

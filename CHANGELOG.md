@@ -1,3 +1,24 @@
+### [119.3.1](https://github.com/Sage/carbon/compare/v119.3.0...v119.3.1) (2023-06-20)
+
+
+### Bug Fixes
+
+* **flat-table:** fix sticky footer no longer at the foot of the table ([209af5e](https://github.com/Sage/carbon/commit/209af5eef7ae4475224155ea9d45308f0c90fd9f))
+
+## [119.3.0](https://github.com/Sage/carbon/compare/v119.2.0...v119.3.0) (2023-06-15)
+
+
+### Features
+
+* **search:** add searchButtonAriaLabel prop to component ([5de15f0](https://github.com/Sage/carbon/commit/5de15f0b0e0f63d6ee92a704d84a9466d93a918d))
+
+## [119.2.0](https://github.com/Sage/carbon/compare/v119.1.1...v119.2.0) (2023-06-14)
+
+
+### Features
+
+* **message:** add mechanism to focus component ([b4b7ff4](https://github.com/Sage/carbon/commit/b4b7ff4f7fddb28e18407aa7bf06e123f2fc5b05)), closes [#5924](https://github.com/Sage/carbon/issues/5924)
+
 ### [119.1.1](https://github.com/Sage/carbon/compare/v119.1.0...v119.1.1) (2023-06-13)
 
 

@@ -32,7 +32,13 @@ export const Controlled: ComponentStory<typeof Search> = () => {
 };
 
 export const WithSearchButton: ComponentStory<typeof Search> = () => {
-  return <Search defaultValue="Here is some text" searchButton />;
+  return (
+    <Search
+      defaultValue="Here is some text"
+      searchButton
+      searchButtonAriaLabel="search button aria label"
+    />
+  );
 };
 
 export const DefaultWithColourBackground: ComponentStory<

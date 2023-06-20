@@ -1,7 +1,11 @@
+/* eslint-disable jest/no-disabled-tests */
 /* eslint-disable jest/valid-expect, no-unused-expressions */
 import React from "react";
 import Message, { MessageProps } from "../../../src/components/message";
-import { MessageComponent } from "../../../src/components/message/message-test.stories";
+import {
+  MessageComponent,
+  MessageComponentWithRef,
+} from "../../../src/components/message/message-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../locators";
 import {
@@ -9,9 +13,11 @@ import {
   messageChildren,
   messageTitle,
   messageDismissIcon,
+  messageDismissIconButton,
   messageContent,
   variantPreview,
 } from "../../locators/message/index";
+import { buttonDataComponent } from "../../locators/button";
 import {
   VALIDATION,
   CHARACTERS,
@@ -70,6 +76,25 @@ context("Tests for Message component", () => {
         }
       }
     );
+
+    it("should focus component when open is true and component has a ref", () => {
+      CypressMountWithProviders(<MessageComponentWithRef />);
+
+      buttonDataComponent().click();
+      messagePreview().should("be.focused");
+    });
+
+    // Unable to run this test due to the Message component having a tabIndex of -1.
+    // cypress-plugin-tab does not allow tabbing on elements with an tabIndex of -1,
+    // however this test has been kept incase the bug is ever addressed. https://github.com/kuceb/cypress-plugin-tab/issues/18
+    it.skip("should focus icon button when open is true for Message component and tab key is pressed", () => {
+      CypressMountWithProviders(<MessageComponentWithRef />);
+
+      buttonDataComponent().click();
+      messagePreview().should("be.focused");
+      messagePreview().tab();
+      messageDismissIconButton().should("be.focused");
+    });
 
     it.each(testData)(
       "should check %s title for Message component",
