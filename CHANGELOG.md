@@ -1,3 +1,10 @@
+### [119.3.2](https://github.com/Sage/carbon/compare/v119.3.1...v119.3.2) (2023-06-20)
+
+
+### Bug Fixes
+
+* **button:** render falsy children ([587c728](https://github.com/Sage/carbon/commit/587c728a0bf1bd90aba3bb5550f74103c0a69cf8)), closes [#6108](https://github.com/Sage/carbon/issues/6108)
+
 ### [119.3.1](https://github.com/Sage/carbon/compare/v119.3.0...v119.3.1) (2023-06-20)
 
 
