@@ -1,3 +1,10 @@
+### [119.3.1](https://github.com/Sage/carbon/compare/v119.3.0...v119.3.1) (2023-06-20)
+
+
+### Bug Fixes
+
+* **flat-table:** fix sticky footer no longer at the foot of the table ([209af5e](https://github.com/Sage/carbon/commit/209af5eef7ae4475224155ea9d45308f0c90fd9f))
+
 ## [119.3.0](https://github.com/Sage/carbon/compare/v119.2.0...v119.3.0) (2023-06-15)
 
 
