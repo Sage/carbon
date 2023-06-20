@@ -1,9 +1,11 @@
 import React from "react";
 import Textbox from "../../../src/components/textbox";
 import Decimal from "../../../src/components/decimal";
-import { Option, Select as SimpleSelect } from "../../../src/components/select";
-import InlineInputs from "../../../src/components/inline-inputs/inline-inputs.component";
+import InlineInputs, {
+  InlineInputsProps,
+} from "../../../src/components/inline-inputs/inline-inputs.component";
 import * as stories from "../../../src/components/inline-inputs/inline-inputs.stories";
+import { Default as InlineInputComponent } from "../../../src/components/inline-inputs/inline-inputs-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
   inlineInputContainer,
@@ -16,25 +18,6 @@ import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-const InlineInputComponent = ({ ...props }) => {
-  return (
-    <InlineInputs label="Inline Input" {...props}>
-      <Textbox hasWarning inputIcon="warning" tooltipMessage="warning" />
-
-      <Decimal onChange={function noRefCheck() {}} value="0.00" />
-
-      <SimpleSelect onChange={function noRefCheck() {}} value="">
-        <Option text="Amber" value="1" />
-        <Option text="Black" value="2" />
-        <Option text="Blue" value="3" />
-        <Option text="Brown" value="4" />
-        <Option text="Green" value="5" />
-        <Option text="Orange" value="6" />
-      </SimpleSelect>
-    </InlineInputs>
-  );
-};
-
 context("Tests for InlineInputs component", () => {
   describe("should check InlineInputs component properties", () => {
     it.each([
@@ -46,7 +29,7 @@ context("Tests for InlineInputs component", () => {
       [SIZE.MEDIUMLARGE, -28],
       [SIZE.LARGE, -32],
       [SIZE.EXTRALARGE, -40],
-    ])(
+    ] as [InlineInputsProps["gutter"], number][])(
       "should check when gutter size is %s for InlineInputs component",
       (size, gutterMargin) => {
         CypressMountWithProviders(<InlineInputComponent gutter={size} />);
@@ -145,7 +128,7 @@ context("Tests for InlineInputs component", () => {
       "medium-large",
       "large",
       "extra-large",
-    ])(
+    ] as InlineInputsProps["gutter"][])(
       "should have the expected border radius styling when gutter is %s and has three input children",
       (gutter) => {
         const firstInputResult = gutter === "none" ? "4px 0px 0px 4px" : "4px";
@@ -180,7 +163,7 @@ context("Tests for InlineInputs component", () => {
       "medium-large",
       "large",
       "extra-large",
-    ])(
+    ] as InlineInputsProps["gutter"][])(
       "should have the expected border radius styling when gutter is %s and has two input children",
       (gutter) => {
         const firstInputResult = gutter === "none" ? "4px 0px 0px 4px" : "4px";
@@ -188,8 +171,13 @@ context("Tests for InlineInputs component", () => {
 
         CypressMountWithProviders(
           <InlineInputs label="Inline Input" gutter={gutter}>
-            <Textbox hasWarning inputIcon="warning" tooltipMessage="warning" />
-            <Decimal onChange={function noRefCheck() {}} value="0.00" />
+            <Textbox warning inputIcon="warning" />
+            <Decimal
+              onChange={function noRefCheck() {
+                ("");
+              }}
+              value="0.00"
+            />
           </InlineInputs>
         );
         inlineInputContainer()
@@ -214,12 +202,12 @@ context("Tests for InlineInputs component", () => {
       "medium-large",
       "large",
       "extra-large",
-    ])(
+    ] as InlineInputsProps["gutter"][])(
       "should have the expected border radius styling when gutter is %s and has one input child",
       (gutter) => {
         CypressMountWithProviders(
           <InlineInputs label="Inline Input" gutter={gutter}>
-            <Textbox hasWarning inputIcon="warning" tooltipMessage="warning" />
+            <Textbox warning inputIcon="warning" />
           </InlineInputs>
         );
         inlineInputContainer()
