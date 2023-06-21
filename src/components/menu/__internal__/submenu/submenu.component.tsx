@@ -24,6 +24,7 @@ import {
 } from "../locators";
 import { VariantType } from "../../menu-item";
 import useStableCallback from "../../../../hooks/__internal__/useStableCallback/useStableCallback";
+import FixedNavigationBarContext from "../../../navigation-bar/fixed-navigation-bar.context";
 
 export interface SubmenuProps {
   /** Children elements */
@@ -113,6 +114,8 @@ const Submenu = React.forwardRef<
     const shiftTabPressed = useRef(false);
     const focusFirstMenuItemOnOpen = useRef(false);
     const numberOfChildren = submenuItemIds.length;
+
+    const { submenuMaxHeight } = useContext(FixedNavigationBarContext);
 
     const onSubmenuOpen = useStableCallback(onSubmenuOpenProp);
 
@@ -461,6 +464,7 @@ const Submenu = React.forwardRef<
             variant={variant}
             menuType={menuType}
             role={blockIndex === 0 ? "presentation" : "list"}
+            maxHeight={submenuMaxHeight}
           >
             <SubmenuContext.Provider
               value={{

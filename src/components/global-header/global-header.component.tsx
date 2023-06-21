@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { PaddingProps, FlexboxProps } from "styled-system";
 import { ThemeObject } from "../../style/themes/base";
@@ -7,6 +7,7 @@ import StyledNavigationBar, {
   StyledNavigationBarProps,
 } from "../navigation-bar/navigation-bar.style";
 import Box from "../box";
+import { FixedNavigationBarContextProvider } from "../navigation-bar/fixed-navigation-bar.context";
 
 export interface GlobalHeaderProps extends PaddingProps, FlexboxProps {
   /** Child elements */
@@ -48,6 +49,8 @@ const StyledLogo = styled(Box)`
 `;
 
 const GlobalHeader = ({ children, logo, ...rest }: GlobalHeaderProps) => {
+  const [navbarElement, setNavbarElement] = useState<HTMLElement | null>(null);
+
   return (
     <StyledGlobalHeader
       aria-label="Global Header"
@@ -56,14 +59,22 @@ const GlobalHeader = ({ children, logo, ...rest }: GlobalHeaderProps) => {
       orientation="top"
       offset="0px"
       position="fixed"
+      ref={setNavbarElement}
       {...rest}
     >
-      {logo && (
-        <StyledLogo data-element="global-header-logo-wrapper">
-          {logo}
-        </StyledLogo>
-      )}
-      {children}
+      <FixedNavigationBarContextProvider
+        position="fixed"
+        orientation="top"
+        offset="0px"
+        navbarElement={navbarElement}
+      >
+        {logo && (
+          <StyledLogo data-element="global-header-logo-wrapper">
+            {logo}
+          </StyledLogo>
+        )}
+        {children}
+      </FixedNavigationBarContextProvider>
     </StyledGlobalHeader>
   );
 };

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { PaddingProps, FlexboxProps } from "styled-system";
 import StyledNavigationBar from "./navigation-bar.style";
+import { FixedNavigationBarContextProvider } from "./fixed-navigation-bar.context";
 
 export type Position = "sticky" | "fixed";
 export type Orientation = "top" | "bottom";
@@ -33,6 +34,8 @@ export const NavigationBar = ({
   orientation,
   ...props
 }: NavigationBarProps): JSX.Element => {
+  const [navbarElement, setNavbarElement] = useState<HTMLElement | null>(null);
+
   return (
     <StyledNavigationBar
       role="navigation"
@@ -43,8 +46,16 @@ export const NavigationBar = ({
       offset={offset}
       orientation={orientation}
       {...props}
+      ref={setNavbarElement}
     >
-      {!isLoading && children}
+      <FixedNavigationBarContextProvider
+        position={position}
+        orientation={orientation}
+        offset={offset}
+        navbarElement={navbarElement}
+      >
+        {!isLoading && children}
+      </FixedNavigationBarContextProvider>
     </StyledNavigationBar>
   );
 };
