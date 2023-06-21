@@ -1,5 +1,5 @@
 import React from "react";
-import Hr from "../../../src/components/hr";
+import { Default as HrComponent } from "../../../src/components/hr/hr-test.stories";
 import * as stories from "../../../src/components/hr/hr.stories";
 import hrComponent from "../../locators/hr";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -8,7 +8,7 @@ import { assertCssValueIsApproximately } from "../../support/component-helper/co
 context("Testing Hr component", () => {
   describe("check props for Hr component", () => {
     it("verify Hr component is displayed properly", () => {
-      CypressMountWithProviders(<Hr />);
+      CypressMountWithProviders(<HrComponent />);
 
       hrComponent()
         .should("have.css", "margin-top", "24px")
@@ -25,7 +25,7 @@ context("Testing Hr component", () => {
         cy.viewport(800, 300);
 
         CypressMountWithProviders(
-          <Hr
+          <HrComponent
             mb={7}
             mt={7}
             ml="10%"
