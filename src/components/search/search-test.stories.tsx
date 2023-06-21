@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import Search from ".";
+import Search, { SearchProps } from ".";
 import { SearchEvent } from "./search.component";
 
 export default {
@@ -67,7 +67,7 @@ Default.args = {
   variant: undefined,
 };
 
-export const SearchComponent = ({ ...props }) => {
+export const SearchComponent = (props: SearchProps) => {
   const [value, setValue] = React.useState("");
 
   return (
