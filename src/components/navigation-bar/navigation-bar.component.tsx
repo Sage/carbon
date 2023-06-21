@@ -22,6 +22,8 @@ export interface NavigationBarProps extends PaddingProps, FlexboxProps {
   offset?: string;
   /** Defines whether the navigation bar should be positioned top or bottom */
   orientation?: Orientation;
+  /** @private @ignore set to true only when rendering the GlobalHeader component */
+  isGlobal?: boolean;
 }
 
 export const NavigationBar = ({
@@ -32,6 +34,7 @@ export const NavigationBar = ({
   position,
   offset = "0",
   orientation,
+  isGlobal,
   ...props
 }: NavigationBarProps): JSX.Element => {
   const [navbarElement, setNavbarElement] = useState<HTMLElement | null>(null);
@@ -39,19 +42,20 @@ export const NavigationBar = ({
   return (
     <StyledNavigationBar
       role="navigation"
-      aria-label={ariaLabel}
-      navigationType={navigationType}
-      data-component="navigation-bar"
-      position={position}
-      offset={offset}
-      orientation={orientation}
+      data-component={isGlobal ? "global-header" : "navigation-bar"}
+      aria-label={isGlobal ? "Global Header" : ariaLabel}
+      navigationType={isGlobal ? "black" : navigationType}
+      orientation={isGlobal ? "top" : orientation}
+      offset={isGlobal ? "0px" : offset}
+      position={isGlobal ? "fixed" : position}
       {...props}
+      isGlobal={isGlobal}
       ref={setNavbarElement}
     >
       <FixedNavigationBarContextProvider
-        position={position}
-        orientation={orientation}
-        offset={offset}
+        orientation={isGlobal ? "top" : orientation}
+        offset={isGlobal ? "0px" : offset}
+        position={isGlobal ? "fixed" : position}
         navbarElement={navbarElement}
       >
         {!isLoading && children}

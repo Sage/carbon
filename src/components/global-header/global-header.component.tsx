@@ -1,13 +1,8 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import { PaddingProps, FlexboxProps } from "styled-system";
-import { ThemeObject } from "../../style/themes/base";
-import { baseTheme } from "../../style/themes";
-import StyledNavigationBar, {
-  StyledNavigationBarProps,
-} from "../navigation-bar/navigation-bar.style";
 import Box from "../box";
-import { FixedNavigationBarContextProvider } from "../navigation-bar/fixed-navigation-bar.context";
+import NavigationBar from "../navigation-bar";
 
 export interface GlobalHeaderProps extends PaddingProps, FlexboxProps {
   /** Child elements */
@@ -15,17 +10,6 @@ export interface GlobalHeaderProps extends PaddingProps, FlexboxProps {
   /** Logo to render */
   logo?: React.ReactNode;
 }
-
-interface StyledGlobalHeaderProps extends StyledNavigationBarProps {
-  theme?: ThemeObject;
-}
-const StyledGlobalHeader = styled(StyledNavigationBar).attrs(({ theme }) => ({
-  theme: theme || /* istanbul ignore next */ baseTheme,
-}))<StyledGlobalHeaderProps>`
-  ${({ theme }) => css`
-    z-index: ${theme.zIndex.globalNav};
-  `}
-`;
 
 const StyledLogo = styled(Box)`
   display: flex;
@@ -49,33 +33,15 @@ const StyledLogo = styled(Box)`
 `;
 
 const GlobalHeader = ({ children, logo, ...rest }: GlobalHeaderProps) => {
-  const [navbarElement, setNavbarElement] = useState<HTMLElement | null>(null);
-
   return (
-    <StyledGlobalHeader
-      aria-label="Global Header"
-      data-component="global-header"
-      navigationType="black"
-      orientation="top"
-      offset="0px"
-      position="fixed"
-      ref={setNavbarElement}
-      {...rest}
-    >
-      <FixedNavigationBarContextProvider
-        position="fixed"
-        orientation="top"
-        offset="0px"
-        navbarElement={navbarElement}
-      >
-        {logo && (
-          <StyledLogo data-element="global-header-logo-wrapper">
-            {logo}
-          </StyledLogo>
-        )}
-        {children}
-      </FixedNavigationBarContextProvider>
-    </StyledGlobalHeader>
+    <NavigationBar isGlobal {...rest}>
+      {logo && (
+        <StyledLogo data-element="global-header-logo-wrapper">
+          {logo}
+        </StyledLogo>
+      )}
+      {children}
+    </NavigationBar>
   );
 };
 
