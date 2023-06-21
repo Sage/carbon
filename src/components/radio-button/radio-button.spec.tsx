@@ -54,7 +54,6 @@ describe("RadioButton", () => {
 
   beforeEach(() => {
     loggerSpy = jest.spyOn(Logger, "deprecate");
-    jest.restoreAllMocks();
   });
 
   afterEach(() => {

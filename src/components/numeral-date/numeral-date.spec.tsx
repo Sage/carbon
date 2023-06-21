@@ -79,7 +79,6 @@ describe("NumeralDate", () => {
   describe("Deprecation warning for uncontrolled", () => {
     beforeEach(() => {
       loggerSpy = jest.spyOn(Logger, "deprecate");
-      jest.restoreAllMocks();
     });
 
     afterEach(() => {
@@ -448,28 +447,33 @@ describe("NumeralDate", () => {
   });
 
   describe("Valid characters", () => {
+    const preventDefaultMock = jest.fn();
+
     beforeEach(() => {
       wrapper = renderWrapper({});
     });
 
-    afterEach(() => jest.clearAllMocks());
+    afterEach(() => {
+      preventDefaultMock.mockClear();
+      onChange.mockClear();
+    });
 
     it("allows numeric key presses", () => {
       const input = wrapper.find("input").at(0);
-      const event = { key: "1", preventDefault: jest.fn() };
+      const event = { key: "1", preventDefault: preventDefaultMock };
       act(() => {
         input.simulate("keypress", event);
       });
-      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(preventDefaultMock).not.toHaveBeenCalled();
     });
 
     it.each([["a"], ["/"]])("does not allow non-numeric characters", (key) => {
       const input = wrapper.find("input").at(0);
-      const event = { key: key[0], preventDefault: jest.fn() };
+      const event = { key: key[0], preventDefault: preventDefaultMock };
       act(() => {
         input.simulate("keypress", event);
       });
-      expect(event.preventDefault).toHaveBeenCalled();
+      expect(preventDefaultMock).toHaveBeenCalled();
     });
 
     it("does not allow partial date value to be too long", () => {
@@ -478,7 +482,7 @@ describe("NumeralDate", () => {
         target: {
           value: "123",
         },
-        preventDefault: jest.fn(),
+        preventDefault: preventDefaultMock,
       };
       act(() => {
         input.simulate("change", event);

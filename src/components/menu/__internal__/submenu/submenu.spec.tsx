@@ -203,7 +203,7 @@ describe("Submenu component", () => {
       });
 
       afterEach(() => {
-        jest.resetAllMocks();
+        mockCallback.mockReset();
       });
 
       describe("on mouse over", () => {
@@ -244,7 +244,7 @@ describe("Submenu component", () => {
       });
 
       afterEach(() => {
-        jest.resetAllMocks();
+        mockCallback.mockReset();
       });
 
       describe("when submenu opens", () => {
@@ -266,7 +266,7 @@ describe("Submenu component", () => {
       });
 
       afterEach(() => {
-        jest.resetAllMocks();
+        mockCallback.mockReset();
       });
 
       describe("when submenu closes", () => {

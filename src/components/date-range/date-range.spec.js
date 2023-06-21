@@ -371,7 +371,7 @@ describe("DateRange", () => {
     });
 
     afterEach(() => {
-      jest.clearAllMocks();
+      customOnBlur.mockClear();
 
       if (container && container.parentNode) {
         container.parentNode.removeChild(container);

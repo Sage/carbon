@@ -176,7 +176,8 @@ describe("Toolbar", () => {
     });
 
     afterEach(() => {
-      jest.clearAllMocks();
+      setInlineStyle.mockClear();
+      setBlockStyle.mockClear();
     });
 
     it(`sets expected background-color when '${id.toLowerCase()}' is active`, () => {

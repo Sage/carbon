@@ -48,7 +48,7 @@ describe("Draggable", () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    getOrder.mockClear();
   });
 
   testStyledSystemMargin(
