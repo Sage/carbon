@@ -1,4 +1,5 @@
 import React from "react";
+import { TabProps, TabsProps } from "../../../src/components/tabs";
 import { tabById, tabContentById, tabTitleById } from "../../locators/tabs";
 import {
   TabsComponent,
@@ -17,6 +18,8 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import { ICON } from "../../locators/locators";
 import { DrawerSidebarContext } from "../../../src/components/drawer";
+
+const validationType = ["error", "warning", "info"] as const;
 
 context("Testing Tabs component", () => {
   describe("should render Tabs component", () => {
@@ -65,7 +68,7 @@ context("Testing Tabs component", () => {
     it.each([
       ["right", "have.css", "not.have.css"],
       ["left", "not.have.css", "have.css"],
-    ])(
+    ] as [TabsProps["align"], string, string][])(
       "should verify Tabs component is %s aligned",
       (alignment, value, startValue) => {
         CypressMountWithProviders(<TabsComponent align={alignment} />);
@@ -79,23 +82,26 @@ context("Testing Tabs component", () => {
     it.each([
       ["top", "row", 40],
       ["left", "column", 200],
-    ])("should verify Tabs component is %s positioned", (pos, flex, height) => {
-      CypressMountWithProviders(<TabsComponent position={pos} />);
+    ] as [TabsProps["position"], string, number][])(
+      "should verify Tabs component is %s positioned",
+      (pos, flex, height) => {
+        CypressMountWithProviders(<TabsComponent position={pos} />);
 
-      tabById(1)
-        .parent()
-        .should("have.css", "flex-direction", flex)
-        .then(($el) => {
-          assertCssValueIsApproximately($el, "height", height);
-        });
-    });
+        tabById(1)
+          .parent()
+          .should("have.css", "flex-direction", flex)
+          .then(($el) => {
+            assertCssValueIsApproximately($el, "height", height);
+          });
+      }
+    );
 
     it.each([
-      ["default", "row", 40, 67],
-      ["large", "column", 48, 88],
-    ])(
+      ["default", 40, 67],
+      ["large", 48, 88],
+    ] as [TabsProps["size"], number, number][])(
       "should verify Tabs height and width when size is %s",
-      (size, flex, height, width) => {
+      (size, height, width) => {
         CypressMountWithProviders(<TabsComponent size={size} />);
 
         tabById(1).then(($el) => {
@@ -113,14 +119,11 @@ context("Testing Tabs component", () => {
       (state, bool, width) => {
         CypressMountWithProviders(<TabsComponent extendedLine={bool} />);
 
-        tabById(1)
-          .parent()
-          .then(($el) => {
-            expect(parseInt($el.css("width"))).to.be.within(
-              width - 3,
-              width + 3
-            );
-          });
+        tabById(1).parent().should("have.css", "width").as("width");
+
+        cy.get("@width")
+          .then(($el) => parseInt($el.toString()))
+          .should("be.within", width - 4, width + 4);
       }
     );
 
@@ -128,7 +131,7 @@ context("Testing Tabs component", () => {
       ["off", "none", "none", "none", "none"],
       ["on", "solid", "none", "solid", "solid"],
       ["no sides", "solid", "none", "none", "none"],
-    ])(
+    ] as [TabsProps["borders"], string, string, string, string][])(
       "should verify Tabs borders are set to %s when positioned on top",
       (state, top, bottom, right, left) => {
         CypressMountWithProviders(<TabsComponent borders={state} />);
@@ -146,7 +149,7 @@ context("Testing Tabs component", () => {
       ["off", "none", "none", "none", "none"],
       ["on", "solid", "solid", "none", "solid"],
       ["no sides", "solid", "solid", "none", "none"],
-    ])(
+    ] as [TabsProps["borders"], string, string, string, string][])(
       "should verify Tabs borders are set to %s when positioned on left",
       (state, top, bottom, right, left) => {
         CypressMountWithProviders(
@@ -178,11 +181,14 @@ context("Testing Tabs component", () => {
     it.each([
       ["default", "rgb(255, 255, 255)"],
       ["alternate", "rgb(204, 214, 219)"],
-    ])("should verify Tabs variant prop", (variant, backColor) => {
-      CypressMountWithProviders(<TabsComponent variant={variant} />);
+    ] as [TabsProps["variant"], string][])(
+      "should verify Tabs variant prop",
+      (variant, backColor) => {
+        CypressMountWithProviders(<TabsComponent variant={variant} />);
 
-      tabById(1).should("have.css", "background-color", backColor);
-    });
+        tabById(1).should("have.css", "background-color", backColor);
+      }
+    );
 
     it.each([
       CHARACTERS.STANDARD,
@@ -234,14 +240,14 @@ context("Testing Tabs component", () => {
         .children()
         .children()
         .should("have.attr", "data-component", "icon");
-      tabById(1).children().children().children(1).should("have.text", "Tab 1");
+      tabById(1).children().children().children().should("have.text", "Tab 1");
     });
 
     it("should verify Tabs can be displayed with title siblings", () => {
       CypressMountWithProviders(
         <TabsComponent
           siblings={[
-            <Pill size="S" pillRole="status" fill>
+            <Pill size="S" pillRole="status" fill key="pill">
               12
             </Pill>,
           ]}
@@ -250,23 +256,20 @@ context("Testing Tabs component", () => {
 
       tabById(1)
         .children()
-        .children(1)
+        .children()
         .children()
         .should("have.attr", "data-component", "pill")
         .and("have.text", "12");
     });
 
-    it.each([
-      ["before", 0],
-      ["after", 1],
-    ])(
+    it.each(["before", "after"] as TabProps["titlePosition"][])(
       "should verify Tabs title can be displayed %s siblings",
-      (pos, child) => {
+      (pos) => {
         CypressMountWithProviders(
           <TabsComponent
             titlePosition={pos}
             siblings={[
-              <Pill size="S" pillRole="status" fill>
+              <Pill size="S" pillRole="status" fill key="pill">
                 12
               </Pill>,
             ]}
@@ -275,7 +278,7 @@ context("Testing Tabs component", () => {
 
         tabById(1)
           .children()
-          .children(child)
+          .children()
           .children()
           .should("have.attr", "data-component", "pill")
           .and("have.text", "12");
@@ -283,9 +286,9 @@ context("Testing Tabs component", () => {
     );
 
     it.each([
-      [1, "error"],
-      [2, "warning"],
-      [3, "info"],
+      [1, validationType[0]],
+      [2, validationType[1]],
+      [3, validationType[2]],
     ])(
       "should verify that tab %s has a %s icon displayed",
       (id, validation) => {
@@ -296,9 +299,9 @@ context("Testing Tabs component", () => {
     );
 
     it.each([
-      [1, "error"],
-      [2, "warning"],
-      [3, "info"],
+      [1, validationType[0]],
+      [2, validationType[1]],
+      [3, validationType[2]],
     ])(
       "should verify when tab %s is hovered over that %s message is displayed",
       (id, validationMessage) => {
@@ -312,7 +315,7 @@ context("Testing Tabs component", () => {
       }
     );
 
-    it.each(["error", "warning", "info"])(
+    it.each([validationType[0], validationType[1], validationType[2]])(
       "should no longer report any %s validation failures of children no longer mounted",
       (type) => {
         CypressMountWithProviders(
@@ -334,176 +337,143 @@ context("Testing Tabs component", () => {
         .children()
         .should("have.css", "outline-color", "rgba(0, 0, 0, 0.9)");
     });
+
+    it("should focus next tab title when right arrow key event is triggered", () => {
+      CypressMountWithProviders(<TabsComponent />);
+
+      tabById(1).trigger("keydown", keyCode("rightarrow"));
+      tabTitleById(2).should("be.focused");
+    });
+
+    it("should focus previous tab title when left arrow key event is triggered", () => {
+      CypressMountWithProviders(<TabsComponent />);
+
+      tabById(2).trigger("keydown", keyCode("leftarrow"));
+      tabTitleById(1).should("be.focused");
+    });
+
+    it("should focus next tab title when down arrow key event is triggered", () => {
+      CypressMountWithProviders(<TabsComponent position="left" />);
+
+      tabById(1).trigger("keydown", keyCode("downarrow"));
+      tabTitleById(2).should("be.focused");
+    });
+
+    it("should focus previous tab title when up arrow key event is triggered", () => {
+      CypressMountWithProviders(<TabsComponent position="left" />);
+
+      tabById(2).trigger("keydown", keyCode("uparrow"));
+      tabTitleById(1).should("be.focused");
+    });
+
+    it("should focus next tab title when down arrow key event is triggered in Sidebar", () => {
+      CypressMountWithProviders(
+        <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+          <TabsComponent />
+        </DrawerSidebarContext.Provider>
+      );
+
+      tabById(1).trigger("keydown", keyCode("downarrow"));
+      tabTitleById(2).should("be.focused");
+    });
+
+    it("should focus previous tab title when up arrow key event is triggered in Sidebar", () => {
+      CypressMountWithProviders(
+        <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
+          <TabsComponent />
+        </DrawerSidebarContext.Provider>
+      );
+
+      tabById(2).trigger("keydown", keyCode("uparrow"));
+      tabTitleById(1).should("be.focused");
+    });
+
+    it.each(["top", "left"] as TabsProps["position"][])(
+      "has the expected border radius styling when position is %s",
+      (position) => {
+        CypressMountWithProviders(<TabsComponent position={position} />);
+        const result =
+          position === "top" ? "8px 8px 0px 0px" : "8px 0px 0px 8px";
+
+        tabById(1).should("have.css", "border-radius", result);
+        tabById(2).should("have.css", "border-radius", result);
+        tabById(3).should("have.css", "border-radius", result);
+        tabById(4).should("have.css", "border-radius", result);
+        tabById(5).should("have.css", "border-radius", result);
+      }
+    );
   });
 
   describe("check events for Tabs component", () => {
     describe("when position: top", () => {
-      let callback;
-
-      beforeEach(() => {
-        callback = cy.stub();
-      });
-
       it("should call onTabChange callback when a click event is triggered", () => {
+        const callback: TabsProps["onTabChange"] = cy.stub().as("onTabChange");
+
         CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
 
-        tabById(2)
-          .click()
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        tabById(2).click();
+        cy.get("@onTabChange").should("have.been.calledOnce");
       });
 
       it("should call onTabChange callback when an enter key is pressed", () => {
+        const callback: TabsProps["onTabChange"] = cy.stub().as("onTabChange");
+
         CypressMountWithProviders(<TabsComponent onTabChange={callback} />);
 
-        tabById(2)
-          .type("{enter}")
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
-      });
-
-      it("should focus next tab title when right arrow key event is triggered", () => {
-        CypressMountWithProviders(<TabsComponent />);
-
-        tabById(1)
-          .trigger("keydown", keyCode("rightarrow"))
-          .then(() => {
-            tabTitleById(2).should("have.focus");
-          });
-      });
-
-      it("should focus previous tab title when left arrow key event is triggered", () => {
-        CypressMountWithProviders(<TabsComponent />);
-
-        tabById(2)
-          .trigger("keydown", keyCode("leftarrow"))
-          .then(() => {
-            tabTitleById(1).should("have.focus");
-          });
+        tabById(2).type("{enter}");
+        cy.get("@onTabChange").should("have.been.calledOnce");
       });
     });
 
     describe("when position: left", () => {
-      let callback;
-
-      beforeEach(() => {
-        callback = cy.stub();
-      });
-
       it("should call onTabChange callback when a click event is triggered", () => {
+        const callback: TabsProps["onTabChange"] = cy.stub().as("onTabChange");
+
         CypressMountWithProviders(
           <TabsComponent position="left" onTabChange={callback} />
         );
 
-        tabById(2)
-          .click()
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        tabById(2).click();
+        cy.get("@onTabChange").should("have.been.calledOnce");
       });
 
       it("should call onTabChange callback when an enter key is pressed", () => {
+        const callback: TabsProps["onTabChange"] = cy.stub().as("onTabChange");
+
         CypressMountWithProviders(
           <TabsComponent position="left" onTabChange={callback} />
         );
 
-        tabById(2)
-          .type("{enter}")
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
-      });
-
-      it("should focus next tab title when down arrow key event is triggered", () => {
-        CypressMountWithProviders(<TabsComponent position="left" />);
-
-        tabById(1)
-          .trigger("keydown", keyCode("downarrow"))
-          .then(() => {
-            tabTitleById(2).should("have.focus");
-          });
-      });
-
-      it("should focus previous tab title when up arrow key event is triggered", () => {
-        CypressMountWithProviders(<TabsComponent position="left" />);
-
-        tabById(2)
-          .trigger("keydown", keyCode("uparrow"))
-          .then(() => {
-            tabTitleById(1).should("have.focus");
-          });
+        tabById(2).type("{enter}");
+        cy.get("@onTabChange").should("have.been.calledOnce");
       });
     });
 
     describe("when inSidebar: true", () => {
-      let callback;
-
-      beforeEach(() => {
-        callback = cy.stub();
-      });
-
       it("should call onTabChange callback when a click event is triggered", () => {
+        const callback: TabsProps["onTabChange"] = cy.stub().as("onTabChange");
+
         CypressMountWithProviders(
           <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
             <TabsComponent onTabChange={callback} />
           </DrawerSidebarContext.Provider>
         );
 
-        tabById(2)
-          .click()
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        tabById(2).click();
+        cy.get("@onTabChange").should("have.been.calledOnce");
       });
 
       it("should call onTabChange callback when an enter key is pressed", () => {
+        const callback: TabsProps["onTabChange"] = cy.stub().as("onTabChange");
+
         CypressMountWithProviders(
           <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
             <TabsComponent onTabChange={callback} />
           </DrawerSidebarContext.Provider>
         );
 
-        tabById(2)
-          .type("{enter}")
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
-      });
-
-      it("should focus next tab title when down arrow key event is triggered", () => {
-        CypressMountWithProviders(
-          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-            <TabsComponent />
-          </DrawerSidebarContext.Provider>
-        );
-
-        tabById(1)
-          .trigger("keydown", keyCode("downarrow"))
-          .then(() => {
-            tabTitleById(2).should("have.focus");
-          });
-      });
-
-      it("should focus previous tab title when up arrow key event is triggered", () => {
-        CypressMountWithProviders(
-          <DrawerSidebarContext.Provider value={{ isInSidebar: true }}>
-            <TabsComponent />
-          </DrawerSidebarContext.Provider>
-        );
-
-        tabById(2)
-          .trigger("keydown", keyCode("uparrow"))
-          .then(() => {
-            tabTitleById(1).should("have.focus");
-          });
+        tabById(2).type("{enter}");
+        cy.get("@onTabChange").should("have.been.calledOnce");
       });
     });
   });
@@ -665,18 +635,4 @@ context("Testing Tabs component", () => {
       cy.checkAccessibility();
     });
   });
-
-  it.each(["top", "left"])(
-    "has the expected border radius styling when position is %s",
-    (position) => {
-      CypressMountWithProviders(<TabsComponent position={position} />);
-      const result = position === "top" ? "8px 8px 0px 0px" : "8px 0px 0px 8px";
-
-      tabById(1).should("have.css", "border-radius", result);
-      tabById(2).should("have.css", "border-radius", result);
-      tabById(3).should("have.css", "border-radius", result);
-      tabById(4).should("have.css", "border-radius", result);
-      tabById(5).should("have.css", "border-radius", result);
-    }
-  );
 });

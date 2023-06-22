@@ -1,5 +1,5 @@
 import React from "react";
-import { Tabs, Tab, TabsProps } from ".";
+import { Tabs, Tab, TabsProps, TabProps } from ".";
 import { Checkbox } from "../checkbox/checkbox.component";
 
 export default {
@@ -113,7 +113,9 @@ export const Default = (args: TabsProps) => {
 
 Default.storyName = "default";
 
-export const TabsComponent = ({ ...props }: TabsProps) => {
+export const TabsComponent = (
+  props: Partial<TabsProps> & Partial<TabProps>
+) => {
   return (
     <div
       style={{
@@ -177,7 +179,7 @@ export const TabsComponent = ({ ...props }: TabsProps) => {
   );
 };
 
-export const TabsComponentValidations = ({ ...props }: TabsProps) => {
+export const TabsComponentValidations = (props: Partial<TabsProps>) => {
   const [errors, setErrors] = React.useState({
     one: true,
     two: false,
