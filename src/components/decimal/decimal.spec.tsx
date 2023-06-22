@@ -698,6 +698,46 @@ describe("Decimal", () => {
             })
           );
         });
+
+        it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 0,
+            value: "",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...esProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0");
+          expect(hiddenValue()).toBe("0");
+          expect(onBlur).toHaveBeenCalled();
+        });
+
+        it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 1,
+            value: "0",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...esProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0,0");
+          expect(hiddenValue()).toBe("0.0");
+          expect(onBlur).toHaveBeenCalled();
+        });
       });
 
       describe("pt", () => {
@@ -772,6 +812,46 @@ describe("Decimal", () => {
           expect(value()).toBe("10\xa0000\xa0000,00");
           expect(hiddenValue()).toBe("10000000.00");
         });
+
+        it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 0,
+            value: "0.00",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...ptProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0");
+          expect(hiddenValue()).toBe("0");
+          expect(onBlur).toHaveBeenCalled();
+        });
+
+        it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 1,
+            value: "0",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...ptProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0,0");
+          expect(hiddenValue()).toBe("0.0");
+          expect(onBlur).toHaveBeenCalled();
+        });
       });
 
       describe("fr", () => {
@@ -798,6 +878,46 @@ describe("Decimal", () => {
             );
           }
         );
+
+        it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 0,
+            value: "0.00",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...frProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0");
+          expect(hiddenValue()).toBe("0");
+          expect(onBlur).toHaveBeenCalled();
+        });
+
+        it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 1,
+            value: "0",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...frProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0,0");
+          expect(hiddenValue()).toBe("0.0");
+          expect(onBlur).toHaveBeenCalled();
+        });
       });
 
       describe("it", () => {
@@ -844,6 +964,46 @@ describe("Decimal", () => {
           render({ defaultValue: "-1234.56", ...itProps });
           expect(value()).toBe("-1.234,56");
           expect(hiddenValue()).toBe("-1234.56");
+        });
+
+        it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 0,
+            value: "0.00",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...itProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0");
+          expect(hiddenValue()).toBe("0");
+          expect(onBlur).toHaveBeenCalled();
+        });
+
+        it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 1,
+            value: "0",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...itProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0,0");
+          expect(hiddenValue()).toBe("0.0");
+          expect(onBlur).toHaveBeenCalled();
         });
 
         describe("precision", () => {
@@ -1181,6 +1341,44 @@ describe("Decimal", () => {
       expect(onChange).toHaveBeenCalled();
       expect(value()).toBe("-");
       expect(hiddenValue()).toBe("-");
+    });
+
+    it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+      const onBlur = jest.fn();
+      render({
+        precision: 0,
+        value: "",
+        onBlur,
+        onChange: (e: CustomEvent) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: false,
+      });
+
+      setProps({ value: "" });
+      blur();
+      expect(value()).toBe("0");
+      expect(hiddenValue()).toBe("0");
+      expect(onBlur).toHaveBeenCalled();
+    });
+
+    it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+      const onBlur = jest.fn();
+      render({
+        precision: 1,
+        value: "",
+        onBlur,
+        onChange: (e: CustomEvent) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: false,
+      });
+
+      setProps({ value: "" });
+      blur();
+      expect(value()).toBe("0.0");
+      expect(hiddenValue()).toBe("0.0");
+      expect(onBlur).toHaveBeenCalled();
     });
 
     it("typing a negative value does not revert to the default value (allowEmptyValue)", () => {

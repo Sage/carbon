@@ -268,6 +268,92 @@ context("Tests for Decimal component", () => {
     });
   });
 
+  describe("allowEmptyValue", () => {
+    it.each([
+      [0, "en", "0", "0"],
+      [1, "en", "0.0", "0.0"],
+      [2, "en", "0.00", "0.00"],
+      [0, "es-ES", "0", "0"],
+      [1, "es-ES", "0.0", "0,0"],
+      [2, "es-ES", "0.00", "0,00"],
+      [0, "fr", "0", "0"],
+      [1, "fr", "0.0", "0,0"],
+      [2, "fr", "0.00", "0,00"],
+      [0, "pt-PT", "0", "0"],
+      [1, "pt-PT", "0.0", "0,0"],
+      [2, "pt-PT", "0.00", "0,00"],
+    ] as [DecimalProps["precision"], string, string, string][])(
+      "should format an empty value correctly when precision is %s, locale is %s and allowEmptyValue is false",
+      (precisionValue, localeValue, rawValue, expectedValue) => {
+        const callback: DecimalProps["onBlur"] = cy.stub().as("onBlur");
+
+        CypressMountWithProviders(
+          <Decimal
+            precision={precisionValue}
+            locale={localeValue}
+            allowEmptyValue={false}
+            onBlur={callback}
+          />
+        );
+
+        commonDataElementInputPreview().type("100");
+        commonDataElementInputPreview()
+          .clear()
+          .blur({ force: true })
+          .then(() => {
+            cy.get("@onBlur").should(
+              "have.been.calledWith",
+              eventOutput(expectedValue, rawValue)
+            );
+          });
+        expect(
+          commonDataElementInputPreview().should("have.value", expectedValue)
+        );
+      }
+    );
+
+    it.each([
+      [0, "en"],
+      [1, "en"],
+      [2, "en"],
+      [0, "es-ES"],
+      [1, "es-ES"],
+      [2, "es-ES"],
+      [0, "fr"],
+      [1, "fr"],
+      [2, "fr"],
+      [0, "pt-PT"],
+      [1, "pt-PT"],
+      [2, "pt-PT"],
+    ] as [DecimalProps["precision"], string][])(
+      "should format an empty value correctly when precision is %s, locale is %s and allowEmptyValue is true",
+      (precisionValue, localeValue) => {
+        const callback: DecimalProps["onBlur"] = cy.stub().as("onBlur");
+
+        CypressMountWithProviders(
+          <Decimal
+            precision={precisionValue}
+            locale={localeValue}
+            allowEmptyValue
+            onBlur={callback}
+          />
+        );
+
+        commonDataElementInputPreview().type("100");
+        commonDataElementInputPreview()
+          .clear()
+          .blur({ force: true })
+          .then(() => {
+            cy.get("@onBlur").should(
+              "have.been.calledWith",
+              eventOutput("", "")
+            );
+          });
+        expect(commonDataElementInputPreview().should("have.value", ""));
+      }
+    );
+  });
+
   describe("check events for Decimal component", () => {
     const inputValue = "123";
     const iterable = [
