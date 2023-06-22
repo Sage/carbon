@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: ">=18.12.1 18"
       - run: npm ci
-      - uses: chromaui/action@v6
+      - uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
