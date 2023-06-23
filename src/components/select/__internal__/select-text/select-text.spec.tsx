@@ -56,20 +56,4 @@ describe("SelectText", () => {
       wrapper
     );
   });
-
-  it("should have proper styling when transparent is set", () => {
-    const wrapper = renderSelectText({
-      transparent: true,
-      formattedValue: "foo",
-    });
-
-    assertStyleMatch(
-      {
-        textAlign: "right",
-        fontWeight: "900",
-        flexDirection: "row-reverse",
-      },
-      wrapper
-    );
-  });
 });

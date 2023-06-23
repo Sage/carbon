@@ -9,7 +9,7 @@ interface StyledSelectTextProps
 }
 
 const StyledSelectText = styled.span<StyledSelectTextProps>`
-  ${({ disabled, hasPlaceholder, readOnly, transparent, size }) => css`
+  ${({ disabled, hasPlaceholder, readOnly, size }) => css`
     align-items: center;
     display: inline-flex;
     flex-grow: 1;
@@ -22,13 +22,6 @@ const StyledSelectText = styled.span<StyledSelectTextProps>`
     width: 30px;
     z-index: 1;
     padding-left: ${sizes[size].horizontalPadding};
-
-    ${transparent &&
-    css`
-      font-weight: 900;
-      text-align: right;
-      flex-direction: row-reverse;
-    `}
 
     ${hasPlaceholder &&
     css`
