@@ -1,5 +1,5 @@
 import React from "react";
-
+import Content from "../content/content.component";
 import Pod, { PodProps } from "./pod.component";
 import { POD_ALIGNMENTS, POD_SIZES, POD_VARIANTS } from "./pod.config";
 
@@ -76,7 +76,7 @@ Default.args = {
   triggerEditOnContent: false,
 };
 
-export const PodExample = ({ ...props }) => {
+export const PodExample = (props: PodProps) => {
   return (
     <Pod
       title="Title"
@@ -89,6 +89,26 @@ export const PodExample = ({ ...props }) => {
   );
 };
 
-export const PodDefault = ({ ...props }) => {
+export const PodDefault = (props: PodProps) => {
   return <Pod title="Title" {...props} />;
 };
+
+export const SoftDeleteExample = (props: PodProps) => {
+  return (
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      onUndo={() => {}}
+      softDelete
+      {...props}
+    />
+  );
+};
+
+export const SoftDeleteExampleWithChildren = () => (
+  <Pod softDelete onUndo={() => {}}>
+    Content
+    <Content>More content</Content>
+  </Pod>
+);
