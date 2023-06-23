@@ -1,5 +1,7 @@
 import React from "react";
-import Search, { SearchProps } from "../../../src/components/search/search.component";
+import Search, {
+  SearchProps,
+} from "../../../src/components/search/search.component";
 import { SearchComponent } from "../../../src/components/search/search-test.stories";
 import Box from "../../../src/components/box";
 import { getDataElementByValue, tooltipPreview } from "../../locators";
@@ -23,7 +25,7 @@ import {
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = CHARACTERS.STANDARD;
 const keysToTrigger = ["Enter", "Space"] as const;
-const validationTypes: [string,string][] = [
+const validationTypes: [string, string][] = [
   ["error", VALIDATION.ERROR],
   ["warning", VALIDATION.WARNING],
   ["info", VALIDATION.INFO],
@@ -106,7 +108,11 @@ context("Test for Search component", () => {
         );
 
         searchDefault().then(($el) => {
-          cy.wrap($el[0].getBoundingClientRect().width).should('be.approximately', parseInt(widthVal), 2);
+          cy.wrap($el[0].getBoundingClientRect().width).should(
+            "be.approximately",
+            parseInt(widthVal),
+            2
+          );
         });
       }
     );
@@ -117,7 +123,11 @@ context("Test for Search component", () => {
         CypressMountWithProviders(<SearchComponent searchWidth={width} />);
 
         searchDefault().then(($el) => {
-          cy.wrap($el[0].getBoundingClientRect().width).should('be.approximately', parseInt(width), 2);
+          cy.wrap($el[0].getBoundingClientRect().width).should(
+            "be.approximately",
+            parseInt(width),
+            2
+          );
         });
       }
     );
@@ -135,7 +145,11 @@ context("Test for Search component", () => {
         );
 
         searchDefault().then(($el) => {
-          cy.wrap($el[0].getBoundingClientRect().width).should('be.approximately', parseInt(widthVal), 2);
+          cy.wrap($el[0].getBoundingClientRect().width).should(
+            "be.approximately",
+            parseInt(widthVal),
+            2
+          );
         });
       }
     );
@@ -144,7 +158,11 @@ context("Test for Search component", () => {
       CypressMountWithProviders(<SearchComponent maxWidth="" />);
 
       return searchDefault().then(($el) => {
-        cy.wrap($el[0].getBoundingClientRect().width).should('be.approximately', parseInt("1366px"), 2);
+        cy.wrap($el[0].getBoundingClientRect().width).should(
+          "be.approximately",
+          parseInt("1366px"),
+          2
+        );
       });
     });
 
@@ -178,7 +196,7 @@ context("Test for Search component", () => {
     it.each([
       ["default", "rgb(51, 91, 112)"],
       ["dark", "rgb(204, 214, 219)"],
-    ]as [SearchProps["variant"], string][])(
+    ] as [SearchProps["variant"], string][])(
       "should render Search with variant prop set to %s on hover",
       (variant, hoverColor) => {
         CypressMountWithProviders(
@@ -212,9 +230,7 @@ context("Test for Search component", () => {
           <SearchComponent {...{ [type]: "Message" }} />
         );
 
-        searchDefaultInput()
-          .parent()
-          .should("have.css", "border-color", color);
+        searchDefaultInput().parent().should("have.css", "border-color", color);
 
         getDataElementByValue(type).should("be.visible");
       }
@@ -225,9 +241,7 @@ context("Test for Search component", () => {
       (type, color) => {
         CypressMountWithProviders(<SearchComponent {...{ [type]: true }} />);
 
-        searchDefaultInput()
-          .parent()
-          .should("have.css", "border-color", color);
+        searchDefaultInput().parent().should("have.css", "border-color", color);
       }
     );
 
@@ -236,7 +250,7 @@ context("Test for Search component", () => {
       searchDefaultInput().should("have.css", "border-radius", "4px");
       searchDefaultInput().parent().should("have.css", "border-radius", "4px");
     });
-  
+
     it("should have the expected border radius styling when search button enabled", () => {
       CypressMountWithProviders(<SearchComponent searchButton value="foo" />);
       searchDefaultInput()
@@ -244,7 +258,12 @@ context("Test for Search component", () => {
         .should("have.css", "border-radius", "4px 0px 0px 4px");
     });
 
-    it.each(["top", "bottom", "left", "right"] as SearchProps["tooltipPosition"][])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as SearchProps["tooltipPosition"][])(
       "should render Search with the tooltip in the %s position",
       (tooltipPositionValue) => {
         CypressMountWithProviders(
@@ -326,7 +345,6 @@ context("Test for Search component", () => {
   });
 
   describe("check events for Search component", () => {
-
     it("should call onClick callback when a click event is triggered", () => {
       const callback: SearchProps["onClick"] = cy.stub().as("onClick");
 
@@ -336,7 +354,6 @@ context("Test for Search component", () => {
 
       searchButton().click();
       cy.get("@onClick").should("have.been.calledOnce");
-      
     });
 
     it("should call onChange callback when a type event is triggered", () => {
@@ -346,7 +363,6 @@ context("Test for Search component", () => {
 
       searchDefaultInput().type("1");
       cy.get("@onChange").should("have.been.calledOnce");
-      
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
@@ -355,7 +371,7 @@ context("Test for Search component", () => {
       CypressMountWithProviders(<SearchComponent onFocus={callback} />);
 
       searchDefaultInput().focus();
-      cy.get("@onFocus").should("have.been.calledOnce");  
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
@@ -364,7 +380,7 @@ context("Test for Search component", () => {
       CypressMountWithProviders(<SearchComponent onBlur={callback} />);
 
       searchDefaultInput().focus().blur();
-      cy.get("@onBlur").should("have.been.calledOnce");    
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it.each([keysToTrigger[0], keysToTrigger[1]])(
@@ -375,8 +391,7 @@ context("Test for Search component", () => {
         CypressMountWithProviders(<SearchComponent onKeyDown={callback} />);
 
         searchDefaultInput().trigger("keydown", keyCode(key));
-        cy.get("@onKeyDown").should("have.been.calledOnce"); 
-          
+        cy.get("@onKeyDown").should("have.been.calledOnce");
       }
     );
   });
@@ -494,7 +509,12 @@ context("Test for Search component", () => {
       }
     );
 
-    it.each(["top", "bottom", "left", "right"] as SearchProps["tooltipPosition"][])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as SearchProps["tooltipPosition"][])(
       "should check accessibility for Search with the tooltip in the %s position",
       (tooltipPositionValue) => {
         CypressMountWithProviders(
@@ -538,6 +558,5 @@ context("Test for Search component", () => {
         }
       );
     });
-  
   });
 });
