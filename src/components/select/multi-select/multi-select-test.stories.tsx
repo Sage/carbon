@@ -59,7 +59,7 @@ export const Default = () => {
 
 Default.storyName = "default";
 
-export const MultiSelectComponent = ({ ...props }) => {
+export const MultiSelectComponent = (props: Partial<MultiSelectProps>) => {
   const [value, setValue] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue((event.target.value as unknown) as string[]);
@@ -88,7 +88,9 @@ export const MultiSelectComponent = ({ ...props }) => {
   );
 };
 
-export const MultiSelectDefaultValueComponent = ({ ...props }) => {
+export const MultiSelectDefaultValueComponent = (
+  props: Partial<MultiSelectProps>
+) => {
   return (
     <MultiSelect label="color" labelInline {...props}>
       <Option text="Amber" value="1" />
@@ -106,7 +108,9 @@ export const MultiSelectDefaultValueComponent = ({ ...props }) => {
   );
 };
 
-export const MultiSelectLongPillComponent = ({ ...props }) => {
+export const MultiSelectLongPillComponent = (
+  props: Partial<MultiSelectProps>
+) => {
   const [value, setValue] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue((event.target.value as unknown) as string[]);
@@ -141,7 +145,9 @@ export const MultiSelectLongPillComponent = ({ ...props }) => {
   );
 };
 
-export const MultiSelectWithLazyLoadingComponent = ({ ...props }) => {
+export const MultiSelectWithLazyLoadingComponent = (
+  props: Partial<MultiSelectProps>
+) => {
   const preventLoading = React.useRef(false);
   const [value, setValue] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -185,7 +191,9 @@ export const MultiSelectWithLazyLoadingComponent = ({ ...props }) => {
   );
 };
 
-export const MultiSelectLazyLoadTwiceComponent = ({ ...props }) => {
+export const MultiSelectLazyLoadTwiceComponent = (
+  props: Partial<MultiSelectProps>
+) => {
   const preventLoading = React.useRef(false);
   const [value, setValue] = useState<string[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -237,7 +245,9 @@ export const MultiSelectLazyLoadTwiceComponent = ({ ...props }) => {
   );
 };
 
-export const MultiSelectObjectAsValueComponent = ({ ...props }) => {
+export const MultiSelectObjectAsValueComponent = (
+  props: Partial<MultiSelectProps>
+) => {
   const [value, setValue] = useState<Record<string, unknown>[]>([
     { id: "Green", value: 5, text: "Green" },
   ]);
@@ -355,7 +365,9 @@ export const MultiSelectObjectAsValueComponent = ({ ...props }) => {
   );
 };
 
-export const MultiSelectMultiColumnsComponent = ({ ...props }) => {
+export const MultiSelectMultiColumnsComponent = (
+  props: Partial<MultiSelectProps>
+) => {
   return (
     <MultiSelect
       multiColumn
@@ -398,7 +410,9 @@ export const MultiSelectMultiColumnsComponent = ({ ...props }) => {
   );
 };
 
-export const MultiSelectMaxOptionsComponent = ({ ...props }) => {
+export const MultiSelectMaxOptionsComponent = (
+  props: Partial<MultiSelectProps>
+) => {
   const maxSelectionsAllowed = 2;
   const [selectedPills, setSelectedPills] = useState<string[]>([]);
 
@@ -435,7 +449,7 @@ export const MultiSelectMaxOptionsComponent = ({ ...props }) => {
 export const MultiSelectOnFilterChangeEventComponent = ({
   onChange,
   ...props
-}: MultiSelectProps) => {
+}: Partial<MultiSelectProps>) => {
   const [state, setState] = useState<string[]>([]);
 
   const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -462,7 +476,9 @@ export const MultiSelectOnFilterChangeEventComponent = ({
   );
 };
 
-export const MultiSelectCustomColorComponent = ({ ...props }) => {
+export const MultiSelectCustomColorComponent = (
+  props: Partial<MultiSelectProps>
+) => {
   return (
     <MultiSelect label="color" labelInline defaultValue={["1", "3"]} {...props}>
       <Option text="Amber" value="1" borderColor="#FFBF00" fill />

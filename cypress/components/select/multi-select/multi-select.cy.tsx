@@ -1,7 +1,7 @@
 import React from "react";
+import { MultiSelectProps } from "../../../../src/components/select";
 import * as stories from "../../../../src/components/select/multi-select/multi-select-test.stories";
 import CypressMountWithProviders from "../../../support/component-helper/cypress-mount";
-
 import {
   getDataElementByValue,
   helpIcon,
@@ -9,7 +9,6 @@ import {
   commonDataElementInputPreview,
   body,
 } from "../../../locators";
-
 import {
   selectList,
   selectListWrapper,
@@ -32,18 +31,13 @@ import {
   multiSelectPillByText,
   selectResetButton,
 } from "../../../locators/select";
-
 import { pillCloseIcon } from "../../../locators/pill";
-
 import { loader } from "../../../locators/loader";
-
 import { alertDialogPreview } from "../../../locators/dialog";
-
 import {
   assertCssValueIsApproximately,
   verifyRequiredAsteriskForLabel,
 } from "../../../support/component-helper/common-steps";
-
 import { positionOfElement } from "../../../support/helper";
 import { SIZE, CHARACTERS } from "../../../support/component-helper/constants";
 
@@ -54,6 +48,15 @@ const option1 = "Green";
 const option2 = "Purple";
 const option3 = "Yellow";
 const defaultValue = ["10"];
+const keyToTrigger = [
+  "ArrowDown",
+  "ArrowUp",
+  "ArrowLeft",
+  "ArrowRight",
+  "Home",
+  "End",
+  "Enter",
+] as const;
 
 context("Tests for MultiSelect component", () => {
   describe("check props for MultiSelect component", () => {
@@ -149,7 +152,7 @@ context("Tests for MultiSelect component", () => {
       ["bottom", "0px", "0px", "0px", "0px"],
       ["left", "200px", "0px", "200px", "0px"],
       ["right", "200px", "0px", "0px", "200px"],
-    ])(
+    ] as [MultiSelectProps["tooltipPosition"], string, string, string, string][])(
       "should render the help tooltip in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -190,7 +193,7 @@ context("Tests for MultiSelect component", () => {
       [SIZE.SMALL, 32],
       [SIZE.MEDIUM, 40],
       [SIZE.LARGE, 48],
-    ])(
+    ] as [MultiSelectProps["size"], number][])(
       "should use %s as size and render MultiSelect with %s as height",
       (size, height) => {
         CypressMountWithProviders(<stories.MultiSelectComponent size={size} />);
@@ -224,9 +227,9 @@ context("Tests for MultiSelect component", () => {
     });
 
     it.each([
-      ["flex", "399"],
-      ["flex", "400"],
-      ["block", "401"],
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
     ])(
       "should check MultiSelect label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint) => {
@@ -249,7 +252,7 @@ context("Tests for MultiSelect component", () => {
     it.each([
       ["right", "end"],
       ["left", "start"],
-    ])(
+    ] as [MultiSelectProps["labelAlign"], string][])(
       "should use %s as labelAligment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
@@ -264,9 +267,9 @@ context("Tests for MultiSelect component", () => {
     );
 
     it.each([
-      ["10", "90", 135, 1229],
-      ["30", "70", 409, 954],
-      ["80", "20", 1092, 273],
+      [10, 90, 135, 1229],
+      [30, 70, 409, 954],
+      [80, 20, 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -381,23 +384,29 @@ context("Tests for MultiSelect component", () => {
     });
 
     it.each([
-      ["open", "ArrowDown"],
-      ["open", "ArrowUp"],
-      ["open", "Home"],
-      ["open", "End"],
-      ["not open", "Enter"],
+      keyToTrigger[0],
+      keyToTrigger[1],
+      keyToTrigger[4],
+      keyToTrigger[5],
     ])(
-      "should %s the list when %s is pressed with MultiSelect input in focus",
-      (state, key) => {
+      "should open the list when %s is pressed with MultiSelect input in focus",
+      (key) => {
         CypressMountWithProviders(<stories.MultiSelectComponent />);
 
         commonDataElementInputPreview().focus();
         selectInput().realPress(key);
-        if (state === "open") {
-          selectListWrapper().should("be.visible");
-        } else {
-          selectListWrapper().should("not.be.visible");
-        }
+        selectListWrapper().should("be.visible");
+      }
+    );
+
+    it.each([keyToTrigger[6]])(
+      "should not open the list when %s is pressed with MultiSelect input in focus",
+      (key) => {
+        CypressMountWithProviders(<stories.MultiSelectComponent />);
+
+        commonDataElementInputPreview().focus();
+        selectInput().realPress(key);
+        selectListWrapper().should("not.be.visible");
       }
     );
 
@@ -514,11 +523,7 @@ context("Tests for MultiSelect component", () => {
       selectInput().should("have.attr", "aria-expanded", "true");
       selectListWrapper().should("be.visible");
       dropdownButton().click().click();
-      selectListWrapper()
-        .find("li")
-        .should(($lis) => {
-          expect($lis).to.have.length(count);
-        });
+      selectListWrapper().find("li").should("have.length", count);
     });
 
     it("should check list is open when input is focussed and openOnFocus is set", () => {
@@ -553,7 +558,7 @@ context("Tests for MultiSelect component", () => {
       ["bottom", "600px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "0px", "900px"],
       ["right", "200px", "0px", "500px", "20px"],
-    ])(
+    ] as [MultiSelectProps["listPlacement"], string, string, string, string][])(
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -579,9 +584,6 @@ context("Tests for MultiSelect component", () => {
         }
         if (position === "right") {
           flipPosition = "left";
-        }
-        if (position === "auto") {
-          flipPosition = "right";
         }
 
         dropdownButton().click();
@@ -731,9 +733,9 @@ context("Tests for MultiSelect component", () => {
     });
 
     it.each([
-      ["third", "Blue as the sky on a summer's day"],
-      ["fifth", "Green as the grass in a spring meadow"],
-    ])(
+      ["third" as const, "Blue as the sky on a summer's day"],
+      ["fifth" as const, "Green as the grass in a spring meadow"],
+    ] as ["third" | "fifth", string][])(
       "should select %s list option and show pill with complete long text wrapped in the input",
       (option, text) => {
         CypressMountWithProviders(
@@ -811,65 +813,49 @@ context("Tests for MultiSelect component", () => {
   });
 
   describe("check events for MultiSelect component", () => {
-    let callback;
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onClick event when mouse is clicked on text input", () => {
+      const callback: MultiSelectProps["onClick"] = cy.stub().as("onClick");
       CypressMountWithProviders(
         <stories.MultiSelectComponent onClick={callback} />
       );
 
-      commonDataElementInputPreview()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().click();
+      cy.get("@onClick").should("have.been.calledOnce");
     });
 
     it("should call onFocus when MultiSelect is brought into focus", () => {
+      const callback: MultiSelectProps["onFocus"] = cy.stub().as("onFocus");
       CypressMountWithProviders(
         <stories.MultiSelectComponent onFocus={callback} />
       );
 
-      commonDataElementInputPreview()
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().focus();
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
 
     it("should call onOpen when MultiSelect is opened", () => {
+      const callback: MultiSelectProps["onOpen"] = cy.stub().as("onOpen");
       CypressMountWithProviders(
         <stories.MultiSelectComponent onOpen={callback} />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      dropdownButton().click();
+      cy.get("@onOpen").should("have.been.calledOnce");
     });
 
     it("should call onBlur event when the list is closed", () => {
+      const callback: MultiSelectProps["onBlur"] = cy.stub().as("onBlur");
       CypressMountWithProviders(
         <stories.MultiSelectComponent onBlur={callback} />
       );
 
       dropdownButton().click();
-      selectInput()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      selectInput().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call onChange event once when a list option is selected", () => {
+      const callback: MultiSelectProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(
         <stories.MultiSelectComponent onChange={callback} />
       );
@@ -878,34 +864,32 @@ context("Tests for MultiSelect component", () => {
       const option = ["1"];
 
       dropdownButton().click();
-      selectOption(positionOfElement(position))
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnceWith({
-            target: { value: option },
-          });
-        });
+      selectOption(positionOfElement(position)).click();
+      cy.get("@onChange").should("have.been.calledWith", {
+        target: { value: option },
+      });
     });
 
-    it.each(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Enter"])(
-      "should call onKeyDown event when %s key is pressed",
-      (key) => {
-        CypressMountWithProviders(
-          <stories.MultiSelectComponent onKeyDown={callback} />
-        );
+    it.each([
+      keyToTrigger[0],
+      keyToTrigger[1],
+      keyToTrigger[2],
+      keyToTrigger[3],
+      keyToTrigger[6],
+    ])("should call onKeyDown event when %s key is pressed", (key) => {
+      const callback: MultiSelectProps["onKeyDown"] = cy.stub().as("onKeyDown");
+      CypressMountWithProviders(
+        <stories.MultiSelectComponent onKeyDown={callback} />
+      );
 
-        commonDataElementInputPreview()
-          .focus()
-          .realPress(key)
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
-      }
-    );
+      commonDataElementInputPreview().focus().realPress(key);
+      cy.get("@onKeyDown").should("have.been.calledOnce");
+    });
 
     it("should call onFilterChange event when a filter string is input", () => {
+      const callback: MultiSelectProps["onFilterChange"] = cy
+        .stub()
+        .as("onFilterChange");
       CypressMountWithProviders(
         <stories.MultiSelectOnFilterChangeEventComponent
           onFilterChange={callback}
@@ -914,14 +898,9 @@ context("Tests for MultiSelect component", () => {
 
       const text = "B";
 
-      commonDataElementInputPreview()
-        .click()
-        .type(text)
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-          expect(callback).to.have.been.calledWith(text);
-        });
+      commonDataElementInputPreview().click().type(text);
+      cy.get("@onFilterChange").should("have.been.calledOnce");
+      cy.get("@onFilterChange").should("have.been.calledWith", text);
     });
   });
 
@@ -969,18 +948,12 @@ context("Tests for MultiSelect component", () => {
       CypressMountWithProviders(<stories.MultiSelectNestedInDialog />);
 
       dropdownButton().click();
-      commonDataElementInputPreview()
-        .type("{esc}", { force: true })
-        .then(() => {
-          selectList().should("not.be.visible");
-          alertDialogPreview().should("exist");
-        });
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      selectList().should("not.be.visible");
+      alertDialogPreview().should("exist");
 
-      commonDataElementInputPreview()
-        .type("{esc}", { force: true })
-        .then(() => {
-          alertDialogPreview().should("not.exist");
-        });
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      alertDialogPreview().should("not.exist");
     });
 
     it("should not refocus the select textbox when closing it by clicking outside", () => {
@@ -1016,9 +989,8 @@ context("Tests for MultiSelect component", () => {
     it("should pass accessibilty tests for MultiSelect", () => {
       CypressMountWithProviders(<stories.MultiSelectComponent />);
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it.each(testData)(
@@ -1061,7 +1033,7 @@ context("Tests for MultiSelect component", () => {
       ["bottom", "0px", "0px", "0px", "0px"],
       ["left", "200px", "0px", "200px", "0px"],
       ["right", "200px", "0px", "0px", "200px"],
-    ])(
+    ] as [MultiSelectProps["tooltipPosition"], string, string, string, string][])(
       "should pass accessibilty tests for MultiSelect tooltip prop in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -1091,12 +1063,15 @@ context("Tests for MultiSelect component", () => {
       CypressMountWithProviders(<stories.MultiSelectComponent readOnly />);
 
       cy.checkAccessibility();
-      selectInput()
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectInput().click();
+      cy.checkAccessibility();
     });
 
-    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+    it.each([
+      SIZE.SMALL,
+      SIZE.MEDIUM,
+      SIZE.LARGE,
+    ] as MultiSelectProps["size"][])(
       "should pass accessibilty tests for MultiSelect size prop",
       (size) => {
         CypressMountWithProviders(<stories.MultiSelectComponent size={size} />);
@@ -1124,9 +1099,9 @@ context("Tests for MultiSelect component", () => {
     });
 
     it.each([
-      ["flex", "399"],
-      ["flex", "400"],
-      ["block", "401"],
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
     ])(
       "should pass accessibilty tests for MultiSelect adaptiveLabelBreakpoint prop set as %s and viewport 400",
       (displayValue, breakpoint) => {
@@ -1143,7 +1118,7 @@ context("Tests for MultiSelect component", () => {
       }
     );
 
-    it.each(["right", "left"])(
+    it.each(["right", "left"] as MultiSelectProps["labelAlign"][])(
       "should pass accessibilty tests for MultiSelect labelAlign prop set as %s",
       (alignment) => {
         CypressMountWithProviders(
@@ -1155,9 +1130,9 @@ context("Tests for MultiSelect component", () => {
     );
 
     it.each([
-      ["10", "90"],
-      ["30", "70"],
-      ["80", "20"],
+      [10, 90],
+      [30, 70],
+      [80, 20],
     ])(
       "should pass accessibilty tests for MultiSelect labelWidth prop set as %s and inputWidth set as %s",
       (label, input) => {
@@ -1197,18 +1172,16 @@ context("Tests for MultiSelect component", () => {
     it("should pass accessibilty tests for MultiSelect openOnFocus prop", () => {
       CypressMountWithProviders(<stories.MultiSelectComponent openOnFocus />);
 
-      commonDataElementInputPreview()
-        .focus()
-        .then(() => cy.checkAccessibility());
+      commonDataElementInputPreview().focus();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for MultiSelect with object as value", () => {
       CypressMountWithProviders(<stories.MultiSelectObjectAsValueComponent />);
 
       dropdownButton().click();
-      selectListText(option2)
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectListText(option2).click();
+      cy.checkAccessibility();
     });
 
     it.each([
@@ -1216,7 +1189,7 @@ context("Tests for MultiSelect component", () => {
       ["bottom", "600px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "0px", "900px"],
       ["right", "200px", "0px", "500px", "20px"],
-    ])(
+    ] as [MultiSelectProps["listPlacement"], string, string, string, string][])(
       "should pass accessibilty tests for MultiSelect listPlacement and flipEnabled props",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -1244,17 +1217,15 @@ context("Tests for MultiSelect component", () => {
         </div>
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for MultiSelect with multiple columns", () => {
       CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it.each(["3", "7"])(
@@ -1274,7 +1245,7 @@ context("Tests for MultiSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(["third", "fifth"])(
+    it.each([["third"], ["fifth"]] as ["third" | "fifth"][])(
       "should pass accessibilty tests for MultiSelect wrapPillText prop",
       (option) => {
         CypressMountWithProviders(
@@ -1293,17 +1264,15 @@ context("Tests for MultiSelect component", () => {
         <stories.MultiSelectWithManyOptionsAndVirtualScrolling />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for MultiSelect in nested dialog", () => {
       CypressMountWithProviders(<stories.MultiSelectNestedInDialog />);
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     // FE-5764

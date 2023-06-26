@@ -1,7 +1,7 @@
 import React from "react";
+import { FilterableSelectProps } from "../../../../src/components/select";
 import * as stories from "../../../../src/components/select/filterable-select/filterable-select-test.stories";
 import CypressMountWithProviders from "../../../support/component-helper/cypress-mount";
-
 import {
   getDataElementByValue,
   helpIcon,
@@ -9,7 +9,6 @@ import {
   commonDataElementInputPreview,
   body,
 } from "../../../locators";
-
 import {
   selectList,
   selectListWrapper,
@@ -32,18 +31,13 @@ import {
   boldedAndUnderlinedValue,
   multiColumnsSelectListNoResultsMessage,
 } from "../../../locators/select";
-
 import { loader } from "../../../locators/loader";
-
 import { alertDialogPreview } from "../../../locators/dialog";
-
 import {
   assertCssValueIsApproximately,
   verifyRequiredAsteriskForLabel,
 } from "../../../support/component-helper/common-steps";
-
 import { keyCode, positionOfElement } from "../../../support/helper";
-
 import { SIZE, CHARACTERS } from "../../../support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -51,6 +45,7 @@ const testPropValue = CHARACTERS.STANDARD;
 const addElementText = "Add a New Element";
 const columns = 3;
 const icon = "add";
+const keyToTrigger = ["downarrow", "uparrow", "Home", "End", "Enter"] as const;
 
 context("Tests for FilterableSelect component", () => {
   describe("check props for FilterableSelect component", () => {
@@ -146,7 +141,7 @@ context("Tests for FilterableSelect component", () => {
       ["bottom", "0px", "0px", "0px", "0px"],
       ["left", "200px", "0px", "200px", "0px"],
       ["right", "200px", "0px", "0px", "200px"],
-    ])(
+    ] as [FilterableSelectProps["tooltipPosition"], string, string, string, string][])(
       "should render the help tooltip in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -187,7 +182,7 @@ context("Tests for FilterableSelect component", () => {
       [SIZE.SMALL, 32],
       [SIZE.MEDIUM, 40],
       [SIZE.LARGE, 48],
-    ])(
+    ] as [FilterableSelectProps["size"], number][])(
       "should use %s as size and render FilterableSelect with %s as height",
       (size, height) => {
         CypressMountWithProviders(
@@ -227,9 +222,9 @@ context("Tests for FilterableSelect component", () => {
     });
 
     it.each([
-      ["flex", "399"],
-      ["flex", "400"],
-      ["block", "401"],
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
     ])(
       "should check FilterableSelect label alignment is %s with adaptiveLabelBreakpoint %s and viewport 400",
       (displayValue, breakpoint) => {
@@ -252,7 +247,7 @@ context("Tests for FilterableSelect component", () => {
     it.each([
       ["right", "end"],
       ["left", "start"],
-    ])(
+    ] as [FilterableSelectProps["labelAlign"], string][])(
       "should use %s as labelAligment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
@@ -270,9 +265,9 @@ context("Tests for FilterableSelect component", () => {
     );
 
     it.each([
-      ["10", "90", 135, 1229],
-      ["30", "70", 409, 956],
-      ["80", "20", 1092, 273],
+      [10, 90, 135, 1229],
+      [30, 70, 409, 956],
+      [80, 20, 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -389,23 +384,29 @@ context("Tests for FilterableSelect component", () => {
     });
 
     it.each([
-      ["open", "downarrow"],
-      ["open", "uparrow"],
-      ["open", "Home"],
-      ["open", "End"],
-      ["not open", "Enter"],
+      keyToTrigger[0],
+      keyToTrigger[1],
+      keyToTrigger[2],
+      keyToTrigger[3],
     ])(
-      "should %s the list when %s is pressed with FilterableSelect input in focus",
-      (state, key) => {
+      "should open the list when %s is pressed with FilterableSelect input in focus",
+      (key) => {
         CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
         commonDataElementInputPreview().focus();
         selectInput().trigger("keydown", { ...keyCode(key), force: true });
-        if (state === "open") {
-          selectListWrapper().should("be.visible");
-        } else {
-          selectListWrapper().should("not.be.visible");
-        }
+        selectListWrapper().should("be.visible");
+      }
+    );
+
+    it.each([keyToTrigger[4]])(
+      "should not open the list when %s is pressed with FilterableSelect input in focus",
+      (key) => {
+        CypressMountWithProviders(<stories.FilterableSelectComponent />);
+
+        commonDataElementInputPreview().focus();
+        selectInput().trigger("keydown", { ...keyCode(key), force: true });
+        selectListWrapper().should("not.be.visible");
       }
     );
 
@@ -460,8 +461,7 @@ context("Tests for FilterableSelect component", () => {
       }
     });
 
-    // FE-5300 raised to fix the issue with the loader not reappeearing
-    it.skip("should render the lazy loader when the prop is set and list is opened again", () => {
+    it("should render the lazy loader when the prop is set and list is opened again", () => {
       CypressMountWithProviders(
         <stories.FilterableSelectLazyLoadTwiceComponent />
       );
@@ -516,11 +516,7 @@ context("Tests for FilterableSelect component", () => {
       selectInput().should("have.attr", "aria-expanded", "false");
       selectListWrapper().should("not.be.visible");
       dropdownButton().click();
-      selectListWrapper()
-        .find("li")
-        .should(($lis) => {
-          expect($lis).to.have.length(count);
-        });
+      selectListWrapper().find("li").should("have.length", count);
     });
 
     it("should check list is open when input is focussed and openOnFocus is set", () => {
@@ -578,7 +574,7 @@ context("Tests for FilterableSelect component", () => {
       ["bottom", "600px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "0px", "900px"],
       ["right", "200px", "0px", "500px", "20px"],
-    ])(
+    ] as [FilterableSelectProps["listPlacement"], string, string, string, string][])(
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -604,9 +600,6 @@ context("Tests for FilterableSelect component", () => {
         }
         if (position === "right") {
           flipPosition = "left";
-        }
-        if (position === "auto") {
-          flipPosition = "right";
         }
 
         dropdownButton().click();
@@ -779,11 +772,9 @@ context("Tests for FilterableSelect component", () => {
 
       filterableSelectAddElementButton().should("be.visible");
 
-      selectListWrapper().then((wrapperElement) => {
-        const actualHeight = parseInt(wrapperElement.css("height"));
-        expect(actualHeight).to.be.above(220);
-        expect(actualHeight).to.be.below(250);
-      });
+      selectListWrapper()
+        .then(($element) => parseInt($element.css("height")))
+        .should("be.within", 220, 250);
     });
 
     it("when navigating with the keyboard, the selected option is not hidden behind an action button", () => {
@@ -836,78 +827,65 @@ context("Tests for FilterableSelect component", () => {
   });
 
   describe("check events for FilterableSelect component", () => {
-    let callback;
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onClick event when mouse is clicked on text input", () => {
+      const callback: FilterableSelectProps["onClick"] = cy
+        .stub()
+        .as("onClick");
       CypressMountWithProviders(
         <stories.FilterableSelectComponent onClick={callback} />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      dropdownButton().click();
+      cy.get("@onClick").should("have.been.calledOnce");
     });
 
     it("should call onFocus when FilterableSelect is brought into focus", () => {
+      const callback: FilterableSelectProps["onFocus"] = cy
+        .stub()
+        .as("onFocus");
       CypressMountWithProviders(
         <stories.FilterableSelectComponent onFocus={callback} />
       );
 
-      commonDataElementInputPreview()
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().focus();
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
 
     it("should call onOpen when FilterableSelect is opened by focusing the input", () => {
+      const callback: FilterableSelectProps["onOpen"] = cy.stub().as("onOpen");
       CypressMountWithProviders(
         <stories.FilterableSelectComponent openOnFocus onOpen={callback} />
       );
 
-      commonDataElementInputPreview()
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.wrap(callback).should("have.been.calledOnce");
-        });
+      commonDataElementInputPreview().focus();
+      cy.get("@onOpen").should("have.been.calledOnce");
     });
 
     it("should call onOpen when FilterableSelect is opened by clicking on Icon", () => {
+      const callback: FilterableSelectProps["onOpen"] = cy.stub().as("onOpen");
       CypressMountWithProviders(
         <stories.FilterableSelectComponent onOpen={callback} />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      dropdownButton().click();
+      cy.get("@onOpen").should("have.been.calledOnce");
     });
 
     it("should call onBlur event when the list is closed", () => {
+      const callback: FilterableSelectProps["onBlur"] = cy.stub().as("onBlur");
       CypressMountWithProviders(
         <stories.FilterableSelectComponent onBlur={callback} />
       );
 
       dropdownButton().click();
-      commonDataElementInputPreview()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call onChange event when a list option is selected", () => {
+      const callback: FilterableSelectProps["onChange"] = cy
+        .stub()
+        .as("onChange");
       CypressMountWithProviders(
         <stories.FilterableSelectComponent onChange={callback} />
       );
@@ -916,34 +894,33 @@ context("Tests for FilterableSelect component", () => {
       const option = "1";
 
       dropdownButton().click();
-      selectOption(positionOfElement(position))
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledWith({
-            target: { value: option },
-          });
-        });
+      selectOption(positionOfElement(position)).click();
+      cy.get("@onChange").should("have.been.calledWith", {
+        target: { value: option },
+      });
     });
 
-    it.each([["downarrow"], ["uparrow"]])(
+    it.each([keyToTrigger[0], keyToTrigger[1]])(
       "should call onKeyDown event when %s key is pressed",
       (key) => {
+        const callback: FilterableSelectProps["onKeyDown"] = cy
+          .stub()
+          .as("onKeyDown");
         CypressMountWithProviders(
           <stories.FilterableSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
           .focus()
-          .trigger("keydown", { ...keyCode(key), force: true })
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+          .trigger("keydown", { ...keyCode(key), force: true });
+        cy.get("@onKeyDown").should("have.been.calledOnce");
       }
     );
 
     it("should call onFilterChange event when a filter string is input", () => {
+      const callback: FilterableSelectProps["onFilterChange"] = cy
+        .stub()
+        .as("onFilterChange");
       CypressMountWithProviders(
         <stories.FilterableSelectOnChangeEventComponent
           onFilterChange={callback}
@@ -952,17 +929,15 @@ context("Tests for FilterableSelect component", () => {
 
       const text = "B";
 
-      commonDataElementInputPreview()
-        .click()
-        .type(text)
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-          expect(callback).to.have.been.calledWith(text);
-        });
+      commonDataElementInputPreview().click().type(text);
+      cy.get("@onFilterChange").should("have.been.calledOnce");
+      cy.get("@onFilterChange").should("have.been.calledWith", text);
     });
 
     it("should call onListAction event when the Action Button is clicked", () => {
+      const callback: FilterableSelectProps["onListAction"] = cy
+        .stub()
+        .as("onListAction");
       CypressMountWithProviders(
         <stories.FilterableSelectListActionEventComponent
           onListAction={callback}
@@ -970,27 +945,21 @@ context("Tests for FilterableSelect component", () => {
       );
 
       dropdownButton().click();
-      filterableSelectAddElementButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      filterableSelectAddElementButton().click();
+      cy.get("@onListAction").should("have.been.calledOnce");
     });
 
     it("should call onListScrollBottom event when the list is scrolled to the bottom", () => {
+      const callback: FilterableSelectProps["onListScrollBottom"] = cy
+        .stub()
+        .as("onListScrollBottom");
       CypressMountWithProviders(
         <stories.FilterableSelectComponent onListScrollBottom={callback} />
       );
 
       dropdownButton().click();
-      selectListWrapper()
-        .scrollTo("bottom")
-        .wait(250)
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      selectListWrapper().scrollTo("bottom").wait(250);
+      cy.get("@onListScrollBottom").should("have.been.calledOnce");
     });
   });
 
@@ -1038,18 +1007,12 @@ context("Tests for FilterableSelect component", () => {
       CypressMountWithProviders(<stories.FilterableSelectNestedInDialog />);
 
       dropdownButton().click();
-      commonDataElementInputPreview()
-        .type("{esc}", { force: true })
-        .then(() => {
-          selectList().should("not.be.visible");
-          alertDialogPreview().should("exist");
-        });
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      selectList().should("not.be.visible");
+      alertDialogPreview().should("exist");
 
-      commonDataElementInputPreview()
-        .type("{esc}", { force: true })
-        .then(() => {
-          alertDialogPreview().should("not.exist");
-        });
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      alertDialogPreview().should("not.exist");
     });
 
     it("should not refocus the select textbox when closing it by clicking outside", () => {
@@ -1067,9 +1030,8 @@ context("Tests for FilterableSelect component", () => {
     it("should pass accessibilty tests for FilterableSelect", () => {
       CypressMountWithProviders(<stories.FilterableSelectComponent />);
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it.each(testData)(
@@ -1112,7 +1074,7 @@ context("Tests for FilterableSelect component", () => {
       ["bottom", "0px", "0px", "0px", "0px"],
       ["left", "200px", "0px", "200px", "0px"],
       ["right", "200px", "0px", "0px", "200px"],
-    ])(
+    ] as [FilterableSelectProps["tooltipPosition"], string, string, string, string][])(
       "should pass accessibilty tests for FilterableSelect tooltip prop in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -1142,12 +1104,15 @@ context("Tests for FilterableSelect component", () => {
       CypressMountWithProviders(<stories.FilterableSelectComponent readOnly />);
 
       cy.checkAccessibility();
-      selectInput()
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectInput().click();
+      cy.checkAccessibility();
     });
 
-    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+    it.each([
+      SIZE.SMALL,
+      SIZE.MEDIUM,
+      SIZE.LARGE,
+    ] as FilterableSelectProps["size"][])(
       "should pass accessibilty tests for FilterableSelect size prop",
       (size) => {
         CypressMountWithProviders(
@@ -1181,9 +1146,9 @@ context("Tests for FilterableSelect component", () => {
     });
 
     it.each([
-      ["flex", "399"],
-      ["flex", "400"],
-      ["block", "401"],
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
     ])(
       "should pass accessibilty tests for FilterableSelect adaptiveLabelBreakpoint prop set as %s and viewport 400",
       (displayValue, breakpoint) => {
@@ -1200,7 +1165,7 @@ context("Tests for FilterableSelect component", () => {
       }
     );
 
-    it.each(["right", "left"])(
+    it.each(["right", "left"] as FilterableSelectProps["labelAlign"][])(
       "should pass accessibilty tests for FilterableSelect labelAlign prop set as %s",
       (alignment) => {
         CypressMountWithProviders(
@@ -1215,9 +1180,9 @@ context("Tests for FilterableSelect component", () => {
     );
 
     it.each([
-      ["10", "90"],
-      ["30", "70"],
-      ["80", "20"],
+      [10, 90],
+      [30, 70],
+      [80, 20],
     ])(
       "should pass accessibilty tests for FilterableSelect labelWidth prop set as %s and inputWidth set as %s",
       (label, input) => {
@@ -1259,12 +1224,10 @@ context("Tests for FilterableSelect component", () => {
         <stories.FilterableSelectWithInfiniteScrollComponent />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
-      selectListWrapper()
-        .scrollTo("bottom")
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
+      selectListWrapper().scrollTo("bottom");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for FilterableSelect openOnFocus prop", () => {
@@ -1272,9 +1235,8 @@ context("Tests for FilterableSelect component", () => {
         <stories.FilterableSelectComponent openOnFocus />
       );
 
-      commonDataElementInputPreview()
-        .focus()
-        .then(() => cy.checkAccessibility());
+      commonDataElementInputPreview().focus();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for FilterableSelect with object as value", () => {
@@ -1282,9 +1244,8 @@ context("Tests for FilterableSelect component", () => {
         <stories.FilterableSelectObjectAsValueComponent />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for FilterableSelect listMaxHeight prop", () => {
@@ -1292,9 +1253,8 @@ context("Tests for FilterableSelect component", () => {
         <stories.FilterableSelectComponent listMaxHeight={200} />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it.each([
@@ -1302,7 +1262,7 @@ context("Tests for FilterableSelect component", () => {
       ["bottom", "600px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "0px", "900px"],
       ["right", "200px", "0px", "500px", "20px"],
-    ])(
+    ] as [FilterableSelectProps["listPlacement"], string, string, string, string][])(
       "should pass accessibilty tests for FilterableSelect listPlacement and flipEnabled props",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -1327,9 +1287,8 @@ context("Tests for FilterableSelect component", () => {
         <stories.FilterableSelectMultiColumnsComponent />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for FilterableSelect with multiple columns and nested component", () => {
@@ -1337,9 +1296,8 @@ context("Tests for FilterableSelect component", () => {
         <stories.FilterableSelectMultiColumnsNestedComponent />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for FilterableSelect with an action button and trigger Dialog on action", () => {
@@ -1347,9 +1305,8 @@ context("Tests for FilterableSelect component", () => {
         <stories.FilterableSelectWithActionButtonComponent />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for FilterableSelect with virtual scrolling", () => {
@@ -1357,17 +1314,15 @@ context("Tests for FilterableSelect component", () => {
         <stories.FilterableSelectWithManyOptionsAndVirtualScrolling />
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for FilterableSelect in nested dialog", () => {
       CypressMountWithProviders(<stories.FilterableSelectNestedInDialog />);
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     // FE-5764
@@ -1378,9 +1333,8 @@ context("Tests for FilterableSelect component", () => {
         </div>
       );
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
   });
 });

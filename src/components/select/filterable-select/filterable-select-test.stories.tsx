@@ -46,7 +46,9 @@ export const DefaultStory = () => (
 
 DefaultStory.storyName = "default";
 
-export const FilterableSelectComponent = ({ ...props }) => {
+export const FilterableSelectComponent = (
+  props: Partial<FilterableSelectProps>
+) => {
   const [value, setValue] = React.useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -76,7 +78,9 @@ export const FilterableSelectComponent = ({ ...props }) => {
   );
 };
 
-export const FilterableSelectWithLazyLoadingComponent = ({ ...props }) => {
+export const FilterableSelectWithLazyLoadingComponent = (
+  props: Partial<FilterableSelectProps>
+) => {
   const preventLoading = React.useRef(false);
   const [value, setValue] = React.useState("black");
   const [isLoading, setIsLoading] = React.useState(true);
@@ -122,7 +126,9 @@ export const FilterableSelectWithLazyLoadingComponent = ({ ...props }) => {
   );
 };
 
-export const FilterableSelectLazyLoadTwiceComponent = ({ ...props }) => {
+export const FilterableSelectLazyLoadTwiceComponent = (
+  props: Partial<FilterableSelectProps>
+) => {
   const preventLoading = React.useRef(false);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -171,7 +177,9 @@ export const FilterableSelectLazyLoadTwiceComponent = ({ ...props }) => {
   );
 };
 
-export const FilterableSelectWithInfiniteScrollComponent = ({ ...props }) => {
+export const FilterableSelectWithInfiniteScrollComponent = (
+  props: Partial<FilterableSelectProps>
+) => {
   const preventLoading = React.useRef(false);
   const preventLazyLoading = React.useRef(false);
   const lazyLoadingCounter = React.useRef(0);
@@ -255,7 +263,9 @@ export const FilterableSelectWithInfiniteScrollComponent = ({ ...props }) => {
   );
 };
 
-export const FilterableSelectObjectAsValueComponent = ({ ...props }) => {
+export const FilterableSelectObjectAsValueComponent = (
+  props: Partial<FilterableSelectProps>
+) => {
   const [value, setValue] = useState<Record<string, unknown>>({
     id: "Green",
     value: 5,
@@ -374,7 +384,9 @@ export const FilterableSelectObjectAsValueComponent = ({ ...props }) => {
   );
 };
 
-export const FilterableSelectMultiColumnsComponent = ({ ...props }) => {
+export const FilterableSelectMultiColumnsComponent = (
+  props: Partial<FilterableSelectProps>
+) => {
   return (
     <FilterableSelect
       multiColumn
@@ -417,7 +429,9 @@ export const FilterableSelectMultiColumnsComponent = ({ ...props }) => {
   );
 };
 
-export const FilterableSelectMultiColumnsNestedComponent = ({ ...props }) => {
+export const FilterableSelectMultiColumnsNestedComponent = (
+  props: Partial<FilterableSelectProps>
+) => {
   return (
     <FilterableSelect
       multiColumn
@@ -525,7 +539,7 @@ export const FilterableSelectWithActionButtonComponent = () => {
 export const FilterableSelectOnChangeEventComponent = ({
   onChange,
   ...props
-}: FilterableSelectProps) => {
+}: Partial<FilterableSelectProps>) => {
   const [state, setState] = React.useState("");
 
   const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -552,7 +566,9 @@ export const FilterableSelectOnChangeEventComponent = ({
   );
 };
 
-export const FilterableSelectListActionEventComponent = ({ ...props }) => {
+export const FilterableSelectListActionEventComponent = (
+  props: Partial<FilterableSelectProps>
+) => {
   const [value, setValue] = React.useState("");
 
   return (
