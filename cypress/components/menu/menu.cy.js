@@ -274,6 +274,17 @@ const MenuFullScreenBackgroundScrollTest = () => {
   );
 };
 
+const MenuFullScreenWithFalsyValues = ({ ...props }) => {
+  const showMenuItem = false;
+  return (
+    <MenuFullscreen {...props}>
+      <MenuItem maxWidth="200px">Submenu Item One</MenuItem>
+      {false && <MenuItem href="#">Product Item One</MenuItem>}
+      {showMenuItem ? <MenuItem href="#">Product Item Two</MenuItem> : null}
+    </MenuFullscreen>
+  );
+};
+
 const MenuComponentItems = ({ ...props }) => {
   return (
     <Box mb={150}>
@@ -2133,25 +2144,33 @@ context("Testing Menu component", () => {
     });
   });
 
-  describe("MenuFullScreen test background scroll when tabbing", () => {
-    it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
-      CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+  describe("MenuFullScreen", () => {
+    describe("test background scroll when tabbing", () => {
+      it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
+        CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
 
-      continuePressingTABKey(4);
+        continuePressingTABKey(4);
 
-      closeIconButton().should("be.focused");
+        closeIconButton().should("be.focused");
 
-      cy.checkNotInViewport("#bottom-box");
+        cy.checkNotInViewport("#bottom-box");
+      });
+
+      it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
+        CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+
+        continuePressingTABKey(3, true);
+
+        closeIconButton().should("be.focused");
+
+        cy.checkNotInViewport("#bottom-box");
+      });
     });
 
-    it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
-      CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+    it("should not render a MenuDivider when falsy values are rendered", () => {
+      CypressMountWithProviders(<MenuFullScreenWithFalsyValues isOpen />);
 
-      continuePressingTABKey(3, true);
-
-      closeIconButton().should("be.focused");
-
-      cy.checkNotInViewport("#bottom-box");
+      menuDivider().should("not.exist");
     });
   });
 });
