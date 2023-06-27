@@ -428,7 +428,9 @@ context("Test for Popover Container component", () => {
       cy.get(`[role="checkbox"]`).eq(1).check();
       cy.get(`[role="checkbox"]`).eq(2).check();
       getDataElementByValue("main-text").eq(1).click();
+      getComponent("pill").eq(0).should("be.visible");
       getComponent("pill").eq(1).should("be.visible");
+      getComponent("pill").eq(2).should("be.visible");
       cy.checkAccessibility();
     });
   });
