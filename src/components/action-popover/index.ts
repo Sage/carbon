@@ -7,3 +7,4 @@ export type { ActionPopoverItemProps } from "./action-popover-item/action-popove
 export { default as ActionPopoverMenuButton } from "./action-popover-menu-button/action-popover-menu-button.component";
 export type { ActionPopoverMenuButtonProps } from "./action-popover-menu-button/action-popover-menu-button.component";
 export { default as ActionPopoverDivider } from "./action-popover-divider/action-popover-divider.component";
+export type { RenderButtonProps } from "./action-popover.component";
