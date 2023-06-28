@@ -1,20 +1,18 @@
 import React from "react";
-import Sidebar from "../../../src/components/sidebar";
 import { sidebarPreview } from "../../locators/sidebar";
 import {
   SidebarComponent,
   SidebarBackgroundScrollTestComponent,
   SidebarBackgroundScrollWithOtherFocusableContainers,
+  SidebarComponentFocusable,
 } from "../../../src/components/sidebar/sidebar-test.stories";
+import { SidebarProps } from "../../../src/components/sidebar/sidebar.component";
 import {
   backgroundUILocator,
   closeIconButton,
   getComponent,
   getDataElementByValue,
 } from "../../locators";
-import Button from "../../../src/components/button";
-import Textbox from "../../../src/components/textbox";
-import Toast from "../../../src/components/toast";
 import Typography from "../../../src/components/typography";
 import { keyCode, continuePressingTABKey } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
@@ -24,51 +22,6 @@ import {
 } from "../../../src/components/sidebar/sidebar.config";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
-
-const CUSTOM_SELECTOR = "button, .focusable-container input";
-
-const SidebarComponentFocusable = ({ ...props }) => {
-  const [setIsDialogOpen] = React.useState(false);
-  const [isToastOpen, setIsToastOpen] = React.useState(false);
-  const toastRef = React.useRef(null);
-  return (
-    <>
-      <Sidebar
-        open
-        onCancel={() => setIsDialogOpen(false)}
-        header={<Typography variant="h3">Sidebar header</Typography>}
-        focusableContainers={[toastRef]}
-        focusableSelectors={CUSTOM_SELECTOR}
-        {...props}
-      >
-        <div className="focusable-container">
-          <Textbox label="First Name" />
-        </div>
-        <div>
-          <Textbox label="Surname" />
-        </div>
-        <div className="focusable-container">
-          <Button
-            buttonType="primary"
-            data-element="open-toast"
-            onClick={() => setIsToastOpen(true)}
-          >
-            Show toast
-          </Button>
-        </div>
-      </Sidebar>
-      <Toast
-        open={isToastOpen}
-        onDismiss={() => setIsToastOpen(false)}
-        ref={toastRef}
-        targetPortalId="stacked"
-        data-element="toast"
-      >
-        Toast Message
-      </Toast>
-    </>
-  );
-};
 
 context("Testing Sidebar component", () => {
   describe("check props for Sidebar component", () => {
@@ -89,14 +42,17 @@ context("Testing Sidebar component", () => {
     it.each([
       ["left", 0, 852],
       ["right", 852, 0],
-    ])("verify Sidebar position is %s", (boolVal, left, right) => {
-      CypressMountWithProviders(<SidebarComponent position={boolVal} />);
+    ] as [SidebarProps["position"], number, number][])(
+      "verify Sidebar position is %s",
+      (boolVal, left, right) => {
+        CypressMountWithProviders(<SidebarComponent position={boolVal} />);
 
-      sidebarPreview().then(($el) => {
-        assertCssValueIsApproximately($el, "left", left);
-        assertCssValueIsApproximately($el, "right", right);
-      });
-    });
+        sidebarPreview().then(($el) => {
+          assertCssValueIsApproximately($el, "left", left);
+          assertCssValueIsApproximately($el, "right", right);
+        });
+      }
+    );
 
     it("verify Sidebar has aria-describedby cypress_data", () => {
       CypressMountWithProviders(
@@ -138,13 +94,16 @@ context("Testing Sidebar component", () => {
       [SIDEBAR_SIZES[4], SIDEBAR_SIZES_CSS["medium-large"]],
       [SIDEBAR_SIZES[5], SIDEBAR_SIZES_CSS.large],
       [SIDEBAR_SIZES[6], SIDEBAR_SIZES_CSS["extra-large"]],
-    ])("verify Sidebar size is %s", (size, width) => {
-      CypressMountWithProviders(<SidebarComponent size={size} />);
+    ] as [SidebarProps["size"], string][])(
+      "verify Sidebar size is %s",
+      (size, width) => {
+        CypressMountWithProviders(<SidebarComponent size={size} />);
 
-      sidebarPreview().then(($el) => {
-        assertCssValueIsApproximately($el, "width", parseInt(width));
-      });
-    });
+        sidebarPreview().then(($el) => {
+          assertCssValueIsApproximately($el, "width", parseInt(width));
+        });
+      }
+    );
 
     it("verify Sidebar has header", () => {
       CypressMountWithProviders(
@@ -243,21 +202,18 @@ context("Testing Sidebar component", () => {
       getComponent("toast").should("not.exist");
       getDataElementByValue("open-toast").click();
       getComponent("toast").should("exist");
-      cy.get("body").click().tab();
+      cy.get("body").click();
+      cy.get("body").tab();
       closeIconButton().eq(1).should("be.focused");
     });
 
     it("should call onCancel callback when a click event is triggered", () => {
-      const callback = cy.stub();
+      const callback: SidebarProps["onCancel"] = cy.stub().as("onCancel");
 
       CypressMountWithProviders(<SidebarComponent onCancel={callback} />);
 
-      closeIconButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      closeIconButton().click();
+      cy.get("@onCancel").should("have.been.calledOnce");
     });
   });
 
@@ -268,7 +224,7 @@ context("Testing Sidebar component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(["left", "right"])(
+    it.each(["left", "right"] as SidebarProps["position"][])(
       "should check accessibility when sidebar position is %s",
       (boolVal) => {
         CypressMountWithProviders(<SidebarComponent position={boolVal} />);
@@ -295,11 +251,14 @@ context("Testing Sidebar component", () => {
       SIDEBAR_SIZES[4],
       SIDEBAR_SIZES[5],
       SIDEBAR_SIZES[6],
-    ])("should check accessibility when sidebar size is %s", (size) => {
-      CypressMountWithProviders(<SidebarComponent size={size} />);
+    ] as SidebarProps["size"][])(
+      "should check accessibility when sidebar size is %s",
+      (size) => {
+        CypressMountWithProviders(<SidebarComponent size={size} />);
 
-      cy.checkAccessibility();
-    });
+        cy.checkAccessibility();
+      }
+    );
   });
 
   describe("test background scroll when tabbing", () => {
