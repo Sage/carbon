@@ -858,6 +858,26 @@ describe("FlatTableRow", () => {
         expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
       });
 
+      it("should lazy load the sub rows if they are defined as a component", () => {
+        const subRows = jest.fn(() => SubRows);
+        const wrapper = renderFlatTableRow({
+          expandable: true,
+          subRows,
+        });
+
+        expect(subRows).not.toHaveBeenCalled();
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(0).props().onClick();
+        });
+
+        wrapper.update();
+
+        expect(subRows).toHaveBeenCalled();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+      });
+
       describe("when onClick prop set", () => {
         it("should call the onClick function", () => {
           const onClickFn = jest.fn();

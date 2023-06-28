@@ -277,6 +277,25 @@ const FlatTableRow = React.forwardRef(
       </FlatTableRowDraggable>
     );
 
+    let subRowContent = null;
+
+    if (isExpanded && subRows) {
+      if (subRows instanceof Array) {
+        subRowContent = React.Children.map(
+          subRows,
+          (child, index) =>
+            child &&
+            React.cloneElement(child, {
+              isSubRow: true,
+              isFirstSubRow: index === 0,
+              ...child.props,
+            })
+        );
+      } else {
+        subRowContent = React.createElement(subRows);
+      }
+    }
+
     return (
       <DrawerSidebarContext.Consumer>
         {({ isInSidebar }) => (
@@ -284,18 +303,7 @@ const FlatTableRow = React.forwardRef(
             {draggable
               ? draggableComponent(isInSidebar)
               : rowComponent(isInSidebar)}
-            {isExpanded &&
-              subRows &&
-              React.Children.map(
-                subRows,
-                (child, index) =>
-                  child &&
-                  React.cloneElement(child, {
-                    isSubRow: true,
-                    isFirstSubRow: index === 0,
-                    ...child.props,
-                  })
-              )}
+            {subRowContent}
           </>
         )}
       </DrawerSidebarContext.Consumer>

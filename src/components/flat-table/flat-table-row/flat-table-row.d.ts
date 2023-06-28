@@ -21,7 +21,7 @@ export interface FlatTableRowProps {
   /** Allows developers to manually control selected state for the row. */
   selected?: boolean;
   /** Sub rows to be shown when the row is expanded, must be used with the `expandable` prop. */
-  subRows?: React.ReactNodeArray;
+  subRows?: React.ReactNodeArray | React.ComponentType;
 }
 
 declare function FlatTableRow(
