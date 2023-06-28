@@ -82,7 +82,6 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         className={className}
         transparent={transparent}
         variant={variant}
-        role="status"
         id={id}
         ref={refToPass}
         {...marginProps}
