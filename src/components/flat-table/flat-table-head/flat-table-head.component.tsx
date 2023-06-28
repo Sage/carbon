@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import StyledFlatTableHead from "./flat-table-head.style";
 import FlatTableRowHeader from "../flat-table-row-header";
 import { FlatTableRowProps } from "../flat-table-row";
@@ -13,19 +13,14 @@ const getRefs = (length: number) =>
 
 export const FlatTableHead = ({ children, ...rest }: FlatTableHeadProps) => {
   const [rowHeights, setRowHeights] = useState<number[]>([]);
-  const refs = getRefs(React.Children.count(children));
+  const refs = useRef(getRefs(React.Children.count(children)));
   let hasFlatTableRowHeader: boolean;
 
   useEffect(() => {
     if (React.Children.count(children) > 1) {
-      setRowHeights(
-        refs.map(
-          (ref) => ref.current?.clientHeight ?? /* istanbul ignore next */ 0
-        )
-      );
+      setRowHeights(refs.current.map((ref) => ref.current?.clientHeight || 0));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [children]);
 
   if (React.Children.count(children) === 1) {
     return <StyledFlatTableHead {...rest}>{children}</StyledFlatTableHead>;
@@ -52,7 +47,7 @@ export const FlatTableHead = ({ children, ...rest }: FlatTableHeadProps) => {
             stickyOffset: rowHeights
               .slice(0, index)
               .reduce((a: number, b: number) => a + b, 0),
-            ref: refs[index],
+            ref: refs.current[index],
             applyBorderLeft: previousRowHasHeader && !hasFlatTableRowHeader,
           })
         );

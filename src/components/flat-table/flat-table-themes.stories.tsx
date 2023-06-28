@@ -7,10 +7,11 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from ".";
+import Box from "../box";
 
 export const TransparentWhiteTheme = () => {
   return (
-    <div>
+    <Box>
       <FlatTable colorTheme="transparent-white">
         <FlatTableHead>
           <FlatTableRow>
@@ -47,7 +48,7 @@ export const TransparentWhiteTheme = () => {
           </FlatTableRow>
         </FlatTableBody>
       </FlatTable>
-    </div>
+    </Box>
   );
 };
 

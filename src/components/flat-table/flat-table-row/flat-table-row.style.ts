@@ -98,10 +98,10 @@ interface StyledFlatTableRowProps
   > {
   isRowInteractive?: boolean;
   isFirstColumnInteractive?: boolean;
-  lhsRowHeaderIndex?: number;
-  rhsRowHeaderIndex?: number;
-  totalChildren?: number;
-  firstCellIndex?: number;
+  lhsRowHeaderIndex: number;
+  rhsRowHeaderIndex: number;
+  totalChildren: number;
+  firstCellIndex: number;
   colorTheme: FlatTableProps["colorTheme"];
   isExpanded?: boolean;
   isInSidebar?: boolean;
@@ -183,16 +183,14 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
         border-left: none;
       }
 
-      ${lhsRowHeaderIndex !== undefined &&
-      lhsRowHeaderIndex !== -1 &&
+      ${lhsRowHeaderIndex !== -1 &&
       css`
         ${StyledFlatTableRowHeader}:nth-child(${lhsRowHeaderIndex + 1}) {
           border-right: 2px solid ${verticalBorderColor(colorTheme)};
         }
       `}
 
-      ${rhsRowHeaderIndex !== undefined &&
-      rhsRowHeaderIndex !== -1 &&
+      ${rhsRowHeaderIndex !== -1 &&
       css`
         ${StyledFlatTableRowHeader}:nth-child(${rhsRowHeaderIndex + 1}) {
           border-left: 2px solid ${verticalBorderColor(colorTheme)};
@@ -202,9 +200,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
         }
       `}
 
-      ${rhsRowHeaderIndex !== undefined &&
-      totalChildren !== undefined &&
-      rhsRowHeaderIndex === totalChildren - 1 &&
+      ${rhsRowHeaderIndex === totalChildren - 1 &&
       css`
         td:last-of-type {
           border-right: none;
@@ -230,10 +226,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
         }
       `}
 
-      ${lhsRowHeaderIndex !== undefined &&
-      rhsRowHeaderIndex !== undefined &&
-      totalChildren !== undefined &&
-      isRowInteractive &&
+      ${isRowInteractive &&
       css`
         cursor: pointer;
 
@@ -311,8 +304,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
         }
       `}
 
-      ${firstCellIndex !== undefined &&
-      isFirstColumnInteractive &&
+      ${isFirstColumnInteractive &&
       css`
         td:nth-child(${firstCellIndex + 1}),
         th:nth-child(${firstCellIndex + 1}) {
