@@ -218,12 +218,24 @@ export const Textarea = React.forwardRef(
         textarea?.scrollHeight &&
         textarea?.scrollHeight > minHeight.current
       ) {
+        // need to reset scroll position of the nearest parent which scrolls
+        let scrollElement: HTMLElement | null = textarea;
+        while (scrollElement && !scrollElement?.scrollTop) {
+          scrollElement = scrollElement?.parentElement || null;
+        }
+
+        const scrollPosition = scrollElement?.scrollTop;
+
         textarea.style.height = "0px";
         // Set the height so all content is shown
         textarea.style.height = `${Math.max(
           textarea.scrollHeight,
           minHeight.current
         )}px`;
+
+        if (scrollElement && scrollPosition) {
+          scrollElement.scrollTop = scrollPosition;
+        }
       }
     };
 
