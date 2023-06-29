@@ -20,6 +20,9 @@ import FlatTableRowDraggable, {
 } from "./__internal__/flat-table-row-draggable.component";
 import { FlatTableThemeContext } from "../flat-table.component";
 import guid from "../../../__internal__/utils/helpers/guid";
+import FlatTableRowProvider, {
+  FlatTableRowContext,
+} from "./__internal__/flat-table-row-provider";
 
 export interface FlatTableRowProps {
   /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
@@ -44,10 +47,10 @@ export interface FlatTableRowProps {
   selected?: boolean;
   /** Sub rows to be shown when the row is expanded, must be used with the `expandable` prop. */
   subRows?: React.ReactNode;
-  /** @ignore @private */
-  isSubRow?: boolean;
-  /** @ignore @private */
-  isFirstSubRow?: boolean;
+  // /** @ignore @private */
+  // isSubRow?: boolean;
+  // /** @ignore @private */
+  // isFirstSubRow?: boolean;
   /** @ignore @private position in header if multiple rows */
   stickyOffset?: number;
   /** @ignore @private applies a border-left to the first child */
@@ -84,8 +87,8 @@ export const FlatTableRow = React.forwardRef<
       expandable,
       expandableArea = "wholeRow",
       expanded = false,
-      isSubRow,
-      isFirstSubRow,
+      // isSubRow,
+      // isFirstSubRow,
       stickyOffset,
       highlighted,
       selected,
@@ -102,7 +105,7 @@ export const FlatTableRow = React.forwardRef<
     }: FlatTableRowProps,
     ref
   ) => {
-    const internalId = useRef(id ?? guid());
+    const internalId = useRef(String(id ?? guid()));
     const [isExpanded, setIsExpanded] = useState(expanded);
     let rowRef = useRef<HTMLTableRowElement>(null);
     if (ref) {
@@ -284,13 +287,28 @@ export const FlatTableRow = React.forwardRef<
 
     useEffect(() => {
       if (highlighted || selected) {
-        setSelectedId(String(internalId.current));
+        setSelectedId(internalId.current);
       }
     }, [highlighted, selected, setSelectedId]);
 
     useEffect(() => {
       setTabIndex(selectedId === internalId.current ? 0 : -1);
     }, [selectedId]);
+
+    const { isSubRow, firstRowId, addRow, removeRow } = useContext(
+      FlatTableRowContext
+    );
+
+    useEffect(() => {
+      const rowId = internalId.current;
+      addRow(rowId);
+
+      return () => {
+        removeRow(rowId);
+      };
+    }, [addRow, removeRow]);
+
+    const isFirstSubRow = firstRowId === internalId.current;
 
     const rowComponent = () => (
       <StyledFlatTableRow
@@ -315,7 +333,7 @@ export const FlatTableRow = React.forwardRef<
         applyBorderLeft={applyBorderLeft}
         draggable={draggable}
         totalChildren={childrenArray.length}
-        id={String(internalId.current)}
+        id={internalId.current}
         {...interactiveRowProps}
         {...rest}
       >
@@ -360,18 +378,9 @@ export const FlatTableRow = React.forwardRef<
     return (
       <>
         {draggable ? draggableComponent() : rowComponent()}
-        {isExpanded &&
-          subRows &&
-          React.Children.map(
-            subRows,
-            (child, index) =>
-              child &&
-              React.cloneElement(child as React.ReactElement, {
-                isSubRow: true,
-                isFirstSubRow: index === 0,
-                ...(React.isValidElement(child) && { ...child.props }),
-              })
-          )}
+        {isExpanded && subRows && (
+          <FlatTableRowProvider>{subRows}</FlatTableRowProvider>
+        )}
       </>
     );
   }

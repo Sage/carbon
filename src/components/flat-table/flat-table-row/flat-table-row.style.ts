@@ -91,8 +91,6 @@ interface StyledFlatTableRowProps
     | "expandable"
     | "selected"
     | "highlighted"
-    | "isSubRow"
-    | "isFirstSubRow"
     | "applyBorderLeft"
     | "draggable"
   > {
@@ -108,6 +106,8 @@ interface StyledFlatTableRowProps
   size: FlatTableProps["size"];
   isDragging?: boolean;
   horizontalBorderSize: NonNullable<FlatTableRowProps["horizontalBorderSize"]>;
+  isSubRow?: boolean;
+  isFirstSubRow?: boolean;
 }
 
 const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
