@@ -2,7 +2,12 @@
 import React from "react";
 import path from "path";
 
-import { ActionPopoverMenuButton } from "../../../src/components/action-popover";
+import {
+  ActionPopoverMenuButton,
+  ActionPopoverItemProps,
+  ActionPopoverProps,
+  RenderButtonProps,
+} from "../../../src/components/action-popover";
 import { Accordion } from "../../../src/components/accordion";
 
 import { accordionDefaultTitle } from "../../locators/accordion";
@@ -23,11 +28,12 @@ import { alertDialogPreview } from "../../locators/dialog";
 
 import { keyCode } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
+
 import {
   ActionPopoverCustom,
   ActionPopoverWithProps,
   ActionPopoverMenuWithProps,
-  ActionPopoverProps,
+  ActionPopoverPropsComponent,
 } from "../../../src/components/action-popover/action-popover-test.stories";
 import {
   ActionPopoverComponent,
@@ -51,6 +57,10 @@ import {
   ActionPopoverComponentOpeningAModal,
   ActionPopoverNestedInDialog,
 } from "../../../src/components/action-popover/action-popover.stories";
+
+const keyToTrigger = ["Enter", "Space", "End", "downarrow", "uparrow"] as const;
+
+const subMenuOption = ["Sub Menu 1", "Sub Menu 2", "Sub Menu 3"] as const;
 
 context("Test for ActionPopover component", () => {
   describe("check functionality for ActionPopover component", () => {
@@ -81,7 +91,7 @@ context("Test for ActionPopover component", () => {
       }
     );
 
-    it.each([["Enter"], ["Space"], ["downarrow"]])(
+    it.each([keyToTrigger[0], keyToTrigger[1], keyToTrigger[3]])(
       "should Open ActionPopover component using %s keyboard key",
       (key) => {
         CypressMountWithProviders(<ActionPopoverCustom />);
@@ -119,7 +129,7 @@ context("Test for ActionPopover component", () => {
       cy.focused().should("contain", "Sub Menu 1");
     });
 
-    it.each([["uparrow"], ["End"]])(
+    it.each([keyToTrigger[2], keyToTrigger[4]])(
       "should focus the last element Delete using %s keyboard key",
       (key) => {
         CypressMountWithProviders(<ActionPopoverCustom />);
@@ -235,9 +245,9 @@ context("Test for ActionPopover component", () => {
     );
 
     it.each([
-      ["Sub Menu 1", 0],
-      ["Sub Menu 2", 1],
-      ["Sub Menu 3", 2],
+      [subMenuOption[0], 0],
+      [subMenuOption[1], 1],
+      [subMenuOption[2], 2],
     ])("should focus %s element", (innerText, times) => {
       CypressMountWithProviders(<ActionPopoverCustom />);
 
@@ -253,8 +263,8 @@ context("Test for ActionPopover component", () => {
     });
 
     it.each([
-      ["Sub Menu 1", 0],
-      ["Sub Menu 2", 1],
+      [subMenuOption[0], 0],
+      [subMenuOption[1], 1],
     ])(
       "should close %s and ActionPopover after press Enter keyboard key",
       (name, element) => {
@@ -273,9 +283,9 @@ context("Test for ActionPopover component", () => {
     );
 
     it.each([
-      ["Sub Menu 1", 0],
-      ["Sub Menu 2", 1],
-    ])("should close %s after press ArrowRight keyboard key", (times) => {
+      [subMenuOption[0], 0],
+      [subMenuOption[1], 1],
+    ])("should close %s after press ArrowRight keyboard key", (name, times) => {
       CypressMountWithProviders(<ActionPopoverCustom />);
 
       actionPopoverButton().eq(0).click();
@@ -291,11 +301,11 @@ context("Test for ActionPopover component", () => {
     });
 
     it.each([
-      ["Sub Menu 1", 0],
-      ["Sub Menu 2", 1],
+      [subMenuOption[0], 0],
+      [subMenuOption[1], 1],
     ])(
       "should close %s and ActionPopover after press Esc keyboard key",
-      (times) => {
+      (name, times) => {
         CypressMountWithProviders(<ActionPopoverCustom />);
 
         actionPopoverButton().eq(0).click();
@@ -316,8 +326,8 @@ context("Test for ActionPopover component", () => {
     );
 
     it.each([
-      ["Sub Menu 1", 0],
-      ["Sub Menu 2", 1],
+      [subMenuOption[0], 0],
+      [subMenuOption[1], 1],
     ])(
       "should close %s and ActionPopover after clicking on the submenu",
       (name, item) => {
@@ -360,9 +370,9 @@ context("Test for ActionPopover component", () => {
         .should("have.attr", "href", "example-img.jpg")
         .and("have.attr", "download");
       actionPopover().click();
-      cy.readFile(downloadedFilename, "binary", {
-        timeout: 15000,
-      }).should((buffer) => expect(buffer.length).to.be.gt(100));
+      cy.readFile(downloadedFilename, "binary", {})
+        .its("length")
+        .should("be.greaterThan", 100);
     });
 
     it("should show ActionPopover list is positioned properly in large viewport", () => {
@@ -386,7 +396,7 @@ context("Test for ActionPopover component", () => {
         .and("be.visible");
     });
 
-    it.each([[0], [1]])(
+    it.each([0, 1])(
       "should have correct hover state of submenu item in ActionPopoverMenu",
       (element) => {
         CypressMountWithProviders(<ActionPopoverMenuWithProps />);
@@ -425,12 +435,19 @@ context("Test for ActionPopover component", () => {
     it("should render ActionPopover with custom button", () => {
       CypressMountWithProviders(
         <ActionPopoverWithProps
-          renderButton={() => (
+          renderButton={({
+            tabIndex,
+            "data-element": dataElement,
+            ariaAttributes,
+          }: RenderButtonProps) => (
             <ActionPopoverMenuButton
               buttonType="tertiary"
               iconType="dropdown"
               iconPosition="after"
               size="small"
+              tabIndex={tabIndex}
+              data-element={dataElement}
+              ariaAttributes={ariaAttributes}
             >
               More
             </ActionPopoverMenuButton>
@@ -484,93 +501,79 @@ context("Test for ActionPopover component", () => {
   });
 
   describe("check events for ActionPopover component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
-    it.each([[1], [4], [6]])(
+    it.each([1, 4, 6])(
       "should call onClick callback when a click event is triggered",
       (element) => {
+        const callback: ActionPopoverItemProps["onClick"] = cy
+          .stub()
+          .as("onClick");
         CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
         actionPopoverButton().eq(0).click();
-        actionPopoverInnerItem(element)
-          .click({ force: true })
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        actionPopoverInnerItem(element).click({ force: true });
+        cy.get("@onClick").should("have.been.calledOnce");
       }
     );
 
-    it.each([[1], [4], [6]])(
+    it.each([1, 4, 6])(
       "should call onClick callback when a keydown event is triggered by pressing Enter",
       (element) => {
+        const callback: ActionPopoverItemProps["onClick"] = cy
+          .stub()
+          .as("onClick");
         CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
         actionPopoverButton().eq(0).click();
-        actionPopoverInnerItem(element)
-          .trigger("keydown", keyCode("Enter"))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        actionPopoverInnerItem(element).trigger("keydown", keyCode("Enter"));
+        cy.get("@onClick").should("have.been.calledOnce");
       }
     );
 
-    it.each([[0], [1]])(
+    it.each([0, 1])(
       "should call onClick callback when a click event is triggered for submenu",
       (element) => {
+        const callback: ActionPopoverItemProps["onClick"] = cy
+          .stub()
+          .as("onClick");
         CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
 
         actionPopoverButton().eq(0).click();
         actionPopoverInnerItem(2).realHover();
-        actionPopoverSubmenu(element)
-          .invoke("show")
-          .click({ force: true })
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        actionPopoverSubmenu(element).invoke("show").click({ force: true });
+        cy.get("@onClick").should("have.been.calledOnce");
       }
     );
 
-    it.each([[0], [1]])(
+    it.each([0, 1])(
       "should call onClick callback when a keydown event is triggered for submenu by pressing Enter",
       (element) => {
+        const callback: ActionPopoverItemProps["onClick"] = cy
+          .stub()
+          .as("onClick");
         CypressMountWithProviders(<ActionPopoverCustom onClick={callback} />);
         actionPopoverButton().eq(0).click();
         actionPopoverInnerItem(2).realHover();
         actionPopoverSubmenu(element)
           .invoke("show")
-          .trigger("keydown", keyCode("EnterForce"))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+          .trigger("keydown", keyCode("EnterForce"));
+        cy.get("@onClick").should("have.been.calledOnce");
       }
     );
 
     it("should call onOpen callback when a click event is triggered ActionPopover", () => {
-      CypressMountWithProviders(<ActionPopoverProps onOpen={callback} />);
-      actionPopoverButton()
-        .eq(0)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      const callback: ActionPopoverProps["onOpen"] = cy.stub().as("onOpen");
+      CypressMountWithProviders(
+        <ActionPopoverPropsComponent onOpen={callback} />
+      );
+      actionPopoverButton().eq(0).click();
+      cy.get("@onOpen").should("have.been.calledOnce");
     });
 
     it("should call onClose callback when a click event is triggered ActionPopover", () => {
-      CypressMountWithProviders(<ActionPopoverProps onClose={callback} />);
-      actionPopoverButton()
-        .eq(0)
-        .dblclick()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      const callback: ActionPopoverProps["onClose"] = cy.stub().as("onClose");
+      CypressMountWithProviders(
+        <ActionPopoverPropsComponent onClose={callback} />
+      );
+      actionPopoverButton().eq(0).dblclick();
+      cy.get("@onClose").should("have.been.calledOnce");
     });
   });
 
@@ -578,12 +581,19 @@ context("Test for ActionPopover component", () => {
     it("should pass accessibility tests for ActionPopover with custom button", () => {
       CypressMountWithProviders(
         <ActionPopoverWithProps
-          renderButton={() => (
+          renderButton={({
+            tabIndex,
+            "data-element": dataElement,
+            ariaAttributes,
+          }: RenderButtonProps) => (
             <ActionPopoverMenuButton
               buttonType="tertiary"
               iconType="dropdown"
               iconPosition="after"
               size="small"
+              tabIndex={tabIndex}
+              data-element={dataElement}
+              ariaAttributes={ariaAttributes}
             >
               More
             </ActionPopoverMenuButton>
@@ -743,20 +753,12 @@ context("Test for ActionPopover component", () => {
       CypressMountWithProviders(<ActionPopoverNestedInDialog />);
 
       actionPopoverButton().eq(0).click();
-      actionPopoverButton()
-        .eq(0)
-        .type("{esc}", { force: true })
-        .then(() => {
-          actionPopover().should("not.exist");
-          alertDialogPreview().should("exist");
-        });
+      actionPopoverButton().eq(0).type("{esc}", { force: true });
+      actionPopover().should("not.exist");
+      alertDialogPreview().should("be.visible");
 
-      actionPopoverButton()
-        .eq(0)
-        .type("{esc}", { force: true })
-        .then(() => {
-          alertDialogPreview().should("not.exist");
-        });
+      actionPopoverButton().eq(0).type("{esc}", { force: true });
+      alertDialogPreview().should("not.exist");
     });
   });
 
