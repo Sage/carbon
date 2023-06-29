@@ -1,3 +1,10 @@
+### [119.3.4](https://github.com/Sage/carbon/compare/v119.3.3...v119.3.4) (2023-06-29)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure window does not scroll when using up and down arrow keys to navigate rows ([ea89c65](https://github.com/Sage/carbon/commit/ea89c65aa13f17fa42806da56eda08b838963612)), closes [#6152](https://github.com/Sage/carbon/issues/6152)
+
 ### [119.3.3](https://github.com/Sage/carbon/compare/v119.3.2...v119.3.3) (2023-06-29)
 
 
