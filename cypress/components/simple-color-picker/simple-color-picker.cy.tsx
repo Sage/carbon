@@ -1,8 +1,12 @@
 import React from "react";
 import {
-  SimpleColor,
-  SimpleColorPicker,
+  SimpleColorPickerProps,
+  SimpleColorProps,
 } from "../../../src/components/simple-color-picker";
+import {
+  SimpleColorCustom,
+  SimpleColorPickerCustom,
+} from "../../../src/components/simple-color-picker/simple-color-picker-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
 import {
@@ -28,16 +32,16 @@ import {
   CHARACTERS,
 } from "../../support/component-helper/constants";
 
-const verifyBeforeColor = (element, color) =>
+const verifyBeforeColor = (element: string, color: string) =>
   getDataElementByValue(element).then(($els) => {
     // get Window reference from element
     const win = $els[0].ownerDocument.defaultView;
     // use getComputedStyle to read the pseudo selector
-    const before = win.getComputedStyle($els[0], "before");
+    const before = win?.getComputedStyle($els[0], "before");
     // read the value of the `content` CSS property
-    const colorVal = before.getPropertyValue("color");
+    const colorVal = before?.getPropertyValue("color");
     // the returned value will have double quotes around it, but this is correct
-    expect(colorVal).to.eq(color);
+    cy.wrap(colorVal).should("equal", color);
   });
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -87,63 +91,6 @@ const colors = [
 
 const indexes = Array.from({ length: colors.length }).map((_, index) => index);
 
-const SimpleColorPickerCustom = ({ onChange, ...props }) => {
-  const [state, setState] = React.useState("transparent");
-
-  const handleChange = (e) => {
-    const { value } = e.target;
-    if (onChange) {
-      onChange(value);
-    }
-    setState(value);
-  };
-  return (
-    <SimpleColorPicker
-      name="picker-default-example"
-      legend="Legend"
-      onChange={handleChange}
-      value={state}
-      {...props}
-    >
-      {colors.map(({ color, label }) => (
-        <SimpleColor value={color} key={color} aria-label={label} id={color} />
-      ))}
-    </SimpleColorPicker>
-  );
-};
-
-const SimpleColorCustom = ({ onChange, ...props }) => {
-  const [state, setState] = React.useState("transparent");
-
-  const handleChange = (e) => {
-    const { value } = e.target;
-    if (onChange) {
-      onChange(value);
-    }
-    setState(value);
-  };
-  return (
-    <>
-      <SimpleColor
-        value={state}
-        key={colors[0].color}
-        aria-label={colors[0].label}
-        id={colors[0].color}
-        onChange={handleChange}
-        {...props}
-      />
-      <SimpleColor
-        value={state}
-        key={colors[1].color}
-        aria-label={colors[1].label}
-        id={colors[1].color}
-        onChange={handleChange}
-        {...props}
-      />
-    </>
-  );
-};
-
 context("Testing SimpleColorPicker component", () => {
   describe("should render SimpleColorPicker component and check functionality", () => {
     it("should render all proper colors", () => {
@@ -176,28 +123,49 @@ context("Testing SimpleColorPicker component", () => {
       }
     );
 
-    it.each([
-      ["rightarrow", 9, 0],
-      ["leftarrow", 0, 9],
-      ["leftarrow", 3, 2],
-      ["rightarrow", 3, 4],
-      ["downarrow", 3, 8],
-      ["uparrow", 8, 3],
-    ])(
-      "should use %s key and move selection to %s cell",
-      (key, indexToTrigger, indexToPickUp) => {
-        CypressMountWithProviders(<SimpleColorPickerCustom />);
+    it("should use rightarrow key and move selection to 0 cell", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom />);
 
-        simpleColorPickerInput(indexToTrigger).trigger("keydown", keyCode(key));
-        simpleColorPickerInput(indexToPickUp).should(
-          "have.attr",
-          "aria-checked",
-          "true"
-        );
-      }
-    );
+      simpleColorPickerInput(9).trigger("keydown", keyCode("rightarrow"));
+      simpleColorPickerInput(0).should("have.attr", "aria-checked", "true");
+    });
 
-    it.each([[1], [2], [3]])(
+    it("should use rightarrow key and move selection to 4th cell", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom />);
+
+      simpleColorPickerInput(3).trigger("keydown", keyCode("rightarrow"));
+      simpleColorPickerInput(4).should("have.attr", "aria-checked", "true");
+    });
+
+    it("should use leftarrow key and move selection to 0 cell", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom />);
+
+      simpleColorPickerInput(0).trigger("keydown", keyCode("leftarrow"));
+      simpleColorPickerInput(9).should("have.attr", "aria-checked", "true");
+    });
+
+    it("should use leftarrow key and move selection to 2nd cell", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom />);
+
+      simpleColorPickerInput(3).trigger("keydown", keyCode("leftarrow"));
+      simpleColorPickerInput(2).should("have.attr", "aria-checked", "true");
+    });
+
+    it("should use downarrow key and move selection to 8th cell", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom />);
+
+      simpleColorPickerInput(3).trigger("keydown", keyCode("downarrow"));
+      simpleColorPickerInput(8).should("have.attr", "aria-checked", "true");
+    });
+
+    it("should use uparrow key and move selection to 3rd cell", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom />);
+
+      simpleColorPickerInput(8).trigger("keydown", keyCode("uparrow"));
+      simpleColorPickerInput(3).should("have.attr", "aria-checked", "true");
+    });
+
+    it.each([1, 2, 3])(
       "should select proper %s cell for SimpleColorPicker",
       (cellIndex) => {
         CypressMountWithProviders(<SimpleColorPickerCustom />);
@@ -248,12 +216,16 @@ context("Testing SimpleColorPicker component", () => {
 
         advancedColorPicker(4).then(($el) => {
           const position = $el[0].getBoundingClientRect();
-          expect(position.bottom).to.be.lessThan(bottomLess + additionVal);
-          expect(position.bottom).to.be.greaterThan(bottomLess);
-          expect(position.top).to.be.lessThan(topLess + additionVal);
-          expect(position.top).to.be.greaterThan(topLess);
-          expect(position.left).to.be.lessThan(leftLess + additionVal);
-          expect(position.left).to.be.greaterThan(leftLess);
+
+          cy.wrap(position.bottom).should(
+            "be.lessThan",
+            bottomLess + additionVal
+          );
+          cy.wrap(position.bottom).should("be.greaterThan", bottomLess);
+          cy.wrap(position.top).should("be.lessThan", topLess + additionVal);
+          cy.wrap(position.top).should("be.greaterThan", topLess);
+          cy.wrap(position.left).should("be.lessThan", leftLess + additionVal);
+          cy.wrap(position.left).should("be.greaterThan", leftLess);
         });
       }
     );
@@ -338,64 +310,61 @@ context("Testing SimpleColorPicker component", () => {
   });
 
   describe("should render SimpleColorPicker component and check events", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange callback when a click event is triggered", () => {
+      const callback: SimpleColorPickerProps["onChange"] = cy
+        .stub()
+        .as("onChange");
+
       CypressMountWithProviders(
         <SimpleColorPickerCustom onChange={callback} />
       );
 
-      simpleColorPickerInput(5)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      simpleColorPickerInput(5).click();
+
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onChange callback and focus the correct item when the right arrow key is triggered", () => {
+      const callback: SimpleColorPickerProps["onChange"] = cy
+        .stub()
+        .as("onChange");
+
       CypressMountWithProviders(
         <SimpleColorPickerCustom onChange={callback} />
       );
-      simpleColorPickerInput(0).click();
 
       indexes.forEach((index) => {
         const next = index < colors.length - 1 ? index + 1 : 0;
 
-        simpleColorPickerInput(index)
-          .trigger("keydown", keyCode("rightarrow"))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledWith(colors[next].color);
-          })
-          .then(() => {
-            simpleColorPickerInput(next).should("be.focused");
-          });
+        simpleColorPickerInput(index).trigger("keydown", keyCode("rightarrow"));
+
+        simpleColorPickerInput(next)
+          .should("be.focused")
+          .and("have.value", colors[next].color);
+
+        cy.get("@onChange").should("have.been.called");
       });
     });
 
     it("should call onChange callback and focus the correct item when the left arrow key is triggered", () => {
+      const callback: SimpleColorPickerProps["onChange"] = cy
+        .stub()
+        .as("onChange");
+
       CypressMountWithProviders(
         <SimpleColorPickerCustom onChange={callback} />
       );
-      simpleColorPickerInput(0).click();
 
       indexes.reverse().forEach((index) => {
         const next = index > 0 ? index - 1 : colors.length - 1;
 
-        simpleColorPickerInput(index)
-          .trigger("keydown", keyCode("leftarrow"))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledWith(colors[next].color);
-          })
-          .then(() => {
-            simpleColorPickerInput(next).should("be.focused");
-          });
+        simpleColorPickerInput(index).trigger("keydown", keyCode("leftarrow"));
+
+        simpleColorPickerInput(next)
+          .should("be.focused")
+          .and("have.value", colors[next].color);
+
+        cy.get("@onChange").should("have.been.called");
       });
     });
 
@@ -408,21 +377,23 @@ context("Testing SimpleColorPicker component", () => {
     ])(
       "should call onChange callback and focus the correct item when the up arrow key is triggered",
       (indexPress, focusedIndex) => {
+        const callback: SimpleColorPickerProps["onChange"] = cy
+          .stub()
+          .as("onChange");
+
         CypressMountWithProviders(
           <SimpleColorPickerCustom onChange={callback} />
         );
 
-        simpleColorPickerInput(indexPress)
-          .trigger("keydown", keyCode("uparrow"))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledWith(
-              colors[focusedIndex].color
-            );
-          })
-          .then(() => {
-            simpleColorPickerInput(focusedIndex).should("be.focused");
-          });
+        simpleColorPickerInput(indexPress).trigger(
+          "keydown",
+          keyCode("uparrow")
+        );
+
+        simpleColorPickerInput(focusedIndex)
+          .should("be.focused")
+          .and("have.value", colors[focusedIndex].color);
+        cy.get("@onChange").should("have.been.calledOnce");
       }
     );
 
@@ -435,48 +406,46 @@ context("Testing SimpleColorPicker component", () => {
     ])(
       "should call onChange callback and focus the correct item when the down arrow key is triggered",
       (indexPress, focusedIndex) => {
+        const callback: SimpleColorPickerProps["onChange"] = cy
+          .stub()
+          .as("onChange");
+
         CypressMountWithProviders(
           <SimpleColorPickerCustom onChange={callback} />
         );
 
-        simpleColorPickerInput(indexPress)
-          .trigger("keydown", keyCode("downarrow"))
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledWith(
-              colors[focusedIndex].color
-            );
-          })
-          .then(() => {
-            simpleColorPickerInput(focusedIndex).should("be.focused");
-          });
+        simpleColorPickerInput(indexPress).trigger(
+          "keydown",
+          keyCode("downarrow")
+        );
+
+        simpleColorPickerInput(focusedIndex)
+          .should("be.focused")
+          .and("have.value", colors[focusedIndex].color);
+        cy.get("@onChange").should("have.been.calledOnce");
       }
     );
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: SimpleColorPickerProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(<SimpleColorPickerCustom onBlur={callback} />);
 
-      simpleColorPickerInput(5)
-        .focus()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      simpleColorPickerInput(5).focus().blur();
+
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should not call onBlur callback when a blur event is triggered", () => {
+      const callback: SimpleColorPickerProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(
-        <SimpleColorPickerCustom onMouseDown={callback} isBlurBlocked />
+        <SimpleColorPickerCustom onBlur={callback} isBlurBlocked />
       );
 
-      simpleColorPickerInput(5)
-        .focus()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.not.been.called;
-        });
+      simpleColorPickerInput(5).focus().blur();
+
+      cy.get("@onBlur").should("not.have.been.called");
     });
   });
 
@@ -484,15 +453,21 @@ context("Testing SimpleColorPicker component", () => {
     it("should check the value prop in SimpleColor item", () => {
       CypressMountWithProviders(<SimpleColorCustom value={colors[7].color} />);
 
-      simpleColorPickerInput(0).should((el) => {
-        expect(el).to.have.attr("value").to.equal(colors[7].color);
-      });
+      simpleColorPickerInput(0).should("have.attr", "value", colors[7].color);
     });
 
     it("should check the name prop in SimpleColor item", () => {
       CypressMountWithProviders(<SimpleColorCustom name={testPropValue} />);
 
       simpleColorPickerInput(0).should("have.attr", "name", testPropValue);
+    });
+
+    it("should check the className prop in SimpleColor item", () => {
+      CypressMountWithProviders(
+        <SimpleColorCustom className={testPropValue} />
+      );
+
+      simpleColorPickerInput(0).parent().should("have.class", testPropValue);
     });
 
     it.each([
@@ -506,60 +481,44 @@ context("Testing SimpleColorPicker component", () => {
         simpleColorPickerInput(0).should(assertion);
       }
     );
-
-    it("should check the className prop in SimpleColor item", () => {
-      CypressMountWithProviders(
-        <SimpleColorCustom className={testPropValue} />
-      );
-
-      simpleColorPickerInput(0).parent().should("have.class", testPropValue);
-    });
   });
 
   describe("should render SimpleColor component and check events", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange callback when a click event is triggered", () => {
+      const callback: SimpleColorProps["onChange"] = cy.stub().as("onChange");
+
       CypressMountWithProviders(<SimpleColorCustom onChange={callback} />);
 
-      advancedColorPicker(1)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      advancedColorPicker(1).click();
+
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: SimpleColorProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(<SimpleColorCustom onBlur={callback} />);
 
       advancedColorPicker(1).click();
-      cy.focused()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      cy.focused().blur();
+
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call onMouseDown callback when a click event is triggered", () => {
+      const callback: SimpleColorProps["onMouseDown"] = cy
+        .stub()
+        .as("onMouseDown");
+
       CypressMountWithProviders(<SimpleColorCustom onMouseDown={callback} />);
 
-      advancedColorPicker(1)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      advancedColorPicker(1).click();
+      cy.get("@onMouseDown").should("have.been.calledOnce");
     });
   });
 
   describe("check Accessibility for SimpleColorPicker component", () => {
-    it("should check Accessibility for all proper colors ", () => {
+    it("should check Accessibility for all proper colors", () => {
       CypressMountWithProviders(<SimpleColorPickerCustom />);
 
       cy.checkAccessibility();
