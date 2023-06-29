@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
+import StyledButton from "../button/button.style";
+import StyledButtonMinor from "components/button-minor/button-minor.style";
+import { grouped } from "./button-toggle.stories";
+import { ButtonToggleProps } from "./button-toggle.component";
 
 export type ButtonToggleIconSizes = "small" | "large";
 
@@ -42,6 +46,27 @@ const StyledButtonToggleContentWrapper = styled.div`
   height: 100%;
   flex-flow: wrap;
 `;
+
+
+
+const minorStyles = css`
+  [data-component="button-minor"] {
+      & ${StyledIcon} {
+        color: var(--colorsActionMinor500);
+      }
+    }
+    [data-component="button-minor"] {
+      :hover {
+        color: var(--colorsActionMinor500);
+        background-color: transparent;
+        border-color: var(--colorsActionMinor500);
+        & + ${StyledButton} {
+          border-left-color: var(--colorsActionMinor500);
+        }
+      }
+    }
+`
+const isMinor = (props: StyledButtonToggleWrapperProps ) => props.grouped ? StyledButtonToggle : minorStyles;
 
 export interface StyledButtonToggleProps {
   /** The icon to be rendered inside of the button */
@@ -199,6 +224,8 @@ const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
         }
       `}
     `}
+
+    ${props => isMinor(props)}
 
   &:not(:first-of-type) {
     margin-left: 8px;

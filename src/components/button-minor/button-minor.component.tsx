@@ -6,6 +6,7 @@ import { ButtonBarContext } from "../button-bar/button-bar.component";
 export interface ButtonMinorProps extends ButtonProps {
   /** @private @ignore */
   isInPassword?: boolean;
+  grouped?: boolean;
 }
 
 export const ButtonMinor = ({
