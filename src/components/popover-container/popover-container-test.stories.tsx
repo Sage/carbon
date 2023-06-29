@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import PopoverContainer from "./popover-container.component";
+import PopoverContainer, {
+  PopoverContainerProps,
+} from "./popover-container.component";
 import { Select, Option } from "../select";
 
 export default {
@@ -48,7 +50,9 @@ Default.story = {
   },
 };
 
-export const PopoverContainerComponent = ({ ...props }) => {
+export const PopoverContainerComponent = (
+  props: Partial<PopoverContainerProps>
+) => {
   const [isOpen, setIsOpen] = React.useState(true);
 
   const onOpen = () => setIsOpen(isOpen);
