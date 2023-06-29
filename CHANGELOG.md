@@ -1,3 +1,10 @@
+### [119.3.3](https://github.com/Sage/carbon/compare/v119.3.2...v119.3.3) (2023-06-29)
+
+
+### Bug Fixes
+
+* **decimal:** ensure empty value is formatted correctly ([284cabc](https://github.com/Sage/carbon/commit/284cabc6015f6319b97380f549074019f8a188d7)), closes [#6012](https://github.com/Sage/carbon/issues/6012)
+
 ### [119.3.2](https://github.com/Sage/carbon/compare/v119.3.1...v119.3.2) (2023-06-20)
 
 
