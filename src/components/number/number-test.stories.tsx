@@ -38,7 +38,7 @@ export const Default = ({
 }) => {
   const [state, setState] = useState("");
   const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    action("onChange")(event);
+    action("onChange")(event.target.value);
     setState(event.target.value);
   };
   return (
