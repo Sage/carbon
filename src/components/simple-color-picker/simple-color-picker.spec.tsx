@@ -697,6 +697,10 @@ describe("SimpleColorPicker", () => {
   });
 
   it("validates the incorrect children prop", () => {
+    const consoleSpy = jest
+      .spyOn(global.console, "error")
+      .mockImplementation(() => {});
+
     expect(() => {
       mount(
         <SimpleColorPicker name={name} legend="SimpleColorPicker Legend">
@@ -707,6 +711,8 @@ describe("SimpleColorPicker", () => {
     }).toThrow(
       "SimpleColorPicker accepts only children of type `SimpleColor`."
     );
+
+    consoleSpy.mockRestore();
   });
 
   it("returns a list of inputs in the ref", () => {
