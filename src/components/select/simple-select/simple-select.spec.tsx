@@ -55,11 +55,13 @@ function simulateKeyDown(
 ) {
   const selectText = container.find(SelectTextbox).first();
 
-  selectText.prop("onKeyDown")?.({
-    key,
-    preventDefault: () => {},
-    ...options,
-  } as React.KeyboardEvent<HTMLInputElement>);
+  act(() => {
+    selectText.prop("onKeyDown")?.({
+      key,
+      preventDefault: () => {},
+      ...options,
+    } as React.KeyboardEvent<HTMLInputElement>);
+  });
 }
 
 jest.mock("../../../__internal__/utils/logger");
