@@ -24,6 +24,10 @@ import {
 import { baseTheme } from "../../../style/themes";
 import { StyledMenuItem } from "../menu.style";
 import menuConfigVariants from "../menu.config";
+import Logger from "../../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const onClose = jest.fn();
 const onClick = jest.fn();
@@ -106,7 +110,7 @@ const MockMenuWithSearch = ({
   return (
     <MenuFullscreen isOpen={isOpen} onClose={() => {}}>
       <MenuItem maxWidth="200px">
-        <Search ref={ref} defaultValue="" searchButton />
+        <Search value="" ref={ref} defaultValue="" searchButton />
       </MenuItem>
       <MenuItem maxWidth="200px" href="#">
         Menu Item One
@@ -128,6 +132,14 @@ const MockMenuWithFalsyValues = ({ isOpen }: { isOpen?: boolean }) => {
 
 describe("MenuFullscreen", () => {
   let wrapper: ReactWrapper;
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
 
   beforeEach(() => {
     wrapper = render({});

@@ -19,6 +19,11 @@ import openSubmenu from "../spec-helper";
 import menuConfigVariants from "../../menu.config";
 import { VariantType } from "../../menu-item";
 import GlobalHeader from "../../../global-header";
+import Logger from "../../../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests,
+// and nor does the uncontrolled Search which is needed for coverage
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const events = {
   arrowDown: {
@@ -116,10 +121,19 @@ describe("Submenu component", () => {
     );
   };
 
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   afterEach(() => {
     if (wrapper) {
       wrapper.unmount();
     }
+    jest.clearAllTimers();
   });
 
   it("should render the top-level menu item as a button, not a link", () => {
@@ -1422,10 +1436,10 @@ describe("Submenu component", () => {
               <MenuItem href="#">Apple</MenuItem>
               <MenuItem href="#" variant="alternate">
                 <Search
-                  defaultValue=""
                   placeholder="Dark variant"
                   variant="dark"
                   onChange={() => {}}
+                  value=""
                 />
               </MenuItem>
               <MenuItem href="#">Banana</MenuItem>
