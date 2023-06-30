@@ -570,7 +570,6 @@ context("Testing Menu component", () => {
         );
 
         pressTABKey(1);
-        cy.wait(50);
 
         icon().should("have.css", "color", color);
       }
@@ -656,11 +655,11 @@ context("Testing Menu component", () => {
         CypressMountWithProviders(<MenuComponentSearch />);
 
         pressTABKey(1);
-        cy.wait(50);
+
         cy.focused().trigger("keydown", keyCode("Enter"));
-        cy.wait(50);
+
         pressTABKey(tabs);
-        cy.wait(50);
+
         cy.focused().trigger("keydown", keyCode(key));
         searchDefaultInput().should("have.focus");
       }
@@ -670,13 +669,13 @@ context("Testing Menu component", () => {
       CypressMountWithProviders(<MenuComponentSearch />);
 
       pressTABKey(1);
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("Enter"));
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("downarrow"));
-      cy.wait(50);
+
       searchDefaultInput().clear().type("FooBar");
-      cy.wait(50);
+
       searchDefaultInput().tab();
       searchCrossIcon().parent().should("have.focus");
     });
@@ -691,13 +690,13 @@ context("Testing Menu component", () => {
       const additionVal = 2;
 
       pressTABKey(1);
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("Enter"));
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("downarrow"));
-      cy.wait(50);
+
       searchDefaultInput().clear().type("FooBar");
-      cy.wait(50);
+
       searchDefaultInput().tab();
       searchCrossIcon().parent().should("have.focus");
       searchCrossIcon().then(($el) => {
@@ -715,20 +714,20 @@ context("Testing Menu component", () => {
       CypressMountWithProviders(<MenuComponentSearch />);
 
       pressTABKey(1);
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("Enter"));
-      cy.wait(50);
+
       searchDefaultInput().clear().type("FooBar");
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("End"));
-      cy.wait(50);
+
       cy.focused().tab({ shift: true });
-      cy.wait(50);
+
       cy.focused().tab({ shift: true });
-      cy.wait(50);
+
       searchCrossIcon().parent().should("have.focus");
       cy.focused().tab({ shift: true });
-      cy.wait(50);
+
       searchDefaultInput().should("have.focus");
     });
 
@@ -736,9 +735,9 @@ context("Testing Menu component", () => {
       CypressMountWithProviders(<MenuComponentSearch />);
 
       pressTABKey(3);
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("Enter"));
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("downarrow"));
       searchDefaultInput().should("have.focus");
     });
@@ -1657,11 +1656,11 @@ context("Testing Menu component", () => {
       cy.get("@callback").should("have.been.calledOnce");
     });
 
-    it("should have correct keyboard navigation order when children of submenu update", () => {
+    it("should have correct keyboard navigation order after children of submenu updates", () => {
       CypressMountWithProviders(<MenuWithChildrenUpdating />);
 
       submenu().eq(positionOfElement("first"), div).trigger("mouseover");
-      cy.wait(500);
+      submenuBlock().children().should("have.length", 4);
 
       pressTABKey(1);
       cy.focused().trigger("keydown", keyCode("downarrow"));
@@ -1712,11 +1711,11 @@ context("Testing Menu component", () => {
       CypressMountWithProviders(<MenuComponentSearch />);
 
       pressTABKey(1);
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("Enter"));
-      cy.wait(50);
+
       pressTABKey(0);
-      cy.wait(50);
+
       cy.focused().trigger("keydown", keyCode("downarrow"));
 
       cy.checkAccessibility();

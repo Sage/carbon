@@ -86,7 +86,7 @@ describe("FlatTableHeader", () => {
     (verticalBorder, expectedValue) => {
       let wrapper;
 
-      it("it overrides the header border-right-width", () => {
+      it("overrides the header border-right-width", () => {
         wrapper = mount(
           <table>
             <thead>
@@ -112,7 +112,7 @@ describe("FlatTableHeader", () => {
     (verticalBorderColor) => {
       let wrapper;
 
-      it("it overrides the header border-right-color", () => {
+      it("overrides the header border-right-color", () => {
         wrapper = mount(
           <table>
             <thead>

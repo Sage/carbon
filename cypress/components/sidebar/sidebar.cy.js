@@ -243,7 +243,8 @@ context("Testing Sidebar component", () => {
       getComponent("toast").should("not.exist");
       getDataElementByValue("open-toast").click();
       getComponent("toast").should("exist");
-      cy.get("body").click().tab();
+      cy.get("body").click();
+      cy.get("body").tab();
       closeIconButton().eq(1).should("be.focused");
     });
 

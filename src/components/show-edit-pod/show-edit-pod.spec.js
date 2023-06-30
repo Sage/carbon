@@ -6,10 +6,6 @@ import ShowEditPod from "./show-edit-pod.component";
 import Form from "../form";
 import Pod from "../pod";
 import Button from "../button";
-import {
-  elementsTagTest,
-  rootTagTest,
-} from "../../__internal__/utils/helpers/tags/tags-specs";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
@@ -408,7 +404,7 @@ describe("ShowEditPod", () => {
   });
 
   describe("tags", () => {
-    describe("on component", () => {
+    it("root element of the component contains correct data-component, data-element and data-role tags", () => {
       const wrapper = mount(
         <ShowEditPod
           saveText="Save"
@@ -417,13 +413,13 @@ describe("ShowEditPod", () => {
           data-role="baz"
         />
       );
-
-      it("include correct component, element and role data tags", () => {
-        rootTagTest(wrapper.find(Pod), "show-edit-pod", "bar", "baz");
-      });
+      const rootElement = wrapper.find(Pod);
+      expect(rootElement.prop("data-component")).toEqual("show-edit-pod");
+      expect(rootElement.prop("data-element")).toEqual("bar");
+      expect(rootElement.prop("data-role")).toEqual("baz");
     });
 
-    describe("on internal elements", () => {
+    it("internal form element has attribute data-element='edit-form'", () => {
       const wrapper = mount(
         <ShowEditPod
           saveText="Save"
@@ -432,9 +428,8 @@ describe("ShowEditPod", () => {
           onEdit={() => {}}
         />
       );
-      const form = wrapper.find('[data-component="form"]').hostNodes();
-      expect(form.type()).toEqual("form");
-      elementsTagTest(form, ["edit-form"]);
+      const form = wrapper.find(ShowEditPod).find("form");
+      expect(form.prop("data-element")).toEqual("edit-form");
     });
   });
 });

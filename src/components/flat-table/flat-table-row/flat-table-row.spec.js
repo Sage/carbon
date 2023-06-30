@@ -233,7 +233,7 @@ describe("FlatTableRow", () => {
     });
 
     describe('when the "onClick" is also provided', () => {
-      it('it applies the correct "background-color" on hover', () => {
+      it('applies the correct "background-color" on hover', () => {
         wrapper = renderFlatTableRow({
           selected: true,
           onClick: jest.fn(),
@@ -271,7 +271,7 @@ describe("FlatTableRow", () => {
         );
       });
 
-      it('it overrides the cell "background-color" on hover', () => {
+      it('overrides the cell "background-color" on hover', () => {
         const customColor = "#CCCCCC";
 
         wrapper = renderFlatTableRow({
@@ -321,7 +321,7 @@ describe("FlatTableRow", () => {
     });
 
     describe('with the "bgColor" also provided', () => {
-      it('it overrides the cell "background-color"', () => {
+      it('overrides the cell "background-color"', () => {
         const customColor = "#CCCCCC";
 
         wrapper = renderFlatTableRow({
@@ -338,7 +338,7 @@ describe("FlatTableRow", () => {
         );
       });
 
-      it('it overrides the cell "background-color" on hover', () => {
+      it('overrides the cell "background-color" on hover', () => {
         const customColor = "#CCCCCC";
 
         wrapper = renderFlatTableRow({
@@ -357,7 +357,7 @@ describe("FlatTableRow", () => {
     });
 
     describe('when the "selected" prop is also passed as true', () => {
-      it('it applies the correct "background-color"', () => {
+      it('applies the correct "background-color"', () => {
         wrapper = renderFlatTableRow({
           selected: true,
           highlighted: true,
@@ -374,7 +374,7 @@ describe("FlatTableRow", () => {
       });
 
       describe('with the "bgColor" also provided', () => {
-        it('it overrides the cell "background-color"', () => {
+        it('overrides the cell "background-color"', () => {
           const customColor = "#CCCCCC";
 
           wrapper = renderFlatTableRow({
@@ -1179,7 +1179,7 @@ describe("FlatTableRow", () => {
       (horizontalBorderSize, expectedValue) => {
         let wrapper;
 
-        it("it overrides the cell bottom-border size", () => {
+        it("overrides the cell bottom-border size", () => {
           wrapper = renderFlatTableRow({
             highlighted: true,
             horizontalBorderSize,
@@ -1204,7 +1204,7 @@ describe("FlatTableRow", () => {
       (horizontalBorderColor, expectedValue) => {
         let wrapper;
 
-        it("it overrides the cell bottom-border color", () => {
+        it("overrides the cell bottom-border color", () => {
           wrapper = renderFlatTableRow({
             highlighted: true,
             horizontalBorderColor,
@@ -1222,7 +1222,7 @@ describe("FlatTableRow", () => {
     );
 
     describe("when a right sticky column is rendered with no left sticky column", () => {
-      it("it applies the expected styling to the row header cell", () => {
+      it("applies the expected styling to the row header cell", () => {
         const wrapper = mount(
           <table>
             <thead>

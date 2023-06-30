@@ -110,7 +110,7 @@ describe("FlatTableRowCell", () => {
     (verticalBorder, expectedValue) => {
       let wrapper;
 
-      it("it overrides the cell border-right size", () => {
+      it("overrides the cell border-right size", () => {
         wrapper = mount(
           <table>
             <tbody>
@@ -141,7 +141,7 @@ describe("FlatTableRowCell", () => {
     (verticalBorderColor, expectedValue) => {
       let wrapper;
 
-      it("it overrides the cell border-right-color", () => {
+      it("overrides the cell border-right-color", () => {
         wrapper = mount(
           <table>
             <tbody>

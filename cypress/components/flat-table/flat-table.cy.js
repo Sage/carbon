@@ -2749,7 +2749,9 @@ const FlatTablePagerStickyHeaderComponent = () => {
 };
 
 const FlatTablePartiallySelectedOrHighlightedRows = ({
+  // eslint-disable-next-line react/prop-types
   highlighted,
+  // eslint-disable-next-line react/prop-types
   selected,
 }) => {
   return (
@@ -2925,28 +2927,22 @@ context("Tests for Flat Table component", () => {
         </div>
       );
 
-      cy.wait(300); // required because element needs to be loaded
-
       flatTable().find("thead").should("have.css", "position", "sticky");
 
-      for (let i = 0; i < 5; i++) {
-        if (i === 3 || i === 4) {
-          flatTableBodyRowByPosition(i).should("not.be.visible");
-        } else {
-          flatTableBodyRowByPosition(i).should("be.visible");
-        }
-      }
+      flatTableBodyRowByPosition(0).should("be.visible");
+      flatTableBodyRowByPosition(1).should("be.visible");
+      flatTableBodyRowByPosition(2).should("be.visible");
+      flatTableBodyRowByPosition(3).should("not.be.visible");
+      flatTableBodyRowByPosition(4).should("not.be.visible");
 
       flatTableWrapper().scrollTo("bottom");
       flatTableHeaderCells().should("be.visible");
 
-      for (let i = 0; i < 5; i++) {
-        if (i === 0 || i === 1) {
-          flatTableBodyRowByPosition(i).should("not.be.visible");
-        } else {
-          flatTableBodyRowByPosition(i).should("be.visible");
-        }
-      }
+      flatTableBodyRowByPosition(0).should("not.be.visible");
+      flatTableBodyRowByPosition(1).should("not.be.visible");
+      flatTableBodyRowByPosition(2).should("be.visible");
+      flatTableBodyRowByPosition(3).should("be.visible");
+      flatTableBodyRowByPosition(4).should("be.visible");
     });
 
     it("should render Flat Table with sticky footer", () => {
@@ -4874,7 +4870,6 @@ context("Tests for Flat Table component", () => {
           <FlatTableComponent hasStickyHead />
         </div>
       );
-      cy.wait(300);
       cy.checkAccessibility();
     });
 

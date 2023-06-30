@@ -93,7 +93,7 @@ context("Testing Accordion component", () => {
           .should("have.attr", "type", iconType)
           .and("be.visible")
           .and("have.css", "transform")
-          .then((cssString) =>
+          .and((cssString) =>
             // eslint-disable-next-line jest/valid-expect
             expect(getRotationAngle(cssString.toString())).to.equal(90)
           );

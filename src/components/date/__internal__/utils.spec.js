@@ -158,86 +158,55 @@ describe("utils", () => {
   });
 
   describe("formatToISO", () => {
-    it.each(
-      parseParameters([
-        "ddMMyyyy",
-        "dd.MM.yyyy",
-        "dd,MM,yyyy",
-        "dd-MM-yyyy",
-        "dd/MM/yyyy",
-      ])
-    )(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual("1111-11-11");
+    it.each([
+      ["ddMMyyyy", "01021900", "1900-02-01"],
+      ["dd.MM.yyyy", "01.02.1900", "1900-02-01"],
+      ["dd,MM,yyyy", "01,02,1900", "1900-02-01"],
+      ["dd-MM-yyyy", "01-02-1900", "1900-02-01"],
+      ["dd/MM/yyyy", "01/02/1900", "1900-02-01"],
+      ["d.M.yyyy", "1.2.1900", "1900-02-01"],
+      ["d,M,yyyy", "1,2,1900", "1900-02-01"],
+      ["d-M-yyyy", "1-2-1900", "1900-02-01"],
+      ["d/M/yyyy", "1/2/1900", "1900-02-01"],
+      ["d,M,yy", "1,2,11", "2011-02-01"],
+      ["d-M-yy", "1-2-11", "2011-02-01"],
+      ["d/M/yy", "1/2/11", "2011-02-01"],
+      ["dd.M.yy", "01.2.11", "2011-02-01"],
+      ["dd,M,yy", "01,2,11", "2011-02-01"],
+      ["dd-M-yy", "01-2-11", "2011-02-01"],
+      ["dd/M/yy", "01/2/11", "2011-02-01"],
+      ["ddMMyy", "010223", "2023-02-01"],
+      ["dd.MM.yy", "01.02.23", "2023-02-01"],
+      ["dd-MM-yy", "01-02-23", "2023-02-01"],
+      ["dd/MM/yy", "01/02/23", "2023-02-01"],
+      ["d", "1", `${currentYear}-01-01`],
+      ["d.M", "1.2", `${currentYear}-02-01`],
+      ["d,M", "1,2", `${currentYear}-02-01`],
+      ["d-M", "1-2", `${currentYear}-02-01`],
+      ["d/M", "1/2", `${currentYear}-02-01`],
+      ["dd", "11", `${currentYear}-01-11`],
+      ["ddM", "112", `${currentYear}-02-11`],
+      ["dd.M", "11.2", `${currentYear}-02-11`],
+      ["dd,M", "11,2", `${currentYear}-02-11`],
+      ["dd-M", "11-2", `${currentYear}-02-11`],
+      ["dd/M", "11/2", `${currentYear}-02-11`],
+      ["d.MM", "1.04", `${currentYear}-04-01`],
+      ["d,MM", "1,04", `${currentYear}-04-01`],
+      ["d-MM", "1-04", `${currentYear}-04-01`],
+      ["d/MM", "1/04", `${currentYear}-04-01`],
+      ["ddMM", "0204", `${currentYear}-04-02`],
+      ["dd.MM", "02.04", `${currentYear}-04-02`],
+      ["dd,MM", "02,04", `${currentYear}-04-02`],
+      ["dd-MM", "02-04", `${currentYear}-04-02`],
+      ["dd/MM", "02/04", `${currentYear}-04-02`],
+    ])(
+      "returns the expected ISO formatted string when %s format and %s reference date is passed in",
+      (formatString, referenceDate, expected) => {
+        expect(formatToISO(formatString, referenceDate)).toEqual(expected);
       }
     );
 
-    it.each(parseParameters(["d.M.yyyy", "d,M,yyyy", "d-M-yyyy", "d/M/yyyy"]))(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual("1111-01-01");
-      }
-    );
-
-    it.each(parseParameters(["d.M.yy", "d,M,yy", "d-M-yy", "d/M/yy"]))(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual("2011-01-01");
-      }
-    );
-
-    it.each(parseParameters(["dd.M.yy", "dd,M,yy", "dd-M-yy", "dd/M/yy"]))(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual("2011-01-11");
-      }
-    );
-
-    it.each(
-      parseParameters([
-        "ddMMyy",
-        "dd.MM.yy",
-        "dd,MM,yy",
-        "dd-MM-yy",
-        "dd/MM/yy",
-      ])
-    )(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual("2011-11-11");
-      }
-    );
-
-    it.each(parseParameters(["d", "d.M", "d,M", "d-M", "d/M"]))(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual(`${currentYear}-01-01`);
-      }
-    );
-
-    it.each(parseParameters(["dd", "ddM", "dd.M", "dd,M", "dd-M", "dd/M"]))(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual(`${currentYear}-01-11`);
-      }
-    );
-
-    it.each(parseParameters(["d.MM", "d,MM", "d-MM", "d/MM"]))(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual(`${currentYear}-11-01`);
-      }
-    );
-
-    it.each(parseParameters(["ddMM", "dd.MM", "dd,MM", "dd-MM", "dd/MM"]))(
-      "returns the expected ISO formatted string when %s format and %s value passed in",
-      (format, value) => {
-        expect(formatToISO(format, value)).toEqual(`${currentYear}-11-11`);
-      }
-    );
-
-    it("returns null if invalid value passed in", () => {
+    it("returns null if an invalid reference date is passed in", () => {
       expect(formatToISO("dd/MM/yyyy", "foo")).toEqual(null);
     });
   });
@@ -269,89 +238,83 @@ describe("utils", () => {
       ]);
     });
 
-    describe.each(yearValuesLessThan69)("when year value is %s", (year) => {
-      it.each([
-        "d.M.yy",
-        "d,M,yy",
-        "d-M-yy",
-        "d/M/yy",
-        "dd.M.yy",
-        "dd,M,yy",
-        "dd-M-yy",
-        "dd/M/yy",
-        "ddMMyy",
-        "dd.MM.yy",
-        "dd,MM,yy",
-        "dd-MM-yy",
-        "dd/MM/yy",
-      ])("returns the expected when format is %s", (format) => {
-        const input = result(format, `01-01-${year}`);
-        const output = result(format, `01-01-20${year}`);
-        expect(additionalYears(format, input)).toEqual([`${format}yy`, output]);
-      });
+    describe.each(yearValuesLessThan69)(
+      "when year is two characters long and denotes years between 2000 and 2068",
+      (year) => {
+        it.each([
+          ["d.M.yy", `01-01-${year}`, ["d.M.yyyy", `01-01-20${year}`]],
+          ["d,M,yy", `01-01-${year}`, ["d,M,yyyy", `01-01-20${year}`]],
+          ["d-M-yy", `01-01-${year}`, ["d-M-yyyy", `01-01-20${year}`]],
+          ["d/M/yy", `01-01-${year}`, ["d/M/yyyy", `01-01-20${year}`]],
+          ["dd.M.yy", `01-01-${year}`, ["dd.M.yyyy", `01-01-20${year}`]],
+          ["dd,M,yy", `01-01-${year}`, ["dd,M,yyyy", `01-01-20${year}`]],
+          ["dd-M-yy", `01-01-${year}`, ["dd-M-yyyy", `01-01-20${year}`]],
+          ["dd/M/yy", `01-01-${year}`, ["dd/M/yyyy", `01-01-20${year}`]],
+          ["ddMMyy", `01-01-${year}`, ["ddMMyyyy", `01-01-20${year}`]],
+          ["dd.MM.yy", `01-01-${year}`, ["dd.MM.yyyy", `01-01-20${year}`]],
+          ["dd,MM,yy", `01-01-${year}`, ["dd,MM,yyyy", `01-01-20${year}`]],
+          ["dd-MM-yy", `01-01-${year}`, ["dd-MM-yyyy", `01-01-20${year}`]],
+          ["dd/MM/yy", `01-01-${year}`, ["dd/MM/yyyy", `01-01-20${year}`]],
+          ["yy.M.d", `${year}-01-01`, ["yyyy.M.d", `20${year}-01-01`]],
+          ["yy,M,d", `${year}-01-01`, ["yyyy,M,d", `20${year}-01-01`]],
+          ["yy-M-d", `${year}-01-01`, ["yyyy-M-d", `20${year}-01-01`]],
+          ["yy/M/d", `${year}-01-01`, ["yyyy/M/d", `20${year}-01-01`]],
+          ["yy.M.dd", `${year}-01-01`, ["yyyy.M.dd", `20${year}-01-01`]],
+          ["yy,M,dd", `${year}-01-01`, ["yyyy,M,dd", `20${year}-01-01`]],
+          ["yy-M-dd-M", `${year}-01-01`, ["yyyy-M-dd-M", `20${year}-01-01`]],
+          ["yy/M/dd/M", `${year}-01-01`, ["yyyy/M/dd/M", `20${year}-01-01`]],
+          ["yyMdd", `${year}-01-01`, ["yyyyMdd", `20${year}-01-01`]],
+          ["yy.MM.dd", `${year}-01-01`, ["yyyy.MM.dd", `20${year}-01-01`]],
+          ["yy,MM,dd", `${year}-01-01`, ["yyyy,MM,dd", `20${year}-01-01`]],
+          ["yy-MM-dd", `${year}-01-01`, ["yyyy-MM-dd", `20${year}-01-01`]],
+          ["yy/MM/dd", `${year}-01-01`, ["yyyy/MM/dd", `20${year}-01-01`]],
+        ])(
+          "returns expected output when format is `%s` and reference date is `%s`",
+          (format, referenceDate, expected) => {
+            expect(additionalYears(format, referenceDate)).toEqual(expected);
+          }
+        );
+      }
+    );
 
-      it.each([
-        "yy.M.d",
-        "yy,M,d",
-        "yy-M-d",
-        "yy/M/d",
-        "yy.M.dd",
-        "yy,M,dd",
-        "yy-M-dd-M",
-        "yy/M/dd/M",
-        "yyMdd",
-        "yy.MM.dd",
-        "yy,MM,dd",
-        "yy-MM-dd",
-        "yy/MM/dd",
-      ])("returns the expected when format is %s", (format) => {
-        const input = result(format, `${year}-01-01`);
-        const output = result(format, `20${year}-01-01`);
-        expect(additionalYears(format, input)).toEqual([`yy${format}`, output]);
-      });
-    });
-
-    describe.each(yearValuesGreaterThan69)("when year value is %s", (year) => {
-      it.each([
-        "d.M.yy",
-        "d,M,yy",
-        "d-M-yy",
-        "d/M/yy",
-        "dd.M.yy",
-        "dd,M,yy",
-        "dd-M-yy",
-        "dd/M/yy",
-        "ddMMyy",
-        "dd.MM.yy",
-        "dd,MM,yy",
-        "dd-MM-yy",
-        "dd/MM/yy",
-      ])("returns the expected when format is %s", (format) => {
-        const input = result(format, `01-01-${year}`);
-        const output = result(format, `01-01-19${year}`);
-        expect(additionalYears(format, input)).toEqual([`${format}yy`, output]);
-      });
-
-      it.each([
-        "yy.M.d",
-        "yy,M,d",
-        "yy-M-d",
-        "yy/M/d",
-        "yy.M.dd",
-        "yy,M,dd",
-        "yy-M-dd-M",
-        "yy/M/dd/M",
-        "yyMdd",
-        "yy.MM.dd",
-        "yy,MM,dd",
-        "yy-MM-dd",
-        "yy/MM/dd",
-      ])("returns the expected when format is %s", (format) => {
-        const input = result(format, `${year}-01-01`);
-        const output = result(format, `19${year}-01-01`);
-        expect(additionalYears(format, input)).toEqual([`yy${format}`, output]);
-      });
-    });
+    describe.each(yearValuesGreaterThan69)(
+      "when year is two characters long and denotes years between 1969 and 1999",
+      (year) => {
+        it.each([
+          ["d.M.yy", `01-01-${year}`, ["d.M.yyyy", `01-01-19${year}`]],
+          ["d,M,yy", `01-01-${year}`, ["d,M,yyyy", `01-01-19${year}`]],
+          ["d-M-yy", `01-01-${year}`, ["d-M-yyyy", `01-01-19${year}`]],
+          ["d/M/yy", `01-01-${year}`, ["d/M/yyyy", `01-01-19${year}`]],
+          ["dd.M.yy", `01-01-${year}`, ["dd.M.yyyy", `01-01-19${year}`]],
+          ["dd,M,yy", `01-01-${year}`, ["dd,M,yyyy", `01-01-19${year}`]],
+          ["dd-M-yy", `01-01-${year}`, ["dd-M-yyyy", `01-01-19${year}`]],
+          ["dd/M/yy", `01-01-${year}`, ["dd/M/yyyy", `01-01-19${year}`]],
+          ["ddMMyy", `01-01-${year}`, ["ddMMyyyy", `01-01-19${year}`]],
+          ["dd.MM.yy", `01-01-${year}`, ["dd.MM.yyyy", `01-01-19${year}`]],
+          ["dd,MM,yy", `01-01-${year}`, ["dd,MM,yyyy", `01-01-19${year}`]],
+          ["dd-MM-yy", `01-01-${year}`, ["dd-MM-yyyy", `01-01-19${year}`]],
+          ["dd/MM/yy", `01-01-${year}`, ["dd/MM/yyyy", `01-01-19${year}`]],
+          ["yy.M.d", `${year}-01-01`, ["yyyy.M.d", `19${year}-01-01`]],
+          ["yy,M,d", `${year}-01-01`, ["yyyy,M,d", `19${year}-01-01`]],
+          ["yy-M-d", `${year}-01-01`, ["yyyy-M-d", `19${year}-01-01`]],
+          ["yy/M/d", `${year}-01-01`, ["yyyy/M/d", `19${year}-01-01`]],
+          ["yy.M.dd", `${year}-01-01`, ["yyyy.M.dd", `19${year}-01-01`]],
+          ["yy,M,dd", `${year}-01-01`, ["yyyy,M,dd", `19${year}-01-01`]],
+          ["yy-M-dd-M", `${year}-01-01`, ["yyyy-M-dd-M", `19${year}-01-01`]],
+          ["yy/M/dd/M", `${year}-01-01`, ["yyyy/M/dd/M", `19${year}-01-01`]],
+          ["yyMdd", `${year}-01-01`, ["yyyyMdd", `19${year}-01-01`]],
+          ["yy.MM.dd", `${year}-01-01`, ["yyyy.MM.dd", `19${year}-01-01`]],
+          ["yy,MM,dd", `${year}-01-01`, ["yyyy,MM,dd", `19${year}-01-01`]],
+          ["yy-MM-dd", `${year}-01-01`, ["yyyy-MM-dd", `19${year}-01-01`]],
+          ["yy/MM/dd", `${year}-01-01`, ["yyyy/MM/dd", `19${year}-01-01`]],
+        ])(
+          "returns expected output when format is `%s` and reference date is `%s`",
+          (format, referenceDate, expected) => {
+            expect(additionalYears(format, referenceDate)).toEqual(expected);
+          }
+        );
+      }
+    );
   });
 
   describe("findMatchedFormatAndValue", () => {

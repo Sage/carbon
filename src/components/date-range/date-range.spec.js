@@ -165,7 +165,7 @@ describe("DateRange", () => {
       });
 
       describe("when no onBlur prop is passed in", () => {
-        it("it does not call the passed in onChange function", () => {
+        it("does not call the passed in onChange function", () => {
           wrapper.setProps({ onBlur: undefined });
           wrapper.find(DateInput).first().props().onBlur();
         });
@@ -675,7 +675,7 @@ describe("DateRange", () => {
         ).toBeTruthy();
       });
 
-      it(`include 'data-element="start-date"'`, () => {
+      it(`include 'data-element="end-date"'`, () => {
         expect(
           wrapper.find('DateInput[data-element="end-date"]').exists()
         ).toBeTruthy();

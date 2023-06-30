@@ -91,11 +91,14 @@ describe("Date", () => {
   let wrapper;
   let onFocusFn;
 
-  // eslint-disable-next-line react/prop-types
   const MockComponent = ({
+    // eslint-disable-next-line react/prop-types
     emptyValue,
+    // eslint-disable-next-line react/prop-types
     eventValues = () => {},
+    // eslint-disable-next-line react/prop-types
     refToBeForwarded,
+    // eslint-disable-next-line react/prop-types
     inputRef,
     ...rest
   }) => {
@@ -457,7 +460,7 @@ describe("Date", () => {
         expect(onClickFn).toHaveBeenCalled();
       });
 
-      it("it does not call the onBlur prop", () => {
+      it("does not call the onBlur prop", () => {
         const onBlurFn = jest.fn();
         wrapper = render({ onBlur: onBlurFn });
         simulateClickOnInputIcon(wrapper);
@@ -503,25 +506,6 @@ describe("Date", () => {
         expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         wrapper.unmount();
       });
-
-      it("the 'DatePicker' should close if it is open", () => {
-        wrapper = render();
-        simulateFocusOnInput(wrapper);
-        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
-
-        simulateMouseDownOnPicker(wrapper);
-
-        wrapper.update();
-
-        act(() => {
-          document.dispatchEvent(
-            new MouseEvent("mousedown", { bubbles: true })
-          );
-        });
-
-        expect(wrapper.update().find(DayPicker).exists()).toBe(false);
-        wrapper.unmount();
-      });
     });
 
     describe("on the picker container", () => {
@@ -556,35 +540,27 @@ describe("Date", () => {
   });
 
   describe("initial value as ISO format", () => {
-    describe.each(
-      Object.keys(locales).filter((l) => !["en-CA", "en-US"].includes(l))
-    )("for %s locale", (localeKey) => {
-      it("formats to the expected", () => {
+    it.each(
+      [
+        ["en-GB", "01/03/2012"],
+        ["de", "01.03.2012"],
+        ["es", "01/03/2012"],
+        ["en-ZA", "01/03/2012"],
+        ["fr-FR", "01/03/2012"],
+        ["fr-CA", "01/03/2012"],
+        ["en-US", "03/01/2012"],
+        ["en-CA", "03/01/2012"],
+      ],
+      ("for %s locale, initial value is formatted correctly",
+      (localeKey, expectedOutput) => {
         wrapper = mount(
           <I18nProvider locale={locales[localeKey]}>
             <DateInput value="2012-03-01" onChange={jest.fn} />
           </I18nProvider>
         );
-        const output = localeKey === "de" ? "01.03.2012" : "01/03/2012";
-
-        expect(wrapper.find("input").prop("value")).toEqual(output);
-      });
-    });
-
-    describe.each(
-      Object.keys(locales).filter((l) => ["en-CA", "en-US"].includes(l))
-    )("for %s locale", (localeKey) => {
-      it("formats to the expected", () => {
-        wrapper = mount(
-          <I18nProvider locale={locales[localeKey]}>
-            <DateInput value="2012-03-01" onChange={jest.fn} />
-          </I18nProvider>
-        );
-        const output = "03/01/2012";
-
-        expect(wrapper.find("input").prop("value")).toEqual(output);
-      });
-    });
+        expect(wrapper.find("input").prop("value")).toEqual(expectedOutput);
+      })
+    );
   });
 
   describe("when the input value changes", () => {
@@ -776,7 +752,7 @@ describe("Date", () => {
         });
 
         describe("when the day value is greater than 28 and month is not February", () => {
-          it("it parses the date as expected", () => {
+          it("parses the date as expected", () => {
             const value = ["en-US", "en-CA"].includes(localeKey)
               ? "01/31/2021"
               : "31/01/2021";
