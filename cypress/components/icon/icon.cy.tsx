@@ -409,6 +409,7 @@ context("Tests for Icon component", () => {
     });
 
     // FE-4643
+    // eslint-disable-next-line
     describe.skip("Accessibility tests for ariaLabel", () => {
       it.each(testData)(
         "should check ariaLabel as %s for accessibilty tests",

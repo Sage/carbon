@@ -1,3 +1,4 @@
+// eslint-disable @react/prop-types
 import React from "react";
 import { PasswordProps } from "../../../src/components/password/password.component";
 import { PasswordComponent } from "../../../src/components/password/password-test.stories";

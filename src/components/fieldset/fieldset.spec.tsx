@@ -9,6 +9,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function render(props: FieldsetProps = {}, renderer: any = shallow) {
   return renderer(
     <Fieldset {...props}>
@@ -88,7 +89,7 @@ describe("Fieldset", () => {
       );
     });
 
-    it("is not rendered if omited", () => {
+    it("is not rendered if omitted", () => {
       expect(
         basicWrapper.find(FieldsetContentStyle).get(0).props.inline
       ).toEqual(false);
