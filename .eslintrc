@@ -11,7 +11,7 @@
     "import/no-unresolved": "off",
     "jsx-a11y/anchor-is-valid": "warn",
     "jsx-a11y/click-events-have-key-events": "warn",
-    "jsx-a11y/label-has-for": "warn",
+    "jsx-a11y/label-has-associated-control": "warn",
     "jsx-a11y/mouse-events-have-key-events": "warn",
     "jsx-a11y/no-noninteractive-element-interactions": "warn",
     "jsx-a11y/no-static-element-interactions": "warn",
@@ -148,12 +148,18 @@
         "react/prefer-stateless-function": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
-        "@typescript-eslint/no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
+        "@typescript-eslint/no-empty-function": [
+          "error",
+          { "allow": ["arrowFunctions"] }
+        ],
         "jest-dom/prefer-to-have-attribute": "off",
-        "no-restricted-imports": ["error", {
-          "name": "prop-types",
-          "message": "Please do not import `prop-types` in TypeScript files."
-      }]
+        "no-restricted-imports": [
+          "error",
+          {
+            "name": "prop-types",
+            "message": "Please do not import `prop-types` in TypeScript files."
+          }
+        ]
       }
     }
   ]

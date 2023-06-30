@@ -251,7 +251,6 @@ context("Testing DialogFullScreen component", () => {
     });
 
     it("should render DialogFullScreen component with role", () => {
-      // eslint-disable-next-line jsx-a11y/aria-role
       CypressMountWithProviders(<DialogFullScreenComponent role="dialog" />);
       dialogFullScreenPreview()
         .should("have.attr", "role")
