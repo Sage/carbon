@@ -96,23 +96,21 @@
   },
   "env": {
     "es6": true,
-    "browser": true,
-    "jasmine": true,
-    "cypress/globals": true
+    "browser": true
   },
+  "plugins": ["react", "react-hooks"],
   "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:no-unsanitized/DOM",
     "airbnb",
     "prettier",
     "prettier/react"
   ],
-  "plugins": ["cypress", "react", "react-hooks"],
   "globals": {
-    "jest": false,
     "global": false,
-    "process": false,
-    "test": false,
-    "cypress": true
+    "process": false
   },
   "overrides": [
     {
@@ -124,18 +122,10 @@
         },
         "project": ["./tsconfig.json", "./cypress/tsconfig.json"]
       },
-      "plugins": ["cypress", "@typescript-eslint", "jest"],
+      "plugins": ["@typescript-eslint"],
       "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "prettier",
-        "prettier/@typescript-eslint",
-        "plugin:react-hooks/recommended",
-        "plugin:jest/recommended",
-        "plugin:cypress/recommended"
-        // TODO: Uncomment after transition to RTL has started
-        // "plugin:jest-dom/recommended",
+        "prettier/@typescript-eslint"
       ],
       "settings": {
         "react": {
@@ -144,7 +134,6 @@
       },
       "rules": {
         "import/named": "off",
-        "jest/expect-expect": "off",
         "react/prefer-stateless-function": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
@@ -152,7 +141,6 @@
           "error",
           { "allow": ["arrowFunctions"] }
         ],
-        "jest-dom/prefer-to-have-attribute": "off",
         "no-restricted-imports": [
           "error",
           {
@@ -161,6 +149,37 @@
           }
         ]
       }
+    },
+    {
+      "files": ["*.spec.*"],
+      "env": {
+        "jasmine": true
+      },
+      "globals": {
+        "jest": false,
+        "test": false
+      },
+      "plugins": ["jest"],
+      "extends": [
+        "plugin:jest/recommended"
+        // TODO: Uncomment after transition to RTL has started
+        // "plugin:jest-dom/recommended",
+      ],
+      "rules": {
+        "jest/expect-expect": "off",
+        "jest-dom/prefer-to-have-attribute": "off"
+      }
+    },
+    {
+      "files": ["cypress/**"],
+      "env": {
+        "cypress/globals": true
+      },
+      "globals": {
+        "cypress": true
+      },
+      "plugins": ["cypress"],
+      "extends": ["plugin:cypress/recommended"]
     }
   ]
 }
