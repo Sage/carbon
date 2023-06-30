@@ -107,6 +107,7 @@ export const ButtonToggle = ({
     isInGroup,
     firstButton,
     childButtonCallbackRef,
+    isMinor,
   } = useContext(ButtonToggleGroupContext);
 
   const callbackRef = (element: HTMLButtonElement | null) => {
@@ -186,6 +187,7 @@ export const ButtonToggle = ({
       data-element={dataElement}
       data-role={dataRole}
       grouped={grouped}
+      isMinor={isMinor}
     >
       <StyledButtonToggle
         aria-label={ariaLabel}
@@ -208,6 +210,7 @@ export const ButtonToggle = ({
         {...(tabbable ? {} : { tabIndex: -1 })}
         allowDeselect={allowDeselect}
         ref={callbackRef}
+        isMinor={isMinor}
       >
         {icon}
         {children}

@@ -2,8 +2,6 @@ import styled, { css } from "styled-components";
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
-import StyledButtonMinor from "components/button-minor/button-minor.style";
-import { grouped } from "./button-toggle.stories";
 import { ButtonToggleProps } from "./button-toggle.component";
 
 export type ButtonToggleIconSizes = "small" | "large";
@@ -47,27 +45,23 @@ const StyledButtonToggleContentWrapper = styled.div`
   flex-flow: wrap;
 `;
 
-
-
 const minorStyles = css`
   [data-component="button-minor"] {
-      & ${StyledIcon} {
-        color: var(--colorsActionMinor500);
+    & ${StyledIcon} {
+      color: var(--colorsActionMinor500);
+    }
+  }
+  [data-component="button-minor"] {
+    :hover {
+      color: var(--colorsActionMinor500);
+      background-color: transparent;
+      border-color: var(--colorsActionMinor500);
+      & + ${StyledButton} {
+        border-left-color: var(--colorsActionMinor500);
       }
     }
-    [data-component="button-minor"] {
-      :hover {
-        color: var(--colorsActionMinor500);
-        background-color: transparent;
-        border-color: var(--colorsActionMinor500);
-        & + ${StyledButton} {
-          border-left-color: var(--colorsActionMinor500);
-        }
-      }
-    }
-`
-const isMinor = (props: StyledButtonToggleWrapperProps ) => props.grouped ? StyledButtonToggle : minorStyles;
-
+  }
+`;
 export interface StyledButtonToggleProps {
   /** The icon to be rendered inside of the button */
   buttonIcon?: IconType;
@@ -80,6 +74,7 @@ export interface StyledButtonToggleProps {
   grouped?: boolean;
   /** set this to true to allow the button to be deselected when already selected */
   allowDeselect?: boolean;
+  isMinor?: boolean;
 }
 
 const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
@@ -101,6 +96,7 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   text-align: start;
   color: inherit;
 
+  /** use isMinor to control the styling here like I've doen for border-radius below */
   border: 1px solid var(--colorsActionMinor500);
 
   :focus {
@@ -162,6 +158,7 @@ export interface StyledButtonToggleIconProps {
   /** Sets the size of the buttonIcon (eg. large) */
   buttonIconSize?: ButtonToggleIconSizes;
   hasContent?: boolean;
+  isMinor?: boolean;
 }
 
 const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
@@ -188,19 +185,22 @@ const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
 
 export interface StyledButtonToggleWrapperProps {
   grouped?: boolean;
+  isMinor?: boolean;
 }
 
 const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
   display: inline-block;
   vertical-align: middle;
 
-  ${({ grouped }) =>
+  ${({ grouped, isMinor }) =>
     css`
       ${!grouped &&
       css`
         &&&& {
           ${StyledButtonToggle} {
-            border-radius: var(--borderRadius400);
+            border-radius: ${isMinor
+              ? "var(--borderRadius050)"
+              : "var(--borderRadius400)"};
           }
         }
       `}
@@ -210,22 +210,28 @@ const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
         &&&& {
           :first-of-type {
             ${StyledButtonToggle} {
-              border-top-left-radius: var(--borderRadius400);
-              border-bottom-left-radius: var(--borderRadius400);
+              border-top-left-radius: ${isMinor
+                ? "var(--borderRadius050)"
+                : "var(--borderRadius400)"};
+              border-bottom-left-radius: ${isMinor
+                ? "var(--borderRadius050)"
+                : "var(--borderRadius400)"};
             }
           }
 
           :last-of-type {
             ${StyledButtonToggle} {
-              border-top-right-radius: var(--borderRadius400);
-              border-bottom-right-radius: var(--borderRadius400);
+              border-top-right-radius: ${isMinor
+                ? "var(--borderRadius050)"
+                : "var(--borderRadius400)"};
+              border-bottom-right-radius: ${isMinor
+                ? "var(--borderRadius050)"
+                : "var(--borderRadius400)"};
             }
           }
         }
       `}
     `}
-
-    ${props => isMinor(props)}
 
   &:not(:first-of-type) {
     margin-left: 8px;

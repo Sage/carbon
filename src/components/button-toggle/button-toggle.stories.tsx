@@ -1,6 +1,5 @@
 import React from "react";
 import { ComponentStory } from "@storybook/react";
-import ButtonMinor, { ButtonMinorProps } from "../button-minor";
 
 import { ButtonToggle, ButtonToggleGroup, ButtonToggleProps } from ".";
 import Box from "../box";
@@ -15,11 +14,15 @@ export const Default: ComponentStory<typeof ButtonToggle> = () => (
 
 export const DefaultMinor: ComponentStory<typeof ButtonToggle> = () => (
   <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-     <ButtonToggleGroup id="button-toggle-group-id" label="Default example">
-        <ButtonMinor>Foo</ButtonMinor>
-        <ButtonMinor>Bar</ButtonMinor>
-        <ButtonMinor>Baz</ButtonMinor>
-     </ButtonToggleGroup>
+    <ButtonToggleGroup
+      id="button-toggle-group-id"
+      label="Default example"
+      isMinor
+    >
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+      <ButtonToggle value="baz">Baz</ButtonToggle>
+    </ButtonToggleGroup>
   </Box>
 );
 
@@ -40,9 +43,17 @@ export const DefaultWrappedTextMinor: ComponentStory<
   typeof ButtonToggle
 > = () => (
   <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-    <ButtonToggleGroup id="button-toggle-group-id" label="Wrapped text example">
-      <ButtonMinor grouped>Some text that wraps</ButtonMinor>
-      <ButtonMinor>FooBar</ButtonMinor>
+    <ButtonToggleGroup
+      id="button-toggle-group-id"
+      label="Wrapped text example"
+      isMinor
+    >
+      <ButtonToggle value="wraps" grouped>
+        Some text that wraps
+      </ButtonToggle>
+      <ButtonToggle value="foobar" grouped>
+        FooBar
+      </ButtonToggle>
     </ButtonToggleGroup>
   </Box>
 );
@@ -64,15 +75,19 @@ export const DefaultSmallIcon: ComponentStory<typeof ButtonToggle> = () => (
 export const DefaultSmallIconMinor: ComponentStory<
   typeof ButtonToggle
 > = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Small icon example">
+  <ButtonToggleGroup
+    id="button-toggle-group-id"
+    label="Small icon example"
+    isMinor
+  >
     <ButtonToggle value="foo" buttonIcon="add">
-      <ButtonMinor>Add</ButtonMinor>
+      Add
     </ButtonToggle>
     <ButtonToggle value="bar" buttonIcon="share">
-      <ButtonMinor>Share</ButtonMinor>
+      Share
     </ButtonToggle>
     <ButtonToggle value="baz" buttonIcon="tick">
-      <ButtonMinor>Tick</ButtonMinor>
+      Tick
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -94,15 +109,19 @@ export const DefaultLargeIcon: ComponentStory<typeof ButtonToggle> = () => (
 export const DefaultLargeIconMinor: ComponentStory<
   typeof ButtonToggle
 > = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Large icon example">
+  <ButtonToggleGroup
+    id="button-toggle-group-id"
+    label="Large icon example"
+    isMinor
+  >
     <ButtonToggle value="foo" buttonIcon="add" buttonIconSize="large">
-      <ButtonMinor>Add</ButtonMinor>
+      Add
     </ButtonToggle>
     <ButtonToggle value="bar" buttonIcon="share" buttonIconSize="large">
-      <ButtonMinor>Share</ButtonMinor>
+      Share
     </ButtonToggle>
     <ButtonToggle value="baz" buttonIcon="tick" buttonIconSize="large">
-      <ButtonMinor>Tick</ButtonMinor>
+      Tick
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -114,20 +133,6 @@ export const iconOnly: ComponentStory<typeof ButtonToggle> = () => (
     <ButtonToggle value="baz" buttonIcon="tick" aria-label="tick" />
   </ButtonToggleGroup>
 );
-
-// export const iconOnlyMinor: ComponentStory<typeof ButtonToggle> = () => (
-//   <ButtonToggleGroup id="button-toggle-group-id" label="Icon only example">
-//     <ButtonToggle value="foo" buttonIcon="add" aria-label="add">
-//       <ButtonMinor/>
-//     </ButtonToggle>
-//     <ButtonToggle value="bar" buttonIcon="share" aria-label="share">
-//       <ButtonMinor/>
-//     </ButtonToggle>
-//     <ButtonToggle value="baz" buttonIcon="tick" aria-label="tick">
-//       <ButtonMinor/>
-//     </ButtonToggle>
-//   </ButtonToggleGroup>
-// );
 
 export const small: ComponentStory<typeof ButtonToggle> = () => (
   <ButtonToggleGroup id="button-toggle-group-id" label="Small example">
@@ -144,15 +149,15 @@ export const small: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const smallMinor: ComponentStory<typeof ButtonToggle> = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Small example">
+  <ButtonToggleGroup id="button-toggle-group-id" label="Small example" isMinor>
     <ButtonToggle size="small" value="foo">
-      <ButtonMinor>Add</ButtonMinor>
+      Add
     </ButtonToggle>
     <ButtonToggle size="small" value="bar">
-      <ButtonMinor>Share</ButtonMinor>
+      Share
     </ButtonToggle>
     <ButtonToggle size="small" value="baz">
-      <ButtonMinor>Tick</ButtonMinor>
+      Tick
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -178,15 +183,16 @@ export const smallSmallIconMinor: ComponentStory<typeof ButtonToggle> = () => (
   <ButtonToggleGroup
     id="button-toggle-group-id"
     label="Small with small icon example"
+    isMinor
   >
     <ButtonToggle size="small" value="foo" buttonIcon="add">
-      <ButtonMinor>Add</ButtonMinor>
+      Add
     </ButtonToggle>
     <ButtonToggle size="small" value="bar" buttonIcon="share">
-      <ButtonMinor>Share</ButtonMinor>
+      Share
     </ButtonToggle>
     <ButtonToggle size="small" value="baz" buttonIcon="tick">
-      <ButtonMinor>Tick</ButtonMinor>
+      Tick
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -227,6 +233,7 @@ export const smallLargeIconMinor: ComponentStory<typeof ButtonToggle> = () => (
   <ButtonToggleGroup
     id="button-toggle-group-id"
     label="Small with large icon example"
+    isMinor
   >
     <ButtonToggle
       size="small"
@@ -234,7 +241,7 @@ export const smallLargeIconMinor: ComponentStory<typeof ButtonToggle> = () => (
       buttonIcon="add"
       buttonIconSize="large"
     >
-      <ButtonMinor>Add</ButtonMinor>
+      Add
     </ButtonToggle>
     <ButtonToggle
       size="small"
@@ -242,7 +249,7 @@ export const smallLargeIconMinor: ComponentStory<typeof ButtonToggle> = () => (
       buttonIcon="share"
       buttonIconSize="large"
     >
-      <ButtonMinor>Share</ButtonMinor>
+      Share
     </ButtonToggle>
     <ButtonToggle
       size="small"
@@ -250,7 +257,7 @@ export const smallLargeIconMinor: ComponentStory<typeof ButtonToggle> = () => (
       buttonIcon="tick"
       buttonIconSize="large"
     >
-      <ButtonMinor>Tick</ButtonMinor>
+      Tick
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -270,15 +277,15 @@ export const large: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const largeMinor: ComponentStory<typeof ButtonToggle> = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Large example">
+  <ButtonToggleGroup id="button-toggle-group-id" label="Large example" isMinor>
     <ButtonToggle size="large" value="foo">
-      <ButtonMinor>Add</ButtonMinor>
+      Add
     </ButtonToggle>
     <ButtonToggle size="large" value="bar">
-      <ButtonMinor>Share</ButtonMinor>
+      Share
     </ButtonToggle>
     <ButtonToggle size="large" value="baz">
-      <ButtonMinor>Tick</ButtonMinor>
+      Tick
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -304,15 +311,16 @@ export const largeSmallIconMinor: ComponentStory<typeof ButtonToggle> = () => (
   <ButtonToggleGroup
     id="button-toggle-group-id"
     label="Large with small icon example"
+    isMinor
   >
     <ButtonToggle size="large" value="foo" buttonIcon="add">
-      <ButtonMinor>Add</ButtonMinor>
+      Add
     </ButtonToggle>
     <ButtonToggle size="large" value="bar" buttonIcon="share">
-      <ButtonMinor>Share</ButtonMinor>
+      Share
     </ButtonToggle>
     <ButtonToggle size="large" value="baz" buttonIcon="tick">
-      <ButtonMinor>Tick</ButtonMinor>
+      Tick
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -353,6 +361,7 @@ export const largeLargeIconMinor: ComponentStory<typeof ButtonToggle> = () => (
   <ButtonToggleGroup
     id="button-toggle-group-id"
     label="Large with large icon example"
+    isMinor
   >
     <ButtonToggle
       size="large"
@@ -360,7 +369,7 @@ export const largeLargeIconMinor: ComponentStory<typeof ButtonToggle> = () => (
       buttonIcon="add"
       buttonIconSize="large"
     >
-      <ButtonMinor>Add</ButtonMinor>
+      Add
     </ButtonToggle>
     <ButtonToggle
       size="large"
@@ -368,7 +377,7 @@ export const largeLargeIconMinor: ComponentStory<typeof ButtonToggle> = () => (
       buttonIcon="share"
       buttonIconSize="large"
     >
-      <ButtonMinor>Share</ButtonMinor>
+      Share
     </ButtonToggle>
     <ButtonToggle
       size="large"
@@ -376,7 +385,7 @@ export const largeLargeIconMinor: ComponentStory<typeof ButtonToggle> = () => (
       buttonIcon="tick"
       buttonIconSize="large"
     >
-      <ButtonMinor>Tick</ButtonMinor>
+      Tick
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -396,15 +405,19 @@ export const disabled: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const disabledMinor: ComponentStory<typeof ButtonToggle> = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Disabled example">
+  <ButtonToggleGroup
+    id="button-toggle-group-id"
+    label="Disabled example"
+    isMinor
+  >
     <ButtonToggle value="foo" disabled>
-      <ButtonMinor>Foo</ButtonMinor>
+      Foo
     </ButtonToggle>
     <ButtonToggle value="bar" disabled>
-      <ButtonMinor>Bar</ButtonMinor>
+      Bar
     </ButtonToggle>
     <ButtonToggle value="baz" disabled>
-      <ButtonMinor>Baz</ButtonMinor>
+      Baz
     </ButtonToggle>
   </ButtonToggleGroup>
 );
@@ -423,10 +436,20 @@ export const grouped: ComponentStory<typeof ButtonToggle> = () => (
   </ButtonToggleGroup>
 );
 
-export const groupedMinor: ComponentStory<typeof ButtonMinorProps> = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Grouped example">
-      <ButtonMinor grouped>Foo</ButtonMinor>
-      <ButtonMinor grouped>Bar</ButtonMinor>
-      <ButtonMinor grouped>Baz</ButtonMinor>
+export const groupedMinor: ComponentStory<typeof ButtonToggle> = () => (
+  <ButtonToggleGroup
+    id="button-toggle-group-id"
+    label="Grouped example"
+    isMinor
+  >
+    <ButtonToggle value="foo" grouped>
+      Foo
+    </ButtonToggle>
+    <ButtonToggle value="bar" grouped>
+      Bar
+    </ButtonToggle>
+    <ButtonToggle value="baz" grouped>
+      Baz
+    </ButtonToggle>
   </ButtonToggleGroup>
 );
