@@ -6,6 +6,7 @@ import {
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
+  ActionPopoverProps,
 } from ".";
 import {
   FlatTable,
@@ -306,7 +307,9 @@ export const ActionPopoverMenuWithProps = ({ ...props }) => {
   );
 };
 
-export const ActionPopoverProps = ({ ...props }) => {
+export const ActionPopoverPropsComponent = (
+  props: Partial<ActionPopoverProps>
+) => {
   return (
     <ActionPopover {...props}>
       <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>

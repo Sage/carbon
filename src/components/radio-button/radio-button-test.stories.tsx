@@ -1,6 +1,8 @@
 import React from "react";
 import { ComponentStory } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
+import { RadioButtonGroupProps } from "./radio-button-group.component";
+import { RadioButtonProps } from "./radio-button.component";
 
 export default {
   title: "RadioButton/Test",
@@ -141,7 +143,7 @@ WithTooltipPositionOnRadioGroup.storyName =
 
 const radioContainerWidth = 400;
 
-export const RadioButtonComponent = ({ ...props }) => {
+export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
   const [isChecked, setIsChecked] = React.useState(false);
   return (
     <>
@@ -168,9 +170,7 @@ export const RadioButtonComponent = ({ ...props }) => {
 export const RadioButtonGroupComponent = ({
   children,
   ...props
-}: {
-  children: string;
-}) => {
+}: Partial<RadioButtonGroupProps>) => {
   return (
     <div
       style={{

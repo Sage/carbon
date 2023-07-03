@@ -1,5 +1,8 @@
 import React from "react";
-import RadioButton from "../../../src/components/radio-button/radio-button.component";
+import RadioButton, {
+  RadioButtonProps,
+} from "../../../src/components/radio-button/radio-button.component";
+import { RadioButtonGroupProps } from "../../../src/components/radio-button/radio-button-group.component";
 import {
   RadioButtonComponent,
   RadioButtonGroupComponent,
@@ -46,6 +49,7 @@ context("Testing RadioButton component", () => {
       CypressMountWithProviders(
         <RadioButtonComponent data-component={CHARACTERS.STANDARD} />
       );
+
       getComponent(CHARACTERS.STANDARD).should(
         "have.attr",
         "data-component",
@@ -153,7 +157,7 @@ context("Testing RadioButton component", () => {
     it.each([
       [SIZE.SMALL, 16],
       [SIZE.LARGE, 24],
-    ])(
+    ] as [RadioButtonProps["size"], number][])(
       "should render RadioButton component with size set to %s",
       (size, heightAndWidth) => {
         CypressMountWithProviders(<RadioButtonComponent size={size} />);
@@ -167,7 +171,7 @@ context("Testing RadioButton component", () => {
     it.each([
       [1, "8px"],
       [2, "16px"],
-    ])(
+    ] as [RadioButtonProps["labelSpacing"], string][])(
       "should render RadioButton component with %s as labelSpacing",
       (spacing, padding) => {
         CypressMountWithProviders(
@@ -286,9 +290,9 @@ context("Testing RadioButton component", () => {
     });
 
     it.each([
-      [true, "0"],
-      [false, "1"],
-    ])(
+      [true, 0],
+      [false, 1],
+    ] as [boolean, number][])(
       "should render RadioButton with reverse prop set to %s",
       (reverseValue, position) => {
         CypressMountWithProviders(
@@ -306,7 +310,12 @@ context("Testing RadioButton component", () => {
       }
     );
 
-    it.each(["bottom", "left", "right", "top"])(
+    it.each([
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ] as RadioButtonProps["tooltipPosition"][])(
       "should render RadioButton component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
@@ -328,58 +337,45 @@ context("Testing RadioButton component", () => {
         .should("be.checked")
         .should("have.css", "color", COLOR.BLACK);
     });
+
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<RadioButtonComponent />);
+
+      radiobuttonSvg().should("have.css", "border-radius", "50%");
+    });
   });
 
   describe("should render RadioButton component and check events", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: RadioButtonProps["onBlur"] = cy.stub().as("onBlur");
       CypressMountWithProviders(<RadioButtonComponent onBlur={callback} />);
 
-      radiobuttonRole()
-        .focus()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      radiobuttonRole().focus().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call onChange callback when a check event is triggered", () => {
+      const callback: RadioButtonProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(<RadioButtonComponent onChange={callback} />);
 
-      radiobuttonRole()
-        .check()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      radiobuttonRole().check();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: RadioButtonProps["onFocus"] = cy.stub().as("onFocus");
       CypressMountWithProviders(<RadioButtonComponent onFocus={callback} />);
 
-      radiobuttonRole()
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      radiobuttonRole().focus();
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
 
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: RadioButtonProps["onClick"] = cy.stub().as("onClick");
       CypressMountWithProviders(<RadioButtonComponent onClick={callback} />);
 
-      radiobuttonRole()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      radiobuttonRole().click();
+      cy.get("@onClick").should("have.been.calledOnce");
     });
   });
 
@@ -451,7 +447,7 @@ context("Testing RadioButton component", () => {
     it.each([
       ["left", "start"],
       ["right", "end"],
-    ])(
+    ] as [RadioButtonGroupProps["legendAlign"], string][])(
       "should render RadioButtonGroup component with inline legend aligned to %s",
       (position, assertion) => {
         CypressMountWithProviders(
@@ -491,13 +487,13 @@ context("Testing RadioButton component", () => {
     it.each([
       [1, "8px"],
       [2, "16px"],
-    ])(
+    ] as [RadioButtonGroupProps["legendSpacing"], string][])(
       "should render RadioButtonGroup component with legendSpacing set to %s",
       (spacing, padding) => {
         CypressMountWithProviders(
           <RadioButtonGroupComponent
             legendSpacing={spacing}
-            legendWidth="10"
+            legendWidth={10}
             legendInline
           />
         );
@@ -505,7 +501,12 @@ context("Testing RadioButton component", () => {
       }
     );
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as RadioButtonGroupProps["tooltipPosition"][])(
       "should render RadioButtonGroup component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
@@ -545,12 +546,12 @@ context("Testing RadioButton component", () => {
     });
 
     it.each([
-      ["inline", "399", "left"],
-      ["inline", "400", "left"],
-      ["above", "401", "none"],
+      [399, "left"],
+      [400, "left"],
+      [401, "none"],
     ])(
       "should check RadioButtonGroup legend is %s with adaptiveLabelBreakpoint %s and viewport 400",
-      (alignment, breakpoint, float) => {
+      (breakpoint, float) => {
         cy.viewport(400, 300);
 
         CypressMountWithProviders(
@@ -637,11 +638,5 @@ context("Testing RadioButton component", () => {
 
       cy.checkAccessibility();
     });
-  });
-
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<RadioButtonComponent />);
-
-    radiobuttonSvg().should("have.css", "border-radius", "50%");
   });
 });

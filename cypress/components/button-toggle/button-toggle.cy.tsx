@@ -527,7 +527,8 @@ context("Testing Button-Toggle-Group component", () => {
     it("should only allow the first button to be tabbed to when no buttons are selected", () => {
       CypressMountWithProviders(<stories.WithOutsideButtons />);
 
-      cy.get("#button-before").focus().tab();
+      cy.get("#button-before").focus();
+      cy.get("#button-before").tab();
 
       buttonToggleButton().eq(positionOfElement("first")).should("be.focused");
 
@@ -539,7 +540,8 @@ context("Testing Button-Toggle-Group component", () => {
     it("should only allow the first button to be shift-tabbed to when no buttons are selected", () => {
       CypressMountWithProviders(<stories.WithOutsideButtons />);
 
-      cy.get("#button-after").focus().tab({ shift: true });
+      cy.get("#button-after").focus();
+      cy.focused().tab({ shift: true });
 
       buttonToggleButton().eq(positionOfElement("first")).should("be.focused");
 
@@ -553,7 +555,8 @@ context("Testing Button-Toggle-Group component", () => {
 
       buttonTogglePreview().eq(positionOfElement("second")).click();
 
-      cy.get("#button-before").focus().tab();
+      cy.get("#button-before").focus();
+      cy.get("#button-before").tab();
 
       buttonToggleButton().eq(positionOfElement("second")).should("be.focused");
 
@@ -567,7 +570,8 @@ context("Testing Button-Toggle-Group component", () => {
 
       buttonTogglePreview().eq(positionOfElement("second")).click();
 
-      cy.get("#button-after").focus().tab({ shift: true });
+      cy.get("#button-after").focus();
+      cy.focused().tab({ shift: true });
 
       buttonToggleButton().eq(positionOfElement("second")).should("be.focused");
 

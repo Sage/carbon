@@ -86,6 +86,7 @@ export const globalTypes = {
     description: "Internationalization locale",
     defaultValue: "en-GB",
     toolbar: {
+      title: "Locale",
       icon: "globe",
       items: [
         { value: "en-GB", right: "🇬🇧", title: "English" },

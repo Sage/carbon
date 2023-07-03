@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "119.3.0",
+  "version": "119.3.4",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -15,7 +15,7 @@
     "test-update": "jest --config=./jest.config.json --updateSnapshot",
     "cypress:react": "npx cypress open --component --browser chrome",
     "format": "prettier --write './{src,cypress}/**/*.{js,jsx,ts,tsx}'",
-    "lint": "eslint ./src",
+    "lint": "eslint ./src ./cypress",
     "build": "node ./scripts/build.js",
     "copy-files": "node ./scripts/copy-files.js",
     "precompile": "npm run type-check && npm run clean-lib && npm run build && npm run build:types && npm run copy-files",

@@ -1,3 +1,31 @@
+### [119.3.4](https://github.com/Sage/carbon/compare/v119.3.3...v119.3.4) (2023-06-29)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure window does not scroll when using up and down arrow keys to navigate rows ([ea89c65](https://github.com/Sage/carbon/commit/ea89c65aa13f17fa42806da56eda08b838963612)), closes [#6152](https://github.com/Sage/carbon/issues/6152)
+
+### [119.3.3](https://github.com/Sage/carbon/compare/v119.3.2...v119.3.3) (2023-06-29)
+
+
+### Bug Fixes
+
+* **decimal:** ensure empty value is formatted correctly ([284cabc](https://github.com/Sage/carbon/commit/284cabc6015f6319b97380f549074019f8a188d7)), closes [#6012](https://github.com/Sage/carbon/issues/6012)
+
+### [119.3.2](https://github.com/Sage/carbon/compare/v119.3.1...v119.3.2) (2023-06-20)
+
+
+### Bug Fixes
+
+* **button:** render falsy children ([587c728](https://github.com/Sage/carbon/commit/587c728a0bf1bd90aba3bb5550f74103c0a69cf8)), closes [#6108](https://github.com/Sage/carbon/issues/6108)
+
+### [119.3.1](https://github.com/Sage/carbon/compare/v119.3.0...v119.3.1) (2023-06-20)
+
+
+### Bug Fixes
+
+* **flat-table:** fix sticky footer no longer at the foot of the table ([209af5e](https://github.com/Sage/carbon/commit/209af5eef7ae4475224155ea9d45308f0c90fd9f))
+
 ## [119.3.0](https://github.com/Sage/carbon/compare/v119.2.0...v119.3.0) (2023-06-15)
 
 

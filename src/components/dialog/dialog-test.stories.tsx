@@ -178,7 +178,7 @@ Default.args = {
 export const DialogComponent = ({
   children = "This is an example of a dialog",
   ...props
-}: Partial<DialogProps> & StoryProps) => {
+}: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const ref = useRef<HTMLButtonElement | null>(null);
   return (
@@ -225,7 +225,7 @@ export const DialogComponentWithToast = () => {
 
 export const DialogComponentWithTextEditor = ({
   ...props
-}: Partial<DialogProps> & StoryProps) => {
+}: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const [value, setValue] = useState(EditorState.createEmpty());
   return (

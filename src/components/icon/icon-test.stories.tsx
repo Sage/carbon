@@ -7,7 +7,7 @@ import {
   ICON_TOOLTIP_POSITIONS,
   ICON_FONT_SIZES,
 } from "./icon-config";
-import Icon from ".";
+import Icon, { IconProps } from ".";
 
 export default {
   title: "Icon/Test",
@@ -142,11 +142,11 @@ All.story = {
   },
 };
 
-export const IconComponent = ({ ...props }) => {
+export const IconComponent = (props: Partial<IconProps>) => {
   return <Icon type="add" tooltipVisible {...props} />;
 };
 
-export const IconTooltipComponent = ({ ...props }) => {
+export const IconTooltipComponent = (props: Partial<IconProps>) => {
   return (
     <div
       style={{

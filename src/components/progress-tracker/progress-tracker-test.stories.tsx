@@ -1,10 +1,11 @@
 import React from "react";
-import ProgressTracker from ".";
+import ProgressTracker, { ProgressTrackerProps } from ".";
 import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
 
 export default {
   component: ProgressTracker,
   title: "Progress Tracker/Test",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -44,8 +45,12 @@ export default {
   },
 };
 
-export const Default = ({ ...args }) => {
+export const Default = (args: ProgressTrackerProps) => {
   return <ProgressTracker {...args} />;
 };
 
 Default.storyName = "default";
+
+export const ProgressTrackerComponent = (props: ProgressTrackerProps) => {
+  return <ProgressTracker progress={50} showDefaultLabels {...props} />;
+};

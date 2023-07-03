@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastProps } from "components/toast";
 import { ToastComponent } from "../../../src/components/toast/toast-test.stories";
 import { TOAST_COLORS } from "../../../src/components/toast/toast.config";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -11,10 +12,10 @@ import { CHARACTERS } from "../../support/component-helper/constants";
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = CHARACTERS.STANDARD;
 const colorTypes = [
-  ["rgb(203, 55, 74)"],
-  ["rgb(51, 91, 112)"],
-  ["rgb(0, 138, 33)"],
-  ["rgb(239, 103, 0)"],
+  "rgb(203, 55, 74)",
+  "rgb(51, 91, 112)",
+  "rgb(0, 138, 33)",
+  "rgb(239, 103, 0)",
 ];
 
 context("Testing Toast component", () => {
@@ -84,11 +85,14 @@ context("Testing Toast component", () => {
       [TOAST_COLORS[1], colorTypes[1]],
       [TOAST_COLORS[2], colorTypes[2]],
       [TOAST_COLORS[3], colorTypes[3]],
-    ])("should render Toast component with %s variant", (variant, color) => {
-      CypressMountWithProviders(<ToastComponent variant={variant} />);
+    ] as [ToastProps["variant"], string][])(
+      "should render Toast component with %s variant",
+      (variant, color) => {
+        CypressMountWithProviders(<ToastComponent variant={variant} />);
 
-      toastComponent().should("have.css", "border").and("contain", color);
-    });
+        toastComponent().should("have.css", "border").and("contain", color);
+      }
+    );
 
     it.each([
       [true, "be.visible"],
@@ -141,13 +145,13 @@ context("Testing Toast component", () => {
       CypressMountWithProviders(<ToastComponent variant="notice" open />);
 
       toastComponent()
-        .then((toast) => {
-          expect(toast.css("background-color")).to.equals("rgb(51, 91, 112)");
-          expect(toast.css("box-shadow")).to.equals(
-            "rgba(0, 20, 29, 0.1) 0px 10px 30px 0px, rgba(0, 20, 29, 0.1) 0px 30px 60px 0px"
-          );
-        })
-        .and("be.visible");
+        .should("be.visible")
+        .and("have.css", "background-color", "rgb(51, 91, 112)")
+        .and(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 20, 29, 0.1) 0px 10px 30px 0px, rgba(0, 20, 29, 0.1) 0px 30px 60px 0px"
+        );
     });
 
     it("should render Toast component with notice variant with focused close icon", () => {
@@ -161,31 +165,18 @@ context("Testing Toast component", () => {
   });
 
   describe("check events for Toast component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onDismiss callback when a click event is triggered", () => {
+      const callback: ToastProps["onDismiss"] = cy.stub().as("onDismiss");
       CypressMountWithProviders(<ToastComponent onDismiss={callback} />);
-
-      closeIconButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      closeIconButton().click();
+      cy.get("@onDismiss").should("have.been.calledOnce");
     });
 
     it("should call onDismiss callback when a Esc key event is triggered", () => {
+      const callback: ToastProps["onDismiss"] = cy.stub().as("onDismiss");
       CypressMountWithProviders(<ToastComponent onDismiss={callback} />);
-
       pressESCKey();
-      toastComponent().then(() => {
-        // eslint-disable-next-line no-unused-expressions
-        expect(callback).to.have.been.calledOnce;
-      });
+      cy.get("@onDismiss").should("have.been.calledOnce");
     });
   });
 
@@ -195,7 +186,7 @@ context("Testing Toast component", () => {
       TOAST_COLORS[1],
       TOAST_COLORS[2],
       TOAST_COLORS[3],
-    ])(
+    ] as ToastProps["variant"][])(
       "should render Toast component with %s variant and check accessibility",
       (variant) => {
         CypressMountWithProviders(<ToastComponent variant={variant} />);

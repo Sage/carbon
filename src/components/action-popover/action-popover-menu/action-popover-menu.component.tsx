@@ -3,7 +3,9 @@ import invariant from "invariant";
 
 import { Menu } from "../action-popover.style";
 import Events from "../../../__internal__/utils/helpers/events";
-import ActionPopoverItem from "../action-popover-item/action-popover-item.component";
+import ActionPopoverItem, {
+  ActionPopoverItemProps,
+} from "../action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "../action-popover-divider/action-popover-divider.component";
 import ActionPopoverContext from "../action-popover-context";
 
@@ -167,11 +169,14 @@ const ActionPopoverMenu = React.forwardRef<
       return React.Children.map(children, (child) => {
         if (React.isValidElement(child) && child.type === ActionPopoverItem) {
           index += 1;
-          return React.cloneElement(child, {
-            focusItem: isOpen && focusIndex === index - 1,
-            placement: child.props.submenu ? placement : undefined,
-            horizontalAlignment,
-          });
+          return React.cloneElement(
+            child as React.ReactElement<ActionPopoverItemProps>,
+            {
+              focusItem: isOpen && focusIndex === index - 1,
+              placement: child.props.submenu ? placement : undefined,
+              horizontalAlignment,
+            }
+          );
         }
 
         return child;

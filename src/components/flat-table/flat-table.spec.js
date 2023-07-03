@@ -807,8 +807,9 @@ describe("FlatTable", () => {
   });
 
   describe("keyboard navigation", () => {
-    const arrowDown = { key: "ArrowDown" };
-    const arrowUp = { key: "ArrowUp" };
+    const preventDefault = jest.fn();
+    const arrowDown = { key: "ArrowDown", preventDefault };
+    const arrowUp = { key: "ArrowUp", preventDefault };
     const arrowLeft = { key: "ArrowLeft" };
 
     describe("when rows are clickable", () => {

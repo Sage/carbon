@@ -139,6 +139,7 @@ const FlatTable = ({
     );
 
     if (Events.isDownKey(ev)) {
+      ev.preventDefault();
       if (
         currentFocusIndex !== -1 &&
         currentFocusIndex < focusableElementsArray.length
@@ -153,6 +154,7 @@ const FlatTable = ({
         }
       }
     } else if (Events.isUpKey(ev)) {
+      ev.preventDefault();
       if (currentFocusIndex > 0) {
         focusableElementsArray[currentFocusIndex - 1]?.focus();
       } else {
@@ -228,12 +230,12 @@ const FlatTable = ({
                 {children}
               </FlatTableThemeContext.Provider>
             </StyledFlatTable>
-            {footer && (
-              <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
-                {footer}
-              </StyledFlatTableFooter>
-            )}
           </StyledTableContainer>
+          {footer && (
+            <StyledFlatTableFooter hasStickyFooter={hasStickyFooter}>
+              {footer}
+            </StyledFlatTableFooter>
+          )}
         </StyledFlatTableWrapper>
       )}
     </DrawerSidebarContext.Consumer>
