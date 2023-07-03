@@ -1,5 +1,9 @@
 import React from "react";
-import * as stories from "../../../src/components/carbon-provider/carbon-provider.stories";
+import {
+  SageTheme as SageThemeStory,
+  MintTheme as MintThemeStory,
+} from "../../../src/components/carbon-provider/carbon-provider.stories";
+import { AllThemes as AllThemesStory } from "../../../src/components/carbon-provider/carbon-provider-test.stories";
 import Button from "../../../src/components/button";
 import Link from "../../../src/components/link";
 import Loader from "../../../src/components/loader";
@@ -272,20 +276,20 @@ context("Testing Carbon Provider component", () => {
   );
 
   describe("Accessibility tests for Carbon Provider", () => {
-    it("should pass accessibility tests for Carbon Provider", () => {
-      CypressMountWithProviders(<stories.Default />);
+    it("should pass accessibility tests for Carbon Provider sage theme story", () => {
+      CypressMountWithProviders(<SageThemeStory />);
 
       cy.checkAccessibility();
     });
 
-    it("should pass accessibility tests for Carbon Provider mixing story", () => {
-      CypressMountWithProviders(<stories.Mixing />);
+    it("should pass accessibility tests for Carbon Provider mint theme story", () => {
+      CypressMountWithProviders(<MintThemeStory />);
 
       cy.checkAccessibility();
     });
 
-    it("should pass accessibility tests for Carbon Provider theming story", () => {
-      CypressMountWithProviders(<stories.Theming />);
+    it("should pass accessibility tests for Carbon Provider all themes story", () => {
+      CypressMountWithProviders(<AllThemesStory />);
 
       cy.checkAccessibility();
     });

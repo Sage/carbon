@@ -35,7 +35,7 @@ export const Default = ({ separator, groups, ...args }: StoryArgs) => {
   const [state, setState] = useState("");
   const onChange = (ev: CustomEvent) => {
     setState(ev.target.value.rawValue);
-    action("change")(ev);
+    action("change")(ev.target.value);
   };
   return (
     <GroupedCharacter
@@ -59,7 +59,7 @@ export const NewValidation = ({ separator, groups, ...args }: StoryArgs) => {
   const [state, setState] = useState("");
   const onChange = (ev: CustomEvent) => {
     setState(ev.target.value.rawValue);
-    action("change")(ev);
+    action("change")(ev.target.value);
   };
   return (
     <CarbonProvider validationRedesignOptIn>

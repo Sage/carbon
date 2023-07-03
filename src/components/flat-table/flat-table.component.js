@@ -139,6 +139,7 @@ const FlatTable = ({
     );
 
     if (Events.isDownKey(ev)) {
+      ev.preventDefault();
       if (
         currentFocusIndex !== -1 &&
         currentFocusIndex < focusableElementsArray.length
@@ -153,6 +154,7 @@ const FlatTable = ({
         }
       }
     } else if (Events.isUpKey(ev)) {
+      ev.preventDefault();
       if (currentFocusIndex > 0) {
         focusableElementsArray[currentFocusIndex - 1]?.focus();
       } else {
