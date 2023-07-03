@@ -316,3 +316,20 @@ export const VerticalMenuFullScreenBackgroundScrollTest = () => {
     </Box>
   );
 };
+
+export const ClosedVerticalMenuFullScreenWithButtons = () => {
+  return (
+    <>
+      <button type="button" id="button-1">
+        Button 1
+      </button>
+      <VerticalMenuFullScreen isOpen={false} onClose={() => {}}>
+        <VerticalMenuItem title="Menu Item One" href="#" />
+        <VerticalMenuItem title="Menu Item Two" href="#" />
+      </VerticalMenuFullScreen>
+      <button type="button" id="button-2">
+        Button 2
+      </button>
+    </>
+  );
+};
