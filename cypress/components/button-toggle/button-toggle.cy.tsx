@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions, jest/valid-expect, jest/valid-expect-in-promise */
 import React from "react";
 import {
   ButtonToggle,
@@ -175,48 +174,47 @@ context("Testing Button-Toggle component", () => {
   });
 
   describe("should render Button-Toggle component for event tests", () => {
-    it("should render Button-Toggle disabled", () => {
-      const callback: ButtonToggleProps["onClick"] = cy.stub();
+    it("should call onClick callback when a click event is triggered", () => {
+      const callback: ButtonToggleProps["onClick"] = cy.stub().as("onClick");
 
-      CypressMountWithProviders(<ButtonToggleComponent disabled />);
+      CypressMountWithProviders(<ButtonToggleComponent onClick={callback} />);
+
+      buttonTogglePreview().eq(positionOfElement("first")).click();
+
+      cy.get("@onClick").should("have.been.called");
+    });
+
+    it("should not call onClick callback if ButtonToggle is disabled", () => {
+      const callback: ButtonToggleProps["onClick"] = cy.stub().as("onClick");
+
+      CypressMountWithProviders(
+        <ButtonToggleComponent disabled onClick={callback} />
+      );
 
       buttonToggleButton().should("have.attr", "disabled");
-      buttonTogglePreview()
-        .eq(positionOfElement("first"))
-        .click()
-        .then(() => {
-          expect(callback).not.to.have.been.called;
-        });
+      buttonTogglePreview().eq(positionOfElement("first")).click();
+
+      cy.get("@onClick").should("not.have.been.called");
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
-      const callback: ButtonToggleProps["onFocus"] = cy.stub();
+      const callback: ButtonToggleProps["onFocus"] = cy.stub().as("onFocus");
 
       CypressMountWithProviders(<ButtonToggleComponent onFocus={callback} />);
 
-      buttonToggleButton()
-        .eq(positionOfElement("first"))
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonToggleButton().eq(positionOfElement("first")).focus();
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
-      const callback: ButtonToggleProps["onBlur"] = cy.stub();
+      const callback: ButtonToggleProps["onBlur"] = cy.stub().as("onBlur");
 
       CypressMountWithProviders(<ButtonToggleComponent onBlur={callback} />);
 
       buttonToggleButton().eq(positionOfElement("first")).focus();
 
-      buttonToggleButton()
-        .eq(positionOfElement("first"))
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonToggleButton().eq(positionOfElement("first")).blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
   });
 
@@ -487,27 +485,19 @@ context("Testing Button-Toggle-Group component", () => {
   });
 
   describe("should render Button-Toggle-Group component for event tests", () => {
-    let callback: Cypress.Agent<sinon.SinonStub>;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange callback when a click event is triggered", () => {
+      const callback = cy.stub().as("onChange");
       CypressMountWithProviders(
         <stories.ButtonToggleGroupComponent onChange={callback} />
       );
 
-      buttonTogglePreview()
-        .eq(positionOfElement("first"))
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonTogglePreview().eq(positionOfElement("first")).click();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onChange callback with undefined when a click event is triggered on the currently-selected button and the allowDeselect prop is true", () => {
+      const callback = cy.stub().as("onChange");
+
       CypressMountWithProviders(
         <stories.ButtonToggleGroupComponent
           onChange={callback}
@@ -583,176 +573,166 @@ context("Testing Button-Toggle-Group component", () => {
     it("should cycle through the buttons in the group when using the right arrow key", () => {
       CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
 
+      buttonToggleButton().eq(positionOfElement("first")).click();
+
       buttonToggleButton()
         .eq(positionOfElement("first"))
-        .click()
-        .realPress("ArrowRight")
-        .then(() => {
-          buttonToggleButton()
-            .eq(positionOfElement("second"))
-            .should("be.focused");
-        })
-        .realPress("ArrowRight")
-        .then(() => {
-          buttonToggleButton()
-            .eq(positionOfElement("third"))
-            .should("be.focused");
-        })
-        .realPress("ArrowRight")
-        .then(() => {
-          buttonToggleButton()
-            .eq(positionOfElement("first"))
-            .should("be.focused");
-        });
+        .realPress("ArrowRight");
+
+      buttonToggleButton().eq(positionOfElement("second")).should("be.focused");
+
+      buttonToggleButton()
+        .eq(positionOfElement("second"))
+        .realPress("ArrowRight");
+
+      buttonToggleButton().eq(positionOfElement("third")).should("be.focused");
+
+      buttonToggleButton()
+        .eq(positionOfElement("third"))
+        .realPress("ArrowRight");
+
+      buttonToggleButton().eq(positionOfElement("first")).should("be.focused");
     });
 
     it("should cycle through the buttons in the group, selecting each one, when using the left arrow key", () => {
-      CypressMountWithProviders(
-        <stories.ButtonToggleGroupComponent onChange={callback} />
-      );
+      CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+
+      buttonToggleButton().eq(positionOfElement("first")).click();
 
       buttonToggleButton()
         .eq(positionOfElement("first"))
-        .click()
-        .realPress("ArrowLeft")
-        .then(() => {
-          buttonToggleButton()
-            .eq(positionOfElement("third"))
-            .should("be.focused");
-        })
-        .realPress("ArrowLeft")
-        .then(() => {
-          buttonToggleButton()
-            .eq(positionOfElement("second"))
-            .should("be.focused");
-        })
-        .realPress("ArrowLeft")
-        .then(() => {
-          buttonToggleButton()
-            .eq(positionOfElement("first"))
-            .should("be.focused");
-        });
-    });
-  });
+        .realPress("ArrowLeft");
 
-  describe("should make css changes when fullWidth prop is passed", () => {
-    it("container div should auto flex", () => {
-      CypressMountWithProviders(
-        <stories.ButtonToggleGroupComponent fullWidth />
-      );
-
-      buttonTogglePreview().should("have.css", "flex", "1 1 auto");
-    });
-
-    it("width of label should be 100% / 450px", () => {
-      CypressMountWithProviders(
-        <stories.ButtonToggleGroupComponent fullWidth />
-      );
+      buttonToggleButton().eq(positionOfElement("third")).should("be.focused");
 
       buttonToggleButton()
-        .eq(0)
-        .then(($el) => {
-          assertCssValueIsApproximately($el, "width", 450);
-        });
+        .eq(positionOfElement("third"))
+        .realPress("ArrowLeft");
+
+      buttonToggleButton().eq(positionOfElement("second")).should("be.focused");
+
+      buttonToggleButton()
+        .eq(positionOfElement("second"))
+        .realPress("ArrowLeft");
+
+      buttonToggleButton().eq(positionOfElement("first")).should("be.focused");
     });
   });
+});
 
-  describe("Accessibility tests for Button-Toggle-Group component", () => {
-    it("should pass accessibility tests for Button-Toggle-Group default story", () => {
-      CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+describe("should make css changes when fullWidth prop is passed", () => {
+  it("container div should auto flex", () => {
+    CypressMountWithProviders(<stories.ButtonToggleGroupComponent fullWidth />);
+
+    buttonTogglePreview().should("have.css", "flex", "1 1 auto");
+  });
+
+  it("width of label should be 100% / 450px", () => {
+    CypressMountWithProviders(<stories.ButtonToggleGroupComponent fullWidth />);
+
+    buttonToggleButton()
+      .eq(0)
+      .then(($el) => {
+        assertCssValueIsApproximately($el, "width", 450);
+      });
+  });
+});
+
+describe("Accessibility tests for Button-Toggle-Group component", () => {
+  it("should pass accessibility tests for Button-Toggle-Group default story", () => {
+    CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+
+    cy.checkAccessibility();
+  });
+
+  it("should pass accessibility tests for Button-Toggle-Group with second button toggle checked", () => {
+    CypressMountWithProviders(<stories.DefaultStory />);
+
+    cy.checkAccessibility();
+  });
+
+  it.each([
+    ["inline", true],
+    ["outline", false],
+  ])(
+    "should pass accessibility tests for Button-Toggle-Group with label %s if labelInline is %s",
+    (alignment, state) => {
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponent labelInline={state} />
+      );
 
       cy.checkAccessibility();
-    });
+    }
+  );
 
-    it("should pass accessibility tests for Button-Toggle-Group with second button toggle checked", () => {
-      CypressMountWithProviders(<stories.DefaultStory />);
-
-      cy.checkAccessibility();
-    });
-
-    it.each([
-      ["inline", true],
-      ["outline", false],
-    ])(
-      "should pass accessibility tests for Button-Toggle-Group with label %s if labelInline is %s",
-      (alignment, state) => {
-        CypressMountWithProviders(
-          <stories.ButtonToggleGroupComponent labelInline={state} />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(["left", "right"])(
-      "should pass accessibility tests for Button-Toggle-Group with label inline and %s aligned",
-      (alignment) => {
-        CypressMountWithProviders(
-          <stories.ButtonToggleGroupComponent
-            labelInline
-            labelAlign={alignment}
-          />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each([1, 2])(
-      "should pass accessibility tests for Button-Toggle-Group with labelSpacing prop set to %s",
-      (padding, spacing) => {
-        CypressMountWithProviders(
-          <stories.ButtonToggleGroupComponent
-            labelInline
-            labelSpacing={spacing}
-          />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each([
-      ["error", "Error Message", "", ""],
-      ["warning", "", "Warning Message", ""],
-      ["info", "", "", "Info Message"],
-    ])(
-      "should pass accessibility tests for Button-Toggle-Group with %s icon",
-      (prop, errorMessage, warningMessage, infoMessage) => {
-        CypressMountWithProviders(
-          <stories.ButtonToggleGroupComponent
-            error={errorMessage}
-            warning={warningMessage}
-            info={infoMessage}
-          />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-  });
-
-  describe("rounded corners", () => {
-    it("should have the expected border-radius styling when the children have the grouped prop set", () => {
+  it.each(["left", "right"])(
+    "should pass accessibility tests for Button-Toggle-Group with label inline and %s aligned",
+    (alignment) => {
       CypressMountWithProviders(
-        <stories.ButtonToggleGroupComponentGroupedChildren />
+        <stories.ButtonToggleGroupComponent
+          labelInline
+          labelAlign={alignment}
+        />
       );
 
-      buttonToggleButton()
-        .eq(0)
-        .should("have.css", "border-radius", "32px 0px 0px 32px");
-      buttonToggleButton().eq(1).should("have.css", "border-radius", "0px");
-      buttonToggleButton()
-        .eq(2)
-        .should("have.css", "border-radius", "0px 32px 32px 0px");
-    });
+      cy.checkAccessibility();
+    }
+  );
 
-    it("should have the expected border-radius styling when children do not have grouped prop set", () => {
-      CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+  it.each([1, 2])(
+    "should pass accessibility tests for Button-Toggle-Group with labelSpacing prop set to %s",
+    (padding, spacing) => {
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponent
+          labelInline
+          labelSpacing={spacing}
+        />
+      );
 
-      buttonToggleButton().eq(0).should("have.css", "border-radius", "32px");
-      buttonToggleButton().eq(1).should("have.css", "border-radius", "32px");
-      buttonToggleButton().eq(2).should("have.css", "border-radius", "32px");
-    });
+      cy.checkAccessibility();
+    }
+  );
+
+  it.each([
+    ["error", "Error Message", "", ""],
+    ["warning", "", "Warning Message", ""],
+    ["info", "", "", "Info Message"],
+  ])(
+    "should pass accessibility tests for Button-Toggle-Group with %s icon",
+    (prop, errorMessage, warningMessage, infoMessage) => {
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponent
+          error={errorMessage}
+          warning={warningMessage}
+          info={infoMessage}
+        />
+      );
+
+      cy.checkAccessibility();
+    }
+  );
+});
+
+describe("rounded corners", () => {
+  it("should have the expected border-radius styling when the children have the grouped prop set", () => {
+    CypressMountWithProviders(
+      <stories.ButtonToggleGroupComponentGroupedChildren />
+    );
+
+    buttonToggleButton()
+      .eq(0)
+      .should("have.css", "border-radius", "32px 0px 0px 32px");
+    buttonToggleButton().eq(1).should("have.css", "border-radius", "0px");
+    buttonToggleButton()
+      .eq(2)
+      .should("have.css", "border-radius", "0px 32px 32px 0px");
+  });
+
+  it("should have the expected border-radius styling when children do not have grouped prop set", () => {
+    CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+
+    buttonToggleButton().eq(0).should("have.css", "border-radius", "32px");
+    buttonToggleButton().eq(1).should("have.css", "border-radius", "32px");
+    buttonToggleButton().eq(2).should("have.css", "border-radius", "32px");
   });
 });
