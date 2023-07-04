@@ -18,7 +18,8 @@ describe("Sort", () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    onClickFn.mockClear();
+    onKeyDownFn.mockClear();
   });
 
   it("should render correctly", () => {

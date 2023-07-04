@@ -20,7 +20,6 @@ describe("ShowEditPod", () => {
 
   it("when user uses the component, a deprecation warning is raised in the console", () => {
     const loggerSpy = jest.spyOn(Logger, "deprecate");
-    jest.restoreAllMocks();
     mount(
       <>
         <ShowEditPod />

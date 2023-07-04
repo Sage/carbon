@@ -46,6 +46,10 @@ describe("Dialog", () => {
     onCancel = jest.fn();
   });
 
+  afterEach(() => {
+    onCancel.mockClear();
+  });
+
   describe("event listeners", () => {
     beforeEach(() => {
       addEventListenerSpy = jest.spyOn(window, "addEventListener");
@@ -53,7 +57,8 @@ describe("Dialog", () => {
     });
 
     afterEach(() => {
-      jest.clearAllMocks();
+      addEventListenerSpy.mockClear();
+      removeEventListenerSpy.mockClear();
     });
 
     it("binds the key event listener to the document on mount", () => {
@@ -152,6 +157,8 @@ describe("Dialog", () => {
   });
 
   describe("dialog is centered", () => {
+    let getBoundingClientRectMock: jest.SpyInstance<DOMRect> | undefined;
+
     beforeEach(() => {
       window.innerHeight = 300;
       window.innerWidth = 100;
@@ -160,7 +167,7 @@ describe("Dialog", () => {
     afterEach(() => {
       window.innerHeight = 768;
       window.innerWidth = 1024;
-      jest.clearAllMocks();
+      getBoundingClientRectMock?.mockClear();
     });
 
     describe("when dialog is lower than 20px", () => {
@@ -182,7 +189,7 @@ describe("Dialog", () => {
           </Dialog>
         );
 
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -205,7 +212,7 @@ describe("Dialog", () => {
 
     describe("when dialog is higher than 20px", () => {
       it("sets top position to 20px on open", () => {
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -232,7 +239,7 @@ describe("Dialog", () => {
           </Dialog>
         );
 
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -255,7 +262,7 @@ describe("Dialog", () => {
 
     describe("when dialog is less than 0px from the side", () => {
       it("sets left position to 0px on open", () => {
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -282,7 +289,7 @@ describe("Dialog", () => {
           </Dialog>
         );
 
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>

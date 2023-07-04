@@ -74,7 +74,8 @@ describe("PicklistGroup component", () => {
     const onChangeFn = jest.fn();
 
     afterEach(() => {
-      jest.resetAllMocks();
+      onChangeFn.mockReset();
+      setElementToFocus.mockReset();
     });
 
     describe("when clicked", () => {

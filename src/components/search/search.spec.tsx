@@ -42,7 +42,6 @@ describe("Search", () => {
   describe("Deprecation warning for uncontrolled", () => {
     beforeEach(() => {
       loggerSpy = jest.spyOn(Logger, "deprecate");
-      jest.restoreAllMocks();
     });
 
     afterEach(() => {
@@ -614,7 +613,7 @@ describe("Search", () => {
     const stopPropagationFn = jest.fn();
 
     afterEach(() => {
-      jest.clearAllMocks();
+      stopPropagationFn.mockClear();
     });
 
     it("should stop propagation of the event for character keys", () => {

@@ -18,16 +18,18 @@ const TestComponent = () => {
 };
 
 describe("useScrollBlock", () => {
+  let clientWidthSpy: jest.SpyInstance;
+
   beforeEach(() => {
     window.innerWidth = 200;
-    jest
+    clientWidthSpy = jest
       .spyOn(document.documentElement, "clientWidth", "get")
       .mockImplementation(() => 180);
   });
 
   afterEach(() => {
     window.innerWidth = 1024;
-    jest.resetAllMocks();
+    clientWidthSpy.mockReset();
   });
 
   it("sets proper styles on the body element on mount and resets them on unmount", () => {

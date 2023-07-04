@@ -89,7 +89,7 @@ describe("Modal", () => {
       });
 
       it("blocks scroll on open", () => {
-        jest.resetAllMocks();
+        blockScroll.mockReset();
         mockedUseScrollBlock.mockReturnValue({ allowScroll, blockScroll });
         wrapper = mount(<Modal open />);
         expect(blockScroll).toHaveBeenCalled();
@@ -97,7 +97,7 @@ describe("Modal", () => {
       });
 
       it("unblocks scroll on close", () => {
-        jest.resetAllMocks();
+        allowScroll.mockReset();
         mockedUseScrollBlock.mockReturnValue({ allowScroll, blockScroll });
         wrapper = mount(<Modal open />);
         wrapper.setProps({ open: false });
@@ -114,7 +114,7 @@ describe("Modal", () => {
       });
 
       it("does not block scroll", () => {
-        jest.resetAllMocks();
+        blockScroll.mockReset();
         mockedUseScrollBlock.mockReturnValue({ allowScroll, blockScroll });
         wrapper = mount(<Modal open enableBackgroundUI />);
         expect(blockScroll).not.toHaveBeenCalled();

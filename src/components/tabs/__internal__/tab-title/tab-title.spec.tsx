@@ -104,16 +104,24 @@ describe("TabTitle", () => {
   });
 
   describe("when `href` provided", () => {
+    let globalOpenMock: jest.SpyInstance;
+
+    beforeEach(() => {
+      globalOpenMock = jest.spyOn(global, "open");
+    });
+
+    afterEach(() => {
+      globalOpenMock.mockClear();
+    });
+
     it("should trigger open in new tab if pressed with Enter or Space", () => {
       wrapper = render({ href: "randomUrl" });
-      global.open = jest.fn();
 
       wrapper
         .find(StyledTabTitleLink)
         .props()
         .onKeyDown({ key: " ", stopPropagation: () => {} });
-      expect(global.open).toHaveBeenCalledWith("randomUrl", "_blank");
-      jest.clearAllMocks();
+      expect(globalOpenMock).toHaveBeenCalledWith("randomUrl", "_blank");
     });
 
     it("should trigger open in new tab if clicked", () => {
@@ -128,13 +136,12 @@ describe("TabTitle", () => {
           <StyledTitleContent />
         </TabTitle>
       );
-      global.open = jest.fn();
+
       wrapper
         .find(StyledTabTitleLink)
         .props()
         .onClick({ stopPropagation: () => {}, preventDefault: () => {} });
-      expect(global.open).toHaveBeenCalledWith("randomUrl", "_blank");
-      jest.clearAllMocks();
+      expect(globalOpenMock).toHaveBeenCalledWith("randomUrl", "_blank");
     });
   });
 

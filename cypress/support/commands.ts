@@ -16,6 +16,7 @@ declare global {
       checkAccessibility: typeof checkAccessibility;
       getDesignTokensByCssProperty(cssProperty: string): Chainable<string[]>;
       checkNotInViewport: typeof checkNotInViewport;
+      checkInViewport: typeof checkInViewport;
     }
   }
 }
@@ -76,4 +77,15 @@ function checkNotInViewport(selector: string) {
   });
 }
 
+function checkInViewport(selector: string) {
+  cy.get(selector).then(($el) => {
+    const { documentElement } = window.document;
+    const bottom = documentElement.clientHeight;
+    const rect = $el[0].getBoundingClientRect();
+
+    expect(rect.top).lessThan(bottom);
+  });
+}
+
 Cypress.Commands.add("checkNotInViewport", checkNotInViewport);
+Cypress.Commands.add("checkInViewport", checkInViewport);

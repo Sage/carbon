@@ -638,7 +638,7 @@ describe("Date", () => {
       });
 
       afterEach(() => {
-        jest.clearAllMocks();
+        onFocusFn.mockClear();
 
         if (container && container.parentNode) {
           container.parentNode.removeChild(container);
@@ -663,7 +663,7 @@ describe("Date", () => {
 
         wrapper = render({ onChange: onChangeFn, name: "foo", id: "bar" });
         simulateFocusOnInput(wrapper);
-        jest.clearAllMocks();
+        onChangeFn.mockClear();
         act(() => {
           wrapper
             .update()
@@ -694,7 +694,8 @@ describe("Date", () => {
           onFocusFn = jest.fn();
           wrapper = render({ onChange: onChangeFn, onFocus: onFocusFn });
           simulateFocusOnInput(wrapper);
-          jest.clearAllMocks();
+          onChangeFn.mockClear();
+          onFocusFn.mockClear();
           act(() => {
             wrapper
               .update()
