@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import Search from ".";
+import Search, { SearchProps } from ".";
 import { SearchEvent } from "./search.component";
 
 export default {
@@ -26,19 +26,19 @@ export const Default = ({ placeholder, ...args }: { placeholder?: string }) => {
   const [value, setValue] = useState("");
   const handleChange = (event: SearchEvent) => {
     setValue(event.target.value);
-    action("change")(event);
+    action("change")(event.target.value);
   };
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    action("blur")(event);
+    action("blur")(event.target.value);
   };
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    action("focus")(event);
+    action("focus")(event.target.value);
   };
   const handleClick = (event: SearchEvent) => {
-    action("click")(event);
+    action("click")(event.target.value);
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    action("keydown")(event);
+    action("keydown")(event.target);
   };
 
   return (
@@ -67,7 +67,7 @@ Default.args = {
   variant: undefined,
 };
 
-export const SearchComponent = ({ ...props }) => {
+export const SearchComponent = (props: SearchProps) => {
   const [value, setValue] = React.useState("");
 
   return (

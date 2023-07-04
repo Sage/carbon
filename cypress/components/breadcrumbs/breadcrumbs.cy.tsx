@@ -68,13 +68,11 @@ context("Testing Breadcrumbs component", () => {
 
       crumb(0).children().eq(1).should(assertion);
       if (!boolean) {
-        crumb(0)
-          .children()
-          .eq(1)
-          .then(($el) => {
-            expect($el).to.have.text("/");
-            expect($el).to.have.css("color", "rgba(0, 0, 0, 0.55)");
-          });
+        crumb(0).children().eq(1).as("crumb");
+
+        cy.get("@crumb")
+          .should("have.text", "/")
+          .and("have.css", "color", "rgba(0, 0, 0, 0.55)");
       }
     });
 

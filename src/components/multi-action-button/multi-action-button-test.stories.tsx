@@ -79,7 +79,9 @@ MultiActionButtonStory.story = {
   },
 };
 
-export const MultiActionButtonList = ({ ...props }) => {
+export const MultiActionButtonList = (
+  props: Partial<MultiActionButtonProps>
+) => {
   return (
     <div>
       <MultiActionButton text="Multi Action Button" {...props}>

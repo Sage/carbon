@@ -1,6 +1,9 @@
 import React from "react";
 import Box from "../../../src/components/box";
-import NavigationBar from "../../../src/components/navigation-bar";
+import NavigationBar, {
+  NavigationBarProps,
+} from "../../../src/components/navigation-bar";
+import { NavigationBarComponent } from "../../../src/components/navigation-bar/navigation-bar-test.stories";
 import { Menu, MenuItem } from "../../../src/components/menu";
 import * as stories from "../../../src/components/navigation-bar/navigation-bar.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -15,13 +18,8 @@ const variants = [
   ["light", "rgb(230, 235, 237)"],
   ["white", "rgb(255, 255, 255)"],
   ["dark", "rgb(0, 50, 76)"],
-];
+] as [NavigationBarProps["navigationType"], string][];
 const offsetVal = [25, 100, -100];
-
-const NavigationBarComponent = ({ children, ...props }) => {
-  const isChildren = children != null ? children : "Cypress tests";
-  return <NavigationBar {...props}>{isChildren}</NavigationBar>;
-};
 
 context("Testing NavigationBar component", () => {
   describe("should render NavigationBar component", () => {
@@ -71,7 +69,7 @@ context("Testing NavigationBar component", () => {
       }
     );
 
-    it.each(["fixed", "sticky"])(
+    it.each(["fixed", "sticky"] as NavigationBarProps["position"][])(
       "should render NavigationBar component with position prop set to %s with orientation set to top",
       (position) => {
         CypressMountWithProviders(
@@ -82,7 +80,7 @@ context("Testing NavigationBar component", () => {
       }
     );
 
-    it.each(["fixed", "sticky"])(
+    it.each(["fixed", "sticky"] as NavigationBarProps["position"][])(
       "should render NavigationBar component with position prop set to %s with orientation set to bottom",
       (position) => {
         CypressMountWithProviders(
@@ -93,23 +91,26 @@ context("Testing NavigationBar component", () => {
       }
     );
 
-    describe.each(["top", "bottom"])("orientation %s", (orientation) => {
-      it.each(offsetVal)(
-        "should render NavigationBar component with offset prop set to %s px",
-        (offset) => {
-          CypressMountWithProviders(
-            <NavigationBarComponent
-              offset={`${offset}px`}
-              orientation={orientation}
-              position="fixed"
-            />
-          );
-          navigationBar().should("have.css", orientation, `${offset}px`);
-        }
-      );
-    });
+    describe.each(["top", "bottom"] as NavigationBarProps["orientation"][])(
+      "orientation %s",
+      (orientation) => {
+        it.each(offsetVal)(
+          "should render NavigationBar component with offset prop set to %s px",
+          (offset) => {
+            CypressMountWithProviders(
+              <NavigationBarComponent
+                offset={`${offset}px`}
+                orientation={orientation}
+                position="fixed"
+              />
+            );
+            navigationBar().should("have.css", orientation, `${offset}px`);
+          }
+        );
+      }
+    );
 
-    it.each(["top", "bottom"])(
+    it.each(["top", "bottom"] as NavigationBarProps["orientation"][])(
       "should render NavigationBar component with orientation prop set to %s",
       (orientation) => {
         CypressMountWithProviders(
@@ -123,7 +124,7 @@ context("Testing NavigationBar component", () => {
     it.each([
       ["fixed", "be.visible"],
       ["sticky", "not.be.visible"],
-    ])(
+    ] as [NavigationBarProps["position"], string][])(
       "should render NavigationBar component with position prop set to %s and work as expected",
       (position, assertionOfFirstNavBar) => {
         CypressMountWithProviders(

@@ -1,7 +1,11 @@
 import React from "react";
-import ProgressTracker from "../../../src/components/progress-tracker";
+import { ProgressTrackerComponent } from "../../../src/components/progress-tracker/progress-tracker-test.stories";
+import { ProgressTrackerProps } from "../../../src/components/progress-tracker";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { checkOutlineCss } from "../../support/component-helper/common-steps";
+import {
+  checkOutlineCss,
+  assertCssValueIsApproximately,
+} from "../../support/component-helper/common-steps";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import { PROGRESS_TRACKER_SIZES } from "../../../src/components/progress-tracker/progress-tracker.config";
 
@@ -14,18 +18,14 @@ import {
   progressTrackerDescription,
 } from "../../locators/progress-tracker";
 
-const ProgressTrackerComponent = ({ ...props }) => {
-  return <ProgressTracker progress={50} showDefaultLabels {...props} />;
-};
-
 const DEFAULT_PROP_VALUE = 50;
 
-const checkPropName = (propName) =>
+const checkPropName = (propName: string) =>
   propName.endsWith("now") &&
   propName.endsWith("min") &&
   propName.endsWith("max");
 
-const getProps = (propName, shouldBeDefault) => {
+const getProps = (propName: string, shouldBeDefault: boolean) => {
   if (!shouldBeDefault) {
     return { [propName]: DEFAULT_PROP_VALUE };
   }
@@ -59,14 +59,16 @@ context("Tests for ProgressTracker component", () => {
       [PROGRESS_TRACKER_SIZES[0], 4],
       [PROGRESS_TRACKER_SIZES[1], 8],
       [PROGRESS_TRACKER_SIZES[2], 16],
-    ])("render component with %s size", (size, value) => {
-      CypressMountWithProviders(<ProgressTrackerComponent size={size} />);
+    ] as [ProgressTrackerProps["size"], number][])(
+      "render component with %s size",
+      (size, value) => {
+        CypressMountWithProviders(<ProgressTrackerComponent size={size} />);
 
-      progressTrackerLine().then(($el) => {
-        const number = parseInt($el.css("height"));
-        expect(number).to.be.within(value - 1, value + 1);
-      });
-    });
+        progressTrackerLine().then(($el) => {
+          assertCssValueIsApproximately($el, "height", value);
+        });
+      }
+    );
 
     it.each([150, 350, 550])("render component with %s px length", (length) => {
       CypressMountWithProviders(
@@ -74,8 +76,7 @@ context("Tests for ProgressTracker component", () => {
       );
 
       progressTrackerComponent().then(($el) => {
-        const number = parseInt($el.css("width"));
-        expect(number).to.be.within(length - 1, length + 1);
+        assertCssValueIsApproximately($el, "width", length);
       });
     });
 
@@ -172,7 +173,7 @@ context("Tests for ProgressTracker component", () => {
     it.each([
       ["top", 0],
       ["bottom", 1],
-    ])(
+    ] as [ProgressTrackerProps["labelsPosition"], number][])(
       "render component with labelsPosition is set to %s",
       (labelsPosition, index) => {
         CypressMountWithProviders(
@@ -197,6 +198,14 @@ context("Tests for ProgressTracker component", () => {
         progressTrackerDescription().should("have.text", description);
       }
     );
+
+    it("has the expected border radius styling", () => {
+      CypressMountWithProviders(<ProgressTrackerComponent progress={35} />);
+      progressTrackerLine()
+        .parent()
+        .should("have.css", "border-radius", "32px");
+      progressTrackerLine().should("have.css", "border-radius", "32px");
+    });
   });
 
   describe("should check accessibility tests for progress tracker component", () => {
@@ -222,7 +231,7 @@ context("Tests for ProgressTracker component", () => {
       PROGRESS_TRACKER_SIZES[0],
       PROGRESS_TRACKER_SIZES[1],
       PROGRESS_TRACKER_SIZES[2],
-    ])(
+    ] as ProgressTrackerProps["size"][])(
       "should check the accessibility when component is rendered with %s size",
       (size) => {
         CypressMountWithProviders(<ProgressTrackerComponent size={size} />);
@@ -308,7 +317,7 @@ context("Tests for ProgressTracker component", () => {
       }
     );
 
-    it.each(["top", "bottom"])(
+    it.each(["top", "bottom"] as ProgressTrackerProps["labelsPosition"][])(
       "should check the accessibility when component is rendered with labelsPosition is set to %s",
       (labelsPosition) => {
         CypressMountWithProviders(
@@ -329,11 +338,5 @@ context("Tests for ProgressTracker component", () => {
         cy.checkAccessibility();
       }
     );
-  });
-
-  it("has the expected border radius styling", () => {
-    CypressMountWithProviders(<ProgressTrackerComponent progress={35} />);
-    progressTrackerLine().parent().should("have.css", "border-radius", "32px");
-    progressTrackerLine().should("have.css", "border-radius", "32px");
   });
 });

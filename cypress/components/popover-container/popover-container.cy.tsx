@@ -1,5 +1,7 @@
 import React from "react";
-import PopoverContainer from "../../../src/components/popover-container";
+import PopoverContainer, {
+  PopoverContainerProps,
+} from "../../../src/components/popover-container";
 import Button from "../../../src/components/button";
 import Portrait from "../../../src/components/portrait";
 import {
@@ -23,6 +25,7 @@ import { CHARACTERS } from "../../support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testCypress = "test-cypress";
+const keyToTrigger = ["Space", "Enter"] as const;
 
 context("Test for Popover Container component", () => {
   describe("check props for Popover Container component", () => {
@@ -50,7 +53,7 @@ context("Test for Popover Container component", () => {
     it.each([
       ["left", 123, 918, 568, 100],
       ["right", 123, 100, 568, 918],
-    ])(
+    ] as [PopoverContainerProps["position"], number, number, number, number][])(
       "should render Popover Container with position prop set to %s",
       (position, inset0, inset1, inset2, inset3) => {
         CypressMountWithProviders(
@@ -66,10 +69,26 @@ context("Test for Popover Container component", () => {
 
         popoverContainerContent().then(($el) => {
           const inset = $el.css("inset").split(" ");
-          expect(parseInt(inset[0])).to.be.within(inset0 - 1, inset0 + 1);
-          expect(parseInt(inset[1])).to.be.within(inset1 - 1, inset1 + 1);
-          expect(parseInt(inset[2])).to.be.within(inset2 - 1, inset2 + 1);
-          expect(parseInt(inset[3])).to.be.within(inset3 - 1, inset3 + 1);
+          cy.wrap(parseInt(inset[0])).should(
+            "be.within",
+            inset0 - 1,
+            inset0 + 1
+          );
+          cy.wrap(parseInt(inset[1])).should(
+            "be.within",
+            inset1 - 1,
+            inset1 + 1
+          );
+          cy.wrap(parseInt(inset[2])).should(
+            "be.within",
+            inset2 - 1,
+            inset2 + 1
+          );
+          cy.wrap(parseInt(inset[3])).should(
+            "be.within",
+            inset3 - 1,
+            inset3 + 1
+          );
         });
       }
     );
@@ -77,7 +96,7 @@ context("Test for Popover Container component", () => {
     it.each([
       ["left", 140, 918, 552, 100],
       ["right", 140, 100, 552, 918],
-    ])(
+    ] as [PopoverContainerProps["position"], number, number, number, number][])(
       "should render Popover Container with position prop set to %s when custom open component is used",
       (position, inset0, inset1, inset2, inset3) => {
         CypressMountWithProviders(
@@ -89,19 +108,37 @@ context("Test for Popover Container component", () => {
           >
             <PopoverContainerComponent
               position={position}
-              renderOpenComponent={({ onClick }) => (
-                <Portrait onClick={onClick} />
-              )}
+              renderOpenComponent={({
+                onClick,
+              }: {
+                onClick: (ev: React.MouseEvent<HTMLElement>) => void;
+              }) => <Portrait onClick={onClick} />}
             />
           </div>
         );
 
         popoverContainerContent().then(($el) => {
           const inset = $el.css("inset").split(" ");
-          expect(parseInt(inset[0])).to.be.within(inset0 - 1, inset0 + 1);
-          expect(parseInt(inset[1])).to.be.within(inset1 - 1, inset1 + 1);
-          expect(parseInt(inset[2])).to.be.within(inset2 - 1, inset2 + 1);
-          expect(parseInt(inset[3])).to.be.within(inset3 - 1, inset3 + 1);
+          cy.wrap(parseInt(inset[0])).should(
+            "be.within",
+            inset0 - 1,
+            inset0 + 1
+          );
+          cy.wrap(parseInt(inset[1])).should(
+            "be.within",
+            inset1 - 1,
+            inset1 + 1
+          );
+          cy.wrap(parseInt(inset[2])).should(
+            "be.within",
+            inset2 - 1,
+            inset2 + 1
+          );
+          cy.wrap(parseInt(inset[3])).should(
+            "be.within",
+            inset3 - 1,
+            inset3 + 1
+          );
         });
       }
     );
@@ -207,14 +244,14 @@ context("Test for Popover Container component", () => {
         popoverContainerContent().then(($el) => {
           const position = $el[0].getBoundingClientRect();
 
-          expect(position.bottom).to.be.lessThan(bottomValueMin);
-          expect(position.top).to.be.lessThan(yAndTopValueMin);
-          expect(position.y).to.be.lessThan(yAndTopValueMin);
+          cy.wrap(position.bottom).should("be.lessThan", bottomValueMin);
+          cy.wrap(position.top).should("be.lessThan", yAndTopValueMin);
+          cy.wrap(position.y).should("be.lessThan", yAndTopValueMin);
         });
       }
     );
 
-    it.each(["Enter", "Space"])(
+    it.each([...keyToTrigger])(
       "should open Popover Container using %s keyboard key",
       (key) => {
         CypressMountWithProviders(
@@ -228,7 +265,7 @@ context("Test for Popover Container component", () => {
       }
     );
 
-    it.each(["Enter", "Space"])(
+    it.each([...keyToTrigger])(
       "should close Popover Container using %s keyboard key",
       (key) => {
         CypressMountWithProviders(
@@ -253,66 +290,76 @@ context("Test for Popover Container component", () => {
   });
 
   describe("check events for Popover Container component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub().as("callback");
-    });
-
     it("should call onOpen callback when a click event is triggered", () => {
+      const callback: PopoverContainerProps["onOpen"] = cy.stub().as("onOpen");
       CypressMountWithProviders(<PopoverContainer onOpen={callback} />);
 
       popoverSettingsIcon().click();
-      cy.get("@callback").should("have.been.calledOnce");
+      cy.get("@onOpen").should("have.been.calledOnce");
     });
 
-    it.each([["Enter"], ["Space"]])(
-      "should call onOpen callback when a keyboard event is triggered",
+    it.each([...keyToTrigger])(
+      "should call onOpen callback when a keyboard event is triggered by %s key",
       (key) => {
+        const callback: PopoverContainerProps["onOpen"] = cy
+          .stub()
+          .as("onOpen");
         CypressMountWithProviders(<PopoverContainer onOpen={callback} />);
 
         popoverSettingsIcon().trigger("keydown", keyCode(key));
-        cy.get("@callback").should("have.been.calledOnce");
+        cy.get("@onOpen").should("have.been.calledOnce");
       }
     );
 
     it("should call onClose callback when a click event is triggered", () => {
+      const callback: PopoverContainerProps["onClose"] = cy
+        .stub()
+        .as("onClose");
       CypressMountWithProviders(
         <PopoverContainerComponent onClose={callback} open />
       );
 
       popoverCloseIcon().click();
-      cy.get("@callback").should("have.been.calledOnce");
+      cy.get("@onClose").should("have.been.calledOnce");
     });
 
-    it.each([["Enter"], ["Space"]])(
+    it.each([...keyToTrigger])(
       "should call onClose callback when a keyboard event is triggered",
       (key) => {
+        const callback: PopoverContainerProps["onClose"] = cy
+          .stub()
+          .as("onClose");
         CypressMountWithProviders(
           <PopoverContainerComponent onClose={callback} open />
         );
 
         popoverCloseIcon().trigger("keydown", keyCode(key));
-        cy.get("@callback").should("have.been.calledOnce");
+        cy.get("@onClose").should("have.been.calledOnce");
       }
     );
 
     it("should call onClose callback when a click event is triggered outside the container", () => {
+      const callback: PopoverContainerProps["onClose"] = cy
+        .stub()
+        .as("onClose");
       CypressMountWithProviders(
         <PopoverContainerComponent onClose={callback} open />
       );
 
       cy.root().click();
-      cy.get("@callback").should("have.been.calledOnce");
+      cy.get("@onClose").should("have.been.calledOnce");
     });
 
     it("should not call onClose callback when a click event is triggered outside the container and the container is closed", () => {
+      const callback: PopoverContainerProps["onClose"] = cy
+        .stub()
+        .as("onClose");
       CypressMountWithProviders(
         <PopoverContainerComponent onClose={callback} open={false} />
       );
 
       cy.root().click();
-      cy.get("@callback").should("not.have.been.called");
+      cy.get("@onClose").should("not.have.been.called");
     });
   });
 
@@ -380,19 +427,19 @@ context("Test for Popover Container component", () => {
       cy.get(`[role="checkbox"]`).eq(0).check();
       cy.get(`[role="checkbox"]`).eq(1).check();
       cy.get(`[role="checkbox"]`).eq(2).check();
-      getDataElementByValue("main-text")
-        .eq(1)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      getDataElementByValue("main-text").eq(1).click();
+      getComponent("pill").eq(0).should("be.visible");
+      getComponent("pill").eq(1).should("be.visible");
+      getComponent("pill").eq(2).should("be.visible");
+      cy.checkAccessibility();
     });
   });
 
-  it("should render with the expected border radius styling", () => {
-    CypressMountWithProviders(<PopoverContainerComponent title="Foo" open />);
+  describe("Border Radius tests for Popover Container component", () => {
+    it("should render with the expected border radius styling", () => {
+      CypressMountWithProviders(<PopoverContainerComponent title="Foo" open />);
 
-    popoverContainerContent().should("have.css", "border-radius", "8px");
+      popoverContainerContent().should("have.css", "border-radius", "8px");
+    });
   });
 });

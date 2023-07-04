@@ -1,4 +1,5 @@
 import React from "react";
+import { DialogProps } from "../../../src/components/dialog";
 import * as stories from "../../../src/components/dialog/dialog-test.stories";
 import * as defaultStories from "../../../src/components/dialog/dialog.stories";
 import {
@@ -25,7 +26,7 @@ import { assertCssValueIsApproximately } from "../../support/component-helper/co
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
-const getInput = (index) => cy.get('[data-element="input"]').eq(index);
+const getInput = (index: number) => cy.get('[data-element="input"]').eq(index);
 
 context("Testing Dialog component", () => {
   describe("should render Dialog component with props", () => {
@@ -38,7 +39,7 @@ context("Testing Dialog component", () => {
 
         const { viewportHeight } = Cypress.config();
 
-        let resultHeight;
+        let resultHeight: number;
         if (height >= viewportHeight - 20) {
           resultHeight = viewportHeight - 20;
         } else {
@@ -79,7 +80,7 @@ context("Testing Dialog component", () => {
       [SIZE.MEDIUMLARGE, 850],
       [SIZE.LARGE, 960],
       [SIZE.EXTRALARGE, 1080],
-    ])(
+    ] as [DialogProps["size"], number][])(
       "should render Dialog component with %s as a size and has width property set to %s",
       (size, width) => {
         CypressMountWithProviders(<stories.DialogComponent size={size} />);
@@ -102,7 +103,6 @@ context("Testing Dialog component", () => {
       CypressMountWithProviders(<stories.DialogComponent />);
       dialogPreview().should("exist");
       closeIconButton().click();
-      cy.wait(1000);
       dialogPreview().should("not.exist");
     });
 
@@ -122,21 +122,15 @@ context("Testing Dialog component", () => {
     });
 
     it("should call the cancel action after the CloseIcon is clicked", () => {
-      const callback = cy.stub();
-
+      const callback: DialogProps["onCancel"] = cy.stub().as("onCancel");
       CypressMountWithProviders(
         <stories.DialogComponent onCancel={callback} />
       );
-
-      closeIconButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      closeIconButton().click();
+      cy.get("@onCancel").should("have.been.calledOnce");
     });
 
-    it.each([["top"], ["topRight"], ["right"]])(
+    it.each(["top", "topRight", "right"] as Cypress.PositionType[])(
       "should remain open Dialog opened after click on background outside at the %s position",
       (position) => {
         CypressMountWithProviders(<stories.DialogComponent />);
@@ -187,7 +181,6 @@ context("Testing Dialog component", () => {
     });
 
     it("should render Dialog component with role", () => {
-      // eslint-disable-next-line jsx-a11y/aria-role
       CypressMountWithProviders(<stories.DialogComponent role="dialog" />);
       getComponent("dialog")
         .eq(1)
@@ -307,9 +300,20 @@ context("Testing Dialog component", () => {
       CypressMountWithProviders(<stories.DialogComponentWithToast />);
 
       buttonDataComponent().click();
-      cy.get("body").click().tab();
+      cy.get("body").click();
+      cy.get("body").tab();
       closeIconButton().should("be.focused");
     });
+
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<stories.Default stickyFooter title="foo" />);
+      dialogPreview().should("have.css", "border-radius", "16px");
+      formFooterComponent().should(
+        "have.css",
+        "border-radius",
+        "0px 0px 16px 16px"
+      );
+    });
   });
 
   describe("Accessibility tests for Dialog component", () => {
@@ -345,7 +349,6 @@ context("Testing Dialog component", () => {
         CypressMountWithProviders(
           <stories.DialogComponent title="Sample dialog" subtitle={subtitle} />
         );
-
         cy.checkAccessibility();
       }
     );
@@ -358,7 +361,7 @@ context("Testing Dialog component", () => {
       SIZE.MEDIUMLARGE,
       SIZE.LARGE,
       SIZE.EXTRALARGE,
-    ])(
+    ] as DialogProps["size"][])(
       "should pass accessibility tests for Dialog component with %s as a size",
       (size) => {
         CypressMountWithProviders(<stories.DialogComponent size={size} />);
@@ -404,284 +407,60 @@ context("Testing Dialog component", () => {
     it("should pass accessibility tests for Dialog component with Toast", () => {
       CypressMountWithProviders(<stories.DialogComponentWithToast />);
 
-      buttonDataComponent()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      buttonDataComponent().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Dialog Editable story", () => {
       CypressMountWithProviders(<defaultStories.Editable />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      openPreviewButton().click();
+      getComponent("icon").should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Dialog WithHelp story", () => {
       CypressMountWithProviders(<defaultStories.WithHelp />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      openPreviewButton().click();
+      getComponent("icon").should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Dialog DynamicContent story", () => {
       CypressMountWithProviders(<defaultStories.DynamicContent />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      openPreviewButton().click();
+      getComponent("icon").should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Dialog FocusingADifferentFirstElement story", () => {
       CypressMountWithProviders(
         <defaultStories.FocusingADifferentFirstElement />
       );
-
-      getComponent("button")
-        .eq(0)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      getComponent("button").eq(0).click();
+      getComponent("icon").should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Dialog OverridingContentPadding story", () => {
       CypressMountWithProviders(<defaultStories.OverridingContentPadding />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      openPreviewButton().click();
+      getComponent("icon").should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Dialog OtherFocusableContainers story", () => {
       CypressMountWithProviders(<defaultStories.OtherFocusableContainers />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
+      openPreviewButton().click();
+      getComponent("icon").should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibility tests for Dialog Responsive story", () => {
       CypressMountWithProviders(<defaultStories.Responsive />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-  });
-
-  describe("Accessibility tests for Dialog component", () => {
-    it("should pass accessibility tests for Dialog default story", () => {
-      CypressMountWithProviders(<stories.DialogComponent />);
-
+      openPreviewButton().click();
+      getComponent("icon").should("be.visible");
       cy.checkAccessibility();
     });
-
-    it.each([0, 1, 100, 1000])(
-      "should pass accessibility tests for Dialog component with %s as a height parameter",
-      (height) => {
-        CypressMountWithProviders(
-          <stories.DialogComponent height={`${height}px`} />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(specialCharacters)(
-      "should pass accessibility tests for Dialog using %s as a title",
-      (title) => {
-        CypressMountWithProviders(<stories.DialogComponent title={title} />);
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each(specialCharacters)(
-      "should pass accessibility tests for Dialog using %s as a subtitle",
-      (subtitle) => {
-        CypressMountWithProviders(
-          <stories.DialogComponent title="Sample dialog" subtitle={subtitle} />
-        );
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it.each([
-      SIZE.EXTRASMALL,
-      SIZE.SMALL,
-      SIZE.MEDIUMSMALL,
-      SIZE.MEDIUM,
-      SIZE.MEDIUMLARGE,
-      SIZE.LARGE,
-      SIZE.EXTRALARGE,
-    ])(
-      "should pass accessibility tests for Dialog component with %s as a size",
-      (size) => {
-        CypressMountWithProviders(<stories.DialogComponent size={size} />);
-
-        cy.checkAccessibility();
-      }
-    );
-
-    it("should pass accessibility tests for ShowCloseIcon is set to false", () => {
-      CypressMountWithProviders(
-        <stories.DialogComponent showCloseIcon={false} />
-      );
-
-      cy.checkAccessibility();
-    });
-
-    it("should pass accessibility tests for Dialog component with DisableClose", () => {
-      CypressMountWithProviders(<stories.DialogComponent disableClose />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should pass accessibility tests for Dialog component with help", () => {
-      CypressMountWithProviders(
-        <stories.DialogComponent title="Sample Dialog" help="Some help text" />
-      );
-
-      cy.checkAccessibility();
-    });
-
-    it("should pass accessibility tests for Dialog component using focusFirstElement", () => {
-      CypressMountWithProviders(<stories.DialogComponent />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should pass accessibility tests for Dialog component disabling autofocus", () => {
-      CypressMountWithProviders(<stories.DialogComponent disableAutoFocus />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should pass accessibility tests for Dialog component with Toast", () => {
-      CypressMountWithProviders(<stories.DialogComponentWithToast />);
-
-      buttonDataComponent()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-
-    it("should pass accessibility tests for Dialog Editable story", () => {
-      CypressMountWithProviders(<defaultStories.Editable />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-
-    it("should pass accessibility tests for Dialog WithHelp story", () => {
-      CypressMountWithProviders(<defaultStories.WithHelp />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-
-    it("should pass accessibility tests for Dialog DynamicContent story", () => {
-      CypressMountWithProviders(<defaultStories.DynamicContent />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-
-    it("should pass accessibility tests for Dialog FocusingADifferentFirstElement story", () => {
-      CypressMountWithProviders(
-        <defaultStories.FocusingADifferentFirstElement />
-      );
-
-      getComponent("button")
-        .eq(0)
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-
-    it("should pass accessibility tests for Dialog OverridingContentPadding story", () => {
-      CypressMountWithProviders(<defaultStories.OverridingContentPadding />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-
-    it("should pass accessibility tests for Dialog OtherFocusableContainers story", () => {
-      CypressMountWithProviders(<defaultStories.OtherFocusableContainers />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-
-    it("should pass accessibility tests for Dialog Responsive story", () => {
-      CypressMountWithProviders(<defaultStories.Responsive />);
-
-      openPreviewButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          cy.checkAccessibility();
-        });
-    });
-  });
-
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<stories.Default stickyFooter title="foo" />);
-    dialogPreview().should("have.css", "border-radius", "16px");
-    formFooterComponent().should(
-      "have.css",
-      "border-radius",
-      "0px 0px 16px 16px"
-    );
   });
 
   describe("test background scroll when tabbing", () => {

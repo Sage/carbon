@@ -31,10 +31,10 @@ export const Default = (args: NumeralDateProps) => {
   });
   const handleChange = (event: NumeralDateEvent) => {
     setDateValue(event.target.value as FullDate);
-    action("change")(event);
+    action("change")(event.target.value);
   };
   const handleBlur = (event: NumeralDateEvent) => {
-    action("blur")(event);
+    action("blur")(event.target.value);
   };
   return (
     <Box mt="120px">
@@ -64,10 +64,10 @@ export const DefaultWithOtherInputs = (args: NumeralDateProps) => {
   });
   const handleChange = (event: NumeralDateEvent) => {
     setDateValue(event.target.value as FullDate);
-    action("change")(event);
+    action("change")(event.target.value);
   };
   const handleBlur = (event: NumeralDateEvent) => {
-    action("blur")(event);
+    action("blur")(event.target.value);
   };
   return (
     <Box display="flex" margin="56px 25px">
@@ -107,10 +107,10 @@ export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
   const [dateValue, setDateValue] = useState({ dd: "", mm: "" });
   const handleChange = (event: NumeralDateEvent<DayMonthDate>) => {
     setDateValue({ ...dateValue });
-    action("change")(event);
+    action("change")(event.target.value);
   };
   const handleBlur = (event: NumeralDateEvent<DayMonthDate>) => {
-    action("blur")(event);
+    action("blur")(event.target.value);
   };
   return (
     <>
