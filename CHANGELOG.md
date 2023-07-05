@@ -1,3 +1,10 @@
+## [119.5.0](https://github.com/Sage/carbon/compare/v119.4.2...v119.5.0) (2023-07-05)
+
+
+### Features
+
+* **button bar:** add support for rendering button minor children ([1386c52](https://github.com/Sage/carbon/commit/1386c528a97e8b9b231ed15068e9fc94667be77b))
+
 ### [119.4.2](https://github.com/Sage/carbon/compare/v119.4.1...v119.4.2) (2023-07-05)
 
 
