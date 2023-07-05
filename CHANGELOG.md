@@ -1,3 +1,10 @@
+### [119.4.2](https://github.com/Sage/carbon/compare/v119.4.1...v119.4.2) (2023-07-05)
+
+
+### Bug Fixes
+
+* **flat-table:** convert all files in directory to typescript ([eb0b473](https://github.com/Sage/carbon/commit/eb0b473b839865426ab61f5a4fc88d756e1d3c50)), closes [#5979](https://github.com/Sage/carbon/issues/5979)
+
 ### [119.4.1](https://github.com/Sage/carbon/compare/v119.4.0...v119.4.1) (2023-07-04)
 
 
