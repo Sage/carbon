@@ -4,15 +4,19 @@ import { ButtonBarProps } from "components/button-bar";
 import {
   Default as ButtonBarCustom,
   DefaultWithWrapper as ButtonBarWithWrapper,
-  ButtonBarWithMinorButtonChildren,
+  DefaultWithButtonMinor as ButtonBarMinor,
 } from "../../../src/components/button-bar/button-bar-test.stories";
+
 import {
   BUTTON_BAR_SIZES,
   BUTTON_BAR_ICON_POSITIONS,
 } from "../../../src/components/button-bar/button-bar.config";
 
-import { buttonDataComponent } from "../../locators/button";
-import { icon } from "../../locators";
+import {
+  buttonDataComponent,
+  buttonMinorComponent,
+} from "../../locators/button";
+import { cyRoot, icon } from "../../locators";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
@@ -66,7 +70,11 @@ context("Test for Button-Bar component", () => {
   });
 
   describe("accessibility tests", () => {
-    it.each([BUTTON_BAR_SIZES[0], BUTTON_BAR_SIZES[1], BUTTON_BAR_SIZES[2]])(
+    it.each([
+      BUTTON_BAR_SIZES[0],
+      BUTTON_BAR_SIZES[1],
+      BUTTON_BAR_SIZES[2],
+    ] as ButtonBarProps["size"][])(
       "should check accessibility for %s size for a Button-Bar",
       (size) => {
         CypressMountWithProviders(<ButtonBarCustom size={size} />);
@@ -75,7 +83,10 @@ context("Test for Button-Bar component", () => {
       }
     );
 
-    it.each([BUTTON_BAR_ICON_POSITIONS[0], BUTTON_BAR_ICON_POSITIONS[1]])(
+    it.each([
+      BUTTON_BAR_ICON_POSITIONS[0],
+      BUTTON_BAR_ICON_POSITIONS[1],
+    ] as ButtonBarProps["iconPosition"][])(
       "should check accessibility for %s icon position in a Button-Bar",
       (iconPosition) => {
         CypressMountWithProviders(
@@ -127,7 +138,7 @@ context("Test for Button-Bar component", () => {
     it.each([
       ["after", "left"],
       ["before", "right"],
-    ])(
+    ] as [ButtonBarProps["iconPosition"], string][])(
       "Button Icon position is %s text when the iconPosition is set and passed to ButtonBar",
       (iconPosition, margin) => {
         CypressMountWithProviders(
@@ -154,27 +165,82 @@ context("Test for Button-Bar component", () => {
     });
   });
 
-  it("has the expected border radius styling when major button children passed", () => {
-    CypressMountWithProviders(<ButtonBarCustom />);
+  describe("renders with ButtonMinor children", () => {
+    const indexes = [0, 1, 2];
 
-    buttonDataComponent()
-      .eq(0)
-      .should("have.css", "border-radius", "32px 0px 0px 32px");
-    buttonDataComponent().eq(1).should("have.css", "border-radius", "0px");
-    buttonDataComponent()
-      .eq(2)
-      .should("have.css", "border-radius", "0px 32px 32px 0px");
-  });
+    it.each(indexes)(
+      "should apply correct background-color on hover for %s ButtonMinor children",
+      (index) => {
+        CypressMountWithProviders(<ButtonBarMinor />);
 
-  it("has the expected border radius styling when minor button children passed", () => {
-    CypressMountWithProviders(<ButtonBarWithMinorButtonChildren />);
+        buttonMinorComponent(index).should(
+          "have.css",
+          "background-color",
+          "rgba(0, 0, 0, 0)"
+        );
 
-    buttonDataComponent()
-      .eq(0)
-      .should("have.css", "border-radius", "4px 0px 0px 4px");
-    buttonDataComponent().eq(1).should("have.css", "border-radius", "0px");
-    buttonDataComponent()
-      .eq(2)
-      .should("have.css", "border-radius", "0px 4px 4px 0px");
+        buttonMinorComponent(index).realHover();
+        buttonMinorComponent(index).should(
+          "have.css",
+          "background-color",
+          "rgb(51, 91, 112)"
+        );
+
+        // reset focus
+        cyRoot().realHover({ position: "topLeft" });
+      }
+    );
+
+    it.each(indexes)(
+      "should apply the correct color to the %s ButtonMinor children",
+      (index) => {
+        CypressMountWithProviders(<ButtonBarMinor />);
+
+        buttonMinorComponent(index).should(
+          "have.css",
+          "color",
+          "rgb(51, 91, 112)"
+        );
+
+        buttonMinorComponent(index).realHover();
+        buttonMinorComponent(index).should(
+          "have.css",
+          "color",
+          "rgb(255, 255, 255)"
+        );
+
+        // reset focus
+        cyRoot().realHover({ position: "topLeft" });
+      }
+    );
+
+    it.each(indexes)(
+      "should check Button Minor Bar have correct border-color for the %s button",
+      (index) => {
+        CypressMountWithProviders(<ButtonBarMinor />);
+
+        const colorByIndex =
+          index === 2
+            ? "rgb(51, 91, 112)"
+            : "rgb(51, 91, 112) rgba(0, 0, 0, 0) rgb(51, 91, 112) rgb(51, 91, 112)";
+
+        buttonMinorComponent(index).should(
+          "have.css",
+          "border-color",
+          colorByIndex
+        );
+
+        buttonMinorComponent(index).realHover();
+
+        buttonMinorComponent(index).should(
+          "have.css",
+          "border-color",
+          "rgb(51, 91, 112)"
+        );
+
+        // reset focus
+        cyRoot().realHover({ position: "topLeft" });
+      }
+    );
   });
 });

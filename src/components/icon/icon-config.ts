@@ -16,10 +16,10 @@ const dlsConfig = {
     circle: "50%",
   },
   iconSize: {
-    small: "20px",
-    medium: "24px",
-    large: "32px",
-    "extra-large": "48px",
+    small: "var(--sizing250)",
+    medium: "var(--sizing300)",
+    large: "var(--sizing400)",
+    "extra-large": "var(--sizing600)",
   },
 };
 

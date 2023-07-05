@@ -86,7 +86,7 @@ const StyledButtonMinor = styled(Button)<ButtonMinorProps>`
   ${({ size }) => css`
     ${size === "small" &&
     `
-      min-height: 32px;
+      min-height: var(--sizing400);
       padding: var(--spacing000) var(--spacing100) var(--spacing000)
         var(--spacing100);
     `}
