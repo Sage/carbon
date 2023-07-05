@@ -1,5 +1,6 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
+import ButtonMinor from "../button-minor";
 import Icon, { IconType } from "../icon";
 import Button from "../button";
 import ButtonBar from "./button-bar.component";
@@ -7,6 +8,7 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
 import StyledButton from "../button/button.style";
 import StyledIconButton from "../icon-button/icon-button.style";
+import StyledButtonMinor from "../button-minor/button-minor.style";
 
 const renderButtonBar = (
   text?: string,
@@ -310,5 +312,27 @@ describe("with different button props", () => {
       { subtext: "subtext" }
     );
     expect(wrapper.containsMatchingElement(<span>subtext</span>)).toBeTruthy();
+  });
+
+  describe("Button Minor children", () => {
+    let wrapper: ReactWrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <ButtonBar>
+          <ButtonMinor buttonType="primary">Click me</ButtonMinor>
+          <ButtonMinor buttonType="secondary">Click me</ButtonMinor>
+          <ButtonMinor buttonType="tertiary">Click me</ButtonMinor>
+        </ButtonBar>
+      );
+    });
+
+    it("overrides the buttonType of the children", () => {
+      const buttons = wrapper.find(StyledButtonMinor);
+
+      buttons.forEach((button) =>
+        expect(button.prop("buttonType")).toBe("secondary")
+      );
+    });
   });
 });

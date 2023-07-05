@@ -55,7 +55,6 @@ describe("ButtonToggle", () => {
 
   beforeEach(() => {
     loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
-    jest.restoreAllMocks();
   });
 
   afterEach(() => {

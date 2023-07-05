@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../button";
-import ButtonBar from ".";
+import ButtonBar, { ButtonBarProps } from ".";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import {
@@ -35,7 +35,7 @@ const commonArgsButtonBar = {
   iconPosition: "before",
 };
 
-export const DefaultWithWrapper = ({ ...args }) => {
+export const DefaultWithWrapper = (args: Partial<ButtonBarProps>) => {
   const WrappedComponent = () => {
     return (
       <>
@@ -64,11 +64,19 @@ export const ButtonBarWithMinorButtonChildren = () => (
   </ButtonBar>
 );
 
-export const Default = ({ ...args }) => (
+export const Default = (args: Partial<ButtonBarProps>) => (
   <ButtonBar {...args}>
     <Button iconType="search">Example Button</Button>
     <Button iconType="pdf">Example Button</Button>
     <Button iconType="csv">Example Button</Button>
+  </ButtonBar>
+);
+
+export const DefaultWithButtonMinor = (args: Partial<ButtonBarProps>) => (
+  <ButtonBar {...args}>
+    <ButtonMinor iconType="search">Example Button</ButtonMinor>
+    <ButtonMinor iconType="pdf">Example Button</ButtonMinor>
+    <ButtonMinor iconType="csv">Example Button</ButtonMinor>
   </ButtonBar>
 );
 
@@ -132,6 +140,54 @@ export const Preview = () => {
           ))}
         </React.Fragment>
       ))}
+      <div>
+        {BUTTON_BAR_SIZES.map((size) => (
+          <ButtonBar key={`${size}-key`} size={size} ml={2} mt={2}>
+            <ButtonMinor iconType="pdf" />
+            <ButtonMinor iconType="csv" />
+            <ButtonMinor iconType="search" />
+          </ButtonBar>
+        ))}
+        {BUTTON_BAR_ICON_POSITIONS.map((iconPosition) => (
+          <React.Fragment key={iconPosition}>
+            {BUTTON_BAR_SIZES.map((size) => (
+              <>
+                <ButtonBar
+                  key={size + iconPosition}
+                  iconPosition={iconPosition}
+                  size={size}
+                  ml={2}
+                  mt={2}
+                >
+                  <ButtonMinor iconType="pdf">{iconPosition}</ButtonMinor>
+                  <ButtonMinor iconType="csv">{iconPosition}</ButtonMinor>
+                  <ButtonMinor iconType="search">{iconPosition}</ButtonMinor>
+                </ButtonBar>
+              </>
+            ))}
+          </React.Fragment>
+        ))}
+        {BUTTON_BAR_ICON_POSITIONS.map((iconPosition) => (
+          <React.Fragment key={iconPosition}>
+            {BUTTON_BAR_SIZES.map((size) => (
+              <>
+                <ButtonBar
+                  fullWidth
+                  key={`${size}${iconPosition}fullWidth`}
+                  iconPosition={iconPosition}
+                  size={size}
+                  ml={2}
+                  mt={2}
+                >
+                  <ButtonMinor iconType="pdf">{iconPosition}</ButtonMinor>
+                  <ButtonMinor iconType="csv">{iconPosition}</ButtonMinor>
+                  <ButtonMinor iconType="search">{iconPosition}</ButtonMinor>
+                </ButtonBar>
+              </>
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
     </>
   );
 };

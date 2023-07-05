@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { action } from "@storybook/addon-actions";
-
+import Typography from "../../../src/components/typography";
 import Button from "../button";
 import Sidebar, { SidebarProps } from ".";
 import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
@@ -97,7 +97,7 @@ Default.args = {
   disableEscKey: false,
 };
 
-export const SidebarComponent = ({ ...props }) => {
+export const SidebarComponent = (props: Partial<SidebarProps>) => {
   return (
     <>
       <Sidebar
@@ -160,5 +160,49 @@ export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
         Toast message 2
       </Toast>
     </Box>
+  );
+};
+
+export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
+  const [setIsDialogOpen] = React.useState(false);
+  const [isToastOpen, setIsToastOpen] = React.useState(false);
+  const toastRef = React.useRef(null);
+  const CUSTOM_SELECTOR = "button, .focusable-container input";
+  return (
+    <>
+      <Sidebar
+        open
+        onCancel={() => setIsDialogOpen}
+        header={<Typography variant="h3">Sidebar header</Typography>}
+        focusableContainers={[toastRef]}
+        focusableSelectors={CUSTOM_SELECTOR}
+        {...props}
+      >
+        <div className="focusable-container">
+          <Textbox label="First Name" />
+        </div>
+        <div>
+          <Textbox label="Surname" />
+        </div>
+        <div className="focusable-container">
+          <Button
+            buttonType="primary"
+            data-element="open-toast"
+            onClick={() => setIsToastOpen(true)}
+          >
+            Show toast
+          </Button>
+        </div>
+      </Sidebar>
+      <Toast
+        open={isToastOpen}
+        onDismiss={() => setIsToastOpen(false)}
+        ref={toastRef}
+        targetPortalId="stacked"
+        data-element="toast"
+      >
+        Toast Message
+      </Toast>
+    </>
   );
 };

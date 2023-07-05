@@ -6,6 +6,8 @@ import { MenuType } from "./menu.context";
 import MenuItem from "./menu-item";
 import MenuFullscreen, { MenuFullscreenProps } from "./menu-full-screen";
 import Search from "../search";
+import NavigationBar, { NavigationBarProps } from "../navigation-bar";
+import GlobalHeader from "../global-header";
 
 export default {
   title: "Menu/Test",
@@ -130,3 +132,81 @@ export const LongLabelsStory = () => {
 };
 
 LongLabelsStory.storyName = "submenus with long item labels";
+
+export const InGlobalHeaderStory = () => {
+  return (
+    <GlobalHeader>
+      <Menu menuType="dark">
+        <MenuItem submenu="I'm long" clickToOpen>
+          <MenuItem onClick={() => {}}>Foo 1</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 2</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 3</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 4</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 5</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 6</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 7</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 8</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 9</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 10</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 11</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 12</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 13</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 14</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 15</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 16</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 17</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 18</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 19</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 20</MenuItem>
+        </MenuItem>
+      </Menu>
+    </GlobalHeader>
+  );
+};
+
+InGlobalHeaderStory.storyName = "long submenu in global header";
+
+type InNavigationBarStoryProps = Pick<
+  NavigationBarProps,
+  "orientation" | "offset"
+>;
+
+export const InNavigationBarStory = (props: InNavigationBarStoryProps) => {
+  return (
+    <NavigationBar position="fixed" {...props}>
+      <Menu menuType="dark">
+        <MenuItem submenu="I'm long" clickToOpen>
+          <MenuItem onClick={() => {}}>Foo 1</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 2</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 3</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 4</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 5</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 6</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 7</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 8</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 9</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 10</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 11</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 12</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 13</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 14</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 15</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 16</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 17</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 18</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 19</MenuItem>
+          <MenuItem onClick={() => {}}>Foo 20</MenuItem>
+        </MenuItem>
+      </Menu>
+    </NavigationBar>
+  );
+};
+
+InNavigationBarStory.storyName = "long submenu in navigation bar";
+
+InNavigationBarStory.story = {
+  args: {
+    orientation: "top",
+    offset: "calc(75vh - 100px)",
+  },
+};

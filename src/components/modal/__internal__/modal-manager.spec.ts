@@ -75,7 +75,8 @@ describe("ModalManager", () => {
     });
 
     afterEach(() => {
-      jest.clearAllMocks();
+      cb1.mockClear();
+      cb2.mockClear();
     });
 
     describe("and the param matches a Modal in the list", () => {

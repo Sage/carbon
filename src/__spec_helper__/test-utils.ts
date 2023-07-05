@@ -31,7 +31,8 @@ const assertStyleMatch = <Props>(
     | ShallowWrapper<Props>
     | ReactTestRendererJSON
     | ReactTestRendererJSON[]
-    | null,
+    | null
+    | HTMLElement,
   opts?: jest.Options
 ) => {
   Object.entries(styleSpec).forEach(([attr, value]) => {

@@ -662,10 +662,10 @@ describe("DialogFullScreen", () => {
 
 describe("closeIcon", () => {
   let wrapper: ReactWrapper;
-  let onCancel: jest.Mock;
+  let onCancel: jest.Mock | undefined;
 
   beforeEach(() => {
-    jest.restoreAllMocks();
+    onCancel?.mockRestore();
     onCancel = jest.fn();
 
     wrapper = mount(

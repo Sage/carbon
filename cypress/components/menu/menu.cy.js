@@ -43,6 +43,7 @@ import {
 } from "../../support/component-helper/common-steps";
 import useMediaQuery from "../../../src/hooks/useMediaQuery";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
+import * as testStories from "../../../src/components/menu/menu-test.stories";
 
 const span = "span";
 const div = "div";
@@ -2171,6 +2172,26 @@ context("Testing Menu component", () => {
       CypressMountWithProviders(<MenuFullScreenWithFalsyValues isOpen />);
 
       menuDivider().should("not.exist");
+    });
+  });
+
+  describe("when inside a GlobalHeader", () => {
+    it("all the content of a long submenu can be accessed with the keyboard while remaining visible", () => {
+      CypressMountWithProviders(<testStories.InGlobalHeaderStory />);
+
+      cy.viewport(1000, 500);
+
+      menuComponent(1).trigger("keydown", keyCode("downarrow"));
+      submenuItem(1).should("have.length", 20);
+
+      for (let i = 0; i < 20; i++) {
+        cy.focused().trigger("keydown", keyCode("downarrow"));
+      }
+
+      cy.focused().should("contain", "Foo 20");
+      cy.checkInViewport(
+        '[data-component="submenu-wrapper"] ul > li:nth-child(20)'
+      );
     });
   });
 });

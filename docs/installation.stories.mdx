@@ -1,0 +1,57 @@
+import LinkTo from "@storybook/addon-links/react";
+
+<Meta title="Getting Started/Installation" />
+
+# Installation
+
+## Contents
+
+- [Main installation](#main-installation)
+- [Peer dependencies](#peer-dependencies)
+- [Fonts and icons](#fonts-and-icons)
+
+## Main installation
+
+Carbon is available as an [npm package](https://www.npmjs.com/package/carbon-react). To install it into your project run the following command:
+
+```shell
+npm install carbon-react
+```
+
+## Peer dependencies
+
+You will need to install the following dependencies in your project, these are peer-dependencies of Carbon and are required.
+
+```shell
+npm install @sage/design-tokens@^4.0 react@^17.0 react-dom@^17.0 styled-components@^4.4.1
+```
+
+Carbon uses [draft-js](https://draftjs.org/) for the `TextEditor` or `Note` components. If you plan on using these components in your project, run the following to install the package:
+
+```shell
+npm install draft-js
+```
+
+## Fonts and icons
+
+Carbon requires the `Sage UI` and `CarbonIcons` fonts to display correctly. The CSS font face definitions are included in Carbon and can be imported directly in either your entry-point CSS:
+
+```css
+/* Import Sage UI and CarbonIcons fonts */
+@import "~carbon-react/lib/style/fonts.css";
+```
+
+or your entry-point JavaScript:
+
+```js
+// Import Sage UI and CarbonIcons fonts
+import "carbon-react/lib/style/fonts.css";
+```
+
+### Assets
+
+The font and icon assets themselves will **not** be automatically handled by Carbon, so you will be required to load these into your application yourself through your build system.
+
+Your build system must support CSS and file loading for this to work, e.g. `webpack` with `css-loader` and `file-loader`. This is pre-configured if you are using `create-react-app`, but it is possible to use other bundling solutions such as [Vite](https://vitejs.dev/) or [Parcel](https://parceljs.org/) if you wish.
+
+Note the `Sage UI` font assets themselves are provided by the [@sage/design-tokens](https://www.npmjs.com/package/@sage/design-tokens) library. If this has not been installed in your project beforehand, text will be rendered in the browser's default sans-serif font.

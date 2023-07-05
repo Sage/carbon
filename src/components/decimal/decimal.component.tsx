@@ -105,27 +105,6 @@ export const Decimal = React.forwardRef(
       );
     }
 
-    const emptyValue = allowEmptyValue ? "" : "0.00";
-
-    const getSafeValueProp = useCallback(
-      (initialValue) => {
-        // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
-        invariant(
-          typeof initialValue === "string",
-          "Decimal `value` prop must be a string"
-        );
-
-        if (initialValue && !allowEmptyValue) {
-          invariant(
-            initialValue !== "",
-            "Decimal `value` must not be an empty string. Please use `allowEmptyValue` or `0.00`"
-          );
-        }
-        return initialValue;
-      },
-      [allowEmptyValue]
-    );
-
     const getSeparator = useCallback(
       (separatorType) => {
         const numberWithGroupAndDecimalSeparator = 10000.1;
@@ -177,6 +156,29 @@ export const Decimal = React.forwardRef(
         return formattedNumber;
       },
       [getSeparator, isNaN, l, locale, precision]
+    );
+
+    const emptyValue = allowEmptyValue
+      ? ""
+      : formatValue((0).toFixed(precision));
+
+    const getSafeValueProp = useCallback(
+      (initialValue) => {
+        // We're intentionally preventing the use of number values to help prevent any unintentional rounding issues
+        invariant(
+          typeof initialValue === "string",
+          "Decimal `value` prop must be a string"
+        );
+
+        if (initialValue && !allowEmptyValue) {
+          invariant(
+            initialValue !== "",
+            "Decimal `value` must not be an empty string. Please use `allowEmptyValue` or specify a non-empty initialValue"
+          );
+        }
+        return initialValue;
+      },
+      [allowEmptyValue]
     );
 
     /**

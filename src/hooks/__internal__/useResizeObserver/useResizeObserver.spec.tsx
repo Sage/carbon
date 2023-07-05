@@ -55,7 +55,9 @@ describe("resize observer", () => {
 
     afterEach(() => {
       window.ResizeObserver = NativeResizeObserver;
-      jest.resetAllMocks();
+      observeMock.mockReset();
+      disconnectMock.mockReset();
+      callbackProp.mockReset();
     });
 
     it("observes element on mount", () => {
@@ -86,7 +88,9 @@ describe("resize observer", () => {
 
     afterEach(() => {
       window.ResizeObserver = NativeResizeObserver;
-      jest.resetAllMocks();
+      observeMock.mockReset();
+      unobserveMock.mockReset();
+      disconnectMock.mockReset();
     });
 
     it("does not observe element on mount", () => {

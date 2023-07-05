@@ -18,6 +18,7 @@ import StyledSearch from "../../../search/search.style";
 import openSubmenu from "../spec-helper";
 import menuConfigVariants from "../../menu.config";
 import { VariantType } from "../../menu-item";
+import GlobalHeader from "../../../global-header";
 
 const events = {
   arrowDown: {
@@ -203,7 +204,7 @@ describe("Submenu component", () => {
       });
 
       afterEach(() => {
-        jest.resetAllMocks();
+        mockCallback.mockReset();
       });
 
       describe("on mouse over", () => {
@@ -244,7 +245,7 @@ describe("Submenu component", () => {
       });
 
       afterEach(() => {
-        jest.resetAllMocks();
+        mockCallback.mockReset();
       });
 
       describe("when submenu opens", () => {
@@ -266,7 +267,7 @@ describe("Submenu component", () => {
       });
 
       afterEach(() => {
-        jest.resetAllMocks();
+        mockCallback.mockReset();
       });
 
       describe("when submenu closes", () => {
@@ -1692,6 +1693,55 @@ describe("Submenu component", () => {
       expect(
         wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(3).find("a")
       ).toBeFocused();
+    });
+  });
+
+  describe("when inside a GlobalHeader", () => {
+    it("renders with overflow auto and the appropriate max-height", () => {
+      // need to mock offsetHeight to get the test to measure a height other than 0px
+      const MOCK_HEIGHT = 40;
+
+      const originalOffsetHeight = Object.getOwnPropertyDescriptor(
+        HTMLElement.prototype,
+        "offsetHeight"
+      ) as PropertyDescriptor;
+
+      Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+        configurable: true,
+        value: MOCK_HEIGHT,
+      });
+
+      wrapper = mount(
+        <GlobalHeader>
+          <Submenu title="title">
+            <MenuItem href="#">Item 1</MenuItem>
+            <MenuItem href="#">Item 2</MenuItem>
+            <MenuItem href="#">Item 3</MenuItem>
+            <MenuItem href="#">Item 4</MenuItem>
+            <MenuItem href="#">Item 5</MenuItem>
+            <MenuItem href="#">Item 6</MenuItem>
+            <MenuItem href="#">Item 7</MenuItem>
+            <MenuItem href="#">Item 8</MenuItem>
+            <MenuItem href="#">Item 9</MenuItem>
+            <MenuItem href="#">Item 10</MenuItem>
+          </Submenu>
+        </GlobalHeader>
+      );
+      openSubmenu(wrapper);
+
+      assertStyleMatch(
+        {
+          overflowY: "auto",
+          maxHeight: `calc(100vh - ${MOCK_HEIGHT}px - 0px)`,
+        },
+        wrapper.find(StyledSubmenu)
+      );
+
+      Object.defineProperty(
+        HTMLElement.prototype,
+        "offsetHeight",
+        originalOffsetHeight
+      );
     });
   });
 });

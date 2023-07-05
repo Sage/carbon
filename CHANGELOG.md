@@ -1,3 +1,45 @@
+## [119.5.0](https://github.com/Sage/carbon/compare/v119.4.2...v119.5.0) (2023-07-05)
+
+
+### Features
+
+* **button bar:** add support for rendering button minor children ([1386c52](https://github.com/Sage/carbon/commit/1386c528a97e8b9b231ed15068e9fc94667be77b))
+
+### [119.4.2](https://github.com/Sage/carbon/compare/v119.4.1...v119.4.2) (2023-07-05)
+
+
+### Bug Fixes
+
+* **flat-table:** convert all files in directory to typescript ([eb0b473](https://github.com/Sage/carbon/commit/eb0b473b839865426ab61f5a4fc88d756e1d3c50)), closes [#5979](https://github.com/Sage/carbon/issues/5979)
+
+### [119.4.1](https://github.com/Sage/carbon/compare/v119.4.0...v119.4.1) (2023-07-04)
+
+
+### Bug Fixes
+
+* **menu:** make submenu scrollable when inside a fixed navigation bar ([dc685b5](https://github.com/Sage/carbon/commit/dc685b59900005a9efb052d765b711a9dce409cb)), closes [#6009](https://github.com/Sage/carbon/issues/6009)
+
+## [119.4.0](https://github.com/Sage/carbon/compare/v119.3.4...v119.4.0) (2023-07-03)
+
+
+### Features
+
+* **icon:** 28 new icons added to the icon font ([fd9caca](https://github.com/Sage/carbon/commit/fd9caca93823b45f66c920401871d23e2dc33172))
+
+### [119.3.4](https://github.com/Sage/carbon/compare/v119.3.3...v119.3.4) (2023-06-29)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure window does not scroll when using up and down arrow keys to navigate rows ([ea89c65](https://github.com/Sage/carbon/commit/ea89c65aa13f17fa42806da56eda08b838963612)), closes [#6152](https://github.com/Sage/carbon/issues/6152)
+
+### [119.3.3](https://github.com/Sage/carbon/compare/v119.3.2...v119.3.3) (2023-06-29)
+
+
+### Bug Fixes
+
+* **decimal:** ensure empty value is formatted correctly ([284cabc](https://github.com/Sage/carbon/commit/284cabc6015f6319b97380f549074019f8a188d7)), closes [#6012](https://github.com/Sage/carbon/issues/6012)
+
 ### [119.3.2](https://github.com/Sage/carbon/compare/v119.3.1...v119.3.2) (2023-06-20)
 
 

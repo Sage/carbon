@@ -82,7 +82,6 @@ describe("Switch", () => {
 
   beforeEach(() => {
     loggerSpy = jest.spyOn(Logger, "deprecate");
-    jest.restoreAllMocks();
   });
 
   afterEach(() => {
