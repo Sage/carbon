@@ -47,7 +47,6 @@ describe("Textarea", () => {
 
   beforeEach(() => {
     loggerSpy = jest.spyOn(Logger, "deprecate");
-    jest.restoreAllMocks();
   });
 
   afterEach(() => {

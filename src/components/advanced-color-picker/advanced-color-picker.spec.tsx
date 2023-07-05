@@ -103,7 +103,6 @@ describe("AdvancedColorPicker", () => {
   describe("Deprecation warning for uncontrolled", () => {
     beforeEach(() => {
       loggerSpy = jest.spyOn(Logger, "deprecate");
-      jest.restoreAllMocks();
     });
 
     afterEach(() => {

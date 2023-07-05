@@ -887,10 +887,9 @@ describe("SplitButton", () => {
   });
 
   it("should set proper width of ButtonContainer", () => {
-    jest.spyOn(Element.prototype, "getBoundingClientRect");
-    Element.prototype.getBoundingClientRect = jest
-      .fn()
-      .mockImplementation(() => ({ width: 200 }));
+    const getBoundingClientRectMock = jest
+      .spyOn(Element.prototype, "getBoundingClientRect")
+      .mockImplementation(() => ({ width: 200 } as DOMRect));
 
     wrapper = render({}, singleButton, mount);
     openAdditionalButtons(wrapper);
@@ -900,7 +899,7 @@ describe("SplitButton", () => {
       wrapper.find(StyledSplitButtonChildrenContainer)
     );
 
-    jest.clearAllMocks();
+    getBoundingClientRectMock.mockClear();
 
     wrapper.unmount();
   });

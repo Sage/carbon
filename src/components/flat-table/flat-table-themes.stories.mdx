@@ -7,6 +7,7 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from ".";
+import * as stories from "./flat-table-themes.stories";
 
 <Meta
   title="Flat Table/Color Themes"
@@ -22,46 +23,7 @@ import {
 To create a transparent effect for the header, the background-color is set to match a white background
 
 <Canvas>
-  <Story name="transparent-white theme">
-    <div>
-      <FlatTable colorTheme="transparent-white">
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>
-          <FlatTableRow>
-            <FlatTableCell>John Doe</FlatTableCell>
-            <FlatTableCell>London</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>0</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane Doe</FlatTableCell>
-            <FlatTableCell>York</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>2</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>John Smith</FlatTableCell>
-            <FlatTableCell>Edinburgh</FlatTableCell>
-            <FlatTableCell>Single</FlatTableCell>
-            <FlatTableCell>1</FlatTableCell>
-          </FlatTableRow>
-          <FlatTableRow>
-            <FlatTableCell>Jane Smith</FlatTableCell>
-            <FlatTableCell>Newcastle</FlatTableCell>
-            <FlatTableCell>Married</FlatTableCell>
-            <FlatTableCell>5</FlatTableCell>
-          </FlatTableRow>
-        </FlatTableBody>
-      </FlatTable>
-    </div>
-  </Story>
+  <Story name="transparent-white theme" story={stories.TransparentWhiteTheme} />
 </Canvas>
 
 ### With transparent-base theme
@@ -69,85 +31,11 @@ To create a transparent effect for the header, the background-color is set to ma
 To create a transparent effect for the header, the background-color is set to match the base app background
 
 <Canvas>
-  <Story name="transparent-base theme">
-    <FlatTable colorTheme="transparent-base">
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
-          <FlatTableHeader>Location</FlatTableHeader>
-          <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell>John Doe</FlatTableCell>
-          <FlatTableCell>London</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
-          <FlatTableCell>0</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableCell>Jane Doe</FlatTableCell>
-          <FlatTableCell>York</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>2</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableCell>John Smith</FlatTableCell>
-          <FlatTableCell>Edinburgh</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
-          <FlatTableCell>1</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableCell>Jane Smith</FlatTableCell>
-          <FlatTableCell>Newcastle</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>5</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  </Story>
+  <Story name="transparent-base theme" story={stories.TransparentBaseTheme} />
 </Canvas>
 
 ### With light theme
 
 <Canvas>
-  <Story name="light theme">
-    <FlatTable colorTheme="light">
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
-          <FlatTableHeader>Location</FlatTableHeader>
-          <FlatTableHeader>Relationship Status</FlatTableHeader>
-          <FlatTableHeader>Dependents</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell>John Doe</FlatTableCell>
-          <FlatTableCell>London</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
-          <FlatTableCell>0</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableCell>Jane Doe</FlatTableCell>
-          <FlatTableCell>York</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>2</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableCell>John Smith</FlatTableCell>
-          <FlatTableCell>Edinburgh</FlatTableCell>
-          <FlatTableCell>Single</FlatTableCell>
-          <FlatTableCell>1</FlatTableCell>
-        </FlatTableRow>
-        <FlatTableRow>
-          <FlatTableCell>Jane Smith</FlatTableCell>
-          <FlatTableCell>Newcastle</FlatTableCell>
-          <FlatTableCell>Married</FlatTableCell>
-          <FlatTableCell>5</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  </Story>
+  <Story name="light theme" story={stories.LightTheme} />
 </Canvas>

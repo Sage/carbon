@@ -13,6 +13,8 @@ jest.mock("../icon", () => {
   return jest.fn(() => null);
 });
 
+const IconMock = Icon as jest.MockedFunction<typeof Icon>;
+
 describe("VerticalMenuItem", () => {
   testStyledSystemPadding(
     (props) => (
@@ -77,7 +79,7 @@ describe("VerticalMenuItem", () => {
         {}
       );
 
-      jest.clearAllMocks();
+      IconMock.mockClear();
     });
 
     it('should render as an anchor when "href" prop is passed', () => {
@@ -179,7 +181,7 @@ describe("VerticalMenuItem", () => {
         {}
       );
 
-      jest.clearAllMocks();
+      IconMock.mockClear();
       await user.click(screen.getByText("Item1"));
       expect(Icon).toHaveBeenCalledWith(
         expect.objectContaining({ type: "chevron_up_thick" }),

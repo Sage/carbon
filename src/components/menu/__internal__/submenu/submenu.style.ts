@@ -23,6 +23,7 @@ interface StyledSubmenuProps
   extends SharedStyleProps,
     Pick<SubmenuProps, "variant"> {
   submenuDirection?: string;
+  maxHeight?: string;
 }
 
 const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
@@ -53,7 +54,13 @@ const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
 `;
 
 const StyledSubmenu = styled.ul<StyledSubmenuProps>`
-  ${({ menuType, submenuDirection, variant, inFullscreenView }) => css`
+  ${({
+    menuType,
+    submenuDirection,
+    variant,
+    inFullscreenView,
+    maxHeight,
+  }) => css`
     ${!inFullscreenView &&
     menuType &&
     css`
@@ -81,6 +88,8 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     css`
       border-bottom-right-radius: var(--borderRadius100);
       border-bottom-left-radius: var(--borderRadius100);
+      overflow-y: auto;
+      ${maxHeight && `max-height: ${maxHeight};`}
 
       ${StyledMenuItem}:last-child a,
       ${StyledMenuItem}:last-child button,

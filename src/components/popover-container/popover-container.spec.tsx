@@ -57,13 +57,15 @@ describe("PopoverContainer", () => {
 
   jest.useFakeTimers();
   let wrapper: ReactWrapper;
+  let onOpenFn: jest.Mock | undefined, onCloseFn: jest.Mock | undefined;
 
   beforeEach(() => {
     wrapper = render();
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    onOpenFn?.mockClear();
+    onCloseFn?.mockClear();
     wrapper.unmount();
   });
 
@@ -226,7 +228,7 @@ describe("PopoverContainer", () => {
 
       describe("and `onClose` prop is provided", () => {
         it("should fire `onClose` callback if open button is clicked", () => {
-          const onCloseFn = jest.fn();
+          onCloseFn = jest.fn();
           wrapper = render({
             open: true,
             onClose: onCloseFn,
@@ -237,7 +239,7 @@ describe("PopoverContainer", () => {
         });
 
         it("should fire `onClose` callback if close button is clicked", () => {
-          const onCloseFn = jest.fn();
+          onCloseFn = jest.fn();
           wrapper = render({
             open: true,
             onClose: onCloseFn,
@@ -252,7 +254,7 @@ describe("PopoverContainer", () => {
     describe("and is closed", () => {
       describe("and `onOpen` prop is provided", () => {
         it("should fire `onOpen` callback if open button is clicked", () => {
-          const onOpenFn = jest.fn();
+          onOpenFn = jest.fn();
           wrapper = render({
             open: false,
             onOpen: onOpenFn,

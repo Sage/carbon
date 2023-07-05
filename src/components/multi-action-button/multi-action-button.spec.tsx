@@ -655,10 +655,10 @@ describe("MultiActionButton", () => {
   });
 
   it("should set proper width of ButtonContainer", () => {
-    jest.spyOn(Element.prototype, "getBoundingClientRect");
-    Element.prototype.getBoundingClientRect = jest
-      .fn()
-      .mockImplementation(() => ({ width: 200 }));
+    const getBoundingClientRectMock = jest
+      .spyOn(Element.prototype, "getBoundingClientRect")
+      .mockImplementation(() => ({ width: 200 } as DOMRect));
+
     wrapper = render({}, mount);
 
     openAdditionalButtons(wrapper);
@@ -668,7 +668,7 @@ describe("MultiActionButton", () => {
       wrapper.find(StyledButtonChildrenContainer)
     );
 
-    jest.clearAllMocks();
+    getBoundingClientRectMock.mockClear();
 
     wrapper.unmount();
   });

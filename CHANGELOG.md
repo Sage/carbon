@@ -1,3 +1,17 @@
+### [119.4.2](https://github.com/Sage/carbon/compare/v119.4.1...v119.4.2) (2023-07-05)
+
+
+### Bug Fixes
+
+* **flat-table:** convert all files in directory to typescript ([eb0b473](https://github.com/Sage/carbon/commit/eb0b473b839865426ab61f5a4fc88d756e1d3c50)), closes [#5979](https://github.com/Sage/carbon/issues/5979)
+
+### [119.4.1](https://github.com/Sage/carbon/compare/v119.4.0...v119.4.1) (2023-07-04)
+
+
+### Bug Fixes
+
+* **menu:** make submenu scrollable when inside a fixed navigation bar ([dc685b5](https://github.com/Sage/carbon/commit/dc685b59900005a9efb052d765b711a9dce409cb)), closes [#6009](https://github.com/Sage/carbon/issues/6009)
+
 ## [119.4.0](https://github.com/Sage/carbon/compare/v119.3.4...v119.4.0) (2023-07-03)
 
 
