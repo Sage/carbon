@@ -77,6 +77,10 @@ export const MenuFullscreen = ({
     }
   };
 
+  const filteredChildren = React.Children.toArray(children).filter((c) =>
+    React.isValidElement(c)
+  );
+
   return (
     <li aria-label="menu-fullscreen">
       <Portal>
@@ -130,12 +134,12 @@ export const MenuFullscreen = ({
                     setOpenSubmenuId: /* istanbul ignore next */ () => {},
                   }}
                 >
-                  {React.Children.map(children, (child, index) => (
+                  {filteredChildren.map((child, index) => (
                     <>
                       {child}
-                      {index < React.Children.count(children) - 1 && (
+                      {index < filteredChildren.length - 1 ? (
                         <MenuDivider />
-                      )}
+                      ) : null}
                     </>
                   ))}
                 </MenuContext.Provider>
