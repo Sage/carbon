@@ -11,6 +11,7 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { CheckboxGroupContext } from "./checkbox-group.component";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 
 export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */
@@ -81,6 +82,8 @@ export const Checkbox = React.forwardRef(
     }: CheckboxProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
+
     const largeScreen = useIsAboveBreakpoint(adaptiveSpacingBreakpoint);
     const adaptiveSpacingSmallScreen = !!(
       adaptiveSpacingBreakpoint && !largeScreen
@@ -158,6 +161,7 @@ export const Checkbox = React.forwardRef(
           fieldHelpInline={fieldHelpInline}
           reverse={reverse}
           size={size}
+          applyNewValidation={validationRedesignOptIn}
           {...marginProps}
         >
           <CheckableInput {...inputProps}>
