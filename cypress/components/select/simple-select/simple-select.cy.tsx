@@ -1,7 +1,7 @@
 import React from "react";
+import { SimpleSelectProps } from "../../../../src/components/select";
 import * as stories from "../../../../src/components/select/simple-select/simple-select-test.stories";
 import CypressMountWithProviders from "../../../support/component-helper/cypress-mount";
-
 import {
   getDataElementByValue,
   helpIcon,
@@ -9,7 +9,6 @@ import {
   commonDataElementInputPreview,
   body,
 } from "../../../locators";
-
 import {
   selectText,
   selectInput,
@@ -31,19 +30,17 @@ import {
   selectList,
 } from "../../../locators/select";
 import { alertDialogPreview } from "../../../locators/dialog";
-
 import { loader } from "../../../locators/loader";
-
 import {
   assertCssValueIsApproximately,
   verifyRequiredAsteriskForLabel,
 } from "../../../support/component-helper/common-steps";
-
 import { keyCode, positionOfElement } from "../../../support/helper";
 import { SIZE, CHARACTERS } from "../../../support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testPropValue = CHARACTERS.STANDARD;
+const keyToTrigger = ["downarrow", "uparrow", "Space", "Home", "End"] as const;
 
 context("Tests for SimpleSelect component", () => {
   describe("check props for SimpleSelect component", () => {
@@ -119,7 +116,7 @@ context("Tests for SimpleSelect component", () => {
       ["bottom", "0px", "0px", "0px", "0px"],
       ["left", "200px", "0px", "200px", "0px"],
       ["right", "200px", "0px", "0px", "200px"],
-    ])(
+    ] as [SimpleSelectProps["tooltipPosition"], string, string, string, string][])(
       "should render the help tooltip in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -171,7 +168,7 @@ context("Tests for SimpleSelect component", () => {
       [SIZE.SMALL, "32px"],
       [SIZE.MEDIUM, "40px"],
       [SIZE.LARGE, "48px"],
-    ])(
+    ] as [SimpleSelectProps["size"], string][])(
       "should use %s as size and render SimpleSelect with %s as height",
       (size, height) => {
         CypressMountWithProviders(
@@ -207,7 +204,7 @@ context("Tests for SimpleSelect component", () => {
     it.each([
       ["right", "end"],
       ["left", "start"],
-    ])(
+    ] as [SimpleSelectProps["labelAlign"], string][])(
       "should use %s as labelAligment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
@@ -222,9 +219,9 @@ context("Tests for SimpleSelect component", () => {
     );
 
     it.each([
-      ["10", "90", 135, 1229],
-      ["30", "70", 409, 956],
-      ["80", "20", 1092, 273],
+      [10, 90, 135, 1229],
+      [30, 70, 409, 956],
+      [80, 20, 1092, 273],
     ])(
       "should use %s as labelWidth, %s as inputWidth and render it with correct label and input width ratios",
       (label, input, labelRatio, inputRatio) => {
@@ -322,7 +319,7 @@ context("Tests for SimpleSelect component", () => {
       selectListWrapper().should("not.be.visible");
     });
 
-    it.each([["downarrow"], ["uparrow"], ["Space"], ["Home"], ["End"]])(
+    it.each([...keyToTrigger])(
       "should open the list when %s is pressed with Select input in focus",
       (key) => {
         CypressMountWithProviders(<stories.SimpleSelectComponent />);
@@ -535,7 +532,7 @@ context("Tests for SimpleSelect component", () => {
 
       selectText().click();
       selectListWrapper().should("be.visible");
-      selectListOptionGroup("1").should("have.text", "Group one");
+      selectListOptionGroup().should("have.text", "Group one");
     });
 
     it("should render option list with proper maxHeight value", () => {
@@ -554,7 +551,7 @@ context("Tests for SimpleSelect component", () => {
       ["bottom", "0px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "500px", "20px"],
       ["right", "200px", "0px", "0px", "500px"],
-    ])(
+    ] as [SimpleSelectProps["listPlacement"], string, string, string, string][])(
       "should render list in %s position when margins are top %s, bottom %s, left %s and right %s",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -579,7 +576,7 @@ context("Tests for SimpleSelect component", () => {
       ["bottom", "600px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "0px", "900px"],
       ["right", "200px", "0px", "500px", "20px"],
-    ])(
+    ] as [SimpleSelectProps["listPlacement"], string, string, string, string][])(
       "should flip list to opposite position when there is not enough space to render it in %s position",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -695,12 +692,8 @@ context("Tests for SimpleSelect component", () => {
   });
 
   describe("check events for SimpleSelect component", () => {
-    let callback;
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange event when a list option is selected", () => {
+      const callback: SimpleSelectProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(
         <stories.SimpleSelectEventsComponent onChange={callback} />
       );
@@ -708,81 +701,65 @@ context("Tests for SimpleSelect component", () => {
       const position = "first";
 
       selectText().click();
-      selectOption(positionOfElement(position))
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      selectOption(positionOfElement(position)).click();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onBlur event when the list is closed", () => {
+      const callback: SimpleSelectProps["onBlur"] = cy.stub().as("onBlur");
       CypressMountWithProviders(
         <stories.SimpleSelectComponent onBlur={callback} />
       );
 
       selectText().click();
-      commonDataElementInputPreview()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call onClick event when mouse is clicked on text input", () => {
+      const callback: SimpleSelectProps["onClick"] = cy.stub().as("onClick");
       CypressMountWithProviders(
         <stories.SimpleSelectComponent onClick={callback} />
       );
 
-      commonDataElementInputPreview()
-        .realClick()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().realClick();
+      cy.get("@onClick").should("have.been.calledOnce");
     });
 
     it("should call onOpen when SimpleSelect is opened", () => {
+      const callback: SimpleSelectProps["onOpen"] = cy.stub().as("onOpen");
       CypressMountWithProviders(
         <stories.SimpleSelectComponent onOpen={callback} />
       );
 
-      commonDataElementInputPreview()
-        .realClick()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().realClick();
+      cy.get("@onOpen").should("have.been.calledOnce");
     });
 
     it("should call onFocus when SimpleSelect is brought into focus", () => {
+      const callback: SimpleSelectProps["onFocus"] = cy.stub().as("onFocus");
       CypressMountWithProviders(
         <stories.SimpleSelectComponent onFocus={callback} />
       );
 
-      commonDataElementInputPreview()
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      commonDataElementInputPreview().focus();
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
 
-    it.each([["downarrow"], ["uparrow"]])(
+    it.each([keyToTrigger[0], keyToTrigger[1]])(
       "should call onKeyDown event when %s key is pressed",
       (key) => {
+        const callback: SimpleSelectProps["onKeyDown"] = cy
+          .stub()
+          .as("onKeyDown");
         CypressMountWithProviders(
           <stories.SimpleSelectComponent onKeyDown={callback} />
         );
 
         commonDataElementInputPreview()
           .focus()
-          .trigger("keydown", { ...keyCode(key), force: true })
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+          .trigger("keydown", { ...keyCode(key), force: true });
+        cy.get("@onKeyDown").should("have.been.calledOnce");
       }
     );
   });
@@ -820,18 +797,12 @@ context("Tests for SimpleSelect component", () => {
       CypressMountWithProviders(<stories.SimpleSelectNestedInDialog />);
 
       selectText().click();
-      commonDataElementInputPreview()
-        .type("{esc}", { force: true })
-        .then(() => {
-          selectList().should("not.be.visible");
-          alertDialogPreview().should("exist");
-        });
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      selectList().should("not.be.visible");
+      alertDialogPreview().should("exist");
 
-      commonDataElementInputPreview()
-        .type("{esc}", { force: true })
-        .then(() => {
-          alertDialogPreview().should("not.exist");
-        });
+      commonDataElementInputPreview().type("{esc}", { force: true });
+      alertDialogPreview().should("not.exist");
     });
 
     it("should not refocus the select textbox when closing it by clicking outside", () => {
@@ -849,9 +820,8 @@ context("Tests for SimpleSelect component", () => {
     it("should pass accessibilty tests for SimpleSelect", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
-      dropdownButton()
-        .click()
-        .then(() => cy.checkAccessibility());
+      dropdownButton().click();
+      cy.checkAccessibility();
     });
 
     it.each(testData)(
@@ -894,7 +864,7 @@ context("Tests for SimpleSelect component", () => {
       ["bottom", "0px", "0px", "0px", "0px"],
       ["left", "200px", "0px", "200px", "0px"],
       ["right", "200px", "0px", "0px", "200px"],
-    ])(
+    ] as [SimpleSelectProps["tooltipPosition"], string, string, string, string][])(
       "should pass accessibilty tests for SimpleSelect tooltip prop in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -924,9 +894,8 @@ context("Tests for SimpleSelect component", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent readOnly />);
 
       cy.checkAccessibility();
-      selectText()
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectText().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for SimpleSelect transparent prop", () => {
@@ -935,7 +904,11 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+    it.each([
+      SIZE.SMALL,
+      SIZE.MEDIUM,
+      SIZE.LARGE,
+    ] as SimpleSelectProps["size"][])(
       "should pass accessibilty tests for SimpleSelect size prop",
       (size) => {
         CypressMountWithProviders(
@@ -964,7 +937,7 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(["right", "left"])(
+    it.each(["right", "left"] as SimpleSelectProps["labelAlign"][])(
       "should pass accessibilty tests for SimpleSelect labelAlign prop set as %s",
       (alignment) => {
         CypressMountWithProviders(
@@ -976,9 +949,9 @@ context("Tests for SimpleSelect component", () => {
     );
 
     it.each([
-      ["10", "90"],
-      ["30", "70"],
-      ["80", "20"],
+      [10, 90],
+      [30, 70],
+      [80, 20],
     ])(
       "should pass accessibilty tests for SimpleSelect labelWidth prop set as %s and inputWidth set as %s",
       (label, input) => {
@@ -1020,12 +993,10 @@ context("Tests for SimpleSelect component", () => {
         <stories.SimpleSelectWithInfiniteScrollComponent />
       );
 
-      selectText()
-        .click()
-        .then(() => cy.checkAccessibility());
-      selectListWrapper()
-        .scrollTo("bottom")
-        .then(() => cy.checkAccessibility());
+      selectText().click();
+      cy.checkAccessibility();
+      selectListWrapper().scrollTo("bottom");
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for SimpleSelect with multiple columns", () => {
@@ -1037,18 +1008,16 @@ context("Tests for SimpleSelect component", () => {
         ...keyCode("downarrow"),
         force: true,
       });
-      commonDataElementInputPreview()
-        .focus()
-        .then(() => cy.checkAccessibility());
+      commonDataElementInputPreview().focus();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for SimpleSelect with object as value", () => {
       CypressMountWithProviders(<stories.SimpleSelectObjectAsValueComponent />);
 
       selectText().click();
-      selectOption(positionOfElement("first"))
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectOption(positionOfElement("first")).click();
+      cy.checkAccessibility();
     });
 
     it.each(["1", "2", "3"])(
@@ -1066,9 +1035,8 @@ context("Tests for SimpleSelect component", () => {
     it("should pass accessibilty tests for SimpleSelect group component", () => {
       CypressMountWithProviders(<stories.SimpleSelectGroupComponent />);
 
-      selectText()
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectText().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for SimpleSelect listMaxHeight prop", () => {
@@ -1076,9 +1044,8 @@ context("Tests for SimpleSelect component", () => {
         <stories.SimpleSelectComponent listMaxHeight={200} />
       );
 
-      selectText()
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectText().click();
+      cy.checkAccessibility();
     });
 
     it.each([
@@ -1086,7 +1053,7 @@ context("Tests for SimpleSelect component", () => {
       ["bottom", "0px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "500px", "20px"],
       ["right", "200px", "0px", "0px", "500px"],
-    ])(
+    ] as [SimpleSelectProps["listPlacement"], string, string, string, string][])(
       "should pass accessibilty tests for SimpleSelect listPlacement prop",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -1099,9 +1066,8 @@ context("Tests for SimpleSelect component", () => {
           />
         );
 
-        selectText()
-          .click()
-          .then(() => cy.checkAccessibility());
+        selectText().click();
+        cy.checkAccessibility();
       }
     );
 
@@ -1110,7 +1076,7 @@ context("Tests for SimpleSelect component", () => {
       ["bottom", "600px", "0px", "0px", "20px"],
       ["left", "200px", "0px", "0px", "900px"],
       ["right", "200px", "0px", "500px", "20px"],
-    ])(
+    ] as [SimpleSelectProps["listPlacement"], string, string, string, string][])(
       "should pass accessibilty tests for SimpleSelect flipEnabled prop",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
@@ -1124,9 +1090,8 @@ context("Tests for SimpleSelect component", () => {
           />
         );
 
-        selectText()
-          .click()
-          .then(() => cy.checkAccessibility());
+        selectText().click();
+        cy.checkAccessibility();
       }
     );
 
@@ -1148,9 +1113,8 @@ context("Tests for SimpleSelect component", () => {
         <stories.SimpleSelectWithLongWrappingTextComponent />
       );
 
-      selectText()
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectText().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for SimpleSelect with virtual scrolling", () => {
@@ -1158,17 +1122,15 @@ context("Tests for SimpleSelect component", () => {
         <stories.SimpleSelectWithManyOptionsAndVirtualScrolling />
       );
 
-      selectText()
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectText().click();
+      cy.checkAccessibility();
     });
 
     it("should pass accessibilty tests for SimpleSelect in nested dialog", () => {
       CypressMountWithProviders(<stories.SimpleSelectNestedInDialog />);
 
-      selectText()
-        .click()
-        .then(() => cy.checkAccessibility());
+      selectText().click();
+      cy.checkAccessibility();
     });
   });
 });
