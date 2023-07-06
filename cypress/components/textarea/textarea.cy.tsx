@@ -328,8 +328,37 @@ context("Tests for Textarea component", () => {
       }
     );
 
-    it("should render Textarea with autoFocus prop", () => {
-      CypressMountWithProviders(<TextareaComponent autoFocus />);
+    it("should render Textarea with autoFocus prop and correct styling when focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(
+        <TextareaComponent autoFocus />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: false,
+        }
+      );
+
+      body().tab();
+      textareaChildren()
+        .should("be.focused")
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should render Textarea with autoFocus prop and correct styling when focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <TextareaComponent autoFocus />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       body().tab();
       textareaChildren()

@@ -56,6 +56,31 @@ const verifyBorderColor = (
   });
 
 context("Testing Switch component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<SwitchComponent />);
+      switchInput()
+        .focus()
+        .next()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(<SwitchComponent />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+      switchInput()
+        .focus()
+        .next()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
   describe("check props for Switch component", () => {
     it.each([
       CHARACTERS.STANDARD,
@@ -825,8 +850,6 @@ context("Testing Switch component", () => {
   it("renders with the expected border radius", () => {
     CypressMountWithProviders(<SwitchComponent />);
 
-    switchDataComponent()
-      .find("div > div > div > div > span")
-      .should("have.css", "border-radius", "32px");
+    switchInput().next().should("have.css", "border-radius", "32px");
   });
 });

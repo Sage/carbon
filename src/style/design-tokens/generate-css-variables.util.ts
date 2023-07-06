@@ -11,12 +11,12 @@ import { ThemeObject } from "../themes/base";
 
 export default (
   theme: ThemeObject | Record<string, string>,
-  roundedCornersOptOupt?: boolean
+  roundedCornersOptOut?: boolean
 ): string =>
   Object.entries(theme)
     .map(([key, value]) => {
       if (
-        roundedCornersOptOupt &&
+        roundedCornersOptOut &&
         key.startsWith("borderRadius") &&
         key !== "borderRadiusCircle"
       ) {

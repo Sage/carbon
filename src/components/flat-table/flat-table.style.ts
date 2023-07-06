@@ -11,10 +11,15 @@ import Box from "../box";
 import { StyledPagerContainer } from "../pager/pager.style";
 import { FlatTableProps } from "./flat-table.component";
 import { DrawerSidebarContextProps } from "../drawer";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const HEADER_OVERLAY_INCREMENT = 3;
 const STICKY_FOOTER_OVERLAY_INCREMENT = 1;
 const ROW_HEADER_OVERLAY_INCREMENT = 5;
+
+const oldFocusStyling = `
+  outline: 2px solid var(--colorsSemanticFocus500);
+`;
 
 const StyledTableContainer = styled.div<
   Pick<FlatTableProps, "width" | "overflowX">
@@ -118,20 +123,34 @@ const StyledFlatTableWrapper = styled(Box)<StyledFlatTableWrapperProps>`
       border-bottom-right-radius: var(--borderRadius100);
     `}
 
-  ${({ isInSidebar }) =>
+  ${({ isInSidebar, theme }) =>
     css`
       box-sizing: border-box;
 
       :focus {
-        outline: 2px solid var(--colorsSemanticFocus500);
+        /* istanbul ignore next */
+        ${theme.focusRedesignOptOut &&
+        /* istanbul ignore next */
+        css`
+          ${oldFocusStyling}
 
-        :not(:focus-visible) {
-          outline: none;
-        }
+          :not(:focus-visible) {
+            outline: none;
+          }
 
-        :focus-visible {
-          outline: 2px solid var(--colorsSemanticFocus500);
-        }
+          :focus-visible {
+            ${oldFocusStyling}
+          }
+        `}
+
+        ${!theme.focusRedesignOptOut &&
+        css`
+          ${addFocusStyling()}
+          :not(:focus-visible) {
+            outline: none;
+            box-shadow: none;
+          }
+        `}
       }
 
       ${isInSidebar

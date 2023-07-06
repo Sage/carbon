@@ -10,6 +10,7 @@ import {
 } from "draft-js";
 import { act } from "react-dom/test-utils";
 import { mount, ReactWrapper } from "enzyme";
+import { ThemeProvider } from "styled-components";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -168,44 +169,6 @@ describe("TextEditor", () => {
         },
         wrapper.find(StyledEditorContainer),
         { modifier: "div.public-DraftEditor-content" }
-      );
-    });
-
-    it("add gold outline when focused removes outline on blur", () => {
-      wrapper = render({ value: createContent("foo") });
-      act(() => {
-        wrapper
-          .find(Editor)
-          ?.props()
-          .onFocus?.({} as SyntheticEvent);
-      });
-      act(() => {
-        wrapper.update();
-      });
-
-      assertStyleMatch(
-        {
-          outline: "3px solid var(--colorsSemanticFocus500)",
-          outlineOffset: "1px",
-        },
-        wrapper.find(StyledEditorOutline)
-      );
-
-      act(() => {
-        wrapper
-          .find(Editor)
-          ?.props()
-          .onBlur?.({} as SyntheticEvent);
-      });
-      act(() => {
-        wrapper.update();
-      });
-
-      assertStyleMatch(
-        {
-          outline: "none",
-        },
-        wrapper.find(StyledEditorOutline)
       );
     });
 
@@ -1033,8 +996,8 @@ describe("TextEditor", () => {
 
       assertStyleMatch(
         {
-          outline: "3px solid var(--colorsSemanticFocus500)",
-          outlineOffset: "2px",
+          boxShadow:
+            "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
         },
         wrapper.find(StyledEditorOutline)
       );
@@ -1150,5 +1113,50 @@ describe("TextEditor", () => {
   afterAll(() => {
     // Clear Mock
     (window.scrollTo as jest.Mock).mockRestore();
+  });
+
+  /* These next two tests can be removed when we remove the focusRedesignOptOut prop */
+  it("does not apply focus styling when isFocused is true and focusRedesignOptOut is true", () => {
+    const focusRedesignWrapper = mount(
+      <ThemeProvider theme={{ focusRedesignOptOut: true }}>
+        <StyledEditorOutline isFocused />
+      </ThemeProvider>
+    );
+
+    assertStyleMatch(
+      {
+        outline: "3px solid var(--colorsSemanticFocus500)",
+      },
+      focusRedesignWrapper
+    );
+
+    assertStyleMatch(
+      {
+        outlineOffset: "1px",
+      },
+      focusRedesignWrapper.find("div")
+    );
+  });
+
+  it("applies error styling when hasError is true and focusRedesignOptOut and isForcused are also true", () => {
+    const focusRedesignWrapper = mount(
+      <ThemeProvider theme={{ focusRedesignOptOut: true }}>
+        <StyledEditorOutline isFocused hasError />
+      </ThemeProvider>
+    );
+
+    assertStyleMatch(
+      {
+        outline: "3px solid var(--colorsSemanticFocus500)",
+      },
+      focusRedesignWrapper
+    );
+
+    assertStyleMatch(
+      {
+        outlineOffset: "2px",
+      },
+      focusRedesignWrapper.find("div")
+    );
   });
 });

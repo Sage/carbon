@@ -43,6 +43,36 @@ const testPropValue = CHARACTERS.STANDARD;
 const keyToTrigger = ["downarrow", "uparrow", "Space", "Home", "End"] as const;
 
 context("Tests for SimpleSelect component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent />);
+      commonDataElementInputPreview()
+        .focus()
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      commonDataElementInputPreview()
+        .focus()
+        .parent()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
   describe("check props for SimpleSelect component", () => {
     it.each(testData)(
       "should render SimpleSelect label using %s special characters",

@@ -21,10 +21,14 @@ export interface CarbonProviderProps {
    *
    * NOTE - Will eventually be set to `false` by default in the future. */
   roundedCornersOptOut?: boolean;
+  focusRedesignOptOut?: boolean;
 }
 
 export const NewValidationContext = createContext<
-  Pick<CarbonProviderProps, "validationRedesignOptIn" | "roundedCornersOptOut">
+  Pick<
+    CarbonProviderProps,
+    "validationRedesignOptIn" | "roundedCornersOptOut" | "focusRedesignOptOut"
+  >
 >({});
 
 export const CarbonProvider = ({
@@ -32,16 +36,24 @@ export const CarbonProvider = ({
   theme = mintTheme,
   validationRedesignOptIn = false,
   roundedCornersOptOut = false,
+  focusRedesignOptOut = false,
 }: CarbonProviderProps) => {
-  const { roundedCornersOptOut: existingRoundedCornersOptOut } = useContext(
-    NewValidationContext
-  );
+  const {
+    roundedCornersOptOut: existingRoundedCornersOptOut,
+    focusRedesignOptOut: existingFocusRedesignOptOut,
+  } = useContext(NewValidationContext);
 
   const roundedCornersOptOutValue =
     existingRoundedCornersOptOut || roundedCornersOptOut;
+  const focusRedesignOptOutValue =
+    existingFocusRedesignOptOut || focusRedesignOptOut;
   return (
     <ThemeProvider
-      theme={{ ...theme, roundedCornersOptOut: roundedCornersOptOutValue }}
+      theme={{
+        ...theme,
+        roundedCornersOptOut: roundedCornersOptOutValue,
+        focusRedesignOptOut: focusRedesignOptOutValue,
+      }}
     >
       <CarbonScopedTokensProvider>
         <NewValidationContext.Provider

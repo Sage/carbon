@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+import baseTheme from "../../style/themes/base";
 
 export type ButtonToggleIconSizes = "small" | "large";
 
@@ -57,6 +59,10 @@ export interface StyledButtonToggleProps {
   allowDeselect?: boolean;
 }
 
+const oldFocusStyling = `
+  outline: solid 3px var(--colorsSemanticFocus500);
+`;
+
 const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   display: inline-flex;
   justify-content: center;
@@ -78,8 +84,13 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
 
   border: 1px solid var(--colorsActionMinor500);
 
-  :focus {
-    outline: 3px solid var(--colorsSemanticFocus500);
+  &:focus {
+    ${({ theme }) =>
+      `${
+        !theme.focusRedesignOptOut
+          ? addFocusStyling()
+          : /* istanbul ignore next */ oldFocusStyling
+      }`}
     z-index: 100;
   }
 
@@ -160,6 +171,8 @@ const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
       }
     `}
 `;
+
+StyledButtonToggle.defaultProps = { theme: baseTheme };
 
 export interface StyledButtonToggleWrapperProps {
   grouped?: boolean;

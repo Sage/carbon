@@ -26,7 +26,7 @@ import Box from "../box";
 import Pager from "../pager";
 
 export const Default: ComponentStory<typeof Drawer> = () => (
-  <div style={{ height: "200px" }}>
+  <Box height="200px">
     <Drawer
       expandedWidth="40%"
       animationDuration="0.5s"
@@ -41,7 +41,7 @@ export const Default: ComponentStory<typeof Drawer> = () => (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 
 export const CustomHeight: ComponentStory<typeof Drawer> = (args) => (
@@ -67,7 +67,7 @@ CustomHeight.args = {
 };
 
 export const BackgroundColorRed: ComponentStory<typeof Drawer> = (args) => (
-  <div style={{ height: "200px" }}>
+  <Box height="200px">
     <Drawer
       sidebar={
         <ul>
@@ -81,7 +81,7 @@ export const BackgroundColorRed: ComponentStory<typeof Drawer> = (args) => (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 BackgroundColorRed.args = {
   expandedWidth: "40%",
@@ -90,7 +90,7 @@ BackgroundColorRed.args = {
 };
 
 export const BackgroundColorWhite: ComponentStory<typeof Drawer> = (args) => (
-  <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
+  <Box height="200px" backgroundColor="#FF0000">
     <Drawer
       {...args}
       sidebar={
@@ -104,7 +104,7 @@ export const BackgroundColorWhite: ComponentStory<typeof Drawer> = (args) => (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 BackgroundColorWhite.args = {
   expandedWidth: "40%",
@@ -115,7 +115,7 @@ BackgroundColorWhite.args = {
 export const BackgroundColorTransparent: ComponentStory<typeof Drawer> = (
   args
 ) => (
-  <div style={{ height: "200px", backgroundColor: "#FF0000" }}>
+  <Box height="200px" backgroundColor="#FF0000">
     <Drawer
       sidebar={
         <ul>
@@ -129,7 +129,7 @@ export const BackgroundColorTransparent: ComponentStory<typeof Drawer> = (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 BackgroundColorTransparent.args = {
   expandedWidth: "40%",
@@ -138,7 +138,7 @@ BackgroundColorTransparent.args = {
 };
 
 export const Title: ComponentStory<typeof Drawer> = () => (
-  <div style={{ height: "200px" }}>
+  <Box height="200px">
     <Drawer
       expandedWidth="40%"
       animationDuration="0.5s"
@@ -154,11 +154,11 @@ export const Title: ComponentStory<typeof Drawer> = () => (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 
 export const WithControls: ComponentStory<typeof Drawer> = (args) => (
-  <div style={{ height: "200px" }}>
+  <Box height="200px">
     <Drawer
       showControls
       sidebar={
@@ -173,7 +173,7 @@ export const WithControls: ComponentStory<typeof Drawer> = (args) => (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 WithControls.args = {
   expandedWidth: "40%",
@@ -181,7 +181,7 @@ WithControls.args = {
 };
 
 export const WithStickyHeader: ComponentStory<typeof Drawer> = () => (
-  <div style={{ height: "400px" }}>
+  <Box height="400px">
     <Drawer
       title={<Typography variant="h2">Drawer title</Typography>}
       stickyHeader
@@ -251,11 +251,11 @@ export const WithStickyHeader: ComponentStory<typeof Drawer> = () => (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 
 export const WithFooter: ComponentStory<typeof Drawer> = () => (
-  <div style={{ height: "400px" }}>
+  <Box height="400px">
     <Drawer
       title={<Typography variant="h2">Drawer title</Typography>}
       stickyHeader
@@ -333,11 +333,11 @@ export const WithFooter: ComponentStory<typeof Drawer> = () => (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 
 export const WithStickyFooter: ComponentStory<typeof Drawer> = () => (
-  <div style={{ height: "400px" }}>
+  <Box height="400px">
     <Drawer
       title={<Typography variant="h2">Drawer title</Typography>}
       stickyHeader
@@ -416,7 +416,7 @@ export const WithStickyFooter: ComponentStory<typeof Drawer> = () => (
       content body content body content body content body content body content
       body content body
     </Drawer>
-  </div>
+  </Box>
 );
 
 export const CustomSidebar: ComponentStory<typeof Drawer> = (args) => {
@@ -557,7 +557,7 @@ export const CustomSidebar: ComponentStory<typeof Drawer> = (args) => {
     setCurrentPage(newPage);
   };
   return (
-    <div>
+    <Box>
       <Drawer
         defaultExpanded
         sidebar={
@@ -595,7 +595,7 @@ export const CustomSidebar: ComponentStory<typeof Drawer> = (args) => {
         content body content body content body content body content body content
         body content body
       </Drawer>
-    </div>
+    </Box>
   );
 };
 CustomSidebar.args = {
@@ -604,7 +604,7 @@ CustomSidebar.args = {
 };
 
 export const CustomContent: ComponentStory<typeof Drawer> = (args) => (
-  <div style={{ height: "200px" }}>
+  <Box height="200px">
     <Drawer
       sidebar={
         <ul>
@@ -702,7 +702,7 @@ export const CustomContent: ComponentStory<typeof Drawer> = (args) => (
         </FlatTableBody>
       </FlatTable>
     </Drawer>
-  </div>
+  </Box>
 );
 CustomContent.args = {
   expandedWidth: "20%",
@@ -715,12 +715,12 @@ export const DifferentExpandedWidth: ComponentStory<typeof Drawer> = () => {
     setIsExpanded(!isExpanded);
   }, [isExpanded]);
   return (
-    <div>
+    <Box>
       <p>
         Note: if you experience glitchy animation on `Drawer` component, please
         open canvas in new window (2nd icon in top right corner)
       </p>
-      <div style={{ height: "200px" }}>
+      <Box height="200px">
         <Drawer
           title={<h2>Controllage Usage Drawer</h2>}
           showControls
@@ -738,8 +738,8 @@ export const DifferentExpandedWidth: ComponentStory<typeof Drawer> = () => {
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
@@ -749,12 +749,12 @@ export const DifferentAnimationSpeed: ComponentStory<typeof Drawer> = () => {
     setIsExpanded(!isExpanded);
   }, [isExpanded]);
   return (
-    <div>
+    <Box>
       <p>
         Note: if you experience glitchy animation on `Drawer` component, please
         open canvas in new window (2nd icon in top right corner)
       </p>
-      <div style={{ height: "200px" }}>
+      <Box height="200px">
         <Drawer
           title={<h2>Controllage Usage Drawer</h2>}
           showControls
@@ -773,8 +773,8 @@ export const DifferentAnimationSpeed: ComponentStory<typeof Drawer> = () => {
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
@@ -784,12 +784,12 @@ export const Controlled: ComponentStory<typeof Drawer> = (args) => {
     setIsExpanded(!isExpanded);
   }, [isExpanded]);
   return (
-    <div>
+    <Box>
       <p>
         Note: if you experience glitchy animation on `Drawer` component, please
         open canvas in new window (2nd icon in top right corner)
       </p>
-      <div style={{ height: "200px" }}>
+      <Box height="200px">
         <Drawer
           backgroundColor="#FFF000"
           title={<h2>Controlled Usage Drawer</h2>}
@@ -808,8 +808,8 @@ export const Controlled: ComponentStory<typeof Drawer> = (args) => {
           content body content body content body content body content body
           content body content body
         </Drawer>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 Controlled.args = {
@@ -898,12 +898,12 @@ export const SideViewNavigation: ComponentStory<typeof Drawer> = () => {
   }, []);
   const showPickedUpData = (data?: dataPropTypes) => {
     if (!data) {
-      return <div>click on any row to show some data</div>;
+      return <Box>click on any row to show some data</Box>;
     }
     return (
-      <div style={{ paddingLeft: "24px", paddingTop: "24px" }}>
+      <Box style={{ paddingLeft: "24px", paddingTop: "24px" }}>
         <Heading title={data.ColumnA.name} divider={false} />
-      </div>
+      </Box>
     );
   };
   const createBodyData = (type: "ascending" | "descending" | false) => {
@@ -935,11 +935,11 @@ export const SideViewNavigation: ComponentStory<typeof Drawer> = () => {
         onClick={() => setPickedUpData(dataItem)}
       >
         <FlatTableCell>
-          <div>{dataItem.ColumnA.name}</div>
+          <Box>{dataItem.ColumnA.name}</Box>
         </FlatTableCell>
         <FlatTableCell>
           {dataItem.ColumnB.map((role) => (
-            <div key={role}>{`${role}, `}</div>
+            <Box key={role}>{`${role}, `}</Box>
           ))}
         </FlatTableCell>
       </FlatTableRow>
@@ -959,7 +959,7 @@ export const SideViewNavigation: ComponentStory<typeof Drawer> = () => {
         expanded={isExpanded}
         onChange={onChangeHandler}
         sidebar={
-          <div>
+          <Box>
             <NavigationContainer>
               <Search value="" placeholder="Search" searchWidth="40%" />
               <PopoverContainer
@@ -1001,7 +1001,7 @@ export const SideViewNavigation: ComponentStory<typeof Drawer> = () => {
               </FlatTableHead>
               <FlatTableBody>{createBodyData(sortType)}</FlatTableBody>
             </FlatTable>
-          </div>
+          </Box>
         }
       >
         {showPickedUpData(pickedUpData)}
@@ -1051,7 +1051,7 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
     },
   };
   return (
-    <div style={{ height: "200px" }}>
+    <Box height="200px">
       <Drawer
         expandedWidth="30%"
         sidebar={
@@ -1105,8 +1105,8 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
           </Tabs>
         }
       >
-        <div>
-          <div style={{ display: active === "tab-1" ? "block" : "none" }}>
+        <Box p={1}>
+          <Box display={active === "tab-1" ? "block" : "none"}>
             <Tabs extendedLine={false}>
               <Tab
                 errorMessage="error"
@@ -1145,8 +1145,8 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
                 Content 4
               </Tab>
             </Tabs>
-          </div>
-          <div style={{ display: active === "tab-2" ? "block" : "none" }}>
+          </Box>
+          <Box display={active === "tab-2" ? "block" : "none"}>
             <Tabs extendedLine={false}>
               <Tab
                 errorMessage="error"
@@ -1185,8 +1185,8 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
                 Content 8
               </Tab>
             </Tabs>
-          </div>
-          <div style={{ display: active === "tab-3" ? "block" : "none" }}>
+          </Box>
+          <Box display={active === "tab-3" ? "block" : "none"}>
             <Tabs extendedLine={false}>
               <Tab
                 errorMessage="error"
@@ -1225,8 +1225,8 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
                 Content 12
               </Tab>
             </Tabs>
-          </div>
-          <div
+          </Box>
+          <Box
             style={{
               display: active === "tab-4" ? "block" : "none",
               padding: "4px",
@@ -1249,8 +1249,8 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
               info={infos.four}
               onChange={() => setInfos({ ...infos, four: !infos.four })}
             />
-          </div>
-          <div style={{ display: active === "tab-5" ? "block" : "none" }}>
+          </Box>
+          <Box style={{ display: active === "tab-5" ? "block" : "none" }}>
             <Tabs extendedLine={false}>
               <Tab
                 errorMessage="error"
@@ -1289,8 +1289,8 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
                 Content 16
               </Tab>
             </Tabs>
-          </div>
-          <div style={{ display: active === "tab-6" ? "block" : "none" }}>
+          </Box>
+          <Box style={{ display: active === "tab-6" ? "block" : "none" }}>
             <Tabs extendedLine={false}>
               <Tab
                 errorMessage="error"
@@ -1329,9 +1329,9 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
                 Content 20
               </Tab>
             </Tabs>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </Drawer>
-    </div>
+    </Box>
   );
 };

@@ -9,6 +9,38 @@ import { keyCode } from "../../support/helper";
 const keyToTrigger = ["Space", "Enter"] as const;
 
 context("Tests for IconButton component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(
+        <IconButtonComponent aria-label={CHARACTERS.STANDARD} />
+      );
+
+      icon()
+        .parent()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <IconButtonComponent aria-label={CHARACTERS.STANDARD} />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      icon()
+        .parent()
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
   describe("check props for IconButton component", () => {
     it("should render IconButton with aria-label prop", () => {
       CypressMountWithProviders(

@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
+import baseTheme from "../../style/themes/base";
 
 const horizontalPaddingSizes = {
   small: 5,
@@ -18,7 +19,7 @@ type StyledSplitButtonToggleProps = {
 const StyledSplitButtonToggle = styled(
   StyledButton
 )<StyledSplitButtonToggleProps>`
-  ${({ buttonType, disabled, displayed, size }) => css`
+  ${({ buttonType, disabled, displayed, size, theme }) => css`
     border-top-left-radius: var(--borderRadius000);
     border-bottom-left-radius: var(--borderRadius000);
 
@@ -59,6 +60,9 @@ const StyledSplitButtonToggle = styled(
       margin-left: 0;
 
       ${buttonType === "secondary" &&
+      /* istanbul ignore next */
+      theme.focusRedesignOptOut &&
+      /* istanbul ignore next */
       css`
         &:focus {
           margin-left: -3px;
@@ -80,5 +84,9 @@ const StyledSplitButtonToggle = styled(
     }
   `}
 `;
+
+StyledSplitButtonToggle.defaultProps = {
+  theme: baseTheme,
+};
 
 export default StyledSplitButtonToggle;

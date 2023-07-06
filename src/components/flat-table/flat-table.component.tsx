@@ -253,7 +253,12 @@ export const FlatTable = ({
         >
           {caption ? <caption>{caption}</caption> : null}
           <FlatTableThemeContext.Provider
-            value={{ colorTheme, size, setSelectedId, selectedId }}
+            value={{
+              colorTheme,
+              size,
+              setSelectedId,
+              selectedId,
+            }}
           >
             {children}
           </FlatTableThemeContext.Provider>

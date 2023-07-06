@@ -75,6 +75,13 @@ const StyledLockIcon = styled(Icon)`
   margin-right: 0;
   height: 40px;
   min-width: 40px;
+
+  :focus {
+    border-bottom-right-radius: var(--borderRadius100);
+    border-top-right-radius: var(--borderRadius100);
+    border-bottom-left-radius: var(--borderRadius000);
+    border-top-left-radius: var(--borderRadius000);
+  }
 `;
 
 export { StyledPicklistItem, StyledButton, StyledLockIcon };

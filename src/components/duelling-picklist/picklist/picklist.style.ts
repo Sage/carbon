@@ -5,7 +5,7 @@ const StyledPicklist = styled(Box).attrs({ as: "ul" })`
   position: relative;
   list-style: none;
   margin: 0;
-  padding: 4px 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
   width: 100%;
   box-sizing: border-box;
   overflow-y: auto;

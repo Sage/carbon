@@ -7,10 +7,20 @@ import { sageTheme } from "../src/style/themes";
 import enGB from "../src/locales/en-gb";
 import "../src/style/fonts.css";
 
+export type HooksConfig = {
+  roundedCornersOptOut?: boolean;
+  focusRedesignOptOut?: boolean;
+};
+
 // Setup required providers on mounted component before running test. See https://playwright.dev/docs/test-components#hooks
-beforeMount(async ({ App }) => {
+beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
+  const { roundedCornersOptOut, focusRedesignOptOut } = hooksConfig || {};
   return (
-    <CarbonProvider theme={sageTheme}>
+    <CarbonProvider
+      theme={sageTheme}
+      roundedCornersOptOut={roundedCornersOptOut}
+      focusRedesignOptOut={focusRedesignOptOut}
+    >
       <GlobalStyle />
       <I18nProvider locale={enGB}>
         <App />

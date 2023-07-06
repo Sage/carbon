@@ -1,5 +1,7 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
+import type { HooksConfig } from "../../../playwright/index";
+
 import Loader from ".";
 import LoaderInsideButton from "./components.test-pw";
 import { LOADER_SIZES } from "./loader.config";
@@ -140,22 +142,43 @@ test.describe("check props for Loader component test", () => {
     mount,
     page,
   }) => {
-    await mount(<Loader />);
+    await mount<HooksConfig>(<Loader />, {
+      hooksConfig: { roundedCornersOptOut: false },
+    });
 
     const borderRadius = await getStyle(loader(page, 0), "border-radius");
 
     expect(borderRadius).toEqual("50%");
   });
 
-  test("should render Loader inside the Button component and be able to focus it", async ({
+  test("should render Loader inside the Button component and be able to focus it with focusRedesignOptOut set", async ({
     mount,
     page,
   }) => {
-    await mount(<LoaderInsideButton />);
+    await mount<HooksConfig>(<LoaderInsideButton />, {
+      hooksConfig: { focusRedesignOptOut: true },
+    });
 
     await loaderInsideButton(page).focus();
 
     await checkGoldenOutline(loaderInsideButton(page));
+  });
+
+  test("should render Loader inside the Button component and be able to focus it with focusRedesignOptOut not set", async ({
+    mount,
+    page,
+  }) => {
+    await mount<HooksConfig>(<LoaderInsideButton />, {
+      hooksConfig: { focusRedesignOptOut: false },
+    });
+
+    await loaderInsideButton(page).focus();
+
+    const focusStyle = await getStyle(loaderInsideButton(page), "box-shadow");
+
+    expect(focusStyle).toEqual(
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+    );
   });
 
   test.describe("Accessibility tests for Loader component", async () => {

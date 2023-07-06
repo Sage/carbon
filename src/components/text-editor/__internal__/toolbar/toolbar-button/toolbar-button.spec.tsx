@@ -52,15 +52,6 @@ describe("ToolbarButton", () => {
 
       assertStyleMatch(
         {
-          outline: "2px solid var(--colorsSemanticFocus500)",
-          outlineOffset: "-2px",
-        },
-        wrapper,
-        { modifier: ":focus" }
-      );
-
-      assertStyleMatch(
-        {
           width: "auto",
         },
         wrapper,

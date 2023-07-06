@@ -522,13 +522,12 @@ describe("ActionPopover", () => {
     expect(icon.prop("type")).toBe("ellipsis_vertical");
   });
 
-  it("has expected border radius when trigger button is focused", () => {
+  it("has expected border radius", () => {
     assertStyleMatch(
       {
         borderRadius: "var(--borderRadius050)",
       },
-      wrapper.find(StyledButtonIcon),
-      { modifier: ":focus" }
+      wrapper.find(StyledButtonIcon)
     );
   });
 

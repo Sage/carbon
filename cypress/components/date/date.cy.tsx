@@ -46,6 +46,7 @@ import { keyCode } from "../../support/helper";
 import {
   verifyRequiredAsteriskForLabel,
   assertCssValueIsApproximately,
+  checkGoldenOutline,
 } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
@@ -620,6 +621,111 @@ context("Test for DateInput component", () => {
         .should("equal", "")
         .and("not.equal", null);
       dateInput().should("have.attr", "value").and("be.empty");
+    });
+  });
+
+  describe("when focused", () => {
+    it("should have the expected styling when opt out flag is true", () => {
+      CypressMountWithProviders(<DateInputCustom />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+
+      dateInput()
+        .focus()
+        .then(($el) => {
+          checkGoldenOutline($el.parent());
+        });
+      dayPickerDay("Sun 1 May 2022")
+        .focus()
+        .then(($el) => {
+          checkGoldenOutline($el);
+        });
+      dayPickerDay("Mon 2 May 2022")
+        .focus()
+        .then(($el) => {
+          checkGoldenOutline($el);
+        });
+      dayPickerNavButtons(0)
+        .focus()
+        .then(($el) => {
+          checkGoldenOutline($el);
+        });
+      dayPickerNavButtons(1)
+        .focus()
+        .then(($el) => {
+          checkGoldenOutline($el);
+        });
+    });
+
+    it("should have the expected styling when opt out flag is false", () => {
+      CypressMountWithProviders(<DateInputCustom />);
+
+      dateInput().focus();
+
+      dateInputParent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+      dayPickerDay("Sun 1 May 2022")
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+      dayPickerDay("Mon 2 May 2022")
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+      dayPickerNavButtons(0)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+      dayPickerNavButtons(1)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+  });
+
+  describe("rounded corners", () => {
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<DateInputCustom />);
+      dateInputParent().click();
+
+      dateInput().should("have.css", "border-radius", "4px");
+      dayPickerDay("Sun 1 May 2022").should(
+        "have.css",
+        "border-radius",
+        "32px"
+      );
+      dayPickerDay("Mon 2 May 2022").should(
+        "have.css",
+        "border-radius",
+        "32px"
+      );
+      dayPickerNavButtons(0).should("have.css", "border-radius", "4px");
+      dayPickerNavButtons(1).should("have.css", "border-radius", "4px");
     });
   });
 

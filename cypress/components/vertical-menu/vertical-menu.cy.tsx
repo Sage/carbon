@@ -380,8 +380,10 @@ context("Testing Vertical Menu component", () => {
       cy.contains("Active item").should("be.focused");
     });
 
-    it("should check the golden outline", () => {
-      CypressMountWithProviders(<Default />);
+    it("should check the focus styling, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(<Default />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
 
       verticalMenuItem().tab();
       verticalMenuItem()
@@ -389,6 +391,20 @@ context("Testing Vertical Menu component", () => {
         .then(($el) => {
           checkGoldenOutline($el);
         });
+    });
+
+    it("should check the focus styling, focusRedesignOptOut false", () => {
+      CypressMountWithProviders(<Default />);
+
+      verticalMenuItem().tab();
+      verticalMenuItem()
+        .eq(1)
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
     });
 
     describe("VerticalMenuFullScreen test background scroll when tabbing", () => {

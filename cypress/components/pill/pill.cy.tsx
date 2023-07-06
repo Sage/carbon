@@ -28,6 +28,56 @@ const large = "L";
 const extraLarge = "XL";
 
 context("Testing Pill component", () => {
+  describe("when focused", () => {
+    it.each(["S", "M", "L", "XL"] as PillProps["size"][])(
+      "should have the expected styling when size is %s and focusRedesignOptOut is false",
+      (size) => {
+        CypressMountWithProviders(
+          <PillComponent size={size} onDelete={() => {}}>
+            Pill
+          </PillComponent>
+        );
+
+        pillCloseIcon()
+          .focus()
+          .then(() => {
+            pillCloseIcon()
+              .should(
+                "have.css",
+                "box-shadow",
+                "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+              )
+              .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+          });
+      }
+    );
+
+    it.each(["S", "M", "L", "XL"] as PillProps["size"][])(
+      "should have the expected styling when size is %s and focusRedesignOptOut is true",
+      (size) => {
+        CypressMountWithProviders(
+          <PillComponent size={size} onDelete={() => {}}>
+            Pill
+          </PillComponent>,
+          undefined,
+          undefined,
+          {
+            focusRedesignOptOut: true,
+          }
+        );
+        pillCloseIcon()
+          .focus()
+          .then(() => {
+            pillCloseIcon().should(
+              "have.css",
+              "box-shadow",
+              "rgb(255, 188, 25) 0px 0px 0px 3px"
+            );
+          });
+      }
+    );
+  });
+
   describe("should render Pill component with props", () => {
     it.each(specialCharacters)(
       "should render Pill using %s as label",

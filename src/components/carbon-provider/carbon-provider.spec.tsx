@@ -13,6 +13,7 @@ describe("CarbonProvider", () => {
     expect(wrapper.find(ThemeProvider).prop("theme")).toStrictEqual({
       ...mintTheme,
       roundedCornersOptOut: false,
+      focusRedesignOptOut: false,
     });
     expect(wrapper.find(ThemeProvider).text()).toBe("children");
   });
@@ -25,6 +26,7 @@ describe("CarbonProvider", () => {
     expect(wrapper.find(ThemeProvider).prop("theme")).toStrictEqual({
       ...aegeanTheme,
       roundedCornersOptOut: false,
+      focusRedesignOptOut: false,
     });
   });
 });

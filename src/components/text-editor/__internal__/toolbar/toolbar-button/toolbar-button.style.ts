@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import StyledIcon from "../../../../icon/icon.style";
+import { baseTheme } from "../../../../../style/themes";
+import addFocusStyling from "../../../../../style/utils/add-focus-styling";
 
 const StyledToolbarButton = styled.button.attrs({ type: "button" })<{
   isActive?: boolean;
@@ -16,11 +18,22 @@ const StyledToolbarButton = styled.button.attrs({ type: "button" })<{
     width: auto;
   }
 
-  ${({ isActive }) => css`
+  ${({ isActive, theme }) => css`
     :focus,
     :active {
-      outline: 2px solid var(--colorsSemanticFocus500);
-      outline-offset: -2px;
+      z-index: 1;
+      postion: relative;
+      ${theme.focusRedesignOptOut &&
+      /* istanbul ignore next */
+      css`
+        outline: 2px solid var(--colorsSemanticFocus500);
+        outline-offset: -2px;
+      `}
+
+      ${!theme.focusRedesignOptOut &&
+      css`
+        ${addFocusStyling()}
+      `}
       border-radius: var(--borderRadius050);
     }
 
@@ -35,5 +48,7 @@ const StyledToolbarButton = styled.button.attrs({ type: "button" })<{
     `}
   `}
 `;
+
+StyledToolbarButton.defaultProps = { theme: baseTheme };
 
 export default StyledToolbarButton;

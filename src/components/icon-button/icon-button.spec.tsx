@@ -151,16 +151,6 @@ describe("IconButton component", () => {
       );
     });
 
-    it("renders correct style for focused IconButton", () => {
-      assertStyleMatch(
-        {
-          outline: "solid 3px var(--colorsSemanticFocus500)",
-        },
-        wrapper.find(IconButton),
-        { modifier: ":focus" }
-      );
-    });
-
     it("renders with expected border radius", () => {
       assertStyleMatch(
         {
