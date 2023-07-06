@@ -1,3 +1,10 @@
+### [119.5.1](https://github.com/Sage/carbon/compare/v119.5.0...v119.5.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** ensure menu-divider is not rendered for empty children ([6c3b08e](https://github.com/Sage/carbon/commit/6c3b08eac539827aa8f584092e63e7b5ec6a2d64)), closes [#6099](https://github.com/Sage/carbon/issues/6099)
+
 ## [119.5.0](https://github.com/Sage/carbon/compare/v119.4.2...v119.5.0) (2023-07-05)
 
 
