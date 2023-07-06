@@ -107,8 +107,8 @@ export const ButtonToggle = ({
     isInGroup,
     firstButton,
     childButtonCallbackRef,
+    variant,
   } = useContext(ButtonToggleGroupContext);
-
   const callbackRef = (element: HTMLButtonElement | null) => {
     buttonRef.current = element;
     if (childButtonCallbackRef) {
@@ -194,6 +194,7 @@ export const ButtonToggle = ({
         buttonIcon={buttonIcon}
         buttonIconSize={buttonIconSize}
         data-element="button-toggle-button"
+        variant={variant}
         disabled={disabled}
         id={inputGuid.current}
         onMouseEnter={onMouseEnter}

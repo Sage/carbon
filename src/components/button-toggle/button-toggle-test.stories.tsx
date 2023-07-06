@@ -41,6 +41,34 @@ export const DefaultStory = () => {
   );
 };
 
+export const ButtonToggleGroupMinorStory = () => {
+  const [value, setValue] = useState<string | undefined>("bar");
+  function onChangeHandler(
+    event: React.MouseEvent<HTMLButtonElement>,
+    selectedButtonValue?: string
+  ) {
+    setValue(selectedButtonValue);
+    action("value set")(selectedButtonValue);
+  }
+  return (
+    <ButtonToggleGroup
+      id="button-toggle-group"
+      name="button-toggle-group"
+      label="Button Toggle Group test"
+      labelHelp="help message"
+      helpAriaLabel="Help"
+      fieldHelp="field help mesage"
+      onChange={onChangeHandler}
+      value={value}
+      variant="minor"
+    >
+      <ButtonToggle value="foo">Foo</ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+      <ButtonToggle value="baz">Baz</ButtonToggle>
+    </ButtonToggleGroup>
+  );
+};
+
 export const WithoutGroup = (args: Partial<ButtonToggleProps>) => (
   <div>
     <ButtonToggle

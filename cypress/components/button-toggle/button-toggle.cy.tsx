@@ -323,6 +323,25 @@ context("Testing Button-Toggle component", () => {
     });
   });
 
+  describe("should render Button Toggle with variant prop", () => {
+    it("should render Button Toggle with variant prop set to default value", () => {
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponent
+          id="button-toggle-group-id"
+          variant="default"
+        />
+      );
+    });
+    it("should render Button Toggle with variant prop set to minor value", () => {
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponent
+          id="button-toggle-group-id"
+          variant="minor"
+        />
+      );
+    });
+  });
+
   describe("Accessibility tests for Button-Toggle component", () => {
     it("should pass accessibility tests for Button-Toggle default story", () => {
       CypressMountWithProviders(<ButtonToggleComponent />);

@@ -3,6 +3,7 @@ import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
+import StyledButton from "../button/button.style";
 
 export type ButtonToggleIconSizes = "small" | "large";
 
@@ -57,6 +58,7 @@ export interface StyledButtonToggleProps {
   grouped?: boolean;
   /** set this to true to allow the button to be deselected when already selected */
   allowDeselect?: boolean;
+  variant?: "default" | "minor";
 }
 
 const oldFocusStyling = `
@@ -137,6 +139,31 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
       }
       cursor: not-allowed;
     `};
+
+  ${({ variant }) =>
+    variant === "minor" &&
+    css`
+      & ${StyledIcon} {
+        color: var(--colorsActionMinor500);
+      }
+
+      color: var(--colorsActionMinor500);
+      border: 1px solid var(--colorsActionMinor500);
+
+      &:focus {
+        border: 4px solid var(--colorsActionMinor500);
+        background-color: transparent;
+      }
+
+      :hover {
+        color: var(--colorsActionMinorYang100);
+        background-color: var(--colorsActionMinor600);
+        border-color: var(--colorsActionMinor500);
+        & + ${StyledButton} {
+          border-left-color: var(--colorsActionMinor500);
+        }
+      }
+    `}
 `;
 
 const iconFontSizes = {

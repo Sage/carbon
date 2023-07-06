@@ -49,16 +49,28 @@ import { ButtonToggle, ButtonToggleGroup } from "carbon-react/lib/components/but
   <Story name="default" story={stories.Default} />
 </Canvas>
 
+<Canvas>
+  <Story name="default minor" story={stories.DefaultMinor} />
+</Canvas>
+
 ### Default with wrapped text
 
 <Canvas>
   <Story name="default with wrapped text" story={stories.DefaultWrappedText} />
 </Canvas>
 
+<Canvas>
+  <Story name="default with wrapped text minor" story={stories.DefaultWrappedTextMinor} />
+</Canvas>
+
 ### Controlled
 
 <Canvas>
   <Story name="controlled" story={groupStories.Controlled} />
+</Canvas>
+
+<Canvas>
+  <Story name="controlled minor" story={groupStories.ControlledMinor} />
 </Canvas>
 
 ### With aria-label
@@ -78,16 +90,28 @@ When the `fullWidth` prop is `true`, the buttons will expand in size to take up 
   <Story name="fullWidth" story={groupStories.FullWidth} />
 </Canvas>
 
+<Canvas>
+  <Story name="fullWidth minor" story={groupStories.FullWidthMinor} />
+</Canvas>
+
 ### With field help inline
 
 <Canvas>
   <Story name="fieldhelp inline" story={groupStories.FieldHelp} />
 </Canvas>
 
+<Canvas>
+  <Story name="fieldhelp inline minor" story={groupStories.FieldHelpMinor} />
+</Canvas>
+
 ### With label inline
 
 <Canvas>
   <Story name="label inline" story={groupStories.LabelInline} />
+</Canvas>
+
+<Canvas>
+  <Story name="label inline minor" story={groupStories.LabelInlineMinor} />
 </Canvas>
 
 ### Allowing deselection
@@ -101,10 +125,18 @@ If you use this, you should include text in the `fieldHelp` prop which makes cle
   <Story name="allowDeselect" story={groupStories.AllowDeselection} />
 </Canvas>
 
+<Canvas>
+  <Story name="allowDeselect minor" story={groupStories.AllowDeselectionMinor} />
+</Canvas>
+
 ### with small icon
 
 <Canvas>
   <Story name="with small icon" story={stories.DefaultSmallIcon} />
+</Canvas>
+
+<Canvas>
+  <Story name="with small icon minor" story={stories.DefaultSmallIconMinor} />
 </Canvas>
 
 ### with large icon
@@ -113,12 +145,20 @@ If you use this, you should include text in the `fieldHelp` prop which makes cle
   <Story name="with large icon" story={stories.DefaultLargeIcon} />
 </Canvas>
 
+<Canvas>
+  <Story name="with large icon minor" story={stories.DefaultLargeIconMinor} />
+</Canvas>
+
 ### Icon only
 
 While we do not advocate the use of icon-only buttons for accessibility reasons, the `aria-label` or `aria-labelledby` props can be used with `buttonIcon` so assistive techniques are aware of the action that will be taken when the component pressed.
 
 <Canvas>
   <Story name="icon only" story={stories.iconOnly} />
+</Canvas>
+
+<Canvas>
+  <Story name="icon only" story={stories.iconOnlyMinor} />
 </Canvas>
 
 ### Small
@@ -133,10 +173,18 @@ While we do not advocate the use of icon-only buttons for accessibility reasons,
   <Story name="small with small icon" story={stories.smallSmallIcon} />
 </Canvas>
 
+<Canvas>
+  <Story name="small with small icon minor" story={stories.smallSmallIconMinor} />
+</Canvas>
+
 ### Small with large icon
 
 <Canvas>
   <Story name="small with large icon" story={stories.smallLargeIcon} />
+</Canvas>
+
+<Canvas>
+  <Story name="small with large icon minor" story={stories.smallLargeIconMinor} />
 </Canvas>
 
 ### Large
@@ -145,10 +193,18 @@ While we do not advocate the use of icon-only buttons for accessibility reasons,
   <Story name="large" story={stories.large} />
 </Canvas>
 
+<Canvas>
+  <Story name="large minor" story={stories.largeMinor} />
+</Canvas>
+
 ### Large with small icon
 
 <Canvas>
   <Story name="large with small icon" story={stories.largeSmallIcon} />
+</Canvas>
+
+<Canvas>
+  <Story name="large with small icon minor" story={stories.largeSmallIconMinor} />
 </Canvas>
 
 ### Large with large icon
@@ -157,16 +213,28 @@ While we do not advocate the use of icon-only buttons for accessibility reasons,
   <Story name="large with large icon" story={stories.largeLargeIcon} />
 </Canvas>
 
+<Canvas>
+  <Story name="large with large icon minor" story={stories.largeLargeIconMinor} />
+</Canvas>
+
 ### Disabled
 
 <Canvas>
   <Story name="disabled" story={stories.disabled} />
 </Canvas>
 
+<Canvas>
+  <Story name="disabled minor" story={stories.disabledMinor} />
+</Canvas>
+
 ### Grouped
 
 <Canvas>
   <Story name="grouped" story={stories.grouped} />
+</Canvas>
+
+<Canvas>
+  <Story name="grouped minor" story={stories.groupedMinor} />
 </Canvas>
 
 ## Props

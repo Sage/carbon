@@ -331,6 +331,28 @@ describe("ButtonToggleGroup", () => {
     });
   });
 
+  describe("renders with variant prop", () => {
+    it("renders with variant prop, which is set to default", () => {
+      const wrapper = mount(
+        <ButtonToggleGroup variant="default" id="button-toggle-group-id">
+          <ButtonToggle>Foo</ButtonToggle>
+        </ButtonToggleGroup>
+      );
+      expect(wrapper.find(StyledButtonToggle).prop("variant")).toEqual(
+        "default"
+      );
+    });
+
+    it("renders with variant prop, which is set to minor", () => {
+      const wrapper = mount(
+        <ButtonToggleGroup variant="minor" id="button-toggle-group-id">
+          <ButtonToggle>Foo</ButtonToggle>
+        </ButtonToggleGroup>
+      );
+      expect(wrapper.find(StyledButtonToggle).prop("variant")).toEqual("minor");
+    });
+  });
+
   describe("keyboard navigation", () => {
     let wrapper: ReactWrapper;
     let container: HTMLElement | null;
