@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
+import StyledButton from "../button/button.style";
 
 export type ButtonToggleIconSizes = "small" | "large";
 
@@ -55,6 +56,7 @@ export interface StyledButtonToggleProps {
   grouped?: boolean;
   /** set this to true to allow the button to be deselected when already selected */
   allowDeselect?: boolean;
+  variant?: "default" | "minor";
 }
 
 const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
@@ -64,6 +66,23 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   position: relative;
   box-sizing: border-box;
   max-width: 100%;
+
+  ${(props) =>
+    props.variant === "minor" &&
+    css`
+      & ${StyledIcon} {
+        color: var(--colorsActionMinor500);
+      }
+
+      :hover {
+        color: var(--colorsActionMinor500);
+        background-color: transparent;
+        border-color: var(--colorsActionMinor500);
+        & + ${StyledButton} {
+          border-left-color: var(--colorsActionMinor500);
+        }
+      }
+    `}
 
   ${({ size }) => css`
     height: ${heightConfig[size]}px;

@@ -45,6 +45,7 @@ export interface ButtonToggleProps extends Partial<StyledButtonToggleProps> {
   pressed?: boolean;
   /** An optional string by which to identify the button in either an onClick handler, or an onChange handler on the parent ButtonToggleGroup. */
   value?: string;
+  variant?: "default" | "minor";
 }
 
 export const ButtonToggle = ({
@@ -66,6 +67,7 @@ export const ButtonToggle = ({
   pressed,
   size = "medium",
   value,
+  variant = "default",
 }: ButtonToggleProps) => {
   invariant(
     !!(children || buttonIcon),
@@ -194,6 +196,7 @@ export const ButtonToggle = ({
         buttonIcon={buttonIcon}
         buttonIconSize={buttonIconSize}
         data-element="button-toggle-button"
+        variant={variant}
         disabled={disabled}
         id={inputGuid.current}
         onMouseEnter={onMouseEnter}
