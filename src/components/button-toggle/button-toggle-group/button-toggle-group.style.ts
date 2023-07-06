@@ -31,24 +31,6 @@ const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
 
   display: flex;
 
-  ${StyledButtonToggle}:not(:first-of-type):not(:last-of-type) {
-    border-radius: var(--borderRadius000);
-  }
-
-  ${StyledButtonToggle}:first-of-type ${StyledButtonToggle} {
-    border-top-left-radius: var(--borderRadius400);
-    border-bottom-left-radius: var(--borderRadius400);
-    border-top-right-radius: var(--borderRadius000);
-    border-bottom-right-radius: var(--borderRadius000);
-  }
-
-  ${StyledButtonToggle}:last-of-type ${StyledButtonToggle} {
-    border-top-left-radius: var(--borderRadius000);
-    border-bottom-left-radius: var(--borderRadius000);
-    border-top-right-radius: var(--borderRadius400);
-    border-bottom-right-radius: var(--borderRadius400);
-  }
-
   ${({ fullWidth }) =>
     fullWidth &&
     css`

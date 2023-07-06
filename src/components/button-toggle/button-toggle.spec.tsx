@@ -400,7 +400,7 @@ describe("ButtonToggle", () => {
   it("renders with the expected border radius styling", () => {
     assertStyleMatch(
       {
-        borderRadius: "var(--borderRadius400)",
+        borderRadius: "var(--borderRadius050)",
       },
       mount(<ButtonToggle>toggle</ButtonToggle>).find(
         StyledButtonToggleWrapper
