@@ -12,12 +12,16 @@ const getStories = () =>
   });
 
 module.exports = {
+  framework: "@storybook/react",
   stories: (list) => [
     ...list,
     "./welcome-page/welcome.stories.js",
     "../docs/*.stories.mdx",
     ...getStories(),
   ],
+  core: {
+    disableTelemetry: true,
+  },
   addons: [
     "@storybook/addon-actions",
     "@storybook/addon-docs",
