@@ -1,7 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { ButtonProps } from "../button";
-import ButtonMinor from "./button-minor.component";
+import ButtonMinor, { ButtonMinorProps } from "./button-minor.component";
 import { ICONS } from "../icon/icon-config";
 import {
   BUTTON_SIZES,
@@ -55,16 +54,16 @@ const commonArgsButtonMinor = {
   href: undefined,
   iconPosition: "before",
 };
-export const DefaultStory = (args: ButtonProps) => (
-  <ButtonMinor onClick={action("click")} {...args}>
+export const DefaultStory = (props: ButtonMinorProps) => (
+  <ButtonMinor onClick={action("click")} {...props}>
     Example Button
   </ButtonMinor>
 );
-export const Default = (args: ButtonProps) => <ButtonMinor {...args} />;
-export const ButtonMinorCustom = (props: ButtonProps) => (
+export const Default = (props: ButtonMinorProps) => <ButtonMinor {...props} />;
+export const ButtonMinorCustom = (props: ButtonMinorProps) => (
   <ButtonMinor {...props}>Example Button</ButtonMinor>
 );
-export const ButtonMinorDifferentTypes = (props: ButtonProps) => {
+export const ButtonMinorDifferentTypes = (props: ButtonMinorProps) => {
   return (
     <div>
       <ButtonMinor buttonType="primary" {...props}>
