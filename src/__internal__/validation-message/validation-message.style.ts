@@ -9,7 +9,7 @@ const StyledValidationMessage = styled.p<StyledValidationMessageProps>`
     color: ${isWarning
       ? "var(--colorsSemanticCaution600)"
       : "var(--colorsSemanticNegative500)"};
-    font-weight: ${isWarning ? "regular" : "bold"};
+    font-weight: ${isWarning ? "normal" : "bold"};
     margin-top: 0px;
     margin-bottom: 8px;
   `}
