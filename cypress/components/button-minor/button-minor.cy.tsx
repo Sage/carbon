@@ -1,5 +1,5 @@
 import React from "react";
-
+import { ButtonMinorProps } from "../../../src/components/button-minor";
 import {
   Default as ButtonMinor,
   ButtonMinorCustom,
@@ -20,6 +20,7 @@ import { cyRoot, icon, tooltipPreview } from "../../locators";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
+import { keyCode } from "../../support/helper";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -27,7 +28,15 @@ const buttonTypesAndBackgrounds = [
   ["1st", "primary", 0],
   ["2nd", "secondary", 1],
   ["3rd", "tertiary", 2],
-];
+] as const;
+
+const keysToPress = [
+  "leftarrow",
+  "rightarrow",
+  "uparrow",
+  "downarrow",
+  "Enter",
+] as const;
 
 const destructive = "rgb(162, 44, 59)";
 const transparent = "rgba(0, 0, 0, 0)";
@@ -106,16 +115,25 @@ context("Test for Button Minor component", () => {
       [BUTTON_SIZES[0], 32],
       [BUTTON_SIZES[1], 40],
       [BUTTON_SIZES[2], 48],
-    ])("should render Button Minor in %s size", (size, minHeight) => {
-      CypressMountWithProviders(<ButtonMinor size={size}>{size}</ButtonMinor>);
+    ] as [ButtonMinorProps["size"], number][])(
+      "should render Button Minor in %s size",
+      (size, minHeight) => {
+        CypressMountWithProviders(
+          <ButtonMinor size={size}>{size}</ButtonMinor>
+        );
 
-      buttonMinorComponent().should("have.css", "min-height", `${minHeight}px`);
-    });
+        buttonMinorComponent().should(
+          "have.css",
+          "min-height",
+          `${minHeight}px`
+        );
+      }
+    );
 
     it.each([
       [BUTTON_ICON_POSITIONS[0], "right"],
       [BUTTON_ICON_POSITIONS[1], "left"],
-    ])(
+    ] as [ButtonMinorProps["iconPosition"], string][])(
       "should set position to %s for icon in a button",
       (iconPosition, margin) => {
         CypressMountWithProviders(
@@ -149,7 +167,7 @@ context("Test for Button Minor component", () => {
     it.each([
       [true, "white-space"],
       [false, "flex-wrap"],
-    ])(
+    ] as [ButtonMinorProps["noWrap"], string][])(
       "should render the Button Minor text with noWrap prop set to %s",
       (booleanState, cssValue) => {
         const assertion = booleanState ? "nowrap" : "wrap";
@@ -165,7 +183,11 @@ context("Test for Button Minor component", () => {
       }
     );
 
-    it.each(buttonTypesAndBackgrounds)(
+    it.each([...buttonTypesAndBackgrounds] as [
+      string,
+      ButtonMinorProps["buttonType"],
+      number
+    ][])(
       "should check Button Minor is disabled for the %s button",
       (position, type, index) => {
         CypressMountWithProviders(<ButtonMinorDifferentTypes disabled />);
@@ -176,7 +198,11 @@ context("Test for Button Minor component", () => {
       }
     );
 
-    it.each(buttonTypesAndBackgrounds)(
+    it.each([...buttonTypesAndBackgrounds] as [
+      string,
+      ButtonMinorProps["buttonType"],
+      number
+    ][])(
       "should check Button Minor is enabled for the %s button",
       (position, type, index) => {
         CypressMountWithProviders(<ButtonMinorDifferentTypes />);
@@ -185,7 +211,11 @@ context("Test for Button Minor component", () => {
       }
     );
 
-    it.each(buttonTypesAndBackgrounds)(
+    it.each([...buttonTypesAndBackgrounds] as [
+      string,
+      ButtonMinorProps["buttonType"],
+      number
+    ][])(
       "should check Button Minor is destructive for the %s button when buttonType is %s",
       (_, type, index) => {
         CypressMountWithProviders(
@@ -225,59 +255,46 @@ context("Test for Button Minor component", () => {
   });
 
   describe("check events for Button Minor component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: ButtonMinorProps["onClick"] = cy.stub().as("onClick");
+
       CypressMountWithProviders(<ButtonMinorCustom onClick={callback} />);
 
-      buttonMinorComponent()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonMinorComponent().click();
+
+      cy.get("@onClick").should("be.calledOnce");
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: ButtonMinorProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(<ButtonMinorCustom onBlur={callback} />);
 
-      buttonMinorComponent()
-        .focus()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonMinorComponent().focus().blur();
+      cy.get("@onBlur").should("be.calledOnce");
     });
 
-    it.each(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Enter"])(
-      "should call onKeyDown callback when a keydown event is triggered",
+    it.each([...keysToPress])(
+      "should call onKeyDown callback when a keydown %s event is triggered",
       (key) => {
+        const callback: ButtonMinorProps["onKeyDown"] = cy
+          .stub()
+          .as("onKeyDown");
+
         CypressMountWithProviders(<ButtonMinorCustom onKeyDown={callback} />);
 
-        buttonMinorComponent()
-          .focus()
-          .realPress(key)
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        buttonMinorComponent().focus().trigger("keydown", keyCode(key));
+        cy.get("@onKeyDown").should("be.calledOnce");
       }
     );
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: ButtonMinorProps["onFocus"] = cy.stub().as("onFocus");
+
       CypressMountWithProviders(<ButtonMinorCustom onFocus={callback} />);
 
-      buttonMinorComponent()
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      buttonMinorComponent().focus();
+      cy.get("@onFocus").should("be.calledOnce");
     });
   });
 

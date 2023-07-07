@@ -1,3 +1,15 @@
+## [119.6.0](https://github.com/Sage/carbon/compare/v119.5.1...v119.6.0) (2023-07-06)
+
+
+### Features
+
+* **switch:** add support for new validation ([800841f](https://github.com/Sage/carbon/commit/800841f7ada21f3b34b001115c48c1c10149a217))
+
+
+### Bug Fixes
+
+* **validation-message:** fix incorrect syntax for font-weight ([69d02ca](https://github.com/Sage/carbon/commit/69d02cae8f9b4c892f550a01579c4db7a4ac75c6))
+
 ### [119.5.1](https://github.com/Sage/carbon/compare/v119.5.0...v119.5.1) (2023-07-06)
 
 
