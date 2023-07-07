@@ -114,7 +114,7 @@ context("Testing Accordion component", () => {
       }
     );
 
-    it.each([["left"], ["right"]])(
+    it.each(["left", "right"])(
       "should set Accordion iconAlign to %s",
       (iconAlign) => {
         CypressMountWithProviders(<AccordionComponent iconAlign={iconAlign} />);

@@ -35,7 +35,7 @@ describe("ValidationMessage component", () => {
           color: error
             ? "var(--colorsSemanticNegative500)"
             : "var(--colorsSemanticCaution600)",
-          fontWeight: error ? "bold" : "regular",
+          fontWeight: error ? "bold" : "normal",
           marginTop: "0px",
           marginBottom: "8px",
         },
