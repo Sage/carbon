@@ -6,28 +6,28 @@ import { ButtonToggle, ButtonToggleGroup } from ".";
 import Box from "../box";
 
 export const Default: ComponentStory<typeof ButtonToggle> = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Default example">
-    <ButtonToggle variant="default" value="foo">
+  <ButtonToggleGroup variant="default" id="button-toggle-group-id" label="Default example">
+    <ButtonToggle value="foo">
       Foo
     </ButtonToggle>
-    <ButtonToggle variant="default" value="bar">
+    <ButtonToggle value="bar">
       Bar
     </ButtonToggle>
-    <ButtonToggle variant="default" value="baz">
+    <ButtonToggle value="baz">
       Baz
     </ButtonToggle>
   </ButtonToggleGroup>
 );
 
 export const DefaultMinor: ComponentStory<typeof ButtonToggle> = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Default example">
-    <ButtonToggle variant="minor" value="foo">
+  <ButtonToggleGroup variant="minor" id="button-toggle-group-id" label="Default example">
+    <ButtonToggle value="foo">
       Foo
     </ButtonToggle>
-    <ButtonToggle variant="minor" value="bar">
+    <ButtonToggle value="bar">
       Bar
     </ButtonToggle>
-    <ButtonToggle variant="minor" value="baz">
+    <ButtonToggle value="baz">
       Baz
     </ButtonToggle>
   </ButtonToggleGroup>

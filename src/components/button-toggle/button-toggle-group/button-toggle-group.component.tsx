@@ -63,6 +63,7 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   helpAriaLabel?: string;
   /** set this to true to allow the buttons within the group to be deselected when already selected, leaving no selected button */
   allowDeselect?: boolean;
+  variant?: "default" | "minor";
 }
 
 type ButtonToggleGroupContextType = {
@@ -79,6 +80,7 @@ type ButtonToggleGroupContextType = {
   isInGroup: boolean;
   firstButton?: HTMLButtonElement;
   childButtonCallbackRef?: (button: HTMLButtonElement | null) => void;
+  variant?: "default" | "minor";
 };
 
 let deprecateNameWarnTriggered = false;
@@ -92,6 +94,7 @@ export const ButtonToggleGroupContext = createContext<ButtonToggleGroupContextTy
     pressedButtonValue: undefined,
     allowDeselect: false,
     isInGroup: false,
+    variant: "minor"
   }
 );
 
@@ -111,6 +114,7 @@ const ButtonToggleGroup = ({
   name,
   onChange,
   value,
+  variant,
   "data-component": dataComponent = "button-toggle-group",
   "data-element": dataElement,
   "data-role": dataRole,
@@ -237,6 +241,7 @@ const ButtonToggleGroup = ({
               isInGroup: true,
               firstButton,
               childButtonCallbackRef,
+              variant: variant,
             }}
           >
             <StyledButtonToggleGroupWrapper

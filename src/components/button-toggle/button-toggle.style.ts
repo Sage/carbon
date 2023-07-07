@@ -67,8 +67,8 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   box-sizing: border-box;
   max-width: 100%;
 
-  ${(props) =>
-    props.variant === "minor" &&
+  ${({variant}) =>
+  variant === "minor" &&
     css`
       & ${StyledIcon} {
         color: var(--colorsActionMinor500);
@@ -107,7 +107,7 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
     color: var(--colorsActionMinor600);
     ${({ allowDeselect }) =>
       !allowDeselect &&
-      css`
+      css` 
         cursor: auto;
       `}
   }
