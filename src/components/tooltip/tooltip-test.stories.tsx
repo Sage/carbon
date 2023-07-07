@@ -150,7 +150,10 @@ const SecondaryButton = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 SecondaryButton.displayName = "Tooltip";
 
-export const TooltipComponent = ({ message, ...props }: TooltipProps) => (
+export const TooltipComponent = ({
+  message,
+  ...props
+}: Partial<TooltipProps>) => (
   <div
     style={{
       padding: "60px 60px 60px 160px",
