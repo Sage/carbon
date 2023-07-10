@@ -56,6 +56,7 @@ const InputPresentationStyle = styled.div<
     Pick<
       CommonInputPresentationProps,
       | "align"
+      | "prefix"
       | "disabled"
       | "readOnly"
       | "size"
@@ -114,7 +115,10 @@ const InputPresentationStyle = styled.div<
       border-color: var(--colorsUtilityReadOnly600);
     `}
 
-  ${({ align }) => align === "right" && "flex-direction: row-reverse"}
+  ${({ align, prefix }) =>
+    align === "right" &&
+    `flex-direction: ${prefix ? "row" : "row-reverse"};
+  `}
 
   input::-ms-clear {
     display: none;

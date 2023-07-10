@@ -14,6 +14,8 @@ export interface CommonInputPresentationProps extends ValidationProps {
   disabled?: boolean;
   /** The default value alignment on the input */
   align?: string;
+  /** Emphasized part of the displayed text */
+  prefix?: string;
   /** The width of the input as a percentage */
   inputWidth?: number;
   /**
@@ -37,6 +39,7 @@ export interface InputPresentationProps extends CommonInputPresentationProps {
 const InputPresentation = ({
   children,
   positionedChildren,
+  prefix,
   inputWidth,
   maxWidth,
   align,
@@ -81,6 +84,7 @@ const InputPresentation = ({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         align={align}
+        prefix={prefix}
         disabled={disabled}
         readOnly={readOnly}
         size={size}
