@@ -1,4 +1,3 @@
-
 import React from "react";
 import { ComponentStory } from "@storybook/react";
 
@@ -6,59 +5,53 @@ import { ButtonToggle, ButtonToggleGroup } from ".";
 import Box from "../box";
 
 export const Default: ComponentStory<typeof ButtonToggle> = () => (
-  <ButtonToggleGroup variant="default" id="button-toggle-group-id" label="Default example">
-    <ButtonToggle value="foo">
-      Foo
-    </ButtonToggle>
-    <ButtonToggle value="bar">
-      Bar
-    </ButtonToggle>
-    <ButtonToggle value="baz">
-      Baz
-    </ButtonToggle>
+  <ButtonToggleGroup
+    variant="default"
+    id="button-toggle-group-id"
+    label="Default example"
+  >
+    <ButtonToggle value="foo">Foo</ButtonToggle>
+    <ButtonToggle value="bar">Bar</ButtonToggle>
+    <ButtonToggle value="baz">Baz</ButtonToggle>
   </ButtonToggleGroup>
 );
 
 export const DefaultMinor: ComponentStory<typeof ButtonToggle> = () => (
-  <ButtonToggleGroup variant="minor" id="button-toggle-group-id" label="Default example">
-    <ButtonToggle value="foo">
+  <ButtonToggleGroup id="button-toggle-group-id" label="Default example">
+    <ButtonToggle variant="minor" value="foo">
       Foo
     </ButtonToggle>
-    <ButtonToggle value="bar">
+    <ButtonToggle variant="minor" value="bar">
       Bar
     </ButtonToggle>
-    <ButtonToggle value="baz">
+    <ButtonToggle variant="minor" value="baz">
       Baz
     </ButtonToggle>
   </ButtonToggleGroup>
 );
 
 export const DefaultWrappedText: ComponentStory<typeof ButtonToggle> = () => (
-  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-    <ButtonToggleGroup id="button-toggle-group-id" label="Wrapped text example">
-      <ButtonToggle value="wraps" grouped>
-        Some text that wraps
-      </ButtonToggle>
-      <ButtonToggle value="foobar" grouped>
-        FooBar
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Box>
+  <ButtonToggleGroup id="button-toggle-group-id" label="Wrapped text example">
+    <ButtonToggle value="wraps" grouped>
+      Some text that wraps
+    </ButtonToggle>
+    <ButtonToggle value="foobar" grouped>
+      FooBar
+    </ButtonToggle>
+  </ButtonToggleGroup>
 );
 
 export const DefaultWrappedTextMinor: ComponentStory<
   typeof ButtonToggle
 > = () => (
-  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-    <ButtonToggleGroup id="button-toggle-group-id" label="Wrapped text example">
-      <ButtonToggle variant="minor" value="wraps" grouped>
-        Some text that wraps
-      </ButtonToggle>
-      <ButtonToggle variant="minor" value="foobar" grouped>
-        FooBar
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Box>
+  <ButtonToggleGroup id="button-toggle-group-id" label="Wrapped text example">
+    <ButtonToggle variant="minor" value="wraps" grouped>
+      Some text that wraps
+    </ButtonToggle>
+    <ButtonToggle variant="minor" value="foobar" grouped>
+      FooBar
+    </ButtonToggle>
+  </ButtonToggleGroup>
 );
 
 export const DefaultSmallIcon: ComponentStory<typeof ButtonToggle> = () => (
