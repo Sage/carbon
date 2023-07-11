@@ -2,7 +2,9 @@ import React, { useLayoutEffect, useRef } from "react";
 import StyledFlatTableCheckbox from "./flat-table-checkbox.style";
 import { Checkbox } from "../../checkbox";
 import Events from "../../../__internal__/utils/helpers/events/events";
-import { TagProps } from "../../../__internal__/utils/helpers/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
 
 export interface FlatTableCheckboxProps extends TagProps {
   /** Prop to polymorphically render either a 'th' or 'td' element */
@@ -84,9 +86,11 @@ export const FlatTableCheckbox = ({
       className={reportCellWidth ? "isSticky" : undefined}
       leftPosition={leftPosition}
       rightPosition={rightPosition}
-      data-element={dataElement}
       as={as}
-      {...rest}
+      {...tagComponent("flat-table-checkbox", {
+        "data-element": dataElement,
+        ...rest,
+      })}
     >
       {selectable && (
         <Checkbox
