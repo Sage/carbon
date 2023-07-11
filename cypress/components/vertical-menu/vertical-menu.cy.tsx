@@ -1,4 +1,5 @@
 import React from "react";
+import { VerticalMenuFullScreenProps } from "../../../src/components/vertical-menu";
 import {
   Default,
   VerticalMenuItemCustom,
@@ -7,7 +8,9 @@ import {
   VerticalMenuFullScreenCustom,
   VerticalMenuFullScreenBackgroundScrollTest,
 } from "../../../src/components/vertical-menu/vertical-menu-test.stories";
-import VerticalMenuTrigger from "../../../src/components/vertical-menu/vertical-menu-trigger.component";
+import VerticalMenuTrigger, {
+  VerticalMenuTriggerProps,
+} from "../../../src/components/vertical-menu/vertical-menu-trigger.component";
 import * as stories from "../../../src/components/vertical-menu/vertical-menu.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
@@ -22,10 +25,33 @@ import {
 } from "../../locators/vertical-menu";
 import { closeIconButton } from "../../locators/index";
 import { CHARACTERS } from "../../support/component-helper/constants";
-import { continuePressingTABKey } from "../../support/helper";
+import { continuePressingTABKey, keyCode } from "../../support/helper";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = CHARACTERS.STANDARD;
+const keysToTrigger = ["Space", "Enter"] as const;
+
+const checkTheBackgroundValue = ($els: JQuery<Element>) => {
+  // get Window reference from element
+  const win = $els[0].ownerDocument.defaultView;
+  // use getComputedStyle to read the pseudo selector
+  const before = win?.getComputedStyle($els[0], "before");
+  // read the value of the `background-color` CSS property
+  const backgroundValue = before?.getPropertyValue("background-color");
+  // the returned value will have double quotes around it, but this is correct
+  cy.wrap(backgroundValue).should("equal", "rgba(255, 255, 255, 0.3)");
+};
+
+const checkTheBorderValue = ($els: JQuery<Element>) => {
+  // get Window reference from element
+  const win = $els[0].ownerDocument.defaultView;
+  // use getComputedStyle to read the pseudo selector
+  const before = win?.getComputedStyle($els[0], "before");
+  // read the value of the `border-radius` CSS property
+  const radiusValue = before?.getPropertyValue("border-radius");
+  // the returned value will have double quotes around it, but this is correct
+  cy.wrap(radiusValue).should("equal", "8px");
+};
 
 context("Testing Vertical Menu component", () => {
   describe("should render Vertical Menu component", () => {
@@ -65,10 +91,11 @@ context("Testing Vertical Menu component", () => {
       (height, heightInPx) => {
         CypressMountWithProviders(<Default height={height} />);
 
-        verticalMenuComponent().then(($el) => {
-          expect($el).to.have.attr("height").to.equals(height);
-          assertCssValueIsApproximately($el, "height", heightInPx);
-        });
+        verticalMenuComponent()
+          .should("have.attr", "height", height)
+          .then(($el) => {
+            assertCssValueIsApproximately($el, "height", heightInPx);
+          });
       }
     );
 
@@ -128,14 +155,7 @@ context("Testing Vertical Menu component", () => {
       );
 
       verticalMenuItem().then(($els) => {
-        // get Window reference from element
-        const win = $els[0].ownerDocument.defaultView;
-        // use getComputedStyle to read the pseudo selector
-        const before = win.getComputedStyle($els[0], "before");
-        // read the value of the `background-color` CSS property
-        const backgroundValue = before.getPropertyValue("background-color");
-        // the returned value will have double quotes around it, but this is correct
-        expect(backgroundValue).to.eq("rgba(255, 255, 255, 0.3)");
+        checkTheBackgroundValue($els);
       });
     });
 
@@ -152,14 +172,7 @@ context("Testing Vertical Menu component", () => {
       CypressMountWithProviders(<VerticalMenuItemCustom active />);
 
       verticalMenuItem().then(($els) => {
-        // get Window reference from element
-        const win = $els[0].ownerDocument.defaultView;
-        // use getComputedStyle to read the pseudo selector
-        const before = win.getComputedStyle($els[0], "before");
-        // read the value of the `border-radius` CSS property
-        const radiusValue = before.getPropertyValue("border-radius");
-        // the returned value will have double quotes around it, but this is correct
-        expect(radiusValue).to.eq("8px");
+        checkTheBorderValue($els);
       });
     });
 
@@ -177,7 +190,7 @@ context("Testing Vertical Menu component", () => {
       verticalMenuItem().eq(1).parent().find("a").should("be.visible");
     });
 
-    it("should render Vertical Menu Item without href prop", () => {
+    it("should render Vertical Menu Item with href prop in Vertical Menu", () => {
       CypressMountWithProviders(<stories.CustomComponent />);
 
       verticalMenuComponent()
@@ -227,7 +240,9 @@ context("Testing Vertical Menu component", () => {
           });
 
           it("should close the Vertical Menu Full Screen when escape key is pressed", () => {
-            const callback = cy.stub();
+            const callback: VerticalMenuFullScreenProps["onClose"] = cy
+              .stub()
+              .as("onClose");
 
             CypressMountWithProviders(
               <VerticalMenuFullScreenCustom onClose={callback} />
@@ -235,15 +250,13 @@ context("Testing Vertical Menu component", () => {
 
             verticalMenuTrigger().click();
 
-            verticalMenuFullScreen().trigger("keydown", { key: "Escape" });
+            verticalMenuFullScreen().trigger("keydown", keyCode("Esc"));
 
-            verticalMenuFullScreen().then(() => {
-              // eslint-disable-next-line no-unused-expressions
-              expect(callback).to.have.been.calledOnce;
-            });
+            cy.get("@onClose").should("be.calledOnce");
           });
 
           // TODO remove skip as part of FE-5650
+          // eslint-disable-next-line jest/no-disabled-tests
           it.skip("should render Vertical Menu Full Screen without isOpen prop", () => {
             CypressMountWithProviders(<VerticalMenuFullScreenCustom />);
 
@@ -275,10 +288,11 @@ context("Testing Vertical Menu component", () => {
           <VerticalMenuTriggerCustom height={height} />
         );
 
-        verticalMenuTrigger().then(($el) => {
-          expect($el).to.have.attr("height").to.equals(height);
-          assertCssValueIsApproximately($el, "min-height", parseInt(height));
-        });
+        verticalMenuTrigger()
+          .should("have.attr", "height", height)
+          .then(($el) => {
+            assertCssValueIsApproximately($el, "min-height", parseInt(height));
+          });
       }
     );
 
@@ -326,11 +340,11 @@ context("Testing Vertical Menu component", () => {
     });
 
     it.each([
-      ["expand", "Space", 1, "be.visible"],
-      ["expand", "Enter", 1, "be.visible"],
-      ["collapse", "Space", 2, "not.exist"],
-      ["collapse", "Enter", 2, "not.exist"],
-    ])(
+      ["expand", keysToTrigger[0], 1, "be.visible"],
+      ["expand", keysToTrigger[1], 1, "be.visible"],
+      ["collapse", keysToTrigger[0], 2, "not.exist"],
+      ["collapse", keysToTrigger[1], 2, "not.exist"],
+    ] as [string, "Space" | "Enter", number, string][])(
       "should %s Item 2 using keyboard %s",
       (action, key, index, assertion) => {
         CypressMountWithProviders(<Default />);
@@ -360,29 +374,53 @@ context("Testing Vertical Menu component", () => {
           checkGoldenOutline($el);
         });
     });
+
+    describe("VerticalMenuFullScreen test background scroll when tabbing", () => {
+      it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
+        CypressMountWithProviders(
+          <VerticalMenuFullScreenBackgroundScrollTest />
+        );
+
+        continuePressingTABKey(4);
+
+        closeIconButton().should("be.focused");
+
+        cy.checkNotInViewport("#bottom-box");
+      });
+
+      it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
+        CypressMountWithProviders(
+          <VerticalMenuFullScreenBackgroundScrollTest />
+        );
+
+        continuePressingTABKey(3, true);
+
+        closeIconButton().should("be.focused");
+
+        cy.checkNotInViewport("#bottom-box");
+      });
+    });
   });
 
   describe("check events for Vertical Menu component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: VerticalMenuTriggerProps["onClick"] = cy
+        .stub()
+        .as("onClick");
+
       CypressMountWithProviders(
         <VerticalMenuTriggerCustom onClick={callback} />
       );
 
-      verticalMenuTrigger()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      verticalMenuTrigger().click();
+      cy.get("@onClick").should("be.calledOnce");
     });
 
     it("should call onClose callback when a click event is triggered for VerticalMenuFullScreen", () => {
+      const callback: VerticalMenuFullScreenProps["onClose"] = cy
+        .stub()
+        .as("onClose");
+
       cy.viewport(320, 599);
       CypressMountWithProviders(
         <VerticalMenuFullScreenCustom onClose={callback} />
@@ -392,15 +430,16 @@ context("Testing Vertical Menu component", () => {
 
       closeIconButton().click();
 
-      verticalMenuFullScreen().then(() => {
-        // eslint-disable-next-line no-unused-expressions
-        expect(callback).to.have.been.calledOnce;
-      });
+      cy.get("@onClose").should("be.calledOnce");
     });
 
-    it.each(["Space", "Enter"])(
+    it.each([...keysToTrigger])(
       "should call onClose callback when a %s key event is triggered for VerticalMenuFullScreen",
       (key) => {
+        const callback: VerticalMenuFullScreenProps["onClose"] = cy
+          .stub()
+          .as("onClose");
+
         cy.viewport(320, 599);
         CypressMountWithProviders(
           <VerticalMenuFullScreenCustom onClose={callback} />
@@ -410,10 +449,7 @@ context("Testing Vertical Menu component", () => {
 
         closeIconButton().focus().realPress(key);
 
-        verticalMenuFullScreen().then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+        cy.get("@onClose").should("be.calledOnce");
       }
     );
   });
@@ -426,8 +462,9 @@ context("Testing Vertical Menu component", () => {
     });
 
     it("should check accessiblity for verticalMenuComponent open", () => {
-      CypressMountWithProviders(<Default isOpen />);
+      CypressMountWithProviders(<Default />);
 
+      verticalMenuItem().tab().tab().click();
       cy.checkAccessibility();
     });
 
@@ -451,7 +488,7 @@ context("Testing Vertical Menu component", () => {
       cy.checkAccessibility();
     });
 
-    it("should check accessiblity for verticalMenuComponent CustomItemHeight", () => {
+    it("should check accessiblity for verticalMenuComponent CustomItemPadding", () => {
       CypressMountWithProviders(<stories.CustomItemPadding />);
 
       cy.checkAccessibility();
@@ -469,28 +506,6 @@ context("Testing Vertical Menu component", () => {
       CypressMountWithProviders(<VerticalMenuFullScreenCustom isOpen />);
 
       cy.checkAccessibility();
-    });
-  });
-
-  describe("VerticalMenuFullScreen test background scroll when tabbing", () => {
-    it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
-      CypressMountWithProviders(<VerticalMenuFullScreenBackgroundScrollTest />);
-
-      continuePressingTABKey(4);
-
-      closeIconButton().should("be.focused");
-
-      cy.checkNotInViewport("#bottom-box");
-    });
-
-    it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
-      CypressMountWithProviders(<VerticalMenuFullScreenBackgroundScrollTest />);
-
-      continuePressingTABKey(3, true);
-
-      closeIconButton().should("be.focused");
-
-      cy.checkNotInViewport("#bottom-box");
     });
   });
 
