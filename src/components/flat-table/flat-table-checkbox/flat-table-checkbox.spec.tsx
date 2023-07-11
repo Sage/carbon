@@ -6,6 +6,7 @@ import FlatTableCheckbox, {
 import StyledFlatTableCheckbox from "./flat-table-checkbox.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { Checkbox } from "../../checkbox";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 jest.mock("../../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -133,6 +134,19 @@ describe("FlatTableCheckbox", () => {
       const wrapper = render({ selectable: false });
 
       expect(wrapper.find(Checkbox).exists()).toEqual(false);
+    });
+  });
+
+  describe("data tags", () => {
+    it("has the expected attributes applied to the elements", () => {
+      const wrapper = render({ "data-element": "foo", "data-role": "bar" });
+
+      rootTagTest(
+        wrapper.find(StyledFlatTableCheckbox),
+        "flat-table-checkbox",
+        "foo",
+        "bar"
+      );
     });
   });
 });
