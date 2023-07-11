@@ -17,16 +17,14 @@ export const Default: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const DefaultMinor: ComponentStory<typeof ButtonToggle> = () => (
-  <ButtonToggleGroup id="button-toggle-group-id" label="Default example">
-    <ButtonToggle variant="minor" value="foo">
-      Foo
-    </ButtonToggle>
-    <ButtonToggle variant="minor" value="bar">
-      Bar
-    </ButtonToggle>
-    <ButtonToggle variant="minor" value="baz">
-      Baz
-    </ButtonToggle>
+  <ButtonToggleGroup
+    variant="minor"
+    id="button-toggle-group-id"
+    label="Default example"
+  >
+    <ButtonToggle value="foo">Foo</ButtonToggle>
+    <ButtonToggle value="bar">Bar</ButtonToggle>
+    <ButtonToggle value="baz">Baz</ButtonToggle>
   </ButtonToggleGroup>
 );
 

@@ -67,25 +67,6 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   box-sizing: border-box;
   max-width: 100%;
 
-  ${({ variant }) =>
-    variant === "minor" &&
-    css`
-      & ${StyledIcon} {
-        color: var(--colorsActionMinor500);
-      }
-
-      border: 4px solid var(--colorsActionMinor500);
-
-      :hover {
-        color: var(--colorsActionMinor500);
-        background-color: transparent;
-        border-color: var(--colorsActionMinor500);
-        & + ${StyledButton} {
-          border-left-color: var(--colorsActionMinor500);
-        }
-      }
-    `}
-
   ${({ size }) => css`
     height: ${heightConfig[size]}px;
     padding: 0 ${paddingConfig[size]}px;
@@ -146,7 +127,26 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
         }
       }
       cursor: not-allowed;
-    `};
+    `}
+
+    ${({ variant }) =>
+    variant === "minor" &&
+    css`
+      & ${StyledIcon} {
+        color: var(--colorsActionMinor500);
+      }
+
+      border: 4px solid var(--colorsActionMinor500);
+
+      :hover {
+        color: var(--colorsActionMinor500);
+        background-color: transparent;
+        border-color: var(--colorsActionMinor500);
+        & + ${StyledButton} {
+          border-left-color: var(--colorsActionMinor500);
+        }
+      }
+    `}
 `;
 
 const iconFontSizes = {

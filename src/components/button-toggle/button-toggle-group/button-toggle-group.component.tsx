@@ -94,7 +94,6 @@ export const ButtonToggleGroupContext = createContext<ButtonToggleGroupContextTy
     pressedButtonValue: undefined,
     allowDeselect: false,
     isInGroup: false,
-    variant: "minor"
   }
 );
 
@@ -241,7 +240,7 @@ const ButtonToggleGroup = ({
               isInGroup: true,
               firstButton,
               childButtonCallbackRef,
-              variant: variant,
+              variant,
             }}
           >
             <StyledButtonToggleGroupWrapper

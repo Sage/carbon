@@ -109,7 +109,7 @@ export const ButtonToggle = ({
     childButtonCallbackRef,
     variant,
   } = useContext(ButtonToggleGroupContext);
-
+  console.log(variant);
   const callbackRef = (element: HTMLButtonElement | null) => {
     buttonRef.current = element;
     if (childButtonCallbackRef) {
