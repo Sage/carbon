@@ -1,16 +1,17 @@
+/* eslint-disable jest/no-disabled-tests */
 import React from "react";
 import {
   TileSelect,
   TileSelectGroup,
+  TileSelectProps,
 } from "../../../src/components/tile-select";
 import * as testStories from "../../../src/components/tile-select/tile-select-test.stories";
 import * as stories from "../../../src/components/tile-select/tile-select.stories";
 import Pill from "../../../src/components/pill/pill.component";
 import Button from "../../../src/components/button/button.component";
-import Icon from "../../../src/components/icon/icon.component";
+import Icon, { IconProps } from "../../../src/components/icon/icon.component";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { CHARACTERS } from "../../support/component-helper/constants";
-
 import {
   tileSelectDataComponent,
   titleElement,
@@ -19,7 +20,6 @@ import {
   inputElement,
   legendStyleComponent,
 } from "../../locators/tileSelect/index";
-
 import {
   getComponent,
   getElement,
@@ -40,7 +40,7 @@ context("Tests for TileSelect component", () => {
       }
     );
 
-    it.each(["add", "info"])(
+    it.each(["add", "info"] as IconProps["type"][])(
       "should check titleAdornment iconType as %s for TileSelect component",
       (iconType) => {
         CypressMountWithProviders(
@@ -207,10 +207,38 @@ context("Tests for TileSelect component", () => {
         .should("be.visible")
         .and("have.text", "Further information");
     });
+
+    it.each([
+      [false, "not.be.visible"],
+      [true, "be.visible"],
+    ])(
+      "should check when accordionExpanded is set as %s for TileSelect component",
+      (boolV, state) => {
+        CypressMountWithProviders(
+          <testStories.AccordionTileSelectComponent accordionExpanded={boolV} />
+        );
+        getElement("tile-select-accordion-content").parent().should(state);
+      }
+    );
+
+    it.each(testData)(
+      "should check accordionContent as %s for TileSelect component",
+      (accordionContent) => {
+        CypressMountWithProviders(
+          <testStories.AccordionTileSelectComponent
+            accordionContent={accordionContent}
+          />
+        );
+        getElement("tile-select-accordion-content").should(
+          "have.text",
+          accordionContent
+        );
+      }
+    );
   });
 
   describe("check props for MultiTileSelect component", () => {
-    it.each(["radio", "checkbox"])(
+    it.each(["radio", "checkbox"] as TileSelectProps["type"][])(
       "should check type as %s for TileSelect component",
       (type) => {
         CypressMountWithProviders(
@@ -232,190 +260,149 @@ context("Tests for TileSelect component", () => {
 
       inputElement().eq(3).and("have.attr", "aria-checked", "false");
     });
+
+    it("should render with the expected border radius styling", () => {
+      CypressMountWithProviders(<testStories.TileSelectComponent />);
+
+      tileSelectDataComponent()
+        .children()
+        .first()
+        .should("have.css", "border-radius", "8px")
+        .and("have.css", "overflow", "hidden");
+    });
   });
 
-  it.each([
-    [false, "not.be.visible"],
-    [true, "be.visible"],
-  ])(
-    "should check when accordionExpanded is set as %s for TileSelect component",
-    (boolV, state) => {
-      CypressMountWithProviders(
-        <testStories.AccordionTileSelectComponent accordionExpanded={boolV} />
-      );
-      getElement("tile-select-accordion-content").parent().should(state);
-    }
-  );
-
-  it.each(testData)(
-    "should check accordionContent as %s for TileSelect component",
-    (accordionContent) => {
-      CypressMountWithProviders(
-        <testStories.AccordionTileSelectComponent
-          accordionContent={accordionContent}
-        />
-      );
-      getElement("tile-select-accordion-content").should(
-        "have.text",
-        accordionContent
-      );
-    }
-  );
-});
-
-describe("check props for ActionButtonAdornment", () => {
-  it("should check customActionButton for TileSelect component", () => {
-    CypressMountWithProviders(
-      <testStories.ActionButtonAdornment
-        customActionButton={(onClick) => (
-          <Button onClick={onClick}>tile select button</Button>
-        )}
-      />
-    );
-    getComponent("button")
-      .should("be.visible")
-      .and("have.text", "tile select button");
-  });
-
-  it.each(["add", "info"])(
-    "should check actionButtonAdornment iconType as %s for TileSelect component",
-    (iconType) => {
+  describe("check props for ActionButtonAdornment", () => {
+    it("should check customActionButton for TileSelect component", () => {
       CypressMountWithProviders(
         <testStories.ActionButtonAdornment
-          actionButtonAdornment={
-            <Icon
-              type={iconType}
-              tooltipMessage="This tile cannot be reactivated at this time"
-            />
-          }
+          customActionButton={(onClick) => (
+            <Button onClick={onClick}>tile select button</Button>
+          )}
         />
       );
-      getComponent("icon")
-        .should("have.attr", "type", iconType)
-        .and("be.visible");
-    }
-  );
-});
+      getComponent("button")
+        .should("be.visible")
+        .and("have.text", "tile select button");
+    });
 
-describe("check props for TileSelectGroup component", () => {
-  it.each(testData)(
-    "should check name as %s for TileSelect component",
-    (name) => {
-      CypressMountWithProviders(
-        <testStories.TileSelectGroupComponent name={name} />
-      );
-      inputElement().should("have.attr", "name", name);
-    }
-  );
-
-  it.each(testData)(
-    "should check legend as %s for TileSelectGroup component",
-    (legend) => {
-      CypressMountWithProviders(
-        <testStories.TileSelectGroupComponent legend={legend} />
-      );
-      getElement("legend").should("be.visible").and("have.text", legend);
-    }
-  );
-
-  it.each(testData)(
-    "should check description as %s for TileSelectGroup component",
-    (description) => {
-      CypressMountWithProviders(
-        <testStories.TileSelectGroupComponent description={description} />
-      );
-      legendStyleComponent().should("be.visible");
-    }
-  );
-
-  it("should check value for TileSelectGroup component", () => {
-    CypressMountWithProviders(
-      <testStories.TileSelectGroupComponent value="1" />
+    it.each(["add", "info"] as IconProps["type"][])(
+      "should check actionButtonAdornment iconType as %s for TileSelect component",
+      (iconType) => {
+        CypressMountWithProviders(
+          <testStories.ActionButtonAdornment
+            actionButtonAdornment={
+              <Icon
+                type={iconType}
+                tooltipMessage="This tile cannot be reactivated at this time"
+              />
+            }
+          />
+        );
+        getComponent("icon")
+          .should("have.attr", "type", iconType)
+          .and("be.visible");
+      }
     );
-    inputElement().should("have.attr", "value", "1");
   });
 
-  it.each(testData)(
-    "should check children as %s for TileSelectGroup component",
-    (characters) => {
+  describe("check props for TileSelectGroup component", () => {
+    it.each(testData)(
+      "should check name as %s for TileSelect component",
+      (name) => {
+        CypressMountWithProviders(
+          <testStories.TileSelectGroupComponent name={name} />
+        );
+        inputElement().should("have.attr", "name", name);
+      }
+    );
+
+    it.each(testData)(
+      "should check legend as %s for TileSelectGroup component",
+      (legend) => {
+        CypressMountWithProviders(
+          <testStories.TileSelectGroupComponent legend={legend} />
+        );
+        getElement("legend").should("be.visible").and("have.text", legend);
+      }
+    );
+
+    it.each(testData)(
+      "should check description as %s for TileSelectGroup component",
+      (description) => {
+        CypressMountWithProviders(
+          <testStories.TileSelectGroupComponent description={description} />
+        );
+        legendStyleComponent().should("be.visible");
+      }
+    );
+
+    it("should check value for TileSelectGroup component", () => {
       CypressMountWithProviders(
-        <TileSelectGroup>
-          <Pill fill mr={1} mb="4px">
-            {characters}
-          </Pill>
-        </TileSelectGroup>
+        <testStories.TileSelectGroupComponent value="1" />
       );
-      getComponent("pill").should("be.visible");
-    }
-  );
-});
+      inputElement().should("have.attr", "value", "1");
+    });
 
-describe("should render TileSelect component and check events", () => {
-  let callback;
-
-  beforeEach(() => {
-    callback = cy.stub();
-  });
-
-  it("should call onChange callback when a click event is triggered for TileSelectGroup", () => {
-    CypressMountWithProviders(
-      <testStories.TileSelectGroupComponent onChange={callback} />
+    it.each(testData)(
+      "should check children as %s for TileSelectGroup component",
+      (characters) => {
+        CypressMountWithProviders(
+          <TileSelectGroup name="name">
+            <Pill fill mr={1} mb="4px">
+              {characters}
+            </Pill>
+          </TileSelectGroup>
+        );
+        getComponent("pill").should("be.visible");
+      }
     );
-    inputElement()
-      .eq(0)
-      .click()
-      .then(() => {
-        // eslint-disable-next-line no-unused-expressions
-        expect(callback).to.have.been.calledOnce;
-      });
   });
 
-  it("should call onBlur callback when a blur event is triggered for TileSelectGroup", () => {
-    CypressMountWithProviders(
-      <testStories.TileSelectGroupComponent onBlur={callback} />
-    );
-    inputElement()
-      .eq(0)
-      .focus()
-      .blur()
-      .then(() => {
-        // eslint-disable-next-line no-unused-expressions
-        expect(callback).to.have.been.calledOnce;
-      });
-  });
+  describe("should render TileSelect component and check events", () => {
+    it("should call onChange callback when a click event is triggered for TileSelectGroup", () => {
+      const callback: TileSelectProps["onChange"] = cy.stub().as("onChange");
+      CypressMountWithProviders(
+        <testStories.TileSelectGroupComponent onChange={callback} />
+      );
 
-  it("should call onFocus callback when a focus event is triggered for TileSelect component", () => {
-    CypressMountWithProviders(<TileSelect onFocus={callback} />);
-    inputElement()
-      .focus()
-      .then(() => {
-        // eslint-disable-next-line no-unused-expressions
-        expect(callback).to.have.been.calledOnce;
-      });
-  });
+      inputElement().eq(0).click();
+      cy.get("@onChange").should("have.been.calledOnce");
+    });
 
-  it("should call onChange callback when a click event is triggered for TileSelect component", () => {
-    CypressMountWithProviders(<TileSelect onChange={callback} />);
-    inputElement()
-      .eq(0)
-      .click()
-      .then(() => {
-        // eslint-disable-next-line no-unused-expressions
-        expect(callback).to.have.been.calledOnce;
-      });
-  });
+    it("should call onBlur callback when a blur event is triggered for TileSelectGroup", () => {
+      const callback: TileSelectProps["onBlur"] = cy.stub().as("onBlur");
+      CypressMountWithProviders(
+        <testStories.TileSelectGroupComponent onBlur={callback} />
+      );
 
-  it("should call onBlur callback when a blur event is triggered for TileSelect component", () => {
-    CypressMountWithProviders(<TileSelect onBlur={callback} />);
+      inputElement().eq(0).focus().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
+    });
 
-    inputElement()
-      .eq(0)
-      .focus()
-      .blur()
-      .then(() => {
-        // eslint-disable-next-line no-unused-expressions
-        expect(callback).to.have.been.calledOnce;
-      });
+    it("should call onFocus callback when a focus event is triggered for TileSelect component", () => {
+      const callback: TileSelectProps["onFocus"] = cy.stub().as("onFocus");
+      CypressMountWithProviders(<TileSelect onFocus={callback} />);
+
+      inputElement().focus();
+      cy.get("@onFocus").should("have.been.calledOnce");
+    });
+
+    it("should call onChange callback when a click event is triggered for TileSelect component", () => {
+      const callback: TileSelectProps["onChange"] = cy.stub().as("onChange");
+      CypressMountWithProviders(<TileSelect onChange={callback} />);
+
+      inputElement().eq(0).click();
+      cy.get("@onChange").should("have.been.calledOnce");
+    });
+
+    it("should call onBlur callback when a blur event is triggered for TileSelect component", () => {
+      const callback: TileSelectProps["onBlur"] = cy.stub().as("onBlur");
+      CypressMountWithProviders(<TileSelect onBlur={callback} />);
+
+      inputElement().eq(0).focus().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
+    });
   });
 
   describe("Accessibility tests for Accordion", () => {
@@ -483,15 +470,5 @@ describe("should render TileSelect component and check events", () => {
 
       cy.checkAccessibility();
     });
-  });
-
-  it("should render with the expected border radius styling", () => {
-    CypressMountWithProviders(<testStories.TileSelectComponent />);
-
-    tileSelectDataComponent()
-      .children()
-      .first()
-      .should("have.css", "border-radius", "8px")
-      .and("have.css", "overflow", "hidden");
   });
 });
