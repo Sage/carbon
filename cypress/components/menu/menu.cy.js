@@ -286,6 +286,23 @@ const MenuFullScreenWithFalsyValues = ({ ...props }) => {
   );
 };
 
+const ClosedMenuFullScreenWithButtons = () => {
+  return (
+    <>
+      <button type="button" id="button-1">
+        Button 1
+      </button>
+      <MenuFullscreen isOpen={false} onClose={() => {}}>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+      </MenuFullscreen>
+      <button type="button" id="button-2">
+        Button 2
+      </button>
+    </>
+  );
+};
+
 const MenuComponentItems = ({ ...props }) => {
   return (
     <Box mb={150}>
@@ -1513,6 +1530,15 @@ context("Testing Menu component", () => {
         getComponent("menu-fullscreen").should(state);
       }
     );
+
+    it("should verify that Menu Fullscreen has no effect on the tab order when isOpen prop is false", () => {
+      CypressMountWithProviders(<ClosedMenuFullScreenWithButtons />);
+
+      cy.tab();
+      cy.get("#button-1").should("be.focused");
+      cy.tab();
+      cy.get("#button-2").should("be.focused");
+    });
 
     it.each([
       ["left", -1200, 1200],
