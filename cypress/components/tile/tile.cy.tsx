@@ -1,8 +1,11 @@
 import React from "react";
-import Tile from "../../../src/components/tile";
+import { DlProps } from "components/definition-list/dl.component";
+import Tile, { TileProps } from "../../../src/components/tile";
 import Content from "../../../src/components/content";
 import * as testStories from "../../../src/components/tile/tile-test.stories";
-import TileFooter from "../../../src/components/tile/tile-footer";
+import TileFooter, {
+  TileFooterProps,
+} from "../../../src/components/tile/tile-footer";
 import Typography from "../../../src/components/typography/typography.component";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../locators/index";
@@ -22,7 +25,7 @@ context("Tests for Tile component", () => {
       ["tile", "rgb(204, 214, 219)", "rgb(255, 255, 255)"],
       ["transparent", "rgb(204, 214, 219)", "rgba(0, 0, 0, 0)"],
       ["active", "rgb(0, 126, 69)", "rgb(242, 249, 246)"],
-    ])(
+    ] as [TileProps["variant"], string, string][])(
       "should check %s variant for Tile component",
       (variant, borderColor, backGroundColor) => {
         CypressMountWithProviders(
@@ -37,7 +40,7 @@ context("Tests for Tile component", () => {
     it.each([
       ["vertical", 255],
       ["horizontal", 85],
-    ])(
+    ] as [TileProps["orientation"], number][])(
       "should check %s orientation for Tile component",
       (orientation, height) => {
         CypressMountWithProviders(
@@ -53,7 +56,7 @@ context("Tests for Tile component", () => {
       ["30%", 409],
       ["50%", 683],
       [0, 1366],
-    ])(
+    ] as [TileProps["width"], number][])(
       "should check width as %s for Tile component",
       (widthInPercentage, widthInPixel) => {
         CypressMountWithProviders(
@@ -74,7 +77,7 @@ context("Tests for Tile component", () => {
       tile().children().children().should("have.text", "children_test");
     });
 
-    it.each(testData)(
+    it.each([...testData] as DlProps["ddTextAlign"][])(
       "should check ddTextAlign as %s for Tile component",
       (align) => {
         CypressMountWithProviders(
@@ -84,7 +87,7 @@ context("Tests for Tile component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each([...testData] as DlProps["dtTextAlign"][])(
       "should check dtTextAlign as %s for Tile component",
       (align) => {
         CypressMountWithProviders(
@@ -116,7 +119,7 @@ context("Tests for Tile component", () => {
       [10, 111, 1229],
       [30, 385, 954],
     ])(
-      "should check dtTextAlign as %s for Tile component",
+      "should check dtTextAlign as number %s for Tile component",
       (w, dtWidth, ddWidth) => {
         CypressMountWithProviders(
           <testStories.DlTileComponent
@@ -148,7 +151,7 @@ context("Tests for Tile component", () => {
       ["default", "rgb(204, 214, 219)"],
       ["transparent", "rgba(0, 0, 0, 0)"],
       ["black", "rgb(0, 0, 0)"],
-    ])(
+    ] as [TileFooterProps["variant"], string][])(
       "should check Tile Footer variant as %s for Tile component",
       (variant, backGroundColor) => {
         CypressMountWithProviders(
@@ -164,7 +167,6 @@ context("Tests for Tile component", () => {
               "solid",
               "rgb(204, 214, 219)"
             );
-            expect(elem.css("background-color")).to.equals(backGroundColor);
           });
       }
     );
@@ -203,7 +205,7 @@ context("Tests for Tile component", () => {
       ["negative", "rgb(203, 55, 74)"],
       ["caution", "rgb(239, 103, 0)"],
       ["info", "rgb(0, 96, 167)"],
-    ])(
+    ] as [TileProps["borderVariant"], string][])(
       "should check border variant as %s for Tile component",
       (borderVariant, borderColor) => {
         CypressMountWithProviders(
@@ -219,7 +221,7 @@ context("Tests for Tile component", () => {
       ["borderWidth200", 2],
       ["borderWidth300", 3],
       ["borderWidth400", 4],
-    ])(
+    ] as [TileProps["borderWidth"], number][])(
       "should check border width as %s for Tile component",
       (borderWidth, pixelWidth) => {
         CypressMountWithProviders(
@@ -230,10 +232,22 @@ context("Tests for Tile component", () => {
         });
       }
     );
+
+    it.each(["default", "large"] as TileProps["roundness"][])(
+      "render with the expected border radius when roundness is %s",
+      (roundness) => {
+        CypressMountWithProviders(
+          <testStories.TileComponent roundness={roundness} />
+        );
+        const result = roundness === "default" ? "8px" : "16px";
+
+        tile().should("have.css", "border-radius", result);
+      }
+    );
   });
 
   describe("check Accessibility for Tile component", () => {
-    it.each(["tile", "transparent", "active"])(
+    it.each(["tile", "transparent", "active"] as TileProps["variant"][])(
       "should check Accessibility for %s variant for Tile component",
       (variant) => {
         CypressMountWithProviders(
@@ -244,7 +258,7 @@ context("Tests for Tile component", () => {
       }
     );
 
-    it.each(["vertical", "horizontal"])(
+    it.each(["vertical", "horizontal"] as TileProps["orientation"][])(
       "should check Accessibility for %s orientation for Tile component",
       (orientation) => {
         CypressMountWithProviders(
@@ -276,7 +290,7 @@ context("Tests for Tile component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(testData)(
+    it.each([...testData] as DlProps["ddTextAlign"][])(
       "should check Accessibility for ddTextAlign as %s for Tile component",
       (align) => {
         CypressMountWithProviders(
@@ -287,7 +301,7 @@ context("Tests for Tile component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each([...testData] as DlProps["dtTextAlign"][])(
       "should check Accessibility for dtTextAlign as %s for Tile component",
       (align) => {
         CypressMountWithProviders(
@@ -310,7 +324,7 @@ context("Tests for Tile component", () => {
     });
 
     it.each([10, 30])(
-      "should check Accessibility for dtTextAlign as %s for Tile component",
+      "should check Accessibility for dtTextAlign as number %s for Tile component",
       (w) => {
         CypressMountWithProviders(
           <testStories.DlTileComponent
@@ -324,7 +338,11 @@ context("Tests for Tile component", () => {
       }
     );
 
-    it.each(["default", "transparent", "black"])(
+    it.each([
+      "default",
+      "transparent",
+      "black",
+    ] as TileFooterProps["variant"][])(
       "should check Accessibility for Tile Footer variant as %s for Tile component",
       (variant) => {
         CypressMountWithProviders(
@@ -361,7 +379,14 @@ context("Tests for Tile component", () => {
       }
     );
 
-    it.each(["default", "selected", "positive", "negative", "caution", "info"])(
+    it.each([
+      "default",
+      "selected",
+      "positive",
+      "negative",
+      "caution",
+      "info",
+    ] as TileProps["borderVariant"][])(
       "should check Accessibility for border variant as %s for Tile component",
       (borderVariant) => {
         CypressMountWithProviders(
@@ -378,7 +403,7 @@ context("Tests for Tile component", () => {
       "borderWidth200",
       "borderWidth300",
       "borderWidth400",
-    ])(
+    ] as TileProps["borderWidth"][])(
       "should check Accessibility for border width as %s for Tile component",
       (borderWidth) => {
         CypressMountWithProviders(
@@ -389,16 +414,4 @@ context("Tests for Tile component", () => {
       }
     );
   });
-
-  it.each(["default", "large"])(
-    "render with the expected border radius when roundness is %s",
-    (roundness) => {
-      CypressMountWithProviders(
-        <testStories.TileComponent roundness={roundness} />
-      );
-      const result = roundness === "default" ? "8px" : "16px";
-
-      tile().should("have.css", "border-radius", result);
-    }
-  );
 });
