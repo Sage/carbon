@@ -1,8 +1,11 @@
 import React from "react";
 import Box from "../../../src/components/box";
-import Switch from "../../../src/components/switch";
+import Switch, { SwitchProps } from "../../../src/components/switch";
 import { WithMargin } from "../../../src/components/switch/switch.stories";
-import { SwitchComponent } from "../../../src/components/switch/switch-test.stories";
+import {
+  SwitchComponent,
+  SwitchComponentValidations,
+} from "../../../src/components/switch/switch-test.stories";
 import {
   switchDataComponent,
   switchInput,
@@ -35,34 +38,22 @@ const validationTypes = [
   ["error", VALIDATION.ERROR],
   ["warning", VALIDATION.WARNING],
   ["info", VALIDATION.INFO],
-];
+] as [string, string][];
 
-const verifyBorderColor = (element, color) =>
-  element.then(($els) => {
+const verifyBorderColor = (
+  element: Cypress.Chainable<JQuery<HTMLElement>>,
+  color: string
+) =>
+  element.then(($els: JQuery<Element>) => {
     // get Window reference from element
     const win = $els[0].ownerDocument.defaultView;
     // use getComputedStyle to read the pseudo selector
-    const after = win.getComputedStyle($els[0], "before");
+    const after = win?.getComputedStyle($els[0], "before");
     // read the value of the `content` CSS property
-    const contentValue = after.getPropertyValue("color");
+    const contentValue = after?.getPropertyValue("color");
     // the returned value will have double quotes around it, but this is correct
-    expect(contentValue).to.eq(color);
+    cy.wrap(contentValue).should("equal", color);
   });
-
-const SwitchComponentValidations = ({ ...props }) => {
-  const [setIsChecked] = React.useState(false);
-  return ["error", "warning", "info"].map((type) => (
-    <Switch
-      id={`switch${type}`}
-      key={`switch-${type}`}
-      {...{ [type]: `${type}` }}
-      label={`Example switch (${type})`}
-      name={`switch-${type}`}
-      onChange={() => setIsChecked((state) => !state)}
-      {...props}
-    />
-  ));
-};
 
 context("Testing Switch component", () => {
   describe("check props for Switch component", () => {
@@ -218,10 +209,10 @@ context("Testing Switch component", () => {
     );
 
     it.each([
-      ["10", 130],
-      ["30", 390],
-      ["80", 1041],
-    ])(
+      [10, 130],
+      [30, 390],
+      [80, 1041],
+    ] as [SwitchProps["labelWidth"], number][])(
       "verify Switch with labelWidth %s and render it with correct label width ratio",
       (labelWidth, labelRatio) => {
         CypressMountWithProviders(<SwitchComponent labelWidth={labelWidth} />);
@@ -235,10 +226,10 @@ context("Testing Switch component", () => {
     );
 
     it.each([
-      ["90", 1171],
-      ["70", 911],
-      ["20", 260],
-    ])(
+      [90, 1171],
+      [70, 911],
+      [20, 260],
+    ] as [SwitchProps["inputWidth"], number][])(
       "verify Switch with inputWidth %s and render it with correct input width ratio",
       (inputWidth, inputRatio) => {
         CypressMountWithProviders(
@@ -272,17 +263,20 @@ context("Testing Switch component", () => {
     it.each([
       [1, 8],
       [2, 17],
-    ])("verify Switch component with labelSpacing %s", (spacing, padding) => {
-      CypressMountWithProviders(
-        <SwitchComponent labelInline label="label" labelSpacing={spacing} />
-      );
+    ] as [SwitchProps["labelSpacing"], number][])(
+      "verify Switch component with labelSpacing %s",
+      (spacing, padding) => {
+        CypressMountWithProviders(
+          <SwitchComponent labelInline label="label" labelSpacing={spacing} />
+        );
 
-      switchLabel()
-        .parent()
-        .then(($el) => {
-          assertCssValueIsApproximately($el, "padding-right", padding);
-        });
-    });
+        switchLabel()
+          .parent()
+          .then(($el) => {
+            assertCssValueIsApproximately($el, "padding-right", padding);
+          });
+      }
+    );
 
     it("verify Switch component with name", () => {
       CypressMountWithProviders(<SwitchComponent name={CHARACTERS.STANDARD} />);
@@ -346,18 +340,18 @@ context("Testing Switch component", () => {
     );
 
     it.each([
-      [true, 1, "have.attr", "not.have.attr"],
-      [false, 0, "not.have.attr", "have.attr"],
+      [true, "have.attr", "not.have.attr"],
+      [false, "not.have.attr", "have.attr"],
     ])(
       "verify Switch component reverse set to %s",
-      (boolVal, position, condition1, condition2) => {
+      (boolVal, condition1, condition2) => {
         CypressMountWithProviders(<SwitchComponent reverse={boolVal} />);
 
         switchDataComponent()
           .children()
           .children()
           .children()
-          .children(position)
+          .children()
           .children()
           .should(condition1, "data-element", "label")
           .and(condition2, "role", "switch");
@@ -367,14 +361,17 @@ context("Testing Switch component", () => {
     it.each([
       [SIZE.SMALL, 60, 24],
       [SIZE.LARGE, 82, 44],
-    ])("verify Switch component with size set to %s", (size, width, height) => {
-      CypressMountWithProviders(<SwitchComponent size={size} />);
+    ] as [SwitchProps["size"], number, number][])(
+      "verify Switch component with size set to %s",
+      (size, width, height) => {
+        CypressMountWithProviders(<SwitchComponent size={size} />);
 
-      switchInput().then(($el) => {
-        assertCssValueIsApproximately($el, "height", height);
-        assertCssValueIsApproximately($el, "width", width);
-      });
-    });
+        switchInput().then(($el) => {
+          assertCssValueIsApproximately($el, "height", height);
+          assertCssValueIsApproximately($el, "width", width);
+        });
+      }
+    );
 
     it("verify Switch component with value prop", () => {
       CypressMountWithProviders(<SwitchComponent value="switchvalue" />);
@@ -382,12 +379,12 @@ context("Testing Switch component", () => {
     });
 
     it.each([
-      ["inline", 399, "have.css", 24],
-      ["inline", 400, "have.css", 24],
-      ["not inline", 401, "not.have.css", 16],
+      [399, "have.css", 24],
+      [400, "have.css", 24],
+      [401, "not.have.css", 16],
     ])(
       "check Switch label is %s with adaptiveLabelBreakpoint %s and viewport 400",
-      (displayValue, breakpoint, attribute, height) => {
+      (breakpoint, attribute, height) => {
         cy.viewport(400, 300);
 
         CypressMountWithProviders(
@@ -409,7 +406,12 @@ context("Testing Switch component", () => {
       verifyRequiredAsteriskForLabel();
     });
 
-    it.each(["bottom", "left", "right", "top"])(
+    it.each([
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ] as SwitchProps["tooltipPosition"][])(
       "verify Switch component with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
@@ -461,70 +463,47 @@ context("Testing Switch component", () => {
   });
 
   describe("verify Switch component for event tests", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange callback when a click event is triggered", () => {
+      const callback: SwitchProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(<SwitchComponent onChange={callback} />);
 
-      switchInput()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      switchInput().click();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     // skipped because of https://jira.sage.com/browse/FE-5534
     it.skip("should call onChange callback when a keyboard event is triggered", () => {
+      const callback: SwitchProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(
         <SwitchComponent autoFocus onChange={callback} />
       );
 
-      switchInput()
-        .focus()
-        .trigger("keydown", keyCode("Space"))
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      switchInput().focus().trigger("keydown", keyCode("Space"));
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: SwitchProps["onBlur"] = cy.stub().as("onBlur");
       CypressMountWithProviders(<SwitchComponent onBlur={callback} />);
 
-      switchInput()
-        .focus()
-        .blur({ force: true })
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      switchInput().focus().blur({ force: true });
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call onFocus callback when a focus event is triggered", () => {
+      const callback: SwitchProps["onFocus"] = cy.stub().as("onFocus");
       CypressMountWithProviders(<SwitchComponent onFocus={callback} />);
 
-      switchInput()
-        .focus()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      switchInput().focus();
+      cy.get("@onFocus").should("have.been.calledOnce");
     });
 
     it("should call onClick callback when a click event is triggered", () => {
+      const callback: SwitchProps["onClick"] = cy.stub().as("onClick");
       CypressMountWithProviders(<SwitchComponent onClick={callback} />);
 
-      switchInput()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      switchInput().click();
+      cy.get("@onClick").should("have.been.calledOnce");
     });
   });
 
@@ -638,7 +617,7 @@ context("Testing Switch component", () => {
       }
     );
 
-    it.each(["10", "30", "80"])(
+    it.each([10, 30, 80] as SwitchProps["labelWidth"][])(
       "check Switch component accessibility with labelWidth %s",
       (labelWidth) => {
         CypressMountWithProviders(<SwitchComponent labelWidth={labelWidth} />);
@@ -647,7 +626,7 @@ context("Testing Switch component", () => {
       }
     );
 
-    it.each(["90", "70", "20"])(
+    it.each([90, 70, 20] as SwitchProps["inputWidth"][])(
       "check Switch component accessibility with inputWidth %s",
       (inputWidth) => {
         CypressMountWithProviders(
@@ -672,7 +651,7 @@ context("Testing Switch component", () => {
       cy.checkAccessibility();
     });
 
-    it.each([1, 2])(
+    it.each([1, 2] as SwitchProps["labelSpacing"][])(
       "check Switch component accessibility with labelSpacing %s",
       (spacing) => {
         CypressMountWithProviders(
@@ -714,7 +693,12 @@ context("Testing Switch component", () => {
       }
     );
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as SwitchProps["tooltipPosition"][])(
       "should check accessibility for Switch with the tooltip in the %s position",
       (tooltipPositionValue) => {
         CypressMountWithProviders(
@@ -745,7 +729,7 @@ context("Testing Switch component", () => {
       }
     );
 
-    it.each([SIZE.SMALL, SIZE.LARGE])(
+    it.each([SIZE.SMALL, SIZE.LARGE] as SwitchProps["size"][])(
       "check Switch component accessibility with size set to %s",
       (size) => {
         CypressMountWithProviders(<SwitchComponent size={size} />);
@@ -779,7 +763,12 @@ context("Testing Switch component", () => {
       cy.checkAccessibility();
     });
 
-    it.each(["bottom", "left", "right", "top"])(
+    it.each([
+      "bottom",
+      "left",
+      "right",
+      "top",
+    ] as SwitchProps["tooltipPosition"][])(
       "check Switch component accessibility with tooltip positioned to the %s",
       (position) => {
         CypressMountWithProviders(
