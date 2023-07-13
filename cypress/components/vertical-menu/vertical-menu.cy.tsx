@@ -7,6 +7,7 @@ import {
   VerticalMenuItemCustomHref,
   VerticalMenuFullScreenCustom,
   VerticalMenuFullScreenBackgroundScrollTest,
+  ClosedVerticalMenuFullScreenWithButtons,
 } from "../../../src/components/vertical-menu/vertical-menu-test.stories";
 import VerticalMenuTrigger, {
   VerticalMenuTriggerProps,
@@ -267,6 +268,21 @@ context("Testing Vertical Menu component", () => {
             CypressMountWithProviders(<VerticalMenuFullScreenCustom isOpen />);
 
             verticalMenuItem().should("be.visible");
+          });
+
+          it("should verify that Vertical Menu Fullscreen has no effect on the tab order when isOpen prop is false", () => {
+            // this test currently passes even without the necessary fix to FocusTrap for MenuFullScreen, as
+            // VerticalMenuFullScreen currently does not render its children at all when isOpen is false. This will
+            // change once FE-5650 is done and this test will be required when that is done to ensure the children of
+            // a closed VerticalMenuFullScreen do not interfere with tabbing.
+            CypressMountWithProviders(
+              <ClosedVerticalMenuFullScreenWithButtons />
+            );
+
+            cy.tab();
+            cy.get("#button-1").should("be.focused");
+            cy.tab();
+            cy.get("#button-2").should("be.focused");
           });
         }
       );

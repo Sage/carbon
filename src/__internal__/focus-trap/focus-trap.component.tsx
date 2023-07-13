@@ -178,8 +178,8 @@ const FocusTrap = ({
 
   useEffect(() => {
     const trapFn = (ev: KeyboardEvent) => {
-      // block focus trap from working if it's not the topmost trap
-      if (!isTopModal) {
+      // block focus trap from working if it's not the topmost trap, or is currently closed
+      if (!isTopModal || !isOpen) {
         return;
       }
 
@@ -204,6 +204,7 @@ const FocusTrap = ({
     focusableSelectors,
     getFocusableElements,
     isTopModal,
+    isOpen,
   ]);
 
   const updateCurrentFocusedElement = useCallback(() => {
@@ -282,19 +283,23 @@ const FocusTrap = ({
 
   return (
     <div ref={trapRef}>
-      <div
-        data-element={TAB_GUARD_TOP}
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
-        onFocus={onTabGuardTopFocus(wrapperRef)}
-      />
+      {isOpen && (
+        <div
+          data-element={TAB_GUARD_TOP}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
+          onFocus={onTabGuardTopFocus(wrapperRef)}
+        />
+      )}
       {clonedChildren}
-      <div
-        data-element={TAB_GUARD_BOTTOM}
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
-        onFocus={onTabGuardBottomFocus(wrapperRef)}
-      />
+      {isOpen && (
+        <div
+          data-element={TAB_GUARD_BOTTOM}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
+          onFocus={onTabGuardBottomFocus(wrapperRef)}
+        />
+      )}
     </div>
   );
 };

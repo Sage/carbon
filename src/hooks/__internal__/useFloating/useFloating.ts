@@ -8,9 +8,13 @@ import {
   Placement,
 } from "@floating-ui/dom";
 
+type CustomRefObject<T> = {
+  current?: T | null;
+};
+
 export interface UseFloatingProps {
   isOpen?: boolean;
-  reference: React.RefObject<HTMLElement | null>;
+  reference: CustomRefObject<HTMLElement | null>;
   floating: React.RefObject<HTMLElement | null>;
   strategy?: Strategy;
   middleware?: Middleware[];
