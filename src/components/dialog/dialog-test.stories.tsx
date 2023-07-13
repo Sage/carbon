@@ -148,7 +148,9 @@ export const Default = ({
             name="date"
             label="Pet's birthday"
             value={date}
-            onChange={(e: DateChangeEvent) => setDate(e.target.value.rawValue)}
+            onChange={(e: DateChangeEvent) =>
+              setDate(e.target.value.formattedValue)
+            }
           />
           <TextEditor
             onChange={handleEditorChange}

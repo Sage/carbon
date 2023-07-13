@@ -1,7 +1,7 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
-import { mount } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 import DayPicker from "react-day-picker";
 import { utcToZonedTime } from "date-fns-tz";
 import {
@@ -22,8 +22,8 @@ import {
   // eslint-disable-next-line import/named
   enUS as enUSLocale,
 } from "../../../../locales/date-fns-locales";
-
-import DatePicker from "./date-picker.component";
+import Locale from "../../../../locales/locale";
+import DatePicker, { DatePickerProps } from "./date-picker.component";
 import StyledDayPicker from "./day-picker.style";
 import Popover from "../../../../__internal__/popover";
 import I18nProvider from "../../../i18n-provider";
@@ -31,7 +31,7 @@ import Weekday from "../weekday/weekday.component";
 
 const timeZone = "Europe/London";
 
-const getZonedDate = (date) => utcToZonedTime(new Date(date), timeZone);
+const getZonedDate = (date: string) => utcToZonedTime(new Date(date), timeZone);
 
 const firstDate = "2019-02-02";
 const secondDate = "2019-02-08";
@@ -39,8 +39,42 @@ const invalidDate = "2019-02-";
 const noDate = "";
 const currentDate = new Date(Date.now());
 
+interface MockProps extends Omit<DatePickerProps, "inputElement"> {
+  open?: boolean;
+}
+
+const MockComponent = (props: MockProps) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const Input = () => (
+    <div ref={ref}>
+      <input name="foo" id="bar" />
+    </div>
+  );
+  return (
+    <>
+      <Input />
+      <DatePicker {...props} inputElement={ref} />
+    </>
+  );
+};
+
+function renderI18n({
+  locale,
+  ...props
+}: { locale?: Partial<Locale> } & Omit<DatePickerProps, "inputElement">) {
+  return mount(
+    <I18nProvider locale={locale}>
+      <MockComponent open {...props} />
+    </I18nProvider>
+  );
+}
+
+function render(props: Omit<DatePickerProps, "inputElement">) {
+  return mount(<MockComponent open {...props} />);
+}
+
 describe("DatePicker", () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   describe('when rendered with an "inputElement" prop', () => {
     describe("popover", () => {
@@ -53,7 +87,7 @@ describe("DatePicker", () => {
       it("should have the correct overhang", () => {
         wrapper = render({ selectedDays: currentDate });
 
-        expect(wrapper.find(Popover).props().middleware[0]).toMatchObject({
+        expect(wrapper.find(Popover).props().middleware?.[0]).toMatchObject({
           name: "offset",
           options: 3,
         });
@@ -92,8 +126,8 @@ describe("DatePicker", () => {
     });
 
     it(`should pass to the "DayPicker" component the "disabledDays"
-        prop containing a null value`, () => {
-      expect(wrapper.find(DayPicker).props().disabledDays).toEqual(null);
+        prop containing a undefined value`, () => {
+      expect(wrapper.find(DayPicker).props().disabledDays).toEqual(undefined);
     });
   });
 
@@ -129,18 +163,24 @@ describe("DatePicker", () => {
   });
 
   describe('when the "onDayClick" prop have been triggered', () => {
-    let onDayClickFn;
+    let onDayClickFn: jest.Mock;
 
     beforeEach(() => {
       onDayClickFn = jest.fn();
       wrapper = render({ selectedDays: currentDate, onDayClick: onDayClickFn });
     });
 
+    const mockEvent = {} as React.MouseEvent<HTMLDivElement>;
+
     describe("without a disabled modifier", () => {
       it('then "onDayClick" prop should have been called with the same date and event target composition', () => {
         const date = new Date(firstDate);
         act(() => {
-          wrapper.find(DayPicker).prop("onDayClick")(date, {}, { target: {} });
+          wrapper.find(DayPicker).prop("onDayClick")?.(
+            date,
+            { today: undefined, outside: undefined },
+            mockEvent
+          );
         });
 
         expect(onDayClickFn).toHaveBeenCalledWith(date, {
@@ -153,10 +193,10 @@ describe("DatePicker", () => {
       it('then "onDayClick" prop should not have been called', () => {
         const date = new Date(firstDate);
         act(() => {
-          wrapper.find(DayPicker).prop("onDayClick")(
+          wrapper.find(DayPicker).prop("onDayClick")?.(
             date,
-            { disabled: true },
-            { target: {} }
+            { disabled: true, today: undefined, outside: undefined },
+            mockEvent
           );
         });
         expect(onDayClickFn).not.toHaveBeenCalled();
@@ -171,7 +211,7 @@ describe("StyledDayPicker", () => {
   });
 
   describe("i18n", () => {
-    let wrapper;
+    let wrapper: ReactWrapper;
     const translations = {
       "en-GB": enGBLocale,
       "de-DE": deLocale,
@@ -183,25 +223,27 @@ describe("StyledDayPicker", () => {
       "en-CA": enCALocale,
     };
 
-    const buildLocale = (l) => ({
+    const buildLocale = (l: keyof typeof translations) => ({
       locale: () => l,
       date: { dateFnsLocale: () => translations[l] },
     });
 
-    const weekdays = (l) => {
+    type WeekdaysType = { long?: string[]; short?: string[] };
+
+    const weekdays = (l: keyof typeof translations) => {
       const array =
-        translations[l].options.weekStartsOn === 0
+        translations[l].options?.weekStartsOn === 0
           ? [0, 1, 2, 3, 4, 5, 6]
           : [1, 2, 3, 4, 5, 6, 0];
 
-      return array.reduce((acc, d) => {
+      return array.reduce((acc: WeekdaysType, d) => {
         if (!acc.long) acc.long = [];
         if (!acc.short) acc.short = [];
 
-        acc.long.push(translations[l].localize.day(d));
+        acc.long.push(translations[l].localize?.day(d));
         acc.short.push(
           translations[l].localize
-            .day(d, { width: "abbreviated" })
+            ?.day(d, { width: "abbreviated" })
             .substring(0, 3)
         );
 
@@ -209,9 +251,9 @@ describe("StyledDayPicker", () => {
       }, {});
     };
 
-    const monthsArray = (l) =>
+    const monthsArray = (l: keyof typeof translations) =>
       Array.from({ length: 12 }).map((_, i) => {
-        const month = translations[l].localize.month(i);
+        const month = translations[l].localize?.month(i);
         return month[0].toUpperCase() + month.slice(1);
       });
 
@@ -221,7 +263,7 @@ describe("StyledDayPicker", () => {
       });
     });
 
-    describe.each([
+    describe.each<keyof typeof translations>([
       "en-GB",
       "de-DE",
       "es",
@@ -255,9 +297,9 @@ describe("StyledDayPicker", () => {
           const { title, children } = el.props();
           const { long, short } = days;
 
-          expect(title).toEqual(long[i]);
+          expect(title).toEqual(long?.[i]);
           expect(children).toEqual(
-            locale === "de-DE" ? long[i].substring(0, 2) : short[i]
+            locale === "de-DE" ? long?.[i].substring(0, 2) : short?.[i]
           );
         });
       });
@@ -270,7 +312,7 @@ describe("StyledDayPicker", () => {
 
         const { months } = wrapper.find(DayPicker).props();
         expect(
-          monthsArray(locale).every((month, i) => month === months[i])
+          monthsArray(locale).every((month, i) => month === months?.[i])
         ).toEqual(true);
       });
     });
@@ -280,30 +322,3 @@ describe("StyledDayPicker", () => {
     expect(render({ open: false }).find(StyledDayPicker).exists()).toBeFalsy();
   });
 });
-
-const MockComponent = (props) => {
-  const ref = React.useRef();
-  const Input = () => (
-    <div ref={ref}>
-      <input name="foo" id="bar" />
-    </div>
-  );
-  return (
-    <>
-      <Input />
-      <DatePicker inputElement={ref} {...props} />
-    </>
-  );
-};
-
-function renderI18n({ locale, ...props }) {
-  return mount(
-    <I18nProvider locale={locale}>
-      <MockComponent open {...props} />
-    </I18nProvider>
-  );
-}
-
-function render(props, params) {
-  return mount(<MockComponent open {...props} />, params);
-}

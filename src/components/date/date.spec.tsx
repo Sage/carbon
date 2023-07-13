@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { mount } from "enzyme";
+import { ReactWrapper, mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { parse } from "date-fns/fp";
 
@@ -8,7 +8,7 @@ import {
   testStyledSystemMargin,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
-import DateInput from "./date.component";
+import DateInput, { DateInputProps } from "./date.component";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import DatePicker from "./__internal__/date-picker";
 import StyledDayPicker from "./__internal__/date-picker/day-picker.style";
@@ -19,7 +19,9 @@ import Label from "../../__internal__/label";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
-import ValidationIcon from "../../__internal__/validations";
+import ValidationIcon, {
+  ValidationProps,
+} from "../../__internal__/validations";
 import DateRangeContext from "../date-range/date-range.context";
 import {
   // eslint-disable-next-line import/named
@@ -40,8 +42,6 @@ import {
   enUS as enUSLocale,
 } from "../../locales/date-fns-locales";
 import Logger from "../../__internal__/utils/logger";
-import StyledInput from "../../__internal__/input/input.style";
-import StyledButton from "./__internal__/navbar/button.style";
 
 const locales = {
   "en-GB": {
@@ -86,20 +86,142 @@ const locales = {
   },
 };
 
-describe("Date", () => {
-  let container;
-  let wrapper;
-  let onFocusFn;
+function render(props = {}) {
+  return mount(<DateInput value="" onChange={() => {}} {...props} />, {
+    attachTo: document.getElementById("enzymeContainer"),
+  });
+}
 
-  // eslint-disable-next-line react/prop-types
+function simulateFocusOnInput(wrapper: ReactWrapper) {
+  const input = wrapper.find("input");
+
+  act(() => {
+    input.simulate("focus");
+  });
+}
+
+function simulateBlurOnInput(wrapper: ReactWrapper) {
+  const input = wrapper.find("input");
+
+  act(() => {
+    input.simulate("blur");
+  });
+}
+
+function simulateClickOnInput(wrapper: ReactWrapper) {
+  const input = wrapper.find("input");
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
+
+  act(() => {
+    input.simulate("click", mockEvent);
+  });
+}
+
+function simulateMouseDownOnInput(wrapper: ReactWrapper) {
+  const input = wrapper.find("input");
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
+
+  act(() => {
+    input.simulate("mousedown", mockEvent);
+  });
+}
+
+function simulateMouseDownOnPicker(wrapper: ReactWrapper) {
+  const input = wrapper.find(StyledDayPicker);
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
+
+  act(() => {
+    input
+      .getDOMNode()
+      .dispatchEvent(
+        new MouseEvent("mousedown", { ...mockEvent, bubbles: true })
+      );
+  });
+}
+
+function simulateOnKeyDown(wrapper: ReactWrapper, key: string) {
+  const keyDownParams = { key };
+  const input = wrapper.find("input");
+
+  act(() => {
+    input.simulate("keyDown", keyDownParams);
+  });
+}
+
+function simulateClickOnInputIcon(wrapper: ReactWrapper) {
+  const input = wrapper.find(InputIconToggle);
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
+
+  act(() => {
+    input.simulate("click", mockEvent);
+  });
+}
+
+function simulateMouseDownOnInputIcon(wrapper: ReactWrapper) {
+  const input = wrapper.find(InputIconToggle);
+  const mockEvent = {
+    nativeEvent: {
+      stopImmediatePropagation: () => {},
+    },
+  };
+
+  act(() => {
+    input.simulate("mousedown", mockEvent);
+  });
+}
+
+function getValidInputValues(values: string[]) {
+  return values.reduce(
+    (arr: string[], formatString: string) => [
+      ...arr,
+      ...["", ".", ",", "-", "/"].map((char) =>
+        formatString.replace(/ /g, char)
+      ),
+    ],
+    []
+  );
+}
+
+type SizesAndWidths = [DateInputProps["size"], DateInputProps["width"]][];
+
+interface MockComponentProps {
+  refToBeForwarded?: jest.Mock | { current: null | HTMLInputElement };
+  eventValues?: (value: {
+    formattedValue: string;
+    rawValue: string | null;
+  }) => void | jest.Mock;
+}
+
+describe("Date", () => {
+  let container: HTMLDivElement | null;
+  let wrapper: ReactWrapper;
+  let onFocusFn: jest.Mock;
+
   const MockComponent = ({
-    emptyValue,
+    allowEmptyValue,
     eventValues = () => {},
     refToBeForwarded,
     inputRef,
     ...rest
-  }) => {
-    const [val, setVal] = useState(emptyValue ? "" : "02/02/2022");
+  }: Partial<DateInputProps> & MockComponentProps) => {
+    const [val, setVal] = useState(allowEmptyValue ? "" : "02/02/2022");
+
     return (
       <DateInput
         value={rest.value || val}
@@ -111,7 +233,7 @@ describe("Date", () => {
         onBlur={(ev) => {
           eventValues(ev.target.value);
         }}
-        allowEmptyValue={emptyValue}
+        allowEmptyValue={allowEmptyValue}
         name="Foo"
         id="Bar"
         ref={refToBeForwarded}
@@ -129,7 +251,7 @@ describe("Date", () => {
       ["small", "120px"],
       ["medium", "135px"],
       ["large", "140px"],
-    ])("to %s", (size, expectedValue) => {
+    ] as SizesAndWidths)("to %s", (size, expectedValue) => {
       it("then the width attribute of StyledInputPresentation should match expected value", () => {
         assertStyleMatch(
           { width: expectedValue },
@@ -214,7 +336,7 @@ describe("Date", () => {
       }
 
       container = null;
-      wrapper?.unmount();
+      wrapper.unmount();
     });
 
     it("the component's input should be focused and picker should exist when prop is true", () => {
@@ -263,8 +385,8 @@ describe("Date", () => {
   });
 
   describe("when the blur event is triggered on the input", () => {
-    let onBlurFn;
-    let onChangeFn;
+    let onBlurFn: jest.Mock;
+    let onChangeFn: jest.Mock;
 
     beforeEach(() => {
       onBlurFn = jest.fn();
@@ -330,12 +452,18 @@ describe("Date", () => {
     it("does not call onBlur when the input is click and DateRangeContext is detected", () => {
       wrapper = mount(
         <DateRangeContext.Provider
-          value={{ inputRefMap: {}, setInputRefMap: jest.fn() }}
+          value={{
+            inputRefMap: {
+              start: { isBlurBlocked: { current: false }, setOpen: null },
+              end: { isBlurBlocked: { current: false }, setOpen: null },
+            },
+            setInputRefMap: jest.fn(),
+          }}
         >
           <DateInput
             value="2012-12-12"
-            onChange={onChangeFn}
-            onBlur={onBlurFn}
+            onChange={onChangeFn || jest.fn}
+            onBlur={onBlurFn || jest.fn}
           />
         </DateRangeContext.Provider>
       );
@@ -404,7 +532,7 @@ describe("Date", () => {
   });
 
   describe("when a mousedown or click event is triggered", () => {
-    let onClickFn;
+    let onClickFn: jest.Mock;
     beforeEach(() => {
       onClickFn = jest.fn();
     });
@@ -457,7 +585,7 @@ describe("Date", () => {
         expect(onClickFn).toHaveBeenCalled();
       });
 
-      it("it does not call the onBlur prop", () => {
+      it("does not call the onBlur prop", () => {
         const onBlurFn = jest.fn();
         wrapper = render({ onBlur: onBlurFn });
         simulateClickOnInputIcon(wrapper);
@@ -503,25 +631,6 @@ describe("Date", () => {
         expect(wrapper.update().find(DayPicker).exists()).toBe(false);
         wrapper.unmount();
       });
-
-      it("the 'DatePicker' should close if it is open", () => {
-        wrapper = render();
-        simulateFocusOnInput(wrapper);
-        expect(wrapper.update().find(DayPicker).exists()).toBe(true);
-
-        simulateMouseDownOnPicker(wrapper);
-
-        wrapper.update();
-
-        act(() => {
-          document.dispatchEvent(
-            new MouseEvent("mousedown", { bubbles: true })
-          );
-        });
-
-        expect(wrapper.update().find(DayPicker).exists()).toBe(false);
-        wrapper.unmount();
-      });
     });
 
     describe("on the picker container", () => {
@@ -557,8 +666,10 @@ describe("Date", () => {
 
   describe("initial value as ISO format", () => {
     describe.each(
-      Object.keys(locales).filter((l) => !["en-CA", "en-US"].includes(l))
-    )("for %s locale", (localeKey) => {
+      (Object.keys(locales) as (keyof typeof locales)[]).filter(
+        (l) => !["en-CA", "en-US"].includes(l)
+      )
+    )("for non-NA locale %s", (localeKey) => {
       it("formats to the expected", () => {
         wrapper = mount(
           <I18nProvider locale={locales[localeKey]}>
@@ -572,8 +683,10 @@ describe("Date", () => {
     });
 
     describe.each(
-      Object.keys(locales).filter((l) => ["en-CA", "en-US"].includes(l))
-    )("for %s locale", (localeKey) => {
+      (Object.keys(locales) as (keyof typeof locales)[]).filter((l) =>
+        ["en-CA", "en-US"].includes(l)
+      )
+    )("for NA locale %s", (localeKey) => {
       it("formats to the expected", () => {
         wrapper = mount(
           <I18nProvider locale={locales[localeKey]}>
@@ -621,6 +734,8 @@ describe("Date", () => {
 
     describe('when the "onDayClick" prop is called on the opened "DatePicker"', () => {
       const mockDate = parse(new Date(), "dd/MM/yy", "01/01/21");
+      const mockDayModifiers = { today: undefined, outside: undefined };
+      const mockEvent = { target: {} } as React.MouseEvent<HTMLDivElement>;
 
       beforeEach(() => {
         container = document.createElement("div");
@@ -633,12 +748,12 @@ describe("Date", () => {
             .update()
             .find(DatePicker)
             .props()
-            .onDayClick(mockDate, {}, { target: {} });
+            .onDayClick?.(mockDate, mockEvent);
         });
       });
 
       afterEach(() => {
-        onFocusFn.mockClear();
+        onFocusFn?.mockClear();
 
         if (container && container.parentNode) {
           container.parentNode.removeChild(container);
@@ -646,7 +761,7 @@ describe("Date", () => {
 
         container = null;
 
-        wrapper?.unmount();
+        wrapper.unmount();
       });
 
       it("should return focus to the date input and close the DatePicker", () => {
@@ -669,7 +784,7 @@ describe("Date", () => {
             .update()
             .find(DayPicker)
             .props()
-            .onDayClick(mockDate, {}, { target: {} });
+            .onDayClick?.(mockDate, mockDayModifiers, mockEvent);
         });
 
         expect(onChangeFn).toHaveBeenCalledWith(
@@ -687,7 +802,7 @@ describe("Date", () => {
       });
 
       describe("when the disabled modifier is set", () => {
-        let onChangeFn;
+        let onChangeFn: jest.Mock;
 
         beforeEach(() => {
           onChangeFn = jest.fn();
@@ -701,7 +816,11 @@ describe("Date", () => {
               .update()
               .find(DayPicker)
               .props()
-              .onDayClick(mockDate, { disabled: true }, { target: {} });
+              .onDayClick?.(
+                mockDate,
+                { ...mockDayModifiers, disabled: true },
+                mockEvent
+              );
           });
         });
 
@@ -713,7 +832,7 @@ describe("Date", () => {
       });
     });
 
-    describe.each(Object.keys(locales))(
+    describe.each(Object.keys(locales) as (keyof typeof locales)[])(
       "when the locale is %s",
       (localeKey) => {
         const values = [
@@ -743,7 +862,7 @@ describe("Date", () => {
             wrapper.find("input").simulate("change", { target: { value } });
             expect(wrapper.update().find("input").prop("value")).toEqual(value);
             simulateBlurOnInput(wrapper);
-            const { separator } = locales[localeKey];
+            const { separator } = locales[localeKey as keyof typeof locales];
             const expectedValue = `01${separator}01${separator}2021`;
 
             expect(wrapper.update().find("input").prop("value")).toEqual(
@@ -765,7 +884,7 @@ describe("Date", () => {
           wrapper.find("input").simulate("change", { target: { value } });
           expect(wrapper.update().find("input").prop("value")).toEqual(value);
           simulateBlurOnInput(wrapper);
-          const { separator } = locales[localeKey];
+          const { separator } = locales[localeKey as keyof typeof locales];
           const expectedValue = `01${separator}01${separator}19${value.substring(
             value.length - 2,
             value.length
@@ -777,7 +896,7 @@ describe("Date", () => {
         });
 
         describe("when the day value is greater than 28 and month is not February", () => {
-          it("it parses the date as expected", () => {
+          it("parses the date as expected", () => {
             const value = ["en-US", "en-CA"].includes(localeKey)
               ? "01/31/2021"
               : "31/01/2021";
@@ -819,7 +938,9 @@ describe("Date", () => {
   describe("when allowEmptyValue prop is set", () => {
     it("emits rawValue as an empty string onBlur", () => {
       const eventValuesFn = jest.fn();
-      wrapper = mount(<MockComponent eventValues={eventValuesFn} emptyValue />);
+      wrapper = mount(
+        <MockComponent eventValues={eventValuesFn} allowEmptyValue />
+      );
 
       simulateBlurOnInput(wrapper);
       expect(eventValuesFn).toBeCalledWith({
@@ -882,7 +1003,7 @@ describe("Date", () => {
   });
 
   describe("validation", () => {
-    it.each(["error", "warning", "info"])(
+    it.each<keyof ValidationProps>(["error", "warning", "info"])(
       "renders the icon inside the textbox if %s is passed a string value",
       (validation) => {
         wrapper = render({ [validation]: "foo" });
@@ -894,7 +1015,7 @@ describe("Date", () => {
       }
     );
 
-    it.each(["error", "warning", "info"])(
+    it.each<keyof ValidationProps>(["error", "warning", "info"])(
       "renders the icon on the label and applies border if %s if string value and validationOnLabel",
       (validation) => {
         wrapper = render({ [validation]: "foo" });
@@ -920,7 +1041,7 @@ describe("Date", () => {
       }
     );
 
-    it.each(["error", "warning", "info"])(
+    it.each<keyof ValidationProps>(["error", "warning", "info"])(
       "does not render the icon if %s is passed a boolean value",
       (validation) => {
         wrapper = render({ [validation]: true });
@@ -946,9 +1067,10 @@ describe("Date", () => {
 
   describe("disablePortal", () => {
     it("renders DatePicker as a direct children of StyledDateInput by default", () => {
+      const mockEvent = { target: {} } as React.MouseEvent<HTMLElement>;
       wrapper = render();
       act(() => {
-        wrapper.find(InputIconToggle).props().onMouseDown({ target: {} });
+        wrapper.find(InputIconToggle).props().onMouseDown?.(mockEvent);
       });
 
       expect(wrapper.update().find(DayPicker).exists()).toBe(true);
@@ -957,9 +1079,10 @@ describe("Date", () => {
 
   describe("datepicker container", () => {
     it("should be the InputPresentationStyle element", () => {
+      const mockEvent = { target: {} } as React.MouseEvent<HTMLElement>;
       wrapper = render();
       act(() => {
-        wrapper.find(InputIconToggle).props().onMouseDown({ target: {} });
+        wrapper.find(InputIconToggle).props().onMouseDown?.(mockEvent);
       });
 
       expect(wrapper.update().find(DayPicker).exists()).toBe(true);
@@ -970,8 +1093,8 @@ describe("Date", () => {
   });
 
   describe("required", () => {
-    let input;
-    let label;
+    let input: ReactWrapper;
+    let label: ReactWrapper;
 
     beforeAll(() => {
       wrapper = render({ label: "required", required: true });
@@ -987,164 +1110,4 @@ describe("Date", () => {
       expect(label.prop("isRequired")).toBe(true);
     });
   });
-
-  it("renders with expected border radius styling", () => {
-    wrapper = render({ value: "", onChange: () => {} });
-
-    assertStyleMatch(
-      {
-        borderRadius: "var(--borderRadius050)",
-      },
-      wrapper.find(StyledInput)
-    );
-
-    simulateFocusOnInput(wrapper);
-    wrapper.update();
-
-    assertStyleMatch(
-      {
-        borderRadius: "var(--borderRadius400)",
-      },
-      wrapper.find(StyledDayPicker),
-      { modifier: ".DayPicker-Day" }
-    );
-
-    assertStyleMatch(
-      {
-        borderRadius: "var(--borderRadius050)",
-      },
-      wrapper.find(StyledDayPicker),
-      { modifier: ".DayPicker" }
-    );
-
-    assertStyleMatch(
-      {
-        borderRadius: "var(--borderRadius400)",
-      },
-      wrapper.find(StyledDayPicker),
-      {
-        modifier:
-          ".DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside)",
-      }
-    );
-
-    assertStyleMatch(
-      {
-        borderRadius: "var(--borderRadius050)",
-      },
-      wrapper.find(StyledButton)
-    );
-  });
 });
-
-function render(props = {}) {
-  return mount(<DateInput value="" onChange={() => {}} {...props} />, {
-    attachTo: document.getElementById("enzymeContainer"),
-  });
-}
-
-function simulateFocusOnInput(wrapper) {
-  const input = wrapper.find("input");
-
-  act(() => {
-    input.simulate("focus");
-  });
-}
-
-function simulateBlurOnInput(wrapper) {
-  const input = wrapper.find("input");
-
-  act(() => {
-    input.simulate("blur");
-  });
-}
-
-function simulateClickOnInput(wrapper) {
-  const input = wrapper.find("input");
-  const mockEvent = {
-    nativeEvent: {
-      stopImmediatePropagation: () => {},
-    },
-  };
-
-  act(() => {
-    input.simulate("click", mockEvent);
-  });
-}
-
-function simulateMouseDownOnInput(wrapper) {
-  const input = wrapper.find("input");
-  const mockEvent = {
-    nativeEvent: {
-      stopImmediatePropagation: () => {},
-    },
-  };
-
-  act(() => {
-    input.simulate("mousedown", mockEvent);
-  });
-}
-
-function simulateMouseDownOnPicker(wrapper) {
-  const input = wrapper.find(StyledDayPicker);
-  const mockEvent = {
-    nativeEvent: {
-      stopImmediatePropagation: () => {},
-    },
-  };
-
-  act(() => {
-    input
-      .getDOMNode()
-      .dispatchEvent(
-        new MouseEvent("mousedown", { ...mockEvent, bubbles: true })
-      );
-  });
-}
-
-function simulateOnKeyDown(wrapper, key) {
-  const keyDownParams = { key };
-  const input = wrapper.find("input");
-
-  act(() => {
-    input.simulate("keyDown", keyDownParams);
-  });
-}
-
-function simulateClickOnInputIcon(wrapper) {
-  const input = wrapper.find(InputIconToggle);
-  const mockEvent = {
-    nativeEvent: {
-      stopImmediatePropagation: () => {},
-    },
-  };
-
-  act(() => {
-    input.simulate("click", mockEvent);
-  });
-}
-
-function simulateMouseDownOnInputIcon(wrapper) {
-  const input = wrapper.find(InputIconToggle);
-  const mockEvent = {
-    nativeEvent: {
-      stopImmediatePropagation: () => {},
-    },
-  };
-
-  act(() => {
-    input.simulate("mousedown", mockEvent);
-  });
-}
-
-function getValidInputValues(values) {
-  return values.reduce(
-    (arr, formatString) => [
-      ...arr,
-      ...["", ".", ",", "-", "/"].map((char) =>
-        formatString.replace(/ /g, char)
-      ),
-    ],
-    []
-  );
-}

@@ -1,12 +1,15 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import { shallow } from "enzyme";
+import { shallow, ShallowWrapper } from "enzyme";
 
-import Navbar from "./navbar.component";
+import Navbar, { NavbarProps } from "./navbar.component";
 import StyledButton from "./button.style";
 
 describe("Navbar", () => {
-  let wrapper, onPreviousClick, onNextClick;
+  let wrapper: ShallowWrapper;
+  let onPreviousClick: jest.Mock;
+  let onNextClick: jest.Mock;
+
   describe("render", () => {
     beforeEach(() => {
       onPreviousClick = jest.fn();
@@ -38,7 +41,7 @@ describe("Navbar", () => {
   });
 
   describe("Navbar Button", () => {
-    const render = (props) => {
+    const render = (props: NavbarProps = {}) => {
       return TestRenderer.create(
         <StyledButton {...props}>sample children</StyledButton>
       );
