@@ -429,9 +429,9 @@ context("Testing Menu component", () => {
     });
 
     it.each([
-      [0.3, 355],
-      [0.6, 720],
-      [1.0, 1200],
+      [0.3, 409],
+      [0.6, 819],
+      [1.0, 1366],
       [350, 350],
       [900, 900],
       [1350, 1350],
@@ -539,13 +539,13 @@ context("Testing Menu component", () => {
       }
     );
 
-    it.each(["default", "large"] as MenuDividerProps["size"][])(
+   it.each(["default", "large"] as MenuDividerProps["size"][])(
       "should verify that using size prop sets both width and height props",
       (size) => {
         CypressMountWithProviders(<MenuComponent size={size} />);
         menu().then(($el) => {
           assertCssValueIsApproximately($el, "height", 40);
-          assertCssValueIsApproximately($el, "width", 1200);
+          assertCssValueIsApproximately($el, "width", 1366);
         });
       }
     );
@@ -782,11 +782,8 @@ context("Testing Menu component", () => {
       CypressMountWithProviders(
         <MenuComponentItems className={CHARACTERS.STANDARD} />
       );
-
-      menuItem()
-        .eq(0)
-        .should("have.attr", "class")
-        .and("contain.text", CHARACTERS.STANDARD);
+      menuItem().eq(0).should("have.attr", "class").as("item");
+      cy.get("@item").should("contain", CHARACTERS.STANDARD);
     });
 
     it.each([
@@ -1021,6 +1018,7 @@ context("Testing Menu component", () => {
     );
   });
 
+ describe("check props for Menu Fullscreen component", () => {
   beforeEach(() => {
     cy.viewport(1200, 800);
     CypressMountWithProviders(<MenuComponentFullScreen />);
@@ -1049,7 +1047,7 @@ context("Testing Menu component", () => {
     menu().should("be.visible");
   });
 
-  describe("check events for Menu component", () => {
+
     it("should verify that close icon is focused in Menu Fullscreen", () => {
       fullScreenMenuWrapper().tab();
       closeIconButton().then(($el) => {
@@ -1133,7 +1131,6 @@ context("Testing Menu component", () => {
         .children()
         .should("be.focused");
     });
-  });
 
   it("should verify that inner Menu without link is NOT available with tabbing in Fullscreen Menu", () => {
     continuePressingTABKey(8);
@@ -1195,10 +1192,13 @@ context("Testing Menu component", () => {
     menuItem().last().find("a").should("have.focus");
   });
 
+});
+
+  describe("check events for Menu component", () => {
   it("should call onClick callback when a click event is triggered", () => {
     const callback: MenuWithChildren["onClick"] = cy.stub().as("onClick");
     CypressMountWithProviders(<MenuComponentItems onClick={callback} />);
-    menuComponent(positionOfElement("fifth")).click();
+    menuComponent(positionOfElement("second")).click();
     cy.get("@onClick").should("have.been.calledOnce");
   });
 
@@ -1299,6 +1299,7 @@ context("Testing Menu component", () => {
     cy.focused().trigger("keydown", keyCode("uparrow"));
     cy.focused().should("contain", "Apple");
   });
+});
 
   describe("Accessibility tests for Menu component", () => {
     it("should pass accessibility tests for Menu default", () => {
@@ -1754,26 +1755,27 @@ context("Testing Menu component", () => {
     });
   });
 
-  describe("MenuFullScreen test background scroll when tabbing", () => {
-    it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
-      CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+ 
+  describe("test background scroll when tabbing", () => {
+      it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
+        CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
 
-      continuePressingTABKey(4);
+        continuePressingTABKey(4);
 
-      closeIconButton().should("be.focused");
+        closeIconButton().should("be.focused");
 
-      cy.checkNotInViewport("#bottom-box");
-    });
+        cy.checkNotInViewport("#bottom-box");
+      });
 
-    it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
-      CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+      it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
+        CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
 
-      continuePressingTABKey(3, true);
+        continuePressingTABKey(3, true);
 
-      closeIconButton().should("be.focused");
+        closeIconButton().should("be.focused");
 
-      cy.checkNotInViewport("#bottom-box");
-    });
+        cy.checkNotInViewport("#bottom-box");
+      });
   });
 
   describe("when inside a GlobalHeader", () => {
@@ -1795,4 +1797,5 @@ context("Testing Menu component", () => {
       );
     });
   });
+
 });

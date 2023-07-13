@@ -682,3 +682,14 @@ export const MenuSegmentTitleComponent = ({ ...args }) => {
     </Box>
   );
 };
+
+export const MenuFullScreenWithFalsyValues = (props: MenuFullscreenProps) => {
+  const showMenuItem = false;
+  return (
+    <MenuFullscreen {...props}>
+      <MenuItem maxWidth="200px">Submenu Item One</MenuItem>
+      {false && <MenuItem href="#">Product Item One</MenuItem>}
+      {showMenuItem ? <MenuItem href="#">Product Item Two</MenuItem> : null}
+    </MenuFullscreen>
+  );
+};
