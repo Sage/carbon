@@ -1,4 +1,5 @@
 import React from "react";
+import { BoxProps } from "../../../src/components/box";
 import * as testStories from "../../../src/components/box/box-test.stories";
 import * as stories from "../../../src/components/box/box.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -7,48 +8,48 @@ import { assertCssValueIsApproximately } from "../../support/component-helper/co
 
 import { radiobuttonComponent } from "../../locators/radiobutton";
 
-const colorConstants = [
+const colorConstants: [string, string, string][] = [
   ["red", "rgb(255, 0, 0)", "#FF0000"],
   ["yellow", "rgb(255, 255, 0)", "#FFFF00"],
   ["blue", "rgb(0, 0, 255)", "#0000FF"],
 ];
 
-const bgConstants = [
+const bgConstants: [string, string, string][] = [
   ["primary", "rgb(0, 125, 90)", "#007D5A"],
   ["secondary", "rgb(0, 96, 70)", "#006046"],
   ["tertiary", "rgb(0, 64, 46)", "#00402E"],
 ];
 
-const widthConstants = [
+const widthConstants: [string, number, number][] = [
   ["135px", 0.1, 135],
   ["683px", 0.5, 683],
   ["1366px", 1, 1366],
 ];
 
-const heightConstants = [
+const heightConstants: [string, number][] = [
   ["135px", 135],
   ["683px", 683],
   ["1366px", 1366],
 ];
 
-const sizeConstants = [
+const sizeConstants: [string, number, number][] = [
   ["135px", 0.1, 135],
   ["683px", 0.5, 683],
   ["1366px", 1, 1366],
 ];
 
-const verifyScrollbarVariant = (variant, thumbColor, trackColor) =>
+const verifyScrollbarVariant = (thumbColor: string, trackColor: string) =>
   getDataElementByValue("boxone").then(($els) => {
     // get Window reference from element
     const win = $els[0].ownerDocument.defaultView;
     // use getComputedStyle to read the pseudo selector
-    const thumb = win.getComputedStyle($els[0], "-webkit-scrollbar-thumb");
-    const track = win.getComputedStyle($els[0], "-webkit-scrollbar-track");
+    const thumb = win?.getComputedStyle($els[0], "-webkit-scrollbar-thumb");
+    const track = win?.getComputedStyle($els[0], "-webkit-scrollbar-track");
     // read the value of the `content` CSS property
-    const colorValueThumb = thumb.getPropertyValue("background-color");
-    const colorValueTrack = track.getPropertyValue("background-color");
-    expect(colorValueThumb).to.eq(thumbColor);
-    expect(colorValueTrack).to.eq(trackColor);
+    const colorValueThumb = thumb?.getPropertyValue("background-color");
+    const colorValueTrack = track?.getPropertyValue("background-color");
+    cy.wrap(colorValueThumb).should("be.equals", thumbColor);
+    cy.wrap(colorValueTrack).should("be.equals", trackColor);
   });
 
 context("Testing Box component", () => {
@@ -300,7 +301,7 @@ context("Testing Box component", () => {
       "text-bottom",
       "text-top",
       "top",
-    ])("should verify Box alignItmes is %s", (alignment) => {
+    ])("should verify Box verticalAlign is %s", (alignment) => {
       CypressMountWithProviders(
         <testStories.BoxComponentMulti verticalAlign={alignment} />
       );
@@ -323,7 +324,13 @@ context("Testing Box component", () => {
       }
     );
 
-    it.each(["auto", "clip", "hidden", "scroll", "visible"])(
+    it.each([
+      "auto",
+      "clip",
+      "hidden",
+      "scroll",
+      "visible",
+    ] as BoxProps["overflowX"][])(
       "should verify Box overflowX is %s",
       (overflow) => {
         CypressMountWithProviders(<testStories.Default overflowX={overflow} />);
@@ -332,7 +339,13 @@ context("Testing Box component", () => {
       }
     );
 
-    it.each(["auto", "clip", "hidden", "scroll", "visible"])(
+    it.each([
+      "auto",
+      "clip",
+      "hidden",
+      "scroll",
+      "visible",
+    ] as BoxProps["overflowY"][])(
       "should verify Box overflowY is %s",
       (overflow) => {
         CypressMountWithProviders(<testStories.Default overflowY={overflow} />);
@@ -345,7 +358,7 @@ context("Testing Box component", () => {
       [200, 300],
       [400, 400],
     ])(
-      "should verify when Width is set to %s that Box width is not less than minWidth %s",
+      "should verify when number Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
         CypressMountWithProviders(
           <testStories.Default minWidth={300} width={width} />
@@ -361,7 +374,7 @@ context("Testing Box component", () => {
       ["200px", 300],
       ["400px", 400],
     ])(
-      "should verify when Width is set to %s that Box width is not less than minWidth %s",
+      "should verify when string Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
         CypressMountWithProviders(
           <testStories.Default minWidth={300} width={width} />
@@ -377,7 +390,7 @@ context("Testing Box component", () => {
       [0.1, 300],
       [0.3, 409],
     ])(
-      "should verify when Width is set to %s that Box width is not less than minWidth %s",
+      "should verify when percentage Width is set to %s that Box width is not less than minWidth %s",
       (width, minWidth) => {
         CypressMountWithProviders(
           <testStories.Default minWidth={300} width={width} />
@@ -393,7 +406,7 @@ context("Testing Box component", () => {
       [400, 400],
       [800, 600],
     ])(
-      "should verify when Width is set to %s that Box width is not more than maxWidth %s",
+      "should verify when number Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
         CypressMountWithProviders(
           <testStories.Default maxWidth={600} width={width} />
@@ -409,7 +422,7 @@ context("Testing Box component", () => {
       ["400px", 400],
       ["800px", 600],
     ])(
-      "should verify when Width is set to %s that Box width is not more than maxWidth %s",
+      "should verify when string Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
         CypressMountWithProviders(
           <testStories.Default maxWidth={600} width={width} />
@@ -425,7 +438,7 @@ context("Testing Box component", () => {
       [0.1, 135],
       [0.5, 600],
     ])(
-      "should verify when Width is set to %s that Box width is not more than maxWidth %s",
+      "should verify when percentage Width is set to %s that Box width is not more than maxWidth %s",
       (width, maxWidth) => {
         CypressMountWithProviders(
           <testStories.Default maxWidth={600} width={width} />
@@ -441,7 +454,7 @@ context("Testing Box component", () => {
       [400, 600],
       [800, 800],
     ])(
-      "should verify when Height is set to %s that Box height is not less than minHeight %s",
+      "should verify when number Height is set to %s that Box height is not less than minHeight %s",
       (height, minHeight) => {
         CypressMountWithProviders(
           <testStories.Default minHeight={600} height={height} />
@@ -457,7 +470,7 @@ context("Testing Box component", () => {
       ["400px", 600],
       ["800px", 800],
     ])(
-      "should verify when Height is set to %s that Box height is not less than minHeight %s",
+      "should verify when string Height is set to %s that Box height is not less than minHeight %s",
       (height, minHeight) => {
         CypressMountWithProviders(
           <testStories.Default minHeight={600} height={height} />
@@ -473,7 +486,7 @@ context("Testing Box component", () => {
       [400, 400],
       [800, 600],
     ])(
-      "should verify when Height is set to %s that Box height is not more than maxHeight %s",
+      "should verify when percentage Height is set to %s that Box height is not more than maxHeight %s",
       (height, maxHeight) => {
         CypressMountWithProviders(
           <testStories.Default maxHeight={600} height={height} />
@@ -489,7 +502,7 @@ context("Testing Box component", () => {
       ["400px", 400],
       ["800px", 600],
     ])(
-      "should verify when Height is set to %s that Box height is not more than maxHeight %s",
+      "should verify when string Height is set to %s that Box height is not more than maxHeight %s",
       (height, maxHeight) => {
         CypressMountWithProviders(
           <testStories.Default maxHeight={600} height={height} />
@@ -508,7 +521,7 @@ context("Testing Box component", () => {
       "center",
       "flex-start",
       "flex-end",
-    ])("should verify Box alignItmes is %s", (alignment) => {
+    ])("should verify Box alignItems is %s", (alignment) => {
       CypressMountWithProviders(
         <testStories.BoxComponentMulti alignItems={alignment} />
       );
@@ -579,7 +592,7 @@ context("Testing Box component", () => {
       );
     });
 
-    it.each(["nowrap", "wrap", "wrap-reverse"])(
+    it.each(["nowrap", "wrap", "wrap-reverse"] as BoxProps["flexWrap"][])(
       "should verify Box flex wrap is %s",
       (wrap) => {
         CypressMountWithProviders(
@@ -590,7 +603,12 @@ context("Testing Box component", () => {
       }
     );
 
-    it.each(["column", "column-reverse", "row", "row-reverse"])(
+    it.each([
+      "column",
+      "column-reverse",
+      "row",
+      "row-reverse",
+    ] as BoxProps["flexDirection"][])(
       "should verify Box flex direction is %s",
       (direction) => {
         CypressMountWithProviders(
@@ -701,7 +719,7 @@ context("Testing Box component", () => {
       getDataElementByValue("box").should("have.css", "order", orderText);
     });
 
-    it.each(["break-word", "anywhere"])(
+    it.each(["break-word", "anywhere"] as BoxProps["overflowWrap"][])(
       "should verify Box overflow wrap is %s",
       (wrap) => {
         CypressMountWithProviders(
@@ -715,21 +733,30 @@ context("Testing Box component", () => {
     it.each([
       ["light", "rgb(102, 132, 148)", "rgb(242, 245, 246)"],
       ["dark", "rgb(153, 173, 183)", "rgb(51, 91, 112)"],
-    ])("should verify Box scrollbar variant is %s", (variant, thumb, track) => {
-      CypressMountWithProviders(
-        <testStories.BoxComponentMulti
-          display="inline-block"
-          size="150px"
-          overflow="auto"
-          scrollVariant={variant}
-          mr="20px"
-        />
-      );
+    ] as [BoxProps["scrollVariant"], string, string][])(
+      "should verify Box scrollbar variant is %s",
+      (variant, thumb, track) => {
+        CypressMountWithProviders(
+          <testStories.BoxComponentMulti
+            display="inline-block"
+            size="150px"
+            overflow="auto"
+            scrollVariant={variant}
+            mr="20px"
+          />
+        );
 
-      verifyScrollbarVariant(variant, thumb, track);
-    });
+        verifyScrollbarVariant(thumb, track);
+      }
+    );
 
-    it.each(["fixed", "absolute", "static", "sticky", "relative"])(
+    it.each([
+      "fixed",
+      "absolute",
+      "static",
+      "sticky",
+      "relative",
+    ] as BoxProps["position"][])(
       "should verify Box position is %s",
       (value) => {
         CypressMountWithProviders(
@@ -750,7 +777,7 @@ context("Testing Box component", () => {
       }
     );
 
-    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"])(
+    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"] as BoxProps["gap"][])(
       "should verify gap prop sets expected CSS on Box",
       (gap) => {
         CypressMountWithProviders(
@@ -771,7 +798,7 @@ context("Testing Box component", () => {
       }
     );
 
-    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"])(
+    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"] as BoxProps["rowGap"][])(
       "should verify rowGap prop sets expected CSS on Box and overrides gap if set",
       (rowGap) => {
         CypressMountWithProviders(
@@ -788,7 +815,19 @@ context("Testing Box component", () => {
       }
     );
 
-    it.each([0, 1, 2, 3, 4, 5, 6, 7, 8, "20%", "20px"])(
+    it.each([
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      "20%",
+      "20px",
+    ] as BoxProps["columnGap"][])(
       "should verify columnGap prop sets expected CSS on Box and overrides gap if set",
       (columnGap) => {
         CypressMountWithProviders(
@@ -894,7 +933,7 @@ context("Testing Box component", () => {
     ["borderRadius100", "8px"],
     ["borderRadius200", "16px"],
     ["borderRadius400", "32px"],
-  ])(
+  ] as [BoxProps["borderRadius"], string][])(
     "applies the expected border radius when %s passed to borderRadius prop",
     (borderRadius, expected) => {
       CypressMountWithProviders(
