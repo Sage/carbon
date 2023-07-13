@@ -1,5 +1,6 @@
 import React from "react";
-import Password from "../../../src/components/password/password.component";
+import { PasswordProps } from "../../../src/components/password/password.component";
+import { PasswordComponent } from "../../../src/components/password/password-test.stories";
 import * as stories from "../../../src/components/password/password.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import {
@@ -19,22 +20,6 @@ const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const transparent = "rgba(0, 0, 0, 0)";
 const colorsActionMinor500 = "rgb(51, 91, 112)";
 const colorsUtilityMajor300 = "rgb(102, 132, 148)";
-
-// eslint-disable-next-line react/prop-types
-const PasswordComponent = ({ onChange, ...props }) => {
-  const [state, setState] = React.useState("test");
-
-  const setValue = (ev) => {
-    setState(ev.target.value);
-    if (onChange) {
-      onChange(ev);
-    }
-  };
-
-  return (
-    <Password label="Password" value={state} onChange={setValue} {...props} />
-  );
-};
 
 context("Tests for Password component", () => {
   describe("check Password specific props", () => {
@@ -57,13 +42,8 @@ context("Tests for Password component", () => {
     it("input type should change from password to text on click", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonMinorComponent()
-        .click()
-        .then(() => {
-          getDataElementByValue("input")
-            .eq(0)
-            .should("have.attr", "type", "text");
-        });
+      buttonMinorComponent().click();
+      getDataElementByValue("input").eq(0).should("have.attr", "type", "text");
     });
 
     it("autoComplete attribute is 'off'", () => {
@@ -114,11 +94,8 @@ context("Tests for Password component", () => {
     it("iconType should change from 'view' to 'hide' onClick", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonMinorComponent()
-        .click()
-        .then(() => {
-          icon().should("have.attr", "type", "hide");
-        });
+      buttonMinorComponent().click();
+      icon().should("have.attr", "type", "hide");
     });
 
     it("default iconPosition should be 'before'", () => {
@@ -140,11 +117,8 @@ context("Tests for Password component", () => {
     it("label should change from 'Show' to 'Hide' onClick", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonMinorComponent()
-        .click()
-        .then(() => {
-          buttonMinorComponent().contains("Hide");
-        });
+      buttonMinorComponent().click();
+      buttonMinorComponent().contains("Hide");
     });
 
     it("default aria-label should be 'Show password'", () => {
@@ -156,15 +130,8 @@ context("Tests for Password component", () => {
     it("aria-label should change from 'Show password' to 'Hide password' onClick", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonMinorComponent()
-        .click()
-        .then(() => {
-          buttonMinorComponent().should(
-            "have.attr",
-            "aria-label",
-            "Hide password"
-          );
-        });
+      buttonMinorComponent().click();
+      buttonMinorComponent().should("have.attr", "aria-label", "Hide password");
     });
 
     it("buttonType is 'tertiary', when in password default styling should be correct", () => {
@@ -176,59 +143,51 @@ context("Tests for Password component", () => {
         .and("have.css", "color", colorsActionMinor500);
       buttonMinorComponent()
         .getDesignTokensByCssProperty("color")
-        .should(($el) => {
-          expect($el[1]).to.deep.equal("--colorsActionMinor500");
-        });
+        .as("colorToken");
+
+      cy.get("@colorToken").its("1").should("equal", "--colorsActionMinor500");
     });
 
     it("buttonType is 'tertiary', when in password default styling should be correct onHover", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
+      buttonMinorComponent().realHover();
       buttonMinorComponent()
-        .realHover()
-        .then(() => {
-          buttonMinorComponent()
-            .should("be.visible")
-            .and("have.css", "background-color", transparent)
-            .and("have.css", "color", colorsActionMinor500);
-          buttonMinorComponent()
-            .getDesignTokensByCssProperty("color")
-            .then(($el) => {
-              expect($el[2]).to.equal("--colorsActionMinor500");
-            });
-        });
+        .should("be.visible")
+        .and("have.css", "background-color", transparent)
+        .and("have.css", "color", colorsActionMinor500);
+      buttonMinorComponent()
+        .getDesignTokensByCssProperty("color")
+        .as("colorToken");
+
+      cy.get("@colorToken").its("2").should("equal", "--colorsActionMinor500");
 
       // reset the hover state
       cyRoot().realHover({ position: "topLeft" });
     });
 
-    it("icon color is 'colorsActionMajorYang300'", () => {
+    it("icon color is 'colorsUtilityMajor300'", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
       icon()
         .should("be.visible")
         .and("have.css", "color", colorsUtilityMajor300);
-      icon()
-        .getDesignTokensByCssProperty("color")
-        .should(($el) => {
-          expect($el[3]).to.equal("--colorsUtilityMajor300");
-        });
+      icon().getDesignTokensByCssProperty("color").as("colorToken");
+
+      cy.get("@colorToken").its("3").should("equal", "--colorsUtilityMajor300");
     });
 
-    it("icon color is 'colorsActionMajorYang300' onHover'", () => {
+    it("icon color is 'colorsUtilityMajor300' onHover'", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonMinorComponent()
-        .realHover()
-        .then(() => {
-          icon()
-            .should("be.visible")
-            .and("have.css", "color", colorsUtilityMajor300)
-            .getDesignTokensByCssProperty("color")
-            .should(($el) => {
-              expect($el[4]).to.equal("--colorsUtilityMajor300");
-            });
-        });
+      buttonMinorComponent().realHover();
+      icon()
+        .should("be.visible")
+        .and("have.css", "color", colorsUtilityMajor300)
+        .getDesignTokensByCssProperty("color")
+        .as("colorToken");
+
+      cy.get("@colorToken").its("4").should("equal", "--colorsUtilityMajor300");
 
       // reset the hover state
       cyRoot().realHover({ position: "topLeft" });
@@ -245,13 +204,10 @@ context("Tests for Password component", () => {
     it("when user clicks to show password, aria-live region should contain the correct text", () => {
       CypressMountWithProviders(<PasswordComponent />);
 
-      buttonMinorComponent()
-        .click()
-        .then(() => {
-          cy.get("p").contains(
-            "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so."
-          );
-        });
+      buttonMinorComponent().click();
+      cy.get("p").contains(
+        "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so."
+      );
     });
 
     it("aria-live region text should be visually hidden", () => {
@@ -274,7 +230,7 @@ context("Tests for Password component", () => {
       [SIZE.SMALL, "32px"],
       [SIZE.MEDIUM, "40px"],
       [SIZE.LARGE, "48px"],
-    ])(
+    ] as [PasswordProps["size"], string][])(
       "should use %s as size and render it with %s as height",
       (size, height) => {
         CypressMountWithProviders(<PasswordComponent size={size} />);
@@ -347,7 +303,7 @@ context("Tests for Password component", () => {
     it.each([
       ["right", "end"],
       ["left", "start"],
-    ])(
+    ] as [PasswordProps["labelAlign"], string][])(
       "should use %s as labelAligment and render it with %s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
