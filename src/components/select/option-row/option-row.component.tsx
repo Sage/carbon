@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { CSSProperties } from "styled-components";
+import { TagProps } from "__internal__/utils/helpers/tags";
 import StyledOptionRow from "./option-row.style";
 import SelectListContext from "../__internal__/select-list-context";
 
-export interface OptionRowProps {
+export interface OptionRowProps extends TagProps {
   /** The option's visible text, displayed within <Textbox> of <Select> */
   text: string;
   /** Row content, should consist of multiple td elements */
@@ -11,17 +12,16 @@ export interface OptionRowProps {
   /** The option's invisible internal value */
   value: string | Record<string, unknown>;
   /**
-   * @private
-   * @ignore
-   * Component id (prop added by the SelectList component)
+   * Unique identifier for the component.
+   * Will use a randomly generated GUID if none is provided.
    */
-  id: string;
+  id?: string;
   /**
    * @private
    * @ignore
    * Callback to return value when the element is selected (prop added by the SelectList component) */
   onSelect?: (ev: {
-    id: string;
+    id?: string;
     text: string;
     value: string | Record<string, unknown>;
   }) => void;
