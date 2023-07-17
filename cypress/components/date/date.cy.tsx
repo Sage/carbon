@@ -1,9 +1,11 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import dayjs from "dayjs";
 import Confirm from "../../../src/components/confirm";
-import DateInput from "../../../src/components/date";
-import CarbonProvider from "../../../src/components/carbon-provider";
+import {
+  DateInputCustom,
+  DateInputValidationNewDesign,
+} from "../../../src/components/date/date-test.stories";
+import { DateInputProps } from "../../../src/components/date";
 import {
   enUS,
   zhCN,
@@ -52,18 +54,14 @@ import {
   VALIDATION,
 } from "../../support/component-helper/constants";
 
-Cypress.dayjs = dayjs;
-
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
-const TODAY = Cypress.dayjs().format("ddd D MMM YYYY");
-const DATE_INPUT = Cypress.dayjs("2022-05-01").format("DD/MM/YYYY");
-const TODAY_DATE_INPUT = Cypress.dayjs().format("DD/MM/YYYY");
-const NEXT_MONTH = Cypress.dayjs("2022-05-01")
-  .add(1, "months")
-  .format("MMMM YYYY");
-const ACTUAL_MONTH = Cypress.dayjs("2022-05-01").format("MMMM YYYY");
-const PREVIOUS_MONTH = Cypress.dayjs("2022-05-01")
+const TODAY = dayjs().format("ddd D MMM YYYY");
+const DATE_INPUT = dayjs("2022-05-01").format("DD/MM/YYYY");
+const TODAY_DATE_INPUT = dayjs().format("DD/MM/YYYY");
+const NEXT_MONTH = dayjs("2022-05-01").add(1, "months").format("MMMM YYYY");
+const ACTUAL_MONTH = dayjs("2022-05-01").format("MMMM YYYY");
+const PREVIOUS_MONTH = dayjs("2022-05-01")
   .subtract(1, "months")
   .format("MMMM YYYY");
 const MIN_DATE = "04/04/2030";
@@ -76,78 +74,7 @@ const DDMMYYY_DATE_TO_ENTER_SHORT = "1,7,22";
 const MMDDYYYY_DATE_TO_ENTER_SHORT = "7,1,22";
 const YYYYMMDD_DATE_TO_ENTER_SHORT = "22,7,1";
 const DATE_TO_VERIFY = "2022-05-12";
-
-const DateInputCustom = ({ onChange, onBlur, ...props }) => {
-  const [state, setState] = React.useState("01/05/2022");
-
-  const handleOnChange = (ev) => {
-    if (onChange) {
-      onChange(ev.target.value);
-    }
-
-    setState(ev.target.value.formattedValue);
-  };
-
-  const handleOnBlur = (ev) => {
-    if (onBlur) {
-      onBlur(ev.target.value);
-    }
-  };
-
-  return (
-    <DateInput
-      label="Date"
-      name="date-input"
-      value={state}
-      onChange={handleOnChange}
-      onBlur={handleOnBlur}
-      {...props}
-    />
-  );
-};
-
-const DateInputValidationNewDesign = () => {
-  const [state1, setState1] = React.useState("01/10/2016");
-  const setValue1 = ({ target }) => {
-    setState1(target.value.formattedValue);
-  };
-  const [state2, setState2] = React.useState("01/10/2016");
-  const setValue2 = ({ target }) => {
-    setState2(target.value.formattedValue);
-  };
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {["error", "warning"].map((validationType) =>
-        ["small", "medium", "large"].map((size) => (
-          <div
-            style={{ width: "296px" }}
-            key={`${size}-${validationType}-string-label`}
-          >
-            <DateInput
-              label={`${size} - ${validationType}`}
-              value={state1}
-              onChange={setValue1}
-              validationOnLabel
-              size={size}
-              {...{ [validationType]: "Message" }}
-              m={4}
-            />
-            <DateInput
-              label={`readOnly - ${size} - ${validationType}`}
-              value={state2}
-              onChange={setValue2}
-              validationOnLabel
-              size={size}
-              readOnly
-              {...{ [validationType]: "Message" }}
-              m={4}
-            />
-          </div>
-        ))
-      )}
-    </CarbonProvider>
-  );
-};
+const keysToTrigger = ["rightarrow", "leftarrow"] as const;
 
 context("Test for DateInput component", () => {
   describe("check functionality for DateInput component", () => {
@@ -166,21 +93,22 @@ context("Test for DateInput component", () => {
     it.each([
       ["left", "start"],
       ["right", "end"],
-    ])("should check the label align is set to %s", (labelAlign, cssValue) => {
-      CypressMountWithProviders(
-        <DateInputCustom
-          labelAlign={labelAlign}
-          labelHelp="labelHelp"
-          labelInline
-        />
-      );
-
-      getDataElementByValue("label")
-        .parent()
-        .should(($element) =>
-          expect($element).to.have.css("justify-content", `flex-${cssValue}`)
+    ] as [DateInputProps["labelAlign"], string][])(
+      "should check the label align is set to %s",
+      (labelAlign, cssValue) => {
+        CypressMountWithProviders(
+          <DateInputCustom
+            labelAlign={labelAlign}
+            labelHelp="labelHelp"
+            labelInline
+          />
         );
-    });
+
+        getDataElementByValue("label")
+          .parent()
+          .should("have.css", "justify-content", `flex-${cssValue}`);
+      }
+    );
 
     it("should check the minDate prop", () => {
       CypressMountWithProviders(<DateInputCustom minDate="2030-04-04" />);
@@ -294,8 +222,8 @@ context("Test for DateInput component", () => {
     );
 
     it.each([
-      ["chevron_right", "next", "rightarrow"],
-      ["chevron_left", "previous", "leftarrow"],
+      ["chevron_right", "next", keysToTrigger[0]],
+      ["chevron_left", "previous", keysToTrigger[1]],
     ])(
       "should trigger %s arrow in DayPicker to verify %s month is shown using %s keyboard key",
       (arrow, month, key) => {
@@ -321,14 +249,17 @@ context("Test for DateInput component", () => {
       [SIZE.SMALL, 29, 30.5],
       [SIZE.MEDIUM, 37, 38.5],
       [SIZE.LARGE, 45, 46.5],
-    ])("should check the %s of the DateInput", (size, minValue, maxValue) => {
-      CypressMountWithProviders(<DateInputCustom size={size} />);
+    ] as [DateInputProps["size"], number, number][])(
+      "should check the %s of the DateInput",
+      (size, minValue, maxValue) => {
+        CypressMountWithProviders(<DateInputCustom size={size} />);
 
-      dateInputParent()
-        .invoke("height")
-        .should("be.greaterThan", minValue)
-        .and("be.lessThan", maxValue);
-    });
+        dateInputParent()
+          .invoke("height")
+          .should("be.greaterThan", minValue)
+          .and("be.lessThan", maxValue);
+      }
+    );
 
     it.each([
       [10, 90, 135, 1229],
@@ -381,7 +312,7 @@ context("Test for DateInput component", () => {
 
   it("should check the pickerProps prop", () => {
     CypressMountWithProviders(
-      <DateInputCustom pickerProps={{ numberOfMonths: "2" }} />
+      <DateInputCustom pickerProps={{ numberOfMonths: 2 }} />
     );
 
     dateInput().click();
@@ -411,7 +342,7 @@ context("Test for DateInput component", () => {
     [false, "be.visible"],
   ])("should check the disablePortal prop", (state, visibility) => {
     CypressMountWithProviders(
-      <Confirm open height="60px">
+      <Confirm open height="60px" onConfirm={() => {}}>
         <DateInputCustom disablePortal={state} />
       </Confirm>
     );
@@ -420,33 +351,32 @@ context("Test for DateInput component", () => {
     dayPickerWrapper().should(visibility);
   });
 
+  it("should have the expected border radius styling", () => {
+    CypressMountWithProviders(<DateInputCustom />);
+    dateInputParent().click();
+
+    dateInput().should("have.css", "border-radius", "4px");
+    dayPickerDay("Sun 1 May 2022").should("have.css", "border-radius", "32px");
+    dayPickerDay("Mon 2 May 2022").should("have.css", "border-radius", "32px");
+    dayPickerNavButtons(0).should("have.css", "border-radius", "4px");
+    dayPickerNavButtons(1).should("have.css", "border-radius", "4px");
+  });
+
   describe("check events for Date component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
     it("should call onChange callback when a clear event is triggered", () => {
+      const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(<DateInputCustom onChange={callback} />);
 
-      dateInput()
-        .clear()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      dateInput().clear();
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it("should call onChange callback when a type event is triggered", () => {
+      const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
       CypressMountWithProviders(<DateInputCustom onChange={callback} />);
 
-      dateInput()
-        .type("1")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      dateInput().type("1");
+      cy.get("@onChange").should("have.been.calledOnce");
     });
 
     it.each([
@@ -472,6 +402,7 @@ context("Test for DateInput component", () => {
     ])(
       "should use %s locale and change the formattedValue to %s after selecting date",
       (localeValue, formattedValueParam, dateFnsLocaleValue) => {
+        const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
         CypressMountWithProviders(
           <DateInputCustom onChange={callback} />,
           sageTheme,
@@ -499,12 +430,17 @@ context("Test for DateInput component", () => {
           .wait(250)
           .should("have.attr", "value", formattedValueParam)
           .then(() => {
-            expect(callback.getCalls()[12].args[0].rawValue).to.equals(
-              DATE_TO_VERIFY
-            );
-            expect(callback.getCalls()[12].args[0].formattedValue).to.equals(
-              formattedValueParam
-            );
+            cy.get("@onChange")
+              .invoke("getCalls")
+              .its("12")
+              .its("args[0].target.value.rawValue")
+              .should("equal", DATE_TO_VERIFY);
+
+            cy.get("@onChange")
+              .invoke("getCalls")
+              .its("12")
+              .its("args[0].target.value.formattedValue")
+              .should("equal", formattedValueParam);
           });
       }
     );
@@ -532,6 +468,8 @@ context("Test for DateInput component", () => {
     ])(
       "should use %s locale and change the formattedValue to %s after type the date",
       (localeValue, formattedValueParam, dateFnsLocaleValue) => {
+        const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
+
         CypressMountWithProviders(
           <DateInputCustom onChange={callback} />,
           sageTheme,
@@ -558,12 +496,17 @@ context("Test for DateInput component", () => {
           .wait(250)
           .should("have.attr", "value", formattedValueParam)
           .then(() => {
-            expect(callback.getCalls()[11].args[0].rawValue).to.equals(
-              "2022-05-27"
-            );
-            expect(callback.getCalls()[11].args[0].formattedValue).to.equals(
-              formattedValueParam
-            );
+            cy.get("@onChange")
+              .invoke("getCalls")
+              .its("11")
+              .its("args[0].target.value.rawValue")
+              .should("equal", "2022-05-27");
+
+            cy.get("@onChange")
+              .invoke("getCalls")
+              .its("11")
+              .its("args[0].target.value.formattedValue")
+              .should("equal", formattedValueParam);
           });
       }
     );
@@ -591,6 +534,8 @@ context("Test for DateInput component", () => {
     ])(
       "should use %s locale and change the formattedValue to %s after typing short date",
       (localeValue, formattedValueParam, dateFnsLocaleValue) => {
+        const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
+
         CypressMountWithProviders(
           <DateInputCustom onChange={callback} />,
           sageTheme,
@@ -617,60 +562,64 @@ context("Test for DateInput component", () => {
           .wait(250)
           .should("have.attr", "value", formattedValueParam)
           .then(() => {
-            expect(callback.getCalls()[7].args[0].rawValue).to.equals(
-              "2022-07-01"
-            );
-            expect(callback.getCalls()[7].args[0].formattedValue).to.equals(
-              formattedValueParam
-            );
+            cy.get("@onChange")
+              .invoke("getCalls")
+              .its("7")
+              .its("args[0].target.value.rawValue")
+              .should("equal", "2022-07-01");
+
+            cy.get("@onChange")
+              .invoke("getCalls")
+              .its("7")
+              .its("args[0].target.value.formattedValue")
+              .should("equal", formattedValueParam);
           });
       }
     );
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: DateInputProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(<DateInputCustom onBlur={callback} />);
 
-      dateInput()
-        .clear()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      dateInput().clear().blur();
+      cy.get("@onBlur").should("have.been.calledOnce");
     });
 
     it("should call the onBlur callback using allowEmptyValue prop and output an empty and not null rawValue", () => {
+      const callback: DateInputProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(
         <DateInputCustom onBlur={callback} allowEmptyValue />
       );
 
-      dateInput()
-        .clear()
-        .blur()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback.getCalls()[0].args[0].rawValue).to.equal("");
-          expect(callback.getCalls()[0].args[0].rawValue).to.not.equal(null);
-        })
-        .should("have.attr", "value")
-        .and("be.empty");
+      dateInput().clear().blur();
+      cy.get("@onBlur")
+        .invoke("getCalls")
+        .its("0")
+        .its("args[0].target.value.rawValue")
+        .should("equal", "")
+        .and("not.equal", null);
+      dateInput().should("have.attr", "value").and("be.empty");
     });
 
     it("should call the onChange callback using allowEmptyValue prop and output an empty and not null rawValue", () => {
+      const callback: DateInputProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(
         <DateInputCustom onChange={callback} allowEmptyValue />
       );
 
       dateInput().type(MIN_DATE, { delay: 0 });
-      dateInput()
-        .clear()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback.getCalls()[10].args[0].rawValue).to.equal("");
-          expect(callback.getCalls()[10].args[0].rawValue).to.not.equal(null);
-        })
-        .should("have.attr", "value")
-        .and("be.empty");
+      dateInput().clear();
+
+      cy.get("@onBlur")
+        .invoke("getCalls")
+        .its("10")
+        .its("args[0].target.value.rawValue")
+        .should("equal", "")
+        .and("not.equal", null);
+      dateInput().should("have.attr", "value").and("be.empty");
     });
   });
 
@@ -682,15 +631,19 @@ context("Test for DateInput component", () => {
     });
 
     it("should check accessibility the default component with open prop", () => {
-      CypressMountWithProviders(<DateInputCustom open />);
+      CypressMountWithProviders(<DateInputCustom />);
+
+      dateIcon().click();
 
       cy.checkAccessibility();
     });
 
-    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE])(
+    it.each([SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE] as DateInputProps["size"][])(
       "should check accessibility with size set to %s",
       (size) => {
-        CypressMountWithProviders(<DateInputCustom size={size} open />);
+        CypressMountWithProviders(<DateInputCustom size={size} />);
+
+        dateIcon().click();
 
         cy.checkAccessibility();
       }
@@ -732,7 +685,7 @@ context("Test for DateInput component", () => {
       }
     );
 
-    it.each(["left", "right"])(
+    it.each(["left", "right"] as DateInputProps["labelAlign"][])(
       "should check accessibility with the label align is set to %s",
       (labelAlign) => {
         CypressMountWithProviders(
@@ -804,16 +757,5 @@ context("Test for DateInput component", () => {
     CypressMountWithProviders(<DateInputValidationNewDesign />);
 
     cy.checkAccessibility();
-  });
-
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<DateInputCustom />);
-    dateInputParent().click();
-
-    dateInput().should("have.css", "border-radius", "4px");
-    dayPickerDay("Sun 1 May 2022").should("have.css", "border-radius", "32px");
-    dayPickerDay("Mon 2 May 2022").should("have.css", "border-radius", "32px");
-    dayPickerNavButtons(0).should("have.css", "border-radius", "4px");
-    dayPickerNavButtons(1).should("have.css", "border-radius", "4px");
   });
 });
