@@ -115,7 +115,9 @@ export const TileSelectComponent = ({
   );
 };
 
-export const MultiTileSelectGroupComponent = ({ ...props }) => {
+export const MultiTileSelectGroupComponent = (
+  props: Partial<TileSelectGroupProps>
+) => {
   const [value1, setValue1] = React.useState(false);
   const [value2, setValue2] = React.useState(false);
   const [value3, setValue3] = React.useState(false);
@@ -184,7 +186,9 @@ export const MultiTileSelectGroupComponent = ({ ...props }) => {
   );
 };
 
-export const AccordionTileSelectComponent = ({ ...props }) => {
+export const AccordionTileSelectComponent = (
+  props: Partial<TileSelectProps>
+) => {
   const [isChecked, setIsChecked] = React.useState(false);
   const [expanded, setExpanded] = React.useState(true);
   const handleChange = (
@@ -242,7 +246,7 @@ export const AccordionTileSelectComponent = ({ ...props }) => {
   );
 };
 
-export const ActionButtonAdornment = ({ ...props }) => {
+export const ActionButtonAdornment = (props: Partial<TileSelectProps>) => {
   const [, setValue] = React.useState(false);
   return (
     <TileSelectGroup
@@ -291,7 +295,9 @@ export const ActionButtonAdornment = ({ ...props }) => {
   );
 };
 
-export const TileSelectGroupComponent = ({ ...props }) => {
+export const TileSelectGroupComponent = (
+  props: Partial<TileSelectGroupProps>
+) => {
   const [value, setValue] = React.useState(false);
   return (
     <TileSelectGroup
