@@ -384,6 +384,18 @@ context("Testing Menu component", () => {
         .should("have.css", "background-color", "rgb(0, 50, 76)");
     });
 
+    it("should not close submenu when enter is pressed on search component", () => {
+      CypressMountWithProviders(<MenuComponentSearch />);
+
+      pressTABKey(1);
+      cy.focused().trigger("keydown", keyCode("Enter"));
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      searchDefaultInput().clear().type("FooBar");
+      cy.focused().tab();
+      cy.focused().trigger("keydown", keyCode("Enter"));
+      submenuBlock().should("be.visible");
+    });
+
     it("should verify if there is a Menu Item with a very long label inside a submenu, check that the width of the whole submenu is determined by this submenu item", () => {
       CypressMountWithProviders(
         <Box mb={150}>
