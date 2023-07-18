@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useCallback } from "react";
 import { render, screen, fireEvent, createEvent } from "@testing-library/react";
 import useMenuKeyboardNavigation from ".";
 
@@ -29,7 +29,20 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
     );
   });
 
-  const handleKeyDown = useMenuKeyboardNavigation(mainRef, refs, hideCb, true);
+  const getButtonChildren = useCallback(
+    () =>
+      document.querySelectorAll(
+        `[data-testid="${containerID}"] button`
+      ) as NodeListOf<HTMLButtonElement>,
+    []
+  );
+
+  const handleKeyDown = useMenuKeyboardNavigation(
+    mainRef,
+    getButtonChildren,
+    hideCb,
+    true
+  );
 
   return (
     <>
