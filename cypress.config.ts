@@ -2,6 +2,9 @@
 import { defineConfig } from "cypress";
 import webpackConfig from "./cypress/webpack.config.js";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const cypressSplit = require("cypress-split");
+
 async function setupNodeEvents(
   on: Cypress.PluginEvents,
   config: Cypress.PluginConfigOptions
@@ -17,6 +20,7 @@ async function setupNodeEvents(
       return null;
     },
   });
+  cypressSplit(on, config);
 
   return config;
 }
