@@ -5,10 +5,19 @@ import CheckboxStyle from "./checkbox.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 
-const StyledCheckboxGroup = styled.div<{ legendInline?: boolean }>`
+export const StyledHintText = styled.div`
+  margin-top: -4px;
+  margin-bottom: 8px;
+  color: var(--colorsUtilityYin055);
+  font-size: 14px;
+`;
+
+const StyledCheckboxGroup = styled.div<{
+  legendInline?: boolean;
+  inline?: boolean;
+}>`
   display: flex;
   flex-direction: column;
-
   ${StyledIcon}::before {
     font-size: 16px;
   }
@@ -41,6 +50,15 @@ const StyledCheckboxGroup = styled.div<{ legendInline?: boolean }>`
     css`
       ${CheckboxStyle}:first-child {
         padding-top: 4px;
+      }
+    `}
+
+  ${({ inline }) =>
+    inline &&
+    css`
+      flex-direction: row;
+      ${CheckboxStyle}:not(:first-of-type) {
+        margin-left: 32px;
       }
     `}
 `;

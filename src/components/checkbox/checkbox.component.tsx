@@ -127,48 +127,60 @@ export const Checkbox = React.forwardRef(
       labelHelp,
       labelSpacing,
       required,
-      error: contextError || error,
-      warning: contextWarning || warning,
-      info: contextInfo || info,
       fieldHelpInline,
       checked,
       disabled,
       inputWidth,
       labelWidth,
-      tooltipPosition,
       ref: ref || inputRef,
       ...rest,
     };
 
+    const validationProps = {
+      error: contextError || error,
+      warning: contextWarning || warning,
+      ...(validationRedesignOptIn
+        ? { validationOnLabel: false }
+        : { info: contextInfo || info }),
+    };
+
     const marginProps = useFormSpacing(rest);
 
-    return (
-      <TooltipProvider
-        helpAriaLabel={helpAriaLabel}
-        tooltipPosition={tooltipPosition}
+    const componentToRender = (
+      <CheckboxStyle
+        data-component={dataComponent}
+        data-role={dataRole}
+        data-element={dataElement}
+        disabled={disabled}
+        labelSpacing={labelSpacing}
+        inputWidth={inputWidth}
+        adaptiveSpacingSmallScreen={adaptiveSpacingSmallScreen}
+        {...validationProps}
+        fieldHelpInline={fieldHelpInline}
+        reverse={reverse}
+        size={size}
+        applyNewValidation={validationRedesignOptIn}
+        {...marginProps}
       >
-        <CheckboxStyle
-          data-component={dataComponent}
-          data-role={dataRole}
-          data-element={dataElement}
-          disabled={disabled}
-          labelSpacing={labelSpacing}
-          inputWidth={inputWidth}
-          adaptiveSpacingSmallScreen={adaptiveSpacingSmallScreen}
-          error={contextError || error}
-          warning={contextWarning || warning}
-          info={contextInfo || info}
-          fieldHelpInline={fieldHelpInline}
-          reverse={reverse}
-          size={size}
-          applyNewValidation={validationRedesignOptIn}
-          {...marginProps}
-        >
-          <CheckableInput {...inputProps}>
-            <CheckboxSvg />
-          </CheckableInput>
-        </CheckboxStyle>
-      </TooltipProvider>
+        <CheckableInput {...inputProps} {...validationProps}>
+          <CheckboxSvg />
+        </CheckableInput>
+      </CheckboxStyle>
+    );
+
+    return (
+      <>
+        {validationRedesignOptIn ? (
+          componentToRender
+        ) : (
+          <TooltipProvider
+            helpAriaLabel={helpAriaLabel}
+            tooltipPosition={tooltipPosition}
+          >
+            {componentToRender}
+          </TooltipProvider>
+        )}
+      </>
     );
   }
 );
