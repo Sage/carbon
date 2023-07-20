@@ -126,16 +126,9 @@ describe("RadioButtonGroup", () => {
   });
 
   describe("validations", () => {
-    it.each([
-      ["error", "string"],
-      ["error", true],
-      ["warning", "string"],
-      ["warning", true],
-      ["info", "string"],
-      ["info", true],
-    ])(
+    it.each(["error", "warning", "info"])(
       "when %s is passed as %s it is passed as boolean to RadioButton",
-      (type, value) => {
+      (type) => {
         const wrapper = renderRadioButtonGroup({ [type]: true });
         wrapper
           .find(RadioButton)

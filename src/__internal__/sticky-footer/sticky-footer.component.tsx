@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import throttle from "lodash/throttle";
 
 import StyledStickyFooter from "./sticky-footer.style";
@@ -43,7 +43,7 @@ const StickyFooter = ({
 
       setIsSticky(!fullyScrolled);
     }, SCROLL_THROTTLE),
-    []
+    [containerRef]
   );
 
   useEffect(() => {

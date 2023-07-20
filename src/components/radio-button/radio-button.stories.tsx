@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from "react";
 import { RadioButtonGroup, RadioButton } from ".";
 import Typography from "../typography";
