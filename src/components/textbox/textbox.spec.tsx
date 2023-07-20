@@ -8,6 +8,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { Input } from "../../__internal__/input";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
+import InputPresentationStyle from "../../__internal__/input/input-presentation.style";
 import FormField from "../../__internal__/form-field";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import StyledPrefix from "./__internal__/prefix.style";
@@ -285,6 +286,19 @@ describe("Textbox", () => {
       const wrapper = mount(<Textbox value="foo" prefix={prefixValue} />);
       expect(wrapper.find(StyledPrefix).exists()).toBe(true);
       expect(wrapper.find(StyledPrefix).text()).toBe(prefixValue);
+    });
+
+    it("when the align prop is 'right' then 'flex-direction' should be 'row'", () => {
+      const prefixValue = "bar";
+      const wrapper = mount(
+        <Textbox value="foo" prefix={prefixValue} align="right" />
+      );
+      assertStyleMatch(
+        {
+          flexDirection: "row",
+        },
+        wrapper.find(InputPresentationStyle)
+      );
     });
   });
 

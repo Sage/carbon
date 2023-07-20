@@ -264,6 +264,7 @@ export const Textbox = React.forwardRef(
         error={error}
         warning={warning}
         info={info}
+        prefix={prefix}
         inputWidth={inputWidth || 100 - labelWidth}
         maxWidth={maxWidth}
         positionedChildren={positionedChildren}
