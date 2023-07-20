@@ -142,7 +142,7 @@ NewDefault.args = {
   size: "small",
 };
 
-export const SwitchComponent = ({ ...props }) => {
+export const SwitchComponent = (props: Partial<SwitchProps>) => {
   const [isChecked, setIsChecked] = React.useState(false);
   return (
     <>
@@ -161,5 +161,24 @@ export const SwitchComponent = ({ ...props }) => {
         />
       </div>
     </>
+  );
+};
+
+export const SwitchComponentValidations = (props: Partial<SwitchProps>) => {
+  const [, setIsChecked] = React.useState(false);
+  return (
+    <div>
+      {["error", "warning", "info"].map((type) => (
+        <Switch
+          id={`switch${type}`}
+          key={`switch-${type}`}
+          {...{ [type]: `${type}` }}
+          label={`Example switch (${type})`}
+          name={`switch-${type}`}
+          onChange={() => setIsChecked((state) => !state)}
+          {...props}
+        />
+      ))}
+    </div>
   );
 };

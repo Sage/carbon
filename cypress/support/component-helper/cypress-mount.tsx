@@ -11,7 +11,7 @@ import "../../../src/style/fonts.css";
 const CypressMountWithProviders = (
   children: React.ReactNode,
   theme: Partial<ThemeObject> = sageTheme,
-  locale: Locale = enGB
+  locale: Partial<Locale> = enGB
 ) => {
   return cy.mount(
     <CarbonProvider theme={theme}>

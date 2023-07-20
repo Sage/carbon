@@ -1,3 +1,10 @@
+### [119.6.1](https://github.com/Sage/carbon/compare/v119.6.0...v119.6.1) (2023-07-12)
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** fix focus when menu closed ([516cb5a](https://github.com/Sage/carbon/commit/516cb5ab29e6beaca9399bd06c91ade584b1a1e7)), closes [#6037](https://github.com/Sage/carbon/issues/6037)
+
 ## [119.6.0](https://github.com/Sage/carbon/compare/v119.5.1...v119.6.0) (2023-07-06)
 
 

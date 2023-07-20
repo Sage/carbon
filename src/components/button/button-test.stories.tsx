@@ -579,7 +579,7 @@ export const DarkBackgroundButtonIconAfter = () => {
 
 DarkBackgroundButtonIconAfter.storyName = "darkBackground icon after";
 
-export const ButtonDifferentTypes = ({ ...props }) => {
+export const ButtonDifferentTypes = (props: Partial<ButtonProps>) => {
   return (
     <div>
       <Button buttonType="primary" {...props}>
