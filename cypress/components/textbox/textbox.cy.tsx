@@ -479,6 +479,16 @@ context("Tests for Textbox component", () => {
       }
     );
 
+    it("when prefix prop is set, and align is set to 'right', 'flex-direction' should be 'row'", () => {
+      CypressMountWithProviders(
+        <stories.TextboxComponent prefix="foo" align="right" />
+      );
+
+      getDataElementByValue("input")
+        .parent()
+        .should("have.css", "flex-direction", "row");
+    });
+
     it.each([
       [true, "input", "label"],
       [false, "label", "input"],

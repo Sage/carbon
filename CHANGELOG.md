@@ -1,3 +1,10 @@
+### [119.6.2](https://github.com/Sage/carbon/compare/v119.6.1...v119.6.2) (2023-07-20)
+
+
+### Bug Fixes
+
+* **decimal:** replace row-reverse with row when text is right aligned ([ceb04e1](https://github.com/Sage/carbon/commit/ceb04e16f1b2cddfb202593592532518f974a0b4)), closes [#6109](https://github.com/Sage/carbon/issues/6109)
+
 ### [119.6.1](https://github.com/Sage/carbon/compare/v119.6.0...v119.6.1) (2023-07-12)
 
 

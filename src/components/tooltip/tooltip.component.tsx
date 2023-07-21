@@ -218,6 +218,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
         reference(target || node);
         targetInternalRef.current = node;
         preserveRef(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (children as any).ref as React.ForwardedRef<HTMLElement | null>,
           node
         );
