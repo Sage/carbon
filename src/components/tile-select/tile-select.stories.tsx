@@ -96,7 +96,7 @@ export const WithCustomActionButton = () => {
         customActionButton={
           activated
             ? undefined
-            : (onClick) => (
+            : () => (
                 <Button
                   onClick={() => {
                     setValue("1");
@@ -167,7 +167,7 @@ export const WithActionButtonAdornment = () => {
           </Pill>
         }
         description="Short and descriptive description"
-        customActionButton={(onClick) => (
+        customActionButton={() => (
           <Button
             onClick={() => setValue("1")}
             buttonType="tertiary"

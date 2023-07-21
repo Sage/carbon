@@ -21,7 +21,7 @@ export default {
   },
 };
 
-export const DefaultStory = ({ size, ...args }: LoaderBarProps) => {
+export const DefaultStory = ({ ...args }: LoaderBarProps) => {
   return <LoaderBar size="medium" {...args} />;
 };
 

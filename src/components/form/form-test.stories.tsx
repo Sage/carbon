@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from "react";
 import Form, { FormProps } from ".";
 import Button from "../button";
