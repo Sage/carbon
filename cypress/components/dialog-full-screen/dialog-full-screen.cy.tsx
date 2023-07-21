@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { DialogFullScreenProps } from "../../../src/components/dialog-full-screen";
 import {
   DialogFullScreenComponent,
   NestedDialog,
@@ -48,10 +48,6 @@ import { CHARACTERS } from "../../support/component-helper/constants";
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testAria = "cypress_aria";
 
-DialogFullScreenComponent.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 context("Testing DialogFullScreen component", () => {
   describe("render DialogFullScreen component and check properties", () => {
     it("should close Dialog Full Screen component after click on closeIcon", () => {
@@ -87,7 +83,7 @@ context("Testing DialogFullScreen component", () => {
     );
 
     it.each(specialCharacters)(
-      "should render DialogFullScreen component with %s as a children ",
+      "should render DialogFullScreen component with %s as a children",
       (childrenValue) => {
         CypressMountWithProviders(
           <DialogFullScreenComponent>{childrenValue}</DialogFullScreenComponent>
@@ -113,18 +109,16 @@ context("Testing DialogFullScreen component", () => {
     });
 
     it("should call the cancel action after closing the DialogFullScreen", () => {
-      const callback = cy.stub();
+      const callback: DialogFullScreenProps["onCancel"] = cy
+        .stub()
+        .as("onCancel");
 
       CypressMountWithProviders(
         <DialogFullScreenComponent onCancel={callback} />
       );
 
-      closeIconButton()
-        .click()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      closeIconButton().click();
+      cy.get("@onCancel").should("have.been.calledOnce");
     });
 
     it("should allow to close nested DialogFullScreen and then the main DialogFullScreen window", () => {
@@ -179,7 +173,8 @@ context("Testing DialogFullScreen component", () => {
       dialogPreview().tab();
 
       // click on the body in order to lose focus
-      cy.get("body").click().tab();
+      cy.get("body").click();
+      cy.tab();
 
       closeIconButton().eq(1).should("be.focused");
     });
@@ -251,7 +246,6 @@ context("Testing DialogFullScreen component", () => {
     });
 
     it("should render DialogFullScreen component with role", () => {
-      // eslint-disable-next-line jsx-a11y/aria-role
       CypressMountWithProviders(<DialogFullScreenComponent role="dialog" />);
       dialogFullScreenPreview()
         .should("have.attr", "role")
@@ -293,70 +287,70 @@ context("Testing DialogFullScreen component", () => {
         .should("have.css", "padding-right", "0px")
         .should("have.css", "padding-bottom", "0px");
     });
+
+    // skip this test for now as FE-6053 has not been fixed yet
+    it.skip("should render DialogFullScreen component with DisableClose prop", () => {
+      CypressMountWithProviders(<DialogFullScreenComponent disableClose />);
+      closeIconButton().click();
+      dialogFullScreenPreview().should("exist");
+    });
   });
 
   describe("should check accessibility for Dialog Full Screen", () => {
     it("should check accessibility for default Dialog Full Screen component", () => {
       CypressMountWithProviders(<DefaultDocsStory />);
 
-      buttonDataComponent()
-        .contains("Open DialogFullScreen")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open DialogFullScreen").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should check accessibility for default Dialog Full Screen with complex example", () => {
       CypressMountWithProviders(<WithComplexExample />);
 
-      buttonDataComponent()
-        .contains("Open DialogFullScreen")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open DialogFullScreen").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should check accessibility for default Dialog Full Screen with disabled content padding", () => {
       CypressMountWithProviders(<WithDisableContentPadding />);
 
-      buttonDataComponent()
-        .contains("Open DialogFullScreen")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open DialogFullScreen").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should check accessibility for default Dialog Full Screen component with header children", () => {
       CypressMountWithProviders(<WithHeaderChildren />);
 
-      buttonDataComponent()
-        .contains("Open DialogFullScreen")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open DialogFullScreen").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should check accessibility for default Dialog Full Screen component with help", () => {
       CypressMountWithProviders(<WithHelp />);
 
-      buttonDataComponent()
-        .contains("Open DialogFullScreen")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open DialogFullScreen").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should check accessibility for default Dialog Full Screen component with hideable header children", () => {
       CypressMountWithProviders(<WithHideableHeaderChildren />);
 
-      buttonDataComponent()
-        .contains("Open DialogFullScreen")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open DialogFullScreen").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should check accessibility for default Dialog Full Screen component with box", () => {
       CypressMountWithProviders(<WithBox />);
 
-      buttonDataComponent()
-        .contains("Open DialogFullScreen")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open DialogFullScreen").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should check accessibility for default Dialog Full Screen component using autoFocus", () => {
@@ -364,23 +358,22 @@ context("Testing DialogFullScreen component", () => {
 
       buttonDataComponent()
         .contains("Open Demo using focusFirstElement")
-        .click()
-        .then(() => cy.checkAccessibility());
+        .click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
       closeIconButton().click();
 
-      buttonDataComponent()
-        .contains("Open Demo using autoFocus")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open Demo using autoFocus").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
 
     it("should check accessibility for default Dialog Full Screen component with other focusable containers", () => {
       CypressMountWithProviders(<OtherFocusableContainers />);
 
-      buttonDataComponent()
-        .contains("Open DialogFullScreen")
-        .click()
-        .then(() => cy.checkAccessibility());
+      buttonDataComponent().contains("Open DialogFullScreen").click();
+      closeIconButton().should("be.visible");
+      cy.checkAccessibility();
     });
   });
 
