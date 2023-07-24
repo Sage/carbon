@@ -114,6 +114,17 @@ const MockMenuWithSearch = ({
   );
 };
 
+const MockMenuWithFalsyValues = ({ isOpen }: { isOpen?: boolean }) => {
+  const showMenuItem = false;
+  return mount(
+    <MenuFullscreen isOpen={isOpen} onClose={() => {}}>
+      <MenuItem maxWidth="200px">Submenu Item One</MenuItem>
+      {false && <MenuItem href="#">Product Item One</MenuItem>}
+      {showMenuItem ? <MenuItem href="#">Product Item Two</MenuItem> : null}
+    </MenuFullscreen>
+  );
+};
+
 describe("MenuFullscreen", () => {
   let wrapper: ReactWrapper;
 
@@ -406,6 +417,13 @@ describe("MenuFullscreen", () => {
         });
 
       expect(clickOutsideSubmenu).not.toThrow();
+    });
+  });
+
+  describe("Menu Divider", () => {
+    it("should not render a divider when menu contains a falsy values", () => {
+      wrapper = MockMenuWithFalsyValues({ isOpen: true });
+      expect(wrapper.find(MenuDivider).exists()).toBe(false);
     });
   });
 });

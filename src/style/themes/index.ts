@@ -1,8 +1,10 @@
+import sageTheme from "./sage";
 import mintTheme from "./mint";
 import aegeanTheme from "./aegean";
-import sageTheme from "./sage";
 
-export { default as noTheme } from "./none";
+export { sageTheme, mintTheme, aegeanTheme };
 export { default as baseTheme } from "./base";
-export { mintTheme, aegeanTheme, sageTheme };
+export { default as noTheme } from "./none";
+
+export type { ThemeObject } from "./base";
 export const carbonThemeList = [mintTheme, aegeanTheme, sageTheme];

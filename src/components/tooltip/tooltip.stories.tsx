@@ -1,12 +1,10 @@
 import React, { forwardRef, useState } from "react";
-import { ComponentStory } from "@storybook/react";
-
 import Tooltip from ".";
 import Button, { ButtonProps } from "../button";
 import Box from "../box";
 import { TooltipPositions } from "./tooltip.config";
 
-export const Default: ComponentStory<typeof Tooltip> = () => {
+export const Default = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>
@@ -24,7 +22,7 @@ export const Default: ComponentStory<typeof Tooltip> = () => {
   );
 };
 
-export const Controlled: ComponentStory<typeof Tooltip> = () => {
+export const Controlled = () => {
   const [isVisible, setIsVisible] = useState(false);
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
@@ -48,7 +46,7 @@ export const Controlled: ComponentStory<typeof Tooltip> = () => {
   );
 };
 
-export const Positioning: ComponentStory<typeof Tooltip> = () => {
+export const Positioning = () => {
   const [position, setPosition] = useState<TooltipPositions>("top");
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
@@ -75,7 +73,7 @@ export const Positioning: ComponentStory<typeof Tooltip> = () => {
   );
 };
 
-export const FlipBehviourOverrides: ComponentStory<typeof Tooltip> = () => {
+export const FlipBehviourOverrides = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>
@@ -98,7 +96,7 @@ export const FlipBehviourOverrides: ComponentStory<typeof Tooltip> = () => {
   );
 };
 
-export const LargeTooltip: ComponentStory<typeof Tooltip> = () => {
+export const LargeTooltip = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>
@@ -116,7 +114,7 @@ export const LargeTooltip: ComponentStory<typeof Tooltip> = () => {
   );
 };
 
-export const Types: ComponentStory<typeof Tooltip> = () => {
+export const Types = () => {
   const [type, setType] = useState<string | undefined>(undefined);
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
@@ -141,7 +139,7 @@ export const Types: ComponentStory<typeof Tooltip> = () => {
   );
 };
 
-export const ColorOverrides: ComponentStory<typeof Tooltip> = () => {
+export const ColorOverrides = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>

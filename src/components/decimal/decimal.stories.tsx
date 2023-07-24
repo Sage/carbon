@@ -41,6 +41,9 @@ export const Sizes = () => {
 export const Disabled = DefaultStory.bind({});
 Disabled.args = { disabled: true };
 
+export const Prefix = DefaultStory.bind({});
+Prefix.args = { prefix: "£", maxWidth: "20%" };
+
 export const LabelAlign = () => {
   const [state, setState] = useState({
     right: "0.01",

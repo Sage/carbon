@@ -166,7 +166,7 @@ export const DelayedReposition = () => {
 
 DelayedReposition.storyName = "delayed reposition";
 
-export const SimpleSelectComponent = ({ ...props }) => {
+export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
   const [value, setValue] = React.useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -199,7 +199,9 @@ export const SimpleSelectComponent = ({ ...props }) => {
   );
 };
 
-export const SimpleSelectWithLazyLoadingComponent = ({ ...props }) => {
+export const SimpleSelectWithLazyLoadingComponent = (
+  props: Partial<SimpleSelectProps>
+) => {
   const preventLoading = React.useRef(false);
   const [value, setValue] = React.useState("black");
   const [isLoading, setIsLoading] = React.useState(true);
@@ -247,7 +249,9 @@ export const SimpleSelectWithLazyLoadingComponent = ({ ...props }) => {
   );
 };
 
-export const SimpleSelectWithInfiniteScrollComponent = ({ ...props }) => {
+export const SimpleSelectWithInfiniteScrollComponent = (
+  props: Partial<SimpleSelectProps>
+) => {
   const preventLoading = React.useRef(false);
   const preventLazyLoading = React.useRef(false);
   const lazyLoadingCounter = React.useRef(0);
@@ -335,7 +339,9 @@ export const SimpleSelectWithInfiniteScrollComponent = ({ ...props }) => {
   );
 };
 
-export const SimpleSelectObjectAsValueComponent = ({ ...props }) => {
+export const SimpleSelectObjectAsValueComponent = (
+  props: Partial<SimpleSelectProps>
+) => {
   const [value, setValue] = useState<Record<string, unknown>>({
     id: "Green",
     value: 5,
@@ -460,7 +466,9 @@ export const SimpleSelectObjectAsValueComponent = ({ ...props }) => {
   );
 };
 
-export const SimpleSelectMultipleColumnsComponent = ({ ...props }) => {
+export const SimpleSelectMultipleColumnsComponent = (
+  props: Partial<SimpleSelectProps>
+) => {
   return (
     <SimpleSelect
       name="withMultipleColumns"
@@ -505,7 +513,9 @@ export const SimpleSelectMultipleColumnsComponent = ({ ...props }) => {
   );
 };
 
-export const SimpleSelectCustomOptionChildrenComponent = ({ ...props }) => {
+export const SimpleSelectCustomOptionChildrenComponent = (
+  props: Partial<SimpleSelectProps>
+) => {
   return (
     <SimpleSelect
       name="customOptionChildren"
@@ -528,7 +538,9 @@ export const SimpleSelectCustomOptionChildrenComponent = ({ ...props }) => {
   );
 };
 
-export const SimpleSelectGroupComponent = ({ ...props }) => {
+export const SimpleSelectGroupComponent = (
+  props: Partial<SimpleSelectProps>
+) => {
   return (
     <SimpleSelect name="optGroups" id="optGroups" {...props}>
       <OptionGroupHeader label="Group one" icon="individual" />
@@ -552,7 +564,7 @@ export const SimpleSelectGroupComponent = ({ ...props }) => {
 export const SimpleSelectEventsComponent = ({
   onChange,
   ...props
-}: SimpleSelectProps) => {
+}: Partial<SimpleSelectProps>) => {
   const [state, setState] = useState("");
 
   const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -610,7 +622,11 @@ export const SimpleSelectWithManyOptionsAndVirtualScrolling = () => (
     {Array(10000)
       .fill(undefined)
       .map((_, index) => (
-        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
+        <Option
+          key={`option-${index + 1}`}
+          value={`${index}`}
+          text={`Option ${index + 1}.`}
+        />
       ))}
   </SimpleSelect>
 );

@@ -537,6 +537,7 @@ context("Test for Search component", () => {
     );
 
     // FE-4670
+    // eslint-disable-next-line
     describe.skip("should render Search component", () => {
       it.each(["default", "dark"] as SearchProps["variant"][])(
         "should check accessibility for Search with variant prop set to %s",

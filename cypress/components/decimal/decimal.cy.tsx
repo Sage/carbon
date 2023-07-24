@@ -16,6 +16,7 @@ import {
   getElement,
 } from "../../locators/index";
 
+import { textboxPrefix } from "../../locators/textbox";
 import { CHARACTERS } from "../../support/component-helper/constants";
 
 const eventOutput = (formattedVal: string, rawVal: string) => {
@@ -237,6 +238,27 @@ context("Tests for Decimal component", () => {
         cyRoot().realHover({ position: "topLeft" });
       }
     );
+
+    it.each(testData)(
+      "should render Decimal with prefix prop set to %s",
+      (prefix) => {
+        CypressMountWithProviders(<Decimal prefix={prefix} />);
+
+        textboxPrefix()
+          .should("have.text", prefix)
+          .and("have.css", "font-size", "14px")
+          .and("have.css", "font-weight", "900")
+          .and("have.css", "margin-left", "12px");
+      }
+    );
+
+    it("when prefix prop is set, 'flex-direction' should be 'row'", () => {
+      CypressMountWithProviders(<Decimal prefix="foo" />);
+
+      getDataElementByValue("input")
+        .parent()
+        .should("have.css", "flex-direction", "row");
+    });
 
     it.each(testData)(
       "check Decimal component accepts %s as specific value",

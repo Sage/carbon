@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 import {
@@ -9,6 +9,8 @@ import {
   VerticalMenuTriggerProps,
   VerticalMenuFullScreen,
   VerticalMenuFullScreenProps,
+  VerticalMenuProps,
+  VerticalMenuItemProps,
 } from ".";
 import Box from "../box";
 import Pill from "../pill";
@@ -46,10 +48,10 @@ export default {
   },
 };
 
-export const Default: ComponentStory<typeof VerticalMenu> = ({ ...args }) => {
+export const Default = (props: Partial<VerticalMenuProps>) => {
   return (
     <Box height="100vh">
-      <VerticalMenu {...args}>
+      <VerticalMenu {...props}>
         <VerticalMenuItem
           iconType="analysis"
           adornment={(isOpen) =>
@@ -131,9 +133,10 @@ export const Default: ComponentStory<typeof VerticalMenu> = ({ ...args }) => {
 
 Default.storyName = "default";
 
-export const VerticalMenuItemCustom: ComponentStory<
-  typeof VerticalMenuItem
-> = ({ ...args }) => {
+export const VerticalMenuItemCustom = ({
+  component,
+  ...props
+}: Partial<VerticalMenuItemProps>) => {
   return (
     <Box height="100vh">
       <VerticalMenu>
@@ -147,7 +150,7 @@ export const VerticalMenuItemCustom: ComponentStory<
             )
           }
           title="Item 1"
-          {...args}
+          {...props}
         >
           <VerticalMenuItem
             title="ChildItem 1"
@@ -165,9 +168,10 @@ export const VerticalMenuItemCustom: ComponentStory<
   );
 };
 
-export const VerticalMenuItemCustomHref: ComponentStory<
-  typeof VerticalMenuItem
-> = ({ ...args }) => {
+export const VerticalMenuItemCustomHref = ({
+  component,
+  ...props
+}: Partial<VerticalMenuItemProps>) => {
   return (
     <Box height="100vh">
       <VerticalMenu>
@@ -189,7 +193,7 @@ export const VerticalMenuItemCustomHref: ComponentStory<
                 10
               </Pill>
             }
-            {...args}
+            {...props}
           />
           <VerticalMenuItem href="/child-item-2" title="ChildItem 2" />
         </VerticalMenuItem>
@@ -198,23 +202,26 @@ export const VerticalMenuItemCustomHref: ComponentStory<
   );
 };
 
-export const VerticalMenuTriggerCustom: ComponentStory<
-  typeof VerticalMenuTrigger
-> = ({ ...args }: Partial<VerticalMenuTriggerProps>) => {
+export const VerticalMenuTriggerCustom = (
+  props: Partial<VerticalMenuTriggerProps>
+) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <Box height="100vh">
-      <VerticalMenuTrigger onClick={() => setIsMenuOpen(!isMenuOpen)} {...args}>
+      <VerticalMenuTrigger
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        {...props}
+      >
         Menu
       </VerticalMenuTrigger>
     </Box>
   );
 };
 
-export const VerticalMenuFullScreenCustom: ComponentStory<
-  typeof VerticalMenuFullScreen
-> = ({ ...args }: Partial<VerticalMenuFullScreenProps>) => {
+export const VerticalMenuFullScreenCustom = (
+  props: Partial<VerticalMenuFullScreenProps>
+) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
@@ -286,7 +293,7 @@ export const VerticalMenuFullScreenCustom: ComponentStory<
         <VerticalMenuFullScreen
           isOpen={isMenuOpen}
           onClose={() => setIsMenuOpen(false)}
-          {...args}
+          {...props}
         >
           {menuItems}
         </VerticalMenuFullScreen>
@@ -307,5 +314,22 @@ export const VerticalMenuFullScreenBackgroundScrollTest = () => {
         <VerticalMenuItem title="Menu Item Two" href="#" />
       </VerticalMenuFullScreen>
     </Box>
+  );
+};
+
+export const ClosedVerticalMenuFullScreenWithButtons = () => {
+  return (
+    <>
+      <button type="button" id="button-1">
+        Button 1
+      </button>
+      <VerticalMenuFullScreen isOpen={false} onClose={() => {}}>
+        <VerticalMenuItem title="Menu Item One" href="#" />
+        <VerticalMenuItem title="Menu Item Two" href="#" />
+      </VerticalMenuFullScreen>
+      <button type="button" id="button-2">
+        Button 2
+      </button>
+    </>
   );
 };

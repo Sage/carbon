@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { mount as enzymeMount, ReactWrapper } from "enzyme";
 import { InputPresentation } from "../../__internal__/input";
+import InputPresentationStyle from "../../__internal__/input/input-presentation.style";
 
 import Decimal, { DecimalProps, CustomEvent } from "./decimal.component";
 import {
@@ -14,6 +15,7 @@ import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import I18nProvider from "../i18n-provider";
 import Logger from "../../__internal__/utils/logger";
 import StyledInput from "../../__internal__/input/input.style";
+import StyledPrefix from "../textbox/__internal__/prefix.style";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
@@ -167,7 +169,6 @@ describe("Decimal", () => {
   describe("Uncontrolled", () => {
     beforeEach(() => {
       loggerSpy = jest.spyOn(Logger, "deprecate");
-      jest.restoreAllMocks();
     });
 
     afterEach(() => {
@@ -1726,6 +1727,27 @@ describe("Decimal", () => {
     it("the isRequired prop is passed to the label", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
+    });
+  });
+
+  describe("when prefix is passed", () => {
+    const prefixValue = "bar";
+    beforeEach(() => {
+      render({ value: "foo", prefix: prefixValue });
+    });
+
+    it("then a StyledPrefix should be rendered with this prop value", () => {
+      expect(wrapper.find(StyledPrefix).exists()).toBe(true);
+      expect(wrapper.find(StyledPrefix).text()).toBe(prefixValue);
+    });
+
+    it("then 'flex-direction' should be 'row'", () => {
+      assertStyleMatch(
+        {
+          flexDirection: "row",
+        },
+        wrapper.find(InputPresentationStyle)
+      );
     });
   });
 

@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { MarginProps } from "styled-system";
 
-import StyledSwitch from "./switch.style";
+import StyledSwitch, { ErrorBorder, StyledHintText } from "./switch.style";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input";
@@ -10,6 +10,10 @@ import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint"
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
+import Box from "../box";
+import Label from "../../__internal__/label";
 
 export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -80,6 +84,7 @@ export const Switch = React.forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const isControlled = checked !== undefined;
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
 
     const [checkedInternal, setCheckedInternal] = useState(
       defaultChecked || false
@@ -139,7 +144,8 @@ export const Switch = React.forwardRef(
       error,
       warning,
       info,
-      useValidationIcon: !shouldValidationBeOnLabel && !disabled,
+      useValidationIcon:
+        !validationRedesignOptIn && !shouldValidationBeOnLabel && !disabled,
     };
 
     const inputProps = {
@@ -149,6 +155,8 @@ export const Switch = React.forwardRef(
       info,
       disabled: disabled || loading,
       checked: isControlled ? checked : checkedInternal,
+      label,
+      labelHelp,
       fieldHelpInline,
       labelInline: shouldLabelBeInline,
       labelSpacing,
@@ -157,8 +165,6 @@ export const Switch = React.forwardRef(
       onChange: isControlled ? onChange : onChangeInternal,
       id,
       name,
-      label,
-      labelHelp,
       value,
       type: "checkbox",
       role: "switch",
@@ -168,17 +174,75 @@ export const Switch = React.forwardRef(
       ...rest,
     };
 
+    // Created separate const declarations to help when removing the old validation.
+    // Not all props utilised by the old validation work or will be needed with the new validation.
+    const switchStylePropsForNewValidation = {
+      "data-component": dataComponent,
+      "data-role": dataRole,
+      "data-element": dataElement,
+      checked: isControlled ? checked : checkedInternal,
+      size,
+      ...marginProps,
+    };
+
+    const switchSliderPropsForNewValidation = {
+      checked: isControlled ? checked : checkedInternal,
+      disabled: disabled || loading,
+      loading,
+      size,
+      error,
+      warning,
+    };
+
+    const inputPropsForNewValidation = {
+      autoFocus,
+      error,
+      warning,
+      disabled: disabled || loading,
+      checked: isControlled ? checked : checkedInternal,
+      onBlur,
+      onFocus,
+      onChange: isControlled ? onChange : onChangeInternal,
+      id,
+      name,
+      value,
+      type: "checkbox",
+      role: "switch",
+      ref: ref || inputRef,
+      ...rest,
+    };
+
     return (
-      <TooltipProvider
-        helpAriaLabel={helpAriaLabel}
-        tooltipPosition={tooltipPosition}
-      >
-        <StyledSwitch {...switchStyleProps}>
-          <CheckableInput {...inputProps}>
-            <SwitchSlider {...switchSliderProps} />
-          </CheckableInput>
-        </StyledSwitch>
-      </TooltipProvider>
+      <>
+        {validationRedesignOptIn ? (
+          <StyledSwitch {...switchStylePropsForNewValidation}>
+            <Label>
+              {label}
+              {labelHelp && <StyledHintText>{labelHelp}</StyledHintText>}
+              <Box position="relative">
+                <ValidationMessage error={error} warning={warning} />
+                {(error || warning) && (
+                  <ErrorBorder warning={!!(!error && warning)} />
+                )}
+                <CheckableInput {...inputPropsForNewValidation}>
+                  <SwitchSlider {...switchSliderPropsForNewValidation} />
+                </CheckableInput>
+              </Box>
+            </Label>
+          </StyledSwitch>
+        ) : (
+          <TooltipProvider
+            helpAriaLabel={helpAriaLabel}
+            tooltipPosition={tooltipPosition}
+          >
+            <StyledSwitch {...switchStyleProps}>
+              <CheckableInput {...inputProps}>
+                <SwitchSlider {...switchSliderProps} />
+              </CheckableInput>
+            </StyledSwitch>
+          </TooltipProvider>
+        )}
+      </>
     );
   }
 );

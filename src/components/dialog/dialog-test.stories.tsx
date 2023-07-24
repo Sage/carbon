@@ -148,7 +148,9 @@ export const Default = ({
             name="date"
             label="Pet's birthday"
             value={date}
-            onChange={(e: DateChangeEvent) => setDate(e.target.value.rawValue)}
+            onChange={(e: DateChangeEvent) =>
+              setDate(e.target.value.formattedValue)
+            }
           />
           <TextEditor
             onChange={handleEditorChange}
@@ -178,7 +180,7 @@ Default.args = {
 export const DialogComponent = ({
   children = "This is an example of a dialog",
   ...props
-}: Partial<DialogProps> & StoryProps) => {
+}: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const ref = useRef<HTMLButtonElement | null>(null);
   return (
@@ -225,7 +227,7 @@ export const DialogComponentWithToast = () => {
 
 export const DialogComponentWithTextEditor = ({
   ...props
-}: Partial<DialogProps> & StoryProps) => {
+}: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const [value, setValue] = useState(EditorState.createEmpty());
   return (

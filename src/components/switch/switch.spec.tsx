@@ -20,12 +20,13 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import SwitchSliderPanel from "./__internal__/switch-slider-panel.style";
-import SwitchStyle from "./switch.style";
+import SwitchStyle, { ErrorBorder } from "./switch.style";
 import Label from "../../__internal__/label";
 import I18nProvider, { I18nProviderProps } from "../i18n-provider";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
+import CarbonProvider from "../../components/carbon-provider";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -65,6 +66,17 @@ function render(
   );
 }
 
+function renderWithCarbonProvider(
+  props?: SwitchProps & { ref?: React.ForwardedRef<HTMLInputElement> },
+  renderer = mount
+) {
+  return renderer(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch name="my-switch" value="test" onChange={() => {}} {...props} />
+    </CarbonProvider>
+  );
+}
+
 function renderWithTheme(
   props?: SwitchProps,
   theme?: string | Partial<ThemeObject>,
@@ -82,7 +94,6 @@ describe("Switch", () => {
 
   beforeEach(() => {
     loggerSpy = jest.spyOn(Logger, "deprecate");
-    jest.restoreAllMocks();
   });
 
   afterEach(() => {
@@ -578,6 +589,34 @@ describe("Switch", () => {
       expect(
         wrapper.find(StyledSwitchSlider).find(StyledValidationIcon).exists()
       ).toEqual(false);
+    });
+  });
+
+  describe("New validations", () => {
+    const validationTypes = ["error", "warning"] as const;
+    let wrapper: ReactWrapper;
+
+    it.each(validationTypes)("renders proper validation styles", (type) => {
+      wrapper = renderWithCarbonProvider({
+        [type]: "message",
+        labelHelp: "Label help",
+      });
+
+      assertStyleMatch(
+        {
+          position: "absolute",
+          zIndex: "6",
+          width: "2px",
+          left: "-12px",
+          bottom: "-4px",
+          top: "2px",
+          backgroundColor:
+            type === "warning"
+              ? "var(--colorsSemanticCaution500)"
+              : "var(--colorsSemanticNegative500)",
+        },
+        wrapper.find(ErrorBorder)
+      );
     });
   });
 

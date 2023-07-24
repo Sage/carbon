@@ -43,6 +43,7 @@ import {
 } from "../../support/component-helper/common-steps";
 import useMediaQuery from "../../../src/hooks/useMediaQuery";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
+import * as testStories from "../../../src/components/menu/menu-test.stories";
 
 const span = "span";
 const div = "div";
@@ -271,6 +272,34 @@ const MenuFullScreenBackgroundScrollTest = () => {
         <MenuItem href="#">Menu Item Two</MenuItem>
       </MenuFullscreen>
     </Box>
+  );
+};
+
+const MenuFullScreenWithFalsyValues = ({ ...props }) => {
+  const showMenuItem = false;
+  return (
+    <MenuFullscreen {...props}>
+      <MenuItem maxWidth="200px">Submenu Item One</MenuItem>
+      {false && <MenuItem href="#">Product Item One</MenuItem>}
+      {showMenuItem ? <MenuItem href="#">Product Item Two</MenuItem> : null}
+    </MenuFullscreen>
+  );
+};
+
+const ClosedMenuFullScreenWithButtons = () => {
+  return (
+    <>
+      <button type="button" id="button-1">
+        Button 1
+      </button>
+      <MenuFullscreen isOpen={false} onClose={() => {}}>
+        <MenuItem href="#">Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+      </MenuFullscreen>
+      <button type="button" id="button-2">
+        Button 2
+      </button>
+    </>
   );
 };
 
@@ -1502,6 +1531,15 @@ context("Testing Menu component", () => {
       }
     );
 
+    it("should verify that Menu Fullscreen has no effect on the tab order when isOpen prop is false", () => {
+      CypressMountWithProviders(<ClosedMenuFullScreenWithButtons />);
+
+      cy.tab();
+      cy.get("#button-1").should("be.focused");
+      cy.tab();
+      cy.get("#button-2").should("be.focused");
+    });
+
     it.each([
       ["left", -1200, 1200],
       ["right", 1200, -1200],
@@ -2133,25 +2171,53 @@ context("Testing Menu component", () => {
     });
   });
 
-  describe("MenuFullScreen test background scroll when tabbing", () => {
-    it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
-      CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+  describe("MenuFullScreen", () => {
+    describe("test background scroll when tabbing", () => {
+      it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
+        CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
 
-      continuePressingTABKey(4);
+        continuePressingTABKey(4);
 
-      closeIconButton().should("be.focused");
+        closeIconButton().should("be.focused");
 
-      cy.checkNotInViewport("#bottom-box");
+        cy.checkNotInViewport("#bottom-box");
+      });
+
+      it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
+        CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+
+        continuePressingTABKey(3, true);
+
+        closeIconButton().should("be.focused");
+
+        cy.checkNotInViewport("#bottom-box");
+      });
     });
 
-    it("tabbing backward through the menu and back to the start should not make the background scroll to the bottom", () => {
-      CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
+    it("should not render a MenuDivider when falsy values are rendered", () => {
+      CypressMountWithProviders(<MenuFullScreenWithFalsyValues isOpen />);
 
-      continuePressingTABKey(3, true);
+      menuDivider().should("not.exist");
+    });
+  });
 
-      closeIconButton().should("be.focused");
+  describe("when inside a GlobalHeader", () => {
+    it("all the content of a long submenu can be accessed with the keyboard while remaining visible", () => {
+      CypressMountWithProviders(<testStories.InGlobalHeaderStory />);
 
-      cy.checkNotInViewport("#bottom-box");
+      cy.viewport(1000, 500);
+
+      menuComponent(1).trigger("keydown", keyCode("downarrow"));
+      submenuItem(1).should("have.length", 20);
+
+      for (let i = 0; i < 20; i++) {
+        cy.focused().trigger("keydown", keyCode("downarrow"));
+      }
+
+      cy.focused().should("contain", "Foo 20");
+      cy.checkInViewport(
+        '[data-component="submenu-wrapper"] ul > li:nth-child(20)'
+      );
     });
   });
 });

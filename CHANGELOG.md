@@ -1,3 +1,64 @@
+### [119.6.2](https://github.com/Sage/carbon/compare/v119.6.1...v119.6.2) (2023-07-20)
+
+
+### Bug Fixes
+
+* **decimal:** replace row-reverse with row when text is right aligned ([ceb04e1](https://github.com/Sage/carbon/commit/ceb04e16f1b2cddfb202593592532518f974a0b4)), closes [#6109](https://github.com/Sage/carbon/issues/6109)
+
+### [119.6.1](https://github.com/Sage/carbon/compare/v119.6.0...v119.6.1) (2023-07-12)
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** fix focus when menu closed ([516cb5a](https://github.com/Sage/carbon/commit/516cb5ab29e6beaca9399bd06c91ade584b1a1e7)), closes [#6037](https://github.com/Sage/carbon/issues/6037)
+
+## [119.6.0](https://github.com/Sage/carbon/compare/v119.5.1...v119.6.0) (2023-07-06)
+
+
+### Features
+
+* **switch:** add support for new validation ([800841f](https://github.com/Sage/carbon/commit/800841f7ada21f3b34b001115c48c1c10149a217))
+
+
+### Bug Fixes
+
+* **validation-message:** fix incorrect syntax for font-weight ([69d02ca](https://github.com/Sage/carbon/commit/69d02cae8f9b4c892f550a01579c4db7a4ac75c6))
+
+### [119.5.1](https://github.com/Sage/carbon/compare/v119.5.0...v119.5.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** ensure menu-divider is not rendered for empty children ([6c3b08e](https://github.com/Sage/carbon/commit/6c3b08eac539827aa8f584092e63e7b5ec6a2d64)), closes [#6099](https://github.com/Sage/carbon/issues/6099)
+
+## [119.5.0](https://github.com/Sage/carbon/compare/v119.4.2...v119.5.0) (2023-07-05)
+
+
+### Features
+
+* **button bar:** add support for rendering button minor children ([1386c52](https://github.com/Sage/carbon/commit/1386c528a97e8b9b231ed15068e9fc94667be77b))
+
+### [119.4.2](https://github.com/Sage/carbon/compare/v119.4.1...v119.4.2) (2023-07-05)
+
+
+### Bug Fixes
+
+* **flat-table:** convert all files in directory to typescript ([eb0b473](https://github.com/Sage/carbon/commit/eb0b473b839865426ab61f5a4fc88d756e1d3c50)), closes [#5979](https://github.com/Sage/carbon/issues/5979)
+
+### [119.4.1](https://github.com/Sage/carbon/compare/v119.4.0...v119.4.1) (2023-07-04)
+
+
+### Bug Fixes
+
+* **menu:** make submenu scrollable when inside a fixed navigation bar ([dc685b5](https://github.com/Sage/carbon/commit/dc685b59900005a9efb052d765b711a9dce409cb)), closes [#6009](https://github.com/Sage/carbon/issues/6009)
+
+## [119.4.0](https://github.com/Sage/carbon/compare/v119.3.4...v119.4.0) (2023-07-03)
+
+
+### Features
+
+* **icon:** 28 new icons added to the icon font ([fd9caca](https://github.com/Sage/carbon/commit/fd9caca93823b45f66c920401871d23e2dc33172))
+
 ### [119.3.4](https://github.com/Sage/carbon/compare/v119.3.3...v119.3.4) (2023-06-29)
 
 
