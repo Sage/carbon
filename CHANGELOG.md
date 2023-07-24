@@ -1,3 +1,10 @@
+### [119.6.3](https://github.com/Sage/carbon/compare/v119.6.2...v119.6.3) (2023-07-24)
+
+
+### Bug Fixes
+
+* icon alignments and pill updates ([b55433f](https://github.com/Sage/carbon/commit/b55433fcfb6989641ad8f742cf70913ee0cee9a4))
+
 ### [119.6.2](https://github.com/Sage/carbon/compare/v119.6.1...v119.6.2) (2023-07-20)
 
 
