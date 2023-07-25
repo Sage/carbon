@@ -79,7 +79,7 @@ export const WithOptionalButtons = () => {
 
 WithOptionalButtons.storyName = "with optional buttons";
 
-export const WithUserDefinedCharacterLimit = () => {
+export const WithOptionalCharacterLimit = () => {
   const [value, setValue] = useState(EditorState.createEmpty());
   const limit = 100;
   const ref = useRef(null);
@@ -98,7 +98,7 @@ export const WithUserDefinedCharacterLimit = () => {
   );
 };
 
-WithUserDefinedCharacterLimit.storyName = "with optional character limit";
+WithOptionalCharacterLimit.storyName = "with optional character limit";
 
 export const WithValidation = () => {
   const [value, setValue] = useState(

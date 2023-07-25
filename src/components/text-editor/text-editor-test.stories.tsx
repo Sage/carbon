@@ -45,6 +45,11 @@ export default {
         type: "text",
       },
     },
+    previews: {
+      control: {
+        type: "text",
+      },
+    },
   },
 };
 

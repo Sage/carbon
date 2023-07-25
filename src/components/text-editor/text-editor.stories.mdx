@@ -65,7 +65,7 @@ editor can expects.
   <Story story={stories.WithContent} name="with content" />
 </Canvas>
 
-### With optional Save/ Cancel buttons
+### With optional Save / Cancel buttons
 
 By passing the `onSave` callback prop it is possible to render the form control buttons as seen below. This callback
 will be executed when the `Save` button is clicked and there is content in the editor input, the button is disabled
@@ -75,7 +75,7 @@ otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` 
   <Story name="with optional buttons" story={stories.WithOptionalButtons} />
 </Canvas>
 
-### With user defined character limit
+### With optional character limit
 
 It is possible to override the default value for the character limit via the `characterLimit` prop. Setting this prop
 will prevent any input that would cause the content length to exceed it.
@@ -83,7 +83,7 @@ will prevent any input that would cause the content length to exceed it.
 <Canvas>
   <Story
     name="with optional character limit"
-    story={stories.WithUserDefinedCharacterLimit}
+    story={stories.WithOptionalCharacterLimit}
   />
 </Canvas>
 
