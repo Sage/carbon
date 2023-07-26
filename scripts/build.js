@@ -21,6 +21,7 @@ async function run(bundle) {
     "**/*.stories.js",
     "**/*.stories.tsx",
     "**/*.d.ts",
+    "**/*.pw.tsx",
   ];
 
   const outDir = path.resolve(
