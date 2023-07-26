@@ -1,9 +1,11 @@
-import React, { useLayoutEffect, useRef, useContext } from "react";
+import React, { useRef, useContext } from "react";
 import { PaddingProps } from "styled-system";
 import { TableBorderSize, TableCellAlign } from "..";
 
 import StyledFlatTableHeader from "./flat-table-header.style";
 import { FlatTableThemeContext } from "../flat-table.component";
+import guid from "../../../__internal__/utils/helpers/guid";
+import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
 
 export interface FlatTableHeaderProps extends PaddingProps {
   /** Content alignment */
@@ -22,32 +24,8 @@ export interface FlatTableHeaderProps extends PaddingProps {
   verticalBorderColor?: string;
   /** Column width, pass a number to set a fixed width in pixels */
   width?: number;
-  /** Sets an id string on the DOM element */
+  /** Sets an id string on the element */
   id?: string;
-  /**
-   * @private
-   * @ignore
-   * Sets the left position when sticky column found
-   */
-  leftPosition?: number;
-  /**
-   * @private
-   * @ignore
-   * Sets the right position when sticky column found
-   */
-  rightPosition?: number;
-  /**
-   * @private
-   * @ignore
-   * Index of cell within row
-   */
-  cellIndex?: number;
-  /**
-   * @private
-   * @ignore
-   * Callback to report the offsetWidth
-   */
-  reportCellWidth?: (offset: number, index?: number) => void;
 }
 
 export const FlatTableHeader = ({
@@ -58,28 +36,27 @@ export const FlatTableHeader = ({
   width,
   py,
   px,
-  reportCellWidth,
-  cellIndex,
-  leftPosition,
-  rightPosition,
+  id,
   ...rest
 }: FlatTableHeaderProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
+  const internalId = useRef(id || guid());
   const { colorTheme } = useContext(FlatTableThemeContext);
 
-  useLayoutEffect(() => {
-    if (ref.current && reportCellWidth) {
-      reportCellWidth(ref.current.offsetWidth, cellIndex);
-    }
-  }, [reportCellWidth, cellIndex]);
+  const { leftPositions, rightPositions } = useContext(FlatTableRowContext);
+
+  const leftPosition = leftPositions[internalId.current];
+  const rightPosition = rightPositions[internalId.current];
+  const makeCellSticky =
+    leftPosition !== undefined || rightPosition !== undefined;
 
   return (
     <StyledFlatTableHeader
       ref={ref}
       leftPosition={leftPosition}
       rightPosition={rightPosition}
-      makeCellSticky={!!reportCellWidth}
-      className={reportCellWidth ? "isSticky" : undefined}
+      makeCellSticky={makeCellSticky}
+      className={makeCellSticky ? "isSticky" : undefined}
       align={align}
       colorTheme={colorTheme}
       data-element="flat-table-header"
@@ -89,6 +66,7 @@ export const FlatTableHeader = ({
       py={py}
       px={px}
       {...rest}
+      id={internalId.current}
     >
       <div>{children}</div>
     </StyledFlatTableHeader>

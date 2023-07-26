@@ -203,17 +203,37 @@ export const FlatTable = ({
   };
 
   useLayoutEffect(() => {
-    const focusableElements = tableRef.current?.querySelectorAll(
-      FOCUSABLE_ROW_AND_CELL_QUERY
-    );
-
-    // if no other menu item is selected, we need to make the first row a tab stop
-    if (focusableElements && !selectedId) {
-      const focusableArray = Array.from(focusableElements).filter(
-        (el) => el.getAttribute("tabindex") !== null
+    const findSelectedId = () => {
+      const focusableElements = tableRef.current?.querySelectorAll(
+        FOCUSABLE_ROW_AND_CELL_QUERY
       );
-      setSelectedId(focusableArray[0]?.getAttribute("id") || "");
+
+      // if no other menu item is selected, we need to make the first row a tab stop
+      if (focusableElements && !selectedId) {
+        const selected = Array.from(focusableElements).find(
+          (el) => el.getAttribute("tabindex") !== null
+        );
+
+        const currentlySelectedId = selected?.getAttribute("id");
+
+        if (currentlySelectedId && selectedId !== currentlySelectedId) {
+          setSelectedId(currentlySelectedId);
+        }
+      }
+    };
+
+    const observer = new MutationObserver(findSelectedId);
+
+    /* istanbul ignore else */
+    if (wrapperRef.current) {
+      observer.observe(wrapperRef.current as Node, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+        characterData: true,
+      });
     }
+    return () => observer.disconnect();
   }, [selectedId]);
 
   return (

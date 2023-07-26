@@ -10,6 +10,7 @@ import {
   testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
 import StyledIcon from "../../icon/icon.style";
+import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
 
 describe("FlatTableRowHeader", () => {
   testStyledSystemPadding(
@@ -112,7 +113,16 @@ describe("FlatTableRowHeader", () => {
         <table>
           <thead>
             <tr>
-              <FlatTableRowHeader expandable />
+              <FlatTableRowContext.Provider
+                value={{
+                  expandable: true,
+                  firstCellId: "foo",
+                  leftPositions: {},
+                  rightPositions: {},
+                }}
+              >
+                <FlatTableRowHeader id="foo" />
+              </FlatTableRowContext.Provider>
             </tr>
           </thead>
         </table>
@@ -128,7 +138,18 @@ describe("FlatTableRowHeader", () => {
           <table>
             <thead>
               <tr>
-                <FlatTableRowHeader expandable onClick={onClickFn} />
+                <FlatTableRowContext.Provider
+                  value={{
+                    expandable: true,
+                    firstColumnExpandable: true,
+                    onClick: onClickFn,
+                    firstCellId: "foo",
+                    leftPositions: {},
+                    rightPositions: {},
+                  }}
+                >
+                  <FlatTableRowHeader id="foo" />
+                </FlatTableRowContext.Provider>
               </tr>
             </thead>
           </table>
@@ -147,7 +168,18 @@ describe("FlatTableRowHeader", () => {
           <table>
             <thead>
               <tr>
-                <FlatTableRowHeader expandable onKeyDown={onKeyDownFn} />
+                <FlatTableRowContext.Provider
+                  value={{
+                    expandable: true,
+                    firstColumnExpandable: true,
+                    onKeyDown: onKeyDownFn,
+                    firstCellId: "foo",
+                    leftPositions: {},
+                    rightPositions: {},
+                  }}
+                >
+                  <FlatTableRowHeader id="foo" />
+                </FlatTableRowContext.Provider>
               </tr>
             </thead>
           </table>
@@ -168,7 +200,16 @@ describe("FlatTableRowHeader", () => {
           <table>
             <thead>
               <tr>
-                <FlatTableRowHeader onClick={onClickFn} />
+                <FlatTableRowContext.Provider
+                  value={{
+                    onClick: onClickFn,
+                    firstCellId: "foo",
+                    leftPositions: {},
+                    rightPositions: {},
+                  }}
+                >
+                  <FlatTableRowHeader id="foo" />
+                </FlatTableRowContext.Provider>
               </tr>
             </thead>
           </table>
@@ -187,7 +228,16 @@ describe("FlatTableRowHeader", () => {
           <table>
             <thead>
               <tr>
-                <FlatTableRowHeader onKeyDown={onKeyDownFn} />
+                <FlatTableRowContext.Provider
+                  value={{
+                    onKeyDown: onKeyDownFn,
+                    firstCellId: "foo",
+                    leftPositions: {},
+                    rightPositions: {},
+                  }}
+                >
+                  <FlatTableRowHeader id="foo" />
+                </FlatTableRowContext.Provider>
               </tr>
             </thead>
           </table>
@@ -246,6 +296,31 @@ describe("FlatTableRowHeader", () => {
         expect(wrapper.find("div").props().title).toEqual("Bar");
       });
     });
+  });
+
+  describe("stickyAlignment", () => {
+    it.each<FlatTableRowHeaderProps["stickyAlignment"]>(["left", "right"])(
+      "sets the data-sticky-align attribute to %s",
+      (stickyAlignment) => {
+        const element = mount(
+          <table>
+            <thead>
+              <tr>
+                <FlatTableRowHeader stickyAlignment={stickyAlignment}>
+                  Foo
+                </FlatTableRowHeader>
+              </tr>
+            </thead>
+          </table>
+        )
+          .find(StyledFlatTableRowHeader)
+          .getDOMNode();
+
+        expect(element.getAttribute("data-sticky-align")).toEqual(
+          stickyAlignment
+        );
+      }
+    );
   });
 
   describe.each([

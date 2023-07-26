@@ -36,6 +36,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import { FLAT_TABLE_THEMES } from "./flat-table.config";
 import { WithSortingHeaders } from "./flat-table.stories";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { FlatTableRowContextProps } from "./flat-table-row/__internal__/flat-table-row-context";
 
 type SortType = "ascending" | "descending";
 type SortValue = "client" | "total";
@@ -1841,7 +1842,9 @@ export const FlatTableTitleAlignComponent = (
 };
 
 export const FlatTableSortingComponent = (
-  props: Partial<FlatTableProps> & FlatTableCellProps
+  props: Partial<FlatTableProps> &
+    FlatTableCellProps &
+    Partial<FlatTableRowContextProps>
 ) => {
   const headDataItems: HeadDataItems = [
     {

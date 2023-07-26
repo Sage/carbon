@@ -7,7 +7,6 @@ import {
 import * as stories from "../../../src/components/flat-table/flat-table-test.stories";
 import { FlatTableProps } from "../../../src/components/flat-table/flat-table.component";
 import { FlatTableRowProps } from "../../../src/components/flat-table/flat-table-row/flat-table-row.component";
-import { FlatTableCellProps } from "../../../src/components/flat-table/flat-table-cell/flat-table-cell.component";
 import Icon from "../../../src/components/icon";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { getDataElementByValue, cyRoot } from "../../locators";
@@ -60,6 +59,7 @@ import {
   positionOfElement,
   getRotationAngle,
 } from "../../support/helper";
+import { FlatTableRowContextProps } from "../../../src/components/flat-table/flat-table-row/__internal__/flat-table-row-context";
 
 const sizes = [
   ["compact", "8px", "13px", 24],
@@ -2670,7 +2670,9 @@ context("Tests for Flat Table component", () => {
     });
 
     it("should call onClick when first Flat Table column is sorted", () => {
-      const callback: FlatTableCellProps["onClick"] = cy.stub().as("onClick");
+      const callback: FlatTableRowContextProps["onClick"] = cy
+        .stub()
+        .as("onClick");
       CypressMountWithProviders(
         <stories.FlatTableSortingComponent onClick={callback} />
       );

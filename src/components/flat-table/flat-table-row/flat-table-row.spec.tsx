@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
@@ -574,18 +574,15 @@ describe("FlatTableRow", () => {
         <table>
           <thead>
             <FlatTableRow>
-              <FlatTableHeader>test 1</FlatTableHeader>
-              <FlatTableCell>test 2</FlatTableCell>
-              <FlatTableCheckbox />
-              <FlatTableRowHeader>test 3</FlatTableRowHeader>
-              <FlatTableHeader>test 4</FlatTableHeader>
-              <FlatTableCell>test 5</FlatTableCell>
+              <FlatTableHeader id="test 1">test 1</FlatTableHeader>
+              <FlatTableCell id="test 2">test 2</FlatTableCell>
+              <FlatTableCheckbox id="checkbox" />
+              <FlatTableRowHeader id="test 3">test 3</FlatTableRowHeader>
+              <FlatTableHeader id="test 4">test 4</FlatTableHeader>
+              <FlatTableCell id="test 5">test 5</FlatTableCell>
             </FlatTableRow>
           </thead>
         </table>
-      );
-      act(() =>
-        wrapper.find(FlatTableHeader).at(0)?.props()?.reportCellWidth?.(200, 0)
       );
 
       assertStyleMatch(
@@ -630,24 +627,17 @@ describe("FlatTableRow", () => {
           <table>
             <thead>
               <FlatTableRow>
-                <FlatTableHeader>test 1</FlatTableHeader>
-                <FlatTableCell>test 2</FlatTableCell>
-                <FlatTableRowHeader stickyAlignment="right">
+                <FlatTableHeader id="test 1">test 1</FlatTableHeader>
+                <FlatTableCell id="test 2">test 2</FlatTableCell>
+                <FlatTableRowHeader id="test 3" stickyAlignment="right">
                   test 3
                 </FlatTableRowHeader>
-                <FlatTableCheckbox />
-                <FlatTableHeader>test 4</FlatTableHeader>
-                <FlatTableCell>test 5</FlatTableCell>
+                <FlatTableCheckbox id="checkbox" />
+                <FlatTableHeader id="test 4">test 4</FlatTableHeader>
+                <FlatTableCell id="test 5">test 5</FlatTableCell>
               </FlatTableRow>
             </thead>
           </table>
-        );
-        act(() =>
-          wrapper
-            .find(FlatTableHeader)
-            .at(1)
-            ?.props()
-            ?.reportCellWidth?.(200, 0)
         );
 
         assertStyleMatch(
@@ -1125,6 +1115,169 @@ describe("FlatTableRow", () => {
       });
     });
 
+    describe("when passing sub rows as a component", () => {
+      const SubRowsComponent = () => (
+        <>
+          <FlatTableRow>
+            <FlatTableCell>sub1cell1</FlatTableCell>
+            <FlatTableCell>sub1cell2</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>sub2cell1</FlatTableCell>
+            <FlatTableCell>sub2cell2</FlatTableCell>
+          </FlatTableRow>
+        </>
+      );
+
+      it("should expand the sub rows when row is clicked", () => {
+        const wrapper = renderFlatTableRow({
+          expandable: true,
+          subRows: <SubRowsComponent />,
+        });
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(0).props().onClick();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+
+        act(() => {
+          wrapper.find(StyledFlatTableRow).at(0).props().onClick();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+      });
+
+      it("should expand the sub rows when first column clicked and expandable area is first column", () => {
+        const wrapper = renderFlatTableRow({
+          expandable: true,
+          subRows: <SubRowsComponent />,
+          expandableArea: "firstColumn",
+        });
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .props()
+            .onClick();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .props()
+            .onClick();
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+      });
+
+      it("should toggle the open/close state of the row when enter/space pressed", () => {
+        const element = document.createElement("div");
+        const htmlElement = document.body.appendChild(element);
+
+        const wrapper = mount(
+          <table>
+            <tbody>
+              <FlatTableRow expandable subRows={<SubRowsComponent />}>
+                <FlatTableCell>cell1</FlatTableCell>
+                <FlatTableCell>cell2</FlatTableCell>
+              </FlatTableRow>
+            </tbody>
+          </table>,
+          { attachTo: htmlElement }
+        );
+
+        (wrapper
+          .find(StyledFlatTableRow)
+          .at(0)
+          .getDOMNode() as HTMLElement).focus();
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .props()
+            .onKeyDown(events.enter);
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .props()
+            .onKeyDown(events.space);
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+      });
+
+      it("should toggle the open/close state of the row when enter/space pressed and expandable area is first column", () => {
+        const wrapper = renderFlatTableRow({
+          expandable: true,
+          subRows: <SubRowsComponent />,
+          expandableArea: "firstColumn",
+        });
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+
+        (wrapper
+          .find(StyledFlatTableRow)
+          .at(0)
+          .find("td")
+          .at(0)
+          .getDOMNode() as HTMLElement).focus();
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .props()
+            .onKeyDown(events.enter);
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(3);
+
+        act(() => {
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find(StyledFlatTableCell)
+            .at(0)
+            .props()
+            .onKeyDown(events.space);
+        });
+
+        wrapper.update();
+
+        expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
+      });
+    });
+
     describe.each([
       ["medium", "2px solid var(--colorsUtilityMajor100)"],
       ["large", "4px solid var(--colorsUtilityMajor100)"],
@@ -1293,18 +1446,15 @@ describe("FlatTableRow", () => {
               expandableArea="firstColumn"
               id={0}
             >
-              <FlatTableHeader>test 1</FlatTableHeader>
-              <FlatTableCell>test 2</FlatTableCell>
-              <FlatTableCheckbox />
-              <FlatTableRowHeader>test 3</FlatTableRowHeader>
-              <FlatTableHeader>test 4</FlatTableHeader>
-              <FlatTableCell>test 5</FlatTableCell>
+              <FlatTableHeader id="test 1">test 1</FlatTableHeader>
+              <FlatTableCell id="test 2">test 2</FlatTableCell>
+              <FlatTableCheckbox id="checkbox" />
+              <FlatTableRowHeader id="test 3">test 3</FlatTableRowHeader>
+              <FlatTableHeader id="test 4">test 4</FlatTableHeader>
+              <FlatTableCell id="test 5">test 5</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
         </table>
-      );
-      act(() =>
-        wrapper.find(FlatTableHeader).at(0)?.props()?.reportCellWidth?.(200, 0)
       );
 
       wrapper.update();
@@ -1435,12 +1585,12 @@ describe("FlatTableRow", () => {
               expandableArea="firstColumn"
               id={0}
             >
-              <FlatTableHeader>test 1</FlatTableHeader>
-              <FlatTableCell>test 2</FlatTableCell>
-              <FlatTableCheckbox />
-              <FlatTableRowHeader>test 3</FlatTableRowHeader>
-              <FlatTableHeader>test 4</FlatTableHeader>
-              <FlatTableCell>test 5</FlatTableCell>
+              <FlatTableHeader id="test 1">test 1</FlatTableHeader>
+              <FlatTableCell id="test 2">test 2</FlatTableCell>
+              <FlatTableCheckbox id="checkbox" />
+              <FlatTableRowHeader id="test 3">test 3</FlatTableRowHeader>
+              <FlatTableHeader id="test 4">test 4</FlatTableHeader>
+              <FlatTableCell id="test 5">test 5</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
         </table>
@@ -1517,6 +1667,62 @@ describe("FlatTableRow", () => {
         { modifier: `${StyledFlatTableCell}` }
       );
     });
+
+    describe("with a ref", () => {
+      it("the ref should be forwarded", () => {
+        let mockRef = { current: null };
+
+        const WrapperComponent = () => {
+          mockRef = useRef(null);
+
+          return (
+            <table>
+              <FlatTableBodyDraggable>
+                <FlatTableRow id={0} ref={mockRef}>
+                  <FlatTableHeader>test 1</FlatTableHeader>
+                  <FlatTableCell>test 2</FlatTableCell>
+                  <FlatTableCheckbox />
+                  <FlatTableRowHeader>test 3</FlatTableRowHeader>
+                  <FlatTableHeader>test 4</FlatTableHeader>
+                  <FlatTableCell>test 5</FlatTableCell>
+                </FlatTableRow>
+              </FlatTableBodyDraggable>
+            </table>
+          );
+        };
+
+        const wrapper = mount(<WrapperComponent />);
+
+        expect(mockRef.current).toBe(wrapper.find("tr").getDOMNode());
+      });
+
+      it("the input callback ref should be called with the DOM element", () => {
+        let mockRef;
+
+        const WrapperComponent = () => {
+          mockRef = jest.fn();
+
+          return (
+            <table>
+              <FlatTableBodyDraggable>
+                <FlatTableRow id={0} ref={mockRef}>
+                  <FlatTableHeader>test 1</FlatTableHeader>
+                  <FlatTableCell>test 2</FlatTableCell>
+                  <FlatTableCheckbox />
+                  <FlatTableRowHeader>test 3</FlatTableRowHeader>
+                  <FlatTableHeader>test 4</FlatTableHeader>
+                  <FlatTableCell>test 5</FlatTableCell>
+                </FlatTableRow>
+              </FlatTableBodyDraggable>
+            </table>
+          );
+        };
+
+        const wrapper = mount(<WrapperComponent />);
+
+        expect(mockRef).toHaveBeenCalledWith(wrapper.find("tr").getDOMNode());
+      });
+    });
   });
 
   describe("wrapping FlatTableRowHeader", () => {
@@ -1526,7 +1732,6 @@ describe("FlatTableRow", () => {
       }: {
         children: React.ReactNode;
       }) => <FlatTableRowHeader>{children}</FlatTableRowHeader>;
-      FlatTableRowHeaderWrapper.displayName = FlatTableRowHeader.displayName;
       const rowHeaderIndex = mount(
         <table>
           <thead>
@@ -1545,6 +1750,44 @@ describe("FlatTableRow", () => {
         .prop("lhsRowHeaderIndex");
 
       expect(rowHeaderIndex).toEqual(3);
+    });
+  });
+
+  // added to meet coverage
+  describe("when only children passed are checkboxes", () => {
+    it("does not update first cell index", () => {
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <FlatTableRow>
+              <FlatTableCheckbox />
+              <FlatTableCheckbox />
+            </FlatTableRow>
+          </tbody>
+        </table>
+      );
+
+      expect(wrapper.find(StyledFlatTableRow).prop("firstCellIndex")).toBe(0);
+    });
+  });
+
+  // added to meet coverage
+  describe("when first cell has no id set", () => {
+    it("does not set a first cell index", () => {
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <FlatTableRow>
+              <td>I have no ID</td>
+              <FlatTableRowHeader>I have an ID</FlatTableRowHeader>
+            </FlatTableRow>
+          </tbody>
+        </table>
+      );
+
+      expect(wrapper.find(StyledFlatTableRowHeader).prop("leftPositon")).toBe(
+        undefined
+      );
     });
   });
 });

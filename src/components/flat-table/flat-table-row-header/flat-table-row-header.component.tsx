@@ -1,6 +1,6 @@
 import React, {
   useCallback,
-  useEffect,
+  useLayoutEffect,
   useContext,
   useState,
   useRef,
@@ -15,8 +15,12 @@ import {
 } from "./flat-table-row-header.style";
 import { FlatTableThemeContext } from "../flat-table.component";
 import guid from "../../../__internal__/utils/helpers/guid";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags/tags";
+import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
 
-export interface FlatTableRowHeaderProps extends PaddingProps {
+export interface FlatTableRowHeaderProps extends PaddingProps, TagProps {
   /** Content alignment */
   align?: TableCellAlign;
   /** RowHeader content */
@@ -37,47 +41,8 @@ export interface FlatTableRowHeaderProps extends PaddingProps {
   colspan?: number | string;
   /** Number of rows that a header cell should span */
   rowspan?: number | string;
-  /** Sets an id string on the DOM element */
+  /** Sets an id string on the element */
   id?: string;
-  /**
-   * @private
-   * @ignore
-   */
-  expandable?: boolean;
-  /**
-   * @private
-   * @ignore
-   */
-  onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
-  /**
-   * @private
-   * @ignore
-   */
-  onKeyDown?: (ev: React.KeyboardEvent<HTMLElement>) => void;
-  /**
-   * @private
-   * @ignore
-   * Sets the left position when sticky column found
-   */
-  leftPosition?: number;
-  /**
-   * @private
-   * @ignore
-   * Sets the right position when sticky column found
-   */
-  rightPosition?: number;
-  /**
-   * @private
-   * @ignore
-   * Index of cell within row
-   */
-  cellIndex?: number;
-  /**
-   * @private
-   * @ignore
-   * Callback to report the offsetWidth
-   */
-  reportCellWidth?: (offset: number, index?: number) => void;
 }
 
 export const FlatTableRowHeader = ({
@@ -86,38 +51,51 @@ export const FlatTableRowHeader = ({
   width,
   py,
   px,
-  expandable = false,
-  onClick,
-  onKeyDown,
-  leftPosition,
-  rightPosition,
   truncate,
   title,
   stickyAlignment = "left",
   colspan,
   rowspan,
+  id,
   ...rest
 }: FlatTableRowHeaderProps) => {
-  const id = useRef(guid());
+  const internalId = useRef(id || guid());
   const [tabIndex, setTabIndex] = useState(-1);
   const { selectedId } = useContext(FlatTableThemeContext);
+  const {
+    expandable,
+    firstCellId,
+    firstColumnExpandable,
+    leftPositions,
+    rightPositions,
+    onClick,
+    onKeyDown,
+  } = useContext(FlatTableRowContext);
+
+  const leftPosition = leftPositions[internalId.current];
+  const rightPosition = rightPositions[internalId.current];
+  const isFirstCell = internalId.current === firstCellId;
+  const isExpandableCell = expandable && isFirstCell && firstColumnExpandable;
+
+  useLayoutEffect(() => {
+    setTabIndex(isExpandableCell && selectedId === internalId.current ? 0 : -1);
+  }, [selectedId, isExpandableCell]);
 
   const handleOnClick = useCallback(
     (ev: React.MouseEvent<HTMLElement>) => {
-      if (expandable && onClick) onClick(ev);
+      if (isExpandableCell && onClick) onClick(ev);
     },
-    [expandable, onClick]
-  );
-  const handleOnKeyDown = useCallback(
-    (ev: React.KeyboardEvent<HTMLElement>) => {
-      if (expandable && onKeyDown) onKeyDown(ev);
-    },
-    [expandable, onKeyDown]
+    [isExpandableCell, onClick]
   );
 
-  useEffect(() => {
-    setTabIndex(selectedId === id.current ? 0 : -1);
-  }, [selectedId]);
+  const handleOnKeyDown = useCallback(
+    (ev: React.KeyboardEvent<HTMLElement>) => {
+      if (isExpandableCell && onKeyDown) {
+        onKeyDown(ev);
+      }
+    },
+    [isExpandableCell, onKeyDown]
+  );
 
   return (
     <StyledFlatTableRowHeader
@@ -126,20 +104,23 @@ export const FlatTableRowHeader = ({
         stickyAlignment === "right" ? rightPosition || 0 : undefined
       }
       align={align}
-      data-element="flat-table-row-header"
+      {...tagComponent("flat-table-row-header", {
+        "data-element": "flat-table-row-header",
+        ...rest,
+      })}
       width={width}
       py={py || "10px"}
       px={px || 3}
       onClick={handleOnClick}
-      tabIndex={expandable && onClick ? tabIndex : undefined}
+      tabIndex={isExpandableCell ? tabIndex : undefined}
       onKeyDown={handleOnKeyDown}
       truncate={truncate}
       expandable={expandable}
       stickyAlignment={stickyAlignment}
-      id={id.current}
       {...(colspan !== undefined && { colSpan: Number(colspan) })}
       {...(rowspan !== undefined && { rowSpan: Number(rowspan) })}
       {...rest}
+      id={internalId.current}
     >
       <StyledFlatTableRowHeaderContent
         title={
@@ -147,7 +128,7 @@ export const FlatTableRowHeader = ({
         }
         expandable={expandable}
       >
-        {expandable && (
+        {expandable && isFirstCell && (
           <Icon type="chevron_down_thick" bgSize="extra-small" mr="8px" />
         )}
         {children}
