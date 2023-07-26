@@ -145,6 +145,9 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
     css`
       & ${StyledIcon} {
         color: var(--colorsActionMinor500);
+        :hover {
+          color: var(--colorsActionMinorYang100);
+        }
       }
 
       color: var(--colorsActionMinor500);
