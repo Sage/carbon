@@ -9,9 +9,12 @@
     - [Custom utilities](#custom-utilities)
     - [Use of Snapshot tests](#use-of-snapshot-tests)
     - [Continuous Integration (CI)](#continuous-integration-ci)
-  - [Functional Browser Testing](#functional-browser-testing)
+  - [Functional Browser Testing (Cypress)](#functional-browser-testing-cypress)
     - [Cypress File Structure](#cypress-file-structure)
     - [Locators](#locators)
+  - [Functional Browser Testing (Playwright)](#functional-browser-testing-playwright)
+    - [Playwright File Structure](#playwright-file-structure)
+    - [Locators](#locators-1)
   - [Visual Testing](#visual-testing)
     - [Adding new visual tests](#adding-new-visual-tests)
 
@@ -60,7 +63,7 @@ GitHub Actions runs unit tests for a Pull Request on creation and every commit p
 3. `npm run type-check` - run TypeScript compiler to check for type errors.
 4. `npm test` - runs unit tests.
 
-## Functional Browser Testing
+## Functional Browser Testing (Cypress)
 
 We use the [Cypress](https://www.cypress.io) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Cypress, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
 
@@ -88,13 +91,12 @@ All Cypress tests must go within `*.cy.*` for the relevant component.
 │   ├── tsconfig.json
 │   └── README.md
 │
-├── .eslintrc
 └── cypress.config.ts
 ```
 
 A typical `*.cy.*` file may look like the following:
 
-```jsx
+```tsx
 // inside cypress/components/button/button.test.js...
 import Button from "./button.component";
 import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
@@ -117,7 +119,7 @@ Where `CypressMountWithProviders` renders the component in the simulated browser
 
 We write dedicated functions to access rendered DOM elements in order to make our tests easier to read. Locators for a component typically follow this structure:
 
-```js
+```ts
 /* in index.js */
 import { BUTTON_COMPONENT, BUTTON_SUBTEXT } from "./locators.js";
 
@@ -125,6 +127,90 @@ export const buttonComponent = () => cy.get(BUTTON_DATA_COMPONENT);
 export const buttonSubtext = () => cy.get(BUTTON_SUBTEXT);
 
 /* in locators.js */
+// `data-component` prop is typically reserved for the root element of the component. Whereas `data-element` is for specific elements.
+export const BUTTON_COMPONENT = '[data-component="button"]';
+export const BUTTON_SUBTEXT = '[data-element="subtext"]';
+```
+
+
+## Functional Browser Testing (Playwright)
+
+We are planning to use [Playwright](https://playwright.dev) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Playwright, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
+
+Further details on installing Playwright and our configuration for it can be found in our [Getting started with Playwright](../playwright/README.md) guide.
+
+### Playwright File Structure
+
+All Playwright tests must go within `*.pw.tsx` for the relevant component.
+
+```
+.
+├── src/
+│   ├── components/
+│   │   └── [component-name]/
+│   │       └── [component-name].pw.tsx
+│
+├── playwright/
+│   ├── locators/
+│   │   └── [component-name]/
+│   │       └── locators.ts
+│   │
+│   ├── support/
+│   │   └── helper.ts
+│   │
+│   ├── index.html
+│   ├── index.tsx
+│   └── README.md
+│
+└── playwright-ct.config.ts
+```
+
+A typical `*.pw.tsx` file may look like the following:
+
+```tsx
+// inside src/components/button/button.pw.tsx
+import { test, expect } from "@playwright/experimental-ct-react17";
+import Button from "./button.component";
+import { buttonComponent } from "../../../playwright/component/button/index";
+
+  test.describe("Check props for Button component", async () => {
+    test("should render Button label when passed to the component", async ({ mount, page }) => {
+
+      const label = "foobar";
+      
+      await mount(<Button>{label}</Button>);
+
+      await expect(await buttonComponent(page)).toHaveText(label);
+    });
+  });
+```
+
+Where `mount` renders the component in the real browser (`chromium`/`webkit`/`firefox`/`opera`) and `buttonComponent` is a _locator_ that returns the DOM element we want to test.
+
+### Locators
+
+We write dedicated functions to access rendered DOM elements in order to make our tests easier to read. Locators for a component typically follow this structure:
+
+`index.ts`
+```ts
+/* in index.ts */
+import { type Page } from "@playwright/test";
+import { BUTTON_DATA_COMPONENT, BUTTON_SUBTEXT } from "./locators";
+
+const buttonComponent = async (page: Page) => {
+  return page.locator(BUTTON_DATA_COMPONENT);
+}
+
+const buttonSubtext = async (page: Page) => {
+  return page.locator(BUTTON_SUBTEXT);
+}
+
+export { buttonComponent, buttonSubtext };
+```
+
+`locators.ts`
+```ts
+/* locators.ts */
 // `data-component` prop is typically reserved for the root element of the component. Whereas `data-element` is for specific elements.
 export const BUTTON_COMPONENT = '[data-component="button"]';
 export const BUTTON_SUBTEXT = '[data-element="subtext"]';
