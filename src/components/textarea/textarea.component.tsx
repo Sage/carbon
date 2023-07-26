@@ -277,11 +277,15 @@ export const Textarea = React.forwardRef(
       if (expandable) {
         window.addEventListener("resize", expandTextarea);
         minHeight.current = internalRef?.current?.clientHeight || 0;
+        // need to also run expandTextarea when the Sage UI font completes loading, to prevent strange scroll
+        // behaviour when it only loads after the component is rendered
+        document.fonts?.addEventListener("loadingdone", expandTextarea);
       }
 
       return () => {
         if (expandable) {
           window.removeEventListener("resize", expandTextarea);
+          document.fonts?.removeEventListener("loadingdone", expandTextarea);
         }
       };
     }, [expandable]);
