@@ -1,17 +1,6 @@
-import { type Locator, type Page } from "@playwright/test";
-import AxeBuilder from '@axe-core/playwright';
-import { 
-  // test as base, 
-  expect } from '@playwright/experimental-ct-react17';
-// import type { ThemeObject } from "../../src/style/themes/base";
-// import type Locale from "../../src/locales";
-// import GlobalStyle from "../../src/style/global-style";
-// import CarbonProvider from "../../src/components/carbon-provider/carbon-provider.component";
-// import I18nProvider from "../../src/components/i18n-provider/i18n-provider.component";
-// import enGB from "../../src/locales/en-gb";
-// import sageTheme from "../../src/style/themes/sage/index";
-// import "../src/style/fonts.css";
-// import "../src/style/global-style";
+import type { Locator, Page } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+import { expect } from "@playwright/experimental-ct-react17";
 
 /**
  * Retrieve a computed style for an element.
@@ -22,9 +11,14 @@ import {
  * @param property {string} The CSS property for the style to retrieve
  * @returns Promise<string> The style value
  */
-export const getStyle = async (locator: Locator, property: string): Promise<string> => {
-  return locator.evaluate( (el, property) => window.getComputedStyle(el)
-    .getPropertyValue(property), property );
+export const getStyle = async (
+  locator: Locator,
+  property: string
+): Promise<string> => {
+  return locator.evaluate(
+    (el, property) => window.getComputedStyle(el).getPropertyValue(property),
+    property
+  );
 };
 
 /**
@@ -48,7 +42,7 @@ export const checkAccessibility = async (page: Page) => {
     .analyze();
 
   expect(accessibilityScanResults.violations).toEqual([]);
-}
+};
 
 /**
  * Retrieve a designToken from an element by css.
@@ -69,10 +63,14 @@ export const getDesignTokensByCssProperty = async (
 
   try {
     await page.waitForSelector(selector);
-    const cssPropertyValue = await page.$eval(selector, (elem, property) => {
-      const styles = window.getComputedStyle(elem);
-      return styles.getPropertyValue(property);
-    }, cssProperty);
+    const cssPropertyValue = await page.$eval(
+      selector,
+      (elem, property) => {
+        const styles = window.getComputedStyle(elem);
+        return styles.getPropertyValue(property);
+      },
+      cssProperty
+    );
     const regex = /var\((--[^)]+)\)/g;
 
     const matches = cssPropertyValue.match(regex);
@@ -84,7 +82,6 @@ export const getDesignTokensByCssProperty = async (
         }
       });
     }
-
   } catch (error) {
     console.error(error);
   }
@@ -95,31 +92,3 @@ export const getDesignTokensByCssProperty = async (
 
   return tokenNames;
 };
-
-/**
- * Render a custom Carbon compoent with possibility to pass theme and locale
- *
- * @function customMount
- * @async
- * @param mount {MountOptions}
- * @param theme {ThemeObject} Carbon theme
- * @param localt {Locale} Carbon locale
- */
-// export const customMount = base.extend({
-//   mount: async (
-//     { mount: baseMount },
-//     use,
-//     theme: Partial<ThemeObject> = sageTheme,
-//     locale: Partial<Locale> = enGB
-//     ) => {
-//     const mount: typeof baseMount = (component) => baseMount(
-//       <CarbonProvider theme={theme}>
-//         <GlobalStyle />
-//           <I18nProvider locale={locale}>
-//             {component}
-//           </I18nProvider>
-//       </CarbonProvider>
-//   );
-//     await use(mount);
-//   }
-// })

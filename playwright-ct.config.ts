@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/experimental-ct-react17";
+import { resolve } from "path";
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -23,19 +24,26 @@ export default defineConfig({
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
-
     /* Port to use for Playwright component endpoint. */
     ctPort: 3100,
+    /* Custom config for internal bundler Playright uses for component tests. See https://playwright.dev/docs/test-components#under-the-hood */
+    ctViteConfig: {
+      resolve: {
+        alias: {
+          // Required to load font assets correctly from @sage/design-tokens package
+          "~@sage": resolve(__dirname, "./node_modules/@sage/"),
+        },
+      },
+    },
   },
   testMatch: /.*\.pw\.tsx/,
-
   /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        // testIdAttribute: "data-component",
+        testIdAttribute: "data-component",
       },
     },
     // {
