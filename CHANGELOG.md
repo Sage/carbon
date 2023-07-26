@@ -1,3 +1,10 @@
+## [119.7.0](https://github.com/Sage/carbon/compare/v119.6.4...v119.7.0) (2023-07-26)
+
+
+### Features
+
+* **radio-button:** add support for new validation ([da5d4ad](https://github.com/Sage/carbon/commit/da5d4add046e9a321e3454726be7a1415e704186))
+
 ### [119.6.4](https://github.com/Sage/carbon/compare/v119.6.3...v119.6.4) (2023-07-26)
 
 
