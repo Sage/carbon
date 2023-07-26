@@ -127,7 +127,7 @@ const Events = {
    */
   composedPath: (ev: CustomEvent): EventTarget[] => {
     return (
-      (ev.detail && ev.detail.enzymeTestingTarget && composedPath(ev)) ||
+      (ev.detail?.enzymeTestingTarget && composedPath(ev)) ||
       (ev.composedPath && ev.composedPath()) ||
       composedPath(ev)
     );

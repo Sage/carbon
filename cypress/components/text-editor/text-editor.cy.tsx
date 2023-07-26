@@ -1,8 +1,10 @@
+/* eslint-disable jest/no-disabled-tests */
 import React from "react";
-import TextEditor, {
-  TextEditorState as EditorState,
-  TextEditorContentState as ContentState,
-} from "../../../src/components/text-editor/text-editor.component";
+import { TextEditorProps } from "../../../src/components/text-editor";
+import {
+  TextEditorCustom,
+  TextEditorCustomValidation,
+} from "../../../src/components/text-editor/text-editor-test.stories";
 
 import {
   textEditorInput,
@@ -26,70 +28,6 @@ import {
 } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
-const TextEditorCustom = ({ text, onChange, onLinkAdded, ...props }) => {
-  const initialValue = text
-    ? EditorState.createWithContent(ContentState.createFromText(text))
-    : EditorState.createEmpty();
-
-  const [value, setValue] = React.useState(initialValue);
-  const ref = React.useRef(null);
-
-  const handleChange = (newValue) => {
-    if (onChange) {
-      onChange();
-    }
-    setValue(newValue);
-  };
-
-  return (
-    <div
-      style={{
-        padding: "4px",
-      }}
-    >
-      <TextEditor
-        onChange={handleChange}
-        value={value}
-        ref={ref}
-        labelText="Text Editor Label"
-        onLinkAdded={onLinkAdded}
-        {...props}
-      />
-    </div>
-  );
-};
-
-const TextEditorCustomValidation = ({ ...props }) => {
-  const [value, setValue] = React.useState(
-    EditorState.createWithContent(ContentState.createFromText("Add content"))
-  );
-  const limit = 16;
-  const contentLength = value.getCurrentContent().getPlainText().length;
-  const ref = React.useRef(null);
-
-  return (
-    <div
-      style={{
-        padding: "4px",
-      }}
-    >
-      <TextEditor
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        value={value}
-        ref={ref}
-        labelText="Text Editor Label"
-        characterLimit={limit}
-        error={limit - contentLength <= 5 ? "There is an error" : undefined}
-        warning={limit - contentLength <= 10 ? "There is a warning" : undefined}
-        info={limit - contentLength <= 15 ? "There is an info" : undefined}
-        {...props}
-      />
-    </div>
-  );
-};
-
 const textForInput = "Testing is awesome";
 const linkText = "https://carbon.sage.com";
 const longText =
@@ -107,7 +45,7 @@ context("Test for TextEditor component", () => {
       textEditorCounter().should("have.text", 2982);
     });
 
-    it.each([["bold"], ["italic"]])(
+    it.each(["bold", "italic"])(
       "should render text using %s style",
       (buttonType) => {
         CypressMountWithProviders(<TextEditorCustom />);
@@ -127,7 +65,7 @@ context("Test for TextEditor component", () => {
       }
     );
 
-    it.each([["bullet-list"], ["number-list"]])(
+    it.each(["bullet-list", "number-list"])(
       "should render text in %s style",
       (buttonType) => {
         CypressMountWithProviders(<TextEditorCustom />);
@@ -318,9 +256,9 @@ context("Test for TextEditor component", () => {
 
         getDataElementByValue(state).then(($els) => {
           const win = $els[0].ownerDocument.defaultView;
-          const before = win.getComputedStyle($els[0], "before");
-          const contentValue = before.getPropertyValue("color");
-          expect(contentValue).to.eq(color);
+          const before = win?.getComputedStyle($els[0], "before");
+          const contentValue = before?.getPropertyValue("color");
+          cy.wrap(contentValue).should("equal", color);
         });
       });
 
@@ -332,39 +270,45 @@ context("Test for TextEditor component", () => {
 
         textEditorContainer().should("have.css", "min-height", `${px}px`);
       });
+
+      it("render with the expected border radius on the toolbar buttons", () => {
+        CypressMountWithProviders(<TextEditorCustom />);
+        textEditorToolbar("bold").should("have.css", "border-radius", "4px");
+        textEditorToolbar("italic").should("have.css", "border-radius", "4px");
+        textEditorToolbar("bullet-list").should(
+          "have.css",
+          "border-radius",
+          "4px"
+        );
+        textEditorToolbar("number-list").should(
+          "have.css",
+          "border-radius",
+          "4px"
+        );
+      });
     });
 
     describe("check events for TextEditor component", () => {
-      let callback;
-      const text = "1";
-
-      beforeEach(() => {
-        callback = cy.stub();
-      });
-
       // created an issue FE-5139 to fix this
       it.skip("should call onChange callback when a type event is triggered", () => {
-        CypressMountWithProviders(
-          <TextEditorCustom text={text} onChange={callback} />
-        );
+        const callback: TextEditorProps["onChange"] = cy.stub().as("onChange");
 
-        textEditorInput()
-          .type(text)
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        CypressMountWithProviders(<TextEditorCustom onChange={callback} />);
+
+        textEditorInput().type("t");
+
+        cy.get("@onChange").should("have.been.calledOnce");
       });
 
       it("should call onLinkAdded callback when a valid url is detected by TextEditor", () => {
+        const callback: TextEditorProps["onLinkAdded"] = cy
+          .stub()
+          .as("onLinkAdded");
+
         CypressMountWithProviders(<TextEditorCustom onLinkAdded={callback} />);
 
-        textEditorInput()
-          .type("https://carbon.s")
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        textEditorInput().type("https://carbon.s");
+        cy.get("@onLinkAdded").should("have.been.calledOnce");
       });
     });
   });
@@ -405,13 +349,5 @@ context("Test for TextEditor component", () => {
         cy.checkAccessibility();
       }
     );
-  });
-
-  it("render with the expected border radius on the toolbar buttons", () => {
-    CypressMountWithProviders(<TextEditorCustom />);
-    textEditorToolbar("bold").should("have.css", "border-radius", "4px");
-    textEditorToolbar("italic").should("have.css", "border-radius", "4px");
-    textEditorToolbar("bullet-list").should("have.css", "border-radius", "4px");
-    textEditorToolbar("number-list").should("have.css", "border-radius", "4px");
   });
 });

@@ -145,10 +145,10 @@ context("Testing Pill component", () => {
     );
 
     it.each([
-      [small, "16px", "10px", "0px 7px"],
-      [medium, "20px", "12px", "0px 11px"],
-      [large, "24px", "14px", "0px 15px"],
-      [extraLarge, "26px", "16px", "0px 19px"],
+      [small, "16px", "12px", "0px 8px"],
+      [medium, "20px", "14px", "0px 8px"],
+      [large, "24px", "14px", "0px 8px"],
+      [extraLarge, "28px", "16px", "0px 12px"],
     ] as [PillProps["size"], string, string, string][])(
       "should render Pill component with size set to %s",
       (size, height, fontSize, padding) => {
