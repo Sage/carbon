@@ -105,6 +105,8 @@
     "airbnb",
     "prettier",
     "prettier/react"
+    // to uncomment after configuration
+    // "plugin:playwright/recommended"
   ],
   "plugins": ["cypress", "react", "react-hooks"],
   "globals": {
@@ -122,7 +124,12 @@
         "ecmaFeatures": {
           "jsx": true
         },
-        "project": ["./tsconfig.json", "./cypress/tsconfig.json"]
+        "project": [
+          "./tsconfig.json",
+          "./cypress/tsconfig.json"
+          // to uncomment after configuration
+          // "./playwright/tsconfig.json"
+        ]
       },
       "plugins": ["cypress", "@typescript-eslint", "jest"],
       "extends": [
@@ -134,6 +141,8 @@
         "plugin:react-hooks/recommended",
         "plugin:jest/recommended",
         "plugin:cypress/recommended"
+        // to uncomment after configuration
+        // "plugin:playwright/recommended"
         // TODO: Uncomment after transition to RTL has started
         // "plugin:jest-dom/recommended",
       ],
@@ -148,12 +157,18 @@
         "react/prefer-stateless-function": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
-        "@typescript-eslint/no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
+        "@typescript-eslint/no-empty-function": [
+          "error",
+          { "allow": ["arrowFunctions"] }
+        ],
         "jest-dom/prefer-to-have-attribute": "off",
-        "no-restricted-imports": ["error", {
-          "name": "prop-types",
-          "message": "Please do not import `prop-types` in TypeScript files."
-      }]
+        "no-restricted-imports": [
+          "error",
+          {
+            "name": "prop-types",
+            "message": "Please do not import `prop-types` in TypeScript files."
+          }
+        ]
       }
     }
   ]
