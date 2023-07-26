@@ -1,3 +1,10 @@
+### [119.6.4](https://github.com/Sage/carbon/compare/v119.6.3...v119.6.4) (2023-07-26)
+
+
+### Bug Fixes
+
+* **menu:** ensure menu remains open when enter is pressed on search ([8040505](https://github.com/Sage/carbon/commit/80405055621e53b2b19c29b7bb867efbc1b64be7)), closes [#6146](https://github.com/Sage/carbon/issues/6146)
+
 ### [119.6.3](https://github.com/Sage/carbon/compare/v119.6.2...v119.6.3) (2023-07-24)
 
 
