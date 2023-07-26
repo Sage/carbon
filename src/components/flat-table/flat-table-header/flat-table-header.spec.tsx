@@ -141,4 +141,24 @@ describe("FlatTableHeader", () => {
       });
     }
   );
+
+  describe("when colspan and rowSpan are passed", () => {
+    it("should be set on the underlying element", () => {
+      const wrapper = mount(
+        <table>
+          <thead>
+            <tr>
+              <FlatTableHeader colspan={2}>Children</FlatTableHeader>
+            </tr>
+            <tr>
+              <FlatTableHeader rowspan={2}>Children</FlatTableHeader>
+            </tr>
+          </thead>
+        </table>
+      );
+
+      expect(wrapper.find(StyledFlatTableHeader).at(0).prop("colSpan")).toBe(2);
+      expect(wrapper.find(StyledFlatTableHeader).at(1).prop("rowSpan")).toBe(2);
+    });
+  });
 });

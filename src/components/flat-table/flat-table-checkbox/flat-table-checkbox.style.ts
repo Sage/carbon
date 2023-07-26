@@ -3,11 +3,10 @@ import StyledCheckbox from "../../checkbox/checkbox.style";
 import { FlatTableCheckboxProps } from "./flat-table-checkbox.component";
 
 interface StyledFlatTableCheckboxProps
-  extends Pick<
-    FlatTableCheckboxProps,
-    "as" | "leftPosition" | "rightPosition"
-  > {
+  extends Pick<FlatTableCheckboxProps, "as"> {
   makeCellSticky: boolean;
+  leftPosition: number;
+  rightPosition: number;
 }
 
 const StyledFlatTableCheckbox = styled.td<StyledFlatTableCheckboxProps>`
