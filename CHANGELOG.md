@@ -1,3 +1,10 @@
+### [119.7.1](https://github.com/Sage/carbon/compare/v119.7.0...v119.7.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* **dialog, sidebar:** use aria-hidden and inert to hide non-modal elements ([a35680e](https://github.com/Sage/carbon/commit/a35680e41444e613f2b7c60318fd2fc3b2d7209b)), closes [#5920](https://github.com/Sage/carbon/issues/5920)
+
 ## [119.7.0](https://github.com/Sage/carbon/compare/v119.6.4...v119.7.0) (2023-07-26)
 
 
