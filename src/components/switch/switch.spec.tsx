@@ -620,6 +620,26 @@ describe("Switch", () => {
     });
   });
 
+  describe("invariant", () => {
+    it.each(["error", "warning", "info"])(
+      "validates the %s prop to not throw an error if loading is set",
+      (validation) => {
+        const consoleSpy = jest.spyOn(console, "error");
+        consoleSpy.mockImplementation(() => {});
+
+        expect(() =>
+          render({
+            id: "mock-input",
+            loading: true,
+            [validation]: true,
+          })
+        ).not.toThrow();
+
+        consoleSpy.mockRestore();
+      }
+    );
+  });
+
   describe("tooltipPosition", () => {
     it("overrides the default placement when icon is on input", () => {
       const { position } = render(
