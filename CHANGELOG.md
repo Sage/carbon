@@ -1,3 +1,10 @@
+### [119.7.2](https://github.com/Sage/carbon/compare/v119.7.1...v119.7.2) (2023-07-27)
+
+
+### Bug Fixes
+
+* **switch:** ensure invariant is not thrown when loading and validation is set ([df9b89e](https://github.com/Sage/carbon/commit/df9b89e2619d0d4957a37237c427e2015527818a))
+
 ### [119.7.1](https://github.com/Sage/carbon/compare/v119.7.0...v119.7.1) (2023-07-27)
 
 
