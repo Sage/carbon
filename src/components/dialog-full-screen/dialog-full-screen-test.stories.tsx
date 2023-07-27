@@ -136,10 +136,9 @@ Nested.storyName = "nested";
 export const mainDialogTitle = "Main Dialog";
 export const nestedDialogTitle = "Nested Dialog";
 export const DialogFullScreenComponent = ({
-  // eslint-disable-next-line react/prop-types
   children = "This is an example",
   ...props
-}) => {
+}: Partial<DialogFullScreenProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const ref = React.useRef(null);
   return (

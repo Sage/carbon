@@ -1,3 +1,24 @@
+## [119.7.0](https://github.com/Sage/carbon/compare/v119.6.4...v119.7.0) (2023-07-26)
+
+
+### Features
+
+* **radio-button:** add support for new validation ([da5d4ad](https://github.com/Sage/carbon/commit/da5d4add046e9a321e3454726be7a1415e704186))
+
+### [119.6.4](https://github.com/Sage/carbon/compare/v119.6.3...v119.6.4) (2023-07-26)
+
+
+### Bug Fixes
+
+* **menu:** ensure menu remains open when enter is pressed on search ([8040505](https://github.com/Sage/carbon/commit/80405055621e53b2b19c29b7bb867efbc1b64be7)), closes [#6146](https://github.com/Sage/carbon/issues/6146)
+
+### [119.6.3](https://github.com/Sage/carbon/compare/v119.6.2...v119.6.3) (2023-07-24)
+
+
+### Bug Fixes
+
+* icon alignments and pill updates ([b55433f](https://github.com/Sage/carbon/commit/b55433fcfb6989641ad8f742cf70913ee0cee9a4))
+
 ### [119.6.2](https://github.com/Sage/carbon/compare/v119.6.1...v119.6.2) (2023-07-20)
 
 

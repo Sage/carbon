@@ -82,9 +82,9 @@ const StyledPill = styled.span<AllStyledPillProps>`
     }
 
     return css`
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 0.7px;
-      font-weight: 600;
+      font-weight: 700;
       position: relative;
       display: inline-flex;
       text-align: center;
@@ -121,7 +121,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
       css`
         min-height: 16px;
         line-height: 16px;
-        font-size: 10px;
+        font-size: 12px;
 
         ${theme.roundedCornersOptOut &&
         css`
@@ -137,7 +137,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
       css`
         min-height: 20px;
         line-height: 20px;
-        font-size: 12px;
+        font-size: 14px;
 
         ${theme.roundedCornersOptOut &&
         css`
@@ -167,8 +167,8 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
       ${size === "XL" &&
       css`
-        min-height: 26px;
-        line-height: 26px;
+        min-height: 28px;
+        line-height: 28px;
         font-size: 16px;
 
         ${theme.roundedCornersOptOut &&
@@ -230,8 +230,6 @@ const StyledPill = styled.span<AllStyledPillProps>`
           }
 
           ${StyledIcon} {
-            font-size: 12px;
-            padding: 0 4px;
             height: unset;
             width: unset;
             color: ${contentColor};
@@ -252,48 +250,46 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
         ${size === "S" &&
         css`
-          padding: 0 24px 0 7px;
+          padding: 0 22px 0 8px;
 
           button {
             padding: 0;
-            line-height: 14px;
-            ${addStyleToPillIcon("7px")}
+            line-height: 16px;
+            top: -2px;
+            ${addStyleToPillIcon("16px")}
           }
         `}
 
         ${size === "M" &&
         css`
-          padding: 0 32px 0 11px;
+          padding: 0 28px 0 8px;
 
           button {
             width: 24px;
             padding: 0;
             line-height: 15px;
-            ${addStyleToPillIcon("10px")}
           }
         `}
 
         ${size === "L" &&
         css`
-          padding: 0 36px 0 15px;
+          padding: 0 32px 0 8px;
 
           button {
             width: 28px;
             padding: 0;
             line-height: 16px;
-            ${addStyleToPillIcon("12px")}
           }
         `}
 
         ${size === "XL" &&
         css`
-          padding: 0 41px 0 19px;
+          padding: 0 36px 0 12px;
 
           button {
             width: 32px;
             padding: 0;
             line-height: 18px;
-            ${addStyleToPillIcon("13px")}
           }
         `}
       `}
@@ -302,7 +298,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
       css`
         ${size === "S" &&
         css`
-          padding: 0 7px;
+          padding: 0 8px;
 
           button {
             padding: 0;
@@ -311,7 +307,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
         ${size === "M" &&
         css`
-          padding: 0 11px;
+          padding: 0 8px;
 
           button {
             width: 24px;
@@ -321,7 +317,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
         ${size === "L" &&
         css`
-          padding: 0 15px;
+          padding: 0 8px;
 
           button {
             width: 28px;
@@ -331,7 +327,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
         ${size === "XL" &&
         css`
-          padding: 0 19px;
+          padding: 0 12px;
 
           button {
             width: 32px;

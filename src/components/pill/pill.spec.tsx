@@ -252,10 +252,10 @@ describe("Pill", () => {
               );
               assertStyleMatch(
                 {
-                  fontSize: "10px",
+                  fontSize: "12px",
                   minHeight: "16px",
                   lineHeight: "16px",
-                  padding: "0 7px",
+                  padding: "0 8px",
                 },
                 wrapper
               );
@@ -269,10 +269,10 @@ describe("Pill", () => {
               );
               assertStyleMatch(
                 {
-                  fontSize: "12px",
+                  fontSize: "14px",
                   minHeight: "20px",
                   lineHeight: "20px",
-                  padding: "0 11px",
+                  padding: "0 8px",
                 },
                 wrapper
               );
@@ -289,7 +289,7 @@ describe("Pill", () => {
                   fontSize: "14px",
                   minHeight: "24px",
                   lineHeight: "24px",
-                  padding: "0 15px",
+                  padding: "0 8px",
                 },
                 wrapper
               );
@@ -304,9 +304,9 @@ describe("Pill", () => {
               assertStyleMatch(
                 {
                   fontSize: "16px",
-                  minHeight: "26px",
-                  lineHeight: "26px",
-                  padding: "0 19px",
+                  minHeight: "28px",
+                  lineHeight: "28px",
+                  padding: "0 12px",
                 },
                 wrapper
               );
@@ -325,9 +325,9 @@ describe("Pill", () => {
               );
               assertStyleMatch(
                 {
-                  fontWeight: "600",
+                  fontWeight: "700",
                   position: "relative",
-                  padding: "0 11px",
+                  padding: "0 8px",
                   textAlign: "center",
                 },
                 wrapper
@@ -345,7 +345,7 @@ describe("Pill", () => {
                 );
                 assertStyleMatch(
                   {
-                    padding: "0 32px 0 11px",
+                    padding: "0 28px 0 8px",
                   },
                   wrapper
                 );
@@ -430,7 +430,7 @@ describe("Pill", () => {
                   );
                   assertStyleMatch(
                     {
-                      padding: "0 24px 0 7px",
+                      padding: "0 22px 0 8px",
                       minHeight: "16px",
                       height: "auto",
                       lineHeight: "16px",
@@ -453,8 +453,8 @@ describe("Pill", () => {
                   );
                   assertStyleMatch(
                     {
-                      fontSize: "12px",
-                      padding: "0 32px 0 11px",
+                      fontSize: "14px",
+                      padding: "0 28px 0 8px",
                       borderRadius: "var(--borderRadius025)",
                       minHeight: "20px",
                       height: "auto",
@@ -478,7 +478,7 @@ describe("Pill", () => {
                   assertStyleMatch(
                     {
                       fontSize: "14px",
-                      padding: "0 36px 0 15px",
+                      padding: "0 32px 0 8px",
                       borderRadius: "var(--borderRadius025)",
                       minHeight: "24px",
                       height: "auto",
@@ -502,11 +502,11 @@ describe("Pill", () => {
                   assertStyleMatch(
                     {
                       fontSize: "16px",
-                      padding: "0 41px 0 19px",
+                      padding: "0 36px 0 12px",
                       borderRadius: "var(--borderRadius025)",
-                      minHeight: "26px",
+                      minHeight: "28px",
                       height: "auto",
-                      lineHeight: "26px",
+                      lineHeight: "28px",
                     },
                     wrapper
                   );
