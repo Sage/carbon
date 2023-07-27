@@ -70,7 +70,7 @@ const StyledBadge = styled.span.attrs(({ onClick }) => ({
           margin-right: 0;
 
           :before {
-            font-size: 16px;
+            font-size: 20px;
             color: var(--colorsActionMajorYang100);
           }
         }
