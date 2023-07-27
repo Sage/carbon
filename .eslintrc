@@ -126,9 +126,8 @@
         },
         "project": [
           "./tsconfig.json",
-          "./cypress/tsconfig.json"
-          // to uncomment after configuration
-          // "./playwright/tsconfig.json"
+          "./cypress/tsconfig.json",
+          "./playwright/tsconfig.json"
         ]
       },
       "plugins": ["cypress", "@typescript-eslint", "jest"],

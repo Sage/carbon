@@ -5,7 +5,7 @@ import { resolve } from "path";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: ".",
+  testDir: "./src/components",
   /* The base directory, relative to the config file, for snapshot files created with toMatchSnapshot and toHaveScreenshot. */
   snapshotDir: "./__snapshots__",
   /* Maximum time one test can run for. */
@@ -19,11 +19,12 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 8 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: [["html", { open: "never" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+    screenshot: "only-on-failure",
     /* Port to use for Playwright component endpoint. */
     ctPort: 3100,
     /* Custom config for internal bundler Playright uses for component tests. See https://playwright.dev/docs/test-components#under-the-hood */

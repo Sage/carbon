@@ -1,11 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    // "baseUrl": "./",
     "target": "ESNext",
     "module": "commonjs",
     "moduleResolution": "Node",
     "sourceMap": true,
     "jsx": "react-jsx"
-  }
+  },
+  "include": ["../playwright/**/*.ts", "../playwright/index.tsx"]
 }

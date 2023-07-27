@@ -16,6 +16,7 @@ export const getStyle = async (
   property: string
 ): Promise<string> => {
   return locator.evaluate(
+    // eslint-disable-next-line no-shadow
     (el, property) => window.getComputedStyle(el).getPropertyValue(property),
     property
   );
@@ -42,53 +43,4 @@ export const checkAccessibility = async (page: Page) => {
     .analyze();
 
   expect(accessibilityScanResults.violations).toEqual([]);
-};
-
-/**
- * Retrieve a designToken from an element by css.
- *
- * @function getDesignTokensByCssProperty
- * @async
- * @param locator {Locator} The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
- * @param cssProperty The CSS property for the style to retrieve
- * @param page {Page} The Playwright page (see https://playwright.dev/docs/pages)
- * @returns Promise<string>[] The designToken value
- */
-export const getDesignTokensByCssProperty = async (
-  selector: string,
-  cssProperty: string,
-  page: Page
-): Promise<string[]> => {
-  const tokenNames: string[] = [];
-
-  try {
-    await page.waitForSelector(selector);
-    const cssPropertyValue = await page.$eval(
-      selector,
-      (elem, property) => {
-        const styles = window.getComputedStyle(elem);
-        return styles.getPropertyValue(property);
-      },
-      cssProperty
-    );
-    const regex = /var\((--[^)]+)\)/g;
-
-    const matches = cssPropertyValue.match(regex);
-    if (matches) {
-      matches.forEach((match: string) => {
-        const tokenName = match.replace(/var\(|\)/g, "").trim();
-        if (tokenName && !tokenNames.includes(tokenName)) {
-          tokenNames.push(tokenName);
-        }
-      });
-    }
-  } catch (error) {
-    console.error(error);
-  }
-
-  if (tokenNames.length === 0) {
-    console.error(`Design token for property ${cssProperty} not found`);
-  }
-
-  return tokenNames;
 };
