@@ -293,11 +293,12 @@ describe("TabsHeader", () => {
 
         wrapper.setProps({});
 
-        const afterPseudo = window.getComputedStyle(list, ":after");
-        const beforePseudo = window.getComputedStyle(list, ":before");
-
-        expect(afterPseudo.content).toBe("");
-        expect(beforePseudo.content).toBe("");
+        expect(list).not.toHaveStyleRule("min-width", "16px", {
+          modifier: ":after",
+        });
+        expect(list).not.toHaveStyleRule("min-width", "16px", {
+          modifier: ":before",
+        });
       });
     });
   });
