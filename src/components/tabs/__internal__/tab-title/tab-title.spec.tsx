@@ -44,6 +44,17 @@ const TEST_SIBLINGS = [<span key="foo">foo</span>, <span key="bar">bar</span>];
 
 describe("TabTitle", () => {
   let wrapper: ReactWrapper | ShallowWrapper;
+
+  let globalOpenMock: jest.SpyInstance;
+
+  beforeEach(() => {
+    globalOpenMock = jest.spyOn(global, "open").mockImplementation(() => null);
+  });
+
+  afterEach(() => {
+    globalOpenMock.mockClear();
+  });
+
   it("renders as expected", () => {
     assertStyleMatch(
       {
@@ -104,16 +115,6 @@ describe("TabTitle", () => {
   });
 
   describe("when `href` provided", () => {
-    let globalOpenMock: jest.SpyInstance;
-
-    beforeEach(() => {
-      globalOpenMock = jest.spyOn(global, "open");
-    });
-
-    afterEach(() => {
-      globalOpenMock.mockClear();
-    });
-
     it("should trigger open in new tab if pressed with Enter or Space", () => {
       wrapper = render({ href: "randomUrl" });
 
@@ -148,13 +149,12 @@ describe("TabTitle", () => {
   describe("when `href` is not provided", () => {
     it("should not trigger open in new tab if pressed with Enter or Space", () => {
       wrapper = render({ onKeyDown: () => {} });
-      global.open = jest.fn();
 
       wrapper
         .find(StyledTabTitleButton)
         .props()
         .onKeyDown({ key: " ", stopPropagation: () => {} });
-      expect(global.open).not.toHaveBeenCalled();
+      expect(globalOpenMock).not.toHaveBeenCalled();
     });
   });
 
