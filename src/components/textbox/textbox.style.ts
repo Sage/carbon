@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 const ErrorBorder = styled.span`
-  ${({ warning }: { warning: boolean }) =>
+  ${({ warning, inline }: { warning: boolean; inline?: boolean }) =>
     css`
       position: absolute;
       z-index: 6;
@@ -10,7 +10,7 @@ const ErrorBorder = styled.span`
         ? "var(--colorsSemanticCaution500)"
         : "var(--colorsSemanticNegative500)"};
       left: -12px;
-      bottom: 0px;
+      bottom: ${inline ? "10px" : "0px"};
       top: 0px;
     `}
 `;

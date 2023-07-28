@@ -110,8 +110,11 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     useEffect(() => {
       if (!disableAutoFocus) {
         if (open) {
-          focusedElementBeforeOpening.current = document.activeElement as HTMLElement | null;
-          toastContentNodeRef.current?.focus();
+          // setTimeout needed as otherwise this runs before the ref is populated
+          setTimeout(() => {
+            focusedElementBeforeOpening.current = document.activeElement as HTMLElement | null;
+            toastContentNodeRef.current?.focus();
+          }, 0);
         } else if (focusedElementBeforeOpening.current) {
           focusedElementBeforeOpening.current.focus();
           focusedElementBeforeOpening.current = null;

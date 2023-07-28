@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
@@ -11,7 +11,7 @@ import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
-import TopModalContext from "../carbon-provider/top-modal-context";
+import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 
 export interface DialogFullScreenProps extends ModalProps {
   /** Prop to specify the aria-describedby property of the DialogFullscreen component */
@@ -103,7 +103,7 @@ export const DialogFullScreen = ({
   const { current: subtitleId } = useRef(createGuid());
   const hasStickyFooter = useIsStickyFooterForm(children);
 
-  const { topModal } = useContext(TopModalContext);
+  const isTopModal = useModalAria(dialogRef);
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
@@ -168,11 +168,7 @@ export const DialogFullScreen = ({
         focusableSelectors={focusableSelectors}
       >
         <StyledDialogFullScreen
-          aria-modal={
-            role === "dialog" && topModal?.contains(dialogRef.current)
-              ? true
-              : undefined
-          }
+          aria-modal={role === "dialog" && isTopModal ? true : undefined}
           {...ariaProps}
           ref={dialogRef}
           data-element="dialog-full-screen"

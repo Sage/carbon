@@ -154,7 +154,22 @@ Passing a boolean to these props will display only a properly colored border.
 
 Validation status could also be passed to the `RadioButtonGroup` component as a string or boolean. 
 
-For more information check our [Validations](?path=/docs/documentation-validations--grouped-input-validation#grouped-inputs) documentation page
+For more information check our [Validations](?path=/docs/documentation-validations--grouped-input-validation#grouped-inputs) documentation page.
+
+This is an example of `RadioButton` with validations passed as boolean values.
+<Canvas>
+  <Story name="new validation" story={stories.NewValidationDefault} />
+</Canvas>
+
+This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string.
+<Canvas>
+  <Story name="new validation group - string" story={stories.NewValidationDefaultGroup} />
+</Canvas>
+
+This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string displayed inline.
+<Canvas>
+  <Story name="new validation group - inline" story={stories.NewValidationDefaultGroupInline} />
+</Canvas>
 
 ## Props
 
