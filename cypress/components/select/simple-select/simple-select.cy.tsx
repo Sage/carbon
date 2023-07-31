@@ -1141,7 +1141,9 @@ context("Tests for SimpleSelect component", () => {
     });
 
     it("should pass accessibilty tests for SimpleSelect with object as value", () => {
-      CypressMountWithProviders(<stories.SimpleSelectObjectAsValueComponent label="with object as value" />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectObjectAsValueComponent label="with object as value" />
+      );
 
       selectText().click();
       selectOption(positionOfElement("first")).click();
@@ -1161,7 +1163,9 @@ context("Tests for SimpleSelect component", () => {
     );
 
     it("should pass accessibilty tests for SimpleSelect group component", () => {
-      CypressMountWithProviders(<stories.SimpleSelectGroupComponent label="groups" />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectGroupComponent label="groups" />
+      );
 
       selectText().click();
       cy.checkAccessibility();

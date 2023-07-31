@@ -853,7 +853,7 @@ WithStickyHeadRowSpanAndColspan.storyName =
   "with stickyHead rowspan and colspan";
 
 export const WithStickyFooter: ComponentStory<typeof FlatTable> = () => {
-  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
   const rows = [
     <FlatTableRow key="0">
@@ -892,6 +892,78 @@ export const WithStickyFooter: ComponentStory<typeof FlatTable> = () => {
       <FlatTableCell>Single</FlatTableCell>
       <FlatTableCell>0</FlatTableCell>
     </FlatTableRow>,
+    <FlatTableRow key="6">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="7">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="8">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="9">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>5</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="10">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="11">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="12">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="13">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="14">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="15">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>5</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="16">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="17">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
   ];
 
   const renderRows = () => {
@@ -917,12 +989,12 @@ export const WithStickyFooter: ComponentStory<typeof FlatTable> = () => {
           <Pager
             totalRecords={rows.length}
             showPageSizeSelection
-            pageSize={5}
+            pageSize={10}
             currentPage={currentPage}
             onPagination={(next, size) => handlePagination(next, size)}
             pageSizeSelectionOptions={[
-              { id: "1", name: 1 },
-              { id: "5", name: 5 },
+              { id: "10", name: 10 },
+              { id: "15", name: 15 },
             ]}
           />
         }
@@ -947,7 +1019,7 @@ WithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 export const WithStickyFooterInsideOfLargerDiv: ComponentStory<
   typeof FlatTable
 > = () => {
-  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
   const rows = [
     <FlatTableRow key="0">
@@ -987,12 +1059,12 @@ export const WithStickyFooterInsideOfLargerDiv: ComponentStory<
           <Pager
             totalRecords={rows.length}
             showPageSizeSelection
-            pageSize={5}
+            pageSize={10}
             currentPage={currentPage}
             onPagination={(next, size) => handlePagination(next, size)}
             pageSizeSelectionOptions={[
-              { id: "1", name: 1 },
-              { id: "5", name: 5 },
+              { id: "10", name: 10 },
+              { id: "15", name: 15 },
             ]}
           />
         }
@@ -1015,7 +1087,7 @@ WithStickyFooterInsideOfLargerDiv.storyName =
   "with sticky footer inside of larger div";
 
 export const WithHasMaxHeight: ComponentStory<typeof FlatTable> = () => {
-  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
   const rows = [
     <FlatTableRow key="0">
@@ -1054,12 +1126,12 @@ export const WithHasMaxHeight: ComponentStory<typeof FlatTable> = () => {
           <Pager
             totalRecords={rows.length}
             showPageSizeSelection
-            pageSize={5}
+            pageSize={10}
             currentPage={currentPage}
             onPagination={(next, size) => handlePagination(next, size)}
             pageSizeSelectionOptions={[
-              { id: "1", name: 1 },
-              { id: "5", name: 5 },
+              { id: "10", name: 10 },
+              { id: "15", name: 15 },
             ]}
           />
         }
@@ -1684,7 +1756,7 @@ WithSelectableAndHighlightableRows.parameters = {
 };
 
 export const Paginated: ComponentStory<typeof FlatTable> = () => {
-  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
   const rows = [
     <FlatTableRow key="0">
@@ -1723,6 +1795,78 @@ export const Paginated: ComponentStory<typeof FlatTable> = () => {
       <FlatTableCell>Single</FlatTableCell>
       <FlatTableCell>0</FlatTableCell>
     </FlatTableRow>,
+    <FlatTableRow key="6">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="7">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="8">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="9">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>5</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="10">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="11">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="12">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="13">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="14">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>1</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="15">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>5</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="16">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>2</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="17">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>0</FlatTableCell>
+    </FlatTableRow>,
   ];
 
   const renderRows = () => {
@@ -1746,12 +1890,12 @@ export const Paginated: ComponentStory<typeof FlatTable> = () => {
           <Pager
             totalRecords={rows.length}
             showPageSizeSelection
-            pageSize={5}
+            pageSize={10}
             currentPage={currentPage}
             onPagination={(next, size) => handlePagination(next, size)}
             pageSizeSelectionOptions={[
-              { id: "1", name: 1 },
-              { id: "5", name: 5 },
+              { id: "10", name: 10 },
+              { id: "15", name: 15 },
             ]}
           />
         }
@@ -1889,8 +2033,232 @@ export const PaginatedWithStickyHeader: ComponentStory<
         </ActionPopover>
       </FlatTableCell>
     </FlatTableRow>,
+    <FlatTableRow key="6">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="7">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="8">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="9">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover placement={placementUp ? "top" : "bottom"}>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="10">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover placement={placementUp ? "top" : "bottom"}>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="11">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="12">
+      <FlatTableCell>John Doe</FlatTableCell>
+      <FlatTableCell>London</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="13">
+      <FlatTableCell>Jane Doe</FlatTableCell>
+      <FlatTableCell>York</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="14">
+      <FlatTableCell>John Smith</FlatTableCell>
+      <FlatTableCell>Edinburgh</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="15">
+      <FlatTableCell>Jane Smith</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Married</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover placement={placementUp ? "top" : "bottom"}>
+          <ActionPopoverItem onClick={() => {}}>action</ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="16">
+      <FlatTableCell>Liz Anya</FlatTableCell>
+      <FlatTableCell>Stoke</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover placement={placementUp ? "top" : "bottom"}>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="17">
+      <FlatTableCell>Karl Ickbred</FlatTableCell>
+      <FlatTableCell>Newcastle</FlatTableCell>
+      <FlatTableCell>Single</FlatTableCell>
+      <FlatTableCell>
+        <ActionPopover>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+          <ActionPopoverItem
+            onClick={() => {}}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            action
+          </ActionPopoverItem>
+        </ActionPopover>
+      </FlatTableCell>
+    </FlatTableRow>,
   ];
-  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 5 });
+  const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
 
   const renderRows = () => {
@@ -1917,12 +2285,12 @@ export const PaginatedWithStickyHeader: ComponentStory<
           <Pager
             totalRecords={rows.length}
             showPageSizeSelection
-            pageSize={5}
+            pageSize={10}
             currentPage={currentPage}
             onPagination={(next, size) => handlePagination(next, size)}
             pageSizeSelectionOptions={[
-              { id: "1", name: 1 },
-              { id: "5", name: 5 },
+              { id: "10", name: 10 },
+              { id: "15", name: 15 },
             ]}
           />
         }
