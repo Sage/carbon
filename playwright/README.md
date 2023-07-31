@@ -29,6 +29,7 @@ We are planning to use [Playwright](https://playwright.dev) testing framework fo
 
 1. Clone the carbon repository `git clone git@github.com:Sage/carbon.git`.
 2. Install with `npm install`.
+3. Also (for the first time) we would need to install browser using `npx playwright install`;
 
 ## Running Tests
 
