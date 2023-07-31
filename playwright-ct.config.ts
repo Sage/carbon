@@ -5,7 +5,7 @@ import { resolve } from "path";
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./src/components",
+  testDir: "./",
   /* The base directory, relative to the config file, for snapshot files created with toMatchSnapshot and toHaveScreenshot. */
   snapshotDir: "./__snapshots__",
   /* Maximum time one test can run for. */
@@ -24,7 +24,6 @@ export default defineConfig({
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
-    screenshot: "only-on-failure",
     /* Port to use for Playwright component endpoint. */
     ctPort: 3100,
     /* Custom config for internal bundler Playright uses for component tests. See https://playwright.dev/docs/test-components#under-the-hood */
@@ -45,6 +44,7 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         testIdAttribute: "data-component",
+        viewport: { width: 1366, height: 768 },
       },
     },
     // {
