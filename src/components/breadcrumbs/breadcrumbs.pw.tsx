@@ -85,8 +85,8 @@ test.describe("should render Breadcrumbs component", async () => {
 
 test.describe("should check Crumb props", async () => {
   const isVisibleAndBoolean = [
-    ["not exist", true, "aria-current", "page", "rgb(0, 0, 0, 0.9)"],
-    ["is visible", false, "href", "#", "rgb(0, 111, 222)"],
+    ["not exist", true, "aria-current", "page", "rgba(0, 0, 0, 0.9)"],
+    ["is visible", false, "href", "#", "rgb(0, 126, 69)"],
   ] as [string, boolean, string, string, string][];
   isVisibleAndBoolean.forEach((array) => {
     const [state, boolean, attr, parameter, colorOfBreadCrumb] = array;
