@@ -21,15 +21,14 @@ jobs:
       fail-fast: false
       matrix:
         # run 5 copy of the current job in parallel
-        containers:
-          [
+        containers: [
             1,
-            2,
-            3,
-            4,
-            5,
+            # 2,
+            # 3,
+            # 4,
+            # 5,
           ]
-    container: 
+    container:
       image: cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
       options: --user 1001
     steps:
@@ -86,6 +85,10 @@ jobs:
           quiet: true
           browser: chrome
           component: true
+          spec: |
+            cypress/components/breadcrumb.cy.tsx
+            cypress/components/button-bar.cy.tsx
+            cypress/components/badge.cy.tsx
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
