@@ -1,6 +1,6 @@
 import React from "react";
-import { Breadcrumbs } from ".";
-import { Crumb } from "./crumb";
+import { Breadcrumbs, BreadcrumbsProps } from ".";
+import { Crumb, CrumbProps } from "./crumb";
 
 export default {
   title: "Breadcrumbs/Test",
@@ -25,9 +25,9 @@ export default {
   },
 };
 
-export const Default = ({ ...args }) => {
+export const Default = (props: Partial<BreadcrumbsProps>) => {
   return (
-    <Breadcrumbs {...args}>
+    <Breadcrumbs {...props}>
       <Crumb href="#">Breadcrumb 1</Crumb>
       <Crumb href="#">Breadcrumb 2</Crumb>
       <Crumb href="#">Breadcrumb 3</Crumb>
@@ -38,10 +38,10 @@ export const Default = ({ ...args }) => {
   );
 };
 
-export const DefaultCrumb = ({ ...args }) => {
+export const DefaultCrumb = (props: Partial<CrumbProps>) => {
   return (
     <Breadcrumbs>
-      <Crumb href="#" {...args}>
+      <Crumb href="#" {...props}>
         Breadcrumb 1
       </Crumb>
     </Breadcrumbs>
