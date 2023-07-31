@@ -620,7 +620,7 @@ describe("Pill", () => {
         ["L", "13px", "0 11px 11px 0"],
         ["XL", "15px", "0 12px 12px 0"],
       ] as const)(
-        "it sets the expected border radius styling for when size is %s",
+        "sets the expected border radius styling for when size is %s",
         (size, borderRadiusSpan, borderRadiusButton) => {
           const wrapper = mount(
             <CarbonProvider roundedCornersOptOut>

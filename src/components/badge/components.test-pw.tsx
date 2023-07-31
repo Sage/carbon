@@ -15,4 +15,4 @@ const BadgeComponent = (props: Partial<BadgeProps>) => {
   );
 };
 
-export { BadgeComponent };
+export default BadgeComponent;

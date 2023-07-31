@@ -11,7 +11,7 @@ import {
   getStyle,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
-import { BadgeComponent } from "./components.test-pw";
+import BadgeComponent from "./components.test-pw";
 
 const counterCount = [1, 99];
 const bigCounterCount = [100, 999];
