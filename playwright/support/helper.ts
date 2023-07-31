@@ -15,7 +15,7 @@ export const getStyle = async (
   locator: Locator,
   property: string
 ): Promise<string> => {
-  return locator.evaluate(
+  return await locator.evaluate(
     // eslint-disable-next-line no-shadow
     (el, property) => window.getComputedStyle(el).getPropertyValue(property),
     property
@@ -42,5 +42,5 @@ export const checkAccessibility = async (page: Page) => {
     .disableRules(["landmark-one-main", "page-has-heading-one", "region"])
     .analyze();
 
-  expect(accessibilityScanResults.violations).toEqual([]);
+  await expect(accessibilityScanResults.violations).toEqual([]);
 };
