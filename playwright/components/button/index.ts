@@ -13,8 +13,8 @@ import {
     return page.locator(BUTTON_SUBTEXT_PREVIEW);
   }
   
-  const buttonMinorComponent = async (page: Page, index: number = 0) => {
+  const buttonMinorComponent = async (page: Page, index = 0) => {
     return page.locator(BUTTON_MINOR_COMPONENT).nth(index);
   }
   
-  export { buttonDataComponent, buttonSubtextPreview, buttonMinorComponent };
+export { buttonDataComponent, buttonSubtextPreview, buttonMinorComponent };

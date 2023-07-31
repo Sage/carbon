@@ -1,6 +1,6 @@
 {
   "root": true,
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "rules": {
     "strict": 0,
     "class-methods-use-this": "off",
@@ -11,7 +11,7 @@
     "import/no-unresolved": "off",
     "jsx-a11y/anchor-is-valid": "warn",
     "jsx-a11y/click-events-have-key-events": "warn",
-    "jsx-a11y/label-has-for": "warn",
+    "jsx-a11y/label-has-associated-control": "warn",
     "jsx-a11y/mouse-events-have-key-events": "warn",
     "jsx-a11y/no-noninteractive-element-interactions": "warn",
     "jsx-a11y/no-static-element-interactions": "warn",
@@ -96,25 +96,21 @@
   },
   "env": {
     "es6": true,
-    "browser": true,
-    "jasmine": true,
-    "cypress/globals": true
+    "browser": true
   },
+  "plugins": ["react", "react-hooks"],
   "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:no-unsanitized/DOM",
     "airbnb",
     "prettier",
     "prettier/react"
-    // to uncomment after configuration
-    // "plugin:playwright/recommended"
   ],
-  "plugins": ["cypress", "react", "react-hooks"],
   "globals": {
-    "jest": false,
     "global": false,
-    "process": false,
-    "test": false,
-    "cypress": true
+    "process": false
   },
   "overrides": [
     {
@@ -130,20 +126,10 @@
           "./playwright/tsconfig.json"
         ]
       },
-      "plugins": ["cypress", "@typescript-eslint", "jest"],
+      "plugins": ["@typescript-eslint"],
       "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "prettier",
-        "prettier/@typescript-eslint",
-        "plugin:react-hooks/recommended",
-        "plugin:jest/recommended",
-        "plugin:cypress/recommended"
-        // to uncomment after configuration
-        // "plugin:playwright/recommended"
-        // TODO: Uncomment after transition to RTL has started
-        // "plugin:jest-dom/recommended",
+        "prettier/@typescript-eslint"
       ],
       "settings": {
         "react": {
@@ -152,7 +138,6 @@
       },
       "rules": {
         "import/named": "off",
-        "jest/expect-expect": "off",
         "react/prefer-stateless-function": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
@@ -160,7 +145,6 @@
           "error",
           { "allow": ["arrowFunctions"] }
         ],
-        "jest-dom/prefer-to-have-attribute": "off",
         "no-restricted-imports": [
           "error",
           {
@@ -168,6 +152,55 @@
             "message": "Please do not import `prop-types` in TypeScript files."
           }
         ]
+      }
+    },
+    {
+      "files": ["*.spec.*"],
+      "env": {
+        "jasmine": true
+      },
+      "globals": {
+        "jest": false,
+        "test": false
+      },
+      "plugins": ["jest"],
+      "extends": [
+        "plugin:jest/recommended"
+        // TODO: Uncomment after transition to RTL has started
+        // "plugin:jest-dom/recommended",
+      ],
+      "rules": {
+        "jest/expect-expect": "off",
+        "jest-dom/prefer-to-have-attribute": "off",
+        "jest/no-alias-methods": "off",
+        "jest/valid-describe-callback": "warn"
+      }
+    },
+    {
+      "files": ["cypress/**"],
+      "env": {
+        "cypress/globals": true
+      },
+      "globals": {
+        "cypress": true
+      },
+      "plugins": ["cypress"],
+      "extends": ["plugin:cypress/recommended"],
+      "rules": {
+        "cypress/unsafe-to-chain-command": "off",
+        "cypress/no-unnecessary-waiting": "off"
+      }
+    },
+    {
+      "files": ["src/**/*.pw.tsx", "src/**/*.test-pw.tsx", "playwright/**"],
+      "plugins": ["playwright", "prettier", "prettier/react"],
+      "extends": ["plugin:playwright/recommended"],
+      "rules": {
+        "no-return-await": "warn",
+        "playwright/valid-expect": "warn",
+        "no-return-assign": "warn",
+        "no-await-in-loop": "warn",
+        "playwright/expect-expect": "off"
       }
     }
   ]

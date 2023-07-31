@@ -64,6 +64,7 @@ function assertAbsolutePositioning(
 
 describe("Pod", () => {
   describe("margins", () =>
+    // eslint-disable jest/valid-describe-callback
     testStyledSystemMargin((props) => <Pod {...props} />));
 
   describe("deprecation warnings", () => {

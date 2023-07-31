@@ -17,6 +17,7 @@ jest.mock("../../hooks/useMediaQuery", () => {
 });
 
 describe("Loader", () => {
+  // eslint-disable jest/valid-describe-callback
   describe("margins", () =>
     testStyledSystemMargin((props) => <Loader {...props} />));
 

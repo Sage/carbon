@@ -422,7 +422,7 @@ describe("ShowEditPod", () => {
       });
     });
 
-    describe("on internal elements", () => {
+    it("on internal elements", () => {
       const wrapper = mount(
         <ShowEditPod
           saveText="Save"
