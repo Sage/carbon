@@ -74,6 +74,7 @@ export const Controlled = () => {
       name="controlled"
       value={value}
       onChange={onChangeHandler}
+      label="color"
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -93,7 +94,7 @@ export const Controlled = () => {
 Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus = () => (
-  <MultiSelect name="openOnFocus" id="openOnFocus" openOnFocus>
+  <MultiSelect name="openOnFocus" id="openOnFocus" openOnFocus label="color">
     <Option text="Amber" value="1" />
     <Option text="Black" value="2" />
     <Option text="Blue" value="3" />
@@ -160,6 +161,7 @@ export const WithDisabledPortal = () => (
     name="withDisabledPortal"
     id="withDisabledPortal"
     defaultValue={["1", "3"]}
+    label="color"
   >
     <Option text="Amber" value="1" />
     <Option text="Black" value="2" />
@@ -189,6 +191,7 @@ export const WithMultipleColumns = () => (
         <th>Occupation</th>
       </tr>
     }
+    label="With multiple columns"
   >
     <OptionRow id="1" value="1" text="John Doe">
       <td>John</td>
@@ -318,6 +321,7 @@ export const WithObjectAsValue = () => {
         name="with-object"
         value={value}
         onChange={onChangeHandler}
+        label="color"
       >
         {optionList.current}
       </MultiSelect>

@@ -4,7 +4,7 @@ import Box from "../../box";
 
 export const Small = () => (
   <Box height="250px">
-    <Select name="small" id="small" defaultValue="3" size="small">
+    <Select name="small" id="small" defaultValue="3" size="small" label="color">
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -24,7 +24,13 @@ Small.parameters = { info: { disable: true } };
 
 export const Medium = () => (
   <Box height="250px">
-    <Select name="medium" id="medium" defaultValue="3" size="medium">
+    <Select
+      name="medium"
+      id="medium"
+      defaultValue="3"
+      size="medium"
+      label="color"
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -44,7 +50,7 @@ Medium.parameters = { info: { disable: true } };
 
 export const Large = () => (
   <Box height="250px">
-    <Select name="large" id="large" defaultValue="3" size="large">
+    <Select name="large" id="large" defaultValue="3" size="large" label="color">
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />

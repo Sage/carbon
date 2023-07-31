@@ -103,6 +103,7 @@ export const Controlled = () => {
         name="controlled"
         value={value}
         onChange={onChangeHandler}
+        label="color"
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -201,6 +202,7 @@ export const WithObjectAsValue = () => {
         name="with-object"
         value={value}
         onChange={onChangeHandler}
+        label="color"
       >
         {optionList.current}
       </Select>
@@ -365,7 +367,7 @@ export const WithInfiniteScroll = () => {
 WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus = () => (
-  <Select name="openOnFocus" id="openOnFocus" openOnFocus>
+  <Select name="openOnFocus" id="openOnFocus" openOnFocus label="color">
     <Option text="Amber" value="1" />
     <Option text="Black" value="2" />
     <Option text="Blue" value="3" />
@@ -427,7 +429,13 @@ export const Readonly = () => (
 );
 
 export const Transparent = () => (
-  <Select name="transparent" id="transparent" defaultValue="4" transparent>
+  <Select
+    name="transparent"
+    id="transparent"
+    defaultValue="4"
+    transparent
+    label="color"
+  >
     <Option text="Amber" value="1" />
     <Option text="Black" value="2" />
     <Option text="Blue" value="3" />
@@ -448,6 +456,7 @@ export const WithDisabledPortal = () => (
     id="withDisabledPortal"
     defaultValue="4"
     disablePortal
+    label="color"
   >
     <Option text="Amber" value="1" />
     <Option text="Black" value="2" />
@@ -500,6 +509,7 @@ export const WithMultipleColumns = () => (
         <th>Occupation</th>
       </tr>
     }
+    label="With multiple columns"
   >
     <OptionRow id="1" value="1" text="John Doe">
       <td>John</td>
@@ -532,7 +542,7 @@ export const WithMultipleColumns = () => (
 WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OptionGroups = () => (
-  <Select name="optGroups" id="optGroups">
+  <Select name="optGroups" id="optGroups" label="color">
     <OptionGroupHeader label="Group one" icon="individual" />
     <Option text="Amber" value="1" />
     <Option text="Black" value="2" />
