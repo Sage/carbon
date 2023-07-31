@@ -9,9 +9,9 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disableSnapshot: true
-    }
-  }
+      disableSnapshot: true,
+    },
+  },
 };
 interface BadgeStoryProps {
   counter?: string | number;

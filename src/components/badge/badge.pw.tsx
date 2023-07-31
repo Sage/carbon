@@ -4,14 +4,14 @@ import { test, expect } from "@playwright/experimental-ct-react17";
 import {
   badge,
   badgeCounter,
-  badgeCrossIcon
+  badgeCrossIcon,
 } from "../../../playwright/components/badge/index";
 import {
   checkAccessibility,
-  getStyle
+  getStyle,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
-import { BadgeComponent } from "./components.pw";
+import { BadgeComponent } from "./components.test-pw";
 
 const counterCount = [1, 99];
 const bigCounterCount = [100, 999];
@@ -31,7 +31,7 @@ test.describe("should render Badge component", () => {
   counterCount.forEach((countInput) => {
     test(`should check Badge counter is set to ${countInput}`, async ({
       mount,
-      page
+      page,
     }) => {
       await mount(<BadgeComponent counter={countInput} />);
 
@@ -45,7 +45,7 @@ test.describe("should render Badge component", () => {
   bigCounterCount.forEach((countInput) => {
     test(`should check Badge counter is set to 99 when using ${countInput} as counter`, async ({
       mount,
-      page
+      page,
     }) => {
       await mount(<BadgeComponent counter={countInput} />);
 
@@ -59,7 +59,7 @@ test.describe("should render Badge component", () => {
   negativeCounterCount.forEach((incorrectValue) => {
     test(`should check Badge counter is not visible when using ${incorrectValue} param`, async ({
       mount,
-      page
+      page,
     }) => {
       await mount(<BadgeComponent counter={incorrectValue} />);
 
@@ -69,7 +69,7 @@ test.describe("should render Badge component", () => {
 
   test("badge should display cross icon when hovered over", async ({
     mount,
-    page
+    page,
   }) => {
     await mount(<BadgeComponent onClick={() => {}} counter={99} />);
 
@@ -84,7 +84,7 @@ test.describe("should render Badge component", () => {
 
   test("badge should not display cross icon when hovered over with no onClick function passed to component", async ({
     mount,
-    page
+    page,
   }) => {
     await mount(<BadgeComponent counter={99} />);
 
@@ -99,7 +99,7 @@ test.describe("should render Badge component", () => {
 
   test("should call onClick callback when a click event is triggered", async ({
     mount,
-    page
+    page,
   }) => {
     let capturedCallback = false;
 
@@ -114,7 +114,7 @@ test.describe("should render Badge component", () => {
 
   test("should render with expected border radius styling", async ({
     mount,
-    page
+    page,
   }) => {
     await mount(<BadgeComponent counter={9} />);
 
@@ -123,7 +123,7 @@ test.describe("should render Badge component", () => {
 
   test("should check ariaLabel for Badge component", async ({
     mount,
-    page
+    page,
   }) => {
     await mount(<BadgeComponent counter={9} aria-label="cypress-aria" />);
 
@@ -133,7 +133,7 @@ test.describe("should render Badge component", () => {
 
   test("should pass accessibility tests for Badge default story", async ({
     mount,
-    page
+    page,
   }) => {
     await mount(<BadgeComponent counter={9} />);
 
@@ -142,7 +142,7 @@ test.describe("should render Badge component", () => {
 
   test("should pass accessibility tests for click event", async ({
     mount,
-    page
+    page,
   }) => {
     await mount(<BadgeComponent onClick={() => {}} />);
 
