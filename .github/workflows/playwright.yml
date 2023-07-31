@@ -9,10 +9,19 @@ on:
 
 jobs:
   playwright-react:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    container:
+      image: mcr.microsoft.com/playwright:v1.34.0-jammy
     strategy:
       fail-fast: false
+      matrix:
+        project: [chromium]
+        # to uncomment after check
+        # shardIndex: [1, 2, 3, 4, 5]
+        # shardTotal: [5]
+        shardIndex: [1]
+        shardTotal: [1]
     steps:
       - id: get_pull
         uses: octokit/request-action@v2.x
