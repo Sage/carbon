@@ -1,7 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from "react";
-import DateRange from "../../../src/components/date-range";
-import CarbonProvider from "../../../src/components/carbon-provider";
+import { DateRangeProps } from "../../../src/components/date-range/date-range.component";
+import {
+  DateRangeCustom,
+  DateRangeNewValidation,
+} from "../../../src/components/date-range/date-range-test.stories";
 
 import { cyRoot, getDataElementByValue, icon } from "../../locators";
 import {
@@ -23,84 +25,11 @@ import {
 
 const testCypressText = "test_cypress";
 
-const DateRangeCustom = ({ onChange, onBlur, ...props }) => {
-  const [state, setState] = React.useState(["01/10/2016", "30/10/2016"]);
-
-  const handleChange = (evt) => {
-    const newValue = [
-      evt.target.value[0].formattedValue,
-      evt.target.value[1].formattedValue,
-    ];
-
-    if (onChange) {
-      onChange(evt);
-    }
-
-    setState(newValue);
-  };
-
-  const handleOnBlur = (evt) => {
-    if (onBlur) {
-      onBlur(evt);
-    }
-  };
-
-  return (
-    <DateRange
-      startLabel="start label"
-      endLabel="end label"
-      onChange={handleChange}
-      onBlur={handleOnBlur}
-      value={state}
-      name={testCypressText}
-      id={testCypressText}
-      {...props}
-    />
-  );
-};
-
-const DateRangeNewValidation = () => {
-  const [state, setState] = React.useState(["01/10/2016", "30/10/2016"]);
-
-  const handleChange = ({ target }) => {
-    const newValue = [
-      target.value[0].formattedValue,
-      target.value[1].formattedValue,
-    ];
-    setState(newValue);
-  };
-
-  return (
-    <CarbonProvider validationRedesignOptIn>
-      {[
-        {
-          startError: "Start error with long text string",
-          endError: "End error",
-        },
-        {
-          startWarning: "Start warning",
-          endWarning: "End warning with long text string",
-        },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-component`}
-          startLabel="Start"
-          endLabel="End"
-          onChange={handleChange}
-          value={state}
-          {...validation}
-          m={4}
-        />
-      ))}
-    </CarbonProvider>
-  );
-};
-
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const START_DATE_RANGE_INDEX = 0;
 const END_DATE_RANGE_INDEX = 1;
 
-const checkInputColor = (index, color) => {
+const checkInputColor = (index: number, color: string) => {
   dateRangeComponentInput(index)
     .parent()
     .and("have.css", "border-bottom-color", color)
@@ -109,9 +38,16 @@ const checkInputColor = (index, color) => {
     .and("have.css", "border-top-color", color);
 };
 
+const eventOutput = (formattedVal: string, rawVal: string) => {
+  return {
+    formattedValue: formattedVal,
+    rawValue: rawVal,
+  };
+};
+
 context("Test for DateRange component", () => {
   describe("check functionality for DateRange component", () => {
-    it.each(testData)(
+    it.each(testData as DateRangeProps["startLabel"][])(
       "should check the startLabel renders as %s",
       (startLabel) => {
         CypressMountWithProviders(<DateRangeCustom startLabel={startLabel} />);
@@ -123,16 +59,19 @@ context("Test for DateRange component", () => {
       }
     );
 
-    it.each(testData)("should check the endLabel renders as %s", (endLabel) => {
-      CypressMountWithProviders(<DateRangeCustom endLabel={endLabel} />);
+    it.each(testData as DateRangeProps["endLabel"][])(
+      "should check the endLabel renders as %s",
+      (endLabel) => {
+        CypressMountWithProviders(<DateRangeCustom endLabel={endLabel} />);
 
-      dateRangeComponentLabel(END_DATE_RANGE_INDEX).should(
-        "have.text",
-        endLabel
-      );
-    });
+        dateRangeComponentLabel(END_DATE_RANGE_INDEX).should(
+          "have.text",
+          endLabel
+        );
+      }
+    );
 
-    it.each(testData)(
+    it.each(testData as DateRangeProps["startError"][])(
       "should check the startError as string renders as %s",
       (startError) => {
         CypressMountWithProviders(<DateRangeCustom startError={startError} />);
@@ -146,7 +85,7 @@ context("Test for DateRange component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as DateRangeProps["endError"][])(
       "should check the endError as string renders as %s",
       (endError) => {
         CypressMountWithProviders(<DateRangeCustom endError={endError} />);
@@ -160,7 +99,7 @@ context("Test for DateRange component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as DateRangeProps["startWarning"][])(
       "should check the startWarning as string renders as %s",
       (startWarning) => {
         CypressMountWithProviders(
@@ -176,7 +115,7 @@ context("Test for DateRange component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as DateRangeProps["endWarning"][])(
       "should check the endWarning as string renders as %s",
       (endWarning) => {
         CypressMountWithProviders(<DateRangeCustom endWarning={endWarning} />);
@@ -190,7 +129,7 @@ context("Test for DateRange component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as DateRangeProps["startInfo"][])(
       "should check the startInfo as string renders as %s",
       (startInfo) => {
         CypressMountWithProviders(<DateRangeCustom startInfo={startInfo} />);
@@ -204,7 +143,7 @@ context("Test for DateRange component", () => {
       }
     );
 
-    it.each(testData)(
+    it.each(testData as DateRangeProps["endInfo"][])(
       "should check the endInfo as string renders as %s",
       (endInfo) => {
         CypressMountWithProviders(<DateRangeCustom endInfo={endInfo} />);
@@ -386,7 +325,12 @@ context("Test for DateRange component", () => {
         .and("have.attr", "disabled");
     });
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as DateRangeProps["tooltipPosition"][])(
       "should check the tooltipPosition is set to %s",
       (position) => {
         CypressMountWithProviders(
@@ -410,80 +354,81 @@ context("Test for DateRange component", () => {
   });
 
   describe("check events for DateRange component", () => {
-    let callback;
-
-    beforeEach(() => {
-      callback = cy.stub();
-    });
-
-    it.each([[0], [1]])(
+    it.each([0, 1])(
       "should call onChange callback when a clear event is triggered on %s DateRange input",
       (inputIndex) => {
+        const callback: DateRangeProps["onChange"] = cy.stub().as("onChange");
+
         CypressMountWithProviders(<DateRangeCustom onChange={callback} />);
 
-        getDataElementByValue("input")
-          .eq(inputIndex)
-          .clear()
-          .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(callback).to.have.been.calledOnce;
-          });
+        getDataElementByValue("input").eq(inputIndex).clear();
+
+        cy.get("@onChange").should("have.been.calledOnce");
       }
     );
 
-    it.each([[0], [1]])(
+    it.each([0, 1])(
       "should call onChange callback when a type event is triggered on %s DateRange input",
       (inputIndex) => {
+        const callback: DateRangeProps["onChange"] = cy.stub().as("onChange");
+
         CypressMountWithProviders(<DateRangeCustom onChange={callback} />);
 
         getDataElementByValue("input")
           .eq(inputIndex)
           .type("01/10/2022")
           .then(() => {
-            // eslint-disable-next-line no-unused-expressions
-            expect(
-              callback.getCalls()[9].args[0].target.value[inputIndex].rawValue
-            ).to.equal("2022-10-01");
-            expect(
-              callback.getCalls()[9].args[0].target.value[inputIndex]
-                .formattedValue
-            ).to.equal("01/10/2022");
+            cy.get("@onChange")
+              .invoke("getCalls")
+              .its("9")
+              .its("args[0].target.value")
+              .as("value");
+
+            cy.get("@value")
+              .its(`[${inputIndex}]`)
+              .should("deep.equal", eventOutput("01/10/2022", "2022-10-01"));
           });
       }
     );
 
     it("should call onBlur callback when a blur event is triggered", () => {
+      const callback: DateRangeProps["onBlur"] = cy.stub().as("onBlur");
+
       CypressMountWithProviders(<DateRangeCustom onBlur={callback} />);
 
-      getDataElementByValue("input")
-        .eq(0)
-        .tab()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.not.have.been.called;
-        })
-        .tab()
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback).to.have.been.calledOnce;
-        });
+      getDataElementByValue("input").eq(0).tab();
+      cy.get("@onBlur").should("not.have.been.called");
+
+      cy.focused().tab();
+      cy.get("@onBlur").should("have.been.called");
     });
 
     it("should check name and id props", () => {
-      CypressMountWithProviders(<DateRangeCustom onChange={callback} />);
+      const callback: DateRangeProps["onChange"] = cy.stub().as("onChange");
 
-      getDataElementByValue("input")
-        .eq(0)
-        .type("1")
-        .then(() => {
-          // eslint-disable-next-line no-unused-expressions
-          expect(callback.getCalls()[0].args[0].target.name).to.equal(
-            testCypressText
-          );
-          expect(callback.getCalls()[0].args[0].target.id).to.equal(
-            testCypressText
-          );
-        });
+      CypressMountWithProviders(
+        <DateRangeCustom
+          onChange={callback}
+          name={testCypressText}
+          id={testCypressText}
+        />
+      );
+
+      getDataElementByValue("input").eq(0).type("1");
+      cy.get("@onChange")
+        .invoke("getCalls")
+        .its("0")
+        .its("args[0].target.name")
+        .as("name");
+
+      cy.get("@onChange")
+        .invoke("getCalls")
+        .its("0")
+        .its("args[0].target.id")
+        .as("id");
+
+      cy.get("@name").should("equal", testCypressText);
+      cy.get("@id").should("equal", testCypressText);
     });
   });
 
@@ -603,7 +548,12 @@ context("Test for DateRange component", () => {
       }
     );
 
-    it.each(["top", "bottom", "left", "right"])(
+    it.each([
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as DateRangeProps["tooltipPosition"][])(
       "should check accessibility with the tooltipPosition is set to %s",
       (position) => {
         CypressMountWithProviders(

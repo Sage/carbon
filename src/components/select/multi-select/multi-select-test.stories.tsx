@@ -508,7 +508,11 @@ export const MultiSelectWithManyOptionsAndVirtualScrolling = () => (
     {Array(10000)
       .fill(undefined)
       .map((_, index) => (
-        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
+        <Option
+          key={`option-${index + 1}`}
+          value={`${index}`}
+          text={`Option ${index + 1}.`}
+        />
       ))}
   </MultiSelect>
 );

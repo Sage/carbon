@@ -258,6 +258,7 @@ export const WithMultipleColumnsAndNested = () => (
         Add a New Element
       </Button>
     }
+    // eslint-disable-next-line no-console
     onListAction={() => console.log("Action")}
   >
     <OptionRow id="1" value="1" text="John Doe">
@@ -689,7 +690,7 @@ export const Virtualised = () => {
     .fill(undefined)
     .map((_, index) => (
       <Option
-        key={index}
+        key={`option-${index + 1}`}
         value={`${index}`}
         text={`${colors[index % colors.length]} - option ${index + 1}`}
       />

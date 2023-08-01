@@ -18,6 +18,8 @@ export interface CommonCheckableInputProps
     CommonHiddenCheckableInputProps {
   /** If true, the component will be disabled */
   disabled?: boolean;
+  /** @private @ignore */
+  loading?: boolean;
   /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /**
@@ -70,6 +72,7 @@ const CheckableInput = React.forwardRef(
       checked,
       children,
       disabled,
+      loading,
       error,
       fieldHelp,
       fieldHelpInline,
@@ -116,6 +119,7 @@ const CheckableInput = React.forwardRef(
 
     const formFieldProps: FormFieldProps = {
       disabled,
+      loading,
       error,
       fieldHelp,
       fieldHelpInline,

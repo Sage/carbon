@@ -91,14 +91,11 @@ export const StyledForm = styled.form<StyledFormProps>`
     css`
       height: ${height};
     `}
-
-  ${({ fieldSpacing }) =>
-    css`
-      ${StyledTextarea}
+    
+    ${StyledTextarea}
       ${StyledFormField} {
-        margin-bottom: 4px;
-      }
-    `}
+    margin-bottom: 4px;
+  }
 
   ${StyledSearch} ${StyledFormField} {
     margin-bottom: 0px;

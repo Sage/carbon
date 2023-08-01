@@ -209,6 +209,7 @@ context("Tests for Help component", () => {
     );
 
     // FE-5625
+    // eslint-disable-next-line
     describe.skip("check accessibility for tabIndex", () => {
       it.each([-1, 0, 1])(
         "should check tabIndex as %s for accessibility tests",

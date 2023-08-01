@@ -172,7 +172,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       }
 
       ${StyledIcon} {
-        bottom: 1px;
+        bottom: 3px;
       }
     }
 
