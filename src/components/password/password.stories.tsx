@@ -397,7 +397,7 @@ export const NewDesignsValidation = () => {
       <CarbonProvider validationRedesignOptIn>
         {(["error", "warning"] as const).map((validationType) =>
           SIZES.map((size) => (
-            <Box style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <Box width="296px" key={`${validationType}-${size}`}>
               <Password
                 m={4}
                 label={`${size} - ${validationType}`}

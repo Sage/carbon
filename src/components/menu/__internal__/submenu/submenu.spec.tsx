@@ -1614,6 +1614,25 @@ describe("Submenu component", () => {
 
       expect(mockSubmenuhandleKeyDown).not.toHaveBeenCalled();
     });
+
+    it("should not close the submenu when enter is pressed", () => {
+      wrapper = renderWithSearchDefaultValue("dark", { clickToOpen: true });
+      openSubmenu(wrapper);
+
+      wrapper.update();
+
+      act(() => {
+        wrapper
+          .find(StyledMenuItemWrapper)
+          .at(1)
+          .props()
+          .onKeyDown(events.enter);
+      });
+
+      wrapper.update();
+
+      expect(wrapper.find(Submenu).exists()).toEqual(true);
+    });
   });
 
   describe("when children items are updated", () => {

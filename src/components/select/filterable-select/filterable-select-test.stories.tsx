@@ -449,6 +449,7 @@ export const FilterableSelectMultiColumnsNestedComponent = (
           Add a New Element
         </Button>
       }
+      // eslint-disable-next-line no-console
       onListAction={() => console.log("Action")}
     >
       <OptionRow id="1" value="1" text="John Doe">
@@ -605,7 +606,11 @@ export const FilterableSelectWithManyOptionsAndVirtualScrolling = () => (
     {Array(10000)
       .fill(undefined)
       .map((_, index) => (
-        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
+        <Option
+          key={`option-${index + 1}`}
+          value={`${index}`}
+          text={`Option ${index + 1}.`}
+        />
       ))}
   </FilterableSelect>
 );

@@ -46,12 +46,11 @@ test.describe("check props for Button-Bar component", () => {
       page,
     }) => {
       await mount(<ButtonBarCustom size={size} />);
-      const button = await buttonDataComponent(page);
+      const button = buttonDataComponent(page);
 
-      for (let i = 0; i < 3; i++) {
-        const cssValue = await getStyle(button.nth(i), "min-height");
-        await expect(cssValue).toContain(`${px}px`);
-      }
+      await expect(button.nth(0)).toHaveCSS("min-height", `${px}px`);
+      await expect(button.nth(1)).toHaveCSS("min-height", `${px}px`);
+      await expect(button.nth(2)).toHaveCSS("min-height", `${px}px`);
     });
   });
 
@@ -63,26 +62,18 @@ test.describe("check props for Button-Bar component", () => {
     }) => {
       await mount(<ButtonBarCustom iconPosition={iconPosition} />);
 
-      for (let i = 0; i < 3; i++) {
-        const cssValue = await getStyle(
-          (await icon(page)).nth(i),
-          `margin-${margin}`
-        );
-
-        await expect(cssValue).toEqual("8px");
-      }
+      await expect(icon(page).nth(0)).toHaveCSS(`margin-${margin}`, "8px");
+      await expect(icon(page).nth(1)).toHaveCSS(`margin-${margin}`, "8px");
+      await expect(icon(page).nth(2)).toHaveCSS(`margin-${margin}`, "8px");
     });
   });
 
   test("should render Button-Bar with full width", async ({ mount, page }) => {
     await mount(<ButtonBarCustom fullWidth />);
-
-    const cssValue = await getStyle(
-      (await buttonDataComponent(page)).locator(".."),
-      "width"
+    await expect(buttonDataComponent(page).locator("..")).toHaveCSS(
+      "width",
+      "1366px"
     );
-
-    await expect(cssValue).toEqual("1366px");
   });
 });
 
@@ -127,17 +118,16 @@ test("should verify ButtonBar with wrapped components can be navigated using key
 }) => {
   await mount(<ButtonBarCustom />);
 
-  const button = async (index: number) =>
-    await (await buttonDataComponent(page)).nth(index);
+  const buttonAtIndex = (index: number) => buttonDataComponent(page).nth(index);
 
-  await (await button(0)).focus();
-  (await button(0)).press("Tab");
-  await expect(await button(1)).toBeFocused();
-  await expect(await button(0)).not.toBeFocused();
+  await buttonAtIndex(0).focus();
+  await buttonAtIndex(0).press("Tab");
+  await expect(buttonAtIndex(1)).toBeFocused();
+  await expect(buttonAtIndex(0)).not.toBeFocused();
 
-  (await button(1)).press("Tab");
-  await expect(await button(2)).toBeFocused();
-  await expect(await button(1)).not.toBeFocused();
+  await buttonAtIndex(1).press("Tab");
+  await expect(buttonAtIndex(2)).toBeFocused();
+  await expect(buttonAtIndex(1)).not.toBeFocused();
 });
 
 test.describe(
@@ -150,12 +140,11 @@ test.describe(
       await mount(<ButtonBarWithWrapper size="small" />);
 
       for (let i = 0; i < 3; i++) {
-        const cssValue = await getStyle(
-          (await buttonDataComponent(page)).nth(i),
+        const buttonWidth = await getStyle(
+          buttonDataComponent(page).nth(i),
           "width"
         );
-
-        await expect(parseInt(cssValue).toFixed(0)).toContain("81");
+        await expect(parseFloat(buttonWidth)).toBeCloseTo(82, 0);
       }
     });
 
@@ -166,15 +155,9 @@ test.describe(
         page,
       }) => {
         await mount(<ButtonBarWithWrapper iconPosition={iconPosition} />);
-
-        for (let i = 0; i < 3; i++) {
-          const cssValue = await getStyle(
-            (await icon(page)).nth(i),
-            `margin-${margin}`
-          );
-
-          await expect(cssValue).toEqual("8px");
-        }
+        await expect(icon(page).nth(0)).toHaveCSS(`margin-${margin}`, "8px");
+        await expect(icon(page).nth(1)).toHaveCSS(`margin-${margin}`, "8px");
+        await expect(icon(page).nth(2)).toHaveCSS(`margin-${margin}`, "8px");
       });
     });
 
@@ -184,22 +167,22 @@ test.describe(
     }) => {
       await mount(<ButtonBarWithWrapper />);
 
-      const button = async (index: number) =>
-        await (await buttonDataComponent(page)).nth(index);
+      const buttonAtIndex = (index: number) =>
+        buttonDataComponent(page).nth(index);
 
-      await (await button(0)).focus();
-      (await button(0)).press("Tab");
-      await expect(await button(1)).toBeFocused();
-      await expect(await button(0)).not.toBeFocused();
+      await buttonAtIndex(0).focus();
+      await buttonAtIndex(0).press("Tab");
+      await expect(buttonAtIndex(1)).toBeFocused();
+      await expect(buttonAtIndex(0)).not.toBeFocused();
 
-      (await button(1)).press("Tab");
-      await expect(await button(2)).toBeFocused();
-      await expect(await button(1)).not.toBeFocused();
+      await buttonAtIndex(1).press("Tab");
+      await expect(buttonAtIndex(2)).toBeFocused();
+      await expect(buttonAtIndex(1)).not.toBeFocused();
 
-      (await button(2)).press("Tab");
+      await buttonAtIndex(2).press("Tab");
 
       await expect(page.getByLabel("csv")).toBeFocused();
-      await expect(await button(2)).not.toBeFocused();
+      await expect(buttonAtIndex(2)).not.toBeFocused();
     });
   }
 );
@@ -215,41 +198,27 @@ test.describe("renders with ButtonMinor children", async () => {
     test(`should apply correct background-color on hover for ${index} ButtonMinor children`, async ({
       page,
     }) => {
-      const cssValue = await getStyle(
-        await buttonMinorComponent(page, index),
-        "background-color"
+      const minorButton = buttonMinorComponent(page, index);
+      await expect(minorButton).toHaveCSS(
+        "background-color",
+        "rgba(0, 0, 0, 0)"
       );
 
-      await expect(cssValue).toEqual("rgba(0, 0, 0, 0)");
-
-      await (await buttonMinorComponent(page, index)).hover();
-
-      const cssValueNew = await getStyle(
-        await buttonMinorComponent(page, index),
-        "background-color"
+      await minorButton.hover();
+      await expect(minorButton).toHaveCSS(
+        "background-color",
+        "rgb(51, 91, 112)"
       );
-
-      await expect(cssValueNew).toEqual("rgb(51, 91, 112)");
     });
 
     test(`should apply the correct color to the ${index} ButtonMinor children`, async ({
       page,
     }) => {
-      const cssValue = await getStyle(
-        await buttonMinorComponent(page, index),
-        "color"
-      );
+      const minorButton = buttonMinorComponent(page, index);
+      await expect(minorButton).toHaveCSS("color", "rgb(51, 91, 112)");
 
-      await expect(cssValue).toEqual("rgb(51, 91, 112)");
-
-      await (await buttonMinorComponent(page, index)).hover();
-
-      const cssValueNew = await getStyle(
-        await buttonMinorComponent(page, index),
-        "color"
-      );
-
-      await expect(cssValueNew).toEqual("rgb(255, 255, 255)");
+      await minorButton.hover();
+      await expect(minorButton).toHaveCSS("color", "rgb(255, 255, 255)");
     });
 
     test(`should check Button Minor Bar have correct border-color for the ${index} button`, async ({
@@ -260,21 +229,11 @@ test.describe("renders with ButtonMinor children", async () => {
           ? "rgb(51, 91, 112)"
           : "rgb(51, 91, 112) rgba(0, 0, 0, 0) rgb(51, 91, 112) rgb(51, 91, 112)";
 
-      const cssValue = await getStyle(
-        await buttonMinorComponent(page, index),
-        "border-color"
-      );
+      const minorButton = buttonMinorComponent(page, index);
+      await expect(minorButton).toHaveCSS("border-color", colorByIndex);
 
-      await expect(cssValue).toEqual(colorByIndex);
-
-      await (await buttonMinorComponent(page, index)).hover();
-
-      const cssValueNew = await getStyle(
-        await buttonMinorComponent(page, index),
-        "border-color"
-      );
-
-      await expect(cssValueNew).toEqual("rgb(51, 91, 112)");
+      await minorButton.hover();
+      await expect(minorButton).toHaveCSS("border-color", "rgb(51, 91, 112)");
     });
   });
 });

@@ -1,13 +1,17 @@
-import { type Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
 import BREADCRUMBS from "./locators";
 
 // component preview locators
-const breadcrumbsComponent = async (page: Page) => {
-  return await page.locator(BREADCRUMBS);
-}
+const breadcrumbsComponent = (page: Page) => {
+  return page.locator(BREADCRUMBS);
+};
 
-const crumb = async (page: Page, index: number) => {
-  return (await breadcrumbsComponent(page)).locator("ol").locator("li").nth(index);
-}
+const allCrumbs = (page: Page) => {
+  return breadcrumbsComponent(page).locator("ol").locator("li");
+};
 
-export { breadcrumbsComponent, crumb };
+const crumbAtIndex = (page: Page, index: number) => {
+  return allCrumbs(page).nth(index);
+};
+
+export { breadcrumbsComponent, allCrumbs, crumbAtIndex };

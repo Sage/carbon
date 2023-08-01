@@ -191,7 +191,11 @@ function renderWithVirtualScroll(
   const options = Array(totalItems)
     .fill(undefined)
     .map((_, index) => (
-      <Option key={index} value={`${index}`} text={`Option ${index + 1}`} />
+      <Option
+        key={`option-${index + 1}`}
+        value={`${index}`}
+        text={`Option ${index + 1}`}
+      />
     ));
   const SelectListWithManyOptions = () => {
     const mockRef = useRef(null);
@@ -218,13 +222,13 @@ function renderWithVirtualScrollAndGroupHeaders() {
     .map((_, index) =>
       index % 11 === 0 ? (
         <OptionGroupHeader
-          key={index}
+          key={`option-${index + 1}`}
           label={`Group ${index / 11 + 1}`}
           icon="individual"
         />
       ) : (
         <Option
-          key={index}
+          key={`option-${index + 1}`}
           value={`${index}`}
           text={`Option ${index - Math.floor(index / 11)}`}
         />

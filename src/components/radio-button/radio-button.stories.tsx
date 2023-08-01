@@ -1,6 +1,9 @@
+/* eslint-disable no-console */
 import React from "react";
 import { RadioButtonGroup, RadioButton } from ".";
 import Typography from "../typography";
+import CarbonProvider from "../../components/carbon-provider";
+import Box from "../../components/box";
 
 export const Default = () => (
   <RadioButtonGroup name="legend-and-labels-group">
@@ -294,4 +297,134 @@ export const WithCustomStyledLabels = () => (
       }
     />
   </RadioButtonGroup>
+);
+
+export const NewValidationDefault = () => (
+  <CarbonProvider validationRedesignOptIn>
+    <RadioButton
+      id="radio-error-1"
+      value="radioError1"
+      label="Radio Option 1 - Error"
+      error
+    />
+    <RadioButton
+      id="radio-default-2"
+      value="radioDefault2"
+      label="Radio Option 2 - Default"
+    />
+    <RadioButton
+      id="radio-warning-3"
+      value="radioWarning3"
+      label="Radio Option 3 - Warning"
+      warning
+    />
+  </CarbonProvider>
+);
+
+export const NewValidationDefaultGroup = () => (
+  <Box m={2}>
+    <CarbonProvider validationRedesignOptIn>
+      <RadioButtonGroup
+        legend="Label"
+        legendHelp="Hint Text"
+        name="error-validations-group"
+        error="Error Message (Fix is required)"
+      >
+        <RadioButton
+          id="radio-one-1"
+          value="radioOne1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="radio-one-2"
+          value="radioOne2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="radio-one-3"
+          value="radioOne3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+
+      <RadioButtonGroup
+        mt={2}
+        legend="Label"
+        legendHelp="Hint Text"
+        name="warning-validations-group"
+        warning="Warning Message (Fix is optional)"
+      >
+        <RadioButton
+          id="radio-two-1"
+          value="radioTwo1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="radio-two-2"
+          value="radioTwo2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="radio-two-3"
+          value="radioTwo3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+    </CarbonProvider>
+  </Box>
+);
+
+export const NewValidationDefaultGroupInline = () => (
+  <Box m={2}>
+    <CarbonProvider validationRedesignOptIn>
+      <RadioButtonGroup
+        legend="Label"
+        legendHelp="Hint Text"
+        name="error-validations-group-inline"
+        error="Error Message (Fix is required)"
+        inline
+      >
+        <RadioButton
+          id="radio-one-1"
+          value="radioOne1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="radio-one-2"
+          value="radioOne2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="radio-one-3"
+          value="radioOne3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+
+      <RadioButtonGroup
+        mt={2}
+        legend="Label"
+        legendHelp="Hint Text"
+        name="warning-validations-group-inline"
+        warning="Warning Message (Fix is optional)"
+        inline
+      >
+        <RadioButton
+          id="radio-two-1"
+          value="radioTwo1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="radio-two-2"
+          value="radioTwo2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="radio-two-3"
+          value="radioTwo3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+    </CarbonProvider>
+  </Box>
 );

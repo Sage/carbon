@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import Form from ".";
 import Button from "../button";
@@ -306,7 +307,7 @@ export const InDialogWithStickyFooter = () => {
           stickyFooter
         >
           {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox key={index} label="Textbox" />
+            <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
           <DateInput
             label="Date"
@@ -380,7 +381,7 @@ export const InDialogWithStickyFooter = () => {
             <Option text="Yellow" value="11" />
           </MultiSelect>
           {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox key={index} label="Textbox" />
+            <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
         </Form>
       </Dialog>
@@ -446,7 +447,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
           stickyFooter
         >
           {Array.from({ length: 15 }).map((_, index) => (
-            <Textbox key={index} label="Textbox" />
+            <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
           <DateInput
             label="Date"
@@ -470,7 +471,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
             <Option text="Yellow" value="11" />
           </Select>
           {Array.from({ length: 15 }).map((_, index) => (
-            <Textbox key={index} label="Textbox" />
+            <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
         </Form>
       </DialogFullScreen>

@@ -8,17 +8,16 @@ import { expect } from "@playwright/experimental-ct-react17";
  * @function getStyle
  * @async
  * @param locator {Locator} The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
- * @param property {string} The CSS property for the style to retrieve
+ * @param cssProp {string} The CSS property for the style to retrieve
  * @returns Promise<string> The style value
  */
 export const getStyle = async (
   locator: Locator,
-  property: string
+  cssProp: string
 ): Promise<string> => {
-  return await locator.evaluate(
-    // eslint-disable-next-line no-shadow
+  return locator.evaluate(
     (el, property) => window.getComputedStyle(el).getPropertyValue(property),
-    property
+    cssProp
   );
 };
 
@@ -42,5 +41,5 @@ export const checkAccessibility = async (page: Page) => {
     .disableRules(["landmark-one-main", "page-has-heading-one", "region"])
     .analyze();
 
-  await expect(accessibilityScanResults.violations).toEqual([]);
+  expect(accessibilityScanResults.violations).toEqual([]);
 };

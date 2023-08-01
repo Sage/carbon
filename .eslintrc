@@ -192,15 +192,12 @@
       }
     },
     {
-      "files": ["src/**/*.pw.tsx", "src/**/*.test-pw.tsx", "playwright/**"],
-      "plugins": ["playwright", "prettier", "prettier/react"],
-      "extends": ["plugin:playwright/recommended"],
+      "files": ["*.pw.ts*", "*.test-pw.ts*", "playwright/**/*.ts*"],
       "rules": {
         "no-return-await": "warn",
-        "playwright/valid-expect": "warn",
         "no-return-assign": "warn",
         "no-await-in-loop": "warn",
-        "playwright/expect-expect": "off"
+        "@typescript-eslint/no-floating-promises": "error"
       }
     }
   ]

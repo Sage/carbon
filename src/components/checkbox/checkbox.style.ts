@@ -20,6 +20,7 @@ export interface StyledCheckboxProps extends ValidationProps, MarginProps {
   labelSpacing?: 1 | 2;
   reverse?: boolean;
   adaptiveSpacingSmallScreen?: boolean;
+  applyNewValidation?: boolean;
 }
 
 const StyledCheckbox = styled.div<StyledCheckboxProps>`
@@ -35,6 +36,7 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
     reverse,
     size,
     adaptiveSpacingSmallScreen,
+    applyNewValidation,
   }) => css`
     ${adaptiveSpacingSmallScreen && "margin-left: 0;"}
 
@@ -55,6 +57,10 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
         ${info && `border: 1px solid var(--colorsSemanticInfo500);`}
         ${warning && `border: 1px solid var(--colorsSemanticCaution500);`}
         ${error && `border: 2px solid var(--colorsSemanticNegative500);`}
+
+        ${warning &&
+        applyNewValidation &&
+        `border: 1px solid var(--colorsUtilityMajor300);`}
       `}
     }
 

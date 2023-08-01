@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
@@ -8,6 +8,7 @@ import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 
 interface InternalRadioButtonProps {
   inline?: boolean;
@@ -79,6 +80,8 @@ export const RadioButton = React.forwardRef<
     }: RadioButtonProps & InternalRadioButtonProps,
     ref
   ) => {
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
+
     const marginProps = filterStyledSystemMarginProps(props);
     const handleChange = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,18 +103,24 @@ export const RadioButton = React.forwardRef<
       );
     }
 
-    const commonProps = {
+    const validationProps = {
       disabled,
-      fieldHelpInline,
       inputWidth,
-      labelSpacing,
       error,
       warning,
       info,
     };
 
+    const commonProps = {
+      ...validationProps,
+      fieldHelpInline,
+      labelSpacing,
+    };
+
     const inputProps = {
-      ...commonProps,
+      ...(validationRedesignOptIn
+        ? { ...validationProps }
+        : { ...commonProps }),
       autoFocus,
       checked,
       fieldHelp,
@@ -144,26 +153,39 @@ export const RadioButton = React.forwardRef<
         "You should probably use the label prop instead."
     );
 
-    return (
-      <TooltipProvider
-        helpAriaLabel={helpAriaLabel}
-        tooltipPosition={tooltipPosition}
+    const componentToRender = (
+      <RadioButtonStyle
+        applyNewValidation={validationRedesignOptIn}
+        data-component={dataComponent}
+        data-role={dataRole}
+        data-element={dataElement}
+        inline={inline}
+        reverse={reverse}
+        size={size}
+        {...(validationRedesignOptIn
+          ? { ...validationProps }
+          : { ...commonProps, fieldHelp })}
+        {...marginProps}
       >
-        <RadioButtonStyle
-          data-component={dataComponent}
-          data-role={dataRole}
-          data-element={dataElement}
-          inline={inline}
-          reverse={reverse}
-          size={size}
-          {...commonProps}
-          {...marginProps}
-        >
-          <CheckableInput {...inputProps}>
-            <RadioButtonSvg />
-          </CheckableInput>
-        </RadioButtonStyle>
-      </TooltipProvider>
+        <CheckableInput {...inputProps}>
+          <RadioButtonSvg />
+        </CheckableInput>
+      </RadioButtonStyle>
+    );
+
+    return (
+      <>
+        {validationRedesignOptIn ? (
+          componentToRender
+        ) : (
+          <TooltipProvider
+            helpAriaLabel={helpAriaLabel}
+            tooltipPosition={tooltipPosition}
+          >
+            {componentToRender}
+          </TooltipProvider>
+        )}
+      </>
     );
   }
 );

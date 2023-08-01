@@ -506,7 +506,7 @@ export const Virtualised = () => {
     .fill(undefined)
     .map((_, index) => (
       <Option
-        key={index}
+        key={`option-${index + 1}`}
         value={`${index}`}
         text={`${colors[index % colors.length]} - option ${index + 1}`}
       />
