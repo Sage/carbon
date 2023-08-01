@@ -151,7 +151,8 @@
             "name": "prop-types",
             "message": "Please do not import `prop-types` in TypeScript files."
           }
-        ]
+        ],
+        "react/prop-types": "off"
       }
     },
     {
