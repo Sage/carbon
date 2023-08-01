@@ -380,6 +380,37 @@ describe("PortraitComponent", () => {
     expect(wrapper.find(Tooltip).exists()).toBeTruthy();
   });
 
+  describe("invariant", () => {
+    it("validates an invariant is thrown if `src` and `gravatar` are set at the same time", () => {
+      const consoleSpy = jest.spyOn(console, "error");
+      consoleSpy.mockImplementation(() => {});
+
+      expect(() => shallow(<Portrait src="foo" gravatar="baz" />)).toThrow(
+        "The `src` prop cannot be used in conjunction with the `gravatar` prop. Please use one or the other."
+      );
+
+      consoleSpy.mockRestore();
+    });
+
+    it("validates an invariant is not thrown if `src` is passed and `gravatar` is not", () => {
+      const consoleSpy = jest.spyOn(console, "error");
+      consoleSpy.mockImplementation(() => {});
+
+      expect(() => shallow(<Portrait src="foo" />)).not.toThrow();
+
+      consoleSpy.mockRestore();
+    });
+
+    it("validates an invariant is not thrown if `gravatar` is passed and `src` is not", () => {
+      const consoleSpy = jest.spyOn(console, "error");
+      consoleSpy.mockImplementation(() => {});
+
+      expect(() => shallow(<Portrait gravatar="baz" />)).not.toThrow();
+
+      consoleSpy.mockRestore();
+    });
+  });
+
   describe("roundedCornersOptOut", () => {
     it("sets the default shape to square when true", () => {
       const shape = mount(
