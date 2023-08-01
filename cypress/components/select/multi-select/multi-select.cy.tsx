@@ -47,6 +47,7 @@ const columns = 3;
 const option1 = "Green";
 const option2 = "Purple";
 const option3 = "Yellow";
+const listOption = "Amber";
 const defaultValue = ["10"];
 const keyToTrigger = [
   "ArrowDown",
@@ -494,14 +495,12 @@ context("Tests for MultiSelect component", () => {
     it("should render the lazy loader when the prop is set and list is opened again", () => {
       CypressMountWithProviders(<stories.MultiSelectLazyLoadTwiceComponent />);
 
-      const option = "Amber";
-
       dropdownButton().click();
       selectListWrapper().should("be.visible");
       for (let i = 0; i < 3; i++) {
         loader(i).should("be.visible");
       }
-      selectListText(option).should("be.visible");
+      selectListText(listOption).should("be.visible");
       dropdownButton().click();
       selectResetButton().click({ force: true });
       dropdownButton().click();
@@ -514,12 +513,11 @@ context("Tests for MultiSelect component", () => {
     it("should list options when value is set and select list is opened again", () => {
       CypressMountWithProviders(<stories.MultiSelectComponent />);
 
-      const option = "Amber";
       const count = 11;
 
       dropdownButton().click();
-      selectListText(option).click();
-      multiSelectPill().should("have.attr", "title", option);
+      selectListText(listOption).click();
+      multiSelectPill().should("have.attr", "title", listOption);
       selectInput().should("have.attr", "aria-expanded", "true");
       selectListWrapper().should("be.visible");
       dropdownButton().click().click();
@@ -964,6 +962,72 @@ context("Tests for MultiSelect component", () => {
 
       selectList().should("not.be.visible");
       commonDataElementInputPreview().should("not.be.focused");
+    });
+
+    it("should contain custom option id option1", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(listOption).should("have.attr", "id", "option1");
+    });
+
+    it("should render option data-component prop set to option", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(listOption).should(
+        "have.attr",
+        "data-component",
+        "option"
+      );
+    });
+
+    it("should render option data-role prop set to option1", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(listOption).should("have.attr", "data-role", "option1");
+    });
+
+    it("should render option data-element prop set to option1", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(listOption).should("have.attr", "data-element", "option1");
+    });
+
+    it("should contain custom option row id 3", () => {
+      CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
+
+      dropdownButton().click();
+      multiColumnsSelectListBody().parent().should("have.attr", "id", "3");
+    });
+
+    it("should render option row data-component prop set to option-row", () => {
+      CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
+
+      dropdownButton().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-component", "option-row");
+    });
+
+    it("should render option row data-role prop set to option-row", () => {
+      CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
+
+      dropdownButton().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-role", "option-row");
+    });
+
+    it("should render option row data-element prop set to option-row", () => {
+      CypressMountWithProviders(<stories.MultiSelectMultiColumnsComponent />);
+
+      dropdownButton().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-element", "option-row");
     });
   });
 

@@ -46,6 +46,7 @@ const addElementText = "Add a New Element";
 const columns = 3;
 const icon = "add";
 const keyToTrigger = ["downarrow", "uparrow", "Home", "End", "Enter"] as const;
+const listOption = "Amber";
 
 context("Tests for FilterableSelect component", () => {
   describe("check props for FilterableSelect component", () => {
@@ -95,7 +96,7 @@ context("Tests for FilterableSelect component", () => {
       );
     });
 
-    it("should render FilterableSelect with id prop prop set to test value", () => {
+    it("should render FilterableSelect with id prop set to test value", () => {
       CypressMountWithProviders(
         <stories.FilterableSelectComponent id={testPropValue} />
       );
@@ -823,6 +824,80 @@ context("Tests for FilterableSelect component", () => {
       CypressMountWithProviders(<stories.FilterableSelectComponent />);
       selectInput().should("have.css", "border-radius", "4px");
       selectListWrapper().should("have.css", "border-radius", "4px");
+    });
+
+    it("should contain custom option row id 3", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
+
+      dropdownButton().click();
+      multiColumnsSelectListBody().parent().should("have.attr", "id", "3");
+    });
+
+    it("should render option row data-component prop set to option-row", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
+
+      dropdownButton().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-component", "option-row");
+    });
+
+    it("should render option row data-role prop set to option-row", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
+
+      dropdownButton().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-role", "option-row");
+    });
+
+    it("should render option row data-element prop set to option-row", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectMultiColumnsComponent />
+      );
+
+      dropdownButton().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-element", "option-row");
+    });
+
+    it("should contain custom option id option1", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(listOption).should("have.attr", "id", "option1");
+    });
+
+    it("should render option data-component prop set to option", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(listOption).should(
+        "have.attr",
+        "data-component",
+        "option"
+      );
+    });
+
+    it("should render option data-role prop set to option1", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(listOption).should("have.attr", "data-role", "option1");
+    });
+
+    it("should render option data-element prop set to option1", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
+
+      dropdownButton().click();
+      selectListText(listOption).should("have.attr", "data-element", "option1");
     });
   });
 

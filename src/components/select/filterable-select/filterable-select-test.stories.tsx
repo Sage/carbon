@@ -63,7 +63,13 @@ export const FilterableSelectComponent = (
       onChange={onChangeHandler}
       {...props}
     >
-      <Option text="Amber" value="1" />
+      <Option
+        id="option1"
+        text="Amber"
+        value="1"
+        data-role="option1"
+        data-element="option1"
+      />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
       <Option text="Brown" value="4" />
@@ -410,7 +416,14 @@ export const FilterableSelectMultiColumnsComponent = (
         <td>Vick</td>
         <td>Accountant</td>
       </OptionRow>
-      <OptionRow id="3" value="3" text="Jane Poe">
+      <OptionRow
+        id="3"
+        value="3"
+        text="Jane Poe"
+        data-component="option-row"
+        data-role="option-row"
+        data-element="option-row"
+      >
         <td>Jane</td>
         <td>Poe</td>
         <td>Accountant</td>
