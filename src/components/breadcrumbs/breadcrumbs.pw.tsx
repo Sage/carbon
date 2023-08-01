@@ -2,7 +2,8 @@ import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import {
   breadcrumbsComponent,
-  crumb,
+  allCrumbs,
+  crumbAtIndex,
 } from "../../../playwright/components/breadcrumbs/index";
 import { Default, DefaultCrumb } from "./components.test-pw";
 import {
@@ -23,36 +24,29 @@ test.describe("should render Breadcrumbs component", async () => {
   }) => {
     await mount(<Default />);
 
-    const badgeOl = await (await breadcrumbsComponent(page))
-      .locator("ol")
-      .locator("li");
-    const badgeOlisVisible = await (
-      await breadcrumbsComponent(page)
-    ).isVisible();
+    await expect(breadcrumbsComponent(page)).toBeVisible();
 
-    await expect(await badgeOl.count()).toEqual(4);
-    await expect(badgeOlisVisible).toBeTruthy();
+    const numberOfCrumbs = await allCrumbs(page).count();
+    expect(numberOfCrumbs).toEqual(4);
   });
 
   test("should check Breadcrumbs on hover color", async ({ mount, page }) => {
     await mount(<Default />);
 
-    const crumbElement = await crumb(page, 1);
-
+    const crumbElement = crumbAtIndex(page, 1);
     await crumbElement.hover();
 
-    const cssValue = await getStyle(crumbElement.locator("a"), "color");
-
-    await expect(cssValue).toEqual("rgb(0, 103, 56)");
+    const link = crumbElement.locator("a");
+    await expect(link).toHaveCSS("color", "rgb(0, 103, 56)");
   });
 
   test("should check Breadcrumbs on focus", async ({ mount, page }) => {
     await mount(<Default />);
 
     await page.locator("body").press("Tab");
-    await expect((await crumb(page, 0)).locator("a")).toBeFocused();
-    await (await crumb(page, 1)).locator("a").press("Tab");
-    await expect((await crumb(page, 2)).locator("a")).toBeFocused();
+    await expect(crumbAtIndex(page, 0).locator("a")).toBeFocused();
+    await crumbAtIndex(page, 1).locator("a").press("Tab");
+    await expect(crumbAtIndex(page, 2).locator("a")).toBeFocused();
   });
 
   isCurrentVar.forEach((array) => {
@@ -62,8 +56,7 @@ test.describe("should render Breadcrumbs component", async () => {
       page,
     }) => {
       await mount(<DefaultCrumb isCurrent={boolean} />);
-
-      await expect((await crumb(page, 0)).locator("a")).toHaveAttribute(
+      await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
         attr,
         value
       );
@@ -75,8 +68,7 @@ test.describe("should render Breadcrumbs component", async () => {
     page,
   }) => {
     await mount(<DefaultCrumb href={CHARACTERS.STANDARD} />);
-
-    await expect((await crumb(page, 0)).locator("a")).toHaveAttribute(
+    await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
       "href",
       CHARACTERS.STANDARD
     );
@@ -93,23 +85,18 @@ test.describe("should check Crumb props", async () => {
     test(`should check Crumb divider ${state}`, async ({ mount, page }) => {
       await mount(<DefaultCrumb isCurrent={boolean} />);
 
-      const crumbElement = await crumb(page, 0);
+      const crumbElement = crumbAtIndex(page, 0);
       await expect(crumbElement.locator("a")).toHaveAttribute(attr, parameter);
-
-      const breadCrumbElementColor = await getStyle(
-        crumbElement.locator("span").nth(1),
-        "color"
+      await expect(crumbElement.locator("span").nth(1)).toHaveCSS(
+        "color",
+        colorOfBreadCrumb
       );
 
-      await expect(breadCrumbElementColor).toEqual(colorOfBreadCrumb);
-
       if (!boolean) {
-        const crumbElementColor = await getStyle(
-          crumbElement.locator("span").nth(2),
-          "color"
+        await expect(crumbElement.locator("span").nth(2)).toHaveCSS(
+          "color",
+          "rgba(0, 0, 0, 0.55)"
         );
-
-        await expect(crumbElementColor).toEqual("rgba(0, 0, 0, 0.55)");
       }
     });
   });
@@ -121,9 +108,9 @@ test.describe("should check Crumb props", async () => {
     let capturedCallback = false;
     await mount(<DefaultCrumb onClick={() => (capturedCallback = true)} />);
 
-    const crumbToClick = await crumb(page, 0);
+    const crumbToClick = crumbAtIndex(page, 0);
     await crumbToClick.click();
-    await expect(capturedCallback).toBeTruthy();
+    expect(capturedCallback).toBeTruthy();
   });
 
   test("should not set the onClick or href props when isCurrent is true", async ({
@@ -139,14 +126,11 @@ test.describe("should check Crumb props", async () => {
       />
     );
 
-    const crumbToClick = await crumb(page, 0);
+    const crumbToClick = crumbAtIndex(page, 0);
     await crumbToClick.click();
-    await expect(capturedCallback).toBeFalsy();
+    expect(capturedCallback).toBeFalsy();
 
-    await expect(await crumbToClick.locator("a")).not.toHaveAttribute(
-      "href",
-      "/"
-    );
+    await expect(crumbToClick.locator("a")).not.toHaveAttribute("href", "/");
   });
 });
 

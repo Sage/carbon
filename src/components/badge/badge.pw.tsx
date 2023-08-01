@@ -6,10 +6,7 @@ import {
   badgeCounter,
   badgeCrossIcon,
 } from "../../../playwright/components/badge/index";
-import {
-  checkAccessibility,
-  getStyle,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import BadgeComponent from "./components.test-pw";
 
@@ -21,11 +18,10 @@ test.describe("should render Badge component", () => {
   test("renders BadgeComponent", async ({ mount, page }) => {
     await mount(<BadgeComponent counter={9} />);
 
-    const badgeElement = await badge(page);
     const text = await page.locator("span > span").textContent();
-    const badgeElementIsVisible = await badgeElement.isVisible;
-    await expect(text?.toString().trim()).toEqual("Filter");
-    await expect(badgeElementIsVisible).toBeTruthy;
+
+    expect(text?.toString().trim()).toEqual("Filter");
+    await expect(badge(page)).toBeVisible();
   });
 
   counterCount.forEach((countInput) => {
@@ -34,11 +30,7 @@ test.describe("should render Badge component", () => {
       page,
     }) => {
       await mount(<BadgeComponent counter={countInput} />);
-
-      const badgeCounterElement = await badgeCounter(page);
-      const count = await badgeCounterElement.textContent();
-
-      await expect(count).toEqual(`${countInput}`);
+      await expect(badgeCounter(page)).toContainText(`${countInput}`);
     });
   });
 
@@ -48,11 +40,7 @@ test.describe("should render Badge component", () => {
       page,
     }) => {
       await mount(<BadgeComponent counter={countInput} />);
-
-      const badgeCounterElement = await badgeCounter(page);
-      const count = await badgeCounterElement.textContent();
-
-      await expect(count).toEqual("99");
+      await expect(badgeCounter(page)).toContainText("99");
     });
   });
 
@@ -62,8 +50,7 @@ test.describe("should render Badge component", () => {
       page,
     }) => {
       await mount(<BadgeComponent counter={incorrectValue} />);
-
-      await expect((await badgeCounter(page)).isVisible).toBeFalsy;
+      await expect(badgeCounter(page)).not.toBeVisible();
     });
   });
 
@@ -73,13 +60,10 @@ test.describe("should render Badge component", () => {
   }) => {
     await mount(<BadgeComponent onClick={() => {}} counter={99} />);
 
-    const counterIcon = await badgeCounter(page);
-    await counterIcon.hover();
-    const crossIcon = (await badgeCrossIcon(page)).isVisible;
-    const color = await getStyle(await badge(page), "background");
+    await badgeCounter(page).hover();
 
-    await expect(color).toContain("rgb(0, 126, 69)");
-    await expect(crossIcon).toBeTruthy;
+    await expect(badge(page)).toHaveCSS("background-color", "rgb(0, 126, 69)");
+    await expect(badgeCrossIcon(page)).toBeVisible();
   });
 
   test("badge should not display cross icon when hovered over with no onClick function passed to component", async ({
@@ -88,13 +72,14 @@ test.describe("should render Badge component", () => {
   }) => {
     await mount(<BadgeComponent counter={99} />);
 
-    const badgeElement = await badge(page);
+    const badgeElement = badge(page);
     await badgeElement.hover();
-    const badgeCrossIconLocator = (await badgeCrossIcon(page)).isVisible;
 
-    const backgroundColor = await getStyle(badgeElement, "background");
-    await expect(backgroundColor).toContain("rgb(255, 255, 255)");
-    await expect(badgeCrossIconLocator).toBeTruthy;
+    await expect(badgeElement).toHaveCSS(
+      "background-color",
+      "rgb(255, 255, 255)"
+    );
+    await expect(badgeCrossIcon(page)).not.toBeVisible();
   });
 
   test("should call onClick callback when a click event is triggered", async ({
@@ -107,9 +92,9 @@ test.describe("should render Badge component", () => {
       <BadgeComponent counter={5} onClick={() => (capturedCallback = true)} />
     );
 
-    const badgeToClick = await badge(page);
+    const badgeToClick = badge(page);
     await badgeToClick.click();
-    await expect(capturedCallback).toBeTruthy;
+    expect(capturedCallback).toBeTruthy();
   });
 
   test("should render with expected border radius styling", async ({
@@ -117,18 +102,15 @@ test.describe("should render Badge component", () => {
     page,
   }) => {
     await mount(<BadgeComponent counter={9} />);
-
-    await expect(await badge(page)).toHaveCSS("border-radius", "50%");
+    await expect(badge(page)).toHaveCSS("border-radius", "50%");
   });
 
   test("should check ariaLabel for Badge component", async ({
     mount,
     page,
   }) => {
-    await mount(<BadgeComponent counter={9} aria-label="cypress-aria" />);
-
-    const ariaLabel = await badge(page);
-    await expect(ariaLabel).toHaveAttribute("aria-label", "cypress-aria");
+    await mount(<BadgeComponent counter={9} aria-label="foobar" />);
+    await expect(badge(page)).toHaveAttribute("aria-label", "foobar");
   });
 
   test("should pass accessibility tests for Badge default story", async ({
@@ -136,7 +118,6 @@ test.describe("should render Badge component", () => {
     page,
   }) => {
     await mount(<BadgeComponent counter={9} />);
-
     await checkAccessibility(page);
   });
 
@@ -145,7 +126,6 @@ test.describe("should render Badge component", () => {
     page,
   }) => {
     await mount(<BadgeComponent onClick={() => {}} />);
-
     await checkAccessibility(page);
   });
 });
