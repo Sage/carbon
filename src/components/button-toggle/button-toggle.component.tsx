@@ -186,6 +186,7 @@ export const ButtonToggle = ({
       data-element={dataElement}
       data-role={dataRole}
       grouped={grouped}
+      variant={variant}
     >
       <StyledButtonToggle
         aria-label={ariaLabel}

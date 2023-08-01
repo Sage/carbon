@@ -3,7 +3,7 @@ import { IconType } from "../icon";
 import StyledIcon from "../icon/icon.style";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
-import StyledButton from "../button/button.style";
+import { ButtonToggleGroupProps } from "./button-toggle-group";
 
 export type ButtonToggleIconSizes = "small" | "large";
 
@@ -138,14 +138,14 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
         }
       }
       cursor: not-allowed;
-    `};
+    `}
 
-  ${({ variant }) =>
+  ${({ variant, disabled }) =>
     variant === "minor" &&
     css`
       & ${StyledIcon} {
         color: var(--colorsActionMinor500);
-        :hover {
+        :not([aria-pressed="true"]):not(:disabled):hover {
           color: var(--colorsActionMinorYang100);
         }
       }
@@ -153,18 +153,29 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
       color: var(--colorsActionMinor500);
       border: 1px solid var(--colorsActionMinor500);
 
-      &:focus {
-        border: 4px solid var(--colorsActionMinor500);
-        background-color: transparent;
-      }
-
-      :hover {
+      :not([aria-pressed="true"]):not(:disabled):hover {
         color: var(--colorsActionMinorYang100);
         background-color: var(--colorsActionMinor600);
-        border-color: var(--colorsActionMinor500);
-        & + ${StyledButton} {
-          border-left-color: var(--colorsActionMinor500);
+        ${StyledIcon} {
+          color: var(--colorsActionMinorYang100);
         }
+      }
+
+      ${!disabled &&
+      css`
+        :hover {
+          background-color: var(--colorsActionMinor600);
+          color: var(--colorsActionMinorYang100);
+
+          ${StyledIcon} {
+            color: var(--colorsActionMinorYang100);
+          }
+        }
+      `}
+
+      &[aria-pressed="true"]:not(:hover) {
+        box-shadow: inset 0px 0px 0px 3px var(--colorsActionMinor500);
+        background-color: transparent;
       }
     `}
 `;
@@ -206,19 +217,22 @@ StyledButtonToggle.defaultProps = { theme: baseTheme };
 
 export interface StyledButtonToggleWrapperProps {
   grouped?: boolean;
+  variant: Required<ButtonToggleGroupProps["variant"]>;
 }
 
 const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
   display: inline-block;
   vertical-align: middle;
 
-  ${({ grouped }) =>
+  ${({ grouped, variant }) =>
     css`
       ${!grouped &&
       css`
         &&&& {
           ${StyledButtonToggle} {
-            border-radius: var(--borderRadius400);
+            border-radius: ${variant === "default"
+              ? "var(--borderRadius400)"
+              : "var(--borderRadius050)"};
           }
         }
       `}
@@ -228,15 +242,23 @@ const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
         &&&& {
           :first-of-type {
             ${StyledButtonToggle} {
-              border-top-left-radius: var(--borderRadius400);
-              border-bottom-left-radius: var(--borderRadius400);
+              border-top-left-radius: ${variant === "default"
+                ? "var(--borderRadius400)"
+                : "var(--borderRadius050)"};
+              border-bottom-left-radius: ${variant === "default"
+                ? "var(--borderRadius400)"
+                : "var(--borderRadius050)"};
             }
           }
 
           :last-of-type {
             ${StyledButtonToggle} {
-              border-top-right-radius: var(--borderRadius400);
-              border-bottom-right-radius: var(--borderRadius400);
+              border-top-right-radius: ${variant === "default"
+                ? "var(--borderRadius400)"
+                : "var(--borderRadius050)"};
+              border-bottom-right-radius: ${variant === "default"
+                ? "var(--borderRadius400)"
+                : "var(--borderRadius050)"};
             }
           }
         }

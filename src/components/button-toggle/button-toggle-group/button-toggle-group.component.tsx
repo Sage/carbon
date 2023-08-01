@@ -94,7 +94,6 @@ export const ButtonToggleGroupContext = createContext<ButtonToggleGroupContextTy
     pressedButtonValue: undefined,
     allowDeselect: false,
     isInGroup: false,
-    variant: "minor",
   }
 );
 
