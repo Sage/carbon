@@ -279,7 +279,7 @@ describe("FocusTrap", () => {
   describe("when autoFocus is false", () => {
     it("should not focus the first focusable element by default", () => {
       render(mockComponentToRender({ autoFocus: false }));
-      expect(document.querySelectorAll("body")[0]).toHaveFocus();
+      expect(document.body).toHaveFocus();
       expect(screen.getByTestId(WRAPPER_ID)).not.toHaveFocus();
     });
   });
@@ -287,17 +287,18 @@ describe("FocusTrap", () => {
   describe("when isAnimationComplete is false", () => {
     it("should not focus the first focusable element by default", () => {
       render(mockComponentToRender({ isAnimationComplete: false }));
-      expect(document.querySelectorAll("body")[0]).toHaveFocus();
+      expect(document.body).toHaveFocus();
       expect(screen.getByTestId(WRAPPER_ID)).not.toHaveFocus();
     });
   });
 
   describe("when a focusFirstElement is provided", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(mockComponentToRender({ shouldFocusFirstElement: true }));
-    });
+    };
 
     it("should focus the element that ref passed to focusFirstElement and loop round when back tabbing", async () => {
+      setup();
       expect(screen.getByText(FIRST_ELEMENT)).toHaveFocus();
       await shiftTabPress();
       expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
@@ -308,6 +309,7 @@ describe("FocusTrap", () => {
     });
 
     it("should focus the element that ref passed to focusFirstElement and loop round when tabbing", async () => {
+      setup();
       expect(screen.getByText(FIRST_ELEMENT)).toHaveFocus();
       await tabPress();
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
@@ -321,12 +323,13 @@ describe("FocusTrap", () => {
   describe("when a bespokeTrap is provided", () => {
     let bespokeFn: jest.Mock;
 
-    beforeEach(() => {
+    const setup = () => {
       bespokeFn = jest.fn();
       render(mockComponentToRender({ bespokeTrap: bespokeFn }));
-    });
+    };
 
     it("calls the function with expected arguments on TAB press", async () => {
+      setup();
       await tabPress();
       expect(bespokeFn).toHaveBeenCalledWith(
         expect.objectContaining({ key: "Tab", type: "keydown" }),
@@ -336,6 +339,7 @@ describe("FocusTrap", () => {
     });
 
     it("calls the function with expected arguments on SHIFT + TAB press", async () => {
+      setup();
       await shiftTabPress();
       expect(bespokeFn).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -351,39 +355,45 @@ describe("FocusTrap", () => {
 
   describe("when FocusTrap wraps an element", () => {
     describe("and element has focusable items inside", () => {
-      beforeEach(() => {
+      const setup = () => {
         render(mockComponentToRender());
-      });
+      };
 
       it("should focus the wrapper", () => {
+        setup();
         expect(screen.getByTestId(WRAPPER_ID)).toHaveFocus();
       });
 
       it("should not move focus if different key than TAB is pressed", () => {
+        setup();
         focusElement(screen.getByText(BUTTON_TWO));
         fireEvent.keyDown(screen.getByTestId(WRAPPER_ID), { key: "ArrowDown" });
         expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
       });
 
       it("should move focus back to the last item when `shift + tab` pressed and first focusable item is activeElement", async () => {
+        setup();
         focusElement(screen.getByText(BUTTON_ONE));
         await shiftTabPress();
         expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
       });
 
       it("should back to the first item when use `shift + tab`", async () => {
+        setup();
         focusElement(screen.getByText(BUTTON_TWO));
         await shiftTabPress();
         expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
       });
 
       it("should go to the second item when use TAB", async () => {
+        setup();
         focusElement(screen.getByText(BUTTON_ONE));
         await tabPress();
         expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
       });
 
       it("should move to the first focusable item if TAB pressed on last focusable item", async () => {
+        setup();
         focusElement(screen.getByText(BUTTON_TWO));
         await tabPress();
         expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
@@ -391,17 +401,19 @@ describe("FocusTrap", () => {
     });
 
     describe("and element does not have focusable items", () => {
-      beforeEach(() => {
+      const setup = () => {
         render(mockComponentToRender({ children: <p>Test content</p> }));
-      });
+      };
 
       it("should block tabbing if `tab` pressed", async () => {
+        setup();
         expect(screen.getByTestId(WRAPPER_ID)).toHaveFocus();
         await tabPress();
         expect(screen.getByTestId(WRAPPER_ID)).toHaveFocus();
       });
 
       it("should block shift tabbing if `shift + tab` is pressed", async () => {
+        setup();
         expect(screen.getByTestId(WRAPPER_ID)).toHaveFocus();
         await shiftTabPress();
         expect(screen.getByTestId(WRAPPER_ID)).toHaveFocus();
@@ -409,7 +421,7 @@ describe("FocusTrap", () => {
     });
 
     describe("and some children elements are disabled", () => {
-      beforeEach(() => {
+      it("only focuses those that are not", async () => {
         render(
           <MockComponent>
             <button type="button">{BUTTON_ONE}</button>
@@ -422,9 +434,6 @@ describe("FocusTrap", () => {
             </button>
           </MockComponent>
         );
-      });
-
-      it("only focuses those that are not", async () => {
         focusElement(screen.getByText(BUTTON_ONE));
         await tabPress();
         expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
@@ -435,7 +444,7 @@ describe("FocusTrap", () => {
   });
 
   describe("when first focusable elements are radio buttons", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <MockComponent>
           <RadioButtonGroup
@@ -453,10 +462,11 @@ describe("FocusTrap", () => {
           <button type="button">{BUTTON_TWO}</button>
         </MockComponent>
       );
-    });
+    };
 
     describe("when focus on first radio button shift-tab pressed", () => {
       it("should loop focus to the last focusable element", async () => {
+        setup();
         focusElement(screen.getByLabelText(RADIO_LABEL_ONE));
         await shiftTabPress();
         expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
@@ -465,6 +475,7 @@ describe("FocusTrap", () => {
 
     describe("when focus on second radio button shift-tab pressed", () => {
       it("should loop focus to the last focusable element", async () => {
+        setup();
         focusElement(screen.getByLabelText(RADIO_LABEL_TWO));
         await shiftTabPress();
         expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
@@ -473,7 +484,7 @@ describe("FocusTrap", () => {
   });
 
   describe("with 2 different radio groups", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <MockComponent>
           <RadioButtonGroup
@@ -518,10 +529,11 @@ describe("FocusTrap", () => {
           <button type="button">{BUTTON_TWO}</button>
         </MockComponent>
       );
-    });
+    };
 
     describe("when focus on first radio button of second group shift-tab pressed", () => {
       it("should focus the selected button of the first group", async () => {
+        setup();
         focusElement(
           screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_TWO}`)
         );
@@ -534,6 +546,7 @@ describe("FocusTrap", () => {
 
     describe("when focus on second radio button of second group shift-tab pressed", () => {
       it("should focus the selected button of the first group", async () => {
+        setup();
         focusElement(
           screen.getByLabelText(`${RADIO_LABEL_TWO}-${RADIO_GROUP_TWO}`)
         );
@@ -546,7 +559,7 @@ describe("FocusTrap", () => {
   });
 
   describe("with 2 different focusable radio groups and a custom selector", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <MockComponent focusableSelectors="input[type=radio]">
           <RadioButtonGroup
@@ -591,10 +604,11 @@ describe("FocusTrap", () => {
           <button type="button">{BUTTON_TWO}</button>
         </MockComponent>
       );
-    });
+    };
 
     describe("when focus on first radio button of second group shift-tab pressed", () => {
       it("should focus the selected button of the first group", async () => {
+        setup();
         focusElement(
           screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_TWO}`)
         );
@@ -607,6 +621,7 @@ describe("FocusTrap", () => {
 
     describe("when focus on second radio button of second group shift-tab pressed", () => {
       it("should focus the selected button of the first group", async () => {
+        setup();
         focusElement(
           screen.getByLabelText(`${RADIO_LABEL_TWO}-${RADIO_GROUP_TWO}`)
         );
@@ -619,7 +634,7 @@ describe("FocusTrap", () => {
   });
 
   describe("when last focusable elements are radio buttons", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <MockComponent>
           <button type="button">{BUTTON_ONE}</button>
@@ -637,10 +652,11 @@ describe("FocusTrap", () => {
           </RadioButtonGroup>
         </MockComponent>
       );
-    });
+    };
 
     describe("when focus on second radio button tab pressed", () => {
       it("should loop focus to the first focusable element", async () => {
+        setup();
         focusElement(screen.getByLabelText(RADIO_LABEL_TWO));
         await tabPress();
         expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
@@ -649,6 +665,7 @@ describe("FocusTrap", () => {
 
     describe("when focus on first radio button tab pressed", () => {
       it("should loop focus to the first focusable element", async () => {
+        setup();
         focusElement(screen.getByLabelText(RADIO_LABEL_ONE));
         await tabPress();
         expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
@@ -657,7 +674,7 @@ describe("FocusTrap", () => {
   });
 
   describe("when trap contains radio buttons", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <MockComponent>
           <button type="button">{BUTTON_ONE}</button>
@@ -675,10 +692,11 @@ describe("FocusTrap", () => {
           <button type="button">{BUTTON_TWO}</button>
         </MockComponent>
       );
-    });
+    };
 
     describe("when focus on first radio button shift-tab pressed", () => {
       it("should move focus to the previous focusable element", async () => {
+        setup();
         focusElement(screen.getByLabelText(RADIO_LABEL_ONE));
         await shiftTabPress();
         expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
@@ -687,6 +705,7 @@ describe("FocusTrap", () => {
 
     describe("when focus on second radio button shift-tab pressed", () => {
       it("should move focus to the previous focusable element", async () => {
+        setup();
         focusElement(screen.getByLabelText(RADIO_LABEL_TWO));
         await shiftTabPress();
         expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
@@ -695,12 +714,14 @@ describe("FocusTrap", () => {
 
     describe("when tabbing into the radio group", () => {
       it("should move focus to the first radio button when none was previously selected", async () => {
+        setup();
         focusElement(screen.getByText(BUTTON_ONE));
         await tabPress();
         expect(screen.getByLabelText(RADIO_LABEL_ONE)).toHaveFocus();
       });
 
       it("should move focus to the selected radio button if one is selected", async () => {
+        setup();
         fireEvent.click(screen.getByLabelText(RADIO_LABEL_TWO));
         focusElement(screen.getByText(BUTTON_ONE));
         await tabPress();
@@ -710,12 +731,14 @@ describe("FocusTrap", () => {
 
     describe("when shift tabbing into the radio group", () => {
       it("should move focus to the last radio button when none was previously selected", async () => {
+        setup();
         focusElement(screen.getByText(BUTTON_TWO));
         await shiftTabPress();
         expect(screen.getByLabelText(RADIO_LABEL_TWO)).toHaveFocus();
       });
 
       it("should move focus to the selected radio button if one is selected", async () => {
+        setup();
         fireEvent.click(screen.getByLabelText(RADIO_LABEL_TWO));
         focusElement(screen.getByText(BUTTON_ONE));
         await shiftTabPress();
@@ -726,7 +749,7 @@ describe("FocusTrap", () => {
   });
 
   describe("when trap contains radio buttons when using a custom selector", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <MockComponent focusableSelectors="input[type=radio]">
           <button type="button">{BUTTON_ONE}</button>
@@ -744,16 +767,18 @@ describe("FocusTrap", () => {
           <button type="button">{BUTTON_TWO}</button>
         </MockComponent>
       );
-    });
+    };
 
     describe("when tabbing into the radio group", () => {
       it("should move focus to the first radio button when none was previously selected", async () => {
+        setup();
         focusElement(screen.getByText(BUTTON_ONE));
         await tabPress();
         expect(screen.getByLabelText(RADIO_LABEL_ONE)).toHaveFocus();
       });
 
       it("should move focus to the selected radio button if one is selected", async () => {
+        setup();
         fireEvent.click(screen.getByLabelText(RADIO_LABEL_TWO));
         focusElement(screen.getByText(BUTTON_ONE));
         await tabPress();
@@ -763,12 +788,14 @@ describe("FocusTrap", () => {
 
     describe("when shift tabbing into the radio group", () => {
       it("should move focus to the last radio button when none was previously selected", async () => {
+        setup();
         focusElement(screen.getByText(BUTTON_TWO));
         await shiftTabPress();
         expect(screen.getByLabelText(RADIO_LABEL_TWO)).toHaveFocus();
       });
 
       it("should move focus to the selected radio button if one is selected", async () => {
+        setup();
         fireEvent.click(screen.getByLabelText(RADIO_LABEL_TWO));
         focusElement(screen.getByText(BUTTON_ONE));
         await shiftTabPress();
@@ -779,28 +806,30 @@ describe("FocusTrap", () => {
   });
 
   describe("when trap contains only one focusable element", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         mockComponentToRender({
           children: <button type="button">{BUTTON_ONE}</button>,
         })
       );
       focusElement(screen.getByText(BUTTON_ONE));
-    });
+    };
 
     it("pressing tab does not move focus", async () => {
+      setup();
       await tabPress();
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
     });
 
     it("pressing shift tab does not move focus", async () => {
+      setup();
       await shiftTabPress();
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
     });
   });
 
   describe("when trap contains only one focusable element according to a custom selector", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         mockComponentToRender({
           children: (
@@ -815,21 +844,23 @@ describe("FocusTrap", () => {
         })
       );
       focusElement(screen.getByText(BUTTON_TWO));
-    });
+    };
 
     it("pressing tab does not move focus", async () => {
+      setup();
       await tabPress();
       expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
     });
 
     it("pressing shift tab does not move focus", async () => {
+      setup();
       await shiftTabPress();
       expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
     });
   });
 
   describe("when trap contains one radio button group and no other focusable elements", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <MockComponent>
           <RadioButtonGroup
@@ -846,21 +877,23 @@ describe("FocusTrap", () => {
         </MockComponent>
       );
       focusElement(screen.getByLabelText(RADIO_LABEL_ONE));
-    });
+    };
 
     it("pressing tab does not move focus", async () => {
+      setup();
       await tabPress();
       expect(screen.getByLabelText(RADIO_LABEL_ONE)).toHaveFocus();
     });
 
     it("pressing shift tab does not move focus", async () => {
+      setup();
       await shiftTabPress();
       expect(screen.getByLabelText(RADIO_LABEL_ONE)).toHaveFocus();
     });
   });
 
   describe("when trap contains one radio button group and no other focusable elements according to a custom selector", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <MockComponent focusableSelectors="input[type=radio]">
           <RadioButtonGroup
@@ -877,14 +910,16 @@ describe("FocusTrap", () => {
           <button type="button">{BUTTON_ONE}</button>
         </MockComponent>
       );
-    });
+    };
 
     it("pressing tab does not move focus", async () => {
+      setup();
       await tabPress();
       expect(screen.getByLabelText(RADIO_LABEL_ONE)).toHaveFocus();
     });
 
     it("pressing shift tab does not move focus", async () => {
+      setup();
       await shiftTabPress();
       expect(screen.getByLabelText(RADIO_LABEL_ONE)).toHaveFocus();
     });
@@ -906,11 +941,12 @@ describe("FocusTrap", () => {
   });
 
   describe("additionalWrapperRefs", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(<WithAdditionalWrapperRefs />);
-    });
+    };
 
     it("tab should cycle through focusable elements inside the provided container refs and ignore all others", async () => {
+      setup();
       focusElement(screen.getByText(BUTTON_IN_WRAPPER));
       await tabPress();
       expect(screen.getByText(BUTTON_IN_ADDITIONAL_WRAPPER_ONE)).toHaveFocus();
@@ -921,6 +957,7 @@ describe("FocusTrap", () => {
     });
 
     it("shift-tab should cycle through focusable elements inside the provided container refs and ignore all others", async () => {
+      setup();
       focusElement(screen.getByText(BUTTON_IN_WRAPPER));
       await shiftTabPress();
       expect(screen.getByText(BUTTON_IN_ADDITIONAL_WRAPPER_TWO)).toHaveFocus();
@@ -931,6 +968,7 @@ describe("FocusTrap", () => {
     });
 
     it("continues to work both forwards and backwards after the wrapper refs are dynamically altered", async () => {
+      setup();
       fireEvent.click(screen.getByText(BUTTON_IN_WRAPPER));
       focusElement(screen.getByText(BUTTON_IN_WRAPPER));
       await tabPress();
@@ -1186,8 +1224,10 @@ describe("FocusTrap", () => {
             type="button"
             ref={buttonRef}
             onFocus={() => {
+              /* eslint-disable testing-library/no-node-access */
               (buttonRef.current
                 ?.nextElementSibling as HTMLButtonElement)?.focus();
+              /* eslint-enable testing-library/no-node-access */
             }}
           >
             Click to focus next element

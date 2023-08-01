@@ -30,6 +30,7 @@ describe("VerticalMenuItem", () => {
     it("should render with a custom height", () => {
       render(<VerticalMenuItem title="Item1" height="100px" />);
 
+      // eslint-disable-next-line testing-library/no-node-access
       expect(screen.getByRole("listitem").firstChild).toHaveStyle({
         minHeight: "100px",
       });
@@ -49,6 +50,7 @@ describe("VerticalMenuItem", () => {
 
     it("should render passed active state as boolean", () => {
       render(<VerticalMenuItem title="Item1" active />);
+      // eslint-disable-next-line testing-library/no-node-access
       expect(screen.getByRole("listitem").firstChild).toHaveStyleRule(
         "background",
         "var(--colorsComponentsLeftnavWinterStandardSelected)",
@@ -63,6 +65,7 @@ describe("VerticalMenuItem", () => {
 
       userEvent.hover(screen.getByRole("listitem"));
 
+      // eslint-disable-next-line testing-library/no-node-access
       expect(screen.getByRole("listitem").firstChild).toHaveStyleRule(
         "background",
         "var(--colorsComponentsLeftnavWinterStandardHover)",
@@ -200,18 +203,19 @@ describe("VerticalMenuItem", () => {
         </VerticalMenuItem>
       );
 
-      expect(screen.getByRole("listitem").firstChild).toHaveStyle({
+      expect(screen.getByRole("button")).toHaveStyle({
         paddingLeft: "calc(40px + 0px)",
         paddingRight: "calc(40px + 0px)",
       });
 
       await user.click(screen.getByText("Item1"));
-      expect(screen.getAllByRole("listitem")[1].firstChild).toHaveStyle({
+      expect(screen.getAllByRole("button")[1]).toHaveStyle({
         paddingLeft: "calc(40px + 32px)",
         paddingRight: "calc(40px + 32px)",
       });
 
       await user.click(screen.getByText("ChildItem1"));
+      // eslint-disable-next-line testing-library/no-node-access
       expect(screen.getAllByRole("listitem")[2].firstChild).toHaveStyle({
         paddingLeft: "calc(40px + 64px)",
         paddingRight: "calc(40px + 64px)",
@@ -244,7 +248,7 @@ describe("VerticalMenuItem", () => {
         </VerticalMenuItem>
       );
 
-      expect(screen.getByRole("listitem").firstChild).toHaveStyleRule(
+      expect(screen.getByRole("button")).toHaveStyleRule(
         "background",
         "var(--colorsComponentsLeftnavWinterStandardSelected)",
         {
@@ -253,7 +257,7 @@ describe("VerticalMenuItem", () => {
       );
 
       await user.click(screen.getByText("Item1"));
-      expect(screen.getAllByRole("listitem")[0].firstChild).not.toHaveStyleRule(
+      expect(screen.getAllByRole("button")[0]).not.toHaveStyleRule(
         "background",
         "var(--colorsComponentsLeftnavWinterStandardSelected)",
         {
@@ -303,7 +307,7 @@ describe("VerticalMenuItem", () => {
       />
     );
 
-    const listItem = screen.getByRole("listitem").querySelector("a");
+    const listItem = screen.getByRole("link");
 
     expect(listItem?.getAttribute("data-component")).toEqual(
       "vertical-menu-item"
@@ -314,7 +318,7 @@ describe("VerticalMenuItem", () => {
 
   it("renders with the expected border radius styling when the item is active", () => {
     render(<VerticalMenuItem title="Item1" active />);
-
+    // eslint-disable-next-line testing-library/no-node-access
     expect(screen.getByRole("listitem").firstChild).toHaveStyleRule(
       "border-radius",
       "var(--borderRadius100)",

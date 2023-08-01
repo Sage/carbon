@@ -16,7 +16,10 @@
     "**/__spec__.js",
     "**/*.spec.js",
     "**/*.spec.ts",
-    "**/*.spec.tsx"
+    "**/*.spec.tsx",
+    "**/*.rtl.js",
+    "**/*.rtl.ts",
+    "**/*.rtl.tsx"
   ],
   "testPathIgnorePatterns": [
     "node_modules",

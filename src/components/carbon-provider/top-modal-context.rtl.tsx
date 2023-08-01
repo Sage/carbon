@@ -13,21 +13,24 @@ const MockComponent = ({ providerOpen }: { providerOpen: boolean }) => (
 describe("TopModalContextProvider", () => {
   let rerender: RenderResult["rerender"];
 
-  beforeEach(() => {
+  const setup = () => {
     window.__CARBON_INTERNALS_MODAL_SETTER_LIST = [];
     ({ rerender } = render(<MockComponent providerOpen />));
-  });
+  };
 
   it("adds a setter function to the global list when mounted", () => {
+    setup();
     expect(window.__CARBON_INTERNALS_MODAL_SETTER_LIST?.length).toBe(1);
   });
 
   it("adds a second setter to the global list if a second provider is mounted", () => {
+    setup();
     render(<MockComponent providerOpen />);
     expect(window.__CARBON_INTERNALS_MODAL_SETTER_LIST?.length).toBe(2);
   });
 
   it("removes the setter function when unmounted", () => {
+    setup();
     rerender(<MockComponent providerOpen={false} />);
     expect(window.__CARBON_INTERNALS_MODAL_SETTER_LIST?.length).toBe(0);
   });

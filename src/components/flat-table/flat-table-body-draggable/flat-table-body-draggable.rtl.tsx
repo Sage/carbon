@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen, act } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 
 import {
@@ -30,7 +30,7 @@ describe("FlatTableBodyDraggable", () => {
   });
 
   describe("drag and drop functionality", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <FlatTable>
           <FlatTableBodyDraggable>
@@ -46,15 +46,17 @@ describe("FlatTableBodyDraggable", () => {
           </FlatTableBodyDraggable>
         </FlatTable>
       );
-    });
+    };
 
     test("on initial render the rows are in the correct order", () => {
+      setup();
       expect(
         screen.getAllByRole("row").map((cell) => cell.textContent)
       ).toEqual(["Row one", "Row two", "Row three"]);
     });
 
     test("it can drag-and-drop downwards", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const dropTarget = tableRows[2];
       const elementToDrag = tableRows[0];
@@ -70,6 +72,7 @@ describe("FlatTableBodyDraggable", () => {
     });
 
     test("it can drag without drop", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const dropTarget = tableRows[2];
       const elementToDrag = tableRows[0];
@@ -85,32 +88,26 @@ describe("FlatTableBodyDraggable", () => {
     });
 
     test("sets the cursor correctly when dragging", async () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const elementToDrag = tableRows[0];
 
-      function tick() {
-        return new Promise((resolve) => {
-          setTimeout(resolve, 500);
-        });
-      }
+      fireEvent.dragStart(elementToDrag);
+      fireEvent.dragEnter(elementToDrag);
+      fireEvent.dragOver(elementToDrag);
 
-      await act(async () => {
-        fireEvent.dragStart(elementToDrag);
-        fireEvent.dragEnter(elementToDrag);
-        fireEvent.dragOver(elementToDrag);
-
-        await tick();
-      });
-
-      assertStyleMatch(
-        {
-          cursor: "grabbing",
-        },
-        screen.getByTestId("flat-table-body-draggable")
+      await waitFor(() =>
+        assertStyleMatch(
+          {
+            cursor: "grabbing",
+          },
+          screen.getByTestId("flat-table-body-draggable")
+        )
       );
     });
 
     test("it can drop on the same item", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const elementToDrag = tableRows[0];
 
@@ -125,6 +122,7 @@ describe("FlatTableBodyDraggable", () => {
     });
 
     test("it can drag-and-drop upwards", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const dropTarget = tableRows[0];
       const elementToDrag = tableRows[2];
@@ -141,7 +139,7 @@ describe("FlatTableBodyDraggable", () => {
   });
 
   describe("with sub rows", () => {
-    beforeEach(() => {
+    const setup = () => {
       const subRows = [
         <FlatTableRow key="sub-row-1">
           <FlatTableCell>Sub row one</FlatTableCell>
@@ -166,15 +164,17 @@ describe("FlatTableBodyDraggable", () => {
           </FlatTableBodyDraggable>
         </FlatTable>
       );
-    });
+    };
 
     test("on initial render the rows are in the correct order", () => {
+      setup();
       expect(
         screen.getAllByRole("row").map((cell) => cell.textContent)
       ).toEqual(["Row one", "Row two", "Row three"]);
     });
 
     test("it can drag-and-drop downwards", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const dropTarget = tableRows[2];
       const elementToDrag = tableRows[0];
@@ -190,6 +190,7 @@ describe("FlatTableBodyDraggable", () => {
     });
 
     test("it can drag without drop", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const elementToDrag = tableRows[0];
 
@@ -201,6 +202,7 @@ describe("FlatTableBodyDraggable", () => {
     });
 
     test("it can drop on the same item", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const elementToDrag = tableRows[0];
 
@@ -215,6 +217,7 @@ describe("FlatTableBodyDraggable", () => {
     });
 
     test("it can drag-and-drop upwards", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const dropTarget = tableRows[0];
       const elementToDrag = tableRows[2];
@@ -302,7 +305,7 @@ describe("FlatTableBodyDraggable", () => {
   });
 
   describe("mulitple draggable tables", () => {
-    beforeEach(() => {
+    const setup = () => {
       render(
         <div>
           <FlatTable data-testid="table-1">
@@ -333,9 +336,10 @@ describe("FlatTableBodyDraggable", () => {
           </FlatTable>
         </div>
       );
-    });
+    };
 
     test("should drag items within table 1", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const dropTarget = tableRows[2];
       const elementToDrag = tableRows[0];
@@ -358,6 +362,7 @@ describe("FlatTableBodyDraggable", () => {
     });
 
     test("should drag items within table 2", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const dropTarget = tableRows[5];
       const elementToDrag = tableRows[3];
@@ -380,6 +385,7 @@ describe("FlatTableBodyDraggable", () => {
     });
 
     test("should not drag item from one table to another", () => {
+      setup();
       const tableRows = screen.getAllByRole("row");
       const dropTarget = tableRows[0];
       const elementToDrag = tableRows[4];

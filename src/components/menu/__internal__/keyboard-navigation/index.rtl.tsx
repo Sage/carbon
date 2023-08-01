@@ -1,10 +1,9 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import { characterNavigation, menuKeyboardNavigation } from ".";
 import MenuItem from "../../menu-item";
 import Box from "../../../box";
-import { MENU_ITEM } from "../locators";
 
 const getMockEvent = (key: string, which?: number) => {
   return ({
@@ -16,7 +15,7 @@ const getMockEvent = (key: string, which?: number) => {
 };
 
 describe("Menu keyboard navigation", () => {
-  beforeEach(() => {
+  const setup = () => {
     render(
       <ul>
         <MenuItem>Apple</MenuItem>
@@ -34,22 +33,18 @@ describe("Menu keyboard navigation", () => {
         <li data-element="not-item">Not a menu item</li>
       </ul>
     );
-  });
-  const focusableItems = () =>
-    Array.from(
-      document.querySelectorAll(
-        `[data-component='not-item'], [data-component='${MENU_ITEM}'], [data-element='not-item']`
-      )
-    );
+  };
+  const focusableItems = () => screen.getAllByRole("listitem");
 
   const getItem = (index: number) =>
-    Array.from(document.querySelectorAll(`[data-component='${MENU_ITEM}']`))[
-      index
-    ];
+    focusableItems().filter(
+      (item) => item.textContent?.trim() !== "Not a menu item"
+    )[index];
 
   describe("characterNavigation", () => {
     describe("when an empty string passed in", () => {
       it("should return undefined", () => {
+        setup();
         const result = characterNavigation("", focusableItems());
         expect(result).toEqual(undefined);
       });
@@ -58,6 +53,7 @@ describe("Menu keyboard navigation", () => {
     describe("when an irrelevant character passed in", () => {
       // E.g. none of the items start with this letter
       it("should return undefined", () => {
+        setup();
         const result = characterNavigation("h", focusableItems());
         expect(result).toEqual(undefined);
       });
@@ -65,11 +61,13 @@ describe("Menu keyboard navigation", () => {
 
     describe("when a character key passed in", () => {
       it("should return the correct element", () => {
+        setup();
         const result = characterNavigation("b", focusableItems());
         expect(result).toEqual(getItem(1));
       });
 
       it("should return the correct element when menu contains other nodes", () => {
+        setup();
         const result = characterNavigation("r", focusableItems());
         expect(result).toEqual(getItem(6));
       });
@@ -77,6 +75,7 @@ describe("Menu keyboard navigation", () => {
 
     describe("when there are multiple menu items starting with the same letter", () => {
       it("should return the first element starting with that letter", () => {
+        setup();
         const result = characterNavigation("b", focusableItems());
         expect(result).toEqual(getItem(1));
       });
@@ -84,6 +83,7 @@ describe("Menu keyboard navigation", () => {
 
     describe("when the starting letter of a submenu passed in", () => {
       it("should return the correct element", () => {
+        setup();
         const result = characterNavigation("s", focusableItems());
         expect(result).toEqual(getItem(4));
       });
@@ -93,6 +93,7 @@ describe("Menu keyboard navigation", () => {
   describe("menuKeyboardNavigation", () => {
     describe("when an invalid key event passed in", () => {
       it("should return undefined", () => {
+        setup();
         const result = menuKeyboardNavigation(
           getMockEvent("shift"),
           focusableItems()
@@ -103,6 +104,7 @@ describe("Menu keyboard navigation", () => {
 
     describe("when the Home key event passed in", () => {
       it("should return the first index", () => {
+        setup();
         const result = menuKeyboardNavigation(
           getMockEvent("Home", 36),
           focusableItems()
@@ -113,6 +115,7 @@ describe("Menu keyboard navigation", () => {
 
     describe("when the End key event passed in", () => {
       it("should return the last index", () => {
+        setup();
         const result = menuKeyboardNavigation(
           getMockEvent("End", 35),
           focusableItems()
@@ -123,6 +126,7 @@ describe("Menu keyboard navigation", () => {
 
     describe("when an alphabet key event passed in", () => {
       it("should return undefined", () => {
+        setup();
         const result = menuKeyboardNavigation(
           getMockEvent("c", 67),
           focusableItems()
@@ -134,6 +138,7 @@ describe("Menu keyboard navigation", () => {
     // Tab key
     describe("when the Tab key event passed in", () => {
       it("should return undefined", () => {
+        setup();
         const result = menuKeyboardNavigation(
           getMockEvent("Tab", 9),
           focusableItems()

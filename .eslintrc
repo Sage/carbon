@@ -106,7 +106,7 @@
     "prettier",
     "prettier/react"
   ],
-  "plugins": ["cypress", "react", "react-hooks"],
+  "plugins": ["cypress", "react", "react-hooks", "testing-library"],
   "globals": {
     "jest": false,
     "global": false,
@@ -155,6 +155,10 @@
           "message": "Please do not import `prop-types` in TypeScript files."
       }]
       }
+    },
+    {
+      "files": ["*.rtl.[tj]s", "*.rtl.[tj]sx"],
+      "extends": ["plugin:testing-library/react"]
     }
   ]
 }

@@ -135,8 +135,8 @@ describe("Tooltip", () => {
           expect(screen.getByRole("tooltip")).toHaveStyle({
             backgroundColor: "pink",
           });
-
-          expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+          // eslint-disable-next-line testing-library/no-node-access
+          expect(screen.getByRole("tooltip").firstChild).toHaveStyle({
             backgroundColor: "pink",
           });
         });
@@ -147,8 +147,8 @@ describe("Tooltip", () => {
           expect(screen.getByRole("tooltip")).toHaveStyle({
             backgroundColor: "pink",
           });
-
-          expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+          // eslint-disable-next-line testing-library/no-node-access
+          expect(screen.getByRole("tooltip").firstChild).toHaveStyle({
             backgroundColor: "pink",
           });
         });
@@ -208,7 +208,8 @@ describe("Tooltip", () => {
       it("applies the correct styles", () => {
         render({ isVisible: true });
 
-        expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByRole("tooltip").firstChild).toHaveStyle({
           zIndex: "6000",
           position: "absolute",
           width: "12px",
@@ -220,7 +221,8 @@ describe("Tooltip", () => {
       it("applies the correct styles when type === 'error'", () => {
         render({ isVisible: true, type: "error" });
 
-        expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByRole("tooltip").firstChild).toHaveStyle({
           background: "var(--colorsSemanticNegative500)",
         });
       });
@@ -243,8 +245,8 @@ describe("Tooltip", () => {
           });
 
         render({ isVisible: true });
-
-        expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByRole("tooltip").firstChild).toHaveStyle({
           [arrowPlacement]: "-6px",
         });
 

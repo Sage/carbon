@@ -9,9 +9,9 @@ describe("Crumb", () => {
   it("passes href to the anchor element isCurrent is false", () => {
     render(<Crumb href="foo">{LINK_TEXT}</Crumb>);
 
-    const link = screen.getByText(LINK_TEXT);
-    expect(link).toBeInTheDocument();
-    expect(link.closest("a")).toHaveAttribute("href", "foo");
+    const anchor = screen.getByRole("link");
+    expect(anchor?.textContent?.trim()).toBe(LINK_TEXT);
+    expect(anchor).toHaveAttribute("href", "foo");
   });
 
   it("does not pass href to the anchor element when isCurrent is true", () => {
@@ -21,6 +21,7 @@ describe("Crumb", () => {
       </Crumb>
     );
 
+    // eslint-disable-next-line testing-library/no-node-access
     const anchor = screen.getByText(LINK_TEXT).closest("a");
     expect(anchor).not.toHaveAttribute("href", "foo");
 

@@ -120,12 +120,14 @@ describe("useFloating", () => {
     );
 
     await waitFor(() => {
-      const positionedStyle = window.getComputedStyle(
-        screen.getByTestId("floating-element")
-      );
-      expect(positionedStyle.width).not.toBe("");
-      expect(positionedStyle.height).not.toBe("");
+      expect(
+        window.getComputedStyle(screen.getByTestId("floating-element")).width
+      ).not.toBe("");
     });
+
+    expect(
+      window.getComputedStyle(screen.getByTestId("floating-element")).height
+    ).not.toBe("");
 
     rerender(<MockComponent isOpen={false} />);
     const originalStyle = window.getComputedStyle(
