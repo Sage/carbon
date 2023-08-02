@@ -535,6 +535,134 @@ context("Tests for SimpleSelect component", () => {
       selectListOptionGroup().should("have.text", "Group one");
     });
 
+    it("should contain custom option group header id groupHeader1", () => {
+      CypressMountWithProviders(<stories.SimpleSelectGroupComponent />);
+
+      selectText().click();
+      selectListWrapper().should("be.visible");
+      selectListOptionGroup()
+        .parent()
+        .should("have.attr", "id", "groupHeader1");
+    });
+
+    it("should render option group header data-component prop set to group-header", () => {
+      CypressMountWithProviders(<stories.SimpleSelectGroupComponent />);
+
+      selectText().click();
+      selectListWrapper().should("be.visible");
+      selectListOptionGroup()
+        .parent()
+        .should("have.attr", "data-component", "group-header");
+    });
+
+    it("should render option group header data-role prop set to group-header", () => {
+      CypressMountWithProviders(<stories.SimpleSelectGroupComponent />);
+
+      selectText().click();
+      selectListWrapper().should("be.visible");
+      selectListOptionGroup()
+        .parent()
+        .should("have.attr", "data-role", "group-header");
+    });
+
+    it("should render option group header data-element prop set to group-header", () => {
+      CypressMountWithProviders(<stories.SimpleSelectGroupComponent />);
+
+      selectText().click();
+      selectListWrapper().should("be.visible");
+      selectListOptionGroup()
+        .parent()
+        .should("have.attr", "data-element", "group-header");
+    });
+
+    it("should contain custom option row id 3", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectMultipleColumnsComponent />
+      );
+
+      selectText().click();
+      multiColumnsSelectListBody().parent().should("have.attr", "id", "3");
+    });
+
+    it("should render option row data-component prop set to option-row", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectMultipleColumnsComponent />
+      );
+
+      selectText().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-component", "option-row");
+    });
+
+    it("should render option row data-role prop set to option-row", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectMultipleColumnsComponent />
+      );
+
+      selectText().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-role", "option-row");
+    });
+
+    it("should render option row data-element prop set to option-row", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectMultipleColumnsComponent />
+      );
+
+      selectText().click();
+      multiColumnsSelectListBody()
+        .parent()
+        .should("have.attr", "data-element", "option-row");
+    });
+
+    it("should contain custom option id option1", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectCustomOptionChildrenComponent />
+      );
+
+      selectText().click();
+      selectListWrapper().should("be.visible");
+      selectListCustomChild(1).parent().should("have.attr", "id", "option1");
+    });
+
+    it("should render custom option data-component prop set to option", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectCustomOptionChildrenComponent />
+      );
+
+      selectText().click();
+      selectListWrapper().should("be.visible");
+      selectListCustomChild(1)
+        .parent()
+        .should("have.attr", "data-component", "option");
+    });
+
+    it("should render custom option data-role prop set to option", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectCustomOptionChildrenComponent />
+      );
+
+      selectText().click();
+      selectListWrapper().should("be.visible");
+      selectListCustomChild(1)
+        .parent()
+        .should("have.attr", "data-role", "option");
+    });
+
+    it("should render custom option data-element prop set to option", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectCustomOptionChildrenComponent />
+      );
+
+      selectText().click();
+      selectListWrapper().should("be.visible");
+      selectListCustomChild(1)
+        .parent()
+        .should("have.attr", "data-element", "option");
+    });
+
     it("should render option list with proper maxHeight value", () => {
       const maxHeight = 200;
       CypressMountWithProviders(

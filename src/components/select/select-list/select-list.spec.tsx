@@ -18,6 +18,7 @@ import Popover from "../../../__internal__/popover";
 import * as guidModule from "../../../__internal__/utils/helpers/guid";
 import StyledOption from "../option/option.style";
 import StyledOptionRow from "../option-row/option-row.style";
+import StyledOptionGroupHeader from "../option-group-header/option-group-header.style";
 
 const mockedGuid = "guid-12345";
 const guidSpy = jest.spyOn(guidModule, "default");
@@ -61,6 +62,7 @@ function getSelectList(props: Partial<SelectListProps>) {
     onSelect: () => {},
     onSelectListClose: () => {},
     isOpen: true,
+    id: props.id,
   };
 
   const WrapperComponent = (wrapperProps: Partial<SelectListProps>) => {
@@ -68,9 +70,9 @@ function getSelectList(props: Partial<SelectListProps>) {
 
     return (
       <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
-        <Option value="opt1" text="red" />
-        <Option value="opt2" text="green" />
-        <Option value="opt3" text="blue" />
+        <Option id={defaultProps.id} value="opt1" text="red" />
+        <Option id={defaultProps.id} value="opt2" text="green" />
+        <Option id={defaultProps.id} value="opt3" text="blue" />
       </SelectList>
     );
   };
@@ -83,6 +85,7 @@ function getOptionRowSelectList(props: Partial<SelectListProps>) {
     onSelect: () => {},
     onSelectListClose: () => {},
     isOpen: true,
+    id: props.id,
   };
 
   const WrapperComponent = (wrapperProps: Partial<SelectListProps>) => {
@@ -96,13 +99,13 @@ function getOptionRowSelectList(props: Partial<SelectListProps>) {
         {...props}
         {...wrapperProps}
       >
-        <OptionRow id="1" value="opt1" text="red">
+        <OptionRow id={defaultProps.id} value="opt1" text="red">
           <td>red</td>
         </OptionRow>
-        <OptionRow id="2" value="opt2" text="green">
+        <OptionRow id={defaultProps.id} value="opt2" text="green">
           <td>green</td>
         </OptionRow>
-        <OptionRow id="3" value="opt3" text="blue">
+        <OptionRow id={defaultProps.id} value="opt3" text="blue">
           <td>blue</td>
         </OptionRow>
       </SelectList>
@@ -117,6 +120,7 @@ function getGroupedSelectList(props: Partial<SelectListProps>) {
     onSelect: () => {},
     onSelectListClose: () => {},
     isOpen: true,
+    id: props.id,
   };
 
   const WrapperComponent = (wrapperProps: Partial<SelectListProps>) => {
@@ -124,12 +128,12 @@ function getGroupedSelectList(props: Partial<SelectListProps>) {
 
     return (
       <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
-        <OptionGroupHeader label="Heading one" />
-        <Option value="opt1" text="red" />
-        <Option value="opt2" text="green" />
-        <OptionGroupHeader label="Heading two" />
-        <Option value="opt3" text="blue" />
-        <Option value="opt4" text="black" />
+        <OptionGroupHeader id={defaultProps.id} label="Heading one" />
+        <Option id={defaultProps.id} value="opt1" text="red" />
+        <Option id={defaultProps.id} value="opt2" text="green" />
+        <OptionGroupHeader id={defaultProps.id} label="Heading two" />
+        <Option id={defaultProps.id} value="opt3" text="blue" />
+        <Option id={defaultProps.id} value="opt4" text="black" />
       </SelectList>
     );
   };
@@ -663,7 +667,7 @@ describe("SelectList", () => {
                 ref={ref}
               >
                 {multiColumn ? (
-                  <OptionRow id="1" value="opt1" text="red">
+                  <OptionRow value="opt1" text="red">
                     <td>foo</td>
                   </OptionRow>
                 ) : (
@@ -1047,6 +1051,33 @@ describe("SelectList", () => {
       expect(optionChildren.length).toBeLessThan(10);
     });
   });
+
+  describe.each([
+    ["Option", renderSelectList, StyledOption],
+    ["OptionRow", renderOptionRowSelectList, StyledOptionRow],
+    ["OptionGroupHeader", renderGroupedSelectList, StyledOptionGroupHeader],
+  ])(
+    "ID checks on %s children when SelectList is parent",
+    (component, listRenderer, optionType) => {
+      let wrapper: ReactWrapper;
+      let domNode: HTMLElement;
+      const id = "foo";
+
+      it("id attribute should equal the value of the id prop when passed", () => {
+        wrapper = listRenderer({ id });
+
+        domNode = wrapper.find(optionType).at(0).getDOMNode();
+        expect(domNode.getAttribute("id")).toBe(id);
+      });
+
+      it("when no id pop is passed, id attribute should be populated using a guid", () => {
+        wrapper = listRenderer();
+
+        domNode = wrapper.find(optionType).at(0).getDOMNode();
+        expect(domNode.getAttribute("id")).toBe(mockedGuid);
+      });
+    }
+  );
 
   describe("IDs are stable over the component's lifecycle", () => {
     let wrapper: ReactWrapper;
