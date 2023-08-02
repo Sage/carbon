@@ -1,3 +1,10 @@
+## [119.8.0](https://github.com/Sage/carbon/compare/v119.7.2...v119.8.0) (2023-08-02)
+
+
+### Features
+
+* **option-group-header, option-row, option:** allow custom IDs and surface data selectors ([04b11c5](https://github.com/Sage/carbon/commit/04b11c54b1e589ea818088faac8ea36b84c19ddc)), closes [#6126](https://github.com/Sage/carbon/issues/6126) [#5810](https://github.com/Sage/carbon/issues/5810)
+
 ### [119.7.2](https://github.com/Sage/carbon/compare/v119.7.1...v119.7.2) (2023-07-27)
 
 
