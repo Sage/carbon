@@ -127,7 +127,7 @@ describe("DialogFullScreen", () => {
       const dialogContainer = document.querySelector(
         '[data-element="dialog-full-screen"]'
       );
-      expect(document.activeElement).toBe(dialogContainer);
+      expect(dialogContainer).toHaveFocus();
 
       wrapper.unmount();
     });
@@ -142,7 +142,7 @@ describe("DialogFullScreen", () => {
       jest.runAllTimers();
 
       const firstFocusableElement = document.querySelector("input");
-      expect(document.activeElement).not.toBe(firstFocusableElement);
+      expect(firstFocusableElement).not.toHaveFocus();
 
       wrapper.unmount();
     });
@@ -165,7 +165,7 @@ describe("DialogFullScreen", () => {
       jest.runAllTimers();
 
       const secondFocusableElement = document.querySelectorAll("input")[1];
-      expect(document.activeElement).toEqual(secondFocusableElement);
+      expect(secondFocusableElement).toHaveFocus();
 
       wrapper.unmount();
     });
@@ -228,7 +228,7 @@ describe("DialogFullScreen", () => {
     });
 
     it("sets overflow hidden to the body", () => {
-      expect(window.document.body.style.overflow).toBe("hidden");
+      expect(window.document.body).toHaveStyle({ overflow: "hidden" });
     });
   });
 
@@ -243,11 +243,11 @@ describe("DialogFullScreen", () => {
 
     it("recovers an original overflow", () => {
       window.document.body.style.overflow = "auto";
-      expect(window.document.body.style.overflow).toBe("auto");
+      expect(window.document.body).toHaveStyle({ overflow: "auto" });
       wrapper.setProps({ open: true });
-      expect(window.document.body.style.overflow).toBe("hidden");
+      expect(window.document.body).toHaveStyle({ overflow: "hidden" });
       wrapper.setProps({ open: false });
-      expect(window.document.body.style.overflow).toBe("auto");
+      expect(window.document.body).toHaveStyle({ overflow: "auto" });
     });
   });
 
@@ -258,11 +258,11 @@ describe("DialogFullScreen", () => {
 
     it("recovers an original overflow", () => {
       window.document.body.style.overflow = "auto";
-      expect(window.document.body.style.overflow).toBe("auto");
+      expect(window.document.body).toHaveStyle({ overflow: "auto" });
       wrapper.setProps({ open: true });
-      expect(window.document.body.style.overflow).toBe("hidden");
+      expect(window.document.body).toHaveStyle({ overflow: "hidden" });
       wrapper.unmount();
-      expect(window.document.body.style.overflow).toBe("auto");
+      expect(window.document.body).toHaveStyle({ overflow: "auto" });
     });
   });
 

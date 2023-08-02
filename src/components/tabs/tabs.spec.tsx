@@ -508,16 +508,16 @@ describe("Tabs", () => {
           .getDOMNode() as HTMLElement).focus();
       });
 
-      expect(document.activeElement).toBe(
+      expect(
         wrapper.find(StyledTabTitleButton).at(0).getDOMNode()
-      );
+      ).toHaveFocus();
 
       wrapper.setProps({ selectedTabId: "uniqueid2" });
       wrapper.update();
 
-      expect(document.activeElement).not.toBe(
+      expect(
         wrapper.find(StyledTabTitleButton).at(0).getDOMNode()
-      );
+      ).not.toHaveFocus();
 
       wrapper.detach();
       document.body.removeChild(container);
@@ -574,7 +574,7 @@ describe("Tabs", () => {
           });
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
-          expect(getTabNode(newIndex)).toEqual(document.activeElement);
+          expect(getTabNode(newIndex)).toHaveFocus();
         }
       );
 
@@ -587,7 +587,7 @@ describe("Tabs", () => {
           });
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
-          expect(getTabNode(newIndex)).toEqual(document.activeElement);
+          expect(getTabNode(newIndex)).toHaveFocus();
         }
       );
     });
@@ -602,7 +602,7 @@ describe("Tabs", () => {
           });
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
-          expect(getTabNode(newIndex)).toEqual(document.activeElement);
+          expect(getTabNode(newIndex)).toHaveFocus();
         }
       );
 
@@ -615,7 +615,7 @@ describe("Tabs", () => {
           });
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
-          expect(getTabNode(newIndex)).toEqual(document.activeElement);
+          expect(getTabNode(newIndex)).toHaveFocus();
         }
       );
     });
@@ -642,7 +642,7 @@ describe("Tabs", () => {
         simulate.keydown.pressD(wrapper.find(TabTitle).at(index));
       });
       wrapper.update();
-      expect(getTabNode(0)).toEqual(document.activeElement);
+      expect(getTabNode(0)).toHaveFocus();
     });
   });
 

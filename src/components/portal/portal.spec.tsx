@@ -39,8 +39,7 @@ describe("Portal", () => {
 
       expect(
         rootDiv.getElementsByClassName("carbon-portal")[0].childNodes[0]
-          .textContent
-      ).toBe(childContent);
+      ).toHaveTextContent(childContent);
     });
   });
 
@@ -88,7 +87,7 @@ describe("Portal", () => {
         </Portal>
       );
       wrapper2.unmount();
-      expect(document.body.innerHTML).toEqual("");
+      expect(document.body).toBeEmptyDOMElement();
     });
 
     it("to match snapshot", () => {

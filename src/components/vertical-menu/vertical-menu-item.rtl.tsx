@@ -38,14 +38,14 @@ describe("VerticalMenuItem", () => {
 
     it("should render passed title", () => {
       render(<VerticalMenuItem title="Item1" />);
-      expect(screen.getByText("Item1")).toBeTruthy();
+      expect(screen.getByText("Item1")).toBeInTheDocument();
     });
 
     it("should render adornment passed as a node", () => {
       render(
         <VerticalMenuItem title="Item1" adornment={<div>Adornment</div>} />
       );
-      expect(screen.getByText("Adornment")).toBeTruthy();
+      expect(screen.getByText("Adornment")).toBeInTheDocument();
     });
 
     it("should render passed active state as boolean", () => {
@@ -87,7 +87,7 @@ describe("VerticalMenuItem", () => {
 
     it('should render as an anchor when "href" prop is passed', () => {
       render(<VerticalMenuItem title="Item1" href="http://www.sage.com" />);
-      expect(screen.getByRole("link")).toBeTruthy();
+      expect(screen.getByRole("link")).toBeInTheDocument();
     });
 
     it("should render custom component when passed as a prop", () => {
@@ -113,7 +113,7 @@ describe("VerticalMenuItem", () => {
           customComponentTitle="Custom component"
         />
       );
-      expect(screen.getByText("Custom component")).toBeTruthy();
+      expect(screen.getByText("Custom component")).toBeInTheDocument();
     });
   });
 
@@ -124,7 +124,7 @@ describe("VerticalMenuItem", () => {
           <VerticalMenuItem title="ChildItem1" />
         </VerticalMenuItem>
       );
-      expect(screen.getByRole("button")).toBeTruthy();
+      expect(screen.getByRole("button")).toBeInTheDocument();
     });
 
     it("should not render children by default", () => {
@@ -133,7 +133,7 @@ describe("VerticalMenuItem", () => {
           <VerticalMenuItem title="ChildItem1" />
         </VerticalMenuItem>
       );
-      expect(screen.queryByText("ChildItem1")).toBeNull();
+      expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
     });
 
     it("should render children after item has been clicked on", async () => {
@@ -144,9 +144,9 @@ describe("VerticalMenuItem", () => {
           <VerticalMenuItem title="ChildItem1" />
         </VerticalMenuItem>
       );
-      expect(screen.queryByText("ChildItem1")).toBeNull();
+      expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
       await user.click(screen.getByText("Item1"));
-      expect(screen.getByText("ChildItem1")).toBeTruthy();
+      expect(screen.getByText("ChildItem1")).toBeInTheDocument();
     });
 
     it.each([
@@ -163,10 +163,10 @@ describe("VerticalMenuItem", () => {
           </VerticalMenuItem>
         );
 
-        expect(screen.queryByText("ChildItem1")).toBeNull();
+        expect(screen.queryByText("ChildItem1")).not.toBeInTheDocument();
         await user.tab();
         await user.keyboard(`{${key}}`);
-        expect(screen.getByText("ChildItem1")).toBeTruthy();
+        expect(screen.getByText("ChildItem1")).toBeInTheDocument();
       }
     );
 
@@ -234,9 +234,9 @@ describe("VerticalMenuItem", () => {
         </VerticalMenuItem>
       );
 
-      expect(screen.getByText("Adornment")).toBeTruthy();
+      expect(screen.getByText("Adornment")).toBeInTheDocument();
       await user.click(screen.getByText("Item1"));
-      expect(screen.queryByText("Adornment")).toBeNull();
+      expect(screen.queryByText("Adornment")).not.toBeInTheDocument();
     });
 
     it("should render passed active state as render function", async () => {
@@ -279,9 +279,9 @@ describe("VerticalMenuItem", () => {
         </VerticalMenuFullScreen>
       );
 
-      expect(screen.getByText("Item1")).toBeTruthy();
-      expect(screen.getByText("ChildItem1")).toBeTruthy();
-      expect(screen.getByText("GrandChildItem1")).toBeTruthy();
+      expect(screen.getByText("Item1")).toBeInTheDocument();
+      expect(screen.getByText("ChildItem1")).toBeInTheDocument();
+      expect(screen.getByText("GrandChildItem1")).toBeInTheDocument();
     });
   });
 
@@ -293,7 +293,7 @@ describe("VerticalMenuItem", () => {
         </VerticalMenuItem>
       );
 
-      expect(screen.getByText("ChildItem1")).toBeTruthy();
+      expect(screen.getByText("ChildItem1")).toBeInTheDocument();
     });
   });
 

@@ -32,7 +32,7 @@ describe("Global Header", () => {
     it("and logo is an img element, logo is visible with correct alt text", () => {
       const logo = <img src="foobar" alt="Carbon logo" />;
       renderer({ logo });
-      expect(screen.getByAltText("Carbon logo")).toBeTruthy();
+      expect(screen.getByAltText("Carbon logo")).toBeInTheDocument();
     });
 
     it("and logo is a svg element, logo is visible with correct accessible name", () => {

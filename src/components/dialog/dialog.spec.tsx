@@ -178,8 +178,8 @@ describe("Dialog", () => {
           </Dialog>
         );
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
-        ).toEqual("150px");
+          wrapper.find(StyledDialog).getDOMNode() as HTMLElement
+        ).toHaveStyle({ top: "150px" });
       });
 
       it("sets top position to the correct value on resize", () => {
@@ -205,8 +205,8 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
-        ).toEqual("100px");
+          wrapper.find(StyledDialog).getDOMNode() as HTMLElement
+        ).toHaveStyle({ top: "100px" });
       });
     });
 
@@ -228,8 +228,8 @@ describe("Dialog", () => {
         );
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
-        ).toEqual("20px");
+          wrapper.find(StyledDialog).getDOMNode() as HTMLElement
+        ).toHaveStyle({ top: "20px" });
       });
 
       it("sets top position to 20px on resize", () => {
@@ -255,8 +255,8 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
-        ).toEqual("20px");
+          wrapper.find(StyledDialog).getDOMNode() as HTMLElement
+        ).toHaveStyle({ top: "20px" });
       });
     });
 
@@ -278,8 +278,8 @@ describe("Dialog", () => {
         );
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
-        ).toEqual("0px");
+          wrapper.find(StyledDialog).getDOMNode() as HTMLElement
+        ).toHaveStyle({ left: "0px" });
       });
 
       it("sets left position to 0px on resize", () => {
@@ -305,8 +305,8 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
-        ).toEqual("0px");
+          wrapper.find(StyledDialog).getDOMNode() as HTMLElement
+        ).toHaveStyle({ left: "0px" });
       });
     });
   });
@@ -551,7 +551,7 @@ describe("Dialog", () => {
       );
 
       const firstFocusableElement = document.querySelector("input");
-      expect(document.activeElement).not.toBe(firstFocusableElement);
+      expect(firstFocusableElement).not.toHaveFocus();
     });
   });
 

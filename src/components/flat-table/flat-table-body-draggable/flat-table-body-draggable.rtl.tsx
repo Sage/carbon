@@ -25,7 +25,7 @@ describe("FlatTableBodyDraggable", () => {
         </FlatTable>
       );
 
-      expect(screen.getByTestId("test")).toBeTruthy();
+      expect(screen.getByTestId("test")).toBeInTheDocument();
     });
   });
 

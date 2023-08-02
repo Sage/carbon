@@ -610,7 +610,7 @@ describe("SplitButton", () => {
             .find(additionalButtonsSelector)
             .find("button")
             .at(0);
-          expect(firstButton.getDOMNode()).toBe(document.activeElement);
+          expect(firstButton.getDOMNode()).toHaveFocus();
         }
       );
 
@@ -641,25 +641,21 @@ describe("SplitButton", () => {
           .simulate("keydown", { key: "ArrowDown" });
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
-        ).toStrictEqual(document.activeElement);
+        ).toHaveFocus();
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
-        ).toStrictEqual(document.activeElement);
+        ).toHaveFocus();
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
-        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.at(0).getDOMNode()).toHaveFocus();
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
-        expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.at(0).getDOMNode()).toHaveFocus();
       });
     });
 
@@ -674,19 +670,19 @@ describe("SplitButton", () => {
           .simulate("keydown", { key: "ArrowDown" });
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
-        ).toStrictEqual(document.activeElement);
+        ).toHaveFocus();
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
-        ).toStrictEqual(document.activeElement);
+        ).toHaveFocus();
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         expect(
           additionalButtons.at(additionalButtons.length - 1).getDOMNode()
-        ).toStrictEqual(document.activeElement);
+        ).toHaveFocus();
       });
     });
 
@@ -705,9 +701,7 @@ describe("SplitButton", () => {
           ctrlKey: modifier === "ctrlKey",
           metaKey: modifier === "metaKey",
         });
-        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.first().getDOMNode()).toHaveFocus();
       });
     });
 
@@ -727,9 +721,7 @@ describe("SplitButton", () => {
           ctrlKey: modifier === "ctrlKey",
           metaKey: modifier === "metaKey",
         });
-        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.last().getDOMNode()).toHaveFocus();
       });
     });
 
@@ -742,15 +734,13 @@ describe("SplitButton", () => {
         additionalButtons.first().simulate("keydown", { key: "Tab" });
         expect(
           additionalButtons.at(additionalButtons.length - 2).getDOMNode()
-        ).toStrictEqual(document.activeElement);
+        ).toHaveFocus();
 
         additionalButtons
           .at(additionalButtons.length - 2)
           .simulate("keydown", { key: "Tab" });
 
-        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.last().getDOMNode()).toHaveFocus();
 
         act(() => {
           additionalButtons.last().simulate("keydown", { key: "Tab" });
@@ -774,9 +764,7 @@ describe("SplitButton", () => {
           .last()
           .simulate("keydown", { key: "Tab", shiftKey: true });
 
-        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.first().getDOMNode()).toHaveFocus();
 
         act(() => {
           additionalButtons
@@ -789,7 +777,7 @@ describe("SplitButton", () => {
           wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
         ).toBeFalsy();
 
-        expect(toggle.getDOMNode()).toStrictEqual(document.activeElement);
+        expect(toggle.getDOMNode()).toHaveFocus();
       });
     });
 
@@ -865,9 +853,7 @@ describe("SplitButton", () => {
       expect(
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
       ).toBeFalsy();
-      expect(wrapper.find(StyledSplitButtonToggle).getDOMNode()).toStrictEqual(
-        document.activeElement
-      );
+      expect(wrapper.find(StyledSplitButtonToggle).getDOMNode()).toHaveFocus();
     });
 
     it("hides the additional children buttons when key pressed and focus is not on the list buttons", () => {

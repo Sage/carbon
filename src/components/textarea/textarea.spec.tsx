@@ -368,7 +368,7 @@ describe("Textarea", () => {
         .spyOn(textarea, "scrollHeight", "get")
         .mockImplementation(() => expectedScrollHeight);
       window.dispatchEvent(new Event("resize"));
-      expect(textarea.style.height).toEqual(`${expectedScrollHeight}px`);
+      expect(textarea).toHaveStyle({ height: `${expectedScrollHeight}px` });
     });
 
     it("then on component update the height of the textarea should be the same as it's scrollHeight", () => {
@@ -378,7 +378,7 @@ describe("Textarea", () => {
         .spyOn(textarea, "scrollHeight", "get")
         .mockImplementation(() => expectedScrollHeight);
       wrapper.setProps({ value: "abc" });
-      expect(textarea.style.height).toEqual(`${expectedScrollHeight}px`);
+      expect(textarea).toHaveStyle({ height: `${expectedScrollHeight}px` });
     });
   });
 

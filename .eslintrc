@@ -133,9 +133,8 @@
         "prettier/@typescript-eslint",
         "plugin:react-hooks/recommended",
         "plugin:jest/recommended",
-        "plugin:cypress/recommended"
-        // TODO: Uncomment after transition to RTL has started
-        // "plugin:jest-dom/recommended",
+        "plugin:cypress/recommended",
+        "plugin:jest-dom/recommended",
       ],
       "settings": {
         "react": {

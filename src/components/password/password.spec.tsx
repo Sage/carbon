@@ -77,8 +77,7 @@ describe("Password Input", () => {
 
     it("when the disabled is passed to the input, focus is prevented", () => {
       input = wrapper.find("input").at(0);
-      const firstFocusableElement = document.querySelector("input");
-      expect(document.activeElement).not.toBe(firstFocusableElement);
+      expect(input.getDOMNode()).not.toHaveFocus();
     });
 
     it("the disabled prop is passed to ButtonMinor", () => {
@@ -94,8 +93,7 @@ describe("Password Input", () => {
 
     it("when the disabled prop is passed to ButtonMinor, focus is prevented", () => {
       input = wrapper.find("input").at(0);
-      const firstFocusableElement = document.querySelector("input");
-      expect(document.activeElement).not.toBe(firstFocusableElement);
+      expect(input.getDOMNode()).not.toHaveFocus();
     });
   });
 

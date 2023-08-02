@@ -37,7 +37,7 @@ describe("FixedNavigationBarContextProvider", () => {
           <MockComponent position={position} orientation="top" offset="20px" />
         );
         const result = screen.getByTestId("output");
-        expect(result.textContent).toBe("");
+        expect(result).toHaveTextContent("");
       });
     }
   );
@@ -48,7 +48,7 @@ describe("FixedNavigationBarContextProvider", () => {
         <MockComponent position="fixed" orientation="top" offset="20px" />
       );
       const result = screen.getByTestId("output");
-      expect(result.textContent).toBe("calc(100vh - 40px - 20px)");
+      expect(result).toHaveTextContent("calc(100vh - 40px - 20px)");
     });
   });
 
@@ -58,7 +58,7 @@ describe("FixedNavigationBarContextProvider", () => {
         <MockComponent position="fixed" orientation="bottom" offset="20px" />
       );
       const result = screen.getByTestId("output");
-      expect(result.textContent).toBe("20px");
+      expect(result).toHaveTextContent("20px");
     });
   });
 
@@ -66,7 +66,7 @@ describe("FixedNavigationBarContextProvider", () => {
     it("does not provide a max-height", () => {
       render(<MockComponent position="fixed" offset="20px" />);
       const result = screen.getByTestId("output");
-      expect(result.textContent).toBe("");
+      expect(result).toHaveTextContent("");
     });
   });
 
@@ -76,7 +76,7 @@ describe("FixedNavigationBarContextProvider", () => {
         <MockComponent position="fixed" orientation="top" offset="20px" />
       );
       const result = screen.getByTestId("output");
-      expect(result.textContent).toBe("calc(100vh - 40px - 20px)");
+      expect(result).toHaveTextContent("calc(100vh - 40px - 20px)");
 
       act(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -89,7 +89,7 @@ describe("FixedNavigationBarContextProvider", () => {
       });
 
       const resizeResult = screen.getByTestId("output");
-      expect(resizeResult.textContent).toBe("calc(100vh - 75px - 20px)");
+      expect(resizeResult).toHaveTextContent("calc(100vh - 75px - 20px)");
     });
   });
 });

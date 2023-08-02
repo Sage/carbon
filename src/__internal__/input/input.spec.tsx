@@ -215,9 +215,7 @@ describe("Input", () => {
     it("triggers focus on the input", () => {
       const wrapper = renderMount();
       wrapper.find("input").simulate("click");
-      expect(wrapper.find(StyledInput).getDOMNode()).toBe(
-        document.activeElement
-      );
+      expect(wrapper.find(StyledInput).getDOMNode()).toHaveFocus();
     });
 
     it("triggers onClick prop if one is passed", () => {

@@ -837,9 +837,9 @@ describe("FilterableSelect", () => {
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
-        expect(wrapper.find(SelectList).find("button").getDOMNode()).toBe(
-          document.activeElement
-        );
+        expect(
+          wrapper.find(SelectList).find("button").getDOMNode()
+        ).toHaveFocus();
       });
 
       describe("with the rendered button already focused", () => {
@@ -857,9 +857,7 @@ describe("FilterableSelect", () => {
         });
 
         it("then the select input should be focused", () => {
-          expect(wrapper.find("input").getDOMNode()).toBe(
-            document.activeElement
-          );
+          expect(wrapper.find("input").getDOMNode()).toHaveFocus();
         });
       });
     });

@@ -122,7 +122,7 @@ describe("MultiActionButton", () => {
             .find(Button)
             .at(0)
             .getDOMNode();
-          expect(firstButton).toStrictEqual(document.activeElement);
+          expect(firstButton).toHaveFocus();
         }
       );
 
@@ -145,22 +145,16 @@ describe("MultiActionButton", () => {
           .find(additionalButtonsSelector)
           .find(Button);
 
-        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.first().getDOMNode()).toHaveFocus();
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
-        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.last().getDOMNode()).toHaveFocus();
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         // focus should not loop back to start of button list
-        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.last().getDOMNode()).toHaveFocus();
       });
     });
 
@@ -173,22 +167,16 @@ describe("MultiActionButton", () => {
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
-        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.last().getDOMNode()).toHaveFocus();
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
-        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.first().getDOMNode()).toHaveFocus();
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
         // focus should not loop back to end of button list
-        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.first().getDOMNode()).toHaveFocus();
       });
     });
 
@@ -207,9 +195,7 @@ describe("MultiActionButton", () => {
           ctrlKey: modifier === "ctrlKey",
           metaKey: modifier === "metaKey",
         });
-        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.first().getDOMNode()).toHaveFocus();
       });
     });
 
@@ -229,9 +215,7 @@ describe("MultiActionButton", () => {
           ctrlKey: modifier === "ctrlKey",
           metaKey: modifier === "metaKey",
         });
-        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.last().getDOMNode()).toHaveFocus();
       });
     });
 
@@ -243,9 +227,7 @@ describe("MultiActionButton", () => {
 
         additionalButtons.first().simulate("keydown", { key: "Tab" });
 
-        expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.last().getDOMNode()).toHaveFocus();
 
         act(() => {
           additionalButtons.last().simulate("keydown", { key: "Tab" });
@@ -269,9 +251,7 @@ describe("MultiActionButton", () => {
           .last()
           .simulate("keydown", { key: "Tab", shiftKey: true });
 
-        expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
-        );
+        expect(additionalButtons.first().getDOMNode()).toHaveFocus();
 
         act(() => {
           additionalButtons
@@ -284,7 +264,7 @@ describe("MultiActionButton", () => {
           wrapper.update().find(StyledButtonChildrenContainer).exists()
         ).toBeFalsy();
 
-        expect(mainButton.getDOMNode()).toStrictEqual(document.activeElement);
+        expect(mainButton.getDOMNode()).toHaveFocus();
       });
     });
 
@@ -346,7 +326,7 @@ describe("MultiActionButton", () => {
       ).toBeFalsy();
       expect(
         wrapper.find(StyledMultiActionButton).find(Button).first().getDOMNode()
-      ).toStrictEqual(document.activeElement);
+      ).toHaveFocus();
     });
 
     it("hides the additional children buttons when key pressed and focus is not on the list buttons", () => {

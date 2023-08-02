@@ -34,21 +34,27 @@ describe("useScrollBlock", () => {
 
   it("sets proper styles on the body element on mount and resets them on unmount", () => {
     const wrapper = mount(<TestComponent />);
-    expect(document.documentElement.style.overflow).toBe("");
-    expect(document.documentElement.style.position).toBe("");
-    expect(document.body.style.overflow).toBe("hidden");
-    expect(document.body.style.position).toBe("relative");
-    expect(document.body.style.paddingRight).toBe("20px");
+    expect(document.documentElement).toHaveStyle({
+      overflow: "",
+      position: "",
+    });
+    expect(document.body).toHaveStyle({
+      overflow: "hidden",
+      position: "relative",
+      paddingRight: "20px",
+    });
     act(() => {
       wrapper.unmount();
     });
-    expect(document.documentElement.style.overflow).toBe("");
-    expect(document.documentElement.style.position).toBe("");
-    expect(document.body.style.overflow).toBe("");
-    expect(document.body.style.position).toBe("");
-    // Unable to test if `paddingRight` reset due to bug in JSDOM
-    // https://github.com/jsdom/jsdom/issues/2504
-    // expect(document.body.style.paddingRight).toBe("");
+    expect(document.documentElement).toHaveStyle({
+      overflow: "",
+      position: "",
+    });
+    expect(document.body).toHaveStyle({
+      overflow: "",
+      position: "",
+      paddingRight: "",
+    });
   });
 });
 

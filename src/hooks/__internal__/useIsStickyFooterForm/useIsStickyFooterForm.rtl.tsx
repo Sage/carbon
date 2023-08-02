@@ -18,7 +18,7 @@ const MockComponent = ({ children }: { children: React.ReactNode }) => {
 describe("useIsStickyFooterForm", () => {
   it("does not disable the button if there is no Form in the passed children", () => {
     render(<MockComponent>foo</MockComponent>);
-    expect(screen.getByText(BUTTON_TEXT)).not.toBeDisabled();
+    expect(screen.getByText(BUTTON_TEXT)).toBeEnabled();
   });
 
   it("does not disable the button if the only Form in the passed children has no sticky footer", () => {
@@ -27,7 +27,7 @@ describe("useIsStickyFooterForm", () => {
         <Form />
       </MockComponent>
     );
-    expect(screen.getByText(BUTTON_TEXT)).not.toBeDisabled();
+    expect(screen.getByText(BUTTON_TEXT)).toBeEnabled();
   });
 
   it("disables the button if there is Form with a sticky footer in the passed children", () => {

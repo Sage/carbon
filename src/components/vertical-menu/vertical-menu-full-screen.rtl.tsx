@@ -99,7 +99,7 @@ describe("VerticalMenuFullScreen", () => {
 
     const menu = screen.queryByRole("navigation");
 
-    expect(menu).toBeNull();
+    expect(menu).not.toBeInTheDocument();
   });
 
   it("should override the scrollbar styling", () => {
