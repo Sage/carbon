@@ -494,7 +494,14 @@ export const SimpleSelectMultipleColumnsComponent = (
         <td>Vick</td>
         <td>Accountant</td>
       </OptionRow>
-      <OptionRow id="3" value="3" text="Jane Poe">
+      <OptionRow
+        id="3"
+        value="3"
+        text="Jane Poe"
+        data-component="option-row"
+        data-role="option-row"
+        data-element="option-row"
+      >
         <td>Jane</td>
         <td>Poe</td>
         <td>Accountant</td>
@@ -525,13 +532,20 @@ export const SimpleSelectCustomOptionChildrenComponent = (
       label="Pick your favourite color"
       {...props}
     >
-      <Option text="Orange" value="1">
+      <Option
+        id="option1"
+        text="Orange"
+        value="1"
+        data-component="option"
+        data-role="option"
+        data-element="option"
+      >
         <Icon type="favourite" color="orange" mr={1} /> Orange
       </Option>
-      <Option text="Black" value="2">
+      <Option id="option2" text="Black" value="2">
         <Icon type="money_bag" color="black" mr={1} /> Black
       </Option>
-      <Option text="Blue" value="3">
+      <Option id="option3" text="Blue" value="3">
         <Icon type="gift" color="blue" mr={1} /> Blue
       </Option>
     </SimpleSelect>
@@ -543,16 +557,23 @@ export const SimpleSelectGroupComponent = (
 ) => {
   return (
     <SimpleSelect name="optGroups" id="optGroups" {...props}>
-      <OptionGroupHeader label="Group one" icon="individual" />
+      <OptionGroupHeader
+        id="groupHeader1"
+        label="Group one"
+        icon="individual"
+        data-component="group-header"
+        data-role="group-header"
+        data-element="group-header"
+      />
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
       <Option text="Brown" value="4" />
-      <OptionGroupHeader label="Group two" icon="shop" />
+      <OptionGroupHeader id="groupHeader2" label="Group two" icon="shop" />
       <Option text="Green" value="5" />
       <Option text="Orange" value="6" />
       <Option text="Pink" value="7" />
-      <OptionGroupHeader label="Group three" />
+      <OptionGroupHeader id="groupHeader3" label="Group three" />
       <Option text="Purple" value="8" />
       <Option text="Red" value="9" />
       <Option text="White" value="10" />

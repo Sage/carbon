@@ -96,4 +96,26 @@ describe("OptionRow", () => {
       });
     });
   });
+
+  describe("tags on component", () => {
+    it("includes correct component, element and role data tags", () => {
+      const wrapper = mount(
+        <OptionRow
+          value="1"
+          text="one"
+          data-component="foo"
+          data-element="bar"
+          data-role="baz"
+        >
+          <td>qux</td>
+        </OptionRow>
+      );
+
+      expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
+        "foo"
+      );
+      expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
+      expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
+    });
+  });
 });

@@ -196,8 +196,10 @@ const SelectList = React.forwardRef(
     // as that isn't absolutely guaranteed to never rerun when dependencies haven't changed.
     const setChildIds = () => {
       childIdsRef.current =
-        React.Children.map(children, () => guid()) ||
-        /* istanbul ignore next */ null;
+        React.Children.map(
+          children,
+          (child) => (React.isValidElement(child) && child?.props.id) || guid()
+        ) || /* istanbul ignore next */ null;
     };
 
     if (childIdsRef.current?.length !== React.Children.count(children)) {
