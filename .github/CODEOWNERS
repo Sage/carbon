@@ -13,6 +13,7 @@
 *.spec.*                 @Sage/carbon-qa
 *.cy.*                   @Sage/carbon-qa
 *.pw.tsx                 @Sage/carbon-qa
+*.test-pw.tsx            @Sage/carbon-qa
 /cypress/                @Sage/carbon-qa
 /playwright/             @Sage/carbon-qa
 cypress.config.ts        @Sage/carbon-qa
