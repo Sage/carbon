@@ -1,3 +1,10 @@
+## [119.9.0](https://github.com/Sage/carbon/compare/v119.8.0...v119.9.0) (2023-08-02)
+
+
+### Features
+
+* **action-popover:** align component with design system ([d411789](https://github.com/Sage/carbon/commit/d41178916d337964ada0953f90c6dd2605e1740f)), closes [#5801](https://github.com/Sage/carbon/issues/5801)
+
 ## [119.8.0](https://github.com/Sage/carbon/compare/v119.7.2...v119.8.0) (2023-08-02)
 
 
