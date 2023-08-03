@@ -2,7 +2,10 @@
 /* eslint-disable jest/valid-expect */
 import React from "react";
 import { TextareaProps } from "components/textarea";
-import { TextareaComponent } from "../../../src/components/textarea/textarea-test.stories";
+import {
+  TextareaComponent,
+  InScrollableContainer,
+} from "../../../src/components/textarea/textarea-test.stories";
 import Box from "../../../src/components/box";
 import * as stories from "../../../src/components/textarea/textarea.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -761,5 +764,18 @@ context("Tests for Textarea component", () => {
   it("should have the expected border radius styling", () => {
     CypressMountWithProviders(<TextareaComponent />);
     getElement("input").parent().should("have.css", "border-radius", "4px");
+  });
+
+  it("should not change the scroll position of a scrollable container when typing", () => {
+    CypressMountWithProviders(<InScrollableContainer />);
+
+    cy.get('[data-element="form-content"]').scrollTo("bottom");
+    textareaChildren()
+      .click({ force: true })
+      .type("{rightArrow}foo", { force: true });
+    // eslint-disable-next-line jest/valid-expect-in-promise
+    cy.get('[data-element="form-content"]').then(($el) =>
+      expect($el.scrollTop()).greaterThan(1000)
+    );
   });
 });
