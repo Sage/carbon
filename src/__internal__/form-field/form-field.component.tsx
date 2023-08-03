@@ -22,6 +22,8 @@ import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
   disabled?: boolean;
+  /** @private @ignore */
+  loading?: boolean;
   /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /** The unique id of the Help component tooltip, used for accessibility */
@@ -80,6 +82,7 @@ const FormField = ({
   children,
   "data-component": dataComponent,
   disabled,
+  loading,
   fieldHelp: fieldHelpContent,
   fieldHelpInline,
   error,
@@ -113,7 +116,7 @@ const FormField = ({
       info: !!info,
     };
 
-    if (!disabled) return undefined;
+    if (!(disabled && !loading)) return undefined;
 
     return Object.keys(validationProps).find(
       (propName) => validationProps[propName]

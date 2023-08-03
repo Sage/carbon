@@ -73,7 +73,13 @@ export const MultiSelectComponent = (props: Partial<MultiSelectProps>) => {
       onChange={onChangeHandler}
       {...props}
     >
-      <Option text="Amber" value="1" />
+      <Option
+        id="option1"
+        text="Amber"
+        value="1"
+        data-role="option1"
+        data-element="option1"
+      />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
       <Option text="Brown" value="4" />
@@ -391,7 +397,14 @@ export const MultiSelectMultiColumnsComponent = (
         <td>Vick</td>
         <td>Accountant</td>
       </OptionRow>
-      <OptionRow id="3" value="3" text="Jane Poe">
+      <OptionRow
+        id="3"
+        value="3"
+        text="Jane Poe"
+        data-component="option-row"
+        data-role="option-row"
+        data-element="option-row"
+      >
         <td>Jane</td>
         <td>Poe</td>
         <td>Accountant</td>
@@ -508,7 +521,11 @@ export const MultiSelectWithManyOptionsAndVirtualScrolling = () => (
     {Array(10000)
       .fill(undefined)
       .map((_, index) => (
-        <Option key={index} value={`${index}`} text={`Option ${index + 1}.`} />
+        <Option
+          key={`option-${index + 1}`}
+          value={`${index}`}
+          text={`Option ${index + 1}.`}
+        />
       ))}
   </MultiSelect>
 );

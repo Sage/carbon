@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
 import Modal from "../modal";
@@ -13,7 +13,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
-import TopModalContext from "../carbon-provider/top-modal-context";
+import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 
 // TODO FE-5408 will investigate why React.RefObject<T> produces a failed prop type when current = null
 type CustomRefObject<T> = {
@@ -131,7 +131,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       [ref]
     );
 
-    const { topModal } = useContext(TopModalContext);
+    const isTopModal = useModalAria(sidebarRef);
 
     const closeIcon = () => {
       if (!onCancel) return null;
@@ -154,9 +154,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
 
     const sidebar = (
       <StyledSidebar
-        aria-modal={
-          !enableBackgroundUI && topModal?.contains(sidebarRef.current)
-        }
+        aria-modal={!enableBackgroundUI && isTopModal}
         aria-describedby={ariaDescribedBy}
         aria-label={ariaLabel}
         aria-labelledby={

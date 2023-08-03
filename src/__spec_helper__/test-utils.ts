@@ -84,6 +84,7 @@ const keydown = keys.reduce((acc, key) => {
     });
   };
   return acc;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }, {} as Record<string, (target: ReactWrapper<any>, { shiftKey }?: { shiftKey: boolean }) => void>);
 
 const simulate = {

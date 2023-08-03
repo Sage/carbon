@@ -1,8 +1,10 @@
 import React from "react";
 import Tile, { TileProps } from ".";
-import TileFooter from "./tile-footer/tile-footer.component";
+import TileFooter, {
+  TileFooterProps,
+} from "./tile-footer/tile-footer.component";
 import Content from "../content";
-import { Dl, Dt, Dd } from "../definition-list";
+import { Dl, Dt, Dd, DlProps } from "../definition-list";
 import Accordion from "../accordion/accordion.component";
 import Button from "../button/button.component";
 import Typography from "../typography/typography.component";
@@ -99,7 +101,7 @@ DefaultStory.args = {
   contentThreeWidth: "",
 };
 
-export const TileComponent = ({ ...props }) => {
+export const TileComponent = (props: TileProps) => {
   return (
     <Tile {...props}>
       <Content title="Test Title One">Test Body One</Content>
@@ -109,7 +111,7 @@ export const TileComponent = ({ ...props }) => {
   );
 };
 
-export const TileFooterComponent = ({ ...props }) => {
+export const TileFooterComponent = (props: Partial<TileFooterProps>) => {
   return (
     <Tile p={0} orientation="vertical">
       <Accordion p={0} borders="none" title="Accordion">
@@ -140,7 +142,7 @@ export const TileFooterComponent = ({ ...props }) => {
   );
 };
 
-export const DlTileComponent = ({ ...props }) => {
+export const DlTileComponent = (props: Partial<DlProps>) => {
   return (
     <div>
       <Dl data-element="dl" {...props}>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
 import Password from ".";
 import Box from "../box/box.component";
 import CarbonProvider from "../carbon-provider";
@@ -7,7 +6,7 @@ import CarbonProvider from "../carbon-provider";
 export const SIZES = ["small", "medium", "large"] as const;
 export const VALIDATIONS = ["error", "warning", "info"] as const;
 
-export const Default: ComponentStory<typeof Password> = () => {
+export const Default = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -16,7 +15,7 @@ export const Default: ComponentStory<typeof Password> = () => {
   return <Password label="Password" value={state} onChange={setValue} />;
 };
 
-export const ForceObscurity: ComponentStory<typeof Password> = () => {
+export const ForceObscurity = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -32,7 +31,7 @@ export const ForceObscurity: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const InputHint: ComponentStory<typeof Password> = () => {
+export const InputHint = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -48,7 +47,7 @@ export const InputHint: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const CharacterCounter: ComponentStory<typeof Password> = () => {
+export const CharacterCounter = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -65,7 +64,7 @@ export const CharacterCounter: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const Prefix: ComponentStory<typeof Password> = () => {
+export const Prefix = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -81,7 +80,7 @@ export const Prefix: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const Sizes: ComponentStory<typeof Password> = () => {
+export const Sizes = () => {
   const [smallState, setSmallState] = useState("Password");
   const setSmallValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setSmallState(target.value);
@@ -125,7 +124,7 @@ export const Sizes: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const Margins: ComponentStory<typeof Password> = () => {
+export const Margins = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -134,7 +133,7 @@ export const Margins: ComponentStory<typeof Password> = () => {
   return <Password m={4} label="Password" value={state} onChange={setValue} />;
 };
 
-export const Disabled: ComponentStory<typeof Password> = () => {
+export const Disabled = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -145,7 +144,7 @@ export const Disabled: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const ReadOnly: ComponentStory<typeof Password> = () => {
+export const ReadOnly = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -156,7 +155,7 @@ export const ReadOnly: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const AutoFocus: ComponentStory<typeof Password> = () => {
+export const AutoFocus = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -169,7 +168,7 @@ export const AutoFocus: ComponentStory<typeof Password> = () => {
 
 AutoFocus.parameters = { chromatic: { disable: true } };
 
-export const WithLabelInline: ComponentStory<typeof Password> = () => {
+export const WithLabelInline = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -182,7 +181,7 @@ export const WithLabelInline: ComponentStory<typeof Password> = () => {
 
 WithLabelInline.parameters = { chromatic: { disable: true } };
 
-export const WithLabelAlign: ComponentStory<typeof Password> = () => {
+export const WithLabelAlign = () => {
   const [leftAlignState, setLeftAlignState] = useState("Password");
   const setVLeftAlignValue = ({
     target,
@@ -221,9 +220,7 @@ export const WithLabelAlign: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const WithCustomLabelWidthAndInputWidth: ComponentStory<
-  typeof Password
-> = () => {
+export const WithCustomLabelWidthAndInputWidth = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -241,7 +238,7 @@ export const WithCustomLabelWidthAndInputWidth: ComponentStory<
   );
 };
 
-export const WithCustomMaxWidth: ComponentStory<typeof Password> = () => {
+export const WithCustomMaxWidth = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -257,7 +254,7 @@ export const WithCustomMaxWidth: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const WithFieldHelp: ComponentStory<typeof Password> = () => {
+export const WithFieldHelp = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -273,7 +270,7 @@ export const WithFieldHelp: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const WithLabelHelp: ComponentStory<typeof Password> = () => {
+export const WithLabelHelp = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -289,7 +286,7 @@ export const WithLabelHelp: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const WithRequired: ComponentStory<typeof Password> = () => {
+export const WithRequired = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -300,7 +297,7 @@ export const WithRequired: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const ValidationsAsAString: ComponentStory<typeof Password> = () => {
+export const ValidationsAsAString = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -330,9 +327,7 @@ export const ValidationsAsAString: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const ValidationsAsAStringWithTooltipCustom: ComponentStory<
-  typeof Password
-> = () => {
+export const ValidationsAsAStringWithTooltipCustom = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -359,9 +354,7 @@ ValidationsAsAStringWithTooltipCustom.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationsAsAStringDisplayedOnLabel: ComponentStory<
-  typeof Password
-> = () => {
+export const ValidationsAsAStringDisplayedOnLabel = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -393,7 +386,7 @@ export const ValidationsAsAStringDisplayedOnLabel: ComponentStory<
   );
 };
 
-export const NewDesignsValidation: ComponentStory<typeof Password> = () => {
+export const NewDesignsValidation = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -404,7 +397,7 @@ export const NewDesignsValidation: ComponentStory<typeof Password> = () => {
       <CarbonProvider validationRedesignOptIn>
         {(["error", "warning"] as const).map((validationType) =>
           SIZES.map((size) => (
-            <Box style={{ width: "296px" }} key={`${validationType}-${size}`}>
+            <Box width="296px" key={`${validationType}-${size}`}>
               <Password
                 m={4}
                 label={`${size} - ${validationType}`}
@@ -431,9 +424,7 @@ export const NewDesignsValidation: ComponentStory<typeof Password> = () => {
   );
 };
 
-export const ValidationsAsAStringWithTooltipDefault: ComponentStory<
-  typeof Password
-> = () => {
+export const ValidationsAsAStringWithTooltipDefault = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -461,7 +452,7 @@ ValidationsAsAStringWithTooltipDefault.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationsAsABoolean: ComponentStory<typeof Password> = () => {
+export const ValidationsAsABoolean = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);

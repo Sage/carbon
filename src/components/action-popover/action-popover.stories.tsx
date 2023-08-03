@@ -300,31 +300,27 @@ export const ActionPopoverComponentDisabledSubmenu: ComponentStory<
   );
 };
 
-export const ActionPopoverComponentSubmenuAlignedRight: ComponentStory<
+export const ActionPopoverComponentSubmenuPositionedRight: ComponentStory<
   typeof ActionPopover
 > = () => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
   return (
     <div style={{ height: "250px" }}>
       <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="print"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
+        <ActionPopover submenuPosition="right">
+          <ActionPopoverItem icon="email" submenu={submenu}>
+            Email Invoice
           </ActionPopoverItem>
           <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
+          <ActionPopoverItem icon="delete" submenu={submenu}>
             Delete
           </ActionPopoverItem>
         </ActionPopover>

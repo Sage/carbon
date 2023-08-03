@@ -203,7 +203,7 @@ export const generateButtonsNoWrapStory = (buttonType: ButtonTypes) => {
   return BUTTON_SIZES.map((size) => {
     return (
       <div key={`${buttonType}-${size}`}>
-        <Box style={{ width: 100 }}>
+        <Box width="100px">
           <Button buttonType={buttonType} noWrap size={size}>
             Long button text
           </Button>
@@ -279,7 +279,7 @@ export const IconOnlyButtonsStory = () => {
         return BUTTON_SIZES.map((size) => {
           return (
             <div key={`${buttonType}-${size}`}>
-              <Box style={{ width: 100 }}>
+              <Box width="100px">
                 <Button
                   buttonType={buttonType}
                   size={size}
@@ -579,7 +579,7 @@ export const DarkBackgroundButtonIconAfter = () => {
 
 DarkBackgroundButtonIconAfter.storyName = "darkBackground icon after";
 
-export const ButtonDifferentTypes = ({ ...props }) => {
+export const ButtonDifferentTypes = (props: Partial<ButtonProps>) => {
   return (
     <div>
       <Button buttonType="primary" {...props}>

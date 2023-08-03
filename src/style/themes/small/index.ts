@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { mintTheme } from "..";
 
 export default (() => {

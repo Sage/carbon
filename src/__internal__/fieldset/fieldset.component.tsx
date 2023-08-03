@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
 
 import {
@@ -7,6 +7,7 @@ import {
   StyledLegendContent,
 } from "./fieldset.style";
 import ValidationIcon from "../validations/validation-icon.component";
+import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
@@ -57,6 +58,7 @@ const Fieldset = ({
   blockGroupBehaviour,
   ...rest
 }: FieldsetProps) => {
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
   const marginProps = useFormSpacing(rest);
 
   return (
@@ -75,12 +77,14 @@ const Fieldset = ({
               >
                 <StyledLegendContent isRequired={isRequired}>
                   {legend}
-                  <ValidationIcon
-                    error={error}
-                    warning={warning}
-                    info={info}
-                    tooltipFlipOverrides={["top", "bottom"]}
-                  />
+                  {!validationRedesignOptIn && (
+                    <ValidationIcon
+                      error={error}
+                      warning={warning}
+                      info={info}
+                      tooltipFlipOverrides={["top", "bottom"]}
+                    />
+                  )}
                 </StyledLegendContent>
               </StyledLegend>
             )}

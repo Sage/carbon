@@ -1,12 +1,19 @@
 import React, { useContext } from "react";
+import { TagProps } from "__internal__/utils/helpers/tags";
 import StyledOption from "./option.style";
 import SelectListContext from "../__internal__/select-list-context";
 
 export interface OptionProps
   extends Omit<
-    React.InputHTMLAttributes<HTMLLIElement>,
-    "value" | "onSelect" | "onClick"
-  > {
+      React.InputHTMLAttributes<HTMLLIElement>,
+      "value" | "onSelect" | "onClick"
+    >,
+    TagProps {
+  /**
+   * Unique identifier for the component.
+   * Will use a randomly generated GUID if none is provided.
+   */
+  id?: string;
   /** The option's visible text, displayed within <Textbox> of <Select>, and used for filtering */
   text: string;
   /** Optional: alternative rendered content, displayed within <SelectList> of <Select> (eg: an icon, an image, etc) */

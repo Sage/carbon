@@ -190,6 +190,24 @@ const WithAdditionalWrapperRefs = () => {
   );
 };
 
+const ClosedFocusTrap = () => {
+  const wrapperRef = useRef(null);
+  return (
+    <>
+      <FocusTrap isOpen={false} wrapperRef={wrapperRef}>
+        <div ref={wrapperRef} style={{ visibility: "hidden" }}>
+          <button type="button">{BUTTON_ONE}</button>
+          <button type="button">{BUTTON_TWO}</button>
+          <button type="button">{BUTTON_THREE}</button>
+        </div>
+      </FocusTrap>
+      <button type="button">{BUTTON_FOUR}</button>
+      <button type="button">{BUTTON_FIVE}</button>
+      <button type="button">{BUTTON_SIX}</button>
+    </>
+  );
+};
+
 describe("FocusTrap", () => {
   describe("triggerRefocusFlag", () => {
     it("refocuses the last element that had focus within the trap when flag is set", () => {
@@ -1305,7 +1323,7 @@ describe("FocusTrap", () => {
             <p>{PLAIN_TEXT_CONTENT}</p>
             <button type="button">{OUTSIDE_BUTTON}</button>
             <div ref={trapModalRef}>
-              <FocusTrap wrapperRef={trapWrapper}>
+              <FocusTrap wrapperRef={trapWrapper} isOpen>
                 <div ref={trapWrapper}>
                   <button type="button">{BUTTON_ONE}</button>
                   <button type="button">{BUTTON_TWO}</button>
@@ -1321,7 +1339,7 @@ describe("FocusTrap", () => {
 
       it("when the focus trap is in the top modal, tabbing puts focus on the first focusable element", async () => {
         render(<ComponentWithTopModalContext trapIsTopModal />);
-        fireEvent.click(screen.getByText(PLAIN_TEXT_CONTENT));
+        await user.click(screen.getByText(PLAIN_TEXT_CONTENT));
         expect(document.body).toBeFocused();
         await tabPress();
         expect(screen.getByText(BUTTON_ONE)).toBeFocused();
@@ -1329,11 +1347,23 @@ describe("FocusTrap", () => {
 
       it("when the focus trap is not in the top modal, tabbing does not do anything", async () => {
         render(<ComponentWithTopModalContext trapIsTopModal={false} />);
-        fireEvent.click(screen.getByText(PLAIN_TEXT_CONTENT));
+        await user.click(screen.getByText(PLAIN_TEXT_CONTENT));
         expect(document.body).toBeFocused();
         await tabPress();
         expect(screen.getByText(OUTSIDE_BUTTON)).toBeFocused();
       });
+    });
+  });
+
+  describe("when FocusTrap is closed", () => {
+    it("focus should move normally through focusable elements outside the trap", async () => {
+      render(<ClosedFocusTrap />);
+      await tabPress();
+      expect(screen.getByText(BUTTON_FOUR)).toHaveFocus();
+      await tabPress();
+      expect(screen.getByText(BUTTON_FIVE)).toHaveFocus();
+      await tabPress();
+      expect(screen.getByText(BUTTON_SIX)).toHaveFocus();
     });
   });
 });

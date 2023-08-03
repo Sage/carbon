@@ -80,13 +80,13 @@ const getIconColor = (color: string) => {
 };
 
 export const StyledTickIcon = styled(Icon)<{ color: string }>`
-  height: 22px;
-  width: 22px;
+  height: 20px;
+  width: 20px;
   pointer-events: none;
   display: block;
 
   &::before {
-    font-size: 22px;
+    font-size: 20px;
     color: ${({ color }) => getIconColor(color)};
   }
 `;

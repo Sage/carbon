@@ -1,6 +1,6 @@
 import React from "react";
 
-import Box from ".";
+import Box, { BoxProps } from ".";
 import RadioButton, { RadioButtonGroup } from "../radio-button";
 
 export default {
@@ -60,7 +60,7 @@ export default {
   },
 };
 
-export const Default = ({ ...props }) => {
+export const Default = (props: Partial<BoxProps>) => {
   return (
     <Box
       m={3}
@@ -79,7 +79,7 @@ export const Default = ({ ...props }) => {
 
 Default.storyName = "default";
 
-export const BoxComponentMulti = ({ ...props }) => {
+export const BoxComponentMulti = (props: Partial<BoxProps>) => {
   return (
     <div>
       <Box display="flex" data-element="box" bg="blue" {...props}>

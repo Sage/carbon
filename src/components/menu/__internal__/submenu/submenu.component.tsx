@@ -297,15 +297,24 @@ const Submenu = React.forwardRef<
             setCharacterString("");
           }
 
-          if (Events.isEnterKey(event)) {
-            /* timeout enforces that the "closeSubmenu" method will be run after 
-              the browser navigates to the specified href of the menu-item. */
-            setTimeout(() => closeSubmenu());
-          }
+          const eventIsFromInput = Events.composedPath(event).find(
+            (p) =>
+              (p as HTMLElement).getAttribute("data-element") === "input" ||
+              (p as HTMLElement).getAttribute("data-element") ===
+                "input-icon-toggle"
+          );
 
-          if (href && Events.isEnterKey(event)) {
-            closeSubmenu();
-            return;
+          if (!eventIsFromInput) {
+            if (Events.isEnterKey(event)) {
+              /* timeout enforces that the "closeSubmenu" method will be run after 
+                the browser navigates to the specified href of the menu-item. */
+              setTimeout(() => closeSubmenu(), 0);
+            }
+
+            if (href && Events.isEnterKey(event)) {
+              closeSubmenu();
+              return;
+            }
           }
 
           if (nextIndex !== index) {

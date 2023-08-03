@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable jest/valid-expect-in-promise, jest/valid-expect */
 import React from "react";
 import path from "path";
 
@@ -16,6 +16,9 @@ import {
   actionPopoverButton,
   actionPopover,
   actionPopoverSubmenu,
+  actionPopoverMenuItemIcon,
+  actionPopoverMenuItemInnerText,
+  actionPopoverMenuItemChevron,
   actionPopoverSubmenuByIndex,
   actionPopoverInnerItem,
   actionPopoverWrapper,
@@ -34,6 +37,14 @@ import {
   ActionPopoverWithProps,
   ActionPopoverMenuWithProps,
   ActionPopoverPropsComponent,
+  ActionPopoverWithNoIconsOrSubmenus,
+  ActionPopoverWithSomeSubmenusAndNoIcons,
+  ActionPopoverWithSubmenusAndNoIcons,
+  ActionPopoverWithIconsAndNoSubmenus,
+  ActionPopoverWithSubmenusAndIcons,
+  ActionPopoverWithIconsAndSomeSubmenus,
+  ActionPopoverWithSubmenusAndSomeIcons,
+  ActionPopoverWithVariableChildren,
 } from "../../../src/components/action-popover/action-popover-test.stories";
 import {
   ActionPopoverComponent,
@@ -41,11 +52,11 @@ import {
   ActionPopoverComponentDisabledItems,
   ActionPopoverComponentMenuRightAligned,
   ActionPopoverComponentContentAlignedRight,
+  ActionPopoverComponentSubmenuPositionedRight,
   ActionPopoverComponentNoIcons,
   ActionPopoverComponentCustomMenuButton,
   ActionPopoverComponentSubmenu,
   ActionPopoverComponentDisabledSubmenu,
-  ActionPopoverComponentSubmenuAlignedRight,
   ActionPopoverComponentMenuOpeningAbove,
   ActionPopoverComponentKeyboardNavigation,
   ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu,
@@ -461,6 +472,13 @@ context("Test for ActionPopover component", () => {
         .should("be.visible");
     });
 
+    it("should render ActionPopover with icons within a submenu", () => {
+      CypressMountWithProviders(<ActionPopoverWithSubmenusAndNoIcons />);
+
+      actionPopoverButton().eq(0).click();
+      actionPopoverMenuItemIcon().eq(0).should("exist");
+    });
+
     it.each([
       ["left", "start"],
       ["right", "end"],
@@ -475,6 +493,21 @@ context("Test for ActionPopover component", () => {
         actionPopover()
           .get("button")
           .should("have.css", "justify-content", `flex-${attrValue}`);
+      }
+    );
+
+    it.each([
+      ["left", "chevron_left_thick"],
+      ["right", "chevron_right_thick"],
+    ])(
+      "should render ActionPopover with submenuPosition prop set to %s",
+      (position, chevronType) => {
+        CypressMountWithProviders(
+          <ActionPopoverWithSubmenusAndIcons submenuPosition={position} />
+        );
+
+        actionPopoverButton().eq(0).click();
+        actionPopoverMenuItemChevron().should("have.attr", "type", chevronType);
       }
     );
 
@@ -577,6 +610,350 @@ context("Test for ActionPopover component", () => {
     });
   });
 
+  describe("padding checks on 'StyledMenuItemInnerText'", () => {
+    it.each([
+      ["left", "left"],
+      ["left", "right"],
+      ["right", "left"],
+      ["right", "right"],
+    ])(
+      "when horizontalAlignment is %s and submenuPosition is %s, then left and right padding is --spacing100",
+      (alignment, position) => {
+        CypressMountWithProviders(
+          <ActionPopoverWithNoIconsOrSubmenus
+            horizontalAlignment={alignment}
+            submenuPosition={position}
+          />
+        );
+
+        actionPopoverButton()
+          .eq(0)
+          .click()
+          .then(() => {
+            actionPopoverMenuItemInnerText()
+              .should("have.css", "padding-left", "8px")
+              .getDesignTokensByCssProperty("padding-left")
+              .then(($el) => {
+                expect($el[0]).to.equal("--spacing100");
+              });
+
+            actionPopoverMenuItemInnerText()
+              .should("have.css", "padding-right", "8px")
+              .getDesignTokensByCssProperty("padding-right")
+              .then(($el) => {
+                expect($el[0]).to.equal("--spacing100");
+              });
+          });
+      }
+    );
+
+    it("when horizontalAlignment is left, submenuPosition is left and Menu Item children have some submenus and no icons, then padding-left is --spacing400", () => {
+      CypressMountWithProviders(
+        <ActionPopoverWithSomeSubmenusAndNoIcons
+          horizontalAlignment="left"
+          submenuPosition="left"
+        />
+      );
+
+      actionPopoverButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          actionPopoverMenuItemInnerText()
+            .eq(0)
+            .should("have.css", "padding-left", "32px")
+            .getDesignTokensByCssProperty("padding-left")
+            .then(($el) => {
+              expect($el[0]).to.equal("--spacing400");
+            });
+        });
+    });
+
+    it("when horizontalAlignment is right, submenuPosition is right and Menu Item children have some submenus and no icons, then padding-right is --spacing400", () => {
+      CypressMountWithProviders(
+        <ActionPopoverWithSomeSubmenusAndNoIcons
+          horizontalAlignment="right"
+          submenuPosition="right"
+        />
+      );
+
+      actionPopoverButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          actionPopoverMenuItemInnerText()
+            .eq(0)
+            .should("have.css", "padding-right", "32px")
+            .getDesignTokensByCssProperty("padding-right")
+            .then(($el) => {
+              expect($el[0]).to.equal("--spacing400");
+            });
+        });
+    });
+
+    it("when horizontalAlignment is left, submenuPosition is left and Menu Item children have submenus and some icons, then padding-left is --spacing600", () => {
+      CypressMountWithProviders(
+        <ActionPopoverWithSubmenusAndSomeIcons
+          horizontalAlignment="left"
+          submenuPosition="left"
+        />
+      );
+
+      actionPopoverButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          actionPopoverMenuItemInnerText()
+            .eq(0)
+            .should("have.css", "padding-left", "48px")
+            .getDesignTokensByCssProperty("padding-left")
+            .then(($el) => {
+              expect($el[0]).to.equal("--spacing600");
+            });
+        });
+    });
+
+    it("when horizontalAlignment is right, submenuPosition is right and Menu Item children have submenus and some icons, then padding-right is --spacing600", () => {
+      CypressMountWithProviders(
+        <ActionPopoverWithSubmenusAndSomeIcons
+          horizontalAlignment="right"
+          submenuPosition="right"
+        />
+      );
+
+      actionPopoverButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          actionPopoverMenuItemInnerText()
+            .eq(0)
+            .should("have.css", "padding-right", "48px")
+            .getDesignTokensByCssProperty("padding-right")
+            .then(($el) => {
+              expect($el[0]).to.equal("--spacing600");
+            });
+        });
+    });
+
+    it("when horizontalAlignment is left, submenuPosition is left and Menu Item children are variable, then padding-left is --spacing900", () => {
+      CypressMountWithProviders(
+        <ActionPopoverWithVariableChildren
+          horizontalAlignment="left"
+          submenuPosition="left"
+        />
+      );
+
+      actionPopoverButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          actionPopoverMenuItemInnerText()
+            .eq(0)
+            .should("have.css", "padding-left", "72px")
+            .getDesignTokensByCssProperty("padding-left")
+            .then(($el) => {
+              expect($el[0]).to.equal("--spacing900");
+            });
+        });
+    });
+
+    it("when horizontalAlignment is right, submenuPosition is right and Menu Item children are variable, then padding-right is --spacing900", () => {
+      CypressMountWithProviders(
+        <ActionPopoverWithVariableChildren
+          horizontalAlignment="right"
+          submenuPosition="right"
+        />
+      );
+
+      actionPopoverButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          actionPopoverMenuItemInnerText()
+            .eq(0)
+            .should("have.css", "padding-right", "72px")
+            .getDesignTokensByCssProperty("padding-right")
+            .then(($el) => {
+              expect($el[0]).to.equal("--spacing900");
+            });
+        });
+    });
+
+    it.each([
+      ["left", "left", 1],
+      ["left", "right", 2],
+      ["right", "left", 3],
+      ["right", "right", 4],
+    ])(
+      "when horizontalAlignment is %s, submenuPosition is %s and Menu Item child is a submenu, then left and right padding is --spacing000",
+      (alignment, position, index) => {
+        CypressMountWithProviders(
+          <ActionPopoverMenuWithProps
+            horizontalAlignment={alignment}
+            submenuPosition={position}
+          />
+        );
+
+        actionPopoverButton()
+          .eq(0)
+          .click()
+          .then(() => {
+            actionPopoverMenuItemInnerText()
+              .eq(index)
+              .should("have.css", "padding-left", "0px")
+              .getDesignTokensByCssProperty("padding-left")
+              .then(($el) => {
+                expect($el[0]).to.equal("--spacing000");
+              });
+
+            actionPopoverMenuItemInnerText()
+              .eq(index)
+              .should("have.css", "padding-right", "0px")
+              .getDesignTokensByCssProperty("padding-right")
+              .then(($el) => {
+                expect($el[0]).to.equal("--spacing000");
+              });
+          });
+      }
+    );
+  });
+
+  describe("justify-content checks on 'StyledMenuItem'", () => {
+    it.each([
+      ["left", "flex-start"],
+      ["right", "flex-end"],
+    ])(
+      "when horizontalAlignment is %s then content should be justified %s",
+      (alignment, itemAlignment) => {
+        CypressMountWithProviders(
+          <ActionPopoverWithProps horizontalAlignment={alignment} />
+        );
+
+        actionPopoverButton().eq(0).click();
+        getDataElementByValue("menu-item1").should(
+          "have.css",
+          "justify-content",
+          itemAlignment
+        );
+      }
+    );
+
+    it.each([
+      ["left", "right", "space-between"],
+      ["right", "left", "flex-end"],
+    ])(
+      "when horizontalAlignment is %s, submenuPosition is %s and Menu Item children have no submenus, then content should be justified %s",
+      (alignment, position, itemAlignment) => {
+        CypressMountWithProviders(
+          <ActionPopoverWithProps
+            horizontalAlignment={alignment}
+            submenuPosition={position}
+          />
+        );
+
+        actionPopoverButton().eq(0).click();
+        getDataElementByValue("menu-item1").should(
+          "have.css",
+          "justify-content",
+          itemAlignment
+        );
+      }
+    );
+
+    it.each([
+      ["left", "right", "space-between"],
+      ["right", "left", "space-between"],
+    ])(
+      "when horizontalAlignment is %s, submenuPosition is %s and Menu Item children have a submenu, then content should be justified %s",
+      (alignment, position, itemAlignment) => {
+        CypressMountWithProviders(
+          <ActionPopoverWithSubmenusAndIcons
+            horizontalAlignment={alignment}
+            submenuPosition={position}
+          />
+        );
+
+        actionPopoverButton().eq(0).click();
+        getDataElementByValue("menu-item1").should(
+          "have.css",
+          "justify-content",
+          itemAlignment
+        );
+      }
+    );
+  });
+
+  describe("padding checks on 'MenuItemIcon'", () => {
+    it("padding is: --spacing100", () => {
+      CypressMountWithProviders(<ActionPopoverWithIconsAndNoSubmenus />);
+
+      actionPopoverButton()
+        .eq(0)
+        .click()
+        .then(() => {
+          actionPopoverMenuItemIcon()
+            .eq(0)
+            .should("have.css", "padding", "8px")
+            .getDesignTokensByCssProperty("padding")
+            .then(($el) => {
+              expect($el.join(" ")).to.deep.equal(
+                "--spacing100 --spacing100 --spacing100 --spacing100"
+              );
+            });
+        });
+    });
+
+    it.each([
+      [
+        "left",
+        "left",
+        "--spacing100 --spacing100 --spacing100 --spacing400",
+        "8px 8px 8px 32px",
+      ],
+      [
+        "left",
+        "right",
+        "--spacing100 --spacing100 --spacing100 --spacing100",
+        "8px",
+      ],
+      [
+        "right",
+        "left",
+        "--spacing100 --spacing100 --spacing100 --spacing100",
+        "8px",
+      ],
+      [
+        "right",
+        "right",
+        "--spacing100 --spacing400 --spacing100 --spacing100",
+        "8px 32px 8px 8px",
+      ],
+    ])(
+      "when horizontalAlignment is %s and submenuPosition is %s and Menu Item children have icons and some submenus, then padding is %s",
+      (position, alignment, spacing, padding) => {
+        CypressMountWithProviders(
+          <ActionPopoverWithIconsAndSomeSubmenus
+            submenuPosition={position}
+            horizontalAlignment={alignment}
+          />
+        );
+
+        actionPopoverButton()
+          .eq(0)
+          .click()
+          .then(() => {
+            actionPopoverMenuItemIcon()
+              .eq(0)
+              .should("have.css", "padding", padding)
+              .getDesignTokensByCssProperty("padding")
+              .then(($el) => {
+                expect($el.join(" ")).to.deep.equal(spacing);
+              });
+          });
+      }
+    );
+  });
+
   describe("Accessibility tests for ActionPopover", () => {
     it("should pass accessibility tests for ActionPopover with custom button", () => {
       CypressMountWithProviders(
@@ -639,6 +1016,15 @@ context("Test for ActionPopover component", () => {
       cy.checkAccessibility();
     });
 
+    it("should pass accessibility tests for ActionPopover with a right submenu position", () => {
+      CypressMountWithProviders(
+        <ActionPopoverComponentSubmenuPositionedRight />
+      );
+
+      actionPopoverButton().eq(0).click();
+      cy.checkAccessibility();
+    });
+
     it("should pass accessibility tests for ActionPopover with no icons", () => {
       CypressMountWithProviders(<ActionPopoverComponentNoIcons />);
 
@@ -665,14 +1051,6 @@ context("Test for ActionPopover component", () => {
       CypressMountWithProviders(<ActionPopoverComponentDisabledSubmenu />);
 
       actionPopoverButton().eq(0).click();
-      cy.checkAccessibility();
-    });
-
-    it("should pass accessibility tests for ActionPopover with submenu aligned right", () => {
-      CypressMountWithProviders(<ActionPopoverComponentSubmenuAlignedRight />);
-
-      actionPopoverButton().eq(0).click();
-      actionPopoverInnerItem(0).click();
       cy.checkAccessibility();
     });
 

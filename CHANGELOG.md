@@ -1,3 +1,66 @@
+## [119.9.0](https://github.com/Sage/carbon/compare/v119.8.0...v119.9.0) (2023-08-02)
+
+
+### Features
+
+* **action-popover:** align component with design system ([d411789](https://github.com/Sage/carbon/commit/d41178916d337964ada0953f90c6dd2605e1740f)), closes [#5801](https://github.com/Sage/carbon/issues/5801)
+
+## [119.8.0](https://github.com/Sage/carbon/compare/v119.7.2...v119.8.0) (2023-08-02)
+
+
+### Features
+
+* **option-group-header, option-row, option:** allow custom IDs and surface data selectors ([04b11c5](https://github.com/Sage/carbon/commit/04b11c54b1e589ea818088faac8ea36b84c19ddc)), closes [#6126](https://github.com/Sage/carbon/issues/6126) [#5810](https://github.com/Sage/carbon/issues/5810)
+
+### [119.7.2](https://github.com/Sage/carbon/compare/v119.7.1...v119.7.2) (2023-07-27)
+
+
+### Bug Fixes
+
+* **switch:** ensure invariant is not thrown when loading and validation is set ([df9b89e](https://github.com/Sage/carbon/commit/df9b89e2619d0d4957a37237c427e2015527818a))
+
+### [119.7.1](https://github.com/Sage/carbon/compare/v119.7.0...v119.7.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* **dialog, sidebar:** use aria-hidden and inert to hide non-modal elements ([a35680e](https://github.com/Sage/carbon/commit/a35680e41444e613f2b7c60318fd2fc3b2d7209b)), closes [#5920](https://github.com/Sage/carbon/issues/5920)
+
+## [119.7.0](https://github.com/Sage/carbon/compare/v119.6.4...v119.7.0) (2023-07-26)
+
+
+### Features
+
+* **radio-button:** add support for new validation ([da5d4ad](https://github.com/Sage/carbon/commit/da5d4add046e9a321e3454726be7a1415e704186))
+
+### [119.6.4](https://github.com/Sage/carbon/compare/v119.6.3...v119.6.4) (2023-07-26)
+
+
+### Bug Fixes
+
+* **menu:** ensure menu remains open when enter is pressed on search ([8040505](https://github.com/Sage/carbon/commit/80405055621e53b2b19c29b7bb867efbc1b64be7)), closes [#6146](https://github.com/Sage/carbon/issues/6146)
+
+### [119.6.3](https://github.com/Sage/carbon/compare/v119.6.2...v119.6.3) (2023-07-24)
+
+
+### Bug Fixes
+
+* icon alignments and pill updates ([b55433f](https://github.com/Sage/carbon/commit/b55433fcfb6989641ad8f742cf70913ee0cee9a4))
+
+### [119.6.2](https://github.com/Sage/carbon/compare/v119.6.1...v119.6.2) (2023-07-20)
+
+
+### Bug Fixes
+
+* **decimal:** replace row-reverse with row when text is right aligned ([ceb04e1](https://github.com/Sage/carbon/commit/ceb04e16f1b2cddfb202593592532518f974a0b4)), closes [#6109](https://github.com/Sage/carbon/issues/6109)
+
+### [119.6.1](https://github.com/Sage/carbon/compare/v119.6.0...v119.6.1) (2023-07-12)
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** fix focus when menu closed ([516cb5a](https://github.com/Sage/carbon/commit/516cb5ab29e6beaca9399bd06c91ade584b1a1e7)), closes [#6037](https://github.com/Sage/carbon/issues/6037)
+
 ## [119.6.0](https://github.com/Sage/carbon/compare/v119.5.1...v119.6.0) (2023-07-06)
 
 

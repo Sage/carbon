@@ -13,10 +13,10 @@ export const Default: ComponentStory<typeof Pill> = () => (
 
 export const Wrapped: ComponentStory<typeof Pill> = () => (
   <Box mb={1}>
-    <Pill maxWidth="44px" wrapText>
+    <Pill maxWidth="55px" wrapText>
       Wrapped pill
     </Pill>
-    <Pill ml={1} maxWidth="44px" wrapText>
+    <Pill ml={1} maxWidth="55px" wrapText>
       Hyphe&shy;nated&shy;pill
     </Pill>
   </Box>

@@ -96,7 +96,7 @@ SplitButtonStory.story = {
   },
 };
 
-export const SplitButtonList = ({ ...props }) => {
+export const SplitButtonList = (props: Partial<SplitButtonProps>) => {
   return (
     <SplitButton text="default text" {...props}>
       <Button>Button 1</Button>

@@ -133,24 +133,20 @@ leave.
   <Story name="with submenu" story={stories.ActionPopoverComponentSubmenu} />
 </Canvas>
 
+### With submenu positioned to right
+
+Submenu can be positioned on either the left of the right with the use of the `submenuPosition` prop.
+
+<Canvas>
+  <Story name="with submenu positioned to right" story={stories.ActionPopoverComponentSubmenuPositionedRight} />
+</Canvas>
+
 ### With disabled submenu
 
 A sub-menu will not open if the item is in a disabled state.
 
 <Canvas>
   <Story name="with disabled submenu" story={stories.ActionPopoverComponentDisabledSubmenu} />
-</Canvas>
-
-### With submenu aligned right
-
-The sub-menu will open to the right side when there is no space to render the sub-menu to the left.
-
-<Canvas>
-  <Story
-    name="with submenu aligned right"
-    parameters={{ docs: { disable: true } }}
-    story={stories.ActionPopoverComponentSubmenuAlignedRight} 
-  />
 </Canvas>
 
 ### With menu opening above
