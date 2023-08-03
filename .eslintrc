@@ -120,7 +120,11 @@
         "ecmaFeatures": {
           "jsx": true
         },
-        "project": ["./tsconfig.json", "./cypress/tsconfig.json"]
+        "project": [
+          "./tsconfig.json",
+          "./tsconfig-playwright.json",
+          "./cypress/tsconfig.json"
+        ]
       },
       "plugins": ["@typescript-eslint"],
       "extends": [
@@ -183,6 +187,15 @@
       "rules": {
         "cypress/unsafe-to-chain-command": "off",
         "cypress/no-unnecessary-waiting": "off"
+      }
+    },
+    {
+      "files": ["*.pw.ts*", "*.test-pw.ts*", "playwright/**/*.ts*"],
+      "rules": {
+        "no-return-await": "warn",
+        "no-return-assign": "warn",
+        "no-await-in-loop": "warn",
+        "@typescript-eslint/no-floating-promises": "error"
       }
     }
   ]
