@@ -1,3 +1,11 @@
+### [119.9.1](https://github.com/Sage/carbon/compare/v119.9.0...v119.9.1) (2023-08-03)
+
+
+### Bug Fixes
+
+* **textarea:** attempted fix for font-loading issue observed on codesandbox ([32e6cc1](https://github.com/Sage/carbon/commit/32e6cc14b72681d9b62b4e94aa79eeca6acb945f))
+* **textarea:** stop unwanted scroll of container when expandable ([0acf935](https://github.com/Sage/carbon/commit/0acf935395fca4105e10bd95140c753d74e28953)), closes [#6088](https://github.com/Sage/carbon/issues/6088)
+
 ## [119.9.0](https://github.com/Sage/carbon/compare/v119.8.0...v119.9.0) (2023-08-02)
 
 
