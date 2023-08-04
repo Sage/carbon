@@ -2,6 +2,7 @@ import React from "react";
 import {
   SplitButtonList,
   SplitButtonNestedInDialog,
+  WithWrapper,
 } from "../../../src/components/split-button/split-button-test.stories";
 import { Accordion } from "../../../src/components/accordion";
 import SplitButton, {
@@ -145,221 +146,455 @@ context("Tests for SplitButton component", () => {
     });
   });
 
-  describe("clicking the toggle button", () => {
-    it("should open the additional buttons", () => {
-      CypressMountWithProviders(<SplitButtonList />);
+  describe("user interactions with SplitButton", () => {
+    describe("clicking the toggle button", () => {
+      it("should open the additional buttons", () => {
+        CypressMountWithProviders(<SplitButtonList />);
 
-      splitToggleButton().eq(0).trigger("click");
-      additionalButton(0).should("be.visible");
-      additionalButton(1).should("be.visible");
-      additionalButton(2).should("be.visible");
+        splitToggleButton().eq(0).trigger("click");
+        additionalButton(0).should("be.visible");
+        additionalButton(1).should("be.visible");
+        additionalButton(2).should("be.visible");
+      });
+    });
+
+    describe("pressing tab while SplitButton is open", () => {
+      it("should move focus to next child button and to second SplitButton when end of list reached", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(1).focus();
+        splitToggleButton().eq(0).tab();
+        additionalButton(2).should("be.focused");
+        splitToggleButton().eq(0).tab();
+        mainButton().should("be.focused");
+      });
+    });
+
+    describe("pressing ArrowDown while SplitButton is open", () => {
+      it("should move focus to next child button and should not loop when last child is focused", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(0).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("downarrow"));
+        additionalButton(1).should("be.focused");
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("downarrow"));
+        additionalButton(2).should("be.focused");
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("downarrow"));
+        additionalButton(2).should("be.focused");
+      });
+    });
+
+    describe("pressing shift and tab while SplitButton is open", () => {
+      it("should move focus to previous child button and to main button when start of list reached", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(1).focus();
+        splitToggleButton().eq(0).tab({ shift: true });
+        additionalButton(0).should("be.focused");
+        splitToggleButton().eq(0).tab({ shift: true });
+        splitToggleButton().eq(0).should("be.focused");
+      });
+    });
+
+    describe("pressing ArrowUp while SplitButton is open", () => {
+      it("should move focus to previous child button and should not loop when first child is focused", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(2).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("uparrow"));
+        additionalButton(1).should("be.focused");
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("uparrow"));
+        additionalButton(0).should("be.focused");
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("uparrow"));
+        additionalButton(0).should("be.focused");
+      });
+    });
+
+    describe("pressing metaKey + ArrowUp while SplitButton is open", () => {
+      it("should move focus to first child button", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(2).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", { metaKey: true, key: "ArrowUp" });
+        additionalButton(0).should("be.focused");
+      });
+    });
+
+    describe("pressing ctrlKey + ArrowUp while SplitButton is open", () => {
+      it("should move focus to first child button", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(2).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", { ctrlKey: true, key: "ArrowUp" });
+        additionalButton(0).should("be.focused");
+      });
+    });
+
+    describe("pressing Home while SplitButton is open", () => {
+      it("should move focus to first child button", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(2).focus();
+        additionalButtonsContainer().eq(0).trigger("keydown", keyCode("Home"));
+        additionalButton(0).should("be.focused");
+      });
+    });
+
+    describe("pressing metaKey + ArrowDown while SplitButton is open", () => {
+      it("should move focus to last child button", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(0).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", { metaKey: true, key: "ArrowDown" });
+        additionalButton(2).should("be.focused");
+      });
+    });
+
+    describe("pressing ctrlKey + ArrowDown while SplitButton is open", () => {
+      it("should move focus to last child button", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(0).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", { ctrlKey: true, key: "ArrowDown" });
+        additionalButton(2).should("be.focused");
+      });
+    });
+
+    describe("pressing End while SplitButton is open", () => {
+      it("should move focus to last child button", () => {
+        CypressMountWithProviders(
+          <>
+            <SplitButtonList />
+            <SplitButtonList />
+          </>
+        );
+
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(0).focus();
+        additionalButtonsContainer().eq(0).trigger("keydown", keyCode("End"));
+        additionalButton(2).should("be.focused");
+      });
+    });
+
+    describe("clicking one of the additional buttons", () => {
+      it("should close SplitButton", () => {
+        CypressMountWithProviders(<SplitButtonList />);
+
+        splitToggleButton().eq(0).click();
+        additionalButton(0).click();
+        additionalButtonsContainer().should("not.exist");
+      });
+    });
+
+    describe("Pressing esc while SplitButton is open", () => {
+      it("should close SplitButton", () => {
+        CypressMountWithProviders(<SplitButtonList />);
+
+        splitToggleButton().eq(0).click();
+        additionalButton(1).focus();
+        splitToggleButton().eq(0).type("{esc}");
+        additionalButtonsContainer().should("not.exist");
+      });
     });
   });
 
-  describe("pressing tab while SplitButton is open", () => {
-    it("should move focus to next child button and to second SplitButton when end of list reached", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+  describe("user interactions with SplitButton when wrapping the child buttons in a custom component", () => {
+    describe("clicking the toggle button", () => {
+      it("should open the additional buttons", () => {
+        CypressMountWithProviders(<WithWrapper />);
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(1).focus();
-      splitToggleButton().eq(0).tab();
-      additionalButton(2).should("be.focused");
-      splitToggleButton().eq(0).tab();
-      mainButton().should("be.focused");
+        splitToggleButton().eq(0).trigger("click");
+        additionalButton(0).should("be.visible");
+        additionalButton(1).should("be.visible");
+        additionalButton(2).should("be.visible");
+      });
     });
-  });
 
-  describe("pressing ArrowDown while SplitButton is open", () => {
-    it("should move focus to next child button and should not loop when last child is focused", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing tab while SplitButton is open", () => {
+      it("should move focus to next child button and to second SplitButton when end of list reached", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(0).focus();
-      additionalButtonsContainer()
-        .eq(0)
-        .trigger("keydown", keyCode("downarrow"));
-      additionalButton(1).should("be.focused");
-      additionalButtonsContainer()
-        .eq(0)
-        .trigger("keydown", keyCode("downarrow"));
-      additionalButton(2).should("be.focused");
-      additionalButtonsContainer()
-        .eq(0)
-        .trigger("keydown", keyCode("downarrow"));
-      additionalButton(2).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(1).focus();
+        splitToggleButton().eq(0).tab();
+        additionalButton(2).should("be.focused");
+        splitToggleButton().eq(0).tab();
+        mainButton().should("be.focused");
+      });
     });
-  });
 
-  describe("pressing shift and tab while SplitButton is open", () => {
-    it("should move focus to previous child button and to main button when start of list reached", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing ArrowDown while SplitButton is open", () => {
+      it("should move focus to next child button and should not loop when last child is focused", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(1).focus();
-      splitToggleButton().eq(0).tab({ shift: true });
-      additionalButton(0).should("be.focused");
-      splitToggleButton().eq(0).tab({ shift: true });
-      splitToggleButton().eq(0).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(0).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("downarrow"));
+        additionalButton(1).should("be.focused");
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("downarrow"));
+        additionalButton(2).should("be.focused");
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("downarrow"));
+        additionalButton(2).should("be.focused");
+      });
     });
-  });
 
-  describe("pressing ArrowUp while SplitButton is open", () => {
-    it("should move focus to previous child button and should not loop when first child is focused", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing shift and tab while SplitButton is open", () => {
+      it("should move focus to previous child button and to main button when start of list reached", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(2).focus();
-      additionalButtonsContainer().eq(0).trigger("keydown", keyCode("uparrow"));
-      additionalButton(1).should("be.focused");
-      additionalButtonsContainer().eq(0).trigger("keydown", keyCode("uparrow"));
-      additionalButton(0).should("be.focused");
-      additionalButtonsContainer().eq(0).trigger("keydown", keyCode("uparrow"));
-      additionalButton(0).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(1).focus();
+        splitToggleButton().eq(0).tab({ shift: true });
+        additionalButton(0).should("be.focused");
+        splitToggleButton().eq(0).tab({ shift: true });
+        splitToggleButton().eq(0).should("be.focused");
+      });
     });
-  });
 
-  describe("pressing metaKey + ArrowUp while SplitButton is open", () => {
-    it("should move focus to first child button", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing ArrowUp while SplitButton is open", () => {
+      it("should move focus to previous child button and should not loop when first child is focused", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(2).focus();
-      additionalButtonsContainer()
-        .eq(0)
-        .trigger("keydown", { metaKey: true, key: "ArrowUp" });
-      additionalButton(0).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(2).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("uparrow"));
+        additionalButton(1).should("be.focused");
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("uparrow"));
+        additionalButton(0).should("be.focused");
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", keyCode("uparrow"));
+        additionalButton(0).should("be.focused");
+      });
     });
-  });
 
-  describe("pressing ctrlKey + ArrowUp while SplitButton is open", () => {
-    it("should move focus to first child button", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing metaKey + ArrowUp while SplitButton is open", () => {
+      it("should move focus to first child button", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(2).focus();
-      additionalButtonsContainer()
-        .eq(0)
-        .trigger("keydown", { ctrlKey: true, key: "ArrowUp" });
-      additionalButton(0).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(2).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", { metaKey: true, key: "ArrowUp" });
+        additionalButton(0).should("be.focused");
+      });
     });
-  });
 
-  describe("pressing Home while SplitButton is open", () => {
-    it("should move focus to first child button", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing ctrlKey + ArrowUp while SplitButton is open", () => {
+      it("should move focus to first child button", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(2).focus();
-      additionalButtonsContainer().eq(0).trigger("keydown", keyCode("Home"));
-      additionalButton(0).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(2).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", { ctrlKey: true, key: "ArrowUp" });
+        additionalButton(0).should("be.focused");
+      });
     });
-  });
 
-  describe("pressing metaKey + ArrowDown while SplitButton is open", () => {
-    it("should move focus to last child button", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing Home while SplitButton is open", () => {
+      it("should move focus to first child button", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(0).focus();
-      additionalButtonsContainer()
-        .eq(0)
-        .trigger("keydown", { metaKey: true, key: "ArrowDown" });
-      additionalButton(2).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(2).focus();
+        additionalButtonsContainer().eq(0).trigger("keydown", keyCode("Home"));
+        additionalButton(0).should("be.focused");
+      });
     });
-  });
 
-  describe("pressing ctrlKey + ArrowDown while SplitButton is open", () => {
-    it("should move focus to last child button", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing metaKey + ArrowDown while SplitButton is open", () => {
+      it("should move focus to last child button", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(0).focus();
-      additionalButtonsContainer()
-        .eq(0)
-        .trigger("keydown", { ctrlKey: true, key: "ArrowDown" });
-      additionalButton(2).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(0).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", { metaKey: true, key: "ArrowDown" });
+        additionalButton(2).should("be.focused");
+      });
     });
-  });
 
-  describe("pressing End while SplitButton is open", () => {
-    it("should move focus to last child button", () => {
-      CypressMountWithProviders(
-        <>
-          <SplitButtonList />
-          <SplitButtonList />
-        </>
-      );
+    describe("pressing ctrlKey + ArrowDown while SplitButton is open", () => {
+      it("should move focus to last child button", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).trigger("mouseover");
-      additionalButton(0).focus();
-      additionalButtonsContainer().eq(0).trigger("keydown", keyCode("End"));
-      additionalButton(2).should("be.focused");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(0).focus();
+        additionalButtonsContainer()
+          .eq(0)
+          .trigger("keydown", { ctrlKey: true, key: "ArrowDown" });
+        additionalButton(2).should("be.focused");
+      });
     });
-  });
 
-  describe("clicking one of the additional buttons", () => {
-    it("should close SplitButton", () => {
-      CypressMountWithProviders(<SplitButtonList />);
+    describe("pressing End while SplitButton is open", () => {
+      it("should move focus to last child button", () => {
+        CypressMountWithProviders(
+          <>
+            <WithWrapper />
+            <WithWrapper />
+          </>
+        );
 
-      splitToggleButton().eq(0).click();
-      additionalButton(0).click();
-      additionalButtonsContainer().should("not.exist");
+        splitToggleButton().eq(0).trigger("mouseover");
+        additionalButton(0).focus();
+        additionalButtonsContainer().eq(0).trigger("keydown", keyCode("End"));
+        additionalButton(2).should("be.focused");
+      });
     });
-  });
 
-  describe("Pressing esc while SplitButton is open", () => {
-    it("should close SplitButton", () => {
-      CypressMountWithProviders(<SplitButtonList />);
+    describe("clicking one of the additional buttons", () => {
+      it("should close SplitButton", () => {
+        CypressMountWithProviders(<WithWrapper />);
 
-      splitToggleButton().eq(0).click();
-      additionalButton(1).focus();
-      splitToggleButton().eq(0).type("{esc}");
-      additionalButtonsContainer().should("not.exist");
+        splitToggleButton().eq(0).click();
+        additionalButton(0).click();
+        additionalButtonsContainer().should("not.exist");
+      });
+    });
+
+    describe("Pressing esc while SplitButton is open", () => {
+      it("should close SplitButton", () => {
+        CypressMountWithProviders(<WithWrapper />);
+
+        splitToggleButton().eq(0).click();
+        additionalButton(1).focus();
+        splitToggleButton().eq(0).type("{esc}");
+        additionalButtonsContainer().should("not.exist");
+      });
     });
   });
 

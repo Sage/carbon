@@ -9,6 +9,7 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import { ButtonBarContext } from "../button-bar/button-bar.component";
+import SplitButtonContext from "../split-button/__internal__/split-button.context";
 
 export type ButtonTypes =
   | "primary"
@@ -194,6 +195,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       iconTooltipMessage,
       iconTooltipPosition,
       fullWidth: fullWidthProp = false,
+      onClick,
       ...rest
     }: ButtonProps,
     ref
@@ -236,6 +238,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
+
+    const { inSplitButton, onChildButtonClick } = useContext(
+      SplitButtonContext
+    );
 
     let paddingX;
 
@@ -280,11 +286,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }
         as={!disabled && href ? "a" : "button"}
         onKeyDown={href ? handleLinkKeyDown : undefined}
+        onClick={inSplitButton ? onChildButtonClick?.(onClick) : onClick}
         draggable={false}
         buttonType={buttonType}
         disabled={disabled}
         destructive={destructive}
-        role="button"
+        role={inSplitButton ? "menu-item" : "button"}
         type={href ? undefined : "button"}
         iconType={iconType}
         size={size}
