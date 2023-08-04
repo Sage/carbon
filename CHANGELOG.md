@@ -1,3 +1,10 @@
+### [119.9.2](https://github.com/Sage/carbon/compare/v119.9.1...v119.9.2) (2023-08-04)
+
+
+### Bug Fixes
+
+* **portrait:** rewrite types and add invariant for gravatar and src props ([0ed96d6](https://github.com/Sage/carbon/commit/0ed96d6381887d070363cca88df7c1f5a4313dac))
+
 ### [119.9.1](https://github.com/Sage/carbon/compare/v119.9.0...v119.9.1) (2023-08-03)
 
 
