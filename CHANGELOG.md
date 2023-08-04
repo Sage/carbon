@@ -1,3 +1,10 @@
+### [119.9.3](https://github.com/Sage/carbon/compare/v119.9.2...v119.9.3) (2023-08-04)
+
+
+### Bug Fixes
+
+* **split-button, multi-action-button:** remove children iteration ([a8631bc](https://github.com/Sage/carbon/commit/a8631bcaeba1e5357158c8c7e9bc75e71c697da5)), closes [#4784](https://github.com/Sage/carbon/issues/4784)
+
 ### [119.9.2](https://github.com/Sage/carbon/compare/v119.9.1...v119.9.2) (2023-08-04)
 
 
