@@ -1,3 +1,10 @@
+## [119.10.0](https://github.com/Sage/carbon/compare/v119.9.3...v119.10.0) (2023-08-04)
+
+
+### Features
+
+* **checkbox:** add support for new validation ([05d137d](https://github.com/Sage/carbon/commit/05d137d42be0e7939fce53bc4cf7575a9f826a2d))
+
 ### [119.9.3](https://github.com/Sage/carbon/compare/v119.9.2...v119.9.3) (2023-08-04)
 
 
