@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { MarginProps } from "styled-system";
+import invariant from "invariant";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";
@@ -18,7 +19,11 @@ export type PortraitShapes = "circle" | "square";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
-export interface PortraitBaseProps extends MarginProps {
+export interface PortraitProps extends MarginProps {
+  /** An email address registered with Gravatar. */
+  gravatar?: string;
+  /** A custom image URL. */
+  src?: string;
   /** The size of the Portrait. */
   size?: PortraitSizes;
   /** The `alt` HTML string. */
@@ -51,20 +56,6 @@ export interface PortraitBaseProps extends MarginProps {
   tooltipFontColor?: string;
 }
 
-export interface PortraitWithGravatar extends PortraitBaseProps {
-  /** An email address registered with Gravatar. */
-  gravatar?: string;
-  src?: never;
-}
-
-export interface PortraitWithSrc extends PortraitBaseProps {
-  /** A custom image URL. */
-  src?: string;
-  gravatar?: never;
-}
-
-export type PortraitProps = PortraitWithGravatar | PortraitWithSrc;
-
 export const Portrait = ({
   alt = "",
   darkBackground = false,
@@ -88,6 +79,12 @@ export const Portrait = ({
   const [externalError, setExternalError] = useState(false);
   const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
   const defaultShape = roundedCornersOptOut ? "square" : "circle";
+
+  invariant(
+    !(src && gravatar),
+    "The `src` prop cannot be used in conjunction with the `gravatar` prop." +
+      " Please use one or the other."
+  );
 
   useEffect(() => {
     setExternalError(false);
