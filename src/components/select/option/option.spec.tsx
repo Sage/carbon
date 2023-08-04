@@ -85,4 +85,24 @@ describe("Option", () => {
       });
     });
   });
+
+  describe("tags on component", () => {
+    it("includes correct component, element and role data tags", () => {
+      const wrapper = mount(
+        <Option
+          value="1"
+          text="one"
+          data-component="foo"
+          data-element="bar"
+          data-role="baz"
+        />
+      );
+
+      expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
+        "foo"
+      );
+      expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
+      expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
+    });
+  });
 });

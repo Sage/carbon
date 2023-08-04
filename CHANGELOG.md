@@ -1,3 +1,25 @@
+### [119.9.1](https://github.com/Sage/carbon/compare/v119.9.0...v119.9.1) (2023-08-03)
+
+
+### Bug Fixes
+
+* **textarea:** attempted fix for font-loading issue observed on codesandbox ([32e6cc1](https://github.com/Sage/carbon/commit/32e6cc14b72681d9b62b4e94aa79eeca6acb945f))
+* **textarea:** stop unwanted scroll of container when expandable ([0acf935](https://github.com/Sage/carbon/commit/0acf935395fca4105e10bd95140c753d74e28953)), closes [#6088](https://github.com/Sage/carbon/issues/6088)
+
+## [119.9.0](https://github.com/Sage/carbon/compare/v119.8.0...v119.9.0) (2023-08-02)
+
+
+### Features
+
+* **action-popover:** align component with design system ([d411789](https://github.com/Sage/carbon/commit/d41178916d337964ada0953f90c6dd2605e1740f)), closes [#5801](https://github.com/Sage/carbon/issues/5801)
+
+## [119.8.0](https://github.com/Sage/carbon/compare/v119.7.2...v119.8.0) (2023-08-02)
+
+
+### Features
+
+* **option-group-header, option-row, option:** allow custom IDs and surface data selectors ([04b11c5](https://github.com/Sage/carbon/commit/04b11c54b1e589ea818088faac8ea36b84c19ddc)), closes [#6126](https://github.com/Sage/carbon/issues/6126) [#5810](https://github.com/Sage/carbon/issues/5810)
+
 ### [119.7.2](https://github.com/Sage/carbon/compare/v119.7.1...v119.7.2) (2023-07-27)
 
 

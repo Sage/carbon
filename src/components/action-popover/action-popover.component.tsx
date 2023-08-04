@@ -20,7 +20,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
-import ActionPopoverContext from "./action-popover-context";
+import ActionPopoverContext, { Alignment } from "./action-popover-context";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 
 export interface RenderButtonProps {
@@ -38,7 +38,9 @@ export interface ActionPopoverProps extends MarginProps {
   /** Children for popover component */
   children?: React.ReactNode;
   /** Horizontal alignment of menu items content */
-  horizontalAlignment?: "left" | "right";
+  horizontalAlignment?: Alignment;
+  /** Sets submenu position */
+  submenuPosition?: Alignment;
   /** Unique ID */
   id?: string;
   /** Callback to be called on menu open */
@@ -65,6 +67,7 @@ export const ActionPopover = ({
   renderButton,
   placement = "bottom",
   horizontalAlignment = "left",
+  submenuPosition = "left",
   ...rest
 }: ActionPopoverProps) => {
   const l = useLocale();
@@ -266,7 +269,12 @@ export const ActionPopover = ({
     >
       {menuButton(menuID)}
       <ActionPopoverContext.Provider
-        value={{ setOpenPopover: setOpen, focusButton, isOpenPopover: isOpen }}
+        value={{
+          setOpenPopover: setOpen,
+          focusButton,
+          submenuPosition,
+          isOpenPopover: isOpen,
+        }}
       >
         {isOpen && (
           <Popover placement={mappedPlacement} reference={buttonRef}>

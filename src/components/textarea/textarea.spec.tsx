@@ -504,6 +504,43 @@ describe("componentWillUnmount", () => {
         expect.any(Function)
       );
     });
+
+    // TODO: test should be removed once FE-5551 is implemented. This test is only for coverage,
+    // it still passes even when the bug is reintroduced, as the bug only happens in a real browser
+    // environment, not in JSDOM.
+    describe("when a parent container scrolls vertically", () => {
+      it("restores the scroll position after expanding", () => {
+        const wrapper = mount(
+          <div
+            id="scroll-wrapper"
+            style={{ height: "200px", overflowY: "scroll" }}
+          >
+            <div id="inner-wrapper" style={{ height: "1000px" }}>
+              <Textarea
+                value="foo"
+                name="textarea"
+                onChange={jest.fn()}
+                label="Label"
+                expandable
+                rows={10}
+              />
+            </div>
+          </div>
+        );
+
+        const scrollWrapper = wrapper.find("#scroll-wrapper").getDOMNode();
+        const textarea = wrapper.find("textarea").getDOMNode();
+
+        scrollWrapper.scrollTop = 700;
+        jest
+          .spyOn(textarea, "scrollHeight", "get")
+          .mockImplementation(() => 500);
+
+        window.dispatchEvent(new Event("resize"));
+
+        expect(scrollWrapper.scrollTop).toBe(700);
+      });
+    });
   });
 
   describe("when textarea cannot be expanded", () => {
