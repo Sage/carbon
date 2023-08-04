@@ -18,7 +18,6 @@ export const BUTTON = 'button[type="button"]';
 export const COMMON_INPUT_PREFIX = '[data-element="textbox-prefix"]';
 export const COMMON_INPUT_CHARACTER_LIMIT =
   'div[data-element="character-limit"]';
-export const CY_ROOT = "[data-cy-root]";
 export const PORTAL = ".carbon-portal";
 export const LEGEND = "legend";
 export const STICKY_FOOTER = '[data-component="sticky-footer"]';

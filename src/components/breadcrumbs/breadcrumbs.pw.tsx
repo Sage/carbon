@@ -116,32 +116,38 @@ test("should call the onClick callback when clicked", async ({
   mount,
   page,
 }) => {
-  let capturedCallback = false;
-  // eslint-disable-next-line no-return-assign
-  await mount(<DefaultCrumb onClick={() => (capturedCallback = true)} />);
+  let hasOnClickBeenCalledCount = 0;
+  await mount(
+    <DefaultCrumb
+      onClick={() => {
+        hasOnClickBeenCalledCount += 1;
+      }}
+    />
+  );
 
   const crumbToClick = crumbAtIndex(page, 0);
   await crumbToClick.click();
-  expect(capturedCallback).toBeTruthy();
+  expect(hasOnClickBeenCalledCount).toBe(1);
 });
 
 test("should not set the onClick or href props when isCurrent is true", async ({
   mount,
   page,
 }) => {
-  let capturedCallback = false;
+  let hasOnClickBeenCalledCount = 0;
   await mount(
     <DefaultCrumb
       href={CHARACTERS.STANDARD}
-      // eslint-disable-next-line no-return-assign
-      onClick={() => (capturedCallback = true)}
+      onClick={() => {
+        hasOnClickBeenCalledCount += 1;
+      }}
       isCurrent
     />
   );
 
   const crumbToClick = crumbAtIndex(page, 0);
   await crumbToClick.click();
-  expect(capturedCallback).toBeFalsy();
+  expect(hasOnClickBeenCalledCount).toBeFalsy();
 
   await expect(crumbToClick.locator("a")).not.toHaveAttribute("href", "/");
 });

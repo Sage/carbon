@@ -45,7 +45,7 @@ We are refactoring cypress tests to playwright tests, using playwright-react17 c
 
 ## Continuous Integration (CI)
 
-Every commit/pull request in the repository initiates a Cypress test run using GitHub Actions.
+Every commit/pull request in the repository initiates a Playwright test run using GitHub Actions.
 
 ### GitHub Actions
 1. `playwright.yml`
@@ -57,4 +57,4 @@ NOTE: If the tests failed for a reason such as if there is an issue with GitHub 
 
 ## Debugging Playwright
 
-To be able to debug playwright tests we need to run the test in `Debug` mode using the same using plugin (`Playwright Test for VSCode`). It allows you to run tests normally or in `debug` mode. Also you need to put the break points where you want test to stop. It is similar as for unit tests.
+Run the test in `Debug` mode using the same using plugin (`Playwright Test for VSCode`). Or run the `npm run test:ct -- --debug`.

@@ -15,7 +15,7 @@ import {
   buttonDataComponent,
   buttonMinorComponent,
 } from "../../../playwright/components/button/index";
-import { icon } from "../../../playwright/components/index";
+import icon from "../../../playwright/components/index";
 import {
   checkAccessibility,
   getStyle,
@@ -135,15 +135,13 @@ test.describe(
     }) => {
       await mount(<ButtonBarWithWrapper size="small" />);
 
-      for (let i = 0; i < 3; i++) {
-        // eslint-disable-next-line no-await-in-loop
-        const buttonWidth = await getStyle(
-          buttonDataComponent(page).nth(i),
-          "width"
-        );
-        // eslint-disable-next-line no-await-in-loop
-        await expect(parseFloat(buttonWidth)).toBeCloseTo(82, 0);
-      }
+      const buttonWidthPromises = [0, 1, 2].map((i) =>
+        getStyle(buttonDataComponent(page).nth(i), "width")
+      );
+      const buttonWidths = await Promise.all(buttonWidthPromises);
+      buttonWidths.forEach((width) =>
+        expect(parseFloat(width)).toBeCloseTo(82, 0)
+      );
     });
 
     [

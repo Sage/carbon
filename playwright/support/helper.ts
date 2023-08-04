@@ -54,7 +54,6 @@ type OutlineType =
  * @example await checkGoldenOutline(locator);
  */
 export const checkGoldenOutline = async (
-  // Target element as a Pla
   element: Locator,
   outlinePixelWidth = "3px",
   outline: OutlineType = "outline"

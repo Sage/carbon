@@ -10,7 +10,7 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 import BadgeComponent from "./components.test-pw";
 
 test.describe("should render Badge component", () => {
-  test("renders BadgeComponent", async ({ mount, page }) => {
+  test("renders Badge Component", async ({ mount, page }) => {
     await mount(<BadgeComponent counter={9} />);
 
     const text = await page.locator("span > span").textContent();
@@ -81,16 +81,20 @@ test.describe("should render Badge component", () => {
     mount,
     page,
   }) => {
-    let capturedCallback = false;
+    let hasOnClickBeenCalledCount = 0;
 
     await mount(
-      // eslint-disable-next-line no-return-assign
-      <BadgeComponent counter={5} onClick={() => (capturedCallback = true)} />
+      <BadgeComponent
+        counter={5}
+        onClick={() => {
+          hasOnClickBeenCalledCount += 1;
+        }}
+      />
     );
 
     const badgeToClick = badge(page);
     await badgeToClick.click();
-    expect(capturedCallback).toBeTruthy();
+    expect(hasOnClickBeenCalledCount).toBe(1);
   });
 
   test("should render with expected border radius styling", async ({
