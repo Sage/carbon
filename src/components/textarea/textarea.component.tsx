@@ -218,12 +218,24 @@ export const Textarea = React.forwardRef(
         textarea?.scrollHeight &&
         textarea?.scrollHeight > minHeight.current
       ) {
+        // need to reset scroll position of the nearest parent which scrolls
+        let scrollElement: HTMLElement | null = textarea;
+        while (scrollElement && !scrollElement?.scrollTop) {
+          scrollElement = scrollElement?.parentElement || null;
+        }
+
+        const scrollPosition = scrollElement?.scrollTop;
+
         textarea.style.height = "0px";
         // Set the height so all content is shown
         textarea.style.height = `${Math.max(
           textarea.scrollHeight,
           minHeight.current
         )}px`;
+
+        if (scrollElement && scrollPosition) {
+          scrollElement.scrollTop = scrollPosition;
+        }
       }
     };
 
@@ -265,11 +277,15 @@ export const Textarea = React.forwardRef(
       if (expandable) {
         window.addEventListener("resize", expandTextarea);
         minHeight.current = internalRef?.current?.clientHeight || 0;
+        // need to also run expandTextarea when the Sage UI font completes loading, to prevent strange scroll
+        // behaviour when it only loads after the component is rendered
+        document.fonts?.addEventListener("loadingdone", expandTextarea);
       }
 
       return () => {
         if (expandable) {
           window.removeEventListener("resize", expandTextarea);
+          document.fonts?.removeEventListener("loadingdone", expandTextarea);
         }
       };
     }, [expandable]);

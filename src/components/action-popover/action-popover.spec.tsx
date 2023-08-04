@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { ThemeProvider } from "styled-components";
 import { mount as enzymeMount, ReactWrapper } from "enzyme";
-
 import {
   simulate,
   assertStyleMatch,
@@ -25,6 +24,7 @@ import {
   MenuItemIcon,
   SubMenuItemIcon,
   StyledMenuItem,
+  StyledMenuItemInnerText,
   StyledButtonIcon,
   StyledMenuItemWrapper,
 } from "./action-popover.style";
@@ -101,13 +101,11 @@ describe("ActionPopover", () => {
     };
 
     renderer(
-      <ThemeProvider theme={mintTheme}>
-        <>
-          <input id="before" />
-          <ActionPopover {...defaultProps} {...props} />
-          <input id="after" />
-        </>
-      </ThemeProvider>
+      <>
+        <input id="before" />
+        <ActionPopover {...defaultProps} {...props} />
+        <input id="after" />
+      </>
     );
   }
 
@@ -116,6 +114,7 @@ describe("ActionPopover", () => {
       <ActionPopoverMenu>
         <ActionPopoverItem
           key="0"
+          icon="bin"
           {...{ onClick: onClickWrapper("sub menu 1") }}
         >
           Sub Menu 1
@@ -170,13 +169,243 @@ describe("ActionPopover", () => {
     };
 
     renderer(
-      <ThemeProvider theme={mintTheme}>
-        <>
-          <input id="before" />
-          <ActionPopover {...defaultProps} {...props} />
-          <input id="after" />
-        </>
-      </ThemeProvider>
+      <>
+        <input id="before" />
+        <ActionPopover {...defaultProps} {...props} />
+        <input id="after" />
+      </>
+    );
+  }
+
+  function renderActionPopoverWithNoIconsOrSubmenus(
+    props = {},
+    renderer = mount
+  ) {
+    const defaultProps = {
+      children: [
+        <ActionPopoverItem key="item-1" onClick={() => {}}>
+          Business
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-2" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-3" onClick={() => {}}>
+          Print Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-4" onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-5" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>,
+        <ActionPopoverDivider key="item-6" />,
+        <ActionPopoverItem key="item-7" onClick={() => {}}>
+          Delete
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-8" onClick={() => {}}>
+          Return Home
+        </ActionPopoverItem>,
+        null,
+        undefined,
+      ],
+      ...props,
+    };
+
+    renderer(
+      <>
+        <input id="before" />
+        <ActionPopover {...defaultProps} {...props} />
+        <input id="after" />
+      </>
+    );
+  }
+
+  function renderActionPopoverWithSomeSubmenusAndNoIcons(
+    props = {},
+    renderer = mount
+  ) {
+    const submenu = (
+      <ActionPopoverMenu>
+        <ActionPopoverItem icon="bin" onClick={() => {}}>
+          Sub Menu 1
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
+      </ActionPopoverMenu>
+    );
+
+    const defaultProps = {
+      children: [
+        <ActionPopoverItem key="item-1" onClick={() => {}}>
+          Business
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-2" onClick={() => {}} submenu={submenu}>
+          Email Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-3" onClick={() => {}}>
+          Print Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-4" onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-5" onClick={() => {}} submenu={submenu}>
+          Download CSV
+        </ActionPopoverItem>,
+        <ActionPopoverDivider key="item-6" />,
+        <ActionPopoverItem key="item-7" onClick={() => {}} submenu={submenu}>
+          Delete
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-8" onClick={() => {}} submenu={submenu}>
+          Return Home
+        </ActionPopoverItem>,
+        null,
+        undefined,
+      ],
+      ...props,
+    };
+
+    renderer(
+      <>
+        <input id="before" />
+        <ActionPopover {...defaultProps} {...props} />
+        <input id="after" />
+      </>
+    );
+  }
+
+  function renderActionPopoverWithSubmenusAndSomeIcons(
+    props = {},
+    renderer = mount
+  ) {
+    const submenu = (
+      <ActionPopoverMenu>
+        <ActionPopoverItem icon="bin" onClick={() => {}}>
+          Sub Menu 1
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
+      </ActionPopoverMenu>
+    );
+
+    const defaultProps = {
+      children: [
+        <ActionPopoverItem key="item-1" onClick={() => {}} submenu={submenu}>
+          Business
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-2" onClick={() => {}} submenu={submenu}>
+          Email Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-3" onClick={() => {}} submenu={submenu}>
+          Print Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-4" onClick={() => {}} submenu={submenu}>
+          Download PDF
+        </ActionPopoverItem>,
+        <ActionPopoverItem
+          key="item-5"
+          icon="csv"
+          onClick={() => {}}
+          submenu={submenu}
+        >
+          Download CSV
+        </ActionPopoverItem>,
+        <ActionPopoverDivider key="item-6" />,
+        <ActionPopoverItem
+          key="item-7"
+          icon="delete"
+          onClick={() => {}}
+          submenu={submenu}
+        >
+          Delete
+        </ActionPopoverItem>,
+        <ActionPopoverItem
+          key="item-8"
+          icon="home"
+          onClick={() => {}}
+          submenu={submenu}
+        >
+          Return Home
+        </ActionPopoverItem>,
+        null,
+        undefined,
+      ],
+      ...props,
+    };
+
+    renderer(
+      <>
+        <input id="before" />
+        <ActionPopover {...defaultProps} {...props} />
+        <input id="after" />
+      </>
+    );
+  }
+
+  function renderWithVariableChildren(props = {}, renderer = mount) {
+    const submenu = (
+      <ActionPopoverMenu>
+        <ActionPopoverItem icon="bin" onClick={() => {}}>
+          Sub Menu 1
+        </ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
+        <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
+      </ActionPopoverMenu>
+    );
+
+    const defaultProps = {
+      children: [
+        <ActionPopoverItem key="item-1" onClick={() => {}}>
+          Business
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-2" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-3" onClick={() => {}}>
+          Print Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-4" onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>,
+        <ActionPopoverItem
+          key="item-5"
+          icon="csv"
+          onClick={() => {}}
+          submenu={submenu}
+        >
+          Download CSV
+        </ActionPopoverItem>,
+        <ActionPopoverDivider key="item-6" />,
+        <ActionPopoverItem
+          key="item-7"
+          icon="delete"
+          onClick={() => {}}
+          submenu={submenu}
+        >
+          Delete
+        </ActionPopoverItem>,
+        <ActionPopoverItem
+          key="item-8"
+          icon="home"
+          onClick={() => {}}
+          submenu={submenu}
+        >
+          Return Home
+        </ActionPopoverItem>,
+        null,
+        undefined,
+      ],
+      ...props,
+    };
+
+    renderer(
+      <>
+        <input id="before" />
+        <ActionPopover {...defaultProps} {...props} />
+        <input id="after" />
+      </>
     );
   }
 
@@ -234,13 +463,11 @@ describe("ActionPopover", () => {
   describe("if download prop and href prop are provided", () => {
     it("should render as a link component", () => {
       wrapper = enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover>
-            <ActionPopoverItem key="1" onClick={jest.fn()} href="#" download>
-              test download
-            </ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>
+        <ActionPopover>
+          <ActionPopoverItem key="1" onClick={jest.fn()} href="#" download>
+            test download
+          </ActionPopoverItem>
+        </ActionPopover>
       );
 
       openMenu();
@@ -250,13 +477,11 @@ describe("ActionPopover", () => {
 
     it("should trigger click function if enter pressed", () => {
       wrapper = enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover>
-            <ActionPopoverItem key="1" href="#" download>
-              test download
-            </ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>
+        <ActionPopover>
+          <ActionPopoverItem key="1" href="#" download>
+            test download
+          </ActionPopoverItem>
+        </ActionPopover>
       );
 
       act(() => {
@@ -349,12 +574,10 @@ describe("ActionPopover", () => {
       "applies proper placement prop to Popover component",
       (placement, rightAlignMenu, result) => {
         const myWrapper = enzymeMount(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopover
-              placement={placement}
-              rightAlignMenu={rightAlignMenu}
-            />
-          </ThemeProvider>
+          <ActionPopover
+            placement={placement}
+            rightAlignMenu={rightAlignMenu}
+          />
         );
 
         myWrapper.find(MenuButton).simulate("click");
@@ -845,13 +1068,11 @@ describe("ActionPopover", () => {
 
     expect(() => {
       enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover>
-            <ActionPopoverItem onClick={() => {}}>Item</ActionPopoverItem>
-            Invalid children
-            <p>invalid children</p>
-          </ActionPopover>
-        </ThemeProvider>
+        <ActionPopover>
+          <ActionPopoverItem onClick={() => {}}>Item</ActionPopoverItem>
+          Invalid children
+          <p>invalid children</p>
+        </ActionPopover>
       );
     }).toThrow(
       "ActionPopover only accepts children of type `ActionPopoverItem`" +
@@ -872,11 +1093,11 @@ describe("ActionPopover", () => {
         const submenuIcon = item.find(SubMenuItemIcon);
         assertStyleMatch(
           {
-            left: "-2px",
+            left: "-5px",
           },
           submenuIcon
         );
-        expect(submenuIcon.props().type).toEqual("chevron_left");
+        expect(submenuIcon.props().type).toEqual("chevron_left_thick");
       });
 
       it("opens the submenu on mouseenter", () => {
@@ -1085,18 +1306,16 @@ describe("ActionPopover", () => {
 
       it("does not open a submenu if an item is disabled", () => {
         const tempWrapper = enzymeMount(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopover>
-              <ActionPopoverItem
-                icon="email"
-                disabled
-                submenu={<ActionPopoverMenu />}
-                {...{ onClick: onClickWrapper("email") }}
-              >
-                Foo
-              </ActionPopoverItem>
-            </ActionPopover>
-          </ThemeProvider>
+          <ActionPopover>
+            <ActionPopoverItem
+              icon="email"
+              disabled
+              submenu={<ActionPopoverMenu />}
+              {...{ onClick: onClickWrapper("email") }}
+            >
+              Foo
+            </ActionPopoverItem>
+          </ActionPopover>
         );
 
         tempWrapper.find(MenuButton).simulate("click");
@@ -1213,28 +1432,27 @@ describe("ActionPopover", () => {
     describe('when the "focusIndex" prop is -1', () => {
       it("does not focus the first of the items", () => {
         const item = enzymeMount(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopoverContext.Provider
-              value={{
-                setOpenPopover: jest.fn(),
-                focusButton: jest.fn(),
-                isOpenPopover: false,
-              }}
+          <ActionPopoverContext.Provider
+            value={{
+              setOpenPopover: jest.fn(),
+              focusButton: jest.fn(),
+              isOpenPopover: false,
+              submenuPosition: "left",
+            }}
+          >
+            <ActionPopoverMenu
+              setOpen={jest.fn()}
+              setFocusIndex={jest.fn()}
+              focusIndex={-1}
             >
-              <ActionPopoverMenu
-                setOpen={jest.fn()}
-                setFocusIndex={jest.fn()}
-                focusIndex={-1}
+              <ActionPopoverItem
+                key="0"
+                {...{ onClick: onClickWrapper("sub menu 1") }}
               >
-                <ActionPopoverItem
-                  key="0"
-                  {...{ onClick: onClickWrapper("sub menu 1") }}
-                >
-                  Sub Menu 1
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            </ActionPopoverContext.Provider>
-          </ThemeProvider>
+                Sub Menu 1
+              </ActionPopoverItem>
+            </ActionPopoverMenu>
+          </ActionPopoverContext.Provider>
         ).find(ActionPopoverItem);
 
         expect(item).not.toBeFocused();
@@ -1247,7 +1465,7 @@ describe("ActionPopover", () => {
       });
     });
 
-    describe("right aligned", () => {
+    describe("submenu aligns right when parent container is too small and submenuPosition is 'left'", () => {
       let getBoundingClientRectSpy: jest.SpyInstance;
       beforeEach(() => {
         // Mock the parent boundingRect
@@ -1259,10 +1477,12 @@ describe("ActionPopover", () => {
           .fn()
           .mockImplementation(() => ({
             left: "-100",
-            right: "200",
+            right: "auto",
             top: "100",
           }));
-        renderWithSubmenu();
+        renderWithSubmenu({
+          submenuPosition: "left",
+        });
       });
 
       afterEach(() => {
@@ -1281,7 +1501,7 @@ describe("ActionPopover", () => {
           },
           submenuIcon
         );
-        expect(submenuIcon.props().type).toEqual("chevron_right");
+        expect(submenuIcon.props().type).toEqual("chevron_right_thick");
       });
 
       it("opens the submenu and focuses the first item when right key is pressed", () => {
@@ -1332,6 +1552,161 @@ describe("ActionPopover", () => {
       });
     });
 
+    describe("submenu aligns right when submenuPosition is 'right'", () => {
+      beforeEach(() => {
+        renderWithSubmenu({ submenuPosition: "right" });
+      });
+
+      it("renders an icon to indicate when a item has a submenu and is right aligned", () => {
+        openMenu();
+        const { items } = getElements();
+        const item = items.at(1);
+        const submenuIcon = item.find(SubMenuItemIcon);
+        assertStyleMatch(
+          {
+            right: "-5px",
+          },
+          submenuIcon
+        );
+        expect(submenuIcon.props().type).toEqual("chevron_right_thick");
+      });
+
+      it("opens the submenu and focuses the first item when right key is pressed", () => {
+        openMenu();
+        const { items } = getElements();
+        const item = items.at(1);
+
+        act(() => {
+          simulate.keydown.pressArrowRight(item.find(StyledMenuItem).at(0));
+        });
+        jest.runAllTimers();
+
+        act(() => {
+          expect(
+            item
+              .find(ActionPopoverMenu)
+              .find(ActionPopoverItem)
+              .at(0)
+              .find(StyledMenuItem)
+              .at(0)
+              .getDOMNode()
+          ).toBeFocused();
+        });
+      });
+
+      it("closes the submenu and returns focus to parent item when left key is pressed", () => {
+        openMenu();
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => {
+          simulate.keydown.pressArrowRight(item.find(StyledMenuItem).at(0));
+        });
+        act(() => {
+          simulate.keydown.pressArrowLeft(item.find(StyledMenuItem).at(0));
+        });
+        act(() => {
+          expect(
+            item
+              .find(ActionPopoverMenu)
+              .find(ActionPopoverItem)
+              .at(0)
+              .find(StyledMenuItem)
+              .at(0)
+              .getDOMNode()
+          ).not.toBeFocused();
+          expect(item.find(StyledMenuItem).at(0).getDOMNode()).toBeFocused();
+        });
+      });
+    });
+
+    describe("submenu aligns left when parent container is too small and submenuPosition is 'right'", () => {
+      let getBoundingClientRectSpy: jest.SpyInstance;
+      beforeEach(() => {
+        // Mock the parent boundingRect
+        getBoundingClientRectSpy = jest.spyOn(
+          Element.prototype,
+          "getBoundingClientRect"
+        );
+        Element.prototype.getBoundingClientRect = jest
+          .fn()
+          .mockImplementation(() => ({
+            left: "auto",
+            right: "100",
+            top: "100",
+          }));
+        renderWithSubmenu({
+          submenuPosition: "right",
+          rightAlignMenu: true,
+        });
+      });
+
+      afterEach(() => {
+        // Clear Mock from parent boundingRect
+        getBoundingClientRectSpy.mockRestore();
+      });
+
+      it("renders an icon to indicate when a item has a submenu and is left aligned", () => {
+        openMenu();
+        const { items } = getElements();
+        const item = items.at(1);
+        const submenuIcon = item.find(SubMenuItemIcon);
+        assertStyleMatch(
+          {
+            left: "-5px",
+          },
+          submenuIcon
+        );
+        expect(submenuIcon.props().type).toEqual("chevron_left_thick");
+      });
+
+      it("opens the submenu and focuses the first item when right key is pressed", () => {
+        openMenu();
+        const { items } = getElements();
+        const item = items.at(1);
+
+        act(() => {
+          simulate.keydown.pressArrowLeft(item.find(StyledMenuItem).at(0));
+        });
+        jest.runAllTimers();
+
+        act(() => {
+          expect(
+            item
+              .find(ActionPopoverMenu)
+              .find(ActionPopoverItem)
+              .at(0)
+              .find(StyledMenuItem)
+              .at(0)
+              .getDOMNode()
+          ).toBeFocused();
+        });
+      });
+
+      it("closes the submenu and returns focus to parent item when left key is pressed", () => {
+        openMenu();
+        const { items } = getElements();
+        const item = items.at(1);
+        act(() => {
+          simulate.keydown.pressArrowLeft(item.find(StyledMenuItem).at(0));
+        });
+        act(() => {
+          simulate.keydown.pressArrowRight(item.find(StyledMenuItem).at(0));
+        });
+        act(() => {
+          expect(
+            item
+              .find(ActionPopoverMenu)
+              .find(ActionPopoverItem)
+              .at(0)
+              .find(StyledMenuItem)
+              .at(0)
+              .getDOMNode()
+          ).not.toBeFocused();
+          expect(item.find(StyledMenuItem).at(0).getDOMNode()).toBeFocused();
+        });
+      });
+    });
+
     it("validates the submenu prop", () => {
       const globalConsoleSpy = jest
         .spyOn(global.console, "error")
@@ -1339,17 +1714,15 @@ describe("ActionPopover", () => {
 
       expect(() => {
         const tempWrapper = enzymeMount(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopover>
-              <ActionPopoverItem
-                submenu={<p>foo</p>}
-                icon="pdf"
-                onClick={jest.fn()}
-              >
-                item
-              </ActionPopoverItem>
-            </ActionPopover>
-          </ThemeProvider>
+          <ActionPopover>
+            <ActionPopoverItem
+              submenu={<p>foo</p>}
+              icon="pdf"
+              onClick={jest.fn()}
+            >
+              item
+            </ActionPopoverItem>
+          </ActionPopover>
         );
 
         tempWrapper.find(MenuButton).simulate("click");
@@ -1368,24 +1741,23 @@ describe("ActionPopover", () => {
 
       expect(() => {
         enzymeMount(
-          <ThemeProvider theme={mintTheme}>
-            <ActionPopoverContext.Provider
-              value={{
-                setOpenPopover: jest.fn(),
-                focusButton: jest.fn(),
-                isOpenPopover: true,
-              }}
+          <ActionPopoverContext.Provider
+            value={{
+              setOpenPopover: jest.fn(),
+              focusButton: jest.fn(),
+              isOpenPopover: true,
+              submenuPosition: "left",
+            }}
+          >
+            <ActionPopoverMenu
+              setOpen={jest.fn()}
+              setFocusIndex={jest.fn()}
+              focusIndex={-1}
             >
-              <ActionPopoverMenu
-                setOpen={jest.fn()}
-                setFocusIndex={jest.fn()}
-                focusIndex={-1}
-              >
-                Invalid
-                <p>Invalid</p>
-              </ActionPopoverMenu>
-            </ActionPopoverContext.Provider>
-          </ThemeProvider>
+              Invalid
+              <p>Invalid</p>
+            </ActionPopoverMenu>
+          </ActionPopoverContext.Provider>
         );
       }).toThrow(
         "ActionPopoverMenu only accepts children of type `ActionPopoverItem`" +
@@ -1414,25 +1786,23 @@ describe("ActionPopover", () => {
         }));
 
       wrapper = enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover placement="top">
-            <ActionPopoverItem
-              onClick={onClick}
-              submenu={
-                <ActionPopoverMenu>
-                  <ActionPopoverItem
-                    key="0"
-                    {...{ onClick: onClickWrapper("sub menu 1") }}
-                  >
-                    Sub Menu 1
-                  </ActionPopoverItem>
-                </ActionPopoverMenu>
-              }
-            >
-              foo
-            </ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>
+        <ActionPopover placement="top">
+          <ActionPopoverItem
+            onClick={onClick}
+            submenu={
+              <ActionPopoverMenu>
+                <ActionPopoverItem
+                  key="0"
+                  {...{ onClick: onClickWrapper("sub menu 1") }}
+                >
+                  Sub Menu 1
+                </ActionPopoverItem>
+              </ActionPopoverMenu>
+            }
+          >
+            foo
+          </ActionPopoverItem>
+        </ActionPopover>
       );
     });
 
@@ -1454,23 +1824,21 @@ describe("ActionPopover", () => {
   describe("Custom Menu Button", () => {
     it("supports being passed an override component to act as the menu button", () => {
       const popover = enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover
-            renderButton={(props) => (
-              <ActionPopoverMenuButton
-                buttonType="tertiary"
-                iconType="dropdown"
-                iconPosition="after"
-                size="small"
-                {...props}
-              >
-                Foo
-              </ActionPopoverMenuButton>
-            )}
-          >
-            <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>
+        <ActionPopover
+          renderButton={(props) => (
+            <ActionPopoverMenuButton
+              buttonType="tertiary"
+              iconType="dropdown"
+              iconPosition="after"
+              size="small"
+              {...props}
+            >
+              Foo
+            </ActionPopoverMenuButton>
+          )}
+        >
+          <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
+        </ActionPopover>
       ).find(ActionPopover);
 
       const menuButton = popover.find(ActionPopoverMenuButton);
@@ -1492,23 +1860,21 @@ describe("ActionPopover", () => {
 
     it("sets the tabIndex correctly when opened", () => {
       wrapper = enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover
-            renderButton={(props) => (
-              <ActionPopoverMenuButton
-                buttonType="tertiary"
-                iconType="dropdown"
-                iconPosition="after"
-                size="small"
-                {...props}
-              >
-                Foo
-              </ActionPopoverMenuButton>
-            )}
-          >
-            <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>
+        <ActionPopover
+          renderButton={(props) => (
+            <ActionPopoverMenuButton
+              buttonType="tertiary"
+              iconType="dropdown"
+              iconPosition="after"
+              size="small"
+              {...props}
+            >
+              Foo
+            </ActionPopoverMenuButton>
+          )}
+        >
+          <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
+        </ActionPopover>
       );
 
       openMenu();
@@ -1519,37 +1885,233 @@ describe("ActionPopover", () => {
     });
   });
 
-  describe("when the horizontalAlignment prop is set to right", () => {
-    beforeEach(() => {
-      wrapper = enzymeMount(
-        <ThemeProvider theme={mintTheme}>
-          <ActionPopover horizontalAlignment="right">
-            <ActionPopoverItem key="1" href="#" icon="download">
-              test download
-            </ActionPopoverItem>
-          </ActionPopover>
-        </ThemeProvider>
-      );
-    });
+  describe("padding checks on 'StyledMenuItemInnerText'", () => {
+    it.each([
+      ["left", "left"],
+      ["left", "right"],
+      ["right", "left"],
+      ["right", "right"],
+    ])(
+      "when horizontalAlignment is %s and submenuPosition is %, then left and right padding is: var(--spacing100)",
+      (alignment, position) => {
+        renderActionPopoverWithNoIconsOrSubmenus({
+          submenuPosition: position,
+          horizontalAlignment: alignment,
+        });
+        openMenu();
+        assertStyleMatch(
+          {
+            paddingLeft: "var(--spacing100)",
+            paddingRight: "var(--spacing100)",
+          },
+          wrapper.find(StyledMenuItemInnerText).at(0)
+        );
+      }
+    );
 
-    it("then menu item content should be right aligned", () => {
+    it.each([
+      ["left", "left", "var(--spacing400)", "var(--spacing100)"],
+      ["right", "right", "var(--spacing100)", "var(--spacing400)"],
+    ])(
+      "when horizontalAlignment is %s, submenuPosition is %s and Menu Item children have some submenus and no icons, then padding-left is %s and padding-right is %s",
+      (alignment, position, paddingLeft, paddingRight) => {
+        renderActionPopoverWithSomeSubmenusAndNoIcons({
+          submenuPosition: position,
+          horizontalAlignment: alignment,
+        });
+        openMenu();
+        assertStyleMatch(
+          {
+            paddingLeft,
+            paddingRight,
+          },
+          wrapper.find(StyledMenuItemInnerText).at(0)
+        );
+      }
+    );
+
+    it.each([
+      ["left", "left", "var(--spacing600)", "var(--spacing100)"],
+      ["right", "right", "var(--spacing100)", "var(--spacing600)"],
+    ])(
+      "when horizontalAlignment is %s submenuPosition is %s and Menu Item children have submenus and some icons, then padding-left is %s and padding-right is %s",
+      (alignment, position, paddingLeft, paddingRight) => {
+        renderActionPopoverWithSubmenusAndSomeIcons({
+          submenuPosition: position,
+          horizontalAlignment: alignment,
+        });
+        openMenu();
+        assertStyleMatch(
+          {
+            paddingLeft,
+            paddingRight,
+          },
+          wrapper.find(StyledMenuItemInnerText).at(0)
+        );
+      }
+    );
+
+    it.each([
+      ["left", "left", "var(--spacing900)", "var(--spacing100)"],
+      ["right", "right", "var(--spacing100)", "var(--spacing900)"],
+    ])(
+      "when horizontalAlignment is %s submenuPosition is %s and Menu Item children are variable, then padding-left is %s and padding-right is %s",
+      (alignment, position, paddingLeft, paddingRight) => {
+        renderWithVariableChildren({
+          submenuPosition: position,
+          horizontalAlignment: alignment,
+        });
+        openMenu();
+        assertStyleMatch(
+          {
+            paddingLeft,
+            paddingRight,
+          },
+          wrapper.find(StyledMenuItemInnerText).at(0)
+        );
+      }
+    );
+
+    it.each([
+      ["left", "left"],
+      ["left", "right"],
+      ["right", "left"],
+      ["right", "right"],
+    ])(
+      "when horizontalAlignment is %s, submenuPosition is %s and child is a submenu, left and right padding is var(--spacing000)",
+      (alignment, position) => {
+        renderActionPopoverWithSubmenusAndSomeIcons({
+          submenuPosition: position,
+          horizontalAlignment: alignment,
+        });
+        openMenu();
+        const { items } = getElements();
+        const item = items.at(0);
+        const submenu = item.find(ActionPopoverMenu);
+        const disabledSubmenuItem = submenu
+          .find(ActionPopoverItem)
+          .at(1)
+          .find(StyledMenuItem)
+          .at(0);
+
+        assertStyleMatch(
+          {
+            paddingLeft: "var(--spacing000)",
+            paddingRight: "var(--spacing000)",
+          },
+          disabledSubmenuItem.find(StyledMenuItemInnerText)
+        );
+      }
+    );
+  });
+
+  describe("justify-content checks on 'StyledMenuItem'", () => {
+    it.each([
+      ["left", "flex-start"],
+      ["right", "flex-end"],
+    ])(
+      "when horizontalAlignment is %s, then content should be justified %s",
+      (alignment, itemAlignment) => {
+        render({ horizontalAlignment: alignment });
+        openMenu();
+        assertStyleMatch(
+          {
+            justifyContent: itemAlignment,
+          },
+          wrapper.find(StyledMenuItem)
+        );
+      }
+    );
+
+    it.each([
+      ["left", "right", "space-between", 0],
+      ["right", "left", "flex-end", 1],
+    ])(
+      "when horizontalAlignment is %s, submenuPosition is %s and Menu Item Children have no submenus, then content should be justified flex-end",
+      (alignment, position, itemAlignment, index) => {
+        render({ horizontalAlignment: alignment, submenuPosition: position });
+
+        openMenu();
+        assertStyleMatch(
+          {
+            justifyContent: itemAlignment,
+          },
+          wrapper.find(StyledMenuItem).at(index)
+        );
+      }
+    );
+
+    it.each([
+      ["left", "right", 0],
+      ["right", "left", 1],
+    ])(
+      "when horizontalAlignment is %s, submenuPosition is %s and Menu Item children have submenus, then content should be justified space-between",
+      (alignment, position, index) => {
+        renderWithSubmenu({
+          horizontalAlignment: alignment,
+          submenuPosition: position,
+        });
+
+        openMenu();
+        assertStyleMatch(
+          {
+            justifyContent: "space-between",
+          },
+          wrapper.find(StyledMenuItem).at(index)
+        );
+      }
+    );
+  });
+
+  describe("padding checks on 'MenuItemIcon'", () => {
+    it("padding is var(--spacing100)", () => {
+      renderWithSubmenu();
       openMenu();
       assertStyleMatch(
         {
-          justifyContent: "flex-end",
+          padding:
+            "var(--spacing100) var(--spacing100) var(--spacing100) var(--spacing100)",
         },
-        wrapper.find(StyledMenuItem)
+        wrapper.find(MenuItemIcon).at(1)
       );
     });
 
-    it("then menu item icon should have correct left padding", () => {
-      openMenu();
-      assertStyleMatch(
-        {
-          padding: "var(--spacing100)",
-        },
-        wrapper.find(MenuItemIcon)
-      );
-    });
+    it.each([
+      [
+        "left",
+        "left",
+        "var(--spacing100) var(--spacing100) var(--spacing100) var(--spacing400)",
+      ],
+      [
+        "left",
+        "right",
+        "var(--spacing100) var(--spacing100) var(--spacing100) var(--spacing100)",
+      ],
+      [
+        "right",
+        "left",
+        "var(--spacing100) var(--spacing100) var(--spacing100) var(--spacing100)",
+      ],
+      [
+        "right",
+        "right",
+        "var(--spacing100) var(--spacing400) var(--spacing100) var(--spacing100)",
+      ],
+    ])(
+      "when horizontalAlignment is %s, submenuPosition is %s and Menu Item children have icons and some submenus, then padding is %s",
+      (alignment, position, padding) => {
+        renderWithSubmenu({
+          submenuPosition: position,
+          horizontalAlignment: alignment,
+        });
+        openMenu();
+        assertStyleMatch(
+          {
+            padding,
+          },
+          wrapper.find(MenuItemIcon)
+        );
+      }
+    );
   });
 });

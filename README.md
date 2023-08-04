@@ -4,7 +4,7 @@ Carbon is a [React](https://facebook.github.io/react/) component library develop
 
 ## Getting started
 
-Our [getting started guide](docs/getting-started.stories.mdx) provides instructions on how to install and use the Carbon library.
+Our [getting started guide](https://carbon.sage.com/?path=/story/getting-started-installation--page) provides instructions on how to install and use the Carbon library.
 
 ## Examples
 
