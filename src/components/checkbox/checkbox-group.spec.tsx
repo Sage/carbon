@@ -13,6 +13,10 @@ import Fieldset from "../../__internal__/fieldset";
 import Tooltip from "../tooltip";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 import { ErrorBorder } from "../textbox/textbox.style";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const checkboxValues = ["required", "optional"];
 
@@ -65,6 +69,14 @@ function renderCheckboxGroupWithCarbonProvider(
 }
 
 describe("CheckboxGroup", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   testStyledSystemMargin((props) => (
     <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
       {checkboxValues.map((value) => (
