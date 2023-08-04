@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import * as stories from "./checkbox.stories";
+import * as validationStories from "./checkbox-validations.stories";
 
 import { Checkbox, CheckboxGroup } from ".";
 
@@ -113,6 +114,28 @@ Passing a string to these props will display a properly colored border along wit
 Passing a boolean to these props will display only a properly colored border.
 
 For more information check our [Validations](?path=/docs/documentation-validations--string-validation "Validations") documentation page
+
+### New Validations
+
+This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string.
+<Canvas>
+  <Story name="New Validations - string" story={validationStories.NewStringValidation} />
+</Canvas>
+
+This is an example of `Checkbox` in a `CheckboxGroup` displayed inline.
+<Canvas>
+  <Story name="New Validations - string inline default" story={validationStories.NewInline} />
+</Canvas>
+
+This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string displayed inline.
+<Canvas>
+  <Story name="New Validations - string inline" story={validationStories.NewStringValidationInline} />
+</Canvas>
+
+This is an example of `Checkbox` with validations passed as boolean values.
+<Canvas>
+  <Story name="New Validations - boolean" story={validationStories.NewBooleanValidation} />
+</Canvas>
 
 ## Props
 

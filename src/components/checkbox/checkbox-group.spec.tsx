@@ -1,5 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
+import CarbonProvider from "components/carbon-provider/carbon-provider.component";
 import CheckboxGroup, { CheckboxGroupProps } from "./checkbox-group.component";
 import { Checkbox } from ".";
 import {
@@ -7,10 +8,11 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import StyledCheckbox from "./checkbox.style";
-import StyledCheckboxGroup from "./checkbox-group.style";
+import StyledCheckboxGroup, { StyledHintText } from "./checkbox-group.style";
 import Fieldset from "../../__internal__/fieldset";
 import Tooltip from "../tooltip";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
+import { ErrorBorder } from "../textbox/textbox.style";
 
 const checkboxValues = ["required", "optional"];
 
@@ -34,6 +36,31 @@ function renderCheckboxGroup(
     <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
       {children}
     </CheckboxGroup>
+  );
+}
+
+function renderCheckboxGroupWithCarbonProvider(
+  props: Partial<CheckboxGroupProps>,
+  childProps = {},
+  renderer = mount
+) {
+  const children = checkboxValues.map((value) => (
+    <Checkbox
+      id={`cId-${value}`}
+      key={`cKey-${value}`}
+      name={`check-${value}`}
+      onChange={jest.fn()}
+      value={value}
+      {...childProps}
+    />
+  ));
+
+  return renderer(
+    <CarbonProvider validationRedesignOptIn>
+      <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
+        {children}
+      </CheckboxGroup>
+    </CarbonProvider>
   );
 }
 
@@ -133,6 +160,71 @@ describe("CheckboxGroup", () => {
       const { position } = wrapper.find(Tooltip).props();
 
       expect(position).toEqual("bottom");
+    });
+  });
+
+  describe("New Validations", () => {
+    let wrapper;
+    it("should apply the correct styles for error", () => {
+      wrapper = renderCheckboxGroupWithCarbonProvider({ error: "message" });
+      assertStyleMatch(
+        {
+          position: "absolute",
+          zIndex: "6",
+          width: "2px",
+          backgroundColor: "var(--colorsSemanticNegative500)",
+          left: "-12px",
+          bottom: "0px",
+          top: "0px",
+        },
+        wrapper.find(ErrorBorder)
+      );
+    });
+
+    it("should apply the correct styles for error when used inline", () => {
+      wrapper = renderCheckboxGroupWithCarbonProvider({
+        error: "message",
+        inline: true,
+      });
+      assertStyleMatch(
+        {
+          flexDirection: "row",
+        },
+        wrapper.find(StyledCheckboxGroup)
+      );
+    });
+
+    it("should apply the correct styles for warning", () => {
+      wrapper = renderCheckboxGroupWithCarbonProvider({ warning: "message" });
+      assertStyleMatch(
+        {
+          position: "absolute",
+          zIndex: "6",
+          width: "2px",
+          backgroundColor: "var(--colorsSemanticCaution500)",
+          left: "-12px",
+          bottom: "0px",
+          top: "0px",
+        },
+        wrapper.find(ErrorBorder)
+      );
+    });
+
+    it("should apply the correct styles for legend help", () => {
+      wrapper = renderCheckboxGroupWithCarbonProvider({
+        error: "message",
+        legend: "Label",
+        legendHelp: "Hint Text",
+      });
+      assertStyleMatch(
+        {
+          marginTop: "-4px",
+          marginBottom: "8px",
+          color: "var(--colorsUtilityYin055)",
+          fontSize: "14px",
+        },
+        wrapper.find(StyledHintText)
+      );
     });
   });
 });
