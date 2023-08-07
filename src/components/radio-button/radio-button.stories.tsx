@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import React from "react";
-import { ComponentStory } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
 import Typography from "../typography";
+import CarbonProvider from "../../components/carbon-provider";
+import Box from "../../components/box";
 
-export const Default: ComponentStory<typeof RadioButton> = () => (
+export const Default = () => (
   <RadioButtonGroup name="legend-and-labels-group">
     <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
     <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
@@ -11,7 +13,7 @@ export const Default: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const WithLegendAndLabels: ComponentStory<typeof RadioButton> = () => (
+export const WithLegendAndLabels = () => (
   <RadioButtonGroup
     name="legend-and-labels-group"
     onChange={() => console.log("change")}
@@ -38,7 +40,7 @@ export const WithLegendAndLabels: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const WithInlineLegend: ComponentStory<typeof RadioButton> = () => (
+export const WithInlineLegend = () => (
   <RadioButtonGroup
     name="inline-legend-group"
     onChange={() => console.log("change")}
@@ -52,7 +54,7 @@ export const WithInlineLegend: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const WithLeftMargin: ComponentStory<typeof RadioButton> = () => (
+export const WithLeftMargin = () => (
   <RadioButtonGroup
     name="left-margin-group"
     onChange={() => console.log("change")}
@@ -77,9 +79,7 @@ export const WithLeftMargin: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const EnableAdaptiveBehaviour: ComponentStory<
-  typeof RadioButton
-> = () => (
+export const EnableAdaptiveBehaviour = () => (
   <RadioButtonGroup
     name="enable-adaptive-behaviour-group"
     onChange={() => console.log("change")}
@@ -106,9 +106,9 @@ export const EnableAdaptiveBehaviour: ComponentStory<
   </RadioButtonGroup>
 );
 
-EnableAdaptiveBehaviour.parameters = { chromatic: { disable: true } };
+EnableAdaptiveBehaviour.parameters = { chromatic: { disableSnapshot: true } };
 
-export const DifferentLabelSpacing: ComponentStory<typeof RadioButton> = () => (
+export const DifferentLabelSpacing = () => (
   <RadioButtonGroup
     name="different-label-spacing-group"
     onChange={() => console.log("change")}
@@ -133,7 +133,7 @@ export const DifferentLabelSpacing: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const InlineRadioButtons: ComponentStory<typeof RadioButton> = () => (
+export const InlineRadioButtons = () => (
   <RadioButtonGroup
     name="inline-group"
     onChange={() => console.log("change")}
@@ -146,7 +146,7 @@ export const InlineRadioButtons: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const ReverseRadioButtons: ComponentStory<typeof RadioButton> = () => (
+export const ReverseRadioButtons = () => (
   <RadioButtonGroup
     name="reverse-group"
     onChange={() => console.log("change")}
@@ -173,7 +173,7 @@ export const ReverseRadioButtons: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const DisableRadioButtons: ComponentStory<typeof RadioButton> = () => (
+export const DisableRadioButtons = () => (
   <RadioButtonGroup
     name="disable-group"
     onChange={() => console.log("change")}
@@ -200,7 +200,7 @@ export const DisableRadioButtons: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const WithFieldHelp: ComponentStory<typeof RadioButton> = () => (
+export const WithFieldHelp = () => (
   <RadioButtonGroup
     name="field-help-group"
     onChange={() => console.log("change")}
@@ -227,7 +227,7 @@ export const WithFieldHelp: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const WithLargeRadioButtons: ComponentStory<typeof RadioButton> = () => (
+export const WithLargeRadioButtons = () => (
   <RadioButtonGroup
     name="large-group"
     onChange={() => console.log("change")}
@@ -257,9 +257,7 @@ export const WithLargeRadioButtons: ComponentStory<typeof RadioButton> = () => (
   </RadioButtonGroup>
 );
 
-export const WithCustomStyledLabels: ComponentStory<
-  typeof RadioButton
-> = () => (
+export const WithCustomStyledLabels = () => (
   <RadioButtonGroup
     name="custom-styled-label-group"
     onChange={() => console.log("change")}
@@ -299,4 +297,134 @@ export const WithCustomStyledLabels: ComponentStory<
       }
     />
   </RadioButtonGroup>
+);
+
+export const NewValidationDefault = () => (
+  <CarbonProvider validationRedesignOptIn>
+    <RadioButton
+      id="radio-error-1"
+      value="radioError1"
+      label="Radio Option 1 - Error"
+      error
+    />
+    <RadioButton
+      id="radio-default-2"
+      value="radioDefault2"
+      label="Radio Option 2 - Default"
+    />
+    <RadioButton
+      id="radio-warning-3"
+      value="radioWarning3"
+      label="Radio Option 3 - Warning"
+      warning
+    />
+  </CarbonProvider>
+);
+
+export const NewValidationDefaultGroup = () => (
+  <Box m={2}>
+    <CarbonProvider validationRedesignOptIn>
+      <RadioButtonGroup
+        legend="Label"
+        legendHelp="Hint Text"
+        name="error-validations-group"
+        error="Error Message (Fix is required)"
+      >
+        <RadioButton
+          id="radio-one-1"
+          value="radioOne1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="radio-one-2"
+          value="radioOne2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="radio-one-3"
+          value="radioOne3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+
+      <RadioButtonGroup
+        mt={2}
+        legend="Label"
+        legendHelp="Hint Text"
+        name="warning-validations-group"
+        warning="Warning Message (Fix is optional)"
+      >
+        <RadioButton
+          id="radio-two-1"
+          value="radioTwo1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="radio-two-2"
+          value="radioTwo2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="radio-two-3"
+          value="radioTwo3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+    </CarbonProvider>
+  </Box>
+);
+
+export const NewValidationDefaultGroupInline = () => (
+  <Box m={2}>
+    <CarbonProvider validationRedesignOptIn>
+      <RadioButtonGroup
+        legend="Label"
+        legendHelp="Hint Text"
+        name="error-validations-group-inline"
+        error="Error Message (Fix is required)"
+        inline
+      >
+        <RadioButton
+          id="radio-one-1"
+          value="radioOne1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="radio-one-2"
+          value="radioOne2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="radio-one-3"
+          value="radioOne3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+
+      <RadioButtonGroup
+        mt={2}
+        legend="Label"
+        legendHelp="Hint Text"
+        name="warning-validations-group-inline"
+        warning="Warning Message (Fix is optional)"
+        inline
+      >
+        <RadioButton
+          id="radio-two-1"
+          value="radioTwo1"
+          label="Radio Option 1"
+        />
+        <RadioButton
+          id="radio-two-2"
+          value="radioTwo2"
+          label="Radio Option 2"
+        />
+        <RadioButton
+          id="radio-two-3"
+          value="radioTwo3"
+          label="Radio Option 3"
+        />
+      </RadioButtonGroup>
+    </CarbonProvider>
+  </Box>
 );

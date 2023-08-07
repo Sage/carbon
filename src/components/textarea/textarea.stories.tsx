@@ -4,6 +4,7 @@ import { ComponentStory } from "@storybook/react";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 import Textarea from ".";
+import I18nProvider from "../i18n-provider";
 
 export const DefaultStory: ComponentStory<typeof Textarea> = () => {
   const [state, setState] = useState("");
@@ -40,7 +41,7 @@ export const ReadOnlyStory: ComponentStory<typeof Textarea> = () => {
 export const AutoFocusStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" autoFocus />;
 };
-AutoFocusStory.parameters = { chromatic: { disable: true } };
+AutoFocusStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ExpandableStory: ComponentStory<typeof Textarea> = () => {
   const [value, setValue] = useState("");
@@ -53,7 +54,7 @@ export const ExpandableStory: ComponentStory<typeof Textarea> = () => {
     />
   );
 };
-ExpandableStory.parameters = { chromatic: { disable: true } };
+ExpandableStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const CharacterLimitStory: ComponentStory<typeof Textarea> = () => {
   const [value, setValue] = useState("");
@@ -63,7 +64,7 @@ export const CharacterLimitStory: ComponentStory<typeof Textarea> = () => {
       expandable
       value={value}
       onChange={({ target }) => setValue(target.value)}
-      characterLimit="50"
+      characterLimit={50}
     />
   );
 };
@@ -78,13 +79,47 @@ export const UnenforcedCharacterLimitStory: ComponentStory<
       expandable
       value={value}
       onChange={({ target }) => setValue(target.value)}
-      characterLimit="50"
+      characterLimit={50}
       enforceCharacterLimit={false}
-      warnOverLimit
     />
   );
 };
-UnenforcedCharacterLimitStory.parameters = { chromatic: { disable: true } };
+UnenforcedCharacterLimitStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
+
+export const TranslationsCharacterLimitStory: ComponentStory<
+  typeof Textarea
+> = () => {
+  const [value, setValue] = useState("");
+  return (
+    <I18nProvider
+      locale={{
+        locale: () => "fr-FR",
+        characterCount: {
+          hintString: () => "L'entrée contient un compteur de caractères",
+          tooManyCharacters: (count, formattedCount) =>
+            count === 1
+              ? `Vous avez ${formattedCount} personnage de trop`
+              : `Vous avez ${formattedCount} personnages de trop`,
+          charactersLeft: (count, formattedCount) =>
+            count === 1
+              ? `Il vous reste ${formattedCount} personnage`
+              : `Il vous reste ${formattedCount} personnages`,
+        },
+      }}
+    >
+      <Textarea
+        label="Textarea"
+        expandable
+        value={value}
+        onChange={({ target }) => setValue(target.value)}
+        characterLimit={50}
+        enforceCharacterLimit={false}
+      />
+    </I18nProvider>
+  );
+};
 
 export const LabelInlineStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" labelInline />;
@@ -152,7 +187,9 @@ export const ValidationStringPositionStory: ComponentStory<
     </>
   );
 };
-ValidationStringPositionStory.parameters = { chromatic: { disable: true } };
+ValidationStringPositionStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const ValidationLabelStory: ComponentStory<typeof Textarea> = () => {
   return (
@@ -197,7 +234,9 @@ export const ValidationLabelPositionStory: ComponentStory<
     </>
   );
 };
-ValidationLabelPositionStory.parameters = { chromatic: { disable: true } };
+ValidationLabelPositionStory.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const NewDesignValidationStory: ComponentStory<typeof Textarea> = () => {
   return (

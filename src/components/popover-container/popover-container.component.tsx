@@ -43,7 +43,7 @@ export const renderOpen = ({
 }: RenderOpenProps) => (
   <PopoverContainerOpenIcon
     tabIndex={tabIndex}
-    onAction={onClick}
+    onClick={onClick}
     data-element={dataElement}
     ref={ref}
     aria-label={ariaLabel}
@@ -75,7 +75,7 @@ export const renderClose = ({
   <PopoverContainerCloseIcon
     data-element={dataElement}
     tabIndex={tabIndex}
-    onAction={onClick}
+    onClick={onClick}
     ref={ref}
     aria-label={ariaLabel}
   >
@@ -209,7 +209,7 @@ export const PopoverContainer = ({
 
   const handleClickAway = (e: Event) => {
     if (!isControlled) setIsOpenInternal(false);
-    if (onClose) onClose(e);
+    if (onClose && isOpen) onClose(e);
   };
 
   const handleClick = useClickAwayListener(handleClickAway, "mousedown");

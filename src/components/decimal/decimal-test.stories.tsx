@@ -16,7 +16,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -48,14 +48,17 @@ const commonArgs = {
 export const DecimalStory = (args: CommonTextboxArgs) => {
   const [state, setState] = useState("0.05");
   const handleChange = (ev: CustomEvent) => {
-    action("onChange")(ev);
+    action("onChange")(ev.target.value);
     setState(ev.target.value.rawValue);
+  };
+  const handleBlur = (event: CustomEvent) => {
+    action("onBlur")(event.target.value);
   };
   return (
     <Decimal
       value={state}
       onChange={handleChange}
-      onBlur={action("onBlur")}
+      onBlur={handleBlur}
       {...getCommonTextboxArgsWithSpecialCaracters(args)}
     />
   );
@@ -65,13 +68,17 @@ DecimalStory.args = commonArgs;
 
 export const UncontrolledDecimalStory = (args: CommonTextboxArgs) => {
   const handleChange = (ev: CustomEvent) => {
-    action("onChange")(ev);
+    action("onChange")(ev.target.value);
+  };
+
+  const handleBlur = (event: CustomEvent) => {
+    action("onBlur")(event.target.value);
   };
   return (
     <Decimal
       defaultValue="0.03"
       onChange={handleChange}
-      onBlur={action("onBlur")}
+      onBlur={handleBlur}
       {...getCommonTextboxArgsWithSpecialCaracters(args)}
     />
   );
@@ -102,8 +109,11 @@ export const PostStory = ({
 }: CommonTextboxArgs & { action: string }) => {
   const [state, setState] = useState("0.00");
   const handleChange = (ev: CustomEvent) => {
-    action("onChange")(ev);
+    action("onChange")(ev.target.value);
     setState(ev.target.value.rawValue);
+  };
+  const handleBlur = (event: CustomEvent) => {
+    action("onBlur")(event.target.value);
   };
   return (
     <form method="POST" action={actionArg} target="_blank">
@@ -115,7 +125,7 @@ export const PostStory = ({
       <Decimal
         value={state}
         onChange={handleChange}
-        onBlur={action("onBlur")}
+        onBlur={handleBlur}
         {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
       <button type="submit">Submit</button>
@@ -128,8 +138,11 @@ PostStory.args = { ...commonArgs, action: "" };
 export const NewValidationStory = (args: CommonTextboxArgs) => {
   const [state, setState] = useState("0.05");
   const handleChange = (ev: CustomEvent) => {
-    action("onChange")(ev);
+    action("onChange")(ev.target.value);
     setState(ev.target.value.rawValue);
+  };
+  const handleBlur = (event: CustomEvent) => {
+    action("onBlur")(event.target.value);
   };
   return (
     <CarbonProvider validationRedesignOptIn>
@@ -137,7 +150,7 @@ export const NewValidationStory = (args: CommonTextboxArgs) => {
         value={state}
         m={2}
         onChange={handleChange}
-        onBlur={action("onBlur")}
+        onBlur={handleBlur}
         {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
     </CarbonProvider>
@@ -151,8 +164,11 @@ export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
   const handleChange = (e: CustomEvent) => {
     let newValue = e.target.value.rawValue;
     if (newValue.startsWith("22.22")) newValue = "22.22";
-    action("onChange")(e, newValue);
+    action("onChange")(e.target.value, newValue);
     setState(newValue);
+  };
+  const handleBlur = (event: CustomEvent) => {
+    action("onBlur")(event.target.value);
   };
   return (
     <div>
@@ -164,7 +180,7 @@ export const DecimalCustomOnChangeStory = (args: CommonTextboxArgs) => {
         mt={2}
         value={state}
         onChange={handleChange}
-        onBlur={action("onBlur")}
+        onBlur={handleBlur}
         {...getCommonTextboxArgsWithSpecialCaracters(args)}
       />
     </div>

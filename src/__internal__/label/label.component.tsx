@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { TooltipPositions } from "components/tooltip/tooltip.config";
+import { TooltipPositions } from "../../components/tooltip/tooltip.config";
 import Help from "../../components/help";
 import StyledLabel, {
   StyledLabelContainer,
@@ -16,6 +16,8 @@ export interface LabelProps
   extends ValidationProps,
     StyledLabelProps,
     StyledLabelContainerProps {
+  /* To use a different HTML element other than <label> */
+  as?: "span" | "label";
   /** Children elements */
   children?: React.ReactNode;
   /** A message that the Help component will display */
@@ -55,6 +57,7 @@ const tooltipPosition = ({
 
 export const Label = ({
   align = "right",
+  as = "label",
   children,
   disabled,
   error,
@@ -115,8 +118,7 @@ export const Label = ({
       return (
         <StyledIconWrapper>
           <ValidationIcon
-            iconId={validationIconId}
-            tooltipId={tooltipId}
+            tooltipId={validationIconId}
             error={error}
             warning={warning}
             info={info}
@@ -151,10 +153,11 @@ export const Label = ({
         data-element="label"
         disabled={disabled}
         id={labelId}
-        htmlFor={htmlFor}
+        {...(as === "label" ? { htmlFor } : {})}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         isRequired={isRequired}
+        as={as}
       >
         {children}
       </StyledLabel>

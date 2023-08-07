@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { act } from "react-dom/test-utils";
 import { mount, ReactWrapper } from "enzyme";
 import {
@@ -6,6 +6,7 @@ import {
   SimpleColorPicker,
   SimpleColorProps,
   SimpleColorPickerProps,
+  SimpleColorPickerRef,
 } from ".";
 import { StyledColorOptions } from "./simple-color-picker.style";
 import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
@@ -15,6 +16,9 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import Fieldset from "../../__internal__/fieldset";
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
 
 const colorValues = [
   { color: "#00A376" },
@@ -31,7 +35,8 @@ const validationVariants = {
 const name = "test-group";
 
 function getComponent(
-  props?: Partial<SimpleColorPickerProps>,
+  props?: Partial<SimpleColorPickerProps> &
+    React.RefAttributes<SimpleColorPickerRef>,
   childProps?: Partial<SimpleColorProps>
 ) {
   const children = colorValues.map((color, index) => {
@@ -69,6 +74,31 @@ function render(
 }
 
 describe("SimpleColorPicker", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      <SimpleColor id="1" key={`radio-key-${1}`} value="#0073C1" />;
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
   describe("Styled System", () => {
     testStyledSystemMargin((props) => (
       <SimpleColorPicker
@@ -676,6 +706,31 @@ describe("SimpleColorPicker", () => {
       );
     }).toThrow(
       "SimpleColorPicker accepts only children of type `SimpleColor`."
+    );
+  });
+
+  it("returns a list of inputs in the ref", () => {
+    let outsideRef;
+
+    const MockComponent = () => {
+      const simpleColorPickerData = useRef<{
+        gridItemRefs: Array<HTMLInputElement | null>;
+      }>(null);
+
+      useEffect(() => {
+        outsideRef = simpleColorPickerData.current;
+      }, []);
+
+      return getComponent({ ref: simpleColorPickerData });
+    };
+
+    const wrapper = mount(<MockComponent />);
+    const inputs = wrapper.find("input").map((element) => element.getDOMNode());
+
+    expect(outsideRef).toEqual(
+      expect.objectContaining({
+        gridItemRefs: expect.arrayContaining(inputs),
+      })
     );
   });
 

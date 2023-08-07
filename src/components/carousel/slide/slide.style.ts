@@ -6,6 +6,8 @@ const SlideStyle = styled.div`
     display: inline-block;
     width: 100%;
     z-index: 10;
+    border-radius: var(--borderRadius200);
+    overflow: hidden;
 
     transition: 0.5s;
     min-width: 80%;

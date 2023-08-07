@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { mount as enzymeMount, ReactWrapper } from "enzyme";
 import { InputPresentation } from "../../__internal__/input";
+import InputPresentationStyle from "../../__internal__/input/input-presentation.style";
 
 import Decimal, { DecimalProps, CustomEvent } from "./decimal.component";
 import {
@@ -12,12 +13,17 @@ import Textbox from "../textbox/textbox.component";
 import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import I18nProvider from "../i18n-provider";
+import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
+import StyledPrefix from "../textbox/__internal__/prefix.style";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
 // Note that we're asserting e.preventDefault has been called in may places, but we're simulating from the rendered
 // input, not calling the prop directly, this is important. By mounting we can make these assertions with
 // confidence that the `onChange` will not be dispatched if e.preventDefault has been called
+
+jest.mock("../../__internal__/utils/logger");
 
 describe("Decimal", () => {
   let wrapper: ReactWrapper;
@@ -133,6 +139,8 @@ describe("Decimal", () => {
     return press({ clipboardData }, where, "paste");
   };
 
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
   beforeEach(() => {
     container = document.createElement("div");
     document.body.appendChild(container);
@@ -142,7 +150,7 @@ describe("Decimal", () => {
   afterEach(() => {
     document.body.removeChild(container as HTMLDivElement);
     container = null;
-    if (wrapper) {
+    if (wrapper?.exists()) {
       wrapper.unmount();
     }
   });
@@ -159,6 +167,27 @@ describe("Decimal", () => {
   });
 
   describe("Uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning for uncontrolled support", () => {
+      enzymeMount(<Decimal defaultValue="0.01" />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Decimal` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+
     it("has a defaultValue of 0.00", () => {
       render();
       expect(value()).toBe("0.00");
@@ -670,6 +699,46 @@ describe("Decimal", () => {
             })
           );
         });
+
+        it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 0,
+            value: "",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...esProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0");
+          expect(hiddenValue()).toBe("0");
+          expect(onBlur).toHaveBeenCalled();
+        });
+
+        it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 1,
+            value: "0",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...esProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0,0");
+          expect(hiddenValue()).toBe("0.0");
+          expect(onBlur).toHaveBeenCalled();
+        });
       });
 
       describe("pt", () => {
@@ -744,6 +813,46 @@ describe("Decimal", () => {
           expect(value()).toBe("10\xa0000\xa0000,00");
           expect(hiddenValue()).toBe("10000000.00");
         });
+
+        it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 0,
+            value: "0.00",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...ptProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0");
+          expect(hiddenValue()).toBe("0");
+          expect(onBlur).toHaveBeenCalled();
+        });
+
+        it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 1,
+            value: "0",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...ptProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0,0");
+          expect(hiddenValue()).toBe("0.0");
+          expect(onBlur).toHaveBeenCalled();
+        });
       });
 
       describe("fr", () => {
@@ -770,6 +879,46 @@ describe("Decimal", () => {
             );
           }
         );
+
+        it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 0,
+            value: "0.00",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...frProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0");
+          expect(hiddenValue()).toBe("0");
+          expect(onBlur).toHaveBeenCalled();
+        });
+
+        it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 1,
+            value: "0",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...frProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0,0");
+          expect(hiddenValue()).toBe("0.0");
+          expect(onBlur).toHaveBeenCalled();
+        });
       });
 
       describe("it", () => {
@@ -816,6 +965,46 @@ describe("Decimal", () => {
           render({ defaultValue: "-1234.56", ...itProps });
           expect(value()).toBe("-1.234,56");
           expect(hiddenValue()).toBe("-1234.56");
+        });
+
+        it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 0,
+            value: "0.00",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...itProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0");
+          expect(hiddenValue()).toBe("0");
+          expect(onBlur).toHaveBeenCalled();
+        });
+
+        it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+          const onBlur = jest.fn();
+          render({
+            precision: 1,
+            value: "0",
+            onBlur,
+            onChange: (e: CustomEvent) => {
+              setProps({ value: e.target.value.rawValue });
+            },
+            allowEmptyValue: false,
+            ...itProps,
+          });
+
+          setProps({ value: "" });
+          blur();
+          expect(value()).toBe("0,0");
+          expect(hiddenValue()).toBe("0.0");
+          expect(onBlur).toHaveBeenCalled();
         });
 
         describe("precision", () => {
@@ -1155,6 +1344,44 @@ describe("Decimal", () => {
       expect(hiddenValue()).toBe("-");
     });
 
+    it("formats a value correctly when precision is 0 and allowEmptyValue is false", () => {
+      const onBlur = jest.fn();
+      render({
+        precision: 0,
+        value: "",
+        onBlur,
+        onChange: (e: CustomEvent) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: false,
+      });
+
+      setProps({ value: "" });
+      blur();
+      expect(value()).toBe("0");
+      expect(hiddenValue()).toBe("0");
+      expect(onBlur).toHaveBeenCalled();
+    });
+
+    it("formats a value correctly when precision is 1 and allowEmptyValue is false", () => {
+      const onBlur = jest.fn();
+      render({
+        precision: 1,
+        value: "",
+        onBlur,
+        onChange: (e: CustomEvent) => {
+          setProps({ value: e.target.value.rawValue });
+        },
+        allowEmptyValue: false,
+      });
+
+      setProps({ value: "" });
+      blur();
+      expect(value()).toBe("0.0");
+      expect(hiddenValue()).toBe("0.0");
+      expect(onBlur).toHaveBeenCalled();
+    });
+
     it("typing a negative value does not revert to the default value (allowEmptyValue)", () => {
       render({ value: "", allowEmptyValue: true });
       setProps({ value: "-" });
@@ -1387,6 +1614,47 @@ describe("Decimal", () => {
     });
   });
 
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const ref = () => {};
+
+      wrapper = enzymeMount(<Decimal inputRef={ref} />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Decimal` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = enzymeMount(<Decimal ref={ref} />);
+      const { input } = getElements();
+
+      expect(ref.current).toBe(input.getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = enzymeMount(<Decimal ref={ref} />);
+      const { input } = getElements();
+
+      expect(ref).toHaveBeenCalledWith(input.getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = enzymeMount(<Decimal ref={ref} />);
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
+  });
+
   describe("i18n", () => {
     describe("translation", () => {
       it("renders properly", () => {
@@ -1462,6 +1730,27 @@ describe("Decimal", () => {
     });
   });
 
+  describe("when prefix is passed", () => {
+    const prefixValue = "bar";
+    beforeEach(() => {
+      render({ value: "foo", prefix: prefixValue });
+    });
+
+    it("then a StyledPrefix should be rendered with this prop value", () => {
+      expect(wrapper.find(StyledPrefix).exists()).toBe(true);
+      expect(wrapper.find(StyledPrefix).text()).toBe(prefixValue);
+    });
+
+    it("then 'flex-direction' should be 'row'", () => {
+      assertStyleMatch(
+        {
+          flexDirection: "row",
+        },
+        wrapper.find(InputPresentationStyle)
+      );
+    });
+  });
+
   describe("when maxWidth is passed", () => {
     it("should be passed to InputPresentation", () => {
       mount(<Decimal maxWidth="67%" />);
@@ -1483,5 +1772,14 @@ describe("Decimal", () => {
         wrapper.find(InputPresentation)
       );
     });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      enzymeMount(<Decimal />).find(StyledInput)
+    );
   });
 });

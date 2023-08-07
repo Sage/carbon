@@ -24,7 +24,7 @@ export const WithIcon = () => (
   </Link>
 );
 
-WithIcon.parameters = { chromatic: { disable: true } };
+WithIcon.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIconAlign = () => {
   return (["left", "right"] as const).map((align) => (
@@ -48,7 +48,7 @@ export const WithTooltip = () => (
   </div>
 );
 
-WithTooltip.parameters = { chromatic: { disable: true } };
+WithTooltip.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithIsSkipLink = () => (
   <>
@@ -86,7 +86,7 @@ export const WithIsSkipLink = () => (
   </>
 );
 
-WithIsSkipLink.parameters = { chromatic: { disable: true } };
+WithIsSkipLink.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithOnClick = () => (
   <Link onClick={() => {}}>
@@ -94,7 +94,7 @@ export const WithOnClick = () => (
   </Link>
 );
 
-WithOnClick.parameters = { chromatic: { disable: true } };
+WithOnClick.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Variants = () => (
   <>
@@ -200,3 +200,17 @@ export const OnADarkBackground = () => (
     </Link>
   </div>
 );
+
+export const Wrapping = () => {
+  return (
+    <Box padding="25px" width="250px" backgroundColor="--colorsUtilityMajor025">
+      <Typography>We&apos;ll be sorry to see you go</Typography>
+      <Typography>
+        If your subscription isn&apos;t quite right, we can help you{" "}
+        <Link href="http://carbon.sage.com" target="_blank">
+          find one that suits your business needs (new tab)
+        </Link>
+      </Typography>
+    </Box>
+  );
+};

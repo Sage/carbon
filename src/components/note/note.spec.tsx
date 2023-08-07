@@ -52,6 +52,7 @@ describe("Note", () => {
           padding: "24px",
           position: "relative",
           width: "100%",
+          borderRadius: "var(--borderRadius100)",
         },
         wrapper
       );
@@ -299,6 +300,30 @@ describe("Note", () => {
         renderNote({ inlineControl: <button type="button">A Button</button> });
       }).toThrow("<Note> inlineControl must be an instance of <ActionPopover>");
     });
+  });
+
+  describe("when the inlineControl prop is set", () => {
+    const inlineControl = (
+      <ActionPopover>
+        <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
+      </ActionPopover>
+    );
+    const wrapper = renderNote({ inlineControl, title: "foo" });
+
+    it.each([
+      ["Note Title", StyledTitle],
+      ["Note Content", StyledNoteContent],
+    ])(
+      "should add margin-left in %s to make space for inlineControl button",
+      (name, element) => {
+        assertStyleMatch(
+          {
+            marginRight: "24px",
+          },
+          wrapper.find(element)
+        );
+      }
+    );
   });
 
   describe("Link Previews", () => {

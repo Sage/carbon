@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useContext } from "react";
 import { SpaceProps } from "styled-system";
 import invariant from "invariant";
 
@@ -8,6 +8,8 @@ import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
 import { TooltipPositions } from "../tooltip/tooltip.config";
+import { ButtonBarContext } from "../button-bar/button-bar.component";
+import SplitButtonContext from "../split-button/__internal__/split-button.context";
 
 export type ButtonTypes =
   | "primary"
@@ -130,20 +132,24 @@ RenderChildrenProps) {
     bgSize: "extra-small",
   };
 
+  const isValidChildren = children !== undefined && children !== false;
+
   return (
     <>
-      {iconType && iconPosition === "before" && children && (
+      {iconType && iconPosition === "before" && isValidChildren && (
         <Icon type={iconType} {...iconProps} />
       )}
-      <span>
-        <span data-element="main-text">{children}</span>
-        {size === "large" && (
-          <StyledButtonSubtext data-element="subtext">
-            {subtext}
-          </StyledButtonSubtext>
-        )}
-      </span>
-      {iconType && !children && (
+      {isValidChildren && (
+        <span>
+          <span data-element="main-text">{children}</span>
+          {size === "large" && (
+            <StyledButtonSubtext data-element="subtext">
+              {subtext}
+            </StyledButtonSubtext>
+          )}
+        </span>
+      )}
+      {iconType && !isValidChildren && (
         <TooltipProvider
           disabled={disabled}
           focusable={false}
@@ -165,11 +171,12 @@ RenderChildrenProps) {
 }
 
 let deprecatedForwardRefWarnTriggered = false;
+let deprecatedDashedButtonWarnTriggered = false;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      size = "medium",
+      size: sizeProp = "medium",
       subtext = "",
       children,
       forwardRef,
@@ -178,7 +185,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       destructive = false,
       buttonType: buttonTypeProp = "secondary",
       iconType,
-      iconPosition = "before",
+      iconPosition: iconPositionProp = "before",
       href,
       m = 0,
       px,
@@ -187,13 +194,26 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       rel,
       iconTooltipMessage,
       iconTooltipPosition,
-      fullWidth = false,
+      fullWidth: fullWidthProp = false,
+      onClick,
       ...rest
     }: ButtonProps,
     ref
   ) => {
+    const {
+      buttonType: buttonTypeContext,
+      size: sizeContext,
+      iconPosition: iconPositionContext,
+      fullWidth: fullWidthContext,
+    } = useContext(ButtonBarContext);
+
+    const buttonType = buttonTypeContext || buttonTypeProp;
+    const size = sizeContext || sizeProp;
+    const iconPosition = iconPositionContext || iconPositionProp;
+    const fullWidth = fullWidthContext || fullWidthProp;
+
     invariant(
-      !!(children || iconType),
+      children !== undefined || !!iconType,
       "Either prop `iconType` must be defined or this node must have children."
     );
     if (subtext) {
@@ -210,9 +230,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       );
     }
 
+    if (!deprecatedDashedButtonWarnTriggered && buttonType === "dashed") {
+      deprecatedDashedButtonWarnTriggered = true;
+      Logger.deprecate(
+        "The `dashed` variant of the `buttonType` prop for `Button` component is deprecated and will soon be removed."
+      );
+    }
+
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
 
-    const buttonType = buttonTypeProp;
+    const { inSplitButton, onChildButtonClick } = useContext(
+      SplitButtonContext
+    );
 
     let paddingX;
 
@@ -248,23 +277,28 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       [ref, forwardRef]
     );
 
+    const isValidChildren = children !== undefined && children !== false;
+
     return (
       <StyledButton
-        aria-label={!children && iconType ? ariaLabel || iconType : ariaLabel}
+        aria-label={
+          !isValidChildren && iconType ? ariaLabel || iconType : ariaLabel
+        }
         as={!disabled && href ? "a" : "button"}
         onKeyDown={href ? handleLinkKeyDown : undefined}
+        onClick={inSplitButton ? onChildButtonClick?.(onClick) : onClick}
         draggable={false}
         buttonType={buttonType}
         disabled={disabled}
         destructive={destructive}
-        role="button"
+        role={inSplitButton ? "menu-item" : "button"}
         type={href ? undefined : "button"}
         iconType={iconType}
         size={size}
         px={px ?? paddingX}
         m={m}
         noWrap={noWrap}
-        iconOnly={!!(!children && iconType)}
+        iconOnly={!isValidChildren && !!iconType}
         iconPosition={iconPosition}
         target={target}
         rel={rel}

@@ -694,4 +694,13 @@ describe("Drawer", () => {
       });
     });
   });
+
+  it("has the expected border radius on the sidebar toggle control", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      renderDrawer({ showControls: true }).find(StyledSidebarToggleButton)
+    );
+  });
 });

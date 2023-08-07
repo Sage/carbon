@@ -9,7 +9,8 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 
-function render(props: FieldsetProps = {}, renderer = shallow) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function render(props: FieldsetProps = {}, renderer: any = shallow) {
   return renderer(
     <Fieldset {...props}>
       <Textbox />
@@ -30,13 +31,42 @@ describe("Fieldset", () => {
     expect(noThemeSnapshot(basicWrapper)).toMatchSnapshot();
   });
 
+  // added as `testStyledSystemMargin` will not catch if there is a regression and refactoring that will affect all tests that use it
+  it.each([
+    [undefined, { margin: 0 }],
+    [{ m: 8 }, { margin: "var(--spacing800)" }],
+    [
+      { mx: 8 },
+      { marginLeft: "var(--spacing800)", marginRight: "var(--spacing800)" },
+    ],
+    [
+      { my: 8 },
+      { marginTop: "var(--spacing800)", marginBottom: "var(--spacing800)" },
+    ],
+    [
+      { mt: 8, mr: 8, mb: 8, ml: 8 },
+      {
+        marginTop: "var(--spacing800)",
+        marginBottom: "var(--spacing800)",
+        marginLeft: "var(--spacing800)",
+        marginRight: "var(--spacing800)",
+      },
+    ],
+  ])(
+    "has the expected margin when %s passed as margin props",
+    (props, style) => {
+      const wrapper = render({ legend: "Legend", ...props }, mount);
+      expect(wrapper.getDOMNode()).toHaveStyle(style);
+    }
+  );
+
   describe("Fieldset Legend", () => {
     it("is rendered if supplied", () => {
       const wrapper = render({ legend: "Legend" });
       expect(wrapper.find(LegendContainerStyle).exists()).toEqual(true);
     });
 
-    it("is not rendered if omited", () => {
+    it("is not rendered if omitted", () => {
       expect(basicWrapper.find(LegendContainerStyle).exists()).toEqual(false);
     });
 
@@ -59,7 +89,7 @@ describe("Fieldset", () => {
       );
     });
 
-    it("is not rendered if omited", () => {
+    it("is not rendered if omitted", () => {
       expect(
         basicWrapper.find(FieldsetContentStyle).get(0).props.inline
       ).toEqual(false);

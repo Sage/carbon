@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
+import { margin } from "styled-system";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
-
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import baseTheme from "../../style/themes/base";
 import { InlineInputsProps } from "./inline-inputs.component";
@@ -68,11 +68,31 @@ const StyledContentContainer = styled.div<InlineInputsProps>`
         ${StyledInlineInput} + ${StyledInlineInput} ${InputPresentation} {
           border-left: none;
         }
+
+        ${StyledInlineInput}:not(:first-of-type):not(:last-of-type) ${InputPresentation} {
+          border-radius: var(--borderRadius000);
+        }
+
+        ${StyledInlineInput}:first-of-type:not(:last-of-type) ${InputPresentation} {
+          border-top-right-radius: var(--borderRadius000);
+          border-bottom-right-radius: var(--borderRadius000);
+          border-top-left-radius: var(--borderRadius050);
+          border-bottom-left-radius: var(--borderRadius050);
+        }
+
+        ${StyledInlineInput}:last-of-type:not(:first-of-type) ${InputPresentation} {
+          border-top-left-radius: var(--borderRadius000);
+          border-bottom-left-radius: var(--borderRadius000);
+          border-top-right-radius: var(--borderRadius050);
+          border-bottom-right-radius: var(--borderRadius050);
+        }
       `}
     `}
 `;
 
 const StyledInlineInputs = styled.div<InlineInputsProps>`
+  ${margin}
+
   display: ${({ labelInline }) => (labelInline ? `flex` : `block`)};
   align-items: center;
 

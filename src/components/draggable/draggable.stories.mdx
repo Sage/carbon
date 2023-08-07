@@ -1,11 +1,22 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import { ArgsTable } from "@storybook/components";
+import * as stories from "./draggable.stories.tsx";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import { DraggableContainer, DraggableItem } from ".";
-import { Checkbox } from "../checkbox";
 
-<Meta title="Draggable" parameters={{ info: { disable: true } }} />
+<Meta 
+title="Draggable" 
+parameters={{ 
+  info: { 
+    disable: true 
+  }, 
+  themeProvider: { 
+    chromatic: { 
+      theme: "sage" 
+    }
+  }}
+  }
+/>
 
 # Draggable
 
@@ -15,7 +26,6 @@ with possibility to change their order with drag and drop mechanics
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -30,8 +40,6 @@ import {
 } from "carbon-react/lib/components/draggable";
 ```
 
-## Designer Notes
-
 - Always use `DraggableItem` inside of the `DraggableContainer`
 - `DraggableItem` doesn't work without `DraggableContainer`
 - `DraggableItem` requires an `id` to be passed to the component
@@ -44,68 +52,19 @@ import {
 ### Simple text as a content
 
 <Canvas>
-  <Story name="default">
-    <DraggableContainer>
-      <DraggableItem key="1" id={1}>
-        Some content goes here
-      </DraggableItem>
-      <DraggableItem key="2" id={2}>
-        Some content goes here
-      </DraggableItem>
-      <DraggableItem key="3" id={3}>
-        Some content goes here
-      </DraggableItem>
-      <DraggableItem key="4" id={4}>
-        Some content goes here
-      </DraggableItem>
-    </DraggableContainer>
-  </Story>
+  <Story name="default" story={stories.DefaultStory}/>
 </Canvas>
 
 ### Other components as children
 
 <Canvas>
-  <Story name="components as children">
-    <DraggableContainer>
-      <DraggableItem key="1" id={1}>
-        <Checkbox label="checkbox one" mb={0} />
-      </DraggableItem>
-      <DraggableItem key="2" id={2}>
-        <Checkbox label="checkbox two" mb={0} />
-      </DraggableItem>
-      <DraggableItem key="3" id={3}>
-        <Checkbox label="checkbox three" mb={0} />
-      </DraggableItem>
-      <DraggableItem key="4" id={4}>
-        <Checkbox label="checkbox four" mb={0} />
-      </DraggableItem>
-    </DraggableContainer>
-  </Story>
+  <Story name="components as children" story={stories.ComponentsAsChildrenStory}/>
 </Canvas>
 
 ### With getOrder callback
 
 <Canvas>
-  <Story name="with getOrder callback">
-    {() => {
-      return (
-        <DraggableContainer getOrder={() => {}}>
-          <DraggableItem key="1" id={1}>
-            <Checkbox label="Draggable Label One" />
-          </DraggableItem>
-          <DraggableItem key="2" id={2}>
-            <Checkbox label="Draggable Label Two" />
-          </DraggableItem>
-          <DraggableItem key="3" id={3}>
-            <Checkbox label="Draggable Label Three" />
-          </DraggableItem>
-          <DraggableItem key="4" id={4}>
-            <Checkbox label="Draggable Label Four" />
-          </DraggableItem>
-        </DraggableContainer>
-      );
-    }}
-  </Story>
+  <Story name="with getOrder callback" story={stories.GetOrderCallbackStory}/>
 </Canvas>
 
 ## Props
@@ -116,22 +75,4 @@ import {
 
 ### DraggableItem
 
-<StyledSystemProps noHeader padding defaults={{ py: "8px" }} />
-
-<ArgsTable
-  rows={[
-    {
-      name: "id",
-      type: { summary: "string | number" },
-      description:
-        "The id of the `DraggableItem`. Use this prop to make `Draggable` work. This prop is required.",
-      required: true,
-    },
-    {
-      name: "children",
-      type: { summary: "node" },
-      description: "The content of the component. This prop is required.",
-      required: true,
-    },
-  ]}
-/>
+<StyledSystemProps of={DraggableItem} noHeader padding defaults={{ py: "8px" }} />

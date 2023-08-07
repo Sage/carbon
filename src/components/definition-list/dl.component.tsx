@@ -18,6 +18,8 @@ export interface DlProps
     StyledDlProps,
     StyledDtDivProps,
     StyledDdDivProps {
+  /** HTML id attribute of the input */
+  id?: string;
   /** prop to render children. */
   children: React.ReactNode;
 }

@@ -15,6 +15,12 @@ import {
 import Label from "../../__internal__/label";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
+import Logger from "../../__internal__/utils/logger";
+import CheckableInput, {
+  CommonCheckableInputProps,
+} from "../../__internal__/checkable-input";
+
+jest.mock("../../__internal__/utils/logger");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -23,7 +29,11 @@ jest.mock("../../__internal__/utils/helpers/guid");
 
 const validationTypes = ["error", "warning", "info"];
 
-function renderCheckbox(props: CheckboxProps, renderer = mount, options = {}) {
+function renderCheckbox(
+  props: CheckboxProps & { ref?: React.ForwardedRef<HTMLInputElement> },
+  renderer = mount,
+  options = {}
+) {
   return renderer(
     <Checkbox
       onChange={props.checked !== undefined ? () => {} : undefined}
@@ -51,9 +61,75 @@ function getValidationBorderColor(
 }
 
 describe("Checkbox", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      mount(<Checkbox name="my-checkbox" />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   testStyledSystemMargin((props) => (
     <Checkbox name="my-checkbox" value="test" {...props} />
   ));
+
+  describe("refs", () => {
+    let wrapper: ReactWrapper;
+
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const ref = { current: null };
+
+      wrapper = renderCheckbox({ inputRef: ref });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Checkbox` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = renderCheckbox({ ref });
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = renderCheckbox({ ref });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = renderCheckbox({ ref });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
+  });
 
   describe("base theme", () => {
     describe("when size=large", () => {
@@ -542,6 +618,15 @@ describe("Checkbox", () => {
     });
   });
 
+  describe("aria-labelledby", () => {
+    it("should be passed down to the CheckableInput", () => {
+      const labelId = "foo";
+      const wrapper = renderCheckbox({ "aria-labelledby": labelId });
+
+      expect(wrapper.find(CheckableInput).prop("ariaLabelledBy")).toBe(labelId);
+    });
+  });
+
   describe("tooltipPosition", () => {
     it("should override the default value", () => {
       const wrapper = renderCheckbox(
@@ -553,4 +638,51 @@ describe("Checkbox", () => {
       expect(position).toEqual("bottom");
     });
   });
+
+  it.each<CommonCheckableInputProps["size"]>(["small", "large"])(
+    "renders with the expected border radius styling when size is %s",
+    (size) => {
+      const wrapper = renderCheckbox({ size }, mount);
+
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            size === "small" ? "025" : "050"
+          })`,
+        },
+        wrapper,
+        { modifier: `${StyledCheckableInput}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            size === "small" ? "025" : "050"
+          })`,
+        },
+        wrapper,
+        { modifier: `${StyledCheckableInput}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            size === "small" ? "025" : "050"
+          })`,
+        },
+        wrapper,
+        { modifier: `${StyledCheckableInputSvgWrapper}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: `var(--borderRadius${
+            size === "small" ? "025" : "050"
+          })`,
+        },
+        wrapper,
+        { modifier: "svg" }
+      );
+    }
+  );
 });

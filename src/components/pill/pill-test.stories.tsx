@@ -1,13 +1,13 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import Pill from "./pill.component";
+import Pill, { PillProps } from "./pill.component";
 
 export default {
   title: "Pill/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -48,6 +48,13 @@ export const Default = ({ children, onDelete, ...args }: PillStoryArgs) => {
       {children}
     </Pill>
   );
+};
+
+export const PillComponent = ({
+  children = "noop",
+  ...args
+}: Partial<PillProps>) => {
+  return <Pill {...args}>{children}</Pill>;
 };
 
 Default.story = {

@@ -2,15 +2,18 @@
 
 ## Contents
 
-- [Introduction](#introduction)
-- [Component Testing](#component-testing)
-  - [Custom utilities](#custom-utilities)
-  - [Use of Snapshot tests](#use-of-snapshot-tests)
-- [Functional Browser Testing](#functional-browser-testing)
-  - [Cypress File Structure](#cypress-file-structure)
-  - [Locators](#locators)
-- [Visual Testing](#visual-testing)
-  - [Adding new tests](#adding-new-visual-tests)
+- [Testing guide](#testing-guide)
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+  - [Component testing](#component-testing)
+    - [Custom utilities](#custom-utilities)
+    - [Use of Snapshot tests](#use-of-snapshot-tests)
+    - [Continuous Integration (CI)](#continuous-integration-ci)
+  - [Functional Browser Testing](#functional-browser-testing)
+    - [Playwright File Structure](#playwright-file-structure)
+    - [Locators](#locators)
+  - [Visual Testing](#visual-testing)
+    - [Adding new visual tests](#adding-new-visual-tests)
 
 ## Introduction
 
@@ -46,7 +49,7 @@ describe("FlatTableRow", () => {
 
 Snapshots are left up to the developer to be used where there is value. If you do want to use them, ensure they are small, focused and effective.
 
-> Further information on snapshots can be found on [Jest's offical docs](https://jestjs.io/docs/snapshot-testing).
+> Further information on snapshots can be found on [Jest's official docs](https://jestjs.io/docs/snapshot-testing).
 
 ### Continuous Integration (CI)
 
@@ -59,74 +62,86 @@ GitHub Actions runs unit tests for a Pull Request on creation and every commit p
 
 ## Functional Browser Testing
 
-We use the [Cypress](https://www.cypress.io) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does need to be tested again using Cypress, unless it would be benefitical to test the behaviour in a manner similar to how a user would in a browser.
+> **NOTE** - As of 3rd August 2023, we are in the progress of switching test framework for our functional browser tests from [Cypress](https://www.cypress.io/) to [Playwright](https://playwright.dev). The following section refers to our upcoming Playwright setup, but further details regarding our current Cypress setup can be found in [our Cypress docs](../cypress/README.md).
 
-Further details on installing Cypress and our configuration for it can be found in our [Getting started with Cypress](../cypress/README.md) guide.
+We are planning to use [Playwright](https://playwright.dev) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Playwright, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
 
-> **NOTE**: As of November 2022, we are refactoring our older Cypress tests using Cucumber in favour of JavaScript. For information about our old style tests, see our [legacy E2E Cypress tests guide](../cypress/legacy-e2e-tests-guide.md).
+Further details on installing Playwright and our configuration for it can be found in our [Getting started with Playwright](../playwright/README.md) guide.
 
-### Cypress File Structure
+### Playwright File Structure
 
-All Cypress tests must go within `*.test.js` for the relevant component.
+All Playwright tests must go within `*.pw.tsx` for the relevant component.
 
-```none
+```
 .
-├── cypress/
-│   │
-│   ├── locators/
+├── src/
+│   ├── components/
 │   │   └── [component-name]/
-│   │       ├── index.js
-│   │       └── locators.js
+│   │       └── [component-name].pw.tsx
+│   │       └──  components.test-pw.tsx
+│
+├── playwright/
+│   ├── components/
+│   │   └── [component-name]/
+│   │       └── locators.ts
+│   │       └── index.ts
 │   │
 │   ├── support/
+│   │   └── helper.ts
 │   │
-│   ├── docker-compose.yml
-│   ├── webpack.config.js
-│   ├── tsconfig.json
+│   ├── index.html
+│   ├── index.tsx
 │   └── README.md
 │
-├── src/components/
-│   └── [component-name]/
-│       └── [component-name].test.js
-│
-├── .eslintrc
-├── cypress.config.js
-└── tsconfig.json
+└── playwright-ct.config.ts
 ```
 
-A typical `*.test.js` file may look like the following:
+A typical `*.pw.tsx` file may look like the following:
 
-```jsx
-// inside src/components/button/button.test.js...
+```tsx
+// inside src/components/button/button.pw.tsx
+import { test, expect } from "@playwright/experimental-ct-react17";
 import Button from "./button.component";
-import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
-import { buttonDataComponent } from "../../../cypress/locators/button";
+import { buttonComponent } from "../../../playwright/component/button/index";
 
-context("Test Button component", () => {
-  describe("Check props for Button component", () => {
-    it("should render Button label when passed to the component", () => {
+  test.describe("Check props for Button component", async () => {
+    test("should render Button label when passed to the component", async ({ mount, page }) => {
+      
       const label = "foobar";
-      CypressMountWithProviders(<Button>{label}</Button>);
-      buttonDataComponent().should("have.text", label);
+      
+      await mount(<Button>{label}</Button>);
+
+      await expect(buttonComponent(page)).toHaveText(label);
     });
   });
-});
 ```
 
-Where `CypressMountWithProviders` renders the component in the simulated browser and `buttonDataComponent` is a _locator_ that returns the DOM element we want to test.
+Where `mount` renders the component in the real browser (`chromium`/`webkit`/`firefox`/`opera`) and `buttonComponent` is a _locator_ that returns the DOM element we want to test.
 
 ### Locators
 
 We write dedicated functions to access rendered DOM elements in order to make our tests easier to read. Locators for a component typically follow this structure:
 
-```js
-/* in index.js */
-import { BUTTON_COMPONENT, BUTTON_SUBTEXT } from "./locators.js";
+`index.ts`
+```ts
+/* in index.ts */
+import type { Page } from "@playwright/test";
+import { BUTTON_DATA_COMPONENT, BUTTON_SUBTEXT } from "./locators";
 
-export const buttonComponent = () => cy.get(BUTTON_DATA_COMPONENT);
-export const buttonSubtext = () => cy.get(BUTTON_SUBTEXT);
+const buttonComponent = (page: Page) => {
+  return page.locator(BUTTON_DATA_COMPONENT);
+}
 
-/* in locators.js */
+const buttonSubtext = (page: Page) => {
+  return page.locator(BUTTON_SUBTEXT);
+}
+
+export { buttonComponent, buttonSubtext };
+```
+
+`locators.ts`
+```ts
+/* locators.ts */
 // `data-component` prop is typically reserved for the root element of the component. Whereas `data-element` is for specific elements.
 export const BUTTON_COMPONENT = '[data-component="button"]';
 export const BUTTON_SUBTEXT = '[data-element="subtext"]';

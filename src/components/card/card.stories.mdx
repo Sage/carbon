@@ -1,6 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-
 import { Card, CardRow, CardFooter, CardColumn } from ".";
 
 import * as stories from "./card.stories.tsx";
@@ -12,12 +11,19 @@ import * as stories from "./card.stories.tsx";
 
 # Card
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/54feb0-card/b/712f18"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
+
 A container for interactive content and controls related to a single subject.
 
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -31,15 +37,6 @@ import {
   CardColumn,
 } from "carbon-react/lib/components/card";
 ```
-
-## Designer Notes
-
-- Cards contain interactive content or controls.
-- Cards can be made entirely draggable between designated locations (see [with draggable](#with-draggable) story below).
-- Cards may have hover and dragging states, whereas tiles not.
-- Neither cards nor tiles scroll.
-- The primary action area of a card is typically the card itself. Often cards are one large touch target to a detail screen on a subject.
-- When an array of cards or tiles are shown together, they may wrap into a grid depending on the available width and height of their container.
 
 ## Examples
 
@@ -59,6 +56,12 @@ import {
 
 <Canvas>
   <Story name="large spacing" story={stories.LargeSpacing} />
+</Canvas>
+
+### With large roundness on corners
+
+<Canvas>
+  <Story name="large roundness" story={stories.WithExtraRoundness} />
 </Canvas>
 
 ### With cardWidth provided

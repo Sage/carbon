@@ -4,13 +4,19 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import DateRange from ".";
-import I18nProvider from "../i18n-provider";
-import { fr } from "../../locales/date-fns-locales";
-import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import * as stories from "./date-range.stories";
 
 <Meta title="Date Range" parameters={{ info: { disable: true } }} />
 
 # Date Range
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/4122f0-date-range"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
 
 Captures a start and end date.
 
@@ -32,52 +38,13 @@ import DateRange from "carbon-react/lib/components/date-range";
 ### Default
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return (
-        <DateRange
-          startLabel="Start"
-          endLabel="End"
-          onChange={handleChange}
-          value={state}
-        />
-      );
-    }}
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### LabelsInline
 
 <Canvas>
-  <Story name="labelsInline">
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return (
-        <DateRange
-          startLabel="Start"
-          endLabel="End"
-          onChange={handleChange}
-          value={state}
-          labelsInline
-        />
-      );
-    }}
-  </Story>
+  <Story name="labelsInline" story={stories.LabelsInline} />
 </Canvas>
 
 ### Validations
@@ -93,32 +60,7 @@ For more information check our [Validations](?path=/docs/documentation-validatio
 #### As a string
 
 <Canvas>
-  <Story name="validations - string - component">
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return [
-        { startError: "Start Error", endError: "End Error" },
-        { startWarning: "Start Warning", endWarning: "End Warning" },
-        { startInfo: "Start Info", endInfo: "End Info" },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-component`}
-          startLabel="Start"
-          endLabel="End"
-          onChange={handleChange}
-          value={state}
-          {...validation}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="validations - string - component" story={stories.ValidationsStringComponent} />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -126,66 +68,14 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - component"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return [
-        { startError: "Start Error", endError: "End Error" },
-        { startWarning: "Start Warning", endWarning: "End Warning" },
-        { startInfo: "Start Info", endInfo: "End Info" },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-component`}
-          startLabel="Start"
-          endLabel="End"
-          value={state}
-          onChange={handleChange}
-          {...validation}
-          tooltipPosition="top"
-        />
-      ));
-    }}
-  </Story>
+    story={stories.ValidationsStringWithTooltipPositionOverriddenComponent}
+  />
 </Canvas>
 
 #### As a string, displayed on label
 
 <Canvas>
-  <Story name="validations - string - label">
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return [
-        { startError: "Start Error", endError: "End Error" },
-        { startWarning: "Start Warning", endWarning: "End Warning" },
-        { startInfo: "Start Info", endInfo: "End Info" },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-label`}
-          startLabel="Start"
-          endLabel="End"
-          value={state}
-          onChange={handleChange}
-          validationOnLabel
-          {...validation}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="validations - string - label" story={stories.ValidationsStringLabel} />
 </Canvas>
 
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
@@ -193,35 +83,8 @@ It is possible to use the `tooltipPosition` to override the default placement of
 <Canvas>
   <Story
     name="validations - string - with tooltipPosition overriden - label"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return [
-        { startError: "Start Error", endError: "End Error" },
-        { startWarning: "Start Warning", endWarning: "End Warning" },
-        { startInfo: "Start Info", endInfo: "End Info" },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-string-label`}
-          startLabel="Start"
-          endLabel="End"
-          value={state}
-          onChange={handleChange}
-          validationOnLabel
-          {...validation}
-          tooltipPosition="top"
-        />
-      ));
-    }}
-  </Story>
+    story={stories.ValidationsStringWithTooltipPositionOverriddenLabel}
+  />
 </Canvas>
 
 #### New designs validation
@@ -231,67 +94,13 @@ should remain aligned but labels may no longer be when a string wraps. Label tex
 exceed the input widht will also wrap to a new line.
 
 <Canvas>
-  <Story name="validations - string - new design">
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return (
-        <CarbonProvider validationRedesignOptIn>
-          {[
-            { startError: "Start error with long text string", endError: "End error" },
-            { startWarning: "Start warning", endWarning: "End warning with long text string" },
-          ].map((validation) => (
-            <DateRange
-              key={`${Object.keys(validation)[0]}-string-component`}
-              startLabel="Start"
-              endLabel="End"
-              onChange={handleChange}
-              value={state}
-              {...validation}
-              m={4}
-            />
-          ))}
-        </CarbonProvider>
-      );
-    }}
-  </Story>
+  <Story name="validations - string - new design" story={stories.ValidationsStringNewDesign} />
 </Canvas>
 
 #### As a boolean
 
 <Canvas>
-  <Story name="validations - boolean">
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return [
-        { startError: true, endError: true },
-        { startWarning: true, endWarning: true },
-        { startInfo: true, endInfo: true },
-      ].map((validation) => (
-        <DateRange
-          key={`${Object.keys(validation)[0]}-boolean-component`}
-          startLabel="Start"
-          endLabel="End"
-          value={state}
-          onChange={handleChange}
-          {...validation}
-        />
-      ));
-    }}
-  </Story>
+  <Story name="validations - boolean"story={stories.ValidationsBoolean} />
 </Canvas>
 
 ### Allow Empty Value
@@ -299,32 +108,7 @@ exceed the input widht will also wrap to a new line.
 You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDateProps` and `endDateProps`.
 
 <Canvas>
-  <Story name="allowEmptyValue">
-    {() => {
-      const [state, setState] = useState(["", ""]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return (
-        <DateRange
-          startLabel="Start"
-          endLabel="End"
-          value={state}
-          startDateProps={{
-            allowEmptyValue: true,
-          }}
-          endDateProps={{
-            allowEmptyValue: true,
-          }}
-          onChange={handleChange}
-        />
-      );
-    }}
-  </Story>
+  <Story name="allowEmptyValue"story={stories.AllowEmptyValue} />
 </Canvas>
 
 ### Locale override
@@ -334,37 +118,7 @@ the French locale. Required locales can be imported like so `import { fr } from 
 
 <Canvas>
   <Story
-    name="locale override - example implementation"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
-      const handleChange = ({ target }) => {
-        const newValue = [
-          target.value[0].formattedValue,
-          target.value[1].formattedValue,
-        ];
-        setState(newValue);
-      };
-      return (
-        <div>
-          <I18nProvider
-            locale={{
-              locale: () => "fr-FR",
-              date: { dateFnsLocale: () => fr },
-            }}
-          >
-            <DateRange
-              startLabel="Start"
-              endLabel="End"
-              value={state}
-              onChange={handleChange}
-            />
-          </I18nProvider>
-        </div>
-      );
-    }}
-  </Story>
+    name="locale override - example implementation"story={stories.LocaleOverrideExampleImplementation} />
 </Canvas>
 
 ## Props

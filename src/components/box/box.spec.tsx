@@ -14,6 +14,7 @@ import Box, {
   BoxSizing,
   AllowedNumericalValues,
   Gap,
+  BoxProps,
 } from "./box.component";
 import boxConfig from "./box.config";
 
@@ -119,4 +120,50 @@ describe("Box", () => {
       wrapper
     );
   });
+
+  it.each<BoxProps["position"]>(["fixed", "sticky"])(
+    "sets zIndex to 1 when position is %s",
+    (position) => {
+      const wrapper = mount(<Box position={position} />);
+      assertStyleMatch(
+        {
+          zIndex: "1",
+        },
+        wrapper
+      );
+    }
+  );
+
+  it.each<BoxProps["position"]>(["absolute", "relative"])(
+    "does not set zIndex when position is %s",
+    (position) => {
+      const wrapper = mount(<Box position={position} />);
+      assertStyleMatch(
+        {
+          zIndex: undefined,
+        },
+        wrapper
+      );
+    }
+  );
+
+  it.each<BoxProps["borderRadius"]>([
+    "borderRadius000",
+    "borderRadius025",
+    "borderRadius050",
+    "borderRadius100",
+    "borderRadius200",
+    "borderRadius400",
+  ])(
+    "applies the expected border radius when %s passed to borderRadius prop",
+    (borderRadius) => {
+      const wrapper = mount(<Box borderRadius={borderRadius} />);
+      assertStyleMatch(
+        {
+          borderRadius: `var(--${borderRadius})`,
+        },
+        wrapper
+      );
+    }
+  );
 });

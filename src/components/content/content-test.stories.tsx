@@ -3,11 +3,11 @@ import Content from ".";
 
 export default {
   title: "Content/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {

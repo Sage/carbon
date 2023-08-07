@@ -6,23 +6,30 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: ">=18.12.1 18"
       - run: npm ci
       - run: npx prettier --check './src/**/*.{js,jsx,ts,tsx}'
       - run: npm run lint
       - run: npm run type-check
+
   test:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [16, 18]
+        node: ["16.x", "18.x"]
+        shard: [1, 2, 3, 4]
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
       - run: npm ci
-      - run: npm test
+      - run: |
+          npm test -- --ci --maxWorkers=4 --shard=${{ matrix.shard }} --colors
+
+        env:
+          CONTAINER: ${{ matrix.shard }}

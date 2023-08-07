@@ -10,6 +10,7 @@ const StyledBatchSelection = styled.div<
   ${({ disabled, colorTheme, hidden }) => css`
     align-items: center;
     display: inline-flex;
+    border-radius: var(--borderRadius100);
 
     ${hidden && "opacity: 0;"}
 
@@ -46,10 +47,15 @@ const StyledBatchSelection = styled.div<
 
     ${StyledIconButton}:hover {
       background-color: var(--colorsActionMajor500);
+      border-radius: var(--borderRadius100);
 
       ${StyledIcon} {
         color: var(--colorsActionMajorYang100);
       }
+    }
+
+    ${StyledIconButton}:focus {
+      border-radius: var(--borderRadius100);
     }
 
     ${disabled &&

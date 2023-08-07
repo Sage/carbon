@@ -10,7 +10,10 @@ describe("CarbonProvider", () => {
   it("renders the default props and children", () => {
     const wrapper = mount(<CarbonProvider>children</CarbonProvider>);
 
-    expect(wrapper.find(ThemeProvider).prop("theme")).toBe(mintTheme);
+    expect(wrapper.find(ThemeProvider).prop("theme")).toStrictEqual({
+      ...mintTheme,
+      roundedCornersOptOut: false,
+    });
     expect(wrapper.find(ThemeProvider).text()).toBe("children");
   });
 
@@ -19,6 +22,9 @@ describe("CarbonProvider", () => {
       <CarbonProvider theme={aegeanTheme}>children</CarbonProvider>
     );
 
-    expect(wrapper.find(ThemeProvider).prop("theme")).toBe(aegeanTheme);
+    expect(wrapper.find(ThemeProvider).prop("theme")).toStrictEqual({
+      ...aegeanTheme,
+      roundedCornersOptOut: false,
+    });
   });
 });

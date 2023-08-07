@@ -5,10 +5,11 @@ import { LOADER_SIZES } from "./loader.config";
 
 export default {
   title: "Loader/Test",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -57,4 +58,12 @@ export const Default = ({
 Default.storyName = "default";
 Default.args = {
   size: "medium",
+};
+
+export const LoaderInsideButtonTest = (props: LoaderProps) => {
+  return (
+    <Button buttonType="primary" aria-label="Loading">
+      <Loader isInsideButton {...props} />
+    </Button>
+  );
 };

@@ -1,15 +1,15 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 
-import LinkPreview from "./link-preview.component";
+import LinkPreview, { LinkPreviewProps } from "./link-preview.component";
 
 export default {
   title: "Link Preview/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -26,7 +26,7 @@ export const Default = () => (
 
 Default.storyName = "default";
 
-export const LinkPreviewComponentTest = ({ ...props }) => {
+export const LinkPreviewComponentTest = (props: LinkPreviewProps) => {
   return (
     <LinkPreview
       title="This is an example of a title"

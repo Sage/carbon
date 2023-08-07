@@ -3,7 +3,7 @@ services:
   # Install cypress and cache the binary to a volume that is shared with all replicas
   # docker-compose --profile install up
   install:
-    image: "cypress/browsers:node18.12.0-chrome106-ff106"
+    image: "cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1"
     command: npx cypress install
     working_dir: /component
     volumes:
@@ -16,7 +16,7 @@ services:
   # Unable to open X display? ensure you have added 127.0.0.1 to xhost allow list
   # xhost +127.0.0.1
   open:
-    image: "cypress/browsers:node18.12.0-chrome106-ff106"
+    image: "cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1"
     environment:
       - CYPRESS_baseUrl=http://host.docker.internal:9001/
       - DISPLAY=host.docker.internal:0
@@ -33,13 +33,13 @@ services:
     deploy:
       # Change this value to adjust the parallelisation
       replicas: 3
-    image: "cypress/browsers:node18.12.0-chrome106-ff106"
+    image: "cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1"
     environment:
       - CYPRESS_baseUrl=http://host.docker.internal:9001/
       - CYPRESS_RECORD_KEY=${CYPRESS_RECORD_KEY}
     command: npx cypress run --component --record --parallel --browser chrome --ci-build-id ${BUILD_ID}
     # Run specific Cypress test(s) using the Cypress dashboard
-    # command: npx cypress run --record --parallel --browser chrome --ci-build-id ${BUILD_ID} --spec cypress/features/regression/accessibility/accessibility*
+    # command: npx cypress run --record --parallel --browser chrome --ci-build-id ${BUILD_ID} --spec cypress/e2e/accessibility/a11y*
     working_dir: /component
     volumes:
       - ../:/component

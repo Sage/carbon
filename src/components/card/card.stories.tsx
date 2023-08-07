@@ -3,7 +3,7 @@ import { ComponentStory, StoryFn } from "@storybook/react";
 
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Card, CardRow, CardFooter, CardColumn } from ".";
+import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
 
 import Typography from "../typography";
 import Heading from "../heading";
@@ -14,7 +14,7 @@ import Button from "../button";
 import VerticalDivider from "../vertical-divider";
 import IconButton from "../icon-button";
 
-export const DefaultStory: ComponentStory<typeof Card> = (args) => (
+export const DefaultStory: ComponentStory<typeof Card> = (args: CardProps) => (
   <Card {...args}>
     <CardRow>
       <CardColumn align="left">
@@ -46,17 +46,165 @@ export const DefaultStory: ComponentStory<typeof Card> = (args) => (
   </Card>
 );
 
-export const SmallSpacing = DefaultStory.bind({});
-SmallSpacing.args = { spacing: "small" };
+export const SmallSpacing = () => (
+  <Card spacing="small">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
-export const LargeSpacing = DefaultStory.bind({});
-LargeSpacing.args = { spacing: "large" };
+export const LargeSpacing = () => (
+  <Card spacing="large">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
-export const WithCardWidthProvided = DefaultStory.bind({});
-WithCardWidthProvided.args = { cardWidth: "500px" };
+export const WithCardWidthProvided = () => (
+  <Card cardWidth="500px">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
-export const WithCustomHeight = DefaultStory.bind({});
-WithCustomHeight.args = { height: "500px" };
+export const WithCustomHeight = () => (
+  <Card height="500px">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
+
+export const WithExtraRoundness = () => (
+  <Card roundness="large">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
 export const Interactive: StoryFn = () => {
   const [clickCounter, setClickCounter] = useState(0);
@@ -100,14 +248,39 @@ export const Interactive: StoryFn = () => {
     </Box>
   );
 };
-Interactive.parameters = { chromatic: { disable: true } };
+Interactive.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithCustomBoxShadow = DefaultStory.bind({});
-WithCustomBoxShadow.args = {
-  boxShadow: "boxShadow400",
-  hoverBoxShadow: "boxShadow200",
-  interactive: true,
-};
+export const WithCustomBoxShadow = () => (
+  <Card boxShadow="boxShadow400" hoverBoxShadow="boxShadow200">
+    <CardRow>
+      <CardColumn align="left">
+        <Heading title="Stripe - [account name]" divider={false} />
+        <Typography fontSize="16px" m={0}>
+          user.name@sage.com
+        </Typography>
+      </CardColumn>
+      <CardColumn align="right">
+        <Icon type="image" />
+      </CardColumn>
+    </CardRow>
+    <CardRow>
+      <CardColumn>
+        <Typography fontSize="16px" m={0} fontWeight="bold">
+          Stripe Balance
+        </Typography>
+        <Heading title="£ 0.00" divider={false} />
+        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+      </CardColumn>
+    </CardRow>
+    <CardFooter>
+      <CardColumn>
+        <Link icon="link" href="https://carbon.sage.com/">
+          View Stripe Dashboard
+        </Link>
+      </CardColumn>
+    </CardFooter>
+  </Card>
+);
 
 export const DifferentCardRowPadding: StoryFn = () => (
   <Card>
@@ -149,11 +322,18 @@ export const DifferentCardRowPadding: StoryFn = () => (
     </CardFooter>
   </Card>
 );
-DifferentCardRowPadding.parameters = { chromatic: { disable: true } };
+DifferentCardRowPadding.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DifferentCardFooterPadding: StoryFn = () => (
   <Box>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={1} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -168,6 +348,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={2} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -182,6 +369,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={3} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -196,6 +390,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={4} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -210,6 +411,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={5} py={1}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -224,6 +432,13 @@ export const DifferentCardFooterPadding: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={5} py={2}>
         <Box width="100%" display="flex" justifyContent="space-around">
           <Box flexGrow={1}>
@@ -239,11 +454,20 @@ export const DifferentCardFooterPadding: StoryFn = () => (
     </Card>
   </Box>
 );
-DifferentCardFooterPadding.parameters = { chromatic: { disable: true } };
+DifferentCardFooterPadding.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const MoreExamplesOfCardFooter: StoryFn = () => (
   <Box>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter p={1}>
         <Box
           alignItems="center"
@@ -252,16 +476,16 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
           justifyContent="space-around"
         >
           <Box flexGrow={1}>
-            <IconButton aria-label="Phone icon button" onAction={() => {}}>
+            <IconButton aria-label="Phone icon button" onClick={() => {}}>
               <Icon bgSize="medium" type="phone" />
             </IconButton>
-            <IconButton aria-label="Phone icon button" onAction={() => {}}>
+            <IconButton aria-label="Phone icon button" onClick={() => {}}>
               <Icon bgSize="medium" type="phone" />
             </IconButton>
-            <IconButton aria-label="Phone icon button" onAction={() => {}}>
+            <IconButton aria-label="Phone icon button" onClick={() => {}}>
               <Icon bgSize="medium" type="phone" />
             </IconButton>
-            <IconButton aria-label="Phone icon button" onAction={() => {}}>
+            <IconButton aria-label="Phone icon button" onClick={() => {}}>
               <Icon bgSize="medium" type="phone" />
             </IconButton>
           </Box>
@@ -275,6 +499,13 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card cardWidth="400px">
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter px={2} py={1}>
         <Box
           width="100%"
@@ -314,6 +545,13 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card cardWidth="400px">
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter variant="transparent" px={2} py={1}>
         <Box
           width="100%"
@@ -353,6 +591,13 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
       </CardFooter>
     </Card>
     <Card>
+      <CardRow>
+        <CardColumn>
+          <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
+            Here is some text
+          </Typography>
+        </CardColumn>
+      </CardRow>
       <CardFooter p={2}>
         <Box display="flex" width="100%" justifyContent="center">
           <Link icon="link" href="https://carbon.sage.com/">
@@ -367,7 +612,7 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
 export const WithStringAsChild: StoryFn = () => (
   <Card>String passed as child</Card>
 );
-WithStringAsChild.parameters = { chromatic: { disable: true } };
+WithStringAsChild.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithDraggable: StoryFn = () => {
   const columnNames = {
@@ -539,4 +784,4 @@ export const WithDraggable: StoryFn = () => {
   };
   return <App />;
 };
-WithDraggable.parameters = { chromatic: { disable: true } };
+WithDraggable.parameters = { chromatic: { disableSnapshot: true } };

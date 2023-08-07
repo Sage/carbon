@@ -3,14 +3,14 @@ import { IconType } from "../icon";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import { HELP_POSITIONS } from "./help.config";
 import { ICONS } from "../icon/icon-config";
-import Help from "./help.component";
+import Help, { HelpProps } from "./help.component";
 
 export default {
   title: "Help/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -78,4 +78,19 @@ Default.story = {
     tooltipFontColor: "",
     tooltipFlipOverrides: "left",
   },
+};
+
+export const HelpComponent = (props: HelpProps) => {
+  return (
+    <div
+      style={{
+        marginLeft: "200px",
+        marginRight: "64px",
+        marginTop: "64px",
+        marginBottom: "64px",
+      }}
+    >
+      <Help {...props} />
+    </div>
+  );
 };

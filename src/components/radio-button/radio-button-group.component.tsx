@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import Fieldset from "../../__internal__/fieldset";
-import RadioButtonGroupStyle from "./radio-button-group.style";
+import RadioButtonGroupStyle, {
+  StyledHintText,
+} from "./radio-button-group.style";
 import RadioButtonMapper from "../../__internal__/radio-button-mapper/radio-button-mapper.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../__internal__/validations";
+import Logger from "../../__internal__/utils/logger";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
+import Box from "../../components/box";
+import { ErrorBorder } from "../../components/textbox/textbox.style";
 
+let deprecateUncontrolledWarnTriggered = false;
 export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   /** Breakpoint for adaptive legend (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLegendBreakpoint?: number;
@@ -22,6 +30,8 @@ export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   labelSpacing?: 1 | 2;
   /** The content for the RadioGroup Legend */
   legend?: string;
+  /** The content for the hint text of the RadioGroup Legend */
+  legendHelp?: string;
   /** Text alignment of legend when inline */
   legendAlign?: "left" | "right";
   /** When true, legend is placed in line with the radiobuttons */
@@ -49,6 +59,7 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     children,
     name,
     legend,
+    legendHelp,
     error,
     warning,
     info,
@@ -66,6 +77,15 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     required,
     tooltipPosition,
   } = props;
+
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
+
+  if (!deprecateUncontrolledWarnTriggered && !onChange) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  }
 
   const marginProps = filterStyledSystemMarginProps(props);
 
@@ -88,53 +108,110 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
   }
 
   return (
-    <TooltipProvider tooltipPosition={tooltipPosition}>
-      <Fieldset
-        legend={legend}
-        error={error}
-        warning={warning}
-        info={info}
-        inline={inlineLegend}
-        legendWidth={legendWidth}
-        legendAlign={legendAlign}
-        legendSpacing={legendSpacing}
-        isRequired={required}
-        {...tagComponent("radiogroup", props)}
-        {...marginProps}
-        ml={marginLeft}
-        blockGroupBehaviour={!(error || warning || info)}
-      >
-        <RadioButtonGroupStyle
-          data-component="radio-button-group"
-          role="radiogroup"
-          inline={inline}
-          legendInline={inlineLegend}
+    <>
+      {validationRedesignOptIn ? (
+        <Fieldset
+          legend={legend}
+          error={error}
+          warning={warning}
+          info={info}
+          inline={inlineLegend}
+          legendWidth={legendWidth}
+          legendAlign={legendAlign}
+          legendSpacing={legendSpacing}
+          isRequired={required}
+          {...tagComponent("radiogroup", props)}
+          {...marginProps}
+          ml={marginLeft}
+          blockGroupBehaviour={!(error || warning)}
         >
-          <RadioButtonMapper
-            name={name}
-            onBlur={onBlur}
-            onChange={onChange}
-            value={value}
-          >
-            {React.Children.map(children, (child) => {
-              if (!React.isValidElement(child)) {
-                return child;
-              }
+          {legendHelp && <StyledHintText>{legendHelp}</StyledHintText>}
+          <Box position="relative">
+            <ValidationMessage error={error} warning={warning} />
+            {(error || warning) && (
+              <ErrorBorder inline={inline} warning={!!(!error && warning)} />
+            )}
+            <RadioButtonGroupStyle
+              data-component="radio-button-group"
+              role="radiogroup"
+              inline={inline}
+              legendInline={inlineLegend}
+            >
+              <RadioButtonMapper
+                name={name}
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+              >
+                {React.Children.map(children, (child) => {
+                  if (!React.isValidElement(child)) {
+                    return child;
+                  }
 
-              return React.cloneElement(child, {
-                inline,
-                labelSpacing,
-                error: !!error,
-                warning: !!warning,
-                info: !!info,
-                required,
-                ...child.props,
-              });
-            })}
-          </RadioButtonMapper>
-        </RadioButtonGroupStyle>
-      </Fieldset>
-    </TooltipProvider>
+                  return React.cloneElement(child, {
+                    inline,
+                    labelSpacing,
+                    error: !!error,
+                    warning: !!warning,
+                    info: !!info,
+                    required,
+                    ...child.props,
+                  });
+                })}
+              </RadioButtonMapper>
+            </RadioButtonGroupStyle>
+          </Box>
+        </Fieldset>
+      ) : (
+        <TooltipProvider tooltipPosition={tooltipPosition}>
+          <Fieldset
+            legend={legend}
+            error={error}
+            warning={warning}
+            info={info}
+            inline={inlineLegend}
+            legendWidth={legendWidth}
+            legendAlign={legendAlign}
+            legendSpacing={legendSpacing}
+            isRequired={required}
+            {...tagComponent("radiogroup", props)}
+            {...marginProps}
+            ml={marginLeft}
+            blockGroupBehaviour={!(error || warning || info)}
+          >
+            <RadioButtonGroupStyle
+              data-component="radio-button-group"
+              role="radiogroup"
+              inline={inline}
+              legendInline={inlineLegend}
+            >
+              <RadioButtonMapper
+                name={name}
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value}
+              >
+                {React.Children.map(children, (child) => {
+                  if (!React.isValidElement(child)) {
+                    return child;
+                  }
+
+                  return React.cloneElement(child, {
+                    inline,
+                    labelSpacing,
+                    error: !!error,
+                    warning: !!warning,
+                    info: !!info,
+                    required,
+                    ...child.props,
+                  });
+                })}
+              </RadioButtonMapper>
+            </RadioButtonGroupStyle>
+          </Fieldset>
+        </TooltipProvider>
+      )}
+    </>
   );
 };
 

@@ -29,8 +29,62 @@ Default.argTypes = {
   },
 };
 
+export const InteractivePageNumber: ComponentStory<typeof Pager> = (
+  args: PagerProps
+) => <Pager {...args} />;
+
+InteractivePageNumber.args = {
+  totalRecords: "100",
+  interactivePageNumber: false,
+  showPageSizeSelection: false,
+  currentPage: "1",
+  pageSizeSelectionOptions: [
+    { id: "1", name: 1 },
+    { id: "10", name: 10 },
+    { id: "25", name: 25 },
+    { id: "50", name: 50 },
+    { id: "100", name: 100 },
+  ],
+};
+
+InteractivePageNumber.argTypes = {
+  pageSize: {
+    options: [1, 10, 25, 50, 100],
+    control: {
+      type: "select",
+    },
+  },
+};
+
+export const HideDisabledElements: ComponentStory<typeof Pager> = (
+  args: PagerProps
+) => <Pager {...args} />;
+
+HideDisabledElements.args = {
+  totalRecords: "100",
+  hideDisabledElements: true,
+  showPageSizeSelection: false,
+  currentPage: "1",
+  pageSizeSelectionOptions: [
+    { id: "1", name: 1 },
+    { id: "10", name: 10 },
+    { id: "25", name: 25 },
+    { id: "50", name: 50 },
+    { id: "100", name: 100 },
+  ],
+};
+
+HideDisabledElements.argTypes = {
+  pageSize: {
+    options: [1, 10, 25, 50, 100],
+    control: {
+      type: "select",
+    },
+  },
+};
+
 export const DisabledPageSize = Default.bind({});
-DisabledPageSize.parameters = { chromatic: { disable: true } };
+DisabledPageSize.parameters = { chromatic: { disableSnapshot: true } };
 DisabledPageSize.args = {
   totalRecords: "100",
   onPagination: () => {},
@@ -61,7 +115,7 @@ LoadingState.args = {
 };
 
 export const PageSizeSelectionOptions = Default.bind({});
-PageSizeSelectionOptions.parameters = { chromatic: { disable: true } };
+PageSizeSelectionOptions.parameters = { chromatic: { disableSnapshot: true } };
 PageSizeSelectionOptions.args = {
   onPagination: () => {},
   totalRecords: 100,
@@ -75,7 +129,7 @@ PageSizeSelectionOptions.args = {
 };
 
 export const CurrentPageLastPage = Default.bind({});
-CurrentPageLastPage.parameters = { chromatic: { disable: true } };
+CurrentPageLastPage.parameters = { chromatic: { disableSnapshot: true } };
 CurrentPageLastPage.args = {
   onPagination: () => {},
   totalRecords: 100,
@@ -84,7 +138,7 @@ CurrentPageLastPage.args = {
 };
 
 export const CurrentPage = Default.bind({});
-CurrentPage.parameters = { chromatic: { disable: true } };
+CurrentPage.parameters = { chromatic: { disableSnapshot: true } };
 CurrentPage.args = {
   onPagination: () => {},
   totalRecords: 100,
@@ -155,4 +209,6 @@ export const UsingCustomResponsiveSettings = () => {
     />
   );
 };
-UsingCustomResponsiveSettings.parameters = { chromatic: { disable: true } };
+UsingCustomResponsiveSettings.parameters = {
+  chromatic: { disableSnapshot: true },
+};

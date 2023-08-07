@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { InlineInputsContext } from "../../components/inline-inputs";
+import React from "react";
 import useInputBehaviour, { InputContextProps } from "./useInputBehaviour";
 
 const InputContext = React.createContext<InputContextProps>({});
@@ -10,10 +9,9 @@ export interface InputBehaviourProps {
 
 const InputBehaviour = ({ children }: InputBehaviourProps) => {
   const contextValue = useInputBehaviour();
-  const { ariaLabelledBy } = useContext(InlineInputsContext);
 
   return (
-    <InputContext.Provider value={{ ...contextValue, ariaLabelledBy }}>
+    <InputContext.Provider value={{ ...contextValue }}>
       {children}
     </InputContext.Provider>
   );

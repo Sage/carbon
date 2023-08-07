@@ -94,7 +94,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       [onDismiss]
     );
 
-    useModalManager(open, dismissToast, refToPass);
+    useModalManager({ open, closeModal: dismissToast, modalRef: refToPass });
 
     useEffect(() => {
       /* istanbul ignore next */
@@ -110,8 +110,11 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     useEffect(() => {
       if (!disableAutoFocus) {
         if (open) {
-          focusedElementBeforeOpening.current = document.activeElement as HTMLElement | null;
-          toastContentNodeRef.current?.focus();
+          // setTimeout needed as otherwise this runs before the ref is populated
+          setTimeout(() => {
+            focusedElementBeforeOpening.current = document.activeElement as HTMLElement | null;
+            toastContentNodeRef.current?.focus();
+          }, 0);
         } else if (focusedElementBeforeOpening.current) {
           focusedElementBeforeOpening.current.focus();
           focusedElementBeforeOpening.current = null;
@@ -135,7 +138,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         <IconButton
           aria-label={locale.toast.ariaLabels.close()}
           data-element="close"
-          onAction={onDismiss}
+          onClick={onDismiss}
           ref={closeIconRef}
         >
           <Icon type="close" />

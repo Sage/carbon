@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { MarginProps } from "styled-system";
 
 import MessageStyle from "./message.style";
@@ -39,50 +39,65 @@ export interface MessageProps extends MarginProps {
   variant?: MessageVariant;
 }
 
-export const Message = ({
-  open = true,
-  transparent = false,
-  title,
-  variant = "info",
-  children,
-  onDismiss,
-  id,
-  className,
-  closeButtonAriaLabel,
-  showCloseIcon = true,
-  ...props
-}: MessageProps) => {
-  const marginProps = filterStyledSystemMarginProps(props);
-  const l = useLocale();
-  const renderCloseIcon = () => {
-    if (!showCloseIcon || !onDismiss) return null;
+export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
+  (
+    {
+      open = true,
+      transparent = false,
+      title,
+      variant = "info",
+      children,
+      onDismiss,
+      id,
+      className,
+      closeButtonAriaLabel,
+      showCloseIcon = true,
+      ...props
+    }: MessageProps,
+    ref
+  ) => {
+    const messageRef = useRef<HTMLDivElement | null>(null);
+    const refToPass = ref || messageRef;
 
-    return (
-      <IconButton
-        data-element="close"
-        aria-label={closeButtonAriaLabel || l.message.closeButtonAriaLabel()}
-        onAction={onDismiss}
+    const marginProps = filterStyledSystemMarginProps(props);
+    const l = useLocale();
+
+    const renderCloseIcon = () => {
+      if (!showCloseIcon || !onDismiss) return null;
+
+      return (
+        <IconButton
+          data-element="close"
+          aria-label={closeButtonAriaLabel || l.message.closeButtonAriaLabel()}
+          onClick={onDismiss}
+        >
+          <Icon type="close" />
+        </IconButton>
+      );
+    };
+
+    return open ? (
+      <MessageStyle
+        {...tagComponent("Message", props)}
+        className={className}
+        transparent={transparent}
+        variant={variant}
+        role="status"
+        id={id}
+        ref={refToPass}
+        {...marginProps}
+        tabIndex={-1}
       >
-        <Icon type="close" />
-      </IconButton>
-    );
-  };
+        <TypeIcon variant={variant} transparent={transparent} />
+        <MessageContent showCloseIcon={showCloseIcon} title={title}>
+          {children}
+        </MessageContent>
+        {renderCloseIcon()}
+      </MessageStyle>
+    ) : null;
+  }
+);
 
-  return open ? (
-    <MessageStyle
-      {...tagComponent("Message", props)}
-      className={className}
-      transparent={transparent}
-      variant={variant}
-      role="status"
-      id={id}
-      {...marginProps}
-    >
-      <TypeIcon variant={variant} transparent={transparent} />
-      <MessageContent title={title}>{children}</MessageContent>
-      {renderCloseIcon()}
-    </MessageStyle>
-  ) : null;
-};
+Message.displayName = "Message";
 
 export default Message;

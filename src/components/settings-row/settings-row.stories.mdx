@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import * as stories from "./settings-row.stories.tsx"
 
 import SettingsRow from ".";
 
@@ -37,11 +37,14 @@ The default `divider` line at the bottom of the row may be disabled by setting `
 All `children` are rendered in the input column to the right of the header column.
 
 <Canvas>
-  <Story name="default">
-    <SettingsRow description="Description" title="Title">
-      Content for settings
-    </SettingsRow>
-  </Story>
+  <Story name="default" story={stories.Default}/>
+</Canvas>
+
+### with HeadingType
+
+The `headingType` prop sets the HTML heading element of the  `title` within the component which is rendered on the page. It can take values `"h1"` up to `"h5"`.
+<Canvas>
+  <Story name="headingType" story={stories.HeadingType}/>
 </Canvas>
 
 ## Props

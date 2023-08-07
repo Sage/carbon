@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
-import { IconType } from "components/icon/icon-type";
+import { IconType } from "../icon";
 
 import BaseTheme from "../../style/themes/base";
 import buttonTypes from "./button-types.style";
@@ -40,14 +40,6 @@ function stylingForType({
   iconOnly?: boolean;
 }) {
   return css`
-    border: 2px solid transparent;
-    box-sizing: border-box;
-    font-weight: 600;
-    text-decoration: none;
-    &:focus {
-      outline: solid 3px var(--colorsSemanticFocus500);
-    }
-
     ${buttonTypes(disabled, destructive)[buttonType]};
 
     ${size === "small" &&
@@ -64,9 +56,10 @@ function stylingForType({
     
     ${size === "large" &&
     css`
-      font-size: 16px;
+      font-size: var(--fontSizes200);
       min-height: 48px;
     `}
+
     ${iconOnly && stylingForIconOnly(size)}
   `;
 }
@@ -82,11 +75,20 @@ const StyledButton = styled.button<StyledButtonProps>`
     align-items: center;
     cursor: ${disabled ? "not-allowed" : "pointer"};
     display: inline-flex;
-    border-radius: 0;
     ${noWrap ? "white-space: nowrap;" : "flex-flow: wrap;"}
     justify-content: center;
     vertical-align: middle;
     outline-offset: 0;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--borderRadius400);
+
+    &:focus {
+      outline: solid 3px var(--colorsSemanticFocus500);
+    }
+
     ${stylingForType}
   `}
 
@@ -95,7 +97,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     css`
       width: 100%;
     `}
-
+    
   ${({ iconOnly, iconPosition, iconType }) => css`
     ${StyledIcon} {
       margin-left: ${!iconOnly && iconPosition === "after"

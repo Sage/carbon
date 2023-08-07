@@ -7,10 +7,11 @@ import { CONFIRM_SIZES } from "./confirm.config";
 
 export default {
   title: "Confirm/Test",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -94,7 +95,7 @@ Default.args = {
   cancelButtonType: "secondary",
 };
 
-export const ConfirmComponent = ({ ...props }) => {
+export const ConfirmComponent = (props: Partial<ConfirmProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>

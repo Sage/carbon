@@ -62,6 +62,18 @@ By default, the Tile component will have a horizontal layout.
   </Story>
 </Canvas>
 
+### With large roundness on corners
+
+<Canvas>
+  <Story name="large roundness">
+    <Tile roundness="large">
+      <Content title="Test Title One">Test Body One</Content>
+      <Content title="Test Title Two">Test Body Two</Content>
+      <Content title="Test Title Three">Test Body Three</Content>
+    </Tile>
+  </Story>
+</Canvas>
+
 ### Vertical
 
 The Tile component can be also have a vertical layout.
@@ -289,7 +301,7 @@ Please note that it will not have any effect if the Tile orientation is set to `
 You can set the `borderVariant` property to alter the border colour as well as the border width with the `borderWidth` property.
 
 <Canvas>
-  <Story parameters={{ chromatic: { disable: false }, themeProvider: { chromatic: { theme: "sage" } }, }} name="custom borders">
+  <Story parameters={{ chromatic: { disableSnapshot: false }, themeProvider: { chromatic: { theme: "sage" } }, }} name="custom borders">
     <div>
       <Tile
         orientation="vertical"
@@ -644,7 +656,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 ### With Accordion and Definition List
 
 <Canvas>
-  <Story parameters={{ chromatic: { disable: true } }} name="with Accordion">
+  <Story parameters={{ chromatic: { disableSnapshot: true } }} name="with Accordion">
     <Tile p={0} orientation="horizontal">
       <Accordion p={0} headerSpace={{ p: 3 }} borders="none" title="Accordion">
         <Dl dtTextAlign="left" ddTextAlign="right">
@@ -672,7 +684,7 @@ In this example `dtTextAlign` has been provided the string 'left' and `ddTextAli
 
 <Canvas>
   <Story
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
     name="with Accordion and TileFooter"
   >
     <Tile p={0} orientation="vertical">

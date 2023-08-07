@@ -6,7 +6,7 @@ import {
   testStyledSystemSpacing,
   testStyledSystemPadding,
 } from "../../__spec_helper__/test-utils";
-import Form from "./form.component";
+import Form, { FormProps } from "./form.component";
 import {
   StyledLeftButtons,
   StyledRightButtons,
@@ -24,11 +24,21 @@ import {
 } from "./__internal__/form-summary.style";
 import Icon from "../icon";
 import Button from "../button";
+import Fieldset from "../fieldset";
 import { FieldsetStyle } from "../fieldset/fieldset.style";
 import StyledSearch from "../search/search.style";
 import Textarea from "../textarea";
+import Textbox from "../textbox";
+import { RadioButton, RadioButtonGroup } from "../radio-button";
 import StyledTextarea from "../textarea/textarea.style";
 import Dialog from "../dialog";
+import { formSpacing } from "./form.config";
+import StyledButton from "../button/button.style";
+import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
+import { Select, Option } from "../select";
+import StyledSelect from "../select/select.style";
+import InlineInputs from "../inline-inputs";
+import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 
 jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 jest.mock("../../hooks/__internal__/useResizeObserver");
@@ -79,56 +89,122 @@ describe("Form", () => {
     });
   });
 
-  describe("When `fieldSpacing` applied", () => {
-    wrapper = mount(<StyledForm fieldSpacing={0} />);
+  describe.each<FormProps["fieldSpacing"]>([undefined, 0, 1, 2, 3, 4, 5, 6, 7])(
+    "When %s is passed to `fieldSpacing` prop",
+    (spacing) => {
+      it("applies the expected margin to the children inputs if they do not have custom values passed", () => {
+        wrapper = mount(
+          <Form fieldSpacing={spacing}>
+            <Textbox />
+            <Textarea characterLimit={50} />
+            <RadioButtonGroup name="bar">
+              <RadioButton value="1" />
+            </RadioButtonGroup>
+            <Select>
+              <Option value="1" text="text" />
+            </Select>
+            <Fieldset>
+              <Textbox />
+              <Select>
+                <Option value="1" text="text" />
+              </Select>
+            </Fieldset>
+            <InlineInputs>
+              <Textbox />
+              <Textbox />
+              <Textbox />
+            </InlineInputs>
+          </Form>
+        );
 
-    it("as default", () => {
-      assertStyleMatch(
-        {
-          marginTop: "0",
-          marginBottom: "var(--spacing300)",
-        },
-        wrapper,
-        {
-          modifier: `
-            ${FieldsetStyle}
-          `,
-        }
-      );
-    });
+        const result = {
+          marginBottom: formSpacing[spacing === undefined ? 3 : spacing],
+          marginTop: "var(--spacing000)",
+        };
 
-    it("as custom value", () => {
-      wrapper = mount(<StyledForm fieldSpacing={2} />);
-      assertStyleMatch(
-        {
-          marginTop: "0",
-          marginBottom: "var(--spacing200)",
-        },
-        wrapper,
-        {
-          modifier: `
-            ${FieldsetStyle}
-          `,
-        }
-      );
-    });
+        assertStyleMatch(result, wrapper.find(Textbox).find(StyledFormField), {
+          modifier: "&&&",
+        });
 
-    it("applies custom value to textarea with character count specified", () => {
-      wrapper = mount(
-        <StyledForm fieldSpacing={4}>
-          <Textarea label="Textarea with Character Limit" characterLimit="50" />
-        </StyledForm>
-      );
-      assertStyleMatch(
-        {
-          marginTop: "0",
-          marginBottom: "var(--spacing400)",
-        },
-        wrapper,
-        { modifier: `${StyledTextarea}` }
-      );
-    });
-  });
+        assertStyleMatch(result, wrapper.find(StyledTextarea));
+
+        assertStyleMatch(
+          result,
+          wrapper.find(RadioButtonGroup).find(StyledFieldset)
+        );
+
+        assertStyleMatch(result, wrapper.find(StyledSelect));
+
+        // does not apply form spacing to the composed input as well
+        assertStyleMatch(
+          { marginBottom: "var(--spacing000)", marginTop: "var(--spacing000)" },
+          wrapper.find(StyledSelect).find(StyledFormField),
+          { modifier: "&&&" }
+        );
+
+        assertStyleMatch(result, wrapper.find(FieldsetStyle));
+
+        // does not apply form spacing to the composed input as well
+        assertStyleMatch(
+          { marginBottom: undefined },
+          wrapper.find(FieldsetStyle).find(StyledSelect)
+        );
+
+        assertStyleMatch(result, wrapper.find(StyledInlineInputs));
+      });
+
+      it("does not apply margin to the children inputs if they have custom values passed", () => {
+        wrapper = mount(
+          <Form fieldSpacing={spacing}>
+            <Textbox my={1} />
+            <Textarea characterLimit={50} my={1} />
+            <Button my={1}>Foo</Button>
+            <RadioButtonGroup name="bar" my={1}>
+              <RadioButton value="1" />
+            </RadioButtonGroup>
+            <Select my={1}>
+              <Option value="1" text="text" />
+            </Select>
+            <Fieldset my={1}>
+              <Textbox />
+              <Select>
+                <Option value="1" text="text" />
+              </Select>
+            </Fieldset>
+            <InlineInputs my={1}>
+              <Textbox />
+              <Textbox />
+              <Textbox />
+            </InlineInputs>
+          </Form>
+        );
+
+        const result = {
+          marginBottom: "var(--spacing100)",
+          marginTop: "var(--spacing100)",
+        };
+
+        assertStyleMatch(result, wrapper.find(Textbox).find(StyledFormField), {
+          modifier: "&&&",
+        });
+
+        assertStyleMatch(result, wrapper.find(StyledTextarea));
+
+        assertStyleMatch(result, wrapper.find(StyledButton));
+
+        assertStyleMatch(
+          result,
+          wrapper.find(RadioButtonGroup).find(StyledFieldset)
+        );
+
+        assertStyleMatch(result, wrapper.find(StyledSelect));
+
+        assertStyleMatch(result, wrapper.find(FieldsetStyle));
+
+        assertStyleMatch(result, wrapper.find(StyledInlineInputs));
+      });
+    }
+  );
 
   describe("when stickyFooter prop is true", () => {
     const assertThatFooterIsSticky = () => {

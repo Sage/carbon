@@ -10,6 +10,10 @@ import {
   ModalContextProps,
 } from "../../components/modal/modal.component";
 
+type CustomRefObject<T> = {
+  current?: T | null;
+};
+
 export interface PopoverProps {
   // Element to be positioned, has to be a single node and has to accept `ref` and `style` props
   children: React.ReactElement;
@@ -23,7 +27,7 @@ export interface PopoverProps {
   // When true, children are not rendered in portal
   disablePortal?: boolean;
   // Reference element, children will be positioned in relation to this element - should be a ref shaped object
-  reference: React.RefObject<HTMLElement>;
+  reference: CustomRefObject<HTMLElement>;
   // Determines if the popover is currently open/visible or not. Defaults to true.
   isOpen?: boolean;
   // Whether to update the position of the floating element on every animation frame if required. This is optimized for performance but can still be costly. Use with caution!
@@ -81,8 +85,8 @@ const Popover = ({
 
   useEffect(() => {
     return () => {
-      if (!disablePortal) {
-        mountNode.removeChild(elementDOM.current as HTMLDivElement);
+      if (!disablePortal && elementDOM.current) {
+        mountNode.removeChild(elementDOM.current);
         elementDOM.current = null;
       }
     };

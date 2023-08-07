@@ -13,6 +13,8 @@ exports[`CardFooter matches expected styling when it contains interactive stylin
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  border-bottom-left-radius: var(--borderRadius100);
+  border-bottom-right-radius: var(--borderRadius100);
 }
 
 .c0 .c1 {
@@ -46,6 +48,8 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  border-bottom-left-radius: var(--borderRadius100);
+  border-bottom-right-radius: var(--borderRadius100);
 }
 
 .c0 .c4 {
@@ -82,13 +86,9 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   font-style: normal;
   font-weight: normal;
   vertical-align: middle;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: var(--sizing250);
+  line-height: var(--sizing250);
   display: block;
-}
-
-.c1 {
-  display: inline-block;
 }
 
 .c1 a,
@@ -115,17 +115,17 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
 .c1 a:focus,
 .c1 button:focus {
   background-color: var(--colorsSemanticFocus250);
+  border-radius: var(--borderRadius050);
 }
 
 .c1 a,
 .c1 button {
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  display: inline-block;
 }
 
-.c1 a .c2,
-.c1 button .c2 {
+.c1 a > .c2,
+.c1 button > .c2 {
   display: inline-block;
   position: relative;
   vertical-align: middle;

@@ -15,11 +15,11 @@ const Header = () => (
         <div>
           <h1>
             Carbon is a library of React components for building great web
-            applications.
+            applications
           </h1>
           <h2>
-            Carbon is Open Source. It’s hosted, developed, and maintained on
-            Github.
+            Carbon is open source. It's hosted, developed, and maintained on
+            GitHub.
           </h2>
         </div>
         <CodeButtonWrapper>
@@ -35,7 +35,7 @@ const Header = () => (
           <Button
             buttonType="primary"
             target="_blank"
-            href="https://github.com/Sage/carbon/blob/master/docs/getting-started.stories.mdx"
+            href="https://carbon.sage.com/?path=/story/getting-started-installation--page"
             size="large"
             target="_blank"
             ml={2}

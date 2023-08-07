@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { action } from "@storybook/addon-actions";
 
@@ -6,6 +7,7 @@ import {
   ActionPopoverDivider,
   ActionPopoverItem,
   ActionPopoverMenu,
+  ActionPopoverProps,
 } from ".";
 import {
   FlatTable,
@@ -18,11 +20,11 @@ import {
 
 export default {
   title: "Action Popover/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -269,11 +271,20 @@ export const ActionPopoverWithProps = ({ ...props }) => {
             <FlatTableCell>Doe</FlatTableCell>
             <FlatTableCell>
               <ActionPopover {...props}>
-                <ActionPopoverItem icon="email" disabled onClick={() => {}}>
+                <ActionPopoverItem
+                  data-element="menu-item1"
+                  icon="email"
+                  disabled
+                  onClick={() => {}}
+                >
                   Email Invoice
                 </ActionPopoverItem>
                 <ActionPopoverDivider />
-                <ActionPopoverItem onClick={() => {}} icon="delete">
+                <ActionPopoverItem
+                  data-element="menu-item2"
+                  onClick={() => {}}
+                  icon="delete"
+                >
                   Delete
                 </ActionPopoverItem>
               </ActionPopover>
@@ -282,6 +293,288 @@ export const ActionPopoverWithProps = ({ ...props }) => {
         </FlatTableBody>
       </FlatTable>
     </div>
+  );
+};
+
+export const ActionPopoverWithNoIconsOrSubmenus = ({ ...props }) => (
+  <ActionPopover {...props}>
+    <ActionPopoverItem onClick={() => {}}>Business</ActionPopoverItem>
+    <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
+    <ActionPopoverItem onClick={() => {}}>Print Invoice</ActionPopoverItem>
+    <ActionPopoverItem onClick={() => {}}>Download PDF</ActionPopoverItem>
+    <ActionPopoverItem onClick={() => {}}>Download CSV</ActionPopoverItem>
+    <ActionPopoverDivider />
+    <ActionPopoverItem onClick={() => {}}>Delete</ActionPopoverItem>
+    <ActionPopoverItem onClick={() => {}}>Return Home</ActionPopoverItem>
+  </ActionPopover>
+);
+
+export const ActionPopoverWithSomeSubmenusAndNoIcons = ({ ...props }) => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem data-element="submenu1" icon="bin" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem data-element="submenu2" onClick={() => {}}>
+        Sub Menu 2
+      </ActionPopoverItem>
+      <ActionPopoverItem data-element="submenu3" onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+      <ActionPopoverItem data-element="submenu4" onClick={() => {}}>
+        Sub Menu 4
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem onClick={() => {}}>Business</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Email Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Print Invoice</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Download PDF</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Download CSV
+      </ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Delete
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Return Home
+      </ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverWithSubmenusAndNoIcons = ({ ...props }) => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem data-element="submenu1" icon="bin" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem data-element="submenu2" onClick={() => {}}>
+        Sub Menu 2
+      </ActionPopoverItem>
+      <ActionPopoverItem data-element="submenu3" onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+      <ActionPopoverItem data-element="submenu4" onClick={() => {}}>
+        Sub Menu 4
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Business
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Email Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Print Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Download PDF
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Download CSV
+      </ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Delete
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Return Home
+      </ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+export const ActionPopoverWithIconsAndNoSubmenus = ({ ...props }) => (
+  <ActionPopover {...props}>
+    <ActionPopoverItem icon="graph" onClick={() => {}}>
+      Business
+    </ActionPopoverItem>
+    <ActionPopoverItem icon="email" onClick={() => {}}>
+      Email Invoice
+    </ActionPopoverItem>
+    <ActionPopoverItem icon="print" onClick={() => {}}>
+      Print Invoice
+    </ActionPopoverItem>
+    <ActionPopoverItem icon="pdf" onClick={() => {}}>
+      Download PDF
+    </ActionPopoverItem>
+    <ActionPopoverItem icon="csv" onClick={() => {}}>
+      Download CSV
+    </ActionPopoverItem>
+    <ActionPopoverDivider />
+    <ActionPopoverItem icon="delete" onClick={() => {}}>
+      Delete
+    </ActionPopoverItem>
+    <ActionPopoverItem icon="home" onClick={() => {}}>
+      Return Home
+    </ActionPopoverItem>
+  </ActionPopover>
+);
+
+export const ActionPopoverWithSubmenusAndIcons = ({ ...props }) => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem icon="bin" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem
+        data-element="menu-item1"
+        icon="graph"
+        onClick={() => {}}
+        submenu={submenu}
+      >
+        Business
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="email" onClick={() => {}} submenu={submenu}>
+        Email Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="print" onClick={() => {}} submenu={submenu}>
+        Print Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="pdf" onClick={() => {}} submenu={submenu}>
+        Download PDF
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="csv" onClick={() => {}} submenu={submenu}>
+        Download CSV
+      </ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem icon="delete" onClick={() => {}} submenu={submenu}>
+        Delete
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="home" onClick={() => {}} submenu={submenu}>
+        Return Home
+      </ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverWithIconsAndSomeSubmenus = ({ ...props }) => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem icon="bin" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem icon="graph" onClick={() => {}}>
+        Business
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="email" onClick={() => {}}>
+        Email Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="print" onClick={() => {}}>
+        Print Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="pdf" onClick={() => {}}>
+        Download PDF
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="csv" onClick={() => {}} submenu={submenu}>
+        Download CSV
+      </ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem icon="delete" onClick={() => {}} submenu={submenu}>
+        Delete
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="home" onClick={() => {}} submenu={submenu}>
+        Return Home
+      </ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverWithSubmenusAndSomeIcons = ({ ...props }) => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem icon="bin" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Business
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Email Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Print Invoice
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}} submenu={submenu}>
+        Download PDF
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="csv" onClick={() => {}} submenu={submenu}>
+        Download CSV
+      </ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem icon="delete" onClick={() => {}} submenu={submenu}>
+        Delete
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="home" onClick={() => {}} submenu={submenu}>
+        Return Home
+      </ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverWithVariableChildren = ({ ...props }) => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem icon="bin" onClick={() => {}}>
+        Sub Menu 1
+      </ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 3</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 4</ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
+
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem onClick={() => {}}>Business</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Email Invoice</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Print Invoice</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Download PDF</ActionPopoverItem>
+      <ActionPopoverItem icon="csv" onClick={() => {}} submenu={submenu}>
+        Download CSV
+      </ActionPopoverItem>
+      <ActionPopoverDivider />
+      <ActionPopoverItem icon="delete" onClick={() => {}} submenu={submenu}>
+        Delete
+      </ActionPopoverItem>
+      <ActionPopoverItem icon="home" onClick={() => {}} submenu={submenu}>
+        Return Home
+      </ActionPopoverItem>
+    </ActionPopover>
   );
 };
 
@@ -296,6 +589,7 @@ export const ActionPopoverMenuWithProps = ({ ...props }) => {
             <ActionPopoverItem icon="print" disabled>
               Sub Menu 3
             </ActionPopoverItem>
+            <ActionPopoverItem icon="bin">Sub Menu 4</ActionPopoverItem>
           </ActionPopoverMenu>
         }
       >
@@ -306,7 +600,9 @@ export const ActionPopoverMenuWithProps = ({ ...props }) => {
   );
 };
 
-export const ActionPopoverProps = ({ ...props }) => {
+export const ActionPopoverPropsComponent = (
+  props: Partial<ActionPopoverProps>
+) => {
   return (
     <ActionPopover {...props}>
       <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>

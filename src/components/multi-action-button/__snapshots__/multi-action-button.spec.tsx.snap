@@ -30,8 +30,8 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   font-style: normal;
   font-weight: normal;
   vertical-align: middle;
-  font-size: 16px;
-  line-height: 16px;
+  font-size: var(--sizing250);
+  line-height: var(--sizing250);
   display: block;
 }
 
@@ -48,7 +48,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  border-radius: 0;
   -webkit-flex-flow: wrap;
   -ms-flex-flow: wrap;
   flex-flow: wrap;
@@ -63,6 +62,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   font-weight: 600;
   -webkit-text-decoration: none;
   text-decoration: none;
+  border-radius: var(--borderRadius400);
   background: transparent;
   border-color: var(--colorsActionMajor500);
   color: var(--colorsActionMajor500);
@@ -339,7 +339,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 
 .c14 .c1 {
   border: 1px solid var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajor500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -354,21 +353,13 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   z-index: 1000;
 }
 
-.c14 .c1:focus,
-.c14 .c1:hover {
-  background-color: var(--colorsActionMajor600);
-  color: var(--colorsActionMajorYang100);
-}
-
 .c14 .c1 + .c16 .c1 {
   margin-top: 3px;
 }
 
 <div
-  aria-haspopup="true"
   className="c0"
   data-component="multi-action-button"
-  onClick={[Function]}
   onMouseLeave={[Function]}
 >
   <button
@@ -380,6 +371,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
     data-element="toggle-button"
     disabled={false}
     draggable={false}
+    onClick={[Function]}
     onKeyDown={[Function]}
     onMouseEnter={[Function]}
     onTouchStart={[Function]}

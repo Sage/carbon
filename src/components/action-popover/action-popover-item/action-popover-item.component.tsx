@@ -11,14 +11,19 @@ import {
   MenuItemIcon,
   SubMenuItemIcon,
   StyledMenuItem,
+  StyledMenuItemInnerText,
+  StyledMenuItemOuterContainer,
+  StyledMenuItemWrapper,
 } from "../action-popover.style";
 import Events from "../../../__internal__/utils/helpers/events";
 import createGuid from "../../../__internal__/utils/helpers/guid";
-import ActionPopoverContext from "../action-popover-context";
+import ActionPopoverContext, { Alignment } from "../action-popover-context";
 import useLocale from "../../../hooks/__internal__/useLocale";
 
 import { IconType } from "../../icon";
-import ActionPopoverMenu from "../action-popover-menu/action-popover-menu.component";
+import ActionPopoverMenu, {
+  ActionPopoverMenuProps,
+} from "../action-popover-menu/action-popover-menu.component";
 
 export interface ActionPopoverItemProps {
   /** The text label to display for this Item */
@@ -44,55 +49,55 @@ export interface ActionPopoverItemProps {
   /** @ignore @private */
   focusItem?: boolean;
   /** @ignore @private */
-  horizontalAlignment?: "left" | "right";
+  horizontalAlignment?: Alignment;
+  /** @ignore @private */
+  childHasSubmenu?: boolean;
+  /** @ignore @private */
+  childHasIcon?: boolean;
+  /** @ignore @private */
+  currentSubmenuPosition?: Alignment;
+  /** @ignore @private */
+  setChildHasSubmenu?: (value: boolean) => void;
+  /** @ignore @private */
+  setChildHasIcon?: (value: boolean) => void;
+  /** @ignore @private */
+  setCurrentSubmenuPosition?: (value: Alignment) => void;
+  /** @ignore @private */
+  isASubmenu?: boolean;
 }
 
 const INTERVAL = 150;
 
 type ContainerPosition = {
-  left: number;
+  left: string | number;
   top?: string;
   bottom?: string;
-  right: "auto";
+  right: string | number;
 };
 
 function checkRef(ref: React.RefObject<HTMLElement>) {
   return Boolean(ref && ref.current);
 }
 
-function leftAlignSubmenu(
+function calculateSubmenuPosition(
   ref: React.RefObject<HTMLElement>,
-  submenuRef: React.RefObject<HTMLElement>
+  submenuRef: React.RefObject<HTMLElement>,
+  submenuPosition: Alignment,
+  currentSubmenuPosition?: Alignment
 ) {
   /* istanbul ignore if */
-  if (!ref.current || !submenuRef.current) return true;
 
-  const { left } = ref.current.getBoundingClientRect();
+  if (!ref.current || !submenuRef.current)
+    return currentSubmenuPosition || submenuPosition;
+
+  const { left, right } = ref.current.getBoundingClientRect();
   const { offsetWidth } = submenuRef.current;
+  const windowWidth = document.body.clientWidth;
 
-  return left >= offsetWidth;
-}
-
-function getContainerPosition(
-  itemRef: React.RefObject<HTMLElement>,
-  submenuRef: React.RefObject<HTMLElement>,
-  placement: "bottom" | "top"
-): ContainerPosition | undefined {
-  /* istanbul ignore if */
-  if (!itemRef.current || !submenuRef.current) return undefined;
-
-  const { offsetWidth: parentWidth } = itemRef.current;
-  const { offsetWidth: submenuWidth } = submenuRef.current;
-  const xPositionValue = leftAlignSubmenu(itemRef, submenuRef)
-    ? -submenuWidth
-    : parentWidth;
-  const yPositionName = placement === "top" ? "bottom" : "top";
-
-  return {
-    left: xPositionValue,
-    [yPositionName]: "calc(-1 * var(--spacing100))",
-    right: "auto",
-  };
+  if (submenuPosition === "left") {
+    return left >= offsetWidth ? "left" : "right";
+  }
+  return windowWidth >= right + offsetWidth ? "right" : "left";
 }
 
 export const ActionPopoverItem = ({
@@ -106,6 +111,13 @@ export const ActionPopoverItem = ({
   download,
   href,
   horizontalAlignment,
+  childHasSubmenu,
+  childHasIcon,
+  currentSubmenuPosition,
+  setChildHasSubmenu,
+  setChildHasIcon,
+  setCurrentSubmenuPosition,
+  isASubmenu = false,
   ...rest
 }: ActionPopoverItemProps) => {
   const l = useLocale();
@@ -121,7 +133,12 @@ export const ActionPopoverItem = ({
     "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`"
   );
 
-  const { setOpenPopover, isOpenPopover, focusButton } = context;
+  const {
+    setOpenPopover,
+    isOpenPopover,
+    focusButton,
+    submenuPosition,
+  } = context;
   const isHref = !!href;
   const [containerPosition, setContainerPosition] = useState<
     ContainerPosition | undefined
@@ -129,7 +146,6 @@ export const ActionPopoverItem = ({
   const [guid] = useState(createGuid());
   const [isOpen, setOpen] = useState(false);
   const [focusIndex, setFocusIndex] = useState<number>(0);
-  const [isLeftAligned, setIsLeftAligned] = useState(true);
 
   const submenuRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLButtonElement>(null);
@@ -142,21 +158,65 @@ export const ActionPopoverItem = ({
     }
   }, [isOpenPopover]);
 
-  const alignSubmenu = useCallback(() => {
-    if (checkRef(ref) && checkRef(submenuRef) && submenu) {
-      const align = leftAlignSubmenu(ref, submenuRef);
-      setIsLeftAligned(align);
-      setContainerPosition(getContainerPosition(ref, submenuRef, placement));
+  useEffect(() => {
+    if (icon) {
+      setChildHasIcon?.(true);
     }
-  }, [submenu, placement]);
+    if (submenu) {
+      setChildHasSubmenu?.(true);
+    }
+  }, [icon, setChildHasSubmenu, setChildHasIcon, submenu]);
+
+  const alignSubmenu = useCallback(() => {
+    const checkCalculatedSubmenuPosition = calculateSubmenuPosition(
+      ref,
+      submenuRef,
+      submenuPosition,
+      currentSubmenuPosition
+    );
+
+    setCurrentSubmenuPosition?.(checkCalculatedSubmenuPosition);
+
+    return checkRef(ref) && checkRef(submenuRef) && submenu;
+  }, [
+    submenu,
+    setCurrentSubmenuPosition,
+    submenuPosition,
+    currentSubmenuPosition,
+  ]);
 
   useEffect(() => {
-    alignSubmenu();
+    const getContainerPosition = () => {
+      /* istanbul ignore if */
+      if (!ref.current || !submenuRef.current) return undefined;
 
+      const { offsetWidth: submenuWidth } = submenuRef.current;
+
+      const leftAlignedSubmenu = currentSubmenuPosition === "left";
+      const leftValue = leftAlignedSubmenu ? -submenuWidth : "auto";
+      const rightValue = leftAlignedSubmenu ? "auto" : -submenuWidth;
+      const yPositionName = placement === "top" ? "bottom" : "top";
+
+      return {
+        left: leftValue,
+        [yPositionName]: "calc(-1 * var(--spacing100))",
+        right: rightValue,
+      };
+    };
+    setContainerPosition(getContainerPosition);
+  }, [submenu, currentSubmenuPosition, placement]);
+
+  useEffect(() => {
+    if (submenu) {
+      alignSubmenu();
+    }
+  }, [alignSubmenu, submenu]);
+
+  useEffect(() => {
     if (focusItem) {
       ref.current?.focus();
     }
-  }, [alignSubmenu, focusItem]);
+  }, [focusItem]);
 
   useEffect(() => {
     return function cleanup() {
@@ -196,17 +256,13 @@ export const ActionPopoverItem = ({
   );
 
   const onKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (Events.isEscKey(e)) {
-        e.stopPropagation();
-        setOpenPopover(false);
-        focusButton();
-      } else if (Events.isSpaceKey(e)) {
+    (e: React.KeyboardEvent<HTMLElement>) => {
+      if (Events.isSpaceKey(e)) {
         e.preventDefault();
         e.stopPropagation();
       } else if (!disabled) {
         if (submenu) {
-          if (isLeftAligned) {
+          if (currentSubmenuPosition === "left") {
             // LEFT: open if has submenu and left aligned otherwise close submenu
             if (Events.isLeftKey(e) || Events.isEnterKey(e)) {
               setOpen(true);
@@ -236,43 +292,18 @@ export const ActionPopoverItem = ({
             ref.current?.click();
           }
           e.preventDefault();
-          onClick(e);
+          // this type assertion should be safe as the onclick handler is designed to catch events propagating from the inner buttons
+          onClick(e as React.KeyboardEvent<HTMLButtonElement>);
         }
       } else if (Events.isEnterKey(e)) {
         e.stopPropagation();
       }
     },
-    [
-      disabled,
-      download,
-      focusButton,
-      isHref,
-      isLeftAligned,
-      onClick,
-      setOpenPopover,
-      submenu,
-    ]
+    [disabled, download, isHref, onClick, submenu, currentSubmenuPosition]
   );
 
   const itemSubmenuProps = {
     ...(!disabled && {
-      onMouseEnter: (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (mouseEnterTimer.current) clearTimeout(mouseEnterTimer.current);
-
-        setFocusIndex(-1);
-        mouseEnterTimer.current = setTimeout(() => {
-          setOpen(true);
-        }, INTERVAL);
-        e.stopPropagation();
-      },
-      onMouseLeave: (e: React.MouseEvent<HTMLButtonElement>) => {
-        if (mouseLeaveTimer.current) clearTimeout(mouseLeaveTimer.current);
-
-        mouseLeaveTimer.current = setTimeout(() => {
-          setOpen(false);
-        }, INTERVAL);
-        e.stopPropagation();
-      },
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
         setOpen(true);
         ref.current?.focus();
@@ -286,48 +317,114 @@ export const ActionPopoverItem = ({
     "aria-expanded": isOpen,
   };
 
+  const wrapperDivProps = {
+    ...(!disabled && {
+      onMouseEnter: (e: React.MouseEvent<HTMLDivElement>) => {
+        if (mouseEnterTimer.current) clearTimeout(mouseEnterTimer.current);
+
+        setFocusIndex(-1);
+        mouseEnterTimer.current = setTimeout(() => {
+          setOpen(true);
+        }, INTERVAL);
+        e.stopPropagation();
+      },
+      onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
+        if (mouseLeaveTimer.current) clearTimeout(mouseLeaveTimer.current);
+
+        mouseLeaveTimer.current = setTimeout(() => {
+          setOpen(false);
+        }, INTERVAL);
+        e.stopPropagation();
+      },
+    }),
+  };
+
   const renderMenuItemIcon = () => {
-    return icon && <MenuItemIcon as={undefined} type={icon} />;
+    return (
+      icon && (
+        <MenuItemIcon
+          type={icon}
+          data-element="action-popover-menu-item-icon"
+          horizontalAlignment={horizontalAlignment}
+          submenuPosition={currentSubmenuPosition}
+          childHasIcon={childHasIcon}
+          childHasSubmenu={childHasSubmenu}
+          hasIcon={!!icon}
+          hasSubmenu={!!submenu}
+          isASubmenu={isASubmenu}
+        />
+      )
+    );
   };
 
   return (
-    <StyledMenuItem
-      {...rest}
-      ref={ref}
-      onClick={onClick}
-      onKeyDown={onKeyDown}
-      type="button"
-      tabIndex={0}
-      role="menuitem"
-      isDisabled={disabled}
-      horizontalAlignment={horizontalAlignment}
-      {...(disabled && { "aria-disabled": true })}
-      {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
-      {...(submenu && itemSubmenuProps)}
-    >
-      {React.isValidElement(submenu)
-        ? React.cloneElement(submenu, {
-            parentID: `ActionPopoverItem_${guid}`,
-            menuID: `ActionPopoverMenu_${guid}`,
-            "data-element": "action-popover-submenu",
-            isOpen,
-            ref: submenuRef,
-            style: containerPosition,
-            setOpen,
-            setFocusIndex,
-            focusIndex,
-          })
-        : null}
-      {submenu && checkRef(ref) && isLeftAligned ? (
-        <SubMenuItemIcon type="chevron_left" />
-      ) : null}
-      {horizontalAlignment === "left" ? renderMenuItemIcon() : null}
-      {children}
-      {horizontalAlignment === "right" ? renderMenuItemIcon() : null}
-      {submenu && checkRef(ref) && !isLeftAligned ? (
-        <SubMenuItemIcon type="chevron_right" />
-      ) : null}
-    </StyledMenuItem>
+    <StyledMenuItemWrapper {...(submenu && wrapperDivProps)}>
+      <div onKeyDown={onKeyDown} role="presentation">
+        <StyledMenuItem
+          {...rest}
+          ref={ref}
+          onClick={onClick}
+          type="button"
+          role="menuitem"
+          tabIndex={0}
+          isDisabled={disabled}
+          horizontalAlignment={horizontalAlignment}
+          submenuPosition={currentSubmenuPosition}
+          hasSubmenu={!!submenu}
+          childHasSubmenu={childHasSubmenu}
+          {...(disabled && { "aria-disabled": true })}
+          {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
+          {...(submenu && itemSubmenuProps)}
+        >
+          {submenu && checkRef(ref) && currentSubmenuPosition === "left" ? (
+            <SubMenuItemIcon
+              data-element="action-popover-menu-item-chevron"
+              type="chevron_left_thick"
+            />
+          ) : null}
+          <StyledMenuItemOuterContainer>
+            {horizontalAlignment === "left" ? renderMenuItemIcon() : null}
+            <StyledMenuItemInnerText
+              data-element="action-popover-menu-item-inner-text"
+              horizontalAlignment={horizontalAlignment}
+              submenuPosition={currentSubmenuPosition}
+              isASubmenu={isASubmenu}
+              childHasSubmenu={childHasSubmenu}
+              childHasIcon={childHasIcon}
+              hasIcon={!!icon}
+              hasSubmenu={!!submenu}
+            >
+              {children}
+            </StyledMenuItemInnerText>
+            {horizontalAlignment === "right" ? renderMenuItemIcon() : null}
+          </StyledMenuItemOuterContainer>
+          {submenu && checkRef(ref) && currentSubmenuPosition === "right" ? (
+            <SubMenuItemIcon
+              data-element="action-popover-menu-item-chevron"
+              type="chevron_right_thick"
+            />
+          ) : null}
+        </StyledMenuItem>
+        {React.isValidElement(submenu)
+          ? React.cloneElement<ActionPopoverMenuProps>(
+              submenu as React.ReactElement<ActionPopoverMenuProps>,
+              {
+                parentID: `ActionPopoverItem_${guid}`,
+                menuID: `ActionPopoverMenu_${guid}`,
+                "data-element": "action-popover-submenu",
+                isOpen,
+                ref: submenuRef,
+                style: containerPosition,
+                setOpen,
+                setFocusIndex,
+                focusIndex,
+                isASubmenu: true,
+                horizontalAlignment,
+              }
+            )
+          : null}
+      </div>
+    </StyledMenuItemWrapper>
   );
 };
 

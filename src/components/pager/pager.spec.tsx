@@ -10,6 +10,7 @@ import SelectList from "../select/select-list/select-list.component";
 import {
   StyledPagerLink,
   StyledPagerNavInner,
+  StyledPagerNavLabel,
   StyledPagerSizeOptionsInner,
   StyledPagerSummary,
   StyledSelectContainer,
@@ -157,6 +158,76 @@ describe("Pager", () => {
       expect(navLinks.length).toEqual(2);
       expect(navLinks.first().find("button").text()).toEqual("Previous");
       expect(navLinks.last().find("button").text()).toEqual("Next");
+    });
+
+    it("when current page is 1 and hideDisabledElements is true, first set of pager links are hidden", () => {
+      wrapper = getWrapper({ hideDisabledElements: true, currentPage: 1 });
+
+      assertStyleMatch(
+        {
+          visibility: "hidden",
+        },
+        wrapper.find(StyledPagerLink).first()
+      );
+    });
+
+    it("when current page is 10 and hideDisabledElements is true, second set of pager links are hidden", () => {
+      wrapper = getWrapper({ hideDisabledElements: true, currentPage: 10 });
+
+      assertStyleMatch(
+        {
+          visibility: "hidden",
+        },
+        wrapper.find(StyledPagerLink).at(2)
+      );
+    });
+
+    it("when current page is between 1-10 and hideDisabledElements is true, both sets of pager links are displayed as normal", () => {
+      wrapper = getWrapper({ hideDisabledElements: true, currentPage: 7 });
+
+      assertStyleMatch(
+        {
+          visibility: undefined,
+        },
+        wrapper.find(StyledPagerLink).first()
+      );
+
+      assertStyleMatch(
+        {
+          visibility: undefined,
+        },
+        wrapper.find(StyledPagerLink).at(2)
+      );
+    });
+
+    it("when interactivePageNumber is false, pager nav number input is not rendered", () => {
+      wrapper = getWrapper({ interactivePageNumber: false });
+      expect(wrapper.find(StyledPagerNavInner).exists()).toEqual(false);
+    });
+
+    it.each([1, 5, 10])(
+      "when interactivePageNumber is false, pager nav label is rendered with correct inner text",
+      (pageIndex) => {
+        wrapper = getWrapper({
+          interactivePageNumber: false,
+          currentPage: pageIndex,
+        });
+        expect(wrapper.find(StyledPagerNavLabel).text()).toBe(
+          `Page ${pageIndex} of 10`
+        );
+      }
+    );
+
+    it("when interactivePageNumber is false, pager nav label is rendered with correct styling", () => {
+      wrapper = getWrapper({ interactivePageNumber: false, currentPage: 1 });
+
+      assertStyleMatch(
+        {
+          padding: "9px 12px",
+          margin: "4px 0",
+        },
+        wrapper.find(StyledPagerNavLabel)
+      );
     });
 
     it("changes page correctly on clicking first link", () => {
@@ -387,26 +458,23 @@ describe("Pager", () => {
       ["previous", "4"],
       ["first", "1"],
       ["last", "10"],
-    ])(
-      "it triggers on click event without %s callback",
-      (call, currentPage) => {
-        const wrapper = render({
-          ...props,
-          pageSize: 10,
-          currentPage: 5,
-          totalRecords: 100,
-        });
-        const pager = wrapper.find(Pager);
-        const navLinks = pager.find(StyledPagerLink);
-        const element = navLinks.find(
-          `[data-element="pager-link-${call}"] button`
-        );
-        element.simulate("click");
-        expect(
-          wrapper.find('[data-element="current-page"]').first().prop("value")
-        ).toBe(currentPage);
-      }
-    );
+    ])("triggers on click event without %s callback", (call, currentPage) => {
+      const wrapper = render({
+        ...props,
+        pageSize: 10,
+        currentPage: 5,
+        totalRecords: 100,
+      });
+      const pager = wrapper.find(Pager);
+      const navLinks = pager.find(StyledPagerLink);
+      const element = navLinks.find(
+        `[data-element="pager-link-${call}"] button`
+      );
+      element.simulate("click");
+      expect(
+        wrapper.find('[data-element="current-page"]').first().prop("value")
+      ).toBe(currentPage);
+    });
   });
 
   describe("i18n", () => {
@@ -467,6 +535,8 @@ describe("Pager", () => {
             alignItems: "center",
             borderTopWidth: "0",
             color: "var(--colorsUtilityYin090)",
+            borderBottomLeftRadius: "var(--borderRadius100)",
+            borderBottomRightRadius: "var(--borderRadius100)",
           },
           wrapper
         );
@@ -531,7 +601,7 @@ describe("Pager", () => {
             .find(SelectList)
             .find(StyledOption)
             .at(1)
-            .prop("onClick")(selectOptions);
+            .prop("onClick")(selectOptions.value);
         });
 
         act(() => {

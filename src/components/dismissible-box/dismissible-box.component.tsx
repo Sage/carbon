@@ -31,16 +31,18 @@ export interface DismissibleBoxProps
 export const DismissibleBox = ({
   children,
   onClose,
+  borderRadius = "borderRadius100",
   ...rest
 }: DismissibleBoxProps) => (
   <StyledDismissibleBox
     p="20px 24px 20px 20px"
     data-component="dismissible-box"
+    borderRadius={borderRadius}
     {...rest}
   >
     {children}
     <span data-element="close-button-wrapper">
-      <IconButton onAction={onClose} aria-label="close-button" ml={3}>
+      <IconButton onClick={onClose} aria-label="close-button" ml={3}>
         <Icon type="close" color="--colorsActionMinor500" />
       </IconButton>
     </span>

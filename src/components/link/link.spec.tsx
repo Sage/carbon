@@ -7,6 +7,7 @@ import { StyledLink } from "./link.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import Tooltip from "../tooltip";
+import MenuContext from "../menu/menu.context";
 import { baseTheme } from "../../style/themes";
 
 function renderLink(props = {}, renderer = mount) {
@@ -148,7 +149,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `a > ${StyledIcon}` }
       );
     });
 
@@ -161,7 +162,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `a > ${StyledIcon}` }
       );
     });
 
@@ -176,7 +177,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `a > ${StyledIcon}` }
       );
     });
 
@@ -603,5 +604,44 @@ describe("Link", () => {
         { modifier: `a:focus ${StyledIcon}` }
       );
     });
+  });
+
+  describe("link display styling", () => {
+    it("when inside a menu, link element has display inline-block", () => {
+      wrapper = mount(
+        <MenuContext.Provider
+          value={{
+            inMenu: true,
+            menuType: "light",
+            openSubmenuId: null,
+            setOpenSubmenuId: () => {},
+          }}
+        >
+          <Link href="foo.com" />
+        </MenuContext.Provider>
+      );
+
+      assertStyleMatch({ display: "inline-block" }, wrapper, { modifier: "a" });
+    });
+
+    it("when not inside a menu, link element has default display", () => {
+      wrapper = renderLink({
+        href: "foo.com",
+        isDarkBackground: true,
+        icon: "home",
+      });
+
+      assertStyleMatch({ display: undefined }, wrapper, { modifier: "a" });
+    });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      renderLink(),
+      { modifier: "a:focus" }
+    );
   });
 });

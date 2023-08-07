@@ -24,7 +24,7 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   display: flex;
   font-size: 12px;
   font-weight: bold;
-  height: 24px;
+  height: 28px;
   left: 0;
   -webkit-letter-spacing: 1px;
   -moz-letter-spacing: 1px;
@@ -33,12 +33,16 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   position: absolute;
   text-transform: uppercase;
   top: 0;
-  width: 60px;
+  width: 64px;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
   z-index: 2;
-  border-radius: 90px;
+  border-radius: var(--borderRadius400);
   border-style: solid;
   border-color: var(--colorsActionMinor400);
   border-width: var(--borderWidth200);
+  box-sizing: border-box;
 }
 
 .c0::before {

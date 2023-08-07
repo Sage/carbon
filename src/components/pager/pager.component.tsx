@@ -47,6 +47,10 @@ export interface PagerProps {
   ) => void;
   /** Current visible page */
   currentPage?: number | string;
+  /** If true, page number navigation will be changed to a non-interactive label */
+  interactivePageNumber?: boolean;
+  /** If true, sets css property visibility: hidden on all disabled elements  */
+  hideDisabledElements?: boolean;
   /** Total number of records */
   totalRecords?: number | string;
   /** Pagination page size */
@@ -73,6 +77,8 @@ export interface PagerProps {
 
 export const Pager = ({
   currentPage = 1,
+  hideDisabledElements = false,
+  interactivePageNumber = true,
   pageSizeSelectionOptions = [
     { id: "10", name: 10 },
     { id: "25", name: 25 },
@@ -192,17 +198,18 @@ export const Pager = ({
   );
 
   const handleOnPagination = useCallback(
-    (e) => {
-      setValue(e.target.value);
-      setCurrentPageSize(+e.target.value);
-      onPagination(1, +e.target.value, "page-select");
+    (selectedValue) => {
+      setValue(selectedValue);
+      setCurrentPageSize(+selectedValue);
+      onPagination(1, +selectedValue, "page-select");
     },
     [onPagination]
   );
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) =>
-      Events.isEnterKey(e) && handleOnPagination(e),
+      Events.isEnterKey(e) &&
+      handleOnPagination((e.target as HTMLInputElement).value),
     [handleOnPagination]
   );
 
@@ -211,7 +218,9 @@ export const Pager = ({
       <StyledSelectContainer>
         <Select
           value={String(value)}
-          onChange={(ev) => setValue(+ev.target.value)}
+          onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
+            setValue(+ev.target.value)
+          }
           onBlur={() => setValue(currentPageSize)}
           onKeyDown={handleKeyDown}
           data-element="page-select"
@@ -255,6 +264,8 @@ export const Pager = ({
       <PagerNavigation
         pageSize={currentPageSize}
         currentPage={page}
+        interactivePageNumber={interactivePageNumber}
+        hideDisabledElements={hideDisabledElements}
         setCurrentPage={setPage}
         onNext={handleOnNext}
         onPrevious={handleOnPrevious}

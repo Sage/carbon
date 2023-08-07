@@ -12,7 +12,8 @@ import {
   StyledRightButtons,
   StyledFullWidthButtons,
 } from "./form.style";
-import { FormButtonAlignment } from "./form.config";
+import { FormButtonAlignment, formSpacing } from "./form.config";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 
 export interface FormProps extends SpaceProps {
   /** Alignment of buttons */
@@ -99,7 +100,9 @@ export const Form = ({
         stickyFooter={stickyFooter}
         isInModal={isInModal}
       >
-        {children}
+        <FormSpacingProvider marginBottom={formSpacing[fieldSpacing]}>
+          {children}
+        </FormSpacingProvider>
       </StyledFormContent>
       {!fullWidthButtons && renderFooter && (
         <StyledFormFooter

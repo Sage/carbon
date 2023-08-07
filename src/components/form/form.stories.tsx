@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import Form from ".";
 import Button from "../button";
@@ -7,7 +8,7 @@ import Textbox from "../textbox";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Textarea from "../textarea";
 import Dialog from "../dialog";
-import DateInput from "../date";
+import DateInput, { DateChangeEvent } from "../date";
 import { Select, MultiSelect, Option } from "../select";
 import DialogFullScreen from "../dialog-full-screen";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
@@ -280,7 +281,7 @@ export const InDialog = () => {
   );
 };
 
-InDialog.parameters = { chromatic: { disable: true } };
+InDialog.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogWithStickyFooter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -306,13 +307,15 @@ export const InDialogWithStickyFooter = () => {
           stickyFooter
         >
           {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox key={index} label="Textbox" />
+            <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
           <DateInput
             label="Date"
             name="dateinput"
             value={date}
-            onChange={(ev) => setDate(ev.target.value.formattedValue)}
+            onChange={(ev: DateChangeEvent) =>
+              setDate(ev.target.value.formattedValue)
+            }
             disablePortal
           />
           <Select
@@ -378,7 +381,7 @@ export const InDialogWithStickyFooter = () => {
             <Option text="Yellow" value="11" />
           </MultiSelect>
           {Array.from({ length: 10 }).map((_, index) => (
-            <Textbox key={index} label="Textbox" />
+            <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
         </Form>
       </Dialog>
@@ -386,7 +389,7 @@ export const InDialogWithStickyFooter = () => {
   );
 };
 
-InDialogWithStickyFooter.parameters = { chromatic: { disable: true } };
+InDialogWithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreen = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -418,7 +421,7 @@ export const InDialogFullScreen = () => {
   );
 };
 
-InDialogFullScreen.parameters = { chromatic: { disable: true } };
+InDialogFullScreen.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreenWithStickyFooter = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -444,13 +447,15 @@ export const InDialogFullScreenWithStickyFooter = () => {
           stickyFooter
         >
           {Array.from({ length: 15 }).map((_, index) => (
-            <Textbox key={index} label="Textbox" />
+            <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
           <DateInput
             label="Date"
             name="dateinput"
             value={date}
-            onChange={(ev) => setDate(ev.target.value.formattedValue)}
+            onChange={(ev: DateChangeEvent) =>
+              setDate(ev.target.value.formattedValue)
+            }
           />
           <Select name="simple" id="simple" label="label">
             <Option text="Amber" value="1" />
@@ -466,7 +471,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
             <Option text="Yellow" value="11" />
           </Select>
           {Array.from({ length: 15 }).map((_, index) => (
-            <Textbox key={index} label="Textbox" />
+            <Textbox key={`textbox-${index + 1}`} label="Textbox" />
           ))}
         </Form>
       </DialogFullScreen>
@@ -475,7 +480,7 @@ export const InDialogFullScreenWithStickyFooter = () => {
 };
 
 InDialogFullScreenWithStickyFooter.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const FormAlignmentExample = () => {
@@ -521,7 +526,6 @@ export const FormAlignmentExample = () => {
         legendInline
         legendWidth={10}
         legendSpacing={2}
-        mb={2}
       >
         <RadioButton
           id="group-1-input-1"
@@ -542,14 +546,15 @@ export const FormAlignmentExample = () => {
         labelInline
         labelWidth={10}
         value={date}
-        onChange={(ev) => setDate(ev.target.value.formattedValue)}
+        onChange={(ev: DateChangeEvent) =>
+          setDate(ev.target.value.formattedValue)
+        }
       />
       <RadioButtonGroup
         name="nolegend"
         onChange={() => console.log("RADIO CHANGE")}
         legend="Legend above"
         ml="10%"
-        mb={2}
       >
         <RadioButton
           id="group-2-input-1"
@@ -629,9 +634,14 @@ export const WithLabelsInline = () => (
     }
   >
     <Textbox label="Textbox" labelInline labelWidth={30} />
-    <InlineInputs label="Inline Inputs" gutter="none" labelWidth={30}>
-      <Textbox />
-      <Textbox />
+    <InlineInputs
+      label="Inline Inputs"
+      gutter="none"
+      labelWidth={30}
+      labelId="inline-inputs"
+    >
+      <Textbox aria-labelledby="inline-inputs" />
+      <Textbox aria-labelledby="inline-inputs" />
       <Select>
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="1" />
@@ -642,9 +652,10 @@ export const WithLabelsInline = () => (
       label="Inline Inputs with a gutter"
       gutter="large"
       labelWidth={30}
+      labelId="inline-inputs-second"
     >
-      <Textbox />
-      <Textbox />
+      <Textbox aria-labelledby="inline-inputs-second" />
+      <Textbox aria-labelledby="inline-inputs-second" />
       <Select>
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="1" />

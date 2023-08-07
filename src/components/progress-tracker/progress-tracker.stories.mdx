@@ -2,12 +2,23 @@ import { useState } from "react";
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
-import ProgressTracker from ".";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import ProgressTracker from ".";
+
+import * as stories from "./progress-tracker.stories";
 
 <Meta title="Progress Tracker" parameters={{ info: { disable: true } }} />
 
 # ProgressTracker
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/00f4d0-progress-tracker"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
 
 Use the `ProgressTracker` component to let users know a task or loading data is still in progress.
 Showing a `ProgressTracker` helps the user to understand that they should wait, rather than reload the page or abandon a process.
@@ -34,11 +45,7 @@ This example of the `ProgressTracker` component demonstrates how it will appear 
 `progress` is set to `0`, but for the purpose of the demo it has been set to `50`.
 
 <Canvas>
-  <Story name="default">
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
-      <ProgressTracker progress={50} />
-    </div>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Small bar size
@@ -46,11 +53,7 @@ This example of the `ProgressTracker` component demonstrates how it will appear 
 This is an example of a small `ProgressTracker` component.
 
 <Canvas>
-  <Story name="size - small">
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
-      <ProgressTracker size="small" progress={50} showDefaultLabels />
-    </div>
-  </Story>
+  <Story name="size - small" story={stories.SizeSmall} />
 </Canvas>
 
 ### Large bar size
@@ -58,11 +61,7 @@ This is an example of a small `ProgressTracker` component.
 This is an example of a large `ProgressTracker` component.
 
 <Canvas>
-  <Story name="size - large">
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
-      <ProgressTracker size="large" progress={50} showDefaultLabels />
-    </div>
-  </Story>
+  <Story name="size - large" story={stories.SizeLarge} />
 </Canvas>
 
 ### Custom bar length
@@ -70,11 +69,7 @@ This is an example of a large `ProgressTracker` component.
 The length of the bar can be set to any valid css property. This sets the width of a horizontal bar or the height of a vertical bar. The default is "256px".
 
 <Canvas>
-  <Story name="custom bar length">
-    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-      <ProgressTracker progress={50} length="150px" />
-    </div>
-  </Story>
+  <Story name="custom bar length" story={stories.CustomBarLength} />
 </Canvas>
 
 ### Color variants
@@ -82,21 +77,7 @@ The length of the bar can be set to any valid css property. This sets the width 
 This is an example of a `ProgressTracker` component with different colors depending on progress.
 
 <Canvas>
-  <Story name="color variants">
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <ProgressTracker progress={15} currentProgressLabel="15%" />
-      <ProgressTracker mt={2} progress={50} currentProgressLabel="50%" />
-      <ProgressTracker mt={2} progress={100} currentProgressLabel="100%" />
-      <ProgressTracker
-        mt={2}
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </div>
-  </Story>
+  <Story name="color variants" story={stories.ColorVariants} />
 </Canvas>
 
 ### Default label values
@@ -105,57 +86,13 @@ This is an example of a `ProgressTracker` component with `showDefaultLabels` set
 percentages.
 
 <Canvas>
-  <Story name="default label value">
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <ProgressTracker mt={2} progress={15} currentProgressLabel="15%" />
-      <ProgressTracker mt={2} progress={50} currentProgressLabel="50%" />
-      <ProgressTracker mt={2} progress={100} currentProgressLabel="100%" />
-      <ProgressTracker
-        mt={2}
-        progress={100}
-        error={true}
-        currentProgressLabel="error"
-      />
-    </div>
-  </Story>
+  <Story name="default label value" story={stories.DefaultLabelValue} />
 </Canvas>
 
 It is possible to override the default `labelsPosition` to `"bottom"`
 
 <Canvas>
-  <Story name="default label value - labelsPosition bottom">
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={15}
-        currentProgressLabel="15%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={50}
-        currentProgressLabel="50%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={100}
-        currentProgressLabel="100%"
-      />
-      <ProgressTracker
-        mt={2}
-        labelsPosition="bottom"
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </div>
-  </Story>
+  <Story name="default label value - labelsPosition bottom" story={stories.DefaultLabelValueLabelsPositionBottom} />
 </Canvas>
 
 ### Custom label values
@@ -163,63 +100,14 @@ It is possible to override the default `labelsPosition` to `"bottom"`
 This is an example of a `ProgressTracker` component with `currentProgressLabel` and `maxProgressLabel` props.
 
 <Canvas>
-  <Story name="custom label values">
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <ProgressTracker
-        progress={50}
-        currentProgressLabel="$50"
-        maxProgressLabel="$200"
-      />
-      <ProgressTracker
-        mt={2}
-        progress={70}
-        currentProgressLabel="Step 3"
-        maxProgressLabel="5"
-        description="Adding VAT"
-      />
-      <ProgressTracker mt={2} progress={100} currentProgressLabel="$200" />
-      <ProgressTracker
-        mt={2}
-        progress={100}
-        error
-        currentProgressLabel="error"
-      />
-    </div>
-  </Story>
+  <Story name="custom label values" story={stories.CustomLabelValues} />
 </Canvas>
 
 It is also possible to render the component with a mix of default and custom labels by only setting one of the `currentProgressLabel`
 and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop.
 
 <Canvas>
-  <Story name="default and custom label values">
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <ProgressTracker progress={50} currentProgressLabel="50%" />
-      <ProgressTracker
-        mt={2}
-        progress={50}
-        currentProgressLabel="Step 3"
-        maxProgressLabel="5"
-      />
-      <ProgressTracker
-        mt={2}
-        progress={50}
-        currentProgressLabel="50%"
-        description="Adding VAT"
-      />
-      <ProgressTracker
-        mt={2}
-        progress={50}
-        currentProgressLabel="Step 3"
-        maxProgressLabel="5"
-        description="Adding VAT"
-      />
-    </div>
-  </Story>
+  <Story name="default and custom label values" story={stories.DefaultAndCustomLabelValues} />
 </Canvas>
 
 ## Accessibility
@@ -234,18 +122,7 @@ default can be overridden if you provide this prop explicitly.
 ### Example 1
 
 <Canvas>
-  <Story name="acessibility example">
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
-      <ProgressTracker
-        currentProgressLabel="50%"
-        progress={50}
-        aria-valuemin={100}
-        aria-valuenow={150}
-        aria-valuemax={200}
-        aria-valuetext="$150"
-      />
-    </div>
-  </Story>
+  <Story name="acessibility example" story={stories.AccessibilityExample} />
 </Canvas>
 
 ### Example 2
@@ -253,11 +130,7 @@ default can be overridden if you provide this prop explicitly.
 This example shows the automatic calculation of `aria-valuenow` when not provided (inspect the DOM, or listen using a screenreader, to see the output).
 
 <Canvas>
-  <Story name="acessibility example 2">
-    <div style={{ display: "flex", justifyContent: "space-around" }}>
-      <ProgressTracker progress={50} aria-valuemin={111} aria-valuemax={188} />
-    </div>
-  </Story>
+  <Story name="acessibility example 2" story={stories.AccessibilityExampleTwo} />
 </Canvas>
 
 ## Props

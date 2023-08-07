@@ -7,6 +7,7 @@ import InlineInputs, { InlineInputsProps } from "./inline-inputs.component";
 import {
   assertStyleMatch,
   mockMatchMedia,
+  testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import StyledInlineInputs, {
@@ -15,11 +16,11 @@ import StyledInlineInputs, {
 } from "./inline-inputs.style";
 import InputPresentation from "../../__internal__/input/input-presentation.style";
 import guid from "../../__internal__/utils/helpers/guid";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(guid as jest.MockedFunction<any>).mockImplementation(() => mockedGuid);
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 function render(props: InlineInputsProps = {}) {
   return mount(
@@ -33,6 +34,8 @@ function render(props: InlineInputsProps = {}) {
 
 describe("Inline Inputs", () => {
   let wrapper: ReactWrapper;
+
+  testStyledSystemMargin((props) => <InlineInputs {...props} />);
 
   describe("when a className prop is passed in", () => {
     it("renders with main class", () => {
@@ -64,13 +67,15 @@ describe("Inline Inputs", () => {
         { modifier: `${StyledLabelContainer}` }
       );
     });
+  });
 
-    it("sets the aria-labelledby prop on the inputs", () => {
-      wrapper
-        .find("input")
-        .forEach((input) =>
-          expect(input.prop("aria-labelledby")).toEqual(mockedGuid)
-        );
+  describe("when the labelId prop is set", () => {
+    it("then it should be passed to the Label component", () => {
+      const mockLabelId = "bar";
+      wrapper = render({ label: "foo", labelId: mockLabelId });
+      const label = wrapper.find(Label);
+
+      expect(label.props().labelId).toEqual(mockLabelId);
     });
   });
 
@@ -119,7 +124,7 @@ describe("Inline Inputs", () => {
       wrapper = render({ gutter: gutterValue });
     });
 
-    it("then the borderLeft css property of the adjacent input should be set to none", () => {
+    it("sets the borderLeft css property of the adjacent input should to none", () => {
       assertStyleMatch(
         {
           borderLeft: "none",
@@ -127,6 +132,44 @@ describe("Inline Inputs", () => {
         wrapper.find(StyledContentContainer),
         {
           modifier: `${StyledInlineInput} + ${StyledInlineInput} ${InputPresentation}`,
+        }
+      );
+    });
+
+    it("sets the expected border radius styling", () => {
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius000)",
+        },
+        wrapper.find(StyledContentContainer),
+        {
+          modifier: `${StyledInlineInput}:not(:first-of-type):not(:last-of-type) ${InputPresentation}`,
+        }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+          borderTopLeftRadius: "var(--borderRadius050)",
+          borderBottomLeftRadius: "var(--borderRadius050)",
+        },
+        wrapper.find(StyledContentContainer),
+        {
+          modifier: `${StyledInlineInput}:first-of-type:not(:last-of-type) ${InputPresentation}`,
+        }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius050)",
+          borderBottomRightRadius: "var(--borderRadius050)",
+          borderTopLeftRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius000)",
+        },
+        wrapper.find(StyledContentContainer),
+        {
+          modifier: `${StyledInlineInput}:last-of-type:not(:first-of-type) ${InputPresentation}`,
         }
       );
     });
@@ -210,6 +253,7 @@ describe("Inline Inputs", () => {
       expect(
         mount(<InlineInputs />)
           .find(StyledContentContainer)
+          .find(FormSpacingProvider)
           .prop("children")
       ).toBe(null);
     });

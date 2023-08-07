@@ -2,7 +2,7 @@ import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import { space } from "style/themes/base/base-theme.config";
+import { space } from "../../style/themes/base/base-theme.config";
 import guid from "../../__internal__/utils/helpers/guid";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import Dialog, { DialogProps } from "./dialog.component";
@@ -46,6 +46,10 @@ describe("Dialog", () => {
     onCancel = jest.fn();
   });
 
+  afterEach(() => {
+    onCancel.mockClear();
+  });
+
   describe("event listeners", () => {
     beforeEach(() => {
       addEventListenerSpy = jest.spyOn(window, "addEventListener");
@@ -53,7 +57,8 @@ describe("Dialog", () => {
     });
 
     afterEach(() => {
-      jest.clearAllMocks();
+      addEventListenerSpy.mockClear();
+      removeEventListenerSpy.mockClear();
     });
 
     it("binds the key event listener to the document on mount", () => {
@@ -152,6 +157,8 @@ describe("Dialog", () => {
   });
 
   describe("dialog is centered", () => {
+    let getBoundingClientRectMock: jest.SpyInstance<DOMRect> | undefined;
+
     beforeEach(() => {
       window.innerHeight = 300;
       window.innerWidth = 100;
@@ -160,7 +167,7 @@ describe("Dialog", () => {
     afterEach(() => {
       window.innerHeight = 768;
       window.innerWidth = 1024;
-      jest.clearAllMocks();
+      getBoundingClientRectMock?.mockClear();
     });
 
     describe("when dialog is lower than 20px", () => {
@@ -182,7 +189,7 @@ describe("Dialog", () => {
           </Dialog>
         );
 
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -205,7 +212,7 @@ describe("Dialog", () => {
 
     describe("when dialog is higher than 20px", () => {
       it("sets top position to 20px on open", () => {
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -232,7 +239,7 @@ describe("Dialog", () => {
           </Dialog>
         );
 
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -253,9 +260,9 @@ describe("Dialog", () => {
       });
     });
 
-    describe("when dialog is less than 20px from the side", () => {
-      it("sets left position to 20px on open", () => {
-        jest
+    describe("when dialog is less than 0px from the side", () => {
+      it("sets left position to 0px on open", () => {
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -272,17 +279,17 @@ describe("Dialog", () => {
 
         expect(
           (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
-        ).toEqual("20px");
+        ).toEqual("0px");
       });
 
-      it("sets left position to 20px on resize", () => {
+      it("sets left position to 0px on resize", () => {
         wrapper = mount(
           <Dialog open>
             <div />
           </Dialog>
         );
 
-        jest
+        getBoundingClientRectMock = jest
           .spyOn(Element.prototype, "getBoundingClientRect")
           .mockImplementation(
             () =>
@@ -299,7 +306,7 @@ describe("Dialog", () => {
 
         expect(
           (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
-        ).toEqual("20px");
+        ).toEqual("0px");
       });
     });
   });
@@ -748,6 +755,24 @@ describe("Dialog", () => {
           }
         );
       }
+    );
+  });
+
+  it("applies the expected border radius to the main container and footer elements", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius200)",
+      },
+      wrapper.find(StyledDialog)
+    );
+
+    assertStyleMatch(
+      {
+        borderBottomRightRadius: "var(--borderRadius200)",
+        borderBottomLeftRadius: "var(--borderRadius200)",
+      },
+      wrapper.find(StyledDialog),
+      { modifier: `${StyledFormFooter}.sticky` }
     );
   });
 });

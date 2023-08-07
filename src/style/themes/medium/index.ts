@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { aegeanTheme } from "..";
 
 export default (() => {

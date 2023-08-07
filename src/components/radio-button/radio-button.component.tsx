@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
 import { CommonCheckableInputProps } from "../../__internal__/checkable-input";
@@ -7,6 +7,8 @@ import CheckableInput from "../../__internal__/checkable-input/checkable-input.c
 import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import Logger from "../../__internal__/utils/logger";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 
 interface InternalRadioButtonProps {
   inline?: boolean;
@@ -32,7 +34,11 @@ export interface RadioButtonProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
+  /** A callback to retrieve the input reference (deprecated) */
+  inputRef?: React.Ref<HTMLInputElement>;
 }
+
+let deprecateInputRefWarnTriggered = false;
 
 export const RadioButton = React.forwardRef<
   HTMLInputElement,
@@ -69,10 +75,13 @@ export const RadioButton = React.forwardRef<
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
+      inputRef,
       ...props
     }: RadioButtonProps & InternalRadioButtonProps,
     ref
   ) => {
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
+
     const marginProps = filterStyledSystemMarginProps(props);
     const handleChange = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,18 +96,31 @@ export const RadioButton = React.forwardRef<
       [onChange]
     );
 
-    const commonProps = {
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `RadioButton` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+    }
+
+    const validationProps = {
       disabled,
-      fieldHelpInline,
       inputWidth,
-      labelSpacing,
       error,
       warning,
       info,
     };
 
+    const commonProps = {
+      ...validationProps,
+      fieldHelpInline,
+      labelSpacing,
+    };
+
     const inputProps = {
-      ...commonProps,
+      ...(validationRedesignOptIn
+        ? { ...validationProps }
+        : { ...commonProps }),
       autoFocus,
       checked,
       fieldHelp,
@@ -121,7 +143,7 @@ export const RadioButton = React.forwardRef<
        */
       reverse: !reverse,
       required,
-      inputRef: ref,
+      ref: ref || inputRef,
       ...props,
     };
 
@@ -131,26 +153,39 @@ export const RadioButton = React.forwardRef<
         "You should probably use the label prop instead."
     );
 
-    return (
-      <TooltipProvider
-        helpAriaLabel={helpAriaLabel}
-        tooltipPosition={tooltipPosition}
+    const componentToRender = (
+      <RadioButtonStyle
+        applyNewValidation={validationRedesignOptIn}
+        data-component={dataComponent}
+        data-role={dataRole}
+        data-element={dataElement}
+        inline={inline}
+        reverse={reverse}
+        size={size}
+        {...(validationRedesignOptIn
+          ? { ...validationProps }
+          : { ...commonProps, fieldHelp })}
+        {...marginProps}
       >
-        <RadioButtonStyle
-          data-component={dataComponent}
-          data-role={dataRole}
-          data-element={dataElement}
-          inline={inline}
-          reverse={reverse}
-          size={size}
-          {...commonProps}
-          {...marginProps}
-        >
-          <CheckableInput {...inputProps}>
-            <RadioButtonSvg />
-          </CheckableInput>
-        </RadioButtonStyle>
-      </TooltipProvider>
+        <CheckableInput {...inputProps}>
+          <RadioButtonSvg />
+        </CheckableInput>
+      </RadioButtonStyle>
+    );
+
+    return (
+      <>
+        {validationRedesignOptIn ? (
+          componentToRender
+        ) : (
+          <TooltipProvider
+            helpAriaLabel={helpAriaLabel}
+            tooltipPosition={tooltipPosition}
+          >
+            {componentToRender}
+          </TooltipProvider>
+        )}
+      </>
     );
   }
 );

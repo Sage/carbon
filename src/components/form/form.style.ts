@@ -2,12 +2,9 @@ import styled, { css } from "styled-components";
 
 import { space, padding } from "styled-system";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
-import { StyledFieldset } from "../../__internal__/fieldset/fieldset.style";
 
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
-import { FieldsetStyle } from "../fieldset/fieldset.style";
-import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 import { FormButtonAlignment } from "./form.config";
 import StyledSearch from "../search/search.style";
 import StyledTextarea from "../textarea/textarea.style";
@@ -77,18 +74,6 @@ StyledFormFooter.defaultProps = {
   theme: baseTheme,
 };
 
-const formBottomMargins = (fieldSpacing: number) =>
-  ({
-    0: "var(--spacing000)",
-    1: "var(--spacing100)",
-    2: "var(--spacing200)",
-    3: "var(--spacing300)",
-    4: "var(--spacing400)",
-    5: "var(--spacing500)",
-    6: "var(--spacing600)",
-    7: "var(--spacing700)",
-  }[fieldSpacing]);
-
 // Accounts for height of the header of Modal parent, the height form footer and some additional spacing
 const HEIGHT_SPACING = 216;
 
@@ -106,32 +91,11 @@ export const StyledForm = styled.form<StyledFormProps>`
     css`
       height: ${height};
     `}
-
-  ${({ fieldSpacing }) =>
-    css`
-      &
-        ${StyledTextarea},
-        ${StyledFormField},
-        ${StyledFieldset},
-        ${FieldsetStyle},
-        > ${StyledButton} {
-        margin-top: 0;
-        margin-bottom: ${formBottomMargins(fieldSpacing)};
-      }
-
-      ${StyledTextarea}
+    
+    ${StyledTextarea}
       ${StyledFormField} {
-        margin-bottom: 4px;
-      }
-
-      ${StyledInlineInputs} {
-        ${StyledFormField} {
-          margin-bottom: 0;
-        }
-
-        margin-bottom: ${formBottomMargins(fieldSpacing)};
-      }
-    `}  
+    margin-bottom: 4px;
+  }
 
   ${StyledSearch} ${StyledFormField} {
     margin-bottom: 0px;

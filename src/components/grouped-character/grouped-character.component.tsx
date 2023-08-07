@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Textbox, { TextboxProps } from "../textbox";
 import { generateGroups, toSum } from "./grouped-character.utils";
+import Logger from "../../__internal__/utils/logger";
 
 type EventValue = {
   formattedValue: string;
@@ -47,104 +48,132 @@ export interface GroupedCharacterProps
   value?: string;
 }
 
-export const GroupedCharacter = ({
-  defaultValue,
-  groups,
-  onBlur,
-  onChange,
-  separator: rawSeparator,
-  value: externalValue,
-  ...rest
-}: GroupedCharacterProps) => {
-  const [internalValue, setInternalValue] = useState(defaultValue || "");
+let deprecateInputRefWarnTriggered = false;
+let deprecateUncontrolledWarnTriggered = false;
 
-  const isControlled = externalValue !== undefined;
+export const GroupedCharacter = React.forwardRef(
+  (
+    {
+      defaultValue,
+      groups,
+      onBlur,
+      onChange,
+      separator: rawSeparator,
+      value: externalValue,
+      inputRef,
+      ...rest
+    }: GroupedCharacterProps,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
+    const [internalValue, setInternalValue] = useState(defaultValue || "");
 
-  const separator = rawSeparator.substring(0, 1); // Ensure max length is 1
+    const isControlled = externalValue !== undefined;
 
-  const maxRawLength = groups.reduce(toSum);
+    const separator = rawSeparator.substring(0, 1); // Ensure max length is 1
 
-  const formatValue = (val: string) =>
-    generateGroups(groups, val).join(separator);
+    const maxRawLength = groups.reduce(toSum);
 
-  const sanitizeValue = (val: string) =>
-    val.split(separator).join("").substring(0, maxRawLength);
-
-  const value = isControlled ? externalValue : internalValue;
-
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const { target } = ev;
-    const { selectionEnd } = target as HTMLInputElement;
-
-    let newCursorPos = selectionEnd ?? 0;
-
-    const rawValue = sanitizeValue(target.value);
-    const formattedValue = formatValue(rawValue);
-
-    const isLastPosition = target.value.length === newCursorPos;
-    const isAtOneBeyondSeparator =
-      formattedValue[newCursorPos - 1] === separator;
-
-    if (isLastPosition) {
-      const targetValSeparatorCount = target.value.split(separator).length - 1;
-      const formatValSeparatorCount =
-        formattedValue.split(separator).length - 1;
-      const separatorDiff = formatValSeparatorCount - targetValSeparatorCount;
-      newCursorPos += separatorDiff;
-    } else if (isAtOneBeyondSeparator) {
-      const isDeleting = value.length > rawValue.length;
-      newCursorPos += isDeleting ? -1 : 1;
+    if (!deprecateInputRefWarnTriggered && inputRef) {
+      deprecateInputRefWarnTriggered = true;
+      Logger.deprecate(
+        "The `inputRef` prop in `GroupedCharacter` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
     }
 
-    const modifiedEvent = (ev as unknown) as CustomEvent;
-    modifiedEvent.target = buildCustomTarget(ev, {
-      rawValue,
-      formattedValue,
-    });
-
-    onChange?.(modifiedEvent);
-    if (!isControlled) {
-      setInternalValue(rawValue);
+    if (!deprecateUncontrolledWarnTriggered && !isControlled) {
+      deprecateUncontrolledWarnTriggered = true;
+      Logger.deprecate(
+        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
     }
-    setTimeout(() => target.setSelectionRange(newCursorPos, newCursorPos));
-  };
 
-  const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
-    if (onBlur) {
+    const formatValue = (val: string) =>
+      generateGroups(groups, val).join(separator);
+
+    const sanitizeValue = (val: string) =>
+      val.split(separator).join("").substring(0, maxRawLength);
+
+    const value = isControlled ? externalValue : internalValue;
+
+    const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
       const { target } = ev;
+      const { selectionEnd } = target as HTMLInputElement;
+
+      let newCursorPos = selectionEnd ?? 0;
+
       const rawValue = sanitizeValue(target.value);
       const formattedValue = formatValue(rawValue);
+
+      const isLastPosition = target.value.length === newCursorPos;
+      const isAtOneBeyondSeparator =
+        formattedValue[newCursorPos - 1] === separator;
+
+      if (isLastPosition) {
+        const targetValSeparatorCount =
+          target.value.split(separator).length - 1;
+        const formatValSeparatorCount =
+          formattedValue.split(separator).length - 1;
+        const separatorDiff = formatValSeparatorCount - targetValSeparatorCount;
+        newCursorPos += separatorDiff;
+      } else if (isAtOneBeyondSeparator) {
+        const isDeleting = value.length > rawValue.length;
+        newCursorPos += isDeleting ? -1 : 1;
+      }
 
       const modifiedEvent = (ev as unknown) as CustomEvent;
       modifiedEvent.target = buildCustomTarget(ev, {
         rawValue,
         formattedValue,
       });
-      onBlur(modifiedEvent);
-    }
-  };
 
-  const handleKeyPress = (ev: React.KeyboardEvent<HTMLInputElement>) => {
-    const { selectionStart, selectionEnd } = ev.target as HTMLInputElement;
+      onChange?.(modifiedEvent);
+      if (!isControlled) {
+        setInternalValue(rawValue);
+      }
+      setTimeout(() => target.setSelectionRange(newCursorPos, newCursorPos));
+    };
 
-    /* istanbul ignore next */
-    const hasSelection = (selectionEnd ?? 0) - (selectionStart ?? 0) > 0;
+    const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+      if (onBlur) {
+        const { target } = ev;
+        const rawValue = sanitizeValue(target.value);
+        const formattedValue = formatValue(rawValue);
 
-    if (maxRawLength === value.length && !hasSelection) {
-      ev.preventDefault();
-    }
-  };
+        const modifiedEvent = (ev as unknown) as CustomEvent;
+        modifiedEvent.target = buildCustomTarget(ev, {
+          rawValue,
+          formattedValue,
+        });
+        onBlur(modifiedEvent);
+      }
+    };
 
-  return (
-    <Textbox
-      {...rest}
-      value={value}
-      formattedValue={formatValue(value)}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      onKeyPress={handleKeyPress}
-    />
-  );
-};
+    const handleKeyPress = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+      const { selectionStart, selectionEnd } = ev.target as HTMLInputElement;
+
+      /* istanbul ignore next */
+      const hasSelection = (selectionEnd ?? 0) - (selectionStart ?? 0) > 0;
+
+      if (maxRawLength === value.length && !hasSelection) {
+        ev.preventDefault();
+      }
+    };
+
+    return (
+      <Textbox
+        {...rest}
+        value={value}
+        formattedValue={formatValue(value)}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyPress={handleKeyPress}
+        inputRef={inputRef}
+        ref={ref}
+      />
+    );
+  }
+);
+
+GroupedCharacter.displayName = "GroupedCharacter";
 
 export default GroupedCharacter;

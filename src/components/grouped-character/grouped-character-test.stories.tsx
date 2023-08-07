@@ -6,15 +6,19 @@ import {
   getCommonTextboxArgsWithSpecialCaracters,
   CommonTextboxArgs,
 } from "../textbox/textbox-test.stories";
-import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
+import GroupedCharacter, {
+  CustomEvent,
+  GroupedCharacterProps,
+} from "./grouped-character.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
   title: "GroupedCharacter/Test",
+  includeStories: ["Default", "NewValidation"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -31,7 +35,7 @@ export const Default = ({ separator, groups, ...args }: StoryArgs) => {
   const [state, setState] = useState("");
   const onChange = (ev: CustomEvent) => {
     setState(ev.target.value.rawValue);
-    action("change")(ev);
+    action("change")(ev.target.value);
   };
   return (
     <GroupedCharacter
@@ -55,7 +59,7 @@ export const NewValidation = ({ separator, groups, ...args }: StoryArgs) => {
   const [state, setState] = useState("");
   const onChange = (ev: CustomEvent) => {
     setState(ev.target.value.rawValue);
-    action("change")(ev);
+    action("change")(ev.target.value);
   };
   return (
     <CarbonProvider validationRedesignOptIn>
@@ -76,4 +80,31 @@ NewValidation.args = {
   groups: [2, 2, 4],
   separator: "-",
   ...getCommonTextboxArgs(),
+};
+
+export const GroupedCharacterComponent = ({
+  onChange,
+  groups,
+  separator,
+  ...props
+}: Partial<GroupedCharacterProps>) => {
+  const [state, setState] = React.useState("");
+
+  const setValue = (event: CustomEvent) => {
+    setState(event.target.value.rawValue);
+    if (onChange) {
+      onChange(event);
+    }
+  };
+
+  return (
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state}
+      onChange={setValue}
+      groups={groups || [2, 2, 3]}
+      separator={separator || "-"}
+      {...props}
+    />
+  );
 };

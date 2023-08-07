@@ -35,7 +35,7 @@ describe("ValidationMessage component", () => {
           color: error
             ? "var(--colorsSemanticNegative500)"
             : "var(--colorsSemanticCaution600)",
-          fontWeight: error ? "bold" : "regular",
+          fontWeight: error ? "bold" : "normal",
           marginTop: "0px",
           marginBottom: "8px",
         },
@@ -65,5 +65,12 @@ describe("ValidationMessage component", () => {
   it("does not render message when no props passed", () => {
     wrapper = render({});
     expect(wrapper.text()).toEqual("");
+  });
+
+  it("validationId should be passed to the message", () => {
+    const mockId = "foo";
+    wrapper = render({ validationId: mockId, error: "bar" });
+
+    expect(wrapper.find(StyledValidationMessage).prop("id")).toEqual(mockId);
   });
 });

@@ -17,6 +17,8 @@ export type StyledNavigationBarProps = PaddingProps &
     offset?: string;
     /** Defines whether the navigation bar should be positioned top or bottom */
     orientation?: Orientation;
+    /** set to true only when rendering the GlobalHeader component */
+    isGlobal?: boolean;
   };
 
 const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
@@ -67,9 +69,9 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
       `}
     `}
 
-  ${({ navigationType, theme }) => css`
+  ${({ navigationType, theme, isGlobal }) => css`
     min-height: 40px;
-    z-index: ${theme.zIndex.nav};
+    z-index: ${isGlobal ? theme.zIndex.globalNav : theme.zIndex.nav};
 
     ${navigationType === "light" &&
     css`

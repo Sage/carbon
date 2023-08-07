@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow, mount, ReactWrapper } from "enzyme";
-import Heading from ".";
+import Heading, { HeadingType } from ".";
 import {
   StyledHeader,
   StyledSubHeader,
@@ -39,6 +39,19 @@ describe("Heading", () => {
     it("renders a heading title with text from prop content", () => {
       expect(wrapper.find(StyledHeadingTitle).text()).toEqual("foo");
     });
+  });
+
+  describe("when headingType prop is provided", () => {
+    it.each<HeadingType>(["h1", "h2", "h3", "h4", "h5"])(
+      "HTML heading element is correct when headingType is %s",
+      (headingType) => {
+        const wrapper = mount(
+          <Heading headingType={headingType} title="foo" />
+        );
+
+        expect(wrapper.find(headingType).text()).toBe("foo");
+      }
+    );
   });
 
   describe("when the help prop is provided", () => {

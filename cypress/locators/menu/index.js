@@ -24,6 +24,7 @@ export const menuComponent = (index) =>
 export const submenuItem = (index) =>
   menuComponent(index).find(SUBMENU).find("ul > li");
 export const menuCanvas = () => cy.get(DLS_ROOT);
+export const fullScreenMenuWrapper = () => cy.get(FULLSCREEN_MENU);
 export const fullscreenMenu = (index) =>
   cy.get(FULLSCREEN_MENU).find("div").eq(index);
 export const fullScreenMenuItem = (index) =>

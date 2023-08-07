@@ -2,23 +2,27 @@ import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
 import StyledSystemProps from "../../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
 
-import { useState, useRef } from "react";
-import { Select, Option, OptionRow, OptionGroupHeader } from "../";
-import Button from "../../button";
-import Icon from "../../icon";
-import SelectTextbox from "../select-textbox/select-textbox.component";
-import CarbonProvider from "../../carbon-provider/carbon-provider.component";
+import { Select, Option } from "../";
+import SelectTextbox from "../select-textbox";
+import * as stories from "./simple-select.stories";
 
 <Meta title="Select" parameters={{ info: { disable: true } }} />
 
 # Simple Select
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/464d11-dropdown-select/b/51c4c7"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
 
 Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
 
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 - [Translation keys](#translation-keys)
@@ -32,8 +36,6 @@ from `carbon-react/lib/components/select`.
 import { Select, Option } from "carbon-react/lib/components/select";
 ```
 
-## Designer Notes
-
 Always insert `Option` Components inside the `Select`, analogous to the original `<select>` and `<option>` HTML Elements.
 
 ## Examples
@@ -41,21 +43,7 @@ Always insert `Option` Components inside the `Select`, analogous to the original
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Select name="simple" id="simple" label="color" labelInline>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Required
@@ -63,26 +51,7 @@ Always insert `Option` Components inside the `Select`, analogous to the original
 You can use the `required` prop to indicate if the field is mandatory.
 
 <Canvas>
-  <Story name="required">
-    <Select
-      name="required-select"
-      id="required-select"
-      label="Foreground Color"
-      required
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="required" story={stories.Required} />
 </Canvas>
 
 ### List placement
@@ -90,27 +59,7 @@ You can use the `required` prop to indicate if the field is mandatory.
 You can use `listPlacement` prop to set the position of the select list relative to the input element.
 
 <Canvas>
-  <Story name="list placement">
-    <Select
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-      listPlacement="top"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="list placement" story={stories.ListPlacement} />
 </Canvas>
 
 ### List height
@@ -118,67 +67,13 @@ You can use `listPlacement` prop to set the position of the select list relative
 You can use `listMaxHeight` prop to override default max height value of select list.
 
 <Canvas>
-  <Story name="list height">
-    <Select
-      listMaxHeight={2000}
-      name="list height"
-      id="list-height"
-      label="List height"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="list height" story={stories.ListHeight} />
 </Canvas>
 
 ### Controlled usage
 
 <Canvas>
-  <Story name="controlled" parameters={{ chromatic: { disable: true } }}>
-    {() => {
-      const [value, setValue] = useState("");
-      function onChangeHandler(event) {
-        setValue(event.target.value);
-      }
-      function clearValue() {
-        setValue("");
-      }
-      return (
-        <div>
-          <Button onClick={clearValue} mb={2}>
-            clear
-          </Button>
-          <Select
-            id="controlled"
-            name="controlled"
-            value={value}
-            onChange={onChangeHandler}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </Select>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="controlled" story={stories.Controlled} />
 </Canvas>
 
 ### With object as value
@@ -189,95 +84,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 <Canvas>
   <Story
-    name="with object as value"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      const [value, setValue] = useState({
-        id: "Green",
-        value: 5,
-        text: "Green",
-      });
-      const optionList = useRef([
-        <Option
-          text="Amber"
-          key="Amber"
-          value={{ id: "Amber", value: 1, text: "Amber" }}
-        />,
-        <Option
-          text="Black"
-          key="Black"
-          value={{ id: "Black", value: 2, text: "Black" }}
-        />,
-        <Option
-          text="Blue"
-          key="Blue"
-          value={{ id: "Blue", value: 3, text: "Blue" }}
-        />,
-        <Option
-          text="Brown"
-          key="Brown"
-          value={{ id: "Brown", value: 4, text: "Brown" }}
-        />,
-        <Option
-          text="Green"
-          key="Green"
-          value={{ id: "Green", value: 5, text: "Green" }}
-        />,
-        <Option
-          text="Orange"
-          key="Orange"
-          value={{ id: "Orange", value: 6, text: "Orange" }}
-        />,
-        <Option
-          text="Pink"
-          key="Pink"
-          value={{ id: "Pink", value: 7, text: "Pink" }}
-        />,
-        <Option
-          text="Purple"
-          key="Purple"
-          value={{ id: "Purple", value: 8, text: "Purple" }}
-        />,
-        <Option
-          text="Red"
-          key="Red"
-          value={{ id: "Red", value: 9, text: "Red" }}
-        />,
-        <Option
-          text="White"
-          key="White"
-          value={{ id: "White", value: 10, text: "White" }}
-        />,
-        <Option
-          text="Yellow"
-          key="Yellow"
-          value={{ id: "Yellow", value: 11, text: "Yellow" }}
-        />,
-      ]);
-      function onChangeHandler(event) {
-        setValue(event.target.value);
-      }
-      function clearValue() {
-        setValue({});
-      }
-      return (
-        <div>
-          <Button onClick={clearValue} mb={2}>
-            clear
-          </Button>
-          <Select
-            id="with-object"
-            name="with-object"
-            value={value}
-            onChange={onChangeHandler}
-          >
-            {optionList.current}
-          </Select>
-        </div>
-      );
-    }}
-  </Story>
+    name="with object as value" story={stories.WithObjectAsValue} />
 </Canvas>
 
 ### With custom maxWidth
@@ -285,21 +92,7 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 In this example the `maxWidth` prop is 100%.
 
 <Canvas>
-  <Story name="With custom maxWidth">
-    <Select name="simple" id="simple" label="color" maxWidth="100%">
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="With custom maxWidth" story={stories.WithCustomMaxWidth} />
 </Canvas>
 
 ### With isLoading prop
@@ -307,61 +100,7 @@ In this example the `maxWidth` prop is 100%.
 When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
 
 <Canvas>
-  <Story
-    name="with isLoading prop"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      let preventLoading = useRef(false);
-      const [value, setValue] = useState("black");
-      const [isOpen, setIsOpen] = useState(false);
-      const [isLoading, setIsLoading] = useState(true);
-      const asyncList = [
-        <Option text="Amber" value="amber" key="Amber" />,
-        <Option text="Black" value="black" key="Black" />,
-        <Option text="Blue" value="blue" key="Blue" />,
-        <Option text="Brown" value="brown" key="Brown" />,
-        <Option text="Green" value="green" key="Green" />,
-      ];
-      const [optionList, setOptionList] = useState([
-        <Option text="Black" value="black" key="Black" />,
-      ]);
-      function loadList() {
-        if (preventLoading.current) {
-          return;
-        }
-        preventLoading.current = true;
-        setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
-          setOptionList(asyncList);
-        }, 2000);
-      }
-      function clearData() {
-        setOptionList([<Option text="Black" value="black" key="Black" />]);
-        setValue("black");
-        preventLoading.current = false;
-      }
-      return (
-        <div>
-          <Button onClick={clearData} mb={2}>
-            reset
-          </Button>
-          <Select
-            name="isLoading"
-            id="isLoading"
-            label="color"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            onOpen={() => loadList()}
-            isLoading={isLoading}
-          >
-            {optionList}
-          </Select>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="with isLoading prop" story={stories.WithIsLoadingProp} />
 </Canvas>
 
 ### Infinite scroll example
@@ -370,314 +109,55 @@ The `isLoading` prop in combination with the `onListScrollBottom` prop can be us
 This prop will be called every time a user scrolls to the bottom of the list.
 
 <Canvas>
-  <Story
-    name="with infinite scroll"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    {() => {
-      let preventLoading = useRef(false);
-      let preventLazyLoading = useRef(false);
-      let lazyLoadingCounter = useRef(0);
-      const [value, setValue] = useState("");
-      const [isOpen, setIsOpen] = useState(false);
-      const [isLoading, setIsLoading] = useState(true);
-      const asyncList = [
-        <Option text="Amber" value="amber" key="Amber" />,
-        <Option text="Black" value="black" key="Black" />,
-        <Option text="Blue" value="blue" key="Blue" />,
-        <Option text="Brown" value="brown" key="Brown" />,
-        <Option text="Green" value="green" key="Green" />,
-      ];
-      const getLazyLoaded = () => {
-        const counter = lazyLoadingCounter.current;
-        return [
-          <Option
-            text={`Lazy Loaded A${counter}`}
-            value={`lazyA${counter}`}
-            key={`lazyA${counter}`}
-          />,
-          <Option
-            text={`Lazy Loaded B${counter}`}
-            value={`lazyB${counter}`}
-            key={`lazyB${counter}`}
-          />,
-          <Option
-            text={`Lazy Loaded C${counter}`}
-            value={`lazyC${counter}`}
-            key={`lazyC${counter}`}
-          />,
-        ];
-      };
-      const [optionList, setOptionList] = useState([]);
-      function loadList() {
-        if (preventLoading.current) {
-          return;
-        }
-        preventLoading.current = true;
-        setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
-          setOptionList(asyncList);
-        }, 2000);
-      }
-      function onLazyLoading() {
-        if (preventLazyLoading.current) {
-          return;
-        }
-        preventLazyLoading.current = true;
-        setIsLoading(true);
-        setTimeout(() => {
-          preventLazyLoading.current = false;
-          lazyLoadingCounter.current += 1;
-          setIsLoading(false);
-          setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
-        }, 2000);
-      }
-      function clearData() {
-        setOptionList([]);
-        setValue("");
-        preventLoading.current = false;
-      }
-      return (
-        <div>
-          <Button onClick={clearData} mb={2}>
-            reset
-          </Button>
-          <Select
-            name="infiniteScroll"
-            id="infiniteScroll"
-            label="color"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            onOpen={() => loadList()}
-            isLoading={isLoading}
-            onListScrollBottom={onLazyLoading}
-          >
-            {optionList}
-          </Select>
-        </div>
-      );
-    }}
-  </Story>
+  <Story name="with infinite scroll" story={stories.WithInfiniteScroll} />
 </Canvas>
 
 ### Open on focus
 
 <Canvas>
-  <Story name="openOnFocus" parameters={{ chromatic: { disable: true } }}>
-    <Select name="openOnFocus" id="openOnFocus" openOnFocus>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="openOnFocus" story={stories.OpenOnFocus} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <Select
-      aria-label="disabled"
-      name="disabled"
-      id="disabled"
-      defaultValue="3"
-      disabled
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ### Read Only
 
 <Canvas>
-  <Story name="readonly">
-    <Select
-      aria-label="readonly"
-      name="readonly"
-      id="readonly"
-      defaultValue="4"
-      readOnly
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="readonly" story={stories.Readonly} />
 </Canvas>
 
 ### Transparent
 
 <Canvas>
-  <Story name="transparent">
-    <Select name="transparent" id="transparent" defaultValue="4" transparent>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="transparent" story={stories.Transparent} />
 </Canvas>
 
 ### With disabled portal
 
 <Canvas>
-  <Story
-    name="withDisabledPortal"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Select
-      name="withDisabledPortal"
-      id="withDisabledPortal"
-      defaultValue="4"
-      disablePortal
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="withDisabledPortal" story={stories.WithDisabledPortal} />
 </Canvas>
 
 ### Custom Option content
 
 <Canvas>
-  <Story
-    name="custom option children"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Select
-      name="customOptionChildren"
-      id="customOptionChildren"
-      defaultValue="4"
-      disablePortal
-      label="Pick your favourite color"
-    >
-      <Option text="Orange" value="1">
-        <Icon type="favourite" color="orange" mr={1} /> Orange
-      </Option>
-      <Option text="Black" value="2">
-        <Icon type="favourite" color="black" mr={1} /> Black
-      </Option>
-      <Option text="Blue" value="3">
-        <Icon type="favourite" color="blue" mr={1} /> Blue
-      </Option>
-    </Select>
-  </Story>
+  <Story name="custom option children" story={stories.CustomOptionChildren} />
 </Canvas>
 
 ### With multiple columns
 
 <Canvas>
-  <Story
-    name="with multiple columns"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Select
-      name="withMultipleColumns"
-      id="withMultipleColumns"
-      multiColumn
-      defaultValue="2"
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-    >
-      <OptionRow id="1" value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow id="2" value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="3" value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="4" value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow id="5" value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </Select>
-  </Story>
+  <Story name="with multiple columns" story={stories.WithMultipleColumns} />
 </Canvas>
 
 ### Option groups
 
 <Canvas>
-  <Story name="option groups" parameters={{ chromatic: { disable: true } }}>
-    <Select name="optGroups" id="optGroups">
-      <OptionGroupHeader label="Group one" icon="individual" />
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <OptionGroupHeader label="Group two" icon="shop" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <OptionGroupHeader label="Group three" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="option groups" story={stories.OptionGroups} />
 </Canvas>
 
 ### Enabling the adaptive behaviour
@@ -685,88 +165,31 @@ This prop will be called every time a user scrolls to the bottom of the list.
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Canvas>
-  <Story
-    name="enabling adaptive behaviour"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Select
-      name="adaptive"
-      id="adaptive"
-      label="color"
-      defaultValue="4"
-      adaptiveLabelBreakpoint={960}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
-  </Story>
+  <Story name="enabling adaptive behaviour" story={stories.EnablingAdaptiveBehaviour} />
 </Canvas>
 
 #### New designs validation
 
 <Canvas>
-  <Story name="validations - string - new design">
-    <CarbonProvider validationRedesignOptIn>
-      {["error", "warning"].map((validationType) =>
-        ["small", "medium", "large"].map((size) => (
-          <div style={{ width: "296px" }} key={`${validationType}-${size}`}>
-            <Select
-              name="simple"
-              id={`${size} - ${validationType}`}
-              label={`${size} - ${validationType}`}
-              labelInline
-              size={size}
-              {...{ [validationType]: "Message" }}
-              m={4}
-            >
-              <Option text="Amber" value="1" />
-              <Option text="Black" value="2" />
-              <Option text="Blue" value="3" />
-              <Option text="Brown" value="4" />
-              <Option text="Green" value="5" />
-              <Option text="Orange" value="6" />
-              <Option text="Pink" value="7" />
-              <Option text="Purple" value="8" />
-              <Option text="Red" value="9" />
-              <Option text="White" value="10" />
-              <Option text="Yellow" value="11" />
-            </Select>
-            <Select
-              name="simple"
-              id={`readOnly - ${size} - ${validationType}`}
-              label={`readOnly - ${size} - ${validationType}`}
-              labelInline
-              size={size}
-              {...{ [validationType]: "Message" }}
-              readOnly
-              m={4}
-            >
-              <Option text="Amber" value="1" />
-              <Option text="Black" value="2" />
-              <Option text="Blue" value="3" />
-              <Option text="Brown" value="4" />
-              <Option text="Green" value="5" />
-              <Option text="Orange" value="6" />
-              <Option text="Pink" value="7" />
-              <Option text="Purple" value="8" />
-              <Option text="Red" value="9" />
-              <Option text="White" value="10" />
-              <Option text="Yellow" value="11" />
-            </Select>
-          </div>
-        ))
-      )}
-    </CarbonProvider>
-  </Story>
+  <Story name="validations - string - new design" story={stories.ValidationsStringNewDesign} />
+</Canvas>
+
+### Virtual scrolling
+
+The `enableVirtualScroll` prop can be used to enable "virtual scrolling" to only render a few options into the DOM at any one time.
+This allows an unlimited amount of children to be passed with little impact on rendering performance.
+
+By default this will render 5 not-currently-visible options into the DOM on either side of the currently-visible ones - this value can
+be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
+
+<Canvas>
+  <Story name="virtualised" story={stories.Virtualised} />
+</Canvas>
+
+### With multiple columns and virtualisation
+
+<Canvas>
+  <Story name="with multiple columns and virtualisation" story={stories.WithMultipleColumnsAndVirtualisation} />
 </Canvas>
 
 ## Props

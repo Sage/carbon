@@ -74,7 +74,7 @@ export const parameters = {
       },
     },
   },
-  chromatic: { disable: false },
+  chromatic: { disableSnapshot: false },
   viewport: { viewports: customViewports },
   actions: { argTypesRegex: "^on[A-Z].*" },
   viewMode: process.env.STORYBOOK_VIEW_MODE,
@@ -86,10 +86,24 @@ export const globalTypes = {
     description: "Internationalization locale",
     defaultValue: "en-GB",
     toolbar: {
+      title: "Locale",
       icon: "globe",
       items: [
         { value: "en-GB", right: "🇬🇧", title: "English" },
         { value: "pl-PL", right: "🇵🇱", title: "Polski" },
+      ],
+    },
+  },
+  roundedCorners: {
+    name: "Rounded Corners",
+    description: "Toggle rounded corner opt out",
+    defaultValue: "on",
+    toolbar: {
+      icon: "circlehollow",
+      title: "Rounded corners",
+      items: [
+        { value: "on", title: "On" },
+        { value: "off", title: "Off" },
       ],
     },
   },

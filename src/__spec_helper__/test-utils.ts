@@ -11,7 +11,7 @@ import {
 } from "styled-system";
 import { ReactTestRendererJSON } from "react-test-renderer";
 
-import { space } from "style/themes/base/base-theme.config";
+import { space } from "../style/themes/base/base-theme.config";
 
 import { carbonThemeList } from "../style/themes";
 import { mockMatchMedia } from "./mock-match-media";
@@ -31,7 +31,8 @@ const assertStyleMatch = <Props>(
     | ShallowWrapper<Props>
     | ReactTestRendererJSON
     | ReactTestRendererJSON[]
-    | null,
+    | null
+    | HTMLElement,
   opts?: jest.Options
 ) => {
   Object.entries(styleSpec).forEach(([attr, value]) => {
@@ -83,6 +84,7 @@ const keydown = keys.reduce((acc, key) => {
     });
   };
   return acc;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }, {} as Record<string, (target: ReactWrapper<any>, { shiftKey }?: { shiftKey: boolean }) => void>);
 
 const simulate = {

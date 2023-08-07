@@ -57,13 +57,15 @@ describe("PopoverContainer", () => {
 
   jest.useFakeTimers();
   let wrapper: ReactWrapper;
+  let onOpenFn: jest.Mock | undefined, onCloseFn: jest.Mock | undefined;
 
   beforeEach(() => {
     wrapper = render();
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    onOpenFn?.mockClear();
+    onCloseFn?.mockClear();
     wrapper.unmount();
   });
 
@@ -109,7 +111,7 @@ describe("PopoverContainer", () => {
     expect(wrapper.find(Transition).props().in).toBe(false);
 
     act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
 
     wrapper.update();
@@ -162,7 +164,7 @@ describe("PopoverContainer", () => {
 
   it("`shouldCoverButton` should be false by default", () => {
     act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
 
     wrapper.update();
@@ -219,31 +221,31 @@ describe("PopoverContainer", () => {
               open: true,
             });
 
-            wrapper.find(PopoverContainerOpenIcon).props().onAction();
+            wrapper.find(PopoverContainerOpenIcon).props().onClick();
           }).not.toThrow();
         });
       });
 
       describe("and `onClose` prop is provided", () => {
         it("should fire `onClose` callback if open button is clicked", () => {
-          const onCloseFn = jest.fn();
+          onCloseFn = jest.fn();
           wrapper = render({
             open: true,
             onClose: onCloseFn,
           });
 
-          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          wrapper.find(PopoverContainerOpenIcon).props().onClick();
           expect(onCloseFn).toHaveBeenCalled();
         });
 
         it("should fire `onClose` callback if close button is clicked", () => {
-          const onCloseFn = jest.fn();
+          onCloseFn = jest.fn();
           wrapper = render({
             open: true,
             onClose: onCloseFn,
           });
 
-          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          wrapper.find(PopoverContainerCloseIcon).props().onClick();
           expect(onCloseFn).toHaveBeenCalled();
         });
       });
@@ -252,13 +254,13 @@ describe("PopoverContainer", () => {
     describe("and is closed", () => {
       describe("and `onOpen` prop is provided", () => {
         it("should fire `onOpen` callback if open button is clicked", () => {
-          const onOpenFn = jest.fn();
+          onOpenFn = jest.fn();
           wrapper = render({
             open: false,
             onOpen: onOpenFn,
           });
 
-          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          wrapper.find(PopoverContainerOpenIcon).props().onClick();
           expect(onOpenFn).toHaveBeenCalled();
         });
       });
@@ -270,7 +272,7 @@ describe("PopoverContainer", () => {
               open: false,
             });
 
-            wrapper.find(PopoverContainerOpenIcon).props().onAction();
+            wrapper.find(PopoverContainerOpenIcon).props().onClick();
           }).not.toThrow();
         });
       });
@@ -293,7 +295,7 @@ describe("PopoverContainer", () => {
       wrapper = render();
 
       act(() => {
-        wrapper.find(PopoverContainerOpenIcon).props().onAction();
+        wrapper.find(PopoverContainerOpenIcon).props().onClick();
       });
 
       wrapper.update();
@@ -304,7 +306,7 @@ describe("PopoverContainer", () => {
       wrapper = render();
 
       act(() => {
-        wrapper.find(PopoverContainerOpenIcon).props().onAction();
+        wrapper.find(PopoverContainerOpenIcon).props().onClick();
       });
 
       wrapper.update();
@@ -380,7 +382,7 @@ describe("PopoverContainer", () => {
         wrapper.update();
 
         act(() => {
-          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          wrapper.find(PopoverContainerCloseIcon).props().onClick();
         });
 
         wrapper.update();
@@ -445,7 +447,7 @@ describe("PopoverContainer", () => {
         expect(wrapper.find(MyOpenButton).text()).toBe("isOpen is true");
 
         act(() => {
-          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          wrapper.find(PopoverContainerCloseIcon).props().onClick();
         });
 
         wrapper.update();
@@ -558,13 +560,13 @@ describe("PopoverContainer", () => {
         wrapper = renderAttached();
 
         act(() => {
-          wrapper.find(PopoverContainerOpenIcon).props().onAction();
+          wrapper.find(PopoverContainerOpenIcon).props().onClick();
         });
 
         wrapper.update();
 
         act(() => {
-          wrapper.find(PopoverContainerCloseIcon).props().onAction();
+          wrapper.find(PopoverContainerCloseIcon).props().onClick();
         });
 
         wrapper.update();
@@ -578,7 +580,7 @@ describe("PopoverContainer", () => {
 describe("PopoverContainerOpenIcon", () => {
   it("should render correct style", () => {
     const wrapper = mount(
-      <PopoverContainerOpenIcon onAction={() => {}}>
+      <PopoverContainerOpenIcon onClick={() => {}}>
         <Icon type="settings" />
       </PopoverContainerOpenIcon>
     );
@@ -669,7 +671,7 @@ describe("open state when click event triggered", () => {
   it("should close the container when uncontrolled and target is outside wrapper element", () => {
     const wrapper = render({});
     act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
@@ -682,10 +684,22 @@ describe("open state when click event triggered", () => {
     );
   });
 
+  it("should call the onClose callback when uncontrolled and target is outside wrapper element", () => {
+    const onCloseFn = jest.fn();
+    const wrapper = render({ onClose: onCloseFn });
+    act(() => {
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
+    });
+    act(() => {
+      document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    });
+    expect(onCloseFn).toHaveBeenCalledTimes(1);
+  });
+
   it("should not close the container when uncontrolled and target is inside wrapper element", () => {
     const wrapper = render({});
     act(() => {
-      wrapper.find(PopoverContainerOpenIcon).props().onAction();
+      wrapper.find(PopoverContainerOpenIcon).props().onClick();
     });
     expect(wrapper.update().find(PopoverContainerOpenIcon).prop("id")).toBe(
       undefined
@@ -724,6 +738,23 @@ describe("open state when click event triggered", () => {
     expect(onCloseFn).toHaveBeenCalled();
   });
 
+  it("should not call the onClose callback when target is outside wrapper element and container is currently closed", () => {
+    const onCloseFn = jest.fn();
+
+    mount(
+      <PopoverContainer
+        title="PopoverContainerSettings"
+        open={false}
+        onClose={onCloseFn}
+      />
+    );
+
+    act(() => {
+      document.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+    });
+    expect(onCloseFn).not.toHaveBeenCalled();
+  });
+
   it("should not close the container when controlled and target is inside wrapper element", () => {
     const onCloseFn = jest.fn();
     const MockWrapper = () => {
@@ -752,5 +783,14 @@ describe("open state when click event triggered", () => {
     );
     expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
     expect(onCloseFn).not.toHaveBeenCalled();
+  });
+
+  it("should render with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius100)",
+      },
+      render({ open: true }).find(PopoverContainerContentStyle)
+    );
   });
 });

@@ -26,12 +26,19 @@ import {
 
 # Accordion
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/028f94-accordion/b/3614a6"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
+
 Accordions are a good progressive disclosure technique - initially showing only top-level information, but allowing the user quick access to more on request. But, they can confuse users sometimes, so use them sparingly.
 
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -45,17 +52,6 @@ import {
   AccordionGroup,
 } from "carbon-react/lib/components/accordion";
 ```
-
-## Designer Notes
-
-- Don’t put accordions within accordions.
-- Don’t hide important controls within accordions - for example, primary actions should always be outside them.
-- Accordions expand and collapse vertically. If there are lots, or content is extensive, be careful that the user doesn’t become confused, lose their place, or have problems with discoverability. Use them sparingly for these reasons.
-- Accordions should remain open or closed until a user interacts with them. Consider whether multiple, or only one accordion section can be open at a time.
-- An arrow icon pointing down indicates that the accordion is closed.
-- An arrow icon pointing up indicates that the accordion is open.
-- The icon can animate when a transition is made.
-- The user can click the icon directly, the text label, or the text label’s background to action the accordion.
 
 It can be used as a controlled component where the expansion state is controlled externally,
 in that case both `onChange` and `expanded` props are required.
@@ -99,7 +95,7 @@ Accordion without padding inside of the content.
 
 <Canvas>
   <Story
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
     name="with disableContentPadding"
     story={WithDisableContentPadding}
   />
@@ -112,7 +108,7 @@ Transparent scheme has transparent background.
 <Canvas>
   <Story 
     name="transparent" 
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
     story={Transparent}
   />
 </Canvas>
@@ -201,7 +197,7 @@ The box component can be used inside the accordion with different paddings
 <Canvas>
   <Story
     name="with Box component and different paddings"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
     story={WithBoxComponentAndDifferentPaddings}
   />
 </Canvas>
@@ -264,7 +260,7 @@ Accordion with a definiton list
 <Canvas>
   <Story
     name="with a definition list"
-    parameters={{ chromatic: { disable: true } }}
+    parameters={{ chromatic: { disableSnapshot: true } }}
     story={WithDefinitionList}
   />
 </Canvas>

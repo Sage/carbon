@@ -76,7 +76,7 @@ export const Default = () => {
     </>
   );
 };
-Default.parameters = { chromatic: { disable: true } };
+Default.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithComplexExample = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -146,7 +146,7 @@ export const WithComplexExample = () => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -171,7 +171,7 @@ export const WithComplexExample = () => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -196,7 +196,7 @@ export const WithComplexExample = () => {
                   <Typography variant="b">Example text</Typography>
                   <Typography mb={0}>Example text without bold</Typography>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -253,7 +253,7 @@ export const WithComplexExample = () => {
                     Primary
                   </Pill>
                 </Box>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -277,7 +277,7 @@ export const WithComplexExample = () => {
                 <div style={{ flexGrow: 1 }}>
                   <Typography variant="b">Example text</Typography>
                 </div>
-                <IconButton onAction={() => {}} aria-label="flag-button">
+                <IconButton onClick={() => {}} aria-label="flag-button">
                   <Icon type="flag" />
                 </IconButton>
                 <ActionPopover>
@@ -561,7 +561,7 @@ export const WithDisableContentPadding = () => {
     </>
   );
 };
-WithDisableContentPadding.parameters = { chromatic: { disable: true } };
+WithDisableContentPadding.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithHeaderChildren = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -670,7 +670,7 @@ export const WithHideableHeaderChildren = () => {
       borders="none"
       disableContentPadding
       buttonHeading
-      buttonWidth={120}
+      buttonWidth="120px"
       ml="-13px"
     >
       <Box py="16px" pl="14px">
@@ -720,7 +720,9 @@ export const WithHideableHeaderChildren = () => {
     </>
   );
 };
-WithHideableHeaderChildren.parameters = { chromatic: { disable: true } };
+WithHideableHeaderChildren.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const WithBox = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -760,7 +762,7 @@ export const WithBox = () => {
     </>
   );
 };
-WithBox.parameters = { chromatic: { disable: true } };
+WithBox.parameters = { chromatic: { disableSnapshot: true } };
 
 export const FocusingADifferentFirstElement = () => {
   const [isOpenOne, setIsOpenOne] = useState(false);
@@ -821,7 +823,9 @@ export const FocusingADifferentFirstElement = () => {
     </>
   );
 };
-FocusingADifferentFirstElement.parameters = { chromatic: { disable: true } };
+FocusingADifferentFirstElement.parameters = {
+  chromatic: { disableSnapshot: true },
+};
 
 export const OtherFocusableContainers = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -890,4 +894,4 @@ export const OtherFocusableContainers = () => {
     </>
   );
 };
-OtherFocusableContainers.parameters = { chromatic: { disable: true } };
+OtherFocusableContainers.parameters = { chromatic: { disableSnapshot: true } };

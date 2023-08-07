@@ -6,21 +6,24 @@ import React, {
   useRef,
 } from "react";
 
-import { ValidationProps } from "__internal__/validations";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
-import { filterStyledSystemMarginProps } from "../../style/utils";
+
+import { ValidationProps } from "../validations";
 import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
-import Label from "../label";
+import Label, { LabelProps } from "../label";
 import FieldHelp from "../field-help";
 import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
 import { TabContext, TabContextProps } from "../../components/tabs/tab";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 interface CommonFormFieldProps extends MarginProps, ValidationProps {
   /** If true, the component will be disabled */
   disabled?: boolean;
+  /** @private @ignore */
+  loading?: boolean;
   /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /** The unique id of the Help component tooltip, used for accessibility */
@@ -43,6 +46,8 @@ interface CommonFormFieldProps extends MarginProps, ValidationProps {
   labelSpacing?: 1 | 2;
   /** Label width */
   labelWidth?: number;
+  /* To use a different HTML element other than <label> */
+  labelAs?: LabelProps["as"];
   /** If true the label switches position with the input */
   reverse?: boolean;
   /** Id of the validation icon */
@@ -77,6 +82,7 @@ const FormField = ({
   children,
   "data-component": dataComponent,
   disabled,
+  loading,
   fieldHelp: fieldHelpContent,
   fieldHelpInline,
   error,
@@ -92,6 +98,7 @@ const FormField = ({
   labelInline,
   labelSpacing = 2,
   labelWidth,
+  labelAs,
   id,
   reverse,
   isOptional,
@@ -109,7 +116,7 @@ const FormField = ({
       info: !!info,
     };
 
-    if (!disabled) return undefined;
+    if (!(disabled && !loading)) return undefined;
 
     return Object.keys(validationProps).find(
       (propName) => validationProps[propName]
@@ -131,7 +138,7 @@ const FormField = ({
   const { setError, setWarning, setInfo } = useContext<TabContextProps>(
     TabContext
   );
-
+  const marginProps = useFormSpacing(rest);
   const isMounted = useRef(false);
 
   useLayoutEffect(() => {
@@ -155,8 +162,6 @@ const FormField = ({
       }
     };
   }, [id, setError, setWarning, setInfo, error, warning, info]);
-
-  const marginProps = filterStyledSystemMarginProps(rest);
 
   const fieldHelp = fieldHelpContent ? (
     <FieldHelp
@@ -193,6 +198,7 @@ const FormField = ({
             pl={reverse ? labelSpacing : undefined}
             isRequired={isRequired}
             validationIconId={validationIconId}
+            as={labelAs}
           >
             {label}
           </Label>

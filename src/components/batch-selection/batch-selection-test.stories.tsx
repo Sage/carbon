@@ -8,7 +8,7 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -23,13 +23,13 @@ export default {
 
 export const Default = (args: Omit<BatchSelectionProps, "children">) => (
   <BatchSelection {...args}>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="csv" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="bin" />
     </IconButton>
-    <IconButton onAction={() => {}}>
+    <IconButton onClick={() => {}}>
       <Icon type="pdf" />
     </IconButton>
   </BatchSelection>
@@ -42,3 +42,22 @@ Default.args = {
   selectedCount: 0,
   colorTheme: "transparent",
 };
+
+export const BatchSelectionComponent = ({
+  children,
+  selectedCount = 0,
+  ...rest
+}: Partial<BatchSelectionProps>) => (
+  <BatchSelection {...rest} selectedCount={selectedCount}>
+    <IconButton aria-label="icon-button" onClick={() => {}}>
+      <Icon type="csv" />
+    </IconButton>
+    <IconButton aria-label="icon-button" onClick={() => {}}>
+      <Icon type="bin" />
+    </IconButton>
+    <IconButton aria-label="icon-button" onClick={() => {}}>
+      <Icon type="pdf" />
+    </IconButton>
+    {children}
+  </BatchSelection>
+);

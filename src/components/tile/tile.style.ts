@@ -6,7 +6,7 @@ import { TileProps } from "./tile.component";
 
 type StyledTileProps = Pick<
   TileProps,
-  "borderWidth" | "borderVariant" | "variant" | "width"
+  "borderWidth" | "borderVariant" | "variant" | "width" | "roundness"
 > & { isHorizontal?: boolean } & SpaceProps;
 
 interface TileContentProps {
@@ -91,11 +91,16 @@ const StyledTile = styled.div<StyledTileProps>`
     isHorizontal,
     variant,
     width,
+    roundness,
   }) => css`
     ${space}
 
     box-sizing: border-box;
     border: var(--${borderWidth}) solid ${getBorderColor(borderVariant)};
+    border-radius: ${roundness === "default"
+      ? "var(--borderRadius100)"
+      : "var(--borderRadius200)"};
+    overflow: hidden;
 
     ${variant === "tile" &&
     css`

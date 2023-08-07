@@ -15,15 +15,14 @@ async function run(bundle) {
 
   const extensions = [".js", ".ts", ".tsx"];
   const ignore = [
-    "**/*.test.js",
-    "**/*.test.ts",
-    "**/*.test.tsx",
     "**/*.spec.js",
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/*.stories.js",
     "**/*.stories.tsx",
     "**/*.d.ts",
+    "**/*.pw.tsx",
+    "**/*.test-pw.tsx",
   ];
 
   const outDir = path.resolve(

@@ -8,6 +8,7 @@ import {
 import CharacterCount from "../../__internal__/character-count";
 import Textarea, { TextareaProps } from ".";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import { Input } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
 import Label from "../../__internal__/label";
@@ -17,20 +18,56 @@ import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import {
+  ErrorBorder,
+  StyledHintText,
+  StyledInputHint,
+} from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import StyledTextarea from "./textarea.style";
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 const mockedGuid = "guid-12345";
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
-function renderTextarea(props?: TextareaProps, renderer = mount) {
+function renderTextarea(
+  props?: TextareaProps & React.RefAttributes<HTMLTextAreaElement>,
+  renderer = mount
+) {
   return renderer(<Textarea name="textarea" {...props} />);
 }
 
 describe("Textarea", () => {
   let wrapper: ReactWrapper;
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      <Textarea name="my-textarea" defaultValue="test" />;
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   testStyledSystemMargin((props) => <Textarea {...props} />);
   describe("when textarea is rendered with default props", () => {
@@ -198,29 +235,40 @@ describe("Textarea", () => {
           ...(isPresent && { id: "foo" }),
         };
 
-        describe("and label is present", () => {
-          it("passes aria-labelledby", () => {
-            wrapper = mount(<Textarea {...commonProps} />);
-            expect(wrapper.find(Input).prop("aria-labelledby")).toBe(
-              `${id}-label`
-            );
-          });
-        });
-
         describe.each(["info", "warning", "error"])(
-          "and %s are present",
+          "with %s prop set as a string and the textarea element focused",
           (validationType) => {
             const textarea = mount(
               <Textarea {...commonProps} {...{ [validationType]: "test" }} />
             );
+            textarea.find("textarea").simulate("focus");
 
-            it('should render a valid "aria-describedby"', () => {
-              expect(textarea.find(Input).prop("aria-describedby")).toBe(
-                `${id}-validation-icon`
+            it('then the id of the validation tooltip should be added to "aria-describedby" in the textarea element', () => {
+              expect(textarea.find("textarea").prop("aria-describedby")).toBe(
+                `${id}-validation`
               );
             });
           }
         );
+
+        describe("and inputHint props are present", () => {
+          it("renders a character counter hint", () => {
+            wrapper = mount(<Textarea value="test string" inputHint="foo" />);
+            expect(wrapper.find(StyledInputHint).text()).toBe("foo");
+          });
+
+          it("assigns a character counter hint via guid", () => {
+            wrapper = mount(<Textarea value="test string" inputHint="bar" />);
+            expect(wrapper.find(StyledInputHint).prop("id")).toBe(mockedGuid);
+          });
+
+          it("should render a valid 'aria-describedby' on input", () => {
+            wrapper = mount(<Textarea inputHint="baz" />);
+            expect(wrapper.find("textarea").prop("aria-describedby")).toBe(
+              mockedGuid
+            );
+          });
+        });
 
         describe("and fieldHelp props are present", () => {
           it("should render a valid 'aria-describedby'", () => {
@@ -228,7 +276,7 @@ describe("Textarea", () => {
               <Textarea {...commonProps} fieldHelp="baz" />
             );
 
-            expect(textarea.find(Input).prop("aria-describedby")).toBe(
+            expect(textarea.find("textarea").prop("aria-describedby")).toBe(
               `${id}-field-help`
             );
           });
@@ -243,7 +291,7 @@ describe("Textarea", () => {
           });
 
           describe.each(["info", "warning", "error"])(
-            "and %s is present too",
+            "with %s prop set as a string and the textarea element focused",
             (validationType) => {
               const textarea = mount(
                 <Textarea
@@ -252,16 +300,56 @@ describe("Textarea", () => {
                   {...{ [validationType]: "test" }}
                 />
               );
+              textarea.find("textarea").simulate("focus");
 
-              it('should render a valid "aria-describedby"', () => {
-                expect(textarea.find(Input).prop("aria-describedby")).toBe(
-                  `${id}-field-help ${id}-validation-icon`
+              it('then the id of the validation tooltip should be added to "aria-describedby" in the textarea element', () => {
+                expect(textarea.find("textarea").prop("aria-describedby")).toBe(
+                  `${id}-field-help ${id}-validation`
                 );
               });
             }
           );
         });
       });
+    });
+  });
+
+  describe(`when the characterLimit prop is passed`, () => {
+    it.each([2, 3, 4])("renders a character counter", (characterLimit) => {
+      const valueString = "foo";
+      const limitMinusValue = characterLimit - valueString.length >= 0;
+      wrapper = mount(
+        <Textarea value={valueString} characterLimit={characterLimit} />
+      );
+      const underCharacters =
+        characterLimit - valueString.length === 1 ? "character" : "characters";
+      const overCharacters =
+        valueString.length - characterLimit === 1 ? "character" : "characters";
+
+      expect(wrapper.find(CharacterCount).text()).toBe(
+        `${
+          limitMinusValue
+            ? `You have ${
+                characterLimit - valueString.length
+              } ${underCharacters} remaining`
+            : `You have ${
+                valueString.length - characterLimit
+              } ${overCharacters} too many`
+        }`
+      );
+    });
+
+    it("renders a character counter hint", () => {
+      wrapper = mount(<Textarea value="foo" characterLimit={4} />);
+
+      expect(wrapper.find(StyledInputHint).text()).toBe(
+        "Input contains a character counter"
+      );
+    });
+
+    it("character counter hint is given a valid id", () => {
+      wrapper = mount(<Textarea value="test string" characterLimit={4} />);
+      expect(wrapper.find(StyledInputHint).prop("id")).toBe(mockedGuid);
     });
   });
 
@@ -319,22 +407,6 @@ describe("Textarea", () => {
 
       it("should have a CharacterCount as it's child", () => {
         expect(wrapper.find(CharacterCount).exists()).toBe(true);
-      });
-
-      describe("and when warnOverLimit prop is true and a limit is over", () => {
-        it("should be styled for warn over limit", () => {
-          wrapper.setProps({
-            warnOverLimit: true,
-            value: "abcdefg",
-            onChange: jest.fn(),
-          });
-          assertStyleMatch(
-            {
-              color: "var(--colorsSemanticNegative500)",
-            },
-            wrapper.find(CharacterCount)
-          );
-        });
       });
     });
   });
@@ -432,6 +504,43 @@ describe("componentWillUnmount", () => {
         expect.any(Function)
       );
     });
+
+    // TODO: test should be removed once FE-5551 is implemented. This test is only for coverage,
+    // it still passes even when the bug is reintroduced, as the bug only happens in a real browser
+    // environment, not in JSDOM.
+    describe("when a parent container scrolls vertically", () => {
+      it("restores the scroll position after expanding", () => {
+        const wrapper = mount(
+          <div
+            id="scroll-wrapper"
+            style={{ height: "200px", overflowY: "scroll" }}
+          >
+            <div id="inner-wrapper" style={{ height: "1000px" }}>
+              <Textarea
+                value="foo"
+                name="textarea"
+                onChange={jest.fn()}
+                label="Label"
+                expandable
+                rows={10}
+              />
+            </div>
+          </div>
+        );
+
+        const scrollWrapper = wrapper.find("#scroll-wrapper").getDOMNode();
+        const textarea = wrapper.find("textarea").getDOMNode();
+
+        scrollWrapper.scrollTop = 700;
+        jest
+          .spyOn(textarea, "scrollHeight", "get")
+          .mockImplementation(() => 500);
+
+        window.dispatchEvent(new Event("resize"));
+
+        expect(scrollWrapper.scrollTop).toBe(700);
+      });
+    });
   });
 
   describe("when textarea cannot be expanded", () => {
@@ -474,10 +583,11 @@ describe("componentWillUnmount", () => {
   });
 
   describe("new validations", () => {
-    const renderWithNewValidations = ({ error, warning }: TextareaProps) =>
+    const renderWithNewValidations = ({ id, error, warning }: TextareaProps) =>
       mount(
         <CarbonProvider validationRedesignOptIn>
           <Textarea
+            id={id}
             labelHelp="Example hint text"
             error={error}
             warning={warning}
@@ -487,6 +597,15 @@ describe("componentWillUnmount", () => {
           />
         </CarbonProvider>
       );
+
+    it('the id of the validation text should be added to "aria-describedby" in the textarea element', () => {
+      const mockId = "foo";
+      const wrapper = renderWithNewValidations({ id: mockId, error: "bar" });
+
+      expect(wrapper.find("textarea").prop("aria-describedby")).toBe(
+        `${mockId}-validation`
+      );
+    });
 
     describe("label width and align props", () => {
       it("default to undefined", () => {
@@ -538,5 +657,54 @@ describe("componentWillUnmount", () => {
         expect(wrapper.find(StyledValidationMessage).exists()).toEqual(true);
       });
     });
+  });
+
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = () => {};
+
+      const wrapper = renderTextarea({ inputRef: ref });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Textarea` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      const wrapper = renderTextarea({ ref });
+
+      expect(ref.current).toBe(wrapper.find("textarea").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      const wrapper = renderTextarea({ ref });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("textarea").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      const wrapper = renderTextarea({ ref });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      mount(<Textarea />).find(StyledInputPresentation)
+    );
   });
 });

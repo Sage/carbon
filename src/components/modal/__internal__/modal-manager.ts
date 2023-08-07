@@ -1,18 +1,10 @@
 type SetTriggerRefocusFlag = (boolean: boolean) => void;
 
-type ModalList = {
+export type ModalList = {
   modal: HTMLElement;
   setTriggerRefocusFlag?: SetTriggerRefocusFlag;
 }[];
 
-declare global {
-  interface Window {
-    __CARBON_INTERNALS_MODAL_LIST?: ModalList;
-    __CARBON_INTERNALS_MODAL_SETTER_LIST?: ((
-      topModal: HTMLElement | null
-    ) => void)[];
-  }
-}
 class ModalManagerInstance {
   private modalList: ModalList;
 
@@ -64,7 +56,7 @@ class ModalManagerInstance {
     return modal === topModal;
   }
 
-  removeModal(modal: HTMLElement | null) {
+  removeModal(modal: HTMLElement | null, triggerRefocusOnClose = true) {
     const modalIndex = this.modalList.findIndex(({ modal: m }) => m === modal);
 
     if (modalIndex === -1) {
@@ -80,7 +72,7 @@ class ModalManagerInstance {
 
     const { setTriggerRefocusFlag } = this.getTopModal();
 
-    if (setTriggerRefocusFlag) {
+    if (setTriggerRefocusFlag && triggerRefocusOnClose) {
       setTriggerRefocusFlag(true);
     }
   }

@@ -13,12 +13,31 @@ const enGB: Locale = {
   actionPopover: {
     ariaLabel: () => "actions",
   },
+  advancedColorPicker: {
+    ariaLabel: () => "Change colour",
+    currentColorDescriptionTerm: () => "Current color assigned: ",
+    currentColorAssigned: (currentColor) => currentColor,
+  },
   batchSelection: {
     selected: (count) => `${count} selected`,
+  },
+  breadcrumbs: {
+    ariaLabel: () => "breadcrumbs",
   },
   confirm: {
     no: () => "No",
     yes: () => "Yes",
+  },
+  characterCount: {
+    hintString: () => "Input contains a character counter",
+    tooManyCharacters: (count, formattedCount) =>
+      count === 1
+        ? `You have ${formattedCount} character too many`
+        : `You have ${formattedCount} characters too many`,
+    charactersLeft: (count, formattedCount) =>
+      count === 1
+        ? `You have ${formattedCount} character remaining`
+        : `You have ${formattedCount} characters remaining`,
   },
   date: {
     dateFnsLocale: () => enGBDateLocale,
@@ -59,6 +78,12 @@ const enGB: Locale = {
   heading: {
     backLinkAriaLabel: () => "Back",
   },
+  link: {
+    skipLinkLabel: () => "Skip to main content",
+  },
+  loader: {
+    loading: () => "Loading",
+  },
   message: {
     closeButtonAriaLabel: () => "Close",
   },
@@ -82,6 +107,11 @@ const enGB: Locale = {
     pageX: () => "Page",
     ofY: (count) => `of ${count}`,
   },
+  password: {
+    ariaLiveShownMessage: () =>
+      "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so.",
+    ariaLiveHiddenMessage: () => "Your Password is currently hidden.",
+  },
   progressTracker: {
     of: () => "of",
   },
@@ -92,9 +122,6 @@ const enGB: Locale = {
     actionButtonText: () => "Add New Item",
     placeholder: () => "Please Select...",
     noResultsForTerm: (term) => `No results for "${term}"`,
-  },
-  link: {
-    skipLinkLabel: () => "Skip to main content",
   },
   sidebar: {
     ariaLabels: {
@@ -123,6 +150,11 @@ const enGB: Locale = {
     deselect: () => "Deselect",
   },
   toast: {
+    ariaLabels: {
+      close: () => "Close",
+    },
+  },
+  verticalMenuFullScreen: {
     ariaLabels: {
       close: () => "Close",
     },

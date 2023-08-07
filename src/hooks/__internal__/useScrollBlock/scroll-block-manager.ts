@@ -1,18 +1,6 @@
 // TODO: This component can be refactored to remove redundant code
 // once we can confirm that all Sage products use version 105.0.0^
 
-declare global {
-  interface Window {
-    __CARBON_INTERNALS_SCROLL_BLOCKERS?: {
-      components: {
-        [key: string]: boolean;
-      };
-      originalValues: string[];
-      restoreValues?: (() => void) | null;
-    };
-  }
-}
-
 class ScrollBlockManager {
   components: {
     [key: string]: boolean;

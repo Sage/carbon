@@ -1,14 +1,22 @@
 import React from "react";
 import Tile, { TileProps } from ".";
+import TileFooter, {
+  TileFooterProps,
+} from "./tile-footer/tile-footer.component";
 import Content from "../content";
+import { Dl, Dt, Dd, DlProps } from "../definition-list";
+import Accordion from "../accordion/accordion.component";
+import Button from "../button/button.component";
+import Typography from "../typography/typography.component";
 import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
 
 export default {
   title: "Tile/Test",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -91,4 +99,60 @@ DefaultStory.args = {
   contentThreeChildren: "Test Body Three",
   contentThreeTitle: "Test Title Three",
   contentThreeWidth: "",
+};
+
+export const TileComponent = (props: TileProps) => {
+  return (
+    <Tile {...props}>
+      <Content title="Test Title One">Test Body One</Content>
+      <Content title="Test Title Two">Test Body Two</Content>
+      <Content title="Test Title Three">Test Body Three</Content>
+    </Tile>
+  );
+};
+
+export const TileFooterComponent = (props: Partial<TileFooterProps>) => {
+  return (
+    <Tile p={0} orientation="vertical">
+      <Accordion p={0} borders="none" title="Accordion">
+        <Dl dtTextAlign="left" ddTextAlign="right">
+          <Dt>Coffee Subscription</Dt>
+          <Dd>£7.00 a month</Dd>
+          <Dt>Grind Size</Dt>
+          <Dd>Espresso</Dd>
+          <Dt>Quantity</Dt>
+          <Dd>3kg</Dd>
+          <Dd>
+            <Button
+              buttonType="tertiary"
+              href="https://goo.gl/maps/GMReLoBpbn9mdZVZ7"
+            >
+              Have a promo code?
+            </Button>
+          </Dd>
+        </Dl>
+      </Accordion>
+      <TileFooter {...props} p={3}>
+        <Typography pr={2} display="inline" variant="b">
+          Example footer text
+        </Typography>
+        <Typography display="inline">Example text</Typography>
+      </TileFooter>
+    </Tile>
+  );
+};
+
+export const DlTileComponent = (props: Partial<DlProps>) => {
+  return (
+    <div>
+      <Dl data-element="dl" {...props}>
+        <Dt>Coffee Subscription</Dt>
+        <Dd data-element="dd">£7.00 a month</Dd>
+        <Dt>Grind Size</Dt>
+        <Dd>Espresso</Dd>
+        <Dt>Quantity</Dt>
+        <Dd>3kg</Dd>
+      </Dl>
+    </div>
+  );
 };

@@ -17,6 +17,7 @@ export interface StyledLinkProps {
 }
 interface PrivateStyledLinkProps {
   hasContent: boolean;
+  isMenuItem?: boolean;
 }
 
 interface LinkColors {
@@ -78,13 +79,12 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
     disabled,
     variant,
     isDarkBackground,
+    isMenuItem,
   }) => {
     const colorMapKey = isDarkBackground ? "dark" : "light";
     const { color, hoverColor, disabledColor } = colorMap[colorMapKey](variant);
 
     return css`
-      display: inline-block;
-
       ${isSkipLink &&
       css`
         a {
@@ -142,6 +142,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
 
             &:focus {
               background-color: var(--colorsSemanticFocus250);
+              border-radius: var(--borderRadius050);
             }
           `}
 
@@ -159,9 +160,9 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
       a,
       button {
         text-decoration: underline;
-        display: inline-block;
+        ${isMenuItem && "display: inline-block;"}
 
-        ${StyledIcon} {
+        > ${StyledIcon} {
           display: inline-block;
           position: relative;
           vertical-align: middle;

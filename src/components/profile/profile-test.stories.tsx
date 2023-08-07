@@ -4,10 +4,11 @@ import { PROFILE_SIZES } from "./profile.config";
 
 export default {
   title: "Profile/Test",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -33,4 +34,10 @@ DefaultStory.story = {
     name: "John Smith",
     src: "",
   },
+};
+
+export const ProfileComponentTest = (props: Partial<ProfileProps>) => {
+  return (
+    <Profile email="email@email.com" initials="JD" name="John Doe" {...props} />
+  );
 };

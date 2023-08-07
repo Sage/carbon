@@ -3,7 +3,7 @@ import { act } from "react-dom/test-utils";
 import { ThemeProvider } from "styled-components";
 import { mount, ReactWrapper, MountRendererProps } from "enzyme";
 
-import { ThemeObject } from "style/themes/base";
+import { ThemeObject } from "../../style/themes/base";
 import Switch, { SwitchProps } from ".";
 import CheckableInput from "../../__internal__/checkable-input";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
@@ -20,11 +20,15 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import SwitchSliderPanel from "./__internal__/switch-slider-panel.style";
-import SwitchStyle from "./switch.style";
+import SwitchStyle, { ErrorBorder } from "./switch.style";
 import Label from "../../__internal__/label";
 import I18nProvider, { I18nProviderProps } from "../i18n-provider";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
+import Logger from "../../__internal__/utils/logger";
+import CarbonProvider from "../../components/carbon-provider";
+
+jest.mock("../../__internal__/utils/logger");
 
 const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -52,13 +56,24 @@ const wrappingComponent = (props: I18nProviderProps) => (
 );
 
 function render(
-  props?: SwitchProps,
+  props?: SwitchProps & { ref?: React.ForwardedRef<HTMLInputElement> },
   renderer = mount,
   params?: MountRendererProps
 ) {
   return renderer(
     <Switch name="my-switch" value="test" onChange={() => {}} {...props} />,
     params
+  );
+}
+
+function renderWithCarbonProvider(
+  props?: SwitchProps & { ref?: React.ForwardedRef<HTMLInputElement> },
+  renderer = mount
+) {
+  return renderer(
+    <CarbonProvider validationRedesignOptIn>
+      <Switch name="my-switch" value="test" onChange={() => {}} {...props} />
+    </CarbonProvider>
   );
 }
 
@@ -75,8 +90,74 @@ function renderWithTheme(
 }
 
 describe("Switch", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      <Switch name="my-switch" defaultValue="test" />;
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe("Styled System", () => {
     testStyledSystemMargin((props) => <Switch {...props} />);
+  });
+
+  describe("refs", () => {
+    let wrapper: ReactWrapper;
+
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const ref = { current: null };
+
+      wrapper = render({ inputRef: ref });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Switch` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = render({ ref });
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = render({ ref });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = render({ ref });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
   });
 
   describe("uncontrolled behaviour", () => {
@@ -352,8 +433,8 @@ describe("Switch", () => {
         const wrapper = render({ size: "large" });
 
         const largeSizes = {
-          height: "40px",
-          width: "78px",
+          height: "44px",
+          width: "82px",
         };
 
         it("applies the correct CheckableInput styles", () => {
@@ -509,6 +590,54 @@ describe("Switch", () => {
         wrapper.find(StyledSwitchSlider).find(StyledValidationIcon).exists()
       ).toEqual(false);
     });
+  });
+
+  describe("New validations", () => {
+    const validationTypes = ["error", "warning"] as const;
+    let wrapper: ReactWrapper;
+
+    it.each(validationTypes)("renders proper validation styles", (type) => {
+      wrapper = renderWithCarbonProvider({
+        [type]: "message",
+        labelHelp: "Label help",
+      });
+
+      assertStyleMatch(
+        {
+          position: "absolute",
+          zIndex: "6",
+          width: "2px",
+          left: "-12px",
+          bottom: "-4px",
+          top: "2px",
+          backgroundColor:
+            type === "warning"
+              ? "var(--colorsSemanticCaution500)"
+              : "var(--colorsSemanticNegative500)",
+        },
+        wrapper.find(ErrorBorder)
+      );
+    });
+  });
+
+  describe("invariant", () => {
+    it.each(["error", "warning", "info"])(
+      "validates the %s prop to not throw an error if loading is set",
+      (validation) => {
+        const consoleSpy = jest.spyOn(console, "error");
+        consoleSpy.mockImplementation(() => {});
+
+        expect(() =>
+          render({
+            id: "mock-input",
+            loading: true,
+            [validation]: true,
+          })
+        ).not.toThrow();
+
+        consoleSpy.mockRestore();
+      }
+    );
   });
 
   describe("tooltipPosition", () => {

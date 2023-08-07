@@ -56,6 +56,7 @@ const InputPresentationStyle = styled.div<
     Pick<
       CommonInputPresentationProps,
       | "align"
+      | "prefix"
       | "disabled"
       | "readOnly"
       | "size"
@@ -69,6 +70,7 @@ const InputPresentationStyle = styled.div<
   align-items: stretch;
   background: var(--colorsUtilityYang100);
   border: 1px solid var(--colorsUtilityMajor300);
+  border-radius: var(--borderRadius050);
   box-sizing: border-box;
   cursor: text;
   display: flex;
@@ -113,7 +115,10 @@ const InputPresentationStyle = styled.div<
       border-color: var(--colorsUtilityReadOnly600);
     `}
 
-  ${({ align }) => align === "right" && "flex-direction: row-reverse"}
+  ${({ align, prefix }) =>
+    align === "right" &&
+    `flex-direction: ${prefix ? "row" : "row-reverse"};
+  `}
 
   input::-ms-clear {
     display: none;

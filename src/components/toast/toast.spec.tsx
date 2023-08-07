@@ -26,6 +26,14 @@ describe("Toast", () => {
     () => "guid-12345"
   );
 
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   describe("modal manager", () => {
     jest.spyOn(ModalManager, "addModal");
     const removeModalSpy = jest.spyOn(ModalManager, "removeModal");
@@ -56,7 +64,7 @@ describe("Toast", () => {
         wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
         const toast = wrapper.find(ToastWrapper).getDOMNode();
         wrapper.unmount();
-        expect(ModalManager.removeModal).toHaveBeenCalledWith(toast);
+        expect(ModalManager.removeModal).toHaveBeenCalledWith(toast, true);
       });
     });
   });
@@ -87,7 +95,7 @@ describe("Toast", () => {
       wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
       const toast = wrapper.find(ToastWrapper).getDOMNode();
       wrapper.setProps({ open: false });
-      expect(ModalManager.removeModal).toHaveBeenCalledWith(toast);
+      expect(ModalManager.removeModal).toHaveBeenCalledWith(toast, true);
     });
 
     describe("and escape key is released", () => {
@@ -190,6 +198,7 @@ describe("Toast", () => {
 
       it("auto focuses the toast component", () => {
         const toast = wrapper.find(ToastStyle);
+        jest.runAllTimers();
 
         expect(toast).toBeFocused();
       });
@@ -227,6 +236,7 @@ describe("Toast", () => {
 
         wrapper.setProps({ open: true });
         const toast = wrapper.find("[data-component='toast']").first();
+        jest.runAllTimers();
         expect(toast).toBeFocused();
 
         wrapper.setProps({ open: false });
@@ -252,6 +262,7 @@ describe("Toast", () => {
 
         wrapper.setProps({ open: true });
         const toast = wrapper.find("[data-component='toast']").first();
+        jest.runAllTimers();
         expect(toast).toBeFocused();
 
         wrapper.setProps({ open: false });
@@ -308,6 +319,7 @@ describe("Toast", () => {
           );
           const toast = wrapper.find(ToastStyle);
           expect(toast.getDOMNode().hasAttribute("tabIndex")).toBe(false);
+          jest.runAllTimers();
           expect(toast).not.toBeFocused();
         });
 
@@ -464,6 +476,13 @@ describe("ToastStyle", () => {
         marginRight: "30px",
       },
       wrapper
+    );
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius100)",
+      },
+      wrapper.find(ToastStyle)
     );
   });
 

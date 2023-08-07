@@ -3,11 +3,11 @@ import VerticalDivider from "./vertical-divider.component";
 
 export default {
   title: "VerticalDivider/Test",
-  includeStories: "Default",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -146,7 +146,7 @@ interface VerticalDividerArgs {
   displayInline: boolean;
 }
 
-export const Default = ({ ...args }: VerticalDividerArgs) => {
+export const Default = (args: VerticalDividerArgs) => {
   return <VerticalDivider {...args} />;
 };
 
@@ -157,6 +157,8 @@ Default.args = {
   displayInline: false,
 };
 
-export const VerticalDividerComponent = ({ ...props }) => {
+export const VerticalDividerComponent = (
+  props: Partial<VerticalDividerArgs>
+) => {
   return <VerticalDivider {...props} />;
 };

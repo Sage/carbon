@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { StoryFn } from "@storybook/react";
 
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Switch, { SwitchProps } from ".";
+import Box from "../box";
 
 export const Default = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -174,7 +176,7 @@ ValidationStringTooltip.args = {
   tooltipPosition: "top",
 };
 ValidationStringTooltip.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const ValidationStringLabel = Validation.bind({});
@@ -187,8 +189,30 @@ ValidationStringLabelTooltip.args = {
   tooltipPosition: "top",
 };
 ValidationStringLabelTooltip.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };
 
 export const ValidationBoolean = Validation.bind({});
 ValidationBoolean.args = { validation: true };
+
+export const NewValidationString: StoryFn = () => {
+  return (
+    <Box m={2}>
+      <CarbonProvider validationRedesignOptIn>
+        <Switch
+          error="Error message (Fix is required)"
+          label="Example switch (error)"
+          labelHelp="Hint text"
+          name="switch-error"
+        />
+        <Switch
+          mt={2}
+          warning="Warning message (Fix is optional)"
+          label="Example switch (warning)"
+          labelHelp="Hint text"
+          name="switch-warning"
+        />
+      </CarbonProvider>
+    </Box>
+  );
+};

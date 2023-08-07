@@ -13,11 +13,12 @@ import {
 
 export default {
   component: AnchorNavigation,
+  includeStories: ["DefaultStory", "InFullScreenDialogStory"],
   title: "Anchor Navigation/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 } as ComponentMeta<typeof AnchorNavigation>;

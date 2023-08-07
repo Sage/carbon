@@ -1,11 +1,13 @@
-import React, { useCallback, useMemo, useContext } from "react";
+import React, { useCallback, useMemo, useContext, useState } from "react";
 import invariant from "invariant";
 
 import { Menu } from "../action-popover.style";
 import Events from "../../../__internal__/utils/helpers/events";
-import ActionPopoverItem from "../action-popover-item/action-popover-item.component";
+import ActionPopoverItem, {
+  ActionPopoverItemProps,
+} from "../action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "../action-popover-divider/action-popover-divider.component";
-import ActionPopoverContext from "../action-popover-context";
+import ActionPopoverContext, { Alignment } from "../action-popover-context";
 
 export interface ActionPopoverMenuBaseProps {
   /** Children for the menu */
@@ -23,19 +25,21 @@ export interface ActionPopoverMenuBaseProps {
   /** Unique ID for the menu's parent */
   parentID?: string;
   /** Horizontal alignment of menu items content */
-  horizontalAlignment?: "left" | "right";
+  horizontalAlignment?: Alignment;
   /** Set whether the menu should open above or below the button */
   placement?: "bottom" | "top";
   /** @ignore @private */
   role?: string;
   /** @ignore @private */
+  isASubmenu?: boolean;
+  /** @ignore @private */
   "data-element"?: string;
   /** @ignore @private */
   style?: {
-    left: number;
+    left: string | number;
     top?: string;
     bottom?: string;
-    right: "auto";
+    right: string | number;
   };
 }
 
@@ -58,6 +62,7 @@ const ActionPopoverMenu = React.forwardRef<
       setFocusIndex,
       placement = "bottom",
       horizontalAlignment,
+      isASubmenu,
       ...rest
     }: ActionPopoverMenuBaseProps,
     ref
@@ -67,7 +72,7 @@ const ActionPopoverMenu = React.forwardRef<
       context,
       "ActionPopoverMenu must be used within an ActionPopover component"
     );
-    const { focusButton } = context;
+    const { focusButton, submenuPosition } = context;
 
     invariant(
       setOpen && setFocusIndex && typeof focusIndex !== "undefined",
@@ -162,21 +167,48 @@ const ActionPopoverMenu = React.forwardRef<
       [focusButton, setOpen, focusIndex, items, setFocusIndex]
     );
 
+    const [childHasSubmenu, setChildHasSubmenu] = useState(false);
+    const [childHasIcon, setChildHasIcon] = useState(false);
+    const [
+      currentSubmenuPosition,
+      setCurrentSubmenuPosition,
+    ] = useState<Alignment>(submenuPosition);
+
     const clonedChildren = useMemo(() => {
       let index = 0;
       return React.Children.map(children, (child) => {
         if (React.isValidElement(child) && child.type === ActionPopoverItem) {
           index += 1;
-          return React.cloneElement(child, {
-            focusItem: isOpen && focusIndex === index - 1,
-            placement: child.props.submenu ? placement : undefined,
-            horizontalAlignment,
-          });
+          return React.cloneElement(
+            child as React.ReactElement<ActionPopoverItemProps>,
+            {
+              focusItem: isOpen && focusIndex === index - 1,
+              placement: child.props.submenu ? placement : undefined,
+              horizontalAlignment,
+              childHasSubmenu,
+              setChildHasSubmenu,
+              childHasIcon,
+              setChildHasIcon,
+              currentSubmenuPosition,
+              setCurrentSubmenuPosition,
+              isASubmenu,
+            }
+          );
         }
 
         return child;
       });
-    }, [children, focusIndex, isOpen, placement, horizontalAlignment]);
+    }, [
+      children,
+      focusIndex,
+      isOpen,
+      placement,
+      horizontalAlignment,
+      childHasSubmenu,
+      childHasIcon,
+      currentSubmenuPosition,
+      isASubmenu,
+    ]);
 
     return (
       <Menu

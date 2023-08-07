@@ -35,11 +35,12 @@ const expectNavigationItemToBeSelected = (
 interface ContentProps {
   title?: string;
   noTextbox?: boolean;
+  tabIndex?: number;
 }
 const Content = React.forwardRef<HTMLDivElement, ContentProps>(
-  ({ title, noTextbox }: ContentProps, ref) => (
+  ({ title, noTextbox, tabIndex }: ContentProps, ref) => (
     <>
-      <div ref={ref} className="focusableContent">
+      <div ref={ref} className="focusableContent" tabIndex={tabIndex}>
         {!noTextbox && <Textbox label={title} />}
         <h2>{title}</h2>
       </div>
@@ -87,7 +88,7 @@ describe("AnchorNavigation", () => {
         }
         {...props}
       >
-        <Content ref={ref1} title="First section" />
+        <Content tabIndex={0} ref={ref1} title="First section" />
         <AnchorSectionDivider />
         <Content ref={ref2} title="Second section" />
         <AnchorSectionDivider />
@@ -152,7 +153,7 @@ describe("AnchorNavigation", () => {
     }
   );
 
-  it("when navigation item is clicked and target section contains a focusable element, focus on that element", () => {
+  it("when navigation item is clicked, focus on the target section container", () => {
     const sectionIndex = 0;
     const preventDefault = jest.fn();
 
@@ -162,27 +163,18 @@ describe("AnchorNavigation", () => {
       .simulate("click", { preventDefault });
     wrapper.update();
 
-    expect(wrapper.find(Content).at(sectionIndex).find("input")).toBeFocused();
+    expect(wrapper.find(Content).at(sectionIndex)).toBeFocused();
   });
 
-  describe.each([
-    ["Enter", "Enter"],
-    ["Space", " "],
-  ])("%s", (keyName, key) => {
-    it.each([
-      [0, true],
-      [1, true],
-      [2, false],
-      [3, true],
-      [4, true],
-    ])(
-      "pressed on navigation item scrolls to wanted section and focuses its first focusable element",
+  describe("when Enter is pressed on a navigation item", () => {
+    it.each([0, 1, 2, 3, 4])(
+      "scrolls to wanted section and focuses the section container",
       (index) => {
         const preventDefault = jest.fn();
         wrapper
           .find(`${StyledNavigationItem} a`)
           .at(index)
-          .simulate("keydown", { preventDefault, key });
+          .simulate("keydown", { preventDefault, key: "Enter" });
         act(() => {
           jest.advanceTimersByTime(15);
         });
@@ -191,66 +183,27 @@ describe("AnchorNavigation", () => {
           element: wrapper.find(".focusableContent").at(index).getDOMNode(),
           options: { block: "start", inline: "nearest", behavior: "smooth" },
         });
+
+        expect(wrapper.find(Content).at(index)).toBeFocused();
       }
     );
 
-    it("when key is pressed on navigation item and target section contains a focusable element, focus on that element", () => {
-      const sectionIndex = 0;
+    it("does not alter the tabindex of the container if it was already focusable", () => {
       const preventDefault = jest.fn();
+
       wrapper
         .find(`${StyledNavigationItem} a`)
-        .at(sectionIndex)
-        .simulate("keydown", { preventDefault, key });
-      act(() => {
-        jest.advanceTimersByTime(15);
-      });
+        .at(0)
+        .simulate("keydown", { preventDefault, key: "Enter" });
 
       expect(
-        wrapper.find(Content).at(sectionIndex).find("input")
-      ).toBeFocused();
+        wrapper.find(Content).at(0).getDOMNode().getAttribute("tabindex")
+      ).toBe("0");
     });
   });
 
-  it.each([
-    [0, 1],
-    [1, 2],
-    [2, 3],
-    [3, 4],
-    [4, 0],
-    [0, 1],
-  ])(
-    "focuses on the next navigation item in a loop when down arrow is pressed",
-    (focused, shouldBeFocused) => {
-      simulate.keydown.pressArrowDown(
-        wrapper.find(`${StyledNavigationItem} a`).at(focused)
-      );
-      expect(
-        wrapper.find(`${StyledNavigationItem} a`).at(shouldBeFocused)
-      ).toBeFocused();
-    }
-  );
-
-  it.each([
-    [0, 4],
-    [4, 3],
-    [3, 2],
-    [2, 1],
-    [1, 0],
-    [0, 4],
-  ])(
-    "focuses on the previous navigation item in a loop when up arrow is pressed",
-    (focused, shouldBeFocused) => {
-      simulate.keydown.pressArrowUp(
-        wrapper.find(`${StyledNavigationItem} a`).at(focused)
-      );
-      expect(
-        wrapper.find(`${StyledNavigationItem} a`).at(shouldBeFocused)
-      ).toBeFocused();
-    }
-  );
-
   // coverage filler
-  it("does nothing if key other than up, down, tab or space key is pressed", () => {
+  it("does nothing if key other than tab or enter is pressed", () => {
     simulate.keydown.pressArrowRight(
       wrapper.find(`${StyledNavigationItem} a`).at(0)
     );
@@ -372,6 +325,17 @@ describe("AnchorNavigation", () => {
       {
         modifier: "a:hover",
       }
+    );
+  });
+
+  it("has the expected border radius styling on the navigation items", () => {
+    assertStyleMatch(
+      {
+        borderTopRightRadius: "var(--borderRadius100)",
+        borderBottomRightRadius: "var(--borderRadius100)",
+      },
+      wrapper.find(StyledNavigationItem),
+      { modifier: "a" }
     );
   });
 });

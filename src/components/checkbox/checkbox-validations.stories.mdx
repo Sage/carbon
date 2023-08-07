@@ -5,6 +5,16 @@ import { Checkbox, CheckboxGroup } from ".";
 
 <Meta title="Checkbox/Test" parameters={{ info: { disable: true } }} />
 
+# Checkbox
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/5937c7-checkbox/b/317d8f"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
+
 ## Validations
 
 Validation status can be set by passing `error`, `warning` or `info` prop to the component
@@ -14,6 +24,24 @@ Passing a string to these props will display a properly colored border along wit
 Passing a boolean to these props will display only a properly colored border.
 
 For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page
+
+### New Validations
+
+<Canvas>
+  <Story name="New Valdations - string" story={stories.NewStringValidation} />
+</Canvas>
+
+<Canvas>
+  <Story name="New Validations - string inline default" story={stories.NewInline} />
+</Canvas>
+
+<Canvas>
+  <Story name="New Valdations - string inline" story={stories.NewStringValidationInline} />
+</Canvas>
+
+<Canvas>
+  <Story name="New Valdations - boolean" story={stories.NewBooleanValidation} />
+</Canvas>
 
 ### As a string applied to single Checkbox
 

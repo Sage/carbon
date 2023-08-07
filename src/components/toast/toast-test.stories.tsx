@@ -7,10 +7,11 @@ import { TOAST_COLORS } from "./toast.config";
 
 export default {
   title: "Toast/Test",
+  includeStories: ["Default", "Visual"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -228,7 +229,28 @@ Visual.args = {
 };
 Visual.parameters = {
   chromatic: {
-    disable: false,
+    disableSnapshot: false,
   },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const ToastComponent = ({
+  children = "Toast",
+  ...props
+}: Partial<ToastProps>) => {
+  const [isOpen, setIsOpen] = React.useState(true);
+
+  return (
+    <>
+      <Toast
+        variant="info"
+        id="toast-cypress"
+        open={isOpen}
+        onDismiss={() => setIsOpen(!isOpen)}
+        {...props}
+      >
+        {children}
+      </Toast>
+    </>
+  );
 };

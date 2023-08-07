@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-  useContext,
-} from "react";
+import React, { useRef, useEffect, useLayoutEffect, useCallback } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
@@ -20,19 +14,15 @@ import {
 } from "./dialog.style";
 import { DialogSizes, TOP_MARGIN } from "./dialog.config";
 
-import FocusTrap from "../../__internal__/focus-trap";
+import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
-import TopModalContext from "../carbon-provider/top-modal-context";
+import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 
 const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
 type PaddingValues = typeof PADDING_VALUES[number];
-// TODO FE-5408 will investigate why React.RefObject<T> produces a failed prop type when current = null
-type CustomRefObject<T> = {
-  current?: T | null;
-};
 
 export interface ContentPaddingInterface {
   p?: PaddingValues;
@@ -71,7 +61,7 @@ export interface DialogProps extends ModalProps, TagProps {
     lastElement?: HTMLElement
   ) => void;
   /** Optional reference to an element meant to be focused on open */
-  focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** Allows developers to specify a specific height for the dialog. */
@@ -130,7 +120,7 @@ export const Dialog = ({
   const { current: subtitleId } = useRef(createGuid());
   const hasStickyFooter = useIsStickyFooterForm(children);
 
-  const { topModal } = useContext(TopModalContext);
+  const isTopModal = useModalAria(dialogRef);
 
   const centerDialog = useCallback(() => {
     /* istanbul ignore if */
@@ -153,8 +143,8 @@ export const Dialog = ({
       midPointY = TOP_MARGIN;
     }
 
-    if (midPointX < TOP_MARGIN) {
-      midPointX = TOP_MARGIN;
+    if (midPointX < 0) {
+      midPointX = 0;
     }
 
     dialogRef.current.style.top = `${midPointY}px`;
@@ -205,7 +195,7 @@ export const Dialog = ({
       <IconButton
         data-element="close"
         aria-label={locale.dialog.ariaLabels.close()}
-        onAction={onCancel}
+        onClick={onCancel}
         disabled={disableClose}
       >
         <Icon type="close" />
@@ -279,7 +269,7 @@ export const Dialog = ({
         additionalWrapperRefs={focusableContainers}
       >
         <StyledDialog
-          aria-modal={topModal?.contains(dialogRef.current) ? true : undefined}
+          aria-modal={isTopModal ? true : undefined}
           ref={dialogRef}
           topMargin={TOP_MARGIN}
           {...dialogProps}

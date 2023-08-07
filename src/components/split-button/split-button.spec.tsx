@@ -4,7 +4,7 @@ import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 
 import { ThemeProvider } from "styled-components";
-import { ThemeObject } from "style/themes/base";
+import { ThemeObject } from "../../style/themes/base";
 import SplitButton from "./split-button.component";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
@@ -134,6 +134,11 @@ function openAdditionalButtons(container: ShallowWrapper | ReactWrapper) {
   toggleButton.simulate("keydown", { key: "ArrowDown" });
 }
 
+const escapeKeyUpEvent = new KeyboardEvent("keyup", {
+  key: "Escape",
+  bubbles: true,
+});
+
 describe("SplitButton", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
   let toggle: ShallowWrapper | ReactWrapper;
@@ -230,28 +235,6 @@ describe("SplitButton", () => {
         >
           <StyledButton>Foo</StyledButton>
         </StyledSplitButtonChildrenContainer>
-      );
-    });
-
-    it("has the expected style", () => {
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsActionMajorYang100)",
-          border: `1px solid var(--colorsActionMajorTransparent)`,
-        },
-        themedWrapper,
-        { modifier: `${StyledButton}` }
-      );
-    });
-
-    it('matches the expected style for the focused "additional button"', () => {
-      themedWrapper.find("button").simulate("focus");
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsActionMajor600)",
-        },
-        themedWrapper,
-        { modifier: `${StyledButton}:focus` }
       );
     });
 
@@ -389,6 +372,41 @@ describe("SplitButton", () => {
 
         expect(
           wrapper.update().find("[data-element='additional-buttons']").exists()
+        ).toBe(false);
+      });
+
+      afterEach(() => {
+        wrapper.unmount();
+      });
+    });
+
+    describe("click dropdown toggle", () => {
+      beforeEach(() => {
+        wrapper = render(
+          {
+            text: "mainButton",
+          },
+          <Button>Second Button</Button>,
+          mount
+        );
+        toggle = wrapper.find(StyledSplitButtonToggle);
+      });
+
+      it("renders additional buttons", () => {
+        toggle.simulate("click");
+
+        expect(
+          wrapper.find("[data-element='additional-buttons']").exists()
+        ).toBe(true);
+      });
+
+      it("when disabled it does not render additional buttons", () => {
+        wrapper = render({ disabled: true }, singleButton, mount);
+        toggle = wrapper.find(StyledSplitButtonToggle);
+        toggle.simulate("click");
+
+        expect(
+          wrapper.find("[data-element='additional-buttons']").exists()
         ).toBe(false);
       });
 
@@ -842,9 +860,7 @@ describe("SplitButton", () => {
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
       ).toBeTruthy();
       act(() => {
-        wrapper
-          .find(StyledSplitButtonChildrenContainer)
-          .simulate("keydown", { key: "Escape" });
+        container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
@@ -862,7 +878,7 @@ describe("SplitButton", () => {
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
       ).toBeTruthy();
       act(() => {
-        toggleButton.simulate("keydown", { key: "Escape" });
+        container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
         wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
@@ -871,10 +887,9 @@ describe("SplitButton", () => {
   });
 
   it("should set proper width of ButtonContainer", () => {
-    jest.spyOn(Element.prototype, "getBoundingClientRect");
-    Element.prototype.getBoundingClientRect = jest
-      .fn()
-      .mockImplementation(() => ({ width: 200 }));
+    const getBoundingClientRectMock = jest
+      .spyOn(Element.prototype, "getBoundingClientRect")
+      .mockImplementation(() => ({ width: 200 } as DOMRect));
 
     wrapper = render({}, singleButton, mount);
     openAdditionalButtons(wrapper);
@@ -884,8 +899,57 @@ describe("SplitButton", () => {
       wrapper.find(StyledSplitButtonChildrenContainer)
     );
 
-    jest.clearAllMocks();
+    getBoundingClientRectMock.mockClear();
 
     wrapper.unmount();
+  });
+
+  describe("rounded corner styling", () => {
+    it("renders toggle button with expected border radius", () => {
+      wrapper = mount(
+        <SplitButton text="foo">
+          <Button>bar</Button>
+        </SplitButton>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius400)",
+        },
+        wrapper.find(StyledSplitButton).find(StyledButton).last()
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius000)",
+        },
+        wrapper.find(StyledSplitButtonToggle)
+      );
+    });
+
+    it("renders the main button with expected border radius styling", () => {
+      wrapper = mount(
+        <SplitButton text="foo">
+          <Button>bar</Button>
+        </SplitButton>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius400)",
+        },
+        wrapper.find(StyledSplitButton).find(StyledButton).first()
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: `${StyledButton}:first-of-type` }
+      );
+    });
   });
 });

@@ -12,6 +12,9 @@ import mintTheme from "../../style/themes/mint";
 import RadioButtonStyle from "./radio-button.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -47,6 +50,36 @@ const borderColorsByValidationTypes = {
 };
 
 describe("RadioButton", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      mount(
+        <RadioButtonGroup name="radio-button-group">
+          <RadioButton value="test" />
+        </RadioButtonGroup>
+      );
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe("propTypes", () => {
     it("does not allow a children prop", () => {
       const consoleSpy = jest
@@ -80,6 +113,20 @@ describe("RadioButton", () => {
     );
   });
 
+  it("should display deprecation warning when the inputRef prop is used", () => {
+    const ref = { current: null };
+
+    const wrapper = mount(<RadioButton inputRef={ref} value="test" />);
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The `inputRef` prop in `RadioButton` component is deprecated and will soon be removed. Please use `ref` instead."
+    );
+
+    wrapper.setProps({ prop1: true });
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    loggerSpy.mockRestore();
+  });
+
   describe("when disabled === true", () => {
     describe("default", () => {
       const wrapper = renderRadioButton({ disabled: true });
@@ -91,7 +138,7 @@ describe("RadioButton", () => {
 
       it("applies the correct circle styles", () => {
         assertStyleMatch(
-          { fill: "var(--colorsCtilityDisabled400)" },
+          { fill: "var(--colorsUtilityDisabled400)" },
           getRadioButton(wrapper),
           { modifier: "circle" }
         );
@@ -243,5 +290,25 @@ describe("RadioButton", () => {
 
       expect(ariaLabel).toEqual(text);
     });
+  });
+
+  it("has the expected border radius styling", () => {
+    const wrapper = mount(<RadioButtonStyle />);
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadiusCircle)",
+      },
+      wrapper,
+      { modifier: `${StyledCheckableInputSvgWrapper}` }
+    );
+
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadiusCircle)",
+      },
+      wrapper,
+      { modifier: "svg" }
+    );
   });
 });

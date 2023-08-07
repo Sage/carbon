@@ -1,32 +1,44 @@
 import React from "react";
-import { mount, ReactWrapper } from "enzyme";
-import StyledLoaderBar, { InnerBar } from "./loader-bar.style";
+import { mount } from "enzyme";
+import StyledLoaderBar, { StyledLoader, InnerBar } from "./loader-bar.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import LoaderBar from "./loader-bar.component";
+import useMediaQuery from "../../hooks/useMediaQuery";
+
+jest.mock("../../hooks/useMediaQuery", () => {
+  return {
+    __esModule: true,
+    default: jest.fn().mockReturnValue(false),
+  };
+});
 
 describe("LoaderBar", () => {
-  let wrapper: ReactWrapper;
-  it("renders component as expected", () => {
-    wrapper = mount(<LoaderBar />);
-    const innerBar = wrapper.find(InnerBar);
-    expect(innerBar).toBeTruthy();
+  it("if user disallows animations or their preference cannot be determined, renders alternative loading text", () => {
+    const wrapper = mount(<LoaderBar />);
+    expect(wrapper.text()).toBe("Loading");
   });
 
-  describe("when size is not specified", () => {
+  describe("if user allows animations", () => {
     beforeEach(() => {
-      wrapper = mount(<LoaderBar />);
+      const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+        typeof useMediaQuery
+      >;
+      mockUseMediaQuery.mockReturnValueOnce(true);
     });
-    it("renders outer bar as expected", () => {
+
+    it("renders inner bar and outer bar with correct styles", () => {
+      const wrapper = mount(<LoaderBar />);
+
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsActionMajor150)",
           width: "100%",
           height: "8px",
+          borderRadius: "var(--borderRadius400)",
         },
         wrapper.find(StyledLoaderBar)
       );
-    });
-    it("renders inner bar as expected", () => {
+
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsActionMajor500)",
@@ -36,42 +48,25 @@ describe("LoaderBar", () => {
         wrapper.find(InnerBar)
       );
     });
-  });
 
-  describe("when size is set to small", () => {
-    beforeEach(() => {
-      wrapper = mount(<LoaderBar size="small" />);
-    });
-    it("applies proper width and height to outer bar", () => {
-      assertStyleMatch(
-        { width: "100%", height: "4px" },
-        wrapper.find(StyledLoaderBar)
-      );
-    });
+    it.each([
+      ["small", "4px"],
+      ["large", "16px"],
+    ] as const)(
+      "when size is %s, both the inner and outer bars have the correct dimensions",
+      (size, height) => {
+        const wrapper = mount(<LoaderBar size={size} />);
+        assertStyleMatch(
+          { width: "100%", height },
+          wrapper.find(StyledLoaderBar)
+        );
+        assertStyleMatch({ width: "128px", height }, wrapper.find(InnerBar));
+      }
+    );
 
-    it("applies proper width and height to inner bar", () => {
-      assertStyleMatch(
-        { width: "128px", height: "4px" },
-        wrapper.find(InnerBar)
-      );
-    });
-  });
-  describe("when size is set to large", () => {
-    beforeEach(() => {
-      wrapper = mount(<LoaderBar size="large" />);
-    });
-    it("applies proper width and height to outer bar", () => {
-      assertStyleMatch(
-        { width: "100%", height: "16px" },
-        wrapper.find(StyledLoaderBar)
-      );
-    });
-
-    it("applies proper width and height to inner bar", () => {
-      assertStyleMatch(
-        { width: "128px", height: "16px" },
-        wrapper.find(InnerBar)
-      );
+    it("root element has accessible name", () => {
+      const wrapper = mount(<LoaderBar />);
+      expect(wrapper.find(StyledLoader).prop("aria-label")).toBe("Loading");
     });
   });
 });

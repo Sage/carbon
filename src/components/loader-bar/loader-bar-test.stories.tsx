@@ -4,11 +4,11 @@ import { LOADER_BAR_SIZES } from "./loader-bar.config";
 
 export default {
   title: "Loader Bar/Test",
-  includeStories: "DefaultStory",
+  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -21,12 +21,12 @@ export default {
   },
 };
 
-export const DefaultStory = ({ size, ...args }: LoaderBarProps) => {
+export const DefaultStory = ({ ...args }: LoaderBarProps) => {
   return <LoaderBar size="medium" {...args} />;
 };
 
 DefaultStory.storyName = "default";
 
-export const LoaderBarComponentTest = ({ ...args }) => {
-  return <LoaderBar mt={2} size="medium" {...args} />;
+export const LoaderBarComponentTest = (props: LoaderBarProps) => {
+  return <LoaderBar mt={2} size="medium" {...props} />;
 };

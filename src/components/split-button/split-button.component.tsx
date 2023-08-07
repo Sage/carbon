@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useRef } from "react";
 import { ThemeContext } from "styled-components";
 import { MarginProps } from "styled-system";
 
@@ -14,7 +8,6 @@ import Button from "../button";
 import StyledSplitButton from "./split-button.style";
 import StyledSplitButtonToggle from "./split-button-toggle.style";
 import StyledSplitButtonChildrenContainer from "./split-button-children.style";
-import Events from "../../__internal__/utils/helpers/events";
 import guid from "../../__internal__/utils/helpers/guid";
 import Popover from "../../__internal__/popover";
 import {
@@ -22,7 +15,8 @@ import {
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
 import { baseTheme } from "../../style/themes";
-import useMenuKeyboardNavigation from "../../hooks/__internal__/useMenuKeyboardNavigation";
+import useChildButtons from "../../hooks/__internal__/useChildButtons";
+import SplitButtonContext from "./__internal__/split-button.context";
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
@@ -70,70 +64,24 @@ export const SplitButton = ({
 }: SplitButtonProps) => {
   const theme = useContext(ThemeContext) || baseTheme;
   const buttonLabelId = useRef(guid());
-  const buttonChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
-  const buttonChildrenRefs = useMemo<React.RefObject<HTMLButtonElement>[]>(
-    () => buttonChildren.map(() => React.createRef()),
-    [buttonChildren]
-  );
-  const splitButtonNode = useRef<HTMLDivElement>(null);
+
   const toggleButton = useRef<HTMLButtonElement>(null);
-  const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
-  const [minWidth, setMinWidth] = useState(0);
 
-  const hideButtons = useCallback(() => {
-    if (toggleButton.current === document.activeElement) return;
-
-    setShowAdditionalButtons(false);
-  }, []);
-
-  const handleKeyDown = useMenuKeyboardNavigation(
-    toggleButton,
-    buttonChildrenRefs,
-    hideButtons
-  );
-
-  function showButtons() {
-    setShowAdditionalButtons(true);
-
-    /* istanbul ignore else */
-    if (splitButtonNode.current) {
-      setMinWidth(
-        CONTENT_WIDTH_RATIO *
-          splitButtonNode.current.getBoundingClientRect().width
-      );
-    }
-  }
-
-  function handleToggleButtonKeyDown(
-    ev: React.KeyboardEvent<HTMLButtonElement>
-  ) {
-    if (
-      Events.isEnterKey(ev) ||
-      Events.isSpaceKey(ev) ||
-      Events.isDownKey(ev) ||
-      Events.isUpKey(ev)
-    ) {
-      ev.preventDefault();
-
-      if (!showAdditionalButtons) {
-        showButtons();
-      }
-
-      setTimeout(() => {
-        buttonChildrenRefs[0]?.current?.focus();
-      }, 0);
-    } else if (Events.isEscKey(ev)) {
-      setShowAdditionalButtons(false);
-      ev.preventDefault();
-    }
-  }
+  const {
+    showAdditionalButtons,
+    showButtons,
+    hideButtons,
+    buttonNode,
+    hideButtonsIfTriggerNotFocused,
+    handleToggleButtonKeyDown,
+    wrapperProps,
+    contextValue,
+  } = useChildButtons(toggleButton, CONTENT_WIDTH_RATIO);
 
   const mainButtonProps = {
-    onMouseEnter: hideButtons,
-    onFocus: hideButtons,
-    onTouchStart: hideButtons,
+    onMouseEnter: hideButtonsIfTriggerNotFocused,
+    onFocus: hideButtonsIfTriggerNotFocused,
+    onTouchStart: hideButtonsIfTriggerNotFocused,
     iconPosition,
     buttonType,
     disabled,
@@ -153,7 +101,7 @@ export const SplitButton = ({
     onKeyDown: handleToggleButtonKeyDown,
     buttonType,
     size,
-    ...(!disabled && { onMouseEnter: showButtons }),
+    ...(!disabled && { onMouseEnter: showButtons, onClick: showButtons }),
   };
 
   function componentTags() {
@@ -203,55 +151,34 @@ export const SplitButton = ({
     ];
   }
 
-  function childrenWithProps() {
-    const childArray = Array.isArray(children) ? children : [children];
-
-    return childArray.filter(Boolean).map((child, index) => {
-      const childProps = {
-        key: index.toString(),
-        role: "menuitem",
-        ref: buttonChildrenRefs[index],
-        tabIndex: -1,
-        onClick: (ev: React.MouseEvent<HTMLButtonElement>) => {
-          if (child.props.onClick) child.props.onClick(ev);
-          hideButtons();
-          toggleButton.current?.focus();
-        },
-      };
-
-      return React.cloneElement(child, childProps);
-    });
-  }
-
   function renderAdditionalButtons() {
     if (!showAdditionalButtons) return null;
 
     return (
-      <Popover placement="bottom-end" reference={splitButtonNode}>
+      <Popover placement="bottom-end" reference={buttonNode}>
         <StyledSplitButtonChildrenContainer
-          role="menu"
+          {...wrapperProps}
           aria-label={text}
-          data-element="additional-buttons"
           align={align}
-          minWidth={minWidth}
-          onKeyDown={handleKeyDown}
         >
-          {childrenWithProps()}
+          <SplitButtonContext.Provider value={contextValue}>
+            {children}
+          </SplitButtonContext.Provider>
         </StyledSplitButtonChildrenContainer>
       </Popover>
     );
   }
 
   const handleClick = useClickAwayListener(hideButtons);
+  const marginProps = filterStyledSystemMarginProps(rest);
 
   return (
     <StyledSplitButton
-      aria-haspopup="true"
-      onMouseLeave={hideButtons}
+      onMouseLeave={hideButtonsIfTriggerNotFocused}
       onClick={handleClick}
-      ref={splitButtonNode}
+      ref={buttonNode}
       {...componentTags()}
-      {...filterStyledSystemMarginProps(rest)}
+      {...marginProps}
     >
       {renderMainButton()}
       {renderAdditionalButtons()}

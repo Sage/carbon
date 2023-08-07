@@ -34,6 +34,13 @@ describe("Image", () => {
     expect(wrapper.find("img[hidden]").exists()).toBeTruthy();
   });
 
+  it("when decorative prop is passed, alt text can be an empty string", () => {
+    const wrapper = mount(<Image src="foo.jpg" alt="" decorative />);
+
+    expect(wrapper.find("img").exists()).toBeTruthy();
+    expect(wrapper.find("img").prop("src")).toEqual("foo.jpg");
+  });
+
   describe("prop types", () => {
     const mockGlobal = jest
       .spyOn(global.console, "error")
@@ -57,10 +64,19 @@ describe("Image", () => {
 
     it("throws an error when `src` is passed and no `alt` provided", () => {
       const errorMessage =
-        "Please provide an 'alt' string when rendering the 'Image' component as an 'img' element.";
+        "Please use the 'decorative' prop if the 'alt' text should be an empty value or provide an 'alt' string when rendering the 'Image' component as an 'img' element.";
 
       expect(() => {
         mount(<Image src="foo.jpg" />);
+      }).toThrow(errorMessage);
+    });
+
+    it("throws an error when `src` is passed and an empty `alt` string is provided without the `decorative` prop", () => {
+      const errorMessage =
+        "Please use the 'decorative' prop if the 'alt' text should be an empty value or provide an 'alt' string when rendering the 'Image' component as an 'img' element.";
+
+      expect(() => {
+        mount(<Image src="foo.jpg" alt="" />);
       }).toThrow(errorMessage);
     });
   });

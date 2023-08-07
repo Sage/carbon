@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MarginProps } from "styled-system";
 
 import {
@@ -7,7 +7,9 @@ import {
   StyledLegendContent,
 } from "./fieldset.style";
 import ValidationIcon from "../validations/validation-icon.component";
+import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 export interface FieldsetProps extends MarginProps {
   /** Role */
@@ -55,36 +57,43 @@ const Fieldset = ({
   isRequired,
   blockGroupBehaviour,
   ...rest
-}: FieldsetProps) => (
-  <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
-    <StyledFieldset data-component="fieldset" m={0} {...rest}>
-      {legend && (
-        <InputGroupContext.Consumer>
-          {({ onMouseEnter, onMouseLeave }) => (
-            <StyledLegend
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
-              inline={inline}
-              width={legendWidth}
-              align={legendAlign}
-              rightPadding={legendSpacing}
-            >
-              <StyledLegendContent isRequired={isRequired}>
-                {legend}
-                <ValidationIcon
-                  error={error}
-                  warning={warning}
-                  info={info}
-                  tooltipFlipOverrides={["top", "bottom"]}
-                />
-              </StyledLegendContent>
-            </StyledLegend>
-          )}
-        </InputGroupContext.Consumer>
-      )}
-      {children}
-    </StyledFieldset>
-  </InputGroupBehaviour>
-);
+}: FieldsetProps) => {
+  const { validationRedesignOptIn } = useContext(NewValidationContext);
+  const marginProps = useFormSpacing(rest);
+
+  return (
+    <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
+      <StyledFieldset data-component="fieldset" {...rest} {...marginProps}>
+        {legend && (
+          <InputGroupContext.Consumer>
+            {({ onMouseEnter, onMouseLeave }) => (
+              <StyledLegend
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                inline={inline}
+                width={legendWidth}
+                align={legendAlign}
+                rightPadding={legendSpacing}
+              >
+                <StyledLegendContent isRequired={isRequired}>
+                  {legend}
+                  {!validationRedesignOptIn && (
+                    <ValidationIcon
+                      error={error}
+                      warning={warning}
+                      info={info}
+                      tooltipFlipOverrides={["top", "bottom"]}
+                    />
+                  )}
+                </StyledLegendContent>
+              </StyledLegend>
+            )}
+          </InputGroupContext.Consumer>
+        )}
+        {children}
+      </StyledFieldset>
+    </InputGroupBehaviour>
+  );
+};
 
 export default Fieldset;

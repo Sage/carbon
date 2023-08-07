@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { action } from "@storybook/addon-actions";
-
+import Typography from "../../../src/components/typography";
 import Button from "../button";
 import Sidebar, { SidebarProps } from ".";
 import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
+import Box from "../box";
+import Toast from "../toast";
+import Textbox from "../textbox";
 
 export default {
   component: Sidebar,
+  includeStories: ["Default"],
   title: "Sidebar/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -91,4 +95,114 @@ Default.args = {
   size: "medium",
   enableBackgroundUI: false,
   disableEscKey: false,
+};
+
+export const SidebarComponent = (props: Partial<SidebarProps>) => {
+  return (
+    <>
+      <Sidebar
+        aria-label="sidebar"
+        open
+        position="right"
+        size="medium"
+        {...props}
+      >
+        <div>
+          <Button buttonType="primary">Test</Button>
+          <Button buttonType="secondary" ml={2}>
+            Last
+          </Button>
+        </div>
+        <div
+          style={{
+            marginBottom: 3000,
+          }}
+        >
+          Main content
+        </div>
+      </Sidebar>
+    </>
+  );
+};
+
+export const SidebarBackgroundScrollTestComponent = () => {
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <Sidebar open onCancel={() => {}}>
+        <Textbox label="textbox" />
+      </Sidebar>
+    </Box>
+  );
+};
+
+export const SidebarBackgroundScrollWithOtherFocusableContainers = () => {
+  const toast1Ref = useRef(null);
+  const toast2Ref = useRef(null);
+  return (
+    <Box height="2000px" position="relative">
+      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        I should not be scrolled into view
+      </Box>
+      <Sidebar
+        open
+        onCancel={() => {}}
+        focusableContainers={[toast1Ref, toast2Ref]}
+      >
+        <Textbox label="textbox" />
+      </Sidebar>
+      <Toast open onDismiss={() => {}} ref={toast1Ref} targetPortalId="stacked">
+        Toast message 1
+      </Toast>
+      <Toast open onDismiss={() => {}} ref={toast2Ref} targetPortalId="stacked">
+        Toast message 2
+      </Toast>
+    </Box>
+  );
+};
+
+export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
+  const [setIsDialogOpen] = React.useState(false);
+  const [isToastOpen, setIsToastOpen] = React.useState(false);
+  const toastRef = React.useRef(null);
+  const CUSTOM_SELECTOR = "button, .focusable-container input";
+  return (
+    <>
+      <Sidebar
+        open
+        onCancel={() => setIsDialogOpen}
+        header={<Typography variant="h3">Sidebar header</Typography>}
+        focusableContainers={[toastRef]}
+        focusableSelectors={CUSTOM_SELECTOR}
+        {...props}
+      >
+        <div className="focusable-container">
+          <Textbox label="First Name" />
+        </div>
+        <div>
+          <Textbox label="Surname" />
+        </div>
+        <div className="focusable-container">
+          <Button
+            buttonType="primary"
+            data-element="open-toast"
+            onClick={() => setIsToastOpen(true)}
+          >
+            Show toast
+          </Button>
+        </div>
+      </Sidebar>
+      <Toast
+        open={isToastOpen}
+        onDismiss={() => setIsToastOpen(false)}
+        ref={toastRef}
+        targetPortalId="stacked"
+        data-element="toast"
+      >
+        Toast Message
+      </Toast>
+    </>
+  );
 };

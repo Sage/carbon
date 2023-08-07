@@ -41,6 +41,11 @@ function simulateBlur(container: ShallowWrapper | ReactWrapper) {
   });
 }
 
+const escapeKeyUpEvent = new KeyboardEvent("keyup", {
+  key: "Escape",
+  bubbles: true,
+});
+
 describe("MultiActionButton", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
 
@@ -56,13 +61,15 @@ describe("MultiActionButton", () => {
     const additionalButtonsSelector = '[data-element="additional-buttons"]';
     let container: HTMLDivElement | null;
     let mainButton: ReactWrapper;
+    const onClick = jest.fn();
 
     beforeEach(() => {
+      onClick.mockClear();
       container = document.createElement("div");
       container.id = "enzymeContainer";
       document.body.appendChild(container);
       wrapper = mount(
-        <MultiActionButton text="Main Button">
+        <MultiActionButton text="Main Button" onClick={onClick}>
           <Button>First</Button>
           <Button>Second</Button>
         </MultiActionButton>,
@@ -79,6 +86,20 @@ describe("MultiActionButton", () => {
       wrapper.unmount();
 
       container = null;
+    });
+
+    describe("when the main button is clicked", () => {
+      it("the additional buttons are shown", () => {
+        mainButton.simulate("click");
+
+        expect(wrapper.find(Button).at(0).getDOMNode()).toBeVisible();
+      });
+
+      it("the passed onClick handler is called", () => {
+        mainButton.simulate("click");
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+      });
     });
 
     describe("using keyboard to open children container", () => {
@@ -318,9 +339,7 @@ describe("MultiActionButton", () => {
         wrapper.update().find(StyledButtonChildrenContainer).exists()
       ).toBeTruthy();
       act(() => {
-        wrapper
-          .find(StyledButtonChildrenContainer)
-          .simulate("keydown", { key: "Escape" });
+        container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
         wrapper.update().find(StyledButtonChildrenContainer).exists()
@@ -340,7 +359,7 @@ describe("MultiActionButton", () => {
         wrapper.update().find(StyledButtonChildrenContainer).exists()
       ).toBeTruthy();
       act(() => {
-        mainButton.simulate("keydown", { key: "Escape" });
+        container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
         wrapper.update().find(StyledButtonChildrenContainer).exists()
@@ -503,7 +522,7 @@ describe("MultiActionButton", () => {
         wrapper.unmount();
       });
 
-      it("the handler should be called on the main button", () => {
+      it("the handler should be called on the clicked button", () => {
         mainButton.simulate("mouseenter");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
@@ -577,7 +596,7 @@ describe("MultiActionButton", () => {
           );
 
           wrapper
-            .find(StyledMultiActionButton)
+            .find('button[data-element="toggle-button"]')
             .getDOMNode()
             .dispatchEvent(nativeInputEvent);
 
@@ -636,10 +655,10 @@ describe("MultiActionButton", () => {
   });
 
   it("should set proper width of ButtonContainer", () => {
-    jest.spyOn(Element.prototype, "getBoundingClientRect");
-    Element.prototype.getBoundingClientRect = jest
-      .fn()
-      .mockImplementation(() => ({ width: 200 }));
+    const getBoundingClientRectMock = jest
+      .spyOn(Element.prototype, "getBoundingClientRect")
+      .mockImplementation(() => ({ width: 200 } as DOMRect));
+
     wrapper = render({}, mount);
 
     openAdditionalButtons(wrapper);
@@ -649,7 +668,7 @@ describe("MultiActionButton", () => {
       wrapper.find(StyledButtonChildrenContainer)
     );
 
-    jest.clearAllMocks();
+    getBoundingClientRectMock.mockClear();
 
     wrapper.unmount();
   });
@@ -695,6 +714,23 @@ describe("MultiActionButton", () => {
         },
         wrapper.find(StyledMultiActionButton),
         { modifier: `${StyledButton}` }
+      );
+    });
+  });
+
+  describe("rounded corner styling", () => {
+    it("renders the main button with expected border radius styling", () => {
+      wrapper = mount(
+        <MultiActionButton text="foo">
+          <Button>bar</Button>
+        </MultiActionButton>
+      );
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius400)",
+        },
+        wrapper.find(StyledMultiActionButton).find(StyledButton)
       );
     });
   });

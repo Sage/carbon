@@ -32,7 +32,7 @@ const RadioButtonStyle = styled(CheckboxStyle)<
     }
 
     ${StyledCheckableInputSvgWrapper}, svg {
-      border-radius: 50%;
+      border-radius: var(--borderRadiusCircle);
     }
 
     ${StyledCheckableInput},
@@ -62,7 +62,7 @@ const RadioButtonStyle = styled(CheckboxStyle)<
     ${disabled &&
     css`
       circle {
-        fill: var(--colorsCtilityDisabled400);
+        fill: var(--colorsUtilityDisabled400);
       }
 
       ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {

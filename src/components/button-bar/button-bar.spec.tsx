@@ -1,12 +1,14 @@
 import React from "react";
-import { mount } from "enzyme";
-import TestRenderer from "react-test-renderer";
-import Icon from "components/icon";
-import { IconType } from "../icon/icon-type";
+import { mount, ReactWrapper } from "enzyme";
+import ButtonMinor from "../button-minor";
+import Icon, { IconType } from "../icon";
 import Button from "../button";
 import ButtonBar from "./button-bar.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
+import StyledButton from "../button/button.style";
+import StyledIconButton from "../icon-button/icon-button.style";
+import StyledButtonMinor from "../button-minor/button-minor.style";
 
 const renderButtonBar = (
   text?: string,
@@ -16,7 +18,11 @@ const renderButtonBar = (
 ) => {
   const buttons = [];
   for (let i = 0; i < numberOfBtns; i++) {
-    buttons.push(<Button {...btnProps}>{text}</Button>);
+    buttons.push(
+      <Button key={String(i)} {...btnProps}>
+        {text}
+      </Button>
+    );
   }
   return mount(<ButtonBar {...props}>{buttons}</ButtonBar>);
 };
@@ -25,7 +31,7 @@ const renderButtonWithIconBar = (icons: IconType[], props = {}) => {
   const buttons = [];
   for (const icon of icons) {
     buttons.push(
-      <IconButton onAction={() => undefined}>
+      <IconButton key={String(buttons.length)} onClick={() => {}}>
         <Icon type={icon} />
       </IconButton>
     );
@@ -59,6 +65,38 @@ describe("Button Bar", () => {
     });
   });
 
+  describe("rounded corners", () => {
+    it("has the expected border radius styling when major button passed as children", () => {
+      const wrapper = renderButtonBar("foo", 3);
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: "button:not(:first-child):not(:last-child)" }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: "button:first-child:not(:last-child)" }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: "button:last-child:not(:first-child)" }
+      );
+    });
+  });
+
   describe("with fullWidth", () => {
     it("renders correctly with single button", () => {
       const wrapper = renderButtonBar("fullWidth", 1, { fullWidth: true });
@@ -68,26 +106,24 @@ describe("Button Bar", () => {
     it("renders correctly with multiple buttons", () => {
       const wrapper = renderButtonBar("fullWidth", 3, { fullWidth: true });
 
-      assertStyleMatch({ width: "100%" }, wrapper.find(ButtonBar));
+      assertStyleMatch({ width: "100%" }, wrapper);
     });
 
     it("renders correctly with small size", () => {
-      const wrapper = TestRenderer.create(
-        <ButtonBar fullWidth size="small">
-          <Button>fullWidth</Button>
-          <Button>fullWidth</Button>
-        </ButtonBar>
-      );
-      assertStyleMatch({ width: "100%" }, wrapper.toJSON());
+      const wrapper = renderButtonBar("fullWidth", 2, {
+        size: "small",
+        fullWidth: true,
+      });
+
+      assertStyleMatch({ width: "100%" }, wrapper);
     });
     it("renders correctly with large size", () => {
-      const wrapper = TestRenderer.create(
-        <ButtonBar fullWidth size="large">
-          <Button>fullWidth</Button>
-          <Button>fullWidth</Button>
-        </ButtonBar>
-      );
-      assertStyleMatch({ width: "100%" }, wrapper.toJSON());
+      const wrapper = renderButtonBar("fullWidth", 2, {
+        size: "large",
+        fullWidth: true,
+      });
+
+      assertStyleMatch({ width: "100%" }, wrapper);
     });
   });
 
@@ -131,7 +167,7 @@ describe("Button Bar", () => {
         wrapper.find(Icon).exists() &&
         wrapper.find(Icon).props().type === "filter";
       expect(assertion).toEqual(true);
-      const button = wrapper.find(Button);
+      const button = wrapper.find(StyledButton);
       expect(button.props().iconPosition).toEqual("after");
     });
   });
@@ -140,7 +176,7 @@ describe("Button Bar", () => {
     it("renders an icon correctly", () => {
       const wrapper = mount(
         <ButtonBar>
-          <IconButton onAction={() => undefined}>
+          <IconButton onClick={() => {}}>
             <Icon type="csv" />
           </IconButton>
         </ButtonBar>
@@ -155,96 +191,148 @@ describe("Button Bar", () => {
       const wrapper = renderButtonWithIconBar(["csv", "pdf"]);
       expect(wrapper.find(Icon)).toHaveLength(2);
     });
-  });
 
-  describe("with children of wrong type", () => {
-    const errorMessage =
-      "ButtonBar accepts only `Button` or `IconButton` elements.";
-    it("throws an error if child is wrong element", () => {
-      const mockGlobal = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(() => undefined);
-
-      expect(() => {
-        mount(
-          <ButtonBar>
-            <div>Div</div>
-          </ButtonBar>
-        );
-      }).toThrow(errorMessage);
-
-      mockGlobal.mockReset();
-    });
-
-    it("throws an error if child is not an element", () => {
-      const mockGlobal = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(() => undefined);
-
-      expect(() => {
-        mount(<ButtonBar>text</ButtonBar>);
-      }).toThrow(errorMessage);
-
-      mockGlobal.mockReset();
-    });
-  });
-
-  describe("with different button props", () => {
-    it("Button types on button bar are always of type 'secondary'", () => {
+    it("when in a ButtonBar, and no aria-label is passed the aria-label is the Icon type", () => {
       const wrapper = mount(
         <ButtonBar>
-          <Button buttonType="primary">primary</Button>
-          <Button buttonType="tertiary" fullWidth>
-            tertiary
-          </Button>
+          <Button>bar</Button>
+          <IconButton onClick={() => undefined}>
+            <Icon type="csv" />
+          </IconButton>
         </ButtonBar>
       );
-      wrapper
-        .find(Button)
-        .forEach((button) =>
-          expect(button.props().buttonType).toEqual("secondary")
-        );
+
+      const iconButton = wrapper.find(StyledIconButton);
+      expect(iconButton.prop("aria-label")).toEqual("csv");
     });
 
-    it("Buttons cannot be 'fullWidth'", () => {
-      const wrapper = renderButtonBar("Button", 1, {}, { fullWidth: true });
-      const buttons = wrapper.find(Button);
-      buttons.forEach((button) => expect(button.props().fullWidth).toBeFalsy());
-    });
-
-    it("Size is always defined by ButtonBar, not the Buttons", () => {
+    it("when in a ButtonBar and a custom aria-label is passed the aria-label matches", () => {
       const wrapper = mount(
-        <ButtonBar size="small">
-          <Button size="small">Small</Button>
-          <Button size="medium">Medium</Button>
-          <Button size="large">Large</Button>
+        <ButtonBar>
+          <Button>bar</Button>
+          <IconButton aria-label="foobar" onClick={() => undefined}>
+            <Icon type="csv" />
+          </IconButton>
         </ButtonBar>
       );
-      wrapper
-        .find("Button")
-        .forEach((button) => expect(button.props().size).toEqual("small"));
-    });
 
-    it("Disabled button works correctly", () => {
-      const wrapper = renderButtonBar("Small", 1, {}, { disabled: true });
-      expect(wrapper.find("Button").props().disabled).toBeTruthy();
+      const iconButton = wrapper.find(StyledIconButton);
+      expect(iconButton.prop("aria-label")).toEqual("foobar");
     });
+  });
 
-    it("Destructive button works correctly", () => {
-      const wrapper = renderButtonBar("Small", 1, {}, { destructive: true });
-      expect(wrapper.find(Button).props().destructive).toBeTruthy();
-    });
+  describe("when custom Button wrapper components are used as children", () => {
+    it.each([
+      {
+        fullWidth: true,
+        size: "small",
+        iconPosition: "before",
+      },
+    ] as const)(
+      "all props are passed to Button children correctly using context",
+      (buttonBarProps) => {
+        const WrappedComponent = () => {
+          return (
+            <>
+              <Button>bar</Button>
+              <Button>bar</Button>
+            </>
+          );
+        };
 
-    it("Subtext works correctly", () => {
-      const wrapper = renderButtonBar(
-        "Sub",
-        1,
-        { size: "large" },
-        { subtext: "subtext" }
+        const wrapper = mount(
+          <ButtonBar {...buttonBarProps}>
+            <WrappedComponent />
+            <IconButton onClick={() => undefined}>
+              <Icon type="csv" />
+            </IconButton>
+          </ButtonBar>
+        );
+
+        const button = wrapper.find(StyledButton).at(0);
+        expect(button.props().fullWidth).toEqual(true);
+        expect(button.props().size).toEqual("small");
+        expect(button.props().iconPosition).toEqual("before");
+      }
+    );
+  });
+});
+
+describe("with different button props", () => {
+  it("Button types on button bar are always of type 'secondary'", () => {
+    const wrapper = mount(
+      <ButtonBar>
+        <Button buttonType="primary">primary</Button>
+        <Button buttonType="tertiary" fullWidth>
+          tertiary
+        </Button>
+      </ButtonBar>
+    );
+    wrapper
+      .find(StyledButton)
+      .forEach((button) =>
+        expect(button.props().buttonType).toEqual("secondary")
       );
-      expect(
-        wrapper.containsMatchingElement(<span>subtext</span>)
-      ).toBeTruthy();
+  });
+
+  it("fullWidth prop is passed to children'", () => {
+    const wrapper = renderButtonBar("Button", 1, {}, { fullWidth: true });
+    const buttons = wrapper.find(StyledButton);
+    buttons.forEach((button) => expect(button.props().fullWidth).toBe(true));
+  });
+
+  it("Size is always defined by ButtonBar, not the Buttons", () => {
+    const wrapper = mount(
+      <ButtonBar size="small">
+        <Button size="small">Small</Button>
+        <Button size="medium">Medium</Button>
+        <Button size="large">Large</Button>
+      </ButtonBar>
+    );
+    wrapper
+      .find(StyledButton)
+      .forEach((button) => expect(button.props().size).toEqual("small"));
+  });
+
+  it("Disabled button works correctly", () => {
+    const wrapper = renderButtonBar("Small", 1, {}, { disabled: true });
+    expect(wrapper.find("Button").props().disabled).toBeTruthy();
+  });
+
+  it("Destructive button works correctly", () => {
+    const wrapper = renderButtonBar("Small", 1, {}, { destructive: true });
+    expect(wrapper.find(Button).props().destructive).toBeTruthy();
+  });
+
+  it("Subtext works correctly", () => {
+    const wrapper = renderButtonBar(
+      "Sub",
+      1,
+      { size: "large" },
+      { subtext: "subtext" }
+    );
+    expect(wrapper.containsMatchingElement(<span>subtext</span>)).toBeTruthy();
+  });
+
+  describe("Button Minor children", () => {
+    let wrapper: ReactWrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <ButtonBar>
+          <ButtonMinor buttonType="primary">Click me</ButtonMinor>
+          <ButtonMinor buttonType="secondary">Click me</ButtonMinor>
+          <ButtonMinor buttonType="tertiary">Click me</ButtonMinor>
+        </ButtonBar>
+      );
+    });
+
+    it("overrides the buttonType of the children", () => {
+      const buttons = wrapper.find(StyledButtonMinor);
+
+      buttons.forEach((button) =>
+        expect(button.prop("buttonType")).toBe("secondary")
+      );
     });
   });
 });

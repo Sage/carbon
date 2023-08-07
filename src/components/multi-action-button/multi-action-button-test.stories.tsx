@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import Dialog from "../dialog";
 import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
-import Button from "../button";
+import Button, { ButtonProps } from "../button";
 import {
   MULTI_ACTION_BUTTON_ALIGNMENTS,
   MULTI_ACTION_BUTTON_SIZES,
@@ -12,10 +13,11 @@ import {
 
 export default {
   title: "Multi Action Button/Test",
+  includeStories: ["MultiActionButtonStory"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -76,3 +78,56 @@ MultiActionButtonStory.story = {
     text: "Example Multi Action Button",
   },
 };
+
+export const MultiActionButtonList = (
+  props: Partial<MultiActionButtonProps>
+) => {
+  return (
+    <div>
+      <MultiActionButton text="Multi Action Button" {...props}>
+        <Button>Example Button</Button>
+        <Button>Example Button with long text</Button>
+        <Button>Short</Button>
+      </MultiActionButton>
+    </div>
+  );
+};
+
+export const MultiActionNestedInDialog = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <MultiActionButton text="default text">
+        <Button>Example Button</Button>
+        <Button>Example Button with long text</Button>
+        <Button>Short</Button>
+      </MultiActionButton>
+    </Dialog>
+  );
+};
+
+export const MultiActionWithHrefChildren = () => (
+  <MultiActionButton text="default text">
+    <Button href="#">Button 1</Button>
+    <Button>Button 2</Button>
+    <Button href="#">Button 3</Button>
+  </MultiActionButton>
+);
+
+export const MultiActionButtonWithOneChild = () => (
+  <MultiActionButton text="default text">
+    <Button>Button 1</Button>
+  </MultiActionButton>
+);
+
+const ButtonWrapper = (props: ButtonProps) => {
+  return <Button {...props} />;
+};
+
+export const WithWrapper = (props: Partial<MultiActionButtonProps>) => (
+  <MultiActionButton text="Split button" {...props}>
+    <ButtonWrapper>Button 1</ButtonWrapper>
+    <ButtonWrapper>Button 2</ButtonWrapper>
+    <ButtonWrapper>Button 3</ButtonWrapper>
+  </MultiActionButton>
+);

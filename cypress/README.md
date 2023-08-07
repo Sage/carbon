@@ -10,10 +10,6 @@
 
 [Continuous Integration (CI)](#continuous-integration-ci)
 
-- [Build Storybook (only accessibility tests)](#build-storybook-only-accessibility-tests)
-
-- [Start Storybook](#start-storybook)
-
 - [GitHub Actions](#github-actions)
 
 [Debugging Cypress](#debugging-cypress)
@@ -23,7 +19,6 @@
   - [Installation](#installation)
   - [Running Tests](#running-tests)
     - [Cypress test suite](#cypress-test-suite)
-    - [Legacy accessibility tests](#legacy-accessibility-tests)
   - [Continuous Integration (CI)](#continuous-integration-ci)
     - [GitHub Actions](#github-actions)
   - [Debugging Cypress](#debugging-cypress)
@@ -49,19 +44,9 @@ We have implemented a new approach for cypress tests, using cypress-react framew
 1. Open a new terminal in the root path of the project.
 2. To run Cypress using the `cypress` runner, run `npx cypress open --component`, select the type Component Testing and then the required test file. Test results can be seen directly in the Cypress Test Runner UI.
 3. To run the suite of Cypress tests in CI mode, run `npx cypress run --component`. Test results can be seen in the console run summary.
-4. To run specific Cypress tests at the command line (headless browser for continuous integration) run `npx cypress run --component --spec './src/components/[component]/[fileName].test.js'`. Test results can be seen in the console run summary.
+4. To run specific Cypress tests at the command line (headless browser for continuous integration) run `npx cypress run --component --spec './cypress/components/[component]/*.cy.*'`. Test results can be seen in the console run summary.
 5. To run in the Chrome/Firefox browser add `--browser chrome` or `--browser firefox` to the above command.
 
-### Legacy accessibility tests
-
-Storybook must be built and running before Cypress can run.
-
-1. Run `npm run build-storybook` to build the static-storybook folder.
-2. Run `npx sb extract` to generate the `stories.js` file.
-3. Run `npm start` to `start` Storybook and the `cypress` runner.
-4. `wait-on http://localhost:9001` - waits until Storybook is up and running and is ready to run tests.
-5. To run the accessibility tests using the `cypress` runner, run `npx cypress open --e2e`, select the type E2E Testing and then the required test file. Test results can be seen directly in the Cypress Test Runner UI.
-6. To run the accessibility tests in CI mode, run `npx cypress run --e2e --browser chrome --spec './cypress/e2e/accessibility/*.test.js'`. Test results can be seen in the console run summary.
 
 ## Continuous Integration (CI)
 
@@ -69,8 +54,7 @@ Every commit/pull request in the repository initiates a Cypress test run using G
 
 ### GitHub Actions
 1. `cypress.yml`
-- `npx cypress run --component --browser chrome --parallel -–record --spec './src/components/**/*.test.js' --group ubuntu-cypress-react` - runs the complete test suite including refactored accessibility tests.
-- `npx cypress run --e2e --browser chrome --parallel -–record --spec './cypress/e2e/accessibility/*.test.js'` - runs the legacy `accessibility` test suite only that has not yet been refactored. Note, Storybook must be built and running as detailed in [Legacy accessibility tests](#legacy-accessibility-tests) before this can be run.
+- `npx cypress run --component --browser chrome --parallel -–record --spec './cypress/components/**/*.cy.*' --group ubuntu-cypress-react` - runs the complete test suite including refactored accessibility tests.
 
 The build result can be seen in GitHub in the pull request/branch and the detailed results can be seen in the [Cypress.io dashboard](https://dashboard.cypress.io/projects/8458bb/runs) or in GitHub Actions, both linked from the pull request/branch checks.
 
@@ -151,7 +135,7 @@ You should see the Cypress GUI, starting the run will launch the browser and you
 You can run cypress headlessly and take advantage of parallelisation using the [Cypress dashboard](https://dashboard.cypress.io/).
 
 The `docker-compose.yml` file is configured to run 3 containers simultaniously. You can adjust this by changing the `docker-compose.yml`.
-You can also change the `command` to focus the test on a specific suite e.g. `--spec cypress/e2e/common/splitButton.feature`.
+You can also change the `command` to focus the test on a specific suite e.g. `--spec cypress/components/split-button.test.js`.
 
 If you are using `parallel` you need to use the Cypress dashboard for orchestration which requires a `CYPRESS_RECORD_KEY`. An admin should generate a new key for you and revoke it once you no longer need it. You also need to provide a `BUILD_ID`.
 

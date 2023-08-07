@@ -9,8 +9,21 @@ interface Locale {
   actionPopover: {
     ariaLabel: () => string;
   };
+  advancedColorPicker: {
+    ariaLabel: () => string;
+    currentColorDescriptionTerm: (currentColor: string) => string;
+    currentColorAssigned: (currentColor: string) => string;
+  };
   batchSelection: {
     selected: (count: number | string) => string;
+  };
+  breadcrumbs: {
+    ariaLabel: () => string;
+  };
+  characterCount: {
+    hintString: () => string;
+    tooManyCharacters: (count: number, formattedCount: string) => string;
+    charactersLeft: (count: number, formattedCount: string) => string;
   };
   confirm: {
     no: () => string;
@@ -41,6 +54,12 @@ interface Locale {
   heading: {
     backLinkAriaLabel: () => string;
   };
+  link: {
+    skipLinkLabel: () => string;
+  };
+  loader: {
+    loading: () => string;
+  };
   message: {
     closeButtonAriaLabel: () => string;
   };
@@ -61,6 +80,10 @@ interface Locale {
     pageX: () => string;
     ofY: (count: string | number) => string;
   };
+  password: {
+    ariaLiveShownMessage: () => string;
+    ariaLiveHiddenMessage: () => string;
+  };
   progressTracker: {
     of: () => string;
   };
@@ -71,9 +94,6 @@ interface Locale {
     actionButtonText: () => string;
     placeholder: () => string;
     noResultsForTerm: (term: string) => string;
-  };
-  link: {
-    skipLinkLabel: () => string;
   };
   sidebar: {
     ariaLabels: {
@@ -102,6 +122,11 @@ interface Locale {
     deselect: () => string;
   };
   toast: {
+    ariaLabels: {
+      close: () => string;
+    };
+  };
+  verticalMenuFullScreen: {
     ariaLabels: {
       close: () => string;
     };

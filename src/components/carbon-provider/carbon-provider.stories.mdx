@@ -1,21 +1,19 @@
-import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import { ArgsTable } from "@storybook/components";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import LinkTo from "@storybook/addon-links/react";
 
-import aegeanTheme from "../../style/themes/aegean";
-import baseTheme from "../../style/themes/base";
-import sageTheme from "../../style/themes/sage";
-import Button from "../button";
 import CarbonProvider from ".";
 
-<Meta title="Carbon Provider" parameters={{ info: { disable: true } }} />
+import * as stories from "./carbon-provider.stories";
+
+<Meta
+  title="Carbon Provider"
+  component={CarbonProvider}
+  parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
+/>
 
 # Carbon Provider
 
-A Carbon Provider uses the `ThemeProvider` from the [styled-components library](https://styled-components.com/docs/advanced#theming) to supply theme styles to your components. Themes are defined within the Carbon library.
-
-# Design Tokens
-
-Carbon Provider also provides design tokens in the form of CSS variables. It includes utilities that map ThemeProvider themes to design token css variables.
+A React context provider that supplies global settings such as theme styling and Carbon feature flags to your components.
 
 ## Contents
 
@@ -25,82 +23,51 @@ Carbon Provider also provides design tokens in the form of CSS variables. It inc
 
 ## Quickstart
 
-```javascript
+You can import the provider and any intended themes like so:
+
+```ts
 import CarbonProvider from "carbon-react/lib/components/carbon-provider";
+import { sageTheme, mintTheme } from "carbon-react/lib/styles/themes";
 ```
 
-## Examples
+then wrap your application code with the provider:
 
-### Default
+```tsx
+<CarbonProvider theme={sageTheme}>
+  <MyApp />
+</CarbonProvider>
+```
 
-This is an example of `mintTheme` provided by default.
+## Setting themes
+
+### Using latest sage theme
+
+We recommend using the latest `sageTheme` to ensure your app has the most up-to-date styling. This theme uses **design tokens** - CSS properties curated by Sage designers in the `@sage/design-tokens` package, which Carbon uses to set styling rules for your components.
 
 <Canvas>
-  <Story name="default">
-    <CarbonProvider>
-      <Button buttonType="primary">Button</Button>
-    </CarbonProvider>
-  </Story>
+  <Story story={stories.SageTheme} />
 </Canvas>
 
-### Theming
+Setting the theme to `sageTheme` in `CarbonProvider` loads the design tokens in the browser, meaning you can also use these tokens yourself where a component prop accepts CSS values, such as the `color` prop with `Typography`:
+
+```tsx
+<Typography color="--colorsSemanticNegative500">
+  This text is coloured with a design token!
+</Typography>
+```
+
+For a full list of supported tokens, see the [Sage's Design System documentation on design tokens](https://zeroheight.com/2ccf2b601/p/217e24-design-tokens/b/46fb17) for more details.
+
+### Using legacy mint theme
+
+For older Carbon projects, we still support the legacy `mintTheme` to help with upgrading. This is made the default theme if the `theme` prop is not specified.
 
 <Canvas>
-  <Story name="theming">
-    <CarbonProvider theme={aegeanTheme}>
-      <Button buttonType="primary">Button</Button>
-    </CarbonProvider>
-  </Story>
-</Canvas>
-
-### Mixing
-
-<Canvas>
-  <Story name="mixing">
-    <CarbonProvider>
-      <Button buttonType="primary">Button</Button>
-    </CarbonProvider>
-    <CarbonProvider theme={aegeanTheme}>
-      <Button buttonType="primary">Button</Button>
-      <CarbonProvider theme={baseTheme}>
-        <Button buttonType="primary">Button</Button>
-      </CarbonProvider>
-    </CarbonProvider>
-    <CarbonProvider theme={sageTheme}>
-      <Button buttonType="primary">Button</Button>
-    </CarbonProvider>
-  </Story>
+  <Story story={stories.MintTheme} />
 </Canvas>
 
 ## Props
 
 ### Carbon Provider
 
-<ArgsTable
-  rows={[
-    {
-      name: "children",
-      type: { summary: "node", required: true },
-      description: "",
-      defaultValue: {
-        summary: "-",
-      },
-    },
-    {
-      name: "theme",
-      type: { summary: "object", required: false },
-      description: "",
-      defaultValue: {
-        summary: "mintTheme",
-      },
-    },
-    {
-      name: "validationRedesignOptIn",
-      type: { summary: "boolean", required: false },
-      description: "",
-      defaultValue: {
-        summary: "false",
-      },
-    },
-  ]}
-/>
+<ArgsTable of={CarbonProvider} />

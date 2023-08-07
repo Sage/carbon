@@ -1,24 +1,11 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { useState } from "react";
 
-import VerticalDivider from ".";
-import Dialog from "../dialog";
-import Button from "../button";
-import Tile from "../tile";
-import Content from "../content";
-import Icon from "../icon";
-import { GridContainer, GridItem } from "../grid";
-import { Menu, MenuItem, MenuDivider, MenuVerticalDivider } from "../menu";
-import {
-  FlatTable,
-  FlatTableHead,
-  FlatTableBody,
-  FlatTableHeader,
-  FlatTableRow,
-  FlatTableCell,
-} from "../flat-table";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import styled from "styled-components";
+
+import VerticalDivider from ".";
+
+import * as stories from "./vertical-divider.stories";
 
 <Meta title="VerticalDivider" parameters={{ info: { disable: true } }} />
 
@@ -46,34 +33,8 @@ import VerticalDivider from "carbon-react/lib/components/vertical-divider";
 
 By default the VerticalDivider has a height of `100%` and padding of `24px`.
 
-export const Square = styled.div`
-  height: ${({ size }) => size || "56px"};
-  width: ${({ size }) => size || "56px"};
-  background-color: ${({ theme }) => theme.colors.primary};
-`;
-
 <Canvas>
-  <Story name="default">
-    <div style={{ display: "inline-flex" }}>
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-      <VerticalDivider />
-      <Square />
-    </div>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### In a flex container
@@ -82,34 +43,7 @@ It is possible to set a custom height for the component by passing a value to th
 if passing a number the height will be set in pixels; if passing a string you will need to ensure you provide the measurement unit.
 
 <Canvas>
-  <Story name="in a flex container">
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: 24,
-      }}
-    >
-      <Icon type="home" />
-      <VerticalDivider h={16} />
-      <Icon type="settings" />
-      <VerticalDivider h={16} />
-      <Icon type="add" />
-      <VerticalDivider h={16} />
-      <Icon type="minus" />
-      <VerticalDivider h={16} />
-      <Icon type="info" />
-      <VerticalDivider h={16} />
-      <Icon type="warning" />
-      <VerticalDivider h={16} />
-      <Icon type="chevron_up" />
-      <VerticalDivider h={16} />
-      <Icon type="chevron_down" />
-      <VerticalDivider h={16} />
-      <Icon type="edit" />
-    </div>
-  </Story>
+  <Story name="in a flex container" story={stories.InAFlexContainer} />
 </Canvas>
 
 ### In a non-flex container
@@ -120,35 +54,8 @@ add the css attribute `display: inline;` to the component.
 <Canvas>
   <Story
     name="in a non-flex container"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <div
-      style={{
-        display: "inline-block",
-        width: "620px",
-        height: "auto",
-        margin: "0px 180px",
-      }}
-    >
-      <Icon type="home" />
-      <VerticalDivider displayInline />
-      <Icon type="settings" />
-      <VerticalDivider displayInline />
-      <Icon type="add" />
-      <VerticalDivider displayInline />
-      <Icon type="minus" />
-      <VerticalDivider displayInline />
-      <Icon type="info" />
-      <VerticalDivider displayInline />
-      <Icon type="warning" />
-      <VerticalDivider displayInline />
-      <Icon type="chevron_up" />
-      <VerticalDivider displayInline />
-      <Icon type="chevron_down" />
-      <VerticalDivider displayInline />
-      <Icon type="edit" />
-    </div>
-  </Story>
+    story={stories.InANonFlexContainer}
+  />
 </Canvas>
 
 ### With custom spacing and height
@@ -158,51 +65,7 @@ the `pr` and `pr` props set the horizontal spacing. These props can be number mu
 theme spacing which is `8px`, or any valid CSS string. The default for the `p` prop is `3` and therefore `24px`.
 
 <Canvas>
-  <Story name="with custom spacing and height">
-    <div style={{ display: "inline-flex" }}>
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={1} pb={1} />
-        <Square />
-      </div>
-      <VerticalDivider pl={1} pr={1} h={185} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={2} pb={2} />
-        <Square />
-      </div>
-      <VerticalDivider pl={2} pr={2} h={200} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={3} pb={3} />
-        <Square />
-      </div>
-      <VerticalDivider pl={3} pr={3} h={215} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={4} pb={4} />
-        <Square />
-      </div>
-      <VerticalDivider pl={4} pr={4} h={230} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={5} pb={5} />
-        <Square />
-      </div>
-      <VerticalDivider pl={5} pr={5} h={245} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={6} pb={6} />
-        <Square />
-      </div>
-      <VerticalDivider pl={6} pr={6} h={260} />
-      <div>
-        <Square />
-        <VerticalDivider h="100px" pt={7} pb={7} />
-        <Square />
-      </div>
-    </div>
-  </Story>
+  <Story name="with custom spacing and height" story={stories.WithCustomSpacingHeight} />
 </Canvas>
 
 ### Tint variants
@@ -211,80 +74,19 @@ It is possible to pass a value (any value between `1` and `100`) to the `tint` p
 applied to the slate.
 
 <Canvas>
-  <Story name="with custom tint">
-    <div style={{ display: "inline-flex" }}>
-      <Square />
-      <VerticalDivider tint={20} />
-      <Square />
-      <VerticalDivider tint={75} />
-      <Square />
-      <VerticalDivider tint={80} />
-      <Square />
-      <VerticalDivider tint={90} />
-      <Square />
-    </div>
-  </Story>
+  <Story name="with custom tint" story={stories.WithCustomTint} />
 </Canvas>
 
 ### In a Dialog
 
 <Canvas>
-  <Story name="in a dialog" parameters={{ chromatic: { disable: true } }}>
-    {() => {
-      const [isOpen, setIsOpen] = useState(false);
-      return (
-        <>
-          <Button onClick={() => setIsOpen(true)}>Click Me</Button>
-          <Dialog title="Title" open={isOpen} onCancel={() => setIsOpen(false)}>
-            <div style={{ display: "inline-flex" }}>
-              <Square />
-              <VerticalDivider />
-              <Square />
-              <VerticalDivider />
-              <Square />
-              <VerticalDivider />
-              <Square />
-              <VerticalDivider />
-              <Square />
-              <VerticalDivider />
-              <Square />
-              <VerticalDivider />
-              <Square />
-            </div>
-          </Dialog>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="in a dialog" story={stories.InADialog} />
 </Canvas>
 
 ### In a Tile
 
 <Canvas>
-  <Story name="in a tile">
-    <Tile width={800} orientation="vertical">
-      <Content title="Test Title One">Test Body One</Content>
-      <div style={{ display: "inline-flex", height: 40 }}>
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-        <Square size="40px" />
-      </div>
-    </Tile>
-  </Story>
+  <Story name="in a tile" story={stories.InATile} />
 </Canvas>
 
 ### In a grid container
@@ -292,105 +94,19 @@ applied to the slate.
 This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
 
 <Canvas>
-  <Story name="in grid container" parameters={{ info: { disable: true } }}>
-    <GridContainer>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="1"
-        gridColumn="1 / 2"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <VerticalDivider h={100} />
-        <Square size="40px" />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="3 / 4"
-        gridRow="1 /2 "
-      >
-        <VerticalDivider h={180} />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="5 / 6"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <VerticalDivider h={100} />
-        <Square size="40px" />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="7 / 8"
-        gridRow="1 / 2"
-      >
-        <VerticalDivider h={180} />
-      </GridItem>
-      <GridItem
-        alignSelf="stretch"
-        justifySelf="stretch"
-        gridColumn="9 / 10"
-        gridRow="1 / 2"
-      >
-        <Square size="40px" />
-        <VerticalDivider h={100} />
-        <Square size="40px" />
-      </GridItem>
-    </GridContainer>
-  </Story>
+  <Story name="in grid container" story={stories.InGridContainer} />
 </Canvas>
 
 ### In a table
 
 <Canvas>
-  <Story name="in a table">
-    <FlatTable>
-      <FlatTableHead>
-        <FlatTableRow>
-          <FlatTableHeader>Dish Name</FlatTableHeader>
-          <FlatTableHeader>Ingredients</FlatTableHeader>
-          <FlatTableHeader>Cooking Time</FlatTableHeader>
-          <FlatTableHeader>Prep Time</FlatTableHeader>
-        </FlatTableRow>
-      </FlatTableHead>
-      <FlatTableBody>
-        <FlatTableRow>
-          <FlatTableCell>Pancakes</FlatTableCell>
-          <FlatTableCell>
-            Eggs
-            <VerticalDivider displayInline />
-            Flour
-            <VerticalDivider displayInline />
-            Milk
-          </FlatTableCell>
-          <FlatTableCell>5 minutes</FlatTableCell>
-          <FlatTableCell>5 minutes</FlatTableCell>
-        </FlatTableRow>
-      </FlatTableBody>
-    </FlatTable>
-  </Story>
+  <Story name="in a table" story={stories.InATable} />
 </Canvas>
 
 ### In a Menu
 
 <Canvas>
-  <Story name="in a menu">
-    <div style={{ minHeight: 120 }}>
-      <Menu menuType="dark">
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <VerticalDivider height={24} p={1} tint={20} />
-        <MenuItem submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </div>
-  </Story>
+  <Story name="in a menu" story={stories.InAMenu} />
 </Canvas>
 
 ## Props

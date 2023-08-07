@@ -5,12 +5,19 @@ import Pod from "../pod";
 import { GridContainer, GridItem } from ".";
 import { Dl, Dt, Dd } from "../definition-list";
 import Button from "../button";
-import Link from "../link";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-<Meta title="Grid" parameters={{ chromatic: { disable: true } }} />
+<Meta title="Grid" parameters={{ chromatic: { disableSnapshot: true } }} />
 
 # Grid
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/58ef5d-grid-system"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
 
 The Carbon responsive grid system is a layout component that provides guidance on how components should be positioned within a user interface, adapting to screen size and orientation.
 The Grid system is designed to provide:
@@ -179,7 +186,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 <Canvas>
   <Story
     name="custom spacings"
-    parameters={{ info: { disable: true }, chromatic: { disable: false } }}
+    parameters={{ info: { disable: true }, chromatic: { disableSnapshot: false } }}
   >
     <GridContainer p="20px" gridGap="5px">
       <GridItem
@@ -365,7 +372,7 @@ This example is best viewed in the Canvas tab using full-screen mode with device
 <Canvas>
   <Story
     name="subgrid"
-    parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+    parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
   >
     <div id="grid-align">
       <GridContainer>

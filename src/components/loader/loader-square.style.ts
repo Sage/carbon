@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import baseTheme from "../../style/themes/base";
 
 export interface StyledLoaderSquareProps {
   /** Size of the loader. */
@@ -20,7 +21,12 @@ const loaderAnimation = keyframes`
   }
 `;
 
-const getDimentions = (size: StyledLoaderSquareProps["size"]) => {
+type RoundedCornersOptOut = boolean;
+
+const getDimentions = (
+  size: StyledLoaderSquareProps["size"],
+  roundedCornersOptOut: RoundedCornersOptOut
+) => {
   let width;
   let marginRight;
 
@@ -42,15 +48,16 @@ const getDimentions = (size: StyledLoaderSquareProps["size"]) => {
     width: ${width};
     height: ${width};
     margin-right: ${marginRight};
+    ${!roundedCornersOptOut && "border-radius: var(--borderRadiusCircle);"}
   `;
 };
 
 const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
-  ${({ size, isInsideButton, isActive }) => css`
+  ${({ size, isInsideButton, isActive, theme }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
     background-color: var(--colorsActionMajor500);
     display: inline-block;
-    ${getDimentions(size)}
+    ${getDimentions(size, theme.roundedCornersOptOut)}
 
     ${isInsideButton &&
     css`
@@ -78,6 +85,7 @@ StyledLoaderSquare.defaultProps = {
   size: "small",
   isInsideButton: false,
   isActive: true,
+  theme: baseTheme,
 };
 
 export default StyledLoaderSquare;

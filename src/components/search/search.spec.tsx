@@ -15,6 +15,11 @@ import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
 import TextBox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
+import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
+import StyledButton from "../button/button.style";
+
+jest.mock("../../__internal__/utils/logger");
 
 describe("Search", () => {
   let wrapper: ReactWrapper;
@@ -26,9 +31,37 @@ describe("Search", () => {
 
   testStyledSystemMargin((props) => <Search value="" {...props} />);
 
-  function renderSearch(props: SearchProps) {
+  function renderSearch(
+    props: SearchProps & React.RefAttributes<HTMLInputElement>
+  ) {
     return mount(<Search {...props} />);
   }
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      wrapper = renderSearch({ defaultValue: "foo" });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe("styles", () => {
     it("matches the expected styles", () => {
@@ -242,6 +275,39 @@ describe("Search", () => {
         },
         wrapper,
         { modifier: `${StyledIcon}:hover` }
+      );
+    });
+
+    it("renders with the expected border radius styling", () => {
+      wrapper = renderSearch({ value: "" });
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius050)",
+        },
+        wrapper.find(StyledInput)
+      );
+    });
+
+    it("renders with the expected border radius styling when searchButton is enabled and input has value", () => {
+      wrapper = renderSearch({ value: "foo", searchButton: true });
+      assertStyleMatch(
+        {
+          borderTopRightRadius: "var(--borderRadius000)",
+          borderBottomRightRadius: "var(--borderRadius000)",
+        },
+        wrapper,
+        { modifier: `${StyledTextInput}` }
+      );
+
+      assertStyleMatch(
+        {
+          borderTopLeftRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius000)",
+          borderTopRightRadius: "var(--borderRadius050)",
+          borderBottomRightRadius: "var(--borderRadius050)",
+        },
+        wrapper.find(StyledSearchButton),
+        { modifier: `& ${StyledButton}` }
       );
     });
   });
@@ -547,7 +613,7 @@ describe("Search", () => {
     const stopPropagationFn = jest.fn();
 
     afterEach(() => {
-      jest.clearAllMocks();
+      stopPropagationFn.mockClear();
     });
 
     it("should stop propagation of the event for character keys", () => {
@@ -601,6 +667,75 @@ describe("Search", () => {
         },
         renderSearch({ value: "search", maxWidth: "" })
       );
+    });
+  });
+
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const ref = { current: null };
+
+      wrapper = renderSearch({ inputRef: ref, value: "" });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Search` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = renderSearch({ ref, value: "" });
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = renderSearch({ ref, value: "" });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = renderSearch({ ref, value: "" });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
+  });
+
+  describe("aria-label", () => {
+    it("has a default aria-label passed to Search", () => {
+      wrapper = renderSearch({ defaultValue: "foo" });
+      const search = wrapper.find(TextBox);
+      expect(search.prop("aria-label")).toEqual("search");
+    });
+
+    it("has a default aria-label passed to Search button", () => {
+      wrapper = renderSearch({ defaultValue: "foo", searchButton: true });
+      const searchButton = wrapper.find(Button);
+      expect(searchButton.prop("aria-label")).toEqual("search button");
+    });
+
+    it("supports a custom aria-label passed to Search", () => {
+      wrapper = renderSearch({ defaultValue: "foo", "aria-label": "foobar" });
+      const search = wrapper.find(Search);
+      expect(search.prop("aria-label")).toEqual("foobar");
+    });
+
+    it("supports a custom aria-label passed to Search button", () => {
+      wrapper = renderSearch({
+        defaultValue: "foo",
+        searchButtonAriaLabel: "foobar button",
+        searchButton: true,
+      });
+      const searchButton = wrapper.find(Button);
+      expect(searchButton.prop("aria-label")).toEqual("foobar button");
     });
   });
 });

@@ -4,10 +4,8 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import Message from ".";
-import Button from "../button";
-import Typography, { List, ListItem } from "../typography";
-import Box from "../box";
-import Link from "../link";
+
+import * as stories from "./message.stories"
 
 <Meta title="Message" parameters={{ info: { disable: true } }} />
 
@@ -54,93 +52,33 @@ Various types are available:
 Message variant is `info` by default
 
 <Canvas>
-  <Story name="default">
-    {() => {
-      const [isOpen, setIsOpen] = useState(true);
-      return (
-        <>
-          {!isOpen && (
-            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
-          )}
-          <Message open={isOpen} onDismiss={() => setIsOpen(false)}>
-            Some custom message
-          </Message>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="default" story={stories.Default} />
+</Canvas>
+
+### showCloseIcon
+
+When the `showCloseIcon` is `false` the close icon will not be rendered, and padding with be equal on both sides.
+
+<Canvas>
+  <Story name="showCloseIcon" story={stories.ShowCloseIcon} />
 </Canvas>
 
 ### Error
 
 <Canvas>
-  <Story name="error">
-    {() => {
-      const [isOpen, setIsOpen] = useState(true);
-      return (
-        <>
-          {!isOpen && (
-            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
-          )}
-          <Message
-            open={isOpen}
-            onDismiss={() => setIsOpen(false)}
-            variant="error"
-          >
-            Some custom message
-          </Message>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="error" story={stories.Error} />
 </Canvas>
 
 ### Success
 
 <Canvas>
-  <Story name="success">
-    {() => {
-      const [isOpen, setIsOpen] = useState(true);
-      return (
-        <>
-          {!isOpen && (
-            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
-          )}
-          <Message
-            open={isOpen}
-            onDismiss={() => setIsOpen(false)}
-            variant="success"
-          >
-            Some custom message
-          </Message>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="success" story={stories.Success} />
 </Canvas>
 
 ### Warning
 
 <Canvas>
-  <Story name="warning">
-    {() => {
-      const [isOpen, setIsOpen] = useState(true);
-      return (
-        <>
-          {!isOpen && (
-            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
-          )}
-          <Message
-            open={isOpen}
-            onDismiss={() => setIsOpen(false)}
-            variant="warning"
-          >
-            Some custom message
-          </Message>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="warning" story={stories.Warning} />
 </Canvas>
 
 ### With rich content
@@ -148,45 +86,7 @@ Message variant is `info` by default
 It is also possible to use the `List`, `ListItem` and `Typography` components to render content other than plain text in a `Message`.
 
 <Canvas>
-  <Story name="with rich content">
-    {() => {
-      const [isOpen, setIsOpen] = useState(true);
-      return (
-        <>
-          {!isOpen && (
-            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
-          )}
-          <Message
-            open={isOpen}
-            onDismiss={() => setIsOpen(false)}
-            variant="warning"
-            title={<Typography variant="h4">Title</Typography>}
-          >
-            Some custom message
-            <Box mt="8px">
-              <List>
-                <ListItem>
-                  Some custom{" "}
-                  <Typography variant="b">message as a list</Typography>.{" "}
-                  <Link href="#">With a link</Link>
-                </ListItem>
-                <ListItem>
-                  Some custom{" "}
-                  <Typography variant="b">message as a list</Typography>.{" "}
-                  <Link href="#">With a link</Link>
-                </ListItem>
-                <ListItem>
-                  Some custom{" "}
-                  <Typography variant="b">message as a list</Typography>.{" "}
-                  <Link href="#">With a link</Link>
-                </ListItem>
-              </List>
-            </Box>
-          </Message>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="with rich content" story={stories.WithRichContent} />
 </Canvas>
 
 ### With margin
@@ -197,42 +97,15 @@ To see a full list of available margin props, please visit the props table at th
 [Visit Props Table](#props)
 
 <Canvas>
-  <Story name="with margin">
-    {() => {
-      const [isOpen, setIsOpen] = useState(true);
-      return (
-        <>
-          {!isOpen && (
-            <Button onClick={() => setIsOpen(true)}>Open Message</Button>
-          )}
-          <Message
-            open={isOpen}
-            onDismiss={() => setIsOpen(false)}
-            variant="warning"
-            m={1}
-          >
-            Some custom message
-          </Message>
-          <Message
-            open={isOpen}
-            onDismiss={() => setIsOpen(false)}
-            variant="warning"
-            m={3}
-          >
-            Some custom message
-          </Message>
-          <Message
-            open={isOpen}
-            onDismiss={() => setIsOpen(false)}
-            variant="warning"
-            m="16px"
-          >
-            Some custom message
-          </Message>
-        </>
-      );
-    }}
-  </Story>
+  <Story name="with margin" story={stories.WithMargin} />
+</Canvas>
+
+### With focus
+
+Since it is possible to pass a ref to this component, it is also possible to programmatically focus the component. 
+
+<Canvas>
+  <Story name="with focus" story={stories.WithFocus} />
 </Canvas>
 
 ## Props

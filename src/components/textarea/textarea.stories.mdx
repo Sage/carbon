@@ -13,6 +13,14 @@ import * as stories from "./textarea.stories";
 
 # Textarea
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/20f5ea-text-area"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
+
 - Useful for collecting a significant amount of text (e.g. notes about clients, or a short email message).
 - If content in a textarea is read-only, remove the field border so it appears as static text.
 - Use placeholder text to give the user context or examples of what to write.
@@ -84,6 +92,22 @@ import Textarea from "carbon-react/lib/components/textarea";
   <Story
     name="with characterLimit - not enforced"
     story={stories.UnenforcedCharacterLimitStory}
+  />
+</Canvas>
+
+### with characterLimit - with translations
+
+Various translations can be applied to both the hint message which appears before the input, and the character 
+counter below the input. 
+
+These translations have been split up to include a number which represents the current character count which
+is over/under the set `characterLimit`. Please see below how this has been achieved with a French translation.
+Include the formatted number count wherever makes sense for the language you're translating too.
+
+<Canvas>
+  <Story 
+    name="with characterLimit with translations" 
+    story={stories.TranslationsCharacterLimitStory}
   />
 </Canvas>
 

@@ -1,36 +1,56 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import Loader, { LoaderProps } from ".";
+import Loader from ".";
 import StyledLoader from "./loader.style";
 import StyledLoaderSquare from "./loader-square.style";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
-function renderLoader(props: LoaderProps = {}) {
-  return shallow(<Loader {...props} />);
-}
-
-function renderStyles(props = {}) {
-  return TestRenderer.create(<StyledLoader {...props} />);
-}
+jest.mock("../../hooks/useMediaQuery", () => {
+  return {
+    __esModule: true,
+    default: jest.fn().mockReturnValue(false),
+  };
+});
 
 describe("Loader", () => {
   testStyledSystemMargin((props) => <Loader {...props} />);
 
-  it("renders as expected", () => {
-    assertStyleMatch(
-      {
-        textAlign: "center",
-      },
-      renderStyles().toJSON()
-    );
+  it("renders with correct styles", () =>
+    assertStyleMatch({ textAlign: "center" }, mount(<Loader />)));
+
+  it("if user disallows animations or their preference cannot be determined, render alternative loading text", () => {
+    const wrapper = mount(<Loader />);
+    expect(wrapper.text()).toBe("Loading");
   });
 
-  it("renders three squares", () => {
-    expect(renderLoader().find(StyledLoaderSquare).exists()).toBe(true);
-    expect(renderLoader().find(StyledLoaderSquare)).toHaveLength(3);
+  describe("if user allows animations", () => {
+    beforeEach(() => {
+      const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+        typeof useMediaQuery
+      >;
+      mockUseMediaQuery.mockReturnValueOnce(true);
+    });
+
+    it("renders three square animation", () => {
+      const wrapper = mount(<Loader />);
+      expect(wrapper.find(StyledLoaderSquare).exists()).toBe(true);
+      expect(wrapper.find(StyledLoaderSquare)).toHaveLength(3);
+    });
+
+    it("root element has accessible name", () => {
+      const wrapper = mount(<Loader />);
+      expect(wrapper.find(StyledLoader).prop("aria-label")).toBe("Loading");
+    });
+
+    it("when custom aria-label is passed, set accessible name to its value", () => {
+      const wrapper = mount(<Loader aria-label="Still loading" />);
+      expect(wrapper.find(StyledLoader).prop("aria-label")).toBe(
+        "Still loading"
+      );
+    });
   });
 });

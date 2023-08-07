@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
 import Alert from ".";
 import Button from "../button";
+
 import isChromatic from "../../../.storybook/isChromatic";
 
 const defaultOpenState = isChromatic();
 
-const AlertComponent: ComponentStory<typeof Alert> = () => {
+// Added to avoid default export warning which causes storybook to not display `show code` examples - https://github.com/storybookjs/storybook/issues/8104
+// eslint-disable-next-line import/prefer-default-export
+export const DefaultAlert: ComponentStory<typeof Alert> = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -26,5 +29,3 @@ const AlertComponent: ComponentStory<typeof Alert> = () => {
     </>
   );
 };
-
-export default AlertComponent;

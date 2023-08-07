@@ -8,7 +8,7 @@ import {
   flexbox,
   FlexboxProps,
   ColorProps,
-  position,
+  position as positionFn,
   PositionProps,
 } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
@@ -27,6 +27,7 @@ export type Gap = AllowedNumericalValues | string;
 
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
+type BorderRadiusType = Extract<DesignTokensType, `borderRadius${string}`>;
 
 export interface BoxProps
   extends SpaceProps,
@@ -52,9 +53,21 @@ export interface BoxProps
   rowGap?: Gap;
   /** Design Token for Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Box component. */
   boxShadow?: BoxShadowsType;
+  /** Design Token for Border Radius. Note: please check that the border radius design token you are using is compatible with the Box component. **This prop will not do anything if you have the roundedCornerOptOut flag set in the CarbonProvider** */
+  borderRadius?: BorderRadiusType;
 }
 
 let isDeprecationWarningTriggered = false;
+
+const calculatePosition = (props: Omit<PositionProps, "zIndex">) => {
+  const { position, ...rest } = positionFn(props);
+
+  return {
+    position,
+    zIndex: ["sticky", "fixed"].includes(position) ? 1 : undefined,
+    ...rest,
+  };
+};
 
 export const Box = styled.div<BoxProps>`
   ${() => {
@@ -70,7 +83,13 @@ export const Box = styled.div<BoxProps>`
   ${space}
   ${layout}
   ${flexbox}
-  ${position}
+  ${calculatePosition}
+
+  ${({ theme, borderRadius = "borderRadius000" }) =>
+    !theme.roundedCornersOptOut &&
+    css`
+      border-radius: var(--${borderRadius});
+    `}
 
   ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}

@@ -2,7 +2,6 @@ import React from "react";
 import { MarginProps } from "styled-system";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import { filterStyledSystemMarginProps } from "../../style/utils";
 import {
   FieldsetStyle,
   LegendContainerStyle,
@@ -10,6 +9,8 @@ import {
   StyledFieldsetProps,
 } from "./fieldset.style";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 export interface FieldsetProps extends StyledFieldsetProps, MarginProps {
   /** Child elements */
@@ -34,17 +35,20 @@ export const Fieldset = ({
     );
   };
 
+  const marginProps = useFormSpacing(rest);
+
   return (
     <NewValidationContext.Provider value={{ validationRedesignOptIn: false }}>
       <FieldsetStyle
         {...tagComponent("fieldset", rest)}
         {...rest}
-        m={0}
-        {...filterStyledSystemMarginProps(rest)}
+        {...marginProps}
       >
         <FieldsetContentStyle data-component="fieldset-style" inline={inline}>
           {getLegend()}
-          {children}
+          <FormSpacingProvider marginBottom={undefined}>
+            {children}
+          </FormSpacingProvider>
         </FieldsetContentStyle>
       </FieldsetStyle>
     </NewValidationContext.Provider>

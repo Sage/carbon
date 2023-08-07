@@ -10,9 +10,9 @@ import Button from "../../../src/components/button";
 const GetStarted = () => (
   <Wrapper>
     <GetStartedWrapper>
-      <Text>Ready to Get Started?</Text>
+      <Text>Ready to get started?</Text>
       <CheckoutText>
-        Check out the Github repository or download Carbon
+        Check out the GitHub repository or download Carbon
       </CheckoutText>
       <Button
         buttonType="darkBackground"
@@ -24,7 +24,7 @@ const GetStarted = () => (
       </Button>
       <Button
         buttonType="primary"
-        href="https://github.com/Sage/carbon/blob/master/docs/getting-started.stories.mdx"
+        href="https://carbon.sage.com/?path=/story/getting-started-installation--page"
         size="large"
         target="_blank"
         ml={2}

@@ -8,9 +8,13 @@ import {
   Placement,
 } from "@floating-ui/dom";
 
+type CustomRefObject<T> = {
+  current?: T | null;
+};
+
 export interface UseFloatingProps {
   isOpen?: boolean;
-  reference: React.RefObject<HTMLElement | null>;
+  reference: CustomRefObject<HTMLElement | null>;
   floating: React.RefObject<HTMLElement | null>;
   strategy?: Strategy;
   middleware?: Middleware[];
@@ -22,6 +26,8 @@ type OriginalValues = {
   top: string | null;
   left: string | null;
   position: string;
+  width: string;
+  height: string;
 };
 
 const useFloating = ({
@@ -42,8 +48,8 @@ const useFloating = ({
     const floatingElement = floating.current;
 
     if (referenceElement && floatingElement && isOpen) {
-      const { left, top, position } = floatingElement.style;
-      originalValues.current = { left, top, position };
+      const { left, top, position, width, height } = floatingElement.style;
+      originalValues.current = { left, top, position, width, height };
 
       Object.assign(floatingElement.style, {
         position: strategy,

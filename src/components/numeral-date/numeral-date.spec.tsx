@@ -7,7 +7,7 @@ import NumeralDate, {
   ValidDateFormat,
 } from "./numeral-date.component";
 import Textbox from "../textbox";
-import { StyledNumeralDate } from "./numeral-date.style";
+import { StyledDateField, StyledNumeralDate } from "./numeral-date.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -20,6 +20,10 @@ import StyledHelp from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
+import Logger from "../../__internal__/utils/logger";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
+
+jest.mock("../../__internal__/utils/logger");
 
 const ddmmMessage =
   "Day should be a number within a 1-31 range.\n" +
@@ -68,6 +72,32 @@ describe("NumeralDate", () => {
   beforeEach(() => {
     onBlur.mockReset();
     onChange.mockReset();
+  });
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      renderWrapper({});
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe("propTypes", () => {
@@ -166,12 +196,9 @@ describe("NumeralDate", () => {
       assertStyleMatch(
         {
           display: "inline-flex",
-          border: "1px solid transparent",
           height: "40px",
           fontSize: "14px",
           fontWeight: "400",
-          paddingBottom: "2px",
-          paddingTop: "1px",
         },
         renderWrapper().find(StyledNumeralDate)
       );
@@ -420,28 +447,33 @@ describe("NumeralDate", () => {
   });
 
   describe("Valid characters", () => {
+    const preventDefaultMock = jest.fn();
+
     beforeEach(() => {
       wrapper = renderWrapper({});
     });
 
-    afterEach(() => jest.clearAllMocks());
+    afterEach(() => {
+      preventDefaultMock.mockClear();
+      onChange.mockClear();
+    });
 
     it("allows numeric key presses", () => {
       const input = wrapper.find("input").at(0);
-      const event = { key: "1", preventDefault: jest.fn() };
+      const event = { key: "1", preventDefault: preventDefaultMock };
       act(() => {
         input.simulate("keypress", event);
       });
-      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(preventDefaultMock).not.toHaveBeenCalled();
     });
 
     it.each([["a"], ["/"]])("does not allow non-numeric characters", (key) => {
       const input = wrapper.find("input").at(0);
-      const event = { key: key[0], preventDefault: jest.fn() };
+      const event = { key: key[0], preventDefault: preventDefaultMock };
       act(() => {
         input.simulate("keypress", event);
       });
-      expect(event.preventDefault).toHaveBeenCalled();
+      expect(preventDefaultMock).toHaveBeenCalled();
     });
 
     it("does not allow partial date value to be too long", () => {
@@ -450,7 +482,7 @@ describe("NumeralDate", () => {
         target: {
           value: "123",
         },
-        preventDefault: jest.fn(),
+        preventDefault: preventDefaultMock,
       };
       act(() => {
         input.simulate("change", event);
@@ -548,5 +580,136 @@ describe("NumeralDate", () => {
         expect(wrapper.find(ErrorBorder).length).toEqual(1);
       });
     });
+  });
+
+  describe("ref props", () => {
+    describe("dayRef", () => {
+      it("accepts as a ref object", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          dayRef: ref,
+        });
+
+        expect(ref.current).toBe(wrapper.find("input").at(0).getDOMNode());
+      });
+
+      it("accepts as a ref callback", () => {
+        const ref = jest.fn();
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          dayRef: ref,
+        });
+
+        expect(ref).toHaveBeenCalledWith(
+          wrapper.find("input").at(0).getDOMNode()
+        );
+      });
+
+      it("sets ref to empty after unmount", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          dayRef: ref,
+        });
+
+        wrapper.unmount();
+
+        expect(ref.current).toBe(null);
+      });
+    });
+
+    describe("monthRef", () => {
+      it("accepts as a ref object", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          monthRef: ref,
+        });
+
+        expect(ref.current).toBe(wrapper.find("input").at(1).getDOMNode());
+      });
+
+      it("accepts as a ref callback", () => {
+        const ref = jest.fn();
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          monthRef: ref,
+        });
+
+        expect(ref).toHaveBeenCalledWith(
+          wrapper.find("input").at(1).getDOMNode()
+        );
+      });
+
+      it("sets ref to empty after unmount", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          monthRef: ref,
+        });
+
+        wrapper.unmount();
+
+        expect(ref.current).toBe(null);
+      });
+    });
+
+    describe("yearRef", () => {
+      it("accepts as a ref object", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          yearRef: ref,
+        });
+
+        expect(ref.current).toBe(wrapper.find("input").at(2).getDOMNode());
+      });
+
+      it("accepts as a ref callback", () => {
+        const ref = jest.fn();
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          yearRef: ref,
+        });
+
+        expect(ref).toHaveBeenCalledWith(
+          wrapper.find("input").at(2).getDOMNode()
+        );
+      });
+
+      it("sets ref to empty after unmount", () => {
+        const ref = { current: null };
+        wrapper = renderWrapper({
+          dateFormat: ["dd", "mm", "yyyy"],
+          yearRef: ref,
+        });
+
+        wrapper.unmount();
+
+        expect(ref.current).toBe(null);
+      });
+    });
+  });
+
+  it("renders with the expected border radius styling on first and last inputs", () => {
+    wrapper = renderWrapper({ value: { dd: "02", mm: "01", yyyy: "2020" } });
+    assertStyleMatch(
+      {
+        borderTopLeftRadius: "var(--borderRadius050)",
+        borderBottomLeftRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledDateField).first(),
+      { modifier: `${StyledInputPresentation}` }
+    );
+
+    assertStyleMatch(
+      {
+        borderTopRightRadius: "var(--borderRadius050)",
+        borderBottomRightRadius: "var(--borderRadius050)",
+      },
+      wrapper.find(StyledDateField).last(),
+      { modifier: `${StyledInputPresentation}` }
+    );
   });
 });

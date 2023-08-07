@@ -19,6 +19,7 @@ import {
 } from "../flat-table";
 import Confirm from "../confirm";
 import { Accordion } from "../accordion";
+import Dialog from "../dialog";
 
 export const ActionPopoverComponent: ComponentStory<
   typeof ActionPopover
@@ -299,31 +300,27 @@ export const ActionPopoverComponentDisabledSubmenu: ComponentStory<
   );
 };
 
-export const ActionPopoverComponentSubmenuAlignedRight: ComponentStory<
+export const ActionPopoverComponentSubmenuPositionedRight: ComponentStory<
   typeof ActionPopover
 > = () => {
+  const submenu = (
+    <ActionPopoverMenu>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 1</ActionPopoverItem>
+      <ActionPopoverItem onClick={() => {}}>Sub Menu 2</ActionPopoverItem>
+      <ActionPopoverItem disabled onClick={() => {}}>
+        Sub Menu 3
+      </ActionPopoverItem>
+    </ActionPopoverMenu>
+  );
   return (
     <div style={{ height: "250px" }}>
       <Box>
-        <ActionPopover>
-          <ActionPopoverItem
-            icon="print"
-            onClick={() => {}}
-            submenu={
-              <ActionPopoverMenu>
-                <ActionPopoverItem icon="csv" onClick={() => {}}>
-                  CSV
-                </ActionPopoverItem>
-                <ActionPopoverItem icon="pdf" onClick={() => {}}>
-                  PDF
-                </ActionPopoverItem>
-              </ActionPopoverMenu>
-            }
-          >
-            Print
+        <ActionPopover submenuPosition="right">
+          <ActionPopoverItem icon="email" submenu={submenu}>
+            Email Invoice
           </ActionPopoverItem>
           <ActionPopoverDivider />
-          <ActionPopoverItem onClick={() => {}} icon="delete">
+          <ActionPopoverItem icon="delete" submenu={submenu}>
             Delete
           </ActionPopoverItem>
         </ActionPopover>
@@ -713,5 +710,24 @@ export const ActionPopoverComponentOpeningAModal: ComponentStory<
         Content
       </Confirm>
     </>
+  );
+};
+
+export const ActionPopoverNestedInDialog: ComponentStory<
+  typeof ActionPopover
+> = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <ActionPopover>
+        <ActionPopoverItem icon="email" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>
+        <ActionPopoverDivider />
+        <ActionPopoverItem onClick={() => {}} icon="delete">
+          Delete
+        </ActionPopoverItem>
+      </ActionPopover>{" "}
+    </Dialog>
   );
 };

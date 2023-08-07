@@ -1,19 +1,27 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import SplitButton from ".";
 import Button from "../button";
-import Box from "../box";
-import { Accordion } from "../accordion";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import * as stories from "./split-button.stories";
 
 <Meta title="Split Button" parameters={{ info: { disable: true } }} />
 
 # Split Button
 
-## Contents
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/861289-button-split"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+>
+  Product Design System component
+</a>
+
+# <h2>Contents</h2>
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
@@ -24,89 +32,63 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import SplitButton from "carbon-react/lib/components/split-button";
 ```
 
-## Designer Notes
-
-- Offers one more important action to the user, with some related actions also quickly accessible, but without taking up valuable space by showing them all separately.
-- But, users may not always discover the related items, and could miss out.
-- Useful to show about 5 options or less.
-- Only use this component for buttons that are very closely related (e.g. Save, Save and Email, Save and Print, Save and New).
-- Only use this component if one option is more generic or important than the others.
-
 ## Examples
 
 ### Default
 
 <Canvas>
-  <Story name="default" parameters={{ chromatic: { disable: true } }}>
-    <SplitButton text="Split button">
-      <Button>Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </SplitButton>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Disabled
 
 <Canvas>
-  <Story name="disabled">
-    <SplitButton disabled text="Split button">
-      <Button>Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </SplitButton>
-  </Story>
+  <Story name="disabled" story={stories.Disabled} />
 </Canvas>
 
 ### Button types
 
 <Canvas>
-  <Story name="button types">
-    {["primary", "secondary"].map((buttonType) => (
-      <Box key={buttonType} mb={3}>
-        <SplitButton
-          buttonType={buttonType}
-          text={`Split button - ${buttonType}`}
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    ))}
+  <Story name="button types" story={stories.ButtonTypes} />
+</Canvas>
+
+### Child button types
+
+Buttons used as a content of `SplitButton` can be of any type.
+
+<Canvas>
+  <Story
+    name="child button types"
+    parameters={{ chromatic: { disableSnapshot: true } }}
+  >
+    <SplitButton text="Split Button">
+      <Button>Default button</Button>
+      <Button buttonType="primary" destructive>
+        Primary - destructive
+      </Button>
+      <Button buttonType="secondary">Secondary</Button>
+      <Button buttonType="secondary" destructive>
+        Secondary - destructive
+      </Button>
+      <Button buttonType="tertiary">Tertiary</Button>
+      <Button buttonType="tertiary" destructive>
+        Tertiary - destructive
+      </Button>
+      <Button disabled>Disabled</Button>
+    </SplitButton>
   </Story>
 </Canvas>
 
 ### Sizes
 
 <Canvas>
-  <Story name="sizes">
-    {["small", "medium", "large"].map((size) => (
-      <Box key={size} mb={3}>
-        <SplitButton size={size} text={`Split button - ${size}`}>
-          <Button size={size}>Button 1</Button>
-          <Button size={size}>Button 2</Button>
-          <Button size={size}>Button 3</Button>
-        </SplitButton>
-      </Box>
-    ))}
-  </Story>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### Alignment
 
 <Canvas>
-  <Story name="align" parameters={{ chromatic: { disable: true } }}>
-    {["left", "right"].map((align) => (
-      <Box key={align} mb={3}>
-        <SplitButton align={align} text={`Split button - ${align}`}>
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    ))}
-  </Story>
+  <Story name="align" story={stories.Align} />
 </Canvas>
 
 ### Subtext
@@ -114,33 +96,13 @@ import SplitButton from "carbon-react/lib/components/split-button";
 Subtext only works when `size` is `large`
 
 <Canvas>
-  <Story name="subtext">
-    <SplitButton size="large" subtext="subtext" text="Split button">
-      <Button size="large">Button 1</Button>
-      <Button size="large">Button 2</Button>
-      <Button size="large">Button 3</Button>
-    </SplitButton>
-  </Story>
+  <Story name="subtext" story={stories.Subtext} />
 </Canvas>
 
 ### With icon
 
 <Canvas>
-  <Story name="with icon">
-    {["before", "after"].map((iconPosition) => (
-      <Box key={iconPosition} mb={3}>
-        <SplitButton
-          iconType="add"
-          iconPosition={iconPosition}
-          text={`Split button - ${iconPosition}`}
-        >
-          <Button>Button 1</Button>
-          <Button>Button 2</Button>
-          <Button>Button 3</Button>
-        </SplitButton>
-      </Box>
-    ))}
-  </Story>
+  <Story name="with icon" story={stories.WithIcon} />
 </Canvas>
 
 ### In overflow: hidden container
@@ -148,18 +110,8 @@ Subtext only works when `size` is `large`
 <Canvas>
   <Story
     name="in overflow hidden container"
-    parameters={{ chromatic: { disable: true } }}
-  >
-    <Accordion title="Heading">
-      <Box p={4}>
-        <SplitButton size="large" subtext="subtext" text="Split button">
-          <Button size="large">Button 1</Button>
-          <Button size="large">Button 2</Button>
-          <Button size="large">Button 3</Button>
-        </SplitButton>
-      </Box>
-    </Accordion>
-  </Story>
+    story={stories.InOverflowHiddenContainer}
+  />
 </Canvas>
 
 ## Props

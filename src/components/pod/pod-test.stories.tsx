@@ -1,16 +1,15 @@
 import React from "react";
-import { ComponentMeta } from "@storybook/react";
-
+import Content from "../content/content.component";
 import Pod, { PodProps } from "./pod.component";
 import { POD_ALIGNMENTS, POD_SIZES, POD_VARIANTS } from "./pod.config";
 
 export default {
-  component: Pod,
   title: "Pod/Test",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
     controls: {
       sort: "alpha",
@@ -53,7 +52,7 @@ export default {
     onDelete: { action: "onDelete", control: false },
     onUndo: { action: "onUndo", control: false },
   },
-} as ComponentMeta<typeof Pod>;
+};
 
 export const Default = ({ children, ...args }: PodProps) => (
   <Pod {...args}>{children}</Pod>
@@ -76,3 +75,40 @@ Default.args = {
   softDelete: false,
   triggerEditOnContent: false,
 };
+
+export const PodExample = (props: PodProps) => {
+  return (
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      onEdit={() => {}}
+      onDelete={() => {}}
+      {...props}
+    />
+  );
+};
+
+export const PodDefault = (props: PodProps) => {
+  return <Pod title="Title" {...props} />;
+};
+
+export const SoftDeleteExample = (props: PodProps) => {
+  return (
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      onUndo={() => {}}
+      softDelete
+      {...props}
+    />
+  );
+};
+
+export const SoftDeleteExampleWithChildren = () => (
+  <Pod softDelete onUndo={() => {}}>
+    Content
+    <Content>More content</Content>
+  </Pod>
+);

@@ -9,12 +9,19 @@ import * as stories from "./radio-button.stories";
 
 # RadioButton/RadioButtonGroup
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/647e16-radio-button"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
+
 Used to provide a group of selectable radio buttons.
 
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
@@ -29,12 +36,6 @@ import {
   RadioButtonGroup,
 } from "carbon-react/lib/components/radio-button";
 ```
-
-## Designer Notes
-
-Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
-Useful to show less than about 10 options.
-Disabled or read-only radio buttons might be difficult for a user to distinguish visually, so try to avoid this.
 
 ## Related Components
 
@@ -113,6 +114,8 @@ The radio buttons and labels can be flipped around using the `reverse` prop on e
 
 The radio buttons and labels can be disabled using the `disabled` prop on each radio button.
 
+**Please Note**: Even though Carbon does support disabled radio buttons, their use is not generally recommended by Design System.
+
 <Canvas>
   <Story name="disable radio buttons" story={stories.DisableRadioButtons} />
 </Canvas>
@@ -151,7 +154,22 @@ Passing a boolean to these props will display only a properly colored border.
 
 Validation status could also be passed to the `RadioButtonGroup` component as a string or boolean. 
 
-For more information check our [Validations](?path=/docs/documentation-validations--grouped-input-validation#grouped-inputs) documentation page
+For more information check our [Validations](?path=/docs/documentation-validations--grouped-input-validation#grouped-inputs) documentation page.
+
+This is an example of `RadioButton` with validations passed as boolean values.
+<Canvas>
+  <Story name="new validation" story={stories.NewValidationDefault} />
+</Canvas>
+
+This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string.
+<Canvas>
+  <Story name="new validation group - string" story={stories.NewValidationDefaultGroup} />
+</Canvas>
+
+This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string displayed inline.
+<Canvas>
+  <Story name="new validation group - inline" story={stories.NewValidationDefaultGroupInline} />
+</Canvas>
 
 ## Props
 

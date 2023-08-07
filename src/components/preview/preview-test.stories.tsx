@@ -1,12 +1,12 @@
 import React from "react";
-import Preview from "./preview.component";
+import Preview, { PreviewProps } from "./preview.component";
 
 export default {
   title: "Preview/Test",
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -24,4 +24,8 @@ Default.story = {
     loading: true,
     width: "",
   },
+};
+
+export const PreviewComponent = (props: PreviewProps) => {
+  return <Preview loading {...props} />;
 };

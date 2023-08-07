@@ -13,17 +13,137 @@ const Menu = styled.div`
   padding: var(--spacing100) 0;
   box-shadow: var(--boxShadow100);
   position: absolute;
+  border-radius: var(--borderRadius100);
   background-color: var(--colorsUtilityYang100);
   z-index: ${({ theme }) =>
-    `${theme.zIndex.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
+    `${theme.zIndex?.popover}`}; // TODO (tokens): implement elevation tokens - FE-4437
 `;
+
+function getPaddingValues(
+  childHasSubmenu?: boolean,
+  childHasIcon?: boolean,
+  hasIcon?: boolean,
+  hasSubmenu?: boolean
+) {
+  if (!childHasIcon && childHasSubmenu && !hasIcon && !hasSubmenu) {
+    return "var(--spacing400)";
+  }
+  if (childHasIcon && childHasSubmenu && !hasIcon && hasSubmenu) {
+    return "var(--spacing600)";
+  }
+  if (childHasIcon && childHasSubmenu && !hasIcon && !hasSubmenu) {
+    return "var(--spacing900)";
+  }
+  return "var(--spacing100)";
+}
+
+function getIconPaddingValues(
+  index: 1 | 2,
+  horizontalAlignment?: "left" | "right",
+  submenuPosition?: "left" | "right",
+  siblingsHaveIconAndSubmenu?: boolean,
+  isASubmenu?: boolean
+) {
+  const sameAlignment =
+    (horizontalAlignment === "left" && submenuPosition === "left") ||
+    (horizontalAlignment === "right" && submenuPosition === "right");
+
+  if (siblingsHaveIconAndSubmenu && sameAlignment) {
+    if (horizontalAlignment === "left") {
+      return index === 1 ? "var(--spacing100)" : "var(--spacing400)";
+    }
+    return index === 1 ? "var(--spacing400)" : "var(--spacing100)";
+  }
+
+  if (isASubmenu) {
+    if (horizontalAlignment === "left") {
+      return index === 1 ? "var(--spacing100)" : "var(--spacing000)";
+    }
+    return index === 1 ? "var(--spacing000)" : "var(--spacing100)";
+  }
+
+  return "var(--spacing100)";
+}
 
 type StyledMenuItemProps = {
   isDisabled: boolean;
-  horizontalAlignment: "left" | "right";
+  horizontalAlignment?: "left" | "right";
+  submenuPosition?: "left" | "right";
+  childHasSubmenu?: boolean;
+  childHasIcon?: boolean;
+  hasSubmenu?: boolean;
+  hasIcon?: boolean;
+  isASubmenu?: boolean;
 };
 
-const StyledMenuItem = styled.button<StyledMenuItemProps>`
+const StyledMenuItemInnerText = styled.div<
+  Omit<StyledMenuItemProps, "isDisabled">
+>`
+  ${({
+    childHasSubmenu,
+    childHasIcon,
+    hasIcon,
+    hasSubmenu,
+    submenuPosition,
+    horizontalAlignment,
+    isASubmenu,
+  }) => css`
+    padding-left: ${isASubmenu ? `var(--spacing000)` : `var(--spacing100)`};
+    padding-right: ${isASubmenu ? `var(--spacing000)` : `var(--spacing100)`};
+
+    ${horizontalAlignment === "left" &&
+    submenuPosition === "left" &&
+    !isASubmenu &&
+    css`
+      padding-left: ${getPaddingValues(
+        childHasSubmenu,
+        childHasIcon,
+        hasIcon,
+        hasSubmenu
+      )};
+    `}
+
+    ${horizontalAlignment === "right" &&
+    submenuPosition === "right" &&
+    !isASubmenu &&
+    css`
+      padding-right: ${getPaddingValues(
+        childHasSubmenu,
+        childHasIcon,
+        hasIcon,
+        hasSubmenu
+      )};
+    `}
+  `}
+`;
+
+const StyledMenuItemOuterContainer = styled.div`
+  display: inherit;
+`;
+const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
+  ${({ horizontalAlignment, submenuPosition, childHasSubmenu, hasSubmenu }) =>
+    css`
+      justify-content: ${horizontalAlignment === "left"
+        ? "flex-start"
+        : "flex-end"};
+
+      ${horizontalAlignment === "left" &&
+      submenuPosition === "right" &&
+      css`
+        justify-content: space-between;
+      `}
+
+      ${horizontalAlignment === "right" &&
+      submenuPosition === "left" &&
+      css`
+        ${childHasSubmenu &&
+        hasSubmenu &&
+        css`
+          justify-content: space-between;
+        `}
+      `}
+    `}
+
   text-decoration: none;
   background-color: var(--colorsActionMajorYang100);
   cursor: pointer;
@@ -40,12 +160,11 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
   color: var(--colorsUtilityYin090);
   font-size: 14px;
   font-weight: 700;
-  justify-content: ${({ horizontalAlignment }) =>
-    horizontalAlignment === "left" ? "flex-start" : "flex-end"};
 
   &:focus {
     outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
     z-index: 1;
+    border-radius: var(--borderRadius000);
   }
 
   ${({ isDisabled }) =>
@@ -71,6 +190,10 @@ const StyledMenuItem = styled.button<StyledMenuItemProps>`
         cursor: pointer;
       }
     `}
+`;
+
+const StyledMenuItemWrapper = styled.div`
+  position: relative;
 `;
 
 const MenuItemDivider = styled.div.attrs({
@@ -102,23 +225,49 @@ const ButtonIcon = styled(Icon)`
 const StyledButtonIcon = styled.div`
   &:focus {
     outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+    border-radius: var(--borderRadius050);
   }
 `;
 
-const MenuItemIcon = styled(Icon)`
-  padding: var(--spacing100);
-  color: var(--colorsUtilityYin065);
+const MenuItemIcon = styled(Icon)<Omit<StyledMenuItemProps, "isDisabled">>`
+  ${({
+    horizontalAlignment,
+    submenuPosition,
+    childHasIcon,
+    childHasSubmenu,
+    hasIcon,
+    hasSubmenu,
+    isASubmenu,
+  }) => css`
+    justify-content: ${horizontalAlignment};
+    padding: var(--spacing100)
+      ${getIconPaddingValues(
+        1,
+        horizontalAlignment,
+        submenuPosition,
+        childHasIcon && childHasSubmenu && hasIcon && !hasSubmenu,
+        isASubmenu
+      )}
+      var(--spacing100)
+      ${getIconPaddingValues(
+        2,
+        horizontalAlignment,
+        submenuPosition,
+        childHasIcon && childHasSubmenu && hasIcon && !hasSubmenu,
+        isASubmenu
+      )};
+    color: var(--colorsUtilityYin065);
+  `}
 `;
 
 const SubMenuItemIcon = styled(ButtonIcon)`
   ${({ type }) => css`
-    position: absolute;
-    ${type === "chevron_left" &&
+    ${type === "chevron_left_thick" &&
     css`
-      left: -2px;
+      left: -5px;
     `}
 
-    ${type === "chevron_right" &&
+    ${type === "chevron_right_thick" &&
     css`
       right: -5px;
       ${isSafari(navigator) &&
@@ -155,5 +304,8 @@ export {
   MenuItemDivider,
   SubMenuItemIcon,
   MenuButtonOverrideWrapper,
+  StyledMenuItemInnerText,
+  StyledMenuItemOuterContainer,
   StyledMenuItem,
+  StyledMenuItemWrapper,
 };

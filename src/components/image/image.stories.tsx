@@ -101,6 +101,11 @@ export const CustomResponsiveBehaviour: StoryFn = () => {
   );
 };
 CustomResponsiveBehaviour.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
   info: { disable: true },
 };
+
+export const DecorativeStory: StoryFn = () => (
+  <Image alt="" src={pointSvg} decorative />
+);
+DecorativeStory.parameters = { info: { disable: true } };

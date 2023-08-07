@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React from "react";
+import { MarginProps } from "styled-system";
 import Label from "../../__internal__/label";
 import StyledInlineInputs, {
   StyledContentContainer,
@@ -6,13 +7,9 @@ import StyledInlineInputs, {
   StyledContentContainerProps,
   StyledInlineInputsProps,
 } from "./inline-inputs.style";
-
-import createGuid from "../../__internal__/utils/helpers/guid";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
-
-interface InlineInputsContextProps {
-  ariaLabelledBy?: string;
-}
+import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
 type GutterOptions =
   | "none"
@@ -25,7 +22,8 @@ type GutterOptions =
   | "extra-large";
 
 export interface InlineInputsProps
-  extends StyledContentContainerProps,
+  extends MarginProps,
+    StyledContentContainerProps,
     StyledInlineInputsProps {
   /** Breakpoint for adaptive label (inline label change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
@@ -37,26 +35,21 @@ export interface InlineInputsProps
   htmlFor?: string;
   /** Defines the label text for the heading. */
   label?: string;
+  /**
+   * Custom label id, could be used in combination with aria-labelledby prop of each input,
+   * to make them accesible for screen readers.
+   */
+  labelId?: string;
   /** Flag to configure component as mandatory. */
   required?: boolean;
 }
 
-export const InlineInputsContext: React.Context<InlineInputsContextProps> = React.createContext(
-  {}
-);
-
-const columnWrapper = (
-  children: React.ReactNode,
-  gutter: GutterOptions,
-  labelId?: string
-) => {
+const columnWrapper = (children: React.ReactNode, gutter: GutterOptions) => {
   return React.Children.map(children, (input) => {
     return (
-      <InlineInputsContext.Provider value={{ ariaLabelledBy: labelId }}>
-        <StyledInlineInput gutter={gutter} data-element="inline-input">
-          {input}
-        </StyledInlineInput>
-      </InlineInputsContext.Provider>
+      <StyledInlineInput gutter={gutter} data-element="inline-input">
+        {input}
+      </StyledInlineInput>
     );
   });
 };
@@ -64,6 +57,7 @@ const columnWrapper = (
 const InlineInputs = ({
   adaptiveLabelBreakpoint,
   label,
+  labelId,
   htmlFor,
   children = null,
   className = "",
@@ -72,8 +66,8 @@ const InlineInputs = ({
   labelInline = true,
   labelWidth,
   required,
+  ...rest
 }: InlineInputsProps) => {
-  const labelId = useRef(createGuid());
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
   let inlineLabel: boolean | undefined = labelInline;
   if (adaptiveLabelBreakpoint) {
@@ -85,7 +79,7 @@ const InlineInputs = ({
 
     return (
       <Label
-        labelId={labelId.current}
+        labelId={labelId}
         inline={inlineLabel}
         htmlFor={htmlFor}
         isRequired={required}
@@ -95,6 +89,8 @@ const InlineInputs = ({
     );
   }
 
+  const marginProps = useFormSpacing(rest);
+
   return (
     <StyledInlineInputs
       gutter={gutter}
@@ -102,6 +98,7 @@ const InlineInputs = ({
       className={className}
       labelWidth={labelWidth}
       labelInline={inlineLabel}
+      {...marginProps}
     >
       {renderLabel()}
       <StyledContentContainer
@@ -109,7 +106,9 @@ const InlineInputs = ({
         data-element="inline-inputs-container"
         inputWidth={inputWidth}
       >
-        {columnWrapper(children, gutter, label ? labelId.current : undefined)}
+        <FormSpacingProvider marginBottom={undefined}>
+          {columnWrapper(children, gutter)}
+        </FormSpacingProvider>
       </StyledContentContainer>
     </StyledInlineInputs>
   );

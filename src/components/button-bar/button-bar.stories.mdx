@@ -4,14 +4,12 @@ import Button from "../button";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import IconButton from "../icon-button/icon-button.component";
 import Icon from "../icon";
-import {
-  BUTTON_BAR_SIZES,
-  BUTTON_BAR_ICON_POSITIONS,
-} from "./button-bar.config";
+
+import * as stories from "./button-bar.stories";
 
 <Meta
   title="Button Bar"
-  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
 />
 
 # Button Bar
@@ -32,105 +30,62 @@ import ButtonBar from "carbon-react/lib/components/button-bar";
 
 ## Examples
 
+### Button Bar - Sizes
+
 Button bars of different sizes.
 
 <Canvas>
-  <Story name="sizes">
-    <ButtonBar size="small" ml={2} mt={2}>
-      <Button>Small</Button>
-      <Button>Small</Button>
-      <Button>Small</Button>
-    </ButtonBar>
-    <ButtonBar ml={2} mt={2}>
-      <Button>Medium</Button>
-      <Button>Medium</Button>
-      <Button>Medium</Button>
-    </ButtonBar>
-    <ButtonBar size="large" ml={2} mt={2}>
-      <Button>Large</Button>
-      <Button>Large</Button>
-      <Button>Large</Button>
-    </ButtonBar>
-    <ButtonBar size="large" ml={2} mt={2}>
-      <Button subtext="subtext 1">Large</Button>
-      <Button subtext="subtext 2">Large</Button>
-      <Button subtext="subtext 3">Large</Button>
-    </ButtonBar>
-  </Story>
+  <Story name="button major sizes" story={stories.buttonBarSizes} />
+</Canvas>
+
+<Canvas>
+  <Story name="button minor sizes" story={stories.buttonBarMinorSizes} />
 </Canvas>
 
 Button bars with different icon positions.
 
-<Canvas>
-  <Story name="with icons">
-    {BUTTON_BAR_ICON_POSITIONS.map((iconPosition) =>
-      BUTTON_BAR_SIZES.map((size) => (
-        <ButtonBar
-          iconPosition={iconPosition}
-          size={size}
-          key={size + iconPosition}
-          ml={2}
-          mt={2}
-        >
-          <Button iconType="csv">{iconPosition}</Button>
-          <Button iconType="pdf">{iconPosition}</Button>
-          <Button iconType="delete">{iconPosition}</Button>
-        </ButtonBar>
-      ))
-    )}
-  </Story>
-</Canvas>
+### Button Bar - Icon Position
 
 <Canvas>
-  <Story name="icons only">
-    {BUTTON_BAR_SIZES.map((size) => (
-      <ButtonBar size={size} key={size} ml={2} mt={2}>
-        <Button iconType="pdf" />
-        <Button iconType="csv" />
-        <Button iconType="delete" />
-      </ButtonBar>
-    ))}
-  </Story>
+  <Story name="button major with icons" story={stories.buttonBarIcons} />
+</Canvas>
+
+### Button Bar Minor - Icon Position
+
+<Canvas>
+  <Story name="button minor with icons" story={stories.buttonBarMinorIcons} />
+</Canvas>
+
+### Button Bar - Icon Only
+
+<Canvas>
+  <Story name="button major icons only" story={stories.buttonBarIconsOnly} />
+</Canvas>
+
+### Button Bar Minor - Icon Only
+
+<Canvas>
+  <Story name="button minor icons only" story={stories.buttonBarMinorIconsOnly} />
 </Canvas>
 
 `IconButton` components on a button bar.
 
 <Canvas>
-  <Story name="icon buttons">
-    <ButtonBar ml={2} mt={2}>
-      <IconButton onAction={() => {}}>
-        <Icon type="csv" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="pdf" />
-      </IconButton>
-      <IconButton onAction={() => {}}>
-        <Icon type="bin" />
-      </IconButton>
-    </ButtonBar>
-  </Story>
+  <Story name="button major icon buttons" story={stories.buttonBarIconButtons} />
 </Canvas>
 
 Button bars can be `fullWidth`.
 
+### Button Bar - Full Width
+
 <Canvas>
-  <Story name="fullWidth">
-    <ButtonBar fullWidth size="small" ml={2} mt={2}>
-      <Button fullWidth>Small full width</Button>
-      <Button>Small full width</Button>
-      <Button>Small full width</Button>
-    </ButtonBar>
-    <ButtonBar fullWidth ml={2} mt={2}>
-      <Button buttonType="primary">Medium full width</Button>
-      <Button>Medium full width</Button>
-      <Button>Medium full width</Button>
-    </ButtonBar>
-    <ButtonBar fullWidth size="large" ml={2} mt={2}>
-      <Button>Large full width</Button>
-      <Button>Large full width</Button>
-      <Button>Large full width</Button>
-    </ButtonBar>
-  </Story>
+  <Story name="button major fullWidth" story={stories.buttonBarFullWidth} />
+</Canvas>
+
+### Button Bar Minor - Full Width
+
+<Canvas>
+  <Story name="button minor fullWidth" story={stories.buttonBarMinorFullWidth} />
 </Canvas>
 
 ## Props

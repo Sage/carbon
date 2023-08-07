@@ -20,7 +20,7 @@ DefaultStory.args = {
   text: "Multi Action Button",
 };
 
-DefaultStory.parameters = { chromatic: { disable: true } };
+DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Disabled = DefaultStory.bind({});
 Disabled.args = {
@@ -74,6 +74,29 @@ export const ButtonTypes = () => {
   );
 };
 
+export const ChildButtonTypes = () => {
+  return (
+    <MultiActionButton text="Multi Action Button">
+      <Button>Default button</Button>
+      <Button buttonType="primary">Primary</Button>
+      <Button buttonType="primary" destructive>
+        Primary - destructive
+      </Button>
+      <Button buttonType="secondary">Secondary</Button>
+      <Button buttonType="secondary" destructive>
+        Secondary - destructive
+      </Button>
+      <Button buttonType="tertiary">Tertiary</Button>
+      <Button buttonType="tertiary" destructive>
+        Tertiary - destructive
+      </Button>
+      <Button disabled>Disabled</Button>
+    </MultiActionButton>
+  );
+};
+
+ChildButtonTypes.parameters = { chromatic: { disableSnapshot: true } };
+
 export const Alignment = () => {
   return (["left", "right"] as const).map(
     (align: MultiActionButtonProps["align"]) => (
@@ -90,7 +113,7 @@ export const Alignment = () => {
     )
   );
 };
-Alignment.parameters = { chromatic: { disable: true } };
+Alignment.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Subtext = DefaultStory.bind({});
 Subtext.args = {
@@ -128,5 +151,5 @@ export const InOverflowHiddenContainer = () => {
   );
 };
 InOverflowHiddenContainer.parameters = {
-  chromatic: { disable: true },
+  chromatic: { disableSnapshot: true },
 };

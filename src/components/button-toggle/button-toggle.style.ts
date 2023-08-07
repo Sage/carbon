@@ -40,9 +40,10 @@ const StyledButtonToggleContentWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  flex-flow: wrap;
 `;
 
-export interface StyledButtonToggleLabelProps {
+export interface StyledButtonToggleProps {
   /** The icon to be rendered inside of the button */
   buttonIcon?: IconType;
   /** Sets the size of the buttonIcon (eg. large) */
@@ -51,45 +52,58 @@ export interface StyledButtonToggleLabelProps {
   disabled?: boolean;
   /** ButtonToggle size */
   size: "small" | "medium" | "large";
+  grouped?: boolean;
+  /** set this to true to allow the button to be deselected when already selected */
+  allowDeselect?: boolean;
 }
 
-const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
-  display: inline-block;
+const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   box-sizing: border-box;
+  max-width: 100%;
+
   ${({ size }) => css`
     height: ${heightConfig[size]}px;
     padding: 0 ${paddingConfig[size]}px;
     font-size: ${fontSizeConfig[size]}px;
   `}
   font-weight: 700;
+  background-color: transparent;
   cursor: pointer;
+  text-align: start;
+  color: inherit;
 
   border: 1px solid var(--colorsActionMinor500);
 
-  ${StyledIcon} {
-    color: var(--colorsActionMinor500);
-  }
-
-  input:checked ~ && {
-    background-color: var(--colorsActionMinor300);
-    color: var(--colorsActionMinor600);
-    cursor: auto;
-  }
-
-  input:focus ~ & {
+  :focus {
     outline: 3px solid var(--colorsSemanticFocus500);
     z-index: 100;
   }
 
-  input:not(:checked):not(:disabled) ~ &:hover {
+  &[aria-pressed="true"] {
+    background-color: var(--colorsActionMinor300);
+    color: var(--colorsActionMinor600);
+    ${({ allowDeselect }) =>
+      !allowDeselect &&
+      css`
+        cursor: auto;
+      `}
+  }
+
+  :not([aria-pressed="true"]):not(:disabled):hover {
     background-color: var(--colorsActionMinor200);
     border-color: var(--colorsActionMinor500);
     color: var(--colorsActionMinor500);
-
     ${StyledIcon} {
       color: var(--colorsActionMinor500);
     }
+  }
+
+  ${StyledIcon} {
+    color: var(--colorsActionMinor500);
   }
 
   ${({ buttonIcon, buttonIconSize, size }) =>
@@ -98,19 +112,14 @@ const StyledButtonToggleLabel = styled.label<StyledButtonToggleLabelProps>`
     css`
       height: ${heightLargeIconConfig[size]}px;
       padding: 0 ${paddingLargeIconConfig[size]}px;
-
-      ${StyledButtonToggleContentWrapper} {
-        flex-direction: column;
-      }
+      flex-direction: column;
     `}
-
   ${({ disabled }) =>
     disabled &&
     css`
       & {
         border-color: var(--colorsActionDisabled500);
         color: var(--colorsActionMinorYin030);
-
         ${StyledIcon} {
           color: var(--colorsActionMinorYin030);
         }
@@ -132,37 +141,64 @@ export interface StyledButtonToggleIconProps {
 
 const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
   ${({ hasContent }) => hasContent && `margin-right: 8px;`}
-
   ${({ buttonIconSize }) =>
     buttonIconSize === "large" &&
     css`
       margin-right: 0;
-
       ${StyledIcon} {
         margin-right: 0;
         margin-bottom: 8px;
         height: ${`${iconFontSizes.largeIcon}px`};
         width: ${`${iconFontSizes.largeIcon}px`};
       }
-
       ${StyledIcon}::before {
         font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
         line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
       }
-
       .carbon-icon__svg--credit-card-slash {
         margin-left: 6px;
       }
     `}
 `;
 
-export interface StyledButtonToggleProps {
+export interface StyledButtonToggleWrapperProps {
   grouped?: boolean;
 }
 
-const StyledButtonToggle = styled.div<StyledButtonToggleProps>`
+const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
   display: inline-block;
   vertical-align: middle;
+
+  ${({ grouped }) =>
+    css`
+      ${!grouped &&
+      css`
+        &&&& {
+          ${StyledButtonToggle} {
+            border-radius: var(--borderRadius400);
+          }
+        }
+      `}
+
+      ${grouped &&
+      css`
+        &&&& {
+          :first-of-type {
+            ${StyledButtonToggle} {
+              border-top-left-radius: var(--borderRadius400);
+              border-bottom-left-radius: var(--borderRadius400);
+            }
+          }
+
+          :last-of-type {
+            ${StyledButtonToggle} {
+              border-top-right-radius: var(--borderRadius400);
+              border-bottom-right-radius: var(--borderRadius400);
+            }
+          }
+        }
+      `}
+    `}
 
   &:not(:first-of-type) {
     margin-left: 8px;
@@ -177,17 +213,9 @@ const StyledButtonToggle = styled.div<StyledButtonToggleProps>`
     `};
 `;
 
-const StyledButtonToggleInput = styled.input`
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
-`;
-
 export {
   StyledButtonToggle,
-  StyledButtonToggleLabel,
+  StyledButtonToggleWrapper,
   StyledButtonToggleIcon,
-  StyledButtonToggleInput,
   StyledButtonToggleContentWrapper,
 };

@@ -5,6 +5,7 @@ import StyledInputPresentantion from "../../__internal__/input/input-presentatio
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 
 interface StyledDateFieldProps {
+  isStart?: boolean;
   isEnd?: boolean;
   isMiddle?: boolean;
   isYearInput?: boolean;
@@ -13,12 +14,9 @@ interface StyledDateFieldProps {
 
 export const StyledNumeralDate = styled.div<{ name?: string }>`
   display: inline-flex;
-  border: 1px solid transparent;
   height: 40px;
   font-size: 14px;
   font-weight: 400;
-  padding-bottom: 2px;
-  padding-top: 1px;
 
   ${StyledFormField} {
     margin-top: 0px;
@@ -26,7 +24,7 @@ export const StyledNumeralDate = styled.div<{ name?: string }>`
 `;
 
 export const StyledDateField = styled.div<StyledDateFieldProps>`
-  ${({ isYearInput, isEnd, hasValidationIcon, isMiddle }) => {
+  ${({ isStart, isYearInput, isEnd, hasValidationIcon, isMiddle }) => {
     const yearInputOrError = isYearInput || (isEnd && hasValidationIcon);
 
     return css`
@@ -34,6 +32,23 @@ export const StyledDateField = styled.div<StyledDateFieldProps>`
         position: relative;
         width: ${yearInputOrError ? "78px;" : "58px;"};
         text-align: center;
+        border-radius: var(--borderRadius000);
+
+        ${
+          isStart &&
+          css`
+            border-top-left-radius: var(--borderRadius050);
+            border-bottom-left-radius: var(--borderRadius050);
+          `
+        }
+
+        ${
+          isEnd &&
+          css`
+            border-top-right-radius: var(--borderRadius050);
+            border-bottom-right-radius: var(--borderRadius050);
+          `
+        }
 
         ${
           (isMiddle || isEnd) &&

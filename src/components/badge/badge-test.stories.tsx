@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-
-import Badge from "./badge.component";
+import Badge, { BadgeProps } from "./badge.component";
+import Box from "../box";
 import Button from "../button";
 
 export default {
@@ -9,11 +9,10 @@ export default {
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
-
 interface BadgeStoryProps {
   counter?: string | number;
 }
@@ -33,9 +32,32 @@ export const DefaultStory = ({ counter, ...args }: BadgeStoryProps) => {
   );
 };
 
-DefaultStory.story = {
-  name: "default",
-  args: {
-    counter: 1,
-  },
+export const DisplayOnlyStory = ({ counter, ...args }: BadgeStoryProps) => {
+  return (
+    <Box margin="40px">
+      <Badge counter={counter} {...args}>
+        <Button mr={0} buttonType="tertiary">
+          Filter
+        </Button>
+      </Badge>
+    </Box>
+  );
+};
+
+DefaultStory.storyName = "default";
+DefaultStory.args = { counter: 1 };
+
+DisplayOnlyStory.storyName = "display only";
+DisplayOnlyStory.args = { counter: 1 };
+
+export const BadgeComponent = (props: Partial<BadgeProps>) => {
+  return (
+    <Box margin="40px">
+      <Badge {...props}>
+        <Button mr={0} buttonType="tertiary">
+          Filter
+        </Button>
+      </Badge>
+    </Box>
+  );
 };

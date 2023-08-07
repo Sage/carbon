@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { MarginProps } from "styled-system";
+import invariant from "invariant";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";
@@ -11,14 +12,18 @@ import {
   StyledIcon,
   StyledPortraitContainer,
 } from "./portrait.style";
-
 import { filterStyledSystemMarginProps } from "../../style/utils";
+import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
 
 export type PortraitShapes = "circle" | "square";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
-export interface PortraitBaseProps extends MarginProps {
+export interface PortraitProps extends MarginProps {
+  /** An email address registered with Gravatar. */
+  gravatar?: string;
+  /** A custom image URL. */
+  src?: string;
   /** The size of the Portrait. */
   size?: PortraitSizes;
   /** The `alt` HTML string. */
@@ -51,27 +56,13 @@ export interface PortraitBaseProps extends MarginProps {
   tooltipFontColor?: string;
 }
 
-export interface PortraitWithGravatar extends PortraitBaseProps {
-  /** An email address registered with Gravatar. */
-  gravatar?: string;
-  src?: never;
-}
-
-export interface PortraitWithSrc extends PortraitBaseProps {
-  /** A custom image URL. */
-  src?: string;
-  gravatar?: never;
-}
-
-export type PortraitProps = PortraitWithGravatar | PortraitWithSrc;
-
 export const Portrait = ({
   alt = "",
   darkBackground = false,
   gravatar,
   iconType = "individual",
   initials,
-  shape = "square",
+  shape,
   size = "M",
   src,
   onClick,
@@ -86,6 +77,14 @@ export const Portrait = ({
   ...rest
 }: PortraitProps) => {
   const [externalError, setExternalError] = useState(false);
+  const { roundedCornersOptOut } = useContext(RoundedCornersOptOutContext);
+  const defaultShape = roundedCornersOptOut ? "square" : "circle";
+
+  invariant(
+    !(src && gravatar),
+    "The `src` prop cannot be used in conjunction with the `gravatar` prop." +
+      " Please use one or the other."
+  );
 
   useEffect(() => {
     setExternalError(false);
@@ -98,7 +97,7 @@ export const Portrait = ({
       <StyledIcon
         type={iconType}
         size={size}
-        shape={shape}
+        shape={shape || defaultShape}
         darkBackground={darkBackground}
       />
     );
@@ -107,7 +106,7 @@ export const Portrait = ({
       portrait = (
         <PortraitInitials
           size={size}
-          shape={shape}
+          shape={shape || defaultShape}
           initials={initials}
           darkBackground={darkBackground}
           alt={alt}
@@ -121,7 +120,7 @@ export const Portrait = ({
           src={src}
           alt={alt}
           size={size}
-          shape={shape}
+          shape={shape || defaultShape}
           data-element="user-image"
           onError={() => setExternalError(true)}
         />
@@ -132,7 +131,7 @@ export const Portrait = ({
       portrait = (
         <PortraitGravatar
           gravatarEmail={gravatar}
-          shape={shape}
+          shape={shape || defaultShape}
           size={size}
           alt={alt}
           errorCallback={() => setExternalError(true)}

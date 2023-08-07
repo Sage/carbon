@@ -5,6 +5,7 @@ import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 import { MultiActionButtonProps } from "./multi-action-button.component";
 import computeWidth from "../../style/utils/width";
+import { borderRadiusStyling } from "../split-button/split-button-children.style";
 
 type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "width"> & {
   displayed: boolean;
@@ -77,15 +78,17 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
     white-space: nowrap;
     z-index: ${theme.zIndex.popover};
     box-shadow: var(--boxShadow100);
+    border-radius: var(--borderRadius100);
 
     ${StyledIcon} {
       margin-left: 0;
       left: 8px;
     }
 
+    ${borderRadiusStyling}
+
     ${StyledButton} {
       border: 1px solid var(--colorsActionMajorTransparent);
-      color: var(--colorsActionMajor500);
       display: flex;
       justify-content: ${align};
       margin-left: 0;
@@ -99,12 +102,6 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
           display: -webkit-box;
           justify-content: ${align === "right" ? `flex-end` : `flex-start`};
         }
-      }
-
-      &:focus,
-      &:hover {
-        background-color: var(--colorsActionMajor600);
-        color: var(--colorsActionMajorYang100);
       }
 
       & + & {

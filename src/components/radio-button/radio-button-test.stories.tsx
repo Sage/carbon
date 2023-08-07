@@ -1,13 +1,23 @@
+/* eslint-disable no-console */
 import React from "react";
 import { ComponentStory } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
+import { RadioButtonGroupProps } from "./radio-button-group.component";
+import { RadioButtonProps } from "./radio-button.component";
 
 export default {
   title: "RadioButton/Test",
+  includeStories: [
+    "Required",
+    "WithValidationsOnButtons",
+    "WithValidationsOnRadioGroup",
+    "WithTooltipPosition",
+    "WithTooltipPositionOnRadioGroup",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -131,3 +141,55 @@ export const WithTooltipPositionOnRadioGroup: ComponentStory<
 
 WithTooltipPositionOnRadioGroup.storyName =
   "with tooltip position on RadioGroup";
+
+const radioContainerWidth = 400;
+
+export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
+  const [isChecked, setIsChecked] = React.useState(false);
+  return (
+    <>
+      <div
+        style={{
+          marginTop: "64px",
+          marginLeft: "64px",
+          width: radioContainerWidth,
+        }}
+      >
+        <RadioButton
+          id="radio-1"
+          value="radio1"
+          label="Radiobutton 1"
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
+          {...props}
+        />
+      </div>
+    </>
+  );
+};
+
+export const RadioButtonGroupComponent = ({
+  children,
+  ...props
+}: Partial<RadioButtonGroupProps>) => {
+  return (
+    <div
+      style={{
+        marginTop: "64px",
+        marginLeft: "64px",
+      }}
+    >
+      <RadioButtonGroup
+        name="radiobuttongroup"
+        legend="Radio group legend"
+        {...props}
+      >
+        <RadioButton id="radio-1" value="radio1" label="Yes" />
+        <RadioButton id="radio-2" value="radio2" label="No" />
+        <RadioButton id="radio-3" value="radio3" label="Maybe" />
+
+        <>{children}</>
+      </RadioButtonGroup>
+    </div>
+  );
+};

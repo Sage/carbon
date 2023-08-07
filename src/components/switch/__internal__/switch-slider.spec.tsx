@@ -1,6 +1,7 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { ThemeProvider } from "styled-components";
+import { mount } from "enzyme";
 
 import {
   assertStyleMatch,
@@ -10,6 +11,8 @@ import Loader from "../../loader/loader.component";
 import SwitchSlider, { SwitchSliderProps } from "./switch-slider.component";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import { ThemeObject } from "../../../style/themes/base";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
+import StyledSwitchSlider from "./switch-slider.style";
 
 function render(props?: Partial<SwitchSliderProps>) {
   return TestRenderer.create(<SwitchSlider {...props} />);
@@ -153,15 +156,6 @@ describe("SwitchSlider", () => {
       describe("default", () => {
         const wrapper = render({ size: "large" }).toJSON();
 
-        it("applies the correct border-radius", () => {
-          assertStyleMatch(
-            {
-              borderRadius: "30px",
-            },
-            wrapper
-          );
-        });
-
         it("applies the correct ::before styles", () => {
           assertStyleMatch(
             {
@@ -283,4 +277,36 @@ describe("SwitchSlider", () => {
       });
     }
   );
+
+  describe("rounded corners", () => {
+    it.each<SwitchSliderProps["size"]>(["small", "large"])(
+      "has the expected border radius styling when size is %s",
+      (size) => {
+        const wrapper = render({ size }).toJSON();
+        assertStyleMatch(
+          {
+            borderRadius: "var(--borderRadius400)",
+          },
+          wrapper
+        );
+      }
+    );
+
+    it.each<SwitchSliderProps["size"]>(["small", "large"])(
+      "has the expected border radius styling when size is %s and roundedCornersOptOut is true",
+      (size) => {
+        const wrapper = mount(
+          <CarbonProvider roundedCornersOptOut>
+            <SwitchSlider size={size} />
+          </CarbonProvider>
+        );
+        assertStyleMatch(
+          {
+            borderRadius: size === "large" ? "30px" : "90px",
+          },
+          wrapper.find(StyledSwitchSlider)
+        );
+      }
+    );
+  });
 });

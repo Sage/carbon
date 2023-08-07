@@ -1,23 +1,24 @@
-import React, { useCallback, useState, useRef, useMemo } from "react";
+import React, { useRef } from "react";
 import { WidthProps } from "styled-system";
+
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";
+import SplitButtonContext from "../split-button/__internal__/split-button.context";
 import {
   StyledMultiActionButton,
   StyledButtonChildrenContainer,
 } from "./multi-action-button.style";
 import Button from "../button";
-import Events from "../../__internal__/utils/helpers/events";
 import Popover from "../../__internal__/popover";
 import {
   filterStyledSystemMarginProps,
   filterOutStyledSystemSpacingProps,
 } from "../../style/utils";
-import useMenuKeyboardNavigation from "../../hooks/__internal__/useMenuKeyboardNavigation";
+import useChildButtons from "../../hooks/__internal__/useChildButtons";
 
 export interface MultiActionButtonProps
   extends WidthProps,
-    Omit<SplitButtonProps, "buttonType"> {
+    Omit<SplitButtonProps, "buttonType" | "iconPosition" | "iconType"> {
   /** Button type: "primary" | "secondary" | "tertiary" */
   buttonType?: "primary" | "secondary" | "tertiary";
   /** Second text child, renders under main text, only when size is "large" */
@@ -33,87 +34,33 @@ export const MultiActionButton = ({
   text,
   subtext,
   width,
+  onClick,
   "data-element": dataElement,
   "data-role": dataRole,
   ...rest
 }: MultiActionButtonProps) => {
-  const ref = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const buttonContainer = useRef<HTMLDivElement>(null);
-  const buttonChildren = useMemo(() => React.Children.toArray(children), [
-    children,
-  ]);
-  const buttonChildrenRefs = useMemo(
-    () => buttonChildren.map(() => React.createRef<HTMLButtonElement>()),
-    [buttonChildren]
-  );
-  const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
-  const [minWidth, setMinWidth] = useState(0);
 
-  const hideButtons = useCallback(() => {
-    if (buttonRef.current === document.activeElement) return;
-    setShowAdditionalButtons(false);
-  }, []);
+  const {
+    showAdditionalButtons,
+    showButtons,
+    hideButtons,
+    buttonNode,
+    hideButtonsIfTriggerNotFocused,
+    handleToggleButtonKeyDown,
+    wrapperProps,
+    contextValue,
+  } = useChildButtons(buttonRef);
 
-  const showButtons = () => {
-    setShowAdditionalButtons(true);
+  const handleInsideClick = useClickAwayListener(hideButtons);
 
-    /* istanbul ignore else */
-    if (ref.current) {
-      setMinWidth(ref.current.getBoundingClientRect().width);
-    }
-  };
-
-  const childrenWithProps = () => {
-    return buttonChildren.map((child, index) => {
-      if (!React.isValidElement(child)) {
-        return child;
-      }
-
-      const props = {
-        key: index.toString(),
-        role: "menuitem",
-        ref: buttonChildrenRefs[index],
-        tabIndex: -1,
-        onClick: (ev: React.MouseEvent<HTMLButtonElement>) => {
-          if (child.props.onClick) child.props.onClick(ev);
-          hideButtons();
-          buttonRef.current?.focus();
-        },
-      };
-
-      return React.cloneElement(child, props);
-    });
-  };
-
-  const handleKeyDown = useMenuKeyboardNavigation(
-    buttonRef,
-    buttonChildrenRefs,
-    hideButtons
-  );
-
-  const handleMainButtonKeyDown = (
-    ev: React.KeyboardEvent<HTMLButtonElement>
+  const handleClick = (
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
   ) => {
-    if (
-      Events.isEnterKey(ev) ||
-      Events.isSpaceKey(ev) ||
-      Events.isDownKey(ev) ||
-      Events.isUpKey(ev)
-    ) {
-      ev.preventDefault();
-
-      if (!showAdditionalButtons) {
-        showButtons();
-      }
-
-      // see if setTimeout could be removed after we update react to v18 thanks to the concurrent mode
-      setTimeout(() => {
-        buttonChildrenRefs[0]?.current?.focus();
-      }, 0);
-    } else if (Events.isEscKey(ev)) {
-      ev.preventDefault();
-      setShowAdditionalButtons(false);
+    showButtons();
+    handleInsideClick();
+    if (onClick) {
+      onClick(ev as React.MouseEvent<HTMLButtonElement>);
     }
   };
 
@@ -121,7 +68,8 @@ export const MultiActionButton = ({
     disabled,
     displayed: showAdditionalButtons,
     onTouchStart: showButtons,
-    onKeyDown: handleMainButtonKeyDown,
+    onKeyDown: handleToggleButtonKeyDown,
+    onClick: handleClick,
     buttonType,
     size,
     subtext,
@@ -130,35 +78,31 @@ export const MultiActionButton = ({
   };
 
   const renderAdditionalButtons = () => (
-    <Popover placement="bottom-end" reference={ref}>
+    <Popover placement="bottom-end" reference={buttonNode}>
       <StyledButtonChildrenContainer
-        role="menu"
+        {...wrapperProps}
         aria-label={text}
-        data-element="additional-buttons"
         align={align}
-        minWidth={minWidth}
-        ref={buttonContainer}
-        onKeyDown={handleKeyDown}
       >
-        {childrenWithProps()}
+        <SplitButtonContext.Provider value={contextValue}>
+          {children}
+        </SplitButtonContext.Provider>
       </StyledButtonChildrenContainer>
     </Popover>
   );
 
-  const handleClick = useClickAwayListener(hideButtons);
+  const marginProps = filterStyledSystemMarginProps(rest);
 
   return (
     <StyledMultiActionButton
-      aria-haspopup="true"
-      onMouseLeave={hideButtons}
-      onClick={handleClick}
-      ref={ref}
+      onMouseLeave={hideButtonsIfTriggerNotFocused}
+      ref={buttonNode}
       data-component="multi-action-button"
       data-element={dataElement}
       data-role={dataRole}
       displayed={showAdditionalButtons}
       width={width}
-      {...filterStyledSystemMarginProps(rest)}
+      {...marginProps}
     >
       <Button
         aria-haspopup="true"

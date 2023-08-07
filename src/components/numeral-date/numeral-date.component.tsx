@@ -16,6 +16,10 @@ import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
 import NumeralDateContext from "./numeral-date-context";
+import FormSpacingProvider from "../../__internal__/form-spacing-provider";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecateUncontrolledWarnTriggered = false;
 
 export const ALLOWED_DATE_FORMATS = [
   ["dd", "mm", "yyyy"],
@@ -120,6 +124,18 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
+  /**
+   * A React ref to pass to the input corresponding to the day
+   */
+  dayRef?: React.ForwardedRef<HTMLInputElement>;
+  /**
+   * A React ref to pass to the input corresponding to the month
+   */
+  monthRef?: React.ForwardedRef<HTMLInputElement>;
+  /**
+   * A React ref to pass to the input corresponding to the year
+   */
+  yearRef?: React.ForwardedRef<HTMLInputElement>;
 }
 
 export type ValidDateFormat = typeof ALLOWED_DATE_FORMATS[number];
@@ -178,6 +194,9 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   enableInternalWarning,
   tooltipPosition,
   helpAriaLabel,
+  dayRef,
+  monthRef,
+  yearRef,
   ...rest
 }: NumeralDateProps<DateType>) => {
   const l = useLocale();
@@ -187,7 +206,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   const isControlled = useRef(value !== undefined);
   const initialValue = isControlled.current ? value : defaultValue;
 
-  const refs = useRef(dateFormat.map(() => React.createRef()));
+  const refs = useRef<(HTMLInputElement | null)[]>(dateFormat.map(() => null));
 
   const [internalMessages, setInternalMessages] = useState<DateType>({
     ...((Object.fromEntries(
@@ -290,7 +309,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     }
     setTimeout(() => {
       const hasBlurred = !refs.current.find(
-        (ref) => ref.current === document.activeElement
+        (ref) => ref === document.activeElement
       );
       /* istanbul ignore else */
       if (onBlur && hasBlurred) {
@@ -313,6 +332,13 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
   const internalWarning = enableInternalWarning
     ? internalMessage + warning
     : warning;
+
+  if (!deprecateUncontrolledWarnTriggered && !isControlled.current) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  }
 
   return (
     <TooltipProvider helpAriaLabel={helpAriaLabel}>
@@ -354,6 +380,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
             data-component="numeral-date"
           >
             {dateFormat.map((datePart, index) => {
+              const isStart = index === 0;
               const isEnd = index === dateFormat.length - 1;
               const isMiddle = index === 1;
 
@@ -361,6 +388,23 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
               const isStringValidation = typeof validation === "string";
               const hasValidationIcon =
                 isStringValidation && !!validation.length;
+
+              let inputRef: React.ForwardedRef<HTMLInputElement> | undefined;
+
+              switch (datePart.slice(0, 2)) {
+                case "dd":
+                  inputRef = dayRef;
+                  break;
+                case "mm":
+                  inputRef = monthRef;
+                  break;
+                case "yy":
+                  inputRef = yearRef;
+                  break;
+                /* istanbul ignore next */
+                default:
+                  break;
+              }
 
               return (
                 <NumeralDateContext.Provider
@@ -370,39 +414,50 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                   <StyledDateField
                     key={datePart}
                     isYearInput={datePart.length === 4}
+                    isStart={isStart}
                     isMiddle={isMiddle}
                     isEnd={isEnd}
                     hasValidationIcon={hasValidationIcon}
                   >
-                    <Textbox
-                      {...(index === 0 && { id: uniqueId })}
-                      disabled={disabled}
-                      readOnly={readOnly}
-                      placeholder={datePart}
-                      value={dateValue[datePart as keyof NumeralDateObject]}
-                      onChange={(e) =>
-                        handleChange(e, datePart as keyof NumeralDateObject)
-                      }
-                      inputRef={(ref) => {
-                        refs.current[index] = ref;
-                      }}
-                      onBlur={() =>
-                        handleBlur(datePart as keyof NumeralDateObject)
-                      }
-                      error={!!internalError}
-                      warning={!!internalWarning}
-                      info={!!info}
-                      {...(required && { required })}
-                      {...(isEnd &&
-                        !validationRedesignOptIn &&
-                        !validationOnLabel && {
-                          error: internalError,
-                          warning: internalWarning,
-                          info,
-                        })}
-                      size={size}
-                      tooltipPosition={tooltipPosition}
-                    />
+                    <FormSpacingProvider marginBottom={undefined}>
+                      <Textbox
+                        {...(index === 0 && { id: uniqueId })}
+                        disabled={disabled}
+                        readOnly={readOnly}
+                        placeholder={datePart}
+                        value={dateValue[datePart as keyof NumeralDateObject]}
+                        onChange={(e) =>
+                          handleChange(e, datePart as keyof NumeralDateObject)
+                        }
+                        ref={(element) => {
+                          refs.current[index] = element;
+                          if (!inputRef) {
+                            return;
+                          }
+                          if (typeof inputRef === "function") {
+                            inputRef(element);
+                          } else {
+                            inputRef.current = element;
+                          }
+                        }}
+                        onBlur={() =>
+                          handleBlur(datePart as keyof NumeralDateObject)
+                        }
+                        error={!!internalError}
+                        warning={!!internalWarning}
+                        info={!!info}
+                        {...(required && { required })}
+                        {...(isEnd &&
+                          !validationRedesignOptIn &&
+                          !validationOnLabel && {
+                            error: internalError,
+                            warning: internalWarning,
+                            info,
+                          })}
+                        size={size}
+                        tooltipPosition={tooltipPosition}
+                      />
+                    </FormSpacingProvider>
                   </StyledDateField>
                 </NumeralDateContext.Provider>
               );

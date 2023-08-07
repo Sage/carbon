@@ -1,12 +1,22 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import NavigationBar from "./navigation-bar.component";
-import { Menu, MenuItem } from "../menu";
-import Box from "../box";
+
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import NavigationBar from "./navigation-bar.component";
+
+import * as stories from "./navigation-bar.stories";
 
 <Meta title="Navigation Bar" parameters={{ info: { disable: true } }} />
 
 # Navigation Bar
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/36c339-navigation-bar"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
 
 This component is used as a wrapper for the Menu component when used as a navigation layout.
 
@@ -27,46 +37,31 @@ import NavigationBar from "carbon-react/lib/components/navigation-bar";
 ### Default - Light Theme
 
 <Canvas>
-  <Story name="default">
-    <NavigationBar>Example content</NavigationBar>
-  </Story>
+  <Story name="default" story={stories.Default} />
 </Canvas>
 
 ### Dark Theme
 
 <Canvas>
-  <Story name="dark theme">
-    <NavigationBar navigationType="dark">Example content</NavigationBar>
-  </Story>
+  <Story name="dark theme" story={stories.DarkTheme} />
 </Canvas>
 
 ### White Theme
 
 <Canvas>
-  <Story name="white theme">
-    <NavigationBar navigationType="white">Example content</NavigationBar>
-  </Story>
+  <Story name="white theme" story={stories.WhiteTheme} />
 </Canvas>
 
 ### Black Theme
 
 <Canvas>
-  <Story name="black theme">
-    <NavigationBar navigationType="black">Example content</NavigationBar>
-  </Story>
+  <Story name="black theme" story={stories.BlackTheme} />
 </Canvas>
 
 ### Example with menu
 
 <Canvas>
-  <Story name="example with menu">
-    <NavigationBar>
-      <Menu>
-        <MenuItem href="#">Menu Item One</MenuItem>
-        <MenuItem href="#">Menu Item Two</MenuItem>
-      </Menu>
-    </NavigationBar>
-  </Story>
+  <Story name="example with menu" story={stories.ExampleWithMenu} />
 </Canvas>
 
 ### Loading State
@@ -74,14 +69,7 @@ import NavigationBar from "carbon-react/lib/components/navigation-bar";
 If `isLoading={true}` the children will not be visible
 
 <Canvas>
-  <Story name="isLoading">
-    <NavigationBar isLoading>
-      <Menu>
-        <MenuItem>Menu Item One</MenuItem>
-        <MenuItem>Menu Item Two</MenuItem>
-      </Menu>
-    </NavigationBar>
-  </Story>
+  <Story name="isLoading" story={stories.IsLoading} />
 </Canvas>
 
 ### With custom spacing
@@ -90,14 +78,7 @@ The spacing props (see prop table below) accept either a number between 1 and 8 
 valid CSS string.
 
 <Canvas>
-  <Story name="with custom spacing">
-    <NavigationBar py={2} px={7}>
-      <Menu>
-        <MenuItem href="#">menu item one</MenuItem>
-        <MenuItem href="#">menu item two</MenuItem>
-      </Menu>
-    </NavigationBar>
-  </Story>
+  <Story name="with custom spacing" story={stories.WithCustomSpacing} />
 </Canvas>
 
 ### Set content max width using Box
@@ -105,40 +86,8 @@ valid CSS string.
 <Canvas>
   <Story
     name="content max width using Box"
-    decorators={[
-      (Story) => (
-        <div style={{ height: 200 }}>
-          <Story />
-        </div>
-      ),
-    ]}
-  >
-    <NavigationBar>
-      <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-        <Menu display="flex" flex="1">
-          <MenuItem flex="1" onClick={() => {}}>
-            Menu Item One
-          </MenuItem>
-          <MenuItem flex="0 0 auto" href="#">
-            Menu Item Two
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-            <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuDivider />
-            <MenuItem icon="settings" href="#">
-              Item Submenu Three
-            </MenuItem>
-            <MenuItem href="#">Item Submenu Four</MenuItem>
-          </MenuItem>
-          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-          </MenuItem>
-        </Menu>
-      </Box>
-    </NavigationBar>
-  </Story>
+    story={stories.ContentMaxWidthBox}
+  />
 </Canvas>
 
 ### Position
@@ -151,70 +100,8 @@ Then the `orientation` relative to the top/bottom can be offset using the `offse
 <Canvas>
   <Story
     name="sticky"
-    parameters={{ docs: { inlineStories: false, iframeHeight: 250 } }}
-  >
-    <div id="sticky-container" style={{ height: "250px" }}>
-      <NavigationBar
-        position="sticky"
-        orientation="top"
-        offset="25px"
-        aria-label="header"
-      >
-        <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-          <Menu display="flex" flex="1">
-            <MenuItem flex="1" onClick={() => {}}>
-              Menu Item One
-            </MenuItem>
-            <MenuItem flex="0 0 auto" href="#">
-              Menu Item Two
-            </MenuItem>
-            <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-              <MenuItem href="#">Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuDivider />
-              <MenuItem icon="settings" href="#">
-                Item Submenu Three
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Four</MenuItem>
-            </MenuItem>
-            <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-            </MenuItem>
-          </Menu>
-        </Box>
-      </NavigationBar>
-      <div
-        style={{
-          height: "1000px",
-          background: "green",
-        }}
-      />
-      <NavigationBar
-        position="sticky"
-        orientation="bottom"
-        offset="25px"
-        aria-label="footer"
-      >
-        <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-          <Menu display="flex" flex="1">
-            <MenuItem flex="1" onClick={() => {}}>
-              Menu Item One
-            </MenuItem>
-            <MenuItem flex="0 0 auto" href="#">
-              Menu Item Two
-            </MenuItem>
-            <MenuItem flex="0 0 auto" href="#">
-              Menu Item Three
-            </MenuItem>
-            <MenuItem flex="0 0 auto" href="#">
-              Menu Item Four
-            </MenuItem>
-          </Menu>
-        </Box>
-      </NavigationBar>
-    </div>
-  </Story>
+    story={stories.Sticky}
+  />
 </Canvas>
 
 #### Fixed
@@ -225,67 +112,8 @@ top/bottom can be offset using the `offset` prop.
 <Canvas>
   <Story
     name="fixed"
-    parameters={{
-      docs: { inlineStories: false, iframeHeight: 200 },
-      themeProvider: { chromatic: { theme: "sage" } },
-    }}
-  >
-    <NavigationBar
-      position="fixed"
-      orientation="top"
-      offset="25px"
-      aria-label="header"
-    >
-      <Menu display="flex" flex="1">
-        <MenuItem flex="1" onClick={() => {}}>
-          Menu Item One
-        </MenuItem>
-        <MenuItem flex="0 0 auto" href="#">
-          Menu Item Two
-        </MenuItem>
-        <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider />
-          <MenuItem icon="settings" href="#">
-            Item Submenu Three
-          </MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </NavigationBar>
-    <div
-      style={{
-        height: "1000px",
-        background: "green",
-      }}
-    />
-    <NavigationBar
-      position="fixed"
-      orientation="bottom"
-      offset="25px"
-      aria-label="footer"
-    >
-      <Menu display="flex" flex="1">
-        <MenuItem flex="1" onClick={() => {}}>
-          Menu Item One
-        </MenuItem>
-        <MenuItem flex="0 0 auto" href="#">
-          Menu Item Two
-        </MenuItem>
-        <MenuItem flex="0 0 auto" href="#">
-          Menu Item Three
-        </MenuItem>
-        <MenuItem flex="0 0 auto" href="#">
-          Menu Item Four
-        </MenuItem>
-      </Menu>
-    </NavigationBar>
-  </Story>
+    story={stories.Fixed}
+  />
 </Canvas>
 
 ## Props

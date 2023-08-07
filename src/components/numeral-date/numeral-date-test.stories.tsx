@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
+import Textbox from "../textbox";
 import NumeralDate from ".";
 import Box from "../box";
 import {
@@ -13,10 +14,11 @@ import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Numeral Date/Test",
+  excludeStories: ["NumeralDateComponent"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
 };
@@ -29,10 +31,10 @@ export const Default = (args: NumeralDateProps) => {
   });
   const handleChange = (event: NumeralDateEvent) => {
     setDateValue(event.target.value as FullDate);
-    action("change")(event);
+    action("change")(event.target.value);
   };
   const handleBlur = (event: NumeralDateEvent) => {
-    action("blur")(event);
+    action("blur")(event.target.value);
   };
   return (
     <Box mt="120px">
@@ -54,15 +56,61 @@ Default.args = {
   dateFormat: ["dd", "mm", "yyyy"],
 };
 
+export const DefaultWithOtherInputs = (args: NumeralDateProps) => {
+  const [dateValue, setDateValue] = useState<FullDate>({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  const handleChange = (event: NumeralDateEvent) => {
+    setDateValue(event.target.value as FullDate);
+    action("change")(event.target.value);
+  };
+  const handleBlur = (event: NumeralDateEvent) => {
+    action("blur")(event.target.value);
+  };
+  return (
+    <Box display="flex" margin="56px 25px">
+      <Textbox mr={1} label="Textbox One" />
+      <Textbox mr={1} mt={0} label="Textbox Two" />
+      <NumeralDate
+        mr={1}
+        mt={0}
+        onChange={handleChange}
+        label="Numeral date"
+        onBlur={handleBlur}
+        value={dateValue}
+        name="numeralDate_name"
+        id="numeralDate_id"
+        {...args}
+      />
+      <Textbox mr={1} mt={0} label="Textbox Three" />
+    </Box>
+  );
+};
+
+DefaultWithOtherInputs.storyName = "with other inputs";
+DefaultWithOtherInputs.args = {
+  dateFormat: ["dd", "mm", "yyyy"],
+};
+DefaultWithOtherInputs.story = {
+  parameters: {
+    chromatic: {
+      disableSnapshot: false,
+    },
+    themeProvider: { chromatic: { theme: "sage" } },
+  },
+};
+
 export const Validations = (args: NumeralDateProps<DayMonthDate>) => {
   const validationTypes = ["error", "warning", "info"];
   const [dateValue, setDateValue] = useState({ dd: "", mm: "" });
   const handleChange = (event: NumeralDateEvent<DayMonthDate>) => {
     setDateValue({ ...dateValue });
-    action("change")(event);
+    action("change")(event.target.value);
   };
   const handleBlur = (event: NumeralDateEvent<DayMonthDate>) => {
-    action("blur")(event);
+    action("blur")(event.target.value);
   };
   return (
     <>
@@ -141,6 +189,8 @@ export const Required = () => {
   return <NumeralDate label="Date of Birth" required />;
 };
 
+Required.storyName = "required";
+
 export const TooltipPosition = () => {
   return (
     <>
@@ -158,5 +208,24 @@ export const TooltipPosition = () => {
         tooltipPosition="right"
       />
     </>
+  );
+};
+
+TooltipPosition.storyName = "tooltip position";
+
+export const NumeralDateComponent = (props: Partial<NumeralDateProps>) => {
+  const [value, setValue] = React.useState({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+
+  return (
+    <NumeralDate
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      label="Default"
+      {...props}
+    />
   );
 };

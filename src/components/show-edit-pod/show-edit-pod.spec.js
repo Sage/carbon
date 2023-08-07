@@ -6,14 +6,32 @@ import ShowEditPod from "./show-edit-pod.component";
 import Form from "../form";
 import Pod from "../pod";
 import Button from "../button";
-import {
-  elementsTagTest,
-  rootTagTest,
-} from "../../__internal__/utils/helpers/tags/tags-specs";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import Logger from "../../__internal__/utils/logger";
+
+jest.mock("../../__internal__/utils/logger");
 
 describe("ShowEditPod", () => {
   testStyledSystemMargin((props) => <ShowEditPod {...props} />);
+
+  it("when user uses the component, a deprecation warning is raised in the console", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    mount(
+      <>
+        <ShowEditPod />
+        <ShowEditPod />
+      </>
+    );
+
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The ShowEditPod component is deprecated and will soon be removed. Please use alternatives such as the Fieldset, Form or Pod components instead."
+    );
+
+    loggerSpy.mockRestore();
+    loggerSpy.mockClear();
+  });
 
   describe('when the "editing" prop is set on mount', () => {
     let wrapper;
@@ -401,7 +419,7 @@ describe("ShowEditPod", () => {
       });
     });
 
-    describe("on internal elements", () => {
+    it("on internal elements", () => {
       const wrapper = mount(
         <ShowEditPod
           saveText="Save"
@@ -410,9 +428,8 @@ describe("ShowEditPod", () => {
           onEdit={() => {}}
         />
       );
-      const form = wrapper.find('[data-component="form"]').hostNodes();
-      expect(form.type()).toEqual("form");
-      elementsTagTest(form, ["edit-form"]);
+      const form = wrapper.find("form[data-component='form']");
+      expect(form.prop("data-element")).toEqual("edit-form");
     });
   });
 });

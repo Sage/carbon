@@ -19,6 +19,7 @@ import {
   sageTheme,
 } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
+import CarbonProvider from "../carbon-provider";
 
 const modernStyleTypes = [
   "neutral",
@@ -61,6 +62,27 @@ describe("Pill", () => {
 
     it("does not render a close icon", () => {
       expect(pill.find(IconButton).exists()).toBe(false);
+    });
+  });
+
+  describe("when the removeButtonAriaLabel prop is passed to the component", () => {
+    let wrapper: ReactWrapper;
+    const customRemoveButtonAriaLabel = "remove custom pill";
+
+    beforeEach(() => {
+      wrapper = mount(
+        renderPillComponent({
+          children: "My Text",
+          onDelete: () => {},
+          ariaLabelOfRemoveButton: customRemoveButtonAriaLabel,
+        })
+      );
+    });
+
+    it("renders with the given children", () => {
+      expect(wrapper.find(IconButton).prop("aria-label")).toEqual(
+        customRemoveButtonAriaLabel
+      );
     });
   });
 
@@ -230,10 +252,10 @@ describe("Pill", () => {
               );
               assertStyleMatch(
                 {
-                  fontSize: "10px",
+                  fontSize: "12px",
                   minHeight: "16px",
                   lineHeight: "16px",
-                  padding: "0 7px",
+                  padding: "0 8px",
                 },
                 wrapper
               );
@@ -247,10 +269,10 @@ describe("Pill", () => {
               );
               assertStyleMatch(
                 {
-                  fontSize: "12px",
+                  fontSize: "14px",
                   minHeight: "20px",
                   lineHeight: "20px",
-                  padding: "0 11px",
+                  padding: "0 8px",
                 },
                 wrapper
               );
@@ -267,7 +289,7 @@ describe("Pill", () => {
                   fontSize: "14px",
                   minHeight: "24px",
                   lineHeight: "24px",
-                  padding: "0 15px",
+                  padding: "0 8px",
                 },
                 wrapper
               );
@@ -282,9 +304,9 @@ describe("Pill", () => {
               assertStyleMatch(
                 {
                   fontSize: "16px",
-                  minHeight: "26px",
-                  lineHeight: "26px",
-                  padding: "0 19px",
+                  minHeight: "28px",
+                  lineHeight: "28px",
+                  padding: "0 12px",
                 },
                 wrapper
               );
@@ -303,9 +325,9 @@ describe("Pill", () => {
               );
               assertStyleMatch(
                 {
-                  fontWeight: "600",
+                  fontWeight: "700",
                   position: "relative",
-                  padding: "0 11px",
+                  padding: "0 8px",
                   textAlign: "center",
                 },
                 wrapper
@@ -323,9 +345,26 @@ describe("Pill", () => {
                 );
                 assertStyleMatch(
                   {
-                    padding: "0 32px 0 11px",
+                    padding: "0 28px 0 8px",
                   },
                   wrapper
+                );
+
+                assertStyleMatch(
+                  {
+                    borderRadius: "var(--borderRadius000)",
+                  },
+                  wrapper,
+                  { modifier: "button" }
+                );
+
+                assertStyleMatch(
+                  {
+                    borderRadius:
+                      "var(--borderRadius000) var(--borderRadius025) var(--borderRadius025) var(--borderRadius000)",
+                  },
+                  wrapper,
+                  { modifier: "button:focus" }
                 );
               });
 
@@ -391,10 +430,11 @@ describe("Pill", () => {
                   );
                   assertStyleMatch(
                     {
-                      padding: "0 24px 0 7px",
+                      padding: "0 22px 0 8px",
                       minHeight: "16px",
                       height: "auto",
                       lineHeight: "16px",
+                      borderRadius: "var(--borderRadius025)",
                     },
                     wrapper
                   );
@@ -413,9 +453,9 @@ describe("Pill", () => {
                   );
                   assertStyleMatch(
                     {
-                      fontSize: "12px",
-                      padding: "0 32px 0 11px",
-                      borderRadius: "12px",
+                      fontSize: "14px",
+                      padding: "0 28px 0 8px",
+                      borderRadius: "var(--borderRadius025)",
                       minHeight: "20px",
                       height: "auto",
                       lineHeight: "20px",
@@ -438,8 +478,8 @@ describe("Pill", () => {
                   assertStyleMatch(
                     {
                       fontSize: "14px",
-                      padding: "0 36px 0 15px",
-                      borderRadius: "13px",
+                      padding: "0 32px 0 8px",
+                      borderRadius: "var(--borderRadius025)",
                       minHeight: "24px",
                       height: "auto",
                       lineHeight: "24px",
@@ -462,11 +502,11 @@ describe("Pill", () => {
                   assertStyleMatch(
                     {
                       fontSize: "16px",
-                      padding: "0 41px 0 19px",
-                      borderRadius: "15px",
-                      minHeight: "26px",
+                      padding: "0 36px 0 12px",
+                      borderRadius: "var(--borderRadius025)",
+                      minHeight: "28px",
                       height: "auto",
-                      lineHeight: "26px",
+                      lineHeight: "28px",
                     },
                     wrapper
                   );
@@ -570,6 +610,33 @@ describe("Pill", () => {
           hyphens: "auto",
         },
         wrapper.find(StyledPill)
+      );
+    });
+
+    describe("when roundedCornersOptOut is true", () => {
+      it.each([
+        ["S", "12px", "0 10px 10px 0"],
+        ["M", "12px", "0 10px 10px 0"],
+        ["L", "13px", "0 11px 11px 0"],
+        ["XL", "15px", "0 12px 12px 0"],
+      ] as const)(
+        "sets the expected border radius styling for when size is %s",
+        (size, borderRadiusSpan, borderRadiusButton) => {
+          const wrapper = mount(
+            <CarbonProvider roundedCornersOptOut>
+              {renderPillComponent({
+                children: "My Text",
+                size,
+              })}
+            </CarbonProvider>
+          ).find(StyledPill);
+
+          assertStyleMatch({ borderRadius: borderRadiusSpan }, wrapper);
+
+          assertStyleMatch({ borderRadius: borderRadiusButton }, wrapper, {
+            modifier: "button",
+          });
+        }
       );
     });
   });

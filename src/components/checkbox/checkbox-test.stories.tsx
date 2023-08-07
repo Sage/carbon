@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import { Checkbox, CheckboxProps } from ".";
+import { Checkbox, CheckboxProps, CheckboxGroup, CheckboxGroupProps } from ".";
+import CarbonProvider from "../../components/carbon-provider";
 
 export default {
   title: "Checkbox/Test",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: false,
+      disableSnapshot: false,
     },
   },
   argTypes: {
@@ -93,4 +95,95 @@ Default.args = {
   ml: "0",
   adaptiveSpacingBreakpoint: undefined,
   required: false,
+};
+
+export const CheckboxComponent = ({ ...props }) => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <>
+      <div
+        style={{
+          marginTop: "64px",
+        }}
+      >
+        <Checkbox
+          label="Checkbox 1"
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
+          {...props}
+        />
+      </div>
+    </>
+  );
+};
+
+export const CheckboxGroupComponent = ({
+  children,
+  ...props
+}: Partial<CheckboxGroupProps>) => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <div
+      style={{
+        marginTop: "64px",
+        marginLeft: "64px",
+      }}
+    >
+      <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
+        {children || (
+          <>
+            {["One", "Two", "Three"].map((label) => (
+              <Checkbox
+                label={label}
+                id={`checkbox-group-${label}`}
+                key={`checkbox-group-${label}`}
+                name={`checkbox-group-${label}`}
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              />
+            ))}
+          </>
+        )}
+      </CheckboxGroup>
+    </div>
+  );
+};
+
+export const CheckboxGroupComponentNewValidation = ({
+  children,
+  ...props
+}: Partial<CheckboxGroupProps>) => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <div
+      style={{
+        marginTop: "64px",
+        marginLeft: "64px",
+      }}
+    >
+      <CarbonProvider validationRedesignOptIn>
+        <CheckboxGroup
+          legend="Checkbox Group Label"
+          legendHelp="Hint Text"
+          required
+          {...props}
+        >
+          {children || (
+            <>
+              {["One", "Two", "Three"].map((label) => (
+                <Checkbox
+                  label={label}
+                  id={`checkbox-group-${label}`}
+                  key={`checkbox-group-${label}`}
+                  name={`checkbox-group-${label}`}
+                  checked={isChecked}
+                  onChange={(e) => setIsChecked(e.target.checked)}
+                />
+              ))}
+            </>
+          )}
+        </CheckboxGroup>
+      </CarbonProvider>
+    </div>
+  );
 };

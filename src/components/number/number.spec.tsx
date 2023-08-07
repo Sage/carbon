@@ -5,8 +5,14 @@ import Textbox from "../textbox";
 import Label from "../../__internal__/label";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
+import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
 
-function renderNumberInput(props: NumberProps) {
+jest.mock("../../__internal__/utils/logger");
+
+function renderNumberInput(
+  props: NumberProps & React.RefAttributes<HTMLInputElement>
+) {
   return mount(<Number {...props} />);
 }
 
@@ -29,6 +35,32 @@ describe("Number Input", () => {
   const selectionStart = 2;
   const selectionEnd = 4;
   const defaultInputValue = "123456789";
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  describe("Deprecation warning for uncontrolled", () => {
+    it("should display deprecation warning once", () => {
+      mount(<Number />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe("when rendered", () => {
     it("should have the Textbox component as it's child", () => {
@@ -172,5 +204,55 @@ describe("Number Input", () => {
         wrapper.find(InputPresentation)
       );
     });
+  });
+
+  describe("refs", () => {
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+      const ref = () => {};
+
+      wrapper = renderNumberInput({ inputRef: ref });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `Number` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = renderNumberInput({ ref });
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = renderNumberInput({ ref });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = renderNumberInput({ ref });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      mount(<Number />).find(StyledInput)
+    );
   });
 });

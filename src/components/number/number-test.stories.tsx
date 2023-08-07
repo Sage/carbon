@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import { ComponentMeta } from "@storybook/react";
 
-import Number from "./number.component";
+import Number, { NumberProps } from "./number.component";
 import {
   CommonTextboxArgs,
   commonTextboxArgTypes,
@@ -12,10 +11,11 @@ import {
 
 export default {
   title: "Number Input/Test",
+  includeStories: ["Default"],
   parameters: {
     info: { disable: true },
     chromatic: {
-      disable: true,
+      disableSnapshot: true,
     },
   },
   argTypes: {
@@ -26,7 +26,7 @@ export default {
     },
     ...commonTextboxArgTypes(),
   },
-} as ComponentMeta<typeof Number>;
+};
 
 export const Default = ({
   onKeyDownEnabled,
@@ -38,7 +38,7 @@ export const Default = ({
 }) => {
   const [state, setState] = useState("");
   const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    action("onChange")(event);
+    action("onChange")(event.target.value);
     setState(event.target.value);
   };
   return (
@@ -60,4 +60,14 @@ Default.args = {
   onKeyDownEnabled: false,
   deferTimeout: undefined,
   ...getCommonTextboxArgs(),
+};
+
+export const NumberInputComponent = (props: NumberProps) => {
+  const [state, setState] = React.useState("");
+
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+
+  return <Number label="Number" value={state} onChange={setValue} {...props} />;
 };

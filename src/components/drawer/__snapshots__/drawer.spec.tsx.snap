@@ -27,6 +27,7 @@ exports[`Drawer uncontrolled Control Button renders with correct styles 1`] = `
   z-index: 1;
   -webkit-animation: iaYDxU ease-in-out;
   animation: iaYDxU ease-in-out;
+  border-radius: var(--borderRadius050);
 }
 
 .c0:focus {

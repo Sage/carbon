@@ -11,12 +11,16 @@ import {
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import Label from "../../__internal__/label";
 import { InputPresentation } from "../../__internal__/input";
+import Logger from "../../__internal__/utils/logger";
+import StyledInput from "../../__internal__/input/input.style";
+
+jest.mock("../../__internal__/utils/logger");
 
 const mountComponent = (props: GroupedCharacterProps) =>
   mount(<GroupedCharacter {...props} />);
 
 function renderGroupedCharacter(
-  props: Partial<GroupedCharacterProps>,
+  props: Partial<GroupedCharacterProps> & React.RefAttributes<HTMLInputElement>,
   renderer = mount
 ) {
   return renderer(
@@ -36,6 +40,32 @@ describe("GroupedCharacter", () => {
     (wrapper) => wrapper.find(FormFieldStyle),
     { modifier: "&&&" }
   );
+
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  describe("Deprecation warning for uncontrolled", () => {
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display deprecation warning once", () => {
+      mount(<GroupedCharacter groups={[2, 2, 3]} separator="-" />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe("uncontrolled behaviour", () => {
     let instance: ReactWrapper;
@@ -281,5 +311,58 @@ describe("GroupedCharacter", () => {
         wrapper.find(InputPresentation)
       );
     });
+  });
+
+  describe("refs", () => {
+    let wrapper: ReactWrapper;
+
+    it("should display deprecation warning when the inputRef prop is used", () => {
+      const ref = () => {};
+
+      wrapper = renderGroupedCharacter({ inputRef: ref });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `inputRef` prop in `GroupedCharacter` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(2);
+      loggerSpy.mockRestore();
+    });
+
+    it("accepts ref as a ref object", () => {
+      const ref = { current: null };
+      wrapper = renderGroupedCharacter({ ref });
+
+      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
+    });
+
+    it("accepts ref as a ref callback", () => {
+      const ref = jest.fn();
+      wrapper = renderGroupedCharacter({ ref });
+
+      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
+    });
+
+    it("sets ref to empty after unmount", () => {
+      const ref = { current: null };
+      wrapper = renderGroupedCharacter({ ref });
+
+      wrapper.unmount();
+
+      expect(ref.current).toBe(null);
+    });
+  });
+
+  it("renders with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius050)",
+      },
+      mount(<GroupedCharacter groups={[2, 2, 3]} separator="-" />).find(
+        StyledInput
+      )
+    );
   });
 });

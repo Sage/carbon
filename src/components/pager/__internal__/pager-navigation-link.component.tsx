@@ -11,6 +11,8 @@ interface PagerNavigationLinkProps {
   currentPage: number;
   /** Count of all the pages  */
   pageCount: number;
+  /** If true, sets css property visibility: hidden on all disabled elements  */
+  hideDisabledElements?: boolean;
   /** Pagination page size */
   pageSize: number;
   /** onClick Callback function */
@@ -31,6 +33,7 @@ const PagerNavigationLink = ({
   type,
   currentPage,
   pageCount,
+  hideDisabledElements,
   pageSize,
   onClick,
   onPagination,
@@ -74,7 +77,7 @@ const PagerNavigationLink = ({
     }
   }, [disabled]);
 
-  const handleOnCLick = (
+  const handleOnClick = (
     ev:
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLButtonElement>
@@ -85,14 +88,17 @@ const PagerNavigationLink = ({
 
   const { text } = navLinkConfig[type];
 
+  const hideDisabledButtons = hideDisabledElements && disabled();
+
   return (
     <StyledPagerLink
+      hideDisabledButtons={hideDisabledButtons}
       data-element={`pager-link-${type}`}
       disabled={disabled()}
       onClick={
         // Type assertion due to the fact that StyledPagerLink
         // will always return a button element
-        handleOnCLick as LinkProps["onClick"]
+        handleOnClick as LinkProps["onClick"]
       }
       ref={linkRef}
     >

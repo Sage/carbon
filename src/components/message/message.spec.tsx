@@ -41,6 +41,7 @@ describe("Message", () => {
         display: "flex",
         justifyContent: "flex-start",
         alignContent: "center",
+        borderRadius: "var(--borderRadius100)",
       },
       mount(<Message>Message</Message>)
     );
@@ -199,5 +200,37 @@ describe("Message", () => {
 
   describe("styled-system", () => {
     testStyledSystemMargin((props) => <Message {...props} />);
+  });
+
+  describe("ref", () => {
+    it("passes ref to component", () => {
+      const ref = { current: null };
+
+      const wrapper = mount(
+        <Message onDismiss={() => {}} ref={ref}>
+          foobar
+        </Message>
+      );
+
+      const message = wrapper.find(MessageStyle);
+
+      expect(ref.current).toBe(message.getDOMNode());
+    });
+
+    describe("callback ref", () => {
+      it("allows a callback ref is be passed to component", () => {
+        const testCallbackRef = jest.fn();
+
+        const wrapper = mount(
+          <Message onDismiss={() => {}} ref={testCallbackRef}>
+            foobar
+          </Message>
+        );
+
+        const message = wrapper.find(MessageStyle);
+
+        expect(testCallbackRef).toHaveBeenCalledWith(message.getDOMNode());
+      });
+    });
   });
 });

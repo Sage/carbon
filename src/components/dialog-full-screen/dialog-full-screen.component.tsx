@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
@@ -6,12 +6,12 @@ import Heading from "../heading";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
 import StyledContent from "./content.style";
-import FocusTrap from "../../__internal__/focus-trap";
+import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
-import TopModalContext from "../carbon-provider/top-modal-context";
+import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 
 export interface DialogFullScreenProps extends ModalProps {
   /** Prop to specify the aria-describedby property of the DialogFullscreen component */
@@ -36,7 +36,7 @@ export interface DialogFullScreenProps extends ModalProps {
   /** remove padding from content */
   disableContentPadding?: boolean;
   /** Optional reference to an element meant to be focused on open */
-  focusFirstElement?: React.MutableRefObject<HTMLElement | null>;
+  focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
   /**
    * Function to replace focus trap
    * @ignore
@@ -62,7 +62,7 @@ export interface DialogFullScreenProps extends ModalProps {
   /** The ARIA role to be applied to the DialogFullscreen container */
   role?: string;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
-  focusableContainers?: React.MutableRefObject<HTMLElement | null>[];
+  focusableContainers?: CustomRefObject<HTMLElement>[];
   /** Optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
   /** A custom close event handler */
@@ -103,7 +103,7 @@ export const DialogFullScreen = ({
   const { current: subtitleId } = useRef(createGuid());
   const hasStickyFooter = useIsStickyFooterForm(children);
 
-  const { topModal } = useContext(TopModalContext);
+  const isTopModal = useModalAria(dialogRef);
 
   const closeIcon = () => {
     if (!showCloseIcon || !onCancel) return null;
@@ -112,7 +112,7 @@ export const DialogFullScreen = ({
       <IconButton
         data-element="close"
         aria-label={locale.dialogFullScreen.ariaLabels.close()}
-        onAction={onCancel}
+        onClick={onCancel}
       >
         <Icon type="close" />
       </IconButton>
@@ -168,11 +168,7 @@ export const DialogFullScreen = ({
         focusableSelectors={focusableSelectors}
       >
         <StyledDialogFullScreen
-          aria-modal={
-            role === "dialog" && topModal?.contains(dialogRef.current)
-              ? true
-              : undefined
-          }
+          aria-modal={role === "dialog" && isTopModal ? true : undefined}
           {...ariaProps}
           ref={dialogRef}
           data-element="dialog-full-screen"

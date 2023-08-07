@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa kKjgTs\\"><p>john</p></div></div>"`;
+exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa wYkYe\\"><p>john</p></div></div>"`;
 
-exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa kKjgTs\\"><span>a1</span></div><div class=\\"sc-bdVaJa kKjgTs\\"><span>a2</span></div></div>"`;
+exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa wYkYe\\"><span>a1</span></div><div class=\\"sc-bdVaJa wYkYe\\"><span>a2</span></div></div>"`;
 
-exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa kKjgTs\\"><span class=\\"sc-bxivhb lbAINf\\" data-element=\\"tick\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\" data-component=\\"icon\\"></span></div></div>"`;
+exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa wYkYe\\"><span class=\\"sc-bxivhb fCgFag\\" data-element=\\"tick\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\" data-component=\\"icon\\"></span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot 1`] = `
 <span
@@ -51,6 +51,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "borderWidth200": "2px",
             "borderWidth300": "3px",
             "borderWidth400": "4px",
+            "borderWidth600": "6px",
             "boxShadow010": "inset 0 -1px 0 0 #e6ebedff",
             "boxShadow050": "0 3px 3px 0 #00141e33, 0 2px 4px 0 #00141e26",
             "boxShadow075": "inset 0 6px 4px -4px #00141e0d",
@@ -207,6 +208,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "colorsSemanticFocus500": "#FFB500",
             "colorsSemanticFocusTransparent": "#00000000",
             "colorsSemanticInfo150": "#b3cfe5ff",
+            "colorsSemanticInfo400": "#3380b9ff",
             "colorsSemanticInfo500": "#0073C2",
             "colorsSemanticInfo600": "#004d86ff",
             "colorsSemanticInfoTransparent": "#00000000",
@@ -226,6 +228,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "colorsSemanticNegativeYin065": "#000000a6",
             "colorsSemanticNegativeYin090": "#000000e6",
             "colorsSemanticNeutral200": "#ccd6dbff",
+            "colorsSemanticNeutral400": "#668494ff",
             "colorsSemanticNeutral500": "#335b70ff",
             "colorsSemanticNeutral600": "#00324cff",
             "colorsSemanticNeutralTransparent": "#00000000",
@@ -263,6 +266,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "colorsUtilityReadOnly400": "#f2f5f6ff",
             "colorsUtilityReadOnly500": "#e6ebedff",
             "colorsUtilityReadOnly600": "#ccd6dbff",
+            "colorsUtilityYang080": "#ffffffcc",
             "colorsUtilityYang100": "#ffffffff",
             "colorsUtilityYin030": "#0000004d",
             "colorsUtilityYin055": "#0000008c",
@@ -319,6 +323,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "sizing1600": "128px",
             "sizing175": "14px",
             "sizing200": "16px",
+            "sizing225": "18px",
             "sizing250": "20px",
             "sizing275": "22px",
             "sizing300": "24px",
@@ -433,6 +438,9 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "typographyFormFieldSecondLabelM": "500 14px/150% Sage UI",
             "typographyFormFieldSecondLabelS": "500 14px/150% Sage UI",
             "typographyFormFieldSecondLabelXs": "500 14px/150% Sage UI",
+            "typographyLinkTextFocusL": "400 16px/150% Sage UI",
+            "typographyLinkTextFocusM": "400 14px/150% Sage UI",
+            "typographyLinkTextFocusS": "400 12px/150% Sage UI",
             "typographyLinkTextL": "400 16px/150% Sage UI",
             "typographyLinkTextM": "400 14px/150% Sage UI",
             "typographyLinkTextS": "400 12px/150% Sage UI",
@@ -443,10 +451,15 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "typographyMessageHeadingM": "700 14px/150% Sage UI",
             "typographyMessageTextL": "400 16px/150% Sage UI",
             "typographyMessageTextM": "400 14px/150% Sage UI",
+            "typographyNoteDateM": "400 14px/150% Sage UI",
+            "typographyNoteEditorNameM": "500 14px/150% Sage UI",
+            "typographyNoteParagraphListM": "400 14px/150% Sage UI",
+            "typographyNoteParagraphM": "400 14px/150% Sage UI",
+            "typographyNoteTitleM": "700 24px/125% Sage UI",
             "typographyPageStateParagraphM": "400 16px/150% Sage UI",
             "typographyPageStateSubtitleM": "500 18px/150% Sage UI",
             "typographyPageStateTitleM": "700 24px/125% Sage UI",
-            "typographyPaginationLabelM": "400 13px/150% Sage UI",
+            "typographyPaginationLabelM": "400 14px/150% Sage UI",
             "typographyPillLabelL": "500 14px/150% Sage UI",
             "typographyPillLabelM": "500 12px/150% Sage UI",
             "typographyPillLabelS": "500 10px/150% Sage UI",
@@ -508,6 +521,10 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "typographyTableHeaderTextXl": "500 16px/150% Sage UI",
             "typographyTableHeaderTextXs": "500 13px/150% Sage UI",
             "typographyTileParagraphM": "400 14px/150% Sage UI",
+            "typographyTileSubscriptionParagraphBoldM": "500 14px/150% Sage UI",
+            "typographyTileSubscriptionParagraphM": "400 14px/150% Sage UI",
+            "typographyTileSubscriptionPriceM": "500 16px/150% Sage UI",
+            "typographyTileSubscriptionTitleM": "700 18px/125% Sage UI",
             "typographyTooltipTextL": "400 16px/150% Sage UI",
             "typographyTooltipTextM": "400 14px/150% Sage UI",
           },

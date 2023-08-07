@@ -285,7 +285,8 @@ describe("CarouselButtonStyle", () => {
     assertStyleMatch(
       {
         width: "40px",
-        height: "64px",
+        height: "40px",
+        borderRadius: "var(--borderRadius400)",
       },
       wrapper
     );
@@ -389,8 +390,21 @@ describe("CarouselSelectorInputWrapperStyle", () => {
 describe("SlideStyle", () => {
   let wrapper: ReactWrapper;
 
-  it("should render matched style", () => {
+  beforeEach(() => {
     wrapper = mount(<Slide onClick={() => {}} />);
+  });
+
+  it("should render with the expected border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius200)",
+        overflow: "hidden",
+      },
+      wrapper
+    );
+  });
+
+  it("should render matched style", () => {
     assertStyleMatch(
       {
         transition: "all 0.2s ease-in",

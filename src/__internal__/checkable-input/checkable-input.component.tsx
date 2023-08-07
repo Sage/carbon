@@ -5,7 +5,7 @@ import {
   StyledCheckableInputWrapper,
 } from "./checkable-input.style";
 import { InputBehaviour } from "../input-behaviour";
-import FormField from "../form-field";
+import FormField, { FormFieldProps } from "../form-field";
 import HiddenCheckableInput, {
   CommonHiddenCheckableInputProps,
 } from "./hidden-checkable-input.component";
@@ -18,6 +18,8 @@ export interface CommonCheckableInputProps
     CommonHiddenCheckableInputProps {
   /** If true, the component will be disabled */
   disabled?: boolean;
+  /** @private @ignore */
+  loading?: boolean;
   /** Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /**
@@ -43,7 +45,7 @@ export interface CommonCheckableInputProps
   reverse?: boolean;
   /** Size of the component */
   size?: "small" | "large";
-  /** The id of the element that labels the input */
+  /** Prop to specify the aria-labelledby attribute of the input */
   ariaLabelledBy?: string;
   /** When true, displays validation icon on label */
   validationOnLabel?: boolean;
@@ -62,119 +64,126 @@ export interface CheckableInputProps extends CommonCheckableInputProps {
   labelInline?: boolean;
 }
 
-const CheckableInput = ({
-  ariaLabelledBy: externalAriaLabelledBy,
-  autoFocus,
-  checked,
-  children,
-  disabled,
-  error,
-  fieldHelp,
-  fieldHelpInline,
-  info,
-  id: inputId,
-  inputRef,
-  type,
-  value,
-  inputWidth,
-  label,
-  labelAlign,
-  labelHelp,
-  labelInline = true,
-  labelSpacing = 1,
-  labelWidth,
-  name,
-  onBlur,
-  onChange,
-  onFocus,
-  required,
-  reverse = false,
-  validationOnLabel,
-  warning,
-  ...props
-}: CheckableInputProps) => {
-  const { current: id } = useRef(inputId || guid());
+const CheckableInput = React.forwardRef(
+  (
+    {
+      ariaLabelledBy,
+      autoFocus,
+      checked,
+      children,
+      disabled,
+      loading,
+      error,
+      fieldHelp,
+      fieldHelpInline,
+      info,
+      id: inputId,
+      type,
+      value,
+      inputWidth,
+      label,
+      labelAlign,
+      labelHelp,
+      labelInline = true,
+      labelSpacing = 1,
+      labelWidth,
+      name,
+      onBlur,
+      onChange,
+      onFocus,
+      required,
+      reverse = false,
+      validationOnLabel,
+      warning,
+      ...props
+    }: CheckableInputProps,
+    ref: React.ForwardedRef<HTMLInputElement>
+  ) => {
+    const { current: id } = useRef(inputId || guid());
 
-  const {
-    labelId,
-    fieldHelpId,
-    validationIconId,
-    ariaDescribedBy,
-    ariaLabelledBy,
-  } = useInputAccessibility({
-    id,
-    error,
-    warning,
-    info,
-    label,
-    fieldHelp,
-  });
+    const {
+      labelId,
+      fieldHelpId,
+      validationId,
+      ariaDescribedBy,
+    } = useInputAccessibility({
+      id,
+      error,
+      warning,
+      info,
+      label,
+      fieldHelp,
+    });
 
-  const isRadio = type === "radio";
+    const isRadio = type === "radio";
 
-  const formFieldProps = {
-    disabled,
-    error,
-    fieldHelp,
-    fieldHelpInline,
-    fieldHelpId,
-    id,
-    info,
-    label,
-    labelAlign,
-    labelHelp,
-    labelHelpIcon: "info" as const,
-    labelId,
-    labelInline,
-    labelSpacing,
-    name: id,
-    reverse,
-    warning,
-    validationIconId,
-    // We don't want an asterisk on each radio control, only the legend
-    // However, we still want the input element to receive the required prop
-    isRequired: isRadio ? undefined : required,
-    useValidationIcon: validationOnLabel,
-  };
+    const formFieldProps: FormFieldProps = {
+      disabled,
+      loading,
+      error,
+      fieldHelp,
+      fieldHelpInline,
+      fieldHelpId,
+      id,
+      info,
+      label,
+      labelAlign,
+      labelHelp,
+      labelHelpIcon: "info" as const,
+      labelId,
+      labelInline,
+      labelSpacing,
+      reverse,
+      warning,
+      validationIconId: validationId,
+      // We don't want an asterisk on each radio control, only the legend
+      // However, we still want the input element to receive the required prop
+      isRequired: isRadio ? undefined : required,
+      useValidationIcon: validationOnLabel,
+    };
 
-  const inputProps = {
-    "aria-describedby": ariaDescribedBy,
-    "aria-labelledby": externalAriaLabelledBy || ariaLabelledBy,
-    "aria-invalid": !!error,
-    autoFocus,
-    checked,
-    disabled,
-    id,
-    inputRef,
-    type,
-    value,
-    name,
-    onBlur,
-    onChange,
-    onFocus,
-    required,
-    ...props,
-  };
+    const inputProps = {
+      ariaDescribedBy,
+      "aria-labelledby": ariaLabelledBy,
+      "aria-invalid": !!error,
+      autoFocus,
+      checked,
+      disabled,
+      id,
+      type,
+      value,
+      name,
+      onBlur,
+      onChange,
+      onFocus,
+      required,
+      ref,
+      validationIconId: validationId,
+      ...props,
+    };
 
-  return (
-    <StyledCheckableInputWrapper
-      disabled={disabled}
-      fieldHelpInline={fieldHelpInline}
-      inputWidth={inputWidth}
-      labelWidth={labelWidth}
-      labelInline={labelInline}
-      reverse={reverse}
-    >
-      <InputBehaviour>
-        <FormField {...formFieldProps}>
-          <StyledCheckableInput>
-            <HiddenCheckableInput {...inputProps} />
-            {children}
-          </StyledCheckableInput>
-        </FormField>
-      </InputBehaviour>
-    </StyledCheckableInputWrapper>
-  );
-};
+    return (
+      <StyledCheckableInputWrapper
+        disabled={disabled}
+        fieldHelpInline={fieldHelpInline}
+        inputWidth={inputWidth}
+        labelWidth={labelWidth}
+        labelInline={labelInline}
+        reverse={reverse}
+      >
+        <InputBehaviour>
+          <FormField {...formFieldProps} my={0}>
+            <StyledCheckableInput>
+              <HiddenCheckableInput {...inputProps} />
+              {children}
+            </StyledCheckableInput>
+          </FormField>
+        </InputBehaviour>
+      </StyledCheckableInputWrapper>
+    );
+  }
+);
+
+CheckableInput.displayName = "CheckableInput";
 
 export default CheckableInput;

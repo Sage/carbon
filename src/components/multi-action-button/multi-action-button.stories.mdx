@@ -11,10 +11,17 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 # Multi Action Button
 
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/7428b1-button-multi-action/b/18aaff"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+>
+  Product Design System component
+</a>
+
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Examples](#examples)
 - [Props](#props)
 
@@ -23,15 +30,6 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 ```javascript
 import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 ```
-
-## Designer Notes
-
-- Offers related actions to the user, but without taking up valuable space by showing them separately.
-- But, users may not always discover them, and could miss out.
-- Useful to show about 5 options or less.
-- Only use this component for commands that are related (e.g. Export PDF, Export CSV).
-- Don’t use this component if one option is more generic or important than the others.
-- Carbon has a Transparent configuration, with subtle visual style, which could be useful to present less important or infrequently used options to the user, without calling attention to them.
 
 ## Examples
 
@@ -49,7 +47,7 @@ import MultiActionButton from "carbon-react/lib/components/multi-action-button";
 
 ### Custom width
 
-Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values. 
+Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values.
 String values are passed as raw CSS values. `size` prop can still be used to set desired height.
 
 <Canvas>
@@ -62,10 +60,18 @@ String values are passed as raw CSS values. `size` prop can still be used to set
   <Story name="button types" story={stories.ButtonTypes} />
 </Canvas>
 
+### Child Button types
+
+Buttons used as a content of `MultiActionButton` can be of any type.
+
+<Canvas>
+  <Story name="child button types" story={stories.ChildButtonTypes} />
+</Canvas>
+
 ### Sizes
 
 <Canvas>
-  <Story name="sizes" story={stories.Sizes}/>
+  <Story name="sizes" story={stories.Sizes} />
 </Canvas>
 
 ### Alignment
@@ -86,14 +92,16 @@ Subtext only works when `size` is `large`
 
 <Canvas>
   <Story
-    name="in overflow hidden container" story={stories.InOverflowHiddenContainer} />
+    name="in overflow hidden container"
+    story={stories.InOverflowHiddenContainer}
+  />
 </Canvas>
 
 ## Props
 
 ### MultiActionButton
 
-<StyledSystemProps of={MultiActionButton} width noHeader margin/>
+<StyledSystemProps of={MultiActionButton} width noHeader margin />
 
 ### Button
 

@@ -6,6 +6,7 @@ exports[`Label renders the label 1`] = `
   width={30}
 >
   <styled.label
+    as="label"
     data-element="label"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}

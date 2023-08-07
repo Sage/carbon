@@ -14,10 +14,18 @@ import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 <Meta
   title="Action Popover"
-  parameters={{ info: { disable: true }, chromatic: { disable: true } }}
+  parameters={{ info: { disable: true }, chromatic: { disableSnapshot: true } }}
 />
 
 # ActionPopover
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/5722a7-action-popover/b/48b79b"
+  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+>
+  Product Design System component 
+</a>
 
 ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile.
 Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
@@ -25,7 +33,6 @@ Click the ellipsis icon to show actions the user can take on a specific table ro
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Designer Notes](#designer-notes)
 - [Related Components](#related-components)
 - [Examples](#examples)
 - [Props](#props)
@@ -45,17 +52,6 @@ import {
   ActionPopoverMenuButton,
 } from "carbon-react/lib/components/action-popover";
 ```
-
-## Designer Notes
-
-- Action Popovers only perform commands - they aren’t used to collect data, or choose between data items as in a form.
-- Place the most common and useful actions within them. Although designs for separator rows and sub-menus are provided,
-  these add complexity, so use them sparingly.
-- Clicking the table row or tile links the user to that item. Only clicking the Action Popover's icon displays its items.
-- Action popovers appear in front of all other UI elements.
-- If they are in a position to be cut off by the browser or screen’s edge, the Action Popover can instead appear to the
-  left, right, or above the element that generates it.
-- Content in the popover is usually left aligned.
 
 ## Related Components
 
@@ -137,24 +133,20 @@ leave.
   <Story name="with submenu" story={stories.ActionPopoverComponentSubmenu} />
 </Canvas>
 
+### With submenu positioned to right
+
+Submenu can be positioned on either the left of the right with the use of the `submenuPosition` prop.
+
+<Canvas>
+  <Story name="with submenu positioned to right" story={stories.ActionPopoverComponentSubmenuPositionedRight} />
+</Canvas>
+
 ### With disabled submenu
 
 A sub-menu will not open if the item is in a disabled state.
 
 <Canvas>
   <Story name="with disabled submenu" story={stories.ActionPopoverComponentDisabledSubmenu} />
-</Canvas>
-
-### With submenu aligned right
-
-The sub-menu will open to the right side when there is no space to render the sub-menu to the left.
-
-<Canvas>
-  <Story
-    name="with submenu aligned right"
-    parameters={{ docs: { disable: true } }}
-    story={stories.ActionPopoverComponentSubmenuAlignedRight} 
-  />
 </Canvas>
 
 ### With menu opening above
@@ -234,7 +226,7 @@ used actions, in this example "manage devices".
 It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
 
 <Canvas>
-  <Story name="in FlatTable" parameters={{ chromatic: { disable: true } }} story={stories.ActionPopoverComponentInFlatTable} />
+  <Story name="in FlatTable" story={stories.ActionPopoverComponentInFlatTable} />
 </Canvas>
 
 ## Action opening a Modal

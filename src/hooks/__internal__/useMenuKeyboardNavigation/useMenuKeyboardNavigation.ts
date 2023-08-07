@@ -1,13 +1,36 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import Events from "../../../__internal__/utils/helpers/events";
 import { defaultFocusableSelectors } from "../../../__internal__/focus-trap/focus-trap-utils";
+import useModalManager from "../useModalManager";
 
 export default (
   mainControlRef: React.RefObject<HTMLButtonElement>,
-  childrenRefs: React.RefObject<HTMLButtonElement>[],
-  hide: () => void
+  getButtonChildren: () => NodeListOf<HTMLButtonElement>,
+  hide: () => void,
+  isOpen: boolean
 ) => {
-  const childrenLength = useMemo(() => childrenRefs.length, [childrenRefs]);
+  const refocusMainControl = useCallback(() => {
+    hide();
+    mainControlRef.current?.focus();
+  }, [hide, mainControlRef]);
+
+  const handleEscapeKey = useCallback(
+    (e) => {
+      /* istanbul ignore else */
+      if (Events.isEscKey(e)) {
+        refocusMainControl();
+      }
+    },
+    [refocusMainControl]
+  );
+
+  // useModalmanager is used here to handle the escape key
+  // and to ensure that closing the menu does not close the modal
+  useModalManager({
+    open: isOpen,
+    closeModal: handleEscapeKey,
+    modalRef: mainControlRef,
+  });
 
   const handleKeyDown = useCallback(
     (ev) => {
@@ -15,15 +38,14 @@ export default (
         ev.preventDefault();
       }
 
-      const currentIndex = childrenRefs?.findIndex(
-        (node) => node.current === document.activeElement
-      );
+      const buttonChildren = getButtonChildren();
+      const childrenLength = buttonChildren?.length;
+
       let nextIndex = -1;
 
-      const refocusMainControl = () => {
-        hide();
-        mainControlRef.current?.focus();
-      };
+      const currentIndex = (Array.from(
+        buttonChildren
+      ) as HTMLElement[]).indexOf(document.activeElement as HTMLElement);
 
       const arrowModifierPressed = ev.ctrlKey || ev.metaKey;
 
@@ -31,7 +53,7 @@ export default (
         Events.isEndKey(ev) ||
         (arrowModifierPressed && Events.isDownKey(ev))
       ) {
-        nextIndex = childrenLength - 1;
+        nextIndex = (childrenLength as number) - 1;
       }
 
       if (
@@ -48,7 +70,7 @@ export default (
       if (
         !arrowModifierPressed &&
         Events.isDownKey(ev) &&
-        currentIndex < childrenLength - 1
+        currentIndex < (childrenLength as number) - 1
       ) {
         nextIndex = currentIndex + 1;
       }
@@ -63,7 +85,7 @@ export default (
           nextIndex = currentIndex - 1;
         }
       } else if (tabPressed) {
-        if (currentIndex === childrenLength - 1) {
+        if (currentIndex === (childrenLength as number) - 1) {
           const elements = Array.from(
             document.querySelectorAll(
               defaultFocusableSelectors
@@ -75,7 +97,7 @@ export default (
           );
 
           elements[indexOf + 1]?.focus();
-          // // timeout enforces that the "hide" method will be run after browser focuses on the next element
+          // timeout enforces that the "hide" method will be run after browser focuses on the next element
           setTimeout(hide, 0);
         } else {
           nextIndex = currentIndex + 1;
@@ -83,14 +105,10 @@ export default (
       }
 
       if (nextIndex > -1) {
-        childrenRefs[nextIndex].current?.focus();
-      }
-
-      if (Events.isEscKey(ev)) {
-        refocusMainControl();
+        buttonChildren?.[nextIndex]?.focus();
       }
     },
-    [childrenLength, hide, childrenRefs, mainControlRef]
+    [hide, refocusMainControl, mainControlRef, getButtonChildren]
   );
 
   return handleKeyDown;

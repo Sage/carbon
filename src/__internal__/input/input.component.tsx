@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef, useCallback } from "react";
 import StyledInput from "./input.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 
@@ -6,6 +6,8 @@ export interface CommonInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /* The default value alignment on the input */
   align?: "right" | "left";
+  /** The id of the element that describe the input. */
+  ariaDescribedBy?: string;
   /** Override the variant component */
   as?: React.ElementType;
   /** If true the Component will be focused when rendered */
@@ -15,14 +17,16 @@ export interface CommonInputProps
   /** HTML id attribute of the input */
   id?: string;
   /** A callback to retrieve the input reference */
-  inputRef?: (input: React.RefObject<HTMLInputElement>) => void;
+  inputRef?: (
+    input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   /** Name of the input */
   name?: string;
   /** Specify a callback triggered on blur */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on change */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
-  /** pecify a callback triggered on click */
+  /** Specify a callback triggered on click */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on focus */
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
@@ -34,14 +38,16 @@ export interface CommonInputProps
   readOnly?: boolean;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** Id of the validation icon */
+  validationIconId?: string;
 }
 
 export interface InputProps extends CommonInputProps {
   /** The visible width of the text control, in average character widths */
   cols?: number;
-  /** Integer to determine a timeout for the defered callback */
+  /** Integer to determine a timeout for the deferred callback */
   deferTimeout?: number;
-  /** Defered callback to be called after the onChange event */
+  /** Deferred callback to be called after the onChange event */
   onChangeDeferred?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** The number of visible text lines for the control */
   rows?: number;
@@ -49,7 +55,9 @@ export interface InputProps extends CommonInputProps {
   type?: string;
 }
 
-function selectTextOnFocus(input: React.RefObject<HTMLInputElement>) {
+function selectTextOnFocus(
+  input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
+) {
   // setTimeout is required so the dom has a chance to place the cursor in the input
   setTimeout(() => {
     if (input?.current) {
@@ -68,14 +76,20 @@ function selectTextOnFocus(input: React.RefObject<HTMLInputElement>) {
   });
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<
+  HTMLInputElement | HTMLTextAreaElement,
+  InputProps
+>(
   (
     {
       align,
+      "aria-labelledby": ariaLabelledBy,
+      ariaDescribedBy,
       placeholder,
       disabled,
       readOnly,
       autoFocus,
+      // TODO: remove inputRef prop from this component (and props interface) when it has been removed from all exposed input components
       inputRef,
       onClick,
       onChangeDeferred,
@@ -86,6 +100,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       type = "text",
       id,
       name,
+      validationIconId,
       ...rest
     }: InputProps,
     ref
@@ -93,17 +108,26 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const context = useContext(InputContext);
     const groupContext = useContext(InputGroupContext);
     const deferredTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
-    let input = useRef<HTMLInputElement>(null);
+    let input = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
 
-    if (ref) {
-      input = ref as React.MutableRefObject<HTMLInputElement>;
+    if (ref && "current" in ref) {
+      input = ref;
     }
 
-    useEffect(() => {
-      if (autoFocus && input.current) {
-        input.current.focus();
-      }
-    }, [autoFocus, input]);
+    const callbackRef = useCallback(
+      (element) => {
+        input.current = element;
+
+        if (typeof ref === "function") {
+          ref(element);
+        }
+
+        if (autoFocus && element) {
+          element.focus();
+        }
+      },
+      [autoFocus, ref]
+    );
 
     useEffect(() => {
       if (inputRef) {
@@ -175,10 +199,28 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       handleDeferred(ev);
     };
 
+    const hasValidationPart =
+      (context.hasFocus ||
+        groupContext.hasFocus ||
+        context.hasMouseOver ||
+        groupContext.hasMouseOver) &&
+      validationIconId;
+
+    const descriptionList = ariaDescribedBy ? [ariaDescribedBy] : [];
+
+    if (hasValidationPart) {
+      descriptionList.push(validationIconId);
+    }
+
+    const combinedDescription = descriptionList.length
+      ? descriptionList.filter(Boolean).join(" ")
+      : undefined;
+
     return (
       <StyledInput
         {...rest}
-        aria-labelledby={context.ariaLabelledBy}
+        aria-describedby={combinedDescription}
+        aria-labelledby={ariaLabelledBy}
         align={align}
         placeholder={placeholder}
         disabled={disabled}
@@ -186,7 +228,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         name={name}
         type={type}
         id={id || name}
-        ref={input}
+        ref={callbackRef}
         data-element="input"
         onFocus={handleFocus}
         onBlur={handleBlur}
