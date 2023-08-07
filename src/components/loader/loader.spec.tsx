@@ -17,7 +17,8 @@ jest.mock("../../hooks/useMediaQuery", () => {
 });
 
 describe("Loader", () => {
-  testStyledSystemMargin((props) => <Loader {...props} />);
+  describe("margins", () =>
+    testStyledSystemMargin((props) => <Loader {...props} />));
 
   it("renders with correct styles", () =>
     assertStyleMatch({ textAlign: "center" }, mount(<Loader />)));

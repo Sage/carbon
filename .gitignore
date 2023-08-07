@@ -19,6 +19,3 @@ storybook-static/
 cypress/fixtures/example*
 cypress/screenshots
 cypress/downloads
-/test-results/
-/playwright-report/
-/playwright/.cache/

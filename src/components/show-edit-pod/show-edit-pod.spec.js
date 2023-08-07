@@ -6,7 +6,10 @@ import ShowEditPod from "./show-edit-pod.component";
 import Form from "../form";
 import Pod from "../pod";
 import Button from "../button";
-import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
+import {
+  elementsTagTest,
+  rootTagTest,
+} from "../../__internal__/utils/helpers/tags/tags-specs";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
@@ -419,7 +422,7 @@ describe("ShowEditPod", () => {
       });
     });
 
-    it("on internal elements", () => {
+    describe("on internal elements", () => {
       const wrapper = mount(
         <ShowEditPod
           saveText="Save"
@@ -428,8 +431,9 @@ describe("ShowEditPod", () => {
           onEdit={() => {}}
         />
       );
-      const form = wrapper.find("form[data-component='form']");
-      expect(form.prop("data-element")).toEqual("edit-form");
+      const form = wrapper.find('[data-component="form"]').hostNodes();
+      expect(form.type()).toEqual("form");
+      elementsTagTest(form, ["edit-form"]);
     });
   });
 });

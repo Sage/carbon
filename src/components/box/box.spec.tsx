@@ -155,7 +155,7 @@ describe("Box", () => {
     "borderRadius200",
     "borderRadius400",
   ])(
-    "applies the expected border radius when %s passed to borderRadius prop",
+    "it applies the expected border radius when %s passed to borderRadius prop",
     (borderRadius) => {
       const wrapper = mount(<Box borderRadius={borderRadius} />);
       assertStyleMatch(

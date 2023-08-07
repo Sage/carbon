@@ -857,7 +857,7 @@ describe("Date", () => {
         });
 
         it.each(validValues)(
-          "updates the input value from %s to the expected format on blur",
+          "it updates the input value from %s to the expected format on blur",
           (value) => {
             wrapper.find("input").simulate("change", { target: { value } });
             expect(wrapper.update().find("input").prop("value")).toEqual(value);
@@ -913,7 +913,7 @@ describe("Date", () => {
 
         describe("when it is a leap year, the day value is 29 and month is February", () => {
           it.each(["2012", "2016", "2020", "2024"])(
-            "parses the date as expected",
+            "it parses the date as expected",
             (year) => {
               const value = ["en-US", "en-CA"].includes(localeKey)
                 ? `02/29/${year}`

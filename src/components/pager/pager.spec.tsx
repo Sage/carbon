@@ -490,23 +490,26 @@ describe("Pager", () => {
       ["previous", "4"],
       ["first", "1"],
       ["last", "10"],
-    ])("triggers on click event without %s callback", (call, currentPage) => {
-      const wrapper = render({
-        ...props,
-        pageSize: 10,
-        currentPage: 5,
-        totalRecords: 100,
-      });
-      const pager = wrapper.find(Pager);
-      const navLinks = pager.find(StyledPagerLink);
-      const element = navLinks.find(
-        `[data-element="pager-link-${call}"] button`
-      );
-      element.simulate("click");
-      expect(
-        wrapper.find('[data-element="current-page"]').first().prop("value")
-      ).toBe(currentPage);
-    });
+    ])(
+      "it triggers on click event without %s callback",
+      (call, currentPage) => {
+        const wrapper = render({
+          ...props,
+          pageSize: 10,
+          currentPage: 5,
+          totalRecords: 100,
+        });
+        const pager = wrapper.find(Pager);
+        const navLinks = pager.find(StyledPagerLink);
+        const element = navLinks.find(
+          `[data-element="pager-link-${call}"] button`
+        );
+        element.simulate("click");
+        expect(
+          wrapper.find('[data-element="current-page"]').first().prop("value")
+        ).toBe(currentPage);
+      }
+    );
   });
 
   describe("i18n", () => {

@@ -63,7 +63,8 @@ function assertAbsolutePositioning(
 }
 
 describe("Pod", () => {
-  testStyledSystemMargin((props) => <Pod {...props} />);
+  describe("margins", () =>
+    testStyledSystemMargin((props) => <Pod {...props} />));
 
   describe("deprecation warnings", () => {
     let mockConsole: jest.SpyInstance;

@@ -168,7 +168,7 @@ describe("AnchorNavigation", () => {
 
   describe("when Enter is pressed on a navigation item", () => {
     it.each([0, 1, 2, 3, 4])(
-      "scrolls to wanted section and focuses the section container",
+      "it scrolls to wanted section and focuses the section container",
       (index) => {
         const preventDefault = jest.fn();
         wrapper

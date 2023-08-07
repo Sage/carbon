@@ -10,14 +10,10 @@
 # The Carbon QA team are responsible for reviewing Pull Requests
 # that contain any change modifying spec and test.js files 
 # or anything in the cypress directory
-*.spec.*                 @Sage/carbon-qa
-*.cy.*                   @Sage/carbon-qa
-*.pw.tsx                 @Sage/carbon-qa
-*.test-pw.tsx            @Sage/carbon-qa
-/cypress/                @Sage/carbon-qa
-/playwright/             @Sage/carbon-qa
-cypress.config.ts        @Sage/carbon-qa
-playwright-ct.config.ts  @Sage/carbon-qa
+*.spec.*           @Sage/carbon-qa
+*.cy.*             @Sage/carbon-qa
+/cypress/          @Sage/carbon-qa
+cypress.config.ts  @Sage/carbon-qa
 
 # Codeowners file changes must be approved by a Carbon Admin.
 .github/CODEOWNERS @Sage/carbon-admin

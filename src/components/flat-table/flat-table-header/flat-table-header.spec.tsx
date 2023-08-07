@@ -59,7 +59,7 @@ describe("FlatTableHeader", () => {
       "transparent-white",
       "transparent-base",
     ])(
-      'overrides the header "background-color" with correspond color for %s themeColor"',
+      'it overrides the header "background-color" with correspond color for %s themeColor"',
       (colorTheme) => {
         const wrapper = mount(
           <FlatTableThemeContext.Provider

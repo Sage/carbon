@@ -32,7 +32,6 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 - [ ] All themes are supported if required
 - [ ] Unit tests added or updated if required
 - [ ] Cypress automation tests added or updated if required
-- [ ] Playwright automation tests added or updated if required
 - [ ] Storybook added or updated if required
 - [ ] Translations added or updated (including creating or amending translation keys table in storybook) if required
 - [ ] Typescript `d.ts` file added or updated if required

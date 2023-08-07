@@ -10,7 +10,7 @@
     - [Use of Snapshot tests](#use-of-snapshot-tests)
     - [Continuous Integration (CI)](#continuous-integration-ci)
   - [Functional Browser Testing](#functional-browser-testing)
-    - [Playwright File Structure](#playwright-file-structure)
+    - [Cypress File Structure](#cypress-file-structure)
     - [Locators](#locators)
   - [Visual Testing](#visual-testing)
     - [Adding new visual tests](#adding-new-visual-tests)
@@ -62,86 +62,69 @@ GitHub Actions runs unit tests for a Pull Request on creation and every commit p
 
 ## Functional Browser Testing
 
-> **NOTE** - As of 3rd August 2023, we are in the progress of switching test framework for our functional browser tests from [Cypress](https://www.cypress.io/) to [Playwright](https://playwright.dev). The following section refers to our upcoming Playwright setup, but further details regarding our current Cypress setup can be found in [our Cypress docs](../cypress/README.md).
+We use the [Cypress](https://www.cypress.io) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Cypress, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
 
-We are planning to use [Playwright](https://playwright.dev) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Playwright, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
+Further details on installing Cypress and our configuration for it can be found in our [Getting started with Cypress](../cypress/README.md) guide.
 
-Further details on installing Playwright and our configuration for it can be found in our [Getting started with Playwright](../playwright/README.md) guide.
+### Cypress File Structure
 
-### Playwright File Structure
+All Cypress tests must go within `*.cy.*` for the relevant component.
 
-All Playwright tests must go within `*.pw.tsx` for the relevant component.
-
-```
+```none
 .
-├── src/
+├── cypress/
 │   ├── components/
 │   │   └── [component-name]/
-│   │       └── [component-name].pw.tsx
-│   │       └──  components.test-pw.tsx
-│
-├── playwright/
-│   ├── components/
+│   │       └── [component-name].test.{js|tsx}
+│   ├── locators/
 │   │   └── [component-name]/
-│   │       └── locators.ts
-│   │       └── index.ts
+│   │       ├── index.js
+│   │       └── locators.js
 │   │
 │   ├── support/
-│   │   └── helper.ts
 │   │
-│   ├── index.html
-│   ├── index.tsx
+│   ├── docker-compose.yml
+│   ├── webpack.config.js
+│   ├── tsconfig.json
 │   └── README.md
 │
-└── playwright-ct.config.ts
+├── .eslintrc
+└── cypress.config.ts
 ```
 
-A typical `*.pw.tsx` file may look like the following:
+A typical `*.cy.*` file may look like the following:
 
-```tsx
-// inside src/components/button/button.pw.tsx
-import { test, expect } from "@playwright/experimental-ct-react17";
+```jsx
+// inside cypress/components/button/button.test.js...
 import Button from "./button.component";
-import { buttonComponent } from "../../../playwright/component/button/index";
+import CypressMountWithProviders from "../../../cypress/support/component-helper/cypress-mount";
+import { buttonDataComponent } from "../../../cypress/locators/button";
 
-  test.describe("Check props for Button component", async () => {
-    test("should render Button label when passed to the component", async ({ mount, page }) => {
-      
+context("Test Button component", () => {
+  describe("Check props for Button component", () => {
+    it("should render Button label when passed to the component", () => {
       const label = "foobar";
-      
-      await mount(<Button>{label}</Button>);
-
-      await expect(buttonComponent(page)).toHaveText(label);
+      CypressMountWithProviders(<Button>{label}</Button>);
+      buttonDataComponent().should("have.text", label);
     });
   });
+});
 ```
 
-Where `mount` renders the component in the real browser (`chromium`/`webkit`/`firefox`/`opera`) and `buttonComponent` is a _locator_ that returns the DOM element we want to test.
+Where `CypressMountWithProviders` renders the component in the simulated browser and `buttonDataComponent` is a _locator_ that returns the DOM element we want to test.
 
 ### Locators
 
 We write dedicated functions to access rendered DOM elements in order to make our tests easier to read. Locators for a component typically follow this structure:
 
-`index.ts`
-```ts
-/* in index.ts */
-import type { Page } from "@playwright/test";
-import { BUTTON_DATA_COMPONENT, BUTTON_SUBTEXT } from "./locators";
+```js
+/* in index.js */
+import { BUTTON_COMPONENT, BUTTON_SUBTEXT } from "./locators.js";
 
-const buttonComponent = (page: Page) => {
-  return page.locator(BUTTON_DATA_COMPONENT);
-}
+export const buttonComponent = () => cy.get(BUTTON_DATA_COMPONENT);
+export const buttonSubtext = () => cy.get(BUTTON_SUBTEXT);
 
-const buttonSubtext = (page: Page) => {
-  return page.locator(BUTTON_SUBTEXT);
-}
-
-export { buttonComponent, buttonSubtext };
-```
-
-`locators.ts`
-```ts
-/* locators.ts */
+/* in locators.js */
 // `data-component` prop is typically reserved for the root element of the component. Whereas `data-element` is for specific elements.
 export const BUTTON_COMPONENT = '[data-component="button"]';
 export const BUTTON_SUBTEXT = '[data-element="subtext"]';
