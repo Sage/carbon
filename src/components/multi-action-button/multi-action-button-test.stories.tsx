@@ -4,7 +4,7 @@ import Dialog from "../dialog";
 import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
-import Button from "../button";
+import Button, { ButtonProps } from "../button";
 import {
   MULTI_ACTION_BUTTON_ALIGNMENTS,
   MULTI_ACTION_BUTTON_SIZES,
@@ -117,5 +117,17 @@ export const MultiActionWithHrefChildren = () => (
 export const MultiActionButtonWithOneChild = () => (
   <MultiActionButton text="default text">
     <Button>Button 1</Button>
+  </MultiActionButton>
+);
+
+const ButtonWrapper = (props: ButtonProps) => {
+  return <Button {...props} />;
+};
+
+export const WithWrapper = (props: Partial<MultiActionButtonProps>) => (
+  <MultiActionButton text="Split button" {...props}>
+    <ButtonWrapper>Button 1</ButtonWrapper>
+    <ButtonWrapper>Button 2</ButtonWrapper>
+    <ButtonWrapper>Button 3</ButtonWrapper>
   </MultiActionButton>
 );

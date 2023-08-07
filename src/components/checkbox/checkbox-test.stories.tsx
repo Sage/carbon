@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import { Checkbox, CheckboxProps, CheckboxGroup, CheckboxGroupProps } from ".";
+import CarbonProvider from "../../components/carbon-provider";
 
 export default {
   title: "Checkbox/Test",
@@ -144,6 +145,45 @@ export const CheckboxGroupComponent = ({
           </>
         )}
       </CheckboxGroup>
+    </div>
+  );
+};
+
+export const CheckboxGroupComponentNewValidation = ({
+  children,
+  ...props
+}: Partial<CheckboxGroupProps>) => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <div
+      style={{
+        marginTop: "64px",
+        marginLeft: "64px",
+      }}
+    >
+      <CarbonProvider validationRedesignOptIn>
+        <CheckboxGroup
+          legend="Checkbox Group Label"
+          legendHelp="Hint Text"
+          required
+          {...props}
+        >
+          {children || (
+            <>
+              {["One", "Two", "Three"].map((label) => (
+                <Checkbox
+                  label={label}
+                  id={`checkbox-group-${label}`}
+                  key={`checkbox-group-${label}`}
+                  name={`checkbox-group-${label}`}
+                  checked={isChecked}
+                  onChange={(e) => setIsChecked(e.target.checked)}
+                />
+              ))}
+            </>
+          )}
+        </CheckboxGroup>
+      </CarbonProvider>
     </div>
   );
 };

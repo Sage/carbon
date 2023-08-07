@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import Badge from "./badge.component";
+import Badge, { BadgeProps } from "./badge.component";
 import Box from "../box";
 import Button from "../button";
 
@@ -50,7 +50,7 @@ DefaultStory.args = { counter: 1 };
 DisplayOnlyStory.storyName = "display only";
 DisplayOnlyStory.args = { counter: 1 };
 
-export const BadgeComponent = ({ ...props }) => {
+export const BadgeComponent = (props: Partial<BadgeProps>) => {
   return (
     <Box margin="40px">
       <Badge {...props}>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import Button from "../button";
+import Button, { ButtonProps } from "../button";
 import Box from "../box";
 import { ICONS } from "../icon/icon-config";
 import Dialog from "../dialog";
@@ -118,3 +118,15 @@ export const SplitButtonNestedInDialog = () => {
     </Dialog>
   );
 };
+
+const ButtonWrapper = (props: ButtonProps) => {
+  return <Button {...props} />;
+};
+
+export const WithWrapper = (props: Partial<SplitButtonProps>) => (
+  <SplitButton text="Split button" {...props}>
+    <ButtonWrapper>Button 1</ButtonWrapper>
+    <ButtonWrapper>Button 2</ButtonWrapper>
+    <ButtonWrapper>Button 3</ButtonWrapper>
+  </SplitButton>
+);

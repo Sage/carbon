@@ -23,50 +23,45 @@ jobs:
         shardIndex: [1]
         shardTotal: [1]
     steps:
-      - id: test
+      - id: get_pull
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/{owner}/{repo}/pulls/{pull_number}
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          pull_number: ${{ github.event.inputs.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: "refs/pull/${{ github.event.inputs.number }}/head"
+          fetch-depth: 0
+
+      - name: Cache central NPM modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: install dependencies with Playwright browsers
+        env:
+          COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "test"
+          npm ci
+          npx playwright install --with-deps
+          npx playwright --version
 
-      # - id: get_pull
-      #   uses: octokit/request-action@v2.x
-      #   with:
-      #     route: GET /repos/{owner}/{repo}/pulls/{pull_number}
-      #     owner: ${{ github.event.repository.owner.login }}
-      #     repo: ${{ github.event.repository.name }}
-      #     pull_number: ${{ github.event.inputs.number }}
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Playwright React tests
+        run: npm run test:ct
 
-      # - name: Checkout
-      #   uses: actions/checkout@v3
-      #   with:
-      #     ref: "refs/pull/${{ github.event.inputs.number }}/head"
-      #     fetch-depth: 0
-
-      # - name: Cache central NPM modules
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-
-
-      # - name: install dependencies with Playwright browsers
-      #   env:
-      #     COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     npm ci
-      #     npx playwright install --with-deps
-      #     npx playwright --version
-
-      # - name: Playwright React tests
-      #   run: npm run test:ct
-
-      # - uses: actions/upload-artifact@v3
-      #   if: always()
-      #   with:
-      #     name: playwright-report
-      #     path: playwright-report/
-      #     retention-days: 3
-        
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 3

@@ -1,3 +1,24 @@
+## [119.10.0](https://github.com/Sage/carbon/compare/v119.9.3...v119.10.0) (2023-08-04)
+
+
+### Features
+
+* **checkbox:** add support for new validation ([05d137d](https://github.com/Sage/carbon/commit/05d137d42be0e7939fce53bc4cf7575a9f826a2d))
+
+### [119.9.3](https://github.com/Sage/carbon/compare/v119.9.2...v119.9.3) (2023-08-04)
+
+
+### Bug Fixes
+
+* **split-button, multi-action-button:** remove children iteration ([a8631bc](https://github.com/Sage/carbon/commit/a8631bcaeba1e5357158c8c7e9bc75e71c697da5)), closes [#4784](https://github.com/Sage/carbon/issues/4784)
+
+### [119.9.2](https://github.com/Sage/carbon/compare/v119.9.1...v119.9.2) (2023-08-04)
+
+
+### Bug Fixes
+
+* **portrait:** rewrite types and add invariant for gravatar and src props ([0ed96d6](https://github.com/Sage/carbon/commit/0ed96d6381887d070363cca88df7c1f5a4313dac))
+
 ### [119.9.1](https://github.com/Sage/carbon/compare/v119.9.0...v119.9.1) (2023-08-03)
 
 
