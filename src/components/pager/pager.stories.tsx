@@ -121,11 +121,11 @@ PageSizeSelectionOptions.args = {
   totalRecords: 100,
   showPageSizeSelection: true,
   pageSizeSelectionOptions: [
-    { id: "1", name: 1 },
-    { id: "2", name: 2 },
-    { id: "5", name: 5 },
+    { id: "15", name: 15 },
+    { id: "30", name: 30 },
+    { id: "60", name: 60 },
   ],
-  pageSize: 1,
+  pageSize: 15,
 };
 
 export const CurrentPageLastPage = Default.bind({});
@@ -200,7 +200,6 @@ export const UsingCustomResponsiveSettings = () => {
       onPagination={() => {}}
       {...responsiveProps()}
       pageSizeSelectionOptions={[
-        { id: "1", name: 1 },
         { id: "10", name: 10 },
         { id: "25", name: 25 },
         { id: "50", name: 50 },
