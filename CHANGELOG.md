@@ -1,3 +1,10 @@
+### [119.10.1](https://github.com/Sage/carbon/compare/v119.10.0...v119.10.1) (2023-08-07)
+
+
+### Bug Fixes
+
+* **select:** fix accessible name ([f9abcfa](https://github.com/Sage/carbon/commit/f9abcfaf077a6d727fe306ab955d8006722e5b3a)), closes [#5945](https://github.com/Sage/carbon/issues/5945)
+
 ## [119.10.0](https://github.com/Sage/carbon/compare/v119.9.3...v119.10.0) (2023-08-04)
 
 
