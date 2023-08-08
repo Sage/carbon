@@ -1,7 +1,5 @@
 name: Cypress tests
 
-# Both cypress jobs need to be in the same workflow in order for the ci-build-id to be automatically generated
-# https://docs.cypress.io/guides/guides/parallelization#Linking-CI-machines-for-parallelization-or-grouping
 on:
   workflow_dispatch:
     inputs:
@@ -87,3 +85,29 @@ jobs:
           name: cypress-reports
           path: cypress/reports
           retention-days: 10
+
+      - name: Report status - success
+        if: always() && success()
+        run: |
+            curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            -d '{
+              "state": "success",
+              "context": "Cypress tests",
+              "description": "workflow completed successfully."
+            }'
+        
+      - name: Report status - failed
+        if: always() && failure()
+        run: |
+            curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            -d '{
+              "state": "failure",
+              "context": "Cypress tests",
+              "description": "workflow failed."
+            }'
