@@ -1,5 +1,12 @@
 import styled, { css } from "styled-components";
-import { layout, flexbox, FlexboxProps, LayoutProps } from "styled-system";
+import {
+  layout,
+  flexbox,
+  padding,
+  FlexboxProps,
+  LayoutProps,
+  PaddingProps,
+} from "styled-system";
 import menuConfigVariants from "./menu.config";
 
 import {
@@ -8,6 +15,7 @@ import {
 } from "../vertical-divider/vertical-divider.style";
 import { StyledLink } from "../link/link.style";
 import { MenuProps } from "./menu.component";
+import { baseTheme } from "../../style/themes";
 
 interface StyledMenuProps
   extends Pick<MenuProps, "menuType">,
@@ -52,7 +60,9 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
   }
 `;
 
-interface StyledMenuItemProps extends Pick<MenuProps, "menuType" | "maxWidth"> {
+interface StyledMenuItemProps
+  extends Pick<MenuProps, "menuType" | "maxWidth">,
+    PaddingProps {
   inFullscreenView?: boolean;
   inSubmenu?: boolean;
 }
@@ -74,8 +84,9 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
   ${({ inFullscreenView }) =>
     inFullscreenView &&
     css`
-      padding-top: 16px;
-      padding-bottom: 16px;
+      padding-top: var(--spacing200);
+      padding-bottom: var(--spacing200);
+      ${padding}
 
       > a,
       ${StyledLink} > a,
@@ -89,5 +100,9 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       }
     `}
 `;
+
+StyledMenuItem.defaultProps = {
+  theme: baseTheme,
+};
 
 export { StyledMenuWrapper, StyledMenuItem };
