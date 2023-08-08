@@ -75,8 +75,8 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
             -d '{
               "state": "success",
-              "context": "Workflow Status",
-              "description": "Playwright tests workflow completed successfully."
+              "context": "Playwright tests",
+              "description": "workflow completed successfully."
             }'
           
       - name: Report status - failed
@@ -88,6 +88,6 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
             -d '{
               "state": "failure",
-              "context": "Workflow Status",
-              "description": "Playwright tests workflow failed."
+              "context": Playwright tests",
+              "description": "workflow failed."
             }'
