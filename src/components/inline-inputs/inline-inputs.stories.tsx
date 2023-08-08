@@ -39,7 +39,11 @@ export const Default: ComponentStory<typeof InlineInputs> = () => {
         value={decimalValue}
         onChange={handleDecimalChange}
       />
-      <Select value={selectValue} onChange={handleSelectChange}>
+      <Select
+        value={selectValue}
+        onChange={handleSelectChange}
+        aria-labelledby="inline-inputs-default"
+      >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
         <Option text="Blue" value="3" />

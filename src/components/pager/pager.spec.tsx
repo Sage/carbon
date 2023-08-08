@@ -375,7 +375,7 @@ describe("Pager", () => {
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
           ?.textContent
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("div").last().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("label").last().text()
       );
     });
 
@@ -404,6 +404,38 @@ describe("Pager", () => {
       });
 
       expect(wrapper.find(StyledPagerSummary).text()).toBe("");
+    });
+
+    it.each([
+      [true, false],
+      [false, true],
+    ])(
+      "renders a label correctly-linked to the select when either of 'showPageSizeLabelBefore' and 'showPageSizeLabelAfter' are true, and does not add an aria-label",
+      (showPageSizeLabelBefore, showPageSizeLabelAfter) => {
+        wrapper = render({
+          ...props,
+          showPageSizeLabelBefore,
+          showPageSizeLabelAfter,
+        });
+
+        const selectInput = wrapper.find('input[role="combobox"]').getDOMNode();
+        const selectLabel = wrapper.find("label").at(0).getDOMNode();
+
+        expect(selectLabel.getAttribute("for")).toBe(selectInput.id);
+        expect(selectInput.getAttribute("aria-label")).toBe(null);
+      }
+    );
+
+    it("renders the select with an aria-label when both 'showPageSizeLabelBefore' and 'showPageSizeLabelAfter' are false", () => {
+      wrapper = render({
+        ...props,
+        showPageSizeLabelBefore: false,
+        showPageSizeLabelAfter: false,
+      });
+
+      const selectInput = wrapper.find('input[role="combobox"]').getDOMNode();
+
+      expect(selectInput.getAttribute("aria-label")).toBe("Show");
     });
   });
 

@@ -304,7 +304,7 @@ context("Tests for SimpleSelect component", () => {
 
       selectText().click();
       selectListWrapper().should("be.visible");
-      selectText().type("{esc}", { force: true });
+      commonDataElementInputPreview().type("{esc}", { force: true });
       selectInput().should("have.attr", "aria-expanded", "false");
       selectListWrapper().should("not.be.visible");
     });
@@ -1129,7 +1129,7 @@ context("Tests for SimpleSelect component", () => {
 
     it("should pass accessibilty tests for SimpleSelect with multiple columns", () => {
       CypressMountWithProviders(
-        <stories.SimpleSelectMultipleColumnsComponent />
+        <stories.SimpleSelectMultipleColumnsComponent label="multiple columns" />
       );
 
       commonDataElementInputPreview().trigger("keydown", {
@@ -1141,7 +1141,9 @@ context("Tests for SimpleSelect component", () => {
     });
 
     it("should pass accessibilty tests for SimpleSelect with object as value", () => {
-      CypressMountWithProviders(<stories.SimpleSelectObjectAsValueComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectObjectAsValueComponent label="with object as value" />
+      );
 
       selectText().click();
       selectOption(positionOfElement("first")).click();
@@ -1161,7 +1163,9 @@ context("Tests for SimpleSelect component", () => {
     );
 
     it("should pass accessibilty tests for SimpleSelect group component", () => {
-      CypressMountWithProviders(<stories.SimpleSelectGroupComponent />);
+      CypressMountWithProviders(
+        <stories.SimpleSelectGroupComponent label="groups" />
+      );
 
       selectText().click();
       cy.checkAccessibility();

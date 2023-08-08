@@ -642,7 +642,7 @@ export const WithLabelsInline = () => (
     >
       <Textbox aria-labelledby="inline-inputs" />
       <Textbox aria-labelledby="inline-inputs" />
-      <Select>
+      <Select aria-labelledby="inline-inputs">
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="1" />
         <Option value="3" text="option 3" key="1" />
@@ -656,7 +656,7 @@ export const WithLabelsInline = () => (
     >
       <Textbox aria-labelledby="inline-inputs-second" />
       <Textbox aria-labelledby="inline-inputs-second" />
-      <Select>
+      <Select aria-labelledby="inline-inputs-second">
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="1" />
         <Option value="3" text="option 3" key="1" />

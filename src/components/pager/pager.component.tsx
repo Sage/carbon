@@ -225,6 +225,9 @@ export const Pager = ({
           onKeyDown={handleKeyDown}
           data-element="page-select"
           id={pageSizeSelectId}
+          {...(!showPageSizeLabelBefore && !showPageSizeLabelAfter
+            ? { ariaLabel: l.pager.show() }
+            : {})}
         >
           {pageSizeSelectionOptions.map((sizeOption) => (
             <Option
@@ -240,16 +243,23 @@ export const Pager = ({
   };
 
   const renderPageSizeOptions = () => {
+    const wrapper = (isLabel: boolean, child: React.ReactNode) =>
+      isLabel ? (
+        <label htmlFor={pageSizeSelectId}>{child}</label>
+      ) : (
+        <div>{child}</div>
+      );
     return (
       showPageSizeSelection && (
         <StyledPagerSizeOptionsInner>
-          {showPageSizeLabelBefore && (
-            <label htmlFor={pageSizeSelectId}>{l.pager.show()}</label>
-          )}
+          {showPageSizeLabelBefore &&
+            wrapper(showPageSizeLabelBefore, l.pager.show())}
           {sizeSelector()}
-          {showPageSizeLabelAfter && (
-            <div>{l.pager.records(currentPageSize, false)}</div>
-          )}
+          {showPageSizeLabelAfter &&
+            wrapper(
+              !showPageSizeLabelBefore,
+              l.pager.records(currentPageSize, false)
+            )}
         </StyledPagerSizeOptionsInner>
       )
     );
