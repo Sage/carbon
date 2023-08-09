@@ -84,6 +84,7 @@ type SubRowsShapeChildrenOnlySelectableStoryKey = keyof SubRowsShapeChildrenOnly
 
 export default {
   title: "Flat Table/Test",
+  includeStories: ["FlatTableStory", "ExpandableWithLink", "SortableStory"],
   parameters: {
     info: { disable: true },
     chromatic: {

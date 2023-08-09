@@ -91,14 +91,6 @@ describe("LinkPreview", () => {
 
       assertStyleMatch(
         {
-          outline: "2px solid var(--colorsSemanticFocus500)",
-        },
-        wrapper.find(StyledLinkPreview),
-        { modifier: ":focus" }
-      );
-
-      assertStyleMatch(
-        {
           cursor: "pointer",
           backgroundColor: "var(--colorsUtilityMajor100)",
         },

@@ -200,8 +200,13 @@ const StyledPill = styled.span<AllStyledPillProps>`
           line-height: 16px;
 
           &:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
+            ${theme.focusRedesignOptOut &&
+            /* istanbul ignore next */
+            css`
+              outline: none;
+              box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
+            `}
+
             background-color: ${buttonFocusColor};
             ${!theme.roundedCornersOptOut &&
             css`

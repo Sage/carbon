@@ -49,6 +49,36 @@ const keyToTrigger = ["downarrow", "uparrow", "Home", "End", "Enter"] as const;
 const listOption = "Amber";
 
 context("Tests for FilterableSelect component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent />);
+      commonDataElementInputPreview()
+        .focus()
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      commonDataElementInputPreview()
+        .focus()
+        .parent()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
   describe("check props for FilterableSelect component", () => {
     it.each(testData)(
       "should render FilterableSelect label using %s special characters",

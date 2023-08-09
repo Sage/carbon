@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { padding, PaddingProps } from "styled-system";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+import baseTheme from "../../style/themes/base";
 
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
@@ -15,6 +17,11 @@ interface StyledVerticalMenuProps extends PaddingProps {
   active?: boolean;
   height: string;
 }
+
+const oldFocusStyling = `
+  outline: 3px solid var(--colorsSemanticFocus500);
+  outline-offset: -3px;
+`;
 
 export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
   min-height: ${({ height }) => height};
@@ -38,8 +45,10 @@ export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
   }
 
   &:focus {
-    outline: 3px solid var(--colorsSemanticFocus500);
-    outline-offset: -3px;
+    ${({ theme }) =>
+      !theme.focusRedesignOptOut
+        ? addFocusStyling(true)
+        : /* istanbul ignore next */ oldFocusStyling}
   }
 
   ${({ active }) =>
@@ -68,6 +77,8 @@ export const StyledVerticalMenuItem = styled.div<StyledVerticalMenuProps>`
     width: 20px;
   }
 `;
+
+StyledVerticalMenuItem.defaultProps = { theme: baseTheme };
 
 export const StyledTitle = styled.h3`
   font-weight: 600;

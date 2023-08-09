@@ -421,7 +421,7 @@ describe("DuellingPicklist", () => {
 
         assertStyleMatch(
           {
-            padding: "4px 8px 8px 8px",
+            padding: "8px 8px 8px 8px",
             margin: "0",
           },
           wrapper.find(StyledPicklist).at(0)
@@ -429,7 +429,7 @@ describe("DuellingPicklist", () => {
 
         assertStyleMatch(
           {
-            padding: "4px 8px 8px 8px",
+            padding: "8px 8px 8px 8px",
             margin: "0",
           },
           wrapper.find(StyledPicklist).at(1)

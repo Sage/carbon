@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
-import baseTheme from "../../style/themes/base";
+import baseTheme, { ThemeObject } from "../../style/themes/base";
 import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
 import { StyledLabelContainer } from "../../__internal__/label/label.style";
@@ -10,11 +10,19 @@ import StyledSwitchSlider from "./__internal__/switch-slider.style";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
 import { SwitchProps } from "./switch.component";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
-type StyledSwitchProps = Pick<
-  SwitchProps,
-  "fieldHelpInline" | "labelInline" | "reverse" | "size"
->;
+interface StyledSwitchProps
+  extends Pick<
+    SwitchProps,
+    "fieldHelpInline" | "labelInline" | "reverse" | "size"
+  > {
+  theme: ThemeObject;
+}
+
+const oldFocusStyling = `
+  outline: solid 3px var(--colorsSemanticFocus500);
+`;
 
 export const ErrorBorder = styled.span`
   ${({ warning }: { warning: boolean }) =>
@@ -40,7 +48,13 @@ export const StyledHintText = styled.div`
 `;
 
 const StyledSwitch = styled.div`
-  ${({ fieldHelpInline, labelInline, reverse, size }: StyledSwitchProps) => css`
+  ${({
+    fieldHelpInline,
+    labelInline,
+    reverse,
+    size,
+    theme,
+  }: StyledSwitchProps) => css`
     ${margin}
     ${FieldLineStyle} {
       display: flex;
@@ -59,7 +73,9 @@ const StyledSwitch = styled.div`
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
       &:focus + ${StyledSwitchSlider} {
-        outline: solid 3px var(--colorsSemanticFocus500);
+        ${!theme.focusRedesignOptOut
+          ? addFocusStyling()
+          : /* istanbul ignore next */ oldFocusStyling}
       }
     }
 

@@ -110,50 +110,6 @@ describe("FlatTable", () => {
     });
   });
 
-  describe("when the table wrapper is focused", () => {
-    let wrapper: ReactWrapper;
-
-    beforeEach(() => {
-      wrapper = renderFlatTable();
-    });
-
-    it("should add the correct focus styling", () => {
-      (wrapper
-        .find(StyledFlatTableWrapper)
-        .getDOMNode() as HTMLElement).focus();
-
-      assertStyleMatch(
-        {
-          outline: "2px solid var(--colorsSemanticFocus500)",
-        },
-        wrapper.find(StyledFlatTableWrapper),
-        {
-          modifier: ":focus",
-        }
-      );
-
-      assertStyleMatch(
-        {
-          outline: "none",
-        },
-        wrapper.find(StyledFlatTableWrapper),
-        {
-          modifier: ":focus:not(:focus-visible)",
-        }
-      );
-
-      assertStyleMatch(
-        {
-          outline: "2px solid var(--colorsSemanticFocus500)",
-        },
-        wrapper.find(StyledFlatTableWrapper),
-        {
-          modifier: ":focus:focus-visible",
-        }
-      );
-    });
-  });
-
   describe('when rendered with proper table data and "hasStickyHead" prop set to true', () => {
     let wrapper: ReactWrapper;
 

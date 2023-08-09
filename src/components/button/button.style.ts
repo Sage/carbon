@@ -6,6 +6,7 @@ import BaseTheme from "../../style/themes/base";
 import buttonTypes from "./button-types.style";
 import StyledIcon from "../icon/icon.style";
 import { ButtonProps, SizeOptions } from "./button.component";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 function additionalIconStyle(iconType?: IconType) {
   if (iconType === "services") return "6px";
@@ -69,9 +70,11 @@ type StyledButtonProps = SpaceProps &
     iconOnly?: boolean;
   };
 
+const oldFocusStyling = "outline: solid 3px var(--colorsSemanticFocus500);";
+
 const StyledButton = styled.button<StyledButtonProps>`
   ${space}
-  ${({ disabled, noWrap }) => css`
+  ${({ disabled, noWrap, theme }) => css`
     align-items: center;
     cursor: ${disabled ? "not-allowed" : "pointer"};
     display: inline-flex;
@@ -86,7 +89,9 @@ const StyledButton = styled.button<StyledButtonProps>`
     border-radius: var(--borderRadius400);
 
     &:focus {
-      outline: solid 3px var(--colorsSemanticFocus500);
+      ${!theme.focusRedesignOptOut
+        ? addFocusStyling()
+        : /* istanbul ignore next */ oldFocusStyling}
     }
 
     ${stylingForType}

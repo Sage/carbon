@@ -47,6 +47,7 @@ export const Default = () => {
             type="info"
             tooltipMessage="Short and non descriptive message"
             tooltipVisible={false}
+            disabled
           />
         }
         description="Short and descriptive description"
@@ -271,6 +272,7 @@ export const MultiSelect = () => {
             type="info"
             tooltipMessage="Short and non descriptive message"
             tooltipVisible={false}
+            disabled
           />
         }
         description="Short and descriptive description"
@@ -538,6 +540,7 @@ export const WithCustomSpacing = () => {
             type="info"
             tooltipMessage="Short and non descriptive message"
             tooltipVisible={false}
+            disabled
           />
         }
         description="Short and descriptive description"

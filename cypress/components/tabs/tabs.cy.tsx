@@ -15,7 +15,10 @@ import { getDataElementByValue, tooltipPreview } from "../../locators";
 import { keyCode } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
+import {
+  assertCssValueIsApproximately,
+  checkGoldenOutline,
+} from "../../support/component-helper/common-steps";
 import { ICON } from "../../locators/locators";
 import { DrawerSidebarContext } from "../../../src/components/drawer";
 
@@ -123,7 +126,7 @@ context("Testing Tabs component", () => {
 
         cy.get("@width")
           .then(($el) => parseInt($el.toString()))
-          .should("be.within", width - 4, width + 4);
+          .should("be.within", width - 6, width + 4);
       }
     );
 
@@ -170,12 +173,7 @@ context("Testing Tabs component", () => {
         <TabsComponent headerWidth="440px" align="left" position="left" />
       );
 
-      tabById(1)
-        .parent()
-        .parent()
-        .then(($el) => {
-          assertCssValueIsApproximately($el, "width", 440);
-        });
+      tabById(1).parent().parent().should("have.css", "width", "434px"); // minus the 3px padding on each side
     });
 
     it.each([
@@ -634,5 +632,94 @@ context("Testing Tabs component", () => {
 
       cy.checkAccessibility();
     });
+  });
+
+  describe("when focused", () => {
+    it("has the expected styling when focusRedesignOptOut true", () => {
+      CypressMountWithProviders(<TabsComponent />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+
+      tabById(1)
+        .focus()
+        .then(($el) => checkGoldenOutline($el));
+      tabById(2)
+        .focus()
+        .then(($el) => checkGoldenOutline($el));
+      tabById(3)
+        .focus()
+        .then(($el) => checkGoldenOutline($el));
+      tabById(4)
+        .focus()
+        .then(($el) => checkGoldenOutline($el));
+      tabById(5)
+        .focus()
+        .then(($el) => checkGoldenOutline($el));
+    });
+
+    it("has the expected styling when focusRedesignOptOut false", () => {
+      CypressMountWithProviders(<TabsComponent />);
+
+      tabById(1)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+      tabById(2)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+      tabById(3)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+      tabById(4)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+      tabById(5)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+  });
+
+  describe("rounded corners", () => {
+    it.each([
+      { name: "top", position: "top" as const },
+      { name: "left", position: "left" as const },
+    ])(
+      "has the expected border radius styling when position is %s",
+      ({ position }) => {
+        CypressMountWithProviders(<TabsComponent position={position} />);
+        const result =
+          position === "top" ? "8px 8px 0px 0px" : "8px 0px 0px 8px";
+
+        tabById(1).should("have.css", "border-radius", result);
+        tabById(2).should("have.css", "border-radius", result);
+        tabById(3).should("have.css", "border-radius", result);
+        tabById(4).should("have.css", "border-radius", result);
+        tabById(5).should("have.css", "border-radius", result);
+      }
+    );
   });
 });

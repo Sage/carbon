@@ -10,6 +10,7 @@ import {
   previousArrowButton,
   slideSelector,
 } from "../../locators/carousel";
+import { checkGoldenOutline } from "../../support/component-helper/common-steps";
 
 function clickCarouselButton(direction: "left" | "right") {
   switch (direction) {
@@ -184,7 +185,51 @@ context("Testing Carousel component", () => {
     });
   });
 
-  describe("should check border radius styling for Carousel component", () => {
+  describe("when focused", () => {
+    it("the arrow buttons should have expected styling when opt out flag is true", () => {
+      CypressMountWithProviders(<CarouselComponent />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+      nextArrowButton()
+        .focus()
+        .then(($el) => {
+          checkGoldenOutline($el);
+        });
+
+      nextArrowButton().click();
+
+      previousArrowButton()
+        .focus()
+        .then(($el) => {
+          checkGoldenOutline($el);
+        });
+    });
+
+    it("the arrow buttons should have expected styling when opt out flag is false", () => {
+      CypressMountWithProviders(<CarouselComponent />);
+      nextArrowButton()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+      nextArrowButton().click();
+
+      previousArrowButton()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+  });
+
+  describe("rounded corners", () => {
     it("should have the expected border radius styling", () => {
       CypressMountWithProviders(<CarouselComponent />);
       nextArrowButton().should("have.css", "border-radius", "32px");

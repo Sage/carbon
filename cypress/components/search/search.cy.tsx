@@ -14,7 +14,6 @@ import {
   searchIcon,
   searchFindIcon,
 } from "../../locators/search/index";
-import { checkGoldenOutline } from "../../support/component-helper/common-steps";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { keyCode } from "../../support/helper";
 import {
@@ -32,6 +31,106 @@ const validationTypes: [string, string][] = [
 ];
 
 context("Test for Search component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling for the input when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<SearchComponent />);
+      searchDefaultInput()
+        .focus()
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+    });
+
+    it("should have the expected styling for the input when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(<SearchComponent />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+      searchDefaultInput()
+        .focus()
+        .parent()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+
+    it("should have the expected styling for the search icon when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(
+        <SearchComponent searchButton />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: false,
+        }
+      );
+
+      searchDefaultInput().clear().type(testCypress);
+      searchButton().click({ force: true });
+      searchButton().should(
+        "have.css",
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      );
+    });
+
+    it("should have the expected styling for the search icon when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <SearchComponent searchButton />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+
+      searchDefaultInput().clear().type(testCypress);
+      searchButton().click({ force: true });
+      searchButton().should(
+        "have.css",
+        "outline",
+        "rgb(255, 188, 25) solid 3px"
+      );
+    });
+
+    it("should have the expected styling for the cross icon when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(
+        <SearchComponent searchButton />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: false,
+        }
+      );
+
+      searchDefaultInput().clear().type(testCypress).tab();
+
+      searchCrossIcon()
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+    });
+
+    it("should have the expected styling for the cross icon when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <SearchComponent searchButton />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+
+      searchDefaultInput().clear().type(testCypress).tab();
+
+      searchCrossIcon()
+        .parent()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
   describe("check props for Search component", () => {
     it.each(testData)(
       "should render Search with placeholder using %s as special characters",
@@ -307,40 +406,6 @@ context("Test for Search component", () => {
       searchDefaultInput().clear().type(testCypress);
       searchCrossIcon().click({ force: true });
       searchDefaultInput().should("be.empty");
-    });
-
-    it("should verify that search icon has golden outline", () => {
-      CypressMountWithProviders(<SearchComponent searchButton />);
-
-      searchDefaultInput().clear().type(testCypress);
-      searchButton().click({ force: true });
-      searchButton().then(($el) => {
-        checkGoldenOutline($el);
-      });
-    });
-
-    it("should verify that input has golden outline", () => {
-      CypressMountWithProviders(<SearchComponent searchButton />);
-
-      searchDefaultInput()
-        .clear()
-        .type(testCypress)
-        .parent()
-        .then(($el) => {
-          checkGoldenOutline($el);
-        });
-    });
-
-    it("should verify that cross icon has golden outline", () => {
-      CypressMountWithProviders(<SearchComponent searchButton />);
-
-      searchDefaultInput().clear().type(testCypress).tab();
-
-      searchCrossIcon()
-        .parent()
-        .then(($el) => {
-          checkGoldenOutline($el);
-        });
     });
   });
 

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
@@ -16,9 +16,21 @@ const StyledSplitButton = styled.div`
   & > ${StyledButton} {
     margin: 0;
     &:focus {
-      border: 3px solid var(--colorsSemanticFocus500);
-      outline: none;
-      margin: -1px;
+      ${({ theme }) => css`
+        ${theme.focusRedesignOptOut &&
+        /* istanbul ignore next */
+        `
+          border: 3px solid var(--colorsSemanticFocus500);
+          margin: -1px;
+          outline: none;
+        `}
+
+        ${!theme.focusRedesignOptOut &&
+        `
+          position: relative;
+          z-index: 1;
+        `}
+      `}
     }
   }
 `;

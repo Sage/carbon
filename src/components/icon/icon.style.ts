@@ -11,6 +11,7 @@ import browserTypeCheck, {
 import styledColor from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
 import { IconType } from "./icon-type";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 export type BackgroundShape = "circle" | "rounded-rect" | "square";
 
@@ -63,6 +64,8 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
 
   return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
 }
+
+const oldFocusStyling = "outline: 2px solid var(--colorsSemanticFocus500);";
 
 const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
   ${({
@@ -162,7 +165,7 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
       ${hasTooltip &&
       `
         :focus {
-          outline: 2px solid var(--colorsSemanticFocus500);
+          ${!theme.focusRedesignOptOut ? addFocusStyling() : oldFocusStyling}
         }
       `}
 

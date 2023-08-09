@@ -45,6 +45,68 @@ context("Testing AnchorNavigation component", () => {
     );
   });
 
+  describe("when focused", () => {
+    it("has the expected styling when the focusRedesignOptOut flag is true", () => {
+      CypressMountWithProviders(
+        <AnchorNavigationComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+
+      anchorNavigationItem(0)
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+
+    it("has the expected styling when the focusRedesignOptOut flag is false", () => {
+      CypressMountWithProviders(<AnchorNavigationComponent />);
+
+      anchorNavigationItem(0)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+  });
+
+  describe("rounded corners", () => {
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<AnchorNavigationComponent />);
+
+      anchorNavigationItem(0).should(
+        "have.css",
+        "border-radius",
+        "0px 8px 8px 0px"
+      );
+      anchorNavigationItem(1).should(
+        "have.css",
+        "border-radius",
+        "0px 8px 8px 0px"
+      );
+      anchorNavigationItem(2).should(
+        "have.css",
+        "border-radius",
+        "0px 8px 8px 0px"
+      );
+      anchorNavigationItem(3).should(
+        "have.css",
+        "border-radius",
+        "0px 8px 8px 0px"
+      );
+      anchorNavigationItem(4).should(
+        "have.css",
+        "border-radius",
+        "0px 8px 8px 0px"
+      );
+    });
+  });
+
   describe("Accessibility tests for Anchor Navigation component", () => {
     it("should pass accessibility tests for Anchor Navigation default story", () => {
       CypressMountWithProviders(<AnchorNavigationComponent />);
@@ -61,35 +123,5 @@ context("Testing AnchorNavigation component", () => {
           cy.checkAccessibility();
         });
     });
-  });
-
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<AnchorNavigationComponent />);
-
-    anchorNavigationItem(0).should(
-      "have.css",
-      "border-radius",
-      "0px 8px 8px 0px"
-    );
-    anchorNavigationItem(1).should(
-      "have.css",
-      "border-radius",
-      "0px 8px 8px 0px"
-    );
-    anchorNavigationItem(2).should(
-      "have.css",
-      "border-radius",
-      "0px 8px 8px 0px"
-    );
-    anchorNavigationItem(3).should(
-      "have.css",
-      "border-radius",
-      "0px 8px 8px 0px"
-    );
-    anchorNavigationItem(4).should(
-      "have.css",
-      "border-radius",
-      "0px 8px 8px 0px"
-    );
   });
 });

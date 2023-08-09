@@ -3,7 +3,6 @@ import { PagerProps } from "components/pager";
 import { selectListWrapper } from "../../locators/select/index";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { keyCode } from "../../support/helper";
-import { checkGoldenOutline } from "../../support/component-helper/common-steps";
 import { CHARACTERS } from "../../support/component-helper/constants";
 
 import {
@@ -50,6 +49,32 @@ const recordsDiff = [
 const keysToTrigger = ["Enter", "Space"] as const;
 
 context("Test for Pager component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<PagerComponent />);
+
+      currentPageInput()
+        .focus()
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(<PagerComponent />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+      currentPageInput()
+        .focus()
+        .parent()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
   describe("check props for Pager component", () => {
     it.each([2, 5, 7])(
       "should render Pager with currentPage prop set to %s",
@@ -340,17 +365,6 @@ context("Test for Pager component", () => {
       nextArrow().click();
       nextArrow().should("have.attr", "disabled");
       lastArrow().should("have.attr", "disabled");
-    });
-
-    it("should show current page input has golden border", () => {
-      CypressMountWithProviders(<PagerComponent />);
-
-      currentPageInput()
-        .click()
-        .parent()
-        .then(($el) => {
-          checkGoldenOutline($el);
-        });
     });
 
     it.each([

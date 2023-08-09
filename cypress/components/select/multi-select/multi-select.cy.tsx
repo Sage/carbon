@@ -60,6 +60,36 @@ const keyToTrigger = [
 ] as const;
 
 context("Tests for MultiSelect component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent />);
+      commonDataElementInputPreview()
+        .focus()
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <stories.MultiSelectDefaultValueComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      commonDataElementInputPreview()
+        .focus()
+        .parent()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
   describe("check props for MultiSelect component", () => {
     it.each(testData)(
       "should render MultiSelect label using %s special characters",
@@ -754,7 +784,11 @@ context("Tests for MultiSelect component", () => {
       multiSelectPill().should("have.attr", "title", "White");
       pillCloseIcon()
         .focus()
-        .should("have.css", "box-shadow", "rgb(255, 188, 25) 0px 0px 0px 3px")
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
         .and("have.css", "background-color", "rgb(0, 103, 56)");
     });
 

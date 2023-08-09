@@ -13,7 +13,6 @@ const StyledTabsHeaderWrapper = styled.div<StyledTabsHeaderWrapperProps>`
   ${({ position, isInSidebar }) =>
     position === "left" &&
     css`
-      overflow-y: auto;
       box-sizing: border-box;
       padding: 3px;
 
@@ -25,6 +24,7 @@ const StyledTabsHeaderWrapper = styled.div<StyledTabsHeaderWrapperProps>`
       ${!isInSidebar &&
       css`
         min-width: 20%;
+        overflow-y: auto;
       `}
 
       ${isInSidebar &&
@@ -145,10 +145,25 @@ StyledTabsHeaderList.defaultProps = {
 };
 
 const StyledTabsWrapper = styled.div`
+  margin: 3px;
   position: relative;
   min-width: max-content;
   width: 100%;
   height: 100%;
+`;
+
+type StyledVerticalTabsWrapperProps = Pick<TabHeaderProps, "isInSidebar">;
+
+const StyledVerticalTabsWrapper = styled.div<StyledVerticalTabsWrapperProps>`
+  margin: 3px;
+  ${({ isInSidebar }) =>
+    isInSidebar &&
+    css`
+      margin-left: 6px;
+      margin-top: 6px;
+    `}
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledTabsBottomBorderWrapper = styled.div`
@@ -173,4 +188,5 @@ export {
   StyledTabsWrapper,
   StyledTabsBottomBorderWrapper,
   StyledTabsBottomBorder,
+  StyledVerticalTabsWrapper,
 };

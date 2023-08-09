@@ -176,6 +176,43 @@ context("Test for Button component", () => {
     });
   });
 
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<Button>Foo</Button>);
+      buttonDataComponent()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(<Button>Foo</Button>, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+      buttonDataComponent()
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
+  describe("border-radius", () => {
+    it("should have the expected styling when roundedCornersOptOut is false", () => {
+      CypressMountWithProviders(<Button>Foo</Button>);
+      buttonDataComponent().should("have.css", `border-radius`, "32px");
+    });
+
+    it("should have the expected styling when roundedCornersOptOut is true", () => {
+      CypressMountWithProviders(<Button>Foo</Button>, undefined, undefined, {
+        roundedCornersOptOut: true,
+      });
+      buttonDataComponent().should("have.css", `border-radius`, "0px");
+    });
+  });
+
   describe("Accessibility tests for Button", () => {
     it("should pass accessibility tests for ButtonStory", () => {
       CypressMountWithProviders(
@@ -385,16 +422,6 @@ context("Test for Button component", () => {
       CypressMountWithProviders(<Button noWrap>Foo</Button>);
 
       cy.checkAccessibility();
-    });
-  });
-
-  describe("Tests for Button component radius and focus", () => {
-    it("should have the expected border radius and focus styling", () => {
-      CypressMountWithProviders(<Button>Foo</Button>);
-      buttonDataComponent().should("have.css", `border-radius`, "32px");
-      buttonDataComponent()
-        .focus()
-        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
     });
   });
 });

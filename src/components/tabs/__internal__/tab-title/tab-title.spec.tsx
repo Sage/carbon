@@ -177,7 +177,7 @@ describe("TabTitle", () => {
             marginLeft: "-1px",
           },
           wrapper.find(StyledTabTitleButton),
-          { modifier: ":nth-of-type(n + 1)" }
+          { modifier: ":nth-of-type(n + 1):not(:first-of-type)" }
         );
       });
 
@@ -185,15 +185,6 @@ describe("TabTitle", () => {
         wrapper = render(
           { size: "large", borders: true, isTabSelected: true },
           mount
-        );
-        wrapper.simulate("focus");
-        assertStyleMatch(
-          {
-            outline:
-              "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
-          },
-          wrapper.find(StyledTabTitleButton),
-          { modifier: ":focus" }
         );
 
         assertStyleMatch(
@@ -205,10 +196,9 @@ describe("TabTitle", () => {
           {
             bottom: "0px",
             left: "0px",
+            right: "0px",
             boxShadow:
               "inset 0px calc(-1 * var(--sizing025)) 0px var(--colorsActionMajor500)",
-            width: "100%",
-            height: "var(--sizing025)",
           },
           wrapper.find(StyledSelectedIndicator)
         );
@@ -218,15 +208,6 @@ describe("TabTitle", () => {
         wrapper = render(
           { borders: true, isTabSelected: true, size: "default" },
           mount
-        );
-        wrapper.simulate("focus");
-        assertStyleMatch(
-          {
-            outline:
-              "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
-          },
-          wrapper.find(StyledTabTitleButton),
-          { modifier: ":focus" }
         );
 
         assertStyleMatch(
@@ -240,54 +221,11 @@ describe("TabTitle", () => {
             left: "0px",
             boxShadow:
               "inset 0px calc(-1 * var(--sizing025)) 0px var(--colorsActionMajor500)",
-            width: "100%",
             height: "var(--sizing025)",
           },
           wrapper.find(StyledSelectedIndicator)
         );
       });
-    });
-  });
-
-  describe("when inside a Drawer sidebar", () => {
-    it('applies proper styling when size is "large" and isTabSelected is true', () => {
-      wrapper = render(
-        {
-          isInSidebar: true,
-          size: "large",
-          borders: true,
-          isTabSelected: true,
-        },
-        mount
-      );
-      wrapper.simulate("focus");
-      assertStyleMatch(
-        {
-          outline: "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
-        },
-        wrapper.find(StyledTabTitleButton),
-        { modifier: ":focus" }
-      );
-    });
-
-    it('applies proper styling when size is not "large" and isTabSelected is true', () => {
-      wrapper = render(
-        {
-          isInSidebar: true,
-          borders: true,
-          isTabSelected: true,
-          size: "default",
-        },
-        mount
-      );
-      wrapper.simulate("focus");
-      assertStyleMatch(
-        {
-          outline: "var(--borderWidth300) solid var(--colorsSemanticFocus500)",
-        },
-        wrapper.find(StyledTabTitleButton),
-        { modifier: ":focus" }
-      );
     });
   });
 
@@ -375,17 +313,16 @@ describe("TabTitle", () => {
               marginTop: "-1px",
             },
             wrapper.find(StyledTabTitleButton),
-            { modifier: ":nth-of-type(n + 1)" }
+            { modifier: ":nth-of-type(n + 1):not(:first-of-type)" }
           );
 
           assertStyleMatch(
             {
               top: "0px",
               right: "0px",
+              bottom: "0px",
               boxShadow:
                 "inset calc(-1 * var(--sizing025)) 0px 0px 0px var(--colorsActionMajor500)",
-              height: "100%",
-              width: "var(--sizing025)",
             },
             wrapper.find(StyledSelectedIndicator)
           );

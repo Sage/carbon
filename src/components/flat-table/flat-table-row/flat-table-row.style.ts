@@ -9,22 +9,49 @@ import { toColor } from "../../../style/utils/color";
 import { ThemeObject } from "../../../style/themes/base";
 import { FlatTableProps } from "..";
 import { FlatTableRowProps } from "./flat-table-row.component";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
+import { isSafari } from "../../../__internal__/utils/helpers/browser-type-check";
+import cellSizes from "../cell-sizes.style";
 
 const horizontalBorderSizes = {
   medium: "2px",
   large: "4px",
 };
 
-const getLeftStickyStyling = (index: number) =>
+const oldFocusStyling = `
+  border: 2px solid var(--colorsSemanticFocus500);
+`;
+
+const firstColumnOldFocusStyling = `
+  outline: 2px solid var(--colorsSemanticFocus500);
+  outline-offset: -1px;
+`;
+
+const newFocusStyling = `
+  ${addFocusStyling(true)}
+  z-index: 1000;
+`;
+
+const getLeftStickyStyling = (index: number, themeOptOut: boolean) =>
   index === 0 &&
+  /* istanbul ignore next */
+  themeOptOut &&
+  /* istanbul ignore next */
   css`
     &:first-of-type::before {
       border-left: 3px solid var(--colorsSemanticFocus500);
     }
   `;
 
-const getRightStickyStyling = (index: number, totalChildren: number) =>
+const getRightStickyStyling = (
+  index: number,
+  totalChildren: number,
+  themeOptOut: boolean
+) =>
   index === totalChildren - 1 &&
+  /* istanbul ignore next */
+  themeOptOut &&
+  /* istanbul ignore next */
   css`
     &:last-of-type {
       border-right: 2px solid var(--colorsSemanticFocus500);
@@ -32,6 +59,9 @@ const getRightStickyStyling = (index: number, totalChildren: number) =>
   `;
 
 const stickyColumnFocusStyling = (theme: ThemeObject) => {
+  /* istanbul ignore else */
+  if (!theme.focusRedesignOptOut) return ``;
+  /* istanbul ignore next */
   return `
       width: calc(100% + 1px);
       z-index: ${theme.zIndex.overlay};
@@ -80,6 +110,13 @@ const verticalBorderColor = (colorTheme: FlatTableProps["colorTheme"]) => {
     default:
       return "var(--colorsUtilityMajor100)";
   }
+};
+
+const getFocusHeight = (size: StyledFlatTableRowProps["size"]) => {
+  if (!size) return "40px";
+  const { height } = cellSizes[size];
+
+  return height;
 };
 
 interface StyledFlatTableRowProps
@@ -241,7 +278,9 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
             right: 0px;
             top: 0;
             bottom: 0px;
-            border: 2px solid var(--colorsSemanticFocus500);
+            ${!theme.focusRedesignOptOut
+              ? newFocusStyling
+              : /* istanbul ignore next */ oldFocusStyling}
             pointer-events: none;
           }
 
@@ -258,29 +297,47 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
             }
           }
           /* Styling for safari. Position relative does not work on tr elements on Safari  */
-          @media not all and (min-resolution: 0.001dpcm) {
-            @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+          ${isSafari(navigator) &&
+          css`
+            ${theme.focusRedesignOptOut &&
+            /* istanbul ignore next */
+            css`
               outline: 2px solid var(--colorsSemanticFocus500);
               outline-offset: -2px;
               position: static;
+
               :after {
                 content: none;
                 border: none;
               }
+            `}
+            ${!theme.focusRedesignOptOut &&
+            css`
+              position: -webkit-sticky;
+              :after {
+                content: none;
+                border: none;
+                content: "";
+                height: ${getFocusHeight(size)} ${newFocusStyling};
+              }
+            `}
+          `}
+
+          ${theme.focusRedesignOptOut &&
+          /* istanbul ignore next */
+          css`
+            td:first-of-type:not(:nth-child(${lhsRowHeaderIndex + 2}))::before {
+              border-left: 3px solid var(--colorsSemanticFocus500);
             }
-          }
 
-          td:first-of-type:not(:nth-child(${lhsRowHeaderIndex + 2}))::before {
-            border-left: 3px solid var(--colorsSemanticFocus500);
-          }
-
-          td:last-of-type:not(:nth-child(${rhsRowHeaderIndex})) {
-            border-right: 2px solid var(--colorsSemanticFocus500);
-          }
+            td:last-of-type:not(:nth-child(${rhsRowHeaderIndex})) {
+              border-right: 2px solid var(--colorsSemanticFocus500);
+            }
+          `}
 
           ${StyledFlatTableRowHeader} {
-            ${getLeftStickyStyling(lhsRowHeaderIndex)}
-            ${getRightStickyStyling(rhsRowHeaderIndex, totalChildren)}
+            ${getLeftStickyStyling(lhsRowHeaderIndex, theme)}
+            ${getRightStickyStyling(rhsRowHeaderIndex, totalChildren, theme)}
             ${stickyColumnFocusStyling(theme)}
           }
 
@@ -311,8 +368,9 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
           cursor: pointer;
 
           :focus {
-            outline: 2px solid var(--colorsSemanticFocus500);
-            outline-offset: -1px;
+            ${!theme.focusRedesignOptOut
+              ? newFocusStyling
+              : /* istanbul ignore next */ firstColumnOldFocusStyling}
           }
 
           :hover {

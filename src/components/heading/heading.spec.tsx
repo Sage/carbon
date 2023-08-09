@@ -23,6 +23,7 @@ import Page from "../pages/page/page.component";
 import Hr from "../hr";
 import Pill from "../pill";
 import enGb from "../../locales/en-gb";
+import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 describe("Heading", () => {
   testStyledSystemMargin((props) => (
@@ -136,13 +137,15 @@ describe("Heading", () => {
     });
   });
 
-  it("renders a back link as a button with an outline", () => {
+  it("renders a back link as a button with an outline and focusRedesignOptOut set", () => {
     const wrapper = mount(
-      <DefaultPages>
-        <Page title={<Heading title="My Second Page" backLink={() => {}} />}>
-          test
-        </Page>
-      </DefaultPages>
+      <CarbonProvider focusRedesignOptOut>
+        <DefaultPages>
+          <Page title={<Heading title="My Second Page" backLink={() => {}} />}>
+            test
+          </Page>
+        </DefaultPages>
+      </CarbonProvider>
     );
 
     const link = wrapper.find(Link);

@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 import Icon from "../icon";
 import { slideAnimation, fadeAnimation } from "./slide.config";
 import { SlideStyle } from "./slide/slide.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+import baseTheme from "../../style/themes/base";
 
 const CarouselNavigationStyle = styled.div`
   margin-top: -32.5px;
@@ -11,11 +13,11 @@ const CarouselNavigationStyle = styled.div`
 `;
 
 const CarouselPreviousButtonWrapperStyle = styled(CarouselNavigationStyle)`
-  margin-left: 2px;
+  margin-left: 8px;
 `;
 const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
   right: 0;
-  margin-right: 2px;
+  margin-right: 8px;
 `;
 
 const CarouselStyledIcon = styled(Icon)`
@@ -32,6 +34,10 @@ const CarouselStyledIconLeft = styled(CarouselStyledIcon)`
 
 const CarouselStyledIconRight = styled(CarouselStyledIcon)`
   transform: rotate(-90deg);
+`;
+
+const oldFocusStyling = `
+  outline: solid 2px var(--colorsSemanticFocus500);
 `;
 
 const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
@@ -73,7 +79,12 @@ const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
     }
 
     &:focus {
-      outline: 2px solid var(--colorsSemanticFocus500);
+      ${({ theme }) =>
+        `${
+          !theme.focusRedesignOptOut
+            ? addFocusStyling()
+            : /* istanbul ignore next */ oldFocusStyling
+        }`}
 
       ::-moz-focus-inner {
         border: 0;
@@ -86,6 +97,8 @@ const CarouselButtonStyle = styled.button.attrs({ type: "button" })`
     }
   `}
 `;
+
+CarouselButtonStyle.defaultProps = { theme: baseTheme };
 
 const CarouselSelectorInputStyle = styled.input`
   display: none;

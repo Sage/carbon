@@ -38,21 +38,6 @@ describe("ColorOption", () => {
     });
   });
 
-  describe("when focused", () => {
-    it("applies white box shadow and gold color border", () => {
-      const wrapper = render();
-      assertStyleMatch(
-        {
-          border: "2px solid var(--colorsSemanticFocus500)",
-          boxShadow:
-            "inset 0px 0px 0px var(--borderWidth200) var(--colorsUtilityYang100)",
-        },
-        wrapper.find("input"),
-        { modifier: `:focus + ${StyledColorSampleBox}` }
-      );
-    });
-  });
-
   describe("when checked", () => {
     it("renders the tick icon", () => {
       const wrapper = render({ checked: true, value: "#676767" });
