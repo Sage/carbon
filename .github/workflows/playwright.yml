@@ -65,3 +65,29 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 3
+
+      - name: Report status - success
+        if: always() && success()
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            -d '{
+              "state": "success",
+              "context": "Playwright tests",
+              "description": "workflow completed successfully."
+            }'
+          
+      - name: Report status - failed
+        if: always() && failure()
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            -d '{
+              "state": "failure",
+              "context": Playwright tests",
+              "description": "workflow failed."
+            }'

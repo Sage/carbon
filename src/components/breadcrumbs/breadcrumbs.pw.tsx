@@ -6,7 +6,11 @@ import {
   crumbAtIndex,
 } from "../../../playwright/components/breadcrumbs/index";
 import { Default, DefaultCrumb } from "./components.test-pw";
-import { checkAccessibility } from "../../../playwright/support/helper";
+import {
+  checkAccessibility,
+  expectEventWasNotCalled,
+  expectEventWasCalledOnce,
+} from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
 test.describe("should render Breadcrumbs component", async () => {
@@ -116,30 +120,37 @@ test("should call the onClick callback when clicked", async ({
   mount,
   page,
 }) => {
-  let hasOnClickBeenCalledCount = 0;
+  const messages: string[] = [];
+
   await mount(
     <DefaultCrumb
-      onClick={() => {
-        hasOnClickBeenCalledCount += 1;
+      onClick={(data) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        messages.push(data);
       }}
     />
   );
 
   const crumbToClick = crumbAtIndex(page, 0);
   await crumbToClick.click();
-  expect(hasOnClickBeenCalledCount).toBe(1);
+
+  await expectEventWasCalledOnce(messages, "onClick");
 });
 
 test("should not set the onClick or href props when isCurrent is true", async ({
   mount,
   page,
 }) => {
-  let hasOnClickBeenCalledCount = 0;
+  const messages: string[] = [];
+
   await mount(
     <DefaultCrumb
       href={CHARACTERS.STANDARD}
-      onClick={() => {
-        hasOnClickBeenCalledCount += 1;
+      onClick={(data) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        messages.push(data);
       }}
       isCurrent
     />
@@ -147,8 +158,8 @@ test("should not set the onClick or href props when isCurrent is true", async ({
 
   const crumbToClick = crumbAtIndex(page, 0);
   await crumbToClick.click();
-  expect(hasOnClickBeenCalledCount).toBeFalsy();
 
+  await expectEventWasNotCalled(messages);
   await expect(crumbToClick.locator("a")).not.toHaveAttribute("href", "/");
 });
 
