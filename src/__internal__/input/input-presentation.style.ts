@@ -4,6 +4,11 @@ import StyledInput from "./input.style";
 import { CommonInputPresentationProps } from "./input-presentation.component";
 import { InputContextProps } from "../input-behaviour";
 import { CarbonProviderProps } from "../../components/carbon-provider";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+
+const oldFocusStyling = `
+  outline: solid 3px var(--colorsSemanticFocus500);
+`;
 
 export const StyledInputPresentationContainer = styled.div<
   Pick<CommonInputPresentationProps, "inputWidth" | "maxWidth">
@@ -97,11 +102,13 @@ const InputPresentationStyle = styled.div<
       cursor: not-allowed;
     `}
 
-  ${({ hasFocus }) =>
+    ${({ hasFocus, theme }) =>
     hasFocus &&
     css`
       & {
-        outline: 3px solid var(--colorsSemanticFocus500);
+        ${!theme.focusRedesignOptOut
+          ? addFocusStyling()
+          : /* istanbul ignore next */ oldFocusStyling}
         z-index: 2;
       }
     `}

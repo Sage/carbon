@@ -75,10 +75,13 @@ context("Tests for BatchSelection component", () => {
 
   describe("should check BatchSelection buttons are focused", () => {
     it.each(["first" as const, "second" as const, "third" as const])(
-      "should check BatchSelection %s button is focused",
+      "should check BatchSelection %s button has expected styling when opt out is true",
       (index) => {
         CypressMountWithProviders(
-          <BatchSelectionComponent selectedCount={1} />
+          <BatchSelectionComponent selectedCount={1} />,
+          undefined,
+          undefined,
+          { focusRedesignOptOut: true }
         );
 
         batchSelectionButtonsByPosition(positionOfElement(index))
@@ -90,6 +93,27 @@ context("Tests for BatchSelection component", () => {
       }
     );
 
+    it.each(["first" as const, "second" as const, "third" as const])(
+      "should check BatchSelection %s button has expected styling when opt out is false",
+      (index) => {
+        CypressMountWithProviders(
+          <BatchSelectionComponent selectedCount={1} />
+        );
+
+        batchSelectionButtonsByPosition(positionOfElement(index))
+          .parent()
+          .focus()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+      }
+    );
+  });
+
+  describe("rounded corners", () => {
     it.each([
       BATCH_SELECTION_COLOR[0],
       BATCH_SELECTION_COLOR[1],

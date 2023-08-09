@@ -1,6 +1,13 @@
 import styled, { css } from "styled-components";
 import { StyledPreview } from "../preview/preview.style";
 import { StyledPreviewPlaceholder } from "../preview/__internal__/preview-placeholder.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+import baseTheme from "../../style/themes/base";
+
+const oldFocusStyling = `
+  outline: solid 2px var(--colorsSemanticFocus500);
+  outline-offset: -1px;
+`;
 
 const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
   display: flex;
@@ -17,8 +24,12 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
     ${as !== "div" &&
     css`
       :focus {
-        outline: 2px solid var(--colorsSemanticFocus500);
-        outline-offset: -1px;
+        ${({ theme }) =>
+          `${
+            !theme.focusRedesignOptOut
+              ? addFocusStyling()
+              : /* istanbul ignore next */ oldFocusStyling
+          }`}
       }
 
       :hover {
@@ -28,6 +39,8 @@ const StyledLinkPreview = styled.a<{ as?: "a" | "div" }>`
     `}
   `}
 `;
+
+StyledLinkPreview.defaultProps = { theme: baseTheme };
 
 const StyledCloseIconWrapper = styled.div`
   padding: 16px;

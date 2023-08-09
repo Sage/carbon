@@ -469,17 +469,6 @@ describe("MultiActionButton", () => {
         );
       });
 
-      it("should have expected border color and margin for the main Button when focused", () => {
-        assertStyleMatch(
-          {
-            borderColor: "var(--colorsSemanticFocus500)",
-            margin: "0 -1px",
-          },
-          wrapper,
-          { modifier: `& > ${StyledButton}:focus` }
-        );
-      });
-
       it("should have expected colors for the Button Icon", () => {
         assertStyleMatch(
           {

@@ -5,6 +5,12 @@ import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
 import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+import baseTheme from "../../style/themes/base";
+
+const oldFocusStyling = `
+  outline: solid 3px var(--colorsSemanticFocus500);
+`;
 
 const Menu = styled.div`
   ${({ isOpen }: { isOpen?: boolean }) =>
@@ -162,7 +168,12 @@ const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
   font-weight: 700;
 
   &:focus {
-    outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+    ${({ theme }) =>
+      `${
+        !theme.focusRedesignOptOut
+          ? addFocusStyling()
+          : /* istanbul ignore next */ oldFocusStyling
+      }`}
     z-index: 1;
     border-radius: var(--borderRadius000);
   }
@@ -191,6 +202,10 @@ const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
       }
     `}
 `;
+
+StyledMenuItem.defaultProps = {
+  theme: baseTheme,
+};
 
 const StyledMenuItemWrapper = styled.div`
   position: relative;
@@ -223,10 +238,17 @@ const ButtonIcon = styled(Icon)`
 `;
 
 const StyledButtonIcon = styled.div`
-  &:focus {
-    outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
-    border-radius: var(--borderRadius050);
-  }
+  ${({ theme }) =>
+    `
+    &:focus {
+      ${
+        !theme.focusRedesignOptOut
+          ? addFocusStyling()
+          : /* istanbul ignore next */ oldFocusStyling
+      }
+    }    
+  `}
+  border-radius: var(--borderRadius050);
 `;
 
 const MenuItemIcon = styled(Icon)<Omit<StyledMenuItemProps, "isDisabled">>`
@@ -259,6 +281,10 @@ const MenuItemIcon = styled(Icon)<Omit<StyledMenuItemProps, "isDisabled">>`
     color: var(--colorsUtilityYin065);
   `}
 `;
+
+StyledButtonIcon.defaultProps = {
+  theme: baseTheme,
+};
 
 const SubMenuItemIcon = styled(ButtonIcon)`
   ${({ type }) => css`

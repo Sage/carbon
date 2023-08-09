@@ -3,9 +3,8 @@ import { ToastProps } from "components/toast";
 import { ToastComponent } from "../../../src/components/toast/toast-test.stories";
 import { TOAST_COLORS } from "../../../src/components/toast/toast.config";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { checkGoldenOutline } from "../../support/component-helper/common-steps";
 import toastComponent from "../../locators/toast";
-import { pressESCKey, pressTABKey } from "../../support/helper";
+import { pressESCKey } from "../../support/helper";
 import { closeIconButton, getComponent } from "../../locators/index";
 import { CHARACTERS } from "../../support/component-helper/constants";
 
@@ -154,13 +153,39 @@ context("Testing Toast component", () => {
         );
     });
 
-    it("should render Toast component with notice variant with focused close icon", () => {
-      CypressMountWithProviders(<ToastComponent variant="notice" open />);
+    it("should render Toast component with notice variant with focused close icon and correct styling when focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(
+        <ToastComponent variant="notice" open />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: false,
+        }
+      );
 
-      pressTABKey(1);
-      closeIconButton().then(($el) => {
-        checkGoldenOutline($el);
-      });
+      closeIconButton()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should render Toast component with notice variant with focused close icon and correct styling when focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <ToastComponent variant="notice" open />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+
+      closeIconButton()
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
     });
   });
 

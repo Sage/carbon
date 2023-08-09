@@ -1,3 +1,10 @@
+## [119.11.0](https://github.com/Sage/carbon/compare/v119.10.2...v119.11.0) (2023-08-09)
+
+
+### Features
+
+* **focus-styling:** implement new focus styling ([ae68d8d](https://github.com/Sage/carbon/commit/ae68d8debbfcfa4239096569e738de95773d3d16))
+
 ### [119.10.2](https://github.com/Sage/carbon/compare/v119.10.1...v119.10.2) (2023-08-08)
 
 

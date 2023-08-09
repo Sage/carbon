@@ -2,10 +2,15 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 interface StyledHelpProps {
   href?: string;
 }
+
+const oldFocusStyling = `
+  outline: solid 2px var(--colorsSemanticFocus500);
+`;
 
 const StyledHelp = styled.div<StyledHelpProps>`
   background: none;
@@ -37,7 +42,13 @@ const StyledHelp = styled.div<StyledHelpProps>`
   }
 
   &:focus ${StyledIcon} {
-    outline: 2px solid var(--colorsSemanticFocus500);
+    border-radius: var(--borderRadius050);
+    ${({ theme }) =>
+      `${
+        !theme.focusRedesignOptOut
+          ? addFocusStyling()
+          : /* istanbul ignore next */ oldFocusStyling
+      }`}
   }
 
   ${margin}

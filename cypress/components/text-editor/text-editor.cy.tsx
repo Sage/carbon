@@ -21,7 +21,10 @@ import {
   keyCode,
   pressShiftTABKey,
 } from "../../support/helper";
-import { verifyRequiredAsteriskForLabel } from "../../support/component-helper/common-steps";
+import {
+  checkGoldenOutline,
+  verifyRequiredAsteriskForLabel,
+} from "../../support/component-helper/common-steps";
 import {
   VALIDATION,
   CHARACTERS,
@@ -309,6 +312,93 @@ context("Test for TextEditor component", () => {
 
         textEditorInput().type("https://carbon.s");
         cy.get("@onLinkAdded").should("have.been.calledOnce");
+      });
+    });
+
+    describe("rounded corners", () => {
+      it("should render with the expected border radius on the toolbar buttons", () => {
+        CypressMountWithProviders(<TextEditorCustom />);
+        textEditorToolbar("bold").should("have.css", "border-radius", "4px");
+        textEditorToolbar("italic").should("have.css", "border-radius", "4px");
+        textEditorToolbar("bullet-list").should(
+          "have.css",
+          "border-radius",
+          "4px"
+        );
+        textEditorToolbar("number-list").should(
+          "have.css",
+          "border-radius",
+          "4px"
+        );
+      });
+    });
+
+    describe("when focused", () => {
+      it("has the expected styling, focusRedesignOptOut true", () => {
+        CypressMountWithProviders(<TextEditorCustom />, undefined, undefined, {
+          focusRedesignOptOut: true,
+        });
+        textEditorInput().focus();
+        textEditorContainer()
+          .parent()
+          .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+        textEditorToolbar("bold")
+          .focus()
+          .then(($el) => checkGoldenOutline($el));
+        textEditorToolbar("italic")
+          .focus()
+          .then(($el) => checkGoldenOutline($el));
+        textEditorToolbar("bullet-list")
+          .focus()
+          .then(($el) => checkGoldenOutline($el));
+        textEditorToolbar("number-list")
+          .focus()
+          .then(($el) => checkGoldenOutline($el));
+      });
+
+      it("has the expected styling, focusRedesignOptOut false", () => {
+        CypressMountWithProviders(<TextEditorCustom />);
+        textEditorInput().focus();
+        textEditorContainer()
+          .parent()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+        textEditorToolbar("bold")
+          .focus()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+        textEditorToolbar("italic")
+          .focus()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+        textEditorToolbar("bullet-list")
+          .focus()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+        textEditorToolbar("number-list")
+          .focus()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
       });
     });
   });

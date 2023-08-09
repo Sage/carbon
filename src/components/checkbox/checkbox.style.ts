@@ -11,6 +11,7 @@ import StyledLabel, {
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import baseTheme from "../../style/themes/base";
 import { ValidationProps } from "../../__internal__/validations";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 export interface StyledCheckboxProps extends ValidationProps, MarginProps {
   disabled?: boolean;
@@ -22,6 +23,10 @@ export interface StyledCheckboxProps extends ValidationProps, MarginProps {
   adaptiveSpacingSmallScreen?: boolean;
   applyNewValidation?: boolean;
 }
+
+const oldFocusStyling = `
+box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
+`;
 
 const StyledCheckbox = styled.div<StyledCheckboxProps>`
   ${margin}
@@ -84,10 +89,17 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
 
     // prettier-ignore
     ${StyledHiddenCheckableInput}:not([disabled]) {
-      &:focus + ${StyledCheckableInputSvgWrapper},
-      &:hover + ${StyledCheckableInputSvgWrapper} {
-        box-shadow: 0 0 0 3px var(--colorsSemanticFocus500);
-      }
+      ${({ theme }) =>
+      `
+        &:focus + ${StyledCheckableInputSvgWrapper} ,
+        &:hover + ${StyledCheckableInputSvgWrapper} {
+          ${
+            !theme.focusRedesignOptOut
+              ? addFocusStyling()
+              : /* istanbul ignore next */ oldFocusStyling
+          }
+        }
+      `}
     }
 
     ${StyledLabelContainer} {

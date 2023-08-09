@@ -297,7 +297,7 @@ describe("CarouselButtonStyle", () => {
 
     assertStyleMatch(
       {
-        marginRight: "2px",
+        marginRight: "8px",
       },
       wrapper
     );

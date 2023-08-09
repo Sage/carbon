@@ -8,11 +8,17 @@ import StyledButton from "../../button/button.style";
 import menuConfigVariants from "../menu.config";
 import { MenuFullscreenProps } from "./menu-full-screen.component";
 import { MenuType } from "../menu.context";
+import addFocusStyling from "../../../style/utils/add-focus-styling";
 
 interface StyledMenuFullScreenProps
   extends Pick<MenuFullscreenProps, "isOpen" | "startPosition"> {
   menuType: MenuType;
 }
+
+const oldFocusStyling = `
+  outline: solid 3px var(--colorsSemanticFocus500);
+  box-shadow: none;
+`;
 
 const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
   position: fixed;
@@ -68,8 +74,12 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
           padding-bottom: 0;
 
           &:focus {
-            outline: solid 3px var(--colorsSemanticFocus500);
-            box-shadow: none;
+            border-bottom-right-radius: var(--borderRadius050);
+            border-top-right-radius: var(--borderRadius050);
+
+            ${!theme.focusRedesignOptOut
+              ? addFocusStyling()
+              : /* istanbul ignore next */ oldFocusStyling}
           }
         }
       }

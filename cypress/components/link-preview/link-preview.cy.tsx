@@ -20,6 +20,36 @@ const urlProp = "./carbon-by-sage-logo.png";
 const keysToTrigger = ["Space", "Enter"] as const;
 
 context("Test for Link Preview component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(
+        <LinkPreviewComponent aria-label={CHARACTERS.STANDARD} />
+      );
+
+      linkPreview()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <LinkPreviewComponent aria-label={CHARACTERS.STANDARD} />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      linkPreview()
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 2px");
+    });
+  });
+
   describe("check props for Link Preview component", () => {
     it.each(["div", "a"] as LinkPreviewProps["as"][])(
       "should render Link Preview as prop using %s",
@@ -88,8 +118,15 @@ context("Test for Link Preview component", () => {
         .should("have.css", "background-color", "rgb(204, 214, 219)");
     });
 
-    it("verify border outline color and width of Link Preview on focus", () => {
-      CypressMountWithProviders(<LinkPreviewComponent />);
+    it("should verify border outline color and width of Link Preview on focus", () => {
+      CypressMountWithProviders(
+        <LinkPreviewComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       linkPreview()
         .focus()
@@ -100,7 +137,12 @@ context("Test for Link Preview component", () => {
 
     it("should verify border outline color and width of close icon on focus", () => {
       CypressMountWithProviders(
-        <LinkPreviewComponent as="div" onClose={() => cy.log("click")} />
+        <LinkPreviewComponent as="div" onClose={() => cy.log("click")} />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
       );
 
       linkPreviewCloseIcon()

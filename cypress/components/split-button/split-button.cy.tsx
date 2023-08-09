@@ -31,6 +31,40 @@ const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const keyToTrigger = ["Enter", "Space", "downarrow", "uparrow"] as const;
 
 context("Tests for SplitButton component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<SplitButtonList />);
+      mainButton()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+      splitToggleButton()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(<SplitButtonList />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+      mainButton()
+        .focus()
+        .should("have.css", "border", "3px solid rgb(255, 188, 25)");
+      splitToggleButton()
+        .focus()
+        .should("have.css", "border", "3px solid rgb(255, 188, 25)");
+    });
+  });
+
   describe("check props for SplitButton component", () => {
     it.each(testData)(
       "should render SplitButton text using %s as special characters",
@@ -650,20 +684,14 @@ context("Tests for SplitButton component", () => {
   });
 
   describe("SplitButton border radius tests", () => {
-    it("should have the expected border radius and focus styling on main and toggle buttons", () => {
+    it("should have the expected border radius on main and toggle buttons", () => {
       CypressMountWithProviders(<SplitButtonList />);
       mainButton().should("have.css", "border-radius", "32px 0px 0px 32px");
-      mainButton()
-        .focus()
-        .should("have.css", "border", "3px solid rgb(255, 188, 25)");
       splitToggleButton().should(
         "have.css",
         "border-radius",
         "0px 32px 32px 0px"
-      );
-      splitToggleButton()
-        .focus()
-        .should("have.css", "border", "3px solid rgb(255, 188, 25)");
+      )
     });
 
     it("should have the expected border radius on children container and buttons", () => {

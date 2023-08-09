@@ -16,6 +16,35 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 context("Test for Drawer component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<DrawerCustom showControls />);
+
+      drawerToggle()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <DrawerCustom showControls />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      drawerToggle()
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
   describe("check props for Drawer component", () => {
     it.each([
       [0, "be.visible", "matrix(-1, 0, 0, 1, 0, 0)", "true"],

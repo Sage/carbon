@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import StyledIcon from "../../../icon/icon.style";
 import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
 import { TabTitleProps } from ".";
+import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
 interface StyledTitleContentProps
   extends Pick<
@@ -23,6 +24,10 @@ interface StyledTitleContentProps
   hasHref?: boolean;
   hasSiblings?: boolean;
 }
+
+const oldFocusStyling = `
+  outline: solid 3px var(--colorsSemanticFocus500);
+`;
 
 const StyledTitleContent = styled.span<StyledTitleContentProps>`
   outline: none;
@@ -328,7 +333,7 @@ const tabTitleStyles = css<TabTitleProps>`
       ${borders &&
       !(noRightBorder || noLeftBorder) &&
       css`
-        &:nth-of-type(n + 1) {
+        &:nth-of-type(n + 1):not(:first-of-type) {
           margin-left: -1px;
         }
         &:first-child {
@@ -340,7 +345,7 @@ const tabTitleStyles = css<TabTitleProps>`
     css`
       ${borders &&
       css`
-        &:nth-of-type(n + 1) {
+        &:nth-of-type(n + 1):not(:first-of-type) {
           margin-top: -1px;
         }
         &:first-child {
@@ -385,7 +390,12 @@ const tabTitleStyles = css<TabTitleProps>`
     `}
 
     &:focus {
-      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+      ${({ theme }) =>
+        `${
+          !theme.focusRedesignOptOut
+            ? addFocusStyling()
+            : /* istanbul ignore next */ oldFocusStyling
+        }`}
       z-index: 2;
 
       ${isInSidebar &&
@@ -554,19 +564,19 @@ const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
     css`
       bottom: 0px;
       left: 0px;
+      right: 0px;
       box-shadow: inset 0px calc(-1 * var(--sizing025)) 0px
         var(--colorsActionMajor500);
-      width: 100%;
       height: var(--sizing025);
     `}
 
     ${position === "left" &&
     css`
       top: 0px;
+      bottom: 0px;
       right: 0px;
       box-shadow: inset calc(-1 * var(--sizing025)) 0px 0px 0px
         var(--colorsActionMajor500);
-      height: 100%;
       width: var(--sizing025);
     `}
   `}

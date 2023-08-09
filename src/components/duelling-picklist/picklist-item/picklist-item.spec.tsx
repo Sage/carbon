@@ -2,18 +2,21 @@ import React from "react";
 import { mount } from "enzyme";
 
 import PicklistItem, { PicklistItemProps } from "./picklist-item.component";
-import { StyledButton } from "./picklist-item.style";
+import { StyledButton, StyledPicklistItem } from "./picklist-item.style";
 import StyledIcon from "../../icon/icon.style";
 import FocusContext from "../duelling-picklist.context";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 const setElementToFocus = jest.fn();
 
-const render = (props: Omit<PicklistItemProps, "children">) => {
+const render = (props: Omit<PicklistItemProps, "children">, optOut = false) => {
   return mount(
-    <FocusContext.Provider value={{ elementToFocus: {}, setElementToFocus }}>
-      <PicklistItem {...props}>Item content</PicklistItem>
-    </FocusContext.Provider>
+    <CarbonProvider focusRedesignOptOut={optOut}>
+      <FocusContext.Provider value={{ elementToFocus: {}, setElementToFocus }}>
+        <PicklistItem {...props}>Item content</PicklistItem>
+      </FocusContext.Provider>
+    </CarbonProvider>
   );
 };
 
@@ -44,6 +47,45 @@ describe("PicklistItem component", () => {
       });
 
       expect(wrapper.find(StyledIcon).props().type).toEqual("locked");
+    });
+
+    it("has the expected styling when the focusRedesignOptOut flag is set", () => {
+      const wrapper = render(
+        {
+          type: "remove",
+          onChange: jest.fn(),
+          item: 1,
+          locked: true,
+        },
+        true
+      );
+
+      assertStyleMatch(
+        {
+          outline: "2px solid var(--colorsSemanticFocus500)",
+        },
+        wrapper.find(StyledIcon),
+        { modifier: ":focus" }
+      );
+    });
+
+    it("has the expected styling when the focusRedesignOptOut flag is not set", () => {
+      const wrapper = render({
+        type: "remove",
+        onChange: jest.fn(),
+        item: 1,
+        locked: true,
+      });
+
+      assertStyleMatch(
+        {
+          boxShadow:
+            "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
+          outline: "transparent 3px solid",
+        },
+        wrapper.find(StyledIcon),
+        { modifier: ":focus" }
+      );
     });
   });
 
@@ -102,7 +144,9 @@ describe("PicklistItem component", () => {
       {
         borderRadius: "var(--borderRadius100)",
       },
-      render({ type: "remove", onChange: () => {}, item: 1 })
+      render({ type: "remove", onChange: () => {}, item: 1 }).find(
+        StyledPicklistItem
+      )
     );
   });
 });

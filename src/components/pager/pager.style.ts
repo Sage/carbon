@@ -120,9 +120,8 @@ const StyledPagerNavLabel = styled.label`
 const StyledPagerLink = styled(Link)<
   Pick<StyledPagerProps, "hideDisabledButtons">
 >`
-  padding: 0 10px;
-  margin-left: 7px;
-  margin-right: 7px;
+  margin-left: 17px;
+  margin-right: 17px;
 
   ${({ hideDisabledButtons }) =>
     hideDisabledButtons &&

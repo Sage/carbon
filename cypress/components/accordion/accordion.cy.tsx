@@ -3,7 +3,6 @@ import CypressMountWithProviders from "../../support/component-helper/cypress-mo
 import {
   accordion,
   accordionIcon,
-  accordionDefaultTitle,
   accordionTitleContainer,
   accordionTitleContainerByPosition,
   accordionContent,
@@ -43,6 +42,29 @@ import {
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 context("Testing Accordion component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<AccordionComponent />);
+      accordionTitleContainer()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(<AccordionComponent />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+      accordionTitleContainer()
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+    });
+  });
+
   describe("should render Accordion component", () => {
     it("should check AccordionRow is expanded using click", () => {
       CypressMountWithProviders(<AccordionComponent />);
@@ -69,18 +91,6 @@ context("Testing Accordion component", () => {
 
       accordionContent()
         .should("have.attr", "data-element", "accordion-content")
-        .and("be.visible");
-    });
-
-    it("should verify AccordionRow has golden border outline", () => {
-      CypressMountWithProviders(<AccordionComponent />);
-
-      accordionTitleContainer().focus();
-
-      accordionDefaultTitle()
-        .then(($el) => {
-          checkGoldenOutline($el);
-        })
         .and("be.visible");
     });
 
@@ -331,8 +341,15 @@ context("Testing Accordion component", () => {
   });
 
   describe("should render Accordion Grouped component", () => {
-    it("should move through all grouped accordions using ArrowDown key and check focus", () => {
-      CypressMountWithProviders(<AccordionGroupComponent />);
+    it("should move through all grouped accordions using ArrowDown key and check focus when focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <AccordionGroupComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       accordionTitleContainer().eq(0).focus();
       accordionTitleContainerByPosition(0)
@@ -359,8 +376,49 @@ context("Testing Accordion component", () => {
         .and("be.visible");
     });
 
-    it("should move to the last grouped accordion using End key and check it is focused", () => {
+    it("should move through all grouped accordions using ArrowDown key and check focus when focusRedesignOptOut is false", () => {
       CypressMountWithProviders(<AccordionGroupComponent />);
+
+      accordionTitleContainer().eq(0).focus();
+      accordionTitleContainerByPosition(0)
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("be.visible");
+
+      accordionTitleContainer().eq(0).trigger("keydown", keyCode("downarrow"));
+      accordionTitleContainerByPosition(1)
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("be.visible");
+
+      accordionTitleContainer().eq(1).trigger("keydown", keyCode("downarrow"));
+      accordionTitleContainerByPosition(2)
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("be.visible");
+    });
+
+    it("should move to the last grouped accordion using End key and check it is focused when focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <AccordionGroupComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       accordionTitleContainer().eq(0).focus();
 
@@ -374,8 +432,32 @@ context("Testing Accordion component", () => {
         .and("be.visible");
     });
 
-    it("should move to the first grouped accordion using Home key and check it is focused", () => {
+    it("should move to the last grouped accordion using End key and check it is focused when focusRedesignOptOut is false", () => {
       CypressMountWithProviders(<AccordionGroupComponent />);
+
+      accordionTitleContainer().eq(0).focus();
+
+      accordionTitleContainer().eq(0).trigger("keydown", keyCode("End"));
+
+      accordionTitleContainerByPosition(2)
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("be.visible");
+    });
+
+    it("should move to the first grouped accordion using Home key and check it is focused when focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <AccordionGroupComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       accordionTitleContainer().eq(2).focus();
 
@@ -386,6 +468,23 @@ context("Testing Accordion component", () => {
         .then(($el) => {
           checkGoldenOutline($el);
         })
+        .and("be.visible");
+    });
+
+    it("should move to the first grouped accordion using Home key and check it is focused when focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<AccordionGroupComponent />);
+
+      accordionTitleContainer().eq(2).focus();
+
+      accordionTitleContainer().eq(2).trigger("keydown", keyCode("Home"));
+
+      accordionTitleContainerByPosition(0)
+        .parent()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
         .and("be.visible");
     });
   });

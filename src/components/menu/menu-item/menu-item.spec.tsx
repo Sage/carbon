@@ -226,8 +226,6 @@ describe("MenuItem", () => {
 
         assertStyleMatch(
           {
-            boxShadow:
-              "inset 0 0 0 var(--borderWidth300) var(--colorsSemanticFocus500)",
             backgroundColor: menuConfigVariants[menuType].background,
             color: menuConfigVariants[menuType].color,
           },

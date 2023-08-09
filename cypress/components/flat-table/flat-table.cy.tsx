@@ -109,6 +109,18 @@ const checkFocus = (elements: JQuery<HTMLElement>) => {
   cy.wrap(contentValue).should("equals", `2px solid ${gold}`);
 };
 
+const checkNewFocusStyling = (elements: JQuery<HTMLElement>) => {
+  // get Window reference from element
+  const win = elements[0].ownerDocument.defaultView;
+  // use getComputedStyle to read the pseudo selector
+  const after = win?.getComputedStyle(elements[0], "after");
+  const boxShadowValue = after?.getPropertyValue("box-shadow");
+  cy.wrap(boxShadowValue).should(
+    "equals",
+    `rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset`
+  );
+};
+
 const assertCssRotationAngleIs = (
   element: JQuery<HTMLElement>,
   value: number
@@ -740,7 +752,11 @@ context("Tests for Flat Table component", () => {
         .parent()
         .parent()
         .find("div:nth-child(2)")
-        .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
 
       flatTableBodyRowByPosition(1)
         .children()
@@ -772,7 +788,11 @@ context("Tests for Flat Table component", () => {
         .parent()
         .parent()
         .find("div:nth-child(2)")
-        .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
 
       flatTableBodyRowByPosition(1)
         .children()
@@ -800,7 +820,56 @@ context("Tests for Flat Table component", () => {
         .should("not.be.checked");
     });
 
-    it("can select all Flat Table rows with the mouse", () => {
+    it("can select all Flat Table rows with the mouse, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableColorRowSelectableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+
+      flatTableCheckboxHeader().find("input").click().should("be.checked");
+      flatTableCheckboxHeader()
+        .find("input")
+        .parent()
+        .parent()
+        .find("div:nth-child(2)")
+        .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
+      for (let i = 0; i < 4; i++) {
+        flatTableCheckboxCell(i).find("input").should("be.checked");
+      }
+
+      for (let i = 1; i < 5; i++) {
+        flatTableBodyRowByPosition(0)
+          .find("td")
+          .eq(i)
+          .should("have.css", "background-color", green);
+        flatTableBodyRowByPosition(1)
+          .find("td")
+          .eq(i)
+          .should("have.css", "background-color", lightGrey);
+        flatTableBodyRowByPosition(2)
+          .find("td")
+          .eq(i)
+          .should("have.css", "background-color", green);
+        flatTableBodyRowByPosition(3)
+          .find("td")
+          .eq(i)
+          .should("have.css", "background-color", lightGrey);
+      }
+      batchSelectionCounter().should("have.text", "4 selected");
+      for (let i = 0; i < 3; i++) {
+        batchSelectionButtonsByPosition(i).should(
+          "have.css",
+          "color",
+          greyBlack
+        );
+      }
+    });
+
+    it("can select all Flat Table rows with the mouse, focusRedesignOptOut false", () => {
       CypressMountWithProviders(
         <stories.FlatTableColorRowSelectableComponent />
       );
@@ -811,7 +880,11 @@ context("Tests for Flat Table component", () => {
         .parent()
         .parent()
         .find("div:nth-child(2)")
-        .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
       for (let i = 0; i < 4; i++) {
         flatTableCheckboxCell(i).find("input").should("be.checked");
       }
@@ -860,7 +933,12 @@ context("Tests for Flat Table component", () => {
         .parent()
         .parent()
         .find("div:nth-child(2)")
-        .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+
       for (let i = 0; i < 4; i++) {
         flatTableCheckboxCell(i).find("input").should("be.checked");
       }
@@ -905,12 +983,53 @@ context("Tests for Flat Table component", () => {
         .should("not.be.checked");
     });
 
-    it("can highlight Flat Table rows with the mouse", () => {
+    it("can highlight and select Flat Table rows, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableHighlightableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+
+      flatTableBodyRows().first().click();
+      flatTableBodyRows()
+        .first()
+        .children()
+        .should("have.css", "background-color", vlightGrey);
+    });
+
+    it("can highlight and select Flat Table rows, focusRedesignOptOut false", () => {
       CypressMountWithProviders(<stories.FlatTableHighlightableComponent />);
 
       flatTableBodyRows().first().click();
       flatTableBodyRows()
         .first()
+        .children()
+        .should("have.css", "background-color", vlightGrey);
+      flatTableBodyRowByPosition(0)
+        .find("td")
+        .eq(0)
+        .find("input")
+        .click()
+        .should("be.checked");
+      flatTableBodyRowByPosition(0)
+        .find("input")
+        .parent()
+        .parent()
+        .find("div:nth-child(2)")
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+      flatTableBodyRows()
+        .first()
+        .children()
+        .should("have.css", "background-color", lightGrey);
+      flatTableBodyRowByPosition(1).click();
+      flatTableBodyRowByPosition(1)
         .children()
         .should("have.css", "background-color", vlightGrey);
     });
@@ -931,36 +1050,6 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRows().first().trigger("keydown", keyCode("Enter"));
       flatTableBodyRows()
         .first()
-        .children()
-        .should("have.css", "background-color", vlightGrey);
-    });
-
-    it("can highlight and select Flat Table rows", () => {
-      CypressMountWithProviders(<stories.FlatTableHighlightableComponent />);
-
-      flatTableBodyRows().first().click();
-      flatTableBodyRows()
-        .first()
-        .children()
-        .should("have.css", "background-color", vlightGrey);
-      flatTableBodyRowByPosition(0)
-        .find("td")
-        .eq(0)
-        .find("input")
-        .click()
-        .should("be.checked");
-      flatTableBodyRowByPosition(0)
-        .find("input")
-        .parent()
-        .parent()
-        .find("div:nth-child(2)")
-        .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
-      flatTableBodyRows()
-        .first()
-        .children()
-        .should("have.css", "background-color", lightGrey);
-      flatTableBodyRowByPosition(1).click();
-      flatTableBodyRowByPosition(1)
         .children()
         .should("have.css", "background-color", vlightGrey);
     });
@@ -1385,8 +1474,15 @@ context("Tests for Flat Table component", () => {
       }
     );
 
-    it("should render Flat Table with expandable rows expanded by mouse, subrows not accessible", () => {
-      CypressMountWithProviders(<stories.FlatTableNoAccSubRowComponent />);
+    it("should render Flat Table with expandable rows expanded by mouse, subrows not accessible, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableNoAccSubRowComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       flatTableExpandableIcon(0)
         .should("have.css", "transform")
@@ -1406,8 +1502,33 @@ context("Tests for Flat Table component", () => {
         .should("have.css", "border-right", `2px solid ${gold}`);
     });
 
-    it("should render Flat Table with expandable rows expanded by Spacebar, subrows not accessible", () => {
+    it("should render Flat Table with expandable rows expanded by mouse, subrows not accessible, focusRedesignOptOut false", () => {
       CypressMountWithProviders(<stories.FlatTableNoAccSubRowComponent />);
+
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then(($el) => {
+          assertCssRotationAngleIs($el, -90);
+        });
+      flatTableSubrows().should("not.exist");
+      flatTableBodyRowByPosition(0).click();
+      flatTableSubrowByPosition(0).should("exist");
+      flatTableSubrowByPosition(1).should("exist");
+      flatTableBodyRowByPosition(0)
+        .tab()
+        .trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(3).then(checkNewFocusStyling);
+    });
+
+    it("should render Flat Table with expandable rows expanded by Spacebar, subrows not accessible, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableNoAccSubRowComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       flatTableExpandableIcon(0)
         .should("have.css", "transform")
@@ -1430,8 +1551,36 @@ context("Tests for Flat Table component", () => {
         .should("have.css", "border-right", `2px solid ${gold}`);
     });
 
-    it("should render Flat Table with expandable rows expanded by Enter key, subrows not accessible", () => {
+    it("should render Flat Table with expandable rows expanded by Spacebar, subrows not accessible, focusRedesignOptOut false", () => {
       CypressMountWithProviders(<stories.FlatTableNoAccSubRowComponent />);
+
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then(($el) => {
+          assertCssRotationAngleIs($el, -90);
+        });
+      flatTableSubrows().should("not.exist");
+      flatTableBodyRowByPosition(0)
+        .focus()
+        .trigger("keydown", keyCode("Space"));
+      flatTableSubrowByPosition(0).should("exist");
+      flatTableSubrowByPosition(1).should("exist");
+      flatTableBodyRowByPosition(0)
+        .tab()
+        .trigger("keydown", keyCode("downarrow"))
+        .wait(250);
+      flatTableBodyRowByPosition(3).then(checkNewFocusStyling);
+    });
+
+    it("should render Flat Table with expandable rows expanded by Enter key, subrows not accessible, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableNoAccSubRowComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       flatTableExpandableIcon(0)
         .should("have.css", "transform")
@@ -1454,6 +1603,27 @@ context("Tests for Flat Table component", () => {
         .should("have.css", "border-right", `2px solid ${gold}`);
     });
 
+    it("should render Flat Table with expandable rows expanded by Enter key, subrows not accessible, focusRedesignOptOut false", () => {
+      CypressMountWithProviders(<stories.FlatTableNoAccSubRowComponent />);
+
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then(($el) => {
+          assertCssRotationAngleIs($el, -90);
+        });
+      flatTableSubrows().should("not.exist");
+      flatTableBodyRowByPosition(0)
+        .focus()
+        .trigger("keydown", keyCode("Enter"));
+      flatTableSubrowByPosition(0).should("exist");
+      flatTableSubrowByPosition(1).should("exist");
+      flatTableBodyRowByPosition(0)
+        .tab()
+        .trigger("keydown", keyCode("downarrow"))
+        .wait(250);
+      flatTableBodyRowByPosition(3).then(checkNewFocusStyling);
+    });
+
     it("should allow a Link to be clicked in a Flat Table with expandable row", () => {
       CypressMountWithProviders(<stories.FlatTableNoAccSubRowComponent />);
 
@@ -1462,8 +1632,15 @@ context("Tests for Flat Table component", () => {
       relLink().click();
     });
 
-    it("should render Flat Table with expandable rows expanded by mouse, can focus subrows with down arrow keypress", () => {
-      CypressMountWithProviders(<stories.FlatTableAccSubRowComponent />);
+    it("should render Flat Table with expandable rows expanded by mouse, can focus subrows with down arrow keypress, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableAccSubRowComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       flatTableExpandableIcon(0)
         .should("have.css", "transform")
@@ -1484,6 +1661,23 @@ context("Tests for Flat Table component", () => {
         .find("td")
         .eq(3)
         .should("have.css", "border-right", `2px solid ${gold}`);
+    });
+
+    it("should render Flat Table with expandable rows expanded by mouse, can focus subrows with down arrow keypress, focusRedesignOptOut false", () => {
+      CypressMountWithProviders(<stories.FlatTableAccSubRowComponent />);
+
+      flatTableExpandableIcon(0)
+        .should("have.css", "transform")
+        .then(($el) => {
+          assertCssRotationAngleIs($el, -90);
+        });
+      flatTableBodyRowByPosition(0).click();
+      flatTableSubrowByPosition(0).should("exist");
+      flatTableSubrowByPosition(1).should("exist");
+      flatTableBodyRowByPosition(0).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(1).then(checkNewFocusStyling);
+      flatTableBodyRowByPosition(1).trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(2).then(checkNewFocusStyling);
     });
 
     it("should render Flat Table with expandable rows, can be closed with Spacebar", () => {
@@ -1607,9 +1801,14 @@ context("Tests for Flat Table component", () => {
       flatTableSubrows().should("exist");
     });
 
-    it("should render Flat Table with parent expandable and child subrows selectable", () => {
+    it("should render Flat Table with parent expandable and child subrows selectable, focusRedesignOptOut true", () => {
       CypressMountWithProviders(
-        <stories.FlatTableAllSubrowSelectableComponent />
+        <stories.FlatTableAllSubrowSelectableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
       );
 
       flatTableBodyRowByPosition(0).click();
@@ -1630,9 +1829,45 @@ context("Tests for Flat Table component", () => {
         .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
     });
 
-    it("should render Flat Table with parent expandable row only selectable", () => {
+    it("should render Flat Table with parent expandable and child subrows selectable, focusRedesignOptOut false", () => {
       CypressMountWithProviders(
-        <stories.FlatTableParentSubrowSelectableComponent />
+        <stories.FlatTableAllSubrowSelectableComponent />
+      );
+
+      flatTableBodyRowByPosition(0).click();
+      flatTableSubrows().should("exist");
+      flatTableBodyRowByPosition(0).find("input").click().should("be.checked");
+      flatTableBodyRowByPosition(0)
+        .find("input")
+        .parent()
+        .parent()
+        .find("div:nth-child(2)")
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+      flatTableBodyRowByPosition(1).find("input").click().should("be.checked");
+      flatTableBodyRowByPosition(1)
+        .find("input")
+        .parent()
+        .parent()
+        .find("div:nth-child(2)")
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+    });
+
+    it("should render Flat Table with parent expandable row only selectable, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableParentSubrowSelectableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
       );
 
       flatTableBodyRowByPosition(0).click();
@@ -1647,9 +1882,35 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRowByPosition(1).find("input").should("not.exist");
     });
 
-    it("should render Flat Table with child subrow only selectable", () => {
+    it("should render Flat Table with parent expandable row only selectable, focusRedesignOptOut false", () => {
       CypressMountWithProviders(
-        <stories.FlatTableChildSubrowSelectableComponent />
+        <stories.FlatTableParentSubrowSelectableComponent />
+      );
+
+      flatTableBodyRowByPosition(0).click();
+      flatTableSubrows().should("exist");
+      flatTableBodyRowByPosition(0).find("input").click().should("be.checked");
+      flatTableBodyRowByPosition(0)
+        .find("input")
+        .parent()
+        .parent()
+        .find("div:nth-child(2)")
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+      flatTableBodyRowByPosition(1).find("input").should("not.exist");
+    });
+
+    it("should render Flat Table with child subrow only selectable, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableChildSubrowSelectableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
       );
 
       flatTableBodyRowByPosition(0).click();
@@ -1664,8 +1925,36 @@ context("Tests for Flat Table component", () => {
         .should("have.css", "box-shadow", `${gold} 0px 0px 0px 3px`);
     });
 
-    it("can focus the first row by tabbing but no further rows are focused on tab press", () => {
-      CypressMountWithProviders(<stories.FlatTableComponent />);
+    it("should render Flat Table with child subrow only selectable, focusRedesignOptOut false", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableChildSubrowSelectableComponent />
+      );
+
+      flatTableBodyRowByPosition(0).click();
+      flatTableSubrows().should("exist");
+      flatTableBodyRowByPosition(0).find("input").should("not.exist");
+      flatTableBodyRowByPosition(1).find("input").click().should("be.checked");
+      flatTableBodyRowByPosition(1)
+        .find("input")
+        .parent()
+        .parent()
+        .find("div:nth-child(2)")
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+    });
+
+    it("can focus the first row by tabbing but no further rows are focused on tab press, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       cy.get("body").tab();
 
@@ -1677,7 +1966,36 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRowByPosition(3).should("not.be.focused");
     });
 
-    it("sets the last selected row as the tab stop and removes it from any other ones", () => {
+    it("can focus the first row by tabbing but no further rows are focused on tab press, focusRedesignOptOut false", () => {
+      CypressMountWithProviders(<stories.FlatTableComponent />);
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).should("not.be.focused");
+      flatTableBodyRowByPosition(1).should("not.be.focused");
+      flatTableBodyRowByPosition(3).should("not.be.focused");
+    });
+
+    it("sets the last selected row as the tab stop and removes it from any other ones, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTablePartiallySelectedOrHighlightedRows selected />,
+        undefined,
+        undefined,
+        { focusRedesignOptOut: true }
+      );
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+
+      flatTableBodyRowByPosition(0).should("not.be.focused");
+      flatTableBodyRowByPosition(1).then(checkFocus);
+    });
+
+    it("sets the last selected row as the tab stop and removes it from any other ones, focusRedesignOptOut false", () => {
       CypressMountWithProviders(
         <stories.FlatTablePartiallySelectedOrHighlightedRows selected />
       );
@@ -1687,12 +2005,17 @@ context("Tests for Flat Table component", () => {
       cy.focused().tab();
 
       flatTableBodyRowByPosition(0).should("not.be.focused");
-      flatTableBodyRowByPosition(1).then(checkFocus);
+      flatTableBodyRowByPosition(1).then(checkNewFocusStyling);
     });
 
-    it("sets the last highlighted row as the tab stop and removes it from any other ones", () => {
+    it("sets the last highlighted row as the tab stop and removes it from any other ones, focusRedesignOptOut true", () => {
       CypressMountWithProviders(
-        <stories.FlatTablePartiallySelectedOrHighlightedRows highlighted />
+        <stories.FlatTablePartiallySelectedOrHighlightedRows highlighted />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
       );
 
       cy.get("body").tab();
@@ -1703,9 +2026,27 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRowByPosition(1).then(checkFocus);
     });
 
-    it("can use tab and down arrow key to navigate the clickable rows and tabbable elements", () => {
+    it("sets the last highlighted row as the tab stop and removes it from any other ones, focusRedesignOptOut false", () => {
       CypressMountWithProviders(
-        <stories.FlatTableAllSubrowSelectableComponent />
+        <stories.FlatTablePartiallySelectedOrHighlightedRows highlighted />
+      );
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+
+      flatTableBodyRowByPosition(0).should("not.be.focused");
+      flatTableBodyRowByPosition(1).then(checkNewFocusStyling);
+    });
+
+    it("can use tab and down arrow key to navigate the clickable rows and tabbable elements, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableAllSubrowSelectableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
       );
 
       cy.get("body").tab();
@@ -1729,9 +2070,40 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRowByPosition(3).then(checkFocus);
     });
 
-    it("can use up arrow to navigate the clickable rows and tabbable elements", () => {
+    it("can use tab and down arrow key to navigate the clickable rows and tabbable elements, focusRedesignOptOut false", () => {
       CypressMountWithProviders(
         <stories.FlatTableAllSubrowSelectableComponent />
+      );
+
+      cy.get("body").tab();
+
+      // tab through batch selection
+      for (let i = 0; i < 5; i++) {
+        cy.focused().tab();
+      }
+
+      flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).find("input").eq(0).should("be.focused");
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(1).then(checkNewFocusStyling);
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(2).then(checkNewFocusStyling);
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(3).then(checkNewFocusStyling);
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      flatTableBodyRowByPosition(3).then(checkNewFocusStyling);
+    });
+
+    it("can use up arrow to navigate the clickable rows and tabbable elements, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableAllSubrowSelectableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
       );
 
       cyRoot();
@@ -1749,11 +2121,36 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRowByPosition(0).then(checkFocus);
     });
 
+    it("can use up arrow to navigate the clickable rows and tabbable elements, focusRedesignOptOut false", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableAllSubrowSelectableComponent />
+      );
+
+      cyRoot();
+      cy.get("body").tab();
+
+      flatTableBodyRowByPosition(3).find("input").eq(0).focus();
+      flatTableBodyRowByPosition(3).find("input").eq(0).should("be.focused");
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      flatTableBodyRowByPosition(2).then(checkNewFocusStyling);
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      flatTableBodyRowByPosition(1).then(checkNewFocusStyling);
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
+    });
+
     it.each([["leftarrow"], ["rightarrow"]] as ["leftarrow" | "rightarrow"][])(
-      "can not navigate through Flat Table rows using %s keys",
+      "can not navigate through Flat Table rows using %s keys, focusRedesignOptOut true",
       (arrow) => {
         CypressMountWithProviders(
-          <stories.FlatTableAllSubrowSelectableComponent />
+          <stories.FlatTableAllSubrowSelectableComponent />,
+          undefined,
+          undefined,
+          {
+            focusRedesignOptOut: true,
+          }
         );
 
         cy.get("body").tab();
@@ -1766,6 +2163,26 @@ context("Tests for Flat Table component", () => {
         flatTableBodyRowByPosition(0).then(checkFocus);
         flatTableBodyRowByPosition(0).trigger("keydown", keyCode(arrow));
         flatTableBodyRowByPosition(0).then(checkFocus);
+      }
+    );
+
+    it.each([["leftarrow"], ["rightarrow"]] as ["leftarrow" | "rightarrow"][])(
+      "can not navigate through Flat Table rows using %s keys, focusRedesignOptOut false",
+      (arrow) => {
+        CypressMountWithProviders(
+          <stories.FlatTableAllSubrowSelectableComponent />
+        );
+
+        cy.get("body").tab();
+
+        // tab through batch selection
+        for (let i = 0; i < 5; i++) {
+          cy.focused().tab();
+        }
+
+        flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
+        flatTableBodyRowByPosition(0).trigger("keydown", keyCode(arrow));
+        flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
       }
     );
 
@@ -2162,11 +2579,26 @@ context("Tests for Flat Table component", () => {
       }
     });
 
-    it("should render Flat Table with clickable rows", () => {
-      CypressMountWithProviders(<stories.FlatTableComponent />);
+    it("should render Flat Table with clickable rows, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(
+        <stories.FlatTableComponent />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
 
       for (let i = 0; i < 6; i++) {
         flatTableBodyRowByPosition(i).click().then(checkFocus);
+      }
+    });
+
+    it("should render Flat Table with clickable rows, focusRedesignOptOut false", () => {
+      CypressMountWithProviders(<stories.FlatTableComponent />);
+
+      for (let i = 0; i < 6; i++) {
+        flatTableBodyRowByPosition(i).click().then(checkNewFocusStyling);
       }
     });
 

@@ -2005,7 +2005,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c0:focus {
-  outline: solid 3px var(--colorsSemanticFocus500);
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+  box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+  outline: transparent 3px solid;
 }
 
 .c0 .c1 {
@@ -2281,7 +2284,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c0:focus {
-  outline: solid 3px var(--colorsSemanticFocus500);
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+  box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+  outline: transparent 3px solid;
 }
 
 .c0 .c1 {

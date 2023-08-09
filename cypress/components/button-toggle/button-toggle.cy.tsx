@@ -19,12 +19,115 @@ import { icon, getDataElementByValue } from "../../locators";
 import { positionOfElement } from "../../support/helper";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
-import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
+import {
+  assertCssValueIsApproximately,
+  checkGoldenOutline,
+} from "../../support/component-helper/common-steps";
 
 const testPropValue = CHARACTERS.STANDARD;
 
 context("Testing Button-Toggle component", () => {
   describe("should render Button-Toggle component", () => {
+    describe("when focused", () => {
+      it("should have the expected styling when opt out flag is true", () => {
+        CypressMountWithProviders(
+          <stories.ButtonToggleGroupComponent />,
+          undefined,
+          undefined,
+          {
+            focusRedesignOptOut: true,
+          }
+        );
+
+        buttonToggleButton()
+          .eq(0)
+          .focus()
+          .then(($el) => {
+            checkGoldenOutline($el);
+          });
+        buttonToggleButton()
+          .eq(1)
+          .focus()
+          .then(($el) => {
+            checkGoldenOutline($el);
+          });
+        buttonToggleButton()
+          .eq(2)
+          .focus()
+          .then(($el) => {
+            checkGoldenOutline($el);
+          });
+      });
+
+      it("should have the expected styling when opt out flag is false", () => {
+        CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+
+        buttonToggleButton()
+          .eq(0)
+          .focus()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+        buttonToggleButton()
+          .eq(1)
+          .focus()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+        buttonToggleButton()
+          .eq(2)
+          .focus()
+          .should(
+            "have.css",
+            "box-shadow",
+            "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          )
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+      });
+    });
+
+    describe("rounded corners", () => {
+      it("has the expected border-radius styling on a single toggle button", () => {
+        CypressMountWithProviders(
+          <ButtonToggleComponent>Foo</ButtonToggleComponent>
+        );
+
+        buttonToggleButton().each((el) =>
+          expect(el.css("border-radius")).equals("32px")
+        );
+      });
+
+      it("should have the expected border-radius styling when the children have the grouped prop set", () => {
+        CypressMountWithProviders(
+          <stories.ButtonToggleGroupComponentGroupedChildren />
+        );
+
+        buttonToggleButton()
+          .eq(0)
+          .should("have.css", "border-radius", "32px 0px 0px 32px");
+        buttonToggleButton().eq(1).should("have.css", "border-radius", "0px");
+        buttonToggleButton()
+          .eq(2)
+          .should("have.css", "border-radius", "0px 32px 32px 0px");
+      });
+
+      it("should have the expected border-radius styling when children do not have grouped prop set", () => {
+        CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
+
+        buttonToggleButton().eq(0).should("have.css", "border-radius", "32px");
+        buttonToggleButton().eq(1).should("have.css", "border-radius", "32px");
+        buttonToggleButton().eq(2).should("have.css", "border-radius", "32px");
+      });
+    });
+
     it("should render Button-Toggle with aria-label prop", () => {
       CypressMountWithProviders(
         <ButtonToggleComponent aria-label="cypress-aria" />
@@ -266,16 +369,6 @@ context("Testing Button-Toggle component", () => {
 
         cy.checkAccessibility();
       }
-    );
-  });
-
-  it("has the expected border-radius styling", () => {
-    CypressMountWithProviders(
-      <ButtonToggleComponent>Foo</ButtonToggleComponent>
-    );
-
-    buttonToggleButton().each((el) =>
-      expect(el.css("border-radius")).equals("32px")
     );
   });
 });
@@ -529,7 +622,6 @@ context("Testing Button-Toggle-Group component", () => {
 
       cy.get("#button-before").focus();
       cy.get("#button-before").tab();
-
       buttonToggleButton().eq(positionOfElement("first")).should("be.focused");
 
       cy.focused().tab();
@@ -730,29 +822,5 @@ context("Testing Button-Toggle-Group component", () => {
         cy.checkAccessibility();
       }
     );
-  });
-
-  describe("rounded corners", () => {
-    it("should have the expected border-radius styling when the children have the grouped prop set", () => {
-      CypressMountWithProviders(
-        <stories.ButtonToggleGroupComponentGroupedChildren />
-      );
-
-      buttonToggleButton()
-        .eq(0)
-        .should("have.css", "border-radius", "32px 0px 0px 32px");
-      buttonToggleButton().eq(1).should("have.css", "border-radius", "0px");
-      buttonToggleButton()
-        .eq(2)
-        .should("have.css", "border-radius", "0px 32px 32px 0px");
-    });
-
-    it("should have the expected border-radius styling when children do not have grouped prop set", () => {
-      CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
-
-      buttonToggleButton().eq(0).should("have.css", "border-radius", "32px");
-      buttonToggleButton().eq(1).should("have.css", "border-radius", "32px");
-      buttonToggleButton().eq(2).should("have.css", "border-radius", "32px");
-    });
   });
 });

@@ -1048,11 +1048,48 @@ context("Testing Menu component", () => {
       menu().should("be.visible");
     });
 
-    it("should verify that close icon is focused in Menu Fullscreen", () => {
+    it("should verify that close icon is focused in Menu Fullscreen, focusRedesignOptOut false", () => {
+      fullScreenMenuWrapper().tab();
+      closeIconButton()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+      closeIconButton().tab();
+      cy.focused()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should verify that close icon is focused in Menu Fullscreen, focusRedesignOptOut true", () => {
+      cy.viewport(1200, 800);
+      CypressMountWithProviders(
+        <MenuComponentFullScreen />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      menuItem().eq(positionOfElement("first")).click();
+
       fullScreenMenuWrapper().tab();
       closeIconButton().then(($el) => {
         checkGoldenOutline($el);
       });
+
+      closeIconButton().tab();
+      cy.focused().should(
+        "have.css",
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px inset"
+      );
     });
 
     it("should verify that inner Menu is available with tabbing and styles are correct", () => {
@@ -1188,7 +1225,7 @@ context("Testing Menu component", () => {
       menuItem().last().find("a").should("have.focus");
     });
 
-    it("should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value", () => {
+    it("should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value, focusRedesignOptOut flag not set", () => {
       CypressMountWithProviders(
         <MenuFullScreenWithSearchButton searchValue="foo" />
       );
@@ -1200,6 +1237,33 @@ context("Testing Menu component", () => {
       searchCrossIcon().parent().should("have.focus");
       cy.tab();
       searchButton().should("have.focus");
+      searchButton().should(
+        "have.css",
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      );
+      cy.tab();
+      menuItem().last().find("a").should("have.focus");
+    });
+
+    it("should focus the search icon and button on tab press when the current item has a Search input with searchButton and has a value, focusRedesignOptOut flag set", () => {
+      CypressMountWithProviders(
+        <MenuFullScreenWithSearchButton searchValue="foo" />,
+        undefined,
+        undefined,
+        { focusRedesignOptOut: true }
+      );
+
+      menuItem().first().find("a").focus();
+      cy.tab();
+      searchDefaultInput().should("have.focus");
+      cy.tab();
+      searchCrossIcon().parent().should("have.focus");
+      cy.tab();
+      searchButton().should("have.focus");
+      searchButton().then(($el) => {
+        checkGoldenOutline($el);
+      });
       cy.tab();
       menuItem().last().find("a").should("have.focus");
     });
@@ -1740,6 +1804,112 @@ context("Testing Menu component", () => {
         cy.checkAccessibility();
       }
     );
+  });
+
+  describe("when focused", () => {
+    it("menu items should have the expected focus styling, focusRedesignOptOut true", () => {
+      cy.viewport(1200, 800);
+      CypressMountWithProviders(<MenuComponent />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+
+      menuItem()
+        .first()
+        .find("a")
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px inset"
+        );
+
+      menuItem()
+        .last()
+        .find("button")
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px inset"
+        );
+
+      menuItem().last().find("button").click();
+
+      submenu()
+        .last()
+        .find("button")
+        .first()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px inset"
+        );
+
+      submenu()
+        .last()
+        .find("a")
+        .first()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px inset"
+        );
+    });
+
+    it("menu items should have the expected focus styling, focusRedesignOptOut false", () => {
+      cy.viewport(1200, 800);
+      CypressMountWithProviders(<MenuComponent />);
+
+      menuItem()
+        .first()
+        .find("a")
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+      menuItem()
+        .last()
+        .find("button")
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+      menuItem().last().find("button").click();
+
+      submenu()
+        .last()
+        .find("button")
+        .first()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+
+      submenu()
+        .last()
+        .find("a")
+        .first()
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
   });
 
   describe("rounded corners", () => {

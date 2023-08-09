@@ -4,6 +4,7 @@ import { space, margin } from "styled-system";
 import Icon from "../icon";
 import { baseTheme } from "../../style/themes";
 import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledAccordionGroup = styled.div`
   ${margin}
@@ -130,8 +131,19 @@ interface StyledAccordionTitleContainerProps {
   size?: "large" | "small";
 }
 
+const oldFocusStyling = `
+  outline: solid 3px var(--colorsSemanticFocus500);
+`;
+
 const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerProps>`
-  ${({ buttonHeading, buttonWidth, iconAlign, size, hasButtonProps }) => css`
+  ${({
+    buttonHeading,
+    buttonWidth,
+    iconAlign,
+    size,
+    hasButtonProps,
+    theme,
+  }) => css`
     padding: ${size === "small" ? "var(--spacing200)" : "var(--spacing300)"};
     ${space}
     display: flex;
@@ -148,7 +160,9 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
     z-index: 1;
 
     &:focus {
-      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
+      ${!theme.focusRedesignOptOut
+        ? addFocusStyling()
+        : /* istanbul ignore next */ oldFocusStyling}
     }
 
     ${!buttonHeading &&

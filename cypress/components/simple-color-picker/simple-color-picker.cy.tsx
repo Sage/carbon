@@ -92,6 +92,40 @@ const colors = [
 const indexes = Array.from({ length: colors.length }).map((_, index) => index);
 
 context("Testing SimpleColorPicker component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<SimpleColorPickerCustom />);
+      simpleColorPickerInput(0)
+        .focus()
+        .next()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+        )
+        .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <SimpleColorPickerCustom />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      simpleColorPickerInput(0)
+        .focus()
+        .next()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 255, 255) 0px 0px 0px 2px inset"
+        );
+    });
+  });
+
   describe("should render SimpleColorPicker component and check functionality", () => {
     it("should render all proper colors", () => {
       CypressMountWithProviders(<SimpleColorPickerCustom />);

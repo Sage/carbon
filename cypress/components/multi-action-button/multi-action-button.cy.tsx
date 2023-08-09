@@ -11,7 +11,7 @@ import { Accordion } from "../../../src/components/accordion/accordion.component
 import * as stories from "../../../src/components/multi-action-button/multi-action-button.stories";
 
 import { buttonSubtextPreview } from "../../locators/button";
-import { pressTABKey, keyCode } from "../../support/helper";
+import { keyCode } from "../../support/helper";
 import {
   multiActionButtonList,
   multiActionButtonListContainer,
@@ -23,15 +23,42 @@ import { accordionDefaultTitle } from "../../locators/accordion";
 import { alertDialogPreview } from "../../locators/dialog";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import {
-  assertCssValueIsApproximately,
-  checkOutlineCss,
-} from "../../support/component-helper/common-steps";
+import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const keysToTrigger = ["Enter", "Space", "downarrow"] as const;
 
 context("Tests for MultiActionButton component", () => {
+  describe("when focused", () => {
+    it("should have the expected styling when the focusRedesignOptOut is false", () => {
+      CypressMountWithProviders(<MultiActionButtonList />);
+
+      multiActionButton()
+        .eq(0)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+    });
+
+    it("should have the expected styling when the focusRedesignOptOut is true", () => {
+      CypressMountWithProviders(
+        <MultiActionButtonList />,
+        undefined,
+        undefined,
+        {
+          focusRedesignOptOut: true,
+        }
+      );
+      multiActionButton()
+        .eq(0)
+        .focus()
+        .should("have.css", "border", "3px solid rgb(255, 188, 25)");
+    });
+  });
+
   describe("check props for MultiActionButton component", () => {
     it.each(testData)(
       "should render Multi Action Button text using %s as special characters",
@@ -129,17 +156,6 @@ context("Tests for MultiActionButton component", () => {
         .eq(2)
         .should("have.text", "Short")
         .and("be.visible");
-    });
-
-    it("should render Multi Action Button with golden border when hit Tab key 1 time", () => {
-      CypressMountWithProviders(<MultiActionButtonList />);
-
-      pressTABKey(1);
-      multiActionButtonComponent()
-        .children()
-        .then(($el) => {
-          checkOutlineCss($el, 2, "border", "solid", "rgb(255, 188, 25)");
-        });
     });
 
     it("should render Multi Action Button with specific background colour when hovering", () => {
@@ -779,12 +795,9 @@ context("Tests for MultiActionButton component", () => {
   });
 
   describe("check border radius for MultiActionButton component", () => {
-    it("should have the expected border radius and focus styling on main button", () => {
+    it("should have the expected border radius on main button", () => {
       CypressMountWithProviders(<MultiActionButtonList />);
       multiActionButton().should("have.css", "border-radius", "32px");
-      multiActionButton()
-        .focus()
-        .should("have.css", "border", "3px solid rgb(255, 188, 25)");
     });
 
     it("should have the expected border radius on children container and buttons", () => {

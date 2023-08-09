@@ -1,7 +1,5 @@
-name: Cypress
+name: Cypress tests
 
-# Both cypress jobs need to be in the same workflow in order for the ci-build-id to be automatically generated
-# https://docs.cypress.io/guides/guides/parallelization#Linking-CI-machines-for-parallelization-or-grouping
 on:
   workflow_dispatch:
     inputs:
@@ -10,26 +8,15 @@ on:
         required: true
 
 jobs:
-  cypress-react:
+  cypress-react-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
-      # when one test fails, DO NOT cancel the other
-      # containers, because this will kill Cypress processes
-      # leaving the Dashboard hanging ...
-      # https://github.com/cypress-io/github-action/issues/48
       fail-fast: false
       matrix:
         # run 5 copy of the current job in parallel
-        containers:
-          [
-            1,
-            2,
-            3,
-            4,
-            5,
-          ]
-    container: 
+        containers: [1, 2, 3, 4, 5]
+    container:
       image: cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
       options: --user 1001
     steps:
@@ -79,15 +66,48 @@ jobs:
       - name: Cypress React tests
         uses: cypress-io/github-action@v5
         with:
+          component: true
           install: false
-          record: true
-          parallel: true
-          group: ubuntu-cypress-react
           quiet: true
           browser: chrome
-          component: true
         env:
           COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CI: "true"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
+
+      - name: Upload Cypress report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-reports
+          path: cypress/reports
+          retention-days: 10
+
+      - name: Report status - success
+        if: always() && success()
+        run: |
+            curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            -d '{
+              "state": "success",
+              "context": "Cypress tests",
+              "description": "workflow completed successfully."
+            }'
+        
+      - name: Report status - failed
+        if: always() && failure()
+        run: |
+            curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            -d '{
+              "state": "failure",
+              "context": "Cypress tests",
+              "description": "workflow failed."
+            }'

@@ -266,18 +266,6 @@ describe("TileSelect", () => {
       );
     });
 
-    it("renders proper outline when focused", () => {
-      wrapper.find(StyledTileSelectInput).simulate("focus");
-
-      assertStyleMatch(
-        {
-          outline: `3px solid var(--colorsSemanticFocus500)`,
-          zIndex: "15",
-        },
-        wrapper.find(StyledFocusWrapper)
-      );
-    });
-
     it("applies correct styles to title container", () => {
       assertStyleMatch(
         {

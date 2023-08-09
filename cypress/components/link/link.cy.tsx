@@ -182,15 +182,36 @@ context("Test for Link component", () => {
     }
   );
 
-  it("should render Link with correct focus state", () => {
-    CypressMountWithProviders(<LinkComponent />);
+  describe("when focused", () => {
+    it("should render Link with correct focus state, focusRedesignOptOut true", () => {
+      CypressMountWithProviders(<LinkComponent />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
 
-    link()
-      .children()
-      .focus()
-      .should("have.css", "background-color", "rgb(255, 218, 128)")
-      .and("have.css", "color", "rgba(0, 0, 0, 0.9)")
-      .and("have.css", "border-radius", "4px");
+      link()
+        .children()
+        .focus()
+        .should("have.css", "background-color", "rgb(255, 218, 128)")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.9)")
+        .and("have.css", "border-radius", "2px");
+    });
+
+    it("should render Link with correct focus state, focusRedesignOptOut false", () => {
+      CypressMountWithProviders(<LinkComponent />);
+
+      link()
+        .children()
+        .focus()
+        .should("have.css", "background-color", "rgb(255, 218, 128)")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.9)")
+        .and("have.css", "border-radius", "2px");
+
+      link().should(
+        "have.css",
+        "box-shadow",
+        "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px"
+      );
+    });
   });
 
   describe("check events for Link component", () => {

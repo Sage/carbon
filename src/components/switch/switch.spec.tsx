@@ -1,9 +1,7 @@
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { ThemeProvider } from "styled-components";
 import { mount, ReactWrapper, MountRendererProps } from "enzyme";
 
-import { ThemeObject } from "../../style/themes/base";
 import Switch, { SwitchProps } from ".";
 import CheckableInput from "../../__internal__/checkable-input";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
@@ -14,7 +12,6 @@ import StyledSwitchSlider from "./__internal__/switch-slider.style";
 import guid from "../../__internal__/utils/helpers/guid";
 import {
   assertStyleMatch,
-  carbonThemesJestTable,
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
@@ -74,18 +71,6 @@ function renderWithCarbonProvider(
     <CarbonProvider validationRedesignOptIn>
       <Switch name="my-switch" value="test" onChange={() => {}} {...props} />
     </CarbonProvider>
-  );
-}
-
-function renderWithTheme(
-  props?: SwitchProps,
-  theme?: string | Partial<ThemeObject>,
-  renderer = mount
-) {
-  return renderer(
-    <ThemeProvider theme={theme}>
-      <Switch name="my-switch" value="test" onChange={() => {}} {...props} />
-    </ThemeProvider>
   );
 }
 
@@ -685,28 +670,6 @@ describe("Switch", () => {
       expect(help.prop("aria-label")).toEqual(text);
     });
   });
-
-  describe.each(carbonThemesJestTable)(
-    "when the theme is set to %s",
-    (themeName, theme) => {
-      describe("default", () => {
-        const wrapper = renderWithTheme({}, theme);
-        describe("and focus is applied to the element", () => {
-          it("then the correct outline should be rendered", () => {
-            assertStyleMatch(
-              {
-                outline: "solid 3px var(--colorsSemanticFocus500)",
-              },
-              wrapper,
-              {
-                modifier: `${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledSwitchSlider}`,
-              }
-            );
-          });
-        });
-      });
-    }
-  );
 
   describe("required", () => {
     let wrapper: ReactWrapper;

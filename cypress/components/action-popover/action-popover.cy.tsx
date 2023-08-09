@@ -954,6 +954,61 @@ context("Test for ActionPopover component", () => {
     );
   });
 
+  describe("rounded-corners", () => {
+    it("should have the expected border radius styling", () => {
+      CypressMountWithProviders(<ActionPopoverCustom />);
+
+      actionPopoverButton()
+        .eq(0)
+        .focus()
+        .should("have.css", "border-radius", "4px");
+      actionPopoverButton().eq(0).click();
+      actionPopover().should("have.css", "border-radius", "8px");
+    });
+  });
+
+  describe("when focused", () => {
+    // there is an issue with asserting token values for this test
+    it("has the expected styling when the focusRedesignOptOut flag is true", () => {
+      CypressMountWithProviders(<ActionPopoverCustom />, undefined, undefined, {
+        focusRedesignOptOut: true,
+      });
+
+      actionPopoverButton()
+        .eq(0)
+        .focus()
+        .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
+
+      actionPopoverButton().eq(0).click();
+
+      actionPopoverInnerItem(0).should(
+        "have.css",
+        "outline",
+        "rgb(255, 188, 25) solid 3px"
+      );
+    });
+
+    it("has the expected styling when the focusRedesignOptOut flag is false", () => {
+      CypressMountWithProviders(<ActionPopoverCustom />);
+
+      actionPopoverButton()
+        .eq(0)
+        .focus()
+        .should(
+          "have.css",
+          "box-shadow",
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        );
+
+      actionPopoverButton().eq(0).click();
+      actionPopoverInnerItem(0).should(
+        "have.css",
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      );
+    });
+  });
+
   describe("Accessibility tests for ActionPopover", () => {
     it("should pass accessibility tests for ActionPopover with custom button", () => {
       CypressMountWithProviders(
@@ -1138,16 +1193,5 @@ context("Test for ActionPopover component", () => {
       actionPopoverButton().eq(0).type("{esc}", { force: true });
       alertDialogPreview().should("not.exist");
     });
-  });
-
-  it("should have the expected border radius styling", () => {
-    CypressMountWithProviders(<ActionPopoverCustom />);
-
-    actionPopoverButton()
-      .eq(0)
-      .focus()
-      .should("have.css", "border-radius", "4px");
-    actionPopoverButton().eq(0).click();
-    actionPopover().should("have.css", "border-radius", "8px");
   });
 });

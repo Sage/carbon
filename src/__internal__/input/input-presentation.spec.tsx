@@ -254,19 +254,6 @@ describe("InputPresentation", () => {
         );
       });
     });
-
-    describe("hasFocus", () => {
-      it("has the correct style rules", () => {
-        assertStyleMatch(
-          {
-            outline: "3px solid var(--colorsSemanticFocus500)",
-          },
-          renderWithContext({}, {}, { hasFocus: true }).find(
-            InputPresentationStyle
-          )
-        );
-      });
-    });
   });
 
   describe("context handlers", () => {

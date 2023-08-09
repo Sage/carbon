@@ -2,6 +2,8 @@ import styled, { css, keyframes } from "styled-components";
 import StyledTabs from "../tabs/tabs.style";
 import Box from "../box";
 import StyledStickyFooter from "../../__internal__/sticky-footer/sticky-footer.style";
+import addFocusStyling from "../../style/utils/add-focus-styling";
+import baseTheme from "../../style/themes/base";
 
 const defaultExpandedWidth = "var(--sizing500)";
 
@@ -174,6 +176,10 @@ interface StyledSidebarToggleButtonProps {
   isExpanded?: boolean;
 }
 
+const oldFocusStyling = `
+  outline: solid 3px var(--colorsSemanticFocus500);
+`;
+
 const StyledSidebarToggleButton = styled.button.attrs({
   type: "button",
 })<StyledSidebarToggleButtonProps>`
@@ -194,9 +200,16 @@ const StyledSidebarToggleButton = styled.button.attrs({
     animation: ${buttonClose} ${animationDuration} ease-in-out;
     border-radius: var(--borderRadius050);
 
-    &:focus {
-      outline: var(--borderWidth300) solid var(--colorsSemanticFocus500);
-    }
+    ${({ theme }) =>
+      `
+      &:focus {
+        ${
+          !theme.focusRedesignOptOut
+            ? addFocusStyling()
+            : /* istanbul ignore next */ oldFocusStyling
+        }
+      }
+    `}
 
     &:hover {
       cursor: pointer;
@@ -209,6 +222,10 @@ const StyledSidebarToggleButton = styled.button.attrs({
     `}
   `}
 `;
+
+StyledSidebarToggleButton.defaultProps = {
+  theme: baseTheme,
+};
 
 const StyledDrawerWrapper = styled.div<{ height: string }>`
   display: flex;

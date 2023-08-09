@@ -30,9 +30,13 @@ const StyledTabs = styled.div<StyledTabsProps>`
       ${!isInSidebar &&
       css`
         display: flex;
+        width: 100%;
       `}
 
-      width: 100%;
+      ${isInSidebar &&
+      css`
+        width: 99%;
+      `}
     `}
   `}
 

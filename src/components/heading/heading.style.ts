@@ -8,6 +8,7 @@ import Help from "../help";
 import Typography from "../typography";
 import Hr from "../hr";
 import Link from "../link";
+import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const StyledHeading = styled.div`
   width: 100%;
@@ -28,6 +29,8 @@ type StyledHeaderProps = {
   subheader?: boolean;
   hasBackLink?: boolean;
 };
+
+const oldFocusStyling = "outline: 3px solid var(--colorsSemanticFocus500);";
 
 const StyledHeader = styled.div<StyledHeaderProps>`
   ${({ divider, subheader, hasBackLink }) => css`
@@ -66,7 +69,8 @@ const StyledHeadingBackButton = styled(Link)`
 
     &:focus {
       background-color: transparent;
-      outline: 3px solid var(--colorsSemanticFocus500);
+      ${({ theme }) =>
+        !theme.focusRedesignOptOut ? addFocusStyling() : oldFocusStyling}
     }
 
     &:hover {
@@ -82,6 +86,8 @@ const StyledHeadingBackButton = styled(Link)`
     }
   }
 `;
+
+StyledHeadingBackButton.defaultProps = { theme: baseTheme };
 
 type StyledHeadingTitleProps = {
   withMargin?: boolean;

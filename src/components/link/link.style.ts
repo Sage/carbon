@@ -142,7 +142,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
 
             &:focus {
               background-color: var(--colorsSemanticFocus250);
-              border-radius: var(--borderRadius050);
+              border-radius: var(--borderRadius025);
             }
           `}
 
@@ -155,6 +155,23 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
             }
           `}
         }
+
+        ${!disabled &&
+        !theme.focusRedesignOptOut &&
+        css`
+          a,
+          button {
+            outline: none;
+            text-decoration: none;
+            border-bottom-left-radius: var(--borderRadius000);
+            border-bottom-right-radius: var(--borderRadius000);
+          }
+          &:focus-within {
+            box-shadow: 0 4px 0 0 var(--colorsUtilityYin090);
+            border-bottom-left-radius: var(--borderRadius025);
+            border-bottom-right-radius: var(--borderRadius025);
+          }
+        `}
       `}
 
       a,
