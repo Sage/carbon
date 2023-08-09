@@ -22,3 +22,4 @@ cypress/downloads
 /test-results/
 /playwright-report/
 /playwright/.cache/
+cypress/reports
