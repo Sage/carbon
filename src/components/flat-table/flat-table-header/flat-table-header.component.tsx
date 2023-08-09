@@ -5,7 +5,7 @@ import { TableBorderSize, TableCellAlign } from "..";
 import StyledFlatTableHeader from "./flat-table-header.style";
 import { FlatTableThemeContext } from "../flat-table.component";
 import guid from "../../../__internal__/utils/helpers/guid";
-import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
+import useCalculateStickyCells from "../__internal__/use-calculate-sticky-cells";
 
 export interface FlatTableHeaderProps extends PaddingProps {
   /** Content alignment */
@@ -42,13 +42,11 @@ export const FlatTableHeader = ({
   const ref = useRef<HTMLTableCellElement>(null);
   const internalId = useRef(id || guid());
   const { colorTheme } = useContext(FlatTableThemeContext);
-
-  const { leftPositions, rightPositions } = useContext(FlatTableRowContext);
-
-  const leftPosition = leftPositions[internalId.current];
-  const rightPosition = rightPositions[internalId.current];
-  const makeCellSticky =
-    leftPosition !== undefined || rightPosition !== undefined;
+  const {
+    leftPosition,
+    rightPosition,
+    makeCellSticky,
+  } = useCalculateStickyCells(internalId.current);
 
   return (
     <StyledFlatTableHeader

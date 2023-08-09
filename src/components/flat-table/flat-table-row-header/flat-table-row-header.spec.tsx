@@ -107,7 +107,7 @@ describe("FlatTableRowHeader", () => {
     });
   });
 
-  describe("when expandable prop is true", () => {
+  describe("when expandable", () => {
     it("should render an arrow icon", () => {
       const wrapper = mount(
         <table>

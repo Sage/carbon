@@ -60,14 +60,14 @@ export const FlatTableRowDraggable = ({
     key: originalIndex,
     id,
     isDragging,
-    ref: (node: HTMLElement) => {
+    ref: (node: HTMLTableRowElement) => {
       drag(drop(node));
       /* istanbul ignore else */
       if (rowRef) {
         if (typeof rowRef === "function") {
-          rowRef(node as HTMLTableRowElement);
+          rowRef(node);
         } else {
-          rowRef.current = node as HTMLTableRowElement;
+          rowRef.current = node;
         }
       }
     },

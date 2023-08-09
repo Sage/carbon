@@ -1,9 +1,10 @@
 import React, {
   useCallback,
-  useLayoutEffect,
+  // useLayoutEffect,
   useContext,
   useState,
   useRef,
+  useEffect,
 } from "react";
 import { PaddingProps } from "styled-system";
 import { TableBorderSize, TableCellAlign } from "..";
@@ -18,7 +19,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
-import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
+import useCalculateStickyCells from "../__internal__/use-calculate-sticky-cells";
 
 export interface FlatTableRowHeaderProps extends PaddingProps, TagProps {
   /** Content alignment */
@@ -62,22 +63,18 @@ export const FlatTableRowHeader = ({
   const internalId = useRef(id || guid());
   const [tabIndex, setTabIndex] = useState(-1);
   const { selectedId } = useContext(FlatTableThemeContext);
+
   const {
+    leftPosition,
+    rightPosition,
     expandable,
-    firstCellId,
-    firstColumnExpandable,
-    leftPositions,
-    rightPositions,
     onClick,
     onKeyDown,
-  } = useContext(FlatTableRowContext);
+    isFirstCell,
+    isExpandableCell,
+  } = useCalculateStickyCells(internalId.current);
 
-  const leftPosition = leftPositions[internalId.current];
-  const rightPosition = rightPositions[internalId.current];
-  const isFirstCell = internalId.current === firstCellId;
-  const isExpandableCell = expandable && isFirstCell && firstColumnExpandable;
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     setTabIndex(isExpandableCell && selectedId === internalId.current ? 0 : -1);
   }, [selectedId, isExpandableCell]);
 

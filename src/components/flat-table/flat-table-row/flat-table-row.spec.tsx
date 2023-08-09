@@ -17,11 +17,6 @@ import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.c
 import FlatTableHeader from "../flat-table-header/flat-table-header.component";
 import { FlatTableBodyDraggable } from "..";
 import { FlatTableThemeContext } from "../flat-table.component";
-import guid from "../../../__internal__/utils/helpers/guid";
-
-const mockedGuid = "guid-12345";
-jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 const events = {
   enter: {
@@ -574,12 +569,12 @@ describe("FlatTableRow", () => {
         <table>
           <thead>
             <FlatTableRow>
-              <FlatTableHeader id="test 1">test 1</FlatTableHeader>
-              <FlatTableCell id="test 2">test 2</FlatTableCell>
-              <FlatTableCheckbox id="checkbox" />
-              <FlatTableRowHeader id="test 3">test 3</FlatTableRowHeader>
-              <FlatTableHeader id="test 4">test 4</FlatTableHeader>
-              <FlatTableCell id="test 5">test 5</FlatTableCell>
+              <FlatTableHeader>test 1</FlatTableHeader>
+              <FlatTableCell>test 2</FlatTableCell>
+              <FlatTableCheckbox />
+              <FlatTableRowHeader>test 3</FlatTableRowHeader>
+              <FlatTableHeader>test 4</FlatTableHeader>
+              <FlatTableCell>test 5</FlatTableCell>
             </FlatTableRow>
           </thead>
         </table>
@@ -627,14 +622,14 @@ describe("FlatTableRow", () => {
           <table>
             <thead>
               <FlatTableRow>
-                <FlatTableHeader id="test 1">test 1</FlatTableHeader>
-                <FlatTableCell id="test 2">test 2</FlatTableCell>
-                <FlatTableRowHeader id="test 3" stickyAlignment="right">
+                <FlatTableHeader>test 1</FlatTableHeader>
+                <FlatTableCell>test 2</FlatTableCell>
+                <FlatTableRowHeader stickyAlignment="right">
                   test 3
                 </FlatTableRowHeader>
-                <FlatTableCheckbox id="checkbox" />
-                <FlatTableHeader id="test 4">test 4</FlatTableHeader>
-                <FlatTableCell id="test 5">test 5</FlatTableCell>
+                <FlatTableCheckbox />
+                <FlatTableHeader>test 4</FlatTableHeader>
+                <FlatTableCell>test 5</FlatTableCell>
               </FlatTableRow>
             </thead>
           </table>
@@ -1446,12 +1441,12 @@ describe("FlatTableRow", () => {
               expandableArea="firstColumn"
               id={0}
             >
-              <FlatTableHeader id="test 1">test 1</FlatTableHeader>
-              <FlatTableCell id="test 2">test 2</FlatTableCell>
-              <FlatTableCheckbox id="checkbox" />
-              <FlatTableRowHeader id="test 3">test 3</FlatTableRowHeader>
-              <FlatTableHeader id="test 4">test 4</FlatTableHeader>
-              <FlatTableCell id="test 5">test 5</FlatTableCell>
+              <FlatTableHeader>test 1</FlatTableHeader>
+              <FlatTableCell>test 2</FlatTableCell>
+              <FlatTableCheckbox />
+              <FlatTableRowHeader>test 3</FlatTableRowHeader>
+              <FlatTableHeader>test 4</FlatTableHeader>
+              <FlatTableCell>test 5</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
         </table>
@@ -1585,12 +1580,12 @@ describe("FlatTableRow", () => {
               expandableArea="firstColumn"
               id={0}
             >
-              <FlatTableHeader id="test 1">test 1</FlatTableHeader>
-              <FlatTableCell id="test 2">test 2</FlatTableCell>
-              <FlatTableCheckbox id="checkbox" />
-              <FlatTableRowHeader id="test 3">test 3</FlatTableRowHeader>
-              <FlatTableHeader id="test 4">test 4</FlatTableHeader>
-              <FlatTableCell id="test 5">test 5</FlatTableCell>
+              <FlatTableHeader>test 1</FlatTableHeader>
+              <FlatTableCell>test 2</FlatTableCell>
+              <FlatTableCheckbox />
+              <FlatTableRowHeader>test 3</FlatTableRowHeader>
+              <FlatTableHeader>test 4</FlatTableHeader>
+              <FlatTableCell>test 5</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
         </table>
