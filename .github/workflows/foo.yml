@@ -1,4 +1,4 @@
-name: Playwright tests
+name: Lint Commit Messages
 
 on:
   workflow_dispatch:
@@ -7,22 +7,13 @@ on:
         description: "Pull Request Number"
         required: true
 
+
 jobs:
-  playwright-react:
-    timeout-minutes: 10
+  commitlint:
+    # this will only run on non-forked PRs
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.34.0-jammy
-    strategy:
-      fail-fast: false
-      matrix:
-        project: [chromium]
-        # to uncomment after check
-        # shardIndex: [1, 2, 3, 4, 5]
-        # shardTotal: [5]
-        shardIndex: [1]
-        shardTotal: [1]
-    steps:
+     steps:
       - id: get_pull
         uses: octokit/request-action@v2.x
         with:
@@ -39,35 +30,19 @@ jobs:
           ref: "refs/pull/${{ github.event.inputs.number }}/head"
           fetch-depth: 0
 
-      - name: Cache central NPM modules
-        uses: actions/cache@v3
+      - id: setup_node
+        uses: actions/setup-node@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: ">=18.12.1 18"
 
-      - name: install dependencies with Playwright browsers
-        env:
-          COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm ci
-          npx playwright install --with-deps
-          npx playwright --version
+      - id: install_dependencies
+        run: npm ci
 
-      - name: Playwright React tests
-        run: npm run test:ct
-
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 3
+      - id: lint_commits
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       - name: Report status - success
-        if: always() && success()
+        if: success()
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
@@ -75,12 +50,12 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
             -d '{
               "state": "success",
-              "context": "Playwright tests",
+              "context": "Semantic commmit",
               "description": "workflow completed successfully."
             }'
           
       - name: Report status - failed
-        if: always() && failure()
+        if: failure()
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
@@ -88,6 +63,6 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
             -d '{
               "state": "failure",
-              "context": Playwright tests",
+              "context": "Semantic commmit",
               "description": "workflow failed."
             }'
