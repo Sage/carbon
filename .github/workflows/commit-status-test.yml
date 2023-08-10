@@ -1,0 +1,77 @@
+name: commit status tests
+
+on: [pull_request]
+
+jobs:
+  playwright-react:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.34.0-jammy
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium]
+        # to uncomment after check
+        # shardIndex: [1, 2, 3, 4, 5]
+        # shardTotal: [5]
+        shardIndex: [1]
+        shardTotal: [1]
+    steps:
+      - id: get_pull
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/{owner}/{repo}/pulls/{pull_number}
+          owner: ${{ github.event.repository.owner.login }}
+          repo: ${{ github.event.repository.name }}
+          pull_number: ${{ github.event.inputs.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: "refs/pull/${{ github.event.inputs.number }}/head"
+          fetch-depth: 0
+
+      - name: Cache central NPM modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: install dependencies with Playwright browsers
+        env:
+          COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm ci
+          npx playwright install --with-deps
+          npx playwright --version
+
+      - name: Playwright React tests
+        run: npm run test:ct
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 3
+
+      - name: Report status
+        if: always()
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }} \
+            -d '{
+              "state": "${{ job.status }}",
+              "context": "Playwright tests",
+              "description": "workflow completion ${{ job.status }}."
+            }'
