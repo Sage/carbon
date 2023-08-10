@@ -4,9 +4,11 @@ import { MessageVariant } from "../message.component";
 
 const messageVariants = {
   error: "var(--colorsSemanticNegative500)",
-  info: "var(--colorsSemanticNeutral500)",
+  info: "var(--colorsSemanticInfo500)",
   success: "var(--colorsSemanticPositive500)",
   warning: "var(--colorsSemanticCaution500)",
+  neutral: "var(--colorsSemanticNeutral500)",
+  notification: "var(--colorsSemanticInfo500)",
 };
 
 type TypeIconStyleProps = {

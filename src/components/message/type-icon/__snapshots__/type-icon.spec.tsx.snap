@@ -77,6 +77,77 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: var(--colorsSemanticInfo500);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+}
+
+.c0 span:before {
+  color: var(--colorsUtilityYang100);
+}
+
+.c1 {
+  position: relative;
+  color: var(--colorsYin090);
+  background-color: transparent;
+  vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c1::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e92a";
+  font-style: normal;
+  font-weight: normal;
+  vertical-align: middle;
+  font-size: var(--sizing250);
+  line-height: var(--sizing250);
+  display: block;
+}
+
+<div
+  className="c0"
+>
+  <span
+    className="c1"
+    data-component="icon"
+    data-element="info"
+    fontSize="small"
+    type="info"
+  />
+</div>
+`;
+
+exports[`TypeIcon when rendered with no additional props should match the snapshot for neutral 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   background-color: var(--colorsSemanticNeutral500);
   display: -webkit-box;
   display: -webkit-flex;
@@ -191,7 +262,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
-  content: "\\e950";
+  content: "\\e993";
   font-style: normal;
   font-weight: normal;
   vertical-align: middle;
@@ -206,9 +277,9 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   <span
     className="c1"
     data-component="icon"
-    data-element="tick"
+    data-element="tick_circle"
     fontSize="small"
-    type="tick"
+    type="tick_circle"
   />
 </div>
 `;
@@ -290,7 +361,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: var(--colorsSemanticNeutral500);
+  background-color: var(--colorsSemanticInfo500);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -310,7 +381,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: var(--colorsSemanticNeutral500);
+  color: var(--colorsSemanticInfo500);
 }
 
 .c1 {
@@ -490,7 +561,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
-  content: "\\e950";
+  content: "\\e993";
   font-style: normal;
   font-weight: normal;
   vertical-align: middle;
@@ -505,9 +576,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   <span
     className="c1"
     data-component="icon"
-    data-element="tick"
+    data-element="tick_circle"
     fontSize="small"
-    type="tick"
+    type="tick_circle"
   />
 </div>
 `;
@@ -584,6 +655,82 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
     data-element="warning"
     fontSize="small"
     type="warning"
+  />
+</div>
+`;
+
+exports[`TypeIcon when transparent prop is set to true applies white background and the type icon with the proper style applied 5`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: var(--colorsSemanticNeutral500);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 100%;
+  min-width: 30px;
+  text-align: center;
+  background-color: transparent;
+}
+
+.c0 span:before {
+  color: var(--colorsUtilityYang100);
+}
+
+.c0 span:before {
+  color: var(--colorsSemanticNeutral500);
+}
+
+.c1 {
+  position: relative;
+  color: var(--colorsYin090);
+  background-color: transparent;
+  vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+}
+
+.c1::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e92a";
+  font-style: normal;
+  font-weight: normal;
+  vertical-align: middle;
+  font-size: var(--sizing250);
+  line-height: var(--sizing250);
+  display: block;
+}
+
+<div
+  className="c0"
+>
+  <span
+    className="c1"
+    data-component="icon"
+    data-element="info"
+    fontSize="small"
+    type="info"
   />
 </div>
 `;

@@ -27,10 +27,11 @@ const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("Tests for Message component properties", () => {
   ([
-    ["info", "rgb(51, 91, 112)"],
+    ["info", "rgb(0, 96, 167)"],
     ["error", VALIDATION.ERROR],
     ["success", "rgb(0, 138, 33)"],
     ["warning", VALIDATION.WARNING],
+    ["neutral", "rgb(51, 91, 112)"],
   ] as [MessageProps["variant"], string][]).forEach(
     ([variant, backgroundColor]) => {
       test(`should check ${variant} as variant for Message components`, async ({

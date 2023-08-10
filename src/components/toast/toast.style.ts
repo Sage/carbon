@@ -9,10 +9,11 @@ import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 
 const StyledPortal = styled(Portal)<{
+  align?: "left" | "center" | "right";
   isCenter?: boolean;
   isNotice?: boolean;
 }>`
-  ${({ theme, isCenter, isNotice }) => css`
+  ${({ theme, isCenter, isNotice, align }) => css`
     position: fixed;
     top: 0;
 
@@ -21,6 +22,25 @@ const StyledPortal = styled(Portal)<{
     ${isCenter &&
     css`
       margin-left: 50%;
+      transform: translateX(-50%);
+    `}
+
+    ${align === "left" &&
+    css`
+      left: 12%;
+      transform: translateX(-50%);
+    `}
+
+    ${align === "center" &&
+    css`
+      margin-left: 50%;
+      transform: translateX(-50%);
+    `}
+
+    ${align === "right" &&
+    css`
+      display: flex;
+      right: 0;
       transform: translateX(-50%);
     `}
 
@@ -40,18 +60,25 @@ StyledPortal.defaultProps = {
 const animationName = ".toast";
 const alternativeAnimationName = ".toast-alternative";
 const ToastStyle = styled(MessageStyle)<{
+  align?: "left" | "center" | "right";
   maxWidth?: string;
   isCenter?: boolean;
   isNotice?: boolean;
+  isNotification?: boolean;
 }>`
-  ${({ maxWidth, isCenter }) => css`
+  ${({ maxWidth, isCenter, align, isNotification }) => css`
     box-shadow: 0 10px 30px 0 rgba(0, 20, 29, 0.1),
       0 30px 60px 0 rgba(0, 20, 29, 0.1);
     line-height: 22px;
     margin-top: 30px;
     max-width: ${!maxWidth ? "300px" : maxWidth};
     position: relative;
-    margin-right: ${isCenter ? "auto" : "30px"};
+    margin-right: ${isCenter || align === "right" ? "auto" : "30px"};
+
+    ${isNotification &&
+    css`
+      border: 1px solid var(--colorsSemanticInfo500);
+    `}
   `}
 
   :focus {
@@ -148,9 +175,20 @@ const ToastContentStyle = styled(MessageContentStyle)<{
 `;
 
 const ToastWrapper = styled.div<{
+  align?: "left" | "center" | "right";
   isCenter?: boolean;
   isNotice?: boolean;
 }>`
+  ${({ align }) =>
+    align &&
+    css`
+      position: relative;
+      width: auto;
+      height: auto;
+      justify-content: ${align};
+      display: flex;
+    `}
+
   ${({ isCenter }) =>
     isCenter &&
     css`

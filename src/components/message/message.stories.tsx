@@ -73,6 +73,22 @@ export const Warning: ComponentStory<typeof Message> = () => {
   );
 };
 
+export const Neutral: ComponentStory<typeof Message> = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <>
+      {!isOpen && <Button onClick={() => setIsOpen(true)}>Open Message</Button>}
+      <Message
+        open={isOpen}
+        onDismiss={() => setIsOpen(false)}
+        variant="neutral"
+      >
+        Some custom message
+      </Message>
+    </>
+  );
+};
+
 export const WithRichContent: ComponentStory<typeof Message> = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (

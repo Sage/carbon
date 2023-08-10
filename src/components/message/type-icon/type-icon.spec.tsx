@@ -9,7 +9,7 @@ function render(props?: TypeIconProps) {
   return TestRenderer.create(<TypeIcon {...props} />);
 }
 
-const messages = ["info", "error", "success", "warning"] as const;
+const messages = ["info", "error", "success", "warning", "neutral"] as const;
 
 describe("TypeIcon", () => {
   describe("default props", () => {
