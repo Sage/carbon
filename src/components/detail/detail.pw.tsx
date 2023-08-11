@@ -7,7 +7,7 @@ import {
   footnotePreview,
 } from "../../../playwright/components/detail/index";
 
-import icon from "../../../playwright/components/index";
+import { icon } from "../../../playwright/components/index";
 
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";

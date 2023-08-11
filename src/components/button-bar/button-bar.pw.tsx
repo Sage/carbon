@@ -15,7 +15,7 @@ import {
   buttonDataComponent,
   buttonMinorComponent,
 } from "../../../playwright/components/button/index";
-import icon from "../../../playwright/components/index";
+import { icon } from "../../../playwright/components/index";
 import {
   checkAccessibility,
   getStyle,

@@ -143,3 +143,48 @@ export const containsClass = async (
 
   await expect(locatorFunc).toHaveClass(classNameRegEx);
 };
+
+const positions = {
+  first: 0,
+  second: 1,
+  third: 2,
+  fourth: 3,
+  fifth: 4,
+  sixth: 5,
+  seventh: 6,
+  eighth: 7,
+  ninth: 8,
+  tenth: 9,
+  eleventh: 10,
+  thirteenth: 12,
+};
+
+export function positionOfElement(type: keyof typeof positions): number {
+  return positions[type];
+}
+
+/**
+ * Converts from a "matrix(a, b, c, d, e, f)" string output from a CSS transform: rotate
+ * to the actual rotation angle, while accounting for rounding errors in the calculation.
+ * Adapted from https://css-tricks.com/get-value-of-css-rotation-through-javascript/ */
+export function getRotationAngle(cssTransformString: string) {
+  const matrixValues = cssTransformString
+    .split("(")[1]
+    .split(")")[0]
+    .split(",")
+    .map(Number);
+  const [a, b] = matrixValues;
+  const angleInRadians = Math.atan2(b, a);
+  const angleInDegrees = angleInRadians * (180 / Math.PI);
+  return Math.round(angleInDegrees);
+}
+
+export const assertCssValueIsApproximately = async (
+  element: Locator,
+  cssProp: string,
+  value: number
+) => {
+  const val = await getStyle(element, cssProp);
+  expect(parseInt(val)).toBeGreaterThanOrEqual(value - 2);
+  expect(parseInt(val)).toBeLessThanOrEqual(value + 2);
+};
