@@ -53,15 +53,3 @@ DefaultStory.args = {
   titleWidth: "",
   bodyFullWidth: false,
 };
-
-export const ContentComponentTest = ({
-  // eslint-disable-next-line react/prop-types
-  children = "This is an example of some content",
-  ...props
-}) => {
-  return (
-    <Content title="Title" {...props}>
-      {children}
-    </Content>
-  );
-};
