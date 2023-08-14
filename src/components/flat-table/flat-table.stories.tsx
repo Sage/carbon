@@ -2509,6 +2509,11 @@ export const Sizes: ComponentStory<typeof FlatTable> = () => {
 Sizes.storyName = "sizes";
 
 export const WithDraggableRows: ComponentStory<typeof FlatTable> = () => {
+  const Foo = ({ id, name, ...rest }) => (
+    <FlatTableRow key={id} id={id} {...rest}>
+      <FlatTableCell>{name}</FlatTableCell>
+    </FlatTableRow>
+  );
   const rows = [
     {
       id: "0",
@@ -2537,9 +2542,7 @@ export const WithDraggableRows: ComponentStory<typeof FlatTable> = () => {
       </FlatTableHead>
       <FlatTableBodyDraggable>
         {rows.map((row) => (
-          <FlatTableRow key={row.id} id={row.id}>
-            <FlatTableCell>{row.name}</FlatTableCell>
-          </FlatTableRow>
+          <Foo {...row} />
         ))}
       </FlatTableBodyDraggable>
     </FlatTable>

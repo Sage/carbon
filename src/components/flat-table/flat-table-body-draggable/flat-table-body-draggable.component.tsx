@@ -1,10 +1,18 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-
-import StyledIcon from "../../icon/icon.style";
 import StyledFlatTableBodyDraggable from "./flat-table-body-draggable.style";
-import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
+
+interface DraggableBodyContextProps {
+  draggable?: boolean;
+  /** function to find an item in the list of draggable items */
+  findItem?: (id?: number | string) => Record<string, unknown>;
+  /** function to reposition an item in the list of draggable items */
+  moveItem?: (id?: number | string, index?: number) => void;
+}
+export const DraggableBodyContext = React.createContext<DraggableBodyContextProps>(
+  {}
+);
 
 export interface FlatTableBodyDraggableProps {
   /** Array of FlatTableRow. */
@@ -48,22 +56,33 @@ export const FlatTableBodyDraggable = ({
   getOrder,
   ...rest
 }: FlatTableBodyDraggableProps) => {
-  const [draggableItems, setDraggableItems] = useState(
-    React.Children.toArray(children)
+  const [draggableItems, setDraggableItems] = useState<HTMLTableRowElement[]>(
+    []
   );
   const isFirstRender = useRef(true);
 
   useEffect(() => {
     if (!isFirstRender.current) {
-      setDraggableItems(React.Children.toArray(children));
+      const body = document.querySelector(
+        '[data-testid="flat-table-body-draggable"]'
+      );
+
+      if (body) {
+        const items = body.querySelectorAll("tr");
+        if (items) {
+          setDraggableItems(Array.from(items));
+        }
+      }
     } else {
       isFirstRender.current = false;
     }
   }, [children]);
 
-  const findItem = (id: string | number) => {
+  const findItem = (id?: string | number) => {
+    if (id === undefined) return {};
+
     const draggableItem = draggableItems.filter(
-      (item) => React.isValidElement(item) && `${item.props.id}` === id
+      (item) => item?.getAttribute("id") === id
     )[0];
 
     return {
@@ -72,7 +91,9 @@ export const FlatTableBodyDraggable = ({
     };
   };
 
-  const moveItem = (id: string | number, atIndex: number) => {
+  const moveItem = (id?: string | number, atIndex?: number) => {
+    if (id === undefined || atIndex === undefined) return;
+
     const { draggableItem, index } = findItem(id);
     if (!draggableItem) return;
 
@@ -87,9 +108,8 @@ export const FlatTableBodyDraggable = ({
       return;
     }
 
-    const draggableItemIds = draggableItems.map(
-      (draggableItem) =>
-        React.isValidElement(draggableItem) && draggableItem.props.id
+    const draggableItemIds = draggableItems.map((draggableItem) =>
+      Number(draggableItem.getAttribute("id") || "")
     );
 
     getOrder(draggableItemIds);
@@ -98,25 +118,11 @@ export const FlatTableBodyDraggable = ({
   return (
     <DndProvider backend={HTML5Backend}>
       <DropTarget getOrder={getItemsId} {...rest}>
-        {draggableItems.map(
-          (item) =>
-            React.isValidElement(item) &&
-            React.cloneElement(
-              item as React.ReactElement,
-              {
-                id: `${item.props.id}`,
-                moveItem,
-                findItem,
-                draggable: true,
-              },
-              [
-                <FlatTableCell key={item.props.id}>
-                  <StyledIcon type="drag" />
-                </FlatTableCell>,
-                item.props.children,
-              ]
-            )
-        )}
+        <DraggableBodyContext.Provider
+          value={{ draggable: true, moveItem, findItem }}
+        >
+          {children}
+        </DraggableBodyContext.Provider>
       </DropTarget>
     </DndProvider>
   );

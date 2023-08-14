@@ -1,9 +1,27 @@
-import React from "react";
-import { useDrop, useDrag } from "react-dnd";
+import React, { useContext } from "react";
+import {
+  useDrop,
+  useDrag,
+  ConnectDropTarget,
+  ConnectDragSource,
+} from "react-dnd";
+import { DraggableBodyContext } from "../../../flat-table/flat-table-body-draggable/flat-table-body-draggable.component";
+
+interface DraggableContextProps {
+  isDragging?: boolean;
+  drag?: ConnectDragSource;
+  drop?: ConnectDropTarget;
+}
+
+export const DraggableContext = React.createContext<DraggableContextProps>({});
 
 export interface FlatTableRowDraggableProps {
   /** Array of FlatTableRow. */
-  children: React.ReactNode;
+  children: (
+    isDragging: boolean,
+    drag: ConnectDragSource,
+    drop: ConnectDropTarget
+  ) => React.ReactNode;
   /** ID for use in drag and drop functionality */
   id?: number | string;
   /** function to find an item in the list of draggable items */
@@ -24,10 +42,11 @@ interface DragItem {
 export const FlatTableRowDraggable = ({
   children,
   id,
-  findItem,
-  moveItem,
-  rowRef,
-}: FlatTableRowDraggableProps) => {
+}: // findItem,
+// moveItem,
+// rowRef,
+FlatTableRowDraggableProps) => {
+  const { findItem, moveItem } = useContext(DraggableBodyContext);
   const originalIndex = Number(findItem?.(id).index);
 
   const [{ isDragging }, drag] = useDrag({
@@ -39,6 +58,9 @@ export const FlatTableRowDraggable = ({
     end: (dropResult, monitor) => {
       const { id: droppedId, originalIndex: oIndex } = monitor.getItem();
       const didDrop = monitor.didDrop();
+
+      console.log(droppedId, id, originalIndex);
+
       if (!didDrop) {
         moveItem?.(droppedId, Number(oIndex));
       }
@@ -56,22 +78,24 @@ export const FlatTableRowDraggable = ({
     },
   });
 
-  return React.cloneElement(children as React.ReactElement, {
-    key: originalIndex,
-    id,
-    isDragging,
-    ref: (node: HTMLTableRowElement) => {
-      drag(drop(node));
-      /* istanbul ignore else */
-      if (rowRef) {
-        if (typeof rowRef === "function") {
-          rowRef(node);
-        } else {
-          rowRef.current = node;
-        }
-      }
-    },
-  });
+  return <>{children(isDragging, drag, drop)}</>;
+
+  // React.cloneElement(children as React.ReactElement, {
+  //   key: originalIndex,
+  //   id,
+  //   isDragging,
+  //   ref: (node: HTMLTableRowElement) => {
+  //     drag(drop(node));
+  //     /* istanbul ignore else */
+  //     if (rowRef) {
+  //       if (typeof rowRef === "function") {
+  //         rowRef(node);
+  //       } else {
+  //         rowRef.current = node;
+  //       }
+  //     }
+  //   },
+  // });
 };
 
 FlatTableRowDraggable.displayName = "FlatTableRowDraggable";
