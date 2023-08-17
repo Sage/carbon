@@ -8,6 +8,7 @@ export const BODY = "body";
 export const BACKGROUND_UI_LOCATOR = 'div[data-element="modal-background"]';
 export const LINK = '[data-component="link"]';
 export const ICON = '[data-component="icon"]';
+export const PILL_PREVIEW = '[data-component="pill"]';
 export const ERROR_ICON = '[data-element="error"]';
 export const WARNING_ICON = '[data-component="icon"][data-element="warning"]';
 export const INFO_ICON = '[data-component="icon"][data-element="info"]';
