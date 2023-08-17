@@ -122,3 +122,24 @@ export const expectEventWasNotCalled = async (callbackData: string[]) => {
   expect(count).toBe("0");
   expect(callbackData).toEqual([]);
 };
+
+/**
+ * Creates a safe regExp and uses the .toHaveClass() assertion
+ * As there is not a "contains" assertion for the .toHaveClass() assertion
+ * @param locatorFunc the locator you'd like to use
+ * @param className a className string you'd like to assert against
+ * @example await containsClass(exampleLocator(page), "foo");
+ */
+export const containsClass = async (
+  locatorFunc: Locator,
+  className: string
+) => {
+  const escapedClassName = className.replace(
+    /[-[\]{}()*+?.,\\^$|#\s]/g,
+    "\\$&"
+  );
+
+  const classNameRegEx = new RegExp(escapedClassName);
+
+  await expect(locatorFunc).toHaveClass(classNameRegEx);
+};
