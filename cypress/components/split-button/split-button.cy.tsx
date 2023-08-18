@@ -691,7 +691,7 @@ context("Tests for SplitButton component", () => {
         "have.css",
         "border-radius",
         "0px 32px 32px 0px"
-      )
+      );
     });
 
     it("should have the expected border radius on children container and buttons", () => {
