@@ -1,3 +1,10 @@
+## [119.12.0](https://github.com/Sage/carbon/compare/v119.11.0...v119.12.0) (2023-08-21)
+
+
+### Features
+
+* **pod:** allow title and subtitle to be passed as a node ([efdc827](https://github.com/Sage/carbon/commit/efdc827fd549ae0f3307cdaa03674274b4c0b95f)), closes [#4607](https://github.com/Sage/carbon/issues/4607)
+
 ## [119.11.0](https://github.com/Sage/carbon/compare/v119.10.2...v119.11.0) (2023-08-09)
 
 
