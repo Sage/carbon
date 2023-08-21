@@ -20,6 +20,7 @@ import {
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import Logger from "../../__internal__/utils/logger";
+import Typography, { VariantTypes } from "../typography/typography.component";
 
 const variantColors = {
   primary: {
@@ -137,6 +138,7 @@ describe("Pod", () => {
 
   describe("when title prop is set", () => {
     const title = "title";
+    const subtitle = "subtitle";
 
     it("renders header with correct styles", () => {
       const wrapper = render({ title });
@@ -148,11 +150,33 @@ describe("Pod", () => {
       expect(wrapper.find(StyledTitle).text()).toBe(title);
     });
 
+    it.each<VariantTypes>(["h1", "h2", "h3", "h4", "h5"])(
+      "renders title node when node is passed as %s variant",
+      (variantType) => {
+        const wrapper = render({
+          title: <Typography variant={variantType}>{title}</Typography>,
+        });
+
+        expect(wrapper.find(variantType).text()).toBe(title);
+      }
+    );
+
     it("renders subtitle when subtitle prop is also passed", () => {
-      const subtitle = "subtitle";
       const wrapper = render({ title, subtitle });
       expect(wrapper.find(StyledSubtitle).text()).toBe(subtitle);
     });
+
+    it.each<VariantTypes>(["h2", "h3", "p", "em", "b"])(
+      "renders subtitle node when node is passed as %s variant",
+      (variantType) => {
+        const wrapper = render({
+          title,
+          subtitle: <Typography variant={variantType}>{subtitle}</Typography>,
+        });
+
+        expect(wrapper.find(variantType).text()).toBe(subtitle);
+      }
+    );
 
     it("renders header with correct right margin, when internalEditButton prop is passed and alignTitle is `right`", () => {
       const wrapper = render({

@@ -28,6 +28,9 @@ import {
   assertCssValueIsApproximately,
 } from "../../support/component-helper/common-steps";
 import { SIZE, CHARACTERS } from "../../support/component-helper/constants";
+import Typography, {
+  VariantTypes,
+} from "../../../src/components/typography/typography.component";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -104,11 +107,41 @@ context("Testing Pod component", () => {
     }
   );
 
+  it.each<VariantTypes>(["h1", "h2", "h3", "h4", "h5"])(
+    "renders title node when node is passed with %s variant",
+    (variantType) => {
+      const title = "title";
+      CypressMountWithProviders(
+        <PodExample
+          title={<Typography variant={variantType}>{title}</Typography>}
+        />
+      );
+
+      cy.get(variantType).contains(title);
+    }
+  );
+
   it.each(specialCharacters)(
     "should check subtitle as %s for Pod component",
     (subtitle) => {
       CypressMountWithProviders(<PodExample subtitle={subtitle} />);
       podSubTitle().should("have.text", subtitle);
+    }
+  );
+
+  it.each<VariantTypes>(["h2", "h3", "p", "em", "b"])(
+    "renders subtitle node when node is passed with %s variant",
+    (variantType) => {
+      const title = "title";
+      const subtitle = "subtitle";
+      CypressMountWithProviders(
+        <PodExample
+          title
+          subtitle={<Typography variant={variantType}>{subtitle}</Typography>}
+        />
+      );
+
+      cy.get(variantType).contains(title);
     }
   );
 
