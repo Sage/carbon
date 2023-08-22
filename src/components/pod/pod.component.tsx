@@ -38,10 +38,10 @@ export interface PodProps extends MarginProps {
   size?: PodSize;
   /** Prop to apply a theme to the Pod */
   variant?: PodVariant;
-  /** Title for the pod h4 element always shown */
-  title?: string | React.ReactNode;
+  /** Title for the pod */
+  title?: React.ReactNode;
   /** Optional subtitle for the pod */
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   /** A component to render as a Pod footer */
   footer?: string | React.ReactNode;
   /** Supplies an edit action to the pod */
@@ -199,11 +199,18 @@ const Pod = React.forwardRef<HTMLDivElement, PodProps>(
                 internalEditButton={internalEditButton}
                 size={size}
               >
-                <StyledTitle data-element="title">{title}</StyledTitle>
-                {subtitle && (
+                {typeof title === "string" ? (
+                  <StyledTitle data-element="title">{title}</StyledTitle>
+                ) : (
+                  title
+                )}
+
+                {typeof subtitle === "string" ? (
                   <StyledSubtitle data-element="subtitle">
                     {subtitle}
                   </StyledSubtitle>
+                ) : (
+                  subtitle
                 )}
               </StyledHeader>
             )}

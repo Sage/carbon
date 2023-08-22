@@ -11,6 +11,15 @@ export const Default: ComponentStory<typeof Pod> = () => (
   <Pod title="Title">Content</Pod>
 );
 
+export const WithTitleAndSubtitleNode: ComponentStory<typeof Pod> = () => (
+  <Pod
+    title={<Typography variant="h1">Title</Typography>}
+    subtitle={<Typography variant="h2">Subtitle</Typography>}
+  >
+    Content
+  </Pod>
+);
+
 export const WithCustomHeight: ComponentStory<typeof Pod> = () => (
   <Pod title="Title" subtitle="Subtitle" footer="Footer" height={350}>
     Content
