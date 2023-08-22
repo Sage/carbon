@@ -70,8 +70,12 @@ const StyledMenuItemWrapper = styled.a.attrs({
     asDiv,
     hasInput,
   }) => css`
-    ${padding}
-
+    ${
+      !inFullscreenView &&
+      css`
+        ${padding}
+      `
+    }
     display: inline-block;
     font-size: 14px;
     font-weight: 700;

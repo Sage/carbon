@@ -19,6 +19,7 @@ import StyledSearchButton from "../../search/search-button.style";
 import {
   assertStyleMatch,
   simulate,
+  testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
 import { baseTheme } from "../../../style/themes";
 import { StyledMenuItem } from "../menu.style";
@@ -216,8 +217,8 @@ describe("MenuFullscreen", () => {
 
         assertStyleMatch(
           {
-            paddingTop: "16px",
-            paddingBottom: "16px",
+            paddingTop: "var(--spacing200)",
+            paddingBottom: "var(--spacing200)",
           },
           wrapper.find(StyledMenuItem)
         );
@@ -282,6 +283,24 @@ describe("MenuFullscreen", () => {
         wrapper.find(StyledMenuFullscreen)
       );
     });
+
+    testStyledSystemPadding(
+      (props) => (
+        <MenuContext.Provider
+          value={{
+            menuType: "light",
+            openSubmenuId: null,
+            inFullscreenView: true,
+            inMenu: true,
+            setOpenSubmenuId: () => {},
+          }}
+        >
+          <MenuItem {...props}>Foo</MenuItem>
+        </MenuContext.Provider>
+      ),
+      { pt: "10px", pb: "10px" },
+      (component) => component.find(StyledMenuItem)
+    );
   });
 
   describe("onClose", () => {
