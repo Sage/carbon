@@ -22,7 +22,7 @@ const StyledToolbarButton = styled.button.attrs({ type: "button" })<{
     :focus,
     :active {
       z-index: 1;
-      postion: relative;
+      position: relative;
       ${theme.focusRedesignOptOut &&
       /* istanbul ignore next */
       css`

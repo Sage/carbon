@@ -374,7 +374,8 @@ context("Test for TextEditor component", () => {
             "box-shadow",
             "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
           )
-          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px")
+          .and("have.css", "position", "relative");
         textEditorToolbar("italic")
           .focus()
           .should(
@@ -382,7 +383,8 @@ context("Test for TextEditor component", () => {
             "box-shadow",
             "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
           )
-          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px")
+          .and("have.css", "position", "relative");
         textEditorToolbar("bullet-list")
           .focus()
           .should(
@@ -390,7 +392,8 @@ context("Test for TextEditor component", () => {
             "box-shadow",
             "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
           )
-          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px")
+          .and("have.css", "position", "relative");
         textEditorToolbar("number-list")
           .focus()
           .should(
@@ -398,7 +401,8 @@ context("Test for TextEditor component", () => {
             "box-shadow",
             "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
           )
-          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px");
+          .and("have.css", "outline", "rgba(0, 0, 0, 0) solid 3px")
+          .and("have.css", "position", "relative");
       });
     });
   });
