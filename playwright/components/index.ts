@@ -1,8 +1,14 @@
 import type { Page } from "@playwright/test";
-import { ICON } from "./locators";
+import { ICON, TOOLTIP_PREVIEW, DLS_ROOT } from "./locators";
 
-const icon = (page: Page) => {
+export const icon = (page: Page) => {
   return page.locator(ICON);
 };
 
-export default icon;
+export const tooltipPreview = (page: Page) => {
+  return page.locator(TOOLTIP_PREVIEW);
+};
+
+export const dlsRoot = (page: Page) => {
+  return page.locator(DLS_ROOT);
+};
