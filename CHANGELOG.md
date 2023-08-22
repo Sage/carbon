@@ -1,3 +1,10 @@
+### [119.12.1](https://github.com/Sage/carbon/compare/v119.12.0...v119.12.1) (2023-08-22)
+
+
+### Bug Fixes
+
+* **menu-item:** allow fixed padding on StyledMenuItem to be configurable when in full screen view ([721bcf6](https://github.com/Sage/carbon/commit/721bcf61b1adb96b00f523558e407fec22ad4815)), closes [#6058](https://github.com/Sage/carbon/issues/6058)
+
 ## [119.12.0](https://github.com/Sage/carbon/compare/v119.11.0...v119.12.0) (2023-08-21)
 
 
