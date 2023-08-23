@@ -2,6 +2,7 @@
 const fse = require("fs-extra");
 const { join } = require("path");
 const convertLocators = require("./convertLocators");
+const convertTests = require("./convertTests");
 
 const componentName = process.argv[2];
 
@@ -56,5 +57,7 @@ try {
   }
 }
 
-console.log("converting locators from cypress to playwright");
+console.log("converting locators from cypress to playwright...");
 convertLocators(join(locatorTargetDir, "index.ts"));
+console.log("converting tests from cypress to playwright...");
+convertTests(testsDestinationFile);
