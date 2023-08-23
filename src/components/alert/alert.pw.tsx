@@ -57,7 +57,7 @@ test.describe("should render Alert component", () => {
     });
   });
 
-  test("with close icon button that does not close dialog when ecape key pressed and disableEscKey prop is true", async ({
+  test("with close icon button that does not close dialog when escape key pressed and disableEscKey prop is true", async ({
     mount,
     page,
   }) => {
