@@ -39,7 +39,8 @@
     "test:ct": "playwright test -c playwright-ct.config.ts",
     "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
     "test:ct:report": "npx playwright show-report",
-    "clear-playwright-cache": "rimraf ./playwright/.cache"
+    "clear-playwright-cache": "rimraf ./playwright/.cache",
+    "cypress-to-pw": "node ./scripts/cypress-to-playwright"
   },
   "repository": {
     "type": "git",
