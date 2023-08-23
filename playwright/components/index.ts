@@ -12,6 +12,7 @@ export const getDataElementByValue = (page: Page, element: string) => {
 export const closeIconButton = (page: Page) => {
   return page.locator(CLOSE_ICON_BUTTON);
 };
+
 export const tooltipPreview = (page: Page) => {
   return page.locator(TOOLTIP_PREVIEW);
 };
