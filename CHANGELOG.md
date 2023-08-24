@@ -1,3 +1,10 @@
+### [119.12.2](https://github.com/Sage/carbon/compare/v119.12.1...v119.12.2) (2023-08-24)
+
+
+### Bug Fixes
+
+* **text-editor:** update typo to ensure focused toolbar button has relative position ([25bcaf6](https://github.com/Sage/carbon/commit/25bcaf66b7dcfc023700bdd01b2683765a478d06))
+
 ### [119.12.1](https://github.com/Sage/carbon/compare/v119.12.0...v119.12.1) (2023-08-22)
 
 
