@@ -4,6 +4,7 @@ import {
   LayoutProps,
   FlexboxProps,
   PositionProps,
+  GridProps,
 } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import {
@@ -11,6 +12,7 @@ import {
   filterStyledSystemPaddingProps,
   filterStyledSystemLayoutProps,
   filterStyledSystemFlexboxProps,
+  filterStyledSystemGridProps,
 } from "../../style/utils";
 import StyledBox from "./box.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
@@ -31,6 +33,7 @@ export interface BoxProps
   extends SpaceProps,
     LayoutProps,
     FlexboxProps,
+    Omit<GridProps, "gridGap" | "gridRowGap" | "gridColumnGap">,
     TagProps,
     Omit<PositionProps, "zIndex"> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -121,6 +124,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         {...filterStyledSystemMarginProps(rest)}
         {...filterStyledSystemPaddingProps(rest)}
         {...filterStyledSystemFlexboxProps(rest)}
+        {...filterStyledSystemGridProps(rest)}
         {...filterStyledSystemLayoutProps(rest)}
       >
         {children}

@@ -3,6 +3,7 @@ import {
   space,
   layout,
   flexbox,
+  grid,
   position as positionFn,
   PositionProps,
 } from "styled-system";
@@ -25,6 +26,7 @@ const StyledBox = styled.div<BoxProps>`
   ${space}
   ${layout}
   ${flexbox}
+  ${grid}
   ${calculatePosition}
 
   ${({ theme, borderRadius = "borderRadius000" }) =>
@@ -78,7 +80,10 @@ const StyledBox = styled.div<BoxProps>`
     `}
 
     ${({ display, gap, columnGap, rowGap }) =>
-    (display === "flex" || display === "inline-flex") &&
+    (display === "flex" ||
+      display === "inline-flex" ||
+      display === "grid" ||
+      display === "inline-grid") &&
     css`
       ${gap !== undefined &&
       css`

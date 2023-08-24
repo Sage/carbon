@@ -61,14 +61,20 @@ Please note that in order to see the `position: fixed` Box, you will need to vie
   <Story name="flex" story={stories.Flex} />
 </Canvas>
 
+### Grid
+
+<Canvas>
+  <Story name="grid" story={stories.Grid} />
+</Canvas>
+
 ### Gap
 
 The `Box` component also supports the `gap`, `column-gap` and `row-gap` properties when its `display` property is set to either
-`flex` or `inline-flex`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of
+`flex`, `inline-flex`, `grid` or `inline-grid`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of
 how these props can be used.
 
 <Canvas>
-  <Story name="flex gap" story={stories.Gap} />
+  <Story name="flex/grid gap" story={stories.Gap} />
 </Canvas>
 
 ### Layout
@@ -107,4 +113,4 @@ see [prop table](#props) below for more information on the types it accepts
 
 ### Style System
 
-<StyledSystemProps of={Box} spacing flexBox layout position noHeader />
+<StyledSystemProps of={Box} spacing flexBox grid layout position noHeader />
