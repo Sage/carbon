@@ -38,7 +38,8 @@
     "prepare": "husky install",
     "test:ct": "playwright test -c playwright-ct.config.ts",
     "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
-    "test:ct:report": "npx playwright show-report"
+    "test:ct:report": "npx playwright show-report",
+    "clear-playwright-cache": "rimraf ./playwright/.cache"
   },
   "repository": {
     "type": "git",
