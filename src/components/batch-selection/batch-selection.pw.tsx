@@ -38,18 +38,16 @@ test.describe("check BatchSelection component properties", () => {
 
   test("should check hidden BatchSelection", async ({ mount, page }) => {
     await mount(<BatchSelectionComponent hidden />);
+    const batchSelection = batchSelectionComponent(page);
+    await expect(batchSelection.getAttribute("hidden")).not.toBeNull();
 
-    await expect(batchSelectionComponent(page).getAttribute("hidden"))
-      .toBeTruthy;
-
-    await expect(batchSelectionComponent(page)).toHaveCSS("opacity", "0");
+    await expect(batchSelection).toHaveCSS("opacity", "0");
   });
 
   test("should check disabled BatchSelection", async ({ mount, page }) => {
     await mount(<BatchSelectionComponent disabled />);
-
-    await expect(batchSelectionComponent(page).getAttribute("disabled"))
-      .toBeTruthy;
+    const batchSelection = batchSelectionComponent(page);
+    await expect(batchSelection.getAttribute("disabled")).not.toBeNull();
   });
 
   ([
