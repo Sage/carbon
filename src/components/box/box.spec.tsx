@@ -5,6 +5,7 @@ import {
   testStyledSystemColor,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
+  testStyledSystemGrid,
   testStyledSystemPosition,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
@@ -28,6 +29,7 @@ describe("Box", () => {
   testStyledSystemColor((props) => <Box {...props} />);
   testStyledSystemLayout((props) => <Box {...props} />);
   testStyledSystemFlexBox((props) => <Box {...props} />);
+  testStyledSystemGrid((props) => <Box {...props} />);
   testStyledSystemPosition((props) => <Box {...props} />);
 
   it.each<OverflowWrap>(["break-word", "anywhere"])(

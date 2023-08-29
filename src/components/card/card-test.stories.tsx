@@ -81,7 +81,7 @@ export const CardComponent = (props: Partial<CardProps>) => {
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography fontSize="16px" m={0} weight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="bold">
             Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />
@@ -234,13 +234,7 @@ export const DraggableExample = () => {
 
   return (
     <Box width="700px" height="450px">
-      <Box
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-        }}
-      >
+      <Box display="flex" flexDirection="row" justifyContent="space-around">
         <DndProvider backend={HTML5Backend}>
           <Column
             title={columnNames.PRODUCT_ONE}
@@ -265,7 +259,7 @@ export const CardTextAlignment = ({ ...props }) => {
     <Card>
       <CardRow>
         <CardColumn {...props}>
-          <Typography fontSize="16px" m={0} weight="bold">
+          <Typography fontSize="16px" m={0} fontWeight="bold">
             Stripe Balance
           </Typography>
           <Heading title="£ 0.00" divider={false} />

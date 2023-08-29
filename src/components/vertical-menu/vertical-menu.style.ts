@@ -5,7 +5,7 @@ import baseTheme from "../../style/themes/base";
 
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
-import Box from "../box";
+import StyledBox from "../box/box.style";
 
 export const StyledList = styled.ul`
   list-style: none;
@@ -109,7 +109,7 @@ export const StyledChevronIcon = styled(Icon)`
   color: var(--colorsComponentsLeftnavWinterStandardContent);
 `;
 
-export const StyledVerticalMenu = styled(Box)`
+export const StyledVerticalMenu = styled(StyledBox)`
   // TODO remove hardcoded values when DS have had chance to review which token to use
   &::-webkit-scrollbar-track {
     background-color: #cccccc;
@@ -122,7 +122,7 @@ export const StyledVerticalMenu = styled(Box)`
   }
 `;
 
-export const StyledVerticalMenuFullScreen = styled(Box)`
+export const StyledVerticalMenuFullScreen = styled(StyledBox)`
   position: fixed;
   top: 0;
   bottom: 0;

@@ -11,7 +11,7 @@ import MenuDivider from "../menu-divider/menu-divider.component";
 import Search from "../../search";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledScrollableBlock from "./scrollable-block.style";
-import Box from "../../box/box.component";
+import StyledBox from "../../box/box.style";
 import { StyledMenuItem } from "../menu.style";
 import { StyledLink } from "../../link/link.style";
 
@@ -106,7 +106,7 @@ describe("ScrollableBlock", () => {
             borderRadius: "var(--borderRadius000)",
           },
           render(menuType, { variant: "default" }),
-          { modifier: `${Box}` }
+          { modifier: `${StyledBox}` }
         );
       });
 
@@ -123,7 +123,9 @@ describe("ScrollableBlock", () => {
               borderBottomRightRadius: "var(--borderRadius000)",
             },
             (wrapper = render(menuType, { variant: "default" })),
-            { modifier: `${Box} ${StyledMenuItem}:last-child ${modifier}` }
+            {
+              modifier: `${StyledBox} ${StyledMenuItem}:last-child ${modifier}`,
+            }
           );
         }
       );

@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import Box from "../../box";
+import StyledBox from "../../box/box.style";
 
-const StyledPicklist = styled(Box).attrs({ as: "ul" })`
+// TODO: remove polymorphism when we revisit as part of ticket FE-6177
+const StyledPicklist = styled(StyledBox).attrs({ as: "ul" })`
   position: relative;
   list-style: none;
   margin: 0;

@@ -425,53 +425,7 @@ const generateStyledSystemLayoutProps = (defaults) => {
   ];
 };
 
-const gapProperties = (hasGap) => {
-  if (!hasGap) return [];
-
-  return [
-    {
-      name: "gap",
-      type: { summary: "number | string" },
-      description:
-        "Sets the gap between children of a flex box container. Accepts any valid CSS string or any number 0 - 8 which will be multiplied by 8 and result in a px value.",
-      required: false,
-      defaultValue: {
-        summary: "-",
-      },
-      table: {
-        category: "Flexbox",
-      },
-    },
-    {
-      name: "columnGap",
-      type: { summary: "number | string" },
-      description:
-        "Sets the column gap between children of a flex box container. Accepts any valid CSS string or any number 0 - 8 which will be multiplied by 8 and result in a px value.",
-      required: false,
-      defaultValue: {
-        summary: "-",
-      },
-      table: {
-        category: "Flexbox",
-      },
-    },
-    {
-      name: "rowGap",
-      type: { summary: "number | string" },
-      description:
-        "Sets the row gap between children of a flex box container. Accepts any valid CSS string or any number 0 - 8 which will be multiplied by 8 and result in a px value.",
-      required: false,
-      defaultValue: {
-        summary: "-",
-      },
-      table: {
-        category: "Flexbox",
-      },
-    },
-  ];
-};
-
-const generateStyledSystemFlexBoxProps = (defaults, hasGap) => {
+const generateStyledSystemFlexBoxProps = (defaults) => {
   return [
     {
       name: "alignItems",
@@ -629,7 +583,119 @@ const generateStyledSystemFlexBoxProps = (defaults, hasGap) => {
         category: "Flexbox",
       },
     },
-    ...gapProperties(hasGap),
+  ];
+};
+
+const generateStyledSystemGridProps = (defaults) => {
+  return [
+    {
+      name: "gridColumn",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridColumn || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
+    {
+      name: "gridRow",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridRow || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
+    {
+      name: "gridArea",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridArea || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
+    {
+      name: "gridAutoFlow",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridAutoFlow || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
+    {
+      name: "gridAutoRows",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridAutoRows || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
+    {
+      name: "gridAutoColumns",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridAutoColumns || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
+    {
+      name: "gridTemplateRows",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridTemplateRows || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
+    {
+      name: "gridTemplateColumns",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridTemplateColumns || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
+    {
+      name: "gridTemplateAreas",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.gridTemplateAreas || "-",
+      },
+      table: {
+        category: "Grid",
+      },
+    },
   ];
 };
 
@@ -770,7 +836,7 @@ const StyledSystemProps = ({
   width,
   layout,
   flexBox,
-  hasGapProps,
+  grid,
   defaults = {},
   noHeader,
   margin,
@@ -799,7 +865,10 @@ const StyledSystemProps = ({
     rows.push(...generateStyledSystemWidthProps(defaults));
   }
   if (flexBox) {
-    rows.push(...generateStyledSystemFlexBoxProps(defaults, hasGapProps));
+    rows.push(...generateStyledSystemFlexBoxProps(defaults));
+  }
+  if (grid) {
+    rows.push(...generateStyledSystemGridProps(defaults));
   }
   if (background) {
     rows.push(...generateStyledSystemBackgroundProps(defaults));
@@ -823,7 +892,8 @@ StyledSystemProps.propTypes = {
   spacing: PropTypes.bool,
   width: PropTypes.bool,
   layout: PropTypes.bool,
-  flex: PropTypes.bool,
+  flexBox: PropTypes.bool,
+  grid: PropTypes.bool,
   defaults: PropTypes.object,
   margin: PropTypes.bool,
   padding: PropTypes.bool,
