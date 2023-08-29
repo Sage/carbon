@@ -16,7 +16,7 @@ import {
   icon,
   tooltipPreview,
 } from "../../../playwright/components/index";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 
 import Button, { ButtonProps } from "../../../src/components/button";
 import {
