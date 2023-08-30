@@ -2,9 +2,11 @@ import React, { useRef, useState } from "react";
 import { StoryFn } from "@storybook/react";
 import isChromatic from "../../../.storybook/isChromatic";
 
+import Dialog from ".";
+import type { DialogHandle } from ".";
+
 import Box from "../box";
 import Button from "../button";
-import Dialog from "./dialog.component";
 import Form from "../form";
 import Typography from "../typography";
 import Textbox from "../textbox";
@@ -12,6 +14,8 @@ import Fieldset from "../fieldset";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import Loader from "../loader";
 import Toast from "../toast";
+import Textarea from "../textarea";
+import CarbonProvider from "../carbon-provider";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 const defaultOpenState = isChromatic();
@@ -168,7 +172,7 @@ export const WithHelp: StoryFn = () => {
   );
 };
 
-export const DynamicContent: StoryFn = () => {
+export const LoadingContent: StoryFn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(defaultOpenState);
 
@@ -193,7 +197,7 @@ export const DynamicContent: StoryFn = () => {
           <Loader isActive isInsideButton={false} size="small" />
         ) : (
           <>
-            <Textbox label="Textbox 1" labelInline />
+            <Textbox label="Textbox 1" labelInline autoFocus />
             <Textbox label="Textbox 2" labelInline />
             <Textbox label="Textbox 3" labelInline />
             <Textbox label="Textbox 4" labelInline />
@@ -206,7 +210,7 @@ export const DynamicContent: StoryFn = () => {
     </>
   );
 };
-DynamicContent.parameters = { chromatic: { disableSnapshot: true } };
+LoadingContent.parameters = { chromatic: { disableSnapshot: true } };
 
 export const FocusingADifferentFirstElement: StoryFn = () => {
   const [isOpenOne, setIsOpenOne] = useState(false);
@@ -434,4 +438,47 @@ Responsive.parameters = {
   chromatic: {
     viewports: [1500, 900],
   },
+};
+
+export const UsingHandle = () => {
+  const dialogHandle = useRef<DialogHandle>(null);
+
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
+    ev.preventDefault();
+    setIsSubmitted(true);
+    dialogHandle.current?.focus();
+  }
+
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title={isSubmitted ? "Thank you for your feedback." : "Give feedback"}
+        showCloseIcon
+        ref={dialogHandle}
+      >
+        {isSubmitted ? (
+          <Typography>
+            Your feedback helps us continually improve our software.
+          </Typography>
+        ) : (
+          <Form
+            stickyFooter
+            saveButton={<Button type="submit">Submit</Button>}
+            onSubmit={handleSubmit}
+          >
+            <Textarea
+              label="What would you like to tell us?"
+              characterLimit={1000}
+            />
+          </Form>
+        )}
+      </Dialog>
+    </CarbonProvider>
+  );
 };

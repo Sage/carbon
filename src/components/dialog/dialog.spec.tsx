@@ -1,8 +1,12 @@
 import React from "react";
 import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { render as rtlRender, screen } from "@testing-library/react";
+import type { RenderOptions as RTLRenderOptions } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import Dialog from ".";
+import type { DialogHandle } from ".";
 
 import { space } from "../../style/themes/base/base-theme.config";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -53,6 +57,19 @@ function enzymeMount(ui: React.ReactElement, document = globalThis.document) {
   return mount(ui, { attachTo: container });
 }
 
+function render(
+  ui: React.ReactElement,
+  options?: RTLRenderOptions,
+  document = globalThis.document
+) {
+  if (document.body.innerHTML.length >= 1) {
+    throw new Error(
+      "Found DOM to be non-empty before rendering. Please make sure to call cleanup() after each test."
+    );
+  }
+
+  return rtlRender(ui, options);
+}
 function cleanup(document = globalThis.document) {
   document.body.innerHTML = "";
 }
@@ -798,5 +815,29 @@ describe("Dialog", () => {
       wrapper.find(StyledDialog),
       { modifier: `${StyledFormFooter}.sticky` }
     );
+  });
+});
+
+describe("when ref handle is passed to Dialog", () => {
+  it("calling exposed focus method refocuses on Dialog's root container", async () => {
+    const MockComponent = () => {
+      const dialogHandle = React.useRef<DialogHandle>(null);
+
+      return (
+        <Dialog open title="My dialog" ref={dialogHandle}>
+          <Button onClick={() => dialogHandle.current?.focus()}>
+            Press me to refocus on Dialog
+          </Button>
+        </Dialog>
+      );
+    };
+    const user = userEvent.setup();
+    render(<MockComponent />);
+    const button = screen.getByRole("button");
+    button.focus();
+
+    await user.click(button);
+
+    expect(screen.getByRole("dialog")).toHaveFocus();
   });
 });
