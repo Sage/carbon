@@ -6,6 +6,8 @@ import {
   CLOSE_ICON_BUTTON,
   TOOLTIP_PREVIEW,
   DLS_ROOT,
+  FIELD_HELP_PREVIEW,
+  LABEL,
 } from "./locators";
 
 export const icon = (page: Page) => {
@@ -34,4 +36,20 @@ export const link = (page: Page) => {
 
 export const pillPreview = (page: Page) => {
   return page.locator(PILL_PREVIEW);
+};
+
+export const fieldHelpPreview = (page: Page) => {
+  return page.locator(FIELD_HELP_PREVIEW).first();
+};
+
+export const getComponent = (page: Page, component: string) => {
+  return page.locator(`[data-component="${component}"]`);
+};
+
+export const label = (page: Page) => {
+  return page.locator(LABEL);
+};
+
+export const legendSpan = (page: Page) => {
+  return page.locator("legend > span");
 };
