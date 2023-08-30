@@ -7,6 +7,14 @@ const t = require("@babel/types");
 const chalk = require("chalk");
 
 function convertLocators(filename) {
+  if (!fse.pathExistsSync(filename)) {
+    console.log(
+      chalk.yellow(
+        "No locator file found for component. Skipping this conversion and moving straight to the tests..."
+      )
+    );
+    return;
+  }
   let childrenCalls = 0;
   const ast = parser.parse(fse.readFileSync(filename, "utf8"), {
     sourceType: "module",
@@ -34,7 +42,7 @@ function convertLocators(filename) {
     }
     switch (object.type) {
       case "Identifier":
-        return object.name;
+        return ["cy", "page"].includes(object.name);
       case "CallExpression":
         return isLocatorChain(object.callee);
       default:

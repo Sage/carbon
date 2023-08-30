@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 const fse = require("fs-extra");
 const { join } = require("path");
+const { exec } = require("child_process");
+const chalk = require("chalk");
 const convertLocators = require("./convertLocators");
 const convertTests = require("./convertTests");
 
@@ -12,8 +14,10 @@ if (fse.pathExistsSync(locatorSourceDir)) {
   console.log(
     `moving locator files from ${locatorSourceDir} to ${locatorTargetDir}`
   );
-  console.log(
-    `don't forget to remove anything from ${locatorSourceDir} - potentially entire files/folders - that are no longer used in any tests!`
+  console.warn(
+    chalk.yellow(
+      `don't forget to remove anything from ${locatorSourceDir} - potentially entire files/folders - that are no longer used in any tests!`
+    )
   );
   fse.copySync(locatorSourceDir, locatorTargetDir);
   const fileNames = ["index", "locators"];
@@ -34,7 +38,9 @@ console.log(
   `moving stories from ${storiesSourceFile} to ${storiesDestinationFile}`
 );
 console.log(
-  "make sure you remove any stories that aren't used in Playwright tests"
+  chalk.yellow(
+    "make sure you remove any stories that aren't used in Playwright tests"
+  )
 );
 fse.copySync(storiesSourceFile, storiesDestinationFile);
 
@@ -56,8 +62,19 @@ try {
     );
   }
 }
+// remove entire cypress component directory, assuming it's now empty
+if (fse.readdirSync(`./cypress/components/${componentName}`).length === 0) {
+  console.log(
+    `removing cypress test directory './cypress/components/${componentName}' as it's now empty!`
+  );
+  fse.removeSync(`./cypress/components/${componentName}`);
+}
 
 console.log("converting locators from cypress to playwright...");
 convertLocators(join(locatorTargetDir, "index.ts"));
 console.log("converting tests from cypress to playwright...");
 convertTests(testsDestinationFile);
+
+console.log("prettifying output");
+exec(`prettier --write '${join(locatorTargetDir, "index.ts")}'`);
+exec(`prettier --write '${testsDestinationFile}'`);
