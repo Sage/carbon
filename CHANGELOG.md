@@ -1,3 +1,10 @@
+## [120.1.0](https://github.com/Sage/carbon/compare/v120.0.0...v120.1.0) (2023-08-30)
+
+
+### Features
+
+* **flat-table, flat-table-row:** components can now be wrapped, subRows no longer need to ([ea27a57](https://github.com/Sage/carbon/commit/ea27a57734ed75301a07d855fbd303a4a1686ce0)), closes [#6219](https://github.com/Sage/carbon/issues/6219)
+
 ## [120.0.0](https://github.com/Sage/carbon/compare/v119.12.2...v120.0.0) (2023-08-29)
 
 
