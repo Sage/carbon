@@ -36,6 +36,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import { FLAT_TABLE_THEMES } from "./flat-table.config";
 import { WithSortingHeaders } from "./flat-table.stories";
 import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { FlatTableRowContextProps } from "./flat-table-row/__internal__/flat-table-row-context";
 
 type SortType = "ascending" | "descending";
 type SortValue = "client" | "total";
@@ -84,7 +85,12 @@ type SubRowsShapeChildrenOnlySelectableStoryKey = keyof SubRowsShapeChildrenOnly
 
 export default {
   title: "Flat Table/Test",
-  includeStories: ["FlatTableStory", "ExpandableWithLink", "SortableStory"],
+  includeStories: [
+    "FlatTableStory",
+    "ExpandableWithLink",
+    "SortableStory",
+    "SubRowsAsAComponentStory",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -1841,7 +1847,9 @@ export const FlatTableTitleAlignComponent = (
 };
 
 export const FlatTableSortingComponent = (
-  props: Partial<FlatTableProps> & FlatTableCellProps
+  props: Partial<FlatTableProps> &
+    FlatTableCellProps &
+    Partial<FlatTableRowContextProps>
 ) => {
   const headDataItems: HeadDataItems = [
     {
@@ -3259,6 +3267,84 @@ export const FlatTableLastColumnHasRowspan = () => {
         <FlatTableRow>
           <FlatTableCell>Foo</FlatTableCell>
           <FlatTableCell>Bar</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+
+export const FlatTableWithMultipleStickyHeaderRows = () => (
+  <FlatTable hasStickyHead>
+    <FlatTableHead>
+      <FlatTableRow>
+        <FlatTableHeader>Foo</FlatTableHeader>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableHeader>Foo</FlatTableHeader>
+      </FlatTableRow>
+    </FlatTableHead>
+    <FlatTableBody>
+      <FlatTableRow>
+        <FlatTableCell>Foo</FlatTableCell>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableCell>Foo</FlatTableCell>
+      </FlatTableRow>
+    </FlatTableBody>
+  </FlatTable>
+);
+
+export const SubRowsAsAComponentStory = () => {
+  const SubRowsComponent = () => (
+    <>
+      <FlatTableRow>
+        <FlatTableCell>Child one</FlatTableCell>
+        <FlatTableCell>York</FlatTableCell>
+        <FlatTableCell>Single</FlatTableCell>
+        <FlatTableCell>2</FlatTableCell>
+      </FlatTableRow>
+      <FlatTableRow>
+        <FlatTableCell>Child two</FlatTableCell>
+        <FlatTableCell>Edinburgh</FlatTableCell>
+        <FlatTableCell>Single</FlatTableCell>
+        <FlatTableCell>1</FlatTableCell>
+      </FlatTableRow>
+    </>
+  );
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader width={60}>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow expandable subRows={<SubRowsComponent />}>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={<SubRowsComponent />}>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={<SubRowsComponent />}>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={<SubRowsComponent />}>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
