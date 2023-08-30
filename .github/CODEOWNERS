@@ -1,16 +1,15 @@
 # These owners will be the default owners for everything in
 # the repo. Unless a later match takes precedence,
-*                  @Sage/carbon
+*                        @Sage/carbon
 
 # The Carbon Dev team are responsible for reviewing Pull Requests
 # that contain any change modifying JS, JSX, TS or TSX files
-*.js               @Sage/carbon-dev
-*.ts               @Sage/carbon-dev
+*.js                     @Sage/carbon-dev
+*.ts                     @Sage/carbon-dev
 
 # The Carbon QA team are responsible for reviewing Pull Requests
-# that contain any change modifying spec and test.js files 
-# or anything in the cypress directory
-*.spec.*                 @Sage/carbon-qa
+# that contain any changes to files within the cypress and 
+# playwright directories or any test files relating to them 
 *.cy.*                   @Sage/carbon-qa
 *.pw.tsx                 @Sage/carbon-qa
 *.test-pw.tsx            @Sage/carbon-qa
@@ -20,4 +19,4 @@ cypress.config.ts        @Sage/carbon-qa
 playwright-ct.config.ts  @Sage/carbon-qa
 
 # Codeowners file changes must be approved by a Carbon Admin.
-.github/CODEOWNERS @Sage/carbon-admin
+.github/CODEOWNERS       @Sage/carbon-admin
