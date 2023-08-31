@@ -124,13 +124,9 @@ interface StyledFlatTableRowProps
     FlatTableRowProps,
     | "bgColor"
     | "horizontalBorderColor"
-    | "stickyOffset"
     | "expandable"
     | "selected"
     | "highlighted"
-    | "isSubRow"
-    | "isFirstSubRow"
-    | "applyBorderLeft"
     | "draggable"
   > {
   isRowInteractive?: boolean;
@@ -145,6 +141,9 @@ interface StyledFlatTableRowProps
   size: FlatTableProps["size"];
   isDragging?: boolean;
   horizontalBorderSize: NonNullable<FlatTableRowProps["horizontalBorderSize"]>;
+  isSubRow?: boolean;
+  isFirstSubRow?: boolean;
+  stickyOffset?: number;
 }
 
 const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
@@ -169,7 +168,6 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
     isFirstSubRow,
     size,
     theme,
-    applyBorderLeft,
     isDragging,
     draggable,
   }) => {
@@ -256,7 +254,6 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
       }
 
       ${stickyOffset !== undefined &&
-      stickyOffset > 0 &&
       css`
         && th {
           top: ${stickyOffset}px;
@@ -377,14 +374,6 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
             background-color: ${backgroundColor ||
             "var(colorsUtilityMajor025)"};
           }
-        }
-      `}
-
-
-      ${applyBorderLeft &&
-      css`
-        th:first-of-type {
-          border-left: 1px solid ${customBorderColor || borderColor(colorTheme)};
         }
       `}
 

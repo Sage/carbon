@@ -1,8 +1,12 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import StyledFlatTableCheckbox from "./flat-table-checkbox.style";
 import { Checkbox } from "../../checkbox";
 import Events from "../../../__internal__/utils/helpers/events/events";
-import { TagProps } from "../../../__internal__/utils/helpers/tags";
+import tagComponent, {
+  TagProps,
+} from "../../../__internal__/utils/helpers/tags";
+import guid from "../../../__internal__/utils/helpers/guid";
+import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
 
 export interface FlatTableCheckboxProps extends TagProps {
   /** Prop to polymorphically render either a 'th' or 'td' element */
@@ -17,30 +21,8 @@ export interface FlatTableCheckboxProps extends TagProps {
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
   /** The id of the element that labels the input */
   ariaLabelledBy?: string;
-  /**
-   * @private
-   * @ignore
-   * Sets the left position when sticky column found
-   */
-  leftPosition?: number;
-  /**
-   * @private
-   * @ignore
-   * Sets the right position when sticky column found
-   */
-  rightPosition?: number;
-  /**
-   * @private
-   * @ignore
-   * Index of cell within row
-   */
-  cellIndex?: number;
-  /**
-   * @private
-   * @ignore
-   * Callback to report the offsetWidth
-   */
-  reportCellWidth?: (offset: number, index?: number) => void;
+  /** Sets an id string on the element */
+  id?: string;
 }
 
 export const FlatTableCheckbox = ({
@@ -49,20 +31,18 @@ export const FlatTableCheckbox = ({
   onChange,
   selectable = true,
   onClick,
-  leftPosition,
-  rightPosition,
-  cellIndex,
-  reportCellWidth,
   ariaLabelledBy,
+  id,
   ...rest
 }: FlatTableCheckboxProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
+  const internalId = useRef(id || guid());
+  const { leftPositions, rightPositions } = useContext(FlatTableRowContext);
 
-  useLayoutEffect(() => {
-    if (ref.current && reportCellWidth) {
-      reportCellWidth(ref.current.offsetWidth, cellIndex);
-    }
-  }, [reportCellWidth, cellIndex]);
+  const leftPosition = leftPositions[internalId.current];
+  const rightPosition = rightPositions[internalId.current];
+  const makeCellSticky =
+    leftPosition !== undefined || rightPosition !== undefined;
 
   const dataElement = `flat-table-checkbox-${as === "td" ? "cell" : "header"}`;
 
@@ -80,13 +60,16 @@ export const FlatTableCheckbox = ({
   return (
     <StyledFlatTableCheckbox
       ref={ref}
-      makeCellSticky={!!reportCellWidth}
-      className={reportCellWidth ? "isSticky" : undefined}
+      makeCellSticky={makeCellSticky}
+      className={makeCellSticky ? "isSticky" : undefined}
       leftPosition={leftPosition}
       rightPosition={rightPosition}
-      data-element={dataElement}
       as={as}
-      {...rest}
+      {...tagComponent("flat-table-checkbox", {
+        "data-element": dataElement,
+        ...rest,
+      })}
+      id={internalId.current}
     >
       {selectable && (
         <Checkbox
