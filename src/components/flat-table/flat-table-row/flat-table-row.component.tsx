@@ -188,7 +188,7 @@ export const FlatTableRow = React.forwardRef<
       `Do not render a right hand side \`${FlatTableRowHeader.displayName}\` before left hand side \`${FlatTableRowHeader.displayName}\``
     );
 
-    const { colorTheme, size, setSelectedId, selectedId } = useContext(
+    const { colorTheme, size, getTabStopElementId } = useContext(
       FlatTableThemeContext
     );
     const { isInSidebar } = useContext(DrawerSidebarContext);
@@ -250,14 +250,8 @@ export const FlatTableRow = React.forwardRef<
     }, [expanded]);
 
     useEffect(() => {
-      if (highlighted || selected) {
-        setSelectedId(internalId.current);
-      }
-    }, [highlighted, selected, setSelectedId]);
-
-    useEffect(() => {
-      setTabIndex(selectedId === internalId.current ? 0 : -1);
-    }, [selectedId]);
+      setTabIndex(getTabStopElementId() === internalId.current ? 0 : -1);
+    }, [getTabStopElementId]);
 
     const { isSubRow, firstRowId, addRow, removeRow } = useContext(
       SubRowContext
@@ -297,6 +291,8 @@ export const FlatTableRow = React.forwardRef<
         draggable={draggable}
         totalChildren={cellsArray.length}
         id={internalId.current}
+        data-selected={selected && expandableArea === "wholeRow"}
+        data-highlighted={highlighted && expandableArea === "wholeRow"}
         {...interactiveRowProps}
         {...rest}
       >
@@ -309,6 +305,8 @@ export const FlatTableRow = React.forwardRef<
             firstColumnExpandable,
             onKeyDown: handleCellKeyDown,
             onClick: () => toggleExpanded(),
+            highlighted,
+            selected,
           }}
         >
           {children}

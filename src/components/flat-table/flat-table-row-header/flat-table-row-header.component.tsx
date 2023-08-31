@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import React, { useCallback, useRef } from "react";
 import { PaddingProps } from "styled-system";
 import { TableBorderSize, TableCellAlign } from "..";
 
@@ -13,12 +7,11 @@ import {
   StyledFlatTableRowHeader,
   StyledFlatTableRowHeaderContent,
 } from "./flat-table-row-header.style";
-import { FlatTableThemeContext } from "../flat-table.component";
 import guid from "../../../__internal__/utils/helpers/guid";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
-import useCalculateStickyCells from "../__internal__/use-calculate-sticky-cells";
+import useTableCell from "../__internal__/use-table-cell";
 
 export interface FlatTableRowHeaderProps extends PaddingProps, TagProps {
   /** Content alignment */
@@ -60,8 +53,6 @@ export const FlatTableRowHeader = ({
   ...rest
 }: FlatTableRowHeaderProps) => {
   const internalId = useRef(id || guid());
-  const [tabIndex, setTabIndex] = useState(-1);
-  const { selectedId } = useContext(FlatTableThemeContext);
 
   const {
     leftPosition,
@@ -71,11 +62,10 @@ export const FlatTableRowHeader = ({
     onKeyDown,
     isFirstCell,
     isExpandableCell,
-  } = useCalculateStickyCells(internalId.current);
-
-  useEffect(() => {
-    setTabIndex(isExpandableCell && selectedId === internalId.current ? 0 : -1);
-  }, [selectedId, isExpandableCell]);
+    tabIndex,
+    isInHighlightedRow,
+    isInSelectedRow,
+  } = useTableCell(internalId.current);
 
   const handleOnClick = useCallback(
     (ev: React.MouseEvent<HTMLElement>) => {
@@ -115,6 +105,8 @@ export const FlatTableRowHeader = ({
       stickyAlignment={stickyAlignment}
       {...(colspan !== undefined && { colSpan: Number(colspan) })}
       {...(rowspan !== undefined && { rowSpan: Number(rowspan) })}
+      data-selected={isInSelectedRow && isExpandableCell}
+      data-highlighted={isInHighlightedRow && isExpandableCell}
       {...rest}
       id={internalId.current}
     >

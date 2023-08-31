@@ -63,7 +63,7 @@ describe("FlatTableHeader", () => {
       (colorTheme) => {
         const wrapper = mount(
           <FlatTableThemeContext.Provider
-            value={{ colorTheme, setSelectedId: jest.fn }}
+            value={{ colorTheme, getTabStopElementId: () => "" }}
           >
             <table>
               <thead>
