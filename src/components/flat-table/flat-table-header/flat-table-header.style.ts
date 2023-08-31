@@ -15,17 +15,14 @@ const verticalBorderSizes = {
 interface StyledFlatTableHeaderProps
   extends Pick<
       FlatTableHeaderProps,
-      | "align"
-      | "leftPosition"
-      | "rightPosition"
-      | "verticalBorder"
-      | "verticalBorderColor"
-      | "alternativeBgColor"
+      "align" | "verticalBorder" | "verticalBorderColor" | "alternativeBgColor"
     >,
     PaddingProps {
   makeCellSticky: boolean;
   colWidth?: number;
   colorTheme: FlatTableProps["colorTheme"];
+  leftPosition: number;
+  rightPosition: number;
 }
 
 const StyledFlatTableHeader = styled.th<StyledFlatTableHeaderProps>`

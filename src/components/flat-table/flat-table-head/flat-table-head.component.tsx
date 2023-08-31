@@ -1,57 +1,46 @@
 import React, { useEffect, useState, useRef } from "react";
 import StyledFlatTableHead from "./flat-table-head.style";
-import FlatTableRowHeader from "../flat-table-row-header";
-import { FlatTableRowProps } from "../flat-table-row";
+import { buildPositionMap } from "../__internal__";
 
 export interface FlatTableHeadProps {
   /** Array of FlatTableRow. */
   children: React.ReactNode;
 }
 
-const getRefs = (length: number) =>
-  Array.from({ length }, () => React.createRef<HTMLTableRowElement>());
+interface FlatTableHeadContextProps {
+  stickyOffsets: Record<string, number>;
+}
+
+export const FlatTableHeadContext = React.createContext<FlatTableHeadContextProps>(
+  {
+    stickyOffsets: {},
+  }
+);
 
 export const FlatTableHead = ({ children, ...rest }: FlatTableHeadProps) => {
-  const [rowHeights, setRowHeights] = useState<number[]>([]);
-  const refs = useRef(getRefs(React.Children.count(children)));
-  let hasFlatTableRowHeader: boolean;
+  const ref = useRef<HTMLTableSectionElement>(null);
+  const [stickyOffsets, setStickyOffsets] = useState<Record<string, number>>(
+    {}
+  );
 
   useEffect(() => {
-    if (React.Children.count(children) > 1) {
-      setRowHeights(refs.current.map((ref) => ref.current?.clientHeight || 0));
+    const headerRows = ref.current?.querySelectorAll("tr");
+
+    /* istanbul ignore else */
+    if (headerRows) {
+      setStickyOffsets(
+        buildPositionMap(Array.from(headerRows), "offsetHeight")
+      );
+    } else {
+      setStickyOffsets({});
     }
   }, [children]);
 
-  if (React.Children.count(children) === 1) {
-    return <StyledFlatTableHead {...rest}>{children}</StyledFlatTableHead>;
-  }
-
   return (
-    <StyledFlatTableHead {...rest}>
-      {React.Children.map(children, (child, index) => {
-        /* Applies left border if preceding row has a FlatTableRowHeader and current one does not. 
-           This is only needed when the preceding row has rowSpans applied, 
-           as in any other use case the rows will all have FlatTableRowHeaders */
-        const previousRowHasHeader = !!hasFlatTableRowHeader;
-        hasFlatTableRowHeader =
-          React.isValidElement(child) &&
-          !!React.Children.toArray(child.props.children).find(
-            (c) =>
-              React.isValidElement(c) &&
-              (c.type as React.FunctionComponent).displayName ===
-                FlatTableRowHeader.displayName
-          );
-        return (
-          React.isValidElement(child) &&
-          React.cloneElement(child as React.ReactElement<FlatTableRowProps>, {
-            stickyOffset: rowHeights
-              .slice(0, index)
-              .reduce((a: number, b: number) => a + b, 0),
-            ref: refs.current[index],
-            applyBorderLeft: previousRowHasHeader && !hasFlatTableRowHeader,
-          })
-        );
-      })}
+    <StyledFlatTableHead ref={ref} {...rest}>
+      <FlatTableHeadContext.Provider value={{ stickyOffsets }}>
+        {children}
+      </FlatTableHeadContext.Provider>
     </StyledFlatTableHead>
   );
 };

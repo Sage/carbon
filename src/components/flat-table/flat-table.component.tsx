@@ -51,7 +51,8 @@ export const FlatTableThemeContext = React.createContext<FlatTableThemeContextPr
   { setSelectedId: () => {} }
 );
 
-const FOCUSABLE_ROW_AND_CELL_QUERY = "tbody tr, tbody tr td, tbody tr th";
+const FOCUSABLE_ROW_AND_CELL_QUERY =
+  "tbody tr[tabindex], tbody tr td[tabindex], tbody tr th[tabindex]";
 
 export const FlatTable = ({
   caption,
@@ -164,9 +165,7 @@ export const FlatTable = ({
       return;
     }
 
-    const focusableElementsArray = Array.from(focusableElements).filter(
-      (el) => el.getAttribute("tabindex") !== null
-    );
+    const focusableElementsArray = Array.from(focusableElements);
 
     const currentFocusIndex = focusableElementsArray.findIndex(
       (el) => el === document.activeElement
@@ -203,17 +202,33 @@ export const FlatTable = ({
   };
 
   useLayoutEffect(() => {
-    const focusableElements = tableRef.current?.querySelectorAll(
-      FOCUSABLE_ROW_AND_CELL_QUERY
-    );
-
-    // if no other menu item is selected, we need to make the first row a tab stop
-    if (focusableElements && !selectedId) {
-      const focusableArray = Array.from(focusableElements).filter(
-        (el) => el.getAttribute("tabindex") !== null
+    const findSelectedId = () => {
+      const firstfocusableElement = tableRef.current?.querySelector(
+        FOCUSABLE_ROW_AND_CELL_QUERY
       );
-      setSelectedId(focusableArray[0]?.getAttribute("id") || "");
+
+      // if no other menu item is selected, we need to make the first row a tab stop
+      if (firstfocusableElement && !selectedId) {
+        const currentlySelectedId = firstfocusableElement?.getAttribute("id");
+
+        /* istanbul ignore else */
+        if (currentlySelectedId && selectedId !== currentlySelectedId) {
+          setSelectedId(currentlySelectedId);
+        }
+      }
+    };
+
+    const observer = new MutationObserver(findSelectedId);
+
+    /* istanbul ignore else */
+    if (wrapperRef.current) {
+      observer.observe(wrapperRef.current as Node, {
+        subtree: true,
+        childList: true,
+        attributes: true,
+      });
     }
+    return () => observer.disconnect();
   }, [selectedId]);
 
   return (
