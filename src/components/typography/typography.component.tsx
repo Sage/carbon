@@ -71,6 +71,9 @@ export interface TypographyProps extends SpaceProps, TagProps {
   opacity?: string | number;
   /** @private @ignore */
   className?: string;
+  /** Set whether it will be visually hidden
+   * NOTE: This is for screen readers only and will make a lot of the other props redundant */
+  screenReaderOnly?: boolean;
 }
 
 export const Typography = ({
@@ -95,6 +98,7 @@ export const Typography = ({
   opacity,
   children,
   className,
+  screenReaderOnly,
   ...rest
 }: TypographyProps) => {
   return (
@@ -118,6 +122,7 @@ export const Typography = ({
       bg={bg}
       opacity={opacity}
       className={className}
+      screenReaderOnly={screenReaderOnly}
       {...tagComponent(dataComponent, rest)}
       {...filterStyledSystemMarginProps(rest)}
       {...filterStyledSystemPaddingProps(rest)}

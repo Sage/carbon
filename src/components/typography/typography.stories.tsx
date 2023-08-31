@@ -113,3 +113,16 @@ export const TruncateStory: ComponentStory<typeof Fragment> = () => (
   </>
 );
 TruncateStory.parameters = { info: { disable: true } };
+
+export const ScreenReaderOnlyStory: ComponentStory<typeof Fragment> = () => (
+  <>
+    <Typography>
+      This is regular text, that can be seen, but under it is visually hidden
+      text. Check the source to see it or use a screen reader.
+    </Typography>
+    <Typography screenReaderOnly>
+      This text is visually hidden and will only be read out by a screen reader.
+    </Typography>
+  </>
+);
+ScreenReaderOnlyStory.parameters = { info: { disable: true } };

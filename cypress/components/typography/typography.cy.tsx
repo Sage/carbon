@@ -277,6 +277,23 @@ context("Tests for Typography component", () => {
           .and(`${assertion}.css`, "text-overflow", "ellipsis");
       }
     );
+
+    it("should display as visually hidden when screenReaderOnly prop is enabled", () => {
+      CypressMountWithProviders(
+        <Typography variant="h1" screenReaderOnly>
+          {testCypress}
+        </Typography>
+      );
+      cy.get("h1")
+        .should("have.text", testCypress)
+        .and("have.css", "border", "0px none rgba(0, 0, 0, 0.9)")
+        .and("have.css", "height", "1px")
+        .and("have.css", "margin", "-1px")
+        .and("have.css", "overflow", "hidden")
+        .and("have.css", "padding", "0px")
+        .and("have.css", "position", "absolute")
+        .and("have.css", "width", "1px");
+    });
   });
 
   describe("should check accessibility for Typography component", () => {
@@ -288,6 +305,12 @@ context("Tests for Typography component", () => {
 
     it("should check accessibility for Typography component TruncateStory", () => {
       CypressMountWithProviders(<stories.TruncateStory />);
+
+      cy.checkAccessibility();
+    });
+
+    it("should check accessibility for Typography component ScreenReaderOnlyStory", () => {
+      CypressMountWithProviders(<stories.ScreenReaderOnlyStory />);
 
       cy.checkAccessibility();
     });
