@@ -46,13 +46,19 @@ describe("OptionRow", () => {
   describe("when the multiselectValues list contains the element value", () => {
     it("then the aria-selected attribute should be set to true", () => {
       const wrapper = mount(
-        <SelectListContext.Provider value={{ multiselectValues: ["1"] }}>
-          <OptionRow id="1" value="1" text="foo">
-            <td>foo</td>
-          </OptionRow>
-        </SelectListContext.Provider>
+        <table>
+          <tbody>
+            <SelectListContext.Provider value={{ multiselectValues: ["1"] }}>
+              <OptionRow id="1" value="1" text="foo">
+                <td>foo</td>
+              </OptionRow>
+            </SelectListContext.Provider>
+          </tbody>
+        </table>
       );
-      expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("true");
+      expect(
+        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-selected")
+      ).toBe("true");
       wrapper.unmount();
     });
   });
@@ -60,13 +66,21 @@ describe("OptionRow", () => {
   describe("when the multiselectValues list does not contain the element value", () => {
     it("then the aria-selected attribute should be set to false", () => {
       const wrapper = mount(
-        <SelectListContext.Provider value={{ multiselectValues: ["1", "2"] }}>
-          <OptionRow id="3" value="3" text="foo">
-            <td>foo</td>
-          </OptionRow>
-        </SelectListContext.Provider>
+        <table>
+          <tbody>
+            <SelectListContext.Provider
+              value={{ multiselectValues: ["1", "2"] }}
+            >
+              <OptionRow id="3" value="3" text="foo">
+                <td>foo</td>
+              </OptionRow>
+            </SelectListContext.Provider>
+          </tbody>
+        </table>
       );
-      expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("false");
+      expect(
+        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-selected")
+      ).toBe("false");
       wrapper.unmount();
     });
   });
@@ -100,22 +114,30 @@ describe("OptionRow", () => {
   describe("tags on component", () => {
     it("includes correct component, element and role data tags", () => {
       const wrapper = mount(
-        <OptionRow
-          value="1"
-          text="one"
-          data-component="foo"
-          data-element="bar"
-          data-role="baz"
-        >
-          <td>qux</td>
-        </OptionRow>
+        <table>
+          <tbody>
+            <OptionRow
+              value="1"
+              text="one"
+              data-component="foo"
+              data-element="bar"
+              data-role="baz"
+            >
+              <td>qux</td>
+            </OptionRow>
+          </tbody>
+        </table>
       );
 
-      expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
-        "foo"
-      );
-      expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
-      expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
+      expect(
+        wrapper.find(OptionRow).getDOMNode().getAttribute("data-component")
+      ).toEqual("foo");
+      expect(
+        wrapper.find(OptionRow).getDOMNode().getAttribute("data-element")
+      ).toEqual("bar");
+      expect(
+        wrapper.find(OptionRow).getDOMNode().getAttribute("data-role")
+      ).toEqual("baz");
     });
   });
 });

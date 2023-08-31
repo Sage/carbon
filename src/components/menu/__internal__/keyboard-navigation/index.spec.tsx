@@ -5,6 +5,10 @@ import { characterNavigation, menuKeyboardNavigation } from ".";
 import MenuItem from "../../menu-item";
 import Box from "../../../box";
 import { MENU_ITEM } from "../locators";
+import Logger from "../../../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const getMockEvent = (key: string, which?: number) => {
   return ({
@@ -16,6 +20,14 @@ const getMockEvent = (key: string, which?: number) => {
 };
 
 describe("Menu keyboard navigation", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   beforeEach(() => {
     render(
       <ul>

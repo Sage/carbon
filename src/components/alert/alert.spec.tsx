@@ -5,16 +5,21 @@ import Alert from ".";
 import guid from "../../__internal__/utils/helpers/guid";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledDialog } from "../dialog/dialog.style";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
   () => "guid-12345"
 );
 
+// mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
+
 describe("Alert", () => {
   let wrapper: ReactWrapper;
 
-  beforeEach(() => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
     wrapper = mount(
       <Alert
         open
@@ -25,6 +30,10 @@ describe("Alert", () => {
         data-role="baz"
       />
     );
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
   });
 
   it("include correct component, element and role data tags", () => {

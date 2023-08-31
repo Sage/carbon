@@ -95,24 +95,24 @@ describe("Form", () => {
       it("applies the expected margin to the children inputs if they do not have custom values passed", () => {
         wrapper = mount(
           <Form fieldSpacing={spacing}>
-            <Textbox />
-            <Textarea characterLimit={50} />
-            <RadioButtonGroup name="bar">
+            <Textbox onChange={() => {}} />
+            <Textarea characterLimit={50} onChange={() => {}} />
+            <RadioButtonGroup name="bar" onChange={() => {}}>
               <RadioButton value="1" />
             </RadioButtonGroup>
             <Select>
               <Option value="1" text="text" />
             </Select>
             <Fieldset>
-              <Textbox />
+              <Textbox onChange={() => {}} />
               <Select>
                 <Option value="1" text="text" />
               </Select>
             </Fieldset>
             <InlineInputs>
-              <Textbox />
-              <Textbox />
-              <Textbox />
+              <Textbox onChange={() => {}} />
+              <Textbox onChange={() => {}} />
+              <Textbox onChange={() => {}} />
             </InlineInputs>
           </Form>
         );
@@ -156,25 +156,25 @@ describe("Form", () => {
       it("does not apply margin to the children inputs if they have custom values passed", () => {
         wrapper = mount(
           <Form fieldSpacing={spacing}>
-            <Textbox my={1} />
-            <Textarea characterLimit={50} my={1} />
+            <Textbox my={1} onChange={() => {}} />
+            <Textarea characterLimit={50} my={1} onChange={() => {}} />
             <Button my={1}>Foo</Button>
-            <RadioButtonGroup name="bar" my={1}>
+            <RadioButtonGroup name="bar" my={1} onChange={() => {}}>
               <RadioButton value="1" />
             </RadioButtonGroup>
             <Select my={1}>
               <Option value="1" text="text" />
             </Select>
             <Fieldset my={1}>
-              <Textbox />
+              <Textbox onChange={() => {}} />
               <Select>
                 <Option value="1" text="text" />
               </Select>
             </Fieldset>
             <InlineInputs my={1}>
-              <Textbox />
-              <Textbox />
-              <Textbox />
+              <Textbox onChange={() => {}} />
+              <Textbox onChange={() => {}} />
+              <Textbox onChange={() => {}} />
             </InlineInputs>
           </Form>
         );

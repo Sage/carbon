@@ -13,6 +13,10 @@ import Loader from "../loader";
 import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledDialog } from "../dialog/dialog.style";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
@@ -21,7 +25,6 @@ const buttonTypes = [
   "primary",
   "secondary",
   "tertiary",
-  "dashed",
   "darkBackground",
 ] as const;
 const buttonIconPositions = ["before", "after"] as const;
@@ -30,6 +33,14 @@ describe("Confirm", () => {
   let wrapper: ReactWrapper<ConfirmProps>;
   let onCancel: jest.Mock;
   let onConfirm: jest.Mock;
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
 
   beforeEach(() => {
     onCancel = jest.fn();

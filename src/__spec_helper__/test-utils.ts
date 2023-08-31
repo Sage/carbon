@@ -281,8 +281,13 @@ const testStyledSystemMargin = (
   assertOpts?: jest.Options
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component({ ...defaults }));
-    const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
+    let wrapper: ReactWrapper;
+    let StyleElement: ReactWrapper;
+
+    beforeAll(() => {
+      wrapper = mount(component({ ...defaults }));
+      StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
+    });
 
     it("should set the correct margins", () => {
       let margin;
@@ -343,8 +348,13 @@ const testStyledSystemPadding = (
   assertOpts?: jest.Options
 ) => {
   describe("default props", () => {
-    const wrapper = mount(component({ ...defaults }));
-    const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
+    let wrapper: ReactWrapper;
+    let StyleElement: ReactWrapper;
+
+    beforeAll(() => {
+      wrapper = mount(component({ ...defaults }));
+      StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
+    });
 
     it("should set the correct paddings", () => {
       let padding;

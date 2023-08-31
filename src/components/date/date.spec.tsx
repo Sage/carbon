@@ -285,6 +285,7 @@ describe("Date", () => {
   describe("refs", () => {
     it("should display deprecation warning when the inputRef prop is used", () => {
       const loggerSpy = jest.spyOn(Logger, "deprecate");
+      loggerSpy.mockImplementation(() => {});
       const ref = () => {};
 
       wrapper = mount(<MockComponent inputRef={ref} />);

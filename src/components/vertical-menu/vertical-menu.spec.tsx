@@ -2,8 +2,20 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import { VerticalMenu, VerticalMenuItem } from ".";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 describe("VerticalMenu", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   it("should accept aria-label prop", () => {
     render(
       <VerticalMenu aria-label="test">

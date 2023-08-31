@@ -13,6 +13,10 @@ import Dialog from "../../components/dialog";
 import { StyledBackdrop } from "./popover.style";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import useFloating from "../../hooks/__internal__/useFloating";
+import Logger from "../utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../hooks/__internal__/useFloating");
 const useFloatingMock = useFloating as jest.Mock;
@@ -60,7 +64,8 @@ const A = () => (
   <Page p={0} title="Page 1">
     Test 1
     <FilterableSelect
-      defaultValue="1"
+      value="1"
+      onChange={() => {}}
       name="simple"
       id="simple"
       label="color"
@@ -84,7 +89,14 @@ const A = () => (
 const B = () => (
   <Page p={0} title="Page 2">
     Test 2
-    <FilterableSelect name="simple" id="simple" label="color" labelInline>
+    <FilterableSelect
+      name="simple"
+      id="simple"
+      label="color"
+      labelInline
+      value="1"
+      onChange={() => {}}
+    >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -117,6 +129,14 @@ const InSidebar = () => {
 };
 
 describe("Popover", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   describe("portal", () => {
     it("creates a div and appends it to body on mount", () => {
       const createElementSpy = jest.spyOn(document, "createElement");

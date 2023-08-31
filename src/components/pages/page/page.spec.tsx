@@ -4,8 +4,20 @@ import { StyledPage, StyledPageContent } from "./page.style";
 import Page from "./page.component";
 import FullScreenHeading from "../../../__internal__/full-screen-heading";
 import { testStyledSystemPadding } from "../../../__spec_helper__/test-utils";
+import Logger from "../../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 describe("Page", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   testStyledSystemPadding(
     (props) => (
       <Page

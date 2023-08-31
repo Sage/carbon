@@ -32,6 +32,10 @@ import {
 } from "./picklist-group/picklist-group.style";
 import { StyledPicklist } from "./picklist/picklist.style";
 import StyledPicklistDivider from "./picklist-divider/picklist-divider.style";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const EmptyComponent = () => <div />;
 
@@ -361,6 +365,14 @@ describe("DuellingPicklist", () => {
       attachTo: document.getElementById("enzymeContainer"),
     });
   };
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
 
   describe("Styles", () => {
     beforeEach(() => {
