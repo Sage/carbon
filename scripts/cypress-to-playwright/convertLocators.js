@@ -16,6 +16,8 @@ function convertLocators(filename) {
     return;
   }
   let childrenCalls = 0;
+  let parentCalls = 0;
+
   const ast = parser.parse(fse.readFileSync(filename, "utf8"), {
     sourceType: "module",
     plugins: ["jsx", "typescript"],
@@ -81,6 +83,13 @@ function convertLocators(filename) {
         };
         path.node.params.unshift(pageArgument);
       }
+
+      // also add a `number` type annotation to any existing argument called `index`. (This is common in our locators!)
+      path.node.params.forEach((param) => {
+        if (t.isIdentifier(param) && param.name === "index") {
+          param.typeAnnotation = t.tsTypeAnnotation(t.tsNumberKeyword());
+        }
+      });
     },
 
     // add "page" argument to any call to locator functions from within the same file
@@ -115,6 +124,9 @@ function convertLocators(filename) {
         if (propertyName === "children") {
           // just add 1 to the count to report the total number once after the transformations are run
           childrenCalls += 1;
+        } else if (propertyName === "parent") {
+          // just add 1 to the count to report the total number once after the transformations are run
+          parentCalls += 1;
         }
       }
     },
@@ -126,6 +138,16 @@ function convertLocators(filename) {
         `warning: ${childrenCalls} call${
           childrenCalls > 1 ? "s" : ""
         } to .children() found in locators file. This is not possible to automatically translate to a Playwright locator - you will need to manually inspect the component's DOM and determine an appropriate substitute`
+      )
+    );
+  }
+
+  if (parentCalls > 0) {
+    console.log(
+      chalk.yellow(
+        `warning: ${parentCalls} call${
+          parentCalls > 1 ? "s" : ""
+        } to .parent() found in locators file. This is not possible to automatically translate to a Playwright locator - you will need to manually inspect the component's DOM and determine an appropriate substitute`
       )
     );
   }

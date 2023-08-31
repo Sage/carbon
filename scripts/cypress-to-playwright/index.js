@@ -5,6 +5,7 @@ const { exec } = require("child_process");
 const chalk = require("chalk");
 const convertLocators = require("./convertLocators");
 const convertTests = require("./convertTests");
+const convertTestStories = require("./convertTestStories");
 
 const componentName = process.argv[2];
 
@@ -74,7 +75,10 @@ console.log("converting locators from cypress to playwright...");
 convertLocators(join(locatorTargetDir, "index.ts"));
 console.log("converting tests from cypress to playwright...");
 convertTests(testsDestinationFile);
+console.log("tidying up test-pw file");
+convertTestStories(storiesDestinationFile);
 
 console.log("prettifying output");
 exec(`prettier --write '${join(locatorTargetDir, "index.ts")}'`);
 exec(`prettier --write '${testsDestinationFile}'`);
+exec(`prettier --write '${storiesDestinationFile}'`);

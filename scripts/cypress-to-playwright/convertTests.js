@@ -7,7 +7,15 @@ const t = require("@babel/types");
 const chalk = require("chalk");
 
 // might have to update this list if more locator methods are found that are commonly called inside test files in locator chains
-const locatorChainMethods = ["eq", "get", "find", "children", "first", "last"];
+const locatorChainMethods = [
+  "eq",
+  "get",
+  "find",
+  "children",
+  "parent",
+  "first",
+  "last",
+];
 
 // map from key names provided as an argument to the "keycode" function to those that can be given directly to playwright's .press
 const keyNames = {
@@ -213,6 +221,7 @@ function convertTests(filename) {
   });
 
   let childrenCalls = 0;
+  let parentCalls = 0;
 
   traverse(ast, {
     // a few always/commonly-needed imports at the top of the file.
@@ -411,20 +420,34 @@ function convertTests(filename) {
       }
 
       if (t.isMemberExpression(callee)) {
-        // change cy.checkAccessibility() to await checkAccessibility(page)
-        if (
-          callee.object.name === "cy" &&
-          callee.property.name === "checkAccessibility"
-        ) {
-          path.skip();
+        if (callee.object.name === "cy") {
+          if (callee.property.name === "checkAccessibility") {
+            // change cy.checkAccessibility() to await checkAccessibility(page)
+            path.skip();
 
-          path.replaceWith(
-            t.awaitExpression(
-              t.callExpression(t.identifier("checkAccessibility"), [
-                t.identifier("page"),
-              ])
-            )
-          );
+            path.replaceWith(
+              t.awaitExpression(
+                t.callExpression(t.identifier("checkAccessibility"), [
+                  t.identifier("page"),
+                ])
+              )
+            );
+          } else if (callee.property.name === "viewport") {
+            // convert `cy.viewport(w, h);` to `await page.setViewportSize({ width: w, height: h });`
+            const setViewportSizeMethod = t.memberExpression(
+              t.identifier("page"),
+              t.identifier("setViewportSize")
+            );
+            const setViewportSizeArg = t.objectExpression([
+              t.objectProperty(t.identifier("width"), args[0]),
+              t.objectProperty(t.identifier("height"), args[1]),
+            ]);
+            const setViewportSizeCall = t.callExpression(
+              setViewportSizeMethod,
+              [setViewportSizeArg]
+            );
+            path.replaceWith(t.awaitExpression(setViewportSizeCall));
+          }
         }
 
         // repeat "easy" locator substitutions (already done in convertLocators file)
@@ -455,6 +478,7 @@ function convertTests(filename) {
 
         if (isLocatorChain(callee)) {
           const propertyName = callee.property.name;
+
           // replace `.get` and `.find` with `.locator`
           if (["get", "find"].includes(propertyName)) {
             callee.property.name = "locator";
@@ -465,10 +489,13 @@ function convertTests(filename) {
             callee.property.name = "nth";
           }
 
-          // warning about `.children`
+          // warning about `.children` and `.parent`
           if (propertyName === "children") {
             // just add 1 to the count to report the total number once after the transformations are run
             childrenCalls += 1;
+          } else if (propertyName === "parent") {
+            // just add 1 to the count to report the total number once after the transformations are run
+            parentCalls += 1;
           }
         }
       }
@@ -490,7 +517,12 @@ function convertTests(filename) {
         ) {
           // unwrap each individual array element if they contain only one element
           // [But only if it's an array literal, not if it's a reference to a const defined elsewhere.]
-          const arrayToIterate = path.node.expression.callee.arguments[0];
+          // Also take into account the fact that it might have a TS type assertion.
+          const outerArray = path.node.expression.callee.arguments[0];
+          const hasTsTypeAssertion = t.isTSAsExpression(outerArray);
+          const arrayToIterate = hasTsTypeAssertion
+            ? outerArray.expression
+            : outerArray;
           if (t.isArrayExpression(arrayToIterate)) {
             arrayToIterate.elements = arrayToIterate.elements.map(
               (arrayElementExpression) =>
@@ -502,15 +534,17 @@ function convertTests(filename) {
           }
 
           // add TS "as const", it's often needed and unlikely to do any harm.
-          // (But only do this for array literals containg string/array literals, not variable/const references.)
+          // (But only do this for array literals containg string/array literals, not variable/const references.
+          // Also don't do it if it already has a TS type assertion.)
           const arrayExpression =
             t.isArrayExpression(arrayToIterate) &&
-            !t.isIdentifier(arrayToIterate.elements[0])
+            !t.isIdentifier(arrayToIterate.elements[0]) &&
+            !hasTsTypeAssertion
               ? t.tsAsExpression(
                   arrayToIterate,
                   t.tsTypeReference(t.identifier("const"))
                 )
-              : arrayToIterate;
+              : outerArray;
 
           const forEach = t.memberExpression(
             arrayExpression,
@@ -604,10 +638,14 @@ function convertTests(filename) {
           const locatorCallNode = nodes[numLocatorNodes - 1];
 
           if (!locatorCallNode) {
-            // this happens when there is a single call to a cy method with nothing chained off - eg. cy.viewport(params);
+            // this happens when there is a single call to a cy method with nothing chained off;
             // It's not possible to translate most of these but it leads to errors in the below - just warn and move on.
-            // We exclude those we can already translate elsewhere in the CallExpression visitor (notably cy.checkAccessibility())
-            if (nodes[0].callee.property.name !== "checkAccessibility") {
+            // We exclude those we can already translate elsewhere in the CallExpression visitor.
+            if (
+              !["checkAccessibility", "viewport"].includes(
+                nodes[0].callee.property.name
+              )
+            ) {
               console.log(
                 chalk.yellow(
                   `call to cy.${nodes[0].callee.property.name} found - this has not been translated to playwright as it's unclear what to do in general. Please fix it manually.`
@@ -810,7 +848,7 @@ function convertTests(filename) {
                           )
                         );
                         // leave the call looking as it was so it's easier to fix manually!
-                        methodName = "toHaveAttr";
+                        methodName = "toHaveAttribute";
                         methodArgs = assertionArgs.slice(1);
                       }
                     }
@@ -830,6 +868,22 @@ function convertTests(filename) {
                   case "have.text":
                     methodName = "toHaveText";
                     methodArgs = assertionArgs.slice(1);
+                    break;
+                  case "have.id":
+                    methodName = "toHaveAttribute";
+                    methodArgs = [t.stringLiteral("id"), assertionArgs[1]];
+                    break;
+                  case "have.value":
+                    methodName = "toHaveAttribute";
+                    methodArgs = [t.stringLiteral("value"), assertionArgs[1]];
+                    break;
+                  case "be.focused":
+                    methodName = "toBeFocused";
+                    methodArgs = [];
+                    break;
+                  case "be.checked":
+                    methodName = "toBeChecked";
+                    methodArgs = [];
                     break;
                   default:
                     console.log(
@@ -931,6 +985,13 @@ function convertTests(filename) {
                 } else {
                   nodeToAwait.arguments = [t.stringLiteral(keyString)];
                 }
+              } else if (
+                t.isStringLiteral(triggerArgs[0]) &&
+                triggerArgs[0].value === "mouseover"
+              ) {
+                // convert `.trigger("mouseover")` to `.hover()`
+                nodeToAwait.callee.property = t.identifier("hover");
+                nodeToAwait.arguments = [];
               } else {
                 console.log(
                   chalk.yellow(
@@ -1007,6 +1068,16 @@ function convertTests(filename) {
         `warning: ${childrenCalls} call${
           childrenCalls > 1 ? "s" : ""
         } to .children() found in tests file. This is not possible to automatically translate to a Playwright locator - you will need to manually inspect the component's DOM and determine an appropriate substitute`
+      )
+    );
+  }
+
+  if (parentCalls > 0) {
+    console.log(
+      chalk.yellow(
+        `warning: ${parentCalls} call${
+          parentCalls > 1 ? "s" : ""
+        } to .parent() found in tests file. This is not possible to automatically translate to a Playwright locator - you will need to manually inspect the component's DOM and determine an appropriate substitute`
       )
     );
   }
