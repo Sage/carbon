@@ -901,7 +901,7 @@ export const SideViewNavigation: ComponentStory<typeof Drawer> = () => {
       return <Box>click on any row to show some data</Box>;
     }
     return (
-      <Box style={{ paddingLeft: "24px", paddingTop: "24px" }}>
+      <Box paddingLeft="24px" paddingTop="24px">
         <Heading title={data.ColumnA.name} divider={false} />
       </Box>
     );
@@ -1226,12 +1226,7 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
               </Tab>
             </Tabs>
           </Box>
-          <Box
-            style={{
-              display: active === "tab-4" ? "block" : "none",
-              padding: "4px",
-            }}
-          >
+          <Box display={active === "tab-4" ? "block" : "none"} padding="4px">
             <Checkbox
               label="Add error"
               error={errors.four}
@@ -1250,7 +1245,7 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
               onChange={() => setInfos({ ...infos, four: !infos.four })}
             />
           </Box>
-          <Box style={{ display: active === "tab-5" ? "block" : "none" }}>
+          <Box display={active === "tab-5" ? "block" : "none"}>
             <Tabs extendedLine={false}>
               <Tab
                 errorMessage="error"
@@ -1290,7 +1285,7 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
               </Tab>
             </Tabs>
           </Box>
-          <Box style={{ display: active === "tab-6" ? "block" : "none" }}>
+          <Box display={active === "tab-6" ? "block" : "none"}>
             <Tabs extendedLine={false}>
               <Tab
                 errorMessage="error"

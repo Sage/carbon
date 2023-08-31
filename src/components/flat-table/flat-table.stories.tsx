@@ -710,6 +710,12 @@ export const WithStickyHead: ComponentStory<typeof FlatTable> = () => (
           <FlatTableHeader>Relationship Status</FlatTableHeader>
           <FlatTableHeader>Dependents</FlatTableHeader>
         </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
       </FlatTableHead>
       <FlatTableBody>
         <FlatTableRow>

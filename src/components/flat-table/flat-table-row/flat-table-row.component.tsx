@@ -1,11 +1,10 @@
 import React, {
-  useCallback,
   useContext,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
+  useLayoutEffect,
 } from "react";
 import invariant from "invariant";
 import { TableBorderSize } from "..";
@@ -13,13 +12,16 @@ import { TableBorderSize } from "..";
 import Event from "../../../__internal__/utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
 import { DrawerSidebarContext } from "../../drawer";
-import FlatTableCheckbox from "../flat-table-checkbox";
 import FlatTableRowHeader from "../flat-table-row-header";
 import FlatTableRowDraggable, {
   FlatTableRowDraggableProps,
 } from "./__internal__/flat-table-row-draggable.component";
 import { FlatTableThemeContext } from "../flat-table.component";
 import guid from "../../../__internal__/utils/helpers/guid";
+import FlatTableRowContext from "./__internal__/flat-table-row-context";
+import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
+import { buildPositionMap } from "../__internal__";
+import { FlatTableHeadContext } from "../flat-table-head/flat-table-head.component";
 
 export interface FlatTableRowProps {
   /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
@@ -44,18 +46,6 @@ export interface FlatTableRowProps {
   selected?: boolean;
   /** Sub rows to be shown when the row is expanded, must be used with the `expandable` prop. */
   subRows?: React.ReactNode;
-  /** @ignore @private */
-  isSubRow?: boolean;
-  /** @ignore @private */
-  isFirstSubRow?: boolean;
-  /** @ignore @private position in header if multiple rows */
-  stickyOffset?: number;
-  /** @ignore @private applies a border-left to the first child */
-  applyBorderLeft?: boolean;
-  /** ID for use in drag and drop functionality
-   * @private
-   * @ignore
-   */
   id?: string | number;
   /**
    * @private
@@ -69,8 +59,6 @@ export interface FlatTableRowProps {
   moveItem?: FlatTableRowDraggableProps["moveItem"];
   /** @ignore @private position in header if multiple rows */
   draggable?: boolean;
-  /** @ignore @private */
-  ref?: React.RefObject<HTMLTableRowElement>;
 }
 
 export const FlatTableRow = React.forwardRef<
@@ -84,16 +72,12 @@ export const FlatTableRow = React.forwardRef<
       expandable,
       expandableArea = "wholeRow",
       expanded = false,
-      isSubRow,
-      isFirstSubRow,
-      stickyOffset,
       highlighted,
       selected,
       subRows,
       bgColor,
       horizontalBorderColor,
       horizontalBorderSize = "small",
-      applyBorderLeft,
       id,
       draggable,
       findItem,
@@ -102,47 +86,94 @@ export const FlatTableRow = React.forwardRef<
     }: FlatTableRowProps,
     ref
   ) => {
-    const internalId = useRef(id ?? guid());
+    const internalId = useRef(id ? String(id) : guid());
     const [isExpanded, setIsExpanded] = useState(expanded);
     let rowRef = useRef<HTMLTableRowElement>(null);
     if (ref) {
       rowRef = ref as React.MutableRefObject<HTMLTableRowElement | null>;
     }
     const firstColumnExpandable = expandableArea === "firstColumn";
-    const [leftStickyCellWidths, setLeftStickyCellWidths] = useState<number[]>(
-      []
+    const [leftPositions, setLeftPositions] = useState<Record<string, number>>(
+      {}
     );
-    const [rightStickyCellWidths, setRightStickyCellWidths] = useState<
-      number[]
-    >([]);
-    const [leftPositions, setLeftPositions] = useState<number[]>([]);
-    const [rightPositions, setRightPositions] = useState<number[]>([]);
-    const childrenArray = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]);
-    const lhsRowHeaderIndex = useMemo(
-      () =>
-        childrenArray.findIndex(
-          (child) =>
-            React.isValidElement(child) &&
-            (child.type as React.FunctionComponent).displayName ===
-              FlatTableRowHeader.displayName &&
-            child.props.stickyAlignment !== "right"
-        ),
-      [childrenArray]
-    );
-    const rhsRowHeaderIndex = useMemo(
-      () =>
-        childrenArray.findIndex(
-          (child) =>
-            React.isValidElement(child) &&
-            (child.type as React.FunctionComponent).displayName ===
-              FlatTableRowHeader.displayName &&
-            child.props.stickyAlignment === "right"
-        ),
-      [childrenArray]
-    );
+    const [rightPositions, setRightPositions] = useState<
+      Record<string, number>
+    >({});
+    const [firstCellIndex, setFirstCellIndex] = useState(0);
+    const [lhsRowHeaderIndex, setLhsRowHeaderIndex] = useState(-1);
+    const [rhsRowHeaderIndex, setRhsRowHeaderIndex] = useState(-1);
+    const [firstCellId, setFirstCellId] = useState<string | null>(null);
+    const [cellsArray, setCellsArray] = useState<Element[]>([]);
     const [tabIndex, setTabIndex] = useState(-1);
+    let interactiveRowProps = {};
+
+    useLayoutEffect(() => {
+      const checkForPositionUpdates = (
+        updated: Record<string, number>,
+        current: Record<string, number>
+      ) => {
+        const updatedKeys = Object.keys(updated);
+        const currentKeys = Object.keys(current);
+        if (updatedKeys.length !== currentKeys.length) {
+          return true;
+        }
+
+        return updatedKeys.some((key) => updated[key] !== current[key]);
+      };
+
+      const cells = rowRef.current?.querySelectorAll("th, td") as
+        | NodeListOf<HTMLTableCellElement>
+        | undefined;
+
+      const cellArray = Array.from(cells || []);
+      setCellsArray(cellArray);
+
+      const firstIndex = cellArray.findIndex(
+        (cell) => cell.getAttribute("data-component") !== "flat-table-checkbox"
+      );
+      const lhsIndex = cellArray.findIndex(
+        (cell) => cell.getAttribute("data-sticky-align") === "left"
+      );
+      const rhsIndex = cellArray.findIndex(
+        (cell) => cell.getAttribute("data-sticky-align") === "right"
+      );
+
+      setLhsRowHeaderIndex(lhsIndex);
+      setRhsRowHeaderIndex(rhsIndex);
+
+      if (firstIndex !== -1) {
+        setFirstCellIndex(firstIndex);
+        setFirstCellId(cellArray[firstIndex].getAttribute("id"));
+      } else {
+        setFirstCellIndex(0);
+      }
+      if (lhsIndex !== -1) {
+        const updatedLeftPositions = buildPositionMap(
+          cellArray.slice(0, lhsRowHeaderIndex + 1),
+          "offsetWidth"
+        );
+
+        if (checkForPositionUpdates(updatedLeftPositions, leftPositions)) {
+          setLeftPositions(updatedLeftPositions);
+        }
+      }
+      if (rhsIndex !== -1) {
+        const updatedRightPositions = buildPositionMap(
+          cellArray.slice(rhsRowHeaderIndex, cellArray.length).reverse(),
+          "offsetWidth"
+        );
+
+        if (checkForPositionUpdates(updatedRightPositions, rightPositions)) {
+          setRightPositions(updatedRightPositions);
+        }
+      }
+    }, [
+      children,
+      leftPositions,
+      lhsRowHeaderIndex,
+      rhsRowHeaderIndex,
+      rightPositions,
+    ]);
 
     const noStickyColumnsOverlap = useMemo(() => {
       const hasLhsColumn = lhsRowHeaderIndex !== -1;
@@ -161,36 +192,7 @@ export const FlatTableRow = React.forwardRef<
       FlatTableThemeContext
     );
     const { isInSidebar } = useContext(DrawerSidebarContext);
-
-    const reportCellWidth = useCallback(
-      (width, index) => {
-        const isLeftSticky = index < lhsRowHeaderIndex;
-        const copiedArray = isLeftSticky
-          ? leftStickyCellWidths
-          : rightStickyCellWidths;
-
-        if (copiedArray[index] !== undefined) {
-          copiedArray[index] = width;
-        } else {
-          copiedArray.push(width);
-        }
-        if (isLeftSticky) {
-          setLeftStickyCellWidths(copiedArray);
-        } else {
-          setRightStickyCellWidths(copiedArray);
-        }
-      },
-      [lhsRowHeaderIndex, leftStickyCellWidths, rightStickyCellWidths]
-    );
-
-    let interactiveRowProps = {};
-
-    const firstCellIndex =
-      React.isValidElement(childrenArray[0]) &&
-      childrenArray[0].type === FlatTableCheckbox
-        ? 1
-        : 0;
-
+    const { stickyOffsets } = useContext(FlatTableHeadContext);
     const toggleExpanded = () => setIsExpanded(!isExpanded);
 
     function onKeyDown(
@@ -243,54 +245,34 @@ export const FlatTableRow = React.forwardRef<
       }
     }
 
-    const buildPositionArray = (
-      setter: React.Dispatch<React.SetStateAction<number[]>>,
-      widthsArray: number[],
-      length: number
-    ) => {
-      setter([
-        0,
-        ...Array.from({ length }).map(
-          (_, index) =>
-            widthsArray.slice(0, index + 1).reduce((a, b) => a + b, 0),
-          0
-        ),
-      ]);
-    };
-
-    useLayoutEffect(() => {
-      if (leftStickyCellWidths.length && lhsRowHeaderIndex !== -1) {
-        buildPositionArray(
-          setLeftPositions,
-          leftStickyCellWidths,
-          lhsRowHeaderIndex
-        );
-      }
-    }, [lhsRowHeaderIndex, leftStickyCellWidths]);
-
-    useLayoutEffect(() => {
-      if (rightStickyCellWidths.length && rhsRowHeaderIndex !== -1) {
-        buildPositionArray(
-          setRightPositions,
-          rightStickyCellWidths,
-          childrenArray.length - (rhsRowHeaderIndex + 1)
-        );
-      }
-    }, [rhsRowHeaderIndex, rightStickyCellWidths, childrenArray]);
-
     useEffect(() => {
       setIsExpanded(expanded);
     }, [expanded]);
 
     useEffect(() => {
       if (highlighted || selected) {
-        setSelectedId(String(internalId.current));
+        setSelectedId(internalId.current);
       }
     }, [highlighted, selected, setSelectedId]);
 
     useEffect(() => {
       setTabIndex(selectedId === internalId.current ? 0 : -1);
     }, [selectedId]);
+
+    const { isSubRow, firstRowId, addRow, removeRow } = useContext(
+      SubRowContext
+    );
+
+    useEffect(() => {
+      const rowId = internalId.current;
+      addRow(rowId);
+
+      return () => {
+        removeRow(rowId);
+      };
+    }, [addRow, removeRow]);
+
+    const isFirstSubRow = firstRowId === internalId.current;
 
     const rowComponent = () => (
       <StyledFlatTableRow
@@ -308,42 +290,29 @@ export const FlatTableRow = React.forwardRef<
         rhsRowHeaderIndex={rhsRowHeaderIndex}
         colorTheme={colorTheme}
         size={size}
-        stickyOffset={stickyOffset}
+        stickyOffset={stickyOffsets[internalId.current]}
         bgColor={bgColor}
         horizontalBorderColor={horizontalBorderColor}
         horizontalBorderSize={horizontalBorderSize}
-        applyBorderLeft={applyBorderLeft}
         draggable={draggable}
-        totalChildren={childrenArray.length}
-        id={String(internalId.current)}
+        totalChildren={cellsArray.length}
+        id={internalId.current}
         {...interactiveRowProps}
         {...rest}
       >
-        {React.Children.map(children, (child, index) => {
-          return (
-            React.isValidElement(child) &&
-            React.cloneElement(child as React.ReactElement, {
-              expandable: expandable && index === firstCellIndex,
-              onClick:
-                expandable && index === firstCellIndex && firstColumnExpandable
-                  ? () => toggleExpanded()
-                  : undefined,
-              onKeyDown:
-                expandable && index === firstCellIndex && firstColumnExpandable
-                  ? handleCellKeyDown
-                  : undefined,
-              cellIndex: index,
-              reportCellWidth:
-                index < lhsRowHeaderIndex ||
-                (rhsRowHeaderIndex !== -1 && index > rhsRowHeaderIndex)
-                  ? reportCellWidth
-                  : undefined,
-              leftPosition: leftPositions[index],
-              rightPosition: rightPositions[childrenArray.length - (index + 1)],
-              ...child.props,
-            })
-          );
-        })}
+        <FlatTableRowContext.Provider
+          value={{
+            firstCellId,
+            expandable,
+            leftPositions,
+            rightPositions,
+            firstColumnExpandable,
+            onKeyDown: handleCellKeyDown,
+            onClick: () => toggleExpanded(),
+          }}
+        >
+          {children}
+        </FlatTableRowContext.Provider>
       </StyledFlatTableRow>
     );
 
@@ -352,6 +321,7 @@ export const FlatTableRow = React.forwardRef<
         id={internalId.current}
         moveItem={moveItem}
         findItem={findItem}
+        rowRef={rowRef}
       >
         {rowComponent()}
       </FlatTableRowDraggable>
@@ -360,18 +330,7 @@ export const FlatTableRow = React.forwardRef<
     return (
       <>
         {draggable ? draggableComponent() : rowComponent()}
-        {isExpanded &&
-          subRows &&
-          React.Children.map(
-            subRows,
-            (child, index) =>
-              child &&
-              React.cloneElement(child as React.ReactElement, {
-                isSubRow: true,
-                isFirstSubRow: index === 0,
-                ...(React.isValidElement(child) && { ...child.props }),
-              })
-          )}
+        {isExpanded && subRows && <SubRowProvider>{subRows}</SubRowProvider>}
       </>
     );
   }

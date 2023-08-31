@@ -11,7 +11,19 @@ const verticalBorderSizes = {
   large: "4px",
 };
 
-const StyledFlatTableRowHeader = styled.th<FlatTableRowHeaderProps>`
+const StyledFlatTableRowHeader = styled.th.attrs(
+  ({
+    stickyAlignment,
+  }: {
+    stickyAlignment: FlatTableRowHeaderProps["stickyAlignment"];
+  }) => ({ "data-sticky-align": stickyAlignment })
+)<
+  FlatTableRowHeaderProps & {
+    expandable?: boolean;
+    leftPosition?: number;
+    rightPosition?: number;
+  }
+>`
   ${({
     align,
     theme,

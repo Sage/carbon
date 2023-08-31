@@ -12,6 +12,8 @@ export interface FlatTableRowDraggableProps {
   moveItem?: (id?: number | string, index?: number) => void;
   /** item is draggable */
   draggable?: boolean;
+  /** ref for row element */
+  rowRef?: React.ForwardedRef<HTMLTableRowElement | null>;
 }
 
 interface DragItem {
@@ -24,6 +26,7 @@ export const FlatTableRowDraggable = ({
   id,
   findItem,
   moveItem,
+  rowRef,
 }: FlatTableRowDraggableProps) => {
   const originalIndex = Number(findItem?.(id).index);
 
@@ -57,7 +60,17 @@ export const FlatTableRowDraggable = ({
     key: originalIndex,
     id,
     isDragging,
-    ref: (node: HTMLElement) => drag(drop(node)),
+    ref: (node: HTMLTableRowElement) => {
+      drag(drop(node));
+      /* istanbul ignore else */
+      if (rowRef) {
+        if (typeof rowRef === "function") {
+          rowRef(node);
+        } else {
+          rowRef.current = node;
+        }
+      }
+    },
   });
 };
 

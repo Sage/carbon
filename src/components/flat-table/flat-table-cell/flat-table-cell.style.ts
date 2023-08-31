@@ -13,17 +13,15 @@ const verticalBorderSizes = {
 interface StyledFlatTableCellProps
   extends Pick<
       FlatTableCellProps,
-      | "align"
-      | "leftPosition"
-      | "rightPosition"
-      | "expandable"
-      | "verticalBorder"
-      | "verticalBorderColor"
+      "align" | "verticalBorder" | "verticalBorderColor"
     >,
     PaddingProps {
   makeCellSticky: boolean;
   colWidth?: number;
   isTruncated: boolean;
+  leftPosition: number;
+  rightPosition: number;
+  expandable?: boolean;
 }
 
 const StyledFlatTableCell = styled.td<StyledFlatTableCellProps>`
@@ -112,7 +110,7 @@ const StyledFlatTableCell = styled.td<StyledFlatTableCellProps>`
   `}
 `;
 
-const StyledCellContent = styled.div<Pick<FlatTableCellProps, "expandable">>`
+const StyledCellContent = styled.div<{ expandable?: boolean }>`
   ${({ expandable }) =>
     expandable &&
     css`

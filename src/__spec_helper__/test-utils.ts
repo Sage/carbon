@@ -8,6 +8,7 @@ import {
   FlexboxProps,
   BackgroundProps,
   PositionProps,
+  GridProps,
 } from "styled-system";
 import { ReactTestRendererJSON } from "react-test-renderer";
 
@@ -220,6 +221,18 @@ const flexBoxProps = [
   ["justifySelf", "justifySelf", "center"],
   ["alignSelf", "alignSelf", "center"],
   ["order", "order", "1"],
+] as const;
+
+const gridProps = [
+  ["gridColumn", "gridColumn", "1 / span 2"],
+  ["gridRow", "gridRow", "1 / span 2"],
+  ["gridArea", "gridArea", "myArea"],
+  ["gridAutoFlow", "gridAutoFlow", "column"],
+  ["gridAutoRows", "gridAutoRows", "150px"],
+  ["gridAutoColumns", "gridAutoColumns", "50px"],
+  ["gridTemplateRows", "gridTemplateRows", "100px 300px"],
+  ["gridTemplateColumns", "gridTemplateColumns", "auto auto auto auto"],
+  ["gridTemplateAreas", "gridTemplateAreas", "myArea myArea . . ."],
 ] as const;
 
 const backgroundProps = [
@@ -478,6 +491,26 @@ const testStyledSystemFlexBox = (
   );
 };
 
+const testStyledSystemGrid = (
+  component: (gridProperties?: GridProps) => JSX.Element,
+  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+) => {
+  describe.each(gridProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        const wrapper = mount(component(props));
+
+        assertStyleMatch(
+          { [propName]: value },
+          styleContainer ? styleContainer(wrapper) : wrapper
+        );
+      });
+    }
+  );
+};
+
 const testStyledSystemBackground = (
   component: (backgroundProperties?: BackgroundProps) => JSX.Element,
   styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
@@ -578,6 +611,7 @@ export {
   testStyledSystemWidth,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
+  testStyledSystemGrid,
   testStyledSystemBackground,
   testStyledSystemPosition,
   expectConsoleOutput,

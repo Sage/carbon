@@ -1,3 +1,30 @@
+## [120.1.0](https://github.com/Sage/carbon/compare/v120.0.0...v120.1.0) (2023-08-30)
+
+
+### Features
+
+* **flat-table, flat-table-row:** components can now be wrapped, subRows no longer need to ([ea27a57](https://github.com/Sage/carbon/commit/ea27a57734ed75301a07d855fbd303a4a1686ce0)), closes [#6219](https://github.com/Sage/carbon/issues/6219)
+
+## [120.0.0](https://github.com/Sage/carbon/compare/v119.12.2...v120.0.0) (2023-08-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **typography:** types for the Typography component are now properly listed and therefore
+undocumented props will no longer be supported
+* **box:** types for the Box component are now properly listed and therefore undocumented
+props will no longer be supported
+
+### Features
+
+* **box:** add support for css grid within box ([8f0308b](https://github.com/Sage/carbon/commit/8f0308ba33ccdddc9a4b9eb9eb782afd06a6cc43))
+
+
+### Code Refactoring
+
+* **box:** convert from styled component to a standard component ([64420a3](https://github.com/Sage/carbon/commit/64420a3f282bab1680b186afbecab20169d30d77))
+* **typography:** convert from styled component to a standard component ([e73eab0](https://github.com/Sage/carbon/commit/e73eab0acbb6e69059f6ab2797e6a0e38f2db7a3))
+
 ### [119.12.2](https://github.com/Sage/carbon/compare/v119.12.1...v119.12.2) (2023-08-24)
 
 

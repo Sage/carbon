@@ -1,10 +1,4 @@
-import React, {
-  useLayoutEffect,
-  useRef,
-  useState,
-  useEffect,
-  useContext,
-} from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { PaddingProps } from "styled-system";
 import { TableBorderSize, TableCellAlign } from "..";
 
@@ -15,6 +9,7 @@ import {
 import Icon from "../../icon";
 import { FlatTableThemeContext } from "../flat-table.component";
 import guid from "../../../__internal__/utils/helpers/guid";
+import useCalculateStickyCells from "../__internal__/use-calculate-sticky-cells";
 
 export interface FlatTableCellProps extends PaddingProps {
   /** Content alignment */
@@ -35,102 +30,61 @@ export interface FlatTableCellProps extends PaddingProps {
   verticalBorder?: TableBorderSize;
   /** Sets the color of the right border */
   verticalBorderColor?: string;
-  /** Sets an id string on the DOM element */
+  /** Sets an id string on the element */
   id?: string;
-  /**
-   * @private
-   * @ignore
-   */
-  expandable?: boolean;
-  /**
-   * @private
-   * @ignore
-   */
-  onClick?: () => void;
-  /**
-   * @private
-   * @ignore
-   */
-  onKeyDown?: () => void;
-  /**
-   * @private
-   * @ignore
-   * Sets the left position when sticky column found
-   */
-  leftPosition?: number;
-  /**
-   * @private
-   * @ignore
-   * Sets the right position when sticky column found
-   */
-  rightPosition?: number;
-  /**
-   * @private
-   * @ignore
-   * Index of cell within row
-   */
-  cellIndex?: number;
-  /**
-   * @private
-   * @ignore
-   * Callback to report the offsetWidth
-   */
-  reportCellWidth?: (offset: number, index?: number) => void;
 }
 
 export const FlatTableCell = ({
   align = "left",
   children,
   pl,
-  expandable = false,
-  onClick,
-  onKeyDown,
-  reportCellWidth,
-  cellIndex,
-  leftPosition,
-  rightPosition,
   width,
   truncate = false,
   title,
   colspan,
   rowspan,
+  id,
   ...rest
 }: FlatTableCellProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
-  const id = useRef(guid());
+  const internalId = useRef(id || guid());
   const [tabIndex, setTabIndex] = useState(-1);
   const { selectedId } = useContext(FlatTableThemeContext);
-
-  useLayoutEffect(() => {
-    if (ref.current && reportCellWidth) {
-      reportCellWidth(ref.current.offsetWidth, cellIndex);
-    }
-  }, [reportCellWidth, cellIndex]);
+  const {
+    leftPosition,
+    rightPosition,
+    expandable,
+    onClick,
+    onKeyDown,
+    isFirstCell,
+    isExpandableCell,
+    makeCellSticky,
+  } = useCalculateStickyCells(internalId.current);
 
   useEffect(() => {
-    setTabIndex(selectedId === id.current ? 0 : -1);
-  }, [selectedId]);
+    setTabIndex(isExpandableCell && selectedId === internalId.current ? 0 : -1);
+  }, [selectedId, isExpandableCell]);
 
   return (
     <StyledFlatTableCell
       leftPosition={leftPosition}
       rightPosition={rightPosition}
-      makeCellSticky={!!reportCellWidth}
-      className={reportCellWidth ? "isSticky" : undefined}
+      makeCellSticky={makeCellSticky}
+      className={makeCellSticky ? "isSticky" : undefined}
       ref={ref}
       align={align}
       data-element="flat-table-cell"
       pl={pl}
-      onClick={expandable && onClick ? onClick : undefined}
-      tabIndex={expandable && onClick ? tabIndex : undefined}
-      onKeyDown={expandable && onKeyDown ? onKeyDown : undefined}
+      onClick={isExpandableCell ? onClick : undefined}
+      tabIndex={isExpandableCell ? tabIndex : undefined}
+      onKeyDown={isExpandableCell ? onKeyDown : undefined}
       colWidth={width}
       isTruncated={truncate}
       expandable={expandable}
-      id={id.current}
       {...(colspan !== undefined && { colSpan: Number(colspan) })}
       {...(rowspan !== undefined && { rowSpan: Number(rowspan) })}
       {...rest}
+      id={internalId.current}
     >
       <StyledCellContent
         title={
@@ -138,7 +92,7 @@ export const FlatTableCell = ({
         }
         expandable={expandable}
       >
-        {expandable && (
+        {expandable && isFirstCell && (
           <Icon type="chevron_down_thick" bgSize="extra-small" mr="8px" />
         )}
         {children}
