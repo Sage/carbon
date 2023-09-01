@@ -37,6 +37,10 @@ import cellSizes from "./cell-sizes.style";
 import { FLAT_TABLE_SIZES } from "./flat-table.config";
 import { StyledPagerContainer } from "../pager/pager.style";
 import Pager from "../pager/pager.component";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const RenderComponent = (props: Partial<FlatTableProps> = {}) => (
   <FlatTable {...props}>
@@ -97,6 +101,14 @@ function renderFlatTableWithDiv(props = {}) {
 }
 
 describe("FlatTable", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   it("ariaDescribedby prop should have been propagated to the table", () => {
     const customId = "foo";
     const wrapper = renderFlatTable({ ariaDescribedby: customId });

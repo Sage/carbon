@@ -10,6 +10,10 @@ import mintTheme from "../../style/themes/mint";
 import Button from "../button";
 import Heading from "../heading";
 import { StyledHeadingBackButton } from "../heading/heading.style";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 interface MockComponentProps {
   index?: number;
@@ -97,6 +101,14 @@ function MockComponent({ index = 0, initialPageIndex }: MockComponentProps) {
 
 describe("Pages", () => {
   let wrapper: ReactWrapper | ShallowWrapper;
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
 
   it.each([
     ["fade", "carousel-transition-fade"],
@@ -209,15 +221,15 @@ describe("Pages", () => {
     });
 
     describe("on internal elements", () => {
-      wrapper = mount(
-        <Pages theme={mintTheme} initialpageIndex={0}>
-          <Page data-element="page" title="Foo">
-            Bar
-          </Page>
-        </Pages>
-      );
-
       it("should has expected data elements", () => {
+        wrapper = mount(
+          <Pages theme={mintTheme} initialpageIndex={0}>
+            <Page data-element="page" title="Foo">
+              Bar
+            </Page>
+          </Pages>
+        );
+
         wrapper.find('[data-element="page"]').exists();
         wrapper.find('[data-element="visible-page"]').exists();
       });

@@ -19,6 +19,10 @@ import {
 import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
 import StickyFooter from "../../__internal__/sticky-footer";
 import Button from "../button";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
@@ -55,6 +59,14 @@ function renderDrawer(props: Partial<DrawerProps> = {}) {
 }
 
 describe("Drawer", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   beforeEach(() => {
     container = document.createElement("div");
     document.body.appendChild(container);

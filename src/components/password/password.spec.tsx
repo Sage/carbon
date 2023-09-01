@@ -17,7 +17,7 @@ jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 function renderPasswordInput(props: PasswordProps) {
-  return mount(<Password {...props} />);
+  return mount(<Password onChange={() => {}} {...props} />);
 }
 
 describe("Password Input", () => {
@@ -44,7 +44,7 @@ describe("Password Input", () => {
         {
           borderRadius: "var(--borderRadius050)",
         },
-        mount(<Password />).find(StyledInput)
+        mount(<Password onChange={() => {}} />).find(StyledInput)
       );
     });
   });

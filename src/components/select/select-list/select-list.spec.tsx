@@ -730,7 +730,9 @@ describe("SelectList", () => {
         .spyOn(listWrapperElement, "clientHeight", "get")
         .mockImplementation(() => 40);
 
-      listWrapperElement.dispatchEvent(new Event("scroll"));
+      act(() => {
+        listWrapperElement.dispatchEvent(new Event("scroll"));
+      });
 
       expect(onListScrollBottomFn).toHaveBeenCalled();
     });
@@ -745,7 +747,10 @@ describe("SelectList", () => {
       jest
         .spyOn(listWrapperElement, "clientHeight", "get")
         .mockImplementation(() => 40);
-      listWrapperElement.dispatchEvent(new Event("scroll"));
+
+      act(() => {
+        listWrapperElement.dispatchEvent(new Event("scroll"));
+      });
 
       expect(onListScrollBottomFn).not.toHaveBeenCalled();
     });

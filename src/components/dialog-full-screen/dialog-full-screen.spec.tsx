@@ -17,6 +17,10 @@ import Form from "../form";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
@@ -27,6 +31,14 @@ describe("DialogFullScreen", () => {
 
   let wrapper: ReactWrapper;
   let onCancel: jest.Mock;
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
 
   afterEach(() => {
     if (wrapper.exists(DialogFullScreen)) {
@@ -171,7 +183,7 @@ describe("DialogFullScreen", () => {
     });
   });
 
-  describe("disableContentPadding", () => {
+  it("disableContentPadding", () => {
     wrapper = mount(
       <DialogFullScreen
         open
@@ -663,6 +675,14 @@ describe("DialogFullScreen", () => {
 describe("closeIcon", () => {
   let wrapper: ReactWrapper;
   let onCancel: jest.Mock | undefined;
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
 
   beforeEach(() => {
     onCancel?.mockRestore();

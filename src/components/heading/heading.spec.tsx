@@ -24,8 +24,20 @@ import Hr from "../hr";
 import Pill from "../pill";
 import enGb from "../../locales/en-gb";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 describe("Heading", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   testStyledSystemMargin((props) => (
     <Heading title="foo" subheader="subheader" {...props} />
   ));

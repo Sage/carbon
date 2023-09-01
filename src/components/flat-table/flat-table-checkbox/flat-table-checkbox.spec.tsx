@@ -22,14 +22,14 @@ const render = ({
       {asTh && (
         <thead>
           <tr>
-            <FlatTableCheckbox as="th" {...rest} />
+            <FlatTableCheckbox onChange={() => {}} as="th" {...rest} />
           </tr>
         </thead>
       )}
       {!asTh && (
         <tbody>
           <tr>
-            <FlatTableCheckbox {...rest} />
+            <FlatTableCheckbox onChange={() => {}} {...rest} />
           </tr>
         </tbody>
       )}

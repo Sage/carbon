@@ -32,10 +32,22 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const radioValues = ["val1", "val2", "val3"];
 
 describe("TileSelect", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   testStyledSystemMargin((props) => <TileSelect {...props} />);
 
   testStyledSystemMargin((props) => (

@@ -8,8 +8,20 @@ import {
   FlatTableCell,
   FlatTableBodyDraggable,
 } from "..";
+import Logger from "../../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 describe("FlatTableBodyDraggable", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   describe("when a data prop is added", () => {
     test("should be added to the FlatTableBody", () => {
       render(

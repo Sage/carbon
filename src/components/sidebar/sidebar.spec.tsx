@@ -18,12 +18,24 @@ import {
 import guid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
 import CarbonProvider from "../carbon-provider";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
 describe("Sidebar", () => {
   let wrapper: ReactWrapper;
   let spy: jest.Mock;
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
 
   testStyledSystemWidth((props) => (
     <StyledSidebar {...props}>Content</StyledSidebar>
@@ -33,9 +45,9 @@ describe("Sidebar", () => {
     spy = jest.fn();
     wrapper = mount(
       <Sidebar open data-role="baz" data-element="bar" onCancel={spy}>
-        <Textbox />
-        <Textbox />
-        <Textbox />
+        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} />
+        <Textbox onChange={() => {}} />
       </Sidebar>
     );
   });

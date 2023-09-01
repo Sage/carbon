@@ -91,7 +91,7 @@ describe("Switch", () => {
 
   describe("Deprecation warning for uncontrolled", () => {
     it("should display deprecation warning once", () => {
-      <Switch name="my-switch" defaultValue="test" />;
+      mount(<Switch name="my-switch" defaultValue="test" />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
         "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."

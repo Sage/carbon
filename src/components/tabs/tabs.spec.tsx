@@ -236,8 +236,9 @@ describe("Tabs", () => {
                 error="Tooltip position set to top"
                 label="As string"
                 tooltipPosition="top"
+                value={{ dd: "01", mm: "01", yyyy: "0001" }}
               />
-              <Textbox error="error" />
+              <Textbox error="error" onChange={() => {}} />
             </Tab>
           </Tabs>
         );

@@ -6,6 +6,10 @@ import DismissibleBox, {
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import StyledIcon from "../icon/icon.style";
 import IconButton from "../icon-button";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const onCloseMock = jest.fn();
 
@@ -20,6 +24,14 @@ const renderDismissibleBox = ({
   );
 
 describe("DismissibleBox", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   describe("styling", () => {
     it("matches the expected as default for light variant", () => {
       const wrapper = renderDismissibleBox({});
