@@ -188,3 +188,31 @@ export const assertCssValueIsApproximately = async (
   expect(parseInt(val)).toBeGreaterThanOrEqual(value - 2);
   expect(parseInt(val)).toBeLessThanOrEqual(value + 2);
 };
+
+const keys = {
+  downarrow: { key: "ArrowDown", keyCode: 40, which: 40 },
+  uparrow: { key: "ArrowUp", keyCode: 38, which: 38 },
+  leftarrow: { key: "ArrowLeft", keyCode: 37, which: 37 },
+  rightarrow: { key: "ArrowRight", keyCode: 39, which: 39 },
+  Enter: { key: "Enter", keyCode: 13, which: 13 },
+  EnterForce: { key: "Enter", keyCode: 13, which: 13, force: true },
+  Space: { key: " ", keyCode: 32, which: 32 },
+  Tab: { key: "Tab", keyCode: 9, which: 9 },
+  Home: { key: "Home", keyCode: 36, which: 36 },
+  End: { key: "End", keyCode: 35, which: 35 },
+  Esc: { key: "Escape", keyCode: 27, which: 27 },
+  ShiftHold: { key: "Shift", keyCode: 16, which: 16, release: false },
+  pagedown: { key: "PageDown", keyCode: 34, which: 34 },
+  pageup: { key: "PageUp", keyCode: 33, which: 33 },
+};
+export function keyCode(
+  type: keyof typeof keys
+): {
+  key: string;
+  keyCode: number;
+  which: number;
+  force?: boolean;
+  release?: boolean;
+} {
+  return keys[type];
+}
