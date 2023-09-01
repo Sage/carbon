@@ -195,8 +195,10 @@ const ButtonToggleGroup = ({
       // guard needed to avoid warnings about setting state on an unmounted component - the callback ref will
       // get called with null when the component is about to be unmounted, and it has been unmounted by the time
       // the setTimeout completes
+      /* istanbul ignore else */
       if (button) {
         const innerButtons = getInnerButtons();
+        /* istanbul ignore if */
         if (!innerButtons) {
           setFirstButton(undefined);
         } else if (button === innerButtons[0]) {

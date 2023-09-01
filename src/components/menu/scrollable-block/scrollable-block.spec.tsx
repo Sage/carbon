@@ -14,6 +14,10 @@ import StyledScrollableBlock from "./scrollable-block.style";
 import StyledBox from "../../box/box.style";
 import { StyledMenuItem } from "../menu.style";
 import { StyledLink } from "../../link/link.style";
+import Logger from "../../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const handleKeyDownFn = jest.fn();
 
@@ -57,6 +61,14 @@ describe("ScrollableBlock", () => {
       { attachTo: container }
     );
   };
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
 
   beforeEach(() => {
     container = document.createElement("div");

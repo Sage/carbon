@@ -584,10 +584,12 @@ describe("MultiActionButton", () => {
             true
           );
 
-          wrapper
-            .find('button[data-element="toggle-button"]')
-            .getDOMNode()
-            .dispatchEvent(nativeInputEvent);
+          act(() => {
+            wrapper
+              .find('button[data-element="toggle-button"]')
+              .getDOMNode()
+              .dispatchEvent(nativeInputEvent);
+          });
 
           jest.runAllTimers();
           wrapper.update();

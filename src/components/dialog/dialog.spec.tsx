@@ -28,6 +28,10 @@ import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import IconButton from "../icon-button";
 import Help from "../help";
 import CarbonProvider from "../carbon-provider";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 jest.mock("../../__internal__/utils/helpers/guid");
@@ -42,6 +46,15 @@ describe("Dialog", () => {
   let removeEventListenerSpy: jest.SpyInstance;
 
   let wrapper: ReactWrapper<DialogProps>;
+
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   beforeEach(() => {
     onCancel = jest.fn();
   });

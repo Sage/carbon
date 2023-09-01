@@ -259,13 +259,25 @@ describe("Draggable Checkbox", () => {
     const component = (
       <DraggableContainer getOrder={getOrder}>
         <DraggableItem key="1" id={1}>
-          <Checkbox name="one" label="Draggable Label One" />
+          <Checkbox
+            name="one"
+            label="Draggable Label One"
+            onChange={() => {}}
+          />
         </DraggableItem>
         <DraggableItem key="2" id={2}>
-          <Checkbox name="two" label="Draggable Label Two" />
+          <Checkbox
+            name="two"
+            label="Draggable Label Two"
+            onChange={() => {}}
+          />
         </DraggableItem>
         <DraggableItem key="3" id={3}>
-          <Checkbox name="three" label="Draggable Label Three" />
+          <Checkbox
+            name="three"
+            label="Draggable Label Three"
+            onChange={() => {}}
+          />
         </DraggableItem>
       </DraggableContainer>
     );

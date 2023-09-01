@@ -18,6 +18,10 @@ import Box, {
   BoxProps,
 } from "./box.component";
 import boxConfig from "./box.config";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const GAP_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as AllowedNumericalValues[];
 
@@ -25,6 +29,14 @@ const getGapValue = (gap: number | string) =>
   typeof gap === "number" ? `var(--spacing${gap}00)` : gap;
 
 describe("Box", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   testStyledSystemSpacing((props) => <Box {...props} />);
   testStyledSystemColor((props) => <Box {...props} />);
   testStyledSystemLayout((props) => <Box {...props} />);

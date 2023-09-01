@@ -14,6 +14,10 @@ import Tooltip from "../tooltip";
 import { RadioButtonGroupProps } from "./radio-button-group.component";
 import CarbonProvider from "../../components/carbon-provider";
 import { ErrorBorder } from "../textbox/textbox.style";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const buttonValues = ["test-1", "test-2"];
 
@@ -72,6 +76,14 @@ function renderRadioButtonGroupWithNewValidation({
 }
 
 describe("RadioButtonGroup", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   describe("with an inline legend", () => {
     describe("when adaptiveLegendBreakpoint prop is set", () => {
       describe("when screen bigger than breakpoint", () => {
@@ -183,7 +195,12 @@ describe("RadioButtonGroup", () => {
 
     beforeAll(() => {
       wrapper = mount(
-        <RadioButtonGroup name="radio" legend="Group Label" required>
+        <RadioButtonGroup
+          name="radio"
+          onChange={() => {}}
+          legend="Group Label"
+          required
+        >
           <RadioButton label="off" value="test" />
           <RadioButton label="on" value="test" />
         </RadioButtonGroup>
@@ -320,7 +337,11 @@ describe("RadioButtonGroup", () => {
     it("when children are passed in an array, component should render correctly", () => {
       wrapper = mount(
         <CarbonProvider validationRedesignOptIn>
-          <RadioButtonGroup name="radio-button-test" error="message">
+          <RadioButtonGroup
+            name="radio-button-test"
+            error="message"
+            onChange={() => {}}
+          >
             {[
               <RadioButton
                 key="radio1"

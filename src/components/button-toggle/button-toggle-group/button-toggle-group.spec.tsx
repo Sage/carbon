@@ -24,7 +24,7 @@ jest.mock("../../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 const MockComponent = (props: Partial<ButtonToggleGroupProps> = {}) => (
-  <ButtonToggleGroup id="button-toggle-group-id" {...props}>
+  <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}} {...props}>
     <ButtonToggle value="foo">Foo</ButtonToggle>
     <ButtonToggle value="bar">Bar</ButtonToggle>
   </ButtonToggleGroup>
@@ -341,7 +341,7 @@ describe("ButtonToggleGroup", () => {
       container.id = "enzymeContainer";
       document.body.appendChild(container);
       wrapper = mount(
-        <ButtonToggleGroup id="button-toggle-group-id">
+        <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}}>
           <ButtonToggle value="foo">Foo</ButtonToggle>
           <ButtonToggle value="bar">Bar</ButtonToggle>
           <ButtonToggle value="baz">Baz</ButtonToggle>
@@ -360,6 +360,8 @@ describe("ButtonToggleGroup", () => {
       }
 
       container = null;
+
+      jest.clearAllTimers();
     });
 
     it("when no button is selected, only the first button is tabbable", async () => {

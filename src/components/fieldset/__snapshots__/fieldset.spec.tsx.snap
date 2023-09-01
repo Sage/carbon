@@ -17,7 +17,9 @@ exports[`Fieldset renders correctly 1`] = `
       inline={false}
     >
       <FormSpacingProvider>
-        <Textbox />
+        <Textbox
+          onChange={[Function]}
+        />
       </FormSpacingProvider>
     </styled.div>
   </styled.fieldset>

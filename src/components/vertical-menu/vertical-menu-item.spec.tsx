@@ -8,6 +8,10 @@ import { testStyledSystemPadding } from "../../__spec_helper__/test-utils";
 import Icon from "../icon";
 import { StyledVerticalMenuItem } from "./vertical-menu.style";
 import { VerticalMenuItem, VerticalMenuFullScreen } from ".";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../icon", () => {
   return jest.fn(() => null);
@@ -16,6 +20,14 @@ jest.mock("../icon", () => {
 const IconMock = Icon as jest.MockedFunction<typeof Icon>;
 
 describe("VerticalMenuItem", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   testStyledSystemPadding(
     (props) => (
       <ThemeProvider theme={mintTheme}>

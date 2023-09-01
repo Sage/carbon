@@ -8,6 +8,10 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Typography, { List, ListItem } from ".";
 import { TypographyProps } from "./typography.component";
+import Logger from "../../__internal__/utils/logger";
+
+// mock Logger.deprecate so that no console warnings occur while running the tests
+const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 interface AssertStyleMatchProps {
   as?: string;
@@ -44,6 +48,14 @@ const pStyling = {
 };
 
 describe("Typography", () => {
+  beforeAll(() => {
+    loggerSpy.mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    loggerSpy.mockRestore();
+  });
+
   describe("default variants", () => {
     it("applies p styling by default", () => {
       assert({ ...pStyling, as: "p" }, {});
