@@ -17,6 +17,13 @@ const locatorChainMethods = [
   "last",
 ];
 
+// there are certain methods we can leave in place, because they've been rewritten from Cypress helpers to Playwright ones, but where
+// we need to ensure we `await` any such calls.
+const assertionNamesToAwait = [
+  "checkGoldenOutline",
+  "assertCssValueIsApproximately",
+];
+
 // map from key names provided as an argument to the "keycode" function to those that can be given directly to playwright's .press
 const keyNames = {
   downarrow: "ArrowDown",
@@ -166,17 +173,19 @@ function removeDuplicateConsts(ast) {
 }
 
 // utility function to find all the callExpression nodes in a chain of method calls, as well as the function name of the initial call
-// (which corresponds to the deepest child in the tree)
+// (which corresponds to the deepest child in the tree).
+// This also needs to be flexible enough to catch non-method property chains that come from `expect`, eg
+// `expect(foo).to.be.equals("bar");`
 function getMethodCallNodes(node, allCallNodes = []) {
-  if (
-    t.isMemberExpression(node.callee) &&
-    t.isCallExpression(node.callee.object)
-  ) {
+  if (t.isMemberExpression(node)) {
+    return getMethodCallNodes(node.object, [node, ...allCallNodes]);
+  }
+  if (t.isMemberExpression(node.callee)) {
     return getMethodCallNodes(node.callee.object, [node, ...allCallNodes]);
   }
   return {
-    nodes: [node, ...allCallNodes],
-    name: node.callee.name || node.callee.object.name,
+    nodes: t.isIdentifier(node) ? allCallNodes : [node, ...allCallNodes],
+    name: node.name || node.callee.name || node.callee.object.name,
   };
 }
 
@@ -189,7 +198,25 @@ function stringifyArgs(args) {
     // don't want this (a stringified AST node - no idea what that looks like!) but at least it's *something* to use as a fallback
     // for weird edge cases..
     let stringifiedArg = arg.toString();
-    if (t.isLiteral(arg)) {
+    if (t.isTemplateLiteral(arg)) {
+      // can't do a great job with template literals but need to do something to avoid crash as they're a literal with no value
+      // property. Attempt to represent as close as possible to what the string looks like, with both literal parts and expression names.
+      const { expressions, quasis } = arg;
+      let builtString = "";
+      // there will always be exactly one more "quasi" than expressions.
+      quasis.forEach((quasi, index) => {
+        builtString += quasi.value.raw;
+        const nextExpression = expressions[index];
+        if (nextExpression) {
+          // hard to deal with the expressions in general, this is a simple non-crashing workaround
+          builtString +=
+            nextExpression.value ||
+            nextExpression.name ||
+            nextExpression.toString();
+        }
+      });
+      stringifiedArg = builtString;
+    } else if (t.isLiteral(arg)) {
       stringifiedArg = arg.value.toString();
     } else if (t.isIdentifier(arg)) {
       stringifiedArg = arg.name;
@@ -332,7 +359,10 @@ function convertTests(filename) {
 
         // replace accordion-test.stories import with the new components.test-pw file
         if (source.value.includes("-test.stories")) {
-          source.value = "./components.test-pw";
+          source.value = source.value.replace(
+            /\/[^/]+-test\.stories/,
+            "/components.test-pw"
+          );
         }
       }
     },
@@ -417,6 +447,9 @@ function convertTests(filename) {
         path.skip();
 
         path.replaceWith(t.awaitExpression(path.node));
+      } else if (assertionNamesToAwait.includes(callee.name)) {
+        path.replaceWith(t.awaitExpression(path.node));
+        path.skip();
       }
 
       if (t.isMemberExpression(callee)) {
@@ -508,12 +541,16 @@ function convertTests(filename) {
         // to:
         // array.forEach(destructuredArgs => {test(newMessage, testFn); }
         // where destructuredArgs destructures the elements of the individual elements if it's an array of arrays,
-        // and newMessage replaces each successive %s with the argument names
+        // and newMessage replaces each successive %s with the argument names.
+        // Similarly for `describe.each`, which gets the same transformation except that we end up calling
+        // `describe` rather than `it`.
         if (
           t.isCallExpression(path.node.expression.callee) &&
           t.isMemberExpression(path.node.expression.callee.callee) &&
           path.node.expression.callee.callee.property.name === "each" &&
-          path.node.expression.callee.callee.object.name === "it"
+          ["it", "describe"].includes(
+            path.node.expression.callee.callee.object.name
+          )
         ) {
           // unwrap each individual array element if they contain only one element
           // [But only if it's an array literal, not if it's a reference to a const defined elsewhere.]
@@ -572,22 +609,32 @@ function convertTests(filename) {
             );
             // we may have more arguments than %s's, which causes an error when constructing the template literal.
             // Can fix this by only taking the number of array elements we need.
-            newMessage = t.templateLiteral(
-              quasis,
-              path.node.expression.arguments[1].params.slice(
-                0,
-                parts.length - 1
-              )
+            // HOWEVER in some places (button-toggle) we have the opposite problem - more %s's than arguments.
+            // This is wrong and causes the Cypress output to simply contain a %s, so should be fixed - but we
+            // don't want to crash the whole script. So in this case we simply repeat arguments from the start
+            // to fill out the required %s's. This both avoids a crash and, at least in the faulty message in
+            // ButtonToggle, produces what was probably intended.
+            const templateExpressions = path.node.expression.arguments[1].params.slice(
+              0,
+              parts.length - 1
             );
+            let currentIndex = 0;
+            while (templateExpressions.length < quasis.length - 1) {
+              templateExpressions.push(
+                path.node.expression.arguments[1].params[currentIndex]
+              );
+              currentIndex += 1;
+            }
+            newMessage = t.templateLiteral(quasis, templateExpressions);
           }
           const forEachFunctionArgBody = t.blockStatement([
             // use the incorrect "it" as the function name, so that this is later converted correctly (to "test" with async ({ page, mount }) etc) by the
             // CallExpression transforms elsewhere in this visitor
             t.expressionStatement(
-              t.callExpression(t.identifier("it"), [
-                newMessage,
-                path.node.expression.arguments[1],
-              ])
+              t.callExpression(
+                t.identifier(path.node.expression.callee.callee.object.name),
+                [newMessage, path.node.expression.arguments[1]]
+              )
             ),
           ]);
 
@@ -615,6 +662,81 @@ function convertTests(filename) {
         // await element.and();
         // (the should etc. calls are be replaced with the correct playwright methods in a separate step)
         const { name, nodes } = getMethodCallNodes(path.node.expression);
+
+        if (name === "expect") {
+          // need to convert `expect(someVal).to.<some property chain>()` to `await expect(someVal).toBeSomething()`
+
+          // first find the assertion chain in string form, eg "to.be.equals"
+          // The slice is to cut off the initial "expect" node
+          const stringAssertion = nodes
+            .slice(1)
+            .map(
+              (node) =>
+                node.name ||
+                node.property?.name ||
+                node.callee?.name ||
+                node.callee?.property?.name
+            )
+            .join(".");
+
+          // this will not be a terrible fallback if everything goes wrong, in terms of showing what the test was doing previously!
+          let expectMethod = stringAssertion.split(".").join("");
+          const assertionArgs = path.node.expression.arguments;
+
+          switch (stringAssertion) {
+            case "to.equal":
+            case "to.equals":
+            case "to.eq":
+              expectMethod = "toBe";
+              break;
+            case "to.deep.equal":
+              expectMethod = "toEqual";
+              break;
+            case "to.be.within":
+              // this is trickier as it needs to convert to 2 separate calls. As this is a one-off we compute the final result
+              // here and return early
+              path.replaceWithMultiple([
+                t.awaitExpression(
+                  t.callExpression(
+                    t.memberExpression(
+                      nodes[0],
+                      t.identifier("toBeGreaterThanOrEqual")
+                    ),
+                    [assertionArgs[0]]
+                  )
+                ),
+                t.awaitExpression(
+                  t.callExpression(
+                    t.memberExpression(
+                      nodes[0],
+                      t.identifier("toBeLessThanOrEqual")
+                    ),
+                    [assertionArgs[1]]
+                  )
+                ),
+              ]);
+              return;
+            case "to.have.css":
+              expectMethod = "toHaveCSS";
+              break;
+            case "to.have.been.calledOnce":
+              console.log(
+                chalk.yellow(
+                  "toHaveBeenCalledOnce assertion found - this is not possible to automatically translate to Playwright, please do it manually"
+                )
+              );
+              break;
+            default:
+              break;
+          }
+          const singleCall = t.callExpression(
+            t.memberExpression(nodes[0], t.identifier(expectMethod)),
+            assertionArgs
+          );
+
+          path.replaceWith(t.awaitExpression(singleCall));
+          return;
+        }
 
         // we also need to handle various `cy.something()` as well as calls to imported locators
         if (["cy", ...importedLocators].includes(name)) {
@@ -753,6 +875,7 @@ function convertTests(filename) {
             // in some complex translations we may need additional nodes to precede or follow the main `await expect(...)` statement
             const precedingNodes = [];
             const followingNodes = [];
+            let skipThisNode = false;
             // need to adjust this to change a `element.should(...)` or `element.and()` to `expect(originalLocator).toDoSomething()
             // - where there are various cases for toDoSomething!
             let nodeToAwait = node;
@@ -996,7 +1119,6 @@ function convertTests(filename) {
                 console.log(
                   chalk.yellow(
                     `Call found to trigger with arguments [${triggerArgs
-                      .slice(1)
                       .map((arg) => arg.value || arg.name)
                       .join(
                         ","
@@ -1038,14 +1160,69 @@ function convertTests(filename) {
                   )
                 );
               }
+            } else if (nodeToAwait.callee.property.name === "then") {
+              // convert `.then((arg) => furtherTests(arg))` to `furtherTests(elementName)`
+              // and `.then(() => furtherTests())` to `furtherTests()` (the latter will always chain of some action rather than
+              // a direct locator method)
+              const thenFunctionArg = nodeToAwait.arguments[0];
+              if (!t.isFunction(thenFunctionArg)) {
+                console.log(
+                  chalk.red(
+                    "argument to .then found which is not a function! Skipping but please investigate this!"
+                  )
+                );
+                return;
+              }
+              const functionArgs = thenFunctionArg.params;
+              const functionBody = t.isBlockStatement(thenFunctionArg.body)
+                ? thenFunctionArg.body.body
+                : [thenFunctionArg.body];
+              // we need to skip this `.then` call node (as there won't be any `.then`, or anything else with a function argument, in
+              // the translation), and add all the function's content next in the main test. (We don't have to translate it here, as
+              // it will be picked up later by the visitor.)
+              skipThisNode = true;
+              followingNodes.push(...functionBody);
+              // but there is one thing to take care of: in the case of `.then(($el) => { someTests($el); })`, we need to
+              // replace any reference to $el (or whatever the argument is called) with the variable name we've already assigned
+              // to the located element.
+              // NOTE: in the case where `.then` is chained off a call to the `getDesignTokensByCssProperty` method, this isn't correct.
+              // But there isn't yet any Playwright translation of this method. If that gets done, so we know what that should be changed to,
+              // this can be updated. (But only 3 Cypress test suites even use this, so there may be no benefit to automating.)
+              if (functionArgs.length > 0) {
+                // there should only ever be one argument to such a `.then` call...
+                const argumentName = functionArgs[0].name;
+                skipThisNode = true;
+                // need to find all uses of argumentName in the body and replace them with the element name.
+                // Unfortunately we can't call the `traverse` method on the functionBody because that needs a Path to be called on, and
+                // it's impossible to get a Path from a Node (unlike the other way round). So in this simple situation I've resorted to
+                // just doing it manually with recursion...
+                const updateIdentifierNames = (currentNode) => {
+                  if (
+                    t.isIdentifier(currentNode) &&
+                    currentNode.name === argumentName
+                  ) {
+                    currentNode.name = elementName;
+                    return;
+                  }
+                  if (typeof currentNode === "object") {
+                    // note that this covers arrays as well as objects.
+                    // (Also null due to a well-known JS bug, but I don't think null can ever appear in an AST!)
+                    Object.values(currentNode).forEach(updateIdentifierNames);
+                  }
+                };
+                updateIdentifierNames(functionBody);
+              }
             } else {
-              // base case (no should or and)
+              // base case (a method that hasn't been explicitly considered above) - just leave as it is.
+              // This is correct for methods like `.focus()` - for others it will probably be flagged by TS/lint errors!
               nodeToAwait.callee.object = t.identifier(calleeName);
             }
             newNodes.push(...precedingNodes);
-            newNodes.push(
-              t.expressionStatement(t.awaitExpression(nodeToAwait))
-            );
+            if (!skipThisNode) {
+              newNodes.push(
+                t.expressionStatement(t.awaitExpression(nodeToAwait))
+              );
+            }
             newNodes.push(...followingNodes);
           });
 
