@@ -1,6 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { expect } from "@playwright/experimental-ct-react17";
+import { label, legendSpan } from "../components/index";
 
 const OPEN_MODAL = '[data-state="open"]';
 const CLOSED_MODAL = '[data-state="closed"]';
@@ -205,6 +206,7 @@ const keys = {
   pagedown: { key: "PageDown", keyCode: 34, which: 34 },
   pageup: { key: "PageUp", keyCode: 33, which: 33 },
 };
+
 export function keyCode(
   type: keyof typeof keys
 ): {
@@ -216,3 +218,18 @@ export function keyCode(
 } {
   return keys[type];
 }
+
+const verifyRequiredAsterisk = async (locator: Locator) => {
+  // use getComputedStyle to read the pseudo selector
+  // and read the value of the `content` CSS property
+  const contentValue = await locator.evaluate((el) =>
+    window.getComputedStyle(el, "after").getPropertyValue("content")
+  );
+  await expect(contentValue).toBe('"*"');
+};
+
+export const verifyRequiredAsteriskForLabel = (page: Page) =>
+  verifyRequiredAsterisk(label(page));
+
+export const verifyRequiredAsteriskForLegend = (page: Page) =>
+  verifyRequiredAsterisk(legendSpan(page));
