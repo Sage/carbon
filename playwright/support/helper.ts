@@ -217,7 +217,7 @@ export function keyCode(
   release?: boolean;
 } {
   return keys[type];
-}
+};
 
 const verifyRequiredAsterisk = async (locator: Locator) => {
   // use getComputedStyle to read the pseudo selector
@@ -233,3 +233,16 @@ export const verifyRequiredAsteriskForLabel = (page: Page) =>
 
 export const verifyRequiredAsteriskForLegend = (page: Page) =>
   verifyRequiredAsterisk(legendSpan(page));
+
+/**
+* Verifies whether an object exists while not visible to the user. */
+export const isInViewport = async (page: Page, locator: Locator) => {
+  const rect = await locator.evaluate((element) =>
+    element.getBoundingClientRect()
+  );
+  const bottom = await page.evaluate(async () => {
+    const { documentElement } = window.document;
+    return documentElement.clientHeight;
+  });
+  return rect.top <= bottom;
+};

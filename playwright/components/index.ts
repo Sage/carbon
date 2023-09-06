@@ -8,6 +8,7 @@ import {
   DLS_ROOT,
   FIELD_HELP_PREVIEW,
   LABEL,
+  STICKY_FOOTER,
 } from "./locators";
 
 export const icon = (page: Page) => {
@@ -20,6 +21,10 @@ export const getDataElementByValue = (page: Page, element: string) => {
 
 export const closeIconButton = (page: Page) => {
   return page.locator(CLOSE_ICON_BUTTON);
+};
+
+export const stickyFooter = (page: Page) => {
+  return page.locator(STICKY_FOOTER);
 };
 
 export const tooltipPreview = (page: Page) => {
