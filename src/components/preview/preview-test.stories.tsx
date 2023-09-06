@@ -1,5 +1,5 @@
 import React from "react";
-import Preview, { PreviewProps } from "./preview.component";
+import Preview from "./preview.component";
 
 export default {
   title: "Preview/Test",
@@ -24,8 +24,4 @@ Default.story = {
     loading: true,
     width: "",
   },
-};
-
-export const PreviewComponent = (props: PreviewProps) => {
-  return <Preview loading {...props} />;
 };
