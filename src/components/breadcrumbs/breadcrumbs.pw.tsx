@@ -164,7 +164,7 @@ test("should not set the onClick or href props when isCurrent is true", async ({
 });
 
 test.describe("Accessibility tests for Breadcrumbs component", async () => {
-  test("should pass accessibilty tests for Breadcrumbs default story", async ({
+  test("should pass accessibility tests for Breadcrumbs default story", async ({
     mount,
     page,
   }) => {
@@ -172,7 +172,7 @@ test.describe("Accessibility tests for Breadcrumbs component", async () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for Crumb default story", async ({
+  test("should pass accessibility tests for Crumb default story", async ({
     mount,
     page,
   }) => {

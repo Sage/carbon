@@ -3,7 +3,7 @@ import { IconType } from "../icon";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import { HELP_POSITIONS } from "./help.config";
 import { ICONS } from "../icon/icon-config";
-import Help, { HelpProps } from "./help.component";
+import { Help } from "./help.component";
 
 export default {
   title: "Help/Test",
@@ -78,19 +78,4 @@ Default.story = {
     tooltipFontColor: "",
     tooltipFlipOverrides: "left",
   },
-};
-
-export const HelpComponent = (props: HelpProps) => {
-  return (
-    <div
-      style={{
-        marginLeft: "200px",
-        marginRight: "64px",
-        marginTop: "64px",
-        marginBottom: "64px",
-      }}
-    >
-      <Help {...props} />
-    </div>
-  );
 };

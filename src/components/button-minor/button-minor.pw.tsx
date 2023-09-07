@@ -131,11 +131,11 @@ test.describe("Check props for Button Minor component", () => {
     mount,
     page,
   }) => {
-    await mount(<ButtonMinorCustom aria-label="cypress-aria" />);
+    await mount(<ButtonMinorCustom aria-label="playwright-aria" />);
 
     await expect(buttonMinorComponent(page, 0)).toHaveAttribute(
       "aria-label",
-      "cypress-aria"
+      "playwright-aria"
     );
   });
 
