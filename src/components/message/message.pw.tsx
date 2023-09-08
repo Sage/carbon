@@ -21,10 +21,7 @@ import {
   messageDismissIconButton,
 } from "../../../playwright/components/message";
 
-import {
-  VALIDATION,
-  CHARACTERS,
-} from "../../../cypress/support/component-helper/constants";
+import { VALIDATION, CHARACTERS } from "../../../playwright/support/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
