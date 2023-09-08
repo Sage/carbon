@@ -9,7 +9,7 @@ import {
 
 import { icon } from "../../../playwright/components/index";
 
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];

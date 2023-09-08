@@ -12,10 +12,7 @@ import {
   checkDialogIsInDOM,
   checkDialogIsNotInDOM,
 } from "../../../playwright/support/helper";
-import {
-  CHARACTERS,
-  SIZE,
-} from "../../../cypress/support/component-helper/constants";
+import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
 import AlertComponent from "./components.test-pw";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];

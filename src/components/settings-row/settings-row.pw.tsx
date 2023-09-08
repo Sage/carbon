@@ -11,7 +11,7 @@ import {
   settingsRowDescription,
   settingsRowTitle,
 } from "../../../playwright/components/settings-row/index";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 import { HeadingType } from "../heading";
 import {
   checkAccessibility,
