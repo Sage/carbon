@@ -85,7 +85,7 @@ export const Editable: StoryFn = () => {
             </Button>
           }
         >
-          <Typography variant="h3" mb="32px">
+          <Typography variant="h2" mb="32px">
             Basic details
           </Typography>
           <Button onClick={() => setIsDisabled(!isDisabled)}>
