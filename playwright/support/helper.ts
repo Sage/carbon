@@ -26,9 +26,19 @@ export const getStyle = async (
 /**
  * Check the accessibility rules for an element.
  * @param {Page} page
+ * @param disableRules list of rule descriptions can be found here https://github.com/dequelabs/axe-core/blob/master/doc/rule-descriptions.md
  * @example await checkAccessibility(page);
+ * @example await checkAccessibility(page, "color-contrast", "form-field-multiple-labels");
  */
-export const checkAccessibility = async (page: Page) => {
+export const checkAccessibility = async (
+  page: Page,
+  ...disableRules: string[]
+) => {
+  const preDisabledRules = [
+    "landmark-one-main",
+    "page-has-heading-one",
+    "region",
+  ];
   const accessibilityScanResults = await new AxeBuilder({ page })
     .withTags([
       "wcag2a", // WCAG 2.0 & WCAG 2.1 Level A
@@ -37,7 +47,7 @@ export const checkAccessibility = async (page: Page) => {
       "wcag21aa", // WCAG 2.1 Level AA
       "best-practice", // Best practices endorsed by Deque
     ])
-    .disableRules(["landmark-one-main", "page-has-heading-one", "region"])
+    .disableRules([...preDisabledRules, ...disableRules])
     .analyze();
 
   expect(accessibilityScanResults.violations).toEqual([]);
