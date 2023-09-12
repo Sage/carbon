@@ -1,7 +1,7 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import ContentComponent from "./components.test-pw";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 import {
   contentBody,
   contentTitle,

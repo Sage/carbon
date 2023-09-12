@@ -1,6 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { expect } from "@playwright/experimental-ct-react17";
+import { label, legendSpan } from "../components/index";
 
 const OPEN_MODAL = '[data-state="open"]';
 const CLOSED_MODAL = '[data-state="closed"]';
@@ -197,4 +198,61 @@ export const assertCssValueIsApproximately = async (
   const val = await getStyle(element, cssProp);
   expect(parseInt(val)).toBeGreaterThanOrEqual(value - 2);
   expect(parseInt(val)).toBeLessThanOrEqual(value + 2);
+};
+
+const keys = {
+  downarrow: { key: "ArrowDown", keyCode: 40, which: 40 },
+  uparrow: { key: "ArrowUp", keyCode: 38, which: 38 },
+  leftarrow: { key: "ArrowLeft", keyCode: 37, which: 37 },
+  rightarrow: { key: "ArrowRight", keyCode: 39, which: 39 },
+  Enter: { key: "Enter", keyCode: 13, which: 13 },
+  EnterForce: { key: "Enter", keyCode: 13, which: 13, force: true },
+  Space: { key: " ", keyCode: 32, which: 32 },
+  Tab: { key: "Tab", keyCode: 9, which: 9 },
+  Home: { key: "Home", keyCode: 36, which: 36 },
+  End: { key: "End", keyCode: 35, which: 35 },
+  Esc: { key: "Escape", keyCode: 27, which: 27 },
+  ShiftHold: { key: "Shift", keyCode: 16, which: 16, release: false },
+  pagedown: { key: "PageDown", keyCode: 34, which: 34 },
+  pageup: { key: "PageUp", keyCode: 33, which: 33 },
+};
+
+export function keyCode(
+  type: keyof typeof keys
+): {
+  key: string;
+  keyCode: number;
+  which: number;
+  force?: boolean;
+  release?: boolean;
+} {
+  return keys[type];
+};
+
+const verifyRequiredAsterisk = async (locator: Locator) => {
+  // use getComputedStyle to read the pseudo selector
+  // and read the value of the `content` CSS property
+  const contentValue = await locator.evaluate((el) =>
+    window.getComputedStyle(el, "after").getPropertyValue("content")
+  );
+  await expect(contentValue).toBe('"*"');
+};
+
+export const verifyRequiredAsteriskForLabel = (page: Page) =>
+  verifyRequiredAsterisk(label(page));
+
+export const verifyRequiredAsteriskForLegend = (page: Page) =>
+  verifyRequiredAsterisk(legendSpan(page));
+
+/**
+* Verifies whether an object exists while not visible to the user. */
+export const isInViewport = async (page: Page, locator: Locator) => {
+  const rect = await locator.evaluate((element) =>
+    element.getBoundingClientRect()
+  );
+  const bottom = await page.evaluate(async () => {
+    const { documentElement } = window.document;
+    return documentElement.clientHeight;
+  });
+  return rect.top <= bottom;
 };
