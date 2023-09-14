@@ -17,16 +17,9 @@ export default {
   },
 };
 
-export const DefaultStory = ({
-  children,
-  w,
-  dtTextAlign,
-  ddTextAlign,
-  asSingleColumn,
-  ...args
-}: DlProps) => {
+export const DefaultStory = (props: DlProps) => {
   return (
-    <Dl {...args}>
+    <Dl {...props}>
       <Dt>First</Dt>
       <Dd>Description</Dd>
       <Dt>Second</Dt>
