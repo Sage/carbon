@@ -81,7 +81,7 @@ export const WithChildrenComponent: ComponentStory<typeof Heading> = () => (
         <Dd>Stove Top Moka Pot</Dd>
         <Dt>Brand of Coffee</Dt>
         <Dd>Magic Coffee Beans</Dd>
-        <Dt>Main and Registered Address</Dt>
+        <Dt mb={0}>Main and Registered Address</Dt>
         <Dd mb="4px">Magic Coffee Beans,</Dd>
         <Dd mb="4px">In The Middle of Our Street,</Dd>
         <Dd mb="4px">Madness,</Dd>

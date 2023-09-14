@@ -171,7 +171,7 @@ export const Responsive = () => {
   const smallScreen = useMediaQuery("(max-width: 700px)");
   return (
     <Dl
-      ddTextAlign={smallScreen ? "left" : "right"}
+      ddTextAlign={smallScreen ? "left" : undefined}
       dtTextAlign={smallScreen ? "left" : "right"}
       asSingleColumn={smallScreen}
     >

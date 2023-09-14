@@ -6,17 +6,11 @@ import {
   assertStyleMatch,
   testStyledSystemSpacing,
 } from "../../__spec_helper__/test-utils";
-import {
-  StyledDl,
-  StyledDt,
-  StyledDtDiv,
-  StyledDdDiv,
-  ElementAlignment,
-} from "./definition-list.style";
+import { StyledDl, StyledDt, StyledDd } from "./definition-list.style";
 import Dl, { DlProps } from "./dl.component";
 import Dt from "./dt.component";
 import Dd from "./dd.component";
-import DlContext from "./__internal__/dl.context";
+import DlContext, { ElementAlignment } from "./__internal__/dl.context";
 
 type nodeType = "Dl" | "Dt" | "Dd";
 
@@ -267,7 +261,7 @@ describe("DefinitionList", () => {
             renderWrapper("Dl", {
               dtTextAlign: align,
               ddTextAlign: align,
-            }).find(StyledDtDiv)
+            }).find(StyledDt)
           );
         });
 
@@ -279,24 +273,11 @@ describe("DefinitionList", () => {
             renderWrapper("Dl", {
               dtTextAlign: align,
               ddTextAlign: align,
-            }).find(StyledDdDiv)
+            }).find(StyledDd)
           );
         });
       }
     );
-  });
-
-  describe("Children of Dl", () => {
-    beforeEach(() => {
-      wrapper = renderWrapper("Dl", {});
-    });
-    it("should contain dt", () => {
-      expect(wrapper.find(StyledDtDiv).props().children.type).toEqual(Dt);
-    });
-
-    it("should contain dd", () => {
-      expect(wrapper.find(StyledDdDiv).props().children.length).toEqual(1);
-    });
   });
 
   describe("asSingleColumn", () => {
