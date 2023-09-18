@@ -1,3 +1,10 @@
+## [120.2.0](https://github.com/Sage/carbon/compare/v120.1.0...v120.2.0) (2023-09-08)
+
+
+### Features
+
+* **typography:** add a prop to support text that is for screen readers only ([17c8e24](https://github.com/Sage/carbon/commit/17c8e2486f96dc74d734d76d27467c1e16d9d944))
+
 ## [120.1.0](https://github.com/Sage/carbon/compare/v120.0.0...v120.1.0) (2023-08-30)
 
 

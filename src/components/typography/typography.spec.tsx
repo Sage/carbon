@@ -603,6 +603,27 @@ describe("Typography", () => {
         wrapper.find(Typography)
       );
     });
+
+    it("sets to visually hidden when screenReaderOnly prop is true", () => {
+      const wrapper = mount(
+        <ThemeProvider theme={mintTheme}>
+          <Typography screenReaderOnly>FooBar</Typography>
+        </ThemeProvider>
+      );
+      assertStyleMatch(
+        {
+          border: "0",
+          height: "1px",
+          margin: "-1px",
+          overflow: "hidden",
+          padding: "0",
+          position: "absolute",
+          width: "1px",
+          whiteSpace: "nowrap",
+        },
+        wrapper.find(Typography)
+      );
+    });
   });
 
   testStyledSystemSpacing((props) => <Typography {...props} />);

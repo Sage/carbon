@@ -3,6 +3,7 @@ import { space } from "styled-system";
 import styledColor from "../../style/utils/color";
 import baseTheme from "../../style/themes/base";
 import { TypographyProps, VariantTypes } from "./typography.component";
+import visuallyHidden from "../../style/utils/visually-hidden";
 
 const getAs = (variant?: VariantTypes) => {
   switch (variant) {
@@ -160,6 +161,7 @@ const StyledTypography = styled.span.attrs(
     wordWrap,
     textOverflow,
     truncate,
+    screenReaderOnly,
   }) => css`
     font-style: normal;
     font-size: ${size};
@@ -176,6 +178,7 @@ const StyledTypography = styled.span.attrs(
     css`
       overflow: hidden;
     `};
+    ${screenReaderOnly && visuallyHidden}
     ${variant === "sup" && "vertical-align: super;"};
     ${variant === "sub" && "vertical-align: sub;"};
     ${display && `display: ${display};`};
