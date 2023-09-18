@@ -15,11 +15,13 @@ const CLOSED_MODAL = '[data-state="closed"]';
  */
 export const getStyle = async (
   locator: Locator,
-  cssProp: string
+  cssProp: string,
+  pseudoElement?: string
 ): Promise<string> => {
   return locator.evaluate(
-    (el, property) => window.getComputedStyle(el).getPropertyValue(property),
-    cssProp
+    (el, [property, pseudo]) =>
+      window.getComputedStyle(el, pseudo).getPropertyValue(property as string),
+    [cssProp, pseudoElement]
   );
 };
 
@@ -227,7 +229,7 @@ export function keyCode(
   release?: boolean;
 } {
   return keys[type];
-};
+}
 
 const verifyRequiredAsterisk = async (locator: Locator) => {
   // use getComputedStyle to read the pseudo selector
@@ -245,7 +247,7 @@ export const verifyRequiredAsteriskForLegend = (page: Page) =>
   verifyRequiredAsterisk(legendSpan(page));
 
 /**
-* Verifies whether an object exists while not visible to the user. */
+ * Verifies whether an object exists while not visible to the user. */
 export const isInViewport = async (page: Page, locator: Locator) => {
   const rect = await locator.evaluate((element) =>
     element.getBoundingClientRect()
