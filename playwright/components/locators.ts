@@ -22,3 +22,4 @@ export const COMMON_INPUT_CHARACTER_LIMIT =
 export const PORTAL = ".carbon-portal";
 export const LEGEND = "legend";
 export const STICKY_FOOTER = '[data-component="sticky-footer"]';
+export const PILL_CLOSE_ICON = '[data-element="close"]';
