@@ -117,7 +117,7 @@ export const Note = ({
             hasPreview={!!React.Children.count(previews)}
             hasInlineControl={!!inlineControl}
           >
-            <StyledFooter>
+            <StyledFooter data-element="note-footer">
               {name && (
                 <StyledFooterContent hasName={!!name}>
                   {name}
