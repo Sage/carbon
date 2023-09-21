@@ -9,7 +9,7 @@ on:
 
 jobs:
   playwright-react:
-    timeout-minutes: 10
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.34.0-jammy
