@@ -7,7 +7,6 @@ import MenuFullscreen, { MenuFullscreenProps } from ".";
 import MenuDivider from "../menu-divider/menu-divider.component";
 import MenuContext, { MenuType } from "../menu.context";
 import StyledIcon from "../../icon/icon.style";
-import IconButton from "../../icon-button";
 import {
   StyledMenuFullscreen,
   StyledMenuFullscreenHeader,
@@ -385,14 +384,14 @@ describe("MenuFullscreen", () => {
 
   describe("onClose", () => {
     it("calls the onClose callback when close icon button is clicked", () => {
-      render({ isOpen: true }).find(IconButton).simulate("click");
+      wrapper = render({ isOpen: true });
+      wrapper.find("button[aria-label='Close']").simulate("click");
       expect(onClose).toHaveBeenCalled();
     });
 
     it("calls the onClose callback when escape key pressed", () => {
-      simulate.keydown.pressEscape(
-        render({ isOpen: true }).find(StyledMenuFullscreen)
-      );
+      wrapper = render({ isOpen: true });
+      simulate.keydown.pressEscape(wrapper.find(StyledMenuFullscreen));
       expect(onClose).toHaveBeenCalled();
     });
   });
