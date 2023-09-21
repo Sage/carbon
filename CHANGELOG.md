@@ -1,3 +1,10 @@
+### [120.2.1](https://github.com/Sage/carbon/compare/v120.2.0...v120.2.1) (2023-09-21)
+
+
+### Bug Fixes
+
+* **menu-item:** address aria role accessibility error with icon only menu items ([c891d45](https://github.com/Sage/carbon/commit/c891d45aaae69457def7ef9d989ae89e8edf6cb1)), closes [#6175](https://github.com/Sage/carbon/issues/6175)
+
 ## [120.2.0](https://github.com/Sage/carbon/compare/v120.1.0...v120.2.0) (2023-09-08)
 
 
