@@ -13,9 +13,8 @@ import IconButton from "../../icon-button";
 import Icon from "../../icon";
 import Portal from "../../portal";
 import MenuDivider from "../menu-divider/menu-divider.component";
-import tagComponent, {
-  TagProps,
-} from "../../../__internal__/utils/helpers/tags";
+import type { TagProps } from "../../../__internal__/utils/helpers/tags";
+import useLocale from "../../../hooks/__internal__/useLocale";
 
 export interface MenuFullscreenProps extends TagProps {
   /** The child elements to render */
@@ -31,16 +30,18 @@ export interface MenuFullscreenProps extends TagProps {
 }
 
 export const MenuFullscreen = ({
+  "data-element": dataElement,
+  "data-role": dataRole,
   children,
   isOpen,
   startPosition = "left",
   onClose,
-  ...rest
 }: MenuFullscreenProps) => {
   const menuWrapperRef = useRef<HTMLDivElement>(null);
   const menuContentRef = useRef<HTMLUListElement>(null);
   const { menuType } = useContext(MenuContext);
   const isDarkVariant = ["dark", "black"].includes(menuType);
+  const locale = useLocale();
 
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLElement>) => {
     /* istanbul ignore else */
@@ -50,7 +51,7 @@ export const MenuFullscreen = ({
 
     if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
       const search = menuWrapperRef.current?.querySelector(
-        '[data-component="search"'
+        '[data-component="search"]'
       );
       const searchInput = search?.querySelector("input");
       const searchButton = search?.querySelector("button");
@@ -98,13 +99,14 @@ export const MenuFullscreen = ({
       <Portal>
         <FocusTrap wrapperRef={menuWrapperRef} isOpen={isOpen}>
           <StyledMenuFullscreen
+            data-component="menu-fullscreen"
+            data-element={dataElement}
+            data-role={dataRole}
             ref={menuWrapperRef}
             isOpen={isOpen}
             menuType={menuType}
             startPosition={startPosition}
             onKeyDown={handleKeyDown}
-            {...rest}
-            {...tagComponent("menu-fullscreen", rest)}
           >
             <StyledMenuFullscreenHeader
               isOpen={isOpen}
@@ -112,7 +114,7 @@ export const MenuFullscreen = ({
               startPosition={startPosition}
             >
               <IconButton
-                aria-label="menu fullscreen close button"
+                aria-label={locale.menuFullscreen.ariaLabels.closeButton()}
                 onClick={onClose}
                 data-element="close"
               >
