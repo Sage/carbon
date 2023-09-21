@@ -49,6 +49,8 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   rel?: string;
   /** @ignore @private internal prop to be set when no href or onClick passed */
   placeholderTabIndex?: boolean;
+  /** @ignore @private internal prop to be set when no aria-label should be specified */
+  removeAriaLabelOnIcon?: boolean;
 }
 
 export const Link = React.forwardRef<
@@ -75,6 +77,7 @@ export const Link = React.forwardRef<
       variant = "default",
       isDarkBackground,
       placeholderTabIndex,
+      removeAriaLabelOnIcon,
       ...rest
     }: LinkProps,
     ref
@@ -109,7 +112,7 @@ export const Link = React.forwardRef<
           type={icon}
           bgSize="extra-small"
           disabled={disabled}
-          ariaLabel={ariaLabel}
+          ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
           tooltipMessage={tooltipMessage}
           tooltipPosition={tooltipPosition}
         />

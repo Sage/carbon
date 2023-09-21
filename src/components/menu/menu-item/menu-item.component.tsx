@@ -242,6 +242,7 @@ export const MenuItem = ({
     rel,
     onClick,
     icon,
+    removeAriaLabelOnIcon: true,
     selected,
     variant,
     onKeyDown: !inFullscreenView ? handleKeyDown : undefined,

@@ -748,9 +748,10 @@ describe("MenuItem", () => {
       expect(wrapper.find(StyledIcon).exists()).toBe(true);
     });
 
-    it("add aria-label when it is set", () => {
+    it("add aria-label to Link and Icon aria-label to be undefined when it is set on menu item", () => {
       wrapper = mount(<MenuItem icon="settings" ariaLabel="Settings" />);
-      expect(wrapper.find(Icon).props().ariaLabel).toBe("Settings");
+      expect(wrapper.find(Link).props().ariaLabel).toBe("Settings");
+      expect(wrapper.find(Icon).props().ariaLabel).toBe(undefined);
     });
 
     it("give error when `aria-label` is not set and menu item has no child text", () => {
