@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 import { useState } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 import {
   Menu,
   MenuItem,
@@ -223,3 +224,19 @@ as such any `maxWidth` value passed will not be set when they are children of `M
 ### MenuFullscreen
 
 <ArgsTable of={MenuFullscreen} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "menuFullscreen.ariaLabels.closeButton",
+      description: "Aria label for the MenuFullscreen's close button",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

@@ -158,6 +158,11 @@ const plPL: Locale = {
   loader: {
     loading: () => "Ładowanie",
   },
+  menuFullscreen: {
+    ariaLabels: {
+      closeButton: () => "Zamknij",
+    },
+  },
   message: {
     closeButtonAriaLabel: () => "Zamknij",
   },
