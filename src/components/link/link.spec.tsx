@@ -293,6 +293,19 @@ describe("Link", () => {
         expect(anchor.getAttribute("aria-label")).toEqual("test");
       });
     });
+
+    describe("when removeAriaLabelOnIcon is true", () => {
+      it("should set aria-label as undefined on icon", () => {
+        wrapper = renderLink({
+          onClick: () => null,
+          icon: "home",
+          "aria-label": "test",
+          removeAriaLabelOnIcon: true,
+        });
+
+        expect(wrapper.find(Icon).props().ariaLabel).toBe(undefined);
+      });
+    });
   });
 
   describe("'negative' variant", () => {

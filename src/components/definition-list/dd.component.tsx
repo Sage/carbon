@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SpaceProps } from "styled-system";
 import { StyledDd } from "./definition-list.style";
+import DlContext from "./__internal__/dl.context";
 
 export interface DdProps extends SpaceProps {
   /** Prop for what will render in the `<Dd></Dd>` tags */
@@ -9,8 +10,15 @@ export interface DdProps extends SpaceProps {
 
 const Dd = ({ children, ...rest }: DdProps) => {
   const { mb } = rest;
+  const { asSingleColumn, ddTextAlign } = useContext(DlContext);
   return (
-    <StyledDd mb={mb || 2} {...rest}>
+    <StyledDd
+      data-element="dd"
+      asSingleColumn={asSingleColumn}
+      ddTextAlign={ddTextAlign}
+      mb={mb || 2}
+      {...rest}
+    >
       {children}
     </StyledDd>
   );

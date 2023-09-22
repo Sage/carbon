@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Typography from "../../../components/typography";
+import Content from "../../../components/content";
 import { Select as SimpleSelect } from "../../../../src/components/select";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
@@ -664,4 +666,39 @@ export const SimpleSelectNestedInDialog = () => {
       </SimpleSelect>
     </Dialog>
   );
+};
+
+export const SelectWithOptionGroupHeader = () => {
+  const reportGroup = [
+    { id: 1, title: "There are 2 more options", content: "content" },
+    { id: 2, title: "There is 1 more below", content: "content" },
+    {
+      id: 3,
+      title: "This is the last",
+      content: "content",
+    },
+  ];
+  return (
+    <Box p={10}>
+      <Select placeholder="Scroll does not reach the last option">
+        <OptionGroupHeader label="Scroll does not reach the last option" />
+        {reportGroup.map(({ id, title, content }) => {
+          return (
+            <Option key={id} value={title} tabIndex={0} text={title}>
+              <Content title={title}>
+                <Typography>{content}</Typography>
+              </Content>
+            </Option>
+          );
+        })}
+      </Select>
+    </Box>
+  );
+};
+
+SelectWithOptionGroupHeader.storyName = "Select with OptionGroupHeader";
+SelectWithOptionGroupHeader.args = {
+  mt: 0,
+  listPlacement: undefined,
+  flipEnabled: true,
 };

@@ -552,7 +552,7 @@ export const WithDefinitionList: ComponentStory<typeof Accordion> = () => {
         <Dd>
           <Link href="magic@coffeebeans.com">magic@coffeebeans.com</Link>
         </Dd>
-        <Dt>Main and Registered Address</Dt>
+        <Dt mb={0}>Main and Registered Address</Dt>
         <Dd mb="4px">Magic Coffee Beans,</Dd>
         <Dd mb="4px">In The Middle of Our Street,</Dd>
         <Dd mb="4px">Madness,</Dd>

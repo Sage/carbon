@@ -235,7 +235,7 @@ context("Tests for SimpleSelect component", () => {
       ["right", "end"],
       ["left", "start"],
     ] as [SimpleSelectProps["labelAlign"], string][])(
-      "should use %s as labelAligment and render it with flex-%s as css properties",
+      "should use %s as labelAlignment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent labelInline labelAlign={alignment} />
@@ -972,10 +972,27 @@ context("Tests for SimpleSelect component", () => {
       selectList().should("not.be.visible");
       commonDataElementInputPreview().should("not.be.focused");
     });
+
+    it("should be able to focus the last item in the select list when the select list has an OptionGroupHeader ", () => {
+      CypressMountWithProviders(<stories.SelectWithOptionGroupHeader />);
+
+      const pressDownArrow = () =>
+        commonDataElementInputPreview().trigger("keydown", {
+          ...keyCode("downarrow"),
+          force: true,
+        });
+
+      selectText().click();
+      pressDownArrow();
+      pressDownArrow();
+      pressDownArrow();
+
+      selectOptionByText("This is the last").should("be.visible");
+    });
   });
 
   describe("Accessibility tests for SimpleSelect component", () => {
-    it("should pass accessibilty tests for SimpleSelect", () => {
+    it("should pass accessibility tests for SimpleSelect", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent />);
 
       dropdownButton().click();
@@ -983,7 +1000,7 @@ context("Tests for SimpleSelect component", () => {
     });
 
     it.each(testData)(
-      "should pass accessibilty tests for SimpleSelect label prop using %s special characters",
+      "should pass accessibility tests for SimpleSelect label prop using %s special characters",
       (labelValue) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent label={labelValue} />
@@ -994,7 +1011,7 @@ context("Tests for SimpleSelect component", () => {
     );
 
     it.each(testData)(
-      "should pass accessibilty tests for SimpleSelect labelHelp prop using %s special characters",
+      "should pass accessibility tests for SimpleSelect labelHelp prop using %s special characters",
       (labelHelpValue) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent labelHelp={labelHelpValue} />
@@ -1007,7 +1024,7 @@ context("Tests for SimpleSelect component", () => {
     );
 
     it.each(testData)(
-      "should pass accessibilty tests for SimpleSelect placeholder prop using %s special characters",
+      "should pass accessibility tests for SimpleSelect placeholder prop using %s special characters",
       (placeholderValue) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent placeholder={placeholderValue} />
@@ -1023,7 +1040,7 @@ context("Tests for SimpleSelect component", () => {
       ["left", "200px", "0px", "200px", "0px"],
       ["right", "200px", "0px", "0px", "200px"],
     ] as [SimpleSelectProps["tooltipPosition"], string, string, string, string][])(
-      "should pass accessibilty tests for SimpleSelect tooltip prop in the %s position",
+      "should pass accessibility tests for SimpleSelect tooltip prop in the %s position",
       (tooltipPositionValue, top, bottom, left, right) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent
@@ -1042,13 +1059,13 @@ context("Tests for SimpleSelect component", () => {
       }
     );
 
-    it("should pass accessibilty tests for SimpleSelect disabled prop", () => {
+    it("should pass accessibility tests for SimpleSelect disabled prop", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent disabled />);
 
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect readOnly prop", () => {
+    it("should pass accessibility tests for SimpleSelect readOnly prop", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent readOnly />);
 
       cy.checkAccessibility();
@@ -1056,7 +1073,7 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect transparent prop", () => {
+    it("should pass accessibility tests for SimpleSelect transparent prop", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent transparent />);
 
       cy.checkAccessibility();
@@ -1067,7 +1084,7 @@ context("Tests for SimpleSelect component", () => {
       SIZE.MEDIUM,
       SIZE.LARGE,
     ] as SimpleSelectProps["size"][])(
-      "should pass accessibilty tests for SimpleSelect size prop",
+      "should pass accessibility tests for SimpleSelect size prop",
       (size) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent size={size} />
@@ -1077,26 +1094,26 @@ context("Tests for SimpleSelect component", () => {
       }
     );
 
-    it("should pass accessibilty tests for SimpleSelect autoFocus prop", () => {
+    it("should pass accessibility tests for SimpleSelect autoFocus prop", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent autoFocus />);
 
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect required prop", () => {
+    it("should pass accessibility tests for SimpleSelect required prop", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent required />);
 
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect labelInline prop", () => {
+    it("should pass accessibility tests for SimpleSelect labelInline prop", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent labelInline />);
 
       cy.checkAccessibility();
     });
 
     it.each(["right", "left"] as SimpleSelectProps["labelAlign"][])(
-      "should pass accessibilty tests for SimpleSelect labelAlign prop set as %s",
+      "should pass accessibility tests for SimpleSelect labelAlign prop set as %s",
       (alignment) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent labelInline labelAlign={alignment} />
@@ -1111,7 +1128,7 @@ context("Tests for SimpleSelect component", () => {
       [30, 70],
       [80, 20],
     ])(
-      "should pass accessibilty tests for SimpleSelect labelWidth prop set as %s and inputWidth set as %s",
+      "should pass accessibility tests for SimpleSelect labelWidth prop set as %s and inputWidth set as %s",
       (label, input) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent
@@ -1126,7 +1143,7 @@ context("Tests for SimpleSelect component", () => {
     );
 
     it.each(["10%", "30%", "50%", "80%", "100%"])(
-      "should pass accessibilty tests for SimpleSelect maxWidth prop set as %s",
+      "should pass accessibility tests for SimpleSelect maxWidth prop set as %s",
       (maxWidth) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent maxWidth={maxWidth} />
@@ -1136,7 +1153,7 @@ context("Tests for SimpleSelect component", () => {
       }
     );
 
-    it("should pass accessibilty tests for SimpleSelect isLoading prop", () => {
+    it("should pass accessibility tests for SimpleSelect isLoading prop", () => {
       CypressMountWithProviders(
         <stories.SimpleSelectWithLazyLoadingComponent />
       );
@@ -1146,7 +1163,7 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect onListScrollBottom prop", () => {
+    it("should pass accessibility tests for SimpleSelect onListScrollBottom prop", () => {
       CypressMountWithProviders(
         <stories.SimpleSelectWithInfiniteScrollComponent />
       );
@@ -1157,7 +1174,7 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect with multiple columns", () => {
+    it("should pass accessibility tests for SimpleSelect with multiple columns", () => {
       CypressMountWithProviders(
         <stories.SimpleSelectMultipleColumnsComponent label="multiple columns" />
       );
@@ -1170,7 +1187,7 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect with object as value", () => {
+    it("should pass accessibility tests for SimpleSelect with object as value", () => {
       CypressMountWithProviders(
         <stories.SimpleSelectObjectAsValueComponent label="with object as value" />
       );
@@ -1181,7 +1198,7 @@ context("Tests for SimpleSelect component", () => {
     });
 
     it.each(["1", "2", "3"])(
-      "should pass accessibilty tests for SimpleSelect with custom option %s icon and custom icon color %s",
+      "should pass accessibility tests for SimpleSelect with custom option %s icon and custom icon color %s",
       (option) => {
         CypressMountWithProviders(
           <stories.SimpleSelectCustomOptionChildrenComponent />
@@ -1192,7 +1209,7 @@ context("Tests for SimpleSelect component", () => {
       }
     );
 
-    it("should pass accessibilty tests for SimpleSelect group component", () => {
+    it("should pass accessibility tests for SimpleSelect group component", () => {
       CypressMountWithProviders(
         <stories.SimpleSelectGroupComponent label="groups" />
       );
@@ -1201,7 +1218,7 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect listMaxHeight prop", () => {
+    it("should pass accessibility tests for SimpleSelect listMaxHeight prop", () => {
       CypressMountWithProviders(
         <stories.SimpleSelectComponent listMaxHeight={200} />
       );
@@ -1216,7 +1233,7 @@ context("Tests for SimpleSelect component", () => {
       ["left", "200px", "0px", "500px", "20px"],
       ["right", "200px", "0px", "0px", "500px"],
     ] as [SimpleSelectProps["listPlacement"], string, string, string, string][])(
-      "should pass accessibilty tests for SimpleSelect listPlacement prop",
+      "should pass accessibility tests for SimpleSelect listPlacement prop",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent
@@ -1239,7 +1256,7 @@ context("Tests for SimpleSelect component", () => {
       ["left", "200px", "0px", "0px", "900px"],
       ["right", "200px", "0px", "500px", "20px"],
     ] as [SimpleSelectProps["listPlacement"], string, string, string, string][])(
-      "should pass accessibilty tests for SimpleSelect flipEnabled prop",
+      "should pass accessibility tests for SimpleSelect flipEnabled prop",
       (position, top, bottom, left, right) => {
         CypressMountWithProviders(
           <stories.SimpleSelectComponent
@@ -1258,7 +1275,7 @@ context("Tests for SimpleSelect component", () => {
     );
 
     // FE-5764
-    it.skip("should pass accessibilty tests for SimpleSelect disablePortal prop", () => {
+    it.skip("should pass accessibility tests for SimpleSelect disablePortal prop", () => {
       CypressMountWithProviders(
         <div>
           <stories.SimpleSelectComponent disablePortal />
@@ -1270,7 +1287,7 @@ context("Tests for SimpleSelect component", () => {
         .then(() => cy.checkAccessibility());
     });
 
-    it("should pass accessibilty tests for SimpleSelect with long option text", () => {
+    it("should pass accessibility tests for SimpleSelect with long option text", () => {
       CypressMountWithProviders(
         <stories.SimpleSelectWithLongWrappingTextComponent />
       );
@@ -1279,7 +1296,7 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect with virtual scrolling", () => {
+    it("should pass accessibility tests for SimpleSelect with virtual scrolling", () => {
       CypressMountWithProviders(
         <stories.SimpleSelectWithManyOptionsAndVirtualScrolling />
       );
@@ -1288,7 +1305,7 @@ context("Tests for SimpleSelect component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for SimpleSelect in nested dialog", () => {
+    it("should pass accessibility tests for SimpleSelect in nested dialog", () => {
       CypressMountWithProviders(<stories.SimpleSelectNestedInDialog />);
 
       selectText().click();
