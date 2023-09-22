@@ -1,3 +1,10 @@
+## [120.3.0](https://github.com/Sage/carbon/compare/v120.2.1...v120.3.0) (2023-09-22)
+
+
+### Features
+
+* **definition-list:** allow children to be wrapped ([70092e8](https://github.com/Sage/carbon/commit/70092e862cb24334d1384c0ca9d37de610d610a7)), closes [#6216](https://github.com/Sage/carbon/issues/6216) [#6243](https://github.com/Sage/carbon/issues/6243)
+
 ### [120.2.1](https://github.com/Sage/carbon/compare/v120.2.0...v120.2.1) (2023-09-21)
 
 
