@@ -25,6 +25,7 @@ export const CharacterCounter: ComponentStory<typeof Textbox> = () => {
   return (
     <Textbox
       label="Textbox"
+      inputHint="Hint text (optional)."
       value={state}
       onChange={setValue}
       characterLimit={10}
@@ -45,20 +46,22 @@ export const CharacterCounterTranslations: ComponentStory<
       locale={{
         locale: () => "fr-FR",
         characterCount: {
-          hintString: () => "L'entrée contient un compteur de caractères",
           tooManyCharacters: (count, formattedCount) =>
             count === 1
-              ? `Vous avez ${formattedCount} personnage de trop`
-              : `Vous avez ${formattedCount} personnages de trop`,
+              ? `${formattedCount} caractère restant`
+              : `${formattedCount} caractères restants`,
           charactersLeft: (count, formattedCount) =>
             count === 1
-              ? `Il vous reste ${formattedCount} personnage`
-              : `Il vous reste ${formattedCount} personnages`,
+              ? `${formattedCount} caractère de trop`
+              : `${formattedCount} personnages de trop`,
+          visuallyHiddenHint: (formattedCount) =>
+            `Vous pouvez saisir jusqu'à ${formattedCount} caractères`,
         },
       }}
     >
       <Textbox
         label="Textbox"
+        inputHint="Texte de l'indice (facultatif)."
         value={state}
         onChange={setValue}
         characterLimit={10}

@@ -96,6 +96,8 @@ const plPL: Locale = {
         "pozostałych",
         count
       )} ${PolishPlural("znak", "znaki", "znaków", count)}`,
+    visuallyHiddenHint: (formattedCount) =>
+      `Można wprowadzić do ${formattedCount} znaków`,
   },
 
   date: {

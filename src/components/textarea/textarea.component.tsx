@@ -254,12 +254,11 @@ export const Textarea = React.forwardRef(
       fieldHelp,
     });
 
-    const [
-      maxLength,
-      characterCount,
-      characterCountHintId,
-      characterCountHint,
-    ] = useCharacterCount(value, characterLimit, enforceCharacterLimit);
+    const [maxLength, characterCount, visuallyHiddenHintId] = useCharacterCount(
+      value,
+      characterLimit,
+      enforceCharacterLimit
+    );
 
     useEffect(() => {
       if (rows) {
@@ -293,18 +292,13 @@ export const Textarea = React.forwardRef(
     const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
 
     const hintId = useRef(guid());
+    const inputHintId = inputHint ? hintId.current : undefined;
 
-    const characterCountHintIdValue = characterCount
-      ? characterCountHintId
-      : undefined;
-
-    const inputHintIdValue = inputHint ? hintId.current : undefined;
-
-    const hintIdValue = characterLimit
-      ? characterCountHintIdValue
-      : inputHintIdValue;
-
-    const combinedAriaDescribedBy = [ariaDescribedBy, hintIdValue]
+    const combinedAriaDescribedBy = [
+      ariaDescribedBy,
+      inputHintId,
+      visuallyHiddenHintId,
+    ]
       .filter(Boolean)
       .join(" ");
 
@@ -393,9 +387,9 @@ export const Textarea = React.forwardRef(
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
               validationRedesignOptIn={validationRedesignOptIn}
             >
-              {characterLimit || inputHint ? (
-                <StyledInputHint id={hintIdValue} data-element="input-hint">
-                  {characterCountHint || inputHint}
+              {inputHint ? (
+                <StyledInputHint id={inputHintId} data-element="input-hint">
+                  {inputHint}
                 </StyledInputHint>
               ) : null}
               {validationRedesignOptIn && labelHelp && (

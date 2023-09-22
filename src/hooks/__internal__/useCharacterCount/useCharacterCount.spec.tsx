@@ -1,6 +1,9 @@
 import * as React from "react";
 import { mount, MountRendererProps } from "enzyme";
-import CharacterCount from "../../../__internal__/character-count";
+import {
+  StyledCharacterCount,
+  VisuallyHiddenCharacterCount,
+} from "../../../__internal__/character-count/character-count.style";
 import useCharacterCount from ".";
 
 interface TestComponentProps {
@@ -48,15 +51,11 @@ describe("useCharacterCount", () => {
       });
 
       expect(wrapper.find('[data-element="max-length"]').text()).toBe("");
-      expect(wrapper.find(CharacterCount).text()).toBe(
+      expect(wrapper.find(StyledCharacterCount).text()).toBe(
         `${
           limitMinusVlaue
-            ? `You have ${
-                characterLimit - mockValue.length
-              } ${underCharacters} remaining`
-            : `You have ${
-                mockValue.length - characterLimit
-              } ${overCharacters} too many`
+            ? `${characterLimit - mockValue.length} ${underCharacters} left`
+            : `${mockValue.length - characterLimit} ${overCharacters} too many`
         }`
       );
     }
@@ -79,15 +78,11 @@ describe("useCharacterCount", () => {
       expect(wrapper.find('[data-element="max-length"]').text()).toBe(
         `${characterLimit}`
       );
-      expect(wrapper.find(CharacterCount).text()).toBe(
+      expect(wrapper.find(StyledCharacterCount).text()).toBe(
         `${
           limitMinusVlaue
-            ? `You have ${
-                characterLimit - mockValue.length
-              } ${underCharacters} remaining`
-            : `You have ${
-                mockValue.length - characterLimit
-              } ${overCharacters} too many`
+            ? `${characterLimit - mockValue.length} ${underCharacters} left`
+            : `${mockValue.length - characterLimit} ${overCharacters} too many`
         }`
       );
     }
@@ -99,6 +94,44 @@ describe("useCharacterCount", () => {
     });
 
     expect(wrapper.find('[data-element="max-length"]').text()).toBe("");
-    expect(wrapper.find(CharacterCount).exists()).toBe(false);
+    expect(wrapper.find(StyledCharacterCount).exists()).toBe(false);
+  });
+});
+
+describe("Debounce tests", () => {
+  it("visually hidden count should update after 2000ms delay", () => {
+    jest.useFakeTimers();
+
+    const wrapper = render({
+      value: "",
+      characterLimit: 5,
+      enforceCharacterLimit: true,
+    });
+
+    wrapper.setProps({ value: "foo" });
+
+    jest.advanceTimersByTime(2000);
+
+    expect(wrapper.find(VisuallyHiddenCharacterCount).text()).toBe(
+      "2 characters left"
+    );
+  });
+
+  it("visually hidden count should not update before 2000ms delay", () => {
+    jest.useFakeTimers();
+
+    const wrapper = render({
+      value: "",
+      characterLimit: 5,
+      enforceCharacterLimit: true,
+    });
+
+    wrapper.setProps({ value: "foo" });
+
+    jest.advanceTimersByTime(100);
+
+    expect(wrapper.find(VisuallyHiddenCharacterCount).text()).toBe(
+      "5 characters left"
+    );
   });
 });

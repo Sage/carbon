@@ -16,6 +16,10 @@ const ErrorBorder = styled.span`
 `;
 
 const StyledInputHint = styled.p`
+  ::after {
+    content: " ";
+  }
+
   display: block;
   flex: 1;
   margin-top: -3px;

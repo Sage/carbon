@@ -18,7 +18,7 @@ import {
 import {
   getDataElementByValue,
   tooltipPreview,
-  commonInputCharacterLimit,
+  characterCount,
   body,
   getComponent,
   cyRoot,
@@ -31,7 +31,12 @@ import {
   VALIDATION,
 } from "../../support/component-helper/constants";
 
-import { textarea, textareaChildren } from "../../locators/textarea";
+import {
+  textarea,
+  textareaChildren,
+  visuallyHiddenCharacterCount,
+  visuallyHiddenHint,
+} from "../../locators/textarea";
 
 import { keyCode } from "../../support/helper";
 import { ICON } from "../../locators/locators";
@@ -195,20 +200,25 @@ context("Tests for Textarea component", () => {
         textareaChildren()
           .type(inputValue)
           .then(() => {
-            commonInputCharacterLimit()
+            characterCount()
               .should(
                 "have.text",
                 `${
                   charactersUsed - limit
-                    ? `You have ${
-                        charactersUsed - limit
-                      } ${overCharacters} too many`
-                    : `You have ${
-                        charactersUsed - limit
-                      } ${underCharacters} remaining`
+                    ? `${charactersUsed - limit} ${overCharacters} too many`
+                    : `${charactersUsed - limit} ${underCharacters} left`
                 }`
               )
               .and("have.css", "color", color);
+
+            visuallyHiddenCharacterCount().should(
+              "have.text",
+              `${
+                charactersUsed - limit
+                  ? `${charactersUsed - limit} ${overCharacters} too many`
+                  : `${charactersUsed - limit} ${underCharacters} left`
+              }`
+            );
           });
       }
     );
@@ -231,10 +241,10 @@ context("Tests for Textarea component", () => {
     );
 
     it.each([
-      [4, "exist"],
-      ["", "not.exist"],
+      [5, "exist"],
+      [null, "not.exist"],
     ] as [TextareaProps["characterLimit"], string][])(
-      "character counter hint should be conditionally rendered",
+      "character counter should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
           <TextareaComponent
@@ -243,7 +253,41 @@ context("Tests for Textarea component", () => {
           />
         );
 
-        getDataElementByValue("input-hint").should(renderStatus);
+        characterCount().should(renderStatus);
+      }
+    );
+
+    it.each([
+      [5, "exist"],
+      [null, "not.exist"],
+    ] as [TextareaProps["characterLimit"], string][])(
+      "visually hidden character count should be conditionally rendered",
+      (characterLimit, renderStatus) => {
+        CypressMountWithProviders(
+          <TextareaComponent
+            enforceCharacterLimit={false}
+            characterLimit={characterLimit}
+          />
+        );
+
+        visuallyHiddenCharacterCount().should(renderStatus);
+      }
+    );
+
+    it.each([
+      [5, "exist"],
+      [null, "not.exist"],
+    ] as [TextareaProps["characterLimit"], string][])(
+      "visually hidden hint should be conditionally rendered",
+      (characterLimit, renderStatus) => {
+        CypressMountWithProviders(
+          <TextareaComponent
+            enforceCharacterLimit={false}
+            characterLimit={characterLimit}
+          />
+        );
+
+        visuallyHiddenHint().should(renderStatus);
       }
     );
 
@@ -287,16 +331,12 @@ context("Tests for Textarea component", () => {
         textareaChildren()
           .type(inputValue)
           .then(() => {
-            commonInputCharacterLimit().should(
+            characterCount().should(
               "have.text",
               `${
                 charactersUsed - limit
-                  ? `You have ${
-                      limit - charactersUsed
-                    } ${underCharacters} too many`
-                  : `You have ${
-                      charactersUsed - limit
-                    } ${overCharacters} remaining`
+                  ? `${limit - charactersUsed} ${underCharacters} too many`
+                  : `${charactersUsed - limit} ${overCharacters} left`
               }`
             );
           });

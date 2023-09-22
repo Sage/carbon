@@ -11,7 +11,7 @@ import {
   tooltipPreview,
   commonDataElementInputPreview,
   commonInputPrefix,
-  commonInputCharacterLimit,
+  characterCount,
 } from "../../locators";
 import {
   assertCssValueIsApproximately,
@@ -100,16 +100,12 @@ context("Tests for Number component", () => {
         commonDataElementInputPreview()
           .type(inputValue)
           .then(() => {
-            commonInputCharacterLimit().should(
+            characterCount().should(
               "have.text",
               `${
                 charactersUsed - limit
-                  ? `You have ${
-                      limit - charactersUsed
-                    } ${overCharacters} too many`
-                  : `You have ${
-                      charactersUsed - limit
-                    } ${underCharacters} remaining`
+                  ? `${limit - charactersUsed} ${overCharacters} too many`
+                  : `${charactersUsed - limit} ${underCharacters} left`
               }`
             );
           });
@@ -138,17 +134,13 @@ context("Tests for Number component", () => {
         commonDataElementInputPreview()
           .type(inputValue)
           .then(() => {
-            commonInputCharacterLimit()
+            characterCount()
               .should(
                 "have.text",
                 `${
                   charactersUsed - limit
-                    ? `You have ${
-                        charactersUsed - limit
-                      } ${overCharacters} too many`
-                    : `You have ${
-                        charactersUsed - limit
-                      } ${underCharacters} remaining`
+                    ? `${charactersUsed - limit} ${overCharacters} too many`
+                    : `${charactersUsed - limit} ${underCharacters} left`
                 }`
               )
               .and("have.css", "color", color);

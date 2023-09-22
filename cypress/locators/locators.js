@@ -16,8 +16,7 @@ export const LABEL = '[data-element="label"]';
 export const COMMON_INPUT = ".common-input__";
 export const BUTTON = 'button[type="button"]';
 export const COMMON_INPUT_PREFIX = '[data-element="textbox-prefix"]';
-export const COMMON_INPUT_CHARACTER_LIMIT =
-  'div[data-element="character-limit"]';
+export const CHARACTER_COUNT = 'div[data-element="character-count"]';
 export const CY_ROOT = "[data-cy-root]";
 export const PORTAL = ".carbon-portal";
 export const LEGEND = "legend";
