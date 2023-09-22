@@ -8,6 +8,8 @@ export interface FlatTableRowContextProps {
   leftPositions: Record<string, number>;
   rightPositions: Record<string, number>;
   firstColumnExpandable?: boolean;
+  highlighted?: boolean;
+  selected?: boolean;
 }
 
 export default createContext<FlatTableRowContextProps>({

@@ -1352,7 +1352,7 @@ describe("FlatTableRow", () => {
       it("should add the correct padding to child row cells", () => {
         const wrapper = mount(
           <FlatTableThemeContext.Provider
-            value={{ size: "compact", setSelectedId: jest.fn }}
+            value={{ size: "compact", getTabStopElementId: () => "" }}
           >
             <table>
               <tbody>

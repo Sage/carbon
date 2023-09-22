@@ -2274,6 +2274,88 @@ context("Tests for Flat Table component", () => {
       flatTableBodyRowByPosition(5).should("be.focused");
     });
 
+    it("should set tabIndex 0 on the first row when after the loading state has finished", () => {
+      CypressMountWithProviders(<stories.KeyboardNavigationWithPagination />);
+      cy.wait(300);
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).should("not.be.focused");
+      flatTableBodyRowByPosition(1).should("not.be.focused");
+      flatTableBodyRowByPosition(2).should("not.be.focused");
+      flatTableBodyRowByPosition(3).should("not.be.focused");
+      flatTablePageSelectNext().click();
+      cy.wait(300);
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
+    });
+
+    it("should set the tabIndex on the highlighted row when the loading state has finished", () => {
+      CypressMountWithProviders(
+        <stories.KeyboardNavigationWithPagination highlighted />
+      );
+      cy.wait(300);
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).should("not.be.focused");
+      flatTableBodyRowByPosition(2).then(checkNewFocusStyling);
+      cy.focused().tab();
+      flatTableBodyRowByPosition(3).should("not.be.focused");
+      flatTablePageSelectNext().click();
+      cy.wait(300);
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).then(checkNewFocusStyling);
+    });
+
+    it("should set the tabIndex on the highlighted row when the loading state has finished and remove it when row is no longer highlighted", () => {
+      CypressMountWithProviders(
+        <stories.HighlightedRowWithLoadingState expandableArea="wholeRow" />
+      );
+      cy.wait(300);
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).should("not.be.focused");
+      flatTableBodyRowByPosition(2).should("be.focused");
+      cy.focused().tab();
+      flatTableBodyRowByPosition(3).should("not.be.focused");
+      flatTableBodyRowByPosition(2).click();
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableBodyRowByPosition(0).should("be.focused");
+    });
+
+    it("should set the tabIndex on the first cell in a highlighted row when the loading state has finished and remove it when row is no longer highlighted", () => {
+      CypressMountWithProviders(
+        <stories.HighlightedRowWithLoadingState expandableArea="firstColumn" />
+      );
+      cy.wait(300);
+
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableCell(0).should("not.be.focused");
+      flatTableCell(8).should("be.focused");
+      cy.focused().tab();
+      flatTableCell(12).should("not.be.focused");
+      flatTableCell(8).click();
+      cy.get("body").tab();
+
+      cy.focused().tab();
+      flatTableCell(0).should("be.focused");
+    });
+
     it("should render Flat Table with action popover in a cell opened by mouse", () => {
       CypressMountWithProviders(
         <stories.FlatTableAllSubrowSelectableComponent />
