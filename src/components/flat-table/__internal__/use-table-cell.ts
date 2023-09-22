@@ -1,7 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
+import { FlatTableThemeContext } from "../flat-table.component";
 
 export default (id: string) => {
+  const { getTabStopElementId } = useContext(FlatTableThemeContext);
+  const [tabIndex, setTabIndex] = useState(-1);
   const {
     expandable,
     firstCellId,
@@ -10,6 +13,8 @@ export default (id: string) => {
     rightPositions,
     onClick,
     onKeyDown,
+    highlighted,
+    selected,
   } = useContext(FlatTableRowContext);
 
   const leftPosition = leftPositions[id];
@@ -18,6 +23,16 @@ export default (id: string) => {
     leftPosition !== undefined || rightPosition !== undefined;
   const isFirstCell = id === firstCellId;
   const isExpandableCell = expandable && isFirstCell && firstColumnExpandable;
+
+  useEffect(() => {
+    const tabstopTimer = setTimeout(() => {
+      setTabIndex(isExpandableCell && getTabStopElementId() === id ? 0 : -1);
+    }, 0);
+
+    return () => {
+      clearTimeout(tabstopTimer);
+    };
+  }, [getTabStopElementId, isExpandableCell, id]);
 
   return {
     expandable,
@@ -28,5 +43,8 @@ export default (id: string) => {
     onKeyDown,
     isFirstCell,
     isExpandableCell,
+    tabIndex,
+    isInHighlightedRow: highlighted,
+    isInSelectedRow: selected,
   };
 };

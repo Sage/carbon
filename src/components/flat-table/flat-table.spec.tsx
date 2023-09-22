@@ -1050,6 +1050,48 @@ describe("FlatTable", () => {
         });
       });
 
+      it("should tabindex to 0 on the first cell in a highlighted row", async () => {
+        rtlRender(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell data-testid="one">one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow highlighted expandableArea="firstColumn" expandable>
+                <FlatTableCell data-testid="two">three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+        await waitFor(() => {
+          expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("-1");
+          expect(screen.getByTestId("two").getAttribute("tabindex")).toBe("0");
+        });
+      });
+
+      it("should tabindex to 0 on the first cell in a selected row", async () => {
+        rtlRender(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableCell data-testid="one">one</FlatTableCell>
+                <FlatTableCell>two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow selected expandableArea="firstColumn" expandable>
+                <FlatTableCell data-testid="two">three</FlatTableCell>
+                <FlatTableCell>four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+        await waitFor(() => {
+          expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("-1");
+          expect(screen.getByTestId("two").getAttribute("tabindex")).toBe("0");
+        });
+      });
+
       it("should set the first row header's tabindex to 0", async () => {
         rtlRender(
           <FlatTable>
@@ -1072,6 +1114,56 @@ describe("FlatTable", () => {
         await waitFor(() => {
           expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("0");
           expect(screen.getByTestId("two").getAttribute("tabindex")).toBe("-1");
+        });
+      });
+
+      it("should tabindex to 0 on the first row header in a highlighted row", async () => {
+        rtlRender(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader data-testid="one" id="one">
+                  one
+                </FlatTableRowHeader>
+                <FlatTableCell id="two">two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow highlighted expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader data-testid="two" id="three">
+                  three
+                </FlatTableRowHeader>
+                <FlatTableCell id="four">four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+        await waitFor(() => {
+          expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("-1");
+          expect(screen.getByTestId("two").getAttribute("tabindex")).toBe("0");
+        });
+      });
+
+      it("should tabindex to 0 on the first row header in a selected row", async () => {
+        rtlRender(
+          <FlatTable>
+            <FlatTableBody>
+              <FlatTableRow expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader data-testid="one" id="one">
+                  one
+                </FlatTableRowHeader>
+                <FlatTableCell id="two">two</FlatTableCell>
+              </FlatTableRow>
+              <FlatTableRow selected expandableArea="firstColumn" expandable>
+                <FlatTableRowHeader data-testid="two" id="three">
+                  three
+                </FlatTableRowHeader>
+                <FlatTableCell id="four">four</FlatTableCell>
+              </FlatTableRow>
+            </FlatTableBody>
+          </FlatTable>
+        );
+        await waitFor(() => {
+          expect(screen.getByTestId("one").getAttribute("tabindex")).toBe("-1");
+          expect(screen.getByTestId("two").getAttribute("tabindex")).toBe("0");
         });
       });
 

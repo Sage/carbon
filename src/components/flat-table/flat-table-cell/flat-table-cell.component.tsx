@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef } from "react";
 import { PaddingProps } from "styled-system";
 import { TableBorderSize, TableCellAlign } from "..";
 
@@ -7,9 +7,8 @@ import {
   StyledCellContent,
 } from "./flat-table-cell.style";
 import Icon from "../../icon";
-import { FlatTableThemeContext } from "../flat-table.component";
 import guid from "../../../__internal__/utils/helpers/guid";
-import useCalculateStickyCells from "../__internal__/use-calculate-sticky-cells";
+import useTableCell from "../__internal__/use-table-cell";
 
 export interface FlatTableCellProps extends PaddingProps {
   /** Content alignment */
@@ -46,10 +45,8 @@ export const FlatTableCell = ({
   id,
   ...rest
 }: FlatTableCellProps) => {
-  const ref = useRef<HTMLTableCellElement>(null);
   const internalId = useRef(id || guid());
-  const [tabIndex, setTabIndex] = useState(-1);
-  const { selectedId } = useContext(FlatTableThemeContext);
+
   const {
     leftPosition,
     rightPosition,
@@ -59,11 +56,10 @@ export const FlatTableCell = ({
     isFirstCell,
     isExpandableCell,
     makeCellSticky,
-  } = useCalculateStickyCells(internalId.current);
-
-  useEffect(() => {
-    setTabIndex(isExpandableCell && selectedId === internalId.current ? 0 : -1);
-  }, [selectedId, isExpandableCell]);
+    isInHighlightedRow,
+    isInSelectedRow,
+    tabIndex,
+  } = useTableCell(internalId.current);
 
   return (
     <StyledFlatTableCell
@@ -71,7 +67,6 @@ export const FlatTableCell = ({
       rightPosition={rightPosition}
       makeCellSticky={makeCellSticky}
       className={makeCellSticky ? "isSticky" : undefined}
-      ref={ref}
       align={align}
       data-element="flat-table-cell"
       pl={pl}
@@ -83,6 +78,8 @@ export const FlatTableCell = ({
       expandable={expandable}
       {...(colspan !== undefined && { colSpan: Number(colspan) })}
       {...(rowspan !== undefined && { rowSpan: Number(rowspan) })}
+      data-selected={isInSelectedRow && isExpandableCell}
+      data-highlighted={isInHighlightedRow && isExpandableCell}
       {...rest}
       id={internalId.current}
     >
