@@ -1,3 +1,10 @@
+### [120.3.1](https://github.com/Sage/carbon/compare/v120.3.0...v120.3.1) (2023-09-22)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure tabindex is set on clickable elements when table has pager and loading state ([847c7c3](https://github.com/Sage/carbon/commit/847c7c3dd7cd7fb11ebbe26f575c85dfffec5c5e))
+
 ## [120.3.0](https://github.com/Sage/carbon/compare/v120.2.1...v120.3.0) (2023-09-22)
 
 
