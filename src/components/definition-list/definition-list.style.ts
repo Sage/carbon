@@ -2,19 +2,9 @@ import styled, { css } from "styled-components";
 import { space } from "styled-system";
 import StyledButton from "../button/button.style";
 import { baseTheme } from "../../style/themes";
+import { DlProps } from "./dl.component";
 
-export interface StyledDlProps {
-  /** Render the DefinitionList as a single column */
-  asSingleColumn?: boolean;
-  /** This value will specify the width of the `StyledDtDiv` as a percentage. The remaining space will be taken up
-      by the `StyledDdDiv`. This prop has no effect when `asSingleColumn` is set.
-   */
-  w?: number;
-}
-
-export type ElementAlignment = "left" | "center" | "right";
-
-export const StyledDl = styled.dl<StyledDlProps>`
+export const StyledDl = styled.dl<Omit<DlProps, "dtTextAlign" | "ddTextAlign">>`
   ${space}
 
   ${({ asSingleColumn, w }) => css`
@@ -39,49 +29,42 @@ StyledDl.defaultProps = {
   theme: baseTheme,
 };
 
-export interface StyledDtDivProps {
-  /** This string will specify the text align styling of the `<dt></dt>`. */
-  dtTextAlign?: ElementAlignment;
-}
-
-export const StyledDtDiv = styled.div<StyledDtDivProps>`
-  ${space}
-  ${({ dtTextAlign }) => css`
-    text-align: ${dtTextAlign};
-  `}
-`;
-
-StyledDtDiv.defaultProps = {
-  theme: baseTheme,
-};
-
-export interface StyledDdDivProps {
-  /** This string will specify the text align styling of the `<dd></dd>`. */
-  ddTextAlign?: ElementAlignment;
-}
-
-export const StyledDdDiv = styled.div<StyledDdDivProps>`
-  ${({ ddTextAlign }) => css`
-    text-align: ${ddTextAlign};
-  `}
-`;
-
-export const StyledDt = styled.dt`
+export const StyledDt = styled.dt<
+  Pick<DlProps, "asSingleColumn" | "dtTextAlign">
+>`
   ${space}
   font-size: var(--fontSizes100);
   font-weight: 700;
   color: var(--colorsUtilityYin090);
+  ${({ asSingleColumn }) =>
+    !asSingleColumn &&
+    css`
+      grid-column: 1;
+    `}
+  ${({ dtTextAlign }) => css`
+    text-align: ${dtTextAlign};
+  `}
 `;
 
 StyledDt.defaultProps = {
   theme: baseTheme,
 };
 
-export const StyledDd = styled.dd`
+export const StyledDd = styled.dd<
+  Pick<DlProps, "asSingleColumn" | "ddTextAlign">
+>`
   font-size: var(--fontSizes100);
   font-weight: var(--fontWeights400);
   color: var(--colorsUtilityYin065);
   margin-left: 0px;
+  ${({ asSingleColumn }) =>
+    !asSingleColumn &&
+    css`
+      grid-column: 2;
+    `}
+  ${({ ddTextAlign }) => css`
+    text-align: ${ddTextAlign};
+  `}
 
   ${StyledButton} {
     padding: 0;

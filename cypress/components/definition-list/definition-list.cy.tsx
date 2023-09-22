@@ -2,6 +2,7 @@ import React from "react";
 import {
   DLComponent,
   DLBoxComponent,
+  UsingBoxToOverrideBackgroundColor,
 } from "../../../src/components/definition-list/definition-list-test.stories";
 import Dl, {
   DlProps,
@@ -22,11 +23,20 @@ const specialCharacters = [
 ];
 
 const alignValue = ["left", "center", "right"];
+const PADDING_RIGHT = 24;
+const VIEWPORT_WIDTH = 1000;
 
-context("Testing Definition List component", () => {
-  describe("should render Definition List component", () => {
+context("Definition List", () => {
+  describe("when rendered", () => {
+    it("should verify that display is grid when asSingleColumn prop is not set", () => {
+      CypressMountWithProviders(<DLComponent />);
+
+      getDataElementByValue("dl").should("have.css", "display", "grid");
+      getDataElementByValue("dt").should("have.css", "grid-column", "1 / auto");
+      getDataElementByValue("dd").should("have.css", "grid-column", "2 / auto");
+    });
     it.each(alignValue as DlProps["dtTextAlign"][])(
-      "should verify Definition List text is %s aligned",
+      "should verify dt element text is %s aligned",
       (align) => {
         CypressMountWithProviders(
           <DLComponent dtTextAlign={align} ddTextAlign="right" />
@@ -36,7 +46,7 @@ context("Testing Definition List component", () => {
     );
 
     it.each(alignValue as DlProps["ddTextAlign"][])(
-      "should verify Definition List definition is %s aligned",
+      "should verify dd element text is %s aligned",
       (align) => {
         CypressMountWithProviders(<DLComponent ddTextAlign={align} />);
         getDataElementByValue("dd").should("have.css", "text-align", align);
@@ -44,17 +54,22 @@ context("Testing Definition List component", () => {
     );
 
     it.each([
-      [135, 1229, 10],
-      [683, 683, 50],
-      [1229, 135, 90],
+      [100, VIEWPORT_WIDTH - 100, 10],
+      [500, VIEWPORT_WIDTH - 500, 50],
+      [900, VIEWPORT_WIDTH - 900, 90],
     ])(
       "should verify text width is %spx and definition width is %spx, %s% of the Definition List width",
       (dtPixels, ddPixels, dtPercent) => {
+        cy.viewport(VIEWPORT_WIDTH, 500);
         CypressMountWithProviders(<DLComponent w={dtPercent} />);
         getDataElementByValue("dl")
           .children()
           .then(($el) => {
-            assertCssValueIsApproximately($el, "width", dtPixels);
+            assertCssValueIsApproximately(
+              $el,
+              "width",
+              dtPixels - PADDING_RIGHT
+            );
           });
         getDataElementByValue("dl")
           .children()
@@ -95,14 +110,17 @@ context("Testing Definition List component", () => {
       CypressMountWithProviders(
         <DLComponent dtTextAlign="left" asSingleColumn />
       );
+      getDataElementByValue("dl").should("not.have.css", "display", "grid");
       getDataElementByValue("dt")
         .should("have.css", "text-align", "left")
+        .and("not.have.css", "grid-column", "1 / auto")
         .then(($el) => {
           assertCssValueIsApproximately($el, "width", 1366);
         });
       getDataElementByValue("dd")
         .should("have.css", "text-align", "left")
         .and("have.css", "margin-left", "0px")
+        .and("not.have.css", "grid-column", "2 / auto")
         .then(($el) => {
           assertCssValueIsApproximately($el, "width", 1366);
         });
@@ -167,6 +185,12 @@ context("Testing Definition List component", () => {
         .children()
         .children()
         .should("have.attr", "data-component", "dl");
+    });
+
+    it("should render dt and dd children when wrapped in a Box", () => {
+      CypressMountWithProviders(<UsingBoxToOverrideBackgroundColor />);
+      getDataElementByValue("box1").children().should("be.visible");
+      getDataElementByValue("box2").children().should("be.visible");
     });
   });
 

@@ -1,13 +1,8 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 import { Dl, Dt, Dd } from "./";
-import Icon from "../icon";
-import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
-import Box from "../box";
-import { ActionPopover, ActionPopoverItem } from "../action-popover";
-import Hr from "../hr";
-import Typography from "../typography";
-import useMediaQuery from "../../hooks/useMediaQuery";
 
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import * as stories from "./definition-list.stories";
 
 <Meta title="Definition List" parameters={{ info: { disable: true } }} />
 
@@ -38,47 +33,13 @@ Definition List most of the time is in use with other components. Look at the ex
 ### Default
 
 <Canvas>
-  <Story name="default">
-    <Dl>
-      <Dt>First</Dt>
-      <Dd>Description</Dd>
-      <Dt>Second</Dt>
-      <Dd>Description</Dd>
-      <Dt>Third</Dt>
-      <Dd>Description</Dd>
-    </Dl>
-  </Story>
+  <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
 ### Action popover and icon support
 
 <Canvas>
-  <Story name="action popover and icon support">
-    <Dl>
-      <Dt>
-        <Box paddingTop="4px">Term example</Box>
-      </Dt>
-      <Dd>
-        <Box display="inline-flex" alignItems="center">
-          <Box mr={1}>Details example</Box>
-          <Icon type="tick" />
-        </Box>
-      </Dd>
-      <Dt>
-        <Box paddingTop="4px">Term example</Box>
-      </Dt>
-      <Dd>
-        <Box display="inline-flex" alignItems="center">
-          <Icon mr={1} type="tick" />
-          <Box mr={2}>Details example</Box>
-          <ActionPopover rightAlignMenu>
-            <ActionPopoverItem>Option 1</ActionPopoverItem>
-            <ActionPopoverItem>Option 2</ActionPopoverItem>
-          </ActionPopover>
-        </Box>
-      </Dd>
-    </Dl>
-  </Story>
+  <Story name="action popover and icon support" story={stories.ActionPopoverAndIconSupport} />
 </Canvas>
 
 ### Conditional rendering with `<React.Fragment />`
@@ -86,23 +47,7 @@ Definition List most of the time is in use with other components. Look at the ex
 _CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`_
 
 <Canvas>
-  <Story
-    name="with conditional rendering"
-    parameters={{ chromatic: { disableSnapshot: true } }}
-  >
-    <Dl>
-      <Dt>First</Dt>
-      <Dd>Description</Dd>
-      <Dt>Second</Dt>
-      <Dd>Description</Dd>
-      {true && (
-        <>
-          <Dt>Third inside of React Fragment</Dt>
-          <Dd>Description inside of React Fragment</Dd>
-        </>
-      )}
-    </Dl>
-  </Story>
+  <Story name="with conditional rendering" story={stories.WithConditionalRendering} />
 </Canvas>
 
 ### As a single column
@@ -111,151 +56,20 @@ Setting the `asSingleColumn` prop will render the `DefinitionList` as a single c
 for `Dt` components is `right` so you will likely need to set `dtTextAlign` to `left` to achieve the layout below.
 
 <Canvas>
-  <Story name="as a single column">
-    <Dl w="200px" dtTextAlign="left" asSingleColumn>
-      <Dt>First</Dt>
-      <Dd>Description</Dd>
-      <Dt>Second</Dt>
-      <Dd>
-        <Box display="inline-flex" alignItems="center">
-          <Box mr={1}>Details example</Box>
-          <Icon type="tick" />
-        </Box>
-      </Dd>
-      <Dt>Third</Dt>
-      <Dd>Description</Dd>
-    </Dl>
-  </Story>
+  <Story name="as a single column" story={stories.AsASingleColumn} />
 </Canvas>
 
 It is also possible to create more complex layouts, like below, using single column `DefinitionList`s with other components
 such as `Typography` and `Hr`.
 
 <Canvas>
-  <Story
-    name="multiple single columns with segments"
-    parameters={{ chromatic: { disableSnapshot: true } }}
-  >
-    <Box width="65%" px={2} pt={4} pb={3}>
-      <Box width="90%">
-        <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">
-          Segment Header
-        </Typography>
-        <Hr ml={0} mt={2} />
-      </Box>
-      <Box mb={3} display="flex">
-        <Box flexGrow="1">
-          <Dl dtTextAlign="left" asSingleColumn>
-            <Dt>First</Dt>
-            <Dd>Description</Dd>
-            <Dt>Second</Dt>
-            <Dd>
-              <Box display="inline-flex" alignItems="center">
-                <Box mr={1}>Details example</Box>
-                <Icon type="tick" />
-              </Box>
-            </Dd>
-            <Dt>Third</Dt>
-            <Dd>Description</Dd>
-          </Dl>
-        </Box>
-        <Box flexGrow="1">
-          <Dl dtTextAlign="left" asSingleColumn>
-            <Dt>First</Dt>
-            <Dd>Description</Dd>
-            <Dt>Second</Dt>
-            <Dd>
-              <Box display="inline-flex" alignItems="center">
-                <Box mr={1}>Details example</Box>
-                <Icon type="tick" />
-              </Box>
-            </Dd>
-            <Dt>Third</Dt>
-            <Dd>Description</Dd>
-          </Dl>
-        </Box>
-      </Box>
-      <Box width="90%">
-        <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">
-          Segment Header
-        </Typography>
-        <Hr ml={0} mt={2} />
-      </Box>
-      <Box display="flex">
-        <Box width="100%">
-          <Dl dtTextAlign="left" asSingleColumn>
-            <Dt>First</Dt>
-            <Dd>Description</Dd>
-            <Dt>Second</Dt>
-            <Dd>
-              <Box display="inline-flex" alignItems="center">
-                <Box mr={1}>Details example</Box>
-                <Icon type="tick" />
-              </Box>
-            </Dd>
-            <Dt>Third</Dt>
-            <Dd>Description</Dd>
-          </Dl>
-        </Box>
-        <Box width="100%">
-          <Dl dtTextAlign="left" asSingleColumn>
-            <Dt>First</Dt>
-            <Dd>Description</Dd>
-            <Dt>Second</Dt>
-            <Dd>
-              <Box display="inline-flex" alignItems="center">
-                <Box mr={1}>Details example</Box>
-                <Icon type="tick" />
-              </Box>
-            </Dd>
-            <Dt>Third</Dt>
-            <Dd>Description</Dd>
-          </Dl>
-        </Box>
-      </Box>
-      <Box width="90%">
-        <Hr ml={0} mt={1} />
-      </Box>
-    </Box>
-  </Story>
+  <Story name="multiple single columns with segments" story={stories.MultipleSingleColumnsWithSegments} />
 </Canvas>
 
 ### Responsive Example
 
 <Canvas>
-  <Story 
-    name="responsive" 
-    parameters={
-      { 
-        chromatic: { 
-          viewports: [1200, 500] 
-        } 
-      }
-    }
-  >
-    {() => {
-      const smallScreen = useMediaQuery("(max-width: 700px)");
-      return (
-        <Dl 
-          ddTextAlign={smallScreen === "right"} 
-          dtTextAlign={smallScreen ? "left" : "right"} 
-          asSingleColumn={smallScreen}
-        >
-          <Dt>First</Dt>
-          <Dd>Description</Dd>
-          <Dt>Second</Dt>
-          <Dd>
-            <Box display="inline-flex" alignItems="center">
-              <Box mr={1}>Details example</Box>
-              <Icon type="tick" />
-            </Box>
-          </Dd>
-          <Dt>Third</Dt>
-          <Dd>Description</Dd>
-        </Dl>
-      );
-    }}
-  </Story>
+  <Story name="responsive" story={stories.Responsive} />
 </Canvas>
 
 ## Props
