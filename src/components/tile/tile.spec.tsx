@@ -7,6 +7,7 @@ import {
   assertStyleMatch,
   testStyledSystemSpacing,
   testStyledSystemWidth,
+  testStyledSystemHeight,
 } from "../../__spec_helper__/test-utils";
 import { TileProps } from "./tile.component";
 
@@ -59,6 +60,8 @@ describe("Tile", () => {
     testStyledSystemSpacing((props) => <Tile {...props} />, { p: 3 });
 
     testStyledSystemWidth((props) => <Tile {...props} />);
+
+    testStyledSystemHeight((props) => <Tile {...props} />);
 
     describe("variant", () => {
       it('renders a white background when variant prop is "tile"', () => {

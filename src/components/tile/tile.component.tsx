@@ -35,6 +35,10 @@ export interface TileProps extends SpaceProps, WidthProps {
     | "info";
   /** Sets the level of roundness of the corners, "default" is 8px and "large" is 16px */
   roundness?: "default" | "large";
+  /**
+   * Set a percentage-based height for the whole Tile component, relative to its parent.
+   */
+  height?: string | number;
 }
 
 export const Tile = ({
@@ -42,8 +46,9 @@ export const Tile = ({
   p = 3,
   children,
   orientation = "horizontal",
-  width,
+  width = "100%",
   roundness = "default",
+  height,
   ...props
 }: TileProps) => {
   const isHorizontal = orientation === "horizontal";
@@ -58,13 +63,18 @@ export const Tile = ({
       return child;
     }
 
-    const { width: contentWidth, ...childProps } = child.props;
+    const {
+      width: contentWidth,
+      height: contentHeight,
+      ...childProps
+    } = child.props;
     const key = child.key || `tile-content-${index + 1}`;
 
     return (
       <TileContent
         key={key}
         width={contentWidth}
+        height={contentHeight}
         isHorizontal={isHorizontal}
         isVertical={isVertical}
         {...(isVertical && {
@@ -85,6 +95,7 @@ export const Tile = ({
     <StyledTile
       variant={variant}
       width={width}
+      height={height}
       data-component="tile"
       isHorizontal={isHorizontal}
       p={p}
