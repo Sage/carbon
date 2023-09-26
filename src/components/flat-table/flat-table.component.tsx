@@ -43,12 +43,11 @@ export interface FlatTableProps extends MarginProps {
 
 export interface FlatTableThemeContextProps
   extends Pick<FlatTableProps, "colorTheme" | "size"> {
-  selectedId?: string;
-  setSelectedId: (id: string) => void;
+  getTabStopElementId: () => string;
 }
 
 export const FlatTableThemeContext = React.createContext<FlatTableThemeContextProps>(
-  { setSelectedId: () => {} }
+  { getTabStopElementId: () => "" }
 );
 
 const FOCUSABLE_ROW_AND_CELL_QUERY =
@@ -77,7 +76,6 @@ export const FlatTable = ({
   const [hasHorizontalScrollbar, setHasHorizontalScrollbar] = useState(false);
   const [firstColRowSpanIndex, setFirstColRowSpanIndex] = useState(-1);
   const [lastColRowSpanIndex, setLastColRowSpanIndex] = useState(-1);
-  const [selectedId, setSelectedId] = useState("");
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
   const tableStylingProps = {
     caption,
@@ -201,35 +199,23 @@ export const FlatTable = ({
     }
   };
 
-  useLayoutEffect(() => {
-    const findSelectedId = () => {
-      const firstfocusableElement = tableRef.current?.querySelector(
-        FOCUSABLE_ROW_AND_CELL_QUERY
-      );
+  const getTabStopElementId = () => {
+    const focusableElements = Array.from(
+      tableRef.current?.querySelectorAll(FOCUSABLE_ROW_AND_CELL_QUERY) ||
+        /* istanbul ignore next */ []
+    );
 
-      // if no other menu item is selected, we need to make the first row a tab stop
-      if (firstfocusableElement && !selectedId) {
-        const currentlySelectedId = firstfocusableElement?.getAttribute("id");
+    // if no other row is selected/ highlighted, we need to make the first row/ cell a tab stop
+    const focusableElement =
+      focusableElements.find(
+        (el) =>
+          el.getAttribute("data-selected") === "true" ||
+          el.getAttribute("data-highlighted") === "true"
+      ) || focusableElements[0];
+    const currentlySelectedId = focusableElement?.getAttribute("id") || "";
 
-        /* istanbul ignore else */
-        if (currentlySelectedId && selectedId !== currentlySelectedId) {
-          setSelectedId(currentlySelectedId);
-        }
-      }
-    };
-
-    const observer = new MutationObserver(findSelectedId);
-
-    /* istanbul ignore else */
-    if (wrapperRef.current) {
-      observer.observe(wrapperRef.current as Node, {
-        subtree: true,
-        childList: true,
-        attributes: true,
-      });
-    }
-    return () => observer.disconnect();
-  }, [selectedId]);
+    return currentlySelectedId;
+  };
 
   return (
     <StyledFlatTableWrapper
@@ -271,8 +257,7 @@ export const FlatTable = ({
             value={{
               colorTheme,
               size,
-              setSelectedId,
-              selectedId,
+              getTabStopElementId,
             }}
           >
             {children}

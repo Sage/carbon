@@ -11,7 +11,7 @@ import {
 } from "../../../playwright/components/advanced-color-picker";
 import { alertDialogPreview as advancedColorPickerParent } from "../../../playwright/components/dialog/index";
 import { closeIconButton } from "../../../playwright/components/index";
-import { CHARACTERS } from "../../../cypress/support/component-helper/constants";
+import { CHARACTERS } from "../../../playwright/support/constants";
 import { checkAccessibility } from "../../../playwright/support/helper";
 import { HooksConfig } from "../../../playwright";
 
@@ -215,11 +215,11 @@ test.describe(
       mount,
       page,
     }) => {
-      await mount(<AdvancedColorPickerCustom name="cypressTestColorName" />);
+      await mount(<AdvancedColorPickerCustom name="playwrightTestColorName" />);
 
       await expect(simpleColorPicker(page, 6)).toHaveAttribute(
         "name",
-        "cypressTestColorName"
+        "playwrightTestColorName"
       );
     });
 
