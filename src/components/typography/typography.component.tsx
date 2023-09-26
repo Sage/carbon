@@ -19,6 +19,7 @@ const VARIANT_TYPES = [
   "segment-subheader",
   "segment-subheader-alt",
   "p",
+  "span",
   "small",
   "big",
   "sup",

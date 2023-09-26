@@ -45,6 +45,7 @@ const getSize = (variant?: VariantTypes) => {
       return "13px";
     case "segment-subheader-alt":
     case "p":
+    case "span":
     case "b":
     case "strong":
     case "em":
@@ -77,6 +78,7 @@ const getLineHeight = (variant?: VariantTypes) => {
     case "h5":
     case "segment-subheader-alt":
     case "p":
+    case "span":
     case "b":
     case "strong":
     case "em":
@@ -103,6 +105,7 @@ const getWeight = (variant?: VariantTypes) => {
     case "h4":
     case "h5":
     case "p":
+    case "span":
     case "small":
     case "big":
     case "sub":

@@ -387,6 +387,24 @@ describe("Typography", () => {
         { variant: "em" }
       );
     });
+    it("applies span styling", () => {
+      assert(
+        {
+          fontSize: "14px",
+          as: "span",
+          lineHeight: "21px",
+          fontWeight: "400",
+          textTransform: "none",
+          textDecoration: "none",
+          verticalAlign: undefined,
+          color: "rgba(0,0,0,0.90)",
+          display: undefined,
+          padding: "0",
+          margin: "0",
+        },
+        { variant: "span" }
+      );
+    });
   });
 
   describe("overrides", () => {
