@@ -21,7 +21,6 @@ interface Locale {
     ariaLabel: () => string;
   };
   characterCount: {
-    hintString: () => string;
     tooManyCharacters: (count: number, formattedCount: string) => string;
     charactersLeft: (count: number, formattedCount: string) => string;
     visuallyHiddenHint: (formattedCount: string) => string;

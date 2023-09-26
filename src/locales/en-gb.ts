@@ -29,7 +29,6 @@ const enGB: Locale = {
     yes: () => "Yes",
   },
   characterCount: {
-    hintString: () => "Input contains a character counter",
     tooManyCharacters: (count, formattedCount) =>
       count === 1
         ? `${formattedCount} character too many`
