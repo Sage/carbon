@@ -672,7 +672,7 @@ test.describe("Testing RadioButtonGroup component", () => {
 });
 
 test.describe("Accessibility tests for RadioButton component", () => {
-  test("should pass accessibilty tests for RadioButton Default example", async ({
+  test("should pass accessibility tests for RadioButton Default example", async ({
     mount,
     page,
   }) => {
@@ -680,7 +680,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton WithLegendAndLabels example", async ({
+  test("should pass accessibility tests for RadioButton WithLegendAndLabels example", async ({
     mount,
     page,
   }) => {
@@ -688,7 +688,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton WithInlineLegend example", async ({
+  test("should pass accessibility tests for RadioButton WithInlineLegend example", async ({
     mount,
     page,
   }) => {
@@ -696,7 +696,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton WithLeftMargin example", async ({
+  test("should pass accessibility tests for RadioButton WithLeftMargin example", async ({
     mount,
     page,
   }) => {
@@ -704,7 +704,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton EnableAdaptiveBehaviour example", async ({
+  test("should pass accessibility tests for RadioButton EnableAdaptiveBehaviour example", async ({
     mount,
     page,
   }) => {
@@ -712,7 +712,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton DifferentLabelSpacing example", async ({
+  test("should pass accessibility tests for RadioButton DifferentLabelSpacing example", async ({
     mount,
     page,
   }) => {
@@ -720,7 +720,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton InlineRadioButtons example", async ({
+  test("should pass accessibility tests for RadioButton InlineRadioButtons example", async ({
     mount,
     page,
   }) => {
@@ -728,7 +728,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton ReverseRadioButtons example", async ({
+  test("should pass accessibility tests for RadioButton ReverseRadioButtons example", async ({
     mount,
     page,
   }) => {
@@ -736,7 +736,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton DisableRadioButtons example", async ({
+  test("should pass accessibility tests for RadioButton DisableRadioButtons example", async ({
     mount,
     page,
   }) => {
@@ -744,7 +744,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton WithFieldHelp example", async ({
+  test("should pass accessibility tests for RadioButton WithFieldHelp example", async ({
     mount,
     page,
   }) => {
@@ -752,7 +752,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton WithLargeRadioButtons example", async ({
+  test("should pass accessibility tests for RadioButton WithLargeRadioButtons example", async ({
     mount,
     page,
   }) => {
@@ -760,7 +760,7 @@ test.describe("Accessibility tests for RadioButton component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibilty tests for RadioButton WithCustomStyledLabels example", async ({
+  test("should pass accessibility tests for RadioButton WithCustomStyledLabels example", async ({
     mount,
     page,
   }) => {
