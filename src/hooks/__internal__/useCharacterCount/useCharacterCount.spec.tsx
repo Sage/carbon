@@ -9,26 +9,12 @@ import useCharacterCount from ".";
 interface TestComponentProps {
   value: string;
   characterLimit?: number;
-  enforceCharacterLimit?: boolean;
 }
 
-const TestComponent = ({
-  value,
-  characterLimit,
-  enforceCharacterLimit,
-}: TestComponentProps) => {
-  const [maxLength, characterCount] = useCharacterCount(
-    value,
-    characterLimit,
-    enforceCharacterLimit
-  );
+const TestComponent = ({ value, characterLimit }: TestComponentProps) => {
+  const [characterCount] = useCharacterCount(value, characterLimit);
 
-  return (
-    <>
-      {characterCount}
-      <span data-element="max-length">{maxLength}</span>
-    </>
-  );
+  return characterCount;
 };
 
 const render = (props: TestComponentProps, params?: MountRendererProps) =>
@@ -37,7 +23,7 @@ const mockValue = "test string";
 
 describe("useCharacterCount", () => {
   it.each([5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])(
-    "returns a counter and no maxLength",
+    "returns a character counter",
     (characterLimit) => {
       const limitMinusVlaue = characterLimit - mockValue.length >= 0;
       const underCharacters =
@@ -47,10 +33,8 @@ describe("useCharacterCount", () => {
       const wrapper = render({
         value: mockValue,
         characterLimit,
-        enforceCharacterLimit: false,
       });
 
-      expect(wrapper.find('[data-element="max-length"]').text()).toBe("");
       expect(wrapper.find(StyledCharacterCount).text()).toBe(
         `${
           limitMinusVlaue
@@ -61,39 +45,11 @@ describe("useCharacterCount", () => {
     }
   );
 
-  it.each([5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])(
-    "returns a counter and maxLength",
-    (characterLimit) => {
-      const limitMinusVlaue = characterLimit - mockValue.length >= 0;
-      const underCharacters =
-        characterLimit - mockValue.length === 1 ? "character" : "characters";
-      const overCharacters =
-        mockValue.length - characterLimit === 1 ? "character" : "characters";
-      const wrapper = render({
-        value: mockValue,
-        characterLimit,
-        enforceCharacterLimit: true,
-      });
-
-      expect(wrapper.find('[data-element="max-length"]').text()).toBe(
-        `${characterLimit}`
-      );
-      expect(wrapper.find(StyledCharacterCount).text()).toBe(
-        `${
-          limitMinusVlaue
-            ? `${characterLimit - mockValue.length} ${underCharacters} left`
-            : `${mockValue.length - characterLimit} ${overCharacters} too many`
-        }`
-      );
-    }
-  );
-
-  it("does not return a counter and no maxLength", () => {
+  it("does not return a counter", () => {
     const wrapper = render({
       value: mockValue,
     });
 
-    expect(wrapper.find('[data-element="max-length"]').text()).toBe("");
     expect(wrapper.find(StyledCharacterCount).exists()).toBe(false);
   });
 });
@@ -105,7 +61,6 @@ describe("Debounce tests", () => {
     const wrapper = render({
       value: "",
       characterLimit: 5,
-      enforceCharacterLimit: true,
     });
 
     wrapper.setProps({ value: "foo" });
@@ -123,7 +78,6 @@ describe("Debounce tests", () => {
     const wrapper = render({
       value: "",
       characterLimit: 5,
-      enforceCharacterLimit: true,
     });
 
     wrapper.setProps({ value: "foo" });

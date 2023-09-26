@@ -146,13 +146,7 @@ describe("Textbox", () => {
     });
 
     it("renders a counter with an over limit warning", () => {
-      wrapper = mount(
-        <Textbox
-          value="test string"
-          characterLimit={10}
-          enforceCharacterLimit={false}
-        />
-      );
+      wrapper = mount(<Textbox value="test string" characterLimit={10} />);
 
       assertStyleMatch(
         {
@@ -161,27 +155,6 @@ describe("Textbox", () => {
         wrapper.find(StyledCharacterCount)
       );
     });
-  });
-
-  it.each([[2, 3, 4]])("sets max length", (characterLimit) => {
-    const valueString = "foo";
-    const limitMinusValue = characterLimit - valueString.length >= 0;
-    const wrapper = mount(
-      <Textbox value={valueString} characterLimit={characterLimit} />
-    );
-    const underCharacters =
-      characterLimit - valueString.length === 1 ? "character" : "characters";
-    const overCharacters =
-      valueString.length - characterLimit === 1 ? "character" : "characters";
-
-    expect(wrapper.find(StyledCharacterCount).text()).toBe(
-      `${
-        limitMinusValue
-          ? `${characterLimit - valueString.length} ${underCharacters} left`
-          : `${valueString.length - characterLimit} ${overCharacters} too many`
-      }`
-    );
-    expect(wrapper.find("input").prop("maxLength")).toBe(characterLimit);
   });
 
   it.each([

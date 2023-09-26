@@ -70,26 +70,6 @@ export const CharacterLimitStory: ComponentStory<typeof Textarea> = () => {
   );
 };
 
-export const UnenforcedCharacterLimitStory: ComponentStory<
-  typeof Textarea
-> = () => {
-  const [value, setValue] = useState("");
-  return (
-    <Textarea
-      label="Textarea"
-      inputHint="Hint text (optional)."
-      expandable
-      value={value}
-      onChange={({ target }) => setValue(target.value)}
-      characterLimit={50}
-      enforceCharacterLimit={false}
-    />
-  );
-};
-UnenforcedCharacterLimitStory.parameters = {
-  chromatic: { disableSnapshot: true },
-};
-
 export const TranslationsCharacterLimitStory: ComponentStory<
   typeof Textarea
 > = () => {
@@ -119,7 +99,6 @@ export const TranslationsCharacterLimitStory: ComponentStory<
         value={value}
         onChange={({ target }) => setValue(target.value)}
         characterLimit={50}
-        enforceCharacterLimit={false}
       />
     </I18nProvider>
   );

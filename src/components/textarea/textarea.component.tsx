@@ -51,8 +51,6 @@ export interface TextareaProps
   cols?: number;
   /** If true, the component will be disabled */
   disabled?: boolean;
-  /** Stop the user typing over the characterLimit */
-  enforceCharacterLimit?: boolean;
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
   Pass true boolean to only display red border */
@@ -136,7 +134,6 @@ export const Textarea = React.forwardRef(
       size,
       children,
       characterLimit,
-      enforceCharacterLimit = true,
       onChange,
       disabled = false,
       labelInline,
@@ -254,10 +251,9 @@ export const Textarea = React.forwardRef(
       fieldHelp,
     });
 
-    const [maxLength, characterCount, visuallyHiddenHintId] = useCharacterCount(
+    const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       value,
-      characterLimit,
-      enforceCharacterLimit
+      characterLimit
     );
 
     useEffect(() => {
@@ -323,7 +319,6 @@ export const Textarea = React.forwardRef(
           name={name}
           value={value}
           ref={callbackRef}
-          maxLength={maxLength}
           onChange={onChange}
           disabled={disabled}
           readOnly={readOnly}

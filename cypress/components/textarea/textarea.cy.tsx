@@ -190,12 +190,7 @@ context("Tests for Textarea component", () => {
         const overCharacters =
           charactersUsed - limit === 1 ? "character" : "characters";
 
-        CypressMountWithProviders(
-          <TextareaComponent
-            enforceCharacterLimit={false}
-            characterLimit={limit}
-          />
-        );
+        CypressMountWithProviders(<TextareaComponent characterLimit={limit} />);
 
         textareaChildren()
           .type(inputValue)
@@ -229,12 +224,7 @@ context("Tests for Textarea component", () => {
     ])(
       "input hint should be conditionally rendered",
       (inputHint, renderStatus) => {
-        CypressMountWithProviders(
-          <TextareaComponent
-            enforceCharacterLimit={false}
-            inputHint={inputHint}
-          />
-        );
+        CypressMountWithProviders(<TextareaComponent inputHint={inputHint} />);
 
         getDataElementByValue("input-hint").should(renderStatus);
       }
@@ -247,10 +237,7 @@ context("Tests for Textarea component", () => {
       "character counter should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
-          <TextareaComponent
-            enforceCharacterLimit={false}
-            characterLimit={characterLimit}
-          />
+          <TextareaComponent characterLimit={characterLimit} />
         );
 
         characterCount().should(renderStatus);
@@ -264,10 +251,7 @@ context("Tests for Textarea component", () => {
       "visually hidden character count should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
-          <TextareaComponent
-            enforceCharacterLimit={false}
-            characterLimit={characterLimit}
-          />
+          <TextareaComponent characterLimit={characterLimit} />
         );
 
         visuallyHiddenCharacterCount().should(renderStatus);
@@ -281,10 +265,7 @@ context("Tests for Textarea component", () => {
       "visually hidden hint should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
-          <TextareaComponent
-            enforceCharacterLimit={false}
-            characterLimit={characterLimit}
-          />
+          <TextareaComponent characterLimit={characterLimit} />
         );
 
         visuallyHiddenHint().should(renderStatus);
@@ -311,37 +292,6 @@ context("Tests for Textarea component", () => {
         .parent()
         .should("have.css", "max-width", "100%");
     });
-
-    it.each([
-      [11, 11],
-      [10, 10],
-    ])(
-      "should input %s characters and enforce character limit of %s in Textarea",
-      (charactersUsed, limit) => {
-        const inputValue = "12345678901";
-        const underCharacters =
-          limit - charactersUsed === 1 ? "character" : "characters";
-        const overCharacters =
-          charactersUsed - limit === 1 ? "character" : "characters";
-
-        CypressMountWithProviders(
-          <TextareaComponent enforceCharacterLimit characterLimit={limit} />
-        );
-
-        textareaChildren()
-          .type(inputValue)
-          .then(() => {
-            characterCount().should(
-              "have.text",
-              `${
-                charactersUsed - limit
-                  ? `${limit - charactersUsed} ${underCharacters} too many`
-                  : `${charactersUsed - limit} ${overCharacters} left`
-              }`
-            );
-          });
-      }
-    );
 
     it("should render Textarea with name prop", () => {
       CypressMountWithProviders(
@@ -789,12 +739,6 @@ context("Tests for Textarea component", () => {
 
     it("should pass accessibility tests for Textarea RequiredStory", () => {
       CypressMountWithProviders(<stories.RequiredStory />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should pass accessibility tests for Textarea UnenforcedCharacterLimitStory", () => {
-      CypressMountWithProviders(<stories.UnenforcedCharacterLimitStory />);
 
       cy.checkAccessibility();
     });

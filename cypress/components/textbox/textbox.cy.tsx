@@ -229,10 +229,7 @@ context("Tests for Textbox component", () => {
       "input hint should be conditionally rendered",
       (inputHint, renderStatus) => {
         CypressMountWithProviders(
-          <stories.TextboxComponent
-            enforceCharacterLimit={false}
-            inputHint={inputHint}
-          />
+          <stories.TextboxComponent inputHint={inputHint} />
         );
 
         getDataElementByValue("input-hint").should(renderStatus);
@@ -246,10 +243,7 @@ context("Tests for Textbox component", () => {
       "character counter should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
-          <stories.TextboxComponent
-            enforceCharacterLimit={false}
-            characterLimit={characterLimit}
-          />
+          <stories.TextboxComponent characterLimit={characterLimit} />
         );
 
         characterCount().should(renderStatus);
@@ -263,10 +257,7 @@ context("Tests for Textbox component", () => {
       "visually hidden character count should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
-          <stories.TextboxComponent
-            enforceCharacterLimit={false}
-            characterLimit={characterLimit}
-          />
+          <stories.TextboxComponent characterLimit={characterLimit} />
         );
 
         visuallyHiddenCharacterCount().should(renderStatus);
@@ -280,10 +271,7 @@ context("Tests for Textbox component", () => {
       "visually hidden hint should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
-          <stories.TextboxComponent
-            enforceCharacterLimit={false}
-            characterLimit={characterLimit}
-          />
+          <stories.TextboxComponent characterLimit={characterLimit} />
         );
 
         visuallyHiddenHint().should(renderStatus);
@@ -332,10 +320,7 @@ context("Tests for Textbox component", () => {
           charactersUsed - limit === 1 ? "character" : "characters";
 
         CypressMountWithProviders(
-          <stories.TextboxComponent
-            enforceCharacterLimit={false}
-            characterLimit={limit}
-          />
+          <stories.TextboxComponent characterLimit={limit} />
         );
 
         textboxInput()
@@ -357,40 +342,6 @@ context("Tests for Textbox component", () => {
               `${
                 charactersUsed - limit
                   ? `${charactersUsed - limit} ${overCharacters} too many`
-                  : `${charactersUsed - limit} ${underCharacters} left`
-              }`
-            );
-          });
-      }
-    );
-
-    it.each([
-      [11, 11],
-      [10, 10],
-    ])(
-      "should input %s characters and enforce character limit of %s in Textbox",
-      (charactersUsed, limit) => {
-        const inputValue = "12345678901";
-        const underCharacters =
-          limit - charactersUsed === 1 ? "character" : "characters";
-        const overCharacters =
-          charactersUsed - limit === 1 ? "character" : "characters";
-
-        CypressMountWithProviders(
-          <stories.TextboxComponent
-            enforceCharacterLimit
-            characterLimit={limit}
-          />
-        );
-
-        textboxInput()
-          .type(inputValue)
-          .then(() => {
-            characterCount().should(
-              "have.text",
-              `${
-                charactersUsed - limit
-                  ? `${limit - charactersUsed} ${overCharacters} too many`
                   : `${charactersUsed - limit} ${underCharacters} left`
               }`
             );

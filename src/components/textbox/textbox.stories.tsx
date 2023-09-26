@@ -29,7 +29,6 @@ export const CharacterCounter: ComponentStory<typeof Textbox> = () => {
       value={state}
       onChange={setValue}
       characterLimit={10}
-      enforceCharacterLimit={false}
     />
   );
 };
@@ -65,7 +64,6 @@ export const CharacterCounterTranslations: ComponentStory<
         value={state}
         onChange={setValue}
         characterLimit={10}
-        enforceCharacterLimit={false}
       />
     </I18nProvider>
   );

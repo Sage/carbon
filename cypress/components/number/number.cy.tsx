@@ -82,37 +82,6 @@ context("Tests for Number component", () => {
     );
 
     it.each([
-      [11, 11],
-      [10, 10],
-    ])(
-      "should input %s characters and enforce character limit of %s in Number",
-      (charactersUsed, limit) => {
-        const inputValue = "12345678901";
-        const underCharacters =
-          limit - charactersUsed === 1 ? "character" : "characters";
-        const overCharacters =
-          charactersUsed - limit === 1 ? "character" : "characters";
-
-        CypressMountWithProviders(
-          <NumberInputComponent enforceCharacterLimit characterLimit={limit} />
-        );
-
-        commonDataElementInputPreview()
-          .type(inputValue)
-          .then(() => {
-            characterCount().should(
-              "have.text",
-              `${
-                charactersUsed - limit
-                  ? `${limit - charactersUsed} ${overCharacters} too many`
-                  : `${charactersUsed - limit} ${underCharacters} left`
-              }`
-            );
-          });
-      }
-    );
-
-    it.each([
       [11, 11, "rgba(0, 0, 0, 0.55)"],
       [11, 10, "rgb(203, 55, 74)"],
     ])(
@@ -125,10 +94,7 @@ context("Tests for Number component", () => {
           charactersUsed - limit === 1 ? "character" : "characters";
 
         CypressMountWithProviders(
-          <NumberInputComponent
-            enforceCharacterLimit={false}
-            characterLimit={limit}
-          />
+          <NumberInputComponent characterLimit={limit} />
         );
 
         commonDataElementInputPreview()

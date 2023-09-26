@@ -5,9 +5,8 @@ import useDebounce from "../useDebounce";
 
 const useCharacterCount = (
   value = "",
-  characterLimit?: number,
-  enforceCharacterLimit = true
-): [number | undefined, JSX.Element | null, string | undefined] => {
+  characterLimit?: number
+): [JSX.Element | null, string | undefined] => {
   const isCharacterLimitValid =
     typeof characterLimit === "number" && !Number.isNaN(characterLimit);
 
@@ -40,7 +39,6 @@ const useCharacterCount = (
   }, [debouncedValue, characterLimit, isCharacterLimitValid]);
 
   return [
-    enforceCharacterLimit && isCharacterLimitValid ? characterLimit : undefined,
     isCharacterLimitValid ? (
       <CharacterCount
         isOverLimit={isOverLimit}

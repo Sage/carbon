@@ -124,8 +124,6 @@ export interface TextboxProps extends CommonTextboxProps {
   positionedChildren?: React.ReactNode;
   /** Character limit of the textarea */
   characterLimit?: number;
-  /** Stop the user typing over the characterLimit */
-  enforceCharacterLimit?: boolean;
 }
 
 let deprecateInputRefWarnTriggered = false;
@@ -183,7 +181,6 @@ export const Textbox = React.forwardRef(
       "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
-      enforceCharacterLimit = true,
       characterLimit,
       helpAriaLabel,
       ...props
@@ -194,10 +191,9 @@ export const Textbox = React.forwardRef(
 
     const [uniqueId, uniqueName] = useUniqueId(id, name);
 
-    const [maxLength, characterCount, visuallyHiddenHintId] = useCharacterCount(
+    const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       characterCountValue,
-      characterLimit,
-      enforceCharacterLimit
+      characterLimit
     );
     const { validationRedesignOptIn } = useContext(NewValidationContext);
     const { disableErrorBorder } = useContext(NumeralDateContext);
@@ -289,7 +285,6 @@ export const Textbox = React.forwardRef(
           placeholder={disabled || readOnly ? "" : placeholder}
           readOnly={readOnly}
           value={typeof formattedValue === "string" ? formattedValue : value}
-          maxLength={maxLength}
           validationIconId={validationRedesignOptIn ? undefined : validationId}
           {...props}
         />
