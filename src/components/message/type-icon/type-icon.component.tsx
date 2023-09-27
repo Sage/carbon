@@ -12,9 +12,14 @@ export interface TypeIconProps {
 }
 
 const TypeIcon = ({ variant = "info", transparent = false }: TypeIconProps) => {
+  function iconToRender() {
+    if (variant === "neutral") return "info";
+    if (variant === "success") return "tick_circle";
+    return variant;
+  }
   return (
     <TypeIconStyle variant={variant} transparent={transparent}>
-      <Icon type={variant} />
+      <Icon type={iconToRender()} />
     </TypeIconStyle>
   );
 };

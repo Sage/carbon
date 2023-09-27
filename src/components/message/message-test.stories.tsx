@@ -14,7 +14,7 @@ export default {
   },
   argTypes: {
     variant: {
-      options: ["info", "error", "success", "warning"],
+      options: ["info", "error", "success", "warning", "neutral"],
       control: {
         type: "select",
       },

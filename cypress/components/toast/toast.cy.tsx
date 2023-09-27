@@ -12,9 +12,10 @@ const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const testData = CHARACTERS.STANDARD;
 const colorTypes = [
   "rgb(203, 55, 74)",
-  "rgb(51, 91, 112)",
+  "rgb(0, 96, 167)",
   "rgb(0, 138, 33)",
   "rgb(239, 103, 0)",
+  "rgb(51, 91, 112)",
 ];
 
 context("Testing Toast component", () => {
@@ -84,6 +85,8 @@ context("Testing Toast component", () => {
       [TOAST_COLORS[1], colorTypes[1]],
       [TOAST_COLORS[2], colorTypes[2]],
       [TOAST_COLORS[3], colorTypes[3]],
+      [TOAST_COLORS[4], colorTypes[4]],
+      [TOAST_COLORS[5], colorTypes[1]],
     ] as [ToastProps["variant"], string][])(
       "should render Toast component with %s variant",
       (variant, color) => {
@@ -187,6 +190,15 @@ context("Testing Toast component", () => {
         .focus()
         .should("have.css", "outline", "rgb(255, 188, 25) solid 3px");
     });
+
+    it.each(["left", "center", "right"] as ToastProps["align"][])(
+      "should render Toast component with align prop set to %s",
+      (align) => {
+        CypressMountWithProviders(<ToastComponent align={align} />);
+
+        toastComponent().should("have.css", "justify-content", align);
+      }
+    );
   });
 
   describe("check events for Toast component", () => {

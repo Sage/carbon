@@ -10,7 +10,12 @@ import IconButton from "../icon-button";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import useLocale from "../../hooks/__internal__/useLocale";
 
-export type MessageVariant = "error" | "info" | "success" | "warning";
+export type MessageVariant =
+  | "error"
+  | "info"
+  | "success"
+  | "warning"
+  | "neutral";
 
 export interface MessageProps extends MarginProps {
   /** set content to component */

@@ -14,10 +14,32 @@ import IconButton from "../icon-button";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalManager from "../../hooks/__internal__/useModalManager";
+import Logger from "../../__internal__/utils/logger";
 
-type ToastVariants = "error" | "info" | "success" | "warning" | "notice";
+type ToastVariants =
+  | "error"
+  | "info"
+  | "success"
+  | "warning"
+  | "notice"
+  | "neutral"
+  | "notification";
+
+type AlignOptions = "left" | "center" | "right";
+
+interface IconTypes {
+  notification: "alert";
+  neutral: "info";
+  success: "tick_circle";
+  error: "error";
+  info: "info";
+  warning: "warning";
+  notice?: "none";
+}
 
 export interface ToastProps {
+  /** Sets the alignment of the component. */
+  align?: AlignOptions;
   /** The rendered children of the component. */
   children: React.ReactNode;
   /** Customizes the appearance in the DLS theme */
@@ -49,9 +71,12 @@ export interface ToastProps {
   disableAutoFocus?: boolean;
 }
 
+let isDeprecationWarningTriggered = false;
+
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {
+      align,
       children,
       className,
       id,
@@ -68,6 +93,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     ref
   ) => {
     const isNotice = variant === "notice";
+    const isNotification = variant === "notification";
     const locale = useLocale();
 
     const toastRef = useRef<HTMLDivElement | null>(null);
@@ -82,6 +108,13 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     let refToPass = toastRef;
     if (ref && typeof ref === "object" && "current" in ref) {
       refToPass = ref;
+    }
+
+    if (isCenter !== undefined && !isDeprecationWarningTriggered) {
+      isDeprecationWarningTriggered = true;
+      Logger.deprecate(
+        `isCenter prop in ${Toast.displayName} is being deprecated in favour of the align prop.`
+      );
     }
 
     const dismissToast = useCallback(
@@ -146,12 +179,23 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       );
     }
 
+    const iconToRender: IconTypes = {
+      notification: "alert",
+      neutral: "info",
+      success: "tick_circle",
+      error: "error",
+      info: "info",
+      warning: "warning",
+    };
+
+    const toastIcon = iconToRender[variant] || "none";
+
     function renderToastContent() {
       if (!open) return null;
 
       let toastVariant;
 
-      if (variant !== "notice") {
+      if (!isNotice && !isNotification) {
         toastVariant = variant;
       }
 
@@ -163,7 +207,9 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
           nodeRef={toastContentNodeRef}
         >
           <ToastStyle
+            align={align}
             isNotice={isNotice}
+            isNotification={isNotification}
             className={className}
             {...tagComponent(restProps["data-component"] || "toast", restProps)}
             isCenter={isCenter}
@@ -176,9 +222,9 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
               onBlur: () => setTabIndex(undefined),
             })}
           >
-            {variant !== "notice" && (
-              <TypeIcon variant={variant}>
-                <Icon type={variant} />
+            {!isNotice && (
+              <TypeIcon variant={isNotification ? "info" : variant}>
+                <Icon type={toastIcon} />
               </TypeIcon>
             )}
             <ToastContentStyle isNotice={isNotice} isDismiss={!!onDismiss}>
@@ -191,8 +237,18 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     }
 
     return (
-      <StyledPortal id={targetPortalId} isCenter={isCenter} isNotice={isNotice}>
-        <ToastWrapper isCenter={isCenter} ref={refToPass} isNotice={isNotice}>
+      <StyledPortal
+        id={targetPortalId}
+        align={align}
+        isCenter={isCenter}
+        isNotice={isNotice}
+      >
+        <ToastWrapper
+          align={align}
+          isCenter={isCenter}
+          ref={refToPass}
+          isNotice={isNotice}
+        >
           <TransitionGroup>{renderToastContent()}</TransitionGroup>
         </ToastWrapper>
       </StyledPortal>

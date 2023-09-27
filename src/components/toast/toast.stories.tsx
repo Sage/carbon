@@ -70,6 +70,32 @@ export const Info = () => {
   );
 };
 
+export const Neutral = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div id="wrapper-variant-neutral">
+      <StyledButton
+        id="button-variant-neutral"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast variant="neutral" id="toast-variant-neutral" open={isOpen}>
+        My Neutral Toast
+      </Toast>
+    </div>
+  );
+};
+
 export const Error = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => {
@@ -159,6 +185,32 @@ export const Notice = () => {
   );
 };
 
+export const Notification = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div id="wrapper-notification">
+      <StyledButton
+        id="button-notification"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast id="toast-notification" variant="notification" open={isOpen}>
+        My message
+      </Toast>
+    </div>
+  );
+};
+
 export const LeftAligned = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
@@ -184,6 +236,114 @@ export const LeftAligned = () => {
       <Toast
         variant="warning"
         id="toast-left-aligned"
+        open={isOpen}
+        onDismiss={onDismissClick}
+        isCenter={false}
+      >
+        My text
+      </Toast>
+    </div>
+  );
+};
+
+export const AlignedLeft = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onDismissClick = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div id="wrapper-left-aligned">
+      <StyledButton
+        id="button-left-aligned"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast
+        align="left"
+        variant="warning"
+        id="toast-left-aligned"
+        open={isOpen}
+        onDismiss={onDismissClick}
+        isCenter={false}
+      >
+        My text
+      </Toast>
+    </div>
+  );
+};
+
+export const AlignedCenter = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onDismissClick = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div id="wrapper-center-aligned">
+      <StyledButton
+        id="button-center-aligned"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast
+        align="center"
+        variant="warning"
+        id="toast-center-aligned"
+        open={isOpen}
+        onDismiss={onDismissClick}
+        isCenter={false}
+      >
+        My text
+      </Toast>
+    </div>
+  );
+};
+
+export const AlignedRight = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onDismissClick = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div id="wrapper-right-aligned">
+      <StyledButton
+        id="button-right-aligned"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast
+        align="right"
+        variant="warning"
+        id="toast-right-aligned"
         open={isOpen}
         onDismiss={onDismissClick}
         isCenter={false}

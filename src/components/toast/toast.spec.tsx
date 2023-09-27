@@ -1,6 +1,9 @@
 import React from "react";
 import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+import TypeIconStyle from "components/message/type-icon/type-icon.style";
+import Icon from "components/icon";
+import Logger from "../../__internal__/utils/logger";
 import guid from "../../__internal__/utils/helpers/guid";
 import Toast, { ToastProps } from "./toast.component";
 import {
@@ -20,6 +23,7 @@ import {
 } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 jest.mock("../../__internal__/utils/helpers/guid");
+jest.mock("../../__internal__/utils/logger");
 
 describe("Toast", () => {
   (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -432,6 +436,22 @@ describe("Toast", () => {
     });
   });
 
+  describe("Correct icon is rendered", () => {
+    it.each([
+      ["info", "neutral"],
+      ["tick_circle", "success"],
+      ["warning", "warning"],
+    ] as const)(`should render %s when variant is %s`, (icon, variant) => {
+      const wrapper = mount(
+        <Toast open variant={variant}>
+          foo
+        </Toast>
+      );
+      expect(wrapper.find(TypeIcon).exists()).toBe(true);
+      expect(wrapper.find(Icon).prop("type")).toBe(icon);
+    });
+  });
+
   it("does not throw when ref is a function", () => {
     expect(() => {
       mount(
@@ -442,7 +462,7 @@ describe("Toast", () => {
     }).not.toThrow();
   });
 
-  it("passes ref propery", () => {
+  it("passes ref to component", () => {
     const ref = { current: null };
 
     const wrapper = mount(
@@ -548,5 +568,86 @@ describe("TestContentStyle", () => {
       },
       wrapper
     );
+  });
+});
+
+describe("Align", () => {
+  let wrapper: ReactWrapper;
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
+  it.each(["left", "center", "right"] as const)(
+    "should then pass the prop to Styled Portal and ToastWrapper",
+    (alignValue) => {
+      wrapper = mount(
+        <Toast align={alignValue} open>
+          FooBar
+        </Toast>
+      );
+
+      expect(wrapper.find(StyledPortal).props().align).toBe(alignValue);
+      expect(wrapper.find(ToastWrapper).props().align).toBe(alignValue);
+    }
+  );
+});
+
+describe("Notification variant", () => {
+  let wrapper: ReactWrapper;
+
+  beforeEach(() => {
+    wrapper = mount(
+      <Toast variant="notification" open>
+        FooBar
+      </Toast>
+    );
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
+  it("should render with correct icon type", () => {
+    expect(wrapper.find(Icon).prop("type")).toBe("alert");
+  });
+
+  it("should render with correct variant type", () => {
+    expect(wrapper.find(TypeIconStyle).prop("variant")).toBe("info");
+  });
+});
+
+describe("Deprecation warning", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  it("should render correct deprecation message only once", () => {
+    mount(
+      <>
+        <Toast variant="success" isCenter>
+          Toast 1
+        </Toast>
+        <Toast variant="error" isCenter>
+          Toast 2
+        </Toast>
+      </>
+    );
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "isCenter prop in Toast is being deprecated in favour of the align prop."
+    );
+
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
   });
 });
