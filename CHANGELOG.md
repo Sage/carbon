@@ -1,3 +1,10 @@
+## [120.4.0](https://github.com/Sage/carbon/compare/v120.3.1...v120.4.0) (2023-09-27)
+
+
+### Features
+
+* **toast, message:** update component to align with Design System ([eb0c29d](https://github.com/Sage/carbon/commit/eb0c29d2003e4638868bf91f91dff41c5c9b8ae9))
+
 ### [120.3.1](https://github.com/Sage/carbon/compare/v120.3.0...v120.3.1) (2023-09-22)
 
 
