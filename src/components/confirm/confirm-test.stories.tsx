@@ -94,28 +94,3 @@ Default.args = {
   disableCancel: false,
   cancelButtonType: "secondary",
 };
-
-export const ConfirmComponent = (props: Partial<ConfirmProps>) => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Open Confirm</Button>
-      <Confirm
-        title="Are you sure?"
-        subtitle="Subtitle"
-        showCloseIcon
-        open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-        onCancel={() => setIsOpen(false)}
-        {...props}
-      >
-        <button data-element="default-focused" type="button">
-          default focused
-        </button>
-        <button data-element="override-focused" type="button">
-          override focused
-        </button>
-      </Confirm>
-    </>
-  );
-};
