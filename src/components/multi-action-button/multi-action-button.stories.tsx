@@ -153,3 +153,30 @@ export const InOverflowHiddenContainer = () => {
 InOverflowHiddenContainer.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const WithChildrenButtonsWithIcons: ComponentStory<
+  typeof MultiActionButton
+> = () => (
+  <>
+    {(["before", "after"] as const).map((iconPosition) => (
+      <MultiActionButton
+        align={iconPosition === "before" ? "left" : "right"}
+        text="Multi Action Button"
+      >
+        <Button iconPosition={iconPosition} iconType="add">
+          Child Button 1
+        </Button>
+        <Button iconPosition={iconPosition} iconType="upload">
+          Child Button 2
+        </Button>
+        <Button iconPosition={iconPosition} iconType="clock">
+          Child Button 3
+        </Button>
+      </MultiActionButton>
+    ))}
+  </>
+);
+
+WithChildrenButtonsWithIcons.parameters = {
+  chromatic: { disableSnapshot: true },
+};
