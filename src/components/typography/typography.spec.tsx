@@ -587,6 +587,24 @@ describe("Typography", () => {
       }
     );
 
+    it.each(["left", "right", "center", "justify", "initial", "inherit"])(
+      "applies text-align of %s",
+      (prop) => {
+        const wrapper = mount(
+          <ThemeProvider theme={mintTheme}>
+            <Typography textAlign={prop}>FooBar</Typography>
+          </ThemeProvider>
+        );
+
+        assertStyleMatch(
+          {
+            textAlign: prop,
+          },
+          wrapper.find(Typography)
+        );
+      }
+    );
+
     it.each(["clip", "ellipsis", "string", "initial", "inherit"])(
       "applies text-overflow of %s",
       (prop) => {

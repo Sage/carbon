@@ -58,6 +58,8 @@ export interface TypographyProps extends SpaceProps, TagProps {
   whiteSpace?: string;
   /** Override the word-wrap */
   wordWrap?: string;
+  /** Override the text-align */
+  textAlign?: string;
   /** Override the text-overflow */
   textOverflow?: string;
   /** Apply truncation */
@@ -91,6 +93,7 @@ export const Typography = ({
   listStyleType,
   whiteSpace,
   wordWrap,
+  textAlign,
   textOverflow,
   truncate,
   color = "blackOpacity90",
@@ -116,6 +119,7 @@ export const Typography = ({
       listStyleType={listStyleType}
       whiteSpace={whiteSpace}
       wordWrap={wordWrap}
+      textAlign={textAlign}
       textOverflow={textOverflow}
       truncate={truncate}
       color={color}

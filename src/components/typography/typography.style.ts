@@ -162,6 +162,7 @@ const StyledTypography = styled.span.attrs(
     listStyleType,
     whiteSpace,
     wordWrap,
+    textAlign,
     textOverflow,
     truncate,
     screenReaderOnly,
@@ -176,6 +177,7 @@ const StyledTypography = styled.span.attrs(
     padding: 0;
     white-space: ${truncate ? "nowrap" : whiteSpace};
     word-wrap: ${wordWrap};
+    text-align: ${textAlign};
     text-overflow: ${truncate ? "ellipsis" : textOverflow};
     ${truncate &&
     css`
