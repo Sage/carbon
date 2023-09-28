@@ -18,7 +18,6 @@ import StyledSearch from "../../search/search.style";
 import StyledSearchButton from "../../search/search-button.style";
 import {
   assertStyleMatch,
-  simulate,
   testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
 import CarbonProvider from "../../carbon-provider";
@@ -143,7 +142,16 @@ describe("MenuFullscreen", () => {
     loggerSpy.mockRestore();
   });
 
-  it("root container has correct component, element and role data tags", () => {
+  it("by default, menu's root container should not exist", () => {
+    const wrapper = customMount(
+      <MenuFullscreen data-element="bar" data-role="baz" onClose={() => {}}>
+        <MenuItem href="#">Item one</MenuItem>
+      </MenuFullscreen>
+    );
+    expect(wrapper.find(StyledMenuFullscreen).exists()).toBeFalsy();
+  });
+
+  it("when isOpen prop is true, rendered root container has correct component, element and role data tags", () => {
     const wrapper = customMount(
       <MenuFullscreen
         data-element="bar"
@@ -154,23 +162,26 @@ describe("MenuFullscreen", () => {
         <MenuItem href="#">Item one</MenuItem>
       </MenuFullscreen>
     );
-    expect(
-      wrapper
-        .find(StyledMenuFullscreen)
-        .getDOMNode()
-        .getAttribute("data-component")
-    ).toEqual("menu-fullscreen");
 
-    expect(
-      wrapper
-        .find(StyledMenuFullscreen)
-        .getDOMNode()
-        .getAttribute("data-element")
-    ).toEqual("bar");
+    const menu = wrapper.find(StyledMenuFullscreen).getDOMNode();
 
-    expect(
-      wrapper.find(StyledMenuFullscreen).getDOMNode().getAttribute("data-role")
-    ).toEqual("baz");
+    expect(menu.getAttribute("data-component")).toEqual("menu-fullscreen");
+    expect(menu.getAttribute("data-element")).toEqual("bar");
+    expect(menu.getAttribute("data-role")).toEqual("baz");
+  });
+
+  it("when isOpen prop is true, root container has the correct ARIA properties required for dialogs", () => {
+    const wrapper = customMount(
+      <MenuFullscreen isOpen aria-label="My menu" onClose={() => {}}>
+        <MenuItem href="#">Item one</MenuItem>
+      </MenuFullscreen>
+    );
+
+    const menu = wrapper.find(StyledMenuFullscreen).getDOMNode();
+
+    expect(menu.getAttribute("aria-label")).toEqual("My menu");
+    expect(menu.getAttribute("role")).toEqual("dialog");
+    expect(menu.getAttribute("aria-modal")).toEqual("true");
   });
 
   it("should render children correctly", () => {
@@ -180,6 +191,7 @@ describe("MenuFullscreen", () => {
         <MenuItem href="#">Item two</MenuItem>
       </MenuFullscreen>
     );
+
     expect(wrapper.find(MenuItem).length).toEqual(2);
     expect(wrapper.find(MenuDivider).length).toEqual(1);
   });
@@ -267,40 +279,6 @@ describe("MenuFullscreen", () => {
     }
   );
 
-  it.each([
-    [true, "visible", "0"],
-    [false, "hidden", "-100%"],
-  ])(
-    "when isOpen prop is %s, applies correct styles",
-    (isOpen, visibility, leftPosition) => {
-      const wrapper = customMount(
-        <MenuFullscreen isOpen={isOpen} onClose={() => {}}>
-          <MenuItem href="#">Item one</MenuItem>
-        </MenuFullscreen>
-      );
-      assertStyleMatch(
-        {
-          visibility,
-          left: leftPosition,
-          transition: "all 0.3s ease",
-        },
-        wrapper.find(StyledMenuFullscreen)
-      );
-    }
-  );
-
-  it("applies the expected styling when `startPosition` is 'right'", () => {
-    const wrapper = customMount(
-      <MenuFullscreen startPosition="right" isOpen onClose={() => {}}>
-        <MenuItem href="#">Item one</MenuItem>
-      </MenuFullscreen>
-    );
-    assertStyleMatch(
-      { visibility: "visible", right: "0" },
-      wrapper.find(StyledMenuFullscreen)
-    );
-  });
-
   testStyledSystemPadding(
     (props) => (
       <MenuContext.Provider
@@ -331,20 +309,47 @@ describe("MenuFullscreen", () => {
       expect(onClose).toHaveBeenCalledTimes(1);
     });
 
-    it("calls the onClose callback when escape key pressed", () => {
+    it("calls the onClose callback when Escape key pressed", () => {
       const onClose = jest.fn();
-      const wrapper = customMount(
+      customMount(
         <MenuFullscreen isOpen onClose={onClose}>
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
       );
-      simulate.keydown.pressEscape(wrapper.find(StyledMenuFullscreen));
+      act(() => {
+        document.dispatchEvent(
+          new KeyboardEvent("keyup", {
+            key: "Escape",
+            bubbles: true,
+          })
+        );
+      });
       expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not call onClose callback if any non-Escape key is pressed", () => {
+      const onClose = jest.fn();
+      customMount(
+        <MenuFullscreen isOpen onClose={onClose}>
+          <MenuItem href="#">Item one</MenuItem>
+        </MenuFullscreen>
+      );
+      act(() => {
+        document.dispatchEvent(
+          new KeyboardEvent("keyup", {
+            key: "a",
+            bubbles: true,
+          })
+        );
+      });
+      expect(onClose).not.toHaveBeenCalled();
     });
   });
 
   describe("focus behaviour", () => {
     it("when menu is opened, its root container is focused", () => {
+      jest.useFakeTimers();
+
       const wrapper = customMount(
         <MenuFullscreen isOpen={false} onClose={() => {}}>
           <MenuItem href="#">Item one</MenuItem>
@@ -352,21 +357,13 @@ describe("MenuFullscreen", () => {
       );
 
       wrapper.setProps({ isOpen: true });
-      const menu = wrapper.find(StyledMenuFullscreen).getDOMNode();
-      menu.dispatchEvent(
-        new Event("transitionstart", {
-          bubbles: true,
-          cancelable: true,
-        })
-      );
-      menu.dispatchEvent(
-        new Event("transitionend", {
-          bubbles: true,
-          cancelable: true,
-        })
-      );
+      wrapper.update();
+      act(() => {
+        jest.runAllTimers();
+      });
 
       expect(wrapper.find(StyledMenuFullscreen)).toBeFocused();
+      jest.useRealTimers();
     });
 
     describe("when pressing tab key without shift", () => {

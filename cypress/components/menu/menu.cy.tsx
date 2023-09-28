@@ -1177,17 +1177,21 @@ context("Testing Menu component", () => {
       menuItem().should("not.be.focused");
     });
 
-    it.each([
-      ["open", true, "be.visible"],
-      ["closed", false, "not.be.visible"],
-    ])(
-      "should verify that Menu Fullscreen is %s when isOpen prop is %s",
-      (value, boolVal, state) => {
-        CypressMountWithProviders(<MenuComponentFullScreen isOpen={boolVal} />);
+    it("Menu Fullscreen dialog should exist when isOpen prop is true", () => {
+      CypressMountWithProviders(
+        <MenuComponentFullScreen isOpen>Content</MenuComponentFullScreen>
+      );
+      getComponent("menu-fullscreen").should("exist");
+    });
 
-        getComponent("menu-fullscreen").should(state);
-      }
-    );
+    it("Menu Fullscreen dialog does not exist when isOpen prop is false", () => {
+      CypressMountWithProviders(
+        <MenuComponentFullScreen isOpen={false}>
+          Content
+        </MenuComponentFullScreen>
+      );
+      getComponent("menu-fullscreen").should("not.exist");
+    });
 
     it("should verify that Menu Fullscreen has no effect on the tab order when isOpen prop is false", () => {
       CypressMountWithProviders(<ClosedMenuFullScreenWithButtons />);
@@ -1197,24 +1201,6 @@ context("Testing Menu component", () => {
       cy.tab();
       cy.get("#button-2").should("be.focused");
     });
-
-    it.each([
-      ["left", -1200, 1200],
-      ["right", 1200, -1200],
-    ] as [MenuFullscreenProps["startPosition"], number, number][])(
-      "should verify that Menu Fullscreen start position is %s",
-      (side, left, right) => {
-        CypressMountWithProviders(
-          <MenuComponentFullScreen startPosition={side} />
-        );
-        getComponent("menu-fullscreen").should("have.css", "left", `${left}px`);
-        getComponent("menu-fullscreen").should(
-          "have.css",
-          "right",
-          `${right}px`
-        );
-      }
-    );
 
     it("should focus the next menu item on tab press when the current item has a Search input with searchButton but no value", () => {
       CypressMountWithProviders(

@@ -34,7 +34,7 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
     font-size: 16px;
   }
 
-  ${({ isOpen, menuType, startPosition, theme }) => css`
+  ${({ menuType, theme }) => css`
     background-color: ${menuConfigVariants[menuType].background};
     z-index: ${theme.zIndex.fullScreenModal};
 
@@ -84,20 +84,6 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
         }
       }
     }
-
-    ${isOpen &&
-    css`
-      visibility: visible;
-      ${startPosition}: 0;
-      transition: all 0.3s ease;
-    `}
-
-    ${!isOpen &&
-    css`
-      visibility: hidden;
-      ${startPosition}: -100%;
-      transition: all 0.3s ease;
-    `}
   `}
 
   ${StyledBox} {

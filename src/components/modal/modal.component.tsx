@@ -37,6 +37,8 @@ export interface ModalProps extends TagProps {
   timeout?: number;
   /** Manually override the internal modal stacking order to set this as top */
   topModalOverride?: boolean;
+  /** Set how the modal should be animated when opened and closed */
+  transitionName?: "fade" | "slide-from-left" | "slide-from-right";
 }
 
 const Modal = ({
@@ -48,6 +50,7 @@ const Modal = ({
   enableBackgroundUI = false,
   timeout = 300,
   topModalOverride,
+  transitionName = "fade",
   ...rest
 }: ModalProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -96,34 +99,17 @@ const Modal = ({
     topModalOverride,
   });
 
-  let background;
-  let content;
-
-  if (open) {
-    background = !enableBackgroundUI ? (
-      <StyledModalBackground
-        ref={backgroundNodeRef}
-        data-element="modal-background"
-        transitionName="modal-background"
-        transitionTime={timeout}
-      />
-    ) : null;
-
-    content = children;
-  }
-
   return (
     <Portal>
       <StyledModal
         data-state={open ? "open" : "closed"}
-        transitionName="modal"
         transitionTime={timeout}
         topModalOverride={topModalOverride}
         ref={ref}
         {...rest}
       >
         <TransitionGroup>
-          {background && (
+          {open && !enableBackgroundUI && (
             <CSSTransition
               nodeRef={backgroundNodeRef}
               key="modal"
@@ -133,16 +119,20 @@ const Modal = ({
               onEntered={() => setAnimationComplete(true)}
               onExiting={() => setAnimationComplete(false)}
             >
-              {background}
+              <StyledModalBackground
+                ref={backgroundNodeRef}
+                data-element="modal-background"
+                transitionTime={timeout}
+              />
             </CSSTransition>
           )}
         </TransitionGroup>
         <TransitionGroup>
-          {content && (
+          {open && (
             <CSSTransition
               nodeRef={contentNodeRef}
               appear
-              classNames="modal"
+              classNames={transitionName}
               timeout={timeout}
             >
               <ModalContext.Provider
@@ -152,7 +142,7 @@ const Modal = ({
                   isInModal: true,
                 }}
               >
-                <div ref={contentNodeRef}>{content}</div>
+                <div ref={contentNodeRef}>{children}</div>
               </ModalContext.Provider>
             </CSSTransition>
           )}

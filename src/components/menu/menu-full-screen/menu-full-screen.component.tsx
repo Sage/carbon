@@ -11,12 +11,15 @@ import Events from "../../../__internal__/utils/helpers/events";
 import Box from "../../box";
 import IconButton from "../../icon-button";
 import Icon from "../../icon";
-import Portal from "../../portal";
+import Modal from "../../modal";
 import MenuDivider from "../menu-divider/menu-divider.component";
 import type { TagProps } from "../../../__internal__/utils/helpers/tags";
 import useLocale from "../../../hooks/__internal__/useLocale";
+import useModalAria from "../../../hooks/__internal__/useModalAria";
 
 export interface MenuFullscreenProps extends TagProps {
+  /** Accessible name that conveys the purpose of the menu. */
+  "aria-label"?: string;
   /** The child elements to render */
   children?: React.ReactNode;
   /** Sets whether the component is open or closed */
@@ -30,10 +33,11 @@ export interface MenuFullscreenProps extends TagProps {
 }
 
 export const MenuFullscreen = ({
+  "aria-label": ariaLabel = "Fullscreen menu",
   "data-element": dataElement,
   "data-role": dataRole,
   children,
-  isOpen,
+  isOpen = false,
   startPosition = "left",
   onClose,
 }: MenuFullscreenProps) => {
@@ -42,39 +46,34 @@ export const MenuFullscreen = ({
   const { menuType } = useContext(MenuContext);
   const isDarkVariant = ["dark", "black"].includes(menuType);
   const locale = useLocale();
+  const isTopModal = useModalAria(menuWrapperRef);
 
-  const handleKeyDown = (ev: React.KeyboardEvent<HTMLElement>) => {
-    /* istanbul ignore else */
-    if (Events.isEscKey(ev)) {
-      onClose(ev);
-    }
+  // TODO: Remove this temporary event handler as part of FE-6078
+  const handleFocusedSearchButton = (ev: React.KeyboardEvent) => {
+    const search = menuWrapperRef.current?.querySelector(
+      '[data-component="search"]'
+    );
+    const searchInput = search?.querySelector("input");
+    const searchButton = search?.querySelector("button");
 
-    if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
-      const search = menuWrapperRef.current?.querySelector(
-        '[data-component="search"]'
+    // if there is no value in the search input the button disappears when the input blurs
+    // this means we need to programmatically set focus to the next menu item
+    if (
+      searchButton &&
+      searchInput &&
+      !searchInput.value &&
+      searchInput === document.activeElement
+    ) {
+      ev.preventDefault();
+
+      const elements = Array.from(
+        menuWrapperRef.current?.querySelectorAll(
+          "a, input, button"
+        ) as NodeListOf<HTMLElement>
       );
-      const searchInput = search?.querySelector("input");
-      const searchButton = search?.querySelector("button");
 
-      // if there is no value in the search input the button disappears when the input blurs
-      // this means we need to programatically set focus to the next menu item
-      if (
-        searchButton &&
-        searchInput &&
-        !searchInput.value &&
-        searchInput === document.activeElement
-      ) {
-        ev.preventDefault();
-
-        const elements = Array.from(
-          menuWrapperRef.current?.querySelectorAll(
-            "a, input, button"
-          ) as NodeListOf<HTMLElement>
-        );
-
-        const index = elements.indexOf(searchInput);
-        elements[index + 2]?.focus();
-      }
+      const index = elements.indexOf(searchInput);
+      elements[index + 2]?.focus();
     }
   };
 
@@ -95,10 +94,17 @@ export const MenuFullscreen = ({
   );
 
   return (
-    <li aria-label="menu-fullscreen">
-      <Portal>
+    <li>
+      <Modal
+        open={isOpen}
+        onCancel={onClose}
+        transitionName={`slide-from-${startPosition}`}
+      >
         <FocusTrap wrapperRef={menuWrapperRef} isOpen={isOpen}>
           <StyledMenuFullscreen
+            aria-label={ariaLabel}
+            aria-modal={isTopModal ? true : undefined}
+            role="dialog"
             data-component="menu-fullscreen"
             data-element={dataElement}
             data-role={dataRole}
@@ -106,7 +112,11 @@ export const MenuFullscreen = ({
             isOpen={isOpen}
             menuType={menuType}
             startPosition={startPosition}
-            onKeyDown={handleKeyDown}
+            onKeyDown={(ev) =>
+              Events.isTabKey(ev) &&
+              !Events.isShiftKey(ev) &&
+              handleFocusedSearchButton(ev)
+            }
           >
             <StyledMenuFullscreenHeader
               isOpen={isOpen}
@@ -154,7 +164,7 @@ export const MenuFullscreen = ({
             </Box>
           </StyledMenuFullscreen>
         </FocusTrap>
-      </Portal>
+      </Modal>
     </li>
   );
 };
