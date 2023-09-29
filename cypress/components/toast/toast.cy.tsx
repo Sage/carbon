@@ -194,9 +194,14 @@ context("Testing Toast component", () => {
     it.each(["left", "center", "right"] as ToastProps["align"][])(
       "should render Toast component with align prop set to %s",
       (align) => {
-        CypressMountWithProviders(<ToastComponent align={align} />);
+        CypressMountWithProviders(
+          <ToastComponent isCenter={align === "center"} align={align} />
+        );
 
-        toastComponent().should("have.css", "justify-content", align);
+        toastComponent()
+          .parent()
+          .parent()
+          .should("have.css", "justify-content", align);
       }
     );
   });
