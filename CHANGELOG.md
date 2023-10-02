@@ -1,3 +1,10 @@
+## [120.5.0](https://github.com/Sage/carbon/compare/v120.4.0...v120.5.0) (2023-10-02)
+
+
+### Features
+
+* **tile:** add support for passing custom height to component ([123630b](https://github.com/Sage/carbon/commit/123630b62c53b264606298a28f99a65cd136a39a)), closes [#6240](https://github.com/Sage/carbon/issues/6240)
+
 ## [120.4.0](https://github.com/Sage/carbon/compare/v120.3.1...v120.4.0) (2023-09-27)
 
 
