@@ -5,79 +5,38 @@ This guide will provide you with the information you need to be able to get star
 ## Contents
 
 - [Text Editor](#text-editor)
-- [Useful Extensions to Install](#useful-extensions-to-install)
+- [Useful VSCode Extensions to Install](#useful-vscode-extensions-to-install)
 - [Installing Node.js, NPM, and Git](#installing-nodejs-npm-and-git)
 
 ## Text Editor
 
-VS Code is our preferred text editor and is available to be downloaded from [here](https://code.visualstudio.com/). We advise that you follow the installation instructions provided by Microsoft. The VS Code installation instructions can be found [here](https://code.visualstudio.com/docs/setup/mac) for Mac users and [here](https://code.visualstudio.com/docs/setup/windows) for Windows users.
+[VSCode](https://code.visualstudio.com/) is our preferred text editor. We advise that you follow the installation instructions provided by Microsoft. Installation instructions can be found [here](https://code.visualstudio.com/docs/setup/mac) for Mac users and [here](https://code.visualstudio.com/docs/setup/windows) for Windows users.
 
-## Useful Extensions to Install
+## Useful VSCode Extensions to Install
 
-You can browse and install extensions from within VS Code. Simply bring up the Extensions view by clicking on the [Extensions icon](https://code.visualstudio.com/assets/docs/editor/extension-gallery/extensions-view-icon.png) in the Activity Bar on the side of VS Code or the View: Extensions command (⇧+⌘+X) on Mac or (shift+alt+x) on Windows.
+You can browse and install extensions from within VS Code. Simply bring up the Extensions view by clicking on the [Extensions icon](https://code.visualstudio.com/assets/docs/editor/extension-gallery/extensions-view-icon.png) in the Activity Bar on the side of VS Code or the `View: Extensions command` (⇧+⌘+X) on Mac or (shift+alt+x) on Windows.
 
-To install an extension, click the Install button. Once the installation is complete, the Install button will change to the Manage gear button.
+Below are some useful extensions that we recommend using with Carbon:
 
-Below we have compiled a list useful extensions to complement our development work with the Carbon library.
-
-### Auto Close Tag
-
-Automatically adds the closing tags for HTML and XML.
-
-### Auto Rename Tag
-
-Automatically renames HTML and XML tags.
-
-### CodeSnap
-
-CodeSnap lets you take screenshots of your code and save them to a clipboard.
-
-### Cucumber (Gherkin) Full Support
-
-An extension to highlight syntax, autocomplete code and format your Cucumber code.
-
-### Debugger for Chrome
-
-Debugs your JavaScript code in Chrome browser.
-
-### Debugger for Firefox
-
-Debugs your JavaScript code in Firefox browser.
-
-### ESLint
-
-A code quality tool that checks your code for syntax errors and can automatically fix the syntax errors.
-
-### GitLens
-
-GitLens is a useful tool to help you see who made the last amendments to the code and the commit message that was provided.
-
-### HTML CSS Support
-
-A popular extension used for CSS support in HTML files.
-
-### Rainbow Brackets
-
-This extension helps with visualising brackets in VS Code by giving each pair of brackets their own specific colour.
-
-### React.js with Flow Types code snippets
-
-Provides a library of code shortcuts and code snippets for React.
-
-### vscode-icons
-
-This extension provides icons for each file type in VS Code
-
-### vscode-styled-components
-
-This extension helps with the readability of the code for styled-components. The tool highlights syntax and reports any syntax errors in the code.
+- [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag) - automatically adds the closing tags for HTML and XML.
+- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag) - automatically renames HTML and XML tags.
+- [CodeSnap](https://marketplace.visualstudio.com/items?itemName=adpyke.codesnap) - lets you take screenshots of your code and save them to a clipboard.
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) - basic spelling checker that works well with many file types. There is an [additional extension for getting the British English dictionary](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker-british-english).
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - a code quality tool that checks your code for syntax errors and can automatically fix the syntax errors.
+- [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) - provides a list of complementary features for use with git repositories, such as in-editor file annotations identifying who changed a line of code last.
+- [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) - linter and style checker for markdown files.
+- [MDX](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) - official extension for supporting MDX files.
+- [Package Json Upgrade](https://marketplace.visualstudio.com/items?itemName=codeandstuff.package-json-upgrade) - adds in-editor file annotations to `package.json` stating if an installed package has a newly available version.
+- [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright) - for running Playwright tests directly within VSCode.
+- [Total TypeScript](https://marketplace.visualstudio.com/items?itemName=mattpocock.ts-error-translator) - provides human-readable hints for TypeScript errors that are difficult to decipher.
+- [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) - this extension helps with the readability of the code for styled-components. The tool highlights syntax and reports any syntax errors in the code.
 
 ## Installing Node.js, NPM, and Git
 
 ### Node.js & NPM
 
-The recommended way to install `node` and `npm` is using [Node Version Manager](https://github.com/nvm-sh/nvm).
-Once you have installed `nvm` you should run `nvm install lts/hydrogen` which will install a suitable version of `node` and `npm`.
+The recommended way to install `node` and `npm` is using [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm).
+Once you have installed `nvm`, you should run `nvm install lts/hydrogen` which will install a suitable version of `node` and `npm`.
 
 You can check your installation using `node --version` and `npm --v`.
 
@@ -90,11 +49,13 @@ If you do not have Git already installed, you can download the latest version of
 
 #### New to Git?
 
-If you are new to Git, it can be a little overwhelming at first. Luckily there are a lot of dedicated information and training for Git. Atlassian have an easy to understand and informative article that explains the workflow of Git. This can found [here](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). PluralSight also offer excellent training courses ranging from beginner to advanced users. A good place to start is with the [How Git Works](https://app.pluralsight.com/library/courses/how-git-works/table-of-contents) training course. This will start you off with the very basic principles of Git.
+If you are new to Git, it can be a little overwhelming at first. Luckily there are a lot of dedicated information and training for Git. Atlassian have an easy to understand and informative article that explains [the Feature Branch workflow.](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow)
+
+Pluralsight also offers excellent training courses ranging from beginner to advanced users. A good place to start is with the [How Git Works](https://app.pluralsight.com/library/courses/how-git-works/table-of-contents) training course. This will start you off with the very basic principles of Git.
 
 #### Git Alias
 
-You need to add the following to ~/.gitconfig
+You need to add the following to `~/.gitconfig`:
 
 ````shell
 [alias]
@@ -106,7 +67,7 @@ This allows you to review PRs very easily. For example, if you are reviewing [ht
 
 #### GPG Verification
 
-We encourage our contributors to verify their commits with a GPG key. Follow these instructions to enable GPG commit signing: [https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/managing-commit-signature-verification](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/managing-commit-signature-verification)
+We strongly encourage our contributors to verify their commits with a GPG key. To set this up, please follow these instructions from GitHub [to enable GPG commit signing](https://docs.github.com/en/authentication/managing-commit-signature-verification).
 
 Then add this to your profile (i.e`~/.zshrc` or `~/.bashrc`) so `gpg-agent` can prompt for your passphrase:
 
