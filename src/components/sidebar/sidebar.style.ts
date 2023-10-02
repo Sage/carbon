@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { PaddingProps } from "styled-system";
-import computeWidth from "../../style/utils/width";
+import computeSizing from "../../style/utils/element-sizing";
 
 import { SidebarProps } from "./sidebar.component";
 import baseTheme from "../../style/themes/base";
@@ -50,7 +50,7 @@ const StyledSidebar = styled.div<StyledSidebarProps>`
     css`
       width: ${SIDEBAR_SIZES_CSS[size]};
     `}
-    ${width && computeWidth({ width })}
+    ${width && computeSizing({ width })}
 
     ${position &&
     css`

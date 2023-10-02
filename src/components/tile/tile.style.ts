@@ -1,18 +1,19 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import baseTheme from "../../style/themes/base";
-import computeWidth from "../../style/utils/width";
+import computeSizing from "../../style/utils/element-sizing";
 import { TileProps } from "./tile.component";
 
 type StyledTileProps = Pick<
   TileProps,
-  "borderWidth" | "borderVariant" | "variant" | "width" | "roundness"
+  "borderWidth" | "borderVariant" | "variant" | "width" | "roundness" | "height"
 > & { isHorizontal?: boolean } & SpaceProps;
 
 interface TileContentProps {
   isHorizontal?: boolean;
   isVertical?: boolean;
-  width?: string | number;
+  width?: TileProps["width"];
+  height?: TileProps["height"];
 }
 
 const getBorderColor = (borderVariant: TileProps["borderVariant"]) => {
@@ -33,7 +34,7 @@ const getBorderColor = (borderVariant: TileProps["borderVariant"]) => {
 };
 
 const TileContent = styled.div<TileContentProps>`
-  ${({ isHorizontal, isVertical, width }) => css`
+  ${({ isHorizontal, isVertical, width, height }) => css`
     ${space}
 
     box-sizing: border-box;
@@ -76,10 +77,13 @@ const TileContent = styled.div<TileContentProps>`
       }
     `}
 
-    ${width &&
+    ${(width || height) &&
     css`
       flex-grow: 0;
-      ${computeWidth({ width })}
+      ${computeSizing({
+        width: width || /* istanbul ignore next */ undefined,
+        height: height || undefined,
+      })}
     `}
   `}
 `;
@@ -92,6 +96,7 @@ const StyledTile = styled.div<StyledTileProps>`
     variant,
     width,
     roundness,
+    height,
   }) => css`
     ${space}
 
@@ -121,12 +126,10 @@ const StyledTile = styled.div<StyledTileProps>`
     display: flex;
     flex-direction: ${isHorizontal ? "row" : "column"};
     position: relative;
-    width: 100%;
-
-    ${width &&
-    css`
-      ${computeWidth({ width })}
-    `}
+    ${computeSizing({
+      width: width || /* istanbul ignore next */ undefined,
+      height: height || undefined,
+    })}
   `}
 `;
 

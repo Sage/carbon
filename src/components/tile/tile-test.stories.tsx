@@ -8,6 +8,7 @@ import { Dl, Dt, Dd, DlProps } from "../definition-list";
 import Accordion from "../accordion/accordion.component";
 import Button from "../button/button.component";
 import Typography from "../typography/typography.component";
+import Box from "../box";
 import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
 
 export default {
@@ -103,11 +104,13 @@ DefaultStory.args = {
 
 export const TileComponent = (props: TileProps) => {
   return (
-    <Tile {...props}>
-      <Content title="Test Title One">Test Body One</Content>
-      <Content title="Test Title Two">Test Body Two</Content>
-      <Content title="Test Title Three">Test Body Three</Content>
-    </Tile>
+    <Box height="150px">
+      <Tile {...props}>
+        <Content title="Test Title One">Test Body One</Content>
+        <Content title="Test Title Two">Test Body Two</Content>
+        <Content title="Test Title Three">Test Body Three</Content>
+      </Tile>
+    </Box>
   );
 };
 

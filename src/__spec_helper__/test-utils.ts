@@ -191,9 +191,11 @@ const colorProps = [
 
 const widthProps = ["width", "width", "200px"] as const;
 
+const heightProps = ["height", "height", "200px"] as const;
+
 const layoutProps = [
   widthProps,
-  ["height", "height", "200px"],
+  heightProps,
   ["minWidth", "min-width", "120px"],
   ["maxWidth", "max-width", "120px"],
   ["minHeight", "min-height", "120px"],
@@ -463,6 +465,21 @@ const testStyledSystemWidth = (
   });
 };
 
+const testStyledSystemHeight = (
+  component: (heightProperties?: { height: string }) => JSX.Element,
+  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+) => {
+  describe("when a height prop is specified using styled system props", () => {
+    it("then height should have been set correctly", () => {
+      const [styledSystemProp, propName, value] = heightProps;
+      const props = { [styledSystemProp]: value };
+      const wrapper = mount(component({ ...props }));
+      const StyleElement = styleContainer ? styleContainer(wrapper) : wrapper;
+      expect(StyleElement).toHaveStyleRule(propName, value);
+    });
+  });
+};
+
 const testStyledSystemLayout = (
   component: (layoutProperties?: LayoutProps) => JSX.Element,
   styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
@@ -619,6 +636,7 @@ export {
   testStyledSystemPadding,
   testStyledSystemColor,
   testStyledSystemWidth,
+  testStyledSystemHeight,
   testStyledSystemLayout,
   testStyledSystemFlexBox,
   testStyledSystemGrid,
