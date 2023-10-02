@@ -24,6 +24,8 @@ src/components/textbox/
   |-- textbox.spec.(ts|tsx)
   |-- textbox.stories.(ts|tsx)
   |-- textbox.stories.mdx
+  |-- textbox.pw.(ts|tsx)
+  |-- components.pw.(ts|tsx)
   |-- index.ts
   |-- sub-component/
       |-- ...
