@@ -1,11 +1,13 @@
 import React from "react";
 import { DlProps } from "components/definition-list/dl.component";
-import Tile, { TileProps } from "../../../src/components/tile";
-import Content from "../../../src/components/content";
-import * as testStories from "../../../src/components/tile/tile-test.stories";
-import TileFooter, {
+import {
+  Tile,
+  TileProps,
+  TileContent,
+  TileFooter,
   TileFooterProps,
-} from "../../../src/components/tile/tile-footer";
+} from "../../../src/components/tile";
+import * as testStories from "../../../src/components/tile/tile-test.stories";
 import Typography from "../../../src/components/typography/typography.component";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { getDataElementByValue } from "../../locators/index";
@@ -38,8 +40,8 @@ context("Tests for Tile component", () => {
     );
 
     it.each([
-      ["vertical", 255],
-      ["horizontal", 85],
+      ["vertical", 199],
+      ["horizontal", 67],
     ] as [TileProps["orientation"], number][])(
       "should check %s orientation for Tile component",
       (orientation, height) => {
@@ -69,9 +71,9 @@ context("Tests for Tile component", () => {
     );
 
     it.each([
-      ["30%", 50],
-      ["50%", 75],
-      [0, 86],
+      ["30%", 54],
+      ["50%", 90],
+      [0, 67],
     ] as [TileProps["height"], number][])(
       "should check height as %s for Tile component",
       (heightInPercentage, heightInPixel) => {
@@ -83,15 +85,6 @@ context("Tests for Tile component", () => {
         });
       }
     );
-
-    it("should check children for Tile component", () => {
-      CypressMountWithProviders(
-        <Tile>
-          <Content title="children_test" />
-        </Tile>
-      );
-      tile().children().children().should("have.text", "children_test");
-    });
 
     it.each([...testData] as DlProps["ddTextAlign"][])(
       "should check ddTextAlign as %s for Tile component",
@@ -123,17 +116,17 @@ context("Tests for Tile component", () => {
       getDataElementByValue("dt")
         .should("have.css", "text-align", "left")
         .then(($el) => {
-          assertCssValueIsApproximately($el, "width", 1366);
+          assertCssValueIsApproximately($el, "width", 1316);
         });
       getDataElementByValue("dd").then(($el) => {
-        assertCssValueIsApproximately($el, "width", 1366);
+        assertCssValueIsApproximately($el, "width", 1316);
         assertCssValueIsApproximately($el, "margin-left", 0);
       });
     });
 
     it.each([
-      [10, 111, 1229],
-      [30, 385, 954],
+      [10, 107, 1184],
+      [30, 370, 921],
     ])(
       "should check dtTextAlign as number %s for Tile component",
       (w, dtWidth, ddWidth) => {
@@ -204,9 +197,9 @@ context("Tests for Tile component", () => {
     );
 
     it.each([
-      [10, 111],
-      [30, 385],
-      [60, 795],
+      [10, 107],
+      [30, 370],
+      [60, 765],
     ])("should check w as %s for Tile component", (w, dtWidth) => {
       CypressMountWithProviders(<testStories.DlTileComponent w={w} />);
       getDataElementByValue("dt").then(($el) => {
@@ -260,6 +253,14 @@ context("Tests for Tile component", () => {
         tile().should("have.css", "border-radius", result);
       }
     );
+
+    it("should not render any falsy children passed", () => {
+      CypressMountWithProviders(<testStories.TileComponentWithFalsyChildren />);
+
+      tile().children().eq(0).should("exist");
+      tile().children().eq(1).should("not.exist");
+      tile().children().eq(2).should("not.exist");
+    });
   });
 
   describe("check Accessibility for Tile component", () => {
@@ -299,7 +300,7 @@ context("Tests for Tile component", () => {
     it("should check Accessibility for children for Tile component", () => {
       CypressMountWithProviders(
         <Tile>
-          <Content title="children_test" />
+          <TileContent>children_test</TileContent>
         </Tile>
       );
 

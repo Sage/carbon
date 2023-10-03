@@ -22,5 +22,15 @@ const rootTagTest = (
   expect(rootNode.prop("data-role")).toEqual(role);
 };
 
-// eslint-disable-next-line jest/no-export
-export { elementsTagTest, rootTagTest };
+const rootTagTestRtl = (
+  element: HTMLElement,
+  comp: string,
+  elem?: string,
+  role?: string
+) => {
+  expect(element.getAttribute("data-component")).toBe(comp);
+  expect(element.getAttribute("data-element")).toBe(elem);
+  expect(element.getAttribute("data-role")).toBe(role);
+};
+
+export { elementsTagTest, rootTagTest, rootTagTestRtl };
