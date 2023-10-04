@@ -20,9 +20,9 @@ import * as stories from "./dialog.stories.tsx";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/497e21-dialog/b/310ef2"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 A dialog box overlaid on top of any page.
@@ -67,12 +67,6 @@ When mixing editable and non-editable content, you can use the <LinkTo kind="Box
   <Story name="with help" story={stories.WithHelp} />
 </Canvas>
 
-### With dynamic content
-
-<Canvas>
-  <Story name="dynamic content" story={stories.DynamicContent} />
-</Canvas>
-
 ### Overriding the first focused element
 
 By default, when a dialog is opened it will automatically focus the first element within its children that can be focussed.
@@ -87,6 +81,42 @@ and setting the `autoFocus` on the element you wish to be focused instead (click
     story={stories.FocusingADifferentFirstElement}
   />
 </Canvas>
+
+### Loading content
+
+For situations where content cannot be rendered immediately, such as content dependent on data from an external API, conditional rendering and the `Loader` component can be used to create a loading pattern:
+
+<Canvas>
+  <Story name="loading content" story={stories.LoadingContent} />
+</Canvas>
+
+Note in the previous example, the first `Textbox` in the loaded content has autofocus, which is recommended so assistive technology users are informed of the updated content.
+
+Alternatively, focus can be programmatically moved back to the `Dialog` to inform assistive technology users of a content change:
+
+<Canvas>
+  <Story
+    name="refocusing dialog after content change"
+    story={stories.UsingHandle}
+  />
+</Canvas>
+
+A custom ref handle can be forwarded to the `Dialog` component:
+
+```tsx
+const dialogHandle = useRef<DialogHandle>(null);
+return (
+  <Dialog ref={dialogHandle}>
+    Your feedback helps us continually improve our software.
+  </Dialog>
+);
+```
+
+which exposes the `focus()` method of `Dialog`'s root DOM node:
+
+```ts
+dialogHandle.current?.focus();
+```
 
 ### Overriding the content padding
 

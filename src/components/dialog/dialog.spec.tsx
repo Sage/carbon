@@ -1,11 +1,16 @@
 import React from "react";
-import { mount, ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { render as rtlRender, screen } from "@testing-library/react";
+import type { RenderOptions as RTLRenderOptions } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
+import Dialog from ".";
+import type { DialogHandle } from ".";
 
 import { space } from "../../style/themes/base/base-theme.config";
 import guid from "../../__internal__/utils/helpers/guid";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Dialog, { DialogProps } from "./dialog.component";
 import {
   StyledDialog,
   StyledDialogTitle,
@@ -25,7 +30,6 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Form from "../form";
 import { StyledFormContent, StyledFormFooter } from "../form/form.style";
-import IconButton from "../icon-button";
 import Help from "../help";
 import CarbonProvider from "../carbon-provider";
 import Logger from "../../__internal__/utils/logger";
@@ -40,12 +44,40 @@ const useResizeObserverMock = useResizeObserver as jest.MockedFunction<
   typeof useResizeObserver
 >;
 
+function enzymeMount(ui: React.ReactElement, document = globalThis.document) {
+  if (document.body.innerHTML.length >= 1) {
+    throw new Error(
+      "Found DOM to be non-empty before mounting. Please make sure to call cleanup() after each test."
+    );
+  }
+
+  const container = document.createElement("div");
+  container.setAttribute("id", "enzymeContainer");
+  document.body.appendChild(container);
+  return mount(ui, { attachTo: container });
+}
+
+function render(
+  ui: React.ReactElement,
+  options?: RTLRenderOptions,
+  document = globalThis.document
+) {
+  if (document.body.innerHTML.length >= 1) {
+    throw new Error(
+      "Found DOM to be non-empty before rendering. Please make sure to call cleanup() after each test."
+    );
+  }
+
+  return rtlRender(ui, options);
+}
+function cleanup(document = globalThis.document) {
+  document.body.innerHTML = "";
+}
+
 describe("Dialog", () => {
   let onCancel: jest.Mock;
   let addEventListenerSpy: jest.SpyInstance;
   let removeEventListenerSpy: jest.SpyInstance;
-
-  let wrapper: ReactWrapper<DialogProps>;
 
   beforeAll(() => {
     loggerSpy.mockImplementation(() => {});
@@ -61,6 +93,7 @@ describe("Dialog", () => {
 
   afterEach(() => {
     onCancel.mockClear();
+    cleanup();
   });
 
   describe("event listeners", () => {
@@ -75,7 +108,7 @@ describe("Dialog", () => {
     });
 
     it("binds the key event listener to the document on mount", () => {
-      wrapper = mount(
+      enzymeMount(
         <Dialog open>
           <div />
         </Dialog>
@@ -87,7 +120,7 @@ describe("Dialog", () => {
     });
 
     it("does not bind if component is not open on mount", () => {
-      wrapper = mount(
+      enzymeMount(
         <Dialog open={false}>
           <div />
         </Dialog>
@@ -99,7 +132,7 @@ describe("Dialog", () => {
     });
 
     it("removes the event listener if modal was open on unmount", () => {
-      wrapper = mount(
+      const wrapper = enzymeMount(
         <Dialog open>
           <div />
         </Dialog>
@@ -112,7 +145,7 @@ describe("Dialog", () => {
     });
 
     it("does not remove the event listener if it was not in use on unmount", () => {
-      wrapper = mount(
+      const wrapper = enzymeMount(
         <Dialog open={false}>
           <div />
         </Dialog>
@@ -125,7 +158,7 @@ describe("Dialog", () => {
     });
 
     it("adds event listeners on modal open", () => {
-      wrapper = mount(
+      const wrapper = enzymeMount(
         <Dialog open={false}>
           <div />
         </Dialog>
@@ -139,7 +172,7 @@ describe("Dialog", () => {
     });
 
     it("removes event listeners on modal close", () => {
-      wrapper = mount(
+      const wrapper = enzymeMount(
         <Dialog open>
           <div />
         </Dialog>
@@ -154,7 +187,7 @@ describe("Dialog", () => {
 
   it("renders when a child is undefined", () => {
     expect(() => {
-      mount(
+      enzymeMount(
         <Dialog
           onCancel={() => {}}
           open
@@ -185,7 +218,7 @@ describe("Dialog", () => {
 
     describe("when dialog is lower than 20px", () => {
       it("sets top position to the correct value on open", () => {
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog open>
             <div />
           </Dialog>
@@ -196,7 +229,7 @@ describe("Dialog", () => {
       });
 
       it("sets top position to the correct value on resize", () => {
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog open>
             <div />
           </Dialog>
@@ -234,7 +267,7 @@ describe("Dialog", () => {
               } as DOMRect)
           );
 
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog open>
             <div />
           </Dialog>
@@ -246,7 +279,7 @@ describe("Dialog", () => {
       });
 
       it("sets top position to 20px on resize", () => {
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog open>
             <div />
           </Dialog>
@@ -284,7 +317,7 @@ describe("Dialog", () => {
               } as DOMRect)
           );
 
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog open>
             <div />
           </Dialog>
@@ -296,7 +329,7 @@ describe("Dialog", () => {
       });
 
       it("sets left position to 0px on resize", () => {
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog open>
             <div />
           </Dialog>
@@ -325,9 +358,9 @@ describe("Dialog", () => {
   });
 
   describe("dialog headers", () => {
-    describe("when a props title or subtitle is passed", () => {
+    describe("when title and subtitle props are passed", () => {
       it("sets a dialog headers", () => {
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog
             onCancel={onCancel}
             open
@@ -342,7 +375,7 @@ describe("Dialog", () => {
       });
     });
 
-    describe("when jsx is passed as title prop value", () => {
+    describe("when jsx is passed to title prop", () => {
       it("Heading component is not used", () => {
         const TitleComponent = () => (
           <div>
@@ -351,7 +384,7 @@ describe("Dialog", () => {
           </div>
         );
 
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog onCancel={onCancel} open title={<TitleComponent />} />
         );
 
@@ -362,17 +395,17 @@ describe("Dialog", () => {
       });
     });
 
-    describe("when a props title is not passed", () => {
+    describe("when title prop is not passed", () => {
       it("title is not rendered", () => {
-        wrapper = mount(<Dialog onCancel={onCancel} open />);
+        const wrapper = enzymeMount(<Dialog onCancel={onCancel} open />);
         expect(wrapper.find(StyledDialogTitle).exists()).toBe(false);
         expect(wrapper.find(Heading).exists()).toBe(false);
       });
     });
 
-    describe("when prop help is passed", () => {
+    describe("when help prop is passed", () => {
       it("should render Help component", () => {
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog open title="This is test title" help="this is help text" />
         );
 
@@ -383,45 +416,39 @@ describe("Dialog", () => {
 
   describe("render", () => {
     describe("when dialog is open", () => {
-      beforeEach(() => {
-        wrapper = mount(
-          <Dialog
-            open
-            title="Test"
-            subtitle="Test"
-            size="small"
-            className="foo"
-            onCancel={onCancel}
-            height="500"
-            role="dialog"
-            data-element="bar"
-            data-role="baz"
-          >
-            <Button>Button</Button>
-            <Button>Button</Button>
-          </Dialog>
-        );
-      });
+      const TestDialog = () => (
+        <Dialog
+          open
+          title="Test"
+          subtitle="Test"
+          size="small"
+          className="foo"
+          onCancel={onCancel}
+          height="500"
+          role="dialog"
+        >
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </Dialog>
+      );
 
-      it("has the correct content, tags, elements etc", () => {
-        expect(wrapper.props()["data-element"]).toEqual("bar");
-        expect(wrapper.props()["data-role"]).toEqual("baz");
-        expect((wrapper.props().children as JSX.Element[]).length).toEqual(2);
-      });
-
-      it("closes when the exit icon is click", () => {
-        wrapper.find(IconButton).first().simulate("click");
+      it("closes when the close button is clicked", () => {
+        const wrapper = enzymeMount(<TestDialog />);
+        wrapper.find("button[data-element='close']").simulate("click");
         expect(onCancel).toHaveBeenCalled();
       });
 
-      it("closes when exit icon is focused and Enter key is pressed", () => {
-        const icon = wrapper.find(IconButton).first();
+      it("closes when close button is focused and Enter key is pressed", () => {
+        const wrapper = enzymeMount(<TestDialog />);
+        const icon = wrapper.find("button[data-element='close']");
         icon.simulate("keyDown", { key: "Enter" });
         expect(onCancel).toHaveBeenCalled();
       });
 
-      it("does not close when exit icon is focused any other key is pressed", () => {
-        const icon = wrapper.find(IconButton).first();
+      it("does not close when close button is focused Enter key is not pressed", () => {
+        const wrapper = enzymeMount(<TestDialog />);
+
+        const icon = wrapper.find("button[data-element='close']");
         icon.simulate("keyDown", { key: "a" });
         expect(onCancel).not.toHaveBeenCalled();
       });
@@ -429,7 +456,9 @@ describe("Dialog", () => {
 
     describe("when dialog is closed", () => {
       it("only renders a parent div with mainClasses attached", () => {
-        wrapper = mount(<Dialog open={false} onCancel={onCancel} />);
+        const wrapper = enzymeMount(
+          <Dialog open={false} onCancel={onCancel} />
+        );
 
         expect(wrapper.find(".carbon-dialog").at(0).length).toEqual(1);
         expect(wrapper.find(".carbon-dialog__dialog").length).toEqual(0);
@@ -437,74 +466,62 @@ describe("Dialog", () => {
     });
   });
 
-  describe("a11y", () => {
-    beforeEach(() => {
-      wrapper = mount(
-        <Dialog
-          onCancel={() => {}}
-          open
-          subtitle="Test"
-          title="Test"
-          role="dialog"
-        />
-      );
-    });
-
-    describe("when title or subtitle are not set", () => {
-      it(`does not render aria-labelledby pointing at the title element or
+  describe("when title or subtitle are not passed", () => {
+    it(`does not render aria-labelledby pointing at the title element or
       an aria-describedby attribute pointing at the subtitle element`, () => {
-        wrapper = mount(<Dialog onCancel={() => {}} open />);
-
-        expect(
-          wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').length
-        ).toEqual(0);
-        expect(
-          wrapper.find('[aria-labelledby="carbon-dialog-title"]').length
-        ).toEqual(0);
-      });
-    });
-
-    it("should have aria-modal attribute on the dialog container", () => {
-      onCancel = jest.fn();
-      wrapper = mount(
-        <CarbonProvider>
-          <Dialog
-            onCancel={onCancel}
-            className="foo"
-            open
-            title="my title"
-            subtitle="my subtitle"
-          >
-            <Button>Button</Button>
-            <Button>Button</Button>
-          </Dialog>
-        </CarbonProvider>
-      );
+      const wrapper = enzymeMount(<Dialog onCancel={() => {}} open />);
 
       expect(
-        wrapper.find(StyledDialog).getDOMNode().getAttribute("aria-modal")
-      ).toBe("true");
-
-      wrapper.unmount();
+        wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').length
+      ).toEqual(0);
+      expect(
+        wrapper.find('[aria-labelledby="carbon-dialog-title"]').length
+      ).toEqual(0);
     });
   });
 
-  describe("when topMargin is passed to the StyledDialog", () => {
-    it("should set correct max-height on StyledDialog", () => {
-      assertStyleMatch(
-        {
-          maxHeight: "calc(100vh - 30px)",
-        },
-        mount(<StyledDialog topMargin={30} />)
-      );
-    });
+  it("should have aria-modal attribute on the dialog container", () => {
+    onCancel = jest.fn();
+
+    const wrapper = enzymeMount(
+      <CarbonProvider>
+        <Dialog
+          onCancel={onCancel}
+          className="foo"
+          open
+          title="my title"
+          subtitle="my subtitle"
+        >
+          <Button>Button</Button>
+          <Button>Button</Button>
+        </Dialog>
+      </CarbonProvider>
+    );
+
+    expect(
+      wrapper.find(StyledDialog).getDOMNode().getAttribute("aria-modal")
+    ).toBe("true");
+  });
+
+  it("should have correct max-height", () => {
+    const wrapper = enzymeMount(
+      <Dialog open title="My dialog" subtitle="subtitle">
+        Content
+      </Dialog>
+    );
+    assertStyleMatch(
+      {
+        maxHeight: "calc(100vh - 20px)",
+      },
+      wrapper.find(StyledDialog)
+    );
   });
 
   describe.each(["400", "400px"])(
     "when height is passed to the Dialog",
     (height) => {
       it("have proper value passed as height css rule", () => {
-        wrapper = mount(<Dialog open height={height} />);
+        const wrapper = enzymeMount(<Dialog open height={height} />);
 
         assertStyleMatch(
           {
@@ -517,18 +534,19 @@ describe("Dialog", () => {
   );
 
   describe("when showCloseIcon prop is true", () => {
-    it("StyledDialogTitle should have padding-right: 85px", () => {
-      wrapper = mount(<Dialog title="Heading" open />);
+    it("dialog title should have padding-right: 85px", () => {
+      const wrapper = enzymeMount(<Dialog title="Heading" open />);
 
-      const DialogTitle = wrapper.find(StyledDialogTitle);
-
-      assertStyleMatch({ paddingRight: "85px" }, DialogTitle);
+      assertStyleMatch(
+        { paddingRight: "85px" },
+        wrapper.find(StyledDialogTitle)
+      );
     });
   });
 
   describe("when the Form child has a sticky footer", () => {
     it("does not set overflow styling", () => {
-      wrapper = mount(
+      const wrapper = enzymeMount(
         <Dialog open>
           <Form stickyFooter />
         </Dialog>
@@ -542,7 +560,7 @@ describe("Dialog", () => {
 
   describe("when the Form child does not have a sticky footer", () => {
     it("sets overflow styling", () => {
-      wrapper = mount(
+      const wrapper = enzymeMount(
         <Dialog open>
           <Form />
         </Dialog>
@@ -557,13 +575,15 @@ describe("Dialog", () => {
 
   describe("when auto focus disabled", () => {
     it("should not focus the first element by default", () => {
-      mount(
+      const wrapper = enzymeMount(
         <Dialog open disableAutoFocus>
-          <input type="text" />
+          <input data-role="test-input" type="text" />
         </Dialog>
       );
 
-      const firstFocusableElement = document.querySelector("input");
+      const firstFocusableElement = wrapper
+        .find("input[data-role='test-input']")
+        .getDOMNode();
       expect(document.activeElement).not.toBe(firstFocusableElement);
     });
   });
@@ -574,7 +594,7 @@ describe("Dialog", () => {
         (guid as jest.MockedFunction<typeof guid>).mockImplementation(
           () => "foo"
         );
-        wrapper = mount(<Dialog open title="Test" />);
+        const wrapper = enzymeMount(<Dialog open title="Test" />);
 
         expect(
           wrapper
@@ -591,7 +611,7 @@ describe("Dialog", () => {
           () => "baz"
         );
 
-        wrapper = mount(<Dialog open subtitle="Test" />);
+        const wrapper = enzymeMount(<Dialog open subtitle="Test" />);
 
         expect(
           wrapper
@@ -606,7 +626,7 @@ describe("Dialog", () => {
       it("then the container should have the same aria-labelledby attribute", () => {
         const titleId = "foo";
 
-        wrapper = mount(
+        const wrapper = enzymeMount(
           <Dialog
             aria-labelledby={titleId}
             open
@@ -626,7 +646,7 @@ describe("Dialog", () => {
     describe("when the role prop is specified", () => {
       it("then the container should have the same role attribute", () => {
         const dialogRole = "foo";
-        wrapper = mount(<Dialog open role={dialogRole} />);
+        const wrapper = enzymeMount(<Dialog open role={dialogRole} />);
         expect(
           wrapper.find("[data-element='dialog']").first().prop("role")
         ).toBe(dialogRole);
@@ -636,7 +656,7 @@ describe("Dialog", () => {
     describe("when the aria-label prop is specified", () => {
       it("then the container should have the same aria-label attribute", () => {
         const label = "foo";
-        wrapper = mount(<Dialog open aria-label={label} />);
+        const wrapper = enzymeMount(<Dialog open aria-label={label} />);
         expect(
           wrapper.find("[data-element='dialog']").first().prop("aria-label")
         ).toBe(label);
@@ -703,15 +723,15 @@ describe("Dialog", () => {
         describe.each(["p", "py", "px"] as const)(
           "to the `%s` property",
           (prop) => {
-            beforeEach(() => {
-              wrapper = mount(
-                <Dialog open contentPadding={{ [prop]: value }}>
-                  <Form />
-                </Dialog>
-              );
-            });
+            const TestDialog = () => (
+              <Dialog open contentPadding={{ [prop]: value }}>
+                <Form />
+              </Dialog>
+            );
 
             it("applies the expected values to the DialogStyle and Form elements", () => {
+              const wrapper = enzymeMount(<TestDialog />);
+
               assertStyleMatch(
                 {
                   marginLeft: getFormSpacing(value, "left", prop, true),
@@ -744,6 +764,8 @@ describe("Dialog", () => {
             });
 
             it("applies the expected values to the DialogContentStyle and DialogInnerContentStyle elements", () => {
+              const wrapper = enzymeMount(<TestDialog />);
+
               assertStyleMatch(
                 {
                   padding: getDialogContentPadding(value, prop === "p", true),
@@ -772,6 +794,12 @@ describe("Dialog", () => {
   });
 
   it("applies the expected border radius to the main container and footer elements", () => {
+    const wrapper = enzymeMount(
+      <Dialog open title="My dialog" subtitle="subtitle">
+        Content
+      </Dialog>
+    );
+
     assertStyleMatch(
       {
         borderRadius: "var(--borderRadius200)",
@@ -787,5 +815,29 @@ describe("Dialog", () => {
       wrapper.find(StyledDialog),
       { modifier: `${StyledFormFooter}.sticky` }
     );
+  });
+});
+
+describe("when ref handle is passed to Dialog", () => {
+  it("calling exposed focus method refocuses on Dialog's root container", async () => {
+    const MockComponent = () => {
+      const dialogHandle = React.useRef<DialogHandle>(null);
+
+      return (
+        <Dialog open title="My dialog" ref={dialogHandle}>
+          <Button onClick={() => dialogHandle.current?.focus()}>
+            Press me to refocus on Dialog
+          </Button>
+        </Dialog>
+      );
+    };
+    const user = userEvent.setup();
+    render(<MockComponent />);
+    const button = screen.getByRole("button");
+    button.focus();
+
+    await user.click(button);
+
+    expect(screen.getByRole("dialog")).toHaveFocus();
   });
 });
