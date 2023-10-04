@@ -77,13 +77,13 @@ export const Default = (args: Partial<SidebarProps>) => {
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
       <Sidebar {...args} aria-label="sidebar" open={isOpen} onCancel={onCancel}>
-        <div>
+        <Box mb={2}>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
-        <div style={{ marginBottom: 3000 }}>Main content</div>
+        </Box>
+        <Box mb="3000px">Main content</Box>
       </Sidebar>
     </>
   );
@@ -107,19 +107,13 @@ export const SidebarComponent = (props: Partial<SidebarProps>) => {
         size="medium"
         {...props}
       >
-        <div>
+        <Box mb={2}>
           <Button buttonType="primary">Test</Button>
           <Button buttonType="secondary" ml={2}>
             Last
           </Button>
-        </div>
-        <div
-          style={{
-            marginBottom: 3000,
-          }}
-        >
-          Main content
-        </div>
+        </Box>
+        <Box mb="3000px">Main content</Box>
       </Sidebar>
     </>
   );
@@ -178,13 +172,13 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
         focusableSelectors={CUSTOM_SELECTOR}
         {...props}
       >
-        <div className="focusable-container">
+        <Box className="focusable-container">
           <Textbox label="First Name" />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <Textbox label="Surname" />
-        </div>
-        <div className="focusable-container">
+        </Box>
+        <Box className="focusable-container">
           <Button
             buttonType="primary"
             data-element="open-toast"
@@ -192,7 +186,7 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
           >
             Show toast
           </Button>
-        </div>
+        </Box>
       </Sidebar>
       <Toast
         open={isToastOpen}
