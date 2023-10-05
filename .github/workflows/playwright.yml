@@ -9,7 +9,7 @@ on:
 
 jobs:
   playwright-react:
-    timeout-minutes: 20
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.34.0-jammy
@@ -78,7 +78,7 @@ jobs:
               "context": "Playwright tests",
               "description": "workflow completed successfully."
             }'
-          
+
       - name: Report status - failed
         if: always() && failure()
         run: |
