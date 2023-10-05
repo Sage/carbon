@@ -1,3 +1,10 @@
+### [120.6.1](https://github.com/Sage/carbon/compare/v120.6.0...v120.6.1) (2023-10-05)
+
+
+### Bug Fixes
+
+* **multi-action-button:** update styling to ensure corrext spacing when child buttons have icons ([a6b382a](https://github.com/Sage/carbon/commit/a6b382abd2e6ffaca0a54ab920da581f57fb763b)), closes [#6214](https://github.com/Sage/carbon/issues/6214)
+
 ## [120.6.0](https://github.com/Sage/carbon/compare/v120.5.0...v120.6.0) (2023-10-04)
 
 
