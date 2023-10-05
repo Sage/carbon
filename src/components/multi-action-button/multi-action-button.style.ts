@@ -89,11 +89,6 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
     box-shadow: var(--boxShadow100);
     border-radius: var(--borderRadius100);
 
-    ${StyledIcon} {
-      margin-left: 0;
-      left: 8px;
-    }
-
     ${borderRadiusStyling}
 
     ${StyledButton} {
