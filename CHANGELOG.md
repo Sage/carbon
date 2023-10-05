@@ -1,3 +1,10 @@
+## [120.6.0](https://github.com/Sage/carbon/compare/v120.5.0...v120.6.0) (2023-10-04)
+
+
+### Features
+
+* **dialog:** expose focus method of root dom node via a ref handle ([4811e82](https://github.com/Sage/carbon/commit/4811e82205ae24f2efcb199640d1e0f129eee694)), closes [#6250](https://github.com/Sage/carbon/issues/6250)
+
 ## [120.5.0](https://github.com/Sage/carbon/compare/v120.4.0...v120.5.0) (2023-10-02)
 
 

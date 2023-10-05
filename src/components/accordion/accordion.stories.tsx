@@ -23,9 +23,9 @@ type Validations = keyof ValidationObject;
 export const AccordionDefault: ComponentStory<typeof Accordion> = () => {
   return (
     <Accordion title="Heading">
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -35,9 +35,9 @@ export const WithDisableContentPadding: ComponentStory<
 > = () => {
   return (
     <Accordion disableContentPadding title="Heading">
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -45,9 +45,9 @@ export const WithDisableContentPadding: ComponentStory<
 export const Transparent: ComponentStory<typeof Accordion> = () => {
   return (
     <Accordion scheme="transparent" title="Heading">
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -55,9 +55,9 @@ export const Transparent: ComponentStory<typeof Accordion> = () => {
 export const Small: ComponentStory<typeof Accordion> = () => {
   return (
     <Accordion size="small" title="Heading">
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -65,9 +65,9 @@ export const Small: ComponentStory<typeof Accordion> = () => {
 export const Subtitle: ComponentStory<typeof Accordion> = () => {
   return (
     <Accordion subTitle="Sub title" title="Heading">
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -75,9 +75,9 @@ export const Subtitle: ComponentStory<typeof Accordion> = () => {
 export const Fullborder: ComponentStory<typeof Accordion> = () => {
   return (
     <Accordion borders="full" title="Heading">
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -85,9 +85,9 @@ export const Fullborder: ComponentStory<typeof Accordion> = () => {
 export const LeftAlignedIcon: ComponentStory<typeof Accordion> = () => {
   return (
     <Accordion iconAlign="left" title="Heading">
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -95,9 +95,9 @@ export const LeftAlignedIcon: ComponentStory<typeof Accordion> = () => {
 export const DifferentWidth: ComponentStory<typeof Accordion> = () => {
   return (
     <Accordion width="500px" title="Heading">
-      <div>Content</div>
-      <div>Content</div>
-      <div>Content</div>
+      <Box mt={2}>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };
@@ -108,25 +108,25 @@ export const WithDifferentPaddingAndMargin: ComponentStory<
   return (
     <>
       <Accordion m={0} p={0} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion m={1} p={1} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion m={2} p={2} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion m={3} p={3} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion m={4} p={4} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion m={5} p={5} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion m={6} p={6} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
     </>
   );
@@ -138,25 +138,25 @@ export const WithDifferentPaddingAndMarginInAccordionTitle: ComponentStory<
   return (
     <>
       <Accordion headerSpacing={{ p: 0 }} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion headerSpacing={{ p: 1 }} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion headerSpacing={{ p: 2 }} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion headerSpacing={{ p: 3 }} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion headerSpacing={{ p: 4 }} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion headerSpacing={{ p: 5 }} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
       <Accordion headerSpacing={{ p: 6 }} title="Accordion">
-        <div>content</div>
+        <Box mt={2}>content</Box>
       </Accordion>
     </>
   );
@@ -182,7 +182,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
             This is example content inside of the Box component with gray
             background
           </Box>
-          <div>
+          <Box>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
             ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
             diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
@@ -194,7 +194,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
             ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
             ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
             Cras a magna vestibulum, semper tortor id, molestie eros.
-          </div>
+          </Box>
         </Box>
       </Accordion>
       <Accordion
@@ -208,7 +208,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
             This is example content inside of the Box component with gray
             background
           </Box>
-          <div>
+          <Box>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
             ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
             diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
@@ -220,7 +220,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
             ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
             ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
             Cras a magna vestibulum, semper tortor id, molestie eros.
-          </div>
+          </Box>
         </Box>
       </Accordion>
       <Accordion
@@ -233,7 +233,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
             This is example content inside of the Box component with gray
             background
           </Box>
-          <div>
+          <Box>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
             ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
             diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
@@ -245,7 +245,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
             ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
             ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
             Cras a magna vestibulum, semper tortor id, molestie eros.
-          </div>
+          </Box>
         </Box>
       </Accordion>
       <Accordion
@@ -258,7 +258,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
             This is example content inside of the Box component with gray
             background
           </Box>
-          <div>
+          <Box>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in
             ornare neque. Maecenas pellentesque et erat tincidunt mollis. Etiam
             diam nisi, elementum efficitur ipsum et, imperdiet iaculis ligula.
@@ -270,7 +270,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
             ac molestie ante dapibus. Ut molestie auctor turpis, quis ultrices
             ante aliquet eu. Aenean et condimentum arcu, non malesuada elit.
             Cras a magna vestibulum, semper tortor id, molestie eros.
-          </div>
+          </Box>
         </Box>
       </Accordion>
     </>
@@ -279,7 +279,7 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
 
 export const OpeningButton: ComponentStory<typeof Accordion> = () => {
   return (
-    <div style={{ margin: "8px" }}>
+    <Box m="8px">
       <Accordion
         title="More info"
         openTitle="Less info"
@@ -290,9 +290,9 @@ export const OpeningButton: ComponentStory<typeof Accordion> = () => {
         buttonWidth="200px"
         error="hello"
       >
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box mt={2}>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Accordion>
       <br />
       <Accordion
@@ -304,9 +304,9 @@ export const OpeningButton: ComponentStory<typeof Accordion> = () => {
         buttonHeading
         buttonWidth="200px"
       >
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box mt={2}>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Accordion>
       <br />
       <Accordion
@@ -318,9 +318,9 @@ export const OpeningButton: ComponentStory<typeof Accordion> = () => {
         headerSpacing={{ px: 0 }}
         buttonWidth="96px"
       >
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box mt={2}>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Accordion>
       <br />
       <Accordion
@@ -333,11 +333,11 @@ export const OpeningButton: ComponentStory<typeof Accordion> = () => {
         buttonWidth="120px"
         headerSpacing={{ px: 1 }}
       >
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
+        <Box mt={2}>Content</Box>
+        <Box>Content</Box>
+        <Box>Content</Box>
       </Accordion>
-    </div>
+    </Box>
   );
 };
 
@@ -356,9 +356,9 @@ export const Grouped: ComponentStory<typeof Accordion> = () => {
       </Accordion>
       <Accordion title="Third Accordion">
         <Box p={2}>
-          <div>Content</div>
-          <div>Content</div>
-          <div>Content</div>
+          <Box>Content</Box>
+          <Box>Content</Box>
+          <Box>Content</Box>
         </Box>
       </Accordion>
     </AccordionGroup>
@@ -397,7 +397,7 @@ export const WithValidationIcon: ComponentStory<typeof Accordion> = () => {
     setter((previous) => ({ ...previous, [id]: update }));
   };
   return (
-    <div style={{ marginTop: "16px" }}>
+    <Box mt="16px">
       <AccordionGroup>
         <Accordion
           title="Heading"
@@ -412,7 +412,7 @@ export const WithValidationIcon: ComponentStory<typeof Accordion> = () => {
           warning={warnings.one}
           info={infos.one}
         >
-          <div style={{ padding: "8px" }}>
+          <Box p="8px">
             <Checkbox
               label="Add error"
               error={!!errors.one}
@@ -431,7 +431,7 @@ export const WithValidationIcon: ComponentStory<typeof Accordion> = () => {
               info={!!infos.one}
               onChange={() => handleChange("one", infos, setInfos, "info")}
             />
-          </div>
+          </Box>
         </Accordion>
         <Accordion
           title="Heading"
@@ -447,7 +447,7 @@ export const WithValidationIcon: ComponentStory<typeof Accordion> = () => {
           warning={warnings.two}
           info={infos.two}
         >
-          <div style={{ padding: "8px" }}>
+          <Box p="8px">
             <Checkbox
               label="Add error"
               error={!!errors.two}
@@ -466,7 +466,7 @@ export const WithValidationIcon: ComponentStory<typeof Accordion> = () => {
               info={!!infos.two}
               onChange={() => handleChange("two", infos, setInfos, "info")}
             />
-          </div>
+          </Box>
         </Accordion>
         <Accordion
           title="Heading"
@@ -482,7 +482,7 @@ export const WithValidationIcon: ComponentStory<typeof Accordion> = () => {
           warning={warnings.three}
           info={infos.three}
         >
-          <div style={{ padding: "8px" }}>
+          <Box p="8px">
             <Checkbox
               label="Add error"
               error={!!errors.three}
@@ -501,10 +501,10 @@ export const WithValidationIcon: ComponentStory<typeof Accordion> = () => {
               info={!!infos.three}
               onChange={() => handleChange("three", infos, setInfos, "info")}
             />
-          </div>
+          </Box>
         </Accordion>
       </AccordionGroup>
-    </div>
+    </Box>
   );
 };
 
@@ -525,9 +525,11 @@ export const WithDynamicContent: ComponentStory<typeof Accordion> = () => {
       <Button onClick={() => modifyContentCount(-1)} ml={2}>
         Remove content
       </Button>
-      <Accordion title="Title">
+      <Accordion mt={2} title="Title">
         {Array.from(Array(contentCount).keys()).map((value) => (
-          <div key={value}>Content</div>
+          <Box key={value} mt={2}>
+            Content
+          </Box>
         ))}
       </Accordion>
     </>
@@ -535,8 +537,15 @@ export const WithDynamicContent: ComponentStory<typeof Accordion> = () => {
 };
 
 export const WithDefinitionList: ComponentStory<typeof Accordion> = () => {
+  const [isOpen, setOpen] = useState(true);
   return (
-    <Accordion title="Heading" expanded>
+    <Accordion
+      title="Heading"
+      onChange={() => {
+        setOpen(!isOpen);
+      }}
+      expanded={isOpen}
+    >
       <Dl>
         <Dt>Drink</Dt>
         <Dd>Coffee</Dd>
