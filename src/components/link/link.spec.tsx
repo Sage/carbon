@@ -208,6 +208,32 @@ describe("Link", () => {
     });
   });
 
+  describe("when a link is rendered with an icon and no children", () => {
+    beforeEach(() => {
+      wrapper = mount(<Link icon="home" href="www.sage.com" />);
+    });
+
+    it("there should be no text decoration on the anchor element", () => {
+      assertStyleMatch(
+        {
+          textDecoration: "none",
+        },
+        wrapper.find(StyledLink),
+        { modifier: "a" }
+      );
+    });
+
+    it("link should have the inline display property", () => {
+      assertStyleMatch(
+        {
+          display: "inline",
+        },
+        wrapper.find(StyledLink),
+        { modifier: `a > ${StyledIcon}` }
+      );
+    });
+  });
+
   describe("when the `onKeyDown` event is triggered", () => {
     let onClickFn: () => jest.Mock;
     let onKeyDownFn: () => jest.Mock;

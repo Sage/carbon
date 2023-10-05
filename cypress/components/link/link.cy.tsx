@@ -1,12 +1,13 @@
 /* eslint-disable jest/valid-expect, jest/no-disabled-tests, no-unused-expressions */
 import React from "react";
-import { LinkProps } from "components/link";
+import Link, { LinkProps } from "../../../src/components/link";
 import { LinkComponent } from "../../../src/components/link/link-test.stories";
 import { skipLink } from "../../locators/link/index";
 import { keyCode } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import Box from "../../../src/components/box";
+import { ICON } from "../../locators/locators";
 import {
   icon,
   tooltipPreview,
@@ -70,6 +71,18 @@ context("Test for Link component", () => {
 
       icon().realHover();
       tooltipPreview().should("have.text", testCypress);
+    });
+
+    it("when no children are passed, there should be no text decoration on the anchor element", () => {
+      CypressMountWithProviders(<Link icon="bin" href="www.sage.com" />);
+
+      link().find("a").should("have.css", "text-decoration-line", "none");
+    });
+
+    it("when no children are passed, link should have the inline display property", () => {
+      CypressMountWithProviders(<Link icon="bin" href="www.sage.com" />);
+
+      link().find(ICON).should("have.css", "display", "inline");
     });
 
     it.each([
