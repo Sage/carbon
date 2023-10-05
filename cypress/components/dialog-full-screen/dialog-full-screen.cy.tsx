@@ -170,11 +170,9 @@ context("Testing DialogFullScreen component", () => {
 
       openDialogByName(`Open ${nestedDialogTitle}`).click();
 
-      dialogPreview().tab();
-
       // click on the body in order to lose focus
       cy.get("body").click();
-      cy.tab();
+      cy.get("body").tab();
 
       closeIconButton().eq(1).should("be.focused");
     });
