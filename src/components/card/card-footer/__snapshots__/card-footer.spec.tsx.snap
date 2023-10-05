@@ -120,21 +120,6 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
 
 .c1 a,
 .c1 button {
-  outline: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-bottom-left-radius: var(--borderRadius000);
-  border-bottom-right-radius: var(--borderRadius000);
-}
-
-.c1:focus-within {
-  box-shadow: 0 4px 0 0 var(--colorsUtilityYin090);
-  border-bottom-left-radius: var(--borderRadius025);
-  border-bottom-right-radius: var(--borderRadius025);
-}
-
-.c1 a,
-.c1 button {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
@@ -181,6 +166,8 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   >
     <a
       href="https://carbon.sage.com/"
+      onBlur={[Function]}
+      onFocus={[Function]}
       onKeyDown={[Function]}
     >
       <span
