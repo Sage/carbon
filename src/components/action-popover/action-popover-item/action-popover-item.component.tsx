@@ -25,6 +25,8 @@ import ActionPopoverMenu, {
   ActionPopoverMenuProps,
 } from "../action-popover-menu/action-popover-menu.component";
 
+export const ActionPopoverItemContext = React.createContext({});
+
 export interface ActionPopoverItemProps {
   /** The text label to display for this Item */
   children: string;
@@ -152,6 +154,8 @@ export const ActionPopoverItem = ({
   const mouseEnterTimer = useRef<NodeJS.Timeout | null>(null);
   const mouseLeaveTimer = useRef<NodeJS.Timeout | null>(null);
 
+  const { isSubmenu: isSubmenuContext } = useContext(ActionPopoverItemContext);
+
   useEffect(() => {
     if (!isOpenPopover) {
       setOpen(false);
@@ -212,11 +216,11 @@ export const ActionPopoverItem = ({
     }
   }, [alignSubmenu, submenu]);
 
-  useEffect(() => {
-    if (focusItem) {
-      ref.current?.focus();
-    }
-  }, [focusItem]);
+  // useEffect(() => {
+  //   if (focusItem) {
+  //     ref.current?.focus();
+  //   }
+  // }, [focusItem]);
 
   useEffect(() => {
     return function cleanup() {
@@ -367,7 +371,7 @@ export const ActionPopoverItem = ({
           type="button"
           role="menuitem"
           tabIndex={0}
-          isDisabled={disabled}
+          disabled={disabled}
           horizontalAlignment={horizontalAlignment}
           submenuPosition={currentSubmenuPosition}
           hasSubmenu={!!submenu}
@@ -375,6 +379,7 @@ export const ActionPopoverItem = ({
           {...(disabled && { "aria-disabled": true })}
           {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
           {...(submenu && itemSubmenuProps)}
+          data-component={isSubmenuContext ? "submenu-item" : "menu-item"}
         >
           {submenu && checkRef(ref) && currentSubmenuPosition === "left" ? (
             <SubMenuItemIcon
@@ -405,7 +410,24 @@ export const ActionPopoverItem = ({
             />
           ) : null}
         </StyledMenuItem>
-        {React.isValidElement(submenu)
+        {submenu && (
+          <ActionPopoverItemContext.Provider value={{
+            parentID: `ActionPopoverItem_${guid}`,
+            menuID: `ActionPopoverMenu_${guid}`,
+            "data-element": "action-popover-submenu",
+            isOpen,
+            ref: submenuRef,
+            style: containerPosition,
+            setOpen,
+            // setFocusIndex,
+            // focusIndex,
+            isSubmenu: true,
+            horizontalAlignment,
+          }}>
+            {submenu}
+          </ActionPopoverItemContext.Provider>
+        )}
+        {/* {React.isValidElement(submenu)
           ? React.cloneElement<ActionPopoverMenuProps>(
               submenu as React.ReactElement<ActionPopoverMenuProps>,
               {
@@ -416,13 +438,13 @@ export const ActionPopoverItem = ({
                 ref: submenuRef,
                 style: containerPosition,
                 setOpen,
-                setFocusIndex,
-                focusIndex,
+                // setFocusIndex,
+                // focusIndex,
                 isASubmenu: true,
                 horizontalAlignment,
               }
             )
-          : null}
+          : null} */}
       </div>
     </StyledMenuItemWrapper>
   );

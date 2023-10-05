@@ -178,8 +178,8 @@ const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
     border-radius: var(--borderRadius000);
   }
 
-  ${({ isDisabled }) =>
-    isDisabled &&
+  ${({ disabled }) =>
+    disabled &&
     css`
       color: var(--colorsUtilityYin030);
       cursor: not-allowed;

@@ -174,7 +174,7 @@ context("Testing DialogFullScreen component", () => {
 
       // click on the body in order to lose focus
       cy.get("body").click();
-      cy.tab();
+      cy.get('body').tab();
 
       closeIconButton().eq(1).should("be.focused");
     });
