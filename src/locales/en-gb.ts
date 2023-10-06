@@ -76,6 +76,16 @@ const enGB: Locale = {
         },
     },
   },
+  fileInput: {
+    dragAndDrop: () => "Drag and drop your file",
+    selectFile: () => "Select file",
+    fileUploadStatus: () => "File upload status",
+    actions: {
+      cancel: () => "Cancel upload",
+      clear: () => "Clear",
+      delete: () => "Delete file",
+    },
+  },
   heading: {
     backLinkAriaLabel: () => "Back",
   },

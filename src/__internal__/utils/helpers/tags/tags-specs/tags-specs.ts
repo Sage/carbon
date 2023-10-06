@@ -23,14 +23,15 @@ const rootTagTest = (
 };
 
 const rootTagTestRtl = (
-  element: HTMLElement,
+  rootNode: HTMLElement,
   comp: string,
   elem?: string,
   role?: string
 ) => {
-  expect(element.getAttribute("data-component")).toBe(comp);
-  expect(element.getAttribute("data-element")).toBe(elem);
-  expect(element.getAttribute("data-role")).toBe(role);
+  expect(rootNode).toHaveAttribute("data-component", comp);
+  expect(rootNode).toHaveAttribute("data-element", elem);
+  expect(rootNode).toHaveAttribute("data-role", role);
 };
 
+// eslint-disable-next-line jest/no-export
 export { elementsTagTest, rootTagTest, rootTagTestRtl };

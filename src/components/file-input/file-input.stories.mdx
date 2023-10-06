@@ -1,0 +1,243 @@
+import { useState } from "react";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import LinkTo from "@storybook/addon-links/react";
+
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import FileInput from ".";
+import FileUploadStatus from "./__internal__/file-upload-status";
+
+import * as stories from "./file-input.stories";
+
+<Meta title="File Input" parameters={{ info: { disable: true } }} />
+
+# File Input
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/25dc1f-file-input/b/03db25"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+>
+  Product Design System component
+</a>
+
+Allows a single file to be uploaded.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import FileInput from "carbon-react/lib/components/file-input";
+```
+
+## Examples
+
+### Default
+
+<Canvas>
+  <Story name="default" story={stories.Default} />
+</Canvas>
+
+### Disabled
+
+Try to avoid the disabled state. If you do use it, make it clear what the user needs to do to activate the file input.
+
+<Canvas>
+  <Story name="disabled" story={stories.Disabled} />
+</Canvas>
+
+### With inputHint
+
+<Canvas>
+  <Story name="with inputHint" story={stories.WithInputHint} />
+</Canvas>
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas>
+  <Story name="required" story={stories.Required} />
+</Canvas>
+
+### Size variations
+
+By default the component has a width of 273px and height of 40px (not including 12px of padding on both top and bottom). This makes both text and button
+render on a single line (as seen in all the examples above).
+
+You can increase the width and/or height component by setting the `maxHeight` and/or `maxWidth` props. You might need to do this to fit especially long
+explanatory text, or to match the precise width/height of a particular design. Examples of increasing width and height are shown below:
+
+<Canvas>
+  <Story name="increased height" story={stories.IncreasedHeight} />
+</Canvas>
+
+<Canvas>
+  <Story name="increased width and height" story={stories.IncreasedBoth} />
+</Canvas>
+
+Note that any valid CSS values can be used for these props, and that you can therefore set the `maxWidth` to `"100%"` to fill out the entire container width:
+
+<Canvas>
+  <Story name="100% width" story={stories.FullWidth} />
+</Canvas>
+
+It isn't recommended to increase the `maxWidth` to more than 320px without also increasing the `maxHeight`, as this could lead to the text overflowing the
+container on smaller mobile devices. If you really need to put the text and button on the same row if space allows, you can use the CSS `min` function to
+ensure no horizontal overflow, and the <LinkTo kind="documentation-hooks-useMediaQuery">useMediaQuery</LinkTo> hook to set the `maxHeight` conditionally on
+smaller screen-sizes, as illustratred below:
+
+<Canvas>
+  <Story name="increased width - responsive" story={stories.IncreasedWidthResponsive} />
+</Canvas>
+
+One common variation is to have the button vertically stacked below the text, without necessarily increasing the width. This can be achieved by setting the
+`isVertical` boolean prop. Note that this is equivalent to simply removing the default `maxHeight` value and will be overridden if `maxHeight` is explicitly
+provided - so `maxHeight` should not be used in conjunction with `isVertical`. (A sufficiently large `maxHeight` will make the component lay out vertically
+anyway.)
+
+<Canvas>
+  <Story name="vertical" story={stories.Vertical} />
+</Canvas>
+
+### Validations
+
+Validation status can be set by passing an `error` or prop to the component
+
+Passing a string will display a properly colored border and error message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](?path=/docs/documentation-validations--page "Validations") documentation page.
+
+NOTE: old-style tooltip validation is not supported for this component - no matter whether the nearest wrapping `CarbonProvider` sets the `validationRedesignOptIn` flag or not.
+
+<Canvas>
+  <Story name="validations" story={stories.Validation} />
+</Canvas>
+
+### Accept
+
+The `accept` prop is passed directly to the underlying HTML `<input type="file">` element, and helps guide users towards uploading files of the correct format or type.
+
+Please see the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept) for more details on this attribute. Note that it does not prevent the user
+from uploading a file of the incorrect type, for example via drag and drop - so you might still want to use the `onChange` prop to add an error message as soon as an
+inappropriate file is added. And of course nothing takes away the need for validation on the server side. However the `accept` prop is still recommended to guide the user
+- when selecting a file via the "select file" button, the operating system's file picker will either highlight the appropriate files, or make it impossible to select
+incorrect ones.
+
+<Canvas>
+  <Story name="accept" story={stories.Accept} />
+</Canvas>
+
+### Validation of file type
+
+Here is a simple example showing how the `onChange` and `error` props can be used in conjunction with `accept` to warn the user if they have chosen an inappropriate
+file.
+
+<Canvas>
+  <Story name="validation example" story={stories.FileTypeValidation} />
+</Canvas>
+
+### Tracking upload status
+
+The `uploadStatus` prop is used to indicate when one or more files have been added, as well as the current status/progress of
+the upload - and allowing users to cancel or remove uploaded files. It is required to set this (to an actual props object, or to
+a non-empty array for multiple files) in order for the users to see any indication of the uploaded file(s).
+
+For this reason the `onChange` function prop is mandatory - without providing an implementation for this event handler that updates the
+components `uploadStatus`, there will be no visual change once a file has been added to the input.
+
+Here is a relatively simple example of using a [FileReader](https://developer.mozilla.org/en-US/docs/Web/API/FileReader) to track progress purely
+on the client side, resulting in storing the file locally as a `data:` URL. This is a way to show users a preview of their file if you do not intend
+to track upload progress on the server, or do not actually send the files to a server until form submission.
+
+Note the use of a `ref` to store the `FileReader` object - this is not essential but avoids having to create a new `FileReader` object more than once in the
+lifecycle of the component.
+
+<Canvas>
+  <Story name="tracking upload status on client side" story={stories.UploadStatusClient} />
+</Canvas>
+
+This example mocks an alternative approach where files added to the file input are immediately sent to the server, and the UI tracks the progress of the upload.
+This simple example mocks the progress (and the possibility of errors, such as network errors) with random numbers - in a real scenario this would poll an
+alternative endpoint for the upload progress, or use WebSocket messages sent from the server to update progress.
+
+<Canvas>
+  <Story name="tracking upload status alternative" story={stories.UploadStatusAlternative} />
+</Canvas>
+
+Note that you can set the `uploading` without the `progress` property, to renders an
+animated <LinkTo kind="LoaderBar" story="default">LoaderBar</LinkTo> component, rather
+that a <LinkTo kind="ProgressBar" story="default">ProgressBar</LinkTo> as it does when `progress` is provided.
+
+<Canvas>
+  <Story name="with loader animation" story={stories.UploadStatusNoProgress} />
+</Canvas>
+
+## Props
+
+### File Input
+
+<StyledSystemProps of={FileInput} noHeader margin />
+
+Props for the `uploadStatus` prop. Note that only `status`,`filename` and `onAction` are required, and the other props are specific
+to the appropriate status(es) as described below.
+
+Note in particular that, other than the 3 props noted above, and the `message` and `progress` props, all others are the same as the props of
+the <LinkTo kind="Link" story="default">Link</LinkTo> component, to override the props of the link to the uploaded file. There is one exception here however,
+in that the `href` prop is mandatory. Note that none of these `Link` props can be given except for the statuses `completed` and `previously`.
+
+<ArgsTable of={FileUploadStatus} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "fileInput.selectFile",
+      description: "The text for the button that opens the file picker",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.dragAndDrop",
+      description: "The default text inside the input area",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.fileUploadStatus",
+      description: "The default status to display while or after uploading a file",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.actions.cancel",
+      description: "The text for the button that cancels an in-progress upload",
+      type: "func",
+      returnType: "string",
+    },
+        {
+      name: "fileInput.actions.delete",
+      description: "The text for the button that deletes an uploaded file",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "fileInput.actions.clear",
+      description: "The text for the button that clears a file that has led to an error in upload",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>
