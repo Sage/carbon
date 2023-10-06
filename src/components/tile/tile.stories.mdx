@@ -208,9 +208,8 @@ The Tile component can be also have a vertical layout.
 ### With custom widths
 
 The Tile component can also have a custom `width` which accepts either numbers or strings: any decimal between 0 and 1.0
-will be converted into a percentage, any number grater will be be treated as pixels and any valid CSS string will also work.
-Any child wrapped by a Tile component can be passed an optional `width` prop.
-Please note that it will not have any effect if the Tile orientation is set to `vertical`.
+will be converted into a percentage, any number greater will be be treated as pixels and any valid CSS string will also work.
+Any child wrapped by a Tile component can be passed an optional `width` prop if its interface supports it.
 
 <Canvas>
   <Story name="custom Widths">
@@ -254,6 +253,52 @@ Please note that it will not have any effect if the Tile orientation is set to `
       </Content>
     </Tile>
     </div>
+  </Story>
+</Canvas>
+
+### With custom heights
+
+The Tile component can also have a custom `height` which accepts either numbers or strings: any decimal between 0 and 1.0
+will be converted into a percentage, any number greater will be be treated as pixels and any valid CSS string will also work.
+Any child wrapped by a Tile component can be passed an optional `height` prop if its interface supports it.
+
+<Canvas>
+  <Story name="custom heights">
+    <Box display="flex" flexDirection="row" height="250px" gap="8px">
+      <Tile variant="tile" orientation="vertical" height="35%">
+        <Box>
+          <Typography display="block" variant="strong">Title</Typography>
+          Content
+        </Box>
+      </Tile>
+      <Tile variant="tile" orientation="vertical" height="50%">
+        <Box pt={2}>
+          <Typography display="block" variant="strong">Title</Typography>
+          Content
+        </Box>
+      </Tile>
+      <Tile variant="tile" orientation="vertical" height="75%">
+        <Box>
+          <Typography display="block" variant="strong">Title</Typography>
+          Content
+        </Box>
+        <Box>
+          Content
+        </Box>
+      </Tile>
+      <Tile variant="tile" orientation="vertical" height="100%">
+        <Box>
+          <Typography display="block" variant="strong">Title</Typography>
+          Content
+        </Box>
+        <Box>
+          Content
+        </Box>
+        <Box>
+          Content
+        </Box>
+      </Tile>
+    </Box>
   </Story>
 </Canvas>
 

@@ -13,11 +13,12 @@ import {
   DefaultStory,
   Editable,
   WithHelp,
-  DynamicContent,
+  LoadingContent,
   FocusingADifferentFirstElement,
   OverridingContentPadding,
   OtherFocusableContainers,
   Responsive,
+  UsingHandle,
 } from "./dialog.stories";
 
 import toastComponent from "../../../playwright/components/toast";
@@ -537,11 +538,11 @@ test.describe("Testing Dialog component properties", () => {
         await checkAccessibility(page);
       });
 
-      test("DynamicContent story should pass accessiblity checks", async ({
+      test("LoadingContent story should pass accessibility checks", async ({
         mount,
         page,
       }) => {
-        await mount(<DynamicContent />);
+        await mount(<LoadingContent />);
 
         const openDialogButton = page
           .getByRole("button")
@@ -623,6 +624,24 @@ test.describe("Testing Dialog component properties", () => {
           .getByRole("button")
           .filter({ hasText: "Open Dialog" });
         await openDialogButton.click();
+
+        await checkAccessibility(page);
+      });
+
+      test("UsingHandle story should pass accessibility checks", async ({
+        mount,
+        page,
+      }) => {
+        await mount(<UsingHandle />);
+
+        await page
+          .getByRole("button")
+          .filter({ hasText: "Open Dialog" })
+          .click();
+
+        await checkAccessibility(page);
+
+        await page.getByRole("button").filter({ hasText: "Submit" }).click();
 
         await checkAccessibility(page);
       });

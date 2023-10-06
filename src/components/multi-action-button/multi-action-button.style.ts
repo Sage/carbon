@@ -4,7 +4,7 @@ import StyledButton from "../button/button.style";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
 import { MultiActionButtonProps } from "./multi-action-button.component";
-import computeWidth from "../../style/utils/width";
+import computeSizing from "../../style/utils/element-sizing";
 import { borderRadiusStyling } from "../split-button/split-button-children.style";
 
 type StyledMultiActionButtonProps = Pick<MultiActionButtonProps, "width"> & {
@@ -20,7 +20,7 @@ const StyledMultiActionButton = styled.div<StyledMultiActionButtonProps>`
   ${({ width }) =>
     width &&
     css`
-    ${computeWidth({ width })}
+    ${computeSizing({ width })}
 
     ${StyledButton} {
       width: 100%
@@ -88,11 +88,6 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
     z-index: ${theme.zIndex.popover};
     box-shadow: var(--boxShadow100);
     border-radius: var(--borderRadius100);
-
-    ${StyledIcon} {
-      margin-left: 0;
-      left: 8px;
-    }
 
     ${borderRadiusStyling}
 

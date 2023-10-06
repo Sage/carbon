@@ -1,4 +1,11 @@
-import React, { useRef, useEffect, useLayoutEffect, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
@@ -88,211 +95,235 @@ export interface DialogProps extends ModalProps, TagProps {
   focusableContainers?: CustomRefObject<HTMLElement>[];
 }
 
-export const Dialog = ({
-  className,
-  children,
-  open,
-  height,
-  size = "medium",
-  title,
-  disableEscKey,
-  subtitle,
-  disableAutoFocus = false,
-  focusFirstElement,
-  focusableSelectors,
-  onCancel,
-  showCloseIcon = true,
-  bespokeFocusTrap,
-  disableClose,
-  help,
-  role = "dialog",
-  contentPadding = {},
-  focusableContainers,
-  ...rest
-}: DialogProps) => {
-  const locale = useLocale();
+export type DialogHandle = {
+  /** Programmatically focus on root container of Dialog. */
+  focus: () => void;
+} | null;
 
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const innerContentRef = useRef(null);
-  const titleRef = useRef(null);
-  const listenersAdded = useRef(false);
-  const { current: titleId } = useRef(createGuid());
-  const { current: subtitleId } = useRef(createGuid());
-  const hasStickyFooter = useIsStickyFooterForm(children);
+export const Dialog = forwardRef<DialogHandle, DialogProps>(
+  (
+    {
+      className,
+      children,
+      open,
+      height,
+      size = "medium",
+      title,
+      disableEscKey,
+      subtitle,
+      disableAutoFocus = false,
+      focusFirstElement,
+      focusableSelectors,
+      onCancel,
+      showCloseIcon = true,
+      bespokeFocusTrap,
+      disableClose,
+      help,
+      role = "dialog",
+      contentPadding = {},
+      focusableContainers,
+      ...rest
+    },
+    ref
+  ) => {
+    const locale = useLocale();
 
-  const isTopModal = useModalAria(dialogRef);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const innerContentRef = useRef(null);
+    const titleRef = useRef(null);
+    const listenersAdded = useRef(false);
+    const { current: titleId } = useRef(createGuid());
+    const { current: subtitleId } = useRef(createGuid());
+    const hasStickyFooter = useIsStickyFooterForm(children);
 
-  const centerDialog = useCallback(() => {
-    /* istanbul ignore if */
-    if (!dialogRef.current) {
-      return;
-    }
+    const isTopModal = useModalAria(containerRef);
 
-    const {
-      width: dialogWidth,
-      height: dialogHeight,
-    } = dialogRef.current.getBoundingClientRect();
-
-    let midPointY = window.innerHeight / 2;
-    let midPointX = window.innerWidth / 2;
-
-    midPointY -= dialogHeight / 2;
-    midPointX -= dialogWidth / 2;
-
-    if (midPointY < TOP_MARGIN) {
-      midPointY = TOP_MARGIN;
-    }
-
-    if (midPointX < 0) {
-      midPointX = 0;
-    }
-
-    dialogRef.current.style.top = `${midPointY}px`;
-    dialogRef.current.style.left = `${midPointX}px`;
-  }, []);
-
-  useResizeObserver(innerContentRef, centerDialog, !open);
-
-  const addListeners = useCallback(() => {
-    /* istanbul ignore else */
-    if (!listenersAdded.current) {
-      window.addEventListener("resize", centerDialog);
-      listenersAdded.current = true;
-    }
-  }, [centerDialog]);
-
-  const removeListeners = useCallback(() => {
-    if (listenersAdded.current) {
-      window.removeEventListener("resize", centerDialog);
-      listenersAdded.current = false;
-    }
-  }, [centerDialog]);
-
-  useEffect(() => {
-    if (open) {
-      addListeners();
-    }
-
-    if (!open) {
-      removeListeners();
-    }
-
-    return () => {
-      removeListeners();
-    };
-  }, [open, addListeners, removeListeners]);
-
-  useLayoutEffect(() => {
-    if (open) {
-      centerDialog();
-    }
-  }, [centerDialog, open, height]);
-
-  const closeIcon = () => {
-    if (!showCloseIcon || !onCancel) return null;
-
-    return (
-      <IconButton
-        data-element="close"
-        aria-label={locale.dialog.ariaLabels.close()}
-        onClick={onCancel}
-        disabled={disableClose}
-      >
-        <Icon type="close" />
-      </IconButton>
+    useImperativeHandle<DialogHandle, DialogHandle>(
+      ref,
+      () => ({
+        focus() {
+          containerRef.current?.focus();
+        },
+      }),
+      []
     );
-  };
 
-  const dialogTitle = () => {
-    if (!title) return null;
+    const centerDialog = useCallback(() => {
+      /* istanbul ignore if */
+      if (!containerRef.current) {
+        return;
+      }
 
-    return (
-      <StyledDialogTitle
-        showCloseIcon={showCloseIcon}
-        hasSubtitle={!!subtitle}
-        ref={titleRef}
-      >
-        {typeof title === "string" ? (
-          <Heading
-            data-element="dialog-title"
-            title={title}
-            titleId={titleId}
-            subheader={subtitle}
-            subtitleId={subtitleId}
-            divider={false}
-            help={help}
-          />
-        ) : (
-          title
-        )}
-      </StyledDialogTitle>
-    );
-  };
+      const {
+        width: dialogWidth,
+        height: dialogHeight,
+      } = containerRef.current.getBoundingClientRect();
 
-  let dialogHeight = height;
+      let midPointY = window.innerHeight / 2;
+      let midPointX = window.innerWidth / 2;
 
-  if (height && height.match(/px$/)) {
-    dialogHeight = height.replace("px", "");
-  }
+      midPointY -= dialogHeight / 2;
+      midPointX -= dialogWidth / 2;
 
-  const dialogProps = {
-    size,
-    dialogHeight,
-    "aria-labelledby":
-      title && typeof title === "string" ? titleId : rest["aria-labelledby"],
-    "aria-describedby": subtitle ? subtitleId : rest["aria-describedby"],
-    "aria-label": rest["aria-label"],
-  };
+      if (midPointY < TOP_MARGIN) {
+        midPointY = TOP_MARGIN;
+      }
 
-  const componentTags = {
-    "data-component": rest["data-component"] || "dialog",
-    "data-element": rest["data-element"],
-    "data-role": rest["data-role"],
-  };
+      if (midPointX < 0) {
+        midPointX = 0;
+      }
 
-  return (
-    <Modal
-      open={open}
-      onCancel={onCancel}
-      disableEscKey={disableEscKey}
-      disableClose={disableClose}
-      className={className ? `${className} carbon-dialog` : "carbon-dialog"}
-      {...componentTags}
-    >
-      <FocusTrap
-        autoFocus={!disableAutoFocus}
-        focusFirstElement={focusFirstElement}
-        bespokeTrap={bespokeFocusTrap}
-        focusableSelectors={focusableSelectors}
-        wrapperRef={dialogRef}
-        isOpen={open}
-        additionalWrapperRefs={focusableContainers}
-      >
-        <StyledDialog
-          aria-modal={isTopModal ? true : undefined}
-          ref={dialogRef}
-          topMargin={TOP_MARGIN}
-          {...dialogProps}
-          data-component="dialog"
-          data-element="dialog"
-          data-role={rest["data-role"]}
-          role={role}
-          {...contentPadding}
+      containerRef.current.style.top = `${midPointY}px`;
+      containerRef.current.style.left = `${midPointX}px`;
+    }, []);
+
+    useResizeObserver(innerContentRef, centerDialog, !open);
+
+    const addListeners = useCallback(() => {
+      /* istanbul ignore else */
+      if (!listenersAdded.current) {
+        window.addEventListener("resize", centerDialog);
+        listenersAdded.current = true;
+      }
+    }, [centerDialog]);
+
+    const removeListeners = useCallback(() => {
+      if (listenersAdded.current) {
+        window.removeEventListener("resize", centerDialog);
+        listenersAdded.current = false;
+      }
+    }, [centerDialog]);
+
+    useEffect(() => {
+      if (open) {
+        addListeners();
+      }
+
+      if (!open) {
+        removeListeners();
+      }
+
+      return () => {
+        removeListeners();
+      };
+    }, [open, addListeners, removeListeners]);
+
+    useLayoutEffect(() => {
+      if (open) {
+        centerDialog();
+      }
+    }, [centerDialog, open, height]);
+
+    const closeIcon = () => {
+      if (!showCloseIcon || !onCancel) return null;
+
+      return (
+        <IconButton
+          data-element="close"
+          aria-label={locale.dialog.ariaLabels.close()}
+          onClick={onCancel}
+          disabled={disableClose}
         >
-          {dialogTitle()}
-          {closeIcon()}
-          <StyledDialogContent
+          <Icon type="close" />
+        </IconButton>
+      );
+    };
+
+    const dialogTitle = () => {
+      if (!title) return null;
+
+      return (
+        <StyledDialogTitle
+          showCloseIcon={showCloseIcon}
+          hasSubtitle={!!subtitle}
+          ref={titleRef}
+        >
+          {typeof title === "string" ? (
+            <Heading
+              data-element="dialog-title"
+              title={title}
+              titleId={titleId}
+              subheader={subtitle}
+              subtitleId={subtitleId}
+              divider={false}
+              help={help}
+            />
+          ) : (
+            title
+          )}
+        </StyledDialogTitle>
+      );
+    };
+
+    let dialogHeight = height;
+
+    if (height && height.match(/px$/)) {
+      dialogHeight = height.replace("px", "");
+    }
+
+    const dialogProps = {
+      size,
+      dialogHeight,
+      "aria-labelledby":
+        title && typeof title === "string" ? titleId : rest["aria-labelledby"],
+      "aria-describedby": subtitle ? subtitleId : rest["aria-describedby"],
+      "aria-label": rest["aria-label"],
+    };
+
+    const componentTags = {
+      "data-component": rest["data-component"] || "dialog",
+      "data-element": rest["data-element"],
+      "data-role": rest["data-role"],
+    };
+
+    return (
+      <Modal
+        open={open}
+        onCancel={onCancel}
+        disableEscKey={disableEscKey}
+        disableClose={disableClose}
+        className={className ? `${className} carbon-dialog` : "carbon-dialog"}
+        {...componentTags}
+      >
+        <FocusTrap
+          autoFocus={!disableAutoFocus}
+          focusFirstElement={focusFirstElement}
+          bespokeTrap={bespokeFocusTrap}
+          focusableSelectors={focusableSelectors}
+          wrapperRef={containerRef}
+          isOpen={open}
+          additionalWrapperRefs={focusableContainers}
+        >
+          <StyledDialog
+            aria-modal={isTopModal ? true : undefined}
+            ref={containerRef}
+            topMargin={TOP_MARGIN}
+            {...dialogProps}
+            data-component="dialog"
+            data-element="dialog"
+            data-role={rest["data-role"]}
+            role={role}
+            tabIndex={-1}
             {...contentPadding}
-            hasStickyFooter={hasStickyFooter}
           >
-            <StyledDialogInnerContent ref={innerContentRef} {...contentPadding}>
-              {children}
-            </StyledDialogInnerContent>
-          </StyledDialogContent>
-        </StyledDialog>
-      </FocusTrap>
-    </Modal>
-  );
-};
+            {dialogTitle()}
+            {closeIcon()}
+            <StyledDialogContent
+              {...contentPadding}
+              hasStickyFooter={hasStickyFooter}
+            >
+              <StyledDialogInnerContent
+                ref={innerContentRef}
+                {...contentPadding}
+              >
+                {children}
+              </StyledDialogInnerContent>
+            </StyledDialogContent>
+          </StyledDialog>
+        </FocusTrap>
+      </Modal>
+    );
+  }
+);
 
 export default Dialog;

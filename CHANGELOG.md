@@ -1,3 +1,24 @@
+### [120.6.1](https://github.com/Sage/carbon/compare/v120.6.0...v120.6.1) (2023-10-05)
+
+
+### Bug Fixes
+
+* **multi-action-button:** update styling to ensure corrext spacing when child buttons have icons ([a6b382a](https://github.com/Sage/carbon/commit/a6b382abd2e6ffaca0a54ab920da581f57fb763b)), closes [#6214](https://github.com/Sage/carbon/issues/6214)
+
+## [120.6.0](https://github.com/Sage/carbon/compare/v120.5.0...v120.6.0) (2023-10-04)
+
+
+### Features
+
+* **dialog:** expose focus method of root dom node via a ref handle ([4811e82](https://github.com/Sage/carbon/commit/4811e82205ae24f2efcb199640d1e0f129eee694)), closes [#6250](https://github.com/Sage/carbon/issues/6250)
+
+## [120.5.0](https://github.com/Sage/carbon/compare/v120.4.0...v120.5.0) (2023-10-02)
+
+
+### Features
+
+* **tile:** add support for passing custom height to component ([123630b](https://github.com/Sage/carbon/commit/123630b62c53b264606298a28f99a65cd136a39a)), closes [#6240](https://github.com/Sage/carbon/issues/6240)
+
 ## [120.4.0](https://github.com/Sage/carbon/compare/v120.3.1...v120.4.0) (2023-09-27)
 
 

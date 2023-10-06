@@ -68,6 +68,22 @@ context("Tests for Tile component", () => {
       }
     );
 
+    it.each([
+      ["30%", 50],
+      ["50%", 75],
+      [0, 86],
+    ] as [TileProps["height"], number][])(
+      "should check height as %s for Tile component",
+      (heightInPercentage, heightInPixel) => {
+        CypressMountWithProviders(
+          <testStories.TileComponent height={heightInPercentage} />
+        );
+        tile().then(($el) => {
+          assertCssValueIsApproximately($el, "height", heightInPixel);
+        });
+      }
+    );
+
     it("should check children for Tile component", () => {
       CypressMountWithProviders(
         <Tile>

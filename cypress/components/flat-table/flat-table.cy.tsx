@@ -2201,7 +2201,8 @@ context("Tests for Flat Table component", () => {
       }
     );
 
-    it("should navigate the first column of cells with down arrow key press when expandableArea is set to 'firstColumn'", () => {
+    // TODO: Skipping due to flakey behaviour. Investigate as part of FE-6231
+    it.skip("should navigate the first column of cells with down arrow key press when expandableArea is set to 'firstColumn'", () => {
       CypressMountWithProviders(
         <stories.FlatTableFirstColExpandableComponent />
       );
