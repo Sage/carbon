@@ -1,9 +1,16 @@
 import styled, { css } from "styled-components";
 
 import baseTheme from "../../style/themes/base";
+import visuallyHidden from "../../style/utils/visually-hidden";
+
+const StyledCharacterCountWrapper = styled.div``;
 
 const StyledCharacterCount = styled.div<{ isOverLimit: boolean }>`
-  text-align: right;
+  ::after {
+    content: " ";
+  }
+
+  text-align: left;
   font-size: 12px;
   margin-top: 4px;
   margin-bottom: 4px;
@@ -19,8 +26,33 @@ const StyledCharacterCount = styled.div<{ isOverLimit: boolean }>`
     `}
 `;
 
+const VisuallyHiddenCharacterCount = styled.div`
+  ::after {
+    content: " ";
+  }
+
+  ${visuallyHidden}
+`;
+
+const VisuallyHiddenHint = styled.div`
+  ::before {
+    content: " ";
+  }
+
+  ::after {
+    content: " ";
+  }
+
+  ${visuallyHidden}
+`;
+
 StyledCharacterCount.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledCharacterCount;
+export {
+  StyledCharacterCountWrapper,
+  StyledCharacterCount,
+  VisuallyHiddenCharacterCount,
+  VisuallyHiddenHint,
+};

@@ -12,7 +12,7 @@ import {
   WARNING_ICON,
   INFO_ICON,
   COMMON_INPUT_PREFIX,
-  COMMON_INPUT_CHARACTER_LIMIT,
+  CHARACTER_COUNT,
   CY_ROOT,
   PORTAL,
   LEGEND,
@@ -60,8 +60,7 @@ export const pressESCKeyOntoFocusedElement = () => {
   cy.focused().type("{esc}");
 };
 export const commonInputPrefix = () => cy.get(COMMON_INPUT_PREFIX);
-export const commonInputCharacterLimit = () =>
-  cy.get(COMMON_INPUT_CHARACTER_LIMIT);
+export const characterCount = () => cy.get(CHARACTER_COUNT);
 export const cyRoot = () => cy.get(CY_ROOT);
 export const portal = () => cy.get(PORTAL).eq(1).find("h1");
 export const stickyFooter = () => cy.get(STICKY_FOOTER);

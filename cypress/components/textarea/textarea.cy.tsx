@@ -18,7 +18,7 @@ import {
 import {
   getDataElementByValue,
   tooltipPreview,
-  commonInputCharacterLimit,
+  characterCount,
   body,
   getComponent,
   cyRoot,
@@ -31,7 +31,12 @@ import {
   VALIDATION,
 } from "../../support/component-helper/constants";
 
-import { textarea, textareaChildren } from "../../locators/textarea";
+import {
+  textarea,
+  textareaChildren,
+  visuallyHiddenCharacterCount,
+  visuallyHiddenHint,
+} from "../../locators/textarea";
 
 import { keyCode } from "../../support/helper";
 import { ICON } from "../../locators/locators";
@@ -185,30 +190,30 @@ context("Tests for Textarea component", () => {
         const overCharacters =
           charactersUsed - limit === 1 ? "character" : "characters";
 
-        CypressMountWithProviders(
-          <TextareaComponent
-            enforceCharacterLimit={false}
-            characterLimit={limit}
-          />
-        );
+        CypressMountWithProviders(<TextareaComponent characterLimit={limit} />);
 
         textareaChildren()
           .type(inputValue)
           .then(() => {
-            commonInputCharacterLimit()
+            characterCount()
               .should(
                 "have.text",
                 `${
                   charactersUsed - limit
-                    ? `You have ${
-                        charactersUsed - limit
-                      } ${overCharacters} too many`
-                    : `You have ${
-                        charactersUsed - limit
-                      } ${underCharacters} remaining`
+                    ? `${charactersUsed - limit} ${overCharacters} too many`
+                    : `${charactersUsed - limit} ${underCharacters} left`
                 }`
               )
               .and("have.css", "color", color);
+
+            visuallyHiddenCharacterCount().should(
+              "have.text",
+              `${
+                charactersUsed - limit
+                  ? `${charactersUsed - limit} ${overCharacters} too many`
+                  : `${charactersUsed - limit} ${underCharacters} left`
+              }`
+            );
           });
       }
     );
@@ -219,31 +224,51 @@ context("Tests for Textarea component", () => {
     ])(
       "input hint should be conditionally rendered",
       (inputHint, renderStatus) => {
-        CypressMountWithProviders(
-          <TextareaComponent
-            enforceCharacterLimit={false}
-            inputHint={inputHint}
-          />
-        );
+        CypressMountWithProviders(<TextareaComponent inputHint={inputHint} />);
 
         getDataElementByValue("input-hint").should(renderStatus);
       }
     );
 
     it.each([
-      [4, "exist"],
-      ["", "not.exist"],
+      [5, "exist"],
+      [null, "not.exist"],
     ] as [TextareaProps["characterLimit"], string][])(
-      "character counter hint should be conditionally rendered",
+      "character counter should be conditionally rendered",
       (characterLimit, renderStatus) => {
         CypressMountWithProviders(
-          <TextareaComponent
-            enforceCharacterLimit={false}
-            characterLimit={characterLimit}
-          />
+          <TextareaComponent characterLimit={characterLimit} />
         );
 
-        getDataElementByValue("input-hint").should(renderStatus);
+        characterCount().should(renderStatus);
+      }
+    );
+
+    it.each([
+      [5, "exist"],
+      [null, "not.exist"],
+    ] as [TextareaProps["characterLimit"], string][])(
+      "visually hidden character count should be conditionally rendered",
+      (characterLimit, renderStatus) => {
+        CypressMountWithProviders(
+          <TextareaComponent characterLimit={characterLimit} />
+        );
+
+        visuallyHiddenCharacterCount().should(renderStatus);
+      }
+    );
+
+    it.each([
+      [5, "exist"],
+      [null, "not.exist"],
+    ] as [TextareaProps["characterLimit"], string][])(
+      "visually hidden hint should be conditionally rendered",
+      (characterLimit, renderStatus) => {
+        CypressMountWithProviders(
+          <TextareaComponent characterLimit={characterLimit} />
+        );
+
+        visuallyHiddenHint().should(renderStatus);
       }
     );
 
@@ -267,41 +292,6 @@ context("Tests for Textarea component", () => {
         .parent()
         .should("have.css", "max-width", "100%");
     });
-
-    it.each([
-      [11, 11],
-      [10, 10],
-    ])(
-      "should input %s characters and enforce character limit of %s in Textarea",
-      (charactersUsed, limit) => {
-        const inputValue = "12345678901";
-        const underCharacters =
-          limit - charactersUsed === 1 ? "character" : "characters";
-        const overCharacters =
-          charactersUsed - limit === 1 ? "character" : "characters";
-
-        CypressMountWithProviders(
-          <TextareaComponent enforceCharacterLimit characterLimit={limit} />
-        );
-
-        textareaChildren()
-          .type(inputValue)
-          .then(() => {
-            commonInputCharacterLimit().should(
-              "have.text",
-              `${
-                charactersUsed - limit
-                  ? `You have ${
-                      limit - charactersUsed
-                    } ${underCharacters} too many`
-                  : `You have ${
-                      charactersUsed - limit
-                    } ${overCharacters} remaining`
-              }`
-            );
-          });
-      }
-    );
 
     it("should render Textarea with name prop", () => {
       CypressMountWithProviders(
@@ -749,12 +739,6 @@ context("Tests for Textarea component", () => {
 
     it("should pass accessibility tests for Textarea RequiredStory", () => {
       CypressMountWithProviders(<stories.RequiredStory />);
-
-      cy.checkAccessibility();
-    });
-
-    it("should pass accessibility tests for Textarea UnenforcedCharacterLimitStory", () => {
-      CypressMountWithProviders(<stories.UnenforcedCharacterLimitStory />);
 
       cy.checkAccessibility();
     });

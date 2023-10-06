@@ -66,7 +66,6 @@ export interface DateInputProps
     | "placeholder"
     | "iconOnClick"
     | "iconOnMouseDown"
-    | "enforceCharacterLimit"
     | "characterLimit"
     | "warnOverLimit"
     | "iconTabIndex"

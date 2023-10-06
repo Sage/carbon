@@ -29,15 +29,16 @@ const enGB: Locale = {
     yes: () => "Yes",
   },
   characterCount: {
-    hintString: () => "Input contains a character counter",
     tooManyCharacters: (count, formattedCount) =>
       count === 1
-        ? `You have ${formattedCount} character too many`
-        : `You have ${formattedCount} characters too many`,
+        ? `${formattedCount} character too many`
+        : `${formattedCount} characters too many`,
     charactersLeft: (count, formattedCount) =>
       count === 1
-        ? `You have ${formattedCount} character remaining`
-        : `You have ${formattedCount} characters remaining`,
+        ? `${formattedCount} character left`
+        : `${formattedCount} characters left`,
+    visuallyHiddenHint: (formattedCount) =>
+      `You can enter up to ${formattedCount} characters`,
   },
   date: {
     dateFnsLocale: () => enGBDateLocale,

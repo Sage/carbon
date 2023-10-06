@@ -104,7 +104,6 @@ export default {
     fieldHelp: "",
     characterLimit: undefined,
     inputWidth: 100,
-    enforceCharacterLimit: true,
     label: "Textarea",
     labelHelp: "",
     labelInline: false,

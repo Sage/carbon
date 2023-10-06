@@ -14,7 +14,10 @@ import StyledValidationIcon from "../../__internal__/validations/validation-icon
 import StyledPrefix from "./__internal__/prefix.style";
 import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
-import CharacterCount from "../../__internal__/character-count";
+import {
+  StyledCharacterCount,
+  VisuallyHiddenHint,
+} from "../../__internal__/character-count/character-count.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
@@ -79,25 +82,26 @@ describe("Textbox", () => {
       const overCharacters =
         valueString.length - characterLimit === 1 ? "character" : "characters";
 
-      expect(wrapper.find(CharacterCount).text()).toBe(
+      expect(wrapper.find(StyledCharacterCount).text()).toBe(
         `${
           limitMinusValue
-            ? `You have ${
-                characterLimit - valueString.length
-              } ${underCharacters} remaining`
-            : `You have ${
+            ? `${characterLimit - valueString.length} ${underCharacters} left`
+            : `${
                 valueString.length - characterLimit
               } ${overCharacters} too many`
         }`
       );
     });
 
-    it("renders a character counter hint", () => {
-      const wrapper = mount(
-        <Textbox value="test string" characterLimit={100} />
-      );
-      expect(wrapper.find(StyledInputHint).text()).toBe(
-        "Input contains a character counter"
+    it("visually hidden hint should have id generated via guid", () => {
+      const wrapper = mount(<Textbox value="foo" characterLimit={73} />);
+      expect(wrapper.find(VisuallyHiddenHint).prop("id")).toBe(mockedGuid);
+    });
+
+    it("that visually hidden hint id should be referenced in inputs aria-described by", () => {
+      const wrapper = mount(<Textbox value="foo" characterLimit={73} />);
+      expect(wrapper.find("input").prop("aria-describedby")).toContain(
+        mockedGuid
       );
     });
   });
@@ -142,46 +146,15 @@ describe("Textbox", () => {
     });
 
     it("renders a counter with an over limit warning", () => {
-      wrapper = mount(
-        <Textbox
-          value="test string"
-          characterLimit={10}
-          enforceCharacterLimit={false}
-        />
-      );
+      wrapper = mount(<Textbox value="test string" characterLimit={10} />);
 
       assertStyleMatch(
         {
           color: "var(--colorsSemanticNegative500)",
         },
-        wrapper.find(CharacterCount)
+        wrapper.find(StyledCharacterCount)
       );
     });
-  });
-
-  it.each([[2, 3, 4]])("sets max length", (characterLimit) => {
-    const valueString = "foo";
-    const limitMinusValue = characterLimit - valueString.length >= 0;
-    const wrapper = mount(
-      <Textbox value={valueString} characterLimit={characterLimit} />
-    );
-    const underCharacters =
-      characterLimit - valueString.length === 1 ? "character" : "characters";
-    const overCharacters =
-      valueString.length - characterLimit === 1 ? "character" : "characters";
-
-    expect(wrapper.find(CharacterCount).text()).toBe(
-      `${
-        limitMinusValue
-          ? `You have ${
-              characterLimit - valueString.length
-            } ${underCharacters} remaining`
-          : `You have ${
-              valueString.length - characterLimit
-            } ${overCharacters} too many`
-      }`
-    );
-    expect(wrapper.find("input").prop("maxLength")).toBe(characterLimit);
   });
 
   it.each([
@@ -375,7 +348,7 @@ describe("Textbox", () => {
             wrapper.find("input").simulate("focus");
 
             it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
-              expect(wrapper.find("input").prop("aria-describedby")).toBe(
+              expect(wrapper.find("input").prop("aria-describedby")).toContain(
                 `${id}-validation`
               );
             });
@@ -386,7 +359,7 @@ describe("Textbox", () => {
           it("should render a valid 'aria-describedby'", () => {
             const wrapper = mount(<Textbox {...commonProps} fieldHelp="baz" />);
 
-            expect(wrapper.find("input").prop("aria-describedby")).toBe(
+            expect(wrapper.find("input").prop("aria-describedby")).toContain(
               `${id}-field-help`
             );
           });
@@ -412,9 +385,13 @@ describe("Textbox", () => {
               wrapper.find("input").simulate("focus");
 
               it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
-                expect(wrapper.find("input").prop("aria-describedby")).toBe(
-                  `${id}-field-help ${id}-validation`
-                );
+                expect(
+                  wrapper.find("input").prop("aria-describedby")
+                ).toContain(`${id}-field-help`);
+
+                expect(
+                  wrapper.find("input").prop("aria-describedby")
+                ).toContain(`${id}-validation`);
               });
             }
           );
@@ -436,7 +413,9 @@ describe("Textbox", () => {
 
     it("should render a valid 'aria-describedby' on input", () => {
       const wrapper = mount(<Textbox inputHint="baz" />);
-      expect(wrapper.find("input").prop("aria-describedby")).toBe(mockedGuid);
+      expect(wrapper.find("input").prop("aria-describedby")).toContain(
+        mockedGuid
+      );
     });
   });
 
@@ -493,7 +472,7 @@ describe("Textbox", () => {
       const mockId = "foo";
       const wrapper = renderWithNewValidations({ id: mockId, error: "bar" });
 
-      expect(wrapper.find("input").prop("aria-describedby")).toBe(
+      expect(wrapper.find("input").prop("aria-describedby")).toContain(
         `${mockId}-validation`
       );
     });
