@@ -35,7 +35,6 @@ import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import cellSizes from "./cell-sizes.style";
 import { FLAT_TABLE_SIZES } from "./flat-table.config";
-import { StyledPagerContainer } from "../pager/pager.style";
 import Pager from "../pager/pager.component";
 import Logger from "../../__internal__/utils/logger";
 
@@ -584,9 +583,36 @@ describe("FlatTable", () => {
       );
     });
 
-    it("has the expected border radius styling when sticky footer rendered", () => {
-      const wrapper = mount(
-        <FlatTable hasStickyFooter footer={<Pager onPagination={jest.fn} />}>
+    it("when table's footer contains a Pager, override Pager's top border styling so it connects to the table", () => {
+      rtlRender(
+        <FlatTable
+          footer={<Pager data-testid="pager" onPagination={() => {}} />}
+        >
+          <FlatTableHead>
+            <FlatTableRow>heading one</FlatTableRow>
+          </FlatTableHead>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell>item one</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      const pager = screen.getByTestId("pager");
+      expect(pager).toHaveStyle({
+        borderTop: "none",
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+      });
+    });
+
+    it("when table's sticky footer contains a Pager, neither the table nor Pager has bottom rounded corners", () => {
+      rtlRender(
+        <FlatTable
+          hasStickyFooter
+          footer={<Pager data-testid="pager" onPagination={() => {}} />}
+        >
           <FlatTableHead>
             <FlatTableRow>
               <FlatTableHeader>heading one</FlatTableHeader>
@@ -600,24 +626,17 @@ describe("FlatTable", () => {
         </FlatTable>
       );
 
-      assertStyleMatch(
-        {
-          borderTopLeftRadius: "var(--borderRadius100)",
-          borderTopRightRadius: "var(--borderRadius100)",
-          borderBottomLeftRadius: undefined,
-          borderBottomRightRadius: undefined,
-        },
-        wrapper.find(StyledFlatTableWrapper)
-      );
+      const tableWrapper = screen.getByRole("region");
+      const pager = screen.getByTestId("pager");
 
-      assertStyleMatch(
-        {
-          borderBottomLeftRadius: "var(--borderRadius000)",
-          borderBottomRightRadius: "var(--borderRadius000)",
-        },
-        wrapper.find(StyledFlatTableFooter),
-        { modifier: `${StyledPagerContainer}` }
-      );
+      expect(tableWrapper).toHaveStyle({
+        borderBottomLeftRadius: undefined,
+        borderBottomRightRadius: undefined,
+      });
+      expect(pager).toHaveStyle({
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+      });
     });
 
     it("has the expected border radius styling when the first column has rowspan that spans over bottom row", () => {
