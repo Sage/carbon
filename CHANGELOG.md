@@ -1,3 +1,20 @@
+## [121.0.0](https://github.com/Sage/carbon/compare/v120.6.1...v121.0.0) (2023-10-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea, textbox:** The `enforceCharacterLimit` prop has been completely removed and is no longer
+supported. We recommend providing adequate feedback to users when they have exceeded the set
+`characterLimit` instead
+* **locale:** As the `hintString` translation key is public facing, its removal will mean a
+type / compile error may be thrown in consumers TypeScript projects
+
+### Bug Fixes
+
+* **locale:** remove `hintString` translation key ([b0042c4](https://github.com/Sage/carbon/commit/b0042c4e4589f76fc03476de24d00a3e7e26a36d))
+* **textarea, textbox:** improve character count accessibility and align with design system ([0e59173](https://github.com/Sage/carbon/commit/0e59173ab3c50426337f53919fd9888a01a8c632))
+* **textarea, textbox:** remove `enforceCharacterLimit` from textbox based inputs and textarea ([55d5dbf](https://github.com/Sage/carbon/commit/55d5dbf2f9c30faeddf837fe17dc26a0a4d6b4bf))
+
 ### [120.6.1](https://github.com/Sage/carbon/compare/v120.6.0...v120.6.1) (2023-10-05)
 
 
