@@ -258,3 +258,51 @@ export const isInViewport = async (page: Page, locator: Locator) => {
   });
   return rect.top <= bottom;
 };
+
+// adapted from Igor's code for Cypress util: https://www.npmjs.com/package/@dlgshi/cypress-plugin-designtokens?activeTab=code
+export const getDesignTokensByCssProperty = async (
+  page: Page,
+  locator: Locator,
+  cssProperty: string
+) => {
+  const element = await locator.elementHandle();
+  const tokens: string[] = await page.evaluate(
+    ([elem, cssProp]) => {
+      const tokenNames: string[] = [];
+      // Iterate over the stylesheets
+      for (let i = 0; i < document.styleSheets.length; i++) {
+        const styleSheet = document.styleSheets[i];
+        // Iterate over the CSS rules in the stylesheet
+        for (let k = 0; k < styleSheet.cssRules.length; k++) {
+          const newRule = styleSheet.cssRules[k];
+          // Check if the rule matches the cssProperty and the element
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          if (newRule.style[cssProp] && elem.matches(newRule.selectorText)) {
+            // Get all matches of the design token using a regular expression
+            const regex = /var\((--[^)]+)\)/g;
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const matches = newRule.style[cssProp].match(regex);
+            if (matches) {
+              // Iterate over the matches and push to tokenNames array
+              matches.forEach((match: string) => {
+                const tokenName = match.replace(/var\(|\)/g, "").trim();
+                if (tokenName) {
+                  tokenNames.push(tokenName);
+                }
+              });
+            }
+          }
+        }
+      }
+      return tokenNames;
+    },
+    [element, cssProperty]
+  );
+  if (tokens.length === 0) {
+    // eslint-disable-next-line no-console
+    console.error(`Design token for property ${cssProperty} not found`);
+  }
+  return tokens;
+};
