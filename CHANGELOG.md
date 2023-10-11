@@ -1,3 +1,10 @@
+### [121.0.1](https://github.com/Sage/carbon/compare/v121.0.0...v121.0.1) (2023-10-11)
+
+
+### Bug Fixes
+
+* **link:** refactor styles to remove focus-within due to issues with JSDOM ([b9065af](https://github.com/Sage/carbon/commit/b9065afb342d359949910212b2ed33d09a5c866e)), closes [#6320](https://github.com/Sage/carbon/issues/6320)
+
 ## [121.0.0](https://github.com/Sage/carbon/compare/v120.6.1...v121.0.0) (2023-10-06)
 
 
