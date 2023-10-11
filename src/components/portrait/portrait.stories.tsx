@@ -35,11 +35,11 @@ export const WithTooltip: ComponentStory<typeof Portrait> = () => (
 
 export const Sizes: ComponentStory<typeof Portrait> = () => {
   return (
-    <>
+    <Box display="flex" alignItems="baseline">
       {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
         <Portrait key={size} size={size} />
       ))}
-    </>
+    </Box>
   );
 };
 
@@ -61,10 +61,10 @@ export const DarkBackground: ComponentStory<typeof Portrait> = () => (
 );
 
 export const WithMargin: ComponentStory<typeof Portrait> = () => (
-  <>
+  <Box display="flex" alignItems="baseline">
     <Portrait m={3} />
     <Portrait darkBackground m={2} />
     <Portrait shape="circle" m="25px" />
     <Portrait size="L" m="30px" />
-  </>
+  </Box>
 );
