@@ -21,11 +21,7 @@ import { StyledLabelContainer } from "../../__internal__/label/label.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import {
-  ErrorBorder,
-  StyledHintText,
-  StyledInputHint,
-} from "../textbox/textbox.style";
+import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import StyledTextarea from "./textarea.style";
 import Logger from "../../__internal__/utils/logger";
@@ -257,12 +253,12 @@ describe("Textarea", () => {
         describe("and inputHint props are present", () => {
           it("renders a character counter hint", () => {
             wrapper = mount(<Textarea value="test string" inputHint="foo" />);
-            expect(wrapper.find(StyledInputHint).text()).toBe("foo");
+            expect(wrapper.find(StyledHintText).text()).toBe("foo");
           });
 
           it("assigns a character counter hint via guid", () => {
             wrapper = mount(<Textarea value="test string" inputHint="bar" />);
-            expect(wrapper.find(StyledInputHint).prop("id")).toBe(mockedGuid);
+            expect(wrapper.find(StyledHintText).prop("id")).toBe(mockedGuid);
           });
 
           it("should render a valid 'aria-describedby' on input", () => {
@@ -270,6 +266,19 @@ describe("Textarea", () => {
             expect(wrapper.find("textarea").prop("aria-describedby")).toContain(
               mockedGuid
             );
+          });
+
+          it("rendered text should be provided via inputHint, when labelHelp is also passed", () => {
+            wrapper = mount(
+              <CarbonProvider validationRedesignOptIn>
+                <Textarea
+                  labelHelp="labelHelp"
+                  inputHint="inputHint"
+                  error="foo"
+                />
+              </CarbonProvider>
+            );
+            expect(wrapper.find(StyledHintText).text()).toBe("inputHint");
           });
         });
 
