@@ -22,11 +22,3 @@ export const Default = (props: IconButtonProps) => {
 };
 
 Default.storyName = "default";
-
-export const IconButtonComponent = (props: Partial<IconButtonProps>) => {
-  return (
-    <IconButton aria-label="icon-button" onClick={() => {}} {...props}>
-      <Icon type="home" />
-    </IconButton>
-  );
-};
