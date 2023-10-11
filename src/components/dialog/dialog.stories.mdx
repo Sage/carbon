@@ -92,21 +92,21 @@ For situations where content cannot be rendered immediately, such as content dep
 
 Note in the previous example, the first `Textbox` in the loaded content has autofocus, which is recommended so assistive technology users are informed of the updated content.
 
-Alternatively, focus can be programmatically moved back to the `Dialog` to inform assistive technology users of a content change:
+Alternatively, focus can be programmatically moved back to the `Dialog` if the title or subtitle has been updated as part of a content change. Most screen readers will then announce the new title indicating to users that the dialog has changed:
 
 <Canvas>
   <Story
-    name="refocusing dialog after content change"
+    name="refocusing dialog using ref handle"
     story={stories.UsingHandle}
   />
 </Canvas>
 
-A custom ref handle can be forwarded to the `Dialog` component:
+To achieve this, a custom ref handle can be forwarded to the `Dialog` component:
 
 ```tsx
 const dialogHandle = useRef<DialogHandle>(null);
 return (
-  <Dialog ref={dialogHandle}>
+  <Dialog title="Thank you for your feedback" ref={dialogHandle}>
     Your feedback helps us continually improve our software.
   </Dialog>
 );
@@ -120,8 +120,8 @@ dialogHandle.current?.focus();
 
 ### Overriding the content padding
 
-Using the `contentPadding` prop will enable the padding of the `Dialog` content to be overriden, the example below has
-set the padding to 0. Please see the [table below](#props) for more iformation about the values accepted by this prop.
+Using the `contentPadding` prop will enable the padding of the `Dialog` content to be overridden, the example below has
+set the padding to 0. Please see the [table below](#props) for more information about the values accepted by this prop.
 
 <Canvas>
   <Story
