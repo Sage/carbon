@@ -1,3 +1,10 @@
+### [121.0.2](https://github.com/Sage/carbon/compare/v121.0.1...v121.0.2) (2023-10-12)
+
+
+### Bug Fixes
+
+* **pager:** make top corners rounded ([7ea657a](https://github.com/Sage/carbon/commit/7ea657a283ff08ceb9801dfe5c45692f1ceee450))
+
 ### [121.0.1](https://github.com/Sage/carbon/compare/v121.0.0...v121.0.1) (2023-10-11)
 
 
