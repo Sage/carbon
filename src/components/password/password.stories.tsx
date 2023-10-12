@@ -59,7 +59,6 @@ export const CharacterCounter = () => {
       value={state}
       characterLimit={10}
       onChange={setValue}
-      enforceCharacterLimit={false}
     />
   );
 };

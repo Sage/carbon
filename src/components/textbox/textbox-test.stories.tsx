@@ -30,7 +30,6 @@ export const getCommonTextboxArgs = (
     size: "medium",
     inputIcon: undefined,
     required: false,
-    enforceCharacterLimit: false,
     characterLimit: undefined,
     error: "",
     warning: "",

@@ -51,8 +51,6 @@ export interface TextareaProps
   cols?: number;
   /** If true, the component will be disabled */
   disabled?: boolean;
-  /** Stop the user typing over the characterLimit */
-  enforceCharacterLimit?: boolean;
   /** Indicate that error has occurred
   Pass string to display icon, tooltip and red border
   Pass true boolean to only display red border */
@@ -136,7 +134,6 @@ export const Textarea = React.forwardRef(
       size,
       children,
       characterLimit,
-      enforceCharacterLimit = true,
       onChange,
       disabled = false,
       labelInline,
@@ -254,12 +251,10 @@ export const Textarea = React.forwardRef(
       fieldHelp,
     });
 
-    const [
-      maxLength,
-      characterCount,
-      characterCountHintId,
-      characterCountHint,
-    ] = useCharacterCount(value, characterLimit, enforceCharacterLimit);
+    const [characterCount, visuallyHiddenHintId] = useCharacterCount(
+      value,
+      characterLimit
+    );
 
     useEffect(() => {
       if (rows) {
@@ -293,18 +288,13 @@ export const Textarea = React.forwardRef(
     const hasIconInside = !!(inputIcon || (validationId && !validationOnLabel));
 
     const hintId = useRef(guid());
+    const inputHintId = inputHint ? hintId.current : undefined;
 
-    const characterCountHintIdValue = characterCount
-      ? characterCountHintId
-      : undefined;
-
-    const inputHintIdValue = inputHint ? hintId.current : undefined;
-
-    const hintIdValue = characterLimit
-      ? characterCountHintIdValue
-      : inputHintIdValue;
-
-    const combinedAriaDescribedBy = [ariaDescribedBy, hintIdValue]
+    const combinedAriaDescribedBy = [
+      ariaDescribedBy,
+      inputHintId,
+      visuallyHiddenHintId,
+    ]
       .filter(Boolean)
       .join(" ");
 
@@ -329,7 +319,6 @@ export const Textarea = React.forwardRef(
           name={name}
           value={value}
           ref={callbackRef}
-          maxLength={maxLength}
           onChange={onChange}
           disabled={disabled}
           readOnly={readOnly}
@@ -393,9 +382,9 @@ export const Textarea = React.forwardRef(
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
               validationRedesignOptIn={validationRedesignOptIn}
             >
-              {characterLimit || inputHint ? (
-                <StyledInputHint id={hintIdValue} data-element="input-hint">
-                  {characterCountHint || inputHint}
+              {inputHint ? (
+                <StyledInputHint id={inputHintId} data-element="input-hint">
+                  {inputHint}
                 </StyledInputHint>
               ) : null}
               {validationRedesignOptIn && labelHelp && (

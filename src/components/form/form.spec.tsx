@@ -40,7 +40,6 @@ import StyledSelect from "../select/select.style";
 import InlineInputs from "../inline-inputs";
 import StyledInlineInputs from "../inline-inputs/inline-inputs.style";
 
-jest.mock("lodash/debounce", () => jest.fn((fn) => fn));
 jest.mock("../../hooks/__internal__/useResizeObserver");
 
 describe("Form", () => {

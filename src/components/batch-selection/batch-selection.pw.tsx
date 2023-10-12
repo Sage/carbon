@@ -47,7 +47,7 @@ test.describe("check BatchSelection component properties", () => {
   test("should check disabled BatchSelection", async ({ mount, page }) => {
     await mount(<BatchSelectionComponent disabled />);
     const batchSelection = batchSelectionComponent(page);
-    await expect(batchSelection.getAttribute("disabled")).not.toBeNull();
+    await expect(batchSelection).toHaveAttribute("disabled", "");
   });
 
   ([

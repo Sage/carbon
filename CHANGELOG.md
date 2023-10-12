@@ -1,3 +1,34 @@
+### [121.0.1](https://github.com/Sage/carbon/compare/v121.0.0...v121.0.1) (2023-10-11)
+
+
+### Bug Fixes
+
+* **link:** refactor styles to remove focus-within due to issues with JSDOM ([b9065af](https://github.com/Sage/carbon/commit/b9065afb342d359949910212b2ed33d09a5c866e)), closes [#6320](https://github.com/Sage/carbon/issues/6320)
+
+## [121.0.0](https://github.com/Sage/carbon/compare/v120.6.1...v121.0.0) (2023-10-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea, textbox:** The `enforceCharacterLimit` prop has been completely removed and is no longer
+supported. We recommend providing adequate feedback to users when they have exceeded the set
+`characterLimit` instead
+* **locale:** As the `hintString` translation key is public facing, its removal will mean a
+type / compile error may be thrown in consumers TypeScript projects
+
+### Bug Fixes
+
+* **locale:** remove `hintString` translation key ([b0042c4](https://github.com/Sage/carbon/commit/b0042c4e4589f76fc03476de24d00a3e7e26a36d))
+* **textarea, textbox:** improve character count accessibility and align with design system ([0e59173](https://github.com/Sage/carbon/commit/0e59173ab3c50426337f53919fd9888a01a8c632))
+* **textarea, textbox:** remove `enforceCharacterLimit` from textbox based inputs and textarea ([55d5dbf](https://github.com/Sage/carbon/commit/55d5dbf2f9c30faeddf837fe17dc26a0a4d6b4bf))
+
+### [120.6.1](https://github.com/Sage/carbon/compare/v120.6.0...v120.6.1) (2023-10-05)
+
+
+### Bug Fixes
+
+* **multi-action-button:** update styling to ensure corrext spacing when child buttons have icons ([a6b382a](https://github.com/Sage/carbon/commit/a6b382abd2e6ffaca0a54ab920da581f57fb763b)), closes [#6214](https://github.com/Sage/carbon/issues/6214)
+
 ## [120.6.0](https://github.com/Sage/carbon/compare/v120.5.0...v120.6.0) (2023-10-04)
 
 

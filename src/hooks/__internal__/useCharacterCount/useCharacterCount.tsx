@@ -1,22 +1,28 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useEffect, useState } from "react";
 import CharacterCount from "../../../__internal__/character-count";
-import useLocale from "../useLocale";
 import guid from "../../../__internal__/utils/helpers/guid";
+import useDebounce from "../useDebounce";
 
 const useCharacterCount = (
   value = "",
-  characterLimit?: number,
-  enforceCharacterLimit = true
-): [
-  number | undefined,
-  JSX.Element | null,
-  string | undefined,
-  string | null
-] => {
+  characterLimit?: number
+): [JSX.Element | null, string | undefined] => {
   const isCharacterLimitValid =
     typeof characterLimit === "number" && !Number.isNaN(characterLimit);
-  const l = useLocale();
-  const hintString = l.characterCount.hintString();
+
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  const debounceWaitTime = 2000;
+
+  const updateDebouncedValue = useDebounce((newValue) => {
+    setDebouncedValue(newValue);
+  }, debounceWaitTime);
+
+  useEffect(() => {
+    if (characterLimit) {
+      updateDebouncedValue(value);
+    }
+  }, [value, characterLimit, updateDebouncedValue]);
+
   const hintId = useRef(guid());
   const isOverLimit = useMemo(() => {
     if (value && isCharacterLimitValid) {
@@ -25,18 +31,25 @@ const useCharacterCount = (
     return false;
   }, [value, characterLimit, isCharacterLimitValid]);
 
+  const isDebouncedOverLimit = useMemo(() => {
+    if (debouncedValue && isCharacterLimitValid) {
+      return debouncedValue.length > characterLimit;
+    }
+    return false;
+  }, [debouncedValue, characterLimit, isCharacterLimitValid]);
+
   return [
-    enforceCharacterLimit && isCharacterLimitValid ? characterLimit : undefined,
     isCharacterLimitValid ? (
       <CharacterCount
         isOverLimit={isOverLimit}
+        isDebouncedOverLimit={isDebouncedOverLimit}
         value={value.length}
+        debouncedValue={debouncedValue.length}
         limit={characterLimit}
-        data-element="character-limit"
+        visuallyHiddenHintId={hintId.current}
       />
     ) : null,
-    hintId.current,
-    isCharacterLimitValid ? hintString : null,
+    isCharacterLimitValid ? hintId.current : undefined,
   ];
 };
 

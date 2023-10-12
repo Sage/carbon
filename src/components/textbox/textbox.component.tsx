@@ -124,8 +124,6 @@ export interface TextboxProps extends CommonTextboxProps {
   positionedChildren?: React.ReactNode;
   /** Character limit of the textarea */
   characterLimit?: number;
-  /** Stop the user typing over the characterLimit */
-  enforceCharacterLimit?: boolean;
 }
 
 let deprecateInputRefWarnTriggered = false;
@@ -183,7 +181,6 @@ export const Textbox = React.forwardRef(
       "data-component": dataComponent,
       "data-element": dataElement,
       "data-role": dataRole,
-      enforceCharacterLimit = true,
       characterLimit,
       helpAriaLabel,
       ...props
@@ -191,22 +188,17 @@ export const Textbox = React.forwardRef(
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const characterCountValue = typeof value === "string" ? value : "";
-    const [
-      maxLength,
-      characterCount,
-      characterCountHintId,
-      characterCountHint,
-    ] = useCharacterCount(
+
+    const [uniqueId, uniqueName] = useUniqueId(id, name);
+
+    const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       characterCountValue,
-      characterLimit,
-      enforceCharacterLimit
+      characterLimit
     );
     const { validationRedesignOptIn } = useContext(NewValidationContext);
     const { disableErrorBorder } = useContext(NumeralDateContext);
     const computeLabelPropValues = <T,>(prop: T): undefined | T =>
       validationRedesignOptIn ? undefined : prop;
-
-    const [uniqueId, uniqueName] = useUniqueId(id, name);
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -238,18 +230,13 @@ export const Textbox = React.forwardRef(
     });
 
     const hintId = useRef(guid());
+    const inputHintId = inputHint ? hintId.current : undefined;
 
-    const characterCountHintIdValue = characterCount
-      ? characterCountHintId
-      : undefined;
-
-    const inputHintIdValue = inputHint ? hintId.current : undefined;
-
-    const hintIdValue = characterLimit
-      ? characterCountHintIdValue
-      : inputHintIdValue;
-
-    const combinedAriaDescribedBy = [ariaDescribedBy, hintIdValue]
+    const combinedAriaDescribedBy = [
+      ariaDescribedBy,
+      inputHintId,
+      visuallyHiddenHintId,
+    ]
       .filter(Boolean)
       .join(" ");
 
@@ -298,7 +285,6 @@ export const Textbox = React.forwardRef(
           placeholder={disabled || readOnly ? "" : placeholder}
           readOnly={readOnly}
           value={typeof formattedValue === "string" ? formattedValue : value}
-          maxLength={maxLength}
           validationIconId={validationRedesignOptIn ? undefined : validationId}
           {...props}
         />
@@ -356,9 +342,9 @@ export const Textbox = React.forwardRef(
             validationRedesignOptIn={validationRedesignOptIn}
             {...filterStyledSystemMarginProps(props)}
           >
-            {characterLimit || inputHint ? (
-              <StyledInputHint id={hintIdValue} data-element="input-hint">
-                {characterCountHint || inputHint}
+            {inputHint ? (
+              <StyledInputHint id={inputHintId} data-element="input-hint">
+                {inputHint}
               </StyledInputHint>
             ) : null}
             {validationRedesignOptIn && labelHelp && (

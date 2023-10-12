@@ -81,7 +81,6 @@ const plPL: Locale = {
     yes: () => "Tak",
   },
   characterCount: {
-    hintString: () => "Pole zawiera licznik znaków",
     tooManyCharacters: (count, formattedCount) =>
       `Masz o ${formattedCount} ${PolishPlural(
         "znak",
@@ -96,6 +95,8 @@ const plPL: Locale = {
         "pozostałych",
         count
       )} ${PolishPlural("znak", "znaki", "znaków", count)}`,
+    visuallyHiddenHint: (formattedCount) =>
+      `Można wprowadzić do ${formattedCount} znaków`,
   },
 
   date: {

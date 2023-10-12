@@ -5,7 +5,10 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import CharacterCount from "../../__internal__/character-count";
+import {
+  StyledCharacterCount,
+  VisuallyHiddenHint,
+} from "../../__internal__/character-count/character-count.style";
 import Textarea, { TextareaProps } from ".";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
@@ -244,9 +247,9 @@ describe("Textarea", () => {
             textarea.find("textarea").simulate("focus");
 
             it('then the id of the validation tooltip should be added to "aria-describedby" in the textarea element', () => {
-              expect(textarea.find("textarea").prop("aria-describedby")).toBe(
-                `${id}-validation`
-              );
+              expect(
+                textarea.find("textarea").prop("aria-describedby")
+              ).toContain(`${id}-validation`);
             });
           }
         );
@@ -264,7 +267,7 @@ describe("Textarea", () => {
 
           it("should render a valid 'aria-describedby' on input", () => {
             wrapper = mount(<Textarea inputHint="baz" />);
-            expect(wrapper.find("textarea").prop("aria-describedby")).toBe(
+            expect(wrapper.find("textarea").prop("aria-describedby")).toContain(
               mockedGuid
             );
           });
@@ -276,9 +279,9 @@ describe("Textarea", () => {
               <Textarea {...commonProps} fieldHelp="baz" />
             );
 
-            expect(textarea.find("textarea").prop("aria-describedby")).toBe(
-              `${id}-field-help`
-            );
+            expect(
+              textarea.find("textarea").prop("aria-describedby")
+            ).toContain(`${id}-field-help`);
           });
 
           it("should pass fieldHelpId to FormField", () => {
@@ -303,9 +306,12 @@ describe("Textarea", () => {
               textarea.find("textarea").simulate("focus");
 
               it('then the id of the validation tooltip should be added to "aria-describedby" in the textarea element', () => {
-                expect(textarea.find("textarea").prop("aria-describedby")).toBe(
-                  `${id}-field-help ${id}-validation`
-                );
+                expect(
+                  textarea.find("textarea").prop("aria-describedby")
+                ).toContain(`${id}-field-help`);
+                expect(
+                  textarea.find("textarea").prop("aria-describedby")
+                ).toContain(`${id}-validation`);
               });
             }
           );
@@ -326,30 +332,27 @@ describe("Textarea", () => {
       const overCharacters =
         valueString.length - characterLimit === 1 ? "character" : "characters";
 
-      expect(wrapper.find(CharacterCount).text()).toBe(
+      expect(wrapper.find(StyledCharacterCount).text()).toBe(
         `${
           limitMinusValue
-            ? `You have ${
-                characterLimit - valueString.length
-              } ${underCharacters} remaining`
-            : `You have ${
+            ? `${characterLimit - valueString.length} ${underCharacters} left`
+            : `${
                 valueString.length - characterLimit
               } ${overCharacters} too many`
         }`
       );
     });
 
-    it("renders a character counter hint", () => {
-      wrapper = mount(<Textarea value="foo" characterLimit={4} />);
-
-      expect(wrapper.find(StyledInputHint).text()).toBe(
-        "Input contains a character counter"
-      );
+    it("visually hidden hint should have id generated via guid", () => {
+      wrapper = mount(<Textarea value="foo" characterLimit={73} />);
+      expect(wrapper.find(VisuallyHiddenHint).prop("id")).toBe(mockedGuid);
     });
 
-    it("character counter hint is given a valid id", () => {
-      wrapper = mount(<Textarea value="test string" characterLimit={4} />);
-      expect(wrapper.find(StyledInputHint).prop("id")).toBe(mockedGuid);
+    it("that visually hidden hint id should be referenced in inputs aria-described by", () => {
+      wrapper = mount(<Textarea value="foo" characterLimit={73} />);
+      expect(wrapper.find("textarea").prop("aria-describedby")).toContain(
+        mockedGuid
+      );
     });
   });
 
@@ -392,7 +395,7 @@ describe("Textarea", () => {
     });
 
     it("should have not a CharacterCount as it's child", () => {
-      expect(wrapper.find(CharacterCount).exists()).toBe(false);
+      expect(wrapper.find(StyledCharacterCount).exists()).toBe(false);
     });
 
     it("should only have a placeholder if not disabled", () => {
@@ -406,7 +409,7 @@ describe("Textarea", () => {
       });
 
       it("should have a CharacterCount as it's child", () => {
-        expect(wrapper.find(CharacterCount).exists()).toBe(true);
+        expect(wrapper.find(StyledCharacterCount).exists()).toBe(true);
       });
     });
   });
@@ -602,7 +605,7 @@ describe("componentWillUnmount", () => {
       const mockId = "foo";
       const wrapper = renderWithNewValidations({ id: mockId, error: "bar" });
 
-      expect(wrapper.find("textarea").prop("aria-describedby")).toBe(
+      expect(wrapper.find("textarea").prop("aria-describedby")).toContain(
         `${mockId}-validation`
       );
     });

@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo, useState } from "react";
 
 import Icon, { IconType } from "../icon";
 import MenuContext from "../menu/menu.context";
@@ -82,6 +82,7 @@ export const Link = React.forwardRef<
     }: LinkProps,
     ref
   ) => {
+    const [hasFocus, setHasFocus] = useState(false);
     const l = useLocale();
     const { inMenu } = useContext(MenuContext);
     const handleOnKeyDown = (
@@ -141,6 +142,8 @@ export const Link = React.forwardRef<
       rel,
       "aria-label": ariaLabel,
       ...ariaProps,
+      onFocus: () => setHasFocus(true),
+      onBlur: () => setHasFocus(false),
     };
 
     const buttonProps = {
@@ -160,7 +163,6 @@ export const Link = React.forwardRef<
           ? {
               ...componentProps,
               ...buttonProps,
-              placeholderTabIndex,
             }
           : {
               ...componentProps,
@@ -192,6 +194,7 @@ export const Link = React.forwardRef<
         isMenuItem={inMenu}
         {...tagComponent("link", rest)}
         {...(isSkipLink && { "data-element": "skip-link" })}
+        hasFocus={hasFocus}
       >
         {createLinkBasedOnType()}
       </StyledLink>

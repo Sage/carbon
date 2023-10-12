@@ -84,8 +84,10 @@ context("Testing Menu component", () => {
       innerMenu(positionOfElement("third"), span).click({ multiple: true });
       cy.focused().tab();
       cy.focused().should("contain", "Item Submenu Three");
+      cy.focused().parent().should("have.css", "box-shadow", "none");
       cy.focused().tab();
       cy.focused().should("contain", "Item Submenu Four");
+      cy.focused().parent().should("have.css", "box-shadow", "none");
     });
 
     it("should verify a submenu can be navigated using keyboard down arrow after an item was clicked", () => {
