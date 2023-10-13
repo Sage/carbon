@@ -7,10 +7,7 @@ import {
   buttonDataComponent,
 } from "../../../playwright/components/button/index";
 import { ICON } from "../../../playwright/components/locators";
-import {
-  checkAccessibility,
-  expectEventWasCalledOnce,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import {
   dlsRoot,
   icon,
@@ -54,8 +51,6 @@ import {
 } from "./components.test-pw";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-
-const messages: string[] = [];
 
 test.describe("Button component", () => {
   testData.forEach((label) => {
@@ -189,83 +184,82 @@ test.describe("Check events for Button component", () => {
     mount,
     page,
   }) => {
+    let callbackCount = 0;
     await mount(
       <Button
-        onClick={(data) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          messages.push(data);
+        onClick={() => {
+          callbackCount += 1;
         }}
       >
         Foo
       </Button>
     );
 
-    await buttonDataComponent(page).click();
-
-    await expectEventWasCalledOnce(messages, "onClick");
+    const buttonComponent = page.getByRole("button");
+    await buttonComponent.click();
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onBlur callback when a blur event is triggered", async ({
     mount,
     page,
   }) => {
+    let callbackCount = 0;
     await mount(
       <Button
-        onBlur={(data) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          messages.push(data);
+        onBlur={() => {
+          callbackCount += 1;
         }}
       >
         Foo
       </Button>
     );
 
-    await buttonDataComponent(page).focus();
-    await buttonDataComponent(page).blur();
-    await expect(buttonDataComponent(page)).not.toBeFocused();
-    await expectEventWasCalledOnce(messages, "onBlur");
+    const buttonComponent = page.getByRole("button");
+    await buttonComponent.focus();
+    await buttonComponent.blur();
+    await expect(buttonComponent).not.toBeFocused();
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onKeyDown callback when a keydown event is triggered", async ({
     mount,
     page,
   }) => {
+    let callbackCount = 0;
     await mount(
       <Button
-        onKeyDown={(data) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          messages.push(data);
+        onKeyDown={() => {
+          callbackCount += 1;
         }}
       >
         Foo
       </Button>
     );
 
-    await buttonDataComponent(page).press("Enter");
-    await expectEventWasCalledOnce(messages, "onKeyDown");
+    const buttonComponent = page.getByRole("button");
+    await buttonComponent.press("Enter");
+    expect(callbackCount).toBe(1);
   });
 
   test("should call onFocus callback when a focus event is triggered", async ({
     mount,
     page,
   }) => {
+    let callbackCount = 0;
     await mount(
       <Button
-        onFocus={(data) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          messages.push(data);
+        onFocus={() => {
+          callbackCount += 1;
         }}
       >
         Foo
       </Button>
     );
 
-    await buttonDataComponent(page).focus();
-    await expectEventWasCalledOnce(messages, "onFocus");
+    const buttonComponent = page.getByRole("button");
+    await buttonComponent.focus();
+    expect(callbackCount).toBe(1);
   });
 });
 
