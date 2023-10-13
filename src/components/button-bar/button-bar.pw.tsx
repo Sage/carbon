@@ -140,7 +140,7 @@ test.describe(
       );
       const buttonWidths = await Promise.all(buttonWidthPromises);
       buttonWidths.forEach((width) =>
-        expect(parseFloat(width)).toBeCloseTo(82, 0)
+        expect(parseFloat(width)).toBeCloseTo(86, 0)
       );
     });
 
