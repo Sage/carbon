@@ -1,13 +1,12 @@
-import { LINK } from "../locators";
+import { CHARACTER_COUNT, LINK } from "../locators";
 import {
   TEXT_EDITOR_CONTAINER,
-  TEXT_EDITOR_COUNTER,
   TEXT_EDITOR_INPUT,
   TEXT_EDITOR_TOOLBAR,
 } from "./locators";
 
 // component preview locators
-export const textEditorCounter = () => cy.get(TEXT_EDITOR_COUNTER);
+export const textEditorCounter = () => cy.get(CHARACTER_COUNT);
 export const textEditorInput = () => cy.get(TEXT_EDITOR_INPUT);
 export const textEditorToolbar = (buttonType) =>
   cy

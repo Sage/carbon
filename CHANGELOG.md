@@ -1,3 +1,11 @@
+## [121.1.0](https://github.com/Sage/carbon/compare/v121.0.2...v121.1.0) (2023-10-17)
+
+
+### Features
+
+* **character-count:** increase font size to 14px and update styles to use relevant tokens ([3e690ad](https://github.com/Sage/carbon/commit/3e690ada80d5a59ba2192b194409c77c8022d490))
+* **text-editor:** add support for new validation designs ([91bb986](https://github.com/Sage/carbon/commit/91bb986f0714a6e1267ab558469578ee2b210554))
+
 ### [121.0.2](https://github.com/Sage/carbon/compare/v121.0.1...v121.0.2) (2023-10-12)
 
 

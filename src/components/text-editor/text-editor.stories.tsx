@@ -6,11 +6,13 @@ import TextEditor, {
 } from "./text-editor.component";
 import Button from "../button";
 import EditorLinkPreview from "../link-preview";
+import Box from "../box";
+import CarbonProvider from "../carbon-provider";
 
 export const Default = () => {
   const [value, setValue] = useState(EditorState.createEmpty());
   return (
-    <div style={{ padding: "4px" }}>
+    <Box padding={1}>
       <TextEditor
         onChange={(newValue) => {
           setValue(newValue);
@@ -18,7 +20,7 @@ export const Default = () => {
         value={value}
         labelText="Text Editor Label"
       />
-    </div>
+    </Box>
   );
 };
 
@@ -31,7 +33,7 @@ export const WithContent = () => {
     )
   );
   return (
-    <div style={{ padding: "4px" }}>
+    <Box padding={1}>
       <TextEditor
         onChange={(newValue) => {
           setValue(newValue);
@@ -40,7 +42,7 @@ export const WithContent = () => {
         labelText="Text Editor Label"
         required
       />
-    </div>
+    </Box>
   );
 };
 
@@ -48,15 +50,13 @@ WithContent.storyName = "with content";
 
 export const WithOptionalButtons = () => {
   const [value, setValue] = useState(EditorState.createEmpty());
-  const ref = useRef(null);
   return (
-    <div style={{ padding: "4px" }}>
+    <Box padding={1}>
       <TextEditor
         onChange={(newValue) => {
           setValue(newValue);
         }}
         value={value}
-        ref={ref}
         toolbarElements={[
           <Button key="cancel button" buttonType="tertiary" onClick={() => {}}>
             Cancel
@@ -73,7 +73,7 @@ export const WithOptionalButtons = () => {
         ]}
         labelText="Text Editor Label"
       />
-    </div>
+    </Box>
   );
 };
 
@@ -82,19 +82,17 @@ WithOptionalButtons.storyName = "with optional buttons";
 export const WithOptionalCharacterLimit = () => {
   const [value, setValue] = useState(EditorState.createEmpty());
   const limit = 100;
-  const ref = useRef(null);
   return (
-    <div style={{ padding: "4px" }}>
+    <Box padding={1}>
       <TextEditor
         onChange={(newValue) => {
           setValue(newValue);
         }}
         value={value}
-        ref={ref}
         labelText="Text Editor Label"
         characterLimit={limit}
       />
-    </div>
+    </Box>
   );
 };
 
@@ -106,24 +104,21 @@ export const WithValidation = () => {
   );
   const limit = 16;
   const contentLength = value.getCurrentContent().getPlainText().length;
-  const ref = useRef(null);
   return (
-    <div style={{ padding: "4px" }}>
+    <Box padding={1}>
       <TextEditor
         onChange={(newValue) => {
           setValue(newValue);
         }}
         value={value}
-        ref={ref}
         labelText="Text Editor Label"
         characterLimit={limit}
         error={limit - contentLength <= 5 ? "There is an error" : undefined}
-        warning={
-          limit - contentLength <= 10 ? "There is an warning" : undefined
-        }
+        warning={limit - contentLength <= 10 ? "There is a warning" : undefined}
         info={limit - contentLength <= 15 ? "There is an info" : undefined}
+        inputHint="Some additional hint text"
       />
-    </div>
+    </Box>
   );
 };
 
@@ -135,7 +130,6 @@ export const WithMultilineValidation = () => {
   );
   const limit = 16;
   const contentLength = value.getCurrentContent().getPlainText().length;
-  const ref = useRef(null);
   const error =
     limit - contentLength <= 5
       ? `There is an error.
@@ -143,28 +137,56 @@ The content is too long.
 Maybe try writing a little bit less?`
       : undefined;
   return (
-    <div style={{ padding: "4px" }}>
+    <Box padding={1}>
       <TextEditor
         onChange={(newValue) => {
           setValue(newValue);
         }}
         value={value}
-        ref={ref}
         labelText="Text Editor Label"
         characterLimit={limit}
         error={error}
       />
-    </div>
+    </Box>
   );
 };
 
 WithMultilineValidation.storyName = "with multiline validation";
 
+export const WithNewValidation = () => {
+  const [value, setValue] = useState(
+    EditorState.createWithContent(ContentState.createFromText("Add content"))
+  );
+  const limit = 16;
+  const contentLength = value.getCurrentContent().getPlainText().length;
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Box padding={2}>
+        <TextEditor
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          value={value}
+          labelText="Text Editor Label"
+          characterLimit={limit}
+          error={limit - contentLength <= 5 ? "There is an error" : undefined}
+          warning={
+            limit - contentLength <= 10 ? "There is a warning" : undefined
+          }
+          inputHint="Some additional hint text"
+        />
+      </Box>
+    </CarbonProvider>
+  );
+};
+
+WithNewValidation.storyName = "with new validation";
+
 export const WithCustomRowHeight = () => {
   const [value, setValue] = useState(EditorState.createEmpty());
 
   return (
-    <div style={{ padding: "4px" }}>
+    <Box padding={1}>
       <TextEditor
         onChange={(newValue) => {
           setValue(newValue);
@@ -173,7 +195,7 @@ export const WithCustomRowHeight = () => {
         labelText="Text Editor Label"
         rows={2}
       />
-    </div>
+    </Box>
   );
 };
 
@@ -228,7 +250,7 @@ export const WithLinkPreviews = () => {
     }
   };
   return (
-    <div style={{ padding: "4px" }}>
+    <Box padding={1}>
       <TextEditor
         onChange={(newValue) => {
           setValue(newValue);
@@ -239,6 +261,6 @@ export const WithLinkPreviews = () => {
         previews={previews.current}
         onLinkAdded={addUrl}
       />
-    </div>
+    </Box>
   );
 };
