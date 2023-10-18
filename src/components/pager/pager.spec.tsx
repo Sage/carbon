@@ -565,10 +565,9 @@ describe("Pager", () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            borderTopWidth: "0",
             color: "var(--colorsUtilityYin090)",
-            borderBottomLeftRadius: "var(--borderRadius100)",
-            borderBottomRightRadius: "var(--borderRadius100)",
+            border: "1px solid var(--colorsUtilityMajor100)",
+            borderRadius: "var(--borderRadius100)",
           },
           wrapper
         );

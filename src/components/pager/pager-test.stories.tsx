@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import Pager, { PagerProps } from ".";
 import Form from "../form";
+import Pager, { PagerProps } from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default {
