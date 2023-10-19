@@ -17,14 +17,6 @@ function renderInputIconToggle(props: InputIconToggleProps) {
 }
 
 describe("InputIconToggle", () => {
-  describe("when initiated with the disabled prop set to true", () => {
-    it("does not render anything", () => {
-      const wrapper = shallow(renderInputIconToggle({ disabled: true }));
-
-      expect(wrapper.isEmptyRender()).toBeTruthy();
-    });
-  });
-
   describe("tooltip positioning", () => {
     const testCases: [InputIconToggleProps["align"], string][] = [
       ["left", "right"],
@@ -64,7 +56,7 @@ describe("InputIconToggle", () => {
         });
 
         describe("with disabled prop", () => {
-          it("does not render an icon", () => {
+          it("does render an icon", () => {
             const wrapper = mount(
               renderInputIconToggle({
                 [validationProp]: "Message",
@@ -73,7 +65,7 @@ describe("InputIconToggle", () => {
               })
             );
             expect(wrapper.find(ValidationIcon).exists()).toBe(false);
-            expect(wrapper.find(Icon).exists()).toBe(false);
+            expect(wrapper.find(Icon).exists()).toBe(true);
           });
         });
 
@@ -86,8 +78,8 @@ describe("InputIconToggle", () => {
                 readOnly: true,
               })
             );
-            const validationIcon = wrapper.find(ValidationIcon);
-            expect(validationIcon.exists()).toBe(true);
+            expect(wrapper.find(ValidationIcon).exists()).toBe(true);
+            expect(wrapper.find(Icon).exists()).toBe(false);
           });
         });
       });
@@ -154,18 +146,33 @@ describe("InputIconToggle", () => {
     }
   );
 
-  describe("does not render input icon", () => {
+  describe("renders input icon", () => {
     it("when disabled prop is true", () => {
       const wrapper = mount(
         renderInputIconToggle({ inputIcon: "dropdown", disabled: true })
       );
-      expect(wrapper.find(Icon).exists()).toBe(false);
+      expect(wrapper.find(Icon).exists()).toBe(true);
+      expect(wrapper.find(Icon).prop("disabled")).toBe(true);
+      assertStyleMatch(
+        {
+          cursor: "not-allowed",
+        },
+        wrapper.find(InputIconToggleStyle)
+      );
     });
     it("when readOnly prop is true", () => {
       const wrapper = mount(
         renderInputIconToggle({ inputIcon: "dropdown", readOnly: true })
       );
-      expect(wrapper.find(Icon).exists()).toBe(false);
+
+      expect(wrapper.find(Icon).exists()).toBe(true);
+      expect(wrapper.find(Icon).prop("disabled")).toBe(true);
+      assertStyleMatch(
+        {
+          cursor: "default",
+        },
+        wrapper.find(InputIconToggleStyle)
+      );
     });
   });
 

@@ -75,7 +75,7 @@ const InputIconToggle = ({
     );
   }
 
-  if (type && !(disabled || readOnly)) {
+  if (type) {
     return (
       <InputIconToggleStyle
         size={size}
@@ -85,8 +85,10 @@ const InputIconToggle = ({
         onMouseDown={onMouseDown}
         tabIndex={iconTabIndex}
         data-element="input-icon-toggle"
+        disabled={disabled}
+        readOnly={readOnly}
       >
-        <Icon type={type} />
+        <Icon disabled={disabled || readOnly} type={type} />
       </InputIconToggleStyle>
     );
   }
