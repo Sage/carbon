@@ -1,5 +1,6 @@
 import React from "react";
 import { shallow, mount, ReactWrapper } from "enzyme";
+import Logger from "__internal__/utils/logger";
 import { Carousel, CarouselProps } from "./carousel.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
@@ -15,6 +16,8 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { SlideStyle } from "./slide/slide.style";
 import Slide from "./slide";
 
+jest.mock("__internal__/utils/logger");
+
 function renderCarousel(props: CarouselProps, renderer = mount) {
   const children = props.children || [
     <Slide key="slide1" />,
@@ -26,6 +29,25 @@ function renderCarousel(props: CarouselProps, renderer = mount) {
 }
 
 describe("Carousel", () => {
+  describe("Deprecation warning", () => {
+    it("when user uses the component, a deprecation warning is raised only once in the console", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+      mount(
+        <>
+          <Carousel />
+          <Carousel />
+        </>
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The Carousel component is deprecated and will soon be removed."
+      );
+
+      loggerSpy.mockRestore();
+    });
+  });
+
   describe("when the Previous button has been clicked", () => {
     let wrapper: ReactWrapper;
     const onSlideChangeSpy = jest.fn();
