@@ -507,17 +507,10 @@ context("Test for Pager component", () => {
     );
   });
 
-  describe("when inside a form component", () => {
-    it("should have no bottom margin", () => {
-      CypressMountWithProviders(<PagerInForm />);
+  it("when used inside a Form, the current page input box should have no bottom margin", () => {
+    CypressMountWithProviders(<PagerInForm />);
 
-      currentPageWrapper().should("have.css", "margin-bottom", "0px");
-    });
-
-    it("should render with the expected border radius styling", () => {
-      CypressMountWithProviders(<PagerComponent />);
-      pager().should("have.css", "border-radius", "0px 0px 8px 8px");
-    });
+    currentPageWrapper().should("have.css", "margin-bottom", "0px");
   });
 
   describe("Accessibility tests for Pager component", () => {

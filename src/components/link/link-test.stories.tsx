@@ -15,7 +15,7 @@ export default {
   },
   argTypes: {
     icon: {
-      options: ["", ICONS],
+      options: ["", ...ICONS],
       control: {
         type: "select",
       },

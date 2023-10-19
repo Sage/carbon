@@ -45,6 +45,7 @@ const getSize = (variant?: VariantTypes) => {
       return "13px";
     case "segment-subheader-alt":
     case "p":
+    case "span":
     case "b":
     case "strong":
     case "em":
@@ -77,6 +78,7 @@ const getLineHeight = (variant?: VariantTypes) => {
     case "h5":
     case "segment-subheader-alt":
     case "p":
+    case "span":
     case "b":
     case "strong":
     case "em":
@@ -103,6 +105,7 @@ const getWeight = (variant?: VariantTypes) => {
     case "h4":
     case "h5":
     case "p":
+    case "span":
     case "small":
     case "big":
     case "sub":
@@ -159,6 +162,7 @@ const StyledTypography = styled.span.attrs(
     listStyleType,
     whiteSpace,
     wordWrap,
+    textAlign,
     textOverflow,
     truncate,
     screenReaderOnly,
@@ -173,6 +177,7 @@ const StyledTypography = styled.span.attrs(
     padding: 0;
     white-space: ${truncate ? "nowrap" : whiteSpace};
     word-wrap: ${wordWrap};
+    text-align: ${textAlign};
     text-overflow: ${truncate ? "ellipsis" : textOverflow};
     ${truncate &&
     css`

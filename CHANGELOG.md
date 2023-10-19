@@ -1,3 +1,33 @@
+## [121.2.0](https://github.com/Sage/carbon/compare/v121.1.0...v121.2.0) (2023-10-17)
+
+
+### Features
+
+* **typography:** add support for span as a support variant ([e181c44](https://github.com/Sage/carbon/commit/e181c4452f0d315968abe40c124ea66d0014240a))
+* **typography:** add text-align prop ([553d854](https://github.com/Sage/carbon/commit/553d854b46ca06314de07bbf2eb9b5da6ca1dd1d))
+
+## [121.1.0](https://github.com/Sage/carbon/compare/v121.0.2...v121.1.0) (2023-10-17)
+
+
+### Features
+
+* **character-count:** increase font size to 14px and update styles to use relevant tokens ([3e690ad](https://github.com/Sage/carbon/commit/3e690ada80d5a59ba2192b194409c77c8022d490))
+* **text-editor:** add support for new validation designs ([91bb986](https://github.com/Sage/carbon/commit/91bb986f0714a6e1267ab558469578ee2b210554))
+
+### [121.0.2](https://github.com/Sage/carbon/compare/v121.0.1...v121.0.2) (2023-10-12)
+
+
+### Bug Fixes
+
+* **pager:** make top corners rounded ([7ea657a](https://github.com/Sage/carbon/commit/7ea657a283ff08ceb9801dfe5c45692f1ceee450))
+
+### [121.0.1](https://github.com/Sage/carbon/compare/v121.0.0...v121.0.1) (2023-10-11)
+
+
+### Bug Fixes
+
+* **link:** refactor styles to remove focus-within due to issues with JSDOM ([b9065af](https://github.com/Sage/carbon/commit/b9065afb342d359949910212b2ed33d09a5c866e)), closes [#6320](https://github.com/Sage/carbon/issues/6320)
+
 ## [121.0.0](https://github.com/Sage/carbon/compare/v120.6.1...v121.0.0) (2023-10-06)
 
 

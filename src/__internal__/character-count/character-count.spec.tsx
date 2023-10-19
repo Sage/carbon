@@ -22,9 +22,9 @@ describe("CharacterCount", () => {
       assertStyleMatch(
         {
           textAlign: "left",
-          fontSize: "12px",
-          marginTop: "4px",
-          marginBottom: "4px",
+          fontSize: "var(--fontSizes100)",
+          marginTop: "var(--spacing050)",
+          marginBottom: "var(--spacing050)",
           color: "var(--colorsUtilityYin055)",
         },
         wrapper.find(StyledCharacterCount)
@@ -99,7 +99,7 @@ describe("CharacterCount", () => {
       wrapper.setProps({ isOverLimit: true });
       assertStyleMatch(
         {
-          fontWeight: "700",
+          fontWeight: "var(--fontWeights700)",
           color: "var(--colorsSemanticNegative500)",
         },
         wrapper.find(StyledCharacterCount)

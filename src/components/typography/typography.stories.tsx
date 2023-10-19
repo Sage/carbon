@@ -60,6 +60,10 @@ export const VariantsStory: ComponentStory<typeof Fragment> = () => (
       The big variant uses larger font-face to draw attention but content has
       the same importance as standard text.
     </Typography>
+    <Typography variant="span">
+      The span variant, which is an inline element, can be used just as you
+      would normally expect.
+    </Typography>
     <Typography variant="p">
       The 1<Typography variant="sup">st</Typography>, 2
       <Typography variant="sup">nd</Typography> are examples of superscript.
