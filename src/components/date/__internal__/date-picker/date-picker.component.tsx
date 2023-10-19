@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import DayPicker, {
   DayPickerProps,
   DayModifiers,
@@ -60,121 +60,144 @@ const popoverMiddleware = [
   }),
 ];
 
-export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(
-  (
-    {
-      inputElement,
-      minDate,
-      maxDate,
-      selectedDays,
-      disablePortal,
-      onDayClick,
-      pickerMouseDown,
-      pickerProps,
-      open,
-    }: DatePickerProps,
-    ref
+export const DatePicker = ({
+  inputElement,
+  minDate,
+  maxDate,
+  selectedDays,
+  disablePortal,
+  onDayClick,
+  pickerMouseDown,
+  pickerProps,
+  open,
+}: DatePickerProps) => {
+  const l = useLocale();
+  const { localize, options } = l.date.dateFnsLocale();
+  const { weekStartsOn } = options || /* istanbul ignore next */ {};
+  const monthsLong = useMemo(
+    () =>
+      Array.from({ length: 12 }).map((_, i) => {
+        const month = localize?.month(i);
+        return month[0].toUpperCase() + month.slice(1);
+      }),
+    [localize]
+  );
+  const monthsShort = useMemo(
+    () =>
+      Array.from({ length: 12 }).map((_, i) =>
+        localize?.month(i, { width: "abbreviated" }).substring(0, 3)
+      ),
+    [localize]
+  );
+  const weekdaysLong = useMemo(
+    () => Array.from({ length: 7 }).map((_, i) => localize?.day(i)),
+    [localize]
+  );
+  const weekdaysShort = useMemo(() => {
+    const isGivenLocale = (str: string) => l.locale().includes(str);
+    return Array.from({ length: 7 }).map((_, i) =>
+      localize
+        ?.day(
+          i,
+          ["de", "pl"].some(isGivenLocale)
+            ? { width: "wide" }
+            : { width: "abbreviated" }
+        )
+        .substring(0, isGivenLocale("de") ? 2 : 3)
+    );
+  }, [l, localize]);
+
+  const handleDayClick = (
+    date: Date,
+    modifiers: DayModifiers,
+    ev: React.MouseEvent<HTMLDivElement>
   ) => {
-    const l = useLocale();
-    const { localize, options } = l.date.dateFnsLocale();
-    const { weekStartsOn } = options || /* istanbul ignore next */ {};
-    const monthsLong = useMemo(
-      () =>
-        Array.from({ length: 12 }).map((_, i) => {
-          const month = localize?.month(i);
-          return month[0].toUpperCase() + month.slice(1);
-        }),
-      [localize]
-    );
-    const monthsShort = useMemo(
-      () =>
-        Array.from({ length: 12 }).map((_, i) =>
-          localize?.month(i, { width: "abbreviated" }).substring(0, 3)
-        ),
-      [localize]
-    );
-    const weekdaysLong = useMemo(
-      () => Array.from({ length: 7 }).map((_, i) => localize?.day(i)),
-      [localize]
-    );
-    const weekdaysShort = useMemo(() => {
-      const isGivenLocale = (str: string) => l.locale().includes(str);
-      return Array.from({ length: 7 }).map((_, i) =>
-        localize
-          ?.day(
-            i,
-            ["de", "pl"].some(isGivenLocale)
-              ? { width: "wide" }
-              : { width: "abbreviated" }
-          )
-          .substring(0, isGivenLocale("de") ? 2 : 3)
-      );
-    }, [l, localize]);
-
-    const handleDayClick = (
-      date: Date,
-      modifiers: DayModifiers,
-      ev: React.MouseEvent<HTMLDivElement>
-    ) => {
-      if (!modifiers.disabled) {
-        const { id, name } = inputElement?.current
-          ?.firstChild as HTMLInputElement;
-        ev.target = {
-          ...ev.target,
-          id,
-          name,
-        } as HTMLInputElement;
-        onDayClick?.(date, ev);
-      }
-    };
-
-    const formatDay = (date: Date) =>
-      `${weekdaysShort[date.getDay()]} ${date.getDate()} ${
-        monthsShort[date.getMonth()]
-      } ${date.getFullYear()}`;
-
-    if (!open) {
-      return null;
+    if (!modifiers.disabled) {
+      const { id, name } = inputElement?.current
+        ?.firstChild as HTMLInputElement;
+      ev.target = {
+        ...ev.target,
+        id,
+        name,
+      } as HTMLInputElement;
+      onDayClick?.(date, ev);
     }
+  };
 
-    const localeUtils = { formatDay } as LocaleUtils;
+  const formatDay = (date: Date) =>
+    `${weekdaysShort[date.getDay()]} ${date.getDate()} ${
+      monthsShort[date.getMonth()]
+    } ${date.getFullYear()}`;
 
-    return (
-      <Popover
-        placement="bottom-start"
-        reference={inputElement}
-        middleware={popoverMiddleware}
-        disablePortal={disablePortal}
-      >
-        <StyledDayPicker ref={ref} onMouseDown={pickerMouseDown}>
-          <DayPicker
-            month={selectedDays}
-            months={monthsLong}
-            firstDayOfWeek={weekStartsOn}
-            onDayClick={handleDayClick}
-            selectedDays={selectedDays}
-            weekdayElement={(weekdayElementProps) => {
-              const { className, weekday } = weekdayElementProps;
+  const ref = useRef<HTMLDivElement>(null);
 
-              return (
-                <Weekday className={className} title={weekdaysLong[weekday]}>
-                  {weekdaysShort[weekday]}
-                </Weekday>
-              );
-            }}
-            navbarElement={<Navbar />}
-            fixedWeeks
-            initialMonth={selectedDays || undefined}
-            disabledDays={getDisabledDays(minDate, maxDate)}
-            locale={l.locale()}
-            localeUtils={localeUtils}
-            {...pickerProps}
-          />
-        </StyledDayPicker>
-      </Popover>
-    );
+  useEffect(() => {
+    if (open) {
+      // this is a temporary fix for some axe issues that are baked into the library we use for the picker
+      const captionElement = ref.current?.querySelector(".DayPicker-Caption");
+      /* istanbul ignore else */
+      if (captionElement) {
+        captionElement.removeAttribute("role");
+        captionElement.removeAttribute("aria-live");
+      }
+
+      // focus the selected or today's date first
+      const selectedDay =
+        ref.current?.querySelector(".DayPicker-Day--selected") ||
+        ref.current?.querySelector(".DayPicker-Day--today");
+      const firstDay = ref.current?.querySelector(
+        ".DayPicker-Day[tabindex='0']"
+      );
+
+      /* istanbul ignore else */
+      if (selectedDay && firstDay !== selectedDay) {
+        selectedDay?.setAttribute("tabindex", "0");
+        firstDay?.setAttribute("tabindex", "-1");
+      }
+    }
+  }, [open]);
+
+  if (!open) {
+    return null;
   }
-);
+
+  const localeUtils = { formatDay } as LocaleUtils;
+
+  return (
+    <Popover
+      placement="bottom-start"
+      reference={inputElement}
+      middleware={popoverMiddleware}
+      disablePortal={disablePortal}
+    >
+      <StyledDayPicker ref={ref} onMouseDown={pickerMouseDown}>
+        <DayPicker
+          month={selectedDays}
+          months={monthsLong}
+          firstDayOfWeek={weekStartsOn}
+          onDayClick={handleDayClick}
+          selectedDays={selectedDays}
+          weekdayElement={(weekdayElementProps) => {
+            const { className, weekday } = weekdayElementProps;
+
+            return (
+              <Weekday className={className} title={weekdaysLong[weekday]}>
+                {weekdaysShort[weekday]}
+              </Weekday>
+            );
+          }}
+          navbarElement={<Navbar />}
+          fixedWeeks
+          initialMonth={selectedDays || undefined}
+          disabledDays={getDisabledDays(minDate, maxDate)}
+          locale={l.locale()}
+          localeUtils={localeUtils}
+          {...pickerProps}
+        />
+      </StyledDayPicker>
+    </Popover>
+  );
+};
 
 DatePicker.displayName = "DatePicker";
 

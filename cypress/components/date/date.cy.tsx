@@ -411,6 +411,10 @@ context("Test for DateInput component", () => {
             locale: () => localeValue,
             date: {
               dateFnsLocale: () => dateFnsLocaleValue,
+              ariaLabels: {
+                previousMonthButton: () => "Previous month",
+                nextMonthButton: () => "Next month",
+              },
             },
           }
         );
@@ -478,6 +482,10 @@ context("Test for DateInput component", () => {
             locale: () => localeValue,
             date: {
               dateFnsLocale: () => dateFnsLocaleValue,
+              ariaLabels: {
+                previousMonthButton: () => "Previous month",
+                nextMonthButton: () => "Next month",
+              },
             },
           }
         );
@@ -544,6 +552,10 @@ context("Test for DateInput component", () => {
             locale: () => localeValue,
             date: {
               dateFnsLocale: () => dateFnsLocaleValue,
+              ariaLabels: {
+                previousMonthButton: () => "Previous month",
+                nextMonthButton: () => "Next month",
+              },
             },
           }
         );
@@ -863,5 +875,13 @@ context("Test for DateInput component", () => {
     CypressMountWithProviders(<DateInputValidationNewDesign />);
 
     cy.checkAccessibility();
+  });
+
+  it("should check accessibility when the picker is open", () => {
+    CypressMountWithProviders(<DateInputCustom />);
+
+    dateInputParent()
+      .click()
+      .then(() => cy.checkAccessibility());
   });
 });

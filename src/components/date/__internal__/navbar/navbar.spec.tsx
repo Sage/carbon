@@ -1,12 +1,12 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import { shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 
 import Navbar, { NavbarProps } from "./navbar.component";
 import StyledButton from "./button.style";
 
 describe("Navbar", () => {
-  let wrapper: ShallowWrapper;
+  let wrapper: ShallowWrapper | ReactWrapper;
   let onPreviousClick: jest.Mock;
   let onNextClick: jest.Mock;
 
@@ -30,13 +30,29 @@ describe("Navbar", () => {
     });
 
     it("returns a next button that calls onNextClick", () => {
-      const prevButton = wrapper.find(StyledButton).at(1);
-      prevButton.simulate("click");
+      const nextButton = wrapper.find(StyledButton).at(1);
+      nextButton.simulate("click");
       expect(onNextClick.mock.calls.length).toEqual(1);
     });
 
     it("applies the custom class name", () => {
       expect(wrapper.find(".custom-class").length).toEqual(1);
+    });
+
+    it("applies the expected aria-labels to the buttons", () => {
+      wrapper = mount(
+        <Navbar
+          onPreviousClick={onPreviousClick}
+          onNextClick={onNextClick}
+          className="custom-class"
+        />
+      );
+
+      const prevButton = wrapper.find(StyledButton).at(0).getDOMNode();
+      const nextButton = wrapper.find(StyledButton).at(1).getDOMNode();
+
+      expect(prevButton.getAttribute("aria-label")).toBe("Previous month");
+      expect(nextButton.getAttribute("aria-label")).toBe("Next month");
     });
   });
 

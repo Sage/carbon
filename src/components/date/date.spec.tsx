@@ -43,45 +43,49 @@ import {
 } from "../../locales/date-fns-locales";
 import Logger from "../../__internal__/utils/logger";
 
+const ariaLabels = {
+  nextMonthButton: () => "foo",
+  previousMonthButton: () => "foo",
+};
 const locales = {
   "en-GB": {
     locale: () => "en-GB",
-    date: { dateFnsLocale: () => enGBLocale },
+    date: { ariaLabels, dateFnsLocale: () => enGBLocale },
     separator: "/",
   },
   de: {
     locale: () => "de",
-    date: { dateFnsLocale: () => deLocale },
+    date: { ariaLabels, dateFnsLocale: () => deLocale },
     separator: ".",
   },
   es: {
     locale: () => "es",
-    date: { dateFnsLocale: () => esLocale },
+    date: { ariaLabels, dateFnsLocale: () => esLocale },
     separator: "/",
   },
   "en-ZA": {
     locale: () => "en-ZA",
-    date: { dateFnsLocale: () => enZALocale },
+    date: { ariaLabels, dateFnsLocale: () => enZALocale },
     separator: "/",
   },
   "fr-FR": {
     locale: () => "fr-FR",
-    date: { dateFnsLocale: () => frLocale },
+    date: { ariaLabels, dateFnsLocale: () => frLocale },
     separator: "/",
   },
   "fr-CA": {
     locale: () => "fr-CA",
-    date: { dateFnsLocale: () => frCALocale },
+    date: { ariaLabels, dateFnsLocale: () => frCALocale },
     separator: "/",
   },
   "en-US": {
     locale: () => "en-US",
-    date: { dateFnsLocale: () => enUSLocale },
+    date: { ariaLabels, dateFnsLocale: () => enUSLocale },
     separator: "/",
   },
   "en-CA": {
     locale: () => "en-CA",
-    date: { dateFnsLocale: () => enCALocale },
+    date: { ariaLabels, dateFnsLocale: () => enCALocale },
     separator: "/",
   },
 };

@@ -225,7 +225,13 @@ describe("StyledDayPicker", () => {
 
     const buildLocale = (l: keyof typeof translations) => ({
       locale: () => l,
-      date: { dateFnsLocale: () => translations[l] },
+      date: {
+        dateFnsLocale: () => translations[l],
+        ariaLabels: {
+          previousMonthButton: () => "foo",
+          nextMonthButton: () => "foo",
+        },
+      },
     });
 
     type WeekdaysType = { long?: string[]; short?: string[] };
