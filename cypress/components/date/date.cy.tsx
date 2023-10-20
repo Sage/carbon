@@ -892,6 +892,8 @@ context("Test for DateInput component", () => {
 
       dateInput().focus();
 
+      dayPickerParent().should("have.css", "margin-top", "4px");
+
       dateInputParent()
         .should(
           "have.css",
