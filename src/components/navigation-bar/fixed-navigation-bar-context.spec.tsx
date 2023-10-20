@@ -14,15 +14,13 @@ const ConsumerComponent = () => {
 };
 
 const mockNavbarElement = { offsetHeight: 40 } as HTMLElement;
+const navbarRef = { current: mockNavbarElement };
 
 const MockComponent = (
-  props: Omit<FixedNavigationBarContextProviderProps, "navbarElement">
+  props: Omit<FixedNavigationBarContextProviderProps, "navbarRef">
 ) => {
   return (
-    <FixedNavigationBarContextProvider
-      navbarElement={mockNavbarElement}
-      {...props}
-    >
+    <FixedNavigationBarContextProvider navbarRef={navbarRef} {...props}>
       <ConsumerComponent />
     </FixedNavigationBarContextProvider>
   );
