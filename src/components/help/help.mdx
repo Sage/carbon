@@ -1,0 +1,67 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as HelpStories from "./help.stories";
+
+<Meta title="Help" of={HelpStories} />
+
+# Help
+
+Typically triggered by the user hovering on an icon, displaying a single, short sentence.
+Useful for explaining the difference between commands represented with icons, for example, batch table actions.
+Bear in mind that tooltips may not work well (or at all) on mobile devices, so alternatives may be needed.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import `Help` into the project.
+
+```javascript
+import Help from "carbon-react/lib/components/help";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={HelpStories.Default} />
+
+### Help with Tooltip custom message
+
+<Canvas of={HelpStories.WithTooltipCustomMessage} />
+
+### Help with Tooltip Position
+
+The tooltip can be position `right`, `left`, `top` or `bottom`.
+Hover over the help component to see the different positions.
+
+<Canvas of={HelpStories.WithTooltipPosition} />
+
+### Help with Tooltip color overrides
+
+The tooltip background and font colors can be overridden using the `tooltipBgColor` and `tooltipFontColor` props. These
+props accept and valid css color value.
+
+<Canvas of={HelpStories.WithTooltipColorOverrides} />
+
+## Help with Icons
+
+Using the `type` prop, different icons can be specified. In this example type has been assigned `error`, `add`, `minus` and `settings`
+
+<Canvas of={HelpStories.WithIcons} />
+
+## Help with href
+
+Using the `href` prop, a link can be specified.
+
+<Canvas of={HelpStories.WithHref} />
+
+## Props
+
+### Help
+
+<ArgTypes of={HelpStories} />

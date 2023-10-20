@@ -2,7 +2,7 @@ import React from "react";
 import VerticalDivider from "./vertical-divider.component";
 
 export default {
-  title: "VerticalDivider/Test",
+  title: "Vertical Divider/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

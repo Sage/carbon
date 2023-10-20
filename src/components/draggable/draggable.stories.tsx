@@ -1,10 +1,34 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import { DraggableContainer, DraggableItem } from ".";
 import { Checkbox } from "../checkbox";
 
-export const DefaultStory: ComponentStory<typeof DraggableContainer> = () => (
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof DraggableContainer> = {
+  title: "Draggable",
+  component: DraggableContainer,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: {
+    themeProvider: {
+      chromatic: {
+        theme: "sage",
+      },
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof DraggableContainer>;
+
+export const DefaultStory: Story = () => (
   <DraggableContainer>
     <DraggableItem key="1" id={1}>
       Some content goes here
@@ -20,10 +44,9 @@ export const DefaultStory: ComponentStory<typeof DraggableContainer> = () => (
     </DraggableItem>
   </DraggableContainer>
 );
+DefaultStory.storyName = "Default";
 
-export const ComponentsAsChildrenStory: ComponentStory<
-  typeof DraggableContainer
-> = () => (
+export const ComponentsAsChildrenStory: Story = () => (
   <DraggableContainer>
     <DraggableItem key="1" id={1}>
       <Checkbox label="checkbox one" mb={0} />
@@ -39,10 +62,9 @@ export const ComponentsAsChildrenStory: ComponentStory<
     </DraggableItem>
   </DraggableContainer>
 );
+ComponentsAsChildrenStory.storyName = "Components As Children";
 
-export const GetOrderCallbackStory: ComponentStory<
-  typeof DraggableContainer
-> = () => (
+export const GetOrderCallbackStory: Story = () => (
   <DraggableContainer getOrder={() => {}}>
     <DraggableItem key="1" id={1}>
       <Checkbox label="Draggable Label One" />
@@ -58,3 +80,4 @@ export const GetOrderCallbackStory: ComponentStory<
     </DraggableItem>
   </DraggableContainer>
 );
+GetOrderCallbackStory.storyName = "Get Order Callback";

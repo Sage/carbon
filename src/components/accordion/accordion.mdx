@@ -1,0 +1,176 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as AccordionStories from "./accordion.stories";
+import * as AccordionGroupStories from "./accordion-group/accordion-group.stories";
+
+<Meta title="Accordion" of={AccordionStories} />
+
+# Accordion
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/028f94-accordion/b/3614a6"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Accordions are a good progressive disclosure technique - initially showing only top-level information, but allowing the user quick access to more on request. But, they can confuse users sometimes, so use them sparingly.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use accordion, import the `Accordion` and pass the content as children. To group accordions import `AccordionGroup`.
+
+```javascript
+import {
+  Accordion,
+  AccordionGroup,
+} from "carbon-react/lib/components/accordion";
+```
+
+It can be used as a controlled component where the expansion state is controlled externally,
+in that case both `onChange` and `expanded` props are required.
+
+```javascript
+import { Accordion } from "carbon-react/lib/components/accordion";
+
+const MyComponent = () => (
+  <Accordion onChange={onChange} expanded={expanded} title="Title">
+    <p>Content as a children</p>
+  </Accordion>
+);
+```
+
+It can also be used as an uncontrolled component where the expansion state is controlled internally.
+It is still possible to pass `onChange` to hook a callback for state changes, however to set initial expansion state `defaultExpanded` can be passed.
+
+```javascript
+import { Accordion } from "carbon-react/lib/components/accordion";
+
+const MyComponent = () => (
+  <Accordion onChange={onChange} defaultExpanded={true} title="Title">
+    <p>Content as a children</p>
+  </Accordion>
+);
+```
+
+## Examples
+
+### Default
+
+Default version of accordion has white background and no side borders.
+
+<Canvas of={AccordionStories.AccordionDefault} />
+
+### With disableContentPadding
+
+Accordion without padding inside of the content.
+
+<Canvas of={AccordionStories.WithDisableContentPadding} />
+
+### Transparent
+
+Transparent scheme has transparent background.
+
+<Canvas of={AccordionStories.Transparent} />
+
+### Small
+
+Small version has a smaller heading, less padding and a smaller icon.
+
+<Canvas of={AccordionStories.Small} />
+
+### Sub title
+
+A sub title can be added when the size is large (default).
+
+<Canvas of={AccordionStories.Subtitle} />
+
+### Full border
+
+The accordion can have side borders along with the default top and bottom.
+
+<Canvas of={AccordionStories.Fullborder} />
+
+### Left aligned icon
+
+The accordion icon can be left aligned.
+
+<Canvas of={AccordionStories.LeftAlignedIcon} />
+
+### Different width
+
+The default width of 100% can be overriden.
+
+<Canvas of={AccordionStories.DifferentWidth} />
+
+### With different padding and margin
+
+Showing the different paddings and margins
+
+<Canvas of={AccordionStories.WithDifferentPaddingAndMargin} />
+
+### With different padding and margin in Accordion title
+
+Showing the different paddings and margins within the accordion title
+
+<Canvas of={AccordionStories.WithDifferentPaddingAndMarginInAccordionTitle} />
+
+### With Box component and different paddings
+
+The box component can be used inside the accordion with different paddings
+
+<Canvas of={AccordionStories.WithBoxComponentAndDifferentPaddings} />
+
+### Grouped
+
+To group accordions import `AccordionGroup`. Accordions borders collapse when positioned next to each other making it easy to group them.
+To achieve proper keyboard accessibility as described in `W3` sources it is required to wrap neighbouring accordions in
+`AccordionGroup`.
+
+<Canvas of={AccordionStories.Grouped} />
+
+### With validation icon
+
+The `ValidationIcon` can be displayed in the `Accordion` header by passing in a string via one of the `error`,
+`warning` or `info` props. This message will be displayed as in the tooltip.
+
+<Canvas of={AccordionStories.WithValidationIcon} />
+
+### With dynamic content
+
+Accordion adjust it's height properly when it's content is being dynamically changed
+
+<Canvas of={AccordionStories.WithDynamicContent} />
+
+### With a definition list
+
+Accordion with a definiton list
+
+<Canvas of={AccordionStories.WithDefinitionList} />
+
+### Subtle Variant
+
+Setting the `variant` prop to `subtle` will override the default styling of an Accordion.
+`subTitle` will not be rendered and the `scheme` prop will have no effect when used in combination with this variant.
+
+This is not currently designed to be used within a form using validation.
+
+<Canvas of={AccordionStories.AccordionSubtle} />
+
+## Props
+
+### Accordion
+
+<ArgTypes of={AccordionStories} />
+
+### AccordionGroup
+
+<ArgTypes of={AccordionGroupStories} />

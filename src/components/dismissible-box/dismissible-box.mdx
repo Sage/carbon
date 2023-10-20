@@ -1,0 +1,51 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as DismissibleBoxStories from "./dismissible-box.stories";
+
+<Meta title="Dismissible Box" of={DismissibleBoxStories} />
+
+# DismissibleBox
+
+The component is a dismissible container designed to be used inline within the layout of a page providing in context tips
+and ‘help’ information.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import DismissibleBox from "carbon-react/lib/components/dismissible-box";
+```
+
+## Examples
+
+### Default - Light variant
+
+<Canvas of={DismissibleBoxStories.LightVariant} />
+
+### Dark variant
+
+<Canvas of={DismissibleBoxStories.DarkVariant} />
+
+### With no left border highlight
+
+By default the component will be rendered with a thicker left border highlight, use the `hasBorderLeftHighlight` to opt-out
+of this functionality.
+
+<Canvas of={DismissibleBoxStories.WithNoLeftBorderHighlight} />
+
+### Width overridden
+
+It is also possible to override the `width` of the component: by default it will fill any available space.
+
+<Canvas of={DismissibleBoxStories.WidthOverridden} />
+
+## Props
+
+### DismissibleBox
+
+<ArgTypes of={DismissibleBoxStories} />

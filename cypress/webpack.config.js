@@ -1,3 +1,5 @@
+const webpack = require("webpack");
+
 module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".json"],
@@ -41,4 +43,11 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env": {
+        IGNORE_TESTS: JSON.stringify(process.env.IGNORE_TESTS),
+      },
+    }),
+  ],
 };

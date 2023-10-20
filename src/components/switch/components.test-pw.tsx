@@ -37,3 +37,25 @@ export const SwitchComponentValidations = (props: Partial<SwitchProps>) => {
     </Box>
   );
 };
+
+export const WithMargin = () => {
+  return (
+    <>
+      <Switch
+        label="With labelHelp"
+        labelHelp="This text provides more information for the label."
+        m={2}
+      />
+      <Switch
+        label="With labelHelp"
+        labelHelp="This text provides more information for the label."
+        m={4}
+      />
+      <Switch
+        label="With labelHelp"
+        labelHelp="This text provides more information for the label."
+        m="9px"
+      />
+    </>
+  );
+};

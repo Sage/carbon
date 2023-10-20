@@ -1,0 +1,145 @@
+import { Meta, Canvas } from "@storybook/blocks";
+
+import * as ValidationsStories from "./validations.stories";
+
+<Meta title="Documentation/Validations" of={ValidationsStories} />
+
+# Getting started with validations, Formik and Yup
+
+### Contents
+
+- [Carbon validation overview](#carbon-validation-overview)
+  - [Inputs](#inputs)
+  - [Grouped inputs](#grouped-inputs)
+  - [Validation icon placement](#validation-icon-placement)
+- [Formik overview](#formik-overview)
+
+## Carbon validation overview
+
+Carbon provides inputs which are able to visually indicate three states of validations out of the box.
+
+- **error**  -  meant to be a blocking validation, displays 2px wide red border and validation icon if message is provided.
+- **warning**  –  meant to be a non-blocking validation, displays 1px wide orange border and validation icon if message is provided.
+- **info**  –  meant to be a non-blocking validation, displays 1px wide blue border and validation icon if message is provided.
+
+### Inputs
+
+Each input component which supports validations accepts following props - `error`, `warning` or `info`.
+
+Passing a `string` to these props will display a border along with a validation icon and tooltip; this `string` value will be displayed as the tooltip message.
+
+<Canvas of={ValidationsStories.StringValidation} />
+
+Passing a `boolean` to these props will display a border and validation icon without the additional tooltip information.
+
+<Canvas of={ValidationsStories.BooleanValidation} />
+
+The only exception from this is the `DateRange` component which displays separate validation statuses on either `start` or `end` dates - to achieve this the `DateRange` component accepts `startError`, `endError`, `startWarning`, `endWarning`, `startInfo` and `endInfo` props.
+
+<Canvas of={ValidationsStories.DateRangeValidation} />
+
+### Grouped inputs
+
+Grouping components like `RadioButtonGroup`, `CheckboxGroup`, `ButtonToggleGroup` and `SimpleColorPicker` support validations too.
+
+<Canvas of={ValidationsStories.GroupedInputValidation} />
+
+Passing validation props on a group component will display a validation icon on the group label/legend and apply proper styles to the grouped inputs.
+
+<Canvas of={ValidationsStories.GroupedLegendValidation} />
+
+The interface is the same - it's up to the consumer to decide whether to display validation on the group label/legend or on the individual component.
+
+The `required` prop will work, when passed to the wrapper component.
+
+<Canvas of={ValidationsStories.GroupedRequired} />
+
+### Validation icon placement
+
+Most of the input components support two variants of validation icon placement:
+
+- by the component or next to it - default behaviour
+- next to the component label or legend
+
+To decide which placement is preferred `validationOnLabel` or `validationOnLegend` props can be used.
+
+### Form component
+
+Carbon provides a Form component which augments an HTML `<form>` element with:
+
+- footer - a container for rendering "Save", "Cancel" and other custom buttons; it can also be made sticky if wanted
+- validation summary - graphical indicator of errors and warnings
+
+For more information check [Form in Storybook](https://carbon.sage.com/?path=/docs/form)
+
+## Formik overview
+
+> Formik keeps track of your form's state, and then exposes it (plus a few reusable methods and event handlers) to your
+> form via props. [🔗](https://jaredpalmer.com/formik/docs/overview#the-gist)
+
+Formik provides a small set of React components and hooks, of which the key ones are:
+
+- [**Formik**](https://jaredpalmer.com/formik/docs/api/formik)  –  The central component of Formik, which wraps an
+  HTML form, and accepts props such as
+  [initialValues](https://jaredpalmer.com/formik/docs/api/formik#initialvalues-values),
+  [onSubmit()](https://jaredpalmer.com/formik/docs/api/formik#onsubmit-values-values-formikbag-formikbag-void),
+  [validate()](https://jaredpalmer.com/formik/docs/api/formik#validate-values-values-formikerrors-values-promise-any)
+  and [validationSchema()](https://jaredpalmer.com/formik/docs/api/formik#validationschema-schema-schema).  It
+  provides form state information (such as
+  [values](https://jaredpalmer.com/formik/docs/api/formik#values-field-string-any),
+  [dirty](https://jaredpalmer.com/formik/docs/api/formik#dirty-boolean),
+  [errors](https://jaredpalmer.com/formik/docs/api/formik#errors-field-string-string) and
+  [isValid](https://jaredpalmer.com/formik/docs/api/formik#isvalid-boolean)) and action methods (such as
+  [validateForm()](https://jaredpalmer.com/formik/docs/api/formik#validateform-values-any-promise-formikerrors-values),
+  [validateField()](https://jaredpalmer.com/formik/docs/api/formik#validatefield-field-string-void) and
+  [setValues()](https://jaredpalmer.com/formik/docs/api/formik#setvalues-fields-field-string-any-void)).
+- [**Form**](https://jaredpalmer.com/formik/docs/api/form),
+  [**Field**](https://jaredpalmer.com/formik/docs/api/field),
+  [**ErrorMessage**](https://jaredpalmer.com/formik/docs/api/errormessage)  –  Helper components (powered by
+  [React Context](https://reactjs.org/docs/context.html)) which reduce boilerplate code.
+- [**useField()**](https://jaredpalmer.com/formik/docs/api/useField)  –  A hook to help with building reusable input
+  primitive components.
+
+**Note:** Formik is only intended to be used with
+[controlled components](https://reactjs.org/docs/forms.html#controlled-components), where the component's state is
+controlled by supplying a `value` prop (or a `checked` prop for `radio` and `checkbox`).  Technically it's possible to
+use Formik with [uncontrolled components](https://reactjs.org/docs/uncontrolled-components.html) (by not supplying a
+controlling `value`/`checked` prop, and only supplying `name` `onChange` `onBlur` props), but this is strongly
+**discouraged** ⚠️
+
+### Form validation using Formik
+
+Formik supports three kinds of validation:
+
+1. [**Form-level: plain**](https://jaredpalmer.com/formik/docs/guides/validation#validate)  –  A `values` object is
+   passed to a `validate()` function which implements its own custom validation logic and returns an `errors` object.
+2. [**Form-level: schema-based**](https://jaredpalmer.com/formik/docs/guides/validation#validationschema)  –  Performs
+   validation using a [Yup](https://github.com/jquense/yup) schema.
+3. [**Field-level**](https://jaredpalmer.com/formik/docs/guides/validation#field-level-validation)  –  Separate
+   `validate()` functions are supplied for each form field.
+
+## Code examples
+
+### Form validation using Field-level validation with Formik and Yup
+
+See the [example codesandbox code](https://codesandbox.io/s/carbon-with-formik-new-example-2cqdxm?file=/src/App.tsx) showing how to
+integrate various different Carbon components into Formik/Yup.
+
+Note the following points about the implementation:
+
+- Carbon components are wrapped in [Formik's Field component](https://formik.org/docs/api/field), passing the actual Carbon component as the `as` prop.
+- a `validate` prop is also required as well as warning/error/info props as appropriate to pass to the Carbon component. In the example these have been
+  returned from a custom Hook that takes the Yup validation schemas - this should be adapted to your actual use case if not appropriate.
+- note the use of an explicit `checked` prop on the checkbox and switch components, with `value` set to a hardcoded string. This is required for these
+  checkbox-based components to work properly (Formik `Field` by default will try to pass `value` but `checked` is the important property on these components,
+  with `value` having no purpose other than allowing the field to be identified on the server side after form submission)
+- date-related components require more careful handling - an explicit `onChange` is required that calls Formik's `setFieldValue` function with the
+  `formattedValue` property of the custom event object's `target`
+- there is also a custom Yup transform to ensure the date is parsed in `dd/MM/yyyy` format, which is the default for Carbon date components but not accepted
+  by Yup. The implementation in the sandbox uses the `date-fns` library but you can use whichever date-parsing library you choose, and of course use whichever
+  date-format is appropriate to the locale you're using
+- `DateRange` requires particularly special handling, as this is a single Carbon component which renders 2 separate HTML input fields. In the example
+  this is done by using a modified form of the custom hook mentioned above that returns two separate prop objects, one for each input, and passes them
+  down using `startDateProps` and `endDateProps`. Note the way these prop objects are generated to ensure validation messages, possibly of different types,
+  can be supplied to each input where appropriate (this is also why the `abortEarly` Yup validation option is set to false).
+  Similarly, the validation function and the custom `onChange` need to ensure they cover both fields individually

@@ -13,7 +13,7 @@ export interface SortProps {
   children?: React.ReactNode;
 }
 
-const Sort = ({ children, onClick, sortType }: SortProps) => {
+export const Sort = ({ children, onClick, sortType }: SortProps) => {
   const id = useRef(guid());
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (Event.isEnterOrSpaceKey(e)) {

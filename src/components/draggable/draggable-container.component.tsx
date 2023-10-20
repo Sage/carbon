@@ -5,8 +5,8 @@ import { MarginProps } from "styled-system";
 
 import invariant from "invariant";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import DraggableItem from "./draggable-item.component";
-import DropTarget from "./internal/drop-target.component";
+import DraggableItem from "./draggable-item/draggable-item.component";
+import DropTarget from "./__internal__/drop-target.component";
 
 export interface DraggableContainerProps extends MarginProps {
   /** Callback fired when order is changed */

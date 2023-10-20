@@ -92,3 +92,36 @@ export const CheckboxGroupComponentNewValidation = ({
     </div>
   );
 };
+
+export const Sizes = () => {
+  return (
+    <>
+      <Checkbox
+        label="Small"
+        key="checkbox-small"
+        name="checkbox-small"
+        size="small"
+      />
+      <Checkbox
+        label="Large"
+        key="checkbox-large"
+        name="checkbox-large"
+        size="large"
+      />
+    </>
+  );
+};
+
+export const Reversed = () => {
+  return <Checkbox label="Reversed checkbox" name="checkbox-reverse" reverse />;
+};
+
+export const WithCustomLabelWidth = () => {
+  return (
+    <Checkbox
+      label="With custom labelWidth and label aligned to right"
+      labelWidth={100}
+      name="checkbox-custom-label"
+    />
+  );
+};

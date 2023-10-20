@@ -1,0 +1,124 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as CardStories from "./card.stories";
+import * as CardColumnStories from "./card-column/card-column.stories";
+import * as CardFooterStories from "./card-footer/card-footer.stories";
+import * as CardRowStories from "./card-row/card-row.stories";
+
+<Meta title="Card" of={CardStories} />
+
+# Card
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/54feb0-card/b/712f18"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+A container for interactive content and controls related to a single subject.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick start
+
+```javascript
+import {
+  Card,
+  CardRow,
+  CardFooter,
+  CardColumn,
+} from "carbon-react/lib/components/card";
+```
+
+## Examples
+
+### Default - medium spacing
+
+<Canvas of={CardStories.DefaultStory} />
+
+### Small spacing
+
+<Canvas of={CardStories.SmallSpacing} />
+
+### Large spacing
+
+<Canvas of={CardStories.LargeSpacing} />
+
+### With large roundness on corners
+
+<Canvas of={CardStories.WithExtraRoundness} />
+
+### With width provided
+
+<Canvas of={CardStories.WithWidthProvided} />
+
+### Interactive
+
+The card is "interactive" when you pass either or both of `onClick` and `href` props.
+Passing just an `onClick` prop will render a `button` element within the `Card`.
+Passing an `href` (with or without an `onClick`) will render an `a`nchor element.
+Setting the `draggable` prop will negate both `onClick` and `href` prop values and will render a `div` instead.
+
+<Canvas of={CardStories.Interactive} />
+
+### With custom box shadow
+
+<Canvas of={CardStories.WithCustomBoxShadow} />
+
+### Different `<CardRow />` padding
+
+<Canvas of={CardStories.DifferentCardRowPadding} />
+
+### Different `<CardFooter />` padding
+
+<Canvas of={CardStories.DifferentCardFooterPadding} />
+
+### More `<CardFooter />` examples
+
+<Canvas of={CardStories.MoreExamplesOfCardFooter} />
+
+## With string as child
+
+<Canvas of={CardStories.WithStringAsChild} />
+
+## With custom height
+
+<Canvas of={CardStories.WithCustomHeight} />
+
+## With draggable
+
+By using the `draggable` prop, Cards can be implemented to be draggable.
+
+This example uses the `react-dnd` and `react-dnd-html5-backend` packages.
+
+```javascript
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+```
+
+<Canvas of={CardStories.WithDraggable} />
+
+## Props
+
+### Card
+
+<ArgTypes of={CardStories} />
+
+### CardRow
+
+<ArgTypes of={CardRowStories} />
+
+### CardColumn
+
+<ArgTypes of={CardColumnStories} />
+
+### CardFooter
+
+<ArgTypes of={CardFooterStories} />

@@ -1,11 +1,27 @@
 import React, { useState } from "react";
-import { StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import Switch, { SwitchProps } from ".";
 import Box from "../box";
+import Switch, { SwitchProps } from ".";
 
-export const Default = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof Switch> = {
+  title: "Switch",
+  component: Switch,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Switch>;
+
+export const Default: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <Switch
@@ -16,8 +32,9 @@ export const Default = () => {
     />
   );
 };
+Default.storyName = "Default";
 
-export const Sizes = () => {
+export const Sizes: Story = () => {
   return (
     <>
       <Switch label="small" name="switch-small" size="small" />
@@ -25,8 +42,9 @@ export const Sizes = () => {
     </>
   );
 };
+Sizes.storyName = "Sizes";
 
-export const Disabled = () => {
+export const Disabled: Story = () => {
   return (
     <>
       <Switch label="Disabled switch" disabled />
@@ -34,8 +52,9 @@ export const Disabled = () => {
     </>
   );
 };
+Disabled.storyName = "Disabled";
 
-export const Required = () => {
+export const Required: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <Switch
@@ -47,8 +66,9 @@ export const Required = () => {
     />
   );
 };
+Required.storyName = "Required";
 
-export const Reversed = () => {
+export const Reversed: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <Switch
@@ -60,8 +80,9 @@ export const Reversed = () => {
     />
   );
 };
+Reversed.storyName = "Reversed";
 
-export const Loading = () => {
+export const Loading: Story = () => {
   return (
     <>
       <Switch checked label="small on" size="small" loading />
@@ -71,8 +92,9 @@ export const Loading = () => {
     </>
   );
 };
+Loading.storyName = "Loading";
 
-export const WithLabelInline = () => {
+export const WithLabelInline: Story = () => {
   return (
     <>
       <Switch label="With labelInline" labelInline />
@@ -84,8 +106,9 @@ export const WithLabelInline = () => {
     </>
   );
 };
+WithLabelInline.storyName = "With labelInline";
 
-export const WithFieldHelp = () => {
+export const WithFieldHelp: Story = () => {
   return (
     <>
       <Switch
@@ -100,8 +123,9 @@ export const WithFieldHelp = () => {
     </>
   );
 };
+WithFieldHelp.storyName = "With fieldHelp";
 
-export const WithLabelHelp = () => {
+export const WithLabelHelp: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <Switch
@@ -114,8 +138,9 @@ export const WithLabelHelp = () => {
     />
   );
 };
+WithLabelHelp.storyName = "With labelHelp";
 
-export const WithMargin = () => {
+export const WithMargin: Story = () => {
   return (
     <>
       <Switch
@@ -136,66 +161,83 @@ export const WithMargin = () => {
     </>
   );
 };
+WithMargin.storyName = "With Margin";
 
-export const Validation: StoryFn = (
-  args: Partial<SwitchProps> & { validation?: string | boolean }
-) => {
-  return (
-    <>
-      <Switch
-        error={args.validation}
-        label="Example switch (error)"
-        name="switch-error"
-        validationOnLabel={args.validationOnLabel}
-        tooltipPosition={args.tooltipPosition}
-      />
-      <Switch
-        warning={args.validation}
-        label="Example switch (warning)"
-        name="switch-warning"
-        validationOnLabel={args.validationOnLabel}
-        tooltipPosition={args.tooltipPosition}
-      />
-      <Switch
-        info={args.validation}
-        label="Example switch (info)"
-        name="switch-info"
-        validationOnLabel={args.validationOnLabel}
-        tooltipPosition={args.tooltipPosition}
-      />
-    </>
-  );
+type StoryWithValidation = Story & {
+  args: Partial<SwitchProps> & { validation?: string | boolean };
 };
 
-export const ValidationString = Validation.bind({});
-ValidationString.args = { validation: "Message" };
-
-export const ValidationStringTooltip = Validation.bind({});
-ValidationStringTooltip.args = {
-  validation: "Message",
-  tooltipPosition: "top",
+export const Validation: Story = {
+  render: (args: Partial<SwitchProps> & { validation?: string | boolean }) => {
+    return (
+      <>
+        <Switch
+          error={args.validation}
+          label="Example switch (error)"
+          name="switch-error"
+          validationOnLabel={args.validationOnLabel}
+          tooltipPosition={args.tooltipPosition}
+        />
+        <Switch
+          warning={args.validation}
+          label="Example switch (warning)"
+          name="switch-warning"
+          validationOnLabel={args.validationOnLabel}
+          tooltipPosition={args.tooltipPosition}
+        />
+        <Switch
+          info={args.validation}
+          label="Example switch (info)"
+          name="switch-info"
+          validationOnLabel={args.validationOnLabel}
+          tooltipPosition={args.tooltipPosition}
+        />
+      </>
+    );
+  },
+  name: "Validation",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
-ValidationStringTooltip.parameters = {
-  chromatic: { disableSnapshot: true },
+
+export const ValidationString: StoryWithValidation = {
+  ...Validation,
+  args: { ...Validation.args, validation: "Message" },
+  name: "Single Switch - String Validation",
 };
 
-export const ValidationStringLabel = Validation.bind({});
-ValidationStringLabel.args = { validation: "Message", validationOnLabel: true };
-
-export const ValidationStringLabelTooltip = Validation.bind({});
-ValidationStringLabelTooltip.args = {
-  validation: "Message",
-  validationOnLabel: true,
-  tooltipPosition: "top",
-};
-ValidationStringLabelTooltip.parameters = {
-  chromatic: { disableSnapshot: true },
+export const ValidationStringTooltip: StoryWithValidation = {
+  ...Validation,
+  args: { ...Validation.args, validation: "Message", tooltipPosition: "top" },
+  name: "Single Switch - String Validation - Tooltip Position Overriden",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const ValidationBoolean = Validation.bind({});
-ValidationBoolean.args = { validation: true };
+export const ValidationStringLabel: StoryWithValidation = {
+  ...Validation,
+  args: { ...Validation.args, validation: "Message", validationOnLabel: true },
+  name: "Single Switch - String Validation - validationOnLabel",
+};
 
-export const NewValidationString: StoryFn = () => {
+export const ValidationStringLabelTooltip: StoryWithValidation = {
+  ...Validation,
+  args: {
+    ...Validation.args,
+    validation: "Message",
+    validationOnLabel: true,
+    tooltipPosition: "top",
+  },
+  name:
+    "Single Switch - String Validation - validationOnLabel - Tooltip Position Overriden",
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export const ValidationBoolean: StoryWithValidation = {
+  ...Validation,
+  args: { ...Validation.args, validation: true },
+  name: "Single Switch - Boolean Validation",
+};
+
+export const NewValidationString: Story = () => {
   return (
     <Box m={2}>
       <CarbonProvider validationRedesignOptIn>
@@ -216,3 +258,4 @@ export const NewValidationString: StoryFn = () => {
     </Box>
   );
 };
+NewValidationString.storyName = "Single Switch - New Validation";

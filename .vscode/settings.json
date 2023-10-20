@@ -3,4 +3,23 @@
     "**/.git": true,
     "**/coverage": true
   },
+  "editor.quickSuggestions": {
+      "comments": false,
+      "strings": true,
+      "other": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".md", ".mdx", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "markdown",
+    "mdx",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
 }

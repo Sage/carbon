@@ -1,0 +1,71 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as SimpleColorStories from "./simple-color/simple-color.stories.tsx";
+import * as SimpleColorPickerStories from "./simple-color-picker.stories.tsx";
+
+<Meta title="Simple Color Picker" of={SimpleColorPickerStories} />
+
+# Simple Color Picker
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/83c4f8-color-picker"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+- Choose from a small palette of pre-set colours, with indication of a currently selected colour.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import SimpleColorPicker from "carbon-react/lib/components/simple-color-picker";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={SimpleColorPickerStories.Default} />
+
+### Disabled
+
+<Canvas of={SimpleColorPickerStories.Disabled} />
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas of={SimpleColorPickerStories.Required} />
+
+#### With margin
+
+<Canvas of={SimpleColorPickerStories.WithMargin} />
+
+### Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs#grouped-inputs) documentation page
+
+## Props
+
+### SimpleColorPicker
+
+<ArgTypes of={SimpleColorPickerStories} />
+
+### SimpleColor
+
+<ArgTypes of={SimpleColorStories} />

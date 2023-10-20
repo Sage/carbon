@@ -4,8 +4,8 @@ import { test, expect } from "@playwright/experimental-ct-react17";
 import {
   TextEditorCustom,
   TextEditorCustomValidation,
+  TextEditorNewValidation,
 } from "./components.test-pw";
-import { WithNewValidation as TextEditorNewValidation } from "./text-editor.stories";
 import {
   textEditorInput,
   textEditorCounter,

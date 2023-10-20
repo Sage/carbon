@@ -1,71 +1,105 @@
 import React, { useState, useRef } from "react";
-import { ComponentStory } from "@storybook/react";
-import { StepFlow } from ".";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import I18nProvider from "../i18n-provider/i18n-provider.component";
 import Button from "../button";
 import Form from "../form";
 import Dialog from "../dialog";
 import Typography from "../typography";
 import Textarea from "../textarea";
-import I18nProvider from "../i18n-provider/i18n-provider.component";
+
 import { Steps, StepFlowHandle } from "./step-flow.component";
+import { StepFlow } from ".";
 
-export const DefaultStory: ComponentStory<typeof StepFlow> = () => (
-  <StepFlow title="Step title" currentStep={1} totalSteps={6} />
-);
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
-export const CategoryStory: ComponentStory<typeof StepFlow> = () => (
-  <StepFlow
-    category="Main goal"
-    title="Step title"
-    currentStep={1}
-    totalSteps={6}
-  />
-);
+const meta: Meta<typeof StepFlow> = {
+  title: "Step Flow",
+  component: StepFlow,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { controls: { disabled: true } },
+};
 
-export const ShowProgressIndicatorStory: ComponentStory<
-  typeof StepFlow
-> = () => (
-  <StepFlow
-    category="Main goal"
-    title="Step title"
-    currentStep={1}
-    totalSteps={6}
-    showProgressIndicator
-  />
-);
+export default meta;
+type Story = StoryObj<typeof StepFlow>;
 
-export const CurrentStepStory: ComponentStory<typeof StepFlow> = () => (
-  <StepFlow
-    category="Main goal"
-    title="Step title"
-    currentStep={5}
-    totalSteps={6}
-    showProgressIndicator
-  />
-);
+export const DefaultStory: Story = () => {
+  return <StepFlow title="Step title" currentStep={1} totalSteps={6} />;
+};
+DefaultStory.storyName = "Default";
 
-export const TotalStepsStory: ComponentStory<typeof StepFlow> = () => (
-  <StepFlow
-    category="Main goal"
-    title="Step title"
-    currentStep={5}
-    totalSteps={8}
-    showProgressIndicator
-  />
-);
+export const CategoryStory: Story = () => {
+  return (
+    <StepFlow
+      category="Main goal"
+      title="Step title"
+      currentStep={1}
+      totalSteps={6}
+    />
+  );
+};
+CategoryStory.storyName = "Category";
 
-export const ShowCloseIconStory: ComponentStory<typeof StepFlow> = () => (
-  <StepFlow
-    category="Main goal"
-    title="Step title"
-    currentStep={1}
-    totalSteps={6}
-    showCloseIcon
-    onDismiss={() => ""}
-  />
-);
+export const ShowProgressIndicatorStory: Story = () => {
+  return (
+    <StepFlow
+      category="Main goal"
+      title="Step title"
+      currentStep={1}
+      totalSteps={6}
+      showProgressIndicator
+    />
+  );
+};
+ShowProgressIndicatorStory.storyName = "Show Progress Indicator";
 
-export const ExampleImplementation: ComponentStory<typeof StepFlow> = () => {
+export const CurrentStepStory: Story = () => {
+  return (
+    <StepFlow
+      category="Main goal"
+      title="Step title"
+      currentStep={5}
+      totalSteps={6}
+      showProgressIndicator
+    />
+  );
+};
+CurrentStepStory.storyName = "Current Step";
+
+export const TotalStepsStory: Story = () => {
+  return (
+    <StepFlow
+      category="Main goal"
+      title="Step title"
+      currentStep={5}
+      totalSteps={8}
+      showProgressIndicator
+    />
+  );
+};
+TotalStepsStory.storyName = "Total Steps";
+
+export const ShowCloseIconStory: Story = () => {
+  return (
+    <StepFlow
+      category="Main goal"
+      title="Step title"
+      currentStep={1}
+      totalSteps={6}
+      showCloseIcon
+      onDismiss={() => ""}
+    />
+  );
+};
+ShowCloseIconStory.storyName = "Show Close Icon";
+
+export const ExampleImplementation: Story = () => {
   const lowestStep = 1;
   const highestStep = 3;
 
@@ -131,10 +165,9 @@ export const ExampleImplementation: ComponentStory<typeof StepFlow> = () => {
     </>
   );
 };
+ExampleImplementation.storyName = "Example Implementation";
 
-export const ExampleImplementationWithTranslations: ComponentStory<
-  typeof StepFlow
-> = () => {
+export const ExampleImplementationWithTranslations: Story = () => {
   const lowestStep = 1;
   const highestStep = 3;
 
@@ -218,3 +251,5 @@ export const ExampleImplementationWithTranslations: ComponentStory<
     </I18nProvider>
   );
 };
+ExampleImplementationWithTranslations.storyName =
+  "Example Implementation with Translations";

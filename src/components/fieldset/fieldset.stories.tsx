@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import Fieldset from ".";
 import { Select, Option } from "../select";
@@ -7,7 +7,24 @@ import Textbox from "../textbox";
 import { Checkbox } from "../checkbox";
 import Form from "../form";
 
-export const Default: ComponentStory<typeof Fieldset> = () => (
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof Fieldset> = {
+  title: "Fieldset",
+  component: Fieldset,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Fieldset>;
+
+export const Default: Story = () => (
   <Fieldset legend="Fieldset">
     <Textbox
       label="First Name"
@@ -23,8 +40,9 @@ export const Default: ComponentStory<typeof Fieldset> = () => (
     <Textbox label="Telephone" labelInline labelAlign="right" labelWidth={30} />
   </Fieldset>
 );
+Default.storyName = "Default";
 
-export const InFormBasic: ComponentStory<typeof Fieldset> = () => (
+export const InFormBasic: Story = () => (
   <Form>
     <Textbox label="Separate Field" labelInline />
     <Fieldset>
@@ -38,8 +56,9 @@ export const InFormBasic: ComponentStory<typeof Fieldset> = () => (
     <Textbox label="Separate Field" labelInline />
   </Form>
 );
+InFormBasic.storyName = "In Form (Basic)";
 
-export const InFormFieldSpacing: ComponentStory<typeof Fieldset> = () => (
+export const InFormFieldSpacing: Story = () => (
   <Form fieldSpacing={1}>
     <Textbox label="Separate Field" labelInline />
     <Fieldset>
@@ -53,10 +72,9 @@ export const InFormFieldSpacing: ComponentStory<typeof Fieldset> = () => (
     <Textbox label="Separate Field" labelInline />
   </Form>
 );
+InFormFieldSpacing.storyName = "In Form (Field Spacing)";
 
-export const ValidationsStringComponent: ComponentStory<
-  typeof Fieldset
-> = () => (
+export const ValidationsStringComponent: Story = () => (
   <>
     {["error", "warning", "info"].map((type) => (
       <Fieldset
@@ -90,8 +108,9 @@ export const ValidationsStringComponent: ComponentStory<
     ))}
   </>
 );
+ValidationsStringComponent.storyName = "Validations (String on Component)";
 
-export const ValidationsStringLabel: ComponentStory<typeof Fieldset> = () => (
+export const ValidationsStringLabel: Story = () => (
   <>
     {["error", "warning", "info"].map((type) => (
       <Fieldset
@@ -127,8 +146,9 @@ export const ValidationsStringLabel: ComponentStory<typeof Fieldset> = () => (
     ))}
   </>
 );
+ValidationsStringLabel.storyName = "Validations (String on Label)";
 
-export const ValidationsBoolean: ComponentStory<typeof Fieldset> = () => (
+export const ValidationsBoolean: Story = () => (
   <>
     {["error", "warning", "info"].map((type) => (
       <Fieldset key={`${type}-boolean`} legend={`Fieldset ${type} as boolean`}>
@@ -159,3 +179,4 @@ export const ValidationsBoolean: ComponentStory<typeof Fieldset> = () => (
     ))}
   </>
 );
+ValidationsBoolean.storyName = "Validations (Boolean)";

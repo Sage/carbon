@@ -3,7 +3,7 @@ import SettingsRow, { SettingsRowProps } from ".";
 
 export default {
   component: SettingsRow,
-  title: "Setting Row/Test",
+  title: "Settings Row/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

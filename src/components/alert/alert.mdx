@@ -1,0 +1,40 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import * as AlertStories from "./alert.stories";
+
+<Meta title="Alert" of={AlertStories} />
+
+# Alert
+
+An important message that interrupts user activity, but can be dismissed.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Alert from "carbon-react/lib/components/alert";
+```
+
+## Related Components
+
+- Longer message which stays on-screen? [Try Message](https://carbon.sage.com/?path=/docs/message--default "Try Message").
+- Longer, time sensitive message that must be dismissed? [Try Toast](https://carbon.sage.com/?path=/docs/toast--default "Try Toast").
+- Confirm or cancel an action I’ve initiated? [Try Confirm](https://carbon.sage.com/?path=/docs/confirm--default-story "Try Confirm").
+- Simple task in context? [Try Dialog](https://carbon.sage.com/?path=/docs/dialog--default-story "Try Dialog").
+
+## Examples
+
+### Default
+
+<Canvas of={AlertStories.Default} />
+
+## Props
+
+### Alert
+
+<ArgTypes of={AlertStories} />

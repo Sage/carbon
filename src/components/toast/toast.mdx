@@ -1,0 +1,185 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as ToastStories from "./toast.stories";
+
+<Meta title="Toast" of={ToastStories} />
+
+# Toast
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/31d5ea-toast/b/227fa0"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Toast is part of Carbon's Flashes components.
+Its purpose is to present quick confirmation of success or failure, relating to the task the user has just performed. Alternatively, use Toast messages for a longer, timely message that the user must dismiss.
+
+Various types are available:
+
+- **Error** - Shows an error or failed action or task. Includes next steps.
+- **Info** - Shows additional information when a task is completed.
+- **Success** - Shows a successful action or completion of a task.
+- **Warning** - Shows information about external factors that impact a task. For example, the user does not have access rights.
+- **Neutral** - Shows information or advice, or provides context.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use toast, import the `Toast` and pass the content as children.
+
+```javascript
+import Toast from "carbon-react/lib/components/toast";
+```
+
+### Controlled
+
+```javascript
+const MyComponent = () => (
+  <Toast
+    variant="info"
+    id="toast-quick-start"
+    open={isOpen}
+    onDismiss={onDismissClick}
+  >
+    {children}
+  </Toast>
+);
+```
+
+It can be used as a uncontrolled component.
+
+### Uncontrolled
+
+```javascript
+const MyComponent = () => (
+  <Toast variant="info" id="toast-quick-start">
+    {children}
+  </Toast>
+);
+```
+
+## Examples
+
+Please note, by clicking a `toggle preview` button it will open example toast at the top of the page.
+
+### Default
+
+Toast variant is `success` by default
+
+<Canvas of={ToastStories.Default} />
+
+### Horizontal Align - Left
+
+<Canvas of={ToastStories.AlignedLeft} />
+
+### Horizontal Align - Center
+
+<Canvas of={ToastStories.AlignedCenter} />
+
+### Horizontal Align - Right
+
+<Canvas of={ToastStories.AlignedRight} />
+
+### Vertical Align - Top
+
+<Canvas of={ToastStories.AlignedYTop} />
+
+### Vertical Align - Center
+
+<Canvas of={ToastStories.AlignedYCenter} />
+
+### Vertical Align - Bottom
+
+<Canvas of={ToastStories.AlignedYBottom} />
+
+### Info
+
+<Canvas of={ToastStories.Info} />
+
+### Neutral
+
+<Canvas of={ToastStories.Neutral} />
+
+### Error
+
+<Canvas of={ToastStories.Error} />
+
+### Warning
+
+<Canvas of={ToastStories.Warning} />
+
+### Notice
+
+When the "notice" variant is set, the Toast component is rendered at the bottom of the screen with alternative styling and animation.
+The "isCenter" and "maxWidth" props will be ignored in this variant.
+To render it at the top of the screen use the "alignY" prop set to "top".
+
+<Canvas of={ToastStories.Notice} />
+
+### Notification
+
+<Canvas of={ToastStories.Notification} />
+
+### Variant Left Aligned
+
+<Canvas of={ToastStories.LeftAligned} />
+
+### Custom max width
+
+<Canvas of={ToastStories.CustomMaxWidth} />
+
+### Dismissible
+
+<Canvas of={ToastStories.Dismissible} />
+
+### Dismissible with timeout
+
+<Canvas of={ToastStories.DismissibleWithTimeout} />
+
+### Dismissible without autoFocus
+
+<Canvas of={ToastStories.DismissibleWithoutAutoFocus} />
+
+### Grouped Delayed (stacking)
+
+One second delay
+
+<Canvas of={ToastStories.StackedDelayed} />
+
+### Grouped (stacking)
+
+Please use `targetPortalId` prop to group multiple toasts so that they stack.
+
+<Canvas of={ToastStories.Stacked} />
+
+## Props
+
+### Toast
+
+<ArgTypes of={ToastStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "toast.ariaLabels.close",
+      description: "The text for close button aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

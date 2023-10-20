@@ -1,0 +1,188 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+
+import * as OptionStories from "../option/option.stories";
+import * as SelectTextboxStories from "../select-textbox/select-textbox.stories";
+import * as FilterableSelectStories from "./filterable-select.stories";
+
+<Meta title="Select/Filterable" of={FilterableSelectStories} />
+
+# Filterable Select
+
+Select one of available options from the drop-down menu using filter.
+Filterable Select is a Carbon styled implementation of WAI-ARIA Combobox with Inline Autocomplete.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import { FilterableSelect, Option } from "carbon-react/lib/components/select";
+```
+
+Always insert `Option` Components inside the `FilterableSelect`, analogous to the `<select>` and `<option>` HTML Elements.
+
+If you type printable characters in the Textbox, you can filter through the existing options leaving only those that match the text you typed.
+
+## Examples
+
+### Default
+
+<Canvas of={FilterableSelectStories.Default} />
+
+### List placement
+
+You can use `listPlacement` prop to set the position of the select list relative to the input element.
+
+<Canvas of={FilterableSelectStories.ListPlacement} />
+
+### List height
+
+You can use `listMaxHeight` prop to override default max height value of select list.
+
+<Canvas of={FilterableSelectStories.ListHeight} />
+
+### Controlled Usage
+
+<Canvas of={FilterableSelectStories.Controlled} />
+
+### Open on focus
+
+<Canvas of={FilterableSelectStories.OpenOnFocus} />
+
+### Disabled
+
+<Canvas of={FilterableSelectStories.Disabled} />
+
+### Read Only
+
+<Canvas of={FilterableSelectStories.Readonly} />
+
+### With multiple columns
+
+<Canvas of={FilterableSelectStories.WithMultipleColumns} />
+
+### With multiple columns and nested tags/components
+
+<Canvas of={FilterableSelectStories.WithMultipleColumnsAndNested} />
+
+### With Action Button
+
+Default Action Button will be rendered when the `listActionButton` prop is set to `true` on the Component.
+
+A custom `Button` Component could be passed as the `listActionButton` value.
+
+<Canvas of={FilterableSelectStories.WithActionButton} />
+
+### With isLoading prop
+
+When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
+
+<Canvas of={FilterableSelectStories.WithIsLoadingProp} />
+
+### Infinite scroll example
+
+The `isLoading` prop in combination with the `onListScrollBottom` prop can be used to implement infinite scroll.
+This prop will be called every time a user scrolls to the bottom of the list.
+
+<Canvas of={FilterableSelectStories.WithInfiniteScroll} />
+
+### With custom maxWidth
+
+In this example the `maxWidth` prop is 50%.
+
+<Canvas of={FilterableSelectStories.WithCustomMaxWidth} />
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas of={FilterableSelectStories.Required} />
+
+### With object as value
+
+Option values could be passed as objects, useful when custom data is associated with an option.
+When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
+If there is no `id` prop specified on an object, then the exact objects will be compared.
+
+<Canvas of={FilterableSelectStories.WithObjectAsValue} />
+
+#### New designs validation
+
+<Canvas of={FilterableSelectStories.ValidationsStringNewDesign} />
+
+### Virtual scrolling
+
+The `enableVirtualScroll` prop can be used to enable "virtual scrolling" to only render a few options into the DOM at any one time.
+This allows an unlimited amount of children to be passed with little impact on rendering performance.
+
+By default this will render 5 not-currently-visible options into the DOM on either side of the currently-visible ones - this value can
+be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
+
+<Canvas of={FilterableSelectStories.Virtualised} />
+
+### Selection confirmed
+
+A change event is emitted each time an option is navigated via keyboard as it sets the value of the
+Select input. For those that need to trigger further actions when the user makes a selection, there is
+a `selectionConfirmed` property on the emitted event when the enter key is pressed or an option is clicked.
+
+<Canvas of={FilterableSelectStories.SelectionConfirmedStory} />
+
+### Custom filtering and option styles
+
+By default, filtering and highlighting of options is handled by the component itself. In order to use custom filtering behaviour, or to use custom styling of option values, the
+default filtering can be disabled using the `disableDefaultFiltering` prop.
+
+This allows use-cases like server-side filtering of options, or rich formatting of options.
+
+<Canvas of={FilterableSelectStories.CustomFilterAndOptionStyle} />
+
+## Props
+
+### Filterable Select
+
+<ArgTypes of={FilterableSelectStories} />
+
+Due to the `Textbox` component being used internally by the `FilterableSelect` component, most of the `Textbox` props are applicable to `FilterableSelect`
+
+<ArgTypes of={SelectTextboxStories} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
+
+### Props of the Option Component
+
+<ArgTypes of={OptionStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "select.actionButtonText",
+      description: "The text for the action button component",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "select.placeholder",
+      description: "The text for the input component placeholder",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "select.noResultsForTerm",
+      description: "The text displayed when search term returns no results",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

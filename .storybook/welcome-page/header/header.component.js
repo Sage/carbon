@@ -25,7 +25,6 @@ const Header = () => (
         <CodeButtonWrapper>
           <Button
             buttonType="darkBackground"
-            target="_blank"
             href="https://github.com/Sage/carbon"
             size="large"
             target="_blank"
@@ -34,8 +33,7 @@ const Header = () => (
           </Button>
           <Button
             buttonType="primary"
-            target="_blank"
-            href="https://carbon.sage.com/?path=/story/getting-started-installation--page"
+            href="https://carbon.sage.com/?path=/docs/getting-started-installation--docs"
             size="large"
             target="_blank"
             ml={2}

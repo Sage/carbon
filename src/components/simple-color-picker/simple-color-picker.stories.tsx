@@ -1,7 +1,26 @@
 import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import { SimpleColorPicker, SimpleColor } from ".";
 
-export const Default = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof SimpleColorPicker> = {
+  title: "Simple Color Picker",
+  component: SimpleColorPicker,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof SimpleColorPicker>;
+
+export const Default: Story = () => {
   const [state, setState] = useState("transparent");
   const colors = [
     { color: "transparent", label: "transparent" },
@@ -33,8 +52,9 @@ export const Default = () => {
     </SimpleColorPicker>
   );
 };
+Default.storyName = "Default";
 
-export const Disabled = () => {
+export const Disabled: Story = () => {
   const [state, setState] = useState("transparent");
 
   const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,8 +84,9 @@ export const Disabled = () => {
     </SimpleColorPicker>
   );
 };
+Disabled.storyName = "Disabled";
 
-export const Required = () => {
+export const Required: Story = () => {
   const [state, setState] = useState("transparent");
 
   const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,8 +111,9 @@ export const Required = () => {
     </SimpleColorPicker>
   );
 };
+Required.storyName = "Required";
 
-export const WithMargin = () => {
+export const WithMargin: Story = () => {
   const [state, setState] = useState("transparent");
 
   const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,3 +140,4 @@ export const WithMargin = () => {
     </SimpleColorPicker>
   );
 };
+WithMargin.storyName = "With Margin";
