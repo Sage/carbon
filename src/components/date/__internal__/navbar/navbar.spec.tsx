@@ -5,6 +5,9 @@ import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
 import Navbar, { NavbarProps } from "./navbar.component";
 import StyledButton from "./button.style";
 
+const arrowKeys = ["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight"];
+const actionKeys = ["Enter", "Space"];
+
 describe("Navbar", () => {
   let wrapper: ShallowWrapper | ReactWrapper;
   let onPreviousClick: jest.Mock;
@@ -54,6 +57,114 @@ describe("Navbar", () => {
       expect(prevButton.getAttribute("aria-label")).toBe("Previous month");
       expect(nextButton.getAttribute("aria-label")).toBe("Next month");
     });
+
+    it.each(arrowKeys)(
+      "does not change the current month when %s key is pressed and previous button is focused",
+      (key) => {
+        const stopPropagation = jest.fn();
+        const preventDefault = jest.fn();
+
+        wrapper = mount(
+          <Navbar
+            onPreviousClick={onPreviousClick}
+            onNextClick={onNextClick}
+            className="custom-class"
+          />
+        );
+
+        const prevButton = wrapper.find(StyledButton).at(0);
+        (prevButton.getDOMNode() as HTMLElement).focus();
+        prevButton.prop("onKeyDown")({
+          key,
+          stopPropagation,
+          preventDefault,
+        });
+
+        expect(stopPropagation).toHaveBeenCalled();
+        expect(preventDefault).toHaveBeenCalled();
+      }
+    );
+
+    it.each(arrowKeys)(
+      "does not change the current month when %s key is pressed and next button is focused",
+      (key) => {
+        const stopPropagation = jest.fn();
+        const preventDefault = jest.fn();
+
+        wrapper = mount(
+          <Navbar
+            onPreviousClick={onPreviousClick}
+            onNextClick={onNextClick}
+            className="custom-class"
+          />
+        );
+
+        const nextButton = wrapper.find(StyledButton).at(1);
+        (nextButton.getDOMNode() as HTMLElement).focus();
+        nextButton.prop("onKeyDown")({
+          key,
+          stopPropagation,
+          preventDefault,
+        });
+
+        expect(stopPropagation).toHaveBeenCalled();
+        expect(preventDefault).toHaveBeenCalled();
+      }
+    );
+
+    it.each(actionKeys)(
+      "changes the current month when %s key is pressed and previous button is focused",
+      (key) => {
+        const stopPropagation = jest.fn();
+        const preventDefault = jest.fn();
+
+        wrapper = mount(
+          <Navbar
+            onPreviousClick={onPreviousClick}
+            onNextClick={onNextClick}
+            className="custom-class"
+          />
+        );
+
+        const prevButton = wrapper.find(StyledButton).at(0);
+        (prevButton.getDOMNode() as HTMLElement).focus();
+        prevButton.prop("onKeyDown")({
+          key,
+          stopPropagation,
+          preventDefault,
+        });
+
+        expect(stopPropagation).not.toHaveBeenCalled();
+        expect(preventDefault).not.toHaveBeenCalled();
+      }
+    );
+
+    it.each(actionKeys)(
+      "changes the current month when %s key is pressed and next button is focused",
+      (key) => {
+        const stopPropagation = jest.fn();
+        const preventDefault = jest.fn();
+
+        wrapper = mount(
+          <Navbar
+            onPreviousClick={onPreviousClick}
+            onNextClick={onNextClick}
+            className="custom-class"
+          />
+        );
+
+        const nextButton = wrapper.find(StyledButton).at(1);
+        (nextButton.getDOMNode() as HTMLElement).focus();
+        nextButton.prop("onKeyDown")({
+          key,
+          stopPropagation,
+          preventDefault,
+        });
+
+        expect(stopPropagation).not.toHaveBeenCalled();
+        expect(preventDefault).not.toHaveBeenCalled();
+      }
+    );
   });
 
   describe("Navbar Button", () => {

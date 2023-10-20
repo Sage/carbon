@@ -61,16 +61,19 @@ const MockComponent = (props: MockProps) => {
 function renderI18n({
   locale,
   ...props
-}: { locale?: Partial<Locale> } & Omit<DatePickerProps, "inputElement">) {
+}: { locale?: Partial<Locale> } & Omit<
+  DatePickerProps,
+  "inputElement" | "setOpen"
+>) {
   return mount(
     <I18nProvider locale={locale}>
-      <MockComponent open {...props} />
+      <MockComponent open {...props} setOpen={() => {}} />
     </I18nProvider>
   );
 }
 
-function render(props: Omit<DatePickerProps, "inputElement">) {
-  return mount(<MockComponent open {...props} />);
+function render(props: Omit<DatePickerProps, "inputElement" | "setOpen">) {
+  return mount(<MockComponent open {...props} setOpen={() => {}} />);
 }
 
 describe("DatePicker", () => {
@@ -162,7 +165,7 @@ describe("DatePicker", () => {
     });
   });
 
-  describe('when the "onDayClick" prop have been triggered', () => {
+  describe('when the "onDayClick" prop has been triggered', () => {
     let onDayClickFn: jest.Mock;
 
     beforeEach(() => {

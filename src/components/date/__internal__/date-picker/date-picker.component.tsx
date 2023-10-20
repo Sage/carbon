@@ -13,6 +13,8 @@ import useLocale from "../../../../hooks/__internal__/useLocale";
 import Navbar from "../navbar";
 import Weekday from "../weekday";
 import StyledDayPicker from "./day-picker.style";
+import Events from "../../../../__internal__/utils/helpers/events";
+import { defaultFocusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 
 type CustomRefObject<T> = {
   current?: T | null;
@@ -51,6 +53,10 @@ export interface DatePickerProps {
   open?: boolean;
   /** Callback triggered when a Day is clicked */
   onDayClick?: (date: Date, ev: React.MouseEvent<HTMLDivElement>) => void;
+  /** Sets the picker open state */
+  setOpen: (isOpen: boolean) => void;
+  /** Id passed to tab guard element */
+  pickerTabGuardId?: string;
 }
 
 const popoverMiddleware = [
@@ -70,6 +76,8 @@ export const DatePicker = ({
   pickerMouseDown,
   pickerProps,
   open,
+  setOpen,
+  pickerTabGuardId,
 }: DatePickerProps) => {
   const l = useLocale();
   const { localize, options } = l.date.dateFnsLocale();
@@ -106,29 +114,6 @@ export const DatePicker = ({
         .substring(0, isGivenLocale("de") ? 2 : 3)
     );
   }, [l, localize]);
-
-  const handleDayClick = (
-    date: Date,
-    modifiers: DayModifiers,
-    ev: React.MouseEvent<HTMLDivElement>
-  ) => {
-    if (!modifiers.disabled) {
-      const { id, name } = inputElement?.current
-        ?.firstChild as HTMLInputElement;
-      ev.target = {
-        ...ev.target,
-        id,
-        name,
-      } as HTMLInputElement;
-      onDayClick?.(date, ev);
-    }
-  };
-
-  const formatDay = (date: Date) =>
-    `${weekdaysShort[date.getDay()]} ${date.getDate()} ${
-      monthsShort[date.getMonth()]
-    } ${date.getFullYear()}`;
-
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -157,11 +142,86 @@ export const DatePicker = ({
     }
   }, [open]);
 
+  const handleDayClick = (
+    date: Date,
+    modifiers: DayModifiers,
+    ev: React.MouseEvent<HTMLDivElement>
+  ) => {
+    if (!modifiers.disabled) {
+      const { id, name } = inputElement?.current
+        ?.firstChild as HTMLInputElement;
+      ev.target = {
+        ...ev.target,
+        id,
+        name,
+      } as HTMLInputElement;
+      onDayClick?.(date, ev);
+    }
+  };
+
+  const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
+    if (Events.isEscKey(ev)) {
+      inputElement.current?.querySelector("input")?.focus();
+      setOpen(false);
+    }
+
+    if (
+      ref.current?.querySelector(".DayPicker-NavBar button") ===
+        document.activeElement &&
+      Events.isTabKey(ev) &&
+      Events.isShiftKey(ev)
+    ) {
+      ev.preventDefault();
+      setOpen(false);
+      inputElement.current?.querySelector("input")?.focus();
+    }
+  };
+
+  const handleOnDayKeyDown = (
+    _day: Date,
+    _modifiers: DayModifiers,
+    ev: React.KeyboardEvent<HTMLDivElement>
+  ) => {
+    // we need to manually handle this as the picker may be in a Portal
+    /* istanbul ignore else */
+    if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
+      ev.preventDefault();
+      setOpen(false);
+      const input = inputElement.current?.querySelector("input");
+
+      /* istanbul ignore else */
+      if (input) {
+        const elements = Array.from(
+          document.querySelectorAll(defaultFocusableSelectors) ||
+            /* istanbul ignore next */ []
+        ) as HTMLElement[];
+        const elementsInPicker = Array.from(
+          ref.current?.querySelectorAll("button, [tabindex]") ||
+            /* istanbul ignore next */ []
+        ) as HTMLElement[];
+        const filteredElements = elements.filter(
+          (el) => Number(el.tabIndex) !== -1 && !elementsInPicker.includes(el)
+        );
+        const nextIndex = filteredElements.indexOf(input as HTMLElement) + 1;
+        filteredElements[nextIndex]?.focus();
+      }
+    }
+  };
+
+  const formatDay = (date: Date) =>
+    `${weekdaysShort[date.getDay()]} ${date.getDate()} ${
+      monthsShort[date.getMonth()]
+    } ${date.getFullYear()}`;
+
   if (!open) {
     return null;
   }
 
   const localeUtils = { formatDay } as LocaleUtils;
+
+  const handleTabGuardFocus = () => {
+    ref.current?.querySelector("button")?.focus();
+  };
 
   return (
     <Popover
@@ -170,7 +230,17 @@ export const DatePicker = ({
       middleware={popoverMiddleware}
       disablePortal={disablePortal}
     >
-      <StyledDayPicker ref={ref} onMouseDown={pickerMouseDown}>
+      <StyledDayPicker
+        ref={ref}
+        onMouseDown={pickerMouseDown}
+        onKeyDown={handleOnKeyDown}
+      >
+        <div
+          id={pickerTabGuardId}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
+          onFocus={handleTabGuardFocus}
+        />
         <DayPicker
           month={selectedDays}
           months={monthsLong}
@@ -192,6 +262,7 @@ export const DatePicker = ({
           disabledDays={getDisabledDays(minDate, maxDate)}
           locale={l.locale()}
           localeUtils={localeUtils}
+          onDayKeyDown={handleOnDayKeyDown}
           {...pickerProps}
         />
       </StyledDayPicker>
