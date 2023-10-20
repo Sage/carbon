@@ -6,6 +6,8 @@ import {
   TextEditorCustomValidation,
 } from "../../../src/components/text-editor/text-editor-test.stories";
 
+import { WithNewValidation as TextEditorNewValidation } from "../../../src/components/text-editor/text-editor.stories";
+
 import {
   textEditorInput,
   textEditorCounter,
@@ -45,7 +47,7 @@ context("Test for TextEditor component", () => {
       CypressMountWithProviders(<TextEditorCustom />);
 
       textEditorInput().clear().type(textForInput);
-      textEditorCounter().should("have.text", 2982);
+      textEditorCounter().should("have.text", "2,982 characters left");
     });
 
     it.each(["bold", "italic"])(
@@ -200,7 +202,7 @@ context("Test for TextEditor component", () => {
 
       textEditorInput().clear().type(longText);
 
-      textEditorCounter().should("have.text", 0);
+      textEditorCounter().should("have.text", "0 characters left");
       innerText().should("have.text", longTextAssert);
     });
 
@@ -443,5 +445,11 @@ context("Test for TextEditor component", () => {
         cy.checkAccessibility();
       }
     );
+
+    it("should pass accessibility tests for TextEditor validation when opt in flag is set", () => {
+      CypressMountWithProviders(<TextEditorNewValidation />);
+
+      cy.checkAccessibility();
+    });
   });
 });

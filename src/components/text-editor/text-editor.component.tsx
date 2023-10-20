@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+} from "react";
 import { MarginProps } from "styled-system";
 import {
   ContentState,
@@ -29,11 +35,11 @@ import {
   StyledEditorOutline,
   StyledEditorContainer,
 } from "./text-editor.style";
-import Counter from "./__internal__/editor-counter";
+import ValidationWrapper from "./__internal__/editor-validation-wrapper";
 import Toolbar from "./__internal__/toolbar";
 import Label from "../../__internal__/label";
 import Events from "../../__internal__/utils/helpers/events";
-import createGuid from "../../__internal__/utils/helpers/guid";
+import guid from "../../__internal__/utils/helpers/guid";
 import LabelWrapper from "./__internal__/label-wrapper";
 import {
   BOLD,
@@ -44,6 +50,12 @@ import {
   BlockType,
 } from "./types";
 import { LinkPreviewProps } from "../link-preview";
+import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import ValidationMessage from "../../__internal__/validation-message";
+import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
+import Box from "../box";
+import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
 
 const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const INLINE_STYLES = [BOLD, ITALIC] as const;
@@ -78,6 +90,8 @@ export interface TextEditorProps extends MarginProps {
   previews?: React.ReactNode;
   /** Callback to report a url when a link is added */
   onLinkAdded?: (url: string) => void;
+  /** Hint text to be rendered when validationRedesignOptIn flag is set */
+  inputHint?: string;
 }
 
 export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
@@ -95,10 +109,12 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
       rows,
       previews,
       onLinkAdded,
+      inputHint,
       ...rest
     }: TextEditorProps,
     ref
   ) => {
+    const { validationRedesignOptIn } = useContext(NewValidationContext);
     const [isFocused, setIsFocused] = useState(false);
     const [inlines, setInlines] = useState<InlineStyleType[]>([]);
     const [activeInlines, setActiveInlines] = useState<
@@ -111,7 +127,30 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
     const contentLength = getContent(value).getPlainText("").length;
     const moveCursor = useRef(contentLength > 0);
     const lastKeyPressed = useRef<null | string>();
-    const labelId = useRef(`text-editor-label-${createGuid()}`);
+    const inputHintId = useRef(`${guid()}-hint`);
+    const { current: id } = useRef(guid());
+
+    const { labelId, validationId, ariaDescribedBy } = useInputAccessibility({
+      id,
+      validationRedesignOptIn,
+      error,
+      warning,
+      info,
+      label: labelText,
+    });
+
+    const [characterCount, visuallyHiddenHintId] = useCharacterCount(
+      getContent(value).getPlainText(""),
+      characterLimit
+    );
+
+    const combinedAriaDescribedBy = [
+      ariaDescribedBy,
+      inputHint ? inputHintId.current : undefined,
+      visuallyHiddenHintId,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
     if (rows && (typeof rows !== "number" || rows < 2)) {
       // eslint-disable-next-line no-console
@@ -377,73 +416,93 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
       <EditorContext.Provider value={{ onLinkAdded, editMode: true }}>
         <StyledEditorWrapper {...rest}>
           <LabelWrapper onClick={() => handleEditorFocus(true)}>
-            <Label labelId={labelId.current} isRequired={required}>
+            <Label labelId={labelId} isRequired={required}>
               {labelText}
             </Label>
           </LabelWrapper>
-          <StyledEditorOutline isFocused={isFocused} hasError={!!error}>
-            <StyledEditorContainer
-              data-component="text-editor-container"
-              hasError={!!error}
-              rows={rows}
-              hasPreview={!!React.Children.count(previews)}
-            >
-              <Counter
-                limit={characterLimit}
-                count={contentLength}
-                error={error}
-                warning={warning}
-                info={info}
-              />
-              <Editor
-                ref={editor}
-                onFocus={() => handleEditorFocus(true)}
-                onBlur={() => handleEditorFocus(false)}
-                editorState={editorState}
-                onChange={onChange}
-                handleBeforeInput={
-                  handleBeforeInput as (
-                    chars: string,
-                    state: EditorState
-                  ) => DraftHandleValue
-                }
-                handlePastedText={handlePastedText}
-                handleKeyCommand={
-                  handleKeyCommand as (
-                    command: EditorCommand
-                  ) => DraftHandleValue
-                }
-                ariaLabelledBy={labelId.current}
-                ariaDescribedBy={labelId.current}
-                blockStyleFn={blockStyleFn}
-                keyBindingFn={keyBindingFn}
-                tabIndex={0}
-              />
-              {React.Children.map(previews, (preview) => {
-                if (React.isValidElement<LinkPreviewProps>(preview)) {
-                  const { onClose } = preview?.props;
-                  return React.cloneElement(preview, {
-                    as: "div",
-                    onClose: onClose
-                      ? (url?: string) => handlePreviewClose(onClose, url)
-                      : undefined,
-                  });
-                }
-                return null;
-              })}
-              <Toolbar
-                setBlockStyle={(ev, newBlockType) =>
-                  handleBlockStyleChange(ev, newBlockType)
-                }
-                setInlineStyle={(ev, inlineStyle) =>
-                  handleInlineStyleChange(ev, inlineStyle)
-                }
-                activeControls={activeControls}
-                canFocus={focusToolbar}
-                toolbarElements={toolbarElements}
-              />
-            </StyledEditorContainer>
-          </StyledEditorOutline>
+          {inputHint && (
+            <StyledHintText id={inputHintId.current}>
+              {inputHint}
+            </StyledHintText>
+          )}
+          <Box position="relative">
+            {validationRedesignOptIn && (
+              <>
+                <ValidationMessage
+                  error={error}
+                  validationId={validationId}
+                  warning={warning}
+                />
+                {(error || warning) && (
+                  <ErrorBorder warning={!!(!error && warning)} />
+                )}
+              </>
+            )}
+            <StyledEditorOutline isFocused={isFocused} hasError={!!error}>
+              <StyledEditorContainer
+                data-component="text-editor-container"
+                hasError={!!error}
+                rows={rows}
+                hasPreview={!!React.Children.count(previews)}
+              >
+                {!validationRedesignOptIn && (error || warning || info) && (
+                  <ValidationWrapper
+                    error={error}
+                    warning={warning}
+                    info={info}
+                  />
+                )}
+                <Editor
+                  ref={editor}
+                  onFocus={() => handleEditorFocus(true)}
+                  onBlur={() => handleEditorFocus(false)}
+                  editorState={editorState}
+                  onChange={onChange}
+                  handleBeforeInput={
+                    handleBeforeInput as (
+                      chars: string,
+                      state: EditorState
+                    ) => DraftHandleValue
+                  }
+                  handlePastedText={handlePastedText}
+                  handleKeyCommand={
+                    handleKeyCommand as (
+                      command: EditorCommand
+                    ) => DraftHandleValue
+                  }
+                  ariaLabelledBy={labelId}
+                  ariaDescribedBy={combinedAriaDescribedBy}
+                  blockStyleFn={blockStyleFn}
+                  keyBindingFn={keyBindingFn}
+                  tabIndex={0}
+                />
+                {React.Children.map(previews, (preview) => {
+                  if (React.isValidElement<LinkPreviewProps>(preview)) {
+                    const { onClose } = preview?.props;
+                    return React.cloneElement(preview, {
+                      as: "div",
+                      onClose: onClose
+                        ? (url?: string) => handlePreviewClose(onClose, url)
+                        : undefined,
+                    });
+                  }
+                  return null;
+                })}
+                <Toolbar
+                  setBlockStyle={(ev, newBlockType) =>
+                    handleBlockStyleChange(ev, newBlockType)
+                  }
+                  setInlineStyle={(ev, inlineStyle) =>
+                    handleInlineStyleChange(ev, inlineStyle)
+                  }
+                  activeControls={activeControls}
+                  canFocus={focusToolbar}
+                  toolbarElements={toolbarElements}
+                />
+              </StyledEditorContainer>
+            </StyledEditorOutline>
+            {characterCount}
+          </Box>
         </StyledEditorWrapper>
       </EditorContext.Provider>
     );
