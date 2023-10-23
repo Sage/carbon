@@ -93,6 +93,18 @@ export const PodDefault = (props: PodProps) => {
   return <Pod title="Title" {...props} />;
 };
 
+export const EditExample = (props: PodProps) => {
+  return (
+    <Pod
+      title="Title"
+      subtitle="Subtitle"
+      footer="Footer"
+      onEdit={() => {}}
+      {...props}
+    />
+  );
+};
+
 export const SoftDeleteExample = (props: PodProps) => {
   return (
     <Pod
