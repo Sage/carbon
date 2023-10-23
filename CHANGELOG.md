@@ -1,3 +1,11 @@
+## [121.2.0](https://github.com/Sage/carbon/compare/v121.1.0...v121.2.0) (2023-10-17)
+
+
+### Features
+
+* **typography:** add support for span as a support variant ([e181c44](https://github.com/Sage/carbon/commit/e181c4452f0d315968abe40c124ea66d0014240a))
+* **typography:** add text-align prop ([553d854](https://github.com/Sage/carbon/commit/553d854b46ca06314de07bbf2eb9b5da6ca1dd1d))
+
 ## [121.1.0](https://github.com/Sage/carbon/compare/v121.0.2...v121.1.0) (2023-10-17)
 
 

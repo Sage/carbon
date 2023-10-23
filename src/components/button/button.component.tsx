@@ -4,7 +4,9 @@ import invariant from "invariant";
 
 import Icon, { IconType, IconProps } from "../icon";
 import StyledButton, { StyledButtonSubtext } from "./button.style";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
 import { TooltipPositions } from "../tooltip/tooltip.config";
@@ -21,7 +23,7 @@ export type ButtonTypes =
 export type SizeOptions = "small" | "medium" | "large";
 export type ButtonIconPosition = "before" | "after";
 
-export interface ButtonProps extends SpaceProps {
+export interface ButtonProps extends SpaceProps, TagProps {
   /**
    * Prop to specify the aria-label attribute of the component
    * Defaults to the iconType, when the component has only an icon
