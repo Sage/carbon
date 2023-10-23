@@ -1,3 +1,15 @@
+## [122.0.0](https://github.com/Sage/carbon/compare/v121.2.0...v122.0.0) (2023-10-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pod:** The onEdit prop is now restricted to being an event handler function - the options
+for it to be a string or an object have been removed.
+
+### Bug Fixes
+
+* **pod:** make edit button an HTML button rather than an anchor tag ([98d8bde](https://github.com/Sage/carbon/commit/98d8bde579b6a14a081e87d4e7b38501335370bb))
+
 ## [121.2.0](https://github.com/Sage/carbon/compare/v121.1.0...v121.2.0) (2023-10-17)
 
 
