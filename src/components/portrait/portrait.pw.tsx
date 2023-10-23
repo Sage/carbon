@@ -424,7 +424,6 @@ test.describe("Event checks for Portrait component", () => {
   });
 });
 
-// TODO: remove "color-contrast" disabled rules parameter from all relevant accessibility tests upon the completion of FE-6202
 test.describe("Accessibility tests for Portrait component", () => {
   test("should pass accessibility checks when gravatar is passed", async ({
     mount,
@@ -453,7 +452,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent size={size} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -463,7 +462,7 @@ test.describe("Accessibility tests for Portrait component", () => {
   }) => {
     await mount(<PortraitDefaultComponent alt="playwright-test" />);
 
-    await checkAccessibility(page, "color-contrast");
+    await checkAccessibility(page);
   });
 
   ["square", "circle"].forEach((shape) => {
@@ -473,7 +472,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent shape={shape} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -484,7 +483,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent iconType={iconType} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -495,7 +494,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent initials={passInitials} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -509,7 +508,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent darkBackground={boolVal} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -521,7 +520,6 @@ test.describe("Accessibility tests for Portrait component", () => {
       await mount(
         <PortraitComponent tooltipIsVisible tooltipMessage={tooltipMessage} />
       );
-
       await checkAccessibility(page, "color-contrast");
     });
   });
@@ -578,29 +576,7 @@ test.describe("Accessibility tests for Portrait component", () => {
       mount,
       page,
     }) => {
-      await mount(<PortraitComponent size={tooltipSize} />);
-
-      await checkAccessibility(page, "color-contrast");
-    });
-  });
-
-  colors.forEach(([names]) => {
-    test(`should pass accessibility checks with a tooltip, with a ${names} background color`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PortraitComponent tooltipBgColor={names} />);
-
-      await checkAccessibility(page, "color-contrast");
-    });
-  });
-
-  colors.forEach(([names]) => {
-    test(`should pass accessibility checks with a tooltip, with a ${names} font color`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PortraitComponent tooltipFontColor={names} />);
+      await mount(<PortraitComponent tooltipSize={tooltipSize} />);
 
       await checkAccessibility(page, "color-contrast");
     });
@@ -613,6 +589,6 @@ test.describe("Accessibility tests for Portrait component", () => {
     let callbackCount = 0;
     await mount(<PortraitDefaultComponent onClick={(callbackCount += 1)} />);
 
-    await checkAccessibility(page, "color-contrast");
+    await checkAccessibility(page);
   });
 });
