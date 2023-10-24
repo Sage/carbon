@@ -1,8 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
-import Tile from ".";
-import { TileContent } from "./tile.style";
-import Content from "../content";
+import { Tile, TileContent } from ".";
+import StyledTileContent from "./tile-content/tile-content.style";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -10,45 +9,33 @@ import {
   testStyledSystemHeight,
 } from "../../__spec_helper__/test-utils";
 import { TileProps } from "./tile.component";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
+import StyledTile from "./tile.style";
 
 function renderTile(props: TileProps) {
   return mount(
     <Tile {...props}>
-      <Content key="one">Child 1</Content>
-      <Content>Child 2</Content>
+      <TileContent key="one">Child 1</TileContent>
+      <TileContent>Child 2</TileContent>
     </Tile>
   );
 }
 
 describe("Tile", () => {
+  testStyledSystemSpacing((props) => <Tile {...props}>Test</Tile>, { p: 3 });
+
+  testStyledSystemWidth((props) => <Tile {...props}>Test</Tile>);
+
   describe("wrapping of children in TileContent components", () => {
-    describe("standard", () => {
-      const wrapper = renderTile({});
-      const tileContents = wrapper.find(TileContent).getElements();
-
-      it("contains one TileContent for each child", () => {
-        expect(tileContents.length).toBe(2);
-      });
-
-      it.each([0, 1])(
-        "TileContent[%i] contains the passed Content as its own child",
-        (childIndex) => {
-          expect(tileContents[childIndex].props.children.type.name).toBe(
-            "Content"
-          );
-          expect(tileContents[childIndex].props.children.props.children).toBe(
-            `Child ${childIndex + 1}`
-          );
-        }
-      );
-    });
-
     describe("when something causes a child element to return nothing", () => {
-      const children = [<Content key="one">Child 1</Content>, undefined];
+      const children = [
+        <TileContent key="one">Child 1</TileContent>,
+        <TileContent key="two">{null}</TileContent>,
+      ];
 
       const wrapper = mount(<Tile>{children}</Tile>);
 
-      const tileContents = wrapper.find(TileContent).getElements();
+      const tileContents = wrapper.find(StyledTileContent).getElements();
 
       it("only contains one TileContent", () => {
         expect(tileContents.length).toBe(1);
@@ -156,18 +143,6 @@ describe("Tile", () => {
     });
   });
 
-  describe("TileContent", () => {
-    describe("styles", () => {
-      testStyledSystemSpacing((props) => (
-        <TileContent {...props}>Test</TileContent>
-      ));
-
-      testStyledSystemWidth((props) => (
-        <TileContent {...props}>Test</TileContent>
-      ));
-    });
-  });
-
   it.each<TileProps["roundness"]>(["default", "large"])(
     "render with the expected border radius when roundness is %s",
     (roundness) => {
@@ -180,4 +155,13 @@ describe("Tile", () => {
       assertStyleMatch({ borderRadius: result }, wrapper);
     }
   );
+
+  it("has proper data attributes applied to elements", () => {
+    const wrapper = mount(
+      <Tile data-element="foo" data-role="bar">
+        content
+      </Tile>
+    );
+    rootTagTest(wrapper.find(StyledTile), "tile", "foo", "bar");
+  });
 });

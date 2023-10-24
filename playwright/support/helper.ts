@@ -64,6 +64,30 @@ type OutlineType =
   | "border-right";
 
 /**
+ * Asserts if an element has the correct css border/outline
+ * @param element Target element as a Playwright locator
+ * @param outlinePixelWidth
+ * @param cssProp
+ * @param color
+ * @example await checkCSSOutline(locator);
+ */
+export const checkCSSOutline = async (
+  element: Locator,
+  outlinePixelWidth = "2px",
+  cssProp: OutlineType = "outline",
+  style = "solid",
+  color = ""
+) => {
+  const outlineWidth = await getStyle(element, `${cssProp}-width`);
+  const outlineColor = await getStyle(element, `${cssProp}-color`);
+  const outlineStyle = await getStyle(element, `${cssProp}-style`);
+
+  expect(outlineWidth).toEqual(outlinePixelWidth);
+  expect(outlineColor).toEqual(color);
+  expect(outlineStyle).toEqual(style);
+};
+
+/**
  * Asserts if an element has the correct golden outline used as a focus indicator
  * @param element Target element as a Playwright locator
  * @param outlinePixelWidth
@@ -75,13 +99,13 @@ export const checkGoldenOutline = async (
   outlinePixelWidth = "3px",
   outline: OutlineType = "outline"
 ) => {
-  const outlineWidth = await getStyle(element, `${outline}-width`);
-  const outlineColor = await getStyle(element, `${outline}-color`);
-  const outlineStyle = await getStyle(element, `${outline}-style`);
-
-  expect(outlineWidth).toEqual(outlinePixelWidth);
-  expect(outlineColor).toEqual("rgb(255, 188, 25)");
-  expect(outlineStyle).toEqual("solid");
+  await checkCSSOutline(
+    element,
+    outlinePixelWidth,
+    outline,
+    "solid",
+    "rgb(255, 188, 25)"
+  );
 };
 
 export const checkElementIsInDOM = async (page: Page, locatorStr: string) => {
