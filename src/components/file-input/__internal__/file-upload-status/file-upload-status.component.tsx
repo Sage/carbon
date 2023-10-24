@@ -1,7 +1,7 @@
 import React from "react";
 import Link, { LinkProps } from "../../../link";
 import ButtonMinor from "../../../button-minor";
-import Typography from "../../../typography";
+import StyledTypography from "../../../typography/typography.style";
 import ProgressTracker from "../../../progress-tracker";
 import LoaderBar from "../../../loader-bar";
 import Icon, { IconType } from "../../../icon";
@@ -105,7 +105,9 @@ export const FileUploadStatus = ({
   const mainRow =
     status !== "previously" ? (
       <StyledFileUploadStatusRow>
-        <Typography mb={0}>{statusMessage}</Typography>
+        <StyledTypography as="p" mb={0} aria-live="polite">
+          {statusMessage}
+        </StyledTypography>
         {actionButton}
       </StyledFileUploadStatusRow>
     ) : (
