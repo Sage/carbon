@@ -5,7 +5,7 @@ import {
   StyledProgressBar,
   InnerBar as ProgressTrackerInnerBar,
 } from "../../../progress-tracker/progress-tracker.style";
-import {
+import StyledLoaderBar, {
   StyledLoader,
   InnerBar as LoaderBarInnerBar,
 } from "../../../loader-bar/loader-bar.style";
@@ -81,6 +81,10 @@ export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
 
   ${StyledLoader} {
     display: flex;
+  }
+
+  ${StyledLoaderBar} {
+    background-color: var(--colorsSemanticNeutral200);
   }
 
   ${LoaderBarInnerBar} {
