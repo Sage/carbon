@@ -9,6 +9,7 @@ import {
   FIELD_HELP_PREVIEW,
   LABEL,
   STICKY_FOOTER,
+  COMMMON_DATA_ELEMENT_INPUT,
 } from "./locators";
 
 export const icon = (page: Page) => {
@@ -17,6 +18,10 @@ export const icon = (page: Page) => {
 
 export const getDataElementByValue = (page: Page, element: string) => {
   return page.locator(`[data-element="${element}"]`);
+};
+
+export const commonDataElementInputPreview = (page: Page) => {
+  return page.locator(COMMMON_DATA_ELEMENT_INPUT);
 };
 
 export const closeIconButton = (page: Page) => {
@@ -49,6 +54,10 @@ export const fieldHelpPreview = (page: Page) => {
 
 export const getComponent = (page: Page, component: string) => {
   return page.locator(`[data-component="${component}"]`);
+};
+
+export const getElement = (page: Page, element: string) => {
+  return page.locator(`[data-element="${element}"]`).first();
 };
 
 export const label = (page: Page) => {

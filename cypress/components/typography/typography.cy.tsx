@@ -21,6 +21,7 @@ const VARIANT_TYPES = [
   "segment-subheader",
   "segment-subheader-alt",
   "p",
+  "span",
   "small",
   "big",
   "sup",
@@ -74,6 +75,7 @@ const getSize = (variant: VariantTypes) => {
       return "13px";
     case "segment-subheader-alt":
     case "p":
+    case "span":
     case "b":
     case "strong":
     case "em":
@@ -106,6 +108,7 @@ const getLineHeight = (variant: VariantTypes) => {
     case "h5":
     case "segment-subheader-alt":
     case "p":
+    case "span":
     case "b":
     case "strong":
     case "em":
@@ -132,6 +135,7 @@ const getWeight = (variant: VariantTypes) => {
     case "h4":
     case "h5":
     case "p":
+    case "span":
     case "small":
     case "big":
     case "sub":
@@ -244,6 +248,24 @@ context("Tests for Typography component", () => {
       }
     );
 
+    it.each(VARIANT_TYPES as TypographyProps["variant"][])(
+      "should check text-align for %s variant prop for Typography component when set",
+      (variant) => {
+        CypressMountWithProviders(
+          <Typography variant={variant}>{testCypress}</Typography>
+        );
+
+        const variantElem = getAs(String(variant));
+        const textDecorationLine = getDecoration(String(variant));
+
+        cy.get(variantElem).should(
+          "have.css",
+          "text-decoration-line",
+          textDecorationLine
+        );
+      }
+    );
+
     it.each(["ol", "ul"])(
       "should check as prop set to %s for List component",
       (as) => {
@@ -275,6 +297,18 @@ context("Tests for Typography component", () => {
         cy.get("h1")
           .should("have.text", testCypress)
           .and(`${assertion}.css`, "text-overflow", "ellipsis");
+      }
+    );
+
+    it.each([["left"], ["center"], ["right"], ["justify"]])(
+      "should adjust the text alignment when textAlign prop is set to %s",
+      (textAlignment) => {
+        CypressMountWithProviders(
+          <Typography variant="h1" textAlign={textAlignment}>
+            {testCypress}
+          </Typography>
+        );
+        cy.get("h1").and("have.css", "text-align", textAlignment);
       }
     );
 

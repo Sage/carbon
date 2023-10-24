@@ -6,14 +6,10 @@ import visuallyHidden from "../../style/utils/visually-hidden";
 const StyledCharacterCountWrapper = styled.div``;
 
 const StyledCharacterCount = styled.div<{ isOverLimit: boolean }>`
-  ::after {
-    content: " ";
-  }
-
   text-align: left;
-  font-size: 12px;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  font-size: var(--fontSizes100);
+  margin-top: var(--spacing050);
+  margin-bottom: var(--spacing050);
   color: ${({ isOverLimit }) =>
     isOverLimit
       ? "var(--colorsSemanticNegative500)"
@@ -22,7 +18,7 @@ const StyledCharacterCount = styled.div<{ isOverLimit: boolean }>`
   ${({ isOverLimit }) =>
     isOverLimit &&
     css`
-      font-weight: 700;
+      font-weight: var(--fontWeights700);
     `}
 `;
 
