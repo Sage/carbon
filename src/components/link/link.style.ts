@@ -161,11 +161,11 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
 
       a,
       button {
-        text-decoration: underline;
+        text-decoration: ${hasContent ? "underline" : "none"};
         ${isMenuItem && "display: inline-block;"}
 
         > ${StyledIcon} {
-          display: inline-block;
+          display: ${hasContent ? "inline-block" : "inline"};
           position: relative;
           vertical-align: middle;
           ${iconAlign === "left" &&
