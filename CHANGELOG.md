@@ -1,3 +1,10 @@
+### [122.0.1](https://github.com/Sage/carbon/compare/v122.0.0...v122.0.1) (2023-10-24)
+
+
+### Bug Fixes
+
+* **link:** ensure Icon in component has inline display property to respect dimensions of the parent ([be0a33c](https://github.com/Sage/carbon/commit/be0a33c07b18cc36633ad65369915f2256e54ae2)), closes [#6295](https://github.com/Sage/carbon/issues/6295)
+
 ## [122.0.0](https://github.com/Sage/carbon/compare/v121.2.0...v122.0.0) (2023-10-23)
 
 
