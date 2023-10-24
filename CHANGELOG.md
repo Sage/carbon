@@ -1,3 +1,17 @@
+## [123.0.0](https://github.com/Sage/carbon/compare/v122.0.1...v123.0.0) (2023-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tile:** You will need to wrap children in `TileContent` to achieve the
+layouts of the
+previous component where they receive padding relative to that of the `Tile`
+parent's.
+
+### Features
+
+* **tile:** refactor component to support more flexible composition of children ([f5742c0](https://github.com/Sage/carbon/commit/f5742c0529ccf90f0d51cc811719540caa1fc07b)), closes [#5760](https://github.com/Sage/carbon/issues/5760)
+
 ### [122.0.1](https://github.com/Sage/carbon/compare/v122.0.0...v122.0.1) (2023-10-24)
 
 
