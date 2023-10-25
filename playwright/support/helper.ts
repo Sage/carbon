@@ -330,3 +330,23 @@ export const getDesignTokensByCssProperty = async (
   }
   return tokens;
 };
+
+export const continuePressingTAB = async (page: Page, count: number) => {
+  const promises = [];
+
+  for (let i = 0; i < count; i++) {
+    promises.push(page.keyboard.press(`Tab`));
+  }
+
+  await Promise.all(promises);
+};
+
+export const continuePressingSHIFTTAB = async (page: Page, count: number) => {
+  const promises = [];
+
+  for (let i = 0; i < count; i++) {
+    promises.push(page.keyboard.press(`Shift+Tab`));
+  }
+
+  await Promise.all(promises);
+};
