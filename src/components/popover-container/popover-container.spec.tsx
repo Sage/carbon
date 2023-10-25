@@ -24,6 +24,7 @@ import {
 } from "../../__spec_helper__/test-utils";
 import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
+import { Select, Option } from "../select";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
@@ -312,6 +313,28 @@ describe("PopoverContainer", () => {
       wrapper.update();
       expect(wrapper.find(PopoverContainerOpenIcon).props().tabIndex).toBe(-1);
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
+    });
+
+    it("should close popover if escape key is pressed", () => {
+      wrapper = render();
+
+      act(() => {
+        wrapper.find(PopoverContainerOpenIcon).props().onClick();
+      });
+
+      wrapper.update();
+      expect(wrapper.find(PopoverContainerOpenIcon).props().tabIndex).toBe(-1);
+      expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
+
+      document.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "Escape",
+          bubbles: true,
+        })
+      );
+
+      wrapper.update();
+      expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(false);
     });
 
     describe("and custom component is provided as an opening button", () => {
@@ -782,6 +805,126 @@ describe("open state when click event triggered", () => {
       })
     );
     expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+    expect(onCloseFn).not.toHaveBeenCalled();
+  });
+
+  it("should close the container and call onClose when controlled and escape key is pressed", () => {
+    const onCloseFn = jest.fn();
+    const MockWrapper = () => {
+      const [open, setOpen] = React.useState(true);
+
+      return (
+        <PopoverContainer
+          title="PopoverContainerSettings"
+          open={open}
+          onClose={(e) => {
+            setOpen(false);
+            onCloseFn(e);
+          }}
+        />
+      );
+    };
+    const wrapper = mount(<MockWrapper />);
+
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+      })
+    );
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      false
+    );
+    expect(onCloseFn).toHaveBeenCalled();
+  });
+
+  it("should close the container when escape key is pressed inside of a Select component", () => {
+    const onCloseFn = jest.fn();
+    const MockWrapper = () => {
+      const [open, setOpen] = React.useState(true);
+
+      return (
+        <>
+          <PopoverContainer
+            title="PopoverContainerSettings"
+            open={open}
+            onClose={(e) => {
+              setOpen(false);
+              onCloseFn(e);
+            }}
+          >
+            <Select name="simple" id="simple" label="color" labelInline>
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+            </Select>
+          </PopoverContainer>
+        </>
+      );
+    };
+    const wrapper = mount(<MockWrapper />);
+    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+
+    const selectInput = document.querySelector(
+      '[data-element="input"][aria-expanded="false"]'
+    );
+
+    selectInput?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+      })
+    );
+
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      false
+    );
+    expect(onCloseFn).toHaveBeenCalled();
+  });
+
+  it("should not close the container when escape key is pressed inside of the SelectList", () => {
+    const onCloseFn = jest.fn();
+    const MockWrapper = () => {
+      const [open, setOpen] = React.useState(true);
+
+      return (
+        <>
+          <PopoverContainer
+            title="PopoverContainerSettings"
+            open={open}
+            onClose={(e) => {
+              setOpen(false);
+              onCloseFn(e);
+            }}
+          >
+            <Select name="simple" id="simple" label="color" labelInline>
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+            </Select>
+          </PopoverContainer>
+        </>
+      );
+    };
+    const wrapper = mount(<MockWrapper />);
+    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+
+    const selectText = wrapper.find('input[type="text"]').first();
+
+    selectText.simulate("click");
+
+    const expandedSelectInput = document.querySelector(
+      '[data-element="input"][aria-expanded="true"]'
+    );
+
+    expandedSelectInput?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+      })
+    );
+
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
     expect(onCloseFn).not.toHaveBeenCalled();
   });
 

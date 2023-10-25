@@ -20,7 +20,7 @@ import {
 } from "../../locators/popover-container/index";
 import { selectListText, selectText } from "../../locators/select/index";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { keyCode } from "../../support/helper";
+import { keyCode, pressESCKey } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -280,12 +280,41 @@ context("Test for Popover Container component", () => {
       }
     );
 
+    it("should close Popover Container using escape keyboard key", () => {
+      CypressMountWithProviders(
+        <PopoverContainer title="Cypress is awesome">Contents</PopoverContainer>
+      );
+
+      popoverSettingsIcon().click();
+      pressESCKey();
+      popoverContainerContent().should("not.exist");
+    });
+
     it("should not close Popover Container when an option is selected from Select component inside", () => {
       CypressMountWithProviders(<PopoverContainerWithSelect />);
       popoverSettingsIcon().click();
       selectText().click();
       selectListText("green").click();
       popoverContainerContent().should("be.visible");
+    });
+
+    it("should not close Popover Container when the escape key is pressed and the Select List is open", () => {
+      CypressMountWithProviders(<PopoverContainerWithSelect />);
+      popoverSettingsIcon().click();
+      selectText().click();
+      selectListText("red").trigger("keydown", keyCode("downarrow"));
+      pressESCKey();
+      selectListText("red").should("not.be.visible");
+      popoverContainerContent().should("be.visible");
+    });
+
+    it("should close Popover Container when the escape key is pressed with focus on the Select component", () => {
+      CypressMountWithProviders(<PopoverContainerWithSelect />);
+      popoverSettingsIcon().click();
+      selectText().click();
+      pressESCKey();
+      pressESCKey();
+      popoverContainerContent().should("not.exist");
     });
   });
 
@@ -338,6 +367,18 @@ context("Test for Popover Container component", () => {
       }
     );
 
+    it("should call onClose callback when the escape is pressed", () => {
+      const callback: PopoverContainerProps["onClose"] = cy
+        .stub()
+        .as("onClose");
+      CypressMountWithProviders(
+        <PopoverContainerComponent onClose={callback} open />
+      );
+
+      pressESCKey();
+      cy.get("@onClose").should("have.been.calledOnce");
+    });
+
     it("should call onClose callback when a click event is triggered outside the container", () => {
       const callback: PopoverContainerProps["onClose"] = cy
         .stub()
@@ -364,63 +405,63 @@ context("Test for Popover Container component", () => {
   });
 
   describe("Accessibility tests for Popover Container component", () => {
-    it("should pass accessibilty tests for Popover Container Default story", () => {
+    it("should pass accessibility tests for Popover Container Default story", () => {
       CypressMountWithProviders(<stories.Default />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Title story", () => {
+    it("should pass accessibility tests for Popover Container Title story", () => {
       CypressMountWithProviders(<stories.Title />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Position story", () => {
+    it("should pass accessibility tests for Popover Container Position story", () => {
       CypressMountWithProviders(<stories.Position />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container CoverButton story", () => {
+    it("should pass accessibility tests for Popover Container CoverButton story", () => {
       CypressMountWithProviders(<stories.CoverButton />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container RenderProps story", () => {
+    it("should pass accessibility tests for Popover Container RenderProps story", () => {
       CypressMountWithProviders(<stories.RenderProps />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Controlled story", () => {
+    it("should pass accessibility tests for Popover Container Controlled story", () => {
       CypressMountWithProviders(<stories.Controlled />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Complex story", () => {
+    it("should pass accessibility tests for Popover Container Complex story", () => {
       CypressMountWithProviders(<stories.Complex />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Filter story", () => {
+    it("should pass accessibility tests for Popover Container Filter story", () => {
       CypressMountWithProviders(<stories.Filter />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Filter story with filter button clicked", () => {
+    it("should pass accessibility tests for Popover Container Filter story with filter button clicked", () => {
       CypressMountWithProviders(<stories.Filter />);
 
       popoverSettingsIcon().click();
