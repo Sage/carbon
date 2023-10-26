@@ -10,6 +10,7 @@ import {
   LABEL,
   STICKY_FOOTER,
   COMMMON_DATA_ELEMENT_INPUT,
+  PORTAL,
 } from "./locators";
 
 export const icon = (page: Page) => {
@@ -66,4 +67,12 @@ export const label = (page: Page) => {
 
 export const legendSpan = (page: Page) => {
   return page.locator("legend > span");
+};
+
+export const openDialogByName = (page: Page, name: string) => {
+  getDataElementByValue(page, "main-text").filter({ hasText: name });
+};
+
+export const portal = (page: Page) => {
+  return page.locator(PORTAL).nth(1).locator("h1");
 };
