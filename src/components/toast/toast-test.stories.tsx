@@ -7,7 +7,7 @@ import { TOAST_COLORS } from "./toast.config";
 
 export default {
   title: "Toast/Test",
-  includeStories: ["Default", "Visual"],
+  includeStories: ["Default", "Visual", "AllAlign", "TopAndBottom"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -233,6 +233,164 @@ Visual.parameters = {
   },
   themeProvider: { chromatic: { theme: "sage" } },
 };
+
+export const AllAlign = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  const onDismissClick = () => {
+    setIsOpen(!isOpen);
+  };
+  return (
+    <div>
+      <Toast
+        align="left"
+        alignY="top"
+        isCenter={false}
+        variant="warning"
+        id="left-top"
+        targetPortalId="left-top"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+
+      <Toast
+        align="center"
+        alignY="top"
+        isCenter={false}
+        variant="warning"
+        id="center-top"
+        targetPortalId="center-top"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+
+      <Toast
+        align="right"
+        alignY="top"
+        isCenter={false}
+        variant="warning"
+        id="right-top"
+        targetPortalId="right-top"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+
+      <Toast
+        align="left"
+        alignY="center"
+        isCenter={false}
+        variant="warning"
+        id="left-center"
+        targetPortalId="left-center"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+
+      <Toast
+        align="center"
+        alignY="center"
+        isCenter={false}
+        variant="warning"
+        id="center-center"
+        targetPortalId="center-center"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+
+      <Toast
+        align="right"
+        alignY="center"
+        isCenter={false}
+        variant="warning"
+        id="right-center"
+        targetPortalId="right-center"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+
+      <Toast
+        align="left"
+        alignY="bottom"
+        isCenter={false}
+        variant="warning"
+        id="left-bottom"
+        targetPortalId="left-bottom"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+
+      <Toast
+        align="center"
+        alignY="bottom"
+        isCenter={false}
+        variant="warning"
+        id="center-bottom"
+        targetPortalId="center-bottom"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+
+      <Toast
+        align="right"
+        alignY="bottom"
+        isCenter={false}
+        variant="warning"
+        id="right-bottom"
+        targetPortalId="right-bottom"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+    </div>
+  );
+};
+
+AllAlign.storyName = "all align";
+
+export const TopAndBottom = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+    action("open")(!isOpen);
+  };
+  return (
+    <>
+      <Button id="button" key="button" onClick={handleOpen}>
+        Open Toasts
+      </Button>
+      <Toast id="toast-a" variant="success" open={isOpen} isCenter alignY="top">
+        My Toast A
+      </Toast>
+      <Toast
+        id="toast-b"
+        variant="warning"
+        open={isOpen}
+        isCenter
+        alignY="bottom"
+      >
+        My Toast B
+      </Toast>
+    </>
+  );
+};
+
+TopAndBottom.storyName = "top and bottom";
 
 export const ToastComponent = ({
   children = "Toast",
