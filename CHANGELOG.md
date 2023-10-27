@@ -1,3 +1,10 @@
+### [123.0.1](https://github.com/Sage/carbon/compare/v123.0.0...v123.0.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* **textarea, textbox:** ensure inputHint and labelHelp props do not render two seperate DOM elements ([607c649](https://github.com/Sage/carbon/commit/607c64906dce77ee763425abdc2f9463947f8de0))
+
 ## [123.0.0](https://github.com/Sage/carbon/compare/v122.0.1...v123.0.0) (2023-10-24)
 
 
