@@ -122,6 +122,10 @@ export const MaxWidthStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" maxWidth="70%" />;
 };
 
+export const InputHintStory: ComponentStory<typeof Textarea> = () => {
+  return <Textarea label="Textarea" inputHint="Hint text (optional)." />;
+};
+
 export const LabelHelpStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" labelHelp="Help" helpAriaLabel="Help" />;
 };
@@ -231,11 +235,13 @@ export const NewDesignValidationStory: ComponentStory<typeof Textarea> = () => {
         >
           <Textarea
             label={`${validationType}`}
+            inputHint="Hint text (optional)."
             {...{ [validationType]: "Message" }}
             m={4}
           />
           <Textarea
             label={`readOnly - ${validationType}`}
+            inputHint="Hint text (optional)."
             readOnly
             {...{ [validationType]: "Message" }}
             m={4}
