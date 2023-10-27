@@ -191,7 +191,7 @@ test.describe("FileInput component", () => {
   test("should render with boolean error prop", async ({ mount, page }) => {
     await mount(<FileInputComponent error />);
     const borderColor = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
@@ -204,7 +204,7 @@ test.describe("FileInput component", () => {
   test("should render with string error prop", async ({ mount, page }) => {
     await mount(<FileInputComponent error="error text" />);
     const borderColor = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
@@ -221,7 +221,7 @@ test.describe("FileInput component", () => {
     await mount(<FileInputComponent disabled />);
     await expect(selectFileButton(page)).toBeDisabled();
     const inputBackground = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
@@ -230,7 +230,7 @@ test.describe("FileInput component", () => {
     // actually a token value, --colorsUtilityDisabled400
     await expect(inputBackground).toBe("rgb(242, 245, 246)");
     const inputBorder = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
@@ -594,7 +594,7 @@ test.describe("interactions", () => {
       fileType: "text/markdown",
     });
     const borderWidth = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
@@ -625,7 +625,7 @@ test.describe("interactions", () => {
       fileType: "text/markdown",
     });
     const borderWidth = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
@@ -656,7 +656,7 @@ test.describe("interactions", () => {
       fileType: "text/markdown",
     });
     const borderWidth = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
@@ -679,7 +679,7 @@ test.describe("interactions", () => {
       fileType: "text/markdown",
     });
     const borderColor = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
@@ -703,7 +703,7 @@ test.describe("interactions", () => {
       fileType: "text/markdown",
     });
     const backgroundColor = await page
-      .getByText("Drag and drop your file")
+      .getByText("or drag and drop your file")
       .evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)

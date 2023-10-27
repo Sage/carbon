@@ -69,7 +69,7 @@ describe("rendering with no file uploaded", () => {
         onChange={() => {}}
       />
     );
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement?.parentElement?.parentElement
       ?.parentElement as HTMLElement;
     rootTagTestRtl(wrapperElement, "file-input", "element-test", "role-test");
@@ -77,7 +77,7 @@ describe("rendering with no file uploaded", () => {
 
   it("accepts an error prop as a boolean", () => {
     render(<FileInput error onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement;
     assertStyleMatch(
       {
@@ -89,7 +89,7 @@ describe("rendering with no file uploaded", () => {
 
   it("accepts an error prop as a string", () => {
     render(<FileInput error="error text" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement;
     assertStyleMatch(
       {
@@ -116,7 +116,7 @@ describe("rendering with no file uploaded", () => {
 
   it("accepts an isVertical prop which removes the CSS max-height", () => {
     render(<FileInput isVertical onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     assertStyleMatch({ maxHeight: undefined }, wrapperElement);
   });
@@ -171,7 +171,7 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.dragOver(document.body, {
       dataTransfer: { files: [file], types: ["Files"] },
@@ -187,7 +187,7 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" error onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.dragOver(document.body, {
       dataTransfer: { files: [file], types: ["Files"] },
@@ -205,7 +205,7 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" disabled onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.dragOver(document.body, {
       dataTransfer: { files: [file], types: ["Files"] },
@@ -220,7 +220,7 @@ describe("interactions", () => {
 
   it("dragging something that isn't a file has no effect", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.dragOver(document.body, {
       dataTransfer: { files: [], types: [] },
@@ -236,7 +236,7 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.dragOver(wrapperElement, {
       dataTransfer: { files: [file], types: ["Files"] },
@@ -252,7 +252,7 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.dragOver(wrapperElement, {
       dataTransfer: { files: [file], types: ["Files"] },
@@ -271,7 +271,7 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" disabled onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.dragOver(wrapperElement, {
       dataTransfer: { files: [file], types: ["Files"] },
@@ -284,7 +284,7 @@ describe("interactions", () => {
 
   it("dragging something that isn't a file over the input area has no effect", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.dragOver(wrapperElement, {
       dataTransfer: { files: [], types: [] },
@@ -301,7 +301,7 @@ describe("interactions", () => {
     });
     const onChange = jest.fn();
     render(<FileInput label="file input" onChange={onChange} />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.drop(wrapperElement, { dataTransfer: { files: [file] } });
     expect(onChange).toHaveBeenCalledTimes(1);
@@ -314,7 +314,7 @@ describe("interactions", () => {
     });
     const onChange = jest.fn();
     render(<FileInput label="file input" onChange={onChange} disabled />);
-    const wrapperElement = screen.getByText("Drag and drop your file")
+    const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
     fireEvent.drop(wrapperElement, { dataTransfer: { files: [file] } });
     expect(onChange).not.toHaveBeenCalled();

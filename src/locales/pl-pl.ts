@@ -136,7 +136,7 @@ const plPL: Locale = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "Przeciągnij i upuść plik",
+    dragAndDrop: () => "lub przeciągnij i upuść plik",
     selectFile: () => "Wybierz pliki",
     fileUploadStatus: () => "Status przesyłania plików",
     actions: {

@@ -32,7 +32,7 @@ export interface FileInputProps
   accept?: string;
   /** Text to appear on the main button. Defaults to "Select file" */
   buttonText?: string;
-  /** Explanatory text to appear inside the input area. Defaults to "Drag and drop your file" */
+  /** Explanatory text to appear inside the input area. Defaults to "or drag and drop your file" */
   dragAndDropText?: string;
   /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: React.ReactNode;
@@ -204,7 +204,6 @@ export const FileInput = React.forwardRef(
             onDrop={onDrop}
             {...sizeProps}
           >
-            <Typography m={0}>{mainText}</Typography>
             <ButtonMinor
               buttonType="primary"
               onClick={onSelectFileClick}
@@ -212,6 +211,7 @@ export const FileInput = React.forwardRef(
             >
               {textOnButton}
             </ButtonMinor>
+            <Typography m={0}>{mainText}</Typography>
           </StyledFileInputPresentation>
         </Box>
       </>

@@ -77,7 +77,7 @@ const enGB: Locale = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "Drag and drop your file",
+    dragAndDrop: () => "or drag and drop your file",
     selectFile: () => "Select file",
     fileUploadStatus: () => "File upload status",
     actions: {
