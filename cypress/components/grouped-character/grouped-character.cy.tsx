@@ -148,7 +148,7 @@ context("Tests for GroupedCharacter component", () => {
       ["right", "end"],
       ["left", "start"],
     ] as [GroupedCharacterProps["labelAlign"], string][])(
-      "should use %s as labelAligment and render it with %s as css properties",
+      "should use %s as labelAlignment and render it with %s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
           <GroupedCharacterComponent labelInline labelAlign={alignment} />

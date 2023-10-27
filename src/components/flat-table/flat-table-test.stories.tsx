@@ -893,7 +893,7 @@ export const FlatTableCellRowSpanComponent = (
   );
 };
 
-export const FlatTableMutipleStickyComponent = (
+export const FlatTableMultipleStickyComponent = (
   props: Partial<FlatTableProps>
 ) => {
   return (

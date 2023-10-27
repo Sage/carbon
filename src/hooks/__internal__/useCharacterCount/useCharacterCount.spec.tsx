@@ -25,7 +25,7 @@ describe("useCharacterCount", () => {
   it.each([5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])(
     "returns a character counter",
     (characterLimit) => {
-      const limitMinusVlaue = characterLimit - mockValue.length >= 0;
+      const limitMinusValue = characterLimit - mockValue.length >= 0;
       const underCharacters =
         characterLimit - mockValue.length === 1 ? "character" : "characters";
       const overCharacters =
@@ -37,7 +37,7 @@ describe("useCharacterCount", () => {
 
       expect(wrapper.find(StyledCharacterCount).text()).toBe(
         `${
-          limitMinusVlaue
+          limitMinusValue
             ? `${characterLimit - mockValue.length} ${underCharacters} left`
             : `${mockValue.length - characterLimit} ${overCharacters} too many`
         }`
