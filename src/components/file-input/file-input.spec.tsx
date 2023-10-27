@@ -48,12 +48,6 @@ describe("rendering with no file uploaded", () => {
     expect(label).toBeVisible();
   });
 
-  it("accepts a disabled prop that disables the button", () => {
-    render(<FileInput label="file input" disabled onChange={() => {}} />);
-    const button = screen.queryByRole("button", { name: "Select file" });
-    expect(button).toBeDisabled();
-  });
-
   it("accepts an inputHint prop", () => {
     render(<FileInput inputHint="help" onChange={() => {}} />);
     const hintText = screen.getByText("help");
@@ -200,24 +194,6 @@ describe("interactions", () => {
     );
   });
 
-  it("dragging a file causes no change to a disabled FileInput", () => {
-    const file = new File(["dummy file content"], "foo.txt", {
-      type: "text/plain",
-    });
-    render(<FileInput label="file input" disabled onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
-    fireEvent.dragOver(document.body, {
-      dataTransfer: { files: [file], types: ["Files"] },
-    });
-    assertStyleMatch(
-      {
-        border: "var(--borderWidth100) dashed var(--colorsUtilityDisabled600)",
-      },
-      wrapperElement
-    );
-  });
-
   it("dragging something that isn't a file has no effect", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
     const wrapperElement = screen.getByText("or drag and drop your file")
@@ -266,22 +242,6 @@ describe("interactions", () => {
     );
   });
 
-  it("dragging a file over a disabled FileInput causes no change", () => {
-    const file = new File(["dummy file content"], "foo.txt", {
-      type: "text/plain",
-    });
-    render(<FileInput label="file input" disabled onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
-    fireEvent.dragOver(wrapperElement, {
-      dataTransfer: { files: [file], types: ["Files"] },
-    });
-    assertStyleMatch(
-      { background: "var(--colorsUtilityDisabled400)" },
-      wrapperElement
-    );
-  });
-
   it("dragging something that isn't a file over the input area has no effect", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
     const wrapperElement = screen.getByText("or drag and drop your file")
@@ -306,18 +266,6 @@ describe("interactions", () => {
     fireEvent.drop(wrapperElement, { dataTransfer: { files: [file] } });
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0][0][0]).toBe(file);
-  });
-
-  it("when disabled, dragging and dropping a file over the input area does not call the onChange prop", () => {
-    const file = new File(["dummy file content"], "foo.txt", {
-      type: "text/plain",
-    });
-    const onChange = jest.fn();
-    render(<FileInput label="file input" onChange={onChange} disabled />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
-    fireEvent.drop(wrapperElement, { dataTransfer: { files: [file] } });
-    expect(onChange).not.toHaveBeenCalled();
   });
 });
 

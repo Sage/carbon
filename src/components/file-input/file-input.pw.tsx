@@ -217,31 +217,6 @@ test.describe("FileInput component", () => {
     await expect(errorMessage).toHaveCSS("color", "rgb(203, 55, 74)");
   });
 
-  test("should render with disabled prop", async ({ mount, page }) => {
-    await mount(<FileInputComponent disabled />);
-    await expect(selectFileButton(page)).toBeDisabled();
-    const inputBackground = await page
-      .getByText("or drag and drop your file")
-      .evaluate((el) =>
-        window
-          .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("background-color")
-      );
-    // actually a token value, --colorsUtilityDisabled400
-    await expect(inputBackground).toBe("rgb(242, 245, 246)");
-    const inputBorder = await page
-      .getByText("or drag and drop your file")
-      .evaluate((el) =>
-        window
-          .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("border-color")
-      );
-    // actually a token value, --colorsUtilityDisabled600
-    await expect(inputBorder).toBe("rgb(204, 214, 219)");
-    // actually a token value, --colorsUtilityYin030
-    await expect(label(page)).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
-  });
-
   specialCharacters.forEach((testVal) => {
     test(`should render with id '${testVal}'`, async ({ mount, page }) => {
       await mount(<FileInputComponent id={testVal} />);
@@ -768,15 +743,6 @@ test.describe("accessibility tests for FileInput", () => {
   }) => {
     await mount(<FileInputComponent error="error text" />);
     await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests with disabled prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FileInputComponent disabled />);
-    // the disabled colours don't meet WCAG color-contrast guidelines. DS to recommend this prop not to be used.
-    await checkAccessibility(page, "color-contrast");
   });
 
   test("should pass accessibility tests with id prop", async ({

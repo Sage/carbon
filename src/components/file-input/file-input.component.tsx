@@ -24,7 +24,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface FileInputProps
   extends Pick<ValidationProps, "error">,
-    Pick<InputProps, "disabled" | "id" | "name" | "required">,
+    Pick<InputProps, "id" | "name" | "required">,
     TagProps,
     MarginProps {
   /** Which file format(s) to accept. Will be passed to the underlying HTML input.
@@ -62,7 +62,6 @@ export const FileInput = React.forwardRef(
       buttonText,
       "data-element": dataElement,
       "data-role": dataRole,
-      disabled,
       dragAndDropText,
       error,
       label,
@@ -140,10 +139,8 @@ export const FileInput = React.forwardRef(
 
     const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      if (!disabled) {
-        if (e.dataTransfer?.types.includes("Files")) {
-          setIsDraggedOver(true);
-        }
+      if (e.dataTransfer?.types.includes("Files")) {
+        setIsDraggedOver(true);
       }
     };
 
@@ -155,10 +152,8 @@ export const FileInput = React.forwardRef(
 
     const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      if (!disabled) {
-        setIsDraggedOver(false);
-        onFileAdded(e.dataTransfer.files);
-      }
+      setIsDraggedOver(false);
+      onFileAdded(e.dataTransfer.files);
     };
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -195,7 +190,6 @@ export const FileInput = React.forwardRef(
             {...rest}
           />
           <StyledFileInputPresentation
-            isDisabled={disabled}
             isDraggedOver={isDraggedOver}
             isDraggingFile={isDraggingFile}
             error={error}
@@ -204,11 +198,7 @@ export const FileInput = React.forwardRef(
             onDrop={onDrop}
             {...sizeProps}
           >
-            <ButtonMinor
-              buttonType="primary"
-              onClick={onSelectFileClick}
-              disabled={disabled}
-            >
+            <ButtonMinor buttonType="primary" onClick={onSelectFileClick}>
               {textOnButton}
             </ButtonMinor>
             <Typography m={0}>{mainText}</Typography>
@@ -220,7 +210,6 @@ export const FileInput = React.forwardRef(
     return (
       <InputBehaviour>
         <FormField
-          disabled={disabled}
           error={error}
           label={label}
           labelId={labelId}

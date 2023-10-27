@@ -9,10 +9,6 @@ export const Default: ComponentStory<typeof FileInput> = () => {
   return <FileInput label="File input" onChange={() => {}} />;
 };
 
-export const Disabled: ComponentStory<typeof FileInput> = () => {
-  return <FileInput label="File input" disabled onChange={() => {}} />;
-};
-
 export const WithInputHint: ComponentStory<typeof FileInput> = () => {
   return (
     <FileInput label="File input" inputHint="Hint text" onChange={() => {}} />

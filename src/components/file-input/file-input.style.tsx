@@ -9,7 +9,6 @@ export const StyledHiddenFileInput = styled.input<InputProps>`
 
 interface StyledFileInputPresentationProps
   extends Pick<ValidationProps, "error"> {
-  isDisabled?: boolean;
   isDraggedOver?: boolean;
   isDraggingFile?: boolean;
   hasUploadStatus?: boolean;
@@ -31,28 +30,19 @@ export const StyledFileInputPresentation = styled.div<StyledFileInputPresentatio
     `}
   `}
 
-  ${({ hasUploadStatus, isDisabled, isDraggedOver, isDraggingFile, error }) => {
+  ${({ hasUploadStatus, isDraggedOver, isDraggingFile, error }) => {
     const borderWidthToken =
-      error || (isDraggingFile && !isDisabled)
-        ? "borderWidth200"
-        : "borderWidth100";
+      error || isDraggingFile ? "borderWidth200" : "borderWidth100";
     let borderColorToken = "colorsUtilityMajor300";
     let backgroundColorToken = "colorsUtilityYang100";
-    if (isDisabled) {
-      borderColorToken = "colorsUtilityDisabled600";
-      backgroundColorToken = "colorsUtilityDisabled400";
-    } else {
-      if (isDraggedOver) {
-        borderColorToken = "colorsUtilityMajor400";
-        backgroundColorToken = "colorsUtilityMajor100";
-      } else if (isDraggingFile) {
-        borderColorToken = "colorsUtilityMajor400";
-      }
-      if (error) {
-        borderColorToken = `colorsSemanticNegative${
-          isDraggingFile ? 600 : 500
-        }`;
-      }
+    if (isDraggedOver) {
+      borderColorToken = "colorsUtilityMajor400";
+      backgroundColorToken = "colorsUtilityMajor100";
+    } else if (isDraggingFile) {
+      borderColorToken = "colorsUtilityMajor400";
+    }
+    if (error) {
+      borderColorToken = `colorsSemanticNegative${isDraggingFile ? 600 : 500}`;
     }
     return (
       !hasUploadStatus &&
@@ -69,9 +59,7 @@ export const StyledFileInputPresentation = styled.div<StyledFileInputPresentatio
         border: var(--${borderWidthToken}) dashed var(--${borderColorToken});
         background: var(--${backgroundColorToken});
         ${StyledTypography} {
-          color: var(
-            --${isDisabled ? "colorsUtilityYin030" : "colorsUtilityYin055"}
-          );
+          color: var("colorsUtilityYin055");
         }
       `
     );
