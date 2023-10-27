@@ -7,7 +7,7 @@ import VerticalDivider from ".";
 import Dialog from "../dialog";
 import Button from "../button";
 import Box from "../box";
-import Tile from "../tile";
+import { Tile, TileContent } from "../tile";
 import Content from "../content";
 import Icon from "../icon";
 import { GridContainer, GridItem } from "../grid";
@@ -191,26 +191,30 @@ InADialog.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InATile: ComponentStory<typeof VerticalDivider> = () => (
   <Tile width={800} orientation="vertical">
-    <Content title="Test Title One">Test Body One</Content>
-    <Box display="inline-flex">
-      <Square size="40px" />
-      <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-      <Square size="40px" />
-      <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-      <Square size="40px" />
-      <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-      <Square size="40px" />
-      <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-      <Square size="40px" />
-      <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-      <Square size="40px" />
-      <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-      <Square size="40px" />
-      <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-      <Square size="40px" />
-      <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
-      <Square size="40px" />
-    </Box>
+    <TileContent>
+      <Content title="Test Title One">Test Body One</Content>
+    </TileContent>
+    <TileContent>
+      <Box display="inline-flex">
+        <Square size="40px" />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <Square size="40px" />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <Square size="40px" />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <Square size="40px" />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <Square size="40px" />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <Square size="40px" />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <Square size="40px" />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <Square size="40px" />
+        <VerticalDivider pt={1} pb={1} pl={3} pr={3} />
+        <Square size="40px" />
+      </Box>
+    </TileContent>
   </Tile>
 );
 

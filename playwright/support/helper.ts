@@ -64,6 +64,30 @@ type OutlineType =
   | "border-right";
 
 /**
+ * Asserts if an element has the correct css border/outline
+ * @param element Target element as a Playwright locator
+ * @param outlinePixelWidth
+ * @param cssProp
+ * @param color
+ * @example await checkCSSOutline(locator);
+ */
+export const checkCSSOutline = async (
+  element: Locator,
+  outlinePixelWidth = "2px",
+  cssProp: OutlineType = "outline",
+  style = "solid",
+  color = ""
+) => {
+  const outlineWidth = await getStyle(element, `${cssProp}-width`);
+  const outlineColor = await getStyle(element, `${cssProp}-color`);
+  const outlineStyle = await getStyle(element, `${cssProp}-style`);
+
+  expect(outlineWidth).toEqual(outlinePixelWidth);
+  expect(outlineColor).toEqual(color);
+  expect(outlineStyle).toEqual(style);
+};
+
+/**
  * Asserts if an element has the correct golden outline used as a focus indicator
  * @param element Target element as a Playwright locator
  * @param outlinePixelWidth
@@ -75,13 +99,13 @@ export const checkGoldenOutline = async (
   outlinePixelWidth = "3px",
   outline: OutlineType = "outline"
 ) => {
-  const outlineWidth = await getStyle(element, `${outline}-width`);
-  const outlineColor = await getStyle(element, `${outline}-color`);
-  const outlineStyle = await getStyle(element, `${outline}-style`);
-
-  expect(outlineWidth).toEqual(outlinePixelWidth);
-  expect(outlineColor).toEqual("rgb(255, 188, 25)");
-  expect(outlineStyle).toEqual("solid");
+  await checkCSSOutline(
+    element,
+    outlinePixelWidth,
+    outline,
+    "solid",
+    "rgb(255, 188, 25)"
+  );
 };
 
 export const checkElementIsInDOM = async (page: Page, locatorStr: string) => {
@@ -257,4 +281,72 @@ export const isInViewport = async (page: Page, locator: Locator) => {
     return documentElement.clientHeight;
   });
   return rect.top <= bottom;
+};
+
+// adapted from Igor's code for Cypress util: https://www.npmjs.com/package/@dlgshi/cypress-plugin-designtokens?activeTab=code
+export const getDesignTokensByCssProperty = async (
+  page: Page,
+  locator: Locator,
+  cssProperty: string
+) => {
+  const element = await locator.elementHandle();
+  const tokens: string[] = await page.evaluate(
+    ([elem, cssProp]) => {
+      const tokenNames: string[] = [];
+      // Iterate over the stylesheets
+      for (let i = 0; i < document.styleSheets.length; i++) {
+        const styleSheet = document.styleSheets[i];
+        // Iterate over the CSS rules in the stylesheet
+        for (let k = 0; k < styleSheet.cssRules.length; k++) {
+          const newRule = styleSheet.cssRules[k];
+          // Check if the rule matches the cssProperty and the element
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          if (newRule.style[cssProp] && elem.matches(newRule.selectorText)) {
+            // Get all matches of the design token using a regular expression
+            const regex = /var\((--[^)]+)\)/g;
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const matches = newRule.style[cssProp].match(regex);
+            if (matches) {
+              // Iterate over the matches and push to tokenNames array
+              matches.forEach((match: string) => {
+                const tokenName = match.replace(/var\(|\)/g, "").trim();
+                if (tokenName) {
+                  tokenNames.push(tokenName);
+                }
+              });
+            }
+          }
+        }
+      }
+      return tokenNames;
+    },
+    [element, cssProperty]
+  );
+  if (tokens.length === 0) {
+    // eslint-disable-next-line no-console
+    console.error(`Design token for property ${cssProperty} not found`);
+  }
+  return tokens;
+};
+
+export const continuePressingTAB = async (page: Page, count: number) => {
+  const promises = [];
+
+  for (let i = 0; i < count; i++) {
+    promises.push(page.keyboard.press(`Tab`));
+  }
+
+  await Promise.all(promises);
+};
+
+export const continuePressingSHIFTTAB = async (page: Page, count: number) => {
+  const promises = [];
+
+  for (let i = 0; i < count; i++) {
+    promises.push(page.keyboard.press(`Shift+Tab`));
+  }
+
+  await Promise.all(promises);
 };

@@ -6,6 +6,7 @@ import {
   testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
 import StyledTileFooter from "./tile-footer.style";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("TileFooter", () => {
   let wrapper: ReactWrapper;
@@ -29,4 +30,13 @@ describe("TileFooter", () => {
       );
     }
   );
+
+  it("has proper data attributes applied to elements", () => {
+    wrapper = mount(
+      <TileFooter data-element="foo" data-role="bar">
+        content
+      </TileFooter>
+    );
+    rootTagTest(wrapper.find(StyledTileFooter), "tile-footer", "foo", "bar");
+  });
 });

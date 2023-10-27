@@ -1,3 +1,43 @@
+### [123.0.1](https://github.com/Sage/carbon/compare/v123.0.0...v123.0.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* **textarea, textbox:** ensure inputHint and labelHelp props do not render two seperate DOM elements ([607c649](https://github.com/Sage/carbon/commit/607c64906dce77ee763425abdc2f9463947f8de0))
+
+## [123.0.0](https://github.com/Sage/carbon/compare/v122.0.1...v123.0.0) (2023-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tile:** You will need to wrap children in `TileContent` to achieve the
+layouts of the
+previous component where they receive padding relative to that of the `Tile`
+parent's.
+
+### Features
+
+* **tile:** refactor component to support more flexible composition of children ([f5742c0](https://github.com/Sage/carbon/commit/f5742c0529ccf90f0d51cc811719540caa1fc07b)), closes [#5760](https://github.com/Sage/carbon/issues/5760)
+
+### [122.0.1](https://github.com/Sage/carbon/compare/v122.0.0...v122.0.1) (2023-10-24)
+
+
+### Bug Fixes
+
+* **link:** ensure Icon in component has inline display property to respect dimensions of the parent ([be0a33c](https://github.com/Sage/carbon/commit/be0a33c07b18cc36633ad65369915f2256e54ae2)), closes [#6295](https://github.com/Sage/carbon/issues/6295)
+
+## [122.0.0](https://github.com/Sage/carbon/compare/v121.2.0...v122.0.0) (2023-10-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pod:** The onEdit prop is now restricted to being an event handler function - the options
+for it to be a string or an object have been removed.
+
+### Bug Fixes
+
+* **pod:** make edit button an HTML button rather than an anchor tag ([98d8bde](https://github.com/Sage/carbon/commit/98d8bde579b6a14a081e87d4e7b38501335370bb))
+
 ## [121.2.0](https://github.com/Sage/carbon/compare/v121.1.0...v121.2.0) (2023-10-17)
 
 

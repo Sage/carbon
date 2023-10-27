@@ -21,7 +21,7 @@ import {
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import createGuid from "../../__internal__/utils/helpers/guid";
-import { ErrorBorder, StyledHintText, StyledInputHint } from "./textbox.style";
+import { ErrorBorder, StyledHintText } from "./textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Logger from "../../__internal__/utils/logger";
@@ -403,12 +403,12 @@ describe("Textbox", () => {
   describe("and inputHint props are present", () => {
     it("renders a character counter hint", () => {
       const wrapper = mount(<Textbox value="test string" inputHint="foo" />);
-      expect(wrapper.find(StyledInputHint).text()).toBe("foo");
+      expect(wrapper.find(StyledHintText).text()).toBe("foo");
     });
 
     it("assigns a character counter hint via guid", () => {
       const wrapper = mount(<Textbox value="test string" inputHint="bar" />);
-      expect(wrapper.find(StyledInputHint).prop("id")).toBe(mockedGuid);
+      expect(wrapper.find(StyledHintText).prop("id")).toBe(mockedGuid);
     });
 
     it("should render a valid 'aria-describedby' on input", () => {
@@ -416,6 +416,15 @@ describe("Textbox", () => {
       expect(wrapper.find("input").prop("aria-describedby")).toContain(
         mockedGuid
       );
+    });
+
+    it("rendered text should be provided via inputHint, when labelHelp is also passed", () => {
+      const wrapper = mount(
+        <CarbonProvider validationRedesignOptIn>
+          <Textbox labelHelp="labelHelp" inputHint="inputHint" error="foo" />
+        </CarbonProvider>
+      );
+      expect(wrapper.find(StyledHintText).text()).toBe("inputHint");
     });
   });
 
