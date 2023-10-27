@@ -28,6 +28,7 @@ import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { OptionProps } from "../option";
 import { OptionRowProps } from "../option-row";
+import { CustomSelectChangeEvent } from "../simple-select";
 
 let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
@@ -191,16 +192,17 @@ export const MultiSelect = React.forwardRef(
     }, [onOpen]);
 
     const createCustomEvent = useCallback(
-      (newValue) => {
+      (newValue, selectionConfirmed) => {
         const customEvent = {
           target: {
             ...(name && { name }),
             ...(id && { id }),
             value: newValue,
           },
+          selectionConfirmed,
         };
 
-        return customEvent as React.ChangeEvent<HTMLInputElement>;
+        return customEvent as CustomSelectChangeEvent;
       },
       [name, id]
     );
@@ -213,14 +215,15 @@ export const MultiSelect = React.forwardRef(
       (
         updateFunction: (
           previousValue: string[] | Record<string, unknown>[]
-        ) => string[] | Record<string, unknown>[]
+        ) => string[] | Record<string, unknown>[],
+        selectionConfirmed
       ) => {
         const newValue = updateFunction(
           actualValue as string[] | Record<string, unknown>[]
         );
         // only call onChange if an option has been selected or deselected
         if (onChange && newValue.length !== actualValue?.length) {
-          onChange(createCustomEvent(newValue));
+          onChange(createCustomEvent(newValue, selectionConfirmed));
         }
 
         // no need to update selectedValue if the component is controlled: onChange should take care of updating the value
@@ -270,7 +273,7 @@ export const MultiSelect = React.forwardRef(
           newValue.splice(index, 1);
 
           return newValue;
-        });
+        }, true);
       },
       [updateValue]
     );
@@ -534,6 +537,7 @@ export const MultiSelect = React.forwardRef(
           value: newValue,
           selectionType,
           id: selectedOptionId,
+          selectionConfirmed,
         } = optionData;
 
         if (selectionType === "navigationKey") {
@@ -561,7 +565,7 @@ export const MultiSelect = React.forwardRef(
           }
 
           return [...previousValue, newValue];
-        });
+        }, selectionConfirmed);
       },
       [textboxRef, actualValue, updateValue]
     );

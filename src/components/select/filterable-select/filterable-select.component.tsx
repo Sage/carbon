@@ -17,6 +17,7 @@ import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
+import { CustomSelectChangeEvent } from "../simple-select";
 
 let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
@@ -169,24 +170,25 @@ export const FilterableSelect = React.forwardRef(
     }
 
     const createCustomEvent = useCallback(
-      (newValue) => {
+      (newValue, selectionConfirmed) => {
         const customEvent = {
           target: {
             ...(name && { name }),
             ...(id && { id }),
             value: newValue,
           },
+          selectionConfirmed,
         };
 
-        return customEvent as React.ChangeEvent<HTMLInputElement>;
+        return customEvent as CustomSelectChangeEvent;
       },
       [name, id]
     );
 
     const triggerChange = useCallback(
-      (newValue) => {
+      (newValue, selectionConfirmed) => {
         if (onChange) {
-          onChange(createCustomEvent(newValue));
+          onChange(createCustomEvent(newValue, selectionConfirmed));
         }
       },
       [onChange, createCustomEvent]
@@ -213,7 +215,7 @@ export const FilterableSelect = React.forwardRef(
 
           if (!match || isFilterCleared) {
             setTextValue(newFilterText);
-            triggerChange("");
+            triggerChange("", false);
 
             return "";
           }
@@ -224,7 +226,7 @@ export const FilterableSelect = React.forwardRef(
             return match.props.value;
           }
 
-          triggerChange(match.props.value);
+          triggerChange(match.props.value, false);
 
           if (
             match.props.text
@@ -456,6 +458,7 @@ export const FilterableSelect = React.forwardRef(
           text,
           value: newValue,
           selectionType,
+          selectionConfirmed,
         } = optionData;
 
         if (selectionType === "tab") {
@@ -471,7 +474,7 @@ export const FilterableSelect = React.forwardRef(
         }
 
         setTextValue(text);
-        triggerChange(newValue);
+        triggerChange(newValue, selectionConfirmed);
         setActiveDescendantId(selectedOptionId);
 
         if (selectionType !== "navigationKey") {

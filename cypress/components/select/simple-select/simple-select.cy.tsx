@@ -991,6 +991,80 @@ context("Tests for SimpleSelect component", () => {
     });
   });
 
+  describe("selection confirmed", () => {
+    it("is set on the event when options are clicked", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectListText("One").click();
+      cy.get('[data-element="confirmed-selection-1"]').should("exist");
+      dropdownButton().click();
+      selectListText("Five").click();
+      cy.get('[data-element="confirmed-selection-1"]').should("not.exist");
+      cy.get('[data-element="confirmed-selection-5"]').should("exist");
+      dropdownButton().click();
+      selectListText("Seven").click();
+      cy.get('[data-element="confirmed-selection-5"]').should("not.exist");
+      cy.get('[data-element="confirmed-selection-7"]').should("exist");
+    });
+
+    it("is set on the event when Enter key is pressed on an option using ArrowDown key to navigate", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-1"]').should("exist");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-1"]').should("not.exist");
+      cy.get('[data-element="confirmed-selection-3"]').should("exist");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-3"]').should("not.exist");
+      cy.get('[data-element="confirmed-selection-5"]').should("exist");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-5"]').should("not.exist");
+      cy.get('[data-element="confirmed-selection-6"]').should("exist");
+    });
+
+    it("is set on the event when Enter key is pressed on an option using ArrowUp key to navigate", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-9"]').should("exist");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-9"]').should("not.exist");
+      cy.get('[data-element="confirmed-selection-7"]').should("exist");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-7"]').should("not.exist");
+      cy.get('[data-element="confirmed-selection-5"]').should("exist");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-5"]').should("not.exist");
+      cy.get('[data-element="confirmed-selection-4"]').should("exist");
+    });
+
+    it("is set on the event when Enter key is pressed on an option after using alpha key", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectInput().type("t", { force: true });
+      cy.get('[data-element="confirmed-selection-2"]').should("not.exist");
+      selectInput().realPress("Enter");
+      cy.get('[data-element="confirmed-selection-2"]').should("exist");
+    });
+  });
+
   describe("Accessibility tests for SimpleSelect component", () => {
     it("should pass accessibility tests for SimpleSelect", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent />);

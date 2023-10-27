@@ -346,6 +346,7 @@ describe("SelectList", () => {
               selectionType: "enterKey",
               text: "blue",
               value: "opt3",
+              selectionConfirmed: true,
             });
           });
         });
@@ -363,6 +364,7 @@ describe("SelectList", () => {
               selectionType: "navigationKey",
               text: "red",
               value: "opt1",
+              selectionConfirmed: false,
             });
           });
         });
@@ -380,6 +382,7 @@ describe("SelectList", () => {
               selectionType: "navigationKey",
               text: "red",
               value: "opt1",
+              selectionConfirmed: false,
             });
           });
 
@@ -410,6 +413,7 @@ describe("SelectList", () => {
               selectionType: "navigationKey",
               text: "blue",
               value: "opt3",
+              selectionConfirmed: false,
             });
           });
         });
@@ -427,6 +431,7 @@ describe("SelectList", () => {
               selectionType: "navigationKey",
               text: "blue",
               value: "opt3",
+              selectionConfirmed: false,
             });
           });
         });
@@ -443,6 +448,7 @@ describe("SelectList", () => {
             selectionType: "navigationKey",
             text: "red",
             value: "opt1",
+            selectionConfirmed: false,
           });
         });
       });
@@ -458,6 +464,7 @@ describe("SelectList", () => {
             selectionType: "navigationKey",
             text: "blue",
             value: "opt3",
+            selectionConfirmed: false,
           });
         });
       });
@@ -498,6 +505,7 @@ describe("SelectList", () => {
           selectionType: "click",
           text: "red",
           value: "opt1",
+          selectionConfirmed: true,
         });
       });
     });
@@ -771,7 +779,10 @@ describe("SelectList", () => {
       const testContainer = document.createElement("div");
       const onFocusFn = jest.fn();
       const onSelectFn = jest.fn();
-      const expectedSelectValue = { selectionType: "tab" };
+      const expectedSelectValue = {
+        selectionType: "tab",
+        selectionConfirmed: false,
+      };
 
       document.body.appendChild(testContainer);
 
@@ -915,6 +926,7 @@ describe("SelectList", () => {
           selectionType: "navigationKey",
           text: "red",
           value: "opt1",
+          selectionConfirmed: false,
         });
       });
     });

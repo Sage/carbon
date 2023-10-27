@@ -484,6 +484,7 @@ describe("MultiSelect", () => {
           value: "opt3",
           text: "blue",
           selectionType: "enter",
+          selectionConfirmed: true,
         };
         const changeEventObject = { target: { value: "b" } };
 
@@ -749,17 +750,20 @@ describe("MultiSelect", () => {
       value: "opt1",
       text: "red",
       selectionType: "enter",
+      selectionConfirmed: true,
     };
     const mockNavigationKeyOptionObject = {
       value: "opt1",
       text: "red",
       selectionType: "navigationKey",
+      selectionConfirmed: false,
     };
     const textboxProps = {
       name: "testName",
       id: "testId",
     };
     const expectedEventObject = {
+      selectionConfirmed: true,
       target: {
         ...textboxProps,
         value: ["opt1"],
@@ -958,6 +962,7 @@ describe("MultiSelect", () => {
 
   describe("when the component is controlled", () => {
     const expectedObject = {
+      selectionConfirmed: true,
       target: {
         id: "testSelect",
         name: "testSelect",
@@ -969,6 +974,7 @@ describe("MultiSelect", () => {
       value: "opt2",
       text: "black",
       selectionType: "click",
+      selectionConfirmed: true,
     };
 
     describe("and an option is selected", () => {
@@ -1069,12 +1075,14 @@ describe("MultiSelect", () => {
       value: "opt1",
       text: "red",
       selectionType: "enter",
+      selectionConfirmed: true,
     };
     const textboxProps = {
       name: "testName",
       id: "testId",
     };
     const expectedEventObject = {
+      selectionConfirmed: true,
       target: {
         ...textboxProps,
         value: ["opt1"],

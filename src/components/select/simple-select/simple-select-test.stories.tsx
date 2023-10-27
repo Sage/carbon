@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Typography from "../../../components/typography";
 import Content from "../../../components/content";
-import { Select as SimpleSelect } from "../../../../src/components/select";
+import {
+  CustomSelectChangeEvent,
+  Select as SimpleSelect,
+} from "../../../../src/components/select";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Box from "../../box";
@@ -12,6 +15,7 @@ import { Select, Option, SimpleSelectProps } from "..";
 export default {
   component: Select,
   title: "Select/Test",
+  excludeStories: ["SelectionConfirmed"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -701,4 +705,44 @@ SelectWithOptionGroupHeader.args = {
   mt: 0,
   listPlacement: undefined,
   flipEnabled: true,
+};
+
+export const SelectionConfirmed = () => {
+  const [value, setValue] = React.useState("");
+  const [confirmedSelection, setConfirmedSelection] = useState("");
+
+  const handleChange = (event: CustomSelectChangeEvent) => {
+    setValue(event.target.value);
+    if (event.selectionConfirmed) {
+      setConfirmedSelection(event.target.value);
+    }
+  };
+  return (
+    <>
+      <Select
+        name="testing"
+        value={value}
+        onChange={handleChange}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+        <Option value="4" text="Four" />
+        <Option value="5" text="Five" />
+        <Option value="6" text="Six" />
+        <Option value="7" text="Seven" />
+        <Option value="8" text="Eight" />
+        <Option value="9" text="Nine" />
+      </Select>
+
+      {confirmedSelection ? (
+        <span data-element={`confirmed-selection-${confirmedSelection}`}>
+          {confirmedSelection}
+        </span>
+      ) : null}
+    </>
+  );
 };

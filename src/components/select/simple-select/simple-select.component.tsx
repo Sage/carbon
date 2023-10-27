@@ -25,6 +25,11 @@ let deprecateUncontrolledWarnTriggered = false;
 
 type TimerId = ReturnType<typeof setTimeout>;
 
+export interface CustomSelectChangeEvent
+  extends React.ChangeEvent<HTMLInputElement> {
+  selectionConfirmed?: boolean;
+}
+
 export interface SimpleSelectProps
   extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
   /** Prop to specify the aria-label attribute of the component input */
@@ -164,16 +169,17 @@ export const SimpleSelect = React.forwardRef(
     ]) as React.ReactElement[];
 
     const createCustomEvent = useCallback(
-      (newValue) => {
+      (newValue, selectionConfirmed = false) => {
         const customEvent = {
           target: {
             ...(name && { name }),
             ...(id && { id }),
             value: newValue,
           },
+          selectionConfirmed,
         };
 
-        return customEvent as React.ChangeEvent<HTMLInputElement>;
+        return customEvent as CustomSelectChangeEvent;
       },
       [name, id]
     );
@@ -406,7 +412,8 @@ export const SimpleSelect = React.forwardRef(
 
     function updateValue(
       newValue?: string | Record<string, unknown>,
-      text?: string
+      text?: string,
+      selectionConfirmed?: boolean
     ) {
       if (!isControlled.current) {
         setSelectedValue(newValue);
@@ -414,7 +421,7 @@ export const SimpleSelect = React.forwardRef(
       }
 
       if (onChange) {
-        onChange(createCustomEvent(newValue));
+        onChange(createCustomEvent(newValue, selectionConfirmed));
       }
     }
 
@@ -423,16 +430,18 @@ export const SimpleSelect = React.forwardRef(
       value?: string | Record<string, unknown>;
       id?: string;
       selectionType: string;
+      selectionConfirmed?: boolean;
     }) {
       const {
         text,
         value: newValue,
         selectionType,
         id: selectedOptionId,
+        selectionConfirmed,
       } = optionData;
       const isClickTriggered = selectionType === "click";
 
-      updateValue(newValue, text);
+      updateValue(newValue, text, selectionConfirmed);
       setActiveDescendantId(selectedOptionId);
 
       if (selectionType !== "navigationKey") {

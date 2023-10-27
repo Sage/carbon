@@ -579,23 +579,27 @@ describe("FilterableSelect", () => {
       value: "Foo",
       text: "Bar",
       selectionType: "navigationKey",
+      selectionConfirmed: false,
     };
     const clickOptionObject = {
       value: "Foo",
       text: "Bar",
       selectionType: "click",
+      selectionConfirmed: true,
     };
     const textboxProps = {
       name: "testName",
       id: "testId",
     };
     const expectedEventObject = {
+      selectionConfirmed: true,
       target: {
         ...textboxProps,
         value: "Foo",
       },
     };
     const expectedDeleteEventObject = {
+      selectionConfirmed: false,
       target: {
         ...textboxProps,
         value: "",
@@ -880,6 +884,7 @@ describe("FilterableSelect", () => {
       value: "opt3",
       text: "black",
       selectionType: "click",
+      selectionConfirmed: true,
     };
 
     beforeEach(() => {
@@ -900,7 +905,10 @@ describe("FilterableSelect", () => {
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
-        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+        expect(onChangeFn).toHaveBeenCalledWith({
+          selectionConfirmed: true,
+          ...expectedObject,
+        });
       });
     });
 
@@ -912,7 +920,10 @@ describe("FilterableSelect", () => {
         });
 
         it("then the onChange function should have been called with with the expected value", () => {
-          expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+          expect(onChangeFn).toHaveBeenCalledWith({
+            selectionConfirmed: false,
+            ...expectedObject,
+          });
         });
 
         describe("and an an empty value has been passed", () => {
@@ -931,7 +942,10 @@ describe("FilterableSelect", () => {
         });
 
         it("then the onChange function should have been called with with the expected value", () => {
-          expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+          expect(onChangeFn).toHaveBeenCalledWith({
+            selectionConfirmed: false,
+            ...expectedObject,
+          });
         });
 
         it("then the Textbox visible value should be changed to that character", () => {
