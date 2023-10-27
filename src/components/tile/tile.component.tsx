@@ -1,11 +1,16 @@
 import React from "react";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { SpaceProps, WidthProps } from "styled-system";
-import { StyledTile, TileContent } from "./tile.style";
+import StyledTile from "./tile.style";
+import TileContext from "./__internal__/tile-context";
+import filterStyledSystemPaddingProps from "../../style/utils/filter-styled-system-padding-props";
+import filterStyledSystemMarginProps from "../../style/utils/filter-styled-system-margin-props";
+import computeContentPadding from "./__internal__/compute-content-padding";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 type DesignTokensType = keyof typeof DesignTokens;
 
-export interface TileProps extends SpaceProps, WidthProps {
+export interface TileProps extends SpaceProps, WidthProps, TagProps {
   /** Sets the theme of the tile - either 'tile', 'transparent' or 'active' */
   variant?: "tile" | "transparent" | "active";
   /**
@@ -49,60 +54,34 @@ export const Tile = ({
   width = "100%",
   roundness = "default",
   height,
-  ...props
+  borderWidth,
+  borderVariant,
+  ...rest
 }: TileProps) => {
   const isHorizontal = orientation === "horizontal";
-  const isVertical = orientation === "vertical";
-  const wrappedChildren = React.Children.map(children, (child, index) => {
-    if (!child) {
-      return null;
-    }
-
-    // istanbul ignore if
-    if (!React.isValidElement(child)) {
-      return child;
-    }
-
-    const {
-      width: contentWidth,
-      height: contentHeight,
-      ...childProps
-    } = child.props;
-    const key = child.key || `tile-content-${index + 1}`;
-
-    return (
-      <TileContent
-        key={key}
-        width={contentWidth}
-        height={contentHeight}
-        isHorizontal={isHorizontal}
-        isVertical={isVertical}
-        {...(isVertical && {
-          pt: props.pt || props.py || p,
-          pb: props.pb || props.py || p,
-        })}
-        {...(isHorizontal && {
-          pr: props.pr || props.px || p,
-          pl: props.pl || props.px || p,
-        })}
-      >
-        {React.cloneElement(child, childProps)}
-      </TileContent>
-    );
-  });
+  const paddingProps = filterStyledSystemPaddingProps({ p, ...rest });
+  const marginProps = filterStyledSystemMarginProps(rest);
+  const contentPaddingProps = computeContentPadding(paddingProps, isHorizontal);
 
   return (
     <StyledTile
       variant={variant}
       width={width}
       height={height}
-      data-component="tile"
       isHorizontal={isHorizontal}
       p={p}
       roundness={roundness}
-      {...props}
+      borderWidth={borderWidth}
+      borderVariant={borderVariant}
+      {...paddingProps}
+      {...marginProps}
+      {...tagComponent("tile", rest)}
     >
-      {wrappedChildren}
+      <TileContext.Provider
+        value={{ isHorizontal, paddingPropsFromTile: contentPaddingProps }}
+      >
+        {children}
+      </TileContext.Provider>
     </StyledTile>
   );
 };
