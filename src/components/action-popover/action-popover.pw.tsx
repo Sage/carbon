@@ -63,6 +63,10 @@ import {
   ActionPopoverWithSubmenusAndSomeIcons,
   ActionPopoverWithVariableChildren,
   ActionPopoverWithRenderProp,
+  ActionPopoverPropsComponentAllDisabled,
+  ActionPopoverPropsComponentWithSomeDisabled,
+  ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled,
+  ActionPopoverPropsComponentWithFirstAndLastDisabled,
 } from "../../../src/components/action-popover/components.test-pw";
 
 const keyToTrigger = ["Enter", " ", "End", "ArrowDown", "ArrowUp"] as const;
@@ -78,12 +82,11 @@ test.describe("check functionality for ActionPopover component", () => {
   });
 
   ([
-    [0, "Business"],
-    [1, "Email Invoice"],
-    [2, "Print Invoice"],
-    [3, "Download PDF"],
-    [4, "Download CSV"],
-    [5, "Delete"],
+    [0, "Email Invoice"],
+    [1, "Print Invoice"],
+    [2, "Download PDF"],
+    [3, "Download CSV"],
+    [4, "Delete"],
   ] as [number, string][]).forEach(([times, elementText]) => {
     test(`should be able to press downarrow ${times} times and get button ${elementText} focused`, async ({
       mount,
@@ -109,13 +112,13 @@ test.describe("check functionality for ActionPopover component", () => {
       ).first();
       await actionPopoverButtonElement.press(key);
       const focusedElement = await page.locator("*:focus");
-      await expect(focusedElement).toContainText("Business");
+      await expect(focusedElement).toContainText("Email Invoice");
       const actionPopoverElement = await actionPopover(page).first();
       await expect(actionPopoverElement).toBeVisible();
     });
   });
 
-  test("should focus the first element Business using Home key", async ({
+  test("should focus the first element Email Invoice using Home key", async ({
     mount,
     page,
   }) => {
@@ -128,7 +131,7 @@ test.describe("check functionality for ActionPopover component", () => {
     }
     const focusedElement = await page.locator("*:focus");
     await focusedElement.press("Home");
-    await expect(focusedElement).toContainText("Business");
+    await expect(focusedElement).toContainText("Email Invoice");
   });
 
   test("should focus the first sub menu 1 element using Home key", async ({
@@ -165,7 +168,7 @@ test.describe("check functionality for ActionPopover component", () => {
     });
   });
 
-  test("should focus the last sub menu 3 element using End keyboard key", async ({
+  test("should focus the last sub menu 2 element using End keyboard key", async ({
     mount,
     page,
   }) => {
@@ -179,7 +182,7 @@ test.describe("check functionality for ActionPopover component", () => {
     const focusedElement = await page.locator("*:focus");
     await focusedElement.press("ArrowLeft");
     await focusedElement.press("End");
-    await expect(focusedElement).toContainText("Sub Menu 3");
+    await expect(focusedElement).toContainText("Sub Menu 2");
   });
 
   test("should close using Tab key", async ({ mount, page }) => {
@@ -292,7 +295,6 @@ test.describe("check functionality for ActionPopover component", () => {
   ([
     [subMenuOption[0], 0],
     [subMenuOption[1], 1],
-    [subMenuOption[2], 2],
   ] as [typeof subMenuOption[number], number][]).forEach(
     ([innerText, times]) => {
       test(`should focus ${innerText} element`, async ({ mount, page }) => {
@@ -311,6 +313,28 @@ test.describe("check functionality for ActionPopover component", () => {
           await focusedElement.press("ArrowDown");
         }
         await expect(focusedElement).toContainText(innerText);
+      });
+    }
+  );
+
+  ([[subMenuOption[2], 2]] as [typeof subMenuOption[number], number][]).forEach(
+    ([innerText, times]) => {
+      test(`should not focus ${innerText} element`, async ({ mount, page }) => {
+        await mount(<ActionPopoverCustom />);
+        const actionPopoverButtonElementEq0 = await actionPopoverButton(
+          page
+        ).nth(0);
+        await actionPopoverButtonElementEq0.click();
+        for (let i = 0; i < 2; i++) {
+          const focusedElement = await page.locator("*:focus");
+          await focusedElement.press("ArrowDown");
+        }
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowLeft");
+        for (let i = 0; i < times; i++) {
+          await focusedElement.press("ArrowDown");
+        }
+        await expect(focusedElement).not.toContainText(innerText);
       });
     }
   );
@@ -401,10 +425,7 @@ test.describe("check functionality for ActionPopover component", () => {
     }
   );
 
-  ([
-    [subMenuOption[0], 0],
-    [subMenuOption[1], 1],
-  ] as [typeof subMenuOption[number], number][]).forEach(([name, item]) => {
+  [[subMenuOption[0]], [subMenuOption[1]]].forEach(([name]) => {
     test(`should close ${name} and ActionPopover after clicking on the submenu`, async ({
       mount,
       page,
@@ -421,8 +442,7 @@ test.describe("check functionality for ActionPopover component", () => {
       for (let i = 0; i < 2; i++) {
         await focusedElement.press("ArrowDown");
       }
-      const submenuItem = await actionPopoverSubmenu(page, item);
-      await submenuItem.click();
+      await focusedElement.click();
       const actionPopoverElement = await actionPopover(page).first();
       await expect(actionPopoverElement).not.toBeVisible();
     });
@@ -520,6 +540,190 @@ test.describe("check functionality for ActionPopover component", () => {
         "background-color",
         "rgb(204, 214, 219)"
       );
+    });
+  });
+
+  ([
+    [0, "Item 2"],
+    [1, "Item 3"],
+    [2, "Item 4"],
+    [3, "Item 5"],
+    [4, "Item 6"],
+  ] as [number, string][]).forEach(([times, elementText]) => {
+    test(`should be able to press downarrow ${times} times and get button ${elementText} focused when first and last items are disabled`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ActionPopoverPropsComponentWithFirstAndLastDisabled />);
+
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < times; i++) {
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowDown");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await expect(focusedElement).toContainText(elementText);
+    });
+  });
+
+  ([
+    [0, "Item 2"],
+    [1, "Item 6"],
+    [2, "Item 5"],
+    [3, "Item 4"],
+    [4, "Item 3"],
+  ] as [number, string][]).forEach(([times, elementText]) => {
+    test(`should be able to press up ${times} times and get button ${elementText} focused when first and last items are disabled`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ActionPopoverPropsComponentWithFirstAndLastDisabled />);
+
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < times; i++) {
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowUp");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await expect(focusedElement).toContainText(elementText);
+    });
+  });
+
+  ([
+    [0, "Item 1"],
+    [1, "Item 7"],
+  ] as [number, string][]).forEach(([times, elementText]) => {
+    test(`should be able to press downarrow ${times} times and get button ${elementText} focused when only the first and last items are not disabled`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled />
+      );
+
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < times; i++) {
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowDown");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await expect(focusedElement).toContainText(elementText);
+    });
+  });
+
+  ([
+    [0, "Item 1"],
+    [1, "Item 7"],
+  ] as [number, string][]).forEach(([times, elementText]) => {
+    test(`should be able to press up ${times} times and get button ${elementText} focused`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled />
+      );
+
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < times; i++) {
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowUp");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await expect(focusedElement).toContainText(elementText);
+    });
+  });
+
+  ([
+    [0, "Item 1"],
+    [1, "Item 4"],
+    [2, "Item 6"],
+  ] as [number, string][]).forEach(([times, elementText]) => {
+    test(`should be able to press downarrow ${times} times and get button ${elementText} focused when only a few items are disabled`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ActionPopoverPropsComponentWithSomeDisabled />);
+
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < times; i++) {
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowDown");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await expect(focusedElement).toContainText(elementText);
+    });
+  });
+
+  ([
+    [0, "Item 1"],
+    [1, "Item 6"],
+    [2, "Item 4"],
+  ] as [number, string][]).forEach(([times, elementText]) => {
+    test(`should be able to press up ${times} times and get button ${elementText} focused when only a few items are disabled`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ActionPopoverPropsComponentWithSomeDisabled />);
+
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < times; i++) {
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowUp");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await expect(focusedElement).toContainText(elementText);
+    });
+  });
+
+  ([
+    [1, "Item 2"],
+    [2, "Item 3"],
+    [3, "Item 4"],
+    [4, "Item 5"],
+  ] as [number, string][]).forEach(([times, elementText]) => {
+    test(`should be able to press down ${times} times and not get button ${elementText} focused when all items are disabled`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ActionPopoverPropsComponentAllDisabled />);
+
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < times; i++) {
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowDown");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await expect(focusedElement).not.toContainText(elementText);
+    });
+  });
+
+  ([
+    [1, "Item 2"],
+    [2, "Item 3"],
+    [3, "Item 4"],
+    [4, "Item 5"],
+  ] as [number, string][]).forEach(([times, elementText]) => {
+    test(`should be able to press up ${times} times and not get button ${elementText} focused when all items are disabled`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ActionPopoverPropsComponentAllDisabled />);
+
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < times; i++) {
+        const focusedElement = await page.locator("*:focus");
+        await focusedElement.press("ArrowUp");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await expect(focusedElement).not.toContainText(elementText);
     });
   });
 });
@@ -1090,7 +1294,7 @@ test.describe("when focused", () => {
       "rgb(255, 188, 25) solid 3px"
     );
     await actionPopoverButtonElement.click();
-    const focusedItem = await actionPopoverInnerItem(page, 0);
+    const focusedItem = await actionPopoverInnerItem(page, 1);
     await expect(focusedItem).toHaveCSS(
       "outline",
       "rgb(255, 188, 25) solid 3px"
@@ -1109,7 +1313,7 @@ test.describe("when focused", () => {
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
     );
     await actionPopoverButtonElement.click();
-    const focusedItem = await actionPopoverInnerItem(page, 0);
+    const focusedItem = await actionPopoverInnerItem(page, 1);
     await expect(focusedItem).toHaveCSS(
       "box-shadow",
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"

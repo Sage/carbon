@@ -1,3 +1,10 @@
+## [123.1.0](https://github.com/Sage/carbon/compare/v123.0.1...v123.1.0) (2023-10-27)
+
+
+### Features
+
+* **action-popover:** disabled items can no longer be focused ([208148b](https://github.com/Sage/carbon/commit/208148b2d5009db64fa3ce4d8ad86250c860c523))
+
 ### [123.0.1](https://github.com/Sage/carbon/compare/v123.0.0...v123.0.1) (2023-10-27)
 
 

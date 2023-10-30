@@ -63,7 +63,7 @@ export const Default = () => {
           <FlatTableRow>
             <FlatTableHeader>First Name</FlatTableHeader>
             <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>&nbsp;</FlatTableHeader>
+            <FlatTableHeader>Options</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -177,7 +177,7 @@ export const ActionPopoverCustom = ({ ...props }) => {
           <FlatTableRow>
             <FlatTableHeader>First Name</FlatTableHeader>
             <FlatTableHeader>Last Name</FlatTableHeader>
-            <FlatTableHeader>&nbsp;</FlatTableHeader>
+            <FlatTableHeader>Options</FlatTableHeader>
           </FlatTableRow>
         </FlatTableHead>
         <FlatTableBody>
@@ -607,6 +607,102 @@ export const ActionPopoverPropsComponent = (
     <ActionPopover {...props}>
       <ActionPopoverItem>Sub Menu 1</ActionPopoverItem>
       <ActionPopoverItem>Sub Menu 2</ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverPropsComponentWithFirstAndLastDisabled = (
+  props: Partial<ActionPopoverProps>
+) => {
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem disabled>Item 1</ActionPopoverItem>
+      <ActionPopoverItem>Item 2</ActionPopoverItem>
+      <ActionPopoverItem>Item 3</ActionPopoverItem>
+      <ActionPopoverItem>Item 4</ActionPopoverItem>
+      <ActionPopoverItem>Item 5</ActionPopoverItem>
+      <ActionPopoverItem>Item 6</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 7</ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled = (
+  props: Partial<ActionPopoverProps>
+) => {
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem>Item 1</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 2</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 3</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 4</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 5</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 6</ActionPopoverItem>
+      <ActionPopoverItem>Item 7</ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverPropsComponentWithOnlyFirstDisabled = (
+  props: Partial<ActionPopoverProps>
+) => {
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem disabled>Item 1</ActionPopoverItem>
+      <ActionPopoverItem>Item 2</ActionPopoverItem>
+      <ActionPopoverItem>Item 3</ActionPopoverItem>
+      <ActionPopoverItem>Item 4</ActionPopoverItem>
+      <ActionPopoverItem>Item 5</ActionPopoverItem>
+      <ActionPopoverItem>Item 6</ActionPopoverItem>
+      <ActionPopoverItem>Item 7</ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverPropsComponentWithOnlyLastDisabled = (
+  props: Partial<ActionPopoverProps>
+) => {
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem>Item 1</ActionPopoverItem>
+      <ActionPopoverItem>Item 2</ActionPopoverItem>
+      <ActionPopoverItem>Item 3</ActionPopoverItem>
+      <ActionPopoverItem>Item 4</ActionPopoverItem>
+      <ActionPopoverItem>Item 5</ActionPopoverItem>
+      <ActionPopoverItem>Item 6</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 7</ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverPropsComponentWithSomeDisabled = (
+  props: Partial<ActionPopoverProps>
+) => {
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem>Item 1</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 2</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 3</ActionPopoverItem>
+      <ActionPopoverItem>Item 4</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 5</ActionPopoverItem>
+      <ActionPopoverItem>Item 6</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 7</ActionPopoverItem>
+    </ActionPopover>
+  );
+};
+
+export const ActionPopoverPropsComponentAllDisabled = (
+  props: Partial<ActionPopoverProps>
+) => {
+  return (
+    <ActionPopover {...props}>
+      <ActionPopoverItem disabled>Item 1</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 2</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 3</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 4</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 5</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 6</ActionPopoverItem>
+      <ActionPopoverItem disabled>Item 7</ActionPopoverItem>
     </ActionPopover>
   );
 };

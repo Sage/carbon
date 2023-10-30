@@ -121,12 +121,28 @@ export const ActionPopoverComponentDisabledItems: ComponentStory<
     <div style={{ height: "250px" }}>
       <Box>
         <ActionPopover>
-          <ActionPopoverItem icon="email" disabled onClick={() => {}}>
+          <ActionPopoverItem icon="email" onClick={() => {}}>
             Email Invoice
           </ActionPopoverItem>
           <ActionPopoverDivider />
           <ActionPopoverItem onClick={() => {}} icon="delete">
             Delete
+          </ActionPopoverItem>
+          <ActionPopoverDivider />
+          <ActionPopoverItem disabled onClick={() => {}} icon="add">
+            Add
+          </ActionPopoverItem>
+          <ActionPopoverItem disabled onClick={() => {}} icon="delete">
+            Delete
+          </ActionPopoverItem>
+          <ActionPopoverItem onClick={() => {}} icon="tick">
+            Tick
+          </ActionPopoverItem>
+          <ActionPopoverItem disabled onClick={() => {}} icon="delete">
+            Delete
+          </ActionPopoverItem>
+          <ActionPopoverItem onClick={() => {}} icon="none">
+            None
           </ActionPopoverItem>
         </ActionPopover>
       </Box>
@@ -253,7 +269,10 @@ export const ActionPopoverComponentSubmenu: ComponentStory<
             onClick={() => {}}
             submenu={
               <ActionPopoverMenu>
-                <ActionPopoverItem onClick={() => {}}>CSV</ActionPopoverItem>
+                <ActionPopoverItem disabled onClick={() => {}}>
+                  CSV
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
                 <ActionPopoverItem onClick={() => {}}>PDF</ActionPopoverItem>
               </ActionPopoverMenu>
             }
@@ -261,6 +280,9 @@ export const ActionPopoverComponentSubmenu: ComponentStory<
             Print
           </ActionPopoverItem>
           <ActionPopoverDivider />
+          <ActionPopoverItem disabled onClick={() => {}} icon="add">
+            Add
+          </ActionPopoverItem>
           <ActionPopoverItem onClick={() => {}} icon="delete">
             Delete
           </ActionPopoverItem>
