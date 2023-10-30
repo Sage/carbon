@@ -5,6 +5,7 @@ import React, {
   useState,
   useMemo,
 } from "react";
+import Logger from "../../__internal__/utils/logger";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
@@ -42,6 +43,8 @@ export interface CarouselProps extends TagProps {
   slideIndex?: number | string;
 }
 
+let deprecateWarnTriggered = false;
+
 const NEXT = "next";
 const PREVIOUS = "previous";
 
@@ -56,6 +59,13 @@ export const Carousel = ({
   slideIndex,
   ...props
 }: CarouselProps) => {
+  if (!deprecateWarnTriggered) {
+    deprecateWarnTriggered = true;
+    Logger.deprecate(
+      "The Carousel component is deprecated and will soon be removed."
+    );
+  }
+
   const [selectedSlideIndex, setSelectedSlideIndex] = useState(
     Number(slideIndex) || Number(initialSlideIndex)
   );

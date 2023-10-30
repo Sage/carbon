@@ -25,11 +25,3 @@ DefaultStory.args = {
   position: undefined,
   offset: "0",
 };
-
-export const NavigationBarComponent = ({
-  children,
-  ...props
-}: NavigationBarProps) => {
-  const isChildren = children !== null ? children : "Cypress tests";
-  return <NavigationBar {...props}>{isChildren}</NavigationBar>;
-};

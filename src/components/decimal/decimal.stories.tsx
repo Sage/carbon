@@ -108,6 +108,11 @@ WithLabelHelp.args = {
   helpAriaLabel: "Help",
 };
 
+export const WithInputHint = DefaultStory.bind({});
+WithInputHint.args = {
+  inputHint: "Hint text (optional).",
+};
+
 export const Required = DefaultStory.bind({});
 Required.args = { required: true };
 
