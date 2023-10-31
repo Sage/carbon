@@ -350,3 +350,8 @@ export const continuePressingSHIFTTAB = async (page: Page, count: number) => {
 
   await Promise.all(promises);
 };
+
+export const waitForAnimationEnd = (locator: Locator) =>
+  locator.evaluate((element) =>
+    Promise.all(element.getAnimations().map((animation) => animation.finished))
+  );
