@@ -14,6 +14,7 @@ import IconButton from "../icon-button";
 import StyledIconButton from "../icon-button/icon-button.style";
 import { StyledDialog } from "../dialog/dialog.style";
 import Logger from "../../__internal__/utils/logger";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -489,5 +490,36 @@ describe("Confirm", () => {
         StyledDialog
       )
     );
+  });
+
+  it("has proper data attributes applied to elements", () => {
+    wrapper = mount(
+      <Confirm
+        cancelButtonIconType="bin"
+        onCancel={() => {}}
+        onConfirm={() => {}}
+        cancelButtonDataProps={{
+          "data-element": "bang",
+          "data-role": "wallop",
+        }}
+        confirmButtonDataProps={{
+          "data-element": "bar",
+          "data-role": "wiz",
+        }}
+        open
+      />
+    );
+    const cancelButton = wrapper
+      .find(Button)
+      .filter('[data-component="cancel"]')
+      .at(0);
+
+    const confirmButton = wrapper
+      .find(Button)
+      .filter('[data-component="confirm"]')
+      .at(0);
+
+    rootTagTest(cancelButton, "cancel", "bang", "wallop");
+    rootTagTest(confirmButton, "confirm", "bar", "wiz");
   });
 });
