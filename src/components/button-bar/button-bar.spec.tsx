@@ -47,7 +47,7 @@ describe("Button Bar", () => {
     });
   });
 
-  describe("when props are passed to the compontent", () => {
+  describe("when props are passed to the component", () => {
     it("renders proper props and children", () => {
       const wrapper = renderButtonBar("Large", 3, {
         size: "large",
