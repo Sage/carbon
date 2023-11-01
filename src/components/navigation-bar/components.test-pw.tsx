@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ComponentStory } from "@storybook/react";
 import NavigationBar, { NavigationBarProps } from ".";
 import { Menu, MenuDivider, MenuItem } from "../menu";
@@ -217,4 +217,24 @@ export const Fixed: ComponentStory<typeof NavigationBar> = () => (
 Fixed.parameters = {
   docs: { inlineStories: false, iframeHeight: 200 },
   themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const NavigationBarWithErrorHandler = ({
+  ...props
+}: NavigationBarProps) => {
+  const [error, setError] = useState("");
+  useEffect(() => {
+    const handleError = (e: ErrorEvent) => {
+      setError(e.message);
+    };
+    window.addEventListener("error", handleError);
+
+    return () => window.removeEventListener("error", handleError);
+  });
+  return (
+    <>
+      <NavigationBar {...props} />
+      <div id="error-div">{error}</div>
+    </>
+  );
 };

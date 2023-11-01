@@ -15,6 +15,7 @@ import {
   ContentMaxWidthBox,
   Sticky,
   Fixed,
+  NavigationBarWithErrorHandler,
 } from "./components.test-pw";
 
 import navigationBar from "../../../playwright/components/navigation-bar";
@@ -32,6 +33,15 @@ const variants = [
 const offsetVal = [25, 100, -100];
 
 test.describe("Test props for NavigationBar component", () => {
+  test("should not cause a ResizeObserver-related error to occur", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<NavigationBarWithErrorHandler />);
+
+    await expect(page.locator("#error-div")).toContainText("");
+  });
+
   specialCharacters.forEach((childrenValue) => {
     test(`should render with ${childrenValue} as a children`, async ({
       mount,
