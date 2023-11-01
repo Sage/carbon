@@ -526,7 +526,7 @@ context("Tests for Flat Table component", () => {
     it.skip("should render Flat Table with multiple sticky row headers, stickyAlignment set to right", () => {
       cy.viewport(700, 700);
 
-      CypressMountWithProviders(<stories.FlatTableMutipleStickyComponent />);
+      CypressMountWithProviders(<stories.FlatTableMultipleStickyComponent />);
 
       flatTableBodyRowByPosition(1)
         .find("td")
@@ -2932,7 +2932,7 @@ context("Tests for Flat Table component", () => {
     it.skip("should render Flat Table with multiple sticky row headers for accessibility tests", () => {
       cy.viewport(700, 700);
 
-      CypressMountWithProviders(<stories.FlatTableMutipleStickyComponent />);
+      CypressMountWithProviders(<stories.FlatTableMultipleStickyComponent />);
       cy.checkAccessibility();
     });
 

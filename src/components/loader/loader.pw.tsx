@@ -182,7 +182,7 @@ test.describe("check props for Loader component test", () => {
   });
 
   test.describe("Accessibility tests for Loader component", async () => {
-    test("should pass accessibilty tests for Loader default story", async ({
+    test("should pass accessibility tests for Loader default story", async ({
       mount,
       page,
     }) => {

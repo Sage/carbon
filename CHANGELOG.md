@@ -1,3 +1,17 @@
+## [123.2.0](https://github.com/Sage/carbon/compare/v123.1.0...v123.2.0) (2023-10-30)
+
+
+### Features
+
+* **confirm:** make data tag props available on cancel and confirm buttons ([2c69101](https://github.com/Sage/carbon/commit/2c691011688c5186a7d20f8af7e6acd768e5a0e8)), closes [#6374](https://github.com/Sage/carbon/issues/6374)
+
+## [123.1.0](https://github.com/Sage/carbon/compare/v123.0.1...v123.1.0) (2023-10-27)
+
+
+### Features
+
+* **action-popover:** disabled items can no longer be focused ([208148b](https://github.com/Sage/carbon/commit/208148b2d5009db64fa3ce4d8ad86250c860c523))
+
 ### [123.0.1](https://github.com/Sage/carbon/compare/v123.0.0...v123.0.1) (2023-10-27)
 
 

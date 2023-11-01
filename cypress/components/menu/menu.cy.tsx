@@ -333,12 +333,12 @@ context("Testing Menu component", () => {
       searchDefaultInput().tab();
       searchCrossIcon().parent().should("have.focus");
 
-      const bouding = (element: JQuery<Element>) => {
+      const bounding = (element: JQuery<Element>) => {
         return element[0].getBoundingClientRect();
       };
 
       searchCrossIcon()
-        .then(($el) => bouding($el))
+        .then(($el) => bounding($el))
         .as("position");
 
       cy.get("@position")
@@ -627,7 +627,7 @@ context("Testing Menu component", () => {
       "center",
       "flex-start",
       "flex-end",
-    ])("should verify Menu alignItmes is %s", (alignment) => {
+    ])("should verify Menu alignItems is %s", (alignment) => {
       CypressMountWithProviders(<MenuComponent alignItems={alignment} />);
 
       menu().should("have.css", "align-items", alignment);
@@ -1501,7 +1501,7 @@ context("Testing Menu component", () => {
       "text-top",
       "top",
     ])(
-      "should pass accessibility tests for Menu when alignItmes is %s",
+      "should pass accessibility tests for Menu when alignItems is %s",
       (alignment) => {
         CypressMountWithProviders(<MenuComponent verticalAlign={alignment} />);
 

@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useContext, useState } from "react";
+import React, {
+  useCallback,
+  useMemo,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import invariant from "invariant";
 
 import { Menu } from "../action-popover.style";
@@ -87,8 +93,10 @@ const ActionPopoverMenu = React.forwardRef<
           }
 
           return (
-            child.type !== ActionPopoverItem &&
-            child.type !== ActionPopoverDivider
+            (child.type as React.FunctionComponent).displayName !==
+              ActionPopoverItem.displayName &&
+            (child.type as React.FunctionComponent).displayName !==
+              ActionPopoverDivider.displayName
           );
         }
       );
@@ -108,46 +116,100 @@ const ActionPopoverMenu = React.forwardRef<
       });
     }, [children]);
 
+    const isItemDisabled = useCallback(
+      (value: number) => {
+        const item = items[value];
+        // The invariant will be triggered before this else path can be explored, hence the ignore else.
+        // istanbul ignore else
+        return React.isValidElement(item) && item.props.disabled;
+      },
+      [items]
+    );
+
+    const firstFocusableItem = items.findIndex(
+      (_, index) => !isItemDisabled(index)
+    );
+
+    // FIX-ME: FE-6248
+    // Once we no longer support Node 16, this function can be removed and `findLastIndex()` can be used in it's place.
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex
+    function findLastFocusableItem() {
+      let lastFocusableItem = -1;
+      for (let i = items.length - 1; i >= 0; i--) {
+        if (!isItemDisabled(i)) {
+          lastFocusableItem = i;
+          break;
+        }
+      }
+      return lastFocusableItem;
+    }
+
+    const lastFocusableItem = findLastFocusableItem();
+
+    useEffect(() => {
+      if (isOpen && firstFocusableItem !== -1)
+        setFocusIndex(firstFocusableItem);
+    }, [isOpen, firstFocusableItem, setFocusIndex]);
+
     const onKeyDown = useCallback(
       (e) => {
         if (Events.isTabKey(e)) {
           e.preventDefault();
-          // TAB: close menu and allow focus to change to next focusable element
+          // TAB: close menu and allow focus to change to the next focusable element
           focusButton();
           setOpen(false);
         } else if (Events.isDownKey(e)) {
-          // DOWN: focus next item or first
+          // DOWN: focus on the next item or first non-disabled item
           e.preventDefault();
           e.stopPropagation();
-          const indexValue = focusIndex < items.length - 1 ? focusIndex + 1 : 0;
+          let indexValue = focusIndex + 1;
+          while (indexValue < items.length && isItemDisabled(indexValue)) {
+            indexValue += 1;
+          }
+          if (indexValue >= items.length) {
+            indexValue = firstFocusableItem;
+          }
           setFocusIndex(indexValue);
         } else if (Events.isUpKey(e)) {
-          // UP: focus previous item or last
+          // UP: focus on the previous item or last non-disabled item
           e.preventDefault();
           e.stopPropagation();
-          const indexValue = focusIndex > 0 ? focusIndex - 1 : items.length - 1;
+          let indexValue = focusIndex - 1;
+          while (
+            indexValue >= firstFocusableItem &&
+            isItemDisabled(indexValue)
+          ) {
+            indexValue -= 1;
+          }
+          if (indexValue < firstFocusableItem) {
+            indexValue = lastFocusableItem;
+          }
           setFocusIndex(indexValue);
         } else if (Events.isHomeKey(e)) {
-          // HOME: focus first item
+          // HOME: focus on the first non-disabled item
           e.preventDefault();
           e.stopPropagation();
-          setFocusIndex(0);
+          const indexValue = firstFocusableItem;
+          setFocusIndex(indexValue);
         } else if (Events.isEndKey(e)) {
-          // END: focus last item
+          // END: focus on the last non-disabled item
           e.preventDefault();
           e.stopPropagation();
-          setFocusIndex(items.length - 1);
+          const indexValue = lastFocusableItem;
+          setFocusIndex(indexValue);
         } else if (e.key.length === 1) {
-          // any printable character: focus the next item on the list that starts with that character
-          // selection should wrap to the start of the list
+          // Any printable character: focus on the next non-disabled item on the list that starts with that character
+          // Selection should wrap to the start of the list
           e.stopPropagation();
           let firstMatch: number | undefined;
           let nextMatch: number | undefined;
-          React.Children.forEach(items, (child, index) => {
+          items.forEach((item, index) => {
             if (
-              React.isValidElement(child) &&
-              child.props.children.toLowerCase().startsWith(e.key.toLowerCase())
+              React.isValidElement(item) &&
+              !isItemDisabled(index) &&
+              item.props.children.toLowerCase().startsWith(e.key.toLowerCase())
             ) {
+              // istanbul ignore else
               if (firstMatch === undefined) {
                 firstMatch = index;
               }
@@ -164,7 +226,16 @@ const ActionPopoverMenu = React.forwardRef<
           }
         }
       },
-      [focusButton, setOpen, focusIndex, items, setFocusIndex]
+      [
+        focusButton,
+        setOpen,
+        focusIndex,
+        items,
+        isItemDisabled,
+        setFocusIndex,
+        firstFocusableItem,
+        lastFocusableItem,
+      ]
     );
 
     const [childHasSubmenu, setChildHasSubmenu] = useState(false);

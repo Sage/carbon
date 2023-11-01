@@ -314,7 +314,7 @@ context("Testing Switch component", () => {
       ["warning", VALIDATION.WARNING],
       ["info", VALIDATION.INFO],
     ])(
-      "verify Switch component is verifyed with appropriate border color for validations",
+      "verify Switch component is verified with appropriate border color for validations",
       (type, validation) => {
         CypressMountWithProviders(<SwitchComponentValidations />);
 
