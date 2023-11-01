@@ -1,3 +1,10 @@
+### [123.2.1](https://github.com/Sage/carbon/compare/v123.2.0...v123.2.1) (2023-11-01)
+
+
+### Bug Fixes
+
+* **navigation-bar:** stop ResizeObserver errors being thrown on render ([d80db16](https://github.com/Sage/carbon/commit/d80db16272daf24579c0619ec68bb119e19bcd78)), closes [#6259](https://github.com/Sage/carbon/issues/6259)
+
 ## [123.2.0](https://github.com/Sage/carbon/compare/v123.1.0...v123.2.0) (2023-10-30)
 
 
