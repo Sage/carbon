@@ -1,3 +1,10 @@
+### [123.2.2](https://github.com/Sage/carbon/compare/v123.2.1...v123.2.2) (2023-11-02)
+
+
+### Bug Fixes
+
+* **action-popover:** fix issue with stories not rendering in storybook ([437ee03](https://github.com/Sage/carbon/commit/437ee03386d82c9d32799efce05ea009cc7feb6f))
+
 ### [123.2.1](https://github.com/Sage/carbon/compare/v123.2.0...v123.2.1) (2023-11-01)
 
 
