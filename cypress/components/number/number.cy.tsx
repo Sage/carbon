@@ -178,7 +178,7 @@ context("Tests for Number component", () => {
       ["right", "end"],
       ["left", "start"],
     ] as [NumberProps["labelAlign"], string][])(
-      "should use %s as labelAligment and render it with flex-%s as css properties",
+      "should use %s as labelAlignment and render it with flex-%s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
           <NumberInputComponent labelInline labelAlign={alignment} />

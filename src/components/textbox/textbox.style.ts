@@ -15,24 +15,15 @@ const ErrorBorder = styled.span`
     `}
 `;
 
-const StyledInputHint = styled.p`
+const StyledHintText = styled.div`
   ::after {
     content: " ";
   }
 
-  display: block;
-  flex: 1;
-  margin-top: -3px;
-  margin-bottom: 8px;
-  color: var(--colorsUtilityYin055);
-  white-space: pre-wrap;
-`;
-
-const StyledHintText = styled.div`
   margin-top: 0px;
   margin-bottom: 8px;
   color: var(--colorsUtilityYin055);
   font-size: 14px;
 `;
 
-export { StyledHintText, ErrorBorder, StyledInputHint };
+export { StyledHintText, ErrorBorder };

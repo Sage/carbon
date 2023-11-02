@@ -83,7 +83,7 @@ Each item is clickable and represents an action to be taken on a given row.
 
 ### With disabled item
 
-ActionPopoverItem&apos;s can be disabled and will not dispatch an action but can still be navigated with the keyboard.
+ActionPopoverItem&apos;s can be disabled. These items are not clickable and can not be navigated to with the keyboard.
 
 <Canvas>
   <Story name="with disabled item" story={stories.ActionPopoverComponentDisabledItems} />
@@ -184,7 +184,7 @@ the sub-menu. Pressing the "right" key will return focus back to the main menu a
 triggering an action.
 
 <Canvas>
-  <Story name="keyboard navigation left aligned submenu" story={stories.ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu} />
+  <Story name="keyboard navigation left aligned submenu" story={stories.ActionPopoverComponentKeyboardNavigationLeftAlignedSubmenu} />
 </Canvas>
 
 ### Keyboard navigation right aligned submenu
@@ -196,7 +196,7 @@ is on a item will open a sub-menu if it has one and pressing the "left" key will
   <Story
     name="keyboard navigation right aligned submenu"
     parameters={{ docs: { disable: true } }}
-    story={stories.ActionPopoverComponentKeyboardNaviationRightAlignedSubmenu} 
+    story={stories.ActionPopoverComponentKeyboardNavigationRightAlignedSubmenu} 
   />
 </Canvas>
 

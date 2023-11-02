@@ -14,6 +14,7 @@ export interface StyledLinkProps {
   isDarkBackground?: boolean;
   /** Allows link styling to be updated for light or dark backgrounds */
   variant?: Variants;
+  hasFocus?: boolean;
 }
 interface PrivateStyledLinkProps {
   hasContent: boolean;
@@ -80,6 +81,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
     variant,
     isDarkBackground,
     isMenuItem,
+    hasFocus,
   }) => {
     const colorMapKey = isDarkBackground ? "dark" : "light";
     const { color, hoverColor, disabledColor } = colorMap[colorMapKey](variant);
@@ -155,32 +157,15 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
             }
           `}
         }
-
-        ${!disabled &&
-        !theme.focusRedesignOptOut &&
-        css`
-          a,
-          button {
-            outline: none;
-            text-decoration: none;
-            border-bottom-left-radius: var(--borderRadius000);
-            border-bottom-right-radius: var(--borderRadius000);
-          }
-          &:focus-within {
-            box-shadow: 0 4px 0 0 var(--colorsUtilityYin090);
-            border-bottom-left-radius: var(--borderRadius025);
-            border-bottom-right-radius: var(--borderRadius025);
-          }
-        `}
       `}
 
       a,
       button {
-        text-decoration: underline;
+        text-decoration: ${hasContent ? "underline" : "none"};
         ${isMenuItem && "display: inline-block;"}
 
         > ${StyledIcon} {
-          display: inline-block;
+          display: ${hasContent ? "inline-block" : "inline"};
           position: relative;
           vertical-align: middle;
           ${iconAlign === "left" &&
@@ -215,6 +200,23 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
           }
         `}
       }
+
+      ${!isSkipLink &&
+      !disabled &&
+      !theme.focusRedesignOptOut &&
+      hasFocus &&
+      css`
+        a,
+        button {
+          outline: none;
+          text-decoration: none;
+          border-bottom-left-radius: var(--borderRadius000);
+          border-bottom-right-radius: var(--borderRadius000);
+        }
+        box-shadow: 0 4px 0 0 var(--colorsUtilityYin090);
+        border-bottom-left-radius: var(--borderRadius025);
+        border-bottom-right-radius: var(--borderRadius025);
+      `}
 
       button {
         background-color: transparent;

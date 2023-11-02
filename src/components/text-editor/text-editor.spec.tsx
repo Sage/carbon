@@ -28,7 +28,6 @@ import {
 import ToolbarButton, {
   ToolbarButtonProps,
 } from "./__internal__/toolbar/toolbar-button/toolbar-button.component";
-import Counter from "./__internal__/editor-counter";
 import Toolbar from "./__internal__/toolbar";
 import guid from "../../__internal__/utils/helpers/guid";
 import Label from "../../__internal__/label";
@@ -38,6 +37,9 @@ import ValidationIcon from "../../__internal__/validations";
 import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 import IconButton from "../icon-button";
 import { BlockType, InlineStyleType } from "./types";
+import CarbonProvider from "../carbon-provider";
+import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
+import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
 (isSafari as jest.MockedFunction<typeof isSafari>).mockImplementation(
@@ -113,11 +115,20 @@ const MockComponent = (props: Partial<TextEditorProps>) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const render = (props: Partial<TextEditorProps> = {}, renderer: any = mount) =>
-  renderer(<MockComponent {...props} />, {
-    attachTo: document.getElementById("enzymeContainer"),
-  });
+const render = (
+  props: Partial<TextEditorProps> = {},
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderer: any = mount,
+  validationRedesignOptIn = false
+) =>
+  renderer(
+    <CarbonProvider validationRedesignOptIn={validationRedesignOptIn}>
+      <MockComponent {...props} />
+    </CarbonProvider>,
+    {
+      attachTo: document.getElementById("enzymeContainer"),
+    }
+  );
 
 describe("TextEditor", () => {
   beforeAll(() => {
@@ -872,30 +883,6 @@ describe("TextEditor", () => {
     });
 
     describe("Character Limit", () => {
-      describe("Counter", () => {
-        it("displays the default text when no prop value passed", () => {
-          wrapper = render();
-          expect(wrapper.find(Counter).text()).toEqual("3000");
-        });
-
-        it("overrides the text when `characterLimit` prop passed", () => {
-          wrapper = render({ characterLimit: 200 });
-          expect(wrapper.find(Counter).text()).toEqual("200");
-        });
-
-        it("the text updates as content is added to the editor", () => {
-          wrapper = render({ characterLimit: 10 });
-          const textEditor = wrapper.find(TextEditor);
-          const editor = wrapper.find(Editor);
-          act(() => {
-            textEditor
-              .props()
-              .onChange(addToEditorState("foo foo", editor.props()));
-          });
-          expect(wrapper.find(Counter).text()).toEqual("3");
-        });
-      });
-
       it("prevents enter key press when the limit has been reached", () => {
         wrapper = render({ characterLimit: 0 });
         const editor = wrapper.find(Editor);
@@ -962,44 +949,107 @@ describe("TextEditor", () => {
   });
 
   describe("validation", () => {
-    it.each([{ error: "error" }, { warning: "warning" }, { info: "info" }])(
-      "passes the validation props to the counter and renders the icon",
+    it.each(["error", "warning", "info"])(
+      "renders the %s icon when the validationRedesignOptIn flag is not set",
       (msg) => {
         expect(
-          render({ ...msg })
+          render({ [msg]: msg })
             .find(ValidationIcon)
             .exists()
-        ).toEqual(true);
+        ).toBe(true);
+      }
+    );
+  });
+
+  it("applies the expected outline when an error message is passed", () => {
+    assertStyleMatch(
+      {
+        outline: "2px solid var(--colorsSemanticNegative500)",
+      },
+      render({ error: "error" }).find(StyledEditorContainer)
+    );
+  });
+
+  it("applies the correct outline-offset when there is an error and the editor is focused", () => {
+    wrapper = render({ error: "error" });
+    act(() => {
+      wrapper
+        .find(Editor)
+        .props()
+        .onFocus?.({} as SyntheticEvent);
+    });
+    act(() => {
+      wrapper.update();
+    });
+
+    assertStyleMatch(
+      {
+        boxShadow:
+          "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
+      },
+      wrapper.find(StyledEditorOutline)
+    );
+  });
+
+  describe("new validations", () => {
+    it.each(["error", "warning"])(
+      "renders the new message and layout when the validationRedesignOptIn flag is set",
+      (msg) => {
+        wrapper = render({ [msg]: msg }, mount, true);
+        expect(wrapper.find(ValidationIcon).exists()).toBe(false);
+        expect(wrapper.find(ErrorBorder).exists()).toBe(true);
+        expect(wrapper.find(StyledValidationMessage).text()).toBe(msg);
       }
     );
 
-    it("applies the expected outline when an error message is passed", () => {
-      assertStyleMatch(
-        {
-          outline: "2px solid var(--colorsSemanticNegative500)",
-        },
-        render({ error: "error" }).find(StyledEditorContainer)
+    it('passes id to the "aria-describedby" of the editor element when there is an error', () => {
+      wrapper = render({ error: "bar" }, mount, true);
+
+      expect(wrapper.find(Editor).prop("ariaDescribedBy")).toBe(
+        "guid-12345-validation guid-12345"
+      );
+      expect(wrapper.find(Editor).prop("ariaLabelledBy")).toBe(
+        "guid-12345-label"
       );
     });
 
-    it("applies the correct outline-offset when there is an error and the editor is focused", () => {
-      wrapper = render({ error: "error" });
-      act(() => {
-        wrapper
-          .find(Editor)
-          .props()
-          .onFocus?.({} as SyntheticEvent);
-      });
-      act(() => {
-        wrapper.update();
-      });
+    it('passes id to the "aria-describedby" of the editor element when there is a warning', () => {
+      wrapper = render({ warning: "bar" }, mount, true);
 
-      assertStyleMatch(
-        {
-          boxShadow:
-            "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
-        },
-        wrapper.find(StyledEditorOutline)
+      expect(wrapper.find(Editor).prop("ariaDescribedBy")).toBe(
+        "guid-12345-validation guid-12345"
+      );
+      expect(wrapper.find(Editor).prop("ariaLabelledBy")).toBe(
+        "guid-12345-label"
+      );
+    });
+  });
+
+  describe("with inputHint", () => {
+    it("renders the element as expected", () => {
+      wrapper = render({ inputHint: "foo" });
+      expect(wrapper.find(StyledHintText).text()).toEqual("foo");
+    });
+
+    it('passes id to the "aria-describedby" of the editor element when there is an error', () => {
+      wrapper = render({ error: "bar", inputHint: "foo" }, mount, true);
+
+      expect(wrapper.find(Editor).prop("ariaDescribedBy")).toBe(
+        "guid-12345-validation guid-12345-hint guid-12345"
+      );
+      expect(wrapper.find(Editor).prop("ariaLabelledBy")).toBe(
+        "guid-12345-label"
+      );
+    });
+
+    it('passes id to the "aria-describedby" of the editor element when there is a warning', () => {
+      wrapper = render({ warning: "bar", inputHint: "foo" }, mount, true);
+
+      expect(wrapper.find(Editor).prop("ariaDescribedBy")).toBe(
+        "guid-12345-validation guid-12345-hint guid-12345"
+      );
+      expect(wrapper.find(Editor).prop("ariaLabelledBy")).toBe(
+        "guid-12345-label"
       );
     });
   });
@@ -1138,7 +1188,7 @@ describe("TextEditor", () => {
     );
   });
 
-  it("applies error styling when hasError is true and focusRedesignOptOut and isForcused are also true", () => {
+  it("applies error styling when hasError is true and focusRedesignOptOut and isFocused are also true", () => {
     const focusRedesignWrapper = mount(
       <ThemeProvider theme={{ focusRedesignOptOut: true }}>
         <StyledEditorOutline isFocused hasError />

@@ -19,7 +19,6 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import Logger from "../../__internal__/utils/logger";
 import Typography, { VariantTypes } from "../typography/typography.component";
 
 const variantColors = {
@@ -65,46 +64,6 @@ function assertAbsolutePositioning(
 
 describe("Pod", () => {
   testStyledSystemMargin((props) => <Pod {...props} />);
-
-  describe("deprecation warnings", () => {
-    let mockConsole: jest.SpyInstance;
-    let loggerSpy: jest.SpyInstance;
-
-    beforeEach(() => {
-      // Mock console.warn to prevent warning from appearing in console while tests are running
-      mockConsole = jest
-        .spyOn(global.console, "warn")
-        .mockImplementation(() => undefined);
-    });
-
-    afterEach(() => {
-      mockConsole.mockRestore();
-    });
-
-    it("when onEdit prop is a string, raise deprecation warning once in the console", () => {
-      loggerSpy = jest.spyOn(Logger, "deprecate");
-      mount(<Pod onEdit="foobar.com">Example Pod</Pod>);
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "Support for passing strings to the `onEdit` prop of the `Pod` component is now deprecated. Please only pass event handlers to `onEdit`."
-      );
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-      loggerSpy.mockClear();
-    });
-
-    it("when onEdit prop is an object, raise deprecation warning once in the console", () => {
-      loggerSpy = jest.spyOn(Logger, "deprecate");
-      mount(<Pod onEdit={{ href: "foobar.com" }}>Example Pod</Pod>);
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "Support for passing objects to the `onEdit` prop of the `Pod` component is now deprecated. Please only pass event handlers to `onEdit`."
-      );
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-      loggerSpy.mockClear();
-    });
-  });
 
   it("renders children correctly when text %s is passed as a child", () => {
     const text = "Pod content";
@@ -436,7 +395,7 @@ describe("Pod", () => {
       "when edit button is %s, render edit button and pod with correct colours",
       (_, event) => {
         const wrapper = render({ onEdit: () => {} });
-        wrapper.find("a[data-element='edit']").simulate(event);
+        wrapper.find("button[data-element='edit']").simulate(event);
 
         assertStyleMatch(
           { backgroundColor: "var(--colorsActionMajor600)" },
@@ -512,7 +471,7 @@ describe("Pod", () => {
     it("clicking on the edit button invokes onEdit event handler", () => {
       const onEdit = jest.fn();
       const wrapper = render({ onEdit });
-      wrapper.find('a[data-element="edit"]').simulate("click");
+      wrapper.find('button[data-element="edit"]').simulate("click");
       expect(onEdit).toHaveBeenCalled();
     });
 
@@ -520,7 +479,7 @@ describe("Pod", () => {
       const onEdit = jest.fn();
       const wrapper = render({ onEdit });
       wrapper
-        .find('a[data-element="edit"]')
+        .find('button[data-element="edit"]')
         .simulate("keydown", { key: "Enter" });
       expect(onEdit).toHaveBeenCalled();
     });
@@ -528,7 +487,9 @@ describe("Pod", () => {
     it("pressing a non-enter key on the edit button does not invoke onEdit", () => {
       const onEdit = jest.fn();
       const wrapper = render({ onEdit });
-      wrapper.find('a[data-element="edit"]').simulate("keydown", { key: "a" });
+      wrapper
+        .find('button[data-element="edit"]')
+        .simulate("keydown", { key: "a" });
       expect(onEdit).not.toHaveBeenCalled();
     });
 
@@ -550,7 +511,7 @@ describe("Pod", () => {
               displayEditButtonOnHover,
               triggerEditOnContent,
             });
-            wrapper.find('a[data-element="edit"]').simulate(event);
+            wrapper.find('button[data-element="edit"]').simulate(event);
             assertStyleMatch(
               { backgroundColor: "var(--colorsActionMajor600)" },
               wrapper.find(StyledBlock)
@@ -571,7 +532,7 @@ describe("Pod", () => {
               displayEditButtonOnHover,
               triggerEditOnContent,
             });
-            wrapper.find('a[data-element="edit"]').simulate(event);
+            wrapper.find('button[data-element="edit"]').simulate(event);
             assertStyleMatch(
               { backgroundColor: variantColors[variant].pod },
               wrapper.find(StyledBlock)

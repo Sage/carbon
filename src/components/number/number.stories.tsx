@@ -86,6 +86,10 @@ export const WithFieldHelp: ComponentStory<typeof Number> = () => (
   <Number label="Number" value="123456" fieldHelp="Help" />
 );
 
+export const WithInputHint: ComponentStory<typeof Number> = () => (
+  <Number label="Number" value="123456" inputHint="Hint text (optional)." />
+);
+
 export const WithLabelHelp: ComponentStory<typeof Number> = () => (
   <Number label="Number" value="123456" labelHelp="Help" helpAriaLabel="Help" />
 );

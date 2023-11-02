@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback } from "react";
+import React, { createContext, useState, useCallback, useEffect } from "react";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver/useResizeObserver";
 import { NavigationBarProps } from ".";
 
@@ -15,7 +15,7 @@ export interface FixedNavigationBarContextProviderProps
     NavigationBarProps,
     "position" | "orientation" | "offset" | "children"
   > {
-  navbarElement: HTMLElement | null;
+  navbarRef: React.RefObject<HTMLElement>;
 }
 
 export const FixedNavigationBarContextProvider = ({
@@ -23,16 +23,22 @@ export const FixedNavigationBarContextProvider = ({
   orientation,
   offset,
   children,
-  navbarElement,
+  navbarRef,
 }: FixedNavigationBarContextProviderProps) => {
-  const [navbarHeight, setNavbarHeight] = useState(navbarElement?.offsetHeight);
-
-  const updateHeight = useCallback(
-    () => setNavbarHeight(navbarElement?.offsetHeight),
-    [navbarElement]
+  const [navbarHeight, setNavbarHeight] = useState(
+    navbarRef.current?.offsetHeight
   );
 
-  useResizeObserver({ current: navbarElement }, updateHeight);
+  const updateHeight = useCallback(
+    () => setNavbarHeight(navbarRef.current?.offsetHeight),
+    [navbarRef]
+  );
+
+  useEffect(() => {
+    updateHeight();
+  }, [updateHeight]);
+
+  useResizeObserver(navbarRef, updateHeight);
 
   let submenuMaxHeight;
 

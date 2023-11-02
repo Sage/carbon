@@ -323,7 +323,7 @@ context("Test for Pager component", () => {
     });
   });
 
-  describe("check funtionality for Pager component", () => {
+  describe("check functionality for Pager component", () => {
     it.each([-1, -10, -100, ...testData])(
       "should set totalRecords out of scope to %s",
       (totalRecords) => {
@@ -379,14 +379,14 @@ context("Test for Pager component", () => {
         viewportWidth,
         showItemsAssertion,
         firstAndLastArrowsAssertion,
-        totalRecordsAssetion
+        totalRecordsAssertion
       ) => {
         cy.viewport(viewportWidth, 768);
 
         CypressMountWithProviders(<PagerComponentResponsive />);
 
         showLabelBefore().should(showItemsAssertion);
-        pagerSummary().should(totalRecordsAssetion);
+        pagerSummary().should(totalRecordsAssertion);
         firstArrow().should(firstAndLastArrowsAssertion);
         lastArrow().should(firstAndLastArrowsAssertion);
         nextArrow().should("be.visible");
@@ -507,17 +507,10 @@ context("Test for Pager component", () => {
     );
   });
 
-  describe("when inside a form component", () => {
-    it("should have no bottom margin", () => {
-      CypressMountWithProviders(<PagerInForm />);
+  it("when used inside a Form, the current page input box should have no bottom margin", () => {
+    CypressMountWithProviders(<PagerInForm />);
 
-      currentPageWrapper().should("have.css", "margin-bottom", "0px");
-    });
-
-    it("should render with the expected border radius styling", () => {
-      CypressMountWithProviders(<PagerComponent />);
-      pager().should("have.css", "border-radius", "0px 0px 8px 8px");
-    });
+    currentPageWrapper().should("have.css", "margin-bottom", "0px");
   });
 
   describe("Accessibility tests for Pager component", () => {

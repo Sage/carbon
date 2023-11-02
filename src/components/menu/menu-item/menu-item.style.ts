@@ -34,19 +34,6 @@ interface StyledMenuItemWrapperProps
   hasInput?: boolean;
 }
 
-const overrideLinkFocusStyling = (fullScreenView?: boolean) => `
-  &:focus-within {
-    box-shadow: none;
-    a {
-      background-color: ${
-        fullScreenView
-          ? "var(--colorsComponentsMenuAutumnStandard600)"
-          : "transparent"
-      };
-    }
-  }
-`;
-
 const oldFocusStyling = `
   box-shadow: inset 0 0 0 var(--borderWidth300) var(--colorsSemanticFocus500);
 `;
@@ -81,19 +68,13 @@ const StyledMenuItemWrapper = styled.a.attrs({
     font-weight: 700;
     height: 40px;
     position: relative;
-
-    && {
-      :focus-within > a, > button {
-        background-color: transparent;
-      }
-    }
+    box-shadow: none;
 
     a,
     button {
       cursor: pointer;
     }
 
-      ${overrideLinkFocusStyling(inFullscreenView)}
       a:focus,
       button:focus {
         ${({ theme }) =>

@@ -364,6 +364,12 @@ StyledFlatTableWrapper.defaultProps = {
 const StyledFlatTableFooter = styled.div<
   Pick<FlatTableProps, "hasStickyFooter">
 >`
+  & > ${StyledPagerContainer} {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
   ${({ hasStickyFooter, theme }) =>
     hasStickyFooter &&
     css`
@@ -372,8 +378,8 @@ const StyledFlatTableFooter = styled.div<
       z-index: ${theme.zIndex.overlay + STICKY_FOOTER_OVERLAY_INCREMENT};
 
       ${StyledPagerContainer} {
-        border-bottom-left-radius: var(--borderRadius000);
-        border-bottom-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
       }
     `}
 `;

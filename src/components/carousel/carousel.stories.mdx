@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import DeprecationWarning from "../../../.storybook/docs-helpers/components/deprecation-warning"
 
 import { Carousel, Slide } from ".";
-
 import * as stories from "./carousel.stories";
 
 <Meta title="Carousel" parameters={{ info: { disable: true } }} />
 
 # Carousel
 
+<DeprecationWarning>
+We've deprecated Carousel. It's no longer available in the Design System and we recommend that you do not use it in new products.
+</DeprecationWarning>
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/0701e2-carousel-whats-new/b/248536"

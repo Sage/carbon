@@ -17,6 +17,7 @@ import {
   checkAccessibility,
   assertCssValueIsApproximately,
   isInViewport,
+  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 
 test.describe(
@@ -346,14 +347,7 @@ test.describe("Accessibility tests for Drawer component", () => {
       mount,
       page,
     }) => {
-      await mount(<DrawerCustom showControls />);
-
-      const drawerToggleButton = drawerToggle(page);
-      if (clickIt) {
-        await drawerToggleButton.click();
-        const sidebar = drawerSidebar(page);
-        await expect(sidebar).toBeVisible();
-      }
+      await mount(<DrawerCustom showControls expanded={clickIt} />);
 
       await checkAccessibility(page);
     });
@@ -366,6 +360,10 @@ test.describe("Accessibility tests for Drawer component", () => {
     }) => {
       await mount(
         <DrawerCustom showControls animationDuration={animationDuration} />
+      );
+
+      await waitForAnimationEnd(
+        page.locator('[data-element="drawer-content"]')
       );
 
       const drawerToggleButton = drawerToggle(page);

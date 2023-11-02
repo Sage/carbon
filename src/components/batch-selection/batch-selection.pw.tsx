@@ -13,6 +13,7 @@ import {
   batchSelectionComponent,
   batchSelectionButtonsByPosition,
 } from "../../../playwright/components/batch-selection";
+import { getComponent } from "../../../playwright/components/index";
 import { HooksConfig } from "../../../playwright";
 
 const BATCH_SELECTION_COLOR = [
@@ -39,25 +40,25 @@ test.describe("check BatchSelection component properties", () => {
   test("should check hidden BatchSelection", async ({ mount, page }) => {
     await mount(<BatchSelectionComponent hidden />);
     const batchSelection = batchSelectionComponent(page);
-    await expect(batchSelection.getAttribute("hidden")).not.toBeNull();
-
+    await expect(batchSelection).toHaveAttribute("hidden", /.*/);
     await expect(batchSelection).toHaveCSS("opacity", "0");
   });
 
   test("should check disabled BatchSelection", async ({ mount, page }) => {
     await mount(<BatchSelectionComponent disabled />);
     const batchSelection = batchSelectionComponent(page);
-    await expect(batchSelection.getAttribute("disabled")).not.toBeNull();
+
+    await expect(batchSelection).toHaveAttribute("disabled", /.*/);
   });
 
   ([
     [BATCH_SELECTION_COLOR[0], "rgb(0, 50, 76)"],
     [BATCH_SELECTION_COLOR[1], "rgb(179, 194, 201)"],
     [BATCH_SELECTION_COLOR[2], "rgb(255, 255, 255)"],
-    [BATCH_SELECTION_COLOR[3], ""],
+    [BATCH_SELECTION_COLOR[3], "rgba(0, 0, 0, 0)"],
   ] as [BatchSelectionProps["colorTheme"], string][]).forEach(
     ([colorTheme, backgroundColor]) => {
-      test(`check BatchSelection component ${colorTheme} colorTheme and it uses ${backgroundColor} as a background color`, async ({
+      test(`check background color is ${backgroundColor} when colorTheme is ${colorTheme}`, async ({
         mount,
         page,
       }) => {
@@ -65,17 +66,11 @@ test.describe("check BatchSelection component properties", () => {
           <BatchSelectionComponent colorTheme={colorTheme} selectedCount={0} />
         );
 
-        if (colorTheme === "transparent") {
-          await expect(batchSelectionComponent(page)).not.toHaveCSS(
-            "background-color",
-            backgroundColor
-          );
-        } else {
-          await expect(batchSelectionComponent(page)).toHaveCSS(
-            "background-color",
-            backgroundColor
-          );
-        }
+        const batchSelection = getComponent(page, "batch-selection");
+        await expect(batchSelection).toHaveCSS(
+          "background-color",
+          backgroundColor
+        );
       });
     }
   );
