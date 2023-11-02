@@ -1,3 +1,15 @@
+## [123.4.0](https://github.com/Sage/carbon/compare/v123.3.0...v123.4.0) (2023-11-02)
+
+
+### Features
+
+* **date:** add support for keyboard navigation in picker ([11d1853](https://github.com/Sage/carbon/commit/11d185306a6cf30e67e1efcf31c7985366594b78)), closes [#6324](https://github.com/Sage/carbon/issues/6324) [#3969](https://github.com/Sage/carbon/issues/3969)
+
+
+### Bug Fixes
+
+* **date:** add aria labels to picker navigation buttons and fix other accessibility issues ([b5eb150](https://github.com/Sage/carbon/commit/b5eb150bcc5760f548db60610f70c5ccd6a7db18)), closes [#5804](https://github.com/Sage/carbon/issues/5804)
+
 ## [123.3.0](https://github.com/Sage/carbon/compare/v123.2.2...v123.3.0) (2023-11-02)
 
 
