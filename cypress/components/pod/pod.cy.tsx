@@ -3,6 +3,7 @@ import Pod, { PodProps } from "../../../src/components/pod";
 import {
   PodExample,
   PodDefault,
+  EditExample,
   SoftDeleteExample,
   SoftDeleteExampleWithChildren,
 } from "../../../src/components/pod/pod-test.stories";
@@ -390,7 +391,7 @@ context("Testing Pod component", () => {
     );
 
     it.each(["left", "center", "right"] as PodProps["alignTitle"][])(
-      "should check title alignment accessbility for Pod component when text is aligned to the %s",
+      "should check title alignment accessibility for Pod component when text is aligned to the %s",
       (alignTitle) => {
         CypressMountWithProviders(<PodDefault alignTitle={alignTitle} />);
 
@@ -405,7 +406,7 @@ context("Testing Pod component", () => {
       SIZE.LARGE,
       SIZE.EXTRALARGE,
     ] as PodProps["size"][])(
-      "should check accessbility when size is %s for Pod component",
+      "should check accessibility when size is %s for Pod component",
       (size) => {
         CypressMountWithProviders(<PodDefault size={size} />);
 
@@ -414,7 +415,7 @@ context("Testing Pod component", () => {
     );
 
     it.each([true, false])(
-      "when internalEditButton is %s for Pod component, check accessbility",
+      "when internalEditButton is %s for Pod component, check accessibility",
       (boolVal) => {
         CypressMountWithProviders(<PodDefault internalEditButton={boolVal} />);
 
@@ -433,7 +434,7 @@ context("Testing Pod component", () => {
     );
 
     it.each(specialCharacters)(
-      "should check accessbility when title is %s for Pod component",
+      "should check accessibility when title is %s for Pod component",
       (title) => {
         CypressMountWithProviders(<PodDefault title={title} />);
 
@@ -442,7 +443,7 @@ context("Testing Pod component", () => {
     );
 
     it.each(specialCharacters)(
-      "should check accessbility when subtitle is %s for Pod component",
+      "should check accessibility when subtitle is %s for Pod component",
       (subtitle) => {
         CypressMountWithProviders(<PodDefault subtitle={subtitle} />);
 
@@ -478,8 +479,13 @@ context("Testing Pod component", () => {
       cy.checkAccessibility();
     });
 
+    it("should check accessibility with edit button", () => {
+      CypressMountWithProviders(<EditExample />);
+      cy.checkAccessibility();
+    });
+
     it.each([true, false])(
-      "should check accessbility when softDelete is %s",
+      "should check accessibility when softDelete is %s",
       (boolVal) => {
         CypressMountWithProviders(<SoftDeleteExample softDelete={boolVal} />);
 
@@ -487,7 +493,7 @@ context("Testing Pod component", () => {
       }
     );
 
-    it("should check accessbility for SoftDelete with chidlren", () => {
+    it("should check accessibility for SoftDelete with children", () => {
       CypressMountWithProviders(<SoftDeleteExampleWithChildren />);
       cy.checkAccessibility();
     });

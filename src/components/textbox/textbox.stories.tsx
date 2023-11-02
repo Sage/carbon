@@ -153,6 +153,16 @@ export const WithFieldHelp: ComponentStory<typeof Textbox> = () => {
   return <Textbox label="Textbox" value="Textbox" fieldHelp="Help" />;
 };
 
+export const WithInputHint: ComponentStory<typeof Textbox> = () => {
+  return (
+    <Textbox
+      label="Textbox"
+      value="Textbox"
+      inputHint="Hint text (optional)."
+    />
+  );
+};
+
 export const WithLabelHelp: ComponentStory<typeof Textbox> = () => {
   return (
     <Textbox
@@ -271,7 +281,7 @@ export const NewDesignsValidation: ComponentStory<typeof Textbox> = () => {
                 m={4}
                 label={`${size} - ${validationType}`}
                 defaultValue="Textbox"
-                labelHelp="Hint text (optional)"
+                inputHint="Hint text (optional)."
                 size={size}
                 {...{ [validationType]: "Message" }}
               />
@@ -280,7 +290,7 @@ export const NewDesignsValidation: ComponentStory<typeof Textbox> = () => {
                 label={`readOnly - ${size} - ${validationType}`}
                 defaultValue="Textbox"
                 size={size}
-                labelHelp="Hint text (optional)"
+                inputHint="Hint text (optional)."
                 readOnly
                 {...{ [validationType]: "Message" }}
               />

@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory } from "@storybook/react";
 import Detail from ".";
 import Card from "../card";
-import Tile from "../tile";
+import { Tile, TileContent } from "../tile";
 import Hr from "../hr";
 import Box from "../box";
 
@@ -44,18 +44,18 @@ export const DetailInsideCard: ComponentStory<typeof Detail> = () => (
 
 export const DetailInsideTile: ComponentStory<typeof Detail> = () => (
   <Tile width="60%">
-    <Box pt="16px">
+    <TileContent pt="16px">
       <Detail>This example of Detail just has children.</Detail>
-    </Box>
-    <Box pt="8px">
+    </TileContent>
+    <TileContent pt="8px">
       <Detail footnote="This is a footnote">
         This example of Detail has children and also a footnote.
       </Detail>
-    </Box>
-    <Box pb="16px">
+    </TileContent>
+    <TileContent pb="16px">
       <Detail icon="settings" footnote="This is a footnote">
         Where as this example of Detail has a footnote and icon.
       </Detail>
-    </Box>
+    </TileContent>
   </Tile>
 );

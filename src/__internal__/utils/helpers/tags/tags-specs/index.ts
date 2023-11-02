@@ -1,1 +1,1 @@
-export { elementsTagTest, rootTagTest } from "./tags-specs";
+export { elementsTagTest, rootTagTest, rootTagTestRtl } from "./tags-specs";

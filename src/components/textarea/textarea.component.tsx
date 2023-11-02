@@ -15,11 +15,7 @@ import StyledTextarea, { MIN_HEIGHT } from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
-import {
-  ErrorBorder,
-  StyledHintText,
-  StyledInputHint,
-} from "../textbox/textbox.style";
+import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
@@ -84,7 +80,10 @@ export interface TextareaProps
   label?: string;
   /** Inline label alignment */
   labelAlign?: "left" | "right";
-  /** Text applied to label help tooltip */
+  /** [Legacy] Text applied to label help tooltip. When opted into new design validations
+   * it will render as a hint above the input, unless an `inputHint`
+   * prop is also passed
+   */
   labelHelp?: React.ReactNode;
   /** When true, label is placed in line an input */
   labelInline?: boolean;
@@ -382,13 +381,10 @@ export const Textarea = React.forwardRef(
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
               validationRedesignOptIn={validationRedesignOptIn}
             >
-              {inputHint ? (
-                <StyledInputHint id={inputHintId} data-element="input-hint">
-                  {inputHint}
-                </StyledInputHint>
-              ) : null}
-              {validationRedesignOptIn && labelHelp && (
-                <StyledHintText>{labelHelp}</StyledHintText>
+              {(inputHint || (labelHelp && validationRedesignOptIn)) && (
+                <StyledHintText id={inputHintId} data-element="input-hint">
+                  {inputHint || labelHelp}
+                </StyledHintText>
               )}
               {validationRedesignOptIn ? (
                 <Box position="relative">

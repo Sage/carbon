@@ -495,6 +495,38 @@ test.describe("should render Confirm component", () => {
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
     );
   });
+
+  test(`should check custom data tags are correctly applied to their respective buttons`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <ConfirmComponent
+        onCancel={() => {}}
+        onConfirm={() => {}}
+        cancelButtonDataProps={{
+          "data-element": "bang",
+          "data-role": "wallop",
+        }}
+        confirmButtonDataProps={{
+          "data-element": "bar",
+          "data-role": "wiz",
+        }}
+        open
+      />
+    );
+
+    const cancelButton = getDataElementByValue(page, "bang");
+    const confirmButton = getDataElementByValue(page, "bar");
+
+    await expect(cancelButton).toHaveAttribute("data-component", "cancel");
+    await expect(cancelButton).toHaveAttribute("data-element", "bang");
+    await expect(cancelButton).toHaveAttribute("data-role", "wallop");
+
+    await expect(confirmButton).toHaveAttribute("data-component", "confirm");
+    await expect(confirmButton).toHaveAttribute("data-element", "bar");
+    await expect(confirmButton).toHaveAttribute("data-role", "wiz");
+  });
 });
 
 test.describe("should render Confirm component for event tests", () => {

@@ -39,7 +39,7 @@ export const InputHint = () => {
 
   return (
     <Password
-      inputHint="Please enter a password with at least 8 characters"
+      inputHint="Hint text (optional)."
       label="Password"
       value={state}
       onChange={setValue}
@@ -402,7 +402,7 @@ export const NewDesignsValidation = () => {
                 label={`${size} - ${validationType}`}
                 value={state}
                 onChange={setValue}
-                labelHelp="Hint text (optional)"
+                inputHint="Hint text (optional)"
                 size={size}
                 {...{ [validationType]: "Message" }}
               />
@@ -411,7 +411,7 @@ export const NewDesignsValidation = () => {
                 label={`readOnly - ${size} - ${validationType}`}
                 value="Password"
                 size={size}
-                labelHelp="Hint text (optional)"
+                inputHint="Hint text (optional)."
                 readOnly
                 {...{ [validationType]: "Message" }}
               />

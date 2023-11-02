@@ -188,6 +188,14 @@ const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
         cursor: not-allowed;
         color: var(--colorsUtilityYin030);
       }
+
+      :focus {
+        border: none;
+        outline: none;
+        -webkit-appearance: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
     `}
 
   ${({ isDisabled }) =>

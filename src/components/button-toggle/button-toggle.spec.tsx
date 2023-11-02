@@ -317,7 +317,7 @@ describe("ButtonToggle", () => {
           <ButtonToggle {...props} />
         </div>
       );
-      // Uses snapshot as jest/enzyme doesnt support :first-of-type
+      // Uses snapshot as jest/enzyme doesn't support :first-of-type
       expect(wrapper).toMatchSnapshot();
     });
   });

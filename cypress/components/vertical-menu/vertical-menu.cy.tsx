@@ -487,20 +487,20 @@ context("Testing Vertical Menu component", () => {
   });
 
   describe("should check the accessibility tests", () => {
-    it("should check accessiblity for verticalMenuComponent", () => {
+    it("should check accessibility for verticalMenuComponent", () => {
       CypressMountWithProviders(<Default />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessiblity for verticalMenuComponent open", () => {
+    it("should check accessibility for verticalMenuComponent open", () => {
       CypressMountWithProviders(<Default />);
 
       verticalMenuItem().tab().tab().click();
       cy.checkAccessibility();
     });
 
-    it("should check accessiblity for verticalMenuComponent Active", () => {
+    it("should check accessibility for verticalMenuComponent Active", () => {
       CypressMountWithProviders(
         <VerticalMenuItemCustom active={(isOpen) => !isOpen} />
       );
@@ -508,32 +508,32 @@ context("Testing Vertical Menu component", () => {
       cy.checkAccessibility();
     });
 
-    it("should check accessiblity for verticalMenuComponent Adornment", () => {
+    it("should check accessibility for verticalMenuComponent Adornment", () => {
       CypressMountWithProviders(<stories.Adornment />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessiblity for verticalMenuComponent CustomItemHeight", () => {
+    it("should check accessibility for verticalMenuComponent CustomItemHeight", () => {
       CypressMountWithProviders(<stories.CustomItemHeight />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessiblity for verticalMenuComponent CustomItemPadding", () => {
+    it("should check accessibility for verticalMenuComponent CustomItemPadding", () => {
       CypressMountWithProviders(<stories.CustomItemPadding />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessiblity for verticalMenuComponent FullScreen", () => {
+    it("should check accessibility for verticalMenuComponent FullScreen", () => {
       cy.viewport(320, 599);
       CypressMountWithProviders(<VerticalMenuFullScreenCustom />);
 
       cy.checkAccessibility();
     });
 
-    it("should check accessiblity for verticalMenuComponent FullScreen open", () => {
+    it("should check accessibility for verticalMenuComponent FullScreen open", () => {
       cy.viewport(320, 599);
       CypressMountWithProviders(<VerticalMenuFullScreenCustom isOpen />);
 
