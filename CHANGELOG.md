@@ -1,3 +1,10 @@
+## [123.3.0](https://github.com/Sage/carbon/compare/v123.2.2...v123.3.0) (2023-11-02)
+
+
+### Features
+
+* **message:** remove role of status from component ([f09ef5e](https://github.com/Sage/carbon/commit/f09ef5ecf76ae1551a6e01dac1c45be56583df2b)), closes [#6013](https://github.com/Sage/carbon/issues/6013)
+
 ### [123.2.2](https://github.com/Sage/carbon/compare/v123.2.1...v123.2.2) (2023-11-02)
 
 
