@@ -11,6 +11,7 @@ import {
   STICKY_FOOTER,
   COMMMON_DATA_ELEMENT_INPUT,
   PORTAL,
+  BUTTON,
 } from "./locators";
 
 export const icon = (page: Page) => {
@@ -23,6 +24,10 @@ export const getDataElementByValue = (page: Page, element: string) => {
 
 export const commonDataElementInputPreview = (page: Page) => {
   return page.locator(COMMMON_DATA_ELEMENT_INPUT);
+};
+
+export const button = (page: Page) => {
+  return page.locator(BUTTON);
 };
 
 export const closeIconButton = (page: Page) => {

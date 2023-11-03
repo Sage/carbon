@@ -42,6 +42,10 @@ const enGB: Locale = {
   },
   date: {
     dateFnsLocale: () => enGBDateLocale,
+    ariaLabels: {
+      previousMonthButton: () => "Previous month",
+      nextMonthButton: () => "Next month",
+    },
   },
   dialog: {
     ariaLabels: {

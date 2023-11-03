@@ -1,3 +1,50 @@
+### [123.4.1](https://github.com/Sage/carbon/compare/v123.4.0...v123.4.1) (2023-11-03)
+
+
+### Bug Fixes
+
+* **loader-bar:** loaderBar height fix ([233782e](https://github.com/Sage/carbon/commit/233782ef1a7290e4582ac44a20fa425584570723)), closes [#5999](https://github.com/Sage/carbon/issues/5999)
+
+## [123.4.0](https://github.com/Sage/carbon/compare/v123.3.0...v123.4.0) (2023-11-02)
+
+
+### Features
+
+* **date:** add support for keyboard navigation in picker ([11d1853](https://github.com/Sage/carbon/commit/11d185306a6cf30e67e1efcf31c7985366594b78)), closes [#6324](https://github.com/Sage/carbon/issues/6324) [#3969](https://github.com/Sage/carbon/issues/3969)
+
+
+### Bug Fixes
+
+* **date:** add aria labels to picker navigation buttons and fix other accessibility issues ([b5eb150](https://github.com/Sage/carbon/commit/b5eb150bcc5760f548db60610f70c5ccd6a7db18)), closes [#5804](https://github.com/Sage/carbon/issues/5804)
+
+## [123.3.0](https://github.com/Sage/carbon/compare/v123.2.2...v123.3.0) (2023-11-02)
+
+
+### Features
+
+* **message:** remove role of status from component ([f09ef5e](https://github.com/Sage/carbon/commit/f09ef5ecf76ae1551a6e01dac1c45be56583df2b)), closes [#6013](https://github.com/Sage/carbon/issues/6013)
+
+### [123.2.2](https://github.com/Sage/carbon/compare/v123.2.1...v123.2.2) (2023-11-02)
+
+
+### Bug Fixes
+
+* **action-popover:** fix issue with stories not rendering in storybook ([437ee03](https://github.com/Sage/carbon/commit/437ee03386d82c9d32799efce05ea009cc7feb6f))
+
+### [123.2.1](https://github.com/Sage/carbon/compare/v123.2.0...v123.2.1) (2023-11-01)
+
+
+### Bug Fixes
+
+* **navigation-bar:** stop ResizeObserver errors being thrown on render ([d80db16](https://github.com/Sage/carbon/commit/d80db16272daf24579c0619ec68bb119e19bcd78)), closes [#6259](https://github.com/Sage/carbon/issues/6259)
+
+## [123.2.0](https://github.com/Sage/carbon/compare/v123.1.0...v123.2.0) (2023-10-30)
+
+
+### Features
+
+* **confirm:** make data tag props available on cancel and confirm buttons ([2c69101](https://github.com/Sage/carbon/commit/2c691011688c5186a7d20f8af7e6acd768e5a0e8)), closes [#6374](https://github.com/Sage/carbon/issues/6374)
+
 ## [123.1.0](https://github.com/Sage/carbon/compare/v123.0.1...v123.1.0) (2023-10-27)
 
 

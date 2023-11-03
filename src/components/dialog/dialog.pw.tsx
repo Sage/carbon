@@ -25,6 +25,7 @@ import toastComponent from "../../../playwright/components/toast";
 import {
   checkAccessibility,
   getStyle,
+  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
 
@@ -374,6 +375,7 @@ test.describe(
       await openToastButton.click();
 
       const toast = toastComponent(page);
+      await waitForAnimationEnd(toast);
       await expect(toast).toBeFocused();
     });
 
