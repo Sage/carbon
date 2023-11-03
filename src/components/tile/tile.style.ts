@@ -9,13 +9,6 @@ type StyledTileProps = Pick<
   "borderWidth" | "borderVariant" | "variant" | "width" | "roundness" | "height"
 > & { isHorizontal?: boolean } & SpaceProps;
 
-interface TileContentProps {
-  isHorizontal?: boolean;
-  isVertical?: boolean;
-  width?: TileProps["width"];
-  height?: TileProps["height"];
-}
-
 const getBorderColor = (borderVariant: TileProps["borderVariant"]) => {
   switch (borderVariant) {
     case "selected":
@@ -32,61 +25,6 @@ const getBorderColor = (borderVariant: TileProps["borderVariant"]) => {
       return "var(--colorsUtilityMajor100)";
   }
 };
-
-const TileContent = styled.div<TileContentProps>`
-  ${({ isHorizontal, isVertical, width, height }) => css`
-    ${space}
-
-    box-sizing: border-box;
-    position: relative;
-    flex-grow: 1;
-
-    ${isHorizontal &&
-    css`
-      display: inline;
-
-      :last-of-type {
-        padding-right: 0;
-      }
-
-      :first-of-type {
-        padding-left: 0;
-      }
-
-      & + & {
-        margin-top: 0;
-        border-left: solid 1px var(--colorsUtilityMajor050);
-      }
-    `}
-
-    ${isVertical &&
-    css`
-      width: auto;
-
-      :last-of-type {
-        padding-bottom: 0;
-      }
-
-      :first-of-type {
-        padding-top: 0;
-      }
-
-      & + & {
-        margin-top: 0;
-        border-top: solid 1px var(--colorsUtilityMajor050);
-      }
-    `}
-
-    ${(width || height) &&
-    css`
-      flex-grow: 0;
-      ${computeSizing({
-        width: width || /* istanbul ignore next */ undefined,
-        height: height || undefined,
-      })}
-    `}
-  `}
-`;
 
 const StyledTile = styled.div<StyledTileProps>`
   ${({
@@ -133,12 +71,8 @@ const StyledTile = styled.div<StyledTileProps>`
   `}
 `;
 
-TileContent.defaultProps = {
-  theme: baseTheme,
-};
-
 StyledTile.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledTile, TileContent };
+export default StyledTile;

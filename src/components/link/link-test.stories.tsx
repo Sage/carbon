@@ -3,10 +3,11 @@ import { action } from "@storybook/addon-actions";
 import { ICONS } from "../icon/icon-config";
 import { LINK_ALIGNMENTS, LINK_POSITIONS, LINK_VARIANTS } from "./link.config";
 import Link, { LinkProps } from "./link.component";
+import Box from "../box";
 
 export default {
   title: "Link/Test",
-  includeStories: ["DefaultStory"],
+  includeStories: ["DefaultStory", "FlexContainer"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -93,6 +94,36 @@ DefaultStory.args = {
   variant: "default",
   isDarkBackground: false,
 };
+
+export const FlexContainer = () => {
+  const link = (
+    <Box
+      display="flex"
+      flexDirection="row"
+      justifyContent="flex-end"
+      alignItems="center"
+      width="60px"
+      height="40px"
+      bg="red"
+      mx={5}
+    >
+      <Link icon="close" variant="neutral" />
+    </Box>
+  );
+  return (
+    <div
+      style={{
+        margin: "64px",
+        width: "fit-content",
+        padding: "8px",
+      }}
+    >
+      {link}
+    </div>
+  );
+};
+
+FlexContainer.parameters = { chromatic: { disableSnapshot: false } };
 
 export const LinkComponent = (props: LinkProps) => {
   return (

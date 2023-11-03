@@ -199,9 +199,8 @@ export const ActionPopover = ({
       // There will be multiple document click listeners but we cant prevent propagation because it will interfere with
       // other instances on the same page
 
-      const isInMenu = menu.current && menu.current.contains(target as Node);
-      const isInButton =
-        buttonRef.current && buttonRef.current.contains(target as Node);
+      const isInMenu = menu?.current?.contains(target as Node);
+      const isInButton = buttonRef?.current?.contains(target as Node);
 
       if (!isInMenu && !isInButton) {
         setOpen(false);

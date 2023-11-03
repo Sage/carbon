@@ -1,3 +1,90 @@
+## [123.4.0](https://github.com/Sage/carbon/compare/v123.3.0...v123.4.0) (2023-11-02)
+
+
+### Features
+
+* **date:** add support for keyboard navigation in picker ([11d1853](https://github.com/Sage/carbon/commit/11d185306a6cf30e67e1efcf31c7985366594b78)), closes [#6324](https://github.com/Sage/carbon/issues/6324) [#3969](https://github.com/Sage/carbon/issues/3969)
+
+
+### Bug Fixes
+
+* **date:** add aria labels to picker navigation buttons and fix other accessibility issues ([b5eb150](https://github.com/Sage/carbon/commit/b5eb150bcc5760f548db60610f70c5ccd6a7db18)), closes [#5804](https://github.com/Sage/carbon/issues/5804)
+
+## [123.3.0](https://github.com/Sage/carbon/compare/v123.2.2...v123.3.0) (2023-11-02)
+
+
+### Features
+
+* **message:** remove role of status from component ([f09ef5e](https://github.com/Sage/carbon/commit/f09ef5ecf76ae1551a6e01dac1c45be56583df2b)), closes [#6013](https://github.com/Sage/carbon/issues/6013)
+
+### [123.2.2](https://github.com/Sage/carbon/compare/v123.2.1...v123.2.2) (2023-11-02)
+
+
+### Bug Fixes
+
+* **action-popover:** fix issue with stories not rendering in storybook ([437ee03](https://github.com/Sage/carbon/commit/437ee03386d82c9d32799efce05ea009cc7feb6f))
+
+### [123.2.1](https://github.com/Sage/carbon/compare/v123.2.0...v123.2.1) (2023-11-01)
+
+
+### Bug Fixes
+
+* **navigation-bar:** stop ResizeObserver errors being thrown on render ([d80db16](https://github.com/Sage/carbon/commit/d80db16272daf24579c0619ec68bb119e19bcd78)), closes [#6259](https://github.com/Sage/carbon/issues/6259)
+
+## [123.2.0](https://github.com/Sage/carbon/compare/v123.1.0...v123.2.0) (2023-10-30)
+
+
+### Features
+
+* **confirm:** make data tag props available on cancel and confirm buttons ([2c69101](https://github.com/Sage/carbon/commit/2c691011688c5186a7d20f8af7e6acd768e5a0e8)), closes [#6374](https://github.com/Sage/carbon/issues/6374)
+
+## [123.1.0](https://github.com/Sage/carbon/compare/v123.0.1...v123.1.0) (2023-10-27)
+
+
+### Features
+
+* **action-popover:** disabled items can no longer be focused ([208148b](https://github.com/Sage/carbon/commit/208148b2d5009db64fa3ce4d8ad86250c860c523))
+
+### [123.0.1](https://github.com/Sage/carbon/compare/v123.0.0...v123.0.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* **textarea, textbox:** ensure inputHint and labelHelp props do not render two seperate DOM elements ([607c649](https://github.com/Sage/carbon/commit/607c64906dce77ee763425abdc2f9463947f8de0))
+
+## [123.0.0](https://github.com/Sage/carbon/compare/v122.0.1...v123.0.0) (2023-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tile:** You will need to wrap children in `TileContent` to achieve the
+layouts of the
+previous component where they receive padding relative to that of the `Tile`
+parent's.
+
+### Features
+
+* **tile:** refactor component to support more flexible composition of children ([f5742c0](https://github.com/Sage/carbon/commit/f5742c0529ccf90f0d51cc811719540caa1fc07b)), closes [#5760](https://github.com/Sage/carbon/issues/5760)
+
+### [122.0.1](https://github.com/Sage/carbon/compare/v122.0.0...v122.0.1) (2023-10-24)
+
+
+### Bug Fixes
+
+* **link:** ensure Icon in component has inline display property to respect dimensions of the parent ([be0a33c](https://github.com/Sage/carbon/commit/be0a33c07b18cc36633ad65369915f2256e54ae2)), closes [#6295](https://github.com/Sage/carbon/issues/6295)
+
+## [122.0.0](https://github.com/Sage/carbon/compare/v121.2.0...v122.0.0) (2023-10-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pod:** The onEdit prop is now restricted to being an event handler function - the options
+for it to be a string or an object have been removed.
+
+### Bug Fixes
+
+* **pod:** make edit button an HTML button rather than an anchor tag ([98d8bde](https://github.com/Sage/carbon/commit/98d8bde579b6a14a081e87d4e7b38501335370bb))
+
 ## [121.2.0](https://github.com/Sage/carbon/compare/v121.1.0...v121.2.0) (2023-10-17)
 
 

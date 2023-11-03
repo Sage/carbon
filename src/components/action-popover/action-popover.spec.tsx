@@ -409,6 +409,49 @@ describe("ActionPopover", () => {
     );
   }
 
+  function renderActionPopoverWithMultipleDisabledItems(
+    props = {},
+    renderer = mount
+  ) {
+    const defaultProps = {
+      children: [
+        <ActionPopoverItem key="item-1" onClick={() => {}}>
+          Business
+        </ActionPopoverItem>,
+        <ActionPopoverItem disabled key="item-2" onClick={() => {}}>
+          Email Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem disabled key="item-3" onClick={() => {}}>
+          Print Invoice
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-4" onClick={() => {}}>
+          Download PDF
+        </ActionPopoverItem>,
+        <ActionPopoverItem key="item-5" onClick={() => {}}>
+          Download CSV
+        </ActionPopoverItem>,
+        <ActionPopoverDivider key="item-6" />,
+        <ActionPopoverItem key="item-7" onClick={() => {}}>
+          Delete
+        </ActionPopoverItem>,
+        <ActionPopoverItem disabled key="item-8" onClick={() => {}}>
+          Return Home
+        </ActionPopoverItem>,
+        null,
+        undefined,
+      ],
+      ...props,
+    };
+
+    renderer(
+      <>
+        <input id="before" />
+        <ActionPopover {...defaultProps} {...props} />
+        <input id="after" />
+      </>
+    );
+  }
+
   function getElements() {
     return {
       items: wrapper.find(ActionPopoverItem),
@@ -683,10 +726,10 @@ describe("ActionPopover", () => {
         expect(stopPropagation).toHaveBeenCalled();
       });
 
-      it("Clicking focuses the first element", () => {
+      it("Clicking focuses the first focusable element", () => {
         const { items } = getElements();
 
-        expect(items.at(0).find(StyledMenuItem)).toBeFocused();
+        expect(items.at(1).find(StyledMenuItem)).toBeFocused();
       });
 
       it("Clicking closes the menu", () => {
@@ -773,7 +816,7 @@ describe("ActionPopover", () => {
       );
 
       it.each(["ArrowDown", "Space", "Enter"] as const)(
-        "Pressing %s key selects the first item",
+        "Pressing %s key selects the first focusable item",
         (key) => {
           render();
           const { menubutton } = getElements();
@@ -781,17 +824,17 @@ describe("ActionPopover", () => {
           jest.runAllTimers();
 
           const { items } = getElements();
-          expect(items.first().find(StyledMenuItem)).toBeFocused();
+          expect(items.at(1).find(StyledMenuItem)).toBeFocused();
         }
       );
 
-      it("Pressing UpArrow selects the last item", () => {
+      it("Pressing UpArrow selects the last focusable item", () => {
         render();
-        const { menubutton } = getElements();
-        simulate.keydown.pressArrowUp(menubutton);
+        openMenu();
+        const { items } = getElements();
+        simulate.keydown.pressArrowUp(items.at(1).find(StyledMenuItem).at(0));
         jest.runAllTimers();
 
-        const { items } = getElements();
         expect(items.last().find(StyledMenuItem)).toBeFocused();
       });
     });
@@ -865,9 +908,6 @@ describe("ActionPopover", () => {
           "next",
           "",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
-            simulate.keydown.pressArrowDown(
-              items.first().find(StyledMenuItem).at(0)
-            );
             jest.runAllTimers();
             expect(items.at(1).find(StyledMenuItem)).toBeFocused();
 
@@ -888,8 +928,8 @@ describe("ActionPopover", () => {
               items.at(3).find(StyledMenuItem).at(0)
             );
             jest.runAllTimers();
-            expect(items.at(0).find(StyledMenuItem)).toBeFocused();
-            // we're checking that we can focus the disabled item, this is intentional behaviour
+            // we're checking that we cannot focus the first disabled item
+            expect(items.at(0).find(StyledMenuItem)).not.toBeFocused();
             expect(items.at(0).prop("disabled")).toBe(true);
             expect(
               items
@@ -903,9 +943,9 @@ describe("ActionPopover", () => {
         [
           "Down",
           "first",
-          "if the focus on the last item",
+          "if the focus on the last focusable item",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
-            simulate.keydown.pressEnd(items.first().find(StyledMenuItem).at(0));
+            simulate.keydown.pressEnd(items.at(1).find(StyledMenuItem).at(0));
             jest.runAllTimers();
             expect(items.last().find(StyledMenuItem)).toBeFocused();
 
@@ -913,7 +953,7 @@ describe("ActionPopover", () => {
               items.last().find(StyledMenuItem).at(0)
             );
             jest.runAllTimers();
-            expect(items.first().find(StyledMenuItem)).toBeFocused();
+            expect(items.at(1).find(StyledMenuItem)).toBeFocused();
           },
         ],
         [
@@ -921,9 +961,6 @@ describe("ActionPopover", () => {
           "previous",
           "",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
-            simulate.keydown.pressArrowDown(
-              items.first().find(StyledMenuItem).at(0)
-            );
             simulate.keydown.pressArrowDown(
               items.at(1).find(StyledMenuItem).at(0)
             );
@@ -949,16 +986,17 @@ describe("ActionPopover", () => {
               items.at(1).find(StyledMenuItem).at(0)
             );
             jest.runAllTimers();
-            expect(items.first().find(StyledMenuItem)).toBeFocused();
+            expect(items.at(3).find(StyledMenuItem)).toBeFocused();
+            expect(items.first().find(StyledMenuItem)).not.toBeFocused();
           },
         ],
         [
           "Up",
           "last",
-          "if the focus is on the first item",
+          "if the focus is on the first focusable item",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
             simulate.keydown.pressArrowUp(
-              items.first().find(StyledMenuItem).at(0)
+              items.at(1).find(StyledMenuItem).at(0)
             );
             jest.runAllTimers();
             expect(items.last().find(StyledMenuItem)).toBeFocused();
@@ -969,13 +1007,9 @@ describe("ActionPopover", () => {
           "first",
           "",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
-            simulate.keydown.pressArrowDown(
-              items.first().find(StyledMenuItem).at(0)
-            );
-
             simulate.keydown.pressHome(items.at(1));
 
-            expect(items.first().find(StyledMenuItem)).toBeFocused();
+            expect(items.at(1).find(StyledMenuItem)).toBeFocused();
           },
         ],
         [
@@ -1004,10 +1038,10 @@ describe("ActionPopover", () => {
         openMenu();
         const { items } = getElements();
 
-        simulate.keydown.pressSpace(items.at(0).find(StyledMenuItem));
+        simulate.keydown.pressSpace(items.at(1).find(StyledMenuItem));
 
         const { menu } = getElements();
-        expect(items.at(0).find(StyledMenuItem)).toBeFocused();
+        expect(items.at(1).find(StyledMenuItem)).toBeFocused();
         expect(menu.exists()).toBe(true);
       });
 
@@ -1018,7 +1052,7 @@ describe("ActionPopover", () => {
         const { items } = getElements();
 
         // moves to first element starting with P
-        simulate.keydown.pressP(items.first().find(StyledMenuItem).at(0));
+        simulate.keydown.pressP(items.at(1).find(StyledMenuItem).at(0));
         jest.runAllTimers();
         expect(items.at(2).find(StyledMenuItem)).toBeFocused();
 
@@ -1028,10 +1062,11 @@ describe("ActionPopover", () => {
         expect(items.at(3).find(StyledMenuItem)).toBeFocused();
 
         // moves to next element starting with D, it loops to the start
-        // we're checking that we can focus the disabled item, this is intentional behaviour
         simulate.keydown.pressD(items.at(3).find(StyledMenuItem).at(0));
         jest.runAllTimers();
-        expect(items.at(0).find(StyledMenuItem)).toBeFocused();
+        expect(items.at(3).find(StyledMenuItem)).toBeFocused();
+        // we're checking that we cannot focus the disabled item.
+        expect(items.at(0).find(StyledMenuItem)).not.toBeFocused();
         expect(items.at(0).prop("disabled")).toBe(true);
         expect(
           items
@@ -1042,9 +1077,9 @@ describe("ActionPopover", () => {
         ).toBe("true");
 
         // does nothing when there are no matches
-        simulate.keydown.pressZ(items.at(0).find(StyledMenuItem).at(0));
+        simulate.keydown.pressZ(items.at(3).find(StyledMenuItem).at(0));
         jest.runAllTimers();
-        expect(items.at(0).find(StyledMenuItem)).toBeFocused();
+        expect(items.at(3).find(StyledMenuItem)).toBeFocused();
       });
 
       it("does nothing when a non printable character key is pressed", () => {
@@ -1053,9 +1088,9 @@ describe("ActionPopover", () => {
 
         const { items } = getElements();
 
-        items.at(0).simulate("keydown", { key: "F1" });
+        items.at(1).simulate("keydown", { key: "F1" });
         jest.runAllTimers();
-        expect(items.at(0).find(StyledMenuItem)).toBeFocused();
+        expect(items.at(1).find(StyledMenuItem)).toBeFocused();
       });
     });
   });
@@ -2112,5 +2147,56 @@ describe("ActionPopover", () => {
         );
       }
     );
+  });
+
+  describe("When ActionPopoverMenu contains multiple disabled items", () => {
+    it("should focus the next focusable item when down arrow is pressed", () => {
+      renderActionPopoverWithMultipleDisabledItems();
+      openMenu();
+      const { items } = getElements();
+
+      simulate.keydown.pressArrowDown(items.at(0).find(StyledMenuItem).at(0));
+      jest.runAllTimers();
+
+      expect(items.at(3).find(StyledMenuItem)).toBeFocused();
+    });
+
+    it("should focus the next focusable item when up arrow is pressed", () => {
+      renderActionPopoverWithMultipleDisabledItems();
+      openMenu();
+      const { items } = getElements();
+
+      simulate.keydown.pressArrowDown(items.at(0).find(StyledMenuItem).at(0));
+      jest.runAllTimers();
+
+      expect(items.at(3).find(StyledMenuItem)).toBeFocused();
+
+      simulate.keydown.pressArrowUp(items.at(3).find(StyledMenuItem).at(0));
+      jest.runAllTimers();
+
+      expect(items.at(0).find(StyledMenuItem)).toBeFocused();
+    });
+
+    it("should focus the first focusable item when Home is pressed", () => {
+      renderActionPopoverWithMultipleDisabledItems();
+      openMenu();
+      const { items } = getElements();
+
+      simulate.keydown.pressHome(items.at(5).find(StyledMenuItem).at(0));
+      jest.runAllTimers();
+
+      expect(items.at(0).find(StyledMenuItem)).toBeFocused();
+    });
+
+    it("should focus the last focusable item when End is pressed", () => {
+      renderActionPopoverWithMultipleDisabledItems();
+      openMenu();
+      const { items } = getElements();
+
+      simulate.keydown.pressEnd(items.at(0).find(StyledMenuItem).at(0));
+      jest.runAllTimers();
+
+      expect(items.at(5).find(StyledMenuItem)).toBeFocused();
+    });
   });
 });

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import baseTheme from "../../../../style/themes/base";
 import addFocusStyling from "../../../../style/utils/add-focus-styling";
 
@@ -187,7 +187,13 @@ const StyledDayPicker = styled.div`
   position: absolute;
   height: 346px;
   width: 352px;
-  z-index: ${({ theme }) => theme.zIndex.popover};
+  ${({ theme }) => css`
+    z-index: ${theme.zIndex.popover};
+    ${!theme.focusRedesignOptOut &&
+    `
+      margin-top: var(--spacing050);
+    `}
+  `}
 
   .DayPicker {
     z-index: 1000;

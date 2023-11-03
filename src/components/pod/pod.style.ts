@@ -198,7 +198,7 @@ interface StyledEditActionProps extends CommonPodButtonProps {
   displayOnlyOnHover?: boolean;
 }
 
-const StyledEditAction = styled.a<StyledEditActionProps>`
+const StyledEditAction = styled(IconButton)<StyledEditActionProps>`
   && {
     ${({
       displayOnlyOnHover,

@@ -10,41 +10,39 @@ import {
 } from "./locators";
 
 // component preview locators
-export const actionPopoverButton = (page: Page) => {
-  return page.locator(ACTION_POPOVER_BUTTON);
-};
-export const actionPopover = (page: Page) => {
-  return page.locator(ACTION_POPOVER_DATA_COMPONENT);
-};
-export const actionPopoverInnerItem = (page: Page, index: number) => {
-  return page
+export const actionPopoverButton = (page: Page) =>
+  page.locator(ACTION_POPOVER_BUTTON);
+
+export const actionPopover = (page: Page) =>
+  page.locator(ACTION_POPOVER_DATA_COMPONENT);
+
+export const actionPopoverInnerItem = (page: Page, index: number) =>
+  page
     .locator(ACTION_POPOVER_DATA_COMPONENT)
     .first()
-    .locator("div")
+    .locator("> div")
     .nth(index)
     .locator("button")
     .first();
-};
-export const actionPopoverSubmenu = (page: Page, index: number) => {
-  return page
+
+export const actionPopoverSubmenu = (page: Page, index: number) =>
+  page
     .locator(ACTION_POPOVER_SUBMENU)
     .nth(1)
-    .locator("div")
-    .nth(index)
+    .locator(`> div:nth-child(${index + 1})`)
     .locator("button");
-};
-export const actionPopoverMenuMenuIcon = (page: Page) => {
-  return page.locator(ACTION_POPOVER_MENU_ITEM_ICON);
-};
-export const actionPopoverMenuItemInnerText = (page: Page) => {
-  return page.locator(ACTION_POPOVER_MENU_ITEM_INNER_TEXT);
-};
-export const actionPopoverMenuItemChevron = (page: Page) => {
-  return page.locator(ACTION_POPOVER_MENU_ITEM_CHEVRON);
-};
-export const actionPopoverSubmenuByIndex = (page: Page) => {
-  return page.locator(ACTION_POPOVER_SUBMENU).nth(1);
-};
-export const actionPopoverWrapper = (page: Page) => {
-  return page.locator(ACTION_POPOVER_WRAPPER);
-};
+
+export const actionPopoverMenuItemIcon = (page: Page) =>
+  page.locator(ACTION_POPOVER_MENU_ITEM_ICON);
+
+export const actionPopoverMenuItemInnerText = (page: Page) =>
+  page.locator(ACTION_POPOVER_MENU_ITEM_INNER_TEXT);
+
+export const actionPopoverMenuItemChevron = (page: Page) =>
+  page.locator(ACTION_POPOVER_MENU_ITEM_CHEVRON);
+
+export const actionPopoverSubmenuByIndex = (page: Page) =>
+  page.locator(ACTION_POPOVER_SUBMENU).nth(1);
+
+export const actionPopoverWrapper = (page: Page) =>
+  page.locator(ACTION_POPOVER_WRAPPER);

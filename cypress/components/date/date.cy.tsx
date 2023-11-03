@@ -42,7 +42,7 @@ import {
 } from "../../locators/date-input";
 
 import { getDataElementByValue, fieldHelpPreview } from "../../locators";
-import { keyCode } from "../../support/helper";
+import { KeyIds, keyCode } from "../../support/helper";
 import {
   verifyRequiredAsteriskForLabel,
   assertCssValueIsApproximately,
@@ -75,7 +75,12 @@ const DDMMYYY_DATE_TO_ENTER_SHORT = "1,7,22";
 const MMDDYYYY_DATE_TO_ENTER_SHORT = "7,1,22";
 const YYYYMMDD_DATE_TO_ENTER_SHORT = "22,7,1";
 const DATE_TO_VERIFY = "2022-05-12";
-const keysToTrigger = ["rightarrow", "leftarrow"] as const;
+const arrowKeys = [
+  "rightarrow",
+  "leftarrow",
+  "uparrow",
+  "downarrow",
+] as KeyIds[];
 
 context("Test for DateInput component", () => {
   describe("check functionality for DateInput component", () => {
@@ -222,26 +227,239 @@ context("Test for DateInput component", () => {
       }
     );
 
+    it.each(arrowKeys)(
+      "should not change the displayed month when %s is pressed and next button is focused",
+      (key) => {
+        CypressMountWithProviders(<DateInputCustom />);
+        dateInputParent().click();
+        getDataElementByValue("chevron_right").parent().focus();
+        getDataElementByValue("chevron_right").trigger("keydown", keyCode(key));
+        dayPickerHeading().should("have.text", "May 2022");
+      }
+    );
+
+    it.each(arrowKeys)(
+      "should not change the displayed month when %s is pressed and previous button is focused",
+      (key) => {
+        CypressMountWithProviders(<DateInputCustom />);
+        dateInputParent().click();
+        getDataElementByValue("chevron_left").parent().focus();
+        getDataElementByValue("chevron_left").trigger("keydown", keyCode(key));
+        dayPickerHeading().should("have.text", "May 2022");
+      }
+    );
+
+    it("should allow a user to tab into the picker and through its controls", () => {
+      CypressMountWithProviders(<DateInputCustom value="12/12/2022" />);
+      cy.get("body").tab();
+      dateInput().should("be.focused");
+      cy.focused().tab();
+      getDataElementByValue("chevron_left").parent().should("be.focused");
+      cy.focused().tab();
+      getDataElementByValue("chevron_right").parent().should("be.focused");
+      cy.focused().tab();
+      cy.get(".DayPicker-Day--selected").should("be.focused");
+    });
+
+    it("should close the picker and focus the next element in the DOM when focus is on a day element and tab pressed", () => {
+      CypressMountWithProviders(
+        <>
+          <DateInputCustom value="12/12/2022" />
+          <button data-element="foo-button" type="button">
+            foo
+          </button>
+        </>
+      );
+      cy.get("body").tab();
+      dateInput().should("be.focused");
+      cy.focused().tab();
+      getDataElementByValue("chevron_left").parent().should("be.focused");
+      cy.focused().tab();
+      getDataElementByValue("chevron_right").parent().should("be.focused");
+      cy.focused().tab();
+      cy.get(".DayPicker-Day--selected").should("be.focused");
+      cy.focused().tab();
+      dayPickerWrapper().should("not.exist");
+      cy.get('[data-element="foo-button"]').should("be.focused");
+    });
+
+    it("should focus today's date if no day selected when tabbing to day elements", () => {
+      CypressMountWithProviders(<DateInputCustom value="" />);
+      cy.get("body").tab();
+      dateInput().should("be.focused");
+      cy.focused().tab();
+      getDataElementByValue("chevron_left").parent().should("be.focused");
+      cy.focused().tab();
+      getDataElementByValue("chevron_right").parent().should("be.focused");
+      cy.focused().tab();
+      cy.get(".DayPicker-Day--today").should("be.focused");
+      cy.focused().tab();
+      dayPickerWrapper().should("not.exist");
+    });
+
+    it("should navigate through the day elements using the arrow keys", () => {
+      CypressMountWithProviders(<DateInputCustom />);
+      cy.get("body").tab();
+      dateInput().should("be.focused");
+      cy.focused().tab();
+      cy.focused().tab();
+      cy.focused().tab();
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("have.text", "8");
+      cy.focused().trigger("keydown", keyCode("downarrow"));
+      cy.focused().should("have.text", "15");
+      cy.focused().trigger("keydown", keyCode("leftarrow"));
+      cy.focused().should("have.text", "14");
+      cy.focused().trigger("keydown", keyCode("leftarrow"));
+      cy.focused().should("have.text", "13");
+      cy.focused().trigger("keydown", keyCode("rightarrow"));
+      cy.focused().should("have.text", "14");
+      cy.focused().trigger("keydown", keyCode("rightarrow"));
+      cy.focused().should("have.text", "15");
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      cy.focused().should("have.text", "8");
+      cy.focused().trigger("keydown", keyCode("uparrow"));
+      cy.focused().should("have.text", "1");
+    });
+
+    it("should navigate to the previous month when left arrow pressed on first day element of a month", () => {
+      CypressMountWithProviders(<DateInputCustom />);
+      cy.get("body").tab();
+      dateInput().should("be.focused");
+      cy.focused().tab();
+      cy.focused().tab();
+      cy.focused().tab();
+      cy.focused().trigger("keydown", keyCode("leftarrow"));
+      cy.focused().should("have.text", "30");
+      dayPickerHeading().should("have.text", PREVIOUS_MONTH);
+    });
+
     it.each([
-      ["chevron_right", "next", keysToTrigger[0]],
-      ["chevron_left", "previous", keysToTrigger[1]],
+      ["24", "1"],
+      ["25", "2"],
+      ["26", "3"],
+      ["27", "4"],
+      ["28", "5"],
+      ["29", "6"],
+      ["30", "7"],
     ])(
-      "should trigger %s arrow in DayPicker to verify %s month is shown using %s keyboard key",
-      (arrow, month, key) => {
+      "should navigate to day %s of previous month when up arrow pressed on day %s of first week of current month",
+      (result, input) => {
+        CypressMountWithProviders(
+          <DateInputCustom value={`0${input}/05/2022`} />
+        );
+        cy.get("body").tab();
+        dateInput().should("be.focused");
+        cy.focused().tab();
+        cy.focused().tab();
+        cy.focused().tab();
+        cy.focused().trigger("keydown", keyCode("uparrow"));
+        cy.focused().should("have.text", result);
+        dayPickerHeading().should("have.text", PREVIOUS_MONTH);
+      }
+    );
+
+    it.each([
+      ["7", "31"],
+      ["6", "30"],
+      ["5", "29"],
+      ["4", "28"],
+      ["3", "27"],
+      ["2", "26"],
+      ["1", "25"],
+    ])(
+      "should navigate to day %s of next month when down arrow pressed on day %s of last week of current month",
+      (result, input) => {
+        CypressMountWithProviders(
+          <DateInputCustom value={`${input}/05/2022`} />
+        );
+        cy.get("body").tab();
+        dateInput().should("be.focused");
+        cy.focused().tab();
+        cy.focused().tab();
+        cy.focused().tab();
+        cy.focused().trigger("keydown", keyCode("downarrow"));
+        cy.focused().should("have.text", result);
+        dayPickerHeading().should("have.text", NEXT_MONTH);
+      }
+    );
+
+    it.each(["Enter", "Space"] as KeyIds[])(
+      "should update the selected date when %s pressed on a day element",
+      (key) => {
+        CypressMountWithProviders(<DateInputCustom />);
+        cy.get("body").tab();
+        dateInput().should("be.focused");
+        cy.focused().tab();
+        cy.focused().tab();
+        cy.focused().tab();
+        cy.focused().trigger("keydown", keyCode("leftarrow"));
+        cy.focused().should("have.text", "30");
+        cy.focused().trigger("keydown", keyCode(key));
+        getDataElementByValue("input").should("have.value", "30/04/2022");
+      }
+    );
+
+    it("should close the picker when escape is pressed and input focused", () => {
+      CypressMountWithProviders(<DateInputCustom />);
+      cy.get("body").tab();
+      dayPickerWrapper().should("exist");
+
+      cy.focused().trigger("keydown", keyCode("Esc"));
+      dayPickerWrapper().should("not.exist");
+    });
+
+    it("should close the picker when escape is pressed and focus is within the picker and refocus the input", () => {
+      CypressMountWithProviders(<DateInputCustom />);
+      cy.get("body").tab();
+      dayPickerWrapper().should("exist");
+      cy.focused().tab();
+      cy.focused().trigger("keydown", keyCode("Esc"));
+      dayPickerWrapper().should("not.exist");
+      getDataElementByValue("input").should("be.focused");
+    });
+
+    it("should close the picker when shift + tab is pressed and focus is on the previous month button in the picker and refocus the input", () => {
+      CypressMountWithProviders(<DateInputCustom />);
+      cy.get("body").tab();
+      dayPickerWrapper().should("exist");
+      cy.focused().tab();
+      cy.focused().tab({ shift: true });
+      dayPickerWrapper().should("not.exist");
+      getDataElementByValue("input").should("be.focused");
+    });
+
+    it("should navigate to the next month when right arrow pressed on last day element of a month", () => {
+      CypressMountWithProviders(<DateInputCustom value="31/05/2022" />);
+      cy.get("body").tab();
+      dateInput().should("be.focused");
+      cy.focused().tab();
+      cy.focused().tab();
+      cy.focused().tab();
+      cy.focused().trigger("keydown", keyCode("rightarrow"));
+      cy.focused().should("have.text", "1");
+      dayPickerHeading().should("have.text", NEXT_MONTH);
+    });
+
+    it.each([
+      ["enter", "next", "chevron_right"],
+      ["space", "next", "chevron_right"],
+      ["enter", "previous", "chevron_left"],
+      ["space", "previous", "chevron_left"],
+    ])(
+      "should change the displayed month when %s is pressed and %s button is focused",
+      (key, month, arrow) => {
         CypressMountWithProviders(<DateInputCustom />);
 
-        dateInput().clear().type(DATE_INPUT);
+        const keyToType = key === "space" ? " " : key;
         dateInputParent().click();
-
-        dayPickerWrapper().focus();
-        getDataElementByValue(arrow).trigger("keydown", keyCode(key));
+        getDataElementByValue(arrow).parent().focus();
+        getDataElementByValue(arrow).type(`{${keyToType}}`);
 
         if (month === "next") {
           dayPickerHeading().should("have.text", NEXT_MONTH);
         } else if (month === "previous") {
           dayPickerHeading().should("have.text", PREVIOUS_MONTH);
-        } else {
-          throw new Error("Only Next or Previous month can be applied");
         }
       }
     );
@@ -411,6 +629,10 @@ context("Test for DateInput component", () => {
             locale: () => localeValue,
             date: {
               dateFnsLocale: () => dateFnsLocaleValue,
+              ariaLabels: {
+                previousMonthButton: () => "Previous month",
+                nextMonthButton: () => "Next month",
+              },
             },
           }
         );
@@ -478,6 +700,10 @@ context("Test for DateInput component", () => {
             locale: () => localeValue,
             date: {
               dateFnsLocale: () => dateFnsLocaleValue,
+              ariaLabels: {
+                previousMonthButton: () => "Previous month",
+                nextMonthButton: () => "Next month",
+              },
             },
           }
         );
@@ -544,6 +770,10 @@ context("Test for DateInput component", () => {
             locale: () => localeValue,
             date: {
               dateFnsLocale: () => dateFnsLocaleValue,
+              ariaLabels: {
+                previousMonthButton: () => "Previous month",
+                nextMonthButton: () => "Next month",
+              },
             },
           }
         );
@@ -661,6 +891,8 @@ context("Test for DateInput component", () => {
       CypressMountWithProviders(<DateInputCustom />);
 
       dateInput().focus();
+
+      dayPickerParent().should("have.css", "margin-top", "4px");
 
       dateInputParent()
         .should(
@@ -863,5 +1095,13 @@ context("Test for DateInput component", () => {
     CypressMountWithProviders(<DateInputValidationNewDesign />);
 
     cy.checkAccessibility();
+  });
+
+  it("should check accessibility when the picker is open", () => {
+    CypressMountWithProviders(<DateInputCustom />);
+
+    dateInputParent()
+      .click()
+      .then(() => cy.checkAccessibility());
   });
 });

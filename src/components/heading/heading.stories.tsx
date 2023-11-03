@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory } from "@storybook/react";
 
 import Heading from "./heading.component";
-import Tile from "../tile";
+import { Tile } from "../tile";
 import Dl from "../definition-list/dl.component";
 import Dt from "../definition-list/dt.component";
 import Dd from "../definition-list/dd.component";

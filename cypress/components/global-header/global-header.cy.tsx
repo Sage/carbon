@@ -1,7 +1,10 @@
 /* eslint-disable jest/valid-expect, jest/valid-expect-in-promise */
 import React from "react";
 import GlobalHeader from "../../../src/components/global-header";
-import { FullMenuExample } from "../../../src/components/global-header/global-header-test.stories";
+import {
+  FullMenuExample,
+  GlobalHeaderWithErrorHandler,
+} from "../../../src/components/global-header/global-header-test.stories";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 
 import carbonLogo from "../../../logo/carbon-logo.png";
@@ -9,6 +12,12 @@ import navigationBar from "../../locators/navigation-bar";
 import { globalHeader, globalHeaderLogo } from "../../locators/global-header";
 
 context("Testing Global Header component", () => {
+  it("should not cause a ResizeObserver-related error to occur", () => {
+    CypressMountWithProviders(<GlobalHeaderWithErrorHandler />);
+    cy.wait(500);
+    cy.get("#error-div").should("have.text", "");
+  });
+
   it("should check that z-index of component is greater than that of NavigationBar", () => {
     CypressMountWithProviders(<FullMenuExample />);
     globalHeader().invoke("css", "zIndex").as("globalHeaderZIndex");
