@@ -1,3 +1,10 @@
+### [123.4.2](https://github.com/Sage/carbon/compare/v123.4.1...v123.4.2) (2023-11-03)
+
+
+### Bug Fixes
+
+* **badge:** change the position and size of counter ([d247e71](https://github.com/Sage/carbon/commit/d247e71617e61865df510d1349e64838444255e0))
+
 ### [123.4.1](https://github.com/Sage/carbon/compare/v123.4.0...v123.4.1) (2023-11-03)
 
 
