@@ -1,3 +1,10 @@
+### [123.4.1](https://github.com/Sage/carbon/compare/v123.4.0...v123.4.1) (2023-11-03)
+
+
+### Bug Fixes
+
+* **loader-bar:** loaderBar height fix ([233782e](https://github.com/Sage/carbon/commit/233782ef1a7290e4582ac44a20fa425584570723)), closes [#5999](https://github.com/Sage/carbon/issues/5999)
+
 ## [123.4.0](https://github.com/Sage/carbon/compare/v123.3.0...v123.4.0) (2023-11-02)
 
 
