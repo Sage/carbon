@@ -34,34 +34,88 @@ if (fse.pathExistsSync(locatorSourceDir)) {
 }
 
 const storiesSourceFile = `./src/components/${componentName}/${componentName}-test.stories.tsx`;
-const storiesDestinationFile = `./src/components/${componentName}/components.test-pw.tsx`;
-console.log(
-  `moving stories from ${storiesSourceFile} to ${storiesDestinationFile}`
-);
-console.log(
-  chalk.yellow(
-    "make sure you remove any stories that aren't used in Playwright tests"
-  )
-);
-fse.copySync(storiesSourceFile, storiesDestinationFile);
-
-let testsSourceFile;
-const testsDestinationFile = `./src/components/${componentName}/${componentName}.pw.tsx`;
-console.log(`moving tests from ${testsSourceFile} to ${testsDestinationFile}`);
-try {
-  testsSourceFile = `./cypress/components/${componentName}/${componentName}.cy.tsx`;
-  fse.moveSync(testsSourceFile, testsDestinationFile);
+const storiesDestinationFiles = [];
+if (fse.pathExistsSync(storiesSourceFile)) {
+  const storiesDestinationFile = `./src/components/${componentName}/components.test-pw.tsx`;
   console.log(
-    `moving tests from ${testsSourceFile} to ${testsDestinationFile}`
+    `moving stories from ${storiesSourceFile} to ${storiesDestinationFile}`
   );
-} catch (e) {
-  if (e.code === "ENOENT") {
-    testsSourceFile = `./cypress/components/${componentName}/${componentName}.cy.js`;
+  console.log(
+    chalk.yellow(
+      "make sure you remove any stories that aren't used in Playwright tests"
+    )
+  );
+  fse.copySync(storiesSourceFile, storiesDestinationFile);
+  storiesDestinationFiles.push(storiesDestinationFile);
+} else {
+  // in case of Select, and possibly others, test stories are in various subfolders - and we need to recreate this structure in the Playwright
+  // component directory, as was done in Cypress
+  const rootFolder = `./src/components/${componentName}/`;
+  const subDirectories = fse.readdirSync(rootFolder);
+  subDirectories.forEach((subDir) => {
+    const fullPath = join(rootFolder, subDir);
+    const sourceFile = join(fullPath, `${subDir}-test.stories.tsx`);
+    if (fse.pathExistsSync(sourceFile)) {
+      const destinationFile = join(fullPath, `components.test-pw.tsx`);
+      console.log(`moving stories from ${sourceFile} to ${destinationFile}`);
+      console.log(
+        chalk.yellow(
+          "make sure you remove any stories that aren't used in Playwright tests"
+        )
+      );
+      fse.copySync(sourceFile, destinationFile);
+      storiesDestinationFiles.push(destinationFile);
+    }
+  });
+}
+
+const testsDestinationFiles = [];
+if (
+  fse.pathExistsSync(
+    `./cypress/components/${componentName}/${componentName}.cy.tsx`
+  ) ||
+  fse.pathExistsSync(
+    `./cypress/components/${componentName}/${componentName}.cy.js`
+  )
+) {
+  const testsDestinationFile = `./src/components/${componentName}/${componentName}.pw.tsx`;
+  testsDestinationFiles.push(testsDestinationFile);
+  try {
+    const testsSourceFile = `./cypress/components/${componentName}/${componentName}.cy.tsx`;
     fse.moveSync(testsSourceFile, testsDestinationFile);
     console.log(
       `moving tests from ${testsSourceFile} to ${testsDestinationFile}`
     );
+  } catch (e) {
+    if (e.code === "ENOENT") {
+      const testsSourceFile = `./cypress/components/${componentName}/${componentName}.cy.js`;
+      fse.moveSync(testsSourceFile, testsDestinationFile);
+      console.log(
+        `moving tests from ${testsSourceFile} to ${testsDestinationFile}`
+      );
+    }
   }
+} else {
+  // as above - in case of Select, and possibly others, test stories are in various subfolders - and we need to recreate this structure in the Playwright
+  // component directory, as was done in Cypress
+  const rootFolder = `./cypress/components/${componentName}/`;
+  const subDirectories = fse.readdirSync(rootFolder);
+  subDirectories.forEach((subDir) => {
+    const fullPath = join(rootFolder, subDir);
+    const sourceFile = join(fullPath, `${subDir}.cy.tsx`);
+    if (fse.pathExistsSync(sourceFile)) {
+      const destinationFile = `./src/components/${componentName}/${subDir}/${subDir}.pw.tsx`;
+      testsDestinationFiles.push(destinationFile);
+      console.log(`moving tests from ${sourceFile} to ${destinationFile}`);
+      fse.copySync(sourceFile, destinationFile);
+    } else if (fse.pathExistsSync(join(fullPath, `${subDir}.cy.js`))) {
+      const jsSourceFile = join(fullPath, `${subDir}-cy.js`);
+      const destinationFile = `./src/components/${componentName}/${subDir}/${subDir}.pw.tsx`;
+      testsDestinationFiles.push(destinationFile);
+      console.log(`moving tests from ${jsSourceFile} to ${destinationFile}`);
+      fse.copySync(jsSourceFile, destinationFile);
+    }
+  });
 }
 // remove entire cypress component directory, assuming it's now empty
 if (fse.readdirSync(`./cypress/components/${componentName}`).length === 0) {
@@ -74,11 +128,15 @@ if (fse.readdirSync(`./cypress/components/${componentName}`).length === 0) {
 console.log("converting locators from cypress to playwright...");
 convertLocators(join(locatorTargetDir, "index.ts"));
 console.log("converting tests from cypress to playwright...");
-convertTests(testsDestinationFile);
-console.log("tidying up test-pw file");
-convertTestStories(storiesDestinationFile);
+testsDestinationFiles.forEach(convertTests);
+console.log("tidying up test-pw file(s)");
+storiesDestinationFiles.forEach(convertTestStories);
 
 console.log("prettifying output");
 exec(`prettier --write '${join(locatorTargetDir, "index.ts")}'`);
-exec(`prettier --write '${testsDestinationFile}'`);
-exec(`prettier --write '${storiesDestinationFile}'`);
+testsDestinationFiles.forEach((file) => {
+  exec(`prettier --write '${file}'`);
+});
+storiesDestinationFiles.forEach((file) => {
+  exec(`prettier --write '${file}'`);
+});
