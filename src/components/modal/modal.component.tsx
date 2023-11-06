@@ -35,6 +35,8 @@ export interface ModalProps extends TagProps {
   open: boolean;
   /** Transition time */
   timeout?: number;
+  /** Manually override the internal modal stacking order to set this as top */
+  topModalOverride?: boolean;
 }
 
 const Modal = ({
@@ -45,6 +47,7 @@ const Modal = ({
   disableClose,
   enableBackgroundUI = false,
   timeout = 300,
+  topModalOverride,
   ...rest
 }: ModalProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -85,7 +88,13 @@ const Modal = ({
     [disableClose, disableEscKey, onCancel]
   );
 
-  useModalManager({ open, closeModal, modalRef: ref, setTriggerRefocusFlag });
+  useModalManager({
+    open,
+    closeModal,
+    modalRef: ref,
+    setTriggerRefocusFlag,
+    topModalOverride,
+  });
 
   let background;
   let content;
@@ -109,6 +118,7 @@ const Modal = ({
         data-state={open ? "open" : "closed"}
         transitionName="modal"
         transitionTime={timeout}
+        topModalOverride={topModalOverride}
         ref={ref}
         {...rest}
       >

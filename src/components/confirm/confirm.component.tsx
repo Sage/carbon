@@ -100,6 +100,7 @@ export const Confirm = ({
   title,
   size = "extra-small",
   showCloseIcon = false,
+  topModalOverride,
   ...rest
 }: ConfirmProps) => {
   const l = useLocale();
@@ -200,6 +201,7 @@ export const Confirm = ({
       role="alertdialog"
       size={size}
       showCloseIcon={showCloseIcon}
+      topModalOverride={topModalOverride}
       {...ariaProps}
       {...rest}
     >
