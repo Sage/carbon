@@ -1,3 +1,10 @@
+### [123.4.3](https://github.com/Sage/carbon/compare/v123.4.2...v123.4.3) (2023-11-06)
+
+
+### Bug Fixes
+
+* **button:** correct the width and height of icons inside buttons ([0ea3b36](https://github.com/Sage/carbon/commit/0ea3b367b56f5a5a548b65a2c89a3eb224b29010))
+
 ### [123.4.2](https://github.com/Sage/carbon/compare/v123.4.1...v123.4.2) (2023-11-03)
 
 
