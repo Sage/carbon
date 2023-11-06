@@ -1,3 +1,10 @@
+### [123.4.4](https://github.com/Sage/carbon/compare/v123.4.3...v123.4.4) (2023-11-06)
+
+
+### Bug Fixes
+
+* **textarea, textbox:** display icon when component is disabled or readOnly ([6afe2d4](https://github.com/Sage/carbon/commit/6afe2d4ec5e4063f52fde0355e301aab8d0fdefb))
+
 ### [123.4.3](https://github.com/Sage/carbon/compare/v123.4.2...v123.4.3) (2023-11-06)
 
 
