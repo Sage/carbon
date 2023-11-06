@@ -527,6 +527,34 @@ context("Test for DateInput component", () => {
         .parent()
         .should("have.css", "max-width", "100%");
     });
+
+    it("should render Date with disabled prop", () => {
+      CypressMountWithProviders(<DateInputCustom disabled />);
+
+      dateInput().should("be.disabled").and("have.attr", "disabled");
+    });
+
+    it("should render Date icon with disabled style", () => {
+      CypressMountWithProviders(<DateInputCustom disabled />);
+
+      dateIcon()
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
+    });
+
+    it("should render Date with read only prop", () => {
+      CypressMountWithProviders(<DateInputCustom readOnly />);
+
+      dateInput().should("have.attr", "readOnly");
+    });
+
+    it("should render Date icon with read only style", () => {
+      CypressMountWithProviders(<DateInputCustom readOnly />);
+
+      dateIcon()
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
+    });
   });
 
   it("should check the pickerProps prop", () => {

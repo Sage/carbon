@@ -363,6 +363,17 @@ context("Tests for Textbox component", () => {
       textboxInput().should("be.disabled").and("have.attr", "disabled");
     });
 
+    it("should render Textbox icon with disabled style", () => {
+      CypressMountWithProviders(
+        <stories.TextboxComponent disabled inputIcon="bin" />
+      );
+
+      textbox()
+        .find(ICON)
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
+    });
+
     it.each(testData)(
       "should render Textbox with placeholder prop set to %s",
       (placeholder) => {
@@ -418,6 +429,17 @@ context("Tests for Textbox component", () => {
       CypressMountWithProviders(<stories.TextboxComponent readOnly />);
 
       textboxInput().and("have.attr", "readOnly");
+    });
+
+    it("should render Textbox icon with readOnly style", () => {
+      CypressMountWithProviders(
+        <stories.TextboxComponent readOnly inputIcon="bin" />
+      );
+
+      textbox()
+        .find(ICON)
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
     });
 
     it.each(["error", "warning", "info"])(
