@@ -16,5 +16,5 @@ export const textboxPrefix = (page: Page) => {
 };
 
 export const textboxInput = (page: Page) => {
-  return page.locator(TEXTBOX).locator("div").first();
+  return page.locator(TEXTBOX).locator("input");
 };
