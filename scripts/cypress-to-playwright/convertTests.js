@@ -763,14 +763,12 @@ function convertTests(filename) {
             // this happens when there is a single call to a cy method with nothing chained off;
             // It's not possible to translate most of these but it leads to errors in the below - just warn and move on.
             // We exclude those we can already translate elsewhere in the CallExpression visitor.
-            if (
-              !["checkAccessibility", "viewport"].includes(
-                nodes[0].callee.property.name
-              )
-            ) {
+            const methodName = (nodes[0].callee.property || nodes[0].callee)
+              .name;
+            if (!["checkAccessibility", "viewport"].includes(methodName)) {
               console.log(
                 chalk.yellow(
-                  `call to cy.${nodes[0].callee.property.name} found - this has not been translated to playwright as it's unclear what to do in general. Please fix it manually.`
+                  `call to cy.${methodName} found - this has not been translated to playwright as it's unclear what to do in general. Please fix it manually.`
                 )
               );
             }
