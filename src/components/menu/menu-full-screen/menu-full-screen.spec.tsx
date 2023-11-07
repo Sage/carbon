@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
@@ -126,6 +126,47 @@ const MockMenuWithFalsyValues = ({ isOpen }: { isOpen?: boolean }) => {
       <MenuItem maxWidth="200px">Submenu Item One</MenuItem>
       {false && <MenuItem href="#">Product Item One</MenuItem>}
       {showMenuItem ? <MenuItem href="#">Product Item Two</MenuItem> : null}
+    </MenuFullscreen>
+  );
+};
+
+const UpdatingSubmenu = () => {
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((prev) => (prev >= 2 ? prev : prev + 1));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <MenuItem submenu={`submenu 2 - count ${counter}`}>
+      <MenuItem>Item One </MenuItem>
+      <MenuItem>Item Two </MenuItem>
+    </MenuItem>
+  );
+};
+
+const MockFullScreenMenuWithUpdatingItems = () => {
+  const [extraItem, setExtraItem] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setExtraItem(true);
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, []);
+  return (
+    <MenuFullscreen onClose={() => {}} isOpen>
+      {extraItem ? (
+        <MenuItem submenu="extra submenu">
+          <MenuItem>Item One </MenuItem>
+          <MenuItem>Item Two </MenuItem>
+        </MenuItem>
+      ) : null}
+      <MenuItem submenu="submenu 1">
+        <MenuItem>Item One </MenuItem>
+        <MenuItem>Item Two </MenuItem>
+      </MenuItem>
+      <UpdatingSubmenu />
     </MenuFullscreen>
   );
 };
@@ -455,6 +496,21 @@ describe("MenuFullscreen", () => {
     it("should not render a divider when menu contains a falsy values", () => {
       wrapper = MockMenuWithFalsyValues({ isOpen: true });
       expect(wrapper.find(MenuDivider).exists()).toBe(false);
+    });
+  });
+
+  describe("keys of children", () => {
+    it("should maintain the state of any child items if items are added or removed", () => {
+      jest.useFakeTimers();
+      wrapper = mount(<MockFullScreenMenuWithUpdatingItems />);
+      act(() => {
+        jest.advanceTimersByTime(5000);
+      });
+      wrapper.update();
+      expect(wrapper.find(MenuItem).at(6).getDOMNode().textContent).toContain(
+        "count 2"
+      );
+      jest.useRealTimers();
     });
   });
 });
