@@ -91,9 +91,12 @@ NewValidationStory.args = {
 export const DateInputCustom = ({
   onChange,
   onBlur,
+  value,
   ...props
 }: Partial<CommonTextboxArgs> & Partial<DateInputProps>) => {
-  const [state, setState] = React.useState("01/05/2022");
+  const [state, setState] = React.useState(
+    value?.length !== undefined ? value : "01/05/2022"
+  );
 
   const handleOnChange = (ev: DateChangeEvent) => {
     if (onChange) {

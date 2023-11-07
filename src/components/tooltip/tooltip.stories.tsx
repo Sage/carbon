@@ -73,7 +73,7 @@ export const Positioning = () => {
   );
 };
 
-export const FlipBehviourOverrides = () => {
+export const FlipBehaviourOverrides = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>

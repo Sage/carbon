@@ -541,7 +541,7 @@ test.describe("accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  test("should check accessibility for secondary destrictive Button Minor", async ({
+  test("should check accessibility for secondary destructive Button Minor", async ({
     mount,
     page,
   }) => {

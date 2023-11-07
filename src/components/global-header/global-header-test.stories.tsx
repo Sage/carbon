@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import GlobalHeader from "./global-header.component";
+import GlobalHeader, { GlobalHeaderProps } from "./global-header.component";
 import { Menu, MenuItem, MenuDivider } from "../menu";
 import VerticalDivider from "../vertical-divider";
 import NavigationBar from "../navigation-bar";
@@ -96,3 +96,23 @@ export const FullMenuExample = () => (
     </NavigationBar>
   </>
 );
+
+export const GlobalHeaderWithErrorHandler = ({
+  ...props
+}: GlobalHeaderProps) => {
+  const [error, setError] = useState("");
+  useEffect(() => {
+    const handleError = (e: ErrorEvent) => {
+      setError(e.message);
+    };
+    window.addEventListener("error", handleError);
+
+    return () => window.removeEventListener("error", handleError);
+  });
+  return (
+    <>
+      <GlobalHeader {...props} />
+      <div id="error-div">{error}</div>
+    </>
+  );
+};

@@ -448,7 +448,13 @@ export const LocaleOverrideExampleImplementation: ComponentStory<
       <I18nProvider
         locale={{
           locale: () => "de-DE",
-          date: { dateFnsLocale: () => de },
+          date: {
+            dateFnsLocale: () => de,
+            ariaLabels: {
+              previousMonthButton: () => "Vorheriger Monat",
+              nextMonthButton: () => "Nächster Monat",
+            },
+          },
         }}
       >
         <DateInput
@@ -460,7 +466,13 @@ export const LocaleOverrideExampleImplementation: ComponentStory<
       <I18nProvider
         locale={{
           locale: () => "zh-CN",
-          date: { dateFnsLocale: () => zhCN },
+          date: {
+            dateFnsLocale: () => zhCN,
+            ariaLabels: {
+              previousMonthButton: () => "上个月",
+              nextMonthButton: () => "下个月",
+            },
+          },
         }}
       >
         <DateInput
