@@ -75,6 +75,22 @@ describe("FilterableSelect", () => {
     expect(wrapper.find(Textbox).prop("type")).toBe("text");
   });
 
+  it("should not throw when non-matching filter text is input and enter key pressed", () => {
+    const wrapper = renderSelect({});
+
+    expect(() => {
+      act(() => {
+        wrapper.find(Textbox).prop("onChange")?.(({
+          target: { value: "foo" },
+          nativeEvent: { inputType: undefined },
+        } as unknown) as React.ChangeEvent<HTMLInputElement>);
+        wrapper.find(Textbox).prop("onKeyDown")?.({
+          key: "Enter",
+        } as React.KeyboardEvent<HTMLInputElement>);
+      });
+    }).not.toThrow();
+  });
+
   describe("with a ref", () => {
     it("the input ref should be forwarded", () => {
       let mockRef = { current: null };

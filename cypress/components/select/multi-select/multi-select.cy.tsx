@@ -1210,6 +1210,15 @@ context("Tests for MultiSelect component", () => {
     });
   });
 
+  it("should not add an empty Pill when filter text does not match option text", () => {
+    CypressMountWithProviders(<stories.MultiSelectComponent />);
+
+    multiSelectPill().should("not.exist");
+    commonDataElementInputPreview().type("abc");
+    selectInput().realPress("Enter");
+    multiSelectPill().should("not.exist");
+  });
+
   describe("Accessibility tests for MultiSelect component", () => {
     it("should pass accessibilty tests for MultiSelect", () => {
       CypressMountWithProviders(<stories.MultiSelectComponent />);

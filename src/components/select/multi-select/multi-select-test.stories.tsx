@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   MultiSelect,
   Option,
@@ -160,7 +160,7 @@ export const MultiSelectLongPillComponent = (
 export const MultiSelectWithLazyLoadingComponent = (
   props: Partial<MultiSelectProps>
 ) => {
-  const preventLoading = React.useRef(false);
+  const preventLoading = useRef(false);
   const [value, setValue] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
@@ -206,9 +206,9 @@ export const MultiSelectWithLazyLoadingComponent = (
 export const MultiSelectLazyLoadTwiceComponent = (
   props: Partial<MultiSelectProps>
 ) => {
-  const preventLoading = React.useRef(false);
+  const preventLoading = useRef(false);
   const [value, setValue] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
@@ -264,7 +264,7 @@ export const MultiSelectObjectAsValueComponent = (
     { id: "Green", value: 5, text: "Green" },
   ]);
 
-  const optionList = React.useRef([
+  const optionList = useRef([
     <Option
       text="Amber"
       key="Amber"

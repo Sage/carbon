@@ -360,6 +360,11 @@ export const MultiSelect = React.forwardRef(
 
         let pillProps: Omit<PillProps, "children"> = {};
 
+        if (!matchingOption) {
+          return null;
+        }
+
+        /* istanbul ignore else */
         if (React.isValidElement(matchingOption)) {
           pillProps = {
             title: matchingOption.props.text,
@@ -368,12 +373,12 @@ export const MultiSelect = React.forwardRef(
           };
         }
 
-        const title = pillProps.title || "";
+        const title = pillProps.title || /* istanbul ignore next */ "";
         const key =
           title +
           ((React.isValidElement(matchingOption) &&
             (matchingOption.props as OptionProps | OptionRowProps).value) ||
-            index);
+            /* istanbul ignore next */ index);
 
         return (
           <StyledSelectPillContainer key={key}>

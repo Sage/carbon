@@ -25,6 +25,14 @@ let deprecateUncontrolledWarnTriggered = false;
 
 type TimerId = ReturnType<typeof setTimeout>;
 
+export interface OptionData {
+  text?: string;
+  value?: string | Record<string, unknown>;
+  id?: string;
+  selectionType: string;
+  selectionConfirmed?: boolean;
+}
+
 export interface CustomSelectChangeEvent
   extends React.ChangeEvent<HTMLInputElement> {
   selectionConfirmed?: boolean;
@@ -425,13 +433,7 @@ export const SimpleSelect = React.forwardRef(
       }
     }
 
-    function onSelectOption(optionData: {
-      text?: string;
-      value?: string | Record<string, unknown>;
-      id?: string;
-      selectionType: string;
-      selectionConfirmed?: boolean;
-    }) {
+    function onSelectOption(optionData: OptionData) {
       const {
         text,
         value: newValue,

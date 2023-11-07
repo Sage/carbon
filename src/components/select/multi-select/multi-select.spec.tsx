@@ -77,6 +77,21 @@ describe("MultiSelect", () => {
     ).toBe(placeholder);
   });
 
+  it("should not render an empty Pill when non-matching filter text is input and enter key pressed", () => {
+    const wrapper = renderSelect({});
+
+    act(() => {
+      wrapper.find(Textbox).prop("onChange")?.({
+        target: { value: "foo" },
+      } as React.ChangeEvent<HTMLInputElement>);
+      wrapper.find(Textbox).prop("onKeyDown")?.({
+        key: "Enter",
+      } as React.KeyboardEvent<HTMLInputElement>);
+    });
+
+    expect(wrapper.find(Pill).exists()).toBe(false);
+  });
+
   describe("when an HTML element is clicked", () => {
     let wrapper: ReactWrapper;
     let domNode: HTMLElement;

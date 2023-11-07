@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Typography from "../../../components/typography";
 import Content from "../../../components/content";
 import {
@@ -173,7 +173,7 @@ export const DelayedReposition = () => {
 DelayedReposition.storyName = "delayed reposition";
 
 export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
@@ -208,9 +208,9 @@ export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
 export const SimpleSelectWithLazyLoadingComponent = (
   props: Partial<SimpleSelectProps>
 ) => {
-  const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState("black");
-  const [isLoading, setIsLoading] = React.useState(true);
+  const preventLoading = useRef(false);
+  const [value, setValue] = useState("black");
+  const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
@@ -218,7 +218,7 @@ export const SimpleSelectWithLazyLoadingComponent = (
     <Option text="Brown" value="brown" key="Brown" />,
     <Option text="Green" value="green" key="Green" />,
   ];
-  const [optionList, setOptionList] = React.useState([
+  const [optionList, setOptionList] = useState([
     <Option text="Black" value="black" key="Black" />,
   ]);
 
@@ -258,11 +258,11 @@ export const SimpleSelectWithLazyLoadingComponent = (
 export const SimpleSelectWithInfiniteScrollComponent = (
   props: Partial<SimpleSelectProps>
 ) => {
-  const preventLoading = React.useRef(false);
-  const preventLazyLoading = React.useRef(false);
-  const lazyLoadingCounter = React.useRef(0);
-  const [value, setValue] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(true);
+  const preventLoading = useRef(false);
+  const preventLazyLoading = useRef(false);
+  const lazyLoadingCounter = useRef(0);
+  const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
@@ -353,7 +353,7 @@ export const SimpleSelectObjectAsValueComponent = (
     value: 5,
     text: "Green",
   });
-  const optionList = React.useRef([
+  const optionList = useRef([
     <Option
       text="Amber"
       key="Amber"
@@ -708,7 +708,7 @@ SelectWithOptionGroupHeader.args = {
 };
 
 export const SelectionConfirmed = () => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
   const [confirmedSelection, setConfirmedSelection] = useState("");
 
   const handleChange = (event: CustomSelectChangeEvent) => {

@@ -1206,6 +1206,19 @@ context("Tests for FilterableSelect component", () => {
     });
   });
 
+  it("should not throw when filter text does not match option text", () => {
+    CypressMountWithProviders(
+      <stories.FilterableSelectComponent
+        value={undefined}
+        onChange={undefined}
+      />
+    );
+
+    commonDataElementInputPreview().type("abc");
+    selectInput().realPress("Enter");
+    getDataElementByValue("input").should("have.attr", "value", "");
+  });
+
   describe("Accessibility tests for FilterableSelect component", () => {
     it("should pass accessibilty tests for FilterableSelect", () => {
       CypressMountWithProviders(<stories.FilterableSelectComponent />);
