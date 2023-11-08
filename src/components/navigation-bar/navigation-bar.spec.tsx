@@ -52,7 +52,9 @@ describe("NavigationBar", () => {
       </NavigationBar>
     );
 
-    expect(wrapper.prop("data-component")).toBe("navigation-bar");
+    expect(wrapper.find(StyledNavigationBar).prop("data-component")).toBe(
+      "navigation-bar"
+    );
   });
 
   it("should provide ariaLabel correctly", () => {
@@ -62,7 +64,9 @@ describe("NavigationBar", () => {
       </NavigationBar>
     );
 
-    expect(wrapper.prop("aria-label")).toBe("my aria label");
+    expect(wrapper.find(StyledNavigationBar).prop("aria-label")).toBe(
+      "my aria label"
+    );
   });
 
   it("should render `light` scheme as default", () => {
@@ -72,7 +76,9 @@ describe("NavigationBar", () => {
       </NavigationBar>
     );
 
-    expect(wrapper.props().navigationType).toBe("light");
+    expect(wrapper.find(StyledNavigationBar).props().navigationType).toBe(
+      "light"
+    );
   });
 
   it("should render correct styles in `light` scheme", () => {
@@ -190,7 +196,7 @@ describe("NavigationBar", () => {
       assertStyleMatch(
         {
           position: `${position}`,
-          [orientation]: offset || "0",
+          [orientation]: offset || "0px",
           ...(position === "fixed" && {
             width: "100%",
             boxSizing: "border-box",

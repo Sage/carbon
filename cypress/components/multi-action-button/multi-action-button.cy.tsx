@@ -229,7 +229,7 @@ context("Tests for MultiActionButton component", () => {
     });
   });
 
-  describe("user interactions with MultiActionutton", () => {
+  describe("user interactions with MultiActionButton", () => {
     describe("pressing ArrowUp while MultiActionButton is open", () => {
       it("should move focus to previous child button and should not loop to last button when first is focused", () => {
         CypressMountWithProviders(
@@ -448,7 +448,7 @@ context("Tests for MultiActionButton component", () => {
     });
   });
 
-  describe("user interactions with MultiActionutton when wrapping the child buttons in a custom component", () => {
+  describe("user interactions with MultiActionButton when wrapping the child buttons in a custom component", () => {
     describe("pressing ArrowUp while MultiActionButton is open", () => {
       it("should move focus to previous child button and should not loop to last button when first is focused", () => {
         CypressMountWithProviders(

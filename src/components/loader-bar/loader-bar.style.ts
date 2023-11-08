@@ -36,7 +36,6 @@ const innerBarAnimation = keyframes`
 
 const StyledLoaderBar = styled.div<StyledLoaderBarProps>`
   ${({ size }) => css`
-    display: inline-block;
     border-radius: var(--borderRadius400);
     height: ${getHeight(size)};
     width: 100%;

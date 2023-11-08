@@ -246,7 +246,7 @@ describe("ProgressTracker", () => {
     });
   });
 
-  describe("get a correct background of inner and outter bar color, when progress is 100 or the error occurs", () => {
+  describe("get a correct background of inner and outer bar color, when progress is 100 or the error occurs", () => {
     it("applies correct background color if progress is 100", () => {
       wrapper = mount(<InnerBar progress={100} />);
       assertStyleMatch(

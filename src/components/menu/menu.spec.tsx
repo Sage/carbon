@@ -197,7 +197,7 @@ describe("Menu", () => {
   });
 
   describe("with multiple submenus", () => {
-    it("when a sumenu is opened, any previously open submenu is closed", () => {
+    it("when a submenu is opened, any previously open submenu is closed", () => {
       wrapper = mount(
         <Menu>
           <MenuItem href="#">menu item</MenuItem>

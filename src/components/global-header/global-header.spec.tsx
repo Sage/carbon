@@ -1,24 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import GlobalHeader, { GlobalHeaderProps } from "./global-header.component";
-import Logger from "../../__internal__/utils/logger";
-
-// mock Logger.deprecate so that no console warnings occur while running the tests
-const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 function renderer(props?: GlobalHeaderProps) {
   return render(<GlobalHeader {...props}>foobar</GlobalHeader>);
 }
 
 describe("Global Header", () => {
-  beforeAll(() => {
-    loggerSpy.mockImplementation(() => {});
-  });
-
-  afterAll(() => {
-    loggerSpy.mockRestore();
-  });
-
   it("should be visible with correct accessible name", () => {
     renderer();
     expect(screen.getByRole("navigation")).toHaveAccessibleName(
