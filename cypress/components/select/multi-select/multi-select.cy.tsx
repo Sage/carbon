@@ -212,12 +212,28 @@ context("Tests for MultiSelect component", () => {
         .and("have.attr", "disabled");
     });
 
+    it("should render MultiSelect icon with disabled style", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent disabled />);
+
+      dropdownButton()
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
+    });
+
     it("should render MultiSelect as read only", () => {
       CypressMountWithProviders(<stories.MultiSelectComponent readOnly />);
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
       selectListWrapper().should("not.be.visible");
+    });
+
+    it("should render MultiSelect icon with read only style", () => {
+      CypressMountWithProviders(<stories.MultiSelectComponent readOnly />);
+
+      dropdownButton()
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
     });
 
     it.each([

@@ -10,10 +10,11 @@ import StyledIcon from "../icon/icon.style";
 
 const StyledPortal = styled(Portal)<{
   align?: "left" | "center" | "right";
+  alignY?: "top" | "center" | "bottom";
   isCenter?: boolean;
   isNotice?: boolean;
 }>`
-  ${({ theme, isCenter, isNotice, align }) => css`
+  ${({ theme, isCenter, isNotice, align, alignY }) => css`
     position: fixed;
     top: 0;
 
@@ -27,8 +28,8 @@ const StyledPortal = styled(Portal)<{
 
     ${align === "left" &&
     css`
-      left: 12%;
-      transform: translateX(-50%);
+      left: 0;
+      transform: translateX(50%);
     `}
 
     ${align === "center" &&
@@ -39,7 +40,6 @@ const StyledPortal = styled(Portal)<{
 
     ${align === "right" &&
     css`
-      display: flex;
       right: 0;
       transform: translateX(-50%);
     `}
@@ -49,6 +49,26 @@ const StyledPortal = styled(Portal)<{
       bottom: 0;
       top: auto;
       width: 100%;
+    `}    
+
+    ${alignY === "top" &&
+    css`
+      top: 0;
+      bottom: auto;
+    `}
+
+    ${alignY === "center" &&
+    css`
+      top: 50%;
+      transform: translate(${align === "left" ? "50%" : "-50%"}, -50%);
+    `}
+
+    ${alignY === "bottom" &&
+    css`
+      bottom: 0;
+      top: auto;
+      display: flex;
+      flex-direction: column-reverse;
     `}
   `}
 `;
@@ -61,19 +81,24 @@ const animationName = ".toast";
 const alternativeAnimationName = ".toast-alternative";
 const ToastStyle = styled(MessageStyle)<{
   align?: "left" | "center" | "right";
+  alignY?: "top" | "center" | "bottom";
   maxWidth?: string;
   isCenter?: boolean;
   isNotice?: boolean;
   isNotification?: boolean;
 }>`
-  ${({ maxWidth, isCenter, align, isNotification }) => css`
+  ${({ maxWidth, isCenter, align, isNotification, alignY, isNotice }) => css`
     box-shadow: 0 10px 30px 0 rgba(0, 20, 29, 0.1),
       0 30px 60px 0 rgba(0, 20, 29, 0.1);
     line-height: 22px;
-    margin-top: 30px;
+    margin-top: ${(alignY === "top" && isNotice) || alignY === "center"
+      ? "0"
+      : "30px"};
+    margin-bottom: ${alignY === "bottom" && !isNotice ? "30px" : "0"};
     max-width: ${!maxWidth ? "300px" : maxWidth};
     position: relative;
     margin-right: ${isCenter || align === "right" ? "auto" : "30px"};
+    margin-left: ${isCenter || align === "left" ? "auto" : "30px"};
 
     ${isNotification &&
     css`
@@ -100,7 +125,9 @@ const ToastStyle = styled(MessageStyle)<{
 
   &${animationName}-exit${animationName}-exit-active {
     opacity: 0;
-    margin-top: -40px;
+
+    ${({ alignY }) =>
+      alignY === "bottom" ? "margin-bottom: -40px" : "margin-top: -40px"};
     transition: all 150ms ease-out;
   }
 
@@ -111,7 +138,7 @@ const ToastStyle = styled(MessageStyle)<{
     transform: translateY(-50%);
   }
 
-  ${({ isNotice }) =>
+  ${({ isNotice, alignY }) =>
     isNotice &&
     css`
       background-color: var(--colorsUtilityMajor400);
@@ -129,24 +156,24 @@ const ToastStyle = styled(MessageStyle)<{
       }
 
       &${alternativeAnimationName}-appear, &${alternativeAnimationName}-enter {
-        bottom: -40px;
+        ${alignY === "top" ? "top: -40px" : "bottom: -40px"};
         opacity: 0;
       }
 
       &${alternativeAnimationName}-exit {
-        bottom: 0;
+        ${alignY === "top" ? "top: 0" : "bottom: 0"};
         opacity: 1;
       }
 
       &${alternativeAnimationName}-appear${alternativeAnimationName}-appear-active,
         &${alternativeAnimationName}-enter${alternativeAnimationName}-enter-active {
-        bottom: 0;
+        ${alignY === "top" ? "top: 0" : "bottom: 0"};
         opacity: 1;
         transition: all 400ms ease;
       }
 
       &${alternativeAnimationName}-exit${alternativeAnimationName}-exit-active {
-        bottom: -40px;
+        ${alignY === "top" ? "top: -40px" : "bottom: -40px"};
         opacity: 0;
         transition: all 200ms ease;
       }

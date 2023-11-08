@@ -175,6 +175,14 @@ context("Tests for SimpleSelect component", () => {
         .and("have.attr", "disabled");
     });
 
+    it("should render SimpleSelect icon with disabled style", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent disabled />);
+
+      dropdownButton()
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
+    });
+
     it("should render SimpleSelect as read only", () => {
       CypressMountWithProviders(<stories.SimpleSelectComponent readOnly />);
 
@@ -182,6 +190,14 @@ context("Tests for SimpleSelect component", () => {
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectText().should("have.attr", "aria-hidden", "true");
       selectListWrapper().should("not.be.visible");
+    });
+
+    it("should render SimpleSelect icon with read only style", () => {
+      CypressMountWithProviders(<stories.SimpleSelectComponent readOnly />);
+
+      dropdownButton()
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
     });
 
     it("should render SimpleSelect as transparent", () => {

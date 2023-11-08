@@ -201,12 +201,28 @@ context("Tests for FilterableSelect component", () => {
         .and("have.attr", "disabled");
     });
 
+    it("should render FilterableSelect icon with disabled style", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent disabled />);
+
+      dropdownButton()
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
+    });
+
     it("should render FilterableSelect as read only", () => {
       CypressMountWithProviders(<stories.FilterableSelectComponent readOnly />);
 
       commonDataElementInputPreview().should("have.attr", "readOnly");
       selectInput().click();
       selectListWrapper().should("not.be.visible");
+    });
+
+    it("should render FilterableSelect icon with read only style", () => {
+      CypressMountWithProviders(<stories.FilterableSelectComponent readOnly />);
+
+      dropdownButton()
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
     });
 
     it.each([

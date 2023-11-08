@@ -1,3 +1,45 @@
+## [123.6.0](https://github.com/Sage/carbon/compare/v123.5.1...v123.6.0) (2023-11-08)
+
+
+### Features
+
+* **toast:** add alignY prop to allow vertical alignment to be configurable ([64203e1](https://github.com/Sage/carbon/commit/64203e1a618294c9c8c71964963377ae2891e134)), closes [#6301](https://github.com/Sage/carbon/issues/6301)
+
+### [123.5.1](https://github.com/Sage/carbon/compare/v123.5.0...v123.5.1) (2023-11-08)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** fix aria role ([c16a1e4](https://github.com/Sage/carbon/commit/c16a1e4357518a122681675875999d61408a60b8)), closes [#6383](https://github.com/Sage/carbon/issues/6383)
+
+## [123.5.0](https://github.com/Sage/carbon/compare/v123.4.4...v123.5.0) (2023-11-07)
+
+
+### Features
+
+* **icon:** 4 icons added to the icon font ([33f979a](https://github.com/Sage/carbon/commit/33f979ad1690fba0229a73e5999744168814378b))
+
+### [123.4.4](https://github.com/Sage/carbon/compare/v123.4.3...v123.4.4) (2023-11-06)
+
+
+### Bug Fixes
+
+* **textarea, textbox:** display icon when component is disabled or readOnly ([6afe2d4](https://github.com/Sage/carbon/commit/6afe2d4ec5e4063f52fde0355e301aab8d0fdefb))
+
+### [123.4.3](https://github.com/Sage/carbon/compare/v123.4.2...v123.4.3) (2023-11-06)
+
+
+### Bug Fixes
+
+* **button:** correct the width and height of icons inside buttons ([0ea3b36](https://github.com/Sage/carbon/commit/0ea3b367b56f5a5a548b65a2c89a3eb224b29010))
+
+### [123.4.2](https://github.com/Sage/carbon/compare/v123.4.1...v123.4.2) (2023-11-03)
+
+
+### Bug Fixes
+
+* **badge:** change the position and size of counter ([d247e71](https://github.com/Sage/carbon/commit/d247e71617e61865df510d1349e64838444255e0))
+
 ### [123.4.1](https://github.com/Sage/carbon/compare/v123.4.0...v123.4.1) (2023-11-03)
 
 

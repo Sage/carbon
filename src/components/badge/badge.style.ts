@@ -7,8 +7,8 @@ const commonStyles = `
   overflow: hidden;
   border-radius: var(--borderRadiusCircle);
   position: absolute;
-  top: -11px;
-  right: -11px;
+  top: -14px;
+  right: -4px;
   padding: 0;
   margin-right: 0;
   background: var(--colorsActionMajorYang100);
@@ -33,8 +33,8 @@ const StyledBadge = styled.span.attrs(({ onClick }) => ({
   align-items: center;
   display: inline-flex;
   justify-content: center;
-  width: 18px;
-  min-height: 18px;
+  width: 22px;
+  min-height: 22px;
   border: solid 2px transparent;
   border-color: var(--colorsActionMajor500);
   color: var(--colorsActionMajor500);
@@ -47,8 +47,8 @@ const StyledBadge = styled.span.attrs(({ onClick }) => ({
     ${onClick &&
     `
       ${commonStyles}
-      width: 22px;
-      min-height: 22px;
+      width: 26px;
+      min-height: 26px;
       text-align: center;
 
       ::-moz-focus-inner {
