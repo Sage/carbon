@@ -1,6 +1,9 @@
 import React from "react";
 import { ToastProps } from "components/toast";
-import { ToastComponent } from "../../../src/components/toast/toast-test.stories";
+import {
+  ToastComponent,
+  AllAlign,
+} from "../../../src/components/toast/toast-test.stories";
 import { TOAST_COLORS } from "../../../src/components/toast/toast.config";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import toastComponent from "../../locators/toast";
@@ -204,6 +207,19 @@ context("Testing Toast component", () => {
           .should("have.css", "justify-content", align);
       }
     );
+    it.each(["top", "bottom"] as ToastProps["alignY"][])(
+      "should render Toast component alignY prop set to %s",
+      (alignY) => {
+        CypressMountWithProviders(<ToastComponent alignY={alignY} />);
+
+        toastComponent()
+          .parent()
+          .parent()
+          .parent()
+          .parent()
+          .should("have.css", alignY, "0px");
+      }
+    );
   });
 
   describe("check events for Toast component", () => {
@@ -246,6 +262,11 @@ context("Testing Toast component", () => {
     it("should render Toast component with maxWidth prop and check accessibility", () => {
       CypressMountWithProviders(<ToastComponent maxWidth="250px" />);
 
+      cy.checkAccessibility();
+    });
+
+    it("should render Toast components with all align combinations and check accessibility", () => {
+      CypressMountWithProviders(<AllAlign />);
       cy.checkAccessibility();
     });
   });

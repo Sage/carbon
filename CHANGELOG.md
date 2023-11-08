@@ -1,3 +1,17 @@
+## [123.6.0](https://github.com/Sage/carbon/compare/v123.5.1...v123.6.0) (2023-11-08)
+
+
+### Features
+
+* **toast:** add alignY prop to allow vertical alignment to be configurable ([64203e1](https://github.com/Sage/carbon/commit/64203e1a618294c9c8c71964963377ae2891e134)), closes [#6301](https://github.com/Sage/carbon/issues/6301)
+
+### [123.5.1](https://github.com/Sage/carbon/compare/v123.5.0...v123.5.1) (2023-11-08)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** fix aria role ([c16a1e4](https://github.com/Sage/carbon/commit/c16a1e4357518a122681675875999d61408a60b8)), closes [#6383](https://github.com/Sage/carbon/issues/6383)
+
 ## [123.5.0](https://github.com/Sage/carbon/compare/v123.4.4...v123.5.0) (2023-11-07)
 
 
