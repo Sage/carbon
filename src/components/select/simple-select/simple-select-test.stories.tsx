@@ -658,11 +658,19 @@ export const SimpleSelectWithManyOptionsAndVirtualScrolling = () => (
   </SimpleSelect>
 );
 
-export const SimpleSelectNestedInDialog = () => {
+export const SimpleSelectNestedInDialog = ({
+  openOnFocus = false,
+  autofocus = false,
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <SimpleSelect name="testSelect" id="testSelect">
+      <SimpleSelect
+        openOnFocus={openOnFocus}
+        autoFocus={autofocus}
+        name="testSelect"
+        id="testSelect"
+      >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
         <Option value="opt3" text="blue" />

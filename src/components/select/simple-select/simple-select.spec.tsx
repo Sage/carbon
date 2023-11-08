@@ -21,7 +21,7 @@ import SelectTextbox from "../select-textbox";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
-
+jest.useFakeTimers();
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
 
 function getSelect(props: Partial<SimpleSelectProps> = {}) {
@@ -45,7 +45,10 @@ function simulateSelectTextboxEvent(
 ) {
   const selectText = container.find('input[type="text"]').first();
 
-  selectText.simulate(eventType);
+  act(() => {
+    selectText.simulate(eventType);
+    if (eventType === "focus") jest.runOnlyPendingTimers();
+  });
 }
 
 function simulateKeyDown(
@@ -678,14 +681,13 @@ describe("SimpleSelect", () => {
 
     describe("and another keys are typed with a long break before the last change", () => {
       it("then the first option with text starting the last typed character should be selected", () => {
-        jest.useFakeTimers();
         const wrapper = renderSelect();
 
         act(() => {
           simulateSelectTextboxEvent(wrapper, "focus");
           simulateKeyDown(wrapper, "b");
           simulateKeyDown(wrapper, "l");
-          jest.runAllTimers();
+          jest.runOnlyPendingTimers();
           simulateKeyDown(wrapper, "g");
         });
 
