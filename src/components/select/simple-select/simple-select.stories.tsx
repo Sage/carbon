@@ -1,9 +1,16 @@
 import React, { useState, useRef } from "react";
-import { Select, Option, OptionRow, OptionGroupHeader } from "..";
+import {
+  Select,
+  Option,
+  OptionRow,
+  OptionGroupHeader,
+  CustomSelectChangeEvent,
+} from "..";
 import Button from "../../button";
 import Icon from "../../icon";
 import CarbonProvider from "../../carbon-provider";
 import Box from "../../box";
+import Typography from "../../typography";
 
 export const Default = () => (
   <Select name="simple" id="simple" label="color" labelInline>
@@ -697,3 +704,41 @@ export const WithMultipleColumnsAndVirtualisation = () => (
 WithMultipleColumnsAndVirtualisation.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const SelectionConfirmedStory = () => {
+  const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+  return (
+    <Box p={1}>
+      <Typography variant="strong">
+        Selection Confirmed:{" "}
+        {selectionConfirmed ? (
+          <Icon type="tick" bg="primary" color="white" />
+        ) : (
+          <Icon type="cross" bg="red" color="white" />
+        )}
+      </Typography>
+      <Select
+        onChange={(ev: CustomSelectChangeEvent) => {
+          setSelectionConfirmed(!!ev.selectionConfirmed);
+        }}
+        name="selection confirmed"
+        id="selection confirmed"
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
+  );
+};
+
+SelectionConfirmedStory.parameters = { chromatic: { disableSnapshot: true } };

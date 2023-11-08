@@ -915,6 +915,7 @@ context("Tests for MultiSelect component", () => {
       selectOption(positionOfElement(position)).click();
       cy.get("@onChange").should("have.been.calledWith", {
         target: { value: option },
+        selectionConfirmed: true,
       });
     });
 
@@ -1097,6 +1098,141 @@ context("Tests for MultiSelect component", () => {
          This can be refactored once this is implemented. */
       cy.get("p").should("be.visible").should("have.text", "Error");
     });
+  });
+
+  describe("selection confirmed", () => {
+    it("is set on the event when options are clicked", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectListText("One").click();
+      selectListText("Five").click();
+      selectListText("Seven").click();
+
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 3);
+      cy.get('[data-element="confirmed-selection-1"]').should("exist");
+      cy.get('[data-element="confirmed-selection-5"]').should("exist");
+      cy.get('[data-element="confirmed-selection-7"]').should("exist");
+    });
+
+    it("is set on the event when Enter key is pressed on an option using ArrowDown key to navigate", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 4);
+      cy.get('[data-element="confirmed-selection-1"]').should("exist");
+      cy.get('[data-element="confirmed-selection-3"]').should("exist");
+      cy.get('[data-element="confirmed-selection-5"]').should("exist");
+      cy.get('[data-element="confirmed-selection-6"]').should("exist");
+    });
+
+    it("is set on the event when Enter key is pressed on an option using ArrowUp key to navigate", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowUp");
+      selectInput().realPress("Enter");
+
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 4);
+      cy.get('[data-element="confirmed-selection-9"]').should("exist");
+      cy.get('[data-element="confirmed-selection-7"]').should("exist");
+      cy.get('[data-element="confirmed-selection-5"]').should("exist");
+      cy.get('[data-element="confirmed-selection-4"]').should("exist");
+    });
+
+    it("is set on the event when the selected options are removed via Backspace key", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 4);
+
+      selectInput().realPress("Backspace");
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 3);
+      selectInput().realPress("Backspace");
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 2);
+      selectInput().realPress("Backspace");
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 1);
+      selectInput().realPress("Backspace");
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 0);
+    });
+
+    it("is set on the event when the selected options are removed via clicking close icon of Pills", () => {
+      CypressMountWithProviders(<stories.SelectionConfirmed />);
+
+      dropdownButton().click();
+      selectListText("One").click();
+      selectListText("Five").click();
+      selectListText("Seven").click();
+
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 3);
+      pillCloseIcon().eq(2).click();
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 2);
+      pillCloseIcon().eq(1).click();
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 1);
+      pillCloseIcon().eq(0).click();
+      cy.get('[data-element="confirmed-selections"]')
+        .children()
+        .should("have.length", 0);
+    });
+  });
+
+  it("should not add an empty Pill when filter text does not match option text", () => {
+    CypressMountWithProviders(<stories.MultiSelectComponent />);
+
+    multiSelectPill().should("not.exist");
+    commonDataElementInputPreview().type("abc");
+    selectInput().realPress("Enter");
+    multiSelectPill().should("not.exist");
   });
 
   describe("Accessibility tests for MultiSelect component", () => {
