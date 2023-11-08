@@ -754,6 +754,15 @@ context("Tests for SplitButton component", () => {
       cy.checkAccessibility();
     });
 
+    // TODO: test passes even when it shouldn't, see FE-6267
+    it("should pass accessibility tests for SplitButton Default story when open", () => {
+      CypressMountWithProviders(<SplitButtonList />);
+
+      splitToggleButton().eq(0).trigger("keydown", keyCode("downarrow"));
+
+      cy.checkAccessibility();
+    });
+
     it("should pass accessibility tests for SplitButton Default story when the additional buttons are opened", () => {
       CypressMountWithProviders(<SplitButtonList />);
 
