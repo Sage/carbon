@@ -1,3 +1,10 @@
+### [123.5.1](https://github.com/Sage/carbon/compare/v123.5.0...v123.5.1) (2023-11-08)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** fix aria role ([c16a1e4](https://github.com/Sage/carbon/commit/c16a1e4357518a122681675875999d61408a60b8)), closes [#6383](https://github.com/Sage/carbon/issues/6383)
+
 ## [123.5.0](https://github.com/Sage/carbon/compare/v123.4.4...v123.5.0) (2023-11-07)
 
 
