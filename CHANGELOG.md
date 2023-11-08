@@ -1,3 +1,16 @@
+## [123.7.0](https://github.com/Sage/carbon/compare/v123.6.0...v123.7.0) (2023-11-08)
+
+
+### Features
+
+* **select:** add selectionConfirmed property to event emitted on change ([748a17b](https://github.com/Sage/carbon/commit/748a17b8185a2d9a2bd58843efbd4a10739c2e8d)), closes [#6330](https://github.com/Sage/carbon/issues/6330)
+
+
+### Bug Fixes
+
+* **filterable-select, multi-select:** handle when filter text has no match and enter pressed ([84ebef7](https://github.com/Sage/carbon/commit/84ebef7df4573d3205db9ebd424d88c2a26f4c3e))
+* **option:** ensure fill prop is not passed to underlying DOM element ([2a8cfc1](https://github.com/Sage/carbon/commit/2a8cfc11bae33c52496a65741ad02a339989beff))
+
 ## [123.6.0](https://github.com/Sage/carbon/compare/v123.5.1...v123.6.0) (2023-11-08)
 
 
