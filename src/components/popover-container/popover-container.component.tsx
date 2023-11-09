@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { PaddingProps } from "styled-system";
 import { Transition, TransitionStatus } from "react-transition-group";
 import { flip, offset } from "@floating-ui/dom";
@@ -16,6 +16,7 @@ import Popover from "../../__internal__/popover";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
+import Events from "../../__internal__/utils/helpers/events";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -168,6 +169,38 @@ export const PopoverContainer = ({
       setTimeout(() => closeButtonRef.current?.focus(), 0);
   }, [isOpen]);
 
+  const closePopover = useCallback(
+    (ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+      if (!isControlled) setIsOpenInternal(!isOpen);
+      if (onClose) onClose(ev);
+      if (isOpen && openButtonRef.current) openButtonRef.current.focus();
+    },
+    [isControlled, isOpen, onClose]
+  );
+
+  const handleEscKey = useCallback(
+    (ev) => {
+      const eventIsFromSelectInput = Events.composedPath(ev).find((element) => {
+        return (
+          element instanceof HTMLElement &&
+          element.getAttribute("data-element") === "input" &&
+          element.getAttribute("aria-expanded") === "true"
+        );
+      });
+
+      if (!eventIsFromSelectInput && Events.isEscKey(ev)) closePopover(ev);
+    },
+    [closePopover]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscKey);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+    };
+  }, [handleEscKey]);
+
   const handleOpenButtonClick = (
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
   ) => {
@@ -182,9 +215,7 @@ export const PopoverContainer = ({
   const handleCloseButtonClick = (
     e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
   ) => {
-    if (!isControlled) setIsOpenInternal(!isOpen);
-    if (onClose) onClose(e);
-    if (isOpen && openButtonRef.current) openButtonRef.current.focus();
+    closePopover(e);
   };
 
   const renderOpenComponentProps = {
