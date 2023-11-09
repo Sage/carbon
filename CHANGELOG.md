@@ -1,3 +1,10 @@
+### [123.7.1](https://github.com/Sage/carbon/compare/v123.7.0...v123.7.1) (2023-11-09)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure that component is closed when Esc key is pressed ([4c33cd3](https://github.com/Sage/carbon/commit/4c33cd3ee4ff002d6e706e90d7233828c5088107)), closes [#6195](https://github.com/Sage/carbon/issues/6195)
+
 ## [123.7.0](https://github.com/Sage/carbon/compare/v123.6.0...v123.7.0) (2023-11-08)
 
 
