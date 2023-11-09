@@ -7,6 +7,7 @@ import {
   GridProps,
 } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
+import { Gap } from "style/utils/box-gap";
 import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,
@@ -17,13 +18,9 @@ import {
 import StyledBox from "./box.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
-const GAP_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
-
 export type OverflowWrap = "break-word" | "anywhere";
 export type ScrollVariant = "light" | "dark";
 export type BoxSizing = "content-box" | "border-box";
-export type AllowedNumericalValues = typeof GAP_VALUES[number];
-export type Gap = AllowedNumericalValues | string;
 
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;

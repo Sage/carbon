@@ -7,6 +7,7 @@ import {
   position as positionFn,
   PositionProps,
 } from "styled-system";
+import boxGap from "../../style/utils/box-gap";
 import BaseTheme from "../../style/themes/base";
 import styledColor from "../../style/utils/color";
 import { BoxProps } from "./box.component";
@@ -87,17 +88,17 @@ const StyledBox = styled.div<BoxProps>`
     css`
       ${gap !== undefined &&
       css`
-        gap: ${boxConfig.gap(gap)};
+        gap: ${boxGap(gap)};
       `}
 
       ${columnGap !== undefined &&
       css`
-        column-gap: ${boxConfig.gap(columnGap)};
+        column-gap: ${boxGap(columnGap)};
       `}
 
       ${rowGap !== undefined &&
       css`
-        row-gap: ${boxConfig.gap(rowGap)};
+        row-gap: ${boxGap(rowGap)};
       `}
     `};
 
