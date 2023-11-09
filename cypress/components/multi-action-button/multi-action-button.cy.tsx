@@ -720,6 +720,15 @@ context("Tests for MultiActionButton component", () => {
       cy.checkAccessibility();
     });
 
+    // TODO: test passes even when it shouldn't, see FE-6267
+    it("should pass accessibility tests for MultiActionButton when open", () => {
+      CypressMountWithProviders(<MultiActionButtonList />);
+
+      multiActionButton().eq(0).trigger("keydown", keyCode("Enter"));
+
+      cy.checkAccessibility();
+    });
+
     it("should pass accessibility tests for MultiActionButton disabled prop", () => {
       CypressMountWithProviders(<MultiActionButtonList disabled />);
 

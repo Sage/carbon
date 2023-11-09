@@ -6,6 +6,7 @@ import Textbox, { CommonTextboxProps } from "../../textbox";
 import SelectText from "../__internal__/select-text";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../__internal__/validations";
+import { CustomSelectChangeEvent } from "../simple-select/simple-select.component";
 
 const floatingMiddleware = [
   offset(({ rects }) => ({
@@ -21,7 +22,7 @@ const floatingMiddleware = [
 
 export interface FormInputPropTypes
   extends ValidationProps,
-    Omit<CommonTextboxProps, "onClick"> {
+    Omit<CommonTextboxProps, "onClick" | "onChange"> {
   /** Breakpoint for adaptive label (inline labels change to top aligned). Enables the adaptive behaviour when set */
   adaptiveLabelBreakpoint?: number;
   /** Prop to specify the aria-label attribute of the component input */
@@ -49,7 +50,9 @@ export interface FormInputPropTypes
   /** Specify a callback triggered on blur */
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on change */
-  onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
+  ) => void;
   /** Specify a callback triggered on click */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on focus */

@@ -700,6 +700,7 @@ describe("SimpleSelect", () => {
           id: "testId",
         };
         const mockEventObject = {
+          selectionConfirmed: false,
           target: {
             ...textboxProps,
             value: "opt3",
@@ -720,17 +721,20 @@ describe("SimpleSelect", () => {
       value: "opt2",
       text: "green",
       selectionType: "navigationKey",
+      selectionConfirmed: false,
     };
     const clickOptionObject = {
       value: "opt2",
       text: "green",
       selectionType: "click",
+      selectionConfirmed: true,
     };
     const textboxProps = {
       name: "testName",
       id: "testId",
     };
     const expectedEventObject = {
+      selectionConfirmed: true,
       target: {
         ...textboxProps,
         value: "opt2",
@@ -894,6 +898,7 @@ describe("SimpleSelect", () => {
       value: "opt3",
       text: "black",
       selectionType: "click",
+      selectionConfirmed: true,
     };
 
     beforeEach(() => {
@@ -910,7 +915,10 @@ describe("SimpleSelect", () => {
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
-        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+        expect(onChangeFn).toHaveBeenCalledWith({
+          selectionConfirmed: true,
+          ...expectedObject,
+        });
       });
     });
 
@@ -925,7 +933,10 @@ describe("SimpleSelect", () => {
       });
 
       it("then the onChange function should have been called with with the expected value", () => {
-        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+        expect(onChangeFn).toHaveBeenCalledWith({
+          selectionConfirmed: false,
+          ...expectedObject,
+        });
       });
     });
 

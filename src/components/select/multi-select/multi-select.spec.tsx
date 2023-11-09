@@ -77,6 +77,21 @@ describe("MultiSelect", () => {
     ).toBe(placeholder);
   });
 
+  it("should not render an empty Pill when non-matching filter text is input and enter key pressed", () => {
+    const wrapper = renderSelect({});
+
+    act(() => {
+      wrapper.find(Textbox).prop("onChange")?.({
+        target: { value: "foo" },
+      } as React.ChangeEvent<HTMLInputElement>);
+      wrapper.find(Textbox).prop("onKeyDown")?.({
+        key: "Enter",
+      } as React.KeyboardEvent<HTMLInputElement>);
+    });
+
+    expect(wrapper.find(Pill).exists()).toBe(false);
+  });
+
   describe("when an HTML element is clicked", () => {
     let wrapper: ReactWrapper;
     let domNode: HTMLElement;
@@ -484,6 +499,7 @@ describe("MultiSelect", () => {
           value: "opt3",
           text: "blue",
           selectionType: "enter",
+          selectionConfirmed: true,
         };
         const changeEventObject = { target: { value: "b" } };
 
@@ -749,17 +765,20 @@ describe("MultiSelect", () => {
       value: "opt1",
       text: "red",
       selectionType: "enter",
+      selectionConfirmed: true,
     };
     const mockNavigationKeyOptionObject = {
       value: "opt1",
       text: "red",
       selectionType: "navigationKey",
+      selectionConfirmed: false,
     };
     const textboxProps = {
       name: "testName",
       id: "testId",
     };
     const expectedEventObject = {
+      selectionConfirmed: true,
       target: {
         ...textboxProps,
         value: ["opt1"],
@@ -958,6 +977,7 @@ describe("MultiSelect", () => {
 
   describe("when the component is controlled", () => {
     const expectedObject = {
+      selectionConfirmed: true,
       target: {
         id: "testSelect",
         name: "testSelect",
@@ -969,6 +989,7 @@ describe("MultiSelect", () => {
       value: "opt2",
       text: "black",
       selectionType: "click",
+      selectionConfirmed: true,
     };
 
     describe("and an option is selected", () => {
@@ -1069,12 +1090,14 @@ describe("MultiSelect", () => {
       value: "opt1",
       text: "red",
       selectionType: "enter",
+      selectionConfirmed: true,
     };
     const textboxProps = {
       name: "testName",
       id: "testId",
     };
     const expectedEventObject = {
+      selectionConfirmed: true,
       target: {
         ...textboxProps,
         value: ["opt1"],
