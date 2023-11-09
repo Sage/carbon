@@ -280,7 +280,7 @@ export const Filter: ComponentStory<typeof PopoverContainer> = () => {
     });
   };
   return (
-    <div style={{ height: 280 }}>
+    <Box margin={2} height="280px">
       <PopoverContainer
         title="How to create Filter component"
         open={open}
@@ -311,6 +311,6 @@ export const Filter: ComponentStory<typeof PopoverContainer> = () => {
         </Button>
       </PopoverContainer>
       {renderPills()}
-    </div>
+    </Box>
   );
 };
