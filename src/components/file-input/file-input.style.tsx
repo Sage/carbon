@@ -59,7 +59,7 @@ export const StyledFileInputPresentation = styled.div<StyledFileInputPresentatio
         border: var(--${borderWidthToken}) dashed var(--${borderColorToken});
         background: var(--${backgroundColorToken});
         ${StyledTypography} {
-          color: var("colorsUtilityYin055");
+          color: var(--colorsUtilityYin055);
         }
       `
     );
