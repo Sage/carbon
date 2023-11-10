@@ -41,13 +41,13 @@ export interface FileInputProps
   isVertical?: boolean;
   /** Label content */
   label?: string;
-  /** A valid CSS string for the max-height CSS property. Defaults to 40px. */
+  /** A valid CSS string for the max-height CSS property. Defaults to the same as the minHeight. */
   maxHeight?: string;
-  /** A valid CSS string for the max-width CSS property. Defaults to 273px. */
+  /** A valid CSS string for the max-width CSS property. Defaults to the same as the minWidth. */
   maxWidth?: string;
-  /** A valid CSS string for the min-height CSS property. Defaults to the same as the maxHeight. */
+  /** A valid CSS string for the min-height CSS property. Defaults to 40px. */
   minHeight?: string;
-  /** A valid CSS string for the min-width CSS property. Defaults to the same as the maxWidth. */
+  /** A valid CSS string for the min-width CSS property. Defaults to 256px. */
   minWidth?: string;
   /** onChange event handler. Accepts a list of all files currently entered to the input. */
   onChange: (files: FileList) => void;
@@ -71,7 +71,7 @@ export const FileInput = React.forwardRef(
       maxHeight,
       maxWidth,
       minHeight = "40px",
-      minWidth = "273px",
+      minWidth = "256px",
       name,
       onChange,
       required,
