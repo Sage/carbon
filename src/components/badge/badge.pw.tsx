@@ -52,7 +52,7 @@ test.describe("should render Badge component", () => {
     });
   });
 
-  test("badge should display cross icon when hovered over", async ({
+  test("badge should display cross icon and default background colour when hovered over", async ({
     mount,
     page,
   }) => {
@@ -62,6 +62,23 @@ test.describe("should render Badge component", () => {
 
     await expect(badge(page)).toHaveCSS("background-color", "rgb(0, 126, 69)");
     await expect(badgeCrossIcon(page)).toBeVisible();
+  });
+
+  test("badge should display correct background colour when hovered over with customColor prop passed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <BadgeComponent
+        onClick={() => {}}
+        counter={99}
+        color="--colorsSemanticNegative500"
+      />
+    );
+
+    await badgeCounter(page).hover();
+
+    await expect(badge(page)).toHaveCSS("background-color", "rgb(203, 55, 74)");
   });
 
   test("badge should not display cross icon when hovered over with no onClick function passed to component", async ({
