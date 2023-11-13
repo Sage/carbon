@@ -8,7 +8,12 @@ export interface PillProps extends StyledPillProps {
   /** The content to display inside of the pill.  */
   children: string;
   /** Change the color of a status pill. */
-  colorVariant?: "neutral" | "negative" | "positive" | "warning";
+  colorVariant?:
+    | "neutral"
+    | "negative"
+    | "positive"
+    | "warning"
+    | "information";
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */

@@ -26,6 +26,7 @@ const modernStyleTypes = [
   "negative",
   "positive",
   "warning",
+  "information",
 ] as const;
 
 describe("Pill", () => {

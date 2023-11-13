@@ -363,7 +363,7 @@ export const Status: ComponentStory<typeof Pill> = () => {
           warning
         </Pill>
       </Box>
-      <Box>
+      <Box mb={1}>
         <Pill pillRole="status" colorVariant="warning" size="XL" mr={1}>
           warning
         </Pill>
@@ -387,6 +387,109 @@ export const Status: ComponentStory<typeof Pill> = () => {
           fill
         >
           warning
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill pillRole="status" colorVariant="information" size="S" mr={1}>
+          information
+        </Pill>
+        <Pill pillRole="status" colorVariant="information" size="S" fill mr={1}>
+          information
+        </Pill>
+        <Pill
+          pillRole="status"
+          colorVariant="information"
+          size="S"
+          onDelete={noop}
+          mr={1}
+        >
+          information
+        </Pill>
+        <Pill
+          pillRole="status"
+          colorVariant="information"
+          size="S"
+          onDelete={noop}
+          fill
+        >
+          information
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill pillRole="status" colorVariant="information" mr={1}>
+          information
+        </Pill>
+        <Pill pillRole="status" colorVariant="information" fill mr={1}>
+          information
+        </Pill>
+        <Pill
+          pillRole="status"
+          colorVariant="information"
+          onDelete={noop}
+          mr={1}
+        >
+          information
+        </Pill>
+        <Pill pillRole="status" colorVariant="information" onDelete={noop} fill>
+          information
+        </Pill>
+      </Box>
+      <Box mb={1}>
+        <Pill pillRole="status" colorVariant="information" size="L" mr={1}>
+          information
+        </Pill>
+        <Pill pillRole="status" colorVariant="information" size="L" fill mr={1}>
+          information
+        </Pill>
+        <Pill
+          pillRole="status"
+          colorVariant="information"
+          size="L"
+          onDelete={noop}
+          mr={1}
+        >
+          information
+        </Pill>
+        <Pill
+          pillRole="status"
+          colorVariant="information"
+          size="L"
+          onDelete={noop}
+          fill
+        >
+          information
+        </Pill>
+      </Box>
+      <Box>
+        <Pill pillRole="status" colorVariant="information" size="XL" mr={1}>
+          information
+        </Pill>
+        <Pill
+          pillRole="status"
+          colorVariant="information"
+          size="XL"
+          fill
+          mr={1}
+        >
+          information
+        </Pill>
+        <Pill
+          pillRole="status"
+          colorVariant="information"
+          size="XL"
+          onDelete={noop}
+          mr={1}
+        >
+          information
+        </Pill>
+        <Pill
+          pillRole="status"
+          colorVariant="information"
+          size="XL"
+          onDelete={noop}
+          fill
+        >
+          information
         </Pill>
       </Box>
     </>

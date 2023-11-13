@@ -10,6 +10,7 @@ interface StyledPillConfig {
     negative: StyledPillInnerConfigProps;
     warning: StyledPillInnerConfigProps;
     positive: StyledPillInnerConfigProps;
+    information: StyledPillInnerConfigProps;
   };
   tag: {
     primary: StyledPillInnerConfigProps;
@@ -38,6 +39,11 @@ export default (): StyledPillConfig => {
         varietyColor: "var(--colorsSemanticPositive500)",
         buttonFocus: "var(--colorsSemanticPositive600)",
         content: "var(--colorsSemanticPositiveYang100)",
+      },
+      information: {
+        varietyColor: "var(--colorsSemanticInfo500)",
+        buttonFocus: "var(--colorsSemanticInfo600)",
+        content: "var(--colorsSemanticInfoYang100)",
       },
     },
     tag: {

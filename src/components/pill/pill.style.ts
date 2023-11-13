@@ -25,7 +25,7 @@ export interface StyledPillProps extends MarginProps {
 interface AllStyledPillProps extends StyledPillProps {
   inFill?: boolean;
   isDeletable: boolean;
-  colorVariant: "neutral" | "negative" | "positive" | "warning";
+  colorVariant: "neutral" | "negative" | "positive" | "warning" | "information";
   pillRole: "tag" | "status";
 }
 
