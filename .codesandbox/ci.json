@@ -4,5 +4,5 @@
     "carbon-quickstart-typescript-6sjfuz"
   ],
   "buildCommand": "precompile",
-  "node": "16"
+  "node": "18"
 }

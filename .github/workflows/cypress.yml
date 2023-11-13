@@ -17,14 +17,14 @@ jobs:
         # run 5 copy of the current job in parallel
         containers: [1, 2, 3, 4, 5]
     container:
-      image: cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
       options: --user 1001
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
-          node-version: ">=18.12.1 18"
+          node-version: ">=20.9.0 20"
 
       - name: Cache central NPM modules
         uses: actions/cache@v3

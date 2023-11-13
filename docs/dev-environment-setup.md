@@ -35,10 +35,18 @@ Below are some useful extensions that we recommend using with Carbon:
 
 ### Node.js & NPM
 
-The recommended way to install `node` and `npm` is using [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm).
-Once you have installed `nvm`, you should run `nvm install lts/hydrogen` which will install a suitable version of `node` and `npm`.
+**NOTE: Carbon requires all contributors be on Node version 20 ("iron").**
 
-You can check your installation using `node --version` and `npm --v`.
+The recommended way to install Node and npm is using [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm).
+Once you have installed nvm, you should run:
+
+```sh
+nvm install lts/iron
+```
+
+which will install the correct version of Node and npm. You can verify the installed versions using `node --version` and `npm --v`.
+
+> If you are already a `nvm` user, you can also do `nvm use` which will automatically switch to the correct Node and npm versions.
 
 ### Git
 
@@ -57,11 +65,11 @@ Pluralsight also offers excellent training courses ranging from beginner to adva
 
 You need to add the following to `~/.gitconfig`:
 
-````shell
+```shell
 [alias]
         pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
         pr-clean = "!git checkout master ; git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
-````
+```
 
 This allows you to review PRs very easily. For example, if you are reviewing [https://github.com/Sage/carbon/pull/2408/](https://github.com/Sage/carbon/pull/2408/), you can use `git pr 2408` which will check out a new branch named pr/2408. This gives you the ability to review, change branches, merge and make experimental changes. The second command `git pr-clean` removes all branches that start with pr/. This is a useful for housekeeping of branches.
 
