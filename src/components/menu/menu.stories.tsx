@@ -259,7 +259,7 @@ export const WithIconStory: ComponentStory<typeof Menu> = () => (
   </Box>
 );
 
-WithIconStory.parameters = { chromatic: { disableSnapshot: true } };
+WithIconStory.parameters = { chromatic: { disableSnapshot: false } };
 
 export const NoDropdwonArrowOnSubmenuStory: ComponentStory<
   typeof Menu
