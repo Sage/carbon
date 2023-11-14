@@ -132,9 +132,10 @@ export const SegmentTitleStory: ComponentStory<typeof Menu> = () => (
           <MenuItem href="#">Menu Item Two</MenuItem>
           <MenuItem submenu="Menu Item Three">
             <MenuItem href="#">Item Submenu One</MenuItem>
-            <MenuSegmentTitle>segment title</MenuSegmentTitle>
-            <MenuItem href="#">Item Submenu Two</MenuItem>
-            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuSegmentTitle text="segment title">
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuItem href="#">Item Submenu Three</MenuItem>
+            </MenuSegmentTitle>
           </MenuItem>
         </Menu>
       </Box>
@@ -157,15 +158,14 @@ export const AlternateColourStory: ComponentStory<typeof Menu> = () => (
           <MenuItem submenu="Menu Item Three">
             <MenuItem href="#">Item Submenu One</MenuItem>
             <MenuDivider size="large" />
-            <MenuSegmentTitle variant="alternate">
-              segment title
+            <MenuSegmentTitle text="segment title" variant="alternate">
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Two
+              </MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Three
+              </MenuItem>
             </MenuSegmentTitle>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Two
-            </MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Three
-            </MenuItem>
           </MenuItem>
         </Menu>
       </Box>
@@ -449,22 +449,21 @@ export const SubmenuWithSearch: ComponentStory<typeof Menu> = () => (
           <MenuItem submenu="Menu Item Three">
             <MenuItem href="#">Item Submenu One</MenuItem>
             <MenuDivider size="large" />
-            <MenuSegmentTitle variant="alternate">
-              segment title
+            <MenuSegmentTitle text="segment title" variant="alternate">
+              <MenuItem variant="alternate" p="2px 16px">
+                <Search
+                  placeholder="Dark variant"
+                  variant="dark"
+                  defaultValue=""
+                />
+              </MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Two
+              </MenuItem>
+              <MenuItem variant="alternate" href="#">
+                Item Submenu Three
+              </MenuItem>
             </MenuSegmentTitle>
-            <MenuItem variant="alternate" p="2px 16px">
-              <Search
-                placeholder="Dark variant"
-                variant="dark"
-                defaultValue=""
-              />
-            </MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Two
-            </MenuItem>
-            <MenuItem variant="alternate" href="#">
-              Item Submenu Three
-            </MenuItem>
           </MenuItem>
         </Menu>
       </Box>
