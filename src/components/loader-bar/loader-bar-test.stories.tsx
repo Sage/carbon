@@ -30,10 +30,6 @@ export const DefaultStory = ({ ...args }: LoaderBarProps) => {
 
 DefaultStory.storyName = "default";
 
-export const LoaderBarComponentTest = (props: LoaderBarProps) => {
-  return <LoaderBar mt={2} size="medium" {...props} />;
-};
-
 export const LoaderBarWithMinHeight: ComponentStory<typeof LoaderBar> = () => {
   return (
     <Box p={3}>
