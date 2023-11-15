@@ -1,3 +1,10 @@
+## [123.9.0](https://github.com/Sage/carbon/compare/v123.8.0...v123.9.0) (2023-11-15)
+
+
+### Features
+
+* **portrait, profile:** align with design system and reduce code complexity ([c37c6c1](https://github.com/Sage/carbon/commit/c37c6c1e9cec1308a36b2daced831df0a5d77a46)), closes [#6191](https://github.com/Sage/carbon/issues/6191)
+
 ## [123.8.0](https://github.com/Sage/carbon/compare/v123.7.2...v123.8.0) (2023-11-15)
 
 
