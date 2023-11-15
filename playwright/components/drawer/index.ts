@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import { DRAWER, DRAWER_SIDEBAR, DRAWER_TOGGLE } from "./locators";
 
 // component preview locators

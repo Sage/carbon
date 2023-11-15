@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import {
   MULTI_ACTION_BUTTON_LIST,
   MULTI_ACTION_BUTTON_COMPONENT,

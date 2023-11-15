@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import {
   ANCHOR_NAVIGATION,
   ANCHOR_NAVIGATION_STICKY_NAVIGATION,

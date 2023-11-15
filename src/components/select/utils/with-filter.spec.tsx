@@ -4,50 +4,44 @@ import withFilter, { FilteredComponentProps } from "./with-filter.hoc";
 import Option from "../option";
 import OptionRow from "../option-row/option-row.component";
 
-const ListComponent = ({ children }: FilteredComponentProps) => {
-  return <ul data-element="select-list">{children}</ul>;
-};
-
-const TableListComponent = ({ children }: FilteredComponentProps) => {
-  return (
-    <table>
-      <tbody data-element="select-list">{children}</tbody>
-    </table>
-  );
-};
-
-const FilteredListComponent = withFilter(ListComponent);
+const FilterableList = withFilter(({ children }: FilteredComponentProps) => (
+  <ul data-element="select-list">{children}</ul>
+));
 
 function renderFilteredOptions(
   props: FilteredComponentProps,
   renderer = mount
 ) {
   return renderer(
-    <FilteredListComponent {...props}>
+    <FilterableList {...props}>
       <Option text="red" id="0" value="0" />
       <Option text="blue" id="1" value="1" />
       <Option text="green" id="2" value="2" />
       <Option text="black" id="3" value="3" />
       <Option text="purple" id="4" value="4" />
       <Option text="brown" id="5" value="5" />
-    </FilteredListComponent>
+    </FilterableList>
   );
 }
 
-const FilteredTableListComponent = withFilter(TableListComponent);
+const FilterableTable = withFilter(({ children }: FilteredComponentProps) => (
+  <table>
+    <tbody data-element="select-list">{children}</tbody>
+  </table>
+));
 
 function renderFilteredOptionRows(
   props: FilteredComponentProps,
   renderer = mount
 ) {
   return renderer(
-    <FilteredTableListComponent multiColumn {...props}>
+    <FilterableTable multiColumn {...props}>
       <OptionRow text="amber" id="0" value="0">
         <td>
-          <div />
+          <span>Amber</span>
         </td>
         <td>
-          <div />
+          <span>Light</span>
         </td>
       </OptionRow>
       <OptionRow text="blue" id="1" value="1">
@@ -70,20 +64,20 @@ function renderFilteredOptionRows(
         <td>Brown</td>
         <td>Dark</td>
       </OptionRow>
-    </FilteredTableListComponent>
+    </FilterableTable>
   );
 }
 
 function renderOtherChildren(props: FilteredComponentProps, renderer = mount) {
   return renderer(
-    <FilteredListComponent {...props}>
+    <FilterableList {...props}>
       <Option text="amber" value="amber" />
       <Option text="blue" value="blue" />
       <Option text="green" value="green" />
       <Option text="black" value="black" />
       <Option text="purple" value="purple" />
       <Option text="brown" value="brown" />
-    </FilteredListComponent>
+    </FilterableList>
   );
 }
 
