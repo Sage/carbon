@@ -1,6 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import Pill, { PillProps } from "./pill.component";
+import Box from "../box";
 
 export default {
   title: "Pill/Test",
@@ -24,7 +25,7 @@ export default {
       },
     },
     colorVariant: {
-      options: ["neutral", "negative", "positive", "warning"],
+      options: ["neutral", "negative", "positive", "warning", "information"],
       control: {
         type: "select",
       },
@@ -57,6 +58,24 @@ export const PillComponent = ({
   return <Pill {...args}>{children}</Pill>;
 };
 
+export const StatusDarkBackground = ({
+  children,
+  onDelete,
+  ...args
+}: PillStoryArgs) => {
+  return (
+    <Box backgroundColor="#262626" p={2} width="100px">
+      <Pill
+        isDarkBackground
+        onDelete={onDelete ? action("delete") : undefined}
+        {...args}
+      >
+        {children}
+      </Pill>
+    </Box>
+  );
+};
+
 Default.story = {
   name: "default",
   args: {
@@ -70,6 +89,32 @@ Default.story = {
     onDelete: false,
     size: "M",
     pillRole: "tag",
+    colorVariant: "neutral",
+  },
+};
+
+StatusDarkBackground.story = {
+  argTypes: {
+    colorVariant: {
+      options: [
+        "neutral",
+        "negative",
+        "positive",
+        "warning",
+        "information",
+        "neutralWhite",
+      ],
+      control: {
+        type: "select",
+      },
+    },
+  },
+  args: {
+    children: "Pill",
+    fill: true,
+    onDelete: true,
+    size: "M",
+    pillRole: "status",
     colorVariant: "neutral",
   },
 };

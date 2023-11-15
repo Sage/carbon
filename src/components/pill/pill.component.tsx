@@ -13,7 +13,10 @@ export interface PillProps extends StyledPillProps {
     | "negative"
     | "positive"
     | "warning"
-    | "information";
+    | "information"
+    | "neutralWhite";
+  /** Sets the colour styling when a status pill is rendered on a dark background. */
+  isDarkBackground?: boolean;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -36,10 +39,13 @@ export interface PillProps extends StyledPillProps {
   title?: string;
 }
 
+let neutralWhiteWarnTriggered = false;
+
 export const Pill = ({
   wrapText,
   borderColor,
   colorVariant = "neutral",
+  isDarkBackground = false,
   children,
   fill = false,
   maxWidth,
@@ -49,31 +55,48 @@ export const Pill = ({
   size = "M",
   ariaLabelOfRemoveButton = "remove pill",
   ...rest
-}: PillProps) => (
-  <StyledPill
-    inFill={fill}
-    colorVariant={colorVariant}
-    isDeletable={!!onDelete}
-    pillRole={pillRole}
-    size={size}
-    borderColor={borderColor}
-    onClick={onClick}
-    {...tagComponent("pill", rest)}
-    maxWidth={maxWidth}
-    wrapText={wrapText}
-    {...rest}
-  >
-    {children}
-    {onDelete && (
-      <IconButton
-        onClick={onDelete}
-        data-element="close"
-        aria-label={ariaLabelOfRemoveButton}
-      >
-        <Icon type="cross" />
-      </IconButton>
-    )}
-  </StyledPill>
-);
+}: PillProps) => {
+  if (
+    !neutralWhiteWarnTriggered &&
+    !isDarkBackground &&
+    colorVariant === "neutralWhite" &&
+    !fill
+  ) {
+    neutralWhiteWarnTriggered = true;
+    // eslint-disable-next-line no-console
+    console.warn(
+      "[WARNING] The `neutralWhite` variant should only be used on dark backgrounds with fill set to true. " +
+        "Please set the `isDarkBackground` and `fill` props to true or use another color variant."
+    );
+  }
+
+  return (
+    <StyledPill
+      inFill={fill}
+      colorVariant={colorVariant}
+      isDarkBackground={isDarkBackground}
+      isDeletable={!!onDelete}
+      pillRole={pillRole}
+      size={size}
+      borderColor={borderColor}
+      onClick={onClick}
+      {...tagComponent("pill", rest)}
+      maxWidth={maxWidth}
+      wrapText={wrapText}
+      {...rest}
+    >
+      {children}
+      {onDelete && (
+        <IconButton
+          onClick={onDelete}
+          data-element="close"
+          aria-label={ariaLabelOfRemoveButton}
+        >
+          <Icon type="cross" />
+        </IconButton>
+      )}
+    </StyledPill>
+  );
+};
 
 export default Pill;

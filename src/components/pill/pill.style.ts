@@ -25,7 +25,14 @@ export interface StyledPillProps extends MarginProps {
 interface AllStyledPillProps extends StyledPillProps {
   inFill?: boolean;
   isDeletable: boolean;
-  colorVariant: "neutral" | "negative" | "positive" | "warning" | "information";
+  isDarkBackground: boolean;
+  colorVariant:
+    | "neutral"
+    | "negative"
+    | "positive"
+    | "warning"
+    | "information"
+    | "neutralWhite";
   pillRole: "tag" | "status";
 }
 
@@ -45,6 +52,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
     wrapText,
     borderColor,
     colorVariant,
+    isDarkBackground,
     isDeletable,
     inFill,
     maxWidth,
@@ -68,7 +76,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
           ? "var(--colorsUtilityYin090)"
           : "var(--colorsUtilityYang100)";
       } else {
-        const { status, tag } = styleConfig();
+        const { status, tag } = styleConfig(isDarkBackground);
         const { varietyColor, buttonFocus, content } = isStatus
           ? status[colorVariant]
           : tag.primary;
@@ -114,7 +122,9 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
       ${!inFill &&
       css`
-        color: var(--colorsUtilityYin090);
+        color: ${!isDarkBackground
+          ? "var(--colorsUtilityYin090)"
+          : "var(--colorsUtilityYang100)"};
       `}
 
       ${size === "S" &&
@@ -248,7 +258,9 @@ const StyledPill = styled.span<AllStyledPillProps>`
           ${!inFill &&
           css`
             ${StyledIcon} {
-              color: var(--colorsUtilityYin090);
+              color: ${!isDarkBackground
+                ? "var(--colorsUtilityYin090)"
+                : "var(--colorsUtilityYang100)"};
             }
           `}
         }

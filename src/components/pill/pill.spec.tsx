@@ -20,6 +20,7 @@ import {
 } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
 import CarbonProvider from "../carbon-provider";
+import StyledIcon from "../icon/icon.style";
 
 const modernStyleTypes = [
   "neutral",
@@ -43,6 +44,25 @@ describe("Pill", () => {
       },
       wrapper
     );
+  });
+
+  describe("console warning", () => {
+    const loggerSpy = jest.spyOn(console, "warn");
+    const warningMessage =
+      "[WARNING] The `neutralWhite` variant should only be used on dark backgrounds with fill set to true. " +
+      "Please set the `isDarkBackground` and `fill` props to true or use another color variant.";
+
+    it("validates a warning message is logged in the console once", () => {
+      mount(
+        renderPillComponent({
+          children: "My Text",
+          colorVariant: "neutralWhite",
+        })
+      );
+
+      expect(loggerSpy).toHaveBeenCalledWith(warningMessage);
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe("when the children prop is passed to the component", () => {
@@ -316,7 +336,7 @@ describe("Pill", () => {
 
           describe("when pillRole is status", () => {
             const pillRole = "status";
-            const styleSet = styleConfig()[pillRole];
+            const styleSet = styleConfig(false)[pillRole];
             it(`matches the expected styles for a default ${theme.name} pill`, () => {
               const wrapper = mount(
                 renderPillComponent({
@@ -561,9 +581,10 @@ describe("Pill", () => {
               }
             );
           });
+
           describe("when pillRole is tag", () => {
             const pillRole = "tag";
-            const styleSet = styleConfig()[pillRole];
+            const styleSet = styleConfig(false)[pillRole];
 
             describe("when the component is deletable", () => {
               describe("when the component is in a filled state", () => {
@@ -586,6 +607,123 @@ describe("Pill", () => {
                     fillWrapper
                   );
                 });
+              });
+            });
+          });
+
+          describe("when pillRole is status and isDarkbackground prop is set to true", () => {
+            const pillRole = "status";
+            const styleSet = styleConfig(true)[pillRole];
+
+            describe.each(modernStyleTypes)(
+              'when colorVariant prop is "%s"',
+              (colorVariant) => {
+                it("component renders with expected styling", () => {
+                  const wrapper = mount(
+                    renderPillComponent({
+                      children: "My Text",
+                      colorVariant: colorVariant as keyof PillProps["colorVariant"],
+                      theme,
+                      pillRole,
+                      isDarkBackground: true,
+                    })
+                  );
+
+                  assertStyleMatch(
+                    {
+                      border: `2px solid ${styleSet[colorVariant].varietyColor}`,
+                      color: "var(--colorsUtilityYang100)",
+                    },
+                    wrapper
+                  );
+                });
+
+                it("when the component is deletable, matches the expected styling for Icon", () => {
+                  const wrapper = mount(
+                    renderPillComponent({
+                      children: "My Text",
+                      colorVariant: colorVariant as keyof PillProps["colorVariant"],
+                      onDelete: jest.fn(),
+                      theme,
+                      pillRole,
+                      isDarkBackground: true,
+                      fill: false,
+                    })
+                  );
+
+                  assertStyleMatch(
+                    {
+                      color: "var(--colorsUtilityYang100)",
+                    },
+                    wrapper.find(StyledPill),
+                    { modifier: `button ${StyledIcon}` }
+                  );
+                });
+
+                it("when the component is in a filled state, matches the expected filled styling", () => {
+                  const wrapper = mount(
+                    renderPillComponent({
+                      children: "My Text",
+                      colorVariant: colorVariant as keyof PillProps["colorVariant"],
+                      fill: true,
+                      theme,
+                      pillRole,
+                      isDarkBackground: true,
+                    })
+                  );
+
+                  assertStyleMatch(
+                    {
+                      backgroundColor: styleSet[colorVariant].varietyColor,
+                    },
+                    wrapper
+                  );
+                });
+              }
+            );
+
+            describe("when the pill style is set as neutralWhite", () => {
+              it("when the component is in a filled state, matches the expected filled styling", () => {
+                const wrapper = mount(
+                  renderPillComponent({
+                    children: "My Text",
+                    colorVariant: "neutralWhite",
+                    fill: true,
+                    theme,
+                    pillRole,
+                    isDarkBackground: true,
+                  })
+                );
+
+                assertStyleMatch(
+                  {
+                    backgroundColor: "var(--colorsSemanticNeutralYang100)",
+                    color: "var(--colorsSemanticNeutral500)",
+                  },
+                  wrapper
+                );
+              });
+
+              it("when the component is deletable and in a filled state, matches the expected styling for Icon", () => {
+                const wrapper = mount(
+                  renderPillComponent({
+                    children: "My Text",
+                    colorVariant: "neutralWhite",
+                    onDelete: jest.fn(),
+                    fill: true,
+                    theme,
+                    pillRole,
+                    isDarkBackground: true,
+                  })
+                );
+
+                assertStyleMatch(
+                  {
+                    color: "var(--colorsSemanticNeutral500)",
+                  },
+                  wrapper.find(StyledPill),
+                  { modifier: `button ${StyledIcon}` }
+                );
               });
             });
           });
