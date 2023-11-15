@@ -355,3 +355,5 @@ export const waitForAnimationEnd = (locator: Locator) =>
   locator.evaluate((element) =>
     Promise.all(element.getAnimations().map((animation) => animation.finished))
   );
+
+export type KeyIds = keyof typeof keys;
