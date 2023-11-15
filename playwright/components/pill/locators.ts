@@ -1,4 +1,3 @@
 // component preview locators
-const PILL_CLOSE_ICON = '[data-element="close"]';
-
-export default PILL_CLOSE_ICON;
+export const PILL_PREVIEW = '[data-component="pill"]';
+export const PILL_CLOSE_ICON = '[data-element="close"]';

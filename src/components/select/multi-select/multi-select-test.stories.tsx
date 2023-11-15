@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { MultiSelect, Option, MultiSelectProps } from "..";
+import React, { useState, useRef } from "react";
+import {
+  MultiSelect,
+  Option,
+  MultiSelectProps,
+  CustomSelectChangeEvent,
+} from "..";
 import partialAction from "../../../../.storybook/utils/partial-action";
 import OptionRow from "../option-row/option-row.component";
 import Button from "../../button/button.component";
@@ -10,6 +15,7 @@ import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 export default {
   component: MultiSelect,
   title: "Select/MultiSelect/Test",
+  excludeStories: ["SelectionConfirmed"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -154,7 +160,7 @@ export const MultiSelectLongPillComponent = (
 export const MultiSelectWithLazyLoadingComponent = (
   props: Partial<MultiSelectProps>
 ) => {
-  const preventLoading = React.useRef(false);
+  const preventLoading = useRef(false);
   const [value, setValue] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
@@ -200,9 +206,9 @@ export const MultiSelectWithLazyLoadingComponent = (
 export const MultiSelectLazyLoadTwiceComponent = (
   props: Partial<MultiSelectProps>
 ) => {
-  const preventLoading = React.useRef(false);
+  const preventLoading = useRef(false);
   const [value, setValue] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
@@ -258,7 +264,7 @@ export const MultiSelectObjectAsValueComponent = (
     { id: "Green", value: 5, text: "Green" },
   ]);
 
-  const optionList = React.useRef([
+  const optionList = useRef([
     <Option
       text="Amber"
       key="Amber"
@@ -587,5 +593,45 @@ export const MultiSelectErrorOnChangeNewValidation = () => {
         </MultiSelect>
       </Box>
     </CarbonProvider>
+  );
+};
+
+export const SelectionConfirmed = () => {
+  const [value, setValue] = useState<string[]>([]);
+  const [confirmedSelections, setConfirmedSelections] = useState<string[]>([]);
+
+  const handleChange = (event: CustomSelectChangeEvent) => {
+    setValue((event.target.value as unknown) as string[]);
+    if (event.selectionConfirmed) {
+      setConfirmedSelections((event.target.value as unknown) as string[]);
+    }
+  };
+  return (
+    <>
+      <MultiSelect
+        name="testing"
+        value={value}
+        onChange={handleChange}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+        <Option value="4" text="Four" />
+        <Option value="5" text="Five" />
+        <Option value="6" text="Six" />
+        <Option value="7" text="Seven" />
+        <Option value="8" text="Eight" />
+        <Option value="9" text="Nine" />
+      </MultiSelect>
+
+      <div data-element="confirmed-selections">
+        {confirmedSelections.map((cs) => (
+          <span data-element={`confirmed-selection-${cs}`}>{cs}</span>
+        ))}
+      </div>
+    </>
   );
 };

@@ -9,6 +9,8 @@ import Link from "../link";
 import Pill from "../pill";
 import Badge from "../badge";
 import isChromatic from "../../../.storybook/isChromatic";
+import Box from "../box";
+import { Select, Option } from "../select";
 
 const defaultOpenState = isChromatic();
 
@@ -168,6 +170,21 @@ export const Complex: ComponentStory<typeof PopoverContainer> = () => {
           <Button>Small</Button>
           <Button ml={2}>Compact</Button>
         </div>
+        <Box mt="4px" mb="4px">
+          <Select name="simple" id="simple" label="color" labelInline>
+            <Option text="Amber" value="1" />
+            <Option text="Black" value="2" />
+            <Option text="Blue" value="3" />
+            <Option text="Brown" value="4" />
+            <Option text="Green" value="5" />
+            <Option text="Orange" value="6" />
+            <Option text="Pink" value="7" />
+            <Option text="Purple" value="8" />
+            <Option text="Red" value="9" />
+            <Option text="White" value="10" />
+            <Option text="Yellow" value="11" />
+          </Select>
+        </Box>
         <DraggableContainer>
           <DraggableItem key="1" id={1}>
             <Checkbox name="one" label="Draggable Label One" />
@@ -263,7 +280,7 @@ export const Filter: ComponentStory<typeof PopoverContainer> = () => {
     });
   };
   return (
-    <div style={{ height: 280 }}>
+    <Box margin={2} height="280px">
       <PopoverContainer
         title="How to create Filter component"
         open={open}
@@ -294,6 +311,6 @@ export const Filter: ComponentStory<typeof PopoverContainer> = () => {
         </Button>
       </PopoverContainer>
       {renderPills()}
-    </div>
+    </Box>
   );
 };

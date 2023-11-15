@@ -26,6 +26,7 @@ type ToastVariants =
   | "notification";
 
 type AlignOptions = "left" | "center" | "right";
+type AlignYOptions = "top" | "center" | "bottom";
 
 interface IconTypes {
   notification: "alert";
@@ -38,8 +39,10 @@ interface IconTypes {
 }
 
 export interface ToastProps {
-  /** Sets the alignment of the component. */
+  /** Sets the horizontal alignment of the component. */
   align?: AlignOptions;
+  /** Sets the vertical alignment of the component */
+  alignY?: AlignYOptions;
   /** The rendered children of the component. */
   children: React.ReactNode;
   /** Customizes the appearance in the DLS theme */
@@ -77,6 +80,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {
       align,
+      alignY,
       children,
       className,
       id,
@@ -208,6 +212,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         >
           <ToastStyle
             align={align}
+            alignY={alignY}
             isNotice={isNotice}
             isNotification={isNotification}
             className={className}
@@ -240,6 +245,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       <StyledPortal
         id={targetPortalId}
         align={align}
+        alignY={alignY}
         isCenter={isCenter}
         isNotice={isNotice}
       >

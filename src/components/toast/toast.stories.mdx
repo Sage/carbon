@@ -76,22 +76,40 @@ Toast variant is `success` by default
   <Story name="default" story={stories.Default} />
 </Canvas>
 
-### Align - Left
+### Horizontal Align - Left
 
 <Canvas>
-  <Story name="align left aligned" story={stories.AlignedLeft} />
+  <Story name="horizontal left aligned" story={stories.AlignedLeft} />
 </Canvas>
 
-### Align - Center
+### Horizontal Align - Center
 
 <Canvas>
-  <Story name="align center aligned" story={stories.AlignedCenter} />
+  <Story name="horizontal center aligned" story={stories.AlignedCenter} />
 </Canvas>
 
-### Align - Right
+### Horizontal Align - Right
 
 <Canvas>
-  <Story name="align right aligned" story={stories.AlignedRight} />
+  <Story name="horizontal right aligned" story={stories.AlignedRight} />
+</Canvas>
+
+### Vertical Align - Top
+
+<Canvas>
+  <Story name="vertical top aligned" story={stories.AlignedYTop} />
+</Canvas>
+
+### Vertical Align - Center
+
+<Canvas>
+  <Story name="vertical center aligned" story={stories.AlignedYCenter} />
+</Canvas>
+
+### Vertical Align - Bottom
+
+<Canvas>
+  <Story name="vertical bottom aligned" story={stories.AlignedYBottom} />
 </Canvas>
 
 ### Info
@@ -121,7 +139,8 @@ Toast variant is `success` by default
 ### Notice
 
 When the "notice" variant is set, the Toast component is rendered at the bottom of the screen with alternative styling and animation.
-The "isCenter" and "maxWidth" props will be ignored in this variant.
+The "isCenter" and "maxWidth" props will be ignored in this variant. 
+To render it at the top of the screen use the "alignY" prop set to "top".
 
 <Canvas>
   <Story name="notice" story={stories.Notice} />

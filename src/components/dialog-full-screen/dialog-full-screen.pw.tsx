@@ -14,6 +14,7 @@ import {
   OtherFocusableContainers,
   FocusingADifferentFirstElement,
   DialogFullScreenWithTitleAsReactComponent,
+  WithComplexExample,
 } from "./components.test-pw";
 import {
   portal,
@@ -490,6 +491,22 @@ test.describe("Accessibility for DialogFullScreen", () => {
       .getByRole("button")
       .filter({ hasText: "Open DialogFullScreen" });
     await openButton.click();
+    await checkAccessibility(page);
+  });
+
+  test("should check accessibility with complex example", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithComplexExample />);
+
+    const openButton = page
+      .getByRole("button")
+      .filter({ hasText: "Open DialogFullScreen" });
+    await openButton.click();
+    await expect(getDataElementByValue(page, "title")).toHaveText(
+      "Dialog Title"
+    );
     await checkAccessibility(page);
   });
 });

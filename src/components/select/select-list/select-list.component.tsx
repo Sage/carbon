@@ -48,6 +48,7 @@ export interface SelectListProps {
     value?: string | Record<string, unknown>;
     id?: string;
     selectionType: string;
+    selectionConfirmed: boolean;
   }) => void;
   /** A callback for when the list should be closed */
   onSelectListClose: () => void;
@@ -185,7 +186,11 @@ const SelectList = React.forwardRef(
 
     const handleSelect = useCallback(
       (optionData) => {
-        onSelect({ ...optionData, selectionType: "click" });
+        onSelect({
+          ...optionData,
+          selectionType: "click",
+          selectionConfirmed: true,
+        });
       },
       [onSelect]
     );
@@ -329,6 +334,7 @@ const SelectList = React.forwardRef(
           id: childIds
             ? childIds[nextIndex]
             : /* istanbul ignore next */ undefined,
+          selectionConfirmed: false,
         });
       },
       [
@@ -345,7 +351,7 @@ const SelectList = React.forwardRef(
     const handleActionButtonTab = useCallback(
       (event, isActionButtonFocused) => {
         if (isActionButtonFocused) {
-          onSelect({ selectionType: "tab" });
+          onSelect({ selectionType: "tab", selectionConfirmed: false });
         } else {
           event.preventDefault();
           listActionButtonRef.current?.focus();
@@ -393,6 +399,7 @@ const SelectList = React.forwardRef(
             text,
             value,
             selectionType: "enterKey",
+            selectionConfirmed: true,
           });
         } else if (isNavigationKey(key)) {
           focusOnAnchor();

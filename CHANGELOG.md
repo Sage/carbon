@@ -1,3 +1,44 @@
+### [123.7.2](https://github.com/Sage/carbon/compare/v123.7.1...v123.7.2) (2023-11-10)
+
+
+### Bug Fixes
+
+* **switch:** fix alignment issue with component when no new validation is applied ([af416ac](https://github.com/Sage/carbon/commit/af416acecb365988d2be2ebf5c8688ccf8d60faa)), closes [#6303](https://github.com/Sage/carbon/issues/6303)
+
+### [123.7.1](https://github.com/Sage/carbon/compare/v123.7.0...v123.7.1) (2023-11-09)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure that component is closed when Esc key is pressed ([4c33cd3](https://github.com/Sage/carbon/commit/4c33cd3ee4ff002d6e706e90d7233828c5088107)), closes [#6195](https://github.com/Sage/carbon/issues/6195)
+
+## [123.7.0](https://github.com/Sage/carbon/compare/v123.6.0...v123.7.0) (2023-11-08)
+
+
+### Features
+
+* **select:** add selectionConfirmed property to event emitted on change ([748a17b](https://github.com/Sage/carbon/commit/748a17b8185a2d9a2bd58843efbd4a10739c2e8d)), closes [#6330](https://github.com/Sage/carbon/issues/6330)
+
+
+### Bug Fixes
+
+* **filterable-select, multi-select:** handle when filter text has no match and enter pressed ([84ebef7](https://github.com/Sage/carbon/commit/84ebef7df4573d3205db9ebd424d88c2a26f4c3e))
+* **option:** ensure fill prop is not passed to underlying DOM element ([2a8cfc1](https://github.com/Sage/carbon/commit/2a8cfc11bae33c52496a65741ad02a339989beff))
+
+## [123.6.0](https://github.com/Sage/carbon/compare/v123.5.1...v123.6.0) (2023-11-08)
+
+
+### Features
+
+* **toast:** add alignY prop to allow vertical alignment to be configurable ([64203e1](https://github.com/Sage/carbon/commit/64203e1a618294c9c8c71964963377ae2891e134)), closes [#6301](https://github.com/Sage/carbon/issues/6301)
+
+### [123.5.1](https://github.com/Sage/carbon/compare/v123.5.0...v123.5.1) (2023-11-08)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** fix aria role ([c16a1e4](https://github.com/Sage/carbon/commit/c16a1e4357518a122681675875999d61408a60b8)), closes [#6383](https://github.com/Sage/carbon/issues/6383)
+
 ## [123.5.0](https://github.com/Sage/carbon/compare/v123.4.4...v123.5.0) (2023-11-07)
 
 
