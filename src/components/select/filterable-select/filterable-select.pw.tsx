@@ -1537,6 +1537,24 @@ test("should not throw when filter text does not match option text", async ({
   await expect(getDataElementByValue(page, "input")).toHaveValue("");
 });
 
+// see https://github.com/Sage/carbon/issues/6399
+test.describe("Test for scroll bug regression", () => {
+  test("should show the first option after scrolling through the list, closing and then reopening", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FilterableSelectComponent />);
+    const dropdownButtonElement = dropdownButton(page);
+    await dropdownButtonElement.click();
+    await selectListWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500)
+    );
+    await commonDataElementInputPreview(page).press("Escape");
+    await dropdownButtonElement.click();
+    await expect(selectOptionByText(page, "Amber")).toBeInViewport();
+  });
+});
+
 // all accessibility tests that run with the select list open fail on "scrollable region must have keyboard access",
 // so this must be disabled in each such test. (See FE-5764.)
 // This is a false positive (confirmed by Accessibility team) as the select list can be accessed via the select input and the arrow keys.

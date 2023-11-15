@@ -201,7 +201,7 @@ function renderWithVirtualScroll(
         text={`Option ${index + 1}`}
       />
     ));
-  const SelectListWithManyOptions = () => {
+  const SelectListWithManyOptions = (props: Partial<SelectListProps>) => {
     const mockRef = useRef(null);
 
     return (
@@ -212,6 +212,7 @@ function renderWithVirtualScroll(
         virtualScrollOverscan={overscan}
         onSelect={() => {}}
         onSelectListClose={() => {}}
+        {...props}
       >
         {options}
       </SelectList>
@@ -1066,6 +1067,13 @@ describe("SelectList", () => {
       // - so just check the total is between 5 and 10
       expect(optionChildren.length).toBeGreaterThanOrEqual(5);
       expect(optionChildren.length).toBeLessThan(10);
+    });
+
+    it("when an option is selected, it is always in the DOM even when out of view", () => {
+      wrapper = renderWithVirtualScroll(10000, true, 20);
+      wrapper.setProps({ highlightedValue: "7500" });
+      wrapper.update();
+      expect(wrapper.find({ value: "7500" }).exists()).toBe(true);
     });
   });
 

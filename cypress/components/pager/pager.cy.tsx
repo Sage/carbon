@@ -118,6 +118,7 @@ context("Test for Pager component", () => {
           showPageSizeSelection
         />
       );
+      pageSelect().click();
       recordsDiff.forEach(($el, index) => {
         selectListWrapper()
           .children()
