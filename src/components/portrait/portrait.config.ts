@@ -1,6 +1,7 @@
-export const PORTRAIT_SHAPES = ["circle", "square"];
-type PortraitSize = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
-export const PORTRAIT_SIZES: PortraitSize[] = [
+import { PortraitShapes, PortraitSizes } from "./portrait.component";
+
+export const PORTRAIT_SHAPES: PortraitShapes[] = ["circle", "square"];
+export const PORTRAIT_SIZES: PortraitSizes[] = [
   "XS",
   "S",
   "M",
@@ -10,7 +11,7 @@ export const PORTRAIT_SIZES: PortraitSize[] = [
   "XXL",
 ];
 type PortraitSizeParams = Record<
-  PortraitSize,
+  PortraitSizes,
   { dimensions: number; iconDimensions: number }
 >;
 export const PORTRAIT_SIZE_PARAMS: PortraitSizeParams = {

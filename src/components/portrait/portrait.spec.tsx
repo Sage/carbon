@@ -2,24 +2,25 @@ import React from "react";
 import ReactTestUtils from "react-dom/test-utils";
 import { shallow, mount, EnzymePropSelector } from "enzyme";
 import { ThemeProvider } from "styled-components";
-
+import MD5 from "crypto-js/md5";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
 import { carbonThemeList } from "../../style/themes";
-import Portrait from "./portrait.component";
+import Portrait, { PortraitSizes } from "./portrait.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   StyledIcon,
   StyledCustomImg,
   StyledPortraitContainer,
   StyledPortraitInitials,
+  StyledPortraitGravatar,
 } from "./portrait.style";
-import PortraitInitials from "./portrait-initials.component";
-import PortraitGravatar from "./portrait-gravatar.component";
+import profileConfigSizes, { ProfileSize } from "../profile/profile.config";
 import Tooltip from "../tooltip";
 import CarbonProvider from "../carbon-provider";
+import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 
 function renderDLS(element: JSX.Element) {
   return mount(
@@ -43,6 +44,21 @@ describe("PortraitComponent", () => {
   testStyledSystemMargin((props) => <Portrait {...props} />);
 
   describe("Portrait styles", () => {
+    it("applies expected styles to Portrait container", () => {
+      const wrapper = mount(
+        <Portrait shape="circle" initials="AB" darkBackground={false} />
+      );
+
+      assertStyleMatch(
+        {
+          overflow: "hidden",
+          border: "1px solid var(--colorsUtilityReadOnly600)",
+          display: "inline-block",
+        },
+        wrapper.find(StyledPortraitContainer)
+      );
+    });
+
     it("applies expected styles to Portrait with initials", () => {
       const wrapper = mount(
         <Portrait shape="circle" initials="AB" darkBackground={false} />
@@ -50,28 +66,53 @@ describe("PortraitComponent", () => {
 
       assertStyleMatch(
         {
-          display: "inline-block",
+          fontWeight: "bold",
+          display: "flex",
+          whiteSpace: "nowrap",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "inherit",
+          width: "inherit",
         },
-        wrapper.find(StyledPortraitContainer)
+        wrapper.find(StyledPortraitInitials)
+      );
+    });
+
+    it("applies expected styles to Portrait with src", () => {
+      const wrapper = mount(
+        <Portrait
+          shape="circle"
+          src="https://example.com/example.jpg"
+          darkBackground={false}
+        />
+      );
+
+      assertStyleMatch(
+        {
+          height: "inherit",
+          width: "inherit",
+        },
+        wrapper.find(StyledCustomImg)
+      );
+    });
+
+    it("applies expected styles to Portrait with gravatar", () => {
+      const wrapper = mount(
+        <Portrait
+          shape="circle"
+          gravatar="chris.barber@sage.com"
+          darkBackground={false}
+        />
       );
 
       assertStyleMatch(
         {
           width: "inherit",
           height: "inherit",
-          margin: "1px",
-          display: "inline-block",
-          verticalAlign: "middle",
-          boxSizing: "border-box",
-          outline: "1px solid var(--colorsUtilityMajor200)",
         },
-        wrapper.find(StyledPortraitInitials)
+        wrapper.find(StyledPortraitGravatar)
       );
     });
-
-    // TODO: Currently due to this issue https://github.com/styled-components/jest-styled-components/pull/354 we are unable to test a media query with a `@supports` selector.
-    // Once this has been resolved we will need to write a test that covers the styles that target `@media not all and (min-resolution: 0.001dpcm)
-    // @supports (-webkit-appearance: none) and (stroke-color: transparent)`.
 
     it("applies expected styling to Portrait with icon", () => {
       const wrapper = mount(
@@ -80,17 +121,217 @@ describe("PortraitComponent", () => {
 
       assertStyleMatch(
         {
-          display: "inline-block",
+          color: "inherit",
+          height: "inherit",
+          width: "inherit",
         },
-        wrapper.find(StyledPortraitContainer)
+        wrapper.find(StyledIcon),
+        { modifier: "&&" }
       );
+    });
+  });
+
+  describe.each(["XS", "S", "M", "ML", "L", "XL", "XXL"] as PortraitSizes[])(
+    "size style checks - with icon",
+    (size) => {
+      const wrapper = mount(<Portrait size={size} />);
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].iconDimensions])(
+        `icon font size checks when size is ${size}`,
+        (iconDimensions) => {
+          assertStyleMatch(
+            {
+              fontSize: `${iconDimensions}px`,
+            },
+            wrapper.find(StyledIcon),
+            { modifier: "&&::before" }
+          );
+        }
+      );
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
+        `width checks when size is ${size}`,
+        (dimensions) => {
+          assertStyleMatch(
+            {
+              width: `${dimensions}px`,
+            },
+            wrapper.find(StyledPortraitContainer)
+          );
+        }
+      );
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
+        `height checks when size is ${size}`,
+        (dimensions) => {
+          assertStyleMatch(
+            {
+              height: `${dimensions}px`,
+            },
+            wrapper.find(StyledPortraitContainer)
+          );
+        }
+      );
+    }
+  );
+
+  describe.each(["XS", "S", "M", "ML", "L", "XL", "XXL"] as ProfileSize[])(
+    "size style checks - with initials",
+    (size) => {
+      const wrapper = mount(<Portrait initials="TD" size={size} />);
+
+      it.each([profileConfigSizes[size].initialSize])(
+        `initials font size checks when size is ${size}`,
+        (initialSize) => {
+          assertStyleMatch(
+            {
+              fontSize: initialSize,
+            },
+            wrapper.find(StyledPortraitInitials)
+          );
+        }
+      );
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
+        `width checks when size is ${size}`,
+        (dimensions) => {
+          assertStyleMatch(
+            {
+              width: `${dimensions}px`,
+            },
+            wrapper.find(StyledPortraitContainer)
+          );
+        }
+      );
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
+        `height checks when size is ${size}`,
+        (dimensions) => {
+          assertStyleMatch(
+            {
+              height: `${dimensions}px`,
+            },
+            wrapper.find(StyledPortraitContainer)
+          );
+        }
+      );
+    }
+  );
+
+  describe.each(["XS", "S", "M", "ML", "L", "XL", "XXL"] as PortraitSizes[])(
+    "size style checks - with src",
+    (size) => {
+      const wrapper = mount(
+        <Portrait src="https://example.com/example.jpg" size={size} />
+      );
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
+        `width checks when size is ${size}`,
+        (dimensions) => {
+          assertStyleMatch(
+            {
+              width: `${dimensions}px`,
+            },
+            wrapper.find(StyledPortraitContainer)
+          );
+        }
+      );
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
+        `height checks when size is ${size}`,
+        (dimensions) => {
+          assertStyleMatch(
+            {
+              height: `${dimensions}px`,
+            },
+            wrapper.find(StyledPortraitContainer)
+          );
+        }
+      );
+    }
+  );
+
+  describe.each(["XS", "S", "M", "ML", "L", "XL", "XXL"] as PortraitSizes[])(
+    "size style checks - with gravatar",
+    (size) => {
+      const wrapper = mount(
+        <Portrait gravatar="chris.barber@sage.com" size={size} />
+      );
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
+        `width checks when size is ${size}`,
+        (dimensions) => {
+          assertStyleMatch(
+            {
+              width: `${dimensions}px`,
+            },
+            wrapper.find(StyledPortraitContainer)
+          );
+        }
+      );
+
+      it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
+        `height checks when size is ${size}`,
+        (dimensions) => {
+          assertStyleMatch(
+            {
+              height: `${dimensions}px`,
+            },
+            wrapper.find(StyledPortraitContainer)
+          );
+        }
+      );
+    }
+  );
+
+  describe("colour checks - initials", () => {
+    it("renders the correct colours when darkBackground is false", () => {
+      const wrapper = mount(<Portrait initials="JD" />);
 
       assertStyleMatch(
         {
-          height: "24px",
-          width: "24px",
+          color: "var(--colorsUtilityYin090)",
+          backgroundColor: "var(--colorsUtilityReadOnly400)",
         },
-        wrapper.find(StyledIcon)
+        wrapper.find(StyledPortraitContainer)
+      );
+    });
+
+    it("renders the correct colours when darkBackground is true", () => {
+      const wrapper = mount(<Portrait initials="JD" darkBackground />);
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityReadOnly600)",
+          backgroundColor: "var(--colorsUtilityYin090)",
+        },
+        wrapper.find(StyledPortraitContainer)
+      );
+    });
+  });
+
+  describe("colour checks - icon", () => {
+    it("renders the correct colours when darkBackground is false", () => {
+      const wrapper = mount(<Portrait />);
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityYin090)",
+          backgroundColor: "var(--colorsUtilityReadOnly400)",
+        },
+        wrapper.find(StyledPortraitContainer)
+      );
+    });
+
+    it("renders the correct colours when darkBackground is true", () => {
+      const wrapper = mount(<Portrait darkBackground />);
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityReadOnly600)",
+          backgroundColor: "var(--colorsUtilityYin090)",
+        },
+        wrapper.find(StyledPortraitContainer)
       );
     });
   });
@@ -167,27 +408,16 @@ describe("PortraitComponent", () => {
 
   describe("render initials", () => {
     const expectedProps = {
-      initials: "AB",
+      children: "AB",
       size: "M",
-      alt: "",
-      darkBackground: false,
     };
 
     const testSuccess = (element: JSX.Element) =>
-      renderFindTypeSuccess(element, PortraitInitials, expectedProps);
+      renderFindTypeSuccess(element, StyledPortraitInitials, expectedProps);
     const testFail = (element: JSX.Element) =>
-      renderFindTypeFail(element, PortraitInitials);
+      renderFindTypeFail(element, StyledPortraitInitials);
 
     it("renders initials when supplied with initials but no Gravatar or src", () => {
-      testSuccess(<Portrait initials="AB" />);
-    });
-
-    it("renders empty alt attribute when alt prop is empty", () => {
-      testSuccess(<Portrait initials="AB" alt="" />);
-    });
-
-    it("renders empty alt attribute when alt prop is not supplied", () => {
-      renderDLS(<Portrait initials="AB" />);
       testSuccess(<Portrait initials="AB" />);
     });
 
@@ -207,8 +437,8 @@ describe("PortraitComponent", () => {
         darkBackground: false,
         theme: carbonThemeList[0],
       } as const;
-      renderDLS(<PortraitInitials {...props} />);
-      renderDLS(<PortraitInitials {...props} darkBackground />);
+      renderDLS(<Portrait {...props} />);
+      renderDLS(<Portrait {...props} darkBackground />);
       expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
 
@@ -235,15 +465,18 @@ describe("PortraitComponent", () => {
 
   describe("render Gravatar", () => {
     const gravatarEmail = "example@example.com";
+    const base = "https://www.gravatar.com/avatar/";
+    const hash = MD5(gravatarEmail);
+    const dimensions = 40;
+    const expectedSrc = `${base}${hash}?s=${dimensions}&d=404`;
 
     const expectedProps = {
-      gravatarEmail,
-      size: "M",
+      src: expectedSrc,
       alt: "foo",
     };
 
     const testSuccess = (element: JSX.Element) =>
-      renderFindTypeSuccess(element, PortraitGravatar, expectedProps);
+      renderFindTypeSuccess(element, StyledPortraitGravatar, expectedProps);
 
     it("renders the Gravatar for the specified email address", () => {
       testSuccess(<Portrait gravatar={gravatarEmail} alt="foo" />);
@@ -286,7 +519,6 @@ describe("PortraitComponent", () => {
       testSuccess(<Portrait src={imageUrl} alt="foo" />, {
         src: imageUrl,
         alt: "foo",
-        size: "M",
         "data-element": "user-image",
       });
     });
@@ -295,7 +527,6 @@ describe("PortraitComponent", () => {
       testSuccess(<Portrait src={imageUrl} alt="" />, {
         src: imageUrl,
         alt: "",
-        size: "M",
         "data-element": "user-image",
       });
     });
@@ -304,7 +535,6 @@ describe("PortraitComponent", () => {
       testSuccess(<Portrait src={imageUrl} />, {
         src: imageUrl,
         alt: "",
-        size: "M",
         "data-element": "user-image",
       });
     });
@@ -336,12 +566,12 @@ describe("PortraitComponent", () => {
   describe("external images", () => {
     it("can handle an error when the Gravatar doesn't exist", () => {
       const wrapper = mount(<Portrait gravatar="example@example.com" />);
-      expect(wrapper.find(PortraitGravatar).exists()).toBeTruthy();
+      expect(wrapper.find(StyledPortraitGravatar).exists()).toBeTruthy();
       ReactTestUtils.Simulate.error(
-        wrapper.find(PortraitGravatar).getDOMNode()
+        wrapper.find(StyledPortraitGravatar).getDOMNode()
       ); // Triggers `onError` of <StyledPortraitGravatar>
       wrapper.update();
-      expect(wrapper.find(PortraitGravatar).exists()).toBeFalsy();
+      expect(wrapper.find(StyledPortraitGravatar).exists()).toBeFalsy();
     });
 
     it("can handle an error when the custom image doesn't exist", () => {
@@ -385,7 +615,11 @@ describe("PortraitComponent", () => {
       const consoleSpy = jest.spyOn(console, "error");
       consoleSpy.mockImplementation(() => {});
 
-      expect(() => shallow(<Portrait src="foo" gravatar="baz" />)).toThrow(
+      expect(() =>
+        shallow(
+          <Portrait src="https://example.com/example.jpg" gravatar="baz" />
+        )
+      ).toThrow(
         "The `src` prop cannot be used in conjunction with the `gravatar` prop. Please use one or the other."
       );
 
@@ -396,7 +630,9 @@ describe("PortraitComponent", () => {
       const consoleSpy = jest.spyOn(console, "error");
       consoleSpy.mockImplementation(() => {});
 
-      expect(() => shallow(<Portrait src="foo" />)).not.toThrow();
+      expect(() =>
+        shallow(<Portrait src="https://example.com/example.jpg" />)
+      ).not.toThrow();
 
       consoleSpy.mockRestore();
     });
@@ -418,7 +654,7 @@ describe("PortraitComponent", () => {
           <Portrait initials="AB" tooltipMessage="message" />
         </CarbonProvider>
       )
-        .find(StyledPortraitInitials)
+        .find(StyledPortraitContainer)
         .prop("shape");
 
       expect(shape).toEqual("square");
@@ -430,7 +666,7 @@ describe("PortraitComponent", () => {
           <Portrait initials="AB" tooltipMessage="message" />
         </CarbonProvider>
       )
-        .find(StyledPortraitInitials)
+        .find(StyledPortraitContainer)
         .prop("shape");
 
       expect(shape).toEqual("circle");
