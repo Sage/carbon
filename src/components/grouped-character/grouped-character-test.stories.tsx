@@ -6,10 +6,7 @@ import {
   getCommonTextboxArgsWithSpecialCaracters,
   CommonTextboxArgs,
 } from "../textbox/textbox-test.stories";
-import GroupedCharacter, {
-  CustomEvent,
-  GroupedCharacterProps,
-} from "./grouped-character.component";
+import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
@@ -80,31 +77,4 @@ NewValidation.args = {
   groups: [2, 2, 4],
   separator: "-",
   ...getCommonTextboxArgs(),
-};
-
-export const GroupedCharacterComponent = ({
-  onChange,
-  groups,
-  separator,
-  ...props
-}: Partial<GroupedCharacterProps>) => {
-  const [state, setState] = React.useState("");
-
-  const setValue = (event: CustomEvent) => {
-    setState(event.target.value.rawValue);
-    if (onChange) {
-      onChange(event);
-    }
-  };
-
-  return (
-    <GroupedCharacter
-      label="GroupedCharacter"
-      value={state}
-      onChange={setValue}
-      groups={groups || [2, 2, 3]}
-      separator={separator || "-"}
-      {...props}
-    />
-  );
 };

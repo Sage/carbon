@@ -133,6 +133,9 @@ const enGB: Locale = {
       close: () => "Close",
     },
   },
+  splitButton: {
+    ariaLabel: () => "Show more",
+  },
   switch: {
     on: () => "ON",
     off: () => "OFF",

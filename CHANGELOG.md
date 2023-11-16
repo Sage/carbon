@@ -1,3 +1,22 @@
+## [123.9.0](https://github.com/Sage/carbon/compare/v123.8.0...v123.9.0) (2023-11-15)
+
+
+### Features
+
+* **portrait, profile:** align with design system and reduce code complexity ([c37c6c1](https://github.com/Sage/carbon/commit/c37c6c1e9cec1308a36b2daced831df0a5d77a46)), closes [#6191](https://github.com/Sage/carbon/issues/6191)
+
+## [123.8.0](https://github.com/Sage/carbon/compare/v123.7.2...v123.8.0) (2023-11-15)
+
+
+### Features
+
+* **split-button:** add aria-label prop and locale support for aria-label ([aedafe8](https://github.com/Sage/carbon/commit/aedafe83ec461406631b590f092d0a4d3f19cfb3))
+
+
+### Bug Fixes
+
+* **multi-action-button:** remove unnecessary aria-label ([942f43a](https://github.com/Sage/carbon/commit/942f43a09487bb57d264c397588cc6e219aececb)), closes [#6397](https://github.com/Sage/carbon/issues/6397)
+
 ### [123.7.2](https://github.com/Sage/carbon/compare/v123.7.1...v123.7.2) (2023-11-10)
 
 

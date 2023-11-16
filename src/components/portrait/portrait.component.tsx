@@ -1,16 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import { MarginProps } from "styled-system";
+import MD5 from "crypto-js/md5";
 import invariant from "invariant";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
-import PortraitGravatar from "./portrait-gravatar.component";
-import PortraitInitials from "./portrait-initials.component";
+import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
 import {
   StyledCustomImg,
   StyledIcon,
   StyledPortraitContainer,
+  StyledPortraitInitials,
+  StyledPortraitGravatar,
 } from "./portrait.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
@@ -26,6 +28,8 @@ export interface PortraitProps extends MarginProps {
   src?: string;
   /** The size of the Portrait. */
   size?: PortraitSizes;
+  /** @private @ignore */
+  name?: string;
   /** The `alt` HTML string. */
   alt?: string;
   /** The shape of the Portrait. */
@@ -56,10 +60,11 @@ export interface PortraitProps extends MarginProps {
   tooltipFontColor?: string;
 }
 
-export const Portrait = ({
-  alt = "",
+const Portrait = ({
+  alt,
+  name,
   darkBackground = false,
-  gravatar,
+  gravatar = "",
   iconType = "individual",
   initials,
   shape,
@@ -92,25 +97,24 @@ export const Portrait = ({
 
   const tagProps = tagComponent("portrait", rest);
 
+  const gravatarSrc = () => {
+    const { dimensions } = PORTRAIT_SIZE_PARAMS[size];
+    const base = "https://www.gravatar.com/avatar/";
+    const hash = MD5(gravatar.toLowerCase());
+    const fallbackOption = "404"; // "Return an HTTP 404 File Not Found response"
+
+    /** @see https://en.gravatar.com/site/implement/images/#default-image */
+    return `${base}${hash}?s=${dimensions}&d=${fallbackOption}`;
+  };
+
   const renderComponent = () => {
-    let portrait = (
-      <StyledIcon
-        type={iconType}
-        size={size}
-        shape={shape || defaultShape}
-        darkBackground={darkBackground}
-      />
-    );
+    let portrait = <StyledIcon type={iconType} size={size} />;
 
     if (initials) {
       portrait = (
-        <PortraitInitials
-          size={size}
-          shape={shape || defaultShape}
-          initials={initials}
-          darkBackground={darkBackground}
-          alt={alt}
-        />
+        <StyledPortraitInitials size={size} data-element="initials">
+          {initials.slice(0, 3).toUpperCase()}
+        </StyledPortraitInitials>
       );
     }
 
@@ -118,9 +122,7 @@ export const Portrait = ({
       portrait = (
         <StyledCustomImg
           src={src}
-          alt={alt}
-          size={size}
-          shape={shape || defaultShape}
+          alt={alt || name || ""}
           data-element="user-image"
           onError={() => setExternalError(true)}
         />
@@ -129,12 +131,10 @@ export const Portrait = ({
 
     if (gravatar && !externalError) {
       portrait = (
-        <PortraitGravatar
-          gravatarEmail={gravatar}
-          shape={shape || defaultShape}
-          size={size}
-          alt={alt}
-          errorCallback={() => setExternalError(true)}
+        <StyledPortraitGravatar
+          src={gravatarSrc()}
+          alt={alt || name || ""}
+          onError={() => setExternalError(true)}
         />
       );
     }
@@ -155,6 +155,9 @@ export const Portrait = ({
             {...filterStyledSystemMarginProps(rest)}
             onClick={onClick}
             {...tagProps}
+            darkBackground={darkBackground}
+            size={size}
+            shape={shape || defaultShape}
           >
             {portrait}
           </StyledPortraitContainer>
@@ -167,6 +170,9 @@ export const Portrait = ({
         {...filterStyledSystemMarginProps(rest)}
         onClick={onClick}
         {...tagProps}
+        darkBackground={darkBackground}
+        size={size}
+        shape={shape || defaultShape}
       >
         {portrait}
       </StyledPortraitContainer>

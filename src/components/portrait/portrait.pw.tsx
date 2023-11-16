@@ -13,7 +13,10 @@ import {
   SIZE,
   VALIDATION,
 } from "../../../playwright/support/constants";
-import { checkAccessibility } from "../../../playwright/support/helper";
+import {
+  checkAccessibility,
+  getDesignTokensByCssProperty,
+} from "../../../playwright/support/helper";
 import Box from "../../../src/components/box";
 import {
   PORTRAIT_SIZE_PARAMS,
@@ -47,11 +50,36 @@ const portraitSizes = PORTRAIT_SIZES.map((size) => [
 ]);
 
 test.describe("Prop checks for Portrait component", () => {
+  ["SPM", "JM", "AR", "MJ"].forEach((passInitials) => {
+    test(`should render with initials as ${passInitials}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PortraitDefaultComponent initials={passInitials} />);
+
+      await expect(portraitInitials(page)).toHaveText(passInitials);
+    });
+  });
+
+  [
+    ["SPMMMMM", "SPM"],
+    ["JMMMMM", "JMM"],
+    ["ARRRR", "ARR"],
+    ["MJJJ", "MJJ"],
+  ].forEach(([passInitials, maxInitials]) => {
+    test(`should render with a maximum of three initials when passed initials are ${passInitials} `, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PortraitDefaultComponent initials={passInitials} />);
+
+      await expect(portraitInitials(page)).toHaveText(maxInitials);
+    });
+  });
+
   test("should render with gravatar prop", async ({ mount, page }) => {
     await mount(<PortraitDefaultComponent gravatar="chris.barber@sage.com" />);
 
-    await expect(portraitPreview(page)).toHaveCSS("height", "40px");
-    await expect(portraitPreview(page)).toHaveCSS("width", "40px");
     await expect(portraitPreview(page).locator("img")).toHaveAttribute(
       "src",
       testImage
@@ -65,8 +93,6 @@ test.describe("Prop checks for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent src={url} />);
 
-      await expect(portraitPreview(page)).toHaveCSS("height", "40px");
-      await expect(portraitPreview(page)).toHaveCSS("width", "40px");
       await expect(portraitImage(page)).toHaveAttribute("src", url);
     });
   });
@@ -107,10 +133,7 @@ test.describe("Prop checks for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent shape={shape} />);
 
-      await expect(portraitPreview(page).locator("span")).toHaveCSS(
-        "border-radius",
-        radius
-      );
+      await expect(portraitPreview(page)).toHaveCSS("border-radius", radius);
     });
   });
 
@@ -126,33 +149,139 @@ test.describe("Prop checks for Portrait component", () => {
     });
   });
 
-  ["SPM", "JM", "AR", "MJ"].forEach((passInitials) => {
-    test(`should render with correct width and height, when initials prop is passed as ${passInitials}`, async ({
+  portraitSizes.forEach(([size, heightAndWidth]) => {
+    test(`should render with size prop passed as ${size} with icon`, async ({
       mount,
       page,
     }) => {
-      await mount(<PortraitDefaultComponent initials={passInitials} />);
+      await mount(<PortraitDefaultComponent size={size} />);
 
-      await expect(portraitInitials(page)).toHaveCSS("height", "38px");
-      await expect(portraitInitials(page)).toHaveCSS("width", "38px");
+      await expect(portraitPreview(page)).toHaveCSS(
+        "height",
+        `${heightAndWidth}px`
+      );
+      await expect(portraitPreview(page)).toHaveCSS(
+        "width",
+        `${heightAndWidth}px`
+      );
+    });
+  });
+
+  portraitSizes.forEach(([size, heightAndWidth]) => {
+    test(`should render with size prop passed as ${size} with initials`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PortraitDefaultComponent initials="JD" size={size} />);
+
+      await expect(portraitPreview(page)).toHaveCSS(
+        "height",
+        `${heightAndWidth}px`
+      );
+      await expect(portraitPreview(page)).toHaveCSS(
+        "width",
+        `${heightAndWidth}px`
+      );
+    });
+  });
+
+  portraitSizes.forEach(([size, heightAndWidth]) => {
+    test(`should render with size prop passed as ${size} - with src`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<PortraitDefaultComponent src={testImage} size={size} />);
+
+      await expect(portraitPreview(page)).toHaveCSS(
+        "height",
+        `${heightAndWidth}px`
+      );
+      await expect(portraitPreview(page)).toHaveCSS(
+        "width",
+        `${heightAndWidth}px`
+      );
+    });
+  });
+
+  portraitSizes.forEach(([size, heightAndWidth]) => {
+    test(`should render with size prop passed as ${size} - with gravatar`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <PortraitDefaultComponent
+          gravatar="chris.barber@sage.com"
+          size={size}
+        />
+      );
+
+      await expect(portraitPreview(page)).toHaveCSS(
+        "height",
+        `${heightAndWidth}px`
+      );
+      await expect(portraitPreview(page)).toHaveCSS(
+        "width",
+        `${heightAndWidth}px`
+      );
     });
   });
 
   ([
-    ["without", false, "rgb(242, 245, 246)"],
-    ["with", true, "rgb(153, 173, 183)"],
-  ] as [string, boolean, string][]).forEach(([renderState, boolVal, color]) => {
-    test(`should render ${renderState} dark background variant, when darkBackground prop is ${boolVal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PortraitDefaultComponent darkBackground={boolVal} />);
+    ["without", false, "rgb(242, 245, 246)", "--colorsUtilityReadOnly400"],
+    ["with", true, "rgba(0, 0, 0, 0.9)", "--colorsUtilityYin090"],
+  ] as [string, boolean, string, string][]).forEach(
+    ([renderState, boolVal, color, tokenVal]) => {
+      test(`should render ${renderState} dark background variant and correct background colour, when darkBackground prop is ${boolVal}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<PortraitDefaultComponent darkBackground={boolVal} />);
 
-      await expect(portraitPreview(page).locator("span")).toHaveCSS(
-        "background-color",
-        color
-      );
-    });
+        const backgroundColorTokens = await getDesignTokensByCssProperty(
+          page,
+          portraitPreview(page),
+          "background-color"
+        );
+
+        expect(backgroundColorTokens.toString()).toBe(tokenVal);
+        await expect(portraitPreview(page)).toHaveCSS(
+          "background-color",
+          color
+        );
+      });
+    }
+  );
+
+  ([
+    ["without", false, "rgba(0, 0, 0, 0.9)", "--colorsUtilityYin090"],
+    ["with", true, "rgb(204, 214, 219)", "--colorsUtilityReadOnly600"],
+  ] as [string, boolean, string, string][]).forEach(
+    ([renderState, boolVal, color, tokenVal]) => {
+      test(`should render ${renderState} dark background variant and correct colour, when darkBackground prop is ${boolVal}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<PortraitDefaultComponent darkBackground={boolVal} />);
+
+        const colorTokens = await getDesignTokensByCssProperty(
+          page,
+          portraitPreview(page),
+          "color"
+        );
+
+        expect(colorTokens.toString()).toBe(tokenVal);
+        await expect(portraitPreview(page)).toHaveCSS("color", color);
+      });
+    }
+  );
+
+  test("should render with correct border", async ({ mount, page }) => {
+    await mount(<PortraitDefaultComponent />);
+
+    await expect(portraitPreview(page)).toHaveCSS(
+      "border",
+      "1px solid rgb(204, 214, 219)"
+    );
   });
 
   testData.forEach((tooltipMessage) => {
@@ -295,7 +424,6 @@ test.describe("Event checks for Portrait component", () => {
   });
 });
 
-// TODO: remove "color-contrast" disabled rules parameter from all relevant accessibility tests upon the completion of FE-6202
 test.describe("Accessibility tests for Portrait component", () => {
   test("should pass accessibility checks when gravatar is passed", async ({
     mount,
@@ -324,7 +452,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent size={size} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -334,7 +462,7 @@ test.describe("Accessibility tests for Portrait component", () => {
   }) => {
     await mount(<PortraitDefaultComponent alt="playwright-test" />);
 
-    await checkAccessibility(page, "color-contrast");
+    await checkAccessibility(page);
   });
 
   ["square", "circle"].forEach((shape) => {
@@ -344,7 +472,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent shape={shape} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -355,7 +483,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent iconType={iconType} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -366,7 +494,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent initials={passInitials} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -380,7 +508,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitDefaultComponent darkBackground={boolVal} />);
 
-      await checkAccessibility(page, "color-contrast");
+      await checkAccessibility(page);
     });
   });
 
@@ -392,7 +520,6 @@ test.describe("Accessibility tests for Portrait component", () => {
       await mount(
         <PortraitComponent tooltipIsVisible tooltipMessage={tooltipMessage} />
       );
-
       await checkAccessibility(page, "color-contrast");
     });
   });
@@ -449,29 +576,7 @@ test.describe("Accessibility tests for Portrait component", () => {
       mount,
       page,
     }) => {
-      await mount(<PortraitComponent size={tooltipSize} />);
-
-      await checkAccessibility(page, "color-contrast");
-    });
-  });
-
-  colors.forEach(([names]) => {
-    test(`should pass accessibility checks with a tooltip, with a ${names} background color`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PortraitComponent tooltipBgColor={names} />);
-
-      await checkAccessibility(page, "color-contrast");
-    });
-  });
-
-  colors.forEach(([names]) => {
-    test(`should pass accessibility checks with a tooltip, with a ${names} font color`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<PortraitComponent tooltipFontColor={names} />);
+      await mount(<PortraitComponent tooltipSize={tooltipSize} />);
 
       await checkAccessibility(page, "color-contrast");
     });
@@ -484,6 +589,6 @@ test.describe("Accessibility tests for Portrait component", () => {
     let callbackCount = 0;
     await mount(<PortraitDefaultComponent onClick={(callbackCount += 1)} />);
 
-    await checkAccessibility(page, "color-contrast");
+    await checkAccessibility(page);
   });
 });

@@ -39,8 +39,20 @@ import Profile from "carbon-react/lib/components/profile";
 
 ### Default
 
+The `email` prop automatically surfaces the `href` attribute with `mailto:`. This will enable
+users to send a new email within their default email program to the email address.   
+
 <Canvas>
   <Story name="default" story={stories.Default} />
+</Canvas>
+
+### with darkBackground
+
+The `darkBackground` prop can be passed to apply a dark background to `Profile`.
+The `Box` component has been used to apply width, height and roundness.
+
+<Canvas>
+  <Story name="dark background" story={stories.DarkBackground} />
 </Canvas>
 
 ### Src

@@ -32,6 +32,7 @@ DefaultStory.story = {
     initials: "JS",
     size: PROFILE_SIZES[0],
     name: "John Smith",
+    text: "Some other text about John here",
     src: "",
   },
 };
