@@ -1,3 +1,10 @@
+### [123.9.1](https://github.com/Sage/carbon/compare/v123.9.0...v123.9.1) (2023-11-16)
+
+
+### Bug Fixes
+
+* **crumb:** ensure LinkProps are correctly extended so component has the correct interface ([0889433](https://github.com/Sage/carbon/commit/0889433994205f7aa2403b297ea46f2850f3558b)), closes [#6133](https://github.com/Sage/carbon/issues/6133)
+
 ## [123.9.0](https://github.com/Sage/carbon/compare/v123.8.0...v123.9.0) (2023-11-15)
 
 
