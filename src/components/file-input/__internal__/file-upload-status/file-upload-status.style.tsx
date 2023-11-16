@@ -9,12 +9,30 @@ import StyledLoaderBar, {
   StyledLoader,
   InnerBar as LoaderBarInnerBar,
 } from "../../../loader-bar/loader-bar.style";
-import { StyledLink } from "../../../link/link.style";
+import { StyledLink, StyledContent } from "../../../link/link.style";
 
 export const StyledFileLinkContainer = styled.div`
   color: var(--colorsActionMajorYin090);
   display: flex;
   align-items: center;
+  overflow: hidden;
+
+  ${StyledLink} {
+    overflow: hidden;
+    padding-right: var(--spacing150);
+  }
+
+  ${StyledLink} a {
+    overflow: hidden;
+    display: flex;
+    text-decoration: none;
+  }
+
+  ${StyledContent} {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: underline;
+  }
 
   &&& ${StyledIcon} {
     display: inline-flex;
@@ -34,12 +52,13 @@ export const StyledFileLinkContainer = styled.div`
 interface StyledFileUploadStatusRowProps {
   upperPadding?: boolean;
   lowerPadding?: boolean;
+  onlyRow?: boolean;
 }
 
 export const StyledFileUploadStatusRow = styled.div<StyledFileUploadStatusRowProps>`
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  ${({ onlyRow }) => (onlyRow ? "" : "align-items: baseline;")}
   padding-left: var(--spacing150);
   ${({ upperPadding }) =>
     upperPadding ? "padding-top: var(--spacing050);" : ""}

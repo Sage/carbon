@@ -4,7 +4,7 @@ import FileInput, { FileInputProps } from ".";
 export default {
   component: FileInput,
   title: "File Input/Test",
-  includeStories: ["AllStatuses"],
+  includeStories: ["AllStatuses", "LongFilenameStatus"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -71,4 +71,20 @@ export const AllStatuses = () => {
   return statuses.map((status) => (
     <FileInput my={20} label="test" uploadStatus={status} onChange={() => {}} />
   ));
+};
+
+export const LongFilenameStatus = () => {
+  return (
+    <FileInput
+      my={20}
+      label="test"
+      uploadStatus={{
+        status: "completed",
+        onAction: () => {},
+        href: "http://carbon.sage.com/",
+        filename: "really_long_filename_that_will_overflow_container.doc",
+      }}
+      onChange={() => {}}
+    />
+  );
 };

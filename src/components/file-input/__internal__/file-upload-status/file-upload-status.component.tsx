@@ -111,7 +111,7 @@ export const FileUploadStatus = ({
         {actionButton}
       </StyledFileUploadStatusRow>
     ) : (
-      <StyledFileUploadStatusRow>
+      <StyledFileUploadStatusRow onlyRow>
         <StyledFileLinkContainer>{fileLink}</StyledFileLinkContainer>
         {actionButton}
       </StyledFileUploadStatusRow>
