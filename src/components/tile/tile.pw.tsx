@@ -2,7 +2,10 @@ import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
 import { TileProps, TileFooterProps } from ".";
 import { DlProps } from "../definition-list";
-import { getDataElementByValue } from "../../../playwright/components";
+import {
+  getDataComponentByValue,
+  getDataElementByValue,
+} from "../../../playwright/components";
 import {
   assertCssValueIsApproximately,
   checkCSSOutline,
@@ -13,8 +16,13 @@ import {
   DlTileComponent,
   TileFooterComponent,
   TileComponentWithFalsyChildren,
+  ResponsiveTile,
+  ResponsiveTileContainerWithFalsyChildren,
+  ResponsiveCellWithFalsyChildren,
 } from "./components.test-pw";
 import { CHARACTERS } from "../../../playwright/support/constants";
+import ResponsiveCell from "./flow-cell";
+import ResponsiveTileContainer from "./flow-tile-container";
 
 const tileVariants: [TileProps["variant"], string, string][] = [
   ["tile", "rgb(204, 214, 219)", "rgb(255, 255, 255)"],
@@ -300,6 +308,124 @@ test.describe("Tile component", () => {
       await mount(<TileComponent borderVariant={borderVariant} />);
 
       await checkAccessibility(page);
+    });
+  });
+
+  test.describe("Responsive Tile", () => {
+    test("check that any falsy children passed to ResponsiveTileContainer are not rendered", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ResponsiveTileContainerWithFalsyChildren />);
+
+      const responsiveTileContainerCount = await getDataComponentByValue(
+        page,
+        "responsive-tile-container"
+      ).count();
+      expect(responsiveTileContainerCount).toEqual(1);
+    });
+
+    test("check that any falsy children passed to ResponsiveCell are not rendered", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ResponsiveCellWithFalsyChildren />);
+
+      const responsiveCellCount = await getDataComponentByValue(
+        page,
+        "responsive-cell"
+      ).count();
+      expect(responsiveCellCount).toEqual(1);
+    });
+
+    test(`check Accessibility for responsive tile`, async ({ page, mount }) => {
+      await mount(<ResponsiveTile />);
+
+      await checkAccessibility(page);
+    });
+
+    ([
+      [1, "8px"],
+      [2, "16px"],
+      [3, "24px"],
+    ] as [number, string][]).forEach(([value, gapText]) => {
+      test(`should verify columnGap is ${value}`, async ({ mount, page }) => {
+        await mount(
+          <ResponsiveTileContainer columnGap={value}>
+            content
+          </ResponsiveTileContainer>
+        );
+        const containerElement = await getDataComponentByValue(
+          page,
+          "responsive-tile-container"
+        );
+        await expect(containerElement).toHaveCSS("column-gap", gapText);
+      });
+    });
+
+    ([
+      [10, "10"],
+      [50, "50"],
+      [100, "100"],
+    ] as [number, string][]).forEach(([value, growText]) => {
+      test(`should verify flex grow is ${value}`, async ({ mount, page }) => {
+        await mount(<ResponsiveCell flexGrow={value}>content</ResponsiveCell>);
+        const cellElement = await getDataComponentByValue(
+          page,
+          "responsive-cell"
+        );
+        await expect(cellElement).toHaveCSS("flex-grow", growText);
+      });
+    });
+  });
+
+  ["auto", "content", "fit-content", "max-content", "min-content"].forEach(
+    (basis) => {
+      test(`should verify flex basis is ${basis}`, async ({ mount, page }) => {
+        await mount(<ResponsiveCell flexBasis={basis}>content</ResponsiveCell>);
+        const cellElement = await getDataComponentByValue(
+          page,
+          "responsive-cell"
+        );
+        await expect(cellElement).toHaveCSS("flex-basis", basis);
+      });
+    }
+  );
+
+  [
+    "left",
+    "center",
+    "right",
+    "flex-start",
+    "flex-end",
+    "normal",
+    "space-between",
+    "space-around",
+    "stretch",
+  ].forEach((justified) => {
+    test(`should verify justifyContent is ${justified}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <ResponsiveCell justifyContent={justified}>content</ResponsiveCell>
+      );
+      const cellElement = await getDataComponentByValue(
+        page,
+        "responsive-cell"
+      );
+      await expect(cellElement).toHaveCSS("justify-content", justified);
+    });
+  });
+
+  ["200px", "400px"].forEach((maxWidth) => {
+    test(`should verify maxWidth is ${maxWidth}`, async ({ mount, page }) => {
+      await mount(<ResponsiveCell maxWidth={maxWidth}>content</ResponsiveCell>);
+      const cellElement = await getDataComponentByValue(
+        page,
+        "responsive-cell"
+      );
+      await expect(cellElement).toHaveCSS("max-width", maxWidth);
     });
   });
 });

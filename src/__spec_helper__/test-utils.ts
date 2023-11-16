@@ -9,6 +9,9 @@ import {
   BackgroundProps,
   PositionProps,
   GridProps,
+  FlexBasisProps,
+  JustifyContentProps,
+  FlexGrowProps,
 } from "styled-system";
 import { ReactTestRendererJSON } from "react-test-renderer";
 
@@ -37,7 +40,7 @@ const assertStyleMatch = <Props>(
   opts?: jest.Options
 ) => {
   Object.entries(styleSpec).forEach(([attr, value]) => {
-    expect(component).toHaveStyleRule(toCSSCase(attr), value, opts);
+    expect(component).toHaveStyleRule(toCSSCase(attr), value?.toString(), opts);
   });
 };
 
@@ -209,17 +212,25 @@ const layoutProps = [
   ["overflowY", "overflow-y", "hidden"],
 ] as const;
 
+const justifyContentProps = [
+  ["justifyContent", "justifyContent", "center"],
+] as const;
+
+const flexGrowProps = [["flexGrow", "flexGrow", 1]] as const;
+
+const flexBasisProps = [["flexBasis", "flexBasis", "100px"]] as const;
+
 const flexBoxProps = [
   ["alignItems", "alignItems", "center"],
   ["alignContent", "alignContent", "center"],
   ["justifyItems", "justifyItems", "center"],
-  ["justifyContent", "justifyContent", "center"],
+  ...justifyContentProps,
   ["flexWrap", "flexWrap", "wrap"],
   ["flexDirection", "flexDirection", "row-reverse"],
   ["flex", "flex", "1"],
-  ["flexGrow", "flexGrow", "1"],
+  ...flexGrowProps,
   ["flexShrink", "flexShrink", "1"],
-  ["flexBasis", "flexBasis", "100px"],
+  ...flexBasisProps,
   ["justifySelf", "justifySelf", "center"],
   ["alignSelf", "alignSelf", "center"],
   ["order", "order", "1"],
@@ -498,6 +509,66 @@ const testStyledSystemLayout = (
   );
 };
 
+const testStyledSystemFlexGrow = (
+  component: (flexGrowProperties?: FlexGrowProps) => JSX.Element,
+  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+) => {
+  describe.each(flexGrowProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        const wrapper = mount(component(props));
+
+        assertStyleMatch(
+          { [propName]: value },
+          styleContainer ? styleContainer(wrapper) : wrapper
+        );
+      });
+    }
+  );
+};
+
+const testStyledSystemFlexBasis = (
+  component: (flexboxProperties?: FlexBasisProps) => JSX.Element,
+  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+) => {
+  describe.each(flexBasisProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        const wrapper = mount(component(props));
+
+        assertStyleMatch(
+          { [propName]: value },
+          styleContainer ? styleContainer(wrapper) : wrapper
+        );
+      });
+    }
+  );
+};
+
+const testStyledSystemJustifyContent = (
+  component: (flexboxProperties?: JustifyContentProps) => JSX.Element,
+  styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
+) => {
+  describe.each(justifyContentProps)(
+    'when a prop is specified using the "%s" styled system props',
+    (styledSystemProp, propName, value) => {
+      it(`then ${propName} should have been set correctly`, () => {
+        const props = { [styledSystemProp]: value };
+        const wrapper = mount(component(props));
+
+        assertStyleMatch(
+          { [propName]: value },
+          styleContainer ? styleContainer(wrapper) : wrapper
+        );
+      });
+    }
+  );
+};
+
 const testStyledSystemFlexBox = (
   component: (flexboxProperties?: FlexboxProps) => JSX.Element,
   styleContainer?: (wrapper: ReactWrapper) => ReactWrapper
@@ -616,6 +687,9 @@ const expectConsoleOutput = (
   };
 };
 
+const getGapValue = (gap: number | string) =>
+  typeof gap === "number" ? `var(--spacing${gap}00)` : gap;
+
 export {
   assertStyleMatch,
   toCSSCase,
@@ -638,9 +712,13 @@ export {
   testStyledSystemWidth,
   testStyledSystemHeight,
   testStyledSystemLayout,
+  testStyledSystemFlexGrow,
+  testStyledSystemFlexBasis,
+  testStyledSystemJustifyContent,
   testStyledSystemFlexBox,
   testStyledSystemGrid,
   testStyledSystemBackground,
   testStyledSystemPosition,
   expectConsoleOutput,
+  getGapValue,
 };

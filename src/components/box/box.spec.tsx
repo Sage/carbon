@@ -8,6 +8,7 @@ import {
   testStyledSystemGrid,
   testStyledSystemPosition,
   assertStyleMatch,
+  getGapValue,
 } from "../../__spec_helper__/test-utils";
 import Box, {
   OverflowWrap,
@@ -24,9 +25,6 @@ import Logger from "../../__internal__/utils/logger";
 const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const GAP_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as AllowedNumericalValues[];
-
-const getGapValue = (gap: number | string) =>
-  typeof gap === "number" ? `var(--spacing${gap}00)` : gap;
 
 describe("Box", () => {
   beforeAll(() => {

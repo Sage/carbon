@@ -1,5 +1,13 @@
 import React from "react";
-import { Tile, TileContent, TileFooter, TileFooterProps, TileProps } from ".";
+import {
+  ResponsiveCell,
+  ResponsiveTileContainer,
+  Tile,
+  TileContent,
+  TileFooter,
+  TileFooterProps,
+  TileProps,
+} from ".";
 import { Dl, Dt, Dd, DlProps } from "../definition-list";
 import Accordion from "../accordion/accordion.component";
 import Box from "../box/box.component";
@@ -75,5 +83,41 @@ export const TileComponentWithFalsyChildren = () => {
       <TileContent data-element="tile-content">{null}</TileContent>
       {false && <TileContent data-element="tile-content">Bar</TileContent>}
     </Tile>
+  );
+};
+
+export const ResponsiveTile = () => {
+  return (
+    <Tile m={0} py={0}>
+      <ResponsiveTileContainer>
+        <ResponsiveCell py={2}>Test Body One</ResponsiveCell>
+        <ResponsiveCell py={2}>Test Body Two</ResponsiveCell>
+        <ResponsiveCell py={2}>
+          Test Body Three With a very very long text
+        </ResponsiveCell>
+      </ResponsiveTileContainer>
+    </Tile>
+  );
+};
+
+export const ResponsiveTileContainerWithFalsyChildren = () => {
+  return (
+    <>
+      <ResponsiveTileContainer />
+      <ResponsiveTileContainer>Foo</ResponsiveTileContainer>
+      <ResponsiveTileContainer>{null}</ResponsiveTileContainer>
+      {false && <ResponsiveTileContainer>Bar</ResponsiveTileContainer>}
+    </>
+  );
+};
+
+export const ResponsiveCellWithFalsyChildren = () => {
+  return (
+    <>
+      <ResponsiveCell />
+      <ResponsiveCell>Foo</ResponsiveCell>
+      <ResponsiveCell>{null}</ResponsiveCell>
+      {false && <ResponsiveCell>Bar</ResponsiveCell>}
+    </>
   );
 };

@@ -1,7 +1,13 @@
 import React from "react";
 import { ComponentStory } from "@storybook/react";
 
-import { Tile, TileContent, TileFooter } from ".";
+import {
+  ResponsiveCell,
+  ResponsiveTileContainer,
+  Tile,
+  TileContent,
+  TileFooter,
+} from ".";
 
 import { Dl, Dt, Dd } from "../definition-list";
 import Link from "../link";
@@ -13,6 +19,7 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Icon from "../icon";
 import VerticalDivider from "../vertical-divider";
 import Hr from "../hr";
+import StyledDivider from "./flow-cell/flow-cell.style";
 
 export const SIZES = ["small", "medium", "large"] as const;
 export const VALIDATIONS = ["error", "warning", "info"] as const;
@@ -582,3 +589,178 @@ export const WithAccordionAndTileFooter: ComponentStory<typeof Tile> = () => (
 WithAccordionAndTileFooter.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const ResponsiveDefaultStory: ComponentStory<typeof Tile> = () => (
+  <Tile m={0} py={0}>
+    <ResponsiveTileContainer>
+      <ResponsiveCell py={2}>
+        Test Body One
+        <Hr
+          position="absolute"
+          bottom="0px"
+          left="0px"
+          width="100vw"
+          m="0px 0px -1px 0px"
+        />
+      </ResponsiveCell>
+      <ResponsiveCell py={2}>
+        Test Body Two
+        <Hr
+          position="absolute"
+          bottom="0px"
+          left="0px"
+          width="100vw"
+          m="0px 0px -1px 0px"
+        />
+      </ResponsiveCell>
+      <ResponsiveCell py={2}>
+        Test Body Three With a very very long text
+      </ResponsiveCell>
+    </ResponsiveTileContainer>
+  </Tile>
+);
+
+export const CustomGaps: ComponentStory<typeof Tile> = () => (
+  <>
+    <Tile my={1} py={0}>
+      <ResponsiveTileContainer>
+        <ResponsiveCell hasDivider flexGrow={0} flexBasis="fit-content" py={2}>
+          <Box backgroundColor="#dedede">Test Body One</Box>
+        </ResponsiveCell>
+        <ResponsiveCell hasDivider flexGrow={0} flexBasis="fit-content" py={2}>
+          <Box backgroundColor="#dedede">Test Body Two</Box>
+        </ResponsiveCell>
+        <ResponsiveCell flexGrow={0} flexBasis="fit-content" py={2}>
+          <Box backgroundColor="#dedede">
+            Test Body Three With a very very long text
+          </Box>
+        </ResponsiveCell>
+      </ResponsiveTileContainer>
+    </Tile>
+    <Tile my={1} py={0}>
+      <ResponsiveTileContainer columnGap={6}>
+        <ResponsiveCell hasDivider flexGrow={0} flexBasis="fit-content" py={2}>
+          <Box backgroundColor="#dedede">Test Body One</Box>
+        </ResponsiveCell>
+        <ResponsiveCell hasDivider flexGrow={0} flexBasis="fit-content" py={2}>
+          <Box backgroundColor="#dedede">Test Body Two</Box>
+        </ResponsiveCell>
+        <ResponsiveCell flexGrow={0} flexBasis="fit-content" py={2}>
+          <Box backgroundColor="#dedede">
+            Test Body Three With a very very long text
+          </Box>
+        </ResponsiveCell>
+      </ResponsiveTileContainer>
+    </Tile>
+  </>
+);
+
+export const FixedContainers: ComponentStory<typeof Tile> = () => (
+  <Tile my={1} py={0}>
+    <ResponsiveTileContainer>
+      <ResponsiveCell hasDivider flexGrow={0} flexBasis="fit-content" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed fit-content
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexGrow={0} flexBasis="80px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 80px
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexGrow={0} flexBasis="120px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 120px
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexGrow={0} flexBasis="160px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 160px
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexGrow={0} flexBasis="200px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 200px
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell flexGrow={0} flexBasis="240px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 240px
+        </Box>
+      </ResponsiveCell>
+    </ResponsiveTileContainer>
+  </Tile>
+);
+
+export const FlexContainers: ComponentStory<typeof Tile> = () => (
+  <Tile my={1} py={0}>
+    <ResponsiveTileContainer>
+      <ResponsiveCell hasDivider flexBasis="fit-content" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Flex fit-content
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexBasis="80px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 80px
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexBasis="120px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 120px
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexBasis="160px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 160px
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexBasis="200px" py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 200px
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell flexBasis="240px" py={2} maxWidth="400px">
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 240px - maxWidth 400px
+        </Box>
+      </ResponsiveCell>
+    </ResponsiveTileContainer>
+  </Tile>
+);
+
+export const ProportionateWidths: ComponentStory<typeof Tile> = () => (
+  <Tile my={1} py={0}>
+    <ResponsiveTileContainer>
+      <ResponsiveCell hasDivider flexGrow={1} py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 160px normal
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell hasDivider flexGrow={2} py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 160px wide
+        </Box>
+      </ResponsiveCell>
+      <ResponsiveCell flexGrow={3} py={2}>
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 160px extra-wide
+        </Box>
+      </ResponsiveCell>
+    </ResponsiveTileContainer>
+  </Tile>
+);
+
+export const Align: ComponentStory<typeof Tile> = () => (
+  <ResponsiveTileContainer>
+    <ResponsiveCell hasDivider justifyContent="flex-start">
+      <Box>Align left</Box>
+    </ResponsiveCell>
+    <ResponsiveCell hasDivider justifyContent="flex-end">
+      <Box>Align right</Box>
+    </ResponsiveCell>
+    <ResponsiveCell justifyContent="center">
+      <Box>Align center</Box>
+    </ResponsiveCell>
+  </ResponsiveTileContainer>
+);

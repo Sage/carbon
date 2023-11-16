@@ -276,6 +276,25 @@ const generateStyledSystemWidthProps = (defaults) => [
   },
 ];
 
+const generateStyledSystemMaxWidthProps = (defaults) => {
+  return [
+    {
+      name: "maxWidth",
+      type: { summary: "number | string" },
+      // eslint-disable-next-line max-len
+      description:
+        "Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values. String values are passed as raw CSS values. And arrays are converted to responsive width styles. If theme.sizes is defined, the width prop will attempt to pick up values from the theme",
+      required: false,
+      defaultValue: {
+        summary: defaults.maxWidth || "-",
+      },
+      table: {
+        category: "Layout",
+      },
+    },
+  ];
+};
+
 const generateStyledSystemLayoutProps = (defaults) => {
   return [
     ...generateStyledSystemWidthProps(defaults),
@@ -306,20 +325,7 @@ const generateStyledSystemLayoutProps = (defaults) => {
         category: "Layout",
       },
     },
-    {
-      name: "maxWidth",
-      type: { summary: "number | string" },
-      // eslint-disable-next-line max-len
-      description:
-        "Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values. String values are passed as raw CSS values. And arrays are converted to responsive width styles. If theme.sizes is defined, the width prop will attempt to pick up values from the theme",
-      required: false,
-      defaultValue: {
-        summary: defaults.maxWidth || "-",
-      },
-      table: {
-        category: "Layout",
-      },
-    },
+    ...generateStyledSystemMaxWidthProps(defaults),
     {
       name: "minHeight",
       type: { summary: "number | string" },
@@ -425,6 +431,57 @@ const generateStyledSystemLayoutProps = (defaults) => {
   ];
 };
 
+const generateStyledSystemJustifyContentProps = (defaults) => {
+  return [
+    {
+      name: "justifyContent",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.justifyContent || "-",
+      },
+      table: {
+        category: "Flexbox",
+      },
+    },
+  ];
+};
+
+const generateStyledSystemFlexGrowProps = (defaults) => {
+  return [
+    {
+      name: "flexGrow",
+      type: { summary: "number" },
+      description: "Any number greater than 0.",
+      required: false,
+      defaultValue: {
+        summary: defaults.flexGrow || "-",
+      },
+      table: {
+        category: "Flexbox",
+      },
+    },
+  ];
+};
+
+const generateStyledSystemFlexBasisProps = (defaults) => {
+  return [
+    {
+      name: "flexBasis",
+      type: { summary: "string" },
+      description: "Any valid CSS string",
+      required: false,
+      defaultValue: {
+        summary: defaults.flexBasis || "-",
+      },
+      table: {
+        category: "Flexbox",
+      },
+    },
+  ];
+};
+
 const generateStyledSystemFlexBoxProps = (defaults) => {
   return [
     {
@@ -463,18 +520,7 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
         category: "Flexbox",
       },
     },
-    {
-      name: "justifyContent",
-      type: { summary: "string" },
-      description: "Any valid CSS string",
-      required: false,
-      defaultValue: {
-        summary: defaults.justifyContent || "-",
-      },
-      table: {
-        category: "Flexbox",
-      },
-    },
+    ...generateStyledSystemJustifyContentProps(defaults),
     {
       name: "flexWrap",
       type: { summary: "string" },
@@ -511,18 +557,7 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
         category: "Flexbox",
       },
     },
-    {
-      name: "flexGrow",
-      type: { summary: "number" },
-      description: "Any number greater than 0.",
-      required: false,
-      defaultValue: {
-        summary: defaults.flexGrow || "-",
-      },
-      table: {
-        category: "Flexbox",
-      },
-    },
+    ...generateStyledSystemFlexGrowProps(defaults),
     {
       name: "flexShrink",
       type: { summary: "number" },
@@ -535,18 +570,7 @@ const generateStyledSystemFlexBoxProps = (defaults) => {
         category: "Flexbox",
       },
     },
-    {
-      name: "flexBasis",
-      type: { summary: "string" },
-      description: "Any valid CSS string",
-      required: false,
-      defaultValue: {
-        summary: defaults.flexBasis || "-",
-      },
-      table: {
-        category: "Flexbox",
-      },
-    },
+    ...generateStyledSystemFlexBasisProps(defaults),
     {
       name: "justifySelf",
       type: { summary: "string" },
@@ -834,7 +858,11 @@ const StyledSystemProps = ({
   spacing,
   color,
   width,
+  maxWidth,
   layout,
+  justifyContent,
+  flexGrow,
+  flexBasis,
   flexBox,
   grid,
   defaults = {},
@@ -864,6 +892,18 @@ const StyledSystemProps = ({
   if (width) {
     rows.push(...generateStyledSystemWidthProps(defaults));
   }
+  if (maxWidth) {
+    rows.push(...generateStyledSystemMaxWidthProps(defaults));
+  }
+  if (justifyContent) {
+    rows.push(...generateStyledSystemJustifyContentProps(defaults));
+  }
+  if (flexGrow) {
+    rows.push(...generateStyledSystemFlexGrowProps(defaults));
+  }
+  if (flexBasis) {
+    rows.push(...generateStyledSystemFlexBasisProps(defaults));
+  }
   if (flexBox) {
     rows.push(...generateStyledSystemFlexBoxProps(defaults));
   }
@@ -880,7 +920,7 @@ const StyledSystemProps = ({
   return (
     <>
       {!noHeader && <h2>Props</h2>}
-      <ArgsTable rows={rows} />
+      {rows.length > 0 && <ArgsTable rows={rows} />}
       {of && <Props of={of} />}
     </>
   );
@@ -891,7 +931,11 @@ StyledSystemProps.propTypes = {
   noHeader: PropTypes.bool,
   spacing: PropTypes.bool,
   width: PropTypes.bool,
+  maxWidth: PropTypes.bool,
   layout: PropTypes.bool,
+  justifyContent: PropTypes.bool,
+  flexGrow: PropTypes.bool,
+  flexBasis: PropTypes.bool,
   flexBox: PropTypes.bool,
   grid: PropTypes.bool,
   defaults: PropTypes.object,
