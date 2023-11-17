@@ -5,6 +5,8 @@ import {
   assertStyleMatch,
   testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
+import StyledCardRow from "./card-row.style";
 
 describe("CardRow", () => {
   it("renders children correctly", () => {
@@ -45,4 +47,27 @@ describe("CardRow", () => {
       );
     }
   );
+
+  it("should have expected data attributes", () => {
+    rootTagTest(
+      mount(
+        <CardRow>
+          <div />
+        </CardRow>
+      ).find(StyledCardRow),
+      "card-row",
+      "card-row"
+    );
+
+    rootTagTest(
+      mount(
+        <CardRow data-element="foo" data-role="bar">
+          <div />
+        </CardRow>
+      ).find(StyledCardRow),
+      "card-row",
+      "foo",
+      "bar"
+    );
+  });
 });

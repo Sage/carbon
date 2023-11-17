@@ -9,6 +9,7 @@ import {
 import Icon from "../icon";
 import StyledCard from "./card.style";
 import Logger from "../../__internal__/utils/logger";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 function render(props: Partial<CardProps> = {}) {
   return mount(<Card {...props}>Content</Card>);
@@ -17,9 +18,13 @@ function render(props: Partial<CardProps> = {}) {
 describe("Card", () => {
   testStyledSystemMargin((props) => <Card {...props}>Content</Card>);
 
-  it("renders with correct data-component tag", () => {
-    const wrapper = render();
-    expect(wrapper.find("div[data-component='card']").exists()).toBeTruthy();
+  it("renders with correct data attributes", () => {
+    rootTagTest(
+      render({ "data-element": "foo", "data-role": "bar" }).find(StyledCard),
+      "card",
+      "foo",
+      "bar"
+    );
   });
 
   it("child content is rendered inside the card", () => {

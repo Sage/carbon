@@ -8,15 +8,17 @@ import Icon from "../icon";
 import { CardRow, CardRowProps, CardFooter, CardFooterProps } from ".";
 import { CardSpacing } from "./card.config";
 import Logger from "../../__internal__/utils/logger";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
-export interface CardProps extends MarginProps, CardContextProps {
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-element"?: string;
-  /** Identifier used for testing purposes, applied to the root element of the component. */
-  "data-role"?: string;
+export interface CardProps
+  extends MarginProps,
+    CardContextProps,
+    Pick<TagProps, "data-element" | "data-role"> {
   /**
    * [DEPRECATED - use `data-role` instead]
    * Identifier used for testing purposes, applied to the root element of the component.
@@ -111,9 +113,6 @@ const Card = ({
 
   return (
     <StyledCard
-      data-component="card"
-      data-element={dataElement}
-      data-role={dataRole || oldDataRole}
       cardWidth={cardWidth}
       interactive={!!interactive}
       draggable={!!draggable}
@@ -125,6 +124,10 @@ const Card = ({
       {...(interactive && { tabIndex: 0, type: "button" })}
       roundness={roundness}
       {...filterStyledSystemMarginProps(rest)}
+      {...tagComponent("card", {
+        "data-element": dataElement,
+        "data-role": dataRole || oldDataRole,
+      })}
     >
       {draggable && <Icon type="drag" />}
       <CardContext.Provider value={{ roundness }}>
