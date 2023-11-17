@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import DateInput, { DateChangeEvent, DateInputProps } from "./date.component";
 import { CommonTextboxArgs } from "../textbox/textbox-test.stories";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import I18nProvider from "../../components/i18n-provider";
 
 export const DateInputCustom = ({
   onChange,
@@ -119,6 +120,52 @@ export const DateInputWithButton = ({
       <button data-element="foo-button" type="button">
         foo
       </button>
+    </>
+  );
+};
+
+export const DateWithLocaleProvider = ({
+  onChange,
+  localeValue,
+  dateFnsLocaleValue,
+}: Partial<DateInputProps> & {
+  localeValue: string;
+  dateFnsLocaleValue: Locale;
+  onChange: () => void;
+}) => {
+  const [state, setState] = useState("04/04/2019");
+  const [rawValue, setRawValue] = useState<string | null>(null);
+  const [formattedValue, setFormattedValue] = useState("");
+
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+    setRawValue(ev.target.value.rawValue);
+    setFormattedValue(ev.target.value.formattedValue);
+    onChange();
+  };
+  return (
+    <>
+      <I18nProvider
+        locale={{
+          locale: () => localeValue,
+          date: {
+            dateFnsLocale: () => dateFnsLocaleValue,
+            ariaLabels: {
+              previousMonthButton: () => "Previous month",
+              nextMonthButton: () => "Next month",
+            },
+          },
+        }}
+      >
+        <DateInput
+          label="Date"
+          name="date-input"
+          value={state}
+          onChange={setValue}
+        />
+      </I18nProvider>
+      <div data-testid="raw-value">{rawValue}</div>
+      <div data-testid="formatted-value">{formattedValue}</div>
     </>
   );
 };

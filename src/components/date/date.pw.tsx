@@ -6,6 +6,7 @@ import {
   DateInputCustom,
   DateInputValidationNewDesign,
   DateInputWithButton,
+  DateWithLocaleProvider,
 } from "./components.test-pw";
 import { DateInputProps } from ".";
 import {
@@ -970,7 +971,7 @@ test.describe("Events tests", () => {
     expect(callbackCount).toBe(1);
   });
 
-  [
+  ([
     ["en-US", "05/12/2022", enUS],
     ["en-CA", "05/12/2022", enCA],
     ["en-ZA", "12/05/2022", enZA],
@@ -990,187 +991,202 @@ test.describe("Events tests", () => {
     ["hi-HI", "12/05/2022", hi],
     ["sl-SI", "12. 05. 2022", sl],
     ["lv", "12.05.2022.", lv],
-  ].forEach((localeValue, formattedValueParam, dateFnsLocaleValue) => {
-    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after selecting date`, async ({
-      mount,
-      page,
-    }) => {
-      // const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
-      // await mount(
-      //   <DateInputCustom onChange={callback} />,
-      //   sageTheme,
-      //   {
-      //     locale: () => localeValue,
-      //     date: {
-      //       dateFnsLocale: () => dateFnsLocaleValue,
-      //       ariaLabels: {
-      //         previousMonthButton: () => "Previous month",
-      //         nextMonthButton: () => "Next month",
-      //       },
-      //     },
-      //   }
-      // );
-      // const getDatetoEnter = () => {
-      //   if (["en-US", "en-CA"].includes(localeValue))
-      //     return MMDDYYYY_DATE_TO_ENTER;
-      //   if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-      //     return YYYYMMDD_DATE_TO_ENTER;
-      //   return DDMMYYY_DATE_TO_ENTER;
-      // };
-      // dateInput().clear().type(getDatetoEnter(), { delay: 0 });
-      // dateInput().click();
-      // dayPickerByText("12").click();
-      // dateInput()
-      //   .wait(250)
-      //   .should("have.attr", "value", formattedValueParam)
-      //   .then(() => {
-      //     cy.get("@onChange")
-      //       .invoke("getCalls")
-      //       .its("12")
-      //       .its("args[0].target.value.rawValue")
-      //       .should("equal", DATE_TO_VERIFY);
-      //     cy.get("@onChange")
-      //       .invoke("getCalls")
-      //       .its("12")
-      //       .its("args[0].target.value.formattedValue")
-      //       .should("equal", formattedValueParam);
-      //   });
-    });
-  });
+  ] as [string, string, Locale][]).forEach(
+    ([localeValue, formattedValueParam, dateFnsLocaleValue]) => {
+      test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after selecting date`, async ({
+        mount,
+        page,
+      }) => {
+        let callbackCount = 0;
+        await mount(
+          <DateWithLocaleProvider
+            onChange={() => {
+              callbackCount += 1;
+            }}
+            localeValue={localeValue}
+            dateFnsLocaleValue={dateFnsLocaleValue}
+          />
+        );
 
-  [
-    ["en-US", "05/27/2022", enUS],
-    ["en-CA", "05/27/2022", enCA],
-    ["en-ZA", "27/05/2022", enZA],
-    ["de", "27.05.2022", de],
-    ["es-ES", "27/05/2022", es],
-    ["fr-FR", "27/05/2022", fr],
-    ["fr-CA", "27/05/2022", frCA],
-    ["zh-CN", "2022/05/27", zhCN],
-    ["pl-PL", "27.05.2022", pl],
-    ["bg-BG", "27.05.2022", bg],
-    ["zh-HK", "27/05/2022", zhHK],
-    ["hu-HU", "2022. 05. 27.", hu],
-    ["fi-FI", "27.05.2022", fi],
-    ["de-AT", "27.05.2022", deAT],
-    ["ko-KR", "2022. 05. 27.", ko],
-    ["ar-EG", "27/05/2022", arEG],
-    ["hi-HI", "27/05/2022", hi],
-    ["sl-SI", "27. 05. 2022", sl],
-    ["lv", "27.05.2022.", lv],
-  ].forEach((localeValue, formattedValueParam, dateFnsLocaleValue) => {
-    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after type the date`, async ({
-      mount,
-      page,
-    }) => {
-      // const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
-      // await mount(
-      //   <DateInputCustom onChange={callback} />,
-      //   sageTheme,
-      //   {
-      //     locale: () => localeValue,
-      //     date: {
-      //       dateFnsLocale: () => dateFnsLocaleValue,
-      //       ariaLabels: {
-      //         previousMonthButton: () => "Previous month",
-      //         nextMonthButton: () => "Next month",
-      //       },
-      //     },
-      //   }
-      // );
-      // const getDatetoEnter = () => {
-      //   if (["en-US", "en-CA"].includes(localeValue))
-      //     return MMDDYYYY_DATE_TO_ENTER;
-      //   if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-      //     return YYYYMMDD_DATE_TO_ENTER;
-      //   return DDMMYYY_DATE_TO_ENTER;
-      // };
-      // dateInput().clear().type(getDatetoEnter(), { delay: 0 });
-      // dateInput().blur();
-      // dateInput()
-      //   .wait(250)
-      //   .should("have.attr", "value", formattedValueParam)
-      //   .then(() => {
-      //     cy.get("@onChange")
-      //       .invoke("getCalls")
-      //       .its("11")
-      //       .its("args[0].target.value.rawValue")
-      //       .should("equal", "2022-05-27");
-      //     cy.get("@onChange")
-      //       .invoke("getCalls")
-      //       .its("11")
-      //       .its("args[0].target.value.formattedValue")
-      //       .should("equal", formattedValueParam);
-      //   });
-    });
-  });
+        const getDatetoEnter = () => {
+          if (["en-US", "en-CA"].includes(localeValue))
+            return MMDDYYYY_DATE_TO_ENTER;
+          if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
+            return YYYYMMDD_DATE_TO_ENTER;
+          return DDMMYYY_DATE_TO_ENTER;
+        };
 
-  [
-    ["en-US", "07/01/2022", enUS],
-    ["en-CA", "07/01/2022", enCA],
-    ["en-ZA", "01/07/2022", enZA],
-    ["de", "01.07.2022", de],
-    ["es-ES", "01/07/2022", es],
-    ["fr-FR", "01/07/2022", fr],
-    ["fr-CA", "01/07/2022", frCA],
-    ["zh-CN", "2022/07/01", zhCN],
-    ["pl-PL", "01.07.2022", pl],
-    ["bg-BG", "01.07.2022", bg],
-    ["zh-HK", "01/07/2022", zhHK],
-    ["hu-HU", "2022. 07. 01.", hu],
-    ["fi-FI", "01.07.2022", fi],
-    ["de-AT", "01.07.2022", deAT],
-    ["ko-KR", "2022. 07. 01.", ko],
-    ["ar-EG", "01/07/2022", arEG],
-    ["hi-HI", "01/07/2022", hi],
-    ["sl-SI", "01. 07. 2022", sl],
-    ["lv", "01.07.2022.", lv],
-  ].forEach((localeValue, formattedValueParam, dateFnsLocaleValue) => {
-    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after typing short date`, async ({
-      mount,
-      page,
-    }) => {
-      // const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
-      // await mount(
-      //   <DateInputCustom onChange={callback} />,
-      //   sageTheme,
-      //   {
-      //     locale: () => localeValue,
-      //     date: {
-      //       dateFnsLocale: () => dateFnsLocaleValue,
-      //       ariaLabels: {
-      //         previousMonthButton: () => "Previous month",
-      //         nextMonthButton: () => "Next month",
-      //       },
-      //     },
-      //   }
-      // );
-      // const getDatetoEnter = () => {
-      //   if (["en-US", "en-CA"].includes(localeValue))
-      //     return MMDDYYYY_DATE_TO_ENTER_SHORT;
-      //   if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-      //     return YYYYMMDD_DATE_TO_ENTER_SHORT;
-      //   return DDMMYYY_DATE_TO_ENTER_SHORT;
-      // };
-      // dateInput().clear().type(getDatetoEnter(), { delay: 0 });
-      // dateInput().blur();
-      // dateInput()
-      //   .wait(250)
-      //   .should("have.attr", "value", formattedValueParam)
-      //   .then(() => {
-      //     cy.get("@onChange")
-      //       .invoke("getCalls")
-      //       .its("7")
-      //       .its("args[0].target.value.rawValue")
-      //       .should("equal", "2022-07-01");
-      //     cy.get("@onChange")
-      //       .invoke("getCalls")
-      //       .its("7")
-      //       .its("args[0].target.value.formattedValue")
-      //       .should("equal", formattedValueParam);
-      //   });
-    });
-  });
+        const input = getDataElementByValue(page, "input");
+        await input.clear();
+        await page.waitForTimeout(2000);
+        await input.fill(getDatetoEnter());
+        await page.waitForTimeout(2000);
+        await input.click();
+
+        const pickerByText = page
+          .locator(".DayPicker-Day")
+          .filter({ hasText: "12" });
+        await pickerByText.click();
+        await page.waitForTimeout(2000);
+        await expect(input).toHaveValue(formattedValueParam);
+
+        expect(callbackCount).toBe(3);
+
+        // dateInput().clear().type(getDatetoEnter(), { delay: 0 });
+        // dateInput().click();
+        // dayPickerByText("12").click();
+        // dateInput()
+        //   .wait(250)
+        //   .should("have.attr", "value", formattedValueParam)
+        //   .then(() => {
+        //     cy.get("@onChange")
+        //       .invoke("getCalls")
+        //       .its("12")
+        //       .its("args[0].target.value.rawValue")
+        //       .should("equal", DATE_TO_VERIFY);
+        //     cy.get("@onChange")
+        //       .invoke("getCalls")
+        //       .its("12")
+        //       .its("args[0].target.value.formattedValue")
+        //       .should("equal", formattedValueParam);
+        //   });
+      });
+    }
+  );
+
+  // [
+  //   ["en-US", "05/27/2022", enUS],
+  //   ["en-CA", "05/27/2022", enCA],
+  //   ["en-ZA", "27/05/2022", enZA],
+  //   ["de", "27.05.2022", de],
+  //   ["es-ES", "27/05/2022", es],
+  //   ["fr-FR", "27/05/2022", fr],
+  //   ["fr-CA", "27/05/2022", frCA],
+  //   ["zh-CN", "2022/05/27", zhCN],
+  //   ["pl-PL", "27.05.2022", pl],
+  //   ["bg-BG", "27.05.2022", bg],
+  //   ["zh-HK", "27/05/2022", zhHK],
+  //   ["hu-HU", "2022. 05. 27.", hu],
+  //   ["fi-FI", "27.05.2022", fi],
+  //   ["de-AT", "27.05.2022", deAT],
+  //   ["ko-KR", "2022. 05. 27.", ko],
+  //   ["ar-EG", "27/05/2022", arEG],
+  //   ["hi-HI", "27/05/2022", hi],
+  //   ["sl-SI", "27. 05. 2022", sl],
+  //   ["lv", "27.05.2022.", lv],
+  // ].forEach((localeValue, formattedValueParam, dateFnsLocaleValue) => {
+  //   test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after type the date`, async ({
+  //     mount,
+  //     page,
+  //   }) => {
+  // const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
+  // await mount(
+  //   <DateInputCustom onChange={callback} />,
+  //   sageTheme,
+  //   {
+  //     locale: () => localeValue,
+  //     date: {
+  //       dateFnsLocale: () => dateFnsLocaleValue,
+  //       ariaLabels: {
+  //         previousMonthButton: () => "Previous month",
+  //         nextMonthButton: () => "Next month",
+  //       },
+  //     },
+  //   }
+  // );
+  // const getDatetoEnter = () => {
+  //   if (["en-US", "en-CA"].includes(localeValue))
+  //     return MMDDYYYY_DATE_TO_ENTER;
+  //   if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
+  //     return YYYYMMDD_DATE_TO_ENTER;
+  //   return DDMMYYY_DATE_TO_ENTER;
+  // };
+  // dateInput().clear().type(getDatetoEnter(), { delay: 0 });
+  // dateInput().blur();
+  // dateInput()
+  //   .wait(250)
+  //   .should("have.attr", "value", formattedValueParam)
+  //   .then(() => {
+  //     cy.get("@onChange")
+  //       .invoke("getCalls")
+  //       .its("11")
+  //       .its("args[0].target.value.rawValue")
+  //       .should("equal", "2022-05-27");
+  //     cy.get("@onChange")
+  //       .invoke("getCalls")
+  //       .its("11")
+  //       .its("args[0].target.value.formattedValue")
+  //       .should("equal", formattedValueParam);
+  //   });
+  //   });
+  // });
+
+  // [
+  //   ["en-US", "07/01/2022", enUS],
+  //   ["en-CA", "07/01/2022", enCA],
+  //   ["en-ZA", "01/07/2022", enZA],
+  //   ["de", "01.07.2022", de],
+  //   ["es-ES", "01/07/2022", es],
+  //   ["fr-FR", "01/07/2022", fr],
+  //   ["fr-CA", "01/07/2022", frCA],
+  //   ["zh-CN", "2022/07/01", zhCN],
+  //   ["pl-PL", "01.07.2022", pl],
+  //   ["bg-BG", "01.07.2022", bg],
+  //   ["zh-HK", "01/07/2022", zhHK],
+  //   ["hu-HU", "2022. 07. 01.", hu],
+  //   ["fi-FI", "01.07.2022", fi],
+  //   ["de-AT", "01.07.2022", deAT],
+  //   ["ko-KR", "2022. 07. 01.", ko],
+  //   ["ar-EG", "01/07/2022", arEG],
+  //   ["hi-HI", "01/07/2022", hi],
+  //   ["sl-SI", "01. 07. 2022", sl],
+  //   ["lv", "01.07.2022.", lv],
+  // ].forEach((localeValue, formattedValueParam, dateFnsLocaleValue) => {
+  //   test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after typing short date`, async ({
+  //     mount,
+  //     page,
+  //   }) => {
+  // const callback: DateInputProps["onChange"] = cy.stub().as("onChange");
+  // await mount(
+  //   <DateInputCustom onChange={callback} />,
+  //   sageTheme,
+  //   {
+  //     locale: () => localeValue,
+  //     date: {
+  //       dateFnsLocale: () => dateFnsLocaleValue,
+  //       ariaLabels: {
+  //         previousMonthButton: () => "Previous month",
+  //         nextMonthButton: () => "Next month",
+  //       },
+  //     },
+  //   }
+  // );
+  // const getDatetoEnter = () => {
+  //   if (["en-US", "en-CA"].includes(localeValue))
+  //     return MMDDYYYY_DATE_TO_ENTER_SHORT;
+  //   if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
+  //     return YYYYMMDD_DATE_TO_ENTER_SHORT;
+  //   return DDMMYYY_DATE_TO_ENTER_SHORT;
+  // };
+  // dateInput().clear().type(getDatetoEnter(), { delay: 0 });
+  // dateInput().blur();
+  // dateInput()
+  //   .wait(250)
+  //   .should("have.attr", "value", formattedValueParam)
+  //   .then(() => {
+  //     cy.get("@onChange")
+  //       .invoke("getCalls")
+  //       .its("7")
+  //       .its("args[0].target.value.rawValue")
+  //       .should("equal", "2022-07-01");
+  //     cy.get("@onChange")
+  //       .invoke("getCalls")
+  //       .its("7")
+  //       .its("args[0].target.value.formattedValue")
+  //       .should("equal", formattedValueParam);
+  //   });
+  //   });
+  // });
 
   test(`should call onBlur callback when a blur event is triggered`, async ({
     mount,
