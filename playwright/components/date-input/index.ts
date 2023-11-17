@@ -20,6 +20,7 @@ export const dayPickerWrapper = (page: Page) =>
   page.locator(DAY_PICKER_WRAPPER);
 export const dayPickerParent = (page: Page) =>
   page.locator(DAY_PICKER_WRAPPER).locator("..").locator("..");
-// export const dayPickerHeading = (page: Page) => page.locator(DAY_PICKER_HEADING).children();
-// export const dayPickerNavButtons = (page: Page, index: number) =>
-//   page.locator(".DayPicker-NavBar").children().eq(index);
+export const dayPickerHeading = (page: Page) =>
+  page.locator(DAY_PICKER_HEADING).locator("div");
+export const dayPickerNavButtons = (page: Page, index: number) =>
+  page.locator(".DayPicker-NavBar").locator("button").nth(index);
