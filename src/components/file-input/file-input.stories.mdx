@@ -66,19 +66,27 @@ render on a single line (as seen in all the examples above).
 You can increase the width and/or height component by setting the `maxHeight` and/or `maxWidth` props. You might need to do this to fit especially long
 explanatory text, or to match the precise width/height of a particular design. Examples of increasing width and height are shown below:
 
+#### Increased height
+
 <Canvas>
   <Story name="increased height" story={stories.IncreasedHeight} />
 </Canvas>
 
+#### Both height and width increased
+
 <Canvas>
   <Story name="increased width and height" story={stories.IncreasedBoth} />
 </Canvas>
+
+#### Full width example
 
 Note that any valid CSS values can be used for these props, and that you can therefore set the `maxWidth` to `"100%"` to fill out the entire container width:
 
 <Canvas>
   <Story name="100% width" story={stories.FullWidth} />
 </Canvas>
+
+#### Responsive increased width example
 
 It isn't recommended to increase the `maxWidth` to more than 320px without also increasing the `maxHeight`, as this could lead to the text overflowing the
 container on smaller mobile devices. If you really need to put the text and button on the same row if space allows, you can use the CSS `min` function to
@@ -88,6 +96,8 @@ smaller screen-sizes, as illustratred below:
 <Canvas>
   <Story name="increased width - responsive" story={stories.IncreasedWidthResponsive} />
 </Canvas>
+
+#### Vertical layout
 
 One common variation is to have the text vertically stacked below the button, without necessarily increasing the width. This can be achieved by setting the
 `isVertical` boolean prop. Note that this is equivalent to simply removing the default `maxHeight` value and will be overridden if `maxHeight` is explicitly
@@ -146,6 +156,8 @@ a non-empty array for multiple files) in order for the users to see any indicati
 For this reason the `onChange` function prop is mandatory - without providing an implementation for this event handler that updates the
 components `uploadStatus`, there will be no visual change once a file has been added to the input.
 
+#### Client side example
+
 Here is a relatively simple example of using a [FileReader](https://developer.mozilla.org/en-US/docs/Web/API/FileReader) to track progress purely
 on the client side, resulting in storing the file locally as a `data:` URL. This is a way to show users a preview of their file if you do not intend
 to track upload progress on the server, or do not actually send the files to a server until form submission.
@@ -157,6 +169,8 @@ lifecycle of the component.
   <Story name="tracking upload status on client side" story={stories.UploadStatusClient} />
 </Canvas>
 
+#### Other approaches
+
 This example mocks an alternative approach where files added to the file input are immediately sent to the server, and the UI tracks the progress of the upload.
 This simple example mocks the progress (and the possibility of errors, such as network errors) with random numbers - in a real scenario this would poll an
 alternative endpoint for the upload progress, or use WebSocket messages sent from the server to update progress.
@@ -164,6 +178,8 @@ alternative endpoint for the upload progress, or use WebSocket messages sent fro
 <Canvas>
   <Story name="tracking upload status alternative" story={stories.UploadStatusAlternative} />
 </Canvas>
+
+#### Uploading without progress percentage
 
 Note that you can set the `uploading` without the `progress` property, to renders an
 animated <LinkTo kind="LoaderBar" story="default">LoaderBar</LinkTo> component, rather
