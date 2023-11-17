@@ -13,7 +13,7 @@ export default {
   },
 };
 
-export const AllStatuses = () => {
+export const AllStatuses = (args: Partial<FileInputProps>) => {
   const statuses: FileInputProps["uploadStatus"][] = [
     undefined,
     {
@@ -69,11 +69,17 @@ export const AllStatuses = () => {
     },
   ];
   return statuses.map((status) => (
-    <FileInput my={20} label="test" uploadStatus={status} onChange={() => {}} />
+    <FileInput
+      my={20}
+      label="test"
+      uploadStatus={status}
+      onChange={() => {}}
+      {...args}
+    />
   ));
 };
 
-export const LongFilenameStatus = () => {
+export const LongFilenameStatus = (args: Partial<FileInputProps>) => {
   return (
     <FileInput
       my={20}
@@ -85,6 +91,7 @@ export const LongFilenameStatus = () => {
         filename: "really_long_filename_that_will_overflow_container.doc",
       }}
       onChange={() => {}}
+      {...args}
     />
   );
 };
