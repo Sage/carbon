@@ -6,7 +6,7 @@ import {
   DateInputCustom,
   DateInputValidationNewDesign,
   DateInputWithButton,
-  DateWithLocaleProvider,
+  DateWithLocales,
 } from "./components.test-pw";
 import { DateInputProps } from ".";
 import {
@@ -972,41 +972,40 @@ test.describe("Events tests", () => {
   });
 
   ([
-    ["en-US", "05/12/2022", enUS],
-    ["en-CA", "05/12/2022", enCA],
-    ["en-ZA", "12/05/2022", enZA],
-    ["de", "12.05.2022", de],
-    ["es-ES", "12/05/2022", es],
-    ["fr-FR", "12/05/2022", fr],
-    ["fr-CA", "12/05/2022", frCA],
-    ["zh-CN", "2022/05/12", zhCN],
-    ["pl-PL", "12.05.2022", pl],
-    ["bg-BG", "12.05.2022", bg],
-    ["zh-HK", "12/05/2022", zhHK],
-    ["hu-HU", "2022. 05. 12.", hu],
-    ["fi-FI", "12.05.2022", fi],
-    ["de-AT", "12.05.2022", deAT],
-    ["ko-KR", "2022. 05. 12.", ko],
-    ["ar-EG", "12/05/2022", arEG],
-    ["hi-HI", "12/05/2022", hi],
-    ["sl-SI", "12. 05. 2022", sl],
-    ["lv", "12.05.2022.", lv],
-  ] as [string, string, Locale][]).forEach(
-    ([localeValue, formattedValueParam, dateFnsLocaleValue]) => {
+    ["en-US", "05/12/2022", "enUS"],
+    ["en-CA", "05/12/2022", "enCA"],
+    ["en-ZA", "12/05/2022", "enZA"],
+    ["de", "12.05.2022", "de"],
+    ["es-ES", "12/05/2022", "es"],
+    ["fr-FR", "12/05/2022", "fr"],
+    ["fr-CA", "12/05/2022", "frCA"],
+    ["zh-CN", "2022/05/12", "zhCN"],
+    ["pl-PL", "12.05.2022", "pl"],
+    ["bg-BG", "12.05.2022", "bg"],
+    ["zh-HK", "12/05/2022", "zhHK"],
+    ["hu-HU", "2022. 05. 12.", "hu"],
+    ["fi-FI", "12.05.2022", "fi"],
+    ["de-AT", "12.05.2022", "deAT"],
+    ["ko-KR", "2022. 05. 12.", "ko"],
+    ["ar-EG", "12/05/2022", "arEG"],
+    ["hi-HI", "12/05/2022", "hi"],
+    ["sl-SI", "12. 05. 2022", "sl"],
+    ["lv", "12.05.2022.", "lv"],
+  ] as [string, string, string][]).forEach(
+    ([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
       test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after selecting date`, async ({
         mount,
         page,
       }) => {
         let callbackCount = 0;
-        await mount(
-          <DateWithLocaleProvider
-            onChange={() => {
-              callbackCount += 1;
-            }}
-            localeValue={localeValue}
-            dateFnsLocaleValue={dateFnsLocaleValue}
-          />
-        );
+
+        await mount<HooksConfig>(<DateWithLocales
+          onChange={() => {
+            callbackCount += 1;
+          }}
+        />, {
+          hooksConfig: { localeName: dateFnsLocaleKey },
+        });
 
         const getDatetoEnter = () => {
           if (["en-US", "en-CA"].includes(localeValue))
@@ -1030,26 +1029,7 @@ test.describe("Events tests", () => {
         await page.waitForTimeout(2000);
         await expect(input).toHaveValue(formattedValueParam);
 
-        expect(callbackCount).toBe(3);
-
-        // dateInput().clear().type(getDatetoEnter(), { delay: 0 });
-        // dateInput().click();
-        // dayPickerByText("12").click();
-        // dateInput()
-        //   .wait(250)
-        //   .should("have.attr", "value", formattedValueParam)
-        //   .then(() => {
-        //     cy.get("@onChange")
-        //       .invoke("getCalls")
-        //       .its("12")
-        //       .its("args[0].target.value.rawValue")
-        //       .should("equal", DATE_TO_VERIFY);
-        //     cy.get("@onChange")
-        //       .invoke("getCalls")
-        //       .its("12")
-        //       .its("args[0].target.value.formattedValue")
-        //       .should("equal", formattedValueParam);
-        //   });
+        expect(callbackCount).toBe(4);
       });
     }
   );

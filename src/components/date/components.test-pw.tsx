@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import DateInput, { DateChangeEvent, DateInputProps } from "./date.component";
 import { CommonTextboxArgs } from "../textbox/textbox-test.stories";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import I18nProvider from "../../components/i18n-provider";
 
 export const DateInputCustom = ({
   onChange,
@@ -124,13 +123,9 @@ export const DateInputWithButton = ({
   );
 };
 
-export const DateWithLocaleProvider = ({
+export const DateWithLocales = ({
   onChange,
-  localeValue,
-  dateFnsLocaleValue,
 }: Partial<DateInputProps> & {
-  localeValue: string;
-  dateFnsLocaleValue: Locale;
   onChange: () => void;
 }) => {
   const [state, setState] = useState("04/04/2019");
@@ -145,25 +140,12 @@ export const DateWithLocaleProvider = ({
   };
   return (
     <>
-      <I18nProvider
-        locale={{
-          locale: () => localeValue,
-          date: {
-            dateFnsLocale: () => dateFnsLocaleValue,
-            ariaLabels: {
-              previousMonthButton: () => "Previous month",
-              nextMonthButton: () => "Next month",
-            },
-          },
-        }}
-      >
-        <DateInput
-          label="Date"
-          name="date-input"
-          value={state}
-          onChange={setValue}
-        />
-      </I18nProvider>
+      <DateInput
+        label="Date"
+        name="date-input"
+        value={state}
+        onChange={setValue}
+      />
       <div data-testid="raw-value">{rawValue}</div>
       <div data-testid="formatted-value">{formattedValue}</div>
     </>
