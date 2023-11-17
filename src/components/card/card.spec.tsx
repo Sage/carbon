@@ -10,6 +10,8 @@ import Icon from "../icon";
 import StyledCard from "./card.style";
 import Logger from "../../__internal__/utils/logger";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
+import StyledCardRow from "./card-row/card-row.style";
+import StyledCardFooter from "./card-footer/card-footer.style";
 
 function render(props: Partial<CardProps> = {}) {
   return mount(<Card {...props}>Content</Card>);
@@ -52,8 +54,8 @@ describe("Card", () => {
           <CardFooter>Footer</CardFooter>
         </Card>
       );
-      expect(wrapper.find(CardRow).prop("spacing")).toBe(spacing);
-      expect(wrapper.find(CardFooter).prop("spacing")).toBe(spacing);
+      expect(wrapper.find(StyledCardRow).prop("spacing")).toBe(spacing);
+      expect(wrapper.find(StyledCardFooter).prop("spacing")).toBe(spacing);
     }
   );
 
@@ -88,7 +90,7 @@ describe("Card", () => {
           <CardRow>foobar</CardRow>
         </Card>
       );
-      expect(wrapper.find(CardRow).prop("pt")).not.toBeUndefined();
+      expect(wrapper.find(StyledCardRow).prop("pt")).not.toBeUndefined();
     });
 
     it("there is multiple child rows", () => {
@@ -99,7 +101,7 @@ describe("Card", () => {
         </Card>
       );
 
-      expect(wrapper.find(CardRow).at(0).prop("py")).not.toBeUndefined();
+      expect(wrapper.find(StyledCardRow).at(0).prop("py")).not.toBeUndefined();
     });
 
     it("there is one footer row child", () => {

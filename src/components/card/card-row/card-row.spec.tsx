@@ -1,12 +1,13 @@
 import React from "react";
 import { mount } from "enzyme";
-import CardRow, { CardRowProps } from "./card-row.component";
+import CardRow from "./card-row.component";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
 import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 import StyledCardRow from "./card-row.style";
+import CardContext, { CardContextProps } from "../__internal__/card-context";
 
 describe("CardRow", () => {
   it("renders children correctly", () => {
@@ -26,7 +27,7 @@ describe("CardRow", () => {
     });
   });
 
-  it.each<[Exclude<CardRowProps["spacing"], undefined>, string]>([
+  it.each<[Exclude<CardContextProps["spacing"], undefined>, string]>([
     ["small", "var(--spacing200)"],
     ["medium", "var(--spacing300)"],
     ["large", "var(--spacing400)"],
@@ -34,9 +35,11 @@ describe("CardRow", () => {
     "when spacing prop is %s, top and bottom padding is set to %s",
     (spacing, expected) => {
       const wrapper = mount(
-        <CardRow spacing={spacing}>
-          <div />
-        </CardRow>
+        <CardContext.Provider value={{ spacing, firstRowId: "", rowCount: 0 }}>
+          <CardRow>
+            <div />
+          </CardRow>
+        </CardContext.Provider>
       );
       assertStyleMatch(
         {

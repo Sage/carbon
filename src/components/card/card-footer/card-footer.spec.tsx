@@ -59,7 +59,14 @@ describe("CardFooter", () => {
           }00)`,
         },
         mount(
-          <CardContext.Provider value={{ roundness }}>
+          <CardContext.Provider
+            value={{
+              roundness,
+              spacing: "medium",
+              firstRowId: "",
+              rowCount: 0,
+            }}
+          >
             <CardFooter>foo</CardFooter>
           </CardContext.Provider>
         ).find(StyledCardFooter)

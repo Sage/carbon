@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { margin, MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import baseTheme from "../../style/themes/base";
-import { CardSpacing } from "./card.config";
 import { CardContextProps } from "./__internal__/card-context";
 
 const paddingSizes = {
@@ -14,12 +13,13 @@ const paddingSizes = {
 type DesignTokensType = keyof typeof DesignTokens;
 export type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
-export interface StyledCardProps extends MarginProps, CardContextProps {
+export interface StyledCardProps
+  extends MarginProps,
+    Pick<CardContextProps, "roundness" | "spacing"> {
   cardWidth: string;
   interactive: boolean;
   draggable: boolean;
   height?: string;
-  spacing: CardSpacing;
   boxShadow?: BoxShadowsType;
   hoverBoxShadow?: BoxShadowsType;
 }

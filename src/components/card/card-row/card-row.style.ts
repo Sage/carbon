@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
-import { padding, PaddingProps } from "styled-system";
+import { padding } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 import { CardSpacing } from "../card.config";
+import { CardRowProps } from "./card-row.component";
 
-export interface StyledCardRowProps extends PaddingProps {
+export interface StyledCardRowProps extends CardRowProps {
   /**
    * Spacing prop is set in Card and defines the padding for the CardRow (the first CardRow has no padding by default).
    * For more granular control of CardRow padding these can be over-ridden by Padding props from styled-system.

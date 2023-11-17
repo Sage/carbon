@@ -1,12 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import CardContext, { CardContextProps } from "./__internal__/card-context";
 import StyledCard from "./card.style";
 import Icon from "../icon";
-import { CardRow, CardRowProps, CardFooter, CardFooterProps } from ".";
-import { CardSpacing } from "./card.config";
 import Logger from "../../__internal__/utils/logger";
 import tagComponent, {
   TagProps,
@@ -17,7 +15,6 @@ type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 
 export interface CardProps
   extends MarginProps,
-    CardContextProps,
     Pick<TagProps, "data-element" | "data-role"> {
   /**
    * [DEPRECATED - use `data-role` instead]
@@ -36,16 +33,12 @@ export interface CardProps
   height?: string;
   /** Flag to indicate if card is interactive */
   interactive?: boolean;
-  /** Size of card for applying padding */
-  spacing?: CardSpacing;
   /** Design token for custom Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Card component. */
   boxShadow?: BoxShadowsType;
   /** Design token for custom Box Shadow on hover. Interactive prop must be True. Note: please check that the box shadow design token you are using is compatible with the Card component. */
   hoverBoxShadow?: BoxShadowsType;
-}
-
-function hasDisplayName(child: React.ReactElement, displayName: string) {
-  return (child.type as React.FunctionComponent).displayName === displayName;
+  spacing?: CardContextProps["spacing"];
+  roundness?: CardContextProps["roundness"];
 }
 
 let isDeprecationWarningTriggered = false;
@@ -66,6 +59,10 @@ const Card = ({
   roundness = "default",
   ...rest
 }: CardProps) => {
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+  const [firstRowId, setFirstRowId] = useState<string>("");
+  const [rowCount, setRowCount] = useState<number>(0);
+
   if (!isDeprecationWarningTriggered && oldDataRole) {
     isDeprecationWarningTriggered = true;
     Logger.deprecate(
@@ -73,46 +70,20 @@ const Card = ({
     );
   }
 
-  const renderChildren = useCallback(
-    () =>
-      React.Children.map<React.ReactNode, React.ReactNode>(
-        children,
-        (child, index) => {
-          if (
-            !React.isValidElement<CardRowProps | CardFooterProps>(child) ||
-            (React.isValidElement(child) &&
-              !hasDisplayName(child, CardRow.displayName) &&
-              !hasDisplayName(child, CardFooter.displayName))
-          )
-            return child;
-
-          if (index !== 0) return React.cloneElement(child, { spacing });
-
-          const childProps = {
-            spacing,
-            ...child.props,
-          };
-
-          if (hasDisplayName(child, CardRow.displayName)) {
-            const pad =
-              React.Children.toArray(children).filter(
-                (row: React.ReactNode) =>
-                  React.isValidElement<CardRowProps>(row) &&
-                  hasDisplayName(row, CardRow.displayName)
-              ).length === 1
-                ? "pt"
-                : "py";
-
-            childProps[pad] = 0;
-          }
-          return React.cloneElement(child, childProps);
-        }
-      ),
-    [children, spacing]
-  );
+  useLayoutEffect(() => {
+    if (ref) {
+      const rows = Array.from(
+        ref.querySelectorAll("[data-component='card-row']") ||
+          /* istanbul ignore next */ []
+      );
+      setRowCount(rows.length);
+      setFirstRowId(rows[0]?.getAttribute("id") || "");
+    }
+  }, [ref]);
 
   return (
     <StyledCard
+      ref={setRef}
       cardWidth={cardWidth}
       interactive={!!interactive}
       draggable={!!draggable}
@@ -130,8 +101,10 @@ const Card = ({
       })}
     >
       {draggable && <Icon type="drag" />}
-      <CardContext.Provider value={{ roundness }}>
-        {renderChildren()}
+      <CardContext.Provider
+        value={{ roundness, spacing, firstRowId, rowCount }}
+      >
+        {children}
       </CardContext.Provider>
     </StyledCard>
   );

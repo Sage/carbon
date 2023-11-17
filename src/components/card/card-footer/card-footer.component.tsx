@@ -1,28 +1,31 @@
 import React, { useContext } from "react";
+import { SpaceProps } from "styled-system";
 import {
   filterStyledSystemMarginProps,
   filterStyledSystemPaddingProps,
 } from "../../../style/utils";
-import StyledCardFooter, { StyledCardFooterProps } from "./card-footer.style";
-import CardContext from "../__internal__/card-context";
+import StyledCardFooter from "./card-footer.style";
+import CardContext, { CardContextProps } from "../__internal__/card-context";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
 
 export interface CardFooterProps
-  extends Partial<StyledCardFooterProps>,
+  extends SpaceProps,
+    Pick<CardContextProps, "roundness">,
     Pick<TagProps, "data-element" | "data-role"> {
   /** Child nodes */
   children: React.ReactNode;
+  /** Specify styling variant to render */
+  variant?: "default" | "transparent";
 }
 
 const CardFooter = ({
-  spacing = "medium",
   children,
   variant = "default",
   ...rest
 }: CardFooterProps) => {
-  const { roundness } = useContext(CardContext);
+  const { roundness, spacing } = useContext(CardContext);
 
   return (
     <StyledCardFooter
