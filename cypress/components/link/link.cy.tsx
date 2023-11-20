@@ -32,7 +32,7 @@ context("Test for Link component", () => {
     );
 
     it("should render Link disabled", () => {
-      CypressMountWithProviders(<LinkComponent disabled />);
+      CypressMountWithProviders(<LinkComponent />);
 
       link().should("have.attr", "disabled");
       link().children().should("have.css", "color", "rgba(0, 0, 0, 0.3)");
