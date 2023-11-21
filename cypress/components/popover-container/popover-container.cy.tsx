@@ -67,6 +67,8 @@ context("Test for Popover Container component", () => {
           </div>
         );
 
+        cy.wait(120000);
+
         popoverContainerContent().then(($el) => {
           const inset = $el.css("inset").split(" ");
           cy.wrap(parseInt(inset[0])).should(
