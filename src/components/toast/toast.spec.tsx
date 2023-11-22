@@ -7,8 +7,8 @@ import Logger from "../../__internal__/utils/logger";
 import guid from "../../__internal__/utils/helpers/guid";
 import Toast, { ToastProps } from "./toast.component";
 import {
-  ToastStyle,
-  ToastContentStyle,
+  StyledToast,
+  StyledToastContent,
   ToastWrapper,
   StyledPortal,
   TypeIcon,
@@ -205,14 +205,14 @@ describe("Toast", () => {
       });
 
       it("auto focuses the toast component", () => {
-        const toast = wrapper.find(ToastStyle);
+        const toast = wrapper.find(StyledToast);
         jest.runAllTimers();
 
         expect(toast).toBeFocused();
       });
 
       it("sets a tabIndex on the toast component and removes onBlur", () => {
-        const toast = wrapper.find(ToastStyle);
+        const toast = wrapper.find(StyledToast);
 
         expect(toast.getDOMNode().hasAttribute("tabIndex")).toBe(true);
 
@@ -325,7 +325,7 @@ describe("Toast", () => {
               Child
             </Toast>
           );
-          const toast = wrapper.find(ToastStyle);
+          const toast = wrapper.find(StyledToast);
           expect(toast.getDOMNode().hasAttribute("tabIndex")).toBe(false);
           jest.runAllTimers();
           expect(toast).not.toBeFocused();
@@ -401,9 +401,9 @@ describe("Toast", () => {
       wrapper.unmount();
     });
 
-    it("should render ToastStyle with correct maxWidth", () => {
+    it("should render StyledToast with correct maxWidth", () => {
       wrapper = mount(<Toast maxWidth="200px">Child</Toast>);
-      assertStyleMatch({ maxWidth: "200px" }, wrapper.find(ToastStyle));
+      assertStyleMatch({ maxWidth: "200px" }, wrapper.find(StyledToast));
     });
   });
 
@@ -419,8 +419,8 @@ describe("Toast", () => {
       );
     });
 
-    it("then the prop should be passed to ToastStyle", () => {
-      expect(wrapper.find(ToastStyle).props().isNotice).toBe(true);
+    it("then the prop should be passed to StyledToast", () => {
+      expect(wrapper.find(StyledToast).props().isNotice).toBe(true);
     });
 
     it("then the prop should be passed to StyledPortal", () => {
@@ -431,8 +431,8 @@ describe("Toast", () => {
       expect(wrapper.find(ToastWrapper).props().isNotice).toBe(true);
     });
 
-    it("then the prop should be passed to ToastContentStyle", () => {
-      expect(wrapper.find(ToastContentStyle).props().isNotice).toBe(true);
+    it("then the prop should be passed to StyledToastContent", () => {
+      expect(wrapper.find(StyledToastContent).props().isNotice).toBe(true);
     });
 
     it("then the TypeIcon should not be rendered", () => {
@@ -479,7 +479,7 @@ describe("Toast", () => {
   });
 });
 
-describe("ToastStyle", () => {
+describe("StyledToast", () => {
   let wrapper: ReactWrapper;
 
   afterEach(() => {
@@ -487,12 +487,12 @@ describe("ToastStyle", () => {
   });
 
   it("should render with correct style based on default theme", () => {
-    wrapper = mount(<ToastStyle variant="success" />);
+    wrapper = mount(<StyledToast variant="success" />);
 
     assertStyleMatch(
       {
         boxShadow:
-          "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1)",
         lineHeight: "22px",
         marginTop: "30px",
         maxWidth: "300px",
@@ -506,7 +506,7 @@ describe("ToastStyle", () => {
       {
         borderRadius: "var(--borderRadius100)",
       },
-      wrapper.find(ToastStyle)
+      wrapper.find(StyledToast)
     );
   });
 
@@ -563,7 +563,7 @@ describe("TestContentStyle", () => {
   });
 
   it("should render with correct style based on default theme", () => {
-    wrapper = mount(<ToastContentStyle />);
+    wrapper = mount(<StyledToastContent />);
 
     assertStyleMatch(
       {
@@ -622,7 +622,7 @@ describe("Align vertical", () => {
         Foo
       </Toast>
     );
-    assertStyleMatch({ marginTop: "0" }, wrapper.find(ToastStyle));
+    assertStyleMatch({ marginTop: "0" }, wrapper.find(StyledToast));
   });
 });
 

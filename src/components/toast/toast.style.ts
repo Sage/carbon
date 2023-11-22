@@ -1,12 +1,10 @@
 import styled, { css } from "styled-components";
-
-import MessageStyle from "../message/message.style";
-import MessageContentStyle from "../message/message-content/message-content.style";
 import TypeIcon from "../message/type-icon/type-icon.style";
 import StyledIconButton from "../icon-button/icon-button.style";
 import Portal from "../portal/portal";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import { MessageVariant } from "../message/message.component";
 
 const StyledPortal = styled(Portal)<{
   align?: "left" | "center" | "right";
@@ -17,7 +15,6 @@ const StyledPortal = styled(Portal)<{
   ${({ theme, isCenter, isNotice, align, alignY }) => css`
     position: fixed;
     top: 0;
-
     z-index: ${theme.zIndex.notification};
 
     ${isCenter &&
@@ -49,7 +46,7 @@ const StyledPortal = styled(Portal)<{
       bottom: 0;
       top: auto;
       width: 100%;
-    `}    
+    `}
 
     ${alignY === "top" &&
     css`
@@ -79,17 +76,66 @@ StyledPortal.defaultProps = {
 
 const animationName = ".toast";
 const alternativeAnimationName = ".toast-alternative";
-const ToastStyle = styled(MessageStyle)<{
+
+const ToastColourVariants = {
+  error: "var(--colorsSemanticNegative500)",
+  info: "var(--colorsSemanticInfo500)",
+  success: "var(--colorsSemanticPositive500)",
+  warning: "var(--colorsSemanticCaution500)",
+  neutral: "var(--colorsSemanticNeutral500)",
+};
+
+type ToastVariants = MessageVariant;
+
+type ToastStyleProps = {
   align?: "left" | "center" | "right";
   alignY?: "top" | "center" | "bottom";
   maxWidth?: string;
   isCenter?: boolean;
   isNotice?: boolean;
   isNotification?: boolean;
-}>`
-  ${({ maxWidth, isCenter, align, isNotification, alignY, isNotice }) => css`
-    box-shadow: 0 10px 30px 0 rgba(0, 20, 29, 0.1),
-      0 30px 60px 0 rgba(0, 20, 29, 0.1);
+  variant: ToastVariants;
+};
+
+const boxShadow =
+  "0 10px 30px 0 rgba(0, 20, 29, 0.1), 0 30px 60px 0 rgba(0, 20, 29, 0.1)";
+
+const iconPositionStyles = css`
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const StyledToast = styled.div<ToastStyleProps>`
+  ${({
+    maxWidth,
+    isCenter,
+    align,
+    isNotification,
+    alignY,
+    isNotice,
+    variant,
+  }) => css`
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    border-radius: var(--borderRadius100);
+    overflow: hidden;
+    border: 1px solid ${ToastColourVariants[variant]};
+    background-color: var(--colorsUtilityYang100);
+    min-height: 38px;
+
+    :focus {
+      outline: none;
+    }
+
+    ${StyledIconButton} {
+      ${iconPositionStyles}
+    }
+
+    box-shadow: ${boxShadow};
     line-height: 22px;
     margin-top: ${(alignY === "top" && isNotice) || alignY === "center"
       ? "0"
@@ -132,10 +178,7 @@ const ToastStyle = styled(MessageStyle)<{
   }
 
   ${StyledIconButton} {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+    ${iconPositionStyles}
   }
 
   ${({ isNotice, alignY }) =>
@@ -180,11 +223,13 @@ const ToastStyle = styled(MessageStyle)<{
     `}
 `;
 
-const ToastContentStyle = styled(MessageContentStyle)<{
+const StyledToastContent = styled.div<{
   isNotice?: boolean;
   isDismiss?: boolean;
 }>`
   padding: 8px 16px 8px 16px;
+  white-space: pre-wrap;
+  flex: 1;
 
   ${({ isNotice }) =>
     isNotice &&
@@ -233,4 +278,10 @@ const ToastWrapper = styled.div<{
     `}
 `;
 
-export { ToastStyle, TypeIcon, ToastContentStyle, ToastWrapper, StyledPortal };
+export {
+  StyledPortal,
+  StyledToast,
+  TypeIcon,
+  StyledToastContent,
+  ToastWrapper,
+};

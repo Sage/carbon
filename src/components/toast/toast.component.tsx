@@ -4,9 +4,9 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Icon from "../icon";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import {
-  ToastStyle,
+  StyledToast,
   TypeIcon,
-  ToastContentStyle,
+  StyledToastContent,
   ToastWrapper,
   StyledPortal,
 } from "./toast.style";
@@ -202,7 +202,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     function renderToastContent() {
       if (!open) return null;
 
-      let toastVariant;
+      let toastVariant: ToastVariants = "success";
 
       if (!isNotice && !isNotification) {
         toastVariant = variant;
@@ -215,7 +215,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
           timeout={{ appear: 1600, enter: 1500, exit: 500 }}
           nodeRef={toastContentNodeRef}
         >
-          <ToastStyle
+          <StyledToast
             align={align}
             alignY={alignY}
             isNotice={isNotice}
@@ -237,11 +237,11 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
                 <Icon type={toastIcon} />
               </TypeIcon>
             )}
-            <ToastContentStyle isNotice={isNotice} isDismiss={!!onDismiss}>
+            <StyledToastContent isNotice={isNotice} isDismiss={!!onDismiss}>
               {children}
-            </ToastContentStyle>
+            </StyledToastContent>
             {renderCloseIcon()}
-          </ToastStyle>
+          </StyledToast>
         </CSSTransition>
       );
     }

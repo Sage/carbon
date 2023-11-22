@@ -8,14 +8,6 @@ const MessageContentStyle = styled.div<
     20px;
   white-space: pre-wrap;
   flex: 1;
-
-  .carbon-content__title {
-    margin-bottom: 2px;
-  }
-
-  .carbon-content__body {
-    margin-top: 0px;
-  }
 `;
 
 export default MessageContentStyle;
