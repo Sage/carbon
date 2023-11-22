@@ -1,3 +1,10 @@
+## [123.10.0](https://github.com/Sage/carbon/compare/v123.9.1...v123.10.0) (2023-11-22)
+
+
+### Features
+
+* add support for manually overriding stacking order of modals ([9d4252a](https://github.com/Sage/carbon/commit/9d4252a4ad69274be2eff6bc11d5f0f240ec6ffc)), closes [#6402](https://github.com/Sage/carbon/issues/6402) [#6410](https://github.com/Sage/carbon/issues/6410)
+
 ### [123.9.1](https://github.com/Sage/carbon/compare/v123.9.0...v123.9.1) (2023-11-16)
 
 
