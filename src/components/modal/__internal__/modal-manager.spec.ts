@@ -47,7 +47,7 @@ describe("ModalManager", () => {
     beforeEach(() => {
       ModalManager.addModal(mockModal);
     });
-    it("then the element passed in an attribute should not be the topmost element", () => {
+    it("then the element passed in should not be the topmost element", () => {
       expect(ModalManager.isTopmost(mockModal)).toBe(true);
       ModalManager.clearList();
       expect(ModalManager.isTopmost(mockModal)).toBe(false);
@@ -57,6 +57,7 @@ describe("ModalManager", () => {
       expect(window.__CARBON_INTERNALS_MODAL_LIST?.[0]).toEqual({
         modal: mockModal,
         setTriggerRefocusFlag: undefined,
+        topModalOverride: undefined,
       });
       ModalManager.clearList();
       expect(window.__CARBON_INTERNALS_MODAL_LIST?.length).toEqual(0);
@@ -202,6 +203,34 @@ describe("ModalManager", () => {
       expect(g).toHaveBeenCalledTimes(3);
       expect(f.mock.calls[2][0]).toBe(null);
       expect(g.mock.calls[2][0]).toBe(null);
+    });
+  });
+
+  describe("when the top modal has been manually set", () => {
+    const cb1 = jest.fn();
+    const cb2 = jest.fn();
+    const cb3 = jest.fn();
+    const mockModal1 = document.createElement("div");
+    const mockModal2 = document.createElement("div");
+    const mockModal3 = document.createElement("div");
+
+    it("should override the stacking order", () => {
+      ModalManager.clearList();
+      ModalManager.addModal(mockModal1, cb1, true);
+      ModalManager.addModal(mockModal2, cb2);
+      expect(ModalManager.isTopmost(mockModal1)).toBe(true);
+      expect(cb1).not.toHaveBeenCalled();
+    });
+
+    it("should treat multiple instances of overridden modals as a stack and the last one will be top", () => {
+      ModalManager.clearList();
+      ModalManager.addModal(mockModal1, cb1, true);
+      ModalManager.addModal(mockModal2, cb2, true);
+      ModalManager.addModal(mockModal3, cb3);
+      expect(ModalManager.isTopmost(mockModal2)).toBe(true);
+      expect(cb2).not.toHaveBeenCalled();
+      ModalManager.removeModal(mockModal2);
+      expect(ModalManager.isTopmost(mockModal1)).toBe(true);
     });
   });
 });

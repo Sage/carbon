@@ -8,7 +8,8 @@ import Form from "../form";
 import Toast from "../toast";
 import Textbox from "../textbox";
 import Box from "../box";
-
+import Dialog from "../dialog";
+import DialogFullScreen from "../confirm";
 import isChromatic from "../../../.storybook/isChromatic";
 
 const defaultOpenState = isChromatic();
@@ -312,6 +313,51 @@ export const WithHeaderAndFooterPadding: ComponentStory<
           </Typography>
         </Form>
       </Sidebar>
+    </>
+  );
+};
+
+export const TopModalOverride = () => {
+  const [isOpenAll, setIsOpenAll] = useState(defaultOpenState);
+  const [isOpenDialogFullScreen, setIsOpenDialogFullScreen] = useState(true);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(true);
+  const [isOpenDialog, setIsOpenDialog] = useState(true);
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpenAll(true);
+          setIsOpenDialogFullScreen(true);
+          setIsOpenSidebar(true);
+          setIsOpenDialog(true);
+        }}
+      >
+        Open dialogs
+      </Button>
+      <DialogFullScreen
+        open={isOpenDialogFullScreen && isOpenAll}
+        onCancel={() => setIsOpenDialogFullScreen(false)}
+        title="Dialog fullscreen"
+        onConfirm={() => {}}
+      >
+        <Textbox label="Fullscreen textbox" />
+      </DialogFullScreen>
+      <Sidebar
+        open={isOpenSidebar && isOpenAll}
+        onCancel={() => setIsOpenSidebar(false)}
+        header="sidebar"
+        topModalOverride
+      >
+        <Textbox label="Sidebar textbox" />
+      </Sidebar>
+      <Dialog
+        open={isOpenDialog && isOpenAll}
+        onCancel={() => setIsOpenDialog(false)}
+        title="Dialog"
+      >
+        <Textbox label="Dialog textbox" />
+      </Dialog>
     </>
   );
 };

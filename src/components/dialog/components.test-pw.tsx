@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Dialog from ".";
 import type { DialogProps } from ".";
@@ -7,6 +7,8 @@ import Textbox from "../textbox";
 import Button from "../button";
 import Toast from "../toast";
 import Box from "../box";
+import DialogFullScreen from "../dialog-full-screen";
+import Sidebar from "../sidebar";
 
 export const DialogComponent = (props: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -97,5 +99,44 @@ export const DialogWithOpenToastsBackgroundScrollTest = () => {
         Toast message 2
       </Toast>
     </Box>
+  );
+};
+
+export const TopModalOverride = () => {
+  const [isOpenDialogFullSreen, setIsOpenDialogFullSreen] = useState(true);
+  const [isOpenDialog, setIsOpenDialog] = useState(true);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsOpenSidebar(true);
+    }, 10);
+  }, []);
+
+  return (
+    <>
+      <DialogFullScreen
+        open={isOpenDialogFullSreen}
+        onCancel={() => setIsOpenDialogFullSreen(false)}
+        title="Dialog fullscreen"
+      >
+        <Textbox label="Fullscreen textbox" />
+      </DialogFullScreen>
+      <Dialog
+        open={isOpenDialog}
+        onCancel={() => setIsOpenDialog(false)}
+        title="Dialog"
+        topModalOverride
+      >
+        <Textbox label="Dialog textbox" />
+      </Dialog>
+      <Sidebar
+        open={isOpenSidebar}
+        onCancel={() => setIsOpenSidebar(false)}
+        header="sidebar"
+      >
+        <Textbox label="Sidebar textbox" />
+      </Sidebar>
+    </>
   );
 };

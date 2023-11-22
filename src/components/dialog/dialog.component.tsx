@@ -122,6 +122,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       role = "dialog",
       contentPadding = {},
       focusableContainers,
+      topModalOverride,
       ...rest
     },
     ref
@@ -283,6 +284,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         disableEscKey={disableEscKey}
         disableClose={disableClose}
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
+        topModalOverride={topModalOverride}
         {...componentTags}
       >
         <FocusTrap
