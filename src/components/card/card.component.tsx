@@ -5,7 +5,6 @@ import { filterStyledSystemMarginProps } from "../../style/utils";
 import CardContext, { CardContextProps } from "./__internal__/card-context";
 import StyledCard from "./card.style";
 import Icon from "../icon";
-import Logger from "../../__internal__/utils/logger";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
@@ -16,11 +15,6 @@ type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 export interface CardProps
   extends MarginProps,
     Pick<TagProps, "data-element" | "data-role"> {
-  /**
-   * [DEPRECATED - use `data-role` instead]
-   * Identifier used for testing purposes, applied to the root element of the component.
-   * */
-  dataRole?: string;
   /** Action to be executed when card is clicked or enter pressed */
   action?: (event: React.MouseEvent<HTMLDivElement>) => void;
   /** Style value for width of card */
@@ -41,12 +35,9 @@ export interface CardProps
   roundness?: CardContextProps["roundness"];
 }
 
-let isDeprecationWarningTriggered = false;
-
 const Card = ({
   "data-element": dataElement,
   "data-role": dataRole,
-  dataRole: oldDataRole,
   action,
   children,
   cardWidth = "500px",
@@ -62,13 +53,6 @@ const Card = ({
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
   const [firstRowId, setFirstRowId] = useState<string>("");
   const [rowCount, setRowCount] = useState<number>(0);
-
-  if (!isDeprecationWarningTriggered && oldDataRole) {
-    isDeprecationWarningTriggered = true;
-    Logger.deprecate(
-      "The `dataRole` prop of `Card` is now deprecated. Please use the kebab-case version `data-role` instead."
-    );
-  }
 
   useLayoutEffect(() => {
     if (ref) {
@@ -97,7 +81,7 @@ const Card = ({
       {...filterStyledSystemMarginProps(rest)}
       {...tagComponent("card", {
         "data-element": dataElement,
-        "data-role": dataRole || oldDataRole,
+        "data-role": dataRole,
       })}
     >
       {draggable && <Icon type="drag" />}
