@@ -1,3 +1,10 @@
+## [123.11.0](https://github.com/Sage/carbon/compare/v123.10.3...v123.11.0) (2023-11-23)
+
+
+### Features
+
+* **badge:** add color prop ([4a5750d](https://github.com/Sage/carbon/commit/4a5750d8eb64486095347836279c56f588c46b9f)), closes [#5839](https://github.com/Sage/carbon/issues/5839)
+
 ### [123.10.3](https://github.com/Sage/carbon/compare/v123.10.2...v123.10.3) (2023-11-23)
 
 
