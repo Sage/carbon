@@ -1,3 +1,10 @@
+### [123.10.2](https://github.com/Sage/carbon/compare/v123.10.1...v123.10.2) (2023-11-23)
+
+
+### Bug Fixes
+
+* **note:** inlineControl button and note content overlap fix ([f196759](https://github.com/Sage/carbon/commit/f19675955261019ff32f339a08edc9eee31be52a)), closes [#6228](https://github.com/Sage/carbon/issues/6228)
+
 ### [123.10.1](https://github.com/Sage/carbon/compare/v123.10.0...v123.10.1) (2023-11-23)
 
 
