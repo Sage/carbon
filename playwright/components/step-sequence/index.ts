@@ -11,6 +11,6 @@ export const stepSequenceItemIndicator = (page: Page) =>
 
 export const stepSequenceDataComponentItem = (page: Page) =>
   page.locator(STEP_SEQUENCE_DATA_COMPONENT_ITEM);
-  
+
 export const stepSequenceDataComponent = (page: Page) =>
   page.locator(STEP_SEQUENCE_DATA_COMPONENT);

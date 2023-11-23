@@ -285,7 +285,13 @@ export const LocaleOverrideExampleImplementation: ComponentStory<
       <I18nProvider
         locale={{
           locale: () => "fr-FR",
-          date: { dateFnsLocale: () => fr },
+          date: {
+            dateFnsLocale: () => fr,
+            ariaLabels: {
+              previousMonthButton: () => "Mois précédent",
+              nextMonthButton: () => "Mois prochain",
+            },
+          },
         }}
       >
         <DateRange

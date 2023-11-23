@@ -208,14 +208,14 @@ context("Tests for Tooltip component", () => {
   });
 
   describe("Accessibility tests for Tooltip component", () => {
-    it("should pass accessibilty tests for Tooltip Default story", () => {
+    it("should pass accessibility tests for Tooltip Default story", () => {
       CypressMountWithProviders(<stories.Default />);
 
       getDataElementByValue("main-text").click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Tooltip Controlled story", () => {
+    it("should pass accessibility tests for Tooltip Controlled story", () => {
       CypressMountWithProviders(<stories.Controlled />);
 
       getDataElementByValue("main-text").eq(0).click();
@@ -228,7 +228,7 @@ context("Tests for Tooltip component", () => {
       ["left", 2],
       ["right", 3],
     ])(
-      "should pass accessibilty tests for Tooltip Positioning story %s position",
+      "should pass accessibility tests for Tooltip Positioning story %s position",
       (position, button) => {
         CypressMountWithProviders(<stories.Positioning />);
 
@@ -237,20 +237,20 @@ context("Tests for Tooltip component", () => {
       }
     );
 
-    it("should pass accessibilty tests for Tooltip FlipBehviourOverrides story", () => {
-      CypressMountWithProviders(<stories.FlipBehviourOverrides />);
+    it("should pass accessibility tests for Tooltip FlipBehaviourOverrides story", () => {
+      CypressMountWithProviders(<stories.FlipBehaviourOverrides />);
 
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Tooltip LargeTooltip story", () => {
+    it("should pass accessibility tests for Tooltip LargeTooltip story", () => {
       CypressMountWithProviders(<stories.LargeTooltip />);
 
       getDataElementByValue("main-text").click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Tooltip Types story", () => {
+    it("should pass accessibility tests for Tooltip Types story", () => {
       CypressMountWithProviders(<stories.Types />);
 
       getDataElementByValue("main-text").eq(1).click();
@@ -259,7 +259,7 @@ context("Tests for Tooltip component", () => {
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Tooltip ColorOverrides story", () => {
+    it("should pass accessibility tests for Tooltip ColorOverrides story", () => {
       CypressMountWithProviders(<stories.ColorOverrides />);
 
       getDataElementByValue("main-text").click();

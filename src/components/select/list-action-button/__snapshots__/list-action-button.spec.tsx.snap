@@ -103,7 +103,8 @@ exports[`Option renders properly 1`] = `
   margin-left: var(--spacing100);
   margin-right: 0px;
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c2 .c3 svg {

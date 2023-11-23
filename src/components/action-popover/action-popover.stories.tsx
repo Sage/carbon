@@ -406,7 +406,7 @@ export const ActionPopoverComponentKeyboardNavigation: ComponentStory<
   );
 };
 
-export const ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu: ComponentStory<
+export const ActionPopoverComponentKeyboardNavigationLeftAlignedSubmenu: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (
@@ -455,7 +455,7 @@ export const ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu: Componen
   );
 };
 
-export const ActionPopoverComponentKeyboardNaviationRightAlignedSubmenu: ComponentStory<
+export const ActionPopoverComponentKeyboardNavigationRightAlignedSubmenu: ComponentStory<
   typeof ActionPopover
 > = () => {
   return (

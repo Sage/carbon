@@ -17,6 +17,8 @@ import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
+import { CustomSelectChangeEvent } from "../simple-select";
+import { OptionData } from "../simple-select/simple-select.component";
 
 let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
@@ -127,7 +129,7 @@ export const FilterableSelect = React.forwardRef(
     }: FilterableSelectProps,
     ref
   ) => {
-    const [activeDescendantId, setActiveDescendantId] = useState();
+    const [activeDescendantId, setActiveDescendantId] = useState<string>();
     const selectListId = useRef(guid());
     const containerRef = useRef<HTMLDivElement>(null);
     const listboxRef = useRef<HTMLDivElement>(null);
@@ -150,6 +152,7 @@ export const FilterableSelect = React.forwardRef(
       id: inputId.current,
       label,
     });
+    const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -169,24 +172,25 @@ export const FilterableSelect = React.forwardRef(
     }
 
     const createCustomEvent = useCallback(
-      (newValue) => {
+      (newValue, selectionConfirmed) => {
         const customEvent = {
           target: {
             ...(name && { name }),
             ...(id && { id }),
             value: newValue,
           },
+          selectionConfirmed,
         };
 
-        return customEvent as React.ChangeEvent<HTMLInputElement>;
+        return customEvent as CustomSelectChangeEvent;
       },
       [name, id]
     );
 
     const triggerChange = useCallback(
-      (newValue) => {
+      (newValue, selectionConfirmed) => {
         if (onChange) {
-          onChange(createCustomEvent(newValue));
+          onChange(createCustomEvent(newValue, selectionConfirmed));
         }
       },
       [onChange, createCustomEvent]
@@ -199,21 +203,19 @@ export const FilterableSelect = React.forwardRef(
       return (list as React.ReactElement[]).find((child) => {
         const { text } = child.props;
 
-        return (
-          text && text.toLowerCase().indexOf(textToMatch.toLowerCase()) !== -1
-        );
+        return text?.toLowerCase().indexOf(textToMatch?.toLowerCase()) !== -1;
       });
     }
 
     const updateValues = useCallback(
-      (newFilterText, isDeleteEvent) => {
+      (newFilterText: string, isDeleteEvent: boolean) => {
         setSelectedValue((previousValue) => {
           const match = findElementWithMatchingText(newFilterText, children);
           const isFilterCleared = isDeleteEvent && newFilterText === "";
 
           if (!match || isFilterCleared) {
             setTextValue(newFilterText);
-            triggerChange("");
+            triggerChange("", false);
 
             return "";
           }
@@ -224,11 +226,11 @@ export const FilterableSelect = React.forwardRef(
             return match.props.value;
           }
 
-          triggerChange(match.props.value);
+          triggerChange(match.props.value, false);
 
           if (
             match.props.text
-              .toLowerCase()
+              ?.toLowerCase()
               .startsWith(newFilterText.toLowerCase())
           ) {
             setTextValue(match.props.text);
@@ -262,8 +264,8 @@ export const FilterableSelect = React.forwardRef(
         } else if (
           isClosing ||
           matchingOption.props.text
-            .toLowerCase()
-            .startsWith(filterText.toLowerCase())
+            ?.toLowerCase()
+            .startsWith(filterText?.toLowerCase())
         ) {
           setTextValue(matchingOption.props.text);
         }
@@ -290,7 +292,7 @@ export const FilterableSelect = React.forwardRef(
       (key) => {
         setFilterText((previousFilterText) => {
           if (
-            previousFilterText.length === textValue.length - 1 &&
+            previousFilterText?.length === textValue?.length - 1 &&
             key === textValue.slice(-1)
           ) {
             return textValue;
@@ -434,15 +436,15 @@ export const FilterableSelect = React.forwardRef(
 
     useEffect(() => {
       const textStartsWithFilter = textValue
-        .toLowerCase()
-        .startsWith(filterText.toLowerCase());
+        ?.toLowerCase()
+        .startsWith(filterText?.toLowerCase());
       const isTextboxActive = !disabled && !readOnly;
 
       if (
         isTextboxActive &&
         textboxRef &&
-        filterText.length &&
-        textValue.length > filterText.length &&
+        filterText?.length &&
+        textValue?.length > filterText?.length &&
         textStartsWithFilter
       ) {
         textboxRef.selectionStart = filterText.length;
@@ -450,12 +452,13 @@ export const FilterableSelect = React.forwardRef(
     }, [textValue, filterText, textboxRef, disabled, readOnly]);
 
     const onSelectOption = useCallback(
-      (optionData) => {
+      (optionData: OptionData) => {
         const {
           id: selectedOptionId,
           text,
           value: newValue,
           selectionType,
+          selectionConfirmed,
         } = optionData;
 
         if (selectionType === "tab") {
@@ -470,8 +473,8 @@ export const FilterableSelect = React.forwardRef(
           setHighlightedValue(newValue);
         }
 
-        setTextValue(text);
-        triggerChange(newValue);
+        setTextValue(text || /* istanbul ignore next */ "");
+        triggerChange(newValue, selectionConfirmed);
         setActiveDescendantId(selectedOptionId);
 
         if (selectionType !== "navigationKey") {
@@ -514,21 +517,29 @@ export const FilterableSelect = React.forwardRef(
       const triggerFocus = () => onFocus?.(event);
 
       if (openOnFocus) {
-        setOpen((isAlreadyOpen) => {
-          if (isAlreadyOpen) {
+        if (focusTimer.current) {
+          clearTimeout(focusTimer.current);
+        }
+
+        // we need to use a timeout here as there is a race condition when rendered in a modal
+        // whereby the select list isn't visible when the select is auto focused straight away
+        focusTimer.current = setTimeout(() => {
+          setOpen((isAlreadyOpen) => {
+            if (isAlreadyOpen) {
+              return true;
+            }
+
+            if (onFocus && !isInputFocused.current) {
+              triggerFocus();
+              isInputFocused.current = true;
+            }
+
+            if (isMouseDownReported.current && !isMouseDownOnInput.current) {
+              return false;
+            }
+
             return true;
-          }
-
-          if (onFocus && !isInputFocused.current) {
-            triggerFocus();
-            isInputFocused.current = true;
-          }
-
-          if (isMouseDownReported.current && !isMouseDownOnInput.current) {
-            return false;
-          }
-
-          return true;
+          });
         });
       } else if (onFocus && !isInputFocused.current) {
         triggerFocus();

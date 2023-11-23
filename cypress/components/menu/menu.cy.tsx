@@ -63,6 +63,7 @@ import {
   MenuDividerComponent,
   InGlobalHeaderStory,
 } from "../../../src/components/menu/menu-test.stories";
+import { NavigationBarWithSubmenuAndChangingHeight } from "../../../src/components/navigation-bar/navigation-bar-test.stories";
 
 const span = "span";
 const div = "div";
@@ -333,12 +334,12 @@ context("Testing Menu component", () => {
       searchDefaultInput().tab();
       searchCrossIcon().parent().should("have.focus");
 
-      const bouding = (element: JQuery<Element>) => {
+      const bounding = (element: JQuery<Element>) => {
         return element[0].getBoundingClientRect();
       };
 
       searchCrossIcon()
-        .then(($el) => bouding($el))
+        .then(($el) => bounding($el))
         .as("position");
 
       cy.get("@position")
@@ -627,7 +628,7 @@ context("Testing Menu component", () => {
       "center",
       "flex-start",
       "flex-end",
-    ])("should verify Menu alignItmes is %s", (alignment) => {
+    ])("should verify Menu alignItems is %s", (alignment) => {
       CypressMountWithProviders(<MenuComponent alignItems={alignment} />);
 
       menu().should("have.css", "align-items", alignment);
@@ -1501,7 +1502,7 @@ context("Testing Menu component", () => {
       "text-top",
       "top",
     ])(
-      "should pass accessibility tests for Menu when alignItmes is %s",
+      "should pass accessibility tests for Menu when alignItems is %s",
       (alignment) => {
         CypressMountWithProviders(<MenuComponent verticalAlign={alignment} />);
 
@@ -1960,7 +1961,7 @@ context("Testing Menu component", () => {
     });
   });
 
-  describe("when inside a GlobalHeader", () => {
+  describe("when inside a Navigation Bar", () => {
     it("all the content of a long submenu can be accessed with the keyboard while remaining visible", () => {
       CypressMountWithProviders(<InGlobalHeaderStory />);
 
@@ -1976,6 +1977,33 @@ context("Testing Menu component", () => {
       cy.focused().should("contain", "Foo 20");
       cy.checkInViewport(
         '[data-component="submenu-wrapper"] ul > li:nth-child(20)'
+      );
+    });
+
+    it("all the content of a long submenu can be accessed with the keyboard while remaining visible if the navbar height changes", () => {
+      CypressMountWithProviders(<NavigationBarWithSubmenuAndChangingHeight />);
+
+      cy.viewport(1000, 500);
+
+      menuComponent(1).trigger("keydown", keyCode("downarrow"));
+      submenuItem(1).should("have.length", 21);
+
+      // navigate to "change height" item and press it
+      for (let i = 0; i < 3; i++) {
+        cy.focused().trigger("keydown", keyCode("downarrow"));
+      }
+      cy.focused().trigger("keydown", keyCode("Enter"));
+
+      // reopen menu and scroll to bottom with keyboard
+      cy.wait(100);
+      menuComponent(1).trigger("keydown", keyCode("downarrow"));
+
+      for (let i = 0; i < 21; i++) {
+        cy.focused().trigger("keydown", keyCode("downarrow"));
+      }
+
+      cy.checkInViewport(
+        '[data-component="submenu-wrapper"] ul > li:nth-child(21)'
       );
     });
   });

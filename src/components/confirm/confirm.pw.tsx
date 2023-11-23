@@ -4,6 +4,7 @@ import Confirm, { ConfirmProps } from "./confirm.component";
 import {
   ConfirmComponent,
   ConfirmComponentFocusFirst,
+  TopModalOverride,
 } from "./components.test-pw";
 import {
   getDataElementByValue,
@@ -13,6 +14,7 @@ import {
   assertCssValueIsApproximately,
   checkAccessibility,
   checkDialogIsInDOM,
+  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
 
@@ -581,6 +583,52 @@ test.describe("should render Confirm component for event tests", () => {
 
     await page.keyboard.press("Escape");
     expect(callbackCount).toBe(1);
+  });
+
+  test("setting the topModalOverride prop should ensure the Confirm is rendered on top of any others", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TopModalOverride />);
+
+    const dialog = page.getByRole("alertdialog");
+    const dialogCancelBtn = dialog.getByRole("button").first();
+    const dialogConfirmBtn = dialog.getByRole("button").last();
+    const dialogTextbox = page.getByLabel("Confirm textbox");
+
+    await waitForAnimationEnd(dialog);
+    await dialog.press("Tab");
+    await expect(dialogTextbox).toBeFocused();
+    await dialogTextbox.press("Tab");
+    await expect(dialogCancelBtn).toBeFocused();
+    await dialogCancelBtn.press("Tab");
+    await expect(dialogConfirmBtn).toBeFocused();
+    await dialogConfirmBtn.press("Enter");
+
+    const sidebar = getDataElementByValue(page, "sidebar");
+    const sidebarClose = sidebar.getByLabel("Close");
+    const sidebarTextbox = page.getByLabel("Sidebar textbox");
+
+    await waitForAnimationEnd(sidebar);
+    await sidebar.press("Tab");
+    await expect(sidebarClose).toBeFocused();
+    await sidebarClose.press("Tab");
+    await expect(sidebarTextbox).toBeFocused();
+    await sidebarTextbox.press("Tab");
+    await expect(sidebarClose).toBeFocused();
+    await sidebarClose.press("Enter");
+
+    const dialogFullscreen = getDataElementByValue(page, "dialog-full-screen");
+    const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
+    const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
+
+    await waitForAnimationEnd(dialogFullscreen);
+    await dialogFullscreen.press("Tab");
+    await expect(dialogFullscreenClose).toBeFocused();
+    await dialogFullscreenClose.press("Tab");
+    await expect(dialogFullscreenTextbox).toBeFocused();
+    await dialogFullscreenTextbox.press("Tab");
+    await expect(dialogFullscreenClose).toBeFocused();
   });
 });
 

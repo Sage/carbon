@@ -43,7 +43,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c3 .c1 svg {
@@ -62,7 +63,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c4 .c1 svg {
@@ -81,7 +83,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -98,7 +101,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c6 .c1 svg {
@@ -113,7 +117,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c7 .c1 svg {
@@ -128,7 +133,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c8 .c1 svg {
@@ -143,7 +149,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c9 .c1 svg {
@@ -158,7 +165,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c10 .c1 svg {
@@ -173,7 +181,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c11 .c1 svg {
@@ -188,7 +197,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c12 .c1 svg {
@@ -203,7 +213,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c13 .c1 svg {
@@ -218,7 +229,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c14 .c1 svg {
@@ -233,7 +245,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c15 .c1 svg {
@@ -248,7 +261,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c16 .c1 svg {
@@ -263,7 +277,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c17 .c1 svg {
@@ -278,7 +293,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c18 .c1 svg {
@@ -293,7 +309,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c19 .c1 svg {
@@ -308,7 +325,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c20 .c1 svg {
@@ -327,7 +345,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c21 .c1 svg {
@@ -346,7 +365,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c22 .c1 svg {
@@ -365,7 +385,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c23 .c1 svg {
@@ -384,7 +405,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c24 .c1 svg {
@@ -403,7 +425,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c25 .c1 svg {
@@ -422,7 +445,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c26 .c1 svg {
@@ -441,7 +465,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c27 .c1 svg {
@@ -460,7 +485,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c28 .c1 svg {
@@ -479,7 +505,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c29 .c1 svg {
@@ -498,7 +525,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c30 .c1 svg {
@@ -517,7 +545,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c31 .c1 svg {
@@ -536,7 +565,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c32 .c1 svg {
@@ -555,7 +585,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c33 .c1 svg {
@@ -574,7 +605,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c34 .c1 svg {
@@ -593,7 +625,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c35 .c1 svg {
@@ -612,7 +645,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c36 .c1 svg {
@@ -631,7 +665,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c37 .c1 svg {
@@ -650,7 +685,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c38 .c1 svg {
@@ -669,7 +705,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c39 .c1 svg {
@@ -688,7 +725,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c40 .c1 svg {
@@ -707,7 +745,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c41 .c1 svg {
@@ -726,7 +765,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c42 .c1 svg {
@@ -745,7 +785,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c43 .c1 svg {
@@ -764,7 +805,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c44 .c1 svg {
@@ -783,7 +825,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c45 .c1 svg {
@@ -802,7 +845,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c46 .c1 svg {
@@ -821,7 +865,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c47 .c1 svg {
@@ -840,7 +885,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c48 .c1 svg {
@@ -859,7 +905,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c49 .c1 svg {
@@ -878,7 +925,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c50 .c1 svg {
@@ -893,7 +941,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c51 .c1 svg {
@@ -908,7 +957,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c52 .c1 svg {
@@ -923,7 +973,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c53 .c1 svg {
@@ -938,7 +989,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c54 .c1 svg {
@@ -953,7 +1005,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c55 .c1 svg {
@@ -968,7 +1021,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c56 .c1 svg {
@@ -983,7 +1037,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c57 .c1 svg {
@@ -998,7 +1053,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c58 .c1 svg {
@@ -1013,7 +1069,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c59 .c1 svg {
@@ -1028,7 +1085,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c60 .c1 svg {
@@ -1043,7 +1101,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c61 .c1 svg {
@@ -1058,7 +1117,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c62 .c1 svg {
@@ -1073,7 +1133,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c63 .c1 svg {
@@ -1088,7 +1149,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c64 .c1 svg {
@@ -1103,7 +1165,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c65 .c1 svg {
@@ -1122,7 +1185,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c66 .c1 svg {
@@ -1141,7 +1205,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c67 .c1 svg {
@@ -1160,7 +1225,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c68 .c1 svg {
@@ -1179,7 +1245,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c69 .c1 svg {
@@ -1198,7 +1265,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c70 .c1 svg {
@@ -1217,7 +1285,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c71 .c1 svg {
@@ -1236,7 +1305,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c72 .c1 svg {
@@ -1255,7 +1325,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c73 .c1 svg {
@@ -1274,7 +1345,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c74 .c1 svg {
@@ -1293,7 +1365,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c75 .c1 svg {
@@ -1312,7 +1385,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c76 .c1 svg {
@@ -1331,7 +1405,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c77 .c1 svg {
@@ -1350,7 +1425,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c78 .c1 svg {
@@ -1369,7 +1445,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c79 .c1 svg {
@@ -1388,7 +1465,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c80 .c1 svg {
@@ -1407,7 +1485,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1428,7 +1507,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1449,7 +1529,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c83 .c1 svg {
@@ -1468,7 +1549,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c84 .c1 svg {
@@ -1487,7 +1569,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c85 .c1 svg {
@@ -1506,7 +1589,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c86 .c1 svg {
@@ -1525,7 +1609,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c87 .c1 svg {
@@ -1544,7 +1629,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c88 .c1 svg {
@@ -1563,7 +1649,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c89 .c1 svg {
@@ -1582,7 +1669,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c90 .c1 svg {
@@ -1601,7 +1689,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c91 .c1 svg {
@@ -1620,7 +1709,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c92 .c1 svg {
@@ -1639,7 +1729,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c93 .c1 svg {
@@ -1658,7 +1749,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c94 .c1 svg {
@@ -1677,7 +1769,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c95 .c1 svg {
@@ -1696,7 +1789,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c96 .c1 svg {
@@ -1715,7 +1809,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c97 .c1 svg {
@@ -1734,7 +1829,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c98 .c1 svg {
@@ -1753,7 +1849,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c99 .c1 svg {
@@ -1772,7 +1869,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c100 .c1 svg {
@@ -1791,7 +1889,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c101 .c1 svg {
@@ -1810,7 +1909,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c102 .c1 svg {
@@ -1829,7 +1929,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c103 .c1 svg {
@@ -1848,7 +1949,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c104 .c1 svg {
@@ -1867,7 +1969,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c105 .c1 svg {
@@ -1886,7 +1989,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c106 .c1 svg {
@@ -1905,7 +2009,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c107 .c1 svg {
@@ -1924,7 +2029,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c108 .c1 svg {
@@ -1943,7 +2049,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c109 .c1 svg {
@@ -1962,7 +2069,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c110 .c1 svg {
@@ -2037,7 +2145,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: var(--spacing100);
   margin-right: 0px;
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c0 .c1 svg {
@@ -2116,7 +2225,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c3 .c1 svg {
@@ -2191,7 +2301,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c0 .c1 svg {
@@ -2210,7 +2321,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -2227,7 +2339,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c5 .c1 svg {
@@ -2242,7 +2355,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c6 .c1 svg {
@@ -2257,7 +2371,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c7 .c1 svg {
@@ -2272,7 +2387,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c8 .c1 svg {
@@ -2287,7 +2403,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c9 .c1 svg {
@@ -2302,7 +2419,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c10 .c1 svg {
@@ -2317,7 +2435,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c11 .c1 svg {
@@ -2332,7 +2451,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c12 .c1 svg {
@@ -2347,7 +2467,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c13 .c1 svg {
@@ -2362,7 +2483,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c14 .c1 svg {
@@ -2377,7 +2499,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c15 .c1 svg {
@@ -2392,7 +2515,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c16 .c1 svg {
@@ -2407,7 +2531,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c17 .c1 svg {
@@ -2422,7 +2547,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c18 .c1 svg {
@@ -2437,7 +2563,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c19 .c1 svg {
@@ -2456,7 +2583,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c20 .c1 svg {
@@ -2475,7 +2603,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c21 .c1 svg {
@@ -2494,7 +2623,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c22 .c1 svg {
@@ -2513,7 +2643,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c23 .c1 svg {
@@ -2532,7 +2663,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c24 .c1 svg {
@@ -2551,7 +2683,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c25 .c1 svg {
@@ -2570,7 +2703,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c26 .c1 svg {
@@ -2589,7 +2723,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c27 .c1 svg {
@@ -2608,7 +2743,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c28 .c1 svg {
@@ -2627,7 +2763,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c29 .c1 svg {
@@ -2646,7 +2783,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c30 .c1 svg {
@@ -2665,7 +2803,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c31 .c1 svg {
@@ -2684,7 +2823,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c32 .c1 svg {
@@ -2703,7 +2843,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c33 .c1 svg {
@@ -2722,7 +2863,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c34 .c1 svg {
@@ -2741,7 +2883,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c35 .c1 svg {
@@ -2760,7 +2903,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c36 .c1 svg {
@@ -2779,7 +2923,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c37 .c1 svg {
@@ -2798,7 +2943,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c38 .c1 svg {
@@ -2817,7 +2963,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c39 .c1 svg {
@@ -2836,7 +2983,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c40 .c1 svg {
@@ -2855,7 +3003,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c41 .c1 svg {
@@ -2874,7 +3023,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c42 .c1 svg {
@@ -2893,7 +3043,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c43 .c1 svg {
@@ -2912,7 +3063,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c44 .c1 svg {
@@ -2931,7 +3083,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c45 .c1 svg {
@@ -2950,7 +3103,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c46 .c1 svg {
@@ -2969,7 +3123,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c47 .c1 svg {
@@ -2988,7 +3143,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c48 .c1 svg {
@@ -3007,7 +3163,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c49 .c1 svg {
@@ -3022,7 +3179,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c50 .c1 svg {
@@ -3037,7 +3195,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c51 .c1 svg {
@@ -3052,7 +3211,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c52 .c1 svg {
@@ -3067,7 +3227,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c53 .c1 svg {
@@ -3082,7 +3243,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c54 .c1 svg {
@@ -3097,7 +3259,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c55 .c1 svg {
@@ -3112,7 +3275,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c56 .c1 svg {
@@ -3127,7 +3291,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c57 .c1 svg {
@@ -3142,7 +3307,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c58 .c1 svg {
@@ -3157,7 +3323,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c59 .c1 svg {
@@ -3172,7 +3339,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c60 .c1 svg {
@@ -3187,7 +3355,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c61 .c1 svg {
@@ -3202,7 +3371,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c62 .c1 svg {
@@ -3217,7 +3387,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c63 .c1 svg {
@@ -3232,7 +3403,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c64 .c1 svg {
@@ -3251,7 +3423,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c65 .c1 svg {
@@ -3270,7 +3443,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c66 .c1 svg {
@@ -3289,7 +3463,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c67 .c1 svg {
@@ -3308,7 +3483,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c68 .c1 svg {
@@ -3327,7 +3503,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c69 .c1 svg {
@@ -3346,7 +3523,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c70 .c1 svg {
@@ -3365,7 +3543,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c71 .c1 svg {
@@ -3384,7 +3563,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c72 .c1 svg {
@@ -3403,7 +3583,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c73 .c1 svg {
@@ -3422,7 +3603,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c74 .c1 svg {
@@ -3441,7 +3623,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c75 .c1 svg {
@@ -3460,7 +3643,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c76 .c1 svg {
@@ -3479,7 +3663,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c77 .c1 svg {
@@ -3498,7 +3683,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c78 .c1 svg {
@@ -3517,7 +3703,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c79 .c1 svg {
@@ -3536,7 +3723,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -3557,7 +3745,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -3578,7 +3767,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c82 .c1 svg {
@@ -3597,7 +3787,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c83 .c1 svg {
@@ -3616,7 +3807,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c84 .c1 svg {
@@ -3635,7 +3827,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c85 .c1 svg {
@@ -3654,7 +3847,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c86 .c1 svg {
@@ -3673,7 +3867,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c87 .c1 svg {
@@ -3692,7 +3887,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c88 .c1 svg {
@@ -3711,7 +3907,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c89 .c1 svg {
@@ -3730,7 +3927,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c90 .c1 svg {
@@ -3749,7 +3947,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c91 .c1 svg {
@@ -3768,7 +3967,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c92 .c1 svg {
@@ -3787,7 +3987,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c93 .c1 svg {
@@ -3806,7 +4007,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c94 .c1 svg {
@@ -3825,7 +4027,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c95 .c1 svg {
@@ -3844,7 +4047,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c96 .c1 svg {
@@ -3863,7 +4067,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c97 .c1 svg {
@@ -3882,7 +4087,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c98 .c1 svg {
@@ -3901,7 +4107,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c99 .c1 svg {
@@ -3920,7 +4127,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c100 .c1 svg {
@@ -3939,7 +4147,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c101 .c1 svg {
@@ -3958,7 +4167,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c102 .c1 svg {
@@ -3977,7 +4187,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c103 .c1 svg {
@@ -3996,7 +4207,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c104 .c1 svg {
@@ -4015,7 +4227,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c105 .c1 svg {
@@ -4034,7 +4247,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c106 .c1 svg {
@@ -4053,7 +4267,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c107 .c1 svg {
@@ -4072,7 +4287,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c108 .c1 svg {
@@ -4091,7 +4307,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
-  height: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 .c109 .c1 svg {

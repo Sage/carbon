@@ -38,8 +38,8 @@ import {
   ActionPopoverComponentIcons,
   ActionPopoverComponentInFlatTable,
   ActionPopoverComponentInOverflowHiddenContainer,
-  ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu,
-  ActionPopoverComponentKeyboardNaviationRightAlignedSubmenu,
+  ActionPopoverComponentKeyboardNavigationLeftAlignedSubmenu,
+  ActionPopoverComponentKeyboardNavigationRightAlignedSubmenu,
   ActionPopoverComponentKeyboardNavigation,
   ActionPopoverComponentMenuOpeningAbove,
   ActionPopoverComponentMenuRightAligned,
@@ -1476,7 +1476,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentKeyboardNaviationLeftAlignedSubmenu />);
+    await mount(<ActionPopoverComponentKeyboardNavigationLeftAlignedSubmenu />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     const submenuTrigger = await actionPopoverInnerItem(page, 0);
@@ -1488,7 +1488,9 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentKeyboardNaviationRightAlignedSubmenu />);
+    await mount(
+      <ActionPopoverComponentKeyboardNavigationRightAlignedSubmenu />
+    );
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     const submenuTrigger = await actionPopoverInnerItem(page, 0);

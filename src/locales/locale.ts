@@ -31,6 +31,10 @@ interface Locale {
   };
   date: {
     dateFnsLocale: () => DateFnsLocale;
+    ariaLabels: {
+      previousMonthButton: () => string;
+      nextMonthButton: () => string;
+    };
   };
   dialog: {
     ariaLabels: {
@@ -99,6 +103,9 @@ interface Locale {
     ariaLabels: {
       close: () => string;
     };
+  };
+  splitButton: {
+    ariaLabel: () => string;
   };
   switch: {
     on: () => string;

@@ -213,6 +213,7 @@ export const Drawer = ({
         className={getClassNames()}
         ref={drawerSidebarContentRef}
         backgroundColor={backgroundColor}
+        data-element="drawer-content"
       >
         {stickyHeader && (
           <StyledSidebarHeader isExpanded={isExpanded}>

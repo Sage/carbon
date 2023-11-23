@@ -229,7 +229,7 @@ context("Tests for MultiActionButton component", () => {
     });
   });
 
-  describe("user interactions with MultiActionutton", () => {
+  describe("user interactions with MultiActionButton", () => {
     describe("pressing ArrowUp while MultiActionButton is open", () => {
       it("should move focus to previous child button and should not loop to last button when first is focused", () => {
         CypressMountWithProviders(
@@ -448,7 +448,7 @@ context("Tests for MultiActionButton component", () => {
     });
   });
 
-  describe("user interactions with MultiActionutton when wrapping the child buttons in a custom component", () => {
+  describe("user interactions with MultiActionButton when wrapping the child buttons in a custom component", () => {
     describe("pressing ArrowUp while MultiActionButton is open", () => {
       it("should move focus to previous child button and should not loop to last button when first is focused", () => {
         CypressMountWithProviders(
@@ -716,6 +716,15 @@ context("Tests for MultiActionButton component", () => {
   describe("check accessibility for MultiActionButton component", () => {
     it("should pass accessibility tests for MultiActionButton", () => {
       CypressMountWithProviders(<MultiActionButtonList />);
+
+      cy.checkAccessibility();
+    });
+
+    // TODO: test passes even when it shouldn't, see FE-6267
+    it("should pass accessibility tests for MultiActionButton when open", () => {
+      CypressMountWithProviders(<MultiActionButtonList />);
+
+      multiActionButton().eq(0).trigger("keydown", keyCode("Enter"));
 
       cy.checkAccessibility();
     });

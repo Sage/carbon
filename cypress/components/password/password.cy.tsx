@@ -305,7 +305,7 @@ context("Tests for Password component", () => {
       ["right", "end"],
       ["left", "start"],
     ] as [PasswordProps["labelAlign"], string][])(
-      "should use %s as labelAligment and render it with %s as css properties",
+      "should use %s as labelAlignment and render it with %s as css properties",
       (alignment, cssProp) => {
         CypressMountWithProviders(
           <PasswordComponent labelInline labelAlign={alignment} />

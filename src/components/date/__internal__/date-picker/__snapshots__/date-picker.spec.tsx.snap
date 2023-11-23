@@ -6,6 +6,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   height: 346px;
   width: 352px;
   z-index: 6000;
+  margin-top: var(--spacing050);
 }
 
 .c0 .DayPicker {

@@ -101,6 +101,10 @@ const plPL: Locale = {
 
   date: {
     dateFnsLocale: () => plDateLocale,
+    ariaLabels: {
+      previousMonthButton: () => "Poprzedni miesiąc",
+      nextMonthButton: () => "Następny miesiąc",
+    },
   },
   dialog: {
     ariaLabels: {
@@ -187,6 +191,9 @@ const plPL: Locale = {
     ariaLabels: {
       close: () => "Zamknij",
     },
+  },
+  splitButton: {
+    ariaLabel: () => "Pokaż więcej",
   },
   switch: {
     on: () => "WŁ",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { PaddingProps, FlexboxProps } from "styled-system";
 import StyledNavigationBar from "./navigation-bar.style";
 import { FixedNavigationBarContextProvider } from "./fixed-navigation-bar.context";
@@ -32,35 +32,35 @@ export const NavigationBar = ({
   children,
   ariaLabel,
   position,
-  offset = "0",
+  offset = "0px",
   orientation,
   isGlobal,
   ...props
 }: NavigationBarProps): JSX.Element => {
-  const [navbarElement, setNavbarElement] = useState<HTMLElement | null>(null);
+  const navbarRef = useRef(null);
 
   return (
-    <StyledNavigationBar
-      role="navigation"
-      data-component={isGlobal ? "global-header" : "navigation-bar"}
-      aria-label={isGlobal ? "Global Header" : ariaLabel}
-      navigationType={isGlobal ? "black" : navigationType}
+    <FixedNavigationBarContextProvider
       orientation={isGlobal ? "top" : orientation}
       offset={isGlobal ? "0px" : offset}
       position={isGlobal ? "fixed" : position}
-      {...props}
-      isGlobal={isGlobal}
-      ref={setNavbarElement}
+      navbarRef={navbarRef}
     >
-      <FixedNavigationBarContextProvider
+      <StyledNavigationBar
+        role="navigation"
+        data-component={isGlobal ? "global-header" : "navigation-bar"}
+        aria-label={isGlobal ? "Global Header" : ariaLabel}
+        navigationType={isGlobal ? "black" : navigationType}
         orientation={isGlobal ? "top" : orientation}
         offset={isGlobal ? "0px" : offset}
         position={isGlobal ? "fixed" : position}
-        navbarElement={navbarElement}
+        {...props}
+        isGlobal={isGlobal}
+        ref={navbarRef}
       >
         {!isLoading && children}
-      </FixedNavigationBarContextProvider>
-    </StyledNavigationBar>
+      </StyledNavigationBar>
+    </FixedNavigationBarContextProvider>
   );
 };
 

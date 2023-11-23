@@ -307,6 +307,15 @@ context("Tests for Textarea component", () => {
       textareaChildren().should("be.disabled").and("have.attr", "disabled");
     });
 
+    it("should render Textarea icon with disabled style", () => {
+      CypressMountWithProviders(<TextareaComponent disabled inputIcon="bin" />);
+
+      textarea()
+        .find(ICON)
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
+    });
+
     it.each(testData)(
       "should render Textarea with placeholder prop set to %s",
       (placeholder) => {
@@ -362,6 +371,15 @@ context("Tests for Textarea component", () => {
       CypressMountWithProviders(<TextareaComponent readOnly />);
 
       textareaChildren().and("have.attr", "readOnly");
+    });
+
+    it("should render Textarea icon with readOnly style", () => {
+      CypressMountWithProviders(<TextareaComponent readOnly inputIcon="bin" />);
+
+      textarea()
+        .find(ICON)
+        .should("be.visible")
+        .and("have.css", "color", "rgba(0, 0, 0, 0.3)");
     });
 
     it.each(["error", "warning", "info"])(

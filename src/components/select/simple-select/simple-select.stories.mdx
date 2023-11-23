@@ -192,6 +192,17 @@ be customised if desired using the `virtualScrollOverscan` prop. Higher values w
   <Story name="with multiple columns and virtualisation" story={stories.WithMultipleColumnsAndVirtualisation} />
 </Canvas>
 
+### Selection confirmed
+
+A change event is emitted each time an option is navigated via keyboard as it sets the value of the 
+Select input. For those that need to trigger further actions when the user makes a selection, there is 
+a `selectionConfirmed` property on the emitted event when the enter key is pressed or an option is clicked.
+
+<Canvas>
+  <Story name="selection confirmed" story={stories.SelectionConfirmedStory} />
+</Canvas>
+
+
 ## Props
 
 ### Select
