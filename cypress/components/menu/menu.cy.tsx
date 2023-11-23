@@ -52,6 +52,8 @@ import {
   MenuWithChildrenUpdating,
   MenuComponentFullScreen,
   MenuFullScreenBackgroundScrollTest,
+  MenuFullScreenWithFalsyValues,
+  MenuFullScreenKeysTest,
   MenuComponentItems,
   MenuFullScreenWithSearchButton,
   MenuComponentScrollableParent,
@@ -1939,7 +1941,7 @@ context("Testing Menu component", () => {
     });
   });
 
-  describe("test background scroll when tabbing", () => {
+  describe("edge case tests for MenuFullScreen", () => {
     it("tabbing forward through the menu and back to the start should not make the background scroll to the bottom", () => {
       CypressMountWithProviders(<MenuFullScreenBackgroundScrollTest />);
 
@@ -1958,6 +1960,20 @@ context("Testing Menu component", () => {
       closeIconButton().should("be.focused");
 
       cy.checkNotInViewport("#bottom-box");
+    });
+
+    it("should not render a MenuDivider when falsy values are rendered", () => {
+      CypressMountWithProviders(<MenuFullScreenWithFalsyValues isOpen />);
+
+      menuDivider().should("not.exist");
+    });
+
+    it("should maintain the state of child items when a new item is added", () => {
+      cy.clock();
+      CypressMountWithProviders(<MenuFullScreenKeysTest />);
+
+      cy.tick(5000);
+      fullScreenMenuItem(5).should("contain.text", "count 2");
     });
   });
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { action } from "@storybook/addon-actions";
 import {
   Menu,
@@ -31,6 +31,7 @@ export default {
     "LongLabelsStory",
     "InGlobalHeaderStory",
     "InNavigationBarStory",
+    "MenuFullScreenKeysTest",
   ],
   parameters: {
     info: { disable: true },
@@ -501,6 +502,19 @@ export const MenuComponentItems = (
   );
 };
 
+export const MenuFullScreenWithFalsyValues = ({
+  ...props
+}: Partial<MenuFullscreenProps>) => {
+  const showMenuItem = false;
+  return (
+    <MenuFullscreen onClose={() => {}} {...props}>
+      <MenuItem maxWidth="200px">Submenu Item One</MenuItem>
+      {false && <MenuItem href="#">Product Item One</MenuItem>}
+      {showMenuItem ? <MenuItem href="#">Product Item Two</MenuItem> : null}
+    </MenuFullscreen>
+  );
+};
+
 export const MenuItems = (props: MenuWithChildren) => {
   return (
     <Box mb={150}>
@@ -742,5 +756,46 @@ export const MenuDividerComponent = (props: MenuDividerProps) => {
         </div>
       ))}
     </Box>
+  );
+};
+
+const UpdatingSubmenu = () => {
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((prev) => (prev >= 2 ? prev : prev + 1));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <MenuItem submenu={`submenu 2 - count ${counter}`}>
+      <MenuItem>Item One </MenuItem>
+      <MenuItem>Item Two </MenuItem>
+    </MenuItem>
+  );
+};
+
+export const MenuFullScreenKeysTest = () => {
+  const [extraItem, setExtraItem] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setExtraItem(true);
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, []);
+  return (
+    <MenuFullscreen onClose={() => {}} isOpen>
+      {extraItem ? (
+        <MenuItem submenu="extra submenu">
+          <MenuItem>Item One </MenuItem>
+          <MenuItem>Item Two </MenuItem>
+        </MenuItem>
+      ) : null}
+      <MenuItem submenu="submenu 1">
+        <MenuItem>Item One </MenuItem>
+        <MenuItem>Item Two </MenuItem>
+      </MenuItem>
+      <UpdatingSubmenu />
+    </MenuFullscreen>
   );
 };
