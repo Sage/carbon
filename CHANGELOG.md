@@ -1,3 +1,10 @@
+### [123.10.3](https://github.com/Sage/carbon/compare/v123.10.2...v123.10.3) (2023-11-23)
+
+
+### Bug Fixes
+
+* **tabs:** error border partially hidden fix ([6aa62e1](https://github.com/Sage/carbon/commit/6aa62e16f3a385fa631052a87d7025c7a725a402)), closes [#6314](https://github.com/Sage/carbon/issues/6314)
+
 ### [123.10.2](https://github.com/Sage/carbon/compare/v123.10.1...v123.10.2) (2023-11-23)
 
 
