@@ -20,7 +20,7 @@ import StyledInput from "../../../__internal__/input/input.style";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
-
+jest.useFakeTimers();
 jest.mock("../../../__internal__/utils/helpers/guid");
 
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
@@ -1100,7 +1100,10 @@ describe("FilterableSelect", () => {
       it("the SelectList should be rendered", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
-        wrapper.find("input").simulate("focus");
+        act(() => {
+          wrapper.find("input").simulate("focus");
+          jest.runOnlyPendingTimers();
+        });
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -1131,7 +1134,10 @@ describe("FilterableSelect", () => {
             openOnFocus: true,
           });
 
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(onFocusFn).toHaveBeenCalled();
         });
       });
@@ -1148,7 +1154,10 @@ describe("FilterableSelect", () => {
         });
 
         it("then that prop should have been called", () => {
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(onOpenFn).toHaveBeenCalled();
         });
 
@@ -1180,7 +1189,10 @@ describe("FilterableSelect", () => {
 
           wrapper = mount(<Component />);
           expect(wrapper.find("#call-counter").text()).toBe("0");
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(wrapper.find("#call-counter").text()).toBe("1");
           wrapper.setProps({});
           expect(wrapper.find("#call-counter").text()).toBe("1");
@@ -1188,7 +1200,10 @@ describe("FilterableSelect", () => {
 
         describe("and with the SelectList already open", () => {
           it("then that prop should not be called", () => {
-            wrapper.find("input").simulate("focus");
+            act(() => {
+              wrapper.find("input").simulate("focus");
+              jest.runOnlyPendingTimers();
+            });
             onOpenFn.mockReset();
             wrapper
               .find(Option)
@@ -1201,7 +1216,10 @@ describe("FilterableSelect", () => {
         describe("and the focus triggered by mouseDown on the input", () => {
           it("then that prop should have been called", () => {
             wrapper.find("input").simulate("mousedown");
-            wrapper.find("input").simulate("focus");
+            act(() => {
+              wrapper.find("input").simulate("focus");
+              jest.runOnlyPendingTimers();
+            });
             expect(onOpenFn).toHaveBeenCalled();
           });
         });

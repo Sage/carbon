@@ -16,6 +16,7 @@ import {
   DialogFullScreenWithTitleAsReactComponent,
   WithComplexExample,
   TopModalOverride,
+  DialogFullScreenWithAutoFocusSelect,
 } from "./components.test-pw";
 import {
   portal,
@@ -442,6 +443,22 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await expect(dialogTextbox).toBeFocused();
     await dialogTextbox.press("Tab");
     await expect(dialogClose).toBeFocused();
+  });
+
+  test("should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogFullScreenWithAutoFocusSelect />);
+
+    const dialog = page.getByRole("dialog");
+    const select = dialog.getByRole("combobox");
+
+    await expect(select).toBeFocused();
+    await dialog.press("Shift+Tab");
+    await dialog.press("Shift+Tab");
+    await dialog.press("Shift+Tab");
+    await expect(select).toBeFocused();
   });
 });
 

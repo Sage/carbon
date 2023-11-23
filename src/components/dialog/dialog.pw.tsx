@@ -8,6 +8,7 @@ import {
   DialogBackgroundScrollTest,
   DialogWithOpenToastsBackgroundScrollTest,
   TopModalOverride,
+  DialogWithAutoFocusSelect,
 } from "./components.test-pw";
 
 import {
@@ -358,6 +359,22 @@ test.describe("Testing Dialog component properties", () => {
     await expect(
       page.getByText("I should not be scrolled into view")
     ).not.toBeInViewport();
+  });
+
+  test("should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogWithAutoFocusSelect />);
+
+    const dialog = page.getByRole("dialog");
+    const select = dialog.getByRole("combobox");
+
+    await expect(select).toBeFocused();
+    await dialog.press("Shift+Tab");
+    await dialog.press("Shift+Tab");
+    await dialog.press("Shift+Tab");
+    await expect(select).toBeFocused();
   });
 });
 

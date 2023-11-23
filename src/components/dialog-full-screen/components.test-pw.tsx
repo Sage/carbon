@@ -18,6 +18,7 @@ import Icon from "../icon";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import { Dl, Dt, Dd } from "../definition-list";
 import Sidebar from "../sidebar";
+import { Select, Option } from "../select";
 
 const mainDialogTitle = "Main Dialog";
 const nestedDialogTitle = "Nested Dialog";
@@ -948,5 +949,16 @@ export const TopModalOverride = () => {
         <Textbox label="Sidebar textbox" />
       </Sidebar>
     </>
+  );
+};
+
+export const DialogFullScreenWithAutoFocusSelect = () => {
+  return (
+    <DialogFullScreen open title="My dialog" onCancel={() => {}}>
+      <Select autoFocus label="select">
+        <Option value="1" text="one" />
+      </Select>
+      <Textbox label="textbox" />
+    </DialogFullScreen>
   );
 };

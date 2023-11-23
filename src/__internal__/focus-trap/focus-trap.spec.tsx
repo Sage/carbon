@@ -8,6 +8,8 @@ import FocusTrap, { FocusTrapProps } from "./focus-trap.component";
 import { RadioButton, RadioButtonGroup } from "../../components/radio-button";
 import { ModalContext } from "../../components/modal/modal.component";
 import TopModalContext from "../../components/carbon-provider/top-modal-context";
+import { Option, Select } from "../../components/select";
+import { Checkbox } from "../../components/checkbox";
 
 jest.useFakeTimers();
 
@@ -1365,5 +1367,50 @@ describe("FocusTrap", () => {
       await tabPress();
       expect(screen.getByText(BUTTON_SIX)).toHaveFocus();
     });
+  });
+
+  it("should focus the first input that has the `autoFocus` prop set on it", () => {
+    render(
+      <MockComponent>
+        <Select value="" onChange={() => {}} autoFocus label="Autofocus me">
+          <Option value="1" text="one" />
+        </Select>
+        <Checkbox label="Do not autofocus me" autoFocus />
+      </MockComponent>
+    );
+
+    expect(screen.getByRole("combobox")).toHaveFocus();
+  });
+
+  it("should loop to the last element when there is elements with tabIndex of -1 (SelectList) and shift + tab pressed", async () => {
+    render(
+      <MockComponent>
+        <Select value="" onChange={() => {}} autoFocus label="Autofocus me">
+          <Option value="1" text="one" />
+        </Select>
+        <Checkbox label="Do not autofocus me" autoFocus />
+      </MockComponent>
+    );
+
+    expect(screen.getByRole("combobox")).toHaveFocus();
+    await shiftTabPress();
+    await shiftTabPress();
+    expect(screen.getByRole("combobox")).toHaveFocus();
+  });
+
+  it("should set focus on the `focusFirstElement` when it and an input with `autoFocus` are detected", () => {
+    render(
+      mockComponentToRender({
+        children: (
+          <Select value="" onChange={() => {}} autoFocus label="Autofocus me">
+            <Option value="1" text="one" />
+          </Select>
+        ),
+        shouldFocusFirstElement: true,
+      })
+    );
+
+    expect(screen.getByText(FIRST_ELEMENT)).toHaveFocus();
+    expect(screen.getByRole("combobox")).not.toHaveFocus();
   });
 });
