@@ -1,3 +1,10 @@
+### [123.10.1](https://github.com/Sage/carbon/compare/v123.10.0...v123.10.1) (2023-11-23)
+
+
+### Bug Fixes
+
+* ensure any auto-focused element is focused first when a child of a focus trapped component ([f34eca4](https://github.com/Sage/carbon/commit/f34eca46693e487d20c77dd1892dfaad5a830742)), closes [#6384](https://github.com/Sage/carbon/issues/6384)
+
 ## [123.10.0](https://github.com/Sage/carbon/compare/v123.9.1...v123.10.0) (2023-11-22)
 
 
