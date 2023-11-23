@@ -1,3 +1,10 @@
+### [123.11.1](https://github.com/Sage/carbon/compare/v123.11.0...v123.11.1) (2023-11-23)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** fix keys in rendering of children ([5c17f15](https://github.com/Sage/carbon/commit/5c17f15757bac9e7fb1134ba84ea75e66de63434))
+
 ## [123.11.0](https://github.com/Sage/carbon/compare/v123.10.3...v123.11.0) (2023-11-23)
 
 
