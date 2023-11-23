@@ -5,6 +5,7 @@ import {
   SidebarBackgroundScrollTestComponent,
   SidebarBackgroundScrollWithOtherFocusableContainers,
   SidebarComponentFocusable,
+  TopModalOverride,
 } from "../../../src/components/sidebar/sidebar-test.stories";
 import { SidebarProps } from "../../../src/components/sidebar/sidebar.component";
 import {
@@ -22,6 +23,7 @@ import {
 } from "../../../src/components/sidebar/sidebar.config";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { assertCssValueIsApproximately } from "../../support/component-helper/common-steps";
+import { CLOSE_ICON_BUTTON } from "../../locators/locators";
 
 context("Testing Sidebar component", () => {
   describe("check props for Sidebar component", () => {
@@ -214,6 +216,19 @@ context("Testing Sidebar component", () => {
 
       closeIconButton().click();
       cy.get("@onCancel").should("have.been.calledOnce");
+    });
+
+    it("should ensure the Sidebar is rendered on top of any other modals when the topModalOverride prop is true", () => {
+      CypressMountWithProviders(<TopModalOverride />);
+
+      sidebarPreview().should("exist");
+      cy.get("body").tab();
+      sidebarPreview().find(CLOSE_ICON_BUTTON).should("be.focused");
+      cy.focused().trigger("keydown", keyCode("Enter"));
+
+      sidebarPreview().should("not.exist");
+      cy.get("body").tab();
+      getComponent("dialog").find(CLOSE_ICON_BUTTON).should("be.focused");
     });
   });
 

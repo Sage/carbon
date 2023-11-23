@@ -8,6 +8,7 @@ import {
   DLS_ROOT,
   FIELD_HELP_PREVIEW,
   LABEL,
+  COMMON_INPUT_CHARACTER_LIMIT,
   STICKY_FOOTER,
   COMMMON_DATA_ELEMENT_INPUT,
   PORTAL,
@@ -28,6 +29,14 @@ export const commonDataElementInputPreview = (page: Page) => {
 
 export const button = (page: Page) => {
   return page.locator(BUTTON);
+};
+
+export const getDataComponentByValue = (page: Page, element: string) => {
+  return page.locator(`[data-component="${element}"]`);
+};
+
+export const getDataRoleByValue = (page: Page, element: string) => {
+  return page.locator(`[data-role="${element}"]`);
 };
 
 export const closeIconButton = (page: Page) => {
@@ -68,6 +77,10 @@ export const getElement = (page: Page, element: string) => {
 
 export const label = (page: Page) => {
   return page.locator(LABEL);
+};
+
+export const characterLimit = (page: Page) => {
+  return page.locator(COMMON_INPUT_CHARACTER_LIMIT);
 };
 
 export const legendSpan = (page: Page) => {

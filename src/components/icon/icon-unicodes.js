@@ -250,6 +250,10 @@ const misc = {
   volunteering: "\\f039",
   website: "\\f051",
   welfare: "\\f034",
+  contact_card: "\\f059",
+  cloud_co2: "\\f060",
+  leaf: "\\f061",
+  like_no: "\\f058",
 };
 
 const legacyNames = {

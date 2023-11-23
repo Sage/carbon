@@ -17,6 +17,7 @@ import {
 import { baseTheme } from "../../style/themes";
 import useChildButtons from "../../hooks/__internal__/useChildButtons";
 import SplitButtonContext from "./__internal__/split-button.context";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 const CONTENT_WIDTH_RATIO = 0.75;
 
@@ -33,6 +34,8 @@ export interface SplitButtonProps
   "data-element"?: string;
   /** A custom value for the data-role attribute */
   "data-role"?: string;
+  /** Prop to specify an aria-label for the component */
+  "aria-label"?: string;
   /** Gives the button a disabled state. */
   disabled?: boolean;
   /** Defines an Icon position within the button: "before" | "after" */
@@ -60,8 +63,10 @@ export const SplitButton = ({
   text,
   "data-element": dataElement,
   "data-role": dataRole,
+  "aria-label": ariaLabel,
   ...rest
 }: SplitButtonProps) => {
+  const locale = useLocale();
   const theme = useContext(ThemeContext) || baseTheme;
   const buttonLabelId = useRef(guid());
 
@@ -133,7 +138,7 @@ export const SplitButton = ({
       <StyledSplitButtonToggle
         aria-haspopup="true"
         aria-expanded={showAdditionalButtons}
-        aria-label="Show more"
+        aria-label={ariaLabel || locale.splitButton.ariaLabel()}
         data-element="toggle-button"
         key="toggle-button"
         type="button"

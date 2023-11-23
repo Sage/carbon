@@ -21,7 +21,7 @@ import SelectTextbox from "../select-textbox";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
-
+jest.useFakeTimers();
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
 
 function getSelect(props: Partial<SimpleSelectProps> = {}) {
@@ -45,7 +45,10 @@ function simulateSelectTextboxEvent(
 ) {
   const selectText = container.find('input[type="text"]').first();
 
-  selectText.simulate(eventType);
+  act(() => {
+    selectText.simulate(eventType);
+    if (eventType === "focus") jest.runOnlyPendingTimers();
+  });
 }
 
 function simulateKeyDown(
@@ -678,14 +681,13 @@ describe("SimpleSelect", () => {
 
     describe("and another keys are typed with a long break before the last change", () => {
       it("then the first option with text starting the last typed character should be selected", () => {
-        jest.useFakeTimers();
         const wrapper = renderSelect();
 
         act(() => {
           simulateSelectTextboxEvent(wrapper, "focus");
           simulateKeyDown(wrapper, "b");
           simulateKeyDown(wrapper, "l");
-          jest.runAllTimers();
+          jest.runOnlyPendingTimers();
           simulateKeyDown(wrapper, "g");
         });
 
@@ -700,6 +702,7 @@ describe("SimpleSelect", () => {
           id: "testId",
         };
         const mockEventObject = {
+          selectionConfirmed: false,
           target: {
             ...textboxProps,
             value: "opt3",
@@ -720,17 +723,20 @@ describe("SimpleSelect", () => {
       value: "opt2",
       text: "green",
       selectionType: "navigationKey",
+      selectionConfirmed: false,
     };
     const clickOptionObject = {
       value: "opt2",
       text: "green",
       selectionType: "click",
+      selectionConfirmed: true,
     };
     const textboxProps = {
       name: "testName",
       id: "testId",
     };
     const expectedEventObject = {
+      selectionConfirmed: true,
       target: {
         ...textboxProps,
         value: "opt2",
@@ -894,6 +900,7 @@ describe("SimpleSelect", () => {
       value: "opt3",
       text: "black",
       selectionType: "click",
+      selectionConfirmed: true,
     };
 
     beforeEach(() => {
@@ -910,7 +917,10 @@ describe("SimpleSelect", () => {
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
-        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+        expect(onChangeFn).toHaveBeenCalledWith({
+          selectionConfirmed: true,
+          ...expectedObject,
+        });
       });
     });
 
@@ -925,7 +935,10 @@ describe("SimpleSelect", () => {
       });
 
       it("then the onChange function should have been called with with the expected value", () => {
-        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+        expect(onChangeFn).toHaveBeenCalledWith({
+          selectionConfirmed: false,
+          ...expectedObject,
+        });
       });
     });
 

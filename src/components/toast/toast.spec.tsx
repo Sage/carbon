@@ -58,7 +58,11 @@ describe("Toast", () => {
 
       it("is added to modal manager", () => {
         const toast = wrapper.find(ToastWrapper).getDOMNode();
-        expect(ModalManager.addModal).toHaveBeenCalledWith(toast, undefined);
+        expect(ModalManager.addModal).toHaveBeenCalledWith(
+          toast,
+          undefined,
+          true
+        );
       });
     });
 
@@ -571,7 +575,7 @@ describe("TestContentStyle", () => {
   });
 });
 
-describe("Align", () => {
+describe("Align horizontal", () => {
   let wrapper: ReactWrapper;
 
   afterEach(() => {
@@ -591,6 +595,53 @@ describe("Align", () => {
       expect(wrapper.find(ToastWrapper).props().align).toBe(alignValue);
     }
   );
+});
+
+describe("Align vertical", () => {
+  let wrapper: ReactWrapper;
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
+  it.each(["top", "center", "bottom"] as const)(
+    "when align prop is %s, Portal is correctly positioned",
+    (alignYValue) => {
+      wrapper = mount(
+        <Toast alignY={alignYValue} open>
+          FooBar
+        </Toast>
+      );
+      expect(wrapper.find(StyledPortal).props().alignY).toBe(alignYValue);
+    }
+  );
+
+  it("when isNotice is set and alignY is set to top, should render with the correct style", () => {
+    wrapper = mount(
+      <Toast variant="notice" alignY="top" open>
+        Foo
+      </Toast>
+    );
+    assertStyleMatch({ marginTop: "0" }, wrapper.find(ToastStyle));
+  });
+});
+
+describe("Align vertical and horizontal", () => {
+  let wrapper: ReactWrapper;
+
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
+  it("should pass align set to left and alignY set to center to StyledPortal", () => {
+    wrapper = mount(
+      <Toast align="left" alignY="center" open>
+        FooBar
+      </Toast>
+    );
+    expect(wrapper.find(StyledPortal).props().align).toBe("left");
+    expect(wrapper.find(StyledPortal).props().alignY).toBe("center");
+  });
 });
 
 describe("Notification variant", () => {

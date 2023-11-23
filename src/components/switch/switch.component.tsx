@@ -214,16 +214,20 @@ export const Switch = React.forwardRef(
       ...rest,
     };
 
+    const applyValidation = error || warning;
+
     return (
       <>
         {validationRedesignOptIn ? (
           <StyledSwitch {...switchStylePropsForNewValidation}>
             <Label>
-              {label}
-              {labelHelp && <StyledHintText>{labelHelp}</StyledHintText>}
+              <Box mb={labelHelp ? 0 : 1}>
+                {label}
+                {labelHelp && <StyledHintText>{labelHelp}</StyledHintText>}
+              </Box>
               <Box position="relative">
                 <ValidationMessage error={error} warning={warning} />
-                {(error || warning) && (
+                {applyValidation && (
                   <ErrorBorder warning={!!(!error && warning)} />
                 )}
                 <CheckableInput {...inputPropsForNewValidation}>

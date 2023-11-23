@@ -192,6 +192,9 @@ const plPL: Locale = {
       close: () => "Zamknij",
     },
   },
+  splitButton: {
+    ariaLabel: () => "Pokaż więcej",
+  },
   switch: {
     on: () => "WŁ",
     off: () => "WYŁ",

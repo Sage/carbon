@@ -4,6 +4,7 @@ import { EditorState } from "draft-js";
 import Note from "./note.component";
 
 import {
+  StyledNoteMain,
   StyledNoteContent,
   StyledInlineControl,
   StyledTitle,
@@ -69,18 +70,21 @@ describe("Note", () => {
 
       assertStyleMatch(
         {
-          paddingBottom: "24px",
-        },
-        content,
-        { modifier: ":not(:last-of-type)" }
-      );
-
-      assertStyleMatch(
-        {
           borderTop: "solid 1px var(--colorsUtilityMajor050)",
         },
         content,
         { modifier: ":last-of-type:not(:first-of-type)" }
+      );
+
+      const main = wrapper.find(StyledNoteMain);
+
+      assertStyleMatch(
+        {
+          display: "flex",
+          justifyContent: "space-between",
+          paddingBottom: "var(--spacing300)",
+        },
+        main
       );
     });
 
@@ -134,10 +138,8 @@ describe("Note", () => {
 
       assertStyleMatch(
         {
-          position: "absolute",
-          top: "24px",
-          right: "16px",
-          zIndex: "100",
+          display: "inline-block",
+          minWidth: "fit-content",
         },
         wrapper.find(StyledInlineControl)
       );
@@ -236,7 +238,7 @@ describe("Note", () => {
     it('renders the "name" and "createdDate" when props have value', () => {
       const wrapper = renderNote({ name, createdDate });
       const footerContent = wrapper.find(StyledFooterContent);
-      expect(wrapper.find(StyledNoteContent)).toHaveLength(2);
+      expect(wrapper.find(StyledNoteContent)).toHaveLength(3);
       expect(wrapper.find(StyledFooter).exists()).toBeTruthy();
       expect(footerContent).toHaveLength(2);
       expect(footerContent.at(0).text()).toEqual("foo");
@@ -300,30 +302,6 @@ describe("Note", () => {
         renderNote({ inlineControl: <button type="button">A Button</button> });
       }).toThrow("<Note> inlineControl must be an instance of <ActionPopover>");
     });
-  });
-
-  describe("when the inlineControl prop is set", () => {
-    const inlineControl = (
-      <ActionPopover>
-        <ActionPopoverItem onClick={() => {}}>Edit</ActionPopoverItem>
-      </ActionPopover>
-    );
-    const wrapper = renderNote({ inlineControl, title: "foo" });
-
-    it.each([
-      ["Note Title", StyledTitle],
-      ["Note Content", StyledNoteContent],
-    ])(
-      "should add margin-left in %s to make space for inlineControl button",
-      (name, element) => {
-        assertStyleMatch(
-          {
-            marginRight: "24px",
-          },
-          wrapper.find(element)
-        );
-      }
-    );
   });
 
   describe("Link Previews", () => {

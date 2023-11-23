@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Typography from "../../../components/typography";
 import Content from "../../../components/content";
-import { Select as SimpleSelect } from "../../../../src/components/select";
+import {
+  CustomSelectChangeEvent,
+  Select as SimpleSelect,
+} from "../../../../src/components/select";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header/option-group-header.component";
 import Box from "../../box";
@@ -12,6 +15,7 @@ import { Select, Option, SimpleSelectProps } from "..";
 export default {
   component: Select,
   title: "Select/Test",
+  excludeStories: ["SelectionConfirmed"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -169,7 +173,7 @@ export const DelayedReposition = () => {
 DelayedReposition.storyName = "delayed reposition";
 
 export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
@@ -204,9 +208,9 @@ export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
 export const SimpleSelectWithLazyLoadingComponent = (
   props: Partial<SimpleSelectProps>
 ) => {
-  const preventLoading = React.useRef(false);
-  const [value, setValue] = React.useState("black");
-  const [isLoading, setIsLoading] = React.useState(true);
+  const preventLoading = useRef(false);
+  const [value, setValue] = useState("black");
+  const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
@@ -214,7 +218,7 @@ export const SimpleSelectWithLazyLoadingComponent = (
     <Option text="Brown" value="brown" key="Brown" />,
     <Option text="Green" value="green" key="Green" />,
   ];
-  const [optionList, setOptionList] = React.useState([
+  const [optionList, setOptionList] = useState([
     <Option text="Black" value="black" key="Black" />,
   ]);
 
@@ -254,11 +258,11 @@ export const SimpleSelectWithLazyLoadingComponent = (
 export const SimpleSelectWithInfiniteScrollComponent = (
   props: Partial<SimpleSelectProps>
 ) => {
-  const preventLoading = React.useRef(false);
-  const preventLazyLoading = React.useRef(false);
-  const lazyLoadingCounter = React.useRef(0);
-  const [value, setValue] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(true);
+  const preventLoading = useRef(false);
+  const preventLazyLoading = useRef(false);
+  const lazyLoadingCounter = useRef(0);
+  const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const asyncList = [
     <Option text="Amber" value="amber" key="Amber" />,
     <Option text="Black" value="black" key="Black" />,
@@ -349,7 +353,7 @@ export const SimpleSelectObjectAsValueComponent = (
     value: 5,
     text: "Green",
   });
-  const optionList = React.useRef([
+  const optionList = useRef([
     <Option
       text="Amber"
       key="Amber"
@@ -654,11 +658,19 @@ export const SimpleSelectWithManyOptionsAndVirtualScrolling = () => (
   </SimpleSelect>
 );
 
-export const SimpleSelectNestedInDialog = () => {
+export const SimpleSelectNestedInDialog = ({
+  openOnFocus = false,
+  autofocus = false,
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <SimpleSelect name="testSelect" id="testSelect">
+      <SimpleSelect
+        openOnFocus={openOnFocus}
+        autoFocus={autofocus}
+        name="testSelect"
+        id="testSelect"
+      >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
         <Option value="opt3" text="blue" />
@@ -701,4 +713,44 @@ SelectWithOptionGroupHeader.args = {
   mt: 0,
   listPlacement: undefined,
   flipEnabled: true,
+};
+
+export const SelectionConfirmed = () => {
+  const [value, setValue] = useState("");
+  const [confirmedSelection, setConfirmedSelection] = useState("");
+
+  const handleChange = (event: CustomSelectChangeEvent) => {
+    setValue(event.target.value);
+    if (event.selectionConfirmed) {
+      setConfirmedSelection(event.target.value);
+    }
+  };
+  return (
+    <>
+      <Select
+        name="testing"
+        value={value}
+        onChange={handleChange}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+        <Option value="4" text="Four" />
+        <Option value="5" text="Five" />
+        <Option value="6" text="Six" />
+        <Option value="7" text="Seven" />
+        <Option value="8" text="Eight" />
+        <Option value="9" text="Nine" />
+      </Select>
+
+      {confirmedSelection ? (
+        <span data-element={`confirmed-selection-${confirmedSelection}`}>
+          {confirmedSelection}
+        </span>
+      ) : null}
+    </>
+  );
 };

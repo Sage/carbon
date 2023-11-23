@@ -219,6 +219,7 @@ const Input = React.forwardRef<
     return (
       <StyledInput
         {...rest}
+        data-has-autofocus={autoFocus ? true : undefined}
         aria-describedby={combinedDescription}
         aria-labelledby={ariaLabelledBy}
         align={align}

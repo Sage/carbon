@@ -9,6 +9,8 @@ const oldFocusStyling = `
 
 export interface InputIconToggleStyleProps extends ValidationProps {
   size?: "small" | "medium" | "large";
+  disabled?: boolean;
+  readOnly?: boolean;
   onClick?: (
     event:
       | React.MouseEvent<HTMLSpanElement>
@@ -36,6 +38,18 @@ const InputIconToggleStyle = styled.span.attrs(
   ${({ size = "medium" }) => css`
     width: ${sizes[size].height};
   `}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+    `}
+  
+  ${({ readOnly }) =>
+    readOnly &&
+    css`
+      cursor: default;
+    `}
 
   ${({ theme }) =>
     `

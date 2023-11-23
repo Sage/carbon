@@ -93,6 +93,7 @@ export const DialogFullScreen = ({
   role = "dialog",
   focusableContainers,
   focusableSelectors,
+  topModalOverride,
   ...rest
 }: DialogFullScreenProps) => {
   const locale = useLocale();
@@ -156,6 +157,7 @@ export const DialogFullScreen = ({
       open={open}
       onCancel={onCancel}
       disableEscKey={disableEscKey}
+      topModalOverride={topModalOverride}
       {...componentTags}
     >
       <FocusTrap
