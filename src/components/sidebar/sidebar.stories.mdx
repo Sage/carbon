@@ -104,6 +104,18 @@ Setting this prop will override the preset width value defined via the `size` pr
   <Story name="with header and footer padding" story={stories.WithHeaderAndFooterPadding} />
 </Canvas>
 
+### Top modal override
+
+When multiple modals are open on a page Carbon manages the order internally so that the last one mounted in the DOM 
+is treated as the top one and the focus trap is set on it. However, this can potentially 
+create unexpected issues if the loading of the dialogs isn't synchronous. In order to guarantee that a given 
+modal is treated as top set the `topModalOverride` prop. Please note that in the scenario where this prop is 
+set on multiple modals, the last one mounted with it will be treated as top.
+
+<Canvas>
+  <Story name="top modal override" story={stories.TopModalOverride} />
+</Canvas>
+
 ## Props
 
 ### Sidebar

@@ -1,3 +1,64 @@
+### [123.10.3](https://github.com/Sage/carbon/compare/v123.10.2...v123.10.3) (2023-11-23)
+
+
+### Bug Fixes
+
+* **tabs:** error border partially hidden fix ([6aa62e1](https://github.com/Sage/carbon/commit/6aa62e16f3a385fa631052a87d7025c7a725a402)), closes [#6314](https://github.com/Sage/carbon/issues/6314)
+
+### [123.10.2](https://github.com/Sage/carbon/compare/v123.10.1...v123.10.2) (2023-11-23)
+
+
+### Bug Fixes
+
+* **note:** inlineControl button and note content overlap fix ([f196759](https://github.com/Sage/carbon/commit/f19675955261019ff32f339a08edc9eee31be52a)), closes [#6228](https://github.com/Sage/carbon/issues/6228)
+
+### [123.10.1](https://github.com/Sage/carbon/compare/v123.10.0...v123.10.1) (2023-11-23)
+
+
+### Bug Fixes
+
+* ensure any auto-focused element is focused first when a child of a focus trapped component ([f34eca4](https://github.com/Sage/carbon/commit/f34eca46693e487d20c77dd1892dfaad5a830742)), closes [#6384](https://github.com/Sage/carbon/issues/6384)
+
+## [123.10.0](https://github.com/Sage/carbon/compare/v123.9.1...v123.10.0) (2023-11-22)
+
+
+### Features
+
+* add support for manually overriding stacking order of modals ([9d4252a](https://github.com/Sage/carbon/commit/9d4252a4ad69274be2eff6bc11d5f0f240ec6ffc)), closes [#6402](https://github.com/Sage/carbon/issues/6402) [#6410](https://github.com/Sage/carbon/issues/6410)
+
+### [123.9.1](https://github.com/Sage/carbon/compare/v123.9.0...v123.9.1) (2023-11-16)
+
+
+### Bug Fixes
+
+* **crumb:** ensure LinkProps are correctly extended so component has the correct interface ([0889433](https://github.com/Sage/carbon/commit/0889433994205f7aa2403b297ea46f2850f3558b)), closes [#6133](https://github.com/Sage/carbon/issues/6133)
+
+## [123.9.0](https://github.com/Sage/carbon/compare/v123.8.0...v123.9.0) (2023-11-15)
+
+
+### Features
+
+* **portrait, profile:** align with design system and reduce code complexity ([c37c6c1](https://github.com/Sage/carbon/commit/c37c6c1e9cec1308a36b2daced831df0a5d77a46)), closes [#6191](https://github.com/Sage/carbon/issues/6191)
+
+## [123.8.0](https://github.com/Sage/carbon/compare/v123.7.2...v123.8.0) (2023-11-15)
+
+
+### Features
+
+* **split-button:** add aria-label prop and locale support for aria-label ([aedafe8](https://github.com/Sage/carbon/commit/aedafe83ec461406631b590f092d0a4d3f19cfb3))
+
+
+### Bug Fixes
+
+* **multi-action-button:** remove unnecessary aria-label ([942f43a](https://github.com/Sage/carbon/commit/942f43a09487bb57d264c397588cc6e219aececb)), closes [#6397](https://github.com/Sage/carbon/issues/6397)
+
+### [123.7.2](https://github.com/Sage/carbon/compare/v123.7.1...v123.7.2) (2023-11-10)
+
+
+### Bug Fixes
+
+* **switch:** fix alignment issue with component when no new validation is applied ([af416ac](https://github.com/Sage/carbon/commit/af416acecb365988d2be2ebf5c8688ccf8d60faa)), closes [#6303](https://github.com/Sage/carbon/issues/6303)
+
 ### [123.7.1](https://github.com/Sage/carbon/compare/v123.7.0...v123.7.1) (2023-11-09)
 
 

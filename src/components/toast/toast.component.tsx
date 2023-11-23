@@ -131,7 +131,12 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       [onDismiss]
     );
 
-    useModalManager({ open, closeModal: dismissToast, modalRef: refToPass });
+    useModalManager({
+      open,
+      closeModal: dismissToast,
+      modalRef: refToPass,
+      topModalOverride: true,
+    });
 
     useEffect(() => {
       /* istanbul ignore next */

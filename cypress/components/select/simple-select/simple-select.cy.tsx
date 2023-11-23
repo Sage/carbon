@@ -989,6 +989,15 @@ context("Tests for SimpleSelect component", () => {
       commonDataElementInputPreview().should("not.be.focused");
     });
 
+    it("should focus the select input and open the list when autoFocus and openOnFocus props set", () => {
+      CypressMountWithProviders(
+        <stories.SimpleSelectNestedInDialog autofocus openOnFocus />
+      );
+
+      commonDataElementInputPreview().should("be.focused");
+      selectList().should("be.visible");
+    });
+
     it("should be able to focus the last item in the select list when the select list has an OptionGroupHeader ", () => {
       CypressMountWithProviders(<stories.SelectWithOptionGroupHeader />);
 

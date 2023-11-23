@@ -3,6 +3,7 @@ import { ToastProps } from "components/toast";
 import {
   ToastComponent,
   AllAlign,
+  ToastWhenOtherModalRenders,
 } from "../../../src/components/toast/toast-test.stories";
 import { TOAST_COLORS } from "../../../src/components/toast/toast.config";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
@@ -207,6 +208,7 @@ context("Testing Toast component", () => {
           .should("have.css", "justify-content", align);
       }
     );
+
     it.each(["top", "bottom"] as ToastProps["alignY"][])(
       "should render Toast component alignY prop set to %s",
       (alignY) => {
@@ -220,6 +222,17 @@ context("Testing Toast component", () => {
           .should("have.css", alignY, "0px");
       }
     );
+
+    it("clicking close icon should close toast when a new modal has opened on top of it", () => {
+      CypressMountWithProviders(<ToastWhenOtherModalRenders />);
+
+      getComponent("button").eq(0).click();
+      toastComponent().should("be.visible");
+      getComponent("button").eq(1).click();
+      getComponent("dialog").should("be.visible");
+      closeIconButton().eq(0).click();
+      toastComponent().should("not.be.visible");
+    });
   });
 
   describe("check events for Toast component", () => {

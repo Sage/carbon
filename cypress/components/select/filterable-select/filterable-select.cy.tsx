@@ -1146,6 +1146,15 @@ context("Tests for FilterableSelect component", () => {
       selectList().should("not.be.visible");
       commonDataElementInputPreview().should("not.be.focused");
     });
+
+    it("should focus the Select and open the list when autoFocus and openOnFocus props set", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectNestedInDialog autofocus openOnFocus />
+      );
+
+      commonDataElementInputPreview().should("be.focused");
+      selectList().should("be.visible");
+    });
   });
 
   describe("selection confirmed", () => {

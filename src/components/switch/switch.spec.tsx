@@ -24,6 +24,7 @@ import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
 import Logger from "../../__internal__/utils/logger";
 import CarbonProvider from "../../components/carbon-provider";
+import Box from "../../components/box/box.component";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -601,6 +602,62 @@ describe("Switch", () => {
               : "var(--colorsSemanticNegative500)",
         },
         wrapper.find(ErrorBorder)
+      );
+    });
+
+    it("applies correct styling to label with labelHelp with validations", () => {
+      wrapper = renderWithCarbonProvider({
+        warning: "message",
+        label: "Label",
+        labelHelp: "Label help",
+      });
+
+      assertStyleMatch(
+        {
+          marginBottom: `var(--spacing000)`,
+        },
+        wrapper.find(Box)
+      );
+    });
+
+    it("applies correct styling to label without labelHelp with validations", () => {
+      wrapper = renderWithCarbonProvider({
+        error: "message",
+        label: "Label",
+      });
+
+      assertStyleMatch(
+        {
+          marginBottom: `var(--spacing100)`,
+        },
+        wrapper.find(Box)
+      );
+    });
+
+    it("applies correct styling to label with labelHelp and no validations", () => {
+      wrapper = renderWithCarbonProvider({
+        label: "Label",
+        labelHelp: "Label help",
+      });
+
+      assertStyleMatch(
+        {
+          marginBottom: `var(--spacing000)`,
+        },
+        wrapper.find(Box)
+      );
+    });
+
+    it("applies correct styling to label without labelHelp and no validations", () => {
+      wrapper = renderWithCarbonProvider({
+        label: "Label",
+      });
+
+      assertStyleMatch(
+        {
+          marginBottom: `var(--spacing100)`,
+        },
+        wrapper.find(Box)
       );
     });
   });

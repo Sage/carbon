@@ -4,10 +4,11 @@ import Toast, { ToastProps } from ".";
 import Button from "../button";
 import Icon from "../icon";
 import { TOAST_COLORS } from "./toast.config";
+import Dialog from "../dialog";
 
 export default {
   title: "Toast/Test",
-  includeStories: ["Default", "Visual", "AllAlign", "TopAndBottom"],
+  includeStories: ["Default", "Visual", "ToastWhenOtherModalRenders"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -396,7 +397,7 @@ export const ToastComponent = ({
   children = "Toast",
   ...props
 }: Partial<ToastProps>) => {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <>
@@ -409,6 +410,33 @@ export const ToastComponent = ({
       >
         {children}
       </Toast>
+    </>
+  );
+};
+
+export const ToastWhenOtherModalRenders = () => {
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen1(true)}>Open Toast</Button>
+      <Button onClick={() => setIsOpen2(true)}>Open Dialog</Button>
+      <Toast
+        variant="info"
+        id="toast-cypress"
+        open={isOpen1}
+        onDismiss={() => setIsOpen1((p) => !p)}
+      >
+        Toast
+      </Toast>
+      <Dialog
+        title="dialog"
+        open={isOpen2}
+        onCancel={() => setIsOpen2((p) => !p)}
+      >
+        Dialog
+      </Dialog>
     </>
   );
 };
