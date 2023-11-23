@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
 import NumeralDate from ".";
+import CarbonProvider from "../carbon-provider";
 
 export const Default: ComponentStory<typeof NumeralDate> = () => (
   <NumeralDate
@@ -25,6 +26,7 @@ export const AllowedDateFormats: ComponentStory<typeof NumeralDate> = () => (
   <>
     <NumeralDate label="DD/MM/YYYY - default" />
     <NumeralDate label="MM/DD/YYYY" dateFormat={["mm", "dd", "yyyy"]} />
+    <NumeralDate label="YYYY/MM/DD" dateFormat={["yyyy", "mm", "dd"]} />
     <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} />
     <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} />
     <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} />
@@ -60,6 +62,96 @@ export const InternalValidationWarning: ComponentStory<
       onChange={(e) => setValue(e.target.value)}
       value={value}
     />
+  );
+};
+
+export const Validation: ComponentStory<typeof NumeralDate> = () => {
+  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  return (
+    <>
+      <NumeralDate
+        label="Validation as string"
+        error="Error Message (Fix is required)"
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+
+      <NumeralDate
+        label="Validation as string on label"
+        error="Error Message (Fix is required)"
+        validationOnLabel
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+
+      <NumeralDate
+        label="Validation as boolean"
+        error
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+
+      <NumeralDate
+        label="Validation as string"
+        warning="Warning Message (Fix is optional)"
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+
+      <NumeralDate
+        label="Validation as string on label"
+        warning="Warning Message (Fix is optional)"
+        validationOnLabel
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+
+      <NumeralDate
+        label="Validation as boolean"
+        warning
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+    </>
+  );
+};
+
+export const NewValidation: ComponentStory<typeof NumeralDate> = () => {
+  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <NumeralDate
+        label="Validation as string - Error"
+        labelHelp="Label help"
+        error="Error Message (Fix is required)"
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+
+      <NumeralDate
+        label="Validation as boolean - Error"
+        labelHelp="Label help"
+        error
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+
+      <NumeralDate
+        label="Validation as string - Warning"
+        labelHelp="Label help"
+        warning="Warning Message (Fix is optional)"
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+
+      <NumeralDate
+        label="Validation as boolean - Warning"
+        labelHelp="Label help"
+        warning
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+    </CarbonProvider>
   );
 };
 

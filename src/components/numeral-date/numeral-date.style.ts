@@ -1,60 +1,47 @@
 import styled, { css } from "styled-components";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import StyledIconSpan from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import StyledInputPresentantion from "../../__internal__/input/input-presentation.style";
+import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
+import StyledInput from "../../__internal__/input/input.style";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
+import StyledLabel from "../../__internal__/label/label.style";
+import { StyledHintText } from "../textbox/textbox.style";
 
 interface StyledDateFieldProps {
-  isStart?: boolean;
   isEnd?: boolean;
-  isMiddle?: boolean;
   isYearInput?: boolean;
-  hasValidationIcon?: boolean;
+  hasValidationIconInField?: boolean;
 }
 
 export const StyledNumeralDate = styled.div<{ name?: string }>`
   display: inline-flex;
-  height: 40px;
   font-size: 14px;
   font-weight: 400;
 
   ${StyledFormField} {
     margin-top: 0px;
   }
+  ${StyledLabel} {
+    font-weight: 400;
+  }
+
+  ${StyledHintText} {
+    color: var(--colorsUtilityYin090);
+  }
 `;
 
 export const StyledDateField = styled.div<StyledDateFieldProps>`
-  ${({ isStart, isYearInput, isEnd, hasValidationIcon, isMiddle }) => {
-    const yearInputOrError = isYearInput || (isEnd && hasValidationIcon);
-
+  ${({ isYearInput, isEnd, hasValidationIconInField }) => {
     return css`
-      ${StyledInputPresentantion} {
+      ${StyledInputPresentation} {
         position: relative;
-        width: ${yearInputOrError ? "78px;" : "58px;"};
-        text-align: center;
-        border-radius: var(--borderRadius000);
+        margin-right: ${isEnd ? "0" : "12px"};
+        min-width: ${isYearInput ? "80px" : "55px"};
 
-        ${
-          isStart &&
-          css`
-            border-top-left-radius: var(--borderRadius050);
-            border-bottom-left-radius: var(--borderRadius050);
-          `
-        }
-
-        ${
-          isEnd &&
-          css`
-            border-top-right-radius: var(--borderRadius050);
-            border-bottom-right-radius: var(--borderRadius050);
-          `
-        }
-
-        ${
-          (isMiddle || isEnd) &&
-          css`
-            margin-left: -1px;
-          `
+        ${StyledInput} {
+          text-align: center;
+          padding: 0 12px;
+          ${hasValidationIconInField && isEnd && "padding-right: 0"}
         }
 
         ${StyledIconSpan} {
@@ -65,6 +52,7 @@ export const StyledDateField = styled.div<StyledDateFieldProps>`
         ${StyledValidationIcon} {
           z-index: 9000;
         }
-      `;
+      }
+    `;
   }}
 `;

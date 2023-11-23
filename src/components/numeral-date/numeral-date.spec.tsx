@@ -7,7 +7,7 @@ import NumeralDate, {
   ValidDateFormat,
 } from "./numeral-date.component";
 import Textbox from "../textbox";
-import { StyledDateField, StyledNumeralDate } from "./numeral-date.style";
+import { StyledNumeralDate } from "./numeral-date.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -21,7 +21,6 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
 import Logger from "../../__internal__/utils/logger";
-import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -117,7 +116,7 @@ describe("NumeralDate", () => {
       const expected =
         "Forbidden prop dateFormat supplied to NumeralDate. " +
         "Only one of these date formats is allowed: " +
-        "['dd', 'mm', 'yyyy'], ['mm', 'dd', 'yyyy'], ['dd', 'mm'], ['mm', 'dd'], ['mm', 'yyyy']";
+        "['dd', 'mm', 'yyyy'], ['mm', 'dd', 'yyyy'], ['yyyy', 'mm', 'dd'], ['dd', 'mm'], ['mm', 'dd'], ['mm', 'yyyy']";
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore:next-line testing incorrect date format
@@ -196,7 +195,6 @@ describe("NumeralDate", () => {
       assertStyleMatch(
         {
           display: "inline-flex",
-          height: "40px",
           fontSize: "14px",
           fontWeight: "400",
         },
@@ -378,9 +376,9 @@ describe("NumeralDate", () => {
 
   it("has proper default dateFormat prop", () => {
     wrapper = renderWrapper({ dateFormat: undefined });
-    expect(wrapper.find(Textbox).at(0).props().placeholder).toEqual("dd");
-    expect(wrapper.find(Textbox).at(1).props().placeholder).toEqual("mm");
-    expect(wrapper.find(Textbox).at(2).props().placeholder).toEqual("yyyy");
+    expect(wrapper.find(Textbox).at(0).props()["aria-label"]).toBe("Day");
+    expect(wrapper.find(Textbox).at(1).props()["aria-label"]).toBe("Month");
+    expect(wrapper.find(Textbox).at(2).props()["aria-label"]).toBe("Year");
   });
 
   describe("Clicking off the component", () => {
@@ -544,15 +542,12 @@ describe("NumeralDate", () => {
   });
 
   describe("new validation design", () => {
-    describe("hint text/labelHelp", () => {
-      it("is visible when the prop is passed", () => {
-        wrapper = renderNewValidationsWrapper({
-          labelHelp: "Example hint text",
-        });
-        expect(wrapper.find(StyledHintText).text()).toEqual(
-          "Example hint text"
-        );
+    it("hint text is visible and tooltip is not rendered when the labelHelp prop is passed", () => {
+      wrapper = renderNewValidationsWrapper({
+        labelHelp: "Example hint text",
       });
+      expect(wrapper.find(StyledHintText).text()).toEqual("Example hint text");
+      expect(wrapper.find(StyledHelp).exists()).toEqual(false);
     });
 
     describe("on error", () => {
@@ -690,26 +685,5 @@ describe("NumeralDate", () => {
         expect(ref.current).toBe(null);
       });
     });
-  });
-
-  it("renders with the expected border radius styling on first and last inputs", () => {
-    wrapper = renderWrapper({ value: { dd: "02", mm: "01", yyyy: "2020" } });
-    assertStyleMatch(
-      {
-        borderTopLeftRadius: "var(--borderRadius050)",
-        borderBottomLeftRadius: "var(--borderRadius050)",
-      },
-      wrapper.find(StyledDateField).first(),
-      { modifier: `${StyledInputPresentation}` }
-    );
-
-    assertStyleMatch(
-      {
-        borderTopRightRadius: "var(--borderRadius050)",
-        borderBottomRightRadius: "var(--borderRadius050)",
-      },
-      wrapper.find(StyledDateField).last(),
-      { modifier: `${StyledInputPresentation}` }
-    );
   });
 });
