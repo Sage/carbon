@@ -45,10 +45,10 @@ export const DisplayOnlyStory = ({ counter, ...args }: BadgeStoryProps) => {
 };
 
 DefaultStory.storyName = "default";
-DefaultStory.args = { counter: 1 };
+DefaultStory.args = { counter: 1, color: "--colorsActionMajor500" };
 
 DisplayOnlyStory.storyName = "display only";
-DisplayOnlyStory.args = { counter: 1 };
+DisplayOnlyStory.args = { counter: 1, color: "--colorsActionMajor500" };
 
 export const BadgeComponent = (props: Partial<BadgeProps>) => {
   return (
