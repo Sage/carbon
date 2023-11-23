@@ -4,42 +4,59 @@ import { margin } from "styled-system";
 import Portrait from "../portrait";
 import baseTheme from "../../style/themes/base";
 import profileConfigSizes, { ProfileSize } from "./profile.config";
+import Link from "../link";
+import { StyledPortraitContainer } from "../portrait/portrait.style";
 
-interface ProfileSizeProps {
+interface ProfileSProps {
   size?: ProfileSize;
+  hasSrc?: boolean;
+  darkBackground?: boolean;
 }
 
-interface ProfileHasSrcProps {
-  hasSrc: boolean;
-}
-
-interface ProfileDetailsStyleProps
-  extends ProfileSizeProps,
-    ProfileHasSrcProps {}
-
-const ProfileNameStyle = styled.span<ProfileSizeProps>`
+const ProfileNameStyle = styled.span<ProfileSProps>`
   font-weight: bold;
-  display: block;
   font-size: ${({ size = "M" }) => profileConfigSizes[size].nameSize};
 `;
 
-const ProfileEmailStyle = styled.span<ProfileSizeProps>`
+const ProfileEmailStyle = styled(Link)<
+  Pick<ProfileSProps, "size" | "darkBackground">
+>`
+  a {
+    font-size: ${({ size = "M" }) => profileConfigSizes[size].emailSize};
+    color: ${({ darkBackground }) =>
+      darkBackground && "var(--colorsActionMajor350)"};
+  }
+`;
+
+const ProfileTextStyle = styled.span<ProfileSProps>`
   font-size: ${({ size = "M" }) => profileConfigSizes[size].emailSize};
 `;
 
-const ProfileStyle = styled.div<ProfileHasSrcProps>`
+const ProfileStyle = styled.div<
+  Pick<ProfileSProps, "hasSrc" | "darkBackground">
+>`
+  border-radius: inherit;
   white-space: nowrap;
-  color: var(--colorsUtilityYin090);
-  display: ${({ hasSrc }) => (hasSrc ? "flex" : "")};
-
+  color: ${({ darkBackground }) =>
+    darkBackground
+      ? "var(--colorsUtilityReadOnly600)"
+      : "var(--colorsUtilityYin090)"};
+  background-color: ${({ darkBackground }) =>
+    darkBackground ? "var(--colorsUtilityYin090)" : "transparent"};
+  display: flex;
+  flex-direction: row;
   ${margin}
+
+  ${StyledPortraitContainer} {
+    flex-shrink: 0;
+  }
 `;
 
-const ProfileDetailsStyle = styled.div<ProfileDetailsStyleProps>`
+const ProfileDetailsStyle = styled.div<Pick<ProfileSProps, "hasSrc" | "size">>`
   vertical-align: middle;
-  display: inline-block;
-  margin-top: ${({ hasSrc, size = "M" }) =>
-    hasSrc ? profileConfigSizes[size].marginTop : ""};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   line-height: ${({ size = "M" }) => profileConfigSizes[size].lineHeight};
   margin-left: ${({ size = "M" }) => profileConfigSizes[size].marginLeft};
 `;
@@ -58,4 +75,5 @@ export {
   ProfileDetailsStyle,
   ProfileAvatarStyle,
   ProfileEmailStyle,
+  ProfileTextStyle,
 };

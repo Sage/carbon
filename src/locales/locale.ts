@@ -104,6 +104,9 @@ interface Locale {
       close: () => string;
     };
   };
+  splitButton: {
+    ariaLabel: () => string;
+  };
   switch: {
     on: () => string;
     off: () => string;

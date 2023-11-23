@@ -2,8 +2,9 @@ import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 
 import Modal from "./modal.component";
-import { StyledModalBackground } from "./modal.style";
+import { StyledModal, StyledModalBackground } from "./modal.style";
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
+import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 jest.mock("../../hooks/__internal__/useScrollBlock");
 const allowScroll = jest.fn();
@@ -160,6 +161,17 @@ describe("Modal", () => {
           expect(onCancelFn).not.toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe("when the topModalOverride prop is set", () => {
+    it("increases the default z-index", () => {
+      assertStyleMatch(
+        {
+          zIndex: "7000",
+        },
+        (wrapper = mount(<Modal open topModalOverride />).find(StyledModal))
+      );
     });
   });
 });

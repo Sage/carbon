@@ -13,6 +13,8 @@ export interface BadgeProps {
   children: React.ReactNode;
   /** The number rendered in the badge component */
   counter?: string | number;
+  /** Prop to specify the colour of the component */
+  color?: string;
   /** Callback fired when badge is clicked */
   onClick?: (ev: React.MouseEvent<HTMLElement>) => void;
 }
@@ -21,6 +23,7 @@ export const Badge = ({
   "aria-label": ariaLabel,
   children,
   counter = 0,
+  color = "--colorsActionMajor500",
   onClick,
 }: BadgeProps) => {
   const shouldDisplayCounter = counter > 0;
@@ -38,7 +41,7 @@ export const Badge = ({
 
     if (shouldDisplayCounter) {
       return (
-        <StyledBadge data-component="badge" {...props}>
+        <StyledBadge data-component="badge" color={color} {...props}>
           {onClick && (
             <StyledCrossIcon data-element="badge-cross-icon" type="cross" />
           )}

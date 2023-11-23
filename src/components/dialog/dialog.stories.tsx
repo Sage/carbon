@@ -482,3 +482,54 @@ export const UsingHandle = () => {
     </CarbonProvider>
   );
 };
+
+export const TopModalOverride: StoryFn = () => {
+  const [isOpenAll, setIsOpenAll] = useState(defaultOpenState);
+  const [isOpenDialog1, setIsOpenDialog1] = useState(true);
+  const [isOpenDialog2, setIsOpenDialog2] = useState(true);
+  const [isOpenDialog3, setIsOpenDialog3] = useState(true);
+
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpenAll(true);
+          setIsOpenDialog1(true);
+          setIsOpenDialog2(true);
+          setIsOpenDialog3(true);
+        }}
+      >
+        Open dialogs
+      </Button>
+      <Dialog
+        open={isOpenDialog1 && isOpenAll}
+        onCancel={() => setIsOpenDialog1(false)}
+        title="I rendered first"
+        subtitle="Yet I am not the bottom modal"
+        topModalOverride
+      >
+        <Textbox label="First Name" />
+        <Textbox label="Middle Name" />
+      </Dialog>
+      <Dialog
+        open={isOpenDialog2 && isOpenAll}
+        onCancel={() => setIsOpenDialog2(false)}
+        title="I rendered second"
+        subtitle="Yet I am the top modal"
+        topModalOverride
+      >
+        <Textbox label="First Name" />
+        <Textbox label="Middle Name" />
+      </Dialog>
+      <Dialog
+        open={isOpenDialog3 && isOpenAll}
+        onCancel={() => setIsOpenDialog3(false)}
+        title="I rendered last"
+        subtitle="Yet I am the bottom modal"
+      >
+        <Textbox label="First Name" />
+        <Textbox label="Middle Name" />
+      </Dialog>
+    </>
+  );
+};

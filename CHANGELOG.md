@@ -1,3 +1,105 @@
+## [123.11.0](https://github.com/Sage/carbon/compare/v123.10.3...v123.11.0) (2023-11-23)
+
+
+### Features
+
+* **badge:** add color prop ([4a5750d](https://github.com/Sage/carbon/commit/4a5750d8eb64486095347836279c56f588c46b9f)), closes [#5839](https://github.com/Sage/carbon/issues/5839)
+
+### [123.10.3](https://github.com/Sage/carbon/compare/v123.10.2...v123.10.3) (2023-11-23)
+
+
+### Bug Fixes
+
+* **tabs:** error border partially hidden fix ([6aa62e1](https://github.com/Sage/carbon/commit/6aa62e16f3a385fa631052a87d7025c7a725a402)), closes [#6314](https://github.com/Sage/carbon/issues/6314)
+
+### [123.10.2](https://github.com/Sage/carbon/compare/v123.10.1...v123.10.2) (2023-11-23)
+
+
+### Bug Fixes
+
+* **note:** inlineControl button and note content overlap fix ([f196759](https://github.com/Sage/carbon/commit/f19675955261019ff32f339a08edc9eee31be52a)), closes [#6228](https://github.com/Sage/carbon/issues/6228)
+
+### [123.10.1](https://github.com/Sage/carbon/compare/v123.10.0...v123.10.1) (2023-11-23)
+
+
+### Bug Fixes
+
+* ensure any auto-focused element is focused first when a child of a focus trapped component ([f34eca4](https://github.com/Sage/carbon/commit/f34eca46693e487d20c77dd1892dfaad5a830742)), closes [#6384](https://github.com/Sage/carbon/issues/6384)
+
+## [123.10.0](https://github.com/Sage/carbon/compare/v123.9.1...v123.10.0) (2023-11-22)
+
+
+### Features
+
+* add support for manually overriding stacking order of modals ([9d4252a](https://github.com/Sage/carbon/commit/9d4252a4ad69274be2eff6bc11d5f0f240ec6ffc)), closes [#6402](https://github.com/Sage/carbon/issues/6402) [#6410](https://github.com/Sage/carbon/issues/6410)
+
+### [123.9.1](https://github.com/Sage/carbon/compare/v123.9.0...v123.9.1) (2023-11-16)
+
+
+### Bug Fixes
+
+* **crumb:** ensure LinkProps are correctly extended so component has the correct interface ([0889433](https://github.com/Sage/carbon/commit/0889433994205f7aa2403b297ea46f2850f3558b)), closes [#6133](https://github.com/Sage/carbon/issues/6133)
+
+## [123.9.0](https://github.com/Sage/carbon/compare/v123.8.0...v123.9.0) (2023-11-15)
+
+
+### Features
+
+* **portrait, profile:** align with design system and reduce code complexity ([c37c6c1](https://github.com/Sage/carbon/commit/c37c6c1e9cec1308a36b2daced831df0a5d77a46)), closes [#6191](https://github.com/Sage/carbon/issues/6191)
+
+## [123.8.0](https://github.com/Sage/carbon/compare/v123.7.2...v123.8.0) (2023-11-15)
+
+
+### Features
+
+* **split-button:** add aria-label prop and locale support for aria-label ([aedafe8](https://github.com/Sage/carbon/commit/aedafe83ec461406631b590f092d0a4d3f19cfb3))
+
+
+### Bug Fixes
+
+* **multi-action-button:** remove unnecessary aria-label ([942f43a](https://github.com/Sage/carbon/commit/942f43a09487bb57d264c397588cc6e219aececb)), closes [#6397](https://github.com/Sage/carbon/issues/6397)
+
+### [123.7.2](https://github.com/Sage/carbon/compare/v123.7.1...v123.7.2) (2023-11-10)
+
+
+### Bug Fixes
+
+* **switch:** fix alignment issue with component when no new validation is applied ([af416ac](https://github.com/Sage/carbon/commit/af416acecb365988d2be2ebf5c8688ccf8d60faa)), closes [#6303](https://github.com/Sage/carbon/issues/6303)
+
+### [123.7.1](https://github.com/Sage/carbon/compare/v123.7.0...v123.7.1) (2023-11-09)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure that component is closed when Esc key is pressed ([4c33cd3](https://github.com/Sage/carbon/commit/4c33cd3ee4ff002d6e706e90d7233828c5088107)), closes [#6195](https://github.com/Sage/carbon/issues/6195)
+
+## [123.7.0](https://github.com/Sage/carbon/compare/v123.6.0...v123.7.0) (2023-11-08)
+
+
+### Features
+
+* **select:** add selectionConfirmed property to event emitted on change ([748a17b](https://github.com/Sage/carbon/commit/748a17b8185a2d9a2bd58843efbd4a10739c2e8d)), closes [#6330](https://github.com/Sage/carbon/issues/6330)
+
+
+### Bug Fixes
+
+* **filterable-select, multi-select:** handle when filter text has no match and enter pressed ([84ebef7](https://github.com/Sage/carbon/commit/84ebef7df4573d3205db9ebd424d88c2a26f4c3e))
+* **option:** ensure fill prop is not passed to underlying DOM element ([2a8cfc1](https://github.com/Sage/carbon/commit/2a8cfc11bae33c52496a65741ad02a339989beff))
+
+## [123.6.0](https://github.com/Sage/carbon/compare/v123.5.1...v123.6.0) (2023-11-08)
+
+
+### Features
+
+* **toast:** add alignY prop to allow vertical alignment to be configurable ([64203e1](https://github.com/Sage/carbon/commit/64203e1a618294c9c8c71964963377ae2891e134)), closes [#6301](https://github.com/Sage/carbon/issues/6301)
+
+### [123.5.1](https://github.com/Sage/carbon/compare/v123.5.0...v123.5.1) (2023-11-08)
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** fix aria role ([c16a1e4](https://github.com/Sage/carbon/commit/c16a1e4357518a122681675875999d61408a60b8)), closes [#6383](https://github.com/Sage/carbon/issues/6383)
+
 ## [123.5.0](https://github.com/Sage/carbon/compare/v123.4.4...v123.5.0) (2023-11-07)
 
 
