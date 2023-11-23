@@ -9,6 +9,7 @@ import Toast from "../toast";
 import Box from "../box";
 import DialogFullScreen from "../dialog-full-screen";
 import Sidebar from "../sidebar";
+import { Select, Option } from "../select";
 
 export const DialogComponent = (props: Partial<DialogProps>) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -138,5 +139,16 @@ export const TopModalOverride = () => {
         <Textbox label="Sidebar textbox" />
       </Sidebar>
     </>
+  );
+};
+
+export const DialogWithAutoFocusSelect = () => {
+  return (
+    <Dialog open title="My dialog" onCancel={() => {}}>
+      <Select autoFocus label="select">
+        <Option value="1" text="one" />
+      </Select>
+      <Textbox label="textbox" />
+    </Dialog>
   );
 };

@@ -21,7 +21,7 @@ import StyledInput from "../../../__internal__/input/input.style";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
-
+jest.useFakeTimers();
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
 
 function getSelect(props: Partial<MultiSelectProps> = {}) {
@@ -104,7 +104,10 @@ describe("MultiSelect", () => {
 
     describe("and that element is part of the Select", () => {
       it("then the SelectList should be open", () => {
-        wrapper.find("input").simulate("focus");
+        act(() => {
+          wrapper.find("input").simulate("focus");
+          jest.runOnlyPendingTimers();
+        });
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -122,7 +125,10 @@ describe("MultiSelect", () => {
 
     describe("and that element is not part of the Select", () => {
       it("then the SelectList should be closed", () => {
-        wrapper.find("input").simulate("focus");
+        act(() => {
+          wrapper.find("input").simulate("focus");
+          jest.runOnlyPendingTimers();
+        });
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -648,7 +654,10 @@ describe("MultiSelect", () => {
       it("the SelectList should be rendered", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
-        wrapper.find("input").simulate("focus");
+        act(() => {
+          wrapper.find("input").simulate("focus");
+          jest.runOnlyPendingTimers();
+        });
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -679,7 +688,10 @@ describe("MultiSelect", () => {
             openOnFocus: true,
           });
 
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(onFocusFn).toHaveBeenCalled();
         });
       });
@@ -694,13 +706,19 @@ describe("MultiSelect", () => {
         });
 
         it("then that prop should have been called", () => {
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(onOpenFn).toHaveBeenCalled();
         });
 
         describe("and with the SelectList already open", () => {
           it("then that prop should not be called", () => {
-            wrapper.find("input").simulate("focus");
+            act(() => {
+              wrapper.find("input").simulate("focus");
+              jest.runOnlyPendingTimers();
+            });
             onOpenFn.mockReset();
             wrapper
               .find(Option)
@@ -713,7 +731,10 @@ describe("MultiSelect", () => {
         describe("and the focus triggered by mouseDown on the input", () => {
           it("then that prop should have been called", () => {
             wrapper.find("input").simulate("mouseDown");
-            wrapper.find("input").simulate("focus");
+            act(() => {
+              wrapper.find("input").simulate("focus");
+              jest.runOnlyPendingTimers();
+            });
             expect(onOpenFn).toHaveBeenCalled();
           });
         });
@@ -731,7 +752,10 @@ describe("MultiSelect", () => {
             .find('[type="dropdown"]')
             .first()
             .simulate("mouseDown");
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(onOpenFn).toHaveBeenCalled();
         });
       });
@@ -788,7 +812,10 @@ describe("MultiSelect", () => {
     it("the SelectList should not be closed", () => {
       const wrapper = renderSelect({ openOnFocus: true });
 
-      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find("input").simulate("focus");
+        jest.runOnlyPendingTimers();
+      });
       wrapper
         .find(Option)
         .forEach((option) => expect(option.getDOMNode()).toBeVisible());
@@ -864,7 +891,10 @@ describe("MultiSelect", () => {
     it("then the SelectList should not be closed", () => {
       const wrapper = renderSelect({ openOnFocus: true });
 
-      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find("input").simulate("focus");
+        jest.runOnlyPendingTimers();
+      });
       act(() => {
         wrapper.find(Option).first().simulate("click");
       });
@@ -962,7 +992,10 @@ describe("MultiSelect", () => {
     it("the SelectList should be closed", () => {
       const wrapper = renderSelect({ openOnFocus: true });
 
-      wrapper.find("input").simulate("focus");
+      act(() => {
+        wrapper.find("input").simulate("focus");
+        jest.runOnlyPendingTimers();
+      });
       wrapper
         .find(Option)
         .forEach((option) => expect(option.getDOMNode()).toBeVisible());
