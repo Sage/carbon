@@ -167,6 +167,11 @@ const plPL: Locale = {
       month: () => "Miesiąć musi być liczbą w zakresie 1-12.",
       year: () => "Rok musi być liczbą w zakresie 1800-2200.",
     },
+    labels: {
+      day: () => "Dzień",
+      month: () => "Miesiąć",
+      year: () => "Rok",
+    },
   },
   pager: {
     show: () => "Pokaż",
