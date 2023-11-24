@@ -1,11 +1,12 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { TextboxProps } from "components/textbox";
+import { TextboxProps } from "../textbox";
 import {
   textbox as password,
   textboxInput as passwordInput,
 } from "../../../playwright/components/textbox";
-import PasswordComponent, {
+import {
+  PasswordComponent,
   PasswordValidationsAsAStringWithTooltipDefault,
   PasswordValidationsAsABoolean,
   PasswordValidationsAsAString,
@@ -26,26 +27,28 @@ import {
   getDesignTokensByCssProperty,
   verifyRequiredAsteriskForLabel,
 } from "../../../playwright/support/helper";
-// eslint-disable @react/prop-types
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const transparent = "rgba(0, 0, 0, 0)";
 const colorsActionMinor500 = "rgb(51, 91, 112)";
 const colorsUtilityMajor300 = "rgb(102, 132, 148)";
 
-test.describe("prop checks for Password component", () => {
+test.describe("Prop checks for Password component", () => {
   test("should render with correct input type of password", async ({
     mount,
     page,
   }) => {
     await mount(<PasswordComponent />);
+
     await expect(passwordInput(page)).toHaveAttribute("type", "password");
   });
 
   test("should render with 'forceObscurity' prop", async ({ mount, page }) => {
     await mount(<PasswordComponent forceObscurity />);
+
     await expect(passwordInput(page)).toHaveAttribute("type", "password");
   });
+
   test("should change input type from password to text on click", async ({
     mount,
     page,
@@ -58,16 +61,18 @@ test.describe("prop checks for Password component", () => {
 
   test("should render with autoComplete 'off'", async ({ mount, page }) => {
     await mount(<PasswordComponent />);
+
     await expect(passwordInput(page)).toHaveAttribute("autoComplete", "off");
   });
 });
 
-test.describe("disabled checks", () => {
+test.describe("Disabled checks", () => {
   test("should disable the input when rendered with disabled prop", async ({
     mount,
     page,
   }) => {
     await mount(<PasswordComponent disabled />);
+
     await expect(passwordInput(page)).toBeDisabled();
   });
 
@@ -76,6 +81,7 @@ test.describe("disabled checks", () => {
     page,
   }) => {
     await mount(<PasswordComponent disabled />);
+
     await expect(buttonMinorComponent(page)).toBeDisabled();
   });
 
@@ -84,16 +90,19 @@ test.describe("disabled checks", () => {
     page,
   }) => {
     await mount(<PasswordComponent forceObscurity />);
+
     await expect(buttonMinorComponent(page)).toBeDisabled();
   });
 });
-test.describe("prop checks for ButtonMinor component", () => {
+
+test.describe("Prop checks for ButtonMinor component", () => {
   test("should render with correct aria-controls attribute", async ({
     mount,
     page,
   }) => {
     const id = "foo";
     await mount(<PasswordComponent id={id} />);
+
     await expect(buttonMinorComponent(page)).toHaveAttribute(
       "aria-controls",
       id
@@ -105,6 +114,7 @@ test.describe("prop checks for ButtonMinor component", () => {
     page,
   }) => {
     await mount(<PasswordComponent />);
+
     await expect(icon(page)).toHaveAttribute("type", "view");
   });
 
@@ -141,6 +151,7 @@ test.describe("prop checks for ButtonMinor component", () => {
     page,
   }) => {
     await mount(<PasswordComponent />);
+
     await expect(buttonMinorComponent(page)).toHaveText("Show");
   });
 
@@ -159,6 +170,7 @@ test.describe("prop checks for ButtonMinor component", () => {
     page,
   }) => {
     await mount(<PasswordComponent />);
+
     await expect(buttonMinorComponent(page)).toHaveAttribute(
       "aria-label",
       "Show password"
@@ -172,6 +184,7 @@ test.describe("prop checks for ButtonMinor component", () => {
     await mount(<PasswordComponent />);
 
     await buttonMinorComponent(page).click();
+
     await expect(buttonMinorComponent(page)).toHaveAttribute(
       "aria-label",
       "Hide password"
@@ -189,6 +202,7 @@ test.describe("prop checks for ButtonMinor component", () => {
       "background-color",
       transparent
     );
+
     await expect(buttonMinorComponent(page)).toHaveCSS(
       "color",
       colorsActionMinor500
@@ -201,6 +215,7 @@ test.describe("prop checks for ButtonMinor component", () => {
         "color"
       )
     ).pop();
+
     expect(colorToken).toBe("--colorsActionMinor500");
   });
 
@@ -216,6 +231,7 @@ test.describe("prop checks for ButtonMinor component", () => {
       "background-color",
       transparent
     );
+
     await expect(buttonMinorComponent(page)).toHaveCSS(
       "color",
       colorsActionMinor500
@@ -228,6 +244,7 @@ test.describe("prop checks for ButtonMinor component", () => {
         "color"
       )
     ).pop();
+
     expect(colorToken).toBe("--colorsActionMinor500");
   });
 
@@ -243,6 +260,7 @@ test.describe("prop checks for ButtonMinor component", () => {
     const colorToken = (
       await getDesignTokensByCssProperty(page, icon(page), "color")
     ).pop();
+
     expect(colorToken).toBe("--colorsUtilityMajor300");
   });
 
@@ -259,6 +277,7 @@ test.describe("prop checks for ButtonMinor component", () => {
     const colorToken = (
       await getDesignTokensByCssProperty(page, icon(page), "color")
     ).pop();
+
     expect(colorToken).toBe("--colorsUtilityMajor300");
   });
 });
@@ -308,7 +327,7 @@ test.describe("aria-live region checks", () => {
   });
 });
 
-test.describe("prop checks for rendered Textbox", () => {
+test.describe("Prop checks for rendered Textbox", () => {
   ([
     [SIZE.SMALL, "32px", "--sizing400"],
     [SIZE.MEDIUM, "40px", "--sizing500"],
@@ -328,6 +347,7 @@ test.describe("prop checks for rendered Textbox", () => {
           password(page),
           "min-height"
         );
+
         expect(tokenValues[0]).toBe(token);
       });
     }
@@ -351,6 +371,7 @@ test.describe("prop checks for rendered Textbox", () => {
       page,
     }) => {
       await mount(<PasswordComponent fieldHelp={specificValue} />);
+
       await expect(fieldHelpPreview(page)).toHaveText(specificValue);
     });
   });
@@ -369,16 +390,19 @@ test.describe("prop checks for rendered Textbox", () => {
 
   test("should render with an input icon", async ({ mount, page }) => {
     await mount(<PasswordComponent inputIcon="add" />);
+
     await expect(getDataElementByValue(page, "add")).toBeVisible();
   });
 
   test("should render with required prop", async ({ mount, page }) => {
     await mount(<PasswordComponent required />);
+
     await verifyRequiredAsteriskForLabel(page);
   });
 
   test("should render with autofocus prop", async ({ mount, page }) => {
     await mount(<PasswordComponent autoFocus />);
+
     await expect(passwordInput(page)).toBeFocused();
   });
 
@@ -394,10 +418,7 @@ test.describe("prop checks for rendered Textbox", () => {
         await mount(<PasswordComponent labelInline labelAlign={labelAlign} />);
 
         const labelParent = getDataElementByValue(page, "label").locator("..");
-        await expect(labelParent).toHaveCSS(
-          "justify-content",
-          `flex-${cssValue}`
-        );
+        await expect(labelParent).toHaveCSS("-webkit-box-pack", cssValue);
       });
     }
   );

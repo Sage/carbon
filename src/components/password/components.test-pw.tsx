@@ -6,7 +6,7 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 export const SIZES = ["small", "medium", "large"] as const;
 export const VALIDATIONS = ["error", "warning", "info"] as const;
 
-const PasswordComponent = ({ onChange, ...props }: PasswordProps) => {
+export const PasswordComponent = ({ onChange, ...props }: PasswordProps) => {
   const [state, setState] = useState("test");
   const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setState(ev.target.value);
@@ -161,5 +161,3 @@ export const PasswordNewDesignsValidation = () => {
     </Box>
   );
 };
-
-export default PasswordComponent;
