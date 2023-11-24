@@ -10,14 +10,9 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
-        id: dispatch_chromatic
-        with:
-          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-          owner: ${{ github.event.repository.owner.login }}
-          repo: ${{ github.event.repository.name }}
-          workflow_id: "chromatic.yml"
-          ref: "master"
-          inputs: '{"number": "${{ github.event.pull_request.number }}"}'
+      - id: dispatch_chromatic
+        name: Dispatch Chromatic workflow
+        run: |
+          gh workflow run chromatic.yml --ref master -f number=${{ github.event.pull_request.number }} --repo $GITHUB_REPOSITORY
         env:
           GITHUB_TOKEN: ${{ secrets.CHROMATIC_WORKFLOW_TOKEN }}
