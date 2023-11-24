@@ -215,7 +215,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         ) : (
           <FocusTrap
             wrapperRef={sidebarRef}
-            isOpen={open}
+            isOpen={open && isTopModal}
             additionalWrapperRefs={focusableContainers}
             focusableSelectors={focusableSelectors}
             focusFirstElement={focusFirstElement}

@@ -18,7 +18,6 @@ import {
   ModalContextProps,
 } from "../../components/modal/modal.component";
 import usePrevious from "../../hooks/__internal__/usePrevious";
-import TopModalContext from "../../components/carbon-provider/top-modal-context";
 
 export const TAB_GUARD_TOP = "tab-guard-top";
 export const TAB_GUARD_BOTTOM = "tab-guard-bottom";
@@ -67,12 +66,6 @@ const FocusTrap = ({
     isAnimationComplete = true,
     triggerRefocusFlag,
   } = useContext<ModalContextProps>(ModalContext);
-
-  const { topModal } = useContext(TopModalContext);
-  // we ensure that isTopModal is true if there is no TopModalContext, so that consumers who have not
-  // wrapped their app in CarbonProvider do not have all FocusTrap behaviour broken
-  const isTopModal =
-    !topModal || (wrapperRef.current && topModal.contains(wrapperRef.current));
 
   const trapWrappers = useMemo(
     () =>
@@ -189,7 +182,7 @@ const FocusTrap = ({
   useEffect(() => {
     const trapFn = (ev: KeyboardEvent) => {
       // block focus trap from working if it's not the topmost trap, or is currently closed
-      if (!isTopModal || !isOpen) {
+      if (!isOpen) {
         return;
       }
 
@@ -213,7 +206,6 @@ const FocusTrap = ({
     wrapperRef,
     focusableSelectors,
     getFocusableElements,
-    isTopModal,
     isOpen,
   ]);
 

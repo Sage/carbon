@@ -165,7 +165,7 @@ export const DialogFullScreen = ({
         focusFirstElement={focusFirstElement}
         bespokeTrap={bespokeFocusTrap}
         wrapperRef={dialogRef}
-        isOpen={open}
+        isOpen={open && isTopModal}
         additionalWrapperRefs={focusableContainers}
         focusableSelectors={focusableSelectors}
       >

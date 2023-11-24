@@ -293,7 +293,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           bespokeTrap={bespokeFocusTrap}
           focusableSelectors={focusableSelectors}
           wrapperRef={containerRef}
-          isOpen={open}
+          isOpen={open && isTopModal}
           additionalWrapperRefs={focusableContainers}
         >
           <StyledDialog
