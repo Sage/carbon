@@ -51,59 +51,46 @@ context("Test for Popover Container component", () => {
     );
 
     it.each([
-      ["left", 123, 918, 568, 100],
-      ["right", 123, 100, 568, 918],
+      ["left", 124, 671, 568, 347],
+      ["right", 124, 347, 568, 671],
     ] as [PopoverContainerProps["position"], number, number, number, number][])(
-      "should render Popover Container with position prop set to %s",
-      (position, inset0, inset1, inset2, inset3) => {
+      "when position prop is %s, Popover Container has correct absolute positioning",
+      (position, top, right, bottom, left) => {
         CypressMountWithProviders(
           <div
             style={{
-              float: position,
-              clear: position,
+              display: "flex",
+              justifyContent: "center",
             }}
           >
             <PopoverContainerComponent position={position} />
           </div>
         );
 
-        popoverContainerContent().then(($el) => {
-          const inset = $el.css("inset").split(" ");
-          cy.wrap(parseInt(inset[0])).should(
-            "be.within",
-            inset0 - 1,
-            inset0 + 1
+        popoverContainerContent().should("have.css", "position", "absolute");
+        popoverContainerContent().should(($element) => {
+          expect(parseInt($element.css("top"))).to.be.approximately(top, 2);
+          expect(parseInt($element.css("right"))).to.be.approximately(right, 2);
+          expect(parseInt($element.css("bottom"))).to.be.approximately(
+            bottom,
+            2
           );
-          cy.wrap(parseInt(inset[1])).should(
-            "be.within",
-            inset1 - 1,
-            inset1 + 1
-          );
-          cy.wrap(parseInt(inset[2])).should(
-            "be.within",
-            inset2 - 1,
-            inset2 + 1
-          );
-          cy.wrap(parseInt(inset[3])).should(
-            "be.within",
-            inset3 - 1,
-            inset3 + 1
-          );
+          expect(parseInt($element.css("left"))).to.be.approximately(left, 2);
         });
       }
     );
 
     it.each([
-      ["left", 140, 918, 552, 100],
-      ["right", 140, 100, 552, 918],
+      ["left", 145, 662, 547, 356],
+      ["right", 145, 356, 547, 662],
     ] as [PopoverContainerProps["position"], number, number, number, number][])(
-      "should render Popover Container with position prop set to %s when custom open component is used",
-      (position, inset0, inset1, inset2, inset3) => {
+      "when position prop set to %s and a custom open component is used, Popover Container has correct absolute positioning",
+      (position, top, right, bottom, left) => {
         CypressMountWithProviders(
           <div
             style={{
-              float: position,
-              clear: position,
+              display: "flex",
+              justifyContent: "center",
             }}
           >
             <PopoverContainerComponent
@@ -117,28 +104,15 @@ context("Test for Popover Container component", () => {
           </div>
         );
 
-        popoverContainerContent().then(($el) => {
-          const inset = $el.css("inset").split(" ");
-          cy.wrap(parseInt(inset[0])).should(
-            "be.within",
-            inset0 - 1,
-            inset0 + 1
+        popoverContainerContent().should("have.css", "position", "absolute");
+        popoverContainerContent().should(($element) => {
+          expect(parseInt($element.css("top"))).to.be.approximately(top, 2);
+          expect(parseInt($element.css("right"))).to.be.approximately(right, 2);
+          expect(parseInt($element.css("bottom"))).to.be.approximately(
+            bottom,
+            2
           );
-          cy.wrap(parseInt(inset[1])).should(
-            "be.within",
-            inset1 - 1,
-            inset1 + 1
-          );
-          cy.wrap(parseInt(inset[2])).should(
-            "be.within",
-            inset2 - 1,
-            inset2 + 1
-          );
-          cy.wrap(parseInt(inset[3])).should(
-            "be.within",
-            inset3 - 1,
-            inset3 + 1
-          );
+          expect(parseInt($element.css("left"))).to.be.approximately(left, 2);
         });
       }
     );

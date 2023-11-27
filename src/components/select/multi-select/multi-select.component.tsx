@@ -161,6 +161,7 @@ export const MultiSelect = React.forwardRef(
       id: inputId.current,
       label,
     });
+    const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
 
     const actualValue = isControlled.current ? value : selectedValue;
 
@@ -511,24 +512,32 @@ export const MultiSelect = React.forwardRef(
       const triggerFocus = () => onFocus?.(event);
 
       if (openOnFocus) {
-        setOpenState((isAlreadyOpen) => {
-          if (isAlreadyOpen) {
+        if (focusTimer.current) {
+          clearTimeout(focusTimer.current);
+        }
+
+        // we need to use a timeout here as there is a race condition when rendered in a modal
+        // whereby the select list isn't visible when the select is auto focused straight away
+        focusTimer.current = setTimeout(() => {
+          setOpenState((isAlreadyOpen) => {
+            if (isAlreadyOpen) {
+              return true;
+            }
+
+            if (onOpen) {
+              onOpen();
+            }
+            if (onFocus && !isInputFocused.current) {
+              triggerFocus();
+              isInputFocused.current = true;
+            }
+
+            if (isMouseDownReported.current && !isMouseDownOnInput.current) {
+              return false;
+            }
+
             return true;
-          }
-
-          if (onOpen) {
-            onOpen();
-          }
-          if (onFocus && !isInputFocused.current) {
-            triggerFocus();
-            isInputFocused.current = true;
-          }
-
-          if (isMouseDownReported.current && !isMouseDownOnInput.current) {
-            return false;
-          }
-
-          return true;
+          });
         });
       } else if (onFocus && !isInputFocused.current) {
         triggerFocus();

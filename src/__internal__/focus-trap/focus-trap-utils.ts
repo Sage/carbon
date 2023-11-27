@@ -131,7 +131,8 @@ const onTabGuardFocus = (
   const isTop = position === "top";
   const currentIndex = trapWrappers.indexOf(guardWrapperRef);
   let index = currentIndex;
-  let nextWrapper, allFocusableElementsInNextWrapper: NodeList | undefined;
+  let nextWrapper;
+  let allFocusableElementsInNextWrapper: Element[] | undefined;
 
   do {
     index += isTop ? -1 : 1;
@@ -142,9 +143,11 @@ const onTabGuardFocus = (
       index -= trapWrappers.length;
     }
     nextWrapper = trapWrappers[index];
-    allFocusableElementsInNextWrapper = nextWrapper?.current?.querySelectorAll(
-      focusableSelectors || defaultFocusableSelectors
-    );
+    allFocusableElementsInNextWrapper = Array.from(
+      nextWrapper?.current?.querySelectorAll(
+        focusableSelectors || defaultFocusableSelectors
+      ) || /* istanbul ignore next */ []
+    ).filter((el) => Number((el as HTMLElement).tabIndex) !== -1);
   } while (
     index !== currentIndex &&
     !allFocusableElementsInNextWrapper?.length

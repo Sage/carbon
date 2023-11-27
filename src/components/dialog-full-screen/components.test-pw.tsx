@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import DialogFullScreen, { DialogFullScreenProps } from ".";
 import Dialog from "../dialog";
 import Button from "../button";
@@ -17,6 +17,8 @@ import Link from "../link";
 import Icon from "../icon";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import { Dl, Dt, Dd } from "../definition-list";
+import Sidebar from "../sidebar";
+import { Select, Option } from "../select";
 
 const mainDialogTitle = "Main Dialog";
 const nestedDialogTitle = "Nested Dialog";
@@ -908,5 +910,55 @@ export const WithComplexExample = () => {
         </Drawer>
       </DialogFullScreen>
     </Box>
+  );
+};
+
+export const TopModalOverride = () => {
+  const [isOpenDialogFullScreen, setIsOpenDialogFullScreen] = useState(true);
+  const [isOpenDialog, setIsOpenDialog] = useState(true);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsOpenSidebar(true);
+    }, 10);
+  }, []);
+
+  return (
+    <>
+      <DialogFullScreen
+        open={isOpenDialogFullScreen}
+        onCancel={() => setIsOpenDialogFullScreen(false)}
+        title="Dialog fullscreen"
+        topModalOverride
+      >
+        <Textbox label="Fullscreen textbox" />
+      </DialogFullScreen>
+      <Dialog
+        open={isOpenDialog}
+        onCancel={() => setIsOpenDialog(false)}
+        title="Dialog"
+      >
+        <Textbox label="Dialog textbox" />
+      </Dialog>
+      <Sidebar
+        open={isOpenSidebar}
+        onCancel={() => setIsOpenSidebar(false)}
+        header="sidebar"
+      >
+        <Textbox label="Sidebar textbox" />
+      </Sidebar>
+    </>
+  );
+};
+
+export const DialogFullScreenWithAutoFocusSelect = () => {
+  return (
+    <DialogFullScreen open title="My dialog" onCancel={() => {}}>
+      <Select autoFocus label="select">
+        <Option value="1" text="one" />
+      </Select>
+      <Textbox label="textbox" />
+    </DialogFullScreen>
   );
 };

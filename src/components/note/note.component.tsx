@@ -5,6 +5,7 @@ import invariant from "invariant";
 import {
   StyledNote,
   StyledNoteContent,
+  StyledNoteMain,
   StyledInlineControl,
   StyledTitle,
   StyledFooter,
@@ -88,35 +89,34 @@ export const Note = ({
   return (
     <EditorContext.Provider value={{ onLinkAdded, editMode: false }}>
       <StyledNote width={width} {...rest} data-component="note">
-        {title && (
-          <StyledTitle hasInlineControl={!!inlineControl}>{title}</StyledTitle>
-        )}
+        <StyledNoteMain>
+          <StyledNoteContent>
+            {title && <StyledTitle>{title}</StyledTitle>}
+            <Editor
+              readOnly
+              editorState={getDecoratedValue(noteContent)}
+              onChange={/* istanbul ignore next */ () => {}}
+            />
+          </StyledNoteContent>
+          {inlineControl && (
+            <StyledInlineControl>{inlineControl}</StyledInlineControl>
+          )}
+        </StyledNoteMain>
 
-        {inlineControl && (
-          <StyledInlineControl>{inlineControl}</StyledInlineControl>
-        )}
-
-        <StyledNoteContent hasInlineControl={!!inlineControl}>
-          <Editor
-            readOnly
-            editorState={getDecoratedValue(noteContent)}
-            onChange={/* istanbul ignore next */ () => {}}
-          />
+        <StyledNoteContent>
+          {React.Children.map(previews, (preview) =>
+            React.isValidElement(preview) &&
+            hasExpectedDisplayName(preview, LinkPreview.displayName)
+              ? React.cloneElement<LinkPreviewProps>(
+                  preview as React.ReactElement<LinkPreviewProps>,
+                  { as: "a", onClose: undefined }
+                )
+              : preview
+          )}
         </StyledNoteContent>
-        {React.Children.map(previews, (preview) =>
-          React.isValidElement(preview) &&
-          hasExpectedDisplayName(preview, LinkPreview.displayName)
-            ? React.cloneElement<LinkPreviewProps>(
-                preview as React.ReactElement<LinkPreviewProps>,
-                { as: "a", onClose: undefined }
-              )
-            : preview
-        )}
+
         {createdDate && (
-          <StyledNoteContent
-            hasPreview={!!React.Children.count(previews)}
-            hasInlineControl={!!inlineControl}
-          >
+          <StyledNoteContent hasPreview={!!React.Children.count(previews)}>
             <StyledFooter data-element="note-footer">
               {name && (
                 <StyledFooterContent hasName={!!name}>

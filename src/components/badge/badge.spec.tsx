@@ -110,5 +110,33 @@ describe("Badge", () => {
         wrapper.find(StyledBadge)
       );
     });
+
+    it("should render badge with default style when no color prop is specified", () => {
+      const wrapper = mount(renderComponent({ counter: 9, onClick: () => {} }));
+      assertStyleMatch(
+        {
+          borderColor: "var(--colorsActionMajor500)",
+          color: "var(--colorsActionMajor500)",
+        },
+        wrapper.find(StyledBadge)
+      );
+    });
+
+    it("should render badge with correct style when color prop is specified", () => {
+      const wrapper = mount(
+        renderComponent({
+          counter: 9,
+          onClick: () => {},
+          color: "--colorsSemanticNegative500",
+        })
+      );
+      assertStyleMatch(
+        {
+          borderColor: "var(--colorsSemanticNegative500)",
+          color: "var(--colorsSemanticNegative500)",
+        },
+        wrapper.find(StyledBadge)
+      );
+    });
   });
 });

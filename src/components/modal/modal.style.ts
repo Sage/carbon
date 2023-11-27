@@ -39,9 +39,12 @@ const StyledModalBackground = styled.div<TransitionProps>`
   `};
 `;
 
-const StyledModal = styled.div<TransitionProps>`
+const StyledModal = styled.div<
+  TransitionProps & { topModalOverride?: boolean }
+>`
   position: absolute;
-  z-index: ${({ theme }) => theme.zIndex.modal};
+  z-index: ${({ theme, topModalOverride }) =>
+    `${topModalOverride ? theme.zIndex.notification : theme.zIndex.modal}`};
 
   ${({ transitionName, transitionTime }) => css`
     .${transitionName}-enter, .${transitionName}-appear {
