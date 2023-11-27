@@ -1,3 +1,10 @@
+### [123.11.2](https://github.com/Sage/carbon/compare/v123.11.1...v123.11.2) (2023-11-27)
+
+
+### Bug Fixes
+
+* **input:** ensure focus styles removed when becoming inert ([40ba27a](https://github.com/Sage/carbon/commit/40ba27a6c5e67d6eb49440e7108541dc2f0c972c)), closes [#6415](https://github.com/Sage/carbon/issues/6415)
+
 ### [123.11.1](https://github.com/Sage/carbon/compare/v123.11.0...v123.11.1) (2023-11-23)
 
 
