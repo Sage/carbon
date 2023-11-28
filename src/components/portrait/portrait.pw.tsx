@@ -520,7 +520,9 @@ test.describe("Accessibility tests for Portrait component", () => {
       await mount(
         <PortraitComponent tooltipIsVisible tooltipMessage={tooltipMessage} />
       );
-      await checkAccessibility(page, "color-contrast");
+
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 
@@ -531,7 +533,8 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitComponent tooltipId={tooltipId} />);
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 
@@ -547,7 +550,8 @@ test.describe("Accessibility tests for Portrait component", () => {
         <PortraitComponent tooltipMessage="foo" tooltipIsVisible={boolVal} />
       );
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 
@@ -558,7 +562,8 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitComponent tooltipPosition={tooltipPosition} />);
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 
@@ -568,7 +573,8 @@ test.describe("Accessibility tests for Portrait component", () => {
   }) => {
     await mount(<PortraitComponent tooltipType="error" />);
 
-    await checkAccessibility(page, "color-contrast");
+    // color-contrast ignored until we can investigate and fix FE-6245
+    await checkAccessibility(page, undefined, "color-contrast");
   });
 
   [SIZE.MEDIUM, SIZE.LARGE].forEach((tooltipSize) => {
@@ -578,7 +584,8 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitComponent tooltipSize={tooltipSize} />);
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 

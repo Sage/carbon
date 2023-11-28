@@ -22,7 +22,7 @@ const tileVariants: [TileProps["variant"], string, string][] = [
   ["active", "rgb(0, 126, 69)", "rgb(242, 249, 246)"],
 ];
 const tileOrientations: [TileProps["orientation"], number][] = [
-  ["vertical", 199],
+  ["vertical", 198],
   ["horizontal", 67],
 ];
 const tileWidths: [TileProps["width"], number][] = [

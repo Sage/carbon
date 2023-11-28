@@ -525,7 +525,7 @@ test.describe("Accessibility tests for Decimal component", () => {
       "question"
     );
     await getDataElementByValueElementQuestion.hover();
-    await checkAccessibility(page);
+    await checkAccessibility(page, tooltipPreview(page));
   });
 
   test("should pass accessibility tests for Decimal required", async ({
