@@ -24,12 +24,24 @@ export const Controlled: ComponentStory<typeof NumeralDate> = () => {
 
 export const AllowedDateFormats: ComponentStory<typeof NumeralDate> = () => (
   <>
-    <NumeralDate label="DD/MM/YYYY - default" />
-    <NumeralDate label="MM/DD/YYYY" dateFormat={["mm", "dd", "yyyy"]} />
-    <NumeralDate label="YYYY/MM/DD" dateFormat={["yyyy", "mm", "dd"]} />
-    <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} />
-    <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} />
-    <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} />
+    <NumeralDate label="DD/MM/YYYY - default" enableInternalError />
+    <NumeralDate
+      label="MM/DD/YYYY"
+      dateFormat={["mm", "dd", "yyyy"]}
+      enableInternalError
+    />
+    <NumeralDate
+      label="YYYY/MM/DD"
+      dateFormat={["yyyy", "mm", "dd"]}
+      enableInternalError
+    />
+    <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} enableInternalError />
+    <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} enableInternalError />
+    <NumeralDate
+      label="MM/YYYY"
+      dateFormat={["mm", "yyyy"]}
+      enableInternalError
+    />
   </>
 );
 

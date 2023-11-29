@@ -20,6 +20,7 @@ import { NewValidationContext } from "../carbon-provider/carbon-provider.compone
 import NumeralDateContext from "./numeral-date-context";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import Logger from "../../__internal__/utils/logger";
+import Locale from "../../locales/locale";
 
 let deprecateUncontrolledWarnTriggered = false;
 
@@ -44,12 +45,6 @@ export interface MonthYearDate {
 
 export interface FullDate extends DayMonthDate {
   yyyy: string;
-}
-
-interface ValidationsObject {
-  dd: (datePart: string) => boolean;
-  mm: (datePart: string) => boolean;
-  yyyy: (datePart: string) => boolean;
 }
 
 export type NumeralDateObject = DayMonthDate | MonthYearDate | FullDate;
@@ -154,18 +149,39 @@ const incorrectDateFormatMessage =
   "['mm', 'dd'], " +
   "['mm', 'yyyy']";
 
-const isDayValid = (day: string) => (day ? +day > 0 && +day < 32 : true);
+const validationMessages = (locale: Locale) => ({
+  dd: locale.numeralDate.validation.day(),
+  mm: locale.numeralDate.validation.month(),
+  yyyy: locale.numeralDate.validation.year(),
+});
 
-const isMonthValid = (month: string) =>
-  month ? +month > 0 && +month < 13 : true;
+const getDaysInMonth = (month?: string, year?: string) => {
+  const current = new Date();
+  const y = year || current.getFullYear();
+  const m = month || current.getMonth();
+  return new Date(+y, +m, 0).getDate();
+};
 
-const isYearValid = (year: string) =>
-  year ? +year > 1799 && +year < 2201 : true;
+const validate = (locale: Locale, { dd, mm, yyyy }: Partial<FullDate>) => {
+  const failed = {
+    dd: "",
+    mm: "",
+    yyyy: "",
+  };
 
-const validations: ValidationsObject = {
-  dd: isDayValid,
-  mm: isMonthValid,
-  yyyy: isYearValid,
+  if (dd && (+dd > getDaysInMonth(mm, yyyy) || +dd < 1)) {
+    failed.dd = validationMessages(locale).dd;
+  }
+
+  if (mm && (+mm > 12 || +mm < 1)) {
+    failed.mm = validationMessages(locale).mm;
+  }
+
+  if (yyyy && (+yyyy < 1799 || +yyyy > 2201)) {
+    failed.yyyy = validationMessages(locale).yyyy;
+  }
+
+  return failed;
 };
 
 const getDateLabel = (datePart: string) => {
@@ -253,12 +269,6 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     );
   }, [value]);
 
-  const validationMessages = {
-    dd: l.numeralDate.validation.day(),
-    mm: l.numeralDate.validation.month(),
-    yyyy: l.numeralDate.validation.year(),
-  };
-
   const [dateValue, setDateValue] = useState<DateType>({
     ...((initialValue ||
       (Object.fromEntries(
@@ -308,19 +318,14 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     }
   };
 
-  const handleBlur = (datePart: keyof NumeralDateObject) => {
+  const handleBlur = () => {
     const internalValidationEnabled =
       enableInternalError || enableInternalWarning;
     /* istanbul ignore else */
     if (internalValidationEnabled) {
-      const newDatePart: string = dateValue[datePart];
-      const errorMessage = validations[datePart](newDatePart)
-        ? ""
-        : validationMessages[datePart];
-
       setInternalMessages((prev) => ({
         ...prev,
-        [datePart]: errorMessage,
+        ...validate(l, dateValue),
       }));
     }
     setTimeout(() => {
@@ -403,7 +408,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
 
             <StyledNumeralDate
               name={name}
-              onKeyPress={onKeyPress}
+              onKeyDown={onKeyPress}
               data-component="numeral-date"
             >
               {dateFormat.map((datePart, index) => {
@@ -469,9 +474,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                               inputRef.current = element;
                             }
                           }}
-                          onBlur={() =>
-                            handleBlur(datePart as keyof NumeralDateObject)
-                          }
+                          onBlur={handleBlur}
                           error={!!internalError}
                           warning={!!internalWarning}
                           info={!!info}
