@@ -843,7 +843,7 @@ test.describe("should check accessibility for Checkbox component", () => {
 
     const checkboxIconElement = checkboxIcon(page);
     await checkboxIconElement.hover();
-    await checkAccessibility(page);
+    await checkAccessibility(page, tooltipPreview(page));
   });
 
   test("should pass accessibility tests with disabled prop", async ({
@@ -932,7 +932,7 @@ test.describe("should check accessibility for Checkbox component", () => {
 
       const checkboxIconElement = checkboxIcon(page);
       await checkboxIconElement.hover();
-      await checkAccessibility(page);
+      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -942,7 +942,9 @@ test.describe("should check accessibility for Checkbox component", () => {
   }) => {
     await mount(<CheckboxComponent error="Error has occurred" />);
 
-    await checkAccessibility(page);
+    const checkboxIconElement = checkboxIcon(page);
+    await checkboxIconElement.hover();
+    await checkAccessibility(page, tooltipPreview(page));
   });
 
   test("should pass accessibility tests with warning message", async ({
@@ -951,7 +953,9 @@ test.describe("should check accessibility for Checkbox component", () => {
   }) => {
     await mount(<CheckboxComponent warning="Warning has occurred" />);
 
-    await checkAccessibility(page);
+    const checkboxIconElement = checkboxIcon(page);
+    await checkboxIconElement.hover();
+    await checkAccessibility(page, tooltipPreview(page));
   });
 
   test("should pass accessibility tests with info message", async ({
@@ -960,7 +964,9 @@ test.describe("should check accessibility for Checkbox component", () => {
   }) => {
     await mount(<CheckboxComponent info="Info has occurred" />);
 
-    await checkAccessibility(page);
+    const checkboxIconElement = checkboxIcon(page);
+    await checkboxIconElement.hover();
+    await checkAccessibility(page, tooltipPreview(page));
   });
 });
 
@@ -1062,7 +1068,7 @@ test.describe("should check accessibility for Checkbox Group component", () => {
 
       const checkboxIconElement = checkboxGroupIcon(page);
       await checkboxIconElement.hover();
-      await checkAccessibility(page);
+      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 });
