@@ -1,9 +1,10 @@
-name: CI
+name: CI checks
 
 on: pull_request
 
 jobs:
   lint:
+    name: "Lint check"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,15 +14,25 @@ jobs:
       - run: npm ci
       - run: npx prettier --check './src/**/*.{js,jsx,ts,tsx}'
       - run: npm run lint
+
+  type-check:
+    name: "Type check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ">=18.12.1 18"
+      - run: npm ci
       - run: npm run type-check
 
   test:
+    name: "Test with Node ${{ matrix.node }}"
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: ["16.x", "18.x"]
         shard: [1, 2, 3, 4]
-
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -30,6 +41,5 @@ jobs:
       - run: npm ci
       - run: |
           npm test -- --ci --maxWorkers=4 --shard=${{ matrix.shard }} --colors
-
         env:
           CONTAINER: ${{ matrix.shard }}
