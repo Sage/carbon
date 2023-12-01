@@ -23,6 +23,12 @@ export const lastSubmenuElement = (htmlProp) =>
   submenuBlock().find(htmlProp).last();
 export const menuDivider = () => cy.get(MENU_DIVIDER);
 export const segmentTitle = () => cy.get(SEGMENT_TITLE);
+export const segmentTitleItem = (index) =>
+  segmentTitle()
+    .parent()
+    .find("ul")
+    .find(`li:nth-child(${index})`)
+    .find("span");
 export const menuComponent = (index) =>
   cy.get(MENU).first().find(`li:nth-child(${index})`);
 export const submenuItem = (index) =>
