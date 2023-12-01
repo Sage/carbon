@@ -152,6 +152,7 @@ export const FilterableSelect = React.forwardRef(
       id: inputId.current,
       label,
     });
+    const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -516,21 +517,29 @@ export const FilterableSelect = React.forwardRef(
       const triggerFocus = () => onFocus?.(event);
 
       if (openOnFocus) {
-        setOpen((isAlreadyOpen) => {
-          if (isAlreadyOpen) {
+        if (focusTimer.current) {
+          clearTimeout(focusTimer.current);
+        }
+
+        // we need to use a timeout here as there is a race condition when rendered in a modal
+        // whereby the select list isn't visible when the select is auto focused straight away
+        focusTimer.current = setTimeout(() => {
+          setOpen((isAlreadyOpen) => {
+            if (isAlreadyOpen) {
+              return true;
+            }
+
+            if (onFocus && !isInputFocused.current) {
+              triggerFocus();
+              isInputFocused.current = true;
+            }
+
+            if (isMouseDownReported.current && !isMouseDownOnInput.current) {
+              return false;
+            }
+
             return true;
-          }
-
-          if (onFocus && !isInputFocused.current) {
-            triggerFocus();
-            isInputFocused.current = true;
-          }
-
-          if (isMouseDownReported.current && !isMouseDownOnInput.current) {
-            return false;
-          }
-
-          return true;
+          });
         });
       } else if (onFocus && !isInputFocused.current) {
         triggerFocus();

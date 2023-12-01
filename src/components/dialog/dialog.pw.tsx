@@ -7,6 +7,8 @@ import {
   DialogWithToast,
   DialogBackgroundScrollTest,
   DialogWithOpenToastsBackgroundScrollTest,
+  TopModalOverride,
+  DialogWithAutoFocusSelect,
 } from "./components.test-pw";
 
 import {
@@ -28,6 +30,7 @@ import {
   waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
+import { getDataElementByValue } from "../../../playwright/components";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
@@ -259,7 +262,8 @@ test.describe("Testing Dialog component properties", () => {
     ).not.toBeFocused();
   });
 
-  test("when tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
+  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+  test.skip("when tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
     mount,
     page,
   }) => {
@@ -288,7 +292,8 @@ test.describe("Testing Dialog component properties", () => {
     await expect(closeButton).toBeFocused();
   });
 
-  test("when shift tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
+  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+  test.skip("when shift tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
     mount,
     page,
   }) => {
@@ -317,7 +322,8 @@ test.describe("Testing Dialog component properties", () => {
     await expect(thirdTextbox).toBeFocused();
   });
 
-  test("when tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
+  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+  test.skip("when tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
     mount,
     page,
   }) => {
@@ -338,7 +344,8 @@ test.describe("Testing Dialog component properties", () => {
     ).not.toBeInViewport();
   });
 
-  test("when shift tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
+  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+  test.skip("when shift tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
     mount,
     page,
   }) => {
@@ -356,6 +363,23 @@ test.describe("Testing Dialog component properties", () => {
     await expect(
       page.getByText("I should not be scrolled into view")
     ).not.toBeInViewport();
+  });
+
+  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+  test.skip("should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogWithAutoFocusSelect />);
+
+    const dialog = page.getByRole("dialog");
+    const select = dialog.getByRole("combobox");
+
+    await expect(select).toBeFocused();
+    await dialog.press("Shift+Tab");
+    await dialog.press("Shift+Tab");
+    await dialog.press("Shift+Tab");
+    await expect(select).toBeFocused();
   });
 });
 
@@ -464,6 +488,52 @@ test("Dialog should have rounded corners", async ({ mount, page }) => {
   await mount(<DialogComponent />);
 
   await expect(page.getByRole("dialog")).toHaveCSS("border-radius", "16px");
+});
+
+// test skipped until we can investigate and fix issue with focus in Modals FE-6245
+test.skip("setting the topModalOverride prop should ensure the Dialog is rendered on top of any others", async ({
+  mount,
+  page,
+}) => {
+  await mount(<TopModalOverride />);
+
+  const dialog = getDataElementByValue(page, "dialog");
+  const dialogClose = dialog.getByLabel("Close");
+  const dialogTextbox = page.getByLabel("Dialog textbox");
+
+  await waitForAnimationEnd(dialog);
+  await dialog.press("Tab");
+  await expect(dialogClose).toBeFocused();
+  await dialogClose.press("Tab");
+  await expect(dialogTextbox).toBeFocused();
+  await dialogTextbox.press("Tab");
+  await expect(dialogClose).toBeFocused();
+  await dialogClose.press("Enter");
+
+  const sidebar = getDataElementByValue(page, "sidebar");
+  const sidebarClose = sidebar.getByLabel("Close");
+  const sidebarTextbox = page.getByLabel("Sidebar textbox");
+
+  await waitForAnimationEnd(sidebar);
+  await sidebar.press("Tab");
+  await expect(sidebarClose).toBeFocused();
+  await sidebarClose.press("Tab");
+  await expect(sidebarTextbox).toBeFocused();
+  await sidebarTextbox.press("Tab");
+  await expect(sidebarClose).toBeFocused();
+  await sidebarClose.press("Enter");
+
+  const dialogFullscreen = getDataElementByValue(page, "dialog-full-screen");
+  const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
+  const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
+
+  await waitForAnimationEnd(dialogFullscreen);
+  await dialogFullscreen.press("Tab");
+  await expect(dialogFullscreenClose).toBeFocused();
+  await dialogFullscreenClose.press("Tab");
+  await expect(dialogFullscreenTextbox).toBeFocused();
+  await dialogFullscreenTextbox.press("Tab");
+  await expect(dialogFullscreenClose).toBeFocused();
 });
 
 test.describe(

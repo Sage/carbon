@@ -1,3 +1,71 @@
+## [124.0.0](https://github.com/Sage/carbon/compare/v123.11.2...v124.0.0) (2023-12-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **show-edit-pod:** `ShowEditPod` no longer exists
+* **menu-segment-title:** You will need to pass any associated list items as children of the
+`MenuSegmentTitle` so they are rendered in a sublist with the segment heading
+
+### Bug Fixes
+
+* **menu-item:** ensure that icons rendered in menu item have display inline-block ([a937011](https://github.com/Sage/carbon/commit/a93701171e9f2931ddba25eee09d3681557fa7fc))
+* **menu-segment-title:** ensure segment titles are rendered as part of sublist with associated items ([9f4a6ff](https://github.com/Sage/carbon/commit/9f4a6ffd91c9cf6b8a308b11362ebf7671adfd46)), closes [#6010](https://github.com/Sage/carbon/issues/6010)
+
+
+### Miscellaneous Chores
+
+* **show-edit-pod:** deprecate component ([3183e6c](https://github.com/Sage/carbon/commit/3183e6c2b046b8894e6f190fcb88b2bb1c54b744))
+
+### [123.11.2](https://github.com/Sage/carbon/compare/v123.11.1...v123.11.2) (2023-11-27)
+
+
+### Bug Fixes
+
+* **input:** ensure focus styles removed when becoming inert ([40ba27a](https://github.com/Sage/carbon/commit/40ba27a6c5e67d6eb49440e7108541dc2f0c972c)), closes [#6415](https://github.com/Sage/carbon/issues/6415)
+
+### [123.11.1](https://github.com/Sage/carbon/compare/v123.11.0...v123.11.1) (2023-11-23)
+
+
+### Bug Fixes
+
+* **menu-full-screen:** fix keys in rendering of children ([5c17f15](https://github.com/Sage/carbon/commit/5c17f15757bac9e7fb1134ba84ea75e66de63434))
+
+## [123.11.0](https://github.com/Sage/carbon/compare/v123.10.3...v123.11.0) (2023-11-23)
+
+
+### Features
+
+* **badge:** add color prop ([4a5750d](https://github.com/Sage/carbon/commit/4a5750d8eb64486095347836279c56f588c46b9f)), closes [#5839](https://github.com/Sage/carbon/issues/5839)
+
+### [123.10.3](https://github.com/Sage/carbon/compare/v123.10.2...v123.10.3) (2023-11-23)
+
+
+### Bug Fixes
+
+* **tabs:** error border partially hidden fix ([6aa62e1](https://github.com/Sage/carbon/commit/6aa62e16f3a385fa631052a87d7025c7a725a402)), closes [#6314](https://github.com/Sage/carbon/issues/6314)
+
+### [123.10.2](https://github.com/Sage/carbon/compare/v123.10.1...v123.10.2) (2023-11-23)
+
+
+### Bug Fixes
+
+* **note:** inlineControl button and note content overlap fix ([f196759](https://github.com/Sage/carbon/commit/f19675955261019ff32f339a08edc9eee31be52a)), closes [#6228](https://github.com/Sage/carbon/issues/6228)
+
+### [123.10.1](https://github.com/Sage/carbon/compare/v123.10.0...v123.10.1) (2023-11-23)
+
+
+### Bug Fixes
+
+* ensure any auto-focused element is focused first when a child of a focus trapped component ([f34eca4](https://github.com/Sage/carbon/commit/f34eca46693e487d20c77dd1892dfaad5a830742)), closes [#6384](https://github.com/Sage/carbon/issues/6384)
+
+## [123.10.0](https://github.com/Sage/carbon/compare/v123.9.1...v123.10.0) (2023-11-22)
+
+
+### Features
+
+* add support for manually overriding stacking order of modals ([9d4252a](https://github.com/Sage/carbon/commit/9d4252a4ad69274be2eff6bc11d5f0f240ec6ffc)), closes [#6402](https://github.com/Sage/carbon/issues/6402) [#6410](https://github.com/Sage/carbon/issues/6410)
+
 ### [123.9.1](https://github.com/Sage/carbon/compare/v123.9.0...v123.9.1) (2023-11-16)
 
 

@@ -7,6 +7,7 @@ import { SIDEBAR_ALIGNMENTS, SIDEBAR_SIZES } from "./sidebar.config";
 import Box from "../box";
 import Toast from "../toast";
 import Textbox from "../textbox";
+import Dialog from "../dialog";
 
 export default {
   component: Sidebar,
@@ -197,6 +198,27 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
       >
         Toast Message
       </Toast>
+    </>
+  );
+};
+
+export const TopModalOverride = () => {
+  const [isOpen1, setIsOpen1] = useState(true);
+  const [isOpen2, setIsOpen2] = useState(true);
+
+  return (
+    <>
+      <Sidebar
+        open={isOpen1}
+        onCancel={() => setIsOpen1(false)}
+        header="Sidebar"
+        topModalOverride
+      >
+        foo
+      </Sidebar>
+      <Dialog open={isOpen2} onCancel={() => setIsOpen2(false)} title="Dialog">
+        foo
+      </Dialog>
     </>
   );
 };

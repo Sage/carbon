@@ -154,6 +154,7 @@ export const SimpleSelect = React.forwardRef(
       id: inputId.current,
       label,
     });
+    const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -404,16 +405,24 @@ export const SimpleSelect = React.forwardRef(
       }
 
       if (openOnFocus) {
-        setOpenState((isAlreadyOpen) => {
-          if (isAlreadyOpen) {
+        if (focusTimer.current) {
+          clearTimeout(focusTimer.current);
+        }
+
+        // we need to use a timeout here as there is a race condition when rendered in a modal
+        // whereby the select list isn't visible when the select is auto focused straight away
+        focusTimer.current = setTimeout(() => {
+          setOpenState((isAlreadyOpen) => {
+            if (isAlreadyOpen) {
+              return true;
+            }
+
+            if (onOpen) {
+              onOpen();
+            }
+
             return true;
-          }
-
-          if (onOpen) {
-            onOpen();
-          }
-
-          return true;
+          });
         });
       }
     }

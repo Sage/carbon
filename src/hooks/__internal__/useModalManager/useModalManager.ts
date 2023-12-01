@@ -7,6 +7,7 @@ type UseModalManagerArgs = {
   modalRef: React.RefObject<HTMLElement>;
   setTriggerRefocusFlag?: (flag: boolean) => void;
   triggerRefocusOnClose?: boolean;
+  topModalOverride?: boolean;
 };
 
 const useModalManager = ({
@@ -15,6 +16,7 @@ const useModalManager = ({
   modalRef,
   setTriggerRefocusFlag,
   triggerRefocusOnClose = true,
+  topModalOverride = false,
 }: UseModalManagerArgs) => {
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
@@ -65,12 +67,12 @@ const useModalManager = ({
     (ref: HTMLElement | null) => {
       /* istanbul ignore else */
       if (!modalRegistered.current) {
-        ModalManager.addModal(ref, setTriggerRefocusFlag);
+        ModalManager.addModal(ref, setTriggerRefocusFlag, topModalOverride);
 
         modalRegistered.current = true;
       }
     },
-    [setTriggerRefocusFlag]
+    [setTriggerRefocusFlag, topModalOverride]
   );
 
   const unregisterModal = useCallback(

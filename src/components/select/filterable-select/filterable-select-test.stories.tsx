@@ -634,11 +634,19 @@ export const FilterableSelectWithManyOptionsAndVirtualScrolling = () => (
   </FilterableSelect>
 );
 
-export const FilterableSelectNestedInDialog = () => {
+export const FilterableSelectNestedInDialog = ({
+  openOnFocus = false,
+  autofocus = false,
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <FilterableSelect name="testSelect" id="testSelect">
+      <FilterableSelect
+        openOnFocus={openOnFocus}
+        autoFocus={autofocus}
+        name="testSelect"
+        id="testSelect"
+      >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
         <Option value="opt3" text="blue" />

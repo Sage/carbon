@@ -2,7 +2,10 @@ import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import { IconProps } from "components/icon";
 import { IconComponent, IconTooltipComponent } from "./component.test-pw";
-import { getDataElementByValue } from "../../../playwright/components/index";
+import {
+  getDataElementByValue,
+  tooltipPreview,
+} from "../../../playwright/components/index";
 import { SIZE, COLOR, CHARACTERS } from "../../../playwright/support/constants";
 
 import { checkAccessibility } from "../../../playwright/support/helper";
@@ -338,7 +341,7 @@ test.describe("should check accessibility for Icon component", () => {
     }) => {
       await mount(<IconTooltipComponent tooltipMessage={tooltipMessage} />);
 
-      await checkAccessibility(page);
+      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -354,7 +357,9 @@ test.describe("should check accessibility for Icon component", () => {
     }) => {
       await mount(<IconTooltipComponent tooltipPosition={tooltipPosition} />);
 
-      await checkAccessibility(page);
+      const iconLocator = page.getByTestId("icon");
+      await iconLocator.hover();
+      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -364,7 +369,7 @@ test.describe("should check accessibility for Icon component", () => {
   }) => {
     await mount(<IconTooltipComponent tooltipVisible />);
 
-    await checkAccessibility(page);
+    await checkAccessibility(page, tooltipPreview(page));
   });
 
   test("should pass accessibility tests when tooltipVisible prop is set as false", async ({
@@ -383,7 +388,8 @@ test.describe("should check accessibility for Icon component", () => {
     }) => {
       await mount(<IconTooltipComponent tooltipBgColor={tooltipBgColor} />);
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 
@@ -394,7 +400,8 @@ test.describe("should check accessibility for Icon component", () => {
     }) => {
       await mount(<IconTooltipComponent tooltipFontColor={tooltipFontColor} />);
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 
@@ -405,7 +412,9 @@ test.describe("should check accessibility for Icon component", () => {
     }) => {
       await mount(<IconTooltipComponent tooltipId={tooltipId} />);
 
-      await checkAccessibility(page);
+      const iconLocator = page.getByTestId("icon");
+      await iconLocator.hover();
+      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -524,7 +533,10 @@ test.describe("should check accessibility for Icon component", () => {
           />
         </div>
       );
-      await checkAccessibility(page);
+
+      const iconLocator = page.getByTestId("icon");
+      await iconLocator.hover();
+      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 });

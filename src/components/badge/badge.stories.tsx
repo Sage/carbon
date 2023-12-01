@@ -42,3 +42,13 @@ export const DisplayOnly: ComponentStory<typeof Badge> = () => (
     </Badge>
   </Box>
 );
+
+export const CustomColor: ComponentStory<typeof Badge> = () => (
+  <Box margin="40px">
+    <Badge counter={9} onClick={() => {}} color="--colorsSemanticNegative500">
+      <Button mr={0} buttonType="tertiary" destructive>
+        Filter
+      </Button>
+    </Badge>
+  </Box>
+);

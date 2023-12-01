@@ -3,6 +3,7 @@ type SetTriggerRefocusFlag = (boolean: boolean) => void;
 export type ModalList = {
   modal: HTMLElement;
   setTriggerRefocusFlag?: SetTriggerRefocusFlag;
+  topModalOverride?: boolean;
 }[];
 
 class ModalManagerInstance {
@@ -22,12 +23,18 @@ class ModalManagerInstance {
       return {};
     }
 
-    return this.modalList[this.modalList.length - 1];
+    const topModalOverride = this.modalList
+      .slice()
+      .reverse()
+      .find((modal) => modal.topModalOverride);
+
+    return topModalOverride || this.modalList[this.modalList.length - 1];
   }
 
   addModal = (
     modal: HTMLElement | null,
-    setTriggerRefocusFlag?: SetTriggerRefocusFlag
+    setTriggerRefocusFlag?: SetTriggerRefocusFlag,
+    topModalOverride?: boolean
   ) => {
     if (!modal) {
       return;
@@ -36,13 +43,15 @@ class ModalManagerInstance {
     const {
       modal: topModal,
       setTriggerRefocusFlag: setTrapFlag,
+      topModalOverride: topOverridden,
     } = this.getTopModal();
 
-    if (topModal && setTrapFlag) {
+    if (!topOverridden && topModal && setTrapFlag) {
       setTrapFlag(false);
     }
 
-    this.modalList.push({ modal, setTriggerRefocusFlag });
+    this.modalList.push({ modal, setTriggerRefocusFlag, topModalOverride });
+
     this.callTopModalSetters();
   };
 

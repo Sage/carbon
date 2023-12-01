@@ -34,6 +34,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
   display: inline-block;
   line-height: 20px;
   margin: 0;
+  position: relative;
 
   ${({
     hasCustomLayout,
@@ -148,6 +149,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
     css`
       outline: 1px solid;
       outline-offset: -1px;
+      z-index: 2;
 
       ${info &&
       !warning &&
@@ -208,6 +210,7 @@ const StyledTitleContent = styled.span<StyledTitleContentProps>`
     css`
       outline: 2px solid var(--colorsSemanticNegative500);
       outline-offset: -2px;
+      z-index: 2;
 
       ${position === "top" &&
       css`
@@ -396,7 +399,7 @@ const tabTitleStyles = css<TabTitleProps>`
             ? addFocusStyling()
             : /* istanbul ignore next */ oldFocusStyling
         }`}
-      z-index: 2;
+      z-index: 3;
 
       ${isInSidebar &&
       css`

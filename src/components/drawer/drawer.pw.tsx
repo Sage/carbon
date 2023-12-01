@@ -132,6 +132,9 @@ test.describe("check props for Drawer component", () => {
         <DrawerCustom showControls animationDuration={animationDuration} />
       );
 
+      await waitForAnimationEnd(
+        page.locator('[data-element="drawer-content"]')
+      );
       const drawerToggleButton = drawerToggle(page);
       await drawerToggleButton.click();
       const sidebar = drawerSidebar(page);

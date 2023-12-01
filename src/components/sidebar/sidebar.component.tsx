@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
-import Modal from "../modal";
+import Modal, { ModalProps } from "../modal";
 import StyledSidebar from "./sidebar.style";
 import IconButton from "../icon-button";
 import Icon from "../icon";
@@ -26,7 +26,11 @@ export interface SidebarContextProps {
 
 export const SidebarContext = React.createContext<SidebarContextProps>({});
 
-export interface SidebarProps extends PaddingProps, TagProps, WidthProps {
+export interface SidebarProps
+  extends PaddingProps,
+    TagProps,
+    WidthProps,
+    Pick<ModalProps, "topModalOverride"> {
   /** Prop to specify the aria-describedby property of the component */
   "aria-describedby"?: string;
   /**
@@ -111,6 +115,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       focusableSelectors,
       width,
       headerPadding = {},
+      topModalOverride,
       ...rest
     }: SidebarProps,
     ref
@@ -202,6 +207,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         onCancel={onCancel}
         disableEscKey={disableEscKey}
         enableBackgroundUI={enableBackgroundUI}
+        topModalOverride={topModalOverride}
         {...componentTags}
       >
         {enableBackgroundUI ? (

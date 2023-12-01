@@ -1,14 +1,14 @@
-name: Cypress tests
+name: Cypress
 
 on:
-  workflow_dispatch:
-    inputs:
-      number:
-        description: "Pull Request Number"
-        required: true
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
-  cypress-react-tests:
+  cypress-tests:
+    name: "Run Cypress tests"
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -20,21 +20,11 @@ jobs:
       image: cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
       options: --user 1001
     steps:
-      - id: get_pull
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/{owner}/{repo}/pulls/{pull_number}
-          owner: ${{ github.event.repository.owner.login }}
-          repo: ${{ github.event.repository.name }}
-          pull_number: ${{ github.event.inputs.number }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
 
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          ref: "refs/pull/${{ github.event.inputs.number }}/head"
-          fetch-depth: 0
+          node-version: ">=18.12.1 18"
 
       - name: Cache central NPM modules
         uses: actions/cache@v3
@@ -53,9 +43,6 @@ jobs:
             cypress-${{ runner.os }}-cypress-
 
       - name: install dependencies and verify Cypress
-        env:
-          # make sure every Cypress install prints minimal information
-          CI: 1
         run: |
           npm ci
           npx cypress cache path
@@ -63,51 +50,22 @@ jobs:
           npx cypress verify
           npx cypress info
 
-      - name: Cypress React tests
-        uses: cypress-io/github-action@v5
+      - name: Run split Cypress tests
+        uses: cypress-io/github-action@v6
         with:
           component: true
           install: false
           quiet: true
           browser: chrome
         env:
-          COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          CI: "true"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SPLIT: ${{ strategy.job-total }}
           SPLIT_INDEX: ${{ strategy.job-index }}
+          DEBUG: cypress-split
 
-      - name: Upload Cypress report
+      - name: Upload report to GitHub Actions Artifacts
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-reports
           path: cypress/reports
           retention-days: 10
-
-      - name: Report status - success
-        if: always() && success()
-        run: |
-            curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ fromJson(steps.get_pull.outputs.data).head.sha }} \
-            -d '{
-              "state": "success",
-              "context": "Cypress tests",
-              "description": "workflow completed successfully."
-            }'
-        
-      - name: Report status - failed
-        if: always() && failure()
-        run: |
-            curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ fromJson(steps.get_pull.outputs.data).head.sha }} \
-            -d '{
-              "state": "failure",
-              "context": "Cypress tests",
-              "description": "workflow failed."
-            }'

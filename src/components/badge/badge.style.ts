@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 import StyledIcon from "../icon/icon.style";
 import Button from "../button";
 import Icon from "../icon";
+import baseTheme from "../../style/themes/base";
+import { toColor } from "../../style/utils/color";
 
 const commonStyles = `
   overflow: hidden;
@@ -25,9 +27,13 @@ const StyledCounter = styled.div`
   margin-top: -1px;
 `;
 
+interface StyledBadgeProps {
+  color: string;
+}
+
 const StyledBadge = styled.span.attrs(({ onClick }) => ({
   as: onClick ? Button : undefined,
-}))`
+}))<StyledBadgeProps>`
   ${commonStyles}
   cursor: default;
   align-items: center;
@@ -36,14 +42,17 @@ const StyledBadge = styled.span.attrs(({ onClick }) => ({
   width: 22px;
   min-height: 22px;
   border: solid 2px transparent;
-  border-color: var(--colorsActionMajor500);
-  color: var(--colorsActionMajor500);
+
+  ${({ color, theme }) => css`
+    border-color: ${toColor(theme, color)};
+    color: ${toColor(theme, color)};
+  `};
 
   ::-moz-focus-inner {
     border: none;
   }
 
-  ${({ onClick }) => css`
+  ${({ onClick, color, theme }) => css`
     ${onClick &&
     `
       ${commonStyles}
@@ -55,9 +64,12 @@ const StyledBadge = styled.span.attrs(({ onClick }) => ({
         border: none;
       }
 
+      border-color: ${toColor(theme, color)};
+      color: ${toColor(theme, color)};      
+
       &:hover,
       &:focus {
-        background: var(--colorsActionMajor500);
+        background: ${toColor(theme, color)};
         border: none;
         ${StyledCounter} {
           display: none;
@@ -83,5 +95,9 @@ const StyledCrossIcon = styled(Icon)`
   margin: 0;
   display: none;
 `;
+
+StyledBadge.defaultProps = {
+  theme: baseTheme,
+};
 
 export { StyledBadge, StyledBadgeWrapper, StyledCrossIcon, StyledCounter };

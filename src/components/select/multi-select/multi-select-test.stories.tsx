@@ -536,11 +536,19 @@ export const MultiSelectWithManyOptionsAndVirtualScrolling = () => (
   </MultiSelect>
 );
 
-export const MultiSelectNestedInDialog = () => {
+export const MultiSelectNestedInDialog = ({
+  openOnFocus = false,
+  autofocus = false,
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <MultiSelect name="testSelect" id="testSelect">
+      <MultiSelect
+        openOnFocus={openOnFocus}
+        autoFocus={autofocus}
+        name="testSelect"
+        id="testSelect"
+      >
         <Option value="opt1" text="red" />
         <Option value="opt2" text="green" />
         <Option value="opt3" text="blue" />

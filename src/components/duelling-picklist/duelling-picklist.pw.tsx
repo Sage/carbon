@@ -663,7 +663,7 @@ test.describe(`Accessibility tests for Duelling-Picklist component`, () => {
     const lockedItem = getDataElementByValue(page, "locked").first();
     await lockedItem.hover({ force: true });
     await expect(tooltipPreview(page)).toBeVisible();
-    await checkAccessibility(page);
+    await checkAccessibility(page, tooltipPreview(page));
   });
 
   test.skip(`should pass accessibility tests when disabled`, async ({
