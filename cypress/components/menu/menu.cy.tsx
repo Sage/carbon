@@ -26,12 +26,10 @@ import {
   menu,
   menuItem,
   fullScreenMenuItem,
-} from "../../locators/menu";
-import {
   searchDefaultInput,
   searchCrossIcon,
   searchButton,
-} from "../../locators/search/index";
+} from "../../locators/menu";
 import { getComponent, closeIconButton, icon } from "../../locators";
 import {
   keyCode,

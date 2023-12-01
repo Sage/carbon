@@ -48,6 +48,7 @@ export const Default = ({ placeholder, ...args }: { placeholder?: string }) => {
       onClick={handleClick}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
+      error="error message"
       value={value}
       placeholder={placeholder}
       name="search_name"
