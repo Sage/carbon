@@ -26,12 +26,10 @@ import {
   menu,
   menuItem,
   fullScreenMenuItem,
-} from "../../locators/menu";
-import {
   searchDefaultInput,
   searchCrossIcon,
   searchButton,
-} from "../../locators/search/index";
+} from "../../locators/menu";
 import { getComponent, closeIconButton, icon } from "../../locators";
 import {
   keyCode,
@@ -943,8 +941,8 @@ context("Testing Menu component", () => {
                 <MenuItem href="#">
                   Item Submenu One Is A Very Long Submenu Item Indeed
                 </MenuItem>
-                <MenuSegmentTitle variant={variant}>
-                  Segment Title
+                <MenuSegmentTitle variant={variant} text="Segment Title">
+                  <MenuItem href="#">Item With Segment Title</MenuItem>
                 </MenuSegmentTitle>
               </MenuItem>
             </Menu>

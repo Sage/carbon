@@ -202,6 +202,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
 
       ${StyledIcon} {
         bottom: 3px;
+        display: inline-block;
       }
     }
 

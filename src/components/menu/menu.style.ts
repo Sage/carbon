@@ -30,6 +30,7 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
   margin: 0;
   padding: 0;
   outline: none;
+  display: flex;
 
   ${layout}
   ${flexbox}
@@ -43,14 +44,7 @@ const StyledMenuWrapper = styled.ul<StyledMenuProps>`
         background-color: ${menuConfigVariants[menuType].background};
         ${menuType === "dark" &&
         css`
-          display: inline-block;
-          vertical-align: bottom;
-          background-color: ${menuConfigVariants[menuType].background};
-
-          ${menuType === "dark" &&
-          css`
-            color: ${menuConfigVariants[menuType].color};
-          `}
+          color: ${menuConfigVariants[menuType].color};
         `}
       `}
     ${StyledDivider} {

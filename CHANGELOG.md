@@ -1,3 +1,22 @@
+## [124.0.0](https://github.com/Sage/carbon/compare/v123.11.2...v124.0.0) (2023-12-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **show-edit-pod:** `ShowEditPod` no longer exists
+* **menu-segment-title:** You will need to pass any associated list items as children of the
+`MenuSegmentTitle` so they are rendered in a sublist with the segment heading
+
+### Bug Fixes
+
+* **menu-item:** ensure that icons rendered in menu item have display inline-block ([a937011](https://github.com/Sage/carbon/commit/a93701171e9f2931ddba25eee09d3681557fa7fc))
+* **menu-segment-title:** ensure segment titles are rendered as part of sublist with associated items ([9f4a6ff](https://github.com/Sage/carbon/commit/9f4a6ffd91c9cf6b8a308b11362ebf7671adfd46)), closes [#6010](https://github.com/Sage/carbon/issues/6010)
+
+
+### Miscellaneous Chores
+
+* **show-edit-pod:** deprecate component ([3183e6c](https://github.com/Sage/carbon/commit/3183e6c2b046b8894e6f190fcb88b2bb1c54b744))
+
 ### [123.11.2](https://github.com/Sage/carbon/compare/v123.11.1...v123.11.2) (2023-11-27)
 
 

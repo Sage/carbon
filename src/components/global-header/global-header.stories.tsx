@@ -32,9 +32,10 @@ export const BasicMenu: ComponentStory<typeof GlobalHeader> = () => {
         </MenuItem>
         <MenuItem flex="0 0 auto" submenu="Parent Menu 1">
           <MenuItem href="#">Child Item 1</MenuItem>
-          <MenuSegmentTitle>Segment title</MenuSegmentTitle>
-          <MenuItem href="#">Child Item 2</MenuItem>
-          <MenuItem href="#">Child Item 3</MenuItem>
+          <MenuSegmentTitle text="segment title">
+            <MenuItem href="#">Child Item 2</MenuItem>
+            <MenuItem href="#">Child Item 3</MenuItem>
+          </MenuSegmentTitle>
         </MenuItem>
         <MenuItem flex="0 0 auto" submenu="Parent Menu 2">
           <MenuItem>Child Item</MenuItem>
@@ -64,9 +65,10 @@ export const ResponsiveMenu: ComponentStory<typeof GlobalHeader> = () => {
       submenu="Parent Menu 1"
     >
       <MenuItem href="#">Child Item 1</MenuItem>
-      <MenuSegmentTitle>Segment title</MenuSegmentTitle>
-      <MenuItem href="#">Child Item 2</MenuItem>
-      <MenuItem href="#">Child Item 3</MenuItem>
+      <MenuSegmentTitle text="segment title">
+        <MenuItem href="#">Child Item 2</MenuItem>
+        <MenuItem href="#">Child Item 3</MenuItem>
+      </MenuSegmentTitle>
     </MenuItem>,
     <MenuItem
       key="parent-menu-2"

@@ -8,8 +8,9 @@ interface StyledTitleProps {
   menuType: MenuType;
 }
 
-const StyledTitle = styled.div<StyledTitleProps>`
+const StyledTitle = styled.h2<StyledTitleProps>`
   ${({ menuType, variant }) => css`
+    margin: 0px;
     padding: 16px 16px 8px;
     font-size: 12px;
     font-weight: 700;
@@ -18,8 +19,23 @@ const StyledTitle = styled.div<StyledTitleProps>`
     cursor: default;
     color: ${menuConfigVariants[menuType].title};
     ${variant === "alternate" &&
-    `background-color: ${menuConfigVariants[menuType].alternate};`};
+    `background-color: ${menuConfigVariants[menuType].alternate};`}
   `}
 `;
 
-export default StyledTitle;
+const StyledSegmentChildren = styled.ul`
+  padding: 0;
+
+  li {
+    list-style: none;
+
+    &:not(&:last-child) a,
+    &:not(&:last-child) button,
+    &:not(&:last-child) > span,
+    &:not(&:last-child) > div {
+      border-radius: var(--borderRadius000);
+    }
+  }
+`;
+
+export { StyledTitle, StyledSegmentChildren };

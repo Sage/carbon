@@ -11,11 +11,27 @@ import {
 } from "../src/style/themes";
 import enGB from "../src/locales/en-gb";
 import "../src/style/fonts.css";
+// import Locale from "../src/locales";
+import * as dateLocales from "../src/locales/date-fns-locales";
 
 export type HooksConfig = {
   roundedCornersOptOut?: boolean;
   focusRedesignOptOut?: boolean;
   theme?: string;
+  localeName?: keyof typeof dateLocales;
+};
+
+const computedLocale = (str: keyof typeof dateLocales) => {
+  return {
+    locale: () => str,
+    date: {
+      dateFnsLocale: () => dateLocales[str],
+      ariaLabels: {
+        previousMonthButton: () => "Previous month",
+        nextMonthButton: () => "Next month",
+      },
+    },
+  };
 };
 
 const mountedTheme = (theme: string) => {
@@ -35,8 +51,12 @@ const mountedTheme = (theme: string) => {
 
 // Setup required providers on mounted component before running test. See https://playwright.dev/docs/test-components#hooks
 beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
-  const { roundedCornersOptOut, focusRedesignOptOut, theme = "sage" } =
-    hooksConfig || {};
+  const {
+    roundedCornersOptOut,
+    focusRedesignOptOut,
+    theme = "sage",
+    localeName,
+  } = hooksConfig || {};
   return (
     <CarbonProvider
       theme={mountedTheme(theme)}
@@ -44,7 +64,7 @@ beforeMount<HooksConfig>(async ({ App, hooksConfig }) => {
       focusRedesignOptOut={focusRedesignOptOut}
     >
       <GlobalStyle />
-      <I18nProvider locale={enGB}>
+      <I18nProvider locale={localeName ? computedLocale(localeName) : enGB}>
         <App />
       </I18nProvider>
     </CarbonProvider>
