@@ -362,3 +362,14 @@ export const continuePressingSHIFTTAB = async (page: Page, count: number) => {
 
   await Promise.all(promises);
 };
+
+export const checkElementBorderColours = async (
+  page: Page,
+  element: Locator,
+  color: string
+) => {
+  await expect(element).toHaveCSS("border-bottom-color", color);
+  await expect(element).toHaveCSS("border-left-color", color);
+  await expect(element).toHaveCSS("border-right-color", color);
+  await expect(element).toHaveCSS("border-top-color", color);
+};
