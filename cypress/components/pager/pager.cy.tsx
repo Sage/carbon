@@ -1,6 +1,5 @@
 import React from "react";
 import { PagerProps } from "components/pager";
-import { selectListWrapper } from "../../locators/select/index";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { keyCode } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
@@ -27,7 +26,8 @@ import {
   pageSizeLabelAfter,
   currentPageSection,
   pager,
-} from "../../locators/pager/index";
+  selectListWrapper,
+} from "../../locators/pager";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 

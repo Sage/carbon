@@ -7,3 +7,5 @@ export const POPOVER_CONTAINER_TITLE =
   '[data-element="popover-container-title"]';
 export const POPOVER_CONTENT_CLOSE_ICON =
   '[data-element="popover-container-close-component"]';
+export const SELECT_LIST = '[data-element="select-list"]';
+export const SELECT_TEXT = "select-text";

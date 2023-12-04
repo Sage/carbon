@@ -1,61 +1,21 @@
 import React, { useState, useRef } from "react";
-import partialAction from "../../../../.storybook/utils/partial-action";
-import { FilterableSelect, Option, FilterableSelectProps } from "..";
+import {
+  FilterableSelect,
+  Option,
+  FilterableSelectProps,
+  CustomSelectChangeEvent,
+} from "..";
 import OptionRow from "../option-row/option-row.component";
 import Dialog from "../../dialog";
 import Button from "../../button";
-
-export default {
-  component: FilterableSelect,
-  title: "Select/Filterable/Test",
-  excludeStories: [],
-  parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
-  },
-};
-
-export const DefaultStory = () => (
-  <FilterableSelect
-    name="simple"
-    id="simple"
-    label="color"
-    labelInline
-    onOpen={partialAction("onOpen")}
-    onChange={partialAction("onChange")}
-    onClick={partialAction("onClick")}
-    onFilterChange={partialAction("onFilterChange")}
-    onFocus={partialAction("onFocus")}
-    onBlur={partialAction("onBlur")}
-    onKeyDown={partialAction("onKeyDown")}
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
-
-DefaultStory.storyName = "default";
 
 export const FilterableSelectComponent = (
   props: Partial<FilterableSelectProps>
 ) => {
   const [value, setValue] = useState("");
-
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
-
   return (
     <FilterableSelect
       label="filterable select"
@@ -101,16 +61,13 @@ export const FilterableSelectWithLazyLoadingComponent = (
   const [optionList, setOptionList] = useState([
     <Option text="Black" value="black" key="Black" />,
   ]);
-
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
-
   function loadList() {
     if (preventLoading.current) {
       return;
     }
-
     preventLoading.current = true;
     setIsLoading(true);
     setTimeout(() => {
@@ -118,7 +75,6 @@ export const FilterableSelectWithLazyLoadingComponent = (
       setOptionList(asyncList);
     }, 2000);
   }
-
   return (
     <FilterableSelect
       label="color"
@@ -147,7 +103,6 @@ export const FilterableSelectLazyLoadTwiceComponent = (
     <Option text="Green" value="green" key="Green" />,
   ];
   const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
-
   function loadList() {
     if (preventLoading.current) {
       return;
@@ -164,7 +119,6 @@ export const FilterableSelectLazyLoadTwiceComponent = (
     setValue("");
     preventLoading.current = false;
   }
-
   return (
     <div>
       <Button onClick={clearData} mb={2} data-element="reset-button">
@@ -199,7 +153,6 @@ export const FilterableSelectWithInfiniteScrollComponent = (
     <Option text="Brown" value="brown" key="Brown" />,
     <Option text="Green" value="green" key="Green" />,
   ];
-
   const getLazyLoaded = () => {
     const counter = lazyLoadingCounter.current;
     return [
@@ -220,18 +173,14 @@ export const FilterableSelectWithInfiniteScrollComponent = (
       />,
     ];
   };
-
   const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
-
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
-
   function loadList() {
     if (preventLoading.current) {
       return;
     }
-
     preventLoading.current = true;
     setIsLoading(true);
     setTimeout(() => {
@@ -239,12 +188,10 @@ export const FilterableSelectWithInfiniteScrollComponent = (
       setOptionList(asyncList);
     }, 2000);
   }
-
   function onLazyLoading() {
     if (preventLazyLoading.current) {
       return;
     }
-
     preventLazyLoading.current = true;
     setIsLoading(true);
     setTimeout(() => {
@@ -254,7 +201,6 @@ export const FilterableSelectWithInfiniteScrollComponent = (
       setOptionList((prevList) => [...prevList, ...getLazyLoaded()]);
     }, 2000);
   }
-
   return (
     <FilterableSelect
       label="color"
@@ -379,11 +325,9 @@ export const FilterableSelectObjectAsValueComponent = (
       }}
     />,
   ]);
-
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue((event.target.value as unknown) as Record<string, unknown>);
   }
-
   return (
     <FilterableSelect value={value} onChange={onChangeHandler} {...props}>
       {optionList.current}
@@ -510,7 +454,6 @@ export const FilterableSelectWithActionButtonComponent = () => {
     <Option text="Brown" value="brown1" key="Brown1" />,
     <Option text="Green" value="green1" key="Green1" />,
   ]);
-
   function addNew() {
     const counter = optionList.length.toString();
     setOptionList((newOptionList) => [
@@ -524,7 +467,6 @@ export const FilterableSelectWithActionButtonComponent = () => {
     setIsOpen(false);
     setValue(`val${counter}`);
   }
-
   return (
     <>
       <FilterableSelect
@@ -556,14 +498,12 @@ export const FilterableSelectOnChangeEventComponent = ({
   ...props
 }: Partial<FilterableSelectProps>) => {
   const [state, setState] = useState("");
-
   const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState(event.target.value);
     if (onChange) {
       onChange(event);
     }
   };
-
   return (
     <FilterableSelect
       label="color"
@@ -585,7 +525,6 @@ export const FilterableSelectListActionEventComponent = (
   props: Partial<FilterableSelectProps>
 ) => {
   const [value, setValue] = useState("");
-
   return (
     <FilterableSelect
       label="color"
@@ -648,5 +587,44 @@ export const FilterableSelectNestedInDialog = ({
         <Option value="opt4" text="black" />
       </FilterableSelect>
     </Dialog>
+  );
+};
+
+export const SelectionConfirmed = () => {
+  const [value, setValue] = useState("");
+  const [confirmedSelection, setConfirmedSelection] = useState("");
+  const handleChange = (event: CustomSelectChangeEvent) => {
+    setValue(event.target.value);
+    if (event.selectionConfirmed) {
+      setConfirmedSelection(event.target.value);
+    }
+  };
+  return (
+    <>
+      <FilterableSelect
+        name="testing"
+        value={value}
+        onChange={handleChange}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" />
+        <Option value="3" text="Three" />
+        <Option value="4" text="Four" />
+        <Option value="5" text="Five" />
+        <Option value="6" text="Six" />
+        <Option value="7" text="Seven" />
+        <Option value="8" text="Eight" />
+        <Option value="9" text="Nine" />
+      </FilterableSelect>
+
+      {confirmedSelection ? (
+        <span data-element={`confirmed-selection-${confirmedSelection}`}>
+          {confirmedSelection}
+        </span>
+      ) : null}
+    </>
   );
 };

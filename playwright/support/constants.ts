@@ -24,5 +24,5 @@ export const COLOR = {
 export const CHARACTERS = {
   DIACRITICS: "mp150ú¿¡üßä",
   SPECIALCHARACTERS: "!@#$%^*()_+-=~[];:.,?{}&\"'<>",
-  STANDARD: "cypress_data",
+  STANDARD: "playwright_data",
 } as const;
