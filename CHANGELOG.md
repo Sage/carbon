@@ -1,3 +1,10 @@
+## [124.1.0](https://github.com/Sage/carbon/compare/v124.0.0...v124.1.0) (2023-12-04)
+
+
+### Features
+
+* **dialog:** add greyBackground prop ([416b0cf](https://github.com/Sage/carbon/commit/416b0cf5bdc475ac3f1d5a0e48143b865c0a712e)), closes [#6257](https://github.com/Sage/carbon/issues/6257)
+
 ## [124.0.0](https://github.com/Sage/carbon/compare/v123.11.2...v124.0.0) (2023-12-01)
 
 
