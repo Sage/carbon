@@ -111,17 +111,27 @@ const ProgressTracker = ({
     return (
       <StyledValuesLabel labelsPosition={labelsPosition} size={size}>
         {displayedCurrentProgressLabel && (
-          <StyledValue>{displayedCurrentProgressLabel}</StyledValue>
+          <StyledValue data-element="current-progress-label">
+            {displayedCurrentProgressLabel}
+          </StyledValue>
         )}
 
         {displayedMaxProgressLabel && (
           <>
-            <span>{customValuePreposition || l.progressTracker.of()}</span>
-            <StyledValue>{displayedMaxProgressLabel}</StyledValue>
+            <span data-element="custom-preposition">
+              {customValuePreposition || l.progressTracker.of()}
+            </span>
+            <StyledValue data-element="max-progress-label">
+              {displayedMaxProgressLabel}
+            </StyledValue>
           </>
         )}
 
-        {description && <StyledDescription>{description}</StyledDescription>}
+        {description && (
+          <StyledDescription data-element="progress-tracker-description">
+            {description}
+          </StyledDescription>
+        )}
       </StyledValuesLabel>
     );
   };
@@ -152,6 +162,7 @@ const ProgressTracker = ({
         error={error}
       >
         <InnerBar
+          data-element="inner-bar"
           size={size}
           length={barLength}
           progress={progress}
