@@ -1,3 +1,10 @@
+## [124.2.0](https://github.com/Sage/carbon/compare/v124.1.0...v124.2.0) (2023-12-06)
+
+
+### Features
+
+* **button-toggle:** add minor child ([864f005](https://github.com/Sage/carbon/commit/864f005fd608514390a5cfb2d89f2714826b0b53))
+
 ## [124.1.0](https://github.com/Sage/carbon/compare/v124.0.0...v124.1.0) (2023-12-04)
 
 
