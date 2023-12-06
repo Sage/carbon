@@ -29,17 +29,14 @@ import { Select, Option } from "../select";
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
 
-const render = (props?: PopoverContainerProps, renderMethod = mount) => {
-  return renderMethod(
+const render = (props?: PopoverContainerProps) => {
+  return mount(
     <PopoverContainer title="PopoverContainerSettings" {...props} />
   );
 };
 
-const renderAttached = (
-  props?: PopoverContainerProps,
-  renderMethod = mount
-) => {
-  return renderMethod(
+const renderAttached = (props?: PopoverContainerProps) => {
+  return mount(
     <PopoverContainer title="PopoverContainerSettings" {...props} />,
     { attachTo: document.getElementById("enzymeContainer") }
   );
@@ -56,18 +53,26 @@ describe("PopoverContainer", () => {
     (wrapper) => wrapper.find(PopoverContainerContentStyle)
   );
 
-  jest.useFakeTimers();
   let wrapper: ReactWrapper;
   let onOpenFn: jest.Mock | undefined, onCloseFn: jest.Mock | undefined;
+
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
 
   beforeEach(() => {
     wrapper = render();
   });
 
   afterEach(() => {
+    jest.runOnlyPendingTimers();
     onOpenFn?.mockClear();
     onCloseFn?.mockClear();
     wrapper.unmount();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
   });
 
   it("should render correct", () => {
@@ -326,12 +331,14 @@ describe("PopoverContainer", () => {
       expect(wrapper.find(PopoverContainerOpenIcon).props().tabIndex).toBe(-1);
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
 
-      document.dispatchEvent(
-        new KeyboardEvent("keydown", {
-          key: "Escape",
-          bubbles: true,
-        })
-      );
+      act(() => {
+        document.dispatchEvent(
+          new KeyboardEvent("keydown", {
+            key: "Escape",
+            bubbles: true,
+          })
+        );
+      });
 
       wrapper.update();
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(false);
@@ -497,7 +504,6 @@ describe("PopoverContainer", () => {
     });
 
     describe("and custom component is provided as a closing button", () => {
-      jest.useFakeTimers();
       interface MyCloseButtonProps extends RenderCloseProps {
         children: React.ReactNode;
       }
@@ -797,13 +803,15 @@ describe("open state when click event triggered", () => {
     const wrapper = mount(<MockWrapper />);
 
     expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
-    document.dispatchEvent(
-      new CustomEvent("click", {
-        detail: {
-          enzymeTestingTarget: wrapper?.find(PopoverContainer).getDOMNode(),
-        },
-      })
-    );
+    act(() => {
+      document.dispatchEvent(
+        new CustomEvent("click", {
+          detail: {
+            enzymeTestingTarget: wrapper?.find(PopoverContainer).getDOMNode(),
+          },
+        })
+      );
+    });
     expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
     expect(onCloseFn).not.toHaveBeenCalled();
   });
@@ -825,13 +833,14 @@ describe("open state when click event triggered", () => {
       );
     };
     const wrapper = mount(<MockWrapper />);
-
-    document.dispatchEvent(
-      new KeyboardEvent("keydown", {
-        key: "Escape",
-        bubbles: true,
-      })
-    );
+    act(() => {
+      document.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "Escape",
+          bubbles: true,
+        })
+      );
+    });
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
       false
     );
@@ -868,12 +877,14 @@ describe("open state when click event triggered", () => {
       '[data-element="input"][aria-expanded="false"]'
     );
 
-    selectInput?.dispatchEvent(
-      new KeyboardEvent("keydown", {
-        key: "Escape",
-        bubbles: true,
-      })
-    );
+    act(() => {
+      selectInput?.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "Escape",
+          bubbles: true,
+        })
+      );
+    });
 
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
       false
@@ -915,12 +926,14 @@ describe("open state when click event triggered", () => {
       '[data-element="input"][aria-expanded="true"]'
     );
 
-    expandedSelectInput?.dispatchEvent(
-      new KeyboardEvent("keydown", {
-        key: "Escape",
-        bubbles: true,
-      })
-    );
+    act(() => {
+      expandedSelectInput?.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "Escape",
+          bubbles: true,
+        })
+      );
+    });
 
     expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
       true
