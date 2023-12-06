@@ -19,9 +19,16 @@ export interface PortalProps {
   id?: string;
   /** Callback function triggered when parent element is scrolled or window resized. */
   onReposition?: () => void;
+  notInert?: boolean;
 }
 
-const Portal = ({ children, className, id, onReposition }: PortalProps) => {
+const Portal = ({
+  children,
+  className,
+  id,
+  onReposition,
+  notInert,
+}: PortalProps) => {
   const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
   const uniqueId = useMemo(() => guid(), []);
   const { renderInRoot } = useContext(PortalContext);
@@ -71,6 +78,10 @@ const Portal = ({ children, className, id, onReposition }: PortalProps) => {
       if (id !== undefined) {
         node.setAttribute("id", id);
       }
+      if (notInert) {
+        node.setAttribute("data-not-inert", "true");
+      }
+
       setPortalNode(node);
 
       let mainNode = document.body;

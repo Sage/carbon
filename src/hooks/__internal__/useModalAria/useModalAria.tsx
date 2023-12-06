@@ -14,7 +14,10 @@ export default function useModalAria(
       inert: string | null;
     }[] = [];
     const hideNonTopModalElements = (rootElement: Element) => {
-      if (!rootElement.contains(topModal)) {
+      if (
+        !rootElement.contains(topModal) &&
+        rootElement.getAttribute("data-not-inert") !== "true"
+      ) {
         originalValues.push({
           element: rootElement,
           "aria-hidden": rootElement.getAttribute("aria-hidden"),
@@ -28,7 +31,10 @@ export default function useModalAria(
         }
         rootElement.setAttribute("aria-hidden", "true");
         rootElement.setAttribute("inert", "");
-      } else if (rootElement !== topModal) {
+      } else if (
+        rootElement !== topModal &&
+        rootElement.getAttribute("data-not-inert") !== "true"
+      ) {
         Array.from(rootElement.children).forEach(hideNonTopModalElements);
       }
     };
