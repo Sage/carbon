@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { ComponentStory } from "@storybook/react";
+import styled from "styled-components";
 
 import Sidebar from ".";
 import Button from "../button";
@@ -10,12 +11,35 @@ import Textbox from "../textbox";
 import Box from "../box";
 import Dialog from "../dialog";
 import DialogFullScreen from "../confirm";
+import Portal from "../portal";
+
 import isChromatic from "../../../.storybook/isChromatic";
 
 const defaultOpenState = isChromatic();
 
+const Foo = styled(Button)`
+  z-index: 9999;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+`;
+
+const FooContainer = styled.div<{ show: boolean }>`
+  position: fixed;
+  display: ${({ show }) => (show ? "block" : "none")};
+  z-index: 9999;
+  height: 400px;
+  width: 180px;
+  padding: 8px;
+  outline: solid 2px black;
+  bottom: 66px;
+  right: 20px;
+`;
+
 export const DefaultStory: ComponentStory<typeof Sidebar> = () => {
-  const [isOpen, setIsOpen] = useState(defaultOpenState);
+  const [isOpen, setIsOpen] = useState(false);
+  const [show, setShow] = useState(false);
+
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open sidebar</Button>
@@ -32,6 +56,12 @@ export const DefaultStory: ComponentStory<typeof Sidebar> = () => {
         </Box>
         Main Content
       </Sidebar>
+      <Portal notInert>
+        <Foo onClick={() => setShow((p) => !p)}>Chat</Foo>
+        <FooContainer show={show}>
+          <Button>Click me</Button>
+        </FooContainer>
+      </Portal>
     </>
   );
 };
