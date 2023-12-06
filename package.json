@@ -203,6 +203,9 @@
     "react-transition-group": "^4.4.5",
     "styled-system": "^5.1.5"
   },
+  "overrides": {
+    "playwright-core": "$@playwright/experimental-ct-react17"
+  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
