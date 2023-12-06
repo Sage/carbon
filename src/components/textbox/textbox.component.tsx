@@ -282,9 +282,9 @@ export const Textbox = React.forwardRef(
           onBlur={onBlur}
           onChange={onChange}
           onChangeDeferred={onChangeDeferred}
-          onClick={onClick}
+          onClick={disabled || readOnly ? undefined : onClick}
           onFocus={onFocus}
-          onMouseDown={onMouseDown}
+          onMouseDown={disabled || readOnly ? undefined : onMouseDown}
           placeholder={disabled || readOnly ? "" : placeholder}
           readOnly={readOnly}
           value={typeof formattedValue === "string" ? formattedValue : value}
@@ -299,8 +299,10 @@ export const Textbox = React.forwardRef(
           iconTabIndex={iconTabIndex}
           info={info}
           inputIcon={inputIcon}
-          onClick={iconOnClick || onClick}
-          onMouseDown={iconOnMouseDown || onMouseDown}
+          onClick={disabled || readOnly ? undefined : iconOnClick || onClick}
+          onMouseDown={
+            disabled || readOnly ? undefined : iconOnMouseDown || onMouseDown
+          }
           readOnly={readOnly}
           size={size}
           useValidationIcon={!(validationRedesignOptIn || validationOnLabel)}
