@@ -104,15 +104,6 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
       `}
   }
 
-  :not([aria-pressed="true"]):not(:disabled):hover {
-    background-color: var(--colorsActionMinor200);
-    border-color: var(--colorsActionMinor500);
-    color: var(--colorsActionMinor500);
-    ${StyledIcon} {
-      color: var(--colorsActionMinor500);
-    }
-  }
-
   ${StyledIcon} {
     color: var(--colorsActionMinor500);
   }
@@ -136,7 +127,43 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
         }
       }
       cursor: not-allowed;
-    `};
+    `}
+
+      & ${StyledIcon} {
+    color: var(--colorsActionMinor500);
+    :not([aria-pressed="true"]):not(:disabled):hover {
+      color: var(--colorsActionMinorYang100);
+    }
+  }
+
+  color: var(--colorsActionMinor500);
+
+  &[aria-pressed="true"]:not(:hover) {
+    box-shadow: inset 0px 0px 0px 3px var(--colorsActionMinor500);
+    background-color: transparent;
+    :focus {
+      box-shadow: inset 0px 0px 0px 3px var(--colorsActionMinor500),
+        0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),
+        0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+    }
+  }
+
+  :not([aria-pressed="true"]):not(:disabled):hover {
+    color: var(--colorsActionMinorYang100);
+    background-color: var(--colorsActionMinor600);
+    ${StyledIcon} {
+      color: var(--colorsActionMinorYang100);
+    }
+  }
+
+  &:not(:disabled):hover {
+    background-color: var(--colorsActionMinor600);
+    color: var(--colorsActionMinorYang100);
+
+    ${StyledIcon} {
+      color: var(--colorsActionMinorYang100);
+    }
+  }
 `;
 
 const iconFontSizes = {
@@ -188,7 +215,7 @@ const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
       css`
         &&&& {
           ${StyledButtonToggle} {
-            border-radius: var(--borderRadius400);
+            border-radius: var(--borderRadius050);
           }
         }
       `}
@@ -198,15 +225,15 @@ const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
         &&&& {
           :first-of-type {
             ${StyledButtonToggle} {
-              border-top-left-radius: var(--borderRadius400);
-              border-bottom-left-radius: var(--borderRadius400);
+              border-top-left-radius: var(--borderRadius050);
+              border-bottom-left-radius: var(--borderRadius050);
             }
           }
 
           :last-of-type {
             ${StyledButtonToggle} {
-              border-top-right-radius: var(--borderRadius400);
-              border-bottom-right-radius: var(--borderRadius400);
+              border-top-right-radius: var(--borderRadius050);
+              border-bottom-right-radius: var(--borderRadius050);
             }
           }
         }

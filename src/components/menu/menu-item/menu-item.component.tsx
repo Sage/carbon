@@ -262,7 +262,6 @@ export const MenuItem = ({
       <StyledMenuItem
         {...tagComponent("menu-item", rest)}
         menuType={menuType}
-        display="inline-block"
         title={getTitle(submenu)}
         maxWidth={itemMaxWidth}
         onClick={updateFocusOnClick}
@@ -297,7 +296,6 @@ export const MenuItem = ({
       {...tagComponent("menu-item", rest)}
       menuType={menuType}
       inSubmenu={!!handleSubmenuKeyDown}
-      display="inline-block"
       title={getTitle(children)}
       maxWidth={itemMaxWidth}
       {...rest}

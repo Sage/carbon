@@ -254,8 +254,9 @@ export const MenuComponent = (props: Partial<MenuProps> & MenuDividerProps) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuSegmentTitle text="segment title">
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuSegmentTitle>
             </MenuItem>
           </Menu>
         </div>
@@ -328,16 +329,17 @@ export const MenuComponentSearch = () => {
             <MenuItem submenu="Menu One">
               <MenuItem href="#">Item Submenu One</MenuItem>
               <MenuDivider size="large" />
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
-              <MenuItem variant="alternate">
-                <Search
-                  placeholder="Dark variant"
-                  variant="dark"
-                  defaultValue=""
-                />
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuItem href="#">Item Submenu Three</MenuItem>
+              <MenuSegmentTitle as="h5" text="segment title">
+                <MenuItem variant="alternate">
+                  <Search
+                    placeholder="Dark variant"
+                    variant="dark"
+                    defaultValue=""
+                  />
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuItem href="#">Item Submenu Three</MenuItem>
+              </MenuSegmentTitle>
             </MenuItem>
           </Menu>
         </div>
@@ -494,8 +496,9 @@ export const MenuComponentItems = (
           onClick={() => {}}
         >
           <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuSegmentTitle>segment title</MenuSegmentTitle>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuSegmentTitle text="segment title">
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuSegmentTitle>
         </MenuItem>
       </Menu>
     </Box>
@@ -576,7 +579,7 @@ export const MenuComponentScrollableParent = () => {
   const [itemSearch, setItemSearch] = React.useState(items);
   const [searchString, setSearchString] = React.useState("");
 
-  const handleTextChange = (e: { target: { value: any } }) => {
+  const handleTextChange = (e: { target: { value: string } }) => {
     const searchStr = e.target.value;
     setSearchString(searchStr);
     let found;
@@ -700,8 +703,9 @@ export const MenuSegmentTitleComponent = (props: Partial<MenuTitleProps>) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle {...props}>segment title</MenuSegmentTitle>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuSegmentTitle text="segment title" {...props}>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuSegmentTitle>
             </MenuItem>
           </Menu>
         </div>
@@ -749,8 +753,9 @@ export const MenuDividerComponent = (props: MenuDividerProps) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuSegmentTitle text="segment title">
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuSegmentTitle>
             </MenuItem>
           </Menu>
         </div>

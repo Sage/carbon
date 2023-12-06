@@ -533,3 +533,49 @@ export const TopModalOverride: StoryFn = () => {
     </>
   );
 };
+
+export const GreyBackground: StoryFn = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
+      <Dialog
+        open={isOpen}
+        onCancel={() => setIsOpen(false)}
+        title="Title"
+        subtitle="Subtitle"
+        greyBackground
+      >
+        <Form
+          stickyFooter
+          height="500px"
+          leftSideButtons={
+            <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+          }
+          saveButton={
+            <Button buttonType="primary" type="submit">
+              Save
+            </Button>
+          }
+        >
+          <Typography>
+            This is an example of a dialog with a Form as content
+          </Typography>
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+          <Textbox label="First Name" />
+          <Textbox label="Middle Name" />
+          <Textbox label="Surname" />
+          <Textbox label="Birth Place" />
+          <Textbox label="Favourite Colour" />
+          <Textbox label="Address" />
+        </Form>
+      </Dialog>
+    </>
+  );
+};

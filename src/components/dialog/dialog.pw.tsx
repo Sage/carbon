@@ -9,6 +9,7 @@ import {
   DialogWithOpenToastsBackgroundScrollTest,
   TopModalOverride,
   DialogWithAutoFocusSelect,
+  DialogWithStepSequence,
 } from "./components.test-pw";
 
 import {
@@ -564,6 +565,19 @@ test.describe(
       await mount(<DialogWithToast />);
 
       await checkAccessibility(page);
+    });
+
+    // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+    // should be failing color contrast accessibility test with grey background
+    test.skip("DialogWithStepSequence mock component should pass accessibility checks", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<DialogWithStepSequence />);
+
+      const dialog = getDataElementByValue(page, "dialog");
+
+      await checkAccessibility(page, dialog, "color-contrast");
     });
 
     test("Default story should pass accessibility checks", async ({

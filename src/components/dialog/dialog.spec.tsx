@@ -816,6 +816,34 @@ describe("Dialog", () => {
       { modifier: `${StyledFormFooter}.sticky` }
     );
   });
+
+  describe("background color", () => {
+    it("when no greyBackground prop is passed", () => {
+      const wrapper = enzymeMount(<Dialog open>Content</Dialog>);
+
+      assertStyleMatch(
+        {
+          backgroundColor: "var(--colorsUtilityYang100)",
+        },
+        wrapper.find(StyledDialog)
+      );
+    });
+
+    it("when greyBackground prop is passed", () => {
+      const wrapper = enzymeMount(
+        <Dialog open greyBackground>
+          Content
+        </Dialog>
+      );
+
+      assertStyleMatch(
+        {
+          backgroundColor: "var(--colorsUtilityMajor025)",
+        },
+        wrapper.find(StyledDialog)
+      );
+    });
+  });
 });
 
 describe("when ref handle is passed to Dialog", () => {

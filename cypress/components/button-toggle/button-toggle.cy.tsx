@@ -101,7 +101,7 @@ context("Testing Button-Toggle component", () => {
         );
 
         buttonToggleButton().each((el) =>
-          expect(el.css("border-radius")).equals("32px")
+          expect(el.css("border-radius")).equals("4px")
         );
       });
 
@@ -112,19 +112,19 @@ context("Testing Button-Toggle component", () => {
 
         buttonToggleButton()
           .eq(0)
-          .should("have.css", "border-radius", "32px 0px 0px 32px");
+          .should("have.css", "border-radius", "4px 0px 0px 4px");
         buttonToggleButton().eq(1).should("have.css", "border-radius", "0px");
         buttonToggleButton()
           .eq(2)
-          .should("have.css", "border-radius", "0px 32px 32px 0px");
+          .should("have.css", "border-radius", "0px 4px 4px 0px");
       });
 
       it("should have the expected border-radius styling when children do not have grouped prop set", () => {
         CypressMountWithProviders(<stories.ButtonToggleGroupComponent />);
 
-        buttonToggleButton().eq(0).should("have.css", "border-radius", "32px");
-        buttonToggleButton().eq(1).should("have.css", "border-radius", "32px");
-        buttonToggleButton().eq(2).should("have.css", "border-radius", "32px");
+        buttonToggleButton().eq(0).should("have.css", "border-radius", "4px");
+        buttonToggleButton().eq(1).should("have.css", "border-radius", "4px");
+        buttonToggleButton().eq(2).should("have.css", "border-radius", "4px");
       });
     });
 
