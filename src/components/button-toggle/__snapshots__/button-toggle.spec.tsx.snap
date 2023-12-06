@@ -26,6 +26,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   text-align: start;
   color: inherit;
   border: 1px solid var(--colorsActionMinor500);
+  color: var(--colorsActionMinor500);
 }
 
 .c2:focus {
@@ -42,13 +43,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   cursor: auto;
 }
 
-.c2:not([aria-pressed="true"]):not(:disabled):hover {
-  background-color: var(--colorsActionMinor200);
-  border-color: var(--colorsActionMinor500);
-  color: var(--colorsActionMinor500);
-}
-
-.c2:not([aria-pressed="true"]):not(:disabled):hover .c4 {
+.c2 .c4 {
   color: var(--colorsActionMinor500);
 }
 
@@ -56,8 +51,39 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   color: var(--colorsActionMinor500);
 }
 
+.c2 .c4:not([aria-pressed="true"]):not(:disabled):hover {
+  color: var(--colorsActionMinorYang100);
+}
+
+.c2[aria-pressed="true"]:not(:hover) {
+  box-shadow: inset 0px 0px 0px 3px var(--colorsActionMinor500);
+  background-color: transparent;
+}
+
+.c2[aria-pressed="true"]:not(:hover):focus {
+  box-shadow: inset 0px 0px 0px 3px var(--colorsActionMinor500), 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500), 0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+}
+
+.c2:not([aria-pressed="true"]):not(:disabled):hover {
+  color: var(--colorsActionMinorYang100);
+  background-color: var(--colorsActionMinor600);
+}
+
+.c2:not([aria-pressed="true"]):not(:disabled):hover .c4 {
+  color: var(--colorsActionMinorYang100);
+}
+
+.c2:not(:disabled):hover {
+  background-color: var(--colorsActionMinor600);
+  color: var(--colorsActionMinorYang100);
+}
+
+.c2:not(:disabled):hover .c4 {
+  color: var(--colorsActionMinorYang100);
+}
+
 .c3.c3.c3.c3 .c1 {
-  border-radius: var(--borderRadius400);
+  border-radius: var(--borderRadius050);
 }
 
 .c0 {
@@ -66,13 +92,13 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 }
 
 .c0.c0.c0.c0:first-of-type .c1 {
-  border-top-left-radius: var(--borderRadius400);
-  border-bottom-left-radius: var(--borderRadius400);
+  border-top-left-radius: var(--borderRadius050);
+  border-bottom-left-radius: var(--borderRadius050);
 }
 
 .c0.c0.c0.c0:last-of-type .c1 {
-  border-top-right-radius: var(--borderRadius400);
-  border-bottom-right-radius: var(--borderRadius400);
+  border-top-right-radius: var(--borderRadius050);
+  border-bottom-right-radius: var(--borderRadius050);
 }
 
 .c0:not(:first-of-type) {
