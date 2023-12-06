@@ -120,6 +120,7 @@ export const FileTypeValidation: ComponentStory<typeof FileInput> = () => {
 };
 
 export const UploadStatusClient: ComponentStory<typeof FileInput> = () => {
+  const [error, setError] = useState<string | undefined>();
   const [uploadStatus, setUploadStatus] = useState<
     FileUploadStatusProps | undefined
   >();
@@ -136,11 +137,21 @@ export const UploadStatusClient: ComponentStory<typeof FileInput> = () => {
 
   const onChange = (files: FileList) => {
     if (!files.length) {
+      setError(undefined);
       removeFile();
       return;
     }
     // as this is a single file input there will only ever be (at most) 1 file
     const fileUploaded = files[0];
+
+    // abandon with error if the file is too big
+    if (fileUploaded.size > 5 * 1024 * 1024) {
+      setError("This file is too big to be uploaded - maximum size 5MB");
+      return;
+    }
+
+    setError(undefined);
+
     const fileReader = getReader();
 
     const handleLoad = () => {
@@ -215,8 +226,10 @@ export const UploadStatusClient: ComponentStory<typeof FileInput> = () => {
   return (
     <FileInput
       label="Upload status example"
+      inputHint="Maximum size 5MB"
       onChange={onChange}
       uploadStatus={uploadStatus}
+      error={error}
     />
   );
 };
