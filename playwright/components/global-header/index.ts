@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import { GLOBAL_HEADER, GLOBAL_HEADER_LOGO_WRAPPER } from "./locators";
 
 export const globalHeader = (page: Page) => page.locator(GLOBAL_HEADER);

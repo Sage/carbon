@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import NAVIGATION_BAR from "./locators";
 
 // component preview locators

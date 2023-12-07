@@ -53,6 +53,7 @@
     "react/jsx-uses-vars": "warn",
     "react/forbid-prop-types": "off",
     "react/no-array-index-key": "warn",
+    "react/no-unused-prop-types": "warn",
     "react/prop-types": "warn",
     "react/require-default-props": "off",
     "react/sort-comp": [

@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import { PILL_PREVIEW, PILL_CLOSE_ICON } from "./locators";
 
 // component preview locators

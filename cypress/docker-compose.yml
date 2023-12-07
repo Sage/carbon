@@ -1,9 +1,9 @@
-version: '3.2'
+version: "3.2"
 services:
   # Install cypress and cache the binary to a volume that is shared with all replicas
   # docker-compose --profile install up
   install:
-    image: "cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1"
+    image: "cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1"
     command: npx cypress install
     working_dir: /component
     volumes:
@@ -16,7 +16,7 @@ services:
   # Unable to open X display? ensure you have added 127.0.0.1 to xhost allow list
   # xhost +127.0.0.1
   open:
-    image: "cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1"
+    image: "cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1"
     environment:
       - CYPRESS_baseUrl=http://host.docker.internal:9001/
       - DISPLAY=host.docker.internal:0
@@ -33,7 +33,7 @@ services:
     deploy:
       # Change this value to adjust the parallelisation
       replicas: 3
-    image: "cypress/browsers:node-18.14.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1"
+    image: "cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1"
     environment:
       - CYPRESS_baseUrl=http://host.docker.internal:9001/
       - CYPRESS_RECORD_KEY=${CYPRESS_RECORD_KEY}

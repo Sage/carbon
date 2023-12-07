@@ -1,8 +1,8 @@
-const semver = require("semver");
-const chalk = require("chalk");
+import semver from "semver";
+import chalk from "chalk";
 
-const version = ">=16";
-if (!semver.satisfies(process.version, version)) {
+const versionRange = ">=20";
+if (!semver.satisfies(process.version, versionRange)) {
   // eslint-disable-next-line no-console
   console.error(
     chalk.red(

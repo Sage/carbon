@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: ">=18.12.1 18"
+          node-version: ">=20.9.0 20"
       - run: npm ci
       - run: NODE_ENV=production IGNORE_TESTS=true STORYBOOK_VIEW_MODE=docs npm run build-storybook
       - uses: aws-actions/configure-aws-credentials@v2

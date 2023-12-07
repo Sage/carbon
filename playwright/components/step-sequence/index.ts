@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import {
   STEP_SEQUENCE_ITEM_INDICATOR,
   STEP_SEQUENCE_DATA_COMPONENT,

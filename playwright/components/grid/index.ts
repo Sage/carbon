@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import GRID_COMPONENT from "./locators";
 
 export const gridItem = (page: Page, index: number) =>
