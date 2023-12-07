@@ -22,9 +22,14 @@ describe("CardRow", () => {
   });
 
   describe("when styled system padding props are set", () => {
-    testStyledSystemPadding((props) => <CardRow {...props}>Test</CardRow>, {
-      py: "var(--spacing300)",
-    });
+    testStyledSystemPadding(
+      (props) => <CardRow {...props}>Test</CardRow>,
+      {
+        py: "var(--spacing300)",
+      },
+      undefined,
+      { modifier: "&&" }
+    );
   });
 
   it.each<[Exclude<CardContextProps["spacing"], undefined>, string]>([
@@ -32,10 +37,10 @@ describe("CardRow", () => {
     ["medium", "var(--spacing300)"],
     ["large", "var(--spacing400)"],
   ])(
-    "when spacing prop is %s, top and bottom padding is set to %s",
+    "should receive spacing prop %s from parent via context setting top and bottom padding to %s",
     (spacing, expected) => {
       const wrapper = mount(
-        <CardContext.Provider value={{ spacing, firstRowId: "", rowCount: 0 }}>
+        <CardContext.Provider value={{ spacing }}>
           <CardRow>
             <div />
           </CardRow>

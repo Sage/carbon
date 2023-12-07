@@ -64,15 +64,18 @@ import {
   <Story name="large roundness" story={stories.WithExtraRoundness} />
 </Canvas>
 
-### With cardWidth provided
+### With width provided
 
 <Canvas>
-  <Story name="with cardWidth provided" story={stories.WithCardWidthProvided} />
+  <Story name="with width provided" story={stories.WithWidthProvided} />
 </Canvas>
 
 ### Interactive
 
-Click on the card to see the effect
+The card is "interactive" when you pass either or both of `onClick` and `href` props. 
+Passing just an `onClick` prop will render a `button` element within the `Card`. 
+Passing an `href` (with or without an `onClick`) will render an `a`nchor element.
+Setting the `draggable` prop will negate both `onClick` and `href` prop values and will render a `div` instead.
 
 <Canvas>
   <Story name="interactive" story={stories.Interactive} />

@@ -6,20 +6,8 @@ export interface CardContextProps {
   roundness?: "default" | "large";
   /** Size of card for applying padding */
   spacing: CardSpacing;
-  /**
-   * @ignore @private
-   * id for first row
-   * */
-  firstRowId: string;
-  /**
-   * @ignore @private
-   * total count of rows rendered in card
-   * */
-  rowCount: number;
 }
 
 export default React.createContext<CardContextProps>({
   spacing: "medium",
-  firstRowId: "",
-  rowCount: 0,
 });

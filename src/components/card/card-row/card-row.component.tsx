@@ -16,22 +16,13 @@ export interface CardRowProps
 }
 
 const CardRow = ({ children, ...rest }: CardRowProps) => {
-  const { spacing, firstRowId, rowCount } = useContext(CardContext);
+  const { spacing } = useContext(CardContext);
   const id = useRef(guid());
-
-  const getComputedPadding = () => {
-    if (firstRowId === id.current) {
-      return rowCount === 1 ? { pt: 0 } : { py: 0 };
-    }
-
-    return {};
-  };
 
   return (
     <StyledCardRow
       id={id.current}
       spacing={spacing}
-      {...getComputedPadding()}
       {...filterStyledSystemPaddingProps(rest)}
       {...tagComponent("card-row", { "data-element": "card-row", ...rest })}
     >

@@ -1,9 +1,9 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useState } from "react";
 import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import CardContext, { CardContextProps } from "./__internal__/card-context";
-import StyledCard from "./card.style";
+import { StyledCard, StyledCardContent } from "./card.style";
 import Icon from "../icon";
 import tagComponent, {
   TagProps,
@@ -15,68 +15,88 @@ type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 export interface CardProps
   extends MarginProps,
     Pick<TagProps, "data-element" | "data-role"> {
-  /** Action to be executed when card is clicked or enter pressed */
-  action?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  /** Action to be executed when card is clicked or enter pressed.
+   * Renders a button when passed and no draggable or href props set
+   * */
+  onClick?: (
+    event:
+      | React.MouseEvent<HTMLAnchorElement>
+      | React.MouseEvent<HTMLDivElement>
+      | React.KeyboardEvent<HTMLAnchorElement>
+      | React.KeyboardEvent<HTMLDivElement>
+  ) => void;
   /** Style value for width of card */
-  cardWidth?: string;
+  width?: string;
   /** Child nodes */
   children: React.ReactNode;
   /** Flag to indicate if card is draggable */
   draggable?: boolean;
   /** Height of the component (any valid CSS value) */
   height?: string;
-  /** Flag to indicate if card is interactive */
-  interactive?: boolean;
   /** Design token for custom Box Shadow. Note: please check that the box shadow design token you are using is compatible with the Card component. */
   boxShadow?: BoxShadowsType;
-  /** Design token for custom Box Shadow on hover. Interactive prop must be True. Note: please check that the box shadow design token you are using is compatible with the Card component. */
+  /** Design token for custom Box Shadow on hover. One of `onClick` or `href` props must be true. Note: please check that the box shadow design token you are using is compatible with the Card component. */
   hoverBoxShadow?: BoxShadowsType;
+  /** Size of card for applying padding */
   spacing?: CardContextProps["spacing"];
+  /** Sets the level of roundness of the corners, "default" is 8px and "large" is 16px */
   roundness?: CardContextProps["roundness"];
+  /** The path to navigate to. Renders an anchor element when passed and no draggable prop set */
+  href?: string;
+  /** The footer to render underneath the Card content */
+  footer?: React.ReactNode;
+  /** Target property in which link should open ie: _blank, _self, _parent, _top */
+  target?: string;
+  /** String for rel property when card has an href prop set */
+  rel?: string;
+  /** Prop to specify an aria-label for the component */
+  "aria-label"?: string;
 }
 
 const Card = ({
   "data-element": dataElement,
   "data-role": dataRole,
-  action,
   children,
-  cardWidth = "500px",
+  width = "500px",
   draggable,
   height,
-  interactive,
+  onClick,
+  href,
   spacing = "medium",
   boxShadow,
   hoverBoxShadow,
   roundness = "default",
+  footer,
+  rel,
+  target,
+  "aria-label": ariaLabel,
   ...rest
 }: CardProps) => {
-  const [ref, setRef] = useState<HTMLDivElement | null>(null);
-  const [firstRowId, setFirstRowId] = useState<string>("");
-  const [rowCount, setRowCount] = useState<number>(0);
+  const [contentRef, setContentRef] = useState<HTMLDivElement | null>(null);
+  const interactive = !!(onClick || href);
+  let footerWarningFired = false;
 
-  useLayoutEffect(() => {
-    if (ref) {
-      const rows = Array.from(
-        ref.querySelectorAll("[data-component='card-row']") ||
-          /* istanbul ignore next */ []
-      );
-      setRowCount(rows.length);
-      setFirstRowId(rows[0]?.getAttribute("id") || "");
-    }
-  }, [ref]);
+  if (
+    !footerWarningFired &&
+    interactive &&
+    contentRef?.querySelector("[data-component='card-footer']")
+  ) {
+    footerWarningFired = true;
+    // eslint-disable-next-line no-console
+    console.warn(
+      "This `Card` is interactive you should use the `footer` prop to render a `CardFooter` to avoid potential accessibility issues"
+    );
+  }
 
   return (
     <StyledCard
-      ref={setRef}
-      cardWidth={cardWidth}
-      interactive={!!interactive}
+      cardWidth={width}
+      interactive={interactive}
       draggable={!!draggable}
       spacing={spacing}
       boxShadow={boxShadow}
       hoverBoxShadow={hoverBoxShadow}
-      onClick={interactive && !draggable ? action : undefined}
       height={height}
-      {...(interactive && { tabIndex: 0, type: "button" })}
       roundness={roundness}
       {...filterStyledSystemMarginProps(rest)}
       {...tagComponent("card", {
@@ -85,10 +105,23 @@ const Card = ({
       })}
     >
       {draggable && <Icon type="drag" />}
-      <CardContext.Provider
-        value={{ roundness, spacing, firstRowId, rowCount }}
-      >
-        {children}
+      <CardContext.Provider value={{ roundness, spacing }}>
+        <StyledCardContent
+          data-element="card-content-container"
+          onClick={!draggable ? onClick : undefined}
+          href={!draggable ? href : undefined}
+          rel={!draggable && href ? rel : undefined}
+          target={!draggable && href ? target : undefined}
+          interactive={interactive}
+          spacing={spacing}
+          roundness={roundness}
+          hasFooter={!!footer}
+          ref={setContentRef}
+          aria-label={ariaLabel}
+        >
+          {children}
+        </StyledCardContent>
+        {footer}
       </CardContext.Provider>
     </StyledCard>
   );

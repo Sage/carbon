@@ -63,8 +63,6 @@ describe("CardFooter", () => {
             value={{
               roundness,
               spacing: "medium",
-              firstRowId: "",
-              rowCount: 0,
             }}
           >
             <CardFooter>foo</CardFooter>
