@@ -576,6 +576,34 @@ context("Tests for FilterableSelect component", () => {
       selectListWrapper().should("be.visible");
     });
 
+    it("should not reopen list when openOnFocus set and user selects an option via click", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent openOnFocus />
+      );
+
+      commonDataElementInputPreview().focus();
+      selectInput().should("have.attr", "aria-expanded", "true");
+      selectListWrapper().should("be.visible");
+      selectOption(positionOfElement("first")).click();
+      selectListWrapper().should("not.be.visible");
+    });
+
+    it("should open list when openOnFocus set, user selects an option via enter key and then input is blurred then focussed again", () => {
+      CypressMountWithProviders(
+        <stories.FilterableSelectComponent openOnFocus />
+      );
+
+      commonDataElementInputPreview().focus();
+      selectInput().should("have.attr", "aria-expanded", "true");
+      selectListWrapper().should("be.visible");
+      selectInput().realPress("ArrowDown");
+      selectInput().realPress("Enter");
+      selectListWrapper().should("not.be.visible");
+      commonDataElementInputPreview().blur();
+      commonDataElementInputPreview().focus();
+      selectListWrapper().should("be.visible");
+    });
+
     it("should check list is open when input is clicked and openOnFocus is set", () => {
       CypressMountWithProviders(
         <stories.FilterableSelectComponent openOnFocus />
