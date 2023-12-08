@@ -769,6 +769,90 @@ test.describe("Event checks", () => {
     expect(callbackCount).toBe(1);
   });
 
+  ["disabled", "readOnly"].forEach((propName) => {
+    test(`should not call onClick callback when a click event is triggered and input is ${propName}`, async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      await mount(
+        <TextboxComponent
+          onClick={() => {
+            callbackCount += 1;
+          }}
+          disabled={propName === "disabled"}
+          readOnly={propName === "readOnly"}
+        />
+      );
+
+      await textboxInput(page).dispatchEvent("click");
+
+      expect(callbackCount).toBe(0);
+    });
+
+    test(`should not call onMouseDown callback when a click event is triggered and input is ${propName}`, async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      await mount(
+        <TextboxComponent
+          onMouseDown={() => {
+            callbackCount += 1;
+          }}
+          disabled={propName === "disabled"}
+          readOnly={propName === "readOnly"}
+        />
+      );
+
+      await textboxInput(page).dispatchEvent("mousedown");
+
+      expect(callbackCount).toBe(0);
+    });
+
+    test(`should not call iconOnMouseDown callback when a click event is triggered and input is ${propName}`, async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      await mount(
+        <TextboxComponent
+          iconOnMouseDown={() => {
+            callbackCount += 1;
+          }}
+          inputIcon="add"
+          disabled={propName === "disabled"}
+          readOnly={propName === "readOnly"}
+        />
+      );
+
+      await getDataComponentByValue(page, "icon").click({ button: "left" });
+
+      expect(callbackCount).toBe(0);
+    });
+
+    test(`should not call iconOnClick callback when a click event is triggered and input is ${propName}`, async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      await mount(
+        <TextboxComponent
+          iconOnClick={() => {
+            callbackCount += 1;
+          }}
+          inputIcon="add"
+          disabled={propName === "disabled"}
+          readOnly={propName === "readOnly"}
+        />
+      );
+
+      await getDataComponentByValue(page, "icon").click();
+
+      expect(callbackCount).toBe(0);
+    });
+  });
+
   test("should call onClick callback when a click event is triggered", async ({
     mount,
     page,

@@ -177,6 +177,7 @@ describe("Textbox", () => {
       expect(wrapper.find(InputPresentation).props().hasIcon).toBe(true);
     }
   );
+
   it("supports a separate onClick handler passing for the icon", () => {
     const onClick = jest.fn();
     const iconOnClick = jest.fn();
@@ -196,6 +197,100 @@ describe("Textbox", () => {
     expect(iconOnClick).toHaveBeenCalled();
     expect(onClick).not.toHaveBeenCalled();
   });
+
+  it.each(["disabled", "readOnly"])(
+    "does not call iconOnClick handler for the icon when input is %s",
+    (propName) => {
+      const onClick = jest.fn();
+      const iconOnClick = jest.fn();
+
+      const wrapper = mount(
+        <Textbox
+          value="foobar"
+          inputIcon="search"
+          onClick={onClick}
+          iconOnClick={iconOnClick}
+          disabled={propName === "disabled"}
+          readOnly={propName === "readOnly"}
+        >
+          normal children
+        </Textbox>
+      );
+      const icon = wrapper.find(InputIconToggle);
+      icon.simulate("click");
+      expect(iconOnClick).not.toHaveBeenCalled();
+      expect(onClick).not.toHaveBeenCalled();
+    }
+  );
+
+  it.each(["disabled", "readOnly"])(
+    "does not call iconOnMouseDown handler for the icon when input is %s",
+    (propName) => {
+      const onMouseDown = jest.fn();
+      const iconOnMouseDown = jest.fn();
+
+      const wrapper = mount(
+        <Textbox
+          value="foobar"
+          inputIcon="search"
+          onMouseDown={onMouseDown}
+          iconOnMouseDown={iconOnMouseDown}
+          disabled={propName === "disabled"}
+          readOnly={propName === "readOnly"}
+        >
+          normal children
+        </Textbox>
+      );
+      const icon = wrapper.find(InputIconToggle);
+      icon.simulate("click");
+      expect(iconOnMouseDown).not.toHaveBeenCalled();
+      expect(onMouseDown).not.toHaveBeenCalled();
+    }
+  );
+
+  it.each(["disabled", "readOnly"])(
+    "does not call onClick handler when input is %s and icon is clicked",
+    (propName) => {
+      const onClick = jest.fn();
+
+      const wrapper = mount(
+        <Textbox
+          value="foobar"
+          inputIcon="search"
+          onClick={onClick}
+          disabled={propName === "disabled"}
+          readOnly={propName === "readOnly"}
+        >
+          normal children
+        </Textbox>
+      );
+      const icon = wrapper.find(InputIconToggle);
+      icon.simulate("click");
+      expect(onClick).not.toHaveBeenCalled();
+    }
+  );
+
+  it.each(["disabled", "readOnly"])(
+    "does not call onMouseDown handler when input is %s and icon is clicked",
+    (propName) => {
+      const onMouseDown = jest.fn();
+
+      const wrapper = mount(
+        <Textbox
+          value="foobar"
+          inputIcon="search"
+          onMouseDown={onMouseDown}
+          disabled={propName === "disabled"}
+          readOnly={propName === "readOnly"}
+        >
+          normal children
+        </Textbox>
+      );
+      const icon = wrapper.find(InputIconToggle);
+      icon.simulate("click");
+      expect(onMouseDown).not.toHaveBeenCalled();
+    }
+  );
 
   describe("validation icon", () => {
     const validationTypes = ["error", "warning", "info"];
