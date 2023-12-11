@@ -1,3 +1,10 @@
+### [124.2.2](https://github.com/Sage/carbon/compare/v124.2.1...v124.2.2) (2023-12-11)
+
+
+### Bug Fixes
+
+* **filterable-select:** ensure list does not reopen when user clicks option and openOnFocus prop set ([e143aaa](https://github.com/Sage/carbon/commit/e143aaad13c821a9ee6bfb9ce1a64494c81ce23b)), closes [#6462](https://github.com/Sage/carbon/issues/6462)
+
 ### [124.2.1](https://github.com/Sage/carbon/compare/v124.2.0...v124.2.1) (2023-12-08)
 
 
