@@ -36,8 +36,8 @@ function getSelect(props: Partial<FilterableSelectProps> = {}) {
   );
 }
 
-function renderSelect(props = {}, renderer = mount) {
-  return renderer(getSelect(props));
+function renderSelect(props = {}, renderer = mount, opts = {}) {
+  return renderer(getSelect(props), opts);
 }
 
 describe("FilterableSelect", () => {
@@ -1097,7 +1097,7 @@ describe("FilterableSelect", () => {
 
   describe('when the "openOnFocus" prop is set', () => {
     describe("and the Textbox Input is focused", () => {
-      it("the SelectList should be rendered", () => {
+      it("should render the SelectList", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
         act(() => {
@@ -1107,6 +1107,38 @@ describe("FilterableSelect", () => {
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+      });
+
+      it("should not reopen the SelectList when a user selects and Option by clicking", () => {
+        const container = document.createElement("div");
+        container.id = "enzymeContainer";
+        document.body.appendChild(container);
+
+        const wrapper = renderSelect({ openOnFocus: true }, mount, {
+          attachTo: document.getElementById("enzymeContainer"),
+        });
+
+        act(() => {
+          wrapper.find("input").simulate("focus");
+          jest.runOnlyPendingTimers();
+        });
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        act(() => {
+          wrapper.find(SelectList).prop("onSelect")({
+            value: "opt1",
+            text: "red",
+            selectionType: "click",
+            selectionConfirmed: true,
+          });
+        });
+        wrapper
+          .update()
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+
+        container?.parentNode?.removeChild(container);
       });
 
       describe.each(["readOnly", "disabled"])(
