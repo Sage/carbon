@@ -328,10 +328,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const handleClick = (
       ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
     ) => {
-      if (disabled || readOnly) {
-        return;
-      }
-
       if (onClick) {
         onClick(ev);
       }
@@ -339,10 +335,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const handleMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
       handleClickInside();
-
-      if (disabled || readOnly) {
-        return;
-      }
 
       if (setInputRefMap) {
         isBlurBlocked.current = true;

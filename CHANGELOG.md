@@ -1,3 +1,10 @@
+### [124.2.1](https://github.com/Sage/carbon/compare/v124.2.0...v124.2.1) (2023-12-08)
+
+
+### Bug Fixes
+
+* **textbox:** ensure no action is triggered when disabled or readOnly input or input icon is clicked ([0f028f9](https://github.com/Sage/carbon/commit/0f028f9a9e3e8268e978c9ccb1b94e7db84bcc9c)), closes [#6471](https://github.com/Sage/carbon/issues/6471)
+
 ## [124.2.0](https://github.com/Sage/carbon/compare/v124.1.0...v124.2.0) (2023-12-06)
 
 

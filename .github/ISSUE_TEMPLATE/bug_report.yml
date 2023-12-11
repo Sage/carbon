@@ -8,7 +8,7 @@ body:
     attributes:
       value: |
         ### ⚠️ This bug report is public
-        Please create a reproducible example using this [CodeSandbox template](https://codesandbox.io/s/carbon-quickstart-j5pb2). 
+        Please create a reproducible example using one of our Codesandbox templates, using [Typescript](https://codesandbox.io/p/sandbox/carbon-quickstart-typescript-6sjfuz) or [Javascript](https://codesandbox.io/p/sandbox/carbon-quickstart-j5pb2)
         Please do not include any confidential or commercially sensitive information.
 
         ---
@@ -34,7 +34,7 @@ body:
     attributes:
       label: CodeSandbox or Storybook URL
       description: >-
-        Please fork [this template](https://codesandbox.io/s/carbon-quickstart-j5pb2), and ensure you save your changes.
+        Please fork one of our templates ([Typescript](https://codesandbox.io/p/sandbox/carbon-quickstart-typescript-6sjfuz) or [Javascript](https://codesandbox.io/s/carbon-quickstart-j5pb2)), and ensure you save your changes.
         Alternatively, if your issue relates to [Storybook](https://carbon.sage.com) please link to the story.
       placeholder: https://codesandbox.io/s/carbon-quickstart-j5pb2
     validations:
