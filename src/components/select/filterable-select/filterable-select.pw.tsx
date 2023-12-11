@@ -15,6 +15,7 @@ import {
   FilterableSelectWithManyOptionsAndVirtualScrolling,
   FilterableSelectNestedInDialog,
   SelectionConfirmed,
+  FilterableSelectWithDisabledOption,
 } from "../../../../src/components/select/filterable-select/components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -1613,6 +1614,26 @@ test("should not throw when filter text does not match option text", async ({
   await commonDataElementInputPreview(page).type("abc");
   await selectInput(page).press("Enter");
   await expect(getDataElementByValue(page, "input")).toHaveValue("");
+});
+
+test("should not select a disabled option when a filter is typed", async ({
+  mount,
+  page,
+}) => {
+  await mount(<FilterableSelectWithDisabledOption />);
+
+  await dropdownButton(page).click();
+  const inputElement = selectInput(page);
+  await inputElement.type("t");
+  await inputElement.press("Enter");
+  await expect(
+    page.locator('[data-element="confirmed-selection-2"]')
+  ).not.toBeVisible();
+  await inputElement.press("ArrowDown");
+  await inputElement.press("Enter");
+  await expect(
+    page.locator('[data-element="confirmed-selection-3"]')
+  ).toBeVisible();
 });
 
 // see https://github.com/Sage/carbon/issues/6399

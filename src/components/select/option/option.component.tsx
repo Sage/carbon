@@ -24,6 +24,8 @@ export interface OptionProps
   borderColor?: string;
   /** MultiSelect only - fill Pill background with color */
   fill?: boolean;
+  /** If true, the component will be disabled */
+  disabled?: boolean;
   /**
    * @private
    * @ignore
@@ -50,6 +52,7 @@ const Option = React.forwardRef(
     {
       text,
       children,
+      disabled,
       onSelect,
       value,
       id,
@@ -69,6 +72,9 @@ const Option = React.forwardRef(
     }
 
     function handleClick() {
+      if (disabled) {
+        return;
+      }
       if (!onClick) {
         onSelect?.({ text, value, id });
       } else {
@@ -82,7 +88,9 @@ const Option = React.forwardRef(
         id={id}
         ref={ref}
         aria-selected={isSelected}
+        aria-disabled={disabled}
         data-component="option"
+        isDisabled={disabled}
         onClick={handleClick}
         isHighlighted={selectListContext.currentOptionsListIndex === index}
         role="option"

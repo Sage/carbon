@@ -628,3 +628,38 @@ export const SelectionConfirmed = () => {
     </>
   );
 };
+
+export const FilterableSelectWithDisabledOption = () => {
+  const [value, setValue] = useState("");
+  const [confirmedSelection, setConfirmedSelection] = useState("");
+
+  const handleChange = (event: CustomSelectChangeEvent) => {
+    setValue(event.target.value);
+    if (event.selectionConfirmed) {
+      setConfirmedSelection(event.target.value);
+    }
+  };
+  return (
+    <>
+      <FilterableSelect
+        name="testing"
+        value={value}
+        onChange={handleChange}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" disabled />
+        <Option value="3" text="Three" />
+        <Option value="4" text="Four" />
+      </FilterableSelect>
+
+      {confirmedSelection ? (
+        <span data-element={`confirmed-selection-${confirmedSelection}`}>
+          {confirmedSelection}
+        </span>
+      ) : null}
+    </>
+  );
+};

@@ -39,6 +39,35 @@ describe("Option", () => {
     });
   });
 
+  describe("when disabled prop is set", () => {
+    it("should have expected style", () => {
+      const props = { value: "1", text: "foo", disabled: true };
+      expect(renderOption(props, mount)).toHaveStyleRule(
+        "color",
+        "var(--colorsUtilityYin030)"
+      );
+      expect(renderOption(props, mount)).toHaveStyleRule(
+        "cursor",
+        "not-allowed"
+      );
+    });
+
+    it("aria-disabled should be set to true", () => {
+      const props = { value: "1", text: "foo", disabled: true };
+      const wrapper = renderOption(props, mount);
+      expect(wrapper.getDOMNode().getAttribute("aria-disabled")).toBe("true");
+    });
+
+    it("onSelect should not be called when the element is clicked", () => {
+      const onSelect = jest.fn();
+      const props = { value: "1", text: "foo", onSelect, disabled: true };
+      const wrapper = renderOption(props, mount);
+      wrapper.simulate("click");
+
+      expect(onSelect).not.toBeCalled();
+    });
+  });
+
   describe("when the element is inside the multiselect", () => {
     it("then it should have expected background", () => {
       const props = { value: "1", text: "foo" };

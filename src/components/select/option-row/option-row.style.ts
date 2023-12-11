@@ -3,6 +3,7 @@ import { OptionRowProps } from ".";
 
 interface StyledOptionRowProps extends Pick<OptionRowProps, "hidden"> {
   isHighlighted?: boolean;
+  isDisabled?: boolean;
 }
 
 const StyledOptionRow = styled.tr<StyledOptionRowProps>`
@@ -32,6 +33,16 @@ const StyledOptionRow = styled.tr<StyledOptionRowProps>`
       font-weight: 700;
     }
   }
+
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
+      color: var(--colorsUtilityYin030);
+      cursor: not-allowed;
+      :hover {
+        background-color: var(--colorsUtilityYang100);
+      }
+    `}
 `;
 
 export default StyledOptionRow;
