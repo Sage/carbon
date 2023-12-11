@@ -1229,6 +1229,32 @@ describe("FilterableSelect", () => {
     });
   });
 
+  describe("when the onListScrollBottom prop is set", () => {
+    const onListScrollBottomFn = jest.fn();
+    it("should not be called when an option is clicked", () => {
+      const testContainer = document.createElement("div");
+      testContainer.id = "enzymeContainer";
+      document.body.appendChild(testContainer);
+      const wrapper = renderSelect(
+        {
+          onListScrollBottom: onListScrollBottomFn,
+          openOnFocus: true,
+        },
+        mount,
+        { attachTo: testContainer }
+      );
+
+      act(() => {
+        simulateSelectTextboxEvent(wrapper, "focus");
+        jest.runOnlyPendingTimers();
+        wrapper.update();
+      });
+      wrapper.find(Option).first().simulate("click");
+      expect(onListScrollBottomFn).not.toHaveBeenCalled();
+      document.body.removeChild(testContainer);
+    });
+  });
+
   describe("ARIA", () => {
     describe("when label is passed", () => {
       let wrapper: ReactWrapper;

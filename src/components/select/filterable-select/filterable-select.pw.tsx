@@ -1294,6 +1294,41 @@ test.describe("Check events for FilterableSelect component", () => {
     await page.waitForTimeout(250);
     await expect(callbackCount).toBe(1);
   });
+
+  test("should not call onListScrollBottom callback when an option is clicked", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectOption(page, positionOfElement("first")).click();
+    expect(callbackCount).toBe(0);
+  });
+
+  test("should not be called when an option is clicked and list is re-opened", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+
+    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectListWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500)
+    );
+    await selectOption(page, positionOfElement("first")).click();
+    await dropdownButton(page).click();
+    expect(callbackCount).toBe(1);
+  });
 });
 
 test.describe("Check virtual scrolling", () => {
