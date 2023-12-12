@@ -38,8 +38,8 @@ function getSelect(props: Partial<MultiSelectProps> = {}) {
   );
 }
 
-function renderSelect(props = {}, renderer = mount) {
-  return renderer(getSelect(props));
+function renderSelect(props = {}, renderer = mount, opts = {}) {
+  return renderer(getSelect(props), opts);
 }
 
 jest.mock("../../../__internal__/utils/logger");
@@ -82,19 +82,52 @@ describe("MultiSelect", () => {
   });
 
   it("should not render an empty Pill when non-matching filter text is input and enter key pressed", () => {
-    const wrapper = renderSelect({});
+    const testContainer = document.createElement("div");
+    testContainer.id = "enzymeContainer";
+    document.body.appendChild(testContainer);
+    const wrapper = renderSelect({}, mount, { attachTo: testContainer });
 
     act(() => {
-      wrapper.find(Textbox).prop("onChange")?.({
-        target: { value: "foo" },
-      } as React.ChangeEvent<HTMLInputElement>);
-      wrapper.find(Textbox).prop("onKeyDown")?.({
-        key: "Enter",
-      } as React.KeyboardEvent<HTMLInputElement>);
+      wrapper.find("input").simulate("change", { target: { value: "foo" } });
+      testContainer.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "Enter",
+          bubbles: true,
+        })
+      );
     });
 
     expect(wrapper.find(Pill).exists()).toBe(false);
+
+    document.body.removeChild(testContainer);
   });
+
+  it.each(["ArrowDown", "ArrowUp"])(
+    "should not throw when non-matching filter text is input and %s pressed",
+    (key) => {
+      const testContainer = document.createElement("div");
+      testContainer.id = "enzymeContainer";
+      document.body.appendChild(testContainer);
+      const wrapper = renderSelect({}, mount, { attachTo: testContainer });
+
+      expect(() => {
+        act(() => {
+          wrapper
+            .find("input")
+            .simulate("change", { target: { value: "foo" } });
+
+          testContainer.dispatchEvent(
+            new KeyboardEvent("keydown", {
+              key,
+              bubbles: true,
+            })
+          );
+        });
+      }).not.toThrow();
+
+      document.body.removeChild(testContainer);
+    }
+  );
 
   describe("when an HTML element is clicked", () => {
     let wrapper: ReactWrapper;

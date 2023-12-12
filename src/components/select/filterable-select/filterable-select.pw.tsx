@@ -1376,6 +1376,19 @@ test.describe("Check virtual scrolling", () => {
     await expect(selectOptionByText(page, "Option 1000.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1002.")).toBeInViewport();
   });
+
+  [keyToTrigger[0], keyToTrigger[1]].forEach((key) => {
+    test(`should not select an option when non-matching filter text is entered and then ${key} key is pressed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent />);
+
+      await commonDataElementInputPreview(page).type("foo");
+      await commonDataElementInputPreview(page).press(key);
+      await expect(page.getByText('No results for "foo"')).toBeVisible();
+    });
+  });
 });
 
 test.describe("When nested inside of a Dialog component", () => {

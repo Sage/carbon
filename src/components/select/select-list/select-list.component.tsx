@@ -321,6 +321,11 @@ const SelectList = React.forwardRef(
     const getNextHighlightableItemIndex = useCallback(
       (key, indexOfHighlighted) => {
         const lastIndex = lastOptionIndex;
+
+        if (lastIndex === -1) {
+          return -1;
+        }
+
         let nextIndex = getNextIndexByKey(
           key,
           indexOfHighlighted,
@@ -364,7 +369,7 @@ const SelectList = React.forwardRef(
 
         const nextIndex = getNextHighlightableItemIndex(key, currentIndex);
 
-        if (currentIndex === nextIndex) {
+        if (nextIndex === -1 || currentIndex === nextIndex) {
           return;
         }
 
