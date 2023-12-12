@@ -33,7 +33,7 @@ function getBorderColour({
 }
 
 const StyledProgressTracker = styled.div<
-  Pick<ProgressTrackerProps, "margin" | "length">
+  Pick<ProgressTrackerProps, "margin" | "length" | "labelsPosition">
 >`
   ${margin}
   text-align: center;
@@ -43,6 +43,12 @@ const StyledProgressTracker = styled.div<
     css`
       width: ${length};
     `};
+  ${({ labelsPosition }) =>
+    labelsPosition === "left" &&
+    css`
+      display: flex;
+      align-items: center;
+    `}
 `;
 
 const StyledProgressBar = styled.span<
@@ -78,17 +84,29 @@ const StyledDescription = styled.span`
   margin-left: 4px;
 `;
 
+const labelsPositionMargin = { top: "bottom", bottom: "top", left: "right" };
+
 const StyledValuesLabel = styled.span<
-  Pick<ProgressTrackerProps, "size" | "labelsPosition">
+  Pick<ProgressTrackerProps, "size" | "labelsPosition" | "labelWidth">
 >`
   text-align: start;
   display: flex;
   justify-content: flex-start;
   gap: 4px;
   font-size: ${({ size }) => size && fontSizes[size]};
-  ${({ labelsPosition }) => labelsPosition === "bottom" && "margin-top: 8px"};
+
   ${({ labelsPosition }) =>
-    labelsPosition !== "bottom" && "margin-bottom: 8px"};
+    labelsPosition &&
+    `
+      margin-${labelsPositionMargin[labelsPosition]}: var(--spacing100);
+    `};
+
+  ${({ labelWidth }) =>
+    labelWidth &&
+    css`
+      width: ${labelWidth};
+      flex-shrink: 0;
+    `};
 `;
 
 const InnerBar = styled.span<
