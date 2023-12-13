@@ -55,6 +55,16 @@ interface Locale {
       ) => [string, string] | null;
     };
   };
+  fileInput: {
+    dragAndDrop: () => string;
+    selectFile: () => string;
+    fileUploadStatus: () => string;
+    actions: {
+      cancel: () => string;
+      clear: () => string;
+      delete: () => string;
+    };
+  };
   heading: {
     backLinkAriaLabel: () => string;
   };
