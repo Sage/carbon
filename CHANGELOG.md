@@ -1,3 +1,20 @@
+## [124.3.0](https://github.com/Sage/carbon/compare/v124.2.2...v124.3.0) (2023-12-13)
+
+
+### Features
+
+* add new file-input component ([947eaa1](https://github.com/Sage/carbon/commit/947eaa1d8276dfcbf6ffc70e61d0f92e741d51e0))
+* ensure text of long file name does not overflow container ([8cdabc9](https://github.com/Sage/carbon/commit/8cdabc93daab76f34964e080309a275ad2bc97c6))
+* **file-input:** make upload status message into aria-live region ([adb1e83](https://github.com/Sage/carbon/commit/adb1e83dab5da19ed26d20ee6783e4a7ad285d7b))
+
+
+### Bug Fixes
+
+* correct default min-width and fix docs ([f5172ca](https://github.com/Sage/carbon/commit/f5172cac47af36382ff120eea38e158b0fd12907))
+* css syntax for text opacity ([6339e5e](https://github.com/Sage/carbon/commit/6339e5e2a09c0b952aa02fe129d4652357daf811))
+* **file-input:** fix outer background color of loaderbar ([fc0c807](https://github.com/Sage/carbon/commit/fc0c807af71f241da2c1983ce36850b5223ff2be))
+* link focus styling ([5a75d03](https://github.com/Sage/carbon/commit/5a75d0339b04d21c9a0052a75c16ff5dd8369e8e))
+
 ### [124.2.2](https://github.com/Sage/carbon/compare/v124.2.1...v124.2.2) (2023-12-11)
 
 
