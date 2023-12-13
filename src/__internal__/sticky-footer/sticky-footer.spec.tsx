@@ -1,136 +1,107 @@
 import React, { useRef } from "react";
-import { act } from "react-dom/test-utils";
-import { mount, ReactWrapper } from "enzyme";
-
+import { fireEvent, render, screen } from "@testing-library/react";
 import StickyFooter, { StickyFooterProps } from "./sticky-footer.component";
-import StyledStickyFooter from "./sticky-footer.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
-function renderStickyFooter(props: Partial<StickyFooterProps> = {}) {
-  const MockFooterContainer = () => {
-    const mockRef = useRef(null);
+const MockFooterContainer = (props: Partial<StickyFooterProps> = {}) => {
+  const mockRef = useRef(null);
 
-    return (
-      <div id="container" ref={mockRef}>
-        <StickyFooter containerRef={mockRef} {...props}>
-          Some content
-        </StickyFooter>
-      </div>
-    );
-  };
-
-  return mount(<MockFooterContainer />);
-}
+  return (
+    <div data-testid="container" ref={mockRef}>
+      <StickyFooter containerRef={mockRef} {...props}>
+        Some content
+      </StickyFooter>
+    </div>
+  );
+};
 
 describe("StickyFooter component", () => {
-  let wrapper: ReactWrapper;
+  it.each([true, false])(
+    "when disableSticky is %s, footer should have correct padding",
+    (disableSticky) => {
+      render(<MockFooterContainer disableSticky={disableSticky} />);
 
-  describe("styling", () => {
-    const assertPaddingMatch = (footer: ReactWrapper) => {
-      assertStyleMatch(
-        {
-          padding: "var(--spacing200) var(--spacing400)",
-          boxSizing: "border-box",
-        },
-        footer
-      );
-    };
-
-    it("should have correct padding when sticky", () => {
-      wrapper = renderStickyFooter();
-      assertPaddingMatch(wrapper.find(StyledStickyFooter));
-    });
-
-    it("should have correct padding when not sticky", () => {
-      wrapper = renderStickyFooter({ disableSticky: true });
-      assertPaddingMatch(wrapper.find(StyledStickyFooter));
-    });
-  });
+      expect(screen.getByText("Some content")).toHaveStyle({
+        padding: "var(--spacing200) var(--spacing400)",
+        boxSizing: "border-box",
+      });
+    }
+  );
 
   describe("scroll behaviour", () => {
     beforeEach(() => {
       jest.useFakeTimers();
-      wrapper = renderStickyFooter();
     });
 
     afterEach(() => {
-      wrapper.unmount();
+      jest.runOnlyPendingTimers();
+      jest.useRealTimers();
     });
 
-    describe("when not scrolled to the bottom of containing element", () => {
-      it("should be sticky", () => {
-        const footerNode = wrapper.find(StyledStickyFooter).getDOMNode();
-        jest
-          .spyOn(footerNode, "clientHeight", "get")
-          .mockImplementation(() => 40);
+    it("should be sticky when the user has not scrolled to the bottom of containing element", () => {
+      render(<MockFooterContainer />);
 
-        const containerNode = wrapper.find("#container").getDOMNode();
-        jest
-          .spyOn(containerNode, "clientHeight", "get")
-          .mockImplementation(() => 1000);
-        jest
-          .spyOn(containerNode, "scrollHeight", "get")
-          .mockImplementation(() => 1500);
-        jest
-          .spyOn(containerNode, "scrollTop", "get")
-          .mockImplementation(() => 0);
+      const footer = screen.getByText("Some content");
+      const container = screen.getByTestId("container");
+      jest
+        .spyOn(container, "clientHeight", "get")
+        .mockImplementation(() => 1000);
+      jest
+        .spyOn(container, "scrollHeight", "get")
+        .mockImplementation(() => 1500);
 
-        act(() => {
-          jest.runAllTimers();
-          containerNode.dispatchEvent(new Event("scroll"));
-        });
-        wrapper.update();
+      fireEvent.scroll(container, { target: { scrollTop: 0 } });
+      jest.runAllTimers();
 
-        assertStyleMatch(
-          {
-            position: "sticky",
-            width: "100%",
-            bottom: "0",
-            left: "0",
-            backgroundColor: "var(--colorsActionMinorYang100)",
-            boxShadow: "var(--boxShadow150)",
-            zIndex: "1000",
-          },
-          wrapper.find(StyledStickyFooter)
-        );
+      expect(footer).toHaveStyle({
+        position: "sticky",
+        width: "100%",
+        bottom: "0",
+        left: "0",
+        backgroundColor: "var(--colorsActionMinorYang100)",
+        boxShadow: "var(--boxShadow150)",
+        zIndex: "1000",
       });
     });
 
-    describe("when scrolled to the bottom of containing element", () => {
-      it("should not be sticky", () => {
-        const footerNode = wrapper.find(StyledStickyFooter).getDOMNode();
-        jest
-          .spyOn(footerNode, "clientHeight", "get")
-          .mockImplementation(() => 40);
+    it("should not be sticky when the user has scrolled to the bottom of containing element", () => {
+      render(<MockFooterContainer />);
 
-        const containerNode = wrapper.find("#container").getDOMNode();
+      const footer = screen.getByText("Some content");
+      const container = screen.getByTestId("container");
+      jest.spyOn(footer, "clientHeight", "get").mockImplementation(() => 40);
+      jest
+        .spyOn(container, "clientHeight", "get")
+        .mockImplementation(() => 1000);
+      jest
+        .spyOn(container, "scrollHeight", "get")
+        .mockImplementation(() => 1500);
 
-        jest
-          .spyOn(containerNode, "clientHeight", "get")
-          .mockImplementation(() => 1000);
-        jest
-          .spyOn(containerNode, "scrollHeight", "get")
-          .mockImplementation(() => 1500);
-        jest
-          .spyOn(containerNode, "scrollTop", "get")
-          .mockImplementation(() => 500);
+      fireEvent.scroll(container, { target: { scrollTop: 500 } });
+      jest.runAllTimers();
 
-        act(() => {
-          jest.runAllTimers();
-          containerNode.dispatchEvent(new Event("scroll"));
-        });
-        wrapper.update();
-
-        expect(wrapper.find(StyledStickyFooter).props().sticky).toEqual(false);
+      expect(footer).not.toHaveStyle({
+        position: "sticky",
       });
+    });
+
+    it("removes scroll event listener when component unmounts", () => {
+      const { unmount } = render(<MockFooterContainer />);
+
+      const container = screen.getByTestId("container");
+      const remover = jest.spyOn(container, "removeEventListener");
+
+      unmount();
+
+      expect(remover).toHaveBeenCalledTimes(1);
+      expect(remover.mock.lastCall[0]).toEqual("scroll");
     });
   });
 
-  describe("when disableSticky prop set", () => {
-    it("should disable the sticky behaviour", () => {
-      wrapper = renderStickyFooter({ disableSticky: true });
+  it("when disableSticky prop is true, should disable the sticky behaviour", () => {
+    render(<MockFooterContainer disableSticky />);
 
-      expect(wrapper.find(StyledStickyFooter).props().sticky).toEqual(false);
+    expect(screen.getByText("Some content")).not.toHaveStyle({
+      position: "sticky",
     });
   });
 });

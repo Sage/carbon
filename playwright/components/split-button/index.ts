@@ -1,4 +1,4 @@
-import { Page } from "playwright-core";
+import { Page } from "@playwright/test";
 import {
   SPLIT_TOGGLE_BUTTON,
   ADDITIONAL_BUTTONS,

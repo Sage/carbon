@@ -177,6 +177,25 @@ describe("SplitButton", () => {
     });
   });
 
+  describe("render with custom aria-label", () => {
+    beforeEach(() => {
+      wrapper = render();
+    });
+
+    it("has correct default aria-label", () => {
+      expect(wrapper.find(StyledSplitButtonToggle).prop("aria-label")).toBe(
+        "Show more"
+      );
+    });
+
+    it("renders custom aria-label when 'aria-label' is passed", () => {
+      wrapper = render({ "aria-label": "Show more options" });
+      expect(wrapper.find(StyledSplitButtonToggle).prop("aria-label")).toBe(
+        "Show more options"
+      );
+    });
+  });
+
   describe("when id passed", () => {
     it("the id is passed to the main button", () => {
       wrapper = render({ id: "customId" });

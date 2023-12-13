@@ -2,13 +2,17 @@ import React from "react";
 import { mount } from "enzyme";
 
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import MenuSegmentTitle from "./menu-segment-title.component";
+import MenuSegmentTitle, {
+  MenuTitleProps,
+} from "./menu-segment-title.component";
 import MenuContext, { MenuContextProps, MenuType } from "../menu.context";
 import { MenuItem } from "..";
-import StyledTitle from "./menu-segment-title.style";
+import { StyledSegmentChildren, StyledTitle } from "./menu-segment-title.style";
 import openSubmenu from "../__internal__/spec-helper";
 import menuConfigVariants from "../menu.config";
 import { VariantType } from "../menu-item";
+
+const AS_VALUES = ["h2", "h3", "h4", "h5", "h6", undefined] as const;
 
 const menuContextValues = (menuType: MenuType): MenuContextProps => ({
   menuType,
@@ -20,12 +24,18 @@ const menuContextValues = (menuType: MenuType): MenuContextProps => ({
 describe("Title", () => {
   let wrapper;
 
-  const render = (menuType: MenuType, variant?: VariantType) => {
+  const render = (
+    menuType: MenuType,
+    variant?: VariantType,
+    as?: MenuTitleProps["as"]
+  ) => {
     return mount(
       <MenuContext.Provider value={menuContextValues(menuType)}>
         <ul>
           <MenuItem submenu="Item One">
-            <MenuSegmentTitle variant={variant}>foo</MenuSegmentTitle>
+            <MenuSegmentTitle text="foo" variant={variant} as={as}>
+              <li>bar</li>
+            </MenuSegmentTitle>
           </MenuItem>
         </ul>
       </MenuContext.Provider>
@@ -38,6 +48,26 @@ describe("Title", () => {
 
     expect(wrapper.find(StyledTitle).prop("menuType")).toBe("light");
   });
+
+  it.each(AS_VALUES)(
+    "should render title as a heading element and render list items as children of the ul",
+    (tag) => {
+      wrapper = render("light", undefined, tag);
+      openSubmenu(wrapper);
+      const title = wrapper.find(StyledTitle);
+      const segmentList = wrapper.find(StyledSegmentChildren);
+
+      let tagName = tag;
+
+      if (!tag) {
+        tagName = "h2";
+      }
+
+      expect(title.getDOMNode().tagName).toBe(tagName?.toUpperCase());
+      expect(segmentList.getDOMNode().tagName).toBe("UL");
+      expect(segmentList.find("li").text()).toBe("bar");
+    }
+  );
 
   describe.each<MenuType>(["light", "white", "dark", "black"])(
     "when menuType is %s",
@@ -77,8 +107,8 @@ describe("Title", () => {
   describe("tags on component", () => {
     it("includes correct component, element and role data tags", () => {
       wrapper = mount(
-        <MenuSegmentTitle data-element="bar" data-role="baz">
-          foo
+        <MenuSegmentTitle text="foo" data-element="bar" data-role="baz">
+          <li>bar</li>
         </MenuSegmentTitle>
       ).find(StyledTitle);
 

@@ -354,6 +354,111 @@ export const AlignedRight = () => {
   );
 };
 
+export const AlignedYTop = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onDismissClick = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div id="wrapper-top-alignedY">
+      <StyledButton
+        id="button-top-alignedY"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast
+        alignY="top"
+        variant="warning"
+        id="toast-top-alignedY"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+    </div>
+  );
+};
+
+export const AlignedYCenter = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onDismissClick = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div id="wrapper-center-alignedY">
+      <StyledButton
+        id="button-center-alignedY"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast
+        alignY="center"
+        variant="warning"
+        id="toast-center-alignedY"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+    </div>
+  );
+};
+
+export const AlignedYBottom = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const onDismissClick = () => {
+    setIsOpen(!isOpen);
+  };
+  const handleToggle = () => {
+    if (!isOpen) {
+      window.scrollTo(0, 0);
+    }
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div id="wrapper-bottom-alignedY">
+      <StyledButton
+        id="button-bottom-alignedY"
+        key="button"
+        onClick={handleToggle}
+        isOpen={isOpen}
+      >
+        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
+      </StyledButton>
+      <Toast
+        alignY="bottom"
+        variant="warning"
+        id="toast-bottom-alignedY"
+        open={isOpen}
+        onDismiss={onDismissClick}
+      >
+        My text
+      </Toast>
+    </div>
+  );
+};
+
 export const CustomMaxWidth = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {

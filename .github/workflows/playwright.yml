@@ -1,43 +1,26 @@
-name: Playwright tests
+name: Playwright
 
 on:
-  workflow_dispatch:
-    inputs:
-      number:
-        description: "Pull Request Number"
-        required: true
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
-  playwright-react:
+  playwright-tests:
+    name: "Run Playwright tests"
     timeout-minutes: 30
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.34.0-jammy
     strategy:
       fail-fast: false
-      matrix:
-        project: [chromium]
-        # to uncomment after check
-        # shardIndex: [1, 2, 3, 4, 5]
-        # shardTotal: [5]
-        shardIndex: [1]
-        shardTotal: [1]
     steps:
-      - id: get_pull
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/{owner}/{repo}/pulls/{pull_number}
-          owner: ${{ github.event.repository.owner.login }}
-          repo: ${{ github.event.repository.name }}
-          pull_number: ${{ github.event.inputs.number }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
 
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          ref: "refs/pull/${{ github.event.inputs.number }}/head"
-          fetch-depth: 0
+          node-version: ">=20.9.0 20"
 
       - name: Cache central NPM modules
         uses: actions/cache@v3
@@ -47,47 +30,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: install dependencies with Playwright browsers
-        env:
-          COMMIT_INFO_BRANCH: ${{ fromJson(steps.get_pull.outputs.data).head.label }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
         run: |
           npm ci
-          npx playwright install --with-deps
           npx playwright --version
 
-      - name: Playwright React tests
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
         run: npm run test:ct
-
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 3
-
-      - name: Report status - success
-        if: always() && success()
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ fromJson(steps.get_pull.outputs.data).head.sha }} \
-            -d '{
-              "state": "success",
-              "context": "Playwright tests",
-              "description": "workflow completed successfully."
-            }'
-
-      - name: Report status - failed
-        if: always() && failure()
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ fromJson(steps.get_pull.outputs.data).head.sha }} \
-            -d '{
-              "state": "failure",
-              "context": "Playwright tests",
-              "description": "workflow failed."
-            }'

@@ -20,7 +20,7 @@ import {
 } from "../../locators/popover-container/index";
 import { selectListText, selectText } from "../../locators/select/index";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
-import { keyCode } from "../../support/helper";
+import { keyCode, pressESCKey } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
@@ -51,59 +51,46 @@ context("Test for Popover Container component", () => {
     );
 
     it.each([
-      ["left", 123, 918, 568, 100],
-      ["right", 123, 100, 568, 918],
+      ["left", 124, 671, 568, 347],
+      ["right", 124, 347, 568, 671],
     ] as [PopoverContainerProps["position"], number, number, number, number][])(
-      "should render Popover Container with position prop set to %s",
-      (position, inset0, inset1, inset2, inset3) => {
+      "when position prop is %s, Popover Container has correct absolute positioning",
+      (position, top, right, bottom, left) => {
         CypressMountWithProviders(
           <div
             style={{
-              float: position,
-              clear: position,
+              display: "flex",
+              justifyContent: "center",
             }}
           >
             <PopoverContainerComponent position={position} />
           </div>
         );
 
-        popoverContainerContent().then(($el) => {
-          const inset = $el.css("inset").split(" ");
-          cy.wrap(parseInt(inset[0])).should(
-            "be.within",
-            inset0 - 1,
-            inset0 + 1
+        popoverContainerContent().should("have.css", "position", "absolute");
+        popoverContainerContent().should(($element) => {
+          expect(parseInt($element.css("top"))).to.be.approximately(top, 2);
+          expect(parseInt($element.css("right"))).to.be.approximately(right, 2);
+          expect(parseInt($element.css("bottom"))).to.be.approximately(
+            bottom,
+            2
           );
-          cy.wrap(parseInt(inset[1])).should(
-            "be.within",
-            inset1 - 1,
-            inset1 + 1
-          );
-          cy.wrap(parseInt(inset[2])).should(
-            "be.within",
-            inset2 - 1,
-            inset2 + 1
-          );
-          cy.wrap(parseInt(inset[3])).should(
-            "be.within",
-            inset3 - 1,
-            inset3 + 1
-          );
+          expect(parseInt($element.css("left"))).to.be.approximately(left, 2);
         });
       }
     );
 
     it.each([
-      ["left", 140, 918, 552, 100],
-      ["right", 140, 100, 552, 918],
+      ["left", 145, 662, 547, 356],
+      ["right", 145, 356, 547, 662],
     ] as [PopoverContainerProps["position"], number, number, number, number][])(
-      "should render Popover Container with position prop set to %s when custom open component is used",
-      (position, inset0, inset1, inset2, inset3) => {
+      "when position prop set to %s and a custom open component is used, Popover Container has correct absolute positioning",
+      (position, top, right, bottom, left) => {
         CypressMountWithProviders(
           <div
             style={{
-              float: position,
-              clear: position,
+              display: "flex",
+              justifyContent: "center",
             }}
           >
             <PopoverContainerComponent
@@ -117,28 +104,15 @@ context("Test for Popover Container component", () => {
           </div>
         );
 
-        popoverContainerContent().then(($el) => {
-          const inset = $el.css("inset").split(" ");
-          cy.wrap(parseInt(inset[0])).should(
-            "be.within",
-            inset0 - 1,
-            inset0 + 1
+        popoverContainerContent().should("have.css", "position", "absolute");
+        popoverContainerContent().should(($element) => {
+          expect(parseInt($element.css("top"))).to.be.approximately(top, 2);
+          expect(parseInt($element.css("right"))).to.be.approximately(right, 2);
+          expect(parseInt($element.css("bottom"))).to.be.approximately(
+            bottom,
+            2
           );
-          cy.wrap(parseInt(inset[1])).should(
-            "be.within",
-            inset1 - 1,
-            inset1 + 1
-          );
-          cy.wrap(parseInt(inset[2])).should(
-            "be.within",
-            inset2 - 1,
-            inset2 + 1
-          );
-          cy.wrap(parseInt(inset[3])).should(
-            "be.within",
-            inset3 - 1,
-            inset3 + 1
-          );
+          expect(parseInt($element.css("left"))).to.be.approximately(left, 2);
         });
       }
     );
@@ -280,12 +254,41 @@ context("Test for Popover Container component", () => {
       }
     );
 
+    it("should close Popover Container using escape keyboard key", () => {
+      CypressMountWithProviders(
+        <PopoverContainer title="Cypress is awesome">Contents</PopoverContainer>
+      );
+
+      popoverSettingsIcon().click();
+      pressESCKey();
+      popoverContainerContent().should("not.exist");
+    });
+
     it("should not close Popover Container when an option is selected from Select component inside", () => {
       CypressMountWithProviders(<PopoverContainerWithSelect />);
       popoverSettingsIcon().click();
       selectText().click();
       selectListText("green").click();
       popoverContainerContent().should("be.visible");
+    });
+
+    it("should not close Popover Container when the escape key is pressed and the Select List is open", () => {
+      CypressMountWithProviders(<PopoverContainerWithSelect />);
+      popoverSettingsIcon().click();
+      selectText().click();
+      selectListText("red").trigger("keydown", keyCode("downarrow"));
+      pressESCKey();
+      selectListText("red").should("not.be.visible");
+      popoverContainerContent().should("be.visible");
+    });
+
+    it("should close Popover Container when the escape key is pressed with focus on the Select component", () => {
+      CypressMountWithProviders(<PopoverContainerWithSelect />);
+      popoverSettingsIcon().click();
+      selectText().click();
+      pressESCKey();
+      pressESCKey();
+      popoverContainerContent().should("not.exist");
     });
   });
 
@@ -338,6 +341,18 @@ context("Test for Popover Container component", () => {
       }
     );
 
+    it("should call onClose callback when the escape is pressed", () => {
+      const callback: PopoverContainerProps["onClose"] = cy
+        .stub()
+        .as("onClose");
+      CypressMountWithProviders(
+        <PopoverContainerComponent onClose={callback} open />
+      );
+
+      pressESCKey();
+      cy.get("@onClose").should("have.been.calledOnce");
+    });
+
     it("should call onClose callback when a click event is triggered outside the container", () => {
       const callback: PopoverContainerProps["onClose"] = cy
         .stub()
@@ -364,63 +379,63 @@ context("Test for Popover Container component", () => {
   });
 
   describe("Accessibility tests for Popover Container component", () => {
-    it("should pass accessibilty tests for Popover Container Default story", () => {
+    it("should pass accessibility tests for Popover Container Default story", () => {
       CypressMountWithProviders(<stories.Default />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Title story", () => {
+    it("should pass accessibility tests for Popover Container Title story", () => {
       CypressMountWithProviders(<stories.Title />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Position story", () => {
+    it("should pass accessibility tests for Popover Container Position story", () => {
       CypressMountWithProviders(<stories.Position />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container CoverButton story", () => {
+    it("should pass accessibility tests for Popover Container CoverButton story", () => {
       CypressMountWithProviders(<stories.CoverButton />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container RenderProps story", () => {
+    it("should pass accessibility tests for Popover Container RenderProps story", () => {
       CypressMountWithProviders(<stories.RenderProps />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Controlled story", () => {
+    it("should pass accessibility tests for Popover Container Controlled story", () => {
       CypressMountWithProviders(<stories.Controlled />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Complex story", () => {
+    it("should pass accessibility tests for Popover Container Complex story", () => {
       CypressMountWithProviders(<stories.Complex />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Filter story", () => {
+    it("should pass accessibility tests for Popover Container Filter story", () => {
       CypressMountWithProviders(<stories.Filter />);
 
       popoverSettingsIcon().click();
       cy.checkAccessibility();
     });
 
-    it("should pass accessibilty tests for Popover Container Filter story with filter button clicked", () => {
+    it("should pass accessibility tests for Popover Container Filter story with filter button clicked", () => {
       CypressMountWithProviders(<stories.Filter />);
 
       popoverSettingsIcon().click();

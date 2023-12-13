@@ -107,7 +107,6 @@ export const MultiActionButton = ({
       <Button
         aria-haspopup="true"
         aria-expanded={showAdditionalButtons}
-        aria-label="Show more"
         data-element="toggle-button"
         key="toggle-button"
         {...mainButtonProps}

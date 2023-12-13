@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from "react";
-import Form, { FormProps } from ".";
+import Form from ".";
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
 import Box from "../box";
@@ -68,23 +68,6 @@ export const DefaultWithStickyFooter = () => (
 );
 
 DefaultWithStickyFooter.storyName = "default";
-
-export const FormComponent = (props: Partial<FormProps>) => {
-  return (
-    <Form
-      saveButton={
-        <Button buttonType="primary" type="submit">
-          Save
-        </Button>
-      }
-      {...props}
-    >
-      <Textbox label="Textbox1" />
-      <Textbox label="Textbox2" />
-      <Textbox label="Textbox3" />
-    </Form>
-  );
-};
 
 export const FormAlignmentCustomMarginsTextInputs = () => {
   return (

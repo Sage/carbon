@@ -11,9 +11,11 @@ import {
   checkAccessibility,
   checkDialogIsInDOM,
   checkDialogIsNotInDOM,
+  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
-import AlertComponent from "./components.test-pw";
+import { AlertComponent, TopModalOverride } from "./components.test-pw";
+import { getDataElementByValue } from "../../../playwright/components";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const viewportHeights = [250, 500, 650];
@@ -153,6 +155,52 @@ test.describe("should render Alert component", () => {
     const cross = alertCrossIcon(page);
     await cross.click();
     expect(callbackCount).toBe(1);
+  });
+
+  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+  test.skip("setting the topModalOverride prop should ensure the Alert is rendered on top of any others", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TopModalOverride />);
+
+    const dialog = alertDialog(page);
+    const dialogClose = dialog.getByLabel("Close");
+    const dialogTextbox = page.getByLabel("Alert textbox");
+
+    await waitForAnimationEnd(dialog);
+    await dialog.press("Tab");
+    await expect(dialogClose).toBeFocused();
+    await dialogClose.press("Tab");
+    await expect(dialogTextbox).toBeFocused();
+    await dialogTextbox.press("Tab");
+    await expect(dialogClose).toBeFocused();
+    await dialogClose.press("Enter");
+
+    const sidebar = getDataElementByValue(page, "sidebar");
+    const sidebarClose = sidebar.getByLabel("Close");
+    const sidebarTextbox = page.getByLabel("Sidebar textbox");
+
+    await waitForAnimationEnd(sidebar);
+    await sidebar.press("Tab");
+    await expect(sidebarClose).toBeFocused();
+    await sidebarClose.press("Tab");
+    await expect(sidebarTextbox).toBeFocused();
+    await sidebarTextbox.press("Tab");
+    await expect(sidebarClose).toBeFocused();
+    await sidebarClose.press("Enter");
+
+    const dialogFullscreen = getDataElementByValue(page, "dialog-full-screen");
+    const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
+    const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
+
+    await waitForAnimationEnd(dialogFullscreen);
+    await dialogFullscreen.press("Tab");
+    await expect(dialogFullscreenClose).toBeFocused();
+    await dialogFullscreenClose.press("Tab");
+    await expect(dialogFullscreenTextbox).toBeFocused();
+    await dialogFullscreenTextbox.press("Tab");
+    await expect(dialogFullscreenClose).toBeFocused();
   });
 
   test("with the expected border radius styling", async ({ mount, page }) => {

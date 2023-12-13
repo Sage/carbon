@@ -4,10 +4,11 @@ import Toast, { ToastProps } from ".";
 import Button from "../button";
 import Icon from "../icon";
 import { TOAST_COLORS } from "./toast.config";
+import Dialog from "../dialog";
 
 export default {
   title: "Toast/Test",
-  includeStories: ["Default", "Visual"],
+  includeStories: ["Default", "Visual", "ToastWhenOtherModalRenders"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -234,23 +235,58 @@ Visual.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const ToastComponent = ({
-  children = "Toast",
-  ...props
-}: Partial<ToastProps>) => {
-  const [isOpen, setIsOpen] = React.useState(true);
+export const TopAndBottom = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+    action("open")(!isOpen);
+  };
+  return (
+    <>
+      <Button id="button" key="button" onClick={handleOpen}>
+        Open Toasts
+      </Button>
+      <Toast id="toast-a" variant="success" open={isOpen} isCenter alignY="top">
+        My Toast A
+      </Toast>
+      <Toast
+        id="toast-b"
+        variant="warning"
+        open={isOpen}
+        isCenter
+        alignY="bottom"
+      >
+        My Toast B
+      </Toast>
+    </>
+  );
+};
+
+TopAndBottom.storyName = "top and bottom";
+
+export const ToastWhenOtherModalRenders = () => {
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
 
   return (
     <>
+      <Button onClick={() => setIsOpen1(true)}>Open Toast</Button>
+      <Button onClick={() => setIsOpen2(true)}>Open Dialog</Button>
       <Toast
         variant="info"
         id="toast-cypress"
-        open={isOpen}
-        onDismiss={() => setIsOpen(!isOpen)}
-        {...props}
+        open={isOpen1}
+        onDismiss={() => setIsOpen1((p) => !p)}
       >
-        {children}
+        Toast
       </Toast>
+      <Dialog
+        title="dialog"
+        open={isOpen2}
+        onCancel={() => setIsOpen2((p) => !p)}
+      >
+        Dialog
+      </Dialog>
     </>
   );
 };

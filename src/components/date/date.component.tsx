@@ -29,6 +29,7 @@ import DateRangeContext, { InputName } from "../date-range/date-range.context";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import guid from "../../__internal__/utils/helpers/guid";
 
 interface CustomDateEvent {
   type: string;
@@ -153,6 +154,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         : parseDate(format, value)
     );
     const isInitialValue = useRef(true);
+    const pickerTabGuardId = useRef(guid());
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -306,8 +308,19 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         onKeyDown(ev);
       }
 
-      if (Events.isTabKey(ev)) {
+      if (Events.isEscKey(ev)) {
         setOpen(false);
+      }
+
+      if (open && Events.isTabKey(ev)) {
+        if (Events.isShiftKey(ev)) {
+          setOpen(false);
+        } else if (!disablePortal) {
+          ev.preventDefault();
+          (document?.querySelector(
+            `[id="${pickerTabGuardId.current}"]`
+          ) as HTMLElement)?.focus();
+        }
         alreadyFocused.current = false;
       }
     };
@@ -315,10 +328,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const handleClick = (
       ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
     ) => {
-      if (disabled || readOnly) {
-        return;
-      }
-
       if (onClick) {
         onClick(ev);
       }
@@ -326,10 +335,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const handleMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
       handleClickInside();
-
-      if (disabled || readOnly) {
-        return;
-      }
 
       if (setInputRefMap) {
         isBlurBlocked.current = true;
@@ -488,6 +493,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           maxDate={maxDate}
           pickerMouseDown={handlePickerMouseDown}
           open={open}
+          setOpen={setOpen}
+          pickerTabGuardId={pickerTabGuardId.current}
         />
       </StyledDateInput>
     );

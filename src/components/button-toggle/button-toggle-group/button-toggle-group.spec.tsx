@@ -240,46 +240,6 @@ describe("ButtonToggleGroup", () => {
     expect(onChangeFn.mock.calls[0][1]).toBe(undefined);
   });
 
-  it("renders with the expected border radius styling", () => {
-    const wrapper = render();
-
-    assertStyleMatch(
-      {
-        borderRadius: "var(--borderRadius000)",
-      },
-      wrapper.find(StyledButtonToggleGroup),
-      {
-        modifier: `${StyledButtonToggle}:not(:first-of-type):not(:last-of-type)`,
-      }
-    );
-
-    assertStyleMatch(
-      {
-        borderTopLeftRadius: "var(--borderRadius400)",
-        borderBottomLeftRadius: "var(--borderRadius400)",
-        borderTopRightRadius: "var(--borderRadius000)",
-        borderBottomRightRadius: "var(--borderRadius000)",
-      },
-      wrapper.find(StyledButtonToggleGroup),
-      {
-        modifier: `${StyledButtonToggle}:first-of-type ${StyledButtonToggle}`,
-      }
-    );
-
-    assertStyleMatch(
-      {
-        borderTopLeftRadius: "var(--borderRadius000)",
-        borderBottomLeftRadius: "var(--borderRadius000)",
-        borderTopRightRadius: "var(--borderRadius400)",
-        borderBottomRightRadius: "var(--borderRadius400)",
-      },
-      wrapper.find(StyledButtonToggleGroup),
-      {
-        modifier: `${StyledButtonToggle}:last-of-type ${StyledButtonToggle}`,
-      }
-    );
-  });
-
   describe("Label", () => {
     describe.each([
       ["labelHelp", "help", "label help"],

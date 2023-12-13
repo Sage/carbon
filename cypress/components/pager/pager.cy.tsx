@@ -323,7 +323,7 @@ context("Test for Pager component", () => {
     });
   });
 
-  describe("check funtionality for Pager component", () => {
+  describe("check functionality for Pager component", () => {
     it.each([-1, -10, -100, ...testData])(
       "should set totalRecords out of scope to %s",
       (totalRecords) => {
@@ -379,14 +379,14 @@ context("Test for Pager component", () => {
         viewportWidth,
         showItemsAssertion,
         firstAndLastArrowsAssertion,
-        totalRecordsAssetion
+        totalRecordsAssertion
       ) => {
         cy.viewport(viewportWidth, 768);
 
         CypressMountWithProviders(<PagerComponentResponsive />);
 
         showLabelBefore().should(showItemsAssertion);
-        pagerSummary().should(totalRecordsAssetion);
+        pagerSummary().should(totalRecordsAssertion);
         firstArrow().should(firstAndLastArrowsAssertion);
         lastArrow().should(firstAndLastArrowsAssertion);
         nextArrow().should("be.visible");

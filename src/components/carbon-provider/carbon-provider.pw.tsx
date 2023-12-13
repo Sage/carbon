@@ -25,7 +25,7 @@ import {
 } from "../../../playwright/components/themes/index";
 import { pillPreview } from "../../../playwright/components/index";
 import { stepSequenceDataComponentItem } from "../../../playwright/components/step-sequence/index";
-import { multiActionButtonComponent } from "../../../playwright/components/multi-action-button/index";
+import multiActionButtonComponent from "../../../playwright/components/carbon-provider/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
 const themes = ["mint", "aegean", "noMountedTheme", "sage"];

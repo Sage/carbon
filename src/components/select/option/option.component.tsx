@@ -88,7 +88,7 @@ const Option = React.forwardRef(
         role="option"
         hidden={hidden}
         style={style}
-        {...rest}
+        {...{ ...rest, fill: undefined }}
       >
         {children || text}
       </StyledOption>

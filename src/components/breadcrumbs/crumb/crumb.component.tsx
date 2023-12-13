@@ -1,5 +1,5 @@
-import { LinkProps } from "components/link/link.component";
 import React from "react";
+import { LinkProps } from "../../link";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";

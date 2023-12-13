@@ -65,7 +65,7 @@ const keys = {
   uparrow: { key: "ArrowUp", keyCode: 38, which: 38 },
   leftarrow: { key: "ArrowLeft", keyCode: 37, which: 37 },
   rightarrow: { key: "ArrowRight", keyCode: 39, which: 39 },
-  Enter: { key: "Enter", keyCode: 13, which: 13 },
+  Enter: { key: "Enter", keyCode: 13, which: 13, bubbles: true },
   EnterForce: { key: "Enter", keyCode: 13, which: 13, force: true },
   Space: { key: " ", keyCode: 32, which: 32 },
   Tab: { key: "Tab", keyCode: 9, which: 9 },
@@ -76,8 +76,11 @@ const keys = {
   pagedown: { key: "PageDown", keyCode: 34, which: 34 },
   pageup: { key: "PageUp", keyCode: 33, which: 33 },
 };
+
+export type KeyIds = keyof typeof keys;
+
 export function keyCode(
-  type: keyof typeof keys
+  type: KeyIds
 ): {
   key: string;
   keyCode: number;

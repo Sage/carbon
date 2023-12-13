@@ -8,6 +8,7 @@ import Button from "../button/button.component";
 import Icon, { IconType } from "../icon";
 import Loader from "../loader";
 import useLocale from "../../hooks/__internal__/useLocale";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export interface ConfirmProps
   extends Omit<
@@ -55,6 +56,10 @@ export interface ConfirmProps
   confirmButtonIconPosition?: "before" | "after";
   /** Defines an Icon type within the confirm button (see Icon for options) */
   confirmButtonIconType?: IconType;
+  /** Data tag prop bag for cancelButton */
+  cancelButtonDataProps?: TagProps;
+  /** Data tag prop bag for confirmButton */
+  confirmButtonDataProps?: TagProps;
   /** Makes cancel button disabled */
   disableCancel?: boolean;
   /** Makes confirm button disabled */
@@ -81,6 +86,8 @@ export const Confirm = ({
   cancelButtonIconPosition,
   confirmButtonIconType,
   confirmButtonIconPosition,
+  cancelButtonDataProps,
+  confirmButtonDataProps,
   cancelLabel,
   onCancel,
   disableCancel,
@@ -93,6 +100,7 @@ export const Confirm = ({
   title,
   size = "extra-small",
   showCloseIcon = false,
+  topModalOverride,
   ...rest
 }: ConfirmProps) => {
   const l = useLocale();
@@ -122,12 +130,15 @@ export const Confirm = ({
             ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
           ) => void
         }
-        data-element="cancel"
         buttonType={cancelButtonType}
         destructive={cancelButtonDestructive}
         disabled={disableCancel}
         iconType={cancelButtonIconType}
         iconPosition={cancelButtonIconPosition}
+        {...tagComponent("cancel", {
+          "data-element": "cancel",
+          ...cancelButtonDataProps,
+        })}
       >
         {cancelLabel || l.confirm.no()}
       </Button>
@@ -142,13 +153,16 @@ export const Confirm = ({
           ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
         ) => void
       }
-      data-element="confirm"
       buttonType={confirmButtonType}
       destructive={confirmButtonDestructive}
       disabled={isLoadingConfirm || disableConfirm}
       ml={2}
       iconType={confirmButtonIconType}
       iconPosition={confirmButtonIconPosition}
+      {...tagComponent("confirm", {
+        "data-element": "confirm",
+        ...confirmButtonDataProps,
+      })}
     >
       {isLoadingConfirm ? (
         <Loader isInsideButton isActive />
@@ -187,6 +201,7 @@ export const Confirm = ({
       role="alertdialog"
       size={size}
       showCloseIcon={showCloseIcon}
+      topModalOverride={topModalOverride}
       {...ariaProps}
       {...rest}
     >

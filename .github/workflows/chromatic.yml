@@ -29,7 +29,7 @@ jobs:
           then
             exit 1
           else
-              exit 0
+            exit 0
           fi
 
   chromatic:
@@ -40,8 +40,13 @@ jobs:
         with:
           ref: "refs/pull/${{ github.event.inputs.number }}/head"
           fetch-depth: 0
+
       - uses: actions/setup-node@v3
         with:
-          node-version: ">=18.12.1 18"
-      - run: npm ci
-      - run: npx chromatic@latest --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded --branch-name="${{ needs.check.outputs.branch_name }}"
+          node-version: ">=20.9.0 20"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run chromatic on branch
+        run: npx chromatic@latest --project-token ${{ secrets.CHROMATIC_PROJECT_TOKEN }} --exit-once-uploaded --branch-name="${{ needs.check.outputs.branch_name }}"

@@ -51,10 +51,10 @@ type StyledDialogProps = {
   topMargin: number;
   size?: DialogSizes;
   dialogHeight?: string;
+  backgroundColor: string;
 };
 
 const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
-  background-color: var(--colorsUtilityMajor025);
   box-shadow: var(--boxShadow300);
   display: flex;
   flex-direction: column;
@@ -67,6 +67,11 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   &:focus {
     outline: none;
   }
+
+  ${({ backgroundColor }) =>
+    css`
+      background-color: ${backgroundColor};
+    `}
 
   ${({ size }) =>
     size &&

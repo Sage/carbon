@@ -142,22 +142,6 @@ const FocusTrap = ({
 
   const prevShouldSetFocus = usePrevious(shouldSetFocus);
 
-  useEffect(() => {
-    if (shouldSetFocus && !prevShouldSetFocus) {
-      const candidateFirstElement =
-        focusFirstElement && "current" in focusFirstElement
-          ? focusFirstElement.current
-          : focusFirstElement;
-      const elementToFocus =
-        (candidateFirstElement as HTMLElement | null | undefined) ||
-        wrapperRef.current;
-      // istanbul ignore else
-      if (elementToFocus) {
-        setElementFocus(elementToFocus);
-      }
-    }
-  }, [shouldSetFocus, prevShouldSetFocus, focusFirstElement, wrapperRef]);
-
   const getFocusableElements = useCallback(
     (selector: string) => {
       const elements: Element[] = [];
@@ -175,6 +159,32 @@ const FocusTrap = ({
     },
     [trapWrappers]
   );
+
+  useEffect(() => {
+    if (shouldSetFocus && !prevShouldSetFocus) {
+      const candidateFirstElement =
+        focusFirstElement && "current" in focusFirstElement
+          ? focusFirstElement.current
+          : focusFirstElement;
+      const autoFocusedElement = getFocusableElements(
+        defaultFocusableSelectors
+      ).find((el) => el.getAttribute("data-has-autofocus") === "true");
+      const elementToFocus =
+        (candidateFirstElement as HTMLElement) ||
+        autoFocusedElement ||
+        wrapperRef.current;
+      // istanbul ignore else
+      if (elementToFocus) {
+        setElementFocus(elementToFocus);
+      }
+    }
+  }, [
+    shouldSetFocus,
+    prevShouldSetFocus,
+    getFocusableElements,
+    focusFirstElement,
+    wrapperRef,
+  ]);
 
   useEffect(() => {
     const trapFn = (ev: KeyboardEvent) => {

@@ -77,8 +77,20 @@ export const MenuFullscreen = ({
     }
   };
 
-  const filteredChildren = React.Children.toArray(children).filter((c) =>
-    React.isValidElement(c)
+  const flattenedChildren = React.Children.toArray(children);
+  const childArray = React.Children.toArray(
+    flattenedChildren.map((child, index) => {
+      if (index < flattenedChildren.length - 1) {
+        return (
+          <>
+            {child}
+            <MenuDivider />
+          </>
+        );
+      }
+
+      return child;
+    })
   );
 
   return (
@@ -134,14 +146,7 @@ export const MenuFullscreen = ({
                     setOpenSubmenuId: /* istanbul ignore next */ () => {},
                   }}
                 >
-                  {filteredChildren.map((child, index) => (
-                    <>
-                      {child}
-                      {index < filteredChildren.length - 1 ? (
-                        <MenuDivider />
-                      ) : null}
-                    </>
-                  ))}
+                  {childArray}
                 </MenuContext.Provider>
               </StyledMenuWrapper>
             </Box>

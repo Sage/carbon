@@ -17,7 +17,8 @@ body:
       label: Desired behaviour
       description: |
         Please give a clear and concise description of the desired behaviour.
-        If applicable, add screenshots or screen recording of a [CodeSandbox](https://codesandbox.io/s/carbon-quickstart-j5pb2) to help explain the request. You can paste these directly into GitHub.
+        If applicable, add screenshots or screen recording of a CodeSandbox to help explain the request. You can paste these directly into GitHub.
+        We provide Codesandbox templates with Carbon and dependencies pre-loaded, using either [Typescript](https://codesandbox.io/p/sandbox/carbon-quickstart-typescript-6sjfuz) or [Javascript](https://codesandbox.io/p/sandbox/carbon-quickstart-j5pb2).
     validations:
       required: true
   - type: textarea
@@ -39,7 +40,7 @@ body:
     attributes:
       label: CodeSandbox or Storybook URL
       description: >-
-        Please fork [this template](https://codesandbox.io/s/carbon-quickstart-j5pb2), and ensure you save your changes.
+        Please fork one of our templates ([Typescript](https://codesandbox.io/p/sandbox/carbon-quickstart-typescript-6sjfuz) or [Javascript](https://codesandbox.io/s/carbon-quickstart-j5pb2)), and ensure you save your changes.
         Alternatively, if your issue relates to [Storybook](https://carbon.sage.com) please link to the story.
       placeholder: https://codesandbox.io/s/carbon-quickstart-j5pb2
     validations:

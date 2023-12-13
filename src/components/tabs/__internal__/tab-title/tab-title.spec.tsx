@@ -564,6 +564,7 @@ describe("TabTitle", () => {
             outline: "1px solid",
             outlineOffset: "-1px",
             outlineColor: "var(--colorsSemanticInfo500)",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -588,6 +589,7 @@ describe("TabTitle", () => {
             outline: "1px solid",
             outlineOffset: "-1px",
             outlineColor: "var(--colorsSemanticInfo500)",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -639,6 +641,7 @@ describe("TabTitle", () => {
             outlineOffset: "-1px",
             outlineColor: "var(--colorsSemanticInfo500)",
             paddingRight: "18px",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -668,6 +671,7 @@ describe("TabTitle", () => {
             outlineOffset: "-1px",
             outlineColor: "var(--colorsSemanticInfo500)",
             paddingRight: "26px",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -697,6 +701,7 @@ describe("TabTitle", () => {
             outline: "1px solid",
             outlineOffset: "-1px",
             outlineColor: "var(--colorsSemanticCaution500)",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -721,6 +726,7 @@ describe("TabTitle", () => {
             outline: "1px solid",
             outlineOffset: "-1px",
             outlineColor: "var(--colorsSemanticCaution500)",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -772,6 +778,7 @@ describe("TabTitle", () => {
             outlineOffset: "-1px",
             outlineColor: "var(--colorsSemanticCaution500)",
             paddingRight: "18px",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -801,6 +808,7 @@ describe("TabTitle", () => {
             outlineOffset: "-1px",
             outlineColor: "var(--colorsSemanticCaution500)",
             paddingRight: "26px",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -829,6 +837,7 @@ describe("TabTitle", () => {
             borderBottomColor: "transparent",
             outline: "2px solid var(--colorsSemanticNegative500)",
             outlineOffset: "-2px",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -851,6 +860,7 @@ describe("TabTitle", () => {
             borderBottomColor: "transparent",
             outline: "2px solid var(--colorsSemanticNegative500)",
             outlineOffset: "-2px",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -899,6 +909,7 @@ describe("TabTitle", () => {
             outline: "2px solid var(--colorsSemanticNegative500)",
             outlineOffset: "-2px",
             paddingRight: "18px",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );
@@ -926,6 +937,7 @@ describe("TabTitle", () => {
             outline: "2px solid var(--colorsSemanticNegative500)",
             outlineOffset: "-2px",
             paddingRight: "26px",
+            zIndex: "2",
           },
           wrapper.find(StyledTitleContent)
         );

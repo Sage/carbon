@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { action } from "@storybook/addon-actions";
 import {
   Menu,
@@ -31,6 +31,7 @@ export default {
     "LongLabelsStory",
     "InGlobalHeaderStory",
     "InNavigationBarStory",
+    "MenuFullScreenKeysTest",
   ],
   parameters: {
     info: { disable: true },
@@ -253,8 +254,9 @@ export const MenuComponent = (props: Partial<MenuProps> & MenuDividerProps) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuSegmentTitle text="segment title">
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuSegmentTitle>
             </MenuItem>
           </Menu>
         </div>
@@ -327,16 +329,17 @@ export const MenuComponentSearch = () => {
             <MenuItem submenu="Menu One">
               <MenuItem href="#">Item Submenu One</MenuItem>
               <MenuDivider size="large" />
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
-              <MenuItem variant="alternate">
-                <Search
-                  placeholder="Dark variant"
-                  variant="dark"
-                  defaultValue=""
-                />
-              </MenuItem>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
-              <MenuItem href="#">Item Submenu Three</MenuItem>
+              <MenuSegmentTitle as="h5" text="segment title">
+                <MenuItem variant="alternate">
+                  <Search
+                    placeholder="Dark variant"
+                    variant="dark"
+                    defaultValue=""
+                  />
+                </MenuItem>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+                <MenuItem href="#">Item Submenu Three</MenuItem>
+              </MenuSegmentTitle>
             </MenuItem>
           </Menu>
         </div>
@@ -493,11 +496,25 @@ export const MenuComponentItems = (
           onClick={() => {}}
         >
           <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuSegmentTitle>segment title</MenuSegmentTitle>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <MenuSegmentTitle text="segment title">
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuSegmentTitle>
         </MenuItem>
       </Menu>
     </Box>
+  );
+};
+
+export const MenuFullScreenWithFalsyValues = ({
+  ...props
+}: Partial<MenuFullscreenProps>) => {
+  const showMenuItem = false;
+  return (
+    <MenuFullscreen onClose={() => {}} {...props}>
+      <MenuItem maxWidth="200px">Submenu Item One</MenuItem>
+      {false && <MenuItem href="#">Product Item One</MenuItem>}
+      {showMenuItem ? <MenuItem href="#">Product Item Two</MenuItem> : null}
+    </MenuFullscreen>
   );
 };
 
@@ -562,7 +579,7 @@ export const MenuComponentScrollableParent = () => {
   const [itemSearch, setItemSearch] = React.useState(items);
   const [searchString, setSearchString] = React.useState("");
 
-  const handleTextChange = (e: { target: { value: any } }) => {
+  const handleTextChange = (e: { target: { value: string } }) => {
     const searchStr = e.target.value;
     setSearchString(searchStr);
     let found;
@@ -686,8 +703,9 @@ export const MenuSegmentTitleComponent = (props: Partial<MenuTitleProps>) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle {...props}>segment title</MenuSegmentTitle>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuSegmentTitle text="segment title" {...props}>
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuSegmentTitle>
             </MenuItem>
           </Menu>
         </div>
@@ -735,12 +753,54 @@ export const MenuDividerComponent = (props: MenuDividerProps) => {
             </MenuItem>
             <MenuItem submenu="Menu Item Four" onClick={() => {}}>
               <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-              <MenuSegmentTitle>segment title</MenuSegmentTitle>
-              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuSegmentTitle text="segment title">
+                <MenuItem href="#">Item Submenu Two</MenuItem>
+              </MenuSegmentTitle>
             </MenuItem>
           </Menu>
         </div>
       ))}
     </Box>
+  );
+};
+
+const UpdatingSubmenu = () => {
+  const [counter, setCounter] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((prev) => (prev >= 2 ? prev : prev + 1));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <MenuItem submenu={`submenu 2 - count ${counter}`}>
+      <MenuItem>Item One </MenuItem>
+      <MenuItem>Item Two </MenuItem>
+    </MenuItem>
+  );
+};
+
+export const MenuFullScreenKeysTest = () => {
+  const [extraItem, setExtraItem] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setExtraItem(true);
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, []);
+  return (
+    <MenuFullscreen onClose={() => {}} isOpen>
+      {extraItem ? (
+        <MenuItem submenu="extra submenu">
+          <MenuItem>Item One </MenuItem>
+          <MenuItem>Item Two </MenuItem>
+        </MenuItem>
+      ) : null}
+      <MenuItem submenu="submenu 1">
+        <MenuItem>Item One </MenuItem>
+        <MenuItem>Item Two </MenuItem>
+      </MenuItem>
+      <UpdatingSubmenu />
+    </MenuFullscreen>
   );
 };

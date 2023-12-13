@@ -10,7 +10,7 @@ import addFocusStyling from "../../style/utils/add-focus-styling";
 
 function additionalIconStyle(iconType?: IconType) {
   if (iconType === "services") return "6px";
-  return "16px";
+  return "20px";
 }
 
 function stylingForIconOnly(size?: SizeOptions) {
@@ -113,6 +113,7 @@ const StyledButton = styled.button<StyledButtonProps>`
         : "0px"};
       margin-bottom: ${iconOnly ? "1px" : "0px"};
       height: ${additionalIconStyle(iconType)};
+      width: 20px;
       svg {
         margin-top: 0;
       }

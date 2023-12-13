@@ -2,13 +2,15 @@ import styled, { css } from "styled-components";
 import StyledIcon from "../icon/icon.style";
 import Button from "../button";
 import Icon from "../icon";
+import baseTheme from "../../style/themes/base";
+import { toColor } from "../../style/utils/color";
 
 const commonStyles = `
   overflow: hidden;
   border-radius: var(--borderRadiusCircle);
   position: absolute;
-  top: -11px;
-  right: -11px;
+  top: -14px;
+  right: -4px;
   padding: 0;
   margin-right: 0;
   background: var(--colorsActionMajorYang100);
@@ -25,39 +27,49 @@ const StyledCounter = styled.div`
   margin-top: -1px;
 `;
 
+interface StyledBadgeProps {
+  color: string;
+}
+
 const StyledBadge = styled.span.attrs(({ onClick }) => ({
   as: onClick ? Button : undefined,
-}))`
+}))<StyledBadgeProps>`
   ${commonStyles}
   cursor: default;
   align-items: center;
   display: inline-flex;
   justify-content: center;
-  width: 18px;
-  min-height: 18px;
+  width: 22px;
+  min-height: 22px;
   border: solid 2px transparent;
-  border-color: var(--colorsActionMajor500);
-  color: var(--colorsActionMajor500);
+
+  ${({ color, theme }) => css`
+    border-color: ${toColor(theme, color)};
+    color: ${toColor(theme, color)};
+  `};
 
   ::-moz-focus-inner {
     border: none;
   }
 
-  ${({ onClick }) => css`
+  ${({ onClick, color, theme }) => css`
     ${onClick &&
     `
       ${commonStyles}
-      width: 22px;
-      min-height: 22px;
+      width: 26px;
+      min-height: 26px;
       text-align: center;
 
       ::-moz-focus-inner {
         border: none;
       }
 
+      border-color: ${toColor(theme, color)};
+      color: ${toColor(theme, color)};      
+
       &:hover,
       &:focus {
-        background: var(--colorsActionMajor500);
+        background: ${toColor(theme, color)};
         border: none;
         ${StyledCounter} {
           display: none;
@@ -83,5 +95,9 @@ const StyledCrossIcon = styled(Icon)`
   margin: 0;
   display: none;
 `;
+
+StyledBadge.defaultProps = {
+  theme: baseTheme,
+};
 
 export { StyledBadge, StyledBadgeWrapper, StyledCrossIcon, StyledCounter };

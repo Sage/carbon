@@ -20,7 +20,7 @@ import StyledInput from "../../../__internal__/input/input.style";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
-
+jest.useFakeTimers();
 jest.mock("../../../__internal__/utils/helpers/guid");
 
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
@@ -36,8 +36,8 @@ function getSelect(props: Partial<FilterableSelectProps> = {}) {
   );
 }
 
-function renderSelect(props = {}, renderer = mount) {
-  return renderer(getSelect(props));
+function renderSelect(props = {}, renderer = mount, opts = {}) {
+  return renderer(getSelect(props), opts);
 }
 
 describe("FilterableSelect", () => {
@@ -73,6 +73,22 @@ describe("FilterableSelect", () => {
     const wrapper = renderSelect();
 
     expect(wrapper.find(Textbox).prop("type")).toBe("text");
+  });
+
+  it("should not throw when non-matching filter text is input and enter key pressed", () => {
+    const wrapper = renderSelect({});
+
+    expect(() => {
+      act(() => {
+        wrapper.find(Textbox).prop("onChange")?.(({
+          target: { value: "foo" },
+          nativeEvent: { inputType: undefined },
+        } as unknown) as React.ChangeEvent<HTMLInputElement>);
+        wrapper.find(Textbox).prop("onKeyDown")?.({
+          key: "Enter",
+        } as React.KeyboardEvent<HTMLInputElement>);
+      });
+    }).not.toThrow();
   });
 
   describe("with a ref", () => {
@@ -579,23 +595,27 @@ describe("FilterableSelect", () => {
       value: "Foo",
       text: "Bar",
       selectionType: "navigationKey",
+      selectionConfirmed: false,
     };
     const clickOptionObject = {
       value: "Foo",
       text: "Bar",
       selectionType: "click",
+      selectionConfirmed: true,
     };
     const textboxProps = {
       name: "testName",
       id: "testId",
     };
     const expectedEventObject = {
+      selectionConfirmed: true,
       target: {
         ...textboxProps,
         value: "Foo",
       },
     };
     const expectedDeleteEventObject = {
+      selectionConfirmed: false,
       target: {
         ...textboxProps,
         value: "",
@@ -880,6 +900,7 @@ describe("FilterableSelect", () => {
       value: "opt3",
       text: "black",
       selectionType: "click",
+      selectionConfirmed: true,
     };
 
     beforeEach(() => {
@@ -900,7 +921,10 @@ describe("FilterableSelect", () => {
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
-        expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+        expect(onChangeFn).toHaveBeenCalledWith({
+          selectionConfirmed: true,
+          ...expectedObject,
+        });
       });
     });
 
@@ -912,7 +936,10 @@ describe("FilterableSelect", () => {
         });
 
         it("then the onChange function should have been called with with the expected value", () => {
-          expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+          expect(onChangeFn).toHaveBeenCalledWith({
+            selectionConfirmed: false,
+            ...expectedObject,
+          });
         });
 
         describe("and an an empty value has been passed", () => {
@@ -931,7 +958,10 @@ describe("FilterableSelect", () => {
         });
 
         it("then the onChange function should have been called with with the expected value", () => {
-          expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
+          expect(onChangeFn).toHaveBeenCalledWith({
+            selectionConfirmed: false,
+            ...expectedObject,
+          });
         });
 
         it("then the Textbox visible value should be changed to that character", () => {
@@ -1067,13 +1097,48 @@ describe("FilterableSelect", () => {
 
   describe('when the "openOnFocus" prop is set', () => {
     describe("and the Textbox Input is focused", () => {
-      it("the SelectList should be rendered", () => {
+      it("should render the SelectList", () => {
         const wrapper = renderSelect({ openOnFocus: true });
 
-        wrapper.find("input").simulate("focus");
+        act(() => {
+          wrapper.find("input").simulate("focus");
+          jest.runOnlyPendingTimers();
+        });
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+      });
+
+      it("should not reopen the SelectList when a user selects and Option by clicking", () => {
+        const container = document.createElement("div");
+        container.id = "enzymeContainer";
+        document.body.appendChild(container);
+
+        const wrapper = renderSelect({ openOnFocus: true }, mount, {
+          attachTo: document.getElementById("enzymeContainer"),
+        });
+
+        act(() => {
+          wrapper.find("input").simulate("focus");
+          jest.runOnlyPendingTimers();
+        });
+        wrapper
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        act(() => {
+          wrapper.find(SelectList).prop("onSelect")({
+            value: "opt1",
+            text: "red",
+            selectionType: "click",
+            selectionConfirmed: true,
+          });
+        });
+        wrapper
+          .update()
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+
+        container?.parentNode?.removeChild(container);
       });
 
       describe.each(["readOnly", "disabled"])(
@@ -1101,7 +1166,10 @@ describe("FilterableSelect", () => {
             openOnFocus: true,
           });
 
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(onFocusFn).toHaveBeenCalled();
         });
       });
@@ -1118,7 +1186,10 @@ describe("FilterableSelect", () => {
         });
 
         it("then that prop should have been called", () => {
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(onOpenFn).toHaveBeenCalled();
         });
 
@@ -1150,7 +1221,10 @@ describe("FilterableSelect", () => {
 
           wrapper = mount(<Component />);
           expect(wrapper.find("#call-counter").text()).toBe("0");
-          wrapper.find("input").simulate("focus");
+          act(() => {
+            wrapper.find("input").simulate("focus");
+            jest.runOnlyPendingTimers();
+          });
           expect(wrapper.find("#call-counter").text()).toBe("1");
           wrapper.setProps({});
           expect(wrapper.find("#call-counter").text()).toBe("1");
@@ -1158,7 +1232,10 @@ describe("FilterableSelect", () => {
 
         describe("and with the SelectList already open", () => {
           it("then that prop should not be called", () => {
-            wrapper.find("input").simulate("focus");
+            act(() => {
+              wrapper.find("input").simulate("focus");
+              jest.runOnlyPendingTimers();
+            });
             onOpenFn.mockReset();
             wrapper
               .find(Option)
@@ -1171,7 +1248,10 @@ describe("FilterableSelect", () => {
         describe("and the focus triggered by mouseDown on the input", () => {
           it("then that prop should have been called", () => {
             wrapper.find("input").simulate("mousedown");
-            wrapper.find("input").simulate("focus");
+            act(() => {
+              wrapper.find("input").simulate("focus");
+              jest.runOnlyPendingTimers();
+            });
             expect(onOpenFn).toHaveBeenCalled();
           });
         });

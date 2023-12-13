@@ -1,10 +1,13 @@
 import React from "react";
+import { ComponentStory } from "@storybook/react";
 import LoaderBar, { LoaderBarProps } from ".";
 import { LOADER_BAR_SIZES } from "./loader-bar.config";
+import Box from "../box";
+import Typography from "../typography";
 
 export default {
   title: "Loader Bar/Test",
-  includeStories: ["DefaultStory"],
+  includeStories: ["DefaultStory", "LoaderBarWithMinHeight"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -27,6 +30,18 @@ export const DefaultStory = ({ ...args }: LoaderBarProps) => {
 
 DefaultStory.storyName = "default";
 
-export const LoaderBarComponentTest = (props: LoaderBarProps) => {
-  return <LoaderBar mt={2} size="medium" {...props} />;
+export const LoaderBarWithMinHeight: ComponentStory<typeof LoaderBar> = () => {
+  return (
+    <Box p={3}>
+      <Box backgroundColor="#e0e0e0" minHeight="50px">
+        <Typography>Small bar</Typography>
+      </Box>
+      <LoaderBar m={0} size="small" />
+    </Box>
+  );
+};
+
+LoaderBarWithMinHeight.parameters = {
+  chromatic: { disableSnapshot: false },
+  controls: { disable: true },
 };

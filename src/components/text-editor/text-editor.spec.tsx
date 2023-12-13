@@ -1188,7 +1188,7 @@ describe("TextEditor", () => {
     );
   });
 
-  it("applies error styling when hasError is true and focusRedesignOptOut and isForcused are also true", () => {
+  it("applies error styling when hasError is true and focusRedesignOptOut and isFocused are also true", () => {
     const focusRedesignWrapper = mount(
       <ThemeProvider theme={{ focusRedesignOptOut: true }}>
         <StyledEditorOutline isFocused hasError />

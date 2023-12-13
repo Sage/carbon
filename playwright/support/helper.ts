@@ -25,6 +25,11 @@ export const getStyle = async (
   );
 };
 
+export const waitForAnimationEnd = (locator: Locator) =>
+  locator.evaluate((element) =>
+    Promise.all(element.getAnimations().map((animation) => animation.finished))
+  );
+
 /**
  * Check the accessibility rules for an element.
  * @param {Page} page
@@ -34,6 +39,7 @@ export const getStyle = async (
  */
 export const checkAccessibility = async (
   page: Page,
+  locator?: Locator,
   ...disableRules: string[]
 ) => {
   const preDisabledRules = [
@@ -41,6 +47,12 @@ export const checkAccessibility = async (
     "page-has-heading-one",
     "region",
   ];
+
+  if (locator) {
+    await locator.waitFor();
+    await waitForAnimationEnd(locator);
+  }
+
   const accessibilityScanResults = await new AxeBuilder({ page })
     .withTags([
       "wcag2a", // WCAG 2.0 & WCAG 2.1 Level A
@@ -349,4 +361,15 @@ export const continuePressingSHIFTTAB = async (page: Page, count: number) => {
   }
 
   await Promise.all(promises);
+};
+
+export const checkElementBorderColours = async (
+  page: Page,
+  element: Locator,
+  color: string
+) => {
+  await expect(element).toHaveCSS("border-bottom-color", color);
+  await expect(element).toHaveCSS("border-left-color", color);
+  await expect(element).toHaveCSS("border-right-color", color);
+  await expect(element).toHaveCSS("border-top-color", color);
 };

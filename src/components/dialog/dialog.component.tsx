@@ -91,6 +91,8 @@ export interface DialogProps extends ModalProps, TagProps {
   role?: string;
   /** Padding to be set on the Dialog content */
   contentPadding?: ContentPaddingInterface;
+  /** Change the background color of the content to grey */
+  greyBackground?: boolean;
   /** an optional array of refs to containers whose content should also be reachable by tabbing from the dialog */
   focusableContainers?: CustomRefObject<HTMLElement>[];
 }
@@ -121,7 +123,9 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       help,
       role = "dialog",
       contentPadding = {},
+      greyBackground = false,
       focusableContainers,
+      topModalOverride,
       ...rest
     },
     ref
@@ -283,6 +287,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         disableEscKey={disableEscKey}
         disableClose={disableClose}
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
+        topModalOverride={topModalOverride}
         {...componentTags}
       >
         <FocusTrap
@@ -305,6 +310,11 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
             role={role}
             tabIndex={-1}
             {...contentPadding}
+            backgroundColor={
+              greyBackground
+                ? "var(--colorsUtilityMajor025)"
+                : "var(--colorsUtilityYang100)"
+            }
           >
             {dialogTitle()}
             {closeIcon()}

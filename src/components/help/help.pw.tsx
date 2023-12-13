@@ -6,6 +6,7 @@ import Box from "../../../src/components/box";
 import {
   getDataElementByValue,
   icon,
+  tooltipPreview,
 } from "../../../playwright/components/index";
 import helpComponent from "../../../playwright/components/help";
 import {
@@ -284,17 +285,18 @@ test.describe("Accessibility tests for Help component", () => {
     });
   });
 
-  [true, false].forEach((boolVal) => {
-    test(`should check when isFocused prop is passed as ${boolVal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <HelpComponentTest isFocused={boolVal}>{tooltipText}</HelpComponentTest>
-      );
+  test(`should check when isFocused prop is true`, async ({ mount, page }) => {
+    await mount(<HelpComponentTest isFocused>{tooltipText}</HelpComponentTest>);
 
-      await checkAccessibility(page);
-    });
+    await checkAccessibility(page, tooltipPreview(page));
+  });
+
+  test(`should check when isFocused prop is false`, async ({ mount, page }) => {
+    await mount(
+      <HelpComponentTest isFocused={false}>{tooltipText}</HelpComponentTest>
+    );
+
+    await checkAccessibility(page);
   });
 
   colors.forEach(([names, color]) => {
@@ -305,7 +307,8 @@ test.describe("Accessibility tests for Help component", () => {
         </HelpComponentTest>
       );
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 
@@ -320,7 +323,8 @@ test.describe("Accessibility tests for Help component", () => {
         </HelpComponentTest>
       );
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 
@@ -339,7 +343,8 @@ test.describe("Accessibility tests for Help component", () => {
           </Box>
         );
 
-        await checkAccessibility(page, "color-contrast");
+        // color-contrast ignored until we can investigate and fix FE-6245
+        await checkAccessibility(page, undefined, "color-contrast");
       });
     }
   );
@@ -352,7 +357,8 @@ test.describe("Accessibility tests for Help component", () => {
         </HelpComponentTest>
       );
 
-      await checkAccessibility(page);
+      await helpComponent(page).hover();
+      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -372,7 +378,8 @@ test.describe("Accessibility tests for Help component", () => {
         </HelpComponentTest>
       );
 
-      await checkAccessibility(page, "color-contrast");
+      // color-contrast ignored until we can investigate and fix FE-6245
+      await checkAccessibility(page, undefined, "color-contrast");
     });
   });
 

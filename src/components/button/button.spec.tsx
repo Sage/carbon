@@ -568,7 +568,7 @@ describe("Button", () => {
     );
     assertStyleMatch(
       {
-        height: "16px",
+        height: "20px",
       },
       renderWrapper.toJSON(),
       { modifier: `${StyledIcon}` }

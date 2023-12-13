@@ -4,17 +4,12 @@ import baseTheme from "../../style/themes/base";
 import { StyledLinkPreview } from "../link-preview/link-preview.style";
 
 const StyledNoteContent = styled.div<{
-  hasInlineControl: boolean;
   hasPreview?: boolean;
 }>`
   position: relative;
   width: 100%;
 
   ${({ hasPreview }) => css`
-    &:not(:last-of-type) {
-      padding-bottom: 24px;
-    }
-
     div.DraftEditor-root {
       min-height: inherit;
       height: 100%;
@@ -37,24 +32,24 @@ const StyledNoteContent = styled.div<{
       margin-top: var(--spacing200);
     `}
   `}
+`;
 
-  ${({ hasInlineControl }) => hasInlineControl && "margin-right: 24px;"}
+const StyledNoteMain = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--spacing300);
 `;
 
 const StyledInlineControl = styled.div`
-  position: absolute;
-  top: 24px;
-  right: 16px;
-  z-index: 100;
+  display: inline-block;
+  min-width: fit-content;
 `;
 
-const StyledTitle = styled.header<{ hasInlineControl: boolean }>`
+const StyledTitle = styled.header`
   font-weight: 900;
   font-size: 16px;
   line-height: 21px;
   padding-bottom: 16px;
-
-  ${({ hasInlineControl }) => hasInlineControl && "margin-right: 24px;"}
 `;
 
 const StyledFooterContent = styled.div<{ hasName: boolean }>`
@@ -144,6 +139,7 @@ StyledNote.defaultProps = {
 export {
   StyledNote,
   StyledNoteContent,
+  StyledNoteMain,
   StyledInlineControl,
   StyledTitle,
   StyledFooter,
