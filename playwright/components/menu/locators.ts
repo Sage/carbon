@@ -6,7 +6,3 @@ export const SEGMENT_TITLE = '[data-component="menu-segment-title"]';
 export const MENU = '[data-component="menu"]';
 export const FULLSCREEN_MENU = '[data-component="menu-fullscreen"]';
 export const MENU_ITEM = '[data-component="menu-item"]';
-
-export const SEARCH_COMPONENT = '[data-component="search"]';
-export const CROSS_ICON = '[data-element="cross"]';
-export const SEARCH_ICON = "search";
