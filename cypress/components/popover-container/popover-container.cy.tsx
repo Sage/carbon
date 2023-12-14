@@ -200,31 +200,33 @@ context("Test for Popover Container component", () => {
       popoverContainerContent().should("be.visible");
     });
 
-    it.each([
-      [true, 93, 170],
-      [false, 117, 194],
-    ])(
-      "should render Popover Container with shouldCoverButton prop set to %s",
-      (boolean, yAndTopValueMin, bottomValueMin) => {
-        CypressMountWithProviders(
-          <div
-            style={{
-              height: 330,
-            }}
-          >
-            <PopoverContainerComponent shouldCoverButton={boolean} />
-          </div>
-        );
+    // TODO: Test is flaky. Investigate whether this is resolved when converting to Playwright as `.not.toBeInViewport()` could possibly be used instead of `getBoundingClientRect()`.
+    // We do have a Chromatic snapshot for this test case also.
+    // it.each([
+    //   [true, 93, 170],
+    //   [false, 117, 194],
+    // ])(
+    //   "should render Popover Container with shouldCoverButton prop set to %s",
+    //   (boolean, yAndTopValueMin, bottomValueMin) => {
+    //     CypressMountWithProviders(
+    //       <div
+    //         style={{
+    //           height: 330,
+    //         }}
+    //       >
+    //         <PopoverContainerComponent shouldCoverButton={boolean} />
+    //       </div>
+    //     );
 
-        popoverContainerContent().then(($el) => {
-          const position = $el[0].getBoundingClientRect();
+    //     popoverContainerContent().then(($el) => {
+    //       const position = $el[0].getBoundingClientRect();
 
-          cy.wrap(position.bottom).should("be.lessThan", bottomValueMin);
-          cy.wrap(position.top).should("be.lessThan", yAndTopValueMin);
-          cy.wrap(position.y).should("be.lessThan", yAndTopValueMin);
-        });
-      }
-    );
+    //       cy.wrap(position.bottom).should("be.lessThan", bottomValueMin);
+    //       cy.wrap(position.top).should("be.lessThan", yAndTopValueMin);
+    //       cy.wrap(position.y).should("be.lessThan", yAndTopValueMin);
+    //     });
+    //   }
+    // );
 
     it.each([...keyToTrigger])(
       "should open Popover Container using %s keyboard key",

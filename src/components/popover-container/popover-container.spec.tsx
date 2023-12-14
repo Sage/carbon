@@ -25,6 +25,14 @@ import {
 import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
 import { Select, Option } from "../select";
+import useMediaQuery from "../../hooks/useMediaQuery";
+
+jest.mock("../../hooks/useMediaQuery", () => {
+  return {
+    __esModule: true,
+    default: jest.fn().mockReturnValue(false),
+  };
+});
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
@@ -203,6 +211,34 @@ describe("PopoverContainer", () => {
           rects,
         })
       ).toEqual({ mainAxis: -40 });
+    });
+
+    it("should have the expected strategy when disabledAnimation is true", () => {
+      wrapper = render({ disableAnimation: true, open: true });
+
+      expect(wrapper.find(Popover).props().popoverStrategy)?.toBe("fixed");
+    });
+
+    it("should have the expected strategy when disabledAnimation is false and user doesn't allow motion or their preference cannot be determined", () => {
+      const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+        typeof useMediaQuery
+      >;
+      mockUseMediaQuery.mockReturnValueOnce(false);
+
+      wrapper = render({ disableAnimation: false, open: true });
+
+      expect(wrapper.find(Popover).props().popoverStrategy)?.toBe("fixed");
+    });
+
+    it("should have the expected strategy when disabledAnimation is false and user allows motion", () => {
+      const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+        typeof useMediaQuery
+      >;
+      mockUseMediaQuery.mockReturnValueOnce(true);
+
+      wrapper = render({ disableAnimation: false, open: true });
+
+      expect(wrapper.find(Popover).props().popoverStrategy)?.toBe("absolute");
     });
 
     it.each([
@@ -664,6 +700,17 @@ describe("PopoverContainerContentStyle", () => {
   });
 
   describe("should render correct style of animation", () => {
+    it("if there is no animation state", () => {
+      const wrapper = mount(<PopoverContainerContentStyle />);
+
+      assertStyleMatch(
+        {
+          opacity: "0",
+        },
+        wrapper
+      );
+    });
+
     it("if the animation has state `entered`", () => {
       const wrapper = mount(
         <PopoverContainerContentStyle animationState="entered" />
@@ -679,6 +726,20 @@ describe("PopoverContainerContentStyle", () => {
       );
     });
 
+    it("if the animation has state `entering`", () => {
+      const wrapper = mount(
+        <PopoverContainerContentStyle animationState="entering" />
+      );
+
+      assertStyleMatch(
+        {
+          opacity: "0",
+          transform: "translateY(-8px)",
+        },
+        wrapper
+      );
+    });
+
     it("if the animation has state `exiting`", () => {
       const wrapper = mount(
         <PopoverContainerContentStyle animationState="exiting" />
@@ -689,6 +750,17 @@ describe("PopoverContainerContentStyle", () => {
           opacity: "0",
           transform: "translateY(-8px)",
           transition: "all 0.3s cubic-bezier(0.25,0.25,0,1.5)",
+        },
+        wrapper
+      );
+    });
+
+    it("if the disableAnimation prop is true", () => {
+      const wrapper = mount(<PopoverContainerContentStyle disableAnimation />);
+
+      assertStyleMatch(
+        {
+          opacity: "1",
         },
         wrapper
       );

@@ -3,6 +3,7 @@ import { PaddingProps } from "styled-system";
 import { Transition, TransitionStatus } from "react-transition-group";
 import { flip, offset } from "@floating-ui/dom";
 
+import useMediaQuery from "../../hooks/useMediaQuery";
 import {
   PopoverContainerWrapperStyle,
   PopoverContainerHeaderStyle,
@@ -123,6 +124,8 @@ export interface PopoverContainerProps extends PaddingProps {
   closeButtonAriaLabel?: string;
   /** Container aria label */
   containerAriaLabel?: string;
+  /** Disables the animation for the component */
+  disableAnimation?: boolean;
 }
 
 const popoverMiddleware = [
@@ -148,6 +151,7 @@ export const PopoverContainer = ({
   openButtonAriaLabel,
   closeButtonAriaLabel = "close",
   containerAriaLabel,
+  disableAnimation = false,
   ...rest
 }: PopoverContainerProps) => {
   const isControlled = open !== undefined;
@@ -163,6 +167,10 @@ export const PopoverContainer = ({
     : undefined;
 
   const isOpen = isControlled ? open : isOpenInternal;
+
+  const reduceMotion = !useMediaQuery(
+    "screen and (prefers-reduced-motion: no-preference)"
+  );
 
   useEffect(() => {
     if (isOpen && closeButtonRef.current)
@@ -264,6 +272,9 @@ export const PopoverContainer = ({
         {(state: TransitionStatus) =>
           isOpen && (
             <Popover
+              popoverStrategy={
+                disableAnimation || reduceMotion ? "fixed" : "absolute"
+              }
               reference={popoverReference}
               placement={position === "right" ? "bottom-start" : "bottom-end"}
               {...(shouldCoverButton && { middleware: popoverMiddleware })}
@@ -277,6 +288,7 @@ export const PopoverContainer = ({
                 aria-describedby={ariaDescribedBy}
                 p="16px 24px"
                 ref={popoverContentNodeRef}
+                disableAnimation={disableAnimation || reduceMotion}
                 {...filterStyledSystemPaddingProps(rest)}
               >
                 <PopoverContainerHeaderStyle>
