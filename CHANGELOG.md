@@ -1,3 +1,11 @@
+### [124.3.1](https://github.com/Sage/carbon/compare/v124.3.0...v124.3.1) (2023-12-15)
+
+
+### Bug Fixes
+
+* **select:** auto-scroll to top when reopening, to fix Safari ([3735c6c](https://github.com/Sage/carbon/commit/3735c6cf6ce40a8f81fe4c69a41b4957fb0b69d0))
+* **select:** ensure re-opening the select resets scroll position to the top ([0ce2847](https://github.com/Sage/carbon/commit/0ce2847c42bfe79ba34192725af77d8ed6a31c6b)), closes [#6399](https://github.com/Sage/carbon/issues/6399)
+
 ## [124.3.0](https://github.com/Sage/carbon/compare/v124.2.2...v124.3.0) (2023-12-13)
 
 
