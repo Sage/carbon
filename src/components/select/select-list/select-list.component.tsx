@@ -16,6 +16,7 @@ import {
 } from "@tanstack/react-virtual";
 import findLastIndex from "lodash/findLastIndex";
 
+import usePrevious from "../../../hooks/__internal__/usePrevious";
 import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
 import {
@@ -142,6 +143,18 @@ const SelectList = React.forwardRef(
     const listActionButtonRef = useRef<HTMLButtonElement>(null);
     const { blockScroll, allowScroll } = useScrollBlock();
     const actionButtonHeight = useRef(0);
+    const wasOpen = usePrevious(isOpen);
+
+    // ensure scroll-position goes back to the top whenever the list is (re)-opened. (On Safari, without this it remains at the bottom if it had been scrolled
+    // to the bottom before closing.)
+    useEffect(() => {
+      if (isOpen && !wasOpen) {
+        (listContainerRef as React.RefObject<HTMLDivElement>).current?.scrollTo(
+          0,
+          0
+        );
+      }
+    });
 
     const overscan = enableVirtualScroll
       ? virtualScrollOverscan
