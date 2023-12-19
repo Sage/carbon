@@ -620,6 +620,19 @@ test.describe("MultiSelect component", () => {
     });
   });
 
+  [keyToTrigger[0], keyToTrigger[1]].forEach((key) => {
+    test(`should not select an option when non-matching filter text is entered and then ${key} key is pressed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MultiSelectComponent />);
+
+      await commonDataElementInputPreview(page).type("foo");
+      await commonDataElementInputPreview(page).press(key);
+      await expect(page.getByText('No results for "foo"')).toBeVisible();
+    });
+  });
+
   test("should render the lazy loader when the prop is set", async ({
     mount,
     page,

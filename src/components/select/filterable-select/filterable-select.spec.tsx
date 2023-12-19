@@ -80,20 +80,51 @@ describe("FilterableSelect", () => {
   });
 
   it("should not throw when non-matching filter text is input and enter key pressed", () => {
-    const wrapper = renderSelect({});
+    const testContainer = document.createElement("div");
+    testContainer.id = "enzymeContainer";
+    document.body.appendChild(testContainer);
+    const wrapper = renderSelect({}, mount, { attachTo: testContainer });
 
     expect(() => {
       act(() => {
-        wrapper.find(Textbox).prop("onChange")?.(({
-          target: { value: "foo" },
-          nativeEvent: { inputType: undefined },
-        } as unknown) as React.ChangeEvent<HTMLInputElement>);
-        wrapper.find(Textbox).prop("onKeyDown")?.({
-          key: "Enter",
-        } as React.KeyboardEvent<HTMLInputElement>);
+        wrapper.find("input").simulate("change", { target: { value: "foo" } });
+        testContainer.dispatchEvent(
+          new KeyboardEvent("keydown", {
+            key: "Enter",
+            bubbles: true,
+          })
+        );
       });
     }).not.toThrow();
+    document.body.removeChild(testContainer);
   });
+
+  it.each(["ArrowDown", "ArrowUp"])(
+    "should not throw when non-matching filter text is input and %s pressed",
+    (key) => {
+      const testContainer = document.createElement("div");
+      testContainer.id = "enzymeContainer";
+      document.body.appendChild(testContainer);
+      const wrapper = renderSelect({}, mount, { attachTo: testContainer });
+
+      expect(() => {
+        act(() => {
+          wrapper
+            .find("input")
+            .simulate("change", { target: { value: "foo" } });
+
+          testContainer.dispatchEvent(
+            new KeyboardEvent("keydown", {
+              key,
+              bubbles: true,
+            })
+          );
+        });
+      }).not.toThrow();
+
+      document.body.removeChild(testContainer);
+    }
+  );
 
   describe("with a ref", () => {
     it("the input ref should be forwarded", () => {
@@ -1226,6 +1257,32 @@ describe("FilterableSelect", () => {
           expect(onOpenFn).not.toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe("when the onListScrollBottom prop is set", () => {
+    const onListScrollBottomFn = jest.fn();
+    it("should not be called when an option is clicked", () => {
+      const testContainer = document.createElement("div");
+      testContainer.id = "enzymeContainer";
+      document.body.appendChild(testContainer);
+      const wrapper = renderSelect(
+        {
+          onListScrollBottom: onListScrollBottomFn,
+          openOnFocus: true,
+        },
+        mount,
+        { attachTo: testContainer }
+      );
+
+      act(() => {
+        simulateSelectTextboxEvent(wrapper, "focus");
+        jest.runOnlyPendingTimers();
+        wrapper.update();
+      });
+      wrapper.find(Option).first().simulate("click");
+      expect(onListScrollBottomFn).not.toHaveBeenCalled();
+      document.body.removeChild(testContainer);
     });
   });
 

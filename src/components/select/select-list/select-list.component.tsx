@@ -321,6 +321,11 @@ const SelectList = React.forwardRef(
     const getNextHighlightableItemIndex = useCallback(
       (key, indexOfHighlighted) => {
         const lastIndex = lastOptionIndex;
+
+        if (lastIndex === -1) {
+          return -1;
+        }
+
         let nextIndex = getNextIndexByKey(
           key,
           indexOfHighlighted,
@@ -364,7 +369,7 @@ const SelectList = React.forwardRef(
 
         const nextIndex = getNextHighlightableItemIndex(key, currentIndex);
 
-        if (currentIndex === nextIndex) {
+        if (nextIndex === -1 || currentIndex === nextIndex) {
           return;
         }
 
@@ -487,13 +492,14 @@ const SelectList = React.forwardRef(
 
         /* istanbul ignore else */
         if (
+          isOpen &&
           onListScrollBottom &&
           element.scrollHeight - element.scrollTop === element.clientHeight
         ) {
           onListScrollBottom();
         }
       },
-      [onListScrollBottom]
+      [onListScrollBottom, isOpen]
     );
 
     useEffect(() => {
@@ -550,10 +556,6 @@ const SelectList = React.forwardRef(
       setCurrentOptionsListIndex(indexOfMatch);
 
       virtualizer.scrollToIndex(indexOfMatch, SCROLL_OPTIONS);
-      // TODO: is there a better way than calling handleListScroll manually?
-      handleListScroll({
-        target: (listContainerRef as React.RefObject<HTMLDivElement>).current,
-      });
     }, [
       getIndexOfMatch,
       highlightedValue,
