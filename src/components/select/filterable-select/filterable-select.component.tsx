@@ -153,6 +153,7 @@ export const FilterableSelect = React.forwardRef(
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
+    const openOnFocusFlagBlock = useRef(false);
 
     if (!deprecateInputRefWarnTriggered && inputRef) {
       deprecateInputRefWarnTriggered = true;
@@ -478,12 +479,14 @@ export const FilterableSelect = React.forwardRef(
         setActiveDescendantId(selectedOptionId);
 
         if (selectionType !== "navigationKey") {
+          openOnFocusFlagBlock.current = !!openOnFocus;
           setOpen(false);
           textboxRef?.focus();
           textboxRef?.select();
+          openOnFocusFlagBlock.current = false;
         }
       },
-      [textboxRef, triggerChange]
+      [textboxRef, triggerChange, openOnFocus]
     );
 
     const onSelectListClose = useCallback(() => {
@@ -519,6 +522,10 @@ export const FilterableSelect = React.forwardRef(
       if (openOnFocus) {
         if (focusTimer.current) {
           clearTimeout(focusTimer.current);
+        }
+
+        if (openOnFocusFlagBlock.current) {
+          return;
         }
 
         // we need to use a timeout here as there is a race condition when rendered in a modal

@@ -163,10 +163,6 @@ const SelectTextbox = React.forwardRef(
     function handleTextboxClick(
       event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
     ) {
-      if (disabled || readOnly) {
-        return;
-      }
-
       onClick?.(event as React.MouseEvent<HTMLInputElement>);
     }
 
@@ -238,7 +234,7 @@ const SelectTextbox = React.forwardRef(
           <SelectText
             transparent={transparent}
             placeholder={placeholder || l.select.placeholder()}
-            onClick={handleTextboxClick}
+            onClick={disabled || readOnly ? undefined : handleTextboxClick}
             disabled={disabled}
             readOnly={readOnly}
             size={size}

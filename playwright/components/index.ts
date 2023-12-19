@@ -13,6 +13,7 @@ import {
   COMMMON_DATA_ELEMENT_INPUT,
   PORTAL,
   BUTTON,
+  HELP_ICON_PREVIEW,
 } from "./locators";
 
 export const icon = (page: Page) => {
@@ -93,4 +94,8 @@ export const openDialogByName = (page: Page, name: string) => {
 
 export const portal = (page: Page) => {
   return page.locator(PORTAL).nth(1).locator("h1");
+};
+
+export const helpIcon = (page: Page) => {
+  return page.locator(HELP_ICON_PREVIEW);
 };

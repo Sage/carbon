@@ -3,6 +3,7 @@ import { mount, ReactWrapper, MountRendererProps } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import guid from "../../__internal__/utils/helpers/guid";
+import { simulateSelectTextboxEvent } from "../../__spec_helper__/select-test-utils";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import Pager, { PagerProps } from "./pager.component";
 import { Select } from "../select";
@@ -606,7 +607,7 @@ describe("Pager", () => {
 
       it("should not fire onPagination when user blur out from component", () => {
         act(() => {
-          wrapper.find(Select).find("input").simulate("click");
+          simulateSelectTextboxEvent(wrapper, "click");
         });
 
         wrapper
@@ -617,7 +618,7 @@ describe("Pager", () => {
 
       it("should update if option is clicked", () => {
         act(() => {
-          wrapper.find(Select).find("input").simulate("click");
+          simulateSelectTextboxEvent(wrapper, "click");
         });
 
         act(() => {

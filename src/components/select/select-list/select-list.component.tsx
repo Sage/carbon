@@ -7,9 +7,16 @@ import React, {
   useMemo,
 } from "react";
 import { flip, offset, size, Side } from "@floating-ui/dom";
-import { useVirtualizer, ScrollToOptions } from "@tanstack/react-virtual";
+import {
+  useVirtualizer,
+  defaultRangeExtractor,
+  ScrollToOptions,
+  Range,
+  VirtualItem,
+} from "@tanstack/react-virtual";
 import findLastIndex from "lodash/findLastIndex";
 
+import usePrevious from "../../../hooks/__internal__/usePrevious";
 import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
 import useModalManager from "../../../hooks/__internal__/useModalManager";
 import {
@@ -136,10 +143,35 @@ const SelectList = React.forwardRef(
     const listActionButtonRef = useRef<HTMLButtonElement>(null);
     const { blockScroll, allowScroll } = useScrollBlock();
     const actionButtonHeight = useRef(0);
+    const wasOpen = usePrevious(isOpen);
+
+    // ensure scroll-position goes back to the top whenever the list is (re)-opened. (On Safari, without this it remains at the bottom if it had been scrolled
+    // to the bottom before closing.)
+    useEffect(() => {
+      if (isOpen && !wasOpen) {
+        (listContainerRef as React.RefObject<HTMLDivElement>).current?.scrollTo(
+          0,
+          0
+        );
+      }
+    });
 
     const overscan = enableVirtualScroll
       ? virtualScrollOverscan
       : React.Children.count(children);
+
+    // need to use a custom rangeExtractor that ensure the currently-selected option, if any, always appears as an option returned from the virtualiser.
+    // This ensures that the aria-activedescendant value is always valid even when the currently-selected item is out of the visible range.
+    const rangeExtractor = (range: Range) => {
+      const toRender = defaultRangeExtractor(range);
+      if (
+        currentOptionsListIndex !== -1 &&
+        !toRender.includes(currentOptionsListIndex)
+      ) {
+        toRender.push(currentOptionsListIndex);
+      }
+      return toRender;
+    };
 
     const virtualizer = useVirtualizer({
       count: React.Children.count(children),
@@ -149,9 +181,19 @@ const SelectList = React.forwardRef(
       overscan,
       paddingStart: multiColumn ? TABLE_HEADER_HEIGHT : 0,
       scrollPaddingEnd: actionButtonHeight.current,
+      rangeExtractor,
     });
 
     const items = virtualizer.getVirtualItems();
+
+    // getVirtualItems returns an empty array of items if the select list is currently closed - which is correct visually but
+    // we need to ensure that any currently-selected option is still in the DOM to avoid any accessibility issues.
+    // The isOpen prop will ensure that no options are visible regardless of what is in the items array.
+    if (items.length === 0 && currentOptionsListIndex !== -1) {
+      // only index property is required with the item not visible so the following type assertion, even though incorrect,
+      // should be OK
+      items.push({ index: currentOptionsListIndex } as VirtualItem);
+    }
 
     const listHeight = virtualizer.getTotalSize();
 
@@ -236,35 +278,38 @@ const SelectList = React.forwardRef(
       }
     };
 
-    const renderedChildren = items.map((item) => {
-      const { index, start } = item;
-      const child = childrenList[index];
+    // the rangeExtractor above can cause an undefined value to be appended to the return items.
+    // Easiest way to stop that crashing is just to filter it out.
+    const renderedChildren = items
+      .filter((item) => item !== undefined)
+      .map(({ index, start }) => {
+        const child = childrenList[index];
 
-      if (!React.isValidElement(child)) {
-        return child;
-      }
+        if (!React.isValidElement(child)) {
+          return child;
+        }
 
-      const optionChildIndex = optionChildrenList.indexOf(child);
-      const isOption = optionChildIndex > -1;
+        const optionChildIndex = optionChildrenList.indexOf(child);
+        const isOption = optionChildIndex > -1;
 
-      const newProps = {
-        index,
-        id: childIds ? childIds[index] : /* istanbul ignore next */ undefined,
-        onSelect: handleSelect,
-        hidden: isLoading && childrenList.length === 1,
-        // these need to be inline styles rather than implemented in styled-components to avoid it generating thousands of classes
-        style: {
-          transform: `translateY(${start}px)`,
-        },
-        "aria-setsize": isOption ? optionChildrenList.length : undefined,
-        "aria-posinset": isOption ? optionChildIndex + 1 : undefined,
-        // needed to dynamically compute the size
-        ref: measureCallback,
-        "data-index": index,
-      };
+        const newProps = {
+          index,
+          id: childIds ? childIds[index] : /* istanbul ignore next */ undefined,
+          onSelect: handleSelect,
+          hidden: isLoading && childrenList.length === 1,
+          // these need to be inline styles rather than implemented in styled-components to avoid it generating thousands of classes
+          style: {
+            transform: `translateY(${start}px)`,
+          },
+          "aria-setsize": isOption ? optionChildrenList.length : undefined,
+          "aria-posinset": isOption ? optionChildIndex + 1 : undefined,
+          // needed to dynamically compute the size
+          ref: measureCallback,
+          "data-index": index,
+        };
 
-      return React.cloneElement(child, newProps);
-    });
+        return React.cloneElement(child, newProps);
+      });
 
     const lastOptionIndex = findLastIndex(
       childrenList,

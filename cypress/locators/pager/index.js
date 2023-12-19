@@ -11,6 +11,7 @@ import {
   PAGE_SIZE_LABEL_AFTER,
   CURRENT_PAGE,
   CURRENT_PAGE_LABEL,
+  SELECT_LIST_WRAPPER,
 } from "./locators";
 import { COMMMON_DATA_ELEMENT_INPUT } from "../locators";
 import { getDataElementByValue } from "..";
@@ -43,3 +44,4 @@ export const pageSizeLabelAfter = () =>
 export const currentPageSection = () =>
   cy.get(PAGER_SUMMARY).children().eq(1).find("div");
 export const pager = () => cy.get(PAGER_SUMMARY);
+export const selectListWrapper = () => cy.get(SELECT_LIST_WRAPPER);

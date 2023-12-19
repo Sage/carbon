@@ -139,6 +139,16 @@ const plPL: Locale = {
         },
     },
   },
+  fileInput: {
+    dragAndDrop: () => "lub przeciągnij i upuść plik",
+    selectFile: () => "Wybierz pliki",
+    fileUploadStatus: () => "Status przesyłania plików",
+    actions: {
+      cancel: () => "Anuluj przesyłanie",
+      clear: () => "Wyczyść",
+      delete: () => "Usuń plik",
+    },
+  },
   heading: {
     backLinkAriaLabel: () => "Wstecz",
   },

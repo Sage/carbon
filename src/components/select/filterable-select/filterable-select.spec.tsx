@@ -6,6 +6,10 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../../__spec_helper__/test-utils";
+import {
+  simulateSelectTextboxEvent,
+  simulateDropdownEvent,
+} from "../../../__spec_helper__/select-test-utils";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import Textbox from "../../textbox";
 import SelectList from "../select-list/select-list.component";
@@ -36,8 +40,8 @@ function getSelect(props: Partial<FilterableSelectProps> = {}) {
   );
 }
 
-function renderSelect(props = {}, renderer = mount) {
-  return renderer(getSelect(props));
+function renderSelect(props = {}, renderer = mount, opts = {}) {
+  return renderer(getSelect(props), opts);
 }
 
 describe("FilterableSelect", () => {
@@ -175,7 +179,7 @@ describe("FilterableSelect", () => {
       mount(getSelect());
       const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
 
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      simulateDropdownEvent(wrapper, "click");
       assertStyleMatch(
         { maxHeight: "120px" },
         wrapper.find(StyledSelectListContainer)
@@ -254,7 +258,7 @@ describe("FilterableSelect", () => {
       const onFocusFn = jest.fn();
       const wrapper = renderSelect({ onFocus: onFocusFn });
 
-      wrapper.find("input").simulate("focus");
+      simulateSelectTextboxEvent(wrapper, "focus");
       expect(onFocusFn).toHaveBeenCalled();
     });
   });
@@ -267,31 +271,29 @@ describe("FilterableSelect", () => {
     });
 
     it("the SelectList should not be rendered", () => {
-      wrapper.find("input").simulate("focus");
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+      simulateSelectTextboxEvent(wrapper, "focus");
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).not.toBeVisible();
     });
 
     describe.each(["ArrowDown", "ArrowUp", "Home", "End"])(
       "and %s key has been pressed",
       (key) => {
         it("the SelectList should be rendered", () => {
-          wrapper.find("input").simulate("keydown", { key });
-          wrapper
-            .find(Option)
-            .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+          simulateSelectTextboxEvent(wrapper, "keydown", { key });
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).toBeVisible();
         });
 
         describe("with readOnly prop set to true", () => {
           it("then the SelectList should not be rendered", () => {
             wrapper.setProps({ readOnly: true });
-            wrapper.update().find("input").simulate("keydown", { key });
-            wrapper
-              .find(Option)
-              .forEach((option) =>
-                expect(option.getDOMNode()).not.toBeVisible()
-              );
+            simulateSelectTextboxEvent(wrapper, "keydown", { key });
+            expect(
+              wrapper.find(StyledSelectListContainer).getDOMNode()
+            ).not.toBeVisible();
           });
         });
       }
@@ -299,7 +301,7 @@ describe("FilterableSelect", () => {
 
     describe("and the Enter key has been pressed", () => {
       it("the SelectList should not be rendered", () => {
-        wrapper.find("input").simulate("keydown", { key: "Enter" });
+        simulateSelectTextboxEvent(wrapper, "keydown", { key: "Enter" });
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
@@ -308,18 +310,20 @@ describe("FilterableSelect", () => {
       describe("with readOnly prop set to true", () => {
         it("then the SelectList should not be rendered", () => {
           wrapper.setProps({ readOnly: true });
-          wrapper.update().find("input").simulate("keydown", { key: "Enter" });
-          wrapper
-            .find(Option)
-            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+          simulateSelectTextboxEvent(wrapper, "keydown", { key: "Enter" });
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).not.toBeVisible();
         });
       });
     });
 
     describe("and a key that matches the last character has been pressed", () => {
       it("the filterText prop in the SelectList should match the formattedValue in the Textbox", () => {
-        wrapper.find("input").simulate("change", { target: { value: "blu" } });
-        wrapper.find("input").simulate("keydown", { key: "e" });
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "blu" },
+        });
+        simulateSelectTextboxEvent(wrapper, "keydown", { key: "e" });
 
         const selectList = wrapper.find(SelectList);
         const textbox = wrapper.find(Textbox);
@@ -346,19 +350,19 @@ describe("FilterableSelect", () => {
         };
 
         it("the value should not be changed", () => {
-          wrapper.find("input").simulate("focus");
-          wrapper.find("input").simulate("change", mockChangeEvent);
+          simulateSelectTextboxEvent(wrapper, "focus");
+          simulateSelectTextboxEvent(wrapper, "change", mockChangeEvent);
           expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
-          wrapper.find("input").simulate("change", mockDeleteEvent);
+          simulateSelectTextboxEvent(wrapper, "change", mockDeleteEvent);
           expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
         });
 
         describe("and the filter is cleared", () => {
           it("the value should also be cleared", () => {
-            wrapper.find("input").simulate("focus");
-            wrapper.find("input").simulate("change", mockChangeEvent);
+            simulateSelectTextboxEvent(wrapper, "focus");
+            simulateSelectTextboxEvent(wrapper, "change", mockChangeEvent);
             expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
-            wrapper.find("input").simulate("change", mockClearEvent);
+            simulateSelectTextboxEvent(wrapper, "change", mockClearEvent);
             expect(wrapper.find(Textbox).prop("value")).toBe("");
           });
         });
@@ -370,10 +374,10 @@ describe("FilterableSelect", () => {
     it("the SelectList should not be rendered", () => {
       const wrapper = renderSelect();
 
-      wrapper.find("input").simulate("click");
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+      simulateSelectTextboxEvent(wrapper, "click");
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).not.toBeVisible();
     });
 
     describe.each(["disabled", "readOnly"])(
@@ -383,17 +387,17 @@ describe("FilterableSelect", () => {
           const onClickFn = jest.fn();
           const wrapper = renderSelect({ onClick: onClickFn, [prop]: true });
 
-          wrapper.find("input").simulate("click");
+          simulateSelectTextboxEvent(wrapper, "click");
           expect(onClickFn).not.toHaveBeenCalled();
         });
 
         it("then the SelectList should not be rendered", () => {
           const wrapper = renderSelect({ [prop]: true });
 
-          wrapper.find("input").simulate("click");
-          wrapper
-            .find(Option)
-            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+          simulateSelectTextboxEvent(wrapper, "click");
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).not.toBeVisible();
         });
       }
     );
@@ -403,7 +407,7 @@ describe("FilterableSelect", () => {
         const onClickFn = jest.fn();
         const wrapper = renderSelect({ onClick: onClickFn });
 
-        wrapper.find("input").simulate("click");
+        simulateSelectTextboxEvent(wrapper, "click");
         expect(onClickFn).toHaveBeenCalled();
       });
     });
@@ -412,14 +416,11 @@ describe("FilterableSelect", () => {
       it("the SelectList should be rendered", () => {
         const wrapper = renderSelect();
 
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateDropdownEvent(wrapper, "click");
+
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
       });
 
       it.each(["top", "bottom", "right", "left"])(
@@ -427,11 +428,8 @@ describe("FilterableSelect", () => {
         (listPlacement) => {
           const wrapper = renderSelect({ listPlacement });
 
-          wrapper
-            .find(Textbox)
-            .find('[type="dropdown"]')
-            .first()
-            .simulate("click");
+          simulateDropdownEvent(wrapper, "click");
+
           expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
             listPlacement
           );
@@ -441,11 +439,8 @@ describe("FilterableSelect", () => {
       it("the flipEnabled prop should be passed", () => {
         const wrapper = renderSelect({ flipEnabled: false });
 
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
+        simulateDropdownEvent(wrapper, "click");
+
         expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(false);
         wrapper.setProps({ flipEnabled: true });
         expect(wrapper.find(SelectList).prop("flipEnabled")).toBe(true);
@@ -454,15 +449,13 @@ describe("FilterableSelect", () => {
       describe("twice", () => {
         it("the SelectList should not be rendered", () => {
           const wrapper = renderSelect();
-          const dropdown = wrapper
-            .find(Textbox)
-            .find('[type="dropdown"]')
-            .first();
-          dropdown.simulate("click");
-          dropdown.simulate("click");
-          wrapper
-            .find(Option)
-            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+
+          simulateDropdownEvent(wrapper, "click");
+          simulateDropdownEvent(wrapper, "click");
+
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).not.toBeVisible();
         });
       });
 
@@ -471,11 +464,8 @@ describe("FilterableSelect", () => {
           const onOpenFn = jest.fn();
           const wrapper = renderSelect({ onOpen: onOpenFn });
 
-          wrapper
-            .find(Textbox)
-            .find('[type="dropdown"]')
-            .first()
-            .simulate("click");
+          simulateDropdownEvent(wrapper, "click");
+
           expect(onOpenFn).toHaveBeenCalled();
         });
       });
@@ -485,11 +475,8 @@ describe("FilterableSelect", () => {
           const onClickFn = jest.fn();
           const wrapper = renderSelect({ onClick: onClickFn });
 
-          wrapper
-            .find(Textbox)
-            .find('[type="dropdown"]')
-            .first()
-            .simulate("click");
+          simulateDropdownEvent(wrapper, "click");
+
           expect(onClickFn).toHaveBeenCalled();
         });
       });
@@ -501,7 +488,9 @@ describe("FilterableSelect", () => {
       it("then the visible value should be changed to that option text", () => {
         const wrapper = renderSelect();
 
-        wrapper.find("input").simulate("change", { target: { value: "r" } });
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "r" },
+        });
         wrapper.update();
         expect(wrapper.find(Textbox).prop("formattedValue")).toBe("red");
         wrapper.unmount();
@@ -512,7 +501,9 @@ describe("FilterableSelect", () => {
       it("then the Textbox visible value should be changed to that character", () => {
         const wrapper = renderSelect();
 
-        wrapper.find("input").simulate("change", { target: { value: "l" } });
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "l" },
+        });
         wrapper.update();
         expect(wrapper.find(Textbox).prop("formattedValue")).toBe("l");
         wrapper.unmount();
@@ -521,7 +512,9 @@ describe("FilterableSelect", () => {
       it("then the Textbox value should be the value of the first option containing that character", () => {
         const wrapper = renderSelect();
 
-        wrapper.find("input").simulate("change", { target: { value: "l" } });
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "l" },
+        });
         wrapper.update();
         expect(wrapper.find(Textbox).prop("value")).toBe("opt3");
         wrapper.unmount();
@@ -532,8 +525,8 @@ describe("FilterableSelect", () => {
       const changeEventObject = { target: { value: "Foo" } };
       const wrapper = renderSelect();
 
-      wrapper.find("input").simulate("click");
-      wrapper.find("input").simulate("change", changeEventObject);
+      simulateSelectTextboxEvent(wrapper, "click");
+      simulateSelectTextboxEvent(wrapper, "change", changeEventObject);
       expect(wrapper.update().find(SelectList).prop("filterText")).toBe("Foo");
     });
 
@@ -542,16 +535,13 @@ describe("FilterableSelect", () => {
         const changeEventObject = { target: { value: "Foo" } };
         const wrapper = renderSelect();
 
-        wrapper.find("input").simulate("click");
-        wrapper.find("input").simulate("change", changeEventObject);
+        simulateSelectTextboxEvent(wrapper, "click");
+        simulateSelectTextboxEvent(wrapper, "change", changeEventObject);
         act(() => {
           wrapper.find(SelectList).prop("onSelectListClose")();
         });
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
+        simulateDropdownEvent(wrapper, "click");
+
         expect(wrapper.update().find(SelectList).prop("filterText")).toBe("");
       });
     });
@@ -561,7 +551,9 @@ describe("FilterableSelect", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn });
 
-        wrapper.find("input").simulate("change", { target: { value: "b" } });
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "b" },
+        });
 
         expect(onOpenFn).toHaveBeenCalled();
       });
@@ -578,8 +570,8 @@ describe("FilterableSelect", () => {
     it("then that text should be selected", () => {
       const changeEventObject = { target: { value: "gre" } };
 
-      wrapper.find("input").simulate("click");
-      wrapper.find("input").simulate("change", changeEventObject);
+      simulateSelectTextboxEvent(wrapper, "click");
+      simulateSelectTextboxEvent(wrapper, "change", changeEventObject);
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
@@ -626,20 +618,17 @@ describe("FilterableSelect", () => {
       it("the SelectList should be closed", () => {
         const wrapper = renderSelect();
 
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateDropdownEvent(wrapper, "click");
+
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).not.toBeVisible();
       });
     });
 
@@ -647,21 +636,18 @@ describe("FilterableSelect", () => {
       it("the SelectList should be open and the value should be selected", () => {
         const wrapper = renderSelect();
 
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateDropdownEvent(wrapper, "click");
+
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(navigationKeyOptionObject);
         });
         wrapper.update();
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         expect(wrapper.find(Textbox).prop("value")).toBe("Foo");
         expect(wrapper.find(Textbox).prop("formattedValue")).toBe("Bar");
       });
@@ -677,11 +663,8 @@ describe("FilterableSelect", () => {
       });
 
       it("then that prop should be called with the same value", () => {
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
+        simulateDropdownEvent(wrapper, "click");
+
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
@@ -690,7 +673,7 @@ describe("FilterableSelect", () => {
 
       it("then should be called when value is deleted", () => {
         act(() => {
-          wrapper.find("input").simulate("change", {
+          simulateSelectTextboxEvent(wrapper, "change", {
             target: { value: "" },
             nativeEvent: { inputType: "delete" },
           });
@@ -701,7 +684,7 @@ describe("FilterableSelect", () => {
 
       it("then should be called when value is not matched", () => {
         act(() => {
-          wrapper.find("input").simulate("change", {
+          simulateSelectTextboxEvent(wrapper, "change", {
             target: { value: "aaaaa" },
           });
         });
@@ -715,16 +698,16 @@ describe("FilterableSelect", () => {
     it("the SelectList should be closed", () => {
       const wrapper = renderSelect();
 
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+      simulateDropdownEvent(wrapper, "click");
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).toBeVisible();
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
-      wrapper
-        .find(Option)
-        .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+      expect(
+        wrapper.find(StyledSelectListContainer).getDOMNode()
+      ).not.toBeVisible();
     });
   });
 
@@ -740,42 +723,36 @@ describe("FilterableSelect", () => {
 
     describe("and that element is the input", () => {
       it("then the SelectList should stay open", () => {
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateDropdownEvent(wrapper, "click");
+
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         act(() => {
           wrapper
             .find("input")
             .getDOMNode()
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
       });
     });
 
     describe("and that element is not part of the Select", () => {
       it("then the SelectList should be closed", () => {
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateDropdownEvent(wrapper, "click");
+
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).not.toBeVisible();
       });
     });
 
@@ -793,7 +770,7 @@ describe("FilterableSelect", () => {
       const onKeyDownFn = jest.fn();
       const wrapper = renderSelect({ onKeyDown: onKeyDownFn });
 
-      wrapper.find("input").simulate("keyDown", expectedEventObject);
+      simulateSelectTextboxEvent(wrapper, "keyDown", expectedEventObject);
 
       expect(onKeyDownFn).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -819,7 +796,7 @@ describe("FilterableSelect", () => {
         }),
         { attachTo: testWrapper }
       );
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      simulateDropdownEvent(wrapper, "click");
     });
 
     afterEach(() => {
@@ -854,9 +831,9 @@ describe("FilterableSelect", () => {
         act(() => {
           document.body.dispatchEvent(tabKeyDownEvent);
         });
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         expect(wrapper.find(SelectList).find("button").getDOMNode()).toBe(
           document.activeElement
         );
@@ -871,9 +848,9 @@ describe("FilterableSelect", () => {
         });
 
         it("then the SelectList should be closed", () => {
-          wrapper
-            .find(Option)
-            .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).not.toBeVisible();
         });
 
         it("then the select input should be focused", () => {
@@ -910,14 +887,11 @@ describe("FilterableSelect", () => {
 
     describe("and an option is selected", () => {
       it("then the onChange prop should be called with expected value", () => {
-        wrapper
-          .find(Textbox)
-          .find('[type="dropdown"]')
-          .first()
-          .simulate("click");
-        wrapper
-          .find(Option)
-          .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        simulateDropdownEvent(wrapper, "click");
+
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
         });
@@ -931,7 +905,9 @@ describe("FilterableSelect", () => {
     describe("when a printable character has been typed in the Textbox", () => {
       describe("and the first filtered option starts with that character", () => {
         beforeEach(() => {
-          wrapper.find("input").simulate("change", { target: { value: "b" } });
+          simulateSelectTextboxEvent(wrapper, "change", {
+            target: { value: "b" },
+          });
           wrapper.update();
         });
 
@@ -953,7 +929,9 @@ describe("FilterableSelect", () => {
 
       describe("and the first filtered option does not start with that character", () => {
         beforeEach(() => {
-          wrapper.find("input").simulate("change", { target: { value: "l" } });
+          simulateSelectTextboxEvent(wrapper, "change", {
+            target: { value: "l" },
+          });
           wrapper.update();
         });
 
@@ -998,7 +976,7 @@ describe("FilterableSelect", () => {
 
     it("should persist the input value", () => {
       const wrapper = mount(<WrapperComponent />);
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      simulateDropdownEvent(wrapper, "click");
       act(() => {
         wrapper.find(Option).first().simulate("click");
       });
@@ -1026,7 +1004,7 @@ describe("FilterableSelect", () => {
     it("renders SelectList with a disablePortal prop assigned", () => {
       const wrapper = renderSelect({ disablePortal: true });
 
-      wrapper.find(Textbox).find('[type="dropdown"]').first().simulate("click");
+      simulateDropdownEvent(wrapper, "click");
       expect(wrapper.find(SelectList).props().disablePortal).toBe(true);
     });
   });
@@ -1036,7 +1014,7 @@ describe("FilterableSelect", () => {
       const onBlurFn = jest.fn();
       const wrapper = renderSelect({ onBlur: onBlurFn });
 
-      wrapper.find("input").simulate("blur");
+      simulateSelectTextboxEvent(wrapper, "blur");
       expect(onBlurFn).toHaveBeenCalled();
     });
 
@@ -1045,9 +1023,9 @@ describe("FilterableSelect", () => {
         const onBlurFn = jest.fn();
         const wrapper = renderSelect({ onBlur: onBlurFn, openOnFocus: true });
 
-        wrapper.find("input").simulate("focus");
+        simulateSelectTextboxEvent(wrapper, "focus");
         wrapper.find(Option).first().simulate("mousedown");
-        wrapper.find("input").simulate("blur");
+        simulateSelectTextboxEvent(wrapper, "blur");
         expect(onBlurFn).not.toHaveBeenCalled();
       });
     });
@@ -1059,9 +1037,9 @@ describe("FilterableSelect", () => {
       const onFilterChangeFn = jest.fn();
       const wrapper = renderSelect({ onFilterChange: onFilterChangeFn });
 
-      wrapper
-        .find("input")
-        .simulate("change", { target: { value: filterText } });
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: filterText },
+      });
       expect(onFilterChangeFn).toHaveBeenCalledWith(filterText);
     });
 
@@ -1097,8 +1075,23 @@ describe("FilterableSelect", () => {
 
   describe('when the "openOnFocus" prop is set', () => {
     describe("and the Textbox Input is focused", () => {
-      it("the SelectList should be rendered", () => {
+      it("should render the SelectList", () => {
         const wrapper = renderSelect({ openOnFocus: true });
+
+        simulateSelectTextboxEvent(wrapper, "focus");
+        expect(
+          wrapper.find(StyledSelectListContainer).getDOMNode()
+        ).toBeVisible();
+      });
+
+      it("should not reopen the SelectList when a user selects and Option by clicking", () => {
+        const container = document.createElement("div");
+        container.id = "enzymeContainer";
+        document.body.appendChild(container);
+
+        const wrapper = renderSelect({ openOnFocus: true }, mount, {
+          attachTo: document.getElementById("enzymeContainer"),
+        });
 
         act(() => {
           wrapper.find("input").simulate("focus");
@@ -1107,6 +1100,20 @@ describe("FilterableSelect", () => {
         wrapper
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).toBeVisible());
+        act(() => {
+          wrapper.find(SelectList).prop("onSelect")({
+            value: "opt1",
+            text: "red",
+            selectionType: "click",
+            selectionConfirmed: true,
+          });
+        });
+        wrapper
+          .update()
+          .find(Option)
+          .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
+
+        container?.parentNode?.removeChild(container);
       });
 
       describe.each(["readOnly", "disabled"])(
@@ -1116,12 +1123,10 @@ describe("FilterableSelect", () => {
             const obj = { [prop]: true, openOnFocus: true };
             const wrapper = renderSelect(obj);
 
-            wrapper.find("input").simulate("focus");
-            wrapper
-              .find(Option)
-              .forEach((option) =>
-                expect(option.getDOMNode()).not.toBeVisible()
-              );
+            simulateSelectTextboxEvent(wrapper, "focus");
+            expect(
+              wrapper.find(StyledSelectListContainer).getDOMNode()
+            ).not.toBeVisible();
           });
         }
       );
@@ -1134,10 +1139,7 @@ describe("FilterableSelect", () => {
             openOnFocus: true,
           });
 
-          act(() => {
-            wrapper.find("input").simulate("focus");
-            jest.runOnlyPendingTimers();
-          });
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(onFocusFn).toHaveBeenCalled();
         });
       });
@@ -1154,10 +1156,7 @@ describe("FilterableSelect", () => {
         });
 
         it("then that prop should have been called", () => {
-          act(() => {
-            wrapper.find("input").simulate("focus");
-            jest.runOnlyPendingTimers();
-          });
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(onOpenFn).toHaveBeenCalled();
         });
 
@@ -1189,10 +1188,7 @@ describe("FilterableSelect", () => {
 
           wrapper = mount(<Component />);
           expect(wrapper.find("#call-counter").text()).toBe("0");
-          act(() => {
-            wrapper.find("input").simulate("focus");
-            jest.runOnlyPendingTimers();
-          });
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(wrapper.find("#call-counter").text()).toBe("1");
           wrapper.setProps({});
           expect(wrapper.find("#call-counter").text()).toBe("1");
@@ -1200,26 +1196,20 @@ describe("FilterableSelect", () => {
 
         describe("and with the SelectList already open", () => {
           it("then that prop should not be called", () => {
-            act(() => {
-              wrapper.find("input").simulate("focus");
-              jest.runOnlyPendingTimers();
-            });
+            simulateSelectTextboxEvent(wrapper, "focus");
             onOpenFn.mockReset();
-            wrapper
-              .find(Option)
-              .forEach((option) => expect(option.getDOMNode()).toBeVisible());
-            wrapper.find("input").simulate("focus");
+            expect(
+              wrapper.find(StyledSelectListContainer).getDOMNode()
+            ).toBeVisible();
+            simulateSelectTextboxEvent(wrapper, "focus");
             expect(onOpenFn).not.toHaveBeenCalled();
           });
         });
 
         describe("and the focus triggered by mouseDown on the input", () => {
           it("then that prop should have been called", () => {
-            wrapper.find("input").simulate("mousedown");
-            act(() => {
-              wrapper.find("input").simulate("focus");
-              jest.runOnlyPendingTimers();
-            });
+            simulateSelectTextboxEvent(wrapper, "mousedown");
+            simulateSelectTextboxEvent(wrapper, "focus");
             expect(onOpenFn).toHaveBeenCalled();
           });
         });
@@ -1231,12 +1221,8 @@ describe("FilterableSelect", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn, openOnFocus: true });
         it("then that prop should not have been called", () => {
-          wrapper
-            .find(Textbox)
-            .find('[type="dropdown"]')
-            .first()
-            .simulate("mousedown");
-          wrapper.find("input").simulate("focus");
+          simulateDropdownEvent(wrapper, "mousedown");
+          simulateSelectTextboxEvent(wrapper, "focus");
           expect(onOpenFn).not.toHaveBeenCalled();
         });
       });
@@ -1295,7 +1281,7 @@ describe("FilterableSelect", () => {
 
 describe("coverage filler for else path", () => {
   const wrapper = renderSelect();
-  wrapper.find("input").simulate("blur");
+  simulateSelectTextboxEvent(wrapper, "blur");
 });
 
 describe("when maxWidth is passed", () => {
