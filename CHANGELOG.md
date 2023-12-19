@@ -1,3 +1,10 @@
+## [124.4.0](https://github.com/Sage/carbon/compare/v124.3.1...v124.4.0) (2023-12-19)
+
+
+### Features
+
+* responsive tile ([79f2476](https://github.com/Sage/carbon/commit/79f247632ad15d482ef72f0cfe3ce306c9f2dc8e))
+
 ### [124.3.1](https://github.com/Sage/carbon/compare/v124.3.0...v124.3.1) (2023-12-15)
 
 

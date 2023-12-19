@@ -880,7 +880,7 @@ const StyledSystemProps = ({
   return (
     <>
       {!noHeader && <h2>Props</h2>}
-      <ArgsTable rows={rows} />
+      {rows.length > 0 && <ArgsTable rows={rows} />}
       {of && <Props of={of} />}
     </>
   );
