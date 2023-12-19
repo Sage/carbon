@@ -1,3 +1,11 @@
+### [124.4.1](https://github.com/Sage/carbon/compare/v124.4.0...v124.4.1) (2023-12-19)
+
+
+### Bug Fixes
+
+* **filterable-select, multi-select:** no error when input has non-matched filter and arrow key press ([2a4c9ef](https://github.com/Sage/carbon/commit/2a4c9efb9a297202491bfd6ac901fd358c0f7c16)), closes [#6459](https://github.com/Sage/carbon/issues/6459)
+* **filterable-select, simple-select:** ensure onListScrollBottom is not called when option selected ([00158dc](https://github.com/Sage/carbon/commit/00158dccbbf7fe4baef22f9a3a40d5b25d368814)), closes [#6285](https://github.com/Sage/carbon/issues/6285)
+
 ## [124.4.0](https://github.com/Sage/carbon/compare/v124.3.1...v124.4.0) (2023-12-19)
 
 
