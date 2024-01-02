@@ -203,4 +203,27 @@ Formik supports three kinds of validation:
 
 ## Code examples
 
-### [Form validation using Field-level validation, Yup as a schema builder and hooks](https://codesandbox.io/s/carbon-formik-yup-latest-ctj8n)
+### Form validation using Field-level validation with Formik and Yup
+
+See the [example codesandbox code](https://codesandbox.io/s/carbon-with-formik-new-example-2cqdxm?file=/src/App.tsx) showing how to
+integrate various different Carbon components into Formik/Yup.
+
+Note the following points about the implementation:
+- Carbon components are wrapped in [Formik's Field component](https://formik.org/docs/api/field), passing the actual Carbon component as the `as` prop.
+- a `validate` prop is also required as well as warning/error/info props as appropriate to pass to the Carbon component. In the example these have been
+returned from a custom Hook that takes the Yup validation schemas - this should be adapted to your actual use case if not appropriate.
+- note the use of an explicit `checked` prop on the checkbox and switch components, with `value` set to a hardcoded string. This is required for these
+checkbox-based components to work properly (Formik `Field` by default will try to pass `value` but `checked` is the important property on these components,
+with `value` having no purpose other than allowing the field to be identified on the server side after form submission)
+- date-related components require more careful handling - an explicit `onChange` is required that calls Formik's `setFieldValue` function with the
+`formattedValue` property of the custom event object's `target`
+- there is also a custom Yup transform to ensure the date is parsed in `dd/MM/yyyy` format, which is the default for Carbon date components but not accepted
+by Yup. The implementation in the sandbox uses the `date-fns` library but you can use whichever date-parsing library you choose, and of course use whichever
+date-format is appropriate to the locale you're using
+- `DateRange` requires particularly special handling, as this is a single Carbon component which renders 2 separate HTML input fields. In the example
+this is done by using a modified form of the custom hook mentioned above that returns two separate prop objects, one for each input, and passes them
+down using `startDateProps` and `endDateProps`. Note the way these prop objects are generated to ensure validation messages, possibly of different types,
+can be supplied to each input where appropriate (this is also why the `abortEarly` Yup validation option is set to false).
+Similarly, the validation function and the custom `onChange` need to ensure they cover both fields individually
+
+
