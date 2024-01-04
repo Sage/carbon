@@ -1,3 +1,10 @@
+## [124.5.0](https://github.com/Sage/carbon/compare/v124.4.1...v124.5.0) (2024-01-04)
+
+
+### Features
+
+* **numeral-date:** add date format and update to align with DS ([a292c86](https://github.com/Sage/carbon/commit/a292c86cc0eda7b363e545965b7fdc39b5ddfd1c))
+
 ### [124.4.1](https://github.com/Sage/carbon/compare/v124.4.0...v124.4.1) (2023-12-19)
 
 
