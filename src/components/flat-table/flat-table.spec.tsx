@@ -37,6 +37,7 @@ import cellSizes from "./cell-sizes.style";
 import { FLAT_TABLE_SIZES } from "./flat-table.config";
 import Pager from "../pager/pager.component";
 import Logger from "../../__internal__/utils/logger";
+import CarbonProvider from "../carbon-provider";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -334,7 +335,6 @@ describe("FlatTable", () => {
       wrapper = renderFlatTableWithDiv({ footer: <Footer /> });
       assertStyleMatch(
         {
-          boxShadow: "inset 0px 0px 0px 1px var(--colorsUtilityMajor100)",
           boxSizing: "border-box",
         },
         wrapper.find(StyledFlatTableWrapper)
@@ -589,7 +589,9 @@ describe("FlatTable", () => {
           footer={<Pager data-testid="pager" onPagination={() => {}} />}
         >
           <FlatTableHead>
-            <FlatTableRow>heading one</FlatTableRow>
+            <FlatTableRow>
+              <td>heading one</td>
+            </FlatTableRow>
           </FlatTableHead>
           <FlatTableBody>
             <FlatTableRow>
@@ -709,8 +711,8 @@ describe("FlatTable", () => {
     const arrowLeft = { key: "ArrowLeft" };
 
     describe("when rows are clickable", () => {
-      it("should not move focus to first row when down arrow pressed and table wrapper focused", async () => {
-        rtlRender(
+      it("should not move focus to first row when down arrow pressed and table wrapper focused when focusRedesignOptOut is not set", async () => {
+        const { container } = rtlRender(
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow onClick={() => {}}>
@@ -724,9 +726,45 @@ describe("FlatTable", () => {
             </FlatTableBody>
           </FlatTable>
         );
-        const tableWrapper = await screen.findByRole("region");
+        const tableWrapper = container.querySelectorAll(
+          "div"
+        )[1] as HTMLElement;
         tableWrapper?.focus();
         expect(tableWrapper).toHaveFocus();
+        expect(await screen.findByRole("region")).toHaveStyle({
+          outline: "transparent 3px solid",
+          "box-shadow":
+            "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
+        });
+        fireEvent.keyDown(tableWrapper, arrowDown);
+        expect(tableWrapper).toHaveFocus();
+      });
+
+      it("should not move focus to first row when down arrow pressed and table wrapper focused when focusRedesignOptOut is set", async () => {
+        const { container } = rtlRender(
+          <CarbonProvider focusRedesignOptOut>
+            <FlatTable>
+              <FlatTableBody>
+                <FlatTableRow onClick={() => {}}>
+                  <FlatTableCell>one</FlatTableCell>
+                  <FlatTableCell>two</FlatTableCell>
+                </FlatTableRow>
+                <FlatTableRow onClick={() => {}}>
+                  <FlatTableCell>three</FlatTableCell>
+                  <FlatTableCell>four</FlatTableCell>
+                </FlatTableRow>
+              </FlatTableBody>
+            </FlatTable>
+          </CarbonProvider>
+        );
+        const tableWrapper = container.querySelectorAll(
+          "div"
+        )[2] as HTMLElement;
+        tableWrapper?.focus();
+        expect(tableWrapper).toHaveFocus();
+        expect(await screen.findByRole("region")).toHaveStyle({
+          outline: "2px solid var(--colorsSemanticFocus500)",
+        });
         fireEvent.keyDown(tableWrapper, arrowDown);
         expect(tableWrapper).toHaveFocus();
       });

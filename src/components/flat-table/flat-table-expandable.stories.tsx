@@ -376,8 +376,8 @@ export const RowHeadersWithCustomPaddings = () => {
     </FlatTableRow>,
   ];
   return (
-    <Box width="380px" overflowX="auto">
-      <FlatTable>
+    <Box>
+      <FlatTable width="380px" overflowX="auto">
         <FlatTableHead>
           <FlatTableRow>
             <FlatTableRowHeader px={8}>Name</FlatTableRowHeader>
