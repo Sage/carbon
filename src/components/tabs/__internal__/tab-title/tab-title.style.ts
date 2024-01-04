@@ -568,9 +568,9 @@ const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
       bottom: 0px;
       left: 0px;
       right: 0px;
-      box-shadow: inset 0px calc(-1 * var(--sizing025)) 0px
+      box-shadow: inset 0px calc(-1 * var(--sizing050)) 0px
         var(--colorsActionMajor500);
-      height: var(--sizing025);
+      height: var(--sizing050);
     `}
 
     ${position === "left" &&
@@ -578,9 +578,9 @@ const StyledSelectedIndicator = styled.div<StyledSelectedIndicatorProps>`
       top: 0px;
       bottom: 0px;
       right: 0px;
-      box-shadow: inset calc(-1 * var(--sizing025)) 0px 0px 0px
+      box-shadow: inset calc(-1 * var(--sizing050)) 0px 0px 0px
         var(--colorsActionMajor500);
-      width: var(--sizing025);
+      width: var(--sizing050);
     `}
   `}
 `;

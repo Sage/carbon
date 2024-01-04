@@ -26,7 +26,7 @@ import {
 import { ContentPaddingInterface } from "./dialog.component";
 
 const dialogSizes = {
-  auto: "auto",
+  auto: "fit-content",
   "extra-small": "300px",
   small: "380px",
   "medium-small": "540px",
@@ -76,7 +76,8 @@ const StyledDialog = styled.div<StyledDialogProps & ContentPaddingInterface>`
   ${({ size }) =>
     size &&
     css`
-      width: ${dialogSizes[size]};
+      max-width: ${dialogSizes[size]};
+      width: 100%;
     `}
 
   ${({ dialogHeight }) =>

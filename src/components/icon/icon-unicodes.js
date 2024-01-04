@@ -254,6 +254,7 @@ const misc = {
   cloud_co2: "\\f060",
   leaf: "\\f061",
   like_no: "\\f058",
+  minimise: "\\f062",
 };
 
 const legacyNames = {

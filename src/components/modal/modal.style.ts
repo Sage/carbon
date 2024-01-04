@@ -9,7 +9,7 @@ type TransitionProps = {
 };
 
 const StyledModalBackground = styled.div<TransitionProps>`
-  background-color: rgba(0, 20, 29, 0.6);
+  background-color: rgba(0, 20, 29, 1);
   bottom: 0;
   left: 0;
   opacity: ${backgroundOpacity};
