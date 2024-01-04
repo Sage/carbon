@@ -108,6 +108,11 @@ const enGB: Locale = {
       month: () => "Month should be a number within a 1-12 range.",
       year: () => "Year should be a number within a 1800-2200 range.",
     },
+    labels: {
+      day: () => "Day",
+      month: () => "Month",
+      year: () => "Year",
+    },
   },
   pager: {
     show: () => "Show",

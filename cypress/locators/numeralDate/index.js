@@ -5,3 +5,5 @@ export const numeralDateComponent = () => cy.get(NUMERAL_DATE_COMPONENT);
 export const numeralDateInput = () => numeralDateComponent().find(DATE_INPUT);
 export const numeralDateInputByPosition = (index) =>
   numeralDateInput().eq(index);
+export const numeralDateLabelByPosition = (index) =>
+  numeralDateComponent().find("p").eq(index);

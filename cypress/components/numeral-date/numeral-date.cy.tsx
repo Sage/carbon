@@ -23,6 +23,7 @@ import {
 import {
   numeralDateComponent,
   numeralDateInputByPosition,
+  numeralDateLabelByPosition,
 } from "../../locators/numeralDate";
 
 import {
@@ -288,26 +289,27 @@ context("Tests for NumeralDate component", () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["dd", "mm", "yyyy"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "placeholder", "dd");
-      numeralDateInputByPosition(1).should("have.attr", "placeholder", "mm");
-      numeralDateInputByPosition(2).should("have.attr", "placeholder", "yyyy");
+
+      numeralDateLabelByPosition(0).should("have.text", "Day");
+      numeralDateLabelByPosition(1).should("have.text", "Month");
+      numeralDateLabelByPosition(2).should("have.text", "Year");
     });
 
     it('should render NumeralDate with `["mm", "dd", "yyyy"]` dateFormat prop', () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["mm", "dd", "yyyy"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "placeholder", "mm");
-      numeralDateInputByPosition(1).should("have.attr", "placeholder", "dd");
-      numeralDateInputByPosition(2).should("have.attr", "placeholder", "yyyy");
+      numeralDateLabelByPosition(0).should("have.text", "Month");
+      numeralDateLabelByPosition(1).should("have.text", "Day");
+      numeralDateLabelByPosition(2).should("have.text", "Year");
     });
 
     it('should render NumeralDate with `["dd", "mm"]` dateFormat prop', () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["dd", "mm"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "placeholder", "dd");
-      numeralDateInputByPosition(1).should("have.attr", "placeholder", "mm");
+      numeralDateLabelByPosition(0).should("have.text", "Day");
+      numeralDateLabelByPosition(1).should("have.text", "Month");
       numeralDateInputByPosition(2).should("not.exist");
     });
 
@@ -315,8 +317,8 @@ context("Tests for NumeralDate component", () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["mm", "dd"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "placeholder", "mm");
-      numeralDateInputByPosition(1).should("have.attr", "placeholder", "dd");
+      numeralDateLabelByPosition(0).should("have.text", "Month");
+      numeralDateLabelByPosition(1).should("have.text", "Day");
       numeralDateInputByPosition(2).should("not.exist");
     });
 
@@ -324,8 +326,8 @@ context("Tests for NumeralDate component", () => {
       CypressMountWithProviders(
         <NumeralDateComponent dateFormat={["mm", "yyyy"]} />
       );
-      numeralDateInputByPosition(0).should("have.attr", "placeholder", "mm");
-      numeralDateInputByPosition(1).should("have.attr", "placeholder", "yyyy");
+      numeralDateLabelByPosition(0).should("have.text", "Month");
+      numeralDateLabelByPosition(1).should("have.text", "Year");
       numeralDateInputByPosition(2).should("not.exist");
     });
 
@@ -439,16 +441,6 @@ context("Tests for NumeralDate component", () => {
         "aria-label",
         CHARACTERS.STANDARD
       );
-    });
-
-    it("should have the expected border radius styling when no search button enabled", () => {
-      CypressMountWithProviders(<NumeralDateComponent />);
-      numeralDateInputByPosition(0)
-        .parent()
-        .should("have.css", "border-radius", "4px 0px 0px 4px");
-      numeralDateInputByPosition(2)
-        .parent()
-        .should("have.css", "border-radius", "0px 4px 4px 0px");
     });
   });
 
