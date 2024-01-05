@@ -4,8 +4,10 @@ import {
   testStyledSystemMargin,
   testStyledSystemLayout,
   testStyledSystemBackground,
+  assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
 import Image from "./image.component";
+import { StyledImage } from "./image.style";
 
 describe("Image", () => {
   testStyledSystemMargin((props) => <Image {...props} />);
@@ -79,5 +81,120 @@ describe("Image", () => {
         mount(<Image src="foo.jpg" alt="" />);
       }).toThrow(errorMessage);
     });
+  });
+
+  describe.each(["absolute", "fixed", "relative", "static", "sticky"] as const)(
+    "when position prop is passed",
+    (positionValue) => {
+      it(`should apply the correct styling for position of ${positionValue}`, () => {
+        const wrapper = mount(
+          <Image
+            src="foo.jpg"
+            alt="foo"
+            backgroundImage="url('foo.jpg')"
+            position={positionValue}
+          />
+        );
+
+        assertStyleMatch(
+          {
+            position: positionValue,
+          },
+          wrapper.find(StyledImage)
+        );
+      });
+    }
+  );
+
+  describe("when top prop is passed", () => {
+    it.each(["2px", "3em", "10%", "inherit"])(
+      "should apply the correct styling for position of %s",
+      (topValue) => {
+        const wrapper = mount(
+          <Image
+            src="foo.jpg"
+            alt="foo"
+            backgroundImage="url('foo.jpg')"
+            top={topValue}
+          />
+        );
+
+        assertStyleMatch(
+          {
+            top: topValue,
+          },
+          wrapper.find(StyledImage)
+        );
+      }
+    );
+  });
+
+  describe("when right prop is passed", () => {
+    it.each(["2px", "3em", "10%", "inherit"])(
+      "should apply the correct styling for position of %s",
+      (rightValue) => {
+        const wrapper = mount(
+          <Image
+            src="foo.jpg"
+            alt="foo"
+            backgroundImage="url('foo.jpg')"
+            right={rightValue}
+          />
+        );
+
+        assertStyleMatch(
+          {
+            right: rightValue,
+          },
+          wrapper.find(StyledImage)
+        );
+      }
+    );
+  });
+
+  describe("when bottom prop is passed", () => {
+    it.each(["2px", "3em", "10%", "inherit"])(
+      "should apply the correct styling for position of %s",
+      (bottomValue) => {
+        const wrapper = mount(
+          <Image
+            src="foo.jpg"
+            alt="foo"
+            backgroundImage="url('foo.jpg')"
+            bottom={bottomValue}
+          />
+        );
+
+        assertStyleMatch(
+          {
+            bottom: bottomValue,
+          },
+          wrapper.find(StyledImage)
+        );
+      }
+    );
+  });
+
+  describe("when left prop is passed", () => {
+    it.each(["2px", "3em", "10%", "inherit"])(
+      "should apply the correct styling for position of %s",
+      (leftValue) => {
+        const wrapper = mount(
+          <Image
+            src="foo.jpg"
+            alt="foo"
+            backgroundImage="url('foo.jpg')"
+            left={leftValue}
+          />
+        );
+
+        assertStyleMatch(
+          {
+            left: leftValue,
+          },
+          wrapper.find(StyledImage)
+        );
+      }
+    );
   });
 });
