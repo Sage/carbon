@@ -25,7 +25,7 @@ export default {
       },
     },
     iconType: {
-      options: ["chevron_down", "dropdown"],
+      options: ["chevron_down", "chevron_down_thick", "dropdown"],
       control: {
         type: "select",
       },
@@ -48,6 +48,12 @@ export default {
         type: "select",
       },
     },
+    variant: {
+      options: ["standard", "subtle"],
+      control: {
+        type: "select",
+      },
+    },
   },
 };
 
@@ -55,7 +61,6 @@ export const Default = ({ ...args }) => (
   <Accordion
     onChange={action("expansionToggled")}
     {...{
-      iconAlign: "right",
       customPadding: 0,
       title: "Title",
       subTitle: "Sub Title",
@@ -71,19 +76,31 @@ export const Default = ({ ...args }) => (
 
 Default.storyName = "default";
 
-export const Grouped = () => (
+export const Grouped = ({ ...args }) => (
   <AccordionGroup>
-    <Accordion title="First Accordion" onChange={action("expansionToggled")}>
+    <Accordion
+      title="First Accordion"
+      onChange={action("expansionToggled")}
+      {...args}
+    >
       <Box p={2}>
         <Textbox label="Textbox in an Accordion" />
       </Box>
     </Accordion>
-    <Accordion title="Second Accordion" onChange={action("expansionToggled")}>
+    <Accordion
+      title="Second Accordion"
+      onChange={action("expansionToggled")}
+      {...args}
+    >
       <Box p={2}>
         <Textbox label="Textbox in an Accordion" />
       </Box>
     </Accordion>
-    <Accordion title="Third Accordion" onChange={action("expansionToggled")}>
+    <Accordion
+      title="Third Accordion"
+      onChange={action("expansionToggled")}
+      {...args}
+    >
       <Box p={2}>
         <Box mt={2}>Content</Box>
         <Box>Content</Box>

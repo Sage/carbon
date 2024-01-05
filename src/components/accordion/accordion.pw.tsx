@@ -121,34 +121,37 @@ test.describe("should render Accordion component", () => {
     await expect(accordionContent(page)).toBeVisible();
   });
 
-  (["chevron_down", "dropdown"] as const).forEach((iconType) => {
-    test(`should set iconType to ${iconType} when Accordion row is closed`, async ({
-      page,
-      mount,
-    }) => {
-      await mount(<AccordionComponent iconType={iconType} />);
+  (["chevron_down", "dropdown", "chevron_down_thick"] as const).forEach(
+    (iconType) => {
+      test(`should set iconType to ${iconType} and transform when Accordion row is closed`, async ({
+        page,
+        mount,
+      }) => {
+        await mount(<AccordionComponent iconType={iconType} />);
 
-      await expect(accordionIcon(page)).toHaveAttribute("type", iconType);
-      await expect(accordionIcon(page)).toBeVisible();
-      const transformValue = await getStyle(accordionIcon(page), "transform");
-      await expect(getRotationAngle(transformValue)).toBe(90);
-    });
-  });
+        await expect(accordionIcon(page)).toHaveAttribute("type", iconType);
+        await expect(accordionIcon(page)).toBeVisible();
+        const transformValue = await getStyle(accordionIcon(page), "transform");
+        expect(getRotationAngle(transformValue)).toBe(0);
+      });
+    }
+  );
 
-  (["chevron_down", "dropdown"] as const).forEach((iconType) => {
-    test(`should set iconType to ${iconType} when Accordion row is open`, async ({
-      page,
-      mount,
-    }) => {
-      await mount(<AccordionComponent iconType={iconType} />);
+  (["chevron_down", "dropdown", "chevron_down_thick"] as const).forEach(
+    (iconType) => {
+      test(`should set iconType to ${iconType} and transform when Accordion row is open`, async ({
+        page,
+        mount,
+      }) => {
+        await mount(<AccordionComponent iconType={iconType} expanded />);
 
-      await accordionTitleContainer(page).click();
-
-      await expect(accordionIcon(page)).toHaveAttribute("type", iconType);
-      await expect(accordionIcon(page)).toBeVisible();
-      await expect(accordionIcon(page)).toHaveCSS("transform", "none");
-    });
-  });
+        await expect(accordionIcon(page)).toHaveAttribute("type", iconType);
+        await expect(accordionIcon(page)).toBeVisible();
+        const transformValue = await getStyle(accordionIcon(page), "transform");
+        expect(getRotationAngle(transformValue)).toBe(180);
+      });
+    }
+  );
 
   (["left", "right"] as const).forEach((iconAlign) => {
     test(`should set Accordion iconAlign to ${iconAlign}`, async ({
@@ -427,6 +430,18 @@ test.describe("should render Accordion component", () => {
     await accordionIcon(page).nth(0).click();
 
     await expect(accordionTitleContainer(page)).toContainText("Open");
+  });
+
+  test("should verify accordion subtitle does not render when variant is subtle", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <AccordionComponent title="subtle" variant="subtle" subTitle="subtitle" />
+    );
+
+    await expect(accordionTitleContainer(page)).toContainText("subtle");
+    await expect(accordionTitleContainer(page)).not.toContainText("subtitle");
   });
 });
 
@@ -730,6 +745,15 @@ test.describe("Accessibility tests for Accordion", () => {
     page,
   }) => {
     await mount(<AccordionWithDefinitionList />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility tests for Accordion when variant is subtle", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<AccordionDefault variant="subtle" />);
 
     await checkAccessibility(page);
   });
