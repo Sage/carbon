@@ -29,7 +29,7 @@ export interface ProgressTrackerProps extends MarginProps {
   "aria-valuetext"?: string;
   /** Size of the progress bar. */
   size?: "small" | "medium" | "large";
-  /** Length of the progress bar, any valid css string. */
+  /** Length of the component, any valid css string. */
   length?: string;
   /** Current progress (percentage). */
   progress?: number;
@@ -47,9 +47,11 @@ export interface ProgressTrackerProps extends MarginProps {
   customValuePreposition?: string;
   /**
    * The position the value label are rendered in.
-   * Top/bottom apply to horizontal and left/right to vertical orientation.
+   * Top/bottom apply to horizontal and left applies to vertical orientation.
    */
-  labelsPosition?: "top" | "bottom";
+  labelsPosition?: "top" | "bottom" | "left";
+  /** Label width */
+  labelWidth?: string;
 }
 
 const ProgressTracker = ({
@@ -68,7 +70,8 @@ const ProgressTracker = ({
   currentProgressLabel,
   customValuePreposition,
   maxProgressLabel,
-  labelsPosition,
+  labelsPosition = "top",
+  labelWidth,
   ...rest
 }: ProgressTrackerProps) => {
   const l = useLocale();
@@ -109,7 +112,11 @@ const ProgressTracker = ({
     const displayedMaxProgressLabel = label(maxProgressLabel, "100%");
 
     return (
-      <StyledValuesLabel labelsPosition={labelsPosition} size={size}>
+      <StyledValuesLabel
+        labelsPosition={labelsPosition}
+        size={size}
+        labelWidth={labelWidth}
+      >
         {displayedCurrentProgressLabel && (
           <StyledValue data-element="current-progress-label">
             {displayedCurrentProgressLabel}
@@ -153,6 +160,7 @@ const ProgressTracker = ({
       aria-valuemin={ariaValueMin}
       aria-valuemax={ariaValueMax}
       aria-valuetext={ariaValueText}
+      labelsPosition={labelsPosition}
     >
       {prefixLabels && renderValueLabels()}
       <StyledProgressBar

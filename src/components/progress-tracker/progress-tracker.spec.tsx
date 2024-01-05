@@ -350,7 +350,7 @@ describe("labels", () => {
     });
   });
 
-  describe("when labelsPosition is set to top", () => {
+  describe("when labelsPosition is set", () => {
     it("renders labels above the progress bar", () => {
       wrapper = mount(
         <ProgressTracker progress={50} showDefaultLabels labelsPosition="top" />
@@ -358,7 +358,7 @@ describe("labels", () => {
 
       assertStyleMatch(
         {
-          marginBottom: "8px",
+          marginBottom: "var(--spacing100)",
         },
         wrapper.find(StyledValuesLabel)
       );
@@ -375,7 +375,51 @@ describe("labels", () => {
 
       assertStyleMatch(
         {
-          marginTop: "8px",
+          marginTop: "var(--spacing100)",
+        },
+        wrapper.find(StyledValuesLabel)
+      );
+    });
+
+    it("renders labels to the left of the progress bar", () => {
+      wrapper = mount(
+        <ProgressTracker
+          progress={50}
+          showDefaultLabels
+          labelsPosition="left"
+        />
+      );
+
+      assertStyleMatch(
+        {
+          marginRight: "var(--spacing100)",
+        },
+        wrapper.find(StyledValuesLabel)
+      );
+
+      assertStyleMatch(
+        {
+          alignItems: "center",
+        },
+        wrapper.find(StyledProgressTracker)
+      );
+    });
+  });
+
+  describe("when labelWidth is set", () => {
+    it("renders labels with the correct width", () => {
+      wrapper = mount(
+        <ProgressTracker
+          progress={50}
+          showDefaultLabels
+          labelsPosition="left"
+          labelWidth="45px"
+        />
+      );
+
+      assertStyleMatch(
+        {
+          width: "45px",
         },
         wrapper.find(StyledValuesLabel)
       );

@@ -83,6 +83,11 @@ interface Locale {
       month: () => string;
       year: () => string;
     };
+    labels: {
+      day: () => string;
+      month: () => string;
+      year: () => string;
+    };
   };
   pager: {
     show: () => string;
