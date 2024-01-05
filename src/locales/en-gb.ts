@@ -80,6 +80,16 @@ const enGB: Locale = {
         },
     },
   },
+  fileInput: {
+    dragAndDrop: () => "or drag and drop your file",
+    selectFile: () => "Select file",
+    fileUploadStatus: () => "File upload status",
+    actions: {
+      cancel: () => "Cancel upload",
+      clear: () => "Clear",
+      delete: () => "Delete file",
+    },
+  },
   heading: {
     backLinkAriaLabel: () => "Back",
   },
@@ -97,6 +107,11 @@ const enGB: Locale = {
       day: () => "Day should be a number within a 1-31 range.",
       month: () => "Month should be a number within a 1-12 range.",
       year: () => "Year should be a number within a 1800-2200 range.",
+    },
+    labels: {
+      day: () => "Day",
+      month: () => "Month",
+      year: () => "Year",
     },
   },
   pager: {

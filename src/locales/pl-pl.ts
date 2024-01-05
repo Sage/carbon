@@ -139,6 +139,16 @@ const plPL: Locale = {
         },
     },
   },
+  fileInput: {
+    dragAndDrop: () => "lub przeciągnij i upuść plik",
+    selectFile: () => "Wybierz pliki",
+    fileUploadStatus: () => "Status przesyłania plików",
+    actions: {
+      cancel: () => "Anuluj przesyłanie",
+      clear: () => "Wyczyść",
+      delete: () => "Usuń plik",
+    },
+  },
   heading: {
     backLinkAriaLabel: () => "Wstecz",
   },
@@ -156,6 +166,11 @@ const plPL: Locale = {
       day: () => "Dzień musi być liczbą w zakresie 1-31.",
       month: () => "Miesiąć musi być liczbą w zakresie 1-12.",
       year: () => "Rok musi być liczbą w zakresie 1800-2200.",
+    },
+    labels: {
+      day: () => "Dzień",
+      month: () => "Miesiąć",
+      year: () => "Rok",
     },
   },
   pager: {

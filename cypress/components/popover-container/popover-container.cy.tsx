@@ -17,8 +17,9 @@ import {
   popoverCloseIcon,
   popoverSettingsIcon,
   popoverContainerComponent,
-} from "../../locators/popover-container/index";
-import { selectListText, selectText } from "../../locators/select/index";
+  selectListText,
+  selectText,
+} from "../../locators/popover-container";
 import CypressMountWithProviders from "../../support/component-helper/cypress-mount";
 import { keyCode, pressESCKey } from "../../support/helper";
 import { CHARACTERS } from "../../support/component-helper/constants";

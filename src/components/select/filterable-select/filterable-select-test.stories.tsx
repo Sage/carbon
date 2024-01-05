@@ -1,11 +1,6 @@
 import React, { useState, useRef } from "react";
 import partialAction from "../../../../.storybook/utils/partial-action";
-import {
-  FilterableSelect,
-  Option,
-  FilterableSelectProps,
-  CustomSelectChangeEvent,
-} from "..";
+import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import OptionRow from "../option-row/option-row.component";
 import Dialog from "../../dialog";
 import Button from "../../button";
@@ -13,7 +8,7 @@ import Button from "../../button";
 export default {
   component: FilterableSelect,
   title: "Select/Filterable/Test",
-  excludeStories: ["SelectionConfirmed"],
+  excludeStories: [],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -653,45 +648,5 @@ export const FilterableSelectNestedInDialog = ({
         <Option value="opt4" text="black" />
       </FilterableSelect>
     </Dialog>
-  );
-};
-
-export const SelectionConfirmed = () => {
-  const [value, setValue] = useState("");
-  const [confirmedSelection, setConfirmedSelection] = useState("");
-
-  const handleChange = (event: CustomSelectChangeEvent) => {
-    setValue(event.target.value);
-    if (event.selectionConfirmed) {
-      setConfirmedSelection(event.target.value);
-    }
-  };
-  return (
-    <>
-      <FilterableSelect
-        name="testing"
-        value={value}
-        onChange={handleChange}
-        openOnFocus
-        label="Test"
-        placeholder=" "
-      >
-        <Option value="1" text="One" />
-        <Option value="2" text="Two" />
-        <Option value="3" text="Three" />
-        <Option value="4" text="Four" />
-        <Option value="5" text="Five" />
-        <Option value="6" text="Six" />
-        <Option value="7" text="Seven" />
-        <Option value="8" text="Eight" />
-        <Option value="9" text="Nine" />
-      </FilterableSelect>
-
-      {confirmedSelection ? (
-        <span data-element={`confirmed-selection-${confirmedSelection}`}>
-          {confirmedSelection}
-        </span>
-      ) : null}
-    </>
   );
 };

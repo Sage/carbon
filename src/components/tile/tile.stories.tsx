@@ -1,7 +1,13 @@
 import React from "react";
 import { ComponentStory } from "@storybook/react";
 
-import { Tile, TileContent, TileFooter } from ".";
+import {
+  FlexTileCell,
+  FlexTileContainer,
+  Tile,
+  TileContent,
+  TileFooter,
+} from ".";
 
 import { Dl, Dt, Dd } from "../definition-list";
 import Link from "../link";
@@ -13,6 +19,7 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Icon from "../icon";
 import VerticalDivider from "../vertical-divider";
 import Hr from "../hr";
+import FlexTileDivider from "./flex-tile-divider";
 
 export const SIZES = ["small", "medium", "large"] as const;
 export const VALIDATIONS = ["error", "warning", "info"] as const;
@@ -582,3 +589,187 @@ export const WithAccordionAndTileFooter: ComponentStory<typeof Tile> = () => (
 WithAccordionAndTileFooter.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const ResponsiveDefaultStory: ComponentStory<typeof Tile> = () => (
+  <Tile m={0} py={0}>
+    <FlexTileContainer>
+      <FlexTileCell py={2}>
+        <FlexTileDivider />
+        Test Body One
+      </FlexTileCell>
+      <FlexTileCell py={2}>
+        <FlexTileDivider />
+        Test Body Two
+      </FlexTileCell>
+      <FlexTileCell py={2}>
+        <FlexTileDivider />
+        Test Body Three With a very very long text
+      </FlexTileCell>
+    </FlexTileContainer>
+  </Tile>
+);
+
+export const CustomGaps: ComponentStory<typeof Tile> = () => (
+  <>
+    <Tile my={1} py={0}>
+      <FlexTileContainer>
+        <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
+          <FlexTileDivider />
+          <Box backgroundColor="#dedede">Test Body One</Box>
+        </FlexTileCell>
+        <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
+          <FlexTileDivider />
+          <Box backgroundColor="#dedede">Test Body Two</Box>
+        </FlexTileCell>
+        <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
+          <FlexTileDivider />
+          <Box backgroundColor="#dedede">
+            Test Body Three With a very very long text
+          </Box>
+        </FlexTileCell>
+      </FlexTileContainer>
+    </Tile>
+    <Tile my={1} py={0}>
+      <FlexTileContainer columnGap={6}>
+        <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
+          <FlexTileDivider />
+          <Box backgroundColor="#dedede">Test Body One</Box>
+        </FlexTileCell>
+        <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
+          <FlexTileDivider />
+          <Box backgroundColor="#dedede">Test Body Two</Box>
+        </FlexTileCell>
+        <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
+          <FlexTileDivider />
+          <Box backgroundColor="#dedede">
+            Test Body Three With a very very long text
+          </Box>
+        </FlexTileCell>
+      </FlexTileContainer>
+    </Tile>
+  </>
+);
+
+export const FixedContainers: ComponentStory<typeof Tile> = () => (
+  <Tile my={1} py={0}>
+    <FlexTileContainer>
+      <FlexTileCell flexGrow={0} flexBasis="fit-content" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed fit-content
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexGrow={0} flexBasis="80px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 80px
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexGrow={0} flexBasis="120px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 120px
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexGrow={0} flexBasis="160px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 160px
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexGrow={0} flexBasis="200px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 200px
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexGrow={0} flexBasis="240px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Fixed 240px
+        </Box>
+      </FlexTileCell>
+    </FlexTileContainer>
+  </Tile>
+);
+
+export const FlexContainers: ComponentStory<typeof Tile> = () => (
+  <Tile my={1} py={0}>
+    <FlexTileContainer>
+      <FlexTileCell flexBasis="80px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 80px
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexBasis="120px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 120px
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexBasis="160px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 160px
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexBasis="200px" py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 200px
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexBasis="240px" py={2} maxWidth="400px">
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 240px - maxWidth 400px
+        </Box>
+      </FlexTileCell>
+    </FlexTileContainer>
+  </Tile>
+);
+
+export const ProportionateWidths: ComponentStory<typeof Tile> = () => (
+  <Tile my={1} py={0}>
+    <FlexTileContainer>
+      <FlexTileCell flexGrow={1} py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 160px normal
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexGrow={2} py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 160px wide
+        </Box>
+      </FlexTileCell>
+      <FlexTileCell flexGrow={3} py={2}>
+        <FlexTileDivider />
+        <Box backgroundColor="#dedede" width="100%">
+          Flex 160px extra-wide
+        </Box>
+      </FlexTileCell>
+    </FlexTileContainer>
+  </Tile>
+);
+
+export const Align: ComponentStory<typeof Tile> = () => (
+  <Tile my={1} py={0}>
+    <FlexTileContainer>
+      <FlexTileCell justifyContent="flex-start" py={2}>
+        <FlexTileDivider />
+        <Box>Align left</Box>
+      </FlexTileCell>
+      <FlexTileCell justifyContent="flex-end" py={2}>
+        <FlexTileDivider />
+        <Box>Align right</Box>
+      </FlexTileCell>
+      <FlexTileCell justifyContent="center" py={2}>
+        <FlexTileDivider />
+        <Box>Align center</Box>
+      </FlexTileCell>
+    </FlexTileContainer>
+  </Tile>
+);

@@ -55,6 +55,16 @@ interface Locale {
       ) => [string, string] | null;
     };
   };
+  fileInput: {
+    dragAndDrop: () => string;
+    selectFile: () => string;
+    fileUploadStatus: () => string;
+    actions: {
+      cancel: () => string;
+      clear: () => string;
+      delete: () => string;
+    };
+  };
   heading: {
     backLinkAriaLabel: () => string;
   };
@@ -69,6 +79,11 @@ interface Locale {
   };
   numeralDate: {
     validation: {
+      day: () => string;
+      month: () => string;
+      year: () => string;
+    };
+    labels: {
       day: () => string;
       month: () => string;
       year: () => string;

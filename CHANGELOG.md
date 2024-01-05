@@ -1,3 +1,57 @@
+## [124.5.0](https://github.com/Sage/carbon/compare/v124.4.1...v124.5.0) (2024-01-04)
+
+
+### Features
+
+* **numeral-date:** add date format and update to align with DS ([a292c86](https://github.com/Sage/carbon/commit/a292c86cc0eda7b363e545965b7fdc39b5ddfd1c))
+
+### [124.4.1](https://github.com/Sage/carbon/compare/v124.4.0...v124.4.1) (2023-12-19)
+
+
+### Bug Fixes
+
+* **filterable-select, multi-select:** no error when input has non-matched filter and arrow key press ([2a4c9ef](https://github.com/Sage/carbon/commit/2a4c9efb9a297202491bfd6ac901fd358c0f7c16)), closes [#6459](https://github.com/Sage/carbon/issues/6459)
+* **filterable-select, simple-select:** ensure onListScrollBottom is not called when option selected ([00158dc](https://github.com/Sage/carbon/commit/00158dccbbf7fe4baef22f9a3a40d5b25d368814)), closes [#6285](https://github.com/Sage/carbon/issues/6285)
+
+## [124.4.0](https://github.com/Sage/carbon/compare/v124.3.1...v124.4.0) (2023-12-19)
+
+
+### Features
+
+* responsive tile ([79f2476](https://github.com/Sage/carbon/commit/79f247632ad15d482ef72f0cfe3ce306c9f2dc8e))
+
+### [124.3.1](https://github.com/Sage/carbon/compare/v124.3.0...v124.3.1) (2023-12-15)
+
+
+### Bug Fixes
+
+* **select:** auto-scroll to top when reopening, to fix Safari ([3735c6c](https://github.com/Sage/carbon/commit/3735c6cf6ce40a8f81fe4c69a41b4957fb0b69d0))
+* **select:** ensure re-opening the select resets scroll position to the top ([0ce2847](https://github.com/Sage/carbon/commit/0ce2847c42bfe79ba34192725af77d8ed6a31c6b)), closes [#6399](https://github.com/Sage/carbon/issues/6399)
+
+## [124.3.0](https://github.com/Sage/carbon/compare/v124.2.2...v124.3.0) (2023-12-13)
+
+
+### Features
+
+* add new file-input component ([947eaa1](https://github.com/Sage/carbon/commit/947eaa1d8276dfcbf6ffc70e61d0f92e741d51e0))
+* ensure text of long file name does not overflow container ([8cdabc9](https://github.com/Sage/carbon/commit/8cdabc93daab76f34964e080309a275ad2bc97c6))
+* **file-input:** make upload status message into aria-live region ([adb1e83](https://github.com/Sage/carbon/commit/adb1e83dab5da19ed26d20ee6783e4a7ad285d7b))
+
+
+### Bug Fixes
+
+* correct default min-width and fix docs ([f5172ca](https://github.com/Sage/carbon/commit/f5172cac47af36382ff120eea38e158b0fd12907))
+* css syntax for text opacity ([6339e5e](https://github.com/Sage/carbon/commit/6339e5e2a09c0b952aa02fe129d4652357daf811))
+* **file-input:** fix outer background color of loaderbar ([fc0c807](https://github.com/Sage/carbon/commit/fc0c807af71f241da2c1983ce36850b5223ff2be))
+* link focus styling ([5a75d03](https://github.com/Sage/carbon/commit/5a75d0339b04d21c9a0052a75c16ff5dd8369e8e))
+
+### [124.2.2](https://github.com/Sage/carbon/compare/v124.2.1...v124.2.2) (2023-12-11)
+
+
+### Bug Fixes
+
+* **filterable-select:** ensure list does not reopen when user clicks option and openOnFocus prop set ([e143aaa](https://github.com/Sage/carbon/commit/e143aaad13c821a9ee6bfb9ce1a64494c81ce23b)), closes [#6462](https://github.com/Sage/carbon/issues/6462)
+
 ### [124.2.1](https://github.com/Sage/carbon/compare/v124.2.0...v124.2.1) (2023-12-08)
 
 
