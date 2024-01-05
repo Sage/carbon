@@ -1,3 +1,10 @@
+## [124.6.0](https://github.com/Sage/carbon/compare/v124.5.0...v124.6.0) (2024-01-05)
+
+
+### Features
+
+* **progress-tracker:** add inline label and label width prop ([5742c81](https://github.com/Sage/carbon/commit/5742c8199cbabe91fc4f561aba232d46dad3a4b1))
+
 ## [124.5.0](https://github.com/Sage/carbon/compare/v124.4.1...v124.5.0) (2024-01-04)
 
 
