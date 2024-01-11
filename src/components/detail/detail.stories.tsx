@@ -23,7 +23,7 @@ export const DetailWithIcon: ComponentStory<typeof Detail> = () => (
 );
 
 export const DetailInsideCard: ComponentStory<typeof Detail> = () => (
-  <Card cardWidth="300px">
+  <Card width="300px">
     <Box pt="16px">
       <Detail>This example of Detail just has children.</Detail>
     </Box>
