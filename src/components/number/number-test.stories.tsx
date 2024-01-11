@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
-import Number, { NumberProps } from "./number.component";
+import Number from "./number.component";
 import {
   CommonTextboxArgs,
   commonTextboxArgTypes,
@@ -60,14 +60,4 @@ Default.args = {
   onKeyDownEnabled: false,
   deferTimeout: undefined,
   ...getCommonTextboxArgs(),
-};
-
-export const NumberInputComponent = (props: NumberProps) => {
-  const [state, setState] = React.useState("");
-
-  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    setState(target.value);
-  };
-
-  return <Number label="Number" value={state} onChange={setValue} {...props} />;
 };

@@ -1,5 +1,5 @@
-import Locale from "./locale";
-import { pl as plDateLocale } from "./date-fns-locales";
+import Locale from "../locale";
+import { pl as plDateLocale } from "../date-fns-locales";
 
 const isSingular = (count: string | number): boolean =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
@@ -166,6 +166,11 @@ const plPL: Locale = {
       day: () => "Dzień musi być liczbą w zakresie 1-31.",
       month: () => "Miesiąć musi być liczbą w zakresie 1-12.",
       year: () => "Rok musi być liczbą w zakresie 1800-2200.",
+    },
+    labels: {
+      day: () => "Dzień",
+      month: () => "Miesiąć",
+      year: () => "Rok",
     },
   },
   pager: {

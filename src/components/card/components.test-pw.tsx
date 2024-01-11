@@ -10,7 +10,18 @@ import Box from "../box";
 
 export const CardComponent = (props: Partial<CardProps>) => {
   return (
-    <Card {...props}>
+    <Card
+      {...props}
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              View Stripe Dashboard
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn align="left">
           <Heading title="Stripe - [account name]" divider={false} />
@@ -31,13 +42,6 @@ export const CardComponent = (props: Partial<CardProps>) => {
           <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter>
-        <CardColumn>
-          <Link icon="link" href="https://carbon.sage.com/">
-            View Stripe Dashboard
-          </Link>
-        </CardColumn>
-      </CardFooter>
     </Card>
   );
 };

@@ -11,12 +11,8 @@ const simpleColorPickerInput = (page: Page, index: number) => {
   return page.locator(SIMPLE_COLOR).locator("input").nth(index);
 };
 
-const simpleColorPicker = (page: Page, index: number) => {
-  return page
-    .locator(SIMPLE_COLOR_PICKER)
-    .locator(SIMPLE_COLOR)
-    .nth(index)
-    .locator("input");
+const simpleColorDiv = (page: Page, index: number) => {
+  return page.locator(SIMPLE_COLOR).nth(index).locator("div");
 };
 
 const currentColorDescription = (page: Page) => {
@@ -27,7 +23,7 @@ const advancedColorPickerCell = (page: Page) => {
   return page.locator(ADVANCED_COLOR_PICKER_CELL);
 };
 
-const advancedColorPicker = (page: Page, index: number) => {
+const simpleColor = (page: Page, index: number) => {
   return page.locator(SIMPLE_COLOR).nth(index);
 };
 
@@ -41,10 +37,10 @@ const advancedColorPickerPreview = (page: Page) => {
 
 export {
   simpleColorPickerInput,
-  simpleColorPicker,
+  simpleColorDiv,
   currentColorDescription,
   advancedColorPickerCell,
-  advancedColorPicker,
+  simpleColor,
   simpleColorPickerComponent,
   advancedColorPickerPreview,
 };

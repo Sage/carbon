@@ -1,3 +1,46 @@
+## [125.0.0](https://github.com/Sage/carbon/compare/v124.6.1...v125.0.0) (2024-01-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `pl-pl` translation files have been moved to an internal directory
+* **card:** Removes `action` and `interactive` props. Renames `cardWidth` prop to `width`.
+* **card:** `dataRole` has been deprecated use `data-role` instead
+* **card, card-row, card-footer:** The `spacing` prop is no longer surfaced on `CardRowProps` and `CardFooterProps`
+interfaces
+
+### Features
+
+* **card, card-row, card-footer:** replace cloning and mapping of children with context ([18cdb4b](https://github.com/Sage/carbon/commit/18cdb4bbbf11c4cb0e2b66704cca9fb8a4ea9a6c))
+* **card:** ensure card action can be triggered by correct key presses when it is a button or link ([c81092d](https://github.com/Sage/carbon/commit/c81092d483d37b27daf8704d04dd961fa49cd310)), closes [#4800](https://github.com/Sage/carbon/issues/4800)
+* move Polish translation files into an internal directory ([416e94c](https://github.com/Sage/carbon/commit/416e94c316d8631a7906298b77958ddf7d0fb23d))
+
+
+### Miscellaneous Chores
+
+* **card:** deprecate old dataRole prop ([5328423](https://github.com/Sage/carbon/commit/53284236f06153da26f15973f345ce4c1bfd2d1c))
+
+### [124.6.1](https://github.com/Sage/carbon/compare/v124.6.0...v124.6.1) (2024-01-11)
+
+
+### Bug Fixes
+
+* **select:** stop list scrolling to selected option unless it has changed ([93de140](https://github.com/Sage/carbon/commit/93de140349cd85fe80a7db49595d9bbf17536e17)), closes [#6461](https://github.com/Sage/carbon/issues/6461)
+
+## [124.6.0](https://github.com/Sage/carbon/compare/v124.5.0...v124.6.0) (2024-01-05)
+
+
+### Features
+
+* **progress-tracker:** add inline label and label width prop ([5742c81](https://github.com/Sage/carbon/commit/5742c8199cbabe91fc4f561aba232d46dad3a4b1))
+
+## [124.5.0](https://github.com/Sage/carbon/compare/v124.4.1...v124.5.0) (2024-01-04)
+
+
+### Features
+
+* **numeral-date:** add date format and update to align with DS ([a292c86](https://github.com/Sage/carbon/commit/a292c86cc0eda7b363e545965b7fdc39b5ddfd1c))
+
 ### [124.4.1](https://github.com/Sage/carbon/compare/v124.4.0...v124.4.1) (2023-12-19)
 
 

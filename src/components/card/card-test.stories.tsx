@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { ComponentMeta } from "@storybook/react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
@@ -26,19 +26,34 @@ export default {
     },
   },
   argTypes: {
-    action: { action: "action" },
+    children: { table: { disable: true } },
+    onClick: { table: { disable: true } },
+    footer: { table: { disable: true } },
   },
 } as ComponentMeta<typeof Card>;
 
-export const DefaultStory: ComponentStory<typeof Card> = (
-  args: Partial<CardProps>
+export const DefaultStory = (
+  args: Omit<CardProps, "onClick" | "children" | "footer">
 ) => {
   return (
-    <Card interactive {...args}>
+    <Card
+      {...args}
+      footer={
+        <CardFooter>
+          <CardColumn>
+            <Link icon="link" href="https://carbon.sage.com/">
+              Footer link
+            </Link>
+          </CardColumn>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn align="left">
-          <Heading title="Stripe - [account name]" divider={false} />
-          <Typography variant="h5">user.name@sage.com</Typography>
+          <Heading title="Heading" divider={false} />
+          <Typography fontSize="16px" m={0}>
+            Additional text
+          </Typography>
         </CardColumn>
         <CardColumn align="right">
           <Icon type="image" />
@@ -46,20 +61,13 @@ export const DefaultStory: ComponentStory<typeof Card> = (
       </CardRow>
       <CardRow>
         <CardColumn>
-          <Typography variant="h5" fontWeight="bold">
-            Stripe Balance
+          <Typography fontSize="16px" m={0} fontWeight="bold">
+            Body text
           </Typography>
-          <Heading title="£ 0.00" divider={false} />
-          <Typography fontSize="12px">LAST ENTRY: 15 DAYS AGO</Typography>
+          <Heading title="More text" divider={false} />
+          <Typography>Even more text</Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter>
-        <CardColumn>
-          <Link icon="link" href="https://carbon.sage.com/">
-            View Stripe Dashboard
-          </Link>
-        </CardColumn>
-      </CardFooter>
     </Card>
   );
 };
