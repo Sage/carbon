@@ -2,7 +2,7 @@ import React from "react";
 
 import I18nProvider from "../../src/components/i18n-provider";
 import enGB from "../../src/locales/en-gb";
-import plPL from "../../src/locales/pl-pl";
+import plPL from "../../src/locales/__internal__/pl-pl";
 
 export const withLocaleSelector = (Story, context) => {
   const selectedLocale =
