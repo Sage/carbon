@@ -1,3 +1,10 @@
+### [125.0.1](https://github.com/Sage/carbon/compare/v125.0.0...v125.0.1) (2024-01-11)
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** ensure that custom padding is applied to submenu items inside menu fullscreen ([d80f902](https://github.com/Sage/carbon/commit/d80f902e07f277ee166a2923dc5ed3b83e660bd2)), closes [#6325](https://github.com/Sage/carbon/issues/6325)
+
 ## [125.0.0](https://github.com/Sage/carbon/compare/v124.6.1...v125.0.0) (2024-01-11)
 
 
