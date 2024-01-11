@@ -615,7 +615,7 @@ test.describe("Prop checks for Textbox component", () => {
     await expect(label).toHaveAttribute("for", CHARACTERS.STANDARD);
   });
 
-  testData.forEach(([fieldHelp]) => {
+  testData.forEach((fieldHelp) => {
     test(`should render with fieldHelp prop ${fieldHelp}`, async ({
       mount,
       page,
