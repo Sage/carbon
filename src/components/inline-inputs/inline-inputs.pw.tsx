@@ -128,6 +128,27 @@ test.describe("InlineInputs", () => {
       await expect(inlineLabel(page)).toHaveAttribute("for", htmlFor);
     });
   });
+
+  ([
+    ["left", "flex-start"],
+    ["right", "flex-end"],
+  ] as [InlineInputsProps["labelAlign"], string][]).forEach(
+    ([labelAlign, cssValue]) => {
+      test(`should render with labelAlign prop set to ${labelAlign}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <InlineInputComponent labelAlign={labelAlign} labelWidth={30} />
+        );
+
+        await expect(inlinelabelWidth(page)).toHaveCSS(
+          "justify-content",
+          cssValue
+        );
+      });
+    }
+  );
 });
 
 test.describe("Accessibility tests for InlineInputs component", () => {
