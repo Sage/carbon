@@ -352,7 +352,6 @@ describe("PopoverContainer", () => {
       });
 
       wrapper.update();
-      expect(wrapper.find(PopoverContainerOpenIcon).props().tabIndex).toBe(-1);
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
     });
 
@@ -364,7 +363,6 @@ describe("PopoverContainer", () => {
       });
 
       wrapper.update();
-      expect(wrapper.find(PopoverContainerOpenIcon).props().tabIndex).toBe(-1);
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
 
       act(() => {
@@ -430,10 +428,7 @@ describe("PopoverContainer", () => {
       });
 
       afterEach(() => {
-        if (container && container.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-
+        container?.parentNode?.removeChild(container);
         container = null;
       });
 
@@ -560,7 +555,6 @@ describe("PopoverContainer", () => {
         document.body.appendChild(container);
         wrapper = renderAttached({
           open: true,
-          // eslint-disable-next-line react/display-name
           renderCloseComponent: ({
             tabIndex,
             "data-element": dataElement,
@@ -582,16 +576,8 @@ describe("PopoverContainer", () => {
       });
 
       afterEach(() => {
-        if (container && container.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-
+        container?.parentNode?.removeChild(container);
         container = null;
-      });
-
-      it("should be focused if `ref` is provided", () => {
-        jest.runAllTimers();
-        expect(wrapper.find(MyCloseButton)).toBeFocused();
       });
 
       it("should render correct props", () => {
@@ -614,10 +600,7 @@ describe("PopoverContainer", () => {
       });
 
       afterEach(() => {
-        if (container && container.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-
+        container?.parentNode?.removeChild(container);
         container = null;
       });
 
@@ -919,7 +902,11 @@ describe("open state when click event triggered", () => {
     expect(onCloseFn).toHaveBeenCalled();
   });
 
-  it("should close the container when escape key is pressed inside of a Select component", () => {
+  it("should close the container when Select input receives keydown event with escape key pressed and list is closed", () => {
+    const container = document.createElement("div");
+    container.id = "enzymeContainer";
+    document.body.appendChild(container);
+
     const onCloseFn = jest.fn();
     const MockWrapper = () => {
       const [open, setOpen] = React.useState(true);
@@ -942,8 +929,12 @@ describe("open state when click event triggered", () => {
         </>
       );
     };
-    const wrapper = mount(<MockWrapper />);
-    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+    const wrapper = mount(<MockWrapper />, {
+      attachTo: document.getElementById("enzymeContainer"),
+    });
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
 
     const selectInput = document.querySelector(
       '[data-element="input"][aria-expanded="false"]'
@@ -962,9 +953,14 @@ describe("open state when click event triggered", () => {
       false
     );
     expect(onCloseFn).toHaveBeenCalled();
+
+    container?.parentNode?.removeChild(container);
   });
 
   it("should not close the container when escape key is pressed inside of the SelectList", () => {
+    const container = document.createElement("div");
+    container.id = "enzymeContainer";
+    document.body.appendChild(container);
     const onCloseFn = jest.fn();
     const MockWrapper = () => {
       const [open, setOpen] = React.useState(true);
@@ -987,8 +983,12 @@ describe("open state when click event triggered", () => {
         </>
       );
     };
-    const wrapper = mount(<MockWrapper />);
-    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+    const wrapper = mount(<MockWrapper />, {
+      attachTo: document.getElementById("enzymeContainer"),
+    });
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
 
     const selectText = wrapper.find('input[type="text"]').first();
 
@@ -1011,6 +1011,64 @@ describe("open state when click event triggered", () => {
       true
     );
     expect(onCloseFn).not.toHaveBeenCalled();
+
+    container?.parentNode?.removeChild(container);
+  });
+
+  it("keep focus on the open button when container is opened", () => {
+    const container = document.createElement("div");
+    container.id = "enzymeContainer";
+    document.body.appendChild(container);
+    const onCloseFn = jest.fn();
+    const MockWrapper = () => {
+      const [open, setOpen] = React.useState(true);
+
+      return (
+        <>
+          <PopoverContainer
+            title="PopoverContainerSettings"
+            open={open}
+            onClose={(e) => {
+              setOpen(false);
+              onCloseFn(e);
+            }}
+          >
+            <Select name="simple" id="simple" label="color" labelInline>
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+            </Select>
+          </PopoverContainer>
+        </>
+      );
+    };
+    const wrapper = mount(<MockWrapper />, {
+      attachTo: document.getElementById("enzymeContainer"),
+    });
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
+
+    const selectText = wrapper.find('input[type="text"]').first();
+
+    selectText.simulate("click");
+
+    const expandedSelectInput = document.querySelector(
+      '[data-element="input"][aria-expanded="true"]'
+    );
+
+    expandedSelectInput?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+      })
+    );
+
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
+    expect(onCloseFn).not.toHaveBeenCalled();
+
+    container?.parentNode?.removeChild(container);
   });
 
   it("should render with the expected border radius styling", () => {

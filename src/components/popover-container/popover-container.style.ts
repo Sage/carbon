@@ -66,6 +66,10 @@ const PopoverContainerContentStyle = styled.div<PopoverContainerContentStyleProp
   z-index: ${({ theme }) => theme.zIndex.popover};
 
   ${animationToRender}
+
+  :focus {
+    outline: none;
+  }
 `;
 
 type AdditionalIconButtonProps = {
