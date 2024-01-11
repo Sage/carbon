@@ -89,10 +89,17 @@ percentages.
   <Story name="default label value" story={stories.DefaultLabelValue} />
 </Canvas>
 
-It is possible to override the default `labelsPosition` to `"bottom"`
+It is possible to override the default `labelsPosition` to `"bottom"` or `"left"`.
 
 <Canvas>
   <Story name="default label value - labelsPosition bottom" story={stories.DefaultLabelValueLabelsPositionBottom} />
+</Canvas>
+
+When positioning the labels to the left, it is possible to use the `LabelWidth` prop to ensure consistent label lengths. 
+This can also facilitate comparison between multiple `ProgressTrackers`.
+
+<Canvas>
+  <Story name="default label value - labelsPosition left" story={stories.DefaultLabelValueLabelsPositionLeft} />
 </Canvas>
 
 ### Custom label values

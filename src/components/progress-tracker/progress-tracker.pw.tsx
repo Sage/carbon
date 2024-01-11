@@ -211,7 +211,10 @@ test.describe("Check props for ProgressTracker component", () => {
   const getYValue = (locator: Locator) =>
     locator.evaluate((element) => element.getBoundingClientRect().y);
 
-  test(`should position current value label above tracker line when labelsPosition prop is "top"`, async ({
+  const getXValue = (locator: Locator) =>
+    locator.evaluate((element) => element.getBoundingClientRect().x);
+
+  test("should position current value label above tracker line when labelsPosition prop is top", async ({
     mount,
     page,
   }) => {
@@ -227,7 +230,7 @@ test.describe("Check props for ProgressTracker component", () => {
     );
   });
 
-  test(`should position current value label below tracker line when labelsPosition prop is "bottom"`, async ({
+  test("should position current value label below tracker line when labelsPosition prop is bottom", async ({
     mount,
     page,
   }) => {
@@ -240,6 +243,23 @@ test.describe("Check props for ProgressTracker component", () => {
     await expect(trackerLine).toBeVisible(); // assert tracker line is visible before checking bounding box
     expect(await getYValue(currentValueLabel)).toBeGreaterThan(
       await getYValue(trackerLine)
+    );
+  });
+
+  test("should position current value label to the left of tracker line when labelsPosition prop is left", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ProgressTrackerComponent labelsPosition="left" />);
+
+    const currentValueLabel = progressTrackerMinVal(page);
+    const trackerLine = progressTrackerLine(page);
+
+    await expect(currentValueLabel).toBeVisible(); // assert label is visible before checking bounding box
+    await expect(trackerLine).toBeVisible(); // assert tracker line is visible before checking bounding box
+
+    expect(await getXValue(currentValueLabel)).toBeLessThan(
+      await getXValue(trackerLine)
     );
   });
 
@@ -406,20 +426,20 @@ test.describe("Accessibility tests", () => {
     }
   );
 
-  (["top", "bottom"] as ProgressTrackerProps["labelsPosition"][]).forEach(
-    (labelsPosition) => {
-      test(`should check the accessibility when component is rendered with labelsPosition is set to ${labelsPosition}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <ProgressTrackerComponent labelsPosition={labelsPosition} />
-        );
+  ([
+    "top",
+    "bottom",
+    "left",
+  ] as ProgressTrackerProps["labelsPosition"][]).forEach((labelsPosition) => {
+    test(`should check the accessibility when component is rendered with labelsPosition is set to ${labelsPosition}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ProgressTrackerComponent labelsPosition={labelsPosition} />);
 
-        await checkAccessibility(page);
-      });
-    }
-  );
+      await checkAccessibility(page);
+    });
+  });
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
     (description) => {
