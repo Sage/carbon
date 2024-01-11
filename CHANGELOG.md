@@ -1,3 +1,10 @@
+### [124.6.1](https://github.com/Sage/carbon/compare/v124.6.0...v124.6.1) (2024-01-11)
+
+
+### Bug Fixes
+
+* **select:** stop list scrolling to selected option unless it has changed ([93de140](https://github.com/Sage/carbon/commit/93de140349cd85fe80a7db49595d9bbf17536e17)), closes [#6461](https://github.com/Sage/carbon/issues/6461)
+
 ## [124.6.0](https://github.com/Sage/carbon/compare/v124.5.0...v124.6.0) (2024-01-05)
 
 
