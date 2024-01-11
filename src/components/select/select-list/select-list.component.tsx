@@ -554,15 +554,15 @@ const SelectList = React.forwardRef(
       }
 
       setCurrentOptionsListIndex(indexOfMatch);
+    }, [getIndexOfMatch, highlightedValue]);
 
-      virtualizer.scrollToIndex(indexOfMatch, SCROLL_OPTIONS);
-    }, [
-      getIndexOfMatch,
-      highlightedValue,
-      virtualizer,
-      handleListScroll,
-      listContainerRef,
-    ]);
+    // ensure that the currently-selected option is always visible immediately after
+    // it has been changed
+    useEffect(() => {
+      if (currentOptionsListIndex > -1) {
+        virtualizer.scrollToIndex(currentOptionsListIndex, SCROLL_OPTIONS);
+      }
+    }, [currentOptionsListIndex, virtualizer]);
 
     useEffect(() => {
       if (
