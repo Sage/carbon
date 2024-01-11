@@ -2,7 +2,6 @@ import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import { AdvancedColorPickerCustom } from "./components.test-pw";
 import {
-  simpleColorPicker,
   currentColorDescription,
   advancedColorPickerCell,
   simpleColorPickerInput,
@@ -67,7 +66,7 @@ test.describe(
       }) => {
         await mount(<AdvancedColorPickerCustom />);
 
-        const picker = simpleColorPicker(page, 7);
+        const picker = simpleColorPickerInput(page, 7);
         await picker.press(key);
         await expect(simpleColorPickerInput(page, index)).toHaveAttribute(
           "aria-checked",
@@ -82,9 +81,9 @@ test.describe(
     }) => {
       await mount(<AdvancedColorPickerCustom />);
 
-      const picker = simpleColorPicker(page, 7);
+      const picker = simpleColorPickerInput(page, 7);
       await picker.press("ArrowUp");
-      const newPicker = simpleColorPicker(page, 2);
+      const newPicker = simpleColorPickerInput(page, 2);
       await newPicker.press("ArrowDown");
       await expect(simpleColorPickerInput(page, 7)).toHaveAttribute(
         "aria-checked",
@@ -98,7 +97,7 @@ test.describe(
     }) => {
       await mount(<AdvancedColorPickerCustom />);
 
-      const picker = simpleColorPicker(page, 7);
+      const picker = simpleColorPickerInput(page, 7);
       const icon = closeIconButton(page);
       await picker.focus();
       await picker.press("Tab");
@@ -114,7 +113,7 @@ test.describe(
       }) => {
         await mount(<AdvancedColorPickerCustom />);
 
-        const picker = simpleColorPicker(page, 7);
+        const picker = simpleColorPickerInput(page, 7);
         await picker.press(key);
         await expect(simpleColorPickerComponent(page)).not.toBeVisible();
       });
@@ -217,7 +216,7 @@ test.describe(
     }) => {
       await mount(<AdvancedColorPickerCustom name="playwrightTestColorName" />);
 
-      await expect(simpleColorPicker(page, 6)).toHaveAttribute(
+      await expect(simpleColorPickerInput(page, 6)).toHaveAttribute(
         "name",
         "playwrightTestColorName"
       );
@@ -234,19 +233,19 @@ test.describe(
         />
       );
 
-      await expect(simpleColorPicker(page, 0)).toHaveAttribute(
+      await expect(simpleColorPickerInput(page, 0)).toHaveAttribute(
         "value",
         colors[0].value
       );
-      await expect(simpleColorPicker(page, 0)).toHaveAttribute(
+      await expect(simpleColorPickerInput(page, 0)).toHaveAttribute(
         "aria-label",
         colors[0].label
       );
-      await expect(simpleColorPicker(page, 1)).toHaveAttribute(
+      await expect(simpleColorPickerInput(page, 1)).toHaveAttribute(
         "value",
         colors[1].value
       );
-      await expect(simpleColorPicker(page, 1)).toHaveAttribute(
+      await expect(simpleColorPickerInput(page, 1)).toHaveAttribute(
         "aria-label",
         colors[1].label
       );
@@ -263,11 +262,11 @@ test.describe(
         />
       );
 
-      await expect(simpleColorPicker(page, 1)).toHaveAttribute(
+      await expect(simpleColorPickerInput(page, 1)).toHaveAttribute(
         "value",
         colors[1].value
       );
-      await expect(simpleColorPicker(page, 1)).toHaveAttribute(
+      await expect(simpleColorPickerInput(page, 1)).toHaveAttribute(
         "aria-label",
         colors[1].label
       );
