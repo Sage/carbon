@@ -5,7 +5,7 @@ import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
 export default {
   component: ProgressTracker,
   title: "Progress Tracker/Test",
-  includeStories: ["Default"],
+  includeStories: ["Default", "LeftLabelWithLabelWidth"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -37,7 +37,7 @@ export default {
       },
     },
     labelsPosition: {
-      options: ["top", "bottom"],
+      options: ["top", "bottom", "left"],
       control: {
         type: "select",
       },
@@ -50,6 +50,43 @@ export const Default = (args: ProgressTrackerProps) => {
 };
 
 Default.storyName = "default";
+
+export const LeftLabelWithLabelWidth = (args: ProgressTrackerProps) => {
+  return (
+    <>
+      <ProgressTracker
+        mt={2}
+        labelsPosition="left"
+        progress={10}
+        showDefaultLabels
+        labelWidth="60%"
+        {...args}
+      />
+      <ProgressTracker
+        mt={2}
+        labelsPosition="left"
+        progress={30}
+        showDefaultLabels
+        labelWidth="100px"
+        {...args}
+      />
+      <ProgressTracker
+        mt={2}
+        labelsPosition="left"
+        progress={40}
+        showDefaultLabels
+        labelWidth="fit-content"
+        {...args}
+      />
+    </>
+  );
+};
+
+LeftLabelWithLabelWidth.storyName = "left label with label width";
+
+LeftLabelWithLabelWidth.parameters = {
+  themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
+};
 
 export const ProgressTrackerComponent = (props: ProgressTrackerProps) => {
   return <ProgressTracker progress={50} showDefaultLabels {...props} />;

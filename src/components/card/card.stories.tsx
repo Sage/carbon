@@ -15,12 +15,24 @@ import VerticalDivider from "../vertical-divider";
 import IconButton from "../icon-button";
 
 export const DefaultStory: ComponentStory<typeof Card> = (args: CardProps) => (
-  <Card {...args}>
+  <Card
+    {...args}
+    onClick={() => {}}
+    footer={
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            Footer link
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    }
+  >
     <CardRow>
       <CardColumn align="left">
-        <Heading title="Stripe - [account name]" divider={false} />
+        <Heading title="Heading" divider={false} />
         <Typography fontSize="16px" m={0}>
-          user.name@sage.com
+          Additional text
         </Typography>
       </CardColumn>
       <CardColumn align="right">
@@ -30,29 +42,33 @@ export const DefaultStory: ComponentStory<typeof Card> = (args: CardProps) => (
     <CardRow>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
-    <CardFooter>
-      <CardColumn>
-        <Link icon="link" href="https://carbon.sage.com/">
-          View Stripe Dashboard
-        </Link>
-      </CardColumn>
-    </CardFooter>
   </Card>
 );
 
 export const SmallSpacing = () => (
-  <Card spacing="small">
+  <Card
+    spacing="small"
+    footer={
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            Footer link
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    }
+  >
     <CardRow>
       <CardColumn align="left">
-        <Heading title="Stripe - [account name]" divider={false} />
+        <Heading title="Heading" divider={false} />
         <Typography fontSize="16px" m={0}>
-          user.name@sage.com
+          Additional text
         </Typography>
       </CardColumn>
       <CardColumn align="right">
@@ -62,29 +78,33 @@ export const SmallSpacing = () => (
     <CardRow>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
-    <CardFooter>
-      <CardColumn>
-        <Link icon="link" href="https://carbon.sage.com/">
-          View Stripe Dashboard
-        </Link>
-      </CardColumn>
-    </CardFooter>
   </Card>
 );
 
 export const LargeSpacing = () => (
-  <Card spacing="large">
+  <Card
+    spacing="large"
+    footer={
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            Footer link
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    }
+  >
     <CardRow>
       <CardColumn align="left">
-        <Heading title="Stripe - [account name]" divider={false} />
+        <Heading title="Heading" divider={false} />
         <Typography fontSize="16px" m={0}>
-          user.name@sage.com
+          Additional text
         </Typography>
       </CardColumn>
       <CardColumn align="right">
@@ -94,29 +114,33 @@ export const LargeSpacing = () => (
     <CardRow>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
-    <CardFooter>
-      <CardColumn>
-        <Link icon="link" href="https://carbon.sage.com/">
-          View Stripe Dashboard
-        </Link>
-      </CardColumn>
-    </CardFooter>
   </Card>
 );
 
-export const WithCardWidthProvided = () => (
-  <Card cardWidth="500px">
+export const WithWidthProvided = () => (
+  <Card
+    width="500px"
+    footer={
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            Footer link
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    }
+  >
     <CardRow>
       <CardColumn align="left">
-        <Heading title="Stripe - [account name]" divider={false} />
+        <Heading title="Heading" divider={false} />
         <Typography fontSize="16px" m={0}>
-          user.name@sage.com
+          Additional text
         </Typography>
       </CardColumn>
       <CardColumn align="right">
@@ -126,29 +150,33 @@ export const WithCardWidthProvided = () => (
     <CardRow>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
-    <CardFooter>
-      <CardColumn>
-        <Link icon="link" href="https://carbon.sage.com/">
-          View Stripe Dashboard
-        </Link>
-      </CardColumn>
-    </CardFooter>
   </Card>
 );
 
 export const WithCustomHeight = () => (
-  <Card height="500px">
+  <Card
+    height="500px"
+    footer={
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            Footer link
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    }
+  >
     <CardRow>
       <CardColumn align="left">
-        <Heading title="Stripe - [account name]" divider={false} />
+        <Heading title="Heading" divider={false} />
         <Typography fontSize="16px" m={0}>
-          user.name@sage.com
+          Additional text
         </Typography>
       </CardColumn>
       <CardColumn align="right">
@@ -158,29 +186,33 @@ export const WithCustomHeight = () => (
     <CardRow>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
-    <CardFooter>
-      <CardColumn>
-        <Link icon="link" href="https://carbon.sage.com/">
-          View Stripe Dashboard
-        </Link>
-      </CardColumn>
-    </CardFooter>
   </Card>
 );
 
 export const WithExtraRoundness = () => (
-  <Card roundness="large">
+  <Card
+    roundness="large"
+    footer={
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            Footer link
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    }
+  >
     <CardRow>
       <CardColumn align="left">
-        <Heading title="Stripe - [account name]" divider={false} />
+        <Heading title="Heading" divider={false} />
         <Typography fontSize="16px" m={0}>
-          user.name@sage.com
+          Additional text
         </Typography>
       </CardColumn>
       <CardColumn align="right">
@@ -190,19 +222,12 @@ export const WithExtraRoundness = () => (
     <CardRow>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
-    <CardFooter>
-      <CardColumn>
-        <Link icon="link" href="https://carbon.sage.com/">
-          View Stripe Dashboard
-        </Link>
-      </CardColumn>
-    </CardFooter>
   </Card>
 );
 
@@ -214,36 +239,44 @@ export const Interactive: StoryFn = () => {
         Card has been clicked {clickCounter} times
       </Typography>
       <Card
-        interactive
-        action={() => setClickCounter((prevCounter) => prevCounter + 1)}
+        onClick={() => setClickCounter((prevCounter) => prevCounter + 1)}
+        aria-label="Card with button element"
+        footer={
+          <CardFooter>
+            <CardColumn>
+              <Link href="https://carbon.sage.com/">Footer link</Link>
+            </CardColumn>
+          </CardFooter>
+        }
       >
-        <CardRow>
-          <CardColumn align="left">
-            <Heading title="Stripe - [account name]" divider={false} />
-            <Typography fontSize="16px" m={0}>
-              user.name@sage.com
+        <CardRow pt={3}>
+          <CardColumn>
+            <Typography fontSize="24px" m={0} fontWeight="bold">
+              This Card is a button as it has an onClick prop
             </Typography>
           </CardColumn>
-          <CardColumn align="right">
-            <Icon type="image" />
-          </CardColumn>
         </CardRow>
-        <CardRow>
+      </Card>
+      <Card
+        href="#"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Card with anchor element"
+        footer={
+          <CardFooter>
+            <CardColumn>
+              <Link href="https://carbon.sage.com/">Footer link</Link>
+            </CardColumn>
+          </CardFooter>
+        }
+      >
+        <CardRow pt={3}>
           <CardColumn>
-            <Typography fontSize="16px" m={0} fontWeight="bold">
-              Stripe Balance
+            <Typography fontSize="24px" m={0} fontWeight="bold">
+              This Card is a link as it has an href prop
             </Typography>
-            <Heading title="£ 0.00" divider={false} />
-            <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
           </CardColumn>
         </CardRow>
-        <CardFooter>
-          <CardColumn>
-            <Link icon="link" href="https://carbon.sage.com/">
-              View Stripe Dashboard
-            </Link>
-          </CardColumn>
-        </CardFooter>
       </Card>
     </Box>
   );
@@ -251,12 +284,24 @@ export const Interactive: StoryFn = () => {
 Interactive.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomBoxShadow = () => (
-  <Card boxShadow="boxShadow400" hoverBoxShadow="boxShadow200">
+  <Card
+    boxShadow="boxShadow400"
+    hoverBoxShadow="boxShadow200"
+    footer={
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            Footer link
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    }
+  >
     <CardRow>
       <CardColumn align="left">
-        <Heading title="Stripe - [account name]" divider={false} />
+        <Heading title="Heading" divider={false} />
         <Typography fontSize="16px" m={0}>
-          user.name@sage.com
+          Additional text
         </Typography>
       </CardColumn>
       <CardColumn align="right">
@@ -266,29 +311,32 @@ export const WithCustomBoxShadow = () => (
     <CardRow>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
-    <CardFooter>
-      <CardColumn>
-        <Link icon="link" href="https://carbon.sage.com/">
-          View Stripe Dashboard
-        </Link>
-      </CardColumn>
-    </CardFooter>
   </Card>
 );
 
 export const DifferentCardRowPadding: StoryFn = () => (
-  <Card>
+  <Card
+    footer={
+      <CardFooter>
+        <CardColumn>
+          <Link icon="link" href="https://carbon.sage.com/">
+            Footer link
+          </Link>
+        </CardColumn>
+      </CardFooter>
+    }
+  >
     <CardRow pt={2} pb={0}>
       <CardColumn align="left">
-        <Heading title="Stripe - [account name]" divider={false} />
+        <Heading title="Heading" divider={false} />
         <Typography fontSize="16px" m={0}>
-          user.name@sage.com
+          Additional text
         </Typography>
       </CardColumn>
       <CardColumn align="right">
@@ -298,35 +346,43 @@ export const DifferentCardRowPadding: StoryFn = () => (
     <CardRow pt={0} pb={4}>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 5 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
     <CardRow pt={0} pb={4}>
       <CardColumn>
         <Typography fontSize="16px" m={0} fontWeight="bold">
-          Stripe Balance
+          Body text
         </Typography>
-        <Heading title="£ 0.00" divider={false} />
-        <Typography>LAST ENTRY: 15 DAYS AGO</Typography>
+        <Heading title="More text" divider={false} />
+        <Typography>Even more text</Typography>
       </CardColumn>
     </CardRow>
-    <CardFooter>
-      <CardColumn>
-        <Link icon="link" href="https://carbon.sage.com/">
-          View Stripe Dashboard
-        </Link>
-      </CardColumn>
-    </CardFooter>
   </Card>
 );
 DifferentCardRowPadding.parameters = { chromatic: { disableSnapshot: true } };
 
 export const DifferentCardFooterPadding: StoryFn = () => (
   <Box>
-    <Card>
+    <Card
+      footer={
+        <CardFooter px={1} py={1}>
+          <Box width="100%" display="flex" justifyContent="space-around">
+            <Box flexGrow={1}>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                Edit Button
+              </Button>
+            </Box>
+            <Box>
+              <Button buttonType="primary"> Button </Button>
+            </Box>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -334,20 +390,23 @@ export const DifferentCardFooterPadding: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter px={1} py={1}>
-        <Box width="100%" display="flex" justifyContent="space-around">
-          <Box flexGrow={1}>
-            <Button p={0} buttonType="tertiary" iconType="edit">
-              Edit Button
-            </Button>
-          </Box>
-          <Box>
-            <Button buttonType="primary"> Button </Button>
-          </Box>
-        </Box>
-      </CardFooter>
     </Card>
-    <Card>
+    <Card
+      footer={
+        <CardFooter px={2} py={1}>
+          <Box width="100%" display="flex" justifyContent="space-around">
+            <Box flexGrow={1}>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                Edit Button
+              </Button>
+            </Box>
+            <Box>
+              <Button buttonType="primary"> Button </Button>
+            </Box>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -355,20 +414,23 @@ export const DifferentCardFooterPadding: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter px={2} py={1}>
-        <Box width="100%" display="flex" justifyContent="space-around">
-          <Box flexGrow={1}>
-            <Button p={0} buttonType="tertiary" iconType="edit">
-              Edit Button
-            </Button>
-          </Box>
-          <Box>
-            <Button buttonType="primary"> Button </Button>
-          </Box>
-        </Box>
-      </CardFooter>
     </Card>
-    <Card>
+    <Card
+      footer={
+        <CardFooter px={3} py={1}>
+          <Box width="100%" display="flex" justifyContent="space-around">
+            <Box flexGrow={1}>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                Edit Button
+              </Button>
+            </Box>
+            <Box>
+              <Button buttonType="primary"> Button </Button>
+            </Box>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -376,20 +438,23 @@ export const DifferentCardFooterPadding: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter px={3} py={1}>
-        <Box width="100%" display="flex" justifyContent="space-around">
-          <Box flexGrow={1}>
-            <Button p={0} buttonType="tertiary" iconType="edit">
-              Edit Button
-            </Button>
-          </Box>
-          <Box>
-            <Button buttonType="primary"> Button </Button>
-          </Box>
-        </Box>
-      </CardFooter>
     </Card>
-    <Card>
+    <Card
+      footer={
+        <CardFooter px={4} py={1}>
+          <Box width="100%" display="flex" justifyContent="space-around">
+            <Box flexGrow={1}>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                Edit Button
+              </Button>
+            </Box>
+            <Box>
+              <Button buttonType="primary"> Button </Button>
+            </Box>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -397,20 +462,23 @@ export const DifferentCardFooterPadding: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter px={4} py={1}>
-        <Box width="100%" display="flex" justifyContent="space-around">
-          <Box flexGrow={1}>
-            <Button p={0} buttonType="tertiary" iconType="edit">
-              Edit Button
-            </Button>
-          </Box>
-          <Box>
-            <Button buttonType="primary"> Button </Button>
-          </Box>
-        </Box>
-      </CardFooter>
     </Card>
-    <Card>
+    <Card
+      footer={
+        <CardFooter px={5} py={1}>
+          <Box width="100%" display="flex" justifyContent="space-around">
+            <Box flexGrow={1}>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                Edit Button
+              </Button>
+            </Box>
+            <Box>
+              <Button buttonType="primary"> Button </Button>
+            </Box>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -418,20 +486,23 @@ export const DifferentCardFooterPadding: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter px={5} py={1}>
-        <Box width="100%" display="flex" justifyContent="space-around">
-          <Box flexGrow={1}>
-            <Button p={0} buttonType="tertiary" iconType="edit">
-              Edit Button
-            </Button>
-          </Box>
-          <Box>
-            <Button buttonType="primary"> Button </Button>
-          </Box>
-        </Box>
-      </CardFooter>
     </Card>
-    <Card>
+    <Card
+      footer={
+        <CardFooter px={5} py={2}>
+          <Box width="100%" display="flex" justifyContent="space-around">
+            <Box flexGrow={1}>
+              <Button p={0} buttonType="tertiary" iconType="edit">
+                Edit Button
+              </Button>
+            </Box>
+            <Box>
+              <Button buttonType="primary"> Button </Button>
+            </Box>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -439,18 +510,6 @@ export const DifferentCardFooterPadding: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter px={5} py={2}>
-        <Box width="100%" display="flex" justifyContent="space-around">
-          <Box flexGrow={1}>
-            <Button p={0} buttonType="tertiary" iconType="edit">
-              Edit Button
-            </Button>
-          </Box>
-          <Box>
-            <Button buttonType="primary"> Button </Button>
-          </Box>
-        </Box>
-      </CardFooter>
     </Card>
   </Box>
 );
@@ -460,7 +519,39 @@ DifferentCardFooterPadding.parameters = {
 
 export const MoreExamplesOfCardFooter: StoryFn = () => (
   <Box>
-    <Card>
+    <Card
+      footer={
+        <CardFooter p={1}>
+          <Box
+            alignItems="center"
+            width="100%"
+            display="flex"
+            justifyContent="space-around"
+          >
+            <Box flexGrow={1}>
+              <IconButton aria-label="Phone icon button" onClick={() => {}}>
+                <Icon bgSize="medium" type="phone" />
+              </IconButton>
+              <IconButton aria-label="Phone icon button" onClick={() => {}}>
+                <Icon bgSize="medium" type="phone" />
+              </IconButton>
+              <IconButton aria-label="Phone icon button" onClick={() => {}}>
+                <Icon bgSize="medium" type="phone" />
+              </IconButton>
+              <IconButton aria-label="Phone icon button" onClick={() => {}}>
+                <Icon bgSize="medium" type="phone" />
+              </IconButton>
+            </Box>
+            <Box>
+              <Button buttonType="tertiary"> Button </Button>
+              <Button buttonType="primary" ml={2}>
+                Button
+              </Button>
+            </Box>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -468,37 +559,49 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter p={1}>
-        <Box
-          alignItems="center"
-          width="100%"
-          display="flex"
-          justifyContent="space-around"
-        >
-          <Box flexGrow={1}>
-            <IconButton aria-label="Phone icon button" onClick={() => {}}>
-              <Icon bgSize="medium" type="phone" />
-            </IconButton>
-            <IconButton aria-label="Phone icon button" onClick={() => {}}>
-              <Icon bgSize="medium" type="phone" />
-            </IconButton>
-            <IconButton aria-label="Phone icon button" onClick={() => {}}>
-              <Icon bgSize="medium" type="phone" />
-            </IconButton>
-            <IconButton aria-label="Phone icon button" onClick={() => {}}>
-              <Icon bgSize="medium" type="phone" />
-            </IconButton>
-          </Box>
-          <Box>
-            <Button buttonType="tertiary"> Button </Button>
-            <Button buttonType="primary" ml={2}>
-              Button
+    </Card>
+    <Card
+      width="400px"
+      footer={
+        <CardFooter px={2} py={1}>
+          <Box
+            width="100%"
+            alignItems="center"
+            display="flex"
+            justifyContent="center"
+          >
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+            >
+              Edit Button
+            </Button>
+            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+              ml={2}
+            >
+              Edit Button
+            </Button>
+            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+              ml={2}
+            >
+              Edit Button
             </Button>
           </Box>
-        </Box>
-      </CardFooter>
-    </Card>
-    <Card cardWidth="400px">
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -506,45 +609,49 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter px={2} py={1}>
-        <Box
-          width="100%"
-          alignItems="center"
-          display="flex"
-          justifyContent="center"
-        >
-          <Button
-            p={0}
-            iconPosition="after"
-            iconType="edit"
-            buttonType="tertiary"
-          >
-            Edit Button
-          </Button>
-          <VerticalDivider tint={80} py={0} px={2} h={30} />
-          <Button
-            p={0}
-            iconPosition="after"
-            iconType="edit"
-            buttonType="tertiary"
-            ml={2}
-          >
-            Edit Button
-          </Button>
-          <VerticalDivider tint={80} py={0} px={2} h={30} />
-          <Button
-            p={0}
-            iconPosition="after"
-            iconType="edit"
-            buttonType="tertiary"
-            ml={2}
-          >
-            Edit Button
-          </Button>
-        </Box>
-      </CardFooter>
     </Card>
-    <Card cardWidth="400px">
+    <Card
+      width="400px"
+      footer={
+        <CardFooter variant="transparent" px={2} py={1}>
+          <Box
+            width="100%"
+            alignItems="center"
+            display="flex"
+            justifyContent="center"
+          >
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+            >
+              Edit Button
+            </Button>
+            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+              ml={2}
+            >
+              Edit Button
+            </Button>
+            <VerticalDivider tint={80} py={0} px={2} h={30} />
+            <Button
+              p={0}
+              iconPosition="after"
+              iconType="edit"
+              buttonType="tertiary"
+              ml={2}
+            >
+              Edit Button
+            </Button>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -552,45 +659,18 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter variant="transparent" px={2} py={1}>
-        <Box
-          width="100%"
-          alignItems="center"
-          display="flex"
-          justifyContent="center"
-        >
-          <Button
-            p={0}
-            iconPosition="after"
-            iconType="edit"
-            buttonType="tertiary"
-          >
-            Edit Button
-          </Button>
-          <VerticalDivider tint={80} py={0} px={2} h={30} />
-          <Button
-            p={0}
-            iconPosition="after"
-            iconType="edit"
-            buttonType="tertiary"
-            ml={2}
-          >
-            Edit Button
-          </Button>
-          <VerticalDivider tint={80} py={0} px={2} h={30} />
-          <Button
-            p={0}
-            iconPosition="after"
-            iconType="edit"
-            buttonType="tertiary"
-            ml={2}
-          >
-            Edit Button
-          </Button>
-        </Box>
-      </CardFooter>
     </Card>
-    <Card>
+    <Card
+      footer={
+        <CardFooter p={2}>
+          <Box display="flex" width="100%" justifyContent="center">
+            <Link icon="link" href="https://carbon.sage.com/">
+              View Stripe Dashboard
+            </Link>
+          </Box>
+        </CardFooter>
+      }
+    >
       <CardRow>
         <CardColumn>
           <Typography fontSize="16px" mt={2} mb={0} fontWeight="bold">
@@ -598,13 +678,6 @@ export const MoreExamplesOfCardFooter: StoryFn = () => (
           </Typography>
         </CardColumn>
       </CardRow>
-      <CardFooter p={2}>
-        <Box display="flex" width="100%" justifyContent="center">
-          <Link icon="link" href="https://carbon.sage.com/">
-            View Stripe Dashboard
-          </Link>
-        </Box>
-      </CardFooter>
     </Card>
   </Box>
 );

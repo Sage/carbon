@@ -24,6 +24,7 @@ exports[`CardFooter matches expected styling when it contains interactive stylin
 
 <div
   className="c0"
+  data-component="card-footer"
   data-element="card-footer"
   spacing="medium"
 >
@@ -156,6 +157,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
 
 <div
   className="c0"
+  data-component="card-footer"
   data-element="card-footer"
   spacing="medium"
 >

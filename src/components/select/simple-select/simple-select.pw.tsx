@@ -539,6 +539,36 @@ test.describe("SimpleSelect component", () => {
     }
   });
 
+  test("the list should not change scroll position when the lazy-loaded options appear", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleSelectWithInfiniteScrollComponent />);
+
+    // open the select list and choose an option
+    const inputElement = commonDataElementInputPreview(page);
+    await inputElement.focus();
+    await inputElement.press("ArrowDown");
+    const firstOption = selectOptionByText(page, "Amber");
+    await firstOption.waitFor();
+    await firstOption.click();
+
+    // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
+    // won't trigger the bug.
+    const wrapperElement = selectListWrapper(page);
+    await selectText(page).click();
+    await wrapperElement.evaluate((wrapper) => wrapper.scrollBy(0, 500));
+    const scrollPositionBeforeLoad = await wrapperElement.evaluate(
+      (element) => element.scrollTop
+    );
+
+    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
+    const scrollPositionAfterLoad = await wrapperElement.evaluate(
+      (element) => element.scrollTop
+    );
+    await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+  });
+
   test("keyboard navigation should work correctly in multicolumn mode and ensure the selected option is visible", async ({
     mount,
     page,
@@ -1299,6 +1329,59 @@ test.describe("Selection confirmed", () => {
     await expect(
       page.locator('[data-element="confirmed-selection-2"]')
     ).toBeVisible();
+  });
+
+  test("should not call onListScrollBottom callback when an option is clicked", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+    await mount(<SimpleSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectOption(page, positionOfElement("first")).click();
+    expect(callbackCount).toBe(0);
+  });
+
+  test("should not be called when an option is clicked and list is re-opened", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+
+    await mount(<SimpleSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectListWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500)
+    );
+    await selectOption(page, positionOfElement("first")).click();
+    await dropdownButton(page).click();
+    expect(callbackCount).toBe(1);
+  });
+});
+
+// see https://github.com/Sage/carbon/issues/6399
+test.describe("Test for scroll bug regression", () => {
+  test("should show the first option after scrolling through the list, closing and then reopening", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleSelectComponent />);
+    const dropdownButtonElement = dropdownButton(page);
+    await dropdownButtonElement.click();
+    await selectListWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500)
+    );
+    await commonDataElementInputPreview(page).press("Escape");
+    await dropdownButtonElement.click();
+    await expect(selectOptionByText(page, "Amber")).toBeInViewport();
   });
 });
 

@@ -620,6 +620,19 @@ test.describe("MultiSelect component", () => {
     });
   });
 
+  [keyToTrigger[0], keyToTrigger[1]].forEach((key) => {
+    test(`should not select an option when non-matching filter text is entered and then ${key} key is pressed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MultiSelectComponent />);
+
+      await commonDataElementInputPreview(page).type("foo");
+      await commonDataElementInputPreview(page).press(key);
+      await expect(page.getByText('No results for "foo"')).toBeVisible();
+    });
+  });
+
   test("should render the lazy loader when the prop is set", async ({
     mount,
     page,
@@ -670,6 +683,7 @@ test.describe("MultiSelect component", () => {
     await expect(multiSelectPill(page)).toHaveAttribute("title", listOption);
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
     await expect(wrapperElement).toBeVisible();
+    await dropdownButtonElement.click();
     await dropdownButtonElement.click();
     await expect(wrapperElement.locator("li")).toHaveCount(count);
   });
@@ -1535,6 +1549,24 @@ test("should not add an empty Pill when filter text does not match option text",
   await commonDataElementInputPreview(page).type("abc");
   await selectInput(page).press("Enter");
   await expect(pillElement).not.toBeVisible();
+});
+
+// see https://github.com/Sage/carbon/issues/6399
+test.describe("Test for scroll bug regression", () => {
+  test("should show the first option after scrolling through the list, closing and then reopening", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectComponent />);
+    const dropdownButtonElement = dropdownButton(page);
+    await dropdownButtonElement.click();
+    await selectListWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500)
+    );
+    await commonDataElementInputPreview(page).press("Escape");
+    await dropdownButtonElement.click();
+    await expect(selectOptionByText(page, "Amber")).toBeInViewport();
+  });
 });
 
 // all accessibility tests that run with the select list open fail on "scrollable region must have keyboard access",

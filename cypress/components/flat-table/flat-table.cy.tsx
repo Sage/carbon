@@ -2493,7 +2493,7 @@ context("Tests for Flat Table component", () => {
         );
 
         flatTableBodyRows().should("have.length", 5).and("be.visible");
-        pageSelectInput().trigger("keydown", keyCode("Enter"));
+        pageSelectInput().trigger("click");
         flatTablePageSelectListPosition()
           .children()
           .contains(numberOfItems)

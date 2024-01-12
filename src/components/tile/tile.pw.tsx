@@ -2,7 +2,10 @@ import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
 import { TileProps, TileFooterProps } from ".";
 import { DlProps } from "../definition-list";
-import { getDataElementByValue } from "../../../playwright/components";
+import {
+  getDataComponentByValue,
+  getDataElementByValue,
+} from "../../../playwright/components";
 import {
   assertCssValueIsApproximately,
   checkCSSOutline,
@@ -13,8 +16,10 @@ import {
   DlTileComponent,
   TileFooterComponent,
   TileComponentWithFalsyChildren,
+  FlexTile,
 } from "./components.test-pw";
 import { CHARACTERS } from "../../../playwright/support/constants";
+import FlexTileContainer from "./flex-tile-container";
 
 const tileVariants: [TileProps["variant"], string, string][] = [
   ["tile", "rgb(204, 214, 219)", "rgb(255, 255, 255)"],
@@ -300,6 +305,31 @@ test.describe("Tile component", () => {
       await mount(<TileComponent borderVariant={borderVariant} />);
 
       await checkAccessibility(page);
+    });
+  });
+
+  test.describe("Flex Tile", () => {
+    test(`check Accessibility for flex tile`, async ({ page, mount }) => {
+      await mount(<FlexTile />);
+
+      await checkAccessibility(page);
+    });
+
+    ([
+      [1, "8px"],
+      [2, "16px"],
+      [3, "24px"],
+    ] as [number, string][]).forEach(([value, gapText]) => {
+      test(`should verify columnGap is ${value}`, async ({ mount, page }) => {
+        await mount(
+          <FlexTileContainer columnGap={value}>content</FlexTileContainer>
+        );
+        const containerElement = await getDataComponentByValue(
+          page,
+          "flex-tile-container"
+        );
+        await expect(containerElement).toHaveCSS("column-gap", gapText);
+      });
     });
   });
 });

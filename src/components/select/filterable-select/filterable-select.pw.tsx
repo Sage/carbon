@@ -614,6 +614,36 @@ test.describe("FilterableSelect component", () => {
     await expect(await selectOptionByText(page, option)).toBeVisible();
   });
 
+  test("the list should not change scroll position when the lazy-loaded options appear", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FilterableSelectWithInfiniteScrollComponent />);
+
+    // open the select list and choose an option
+    const inputElement = commonDataElementInputPreview(page);
+    await inputElement.focus();
+    await inputElement.press("ArrowDown");
+    const firstOption = selectOptionByText(page, "Amber");
+    await firstOption.waitFor();
+    await firstOption.click();
+
+    // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
+    // won't trigger the bug.
+    const wrapperElement = selectListWrapper(page);
+    await dropdownButton(page).click();
+    await wrapperElement.evaluate((wrapper) => wrapper.scrollBy(0, 500));
+    const scrollPositionBeforeLoad = await wrapperElement.evaluate(
+      (element) => element.scrollTop
+    );
+
+    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
+    const scrollPositionAfterLoad = await wrapperElement.evaluate(
+      (element) => element.scrollTop
+    );
+    await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+  });
+
   test("should list options when value is set and select list is opened again", async ({
     mount,
     page,
@@ -1294,6 +1324,41 @@ test.describe("Check events for FilterableSelect component", () => {
     await page.waitForTimeout(250);
     await expect(callbackCount).toBe(1);
   });
+
+  test("should not call onListScrollBottom callback when an option is clicked", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectOption(page, positionOfElement("first")).click();
+    expect(callbackCount).toBe(0);
+  });
+
+  test("should not be called when an option is clicked and list is re-opened", async ({
+    mount,
+    page,
+  }) => {
+    let callbackCount = 0;
+    const callback = () => {
+      callbackCount += 1;
+    };
+
+    await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
+
+    await dropdownButton(page).click();
+    await selectListWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500)
+    );
+    await selectOption(page, positionOfElement("first")).click();
+    await dropdownButton(page).click();
+    expect(callbackCount).toBe(1);
+  });
 });
 
 test.describe("Check virtual scrolling", () => {
@@ -1340,6 +1405,19 @@ test.describe("Check virtual scrolling", () => {
     await expect(selectOptionByText(page, "Option 100.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1000.")).toBeInViewport();
     await expect(selectOptionByText(page, "Option 1002.")).toBeInViewport();
+  });
+
+  [keyToTrigger[0], keyToTrigger[1]].forEach((key) => {
+    test(`should not select an option when non-matching filter text is entered and then ${key} key is pressed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent />);
+
+      await commonDataElementInputPreview(page).type("foo");
+      await commonDataElementInputPreview(page).press(key);
+      await expect(page.getByText('No results for "foo"')).toBeVisible();
+    });
   });
 });
 
@@ -1535,6 +1613,24 @@ test("should not throw when filter text does not match option text", async ({
   await commonDataElementInputPreview(page).type("abc");
   await selectInput(page).press("Enter");
   await expect(getDataElementByValue(page, "input")).toHaveValue("");
+});
+
+// see https://github.com/Sage/carbon/issues/6399
+test.describe("Test for scroll bug regression", () => {
+  test("should show the first option after scrolling through the list, closing and then reopening", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FilterableSelectComponent />);
+    const dropdownButtonElement = dropdownButton(page);
+    await dropdownButtonElement.click();
+    await selectListWrapper(page).evaluate((wrapper) =>
+      wrapper.scrollBy(0, 500)
+    );
+    await commonDataElementInputPreview(page).press("Escape");
+    await dropdownButtonElement.click();
+    await expect(selectOptionByText(page, "Amber")).toBeInViewport();
+  });
 });
 
 // all accessibility tests that run with the select list open fail on "scrollable region must have keyboard access",
