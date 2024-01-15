@@ -16,7 +16,7 @@ export const additionalButton = (page: Page, index: number) =>
   additionalButtonsContainer(page).locator("button").nth(index);
 
 export const splitMainButtonDataComponent = (page: Page, index: number) =>
-  page.locator(SPLIT_MAIN_BUTTON).locator("div > *").nth(index);
+  page.locator(SPLIT_MAIN_BUTTON).locator("button").nth(index);
 
 export const mainButton = (page: Page) => page.locator(MAIN_BUTTON);
 export const splitMainButton = (page: Page) => page.locator(SPLIT_MAIN_BUTTON);
