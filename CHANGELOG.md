@@ -1,3 +1,10 @@
+### [125.0.2](https://github.com/Sage/carbon/compare/v125.0.1...v125.0.2) (2024-01-15)
+
+
+### Bug Fixes
+
+* **numeral-date:** ensure internal validation uses given month and year values where possible ([24648d2](https://github.com/Sage/carbon/commit/24648d29d729c73e1dda837180f48fb16b21dabf)), closes [#6438](https://github.com/Sage/carbon/issues/6438)
+
 ### [125.0.1](https://github.com/Sage/carbon/compare/v125.0.0...v125.0.1) (2024-01-11)
 
 
