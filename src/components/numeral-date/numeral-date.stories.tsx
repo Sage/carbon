@@ -37,32 +37,60 @@ export const AllowedDateFormats: ComponentStory<typeof NumeralDate> = () => (
 export const InternalValidationError: ComponentStory<
   typeof NumeralDate
 > = () => {
-  const [value, setValue] = useState({
+  const [valueOld, setValueOld] = useState({
+    dd: "",
+    mm: "",
+    yyyy: "",
+  });
+  const [valueNew, setValueNew] = useState({
     dd: "",
     mm: "",
     yyyy: "",
   });
   return (
-    <NumeralDate
-      enableInternalError
-      onChange={(e) => setValue(e.target.value)}
-      label="Default"
-      value={value}
-    />
+    <>
+      <NumeralDate
+        enableInternalError
+        onChange={(e) => setValueOld(e.target.value)}
+        label="Default - legacy validation"
+        value={valueOld}
+      />
+      <br />
+      <CarbonProvider validationRedesignOptIn>
+        <NumeralDate
+          enableInternalError
+          label="Default - new validation"
+          onChange={(e) => setValueNew(e.target.value)}
+          value={valueNew}
+        />
+      </CarbonProvider>
+    </>
   );
 };
 
 export const InternalValidationWarning: ComponentStory<
   typeof NumeralDate
 > = () => {
-  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  const [valueOld, setValueOld] = useState({ dd: "", mm: "", yyyy: "" });
+  const [valueNew, setValueNew] = useState({ dd: "", mm: "", yyyy: "" });
   return (
-    <NumeralDate
-      enableInternalWarning
-      label="Default"
-      onChange={(e) => setValue(e.target.value)}
-      value={value}
-    />
+    <>
+      <NumeralDate
+        enableInternalWarning
+        label="Default - legacy validation"
+        onChange={(e) => setValueOld(e.target.value)}
+        value={valueOld}
+      />
+      <br />
+      <CarbonProvider validationRedesignOptIn>
+        <NumeralDate
+          enableInternalWarning
+          label="Default - new validation"
+          onChange={(e) => setValueNew(e.target.value)}
+          value={valueNew}
+        />
+      </CarbonProvider>
+    </>
   );
 };
 

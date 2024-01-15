@@ -104,7 +104,12 @@ const enGB: Locale = {
   },
   numeralDate: {
     validation: {
-      day: () => "Day should be a number within a 1-31 range.",
+      day: (month, daysInMonth) => {
+        if (month && daysInMonth) {
+          return `Day in ${month} should be a number within 1-${daysInMonth}.`;
+        }
+        return "Day should be a number within a 1-31 range.";
+      },
       month: () => "Month should be a number within a 1-12 range.",
       year: () => "Year should be a number within a 1800-2200 range.",
     },
