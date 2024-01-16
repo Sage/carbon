@@ -36,6 +36,21 @@ const ddmmyyyyMessage =
 
 type ValidationType = "error" | "warning" | "info";
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 describe("NumeralDate", () => {
   let wrapper: ReactWrapper;
   const onBlur = jest.fn();
@@ -274,6 +289,30 @@ describe("NumeralDate", () => {
         }
       );
 
+      it.each(["13", "14", "15"])(
+        "renders internal validation when day field has 31, month is blurred and has incorrect value (%s)",
+        (value) => {
+          wrapper = renderWrapper({
+            defaultValue: { dd: "31", mm: value, yyyy: "" },
+            [internalValidationProp]: true,
+          });
+
+          const monthInput = wrapper.find("input").at(1);
+
+          monthInput.simulate("change", { target: { value } });
+          wrapper.update();
+          monthInput.simulate("blur");
+          jest.runAllTimers();
+          wrapper.update();
+
+          const dateTextboxes = wrapper.find(Textbox);
+
+          expect(
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+          ).toBe("Month should be a number within a 1-12 range.\n");
+        }
+      );
+
       it.each([
         ["", true],
         ["0", false],
@@ -370,6 +409,116 @@ describe("NumeralDate", () => {
               dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
             ).toBe(expectedMessage);
           });
+        }
+      );
+
+      it.each([
+        ["31", "January"],
+        ["28", "February"],
+        ["31", "March"],
+        ["30", "April"],
+        ["31", "May"],
+        ["30", "June"],
+        ["31", "July"],
+        ["31", "August"],
+        ["30", "September"],
+        ["31", "October"],
+        ["30", "November"],
+        ["31", "December"],
+      ])(
+        "should not display the internal validation when %s entered in day input and month is %s",
+        (dayValue, monthName) => {
+          const monthValue = months.indexOf(monthName);
+          wrapper = renderWrapper({
+            value: { dd: "", mm: String(monthValue + 1), yyyy: "2001" },
+            [internalValidationProp]: true,
+          });
+
+          const firstInput = wrapper.find("input").at(0);
+
+          firstInput.simulate("change", { target: { value: dayValue } });
+          wrapper.update();
+          firstInput.simulate("blur");
+          jest.runAllTimers();
+          wrapper.update();
+
+          const dateTextboxes = wrapper.find(Textbox);
+
+          expect(
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+          ).toBe("");
+        }
+      );
+
+      it.each([
+        ["32", "January", "31"],
+        ["29", "February", "28"],
+        ["32", "March", "31"],
+        ["31", "April", "30"],
+        ["32", "May", "31"],
+        ["31", "June", "30"],
+        ["32", "July", "31"],
+        ["32", "August", "31"],
+        ["31", "September", "30"],
+        ["32", "October", "31"],
+        ["31", "November", "30"],
+        ["32", "December", "31"],
+      ])(
+        "should display the internal validation when %s entered in day input and month is %s",
+        (dayValue, monthName, daysInMonth) => {
+          const monthValue = months.indexOf(monthName);
+          wrapper = renderWrapper({
+            value: { dd: "", mm: String(monthValue + 1), yyyy: "2001" },
+            [internalValidationProp]: true,
+          });
+
+          const firstInput = wrapper.find("input").at(0);
+
+          firstInput.simulate("change", { target: { value: dayValue } });
+          wrapper.update();
+          firstInput.simulate("blur");
+          jest.runAllTimers();
+          wrapper.update();
+
+          const dateTextboxes = wrapper.find(Textbox);
+
+          expect(
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+          ).toBe(
+            `Day in ${monthName} should be a number within 1-${daysInMonth}.\n`
+          );
+        }
+      );
+
+      it.each([
+        ["29", "2000"],
+        ["29", "2004"],
+        ["29", "2008"],
+        ["29", "2012"],
+        ["29", "2016"],
+        ["29", "2020"],
+        ["29", "2024"],
+      ])(
+        "should not display the internal validation when 29 entered in day input, month is February and year is %s",
+        (dayValue, yearValue) => {
+          wrapper = renderWrapper({
+            value: { dd: "", mm: "02", yyyy: yearValue },
+            [internalValidationProp]: true,
+          });
+
+          const firstInput = wrapper.find("input").at(0);
+
+          firstInput.simulate("change", { target: { value: dayValue } });
+          wrapper.update();
+          firstInput.simulate("blur");
+          jest.runAllTimers();
+          wrapper.update();
+
+          const dateTextboxes = wrapper.find(Textbox);
+
+          expect(
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+          ).toBe("");
         }
       );
     });
