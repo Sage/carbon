@@ -202,6 +202,30 @@ a `selectionConfirmed` property on the emitted event when the enter key is press
   <Story name="selection confirmed" story={stories.SelectionConfirmedStory} />
 </Canvas>
 
+### Dynamically adding options, and the importance of the `key` property
+
+You must take care if you want to dynamically add `Option` children to the select, particularly if you are adding them to the start
+of the list. The component uses the
+[aria-activedescendant attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-activedescendant)
+to expose the currently-selected option to assistive technologies such as screenreaders, and this ties in to the HTML `id` of the
+option. Each option gets a randomly-generated guid as its id (if one is not explicitly provided as a prop), but to ensure that each
+option keeps its id in its dynamically-changing context, a hint needs to be provided to React to keep the option's identity the same,
+and not rerender it with a new guid.
+
+This can be done by providing an appropriate [key](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key) to
+each item in the list which unique identifies it, as in the example below which simply uses the option text. This is our recommendation
+for most circumstances.
+
+An alternative solution that works is to provide an explicit `id` prop for each option.
+
+If you do not either provide explicit ids or set keys appropriately, the `aria-activedescendant` property will get out of sync with
+the selected option, generating errors with automated accessibility-testing tools, and more importantly, making the component unusable
+for users who rely on assistive technology.
+
+<Canvas>
+  <Story name="dynamically adding options" story={stories.SelectWithDynamicallyAddedOption} />
+</Canvas>
+
 
 ## Props
 

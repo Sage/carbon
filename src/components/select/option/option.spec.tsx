@@ -3,6 +3,12 @@ import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import Option, { OptionProps } from ".";
 import SelectListContext from "../__internal__/select-list-context";
+import guid from "../../../__internal__/utils/helpers/guid";
+
+const mockedGuid = "guid-12345";
+jest.mock("../../../__internal__/utils/helpers/guid");
+
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function renderOption(props: OptionProps, renderer: any = shallow) {
@@ -111,6 +117,7 @@ describe("Option", () => {
       expect(onSelect).toHaveBeenCalledWith({
         text: props.text,
         value: props.value,
+        id: mockedGuid,
       });
     });
   });

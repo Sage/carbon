@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Select,
   Option,
@@ -742,3 +742,31 @@ export const SelectionConfirmedStory = () => {
 };
 
 SelectionConfirmedStory.parameters = { chromatic: { disableSnapshot: true } };
+
+const options = ["A", "B", "C"];
+const allOptions = ["All"];
+
+export const SelectWithDynamicallyAddedOption = () => {
+  const [optionsList, setOptionsList] = useState(options);
+  const [currentOption, setCurrentOption] = useState<string | null>(null);
+  useEffect(() => {
+    if (currentOption) {
+      setOptionsList([...allOptions, ...options]);
+    }
+  }, [currentOption]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentOption(e.target.value);
+  };
+  return (
+    <Select
+      label="Choose your option"
+      data-role="selector"
+      onChange={handleChange}
+      value={currentOption || ""}
+    >
+      {optionsList.map((opt) => (
+        <Option data-role={`option-${opt}`} text={opt} value={opt} key={opt} />
+      ))}
+    </Select>
+  );
+};
