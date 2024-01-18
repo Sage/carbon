@@ -30,7 +30,6 @@ const ButtonToggleIcon = ({
       aria-hidden
       type={buttonIcon}
       fontSize={buttonIconSize}
-      bgSize="extra-small"
       disabled={disabled}
     />
   </StyledButtonToggleIcon>

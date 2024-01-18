@@ -145,7 +145,7 @@ describe("Link", () => {
     it("should render an `Icon` on the left side of the component by default", () => {
       assertStyleMatch(
         {
-          marginRight: "var(--spacing100)",
+          marginRight: "var(--spacing050)",
           position: "relative",
         },
         wrapper.find(StyledLink),

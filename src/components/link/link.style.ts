@@ -170,7 +170,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
           vertical-align: middle;
           ${iconAlign === "left" &&
           css`
-            margin-right: ${hasContent ? "var(--spacing100)" : 0};
+            margin-right: ${hasContent ? "var(--spacing050)" : 0};
           `}
           ${iconAlign === "right" &&
           css`

@@ -87,6 +87,32 @@ export const VariousBgSizes: ComponentStory<typeof Icon> = () => {
   );
 };
 
+export const BgSizesAndFontSizes: ComponentStory<typeof Icon> = () => {
+  return (
+    <>
+      {(["small", "medium", "large", "extra-large"] as const).map(
+        (fontSize) => {
+          return ([
+            "small",
+            "medium",
+            "large",
+            "extra-large",
+          ] as const).map((bgSize) => (
+            <Icon
+              type="add"
+              bg="#00b000"
+              fontSize={fontSize}
+              bgSize={bgSize}
+              mr={1}
+              key={`${fontSize}_${bgSize}`}
+            />
+          ));
+        }
+      )}
+    </>
+  );
+};
+
 export const CustomColors: ComponentStory<typeof Icon> = () => (
   <>
     <Box mb={1}>

@@ -105,6 +105,8 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   }
 
   ${StyledIcon} {
+    width: 16px;
+    height: 16px;
     color: var(--colorsActionMinor500);
   }
 
@@ -184,6 +186,7 @@ const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
     css`
       margin-right: 0;
       ${StyledIcon} {
+        margin-left: 0;
         margin-right: 0;
         margin-bottom: 8px;
         height: ${`${iconFontSizes.largeIcon}px`};

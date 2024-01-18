@@ -134,13 +134,12 @@ RenderChildrenProps) {
 
   const iconProps: Pick<
     IconProps,
-    "aria-hidden" | "disabled" | "color" | "bg" | "bgSize"
+    "aria-hidden" | "disabled" | "color" | "bg"
   > = {
     "aria-hidden": true,
     disabled,
     color: iconColor(),
     bg: "transparent",
-    bgSize: "extra-small",
   };
 
   const isValidChildren = children !== undefined && children !== false;

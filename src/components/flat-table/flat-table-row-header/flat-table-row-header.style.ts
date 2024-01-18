@@ -4,6 +4,7 @@ import { padding } from "styled-system";
 import baseTheme from "../../../style/themes/base";
 import { toColor } from "../../../style/utils/color";
 import { FlatTableRowHeaderProps } from "./flat-table-row-header.component";
+import StyledIcon from "../../icon/icon.style";
 
 const verticalBorderSizes = {
   small: "1px",
@@ -115,6 +116,11 @@ const StyledFlatTableRowHeaderContent = styled.div<{ expandable?: boolean }>`
       display: flex;
       align-items: center;
       line-height: 1em;
+
+      ${StyledIcon} {
+        width: 16px;
+        height: 16px;
+      }
     `}
 `;
 
