@@ -1,3 +1,10 @@
+## [125.1.0](https://github.com/Sage/carbon/compare/v125.0.2...v125.1.0) (2024-01-18)
+
+
+### Features
+
+* **popover-container:** add prop to disable animation ([2a6a12c](https://github.com/Sage/carbon/commit/2a6a12c15a0d6cf725bfffde09673eb29db499a0)), closes [#6002](https://github.com/Sage/carbon/issues/6002)
+
 ### [125.0.2](https://github.com/Sage/carbon/compare/v125.0.1...v125.0.2) (2024-01-15)
 
 
