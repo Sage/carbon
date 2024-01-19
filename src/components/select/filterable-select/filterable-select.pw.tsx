@@ -614,6 +614,36 @@ test.describe("FilterableSelect component", () => {
     await expect(await selectOptionByText(page, option)).toBeVisible();
   });
 
+  test("the list should not change scroll position when the lazy-loaded options appear", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FilterableSelectWithInfiniteScrollComponent />);
+
+    // open the select list and choose an option
+    const inputElement = commonDataElementInputPreview(page);
+    await inputElement.focus();
+    await inputElement.press("ArrowDown");
+    const firstOption = selectOptionByText(page, "Amber");
+    await firstOption.waitFor();
+    await firstOption.click();
+
+    // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
+    // won't trigger the bug.
+    const wrapperElement = selectListWrapper(page);
+    await dropdownButton(page).click();
+    await wrapperElement.evaluate((wrapper) => wrapper.scrollBy(0, 500));
+    const scrollPositionBeforeLoad = await wrapperElement.evaluate(
+      (element) => element.scrollTop
+    );
+
+    await selectOptionByText(page, "Lazy Loaded A1").waitFor();
+    const scrollPositionAfterLoad = await wrapperElement.evaluate(
+      (element) => element.scrollTop
+    );
+    await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+  });
+
   test("should list options when value is set and select list is opened again", async ({
     mount,
     page,

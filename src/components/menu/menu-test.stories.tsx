@@ -58,8 +58,12 @@ export const MenuFullScreenStory = ({
           onClick={(evt) => action("submenu item clicked")(evt)}
           submenu="Menu Item Two"
         >
-          <MenuItem href="#">Submenu Item One</MenuItem>
-          <MenuItem href="#">Submenu Item Two</MenuItem>
+          <MenuItem py={3} href="#">
+            Submenu Item One
+          </MenuItem>
+          <MenuItem py={3} href="#">
+            Submenu Item Two
+          </MenuItem>
         </MenuItem>
         <MenuItem variant="alternate">
           <Search

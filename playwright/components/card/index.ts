@@ -4,6 +4,7 @@ import {
   CARD_COLUMN,
   CARD_DRAGGABLE_ELEMENT,
   CARD_FOOTER,
+  CARD_CONTENT,
   DRAGGABLE_CARD_AT_IDEX,
   DRAGGABLE_CONTAINER_AT_INDEX,
 } from "./locators";
@@ -20,3 +21,5 @@ export const draggableContainer = (page: Page, index: number) =>
 export const columnCard = (page: Page) => page.locator(CARD_COLUMN);
 
 export const footerCard = (page: Page) => page.locator(CARD_FOOTER);
+
+export const cardContent = (page: Page) => page.locator(CARD_CONTENT);

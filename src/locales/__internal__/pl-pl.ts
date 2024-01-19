@@ -1,5 +1,5 @@
-import Locale from "./locale";
-import { pl as plDateLocale } from "./date-fns-locales";
+import Locale from "../locale";
+import { pl as plDateLocale } from "../date-fns-locales";
 
 const isSingular = (count: string | number): boolean =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
@@ -163,7 +163,12 @@ const plPL: Locale = {
   },
   numeralDate: {
     validation: {
-      day: () => "Dzień musi być liczbą w zakresie 1-31.",
+      day: (month, daysInMonth) => {
+        if (month && daysInMonth) {
+          return `Dzień W ${month} musi być liczbą zakresie 1-${daysInMonth}.`;
+        }
+        return "Dzień musi być liczbą w zakresie 1-31.";
+      },
       month: () => "Miesiąć musi być liczbą w zakresie 1-12.",
       year: () => "Rok musi być liczbą w zakresie 1800-2200.",
     },

@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import StyledCardColumn from "../card-column/card-column.style";
-import { CardSpacing } from "../card.config";
 import { CardContextProps } from "../__internal__/card-context";
+import { CardFooterProps } from "./card-footer.component";
 
 const marginSizes = {
   small: "0 -24px",
@@ -16,11 +16,11 @@ const paddingSizes = {
   large: "20px 48px",
 };
 
-export interface StyledCardFooterProps extends SpaceProps, CardContextProps {
-  /** Predefined size of CardFooter for applying padding. For more granular control, this prop can be over-ridden by the spacing props from styled-system */
-  spacing: CardSpacing;
+export interface StyledCardFooterProps extends SpaceProps {
   /** Specify styling variant to render */
-  variant: "default" | "transparent";
+  variant: Required<CardFooterProps>["variant"];
+  roundness: CardFooterProps["roundness"];
+  spacing: CardContextProps["spacing"];
 }
 
 const StyledCardFooter = styled.div<StyledCardFooterProps>`

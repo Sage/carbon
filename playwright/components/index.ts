@@ -15,6 +15,7 @@ import {
   BUTTON,
   HELP_ICON_PREVIEW,
   BACKGROUND_UI_LOCATOR,
+  COMMON_INPUT_PREFIX,
 } from "./locators";
 
 export const icon = (page: Page) => {
@@ -103,4 +104,8 @@ export const helpIcon = (page: Page) => {
 
 export const backgroundUILocator = (page: Page) => {
   return page.locator(BACKGROUND_UI_LOCATOR);
+};
+
+export const commonInputPrefix = (page: Page) => {
+  return page.locator(COMMON_INPUT_PREFIX);
 };

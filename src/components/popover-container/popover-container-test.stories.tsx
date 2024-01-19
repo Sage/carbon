@@ -1,5 +1,6 @@
-/* eslint-disable react/prop-types */
-import React from "react";
+import React, { useState } from "react";
+import Button from "../button";
+import Box from "../box";
 import PopoverContainer, {
   PopoverContainerProps,
 } from "./popover-container.component";
@@ -7,7 +8,7 @@ import { Select, Option } from "../select";
 
 export default {
   title: "Popover Container/Test",
-  includeStories: ["Default", "WithSelect"],
+  includeStories: ["Default", "WithSelect", "InAScrollableBlock"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -53,7 +54,7 @@ Default.story = {
 export const PopoverContainerComponent = (
   props: Partial<PopoverContainerProps>
 ) => {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = useState(true);
 
   const onOpen = () => setIsOpen(isOpen);
   const onClose = () => setIsOpen(!isOpen);
@@ -95,5 +96,45 @@ export const PopoverContainerWithSelect = () => {
         </Select>
       </PopoverContainer>
     </div>
+  );
+};
+
+export const InAScrollableBlock = () => {
+  return (
+    <Box>
+      <Box bg="#ccd6dbff" height={500} width={1100} />
+      <Box height={400} overflow="scroll">
+        <Box height={400} position="fixed">
+          <PopoverContainer
+            title="This is the title"
+            disableAnimation
+            renderOpenComponent={({
+              "data-element": dataElement,
+              onClick,
+              ref,
+              "aria-label": ariaLabel,
+              id,
+              "aria-expanded": ariaExpanded,
+              "aria-haspopup": ariaHasPopup,
+            }) => (
+              <Button
+                iconType="settings"
+                iconPosition="after"
+                data-element={dataElement}
+                aria-label={ariaLabel}
+                aria-haspopup={ariaHasPopup}
+                aria-expanded={ariaExpanded}
+                ref={ref}
+                id={id}
+                onClick={onClick}
+                m={2}
+              />
+            )}
+          >
+            <Button>View all notifications</Button>
+          </PopoverContainer>
+        </Box>
+      </Box>
+    </Box>
   );
 };
