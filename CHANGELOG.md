@@ -1,3 +1,10 @@
+## [125.2.0](https://github.com/Sage/carbon/compare/v125.1.0...v125.2.0) (2024-01-19)
+
+
+### Features
+
+* **popover-container:** ensure that container behaves like a modal when open button is covered ([dcf655a](https://github.com/Sage/carbon/commit/dcf655a9d538492a704c6ce73f51fbe1cb074959)), closes [#6307](https://github.com/Sage/carbon/issues/6307)
+
 ## [125.1.0](https://github.com/Sage/carbon/compare/v125.0.2...v125.1.0) (2024-01-18)
 
 
