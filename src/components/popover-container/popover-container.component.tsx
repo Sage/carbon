@@ -18,6 +18,8 @@ import createGuid from "../../__internal__/utils/helpers/guid";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Events from "../../__internal__/utils/helpers/events";
+import FocusTrap from "../../__internal__/focus-trap";
+import { ModalContext } from "../modal";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -172,16 +174,13 @@ export const PopoverContainer = ({
     "screen and (prefers-reduced-motion: no-preference)"
   );
 
-  useEffect(() => {
-    if (isOpen && closeButtonRef.current)
-      setTimeout(() => closeButtonRef.current?.focus(), 0);
-  }, [isOpen]);
-
   const closePopover = useCallback(
     (ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-      if (!isControlled) setIsOpenInternal(!isOpen);
+      if (!isControlled) setIsOpenInternal(false);
       if (onClose) onClose(ev);
-      if (isOpen && openButtonRef.current) openButtonRef.current.focus();
+      if (isOpen && openButtonRef.current) {
+        openButtonRef.current.focus();
+      }
     },
     [isControlled, isOpen, onClose]
   );
@@ -196,7 +195,9 @@ export const PopoverContainer = ({
         );
       });
 
-      if (!eventIsFromSelectInput && Events.isEscKey(ev)) closePopover(ev);
+      if (!eventIsFromSelectInput && Events.isEscKey(ev)) {
+        closePopover(ev);
+      }
     },
     [closePopover]
   );
@@ -227,7 +228,7 @@ export const PopoverContainer = ({
   };
 
   const renderOpenComponentProps = {
-    tabIndex: isOpen ? -1 : 0,
+    tabIndex: 0,
     "aria-expanded": isOpen,
     "aria-haspopup": "dialog" as const,
     isOpen,
@@ -252,6 +253,67 @@ export const PopoverContainer = ({
   };
 
   const handleClick = useClickAwayListener(handleClickAway, "mousedown");
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+
+  const popover = (
+    <Transition
+      in={isOpen}
+      timeout={{ exit: 300 }}
+      appear
+      mountOnEnter
+      unmountOnExit
+      nodeRef={popoverContentNodeRef}
+      onEntered={
+        shouldCoverButton
+          ? /* istanbul ignore next */ () => setIsAnimationComplete(true)
+          : undefined
+      }
+      onExiting={
+        shouldCoverButton
+          ? /* istanbul ignore next */ () => setIsAnimationComplete(false)
+          : undefined
+      }
+    >
+      {(state: TransitionStatus) =>
+        isOpen && (
+          <Popover
+            disablePortal
+            reference={popoverReference}
+            placement={position === "right" ? "bottom-start" : "bottom-end"}
+            popoverStrategy={
+              disableAnimation || reduceMotion ? "fixed" : "absolute"
+            }
+            {...(shouldCoverButton && { middleware: popoverMiddleware })}
+          >
+            <PopoverContainerContentStyle
+              data-element="popover-container-content"
+              role="dialog"
+              animationState={state}
+              aria-labelledby={popoverContainerId}
+              aria-label={containerAriaLabel}
+              aria-describedby={ariaDescribedBy}
+              p="16px 24px"
+              ref={popoverContentNodeRef}
+              tabIndex={shouldCoverButton ? -1 : undefined}
+              disableAnimation={disableAnimation || reduceMotion}
+              {...filterStyledSystemPaddingProps(rest)}
+            >
+              <PopoverContainerHeaderStyle>
+                <PopoverContainerTitleStyle
+                  id={popoverContainerId}
+                  data-element="popover-container-title"
+                >
+                  {title}
+                </PopoverContainerTitleStyle>
+                {renderCloseComponent(renderCloseComponentProps)}
+              </PopoverContainerHeaderStyle>
+              {children}
+            </PopoverContainerContentStyle>
+          </Popover>
+        )
+      }
+    </Transition>
+  );
 
   return (
     <PopoverContainerWrapperStyle
@@ -261,51 +323,15 @@ export const PopoverContainer = ({
       <div ref={popoverReference}>
         {renderOpenComponent(renderOpenComponentProps)}
       </div>
-      <Transition
-        in={isOpen}
-        timeout={{ exit: 300 }}
-        appear
-        mountOnEnter
-        unmountOnExit
-        nodeRef={popoverContentNodeRef}
-      >
-        {(state: TransitionStatus) =>
-          isOpen && (
-            <Popover
-              popoverStrategy={
-                disableAnimation || reduceMotion ? "fixed" : "absolute"
-              }
-              reference={popoverReference}
-              placement={position === "right" ? "bottom-start" : "bottom-end"}
-              {...(shouldCoverButton && { middleware: popoverMiddleware })}
-            >
-              <PopoverContainerContentStyle
-                data-element="popover-container-content"
-                role="dialog"
-                animationState={state}
-                aria-labelledby={popoverContainerId}
-                aria-label={containerAriaLabel}
-                aria-describedby={ariaDescribedBy}
-                p="16px 24px"
-                ref={popoverContentNodeRef}
-                disableAnimation={disableAnimation || reduceMotion}
-                {...filterStyledSystemPaddingProps(rest)}
-              >
-                <PopoverContainerHeaderStyle>
-                  <PopoverContainerTitleStyle
-                    id={popoverContainerId}
-                    data-element="popover-container-title"
-                  >
-                    {title}
-                  </PopoverContainerTitleStyle>
-                  {renderCloseComponent(renderCloseComponentProps)}
-                </PopoverContainerHeaderStyle>
-                {children}
-              </PopoverContainerContentStyle>
-            </Popover>
-          )
-        }
-      </Transition>
+      {shouldCoverButton ? (
+        <ModalContext.Provider value={{ isAnimationComplete }}>
+          <FocusTrap wrapperRef={popoverContentNodeRef} isOpen={isOpen}>
+            {popover}
+          </FocusTrap>
+        </ModalContext.Provider>
+      ) : (
+        popover
+      )}
     </PopoverContainerWrapperStyle>
   );
 };
