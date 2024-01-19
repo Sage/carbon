@@ -5,7 +5,7 @@ import Message, { MessageProps } from "./message.component";
 
 export default {
   title: "Message/Test",
-  includeStories: ["Default"],
+  includeStories: ["Default", "Transparent"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -54,4 +54,24 @@ Default.args = {
   transparent: false,
   children: "This is some information from the Message Component.",
   showCloseIcon: true,
+};
+
+export const Transparent = (args: MessageProps) => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Message
+      open={isOpen}
+      onDismiss={() => setIsOpen(false)}
+      transparent
+      {...args}
+    >
+      Some custom message
+    </Message>
+  );
+};
+
+Transparent.storyName = "transparent";
+
+Transparent.parameters = {
+  themeProvider: { chromatic: { disableSnapshot: false, theme: "sage" } },
 };
