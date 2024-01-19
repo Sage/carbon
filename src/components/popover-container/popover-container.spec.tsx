@@ -739,13 +739,13 @@ describe("PopoverContainerContentStyle", () => {
     });
 
     it("if the disableAnimation prop is true", () => {
-      const wrapper = mount(<PopoverContainerContentStyle disableAnimation />);
+      const wrapper = mount(<PopoverContainer open disableAnimation />);
 
       assertStyleMatch(
         {
           opacity: "1",
         },
-        wrapper
+        wrapper.find(PopoverContainerContentStyle)
       );
     });
   });
