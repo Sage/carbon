@@ -1,3 +1,31 @@
+### [125.2.1](https://github.com/Sage/carbon/compare/v125.2.0...v125.2.1) (2024-01-22)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure that pressing arrow and space keys scroll table when it is scrollable ([b7614e3](https://github.com/Sage/carbon/commit/b7614e38c192d4e05d75b87f3f754e9d36f18052)), closes [#6425](https://github.com/Sage/carbon/issues/6425)
+
+## [125.2.0](https://github.com/Sage/carbon/compare/v125.1.0...v125.2.0) (2024-01-19)
+
+
+### Features
+
+* **popover-container:** ensure that container behaves like a modal when open button is covered ([dcf655a](https://github.com/Sage/carbon/commit/dcf655a9d538492a704c6ce73f51fbe1cb074959)), closes [#6307](https://github.com/Sage/carbon/issues/6307)
+
+## [125.1.0](https://github.com/Sage/carbon/compare/v125.0.2...v125.1.0) (2024-01-18)
+
+
+### Features
+
+* **popover-container:** add prop to disable animation ([2a6a12c](https://github.com/Sage/carbon/commit/2a6a12c15a0d6cf725bfffde09673eb29db499a0)), closes [#6002](https://github.com/Sage/carbon/issues/6002)
+
+### [125.0.2](https://github.com/Sage/carbon/compare/v125.0.1...v125.0.2) (2024-01-15)
+
+
+### Bug Fixes
+
+* **numeral-date:** ensure internal validation uses given month and year values where possible ([24648d2](https://github.com/Sage/carbon/commit/24648d29d729c73e1dda837180f48fb16b21dabf)), closes [#6438](https://github.com/Sage/carbon/issues/6438)
+
 ### [125.0.1](https://github.com/Sage/carbon/compare/v125.0.0...v125.0.1) (2024-01-11)
 
 

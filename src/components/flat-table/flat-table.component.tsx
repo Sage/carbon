@@ -72,10 +72,12 @@ export const FlatTable = ({
 }: FlatTableProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
+  const container = useRef<HTMLDivElement | null>(null);
   const [hasVerticalScrollbar, setHasVerticalScrollbar] = useState(false);
   const [hasHorizontalScrollbar, setHasHorizontalScrollbar] = useState(false);
   const [firstColRowSpanIndex, setFirstColRowSpanIndex] = useState(-1);
   const [lastColRowSpanIndex, setLastColRowSpanIndex] = useState(-1);
+  const [focused, setFocused] = useState(false);
   const addDefaultHeight = !height && (hasStickyHead || hasStickyFooter);
   const tableStylingProps = {
     caption,
@@ -158,12 +160,14 @@ export const FlatTable = ({
       FOCUSABLE_ROW_AND_CELL_QUERY
     );
 
+    const focusableElementsArray = Array.from(
+      focusableElements || /* istanbul ignore next */ []
+    );
+
     /* istanbul ignore if */
-    if (!focusableElements) {
+    if (!focusableElementsArray.length) {
       return;
     }
-
-    const focusableElementsArray = Array.from(focusableElements);
 
     const currentFocusIndex = focusableElementsArray.findIndex(
       (el) => el === document.activeElement
@@ -233,7 +237,6 @@ export const FlatTable = ({
       display="flex"
       flexDirection="column"
       justifyContent={hasStickyFooter || height ? "space-between" : undefined}
-      tabIndex={0}
       role="region"
       overflowX={width ? "hidden" : undefined}
       width={width}
@@ -244,9 +247,21 @@ export const FlatTable = ({
       firstColRowSpanIndex={firstColRowSpanIndex}
       lastColRowSpanIndex={lastColRowSpanIndex}
       onKeyDown={handleKeyDown}
+      isFocused={focused}
       {...rest}
     >
-      <StyledTableContainer overflowX={overflowX} width={width}>
+      <StyledTableContainer
+        ref={container}
+        onFocus={() => {
+          if (container.current === document.activeElement) {
+            setFocused(true);
+          }
+        }}
+        onBlur={() => setFocused(false)}
+        tabIndex={0}
+        overflowX={overflowX}
+        width={width}
+      >
         <StyledFlatTable
           ref={tableRef}
           data-component="flat-table"

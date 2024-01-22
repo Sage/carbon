@@ -31,6 +31,10 @@ const StyledTableContainer = styled.div<
 
       ${overflowX && `overflow-x: ${overflowX};`}
     `}
+
+  :focus {
+    outline: none;
+  }
 `;
 
 const StyledFlatTable = styled.table<
@@ -110,6 +114,7 @@ interface StyledFlatTableWrapperProps
   hasVerticalScrollbar: boolean;
   lastColRowSpanIndex: number;
   firstColRowSpanIndex: number;
+  isFocused: boolean;
 }
 
 const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
@@ -123,39 +128,25 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
       border-bottom-right-radius: var(--borderRadius100);
     `}
 
-  ${({ isInSidebar, theme }) =>
+  ${({ isInSidebar, theme, isFocused }) =>
     css`
       box-sizing: border-box;
 
-      :focus {
-        /* istanbul ignore next */
-        ${theme.focusRedesignOptOut &&
-        /* istanbul ignore next */
-        css`
-          ${oldFocusStyling}
+      /* istanbul ignore next */
+      ${theme.focusRedesignOptOut &&
+      isFocused &&
+      /* istanbul ignore next */
+      css`
+        ${oldFocusStyling}
+      `}
 
-          :not(:focus-visible) {
-            outline: none;
-          }
+      ${!theme.focusRedesignOptOut &&
+      isFocused &&
+      css`
+        ${addFocusStyling()}
+      `}
 
-          :focus-visible {
-            ${oldFocusStyling}
-          }
-        `}
-
-        ${!theme.focusRedesignOptOut &&
-        css`
-          ${addFocusStyling()}
-          :not(:focus-visible) {
-            outline: none;
-            box-shadow: none;
-          }
-        `}
-      }
-
-      ${isInSidebar
-        ? "min-width: fit-content"
-        : `box-shadow: inset 0px 0px 0px 1px var(--colorsUtilityMajor100)`};
+      ${isInSidebar ? "min-width: fit-content;" : ""}
     `}
 
   ${({ colorTheme }) => {

@@ -33,6 +33,8 @@ export interface PopoverProps {
   // Whether to update the position of the floating element on every animation frame if required. This is optimized for performance but can still be costly. Use with caution!
   // https://floating-ui.com/docs/autoUpdate#animationframe
   animationFrame?: boolean;
+  // Optional strategy to use for positioning the floating element. Defaults to "absolute".
+  popoverStrategy?: "absolute" | "fixed";
 }
 
 const defaultMiddleware = [
@@ -50,6 +52,7 @@ const Popover = ({
   disableBackgroundUI,
   isOpen = true,
   animationFrame,
+  popoverStrategy = "absolute",
 }: PopoverProps) => {
   const elementDOM = useRef<HTMLDivElement | null>(null);
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
@@ -81,6 +84,7 @@ const Popover = ({
     placement,
     middleware,
     animationFrame,
+    strategy: popoverStrategy,
   });
 
   useEffect(() => {

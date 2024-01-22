@@ -3124,4 +3124,50 @@ context("Tests for Flat Table component", () => {
       flatTableCell(4).should("have.css", "border-radius", "0px");
     });
   });
+
+  it("it should scroll the scrollable table when down arrow key pressed and wrapper is focused", () => {
+    CypressMountWithProviders(
+      <stories.FlatTableSpanComponent hasStickyHead height="200px" />
+    );
+
+    cy.get("body").tab();
+    flatTableBodyRowByPosition(5).should("not.be.visible");
+    cy.get("body").realPress("ArrowDown");
+    cy.get("body").realPress("ArrowDown");
+    cy.get("body").realPress("ArrowDown");
+    cy.get("body").realPress("ArrowDown");
+    flatTableBodyRowByPosition(5).should("be.visible");
+  });
+
+  it("it should scroll the scrollable table when space key pressed and wrapper is focused", () => {
+    CypressMountWithProviders(
+      <stories.FlatTableSpanComponent hasStickyHead height="200px" />
+    );
+
+    cy.get("body").tab();
+    flatTableBodyRowByPosition(5).should("not.be.visible");
+    cy.get("body").realPress("Space");
+    cy.get("body").realPress("Space");
+    cy.get("body").realPress("Space");
+    cy.get("body").realPress("Space");
+    flatTableBodyRowByPosition(5).should("be.visible");
+  });
+
+  it("it should scroll the scrollable table when down arrow key pressed and wrapper is focused", () => {
+    CypressMountWithProviders(
+      <stories.FlatTableSpanComponent hasStickyHead height="200px" />
+    );
+
+    cy.get("body").tab();
+    flatTableBodyRowByPosition(5).should("not.be.visible");
+    cy.get("body").realPress("ArrowDown");
+    cy.get("body").realPress("ArrowDown");
+    cy.get("body").realPress("ArrowDown");
+    cy.get("body").realPress("ArrowDown");
+    cy.get("body").realPress("ArrowUp");
+    cy.get("body").realPress("ArrowUp");
+    cy.get("body").realPress("ArrowUp");
+    cy.get("body").realPress("ArrowUp");
+    flatTableBodyRowByPosition(5).should("not.be.visible");
+  });
 });

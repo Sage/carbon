@@ -314,3 +314,14 @@ export const Filter: ComponentStory<typeof PopoverContainer> = () => {
     </Box>
   );
 };
+
+export const DisableAnimation: ComponentStory<typeof PopoverContainer> = () => (
+  <div style={{ height: 100 }}>
+    <PopoverContainer
+      title="Disabled Animation Popover Container"
+      disableAnimation
+    >
+      Contents
+    </PopoverContainer>
+  </div>
+);

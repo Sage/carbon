@@ -35,8 +35,16 @@ import {
   SIZE,
   VALIDATION,
 } from "../../../playwright/support/constants";
+import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const dynamicValidations: [string, string, string, string][] = [
+  ["02", "29", "2001", "Day in February should be a number within 1-28."],
+  ["02", "30", "2004", "Day in February should be a number within 1-29."],
+  ["06", "31", "2001", "Day in June should be a number within 1-30."],
+  ["09", "31", "2001", "Day in September should be a number within 1-30."],
+  ["12", "32", "2001", "Day in December should be a number within 1-31."],
+];
 
 test.describe("NumeralDate component", () => {
   test("should render NumeralDate with data-component prop", async ({
@@ -305,6 +313,98 @@ test.describe("NumeralDate component", () => {
       });
     }
   );
+
+  dynamicValidations.forEach(([month, day, year, validationString]) => {
+    test(`should display dynamic internal error message in tooltip when validationRedesignOptIn is false, month is ${month}, day is ${day} and year is ${year}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <NumeralDateComponent
+          enableInternalError
+          value={{ dd: "", mm: month, yyyy: year }}
+        />
+      );
+
+      const input = numeralDateInput(page, 0);
+      await input.fill(day);
+      await input.blur();
+
+      const errorIcon = numeralDateInput(page, 2).locator("..").locator(ICON);
+      await expect(errorIcon).toHaveAttribute("data-element", "error");
+
+      await errorIcon.hover();
+      await expect(tooltipPreview(page)).toHaveText(validationString);
+    });
+  });
+
+  dynamicValidations.forEach(([month, day, year, validationString]) => {
+    test(`should display dynamic internal warning message in tooltip when validationRedesignOptIn is false, month is ${month}, day is ${day} and year is ${year}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <NumeralDateComponent
+          enableInternalWarning
+          value={{ dd: "", mm: month, yyyy: year }}
+        />
+      );
+
+      const input = numeralDateInput(page, 0);
+      await input.fill(day);
+      await input.blur();
+
+      const warningIcon = numeralDateInput(page, 2).locator("..").locator(ICON);
+      await expect(warningIcon).toHaveAttribute("data-element", "warning");
+
+      await warningIcon.hover();
+      await expect(tooltipPreview(page)).toHaveText(validationString);
+    });
+  });
+
+  dynamicValidations.forEach(([month, day, year, validationString]) => {
+    test(`should display dynamic internal error message when validationRedesignOptIn is true, month is ${month}, day is ${day} and year is ${year}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount<HooksConfig>(
+        <NumeralDateComponent
+          enableInternalError
+          value={{ dd: "", mm: month, yyyy: year }}
+        />,
+        { hooksConfig: { validationRedesignOptIn: true } }
+      );
+
+      const input = numeralDateInput(page, 0);
+      await input.fill(day);
+      await input.blur();
+
+      const errorMessage = page.getByText(validationString);
+      await expect(errorMessage).toBeVisible();
+    });
+  });
+
+  dynamicValidations.forEach(([month, day, year, validationString]) => {
+    test(`should display dynamic internal warning message when validationRedesignOptIn is true, month is ${month}, day is ${day} and year is ${year}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount<HooksConfig>(
+        <NumeralDateComponent
+          enableInternalWarning
+          value={{ dd: "", mm: month, yyyy: year }}
+        />,
+        { hooksConfig: { validationRedesignOptIn: true } }
+      );
+
+      const input = numeralDateInput(page, 0);
+      await input.fill(day);
+      await input.blur();
+
+      const warningMessage = page.getByText(validationString);
+      await expect(warningMessage).toBeVisible();
+    });
+  });
 
   ([
     [0, "Day should be a number within a 1-31 range.", "Day"],

@@ -25,6 +25,14 @@ import {
 import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
 import { Select, Option } from "../select";
+import useMediaQuery from "../../hooks/useMediaQuery";
+
+jest.mock("../../hooks/useMediaQuery", () => {
+  return {
+    __esModule: true,
+    default: jest.fn().mockReturnValue(false),
+  };
+});
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => "guid-123");
@@ -205,6 +213,34 @@ describe("PopoverContainer", () => {
       ).toEqual({ mainAxis: -40 });
     });
 
+    it("should have the expected strategy when disabledAnimation is true", () => {
+      wrapper = render({ disableAnimation: true, open: true });
+
+      expect(wrapper.find(Popover).props().popoverStrategy)?.toBe("fixed");
+    });
+
+    it("should have the expected strategy when disabledAnimation is false and user doesn't allow motion or their preference cannot be determined", () => {
+      const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+        typeof useMediaQuery
+      >;
+      mockUseMediaQuery.mockReturnValueOnce(false);
+
+      wrapper = render({ disableAnimation: false, open: true });
+
+      expect(wrapper.find(Popover).props().popoverStrategy)?.toBe("fixed");
+    });
+
+    it("should have the expected strategy when disabledAnimation is false and user allows motion", () => {
+      const mockUseMediaQuery = useMediaQuery as jest.MockedFunction<
+        typeof useMediaQuery
+      >;
+      mockUseMediaQuery.mockReturnValueOnce(true);
+
+      wrapper = render({ disableAnimation: false, open: true });
+
+      expect(wrapper.find(Popover).props().popoverStrategy)?.toBe("absolute");
+    });
+
     it.each([
       ["bottom-start", "right"] as const,
       ["bottom-end", "left"] as const,
@@ -316,7 +352,6 @@ describe("PopoverContainer", () => {
       });
 
       wrapper.update();
-      expect(wrapper.find(PopoverContainerOpenIcon).props().tabIndex).toBe(-1);
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
     });
 
@@ -328,7 +363,6 @@ describe("PopoverContainer", () => {
       });
 
       wrapper.update();
-      expect(wrapper.find(PopoverContainerOpenIcon).props().tabIndex).toBe(-1);
       expect(wrapper.find(PopoverContainerContentStyle).exists()).toBe(true);
 
       act(() => {
@@ -394,10 +428,7 @@ describe("PopoverContainer", () => {
       });
 
       afterEach(() => {
-        if (container && container.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-
+        container?.parentNode?.removeChild(container);
         container = null;
       });
 
@@ -524,7 +555,6 @@ describe("PopoverContainer", () => {
         document.body.appendChild(container);
         wrapper = renderAttached({
           open: true,
-          // eslint-disable-next-line react/display-name
           renderCloseComponent: ({
             tabIndex,
             "data-element": dataElement,
@@ -546,16 +576,8 @@ describe("PopoverContainer", () => {
       });
 
       afterEach(() => {
-        if (container && container.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-
+        container?.parentNode?.removeChild(container);
         container = null;
-      });
-
-      it("should be focused if `ref` is provided", () => {
-        jest.runAllTimers();
-        expect(wrapper.find(MyCloseButton)).toBeFocused();
       });
 
       it("should render correct props", () => {
@@ -578,10 +600,7 @@ describe("PopoverContainer", () => {
       });
 
       afterEach(() => {
-        if (container && container.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-
+        container?.parentNode?.removeChild(container);
         container = null;
       });
 
@@ -664,6 +683,17 @@ describe("PopoverContainerContentStyle", () => {
   });
 
   describe("should render correct style of animation", () => {
+    it("if there is no animation state", () => {
+      const wrapper = mount(<PopoverContainerContentStyle />);
+
+      assertStyleMatch(
+        {
+          opacity: "0",
+        },
+        wrapper
+      );
+    });
+
     it("if the animation has state `entered`", () => {
       const wrapper = mount(
         <PopoverContainerContentStyle animationState="entered" />
@@ -674,6 +704,20 @@ describe("PopoverContainerContentStyle", () => {
           opacity: "1",
           transform: "translateY(0)",
           transition: "all 0.3s cubic-bezier(0.25,0.25,0,1.5)",
+        },
+        wrapper
+      );
+    });
+
+    it("if the animation has state `entering`", () => {
+      const wrapper = mount(
+        <PopoverContainerContentStyle animationState="entering" />
+      );
+
+      assertStyleMatch(
+        {
+          opacity: "0",
+          transform: "translateY(-8px)",
         },
         wrapper
       );
@@ -691,6 +735,17 @@ describe("PopoverContainerContentStyle", () => {
           transition: "all 0.3s cubic-bezier(0.25,0.25,0,1.5)",
         },
         wrapper
+      );
+    });
+
+    it("if the disableAnimation prop is true", () => {
+      const wrapper = mount(<PopoverContainer open disableAnimation />);
+
+      assertStyleMatch(
+        {
+          opacity: "1",
+        },
+        wrapper.find(PopoverContainerContentStyle)
       );
     });
   });
@@ -847,7 +902,11 @@ describe("open state when click event triggered", () => {
     expect(onCloseFn).toHaveBeenCalled();
   });
 
-  it("should close the container when escape key is pressed inside of a Select component", () => {
+  it("should close the container when Select input receives keydown event with escape key pressed and list is closed", () => {
+    const container = document.createElement("div");
+    container.id = "enzymeContainer";
+    document.body.appendChild(container);
+
     const onCloseFn = jest.fn();
     const MockWrapper = () => {
       const [open, setOpen] = React.useState(true);
@@ -870,8 +929,12 @@ describe("open state when click event triggered", () => {
         </>
       );
     };
-    const wrapper = mount(<MockWrapper />);
-    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+    const wrapper = mount(<MockWrapper />, {
+      attachTo: document.getElementById("enzymeContainer"),
+    });
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
 
     const selectInput = document.querySelector(
       '[data-element="input"][aria-expanded="false"]'
@@ -890,9 +953,14 @@ describe("open state when click event triggered", () => {
       false
     );
     expect(onCloseFn).toHaveBeenCalled();
+
+    container?.parentNode?.removeChild(container);
   });
 
   it("should not close the container when escape key is pressed inside of the SelectList", () => {
+    const container = document.createElement("div");
+    container.id = "enzymeContainer";
+    document.body.appendChild(container);
     const onCloseFn = jest.fn();
     const MockWrapper = () => {
       const [open, setOpen] = React.useState(true);
@@ -915,8 +983,12 @@ describe("open state when click event triggered", () => {
         </>
       );
     };
-    const wrapper = mount(<MockWrapper />);
-    expect(wrapper.update().find(PopoverContainer).prop("open")).toBe(true);
+    const wrapper = mount(<MockWrapper />, {
+      attachTo: document.getElementById("enzymeContainer"),
+    });
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
 
     const selectText = wrapper.find('input[type="text"]').first();
 
@@ -939,6 +1011,64 @@ describe("open state when click event triggered", () => {
       true
     );
     expect(onCloseFn).not.toHaveBeenCalled();
+
+    container?.parentNode?.removeChild(container);
+  });
+
+  it("keep focus on the open button when container is opened", () => {
+    const container = document.createElement("div");
+    container.id = "enzymeContainer";
+    document.body.appendChild(container);
+    const onCloseFn = jest.fn();
+    const MockWrapper = () => {
+      const [open, setOpen] = React.useState(true);
+
+      return (
+        <>
+          <PopoverContainer
+            title="PopoverContainerSettings"
+            open={open}
+            onClose={(e) => {
+              setOpen(false);
+              onCloseFn(e);
+            }}
+          >
+            <Select name="simple" id="simple" label="color" labelInline>
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+            </Select>
+          </PopoverContainer>
+        </>
+      );
+    };
+    const wrapper = mount(<MockWrapper />, {
+      attachTo: document.getElementById("enzymeContainer"),
+    });
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
+
+    const selectText = wrapper.find('input[type="text"]').first();
+
+    selectText.simulate("click");
+
+    const expandedSelectInput = document.querySelector(
+      '[data-element="input"][aria-expanded="true"]'
+    );
+
+    expandedSelectInput?.dispatchEvent(
+      new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+      })
+    );
+
+    expect(wrapper.update().find(PopoverContainerContentStyle).exists()).toBe(
+      true
+    );
+    expect(onCloseFn).not.toHaveBeenCalled();
+
+    container?.parentNode?.removeChild(container);
   });
 
   it("should render with the expected border radius styling", () => {
