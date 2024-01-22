@@ -225,13 +225,13 @@ export const FilterableSelect = React.forwardRef(
             return "";
           }
 
+          triggerChange(match.props.value, false);
+
           if (isDeleteEvent) {
             setTextValue(newFilterText);
 
             return match.props.value;
           }
-
-          triggerChange(match.props.value, false);
 
           if (
             match.props.text
