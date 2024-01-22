@@ -1,3 +1,10 @@
+### [125.2.2](https://github.com/Sage/carbon/compare/v125.2.1...v125.2.2) (2024-01-22)
+
+
+### Bug Fixes
+
+* **link:** focus underline fix ([5edad27](https://github.com/Sage/carbon/commit/5edad27df0f9a69d8e164fae58309056f9f22545)), closes [#6434](https://github.com/Sage/carbon/issues/6434)
+
 ### [125.2.1](https://github.com/Sage/carbon/compare/v125.2.0...v125.2.1) (2024-01-22)
 
 
