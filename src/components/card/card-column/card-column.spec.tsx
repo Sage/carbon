@@ -3,6 +3,7 @@ import { mount } from "enzyme";
 import CardColumn, { CardColumnProps } from "./card-column.component";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledCardColumn from "./card-column.style";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("CardColumn", () => {
   it("renders children correctly", () => {
@@ -23,5 +24,28 @@ describe("CardColumn", () => {
     );
 
     assertStyleMatch({ textAlign: align }, wrapper.find(StyledCardColumn));
+  });
+
+  it("has the expected data attributes", () => {
+    rootTagTest(
+      mount(
+        <CardColumn>
+          <div />
+        </CardColumn>
+      ).find(StyledCardColumn),
+      "card-column",
+      "card-column"
+    );
+
+    rootTagTest(
+      mount(
+        <CardColumn data-element="foo" data-role="bar">
+          <div />
+        </CardColumn>
+      ).find(StyledCardColumn),
+      "card-column",
+      "foo",
+      "bar"
+    );
   });
 });

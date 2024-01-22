@@ -79,7 +79,7 @@ interface Locale {
   };
   numeralDate: {
     validation: {
-      day: () => string;
+      day: (month?: string, daysInMonth?: string) => string;
       month: () => string;
       year: () => string;
     };

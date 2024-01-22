@@ -47,12 +47,6 @@ export interface FullDate extends DayMonthDate {
   yyyy: string;
 }
 
-interface ValidationsObject {
-  dd: (datePart: string) => boolean;
-  mm: (datePart: string) => boolean;
-  yyyy: (datePart: string) => boolean;
-}
-
 export type NumeralDateObject = DayMonthDate | MonthYearDate | FullDate;
 
 export interface NumeralDateEvent<
@@ -155,18 +149,59 @@ const incorrectDateFormatMessage =
   "['mm', 'dd'], " +
   "['mm', 'yyyy']";
 
-const isDayValid = (day: string) => (day ? +day > 0 && +day < 32 : true);
+const getMonthsForLocale = (localeName: string) => {
+  const year = new Date().getFullYear();
+  const { format } = new Intl.DateTimeFormat(localeName, { month: "long" });
 
-const isMonthValid = (month: string) =>
-  month ? +month > 0 && +month < 13 : true;
+  return [...Array(12).keys()].map((m) => format(new Date(Date.UTC(year, m))));
+};
 
-const isYearValid = (year: string) =>
-  year ? +year > 1799 && +year < 2201 : true;
+const validationMessages = (
+  locale: Locale,
+  month?: string,
+  daysInMonth?: string
+) => ({
+  dd: locale.numeralDate.validation.day(
+    month ? getMonthsForLocale(locale.locale())[+month - 1] : undefined,
+    daysInMonth
+  ),
+  mm: locale.numeralDate.validation.month(),
+  yyyy: locale.numeralDate.validation.year(),
+});
 
-const validations: ValidationsObject = {
-  dd: isDayValid,
-  mm: isMonthValid,
-  yyyy: isYearValid,
+const getDaysInMonth = (month?: string, year?: string) => {
+  if (month && (+month > 12 || +month < 1)) {
+    return 31;
+  }
+  const currentDate = new Date();
+  const computedYear = +(year || currentDate.getFullYear());
+  const computedMonth = +(month || currentDate.getMonth() + 1);
+
+  // passing 0 as the third argument ensures we handle for months being 0 indexed
+  return new Date(computedYear, computedMonth, 0).getDate();
+};
+
+const validate = (locale: Locale, { dd, mm, yyyy }: Partial<FullDate>) => {
+  const failed = {
+    dd: "",
+    mm: "",
+    yyyy: "",
+  };
+  const daysInMonth = getDaysInMonth(mm, yyyy);
+
+  if (dd && (+dd > daysInMonth || +dd < 1)) {
+    failed.dd = validationMessages(locale, mm, String(daysInMonth)).dd;
+  }
+
+  if (mm && (+mm > 12 || +mm < 1)) {
+    failed.mm = validationMessages(locale).mm;
+  }
+
+  if (yyyy && (+yyyy < 1800 || +yyyy > 2200)) {
+    failed.yyyy = validationMessages(locale).yyyy;
+  }
+
+  return failed;
 };
 
 const getDateLabel = (datePart: string, locale: Locale) => {
@@ -256,12 +291,6 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     );
   }, [value]);
 
-  const validationMessages = {
-    dd: locale.numeralDate.validation.day(),
-    mm: locale.numeralDate.validation.month(),
-    yyyy: locale.numeralDate.validation.year(),
-  };
-
   const [dateValue, setDateValue] = useState<DateType>({
     ...((initialValue ||
       (Object.fromEntries(
@@ -311,19 +340,14 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     }
   };
 
-  const handleBlur = (datePart: keyof NumeralDateObject) => {
+  const handleBlur = () => {
     const internalValidationEnabled =
       enableInternalError || enableInternalWarning;
     /* istanbul ignore else */
     if (internalValidationEnabled) {
-      const newDatePart: string = dateValue[datePart];
-      const errorMessage = validations[datePart](newDatePart)
-        ? ""
-        : validationMessages[datePart];
-
       setInternalMessages((prev) => ({
         ...prev,
-        [datePart]: errorMessage,
+        ...validate(locale, dateValue),
       }));
     }
     setTimeout(() => {
@@ -462,6 +486,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                           onChange={(e) =>
                             handleChange(e, datePart as keyof NumeralDateObject)
                           }
+                          onBlur={handleBlur}
                           ref={(element) => {
                             refs.current[index] = element;
                             if (!inputRef) {
@@ -473,9 +498,6 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                               inputRef.current = element;
                             }
                           }}
-                          onBlur={() =>
-                            handleBlur(datePart as keyof NumeralDateObject)
-                          }
                           error={!!internalError}
                           warning={!!internalWarning}
                           info={!!info}

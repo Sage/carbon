@@ -3,6 +3,7 @@ import React from "react";
 import "../../../playwright/components";
 import {
   card,
+  cardContent,
   columnCard,
   draggableCard,
   draggableContainer,
@@ -21,7 +22,7 @@ import {
   LargeSpacing,
   MoreExamplesOfCardFooter,
   SmallSpacing,
-  WithCardWidthProvided,
+  WithWidthProvided,
   WithCustomBoxShadow,
   WithCustomHeight,
   WithDraggable,
@@ -55,47 +56,60 @@ test.describe("Check Card component styling", () => {
     }
   );
 
-  test("should check interactive applies the expected styling", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<CardComponent interactive />);
+  [{ onClick: () => {} }, { href: "foo" }].forEach((props) => {
+    const key = Object.keys(props)[0];
+    test(`should check setting the ${key} prop applies the expected styling`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<CardComponent {...props} />);
 
-    const cardElement = card(page);
-    await cardElement.hover();
+      const cardElement = card(page);
+      const cardContentElement = cardContent(page);
+      await cardElement.hover();
 
-    await expect(cardElement).toHaveCSS("cursor", "pointer");
-    await expect(cardElement).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px"
-    );
-  });
+      await expect(cardContentElement).toHaveCSS("cursor", "pointer");
+      await expect(cardElement).toHaveCSS(
+        "box-shadow",
+        "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px"
+      );
 
-  test("should allow custom boxShadow and hoverBoxShadow prop values and they apply the expected styling", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <CardComponent
-        boxShadow="boxShadow400"
-        hoverBoxShadow="boxShadow200"
-        interactive
-      />
-    );
+      await cardContentElement.focus();
 
-    const cardElement = card(page);
-    await expect(cardElement).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
-    );
-    await cardElement.hover();
-    await cardElement.waitFor();
+      await expect(cardContentElement).toHaveCSS(
+        "box-shadow",
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      );
+    });
 
-    await expect(cardElement).toHaveCSS("cursor", "pointer");
-    await expect(cardElement).toHaveCSS(
-      "box-shadow",
-      "rgba(0, 20, 30, 0.2) 0px 10px 20px 0px, rgba(0, 20, 30, 0.1) 0px 20px 40px 0px"
-    );
+    test(`should match the expected styling when ${key} is passed with custom boxShadow and hoverBoxShadow props`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <CardComponent
+          boxShadow="boxShadow400"
+          hoverBoxShadow="boxShadow200"
+          {...props}
+        />
+      );
+
+      const cardElement = card(page);
+      const cardContentElement = cardContent(page);
+
+      await expect(cardElement).toHaveCSS(
+        "box-shadow",
+        "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
+      );
+      await cardElement.hover();
+      await cardElement.waitFor();
+
+      await expect(cardContentElement).toHaveCSS("cursor", "pointer");
+      await expect(cardElement).toHaveCSS(
+        "box-shadow",
+        "rgba(0, 20, 30, 0.2) 0px 10px 20px 0px, rgba(0, 20, 30, 0.1) 0px 20px 40px 0px"
+      );
+    });
   });
 
   textAlignment.forEach((align) => {
@@ -155,7 +169,7 @@ test.describe("Check Card component properties", () => {
       mount,
       page,
     }) => {
-      await mount(<CardComponent cardWidth={`${width}px`} />);
+      await mount(<CardComponent width={`${width}px`} />);
 
       const cardElement = card(page);
 
@@ -235,8 +249,7 @@ test.describe("Check Card component properties", () => {
     let setClickCounter = 0;
     await mount(
       <CardComponent
-        interactive
-        action={() => {
+        onClick={() => {
           setClickCounter += 1;
         }}
       />
@@ -280,7 +293,7 @@ test.describe("Accessibility tests for Card component", () => {
     mount,
     page,
   }) => {
-    await mount(<WithCardWidthProvided />);
+    await mount(<WithWidthProvided />);
 
     await checkAccessibility(page);
   });

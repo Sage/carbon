@@ -6,6 +6,7 @@ import StyledCardFooter from "./card-footer.style";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import Link from "../../link";
 import CardContext from "../__internal__/card-context";
+import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("CardFooter", () => {
   it("matches expected styling when it contains non-interactive content", () => {
@@ -58,11 +59,39 @@ describe("CardFooter", () => {
           }00)`,
         },
         mount(
-          <CardContext.Provider value={{ roundness }}>
+          <CardContext.Provider
+            value={{
+              roundness,
+              spacing: "medium",
+            }}
+          >
             <CardFooter>foo</CardFooter>
           </CardContext.Provider>
         ).find(StyledCardFooter)
       );
     }
   );
+
+  it("has the expected data attributes", () => {
+    rootTagTest(
+      mount(
+        <CardFooter>
+          <div />
+        </CardFooter>
+      ).find(StyledCardFooter),
+      "card-footer",
+      "card-footer"
+    );
+
+    rootTagTest(
+      mount(
+        <CardFooter data-element="foo" data-role="bar">
+          <div />
+        </CardFooter>
+      ).find(StyledCardFooter),
+      "card-footer",
+      "foo",
+      "bar"
+    );
+  });
 });

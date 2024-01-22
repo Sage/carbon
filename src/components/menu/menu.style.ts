@@ -75,12 +75,12 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       display: list-item;
     `}
   `}
+
   ${({ inFullscreenView }) =>
     inFullscreenView &&
     css`
       padding-top: var(--spacing200);
       padding-bottom: var(--spacing200);
-      ${padding}
 
       > a,
       ${StyledLink} > a,
@@ -93,6 +93,8 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
         box-sizing: border-box;
       }
     `}
+
+  ${padding}
 `;
 
 StyledMenuItem.defaultProps = {

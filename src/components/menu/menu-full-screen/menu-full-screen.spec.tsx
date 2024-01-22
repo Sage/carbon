@@ -25,6 +25,7 @@ import { baseTheme } from "../../../style/themes";
 import { StyledMenuItem } from "../menu.style";
 import menuConfigVariants from "../menu.config";
 import Logger from "../../../__internal__/utils/logger";
+import { StyledSubmenu } from "../__internal__/submenu/submenu.style";
 
 // mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -337,23 +338,49 @@ describe("MenuFullscreen", () => {
       );
     });
 
-    testStyledSystemPadding(
-      (props) => (
-        <MenuContext.Provider
-          value={{
-            menuType: "light",
-            openSubmenuId: null,
-            inFullscreenView: true,
-            inMenu: true,
-            setOpenSubmenuId: () => {},
-          }}
-        >
-          <MenuItem {...props}>Foo</MenuItem>
-        </MenuContext.Provider>
-      ),
-      { pt: "10px", pb: "10px" },
-      (component) => component.find(StyledMenuItem)
-    );
+    describe("menu item padding", () => {
+      testStyledSystemPadding(
+        (props) => (
+          <MenuContext.Provider
+            value={{
+              menuType: "light",
+              openSubmenuId: null,
+              inFullscreenView: true,
+              inMenu: true,
+              setOpenSubmenuId: () => {},
+            }}
+          >
+            <MenuItem {...props}>Foo</MenuItem>
+          </MenuContext.Provider>
+        ),
+        { pt: "10px", pb: "10px" },
+        (component) => component.find(StyledMenuItem)
+      );
+    });
+
+    describe("submenu item padding", () => {
+      testStyledSystemPadding(
+        (props) => (
+          <MenuContext.Provider
+            value={{
+              menuType: "light",
+              openSubmenuId: null,
+              inFullscreenView: true,
+              inMenu: true,
+              setOpenSubmenuId: () => {},
+            }}
+          >
+            <MenuItem submenu="foo">
+              <MenuItem {...props} href="#">
+                bar
+              </MenuItem>
+            </MenuItem>
+          </MenuContext.Provider>
+        ),
+        undefined,
+        (component) => component.find(StyledSubmenu).find(StyledMenuItem)
+      );
+    });
   });
 
   describe("onClose", () => {
