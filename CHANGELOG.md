@@ -1,3 +1,10 @@
+### [125.2.1](https://github.com/Sage/carbon/compare/v125.2.0...v125.2.1) (2024-01-22)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure that pressing arrow and space keys scroll table when it is scrollable ([b7614e3](https://github.com/Sage/carbon/commit/b7614e38c192d4e05d75b87f3f754e9d36f18052)), closes [#6425](https://github.com/Sage/carbon/issues/6425)
+
 ## [125.2.0](https://github.com/Sage/carbon/compare/v125.1.0...v125.2.0) (2024-01-19)
 
 
