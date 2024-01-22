@@ -213,6 +213,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
           border-bottom-left-radius: var(--borderRadius000);
           border-bottom-right-radius: var(--borderRadius000);
         }
+        max-width: fit-content;
         box-shadow: 0 4px 0 0 var(--colorsUtilityYin090);
         border-bottom-left-radius: var(--borderRadius025);
         border-bottom-right-radius: var(--borderRadius025);

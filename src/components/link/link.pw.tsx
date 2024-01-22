@@ -272,6 +272,7 @@ test.describe("when focused", () => {
       "box-shadow",
       "rgba(0, 0, 0, 0.9) 0px 4px 0px 0px"
     );
+    await expect(linkWrapper).toHaveCSS("max-width", "fit-content");
   });
 });
 
