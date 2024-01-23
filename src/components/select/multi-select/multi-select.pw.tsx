@@ -16,6 +16,7 @@ import {
   MultiSelectNestedInDialog,
   MultiSelectErrorOnChangeNewValidation,
   SelectionConfirmed,
+  MultiSelectWithDisabledOption,
 } from "../../../../src/components/select/multi-select/components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -1549,6 +1550,29 @@ test("should not add an empty Pill when filter text does not match option text",
   await commonDataElementInputPreview(page).type("abc");
   await selectInput(page).press("Enter");
   await expect(pillElement).not.toBeVisible();
+});
+
+test("should not select a disabled option when a filter is typed", async ({
+  mount,
+  page,
+}) => {
+  await mount(<MultiSelectWithDisabledOption />);
+
+  await dropdownButton(page).click();
+  const inputElement = selectInput(page);
+  await inputElement.type("t");
+  await inputElement.press("Enter");
+  await expect(
+    page.locator('[data-element="confirmed-selection-2"]')
+  ).not.toBeVisible();
+  await inputElement.press("ArrowDown");
+  await inputElement.press("Enter");
+  await expect(
+    page.locator('[data-element="confirmed-selection-3"]')
+  ).toBeVisible();
+
+  const pillElement = multiSelectPill(page);
+  await expect(pillElement).toHaveCount(1);
 });
 
 // see https://github.com/Sage/carbon/issues/6399

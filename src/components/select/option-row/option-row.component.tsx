@@ -16,6 +16,8 @@ export interface OptionRowProps extends TagProps {
    * Will use a randomly generated GUID if none is provided.
    */
   id?: string;
+  /** If true, the component will be disabled */
+  disabled?: boolean;
   /**
    * @private
    * @ignore
@@ -48,6 +50,7 @@ const OptionRow = React.forwardRef(
       id,
       text,
       children,
+      disabled,
       onSelect,
       value,
       index,
@@ -58,6 +61,9 @@ const OptionRow = React.forwardRef(
     ref: React.ForwardedRef<HTMLTableRowElement>
   ) => {
     const handleClick = () => {
+      if (disabled) {
+        return;
+      }
       onSelect?.({ id, text, value });
     };
     const selectListContext = useContext(SelectListContext);
@@ -72,7 +78,9 @@ const OptionRow = React.forwardRef(
         id={id}
         ref={ref}
         aria-selected={isSelected}
+        aria-disabled={disabled}
         data-component="option-row"
+        isDisabled={disabled}
         onClick={handleClick}
         isHighlighted={selectListContext.currentOptionsListIndex === index}
         role="option"

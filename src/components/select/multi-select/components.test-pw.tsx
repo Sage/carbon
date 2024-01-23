@@ -573,3 +573,38 @@ export const SelectionConfirmed = () => {
     </>
   );
 };
+
+export const MultiSelectWithDisabledOption = () => {
+  const [value, setValue] = useState<string[]>([]);
+  const [confirmedSelections, setConfirmedSelections] = useState<string[]>([]);
+
+  const handleChange = (event: CustomSelectChangeEvent) => {
+    setValue((event.target.value as unknown) as string[]);
+    if (event.selectionConfirmed) {
+      setConfirmedSelections((event.target.value as unknown) as string[]);
+    }
+  };
+  return (
+    <>
+      <MultiSelect
+        name="testing"
+        value={value}
+        onChange={handleChange}
+        openOnFocus
+        label="Test"
+        placeholder=" "
+      >
+        <Option value="1" text="One" />
+        <Option value="2" text="Two" disabled />
+        <Option value="3" text="Three" />
+        <Option value="4" text="Four" />
+      </MultiSelect>
+
+      <div data-element="confirmed-selections">
+        {confirmedSelections.map((cs) => (
+          <span data-element={`confirmed-selection-${cs}`}>{cs}</span>
+        ))}
+      </div>
+    </>
+  );
+};

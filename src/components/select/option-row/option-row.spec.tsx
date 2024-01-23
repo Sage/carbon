@@ -43,6 +43,43 @@ describe("OptionRow", () => {
     });
   });
 
+  describe("when disabled prop is set", () => {
+    it("should have expected style", () => {
+      const props = { value: "1", text: "foo", disabled: true };
+      expect(renderOptionRow(props, mount)).toHaveStyleRule(
+        "color",
+        "var(--colorsUtilityYin030)"
+      );
+      expect(renderOptionRow(props, mount)).toHaveStyleRule(
+        "cursor",
+        "not-allowed"
+      );
+    });
+
+    it("aria-disabled should be set to true", () => {
+      const props = { value: "1", text: "foo", disabled: true };
+      const wrapper = renderOptionRow(props, mount);
+      expect(
+        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-disabled")
+      ).toBe("true");
+    });
+
+    it("onSelect should not be called when the element is clicked", () => {
+      const onSelect = jest.fn();
+      const props = {
+        id: "1",
+        value: "1",
+        text: "foo",
+        onSelect,
+        disabled: true,
+      };
+      const wrapper = renderOptionRow(props, mount);
+      wrapper.find(OptionRow).simulate("click");
+
+      expect(onSelect).not.toBeCalled();
+    });
+  });
+
   describe("when the multiselectValues list contains the element value", () => {
     it("then the aria-selected attribute should be set to true", () => {
       const wrapper = mount(

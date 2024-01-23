@@ -3,6 +3,7 @@ import { OptionProps } from ".";
 
 interface StyledOptionProps extends Pick<OptionProps, "id"> {
   isHighlighted?: boolean;
+  isDisabled?: boolean;
 }
 
 const StyledOption = styled.li<StyledOptionProps>`
@@ -28,6 +29,16 @@ const StyledOption = styled.li<StyledOptionProps>`
   :hover {
     background-color: var(--colorsUtilityMajor100);
   }
+
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
+      color: var(--colorsUtilityYin030);
+      cursor: not-allowed;
+      :hover {
+        background-color: var(--colorsUtilityYang100);
+      }
+    `}
 `;
 
 export default StyledOption;

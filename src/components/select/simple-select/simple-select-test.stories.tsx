@@ -711,3 +711,27 @@ SelectWithOptionGroupHeader.args = {
   listPlacement: undefined,
   flipEnabled: true,
 };
+
+export const SimpleSelectWithDisabledOption = () => {
+  const [value, setValue] = useState("");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <Select
+      name="testing"
+      value={value}
+      onChange={onChangeHandler}
+      openOnFocus
+      label="Test"
+      placeholder=" "
+    >
+      <Option value="1" text="One" />
+      <Option value="2" text="Two" disabled />
+      <Option value="3" text="Three" />
+      <Option value="4" text="Four" />
+    </Select>
+  );
+};

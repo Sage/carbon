@@ -214,7 +214,7 @@ export const FilterableSelect = React.forwardRef(
           const match = findElementWithMatchingText(newFilterText, children);
           const isFilterCleared = isDeleteEvent && newFilterText === "";
 
-          if (!match || isFilterCleared) {
+          if (!match || isFilterCleared || match.props.disabled) {
             setTextValue(newFilterText);
             triggerChange("", false);
 
