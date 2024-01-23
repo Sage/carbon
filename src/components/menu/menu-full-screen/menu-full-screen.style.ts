@@ -6,26 +6,54 @@ import StyledSearch from "../../search/search.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledButton from "../../button/button.style";
 import menuConfigVariants from "../menu.config";
-import { MenuFullscreenProps } from "./menu-full-screen.component";
 import { MenuType } from "../menu.context";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 
-interface StyledMenuFullScreenProps
-  extends Pick<MenuFullscreenProps, "isOpen" | "startPosition"> {
-  menuType: MenuType;
-}
-
 const oldFocusStyling = `
-  outline: solid 3px var(--colorsSemanticFocus500);
-  box-shadow: none;
+outline: solid 3px var(--colorsSemanticFocus500);
+box-shadow: none;
 `;
 
-const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
+const StyledMenuFullscreen = styled.div<{
+  transitionDuration: number;
+  startPosition: "left" | "right";
+}>`
   position: fixed;
   top: 0;
   bottom: 0;
+
+  ${({ theme }) => css`
+    z-index: ${theme.zIndex.fullScreenModal};
+  `}
+
+  ${({ startPosition, transitionDuration }) => css`
+    &.enter {
+      visibility: hidden;
+      ${startPosition}: -100%;
+    }
+
+    &.enter-active {
+      visibility: visible;
+      ${startPosition}: 0;
+      transition: all ${transitionDuration}ms ease;
+    }
+
+    &.exit {
+      visibility: visible;
+      ${startPosition}: 0;
+    }
+
+    &.exit-active {
+      visibility: hidden;
+      ${startPosition}: -100%;
+      transition: all ${transitionDuration}ms ease;
+    }
+  `}
+`;
+
+const StyledMenuModal = styled.div<{ menuType: MenuType }>`
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   outline: none;
 
   a,
@@ -34,9 +62,8 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
     font-size: 16px;
   }
 
-  ${({ isOpen, menuType, startPosition, theme }) => css`
+  ${({ menuType, theme }) => css`
     background-color: ${menuConfigVariants[menuType].background};
-    z-index: ${theme.zIndex.fullScreenModal};
 
     && {
       ${menuType === "dark" &&
@@ -61,7 +88,7 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
         }
       `}
 
-      ${StyledSearch} {
+    ${StyledSearch} {
         ${StyledIcon} {
           display: inline-flex;
           margin-right: 0;
@@ -84,20 +111,6 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
         }
       }
     }
-
-    ${isOpen &&
-    css`
-      visibility: visible;
-      ${startPosition}: 0;
-      transition: all 0.3s ease;
-    `}
-
-    ${!isOpen &&
-    css`
-      visibility: hidden;
-      ${startPosition}: -100%;
-      transition: all 0.3s ease;
-    `}
   `}
 
   ${StyledBox} {
@@ -107,7 +120,9 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
   }
 `;
 
-const StyledMenuFullscreenHeader = styled.div<StyledMenuFullScreenProps>`
+const StyledMenuFullscreenHeader = styled.div<{
+  menuType: MenuType;
+}>`
   height: 40px;
 
   ${StyledIconButton} {
@@ -126,4 +141,8 @@ StyledMenuFullscreen.defaultProps = {
   theme: baseTheme,
 };
 
-export { StyledMenuFullscreen, StyledMenuFullscreenHeader };
+StyledMenuModal.defaultProps = {
+  theme: baseTheme,
+};
+
+export { StyledMenuModal, StyledMenuFullscreen, StyledMenuFullscreenHeader };
