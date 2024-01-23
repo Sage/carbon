@@ -1,3 +1,10 @@
+## [125.3.0](https://github.com/Sage/carbon/compare/v125.2.2...v125.3.0) (2024-01-23)
+
+
+### Features
+
+* **option, option-row:** add disabled prop ([465f5f0](https://github.com/Sage/carbon/commit/465f5f0a3cf0f13670baeb672ca96b9f0f248710))
+
 ### [125.2.2](https://github.com/Sage/carbon/compare/v125.2.1...v125.2.2) (2024-01-22)
 
 
