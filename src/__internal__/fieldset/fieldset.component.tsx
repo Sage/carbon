@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MarginProps } from "styled-system";
 
 import {
@@ -42,6 +42,18 @@ export interface FieldsetProps extends MarginProps {
   isRequired?: boolean;
   /** Controls whether group behaviour should be enabled */
   blockGroupBehaviour?: boolean;
+  /** Margin props for the legend element */
+  legendMargin?: Pick<MarginProps, "mb">;
+  /** Any valid CSS string to set the component's width */
+  width?: string;
+  /** Flag to configure component as optional in Form */
+  isOptional?: boolean;
+  /** Apply disabled styling to the legend content */
+  isDisabled?: boolean;
+  /** Set a name value on the component */
+  name?: string;
+  /** Set an id value on the component */
+  id?: string;
 }
 
 const Fieldset = ({
@@ -56,14 +68,33 @@ const Fieldset = ({
   info,
   isRequired,
   blockGroupBehaviour,
+  legendMargin = {},
+  isDisabled,
+  isOptional,
   ...rest
 }: FieldsetProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const marginProps = useFormSpacing(rest);
+  const [ref, setRef] = useState<HTMLFieldSetElement | null>(null);
+
+  useEffect(() => {
+    if (ref && isRequired) {
+      Array.from(
+        ref.querySelectorAll("input") || /* istanbul ignore next */ []
+      ).forEach((el) => {
+        el.setAttribute("required", "");
+      });
+    }
+  }, [ref, isRequired]);
 
   return (
     <InputGroupBehaviour blockGroupBehaviour={blockGroupBehaviour}>
-      <StyledFieldset data-component="fieldset" {...rest} {...marginProps}>
+      <StyledFieldset
+        ref={setRef}
+        data-component="fieldset"
+        {...rest}
+        {...marginProps}
+      >
         {legend && (
           <InputGroupContext.Consumer>
             {({ onMouseEnter, onMouseLeave }) => (
@@ -74,8 +105,14 @@ const Fieldset = ({
                 width={legendWidth}
                 align={legendAlign}
                 rightPadding={legendSpacing}
+                {...legendMargin}
+                data-element="legend"
               >
-                <StyledLegendContent isRequired={isRequired}>
+                <StyledLegendContent
+                  isRequired={isRequired}
+                  isOptional={isOptional}
+                  isDisabled={isDisabled}
+                >
                   {legend}
                   {!validationRedesignOptIn && (
                     <ValidationIcon

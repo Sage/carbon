@@ -177,6 +177,14 @@ const enGB: Locale = {
   tileSelect: {
     deselect: () => "Deselect",
   },
+  time: {
+    amText: () => "AM",
+    pmText: () => "PM",
+    hoursLabelText: () => "Hrs.",
+    minutesLabelText: () => "Mins.",
+    hoursAriaLabelText: () => "Hours",
+    minutesAriaLabelText: () => "Minutes",
+  },
   toast: {
     ariaLabels: {
       close: () => "Close",
