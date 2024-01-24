@@ -127,24 +127,18 @@ const ActionPopoverMenu = React.forwardRef<
     );
 
     const firstFocusableItem = items.findIndex(
-      (_, index) => !isItemDisabled(index)
+      (
+        _: React.ReactChild | React.ReactFragment | React.ReactPortal,
+        index: number
+      ) => !isItemDisabled(index)
     );
 
-    // FIX-ME: FE-6248
-    // Once we no longer support Node 16, this function can be removed and `findLastIndex()` can be used in it's place.
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex
-    function findLastFocusableItem() {
-      let lastFocusableItem = -1;
-      for (let i = items.length - 1; i >= 0; i--) {
-        if (!isItemDisabled(i)) {
-          lastFocusableItem = i;
-          break;
-        }
-      }
-      return lastFocusableItem;
-    }
-
-    const lastFocusableItem = findLastFocusableItem();
+    const lastFocusableItem = items.findLastIndex(
+      (
+        _: React.ReactChild | React.ReactFragment | React.ReactPortal,
+        index: number
+      ) => !isItemDisabled(index)
+    );
 
     useEffect(() => {
       if (isOpen && firstFocusableItem !== -1)
