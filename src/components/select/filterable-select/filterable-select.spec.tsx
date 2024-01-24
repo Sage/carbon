@@ -11,7 +11,9 @@ import {
   simulateDropdownEvent,
 } from "../../../__spec_helper__/select-test-utils";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
+import StyledOption from "../option/option.style";
 import Textbox from "../../textbox";
+import MatchingText from "../utils/matching-text.style";
 import SelectList from "../select-list/select-list.component";
 import StyledSelectListContainer from "../select-list/select-list-container.style";
 import Button from "../../button";
@@ -36,6 +38,8 @@ function getSelect(props: Partial<FilterableSelectProps> = {}) {
       <Option value="opt2" text="green" />
       <Option value="opt3" text="blue" />
       <Option value="opt4" text="black" />
+      <Option value="opt5" text="yellow" />
+      <Option value="opt6" text="forest green" />
     </FilterableSelect>
   );
 }
@@ -610,6 +614,200 @@ describe("FilterableSelect", () => {
       expect(
         (wrapper.find("input").getDOMNode() as HTMLInputElement).selectionStart
       ).toBe(3);
+    });
+  });
+
+  describe("when the filter text contains whitespace", () => {
+    it("the input value is trimmed and filled correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   Y" },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(Textbox).prop("formattedValue")).toBe("yellow");
+    });
+
+    it("the input value selection range is set correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   Y" },
+      });
+      wrapper.update();
+
+      const inputElement = wrapper
+        .find("input")
+        .getDOMNode() as HTMLInputElement;
+
+      expect(inputElement.selectionStart).toBe(1);
+      expect(inputElement.selectionEnd).toBe(6);
+    });
+
+    it("the matching option value is correct, and highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   Y" },
+      });
+      wrapper.update();
+
+      const optionElement = wrapper.find(Option);
+
+      expect(optionElement.prop("text")).toBe("yellow");
+      expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+    });
+
+    it.each(["y", "ye", "yel", "yell", "yello", "yellow"])(
+      "the matching option text is highlighted correctly",
+      (passedValue) => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: `   ${passedValue}` },
+        });
+        wrapper.update();
+
+        expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
+      }
+    );
+  });
+
+  describe("when the filter text contains whitespace that is neither leading or trailing", () => {
+    it("the input value is not trimmed, and filled correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "forest " },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(Textbox).prop("formattedValue")).toBe("forest green");
+    });
+
+    it("the input value selection range is set correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "forest " },
+      });
+      wrapper.update();
+
+      const inputElement = wrapper
+        .find("input")
+        .getDOMNode() as HTMLInputElement;
+
+      expect(inputElement.selectionStart).toBe(7);
+      expect(inputElement.selectionEnd).toBe(12);
+    });
+
+    it("the matching option value is correct, and highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "forest " },
+      });
+      wrapper.update();
+
+      const optionElement = wrapper.find(Option);
+
+      expect(optionElement.prop("text")).toBe("forest green");
+      expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+    });
+
+    it.each(["forest", "forest green"])(
+      "the matching option text is highlighted correctly",
+      (passedValue) => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: passedValue },
+        });
+        wrapper.update();
+
+        expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
+      }
+    );
+  });
+
+  describe("when the filter text is only whitespace", () => {
+    it("the input still allows only whitespace to be typed", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   " },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(Textbox).prop("formattedValue")).toBe("   ");
+    });
+
+    it("the first option is highlighted as matching in lieu of an input value", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   " },
+      });
+      wrapper.update();
+
+      expect(
+        wrapper.find(StyledOption).at(0).prop("isHighlighted")
+      ).toBeTruthy();
+    });
+  });
+
+  describe("when the filter text contains trailing whitespace", () => {
+    it("the matching option value is correct, and highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "yellow   " },
+      });
+      wrapper.update();
+
+      const optionElement = wrapper.find(Option);
+
+      expect(optionElement.prop("text")).toBe("yellow");
+      expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+    });
+
+    it("the matching option text is highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "yellow     " },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(MatchingText).prop("children")).toBe("yellow");
+    });
+  });
+
+  describe("when the filter text contains both leading and trailing whitespace", () => {
+    it("the matching option value is correct, and highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "    yellow   " },
+      });
+      wrapper.update();
+
+      const optionElement = wrapper.find(Option);
+
+      expect(optionElement.prop("text")).toBe("yellow");
+      expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+    });
+
+    it("the matching option text is highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "    yellow   " },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(MatchingText).prop("children")).toBe("yellow");
     });
   });
 
@@ -1392,7 +1590,7 @@ describe("FilterableSelect", () => {
         target: { value: "red" },
       });
 
-      expect(wrapper.find(Option)).toHaveLength(4);
+      expect(wrapper.find(Option)).toHaveLength(6);
     });
 
     it('hides filtered options when "disableDefaultFiltering" is false', () => {

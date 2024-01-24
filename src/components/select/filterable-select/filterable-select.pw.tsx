@@ -553,6 +553,36 @@ test.describe("FilterableSelect component", () => {
     });
   });
 
+  [
+    [" O", "Brown", "Orange", "Yellow"],
+    ["O ", "Brown", "Orange", "Yellow"],
+    [" O ", "Brown", "Orange", "Yellow"],
+  ].forEach(([text, optionValue1, optionValue2, optionValue3]) => {
+    test(`should filter options when "${text}" is typed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent />);
+
+      await commonDataElementInputPreview(page).type(text);
+      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
+      await expect(selectListWrapper(page)).toBeVisible();
+
+      const option1 = selectOption(page, positionOfElement("first"));
+      const option2 = selectOption(page, positionOfElement("second"));
+      const option3 = selectOption(page, positionOfElement("third"));
+      await expect(option1).toHaveText(optionValue1);
+      await expect(option1).toBeVisible();
+      await expect(option1).toHaveCSS("background-color", "rgb(153, 173, 183)");
+      await expect(option2).toHaveText(optionValue2);
+      await expect(option2).toBeVisible();
+      await expect(option2).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+      await expect(option3).toHaveText(optionValue3);
+      await expect(option3).toBeVisible();
+      await expect(option3).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    });
+  });
+
   test("should render the lazy loader when the prop is set", async ({
     mount,
     page,
@@ -891,24 +921,28 @@ test.describe("FilterableSelect component", () => {
     await expect(thirdColumnElement).toBeVisible();
   });
 
-  test("should indicate a matched filtered string with bold and underline", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectMultiColumnsComponent />);
+  ["Do", " Do", "Do ", " Do "].forEach((text) => {
+    test(`should indicate a matched filtered string with bold and underline with entered string "${text}"`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectMultiColumnsComponent />);
 
-    const text = "Do";
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.click();
-    await expect(inputElement).toBeFocused();
-    await inputElement.type(text);
-    const highlightedValue = boldedAndUnderlinedValue(page, text);
-    await expect(highlightedValue).toHaveCSS(
-      "text-decoration-line",
-      "underline"
-    );
-    await expect(highlightedValue).toHaveCSS("text-decoration-style", "solid");
-    await expect(highlightedValue).toHaveCSS("font-weight", "700");
+      const inputElement = commonDataElementInputPreview(page);
+      await inputElement.click();
+      await expect(inputElement).toBeFocused();
+      await inputElement.type(text);
+      const highlightedValue = boldedAndUnderlinedValue(page, text);
+      await expect(highlightedValue).toHaveCSS(
+        "text-decoration-line",
+        "underline"
+      );
+      await expect(highlightedValue).toHaveCSS(
+        "text-decoration-style",
+        "solid"
+      );
+      await expect(highlightedValue).toHaveCSS("font-weight", "700");
+    });
   });
 
   test("should indicate no results match for entered string", async ({
