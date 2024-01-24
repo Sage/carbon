@@ -161,7 +161,7 @@ test.describe("Accessibility tests for Pages component", () => {
       await mount(<PagesComponent initialpageIndex={propValue} />);
 
       await dataComponentButtonByText(page, "Open Preview").click();
-      const pageComponentTitle = getDataElementByValue(page, "title").nth(1);
+      const pageComponentTitle = getDataElementByValue(page, "title").first();
 
       await checkAccessibility(page, pageComponentTitle);
     });

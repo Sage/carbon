@@ -43,26 +43,19 @@ const Pages = ({
   };
 
   const handleVisiblePage = () => {
-    let index = pageIndex;
-    const visiblePage = React.Children.toArray(children)[index];
+    const visiblePage = React.Children.toArray(children)[pageIndex];
 
     /* istanbul ignore if */
     if (!React.isValidElement(visiblePage)) return visiblePage;
-
-    index = visiblePage.props.id || index;
 
     const additionalProps = {
       transitionName,
       timeout: TRANSITION_TIME,
       "data-element": "visible-page",
-      key: `carbon-page-${visiblePage.props.id || pageIndex}`,
       className: visiblePage.props.className,
     };
 
-    return React.cloneElement(visiblePage, {
-      ...visiblePage.props,
-      ...additionalProps,
-    });
+    return React.cloneElement(visiblePage, additionalProps);
   };
 
   const numOfPages = useCallback(() => {
