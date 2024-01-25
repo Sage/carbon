@@ -1,3 +1,10 @@
+### [125.5.1](https://github.com/Sage/carbon/compare/v125.5.0...v125.5.1) (2024-01-25)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure that focus size is correctly applied in Safari ([cd1c3e3](https://github.com/Sage/carbon/commit/cd1c3e361500761d2a5bc98201650448beffc102)), closes [#6496](https://github.com/Sage/carbon/issues/6496)
+
 ## [125.5.0](https://github.com/Sage/carbon/compare/v125.4.0...v125.5.0) (2024-01-25)
 
 
