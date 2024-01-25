@@ -1,3 +1,10 @@
+## [125.4.0](https://github.com/Sage/carbon/compare/v125.3.0...v125.4.0) (2024-01-25)
+
+
+### Features
+
+* **filterable-select:** add disableDefaultFiltering prop ([11c9a1f](https://github.com/Sage/carbon/commit/11c9a1fee723c55de1a0f82046eb740a751c86f8))
+
 ## [125.3.0](https://github.com/Sage/carbon/compare/v125.2.2...v125.3.0) (2024-01-23)
 
 
