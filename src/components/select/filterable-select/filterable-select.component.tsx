@@ -84,6 +84,9 @@ export interface FilterableSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** Boolean to disable automatic filtering and highlighting of options.
+   * This allows custom filtering and option styling to be performed outside of the component when the filter text changes. */
+  disableDefaultFiltering?: boolean;
 }
 
 export const FilterableSelect = React.forwardRef(
@@ -125,6 +128,7 @@ export const FilterableSelect = React.forwardRef(
       inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
+      disableDefaultFiltering = false,
       ...textboxProps
     }: FilterableSelectProps,
     ref
@@ -626,33 +630,37 @@ export const FilterableSelect = React.forwardRef(
       };
     }
 
-    const selectList = (
-      <FilterableSelectList
-        ref={listboxRef}
-        id={selectListId.current}
-        labelId={labelId}
-        anchorElement={textboxRef?.parentElement || undefined}
-        onSelect={onSelectOption}
-        onSelectListClose={onSelectListClose}
-        onMouseDown={handleListMouseDown}
-        filterText={filterText}
-        highlightedValue={highlightedValue}
-        noResultsMessage={noResultsMessage}
-        disablePortal={disablePortal}
-        listActionButton={listActionButton}
-        listMaxHeight={listMaxHeight}
-        onListAction={handleOnListAction}
-        isLoading={isLoading}
-        onListScrollBottom={onListScrollBottom}
-        tableHeader={tableHeader}
-        multiColumn={multiColumn}
-        loaderDataRole="filterable-select-list-loader"
-        listPlacement={listPlacement}
-        flipEnabled={flipEnabled}
-        isOpen={isOpen}
-        enableVirtualScroll={enableVirtualScroll}
-        virtualScrollOverscan={virtualScrollOverscan}
-      >
+    const selectListProps = {
+      ref: listboxRef,
+      id: selectListId.current,
+      labelId,
+      anchorElement: textboxRef?.parentElement || undefined,
+      onSelect: onSelectOption,
+      onSelectListClose,
+      onMouseDown: handleListMouseDown,
+      filterText,
+      highlightedValue,
+      noResultsMessage,
+      disablePortal,
+      listActionButton,
+      listMaxHeight,
+      onListAction: handleOnListAction,
+      isLoading,
+      onListScrollBottom,
+      tableHeader,
+      multiColumn,
+      loaderDataRole: "filterable-select-list-loader",
+      listPlacement,
+      flipEnabled,
+      isOpen,
+      enableVirtualScroll,
+      virtualScrollOverscan,
+    };
+
+    const selectList = disableDefaultFiltering ? (
+      <SelectList {...selectListProps}>{children}</SelectList>
+    ) : (
+      <FilterableSelectList {...selectListProps} filterText={filterText}>
         {children}
       </FilterableSelectList>
     );
