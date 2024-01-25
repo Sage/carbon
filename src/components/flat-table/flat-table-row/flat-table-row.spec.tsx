@@ -17,6 +17,8 @@ import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.c
 import FlatTableHeader from "../flat-table-header/flat-table-header.component";
 import { FlatTableBodyDraggable } from "..";
 import { FlatTableThemeContext } from "../flat-table.component";
+import Box from "../../box";
+import * as browserTypeCheck from "../../../__internal__/utils/helpers/browser-type-check";
 
 const events = {
   enter: {
@@ -1373,6 +1375,51 @@ describe("FlatTableRow", () => {
           {
             modifier: `${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div`,
           }
+        );
+      });
+    });
+
+    describe("when a table row has content with custom height in Safari", () => {
+      let isSafariSpy: jest.SpyInstance;
+
+      beforeEach(() => {
+        isSafariSpy = jest.spyOn(browserTypeCheck, "isSafari");
+      });
+
+      beforeEach(() => {
+        // Mock the offsetHeight of the table row
+        Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+          configurable: true,
+          value: 200,
+        });
+      });
+
+      it("applies the correct height for focus styling", () => {
+        isSafariSpy.mockReturnValue(true);
+
+        const wrapper = mount(
+          <table>
+            <thead>
+              <FlatTableRow onClick={() => {}}>
+                <FlatTableCell>
+                  <Box height="200px">
+                    <Box>Option 2</Box>
+                  </Box>
+                </FlatTableCell>
+              </FlatTableRow>
+            </thead>
+          </table>
+        );
+
+        const row = wrapper.find(StyledFlatTableRow);
+        row.simulate("focus");
+
+        assertStyleMatch(
+          {
+            height: "200px",
+          },
+          row,
+          { modifier: `:focus:after` }
         );
       });
     });

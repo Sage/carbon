@@ -293,6 +293,7 @@ export const FlatTableRow = React.forwardRef<
         id={internalId.current}
         data-selected={selected && expandableArea === "wholeRow"}
         data-highlighted={highlighted && expandableArea === "wholeRow"}
+        rowHeight={rowRef?.current?.offsetHeight}
         {...interactiveRowProps}
         {...rest}
       >
