@@ -1,3 +1,10 @@
+## [125.5.0](https://github.com/Sage/carbon/compare/v125.4.0...v125.5.0) (2024-01-25)
+
+
+### Features
+
+* **inline-inputs:** add labelAlign prop ([55a485d](https://github.com/Sage/carbon/commit/55a485d6da6b1d94edb79291c14b108a721e1002))
+
 ## [125.4.0](https://github.com/Sage/carbon/compare/v125.3.0...v125.4.0) (2024-01-25)
 
 
