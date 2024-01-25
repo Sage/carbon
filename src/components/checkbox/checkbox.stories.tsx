@@ -69,9 +69,8 @@ export const WithLabelHelp: ComponentStory<typeof Checkbox> = () => (
 
 export const WithCustomLabelWidth: ComponentStory<typeof Checkbox> = () => (
   <Checkbox
-    label="With custom labelWidth and label aligned to right"
+    label="With custom labelWidth"
     labelWidth={100}
-    labelAlign="right"
     name="checkbox-custom-label"
   />
 );

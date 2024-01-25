@@ -81,7 +81,6 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         />
         <Checkbox
           label="Checkbox in Fieldset"
-          labelAlign="right"
           labelWidth={30}
           labelSpacing={2}
           reverse

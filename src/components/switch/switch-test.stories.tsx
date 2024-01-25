@@ -29,12 +29,6 @@ export default {
         step: 1,
       },
     },
-    labelAlign: {
-      options: ["left", "right"],
-      control: {
-        type: "select",
-      },
-    },
     labelSpacing: {
       options: [1, 2],
       control: {
@@ -90,7 +84,6 @@ Default.args = {
   loading: false,
   inputWidth: 0,
   labelWidth: 0,
-  labelAlign: "left",
   labelSpacing: 1,
   reverse: true,
   value: "test-value",
@@ -134,7 +127,6 @@ NewDefault.args = {
   loading: false,
   inputWidth: 0,
   labelWidth: 0,
-  labelAlign: "left",
   labelSpacing: 1,
   reverse: true,
   value: "test-value",
