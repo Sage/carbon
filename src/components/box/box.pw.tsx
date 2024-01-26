@@ -22,7 +22,7 @@ import {
 } from "../../../src/components/box/components.test-pw";
 
 const colorConstants: [string, string, string][] = [
-  ["red", "rgb(255, 0, 0)", "#FF0000"],
+  ["green", "rgb(255, 0, 0)", "#FF0000"],
   ["yellow", "rgb(255, 255, 0)", "#FFFF00"],
   ["blue", "rgb(0, 0, 255)", "#0000FF"],
 ];
