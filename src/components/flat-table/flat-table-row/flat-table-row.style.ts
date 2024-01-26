@@ -11,7 +11,6 @@ import { FlatTableProps } from "..";
 import { FlatTableRowProps } from "./flat-table-row.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import { isSafari } from "../../../__internal__/utils/helpers/browser-type-check";
-import cellSizes from "../cell-sizes.style";
 
 const horizontalBorderSizes = {
   medium: "2px",
@@ -112,13 +111,6 @@ const verticalBorderColor = (colorTheme: FlatTableProps["colorTheme"]) => {
   }
 };
 
-const getFocusHeight = (size: StyledFlatTableRowProps["size"]) => {
-  if (!size) return "40px";
-  const { height } = cellSizes[size];
-
-  return height;
-};
-
 interface StyledFlatTableRowProps
   extends Pick<
     FlatTableRowProps,
@@ -144,6 +136,7 @@ interface StyledFlatTableRowProps
   isSubRow?: boolean;
   isFirstSubRow?: boolean;
   stickyOffset?: number;
+  rowHeight?: number;
 }
 
 const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
@@ -170,6 +163,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
     theme,
     isDragging,
     draggable,
+    rowHeight,
   }) => {
     const backgroundColor = bgColor ? toColor(theme, bgColor) : undefined;
     const customBorderColor = horizontalBorderColor
@@ -293,6 +287,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
               top: 0px;
             }
           }
+
           /* Styling for safari. Position relative does not work on tr elements on Safari  */
           ${isSafari(navigator) &&
           css`
@@ -312,10 +307,10 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
             css`
               position: -webkit-sticky;
               :after {
-                content: none;
                 border: none;
                 content: "";
-                height: ${getFocusHeight(size)} ${newFocusStyling};
+                height: ${rowHeight}px;
+                ${newFocusStyling}
               }
             `}
           `}

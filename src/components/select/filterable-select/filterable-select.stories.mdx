@@ -177,6 +177,17 @@ a `selectionConfirmed` property on the emitted event when the enter key is press
   <Story name="selection confirmed" story={stories.SelectionConfirmedStory} />
 </Canvas>
 
+### Custom filtering and option styles
+
+By default, filtering and highlighting of options is handled by the component itself.  In order to use custom filtering behaviour, or to use custom styling of option values, the
+default filtering can be disabled using the `disableDefaultFiltering` prop.  
+
+This allows use-cases like server-side filtering of options, or rich formatting of options.
+
+<Canvas>
+  <Story name="custom filtering and option styles" story={stories.CustomFilterAndOptionStyle} />
+</Canvas>
+
 ## Props
 
 ### Filterable Select

@@ -1,3 +1,31 @@
+### [125.5.1](https://github.com/Sage/carbon/compare/v125.5.0...v125.5.1) (2024-01-25)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure that focus size is correctly applied in Safari ([cd1c3e3](https://github.com/Sage/carbon/commit/cd1c3e361500761d2a5bc98201650448beffc102)), closes [#6496](https://github.com/Sage/carbon/issues/6496)
+
+## [125.5.0](https://github.com/Sage/carbon/compare/v125.4.0...v125.5.0) (2024-01-25)
+
+
+### Features
+
+* **inline-inputs:** add labelAlign prop ([55a485d](https://github.com/Sage/carbon/commit/55a485d6da6b1d94edb79291c14b108a721e1002))
+
+## [125.4.0](https://github.com/Sage/carbon/compare/v125.3.0...v125.4.0) (2024-01-25)
+
+
+### Features
+
+* **filterable-select:** add disableDefaultFiltering prop ([11c9a1f](https://github.com/Sage/carbon/commit/11c9a1fee723c55de1a0f82046eb740a751c86f8))
+
+## [125.3.0](https://github.com/Sage/carbon/compare/v125.2.2...v125.3.0) (2024-01-23)
+
+
+### Features
+
+* **option, option-row:** add disabled prop ([465f5f0](https://github.com/Sage/carbon/commit/465f5f0a3cf0f13670baeb672ca96b9f0f248710))
+
 ### [125.2.2](https://github.com/Sage/carbon/compare/v125.2.1...v125.2.2) (2024-01-22)
 
 

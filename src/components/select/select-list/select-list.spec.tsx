@@ -171,6 +171,29 @@ function getLoadingSelectList(props: Partial<SelectListProps>) {
   return <WrapperComponent {...props} />;
 }
 
+function getSelectListWithDisabledOption(props: Partial<SelectListProps>) {
+  const defaultProps = {
+    onSelect: () => {},
+    onSelectListClose: () => {},
+    isOpen: true,
+    id: props.id,
+  };
+
+  const WrapperComponent = (wrapperProps: Partial<SelectListProps>) => {
+    const mockRef = useRef(null);
+
+    return (
+      <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
+        <Option id={defaultProps.id} value="opt1" text="red" />
+        <Option id={defaultProps.id} value="opt2" text="green" disabled />
+        <Option id={defaultProps.id} value="opt3" text="blue" />
+      </SelectList>
+    );
+  };
+
+  return <WrapperComponent />;
+}
+
 function renderSelectList(props = {}, renderer = mount, enzymeOptions = {}) {
   return renderer(getSelectList(props), enzymeOptions);
 }
@@ -481,6 +504,81 @@ describe("SelectList", () => {
       });
     }
   );
+
+  describe("when an Option is disabled", () => {
+    let wrapper: ReactWrapper;
+    const testContainer = document.createElement("div");
+    const onSelectFn = jest.fn();
+
+    document.body.appendChild(testContainer);
+
+    beforeEach(() => {
+      onSelectFn.mockReset();
+      wrapper = mount(
+        getSelectListWithDisabledOption({
+          onSelect: onSelectFn,
+          filterText: "",
+        }),
+        { attachTo: testContainer }
+      );
+    });
+
+    afterEach(() => {
+      wrapper.detach();
+    });
+
+    afterAll(() => {
+      document.body.removeChild(testContainer);
+    });
+
+    describe("and the Enter key is pressed with the disabled option highlighted", () => {
+      it("then the onSelect prop should not be called", () => {
+        wrapper.setProps({ highlightedValue: "opt2" });
+
+        act(() => {
+          testContainer.dispatchEvent(enterKeyDownEvent);
+        });
+
+        expect(onSelectFn).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("and the Down key is pressed", () => {
+      it("then the onSelect prop should be called with expected data", () => {
+        wrapper.setProps({ highlightedValue: "opt1" });
+
+        act(() => {
+          testContainer.dispatchEvent(downKeyDownEvent);
+        });
+
+        expect(onSelectFn).toHaveBeenCalledWith({
+          id: mockedGuid,
+          selectionType: "navigationKey",
+          text: "blue",
+          value: "opt3",
+          selectionConfirmed: false,
+        });
+      });
+    });
+
+    describe("and the Up key is pressed", () => {
+      it("then the onSelect prop should be called with expected data", () => {
+        wrapper.setProps({ highlightedValue: "opt3" });
+
+        act(() => {
+          testContainer.dispatchEvent(upKeyDownEvent);
+        });
+
+        expect(onSelectFn).toHaveBeenCalledWith({
+          id: mockedGuid,
+          selectionType: "navigationKey",
+          text: "red",
+          value: "opt1",
+          selectionConfirmed: false,
+        });
+      });
+    });
+  });
 
   describe.each([
     ["Option", renderSelectList, StyledOption],

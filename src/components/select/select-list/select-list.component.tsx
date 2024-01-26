@@ -335,9 +335,10 @@ const SelectList = React.forwardRef(
         const nextElement = childrenList[nextIndex];
 
         if (
-          React.isValidElement(nextElement) &&
-          nextElement.type !== Option &&
-          nextElement.type !== OptionRow
+          (React.isValidElement(nextElement) &&
+            nextElement.type !== Option &&
+            nextElement.type !== OptionRow) ||
+          nextElement.props.disabled
         ) {
           nextIndex = getNextHighlightableItemIndex(key, nextIndex);
         }
@@ -437,6 +438,10 @@ const SelectList = React.forwardRef(
           if (!React.isValidElement(currentOption)) {
             onSelectListClose();
 
+            return;
+          }
+
+          if (currentOption.props.disabled) {
             return;
           }
 

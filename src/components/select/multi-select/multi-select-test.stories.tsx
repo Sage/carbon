@@ -598,3 +598,27 @@ export const MultiSelectErrorOnChangeNewValidation = () => {
     </CarbonProvider>
   );
 };
+
+export const MultiSelectWithDisabledOption = () => {
+  const [value, setValue] = useState<string[]>([]);
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue((event.target.value as unknown) as string[]);
+  }
+
+  return (
+    <MultiSelect
+      name="testing"
+      value={value}
+      onChange={onChangeHandler}
+      openOnFocus
+      label="Test"
+      placeholder=" "
+    >
+      <Option value="1" text="One" />
+      <Option value="2" text="Two" disabled />
+      <Option value="3" text="Three" />
+      <Option value="4" text="Four" />
+    </MultiSelect>
+  );
+};

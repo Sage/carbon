@@ -35,6 +35,8 @@ export interface InlineInputsProps
   htmlFor?: string;
   /** Defines the label text for the heading. */
   label?: string;
+  /** Inline label alignment */
+  labelAlign?: "left" | "right";
   /**
    * Custom label id, could be used in combination with aria-labelledby prop of each input,
    * to make them accesible for screen readers.
@@ -57,6 +59,7 @@ const columnWrapper = (children: React.ReactNode, gutter: GutterOptions) => {
 const InlineInputs = ({
   adaptiveLabelBreakpoint,
   label,
+  labelAlign,
   labelId,
   htmlFor,
   children = null,
@@ -79,6 +82,7 @@ const InlineInputs = ({
 
     return (
       <Label
+        align={labelAlign}
         labelId={labelId}
         inline={inlineLabel}
         htmlFor={htmlFor}
