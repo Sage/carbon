@@ -1,13 +1,16 @@
 import { defineConfig, devices } from "@playwright/experimental-ct-react17";
 import { resolve } from "path";
 
+const playwrightDir = resolve(__dirname, "./playwright");
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./",
   /* The base directory, relative to the config file, for snapshot files created with toMatchSnapshot and toHaveScreenshot. */
-  snapshotDir: "./__snapshots__",
+  snapshotDir: resolve(playwrightDir, "./__snapshots__"),
+  /* The output directory for files created during test execution */
+  outputDir: resolve(playwrightDir, "./test-results"),
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   /* Run tests in files in parallel */
@@ -28,7 +31,7 @@ export default defineConfig({
     trace: "on-first-retry",
     /* Port to use for Playwright component endpoint. */
     ctPort: 3100,
-    /* Custom config for internal bundler Playright uses for component tests. See https://playwright.dev/docs/test-components#under-the-hood */
+    /* Custom config for internal bundler Playwright uses for component tests. See https://playwright.dev/docs/test-components#under-the-hood */
     ctViteConfig: {
       resolve: {
         alias: {
@@ -49,13 +52,5 @@ export default defineConfig({
         viewport: { width: 1366, height: 768 },
       },
     },
-    // {
-    //   name: "firefox",
-    //   use: { ...devices["Desktop Firefox"] },
-    // },
-    // {
-    //   name: "webkit",
-    //   use: { ...devices["Desktop Safari"] },
-    // },
   ],
 });
