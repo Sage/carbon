@@ -1,3 +1,10 @@
+## [125.6.0](https://github.com/Sage/carbon/compare/v125.5.1...v125.6.0) (2024-01-26)
+
+
+### Features
+
+* **preview:** add rounded corners styling to component ([e3af885](https://github.com/Sage/carbon/commit/e3af8855f37f6b56e4c89eba591e6fbbda7bc5ab)), closes [#6174](https://github.com/Sage/carbon/issues/6174)
+
 ### [125.5.1](https://github.com/Sage/carbon/compare/v125.5.0...v125.5.1) (2024-01-25)
 
 
