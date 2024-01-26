@@ -498,7 +498,7 @@ test.describe("check functionality for ActionPopover component", () => {
     await actionPopoverButton(page).click();
 
     // check download item has 'download' property
-    const downloadItem = page.getByRole("menuitem", { name: "Download" });
+    const downloadItem = page.getByRole("link", { name: "Download" });
     await expect(downloadItem).toHaveAttribute("download", "");
 
     // click download item and wait for download to start

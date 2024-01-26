@@ -75,7 +75,7 @@ export const ActionPopover = ({
   const [focusIndex, setFocusIndex] = useState(0);
   const [guid] = useState(createGuid());
   const buttonRef = useRef<HTMLDivElement>(null);
-  const menu = useRef<HTMLDivElement>(null);
+  const menu = useRef<HTMLUListElement>(null);
 
   const itemCount = useMemo(() => {
     return React.Children.toArray(children).filter((child) => {
@@ -279,7 +279,6 @@ export const ActionPopover = ({
           <Popover placement={mappedPlacement} reference={buttonRef}>
             <ActionPopoverMenu
               data-component="action-popover"
-              role="menu"
               ref={menu}
               {...menuProps}
             >

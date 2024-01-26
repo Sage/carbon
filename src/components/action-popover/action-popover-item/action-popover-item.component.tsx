@@ -147,7 +147,7 @@ export const ActionPopoverItem = ({
   const [isOpen, setOpen] = useState(false);
   const [focusIndex, setFocusIndex] = useState<number>(0);
 
-  const submenuRef = useRef<HTMLDivElement>(null);
+  const submenuRef = useRef<HTMLUListElement>(null);
   const ref = useRef<HTMLButtonElement>(null);
   const mouseEnterTimer = useRef<NodeJS.Timeout | null>(null);
   const mouseLeaveTimer = useRef<NodeJS.Timeout | null>(null);
@@ -318,9 +318,9 @@ export const ActionPopoverItem = ({
     "aria-expanded": isOpen,
   };
 
-  const wrapperDivProps = {
+  const wrapperProps = {
     ...(!disabled && {
-      onMouseEnter: (e: React.MouseEvent<HTMLDivElement>) => {
+      onMouseEnter: (e: React.MouseEvent<HTMLLIElement>) => {
         if (mouseEnterTimer.current) clearTimeout(mouseEnterTimer.current);
 
         setFocusIndex(-1);
@@ -329,7 +329,7 @@ export const ActionPopoverItem = ({
         }, INTERVAL);
         e.stopPropagation();
       },
-      onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
+      onMouseLeave: (e: React.MouseEvent<HTMLLIElement>) => {
         if (mouseLeaveTimer.current) clearTimeout(mouseLeaveTimer.current);
 
         mouseLeaveTimer.current = setTimeout(() => {
@@ -359,14 +359,13 @@ export const ActionPopoverItem = ({
   };
 
   return (
-    <StyledMenuItemWrapper {...(submenu && wrapperDivProps)}>
+    <StyledMenuItemWrapper {...(submenu && wrapperProps)}>
       <div onKeyDown={onKeyDown} role="presentation">
         <StyledMenuItem
           {...rest}
           ref={ref}
           onClick={onClick}
           type="button"
-          role="menuitem"
           tabIndex={0}
           isDisabled={disabled}
           horizontalAlignment={horizontalAlignment}
