@@ -843,6 +843,14 @@ test.describe("check props for ActionPopover component", () => {
       await expect(itemChevron).toHaveAttribute("type", chevronType);
     });
   });
+
+  test("should render with aria-label prop", async ({ mount, page }) => {
+    await mount(<ActionPopoverWithProps aria-label="test-aria-label" />);
+    await expect(actionPopoverButton(page).nth(0)).toHaveAttribute(
+      "aria-label",
+      "test-aria-label"
+    );
+  });
 });
 
 test.describe("check events for ActionPopover component", () => {
