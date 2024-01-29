@@ -1363,9 +1363,6 @@ describe("ActionPopover", () => {
         expect(item.find("button").at(0).props()["aria-haspopup"]).toEqual(
           "true"
         );
-        expect(item.find("button").at(0).props()["aria-label"]).not.toEqual(
-          undefined
-        );
         expect(item.find("button").at(0).props()["aria-controls"]).not.toEqual(
           undefined
         );

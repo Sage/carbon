@@ -18,7 +18,6 @@ import {
 import Events from "../../../__internal__/utils/helpers/events";
 import createGuid from "../../../__internal__/utils/helpers/guid";
 import ActionPopoverContext, { Alignment } from "../action-popover-context";
-import useLocale from "../../../hooks/__internal__/useLocale";
 
 import { IconType } from "../../icon";
 import ActionPopoverMenu, {
@@ -120,7 +119,6 @@ export const ActionPopoverItem = ({
   isASubmenu = false,
   ...rest
 }: ActionPopoverItemProps) => {
-  const l = useLocale();
   const context = useContext(ActionPopoverContext);
 
   invariant(
@@ -313,7 +311,6 @@ export const ActionPopoverItem = ({
       },
     }),
     "aria-haspopup": "true",
-    "aria-label": l.actionPopover.ariaLabel(),
     "aria-controls": `ActionPopoverMenu_${guid}`,
     "aria-expanded": isOpen,
   };
