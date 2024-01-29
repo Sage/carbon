@@ -155,7 +155,6 @@ exports[`Option renders properly 1`] = `
     disabled={false}
     draggable={false}
     onClick={[Function]}
-    role="button"
     size="medium"
     type="button"
   >
