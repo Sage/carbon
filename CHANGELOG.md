@@ -1,3 +1,10 @@
+## [125.8.0](https://github.com/Sage/carbon/compare/v125.7.0...v125.8.0) (2024-01-29)
+
+
+### Features
+
+* **time:** add new component ([27dc669](https://github.com/Sage/carbon/commit/27dc669de37dab9d0549a5405b8eab17ef473121))
+
 ## [125.7.0](https://github.com/Sage/carbon/compare/v125.6.0...v125.7.0) (2024-01-29)
 
 
