@@ -11,7 +11,6 @@ import {
   StyledEditorStyleControls,
   StyledEditorActionControls,
 } from "./toolbar.style";
-import StyledButton from "../../../button/button.style";
 import Button from "../../../button/button.component";
 import StyledToolbarButton from "./toolbar-button/toolbar-button.style";
 import ToolbarButton from "./toolbar-button/toolbar-button.component";
@@ -51,18 +50,18 @@ describe("Toolbar", () => {
     it("matches the expected for the main container", () => {
       assertStyleMatch(
         {
-          padding: "8px",
-          display: "flex",
-          justifyContent: "flex-start",
-          background: "white",
-          flexWrap: "wrap",
-          fontSize: "14px",
+          display: "inline-flex",
+          justifyContent: "space-between",
+          flexFlow: "row wrap",
+          gap: "8px",
+          padding: "12px",
           userSelect: "none",
-          order: "2",
           border: "none",
-          backgroundColor: "var(--colorsUtilityMajor025)",
           borderTop: "1px solid var(--colorsUtilityMajor200)",
-          minWidth: "290px",
+          backgroundColor: "var(--colorsUtilityMajor025)",
+          height: "fit-content",
+          width: "100%",
+          boxSizing: "border-box",
         },
         render()
       );
@@ -84,25 +83,15 @@ describe("Toolbar", () => {
     it("matches the expected for the action controls container", () => {
       assertStyleMatch(
         {
-          display: "inline-block",
-          textAlign: "right",
-          width: "50%",
-          minWidth: "60px",
+          flexGrow: "1",
+          display: "inline-flex",
+          justifyContent: "flex-end",
+          flexWrap: "wrap",
+          gap: "var(--spacing200)",
         },
         render({ toolbarElements: <Button>foo</Button> }).find(
           StyledEditorActionControls
         )
-      );
-
-      assertStyleMatch(
-        {
-          width: "62px",
-          minHeight: "33px",
-        },
-        render({ toolbarElements: <Button>foo</Button> }).find(
-          StyledEditorActionControls
-        ),
-        { modifier: `${StyledButton}` }
       );
     });
   });

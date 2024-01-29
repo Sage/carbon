@@ -4,10 +4,12 @@ import TextEditor, {
   TextEditorContentState as ContentState,
   TextEditorProps,
 } from "./text-editor.component";
+import Button from "../button";
+import Box from "../box";
 
 export default {
   title: "Text Editor/Test",
-  includeStories: ["Default"],
+  excludeStories: ["TextEditorCustom", "TextEditorCustomValidation"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -73,6 +75,32 @@ export const Default = ({ onChange, ...props }: Partial<TextEditorProps>) => {
 };
 
 Default.storyName = "default";
+
+export const WithCustomToolbarContent = () => {
+  const [value, setValue] = useState(EditorState.createEmpty());
+  return (
+    <Box padding={1}>
+      <TextEditor
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        value={value}
+        toolbarElements={[
+          <Button aria-label="drucken" iconType="print" />,
+          <Button buttonType="secondary" destructive onClick={() => {}}>
+            Kündigen
+          </Button>,
+          <Button buttonType="primary" type="button" onClick={() => {}}>
+            Speichern und beenden
+          </Button>,
+        ]}
+        labelText="Text Editor Label"
+      />
+    </Box>
+  );
+};
+
+WithCustomToolbarContent.storyName = "with custom toolbar content";
 
 const createContent = (text?: string) => {
   if (text) {

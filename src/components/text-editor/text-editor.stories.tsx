@@ -66,7 +66,6 @@ export const WithOptionalButtons = () => {
             buttonType="primary"
             type="button"
             onClick={() => {}}
-            ml={2}
           >
             Save
           </Button>,
