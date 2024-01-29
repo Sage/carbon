@@ -87,6 +87,16 @@ will prevent any input that would cause the content length to exceed it.
   />
 </Canvas>
 
+### Character counter with translations
+
+Various translation keys are available to assist with translating the character counter below the editor into different languages. These keys allow you to amend the messages shown when the counter exceeds or is below the set character limit.
+
+For screen reader users, the designated `characterCount.visuallyHiddenHint` key can be used to override the message that is announced when the user stops typing.
+
+<Canvas>
+  <Story name="character counter with translations" story={stories.CharacterCounterTranslations} />
+</Canvas>
+
 ### With validation
 
 It is possible apply validation to the `TextEditor` component by passing the desired string message to one of the `error`,
@@ -197,6 +207,32 @@ The following keys are available to override the translations for this component
       type: "func",
       description:
         "visible when the user hovers over the number list toolbar button",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.tooManyCharacters",
+      description:
+        "The message displayed below the input which will inform"
+        +" users if they have exceeded the set `characterLimit` and how much by." 
+        +" This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.charactersLeft",
+      description:
+        "The message displayed below the input which will inform"
+        +" users how many characters they have before they reach  or exceed the"
+        +" set `characterLimit`. This will also be announced to screen readers.",      
+        type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.visuallyHiddenHint",
+      description:
+        "The message which will be read out to screen reader users, informing them"
+        +" of the set `characterLimit`.",
+      type: "func",
       returnType: "string",
     },
   ]}

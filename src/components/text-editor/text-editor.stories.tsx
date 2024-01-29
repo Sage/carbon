@@ -8,6 +8,7 @@ import Button from "../button";
 import EditorLinkPreview from "../link-preview";
 import Box from "../box";
 import CarbonProvider from "../carbon-provider";
+import I18nProvider from "../i18n-provider";
 
 export const Default = () => {
   const [value, setValue] = useState(EditorState.createEmpty());
@@ -96,6 +97,41 @@ export const WithOptionalCharacterLimit = () => {
 };
 
 WithOptionalCharacterLimit.storyName = "with optional character limit";
+
+export const CharacterCounterTranslations = () => {
+  const [value, setValue] = useState(EditorState.createEmpty());
+  const limit = 100;
+  return (
+    <I18nProvider
+      locale={{
+        locale: () => "fr-FR",
+        characterCount: {
+          tooManyCharacters: (count, formattedCount) =>
+            count === 1
+              ? `${formattedCount} caractère restant`
+              : `${formattedCount} caractères restants`,
+          charactersLeft: (count, formattedCount) =>
+            count === 1
+              ? `${formattedCount} caractère de trop`
+              : `${formattedCount} personnages de trop`,
+          visuallyHiddenHint: (formattedCount) =>
+            `Vous pouvez saisir jusqu'à ${formattedCount} caractères`,
+        },
+      }}
+    >
+      <Box padding={1}>
+        <TextEditor
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          value={value}
+          labelText="Text Editor Label"
+          characterLimit={limit}
+        />
+      </Box>
+    </I18nProvider>
+  );
+};
 
 export const WithValidation = () => {
   const [value, setValue] = useState(
