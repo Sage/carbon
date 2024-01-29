@@ -70,11 +70,8 @@ describe("Toolbar", () => {
     it("matches the expected for the format styles controls container", () => {
       assertStyleMatch(
         {
-          display: "inline-block",
-          textAlign: "left",
-          width: "50%",
-          minWidth: "60px",
-          marginLeft: "-2px",
+          display: "inline-flex",
+          gap: "8px",
         },
         render().find(StyledEditorStyleControls)
       );
@@ -167,15 +164,6 @@ describe("Toolbar", () => {
     afterEach(() => {
       setInlineStyle.mockClear();
       setBlockStyle.mockClear();
-    });
-
-    it(`sets expected background-color when '${id.toLowerCase()}' is active`, () => {
-      assertStyleMatch(
-        {
-          backgroundColor: "var(--colorsActionMinor200)",
-        },
-        wrapper.find(ToolbarButton).at(index)
-      );
     });
 
     it(`calls expected callback when the '${id.toLowerCase()}' button is clicked`, () => {

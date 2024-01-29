@@ -17,11 +17,8 @@ const StyledToolbar = styled.div`
 `;
 
 const StyledEditorStyleControls = styled.div`
-  display: inline-block;
-  text-align: left;
-  width: 50%;
-  min-width: 60px;
-  margin-left: -2px;
+  display: inline-flex;
+  gap: 8px;
 `;
 
 const StyledEditorActionControls = styled.div`
