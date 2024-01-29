@@ -1,3 +1,10 @@
+## [125.7.0](https://github.com/Sage/carbon/compare/v125.6.0...v125.7.0) (2024-01-29)
+
+
+### Features
+
+* **accordion:** add subtle variant and update default styles ([91a2be0](https://github.com/Sage/carbon/commit/91a2be0b76bdb49a00596728d2c159bd2b639415))
+
 ## [125.6.0](https://github.com/Sage/carbon/compare/v125.5.1...v125.6.0) (2024-01-26)
 
 
