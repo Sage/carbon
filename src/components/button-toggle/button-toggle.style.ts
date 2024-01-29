@@ -6,19 +6,19 @@ import baseTheme from "../../style/themes/base";
 
 export type ButtonToggleIconSizes = "small" | "large";
 
-const heightConfig = {
+export const heightConfig = {
   small: 32,
   medium: 40,
   large: 48,
 };
 
-const fontSizeConfig = {
+export const fontSizeConfig = {
   small: 14,
   medium: 14,
   large: 16,
 };
 
-const paddingConfig = {
+export const paddingConfig = {
   small: 16,
   medium: 24,
   large: 32,

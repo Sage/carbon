@@ -236,6 +236,14 @@ const plPL: Locale = {
   tileSelect: {
     deselect: () => "Odznacz",
   },
+  time: {
+    amText: () => "AM",
+    pmText: () => "PM",
+    hoursLabelText: () => "Hrs.",
+    minutesLabelText: () => "Min.",
+    hoursAriaLabelText: () => "Godziny",
+    minutesAriaLabelText: () => "Minuty",
+  },
   toast: {
     ariaLabels: {
       close: () => "Zamknij",
