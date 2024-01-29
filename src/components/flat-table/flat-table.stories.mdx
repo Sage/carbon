@@ -1,5 +1,4 @@
 import { Meta, ArgsTable, Canvas, Story } from "@storybook/addon-docs";
-import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import {
   FlatTable,
@@ -13,19 +12,6 @@ import {
   Sort,
   FlatTableBodyDraggable,
 } from ".";
-import BatchSelection from "../batch-selection";
-import IconButton from "../icon-button";
-import Icon from "../icon";
-import Textbox from "../textbox";
-import Pager from "../pager";
-import {
-  ActionPopover,
-  ActionPopoverItem,
-  ActionPopoverMenu,
-} from "../action-popover";
-import { DrawerSidebarContext } from "../drawer";
-import Box from "../box";
-import Button from "../button";
 import * as stories from "./flat-table.stories";
 
 <Meta title="Flat Table" parameters={{ info: { disable: true } }} />

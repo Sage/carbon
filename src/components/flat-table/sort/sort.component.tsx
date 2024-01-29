@@ -51,4 +51,6 @@ const Sort = ({ children, onClick, sortType }: SortProps) => {
   );
 };
 
+Sort.displayName = "Sort";
+
 export default Sort;
