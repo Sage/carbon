@@ -1,7 +1,7 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import Sort, { SortProps } from "./sort.component";
-import Icon from "../../icon";
+import Icon, { IconType } from "../../icon";
 import { StyledSort, StyledSpaceHolder } from "./sort.style";
 
 function renderSort(props: SortProps = {}) {
@@ -35,17 +35,37 @@ describe("Sort", () => {
     expect(wrapper.find(Icon).exists()).toBe(false);
   });
 
-  it('should render Icon `sort_up` if sortType="ascending"', () => {
+  it('should render default Icon `sort_up` if sortType="ascending"', () => {
     wrapper = renderSort({ sortType: "ascending" });
 
     expect(wrapper.find(Icon).props().type).toBe("sort_up");
   });
 
-  it('should render Icon `sort_down` if sortType="descending"', () => {
+  it('should render default Icon `sort_down` if sortType="descending"', () => {
     wrapper = renderSort({ sortType: "descending" });
 
     expect(wrapper.find(Icon).props().type).toBe("sort_down");
   });
+
+  it("should render the correct node when the Icon component is passed", () => {
+    const iconNode = <Icon type="sort_up" />;
+    wrapper = renderSort({ sortType: "ascending", sortIcon: iconNode });
+
+    expect(wrapper.find(Icon).length).toBe(1);
+  });
+
+  it.each(["filter", "play", "chevron_down", "dropdown"] as IconType[])(
+    'should render correct icon when the Icon component is passed as a node and the icon type value is "%s",',
+    (iconType) => {
+      const iconNode = <Icon type={iconType} />;
+      wrapper = renderSort({
+        sortType: "ascending",
+        sortIcon: iconNode,
+      });
+
+      expect(wrapper.find(Icon).props().type).toBe(iconType);
+    }
+  );
 
   it("should fire callback if clicked", () => {
     wrapper.find(StyledSort).props().onClick();

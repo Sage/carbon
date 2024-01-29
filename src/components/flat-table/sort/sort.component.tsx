@@ -5,15 +5,20 @@ import { StyledSort, StyledSpaceHolder } from "./sort.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 
 export interface SortProps {
-  /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
+  /** if `ascending` the `sort_up` icon will be displayed by default, if `descending`
+   * `sort_down` will be displayed by default. However both icon types can be
+   * overridden with the `sortIcon` prop
+   */
   sortType?: "ascending" | "descending" | false;
+  /** Override the default sort Icon */
+  sortIcon?: React.ReactNode;
   /** Callback fired when the `FlatTableSortHeader` is clicked */
   onClick?: () => void;
   /** Sets the content of `FlatTableSortHeader` */
   children?: React.ReactNode;
 }
 
-const Sort = ({ children, onClick, sortType }: SortProps) => {
+const Sort = ({ children, onClick, sortType, sortIcon }: SortProps) => {
   const id = useRef(guid());
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (Event.isEnterOrSpaceKey(e)) {
@@ -23,6 +28,13 @@ const Sort = ({ children, onClick, sortType }: SortProps) => {
 
     return null;
   };
+
+  const renderedIcon = sortType ? (
+    <Icon
+      type={sortType === "ascending" ? "sort_up" : "sort_down"}
+      color="--colorsUtilityMajor200"
+    />
+  ) : null;
 
   return (
     <>
@@ -39,12 +51,7 @@ const Sort = ({ children, onClick, sortType }: SortProps) => {
         aria-labelledby={id.current}
       >
         {children}
-        {sortType && (
-          <Icon
-            type={sortType === "ascending" ? "sort_up" : "sort_down"}
-            color="--colorsUtilityMajor200"
-          />
-        )}
+        {sortIcon && sortType ? sortIcon : renderedIcon}
       </StyledSort>
       {!sortType && <StyledSpaceHolder />}
     </>
