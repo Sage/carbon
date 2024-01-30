@@ -3,9 +3,11 @@ import {
   margin,
   layout,
   background,
+  padding,
   MarginProps,
   BackgroundProps,
   LayoutProps,
+  PaddingProps,
 } from "styled-system";
 import { baseTheme } from "../../style/themes";
 
@@ -18,7 +20,8 @@ export type PositionProps =
 export interface StyledImageProps
   extends BackgroundProps,
     LayoutProps,
-    MarginProps {
+    MarginProps,
+    PaddingProps {
   /** HTML alt property to display when an img fails to load */
   alt?: string;
   /** Prop to specify if the image is decorative  */
@@ -65,6 +68,7 @@ const StyledImage = styled.div.attrs(
 )<StyledImageProps>`
   ${margin}
   ${layout}
+  ${padding}
 
   ${({ position, top, right, bottom, left }) => css`
     position: ${position};
