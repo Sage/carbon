@@ -1,3 +1,10 @@
+## [125.9.0](https://github.com/Sage/carbon/compare/v125.8.0...v125.9.0) (2024-01-30)
+
+
+### Features
+
+* **image:** add position prop to component ([8e20a4f](https://github.com/Sage/carbon/commit/8e20a4f67afa1065e22ae1488e133648c36a0380))
+
 ## [125.8.0](https://github.com/Sage/carbon/compare/v125.7.0...v125.8.0) (2024-01-29)
 
 
