@@ -127,7 +127,7 @@ export const PositionedTopAlignedRight = () => {
 
 export const PositionedLeftAndAlignedLeft = () => {
   return (
-    <Box p="4px">
+    <Box p="32px" bg="#f2f5f6">
       <Tabs align="left" position="left">
         <Tab
           errorMessage="error"
@@ -137,7 +137,9 @@ export const PositionedLeftAndAlignedLeft = () => {
           title="Tab 1"
           key="tab-1"
         >
-          Content for tab 1
+          <Box bg="white" p="32px" height="calc(100% - 64px)">
+            Content for tab 1
+          </Box>
         </Tab>
         <Tab
           errorMessage="error"

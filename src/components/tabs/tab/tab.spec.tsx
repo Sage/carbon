@@ -148,7 +148,7 @@ describe("Tab", () => {
         });
         assertStyleMatch(
           {
-            width: "80%",
+            width: "calc(80% + var(--spacing075))",
           },
           wrapper.toJSON()
         );
