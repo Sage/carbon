@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
 import { act } from "react-dom/test-utils";
 import { mount, ReactWrapper } from "enzyme";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../../__internal__/label/label.style";
 
 import {
   assertStyleMatch,
@@ -19,7 +22,6 @@ import {
 } from "../select-list/select-list.style";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
-import Label from "../../../__internal__/label";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 import guid from "../../../__internal__/utils/helpers/guid";
@@ -782,6 +784,32 @@ describe("SimpleSelect", () => {
       });
     });
 
+    describe("isOptional", () => {
+      it("label has '(optional)' suffix when the isOptional prop is passed to the input", () => {
+        const propWrapper = mount(
+          <SimpleSelect
+            name="testSelect"
+            id="testSelect"
+            label="label"
+            isOptional
+          >
+            <Option value="opt1" text="red" />
+            <Option value="opt2" text="green" />
+            <Option value="opt3" text="blue" />
+            <Option value="opt4" text="black" />
+          </SimpleSelect>
+        );
+
+        assertStyleMatch(
+          {
+            content: '"(optional)"',
+          },
+          propWrapper.find(StyledLabelContainer),
+          { modifier: "::after" }
+        );
+      });
+    });
+
     describe("and the onChange prop is passed", () => {
       it("then that prop should be called with the same value", () => {
         const onChangeFn = jest.fn();
@@ -987,12 +1015,20 @@ describe("SimpleSelect", () => {
 
     it("the required prop is passed to the input", () => {
       const input = wrapper.find("input");
-      expect(input.prop("required")).toBe(true);
+      expect(input.getDOMNode()).toHaveAttribute("required", "");
     });
 
-    it("the isRequired prop is passed to the label", () => {
-      const label = wrapper.find(Label);
-      expect(label.prop("isRequired")).toBe(true);
+    it("should add an asterisk after the label text", () => {
+      assertStyleMatch(
+        {
+          content: '"*"',
+          color: "var(--colorsSemanticNegative500)",
+          fontWeight: "700",
+          marginLeft: "var(--spacing050)",
+        },
+        wrapper.find(StyledLabel),
+        { modifier: "::after" }
+      );
     });
   });
 

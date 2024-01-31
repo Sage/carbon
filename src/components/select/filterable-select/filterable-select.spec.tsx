@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import { act } from "react-dom/test-utils";
 import { mount, ReactWrapper } from "enzyme";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../../__internal__/label/label.style";
 
 import {
   assertStyleMatch,
@@ -1244,12 +1247,20 @@ describe("FilterableSelect", () => {
 
     it("the required prop is passed to the input", () => {
       const input = wrapper.find("input");
-      expect(input.prop("required")).toBe(true);
+      expect(input.getDOMNode()).toHaveAttribute("required", "");
     });
 
-    it("the isRequired prop is passed to the label", () => {
-      const label = wrapper.find(Label);
-      expect(label.prop("isRequired")).toBe(true);
+    it("should add an asterisk after the label text", () => {
+      assertStyleMatch(
+        {
+          content: '"*"',
+          color: "var(--colorsSemanticNegative500)",
+          fontWeight: "700",
+          marginLeft: "var(--spacing050)",
+        },
+        wrapper.find(StyledLabel),
+        { modifier: "::after" }
+      );
     });
   });
 
@@ -1533,6 +1544,22 @@ describe("FilterableSelect", () => {
     assertStyleMatch(
       { borderRadius: "var(--borderRadius050)" },
       wrapper.find(StyledSelectListContainer)
+    );
+  });
+
+  it("should add '(optional)' suffix when the isOptional prop true", () => {
+    const propWrapper = mount(
+      <FilterableSelect name="testSelect" label="Select a colour" isOptional>
+        <Option value="opt1" text="blue" key="blue" />
+      </FilterableSelect>
+    );
+
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      propWrapper.find(StyledLabelContainer),
+      { modifier: "::after" }
     );
   });
 
