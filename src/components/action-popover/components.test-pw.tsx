@@ -17,11 +17,8 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from "../flat-table";
-// the below import works fine when rendered in the browser by Playwright (the ?url is to so Vite uses a "real" URL rather than a "data:" one),
-// but VSCode highlights it as an error as TS doesn't recognise the file as a module - hence the tsignore.
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore-next-line
-import exampleDownload from "../../../playwright/download-test/example.txt?url";
+
+import exampleDownload from "../../../playwright/download-test/example.txt";
 
 export const ActionPopoverCustom = ({ ...props }) => {
   const submenu = (
@@ -603,3 +600,11 @@ export const ActionPopoverPropsComponentAllDisabled = (
     </ActionPopover>
   );
 };
+
+export const ActionPopoverWithDownloadButton = () => (
+  <ActionPopover rightAlignMenu>
+    <ActionPopoverItem download icon="download" href={exampleDownload}>
+      Download
+    </ActionPopoverItem>
+  </ActionPopover>
+);

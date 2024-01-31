@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { action } from "@storybook/addon-actions";
-import Button, { ButtonProps } from "../button";
+import Button from "../button";
 import Box from "../box";
 import { ICONS } from "../icon/icon-config";
-import Dialog from "../dialog";
 import {
   SPLIT_BUTTON_ALIGNMENTS,
   SPLIT_BUTTON_ICON_POSITIONS,
@@ -95,38 +94,3 @@ SplitButtonStory.story = {
     subtext: "",
   },
 };
-
-export const SplitButtonList = (props: Partial<SplitButtonProps>) => {
-  return (
-    <SplitButton text="default text" {...props}>
-      <Button>Button 1</Button>
-      <Button>Button 2</Button>
-      <Button>Button 3</Button>
-    </SplitButton>
-  );
-};
-
-export const SplitButtonNestedInDialog = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  return (
-    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
-      <SplitButton text="default text">
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
-      </SplitButton>
-    </Dialog>
-  );
-};
-
-const ButtonWrapper = (props: ButtonProps) => {
-  return <Button {...props} />;
-};
-
-export const WithWrapper = (props: Partial<SplitButtonProps>) => (
-  <SplitButton text="Split button" {...props}>
-    <ButtonWrapper>Button 1</ButtonWrapper>
-    <ButtonWrapper>Button 2</ButtonWrapper>
-    <ButtonWrapper>Button 3</ButtonWrapper>
-  </SplitButton>
-);

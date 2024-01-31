@@ -277,70 +277,6 @@ export const WithBoxComponentAndDifferentPaddings: ComponentStory<
   );
 };
 
-export const OpeningButton: ComponentStory<typeof Accordion> = () => {
-  return (
-    <Box m="8px">
-      <Accordion
-        title="More info"
-        openTitle="Less info"
-        scheme="transparent"
-        borders="none"
-        iconAlign="left"
-        buttonHeading
-        buttonWidth="200px"
-        error="hello"
-      >
-        <Box mt={2}>Content</Box>
-        <Box>Content</Box>
-        <Box>Content</Box>
-      </Accordion>
-      <br />
-      <Accordion
-        title="More info"
-        openTitle="Less info"
-        scheme="transparent"
-        borders="none"
-        iconAlign="right"
-        buttonHeading
-        buttonWidth="200px"
-      >
-        <Box mt={2}>Content</Box>
-        <Box>Content</Box>
-        <Box>Content</Box>
-      </Accordion>
-      <br />
-      <Accordion
-        scheme="transparent"
-        borders="none"
-        title="More info"
-        openTitle="Less info"
-        buttonHeading
-        headerSpacing={{ px: 0 }}
-        buttonWidth="96px"
-      >
-        <Box mt={2}>Content</Box>
-        <Box>Content</Box>
-        <Box>Content</Box>
-      </Accordion>
-      <br />
-      <Accordion
-        scheme="transparent"
-        borders="none"
-        title="More info"
-        openTitle="Less info"
-        iconAlign="left"
-        buttonHeading
-        buttonWidth="120px"
-        headerSpacing={{ px: 1 }}
-      >
-        <Box mt={2}>Content</Box>
-        <Box>Content</Box>
-        <Box>Content</Box>
-      </Accordion>
-    </Box>
-  );
-};
-
 export const Grouped: ComponentStory<typeof Accordion> = () => {
   return (
     <AccordionGroup>
@@ -577,6 +513,16 @@ export const WithDefinitionList: ComponentStory<typeof Accordion> = () => {
           </Button>
         </Dd>
       </Dl>
+    </Accordion>
+  );
+};
+
+export const AccordionSubtle: ComponentStory<typeof Accordion> = () => {
+  return (
+    <Accordion title="Heading" variant="subtle">
+      <Box>Content</Box>
+      <Box>Content</Box>
+      <Box>Content</Box>
     </Accordion>
   );
 };

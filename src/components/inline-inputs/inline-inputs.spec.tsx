@@ -203,6 +203,21 @@ describe("Inline Inputs", () => {
     });
   });
 
+  describe("when providing the labelAlign prop", () => {
+    beforeEach(() => {
+      wrapper = render({ label: "foo", labelAlign: "left", labelWidth: 30 });
+    });
+
+    it("sets the inline label to the provided alignemnt", () => {
+      assertStyleMatch(
+        {
+          justifyContent: "flex-start",
+        },
+        wrapper.find(Label)
+      );
+    });
+  });
+
   describe("when the inputWidth prop is not passed in", () => {
     beforeEach(() => {
       wrapper = render({});

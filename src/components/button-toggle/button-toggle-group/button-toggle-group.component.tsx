@@ -63,6 +63,11 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   helpAriaLabel?: string;
   /** set this to true to allow the buttons within the group to be deselected when already selected, leaving no selected button */
   allowDeselect?: boolean;
+  /**
+   * @private @ignore
+   * Set a class on the component
+   */
+  className?: string;
 }
 
 type ButtonToggleGroupContextType = {
@@ -117,6 +122,7 @@ const ButtonToggleGroup = ({
   helpAriaLabel,
   id,
   allowDeselect,
+  className,
   ...props
 }: ButtonToggleGroupProps) => {
   const hasCorrectItemStructure = useMemo(() => {
@@ -257,6 +263,7 @@ const ButtonToggleGroup = ({
                 data-element={dataElement}
                 id={id}
                 {...filterStyledSystemMarginProps(props)}
+                className={className}
               >
                 {children}
               </StyledButtonToggleGroup>

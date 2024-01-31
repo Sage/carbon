@@ -27,12 +27,12 @@ type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
 type BorderRadiusType = Extract<DesignTokensType, `borderRadius${string}`>;
 
 export interface BoxProps
-  extends SpaceProps,
-    LayoutProps,
-    FlexboxProps,
+  extends FlexboxProps,
     Omit<GridProps, "gridGap" | "gridRowGap" | "gridColumnGap">,
-    TagProps,
-    Omit<PositionProps, "zIndex"> {
+    LayoutProps,
+    Omit<PositionProps, "zIndex">,
+    SpaceProps,
+    TagProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   /** Set the ID attribute of the Box component */
@@ -69,6 +69,8 @@ export interface BoxProps
   backgroundColor?: string;
   /** Set the opacity attribute of the Box component */
   opacity?: string | number;
+  /** Set the container to be hidden from screen readers */
+  "aria-hidden"?: "true" | "false";
 }
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
@@ -93,6 +95,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       borderRadius,
       color,
       opacity,
+      "aria-hidden": ariaHidden,
       ...rest
     }: BoxProps,
     ref
@@ -117,6 +120,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         borderRadius={borderRadius}
         color={color}
         opacity={opacity}
+        aria-hidden={ariaHidden}
         {...tagComponent(dataComponent, rest)}
         {...filterStyledSystemMarginProps(rest)}
         {...filterStyledSystemPaddingProps(rest)}

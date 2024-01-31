@@ -90,6 +90,7 @@ export default {
     "ExpandableWithLink",
     "SortableStory",
     "SubRowsAsAComponentStory",
+    "FlatTableSizeFocus",
   ],
   parameters: {
     info: { disable: true },
@@ -3563,5 +3564,40 @@ export const HighlightedRowWithLoadingState = (
         <FlatTableBody>{update ? rows : loading}</FlatTableBody>
       </FlatTable>
     </div>
+  );
+};
+
+export const FlatTableSizeFocus = () => {
+  return (
+    <Box p={1}>
+      <FlatTable>
+        <FlatTableBody>
+          <FlatTableRow onClick={() => {}}>
+            <FlatTableCell>
+              <Box>
+                <Box py="3">Option 1</Box>
+              </Box>
+            </FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={() => {}}>
+            <FlatTableCell>
+              <Box my="3">
+                <Box>Option 2</Box>
+              </Box>
+            </FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={() => {}}>
+            <FlatTableCell>
+              <Box my={3}>
+                <Box height="69px">Option 3</Box>
+              </Box>
+            </FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow onClick={() => {}}>
+            <FlatTableCell>Option 4</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </Box>
   );
 };

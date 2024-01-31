@@ -4,6 +4,7 @@ import { SpaceProps } from "styled-system";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Events from "../../__internal__/utils/helpers/events";
+import Logger from "../../__internal__/utils/logger";
 import {
   StyledAccordionContainer,
   StyledAccordionHeadingsContainer,
@@ -35,9 +36,9 @@ export interface AccordionProps
   /** Styled system spacing props provided to Accordion Title */
   headerSpacing?: SpaceProps;
   id?: string;
-  /** Sets icon type - accepted values: 'chevron_down' (default), 'dropdown' */
-  iconType?: "chevron_down" | "dropdown";
-  /** Sets icon alignment - accepted values: 'left', 'right' (default) */
+  /** Sets icon type */
+  iconType?: "chevron_down" | "chevron_down_thick" | "dropdown";
+  /** Sets icon alignment */
   iconAlign?: "left" | "right";
   /** Sets accordion title */
   title: React.ReactNode;
@@ -68,6 +69,9 @@ export interface AccordionInternalProps {
   index?: number;
 }
 
+let deprecatedSchemeWarnTriggered = false;
+let deprecatedButtonHeadingWarnTriggered = false;
+
 export const Accordion = React.forwardRef<
   HTMLDivElement,
   AccordionProps & AccordionInternalProps
@@ -82,8 +86,8 @@ export const Accordion = React.forwardRef<
       handleKeyboardAccessibility,
       id,
       index,
-      iconType = "chevron_down",
-      iconAlign = "right",
+      iconType,
+      iconAlign,
       scheme = "white",
       size = "large",
       subTitle,
@@ -97,10 +101,25 @@ export const Accordion = React.forwardRef<
       buttonHeading,
       buttonWidth = "150px",
       openTitle,
+      variant = "standard",
       ...rest
     }: AccordionProps & AccordionInternalProps,
     ref
   ) => {
+    if (!deprecatedSchemeWarnTriggered && scheme === "transparent") {
+      deprecatedSchemeWarnTriggered = true;
+      Logger.deprecate(
+        "The `scheme` prop for `Accordion` component is deprecated and will soon be removed."
+      );
+    }
+
+    if (!deprecatedButtonHeadingWarnTriggered && buttonHeading) {
+      deprecatedButtonHeadingWarnTriggered = true;
+      Logger.deprecate(
+        "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead."
+      );
+    }
+
     const isControlled = expanded !== undefined;
 
     const [isExpandedInternal, setIsExpandedInternal] = useState(
@@ -154,14 +173,20 @@ export const Accordion = React.forwardRef<
 
     const getTitle = () => (isExpanded ? openTitle || title : title);
 
+    const getIconType = () =>
+      size === "small" || variant === "subtle"
+        ? "chevron_down_thick"
+        : "chevron_down";
+
     return (
       <StyledAccordionContainer
         id={accordionId}
         data-component="accordion"
         width={width}
-        borders={borders}
+        borders={variant === "subtle" ? "none" : borders}
         scheme={scheme}
         buttonHeading={buttonHeading}
+        variant={variant}
         {...rest}
       >
         <StyledAccordionTitleContainer
@@ -172,10 +197,12 @@ export const Accordion = React.forwardRef<
           onClick={toggleAccordion}
           onKeyDown={handleKeyDown}
           tabIndex={0}
-          iconAlign={iconAlign}
+          iconAlign={iconAlign || (variant === "standard" ? "right" : "left")}
           ref={ref}
           size={size}
           buttonHeading={buttonHeading}
+          isExpanded={isExpanded}
+          variant={variant}
           buttonWidth={buttonWidth}
           hasButtonProps={
             buttonHeading && !(typeof headerSpacing === "undefined")
@@ -190,13 +217,17 @@ export const Accordion = React.forwardRef<
             buttonHeading={buttonHeading}
           >
             {!buttonHeading && typeof title === "string" ? (
-              <StyledAccordionTitle data-element="accordion-title" size={size}>
+              <StyledAccordionTitle
+                data-element="accordion-title"
+                size={size}
+                variant={variant}
+              >
                 {title}
               </StyledAccordionTitle>
             ) : (
               getTitle()
             )}
-            {!buttonHeading && (
+            {!buttonHeading && variant !== "subtle" && (
               <>
                 {showValidationIcon && (
                   <ValidationIcon
@@ -209,7 +240,7 @@ export const Accordion = React.forwardRef<
                   />
                 )}
 
-                {subTitle && size === "large" && (
+                {subTitle && size === "large" && variant === "standard" && (
                   <StyledAccordionSubTitle>{subTitle}</StyledAccordionSubTitle>
                 )}
               </>
@@ -218,9 +249,9 @@ export const Accordion = React.forwardRef<
 
           <StyledAccordionIcon
             data-element="accordion-icon"
-            type={iconType}
+            type={iconType || getIconType()}
             isExpanded={isExpanded}
-            iconAlign={iconAlign}
+            iconAlign={iconAlign || (variant === "standard" ? "right" : "left")}
           />
         </StyledAccordionTitleContainer>
         <StyledAccordionContentContainer
@@ -234,6 +265,7 @@ export const Accordion = React.forwardRef<
             aria-labelledby={headerId}
             ref={accordionContent}
             disableContentPadding={disableContentPadding}
+            variant={variant}
           >
             {children}
           </StyledAccordionContent>

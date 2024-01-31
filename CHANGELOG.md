@@ -1,3 +1,52 @@
+## [125.9.0](https://github.com/Sage/carbon/compare/v125.8.0...v125.9.0) (2024-01-30)
+
+
+### Features
+
+* **image:** add position prop to component ([8e20a4f](https://github.com/Sage/carbon/commit/8e20a4f67afa1065e22ae1488e133648c36a0380))
+
+## [125.8.0](https://github.com/Sage/carbon/compare/v125.7.0...v125.8.0) (2024-01-29)
+
+
+### Features
+
+* **time:** add new component ([27dc669](https://github.com/Sage/carbon/commit/27dc669de37dab9d0549a5405b8eab17ef473121))
+
+## [125.7.0](https://github.com/Sage/carbon/compare/v125.6.0...v125.7.0) (2024-01-29)
+
+
+### Features
+
+* **accordion:** add subtle variant and update default styles ([91a2be0](https://github.com/Sage/carbon/commit/91a2be0b76bdb49a00596728d2c159bd2b639415))
+
+## [125.6.0](https://github.com/Sage/carbon/compare/v125.5.1...v125.6.0) (2024-01-26)
+
+
+### Features
+
+* **preview:** add rounded corners styling to component ([e3af885](https://github.com/Sage/carbon/commit/e3af8855f37f6b56e4c89eba591e6fbbda7bc5ab)), closes [#6174](https://github.com/Sage/carbon/issues/6174)
+
+### [125.5.1](https://github.com/Sage/carbon/compare/v125.5.0...v125.5.1) (2024-01-25)
+
+
+### Bug Fixes
+
+* **flat-table:** ensure that focus size is correctly applied in Safari ([cd1c3e3](https://github.com/Sage/carbon/commit/cd1c3e361500761d2a5bc98201650448beffc102)), closes [#6496](https://github.com/Sage/carbon/issues/6496)
+
+## [125.5.0](https://github.com/Sage/carbon/compare/v125.4.0...v125.5.0) (2024-01-25)
+
+
+### Features
+
+* **inline-inputs:** add labelAlign prop ([55a485d](https://github.com/Sage/carbon/commit/55a485d6da6b1d94edb79291c14b108a721e1002))
+
+## [125.4.0](https://github.com/Sage/carbon/compare/v125.3.0...v125.4.0) (2024-01-25)
+
+
+### Features
+
+* **filterable-select:** add disableDefaultFiltering prop ([11c9a1f](https://github.com/Sage/carbon/commit/11c9a1fee723c55de1a0f82046eb740a751c86f8))
+
 ## [125.3.0](https://github.com/Sage/carbon/compare/v125.2.2...v125.3.0) (2024-01-23)
 
 

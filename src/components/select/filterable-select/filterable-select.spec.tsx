@@ -1334,33 +1334,64 @@ describe("FilterableSelect", () => {
       wrapper.find(StyledSelectListContainer)
     );
   });
-});
 
-describe("coverage filler for else path", () => {
-  const wrapper = renderSelect();
-  simulateSelectTextboxEvent(wrapper, "blur");
-});
-
-describe("when maxWidth is passed", () => {
-  it("should be passed to InputPresentation", () => {
-    const wrapper = renderSelect({ maxWidth: "67%" });
-
-    assertStyleMatch(
-      {
-        maxWidth: "67%",
-      },
-      wrapper.find(InputPresentation)
-    );
+  describe("coverage filler for else path", () => {
+    const wrapper = renderSelect();
+    simulateSelectTextboxEvent(wrapper, "blur");
   });
 
-  it("renders with maxWidth as 100% when no maxWidth is specified", () => {
-    const wrapper = renderSelect({ maxWidth: "" });
+  describe("when maxWidth is passed", () => {
+    it("should be passed to InputPresentation", () => {
+      const wrapper = renderSelect({ maxWidth: "67%" });
 
-    assertStyleMatch(
-      {
-        maxWidth: "100%",
-      },
-      wrapper.find(InputPresentation)
-    );
+      assertStyleMatch(
+        {
+          maxWidth: "67%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+
+    it("renders with maxWidth as 100% when no maxWidth is specified", () => {
+      const wrapper = renderSelect({ maxWidth: "" });
+
+      assertStyleMatch(
+        {
+          maxWidth: "100%",
+        },
+        wrapper.find(InputPresentation)
+      );
+    });
+  });
+  describe("when the disableDefaultFiltering prop is set", () => {
+    it('shows all options when "disableDefaultFiltering" is true', () => {
+      const wrapper = renderSelect({ disableDefaultFiltering: true });
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "red" },
+      });
+
+      expect(wrapper.find(Option)).toHaveLength(4);
+    });
+
+    it('hides filtered options when "disableDefaultFiltering" is false', () => {
+      const wrapper = renderSelect({ disableDefaultFiltering: false });
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "red" },
+      });
+
+      expect(wrapper.find(Option)).toHaveLength(1);
+    });
+
+    it('hides filtered options when "disableDefaultFiltering" is unspecified', () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "red" },
+      });
+
+      expect(wrapper.find(Option)).toHaveLength(1);
+    });
   });
 });

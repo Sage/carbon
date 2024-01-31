@@ -192,6 +192,11 @@ const StyledTypography = styled.span.attrs(
   ${space}
     ${({ color, bg, backgroundColor, ...rest }) =>
     styledColor({ color, bg, backgroundColor, ...rest })}
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
+      color: var(--colorsUtilityYin030);
+    `}
 `;
 
 StyledTypography.defaultProps = {

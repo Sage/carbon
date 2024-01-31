@@ -16,11 +16,12 @@ lib
 esm
 src/style-config/assets.scss
 storybook-static/
+
 cypress/fixtures/example*
 cypress/screenshots
 cypress/downloads
-/test-results/
-/playwright-report/
-/playwright/.cache/
-/playwright/downloads/
 cypress/reports
+
+playwright/test-results
+playwright/test-report
+playwright/.cache

@@ -177,6 +177,7 @@ describe("Fieldset", () => {
       });
     }
   );
+
   it("add an asterisk after the text when the field is mandatory", () => {
     assertStyleMatch(
       {
@@ -187,6 +188,38 @@ describe("Fieldset", () => {
       },
       mount(<StyledLegendContent isRequired />),
       { modifier: "::after" }
+    );
+  });
+
+  it("adds the required attribute to any child inputs when isRequired is true", () => {
+    wrapper = mount(
+      <Fieldset isRequired>
+        <input />
+        <input />
+      </Fieldset>
+    );
+
+    expect(wrapper.find("input").first().getDOMNode()).toHaveAttribute(
+      "required"
+    );
+    expect(wrapper.find("input").last().getDOMNode()).toHaveAttribute(
+      "required"
+    );
+  });
+
+  it("does not add the required attribute to any child inputs when isRequired is falsy", () => {
+    wrapper = mount(
+      <Fieldset>
+        <input />
+        <input />
+      </Fieldset>
+    );
+
+    expect(wrapper.find("input").first().getDOMNode()).not.toHaveAttribute(
+      "required"
+    );
+    expect(wrapper.find("input").last().getDOMNode()).not.toHaveAttribute(
+      "required"
     );
   });
 });
