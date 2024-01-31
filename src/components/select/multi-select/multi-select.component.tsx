@@ -92,6 +92,8 @@ export interface MultiSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
 }
 
 export const MultiSelect = React.forwardRef(
@@ -133,6 +135,8 @@ export const MultiSelect = React.forwardRef(
       inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
+      isOptional,
+      required,
       ...textboxProps
     }: MultiSelectProps,
     ref
@@ -628,6 +632,8 @@ export const MultiSelect = React.forwardRef(
         onChange: handleTextboxChange,
         tooltipPosition,
         size,
+        required,
+        isOptional,
         inputRef,
         ...filterOutStyledSystemSpacingProps(textboxProps),
       };

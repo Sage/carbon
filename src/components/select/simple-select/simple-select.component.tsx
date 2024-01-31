@@ -91,6 +91,10 @@ export interface SimpleSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** Flag to configure component as optional in Form */
+  isOptional?: boolean;
+  /** Flag to configure component as mandatory */
+  isRequired?: boolean;
 }
 
 export const SimpleSelect = React.forwardRef(
@@ -129,6 +133,8 @@ export const SimpleSelect = React.forwardRef(
       inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
+      isOptional,
+      required,
       ...props
     }: SimpleSelectProps,
     ref
@@ -506,6 +512,8 @@ export const SimpleSelect = React.forwardRef(
         onKeyDown: handleTextboxKeydown,
         onBlur: handleTextboxBlur,
         tooltipPosition,
+        required,
+        isOptional,
         transparent,
         inputRef,
         ...filterOutStyledSystemSpacingProps(props),

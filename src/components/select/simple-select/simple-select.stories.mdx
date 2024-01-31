@@ -13,9 +13,9 @@ import * as stories from "./simple-select.stories";
 <a
   target="_blank"
   href="https://zeroheight.com/2ccf2b601/p/464d11-dropdown-select/b/51c4c7"
-  style={{ color: '#007E45', fontWeight: 'bold', textDecoration: 'underline' }}
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
 >
-  Product Design System component 
+  Product Design System component
 </a>
 
 Select one of available options from the drop-down menu. Simple Select is a Carbon styled equivalent of HTML Select Element.
@@ -54,6 +54,14 @@ You can use the `required` prop to indicate if the field is mandatory.
   <Story name="required" story={stories.Required} />
 </Canvas>
 
+### Optional
+
+You can use the `isOptional` prop to indicate if the field is mandatory.
+
+<Canvas>
+  <Story name="optional" story={stories.IsOptional} />
+</Canvas>
+
 ### List placement
 
 You can use `listPlacement` prop to set the position of the select list relative to the input element.
@@ -83,8 +91,7 @@ When the `id` property is set, objects will be compared based on that property (
 If there is no `id` prop specified on an object, then the exact objects will be compared.
 
 <Canvas>
-  <Story
-    name="with object as value" story={stories.WithObjectAsValue} />
+  <Story name="with object as value" story={stories.WithObjectAsValue} />
 </Canvas>
 
 ### With custom maxWidth
@@ -165,13 +172,19 @@ This prop will be called every time a user scrolls to the bottom of the list.
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
 
 <Canvas>
-  <Story name="enabling adaptive behaviour" story={stories.EnablingAdaptiveBehaviour} />
+  <Story
+    name="enabling adaptive behaviour"
+    story={stories.EnablingAdaptiveBehaviour}
+  />
 </Canvas>
 
 #### New designs validation
 
 <Canvas>
-  <Story name="validations - string - new design" story={stories.ValidationsStringNewDesign} />
+  <Story
+    name="validations - string - new design"
+    story={stories.ValidationsStringNewDesign}
+  />
 </Canvas>
 
 ### Virtual scrolling
@@ -189,13 +202,16 @@ be customised if desired using the `virtualScrollOverscan` prop. Higher values w
 ### With multiple columns and virtualisation
 
 <Canvas>
-  <Story name="with multiple columns and virtualisation" story={stories.WithMultipleColumnsAndVirtualisation} />
+  <Story
+    name="with multiple columns and virtualisation"
+    story={stories.WithMultipleColumnsAndVirtualisation}
+  />
 </Canvas>
 
 ### Selection confirmed
 
-A change event is emitted each time an option is navigated via keyboard as it sets the value of the 
-Select input. For those that need to trigger further actions when the user makes a selection, there is 
+A change event is emitted each time an option is navigated via keyboard as it sets the value of the
+Select input. For those that need to trigger further actions when the user makes a selection, there is
 a `selectionConfirmed` property on the emitted event when the enter key is pressed or an option is clicked.
 
 <Canvas>
