@@ -202,6 +202,40 @@ describe("FormField", () => {
     });
   });
 
+  describe("invariant", () => {
+    it("should throw when isOptional and isRequired props are both true", () => {
+      expect(() => {
+        render({
+          id: "mock-input",
+          isOptional: true,
+          isRequired: true,
+        });
+      }).toThrowError(
+        "an input cannot be set to both required and optional at the same time"
+      );
+    });
+
+    it("should not throw when isRequired prop is true and isOptional is false", () => {
+      expect(() => {
+        render({
+          id: "mock-input",
+          isRequired: true,
+          isOptional: false,
+        });
+      }).not.toThrow();
+    });
+
+    it("should not throw when isOptional prop is true and isRequired is false", () => {
+      expect(() => {
+        render({
+          id: "mock-input",
+          isRequired: false,
+          isOptional: true,
+        });
+      }).not.toThrow();
+    });
+  });
+
   describe("with TabContext", () => {
     it('calls "setError" when has "error" is true', () => {
       renderWithTabContext({ id: "foo", error: true });
