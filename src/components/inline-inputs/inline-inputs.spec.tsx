@@ -9,7 +9,9 @@ import {
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import { StyledLabelContainer } from "../../__internal__/label/label.style";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../__internal__/label/label.style";
 import StyledInlineInputs, {
   StyledContentContainer,
   StyledInlineInput,
@@ -193,13 +195,53 @@ describe("Inline Inputs", () => {
     });
   });
 
-  describe("when a required prop is passed in", () => {
-    beforeEach(() => {
-      wrapper = render({ label: "foo", required: true });
+  describe("when the required prop is true", () => {
+    it("should set required attribute for each input", () => {
+      const inputNodes = mount(
+        <InlineInputs required label="foo">
+          <input />
+          <input />
+          <input />
+        </InlineInputs>
+      ).find("input");
+
+      inputNodes.forEach((inlineInputField) => {
+        const inputNode = inlineInputField.getDOMNode();
+        expect(inputNode.hasAttribute("required")).toBe(true);
+      });
     });
 
-    it("then the isRequired prop should be passed to the label", () => {
-      expect(wrapper.find(Label).props().isRequired).toBe(true);
+    it("should add an asterisk after the label text", () => {
+      assertStyleMatch(
+        {
+          content: '"*"',
+          color: "var(--colorsSemanticNegative500)",
+          fontWeight: "700",
+          marginLeft: "var(--spacing050)",
+        },
+        mount(
+          <InlineInputs required label="foo">
+            <input />
+          </InlineInputs>
+        ).find(StyledLabel),
+        { modifier: "::after" }
+      );
+    });
+  });
+
+  describe("when the isOptional prop is true", () => {
+    it("should add `(optional)` after the label text", () => {
+      assertStyleMatch(
+        {
+          content: '"(optional)"',
+        },
+        mount(
+          <InlineInputs isOptional label="foo">
+            <input />
+          </InlineInputs>
+        ).find(StyledLabelContainer),
+        { modifier: "::after" }
+      );
     });
   });
 

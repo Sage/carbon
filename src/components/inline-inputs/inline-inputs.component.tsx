@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { MarginProps } from "styled-system";
 import Label from "../../__internal__/label";
 import StyledInlineInputs, {
@@ -44,6 +44,8 @@ export interface InlineInputsProps
   labelId?: string;
   /** Flag to configure component as mandatory. */
   required?: boolean;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
 }
 
 const columnWrapper = (children: React.ReactNode, gutter: GutterOptions) => {
@@ -69,9 +71,11 @@ const InlineInputs = ({
   labelInline = true,
   labelWidth,
   required,
+  isOptional,
   ...rest
 }: InlineInputsProps) => {
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);
+  const ref = useRef<HTMLDivElement>(null);
   let inlineLabel: boolean | undefined = labelInline;
   if (adaptiveLabelBreakpoint) {
     inlineLabel = largeScreen;
@@ -87,6 +91,7 @@ const InlineInputs = ({
         inline={inlineLabel}
         htmlFor={htmlFor}
         isRequired={required}
+        optional={isOptional}
       >
         {label}
       </Label>
@@ -95,6 +100,15 @@ const InlineInputs = ({
 
   const marginProps = useFormSpacing(rest);
 
+  useEffect(() => {
+    if (required) {
+      const elements = Array.from(
+        ref.current?.querySelectorAll("input") || /* istanbul ignore next */ []
+      );
+      elements.forEach((el) => el.setAttribute("required", ""));
+    }
+  }, [required]);
+
   return (
     <StyledInlineInputs
       gutter={gutter}
@@ -102,6 +116,7 @@ const InlineInputs = ({
       className={className}
       labelWidth={labelWidth}
       labelInline={inlineLabel}
+      ref={ref}
       {...marginProps}
     >
       {renderLabel()}
