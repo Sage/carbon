@@ -1,8 +1,0 @@
-{
-  "sandboxes": [
-    "carbon-quickstart-j5pb2",
-    "carbon-quickstart-typescript-6sjfuz"
-  ],
-  "buildCommand": "precompile",
-  "node": "18"
-}
