@@ -1,3 +1,10 @@
+### [125.9.1](https://github.com/Sage/carbon/compare/v125.9.0...v125.9.1) (2024-01-31)
+
+
+### Bug Fixes
+
+* **dialog + icon + tabs:** fix color for modal, dialog responsive size and added new icon minimise ([5c9e559](https://github.com/Sage/carbon/commit/5c9e55959fb227240b81a605376783f75e79c0a7))
+
 ## [125.9.0](https://github.com/Sage/carbon/compare/v125.8.0...v125.9.0) (2024-01-30)
 
 
