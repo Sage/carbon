@@ -3,6 +3,15 @@ import StyledInput from "./input.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import { BorderRadiusType } from "../../components/box/box.component";
 
+export type EnterKeyHintTypes =
+  | "enter"
+  | "done"
+  | "go"
+  | "next"
+  | "previous"
+  | "search"
+  | "send";
+
 export interface CommonInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /* The default value alignment on the input */
@@ -105,6 +114,7 @@ const Input = React.forwardRef<
       name,
       validationIconId,
       inputBorderRadius = "borderRadius050",
+      enterKeyHint,
       ...rest
     }: InputProps,
     ref
@@ -129,8 +139,12 @@ const Input = React.forwardRef<
         if (autoFocus && element) {
           element.focus();
         }
+
+        if (enterKeyHint && element) {
+          element.setAttribute("enterkeyhint", enterKeyHint);
+        }
       },
-      [autoFocus, ref]
+      [autoFocus, ref, enterKeyHint]
     );
 
     useEffect(() => {
