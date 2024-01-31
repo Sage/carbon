@@ -1,6 +1,9 @@
 import React from "react";
 import { mount, ReactWrapper, shallow } from "enzyme";
 import { act } from "react-dom/test-utils";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../__internal__/label/label.style";
 
 import NumeralDate, {
   NumeralDateProps,
@@ -16,7 +19,6 @@ import {
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
-import Label from "../../__internal__/label";
 import StyledHelp from "../help/help.style";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
@@ -651,6 +653,26 @@ describe("NumeralDate", () => {
     });
   });
 
+  it("label has '(optional)' suffix when the isOptional prop is true", () => {
+    const propWrapper = mount(
+      <NumeralDate
+        value={{ dd: "12", mm: "", yyyy: "" }}
+        isOptional
+        label="text"
+      />
+    );
+
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+        fontWeight: "350",
+        marginLeft: "var(--spacing050)",
+      },
+      propWrapper.find(StyledLabelContainer),
+      { modifier: "::after" }
+    );
+  });
+
   describe("required", () => {
     beforeAll(() => {
       wrapper = renderWrapper({
@@ -660,16 +682,24 @@ describe("NumeralDate", () => {
       });
     });
 
-    it("the required prop is passed to the inputs", () => {
+    it("the required attribute is set on the inputs", () => {
       const inputs = wrapper.find("input");
       inputs.forEach((input) => {
-        expect(input.prop("required")).toBe(true);
+        expect(input.getDOMNode()).toHaveAttribute("required", "");
       });
     });
 
-    it("the isRequired prop is passed to the label", () => {
-      const label = wrapper.find(Label);
-      expect(label.prop("isRequired")).toBe(true);
+    it("should add an asterisk after the label text", () => {
+      assertStyleMatch(
+        {
+          content: '"*"',
+          color: "var(--colorsSemanticNegative500)",
+          fontWeight: "700",
+          marginLeft: "var(--spacing050)",
+        },
+        wrapper.find(StyledLabel),
+        { modifier: "::after" }
+      );
     });
   });
 

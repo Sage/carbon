@@ -265,3 +265,35 @@ export const Size: ComponentStory<typeof NumeralDate> = () => (
     />
   </>
 );
+
+export const Required: ComponentStory<typeof NumeralDate> = () => {
+  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  return (
+    <NumeralDate
+      name="optional"
+      id="optional"
+      label="Date of Birth"
+      labelAlign="right"
+      labelWidth={30}
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+      required
+    />
+  );
+};
+
+export const IsOptional: ComponentStory<typeof NumeralDate> = () => {
+  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  return (
+    <NumeralDate
+      name="optional"
+      id="optional"
+      label="Date of Birth"
+      labelAlign="right"
+      labelWidth={30}
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+      isOptional
+    />
+  );
+};
