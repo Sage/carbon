@@ -135,6 +135,10 @@ export const RequiredStory: ComponentStory<typeof Textarea> = () => {
   return <Textarea label="Textarea" required />;
 };
 
+export const IsOptionalStory: ComponentStory<typeof Textarea> = () => {
+  return <Textarea label="Textarea" isOptional />;
+};
+
 export const ValidationStringStory: ComponentStory<typeof Textarea> = () => {
   return (
     <>
