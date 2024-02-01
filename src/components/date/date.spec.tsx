@@ -15,7 +15,6 @@ import StyledDayPicker from "./__internal__/date-picker/day-picker.style";
 import Textbox from "../textbox";
 import StyledDateInput from "./date.style";
 import I18nProvider from "../i18n-provider";
-import Label from "../../__internal__/label";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import Tooltip from "../tooltip";
 import StyledHelp from "../help/help.style";
@@ -43,6 +42,9 @@ import {
 } from "../../locales/date-fns-locales";
 import Logger from "../../__internal__/utils/logger";
 import StyledButton from "./__internal__/navbar/button.style";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../__internal__/label/label.style";
 
 const ariaLabels = {
   nextMonthButton: () => "foo",
@@ -1194,22 +1196,34 @@ describe("Date", () => {
     });
   });
 
-  describe("required", () => {
-    let input: ReactWrapper;
-    let label: ReactWrapper;
+  it("should set the required attribute on the input when prop is true", () => {
+    expect(
+      render({ label: "required", required: true }).find("input").getDOMNode()
+    ).toHaveAttribute("required", "");
+  });
 
-    beforeAll(() => {
-      wrapper = render({ label: "required", required: true });
-      input = wrapper.find("input");
-      label = wrapper.find(Label);
-    });
+  it("should add an asterisk after the label text when required prop is true", () => {
+    assertStyleMatch(
+      {
+        content: '"*"',
+        color: "var(--colorsSemanticNegative500)",
+        fontWeight: "700",
+        marginLeft: "var(--spacing050)",
+      },
+      render({ label: "required", required: true }).find(StyledLabel),
+      { modifier: "::after" }
+    );
+  });
 
-    it("the required prop is passed to the input", () => {
-      expect(input.prop("required")).toBe(true);
-    });
-
-    it("the isRequired prop is passed to the label", () => {
-      expect(label.prop("isRequired")).toBe(true);
-    });
+  it("should add optional styling after the label text when isOptional prop is true", () => {
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      render({ label: "isOptional", isOptional: true }).find(
+        StyledLabelContainer
+      ),
+      { modifier: "::after" }
+    );
   });
 });
