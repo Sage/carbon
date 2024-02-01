@@ -178,6 +178,10 @@ export const Required: ComponentStory<typeof Textbox> = () => {
   return <Textbox label="Textbox" value="Textbox" required />;
 };
 
+export const IsOptional: ComponentStory<typeof Textbox> = () => {
+  return <Textbox label="Textbox" value="Textbox" isOptional />;
+};
+
 export const LabelAlign: ComponentStory<typeof Textbox> = () => {
   return (
     <Box>
