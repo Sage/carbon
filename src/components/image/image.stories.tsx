@@ -109,3 +109,24 @@ export const DecorativeStory: StoryFn = () => (
   <Image alt="" src={pointSvg} decorative />
 );
 DecorativeStory.parameters = { info: { disable: true } };
+
+export const ImageWithPosition: StoryFn = () => (
+  <Image
+    m={3}
+    height="700px"
+    backgroundImage={`url(${flexibleSvg})`}
+    position="static"
+  >
+    <Box
+      height="700px"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Typography variant="h4">
+        Here is an example of Image with position static
+      </Typography>
+    </Box>
+  </Image>
+);
+ImageWithPosition.parameters = { info: { disable: true } };

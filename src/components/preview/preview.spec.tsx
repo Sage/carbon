@@ -80,4 +80,17 @@ describe("Preview", () => {
     testStyledSystemMargin((props) => <Preview {...props} />);
     testStyledSystemMargin((props) => <Preview {...props} loading />);
   });
+
+  describe("Border radius", () => {
+    it("should have the expected styling", () => {
+      const wrapper = mount(<Preview />);
+
+      assertStyleMatch(
+        {
+          borderRadius: "var(--borderRadius050)",
+        },
+        wrapper.find(PreviewPlaceholder)
+      );
+    });
+  });
 });

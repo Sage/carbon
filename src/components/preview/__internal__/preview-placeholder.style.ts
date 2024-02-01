@@ -20,6 +20,7 @@ export const StyledPreviewPlaceholder = styled.span<StyledPreviewPlaceholderProp
   height: ${({ height }) => height || "15px"};
   opacity: 0.6;
   width: ${({ width }) => width || "100%"};
+  border-radius: var(--borderRadius050);
 
   & + & {
     margin-top: 3px;

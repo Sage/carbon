@@ -1,6 +1,5 @@
 /* eslint-disable no-await-in-loop */
 import { expect, test } from "@playwright/experimental-ct-react17";
-import path from "path";
 import React from "react";
 import { HooksConfig } from "../../../playwright";
 import { accordionDefaultTitle } from "../../../playwright/components/accordion";
@@ -67,6 +66,7 @@ import {
   ActionPopoverPropsComponentWithSomeDisabled,
   ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled,
   ActionPopoverPropsComponentWithFirstAndLastDisabled,
+  ActionPopoverWithDownloadButton,
 } from "../../../src/components/action-popover/components.test-pw";
 
 const keyToTrigger = ["Enter", " ", "End", "ArrowDown", "ArrowUp"] as const;
@@ -465,27 +465,29 @@ test.describe("check functionality for ActionPopover component", () => {
     await expect(actionPopoverElement).toBeVisible();
   });
 
-  test("should check that actionPopoverInnerItem has download prop", async ({
+  test("when download prop is passed to an item, the item has the 'download' property and clicking it downloads the referenced file", async ({
     mount,
     page,
-  }) => {
-    const downloadPromise = page.waitForEvent("download");
-    await mount(<ActionPopoverCustom />);
-    const actionPopoverButtonElement = await actionPopoverButton(page).nth(1);
-    await actionPopoverButtonElement.click();
-    const downloadLink = await actionPopover(page).first().locator("a");
-    await expect(downloadLink).toHaveAttribute("download", "");
-    const actionPopoverElement = await actionPopover(page).first();
-    await actionPopoverElement.click();
-    const download = await downloadPromise;
-    const filePath = path.join(
-      process.cwd(),
-      "playwright",
-      "downloads",
-      download.suggestedFilename()
-    );
-    await download.saveAs(filePath);
-    await page.goto(`file:///${filePath}`);
+  }, testInfo) => {
+    await mount(<ActionPopoverWithDownloadButton />);
+
+    // open ActionPopover
+    await actionPopoverButton(page).click();
+
+    // check download item has 'download' property
+    const downloadItem = page.getByRole("menuitem", { name: "Download" });
+    await expect(downloadItem).toHaveAttribute("download", "");
+
+    // click download item and wait for download to start
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      downloadItem.click(),
+    ]);
+
+    // open and check file contents to verify if download was a success
+    const file = testInfo.outputPath(download.suggestedFilename());
+    await download.saveAs(file);
+    await page.goto(`file:///${file}`);
     await expect(page.locator("body")).toHaveText(
       "This is some example text in a file to test downloading functionality."
     );

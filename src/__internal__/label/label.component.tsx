@@ -34,6 +34,10 @@ export interface LabelProps
   useValidationIcon?: boolean;
   /** Id of the validation icon */
   validationIconId?: string;
+  /** Sets className for component */
+  className?: string;
+  /** Sets aria-label for label element */
+  "aria-label"?: string;
 }
 
 const shouldDisplayValidationIcon = ({
@@ -76,6 +80,8 @@ export const Label = ({
   validationIconId,
   warning,
   width = 30,
+  className,
+  "aria-label": ariaLabel,
 }: LabelProps) => {
   const [isFocused, setFocus] = useState(false);
   const { onMouseEnter, onMouseLeave } = useContext(InputContext);
@@ -148,6 +154,7 @@ export const Label = ({
       optional={optional}
       pr={pr}
       pl={pl}
+      className={className}
     >
       <StyledLabel
         data-element="label"
@@ -158,6 +165,7 @@ export const Label = ({
         onMouseLeave={handleMouseLeave}
         isRequired={isRequired}
         as={as}
+        aria-label={ariaLabel}
       >
         {children}
       </StyledLabel>

@@ -143,6 +143,14 @@ interface Locale {
   tileSelect: {
     deselect: () => string;
   };
+  time: {
+    amText: () => string;
+    pmText: () => string;
+    hoursLabelText: () => string;
+    minutesLabelText: () => string;
+    hoursAriaLabelText: () => string;
+    minutesAriaLabelText: () => string;
+  };
   toast: {
     ariaLabels: {
       close: () => string;

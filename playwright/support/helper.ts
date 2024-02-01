@@ -276,8 +276,15 @@ const verifyRequiredAsterisk = async (locator: Locator) => {
   await expect(contentValue).toBe('"*"');
 };
 
-export const verifyRequiredAsteriskForLabel = (page: Page) =>
-  verifyRequiredAsterisk(label(page));
+export const verifyRequiredAsteriskForLabel = (
+  page: Page,
+  locator?: Locator
+) => {
+  if (locator) {
+    return verifyRequiredAsterisk(locator);
+  }
+  return verifyRequiredAsterisk(label(page));
+};
 
 export const verifyRequiredAsteriskForLegend = (page: Page) =>
   verifyRequiredAsterisk(legendSpan(page));

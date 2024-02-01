@@ -170,15 +170,14 @@ const validationMessages = (
 });
 
 const getDaysInMonth = (month?: string, year?: string) => {
-  if (month && (+month > 12 || +month < 1)) {
+  if (!month || +month > 12 || +month < 1) {
     return 31;
   }
   const currentDate = new Date();
   const computedYear = +(year || currentDate.getFullYear());
-  const computedMonth = +(month || currentDate.getMonth() + 1);
 
   // passing 0 as the third argument ensures we handle for months being 0 indexed
-  return new Date(computedYear, computedMonth, 0).getDate();
+  return new Date(computedYear, +month, 0).getDate();
 };
 
 const validate = (locale: Locale, { dd, mm, yyyy }: Partial<FullDate>) => {

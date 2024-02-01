@@ -77,6 +77,12 @@ export interface TypographyProps extends SpaceProps, TagProps {
   /** Set whether it will be visually hidden
    * NOTE: This is for screen readers only and will make a lot of the other props redundant */
   screenReaderOnly?: boolean;
+  /**
+   * @private
+   * @ignore
+   * Override the default color of the rendered element to match disabled styling
+   * */
+  isDisabled?: boolean;
 }
 
 export const Typography = ({
@@ -103,6 +109,7 @@ export const Typography = ({
   children,
   className,
   screenReaderOnly,
+  isDisabled,
   ...rest
 }: TypographyProps) => {
   return (
@@ -128,6 +135,7 @@ export const Typography = ({
       opacity={opacity}
       className={className}
       screenReaderOnly={screenReaderOnly}
+      isDisabled={isDisabled}
       {...tagComponent(dataComponent, rest)}
       {...filterStyledSystemMarginProps(rest)}
       {...filterStyledSystemPaddingProps(rest)}

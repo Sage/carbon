@@ -198,7 +198,7 @@ describe("TabTitle", () => {
             left: "0px",
             right: "0px",
             boxShadow:
-              "inset 0px calc(-1 * var(--sizing025)) 0px var(--colorsActionMajor500)",
+              "inset 0px calc(-1 * var(--sizing050)) 0px var(--colorsActionMajor500)",
           },
           wrapper.find(StyledSelectedIndicator)
         );
@@ -220,8 +220,8 @@ describe("TabTitle", () => {
             bottom: "0px",
             left: "0px",
             boxShadow:
-              "inset 0px calc(-1 * var(--sizing025)) 0px var(--colorsActionMajor500)",
-            height: "var(--sizing025)",
+              "inset 0px calc(-1 * var(--sizing050)) 0px var(--colorsActionMajor500)",
+            height: "var(--sizing050)",
           },
           wrapper.find(StyledSelectedIndicator)
         );
@@ -322,7 +322,7 @@ describe("TabTitle", () => {
               right: "0px",
               bottom: "0px",
               boxShadow:
-                "inset calc(-1 * var(--sizing025)) 0px 0px 0px var(--colorsActionMajor500)",
+                "inset calc(-1 * var(--sizing050)) 0px 0px 0px var(--colorsActionMajor500)",
             },
             wrapper.find(StyledSelectedIndicator)
           );

@@ -25,6 +25,7 @@ import AccordionGroup from "./accordion-group/accordion-group.component";
 import ValidationIcon from "../../__internal__/validations";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import { AccordionProps } from "./accordion.component";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 type iconAlign = "left" | "right" | undefined;
@@ -36,7 +37,7 @@ const contentHeight = 200;
 function expectIsExpanded(wrapper: ReactWrapper) {
   assertStyleMatch(
     {
-      transform: undefined,
+      transform: "rotate(180deg)",
     },
     wrapper.find(StyledAccordionIcon)
   );
@@ -53,7 +54,7 @@ function expectIsExpanded(wrapper: ReactWrapper) {
 function expectIsCollapsed(wrapper: ReactWrapper) {
   assertStyleMatch(
     {
-      transform: "rotate(90deg)",
+      transform: "rotate(0deg)",
     },
     wrapper.find(StyledAccordionIcon)
   );
@@ -92,6 +93,40 @@ describe("Accordion", () => {
 
   beforeEach(() => {
     render();
+  });
+
+  describe("Deprecation warnings", () => {
+    let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate");
+    });
+
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
+
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
+
+    it("should display scheme prop deprecation warning once", () => {
+      render({ scheme: "transparent" });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `scheme` prop for `Accordion` component is deprecated and will soon be removed."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should display buttonHeading prop deprecation warning once", () => {
+      render({ buttonHeading: true });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `buttonHeading` prop for `Accordion` component is deprecated and will soon be removed. Please use `subtle` variant instead."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("renders content without paddings if `disableCustomPadding` is applied", () => {
@@ -325,21 +360,21 @@ describe("Accordion", () => {
       );
     });
 
-    it('renders icon rotated when accordion is collapsed (iconAlign "right")', () => {
-      render({ expanded: false });
+    it('renders icon rotated when accordion is expanded (iconAlign "right")', () => {
+      act(() => render({ expanded: true }));
       assertStyleMatch(
         {
-          transform: "rotate(90deg)",
+          transform: "rotate(180deg)",
         },
         wrapper.find(StyledAccordionIcon)
       );
     });
 
-    it('renders icon rotated when accordion is collapsed (iconAlign "left")', () => {
-      render({ iconAlign: "left", expanded: false });
+    it('renders icon rotated when accordion is expanded (iconAlign "left")', () => {
+      act(() => render({ expanded: true, iconAlign: "left" }));
       assertStyleMatch(
         {
-          transform: "rotate(-90deg)",
+          transform: "rotate(-180deg)",
         },
         wrapper.find(StyledAccordionIcon)
       );
@@ -607,6 +642,76 @@ describe("Accordion", () => {
 
       expect(wrapper.find(StyledAccordionContainer).props()["data-role"]).toBe(
         "role"
+      );
+    });
+  });
+
+  describe("subtle variant", () => {
+    it("applies expected styles", () => {
+      render({ variant: "subtle" });
+
+      const titleContainer = wrapper.find(StyledAccordionTitleContainer);
+
+      assertStyleMatch(
+        {
+          border: "none",
+          alignItems: "flex-start",
+        },
+        wrapper.find(StyledAccordionContainer)
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor500)",
+          padding: "var(--spacing025)",
+        },
+        titleContainer
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor500)",
+          marginRight: "var(--spacing050)",
+        },
+        titleContainer,
+        { modifier: `${StyledAccordionIcon}` }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor600)",
+        },
+        titleContainer,
+        { modifier: "&:hover" }
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMajor600)",
+        },
+        titleContainer,
+        { modifier: `&:hover ${StyledAccordionIcon}` }
+      );
+    });
+
+    it("applies expected styles when expanded", () => {
+      act(() => render({ variant: "subtle", defaultExpanded: true }));
+      wrapper.update();
+
+      assertStyleMatch(
+        {
+          marginBottom: "var(--spacing200)",
+        },
+        wrapper.find(StyledAccordionTitleContainer)
+      );
+
+      assertStyleMatch(
+        {
+          marginLeft: "var(--spacing150)",
+          padding: "var(--spacing100) var(--spacing200) var(--spacing300)",
+          borderLeft: "2px solid var(--colorsUtilityMajor100)",
+        },
+        wrapper.find(StyledAccordionContent)
       );
     });
   });
