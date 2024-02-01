@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import StyledIcon from "../../icon/icon.style";
-import { SortProps } from "./sort.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import baseTheme from "../../../style/themes/base";
 
@@ -8,7 +7,7 @@ const oldFocusStyling = `
   outline: solid 1px var(--colorsSemanticFocus500);
 `;
 
-const StyledSort = styled.div<Pick<SortProps, "sortType">>`
+const StyledSort = styled.div`
   display: inline-flex;
   align-items: center;
   padding-left: 2px;

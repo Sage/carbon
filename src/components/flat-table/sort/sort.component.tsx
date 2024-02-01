@@ -38,6 +38,7 @@ const Sort = ({ children, onClick, sortType, sortIcon }: SortProps) => {
 
   return (
     <>
+      {/* FE-6358 has been raised for the below (html hidden attribute used + poor translation support) */}
       <span hidden id={id.current}>
         {children}
         {sortType ? `, sort type ${sortType}` : ", sortable"}
@@ -47,13 +48,12 @@ const Sort = ({ children, onClick, sortType, sortIcon }: SortProps) => {
         onKeyDown={onKeyDown}
         tabIndex={0}
         onClick={onClick}
-        sortType={sortType}
         aria-labelledby={id.current}
       >
         {children}
-        {sortIcon && sortType ? sortIcon : renderedIcon}
+        {sortIcon || renderedIcon}
       </StyledSort>
-      {!sortType && <StyledSpaceHolder />}
+      {!sortType && !sortIcon && <StyledSpaceHolder />}
     </>
   );
 };

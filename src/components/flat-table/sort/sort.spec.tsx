@@ -16,6 +16,8 @@ describe("Sort", () => {
   const SPACE_KEY = { key: " " };
   const RANDOM_KEY = { key: "a" };
 
+  const renderedSortIcon = <Icon type="sort_up" />;
+
   beforeEach(() => {
     onClickFn = jest.fn();
     wrapper = renderSort({ onClick: onClickFn });
@@ -91,13 +93,23 @@ describe("Sort", () => {
     expect(onClickFn).not.toHaveBeenCalled();
   });
 
-  it("should render `<StyledSpaceHolder />` if `sortType` prop is not provided", () => {
+  it("should render `<StyledSpaceHolder />` if both `sortIcon` & `sortType` props are not provided", () => {
+    wrapper = renderSort();
     expect(wrapper.find(StyledSpaceHolder).exists()).toBe(true);
   });
 
-  it("should not render `StyledSpaceHolder` if `sortType` prop is provided", () => {
-    wrapper = renderSort({ sortType: "ascending" });
+  it("should not render `<StyledSpaceHolder />` if `sortIcon` prop is provided", () => {
+    wrapper = renderSort({ sortIcon: renderedSortIcon });
+    expect(wrapper.find(StyledSpaceHolder).exists()).toBe(false);
+  });
 
+  it("should not render `<StyledSpaceHolder />` if `sortType` prop is provided", () => {
+    wrapper = renderSort({ sortType: "ascending" });
+    expect(wrapper.find(StyledSpaceHolder).exists()).toBe(false);
+  });
+
+  it("should not render `<StyledSpaceHolder />` if both `sortIcon` & `sortType` props are provided", () => {
+    wrapper = renderSort({ sortType: "ascending", sortIcon: renderedSortIcon });
     expect(wrapper.find(StyledSpaceHolder).exists()).toBe(false);
   });
 });
