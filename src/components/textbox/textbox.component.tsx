@@ -121,13 +121,13 @@ export interface CommonTextboxProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
 }
 
 export interface TextboxProps extends CommonTextboxProps {
   /** Content to be rendered next to the input */
   children?: React.ReactNode;
-  /** [Legacy] Flag to configure component as optional in Form */
-  isOptional?: boolean;
   /** Container for DatePicker or SelectList components */
   positionedChildren?: React.ReactNode;
   /** Character limit of the textarea */
