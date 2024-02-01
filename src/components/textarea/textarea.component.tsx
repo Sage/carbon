@@ -100,8 +100,8 @@ export interface TextareaProps
   placeholder?: string;
   /** Adds readOnly property */
   readOnly?: boolean;
-  /** Flag to configure component as mandatory */
-  required?: boolean;
+  /** Flag to configure component as optional */
+  isOptional?: boolean;
   /** The number of visible text lines for the control */
   rows?: number;
   /** One of type of size to apply to the textarea */
@@ -170,6 +170,8 @@ export const Textarea = React.forwardRef(
       inputRef,
       borderRadius,
       hideBorders = false,
+      required,
+      isOptional,
       ...rest
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>
@@ -351,6 +353,7 @@ export const Textarea = React.forwardRef(
           inputRef={inputRef}
           validationIconId={validationRedesignOptIn ? undefined : validationId}
           inputBorderRadius={borderRadius}
+          required={required}
           {...rest}
         />
         {children}
@@ -399,7 +402,8 @@ export const Textarea = React.forwardRef(
               labelWidth={computeLabelPropValues(labelWidth)}
               labelHelp={computeLabelPropValues(labelHelp)}
               labelSpacing={labelSpacing}
-              isRequired={rest.required}
+              isRequired={required}
+              isOptional={isOptional}
               useValidationIcon={computeLabelPropValues(validationOnLabel)}
               adaptiveLabelBreakpoint={adaptiveLabelBreakpoint}
               validationRedesignOptIn={validationRedesignOptIn}
