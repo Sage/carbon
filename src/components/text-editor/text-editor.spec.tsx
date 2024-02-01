@@ -938,6 +938,16 @@ describe("TextEditor", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
     });
+
+    it("should set the correct attributes on the editable div", () => {
+      wrapper = render({ labelText: "required", required: true });
+
+      const editableNode = wrapper
+        .getDOMNode()
+        ?.querySelector("div[contenteditable='true']");
+      expect(editableNode).toHaveAttribute("required", "");
+      expect(editableNode).toHaveAttribute("aria-required", "true");
+    });
   });
 
   describe("validation", () => {

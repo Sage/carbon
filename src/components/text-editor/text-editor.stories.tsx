@@ -41,7 +41,6 @@ export const WithContent = () => {
         }}
         value={value}
         labelText="Text Editor Label"
-        required
       />
     </Box>
   );
@@ -295,9 +294,48 @@ export const WithLinkPreviews = () => {
         }}
         value={value}
         labelText="Text Editor Label"
-        required
         previews={previews.current}
         onLinkAdded={addUrl}
+      />
+    </Box>
+  );
+};
+
+export const Required = () => {
+  const [value, setValue] = useState(
+    EditorState.createWithContent(
+      ContentState.createFromText("Some initial content")
+    )
+  );
+  return (
+    <Box padding={1}>
+      <TextEditor
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        value={value}
+        labelText="Text Editor Label"
+        required
+      />
+    </Box>
+  );
+};
+
+export const IsOptional = () => {
+  const [value, setValue] = useState(
+    EditorState.createWithContent(
+      ContentState.createFromText("Some initial content")
+    )
+  );
+  return (
+    <Box padding={1}>
+      <TextEditor
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        value={value}
+        labelText="Text Editor Label"
+        isOptional
       />
     </Box>
   );
