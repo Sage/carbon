@@ -53,6 +53,10 @@ export interface FileInputProps
   onChange: (files: FileList) => void;
   /** used to control how to display the progress of uploaded file(s) within the component */
   uploadStatus?: FileUploadStatusProps | FileUploadStatusProps[];
+  /** Flag to configure component as mandatory. */
+  required?: boolean;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
 }
 
 export const FileInput = React.forwardRef(
@@ -75,6 +79,7 @@ export const FileInput = React.forwardRef(
       name,
       onChange,
       required,
+      isOptional,
       uploadStatus = [],
       ...rest
     }: FileInputProps,
@@ -215,6 +220,7 @@ export const FileInput = React.forwardRef(
           labelId={labelId}
           id={uniqueId}
           isRequired={required}
+          isOptional={isOptional}
           data-component="file-input"
           data-role={dataRole}
           data-element={dataElement}
