@@ -47,7 +47,8 @@ const StyledSplitButtonChildrenContainer = styled.div<StyledSplitButtonChildrenC
 
     ${StyledButton} {
       border: 1px solid var(--colorsActionMajorTransparent);
-      display: block;
+      display: flex;
+      justify-content: ${align};
       margin-left: 0;
       min-width: 100%;
       text-align: ${align};
