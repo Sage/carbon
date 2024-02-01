@@ -1,3 +1,10 @@
+### [125.9.3](https://github.com/Sage/carbon/compare/v125.9.2...v125.9.3) (2024-02-01)
+
+
+### Bug Fixes
+
+* **pages:** maintain height of content when page slides in ([b97dfb1](https://github.com/Sage/carbon/commit/b97dfb16889be2d91e5aeb028894e8c7c1f9d071)), closes [#6492](https://github.com/Sage/carbon/issues/6492)
+
 ### [125.9.2](https://github.com/Sage/carbon/compare/v125.9.1...v125.9.2) (2024-02-01)
 
 
