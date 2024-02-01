@@ -207,6 +207,25 @@ export const Required = () => {
   );
 };
 
+export const IsOptional = () => {
+  const [state, setState] = useState("1231231");
+
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+
+  return (
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state}
+      onChange={setValue}
+      groups={[2, 2, 3]}
+      separator="-"
+      isOptional
+    />
+  );
+};
+
 export const LabelAlign = () => {
   const [state, setState] = useState({
     right: "1231231",

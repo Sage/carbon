@@ -13,6 +13,7 @@ import Label from "../../__internal__/label";
 import { InputPresentation } from "../../__internal__/input";
 import Logger from "../../__internal__/utils/logger";
 import StyledInput from "../../__internal__/input/input.style";
+import { StyledLabelContainer } from "../../__internal__/label/label.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -287,6 +288,23 @@ describe("GroupedCharacter", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
     });
+  });
+
+  it("should add '(optional)' suffix when the isOptional prop is true", () => {
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      mount(
+        <GroupedCharacter
+          groups={basicGroupConfig}
+          separator={separator}
+          label="optional"
+          isOptional
+        />
+      ).find(StyledLabelContainer),
+      { modifier: "::after" }
+    );
   });
 
   describe("when maxWidth is passed", () => {
