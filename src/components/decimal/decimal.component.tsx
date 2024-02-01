@@ -63,8 +63,6 @@ export interface DecimalProps
     | 15;
   /** If true, the component will be read-only */
   readOnly?: boolean;
-  /** Flag to configure component as mandatory */
-  required?: boolean;
   /** The value of the input if it's used as a controlled component */
   value?: string;
   /** The locale string - default en */
@@ -88,7 +86,6 @@ export const Decimal = React.forwardRef(
       id,
       name,
       allowEmptyValue = false,
-      required,
       locale,
       value,
       inputRef,
@@ -343,7 +340,6 @@ export const Decimal = React.forwardRef(
           onKeyPress={onKeyPress}
           align={align}
           readOnly={readOnly}
-          required={required}
           inputWidth={inputWidth}
           onChange={handleOnChange}
           onBlur={handleOnBlur}
