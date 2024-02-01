@@ -193,7 +193,10 @@ export const FilterableSelect = React.forwardRef(
     );
 
     const triggerChange = useCallback(
-      (newValue, selectionConfirmed) => {
+      (
+        newValue: string | Record<string, unknown>,
+        selectionConfirmed: boolean
+      ) => {
         if (onChange) {
           onChange(createCustomEvent(newValue, selectionConfirmed));
         }
@@ -461,7 +464,7 @@ export const FilterableSelect = React.forwardRef(
         const {
           id: selectedOptionId,
           text,
-          value: newValue,
+          value: newValue = "",
           selectionType,
           selectionConfirmed,
         } = optionData;
@@ -479,7 +482,7 @@ export const FilterableSelect = React.forwardRef(
         }
 
         setTextValue(text || /* istanbul ignore next */ "");
-        triggerChange(newValue, selectionConfirmed);
+        triggerChange(newValue, !!selectionConfirmed);
         setActiveDescendantId(selectedOptionId);
 
         if (selectionType !== "navigationKey") {
