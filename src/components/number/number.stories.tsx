@@ -93,3 +93,11 @@ export const WithInputHint: ComponentStory<typeof Number> = () => (
 export const WithLabelHelp: ComponentStory<typeof Number> = () => (
   <Number label="Number" value="123456" labelHelp="Help" helpAriaLabel="Help" />
 );
+
+export const Required: ComponentStory<typeof Number> = () => {
+  return <Number label="Number" value="123456" required />;
+};
+
+export const IsOptional: ComponentStory<typeof Number> = () => {
+  return <Number label="Number" value="123456" isOptional />;
+};

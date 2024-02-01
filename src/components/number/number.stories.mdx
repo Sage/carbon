@@ -103,6 +103,23 @@ before any other announcements, this well help screen reader users understand th
   <Story name="with labelHelp" story={stories.WithLabelHelp} />
 </Canvas>
 
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas>
+  <Story name="required" story={stories.Required} />
+</Canvas>
+
+### Optional
+
+You can use the `isOptional` prop to indicate if the field is mandatory.
+
+<Canvas>
+  <Story name="optional" story={stories.IsOptional} />
+</Canvas>
+
 ### Validations
 
 Validation status can be set by passing `error`, `warning` or `info` prop to the component
