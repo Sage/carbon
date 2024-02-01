@@ -1,3 +1,10 @@
+### [125.9.2](https://github.com/Sage/carbon/compare/v125.9.1...v125.9.2) (2024-02-01)
+
+
+### Bug Fixes
+
+* **numeral-date:** ensure it uses static validation when no month value passed ([b70086a](https://github.com/Sage/carbon/commit/b70086a99f8ffdd07e02c5a8ee7590c554fd419a))
+
 ### [125.9.1](https://github.com/Sage/carbon/compare/v125.9.0...v125.9.1) (2024-01-31)
 
 
