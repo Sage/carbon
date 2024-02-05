@@ -433,10 +433,21 @@ const SelectList = React.forwardRef(
           onSelectListClose();
         } else if (key === "Enter" && !isActionButtonFocused) {
           event.preventDefault();
+
           const currentOption = childrenList[currentOptionsListIndex];
 
           if (!React.isValidElement(currentOption)) {
             onSelectListClose();
+
+            // need to call onSelect here with empty text/value to clear the input when
+            // no matches found in FilterableSelect
+            onSelect({
+              id: undefined,
+              text: "",
+              value: "",
+              selectionType: "enterKey",
+              selectionConfirmed: false,
+            });
 
             return;
           }
@@ -538,7 +549,7 @@ const SelectList = React.forwardRef(
         );
 
         if (!match) {
-          return previousIndex;
+          return -1;
         }
 
         const indexOfMatch = getIndexOfMatch(match.props.value);
