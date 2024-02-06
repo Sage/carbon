@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import LinkTo from "@storybook/addon-links/react";
-import { ButtonToggle } from ".";
+import { ButtonToggle, ButtonToggleGroup } from ".";
 
 import * as stories from "./button-toggle.stories";
 import * as groupStories from "./button-toggle-group/button-toggle-group.stories";
@@ -52,10 +52,10 @@ import {
   <Story name="default" story={stories.Default} />
 </Canvas>
 
-### Default with wrapped text
+### With inputHint
 
 <Canvas>
-  <Story name="default with wrapped text" story={stories.DefaultWrappedText} />
+  <Story name="with inputHint" story={groupStories.InputHint} />
 </Canvas>
 
 ### Controlled
@@ -81,36 +81,24 @@ When the `fullWidth` prop is `true`, the buttons will expand in size to take up 
   <Story name="fullWidth" story={groupStories.FullWidth} />
 </Canvas>
 
-### With field help inline
-
-<Canvas>
-  <Story name="fieldhelp inline" story={groupStories.FieldHelp} />
-</Canvas>
-
-### With label inline
-
-<Canvas>
-  <Story name="label inline" story={groupStories.LabelInline} />
-</Canvas>
-
 ### Allowing deselection
 
 By default, in a `ButtonToggleGroup` there is no way to deselect the currently-selected toggle button except by selecting another one.
 The `allowDeselect` prop changes this behaviour, making it possible for there to be no selection.
 
-If you use this, you should include text in the `fieldHelp` prop which makes clear that deselection is allowed, as in the example below.
+If you use this, you should include text in the `inputHint` prop which makes clear that deselection is allowed, as in the example below.
 
 <Canvas>
   <Story name="allowDeselect" story={groupStories.AllowDeselection} />
 </Canvas>
 
-### with small icon
+### Small icon
 
 <Canvas>
   <Story name="with small icon" story={stories.DefaultSmallIcon} />
 </Canvas>
 
-### with large icon
+### Large icon
 
 <Canvas>
   <Story name="with large icon" story={stories.DefaultLargeIcon} />
@@ -160,20 +148,32 @@ While we do not advocate the use of icon-only buttons for accessibility reasons,
   <Story name="large with large icon" story={stories.largeLargeIcon} />
 </Canvas>
 
-### Disabled
+### Disabled Button
 
 <Canvas>
-  <Story name="disabled" story={stories.disabled} />
+  <Story name="disabled button" story={stories.disabledButton} />
 </Canvas>
 
-### Grouped
+### Disabled Group
 
 <Canvas>
-  <Story name="grouped" story={stories.grouped} />
+  <Story name="disabled group" story={groupStories.DisabledGroup} />
+</Canvas>
+
+### Wrapped Group
+
+Buttons will wrap onto the next line in smaller screens. 
+
+<Canvas>
+  <Story name="wrapped group" story={groupStories.WrappedButtons} />
 </Canvas>
 
 ## Props
 
 ### Button Toggle
 
-<ArgsTable of={ButtonToggle} />
+<StyledSystemProps of={ButtonToggle} noHeader />
+
+### Button Toggle Group
+
+<StyledSystemProps of={ButtonToggleGroup} noHeader margin />

@@ -701,7 +701,7 @@ describe("Time component", () => {
     });
   });
 
-  it("should render the expected input styling when the minutes inout has a warning passed as a truthy boolean value", () => {
+  it("should render the expected input styling when the minutes input has a warning passed as a truthy boolean value", () => {
     render(
       <Time
         value={{ hours: "", minutes: "" }}
@@ -885,8 +885,6 @@ describe("Time component", () => {
     const hintText = screen.getByText("hint");
     const hrsLabel = screen.getByText("Hrs.");
     const minsLabel = screen.getByText("Mins.");
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, toggle] = screen.getAllByRole("group");
 
     expect(mainLabel).toHaveStyle({
       color: "var(--colorsUtilityYin030)",
@@ -899,9 +897,6 @@ describe("Time component", () => {
     });
     expect(minsLabel).toHaveStyle({
       color: "var(--colorsUtilityYin030)",
-    });
-    expect(toggle).toHaveStyle({
-      opacity: "0.3",
     });
   });
 
@@ -919,8 +914,6 @@ describe("Time component", () => {
     const hintText = screen.queryByText("hint");
     const hrsLabel = screen.queryByText("Hrs.");
     const minsLabel = screen.queryByText("Mins.");
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, toggle] = screen.getAllByRole("group");
 
     expect(hintText).toHaveStyle({
       color: "var(--colorsUtilityYin055)",
@@ -930,9 +923,6 @@ describe("Time component", () => {
     });
     expect(minsLabel).toHaveStyle({
       color: "var(--colorsUtilityYin055)",
-    });
-    expect(toggle).toHaveStyle({
-      opacity: "0.3",
     });
   });
 

@@ -418,19 +418,14 @@ test.describe("Time component", () => {
 
       const hoursInput = page.locator("input").first();
       const minutesInput = page.locator("input").last();
-      const amToggleButton = getDataComponentByValue(
+      const toggleButtons = getDataComponentByValue(
         page,
-        "am-button-toggle"
-      ).locator("button");
-      const pmToggleButton = getDataComponentByValue(
-        page,
-        "pm-button-toggle"
-      ).locator("button");
+        "time-button-toggle-group"
+      ).first();
 
       await assertCssValueIsApproximately(hoursInput, "height", height);
       await assertCssValueIsApproximately(minutesInput, "height", height);
-      await assertCssValueIsApproximately(amToggleButton, "height", height);
-      await assertCssValueIsApproximately(pmToggleButton, "height", height);
+      await assertCssValueIsApproximately(toggleButtons, "height", height + 2);
     });
   });
 

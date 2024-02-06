@@ -15,7 +15,7 @@ export const StyledHintText = styled.div<{
     content: " ";
   }
 
-  margin-top: 0px;
+  margin-top: var(--spacing000);
   margin-bottom: var(--spacing150);
   color: ${({ isDisabled }) =>
     isDisabled ? "var(--colorsUtilityYin030)" : "var(--colorsUtilityYin055)"};

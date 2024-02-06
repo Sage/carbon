@@ -11,12 +11,17 @@ import {
   StyledButtonToggleWrapper,
 } from "../button-toggle.style";
 import { ButtonToggle, ButtonToggleGroup, ButtonToggleGroupProps } from "..";
-import StyledButtonToggleGroup from "./button-toggle-group.style";
+import StyledButtonToggleGroup, {
+  StyledHintText,
+} from "./button-toggle-group.style";
+import FormFieldStyle from "../../../__internal__/form-field/form-field.style";
 import Label from "../../../__internal__/label";
+import Help from "../../../components/help";
 import StyledLabel from "../../../__internal__/label/label.style";
 import FieldHelp from "../../../__internal__/field-help";
 import StyledHelp from "../../help/help.style";
 import Logger from "../../../__internal__/utils/logger";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 const mockedGuid = "guid-12345";
 
@@ -56,6 +61,39 @@ describe("ButtonToggleGroup", () => {
       },
       wrapper.find(StyledButtonToggleGroup)
     );
+  });
+
+  it("renders component with hint text when inputHint prop is passed", () => {
+    const wrapper = render({ inputHint: "Hint text" });
+
+    expect(wrapper.find(StyledHintText).text()).toBe("Hint text");
+  });
+
+  describe("when disabled prop is passed", () => {
+    const wrapper = render({ disabled: true, inputHint: "Hint text" });
+
+    it("renders component with expected styles", () => {
+      assertStyleMatch(
+        {
+          cursor: "not-allowed",
+          boxShadow: "inset 0px 0px 0px 1px var(--colorsActionDisabled600)",
+        },
+        wrapper.find(StyledButtonToggleGroup)
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityYin030)",
+        },
+        wrapper.find(StyledHintText)
+      );
+    });
+
+    it("should render children as disabled", () => {
+      const buttons = wrapper.find(StyledButtonToggle);
+      expect(buttons.at(0).getDOMNode()).toHaveAttribute("disabled");
+      expect(buttons.at(1).getDOMNode()).toHaveAttribute("disabled");
+    });
   });
 
   describe("accessible name", () => {
@@ -255,6 +293,23 @@ describe("ButtonToggleGroup", () => {
         expect(wrapper.find(Label).prop(passedPropName)).toBe(propValue);
       });
     });
+
+    it("should not render labelHelp tooltip when validationRedesignOptIn is true", () => {
+      const wrapper = mount(
+        <CarbonProvider validationRedesignOptIn>
+          <ButtonToggleGroup
+            id="button-toggle-group-id"
+            label="test"
+            labelHelp="test"
+          >
+            <ButtonToggle value="foo">Foo</ButtonToggle>
+            <ButtonToggle value="bar">Bar</ButtonToggle>
+          </ButtonToggleGroup>
+        </CarbonProvider>
+      );
+
+      expect(wrapper.find(Help).exists()).toBe(false);
+    });
   });
 
   describe("FieldHelp", () => {
@@ -287,6 +342,23 @@ describe("ButtonToggleGroup", () => {
           expect(wrapper.find(FieldHelp).prop(propName)).toBe(propValue);
         });
       });
+    });
+
+    it("should not render fieldHelp when validationRedesignOptIn is true", () => {
+      const wrapper = mount(
+        <CarbonProvider validationRedesignOptIn>
+          <ButtonToggleGroup
+            id="button-toggle-group-id"
+            label="test"
+            fieldHelp="test"
+          >
+            <ButtonToggle value="foo">Foo</ButtonToggle>
+            <ButtonToggle value="bar">Bar</ButtonToggle>
+          </ButtonToggleGroup>
+        </CarbonProvider>
+      );
+
+      expect(wrapper.find(FieldHelp).exists()).toBe(false);
     });
   });
 
@@ -445,6 +517,7 @@ describe("ButtonToggleGroup", () => {
   testStyledSystemMargin(
     (props) => <MockComponent {...props} />,
     undefined,
-    (component) => component.find(StyledButtonToggleGroup)
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
   );
 });
