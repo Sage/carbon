@@ -1,32 +1,5 @@
-/* eslint-disable no-console */
 import { defineConfig } from "cypress";
 import webpackConfig from "./cypress/webpack.config.js";
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const cypressSplit = require("cypress-split");
-
-async function setupNodeEvents(
-  on: Cypress.PluginEvents,
-  config: Cypress.PluginConfigOptions
-): Promise<Cypress.PluginConfigOptions> {
-  on("task", {
-    log(message) {
-      console.log(message);
-      return null;
-    },
-
-    table(message) {
-      console.table(message);
-      return null;
-    },
-  });
-  cypressSplit(on, config);
-
-  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
-  require("cypress-mochawesome-reporter/plugin")(on);
-
-  return config;
-}
 
 export default defineConfig({
   blockHosts: ["www.google-analytics.com", "sockjs*", "countries*"],
@@ -46,7 +19,6 @@ export default defineConfig({
       bundler: "webpack",
       webpackConfig,
     },
-    setupNodeEvents,
     watchForFileChanges: true,
     excludeSpecPattern: ["**/examples/*", "**/*.spec.{js|ts*}"],
     specPattern: [
@@ -54,5 +26,5 @@ export default defineConfig({
       "./cypress/components/**/*.cy.tsx",
     ],
   },
-  reporter: "cypress-mochawesome-reporter",
+  reporter: "list",
 });

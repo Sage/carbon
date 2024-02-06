@@ -11,11 +11,6 @@ jobs:
     name: "Run Cypress tests"
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        # run 5 copy of the current job in parallel
-        containers: [1, 2, 3, 4, 5]
     container:
       image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
       options: --user 1001
@@ -42,7 +37,7 @@ jobs:
           restore-keys: |
             cypress-${{ runner.os }}-cypress-
 
-      - name: install dependencies and verify Cypress
+      - name: Install dependencies and verify Cypress
         run: |
           npm ci
           npx cypress cache path
@@ -50,17 +45,14 @@ jobs:
           npx cypress verify
           npx cypress info
 
-      - name: Run split Cypress tests
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
           component: true
           install: false
           quiet: true
           browser: chrome
-        env:
-          SPLIT: ${{ strategy.job-total }}
-          SPLIT_INDEX: ${{ strategy.job-index }}
-          DEBUG: cypress-split
+          record: false
 
       - name: Upload report to GitHub Actions Artifacts
         uses: actions/upload-artifact@v3
