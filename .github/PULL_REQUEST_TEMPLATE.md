@@ -31,7 +31,6 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 - [ ] Screenshots are included in the PR if useful
 - [ ] All themes are supported if required
 - [ ] Unit tests added or updated if required
-- [ ] Cypress automation tests added or updated if required
 - [ ] Playwright automation tests added or updated if required
 - [ ] Storybook added or updated if required
 - [ ] Translations added or updated (including creating or amending translation keys table in storybook) if required
@@ -41,7 +40,7 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 #### QA
 
 - [ ] Tested in CodeSandbox/storybook
-- [ ] Add new Cypress test coverage if required
+- [ ] Add new Playwright test coverage if required
 - [ ] Carbon implementation matches Design System/designs
 - [ ] UI Tests GitHub check reviewed if required
 
