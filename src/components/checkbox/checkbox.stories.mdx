@@ -137,6 +137,33 @@ This is an example of `Checkbox` with validations passed as boolean values.
   <Story name="New Validations - boolean" story={validationStories.NewBooleanValidation} />
 </Canvas>
 
+### Required
+
+You can use the `required` prop to indicate if the fields are mandatory. This can be done on 
+an individual checkbox input or on the group level.
+
+<Canvas>
+  <Story name="required" story={stories.Required} />
+</Canvas>
+
+<Canvas>
+  <Story name="required - group" story={stories.CheckboxGroupRequired} />
+</Canvas>
+
+### IsOptional
+
+You can use the `isOptional` prop to indicate if the fields are optional. This can be done on 
+an individual checkbox input or on the group level.
+
+<Canvas>
+  <Story name="optional" story={stories.IsOptional} />
+</Canvas>
+
+<Canvas>
+  <Story name="optional - group" story={stories.CheckboxGroupIsOptional} />
+</Canvas>
+
+
 ## Props
 
 ### Checkbox

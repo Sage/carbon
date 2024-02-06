@@ -746,6 +746,18 @@ describe("Switch", () => {
     });
   });
 
+  it("should append '(optional)' content on the label when the isOptional prop is true", () => {
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      render({ isOptional: true, label: "Optional" }, mount).find(
+        StyledLabelContainer
+      ),
+      { modifier: "::after" }
+    );
+  });
+
   describe("input role", () => {
     const wrapper = render({});
 

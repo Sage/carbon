@@ -39,11 +39,24 @@ export const Required = () => {
   const [isChecked, setIsChecked] = useState(false);
   return (
     <Switch
-      label="Terms and Conditions"
+      label="Label"
       name="required"
       checked={isChecked}
       onChange={(e) => setIsChecked(e.target.checked)}
       required
+    />
+  );
+};
+
+export const IsOptional = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  return (
+    <Switch
+      label="Label"
+      name="switch-name"
+      checked={isChecked}
+      isOptional
+      onChange={(e) => setIsChecked(e.target.checked)}
     />
   );
 };

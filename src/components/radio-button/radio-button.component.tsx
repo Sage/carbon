@@ -12,11 +12,10 @@ import { NewValidationContext } from "../carbon-provider/carbon-provider.compone
 
 interface InternalRadioButtonProps {
   inline?: boolean;
-  required?: boolean;
 }
 
 export interface RadioButtonProps
-  extends CommonCheckableInputProps,
+  extends Omit<CommonCheckableInputProps, "required" | "IsOptional">,
     MarginProps {
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
@@ -62,7 +61,6 @@ export const RadioButton = React.forwardRef<
       onFocus,
       value,
       reverse = false,
-      required,
       size,
       error,
       warning,
@@ -138,7 +136,6 @@ export const RadioButton = React.forwardRef<
        * opposite way around by default)
        */
       reverse: !reverse,
-      required,
       ref: ref || inputRef,
       ...props,
     };

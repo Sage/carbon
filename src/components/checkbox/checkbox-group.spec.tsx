@@ -96,6 +96,7 @@ describe("CheckboxGroup", () => {
   describe.each([
     ["legend", "foo"],
     ["required", true, "isRequired"],
+    ["isOptional", true],
     ["legendInline", true, "inline"],
     ["legendWidth", 30],
     ["legendAlign", "right"],
