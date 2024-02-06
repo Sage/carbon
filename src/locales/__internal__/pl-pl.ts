@@ -215,6 +215,15 @@ const plPL: Locale = {
   splitButton: {
     ariaLabel: () => "Pokaż więcej",
   },
+  stepFlow: {
+    stepLabel: (currentStep, totalSteps) =>
+      `Krok ${currentStep} z ${totalSteps}`,
+    screenReaderOnlyTitle: (title, currentStep, totalSteps, category) =>
+      `${
+        category ? `${category}.` : ""
+      }. ${title}. Krok ${currentStep} of ${totalSteps}.`,
+    closeIconAriaLabel: () => "Zamknij",
+  },
   switch: {
     on: () => "WŁ",
     off: () => "WYŁ",
