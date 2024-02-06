@@ -11,17 +11,6 @@ const meta: Meta<typeof Checkbox> = {
 export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
-export const Required: Story = () => {
-  return (
-    <Checkbox
-      label="I agree to the Terms and Conditions"
-      name="required"
-      required
-    />
-  );
-};
-Required.storyName = "Required";
-
 export const NewStringValidation: Story = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
