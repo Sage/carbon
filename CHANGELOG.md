@@ -1,3 +1,10 @@
+## [125.11.0](https://github.com/Sage/carbon/compare/v125.10.0...v125.11.0) (2024-02-06)
+
+
+### Features
+
+* **step-flow:** add new component ([707ef4f](https://github.com/Sage/carbon/commit/707ef4f30b02c68c6595eea6590c968d6456eebf))
+
 ## [125.10.0](https://github.com/Sage/carbon/compare/v125.9.3...v125.10.0) (2024-02-06)
 
 
