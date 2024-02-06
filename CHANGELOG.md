@@ -1,3 +1,11 @@
+## [125.10.0](https://github.com/Sage/carbon/compare/v125.9.3...v125.10.0) (2024-02-06)
+
+
+### Features
+
+* **pill:** add dark background color variants ([8f4b697](https://github.com/Sage/carbon/commit/8f4b69735a96cececfaef7c74cb8fc1d5c48d0a0))
+* **pill:** add information variant ([dcf30bd](https://github.com/Sage/carbon/commit/dcf30bd2ebb1997e84eabb616b8008b350764608))
+
 ### [125.9.3](https://github.com/Sage/carbon/compare/v125.9.2...v125.9.3) (2024-02-01)
 
 
