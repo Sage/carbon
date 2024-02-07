@@ -31,7 +31,10 @@ export interface MenuFullscreenProps extends Omit<TagProps, "data-component"> {
   startPosition?: "left" | "right";
   /** A callback to be called when the close icon is clicked or enter is pressed when focused */
   onClose: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+    ev:
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | KeyboardEvent
   ) => void;
   /** Manually override the internal modal stacking order to set this as top */
   topModalOverride?: boolean;
@@ -100,7 +103,7 @@ export const MenuFullscreen = ({
   );
 
   const closeModal = useCallback(
-    (ev) => {
+    (ev: KeyboardEvent) => {
       if (onClose && Events.isEscKey(ev)) {
         ev.stopImmediatePropagation();
         onClose(ev);
