@@ -65,7 +65,7 @@ context("Test for TextEditor component", () => {
         textEditorToolbar(buttonType).should(
           "have.css",
           "background-color",
-          "rgb(204, 214, 219)"
+          "rgb(0, 50, 76)"
         );
       }
     );
@@ -107,7 +107,7 @@ context("Test for TextEditor component", () => {
         textEditorToolbar(buttonType).should(
           "have.css",
           "background-color",
-          "rgb(204, 214, 219)"
+          "rgb(0, 50, 76)"
         );
       }
     );
@@ -163,7 +163,7 @@ context("Test for TextEditor component", () => {
         textEditorToolbar(buttonType).should(
           "have.css",
           "background-color",
-          "rgb(204, 214, 219)"
+          "rgb(0, 50, 76)"
         );
       }
     );
@@ -185,7 +185,7 @@ context("Test for TextEditor component", () => {
         textEditorToolbar(buttonType).should(
           "have.css",
           "background-color",
-          "rgb(204, 214, 219)"
+          "rgb(0, 50, 76)"
         );
       }
     );
@@ -278,17 +278,17 @@ context("Test for TextEditor component", () => {
 
       it("render with the expected border radius on the toolbar buttons", () => {
         CypressMountWithProviders(<TextEditorCustom />);
-        textEditorToolbar("bold").should("have.css", "border-radius", "4px");
-        textEditorToolbar("italic").should("have.css", "border-radius", "4px");
+        textEditorToolbar("bold").should("have.css", "border-radius", "8px");
+        textEditorToolbar("italic").should("have.css", "border-radius", "8px");
         textEditorToolbar("bullet-list").should(
           "have.css",
           "border-radius",
-          "4px"
+          "8px"
         );
         textEditorToolbar("number-list").should(
           "have.css",
           "border-radius",
-          "4px"
+          "8px"
         );
       });
     });
@@ -320,17 +320,17 @@ context("Test for TextEditor component", () => {
     describe("rounded corners", () => {
       it("should render with the expected border radius on the toolbar buttons", () => {
         CypressMountWithProviders(<TextEditorCustom />);
-        textEditorToolbar("bold").should("have.css", "border-radius", "4px");
-        textEditorToolbar("italic").should("have.css", "border-radius", "4px");
+        textEditorToolbar("bold").should("have.css", "border-radius", "8px");
+        textEditorToolbar("italic").should("have.css", "border-radius", "8px");
         textEditorToolbar("bullet-list").should(
           "have.css",
           "border-radius",
-          "4px"
+          "8px"
         );
         textEditorToolbar("number-list").should(
           "have.css",
           "border-radius",
-          "4px"
+          "8px"
         );
       });
     });

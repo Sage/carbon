@@ -1,3 +1,40 @@
+## [125.12.0](https://github.com/Sage/carbon/compare/v125.11.1...v125.12.0) (2024-02-07)
+
+
+### Features
+
+* **text-editor:** make container of `toolbarElements` a flex container for responsiveness ([305bf69](https://github.com/Sage/carbon/commit/305bf6902a2fc7c7e480c72d2376d25e6cbb538a)), closes [#6530](https://github.com/Sage/carbon/issues/6530)
+* **text-editor:** update dimensions and active background colour of toolbar buttons ([446b327](https://github.com/Sage/carbon/commit/446b327483af70e5fc59b2ba4f174dde52ec770b))
+
+### [125.11.1](https://github.com/Sage/carbon/compare/v125.11.0...v125.11.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* **select:** maintain option ids according to key when children count changes ([144583b](https://github.com/Sage/carbon/commit/144583ba10c284209e9f4dc8e4d081ee1da4b332)), closes [#6378](https://github.com/Sage/carbon/issues/6378)
+
+## [125.11.0](https://github.com/Sage/carbon/compare/v125.10.0...v125.11.0) (2024-02-06)
+
+
+### Features
+
+* **step-flow:** add new component ([707ef4f](https://github.com/Sage/carbon/commit/707ef4f30b02c68c6595eea6590c968d6456eebf))
+
+## [125.10.0](https://github.com/Sage/carbon/compare/v125.9.3...v125.10.0) (2024-02-06)
+
+
+### Features
+
+* **pill:** add dark background color variants ([8f4b697](https://github.com/Sage/carbon/commit/8f4b69735a96cececfaef7c74cb8fc1d5c48d0a0))
+* **pill:** add information variant ([dcf30bd](https://github.com/Sage/carbon/commit/dcf30bd2ebb1997e84eabb616b8008b350764608))
+
+### [125.9.3](https://github.com/Sage/carbon/compare/v125.9.2...v125.9.3) (2024-02-01)
+
+
+### Bug Fixes
+
+* **pages:** maintain height of content when page slides in ([b97dfb1](https://github.com/Sage/carbon/commit/b97dfb16889be2d91e5aeb028894e8c7c1f9d071)), closes [#6492](https://github.com/Sage/carbon/issues/6492)
+
 ### [125.9.2](https://github.com/Sage/carbon/compare/v125.9.1...v125.9.2) (2024-02-01)
 
 

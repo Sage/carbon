@@ -39,6 +39,7 @@ exports[`OptionGroupHeader renders properly 1`] = `
 
 <div
   className="c0"
+  id="guid-12345"
 >
   <h4>
     Heading
@@ -119,6 +120,7 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
 
 <div
   className="c0"
+  id="guid-12345"
 >
   <span
     className="c1 c2"

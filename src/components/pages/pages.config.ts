@@ -6,7 +6,6 @@ const slideAnimation = css`
   .slide-next-enter {
     opacity: 0;
     left: 100%;
-    position: absolute;
   }
 
   .slide-next-enter.slide-next-enter-active {
@@ -18,7 +17,6 @@ const slideAnimation = css`
   .slide-next-exit {
     opacity: 1;
     left: 0;
-    position: relative;
   }
 
   .slide-next-exit.slide-next-exit-active {
@@ -31,7 +29,6 @@ const slideAnimation = css`
   .slide-previous-enter {
     opacity: 0;
     left: -100%;
-    position: absolute;
   }
 
   .slide-previous-enter.slide-previous-enter-active {
@@ -43,7 +40,6 @@ const slideAnimation = css`
   .slide-previous-exit {
     opacity: 1;
     left: 0;
-    position: relative;
   }
 
   .slide-previous-exit.slide-previous-exit-active {

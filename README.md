@@ -1,6 +1,6 @@
 # Carbon [![npm](https://img.shields.io/npm/v/carbon-react.svg)](https://www.npmjs.com/package/carbon-react) [![Cypress](https://github.com/Sage/carbon/actions/workflows/cypress.yml/badge.svg)](https://github.com/Sage/carbon/actions/workflows/cypress.yml) [![Playwright](https://github.com/Sage/carbon/actions/workflows/playwright.yml/badge.svg)](https://github.com/Sage/carbon/actions/workflows/playwright.yml)
 
-Carbon is a [React](https://facebook.github.io/react/) component library developed by Sage.
+Carbon is a [React](https://react.dev/) component library developed by Sage.
 
 ## Getting started
 
@@ -8,7 +8,7 @@ Our [getting started guide](https://carbon.sage.com/?path=/story/getting-started
 
 ## Examples
 
-See the [storybook](https://carbon.sage.com/) for live examples.
+See our [docs](https://carbon.sage.com/) for live examples.
 
 ## Browser Support
 
