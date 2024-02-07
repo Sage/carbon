@@ -1,20 +1,18 @@
-import LinkTo from "@storybook/addon-links/react";
-
 <Meta title="Getting Started/Usage" />
 
 # Usage
 
 ## Contents
 
-- [Quickstart](#quickstart)
+- [Quick start](#quick-start)
 - [Globals](#globals)
   - [Global styles](#global-styles)
   - [Theming](#theming)
   - [Localisation](#localisation)
 
-## Quickstart
+## Quick start
 
-A basic project `index.js` file would resemble this example:
+A basic project `index.(jsx|tsx)` file would resemble this example:
 
 ```jsx
 import React from "react";
@@ -37,10 +35,9 @@ const App = (props) => {
 ReactDOM.render(<App />, document.getElementById("app"));
 ```
 
-This can also be found in our Codesandbox templates:
+You can also find this in this live sandbox:
 
-- [JavaScript quickstart](https://codesandbox.io/s/carbon-quickstart-j5pb2).
-- [TypeScript quickstart](https://codesandbox.io/s/carbon-quickstart-typescript-6sjfuz)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/Parsium/carbon-starter)
 
 ## Globals
 
@@ -67,7 +64,7 @@ Carbon supports two theming systems - the latest which uses Design Tokens in for
 
 The themes available in Carbon include:
 
-- **sage** - the latest theme which uses Design Tokens in form of CSS custom properties. _Note this theme requires installation of `@sage/design-tokens` library, otherwise styles fallback to the old mint theme for compatability._
+- **sage** - the latest theme which uses Design Tokens in form of CSS custom properties. _Note this theme requires installation of `@sage/design-tokens` library, otherwise styles fallback to the old mint theme for compatibility._
 - **mint**, **aegean** and **none** - legacy themes that use old theme properties consumed by [ThemeProvider from the styled-components library](https://styled-components.com/docs/advanced#theming).
 
 To supply the theme styles to your components, you can pass them via the <a href="../?path=/docs/carbon-provider--sage-theme" target="_self">Carbon Provider</a>.
