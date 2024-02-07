@@ -19,7 +19,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
         content: "*";
         color: var(--colorsSemanticNegative500);
         font-weight: 700;
-        margin-left: var(--spacing100);
+        margin-left: var(--spacing050);
       }
     `}
 
@@ -75,7 +75,8 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
       ::after {
         content: "(optional)";
         font-weight: 350; //TODO: (tokens) use token var(--fontWeights400)
-        margin-left: 4px;
+        margin-left: var(--spacing050);
+        color: var(--colorsUtilityYin055);
       }
     `}
 `;
