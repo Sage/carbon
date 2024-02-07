@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
-import Form from ".";
+import Form, { RequiredFieldsIndicator } from ".";
 import Button from "../button";
-import { Tab, Tabs } from "../tabs";
 import Box from "../box";
 import Textbox from "../textbox";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -17,6 +16,7 @@ import Hr from "../../components/hr";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
 import isChromatic from "../../../.storybook/isChromatic";
+import Typography from "../typography";
 
 const isOpenForChromatic = isChromatic();
 
@@ -33,17 +33,6 @@ export const DefaultWithStickyFooter = () => (
     }
     stickyFooter
   >
-    <Tabs mb={2}>
-      <Tab
-        pl="3px"
-        customLayout={
-          <Box mx="16px" my="10px">
-            Tab1
-          </Box>
-        }
-        tabId="tab1"
-      />
-    </Tabs>
     <Textbox label="Textbox" />
     <Textbox label="Textbox" />
     <Textbox label="Textbox" />
@@ -77,17 +66,6 @@ export const WithFullWidthButtons = () => (
       errorCount={3}
       warningCount={2}
     >
-      <Tabs mb={2}>
-        <Tab
-          pl="3px"
-          customLayout={
-            <Box mx="16px" my="10px">
-              Tab1
-            </Box>
-          }
-          tabId="tab1"
-        />
-      </Tabs>
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
@@ -191,6 +169,155 @@ export const WithBothErrorsAndWarningsSummary = () => (
     warningCount={2}
   >
     <Textbox label="Textbox" />
+  </Form>
+);
+
+export const WithBothOptionalOrRequired = () => (
+  <Box m={1}>
+    <RequiredFieldsIndicator mb={2}>
+      <Typography variant="b">Fill in all fields marked with</Typography>
+    </RequiredFieldsIndicator>
+    <Form
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+    >
+      <Textbox label="Textbox" isOptional />
+      <Textbox label="Textbox" required />
+      <Select
+        name="simple-optional"
+        id="simple-optional"
+        label="Simple Select"
+        isOptional
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="simple-required"
+        id="simple-required"
+        label="Simple Select"
+        required
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <MultiSelect
+        name="multi-optional"
+        id="multi-optional"
+        label="Multi Select"
+        isOptional
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </MultiSelect>
+      <MultiSelect
+        name="multi-required"
+        id="multi-required"
+        label="Multi Select"
+        required
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </MultiSelect>
+      <RadioButtonGroup
+        name="radio group optional"
+        onChange={() => console.log("RADIO CHANGE")}
+        legend="RadioGroup"
+        isOptional
+      >
+        <RadioButton
+          id="group-2-input-1"
+          value="group-2-input-1"
+          label="Radio Option 1"
+          labelWidth={10}
+        />
+        <RadioButton
+          id="group-2-input-2"
+          value="group-2-input-2"
+          label="Radio Option 2"
+          labelWidth={10}
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        name="radio group required"
+        onChange={() => console.log("RADIO CHANGE")}
+        legend="RadioGroup"
+        required
+      >
+        <RadioButton
+          id="group-2-input-1"
+          value="group-2-input-1"
+          label="Radio Option 1"
+          labelWidth={10}
+        />
+        <RadioButton
+          id="group-2-input-2"
+          value="group-2-input-2"
+          label="Radio Option 2"
+          labelWidth={10}
+        />
+      </RadioButtonGroup>
+      <Checkbox
+        name="checkbox"
+        onChange={() => console.log("CHECKBOX OPTIONAL")}
+        label="Checkbox"
+        isOptional
+      />
+      <Checkbox
+        name="checkbox"
+        onChange={() => console.log("CHECKBOX REQUIRED")}
+        label="Checkbox"
+        required
+      />
+    </Form>
+  </Box>
+);
+
+WithBothOptionalOrRequired.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+};
+
+export const WithOptionalLabel = () => (
+  <Form
+    onSubmit={() => console.log("submit")}
+    leftSideButtons={
+      <Button onClick={() => console.log("cancel")}>Cancel</Button>
+    }
+    saveButton={
+      <Button buttonType="primary" type="submit">
+        Save
+      </Button>
+    }
+  >
+    <Textbox label="Textbox" />
+  </Form>
+);
+
+export const WithRequiredLabel = () => (
+  <Form
+    onSubmit={() => console.log("submit")}
+    leftSideButtons={
+      <Button onClick={() => console.log("cancel")}>Cancel</Button>
+    }
+    saveButton={
+      <Button buttonType="primary" type="submit">
+        Save
+      </Button>
+    }
+  >
+    <Textbox label="Textbox" required />
+    <Textarea label="Textarea" required />
   </Form>
 );
 
@@ -507,7 +634,6 @@ export const FormAlignmentExample = () => {
         labelWidth={10}
         inputWidth={30}
         fieldHelp="This is some help text"
-        isOptional={false}
       />
       <Textbox
         key="input-two"
