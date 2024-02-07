@@ -1,3 +1,11 @@
+## [125.12.0](https://github.com/Sage/carbon/compare/v125.11.1...v125.12.0) (2024-02-07)
+
+
+### Features
+
+* **text-editor:** make container of `toolbarElements` a flex container for responsiveness ([305bf69](https://github.com/Sage/carbon/commit/305bf6902a2fc7c7e480c72d2376d25e6cbb538a)), closes [#6530](https://github.com/Sage/carbon/issues/6530)
+* **text-editor:** update dimensions and active background colour of toolbar buttons ([446b327](https://github.com/Sage/carbon/commit/446b327483af70e5fc59b2ba4f174dde52ec770b))
+
 ### [125.11.1](https://github.com/Sage/carbon/compare/v125.11.0...v125.11.1) (2024-02-07)
 
 
