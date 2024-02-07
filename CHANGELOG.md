@@ -1,3 +1,10 @@
+### [125.11.1](https://github.com/Sage/carbon/compare/v125.11.0...v125.11.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* **select:** maintain option ids according to key when children count changes ([144583b](https://github.com/Sage/carbon/commit/144583ba10c284209e9f4dc8e4d081ee1da4b332)), closes [#6378](https://github.com/Sage/carbon/issues/6378)
+
 ## [125.11.0](https://github.com/Sage/carbon/compare/v125.10.0...v125.11.0) (2024-02-06)
 
 
