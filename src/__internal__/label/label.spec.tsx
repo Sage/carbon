@@ -133,7 +133,7 @@ describe("Label", () => {
         {
           content: '"(optional)"',
           fontWeight: "350",
-          marginLeft: "4px",
+          marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabelContainer),
         { modifier: "::after" }
@@ -169,7 +169,7 @@ describe("Label", () => {
           content: '"*"',
           color: "var(--colorsSemanticNegative500)",
           fontWeight: "700",
-          marginLeft: "var(--spacing100)",
+          marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabel),
         { modifier: "::after" }
