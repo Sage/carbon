@@ -22,7 +22,7 @@ To use Form, import the `Form` and pass the content, usually various inputs, as 
 You can provide a save button using the `saveButton` prop.
 
 ```javascript
-import Form from "carbon-react/lib/components/form";
+import Form, { RequiredFieldsIndicator } from "carbon-react/lib/components/form";
 ```
 
 ## Examples
@@ -58,6 +58,13 @@ When either `errorCount` or `warningCount` or both are provided, summary with th
 <Canvas of={FormStories.WithWarningsSummary} />
 
 <Canvas of={FormStories.WithBothErrorsAndWarningsSummary} />
+
+### Example with optional and required fields
+
+You can set the `required` or `isOptional` on any `Form` input to make them mandatory or optional. You can also 
+include an indicator within the `Form` by importing the `RequiredFieldsIndicator` component.
+
+<Canvas name="with optional or required label" of={FormStories.WithBothOptionalOrRequired} />
 
 ### Buttons variations
 
