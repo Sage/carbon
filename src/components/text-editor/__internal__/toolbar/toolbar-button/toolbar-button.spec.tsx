@@ -2,7 +2,6 @@ import React from "react";
 import { mount } from "enzyme";
 import { assertStyleMatch } from "../../../../../__spec_helper__/test-utils";
 import ToolbarButton from "./toolbar-button.component";
-import StyledIcon from "../../../../icon/icon.style";
 
 const onKeyDown = jest.fn();
 const onMouseDown = jest.fn();
@@ -31,13 +30,14 @@ describe("ToolbarButton", () => {
 
       assertStyleMatch(
         {
+          display: "inline-flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "6px",
           backgroundColor: "inherit",
           border: "none",
+          borderRadius: "var(--borderRadius100)",
           cursor: "pointer",
-          width: "32px",
-          fontSize: "14px",
-          height: "32px",
-          borderRadius: "var(--borderRadius050)",
         },
         wrapper
       );
@@ -49,20 +49,12 @@ describe("ToolbarButton", () => {
         wrapper,
         { modifier: ":hover" }
       );
-
-      assertStyleMatch(
-        {
-          width: "auto",
-        },
-        wrapper,
-        { modifier: `${StyledIcon}` }
-      );
     });
 
     it("matches the expected `background-color` when `activated` prop is truthy", () => {
       assertStyleMatch(
         {
-          backgroundColor: "var(--colorsActionMinor200)",
+          backgroundColor: "var(--colorsActionMinor600)",
         },
         render({ activated: true })
       );

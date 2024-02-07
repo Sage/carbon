@@ -9,14 +9,8 @@ import Events from "../../../../__internal__/utils/helpers/events";
 import Icon from "../../../icon";
 import Tooltip from "../../../tooltip";
 import useLocale from "../../../../hooks/__internal__/useLocale";
-import {
-  BOLD,
-  ITALIC,
-  UNORDERED_LIST,
-  ORDERED_LIST,
-  InlineStyleType,
-  BlockType,
-} from "../../types";
+import { BOLD, ITALIC, UNORDERED_LIST, ORDERED_LIST } from "../../types";
+import type { InlineStyleType, BlockType } from "../../types";
 
 export interface ToolbarProps {
   /** Used to override the active status of the inline controls */
@@ -164,7 +158,14 @@ const Toolbar = ({
             onFocus={() => setActiveTooltip("Bold")}
             onBlur={() => setActiveTooltip("")}
           >
-            <Icon type="bold" />
+            <Icon
+              color={
+                activeControls[BOLD]
+                  ? "var(--colorsActionMinorYang100)"
+                  : undefined
+              }
+              type="bold"
+            />
           </ToolbarButton>
         </Tooltip>
         <Tooltip
@@ -184,7 +185,14 @@ const Toolbar = ({
             onFocus={() => setActiveTooltip("Italic")}
             onBlur={() => setActiveTooltip("")}
           >
-            <Icon type="italic" />
+            <Icon
+              color={
+                activeControls[ITALIC]
+                  ? "var(--colorsActionMinorYang100)"
+                  : undefined
+              }
+              type="italic"
+            />
           </ToolbarButton>
         </Tooltip>
         <Tooltip
@@ -204,7 +212,14 @@ const Toolbar = ({
             onFocus={() => setActiveTooltip("Bulleted List")}
             onBlur={() => setActiveTooltip("")}
           >
-            <Icon type="bullet_list_dotted" />
+            <Icon
+              color={
+                activeControls[UNORDERED_LIST]
+                  ? "var(--colorsActionMinorYang100)"
+                  : undefined
+              }
+              type="bullet_list_dotted"
+            />
           </ToolbarButton>
         </Tooltip>
         <Tooltip
@@ -224,7 +239,14 @@ const Toolbar = ({
             onFocus={() => setActiveTooltip("Numbered List")}
             onBlur={() => setActiveTooltip("")}
           >
-            <Icon type="bullet_list_numbers" />
+            <Icon
+              color={
+                activeControls[ORDERED_LIST]
+                  ? "var(--colorsActionMinorYang100)"
+                  : undefined
+              }
+              type="bullet_list_numbers"
+            />
           </ToolbarButton>
         </Tooltip>
       </StyledEditorStyleControls>

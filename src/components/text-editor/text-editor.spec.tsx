@@ -152,7 +152,6 @@ describe("TextEditor", () => {
       assertStyleMatch(
         {
           minHeight: "220px",
-          minWidth: "320px",
           backgroundColor: "var(--colorsUtilityYang100)",
           outline: "1px solid var(--colorsUtilityMajor200)",
           borderRadius: "var(--borderRadius050)",
@@ -785,7 +784,6 @@ describe("TextEditor", () => {
       it.each([["unordered-list-item"], ["ordered-list-item"]] as const)(
         "adds styling to %s control when currentBlock has a a given type",
         (style) => {
-          const index = style === "unordered-list-item" ? 2 : 3;
           act(() => {
             getEditorParent()
               .props()
@@ -797,12 +795,6 @@ describe("TextEditor", () => {
             wrapper.update();
           });
           expect(hasBlockStyle(style)).toBeTruthy();
-          assertStyleMatch(
-            {
-              backgroundColor: "var(--colorsActionMinor200)",
-            },
-            wrapper.find(ToolbarButton).at(index)
-          );
         }
       );
     });

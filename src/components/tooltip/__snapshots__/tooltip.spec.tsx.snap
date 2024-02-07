@@ -11,6 +11,12 @@ exports[`Tooltip controlled matches snapshot when isVisible is false 1`] = `
 `;
 
 exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
+.c0 {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
 <div>
   <div
     data-testid="tooltip-target"
@@ -18,6 +24,7 @@ exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
     foo
   </div>
   <span
+    class="c0"
     data-portal-entrance="guid-12345"
   />
 </div>
