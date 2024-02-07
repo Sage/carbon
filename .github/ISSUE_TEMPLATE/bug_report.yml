@@ -38,7 +38,7 @@ body:
       description: |
         Please describe any steps that need to be performed first to reproduce the bug. E.g. any user interactions like clicking, focusing, etc. or any build scripts that need to run.
       placeholder: Click "Open dialog" button to open dialog, then click save button.
-    validation:
+    validations:
       required: false
   - type: input
     id: jira-id
