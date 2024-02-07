@@ -45,7 +45,7 @@ body:
         A clear and concise description of any alternative solutions or features you've tried or considered.
     validations:
       required: false
- - type: textarea
+  - type: textarea
     id: additional-info
     attributes:
       label: Additional context
