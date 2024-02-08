@@ -12,14 +12,17 @@ import StyledLoaderSquare, {
 } from "./loader-square.style";
 
 export interface LoaderProps
-  extends StyledLoaderSquareProps,
+  extends Omit<StyledLoaderSquareProps, "backgroundColor">,
     MarginProps,
     TagProps {
+  /** Toggle between the default variant and gradient variant */
+  variant?: string;
   /** Specify a custom accessible name for the Loader component */
   "aria-label"?: string;
 }
 
 export const Loader = ({
+  variant = "default",
   "aria-label": ariaLabel,
   size = "medium",
   isInsideButton,
@@ -32,6 +35,14 @@ export const Loader = ({
     "screen and (prefers-reduced-motion: no-preference)"
   );
 
+  const loaderSquareProps = {
+    isInsideButton,
+    isActive,
+    size,
+    variant,
+  };
+
+  // FE-6368 has been raised for the below, changed hex values for design tokens (when added)
   return (
     <StyledLoader
       aria-label={ariaLabel || l.loader.loading()}
@@ -43,21 +54,15 @@ export const Loader = ({
         l.loader.loading()
       ) : (
         <>
-          <StyledLoaderSquare
-            isInsideButton={isInsideButton}
-            isActive={isActive}
-            size={size}
-          />
-          <StyledLoaderSquare
-            isInsideButton={isInsideButton}
-            isActive={isActive}
-            size={size}
-          />
-          <StyledLoaderSquare
-            isInsideButton={isInsideButton}
-            isActive={isActive}
-            size={size}
-          />
+          {["#13A038", "#0092DB", "#8F49FE"].map((color) => (
+            <StyledLoaderSquare
+              key={color}
+              backgroundColor={
+                variant === "gradient" ? color : "var(--colorsActionMajor500)"
+              }
+              {...loaderSquareProps}
+            />
+          ))}
         </>
       )}
     </StyledLoader>
