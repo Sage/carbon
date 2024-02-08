@@ -61,6 +61,12 @@ const StyledTile = styled.div<StyledTileProps>`
       border-color: var(--colorsActionMajor500);
     `}
 
+    ${variant === "grey" &&
+    css`
+      background-color: var(--colorsUtilityMajor025);
+      border-color: var(--colorsUtilityMajor200);
+    `}
+
     display: flex;
     flex-direction: ${isHorizontal ? "row" : "column"};
     position: relative;

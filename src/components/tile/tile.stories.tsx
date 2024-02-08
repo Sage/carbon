@@ -159,6 +159,23 @@ export const WithTileFooter: ComponentStory<typeof Tile> = () => (
         <TileFooter p={2} variant="black" />
       </TileContent>
     </Tile>
+    <Box my={3} />
+    <Tile px={0} pb={0} orientation="vertical" width={400}>
+      <TileContent>
+        <Box px={3}>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Example header
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Box>
+        <TileFooter p={2} variant="grey" />
+      </TileContent>
+    </Tile>
   </Box>
 );
 
@@ -224,6 +241,23 @@ export const WithTileHeader: ComponentStory<typeof Tile> = () => (
         </Box>
       </TileContent>
     </Tile>
+    <Box my={3} />
+    <Tile px={0} pt={0} orientation="vertical" width={400}>
+      <TileContent>
+        <TileHeader p={2} variant="grey" />
+        <Box px={3} pt={3}>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Example tile body
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Box>
+      </TileContent>
+    </Tile>
   </Box>
 );
 
@@ -244,9 +278,9 @@ export const WithButtonInTileHeader: ComponentStory<typeof Tile> = () => {
   };
 
   return (
-    <Tile px={0} pt={0} orientation="vertical" width={425}>
+    <Tile px={0} pt={0} orientation="vertical" variant="grey" width={425}>
       <TileContent>
-        <TileHeader pl={3} py={1}>
+        <TileHeader pl={3} py={1} variant="grey">
           <Button iconType="settings" onClick={buttonAction}>
             Generate content
           </Button>
@@ -328,6 +362,14 @@ export const CustomHeights: ComponentStory<typeof Tile> = () => (
 
 export const Active: ComponentStory<typeof Tile> = () => (
   <Tile variant="active" orientation="horizontal">
+    <TileContent width="40%">Test Body One</TileContent>
+    <TileContent width="80%">Test Body Two</TileContent>
+    <TileContent width="120%">Test Body Three</TileContent>
+  </Tile>
+);
+
+export const Grey: ComponentStory<typeof Tile> = () => (
+  <Tile variant="grey" orientation="horizontal">
     <TileContent width="40%">Test Body One</TileContent>
     <TileContent width="80%">Test Body Two</TileContent>
     <TileContent width="120%">Test Body Three</TileContent>

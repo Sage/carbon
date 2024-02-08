@@ -80,6 +80,18 @@ describe("Tile", () => {
           wrapper
         );
       });
+
+      it('renders with expected background and border styles when variant is "grey"', () => {
+        const wrapper = renderTile({ variant: "grey" });
+
+        assertStyleMatch(
+          {
+            backgroundColor: "var(--colorsUtilityMajor025)",
+            borderColor: "var(--colorsUtilityMajor200)",
+          },
+          wrapper
+        );
+      });
     });
 
     describe("custom borders", () => {

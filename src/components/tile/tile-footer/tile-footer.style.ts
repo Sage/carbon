@@ -9,6 +9,8 @@ const getBackgroundColor = (variant: TileFooterProps["variant"]) => {
       return "transparent";
     case "black":
       return "var(--colorsUtilityYin100)";
+    case "grey":
+      return "var(--colorsUtilityMajor025)";
     default:
       return "var(--colorsUtilityMajor100)";
   }
@@ -19,7 +21,10 @@ const StyledTileFooter = styled.div<{ variant: TileFooterProps["variant"] }>`
 
   ${({ variant }) => css`
     background: ${getBackgroundColor(variant)};
-    border-top: 1px solid var(--colorsUtilityMajor100);
+    border-top: 1px solid
+      ${variant === "grey"
+        ? "var(--colorsUtilityMajor200)"
+        : "var(--colorsUtilityMajor100)"};
   `}
 `;
 

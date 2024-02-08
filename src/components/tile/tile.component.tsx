@@ -11,8 +11,8 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 type DesignTokensType = keyof typeof DesignTokens;
 
 export interface TileProps extends SpaceProps, WidthProps, TagProps {
-  /** Sets the theme of the tile - either 'tile', 'transparent' or 'active' */
-  variant?: "tile" | "transparent" | "active";
+  /** Sets the theme of the tile */
+  variant?: "tile" | "transparent" | "active" | "grey";
   /**
    * The content to render within the tile. Each child will be wrapped with
    * a TileContent wrapper, which allows any individual child component to take a

@@ -9,7 +9,7 @@ import filterStyledSystemPaddingProps from "../../../style/utils/filter-styled-s
 export interface TileHeaderProps extends PaddingProps, TagProps {
   children?: React.ReactNode;
   /** set which background color variant should be used */
-  variant?: "default" | "black" | "transparent";
+  variant?: "default" | "black" | "transparent" | "grey";
 }
 
 export const TileHeader = ({ variant, children, ...rest }: TileHeaderProps) => (

@@ -9,6 +9,8 @@ const getBackgroundColor = (variant: TileHeaderProps["variant"]) => {
       return "transparent";
     case "black":
       return "var(--colorsUtilityYin100)";
+    case "grey":
+      return "var(--colorsUtilityMajor025)";
     default:
       return "var(--colorsUtilityMajor100)";
   }
@@ -19,7 +21,10 @@ const StyledTileHeader = styled.div<{ variant: TileHeaderProps["variant"] }>`
 
   ${({ variant }) => css`
     background: ${getBackgroundColor(variant)};
-    border-bottom: 1px solid var(--colorsUtilityMajor100);
+    border-bottom: 1px solid
+      ${variant === "grey"
+        ? "var(--colorsUtilityMajor200)"
+        : "var(--colorsUtilityMajor100)"};
   `}
 `;
 
