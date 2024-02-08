@@ -1,3 +1,10 @@
+### [125.12.1](https://github.com/Sage/carbon/compare/v125.12.0...v125.12.1) (2024-02-08)
+
+
+### Bug Fixes
+
+* **split-button:** fix style when href is passed to a button ([8dd1645](https://github.com/Sage/carbon/commit/8dd1645e78f9607ae56d05a8995acc10a04335c0))
+
 ## [125.12.0](https://github.com/Sage/carbon/compare/v125.11.1...v125.12.0) (2024-02-07)
 
 
