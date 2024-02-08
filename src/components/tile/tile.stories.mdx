@@ -6,6 +6,7 @@ import {
   Tile,
   TileContent,
   TileFooter,
+  TileHeader,
   FlexTileContainer,
   FlexTileCell,
 } from ".";
@@ -85,6 +86,18 @@ The Tile component can be also have a vertical layout.
 
 <Canvas>
   <Story name="with TileFooter" story={stories.WithTileFooter} />
+</Canvas>
+
+### With TileHeader
+
+<Canvas>
+  <Story name="with TileHeader" story={stories.WithTileHeader} />
+</Canvas>
+
+### With Button in TileHeader
+
+<Canvas>
+  <Story name="with Button in TileHeader" story={stories.WithButtonInTileHeader} />
 </Canvas>
 
 ### With custom widths
@@ -280,6 +293,10 @@ Use `justifyContent` to place your content inside the width allocated to the cel
 ### TileFooter
 
 <StyledSystemProps noHeader of={TileFooter} padding />
+
+### TileHeader
+
+<StyledSystemProps noHeader of={TileHeader} padding />
 
 ### Dl
 

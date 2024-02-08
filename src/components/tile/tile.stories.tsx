@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
 
 import {
@@ -7,6 +7,7 @@ import {
   Tile,
   TileContent,
   TileFooter,
+  TileHeader,
 } from ".";
 
 import { Dl, Dt, Dd } from "../definition-list";
@@ -160,6 +161,108 @@ export const WithTileFooter: ComponentStory<typeof Tile> = () => (
     </Tile>
   </Box>
 );
+
+export const WithTileHeader: ComponentStory<typeof Tile> = () => (
+  <Box>
+    <Tile orientation="vertical" width={400}>
+      <TileContent>
+        <TileHeader variant="transparent" pb={2}>
+          <Typography pr={2} display="inline" variant="b">
+            Example bold text
+          </Typography>
+          <Typography display="inline">Example text</Typography>
+        </TileHeader>
+        <Box pt={2}>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Example tile body
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Box>
+      </TileContent>
+    </Tile>
+    <Box my={3} />
+    <Tile px={0} pt={0} orientation="vertical" width={400}>
+      <TileContent>
+        <TileHeader p={3}>
+          <Typography pr={2} display="inline" variant="b">
+            Example bold text
+          </Typography>
+          <Typography display="inline">Example text</Typography>
+        </TileHeader>
+        <Box px={3} pt={3}>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Example tile body
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Box>
+      </TileContent>
+    </Tile>
+    <Box my={3} />
+    <Tile px={0} pt={0} orientation="vertical" width={400}>
+      <TileContent>
+        <TileHeader p={2} variant="black" />
+        <Box px={3} pt={3}>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Example tile body
+          </Typography>
+          <Typography>
+            Labore ipsum nostrud quis aliquip esse cillum excepteur commodo
+            tempor. Ex tempor sunt culpa culpa tempor culpa. Laboris dolor nisi
+            ex voluptate occaecat veniam. Magna aliqua velit aliquip dolore
+            pariatur nostrud deserunt amet.
+          </Typography>
+        </Box>
+      </TileContent>
+    </Tile>
+  </Box>
+);
+
+export const WithButtonInTileHeader: ComponentStory<typeof Tile> = () => {
+  const dummyText = [
+    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+    "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+    "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
+    "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?",
+    "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
+  ];
+  const [content1, setContent1] = useState(dummyText[0]);
+  const [content2, setContent2] = useState(dummyText[1]);
+
+  const buttonAction = () => {
+    setContent1(dummyText[Math.floor(Math.random() * dummyText.length)]);
+    setContent2(dummyText[Math.floor(Math.random() * dummyText.length)]);
+  };
+
+  return (
+    <Tile px={0} pt={0} orientation="vertical" width={425}>
+      <TileContent>
+        <TileHeader pl={3} py={1}>
+          <Button iconType="settings" onClick={buttonAction}>
+            Generate content
+          </Button>
+        </TileHeader>
+        <Box px={3} pt={3}>
+          <Typography pb={2} variant="h4" fontWeight="bold">
+            Example tile body
+          </Typography>
+          <Typography>{content1}</Typography>
+          <Hr />
+          <Typography>{content2}</Typography>
+        </Box>
+      </TileContent>
+    </Tile>
+  );
+};
 
 export const CustomWidths: ComponentStory<typeof Tile> = () => (
   <Box>

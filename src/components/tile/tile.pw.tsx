@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { TileProps, TileFooterProps } from ".";
+import { TileProps, TileFooterProps, TileHeaderProps } from ".";
 import { DlProps } from "../definition-list";
 import {
   getDataComponentByValue,
@@ -15,6 +15,7 @@ import {
   TileComponent,
   DlTileComponent,
   TileFooterComponent,
+  TileHeaderComponent,
   TileComponentWithFalsyChildren,
   FlexTile,
 } from "./components.test-pw";
@@ -50,6 +51,11 @@ const dlWidths = [
   [30, 370, 921],
 ];
 const tileFooterVariants: [TileFooterProps["variant"], string][] = [
+  ["default", "rgb(204, 214, 219)"],
+  ["transparent", "rgba(0, 0, 0, 0)"],
+  ["black", "rgb(0, 0, 0)"],
+];
+const tileHeaderVariants: [TileHeaderProps["variant"], string][] = [
   ["default", "rgb(204, 214, 219)"],
   ["transparent", "rgba(0, 0, 0, 0)"],
   ["black", "rgb(0, 0, 0)"],
@@ -206,6 +212,40 @@ test.describe("Tile component", () => {
     });
   });
 
+  tileHeaderVariants.forEach(([variant, backGroundColor]) => {
+    test(`check Tile Header variant as ${variant}`, async ({ mount, page }) => {
+      await mount(
+        <TileHeaderComponent variant={variant} data-element="tile-header" />
+      );
+
+      const header = getDataElementByValue(page, "tile-header");
+      await expect(header).toHaveCSS("background-color", backGroundColor);
+      await checkCSSOutline(
+        header,
+        "1px",
+        "border-bottom",
+        "solid",
+        "rgb(204, 214, 219)"
+      );
+    });
+  });
+
+  characters.forEach((children) => {
+    test(`check Tile Header children as ${children}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TileHeaderComponent data-element="tile-header">
+          {children}
+        </TileHeaderComponent>
+      );
+
+      const header = getDataElementByValue(page, "tile-header");
+      await expect(header).toHaveText(children);
+    });
+  });
+
   tileDlWidths.forEach(([w, dtWidth]) => {
     test(`check width as ${w}`, async ({ mount, page }) => {
       await mount(<DlTileComponent w={w} />);
@@ -285,6 +325,17 @@ test.describe("Tile component", () => {
       mount,
     }) => {
       await mount(<TileFooterComponent>{children}</TileFooterComponent>);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach((children) => {
+    test(`should check Accessibility for Tile Header children as ${children}`, async ({
+      page,
+      mount,
+    }) => {
+      await mount(<TileHeaderComponent>{children}</TileHeaderComponent>);
 
       await checkAccessibility(page);
     });
