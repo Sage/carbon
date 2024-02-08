@@ -164,6 +164,10 @@ test.describe("Button component", () => {
     await expect(page.getByText("Secondary")).toBeDisabled();
 
     await expect(page.getByText("Tertiary")).toBeDisabled();
+
+    await expect(page.getByText("Gradient white")).toBeDisabled();
+
+    await expect(page.getByText("Gradient grey")).toBeDisabled();
   });
 
   test("should check Button is enabled", async ({ mount, page }) => {
@@ -176,6 +180,10 @@ test.describe("Button component", () => {
     await expect(page.getByText("Secondary")).not.toBeDisabled();
 
     await expect(page.getByText("Tertiary")).not.toBeDisabled();
+
+    await expect(page.getByText("Gradient white")).not.toBeDisabled();
+
+    await expect(page.getByText("Gradient grey")).not.toBeDisabled();
   });
 });
 
@@ -613,6 +621,50 @@ test.describe("Accessibility tests for Button", () => {
     page,
   }) => {
     await mount(<Button noWrap>Foo</Button>);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass when gradient-white buttonType is used", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Button buttonType="gradient-white">Foo</Button>);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass when gradient-white buttonType is used and icon rendered", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Button buttonType="gradient-white" iconType="home">
+        Foo
+      </Button>
+    );
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass when gradient-grey buttonType is used", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Button buttonType="gradient-grey">Foo</Button>);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass when gradient-grey buttonType is used and icon rendered", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <Button buttonType="gradient-grey" iconType="home">
+        Foo
+      </Button>
+    );
 
     await checkAccessibility(page);
   });

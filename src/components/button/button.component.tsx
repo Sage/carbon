@@ -3,7 +3,10 @@ import { SpaceProps } from "styled-system";
 import invariant from "invariant";
 
 import Icon, { IconType, IconProps } from "../icon";
-import StyledButton, { StyledButtonSubtext } from "./button.style";
+import StyledButton, {
+  StyledButtonSubtext,
+  StyledButtonMainText,
+} from "./button.style";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
@@ -18,7 +21,9 @@ export type ButtonTypes =
   | "secondary"
   | "tertiary"
   | "dashed"
-  | "darkBackground";
+  | "darkBackground"
+  | "gradient-grey"
+  | "gradient-white";
 
 export type SizeOptions = "small" | "medium" | "large";
 export type ButtonIconPosition = "before" | "after";
@@ -115,12 +120,16 @@ function renderChildren({
   tooltipTarget,
 }: /* eslint-enable */
 RenderChildrenProps) {
-  const iconColorMap = {
-    primary: "--colorsActionMajorYang100",
-    secondary: "--colorsActionMajor500",
-    tertiary: "--colorsActionMajor500",
-    darkBackground: "--colorsActionMajor500",
-    dashed: "--colorsActionMajor500",
+  const iconColor = () => {
+    if (buttonType === "primary") {
+      return "--colorsActionMajorYang100";
+    }
+
+    if (buttonType.includes("gradient")) {
+      return "--colorsActionMinorYin090";
+    }
+
+    return "--colorsActionMajor500";
   };
 
   const iconProps: Pick<
@@ -129,7 +138,7 @@ RenderChildrenProps) {
   > = {
     "aria-hidden": true,
     disabled,
-    color: iconColorMap[buttonType],
+    color: iconColor(),
     bg: "transparent",
     bgSize: "extra-small",
   };
@@ -143,7 +152,9 @@ RenderChildrenProps) {
       )}
       {isValidChildren && (
         <span>
-          <span data-element="main-text">{children}</span>
+          <StyledButtonMainText data-element="main-text">
+            {children}
+          </StyledButtonMainText>
           {size === "large" && (
             <StyledButtonSubtext data-element="subtext">
               {subtext}
