@@ -1013,7 +1013,7 @@ test.describe("Accessibility tests for Textarea component", () => {
   });
 });
 
-test("should have the expected border radius styling", async ({
+test("should have the expected default border radius styling", async ({
   mount,
   page,
 }) => {
@@ -1022,6 +1022,30 @@ test("should have the expected border radius styling", async ({
   const inputElementParent = getElement(page, "input").locator("..");
 
   await expect(inputElementParent).toHaveCSS("border-radius", "4px");
+});
+
+test("should have the expected custom border radius styling", async ({
+  mount,
+  page,
+}) => {
+  await mount(<TextareaComponent borderRadius="borderRadius400" />);
+
+  const inputElementParent = getElement(page, "input").locator("..");
+
+  await expect(inputElementParent).toHaveCSS("border-radius", "32px");
+});
+
+test("should have the expected custom border radius styling when an array is passed", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <TextareaComponent borderRadius={["borderRadius400", "borderRadius010"]} />
+  );
+
+  const inputElementParent = getElement(page, "input").locator("..");
+
+  await expect(inputElementParent).toHaveCSS("border-radius", "32px 1px");
 });
 
 test("should not change the scroll position of a scrollable container when typing", async ({
