@@ -52,7 +52,17 @@ const StyledTile = styled.div<StyledTileProps>`
     box-sizing: border-box;
     border: var(--${borderWidth}) solid ${getBorderColor(borderVariant)};
     border-radius: ${getBorderRadius(roundness)};
-    overflow: hidden;
+    --tileBorderRadius: ${getBorderRadius(roundness)};
+
+    > *:first-child {
+      border-top-left-radius: calc(${getBorderRadius(roundness)} - 1px);
+      border-top-right-radius: calc(${getBorderRadius(roundness)} - 1px);
+    }
+
+    > *:last-child {
+      border-bottom-left-radius: calc(${getBorderRadius(roundness)} - 1px);
+      border-bottom-right-radius: calc(${getBorderRadius(roundness)} - 1px);
+    }
 
     ${variant === "tile" &&
     css`

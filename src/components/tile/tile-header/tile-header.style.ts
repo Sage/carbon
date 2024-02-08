@@ -18,6 +18,8 @@ const getBackgroundColor = (variant: TileHeaderProps["variant"]) => {
 
 const StyledTileHeader = styled.div<{ variant: TileHeaderProps["variant"] }>`
   ${padding}
+  border-top-left-radius: calc(var(--tileBorderRadius) - 1px);
+  border-top-right-radius: calc(var(--tileBorderRadius) - 1px);
 
   ${({ variant }) => css`
     background: ${getBackgroundColor(variant)};

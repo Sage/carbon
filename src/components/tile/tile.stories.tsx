@@ -286,7 +286,14 @@ export const WithButtonInTileHeader: ComponentStory<typeof Tile> = () => {
   };
 
   return (
-    <Tile px={0} pt={0} orientation="vertical" variant="grey" width={425}>
+    <Tile
+      px={0}
+      pt={0}
+      orientation="vertical"
+      variant="grey"
+      width={425}
+      roundness="large"
+    >
       <TileContent>
         <TileHeader pl={3} py={1} variant="grey">
           <Button iconType="settings" onClick={buttonAction}>
@@ -708,8 +715,6 @@ export const WithAccordion: ComponentStory<typeof Tile> = () => (
   </Tile>
 );
 
-WithAccordion.parameters = { chromatic: { disableSnapshot: true } };
-
 export const WithAccordionAndTileFooter: ComponentStory<typeof Tile> = () => (
   <Tile p={0} orientation="vertical">
     <Accordion p={0} headerSpacing={{ p: 3 }} borders="none" title="Accordion">
@@ -738,10 +743,6 @@ export const WithAccordionAndTileFooter: ComponentStory<typeof Tile> = () => (
     </TileFooter>
   </Tile>
 );
-
-WithAccordionAndTileFooter.parameters = {
-  chromatic: { disableSnapshot: true },
-};
 
 export const ResponsiveDefaultStory: ComponentStory<typeof Tile> = () => (
   <Tile m={0} py={0}>
