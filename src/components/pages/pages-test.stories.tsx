@@ -6,10 +6,11 @@ import Page, { PageProps } from "./page/page.component";
 import DialogFullScreen from "../dialog-full-screen";
 import Heading from "../heading";
 import Button from "../button";
+import Box from "../box";
 
 export default {
   title: "Pages/Test",
-  includeStories: ["DefaultStory"],
+  includeStories: ["DefaultStory", "DifferentPageHeights"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -125,3 +126,402 @@ export const DefaultStory = ({
 
 DefaultStory.storyName = "default";
 DefaultStory.parameters = { args: { initialPageIndex: 0 } };
+
+export const DifferentPageHeights = () => {
+  const [pageIndex, setPageIndex] = useState(0);
+  return (
+    <Box p={1}>
+      <Pages pageIndex={pageIndex}>
+        <Page title={<Heading title="Page 1" />}>
+          <div>
+            <Button onClick={() => setPageIndex(1)}>Next page</Button>
+          </div>
+          <p>
+            A moderate but not too-big amount of text here. A moderate but not
+            too-big amount of text here. A moderate but not too-big amount of
+            text here. A moderate but not too-big amount of text here. A
+            moderate but not too-big amount of text here. A moderate but not
+            too-big amount of text here. A moderate but not too-big amount of
+            text here. A moderate but not too-big amount of text here. A
+            moderate but not too-big amount of text here.
+          </p>
+        </Page>
+        <Page title={<Heading title="Page 2" />}>
+          <div>
+            <Button onClick={() => setPageIndex(0)}>Previous page</Button>
+            <Button onClick={() => setPageIndex(2)}>Next page</Button>
+          </div>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+          <p>
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here. Lots and lots of text here. Lots and lots of
+            text here. Lots and lots of text here. Lots and lots of text here.
+            Lots and lots of text here. Lots and lots of text here. Lots and
+            lots of text here. Lots and lots of text here. Lots and lots of text
+            here. Lots and lots of text here. Lots and lots of text here. Lots
+            and lots of text here.
+          </p>
+        </Page>
+        <Page title={<Heading title="Page 3" />}>
+          <div>
+            <Button onClick={() => setPageIndex(1)}>Previous page</Button>
+          </div>
+          <p>Tiny amount of text</p>
+        </Page>
+      </Pages>
+    </Box>
+  );
+};

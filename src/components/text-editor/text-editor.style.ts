@@ -24,7 +24,6 @@ const StyledEditorContainer = styled.div<{
     min-height: ${rows
       ? `${rows * lineHeight}`
       : `${hasPreview ? 125 : 220}`}px;
-    min-width: 320px;
     position: relative;
 
     div.DraftEditor-root {
@@ -74,7 +73,6 @@ const StyledEditorOutline = styled.div<{
   ${({ isFocused, hasError, theme }) => css`
     border-radius: var(--borderRadius050);
     outline: none;
-    min-width: 320px;
 
     ${isFocused &&
     css`

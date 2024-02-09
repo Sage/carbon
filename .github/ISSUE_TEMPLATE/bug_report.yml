@@ -1,4 +1,4 @@
-name: Bug Report
+name: 🐞 Bug Report
 description: Something isn't working as expected?
 labels:
   - Bug
@@ -8,71 +8,73 @@ body:
     attributes:
       value: |
         ### ⚠️ This bug report is public
-        Please create a reproducible example using one of our Codesandbox templates, using [Typescript](https://codesandbox.io/p/sandbox/carbon-quickstart-typescript-6sjfuz) or [Javascript](https://codesandbox.io/p/sandbox/carbon-quickstart-j5pb2)
-        Please do not include any confidential or commercially sensitive information.
 
+        **Please do not include any confidential or commercially sensitive information.**
         ---
   - type: textarea
-    id: current-behaviour
+    id: description
     attributes:
-      label: Current behaviour
+      label: Description
       description: |
-        Please give a clear and concise description of the current behaviour.
-        If applicable, add screenshots or screen recording of your CodeSandbox to help explain the problem. You can paste these directly into GitHub.
-    validations:
-      required: true
-  - type: textarea
-    id: expected-behaviour
-    attributes:
-      label: Expected behaviour
-      description: |
-        Please give a clear and concise description of the expected behaviour.
+        A clear and concise description of the bug. If applicable, add screenshots or screen recordings to help explain the problem.
+
+        If you intend to submit a PR for this, tell us in the description. Thanks!
+      placeholder: I am doing... What I expect is... What actually happens is...
     validations:
       required: true
   - type: input
     id: url
     attributes:
-      label: CodeSandbox or Storybook URL
+      label: Reproduction
       description: >-
-        Please fork one of our templates ([Typescript](https://codesandbox.io/p/sandbox/carbon-quickstart-typescript-6sjfuz) or [Javascript](https://codesandbox.io/s/carbon-quickstart-j5pb2)), and ensure you save your changes.
-        Alternatively, if your issue relates to [Storybook](https://carbon.sage.com) please link to the story.
-      placeholder: https://codesandbox.io/s/carbon-quickstart-j5pb2
+        Please provide a link via [our Stackblitz template](https://stackblitz.com/fork/github/Parsium/carbon-starter) that can reproduce the problem you encountered. Alternatively, if your issue relates to our [Storybook](https://carbon.sage.com) docs, please link to the story.
+      placeholder: Reproduction URL
     validations:
       required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Please describe any steps that need to be performed first to reproduce the bug. E.g. any user interactions like clicking, focusing, etc. or any build scripts that need to run.
+      placeholder: Click "Open dialog" button to open dialog, then click save button.
+    validations:
+      required: false
   - type: input
     id: jira-id
     attributes:
-      label: JIRA Ticket (Sage Only)
+      label: JIRA ticket numbers (Sage only)
       description: >-
-        Please include any related JIRA ticket numbers. If we accept this report, we'll create another JIRA ticket and add a `relates to` link to your tickets.
-        Do not include any URL's.
+        Any related JIRA ticket numbers. If we accept this report, we'll create another JIRA ticket and link it to your tickets.
+        **Please do not include any URLs.**
       placeholder: FE-123, SBS-456
   - type: textarea
     id: suggested-solution
     attributes:
-      label: Suggested Solution
+      label: Suggested solution
     validations:
       required: false
   - type: input
     id: carbon-version
     attributes:
-      label: Carbon Version
-      description: What version of carbon are you using?
-      placeholder: 77.13.2
+      label: Carbon version
+      description: Which version of Carbon are you using?
+      placeholder: 125.1.1
     validations:
       required: true
   - type: input
     id: design-tokens-version
     attributes:
-      label: Design Tokens Version
-      description: What version of [@sage/design-tokens](https://github.com/Sage/design-tokens) are you using? Only applicable if using Carbon v106.0.0 or above.
-      placeholder: 2.21.0
+      label: Design tokens version
+      description: Which version of [@sage/design-tokens](https://github.com/Sage/design-tokens) are you using? Only applicable if using Carbon v106.0.0 or above.
+      placeholder: 4.29.0
     validations:
       required: false
   - type: dropdown
     id: browsers
     attributes:
-      label: What browsers are you seeing the problem on?
+      label: Relevant browsers
+      description: Which browser(s) are you seeing the problem on?
       multiple: true
       options:
         - Firefox
@@ -85,7 +87,8 @@ body:
   - type: dropdown
     id: os
     attributes:
-      label: What Operating System are you seeing the problem on?
+      label: Relevant OSs
+      description: Which Operating System(s) are you seeing the problem on?
       multiple: true
       options:
         - MacOS
@@ -99,7 +102,8 @@ body:
   - type: textarea
     id: additional-info
     attributes:
-      label: Anything else we should know?
+      label: Additional context
+      description: Anything else we should know?
     validations:
       required: false
   - type: checkboxes

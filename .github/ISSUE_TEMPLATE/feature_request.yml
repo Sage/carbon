@@ -1,4 +1,4 @@
-name: Feature Request
+name: 🏗️ New feature request
 description: Is there something that we should implement? Let us know!
 labels:
   - Enhancement
@@ -8,48 +8,48 @@ body:
     attributes:
       value: |
         ### ⚠️ This feature request is public
-        Please do not include any confidential or commercially sensitive information.
 
+        **Please do not include any confidential or commercially sensitive information.**
         ---
   - type: textarea
-    id: desired-behaviour
+    id: description
     attributes:
-      label: Desired behaviour
+      label: Description
       description: |
-        Please give a clear and concise description of the desired behaviour.
-        If applicable, add screenshots or screen recording of a CodeSandbox to help explain the request. You can paste these directly into GitHub.
-        We provide Codesandbox templates with Carbon and dependencies pre-loaded, using either [Typescript](https://codesandbox.io/p/sandbox/carbon-quickstart-typescript-6sjfuz) or [Javascript](https://codesandbox.io/p/sandbox/carbon-quickstart-j5pb2).
-    validations:
-      required: true
-  - type: textarea
-    id: current-behaviour
-    attributes:
-      label: Current behaviour
-      description: |
-        Please give a clear and concise description of the current behaviour.
+        A clear and concise description of the new feature. Please make the reason and use cases as detailed as possible. If applicable, add screenshots or screen recordings to help explain the request.
+
+        If you intend to submit a PR for this issue, tell us in description. Thanks!
+      placeholder: As a developer using Carbon, I want to [goal] so that [benefit].
     validations:
       required: true
   - type: textarea
     id: suggested-solution
     attributes:
-      label: Suggested Solution
+      label: Suggested solution
     validations:
-      required: false
+      required: true
   - type: input
     id: url
     attributes:
-      label: CodeSandbox or Storybook URL
+      label: Demo URL
       description: >-
-        Please fork one of our templates ([Typescript](https://codesandbox.io/p/sandbox/carbon-quickstart-typescript-6sjfuz) or [Javascript](https://codesandbox.io/s/carbon-quickstart-j5pb2)), and ensure you save your changes.
-        Alternatively, if your issue relates to [Storybook](https://carbon.sage.com) please link to the story.
-      placeholder: https://codesandbox.io/s/carbon-quickstart-j5pb2
+        If possible, please provide a link via [our Stackblitz template](https://stackblitz.com/fork/github/Parsium/carbon-starter) that can demonstrate the feature you are requesting.
+      placeholder: Reproduction URL
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: |
+        A clear and concise description of any alternative solutions or features you've tried or considered.
     validations:
       required: false
   - type: textarea
     id: additional-info
     attributes:
-      label: Anything else we should know?
-      placeholder: Please describe any alternatives you've considered
+      label: Additional context
+      description: Anything else we should know?
     validations:
       required: false
   - type: checkboxes

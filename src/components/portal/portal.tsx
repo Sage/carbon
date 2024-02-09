@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
+import StyledPortalEntrance from "./portal.style";
 
 interface PortalContextProps {
   renderInRoot?: boolean;
@@ -91,12 +92,12 @@ const Portal = ({ children, className, id, onReposition }: PortalProps) => {
   };
 
   return (
-    <span data-portal-entrance={uniqueId}>
+    <StyledPortalEntrance data-portal-entrance={uniqueId}>
       {ReactDOM.createPortal(
         <CarbonScopedTokensProvider>{children}</CarbonScopedTokensProvider>,
         getPortalContainer()
       )}
-    </span>
+    </StyledPortalEntrance>
   );
 };
 

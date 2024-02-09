@@ -156,6 +156,19 @@ function simulateMouseDownOnPicker(wrapper: ReactWrapper) {
   });
 }
 
+function simulateOnKeyUp(
+  wrapper: ReactWrapper,
+  key: string,
+  shiftKey?: boolean
+) {
+  const keyUpParams = { key, shiftKey };
+  const input = wrapper.find("input");
+
+  act(() => {
+    input.simulate("keyUp", keyUpParams);
+  });
+}
+
 function simulateOnKeyDown(
   wrapper: ReactWrapper,
   key: string,
@@ -509,6 +522,21 @@ describe("Date", () => {
     });
   });
 
+  describe('when the "keyUp" event is triggered on the input', () => {
+    beforeEach(() => {
+      wrapper = render();
+      simulateFocusOnInput(wrapper);
+    });
+
+    it('the "DatePicker" should close when the "Escape" key is pressed', () => {
+      expect(wrapper.update().find(DayPicker).exists()).toBe(true);
+      act(() => {
+        simulateOnKeyUp(wrapper, "Escape");
+      });
+      expect(wrapper.update().find(DayPicker).exists()).toBe(false);
+    });
+  });
+
   describe('when the "keyDown" event is triggered on the input', () => {
     beforeEach(() => {
       wrapper = render();
@@ -541,14 +569,6 @@ describe("Date", () => {
       expect(wrapper.find(StyledButton).first()).toBeFocused();
     });
 
-    it('the "DatePicker" should close when the "Escape" key is pressed', () => {
-      expect(wrapper.update().find(DayPicker).exists()).toBe(true);
-      act(() => {
-        simulateOnKeyDown(wrapper, "Escape");
-      });
-      expect(wrapper.update().find(DayPicker).exists()).toBe(false);
-    });
-
     it('the "DatePicker" should close when the "Shift" and "Tab" keys are pressed', () => {
       expect(wrapper.update().find(DayPicker).exists()).toBe(true);
       act(() => {
@@ -564,7 +584,7 @@ describe("Date", () => {
     });
   });
 
-  describe('when the "keyDown" event is triggered on the picker', () => {
+  describe('when the "keyUp" event is triggered on the picker', () => {
     beforeEach(() => {
       wrapper = render();
       simulateFocusOnInput(wrapper);
@@ -575,9 +595,16 @@ describe("Date", () => {
       simulateOnKeyDown(wrapper, "Tab");
       expect(wrapper.find(StyledButton).first()).toBeFocused();
       act(() => {
-        wrapper.find(StyledDayPicker).simulate("keydown", { key: "Escape" });
+        wrapper.find(StyledDayPicker).simulate("keyup", { key: "Escape" });
       });
       expect(wrapper.update().find(DayPicker).exists()).toBe(false);
+    });
+  });
+
+  describe('when the "keyDown" event is triggered on the picker', () => {
+    beforeEach(() => {
+      wrapper = render();
+      simulateFocusOnInput(wrapper);
     });
 
     it('should close the picker when "Shift" + "Tab" keys are pressed and focus is on previous month button', () => {

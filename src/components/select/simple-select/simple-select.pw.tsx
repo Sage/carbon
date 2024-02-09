@@ -15,6 +15,7 @@ import {
   SimpleSelectNestedInDialog,
   SelectWithOptionGroupHeader,
   SelectionConfirmed,
+  SelectWithDynamicallyAddedOption,
 } from "./components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -1782,6 +1783,30 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await mount(<SimpleSelectNestedInDialog />);
 
     await selectText(page).click();
+    await checkAccessibility(page, undefined, "scrollable-region-focusable");
+  });
+
+  test("should pass accessibility tests after selecting an option that dynamically adds a new option to the start of the list", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SelectWithDynamicallyAddedOption />);
+
+    await selectText(page).click();
+    await selectOptionByText(page, "A").click();
+    await checkAccessibility(page, undefined, "scrollable-region-focusable");
+  });
+
+  test("should pass accessibility tests in dynamically-changing example when a different option is selected", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SelectWithDynamicallyAddedOption />);
+
+    await selectText(page).click();
+    await selectOptionByText(page, "A").click();
+    await selectText(page).click();
+    await selectOptionByText(page, "B").click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 });
