@@ -1,3 +1,10 @@
+### [125.12.2](https://github.com/Sage/carbon/compare/v125.12.1...v125.12.2) (2024-02-09)
+
+
+### Bug Fixes
+
+* **date:** prevent dialog from closing if esc is pressed and date picker is open ([f28f361](https://github.com/Sage/carbon/commit/f28f3618a015046272ff6df36ecad7581d2efaa3))
+
 ### [125.12.1](https://github.com/Sage/carbon/compare/v125.12.0...v125.12.1) (2024-02-08)
 
 
