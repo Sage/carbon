@@ -1,3 +1,10 @@
+## [125.13.0](https://github.com/Sage/carbon/compare/v125.12.2...v125.13.0) (2024-02-12)
+
+
+### Features
+
+* **portal:** add inertOptOut prop to keep the content interactable when a modal opens ([250ba58](https://github.com/Sage/carbon/commit/250ba5853545218b175c97a66fcbe71f0e44b115))
+
 ### [125.12.2](https://github.com/Sage/carbon/compare/v125.12.1...v125.12.2) (2024-02-09)
 
 
