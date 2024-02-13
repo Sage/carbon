@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom";
+import styled, { css } from "styled-components";
 
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
@@ -11,6 +12,15 @@ interface PortalContextProps {
 
 export const PortalContext = React.createContext<PortalContextProps>({});
 
+const Container = styled.div`
+  ${({ theme }) => css`
+     {
+      position: relative;
+      z-index: ${theme.zIndex.aboveAll};
+    }
+  `}
+`;
+
 export interface PortalProps {
   /** The content of the portal. */
   children?: React.ReactNode;
@@ -20,9 +30,21 @@ export interface PortalProps {
   id?: string;
   /** Callback function triggered when parent element is scrolled or window resized. */
   onReposition?: () => void;
+  /** A flag to ensure the portal content will remain interactive with by both mouse
+   * users and screenreader users, even if a modal is opened outside of or on top of
+   * the portal.
+   * To be used with caution.
+   */
+  inertOptOut?: boolean;
 }
 
-const Portal = ({ children, className, id, onReposition }: PortalProps) => {
+const Portal = ({
+  children,
+  className,
+  id,
+  onReposition,
+  inertOptOut,
+}: PortalProps) => {
   const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
   const uniqueId = useMemo(() => guid(), []);
   const { renderInRoot } = useContext(PortalContext);
@@ -72,6 +94,9 @@ const Portal = ({ children, className, id, onReposition }: PortalProps) => {
       if (id !== undefined) {
         node.setAttribute("id", id);
       }
+      if (inertOptOut) {
+        node.setAttribute("data-not-inert", "true");
+      }
       setPortalNode(node);
 
       let mainNode = document.body;
@@ -91,10 +116,18 @@ const Portal = ({ children, className, id, onReposition }: PortalProps) => {
     return node as HTMLElement;
   };
 
+  const portalContent = inertOptOut ? (
+    <Container>{children}</Container>
+  ) : (
+    children
+  );
+
   return (
     <StyledPortalEntrance data-portal-entrance={uniqueId}>
       {ReactDOM.createPortal(
-        <CarbonScopedTokensProvider>{children}</CarbonScopedTokensProvider>,
+        <CarbonScopedTokensProvider>
+          {portalContent}
+        </CarbonScopedTokensProvider>,
         getPortalContainer()
       )}
     </StyledPortalEntrance>

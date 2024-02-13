@@ -24,8 +24,6 @@ export interface RadioButtonProps
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role"?: string;
-  /** Text alignment of the label */
-  labelAlign?: "left" | "right";
   /** Accepts a callback function which is triggered on click event */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** the value of the Radio Button, passed on form submit */
@@ -56,7 +54,6 @@ export const RadioButton = React.forwardRef<
       inputWidth,
       label,
       labelHelp,
-      labelAlign,
       labelSpacing = 1,
       labelWidth,
       name,
@@ -128,7 +125,6 @@ export const RadioButton = React.forwardRef<
       onChange: handleChange,
       onBlur,
       onFocus,
-      labelAlign,
       labelInline: true,
       labelWidth,
       label,

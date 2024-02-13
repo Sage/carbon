@@ -1,3 +1,36 @@
+## [126.0.0](https://github.com/Sage/carbon/compare/v125.13.0...v126.0.0) (2024-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `labelAlign` prop has been removed from `ButtonToggle`, `Checkbox`,
+`RadioButton` and `Switch` components.
+
+### Bug Fixes
+
+* remove unused labelAlign prop from checkable inputs ([037dcc9](https://github.com/Sage/carbon/commit/037dcc923fbd53b3edd49f97103a18e6dfba633e))
+
+## [125.13.0](https://github.com/Sage/carbon/compare/v125.12.2...v125.13.0) (2024-02-12)
+
+
+### Features
+
+* **portal:** add inertOptOut prop to keep the content interactable when a modal opens ([250ba58](https://github.com/Sage/carbon/commit/250ba5853545218b175c97a66fcbe71f0e44b115))
+
+### [125.12.2](https://github.com/Sage/carbon/compare/v125.12.1...v125.12.2) (2024-02-09)
+
+
+### Bug Fixes
+
+* **date:** prevent dialog from closing if esc is pressed and date picker is open ([f28f361](https://github.com/Sage/carbon/commit/f28f3618a015046272ff6df36ecad7581d2efaa3))
+
+### [125.12.1](https://github.com/Sage/carbon/compare/v125.12.0...v125.12.1) (2024-02-08)
+
+
+### Bug Fixes
+
+* **split-button:** fix style when href is passed to a button ([8dd1645](https://github.com/Sage/carbon/commit/8dd1645e78f9607ae56d05a8995acc10a04335c0))
+
 ## [125.12.0](https://github.com/Sage/carbon/compare/v125.11.1...v125.12.0) (2024-02-07)
 
 
