@@ -19,6 +19,7 @@ Default.args = {
     { id: "50", name: 50 },
     { id: "100", name: 100 },
   ],
+  onPagination: () => {},
 };
 Default.argTypes = {
   pageSize: {
@@ -45,6 +46,7 @@ InteractivePageNumber.args = {
     { id: "50", name: 50 },
     { id: "100", name: 100 },
   ],
+  onPagination: () => {},
 };
 
 InteractivePageNumber.argTypes = {
@@ -72,6 +74,7 @@ HideDisabledElements.args = {
     { id: "50", name: 50 },
     { id: "100", name: 100 },
   ],
+  onPagination: () => {},
 };
 
 HideDisabledElements.argTypes = {
