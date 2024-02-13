@@ -1,3 +1,15 @@
+## [126.0.0](https://github.com/Sage/carbon/compare/v125.13.0...v126.0.0) (2024-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `labelAlign` prop has been removed from `ButtonToggle`, `Checkbox`,
+`RadioButton` and `Switch` components.
+
+### Bug Fixes
+
+* remove unused labelAlign prop from checkable inputs ([037dcc9](https://github.com/Sage/carbon/commit/037dcc923fbd53b3edd49f97103a18e6dfba633e))
+
 ## [125.13.0](https://github.com/Sage/carbon/compare/v125.12.2...v125.13.0) (2024-02-12)
 
 
