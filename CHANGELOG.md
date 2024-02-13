@@ -1,3 +1,10 @@
+### [126.0.1](https://github.com/Sage/carbon/compare/v126.0.0...v126.0.1) (2024-02-13)
+
+
+### Bug Fixes
+
+* **message:** reduce left padding of content for `transparent` variant ([31feba5](https://github.com/Sage/carbon/commit/31feba518ff1bfcaee1b9b499691a5ad52655815)), closes [#6552](https://github.com/Sage/carbon/issues/6552)
+
 ## [126.0.0](https://github.com/Sage/carbon/compare/v125.13.0...v126.0.0) (2024-02-13)
 
 
