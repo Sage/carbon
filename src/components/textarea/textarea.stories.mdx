@@ -157,6 +157,15 @@ You can use the `required` prop to indicate if the field is mandatory.
   <Story name="required" story={stories.RequiredStory} />
 </Canvas>
 
+#### Customer Border Radius
+
+The `borderRadius` prop accepts either a single design token, or an array of them, that will be applied as the CSS `border-radius` property.
+See [MDN docs](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius) for examples of how this works with multiple values.
+
+<Canvas>
+  <Story name="with borderRadius" story={stories.BorderRadiusStory}/>
+</Canvas>
+
 ### Validations
 
 Validation status can be set by passing `error`, `warning` or `info` prop to the component

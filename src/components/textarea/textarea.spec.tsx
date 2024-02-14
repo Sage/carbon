@@ -711,12 +711,65 @@ describe("componentWillUnmount", () => {
     });
   });
 
-  it("renders with the expected border radius styling", () => {
+  it("renders with the expected default border radius styling", () => {
     assertStyleMatch(
       {
         borderRadius: "var(--borderRadius050)",
       },
       mount(<Textarea />).find(StyledInputPresentation)
     );
+  });
+
+  it("renders with the expected custom border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius200)",
+      },
+      mount(<Textarea borderRadius="borderRadius200" />).find(
+        StyledInputPresentation
+      )
+    );
+  });
+
+  it("renders with the expected custom border radius styling as an array", () => {
+    assertStyleMatch(
+      {
+        borderRadius:
+          "var(--borderRadius050) var(--borderRadius100) var(--borderRadius200) var(--borderRadius400)",
+      },
+      mount(
+        <Textarea
+          borderRadius={[
+            "borderRadius050",
+            "borderRadius100",
+            "borderRadius200",
+            "borderRadius400",
+          ]}
+        />
+      ).find(StyledInputPresentation)
+    );
+  });
+
+  it("fires a console warning if more than four values are passed", () => {
+    const consoleSpy = jest.spyOn(console, "warn");
+    consoleSpy.mockImplementation(() => {});
+
+    mount(
+      <Textarea
+        borderRadius={[
+          "borderRadius050",
+          "borderRadius100",
+          "borderRadius200",
+          "borderRadius400",
+          "borderRadius050",
+        ]}
+      />
+    );
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "The `borderRadius` prop in `Textarea` component only supports up to 4 values."
+    );
+
+    consoleSpy.mockRestore();
   });
 });
