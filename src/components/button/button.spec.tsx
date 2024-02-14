@@ -1,5 +1,6 @@
 import React from "react";
 import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
+import { render as rtlRender, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import TestRenderer from "react-test-renderer";
 import { space } from "../../style/themes/base/base-theme.config";
@@ -695,27 +696,42 @@ describe("Button", () => {
     });
   });
 
-  describe("aria-label", () => {
-    it("when defined, should be present on the button element", () => {
-      wrapper = shallow(<Button aria-label="bar">foo</Button>).dive();
+  it("correctly sets aria-label on button when passed as a prop", () => {
+    rtlRender(<Button iconType="filter" aria-label="Filter" />);
+    expect(screen.getByRole("button", { name: /Filter/ })).toHaveAccessibleName(
+      /Filter/
+    );
+  });
 
-      const ariaLink = wrapper.find('[aria-label="bar"]');
-      expect(ariaLink.exists()).toBe(true);
-    });
+  it("sets button's aria-label to be value of iconType prop when aria-label prop isn't passed", () => {
+    rtlRender(<Button iconType="bin" />);
+    expect(screen.getByRole("button")).toHaveAccessibleName(/bin/);
+  });
 
-    it("when defined, should be present on the button element, when the button has only an icon", () => {
-      wrapper = shallow(<Button aria-label="foo" iconType="bin" />).dive();
+  it("correctly sets aria-labelledby on button when passed as a prop", () => {
+    rtlRender(
+      <>
+        <h1 id="add-product">Add product</h1>
+        <Button
+          aria-labelledby="add-product"
+          iconType="add"
+          onClick={() => {}}
+        />
+      </>
+    );
+    expect(screen.getByRole("button")).toHaveAccessibleName(/Add product/);
+  });
 
-      const ariaLink = wrapper.find('[aria-label="foo"]');
-      expect(ariaLink.exists()).toBe(true);
-    });
-
-    it("when not defined, should default to iconType, when the button has only an icon", () => {
-      wrapper = shallow(<Button iconType="bin" />).dive();
-
-      const ariaLink = wrapper.find('[aria-label="bin"]');
-      expect(ariaLink.exists()).toBe(true);
-    });
+  it("correctly sets aria-describedby on button when passed as a prop", () => {
+    rtlRender(
+      <>
+        <h1 id="title">Addon A</h1>
+        <Button aria-describedby="title" onClick={() => {}}>
+          Select add-on
+        </Button>
+      </>
+    );
+    expect(screen.getByRole("button")).toHaveAccessibleDescription(/Addon A/);
   });
 
   describe("when specified with an icon", () => {
