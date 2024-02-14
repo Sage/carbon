@@ -85,6 +85,8 @@ export interface TypographyProps extends SpaceProps, TagProps {
   isDisabled?: boolean;
   /** @private @ignore Set whether the component should be recognised by assistive technologies */
   "aria-hidden"?: "true" | "false";
+  /** @private @ignore Attribute aids in targeting and selecting specific elements within the component during testing */
+  "data-testid"?: string;
 }
 
 export const Typography = ({
@@ -113,6 +115,7 @@ export const Typography = ({
   screenReaderOnly,
   isDisabled,
   "aria-hidden": ariaHidden,
+  "data-testid": dataTestId,
   ...rest
 }: TypographyProps) => {
   return (
@@ -140,6 +143,7 @@ export const Typography = ({
       screenReaderOnly={screenReaderOnly}
       isDisabled={isDisabled}
       aria-hidden={ariaHidden}
+      data-testid={dataTestId}
       {...tagComponent(dataComponent, rest)}
       {...filterStyledSystemMarginProps(rest)}
       {...filterStyledSystemPaddingProps(rest)}
