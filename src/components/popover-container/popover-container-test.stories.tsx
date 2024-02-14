@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../button";
 import Box from "../box";
 import PopoverContainer from "./popover-container.component";
 import { Select, Option } from "../select";
+import { Menu, MenuItem } from "../menu";
+import Heading from "../heading";
+import Typography from "../typography";
+import IconButton from "../icon-button";
+import Icon from "../icon";
 
 export default {
   title: "Popover Container/Test",
-  includeStories: ["Default", "WithSelect", "InAScrollableBlock"],
+  includeStories: ["Default", "WithSelect", "InAScrollableBlock", "InSideMenu"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -86,5 +91,46 @@ export const InAScrollableBlock = () => {
         </Box>
       </Box>
     </Box>
+  );
+};
+
+export const InSideMenu = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <Menu menuType="black">
+      <MenuItem flex="0 0 auto">
+        <PopoverContainer
+          position="left"
+          shouldCoverButton
+          onOpen={() => setOpen(true)}
+          onClose={() => setOpen(false)}
+          open={open}
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          renderOpenComponent={({ isOpen, ref, onClick }) => (
+            <IconButton aria-label="Notifications" ref={ref} onAction={onClick}>
+              <Icon type="alert" />
+            </IconButton>
+          )}
+          p={0}
+        >
+          <Box mt="-8px" backgroundColor="#f2f5f6ff">
+            <Heading
+              title={
+                <Box mt={2} ml={2}>
+                  Notifications
+                </Box>
+              }
+              subheader={<Typography ml={2}>99 red balloons</Typography>}
+            />
+          </Box>
+          <Box display="flex" justifyContent="space-between" p={2}>
+            <Button size="small">Mark all as read</Button>
+            <Button buttonType="primary" size="small">
+              View all notifications
+            </Button>
+          </Box>
+        </PopoverContainer>
+      </MenuItem>
+    </Menu>
   );
 };
