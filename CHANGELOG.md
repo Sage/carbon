@@ -1,3 +1,10 @@
+## [126.1.0](https://github.com/Sage/carbon/compare/v126.0.1...v126.1.0) (2024-02-14)
+
+
+### Features
+
+* **textarea:** add new borderRadius prop ([5ff228b](https://github.com/Sage/carbon/commit/5ff228b07ff969c0e54b7cfcad1973f8f4f71ecb))
+
 ### [126.0.1](https://github.com/Sage/carbon/compare/v126.0.0...v126.0.1) (2024-02-13)
 
 
