@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Option renders properly 1`] = `
-.c4 {
+.c5 {
   position: relative;
   color: var(--colorsActionMajor500);
   background-color: transparent;
@@ -22,7 +22,7 @@ exports[`Option renders properly 1`] = `
   width: 16px;
 }
 
-.c4::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -77,11 +77,11 @@ exports[`Option renders properly 1`] = `
   outline: transparent 3px solid;
 }
 
-.c2 .c3 {
+.c2 .c4 {
   color: var(--colorsActionMajor500);
 }
 
-.c2 .c5 {
+.c2 .c6 {
   background-color: var(--colorsActionMajor500);
 }
 
@@ -91,15 +91,15 @@ exports[`Option renders properly 1`] = `
   color: var(--colorsActionMajorYang100);
 }
 
-.c2:hover .c3 {
+.c2:hover .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c2:hover .c5 {
+.c2:hover .c6 {
   background-color: var(--colorsActionMajorYang100);
 }
 
-.c2 .c3 {
+.c2 .c4 {
   margin-left: var(--spacing100);
   margin-right: 0px;
   margin-bottom: 0px;
@@ -107,8 +107,19 @@ exports[`Option renders properly 1`] = `
   width: 20px;
 }
 
-.c2 .c3 svg {
+.c2 .c4 svg {
   margin-top: 0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 {
@@ -148,6 +159,7 @@ exports[`Option renders properly 1`] = `
   >
     <span>
       <span
+        className="c3"
         data-element="main-text"
       >
         Add New Item
@@ -155,7 +167,7 @@ exports[`Option renders properly 1`] = `
     </span>
     <span
       aria-hidden={true}
-      className="c3 c4"
+      className="c4 c5"
       color="--colorsActionMajor500"
       data-component="icon"
       data-element="add"

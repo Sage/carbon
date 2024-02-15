@@ -12,7 +12,7 @@ import Button, {
   ButtonIconPosition,
   ButtonWithForwardRef,
 } from "./button.component";
-import StyledButton from "./button.style";
+import StyledButton, { StyledButtonMainText } from "./button.style";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -39,6 +39,10 @@ const sizesHeights: [SizeOptions, string][] = [
   ["medium", "40px"],
   ["large", "48px"],
 ];
+
+const FILTERED_VARIANTS = BUTTON_VARIANTS.filter(
+  (buttonVariant) => !buttonVariant.includes("gradient")
+);
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -300,7 +304,7 @@ describe("Button", () => {
     });
   });
 
-  describe.each(BUTTON_VARIANTS)(
+  describe.each(FILTERED_VARIANTS)(
     'when setting the "buttonType" prop to "%s"',
     (variant) => {
       it("matches the expected style", () => {
@@ -480,7 +484,7 @@ describe("Button", () => {
     });
 
     describe.each(sizesHeights)('when a "%s"', (size, height) => {
-      describe.each(BUTTON_VARIANTS)(
+      describe.each([FILTERED_VARIANTS])(
         'and "%s" button is rendered',
         (variant) => {
           it("matches the expected style", () => {
@@ -586,9 +590,7 @@ describe("Button", () => {
     it("renders a primary button", () => {
       expect(primary.props().name).toEqual("Primary Button");
       expect(primary.props().buttonType).toEqual("primary");
-      expect(
-        primary.containsMatchingElement(<span>Primary</span>)
-      ).toBeTruthy();
+      expect(primary.find(StyledButtonMainText).text()).toBe("Primary");
     });
   });
 
@@ -601,9 +603,7 @@ describe("Button", () => {
     it("renders a secondary button", () => {
       expect(secondary.props().name).toEqual("Secondary Button");
       expect(secondary.props().buttonType).toEqual("secondary");
-      expect(
-        secondary.containsMatchingElement(<span>Secondary</span>)
-      ).toBeTruthy();
+      expect(secondary.find(StyledButtonMainText).text()).toBe("Secondary");
     });
   });
 
@@ -617,7 +617,7 @@ describe("Button", () => {
     it("renders a small button", () => {
       expect(small.props().name).toEqual("Small Button");
       expect(small.props().size).toEqual("small");
-      expect(small.containsMatchingElement(<span>Small</span>)).toBeTruthy();
+      expect(small.find(StyledButtonMainText).text()).toBe("Small");
     });
   });
 
@@ -631,7 +631,7 @@ describe("Button", () => {
     it("renders a large button", () => {
       expect(large.props().name).toEqual("Large Button");
       expect(large.props().size).toEqual("large");
-      expect(large.containsMatchingElement(<span>Large</span>)).toBeTruthy();
+      expect(large.find(StyledButtonMainText).text()).toBe("Large");
     });
   });
 
@@ -645,9 +645,7 @@ describe("Button", () => {
     it("renders a disabled button", () => {
       expect(disabled.props().name).toEqual("Disabled Button");
       expect(disabled.props().buttonType).toEqual("secondary");
-      expect(
-        disabled.containsMatchingElement(<span>Disabled</span>)
-      ).toBeTruthy();
+      expect(disabled.find(StyledButtonMainText).text()).toBe("Disabled");
       expect(disabled.props().disabled).toEqual(true);
     });
   });
@@ -847,6 +845,56 @@ describe("Button", () => {
           wrapper
         );
       }
+    );
+  });
+
+  it("should set the correct icon colour when the gradient-white buttonType is set", () => {
+    const icon = render(
+      { buttonType: "gradient-white", children: "foo", iconType: "home" },
+      mount
+    ).find(StyledIcon);
+
+    expect(icon.prop("color")).toBe("--colorsActionMinorYin090");
+  });
+
+  it("should have the correct hover styling when buttonType is gradient-white", () => {
+    wrapper = render(
+      { buttonType: "gradient-white", children: "foo", iconType: "home" },
+      mount
+    );
+
+    assertStyleMatch(
+      {
+        background:
+          "linear-gradient(to right,#d6f8df,#d9f2ff,#ede2ff) padding-box,linear-gradient(to right,#00D639,#11AFFF,#8F49FE) border-box",
+      },
+      wrapper.find(StyledButton),
+      { modifier: ":hover" }
+    );
+  });
+
+  it("should set the correct icon colour when the gradient-grey buttonType is set", () => {
+    const icon = render(
+      { buttonType: "gradient-grey", children: "foo", iconType: "home" },
+      mount
+    ).find(StyledIcon);
+
+    expect(icon.prop("color")).toBe("--colorsActionMinorYin090");
+  });
+
+  it("should have the correct hover styling when buttonType is gradient-grey", () => {
+    wrapper = render(
+      { buttonType: "gradient-grey", children: "foo", iconType: "home" },
+      mount
+    );
+
+    assertStyleMatch(
+      {
+        background:
+          "linear-gradient(to right,#d6f8df,#d9f2ff,#ede2ff) padding-box,linear-gradient(to right,#00D639,#11AFFF,#8F49FE) border-box",
+      },
+      wrapper.find(StyledButton),
+      { modifier: ":hover" }
     );
   });
 });
