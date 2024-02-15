@@ -1,3 +1,10 @@
+## [126.2.0](https://github.com/Sage/carbon/compare/v126.1.0...v126.2.0) (2024-02-15)
+
+
+### Features
+
+* **button:** add new `gradient-white` and `gradient-grey` buttonTypes ([36dea2a](https://github.com/Sage/carbon/commit/36dea2a14856cea465256e939bde68f53f46809c))
+
 ## [126.1.0](https://github.com/Sage/carbon/compare/v126.0.1...v126.1.0) (2024-02-14)
 
 
