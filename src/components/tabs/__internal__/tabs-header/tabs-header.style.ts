@@ -67,7 +67,6 @@ const StyledTabsHeaderList = styled.div<StyledTabsHeaderListProps>`
     `}
   cursor: default;
   list-style: none;
-  margin: -${outlineWidth};
   padding: ${outlineWidth};
   overflow-x: auto;
   position: relative;
