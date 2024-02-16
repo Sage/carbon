@@ -7,6 +7,10 @@ import Box from "../box";
 
 export const Default: ComponentStory<typeof Loader> = () => <Loader />;
 
+export const Variant: ComponentStory<typeof Loader> = () => (
+  <Loader variant="gradient" />
+);
+
 export const Small: ComponentStory<typeof Loader> = () => (
   <Loader size="small" />
 );
