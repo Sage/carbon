@@ -37,7 +37,11 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
         >
           {text}
         </StyledTitle>
-        {children && <StyledSegmentChildren>{children}</StyledSegmentChildren>}
+        {children && (
+          <StyledSegmentChildren data-element="segment-child">
+            {children}
+          </StyledSegmentChildren>
+        )}
       </StyledMenuItem>
     );
   }

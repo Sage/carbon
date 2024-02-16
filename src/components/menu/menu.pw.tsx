@@ -2358,7 +2358,7 @@ test.describe(
       const scrollableItem = scrollBlock(page).locator("a").last();
       await expect(scrollableItem).toHaveCSS(
         "border-radius",
-        "0px 0px 0px 8px"
+        "0px 0px 8px 8px"
       );
     });
 

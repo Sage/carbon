@@ -4,8 +4,6 @@ import menuConfigVariants from "../menu.config";
 import { MenuType } from "../menu.context";
 import { VariantType } from "../menu-item";
 import StyledBox from "../../box/box.style";
-import { StyledMenuItem } from "../menu.style";
-import { StyledLink } from "../../link/link.style";
 
 interface StyledScrollableBlockProps {
   menuType: MenuType;
@@ -23,13 +21,6 @@ const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
     ${StyledBox} {
       border-radius: var(--borderRadius000);
       border-bottom-left-radius: var(--borderRadius100);
-
-      ${StyledMenuItem}:last-child ${StyledLink},
-      ${StyledMenuItem}:last-child a,
-      ${StyledMenuItem}:last-child button {
-        border-bottom-left-radius: var(--borderRadius100);
-        border-bottom-right-radius: var(--borderRadius000);
-      }
     }
   `}
 `;

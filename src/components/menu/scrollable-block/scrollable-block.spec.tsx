@@ -11,9 +11,6 @@ import MenuDivider from "../menu-divider/menu-divider.component";
 import Search from "../../search";
 import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledScrollableBlock from "./scrollable-block.style";
-import StyledBox from "../../box/box.style";
-import { StyledMenuItem } from "../menu.style";
-import { StyledLink } from "../../link/link.style";
 import Logger from "../../../__internal__/utils/logger";
 
 // mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
@@ -111,36 +108,6 @@ describe("ScrollableBlock", () => {
           );
         });
       });
-
-      it("should apply the expected border-radius styling on the list container element", () => {
-        assertStyleMatch(
-          {
-            borderRadius: "var(--borderRadius000)",
-          },
-          render(menuType, { variant: "default" }),
-          { modifier: `${StyledBox}` }
-        );
-      });
-
-      it.each([
-        ["StyledLink", `${StyledLink}`],
-        ["a", "a"],
-        ["button", "button"],
-      ])(
-        "should apply the expected border-radius styling on the %s element of the last menu item",
-        (_, modifier) => {
-          assertStyleMatch(
-            {
-              borderBottomLeftRadius: "var(--borderRadius100)",
-              borderBottomRightRadius: "var(--borderRadius000)",
-            },
-            (wrapper = render(menuType, { variant: "default" })),
-            {
-              modifier: `${StyledBox} ${StyledMenuItem}:last-child ${modifier}`,
-            }
-          );
-        }
-      );
     }
   );
 

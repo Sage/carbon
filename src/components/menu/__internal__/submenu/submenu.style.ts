@@ -1,4 +1,7 @@
 import styled, { css } from "styled-components";
+
+import { StyledSegmentChildren } from "../../../menu/menu-segment-title/menu-segment-title.style";
+import StyledScrollableBlock from "../../scrollable-block/scrollable-block.style";
 import { baseTheme } from "../../../../style/themes";
 import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
@@ -91,12 +94,20 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       overflow-y: auto;
       ${maxHeight && `max-height: ${maxHeight};`}
 
-      ${StyledMenuItem}:last-child a,
-      ${StyledMenuItem}:last-child button,
-      ${StyledMenuItem}:last-child > span,
-      ${StyledMenuItem}:last-child > div {
-        border-bottom-left-radius: var(--borderRadius100);
+      ${StyledMenuItem}:last-of-type a, ${StyledMenuItem}:last-of-type button {
         border-bottom-right-radius: var(--borderRadius100);
+        border-bottom-left-radius: var(--borderRadius100);
+      }
+
+      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type a, 
+      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type button {
+        border-bottom-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius000);
+      }
+
+      :has(> ${StyledScrollableBlock}):not(+ ${StyledMenuItem}):not(> ul) {
+        border-bottom-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius100);
       }
     `}
 

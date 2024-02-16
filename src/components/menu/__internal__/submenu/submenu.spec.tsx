@@ -20,6 +20,7 @@ import menuConfigVariants from "../../menu.config";
 import { VariantType } from "../../menu-item";
 import GlobalHeader from "../../../global-header";
 import Logger from "../../../../__internal__/utils/logger";
+import StyledScrollableBlock from "../../scrollable-block/scrollable-block.style";
 
 // mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests,
 // and nor does the uncontrolled Search which is needed for coverage
@@ -521,7 +522,7 @@ describe("Submenu component", () => {
       });
     });
 
-    it.each([`a`, `button`, `> span`, `> div`])(
+    it.each([`a`, `button`])(
       "should have the expected border-radius styling on the %s element of the last menu item",
       (modifier) => {
         assertStyleMatch(
@@ -530,10 +531,23 @@ describe("Submenu component", () => {
             borderBottomLeftRadius: "var(--borderRadius100)",
           },
           wrapper.find(StyledSubmenu),
-          { modifier: `${StyledMenuItem}:last-child ${modifier}` }
+          { modifier: `${StyledMenuItem}:last-of-type ${modifier}` }
         );
       }
     );
+
+    it("should have the expected border-radius styling on a menu item inside scrollable block when the item is not in a segment", () => {
+      assertStyleMatch(
+        {
+          borderBottomRightRadius: "var(--borderRadius000)",
+          borderBottomLeftRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledSubmenu),
+        {
+          modifier: `:has(> ${StyledScrollableBlock}):not(+ ${StyledMenuItem}):not(> ul)`,
+        }
+      );
+    });
   });
 
   describe("keyboard navigation", () => {
