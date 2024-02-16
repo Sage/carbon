@@ -1,6 +1,7 @@
 import React from "react";
 import { SpaceProps } from "styled-system";
 
+import useLocale from "../../hooks/__internal__/useLocale";
 import {
   StyledDismissibleBox,
   StyledDismissibleBoxProps,
@@ -8,13 +9,17 @@ import {
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import { BoxProps } from "../box";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export interface DismissibleBoxProps
   extends SpaceProps,
     StyledDismissibleBoxProps,
-    Omit<BoxProps, "display" | "justifyContent"> {
+    Omit<BoxProps, "display" | "justifyContent">,
+    Omit<TagProps, "data-component"> {
   /** The content to render in the component */
   children?: React.ReactNode;
+  /** Data tag prop bag for close Button */
+  closeButtonDataProps?: TagProps;
   /** Callback to be called when the close icon button is clicked */
   onClose: (
     e:
@@ -30,23 +35,36 @@ export interface DismissibleBoxProps
 
 export const DismissibleBox = ({
   children,
+  closeButtonDataProps,
   onClose,
   borderRadius = "borderRadius100",
   ...rest
-}: DismissibleBoxProps) => (
-  <StyledDismissibleBox
-    p="20px 24px 20px 20px"
-    data-component="dismissible-box"
-    borderRadius={borderRadius}
-    {...rest}
-  >
-    {children}
-    <span data-element="close-button-wrapper">
-      <IconButton onClick={onClose} aria-label="close-button" ml={3}>
-        <Icon type="close" color="--colorsActionMinor500" />
-      </IconButton>
-    </span>
-  </StyledDismissibleBox>
-);
+}: DismissibleBoxProps) => {
+  const locale = useLocale();
+
+  return (
+    <StyledDismissibleBox
+      p="20px 24px 20px 20px"
+      data-component="dismissible-box"
+      borderRadius={borderRadius}
+      {...rest}
+    >
+      {children}
+      <span data-element="close-button-wrapper">
+        <IconButton
+          onClick={onClose}
+          aria-label={locale.dismissibleBox.ariaLabels.close()}
+          ml={3}
+          {...tagComponent("close-button", {
+            "data-element": "close-button",
+            ...closeButtonDataProps,
+          })}
+        >
+          <Icon type="close" color="--colorsActionMinor500" />
+        </IconButton>
+      </span>
+    </StyledDismissibleBox>
+  );
+};
 
 export default DismissibleBox;

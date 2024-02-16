@@ -46,6 +46,11 @@ interface Locale {
       close: () => string;
     };
   };
+  dismissibleBox: {
+    ariaLabels: {
+      close: () => string;
+    };
+  };
   errors: {
     messages: {
       formSummary: (
