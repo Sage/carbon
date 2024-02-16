@@ -1,3 +1,10 @@
+## [126.3.0](https://github.com/Sage/carbon/compare/v126.2.1...v126.3.0) (2024-02-16)
+
+
+### Features
+
+* **loader:** add gradient color to component ([8166ac7](https://github.com/Sage/carbon/commit/8166ac79f9868d773d55e729ac78b1c91054f026))
+
 ### [126.2.1](https://github.com/Sage/carbon/compare/v126.2.0...v126.2.1) (2024-02-16)
 
 
