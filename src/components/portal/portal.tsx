@@ -116,10 +116,9 @@ const Portal = ({
     return node as HTMLElement;
   };
 
-  const portalContent = inertOptOut ? (
-    <Container>{children}</Container>
-  ) : (
-    children
+  const portalContent = useMemo(
+    () => (inertOptOut ? <Container>{children}</Container> : children),
+    [inertOptOut, children]
   );
 
   return (
