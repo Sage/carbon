@@ -10,6 +10,8 @@ export const BUTTON_VARIANTS: ButtonTypes[] = [
   "tertiary",
   "dashed",
   "darkBackground",
+  "gradient-white",
+  "gradient-grey",
 ];
 export const BUTTON_SIZES: SizeOptions[] = ["small", "medium", "large"];
 export const BUTTON_ICON_POSITIONS: ButtonIconPosition[] = ["before", "after"];
