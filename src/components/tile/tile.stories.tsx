@@ -33,6 +33,14 @@ export const DefaultStory: ComponentStory<typeof Tile> = () => (
   </Tile>
 );
 
+export const SmallRoundness: ComponentStory<typeof Tile> = () => (
+  <Tile roundness="small">
+    <TileContent>Test Body One</TileContent>
+    <TileContent>Test Body Two</TileContent>
+    <TileContent>Test Body Three</TileContent>
+  </Tile>
+);
+
 export const LargeRoundness: ComponentStory<typeof Tile> = () => (
   <Tile roundness="large">
     <TileContent>Test Body One</TileContent>

@@ -84,7 +84,7 @@ const borderWidths: [TileProps["borderWidth"], string][] = [
   ["borderWidth300", "3px"],
   ["borderWidth400", "4px"],
 ];
-const tileRoundness: TileProps["roundness"][] = ["default", "large"];
+const tileRoundness: TileProps["roundness"][] = ["default", "large", "small"];
 
 test.describe("Tile component", () => {
   tileVariants.forEach(([variant, borderColor, backGroundColor]) => {
@@ -295,7 +295,18 @@ test.describe("Tile component", () => {
     }) => {
       await mount(<TileComponent data-element="tile" roundness={roundness} />);
 
-      const result = roundness === "default" ? "8px" : "16px";
+      let result: string;
+      switch (roundness) {
+        case "large":
+          result = "16px";
+          break;
+        case "small":
+          result = "4px";
+          break;
+        default:
+          result = "8px";
+          break;
+      }
       const tile = getDataElementByValue(page, "tile");
       await expect(tile).toHaveCSS("border-radius", result);
     });
