@@ -1,6 +1,2560 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
+.c3 {
+  position: relative;
+  color: var(--colorsActionMajor500);
+  background-color: transparent;
+  vertical-align: middle;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 16px;
+  width: 16px;
+}
+
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e928";
+  font-style: normal;
+  font-weight: normal;
+  vertical-align: middle;
+  font-size: var(--sizing250);
+  line-height: var(--sizing250);
+  display: block;
+}
+
+.c4 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c4 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c4 .c2 svg {
+  margin-top: 0;
+}
+
+.c5 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c5:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c5 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c5 .c2 svg {
+  margin-top: 0;
+}
+
+.c6 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c6:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c6 .c2 {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
+  height: 20px;
+  width: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c6 .c2 svg {
+  margin-top: 0;
+}
+
+.c7 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c7 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c7 .c2 svg {
+  margin-top: 0;
+}
+
+.c8 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c8 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c8 .c2 svg {
+  margin-top: 0;
+}
+
+.c9 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c9 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c9 .c2 svg {
+  margin-top: 0;
+}
+
+.c10 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c10 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c10 .c2 svg {
+  margin-top: 0;
+}
+
+.c11 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c11 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c11 .c2 svg {
+  margin-top: 0;
+}
+
+.c12 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c12 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c12 .c2 svg {
+  margin-top: 0;
+}
+
+.c13 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c13 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c13 .c2 svg {
+  margin-top: 0;
+}
+
+.c14 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c14 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c14 .c2 svg {
+  margin-top: 0;
+}
+
+.c15 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c15 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c15 .c2 svg {
+  margin-top: 0;
+}
+
+.c16 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c16 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c16 .c2 svg {
+  margin-top: 0;
+}
+
+.c17 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c17 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c17 .c2 svg {
+  margin-top: 0;
+}
+
+.c18 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c18 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c18 .c2 svg {
+  margin-top: 0;
+}
+
+.c19 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c19 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c19 .c2 svg {
+  margin-top: 0;
+}
+
+.c20 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c20 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c20 .c2 svg {
+  margin-top: 0;
+}
+
+.c21 .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c21 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c21 .c2 svg {
+  margin-top: 0;
+}
+
+.c22 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c22:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c22 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c22 .c2 svg {
+  margin-top: 0;
+}
+
+.c23 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c23:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c23 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c23 .c2 svg {
+  margin-top: 0;
+}
+
+.c24 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c24:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c24 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c24 .c2 svg {
+  margin-top: 0;
+}
+
+.c25 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c25:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c25 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c25 .c2 svg {
+  margin-top: 0;
+}
+
+.c26 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c26:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c26 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c26 .c2 svg {
+  margin-top: 0;
+}
+
+.c27 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c27:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c27 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c27 .c2 svg {
+  margin-top: 0;
+}
+
+.c28 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c28:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c28 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c28 .c2 svg {
+  margin-top: 0;
+}
+
+.c29 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c29:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c29 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c29 .c2 svg {
+  margin-top: 0;
+}
+
+.c30 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c30:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c30 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c30 .c2 svg {
+  margin-top: 0;
+}
+
+.c31 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c31:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c31 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c31 .c2 svg {
+  margin-top: 0;
+}
+
+.c32 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c32:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c32 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c32 .c2 svg {
+  margin-top: 0;
+}
+
+.c33 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c33:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c33 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c33 .c2 svg {
+  margin-top: 0;
+}
+
+.c34 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c34:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c34 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c34 .c2 svg {
+  margin-top: 0;
+}
+
+.c35 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c35:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c35 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c35 .c2 svg {
+  margin-top: 0;
+}
+
+.c36 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c36:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c36 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c36 .c2 svg {
+  margin-top: 0;
+}
+
+.c37 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c37:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c37 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c37 .c2 svg {
+  margin-top: 0;
+}
+
+.c38 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c38:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c38 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c38 .c2 svg {
+  margin-top: 0;
+}
+
+.c39 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c39:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c39 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c39 .c2 svg {
+  margin-top: 0;
+}
+
+.c40 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c40:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c40 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c40 .c2 svg {
+  margin-top: 0;
+}
+
+.c41 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c41:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c41 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c41 .c2 svg {
+  margin-top: 0;
+}
+
+.c42 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c42:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c42 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c42 .c2 svg {
+  margin-top: 0;
+}
+
+.c43 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c43:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c43 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c43 .c2 svg {
+  margin-top: 0;
+}
+
+.c44 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c44:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c44 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c44 .c2 svg {
+  margin-top: 0;
+}
+
+.c45 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c45:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c45 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c45 .c2 svg {
+  margin-top: 0;
+}
+
+.c46 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c46:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c46 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c46 .c2 svg {
+  margin-top: 0;
+}
+
+.c47 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c47:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c47 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c47 .c2 svg {
+  margin-top: 0;
+}
+
+.c48 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c48:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c48 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c48 .c2 svg {
+  margin-top: 0;
+}
+
+.c49 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c49:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c49 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c49 .c2 svg {
+  margin-top: 0;
+}
+
+.c50 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c50:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c50 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c50 .c2 svg {
+  margin-top: 0;
+}
+
+.c51 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c51:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c51 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c51 .c2 svg {
+  margin-top: 0;
+}
+
+.c52 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c52 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c52 .c2 svg {
+  margin-top: 0;
+}
+
+.c53 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c53 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c53 .c2 svg {
+  margin-top: 0;
+}
+
+.c54 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c54 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c54 .c2 svg {
+  margin-top: 0;
+}
+
+.c55 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c55 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c55 .c2 svg {
+  margin-top: 0;
+}
+
+.c56 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c56 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c56 .c2 svg {
+  margin-top: 0;
+}
+
+.c57 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c57 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c57 .c2 svg {
+  margin-top: 0;
+}
+
+.c58 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c58 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c58 .c2 svg {
+  margin-top: 0;
+}
+
+.c59 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c59 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c59 .c2 svg {
+  margin-top: 0;
+}
+
+.c60 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c60 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c60 .c2 svg {
+  margin-top: 0;
+}
+
+.c61 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c61 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c61 .c2 svg {
+  margin-top: 0;
+}
+
+.c62 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c62 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c62 .c2 svg {
+  margin-top: 0;
+}
+
+.c63 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c63 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c63 .c2 svg {
+  margin-top: 0;
+}
+
+.c64 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c64 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c64 .c2 svg {
+  margin-top: 0;
+}
+
+.c65 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c65 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c65 .c2 svg {
+  margin-top: 0;
+}
+
+.c66 .c2 {
+  color: var(--colorsActionMinor500);
+}
+
+.c66 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c66 .c2 svg {
+  margin-top: 0;
+}
+
+.c67 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c67:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c67 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c67 .c2 svg {
+  margin-top: 0;
+}
+
+.c68 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c68:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c68 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c68 .c2 svg {
+  margin-top: 0;
+}
+
+.c69 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c69:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c69 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c69 .c2 svg {
+  margin-top: 0;
+}
+
+.c70 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c70:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c70 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c70 .c2 svg {
+  margin-top: 0;
+}
+
+.c71 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c71:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c71 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c71 .c2 svg {
+  margin-top: 0;
+}
+
+.c72 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c72:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c72 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c72 .c2 svg {
+  margin-top: 0;
+}
+
+.c73 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c73:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c73 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c73 .c2 svg {
+  margin-top: 0;
+}
+
+.c74 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c74:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c74 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c74 .c2 svg {
+  margin-top: 0;
+}
+
+.c75 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c75:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c75 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c75 .c2 svg {
+  margin-top: 0;
+}
+
+.c76 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c76:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c76 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c76 .c2 svg {
+  margin-top: 0;
+}
+
+.c77 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c77:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c77 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c77 .c2 svg {
+  margin-top: 0;
+}
+
+.c78 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c78:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c78 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c78 .c2 svg {
+  margin-top: 0;
+}
+
+.c79 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c79:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c79 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c79 .c2 svg {
+  margin-top: 0;
+}
+
+.c80 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c80:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c80 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c80 .c2 svg {
+  margin-top: 0;
+}
+
+.c81 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c81:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c81 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c81 .c2 svg {
+  margin-top: 0;
+}
+
+.c82 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c82 .c2 svg {
+  margin-top: 0;
+}
+
+.c83 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c83 .c2 svg {
+  margin-top: 0;
+}
+
+.c84 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c84 .c2 svg {
+  margin-top: 0;
+}
+
+.c85 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c85 .c2 svg {
+  margin-top: 0;
+}
+
+.c86 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c86 .c2 svg {
+  margin-top: 0;
+}
+
+.c87 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c87 .c2 svg {
+  margin-top: 0;
+}
+
+.c88 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c88 .c2 svg {
+  margin-top: 0;
+}
+
+.c89 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c89 .c2 svg {
+  margin-top: 0;
+}
+
+.c90 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c90 .c2 svg {
+  margin-top: 0;
+}
+
+.c91 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c91 .c2 svg {
+  margin-top: 0;
+}
+
+.c92 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c92 .c2 svg {
+  margin-top: 0;
+}
+
+.c93 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c93 .c2 svg {
+  margin-top: 0;
+}
+
+.c94 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c94 .c2 svg {
+  margin-top: 0;
+}
+
+.c95 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c95 .c2 svg {
+  margin-top: 0;
+}
+
+.c96 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c96 .c2 svg {
+  margin-top: 0;
+}
+
+.c97 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c97 .c2 svg {
+  margin-top: 0;
+}
+
+.c98 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c98 .c2 svg {
+  margin-top: 0;
+}
+
+.c99 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c99 .c2 svg {
+  margin-top: 0;
+}
+
+.c100 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c100 .c2 svg {
+  margin-top: 0;
+}
+
+.c101 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c101 .c2 svg {
+  margin-top: 0;
+}
+
+.c102 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c102 .c2 svg {
+  margin-top: 0;
+}
+
+.c103 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c103 .c2 svg {
+  margin-top: 0;
+}
+
+.c104 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c104 .c2 svg {
+  margin-top: 0;
+}
+
+.c105 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c105 .c2 svg {
+  margin-top: 0;
+}
+
+.c106 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c106 .c2 svg {
+  margin-top: 0;
+}
+
+.c107 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c107 .c2 svg {
+  margin-top: 0;
+}
+
+.c108 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c108 .c2 svg {
+  margin-top: 0;
+}
+
+.c109 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c109 .c2 svg {
+  margin-top: 0;
+}
+
+.c110 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c110 .c2 svg {
+  margin-top: 0;
+}
+
+.c111 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c111 .c2 svg {
+  margin-top: 0;
+}
+
+.c112 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c112:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c112 .c2 {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
+  height: 20px;
+  width: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c112 .c2 svg {
+  margin-top: 0;
+}
+
+.c113 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c113:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c113 .c2 {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 1px;
+  height: 20px;
+  width: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c113 .c2 svg {
+  margin-top: 0;
+}
+
+.c114 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c114:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c114 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c114 .c2 svg {
+  margin-top: 0;
+}
+
+.c115 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c115:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c115 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c115 .c2 svg {
+  margin-top: 0;
+}
+
+.c116 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c116:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c116 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c116 .c2 svg {
+  margin-top: 0;
+}
+
+.c117 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c117:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c117 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c117 .c2 svg {
+  margin-top: 0;
+}
+
+.c118 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c118:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c118 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c118 .c2 svg {
+  margin-top: 0;
+}
+
+.c119 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c119:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c119 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c119 .c2 svg {
+  margin-top: 0;
+}
+
+.c120 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c120:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c120 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c120 .c2 svg {
+  margin-top: 0;
+}
+
+.c121 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c121:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c121 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c121 .c2 svg {
+  margin-top: 0;
+}
+
+.c122 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c122:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c122 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c122 .c2 svg {
+  margin-top: 0;
+}
+
+.c123 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c123:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c123 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c123 .c2 svg {
+  margin-top: 0;
+}
+
+.c124 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c124:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c124 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c124 .c2 svg {
+  margin-top: 0;
+}
+
+.c125 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c125:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c125 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c125 .c2 svg {
+  margin-top: 0;
+}
+
+.c126 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c126:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c126 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c126 .c2 svg {
+  margin-top: 0;
+}
+
+.c127 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c127:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c127 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c127 .c2 svg {
+  margin-top: 0;
+}
+
+.c128 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c128:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c128 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c128 .c2 svg {
+  margin-top: 0;
+}
+
+.c129 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c129:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c129 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c129 .c2 svg {
+  margin-top: 0;
+}
+
+.c130 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c130:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c130 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c130 .c2 svg {
+  margin-top: 0;
+}
+
+.c131 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c131:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c131 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c131 .c2 svg {
+  margin-top: 0;
+}
+
+.c132 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c132:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c132 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c132 .c2 svg {
+  margin-top: 0;
+}
+
+.c133 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c133:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c133 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c133 .c2 svg {
+  margin-top: 0;
+}
+
+.c134 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c134:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c134 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c134 .c2 svg {
+  margin-top: 0;
+}
+
+.c135 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c135:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c135 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c135 .c2 svg {
+  margin-top: 0;
+}
+
+.c136 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c136:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c136 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c136 .c2 svg {
+  margin-top: 0;
+}
+
+.c137 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c137:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c137 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c137 .c2 svg {
+  margin-top: 0;
+}
+
+.c138 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c138:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c138 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c138 .c2 svg {
+  margin-top: 0;
+}
+
+.c139 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c139:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c139 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c139 .c2 svg {
+  margin-top: 0;
+}
+
+.c140 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c140:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c140 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c140 .c2 svg {
+  margin-top: 0;
+}
+
+.c141 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c141:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c141 .c2 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c141 .c2 svg {
+  margin-top: 0;
+}
+
+.c0 {
+  padding-left: var(--spacing300);
+  padding-right: var(--spacing300);
+  margin: var(--spacing000);
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  outline-offset: 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-radius: var(--borderRadius400);
+  background: transparent;
+  border-color: var(--colorsActionMajor500);
+  color: var(--colorsActionMajor500);
+  font-size: var(--fontSizes100);
+  min-height: 40px;
+}
+
+.c0:focus {
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+  box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+  outline: transparent 3px solid;
+}
+
+.c0 .c2 {
+  color: var(--colorsActionMajor500);
+}
+
+.c0 .c142 {
+  background-color: var(--colorsActionMajor500);
+}
+
+.c0:hover {
+  background: var(--colorsActionMajor600);
+  border-color: var(--colorsActionMajorTransparent);
+  color: var(--colorsActionMajorYang100);
+}
+
+.c0:hover .c2 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c0:hover .c142 {
+  background-color: var(--colorsActionMajorYang100);
+}
+
+.c0 .c2 {
+  margin-left: var(--spacing100);
+  margin-right: 0px;
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c0 .c2 svg {
+  margin-top: 0;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+<button
+  className="c0"
+  data-component="button"
+  disabled={false}
+  draggable={false}
+  role="button"
+  size="medium"
+  type="button"
+>
+  <span>
+    <span
+      className="c1"
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
+  <span
+    aria-hidden={true}
+    className="c2 c3"
+    color="--colorsActionMajor500"
+    data-component="icon"
+    data-element="filter"
+    disabled={false}
+    fontSize="small"
+    type="filter"
+  />
+</button>
+`;
+
+exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
 .c2 {
   position: relative;
   color: var(--colorsActionMajor500);
@@ -35,28 +2589,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: block;
 }
 
-.c3 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c3 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c3 .c1 svg {
-  margin-top: 0;
-}
-
 .c4 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c4:hover .c1 {
-  color: var(--colorsActionMajorYang100);
+  color: var(--colorsActionMinor500);
 }
 
 .c4 .c1 {
@@ -68,6 +2602,82 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c4 .c1 svg {
+  margin-top: 0;
+}
+
+.c0 {
+  padding-left: var(--spacing300);
+  padding-right: var(--spacing300);
+  margin: var(--spacing000);
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  outline-offset: 0;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-radius: var(--borderRadius400);
+  background: transparent;
+  border-color: var(--colorsActionMajor500);
+  color: var(--colorsActionMajor500);
+  font-size: var(--fontSizes100);
+  min-height: 40px;
+}
+
+.c0:focus {
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+  box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
+  outline: transparent 3px solid;
+}
+
+.c0 .c1 {
+  color: var(--colorsActionMajor500);
+}
+
+.c0 .c141 {
+  background-color: var(--colorsActionMajor500);
+}
+
+.c0:hover {
+  background: var(--colorsActionMajor600);
+  border-color: var(--colorsActionMajorTransparent);
+  color: var(--colorsActionMajorYang100);
+}
+
+.c0:hover .c1 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c0:hover .c141 {
+  background-color: var(--colorsActionMajorYang100);
+}
+
+.c0 .c1 {
+  margin-left: 0px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
+  height: 20px;
+  width: 20px;
+}
+
+.c0 .c1 svg {
   margin-top: 0;
 }
 
@@ -1474,21 +4084,11 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c81 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c81:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c81 .c1 {
   margin-left: 0px;
-  margin-right: 0px;
-  margin-bottom: 1px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
   height: 20px;
   width: 20px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .c81 .c1 svg {
@@ -1496,33 +4096,15 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c82 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c82:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c82 .c1 {
   margin-left: 0px;
-  margin-right: 0px;
-  margin-bottom: 1px;
+  margin-right: var(--spacing100);
+  margin-bottom: 0px;
   height: 20px;
   width: 20px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .c82 .c1 svg {
   margin-top: 0;
-}
-
-.c83 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c83:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c83 .c1 {
@@ -1538,14 +4120,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c84 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c84:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c84 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1555,14 +4129,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c84 .c1 svg {
   margin-top: 0;
-}
-
-.c85 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c85:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c85 .c1 {
@@ -1578,14 +4144,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c86 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c86:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c86 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1595,14 +4153,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c86 .c1 svg {
   margin-top: 0;
-}
-
-.c87 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c87:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c87 .c1 {
@@ -1618,14 +4168,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c88 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c88:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c88 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1635,14 +4177,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c88 .c1 svg {
   margin-top: 0;
-}
-
-.c89 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c89:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c89 .c1 {
@@ -1658,14 +4192,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c90 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c90:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c90 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1675,14 +4201,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c90 .c1 svg {
   margin-top: 0;
-}
-
-.c91 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c91:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c91 .c1 {
@@ -1698,14 +4216,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c92 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c92:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c92 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1715,14 +4225,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c92 .c1 svg {
   margin-top: 0;
-}
-
-.c93 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c93:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c93 .c1 {
@@ -1738,14 +4240,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c94 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c94:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c94 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1755,14 +4249,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c94 .c1 svg {
   margin-top: 0;
-}
-
-.c95 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c95:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c95 .c1 {
@@ -1778,14 +4264,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c96 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c96:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c96 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1795,14 +4273,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c96 .c1 svg {
   margin-top: 0;
-}
-
-.c97 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c97:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c97 .c1 {
@@ -1818,14 +4288,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c98 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c98:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c98 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1835,14 +4297,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c98 .c1 svg {
   margin-top: 0;
-}
-
-.c99 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c99:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c99 .c1 {
@@ -1858,14 +4312,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c100 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c100:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c100 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1875,14 +4321,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c100 .c1 svg {
   margin-top: 0;
-}
-
-.c101 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c101:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c101 .c1 {
@@ -1898,14 +4336,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c102 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c102:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c102 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1915,14 +4345,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c102 .c1 svg {
   margin-top: 0;
-}
-
-.c103 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c103:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c103 .c1 {
@@ -1938,14 +4360,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c104 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c104:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c104 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1955,14 +4369,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c104 .c1 svg {
   margin-top: 0;
-}
-
-.c105 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c105:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c105 .c1 {
@@ -1978,14 +4384,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c106 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c106:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c106 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -1995,14 +4393,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c106 .c1 svg {
   margin-top: 0;
-}
-
-.c107 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c107:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c107 .c1 {
@@ -2018,14 +4408,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c108 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c108:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c108 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -2038,14 +4420,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c109 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c109:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c109 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -2055,14 +4429,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c109 .c1 svg {
   margin-top: 0;
-}
-
-.c110 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c110:hover .c1 {
-  color: var(--colorsActionMajorYang100);
 }
 
 .c110 .c1 {
@@ -2077,247 +4443,15 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-top: 0;
 }
 
-.c0 {
-  padding-left: var(--spacing300);
-  padding-right: var(--spacing300);
-  margin: var(--spacing000);
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  vertical-align: middle;
-  outline-offset: 0;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-radius: var(--borderRadius400);
-  background: transparent;
-  border-color: var(--colorsActionMajor500);
-  color: var(--colorsActionMajor500);
-  font-size: var(--fontSizes100);
-  min-height: 40px;
-}
-
-.c0:focus {
-  -webkit-appearance: none;
-  -webkit-box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
-  box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
-  outline: transparent 3px solid;
-}
-
-.c0 .c1 {
+.c111 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c0 .c111 {
-  background-color: var(--colorsActionMajor500);
-}
-
-.c0:hover {
-  background: var(--colorsActionMajor600);
-  border-color: var(--colorsActionMajorTransparent);
+.c111:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c0:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c0:hover .c111 {
-  background-color: var(--colorsActionMajorYang100);
-}
-
-.c0 .c1 {
-  margin-left: var(--spacing100);
-  margin-right: 0px;
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c0 .c1 svg {
-  margin-top: 0;
-}
-
-<button
-  className="c0"
-  data-component="button"
-  disabled={false}
-  draggable={false}
-  role="button"
-  size="medium"
-  type="button"
->
-  <span>
-    <span
-      data-element="main-text"
-    >
-      foo
-    </span>
-  </span>
-  <span
-    aria-hidden={true}
-    className="c1 c2"
-    color="--colorsActionMajor500"
-    data-component="icon"
-    data-element="filter"
-    disabled={false}
-    fontSize="small"
-    type="filter"
-  />
-</button>
-`;
-
-exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
-.c2 {
-  position: relative;
-  color: var(--colorsActionMajor500);
-  background-color: transparent;
-  vertical-align: middle;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  height: 16px;
-  width: 16px;
-}
-
-.c2::before {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: CarbonIcons;
-  content: "\\e928";
-  font-style: normal;
-  font-weight: normal;
-  vertical-align: middle;
-  font-size: var(--sizing250);
-  line-height: var(--sizing250);
-  display: block;
-}
-
-.c3 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c3 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c3 .c1 svg {
-  margin-top: 0;
-}
-
-.c0 {
-  padding-left: var(--spacing300);
-  padding-right: var(--spacing300);
-  margin: var(--spacing000);
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  vertical-align: middle;
-  outline-offset: 0;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  font-weight: 600;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  border-radius: var(--borderRadius400);
-  background: transparent;
-  border-color: var(--colorsActionMajor500);
-  color: var(--colorsActionMajor500);
-  font-size: var(--fontSizes100);
-  min-height: 40px;
-}
-
-.c0:focus {
-  -webkit-appearance: none;
-  -webkit-box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
-  box-shadow: 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
-  outline: transparent 3px solid;
-}
-
-.c0 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c0 .c110 {
-  background-color: var(--colorsActionMajor500);
-}
-
-.c0:hover {
-  background: var(--colorsActionMajor600);
-  border-color: var(--colorsActionMajorTransparent);
-  color: var(--colorsActionMajorYang100);
-}
-
-.c0:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c0:hover .c110 {
-  background-color: var(--colorsActionMajorYang100);
-}
-
-.c0 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c0 .c1 svg {
-  margin-top: 0;
-}
-
-.c4 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c4:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c4 .c1 {
+.c111 .c1 {
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
@@ -2327,1399 +4461,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: auto;
 }
 
-.c4 .c1 svg {
+.c111 .c1 svg {
   margin-top: 0;
 }
 
-.c5 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c5 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c5 .c1 svg {
-  margin-top: 0;
-}
-
-.c6 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c6 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c6 .c1 svg {
-  margin-top: 0;
-}
-
-.c7 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c7 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c7 .c1 svg {
-  margin-top: 0;
-}
-
-.c8 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c8 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c8 .c1 svg {
-  margin-top: 0;
-}
-
-.c9 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c9 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c9 .c1 svg {
-  margin-top: 0;
-}
-
-.c10 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c10 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c10 .c1 svg {
-  margin-top: 0;
-}
-
-.c11 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c11 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c11 .c1 svg {
-  margin-top: 0;
-}
-
-.c12 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c12 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c12 .c1 svg {
-  margin-top: 0;
-}
-
-.c13 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c13 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c13 .c1 svg {
-  margin-top: 0;
-}
-
-.c14 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c14 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c14 .c1 svg {
-  margin-top: 0;
-}
-
-.c15 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c15 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c15 .c1 svg {
-  margin-top: 0;
-}
-
-.c16 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c16 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c16 .c1 svg {
-  margin-top: 0;
-}
-
-.c17 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c17 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c17 .c1 svg {
-  margin-top: 0;
-}
-
-.c18 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c18 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c18 .c1 svg {
-  margin-top: 0;
-}
-
-.c19 .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c19 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c19 .c1 svg {
-  margin-top: 0;
-}
-
-.c20 .c1 {
+.c112 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c20:hover .c1 {
+.c112:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c20 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c20 .c1 svg {
-  margin-top: 0;
-}
-
-.c21 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c21:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c21 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c21 .c1 svg {
-  margin-top: 0;
-}
-
-.c22 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c22:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c22 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c22 .c1 svg {
-  margin-top: 0;
-}
-
-.c23 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c23:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c23 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c23 .c1 svg {
-  margin-top: 0;
-}
-
-.c24 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c24:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c24 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c24 .c1 svg {
-  margin-top: 0;
-}
-
-.c25 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c25:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c25 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c25 .c1 svg {
-  margin-top: 0;
-}
-
-.c26 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c26:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c26 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c26 .c1 svg {
-  margin-top: 0;
-}
-
-.c27 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c27:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c27 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c27 .c1 svg {
-  margin-top: 0;
-}
-
-.c28 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c28:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c28 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c28 .c1 svg {
-  margin-top: 0;
-}
-
-.c29 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c29:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c29 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c29 .c1 svg {
-  margin-top: 0;
-}
-
-.c30 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c30:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c30 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c30 .c1 svg {
-  margin-top: 0;
-}
-
-.c31 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c31:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c31 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c31 .c1 svg {
-  margin-top: 0;
-}
-
-.c32 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c32:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c32 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c32 .c1 svg {
-  margin-top: 0;
-}
-
-.c33 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c33:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c33 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c33 .c1 svg {
-  margin-top: 0;
-}
-
-.c34 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c34:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c34 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c34 .c1 svg {
-  margin-top: 0;
-}
-
-.c35 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c35:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c35 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c35 .c1 svg {
-  margin-top: 0;
-}
-
-.c36 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c36:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c36 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c36 .c1 svg {
-  margin-top: 0;
-}
-
-.c37 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c37:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c37 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c37 .c1 svg {
-  margin-top: 0;
-}
-
-.c38 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c38:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c38 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c38 .c1 svg {
-  margin-top: 0;
-}
-
-.c39 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c39:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c39 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c39 .c1 svg {
-  margin-top: 0;
-}
-
-.c40 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c40:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c40 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c40 .c1 svg {
-  margin-top: 0;
-}
-
-.c41 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c41:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c41 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c41 .c1 svg {
-  margin-top: 0;
-}
-
-.c42 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c42:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c42 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c42 .c1 svg {
-  margin-top: 0;
-}
-
-.c43 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c43:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c43 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c43 .c1 svg {
-  margin-top: 0;
-}
-
-.c44 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c44:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c44 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c44 .c1 svg {
-  margin-top: 0;
-}
-
-.c45 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c45:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c45 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c45 .c1 svg {
-  margin-top: 0;
-}
-
-.c46 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c46:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c46 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c46 .c1 svg {
-  margin-top: 0;
-}
-
-.c47 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c47:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c47 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c47 .c1 svg {
-  margin-top: 0;
-}
-
-.c48 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c48:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c48 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c48 .c1 svg {
-  margin-top: 0;
-}
-
-.c49 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c49:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c49 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c49 .c1 svg {
-  margin-top: 0;
-}
-
-.c50 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c50 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c50 .c1 svg {
-  margin-top: 0;
-}
-
-.c51 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c51 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c51 .c1 svg {
-  margin-top: 0;
-}
-
-.c52 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c52 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c52 .c1 svg {
-  margin-top: 0;
-}
-
-.c53 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c53 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c53 .c1 svg {
-  margin-top: 0;
-}
-
-.c54 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c54 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c54 .c1 svg {
-  margin-top: 0;
-}
-
-.c55 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c55 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c55 .c1 svg {
-  margin-top: 0;
-}
-
-.c56 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c56 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c56 .c1 svg {
-  margin-top: 0;
-}
-
-.c57 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c57 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c57 .c1 svg {
-  margin-top: 0;
-}
-
-.c58 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c58 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c58 .c1 svg {
-  margin-top: 0;
-}
-
-.c59 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c59 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c59 .c1 svg {
-  margin-top: 0;
-}
-
-.c60 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c60 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c60 .c1 svg {
-  margin-top: 0;
-}
-
-.c61 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c61 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c61 .c1 svg {
-  margin-top: 0;
-}
-
-.c62 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c62 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c62 .c1 svg {
-  margin-top: 0;
-}
-
-.c63 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c63 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c63 .c1 svg {
-  margin-top: 0;
-}
-
-.c64 .c1 {
-  color: var(--colorsActionMinor500);
-}
-
-.c64 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c64 .c1 svg {
-  margin-top: 0;
-}
-
-.c65 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c65:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c65 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c65 .c1 svg {
-  margin-top: 0;
-}
-
-.c66 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c66:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c66 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c66 .c1 svg {
-  margin-top: 0;
-}
-
-.c67 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c67:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c67 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c67 .c1 svg {
-  margin-top: 0;
-}
-
-.c68 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c68:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c68 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c68 .c1 svg {
-  margin-top: 0;
-}
-
-.c69 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c69:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c69 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c69 .c1 svg {
-  margin-top: 0;
-}
-
-.c70 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c70:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c70 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c70 .c1 svg {
-  margin-top: 0;
-}
-
-.c71 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c71:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c71 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c71 .c1 svg {
-  margin-top: 0;
-}
-
-.c72 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c72:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c72 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c72 .c1 svg {
-  margin-top: 0;
-}
-
-.c73 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c73:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c73 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c73 .c1 svg {
-  margin-top: 0;
-}
-
-.c74 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c74:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c74 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c74 .c1 svg {
-  margin-top: 0;
-}
-
-.c75 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c75:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c75 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c75 .c1 svg {
-  margin-top: 0;
-}
-
-.c76 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c76:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c76 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c76 .c1 svg {
-  margin-top: 0;
-}
-
-.c77 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c77:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c77 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c77 .c1 svg {
-  margin-top: 0;
-}
-
-.c78 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c78:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c78 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c78 .c1 svg {
-  margin-top: 0;
-}
-
-.c79 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c79:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c79 .c1 {
-  margin-left: 0px;
-  margin-right: var(--spacing100);
-  margin-bottom: 0px;
-  height: 20px;
-  width: 20px;
-}
-
-.c79 .c1 svg {
-  margin-top: 0;
-}
-
-.c80 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c80:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c80 .c1 {
+.c112 .c1 {
   margin-left: 0px;
   margin-right: 0px;
   margin-bottom: 1px;
@@ -3729,41 +4483,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: auto;
 }
 
-.c80 .c1 svg {
+.c112 .c1 svg {
   margin-top: 0;
 }
 
-.c81 .c1 {
+.c113 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c81:hover .c1 {
+.c113:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c81 .c1 {
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-bottom: 1px;
-  height: 20px;
-  width: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.c81 .c1 svg {
-  margin-top: 0;
-}
-
-.c82 .c1 {
-  color: var(--colorsActionMajor500);
-}
-
-.c82:hover .c1 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c82 .c1 {
+.c113 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3771,19 +4503,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c82 .c1 svg {
+.c113 .c1 svg {
   margin-top: 0;
 }
 
-.c83 .c1 {
+.c114 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c83:hover .c1 {
+.c114:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c83 .c1 {
+.c114 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3791,19 +4523,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c83 .c1 svg {
+.c114 .c1 svg {
   margin-top: 0;
 }
 
-.c84 .c1 {
+.c115 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c84:hover .c1 {
+.c115:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c84 .c1 {
+.c115 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3811,19 +4543,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c84 .c1 svg {
+.c115 .c1 svg {
   margin-top: 0;
 }
 
-.c85 .c1 {
+.c116 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c85:hover .c1 {
+.c116:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c85 .c1 {
+.c116 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3831,19 +4563,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c85 .c1 svg {
+.c116 .c1 svg {
   margin-top: 0;
 }
 
-.c86 .c1 {
+.c117 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c86:hover .c1 {
+.c117:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c86 .c1 {
+.c117 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3851,19 +4583,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c86 .c1 svg {
+.c117 .c1 svg {
   margin-top: 0;
 }
 
-.c87 .c1 {
+.c118 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c87:hover .c1 {
+.c118:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c87 .c1 {
+.c118 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3871,19 +4603,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c87 .c1 svg {
+.c118 .c1 svg {
   margin-top: 0;
 }
 
-.c88 .c1 {
+.c119 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c88:hover .c1 {
+.c119:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c88 .c1 {
+.c119 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3891,19 +4623,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c88 .c1 svg {
+.c119 .c1 svg {
   margin-top: 0;
 }
 
-.c89 .c1 {
+.c120 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c89:hover .c1 {
+.c120:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c89 .c1 {
+.c120 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3911,19 +4643,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c89 .c1 svg {
+.c120 .c1 svg {
   margin-top: 0;
 }
 
-.c90 .c1 {
+.c121 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c90:hover .c1 {
+.c121:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c90 .c1 {
+.c121 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3931,19 +4663,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c90 .c1 svg {
+.c121 .c1 svg {
   margin-top: 0;
 }
 
-.c91 .c1 {
+.c122 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c91:hover .c1 {
+.c122:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c91 .c1 {
+.c122 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3951,19 +4683,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c91 .c1 svg {
+.c122 .c1 svg {
   margin-top: 0;
 }
 
-.c92 .c1 {
+.c123 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c92:hover .c1 {
+.c123:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c92 .c1 {
+.c123 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3971,19 +4703,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c92 .c1 svg {
+.c123 .c1 svg {
   margin-top: 0;
 }
 
-.c93 .c1 {
+.c124 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c93:hover .c1 {
+.c124:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c93 .c1 {
+.c124 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -3991,19 +4723,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c93 .c1 svg {
+.c124 .c1 svg {
   margin-top: 0;
 }
 
-.c94 .c1 {
+.c125 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c94:hover .c1 {
+.c125:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c94 .c1 {
+.c125 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4011,19 +4743,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c94 .c1 svg {
+.c125 .c1 svg {
   margin-top: 0;
 }
 
-.c95 .c1 {
+.c126 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c95:hover .c1 {
+.c126:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c95 .c1 {
+.c126 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4031,19 +4763,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c95 .c1 svg {
+.c126 .c1 svg {
   margin-top: 0;
 }
 
-.c96 .c1 {
+.c127 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c96:hover .c1 {
+.c127:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c96 .c1 {
+.c127 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4051,19 +4783,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c96 .c1 svg {
+.c127 .c1 svg {
   margin-top: 0;
 }
 
-.c97 .c1 {
+.c128 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c97:hover .c1 {
+.c128:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c97 .c1 {
+.c128 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4071,19 +4803,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c97 .c1 svg {
+.c128 .c1 svg {
   margin-top: 0;
 }
 
-.c98 .c1 {
+.c129 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c98:hover .c1 {
+.c129:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c98 .c1 {
+.c129 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4091,19 +4823,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c98 .c1 svg {
+.c129 .c1 svg {
   margin-top: 0;
 }
 
-.c99 .c1 {
+.c130 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c99:hover .c1 {
+.c130:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c99 .c1 {
+.c130 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4111,19 +4843,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c99 .c1 svg {
+.c130 .c1 svg {
   margin-top: 0;
 }
 
-.c100 .c1 {
+.c131 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c100:hover .c1 {
+.c131:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c100 .c1 {
+.c131 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4131,19 +4863,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c100 .c1 svg {
+.c131 .c1 svg {
   margin-top: 0;
 }
 
-.c101 .c1 {
+.c132 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c101:hover .c1 {
+.c132:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c101 .c1 {
+.c132 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4151,19 +4883,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c101 .c1 svg {
+.c132 .c1 svg {
   margin-top: 0;
 }
 
-.c102 .c1 {
+.c133 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c102:hover .c1 {
+.c133:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c102 .c1 {
+.c133 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4171,19 +4903,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c102 .c1 svg {
+.c133 .c1 svg {
   margin-top: 0;
 }
 
-.c103 .c1 {
+.c134 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c103:hover .c1 {
+.c134:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c103 .c1 {
+.c134 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4191,19 +4923,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c103 .c1 svg {
+.c134 .c1 svg {
   margin-top: 0;
 }
 
-.c104 .c1 {
+.c135 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c104:hover .c1 {
+.c135:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c104 .c1 {
+.c135 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4211,19 +4943,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c104 .c1 svg {
+.c135 .c1 svg {
   margin-top: 0;
 }
 
-.c105 .c1 {
+.c136 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c105:hover .c1 {
+.c136:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c105 .c1 {
+.c136 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4231,19 +4963,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c105 .c1 svg {
+.c136 .c1 svg {
   margin-top: 0;
 }
 
-.c106 .c1 {
+.c137 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c106:hover .c1 {
+.c137:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c106 .c1 {
+.c137 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4251,19 +4983,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c106 .c1 svg {
+.c137 .c1 svg {
   margin-top: 0;
 }
 
-.c107 .c1 {
+.c138 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c107:hover .c1 {
+.c138:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c107 .c1 {
+.c138 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4271,19 +5003,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c107 .c1 svg {
+.c138 .c1 svg {
   margin-top: 0;
 }
 
-.c108 .c1 {
+.c139 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c108:hover .c1 {
+.c139:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c108 .c1 {
+.c139 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4291,19 +5023,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c108 .c1 svg {
+.c139 .c1 svg {
   margin-top: 0;
 }
 
-.c109 .c1 {
+.c140 .c1 {
   color: var(--colorsActionMajor500);
 }
 
-.c109:hover .c1 {
+.c140:hover .c1 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c109 .c1 {
+.c140 .c1 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -4311,8 +5043,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   width: 20px;
 }
 
-.c109 .c1 svg {
+.c140 .c1 svg {
   margin-top: 0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 <button
@@ -4336,6 +5079,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   />
   <span>
     <span
+      className="c3"
       data-element="main-text"
     >
       foo

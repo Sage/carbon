@@ -498,26 +498,6 @@ context("Testing Button-Toggle-Group component", () => {
       }
     );
 
-    it.each([
-      ["left", "flex-start"],
-      ["right", "flex-end"],
-    ])(
-      "should render Button-Toggle-Group with label inline and %s aligned",
-      (alignment, justifyContent) => {
-        CypressMountWithProviders(
-          <stories.ButtonToggleGroupComponent
-            labelInline
-            labelAlign={alignment}
-          />
-        );
-
-        buttonToggleGroup()
-          .parent()
-          .prev()
-          .should("have.css", "justify-content", justifyContent);
-      }
-    );
-
     it("should render Button-Toggle-Group with second button toggle pressed", () => {
       CypressMountWithProviders(<stories.DefaultStory />);
 

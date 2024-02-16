@@ -69,19 +69,29 @@ const InputPresentationStyle = styled.div<
       | "warning"
       | "info"
       | "hasIcon"
+      | "borderRadius"
     > &
     Pick<CarbonProviderProps, "validationRedesignOptIn">
 >`
   align-items: stretch;
   background: var(--colorsUtilityYang100);
   border: 1px solid var(--colorsUtilityMajor300);
-  border-radius: var(--borderRadius050);
   box-sizing: border-box;
   cursor: text;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
+
+  ${({ borderRadius }) => {
+    if (Array.isArray(borderRadius)) {
+      return `border-radius: ${borderRadius
+        .map((value) => `var(--${value})`)
+        .join(" ")};`;
+    }
+    return `border-radius: var(--${borderRadius});`;
+  }}
+
   ${({ size, hasIcon, align }) =>
     size &&
     css`

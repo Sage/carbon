@@ -24,7 +24,10 @@ export type BoxSizing = "content-box" | "border-box";
 
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
-type BorderRadiusType = Extract<DesignTokensType, `borderRadius${string}`>;
+export type BorderRadiusType = Extract<
+  DesignTokensType,
+  `borderRadius${string}`
+>;
 
 export interface BoxProps
   extends FlexboxProps,

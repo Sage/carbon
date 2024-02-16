@@ -1,3 +1,57 @@
+## [126.2.0](https://github.com/Sage/carbon/compare/v126.1.0...v126.2.0) (2024-02-15)
+
+
+### Features
+
+* **button:** add new `gradient-white` and `gradient-grey` buttonTypes ([36dea2a](https://github.com/Sage/carbon/commit/36dea2a14856cea465256e939bde68f53f46809c))
+
+## [126.1.0](https://github.com/Sage/carbon/compare/v126.0.1...v126.1.0) (2024-02-14)
+
+
+### Features
+
+* **textarea:** add new borderRadius prop ([5ff228b](https://github.com/Sage/carbon/commit/5ff228b07ff969c0e54b7cfcad1973f8f4f71ecb))
+
+### [126.0.1](https://github.com/Sage/carbon/compare/v126.0.0...v126.0.1) (2024-02-13)
+
+
+### Bug Fixes
+
+* **message:** reduce left padding of content for `transparent` variant ([31feba5](https://github.com/Sage/carbon/commit/31feba518ff1bfcaee1b9b499691a5ad52655815)), closes [#6552](https://github.com/Sage/carbon/issues/6552)
+
+## [126.0.0](https://github.com/Sage/carbon/compare/v125.13.0...v126.0.0) (2024-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `labelAlign` prop has been removed from `ButtonToggle`, `Checkbox`,
+`RadioButton` and `Switch` components.
+
+### Bug Fixes
+
+* remove unused labelAlign prop from checkable inputs ([037dcc9](https://github.com/Sage/carbon/commit/037dcc923fbd53b3edd49f97103a18e6dfba633e))
+
+## [125.13.0](https://github.com/Sage/carbon/compare/v125.12.2...v125.13.0) (2024-02-12)
+
+
+### Features
+
+* **portal:** add inertOptOut prop to keep the content interactable when a modal opens ([250ba58](https://github.com/Sage/carbon/commit/250ba5853545218b175c97a66fcbe71f0e44b115))
+
+### [125.12.2](https://github.com/Sage/carbon/compare/v125.12.1...v125.12.2) (2024-02-09)
+
+
+### Bug Fixes
+
+* **date:** prevent dialog from closing if esc is pressed and date picker is open ([f28f361](https://github.com/Sage/carbon/commit/f28f3618a015046272ff6df36ecad7581d2efaa3))
+
+### [125.12.1](https://github.com/Sage/carbon/compare/v125.12.0...v125.12.1) (2024-02-08)
+
+
+### Bug Fixes
+
+* **split-button:** fix style when href is passed to a button ([8dd1645](https://github.com/Sage/carbon/commit/8dd1645e78f9607ae56d05a8995acc10a04335c0))
+
 ## [125.12.0](https://github.com/Sage/carbon/compare/v125.11.1...v125.12.0) (2024-02-07)
 
 

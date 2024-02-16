@@ -26,8 +26,6 @@ export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
   "data-role"?: string;
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
-  /** Text alignment of the label */
-  labelAlign?: "left" | "right";
   /** When true label is inline */
   labelInline?: boolean;
   /** Accepts a callback function which is triggered on click event */

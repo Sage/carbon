@@ -4,7 +4,6 @@ exports[`Input renders with an input 1`] = `
 .c0 {
   background: transparent;
   border: none;
-  border-radius: var(--borderRadius050);
   color: var(--colorsUtilityYin090);
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -15,6 +14,7 @@ exports[`Input renders with an input 1`] = `
   padding: 0;
   margin: 0;
   width: 30px;
+  border-radius: var(--borderRadius050);
 }
 
 .c0:-webkit-autofill {

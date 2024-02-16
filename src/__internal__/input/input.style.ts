@@ -2,11 +2,13 @@ import styled, { css } from "styled-components";
 import { CommonInputProps } from "./input.component";
 
 const StyledInput = styled.input<
-  Pick<CommonInputProps, "align" | "disabled" | "readOnly">
+  Pick<
+    CommonInputProps,
+    "align" | "disabled" | "readOnly" | "inputBorderRadius"
+  >
 >`
   background: transparent;
   border: none;
-  border-radius: var(--borderRadius050);
   color: var(--colorsUtilityYin090);
   flex-grow: 1;
   font-size: var(--fontSizes100);
@@ -19,6 +21,15 @@ const StyledInput = styled.input<
     background-clip: text;
     -webkit-background-clip: text;
   }
+
+  ${({ inputBorderRadius }) => {
+    if (Array.isArray(inputBorderRadius)) {
+      return `border-radius: ${inputBorderRadius
+        .map((value) => `var(--${value})`)
+        .join(" ")};`;
+    }
+    return `border-radius: var(--${inputBorderRadius});`;
+  }}
 
   ${({ align }) =>
     align &&

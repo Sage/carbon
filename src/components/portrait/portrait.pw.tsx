@@ -15,6 +15,7 @@ import {
 } from "../../../playwright/support/constants";
 import {
   checkAccessibility,
+  waitForAnimationEnd,
   getDesignTokensByCssProperty,
 } from "../../../playwright/support/helper";
 import Box from "../../../src/components/box";
@@ -521,8 +522,8 @@ test.describe("Accessibility tests for Portrait component", () => {
         <PortraitComponent tooltipIsVisible tooltipMessage={tooltipMessage} />
       );
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
+      await checkAccessibility(page);
     });
   });
 
@@ -533,26 +534,31 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitComponent tooltipId={tooltipId} />);
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
+      await checkAccessibility(page);
     });
   });
 
-  [
-    [true, "with"],
-    [false, "without"],
-  ].forEach(([boolVal, renderState]) => {
-    test(`should pass accessibility checks ${renderState} a tooltip, when visibility prop is ${boolVal}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <PortraitComponent tooltipMessage="foo" tooltipIsVisible={boolVal} />
-      );
+  test("should pass accessibility checks without a tooltip, when visibility prop is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <PortraitComponent tooltipMessage="foo" tooltipIsVisible={false} />
+    );
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
-    });
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility checks with a tooltip, when visibility prop is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<PortraitComponent tooltipMessage="foo" tooltipIsVisible />);
+
+    await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
+
+    await checkAccessibility(page);
   });
 
   ["top", "bottom", "left", "right"].forEach((tooltipPosition) => {
@@ -562,8 +568,8 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitComponent tooltipPosition={tooltipPosition} />);
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
+      await checkAccessibility(page);
     });
   });
 
@@ -573,8 +579,8 @@ test.describe("Accessibility tests for Portrait component", () => {
   }) => {
     await mount(<PortraitComponent tooltipType="error" />);
 
-    // color-contrast ignored until we can investigate and fix FE-6245
-    await checkAccessibility(page, undefined, "color-contrast");
+    await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
+    await checkAccessibility(page);
   });
 
   [SIZE.MEDIUM, SIZE.LARGE].forEach((tooltipSize) => {
@@ -584,8 +590,8 @@ test.describe("Accessibility tests for Portrait component", () => {
     }) => {
       await mount(<PortraitComponent tooltipSize={tooltipSize} />);
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      await waitForAnimationEnd(getDataElementByValue(page, "tooltip"));
+      await checkAccessibility(page);
     });
   });
 

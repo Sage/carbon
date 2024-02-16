@@ -128,6 +128,10 @@ export const StyledButtonSubtext = styled.span`
   display: block;
 `;
 
+export const StyledButtonMainText = styled.span`
+  display: flex;
+  align-items: center;
+`;
 StyledButton.defaultProps = {
   theme: BaseTheme,
 };

@@ -13,7 +13,11 @@ export default function useModalAria(
       "aria-hidden": string | null;
       inert: string | null;
     }[] = [];
-    const hideNonTopModalElements = (rootElement: Element) => {
+    const hideNonTopModalElements = (rootElement: HTMLElement) => {
+      if (rootElement.dataset.notInert === "true") {
+        // stop recursing, and do nothing, if the container has the "data-not-inert" flag
+        return;
+      }
       if (!rootElement.contains(topModal)) {
         originalValues.push({
           element: rootElement,
@@ -23,13 +27,21 @@ export default function useModalAria(
         // need to manually call the blur event on any currently-focused element that might be inside the element
         // we're making inert, since Firefox fails to do this, which can result in the focus styles remaining on
         // an input that is no longer focused
-        if (rootElement.contains(document.activeElement)) {
-          (document.activeElement as HTMLElement | null)?.blur();
+        if (
+          rootElement.contains(document.activeElement) &&
+          document.activeElement instanceof HTMLElement
+        ) {
+          document.activeElement.blur();
         }
         rootElement.setAttribute("aria-hidden", "true");
         rootElement.setAttribute("inert", "");
       } else if (rootElement !== topModal) {
-        Array.from(rootElement.children).forEach(hideNonTopModalElements);
+        Array.from(rootElement.children).forEach((node) => {
+          // istanbul ignore else
+          if (node instanceof HTMLElement) {
+            hideNonTopModalElements(node);
+          }
+        });
       }
     };
 
