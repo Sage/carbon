@@ -1,3 +1,10 @@
+### [126.2.1](https://github.com/Sage/carbon/compare/v126.2.0...v126.2.1) (2024-02-16)
+
+
+### Bug Fixes
+
+* **pager:** increase margin so focus style does not overlap text ([4508254](https://github.com/Sage/carbon/commit/4508254e759e3eb7acf43aa29fd153c36d6f0bc6))
+
 ## [126.2.0](https://github.com/Sage/carbon/compare/v126.1.0...v126.2.0) (2024-02-15)
 
 
