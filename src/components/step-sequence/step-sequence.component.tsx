@@ -1,5 +1,6 @@
 import React from "react";
 import { SpaceProps } from "styled-system";
+import Logger from "../../__internal__/utils/logger";
 
 import StyledStepSequence from "./step-sequence.style";
 
@@ -14,11 +15,20 @@ export interface StepSequenceProps extends SpaceProps {
   orientation?: "horizontal" | "vertical";
 }
 
+let deprecateWarnTriggered = false;
+
 export const StepSequence = ({
   children,
   orientation = "horizontal",
   ...props
 }: StepSequenceProps) => {
+  if (!deprecateWarnTriggered) {
+    deprecateWarnTriggered = true;
+    Logger.deprecate(
+      "The `StepSequence` component is deprecated and will soon be removed," +
+        " please use the `StepFlow` component instead."
+    );
+  }
   return (
     <StyledStepSequence
       data-component="step-sequence"

@@ -10,16 +10,20 @@ export interface MessageContentProps {
   children?: React.ReactNode;
   /** determines if the close icon is shown */
   showCloseIcon?: boolean;
+  /** @ignore @private used to reduce the left-padding for the transparent variant */
+  reduceLeftPadding?: boolean;
 }
 
 const MessageContent = ({
   title,
   children,
   showCloseIcon,
+  reduceLeftPadding = false,
 }: MessageContentProps) => {
   return (
     <MessageContentStyle
       showCloseIcon={showCloseIcon}
+      reduceLeftPadding={reduceLeftPadding}
       data-element="message-content"
     >
       <Content title={title}>{children}</Content>

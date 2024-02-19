@@ -20,6 +20,7 @@ import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
+import { BorderRadiusType } from "../box/box.component";
 
 export interface TextareaProps
   extends ValidationProps,
@@ -117,10 +118,13 @@ export interface TextareaProps
   Pass string to display icon, tooltip and orange border
   Pass true boolean to only display orange border */
   warning?: boolean | string;
+  /** Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. */
+  borderRadius?: BorderRadiusType | BorderRadiusType[];
 }
 
 let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
+let warnBorderRadiusArrayTooLarge = false;
 
 export const Textarea = React.forwardRef(
   (
@@ -162,6 +166,7 @@ export const Textarea = React.forwardRef(
       "data-role": dataRole,
       helpAriaLabel,
       inputRef,
+      borderRadius,
       ...rest
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>
@@ -203,6 +208,18 @@ export const Textarea = React.forwardRef(
       Logger.deprecate(
         "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
       );
+    }
+
+    if (
+      Array.isArray(borderRadius) &&
+      borderRadius.length > 4 &&
+      !warnBorderRadiusArrayTooLarge
+    ) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "The `borderRadius` prop in `Textarea` component only supports up to 4 values."
+      );
+      warnBorderRadiusArrayTooLarge = true;
     }
 
     const minHeight = useRef(MIN_HEIGHT);
@@ -309,6 +326,7 @@ export const Textarea = React.forwardRef(
         error={error}
         warning={warning}
         info={info}
+        borderRadius={borderRadius}
       >
         <Input
           aria-invalid={!!error}
@@ -328,6 +346,7 @@ export const Textarea = React.forwardRef(
           as="textarea"
           inputRef={inputRef}
           validationIconId={validationRedesignOptIn ? undefined : validationId}
+          inputBorderRadius={borderRadius}
           {...rest}
         />
         {children}

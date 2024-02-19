@@ -26,13 +26,7 @@ const FieldsetComponent = (props: FieldsetProps) => {
           labelAlign="right"
           labelWidth={30}
         />
-        <Checkbox
-          label="Checkbox"
-          labelAlign="right"
-          labelWidth={30}
-          labelSpacing={2}
-          reverse
-        />
+        <Checkbox label="Checkbox" labelWidth={30} labelSpacing={2} reverse />
         <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
         <Textbox
           label="Country"

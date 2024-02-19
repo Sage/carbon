@@ -3,6 +3,7 @@
 exports[`MessageContent when rendered should render correctly 1`] = `
 <styled.div
   data-element="message-content"
+  reduceLeftPadding={false}
 >
   <Content>
     children

@@ -8,6 +8,8 @@ export interface StyledLoaderSquareProps {
   isInsideButton?: boolean;
   /** Applies slate color. Available only when isInsideButton is true. */
   isActive?: boolean;
+  /** The background color of each loader square */
+  backgroundColor?: string;
 }
 
 const loaderAnimation = keyframes`
@@ -53,9 +55,9 @@ const getDimentions = (
 };
 
 const StyledLoaderSquare = styled.div<StyledLoaderSquareProps>`
-  ${({ size, isInsideButton, isActive, theme }) => css`
+  ${({ size, isInsideButton, isActive, theme, backgroundColor }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
-    background-color: var(--colorsActionMajor500);
+    background-color: ${backgroundColor};
     display: inline-block;
     ${getDimentions(size, theme.roundedCornersOptOut)}
 

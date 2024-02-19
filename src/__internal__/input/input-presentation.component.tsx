@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { BorderRadiusType } from "../../components/box/box.component";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
@@ -29,6 +30,8 @@ export interface CommonInputPresentationProps extends ValidationProps {
   size?: Sizes;
   /** If true, the component has an icon rendered inside */
   hasIcon?: boolean;
+  /** Specify a custom border radius. Any valid border-radius design token, or an array of border-radius design tokens. */
+  borderRadius?: BorderRadiusType | BorderRadiusType[];
 }
 
 export interface InputPresentationProps extends CommonInputPresentationProps {
@@ -37,19 +40,20 @@ export interface InputPresentationProps extends CommonInputPresentationProps {
 }
 
 const InputPresentation = ({
+  align,
+  borderRadius = "borderRadius050",
   children,
-  positionedChildren,
-  prefix,
+  disabled,
+  error,
+  hasIcon,
+  info,
   inputWidth,
   maxWidth,
-  align,
-  disabled,
+  positionedChildren,
+  prefix,
   readOnly,
   size = "medium",
-  error,
   warning,
-  info,
-  hasIcon,
 }: InputPresentationProps): JSX.Element => {
   const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
     InputContext
@@ -93,6 +97,7 @@ const InputPresentation = ({
         info={info}
         validationRedesignOptIn={validationRedesignOptIn}
         hasIcon={hasIcon}
+        borderRadius={borderRadius}
       >
         {children}
       </InputPresentationStyle>
