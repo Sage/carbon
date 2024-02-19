@@ -468,6 +468,12 @@ export const ButtonDifferentTypes = (props: Partial<ButtonProps>) => {
       <Button buttonType="dashed" data-testid="fourth-button" {...props}>
         Dashed
       </Button>
+      <Button buttonType="gradient-white" data-testid="fifth-button" {...props}>
+        Gradient white
+      </Button>
+      <Button buttonType="gradient-grey" data-testid="sixth-button" {...props}>
+        Gradient grey
+      </Button>
     </div>
   );
 };

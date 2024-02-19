@@ -20,6 +20,7 @@ import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener"
 import Events from "../../__internal__/utils/helpers/events";
 import FocusTrap from "../../__internal__/focus-trap";
 import { ModalContext } from "../modal";
+import useFocusPortalContent from "../../hooks/__internal__/useFocusPortalContent";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -44,20 +45,22 @@ export const renderOpen = ({
   id,
   "aria-expanded": ariaExpanded,
   "aria-haspopup": ariaHasPopup,
-}: RenderOpenProps) => (
-  <PopoverContainerOpenIcon
-    tabIndex={tabIndex}
-    onClick={onClick}
-    data-element={dataElement}
-    ref={ref}
-    aria-label={ariaLabel}
-    aria-haspopup={ariaHasPopup}
-    aria-expanded={ariaExpanded}
-    id={id}
-  >
-    <Icon type="settings" />
-  </PopoverContainerOpenIcon>
-);
+}: RenderOpenProps) => {
+  return (
+    <PopoverContainerOpenIcon
+      tabIndex={tabIndex}
+      onClick={onClick}
+      data-element={dataElement}
+      ref={ref}
+      aria-label={ariaLabel}
+      aria-haspopup={ariaHasPopup}
+      aria-expanded={ariaExpanded}
+      id={id}
+    >
+      <Icon type="settings" />
+    </PopoverContainerOpenIcon>
+  );
+};
 
 export interface RenderCloseProps {
   "data-element"?: string;
@@ -175,9 +178,18 @@ export const PopoverContainer = ({
   );
 
   const closePopover = useCallback(
-    (ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-      if (!isControlled) setIsOpenInternal(false);
-      if (onClose) onClose(ev);
+    (
+      ev:
+        | React.MouseEvent<HTMLElement>
+        | React.KeyboardEvent<HTMLElement>
+        | KeyboardEvent
+    ) => {
+      if (!isControlled) {
+        setIsOpenInternal(false);
+      }
+      if (onClose) {
+        onClose(ev);
+      }
       if (isOpen && openButtonRef.current) {
         openButtonRef.current.focus();
       }
@@ -227,6 +239,12 @@ export const PopoverContainer = ({
     closePopover(e);
   };
 
+  useFocusPortalContent(
+    shouldCoverButton ? undefined : popoverContentNodeRef,
+    shouldCoverButton ? undefined : openButtonRef,
+    closePopover
+  );
+
   const renderOpenComponentProps = {
     tabIndex: 0,
     "aria-expanded": isOpen,
@@ -255,65 +273,43 @@ export const PopoverContainer = ({
   const handleClick = useClickAwayListener(handleClickAway, "mousedown");
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
-  const popover = (
-    <Transition
-      in={isOpen}
-      timeout={{ exit: 300 }}
-      appear
-      mountOnEnter
-      unmountOnExit
-      nodeRef={popoverContentNodeRef}
-      onEntered={
-        shouldCoverButton
-          ? /* istanbul ignore next */ () => setIsAnimationComplete(true)
-          : undefined
-      }
-      onExiting={
-        shouldCoverButton
-          ? /* istanbul ignore next */ () => setIsAnimationComplete(false)
-          : undefined
-      }
+  const popover = (state: TransitionStatus) => (
+    <PopoverContainerContentStyle
+      data-element="popover-container-content"
+      role="dialog"
+      animationState={state}
+      aria-labelledby={popoverContainerId}
+      aria-label={containerAriaLabel}
+      aria-describedby={ariaDescribedBy}
+      p="16px 24px"
+      ref={popoverContentNodeRef}
+      tabIndex={shouldCoverButton ? -1 : undefined}
+      disableAnimation={disableAnimation || reduceMotion}
+      {...filterStyledSystemPaddingProps(rest)}
     >
-      {(state: TransitionStatus) =>
-        isOpen && (
-          <Popover
-            disablePortal
-            reference={popoverReference}
-            placement={position === "right" ? "bottom-start" : "bottom-end"}
-            popoverStrategy={
-              disableAnimation || reduceMotion ? "fixed" : "absolute"
-            }
-            {...(shouldCoverButton && { middleware: popoverMiddleware })}
-          >
-            <PopoverContainerContentStyle
-              data-element="popover-container-content"
-              role="dialog"
-              animationState={state}
-              aria-labelledby={popoverContainerId}
-              aria-label={containerAriaLabel}
-              aria-describedby={ariaDescribedBy}
-              p="16px 24px"
-              ref={popoverContentNodeRef}
-              tabIndex={shouldCoverButton ? -1 : undefined}
-              disableAnimation={disableAnimation || reduceMotion}
-              {...filterStyledSystemPaddingProps(rest)}
-            >
-              <PopoverContainerHeaderStyle>
-                <PopoverContainerTitleStyle
-                  id={popoverContainerId}
-                  data-element="popover-container-title"
-                >
-                  {title}
-                </PopoverContainerTitleStyle>
-                {renderCloseComponent(renderCloseComponentProps)}
-              </PopoverContainerHeaderStyle>
-              {children}
-            </PopoverContainerContentStyle>
-          </Popover>
-        )
-      }
-    </Transition>
+      <PopoverContainerHeaderStyle>
+        <PopoverContainerTitleStyle
+          id={popoverContainerId}
+          data-element="popover-container-title"
+        >
+          {title}
+        </PopoverContainerTitleStyle>
+        {renderCloseComponent(renderCloseComponentProps)}
+      </PopoverContainerHeaderStyle>
+      {children}
+    </PopoverContainerContentStyle>
   );
+
+  const childrenToRender = (state: TransitionStatus) =>
+    shouldCoverButton ? (
+      <ModalContext.Provider value={{ isAnimationComplete }}>
+        <FocusTrap wrapperRef={popoverContentNodeRef} isOpen={isOpen}>
+          {popover(state)}
+        </FocusTrap>
+      </ModalContext.Provider>
+    ) : (
+      popover(state)
+    );
 
   return (
     <PopoverContainerWrapperStyle
@@ -323,15 +319,40 @@ export const PopoverContainer = ({
       <div ref={popoverReference}>
         {renderOpenComponent(renderOpenComponentProps)}
       </div>
-      {shouldCoverButton ? (
-        <ModalContext.Provider value={{ isAnimationComplete }}>
-          <FocusTrap wrapperRef={popoverContentNodeRef} isOpen={isOpen}>
-            {popover}
-          </FocusTrap>
-        </ModalContext.Provider>
-      ) : (
-        popover
-      )}
+      <Transition
+        in={isOpen}
+        timeout={{ exit: 300 }}
+        appear
+        mountOnEnter
+        unmountOnExit
+        nodeRef={popoverContentNodeRef}
+        onEntered={
+          shouldCoverButton
+            ? /* istanbul ignore next */ () => setIsAnimationComplete(true)
+            : undefined
+        }
+        onExiting={
+          shouldCoverButton
+            ? /* istanbul ignore next */ () => setIsAnimationComplete(false)
+            : undefined
+        }
+      >
+        {(state: TransitionStatus) =>
+          isOpen && (
+            <Popover
+              reference={popoverReference}
+              placement={position === "right" ? "bottom-start" : "bottom-end"}
+              popoverStrategy={
+                disableAnimation || reduceMotion ? "fixed" : "absolute"
+              }
+              {...(shouldCoverButton && { middleware: popoverMiddleware })}
+              childRefOverride={popoverContentNodeRef}
+            >
+              {childrenToRender(state)}
+            </Popover>
+          )
+        }
+      </Transition>
     </PopoverContainerWrapperStyle>
   );
 };

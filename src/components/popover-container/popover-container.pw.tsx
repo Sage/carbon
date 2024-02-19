@@ -36,6 +36,7 @@ import {
   WithRenderOpenButtonComponent,
   WithRenderCloseButtonComponent,
   PopoverContainerComponentCoverButton,
+  PopoverContainerFocusOrder,
 } from "../popover-container/components.test-pw";
 import Portrait from "../portrait";
 
@@ -73,8 +74,8 @@ test.describe("Check props of Popover Container component", () => {
   });
 
   ([
-    ["left", 24, 0, -76.5, -324],
-    ["right", 24, -324, -76.5, 0],
+    ["left", 125, 670, 566, 345],
+    ["right", 125, 345, 566, 670],
   ] as [
     PopoverContainerProps["position"],
     number,
@@ -126,8 +127,8 @@ test.describe("Check props of Popover Container component", () => {
   });
 
   ([
-    ["left", 0, 0, -76.5, -348],
-    ["right", 0, -348, -76.5, 0],
+    ["left", 115, 685, 578, 335],
+    ["right", 115, 335, 578, 685],
   ] as [
     PopoverContainerProps["position"],
     number,
@@ -526,6 +527,106 @@ test.describe("Event tests", () => {
 
     await expect(callbackCount).toBe(0);
   });
+
+  test("should focus the next element after the open button when user tabs and last element in the container is focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<PopoverContainerFocusOrder />);
+
+    const childButton = page.getByText("Inside container");
+    const siblingButton = page.getByText("After open button");
+    const container = popoverContainerContent(page);
+
+    await childButton.focus();
+    await expect(childButton).toBeFocused();
+    await childButton.press("Tab");
+    await expect(siblingButton).toBeFocused();
+    await expect(container).not.toBeVisible();
+  });
+
+  test("should focus the open button element when user back tabs and first element in the container is focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<PopoverContainerFocusOrder />);
+
+    const closeButton = popoverCloseIcon(page);
+    const openButton = popoverSettingsIcon(page);
+    const container = popoverContainerContent(page);
+
+    await closeButton.focus();
+    await expect(closeButton).toBeFocused();
+    await closeButton.press("Shift+Tab");
+    await expect(openButton).toBeFocused();
+    await expect(container).not.toBeVisible();
+  });
+});
+
+test("should trap focus when user is tabbing and the container covers the trigger button", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <CoverButton>
+      <button type="button">First</button>
+      <button type="button">Second</button>
+      <button type="button">Third</button>
+    </CoverButton>
+  );
+
+  const openButton = popoverSettingsIcon(page);
+  const container = popoverContainerContent(page);
+  const closeButton = popoverCloseIcon(page);
+  const first = page.getByText("First");
+  const second = page.getByText("Second");
+  const third = page.getByText("Third");
+
+  await openButton.click();
+  await expect(container).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(closeButton).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(first).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(second).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(third).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(closeButton).toBeFocused();
+});
+
+test("should trap focus when user is shift + tabbing and the container covers the trigger button", async ({
+  mount,
+  page,
+}) => {
+  await mount(
+    <CoverButton>
+      <button type="button">First</button>
+      <button type="button">Second</button>
+      <button type="button">Third</button>
+    </CoverButton>
+  );
+
+  const openButton = popoverSettingsIcon(page);
+  const container = popoverContainerContent(page);
+  const closeButton = popoverCloseIcon(page);
+  const first = page.getByText("First");
+  const second = page.getByText("Second");
+  const third = page.getByText("Third");
+
+  await openButton.click();
+  await expect(container).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(third).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(second).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(first).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(closeButton).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(third).toBeFocused();
 });
 
 test.describe("Accessibility tests", () => {

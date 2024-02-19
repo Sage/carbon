@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { MutableRefObject, useContext, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { flip, Placement, Middleware } from "@floating-ui/dom";
 
@@ -35,6 +35,8 @@ export interface PopoverProps {
   animationFrame?: boolean;
   // Optional strategy to use for positioning the floating element. Defaults to "absolute".
   popoverStrategy?: "absolute" | "fixed";
+  // Allows child ref to be set via a prop instead of dynamically finding it via children iteration
+  childRefOverride?: MutableRefObject<HTMLDivElement | null>;
 }
 
 const defaultMiddleware = [
@@ -53,6 +55,7 @@ const Popover = ({
   isOpen = true,
   animationFrame,
   popoverStrategy = "absolute",
+  childRefOverride,
 }: PopoverProps) => {
   const elementDOM = useRef<HTMLDivElement | null>(null);
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
@@ -64,9 +67,10 @@ const Popover = ({
     mountNode.appendChild(elementDOM.current);
   }
 
-  const childRef = (React.Children.only(
-    children
-  ) as React.FunctionComponentElement<unknown>).ref;
+  const childRef =
+    childRefOverride ||
+    (React.Children.only(children) as React.FunctionComponentElement<unknown>)
+      .ref;
   const innerRef = useRef<HTMLElement | null>(null);
   const floatingReference = childRef || innerRef;
 

@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { ArgsTable } from "@storybook/components";
+
+<Meta title="Portal" parameters={{ info: { disable: true } }} />
+
+# Portal
+
+The Portal component allows you to render children into a different part of the DOM, whilst also allowing the use of styling using the Design System's `design-tokens` package.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Usage](#usage)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Portal from "carbon-react/lib/components/portal";
+```
+
+## Usage
+
+This example demonstrates how to render a Portal with a Box component as a child that uses a design-token for the background color.
+```javascript
+import Portal from "carbon-react/lib/components/portal";
+import Box from "carbon-react/lib/components/box";
+
+/* ... */
+<Portal>
+  <Box bg="var(--colorsUtilityMajor010)">Portal content</Box>
+</Portal>
+```
+
+## Props
+
+<ArgsTable
+  rows={[
+    {
+      name: "children",
+      type: { summary: "ReactNode" },
+      description:
+        "The content of the portal.",
+    },
+    {
+      name: "className",
+      type: { summary: "string" },
+      description:
+        "Classname attached to portal container.",
+    },
+    {
+      name: "id",
+      type: { summary: "string" },
+      description:
+        "Id attribute attached to portal container.",
+    },
+    {
+      name: "onReposition",
+      type: { summary: "(() => void)" },
+      description:
+        "Callback function triggered when parent element is scrolled or window resized.",
+    },
+  ]}
+/>

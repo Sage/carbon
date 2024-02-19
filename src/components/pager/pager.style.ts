@@ -15,9 +15,8 @@ interface StyledPagerProps {
 const StyledSelectContainer = styled.div`
   height: 26px;
   width: 55px;
-  margin-left: 4px;
-  margin-right: 4px;
-
+  margin-left: 8px;
+  margin-right: 8px;
   ${StyledInputPresentation} {
     padding-left: 0;
   }
@@ -82,7 +81,7 @@ const StyledPagerNavigation = styled.div`
 
   && ${StyledInputPresentation} {
     padding: 0;
-    margin: 4px;
+    margin: 4px 8px;
     height: 26px;
     line-height: 26px;
     min-height: 24px;

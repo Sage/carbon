@@ -39,7 +39,7 @@ describe("Pager Navigation", () => {
     assertStyleMatch(
       {
         padding: "0",
-        margin: "4px",
+        margin: "4px 8px",
         lineHeight: "26px",
         minHeight: "24px",
       },
