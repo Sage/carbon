@@ -111,7 +111,7 @@ export const Position = () => {
   );
 };
 
-export const CoverButton = () => {
+export const CoverButton = ({ children }: { children?: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
@@ -124,7 +124,7 @@ export const CoverButton = () => {
         onClose={onClose}
         onOpen={onOpen}
       >
-        Contents
+        {children || "Contents"}
       </PopoverContainer>
     </Box>
   );
@@ -410,3 +410,27 @@ export const WithRenderCloseButtonComponent = () => (
     />
   </Box>
 );
+
+export const PopoverContainerFocusOrder = (
+  props: Partial<PopoverContainerProps>
+) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const onOpen = () => setIsOpen(isOpen);
+  const onClose = () => setIsOpen(!isOpen);
+  return (
+    <Box height="150px" margin="100px">
+      <PopoverContainer
+        title="Cypress is awesome"
+        containerAriaLabel="popover-container"
+        openButtonAriaLabel="open"
+        open={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        {...props}
+      >
+        <button type="button">Inside container</button>
+      </PopoverContainer>
+      <button type="button">After open button</button>
+    </Box>
+  );
+};

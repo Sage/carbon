@@ -75,7 +75,7 @@ export const CoverButton: ComponentStory<typeof PopoverContainer> = () => {
         onClose={onClose}
         onOpen={onOpen}
       >
-        Contents
+        Content
       </PopoverContainer>
     </div>
   );
