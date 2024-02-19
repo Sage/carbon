@@ -1,3 +1,17 @@
+## [126.4.0](https://github.com/Sage/carbon/compare/v126.3.1...v126.4.0) (2024-02-19)
+
+
+### Features
+
+* **tile:** add "small" roundness option ([56ec960](https://github.com/Sage/carbon/commit/56ec960b82c176a4312c409903665d399dd48924))
+* **tile:** add grey variant ([c8a8d7e](https://github.com/Sage/carbon/commit/c8a8d7edd196fba83fad5fcbc56545dea7768929))
+* **tile:** add new tile-header subcomponent ([9428174](https://github.com/Sage/carbon/commit/9428174a4fc1d9545a9a482bc5c390e5100b4e64))
+
+
+### Bug Fixes
+
+* **tile:** remove `overflow: hidden` from tile container ([5373176](https://github.com/Sage/carbon/commit/5373176e67f7ce19f4b6318af07f66e28333d95c))
+
 ### [126.3.1](https://github.com/Sage/carbon/compare/v126.3.0...v126.3.1) (2024-02-19)
 
 
