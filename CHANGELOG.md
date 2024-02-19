@@ -1,3 +1,10 @@
+### [126.3.1](https://github.com/Sage/carbon/compare/v126.3.0...v126.3.1) (2024-02-19)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure styling is correct when rendered as a child of menu ([ee672d2](https://github.com/Sage/carbon/commit/ee672d2eae2fd31a4fdbd6273ed05c6c7e70c17a)), closes [#6538](https://github.com/Sage/carbon/issues/6538)
+
 ## [126.3.0](https://github.com/Sage/carbon/compare/v126.2.1...v126.3.0) (2024-02-16)
 
 
