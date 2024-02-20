@@ -80,6 +80,18 @@ describe("Tile", () => {
           wrapper
         );
       });
+
+      it('renders with expected background and border styles when variant is "grey"', () => {
+        const wrapper = renderTile({ variant: "grey" });
+
+        assertStyleMatch(
+          {
+            backgroundColor: "var(--colorsUtilityMajor025)",
+            borderColor: "var(--colorsUtilityMajor200)",
+          },
+          wrapper
+        );
+      });
     });
 
     describe("custom borders", () => {
@@ -143,14 +155,22 @@ describe("Tile", () => {
     });
   });
 
-  it.each<TileProps["roundness"]>(["default", "large"])(
+  it.each<TileProps["roundness"]>(["default", "large", "small"])(
     "render with the expected border radius when roundness is %s",
     (roundness) => {
       const wrapper = renderTile({ roundness });
-      const result =
-        roundness === "default"
-          ? "var(--borderRadius100)"
-          : "var(--borderRadius200)";
+      let result: string;
+      switch (roundness) {
+        case "small":
+          result = "var(--borderRadius050)";
+          break;
+        case "large":
+          result = "var(--borderRadius200)";
+          break;
+        default:
+          result = "var(--borderRadius100)";
+          break;
+      }
 
       assertStyleMatch({ borderRadius: result }, wrapper);
     }

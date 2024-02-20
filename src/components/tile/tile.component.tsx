@@ -11,8 +11,8 @@ import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 type DesignTokensType = keyof typeof DesignTokens;
 
 export interface TileProps extends SpaceProps, WidthProps, TagProps {
-  /** Sets the theme of the tile - either 'tile', 'transparent' or 'active' */
-  variant?: "tile" | "transparent" | "active";
+  /** Sets the theme of the tile */
+  variant?: "tile" | "transparent" | "active" | "grey";
   /**
    * The content to render within the tile. Each child will be wrapped with
    * a TileContent wrapper, which allows any individual child component to take a
@@ -38,8 +38,8 @@ export interface TileProps extends SpaceProps, WidthProps, TagProps {
     | "negative"
     | "caution"
     | "info";
-  /** Sets the level of roundness of the corners, "default" is 8px and "large" is 16px */
-  roundness?: "default" | "large";
+  /** Sets the level of roundness of the corners, "default" is 8px, "large" is 16px and "small" is 4px */
+  roundness?: "default" | "large" | "small";
   /**
    * Set a percentage-based height for the whole Tile component, relative to its parent.
    */

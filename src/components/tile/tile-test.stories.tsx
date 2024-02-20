@@ -1,10 +1,13 @@
-import React from "react";
-import { Tile, TileContent, TileProps } from ".";
+import React, { useState } from "react";
+import { Tile, TileContent, TileHeader, TileProps } from ".";
 import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
+import Box from "../box";
+import Textarea from "../textarea";
+import Button from "../button";
 
 export default {
   title: "Tile/Test",
-  includeStories: ["DefaultStory"],
+  includeStories: ["DefaultStory", "GreyWithTextArea"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -85,4 +88,52 @@ DefaultStory.args = {
   contentTwoWidth: "",
   contentThreeChildren: "Test Body Three",
   contentThreeWidth: "",
+};
+
+export const GreyWithTextArea = () => {
+  const dummyText = [
+    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+    "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+    "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
+    "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?",
+    "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
+  ];
+  const [textAreaValue, setTextAreaValue] = useState("");
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTextAreaValue(e.target.value);
+  };
+  const buttonAction = () => {
+    setTextAreaValue(dummyText[Math.floor(Math.random() * dummyText.length)]);
+  };
+  return (
+    <Tile
+      p={0}
+      mx={1}
+      orientation="vertical"
+      variant="grey"
+      width="50%"
+      roundness="small"
+    >
+      <TileContent>
+        <TileHeader pl={3} py={1} variant="grey">
+          <Button iconType="settings" onClick={buttonAction}>
+            Generate content
+          </Button>
+        </TileHeader>
+        <Box p={0}>
+          <Textarea
+            rows={20}
+            value={textAreaValue}
+            onChange={onChange}
+            borderRadius={[
+              "borderRadius000",
+              "borderRadius000",
+              "borderRadius050",
+              "borderRadius050",
+            ]}
+          />
+        </Box>
+      </TileContent>
+    </Tile>
+  );
 };
