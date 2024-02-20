@@ -455,6 +455,7 @@ export const NewInline: ComponentStory<typeof Checkbox> = () => (
 export const NewBooleanValidation: ComponentStory<typeof Checkbox> = () => (
   <CarbonProvider validationRedesignOptIn>
     <Checkbox
+      mb={2}
       error="message"
       id="checkbox-one-error-boolean"
       key="checkbox-one-error-boolean"

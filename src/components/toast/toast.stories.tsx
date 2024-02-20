@@ -477,7 +477,7 @@ export const CustomMaxWidth = () => {
         id="button-custom-width"
         key="button"
         onClick={handleToggle}
-        isOpen
+        isOpen={isOpen}
       >
         Toggle - Preview is: {isOpen ? "ON" : "OFF"}
       </StyledButton>
