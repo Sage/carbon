@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { padding } from "styled-system";
 import { baseTheme } from "../../../style/themes";
-import { TileFooterProps } from "./tile-footer.component";
+import { TileHeaderProps } from "./tile-header.component";
 
-const getBackgroundColor = (variant: TileFooterProps["variant"]) => {
+const getBackgroundColor = (variant: TileHeaderProps["variant"]) => {
   switch (variant) {
     case "transparent":
       return "transparent";
@@ -16,22 +16,22 @@ const getBackgroundColor = (variant: TileFooterProps["variant"]) => {
   }
 };
 
-const StyledTileFooter = styled.div<{ variant: TileFooterProps["variant"] }>`
+const StyledTileHeader = styled.div<{ variant: TileHeaderProps["variant"] }>`
   ${padding}
-  border-bottom-left-radius: calc(var(--tileBorderRadius) - 1px);
-  border-bottom-right-radius: calc(var(--tileBorderRadius) - 1px);
+  border-top-left-radius: calc(var(--tileBorderRadius) - 1px);
+  border-top-right-radius: calc(var(--tileBorderRadius) - 1px);
 
   ${({ variant }) => css`
     background: ${getBackgroundColor(variant)};
-    border-top: 1px solid
+    border-bottom: 1px solid
       ${variant === "grey"
         ? "var(--colorsUtilityMajor200)"
         : "var(--colorsUtilityMajor100)"};
   `}
 `;
 
-StyledTileFooter.defaultProps = {
+StyledTileHeader.defaultProps = {
   theme: baseTheme,
 };
 
-export default StyledTileFooter;
+export default StyledTileHeader;

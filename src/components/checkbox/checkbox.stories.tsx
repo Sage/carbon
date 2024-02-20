@@ -18,6 +18,7 @@ export const Default: ComponentStory<typeof Checkbox> = () => {
 export const Sizes: ComponentStory<typeof Checkbox> = () => (
   <>
     <Checkbox
+      mb={2}
       label="Small"
       key="checkbox-small"
       name="checkbox-small"
