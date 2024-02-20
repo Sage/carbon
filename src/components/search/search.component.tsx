@@ -29,8 +29,6 @@ export interface SearchProps extends ValidationProps, MarginProps {
   defaultValue?: string;
   /** Prop for `id` */
   id?: string;
-  /** A callback to retrieve the input reference */
-  inputRef?: React.MutableRefObject<HTMLInputElement | null>;
   /** Prop for `name` */
   name?: string;
   /** Prop for `onBlur` events */
@@ -72,7 +70,6 @@ export interface SearchProps extends ValidationProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export const Search = React.forwardRef(
@@ -94,7 +91,6 @@ export const Search = React.forwardRef(
       placeholder,
       variant = "default",
       "aria-label": ariaLabel = "search",
-      inputRef,
       tabIndex,
       error,
       warning,
@@ -108,13 +104,6 @@ export const Search = React.forwardRef(
     const initialValue = isControlled ? value : defaultValue;
     const locale = useLocale();
     const searchRef = useRef<HTMLDivElement>(null);
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Search` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     if (!deprecateUncontrolledWarnTriggered && !isControlled) {
       deprecateUncontrolledWarnTriggered = true;
@@ -244,7 +233,7 @@ export const Search = React.forwardRef(
           onBlur={handleBlur}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          ref={ref || inputRef}
+          ref={ref}
           tabIndex={tabIndex}
           error={error}
           warning={warning}
