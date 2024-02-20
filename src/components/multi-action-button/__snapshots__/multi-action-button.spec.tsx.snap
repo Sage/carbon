@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MultiActionButton when rendered should match the snapshot 1`] = `
-.c4 {
+.c5 {
   position: relative;
   color: var(--colorsActionMajor500);
   background-color: transparent;
@@ -22,7 +22,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   width: 16px;
 }
 
-.c4::before {
+.c5::before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
@@ -77,11 +77,11 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   outline: transparent 3px solid;
 }
 
-.c2 .c3 {
+.c2 .c4 {
   color: var(--colorsActionMajor500);
 }
 
-.c2 .c15 {
+.c2 .c16 {
   background-color: var(--colorsActionMajor500);
 }
 
@@ -91,15 +91,15 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   color: var(--colorsActionMajorYang100);
 }
 
-.c2:hover .c3 {
+.c2:hover .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c2:hover .c15 {
+.c2:hover .c16 {
   background-color: var(--colorsActionMajorYang100);
 }
 
-.c2 .c3 {
+.c2 .c4 {
   margin-left: var(--spacing100);
   margin-right: 0px;
   margin-bottom: 0px;
@@ -107,19 +107,19 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   width: 20px;
 }
 
-.c2 .c3 svg {
+.c2 .c4 svg {
   margin-top: 0;
 }
 
-.c5 .c3 {
+.c6 .c4 {
   color: var(--colorsActionMajor500);
 }
 
-.c5:hover .c3 {
+.c6:hover .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c5 .c3 {
+.c6 .c4 {
   margin-left: 0px;
   margin-right: var(--spacing100);
   margin-bottom: 0px;
@@ -127,8 +127,19 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   width: 20px;
 }
 
-.c5 .c3 svg {
+.c6 .c4 svg {
   margin-top: 0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 {
@@ -140,7 +151,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: 0;
 }
 
-.c0 > .c1 .c3 {
+.c0 > .c1 .c4 {
   margin-left: 0;
   left: 8px;
 }
@@ -153,28 +164,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c0 > .c1:focus,
-.c0 > .c1:focus .c3 {
-  color: var(--colorsActionMajorYang100);
-}
-
-.c6 > .c1 {
-  margin: 0;
-}
-
-.c6 > .c1 .c3 {
-  margin-left: 0;
-  left: 8px;
-}
-
-.c6 > .c1:focus {
-  background-color: var(--colorsActionMajor700);
-  border: 3px solid var(--colorsActionMajor700);
-  outline: none;
-  margin: 0 -1px;
-}
-
-.c6 > .c1:focus,
-.c6 > .c1:focus .c3 {
+.c0 > .c1:focus .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
@@ -182,7 +172,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: 0;
 }
 
-.c7 > .c1 .c3 {
+.c7 > .c1 .c4 {
   margin-left: 0;
   left: 8px;
 }
@@ -195,7 +185,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c7 > .c1:focus,
-.c7 > .c1:focus .c3 {
+.c7 > .c1:focus .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
@@ -203,7 +193,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: 0;
 }
 
-.c8 > .c1 .c3 {
+.c8 > .c1 .c4 {
   margin-left: 0;
   left: 8px;
 }
@@ -216,7 +206,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c8 > .c1:focus,
-.c8 > .c1:focus .c3 {
+.c8 > .c1:focus .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
@@ -224,7 +214,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: 0;
 }
 
-.c9 > .c1 .c3 {
+.c9 > .c1 .c4 {
   margin-left: 0;
   left: 8px;
 }
@@ -237,7 +227,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c9 > .c1:focus,
-.c9 > .c1:focus .c3 {
+.c9 > .c1:focus .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
@@ -245,7 +235,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: 0;
 }
 
-.c10 > .c1 .c3 {
+.c10 > .c1 .c4 {
   margin-left: 0;
   left: 8px;
 }
@@ -258,7 +248,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c10 > .c1:focus,
-.c10 > .c1:focus .c3 {
+.c10 > .c1:focus .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
@@ -266,7 +256,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: 0;
 }
 
-.c11 > .c1 .c3 {
+.c11 > .c1 .c4 {
   margin-left: 0;
   left: 8px;
 }
@@ -279,7 +269,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c11 > .c1:focus,
-.c11 > .c1:focus .c3 {
+.c11 > .c1:focus .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
@@ -287,7 +277,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: 0;
 }
 
-.c12 > .c1 .c3 {
+.c12 > .c1 .c4 {
   margin-left: 0;
   left: 8px;
 }
@@ -300,17 +290,15 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c12 > .c1:focus,
-.c12 > .c1:focus .c3 {
+.c12 > .c1:focus .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
 .c13 > .c1 {
   margin: 0;
-  background-color: var(--colorsActionMajor700);
-  border-color: var(--colorsActionMajor700);
 }
 
-.c13 > .c1 .c3 {
+.c13 > .c1 .c4 {
   margin-left: 0;
   left: 8px;
 }
@@ -323,20 +311,43 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c13 > .c1:focus,
-.c13 > .c1:focus .c3 {
+.c13 > .c1:focus .c4 {
   color: var(--colorsActionMajorYang100);
 }
 
-.c13 > .c1,
-.c13 > .c1 .c3 {
-  color: var(--colorsActionMajorYang100);
+.c14 > .c1 {
+  margin: 0;
+  background-color: var(--colorsActionMajor700);
+  border-color: var(--colorsActionMajor700);
 }
 
-.c13 > .c1:focus {
+.c14 > .c1 .c4 {
+  margin-left: 0;
+  left: 8px;
+}
+
+.c14 > .c1:focus {
+  background-color: var(--colorsActionMajor700);
+  border: 3px solid var(--colorsActionMajor700);
+  outline: none;
   margin: 0 -1px;
 }
 
-.c14 .c1 {
+.c14 > .c1:focus,
+.c14 > .c1:focus .c4 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c14 > .c1,
+.c14 > .c1 .c4 {
+  color: var(--colorsActionMajorYang100);
+}
+
+.c14 > .c1:focus {
+  margin: 0 -1px;
+}
+
+.c15 .c1 {
   border: 1px solid var(--colorsActionMajorTransparent);
   display: -webkit-box;
   display: -webkit-flex;
@@ -352,7 +363,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   z-index: 1000;
 }
 
-.c14 .c1 + .c16 .c1 {
+.c15 .c1 + .c17 .c1 {
   margin-top: 3px;
 }
 
@@ -379,6 +390,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   >
     <span>
       <span
+        className="c3"
         data-element="main-text"
       >
         Test
@@ -386,7 +398,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
     </span>
     <span
       aria-hidden={true}
-      className="c3 c4"
+      className="c4 c5"
       color="--colorsActionMajor500"
       data-component="icon"
       data-element="dropdown"

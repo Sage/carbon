@@ -6,6 +6,7 @@ import {
   Tile,
   TileContent,
   TileFooter,
+  TileHeader,
   FlexTileContainer,
   FlexTileCell,
 } from ".";
@@ -67,10 +68,14 @@ By default, the Tile component will have a horizontal layout.
   <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
-### With large roundness on corners
+### Roundness variants for corners
 
 <Canvas>
   <Story name="large roundness" story={stories.LargeRoundness} />
+</Canvas>
+
+<Canvas>
+  <Story name="small roundness" story={stories.SmallRoundness} />
 </Canvas>
 
 ### Vertical
@@ -85,6 +90,18 @@ The Tile component can be also have a vertical layout.
 
 <Canvas>
   <Story name="with TileFooter" story={stories.WithTileFooter} />
+</Canvas>
+
+### With TileHeader
+
+<Canvas>
+  <Story name="with TileHeader" story={stories.WithTileHeader} />
+</Canvas>
+
+### With Button in TileHeader
+
+<Canvas>
+  <Story name="with Button in TileHeader" story={stories.WithButtonInTileHeader} />
 </Canvas>
 
 ### With custom widths
@@ -111,6 +128,12 @@ Any child wrapped by a Tile component can be passed an optional `height` prop if
 
 <Canvas>
   <Story name="active" story={stories.Active} />
+</Canvas>
+
+### Grey variant
+
+<Canvas>
+  <Story name="grey" story={stories.Grey} />
 </Canvas>
 
 ### Custom borders
@@ -280,6 +303,10 @@ Use `justifyContent` to place your content inside the width allocated to the cel
 ### TileFooter
 
 <StyledSystemProps noHeader of={TileFooter} padding />
+
+### TileHeader
+
+<StyledSystemProps noHeader of={TileHeader} padding />
 
 ### Dl
 

@@ -1,3 +1,45 @@
+## [126.4.0](https://github.com/Sage/carbon/compare/v126.3.1...v126.4.0) (2024-02-19)
+
+
+### Features
+
+* **tile:** add "small" roundness option ([56ec960](https://github.com/Sage/carbon/commit/56ec960b82c176a4312c409903665d399dd48924))
+* **tile:** add grey variant ([c8a8d7e](https://github.com/Sage/carbon/commit/c8a8d7edd196fba83fad5fcbc56545dea7768929))
+* **tile:** add new tile-header subcomponent ([9428174](https://github.com/Sage/carbon/commit/9428174a4fc1d9545a9a482bc5c390e5100b4e64))
+
+
+### Bug Fixes
+
+* **tile:** remove `overflow: hidden` from tile container ([5373176](https://github.com/Sage/carbon/commit/5373176e67f7ce19f4b6318af07f66e28333d95c))
+
+### [126.3.1](https://github.com/Sage/carbon/compare/v126.3.0...v126.3.1) (2024-02-19)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure styling is correct when rendered as a child of menu ([ee672d2](https://github.com/Sage/carbon/commit/ee672d2eae2fd31a4fdbd6273ed05c6c7e70c17a)), closes [#6538](https://github.com/Sage/carbon/issues/6538)
+
+## [126.3.0](https://github.com/Sage/carbon/compare/v126.2.1...v126.3.0) (2024-02-16)
+
+
+### Features
+
+* **loader:** add gradient color to component ([8166ac7](https://github.com/Sage/carbon/commit/8166ac79f9868d773d55e729ac78b1c91054f026))
+
+### [126.2.1](https://github.com/Sage/carbon/compare/v126.2.0...v126.2.1) (2024-02-16)
+
+
+### Bug Fixes
+
+* **pager:** increase margin so focus style does not overlap text ([4508254](https://github.com/Sage/carbon/commit/4508254e759e3eb7acf43aa29fd153c36d6f0bc6))
+
+## [126.2.0](https://github.com/Sage/carbon/compare/v126.1.0...v126.2.0) (2024-02-15)
+
+
+### Features
+
+* **button:** add new `gradient-white` and `gradient-grey` buttonTypes ([36dea2a](https://github.com/Sage/carbon/commit/36dea2a14856cea465256e939bde68f53f46809c))
+
 ## [126.1.0](https://github.com/Sage/carbon/compare/v126.0.1...v126.1.0) (2024-02-14)
 
 
