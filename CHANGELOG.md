@@ -1,3 +1,10 @@
+### [126.4.1](https://github.com/Sage/carbon/compare/v126.4.0...v126.4.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* **checkbox, toast:** fix bugs in stories ([94053ad](https://github.com/Sage/carbon/commit/94053ad11396790772b4aa3dfbdd41300ff3e575))
+
 ## [126.4.0](https://github.com/Sage/carbon/compare/v126.3.1...v126.4.0) (2024-02-19)
 
 
