@@ -7,6 +7,8 @@ import {
   TileContent,
   TileFooter,
   TileFooterProps,
+  TileHeader,
+  TileHeaderProps,
   TileProps,
 } from ".";
 import { Dl, Dt, Dd, DlProps } from "../definition-list";
@@ -58,6 +60,41 @@ export const TileFooterComponent = (props: Partial<TileFooterProps>) => {
           </>
         )}
       </TileFooter>
+    </Tile>
+  );
+};
+
+export const TileHeaderComponent = (props: Partial<TileHeaderProps>) => {
+  return (
+    <Tile p={0} orientation="vertical">
+      <TileHeader {...props} p={3}>
+        {props.children || (
+          <>
+            <Typography pr={2} display="inline" variant="b">
+              Example header text
+            </Typography>
+            <Typography display="inline">Example text</Typography>
+          </>
+        )}
+      </TileHeader>
+      <Accordion p={0} borders="none" title="Accordion">
+        <Dl dtTextAlign="left" ddTextAlign="right">
+          <Dt>Coffee Subscription</Dt>
+          <Dd>£7.00 a month</Dd>
+          <Dt>Grind Size</Dt>
+          <Dd>Espresso</Dd>
+          <Dt>Quantity</Dt>
+          <Dd>3kg</Dd>
+          <Dd>
+            <Button
+              buttonType="tertiary"
+              href="https://goo.gl/maps/GMReLoBpbn9mdZVZ7"
+            >
+              Have a promo code?
+            </Button>
+          </Dd>
+        </Dl>
+      </Accordion>
     </Tile>
   );
 };

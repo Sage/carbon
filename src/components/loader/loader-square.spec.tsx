@@ -5,6 +5,11 @@ import StyledLoaderSquare, {
 } from "./loader-square.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Loader from ".";
+
+jest.mock("../../hooks/useMediaQuery", () => {
+  return jest.fn(() => true);
+});
 
 function render(props: StyledLoaderSquareProps = {}) {
   return mount(<StyledLoaderSquare {...props} />);
@@ -12,18 +17,54 @@ function render(props: StyledLoaderSquareProps = {}) {
 
 describe("Loader square", () => {
   let wrapper;
-  it("renders as expected", () => {
-    wrapper = render();
+
+  it.each([0, 1, 2])("each loader square renders as expected", (index) => {
+    wrapper = mount(<Loader />);
     assertStyleMatch(
       {
         backgroundColor: "var(--colorsActionMajor500)",
-        height: "12px",
-        width: "12px",
-        marginRight: "6px",
+        height: "16px",
+        width: "16px",
+        marginRight: "8px",
         borderRadius: "var(--borderRadiusCircle)",
       },
-      wrapper
+      wrapper.find(StyledLoaderSquare).at(index)
     );
+  });
+
+  describe("when the variant prop is set to 'gradient'", () => {
+    it("first loader square has Salem (#13A038) background color", () => {
+      wrapper = mount(<Loader variant="gradient" />);
+
+      assertStyleMatch(
+        {
+          backgroundColor: "#13A038",
+        },
+        wrapper.find(StyledLoaderSquare).at(0)
+      );
+    });
+
+    it("second loader square has Cerulean (#0092DB) background color", () => {
+      wrapper = mount(<Loader variant="gradient" />);
+
+      assertStyleMatch(
+        {
+          backgroundColor: "#0092DB",
+        },
+        wrapper.find(StyledLoaderSquare).at(1)
+      );
+    });
+
+    it("third loader square has Electric Violet (#8F49FE) background color", () => {
+      wrapper = mount(<Loader variant="gradient" />);
+
+      assertStyleMatch(
+        {
+          backgroundColor: "#8F49FE",
+        },
+        wrapper.find(StyledLoaderSquare).at(2)
+      );
+    });
   });
 
   describe("when inside button", () => {

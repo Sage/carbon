@@ -35,7 +35,6 @@ import ListActionButton from "../list-action-button";
 import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
 import Option, { OptionProps } from "../option";
-import guid from "../../../__internal__/utils/helpers/guid";
 import SelectListContext from "../__internal__/select-list-context";
 
 export interface SelectListProps {
@@ -186,13 +185,32 @@ const SelectList = React.forwardRef(
 
     const items = virtualizer.getVirtualItems();
 
+    const childrenList = useMemo(() => React.Children.toArray(children), [
+      children,
+    ]) as React.ReactElement<OptionProps>[];
+
+    const getIndexOfMatch = useCallback(
+      (valueToMatch) => {
+        return childrenList.findIndex(
+          (child) =>
+            React.isValidElement(child) && child.props.value === valueToMatch
+        );
+      },
+      [childrenList]
+    );
+
     // getVirtualItems returns an empty array of items if the select list is currently closed - which is correct visually but
     // we need to ensure that any currently-selected option is still in the DOM to avoid any accessibility issues.
     // The isOpen prop will ensure that no options are visible regardless of what is in the items array.
-    if (items.length === 0 && currentOptionsListIndex !== -1) {
-      // only index property is required with the item not visible so the following type assertion, even though incorrect,
-      // should be OK
-      items.push({ index: currentOptionsListIndex } as VirtualItem);
+    if (items.length === 0) {
+      const currentIndex = highlightedValue
+        ? getIndexOfMatch(highlightedValue)
+        : currentOptionsListIndex;
+      if (currentIndex > -1) {
+        // only index property is required with the item not visible so the following type assertion, even though incorrect,
+        // should be OK
+        items.push({ index: currentIndex } as VirtualItem);
+      }
     }
 
     const listHeight = virtualizer.getTotalSize();
@@ -237,27 +255,9 @@ const SelectList = React.forwardRef(
       [onSelect]
     );
 
-    const childIdsRef: React.MutableRefObject<string[] | null> = useRef(null);
-
-    // childIds should be stable except when children are added or removed - can't use useMemo
-    // as that isn't absolutely guaranteed to never rerun when dependencies haven't changed.
-    const setChildIds = () => {
-      childIdsRef.current =
-        React.Children.map(
-          children,
-          (child) => (React.isValidElement(child) && child?.props.id) || guid()
-        ) || /* istanbul ignore next */ null;
-    };
-
-    if (childIdsRef.current?.length !== React.Children.count(children)) {
-      setChildIds();
-    }
-
-    const childIds = childIdsRef.current;
-
-    const childrenList = useMemo(() => React.Children.toArray(children), [
-      children,
-    ]) as React.ReactElement<OptionProps>[];
+    const childElementRefs = useRef<HTMLElement[]>(
+      Array.from({ length: React.Children.count(children) })
+    );
 
     const optionChildrenList = useMemo(
       () =>
@@ -294,7 +294,6 @@ const SelectList = React.forwardRef(
 
         const newProps = {
           index,
-          id: childIds ? childIds[index] : /* istanbul ignore next */ undefined,
           onSelect: handleSelect,
           hidden: isLoading && childrenList.length === 1,
           // these need to be inline styles rather than implemented in styled-components to avoid it generating thousands of classes
@@ -303,8 +302,12 @@ const SelectList = React.forwardRef(
           },
           "aria-setsize": isOption ? optionChildrenList.length : undefined,
           "aria-posinset": isOption ? optionChildIndex + 1 : undefined,
-          // needed to dynamically compute the size
-          ref: measureCallback,
+          ref: (optionElement: HTMLElement) => {
+            // needed to dynamically compute the size
+            measureCallback(optionElement);
+            // add the DOM element to the array of refs
+            childElementRefs.current[index] = optionElement;
+          },
           "data-index": index,
         };
 
@@ -348,16 +351,6 @@ const SelectList = React.forwardRef(
       [childrenList, lastOptionIndex, isLoading]
     );
 
-    const getIndexOfMatch = useCallback(
-      (valueToMatch) => {
-        return childrenList.findIndex(
-          (child) =>
-            React.isValidElement(child) && child.props.value === valueToMatch
-        );
-      },
-      [childrenList]
-    );
-
     const highlightNextItem = useCallback(
       (key) => {
         let currentIndex = currentOptionsListIndex;
@@ -382,9 +375,7 @@ const SelectList = React.forwardRef(
           text,
           value,
           selectionType: "navigationKey",
-          id: childIds
-            ? childIds[nextIndex]
-            : /* istanbul ignore next */ undefined,
+          id: childElementRefs.current[nextIndex]?.id,
           selectionConfirmed: false,
         });
       },
@@ -395,7 +386,6 @@ const SelectList = React.forwardRef(
         getNextHighlightableItemIndex,
         highlightedValue,
         onSelect,
-        childIds,
       ]
     );
 
@@ -459,9 +449,7 @@ const SelectList = React.forwardRef(
           const { text, value } = currentOption.props;
 
           onSelect({
-            id: childIds
-              ? childIds[currentOptionsListIndex]
-              : /* istanbul ignore next */ undefined,
+            id: childElementRefs.current[currentOptionsListIndex]?.id,
             text,
             value,
             selectionType: "enterKey",
@@ -482,7 +470,6 @@ const SelectList = React.forwardRef(
         highlightNextItem,
         focusOnAnchor,
         isOpen,
-        childIds,
       ]
     );
 

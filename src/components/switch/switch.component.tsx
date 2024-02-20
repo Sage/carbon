@@ -26,8 +26,6 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   adaptiveLabelBreakpoint?: number;
   /** Set the default value of the Switch if component is meant to be used as uncontrolled */
   defaultChecked?: boolean;
-  /** Text alignment of the label */
-  labelAlign?: "left" | "right";
   /** When true label is inline */
   labelInline?: boolean;
   /** Triggers loading animation */

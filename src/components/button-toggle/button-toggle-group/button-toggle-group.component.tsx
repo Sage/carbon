@@ -49,8 +49,6 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   labelWidth?: number;
   /** If true all ButtonToggle children will flex to the full width of the ButtonToggleGroup parent */
   fullWidth?: boolean;
-  /** The alignment for the text in the label. */
-  labelAlign?: "left" | "right";
   /** Callback triggered by pressing one of the child buttons. Use with controlled components to set the value prop to the value argument */
   onChange?: (
     ev: React.MouseEvent<HTMLButtonElement>,
@@ -112,7 +110,6 @@ const ButtonToggleGroup = ({
   fullWidth,
   labelInline,
   labelWidth,
-  labelAlign,
   name,
   onChange,
   value,
@@ -225,7 +222,6 @@ const ButtonToggleGroup = ({
           fieldHelpInline={fieldHelpInline}
           labelInline={labelInline}
           labelWidth={labelWidth}
-          labelAlign={labelAlign}
           labelId={labelId.current}
           data-component={dataComponent}
           data-role={dataRole}

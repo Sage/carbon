@@ -92,6 +92,22 @@ export default {
         type: "text",
       },
     },
+    borderRadius: {
+      options: [
+        "",
+        "borderRadius000",
+        "borderRadius010",
+        "borderRadius025",
+        "borderRadius050",
+        "borderRadius100",
+        "borderRadius200",
+        "borderRadius400",
+        "borderRadiusCircle",
+      ],
+      control: {
+        type: "select",
+      },
+    },
   },
   args: {
     expandable: false,
@@ -111,6 +127,7 @@ export default {
     labelAlign: undefined,
     adaptiveLabelBreakpoint: undefined,
     required: false,
+    borderRadius: "borderRadius050",
   },
 };
 

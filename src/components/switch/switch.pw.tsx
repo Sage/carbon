@@ -305,16 +305,6 @@ test.describe("Prop tests for Switch component", () => {
     }
   );
 
-  // skipped because of https://jira.sage.com/browse/FE-5530
-  test.skip("should render with labelAlign set to right", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SwitchComponent labelAlign="right" />);
-
-    await expect(switchLabel(page)).toHaveCSS("align-items", "right");
-  });
-
   test("should render with labelHelp", async ({ mount, page }) => {
     await mount(
       <SwitchComponent label="Label For Switch" labelHelp="Label Help" />
@@ -823,15 +813,6 @@ test.describe("Accessibility tests", () => {
 
       await checkAccessibility(page);
     });
-  });
-
-  test("check accessibility with labelAlign to right", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SwitchComponent labelAlign="right" />);
-
-    await checkAccessibility(page);
   });
 
   test("check accessibility with labelHelp", async ({ mount, page }) => {

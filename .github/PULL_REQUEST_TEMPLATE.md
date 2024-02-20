@@ -1,25 +1,13 @@
 ### Proposed behaviour
 
 <!--
-A clear and concise description of what changes this PR makes.
-
-If applicable, add screenshots of a codesandbox to help explain your request. You can paste these directly into GitHub.
-
-Please DO NOT share screenshots or the source code of your project.
-
-You can create a codesandbox to show the behaviour before/after this pull request by forking this template https://codesandbox.io/s/carbon-quickstart-j5pb2
-
-If you include a CodeSandbox link, the bot will fork it with the new built version of carbon.
-If you have a commit that includes fixes #XXXX and issue #XXXX has a CodeSandbox link in the body, the bot will fork
-it with the new built version of carbon.
+A clear and concise description of what changes this PR makes. If applicable, include any UI screenshots to help explain your request. If you are a Sage contributor, please DO NOT share any commercially sensitive information, such as UI screenshots or code from Sage products.
 -->
 
 ### Current behaviour
 
 <!--
-A clear and concise description of the behaviour before this change.
-
-If applicable, add screenshots. You can paste these directly into GitHub.
+A clear and concise description of the behaviour before this change. If applicable, include any UI screenshots to help explain your request. If you are a Sage contributor, please DO NOT share any commercially sensitive information, such as UI screenshots or code from Sage products.
 -->
 
 ### Checklist
@@ -31,7 +19,6 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 - [ ] Screenshots are included in the PR if useful
 - [ ] All themes are supported if required
 - [ ] Unit tests added or updated if required
-- [ ] Cypress automation tests added or updated if required
 - [ ] Playwright automation tests added or updated if required
 - [ ] Storybook added or updated if required
 - [ ] Translations added or updated (including creating or amending translation keys table in storybook) if required
@@ -40,8 +27,8 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 
 #### QA
 
-- [ ] Tested in CodeSandbox/storybook
-- [ ] Add new Cypress test coverage if required
+- [ ] Tested in provided StackBlitz sandbox/Storybook
+- [ ] Add new Playwright test coverage if required
 - [ ] Carbon implementation matches Design System/designs
 - [ ] UI Tests GitHub check reviewed if required
 
@@ -51,9 +38,9 @@ If applicable, add screenshots. You can paste these directly into GitHub.
 
 ### Testing instructions
 
-<!-- How can a reviewer test this PR? -->
+<!--
+How can a reviewer test this PR?
 
-The following CodeSandbox is an example of the broken behaviour.
-You can see the new behaviour by looking at the version in the comment by `codesandbox[bot]`.
-
-<!-- Add CodeSandbox here -->
+If this PR addresses a pre-existing bug, please include a link to a sandbox that reproduces the original bug. A starter template has been provided to help you do this:
+<https://stackblitz.com/fork/github/Parsium/carbon-starter>
+-->

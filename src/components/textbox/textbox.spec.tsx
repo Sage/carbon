@@ -6,7 +6,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import { Input } from "../../__internal__/input";
+import { Input, EnterKeyHintTypes } from "../../__internal__/input";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import InputPresentationStyle from "../../__internal__/input/input-presentation.style";
 import FormField from "../../__internal__/form-field";
@@ -197,6 +197,26 @@ describe("Textbox", () => {
     expect(iconOnClick).toHaveBeenCalled();
     expect(onClick).not.toHaveBeenCalled();
   });
+
+  it.each([
+    "enter",
+    "done",
+    "go",
+    "next",
+    "previous",
+    "search",
+    "send",
+  ] as EnterKeyHintTypes[])(
+    "'enterKeyHint' is correctly passed to the input when prop value is %s",
+    (keyHints) => {
+      const wrapper = mount(<Textbox value="foobar" enterKeyHint={keyHints} />);
+
+      expect(wrapper.find("input").getDOMNode()).toHaveAttribute(
+        "enterkeyhint",
+        keyHints
+      );
+    }
+  );
 
   it.each(["disabled", "readOnly"])(
     "does not call iconOnClick handler for the icon when input is %s",

@@ -1,40 +1,32 @@
 import styled from "styled-components";
-import StyledButton from "../../../button/button.style";
 
 const StyledToolbar = styled.div`
-  padding: 8px;
-  display: flex;
-  justify-content: flex-start;
-  background: white;
-  flex-wrap: wrap;
-  font-size: 14px;
-  user-select: none;
-  order: 2;
+  display: inline-flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  gap: 8px;
+  padding: 12px;
+  height: fit-content;
+  width: 100%;
+  box-sizing: border-box;
   border: none;
   border-top: 1px solid var(--colorsUtilityMajor200);
   background-color: var(--colorsUtilityMajor025);
-  min-width: 290px;
+  user-select: none;
   z-index: 10;
 `;
 
 const StyledEditorStyleControls = styled.div`
-  display: inline-block;
-  text-align: left;
-  width: 50%;
-  min-width: 60px;
-  margin-left: -2px;
+  display: inline-flex;
+  gap: 8px;
 `;
 
 const StyledEditorActionControls = styled.div`
-  display: inline-block;
-  text-align: right;
-  width: 50%;
-  min-width: 60px;
-
-  ${StyledButton} {
-    width: 62px;
-    min-height: 33px;
-  }
+  flex-grow: 1;
+  display: inline-flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--spacing200);
 `;
 
 export { StyledToolbar, StyledEditorActionControls, StyledEditorStyleControls };

@@ -7,6 +7,7 @@ import {
   DateInputValidationNewDesign,
   DateInputWithButton,
   DateWithLocales,
+  DateInputInsideDialog,
 } from "./components.test-pw";
 import { DateInputProps } from ".";
 import { getDataElementByValue } from "../../../playwright/components";
@@ -27,6 +28,7 @@ import {
   dayPickerHeading,
 } from "../../../playwright/components/date-input/index";
 import { HooksConfig } from "../../../playwright";
+import { alertDialogPreview } from "../../../playwright/components/dialog";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const DAY_PICKER_PREFIX = "DayPicker-Day--";
@@ -898,6 +900,29 @@ test.describe("Functionality tests", () => {
       "outline",
       "rgba(0, 0, 0, 0) solid 3px"
     );
+  });
+});
+
+test.describe("When nested inside of a Dialog component", () => {
+  test("should not close the Dialog when Datepicker is closed by pressing an escape key", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DateInputInsideDialog />);
+
+    await page.focus("body");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    const wrapper = dayPickerWrapper(page);
+    const dialogElement = alertDialogPreview(page);
+    await expect(wrapper).toHaveCount(1);
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Escape");
+    await expect(wrapper).toHaveCount(0);
+    await expect(getDataElementByValue(page, "input")).toBeFocused();
+    await expect(dialogElement).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(dialogElement).not.toBeVisible();
   });
 });
 

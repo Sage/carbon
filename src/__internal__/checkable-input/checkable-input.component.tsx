@@ -58,8 +58,6 @@ export interface CheckableInputProps extends CommonCheckableInputProps {
   type: string;
   /** Value passed to the input */
   value?: string;
-  /** Text alignment of the label */
-  labelAlign?: "left" | "right";
   /** When true label is inline */
   labelInline?: boolean;
 }
@@ -82,7 +80,6 @@ const CheckableInput = React.forwardRef(
       value,
       inputWidth,
       label,
-      labelAlign,
       labelHelp,
       labelInline = true,
       labelSpacing = 1,
@@ -127,7 +124,6 @@ const CheckableInput = React.forwardRef(
       id,
       info,
       label,
-      labelAlign,
       labelHelp,
       labelHelpIcon: "info" as const,
       labelId,

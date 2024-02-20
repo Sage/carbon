@@ -93,7 +93,11 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         tabIndex={-1}
       >
         <TypeIcon variant={variant} transparent={transparent} />
-        <MessageContent showCloseIcon={showCloseIcon} title={title}>
+        <MessageContent
+          showCloseIcon={showCloseIcon}
+          title={title}
+          reduceLeftPadding={transparent}
+        >
           {children}
         </MessageContent>
         {renderCloseIcon()}

@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { CSSProperties } from "styled-components";
 import { TagProps } from "__internal__/utils/helpers/tags";
+import guid from "../../../__internal__/utils/helpers/guid";
 import StyledOptionRow from "./option-row.style";
 import SelectListContext from "../__internal__/select-list-context";
 
@@ -60,12 +61,16 @@ const OptionRow = React.forwardRef(
     }: OptionRowProps,
     ref: React.ForwardedRef<HTMLTableRowElement>
   ) => {
+    const internalIdRef = useRef(id || guid());
+
     const handleClick = () => {
       if (disabled) {
         return;
       }
-      onSelect?.({ id, text, value });
+
+      onSelect?.({ text, value, id: internalIdRef.current });
     };
+
     const selectListContext = useContext(SelectListContext);
     let isSelected = selectListContext.currentOptionsListIndex === index;
 
@@ -75,7 +80,7 @@ const OptionRow = React.forwardRef(
 
     return (
       <StyledOptionRow
-        id={id}
+        id={internalIdRef.current}
         ref={ref}
         aria-selected={isSelected}
         aria-disabled={disabled}

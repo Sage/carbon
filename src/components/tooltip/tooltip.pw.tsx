@@ -14,6 +14,7 @@ import {
 import {
   checkAccessibility,
   assertCssValueIsApproximately,
+  waitForAnimationEnd,
 } from "../../../playwright/support/helper";
 import { SIZE, COLOR, CHARACTERS } from "../../../playwright/support/constants";
 import { TooltipProps } from "../../../src/components/tooltip/tooltip.component";
@@ -385,6 +386,7 @@ test.describe("Accessibility tests for Tooltip component", () => {
 
     await getDataElementByValue(page, "main-text").nth(0).click();
     await expect(page.getByRole("tooltip")).toBeVisible();
+    await waitForAnimationEnd(page.getByRole("tooltip"));
     await checkAccessibility(page);
   });
 
@@ -396,6 +398,7 @@ test.describe("Accessibility tests for Tooltip component", () => {
 
     await getDataElementByValue(page, "main-text").nth(0).click();
     await expect(page.getByRole("tooltip")).toBeVisible();
+    await waitForAnimationEnd(page.getByRole("tooltip"));
     await checkAccessibility(page);
   });
 
@@ -407,6 +410,7 @@ test.describe("Accessibility tests for Tooltip component", () => {
 
     await getDataElementByValue(page, "main-text").nth(0).click();
     await expect(page.getByRole("tooltip")).toBeVisible();
+    await waitForAnimationEnd(page.getByRole("tooltip"));
     await checkAccessibility(page);
   });
 
@@ -424,6 +428,7 @@ test.describe("Accessibility tests for Tooltip component", () => {
 
       await getDataElementByValue(page, "main-text").nth(button).click();
       await expect(page.getByRole("tooltip")).toBeVisible();
+      await waitForAnimationEnd(page.getByRole("tooltip"));
       await checkAccessibility(page);
     });
   });
@@ -436,6 +441,7 @@ test.describe("Accessibility tests for Tooltip component", () => {
 
     await getDataElementByValue(page, "main-text").click();
     await expect(page.getByRole("tooltip")).toBeVisible();
+    await waitForAnimationEnd(page.getByRole("tooltip"));
     await checkAccessibility(page);
   });
 
@@ -448,6 +454,7 @@ test.describe("Accessibility tests for Tooltip component", () => {
 
       await page.getByText("target").click();
       await expect(page.getByRole("tooltip")).toBeVisible();
+      await waitForAnimationEnd(page.getByRole("tooltip"));
       await checkAccessibility(page);
     });
   });
@@ -460,6 +467,7 @@ test.describe("Accessibility tests for Tooltip component", () => {
 
     await getDataElementByValue(page, "main-text").click();
     await expect(page.getByRole("tooltip")).toBeVisible();
+    await waitForAnimationEnd(page.getByRole("tooltip"));
     await checkAccessibility(page);
   });
 });

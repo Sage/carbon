@@ -12,7 +12,7 @@ import {
 import Textarea, { TextareaProps } from ".";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
-import { Input } from "../../__internal__/input";
+import { Input, EnterKeyHintTypes } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
 import Label from "../../__internal__/label";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
@@ -127,6 +127,26 @@ describe("Textarea", () => {
         ...props,
       });
       expect(wrapper.find(StyledTextarea).props().hasIcon).toBe(true);
+    }
+  );
+
+  it.each([
+    "enter",
+    "done",
+    "go",
+    "next",
+    "previous",
+    "search",
+    "send",
+  ] as EnterKeyHintTypes[])(
+    "'enterKeyHint' is correctly passed to the input when prop value is %s",
+    (keyHints) => {
+      wrapper = renderTextarea({ enterKeyHint: keyHints });
+
+      expect(wrapper.find("textarea").getDOMNode()).toHaveAttribute(
+        "enterkeyhint",
+        keyHints
+      );
     }
   );
 
@@ -711,12 +731,65 @@ describe("componentWillUnmount", () => {
     });
   });
 
-  it("renders with the expected border radius styling", () => {
+  it("renders with the expected default border radius styling", () => {
     assertStyleMatch(
       {
         borderRadius: "var(--borderRadius050)",
       },
       mount(<Textarea />).find(StyledInputPresentation)
     );
+  });
+
+  it("renders with the expected custom border radius styling", () => {
+    assertStyleMatch(
+      {
+        borderRadius: "var(--borderRadius200)",
+      },
+      mount(<Textarea borderRadius="borderRadius200" />).find(
+        StyledInputPresentation
+      )
+    );
+  });
+
+  it("renders with the expected custom border radius styling as an array", () => {
+    assertStyleMatch(
+      {
+        borderRadius:
+          "var(--borderRadius050) var(--borderRadius100) var(--borderRadius200) var(--borderRadius400)",
+      },
+      mount(
+        <Textarea
+          borderRadius={[
+            "borderRadius050",
+            "borderRadius100",
+            "borderRadius200",
+            "borderRadius400",
+          ]}
+        />
+      ).find(StyledInputPresentation)
+    );
+  });
+
+  it("fires a console warning if more than four values are passed", () => {
+    const consoleSpy = jest.spyOn(console, "warn");
+    consoleSpy.mockImplementation(() => {});
+
+    mount(
+      <Textarea
+        borderRadius={[
+          "borderRadius050",
+          "borderRadius100",
+          "borderRadius200",
+          "borderRadius400",
+          "borderRadius050",
+        ]}
+      />
+    );
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "The `borderRadius` prop in `Textarea` component only supports up to 4 values."
+    );
+
+    consoleSpy.mockRestore();
   });
 });

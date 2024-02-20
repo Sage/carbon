@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DateInput, { DateChangeEvent, DateInputProps } from "./date.component";
 import { CommonTextboxArgs } from "../textbox/textbox-test.stories";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Dialog from "../dialog";
 
 export const DateInputCustom = ({
   onChange,
@@ -149,5 +150,44 @@ export const DateWithLocales = ({
       <div data-testid="raw-value">{rawValue}</div>
       <div data-testid="formatted-value">{formattedValue}</div>
     </>
+  );
+};
+
+export const DateInputInsideDialog = ({
+  onChange,
+  onBlur,
+  value,
+  ...props
+}: Partial<CommonTextboxArgs> & Partial<DateInputProps>) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const [state, setState] = React.useState(
+    value?.length !== undefined ? value : "01/05/2022"
+  );
+
+  const handleOnChange = (ev: DateChangeEvent) => {
+    if (onChange) {
+      onChange(ev);
+    }
+
+    setState(ev.target.value.formattedValue);
+  };
+
+  const handleOnBlur = (ev: DateChangeEvent) => {
+    if (onBlur) {
+      onBlur(ev);
+    }
+  };
+
+  return (
+    <Dialog open={isOpen} onCancel={() => setIsOpen(false)} title="Dialog">
+      <DateInput
+        label="Date"
+        name="date-input"
+        value={state}
+        onChange={handleOnChange}
+        onBlur={handleOnBlur}
+        {...props}
+      />
+    </Dialog>
   );
 };
