@@ -1,6 +1,7 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as SearchStories from "./search.stories";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 <Meta title="Search" of={SearchStories} />
 
@@ -46,6 +47,16 @@ import Search from "carbon-react/lib/components/search";
 Please note, if you need to apply your own custom aria-label for the search button, this can be done by using the `searchButtonAriaLabel` prop. By default the aria-label is `search button`.
 
 <Canvas of={SearchStories.WithSearchButton} />
+
+You can also override the text of the search button by passing a string value to the `searchButton` prop.
+Please note that any string passed here will take precedence over the locale string value passed via the 
+`searchButtonText` translation key.
+
+<Canvas of={SearchStories.WithSearchButtonLocaleOverride} />
+
+You can also use the locale provider to override the button's text via the `searchButtonText` translation key.
+
+<Canvas of={SearchStories.WithSearchButtonLocaleOverride} />
 
 ### Search without Search Button, default width and colour background
 
@@ -126,3 +137,19 @@ It is possible to use the `tooltipPosition` to override the default placement of
 ### Search
 
 <ArgTypes of={SearchStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "search.searchButtonText",
+      description: "The text for search button",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

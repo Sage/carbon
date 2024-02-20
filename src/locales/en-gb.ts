@@ -151,6 +151,9 @@ const enGB: Locale = {
   pod: {
     undo: () => "Undo",
   },
+  search: {
+    searchButtonText: () => "Search",
+  },
   select: {
     actionButtonText: () => "Add New Item",
     placeholder: () => "Please Select...",
