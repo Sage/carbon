@@ -25,4 +25,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          onlyChanged: true
           exitOnceUploaded: true # We don't want it to fail CI, we'll be using the GitHub Check
