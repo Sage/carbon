@@ -4,6 +4,7 @@ import {
   testStyledSystemMargin,
   testStyledSystemLayout,
   testStyledSystemBackground,
+  testStyledSystemPadding,
   assertStyleMatch,
 } from "../../__spec_helper__/test-utils";
 import Image from "./image.component";
@@ -13,6 +14,7 @@ describe("Image", () => {
   testStyledSystemMargin((props) => <Image {...props} />);
   testStyledSystemLayout((props) => <Image {...props} />);
   testStyledSystemBackground((props) => <Image {...props} />);
+  testStyledSystemPadding((props) => <Image {...props} />);
 
   it("renders an `img` element when a value is passed via the `src` prop", () => {
     const wrapper = mount(
