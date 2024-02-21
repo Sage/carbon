@@ -1,3 +1,10 @@
+## [126.5.0](https://github.com/Sage/carbon/compare/v126.4.3...v126.5.0) (2024-02-21)
+
+
+### Features
+
+* **image:** add padding props ([9448170](https://github.com/Sage/carbon/commit/9448170d0b5523feeb63bbb02d062d92ac2ee67d)), closes [#6232](https://github.com/Sage/carbon/issues/6232)
+
 ### [126.4.3](https://github.com/Sage/carbon/compare/v126.4.2...v126.4.3) (2024-02-20)
 
 
