@@ -9,7 +9,7 @@ import filterStyledSystemPaddingProps from "../../../style/utils/filter-styled-s
 export interface TileFooterProps extends PaddingProps, TagProps {
   children?: React.ReactNode;
   /** set which background color variant should be used */
-  variant?: "default" | "black" | "transparent";
+  variant?: "default" | "black" | "transparent" | "grey";
 }
 
 export const TileFooter = ({ variant, children, ...rest }: TileFooterProps) => (

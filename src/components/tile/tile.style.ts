@@ -26,6 +26,17 @@ const getBorderColor = (borderVariant: TileProps["borderVariant"]) => {
   }
 };
 
+const getBorderRadius = (roundness: TileProps["roundness"]) => {
+  switch (roundness) {
+    case "large":
+      return "var(--borderRadius200)";
+    case "small":
+      return "var(--borderRadius050)";
+    default:
+      return "var(--borderRadius100)";
+  }
+};
+
 const StyledTile = styled.div<StyledTileProps>`
   ${({
     borderVariant,
@@ -40,10 +51,18 @@ const StyledTile = styled.div<StyledTileProps>`
 
     box-sizing: border-box;
     border: var(--${borderWidth}) solid ${getBorderColor(borderVariant)};
-    border-radius: ${roundness === "default"
-      ? "var(--borderRadius100)"
-      : "var(--borderRadius200)"};
-    overflow: hidden;
+    border-radius: ${getBorderRadius(roundness)};
+    --tileBorderRadius: ${getBorderRadius(roundness)};
+
+    > *:first-child {
+      border-top-left-radius: calc(${getBorderRadius(roundness)} - 1px);
+      border-top-right-radius: calc(${getBorderRadius(roundness)} - 1px);
+    }
+
+    > *:last-child {
+      border-bottom-left-radius: calc(${getBorderRadius(roundness)} - 1px);
+      border-bottom-right-radius: calc(${getBorderRadius(roundness)} - 1px);
+    }
 
     ${variant === "tile" &&
     css`
@@ -59,6 +78,12 @@ const StyledTile = styled.div<StyledTileProps>`
     css`
       background-color: var(--colorsActionMajor025);
       border-color: var(--colorsActionMajor500);
+    `}
+
+    ${variant === "grey" &&
+    css`
+      background-color: var(--colorsUtilityMajor025);
+      border-color: var(--colorsUtilityMajor200);
     `}
 
     display: flex;

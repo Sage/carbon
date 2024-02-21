@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa wYkYe\\"><p>john</p></div></div>"`;
+exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa ibReFo\\"><p>john</p></div></div>"`;
 
-exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa wYkYe\\"><span>a1</span></div><div class=\\"sc-bdVaJa wYkYe\\"><span>a2</span></div></div>"`;
+exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa ibReFo\\"><span>a1</span></div><div class=\\"sc-bdVaJa ibReFo\\"><span>a2</span></div></div>"`;
 
-exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa wYkYe\\"><span class=\\"sc-bxivhb fYoASh\\" data-element=\\"tick\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\" data-component=\\"icon\\"></span></div></div>"`;
+exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa ibReFo\\"><span class=\\"sc-EHOje iDLBLV\\" data-element=\\"tick\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\" data-component=\\"icon\\"></span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot 1`] = `
-<span
+<styled.span
   data-portal-entrance="guid-12345"
 >
   <Portal
@@ -90,8 +90,10 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "colorsActionMinor500": "#335b70ff",
             "colorsActionMinor550": "#19475eff",
             "colorsActionMinor600": "#00324cff",
+            "colorsActionMinor700": "#00283dff",
             "colorsActionMinor850": "#001926ff",
             "colorsActionMinor900": "#00141eff",
+            "colorsActionMinorGray700": "#4d4d4dff",
             "colorsActionMinorTransparent": "#00000000",
             "colorsActionMinorYang100": "#ffffffff",
             "colorsActionMinorYin030": "#0000004d",
@@ -102,7 +104,9 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "colorsActionReadOnly500": "#e6ebedff",
             "colorsActionReadOnly600": "#ccd6dbff",
             "colorsComponentsLeftnavWinterStandardBackground": "#262626ff",
+            "colorsComponentsLeftnavWinterStandardBackgroundChild": "#404040ff",
             "colorsComponentsLeftnavWinterStandardContent": "#ffffffff",
+            "colorsComponentsLeftnavWinterStandardDividerOnDark": "#0000008c",
             "colorsComponentsLeftnavWinterStandardHover": "#007e45ff",
             "colorsComponentsLeftnavWinterStandardSelected": "#ffffff4d",
             "colorsComponentsMenuAutumnChild400": "#19475eff",
@@ -237,6 +241,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "colorsSemanticNeutralYin055": "#0000008c",
             "colorsSemanticNeutralYin065": "#000000a6",
             "colorsSemanticNeutralYin090": "#000000e6",
+            "colorsSemanticPositive400": "#33a14dff",
             "colorsSemanticPositive500": "#008a21ff",
             "colorsSemanticPositive600": "#006e1aff",
             "colorsSemanticPositiveTransparent": "#00000000",
@@ -316,31 +321,39 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "sizing075": "6px",
             "sizing100": "8px",
             "sizing1000": "80px",
+            "sizing1100": "88px",
             "sizing1200": "96px",
             "sizing125": "10px",
             "sizing1300": "104px",
             "sizing150": "12px",
+            "sizing1500": "120px",
             "sizing1600": "128px",
             "sizing175": "14px",
             "sizing200": "16px",
+            "sizing2000": "160px",
             "sizing225": "18px",
             "sizing250": "20px",
+            "sizing2500": "200px",
             "sizing275": "22px",
             "sizing300": "24px",
+            "sizing3000": "240px",
             "sizing350": "28px",
             "sizing375": "30px",
             "sizing400": "32px",
             "sizing450": "36px",
             "sizing500": "40px",
             "sizing525": "42px",
+            "sizing550": "44px",
             "sizing600": "48px",
             "sizing700": "56px",
+            "sizing7000": "560px",
             "sizing800": "64px",
             "sizing900": "72px",
             "sizingLogowidth": "40px",
             "spacing000": "0",
             "spacing010": "1px",
             "spacing025": "2px",
+            "spacing035": "3px",
             "spacing050": "4px",
             "spacing060": "5px",
             "spacing075": "6px",
@@ -363,6 +376,7 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "spacingNeg025": "-2px",
             "spacingNeg050": "-4px",
             "spacingNeg075": "-6px",
+            "spacingNeg100": "-8",
             "typographyAccordionParagraphM": "400 14px/150% Sage UI",
             "typographyAccordionParagraphS": "400 14px/150% Sage UI",
             "typographyAccordionSubtitleM": "400 14px/150% Sage UI",
@@ -444,6 +458,11 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "typographyLinkTextL": "400 16px/150% Sage UI",
             "typographyLinkTextM": "400 14px/150% Sage UI",
             "typographyLinkTextS": "400 12px/150% Sage UI",
+            "typographyLoaderMessageL": "500 14px/150% Sage UI",
+            "typographyLoaderMessageM": "500 14px/150% Sage UI",
+            "typographyLoaderMessageS": "500 14px/150% Sage UI",
+            "typographyLoaderMessageXl": "500 16px/150% Sage UI",
+            "typographyLoaderMessageXs": "500 14px/150% Sage UI",
             "typographyMenuLabelL": "500 16px/150% Sage UI",
             "typographyMenuLabelM": "500 14px/150% Sage UI",
             "typographyMenuSegmentTitleM": "500 14px/150% Sage UI",
@@ -455,14 +474,14 @@ exports[`Portal when using default node to match snapshot 1`] = `
             "typographyNoteEditorNameM": "500 14px/150% Sage UI",
             "typographyNoteParagraphListM": "400 14px/150% Sage UI",
             "typographyNoteParagraphM": "400 14px/150% Sage UI",
-            "typographyNoteTitleM": "700 24px/125% Sage UI",
+            "typographyNoteTitleM": "700 18px/125% Sage UI",
             "typographyPageStateParagraphM": "400 16px/150% Sage UI",
             "typographyPageStateSubtitleM": "500 18px/150% Sage UI",
             "typographyPageStateTitleM": "700 24px/125% Sage UI",
             "typographyPaginationLabelM": "400 14px/150% Sage UI",
             "typographyPillLabelL": "500 14px/150% Sage UI",
-            "typographyPillLabelM": "500 12px/150% Sage UI",
-            "typographyPillLabelS": "500 10px/150% Sage UI",
+            "typographyPillLabelM": "500 14px/150% Sage UI",
+            "typographyPillLabelS": "500 12px/150% Sage UI",
             "typographyPillLabelXl": "500 16px/150% Sage UI",
             "typographyProfileEmailLinkL": "400 14px/125% Sage UI",
             "typographyProfileEmailLinkM": "400 14px/125% Sage UI",
@@ -608,5 +627,5 @@ exports[`Portal when using default node to match snapshot 1`] = `
       />
     </styled.div>
   </Portal>
-</span>
+</styled.span>
 `;

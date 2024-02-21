@@ -32,7 +32,9 @@ We use [GitHub Issues](https://github.com/Sage/carbon/issues) to keep track of i
 
 ### Reporting an issue
 
-Please provide as much as possible to help us replicate and understand the problem. The best way to do this is to provide a simplified example using Codesandbox. We have two templates available using [JavaScript](https://codesandbox.io/s/carbon-quickstart-j5pb2) and [TypeScript](https://codesandbox.io/s/carbon-quickstart-typescript-6sjfuz) to help you do this.
+Please provide as much as possible to help us replicate and understand the problem. The best way to do this is to provide a sandbox that reproduces the issue. We have a starter template to help you do this:
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/Parsium/carbon-starter)
 
 ### Proposing a large change
 

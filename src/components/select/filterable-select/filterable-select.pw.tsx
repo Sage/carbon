@@ -1601,6 +1601,23 @@ test.describe("Selection confirmed", () => {
       page.locator('[data-element="confirmed-selection-3"]')
     ).toBeVisible();
   });
+
+  test("is not set on the event when Enter key is pressed when there is no match", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SelectionConfirmed />);
+
+    const inputElement = selectInput(page);
+    await inputElement.type("foo");
+    await inputElement.press("Enter");
+    // note: need to check count rather than visibility here - when the test fails and selectionConfirmed is set,
+    // the span with the data-element prop exists but has size 0 due to having no text content - which Playwright
+    // counts as not being visible
+    await expect(
+      await page.locator('[data-element^="confirmed-selection-"]').count()
+    ).toBe(0);
+  });
 });
 
 test("should not throw when filter text does not match option text", async ({

@@ -23,3 +23,4 @@ export const PORTAL = ".carbon-portal";
 export const LEGEND = "legend";
 export const STICKY_FOOTER = '[data-component="sticky-footer"]';
 export const PILL_CLOSE_ICON = '[data-element="close"]';
+export const CHARACTER_COUNT = 'div[data-element="character-count"]';

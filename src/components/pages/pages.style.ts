@@ -18,7 +18,6 @@ const PagesContent = styled.div`
 
 const PagesWrapperStyle = styled.div`
   .carbon-carousel__content {
-    overflow: hidden;
     position: relative;
   }
   ${slideAnimation}

@@ -93,7 +93,7 @@ export const PrimaryButtonFullWitdth: ComponentStory<typeof Button> = () => {
 
 export const PrimaryButtonNoWrap: ComponentStory<typeof Button> = () => {
   return (
-    <Box>
+    <Box width="40px">
       <Button ml={2} mt={2} buttonType="primary" noWrap>
         Long button text
       </Button>
@@ -177,7 +177,7 @@ export const SecondaryFullWidth: ComponentStory<typeof Button> = () => {
 
 export const SecondaryNoWrap: ComponentStory<typeof Button> = () => {
   return (
-    <Box>
+    <Box width="40px">
       <Button ml={2} mt={2} buttonType="secondary" noWrap>
         Long button text
       </Button>
@@ -275,7 +275,7 @@ export const TertiaryButtonFullWitdth: ComponentStory<typeof Button> = () => {
 
 export const TertiaryButtonNoWrap: ComponentStory<typeof Button> = () => {
   return (
-    <Box>
+    <Box width="40px">
       <Button ml={2} mt={2} buttonType="tertiary" noWrap>
         Long button text
       </Button>
@@ -366,7 +366,7 @@ export const DashedButtonFullWidth: ComponentStory<typeof Button> = () => {
 
 export const DashedButtonNoWrap: ComponentStory<typeof Button> = () => {
   return (
-    <Box>
+    <Box width="40px">
       <Button mt={2} buttonType="dashed" noWrap>
         Long button text
       </Button>
@@ -461,7 +461,7 @@ export const DarkBackgroundButtonFullWidth: ComponentStory<
 
 export const DarkBackgroundButtonNoWrap: ComponentStory<typeof Button> = () => {
   return (
-    <Box>
+    <Box width="40px">
       <Button mt={2} buttonType="darkBackground" noWrap>
         Long button text
       </Button>
@@ -542,6 +542,186 @@ export const ButtonIconTooltipMessage: ComponentStory<typeof Button> = () => {
         iconTooltipMessage="This is a tooltip"
         aria-label="Delete"
       />
+    </Box>
+  );
+};
+
+export const GradientWhite: ComponentStory<typeof Button> = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-white" size="small" ml={2}>
+        Small
+      </Button>
+      <Button mt={2} buttonType="gradient-white" ml={2}>
+        Medium
+      </Button>
+      <Button mt={2} buttonType="gradient-white" size="large" ml={2}>
+        Large
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientWhiteDisabled: ComponentStory<typeof Button> = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-white" size="small" ml={2} disabled>
+        Small
+      </Button>
+      <Button mt={2} buttonType="gradient-white" ml={2} disabled>
+        Medium
+      </Button>
+      <Button mt={2} buttonType="gradient-white" size="large" ml={2} disabled>
+        Large
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientWhiteIcon: ComponentStory<typeof Button> = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-white" iconType="print" ml={2}>
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-white"
+        iconType="delete"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-white"
+        disabled
+        iconType="print"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-white"
+        disabled
+        iconType="print"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientWhiteFullWidth: ComponentStory<typeof Button> = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-white" fullWidth>
+        Full Width
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientWhiteNoWrap: ComponentStory<typeof Button> = () => {
+  return (
+    <Box width="40px">
+      <Button ml={2} mt={2} buttonType="gradient-white" noWrap>
+        Long button text
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientGrey: ComponentStory<typeof Button> = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-grey" size="small" ml={2}>
+        Small
+      </Button>
+      <Button mt={2} buttonType="gradient-grey" ml={2}>
+        Medium
+      </Button>
+      <Button mt={2} buttonType="gradient-grey" size="large" ml={2}>
+        Large
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientGreyDisabled: ComponentStory<typeof Button> = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-grey" size="small" ml={2} disabled>
+        Small
+      </Button>
+      <Button mt={2} buttonType="gradient-grey" ml={2} disabled>
+        Medium
+      </Button>
+      <Button mt={2} buttonType="gradient-grey" size="large" ml={2} disabled>
+        Large
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientGreyIcon: ComponentStory<typeof Button> = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-grey" iconType="print" ml={2}>
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-grey"
+        iconType="delete"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-grey"
+        disabled
+        iconType="print"
+        ml={2}
+      >
+        Medium
+      </Button>
+      <Button
+        mt={2}
+        buttonType="gradient-grey"
+        disabled
+        iconType="print"
+        iconPosition="after"
+        ml={2}
+      >
+        Medium
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientGreyFullWidth: ComponentStory<typeof Button> = () => {
+  return (
+    <Box>
+      <Button mt={2} buttonType="gradient-grey" fullWidth>
+        Full Width
+      </Button>
+    </Box>
+  );
+};
+
+export const GradientGreyNoWrap: ComponentStory<typeof Button> = () => {
+  return (
+    <Box width="40px">
+      <Button ml={2} mt={2} buttonType="gradient-grey" noWrap>
+        Long button text
+      </Button>
     </Box>
   );
 };

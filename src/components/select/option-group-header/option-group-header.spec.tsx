@@ -2,6 +2,12 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import OptionGroupHeader, { OptionGroupHeaderProps } from ".";
+import guid from "../../../__internal__/utils/helpers/guid";
+
+const mockedGuid = "guid-12345";
+jest.mock("../../../__internal__/utils/helpers/guid");
+
+(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function renderOption(props: OptionGroupHeaderProps, renderer: any = shallow) {

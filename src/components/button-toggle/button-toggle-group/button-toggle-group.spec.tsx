@@ -245,7 +245,6 @@ describe("ButtonToggleGroup", () => {
       ["labelHelp", "help", "label help"],
       ["labelInline", "inline", true],
       ["labelWidth", "width", 30],
-      ["labelAlign", "align", "right"],
     ])("when the %s prop is passed", (propName, passedPropName, propValue) => {
       it("then it should be passed to the Label component", () => {
         const wrapper = render({

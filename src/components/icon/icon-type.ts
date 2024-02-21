@@ -184,6 +184,7 @@ export type IconType =
   | "marker"
   | "message"
   | "microphone"
+  | "minimise"
   | "minus"
   | "minus_large"
   | "mobile"

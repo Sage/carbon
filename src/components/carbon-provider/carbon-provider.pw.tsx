@@ -180,7 +180,7 @@ buildTestArray(commonColors).forEach(([theme, color]) => {
       );
       await expect(tabTitleSelectedIndicator).toHaveCSS(
         "box-shadow",
-        `${color} 0px -2px 0px 0px inset`
+        `${color} 0px -4px 0px 0px inset`
       );
     });
   });

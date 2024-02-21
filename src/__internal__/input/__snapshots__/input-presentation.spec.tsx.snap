@@ -20,7 +20,6 @@ exports[`InputPresentation renders presentational div and context provider for i
   align-items: stretch;
   background: var(--colorsUtilityYang100);
   border: 1px solid var(--colorsUtilityMajor300);
-  border-radius: var(--borderRadius050);
   box-sizing: border-box;
   cursor: text;
   display: -webkit-box;
@@ -32,6 +31,7 @@ exports[`InputPresentation renders presentational div and context provider for i
   flex-wrap: wrap;
   width: 100%;
   margin: 0;
+  border-radius: var(--borderRadius050);
   min-height: var(--sizing500);
 }
 
