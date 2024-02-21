@@ -1,3 +1,17 @@
+### [126.4.3](https://github.com/Sage/carbon/compare/v126.4.2...v126.4.3) (2024-02-20)
+
+
+### Bug Fixes
+
+* **filterable-select:** ensure selectionConfirmed is false when enter pressed with no match ([fef9f08](https://github.com/Sage/carbon/commit/fef9f0803ed71215c14da3521231d59b34f2f480)), closes [#6518](https://github.com/Sage/carbon/issues/6518)
+
+### [126.4.2](https://github.com/Sage/carbon/compare/v126.4.1...v126.4.2) (2024-02-20)
+
+
+### Bug Fixes
+
+* **textarea, textbox:** ensure enterkeyhint attribute can be set ([95a30a7](https://github.com/Sage/carbon/commit/95a30a794be05d0fb92ba644346fece4ed29081c)), closes [#6525](https://github.com/Sage/carbon/issues/6525)
+
 ### [126.4.1](https://github.com/Sage/carbon/compare/v126.4.0...v126.4.1) (2024-02-20)
 
 

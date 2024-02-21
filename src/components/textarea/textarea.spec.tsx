@@ -12,7 +12,7 @@ import {
 import Textarea, { TextareaProps } from ".";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
-import { Input } from "../../__internal__/input";
+import { Input, EnterKeyHintTypes } from "../../__internal__/input";
 import FormField from "../../__internal__/form-field";
 import Label from "../../__internal__/label";
 import ValidationIcon from "../../__internal__/validations/validation-icon.component";
@@ -127,6 +127,26 @@ describe("Textarea", () => {
         ...props,
       });
       expect(wrapper.find(StyledTextarea).props().hasIcon).toBe(true);
+    }
+  );
+
+  it.each([
+    "enter",
+    "done",
+    "go",
+    "next",
+    "previous",
+    "search",
+    "send",
+  ] as EnterKeyHintTypes[])(
+    "'enterKeyHint' is correctly passed to the input when prop value is %s",
+    (keyHints) => {
+      wrapper = renderTextarea({ enterKeyHint: keyHints });
+
+      expect(wrapper.find("textarea").getDOMNode()).toHaveAttribute(
+        "enterkeyhint",
+        keyHints
+      );
     }
   );
 
