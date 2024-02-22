@@ -674,3 +674,22 @@ export const FilterableSelectWithDisabledOption = () => {
     </FilterableSelect>
   );
 };
+
+export const OnChangeWithDeleteStory = () => {
+  const [value, setValue] = useState("");
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <>
+      <div>Value: {value}</div>
+      <FilterableSelect label="test" onChange={onChange}>
+        <Option text="item0" value="0" />
+        <Option text="item1" value="1" />
+        <Option text="item2" value="2" />
+      </FilterableSelect>
+    </>
+  );
+};
