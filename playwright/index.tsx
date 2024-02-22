@@ -6,7 +6,7 @@ import I18nProvider from "../src/components/i18n-provider/i18n-provider.componen
 import { noTheme, sageTheme } from "../src/style/themes";
 import enGB from "../src/locales/en-gb";
 import "../src/style/fonts.css";
-import * as dateLocales from "../src/locales/date-fns-locales";
+import * as dateLocales from "./support/date-fns-locales";
 
 export type HooksConfig = {
   roundedCornersOptOut?: boolean;
