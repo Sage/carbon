@@ -1,3 +1,10 @@
+### [126.5.1](https://github.com/Sage/carbon/compare/v126.5.0...v126.5.1) (2024-02-22)
+
+
+### Bug Fixes
+
+* **filterable-select:** ensure onchange called when deleting text ([10e5834](https://github.com/Sage/carbon/commit/10e5834aff5bc9fcbd257c6605af74dc618d4137))
+
 ## [126.5.0](https://github.com/Sage/carbon/compare/v126.4.3...v126.5.0) (2024-02-21)
 
 
