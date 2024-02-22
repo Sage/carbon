@@ -1,5 +1,5 @@
+import enGBDateLocale from "date-fns/locale/en-GB";
 import Locale from "./locale";
-import { enGB as enGBDateLocale } from "./date-fns-locales";
 
 const isSingular = (count: string | number): boolean =>
   (typeof count === "string" ? parseInt(count) : count) === 1;

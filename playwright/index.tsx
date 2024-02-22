@@ -12,7 +12,7 @@ import {
 import enGB from "../src/locales/en-gb";
 import "../src/style/fonts.css";
 // import Locale from "../src/locales";
-import * as dateLocales from "../src/locales/date-fns-locales";
+import * as dateLocales from "./support/date-fns-locales";
 
 export type HooksConfig = {
   roundedCornersOptOut?: boolean;

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { ComponentStory } from "@storybook/react";
+import { fr } from "date-fns/locale";
+
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import DateRange, { DateRangeChangeEvent } from "./date-range.component";
 import I18nProvider from "../i18n-provider";
-import { fr } from "../../locales/date-fns-locales";
 
 export const DefaultStory: ComponentStory<typeof DateRange> = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
