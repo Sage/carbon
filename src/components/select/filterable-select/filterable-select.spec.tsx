@@ -713,6 +713,27 @@ describe("FilterableSelect", () => {
         expect(onChangeFn).toHaveBeenCalledWith(expectedDeleteEventObject);
       });
 
+      it("then should be called when a character is deleted from the input to leave a match", () => {
+        act(() => {
+          simulateSelectTextboxEvent(wrapper, "change", {
+            target: { value: "blue1" },
+          });
+
+          simulateSelectTextboxEvent(wrapper, "change", {
+            target: { value: "blue" },
+            nativeEvent: { inputType: "delete" },
+          });
+        });
+
+        expect(onChangeFn).toHaveBeenCalledWith({
+          selectionConfirmed: false,
+          target: {
+            ...textboxProps,
+            value: "opt3",
+          },
+        });
+      });
+
       it("then should be called when value is not matched", () => {
         act(() => {
           simulateSelectTextboxEvent(wrapper, "change", {
