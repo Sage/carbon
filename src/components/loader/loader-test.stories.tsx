@@ -29,6 +29,12 @@ export default {
         type: "select",
       },
     },
+    variant: {
+      options: ["default", "colorful"],
+      control: {
+        type: "select",
+      },
+    },
   },
 };
 
@@ -36,6 +42,7 @@ export const Default = ({
   isInsideButton,
   size,
   isActive,
+  variant,
   ...args
 }: LoaderProps) => {
   if (isInsideButton) {
@@ -46,24 +53,17 @@ export const Default = ({
             isInsideButton,
             size,
             isActive,
+            variant,
             ...args,
           }}
         />
       </Button>
     );
   }
-  return <Loader size={size} />;
+  return <Loader size={size} variant={variant} />;
 };
 
 Default.storyName = "default";
 Default.args = {
   size: "medium",
-};
-
-export const LoaderInsideButtonTest = (props: LoaderProps) => {
-  return (
-    <Button buttonType="primary" aria-label="Loading">
-      <Loader isInsideButton {...props} />
-    </Button>
-  );
 };

@@ -718,6 +718,7 @@ export const Virtualised = () => {
 
 export const SelectionConfirmedStory = () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+  const [value, setValue] = useState("");
   return (
     <Box p={1}>
       <Typography variant="strong">
@@ -730,8 +731,10 @@ export const SelectionConfirmedStory = () => {
       </Typography>
       <FilterableSelect
         onChange={(ev: CustomSelectChangeEvent) => {
+          setValue(ev.target.value);
           setSelectionConfirmed(!!ev.selectionConfirmed);
         }}
+        value={value}
         name="selection confirmed"
         id="selection confirmed"
         label="color"

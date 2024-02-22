@@ -41,6 +41,16 @@ css attribute.
   <Story name="default" story={stories.DefaultStory} />
 </Canvas>
 
+### With `position` Prop
+
+To apply a CSS position to the component, pass in a valid CSS string value to the `position` prop. 
+
+To effect the `top`, `right`, `bottom` and `left` position of the component, pass in a valid CSS string value to the `top`, `right`, `bottom` and `left` props. 
+
+<Canvas>
+  <Story name="with position" story={stories.ImageWithPosition} />
+</Canvas>
+
 ### As an img element
 
 If you want to render an `img` element pass in a value to the `src` prop. The component will not accept `children` when
@@ -85,4 +95,4 @@ viewed in the Canvas tab using full-screen mode with device or viewport emulatio
 
 ### Image
 
-<StyledSystemProps of={Image} margin layout background noHeader />
+<StyledSystemProps of={Image} margin layout background padding noHeader />

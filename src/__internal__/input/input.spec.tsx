@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import TestRenderer from "react-test-renderer";
-import Input, { InputProps } from "./input.component";
+import Input, { InputProps, EnterKeyHintTypes } from "./input.component";
 import StyledInput from "./input.style";
 
 import { InputContext, InputContextProps } from "../input-behaviour";
@@ -65,6 +65,26 @@ describe("Input", () => {
       wrapper
     );
   });
+
+  it.each([
+    "enter",
+    "done",
+    "go",
+    "next",
+    "previous",
+    "search",
+    "send",
+  ] as EnterKeyHintTypes[])(
+    "'enterKeyHint' is correctly passed to the input when prop value is %s",
+    (keyHints) => {
+      const wrapper = renderMount({ enterKeyHint: keyHints });
+
+      expect(wrapper.find("input").getDOMNode()).toHaveAttribute(
+        "enterkeyhint",
+        keyHints
+      );
+    }
+  );
 
   it("sends the input ref to the inputRef callback", () => {
     const inputRef = jest.fn();

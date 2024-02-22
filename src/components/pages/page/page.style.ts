@@ -4,7 +4,7 @@ import BaseTheme from "../../../style/themes/base";
 
 const StyledPage = styled.div`
   width: 100%;
-  height: 100%;
+  position: absolute;
 `;
 
 const StyledPageContent = styled.div`
@@ -12,7 +12,6 @@ const StyledPageContent = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
 `;
 
 StyledPage.defaultProps = {

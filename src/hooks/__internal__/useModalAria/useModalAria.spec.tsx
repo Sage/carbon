@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import useModalManager from "../useModalManager";
 import useModalAria from ".";
 import CarbonProvider from "../../../components/carbon-provider/carbon-provider.component";
+import Portal from "../../../components/portal";
 
 interface ModalComponentProps {
   openButtonText: string;
@@ -75,6 +76,23 @@ const NestedModals = () => {
         Some content
       </ModalComponent>
     </ModalComponent>
+  );
+};
+
+const ModalWithButtonInPortal = ({
+  inertOptOut,
+}: {
+  inertOptOut?: boolean;
+}) => {
+  return (
+    <>
+      <Portal inertOptOut={inertOptOut}>
+        <button type="button">button inside portal</button>
+      </Portal>
+      <ModalComponent openButtonText="open modal" closeButtonText="close modal">
+        modal content
+      </ModalComponent>
+    </>
   );
 };
 
@@ -300,6 +318,34 @@ describe("useModalAria", () => {
           "foo"
         )
       );
+    });
+  });
+
+  describe("with additional content in a portal", () => {
+    it("without the inertOptOut flag, the portal content is not in the accessibility tree", async () => {
+      render(
+        <CarbonProvider>
+          <ModalWithButtonInPortal />
+        </CarbonProvider>
+      );
+
+      await userEvent.click(screen.getByRole("button", { name: "open modal" }));
+      expect(
+        screen.queryByRole("button", { name: "button inside portal" })
+      ).toBeNull();
+    });
+
+    it("with the inertOptOut flag, the portal content is in the accessibility tree", async () => {
+      render(
+        <CarbonProvider>
+          <ModalWithButtonInPortal inertOptOut />
+        </CarbonProvider>
+      );
+
+      await userEvent.click(screen.getByRole("button", { name: "open modal" }));
+      expect(
+        screen.queryByRole("button", { name: "button inside portal" })
+      ).not.toBeNull();
     });
   });
 });

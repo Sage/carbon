@@ -13,18 +13,20 @@ describe("TileFooter", () => {
 
   testStyledSystemPadding((props) => <TileFooter {...props} />);
 
-  it.each<[TileFooterProps["variant"], string]>([
-    ["default", "var(--colorsUtilityMajor100)"],
-    ["black", "var(--colorsUtilityYin100)"],
-    ["transparent", "transparent"],
+  it.each<[TileFooterProps["variant"], string, string]>([
+    ["default", "var(--colorsUtilityMajor100)", "var(--colorsUtilityMajor100)"],
+    ["black", "var(--colorsUtilityYin100)", "var(--colorsUtilityMajor100)"],
+    ["transparent", "transparent", "var(--colorsUtilityMajor100)"],
+    ["grey", "var(--colorsUtilityMajor025)", "var(--colorsUtilityMajor200)"],
   ])(
-    "should render correct background when variant prop is %s",
-    (tileVariant, tileVariantToken) => {
+    "should render correct background and border-top when variant prop is %s",
+    (tileVariant, background, borderTopColor) => {
       wrapper = mount(<TileFooter variant={tileVariant}>content</TileFooter>);
 
       assertStyleMatch(
         {
-          background: tileVariantToken,
+          background,
+          borderTop: `1px solid ${borderTopColor}`,
         },
         wrapper.find(StyledTileFooter)
       );

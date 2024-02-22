@@ -1,3 +1,178 @@
+## [126.5.0](https://github.com/Sage/carbon/compare/v126.4.3...v126.5.0) (2024-02-21)
+
+
+### Features
+
+* **image:** add padding props ([9448170](https://github.com/Sage/carbon/commit/9448170d0b5523feeb63bbb02d062d92ac2ee67d)), closes [#6232](https://github.com/Sage/carbon/issues/6232)
+
+### [126.4.3](https://github.com/Sage/carbon/compare/v126.4.2...v126.4.3) (2024-02-20)
+
+
+### Bug Fixes
+
+* **filterable-select:** ensure selectionConfirmed is false when enter pressed with no match ([fef9f08](https://github.com/Sage/carbon/commit/fef9f0803ed71215c14da3521231d59b34f2f480)), closes [#6518](https://github.com/Sage/carbon/issues/6518)
+
+### [126.4.2](https://github.com/Sage/carbon/compare/v126.4.1...v126.4.2) (2024-02-20)
+
+
+### Bug Fixes
+
+* **textarea, textbox:** ensure enterkeyhint attribute can be set ([95a30a7](https://github.com/Sage/carbon/commit/95a30a794be05d0fb92ba644346fece4ed29081c)), closes [#6525](https://github.com/Sage/carbon/issues/6525)
+
+### [126.4.1](https://github.com/Sage/carbon/compare/v126.4.0...v126.4.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* **checkbox, toast:** fix bugs in stories ([94053ad](https://github.com/Sage/carbon/commit/94053ad11396790772b4aa3dfbdd41300ff3e575))
+
+## [126.4.0](https://github.com/Sage/carbon/compare/v126.3.1...v126.4.0) (2024-02-19)
+
+
+### Features
+
+* **tile:** add "small" roundness option ([56ec960](https://github.com/Sage/carbon/commit/56ec960b82c176a4312c409903665d399dd48924))
+* **tile:** add grey variant ([c8a8d7e](https://github.com/Sage/carbon/commit/c8a8d7edd196fba83fad5fcbc56545dea7768929))
+* **tile:** add new tile-header subcomponent ([9428174](https://github.com/Sage/carbon/commit/9428174a4fc1d9545a9a482bc5c390e5100b4e64))
+
+
+### Bug Fixes
+
+* **tile:** remove `overflow: hidden` from tile container ([5373176](https://github.com/Sage/carbon/commit/5373176e67f7ce19f4b6318af07f66e28333d95c))
+
+### [126.3.1](https://github.com/Sage/carbon/compare/v126.3.0...v126.3.1) (2024-02-19)
+
+
+### Bug Fixes
+
+* **popover-container:** ensure styling is correct when rendered as a child of menu ([ee672d2](https://github.com/Sage/carbon/commit/ee672d2eae2fd31a4fdbd6273ed05c6c7e70c17a)), closes [#6538](https://github.com/Sage/carbon/issues/6538)
+
+## [126.3.0](https://github.com/Sage/carbon/compare/v126.2.1...v126.3.0) (2024-02-16)
+
+
+### Features
+
+* **loader:** add gradient color to component ([8166ac7](https://github.com/Sage/carbon/commit/8166ac79f9868d773d55e729ac78b1c91054f026))
+
+### [126.2.1](https://github.com/Sage/carbon/compare/v126.2.0...v126.2.1) (2024-02-16)
+
+
+### Bug Fixes
+
+* **pager:** increase margin so focus style does not overlap text ([4508254](https://github.com/Sage/carbon/commit/4508254e759e3eb7acf43aa29fd153c36d6f0bc6))
+
+## [126.2.0](https://github.com/Sage/carbon/compare/v126.1.0...v126.2.0) (2024-02-15)
+
+
+### Features
+
+* **button:** add new `gradient-white` and `gradient-grey` buttonTypes ([36dea2a](https://github.com/Sage/carbon/commit/36dea2a14856cea465256e939bde68f53f46809c))
+
+## [126.1.0](https://github.com/Sage/carbon/compare/v126.0.1...v126.1.0) (2024-02-14)
+
+
+### Features
+
+* **textarea:** add new borderRadius prop ([5ff228b](https://github.com/Sage/carbon/commit/5ff228b07ff969c0e54b7cfcad1973f8f4f71ecb))
+
+### [126.0.1](https://github.com/Sage/carbon/compare/v126.0.0...v126.0.1) (2024-02-13)
+
+
+### Bug Fixes
+
+* **message:** reduce left padding of content for `transparent` variant ([31feba5](https://github.com/Sage/carbon/commit/31feba518ff1bfcaee1b9b499691a5ad52655815)), closes [#6552](https://github.com/Sage/carbon/issues/6552)
+
+## [126.0.0](https://github.com/Sage/carbon/compare/v125.13.0...v126.0.0) (2024-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `labelAlign` prop has been removed from `ButtonToggle`, `Checkbox`,
+`RadioButton` and `Switch` components.
+
+### Bug Fixes
+
+* remove unused labelAlign prop from checkable inputs ([037dcc9](https://github.com/Sage/carbon/commit/037dcc923fbd53b3edd49f97103a18e6dfba633e))
+
+## [125.13.0](https://github.com/Sage/carbon/compare/v125.12.2...v125.13.0) (2024-02-12)
+
+
+### Features
+
+* **portal:** add inertOptOut prop to keep the content interactable when a modal opens ([250ba58](https://github.com/Sage/carbon/commit/250ba5853545218b175c97a66fcbe71f0e44b115))
+
+### [125.12.2](https://github.com/Sage/carbon/compare/v125.12.1...v125.12.2) (2024-02-09)
+
+
+### Bug Fixes
+
+* **date:** prevent dialog from closing if esc is pressed and date picker is open ([f28f361](https://github.com/Sage/carbon/commit/f28f3618a015046272ff6df36ecad7581d2efaa3))
+
+### [125.12.1](https://github.com/Sage/carbon/compare/v125.12.0...v125.12.1) (2024-02-08)
+
+
+### Bug Fixes
+
+* **split-button:** fix style when href is passed to a button ([8dd1645](https://github.com/Sage/carbon/commit/8dd1645e78f9607ae56d05a8995acc10a04335c0))
+
+## [125.12.0](https://github.com/Sage/carbon/compare/v125.11.1...v125.12.0) (2024-02-07)
+
+
+### Features
+
+* **text-editor:** make container of `toolbarElements` a flex container for responsiveness ([305bf69](https://github.com/Sage/carbon/commit/305bf6902a2fc7c7e480c72d2376d25e6cbb538a)), closes [#6530](https://github.com/Sage/carbon/issues/6530)
+* **text-editor:** update dimensions and active background colour of toolbar buttons ([446b327](https://github.com/Sage/carbon/commit/446b327483af70e5fc59b2ba4f174dde52ec770b))
+
+### [125.11.1](https://github.com/Sage/carbon/compare/v125.11.0...v125.11.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* **select:** maintain option ids according to key when children count changes ([144583b](https://github.com/Sage/carbon/commit/144583ba10c284209e9f4dc8e4d081ee1da4b332)), closes [#6378](https://github.com/Sage/carbon/issues/6378)
+
+## [125.11.0](https://github.com/Sage/carbon/compare/v125.10.0...v125.11.0) (2024-02-06)
+
+
+### Features
+
+* **step-flow:** add new component ([707ef4f](https://github.com/Sage/carbon/commit/707ef4f30b02c68c6595eea6590c968d6456eebf))
+
+## [125.10.0](https://github.com/Sage/carbon/compare/v125.9.3...v125.10.0) (2024-02-06)
+
+
+### Features
+
+* **pill:** add dark background color variants ([8f4b697](https://github.com/Sage/carbon/commit/8f4b69735a96cececfaef7c74cb8fc1d5c48d0a0))
+* **pill:** add information variant ([dcf30bd](https://github.com/Sage/carbon/commit/dcf30bd2ebb1997e84eabb616b8008b350764608))
+
+### [125.9.3](https://github.com/Sage/carbon/compare/v125.9.2...v125.9.3) (2024-02-01)
+
+
+### Bug Fixes
+
+* **pages:** maintain height of content when page slides in ([b97dfb1](https://github.com/Sage/carbon/commit/b97dfb16889be2d91e5aeb028894e8c7c1f9d071)), closes [#6492](https://github.com/Sage/carbon/issues/6492)
+
+### [125.9.2](https://github.com/Sage/carbon/compare/v125.9.1...v125.9.2) (2024-02-01)
+
+
+### Bug Fixes
+
+* **numeral-date:** ensure it uses static validation when no month value passed ([b70086a](https://github.com/Sage/carbon/commit/b70086a99f8ffdd07e02c5a8ee7590c554fd419a))
+
+### [125.9.1](https://github.com/Sage/carbon/compare/v125.9.0...v125.9.1) (2024-01-31)
+
+
+### Bug Fixes
+
+* **dialog + icon + tabs:** fix color for modal, dialog responsive size and added new icon minimise ([5c9e559](https://github.com/Sage/carbon/commit/5c9e55959fb227240b81a605376783f75e79c0a7))
+
+## [125.9.0](https://github.com/Sage/carbon/compare/v125.8.0...v125.9.0) (2024-01-30)
+
+
+### Features
+
+* **image:** add position prop to component ([8e20a4f](https://github.com/Sage/carbon/commit/8e20a4f67afa1065e22ae1488e133648c36a0380))
+
 ## [125.8.0](https://github.com/Sage/carbon/compare/v125.7.0...v125.8.0) (2024-01-29)
 
 

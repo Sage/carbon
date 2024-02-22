@@ -126,6 +126,16 @@ interface Locale {
     on: () => string;
     off: () => string;
   };
+  stepFlow: {
+    stepLabel: (currentStep: number, totalSteps: number) => string;
+    screenReaderOnlyTitle: (
+      title: string,
+      currentStep: number,
+      totalSteps: number,
+      category?: string
+    ) => string;
+    closeIconAriaLabel?: () => string;
+  };
   textEditor: {
     tooltipMessages: {
       bold: () => string;

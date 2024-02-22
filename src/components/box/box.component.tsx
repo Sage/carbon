@@ -24,15 +24,18 @@ export type BoxSizing = "content-box" | "border-box";
 
 type DesignTokensType = keyof typeof DesignTokens;
 type BoxShadowsType = Extract<DesignTokensType, `boxShadow${string}`>;
-type BorderRadiusType = Extract<DesignTokensType, `borderRadius${string}`>;
+export type BorderRadiusType = Extract<
+  DesignTokensType,
+  `borderRadius${string}`
+>;
 
 export interface BoxProps
-  extends SpaceProps,
-    LayoutProps,
-    FlexboxProps,
+  extends FlexboxProps,
     Omit<GridProps, "gridGap" | "gridRowGap" | "gridColumnGap">,
-    TagProps,
-    Omit<PositionProps, "zIndex"> {
+    LayoutProps,
+    Omit<PositionProps, "zIndex">,
+    SpaceProps,
+    TagProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
   /** Set the ID attribute of the Box component */

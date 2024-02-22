@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import { CSSProperties } from "styled-components";
 import { TagProps } from "__internal__/utils/helpers/tags";
+import guid from "../../../__internal__/utils/helpers/guid";
 import StyledOptionGroupHeader from "./option-group-header.style";
 import Icon, { IconProps } from "../../icon";
 
@@ -23,11 +24,18 @@ export interface OptionGroupHeaderProps extends TagProps {
 
 const OptionGroupHeader = React.forwardRef(
   (
-    { label, icon, style, ...rest }: OptionGroupHeaderProps,
+    { label, icon, style, id, ...rest }: OptionGroupHeaderProps,
     ref: React.ForwardedRef<HTMLDivElement>
   ) => {
+    const internalIdRef = useRef(id || guid());
+
     return (
-      <StyledOptionGroupHeader style={style} {...rest} ref={ref}>
+      <StyledOptionGroupHeader
+        style={style}
+        id={internalIdRef.current}
+        {...rest}
+        ref={ref}
+      >
         {icon && <Icon type={icon} />}
         <h4>{label}</h4>
       </StyledOptionGroupHeader>

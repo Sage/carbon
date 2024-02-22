@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import DayPicker, {
   DayPickerProps,
   DayModifiers,
@@ -159,12 +159,20 @@ export const DatePicker = ({
     }
   };
 
-  const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
-    if (Events.isEscKey(ev)) {
-      inputElement.current?.querySelector("input")?.focus();
-      setOpen(false);
-    }
+  const handleKeyUp = useCallback(
+    (ev) => {
+      /* istanbul ignore else */
+      if (open && Events.isEscKey(ev)) {
+        inputElement.current?.querySelector("input")?.focus();
+        setOpen(false);
+        ev.stopPropagation();
+      }
+    },
+    [inputElement, open, setOpen]
+  );
 
+  const handleOnKeyDown = (ev: React.KeyboardEvent<HTMLDivElement>) => {
+    /* istanbul ignore else */
     if (
       ref.current?.querySelector(".DayPicker-NavBar button") ===
         document.activeElement &&
@@ -233,6 +241,7 @@ export const DatePicker = ({
       <StyledDayPicker
         ref={ref}
         onMouseDown={pickerMouseDown}
+        onKeyUp={handleKeyUp}
         onKeyDown={handleOnKeyDown}
       >
         <div

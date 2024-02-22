@@ -26,6 +26,7 @@ exports[`Option renders properly 1`] = `
   aria-selected={true}
   className="c0"
   data-component="option"
+  id="guid-12345"
   onClick={[Function]}
   role="option"
 >
@@ -59,6 +60,7 @@ exports[`Option when no children are provided renders with the text prop as chil
   aria-selected={true}
   className="c0"
   data-component="option"
+  id="guid-12345"
   onClick={[Function]}
   role="option"
 >

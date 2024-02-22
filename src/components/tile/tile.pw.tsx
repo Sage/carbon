@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
-import { TileProps, TileFooterProps } from ".";
+import { TileProps, TileFooterProps, TileHeaderProps } from ".";
 import { DlProps } from "../definition-list";
 import {
   getDataComponentByValue,
@@ -15,6 +15,7 @@ import {
   TileComponent,
   DlTileComponent,
   TileFooterComponent,
+  TileHeaderComponent,
   TileComponentWithFalsyChildren,
   FlexTile,
 } from "./components.test-pw";
@@ -25,6 +26,7 @@ const tileVariants: [TileProps["variant"], string, string][] = [
   ["tile", "rgb(204, 214, 219)", "rgb(255, 255, 255)"],
   ["transparent", "rgb(204, 214, 219)", "rgba(0, 0, 0, 0)"],
   ["active", "rgb(0, 126, 69)", "rgb(242, 249, 246)"],
+  ["grey", "rgb(153, 173, 183)", "rgb(242, 245, 246)"],
 ];
 const tileOrientations: [TileProps["orientation"], number][] = [
   ["vertical", 198],
@@ -49,10 +51,17 @@ const dlWidths = [
   [10, 107, 1184],
   [30, 370, 921],
 ];
-const tileFooterVariants: [TileFooterProps["variant"], string][] = [
-  ["default", "rgb(204, 214, 219)"],
-  ["transparent", "rgba(0, 0, 0, 0)"],
-  ["black", "rgb(0, 0, 0)"],
+const tileFooterVariants: [TileFooterProps["variant"], string, string][] = [
+  ["default", "rgb(204, 214, 219)", "rgb(204, 214, 219)"],
+  ["transparent", "rgba(0, 0, 0, 0)", "rgb(204, 214, 219)"],
+  ["black", "rgb(0, 0, 0)", "rgb(204, 214, 219)"],
+  ["grey", "rgb(242, 245, 246)", "rgb(153, 173, 183)"],
+];
+const tileHeaderVariants: [TileHeaderProps["variant"], string, string][] = [
+  ["default", "rgb(204, 214, 219)", "rgb(204, 214, 219)"],
+  ["transparent", "rgba(0, 0, 0, 0)", "rgb(204, 214, 219)"],
+  ["black", "rgb(0, 0, 0)", "rgb(204, 214, 219)"],
+  ["grey", "rgb(242, 245, 246)", "rgb(153, 173, 183)"],
 ];
 const characters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const tileDlWidths = [
@@ -75,7 +84,7 @@ const borderWidths: [TileProps["borderWidth"], string][] = [
   ["borderWidth300", "3px"],
   ["borderWidth400", "4px"],
 ];
-const tileRoundness: TileProps["roundness"][] = ["default", "large"];
+const tileRoundness: TileProps["roundness"][] = ["default", "large", "small"];
 
 test.describe("Tile component", () => {
   tileVariants.forEach(([variant, borderColor, backGroundColor]) => {
@@ -172,7 +181,7 @@ test.describe("Tile component", () => {
     });
   });
 
-  tileFooterVariants.forEach(([variant, backGroundColor]) => {
+  tileFooterVariants.forEach(([variant, backGroundColor, borderTopColor]) => {
     test(`check Tile Footer variant as ${variant}`, async ({ mount, page }) => {
       await mount(
         <TileFooterComponent variant={variant} data-element="tile-footer" />
@@ -185,7 +194,7 @@ test.describe("Tile component", () => {
         "1px",
         "border-top",
         "solid",
-        "rgb(204, 214, 219)"
+        borderTopColor
       );
     });
   });
@@ -203,6 +212,45 @@ test.describe("Tile component", () => {
 
       const footer = getDataElementByValue(page, "tile-footer");
       await expect(footer).toHaveText(children);
+    });
+  });
+
+  tileHeaderVariants.forEach(
+    ([variant, backGroundColor, borderBottomColor]) => {
+      test(`check Tile Header variant as ${variant}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <TileHeaderComponent variant={variant} data-element="tile-header" />
+        );
+
+        const header = getDataElementByValue(page, "tile-header");
+        await expect(header).toHaveCSS("background-color", backGroundColor);
+        await checkCSSOutline(
+          header,
+          "1px",
+          "border-bottom",
+          "solid",
+          borderBottomColor
+        );
+      });
+    }
+  );
+
+  characters.forEach((children) => {
+    test(`check Tile Header children as ${children}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <TileHeaderComponent data-element="tile-header">
+          {children}
+        </TileHeaderComponent>
+      );
+
+      const header = getDataElementByValue(page, "tile-header");
+      await expect(header).toHaveText(children);
     });
   });
 
@@ -247,7 +295,18 @@ test.describe("Tile component", () => {
     }) => {
       await mount(<TileComponent data-element="tile" roundness={roundness} />);
 
-      const result = roundness === "default" ? "8px" : "16px";
+      let result: string;
+      switch (roundness) {
+        case "large":
+          result = "16px";
+          break;
+        case "small":
+          result = "4px";
+          break;
+        default:
+          result = "8px";
+          break;
+      }
       const tile = getDataElementByValue(page, "tile");
       await expect(tile).toHaveCSS("border-radius", result);
     });
@@ -285,6 +344,17 @@ test.describe("Tile component", () => {
       mount,
     }) => {
       await mount(<TileFooterComponent>{children}</TileFooterComponent>);
+
+      await checkAccessibility(page);
+    });
+  });
+
+  [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach((children) => {
+    test(`should check Accessibility for Tile Header children as ${children}`, async ({
+      page,
+      mount,
+    }) => {
+      await mount(<TileHeaderComponent>{children}</TileHeaderComponent>);
 
       await checkAccessibility(page);
     });

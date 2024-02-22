@@ -1,6 +1,16 @@
 import React, { useEffect, useContext, useRef, useCallback } from "react";
 import StyledInput from "./input.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
+import { BorderRadiusType } from "../../components/box/box.component";
+
+export type EnterKeyHintTypes =
+  | "enter"
+  | "done"
+  | "go"
+  | "next"
+  | "previous"
+  | "search"
+  | "send";
 
 export interface CommonInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
@@ -16,6 +26,8 @@ export interface CommonInputProps
   disabled?: boolean;
   /** HTML id attribute of the input */
   id?: string;
+  /** Specify a custom border radius for the input. Any valid border-radius design token, or an array of border-radius design tokens. */
+  inputBorderRadius?: BorderRadiusType | BorderRadiusType[];
   /** A callback to retrieve the input reference */
   inputRef?: (
     input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
@@ -101,6 +113,8 @@ const Input = React.forwardRef<
       id,
       name,
       validationIconId,
+      inputBorderRadius = "borderRadius050",
+      enterKeyHint,
       ...rest
     }: InputProps,
     ref
@@ -125,8 +139,12 @@ const Input = React.forwardRef<
         if (autoFocus && element) {
           element.focus();
         }
+
+        if (enterKeyHint && element) {
+          element.setAttribute("enterkeyhint", enterKeyHint);
+        }
       },
-      [autoFocus, ref]
+      [autoFocus, ref, enterKeyHint]
     );
 
     useEffect(() => {
@@ -235,6 +253,7 @@ const Input = React.forwardRef<
         onBlur={handleBlur}
         onClick={handleClick}
         onChange={handleChange}
+        inputBorderRadius={inputBorderRadius}
       />
     );
   }

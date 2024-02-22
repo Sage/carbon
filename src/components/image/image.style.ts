@@ -3,16 +3,25 @@ import {
   margin,
   layout,
   background,
+  padding,
   MarginProps,
   BackgroundProps,
   LayoutProps,
+  PaddingProps,
 } from "styled-system";
 import { baseTheme } from "../../style/themes";
 
+export type PositionProps =
+  | "absolute"
+  | "fixed"
+  | "relative"
+  | "static"
+  | "sticky";
 export interface StyledImageProps
-  extends MarginProps,
-    BackgroundProps,
-    LayoutProps {
+  extends BackgroundProps,
+    LayoutProps,
+    MarginProps,
+    PaddingProps {
   /** HTML alt property to display when an img fails to load */
   alt?: string;
   /** Prop to specify if the image is decorative  */
@@ -23,18 +32,51 @@ export interface StyledImageProps
   hidden?: boolean;
   /** Children elements, will only render if component is a div element */
   children?: React.ReactNode;
+  /** Any valid CSS string for position */
+  position?: PositionProps;
+  /** Any valid CSS string for top */
+  top?: string;
+  /** Any valid CSS string for right */
+  right?: string;
+  /** Any valid CSS string for bottom */
+  bottom?: string;
+  /** Any valid CSS string for left */
+  left?: string;
 }
 
 const StyledImage = styled.div.attrs(
-  ({ src, children, hidden = false }: StyledImageProps) => ({
+  ({
+    src,
+    children,
+    hidden = false,
+    position,
+    top,
+    right,
+    bottom,
+    left,
+  }: StyledImageProps) => ({
     ...(src && { as: "img" }),
     children: src ? undefined : children,
     src,
     hidden,
+    position,
+    top,
+    right,
+    bottom,
+    left,
   })
 )<StyledImageProps>`
   ${margin}
   ${layout}
+  ${padding}
+
+  ${({ position, top, right, bottom, left }) => css`
+    position: ${position};
+    top: ${top};
+    right: ${right};
+    bottom: ${bottom};
+    left: ${left};
+  `}
 
   ${({ as }) =>
     as !== "img" &&

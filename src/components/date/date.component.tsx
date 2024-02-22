@@ -303,13 +303,20 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }
     };
 
+    const handleKeyUp = useCallback(
+      (ev) => {
+        /* istanbul ignore else */
+        if (open && Events.isEscKey(ev)) {
+          setOpen(false);
+          ev.stopPropagation();
+        }
+      },
+      [open]
+    );
+
     const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
       if (onKeyDown) {
         onKeyDown(ev);
-      }
-
-      if (Events.isEscKey(ev)) {
-        setOpen(false);
       }
 
       if (open && Events.isTabKey(ev)) {
@@ -464,6 +471,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           onChange={handleChange}
           onClick={handleClick}
           onFocus={handleFocus}
+          onKeyUp={handleKeyUp}
           onKeyDown={handleKeyDown}
           iconOnClick={handleClick}
           onMouseDown={handleMouseDown}
