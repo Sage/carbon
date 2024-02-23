@@ -91,14 +91,10 @@ export const StyledForm = styled.form<StyledFormProps>`
     css`
       height: ${height};
     `}
-    
-    ${StyledTextarea}
-      ${StyledFormField} {
-    margin-bottom: 4px;
-  }
 
-  ${StyledSearch} ${StyledFormField} {
-    margin-bottom: 0px;
+  // field spacing is also applied to form field here so we need to override
+  ${StyledSearch} ${StyledFormField}, ${StyledTextarea} ${StyledFormField} {
+    margin-bottom: var(--spacing000);
   }
 
   ${({ stickyFooter, isInModal, isInSidebar }) =>
