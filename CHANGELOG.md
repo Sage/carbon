@@ -1,3 +1,10 @@
+### [126.5.3](https://github.com/Sage/carbon/compare/v126.5.2...v126.5.3) (2024-02-23)
+
+
+### Bug Fixes
+
+* **form:** remove 4px margin bottom from Textarea FormField ([4011182](https://github.com/Sage/carbon/commit/401118288af1503e5a974903960cd3c7a993884e))
+
 ### [126.5.2](https://github.com/Sage/carbon/compare/v126.5.1...v126.5.2) (2024-02-23)
 
 
