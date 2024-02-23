@@ -1,3 +1,10 @@
+### [126.5.2](https://github.com/Sage/carbon/compare/v126.5.1...v126.5.2) (2024-02-23)
+
+
+### Bug Fixes
+
+* **icon:** bgSize and fontSize bug fix ([6eb59d1](https://github.com/Sage/carbon/commit/6eb59d111bd9e9a8add9c275e94807b08305b4a8)), closes [#5812](https://github.com/Sage/carbon/issues/5812)
+
 ### [126.5.1](https://github.com/Sage/carbon/compare/v126.5.0...v126.5.1) (2024-02-22)
 
 
