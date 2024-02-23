@@ -58,8 +58,27 @@ export interface StyledIconInternalProps {
 }
 
 function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
-  if (fontSize && fontSize !== "small") {
-    return iconConfig.backgroundSize[fontSize];
+  const sizeValues: Record<BgSize | FontSize, number> = {
+    "extra-small": 1,
+    small: 2,
+    medium: 3,
+    large: 4,
+    "extra-large": 5,
+  };
+
+  if (fontSize && bgSize) {
+    const fontSizeValue = sizeValues[fontSize];
+    const bgSizeValue = sizeValues[bgSize];
+
+    if (bgSizeValue < fontSizeValue) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`
+      );
+      return iconConfig.backgroundSize[fontSize];
+    }
+
+    return iconConfig.backgroundSize[bgSize];
   }
 
   return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
@@ -84,6 +103,8 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
     let finalHoverColor;
     let bgColor;
     let bgHoverColor;
+
+    const adjustedBgSize = adjustIconBgSize(fontSize, bgSize);
 
     try {
       if (disabled) {
@@ -118,8 +139,8 @@ const StyledIcon = styled.span<StyledIconProps & StyledIconInternalProps>`
       align-items: center;
       display: inline-flex;
       justify-content: center;
-      height: ${adjustIconBgSize(fontSize, bgSize)};
-      width: ${adjustIconBgSize(fontSize, bgSize)};
+      height: ${adjustedBgSize};
+      width: ${adjustedBgSize};
       ${bgShape ? `border-radius: ${iconConfig.backgroundShape[bgShape]}` : ""};
 
       ${isInteractive &&

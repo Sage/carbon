@@ -60,6 +60,11 @@ export default {
         type: "select",
       },
     },
+    bg: {
+      control: {
+        type: "text",
+      },
+    },
   },
 };
 
@@ -112,6 +117,7 @@ export const All = () => (
               fontSize={fontSize}
               bgShape={bgShape}
               bgSize={bgSize}
+              bg="#00b000"
             />
           ));
         });

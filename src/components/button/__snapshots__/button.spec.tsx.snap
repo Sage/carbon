@@ -18,8 +18,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  height: 16px;
-  width: 16px;
+  height: 24px;
+  width: 24px;
 }
 
 .c3::before {
@@ -2572,8 +2572,8 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  height: 16px;
-  width: 16px;
+  height: 24px;
+  width: 24px;
 }
 
 .c2::before {

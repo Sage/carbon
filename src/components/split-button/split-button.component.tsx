@@ -147,7 +147,6 @@ export const SplitButton = ({
       >
         <Icon
           type="dropdown"
-          bgSize="extra-small"
           color={getIconColor()}
           bg="transparent"
           disabled={disabled}
