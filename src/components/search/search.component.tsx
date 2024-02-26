@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useImperativeHandle } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -70,9 +70,14 @@ export interface SearchProps extends ValidationProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
+export type SearchHandle = {
+  /** Programmatically focus on root container of Dialog. */
+  focus: () => void;
+} | null;
+
 let deprecateUncontrolledWarnTriggered = false;
 
-export const Search = React.forwardRef(
+export const Search = React.forwardRef<SearchHandle, SearchProps>(
   (
     {
       defaultValue,
@@ -97,13 +102,24 @@ export const Search = React.forwardRef(
       info,
       tooltipPosition,
       ...rest
-    }: SearchProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    },
+    ref
   ) => {
     const isControlled = value !== undefined;
     const initialValue = isControlled ? value : defaultValue;
     const locale = useLocale();
     const searchRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useImperativeHandle<SearchHandle, SearchHandle>(
+      ref,
+      () => ({
+        focus() {
+          inputRef.current?.focus();
+        },
+      }),
+      []
+    );
 
     if (!deprecateUncontrolledWarnTriggered && !isControlled) {
       deprecateUncontrolledWarnTriggered = true;
@@ -170,8 +186,7 @@ export const Search = React.forwardRef(
         });
       }
 
-      const input = searchRef.current?.querySelector("input");
-      input?.focus();
+      inputRef.current?.focus();
     };
 
     const handleMouseDown = (event: React.MouseEvent<HTMLElement>) => {
@@ -233,7 +248,7 @@ export const Search = React.forwardRef(
           onBlur={handleBlur}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          ref={ref}
+          ref={inputRef}
           tabIndex={tabIndex}
           error={error}
           warning={warning}

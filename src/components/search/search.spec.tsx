@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { mount, ReactWrapper, shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { Input } from "../../__internal__/input";
 import Button from "../button";
-import Search, { SearchProps } from "./search.component";
+import Search, { SearchHandle, SearchProps } from "./search.component";
 import StyledSearchButton from "./search-button.style";
 import {
   assertStyleMatch,
@@ -685,28 +687,28 @@ describe("Search", () => {
     });
   });
 
-  describe("refs", () => {
-    it("accepts ref as a ref object", () => {
-      const ref = { current: null };
-      wrapper = renderSearch({ ref, value: "" });
+  describe("passing a ref", () => {
+    const MockComponent = () => {
+      const ref = useRef<SearchHandle>(null);
 
-      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
-    });
+      return (
+        <div>
+          <button type="button" onClick={() => ref.current?.focus()}>
+            Focus input
+          </button>
+          <Search value="foo" onChange={() => {}} ref={ref} />
+        </div>
+      );
+    };
 
-    it("accepts ref as a ref callback", () => {
-      const ref = jest.fn();
-      wrapper = renderSearch({ ref, value: "" });
+    it("should allow input to be programmatically focused", async () => {
+      render(<MockComponent />);
+      const user = userEvent.setup();
+      const button = screen.getByText("Focus input");
 
-      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
-    });
+      await user.click(button);
 
-    it("sets ref to empty after unmount", () => {
-      const ref = { current: null };
-      wrapper = renderSearch({ ref, value: "" });
-
-      wrapper.unmount();
-
-      expect(ref.current).toBe(null);
+      expect(screen.getByDisplayValue("foo")).toHaveFocus();
     });
   });
 
