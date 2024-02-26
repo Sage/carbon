@@ -1,3 +1,10 @@
+## [126.7.0](https://github.com/Sage/carbon/compare/v126.6.0...v126.7.0) (2024-02-26)
+
+
+### Features
+
+* **dismissible-box:** allows a custom data role to close button and translations to aria label ([2c59569](https://github.com/Sage/carbon/commit/2c59569523a9aa36cc1b7af9557970f69c854186)), closes [#6487](https://github.com/Sage/carbon/issues/6487)
+
 ## [126.6.0](https://github.com/Sage/carbon/compare/v126.5.3...v126.6.0) (2024-02-26)
 
 
