@@ -6,6 +6,7 @@ import { Checkbox } from "../checkbox";
 import Pill from "../pill";
 import Icon from "../icon";
 import Box from "../box";
+import Drawer from "../drawer";
 
 export const DefaultStory = () => {
   return (
@@ -1693,5 +1694,46 @@ export const Responsive = () => {
         ))}
       </Tabs>
     </Box>
+  );
+};
+
+export const TemporaryTest = () => {
+  return (
+    <Tabs selectedTabId="tab-2" align="left" position="top">
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-1"
+        title="Tab 1"
+        key="tab-1"
+        isTabSelected
+      >
+        <Drawer
+          animationDuration="0s"
+          height="auto"
+          expandedWidth="460px"
+          sidebar={
+            <ul>
+              <li>link a</li>
+              <li>link b</li>
+              <li>link c</li>
+            </ul>
+          }
+        >
+          <Box>Table Here</Box>
+        </Drawer>
+      </Tab>
+      <Tab
+        errorMessage="error"
+        warningMessage="warning"
+        infoMessage="info"
+        tabId="tab-2"
+        title="Tab 2"
+        key="tab-2"
+      >
+        <Box p={3}>Another Table Here</Box>
+      </Tab>
+    </Tabs>
   );
 };
