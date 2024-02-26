@@ -1,3 +1,10 @@
+## [126.6.0](https://github.com/Sage/carbon/compare/v126.5.3...v126.6.0) (2024-02-26)
+
+
+### Features
+
+* **icon:** 2 icons added to the icon font ([949282a](https://github.com/Sage/carbon/commit/949282aafca3ea33ca2448e77570754e10d24827))
+
 ### [126.5.3](https://github.com/Sage/carbon/compare/v126.5.2...v126.5.3) (2024-02-23)
 
 
