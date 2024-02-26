@@ -230,6 +230,7 @@ const misc = {
   app_youtube: "\\f047",
   apps: "\\f040",
   bill_paid: "\\f049",
+  bill_unpaid: "\\f063",
   box_arrow_right: "\\f057",
   calendar_pay_date: "\\f038",
   card_wallet: "\\f030",
@@ -255,6 +256,7 @@ const misc = {
   leaf: "\\f061",
   like_no: "\\f058",
   minimise: "\\f062",
+  pin: "\\f064",
 };
 
 const legacyNames = {
