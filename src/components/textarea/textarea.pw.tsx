@@ -1048,6 +1048,20 @@ test("should have the expected custom border radius styling when an array is pas
   await expect(inputElementParent).toHaveCSS("border-radius", "32px 1px");
 });
 
+test("should not have borders when hideBorders prop is passed", async ({
+  mount,
+  page,
+}) => {
+  await mount(<TextareaComponent hideBorders />);
+
+  const inputElementParent = getElement(page, "input").locator("..");
+
+  await expect(inputElementParent).toHaveCSS(
+    "border",
+    "1px solid rgba(0, 0, 0, 0)"
+  );
+});
+
 test("should not change the scroll position of a scrollable container when typing", async ({
   mount,
   page,

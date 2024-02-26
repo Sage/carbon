@@ -120,6 +120,8 @@ export interface TextareaProps
   warning?: boolean | string;
   /** Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. */
   borderRadius?: BorderRadiusType | BorderRadiusType[];
+  /** Hides the borders for the component. Please note that validation and focus styling will still be applied */
+  hideBorders?: boolean;
 }
 
 let deprecateInputRefWarnTriggered = false;
@@ -167,6 +169,7 @@ export const Textarea = React.forwardRef(
       helpAriaLabel,
       inputRef,
       borderRadius,
+      hideBorders = false,
       ...rest
     }: TextareaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>
@@ -327,6 +330,7 @@ export const Textarea = React.forwardRef(
         warning={warning}
         info={info}
         borderRadius={borderRadius}
+        hideBorders={hideBorders}
       >
         <Input
           aria-invalid={!!error}

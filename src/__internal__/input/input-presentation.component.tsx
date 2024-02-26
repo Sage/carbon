@@ -32,6 +32,8 @@ export interface CommonInputPresentationProps extends ValidationProps {
   hasIcon?: boolean;
   /** Specify a custom border radius. Any valid border-radius design token, or an array of border-radius design tokens. */
   borderRadius?: BorderRadiusType | BorderRadiusType[];
+  /** Renders with transparent borders. This will not effect focus styling or validation borders  */
+  hideBorders?: boolean;
 }
 
 export interface InputPresentationProps extends CommonInputPresentationProps {
@@ -46,6 +48,7 @@ const InputPresentation = ({
   disabled,
   error,
   hasIcon,
+  hideBorders = false,
   info,
   inputWidth,
   maxWidth,
@@ -98,6 +101,7 @@ const InputPresentation = ({
         validationRedesignOptIn={validationRedesignOptIn}
         hasIcon={hasIcon}
         borderRadius={borderRadius}
+        hideBorders={hideBorders}
       >
         {children}
       </InputPresentationStyle>
