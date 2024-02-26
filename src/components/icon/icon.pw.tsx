@@ -227,7 +227,6 @@ test.describe("should check Icon component properties", () => {
   });
 
   ([
-    [SIZE.EXTRASMALL, 16],
     [SIZE.SMALL, 24],
     [SIZE.MEDIUM, 32],
     [SIZE.LARGE, 40],
@@ -488,13 +487,7 @@ test.describe("should check accessibility for Icon component", () => {
     }
   );
 
-  [
-    SIZE.EXTRASMALL,
-    SIZE.SMALL,
-    SIZE.MEDIUM,
-    SIZE.LARGE,
-    SIZE.EXTRALARGE,
-  ].forEach((size) => {
+  [SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE, SIZE.EXTRALARGE].forEach((size) => {
     test(`should pass accessibility tests when bgSize is set as ${size}`, async ({
       mount,
       page,

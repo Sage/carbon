@@ -75,8 +75,8 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  height: 16px;
-  width: 16px;
+  height: 24px;
+  width: 24px;
 }
 
 .c3::before {
@@ -130,7 +130,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   display: inline-block;
   position: relative;
   vertical-align: middle;
-  margin-right: var(--spacing100);
+  margin-right: var(--spacing050);
 }
 
 .c1 a:hover,

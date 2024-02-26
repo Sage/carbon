@@ -25,6 +25,7 @@ import getColorValue from "../../style/utils/get-color-value";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import { TabTitleContext } from "../tabs/__internal__/tab-title/tab-title.component";
+import Logger from "../../__internal__/utils/logger";
 
 interface MismatchedPairs {
   prop: LegacyIconTypes;
@@ -60,6 +61,34 @@ describe("Icon component", () => {
     { prop: "success", rendersAs: "tick" },
     { prop: "messages", rendersAs: "message" },
   ];
+
+  describe("console warnings", () => {
+    it("should display 'extra-small' deprecation warning once", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+      mount(<Icon type="home" bgSize="extra-small" />);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed."
+      );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+      loggerSpy.mockRestore();
+    });
+
+    it("should display larger bgSize warning once", () => {
+      const consoleSpy = jest.spyOn(console, "warn");
+
+      mount(<Icon type="home" bgSize="small" fontSize="medium" />);
+
+      expect(consoleSpy).toHaveBeenCalledWith(
+        '[WARNING - Icon] The "small" `bgSize` is smaller than "medium" `fontSize`, the `bgSize` has been auto adjusted to a larger size.'
+      );
+      expect(consoleSpy).toHaveBeenCalledTimes(1);
+
+      consoleSpy.mockRestore();
+    });
+  });
 
   describe.each(mismatchedPairs)(
     "mismatched pairs of props and icons retrieved",
@@ -355,6 +384,30 @@ describe("Icon component", () => {
           {
             width: iconConfig.backgroundSize[size],
             height: iconConfig.backgroundSize[size],
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
+
+    describe("with fontSize", () => {
+      it("adjusts background size to match font size when icon is larger", () => {
+        const wrapper = renderStyles({ bgSize: "small", fontSize: "large" });
+        assertStyleMatch(
+          {
+            width: iconConfig.backgroundSize.large,
+            height: iconConfig.backgroundSize.large,
+          },
+          wrapper.toJSON()
+        );
+      });
+
+      it("maintains background size value when icon is smaller", () => {
+        const wrapper = renderStyles({ bgSize: "large", fontSize: "medium" });
+        assertStyleMatch(
+          {
+            width: iconConfig.backgroundSize.large,
+            height: iconConfig.backgroundSize.large,
           },
           wrapper.toJSON()
         );

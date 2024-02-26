@@ -3,7 +3,6 @@ import { baseTheme } from "../../../../style/themes";
 import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
-import StyledIcon from "../../../icon/icon.style";
 import StyledSearch from "../../../search/search.style";
 import menuConfigVariants from "../../menu.config";
 import { SubmenuProps } from "./submenu.component";
@@ -144,12 +143,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
         text-decoration: none;
       }
 
-      > ${StyledIcon} {
-        width: 16px;
-        height: 16px;
-        margin-right: 5px;
-      }
-
       ${StyledSearch} span > [data-component="icon"] {
         color: var(--colorsUtilityMajor200);
 
@@ -161,24 +154,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       ${StyledSearch} {
         :hover {
           border-bottom-color: var(--colorsUtilityMajor150);
-        }
-      }
-    }
-
-    [data-component="icon"] {
-      line-height: 16px;
-      top: -1px;
-
-      &:before {
-        line-height: unset;
-      }
-
-      span {
-        vertical-align: middle;
-
-        svg {
-          height: 16px;
-          width: 16px;
         }
       }
     }

@@ -44,6 +44,8 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 }
 
 .c2 .c4 {
+  width: 16px;
+  height: 16px;
   color: var(--colorsActionMinor500);
 }
 

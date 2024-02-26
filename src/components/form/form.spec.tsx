@@ -62,17 +62,23 @@ describe("Form", () => {
   });
 
   describe("when search used in Form component", () => {
-    it("should have no addition margin-bottom", () => {
-      wrapper = mount(<StyledForm fieldSpacing={0} />);
+    it.each([
+      ["Search", StyledSearch],
+      ["Textarea", StyledTextarea],
+    ])(
+      "should have no addition margin-bottom on form field when %s rendered",
+      (_, sc) => {
+        wrapper = mount(<StyledForm fieldSpacing={0} />);
 
-      assertStyleMatch(
-        {
-          marginBottom: "0px",
-        },
-        wrapper,
-        { modifier: `${StyledSearch} ${StyledFormField}` }
-      );
-    });
+        assertStyleMatch(
+          {
+            marginBottom: "var(--spacing000)",
+          },
+          wrapper,
+          { modifier: `${sc} ${StyledFormField}` }
+        );
+      }
+    );
   });
 
   describe("when height prop is set", () => {

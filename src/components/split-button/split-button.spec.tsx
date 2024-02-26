@@ -169,7 +169,6 @@ describe("SplitButton", () => {
             type="dropdown"
             color="#008200"
             disabled={false}
-            bgSize="extra-small"
             bg="transparent"
           />
         )

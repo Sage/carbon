@@ -90,7 +90,7 @@ export const FlatTableCell = ({
         expandable={expandable}
       >
         {expandable && isFirstCell && (
-          <Icon type="chevron_down_thick" bgSize="extra-small" mr="8px" />
+          <Icon type="chevron_down_thick" mr="8px" />
         )}
         {children}
       </StyledCellContent>
