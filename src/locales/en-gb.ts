@@ -57,6 +57,11 @@ const enGB: Locale = {
       close: () => "Close",
     },
   },
+  dismissibleBox: {
+    ariaLabels: {
+      close: () => "Close",
+    },
+  },
   errors: {
     messages: {
       formSummary:

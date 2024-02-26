@@ -7,6 +7,7 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import StyledIcon from "../icon/icon.style";
 import IconButton from "../icon-button";
 import Logger from "../../__internal__/utils/logger";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -107,6 +108,22 @@ describe("DismissibleBox", () => {
       expect(onCloseMock).toHaveBeenCalledWith(
         expect.objectContaining({ type: "click" })
       );
+    });
+
+    it("allows custom data props to be assigned", () => {
+      const wrapper = mount(
+        <DismissibleBox
+          onClose={() => {}}
+          closeButtonDataProps={{
+            "data-element": "bang",
+            "data-role": "wallop",
+          }}
+        />
+      );
+
+      const closeButton = wrapper.find('[data-component="close-button"]').at(0);
+
+      rootTagTest(closeButton, "close-button", "bang", "wallop");
     });
   });
 });
