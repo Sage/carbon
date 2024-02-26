@@ -75,7 +75,7 @@ describe("Tile", () => {
         assertStyleMatch(
           {
             backgroundColor: "var(--colorsActionMajor025)",
-            borderColor: "var(--colorsActionMajor500)",
+            border: "var(--borderWidth100) solid var(--colorsActionMajor500)",
           },
           wrapper
         );
@@ -87,7 +87,7 @@ describe("Tile", () => {
         assertStyleMatch(
           {
             backgroundColor: "var(--colorsUtilityMajor025)",
-            borderColor: "var(--colorsUtilityMajor200)",
+            border: "var(--borderWidth100) solid var(--colorsUtilityMajor200)",
           },
           wrapper
         );
