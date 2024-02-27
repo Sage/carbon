@@ -9,7 +9,7 @@ import { Dl, Dt, Dd } from "../definition-list";
 import Link from "../link/link.component";
 
 export default {
-  title: "Accordion/Test",
+  title: "Accordion/Test2",
   includeStories: ["Default", "Grouped"],
   parameters: {
     info: { disable: true },
