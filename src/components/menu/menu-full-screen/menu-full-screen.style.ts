@@ -33,12 +33,12 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
     ${StyledLink} {
       max-width: 100vw;
     }
-  }
 
-  > a,
-  > button,
-  > div {
-    font-size: 16px;
+    ${StyledLink} > a,
+    ${StyledLink} > button,
+    > div {
+      font-size: var(--fontSizes200);
+    }
   }
 
   ${({ isOpen, menuType, startPosition, theme }) => css`

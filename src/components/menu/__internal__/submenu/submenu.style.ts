@@ -151,7 +151,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     }
 
     [data-component="icon"] {
-      line-height: 16px;
+      line-height: 20px;
 
       &:before {
         line-height: unset;

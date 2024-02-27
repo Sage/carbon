@@ -24,6 +24,7 @@ import menuConfigVariants from "../menu.config";
 import Logger from "../../../__internal__/utils/logger";
 import { StyledSubmenu } from "../__internal__/submenu/submenu.style";
 import StyledMenuItemWrapper from "../menu-item/menu-item.style";
+import { StyledLink } from "../../link/link.style";
 
 // mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -219,13 +220,17 @@ describe("MenuFullscreen", () => {
           wrapper.find(StyledMenuFullscreen)
         );
 
-        ["a", "button", "div"].forEach((el) => {
+        [
+          `&& ${StyledLink} > a`,
+          `&& ${StyledLink} > button`,
+          "&& > div",
+        ].forEach((el) => {
           assertStyleMatch(
             {
-              fontSize: "16px",
+              fontSize: "var(--fontSizes200)",
             },
             wrapper.find(StyledMenuFullscreen),
-            { modifier: `> ${el}` }
+            { modifier: el }
           );
         });
 

@@ -204,7 +204,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
         !inFullscreenView &&
         css`
           a > ${StyledIcon}, button > ${StyledIcon} {
-            bottom: 3px;
             display: inline-block;
           }
         `
@@ -401,10 +400,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
       }
 
       && {
-        a:focus,
-        a:hover,
-        button:focus,
-        button:hover {
+        > a:focus,
+        > a:hover,
+        > button:focus,
+        > button:hover {
           background-color: var(--colorsComponentsMenuAutumnStandard600);
           color: var(--colorsComponentsMenuYang100);
 

@@ -1543,6 +1543,18 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     const item2 = menuItem(page).last().locator("a");
     await expect(item2).toBeFocused();
   });
+
+  test(`should apply the expected hover styling to the search button`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuFullScreenWithSearchButton searchValue="foo" />);
+
+    const button = searchButton(page);
+    await button.hover();
+
+    await expect(button).toHaveCSS("background-color", "rgb(0, 103, 56)");
+  });
 });
 
 test.describe("Event tests for Menu component", () => {
