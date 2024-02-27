@@ -41,11 +41,29 @@ function getSelect(props: Partial<FilterableSelectProps> = {}) {
 }
 
 function renderSelect(props = {}, renderer = mount, opts = {}) {
-  return renderer(getSelect(props), opts);
+  return renderer(getSelect(props), {
+    attachTo: document.getElementById("enzymeContainer"),
+    ...opts,
+  });
 }
 
 describe("FilterableSelect", () => {
   let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+  let container: HTMLDivElement | null;
+
+  beforeEach(() => {
+    container = document.createElement("div");
+    container.id = "enzymeContainer";
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    if (container && container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
+
+    container = null;
+  });
 
   describe("Deprecation warning for uncontrolled", () => {
     beforeEach(() => {
@@ -80,15 +98,12 @@ describe("FilterableSelect", () => {
   });
 
   it("should not throw when non-matching filter text is input and enter key pressed", () => {
-    const testContainer = document.createElement("div");
-    testContainer.id = "enzymeContainer";
-    document.body.appendChild(testContainer);
-    const wrapper = renderSelect({}, mount, { attachTo: testContainer });
+    const wrapper = renderSelect({}, mount, { attachTo: container });
 
     expect(() => {
       act(() => {
         wrapper.find("input").simulate("change", { target: { value: "foo" } });
-        testContainer.dispatchEvent(
+        container?.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: "Enter",
             bubbles: true,
@@ -96,16 +111,12 @@ describe("FilterableSelect", () => {
         );
       });
     }).not.toThrow();
-    document.body.removeChild(testContainer);
   });
 
   it.each(["ArrowDown", "ArrowUp"])(
     "should not throw when non-matching filter text is input and %s pressed",
     (key) => {
-      const testContainer = document.createElement("div");
-      testContainer.id = "enzymeContainer";
-      document.body.appendChild(testContainer);
-      const wrapper = renderSelect({}, mount, { attachTo: testContainer });
+      const wrapper = renderSelect({}, mount, { attachTo: container });
 
       expect(() => {
         act(() => {
@@ -113,7 +124,7 @@ describe("FilterableSelect", () => {
             .find("input")
             .simulate("change", { target: { value: "foo" } });
 
-          testContainer.dispatchEvent(
+          container?.dispatchEvent(
             new KeyboardEvent("keydown", {
               key,
               bubbles: true,
@@ -121,8 +132,6 @@ describe("FilterableSelect", () => {
           );
         });
       }).not.toThrow();
-
-      document.body.removeChild(testContainer);
     }
   );
 
@@ -207,7 +216,6 @@ describe("FilterableSelect", () => {
 
   describe("when listMaxHeight prop is provided", () => {
     it("overrides default list max-height", () => {
-      mount(getSelect());
       const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
 
       simulateDropdownEvent(wrapper, "click");
@@ -765,12 +773,9 @@ describe("FilterableSelect", () => {
 
   describe("when an HTML element is clicked when the SelectList is open", () => {
     let wrapper: ReactWrapper;
-    let domNode: HTMLElement;
 
     beforeEach(() => {
-      wrapper = mount(getSelect());
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
+      wrapper = renderSelect();
     });
 
     describe("and that element is the input", () => {
@@ -807,10 +812,6 @@ describe("FilterableSelect", () => {
         ).not.toBeVisible();
       });
     });
-
-    afterEach(() => {
-      document.body.removeChild(domNode);
-    });
   });
 
   describe("when the onKeyDown prop is passed", () => {
@@ -834,20 +835,14 @@ describe("FilterableSelect", () => {
 
   describe("when the listActionButton prop is provided", () => {
     let wrapper: ReactWrapper;
-    const testWrapper = document.createElement("div");
     const onListActionFn = jest.fn();
     const mockButton = <Button>mock button</Button>;
 
-    document.body.appendChild(testWrapper);
-
     beforeEach(() => {
-      wrapper = mount(
-        getSelect({
-          listActionButton: mockButton,
-          onListAction: onListActionFn,
-        }),
-        { attachTo: testWrapper }
-      );
+      wrapper = renderSelect({
+        listActionButton: mockButton,
+        onListAction: onListActionFn,
+      });
       simulateDropdownEvent(wrapper, "click");
     });
 
@@ -1052,15 +1047,6 @@ describe("FilterableSelect", () => {
     });
   });
 
-  describe("disablePortal", () => {
-    it("renders SelectList with a disablePortal prop assigned", () => {
-      const wrapper = renderSelect({ disablePortal: true });
-
-      simulateDropdownEvent(wrapper, "click");
-      expect(wrapper.find(SelectList).props().disablePortal).toBe(true);
-    });
-  });
-
   describe('when the "onBlur" prop has been passed and the input has been blurred', () => {
     it("then that prop should be called", () => {
       const onBlurFn = jest.fn();
@@ -1137,13 +1123,7 @@ describe("FilterableSelect", () => {
       });
 
       it("should not reopen the SelectList when a user selects and Option by clicking", () => {
-        const container = document.createElement("div");
-        container.id = "enzymeContainer";
-        document.body.appendChild(container);
-
-        const wrapper = renderSelect({ openOnFocus: true }, mount, {
-          attachTo: document.getElementById("enzymeContainer"),
-        });
+        const wrapper = renderSelect({ openOnFocus: true }, mount);
 
         act(() => {
           wrapper.find("input").simulate("focus");
@@ -1164,8 +1144,6 @@ describe("FilterableSelect", () => {
           .update()
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
-
-        container?.parentNode?.removeChild(container);
       });
 
       describe.each(["readOnly", "disabled"])(
@@ -1284,16 +1262,13 @@ describe("FilterableSelect", () => {
   describe("when the onListScrollBottom prop is set", () => {
     const onListScrollBottomFn = jest.fn();
     it("should not be called when an option is clicked", () => {
-      const testContainer = document.createElement("div");
-      testContainer.id = "enzymeContainer";
-      document.body.appendChild(testContainer);
       const wrapper = renderSelect(
         {
           onListScrollBottom: onListScrollBottomFn,
           openOnFocus: true,
         },
         mount,
-        { attachTo: testContainer }
+        { attachTo: container }
       );
 
       act(() => {
@@ -1303,7 +1278,6 @@ describe("FilterableSelect", () => {
       });
       wrapper.find(Option).first().simulate("click");
       expect(onListScrollBottomFn).not.toHaveBeenCalled();
-      document.body.removeChild(testContainer);
     });
   });
 

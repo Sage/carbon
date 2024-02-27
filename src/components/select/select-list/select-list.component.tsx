@@ -44,8 +44,6 @@ export interface SelectListProps {
   labelId?: string;
   /** Child components (such as <Option>) */
   children?: React.ReactNode;
-  /** Boolean to toggle where DatePicker is rendered in relation to the Date Input */
-  disablePortal?: boolean;
   /** DOM element to position the dropdown menu list relative to */
   anchorElement?: HTMLElement;
   /** A callback for when a child is selected */
@@ -117,7 +115,6 @@ const SelectList = React.forwardRef(
       filterText,
       anchorElement,
       highlightedValue,
-      disablePortal,
       onListAction,
       isLoading,
       onListScrollBottom,
@@ -659,7 +656,7 @@ const SelectList = React.forwardRef(
       >
         <Popover
           placement={listPlacement}
-          disablePortal={disablePortal}
+          disablePortal
           reference={anchorRef}
           middleware={popoverMiddleware}
           isOpen={isOpen}

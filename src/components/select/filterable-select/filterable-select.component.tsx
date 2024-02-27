@@ -41,8 +41,6 @@ export interface FilterableSelectProps
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string | Record<string, unknown>;
-  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
-  disablePortal?: boolean;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** True for default text button or a Button Component to be rendered */
@@ -109,7 +107,6 @@ export const FilterableSelect = React.forwardRef(
       onBlur,
       openOnFocus,
       noResultsMessage,
-      disablePortal,
       listActionButton,
       listMaxHeight,
       onListAction,
@@ -644,7 +641,6 @@ export const FilterableSelect = React.forwardRef(
       filterText,
       highlightedValue,
       noResultsMessage,
-      disablePortal,
       listActionButton,
       listMaxHeight,
       onListAction: handleOnListAction,

@@ -359,7 +359,6 @@ export const SimpleSelectCustomOptionChildrenComponent = (
       name="customOptionChildren"
       id="customOptionChildren"
       defaultValue="4"
-      disablePortal
       label="Pick your favourite color"
       {...props}
     >

@@ -179,7 +179,6 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         id="fiterable-select"
         labelInline
         label="Filterable Select"
-        disablePortal
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />
@@ -199,7 +198,6 @@ export const FormAlignmentCustomMarginsTextInputs = () => {
         id="multi-select"
         labelInline
         label="Multi Select"
-        disablePortal
       >
         <Option text="Amber" value="1" />
         <Option text="Black" value="2" />

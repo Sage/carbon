@@ -36,7 +36,6 @@ import {
   multiColumnsSelectListHeaderColumn,
   multiColumnsSelectListNoResultsMessage,
   multiColumnsSelectListRow,
-  selectDataComponent,
   selectElementInput,
   selectInput,
   selectList,
@@ -820,27 +819,6 @@ test.describe("FilterableSelect component", () => {
         position
       );
       await expect(listElement).toBeVisible();
-    });
-  });
-
-  ([
-    [true, 2],
-    [false, 1],
-  ] as const).forEach(([state, numberOfChildren]) => {
-    test(`should check the disablePortal prop when ${state}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <div>
-          <FilterableSelectComponent disablePortal={state} />
-        </div>
-      );
-
-      await dropdownButton(page).click();
-      await expect(
-        selectDataComponent(page, "filterable").locator("> *")
-      ).toHaveCount(numberOfChildren);
     });
   });
 
@@ -2014,20 +1992,6 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     page,
   }) => {
     await mount(<FilterableSelectNestedInDialog />);
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
-  });
-
-  test("should pass accessibility tests with disablePortal prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <div>
-        <FilterableSelectComponent disablePortal />
-      </div>
-    );
 
     await dropdownButton(page).click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
