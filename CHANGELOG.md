@@ -1,3 +1,10 @@
+### [126.7.1](https://github.com/Sage/carbon/compare/v126.7.0...v126.7.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* **tile:** ensure borderVariant overrides border color associated to variant prop ([53170b0](https://github.com/Sage/carbon/commit/53170b017341c60ac9481f5ee8daa1dbfb518ecc))
+
 ## [126.7.0](https://github.com/Sage/carbon/compare/v126.6.0...v126.7.0) (2024-02-26)
 
 
