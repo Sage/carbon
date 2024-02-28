@@ -277,6 +277,28 @@ test.describe("Tile component", () => {
     });
   });
 
+  borderVariants
+    .filter(([variant]) => variant !== "default")
+    .forEach(([borderVariant, borderColor]) => {
+      tileVariants.forEach(([variant]) => {
+        test(`check border variant overrides tile variant when border variant is ${borderVariant} and tile variant is ${variant}`, async ({
+          mount,
+          page,
+        }) => {
+          await mount(
+            <TileComponent
+              data-element="tile"
+              borderVariant={borderVariant}
+              variant={variant}
+            />
+          );
+
+          const tile = getDataElementByValue(page, "tile");
+          await expect(tile).toHaveCSS("border-color", borderColor);
+        });
+      });
+    });
+
   borderWidths.forEach(([borderWidth, pixelWidth]) => {
     test(`check border width as ${borderWidth}`, async ({ mount, page }) => {
       await mount(

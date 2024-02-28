@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Tile, TileContent, TileHeader, TileProps } from ".";
-import { TILE_ORIENTATIONS, TILE_THEMES } from "./tile.config";
+import {
+  TILE_BORDER_VARIANTS,
+  TILE_ORIENTATIONS,
+  TILE_THEMES,
+} from "./tile.config";
 import Box from "../box";
 import Textarea from "../textarea";
 import Button from "../button";
@@ -23,6 +27,12 @@ export default {
     },
     orientation: {
       options: TILE_ORIENTATIONS,
+      control: {
+        type: "select",
+      },
+    },
+    borderVariant: {
+      options: TILE_BORDER_VARIANTS,
       control: {
         type: "select",
       },
