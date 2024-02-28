@@ -10,3 +10,5 @@ export const linkChildren = (page: Page) => {
 export const skipLink = (page: Page) => {
   return page.locator(SKIP_LINK).locator("a");
 };
+
+export const relLink = (page: Page) => link(page).locator("a");
