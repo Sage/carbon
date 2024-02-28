@@ -116,6 +116,11 @@ const plPL: Locale = {
       close: () => "Zamknij",
     },
   },
+  dismissibleBox: {
+    ariaLabels: {
+      close: () => "Zamknij",
+    },
+  },
   errors: {
     messages: {
       formSummary:

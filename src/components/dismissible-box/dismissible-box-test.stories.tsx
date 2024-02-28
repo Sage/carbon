@@ -27,6 +27,11 @@ export default {
         type: "select",
       },
     },
+    closeButtonDataProps: {
+      control: {
+        type: "object",
+      },
+    },
   },
 };
 
