@@ -234,6 +234,16 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
   <Story name="with sorting headers" story={stories.WithSortingHeaders} />
 </Canvas>
 
+### With sorting headers and custom accessible name 
+
+A custom accessible name can be provided to the `<Sort>` component with the `accessibleName` prop. It is recommended 
+that text content of the `<Sort>` component as well as the current `sortType` are included
+in this accessible name.
+
+<Canvas>
+  <Story name="with sorting headers and custom accessible name" story={stories.WithSortingHeadersAndCustomAccessibleName} />
+</Canvas>
+
 ### With a cell spanning the whole row
 
 <Canvas>

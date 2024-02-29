@@ -13,9 +13,11 @@ export interface SortProps {
   onClick?: () => void;
   /** Sets the text content of the component */
   children?: string;
+  /** Sets the accessible name of the component */
+  accessibleName?: string;
 }
 
-const Sort = ({ children, onClick, sortType }: SortProps) => {
+const Sort = ({ children, onClick, sortType, accessibleName }: SortProps) => {
   const id = useRef(guid());
   const locale = useLocale();
 
@@ -31,7 +33,7 @@ const Sort = ({ children, onClick, sortType }: SortProps) => {
   return (
     <>
       <Typography screenReaderOnly id={id.current}>
-        {locale.sort.accessibleName(children, sortType)}
+        {accessibleName || locale.sort.accessibleName(children, sortType)}
       </Typography>
       <StyledSort
         role="button"
