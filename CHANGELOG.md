@@ -1,3 +1,10 @@
+## [126.8.0](https://github.com/Sage/carbon/compare/v126.7.1...v126.8.0) (2024-02-29)
+
+
+### Features
+
+* **button-toggle:** update styles ([f5cdf09](https://github.com/Sage/carbon/commit/f5cdf09cc1d9d2ac9d0d8699c819b266daa6bf46))
+
 ### [126.7.1](https://github.com/Sage/carbon/compare/v126.7.0...v126.7.1) (2024-02-28)
 
 
