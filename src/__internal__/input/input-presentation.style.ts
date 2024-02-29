@@ -70,12 +70,16 @@ const InputPresentationStyle = styled.div<
       | "info"
       | "hasIcon"
       | "borderRadius"
+      | "hideBorders"
     > &
     Pick<CarbonProviderProps, "validationRedesignOptIn">
 >`
   align-items: stretch;
   background: var(--colorsUtilityYang100);
-  border: 1px solid var(--colorsUtilityMajor300);
+  ${({ hideBorders }) =>
+    hideBorders
+      ? `border: 1px solid transparent;`
+      : `border: 1px solid var(--colorsUtilityMajor300);`}
   box-sizing: border-box;
   cursor: text;
   display: flex;
@@ -104,11 +108,13 @@ const InputPresentationStyle = styled.div<
       }
     `}
 
-  ${({ disabled }) =>
+  ${({ disabled, hideBorders }) =>
     disabled &&
     css`
       background: var(--colorsUtilityDisabled400);
-      border-color: var(--colorsUtilityDisabled600);
+      border-color: ${hideBorders
+        ? `transparent`
+        : `var(--colorsUtilityDisabled600)`};
       cursor: not-allowed;
     `}
 
@@ -125,11 +131,13 @@ const InputPresentationStyle = styled.div<
 
   ${stylingForValidations}
 
-  ${({ readOnly }) =>
+  ${({ readOnly, hideBorders }) =>
     readOnly &&
     css`
       background-color: var(--colorsUtilityReadOnly400);
-      border-color: var(--colorsUtilityReadOnly600);
+      border-color: ${hideBorders
+        ? `transparent`
+        : `var(--colorsUtilityReadOnly600)`};
     `}
 
   ${({ align, prefix }) =>
