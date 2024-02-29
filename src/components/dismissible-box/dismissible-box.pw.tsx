@@ -10,7 +10,10 @@ import {
   WithNoLeftBorderHighlight,
 } from "../../../src/components/dismissible-box/components.test-pw";
 import dismissibleBoxDataComponent from "../../../playwright/components/dismissible-box/index";
-import { icon } from "../../../playwright/components/index";
+import {
+  icon,
+  getDataElementByValue,
+} from "../../../playwright/components/index";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
@@ -98,6 +101,38 @@ test.describe("DismissibleBox component", () => {
       });
     }
   );
+
+  test("should have the expected data-role attribute on the IconButton, when a custom data-role is provided", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <DefaultDismissibleBox closeButtonDataProps={{ "data-role": "Foo" }} />
+    );
+
+    const closeButton = getDataElementByValue(
+      page,
+      "close-button-wrapper"
+    ).locator("button");
+
+    await expect(closeButton).toHaveAttribute("data-role", "Foo");
+  });
+
+  test("should have the expected data-element attribute on the IconButton, when a custom data-element is provided", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <DefaultDismissibleBox closeButtonDataProps={{ "data-element": "Bar" }} />
+    );
+
+    const closeButton = getDataElementByValue(
+      page,
+      "close-button-wrapper"
+    ).locator("button");
+
+    await expect(closeButton).toHaveAttribute("data-element", "Bar");
+  });
 });
 
 test.describe("Check events", () => {

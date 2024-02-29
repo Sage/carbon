@@ -191,9 +191,9 @@ context("Testing Button-Toggle component", () => {
     });
 
     it.each([
-      [SIZE.SMALL, 32],
-      [SIZE.MEDIUM, 40],
-      [SIZE.LARGE, 48],
+      [SIZE.SMALL, 24],
+      [SIZE.MEDIUM, 32],
+      [SIZE.LARGE, 40],
     ] as [ButtonToggleProps["size"], number][])(
       "should check when prop is %s that Button-Toggle height is %s",
       (size, height) => {
@@ -238,20 +238,6 @@ context("Testing Button-Toggle component", () => {
         icon()
           .should("have.attr", "font-size", iconSize)
           .and("have.attr", "type", "tick");
-      }
-    );
-
-    it.each([
-      [true, "-1px"],
-      [false, "8px"],
-    ])(
-      "should render Button-Toggle when Grouped prop is %s with margin-left value of %s",
-      (state, margin) => {
-        CypressMountWithProviders(<ButtonToggleComponent grouped={state} />);
-
-        buttonTogglePreview()
-          .eq(positionOfElement("second"))
-          .should("have.css", "margin-left", margin);
       }
     );
 
@@ -434,6 +420,25 @@ context("Testing Button-Toggle-Group component", () => {
       CHARACTERS.DIACRITICS,
       CHARACTERS.SPECIALCHARACTERS,
     ])(
+      "should render Button-Toggle-Group with %s as input hint text",
+      (inputHintText) => {
+        CypressMountWithProviders(
+          <stories.ButtonToggleGroupComponent inputHint={inputHintText} />
+        );
+
+        buttonToggleGroup()
+          .parent()
+          .prev()
+          .should("be.visible")
+          .and("has.text", inputHintText);
+      }
+    );
+
+    it.each([
+      CHARACTERS.STANDARD,
+      CHARACTERS.DIACRITICS,
+      CHARACTERS.SPECIALCHARACTERS,
+    ])(
       "should render Button-Toggle-Group with %s as field help text",
       (fieldHelpText) => {
         CypressMountWithProviders(
@@ -564,6 +569,20 @@ context("Testing Button-Toggle-Group component", () => {
 
     beforeEach(() => {
       callback = cy.stub();
+    });
+
+    it("should render Button-Toggle disabled", () => {
+      CypressMountWithProviders(
+        <stories.ButtonToggleGroupComponent disabled />
+      );
+
+      buttonToggleButton().should("have.attr", "disabled");
+      buttonTogglePreview()
+        .eq(positionOfElement("first"))
+        .click()
+        .then(() => {
+          expect(callback).not.to.have.been.called;
+        });
     });
 
     it("should call onChange callback when a click event is triggered", () => {

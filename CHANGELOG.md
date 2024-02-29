@@ -1,3 +1,31 @@
+## [126.8.0](https://github.com/Sage/carbon/compare/v126.7.1...v126.8.0) (2024-02-29)
+
+
+### Features
+
+* **button-toggle:** update styles ([f5cdf09](https://github.com/Sage/carbon/commit/f5cdf09cc1d9d2ac9d0d8699c819b266daa6bf46))
+
+### [126.7.1](https://github.com/Sage/carbon/compare/v126.7.0...v126.7.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* **tile:** ensure borderVariant overrides border color associated to variant prop ([53170b0](https://github.com/Sage/carbon/commit/53170b017341c60ac9481f5ee8daa1dbfb518ecc))
+
+## [126.7.0](https://github.com/Sage/carbon/compare/v126.6.0...v126.7.0) (2024-02-26)
+
+
+### Features
+
+* **dismissible-box:** allows a custom data role to close button and translations to aria label ([2c59569](https://github.com/Sage/carbon/commit/2c59569523a9aa36cc1b7af9557970f69c854186)), closes [#6487](https://github.com/Sage/carbon/issues/6487)
+
+## [126.6.0](https://github.com/Sage/carbon/compare/v126.5.3...v126.6.0) (2024-02-26)
+
+
+### Features
+
+* **icon:** 2 icons added to the icon font ([949282a](https://github.com/Sage/carbon/commit/949282aafca3ea33ca2448e77570754e10d24827))
+
 ### [126.5.3](https://github.com/Sage/carbon/compare/v126.5.2...v126.5.3) (2024-02-23)
 
 
