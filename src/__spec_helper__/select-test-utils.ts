@@ -2,7 +2,7 @@ import { act } from "react-dom/test-utils";
 import type { ReactWrapper } from "enzyme";
 import { mockResizeObserver } from "jsdom-testing-mocks";
 
-import StyledSelectListContainer from "../components/select/select-list/select-list-container.style";
+import { StyledSelectListContainer } from "../components/select/select-list/select-list.style";
 
 const resizeObserver = mockResizeObserver();
 

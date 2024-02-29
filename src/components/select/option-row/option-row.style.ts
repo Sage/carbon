@@ -8,10 +8,10 @@ interface StyledOptionRowProps extends Pick<OptionRowProps, "hidden"> {
 
 const StyledOptionRow = styled.tr<StyledOptionRowProps>`
   cursor: pointer;
+  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
 
   ${({ hidden }) => hidden && "display: none;"}
 

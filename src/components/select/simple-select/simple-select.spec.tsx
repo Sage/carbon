@@ -13,7 +13,10 @@ import {
 import { Select as SimpleSelect, Option, SimpleSelectProps } from "..";
 import Textbox from "../../textbox";
 import SelectList from "../select-list/select-list.component";
-import StyledSelectListContainer from "../select-list/select-list-container.style";
+import {
+  StyledSelectListContainer,
+  StyledScrollableContainer,
+} from "../select-list/select-list.style";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import Label from "../../../__internal__/label";
@@ -22,6 +25,7 @@ import Logger from "../../../__internal__/utils/logger";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledInput from "../../../__internal__/input/input.style";
 import SelectTextbox from "../select-textbox";
+import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
@@ -63,6 +67,10 @@ jest.mock("../../../__internal__/utils/logger");
 
 describe("SimpleSelect", () => {
   let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    mockDOMRect(200, 200, "select-list-scrollable-container");
+  });
 
   describe("Deprecation warning for uncontrolled", () => {
     beforeEach(() => {
@@ -260,7 +268,7 @@ describe("SimpleSelect", () => {
       simulateSelectTextboxEvent(wrapper, "focus");
       assertStyleMatch(
         { maxHeight: "120px" },
-        wrapper.find(StyledSelectListContainer)
+        wrapper.find(StyledScrollableContainer)
       );
     });
   });

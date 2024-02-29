@@ -132,6 +132,8 @@ exports[`Option renders properly 1`] = `
   position: sticky;
   bottom: 0;
   background-color: inherit;
+  border-bottom-left-radius: var(--borderRadius050);
+  border-bottom-right-radius: var(--borderRadius050);
 }
 
 .c0 .c1 {

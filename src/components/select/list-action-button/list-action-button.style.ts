@@ -10,6 +10,8 @@ const StyledListActionButtonWrapper = styled.div`
   position: sticky;
   bottom: 0;
   background-color: inherit;
+  border-bottom-left-radius: var(--borderRadius050);
+  border-bottom-right-radius: var(--borderRadius050);
 
   ${StyledButton} {
     border: none;

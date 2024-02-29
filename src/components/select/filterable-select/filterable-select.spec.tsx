@@ -13,7 +13,10 @@ import {
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import Textbox from "../../textbox";
 import SelectList from "../select-list/select-list.component";
-import StyledSelectListContainer from "../select-list/select-list-container.style";
+import {
+  StyledSelectListContainer,
+  StyledScrollableContainer,
+} from "../select-list/select-list.style";
 import Button from "../../button";
 import Label from "../../../__internal__/label";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";
@@ -21,6 +24,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 import StyledInput from "../../../__internal__/input/input.style";
+import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
@@ -46,6 +50,10 @@ function renderSelect(props = {}, renderer = mount, opts = {}) {
 
 describe("FilterableSelect", () => {
   let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    mockDOMRect(200, 200, "select-list-scrollable-container");
+  });
 
   describe("Deprecation warning for uncontrolled", () => {
     beforeEach(() => {
@@ -213,7 +221,7 @@ describe("FilterableSelect", () => {
       simulateDropdownEvent(wrapper, "click");
       assertStyleMatch(
         { maxHeight: "120px" },
-        wrapper.find(StyledSelectListContainer)
+        wrapper.find(StyledScrollableContainer)
       );
     });
   });
