@@ -58,21 +58,34 @@ const StyledSwitch = styled.div`
     ${margin}
     ${FieldLineStyle} {
       display: flex;
-      flex-flow: row wrap;
+      flex-flow: ${labelInline ? "row wrap" : "column wrap"};
+
+      ${!labelInline &&
+      fieldHelpInline &&
+      css`
+        display: grid;
+        grid-template-columns: max-content max-content;
+      `}
     }
 
     ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
       border: none;
       box-sizing: border-box;
       height: 24px;
-      width: 60px;
-      min-width: fit-content;
       flex-basis: 100%;
       margin-left: 0;
     }
 
+    ${HiddenCheckableInputStyle} {
+      width: 100%;
+    }
+
+    ${StyledCheckableInput} {
+      width: min-content;
+    }
+
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus + ${StyledSwitchSlider} {
+      &:focus ~ ${StyledSwitchSlider} {
         ${!theme.focusRedesignOptOut
           ? addFocusStyling()
           : /* istanbul ignore next */ oldFocusStyling}
@@ -178,7 +191,6 @@ const StyledSwitch = styled.div`
     css`
       ${StyledCheckableInput}, ${HiddenCheckableInputStyle}, ${StyledSwitchSlider} {
         height: 44px;
-        width: 82px;
         min-width: fit-content;
       }
 

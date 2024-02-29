@@ -16,7 +16,7 @@ import {
   switchLabelParent,
   switchIcon,
   switchHelpIcon,
-  switchLoading,
+  switchFieldHelp,
 } from "../../../playwright/components/switch/index";
 import {
   getComponent,
@@ -203,20 +203,10 @@ test.describe("Prop tests for Switch component", () => {
         />
       );
 
-      const switchFiledHelp1 = switchDataComponent(page).locator("div > div");
-
-      const switchFiledHelp2 = switchDataComponent(page).locator("div");
-      if (boolVal) {
-        await expect(switchFiledHelp1.locator("span").nth(0)).toHaveAttribute(
-          "data-element",
-          "help"
-        );
-      } else {
-        await expect(switchFiledHelp2.locator("span").nth(1)).toHaveAttribute(
-          "data-element",
-          "help"
-        );
-      }
+      await expect(switchFieldHelp(page)).toHaveAttribute(
+        "data-element",
+        "help"
+      );
     });
   });
 
@@ -299,9 +289,7 @@ test.describe("Prop tests for Switch component", () => {
       }) => {
         await mount(<SwitchComponent labelInline inputWidth={inputWidth} />);
 
-        const input = switchDataComponent(page)
-          .locator("div > div > div > div")
-          .nth(1);
+        const input = switchStyling(page);
         await assertCssValueIsApproximately(input, "width", inputRatio);
       });
     }
@@ -428,8 +416,8 @@ test.describe("Prop tests for Switch component", () => {
   });
 
   ([
-    [SIZE.SMALL, 60, 24],
-    [SIZE.LARGE, 82, 44],
+    [SIZE.SMALL, 65, 24],
+    [SIZE.LARGE, 83, 44],
   ] as [SwitchProps["size"], number, number][]).forEach(
     ([size, width, height]) => {
       test(`should render with size set to ${size}`, async ({
@@ -551,9 +539,15 @@ test.describe("Prop tests for Switch component", () => {
       );
 
       if (boolVal) {
-        await expect(switchLoading(page)).toHaveAttribute("type", "on");
+        await expect(switchStyling(page).locator("div")).toHaveAttribute(
+          "type",
+          "on"
+        );
       } else {
-        await expect(switchLoading(page)).toHaveAttribute("type", "off");
+        await expect(switchStyling(page).locator("div")).toHaveAttribute(
+          "type",
+          "off"
+        );
       }
     });
   });

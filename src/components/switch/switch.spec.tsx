@@ -407,7 +407,6 @@ describe("Switch", () => {
 
         const largeSizes = {
           height: "44px",
-          width: "82px",
         };
 
         it("applies the correct CheckableInput styles", () => {

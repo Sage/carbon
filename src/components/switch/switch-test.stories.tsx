@@ -1,11 +1,12 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
-import { action } from "@storybook/addon-actions";
+import I18nProvider from "../i18n-provider/i18n-provider.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Switch, { SwitchProps } from "./switch.component";
 
 export default {
   title: "Switch/Test",
-  includeStories: ["Default", "NewDefault"],
+  includeStories: ["Default", "NewDefault", "WithLongTextStrings"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -58,14 +59,14 @@ export const Default = ({
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = ev.target;
     setIsChecked(checked);
-    action("change")(`checked: ${checked}`);
+    console.log("change", `checked: ${checked}`);
   };
   return (
     <Switch
       onChange={handleChange}
       name="switch-default"
       checked={isChecked}
-      onBlur={action("onBlur")}
+      onBlur={() => console.log("onBlur")}
       fieldHelp={fieldHelp}
       label={label}
       {...args}
@@ -100,7 +101,7 @@ export const NewDefault = ({
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = ev.target;
     setIsChecked(checked);
-    action("change")(`checked: ${checked}`);
+    console.log("change", `checked: ${checked}`);
   };
   return (
     <CarbonProvider validationRedesignOptIn>
@@ -109,7 +110,7 @@ export const NewDefault = ({
         onChange={handleChange}
         name="switch-default"
         checked={isChecked}
-        onBlur={action("onBlur")}
+        onBlur={() => console.log("onBlur")}
         fieldHelp={fieldHelp}
         label={label}
         error="Error Message (Fix is required)"
@@ -132,4 +133,25 @@ NewDefault.args = {
   value: "test-value",
   disabled: false,
   size: "small",
+};
+
+export const WithLongTextStrings = () => (
+  <I18nProvider
+    locale={{
+      locale: () => "fake-locale",
+      switch: {
+        on: () => "Absolutely",
+        off: () => "Regrettably",
+      },
+    }}
+  >
+    <Switch />
+  </I18nProvider>
+);
+
+WithLongTextStrings.storyName = "Long text strings";
+WithLongTextStrings.parameters = {
+  chromatic: {
+    disableSnapshot: false,
+  },
 };

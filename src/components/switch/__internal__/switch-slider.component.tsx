@@ -1,7 +1,7 @@
 import React from "react";
 
 import Loader from "../../loader/loader.component";
-import StyledSwitchSlider from "./switch-slider.style";
+import { StyledSwitchSlider, HiddenContent } from "./switch-slider.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import ValidationIcon from "../../../__internal__/validations/validation-icon.component";
 import useLocale from "../../../hooks/__internal__/useLocale";
@@ -25,9 +25,17 @@ const SwitchSlider = ({
   info,
   useValidationIcon,
 }: SwitchSliderProps) => {
-  const l = useLocale();
+  const locale = useLocale();
+  const onText = locale.switch.on();
+  const offText = locale.switch.off();
 
-  const panelContent = checked ? l.switch.on() : l.switch.off();
+  // Need to convert to uppercase to ensure hidden element
+  // has same computed width as the visual text that's rendered
+  const longestText =
+    onText.length > offText.length
+      ? onText.toUpperCase()
+      : offText.toUpperCase();
+  const panelContent = checked ? onText : offText;
 
   const switchSliderStyleProps = {
     isLoading: loading,
@@ -59,18 +67,23 @@ const SwitchSlider = ({
   );
 
   return (
-    <StyledSwitchSlider {...switchSliderStyleProps}>
-      {sliderContent}
-      {useValidationIcon && (
-        <ValidationIcon
-          error={error}
-          warning={warning}
-          info={info}
-          size={size}
-          tooltipFlipOverrides={["top", "bottom"]}
-        />
-      )}
-    </StyledSwitchSlider>
+    <>
+      <HiddenContent size={size} aria-hidden>
+        {longestText}
+      </HiddenContent>
+      <StyledSwitchSlider data-component="slider" {...switchSliderStyleProps}>
+        {sliderContent}
+        {useValidationIcon && (
+          <ValidationIcon
+            error={error}
+            warning={warning}
+            info={info}
+            size={size}
+            tooltipFlipOverrides={["top", "bottom"]}
+          />
+        )}
+      </StyledSwitchSlider>
+    </>
   );
 };
 
