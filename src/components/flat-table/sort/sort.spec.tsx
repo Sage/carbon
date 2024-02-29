@@ -2,6 +2,7 @@ import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import Sort, { SortProps } from "./sort.component";
 import Icon from "../../icon";
+import Typography from "../../typography";
 import { StyledSort, StyledSpaceHolder } from "./sort.style";
 
 function renderSort(props: SortProps = {}) {
@@ -39,6 +40,39 @@ describe("Sort", () => {
     wrapper = renderSort({ sortType: "ascending" });
 
     expect(wrapper.find(Icon).props().type).toBe("sort_up");
+  });
+
+  it("should render a default accessible name when a child and the `sortType` prop is passed", () => {
+    wrapper = mount(<Sort sortType="ascending">Accountants</Sort>);
+
+    expect(wrapper.find(Typography).text()).toBe(
+      "Sort all Accountants in an ascending order."
+    );
+  });
+
+  it("should render a default accessible name when just a child is passed", () => {
+    wrapper = mount(<Sort>Accountants</Sort>);
+
+    expect(wrapper.find(Typography).text()).toBe(
+      "Sort all Accountants in an ascending or descending order."
+    );
+  });
+
+  it("should render a default accessible name when just the `sortType` prop is passed", () => {
+    const sortType = "ascending";
+    wrapper = mount(<Sort sortType={sortType} />);
+
+    expect(wrapper.find(Typography).text()).toBe(
+      "Sort all contents in an ascending order."
+    );
+  });
+
+  it("should render a default accessible name when neither a child or the `sortType` prop is passed", () => {
+    wrapper = mount(<Sort />);
+
+    expect(wrapper.find(Typography).text()).toBe(
+      "Sort all contents in an ascending or descending order."
+    );
   });
 
   it('should render Icon `sort_down` if sortType="descending"', () => {
