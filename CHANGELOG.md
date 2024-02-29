@@ -1,3 +1,10 @@
+## [126.9.0](https://github.com/Sage/carbon/compare/v126.8.0...v126.9.0) (2024-02-29)
+
+
+### Features
+
+* **textarea:** add prop to hide borders ([cfbff30](https://github.com/Sage/carbon/commit/cfbff309ab433fdda5a46a4803561641846293d6))
+
 ## [126.8.0](https://github.com/Sage/carbon/compare/v126.7.1...v126.8.0) (2024-02-29)
 
 
