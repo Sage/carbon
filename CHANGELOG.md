@@ -1,3 +1,10 @@
+### [126.9.1](https://github.com/Sage/carbon/compare/v126.9.0...v126.9.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **tabs:** remove negative margin to resolve scrollbar appearing ([02c2de5](https://github.com/Sage/carbon/commit/02c2de53b969b3ad03ef6717e695977374fcb03c)), closes [#6511](https://github.com/Sage/carbon/issues/6511)
+
 ## [126.9.0](https://github.com/Sage/carbon/compare/v126.8.0...v126.9.0) (2024-02-29)
 
 
