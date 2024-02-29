@@ -14,15 +14,18 @@ const SwitchSliderPanel = styled.div`
     border: 0;
     color: var(--colorsActionMinorYang100);
     margin: auto;
-    margin-top: ${size === "large" ? "12px" : "5px"};
+    position: absolute;
+    left: 0;
 
     &[type="on"] {
       margin-left: 9px;
+      padding-right: ${size === "large" ? "43px" : "27px"};
     }
 
     &[type="off"] {
       color: var(--colorsActionMinor500);
-      margin-right: 6px;
+      margin-right: 9px;
+      padding-left: ${size === "large" ? "43px" : "27px"};
     }
 
     ${isLoading &&
