@@ -12,16 +12,11 @@ exports[`Fieldset renders correctly 1`] = `
     data-component="fieldset"
     theme="[ theme object ]"
   >
-    <styled.div
-      data-component="fieldset-style"
-      inline={false}
-    >
-      <FormSpacingProvider>
-        <Textbox
-          onChange={[Function]}
-        />
-      </FormSpacingProvider>
-    </styled.div>
+    <FormSpacingProvider>
+      <Textbox
+        onChange={[Function]}
+      />
+    </FormSpacingProvider>
   </styled.fieldset>
 </ContextProvider>
 `;
