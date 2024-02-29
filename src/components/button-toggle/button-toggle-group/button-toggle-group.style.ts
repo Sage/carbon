@@ -10,7 +10,7 @@ import { ButtonToggleGroupProps } from ".";
 
 type StyledButtonToggleGroupProps = Pick<
   ButtonToggleGroupProps,
-  "inputWidth" | "fullWidth"
+  "inputWidth" | "fullWidth" | "disabled"
 >;
 
 type StyledButtonToggleGroupWrapperProps = Pick<
@@ -18,22 +18,29 @@ type StyledButtonToggleGroupWrapperProps = Pick<
   "labelInline"
 >;
 
-export const StyledButtonToggleGroupWrapper = styled.div<StyledButtonToggleGroupWrapperProps>`
-  ${({ labelInline }) =>
-    labelInline &&
-    css`
-      display: flex;
-    `}
-`;
-
 const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
   ${margin}
 
   display: flex;
+  box-shadow: inset 0px 0px 0px 1px var(--colorsActionMinor500);
+  border-radius: var(--borderRadius100);
+  padding: 4px;
+  gap: 4px;
+  width: fit-content;
+  height: fit-content;
+  flex-wrap: wrap;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+      box-shadow: inset 0px 0px 0px 1px var(--colorsActionDisabled600);
+    `}
 
   ${({ fullWidth }) =>
     fullWidth &&
     css`
+      width: 100%;
       ${StyledButtonToggle} {
         width: 100%;
       }
@@ -47,6 +54,31 @@ const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
     css`
       width: ${`${inputWidth}%`};
     `}
+`;
+
+export const StyledButtonToggleGroupWrapper = styled.div<StyledButtonToggleGroupWrapperProps>`
+  ${({ labelInline }) =>
+    labelInline &&
+    css`
+      display: flex;
+      ${StyledButtonToggleGroup} {
+        flex-wrap: nowrap;
+      }
+    `}
+`;
+
+export const StyledHintText = styled.div<{
+  isDisabled?: boolean;
+}>`
+  ::after {
+    content: " ";
+  }
+
+  margin-top: var(--spacing000);
+  margin-bottom: var(--spacing150);
+  color: ${({ isDisabled }) =>
+    isDisabled ? "var(--colorsUtilityYin030)" : "var(--colorsUtilityYin055)"};
+  font-size: 14px;
 `;
 
 StyledButtonToggleGroup.defaultProps = {

@@ -51,22 +51,22 @@ function renderButtonToggleWithContext(
 }
 
 describe("ButtonToggle", () => {
-  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+  describe("Deprecation warnings", () => {
+    let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
 
-  beforeEach(() => {
-    loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
-  });
+    beforeEach(() => {
+      loggerSpy = jest.spyOn(Logger, "deprecate").mockImplementation(() => {});
+    });
 
-  afterEach(() => {
-    loggerSpy.mockRestore();
-  });
+    afterEach(() => {
+      loggerSpy.mockRestore();
+    });
 
-  afterAll(() => {
-    loggerSpy.mockClear();
-  });
+    afterAll(() => {
+      loggerSpy.mockClear();
+    });
 
-  describe("Deprecation warning for uncontrolled", () => {
-    it("should display deprecation warning once", () => {
+    it("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
       renderButtonToggle();
 
       expect(loggerSpy).toHaveBeenCalledWith(
@@ -75,7 +75,48 @@ describe("ButtonToggle", () => {
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
+
+    it("should display a deprecation warning for the checked prop which is triggered only once", () => {
+      const wrapper = renderButtonToggle({ checked: true });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `checked` prop in `ButtonToggle` component is deprecated and will soon be removed. Please use `pressed` instead."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should display a deprecation warning for the name prop which is triggered only once", () => {
+      const wrapper = renderButtonToggle({ name: "foo" });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        `The \`name\` prop in \`ButtonToggle\` component is deprecated and will soon be removed. It does not provide any functionality
+      since the component can no longer be used in an uncontrolled fashion.`
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should display a deprecation warning for the grouped prop which is triggered only once", () => {
+      const wrapper = renderButtonToggle({ grouped: true });
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed."
+      );
+
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+
+      wrapper.setProps({ prop1: true });
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
   });
+
   describe("functionality", () => {
     it("pass onBlur props to button", () => {
       const onBlurMock = jest.fn();
@@ -213,9 +254,9 @@ describe("ButtonToggle", () => {
 
   describe("General styling", () => {
     const heightConfig = {
-      small: 32,
-      medium: 40,
-      large: 48,
+      small: 24,
+      medium: 32,
+      large: 40,
     };
 
     const fontSizeConfig = {
@@ -225,19 +266,19 @@ describe("ButtonToggle", () => {
     };
 
     const paddingConfig = {
-      small: 16,
-      medium: 24,
-      large: 32,
+      small: 8,
+      medium: 8,
+      large: 12,
     };
 
     const heightLargeIconConfig = {
-      small: 80,
-      medium: 96,
-      large: 112,
+      small: 72,
+      medium: 88,
+      large: 120,
     };
 
     const paddingLargeIconConfig = {
-      small: 32,
+      small: 24,
       medium: 40,
       large: 48,
     };
@@ -285,11 +326,19 @@ describe("ButtonToggle", () => {
       });
       assertStyleMatch(
         {
-          borderColor: "var(--colorsActionDisabled500)",
           color: "var(--colorsActionMinorYin030)",
         },
-        wrapper.find("button"),
+        wrapper.find(StyledButtonToggle),
         { modifier: "&" }
+      );
+
+      assertStyleMatch(
+        {
+          backgroundColor: "var(--colorsActionMinorYin030)",
+          color: "var(--colorsActionMinorYang100)",
+        },
+        wrapper.find(StyledButtonToggle),
+        { modifier: '&[aria-pressed="true"]' }
       );
     });
 
@@ -362,35 +411,6 @@ describe("ButtonToggle", () => {
     }).toThrow(error);
 
     mockGlobal.mockReset();
-  });
-
-  describe("deprecation warnings", () => {
-    it("there is a deprecation warning for the checked prop which is triggered only once", () => {
-      const wrapper = renderButtonToggle({ checked: true });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `checked` prop in `ButtonToggle` component is deprecated and will soon be removed. Please use `pressed` instead."
-      );
-
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-    });
-
-    it("there is a deprecation warning for the name prop which is triggered only once", () => {
-      const wrapper = renderButtonToggle({ name: "foo" });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        `The \`name\` prop in \`ButtonToggle\` component is deprecated and will soon be removed. It does not provide any functionality
-      since the component can no longer be used in an uncontrolled fashion.`
-      );
-
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-    });
   });
 
   describe("coverage filler for else path", () => {
