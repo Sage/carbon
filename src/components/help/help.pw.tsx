@@ -139,8 +139,8 @@ test.describe("Testing Help component properties", () => {
     });
   });
 
-  colors.forEach(([names, color]) => {
-    test(`should check tooltipBgColor as ${names}`, async ({ mount, page }) => {
+  colors.forEach(([name, color]) => {
+    test(`should check tooltipBgColor as ${name}`, async ({ mount, page }) => {
       await mount(
         <HelpComponentTest tooltipBgColor={color} isFocused>
           {tooltipText}
@@ -152,8 +152,8 @@ test.describe("Testing Help component properties", () => {
     });
   });
 
-  colors.forEach(([names, color]) => {
-    test(`should check tooltipFontColor as ${names}`, async ({
+  colors.forEach(([name, color]) => {
+    test(`should check tooltipFontColor as ${name}`, async ({
       mount,
       page,
     }) => {
@@ -299,21 +299,21 @@ test.describe("Accessibility tests for Help component", () => {
     await checkAccessibility(page);
   });
 
-  colors.forEach(([names, color]) => {
-    test(`should check tooltipBgColor as ${names}`, async ({ mount, page }) => {
+  colors.forEach(([name, color]) => {
+    test(`should check tooltipBgColor as ${name}`, async ({ mount, page }) => {
       await mount(
         <HelpComponentTest tooltipBgColor={color} isFocused>
           {tooltipText}
         </HelpComponentTest>
       );
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      // color-contrast ignored as some of the colors in the array don't meet contrast
+      await checkAccessibility(page, tooltipPreview(page), "color-contrast");
     });
   });
 
-  colors.forEach(([names, color]) => {
-    test(`should check tooltipFontColor as ${names}`, async ({
+  colors.forEach(([name, color]) => {
+    test(`should check tooltipFontColor as ${name}`, async ({
       mount,
       page,
     }) => {
@@ -323,8 +323,8 @@ test.describe("Accessibility tests for Help component", () => {
         </HelpComponentTest>
       );
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      // color-contrast ignored as some of the colors in the array don't meet contrast
+      await checkAccessibility(page, tooltipPreview(page), "color-contrast");
     });
   });
 
@@ -343,8 +343,7 @@ test.describe("Accessibility tests for Help component", () => {
           </Box>
         );
 
-        // color-contrast ignored until we can investigate and fix FE-6245
-        await checkAccessibility(page, undefined, "color-contrast");
+        await checkAccessibility(page, tooltipPreview(page));
       });
     }
   );
@@ -378,8 +377,7 @@ test.describe("Accessibility tests for Help component", () => {
         </HelpComponentTest>
       );
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      await checkAccessibility(page, tooltipPreview(page));
     });
   });
 
@@ -389,7 +387,7 @@ test.describe("Accessibility tests for Help component", () => {
         mount,
         page,
       }) => {
-        await mount(<HelpComponentTest isFocused type={iconType} />);
+        await mount(<HelpComponentTest type={iconType} />);
 
         await checkAccessibility(page);
       });

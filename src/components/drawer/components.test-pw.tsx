@@ -7,14 +7,8 @@ import Box from "../box";
 import Button from "../button";
 
 export const DrawerCustom = (props: Partial<DrawerProps>) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-  const onChangeHandler = React.useCallback(() => {
-    setIsExpanded(!isExpanded);
-  }, [isExpanded]);
-
   return (
     <Drawer
-      onChange={onChangeHandler}
       aria-label="toggle sidebar"
       sidebar={
         <ul>
@@ -32,14 +26,8 @@ export const DrawerCustom = (props: Partial<DrawerProps>) => {
 };
 
 export const DrawerCustomFooterHeader = (props: Partial<DrawerProps>) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-  const onChangeHandler = React.useCallback(() => {
-    setIsExpanded(!isExpanded);
-  }, [isExpanded]);
-
   return (
     <Drawer
-      onChange={onChangeHandler}
       aria-label="toggle sidebar"
       sidebar={
         <Box mb={9}>
@@ -152,14 +140,8 @@ export const DrawerCustomFooterHeader = (props: Partial<DrawerProps>) => {
 };
 
 export const DrawerCustomSidebar = () => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-  const onChangeHandler = React.useCallback(() => {
-    setIsExpanded(!isExpanded);
-  }, [isExpanded]);
-
   return (
     <Drawer
-      onChange={onChangeHandler}
       aria-label="toggle sidebar"
       sidebar={
         <ul>

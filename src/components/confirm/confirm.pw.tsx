@@ -14,7 +14,7 @@ import {
   assertCssValueIsApproximately,
   checkAccessibility,
   checkDialogIsInDOM,
-  waitForAnimationEnd,
+  waitForElementFocus,
 } from "../../../playwright/support/helper";
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
 
@@ -585,8 +585,7 @@ test.describe("should render Confirm component for event tests", () => {
     expect(callbackCount).toBe(1);
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("setting the topModalOverride prop should ensure the Confirm is rendered on top of any others", async ({
+  test("setting the topModalOverride prop should ensure the Confirm is rendered on top of any others", async ({
     mount,
     page,
   }) => {
@@ -597,7 +596,8 @@ test.describe("should render Confirm component for event tests", () => {
     const dialogConfirmBtn = dialog.getByRole("button").last();
     const dialogTextbox = page.getByLabel("Confirm textbox");
 
-    await waitForAnimationEnd(dialog);
+    // wait for dialog wrapper to get focus (which will only happen after the animation is complete - but waitForAnimationEnd isn't enough to always work)
+    await waitForElementFocus(page, dialog);
     await dialog.press("Tab");
     await expect(dialogTextbox).toBeFocused();
     await dialogTextbox.press("Tab");
@@ -610,7 +610,7 @@ test.describe("should render Confirm component for event tests", () => {
     const sidebarClose = sidebar.getByLabel("Close");
     const sidebarTextbox = page.getByLabel("Sidebar textbox");
 
-    await waitForAnimationEnd(sidebar);
+    await waitForElementFocus(page, sidebar);
     await sidebar.press("Tab");
     await expect(sidebarClose).toBeFocused();
     await sidebarClose.press("Tab");
@@ -623,7 +623,7 @@ test.describe("should render Confirm component for event tests", () => {
     const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
     const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
 
-    await waitForAnimationEnd(dialogFullscreen);
+    await waitForElementFocus(page, dialogFullscreen);
     await dialogFullscreen.press("Tab");
     await expect(dialogFullscreenClose).toBeFocused();
     await dialogFullscreenClose.press("Tab");

@@ -17,6 +17,7 @@ import {
   checkGoldenOutline,
   checkAccessibility,
   getStyle,
+  waitForElementFocus,
 } from "../../../playwright/support/helper";
 import {
   SIZE,
@@ -910,11 +911,13 @@ test.describe("When nested inside of a Dialog component", () => {
   }) => {
     await mount(<DateInputInsideDialog />);
 
-    await page.focus("body");
+    const dialogElement = alertDialogPreview(page);
+    // wait for dialog wrapper to get focus (which will only happen after the animation is complete - but waitForAnimationEnd isn't enough to always work)
+    await waitForElementFocus(page, dialogElement);
+
     await page.keyboard.press("Tab");
     await page.keyboard.press("Tab");
     const wrapper = dayPickerWrapper(page);
-    const dialogElement = alertDialogPreview(page);
     await expect(wrapper).toHaveCount(1);
     await page.keyboard.press("Tab");
     await page.keyboard.press("Escape");

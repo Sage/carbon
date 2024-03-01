@@ -351,23 +351,17 @@ export const getDesignTokensByCssProperty = async (
 };
 
 export const continuePressingTAB = async (page: Page, count: number) => {
-  const promises = [];
-
   for (let i = 0; i < count; i++) {
-    promises.push(page.keyboard.press(`Tab`));
+    // eslint-disable-next-line no-await-in-loop
+    await page.keyboard.press(`Tab`);
   }
-
-  await Promise.all(promises);
 };
 
 export const continuePressingSHIFTTAB = async (page: Page, count: number) => {
-  const promises = [];
-
   for (let i = 0; i < count; i++) {
-    promises.push(page.keyboard.press(`Shift+Tab`));
+    // eslint-disable-next-line no-await-in-loop
+    await page.keyboard.press(`Shift+Tab`);
   }
-
-  await Promise.all(promises);
 };
 
 export const checkElementBorderColours = async (
@@ -379,4 +373,14 @@ export const checkElementBorderColours = async (
   await expect(element).toHaveCSS("border-left-color", color);
   await expect(element).toHaveCSS("border-right-color", color);
   await expect(element).toHaveCSS("border-top-color", color);
+};
+
+/* Util to ensure that a particular element is focused before proceeding.
+ * Useful for avoiding race conditions when the component code auto-focuses some element in an effect. */
+export const waitForElementFocus = async (page: Page, locator: Locator) => {
+  const focusedElement = await locator.elementHandle();
+  await page.waitForFunction(
+    (element) => document.activeElement === element,
+    focusedElement
+  );
 };

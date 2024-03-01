@@ -11,7 +11,10 @@ import {
 import { alertDialogPreview as advancedColorPickerParent } from "../../../playwright/components/dialog/index";
 import { closeIconButton } from "../../../playwright/components/index";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { checkAccessibility } from "../../../playwright/support/helper";
+import {
+  waitForElementFocus,
+  checkAccessibility,
+} from "../../../playwright/support/helper";
 import { HooksConfig } from "../../../playwright";
 
 test.describe("when focused", () => {
@@ -20,7 +23,7 @@ test.describe("when focused", () => {
     page,
   }) => {
     await mount(<AdvancedColorPickerCustom open />);
-
+    await waitForElementFocus(page, simpleColorPickerInput(page, 7));
     const icon = closeIconButton(page);
     await icon.focus();
     await expect(closeIconButton(page)).toHaveCSS(
@@ -42,7 +45,7 @@ test.describe("when focused", () => {
         focusRedesignOptOut: true,
       },
     });
-
+    await waitForElementFocus(page, simpleColorPickerInput(page, 7));
     const icon = closeIconButton(page);
     await icon.focus();
     await expect(closeIconButton(page)).toHaveCSS(

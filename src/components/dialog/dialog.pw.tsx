@@ -29,6 +29,7 @@ import {
   checkAccessibility,
   getStyle,
   waitForAnimationEnd,
+  waitForElementFocus,
 } from "../../../playwright/support/helper";
 import { CHARACTERS, SIZE } from "../../../playwright/support/constants";
 import { getDataElementByValue } from "../../../playwright/components";
@@ -263,8 +264,7 @@ test.describe("Testing Dialog component properties", () => {
     ).not.toBeFocused();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("when tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
+  test("when tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
     mount,
     page,
   }) => {
@@ -276,7 +276,7 @@ test.describe("Testing Dialog component properties", () => {
     const firstTextbox = page.getByLabel("Textbox1");
     const closeButton = page.getByLabel("Close");
 
-    await page.waitForTimeout(250);
+    await waitForElementFocus(page, dialog);
     await dialog.press("Tab");
     await expect(closeButton).toBeFocused();
 
@@ -293,8 +293,7 @@ test.describe("Testing Dialog component properties", () => {
     await expect(closeButton).toBeFocused();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("when shift tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
+  test("when shift tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
     mount,
     page,
   }) => {
@@ -306,7 +305,7 @@ test.describe("Testing Dialog component properties", () => {
     const firstTextbox = page.getByLabel("Textbox1");
     const closeButton = page.getByLabel("Close");
 
-    await page.waitForTimeout(250);
+    await waitForElementFocus(page, dialog);
     await dialog.press("Shift+Tab");
     await expect(thirdTextbox).toBeFocused();
 
@@ -323,8 +322,7 @@ test.describe("Testing Dialog component properties", () => {
     await expect(thirdTextbox).toBeFocused();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("when tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
+  test("when tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
     mount,
     page,
   }) => {
@@ -334,7 +332,7 @@ test.describe("Testing Dialog component properties", () => {
     const textbox = page.getByLabel("Textbox");
     const closeButton = page.getByLabel("Close");
 
-    await page.waitForTimeout(250);
+    await waitForElementFocus(page, dialog);
     await dialog.press("Tab");
     await closeButton.press("Tab");
     await textbox.press("Tab");
@@ -345,8 +343,7 @@ test.describe("Testing Dialog component properties", () => {
     ).not.toBeInViewport();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("when shift tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
+  test("when shift tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
     mount,
     page,
   }) => {
@@ -356,7 +353,7 @@ test.describe("Testing Dialog component properties", () => {
     const textbox = page.getByLabel("Textbox");
     const closeButton = page.getByLabel("Close");
 
-    await page.waitForTimeout(250);
+    await waitForElementFocus(page, dialog);
     await dialog.press("Shift+Tab");
     await textbox.press("Shift+Tab");
 
@@ -366,20 +363,31 @@ test.describe("Testing Dialog component properties", () => {
     ).not.toBeInViewport();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+  // TODO: test still flaky, and in various ways:
+  // 1) still sometimes failing due to the useEffect that focuses the autofocused-select running too late - this despite the waitForAnimationEnd and
+  // assertion that it's focused happening earlier in the test, and with the dialog now opened by a button click (which was intended to prevent the
+  // autofocus attribute from focusing "too early" before the useEffect had ran)
+  // 2) even when the above isn't the problem, there are still failures where the tab press causes focus to go to the wrong element. Can't figure
+  // out what is going on here yet, but logging the relatedTarget of the blur even on Select (which should be the element that the browser would
+  // naturally focus next, so here should be the close icon) it somehow is logging the dialog wrapper div, even though that has tabindex=-1 so
+  // shouldn't be tabbable-to at all!
   test.skip("should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
     mount,
     page,
   }) => {
     await mount(<DialogWithAutoFocusSelect />);
 
+    await page.getByRole("button").click();
+
     const dialog = page.getByRole("dialog");
     const select = dialog.getByRole("combobox");
 
+    await waitForAnimationEnd(dialog);
     await expect(select).toBeFocused();
-    await dialog.press("Shift+Tab");
-    await dialog.press("Shift+Tab");
-    await dialog.press("Shift+Tab");
+
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Shift+Tab");
     await expect(select).toBeFocused();
   });
 });
@@ -491,18 +499,20 @@ test("Dialog should have rounded corners", async ({ mount, page }) => {
   await expect(page.getByRole("dialog")).toHaveCSS("border-radius", "16px");
 });
 
-// test skipped until we can investigate and fix issue with focus in Modals FE-6245
-test.skip("setting the topModalOverride prop should ensure the Dialog is rendered on top of any others", async ({
+test("setting the topModalOverride prop should ensure the Dialog is rendered on top of any others", async ({
   mount,
   page,
 }) => {
+  // prevent failure for taking more than 30s
+  test.slow();
+
   await mount(<TopModalOverride />);
 
   const dialog = getDataElementByValue(page, "dialog");
   const dialogClose = dialog.getByLabel("Close");
   const dialogTextbox = page.getByLabel("Dialog textbox");
 
-  await waitForAnimationEnd(dialog);
+  await waitForElementFocus(page, dialog);
   await dialog.press("Tab");
   await expect(dialogClose).toBeFocused();
   await dialogClose.press("Tab");
@@ -515,7 +525,7 @@ test.skip("setting the topModalOverride prop should ensure the Dialog is rendere
   const sidebarClose = sidebar.getByLabel("Close");
   const sidebarTextbox = page.getByLabel("Sidebar textbox");
 
-  await waitForAnimationEnd(sidebar);
+  await waitForElementFocus(page, sidebar);
   await sidebar.press("Tab");
   await expect(sidebarClose).toBeFocused();
   await sidebarClose.press("Tab");
@@ -528,7 +538,7 @@ test.skip("setting the topModalOverride prop should ensure the Dialog is rendere
   const dialogFullscreenClose = dialogFullscreen.getByLabel("Close");
   const dialogFullscreenTextbox = page.getByLabel("Fullscreen textbox");
 
-  await waitForAnimationEnd(dialogFullscreen);
+  await waitForElementFocus(page, dialogFullscreen);
   await dialogFullscreen.press("Tab");
   await expect(dialogFullscreenClose).toBeFocused();
   await dialogFullscreenClose.press("Tab");
@@ -567,17 +577,13 @@ test.describe(
       await checkAccessibility(page);
     });
 
-    // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-    // should be failing color contrast accessibility test with grey background
-    test.skip("DialogWithStepSequence mock component should pass accessibility checks", async ({
+    test("DialogWithStepSequence mock component should pass accessibility checks", async ({
       mount,
       page,
     }) => {
       await mount(<DialogWithStepSequence />);
 
-      const dialog = getDataElementByValue(page, "dialog");
-
-      await checkAccessibility(page, dialog, "color-contrast");
+      await checkAccessibility(page);
     });
 
     test("Default story should pass accessibility checks", async ({

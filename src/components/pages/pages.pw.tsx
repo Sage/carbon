@@ -33,10 +33,11 @@ test.describe("Prop checks for Pages component", () => {
       await mount(<PagesComponent initialpageIndex={propValue} />);
 
       await dataComponentButtonByText(page, "Open Preview").click();
-      const pageComponentTitle = getDataElementByValue(page, "title").nth(1);
-      await waitForAnimationEnd(pageComponentTitle);
+      await waitForAnimationEnd(getComponent(page, "dialog-full-screen"));
 
-      await expect(pageComponentTitle).toHaveText("My Second Page");
+      await expect(getDataElementByValue(page, "title")).toHaveText(
+        "My Second Page"
+      );
     });
   });
 
@@ -51,7 +52,7 @@ test.describe("Prop checks for Pages component", () => {
       await mount(<PagesComponent pageIndex={propValue} />);
 
       await dataComponentButtonByText(page, "Open Preview").click();
-      await waitForAnimationEnd(getComponent(page, "page"));
+      await waitForAnimationEnd(getComponent(page, "dialog-full-screen"));
 
       await expect(getDataElementByValue(page, "title")).toHaveText(
         "My Second Page"
@@ -94,7 +95,7 @@ test.describe("Prop checks for Pages component", () => {
     mount,
     page,
   }) => {
-    await mount(<PagesComponent initialPageIndex={1} />);
+    await mount(<PagesComponent initialpageIndex={1} />);
 
     await dataComponentButtonByText(page, "Open Preview").click();
     await dataComponentButtonByText(page, "Go to third page").click();
@@ -108,7 +109,7 @@ test.describe("Prop checks for Pages component", () => {
     mount,
     page,
   }) => {
-    await mount(<PagesComponent initialPageIndex={2} />);
+    await mount(<PagesComponent initialpageIndex={2} />);
 
     await dataComponentButtonByText(page, "Open Preview").click();
     await backArrow(page).click();
@@ -122,7 +123,7 @@ test.describe("Prop checks for Pages component", () => {
     mount,
     page,
   }) => {
-    await mount(<PagesComponent initialPageIndex={1} />);
+    await mount(<PagesComponent initialpageIndex={1} />);
 
     await dataComponentButtonByText(page, "Open Preview").click();
     await backArrow(page).click();
@@ -200,7 +201,7 @@ test.describe("Accessibility tests for Pages component", () => {
     mount,
     page,
   }) => {
-    await mount(<PagesComponent initialPageIndex={1} />);
+    await mount(<PagesComponent initialpageIndex={1} />);
 
     await dataComponentButtonByText(page, "Open Preview").click();
 

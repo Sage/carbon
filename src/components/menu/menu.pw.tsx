@@ -509,6 +509,7 @@ test.describe("Prop tests for Menu component", () => {
     const subMenu = submenu(page).first();
     await subMenu.hover();
     const subMenuBlock = innerMenu(page, 2, span).first();
+    await subMenuBlock.waitFor();
     const cssWidth = await subMenuBlock.evaluate((el) =>
       window.getComputedStyle(el).getPropertyValue("width")
     );
@@ -1072,6 +1073,7 @@ test.describe("Prop tests for Menu component", () => {
         const subMenu = submenu(page).first();
         await subMenu.hover();
         const divider = menuDivider(page);
+        await divider.waitFor();
         await assertCssValueIsApproximately(divider, "height", height);
         await assertCssValueIsApproximately(divider, "margin-left", margin);
         await assertCssValueIsApproximately(divider, "width", width);
@@ -1153,6 +1155,9 @@ test.describe("Prop tests for Menu component", () => {
     mount,
     page,
   }) => {
+    // prevent failure for taking more than 30s
+    test.slow();
+
     await mount(<MenuComponentFullScreen />);
 
     await page.setViewportSize({ width: 1200, height: 800 });

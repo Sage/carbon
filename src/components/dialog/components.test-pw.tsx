@@ -144,13 +144,18 @@ export const TopModalOverride = () => {
 };
 
 export const DialogWithAutoFocusSelect = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Dialog open title="My dialog" onCancel={() => {}}>
-      <Select autoFocus label="select">
-        <Option value="1" text="one" />
-      </Select>
-      <Textbox label="textbox" />
-    </Dialog>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open dialog</Button>
+      <Dialog open={isOpen} title="My dialog" onCancel={() => setIsOpen(false)}>
+        <Select autoFocus label="select">
+          <Option value="1" text="one" />
+        </Select>
+        <Textbox label="textbox" />
+      </Dialog>
+    </>
   );
 };
 

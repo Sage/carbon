@@ -9,7 +9,7 @@ import Button from "../button";
 import Box from "../box";
 
 interface PageStoryProps {
-  initialPageIndex?: number;
+  initialpageIndex: PagesProps["initialpageIndex"];
   // eslint-disable-next-line react/no-unused-prop-types
   children?: string | Node;
   // eslint-disable-next-line react/no-unused-prop-types
@@ -17,10 +17,10 @@ interface PageStoryProps {
 }
 
 export const DefaultStory = ({
-  initialPageIndex,
+  initialpageIndex,
 }: PageStoryProps & Partial<PageProps>) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [pageIndex, setPageIndex] = useState(Number(initialPageIndex) || 0);
+  const [pageIndex, setPageIndex] = useState(Number(initialpageIndex) || 0);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleCancel = () => {
@@ -30,9 +30,9 @@ export const DefaultStory = ({
 
   const handleOpen = () => {
     setIsOpen(true);
-    if (!initialPageIndex) {
+    if (!initialpageIndex) {
       setPageIndex(0);
-    } else setPageIndex(Number(initialPageIndex));
+    } else setPageIndex(Number(initialpageIndex));
   };
 
   const handleOnClick = () => {
@@ -70,7 +70,7 @@ export const DefaultStory = ({
         open={isOpen}
         onCancel={handleCancel}
       >
-        <Pages initialpageIndex={initialPageIndex} pageIndex={pageIndex}>
+        <Pages initialpageIndex={initialpageIndex} pageIndex={pageIndex}>
           <Page title={<Heading title="My First Page" divider={false} />}>
             <Button onClick={handleOnClick} disabled={isDisabled}>
               Go to second page
@@ -111,8 +111,8 @@ export const PagesComponent = (
 ) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(
-    Number(props.initialPageIndex)
-      ? Number(props.initialPageIndex)
+    Number(props.initialpageIndex)
+      ? Number(props.initialpageIndex)
       : undefined || 0
   );
   const [isDisabled, setIsDisabled] = React.useState(false);
@@ -125,9 +125,9 @@ export const PagesComponent = (
   const handleOpen = () => {
     setIsOpen(true);
 
-    if (!props.initialPageIndex) {
+    if (!props.initialpageIndex) {
       setPageIndex(0);
-    } else setPageIndex(Number(props.initialPageIndex));
+    } else setPageIndex(Number(props.initialpageIndex));
   };
 
   const handleOnClick = () => {

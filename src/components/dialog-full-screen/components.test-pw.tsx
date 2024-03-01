@@ -953,12 +953,21 @@ export const TopModalOverride = () => {
 };
 
 export const DialogFullScreenWithAutoFocusSelect = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <DialogFullScreen open title="My dialog" onCancel={() => {}}>
-      <Select autoFocus label="select">
-        <Option value="1" text="one" />
-      </Select>
-      <Textbox label="textbox" />
-    </DialogFullScreen>
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open dialog</Button>
+      <DialogFullScreen
+        open={isOpen}
+        title="My dialog"
+        onCancel={() => setIsOpen(false)}
+      >
+        <Select autoFocus label="select">
+          <Option value="1" text="one" />
+        </Select>
+        <Textbox label="textbox" />
+      </DialogFullScreen>
+    </>
   );
 };

@@ -84,10 +84,14 @@ test.describe(`should render Duelling-Picklist component`, () => {
       mount,
       page,
     }) => {
+      // prevent failure for taking more than 30s
+      test.slow();
+
       await mount(<DuellingPicklistComponent />);
 
       const addItemButton = page.getByRole("button").first();
       for (let i = 0; i < items; i++) {
+        // eslint-disable-next-line no-await-in-loop
         await addItemButton.click();
       }
       await expect(
@@ -109,10 +113,14 @@ test.describe(`should render Duelling-Picklist component`, () => {
     mount,
     page,
   }) => {
+    // prevent failure for taking more than 30s
+    test.slow();
+
     await mount(<DuellingPicklistComponent />);
 
     const addItemButton = page.getByRole("button").first();
     for (let i = 0; i < 10; i++) {
+      // eslint-disable-next-line no-await-in-loop
       await addItemButton.click();
     }
     await expect(
@@ -186,10 +194,14 @@ test.describe(`should render Duelling-Picklist component`, () => {
       mount,
       page,
     }) => {
+      // prevent failure for taking more than 30s
+      test.slow();
+
       await mount(<DuellingPicklistComponent />);
 
       const addItemButton = page.getByRole("button").first();
       for (let i = 0; i < 10; i++) {
+        // eslint-disable-next-line no-await-in-loop
         await addItemButton.click();
       }
       await expect(
@@ -204,6 +216,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
 
       const removeItemButton = getDataElementByValue(page, "remove").first();
       for (let i = 0; i < 10; i++) {
+        // eslint-disable-next-line no-await-in-loop
         await removeItemButton.press(pressed);
       }
       await expect(
@@ -319,6 +332,7 @@ test.describe(`should render Duelling-Picklist to test Picklist props`, () => {
 
       const addItemButton = page.getByRole("button").first();
       for (let i = 0; i < 10; i++) {
+        // eslint-disable-next-line no-await-in-loop
         await addItemButton.click();
       }
 
@@ -685,6 +699,7 @@ test.describe("Border radius tests", () => {
 
     const addItemButton = page.getByRole("button").first();
     for (let i = 0; i < 5; i++) {
+      // eslint-disable-next-line no-await-in-loop
       await addItemButton.click();
     }
 

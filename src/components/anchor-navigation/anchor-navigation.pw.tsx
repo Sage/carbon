@@ -12,7 +12,10 @@ import {
   anchorNavigationItem,
 } from "../../../playwright/components/anchor-navigation/index";
 import { HooksConfig } from "../../../playwright";
-import { checkAccessibility } from "../../../playwright/support/helper";
+import {
+  checkAccessibility,
+  waitForAnimationEnd,
+} from "../../../playwright/support/helper";
 import { DIALOG_FULL_SCREEN } from "../../../playwright/components/dialog/locators";
 
 test.describe("Should render AnchorNavigation component", () => {
@@ -139,9 +142,8 @@ test.describe("Accessibility tests for Anchor Navigation component", () => {
   }) => {
     await mount(<InFullScreenDialog />);
     await page.getByText("open AnchorNavigation").click();
-    await page.locator(DIALOG_FULL_SCREEN).waitFor();
+    await waitForAnimationEnd(page.locator(DIALOG_FULL_SCREEN));
 
-    // color-contrast ignored until we can investigate and fix FE-6245
-    await checkAccessibility(page, undefined, "color-contrast");
+    await checkAccessibility(page);
   });
 });

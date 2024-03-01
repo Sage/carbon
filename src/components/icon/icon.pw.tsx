@@ -387,8 +387,8 @@ test.describe("should check accessibility for Icon component", () => {
     }) => {
       await mount(<IconTooltipComponent tooltipBgColor={tooltipBgColor} />);
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      // color-contrast ignored as some of the colors in the array don't meet contrast
+      await checkAccessibility(page, tooltipPreview(page), "color-contrast");
     });
   });
 
@@ -399,8 +399,8 @@ test.describe("should check accessibility for Icon component", () => {
     }) => {
       await mount(<IconTooltipComponent tooltipFontColor={tooltipFontColor} />);
 
-      // color-contrast ignored until we can investigate and fix FE-6245
-      await checkAccessibility(page, undefined, "color-contrast");
+      // color-contrast ignored as some of the colors in the array don't meet contrast
+      await checkAccessibility(page, tooltipPreview(page), "color-contrast");
     });
   });
 
