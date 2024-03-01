@@ -205,3 +205,26 @@ export const disabledButton: ComponentStory<typeof ButtonToggle> = () => (
     </ButtonToggleGroup>
   </Box>
 );
+
+export const Grouped: ComponentStory<typeof ButtonToggleGroup> = () => (
+  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+    <ButtonToggleGroup
+      id="button-toggle-group-grouped-id"
+      label="Grouped example"
+      labelHelp="help message"
+      helpAriaLabel="Help"
+      fieldHelp="field help mesage"
+      onChange={() => {}}
+    >
+      <ButtonToggle value="foo" grouped>
+        Foo
+      </ButtonToggle>
+      <ButtonToggle value="bar" grouped>
+        Bar
+      </ButtonToggle>
+      <ButtonToggle value="baz" grouped>
+        Baz
+      </ButtonToggle>
+    </ButtonToggleGroup>
+  </Box>
+);
