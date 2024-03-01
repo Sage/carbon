@@ -7,7 +7,7 @@ export const NavigationBarComponent = ({
   children,
   ...props
 }: NavigationBarProps) => {
-  const isChildren = children !== null ? children : "Cypress tests";
+  const isChildren = children !== null ? children : "Playwright tests";
   return <NavigationBar {...props}>{isChildren}</NavigationBar>;
 };
 
