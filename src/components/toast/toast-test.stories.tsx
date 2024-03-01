@@ -275,7 +275,7 @@ export const ToastWhenOtherModalRenders = () => {
       <Button onClick={() => setIsOpen2(true)}>Open Dialog</Button>
       <Toast
         variant="info"
-        id="toast-cypress"
+        id="toast-playwright"
         open={isOpen1}
         onDismiss={() => setIsOpen1((p) => !p)}
       >
