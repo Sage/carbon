@@ -15,7 +15,7 @@ const enGB: Locale = {
   },
   advancedColorPicker: {
     ariaLabel: () => "Change colour",
-    currentColorDescriptionTerm: () => "Current color assigned: ",
+    currentColorDescriptionTerm: () => "Current colour assigned: ",
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
