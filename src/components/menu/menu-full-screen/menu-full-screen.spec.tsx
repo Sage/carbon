@@ -187,7 +187,7 @@ describe("MenuFullscreen", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
   });
 
-  it("root container has correct component, element and role data tags when menu is open", () => {
+  it("has correct component, element and role data tags on root container when menu is open", () => {
     render(<TestMenu isOpen />);
     const menu = screen.getByRole("dialog");
 
@@ -196,7 +196,7 @@ describe("MenuFullscreen", () => {
     expect(menu).toHaveAttribute("data-role", "baz");
   });
 
-  it("root container has correct ARIA properties when menu is open", () => {
+  it("has correct ARIA properties on root container when menu is open", () => {
     render(<MenuFullscreen isOpen onClose={() => {}} aria-label="My menu" />);
     const menu = screen.getByRole("dialog");
 
@@ -409,7 +409,7 @@ describe("MenuFullscreen", () => {
   });
 
   describe("focus behaviour", () => {
-    it("when menu is opened, its root container is focused", () => {
+    it("focuses the root container, when menu is opened", () => {
       render(<TestMenu isOpen />);
       expect(screen.getByRole("dialog")).toBeFocused();
     });
