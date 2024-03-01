@@ -376,7 +376,7 @@ Currently `react-day-picker` does not support styled-components or any other CSS
 
 # Alternatives
 
-One alternative to carrying out the proposed in this document is that we do not do it at all. We continue to maintain the existing component as is, fix the bugs and look to introduce the feature requests raised. This is an option in the short-term, but the code is already bloated significantly and there are a number of regressions some of which have not been picked up by our cypress or chromatic tests. Therefore, it is likely that we will be revisiting the need to rewrite the component sooner rather than later.
+One alternative to carrying out the proposed in this document is that we do not do it at all. We continue to maintain the existing component as is, fix the bugs and look to introduce the feature requests raised. This is an option in the short-term, but the code is already bloated significantly and there are a number of regressions some of which have not been picked up by our Playwright or Chromatic tests. Therefore, it is likely that we will be revisiting the need to rewrite the component sooner rather than later.
 
 Another option is that we refactor the existing component to simplify the code and fix the issues already raised. However, we would still need to introduce breaking changes as we plan to refactor all class-based input components to be functional anyway. As well as this, refactoring could likely prove more complex than rewriting the component: some of the legacy code outdates any of the current Carbon team and is tightly coupled with older projects.
 

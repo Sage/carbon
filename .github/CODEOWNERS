@@ -13,9 +13,7 @@
 *.cy.*                   @Sage/carbon-qa
 *.pw.tsx                 @Sage/carbon-qa
 *.test-pw.tsx            @Sage/carbon-qa
-/cypress/                @Sage/carbon-qa
 /playwright/             @Sage/carbon-qa
-cypress.config.ts        @Sage/carbon-qa
 playwright-ct.config.ts  @Sage/carbon-qa
 
 # Codeowners file changes must be approved by a Carbon Admin.

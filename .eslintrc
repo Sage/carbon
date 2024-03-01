@@ -124,7 +124,6 @@
         "project": [
           "./tsconfig.json",
           "./tsconfig-playwright.json",
-          "./cypress/tsconfig.json"
         ]
       },
       "plugins": ["@typescript-eslint"],
@@ -174,21 +173,6 @@
       "rules": {
         "jest/expect-expect": "off",
         "jest-dom/prefer-to-have-attribute": "off"
-      }
-    },
-    {
-      "files": ["cypress/**"],
-      "env": {
-        "cypress/globals": true
-      },
-      "globals": {
-        "cypress": true
-      },
-      "plugins": ["cypress"],
-      "extends": ["plugin:cypress/recommended"],
-      "rules": {
-        "cypress/unsafe-to-chain-command": "off",
-        "cypress/no-unnecessary-waiting": "off"
       }
     },
     {
