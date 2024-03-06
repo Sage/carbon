@@ -17,6 +17,7 @@ import {
   WithComplexExample,
   TopModalOverride,
   DialogFullScreenWithAutoFocusSelect,
+  DialogFSComponentFocusableSelectors,
 } from "./components.test-pw";
 import {
   portal,
@@ -29,6 +30,7 @@ import {
   continuePressingSHIFTTAB,
   checkAccessibility,
   waitForAnimationEnd,
+  waitForElementFocus,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
@@ -460,6 +462,30 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await dialog.press("Shift+Tab");
     await dialog.press("Shift+Tab");
     await expect(select).toBeFocused();
+  });
+
+  test("should render component with first input and button as focusableSelectors", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DialogFSComponentFocusableSelectors />);
+
+    const dialogElement = page.getByRole("dialog");
+    const focusedElement = page.locator("*:focus");
+    const firstInputElement = page.getByLabel("First name");
+    const secondInputElement = page.getByLabel("Surname");
+    const openToastElement = getDataElementByValue(page, "open-toast");
+
+    await waitForElementFocus(page, dialogElement);
+    await dialogElement.press("Tab");
+    await focusedElement.press("Tab");
+
+    await expect(firstInputElement).toBeFocused();
+
+    await focusedElement.press("Tab");
+
+    await expect(secondInputElement).not.toBeFocused();
+    await expect(openToastElement).toBeFocused();
   });
 });
 
