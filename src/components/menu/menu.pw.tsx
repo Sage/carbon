@@ -1149,7 +1149,7 @@ test.describe("Prop tests for Menu component", () => {
     }
   );
 
-  test(`should verify that inner Menu without link is NOT available with tabbing in Fullscreen Menu`, async ({
+  test(`@flaky should verify that inner Menu without link is NOT available with tabbing in Fullscreen Menu`, async ({
     mount,
     page,
   }) => {
@@ -1227,7 +1227,7 @@ test.describe("Prop tests for Menu component", () => {
 });
 
 test.describe("Prop tests for Menu Fullscreen component", () => {
-  test(`should render Menu Fullscreen`, async ({ mount, page }) => {
+  test(`@flaky should render Menu Fullscreen`, async ({ mount, page }) => {
     await page.setViewportSize({ width: 1200, height: 800 });
     await mount(<MenuComponentFullScreen />);
 
@@ -1245,7 +1245,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(fullScreenMenu3).toHaveCount(15);
   });
 
-  test(`should verify that the Menu Fullscreen is closed when close icon is clicked`, async ({
+  test(`@flaky should verify that the Menu Fullscreen is closed when close icon is clicked`, async ({
     mount,
     page,
   }) => {
@@ -1266,7 +1266,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(thisMenu).toBeVisible();
   });
 
-  test(`close icon has correct focus styling when focused and focusRedesignOptOut flag is false`, async ({
+  test(`@flaky close icon has correct focus styling when focused and focusRedesignOptOut flag is false`, async ({
     mount,
     page,
   }) => {
@@ -1289,7 +1289,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(closeIcon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
   });
 
-  test(`close icon has correct focus styling when focused and focusRedesignOptOut flag is true`, async ({
+  test(`@flaky close icon has correct focus styling when focused and focusRedesignOptOut flag is true`, async ({
     mount,
     page,
   }) => {
@@ -1310,7 +1310,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await checkGoldenOutline(closeIcon);
   });
 
-  test(`should verify that inner Menu is available with tabbing and styles are correct`, async ({
+  test(`@flaky should verify that inner Menu is available with tabbing and styles are correct`, async ({
     mount,
     page,
   }) => {
@@ -1349,7 +1349,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(fullMenuItem).toBeFocused();
   });
 
-  test(`should verify that inner Menu is available with shift-tabbing and styles are correct`, async ({
+  test(`@flaky should verify that inner Menu is available with shift-tabbing and styles are correct`, async ({
     mount,
     page,
   }) => {
@@ -1390,7 +1390,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(fullMenuItem).toBeFocused();
   });
 
-  test(`should verify that inner Menu without link is NOT available when tabbing in Fullscreen Menu`, async ({
+  test(`@flaky should verify that inner Menu without link is NOT available when tabbing in Fullscreen Menu`, async ({
     mount,
     page,
   }) => {
@@ -1628,7 +1628,7 @@ test.describe("Event tests for Menu component", () => {
     expect(callbackCount).toBe(1);
   });
 
-  test(`should call onClose callback when Menu Fullscreen is closed`, async ({
+  test(`@flaky should call onClose callback when Menu Fullscreen is closed`, async ({
     mount,
     page,
   }) => {
@@ -1720,7 +1720,6 @@ test.describe("Accessibility tests for Menu component", () => {
     });
   });
 
-  // Skipped because of FE-6287
   test.skip(`should pass accessibility tests when search component is focused`, async ({
     mount,
     page,
@@ -2163,7 +2162,7 @@ test.describe("Accessibility tests for Menu component", () => {
 });
 
 test.describe("Accessibility tests for Menu Fullscreen component", () => {
-  test(`should pass accessibility tests for Menu Fullscreen`, async ({
+  test(`@flaky should pass accessibility tests for Menu Fullscreen`, async ({
     mount,
     page,
   }) => {
@@ -2198,7 +2197,7 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
     await checkAccessibility(page);
   });
 
-  test(`should pass accessibility tests when menu item is highlighted`, async ({
+  test(`@flaky should pass accessibility tests when menu item is highlighted`, async ({
     mount,
     page,
   }) => {
@@ -2215,7 +2214,7 @@ test.describe("Accessibility tests for Menu Fullscreen component", () => {
 
   (["left", "right"] as MenuFullscreenProps["startPosition"][]).forEach(
     (side) => {
-      test(`should pass accessibility tests when start position is ${side}`, async ({
+      test(`@flaky should pass accessibility tests when start position is ${side}`, async ({
         mount,
         page,
       }) => {

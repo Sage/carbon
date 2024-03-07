@@ -505,7 +505,7 @@ test.describe("SimpleSelect component", () => {
     await expect(selectOptionByText(page, option)).toBeVisible();
   });
 
-  test("infinite scroll example should not cycle back to the start when using down arrow key", async ({
+  test("@flaky infinite scroll example should not cycle back to the start when using down arrow key", async ({
     mount,
     page,
   }) => {

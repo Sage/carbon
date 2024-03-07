@@ -261,8 +261,7 @@ test.describe("Testing Dialog component properties", () => {
     ).not.toBeFocused();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("when tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
+  test("@flaky when tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
     mount,
     page,
   }) => {
@@ -291,8 +290,7 @@ test.describe("Testing Dialog component properties", () => {
     await expect(closeButton).toBeFocused();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("when shift tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
+  test("@flaky when shift tabbing through Dialog content, focus should remain trapped inside the Dialog", async ({
     mount,
     page,
   }) => {
@@ -321,8 +319,7 @@ test.describe("Testing Dialog component properties", () => {
     await expect(thirdTextbox).toBeFocused();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("when tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
+  test("@flaky when tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
     mount,
     page,
   }) => {
@@ -343,8 +340,7 @@ test.describe("Testing Dialog component properties", () => {
     ).not.toBeInViewport();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("when shift tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
+  test("@flaky when shift tabbing through Dialog content, background should not scroll to the bottom of the page", async ({
     mount,
     page,
   }) => {
@@ -364,8 +360,7 @@ test.describe("Testing Dialog component properties", () => {
     ).not.toBeInViewport();
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
+  test("@flaky should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
     mount,
     page,
   }) => {
@@ -409,7 +404,7 @@ test.describe("Testing Dialog component properties", () => {
 test.describe(
   "when there is a button inside Dialog, which opens a Toast",
   () => {
-    test("clicking button moves focus out of Dialog to the newly-opened Toast", async ({
+    test("@flaky clicking button moves focus out of Dialog to the newly-opened Toast", async ({
       mount,
       page,
     }) => {
@@ -426,7 +421,7 @@ test.describe(
       await expect(toast).toBeFocused();
     });
 
-    test("when Toast is opened and focus on it is lost, pressing Tab key traps focus back inside the Dialog", async ({
+    test("@flaky when Toast is opened and focus on it is lost, pressing Tab key traps focus back inside the Dialog", async ({
       mount,
       page,
     }) => {
@@ -446,7 +441,7 @@ test.describe(
       await expect(openToastButton).toBeFocused();
     });
 
-    test("when tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
+    test("@flaky when tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
       mount,
       page,
     }) => {
@@ -475,7 +470,7 @@ test.describe(
       ).not.toBeInViewport();
     });
 
-    test("when shift tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
+    test("@flaky when shift tabbing through Dialog content and two opened Toasts, the background scroll should not scroll to the bottom of the page", async ({
       mount,
       page,
     }) => {
@@ -513,8 +508,7 @@ test("Dialog should have rounded corners", async ({ mount, page }) => {
   await expect(page.getByRole("dialog")).toHaveCSS("border-radius", "16px");
 });
 
-// test skipped until we can investigate and fix issue with focus in Modals FE-6245
-test.skip("setting the topModalOverride prop should ensure the Dialog is rendered on top of any others", async ({
+test("@flaky setting the topModalOverride prop should ensure the Dialog is rendered on top of any others", async ({
   mount,
   page,
 }) => {

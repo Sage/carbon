@@ -70,7 +70,7 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.slice(2, 4).forEach((buttonType) => {
-    test(`should render text in ${buttonType} style`, async ({
+    test(`@flaky should render text in ${buttonType} style`, async ({
       mount,
       page,
     }) => {
@@ -101,7 +101,7 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.forEach((buttonType, times) => {
-    test(`should focus ${buttonType} button using RightArrow keyboard key`, async ({
+    test(`@flaky should focus ${buttonType} button using RightArrow keyboard key`, async ({
       mount,
       page,
     }) => {
@@ -119,7 +119,7 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.forEach((buttonType, times) => {
-    test(`should focus ${buttonType} button using ArrowLeft keyboard key`, async ({
+    test(`@flaky should focus ${buttonType} button using ArrowLeft keyboard key`, async ({
       mount,
       page,
     }) => {

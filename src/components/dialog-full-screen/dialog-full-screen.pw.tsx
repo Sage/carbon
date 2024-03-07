@@ -203,7 +203,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
     );
   });
 
-  test("should always place focus on the inner dialog when tabbing with nested dialogs after focus is lost", async ({
+  test("@flaky should always place focus on the inner dialog when tabbing with nested dialogs after focus is lost", async ({
     mount,
     page,
   }) => {
@@ -402,8 +402,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
     );
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
-  test.skip("setting the topModalOverride prop should ensure the DialogFullScreen is rendered on top of any others", async ({
+  test("@flaky setting the topModalOverride prop should ensure the DialogFullScreen is rendered on top of any others", async ({
     mount,
     page,
   }) => {
@@ -448,7 +447,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await expect(dialogClose).toBeFocused();
   });
 
-  test.skip("should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
+  test("@flaky should loop focus when a Select component is passed as children and the user presses shift + tab", async ({
     mount,
     page,
   }) => {
@@ -490,7 +489,7 @@ test.describe("render DialogFullScreen component and check properties", () => {
 });
 
 test.describe("Accessibility for DialogFullScreen", () => {
-  test("should check accessibility for default component", async ({
+  test("@flaky should check accessibility for default component", async ({
     mount,
     page,
   }) => {
@@ -500,7 +499,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
     await checkAccessibility(page, undefined, "color-contrast");
   });
 
-  test("should check accessibility with disabled content padding", async ({
+  test("@flaky should check accessibility with disabled content padding", async ({
     mount,
     page,
   }) => {
@@ -510,7 +509,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
     await checkAccessibility(page, undefined, "color-contrast");
   });
 
-  test("should check accessibility with header children", async ({
+  test("@flaky should check accessibility with header children", async ({
     mount,
     page,
   }) => {
@@ -520,7 +519,10 @@ test.describe("Accessibility for DialogFullScreen", () => {
     await checkAccessibility(page, page.getByRole("dialog"), "color-contrast");
   });
 
-  test("should check accessibility with help", async ({ mount, page }) => {
+  test("@flaky should check accessibility with help", async ({
+    mount,
+    page,
+  }) => {
     await mount(<WithHelp />);
 
     const openButton = page
@@ -532,7 +534,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
     await checkAccessibility(page, undefined, "color-contrast");
   });
 
-  test("should check accessibility with hideable header children", async ({
+  test("@flaky should check accessibility with hideable header children", async ({
     mount,
     page,
   }) => {
@@ -618,7 +620,7 @@ test.describe("Accessibility for DialogFullScreen", () => {
 });
 
 test.describe("test background scroll when tabbing", () => {
-  test("tabbing forward through the dialog and back to the start should not make the background scroll to the bottom", async ({
+  test("@flaky tabbing forward through the dialog and back to the start should not make the background scroll to the bottom", async ({
     mount,
     page,
   }) => {
@@ -629,7 +631,7 @@ test.describe("test background scroll when tabbing", () => {
     await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
   });
 
-  test("tabbing backward through the dialog and back to the start should not make the background scroll to the bottom", async ({
+  test("@flaky tabbing backward through the dialog and back to the start should not make the background scroll to the bottom", async ({
     mount,
     page,
   }) => {
@@ -641,7 +643,7 @@ test.describe("test background scroll when tabbing", () => {
     await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
   });
 
-  test("tabbing forward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", async ({
+  test("@flaky tabbing forward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", async ({
     mount,
     page,
   }) => {
@@ -657,7 +659,7 @@ test.describe("test background scroll when tabbing", () => {
     await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
   });
 
-  test("tabbing backward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", async ({
+  test("@flaky tabbing backward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", async ({
     mount,
     page,
   }) => {

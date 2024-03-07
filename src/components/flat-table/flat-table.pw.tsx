@@ -607,7 +607,7 @@ test.describe("Prop tests", () => {
     ).toBeInViewport();
   });
 
-  test(`should render with multiple sticky row headers, stickyAlignment set to right`, async ({
+  test(`@flaky should render with multiple sticky row headers, stickyAlignment set to right`, async ({
     mount,
     page,
   }) => {
@@ -2566,7 +2566,7 @@ test.describe("Prop tests", () => {
     await expect(flatTableBodyRowByPosition(page, 0)).toBeFocused();
   });
 
-  test(`should render with the tabIndex on the first cell in a highlighted row when the loading state has finished and remove it when row is no longer highlighted`, async ({
+  test(`@flaky should render with the tabIndex on the first cell in a highlighted row when the loading state has finished and remove it when row is no longer highlighted`, async ({
     mount,
     page,
   }) => {
@@ -2847,7 +2847,7 @@ test.describe("Prop tests", () => {
     }
   });
 
-  test(`should navigate to previous page by clicking Previous link with the Spacebar`, async ({
+  test(`@flaky should navigate to previous page by clicking Previous link with the Spacebar`, async ({
     mount,
     page,
   }) => {

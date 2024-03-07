@@ -1194,7 +1194,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await expect(callbackCount).toBe(1);
   });
 
-  test("should call onOpen when select is opened by focusing the input", async ({
+  test("@flaky should call onOpen when select is opened by focusing the input", async ({
     mount,
     page,
   }) => {

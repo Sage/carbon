@@ -589,7 +589,7 @@ test.describe("Props tests for Textarea component", () => {
   });
 
   (["top", "bottom", "left", "right"] as const).forEach((position) => {
-    test(`should render component with tooltip positioned to the ${position}`, async ({
+    test(`@flaky should render component with tooltip positioned to the ${position}`, async ({
       mount,
       page,
     }) => {

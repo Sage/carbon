@@ -133,7 +133,7 @@ test.describe("Accessibility tests for Anchor Navigation component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass when rendered in full screen dialog", async ({
+  test("@flaky should pass when rendered in full screen dialog", async ({
     mount,
     page,
   }) => {

@@ -146,10 +146,7 @@
         ]
       },
       "plugins": ["@typescript-eslint"],
-      "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
-      ],
+      "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
       "settings": {
         "mdx/code-blocks": true,
         "react": {
@@ -232,7 +229,17 @@
     },
     {
       "files": ["*.pw.ts*", "*.test-pw.ts*", "playwright/**/*.ts*"],
+      "plugins": ["playwright"],
       "rules": {
+        "playwright/valid-title": [
+          "warn",
+          {
+            "mustNotMatch": [
+              "@flaky",
+              "Unaddressed flaky tests decrease reliability. Either refactor the test or investigate the root cause."
+            ]
+          }
+        ],
         "no-return-await": "warn",
         "no-return-assign": "warn",
         "no-await-in-loop": "warn",
