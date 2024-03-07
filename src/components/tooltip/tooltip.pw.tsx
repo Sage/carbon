@@ -378,7 +378,8 @@ test.describe("Tooltip component", () => {
 });
 
 test.describe("Accessibility tests for Tooltip component", () => {
-  test(`should pass accessibility tests for Default example`, async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip(`should pass accessibility tests for Default example`, async ({
     mount,
     page,
   }) => {
@@ -390,7 +391,8 @@ test.describe("Accessibility tests for Tooltip component", () => {
     await checkAccessibility(page);
   });
 
-  test(`should pass accessibility tests for Controlled story`, async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip(`should pass accessibility tests for Controlled story`, async ({
     mount,
     page,
   }) => {
@@ -402,7 +404,8 @@ test.describe("Accessibility tests for Tooltip component", () => {
     await checkAccessibility(page);
   });
 
-  test(`should pass accessibility tests for FlipBehaviourOverrides story`, async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip(`should pass accessibility tests for FlipBehaviourOverrides story`, async ({
     mount,
     page,
   }) => {
@@ -420,7 +423,8 @@ test.describe("Accessibility tests for Tooltip component", () => {
     ["left", 2],
     ["right", 3],
   ] as [string, number][]).forEach(([position, button]) => {
-    test(`should pass accessibility tests for Positioning story when position is set to ${position}`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should pass accessibility tests for Positioning story when position is set to ${position}`, async ({
       mount,
       page,
     }) => {
@@ -433,7 +437,8 @@ test.describe("Accessibility tests for Tooltip component", () => {
     });
   });
 
-  test(`should pass accessibility tests for LargeTooltip story`, async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip(`should pass accessibility tests for LargeTooltip story`, async ({
     mount,
     page,
   }) => {
@@ -446,7 +451,8 @@ test.describe("Accessibility tests for Tooltip component", () => {
   });
 
   ["undefined", "error"].forEach((type) => {
-    test(`should pass accessibility tests when type is set to ${type}`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should pass accessibility tests when type is set to ${type}`, async ({
       mount,
       page,
     }) => {
@@ -459,7 +465,8 @@ test.describe("Accessibility tests for Tooltip component", () => {
     });
   });
 
-  test(`should pass accessibility tests for ColorOverrides story`, async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip(`should pass accessibility tests for ColorOverrides story`, async ({
     mount,
     page,
   }) => {

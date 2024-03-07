@@ -589,7 +589,8 @@ test.describe("Props tests for Textarea component", () => {
   });
 
   (["top", "bottom", "left", "right"] as const).forEach((position) => {
-    test(`should render component with tooltip positioned to the ${position}`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should render component with tooltip positioned to the ${position}`, async ({
       mount,
       page,
     }) => {

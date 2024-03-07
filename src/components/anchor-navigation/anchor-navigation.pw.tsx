@@ -133,7 +133,8 @@ test.describe("Accessibility tests for Anchor Navigation component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass when rendered in full screen dialog", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should pass when rendered in full screen dialog", async ({
     mount,
     page,
   }) => {

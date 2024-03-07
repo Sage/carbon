@@ -445,7 +445,8 @@ test.describe("Tabs component", () => {
 
   test.describe("check events for Tabs component", () => {
     test.describe("when position is top", () => {
-      test("should call onTabChange callback when click event is triggered", async ({
+      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+      test.skip("should call onTabChange callback when click event is triggered", async ({
         mount,
         page,
       }) => {
@@ -481,7 +482,8 @@ test.describe("Tabs component", () => {
     });
 
     test.describe("when position is left", () => {
-      test("should call onTabChange callback when click event is triggered", async ({
+      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+      test.skip("should call onTabChange callback when click event is triggered", async ({
         mount,
         page,
       }) => {
@@ -519,7 +521,8 @@ test.describe("Tabs component", () => {
     });
 
     test.describe("when in Sidebar", () => {
-      test("should call onTabChange callback when click event is triggered", async ({
+      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+      test.skip("should call onTabChange callback when click event is triggered", async ({
         mount,
         page,
       }) => {

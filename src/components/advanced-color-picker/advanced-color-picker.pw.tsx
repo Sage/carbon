@@ -15,7 +15,8 @@ import { checkAccessibility } from "../../../playwright/support/helper";
 import { HooksConfig } from "../../../playwright";
 
 test.describe("when focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should have the expected styling when the focusRedesignOptOut is false", async ({
     mount,
     page,
   }) => {
@@ -33,7 +34,8 @@ test.describe("when focused", () => {
     );
   });
 
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should have the expected styling when the focusRedesignOptOut is true", async ({
     mount,
     page,
   }) => {

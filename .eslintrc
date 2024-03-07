@@ -139,10 +139,7 @@
         "ecmaFeatures": {
           "jsx": true
         },
-        "project": [
-          "./tsconfig.json",
-          "./tsconfig-playwright.json",
-        ]
+        "project": ["./tsconfig.json", "./tsconfig-playwright.json"]
       },
       "plugins": ["@typescript-eslint"],
       "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
@@ -213,11 +210,22 @@
     },
     {
       "files": ["*.pw.ts*", "*.test-pw.ts*", "playwright/**/*.ts*"],
+      "plugins": ["playwright"],
       "rules": {
+        "playwright/no-commented-out-tests": "error",
+        "playwright/no-focused-test": "error",
+        "playwright/no-skipped-test": "warn",
         "no-return-await": "warn",
         "no-return-assign": "warn",
         "no-await-in-loop": "warn",
         "@typescript-eslint/no-floating-promises": "error"
+      },
+      "settings": {
+        "playwright": {
+          "messages": {
+            "noSkippedTest": "Test skipped. If unresolved, raise a JIRA ticket or GitHub issue, then reference it in a code comment above."
+          }
+        }
       }
     }
   ]

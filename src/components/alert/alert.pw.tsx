@@ -157,7 +157,7 @@ test.describe("should render Alert component", () => {
     expect(callbackCount).toBe(1);
   });
 
-  // test skipped until we can investigate and fix issue with focus in Modals FE-6245
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip("setting the topModalOverride prop should ensure the Alert is rendered on top of any others", async ({
     mount,
     page,
