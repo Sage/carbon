@@ -197,120 +197,37 @@ export const MultiSelectLazyLoadTwiceComponent = (
 export const MultiSelectObjectAsValueComponent = (
   props: Partial<MultiSelectProps>
 ) => {
+  const optionListValues = [
+    { id: "Amber", value: 1, text: "Amber" },
+    { id: "Black", value: 2, text: "Black" },
+    { id: "Blue", value: 3, text: "Blue" },
+    { id: "Brown", value: 4, text: "Brown" },
+    { id: "Green", value: 5, text: "Green" },
+    { id: "Orange", value: 6, text: "Orange" },
+    { id: "Pink", value: 7, text: "Pink" },
+    { id: "Purple", value: 8, text: "Purple" },
+    { id: "Red", value: 9, text: "Red" },
+    { id: "White", value: 10, text: "White" },
+    { id: "Yellow", value: 11, text: "Yellow" },
+  ];
+
   const [value, setValue] = useState<Record<string, unknown>[]>([
-    {
-      id: "Green",
-      value: 5,
-      text: "Green",
-    },
+    optionListValues[4],
   ]);
-  const optionList = useRef([
-    <Option
-      text="Amber"
-      key="Amber"
-      value={{
-        id: "Amber",
-        value: 1,
-        text: "Amber",
-      }}
-    />,
-    <Option
-      text="Black"
-      key="Black"
-      value={{
-        id: "Black",
-        value: 2,
-        text: "Black",
-      }}
-    />,
-    <Option
-      text="Blue"
-      key="Blue"
-      value={{
-        id: "Blue",
-        value: 3,
-        text: "Blue",
-      }}
-    />,
-    <Option
-      text="Brown"
-      key="Brown"
-      value={{
-        id: "Brown",
-        value: 4,
-        text: "Brown",
-      }}
-    />,
-    <Option
-      text="Green"
-      key="Green"
-      value={{
-        id: "Green",
-        value: 5,
-        text: "Green",
-      }}
-    />,
-    <Option
-      text="Orange"
-      key="Orange"
-      value={{
-        id: "Orange",
-        value: 6,
-        text: "Orange",
-      }}
-    />,
-    <Option
-      text="Pink"
-      key="Pink"
-      value={{
-        id: "Pink",
-        value: 7,
-        text: "Pink",
-      }}
-    />,
-    <Option
-      text="Purple"
-      key="Purple"
-      value={{
-        id: "Purple",
-        value: 8,
-        text: "Purple",
-      }}
-    />,
-    <Option
-      text="Red"
-      key="Red"
-      value={{
-        id: "Red",
-        value: 9,
-        text: "Red",
-      }}
-    />,
-    <Option
-      text="White"
-      key="White"
-      value={{
-        id: "White",
-        value: 10,
-        text: "White",
-      }}
-    />,
-    <Option
-      text="Yellow"
-      key="Yellow"
-      value={{
-        id: "Yellow",
-        value: 11,
-        text: "Yellow",
-      }}
-    />,
-  ]);
+
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue((event.target.value as unknown) as Record<string, unknown>[]);
   }
   return (
-    <MultiSelect value={value} onChange={onChangeHandler} {...props}>
-      {optionList.current}
+    <MultiSelect
+      label="color"
+      value={value}
+      onChange={onChangeHandler}
+      {...props}
+    >
+      {optionListValues.map((option) => (
+        <Option key={option.id} text={option.text} value={option} />
+      ))}
     </MultiSelect>
   );
 };

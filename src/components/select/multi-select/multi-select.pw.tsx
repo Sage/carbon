@@ -711,7 +711,7 @@ test.describe("MultiSelect component", () => {
     await expect(selectListWrapper(page)).toBeVisible();
   });
 
-  test("should open correct list and select one when an object is already set as a value", async ({
+  test("should select another option when one is already selected and the value is an object", async ({
     mount,
     page,
   }) => {

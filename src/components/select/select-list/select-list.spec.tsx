@@ -194,6 +194,41 @@ function getSelectListWithDisabledOption(props: Partial<SelectListProps>) {
   return <WrapperComponent />;
 }
 
+function getSelectListWithObjectAsValues(props: Partial<SelectListProps>) {
+  const defaultProps = {
+    onSelect: () => {},
+    onSelectListClose: () => {},
+    isOpen: true,
+    id: props.id,
+  };
+
+  const WrapperComponent = (wrapperProps: Partial<SelectListProps>) => {
+    const mockRef = useRef(null);
+
+    return (
+      <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
+        <Option
+          id={defaultProps.id}
+          value={{ id: "red", value: 1 }}
+          text="red"
+        />
+        <Option
+          id={defaultProps.id}
+          value={{ id: "green", value: 2 }}
+          text="green"
+        />
+        <Option
+          id={defaultProps.id}
+          value={{ id: "blue", value: 3 }}
+          text="blue"
+        />
+      </SelectList>
+    );
+  };
+
+  return <WrapperComponent />;
+}
+
 function renderSelectList(props = {}, renderer = mount, enzymeOptions = {}) {
   return renderer(getSelectList(props), enzymeOptions);
 }
@@ -208,6 +243,10 @@ function renderOptionRowSelectList(
 
 function renderGroupedSelectList(props = {}, renderer = mount) {
   return renderer(getGroupedSelectList(props));
+}
+
+function renderSelectListWithObjects(props = {}, renderer = mount) {
+  return renderer(getSelectListWithObjectAsValues(props));
 }
 
 function renderWithVirtualScroll(
@@ -580,6 +619,26 @@ describe("SelectList", () => {
     });
   });
 
+  describe("when Option values are objects", () => {
+    it("then the onSelect prop should be called with expected data", () => {
+      const onSelect = jest.fn();
+      const wrapper = renderSelectListWithObjects({
+        highlightedValue: { id: "green", value: 2 },
+        onSelect,
+      });
+
+      wrapper.find(StyledOption).first().simulate("click");
+
+      expect(onSelect).toHaveBeenCalledWith({
+        id: mockedGuid,
+        selectionType: "click",
+        text: "red",
+        value: { id: "red", value: 1 },
+        selectionConfirmed: true,
+      });
+    });
+  });
+
   describe.each([
     ["Option", renderSelectList, StyledOption],
     ["OptionRow", renderOptionRowSelectList, StyledOptionRow],
@@ -721,7 +780,7 @@ describe("SelectList", () => {
       );
     });
 
-    it("and is in multiColum mode, then a Loader Component should be rendered", () => {
+    it("and is in multiColumn mode, then a Loader Component should be rendered", () => {
       const wrapper = renderOptionRowSelectList({
         isLoading: true,
         onListAction: () => {},
