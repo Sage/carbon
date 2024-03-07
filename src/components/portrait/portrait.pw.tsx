@@ -514,7 +514,7 @@ test.describe("Accessibility tests for Portrait component", () => {
   });
 
   testData.forEach((tooltipMessage) => {
-    test(`should pass accessibility checks when toolTipMessage is ${tooltipMessage}`, async ({
+    test(`@flaky should pass accessibility checks when toolTipMessage is ${tooltipMessage}`, async ({
       mount,
       page,
     }) => {
@@ -528,7 +528,7 @@ test.describe("Accessibility tests for Portrait component", () => {
   });
 
   testData.forEach((tooltipId) => {
-    test(`should pass accessibility checks when tooltipId is ${tooltipId}`, async ({
+    test(`@flaky should pass accessibility checks when tooltipId is ${tooltipId}`, async ({
       mount,
       page,
     }) => {
@@ -550,7 +550,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     await checkAccessibility(page);
   });
 
-  test("should pass accessibility checks with a tooltip, when visibility prop is true", async ({
+  test("@flaky should pass accessibility checks with a tooltip, when visibility prop is true", async ({
     mount,
     page,
   }) => {
@@ -562,7 +562,7 @@ test.describe("Accessibility tests for Portrait component", () => {
   });
 
   ["top", "bottom", "left", "right"].forEach((tooltipPosition) => {
-    test(`should pass accessibility checks with tooltip positioned ${tooltipPosition}`, async ({
+    test(`@flaky should pass accessibility checks with tooltip positioned ${tooltipPosition}`, async ({
       mount,
       page,
     }) => {
@@ -573,7 +573,7 @@ test.describe("Accessibility tests for Portrait component", () => {
     });
   });
 
-  test("should pass accessibility checks with a tooltip error", async ({
+  test("@flaky should pass accessibility checks with a tooltip error", async ({
     mount,
     page,
   }) => {
@@ -584,7 +584,7 @@ test.describe("Accessibility tests for Portrait component", () => {
   });
 
   [SIZE.MEDIUM, SIZE.LARGE].forEach((tooltipSize) => {
-    test(`should pass accessibility checks with a ${tooltipSize} size tooltip`, async ({
+    test(`@flaky should pass accessibility checks with a ${tooltipSize} size tooltip`, async ({
       mount,
       page,
     }) => {

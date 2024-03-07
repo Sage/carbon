@@ -36,8 +36,9 @@
     "type-check:watch": "concurrently --names 'src,cypress,playwright' -c 'cyan,yellow,magenta' 'npm run type-check:carbon -- --watch' 'npm run type-check:cypress -- --watch' 'npm run type-check:playwright -- --watch'",
     "build:types": "tsc -p tsconfig-build.json --emitDeclarationOnly --outDir ./lib && tsc -p tsconfig-build.json --emitDeclarationOnly --outDir ./esm",
     "prepare": "husky install",
-    "test:ct": "playwright test -c playwright-ct.config.ts",
-    "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
+    "test:ct": "playwright test -c playwright-ct.config.ts --grep-invert @flaky",
+    "test:ct:flaky-tests": "playwright test -c playwright-ct.config.ts --grep @flaky",
+    "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts --grep-invert @flaky",
     "test:ct:report": "npx playwright show-report",
     "clear-playwright-cache": "rimraf ./playwright/.cache"
   },

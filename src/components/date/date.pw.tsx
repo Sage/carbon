@@ -904,7 +904,7 @@ test.describe("Functionality tests", () => {
 });
 
 test.describe("When nested inside of a Dialog component", () => {
-  test("should not close the Dialog when Datepicker is closed by pressing an escape key", async ({
+  test("@flaky should not close the Dialog when Datepicker is closed by pressing an escape key", async ({
     mount,
     page,
   }) => {

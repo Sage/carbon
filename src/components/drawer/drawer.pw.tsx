@@ -124,7 +124,7 @@ test.describe("check props for Drawer component", () => {
   );
 
   ["3s", "15s"].forEach((animationDuration) => {
-    test(`should check animation time is set to ${animationDuration}`, async ({
+    test(`@flaky should check animation time is set to ${animationDuration}`, async ({
       mount,
       page,
     }) => {
@@ -357,7 +357,7 @@ test.describe("Accessibility tests for Drawer component", () => {
   });
 
   ["3s", "15s"].forEach((animationDuration) => {
-    test(`should pass accessibility tests when animation time is set to ${animationDuration}`, async ({
+    test(`@flaky should pass accessibility tests when animation time is set to ${animationDuration}`, async ({
       mount,
       page,
     }) => {

@@ -164,7 +164,7 @@ test.describe("Prop tests for Sidebar component", () => {
   });
 
   [true, false].forEach((disableEscKeyValue) => {
-    test(`verify visibility of sidebar component when disableEscKey is ${disableEscKeyValue} and Escape key is pressed`, async ({
+    test(`@flaky verify visibility of sidebar component when disableEscKey is ${disableEscKeyValue} and Escape key is pressed`, async ({
       mount,
       page,
     }) => {
@@ -288,7 +288,7 @@ test.describe("Prop tests for Sidebar component", () => {
     await expect(callbackCount).toEqual(1);
   });
 
-  test("should ensure the component is rendered on top of any other modals when the topModalOverride prop is true", async ({
+  test("@flaky should ensure the component is rendered on top of any other modals when the topModalOverride prop is true", async ({
     mount,
     page,
   }) => {
@@ -363,7 +363,7 @@ test.describe("Accessibility tests for Sidebar component", () => {
 });
 
 test.describe("Check background scroll when tabbing", () => {
-  test("tabbing forward through the sidebar and back to the start should not make the background scroll to the bottom", async ({
+  test("@flaky tabbing forward through the sidebar and back to the start should not make the background scroll to the bottom", async ({
     mount,
     page,
   }) => {
@@ -377,7 +377,7 @@ test.describe("Check background scroll when tabbing", () => {
     await expect(boxElement).not.toBeInViewport();
   });
 
-  test("tabbing backward through the sidebar and back to the start should not make the background scroll to the bottom", async ({
+  test("@flaky tabbing backward through the sidebar and back to the start should not make the background scroll to the bottom", async ({
     mount,
     page,
   }) => {
@@ -392,7 +392,7 @@ test.describe("Check background scroll when tabbing", () => {
     await expect(boxElement).not.toBeInViewport();
   });
 
-  test("tabbing forward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", async ({
+  test("@flaky tabbing forward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", async ({
     mount,
     page,
   }) => {
@@ -408,7 +408,7 @@ test.describe("Check background scroll when tabbing", () => {
     await expect(boxElement).not.toBeInViewport();
   });
 
-  test("tabbing backward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", async ({
+  test("@flaky tabbing backward through the sidebar and other focusable containers back to the start should not make the background scroll to the bottom", async ({
     mount,
     page,
   }) => {

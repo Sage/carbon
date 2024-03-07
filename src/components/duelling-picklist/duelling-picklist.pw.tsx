@@ -80,7 +80,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
     [1, 9],
     [7, 3],
   ].forEach(([items, leftItems]) => {
-    test(`should verify when ${items} item(s) are assigned that unassigned picklist has ${leftItems} items and assigned picklist has ${items} item(s)`, async ({
+    test(`@flaky should verify when ${items} item(s) are assigned that unassigned picklist has ${leftItems} items and assigned picklist has ${items} item(s)`, async ({
       mount,
       page,
     }) => {
@@ -105,7 +105,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
     });
   });
 
-  test(`should verify assigned picklist has 10 items when all items are added`, async ({
+  test(`@flaky should verify assigned picklist has 10 items when all items are added`, async ({
     mount,
     page,
   }) => {
@@ -182,7 +182,7 @@ test.describe(`should render Duelling-Picklist component`, () => {
   });
 
   [...keyToTrigger].forEach((pressed) => {
-    test(`should verify item is removed from assigned picklist when ${pressed} key is pressed`, async ({
+    test(`@flaky should verify item is removed from assigned picklist when ${pressed} key is pressed`, async ({
       mount,
       page,
     }) => {

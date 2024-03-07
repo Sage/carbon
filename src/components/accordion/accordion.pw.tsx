@@ -43,7 +43,7 @@ import {
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 
 test.describe("when focused", () => {
-  test("should have the expected styling when the focusRedesignOptOut is false", async ({
+  test("@flaky should have the expected styling when the focusRedesignOptOut is false", async ({
     mount,
     page,
   }) => {
@@ -61,7 +61,7 @@ test.describe("when focused", () => {
     );
   });
 
-  test("should have the expected styling when the focusRedesignOptOut is true", async ({
+  test("@flaky should have the expected styling when the focusRedesignOptOut is true", async ({
     mount,
     page,
   }) => {

@@ -448,7 +448,7 @@ test.describe("Tabs component", () => {
 
   test.describe("check events for Tabs component", () => {
     test.describe("when position is top", () => {
-      test("should call onTabChange callback when click event is triggered", async ({
+      test("@flaky should call onTabChange callback when click event is triggered", async ({
         mount,
         page,
       }) => {
@@ -484,7 +484,7 @@ test.describe("Tabs component", () => {
     });
 
     test.describe("when position is left", () => {
-      test("should call onTabChange callback when click event is triggered", async ({
+      test("@flaky should call onTabChange callback when click event is triggered", async ({
         mount,
         page,
       }) => {
@@ -522,7 +522,7 @@ test.describe("Tabs component", () => {
     });
 
     test.describe("when in Sidebar", () => {
-      test("should call onTabChange callback when click event is triggered", async ({
+      test("@flaky should call onTabChange callback when click event is triggered", async ({
         mount,
         page,
       }) => {
