@@ -31,9 +31,9 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
 
   const getButtonChildren = useCallback(
     () =>
-      document.querySelectorAll(
-        `[data-testid="${containerID}"] button`
-      ) as NodeListOf<HTMLButtonElement>,
+      document.querySelectorAll<HTMLButtonElement>(
+        `[data-role="${containerID}"] button`
+      ),
     []
   );
 
@@ -46,14 +46,14 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
 
   return (
     <>
-      <button type="button" ref={mainRef} data-testid={mainButtonID}>
+      <button type="button" ref={mainRef} data-role={mainButtonID}>
         Main Button
       </button>
-      <button type="button" data-testid={nextDOMElementID}>
+      <button type="button" data-role={nextDOMElementID}>
         Next Element in DOM
       </button>
       <div
-        data-testid={containerID}
+        data-role={containerID}
         role="presentation"
         onKeyDown={handleKeyDown}
       >

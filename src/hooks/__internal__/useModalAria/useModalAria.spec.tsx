@@ -282,13 +282,13 @@ describe("useModalAria", () => {
     beforeEach(() => {
       render(
         <CarbonProvider>
-          <div data-testid="old-aria-hidden" aria-hidden="false" />
+          <div data-role="old-aria-hidden" aria-hidden="false" />
           <ModalComponent openButtonText="open" closeButtonText="close" />
           {/* need to ts-ignore as inert is not recognised by React yet - see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/60822
           and https://github.com/facebook/react/pull/24730 */
           /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
           /* @ts-ignore:next-line */}
-          <div data-testid="old-inert" inert="foo" />
+          <div data-role="old-inert" inert="foo" />
         </CarbonProvider>
       );
     });
