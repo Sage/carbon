@@ -64,6 +64,7 @@ import {
   MenuDividerComponent,
   InGlobalHeaderStory,
   SubMenuWithVeryLongLabel,
+  MenuSegmentTitleComponentWithAdditionalMenuItem,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
 import { HooksConfig } from "../../../playwright";
@@ -2327,6 +2328,38 @@ test.describe(
       await expect(subMenuBlock).toHaveCSS("border-radius", "0px 0px 8px 8px");
       const subMenu2 = submenu(page).locator("a").last();
       await expect(subMenu2).toHaveCSS("border-radius", "0px 0px 8px 8px");
+    });
+
+    test(`should render with the expected border radius styling on the last MenuItem in a segment block`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuSegmentTitleComponent />);
+
+      const subMenu = submenu(page).nth(1);
+      await subMenu.hover();
+      const lastMenuItem = submenu(page).locator("a").last();
+      await lastMenuItem.focus();
+      await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
+    });
+
+    test(`should render with the expected border radius styling on the last MenuItem in a segment block when it is not the last menu item in the whole submenu`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuSegmentTitleComponentWithAdditionalMenuItem />);
+
+      const subMenu = submenu(page).nth(1);
+      await subMenu.hover();
+      const lastMenuItemInLastSegment = page.getByRole("link", {
+        name: "Last Segment Child",
+      });
+      await lastMenuItemInLastSegment.focus();
+      await expect(lastMenuItemInLastSegment).toHaveCSS("border-radius", "0px");
+
+      const lastMenuItem = submenu(page).locator("a").last();
+      await lastMenuItem.focus();
+      await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
     });
 
     test(`should render with the expected border radius styling on the Submenu Scrollable Block`, async ({

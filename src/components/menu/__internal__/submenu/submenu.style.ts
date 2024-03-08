@@ -1,12 +1,15 @@
 import styled, { css } from "styled-components";
+import StyledScrollableBlock from "../../../menu/scrollable-block/scrollable-block.style";
 import { baseTheme } from "../../../../style/themes";
 import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
+import StyledBox from "../../../box/box.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import StyledIcon from "../../../icon/icon.style";
 import menuConfigVariants from "../../menu.config";
 import { SubmenuProps } from "./submenu.component";
 import { MenuType } from "../../menu.context";
+import { StyledSegmentChildren } from "../../menu-segment-title/menu-segment-title.style";
 
 interface SharedStyleProps {
   inFullscreenView?: boolean;
@@ -23,6 +26,7 @@ interface StyledSubmenuProps
     Pick<SubmenuProps, "variant"> {
   submenuDirection?: string;
   maxHeight?: string;
+  applyFocusRadiusStyling: boolean;
 }
 
 const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
@@ -59,6 +63,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     variant,
     inFullscreenView,
     maxHeight,
+    applyFocusRadiusStyling,
   }) => css`
     ${!inFullscreenView &&
     menuType &&
@@ -96,6 +101,40 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       ${StyledMenuItem}:last-child > div {
         border-bottom-left-radius: var(--borderRadius100);
         border-bottom-right-radius: var(--borderRadius100);
+      }
+
+      & ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type a,
+      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type button,
+      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type > span,
+      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type > div {
+        border-bottom-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius000);
+
+        :focus {
+          border-bottom-right-radius: ${applyFocusRadiusStyling
+            ? "var(--borderRadius100)"
+            : "var(--borderRadius000)"};
+          border-bottom-left-radius: ${applyFocusRadiusStyling
+            ? "var(--borderRadius100)"
+            : "var(--borderRadius000)"};
+        }
+      }
+
+      &&&& ${StyledScrollableBlock} {
+        ${StyledBox} {
+          border-bottom-right-radius: var(--borderRadius000);
+          border-bottom-left-radius: ${applyFocusRadiusStyling
+            ? "var(--borderRadius100)"
+            : "var(--borderRadius000)"};
+
+          ${StyledMenuItem}:last-child ${StyledLink}, ${StyledMenuItem}:last-child a,
+          ${StyledMenuItem}:last-child button {
+            border-bottom-right-radius: var(--borderRadius000);
+            border-bottom-left-radius: ${applyFocusRadiusStyling
+              ? "var(--borderRadius100)"
+              : "var(--borderRadius000)"};
+          }
+        }
       }
     `}
 

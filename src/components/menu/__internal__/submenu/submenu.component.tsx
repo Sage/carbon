@@ -98,7 +98,9 @@ const Submenu = React.forwardRef<
     }: SubmenuProps,
     ref
   ) => {
-    const submenuRef = useRef<HTMLUListElement & HTMLDivElement>(null);
+    const [submenuRef, setSubmenuRef] = useState<
+      HTMLUListElement | HTMLDivElement | null
+    >(null);
     const submenuId = useRef(guid());
     const menuContext = useContext(MenuContext);
     const {
@@ -111,8 +113,10 @@ const Submenu = React.forwardRef<
     const [submenuFocusId, setSubmenuFocusId] = useState<string | null>(null);
     const [submenuItemIds, setSubmenuItemIds] = useState<(string | null)[]>([]);
     const [characterString, setCharacterString] = useState("");
+    const [applyFocusRadius, setApplyFocusRadius] = useState<boolean>(false);
     const shiftTabPressed = useRef(false);
     const focusFirstMenuItemOnOpen = useRef(false);
+
     const numberOfChildren = submenuItemIds.length;
 
     const { submenuMaxHeight } = useContext(FixedNavigationBarContext);
@@ -120,12 +124,12 @@ const Submenu = React.forwardRef<
     const onSubmenuOpen = useStableCallback(onSubmenuOpenProp);
 
     const blockIndex = useMemo(() => {
-      const items = submenuRef.current?.querySelectorAll(BLOCK_INDEX_SELECTOR);
+      const items = submenuRef?.querySelectorAll(BLOCK_INDEX_SELECTOR);
 
       if (items && submenuOpen && numberOfChildren) {
         const childrenArray = Array.from(items);
 
-        const scrollableBlock = submenuRef.current?.querySelector(
+        const scrollableBlock = submenuRef?.querySelector(
           `[data-component='${SCROLLABLE_BLOCK}']`
         );
 
@@ -141,7 +145,7 @@ const Submenu = React.forwardRef<
       }
 
       return -1;
-    }, [submenuOpen, numberOfChildren]);
+    }, [submenuOpen, numberOfChildren, submenuRef]);
 
     const characterTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -163,6 +167,51 @@ const Submenu = React.forwardRef<
       setSubmenuOpen(true);
       setOpenSubmenuId(submenuId.current);
     }, [setOpenSubmenuId]);
+
+    const lastMenuItemElement = useRef<Element | undefined>();
+
+    useEffect(() => {
+      const handleBorderRadiusStyling = () => {
+        // Finds all ul elements that are not submenus
+        const ulElements = Array.from(
+          submenuRef?.querySelectorAll("ul:not([data-component='submenu'])") ||
+            /* istanbul ignore next */ []
+        );
+
+        // Terminate early if there are no ul elements as we have nothing we need to apply styles to.
+        if (ulElements.length === 0) return;
+
+        // Get the last menu item in the submenu
+        const lastMenuItem = Array.from(
+          submenuRef?.querySelectorAll("[data-component='menu-item']") ||
+            /* istanbul ignore next */ []
+        ).pop();
+
+        lastMenuItemElement.current = lastMenuItem;
+
+        // Get the last segment block
+        const lastSegmentBlock = ulElements.pop();
+
+        // Get all the menu items from the last segment block
+        const segmentBlockMenuItems = Array.from(
+          lastSegmentBlock?.querySelectorAll("[data-component='menu-item']") ||
+            /* istanbul ignore next */ []
+        );
+
+        // Get the last menu item in the last segment block
+        const lastMenuItemInSegmentBlock = segmentBlockMenuItems.pop();
+        // Check if the last item in the segment block is the same as the last MenuItem in the submenu
+        const menuItemsMatch =
+          !!lastMenuItemInSegmentBlock &&
+          lastMenuItemInSegmentBlock === lastMenuItem;
+
+        setApplyFocusRadius(menuItemsMatch);
+      };
+
+      if (submenuOpen && submenuRef) {
+        handleBorderRadiusStyling();
+      }
+    }, [submenuOpen, submenuRef]);
 
     useEffect(() => {
       if (submenuOpen && onSubmenuOpen) {
@@ -258,6 +307,7 @@ const Submenu = React.forwardRef<
           if (Events.isUpKey(event)) {
             event.preventDefault();
             shiftTabPressed.current = false;
+            setApplyFocusRadius(false);
 
             if (nextIndex > 0) {
               nextIndex -= 1;
@@ -340,10 +390,8 @@ const Submenu = React.forwardRef<
 
     useEffect(() => {
       /* istanbul ignore else */
-      if (submenuRef.current && children) {
-        const items = submenuRef.current?.querySelectorAll(
-          ALL_CHILDREN_SELECTOR
-        );
+      if (submenuRef && children) {
+        const items = submenuRef?.querySelectorAll(ALL_CHILDREN_SELECTOR);
 
         /* istanbul ignore else */
         if (items) {
@@ -352,7 +400,7 @@ const Submenu = React.forwardRef<
           );
         }
       }
-    }, [children, submenuOpen]);
+    }, [children, submenuOpen, submenuRef]);
 
     useEffect(() => {
       if (
@@ -382,7 +430,7 @@ const Submenu = React.forwardRef<
     };
 
     useEffect(() => {
-      const items = submenuRef.current?.querySelectorAll(ALL_CHILDREN_SELECTOR);
+      const items = submenuRef?.querySelectorAll(ALL_CHILDREN_SELECTOR);
       if (items && characterString !== "") {
         const submenuChildren = Array.from(items);
         const nextItem = characterNavigation(characterString, submenuChildren);
@@ -391,7 +439,7 @@ const Submenu = React.forwardRef<
           setSubmenuFocusId(nextItem.id);
         }
       }
-    }, [characterString, submenuItemIds]);
+    }, [submenuRef, characterString, submenuItemIds]);
 
     if (inFullscreenView) {
       return (
@@ -420,7 +468,8 @@ const Submenu = React.forwardRef<
             variant={variant}
             menuType={menuType}
             inFullscreenView={inFullscreenView}
-            ref={submenuRef}
+            ref={setSubmenuRef}
+            applyFocusRadiusStyling={false}
           >
             <SubmenuContext.Provider
               value={{
@@ -443,7 +492,7 @@ const Submenu = React.forwardRef<
         onMouseLeave={() => closeSubmenu()}
         isSubmenuOpen={submenuOpen}
         onClick={handleClickInside}
-        ref={submenuRef}
+        ref={setSubmenuRef}
       >
         <StyledMenuItemWrapper
           {...rest}
@@ -474,6 +523,7 @@ const Submenu = React.forwardRef<
             menuType={menuType}
             role={blockIndex === 0 ? "presentation" : "list"}
             maxHeight={submenuMaxHeight}
+            applyFocusRadiusStyling={applyFocusRadius}
           >
             <SubmenuContext.Provider
               value={{
