@@ -185,10 +185,6 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
       table-layout: fixed;
       width: auto;
 
-      [data-component="icon"]:not([color]) {
-        color: var(--colorsActionMinor500);
-      }
-
       :focus-visible {
         outline: none;
       }

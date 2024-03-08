@@ -96,6 +96,10 @@ const StyledFlatTableRowHeader = styled.th.attrs(
           stickyAlignment === "right" ? "left" : "right"
         }-color: ${toColor(theme, verticalBorderColor)};
       `}
+
+      [data-component="icon"]:not([color]) {
+        color: var(--colorsActionMinor500);
+      }
     }
 
     ${expandable &&
