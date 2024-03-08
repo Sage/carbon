@@ -10,10 +10,11 @@ import { StyledLink } from "../../link/link.style";
 interface StyledScrollableBlockProps {
   menuType: MenuType;
   variant: VariantType;
+  applyRadiusStyling: boolean;
 }
 
 const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
-  ${({ menuType, variant }) => css`
+  ${({ menuType, variant, applyRadiusStyling }) => css`
     && ${StyledMenuItemWrapper} {
       background-color: ${variant === "default"
         ? menuConfigVariants[menuType].submenuItemBackground
@@ -27,7 +28,9 @@ const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
       ${StyledMenuItem}:last-child ${StyledLink},
       ${StyledMenuItem}:last-child a,
       ${StyledMenuItem}:last-child button {
-        border-bottom-left-radius: var(--borderRadius100);
+        border-bottom-left-radius: ${applyRadiusStyling
+          ? `var(--borderRadius100)`
+          : `var(--borderRadius000)`};
         border-bottom-right-radius: var(--borderRadius000);
       }
     }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import MenuContext from "../menu.context";
 import MenuItem, { VariantType } from "../menu-item";
@@ -22,6 +22,8 @@ export interface ScrollableBlockProps extends TagProps {
   parent?: React.ReactElement;
   /** the colour variant for the parent element, if different from the variant of the block */
   parentVariant?: VariantType;
+  /** private prop to allow radius styling to be applied */
+  applyRadiusStyling?: boolean;
 }
 
 export const ScrollableBlock = ({
@@ -41,11 +43,45 @@ export const ScrollableBlock = ({
     black: "dark",
   };
 
+  const [
+    shouldApplyRadiusStyles,
+    setShouldApplyRadiusStyles,
+  ] = useState<boolean>(true);
+
+  const scrollableBlock = document.querySelector(
+    '[data-component="submenu-scrollable-block"]'
+  );
+
+  const submenuBlock = document.querySelector('[data-component="submenu"]');
+
+  const listItems = scrollableBlock?.querySelectorAll(
+    '[data-component="menu-item"] li'
+  );
+
+  // Work out if the last item in the scrollable-block is visible
+  useEffect(() => {
+    if (!listItems || !submenuBlock) {
+      return;
+    }
+
+    const lastItemRect = listItems[
+      listItems.length - 1
+    ].getBoundingClientRect();
+
+    const isLastItemVisible =
+      lastItemRect.bottom < submenuBlock.getBoundingClientRect().bottom;
+
+    // If the last item is not visible then the radius styling should be applied
+    // as this means it is in the overflow of the scroll block.
+    setShouldApplyRadiusStyles(!isLastItemVisible);
+  }, [children, listItems, submenuBlock]);
+
   return (
     <StyledScrollableBlock
       {...tagComponent("submenu-scrollable-block", rest)}
       menuType={menuType}
       variant={variant}
+      applyRadiusStyling={shouldApplyRadiusStyles}
       {...rest}
     >
       {parent && (

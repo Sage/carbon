@@ -64,6 +64,7 @@ import {
   MenuDividerComponent,
   InGlobalHeaderStory,
   SubMenuWithVeryLongLabel,
+  MenuComponentScrollableWithSearch,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
 import { HooksConfig } from "../../../playwright";
@@ -2351,6 +2352,47 @@ test.describe(
       const subMenu = submenu(page).first();
       await subMenu.hover();
       const scrollableBlock = scrollBlock(page).first();
+      await expect(scrollableBlock).toHaveCSS(
+        "border-radius",
+        "0px 0px 0px 8px"
+      );
+      const scrollableItem = scrollBlock(page).locator("a").last();
+      await expect(scrollableItem).toHaveCSS(
+        "border-radius",
+        "0px 0px 0px 8px"
+      );
+    });
+
+    test(`should render with the expected border radius styling on the Submenu Scrollable Block when MenuItem is the only option visible`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollableWithSearch />);
+
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const searchInput = searchDefaultInput(page);
+      await searchInput.fill("app");
+      const scrollableBlock = scrollBlock(page);
+      await expect(scrollableBlock).toHaveCSS(
+        "border-radius",
+        "0px 0px 0px 8px"
+      );
+      const scrollableItem = scrollBlock(page).locator("a").last();
+      await expect(scrollableItem).toHaveCSS("border-radius", "0px");
+    });
+
+    test(`should render with the expected border radius styling on the Submenu Scrollable Block when last Menu Item is visible`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollableWithSearch />);
+
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const searchInput = searchDefaultInput(page);
+      await searchInput.fill("r");
+      const scrollableBlock = scrollBlock(page);
       await expect(scrollableBlock).toHaveCSS(
         "border-radius",
         "0px 0px 0px 8px"
