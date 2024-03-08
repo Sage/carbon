@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { action } from "@storybook/addon-actions";
-import { Menu, MenuItem, MenuFullscreen, MenuFullscreenProps } from ".";
+import {
+  Menu,
+  MenuItem,
+  MenuFullscreen,
+  MenuFullscreenProps,
+  MenuSegmentTitle,
+} from ".";
 import { MenuType } from "./menu.context";
 import Search from "../search";
 import NavigationBar, { NavigationBarProps } from "../navigation-bar";
 import GlobalHeader from "../global-header";
+import Box from "../box";
 
 export default {
   title: "Menu/Test",
@@ -14,6 +21,7 @@ export default {
     "InGlobalHeaderStory",
     "InNavigationBarStory",
     "MenuFullScreenKeysTest",
+    "MenuWithTwoSegments",
   ],
   parameters: {
     info: { disable: true },
@@ -256,5 +264,33 @@ export const MenuFullScreenKeysTest = () => {
       </MenuItem>
       <UpdatingSubmenu />
     </MenuFullscreen>
+  );
+};
+
+export const MenuWithTwoSegments = () => {
+  return (
+    <Box margin="0 25px">
+      <Menu menuType="black">
+        <MenuItem submenu="Menu Item">
+          <MenuItem href="#" minWidth="200px">
+            Submenu
+          </MenuItem>
+          <MenuSegmentTitle text="segment title 1" variant="alternate">
+            <MenuItem href="#" variant="alternate">
+              Menu Item 1
+            </MenuItem>
+          </MenuSegmentTitle>
+          <MenuSegmentTitle text="segment title 2" variant="alternate">
+            <MenuItem href="#" variant="alternate">
+              Menu Item 2
+            </MenuItem>
+            <MenuItem href="#" variant="alternate">
+              Menu Item 3
+            </MenuItem>
+          </MenuSegmentTitle>
+          <MenuItem href="#">Menu Item 4</MenuItem>
+        </MenuItem>
+      </Menu>
+    </Box>
   );
 };

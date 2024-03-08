@@ -7,6 +7,7 @@ import StyledSearch from "../../../search/search.style";
 import menuConfigVariants from "../../menu.config";
 import { SubmenuProps } from "./submenu.component";
 import { MenuType } from "../../menu.context";
+import { StyledSegmentChildren } from "../../menu-segment-title/menu-segment-title.style";
 
 interface SharedStyleProps {
   inFullscreenView?: boolean;
@@ -96,6 +97,14 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       ${StyledMenuItem}:last-child > div {
         border-bottom-left-radius: var(--borderRadius100);
         border-bottom-right-radius: var(--borderRadius100);
+      }
+
+      & ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type a,
+      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type button,
+      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type > span,
+      ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type > div {
+        border-bottom-right-radius: var(--borderRadius000);
+        border-bottom-left-radius: var(--borderRadius000);
       }
     `}
 
