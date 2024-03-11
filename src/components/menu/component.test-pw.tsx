@@ -490,6 +490,41 @@ export const MenuSegmentTitleComponent = (props: Partial<MenuTitleProps>) => {
   );
 };
 
+export const MenuSegmentTitleComponentWithAdditionalMenuItem = (
+  props: Partial<MenuTitleProps>
+) => {
+  return (
+    <Box mb={150}>
+      {menuTypes.map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType} display="flex">
+            <MenuItem href="#">Menu Item One</MenuItem>
+            <MenuItem href="#">Menu Item Two</MenuItem>
+            <MenuItem submenu="Menu Item Three">
+              <MenuItem href="#">Item Submenu One</MenuItem>
+              <MenuItem href="#">Item Submenu Two</MenuItem>
+              <MenuItem icon="settings" href="#">
+                Item Submenu Three
+              </MenuItem>
+              <MenuItem href="#">Item Submenu Four</MenuItem>
+            </MenuItem>
+            <MenuItem submenu="Menu Item Four" onClick={() => {}}>
+              <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+              <MenuSegmentTitle {...props} text="segment title">
+                <MenuItem href="#">Last Segment Child</MenuItem>
+              </MenuSegmentTitle>
+              <MenuItem href="#">Menu Item Five</MenuItem>
+            </MenuItem>
+          </Menu>
+        </div>
+      ))}
+    </Box>
+  );
+};
+
 export const ClosedMenuFullScreenWithButtons = () => {
   return (
     <>

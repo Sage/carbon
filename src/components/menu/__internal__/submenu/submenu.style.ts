@@ -24,6 +24,7 @@ interface StyledSubmenuProps
     Pick<SubmenuProps, "variant"> {
   submenuDirection?: string;
   maxHeight?: string;
+  applyFocusRadiusStyling?: boolean;
 }
 
 const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
@@ -60,6 +61,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     variant,
     inFullscreenView,
     maxHeight,
+    applyFocusRadiusStyling,
   }) => css`
     ${!inFullscreenView &&
     menuType &&
@@ -105,6 +107,15 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       ${StyledSegmentChildren} > ${StyledMenuItem}:last-of-type > div {
         border-bottom-right-radius: var(--borderRadius000);
         border-bottom-left-radius: var(--borderRadius000);
+
+        :focus {
+          border-bottom-right-radius: ${applyFocusRadiusStyling
+            ? "var(--borderRadius100)"
+            : "var(--borderRadius000)"};
+          border-bottom-left-radius: ${applyFocusRadiusStyling
+            ? "var(--borderRadius100)"
+            : "var(--borderRadius000)"};
+        }
       }
     `}
 
