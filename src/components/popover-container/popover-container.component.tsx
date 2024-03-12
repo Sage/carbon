@@ -21,6 +21,9 @@ import Events from "../../__internal__/utils/helpers/events";
 import FocusTrap from "../../__internal__/focus-trap";
 import { ModalContext } from "../modal";
 import useFocusPortalContent from "../../hooks/__internal__/useFocusPortalContent";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 
 export interface RenderOpenProps {
   tabIndex: number;
@@ -70,6 +73,7 @@ export interface RenderCloseProps {
   ) => void;
   ref: React.RefObject<HTMLButtonElement>;
   "aria-label": string;
+  closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
 }
 
 export const renderClose = ({
@@ -78,13 +82,17 @@ export const renderClose = ({
   onClick,
   ref,
   "aria-label": ariaLabel,
+  closeButtonDataProps,
 }: RenderCloseProps) => (
   <PopoverContainerCloseIcon
-    data-element={dataElement}
     tabIndex={tabIndex}
     onClick={onClick}
     ref={ref}
     aria-label={ariaLabel}
+    {...tagComponent("close", {
+      "data-element": dataElement,
+      ...closeButtonDataProps,
+    })}
   >
     <Icon type="close" />
   </PopoverContainerCloseIcon>
@@ -127,6 +135,8 @@ export interface PopoverContainerProps extends PaddingProps {
   openButtonAriaLabel?: string;
   /** Close button aria label */
   closeButtonAriaLabel?: string;
+  /** Data tag prop bag for close Button */
+  closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Container aria label */
   containerAriaLabel?: string;
   /** Disables the animation for the component */
@@ -156,6 +166,7 @@ export const PopoverContainer = ({
   openButtonAriaLabel,
   closeButtonAriaLabel = "close",
   containerAriaLabel,
+  closeButtonDataProps,
   disableAnimation = false,
   ...rest
 }: PopoverContainerProps) => {
@@ -263,6 +274,7 @@ export const PopoverContainer = ({
     onClick: handleCloseButtonClick,
     ref: closeButtonRef,
     "aria-label": closeButtonAriaLabel,
+    closeButtonDataProps,
   };
 
   const handleClickAway = (e: Event) => {

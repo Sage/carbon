@@ -10,7 +10,7 @@ import React, {
 import createGuid from "../../__internal__/utils/helpers/guid";
 import Modal, { ModalProps } from "../modal";
 import Heading from "../heading";
-import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 
 import {
@@ -81,6 +81,8 @@ export interface DialogProps extends ModalProps, TagProps {
   ) => void;
   /** Determines if the close icon is shown */
   showCloseIcon?: boolean;
+  /** Data tag prop bag for close Button */
+  closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Size of dialog, default size is 750px */
   size?: DialogSizes;
   /** Subtitle displayed at top of dialog */
@@ -126,6 +128,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       greyBackground = false,
       focusableContainers,
       topModalOverride,
+      closeButtonDataProps,
       ...rest
     },
     ref
@@ -223,10 +226,13 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
 
       return (
         <IconButton
-          data-element="close"
           aria-label={locale.dialog.ariaLabels.close()}
           onClick={onCancel}
           disabled={disableClose}
+          {...tagComponent("close", {
+            "data-element": "close",
+            ...closeButtonDataProps,
+          })}
         >
           <Icon type="close" />
         </IconButton>
