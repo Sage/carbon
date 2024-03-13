@@ -116,6 +116,7 @@ export const ButtonToggle = ({
     isDisabled,
     firstButton,
     childButtonCallbackRef,
+    hintTextId,
   } = useContext(ButtonToggleGroupContext);
   const callbackRef = (element: HTMLButtonElement | null) => {
     buttonRef.current = element;
@@ -125,19 +126,6 @@ export const ButtonToggle = ({
   };
 
   const inputGuid = useRef(guid());
-
-  let icon;
-
-  if (buttonIcon) {
-    icon = (
-      <ButtonToggleIcon
-        buttonIcon={buttonIcon}
-        buttonIconSize={buttonIconSize}
-        disabled={disabled}
-        hasContent={!!children}
-      />
-    );
-  }
 
   function handleClick(ev: React.MouseEvent<HTMLButtonElement>) {
     if (onClick) {
@@ -198,6 +186,7 @@ export const ButtonToggle = ({
       <StyledButtonToggle
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
+        aria-describedby={hintTextId || undefined}
         aria-pressed={!!isPressed}
         buttonIcon={buttonIcon}
         buttonIconSize={buttonIconSize}
@@ -217,7 +206,14 @@ export const ButtonToggle = ({
         allowDeselect={allowDeselect}
         ref={callbackRef}
       >
-        {icon}
+        {buttonIcon && (
+          <ButtonToggleIcon
+            buttonIcon={buttonIcon}
+            buttonIconSize={buttonIconSize}
+            disabled={disabled}
+            hasContent={!!children}
+          />
+        )}
         {children}
       </StyledButtonToggle>
     </StyledButtonToggleWrapper>

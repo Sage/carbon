@@ -10,7 +10,6 @@ import {
 
 export default {
   title: "Button Minor/Test",
-  includeStories: ["DefaultStory"],
   parameters: {
     info: { disable: true },
     chromatic: { disableSnapshot: true },
@@ -59,25 +58,6 @@ export const DefaultStory = (props: ButtonMinorProps) => (
     Example Button
   </ButtonMinor>
 );
-export const Default = (props: ButtonMinorProps) => <ButtonMinor {...props} />;
-export const ButtonMinorCustom = (props: ButtonMinorProps) => (
-  <ButtonMinor {...props}>Example Button</ButtonMinor>
-);
-export const ButtonMinorDifferentTypes = (props: ButtonMinorProps) => {
-  return (
-    <div>
-      <ButtonMinor buttonType="primary" {...props}>
-        Primary
-      </ButtonMinor>
-      <ButtonMinor buttonType="secondary" {...props}>
-        Secondary
-      </ButtonMinor>
-      <ButtonMinor buttonType="tertiary" {...props}>
-        Tertiary
-      </ButtonMinor>
-    </div>
-  );
-};
 DefaultStory.story = {
   name: "default",
   args: {
@@ -87,3 +67,16 @@ DefaultStory.story = {
     ...commonArgTypesButtonMinor,
   },
 };
+
+export const WithExternalLabels = () => (
+  <>
+    <h2 id="add-product">Add product addon</h2>
+    <p id="hint-text">You will not be charged until you checkout</p>
+    <ButtonMinor
+      buttonType="primary"
+      iconType="add"
+      aria-labelledby="add-product"
+      aria-describedby="hint-text"
+    />
+  </>
+);
