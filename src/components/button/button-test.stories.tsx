@@ -1320,3 +1320,19 @@ export const DisabledButtonsWithImageChildren = () => (
 
 DisabledButtonsWithImageChildren.storyName =
   "disabled button with img children";
+
+export const WithExternalLabels = () => (
+  <>
+    <h2 id="add-product">Add product addon</h2>
+    <p id="hint-text">You will not be charged until you checkout</p>
+    <Button
+      buttonType="primary"
+      iconType="add"
+      aria-labelledby="add-product"
+      aria-describedby="hint-text"
+    />
+  </>
+);
+WithExternalLabels.parameters = {
+  chromatic: { disableSnapshot: true },
+};
