@@ -1,3 +1,11 @@
+## [126.10.0](https://github.com/Sage/carbon/compare/v126.9.1...v126.10.0) (2024-03-13)
+
+
+### Features
+
+* **button-toggle-group:** add support for aria-describedby ([4097833](https://github.com/Sage/carbon/commit/40978336dd36fc647f89838a7ed5410c14d30544))
+* **button, button-minor:** add aria-labelledby and aria-describedby props ([fd017ca](https://github.com/Sage/carbon/commit/fd017ca9e8065c1f1316076f00e27127d324e1ec))
+
 ### [126.9.1](https://github.com/Sage/carbon/compare/v126.9.0...v126.9.1) (2024-02-29)
 
 
