@@ -1,3 +1,10 @@
+### [126.10.1](https://github.com/Sage/carbon/compare/v126.10.0...v126.10.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **action-popover:** add preventScroll to the focus method responsible for focusing each menu item ([55a241f](https://github.com/Sage/carbon/commit/55a241fdf472e4f83ae1fb624a19d68b41fbf892)), closes [#6485](https://github.com/Sage/carbon/issues/6485)
+
 ## [126.10.0](https://github.com/Sage/carbon/compare/v126.9.1...v126.10.0) (2024-03-13)
 
 
