@@ -12,12 +12,7 @@ import {
   expectConsoleOutput as expectError,
 } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
-import {
-  aegeanTheme,
-  baseTheme,
-  mintTheme,
-  sageTheme,
-} from "../../style/themes";
+import { baseTheme, mintTheme, sageTheme } from "../../style/themes";
 import { toColor } from "../../style/utils/color";
 import CarbonProvider from "../carbon-provider";
 import StyledIcon from "../icon/icon.style";
@@ -262,7 +257,7 @@ describe("Pill", () => {
   });
 
   describe("modern themes", () => {
-    describe.each([baseTheme, mintTheme, aegeanTheme, sageTheme])(
+    describe.each([baseTheme, mintTheme, sageTheme])(
       "when the pill is rendered",
       (theme) => {
         describe(`${theme.name} theme`, () => {

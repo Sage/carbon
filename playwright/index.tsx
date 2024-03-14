@@ -3,12 +3,7 @@ import { beforeMount } from "@playwright/experimental-ct-react17/hooks";
 import GlobalStyle from "../src/style/global-style";
 import CarbonProvider from "../src/components/carbon-provider/carbon-provider.component";
 import I18nProvider from "../src/components/i18n-provider/i18n-provider.component";
-import {
-  aegeanTheme,
-  mintTheme,
-  noTheme,
-  sageTheme,
-} from "../src/style/themes";
+import { mintTheme, noTheme, sageTheme } from "../src/style/themes";
 import enGB from "../src/locales/en-gb";
 import "../src/style/fonts.css";
 // import Locale from "../src/locales";
@@ -41,8 +36,6 @@ const mountedTheme = (theme: string) => {
       return sageTheme;
     case "mint":
       return mintTheme;
-    case "aegean":
-      return aegeanTheme;
     case "noMountedTheme":
       return noTheme;
     default:

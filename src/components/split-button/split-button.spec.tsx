@@ -15,7 +15,7 @@ import { SizeOptions } from "../button/button.component";
 import StyledButton from "../button/button.style";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import mintTheme from "../../style/themes/mint";
-import aegeanTheme from "../../style/themes/aegean";
+import sageTheme from "../../style/themes/sage";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -31,7 +31,7 @@ const sizes = ["small", "medium", "large"] as const;
 
 const themes = [
   ["mint", mintTheme],
-  ["aegean", aegeanTheme],
+  ["sage", sageTheme],
 ] as const;
 
 const singleButton = <Button key="testKey">Single Button</Button>;

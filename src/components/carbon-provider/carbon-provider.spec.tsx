@@ -3,7 +3,7 @@ import { shallow, mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
 
 import mintTheme from "../../style/themes/mint";
-import aegeanTheme from "../../style/themes/aegean";
+import sageTheme from "../../style/themes/sage";
 import CarbonProvider from "./carbon-provider.component";
 
 describe("CarbonProvider", () => {
@@ -20,11 +20,11 @@ describe("CarbonProvider", () => {
 
   it("renders with the passed theme", () => {
     const wrapper = shallow(
-      <CarbonProvider theme={aegeanTheme}>children</CarbonProvider>
+      <CarbonProvider theme={sageTheme}>children</CarbonProvider>
     );
 
     expect(wrapper.find(ThemeProvider).prop("theme")).toStrictEqual({
-      ...aegeanTheme,
+      ...sageTheme,
       roundedCornersOptOut: false,
       focusRedesignOptOut: false,
     });

@@ -2,16 +2,10 @@ import React from "react";
 
 import CarbonProvider from ".";
 import Button from "../button";
-import {
-  sageTheme,
-  mintTheme,
-  aegeanTheme,
-  baseTheme,
-  noTheme,
-} from "../../style/themes";
+import { sageTheme, mintTheme, baseTheme, noTheme } from "../../style/themes";
 
 const AllThemes = () => {
-  const themes = [sageTheme, mintTheme, aegeanTheme, baseTheme, noTheme];
+  const themes = [sageTheme, mintTheme, baseTheme, noTheme];
 
   return (
     <>

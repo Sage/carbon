@@ -9,7 +9,7 @@ import {
   StyledLayoutWrapper,
   StyledSelectedIndicator,
 } from "./tab-title.style";
-import { aegeanTheme } from "../../../../style/themes";
+import { sageTheme } from "../../../../style/themes";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import ValidationIcon from "../../../../__internal__/validations/validation-icon.component";
 import StyledValidationIcon from "../../../../__internal__/validations/validation-icon.style";
@@ -960,7 +960,7 @@ describe("TabTitle", () => {
     it('sets border-left to "none"', () => {
       wrapper = render(
         {
-          theme: aegeanTheme,
+          theme: sageTheme,
           size: "default",
           borders: true,
           noLeftBorder: true,
@@ -979,7 +979,7 @@ describe("TabTitle", () => {
     it('sets border-right to "none"', () => {
       wrapper = render(
         {
-          theme: aegeanTheme,
+          theme: sageTheme,
           size: "default",
           borders: true,
           noRightBorder: true,
