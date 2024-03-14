@@ -1,3 +1,15 @@
+## [127.0.0](https://github.com/Sage/carbon/compare/v126.10.1...v127.0.0) (2024-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* Carbon components will no longer expose `propTypes` in production builds - any
+functionality that relies on reading the `propTypes` of a component will break
+
+### Build System
+
+* remove proptypes from production bundles ([1929f14](https://github.com/Sage/carbon/commit/1929f14f7fe38d760ab6b51a38c22b53247eeef9))
+
 ### [126.10.1](https://github.com/Sage/carbon/compare/v126.10.0...v126.10.1) (2024-03-13)
 
 
