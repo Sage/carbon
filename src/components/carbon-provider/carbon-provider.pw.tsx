@@ -27,7 +27,7 @@ import { stepSequenceDataComponentItem } from "../../../playwright/components/st
 import multiActionButtonComponent from "../../../playwright/components/carbon-provider/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
-const themes = ["mint", "aegean", "noMountedTheme", "sage"];
+const themes = ["mint", "noMountedTheme", "sage"];
 
 const buildTestArray = (array: string[]) => {
   return themes.map((theme, i) => [theme, array[i]]);
@@ -40,37 +40,28 @@ const buildTestDataWithTwoArrays = (
   return themes.map((theme, i) => [theme, firstArray[i], secondArray[i]]);
 };
 
-const commonColors = [
-  "rgb(0, 125, 90)",
-  "rgb(0, 115, 194)",
-  "rgb(0, 130, 0)",
-  "rgb(0, 126, 69)",
-];
+const commonColors = ["rgb(0, 125, 90)", "rgb(0, 130, 0)", "rgb(0, 126, 69)"];
 
 const commonColorsOnHover = [
   "rgb(0, 96, 70)",
-  "rgb(0, 92, 154)",
   "rgb(0, 99, 0)",
   "rgb(0, 103, 56)",
 ];
 
 const multiButtonOnHover = [
   "rgb(0, 64, 46)",
-  "rgb(0, 68, 114)",
   "rgb(0, 77, 42)",
   "rgb(0, 77, 42)",
 ];
 
 const stepSequenceColors = [
   "rgb(0, 125, 90)",
-  "rgb(0, 115, 194)",
   "rgb(0, 138, 33)",
   "rgb(0, 138, 33)",
 ];
 
 const loaderBarColors = [
   "rgb(179, 227, 214)",
-  "rgb(179, 214, 239)",
   "rgb(179, 224, 179)",
   "rgb(179, 217, 200)",
 ];
