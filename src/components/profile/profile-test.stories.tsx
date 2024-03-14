@@ -34,6 +34,13 @@ DefaultStory.story = {
     name: "John Smith",
     text: "Some other text about John here",
     src: "",
+    m: "",
+    mt: "",
+    mr: "",
+    mb: "",
+    ml: "",
+    mx: "",
+    my: "",
   },
 };
 
