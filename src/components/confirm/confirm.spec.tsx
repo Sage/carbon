@@ -5,7 +5,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import Confirm, { ConfirmProps } from ".";
 import { StyledConfirmButtons, StyledConfirmHeading } from "./confirm.style";
 import Button from "../button/button.component";
-import { mintTheme } from "../../style/themes";
+import { sageTheme } from "../../style/themes";
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
 import Heading from "../heading";
@@ -269,7 +269,7 @@ describe("Confirm", () => {
 
   describe("Validation styling", () => {
     it("confirm buttons should match snapshot", () => {
-      wrapper = mount(<StyledConfirmButtons theme={mintTheme} />);
+      wrapper = mount(<StyledConfirmButtons theme={sageTheme} />);
       assertStyleMatch(
         {
           marginTop: "48px",

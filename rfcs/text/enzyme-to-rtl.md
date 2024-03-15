@@ -94,7 +94,7 @@ If we were to do so, we would likely want to wrap our components in the `CarbonP
 ```jsx
 const CustomProviders = ({ children }) => {
   return (
-    <CarbonProvider theme="mint">
+    <CarbonProvider theme={sage}>
       <I18nProvider locale={enGB}>{children}</I18nProvider>
     </CarbonProvider>
   );

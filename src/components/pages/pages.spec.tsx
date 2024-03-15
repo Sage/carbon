@@ -6,7 +6,7 @@ import { CSSTransition } from "react-transition-group";
 
 import Pages, { Page } from "./pages.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
-import mintTheme from "../../style/themes/mint";
+import sageTheme from "../../style/themes/sage";
 import Button from "../button";
 import Heading from "../heading";
 import { StyledHeadingBackButton } from "../heading/heading.style";
@@ -206,7 +206,7 @@ describe("Pages", () => {
     describe("on component", () => {
       const tag = shallow(
         <Pages
-          theme={mintTheme}
+          theme={sageTheme}
           data-element="bar"
           data-role="baz"
           initialpageIndex={0}
@@ -223,7 +223,7 @@ describe("Pages", () => {
     describe("on internal elements", () => {
       it("should has expected data elements", () => {
         wrapper = mount(
-          <Pages theme={mintTheme} initialpageIndex={0}>
+          <Pages theme={sageTheme} initialpageIndex={0}>
             <Page data-element="page" title="Foo">
               Bar
             </Page>

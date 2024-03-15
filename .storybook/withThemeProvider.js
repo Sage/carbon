@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CarbonProvider from "../src/components/carbon-provider";
 import sageDebugTheme from "../src/style/design-tokens/debug-theme.util";
-import { mintTheme, noTheme, sageTheme } from "../src/style/themes";
+import { noTheme, sageTheme } from "../src/style/themes";
 import { config } from "react-transition-group";
 
-const themes = [mintTheme, noTheme, sageTheme].reduce((themesObject, theme) => {
+const themes = [noTheme, sageTheme].reduce((themesObject, theme) => {
   themesObject[theme.name] = theme;
   return themesObject;
 }, {});

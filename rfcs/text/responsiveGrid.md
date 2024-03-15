@@ -41,10 +41,10 @@ The Grid component is designed to provide:
 1. Position and width calculated dynamically.
 
 ## `GridContainer`
-To avoid introducing a breaking change, and to give developers the freedom to choose whether or not to use the component, a new [`GridContainer`](#GridContainer) component will be developed, which can be used as a child of the [`AppWrapper`](https://github.com/Sage/carbon/tree/master/src/components/app-wrapper). As the parent wrapper component for all [`GridItems`](#GridItem) and the element on which the `display: grid` property is set, the [`GridContainer`](#GridContainer) will define 12 equal-width columns, including external margins and internal gutters. 
-> 12 is divisible into 12, 6, 4, 3, 2 or 1 equal-width columns, giving maximum possible flexibility for a layout. 
+To avoid introducing a breaking change, and to give developers the freedom to choose whether or not to use the component, a new [`GridContainer`](#GridContainer) component will be developed, which can be used as a child of the [`AppWrapper`](https://github.com/Sage/carbon/tree/master/src/components/app-wrapper). As the parent wrapper component for all [`GridItems`](#GridItem) and the element on which the `display: grid` property is set, the [`GridContainer`](#GridContainer) will define 12 equal-width columns, including external margins and internal gutters.
+> 12 is divisible into 12, 6, 4, 3, 2 or 1 equal-width columns, giving maximum possible flexibility for a layout.
 
-By dividing the available space into predictably-sized modules (both vertically and horizontally), complex layouts that don't have fixed dimensions can be controlled and components can be positioned allowing a clean separation of content and style. 
+By dividing the available space into predictably-sized modules (both vertically and horizontally), complex layouts that don't have fixed dimensions can be controlled and components can be positioned allowing a clean separation of content and style.
 ### Max Width Flexibility
 The container for a [`GridContainer`](#GridContainer) could specify either 100% or a fixed pixel width. By default the [`GridContainer`](#GridContainer) will respect the boundaries of this outer element, so if an outer element has a `max-width: 1280px`, the [`GridContainer`](#GridContainer) including it's margins and gutters will be based on that size.
 
@@ -88,7 +88,7 @@ Below is an example of how a Grid could be included as a component and used to i
 ```js
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { mintTheme } from "carbon-react/lib/style/themes";
+import { sageTheme } from "carbon-react/lib/style/themes";
 import "carbon-react/lib/utils/css";
 import { startRouter } from "carbon-react/lib/utils/router";
 import AppWrapper from "carbon-react/lib/components/app-wrapper";
@@ -113,7 +113,7 @@ const App = () => {
     rowStart: 1,
     rowEnd: 1,
     alignSelf: 'stretch',
-    justifySelf: 'stretch'  
+    justifySelf: 'stretch'
   };
   const item1_1500 = {
     maxWidth: 1500,
@@ -162,7 +162,7 @@ const App = () => {
     justifySelf: 'stretch'
   };
   const responsiveItem2Settings = [
-    item2_1300,   
+    item2_1300,
     item2_900,
     item2_1500
   ];
@@ -204,21 +204,21 @@ const App = () => {
   ];
 
   return (
-    <ThemeProvider theme={mintTheme}>
+    <ThemeProvider theme={sageTheme}>
       <AppWrapper>
         <GridContainer>
-          <GridItem 
-            responsiveSettings={responsiveItem1Settings} 
+          <GridItem
+            responsiveSettings={responsiveItem1Settings}
           >
             cell 1
           </GridItem>
-          <GridItem 
-            responsiveSettings={responsiveItem2Settings} 
+          <GridItem
+            responsiveSettings={responsiveItem2Settings}
           >
             cell 2
           </GridItem>
-          <GridItem 
-            responsiveSettings={responsiveItem3Settings} 
+          <GridItem
+            responsiveSettings={responsiveItem3Settings}
           >
             cell 3
           </GridItem>
@@ -232,7 +232,7 @@ The [GridItem](#GridItem) component could be constructed with default props.
 
 ```js
 GridItem.defaultProps = {
-  gridColumnStart: 1, 
+  gridColumnStart: 1,
   gridColumnEnd: 13,
   gridRowStart: 'auto',
   gridRowEnd: 'auto'
@@ -273,12 +273,12 @@ Considering that a grid layout is created to serve the same content on different
 
 1. If two [`GridItems`](#GridItem) occupy the same space, one is hidden.
 1. All the data is served to all viewports, regardless of how much real estate is available and how much content is actually displayed, adversely affecting page load speeds.
-1. Start and end positions are derived from supplied units and offset properties. 
+1. Start and end positions are derived from supplied units and offset properties.
 1. To change one [`GridItem`](#GridItem) would also require adjustment of all other related [`GridItems`](#GridItem) to avoid overlapping and colliding components.
 1. The grid position of a component may be different to the DOM order, causing flow and context discrepancies when using screen readers.
-1. Users who navigate with a keyboard may experience unexpected sequences when tabbing through components. 
+1. Users who navigate with a keyboard may experience unexpected sequences when tabbing through components.
 
-> The recommendation is that grid ordering and placement is used only for visual (not logical) reordering of content. 
+> The recommendation is that grid ordering and placement is used only for visual (not logical) reordering of content.
 For an explanation of what this means in practice, see the [Mozilla CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/CSS_Grid_Layout_and_Accessibility#Visual_not_logical_re-ordering).
 
 
@@ -300,7 +300,7 @@ For an explanation of what this means in practice, see the [Mozilla CSS Grid Lay
 ## CSS Framework (Bootstrap or Foundation)
 A CSS framework is a library of predefined CSS styles that are ready to use out-of-the-box. The best known of these are:
 
-[Bootstrap](https://getbootstrap.com/)  
+[Bootstrap](https://getbootstrap.com/)
 [Foundation](https://foundation.zurb.com/)
 
 ### Advantages
@@ -354,7 +354,7 @@ In order to evaluate the competing CSS styling options (Grid v Flexbox) a simple
   font-size: 14px;
   line-height: 21px;
   padding: 20px;
-  
+
   &[data-start="1"] { grid-column-start: 1; }
   &[data-start="2"] { grid-column-start: 2; }
   &[data-start="3"] { grid-column-start: 3; }
@@ -371,7 +371,7 @@ In order to evaluate the competing CSS styling options (Grid v Flexbox) a simple
 
   &[data-end="12"] { grid-column-end: 12; }
   &[data-end="13"] { grid-column-end: 13; }
-  
+
   &[data-row="1"] { grid-row: 1; }
   &[data-row="2"] { grid-row: 2; }
   &[data-row="3"] { grid-row: 3; }
@@ -422,13 +422,13 @@ $grid: 8.3333333333%;
   line-height: 21px;
   margin-bottom: 24px;
   padding: 20px;
-  
+
   &[data-units="2"]  { width: calc(#{$grid * 2} - 12px); }
   &[data-units="3"]  { width: calc(#{$grid * 3} - 12px); }
   &[data-units="4"]  { width: calc(#{$grid * 4} - 12px); }
 
   ...
-   
+
   &[data-units="11"]  { width: calc(#{$grid * 11} - 12px); }
   &[data-units="12"] { width: calc(#{$grid * 12}); }
 
