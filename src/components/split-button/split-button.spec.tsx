@@ -14,7 +14,6 @@ import Button from "../button";
 import { SizeOptions } from "../button/button.component";
 import StyledButton from "../button/button.style";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
-import mintTheme from "../../style/themes/mint";
 import sageTheme from "../../style/themes/sage";
 import {
   assertStyleMatch,
@@ -29,10 +28,7 @@ jest.mock("../../__internal__/utils/helpers/guid");
 
 const sizes = ["small", "medium", "large"] as const;
 
-const themes = [
-  ["mint", mintTheme],
-  ["sage", sageTheme],
-] as const;
+const themes = [["sage", sageTheme]] as const;
 
 const singleButton = <Button key="testKey">Single Button</Button>;
 const multipleButtons = [

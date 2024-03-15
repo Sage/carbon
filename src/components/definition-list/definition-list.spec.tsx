@@ -1,7 +1,7 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { ThemeProvider } from "styled-components";
-import mintTheme from "../../style/themes/mint";
+import sageTheme from "../../style/themes/sage";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -39,7 +39,7 @@ const renderWrapper = (
   };
 
   return render(
-    <ThemeProvider theme={mintTheme}>{definitionObject[id]}</ThemeProvider>
+    <ThemeProvider theme={sageTheme}>{definitionObject[id]}</ThemeProvider>
   );
 };
 
@@ -47,7 +47,7 @@ describe("DefinitionList", () => {
   let wrapper: ReactWrapper;
 
   testStyledSystemSpacing((props) => (
-    <ThemeProvider theme={mintTheme}>
+    <ThemeProvider theme={sageTheme}>
       <Dl {...props}>
         <Dt>Description</Dt>
         <Dd>This is a test</Dd>
@@ -58,7 +58,7 @@ describe("DefinitionList", () => {
   describe("dt", () => {
     testStyledSystemSpacing(
       (props) => (
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <Dl>
             <Dt {...props}>Description</Dt>
             <Dd>This is a test</Dd>
@@ -74,7 +74,7 @@ describe("DefinitionList", () => {
   describe("dd", () => {
     testStyledSystemSpacing(
       (props) => (
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <Dl>
             <Dt>Description</Dt>
             <Dd {...props}>This is a test</Dd>
