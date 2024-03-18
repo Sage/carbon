@@ -1,0 +1,42 @@
+name: Audit a Playwright test
+run-name: ${{ github.actor }} is running tests that match ${{ inputs.test-filter }} ${{ inputs.repeat-each }} times
+
+on:
+  workflow_dispatch:
+    inputs:
+      repeat-each:
+        default: 5
+        type: number
+        description: The number of times to repeat the test
+      test-filter:
+        required: true
+        type: string
+        description: "Filter string used to match specific tests or test files to run with the `npm run test:ct` command. (Examples: 'src/components/alert/alert.pw.tsx', 'src/components/alert/alert.pw.tsx src/components/accordion/accordion.pw.tsx'). Can also specify tests on a line number with a colon ('src/components/alert/alert.pw.tsx:10')."
+
+jobs:
+  test:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.36.2-jammy
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Playwright tests
+        run: npm run test:ct -- "${{ inputs.test-filter }}" --workers=1 --repeat-each=${{ inputs.repeat-each }}
+        env:
+          HOME: /root
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
