@@ -620,7 +620,7 @@ describe("SelectList", () => {
   });
 
   describe("when Option values are objects", () => {
-    it("then the onSelect prop should be called with expected data", () => {
+    it("should call the onSelect prop with expected data when an option is clicked", () => {
       const onSelect = jest.fn();
       const wrapper = renderSelectListWithObjects({
         highlightedValue: { id: "green", value: 2 },

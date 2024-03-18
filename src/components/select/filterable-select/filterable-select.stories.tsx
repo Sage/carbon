@@ -537,7 +537,7 @@ export const Required = () => (
 );
 
 export const WithObjectAsValue = () => {
-  const optionListValues = [
+  const optionListValues = useRef([
     { id: "Amber", value: 1, text: "Amber" },
     { id: "Black", value: 2, text: "Black" },
     { id: "Blue", value: 3, text: "Blue" },
@@ -549,14 +549,16 @@ export const WithObjectAsValue = () => {
     { id: "Red", value: 9, text: "Red" },
     { id: "White", value: 10, text: "White" },
     { id: "Yellow", value: 11, text: "Yellow" },
-  ];
+  ]);
 
   const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4]
+    optionListValues.current[4]
   );
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as Record<string, unknown>);
+    if (typeof event.target.value === "object") {
+      setValue(event.target.value);
+    }
   }
   function clearValue() {
     setValue({});
@@ -573,7 +575,7 @@ export const WithObjectAsValue = () => {
         value={value}
         onChange={onChangeHandler}
       >
-        {optionListValues.map((option) => (
+        {optionListValues.current.map((option) => (
           <Option key={option.id} text={option.text} value={option} />
         ))}
       </FilterableSelect>

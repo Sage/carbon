@@ -264,7 +264,9 @@ export const WithObjectAsValue = () => {
   ]);
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as Record<string, unknown>[]);
+    if (typeof event.target.value === "object") {
+      setValue(event.target.value);
+    }
   }
   function clearValue() {
     setValue([]);

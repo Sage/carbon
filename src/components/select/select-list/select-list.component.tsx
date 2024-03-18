@@ -202,7 +202,7 @@ const SelectList = React.forwardRef(
     const getIndexOfMatch = useCallback(
       (valueToMatch) => {
         return childrenList.findIndex((child) => {
-          if (typeof valueToMatch === "object") {
+          if (child.props.value && typeof valueToMatch === "object") {
             return shallowEqual(
               child.props.value as Record<string, unknown>,
               valueToMatch
