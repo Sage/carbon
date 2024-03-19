@@ -18,6 +18,16 @@ export default {
         options: PROFILE_SIZES,
       },
     },
+    mx: {
+      control: {
+        type: "text",
+      },
+    },
+    my: {
+      control: {
+        type: "text",
+      },
+    },
   },
 };
 
@@ -39,8 +49,8 @@ DefaultStory.story = {
     mr: "",
     mb: "",
     ml: "",
-    mx: "",
-    my: "",
+    mx: undefined,
+    my: undefined,
   },
 };
 
