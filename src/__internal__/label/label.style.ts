@@ -18,7 +18,7 @@ const StyledLabel = styled.label<StyledLabelProps>`
       ::after {
         content: "*";
         color: var(--colorsSemanticNegative500);
-        font-weight: 700;
+        font-weight: var(--fontWeights700);
         margin-left: var(--spacing050);
       }
     `}
@@ -74,7 +74,7 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
     css`
       ::after {
         content: "(optional)";
-        font-weight: 350; //TODO: (tokens) use token var(--fontWeights400)
+        font-weight: var(--fontWeights400);
         margin-left: var(--spacing050);
         color: var(--colorsUtilityYin055);
       }

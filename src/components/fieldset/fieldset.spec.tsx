@@ -86,7 +86,7 @@ describe("Fieldset", () => {
       {
         content: '"*"',
         color: "var(--colorsSemanticNegative500)",
-        fontWeight: "700",
+        fontWeight: "var(--fontWeights700)",
         marginLeft: "var(--spacing100)",
       },
       mount(<LegendContainerStyle isRequired />),
