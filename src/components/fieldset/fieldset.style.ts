@@ -50,7 +50,8 @@ const LegendContainerStyle = styled.div<StyledFieldsetProps>`
 
   legend {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: var(--fontWeights700);
+    color: var(--colorsUtilityYin090);
     line-height: 24px;
     margin-right: 4px;
 
