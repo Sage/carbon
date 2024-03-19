@@ -10,7 +10,7 @@ export interface StyledLabelProps {
 const StyledLabel = styled.label<StyledLabelProps>`
   color: var(--colorsUtilityYin090);
   display: block;
-  font-weight: 600; //TODO: (tokens) use token var(--fontWeights500)
+  font-weight: var(--fontWeights700);
 
   ${({ isRequired }) =>
     isRequired &&
