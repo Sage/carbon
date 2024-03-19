@@ -1,5 +1,5 @@
 name: Audit a Playwright test
-run-name: ${{ github.actor }} is running tests that match ${{ inputs.test-filter }} ${{ inputs.repeat-each }} times
+run-name: ${{ github.actor }} is running ${{ inputs.component }} test${{ inputs.line-number && format(' on line {0}', inputs.line-number) || 's' }} ${{ inputs.repeat-each }} times
 
 on:
   workflow_dispatch:
@@ -8,10 +8,13 @@ on:
         default: 5
         type: number
         description: The number of times to repeat the test
-      test-filter:
+      component:
         required: true
         type: string
-        description: "Filter string used to match specific tests or test files to run with the `npm run test:ct` command. (Examples: 'src/components/alert/alert.pw.tsx', 'src/components/alert/alert.pw.tsx src/components/accordion/accordion.pw.tsx'). Can also specify tests on a line number with a colon ('src/components/alert/alert.pw.tsx:10')."
+        description: "Name of the component to test. (Examples: `button`, `anchor-navigation`, etc.)"
+      line-number:
+        type: number
+        description: "Optional file line number of a specific test to run. (Example: `10`)"
 
 jobs:
   test:
@@ -31,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: Run Playwright tests
-        run: npm run test:ct -- "${{ inputs.test-filter }}" --workers=1 --repeat-each=${{ inputs.repeat-each }}
+        run: npm run test:ct -- "/${{ inputs.component }}.pw.tsx${{ inputs.line-number && format(':{0}', inputs.line-number) || '' }}" --workers=1 --repeat-each=${{ inputs.repeat-each }}
         env:
           HOME: /root
 
