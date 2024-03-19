@@ -132,7 +132,7 @@ describe("Label", () => {
       assertStyleMatch(
         {
           content: '"(optional)"',
-          fontWeight: "350",
+          fontWeight: "var(--fontWeights400)",
           marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabelContainer),
@@ -168,7 +168,7 @@ describe("Label", () => {
         {
           content: '"*"',
           color: "var(--colorsSemanticNegative500)",
-          fontWeight: "700",
+          fontWeight: "var(--fontWeights700)",
           marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabel),

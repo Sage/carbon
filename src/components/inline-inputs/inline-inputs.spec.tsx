@@ -216,7 +216,7 @@ describe("Inline Inputs", () => {
         {
           content: '"*"',
           color: "var(--colorsSemanticNegative500)",
-          fontWeight: "700",
+          fontWeight: "var(--fontWeights700)",
           marginLeft: "var(--spacing050)",
         },
         mount(

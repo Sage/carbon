@@ -61,7 +61,7 @@ const LegendContainerStyle = styled.div<StyledFieldsetProps>`
           content: "*";
           line-height: 24px;
           color: var(--colorsSemanticNegative500);
-          font-weight: 700;
+          font-weight: var(--fontWeights700);
           margin-left: var(--spacing100);
           position: relative;
           top: 1px;
@@ -74,7 +74,8 @@ const LegendContainerStyle = styled.div<StyledFieldsetProps>`
       css`
         ::after {
           content: "(optional)";
-          font-weight: 350; //TODO: (tokens) use token var(--fontWeights400) - FE-6022
+          color: var(--colorsUtilityYin055);
+          font-weight: var(--fontWeights400);
           margin-left: var(--spacing050);
         }
       `}

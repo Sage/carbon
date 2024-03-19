@@ -36,7 +36,7 @@ const StyledLegendContent = styled.span<StyledLegendContentProps>`
         content: "*";
         line-height: 24px;
         color: var(--colorsSemanticNegative500);
-        font-weight: 700;
+        font-weight: var(--fontWeights700);
         margin-left: var(--spacing050);
         position: relative;
         top: 1px;
@@ -49,7 +49,7 @@ const StyledLegendContent = styled.span<StyledLegendContentProps>`
       ::after {
         content: "(optional)";
         color: var(--colorsUtilityYin055);
-        font-weight: 350; //TODO: (tokens) use token var(--fontWeights400) - FE-6022
+        font-weight: var(--fontWeights400);
         margin-left: var(--spacing050);
       }
     `}
