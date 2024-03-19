@@ -14,7 +14,7 @@ interface StyledSwitchSliderProps
   theme?: Partial<ThemeObject>;
 }
 
-const StyledSwitchSlider = styled.span`
+const StyledSwitchSlider = styled.div`
   ${({
     checked,
     isLoading,
@@ -30,103 +30,108 @@ const StyledSwitchSlider = styled.span`
     height: 28px;
     left: 0;
     letter-spacing: 1px;
-    position: absolute;
+    position: relative;
     text-transform: uppercase;
     top: 0;
-    width: 64px;
-    min-width: fit-content;
+    width: 100%
     z-index: 2;
-    border-radius: ${theme?.roundedCornersOptOut
-      ? "90px"
-      : "var(--borderRadius400)"};
+    border-radius: ${
+      theme?.roundedCornersOptOut ? "90px" : "var(--borderRadius400)"
+    };
     border-style: solid;
     border-color: var(--colorsActionMinor400);
     border-width: var(--borderWidth200);
     box-sizing: border-box;
+    margin-top: ${size === "large" ? "-47px" : "-28px"};
+    align-items: center;
 
     &::before {
       background-color: var(--colorsActionMinor400);
       bottom: 4px;
       content: "";
-      height: 16px;
+      height: ${size === "large" ? "32px" : "16px"};
       position: absolute;
       left: 4px;
-      transition: transform 0.4s;
-      width: 16px;
+      transition: margin-left 0.4s;
+      width: ${size === "large" ? "32px" : "16px"};
       z-index: 1;
       border-radius: 50%;
     }
 
-    ${checked &&
-    `
-      background-color: var(--colorsActionMinor500);
-      border-color: var(--colorsActionMinorTransparent);
-
-      &::before {
-        transform: translateX(36px);
-        background-color: var(--colorsActionMinorYang100);
-      }
-
-    `}
-
-    ${disabled &&
-    !isLoading &&
-    css`
-      border-color: var(--colorsActionDisabled600);
-
-      &::before {
-        background-color: var(--colorsActionDisabled600);
-      }
-
-      ${SwitchSliderPanel} {
-        color: var(--colorsUtilityYin030);
-      }
-
-      ${checked &&
-      `
-        background-color: var(--colorsActionDisabled500);
+    ${
+      checked &&
+      css`
+        background-color: var(--colorsActionMinor500);
         border-color: var(--colorsActionMinorTransparent);
 
         &::before {
+          margin-left: calc(100% - ${size === "large" ? "40px" : "24px"});
           background-color: var(--colorsActionMinorYang100);
         }
+      `
+    }
 
-        ${SwitchSliderPanel} { color: var(--colorsUtilityYin030); }
-      `}
-    `}
+    ${
+      disabled &&
+      !isLoading &&
+      css`
+        border-color: var(--colorsActionDisabled600);
 
-    ${size === "large" &&
-    css`
-      ${theme?.roundedCornersOptOut ? "border-radius: 30px;" : ""}
-      &::before {
-        height: 32px;
-        width: 32px;
+        &::before {
+          background-color: var(--colorsActionDisabled600);
+        }
+
+        ${SwitchSliderPanel} {
+          color: var(--colorsUtilityYin030);
+        }
 
         ${checked &&
-        `
-          transform: translateX(38px);
+        css`
+          background-color: var(--colorsActionDisabled500);
+          border-color: var(--colorsActionMinorTransparent);
+
+          &::before {
+            background-color: var(--colorsActionMinorYang100);
+          }
+
+          ${SwitchSliderPanel} {
+            color: var(--colorsUtilityYin030);
+          }
         `}
-      }
-    `}
+      `
+    }
 
-    ${isLoading &&
-    css`
-      &::before {
-        display: none;
-      }
-    `}
+    ${
+      size === "large" &&
+      css`
+        ${theme?.roundedCornersOptOut ? "border-radius: 30px;" : ""}
+      `
+    }
 
-    ${warning &&
-    !disabled &&
-    css`
-      border-color: var(--colorsSemanticCaution500);
-    `}
+    ${
+      isLoading &&
+      css`
+        &::before {
+          display: none;
+        }
+      `
+    }
 
-    ${error &&
-    !disabled &&
-    css`
-      border-color: var(--colorsSemanticNegative500);
-    `}
+    ${
+      warning &&
+      !disabled &&
+      css`
+        border-color: var(--colorsSemanticCaution500);
+      `
+    }
+
+    ${
+      error &&
+      !disabled &&
+      css`
+        border-color: var(--colorsSemanticNegative500);
+      `
+    }
 
     ${StyledValidationIcon} {
       position: absolute;
@@ -136,8 +141,17 @@ const StyledSwitchSlider = styled.span`
   `}
 `;
 
+const HiddenContent = styled.div`
+  ${({ size }: StyledSwitchSliderProps) => css`
+    visibility: hidden;
+    height: 0px;
+    padding-left: ${size === "large" ? "55px" : "40px"};
+  `}
+`;
+
 StyledSwitchSlider.defaultProps = {
   theme: baseTheme,
 };
 
+export { HiddenContent, StyledSwitchSlider };
 export default StyledSwitchSlider;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import Loader from "../../loader/loader.component";
-import StyledSwitchSlider from "./switch-slider.style";
+import { StyledSwitchSlider, HiddenContent } from "./switch-slider.style";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import ValidationIcon from "../../../__internal__/validations/validation-icon.component";
 import useLocale from "../../../hooks/__internal__/useLocale";
@@ -59,18 +59,25 @@ const SwitchSlider = ({
   );
 
   return (
-    <StyledSwitchSlider {...switchSliderStyleProps}>
-      {sliderContent}
-      {useValidationIcon && (
-        <ValidationIcon
-          error={error}
-          warning={warning}
-          info={info}
-          size={size}
-          tooltipFlipOverrides={["top", "bottom"]}
-        />
-      )}
-    </StyledSwitchSlider>
+    <>
+      <HiddenContent {...sliderPanelStyleProps} aria-hidden>
+        {l.switch.on().length > l.switch.off().length
+          ? l.switch.on()
+          : l.switch.off()}
+      </HiddenContent>
+      <StyledSwitchSlider {...switchSliderStyleProps}>
+        {sliderContent}
+        {useValidationIcon && (
+          <ValidationIcon
+            error={error}
+            warning={warning}
+            info={info}
+            size={size}
+            tooltipFlipOverrides={["top", "bottom"]}
+          />
+        )}
+      </StyledSwitchSlider>
+    </>
   );
 };
 

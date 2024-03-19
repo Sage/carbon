@@ -5,16 +5,19 @@ exports[`SwitchSliderPanel base theme renders as expected 1`] = `
   border: 0;
   color: var(--colorsActionMinorYang100);
   margin: auto;
-  margin-top: 5px;
+  position: absolute;
+  left: 0;
 }
 
 .c0[type="on"] {
   margin-left: 9px;
+  padding-right: 27px;
 }
 
 .c0[type="off"] {
   color: var(--colorsActionMinor500);
-  margin-right: 6px;
+  margin-right: 9px;
+  padding-left: 27px;
 }
 
 <div
