@@ -37,6 +37,8 @@ export interface PopoverProps {
   popoverStrategy?: "absolute" | "fixed";
   // Allows child ref to be set via a prop instead of dynamically finding it via children iteration
   childRefOverride?: MutableRefObject<HTMLDivElement | null>;
+  /** Prop to specify the aria-labelledby attribute of the input */
+  ariaLabelledBy?: string;
 }
 
 const defaultMiddleware = [
@@ -56,6 +58,7 @@ const Popover = ({
   animationFrame,
   popoverStrategy = "absolute",
   childRefOverride,
+  ariaLabelledBy,
 }: PopoverProps) => {
   const elementDOM = useRef<HTMLDivElement | null>(null);
   const { isInModal } = useContext<ModalContextProps>(ModalContext);
@@ -79,6 +82,10 @@ const Popover = ({
     content = children;
   } else {
     content = React.cloneElement(children, { ref: floatingReference });
+  }
+  if (elementDOM.current && !disablePortal && ariaLabelledBy) {
+    elementDOM.current.setAttribute("role", "region");
+    elementDOM.current.setAttribute("aria-labelledby", ariaLabelledBy);
   }
 
   useFloating({

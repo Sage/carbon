@@ -340,6 +340,7 @@ export const PopoverContainer = ({
         {(state: TransitionStatus) =>
           isOpen && (
             <Popover
+              ariaLabelledBy={popoverContainerId}
               reference={popoverReference}
               placement={position === "right" ? "bottom-start" : "bottom-end"}
               popoverStrategy={

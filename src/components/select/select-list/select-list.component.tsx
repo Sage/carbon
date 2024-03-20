@@ -98,6 +98,8 @@ export interface SelectListProps {
   virtualScrollOverscan?: number;
   /** @private @ignore A callback for when a mouseDown event occurs on the component */
   onMouseDown?: () => void;
+  /** Unique ID for the menu's parent */
+  parentID?: string;
 }
 
 const TABLE_HEADER_HEIGHT = 48;
@@ -128,6 +130,7 @@ const SelectList = React.forwardRef(
       multiselectValues,
       enableVirtualScroll,
       virtualScrollOverscan = 5,
+      parentID,
       ...listProps
     }: SelectListProps,
     listContainerRef: React.ForwardedRef<HTMLDivElement>
@@ -635,10 +638,9 @@ const SelectList = React.forwardRef(
             {tableHeader}
           </StyledSelectListTableHeader>
           <StyledSelectListTableBody
-            {...listBoxProps}
-            aria-labelledby={labelId}
             ref={tableRef}
             listHeight={listHeight - TABLE_HEADER_HEIGHT}
+            {...listBoxProps}
           >
             {renderedChildren}
           </StyledSelectListTableBody>
@@ -654,6 +656,7 @@ const SelectList = React.forwardRef(
         }}
       >
         <Popover
+          ariaLabelledBy={parentID}
           placement={listPlacement}
           disablePortal
           reference={anchorRef}
