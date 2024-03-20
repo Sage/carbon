@@ -3,14 +3,12 @@ import TestRenderer from "react-test-renderer";
 import { ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
 
-import {
-  assertStyleMatch,
-  carbonThemesJestTable,
-} from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import Loader from "../../loader/loader.component";
 import SwitchSlider, { SwitchSliderProps } from "./switch-slider.component";
 import SwitchSliderPanel from "./switch-slider-panel.style";
 import { ThemeObject } from "../../../style/themes/base";
+import { sageTheme } from "../../../style/themes";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import StyledSwitchSlider from "./switch-slider.style";
 
@@ -184,99 +182,96 @@ describe("SwitchSlider", () => {
     });
   });
 
-  describe.each(carbonThemesJestTable)(
-    "when the theme is set to %s",
-    (themeName, theme) => {
-      describe("default", () => {
-        const wrapper = renderWithTheme({}, theme).toJSON();
+  describe("when the theme is set to sageTheme", () => {
+    describe("default", () => {
+      const wrapper = renderWithTheme({}, sageTheme).toJSON();
 
-        it("applies the correct base styles", () => {
-          assertStyleMatch(
-            {
-              borderColor: "var(--colorsActionMinor400)",
-            },
-            wrapper
-          );
-        });
-
-        it("applies the correct ::before styles", () => {
-          assertStyleMatch(
-            {
-              backgroundColor: "var(--colorsActionMinor400)",
-            },
-            wrapper,
-            { modifier: "::before" }
-          );
-        });
+      it("applies the correct base styles", () => {
+        assertStyleMatch(
+          {
+            borderColor: "var(--colorsActionMinor400)",
+          },
+          wrapper
+        );
       });
 
-      describe("and checked=true", () => {
-        const wrapper = renderWithTheme({ checked: true }, theme).toJSON();
+      it("applies the correct ::before styles", () => {
+        assertStyleMatch(
+          {
+            backgroundColor: "var(--colorsActionMinor400)",
+          },
+          wrapper,
+          { modifier: "::before" }
+        );
+      });
+    });
 
-        it("applies the correct base styles", () => {
-          assertStyleMatch(
-            {
-              backgroundColor: "var(--colorsActionMinor500)",
-            },
-            wrapper
-          );
-        });
+    describe("and checked=true", () => {
+      const wrapper = renderWithTheme({ checked: true }, sageTheme).toJSON();
+
+      it("applies the correct base styles", () => {
+        assertStyleMatch(
+          {
+            backgroundColor: "var(--colorsActionMinor500)",
+          },
+          wrapper
+        );
+      });
+    });
+
+    describe("and disabled=true", () => {
+      const wrapper = renderWithTheme({ disabled: true }, sageTheme).toJSON();
+
+      it("applies the correct base styles", () => {
+        assertStyleMatch(
+          {
+            borderColor: "var(--colorsActionDisabled600)",
+          },
+          wrapper
+        );
       });
 
-      describe("and disabled=true", () => {
-        const wrapper = renderWithTheme({ disabled: true }, theme).toJSON();
+      it("applies the correct SwitchSliderPanel styles", () => {
+        assertStyleMatch(
+          {
+            color: "var(--colorsUtilityYin030)",
+          },
+          wrapper,
+          {
+            modifier: `${SwitchSliderPanel}`,
+          }
+        );
+      });
+    });
 
-        it("applies the correct base styles", () => {
-          assertStyleMatch(
-            {
-              borderColor: "var(--colorsActionDisabled600)",
-            },
-            wrapper
-          );
-        });
+    describe("when checked=true && disabled=true", () => {
+      const wrapper = renderWithTheme(
+        { checked: true, disabled: true },
+        sageTheme
+      ).toJSON();
 
-        it("applies the correct SwitchSliderPanel styles", () => {
-          assertStyleMatch(
-            {
-              color: "var(--colorsUtilityYin030)",
-            },
-            wrapper,
-            {
-              modifier: `${SwitchSliderPanel}`,
-            }
-          );
-        });
+      it("applies the correct base styles", () => {
+        assertStyleMatch(
+          {
+            backgroundColor: "var(--colorsActionDisabled500)",
+          },
+          wrapper
+        );
       });
 
-      describe("when checked=true && disabled=true", () => {
-        const wrapper = renderWithTheme(
-          { checked: true, disabled: true },
-          theme
-        ).toJSON();
-
-        it("applies the correct base styles", () => {
-          assertStyleMatch(
-            {
-              backgroundColor: "var(--colorsActionDisabled500)",
-            },
-            wrapper
-          );
-        });
-
-        it("applies the correct SwitchSliderPanel styles", () => {
-          assertStyleMatch(
-            {
-              color: "var(--colorsUtilityYin030)",
-            },
-            wrapper,
-            {
-              modifier: `${SwitchSliderPanel}`,
-            }
-          );
-        });
+      it("applies the correct SwitchSliderPanel styles", () => {
+        assertStyleMatch(
+          {
+            color: "var(--colorsUtilityYin030)",
+          },
+          wrapper,
+          {
+            modifier: `${SwitchSliderPanel}`,
+          }
+        );
       });
-    }
-  );
+    });
+  });
 
   describe("rounded corners", () => {
     it.each<SwitchSliderProps["size"]>(["small", "large"])(
