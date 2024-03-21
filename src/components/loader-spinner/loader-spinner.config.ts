@@ -1,32 +1,22 @@
-type LoaderSpinnerSizes =
-  | "extra-small"
-  | "small"
-  | "medium"
-  | "large"
-  | "extra-large";
-
-type LoaderSpinnerVariants =
-  | "action"
-  | "neutral"
-  | "inverse"
-  | "gradient-grey"
-  | "gradient-white";
-
-const LOADER_SPINNER_SIZES: LoaderSpinnerSizes[] = [
-  "extra-small",
-  "small",
-  "medium",
-  "large",
-  "extra-large",
-];
-
-const LOADER_SPINNER_VARIANTS: LoaderSpinnerVariants[] = [
+const LOADER_SPINNER_VARIANTS = [
   "action",
   "neutral",
   "inverse",
   "gradient-grey",
   "gradient-white",
-];
+] as const;
+
+type LoaderSpinnerVariants = typeof LOADER_SPINNER_VARIANTS[number];
+
+const LOADER_SPINNER_SIZES = [
+  "extra-small",
+  "small",
+  "medium",
+  "large",
+  "extra-large",
+] as const;
+
+type LoaderSpinnerSizes = typeof LOADER_SPINNER_SIZES[number];
 
 type LoaderSpinnerSizeParams = Record<
   LoaderSpinnerSizes,

@@ -1,10 +1,7 @@
 import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import { LoaderSpinnerProps } from "./loader-spinner.component";
-import {
-  LoaderSpinnerSizes,
-  LOADER_SPINNER_SIZE_PARAMS,
-} from "./loader-spinner.config";
+import { LOADER_SPINNER_SIZE_PARAMS } from "./loader-spinner.config";
 import Typography from "../typography";
 
 const calculateColors = (isWheel: boolean, variant?: string) => {
@@ -26,23 +23,18 @@ const calculateColors = (isWheel: boolean, variant?: string) => {
   }
 };
 
-interface StyledSpinnerWrapperProps
-  extends Pick<LoaderSpinnerProps, "size" | "variant"> {
-  reduceMotion?: boolean;
-  size: LoaderSpinnerSizes;
-}
-
-export const StyledSpinnerWrapper = styled.div<
-  Pick<StyledSpinnerWrapperProps, "size">
->`
-  ${margin}
-  ${({ size }) =>
-    css`
-      width: ${LOADER_SPINNER_SIZE_PARAMS[size].wrapperDimensions}px;
-      height: ${LOADER_SPINNER_SIZE_PARAMS[size].wrapperDimensions}px;
-      min-width: ${LOADER_SPINNER_SIZE_PARAMS[size].wrapperDimensions}px;
-      min-height: ${LOADER_SPINNER_SIZE_PARAMS[size].wrapperDimensions}px;
-    `}
+export const StyledSpinnerWrapper = styled.div.attrs(
+  ({ size }: Required<Pick<LoaderSpinnerProps, "size">>) => ({
+    dimensions: `${LOADER_SPINNER_SIZE_PARAMS[size].wrapperDimensions}px`,
+  })
+)<LoaderSpinnerProps>`
+  ${({ dimensions }) => css`
+    ${margin}
+    width: ${dimensions};
+    height: ${dimensions};
+    min-width: ${dimensions};
+    min-height: ${dimensions};
+  `}
 `;
 
 export const StyledLabel = styled(Typography)`
@@ -66,7 +58,7 @@ export const StyledSpinnerCircleSvg = styled.svg<StyledSpinnerCircleSvgProps>`
   }) =>
     size &&
     css`
-      circle[data-element="outer-arc"] {
+      circle[data-role="outer-arc"] {
         fill: transparent;
         stroke-width: ${LOADER_SPINNER_SIZE_PARAMS[size].strokeWidth}px;
         stroke: ${calculateColors(false, variant)};
@@ -76,7 +68,7 @@ export const StyledSpinnerCircleSvg = styled.svg<StyledSpinnerCircleSvgProps>`
         r: 10px;
       }
 
-      circle[data-element="inner-arc"] {
+      circle[data-role="inner-arc"] {
         fill: transparent;
         stroke-width: ${LOADER_SPINNER_SIZE_PARAMS[size].strokeWidth}px;
         stroke: ${calculateColors(true, variant)};

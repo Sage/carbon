@@ -67,8 +67,7 @@ export const LoaderSpinner = ({
 
   const spinnerLabel = (
     <StyledLabel
-      data-testid="visible-label"
-      data-element="spinner-label"
+      data-role="visible-label"
       variant="span"
       fontWeight="500"
       color={
@@ -119,15 +118,14 @@ export const LoaderSpinner = ({
             animationTime={calculateDefaultAnimationTime()}
             viewBox="0 0 24 24"
           >
-            <circle data-testid="outer-arc" data-element="outer-arc" />
-            <circle data-testid="inner-arc" data-element="inner-arc" />
+            <circle data-role="outer-arc" />
+            <circle data-role="inner-arc" />
           </StyledSpinnerCircleSvg>
           {showSpinnerLabel ? (
             spinnerLabel
           ) : (
             <Typography
-              data-testid="hidden-label"
-              data-element="hidden-spinner-label"
+              data-role="hidden-label"
               variant="span"
               screenReaderOnly
             >
