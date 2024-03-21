@@ -33,7 +33,7 @@ const DropTarget = ({
 
   return (
     <StyledFlatTableBodyDraggable
-      data-testid="flat-table-body-draggable"
+      data-role="flat-table-body-draggable"
       ref={drop}
       isDragging={isDragging}
       {...rest}
