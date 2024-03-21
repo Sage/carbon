@@ -13,20 +13,8 @@ import {
   Sort,
   FlatTableBodyDraggable,
 } from ".";
-import BatchSelection from "../batch-selection";
-import IconButton from "../icon-button";
-import Icon from "../icon";
-import Textbox from "../textbox";
-import Pager from "../pager";
-import {
-  ActionPopover,
-  ActionPopoverItem,
-  ActionPopoverMenu,
-} from "../action-popover";
-import { DrawerSidebarContext } from "../drawer";
-import Box from "../box";
-import Button from "../button";
 import * as stories from "./flat-table.stories";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 <Meta title="Flat Table" parameters={{ info: { disable: true } }} />
 
@@ -233,6 +221,16 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
   <Story name="with sorting headers" story={stories.WithSortingHeaders} />
 </Canvas>
 
+### With sorting headers and custom accessible name 
+
+A custom accessible name can be provided to the `<Sort>` component with the `accessibleName` prop. It is recommended 
+that text content of the `<Sort>` component as well as the current `sortType` are included
+in this accessible name.
+
+<Canvas>
+  <Story name="with sorting headers and custom accessible name" story={stories.WithSortingHeadersAndCustomAccessibleName} />
+</Canvas>
+
 ### With a cell spanning the whole row
 
 <Canvas>
@@ -375,3 +373,19 @@ The `FlatTableRow` relies on specific child composition to identify sticky colum
 ### FlatTableCheckbox
 
 <ArgsTable of={FlatTableCheckbox} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "sort.accessibleName",
+      description: "The accessible name which is announced on interaction with the component.",
+      type: "func",
+      returnType: "string",
+    }
+  ]}
+/>

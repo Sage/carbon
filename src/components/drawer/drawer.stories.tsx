@@ -866,7 +866,7 @@ export const SideViewNavigation: ComponentStory<typeof Drawer> = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isFilterOpen, setFilterOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [sortType, setSortType] = useState<"ascending" | "descending" | false>(
+  const [sortType, setSortType] = useState<"ascending" | "descending">(
     "descending"
   );
   const [pickedUpData, setPickedUpData] = useState<dataPropTypes>();
