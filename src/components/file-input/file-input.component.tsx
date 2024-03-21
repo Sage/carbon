@@ -41,13 +41,13 @@ export interface FileInputProps
   isVertical?: boolean;
   /** Label content */
   label?: string;
-  /** A valid CSS string for the max-height CSS property. Defaults to the same as the minHeight. */
+  /** A valid CSS string for the max-height CSS property. */
   maxHeight?: string;
   /** A valid CSS string for the max-width CSS property. Defaults to the same as the minWidth. */
   maxWidth?: string;
-  /** A valid CSS string for the min-height CSS property. Defaults to 40px. */
+  /** A valid CSS string for the min-height CSS property. */
   minHeight?: string;
-  /** A valid CSS string for the min-width CSS property. Defaults to 256px. */
+  /** A valid CSS string for the min-width CSS property. */
   minWidth?: string;
   /** onChange event handler. Accepts a list of all files currently entered to the input. */
   onChange: (files: FileList) => void;
@@ -74,8 +74,8 @@ export const FileInput = React.forwardRef(
       isVertical,
       maxHeight,
       maxWidth,
-      minHeight = "40px",
-      minWidth = "256px",
+      minHeight,
+      minWidth = "280px",
       name,
       onChange,
       required,
@@ -90,7 +90,7 @@ export const FileInput = React.forwardRef(
     const mainText = dragAndDropText || locale.fileInput.dragAndDrop();
 
     const sizeProps = {
-      maxHeight: maxHeight || (isVertical ? undefined : minHeight),
+      maxHeight: maxHeight || undefined,
       maxWidth: maxWidth || minWidth,
       minHeight,
       minWidth,
@@ -201,6 +201,7 @@ export const FileInput = React.forwardRef(
             onDragLeave={onDragLeave}
             onDragOver={onDragOver}
             onDrop={onDrop}
+            isVertical={isVertical}
             {...sizeProps}
           >
             <ButtonMinor buttonType="primary" onClick={onSelectFileClick}>
