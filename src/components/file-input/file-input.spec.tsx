@@ -108,11 +108,11 @@ describe("rendering with no file uploaded", () => {
     assertStyleMatch({ content: '"*"' }, label, { modifier: "::after" });
   });
 
-  it("accepts an isVertical prop which removes the CSS max-height", () => {
+  it("accepts an isVertical prop", () => {
     render(<FileInput isVertical onChange={() => {}} />);
     const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement as HTMLElement;
-    assertStyleMatch({ maxHeight: undefined }, wrapperElement);
+    assertStyleMatch({ flexDirection: "column" }, wrapperElement);
   });
 
   it("accepts a ref object", () => {

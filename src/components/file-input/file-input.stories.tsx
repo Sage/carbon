@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useRef } from "react";
 import { ComponentStory } from "@storybook/react";
-import useMediaQuery from "../../hooks/useMediaQuery";
 
 import FileInput, { FileUploadStatusProps } from ".";
 
@@ -24,23 +23,19 @@ export const IncreasedHeight: ComponentStory<typeof FileInput> = () => {
     <FileInput
       label="File input"
       dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
-      maxHeight="200px"
+      minHeight="200px"
       onChange={() => {}}
     />
   );
 };
 
-export const IncreasedWidthResponsive: ComponentStory<
-  typeof FileInput
-> = () => {
-  const isSmallScreen = useMediaQuery("(max-width: 800px)");
-
+export const ResponsiveWidth: ComponentStory<typeof FileInput> = () => {
   return (
     <FileInput
       label="File input"
       dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
       maxWidth="min(800px, 100%)"
-      maxHeight={isSmallScreen ? "200px" : undefined}
+      minWidth="250px"
       onChange={() => {}}
     />
   );
@@ -52,7 +47,7 @@ export const IncreasedBoth: ComponentStory<typeof FileInput> = () => {
       label="File input"
       dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
       maxWidth="500px"
-      maxHeight="200px"
+      minHeight="200px"
       onChange={() => {}}
     />
   );

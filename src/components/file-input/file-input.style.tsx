@@ -16,6 +16,7 @@ interface StyledFileInputPresentationProps
   maxWidth?: string;
   minHeight?: string;
   minWidth?: string;
+  isVertical?: boolean;
 }
 
 export const StyledFileInputPresentation = styled.div<StyledFileInputPresentationProps>`
@@ -25,12 +26,13 @@ export const StyledFileInputPresentation = styled.div<StyledFileInputPresentatio
     max-width: ${maxWidth};
     ${!hasUploadStatus &&
     css`
-      padding: var(--spacing150);
+      padding: 11px; /* not 12px to account for 1px border */
       max-height: ${maxHeight};
+      box-sizing: border-box;
     `}
   `}
 
-  ${({ hasUploadStatus, isDraggedOver, isDraggingFile, error }) => {
+  ${({ hasUploadStatus, isDraggedOver, isDraggingFile, error, isVertical }) => {
     const borderWidthToken =
       error || isDraggingFile ? "borderWidth200" : "borderWidth100";
     let borderColorToken = "colorsUtilityMajor300";
@@ -48,13 +50,13 @@ export const StyledFileInputPresentation = styled.div<StyledFileInputPresentatio
       !hasUploadStatus &&
       css`
         display: flex;
-        flex-direction: column;
+        ${isVertical && "flex-direction: column;"}
         flex-wrap: wrap;
         justify-content: center;
         align-content: center;
         align-items: center;
         text-align: center;
-        gap: var(--spacing150);
+        gap: var(--spacing100);
         border-radius: var(--borderRadius050);
         border: var(--${borderWidthToken}) dashed var(--${borderColorToken});
         background: var(--${backgroundColorToken});
