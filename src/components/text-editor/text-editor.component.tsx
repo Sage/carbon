@@ -322,10 +322,8 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
     const handleEditorFocus = useCallback(
       (focusValue: boolean) => {
         moveCursor.current = true;
-        setIsFocused(focusValue);
 
         if (
-          !isFocused &&
           focusValue &&
           typeof editor === "object" &&
           editor.current !== document.activeElement
@@ -333,8 +331,9 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
           editor.current?.focus();
           setFocusToolbar(false);
         }
+        setIsFocused(focusValue);
       },
-      [editor, isFocused]
+      [editor]
     );
 
     const handleInlineStyleChange = (
