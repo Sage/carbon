@@ -286,7 +286,10 @@ test.describe("with uploadStatus prop", () => {
           uploadStatus={{ ...statusProps, iconType: "pdf" }}
         />
       );
-      const icon = await page.getByTestId("icon");
+
+      const icon = page.getByTestId("icon");
+
+      await expect(icon).toBeAttached();
       await expect(icon).toHaveAttribute("data-element", "pdf");
     });
   });
@@ -297,7 +300,10 @@ test.describe("with uploadStatus prop", () => {
       page,
     }) => {
       await mount(<FileInputComponent uploadStatus={{ ...statusProps }} />);
-      const icon = await page.getByTestId("icon");
+
+      const icon = page.getByTestId("icon");
+
+      await expect(icon).toBeAttached();
       await expect(icon).toHaveAttribute("data-element", "file_generic");
     });
   });

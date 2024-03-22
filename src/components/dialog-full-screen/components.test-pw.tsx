@@ -180,7 +180,7 @@ export const DialogFullScreenBackgroundScrollTestComponent = () => {
     <DialogFullScreen open onCancel={() => {}}>
       <Textbox label="textbox" />
       <Box height="2000px" position="relative">
-        <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        <Box height="100px" position="absolute" bottom="0px">
           I should not be scrolled into view
         </Box>
       </Box>
@@ -200,7 +200,7 @@ export const DialogFullScreenBackgroundScrollWithOtherFocusableContainers = () =
       >
         <Textbox label="textbox" />
         <Box height="2000px" position="relative">
-          <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+          <Box height="100px" position="absolute" bottom="0px">
             I should not be scrolled into view
           </Box>
         </Box>
