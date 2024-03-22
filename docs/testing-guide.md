@@ -3,7 +3,8 @@
 ## Contents
 
 - [Component testing](#component-testing)
-  - [Custom utilities](#custom-utilities)
+  - [Enzyme utilities](#enzyme-utilities)
+  - [React Testing Library test id tests](#react-testing-library-test-id-tests)
   - [Use of Snapshot tests](#use-of-snapshot-tests)
   - [Continuous Integration (CI)](#continuous-integration-ci)
 - [Browser-based component testing](#browser-based-component-testing)
@@ -13,17 +14,19 @@
 
 ## Introduction
 
-This guide details Carbon's testing setup, common conventions and utilities available to you.
+This guide details Carbon's testing setup, common conventions, and utilities available to you.
 
 ## Component testing
 
-We use the [Jest](https://facebook.github.io/jest/) framework and [Enzyme](https://enzymejs.github.io/enzyme/) library for our component tests. Tests should describe the **behaviour of the components** rather than describe the implementation to keep the tests clean and reliable. All props, branches and paths and each of their conditions need to be tested to meet Carbon's 100% coverage policy.
+> **NOTE**: From March 2024, we're transitioning from Enzyme to [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro/). Please use RTL where possible when testing new functionality.
 
-### Custom utilities
+We use the [Jest](https://jestjs.io/) framework and [Enzyme](https://enzymejs.github.io/enzyme/) library for our component tests. Tests should describe the **behaviour of the components** rather than describe the implementation to keep the tests clean and reliable. All props, branches, and paths and each of their conditions need to be tested to meet Carbon's 100% coverage policy.
 
-To help with common testing scenarios, we have a number of custom utilities available in `/src/__spec_helper__` that can be imported directly into your tests.
+### Enzyme utilities
 
-For example the `assertStyleMatch` method which asserts if all the expected CSS properties have been applied to a DOM element or React component:
+To help with common testing scenarios, we have several custom utilities available in `/src/__spec_helper__` that can be imported directly into your tests.
+
+For example, the `assertStyleMatch` method asserts if all the expected CSS properties have been applied to a DOM element or React component:
 
 ```tsx
 describe("FlatTableRow", () => {
@@ -41,15 +44,31 @@ describe("FlatTableRow", () => {
 });
 ```
 
+### React Testing Library test id tests
+
+[RTL](https://testing-library.com/docs/react-testing-library/intro/) follows a user-centric testing approach. To encourage this the library provides query functions for locating DOM elements by user-facing attributes like text, ARIA roles, etc.
+
+If you need to use [RTL's `*ByTestId()` query functions](https://testing-library.com/docs/queries/bytestid), we have configured RTL to locate the `data-role` attribute:
+
+```tsx
+<span data-role="icon" data-element="pdf" />
+```
+
+```ts
+const icon = screen.getByTestId("icon");
+await expect(icon).toBeInTheDocument();
+await expect(icon).toHaveAttribute("data-element", "pdf");
+```
+
 ### Use of Snapshot tests
 
-Snapshots are left up to the developer to be used where there is value. If you do want to use them, ensure they are small, focused and effective.
+Snapshots are left up to the developer to be used where there is value. If you do want to use them, ensure they are small, focused, and effective.
 
 > Further information on snapshots can be found on [Jest's official docs](https://jestjs.io/docs/snapshot-testing).
 
 ### Continuous Integration (CI)
 
-GitHub Actions runs unit tests for a Pull Request on creation and every commit push. You can manually run these steps with:
+GitHub Actions runs component tests for a particular Pull Request when it is created and on every commit push. You can manually run these steps with:
 
 1. `npm format` - run prettier to format code under `/src`.
 2. `npm run lint` - run linter on code under `/src`.
@@ -60,7 +79,7 @@ GitHub Actions runs unit tests for a Pull Request on creation and every commit p
 
 We use [Playwright](https://playwright.dev) for browser-based component testing. Jest-tested functionality doesn't necessarily need retesting in Playwright unless it adds user-behavior insight.
 
-Further details on installing Playwright and our configuration for it can be found in our [Getting started with Playwright](../playwright/README.md) guide.
+Further details on installing Playwright and our configuration for it can be found in our [Getting Started with Playwright](../playwright/README.md) guide.
 
 ### Playwright File Structure
 
@@ -177,7 +196,7 @@ We use [Chromatic](https://www.chromatic.com/) for flagging any visual regressio
 
 ### Adding new visual tests
 
-Chromatic is set-up to check for regressions in all component stories. Typically components will have the following stories files:
+Chromatic is set up to check for regressions in all component stories. Typically components will have the following story files:
 
 ```none
 .
