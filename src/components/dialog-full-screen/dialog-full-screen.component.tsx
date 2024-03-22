@@ -58,8 +58,8 @@ export interface DialogFullScreenProps extends ModalProps {
   showCloseIcon?: boolean;
   /** Data tag prop bag for close Button */
   closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
-  /** Subtitle displayed at top of dialog */
-  subtitle?: string;
+  /** Subtitle displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to subtitle prop. */
+  subtitle?: React.ReactNode;
   /** Title displayed at top of dialog */
   title?: React.ReactNode;
   /** The ARIA role to be applied to the DialogFullscreen container */
@@ -149,7 +149,8 @@ export const DialogFullScreen = ({
   const ariaProps = {
     "aria-labelledby":
       title && typeof title === "string" ? titleId : ariaLabelledBy,
-    "aria-describedby": subtitle ? subtitleId : ariaDescribedBy,
+    "aria-describedby":
+      subtitle && typeof subtitle === "string" ? subtitleId : ariaDescribedBy,
     "aria-label": ariaLabel,
   };
 
