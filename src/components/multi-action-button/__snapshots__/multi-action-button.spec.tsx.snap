@@ -401,6 +401,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
       color="--colorsActionMajor500"
       data-component="icon"
       data-element="dropdown"
+      data-role="icon"
       disabled={false}
       fontSize="small"
       type="dropdown"

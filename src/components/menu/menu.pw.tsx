@@ -2356,9 +2356,14 @@ test.describe(
       await mount(<MenuFullScreenBackgroundScrollTest />);
 
       await continuePressingTAB(page, 4);
+
       const closeIcon = closeIconButton(page);
       await expect(closeIcon).toBeFocused();
-      await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+
+      const offscreenText = page.getByText(
+        "I should not be scrolled into view"
+      );
+      await expect(offscreenText).not.toBeInViewport();
     });
 
     test(`should verify that tabbing backward through the menu and back to the start should not make the background scroll to the bottom`, async ({
@@ -2368,9 +2373,14 @@ test.describe(
       await mount(<MenuFullScreenBackgroundScrollTest />);
 
       await continuePressingSHIFTTAB(page, 3);
+
       const closeIcon = closeIconButton(page);
       await expect(closeIcon).toBeFocused();
-      await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+
+      const offscreenText = page.getByText(
+        "I should not be scrolled into view"
+      );
+      await expect(offscreenText).not.toBeInViewport();
     });
 
     test(`should render with all the content of a long submenu accessible with the keyboard while remaining visible`, async ({

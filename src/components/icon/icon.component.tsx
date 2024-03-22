@@ -163,6 +163,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       className: className || undefined,
       color,
       "data-element": iconType,
+      "data-role": "icon",
       disabled: disabledFromContext || disabled,
       fontSize,
       hasTooltip,

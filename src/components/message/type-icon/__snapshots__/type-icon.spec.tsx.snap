@@ -65,6 +65,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
     className="c1"
     data-component="icon"
     data-element="error"
+    data-role="icon"
     fontSize="small"
     type="error"
   />
@@ -136,6 +137,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
     className="c1"
     data-component="icon"
     data-element="info"
+    data-role="icon"
     fontSize="small"
     type="info"
   />
@@ -207,6 +209,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
     className="c1"
     data-component="icon"
     data-element="info"
+    data-role="icon"
     fontSize="small"
     type="info"
   />
@@ -278,6 +281,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
     className="c1"
     data-component="icon"
     data-element="tick_circle"
+    data-role="icon"
     fontSize="small"
     type="tick_circle"
   />
@@ -349,6 +353,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
     className="c1"
     data-component="icon"
     data-element="warning"
+    data-role="icon"
     fontSize="small"
     type="warning"
   />
@@ -425,6 +430,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
     className="c1"
     data-component="icon"
     data-element="info"
+    data-role="icon"
     fontSize="small"
     type="info"
   />
@@ -501,6 +507,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
     className="c1"
     data-component="icon"
     data-element="error"
+    data-role="icon"
     fontSize="small"
     type="error"
   />
@@ -577,6 +584,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
     className="c1"
     data-component="icon"
     data-element="tick_circle"
+    data-role="icon"
     fontSize="small"
     type="tick_circle"
   />
@@ -653,6 +661,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
     className="c1"
     data-component="icon"
     data-element="warning"
+    data-role="icon"
     fontSize="small"
     type="warning"
   />
@@ -729,6 +738,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
     className="c1"
     data-component="icon"
     data-element="info"
+    data-role="icon"
     fontSize="small"
     type="info"
   />
