@@ -1,3 +1,11 @@
+### [127.0.3](https://github.com/Sage/carbon/compare/v127.0.2...v127.0.3) (2024-03-25)
+
+
+### Bug Fixes
+
+* **advanced-color-picker:** address translation inconsistencies ([48d6b2d](https://github.com/Sage/carbon/commit/48d6b2db269d707cee1f48c793003c84afe2e8ea))
+* **password:** address translation inconsistencies ([606100a](https://github.com/Sage/carbon/commit/606100aa793f3a8c3faa8da68fa808a4b1c94c57))
+
 ### [127.0.2](https://github.com/Sage/carbon/compare/v127.0.1...v127.0.2) (2024-03-25)
 
 
