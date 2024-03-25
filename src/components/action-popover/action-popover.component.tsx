@@ -279,7 +279,7 @@ export const ActionPopover = ({
           <Popover placement={mappedPlacement} reference={buttonRef}>
             <ActionPopoverMenu
               data-component="action-popover"
-              role="menu"
+              role="tooltip"
               ref={menu}
               {...menuProps}
             >

@@ -541,7 +541,6 @@ describe("ActionPopover", () => {
       act(() => {
         wrapper
           .find(StyledMenuItemWrapper)
-          .find('[role="presentation"]')
           .props()
           .onKeyDown?.({
             key: "Enter",

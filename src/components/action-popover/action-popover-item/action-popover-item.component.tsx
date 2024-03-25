@@ -359,72 +359,73 @@ export const ActionPopoverItem = ({
   };
 
   return (
-    <StyledMenuItemWrapper {...(submenu && wrapperDivProps)}>
-      <div onKeyDown={onKeyDown} role="presentation">
-        <StyledMenuItem
-          {...rest}
-          ref={ref}
-          onClick={onClick}
-          type="button"
-          role="menuitem"
-          tabIndex={0}
-          isDisabled={disabled}
-          horizontalAlignment={horizontalAlignment}
-          submenuPosition={currentSubmenuPosition}
-          hasSubmenu={!!submenu}
-          childHasSubmenu={childHasSubmenu}
-          {...(disabled && { "aria-disabled": true })}
-          {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
-          {...(submenu && itemSubmenuProps)}
-        >
-          {submenu && checkRef(ref) && currentSubmenuPosition === "left" ? (
-            <SubMenuItemIcon
-              data-element="action-popover-menu-item-chevron"
-              type="chevron_left_thick"
-            />
-          ) : null}
-          <StyledMenuItemOuterContainer>
-            {horizontalAlignment === "left" ? renderMenuItemIcon() : null}
-            <StyledMenuItemInnerText
-              data-element="action-popover-menu-item-inner-text"
-              horizontalAlignment={horizontalAlignment}
-              submenuPosition={currentSubmenuPosition}
-              isASubmenu={isASubmenu}
-              childHasSubmenu={childHasSubmenu}
-              childHasIcon={childHasIcon}
-              hasIcon={!!icon}
-              hasSubmenu={!!submenu}
-            >
-              {children}
-            </StyledMenuItemInnerText>
-            {horizontalAlignment === "right" ? renderMenuItemIcon() : null}
-          </StyledMenuItemOuterContainer>
-          {submenu && checkRef(ref) && currentSubmenuPosition === "right" ? (
-            <SubMenuItemIcon
-              data-element="action-popover-menu-item-chevron"
-              type="chevron_right_thick"
-            />
-          ) : null}
-        </StyledMenuItem>
-        {React.isValidElement(submenu)
-          ? React.cloneElement<ActionPopoverMenuProps>(
-              submenu as React.ReactElement<ActionPopoverMenuProps>,
-              {
-                parentID: `ActionPopoverItem_${guid}`,
-                menuID: `ActionPopoverMenu_${guid}`,
-                "data-element": "action-popover-submenu",
-                isOpen,
-                ref: submenuRef,
-                style: containerPosition,
-                setOpen,
-                setFocusIndex,
-                focusIndex,
-                isASubmenu: true,
-                horizontalAlignment,
-              }
-            )
-          : null}
-      </div>
+    <StyledMenuItemWrapper
+      {...(submenu && wrapperDivProps)}
+      onKeyDown={onKeyDown}
+    >
+      <StyledMenuItem
+        {...rest}
+        ref={ref}
+        onClick={onClick}
+        type="button"
+        role="button"
+        tabIndex={0}
+        isDisabled={disabled}
+        horizontalAlignment={horizontalAlignment}
+        submenuPosition={currentSubmenuPosition}
+        hasSubmenu={!!submenu}
+        childHasSubmenu={childHasSubmenu}
+        {...(disabled && { "aria-disabled": true })}
+        {...(isHref && { as: ("a" as unknown) as undefined, download, href })}
+        {...(submenu && itemSubmenuProps)}
+      >
+        {submenu && checkRef(ref) && currentSubmenuPosition === "left" ? (
+          <SubMenuItemIcon
+            data-element="action-popover-menu-item-chevron"
+            type="chevron_left_thick"
+          />
+        ) : null}
+        <StyledMenuItemOuterContainer>
+          {horizontalAlignment === "left" ? renderMenuItemIcon() : null}
+          <StyledMenuItemInnerText
+            data-element="action-popover-menu-item-inner-text"
+            horizontalAlignment={horizontalAlignment}
+            submenuPosition={currentSubmenuPosition}
+            isASubmenu={isASubmenu}
+            childHasSubmenu={childHasSubmenu}
+            childHasIcon={childHasIcon}
+            hasIcon={!!icon}
+            hasSubmenu={!!submenu}
+          >
+            {children}
+          </StyledMenuItemInnerText>
+          {horizontalAlignment === "right" ? renderMenuItemIcon() : null}
+        </StyledMenuItemOuterContainer>
+        {submenu && checkRef(ref) && currentSubmenuPosition === "right" ? (
+          <SubMenuItemIcon
+            data-element="action-popover-menu-item-chevron"
+            type="chevron_right_thick"
+          />
+        ) : null}
+      </StyledMenuItem>
+      {React.isValidElement(submenu)
+        ? React.cloneElement<ActionPopoverMenuProps>(
+            submenu as React.ReactElement<ActionPopoverMenuProps>,
+            {
+              parentID: `ActionPopoverItem_${guid}`,
+              menuID: `ActionPopoverMenu_${guid}`,
+              "data-element": "action-popover-submenu",
+              isOpen,
+              ref: submenuRef,
+              style: containerPosition,
+              setOpen,
+              setFocusIndex,
+              focusIndex,
+              isASubmenu: true,
+              horizontalAlignment,
+            }
+          )
+        : null}
     </StyledMenuItemWrapper>
   );
 };

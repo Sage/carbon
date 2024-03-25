@@ -288,7 +288,7 @@ const ActionPopoverMenu = React.forwardRef<
         onKeyDown={onKeyDown}
         id={menuID}
         aria-labelledby={parentID}
-        role="menu"
+        role="tooltip"
         ref={ref}
         {...rest}
       >
