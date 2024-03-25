@@ -4,8 +4,7 @@ import { TagProps } from "../../../../__internal__/utils/helpers/tags";
 import { ToggleValue } from "../../time.component";
 import useLocale from "../../../../hooks/__internal__/useLocale";
 
-import ButtonToggleGroup from "./time-toggle.style";
-import { ButtonToggle } from "../../../button-toggle";
+import { ButtonToggle, ButtonToggleGroup } from "../../../button-toggle";
 
 export interface ToggleDataProps {
   wrapperProps?: Omit<TagProps, "data-component">;
@@ -50,7 +49,7 @@ const Toggle = ({
     <ButtonToggleGroup
       {...wrapperProps}
       data-component="time-button-toggle-group"
-      m="0px 0px 0px 8px"
+      m="0px 0px 0px 16px"
       id={internalId.current}
       onChange={handleChange}
       value={toggleValue}
@@ -59,20 +58,16 @@ const Toggle = ({
       <ButtonToggle
         {...amToggleProps}
         data-component="am-button-toggle"
-        grouped
         value="AM"
         size={size}
-        disabled={disabled}
       >
         {amText}
       </ButtonToggle>
       <ButtonToggle
         {...pmToggleProps}
         data-component="pm-button-toggle"
-        grouped
         value="PM"
         size={size}
-        disabled={disabled}
       >
         {pmText}
       </ButtonToggle>

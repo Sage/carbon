@@ -251,7 +251,7 @@ const Time = React.forwardRef<TimeHandle, TimeProps>(
       <Fieldset
         legend={label}
         legendMargin={{ mb: 0 }}
-        width="min-content"
+        width="fit-content"
         isRequired={required}
         isOptional={isOptional}
         isDisabled={disabled}

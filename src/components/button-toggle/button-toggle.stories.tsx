@@ -14,19 +14,6 @@ export const Default: ComponentStory<typeof ButtonToggle> = () => (
   </Box>
 );
 
-export const DefaultWrappedText: ComponentStory<typeof ButtonToggle> = () => (
-  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-    <ButtonToggleGroup id="button-toggle-group-id" label="Wrapped text example">
-      <ButtonToggle value="wraps" grouped>
-        Some text that wraps
-      </ButtonToggle>
-      <ButtonToggle value="foobar" grouped>
-        FooBar
-      </ButtonToggle>
-    </ButtonToggleGroup>
-  </Box>
-);
-
 export const DefaultSmallIcon: ComponentStory<typeof ButtonToggle> = () => (
   <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
     <ButtonToggleGroup id="button-toggle-group-id" label="Small icon example">
@@ -44,7 +31,7 @@ export const DefaultSmallIcon: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const DefaultLargeIcon: ComponentStory<typeof ButtonToggle> = () => (
-  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+  <Box margin={4} width="400px" display="flex" flexWrap="nowrap">
     <ButtonToggleGroup id="button-toggle-group-id" label="Large icon example">
       <ButtonToggle value="foo" buttonIcon="add" buttonIconSize="large">
         Add
@@ -105,7 +92,7 @@ export const smallSmallIcon: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const smallLargeIcon: ComponentStory<typeof ButtonToggle> = () => (
-  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+  <Box margin={4} width="300px" display="flex" flexWrap="nowrap">
     <ButtonToggleGroup
       id="button-toggle-group-id"
       label="Small with large icon example"
@@ -155,7 +142,7 @@ export const large: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const largeSmallIcon: ComponentStory<typeof ButtonToggle> = () => (
-  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+  <Box margin={4} width="300px" display="flex" flexWrap="nowrap">
     <ButtonToggleGroup
       id="button-toggle-group-id"
       label="Large with small icon example"
@@ -174,7 +161,7 @@ export const largeSmallIcon: ComponentStory<typeof ButtonToggle> = () => (
 );
 
 export const largeLargeIcon: ComponentStory<typeof ButtonToggle> = () => (
-  <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+  <Box margin={4} width="450px" display="flex" flexWrap="nowrap">
     <ButtonToggleGroup
       id="button-toggle-group-id"
       label="Large with large icon example"
@@ -207,25 +194,28 @@ export const largeLargeIcon: ComponentStory<typeof ButtonToggle> = () => (
   </Box>
 );
 
-export const disabled: ComponentStory<typeof ButtonToggle> = () => (
+export const disabledButton: ComponentStory<typeof ButtonToggle> = () => (
   <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-    <ButtonToggleGroup id="button-toggle-group-id" label="Disabled example">
+    <ButtonToggleGroup id="button-toggle-group-id" label="Disabled Button">
       <ButtonToggle value="foo" disabled>
         Foo
       </ButtonToggle>
-      <ButtonToggle value="bar" disabled>
-        Bar
-      </ButtonToggle>
-      <ButtonToggle value="baz" disabled>
-        Baz
-      </ButtonToggle>
+      <ButtonToggle value="bar">Bar</ButtonToggle>
+      <ButtonToggle value="baz">Baz</ButtonToggle>
     </ButtonToggleGroup>
   </Box>
 );
 
-export const grouped: ComponentStory<typeof ButtonToggle> = () => (
+export const Grouped: ComponentStory<typeof ButtonToggleGroup> = () => (
   <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
-    <ButtonToggleGroup id="button-toggle-group-id" label="Grouped example">
+    <ButtonToggleGroup
+      id="button-toggle-group-grouped-id"
+      label="Grouped example"
+      labelHelp="help message"
+      helpAriaLabel="Help"
+      fieldHelp="field help mesage"
+      onChange={() => {}}
+    >
       <ButtonToggle value="foo" grouped>
         Foo
       </ButtonToggle>

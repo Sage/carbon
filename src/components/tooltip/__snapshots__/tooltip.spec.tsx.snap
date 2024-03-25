@@ -3,7 +3,7 @@
 exports[`Tooltip controlled matches snapshot when isVisible is false 1`] = `
 <div>
   <div
-    data-testid="tooltip-target"
+    data-role="tooltip-target"
   >
     foo
   </div>
@@ -19,7 +19,7 @@ exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
 
 <div>
   <div
-    data-testid="tooltip-target"
+    data-role="tooltip-target"
   >
     foo
   </div>

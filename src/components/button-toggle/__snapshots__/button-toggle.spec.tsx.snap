@@ -17,15 +17,18 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   position: relative;
   box-sizing: border-box;
   max-width: 100%;
-  height: 40px;
-  padding: 0 24px;
-  font-size: 14px;
   font-weight: 700;
   background-color: transparent;
   cursor: pointer;
   text-align: start;
-  color: inherit;
-  border: 1px solid var(--colorsActionMinor500);
+  color: var(--colorsActionMinor500);
+  border: none;
+  height: 32px;
+  padding: 0 8px;
+  font-size: 14px;
+}
+
+.c2 .c4 {
   color: var(--colorsActionMinor500);
 }
 
@@ -37,50 +40,22 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   z-index: 100;
 }
 
-.c2[aria-pressed="true"] {
-  background-color: var(--colorsActionMinor300);
-  color: var(--colorsActionMinor600);
-  cursor: auto;
-}
-
-.c2 .c4 {
-  width: 16px;
-  height: 16px;
-  color: var(--colorsActionMinor500);
-}
-
-.c2 .c4 {
-  color: var(--colorsActionMinor500);
-}
-
-.c2 .c4:not([aria-pressed="true"]):not(:disabled):hover {
-  color: var(--colorsActionMinorYang100);
-}
-
-.c2[aria-pressed="true"]:not(:hover) {
-  box-shadow: inset 0px 0px 0px 3px var(--colorsActionMinor500);
-  background-color: transparent;
-}
-
-.c2[aria-pressed="true"]:not(:hover):focus {
-  box-shadow: inset 0px 0px 0px 3px var(--colorsActionMinor500), 0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500), 0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090);
-}
-
-.c2:not([aria-pressed="true"]):not(:disabled):hover {
-  color: var(--colorsActionMinorYang100);
-  background-color: var(--colorsActionMinor600);
-}
-
-.c2:not([aria-pressed="true"]):not(:disabled):hover .c4 {
-  color: var(--colorsActionMinorYang100);
-}
-
 .c2:not(:disabled):hover {
   background-color: var(--colorsActionMinor600);
   color: var(--colorsActionMinorYang100);
 }
 
 .c2:not(:disabled):hover .c4 {
+  color: var(--colorsActionMinorYang100);
+}
+
+.c2[aria-pressed="true"] {
+  background-color: var(--colorsActionMinor850);
+  color: var(--colorsActionMinorYang100);
+  cursor: auto;
+}
+
+.c2[aria-pressed="true"] .c4 {
   color: var(--colorsActionMinorYang100);
 }
 
@@ -104,10 +79,6 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 }
 
 .c0:not(:first-of-type) {
-  margin-left: 8px;
-}
-
-.c0:not(:first-of-type) {
   margin-left: -1px;
 }
 
@@ -120,6 +91,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
       aria-pressed={false}
       className="c1 c2"
       data-element="button-toggle-button"
+      disabled={false}
       id="guid-12345"
       onBlur={[Function]}
       onClick={[Function]}
@@ -138,6 +110,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
       aria-pressed={false}
       className="c1 c2"
       data-element="button-toggle-button"
+      disabled={false}
       id="guid-12345"
       onBlur={[Function]}
       onClick={[Function]}

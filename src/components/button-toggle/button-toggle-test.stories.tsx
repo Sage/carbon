@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-
 import { ButtonToggle, ButtonToggleGroup, ButtonToggleProps } from ".";
 
 export default {
@@ -12,10 +11,32 @@ export default {
       disableSnapshot: true,
     },
   },
+  argTypes: {
+    fullWidth: {
+      control: {
+        type: "boolean",
+      },
+    },
+    value: {
+      control: {
+        type: "text",
+      },
+    },
+    allowDeselect: {
+      control: {
+        type: "boolean",
+      },
+    },
+    disabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+  },
 };
 
-export const DefaultStory = () => {
-  const [value, setValue] = useState<string | undefined>("bar");
+export const DefaultStory = ({ ...args }) => {
+  const [value, setValue] = useState<string | undefined>("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
     selectedButtonValue?: string
@@ -28,11 +49,10 @@ export const DefaultStory = () => {
       id="button-toggle-group"
       name="button-toggle-group"
       label="Button Toggle Group test"
-      labelHelp="help message"
-      helpAriaLabel="Help"
-      fieldHelp="field help mesage"
+      inputHint="Hint Text"
       onChange={onChangeHandler}
       value={value}
+      {...args}
     >
       <ButtonToggle value="foo">Foo</ButtonToggle>
       <ButtonToggle value="bar">Bar</ButtonToggle>
@@ -74,6 +94,20 @@ export const WithoutGroup = (args: Partial<ButtonToggleProps>) => (
 );
 
 WithoutGroup.storyName = "without group";
+WithoutGroup.argTypes = {
+  fullWidth: {
+    control: false,
+  },
+  value: {
+    control: false,
+  },
+  allowDeselect: {
+    control: false,
+  },
+  disabled: {
+    control: false,
+  },
+};
 
 export const ButtonToggleGroupComponent = ({ ...props }) => {
   return (

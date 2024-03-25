@@ -1,3 +1,51 @@
+## [127.0.0](https://github.com/Sage/carbon/compare/v126.10.1...v127.0.0) (2024-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* Carbon components will no longer expose `propTypes` in production builds - any
+functionality that relies on reading the `propTypes` of a component will break
+
+### Build System
+
+* remove proptypes from production bundles ([1929f14](https://github.com/Sage/carbon/commit/1929f14f7fe38d760ab6b51a38c22b53247eeef9))
+
+### [126.10.1](https://github.com/Sage/carbon/compare/v126.10.0...v126.10.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **action-popover:** add preventScroll to the focus method responsible for focusing each menu item ([55a241f](https://github.com/Sage/carbon/commit/55a241fdf472e4f83ae1fb624a19d68b41fbf892)), closes [#6485](https://github.com/Sage/carbon/issues/6485)
+
+## [126.10.0](https://github.com/Sage/carbon/compare/v126.9.1...v126.10.0) (2024-03-13)
+
+
+### Features
+
+* **button-toggle-group:** add support for aria-describedby ([4097833](https://github.com/Sage/carbon/commit/40978336dd36fc647f89838a7ed5410c14d30544))
+* **button, button-minor:** add aria-labelledby and aria-describedby props ([fd017ca](https://github.com/Sage/carbon/commit/fd017ca9e8065c1f1316076f00e27127d324e1ec))
+
+### [126.9.1](https://github.com/Sage/carbon/compare/v126.9.0...v126.9.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **tabs:** remove negative margin to resolve scrollbar appearing ([02c2de5](https://github.com/Sage/carbon/commit/02c2de53b969b3ad03ef6717e695977374fcb03c)), closes [#6511](https://github.com/Sage/carbon/issues/6511)
+
+## [126.9.0](https://github.com/Sage/carbon/compare/v126.8.0...v126.9.0) (2024-02-29)
+
+
+### Features
+
+* **textarea:** add prop to hide borders ([cfbff30](https://github.com/Sage/carbon/commit/cfbff309ab433fdda5a46a4803561641846293d6))
+
+## [126.8.0](https://github.com/Sage/carbon/compare/v126.7.1...v126.8.0) (2024-02-29)
+
+
+### Features
+
+* **button-toggle:** update styles ([f5cdf09](https://github.com/Sage/carbon/commit/f5cdf09cc1d9d2ac9d0d8699c819b266daa6bf46))
+
 ### [126.7.1](https://github.com/Sage/carbon/compare/v126.7.0...v126.7.1) (2024-02-28)
 
 
