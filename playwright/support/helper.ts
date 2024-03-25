@@ -380,3 +380,16 @@ export const checkElementBorderColours = async (
   await expect(element).toHaveCSS("border-right-color", color);
   await expect(element).toHaveCSS("border-top-color", color);
 };
+
+/* Util to ensure that a particular element is focused before proceeding.
+ * Useful for avoiding race conditions when the component code auto-focuses some element in an effect.
+ * @param page Returns the value of the `pageFunction` invocation. (see: https://playwright.dev/docs/api/class-page)
+ * @param locator The Playwright locator to evaluate (see: https://playwright.dev/docs/locators)
+ */
+export const waitForElementFocus = async (page: Page, locator: Locator) => {
+  const focusedElement = await locator.elementHandle();
+  await page.waitForFunction(
+    (element) => document.activeElement === element,
+    focusedElement
+  );
+};

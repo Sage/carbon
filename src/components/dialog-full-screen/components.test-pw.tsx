@@ -962,3 +962,49 @@ export const DialogFullScreenWithAutoFocusSelect = () => {
     </DialogFullScreen>
   );
 };
+
+export const DialogFSComponentFocusableSelectors = (
+  props: Partial<DialogFullScreenProps>
+) => {
+  const [setIsDialogOpen] = React.useState(false);
+  const [isToastOpen, setIsToastOpen] = React.useState(false);
+  const toastRef = React.useRef(null);
+  const CUSTOM_SELECTOR = "button, .focusable-container input";
+  return (
+    <>
+      <DialogFullScreen
+        open
+        onCancel={() => setIsDialogOpen}
+        title="Dialog Title"
+        focusableContainers={[toastRef]}
+        focusableSelectors={CUSTOM_SELECTOR}
+        {...props}
+      >
+        <Box className="focusable-container">
+          <Textbox label="First Name" />
+        </Box>
+        <Box>
+          <Textbox label="Surname" />
+        </Box>
+        <Box className="focusable-container">
+          <Button
+            buttonType="primary"
+            data-element="open-toast"
+            onClick={() => setIsToastOpen(true)}
+          >
+            Show toast
+          </Button>
+        </Box>
+      </DialogFullScreen>
+      <Toast
+        open={isToastOpen}
+        onDismiss={() => setIsToastOpen(false)}
+        ref={toastRef}
+        targetPortalId="stacked"
+        data-element="toast"
+      >
+        Toast Message
+      </Toast>
+    </>
+  );
+};
