@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import Event from "../../../__internal__/utils/helpers/events";
-import Icon from "../../icon";
-import { StyledSort, StyledSpaceHolder } from "./sort.style";
+import { StyledSort, StyledSpaceHolder, StyledSortIcon } from "./sort.style";
 import guid from "../../../__internal__/utils/helpers/guid";
+import { FlatTableThemeContext } from "../flat-table.component";
 
 export interface SortProps {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
@@ -24,6 +24,8 @@ const Sort = ({ children, onClick, sortType }: SortProps) => {
     return null;
   };
 
+  const { colorTheme } = useContext(FlatTableThemeContext);
+
   return (
     <>
       <span hidden id={id.current}>
@@ -40,9 +42,13 @@ const Sort = ({ children, onClick, sortType }: SortProps) => {
       >
         {children}
         {sortType && (
-          <Icon
+          <StyledSortIcon
             type={sortType === "ascending" ? "sort_up" : "sort_down"}
-            color="--colorsUtilityMajor200"
+            iconColor={
+              colorTheme === "dark"
+                ? "--colorsActionMinorYang100"
+                : "--colorActionMinor500"
+            }
           />
         )}
       </StyledSort>

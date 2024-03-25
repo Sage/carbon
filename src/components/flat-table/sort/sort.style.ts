@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import StyledIcon from "../../icon/icon.style";
+import Icon from "../../icon";
+import { StyledIconProps } from "../../icon/icon.style";
 import { SortProps } from "./sort.component";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
 import baseTheme from "../../../style/themes/base";
@@ -15,12 +16,6 @@ const StyledSort = styled.div<Pick<SortProps, "sortType">>`
   padding-right: 2px;
   border-bottom: 1px solid transparent;
   position: relative;
-
-  ${StyledIcon} {
-    width: 16px;
-    height: 16px;
-    padding-left: 6px;
-  }
 
   :hover {
     border-bottom: 1px solid;
@@ -45,4 +40,13 @@ const StyledSpaceHolder = styled.div`
   width: 22px;
 `;
 
-export { StyledSort, StyledSpaceHolder };
+interface StylesSortIconProps extends StyledIconProps {
+  iconColor?: string;
+}
+
+const StyledSortIcon = styled(Icon)<StylesSortIconProps>`
+  padding-left: var(--spacing075);
+  color: ${({ iconColor }) => `var(${iconColor})`};
+`;
+
+export { StyledSort, StyledSpaceHolder, StyledSortIcon };
