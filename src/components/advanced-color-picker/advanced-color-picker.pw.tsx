@@ -311,7 +311,7 @@ test.describe(
       await mount(<AdvancedColorPickerCustom />);
 
       await expect(currentColorDescription(page)).toContainText(
-        "Current color assigned: orchid"
+        "Current colour assigned: orchid"
       );
     });
   }

@@ -229,7 +229,7 @@ describe("Password Input", () => {
     it("default aria-live region text should be correct", () => {
       wrapper = renderPasswordInput({});
       expect(wrapper.find(HiddenAriaLive).text()).toBe(
-        "Your Password is currently hidden."
+        "Your password is currently hidden."
       );
     });
 
