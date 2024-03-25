@@ -1,3 +1,10 @@
+### [127.0.1](https://github.com/Sage/carbon/compare/v127.0.0...v127.0.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* **input:** insufficient colour contrast in input placeholder ([cb30557](https://github.com/Sage/carbon/commit/cb30557a84f6b6abf3c69df16717f3074e942c72)), closes [#6587](https://github.com/Sage/carbon/issues/6587)
+
 ## [127.0.0](https://github.com/Sage/carbon/compare/v126.10.1...v127.0.0) (2024-03-14)
 
 
