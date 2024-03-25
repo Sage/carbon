@@ -35,7 +35,7 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   id: string;
   /** Specifies the name prop to be applied to each button in the group */
   name?: string;
-  /** Togglable buttons to be rendered. Only accepts children of type ButtonToggle */
+  /** Toggle buttons to be rendered. Only accepts children of type ButtonToggle */
   children?: React.ReactNode;
   /** aria-label for the group wrapper. Required for accessibility when no text label is provided */
   "aria-label"?: string;
@@ -55,7 +55,7 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   fieldHelpInline?: boolean;
   /** [Legacy] Sets the label to be inline. */
   labelInline?: boolean;
-  /** The percentage width of the label. */
+  /** [Legacy] The percentage width of the label. */
   labelWidth?: number;
   /** If true all ButtonToggle children will flex to the full width of the ButtonToggleGroup parent */
   fullWidth?: boolean;
@@ -95,6 +95,8 @@ type ButtonToggleGroupContextType = {
   isDisabled?: boolean;
   firstButton?: HTMLButtonElement;
   childButtonCallbackRef?: (button: HTMLButtonElement | null) => void;
+  /** Identifier for the hint text, if it exists, that is rendered by ButtonToggleGroup */
+  hintTextId?: string;
 };
 
 let deprecateNameWarnTriggered = false;
@@ -157,6 +159,7 @@ const ButtonToggleGroup = ({
   );
 
   const labelId = useRef(guid());
+  const hintTextId = useRef(guid());
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -237,7 +240,7 @@ const ButtonToggleGroup = ({
         <FormField
           label={label}
           labelHelp={computeLabelPropValues(labelHelp)}
-          labelSpacing={labelSpacing}
+          labelSpacing={computeLabelPropValues(labelSpacing)}
           fieldHelp={computeLabelPropValues(fieldHelp)}
           fieldHelpInline={computeLabelPropValues(fieldHelpInline)}
           labelInline={computeLabelPropValues(labelInline)}
@@ -263,10 +266,13 @@ const ButtonToggleGroup = ({
               isDisabled: disabled,
               firstButton,
               childButtonCallbackRef,
+              hintTextId: inputHint ? hintTextId.current : undefined,
             }}
           >
             {inputHint && (
-              <StyledHintText isDisabled={disabled}>{inputHint}</StyledHintText>
+              <StyledHintText id={hintTextId.current} isDisabled={disabled}>
+                {inputHint}
+              </StyledHintText>
             )}
             <StyledButtonToggleGroupWrapper
               labelInline={labelInline}

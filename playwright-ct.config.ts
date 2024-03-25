@@ -7,6 +7,8 @@ const playwrightDir = resolve(__dirname, "./playwright");
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  /** Directory with the test files. */
+  testDir: resolve(__dirname, "./src/components"),
   /* The base directory, relative to the config file, for snapshot files created with toMatchSnapshot and toHaveScreenshot. */
   snapshotDir: resolve(playwrightDir, "./__snapshots__"),
   /* The output directory for files created during test execution */

@@ -20,7 +20,7 @@ const MockComponent = ({
   };
 
   return (
-    <div data-testid="target-element" {...onInsideClickProp}>
+    <div data-role="target-element" {...onInsideClickProp}>
       Child
     </div>
   );

@@ -215,7 +215,7 @@ export const ActionPopoverItem = ({
   // focuses item on opening of actionPopover submenu
   useEffect(() => {
     if (focusItem) {
-      ref.current?.focus();
+      ref.current?.focus({ preventScroll: true });
     }
   }, [focusItem]);
 

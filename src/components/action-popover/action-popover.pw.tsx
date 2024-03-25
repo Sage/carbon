@@ -185,6 +185,29 @@ test.describe("check functionality for ActionPopover component", () => {
     await expect(focusedElement).toContainText("Sub Menu 2");
   });
 
+  test("should not scroll to the top of the document when first menu item is focused and component is rendered in a tabular parent", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({
+      width: 700,
+      height: 300,
+    });
+    await mount(<ActionPopoverComponentInFlatTable />);
+
+    await page.evaluate(() => window.scrollTo(0, 1000));
+    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    await actionPopoverButtonElement.click();
+    const actionPopoverElement = await actionPopover(page).first();
+    await expect(actionPopoverElement).toBeVisible();
+
+    const focusedElement = await page.locator("*:focus");
+    await expect(focusedElement).toContainText("Print");
+
+    const scrollPosition = await page.evaluate(() => window.scrollY);
+    await expect(scrollPosition).not.toBe(0);
+  });
+
   test("should close using Tab key", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
