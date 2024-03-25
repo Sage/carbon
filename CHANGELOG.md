@@ -1,3 +1,10 @@
+### [127.0.2](https://github.com/Sage/carbon/compare/v127.0.1...v127.0.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* **flat-table:** sort icon color fix ([ddf4d84](https://github.com/Sage/carbon/commit/ddf4d84d1d3ab28776f470e0cd78da9437f4525c)), closes [#6523](https://github.com/Sage/carbon/issues/6523)
+
 ### [127.0.1](https://github.com/Sage/carbon/compare/v127.0.0...v127.0.1) (2024-03-25)
 
 
