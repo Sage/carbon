@@ -27,13 +27,13 @@ const MockComponent = ({
   return (
     <div
       ref={reference}
-      data-testid="reference-element"
+      data-role="reference-element"
       style={{ width: "100px", height: "20px" }}
     >
       <div
         style={{ top: "100px", left: "50px", position: "static" }}
         ref={floating}
-        data-testid="floating-element"
+        data-role="floating-element"
       >
         Child
       </div>

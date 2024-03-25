@@ -1,70 +1,36 @@
 import React from "react";
-import { shallow, mount, ShallowWrapper, ReactWrapper } from "enzyme";
+import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import TestRenderer from "react-test-renderer";
-import { space } from "../../style/themes/base/base-theme.config";
 
 import Icon from "../icon";
-import Button, {
-  ButtonProps,
-  ButtonTypes,
-  SizeOptions,
-  ButtonIconPosition,
-  ButtonWithForwardRef,
-} from "./button.component";
+import Button, { ButtonWithForwardRef } from "./button.component";
 import StyledButton, { StyledButtonMainText } from "./button.style";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
 } from "../../__spec_helper__/test-utils";
-import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledIcon from "../icon/icon.style";
-import { BUTTON_VARIANTS } from "./button.config";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const render = (props: ButtonProps, renderer: any = shallow) => {
-  return renderer(<Button {...props} />);
-};
-
-const sizesPadding: [SizeOptions, string][] = [
-  ["small", "16px"],
-  ["medium", "24px"],
-  ["large", "32px"],
-];
-
-const sizesHeights: [SizeOptions, string][] = [
-  ["small", "32px"],
-  ["medium", "40px"],
-  ["large", "48px"],
-];
-
-const FILTERED_VARIANTS = BUTTON_VARIANTS.filter(
-  (buttonVariant) => !buttonVariant.includes("gradient")
-);
 
 jest.mock("../../__internal__/utils/logger");
 
 describe("Button", () => {
-  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
-  let wrapper: ShallowWrapper | ReactWrapper;
+  describe("deprecation warnings", () => {
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
 
-  beforeEach(() => {
-    loggerSpy = jest.spyOn(Logger, "deprecate");
-  });
+    it("should display deprecation warning once when dashed buttonType is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
 
-  afterEach(() => {
-    loggerSpy.mockRestore();
-  });
-
-  afterAll(() => {
-    loggerSpy.mockClear();
-  });
-
-  describe("Dashed Button", () => {
-    it("should display deprecation warning once", () => {
-      mount(<Button buttonType="dashed">Button</Button>);
+      mount(
+        <>
+          <Button buttonType="dashed">Button</Button>
+          <Button buttonType="dashed">Button</Button>
+        </>
+      );
 
       expect(loggerSpy).toHaveBeenCalledWith(
         "The `dashed` variant of the `buttonType` prop for `Button` component is deprecated and will soon be removed."
@@ -72,38 +38,65 @@ describe("Button", () => {
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
-  });
 
-  describe("ButtonWithForwardRef", () => {
-    it("should display deprecation warning when the component is used once", () => {
-      wrapper = mount(<ButtonWithForwardRef>Button</ButtonWithForwardRef>);
+    it("should display deprecation warning once when ButtonWithForwardRef component is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+      mount(
+        <>
+          <ButtonWithForwardRef>Button</ButtonWithForwardRef>
+          <ButtonWithForwardRef>Button</ButtonWithForwardRef>
+        </>
+      );
 
       expect(loggerSpy).toHaveBeenCalledWith(
         "The `ButtonWithForwardRef` component is deprecated and will soon be removed. Please use a basic `Button` component with `ref` instead."
       );
+      expect(loggerSpy).toHaveBeenCalledTimes(1);
+    });
 
-      wrapper.setProps({ prop1: true });
+    it("should display deprecation warning once when the forwardRef prop is used", () => {
+      const loggerSpy = jest.spyOn(Logger, "deprecate");
+
+      const ref = { current: null };
+      mount(
+        <>
+          <Button forwardRef={ref}>Button</Button>
+          <Button forwardRef={ref}>Button</Button>
+        </>
+      );
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        "The `forwardRef` prop in `Button` component is deprecated and will soon be removed. Please use `ref` instead."
+      );
       expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
   });
 
-  it("should display deprecation warning when the forwardRef prop is used", () => {
-    const ref = { current: null };
-
-    wrapper = mount(<Button forwardRef={ref}>Button</Button>);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The `forwardRef` prop in `Button` component is deprecated and will soon be removed. Please use `ref` instead."
-    );
-    wrapper.setProps({ prop1: true });
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
+  testStyledSystemSpacing((props) => <Button {...props}>Test</Button>, {
+    px: "24px",
+    m: "0",
   });
+
+  it.each([
+    ["small", "var(--spacing200)"],
+    ["medium", "var(--spacing300)"],
+    ["large", "var(--spacing400)"],
+  ] as const)(
+    "has correct default horizontal padding when size is %s",
+    (size, padding) => {
+      const wrapper = mount(<Button size={size}>Test</Button>);
+      assertStyleMatch(
+        { paddingLeft: padding, paddingRight: padding },
+        wrapper
+      );
+    }
+  );
 
   describe.each(["ref", "forwardRef"])("%s", (propName) => {
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
-
-      wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
+      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
 
       wrapper.update();
 
@@ -112,7 +105,7 @@ describe("Button", () => {
 
     it("accepts ref as a ref callback", () => {
       const ref = jest.fn();
-      wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
+      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
 
       wrapper.update();
 
@@ -121,234 +114,122 @@ describe("Button", () => {
 
     it("sets ref to empty after unmount", () => {
       const ref = { current: null };
-      wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
+      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
 
       wrapper.update();
 
       wrapper.unmount();
-
       expect(ref.current).toBe(null);
     });
   });
 
-  describe("tooltip", () => {
-    it("renders TooltipProvider with correct props", () => {
-      wrapper = mount(
-        <Button
-          iconType="bin"
-          iconTooltipMessage="This is a tooltip"
-          aria-label="Delete"
-        />
-      );
-
-      const props = wrapper.find(TooltipProvider).props();
-
-      expect(props.disabled).toBe(false);
-      expect(props.focusable).toBe(false);
-      expect(props.target).toBe(wrapper.find(StyledButton).getDOMNode());
-    });
-  });
-
-  describe("when no props other than children are passed into the component", () => {
-    it("renders the default props and children", () => {
-      const wrapperWithChildren = render({ children: "foo" });
-      expect(wrapperWithChildren.contains(<Icon type="filter" />)).toBeFalsy();
-      expect(wrapperWithChildren.props().buttonType).toEqual("secondary");
-      expect(wrapperWithChildren.props().size).toEqual("medium");
-      expect(wrapperWithChildren.props().disabled).toEqual(false);
-    });
-  });
-
-  describe.each(BUTTON_VARIANTS)("spacing for %s button", (variant) => {
-    testStyledSystemSpacing(
-      (props) => (
-        <Button buttonType={variant} {...props}>
-          Test
-        </Button>
-      ),
-      { px: "24px", m: "0" }
+  it("renders TooltipProvider with correct props when iconTooltipMessage prop is passed", () => {
+    const wrapper = mount(
+      <Button
+        iconType="bin"
+        iconTooltipMessage="This is a tooltip"
+        aria-label="Delete"
+      />
     );
+
+    const props = wrapper.find(TooltipProvider).props();
+
+    expect(props.disabled).toBe(false);
+    expect(props.focusable).toBe(false);
+    expect(props.target).toBe(wrapper.find(StyledButton).getDOMNode());
+  });
+
+  it("renders medium-sized, secondary button when button has child text and no props", () => {
+    const wrapper = mount(<Button>foo</Button>);
+    const button = wrapper.find(StyledButton);
+    expect(button.find(Icon).exists()).toBeFalsy();
+    expect(button.prop("buttonType")).toEqual("secondary");
+    expect(button.prop("size")).toEqual("medium");
+    expect(button.prop("disabled")).toBeFalsy();
   });
 
   describe("when iconType specified with no children", () => {
-    it("icon matches the style for an icon only button", () => {
-      wrapper = mount(<Button iconType="bin" />);
-      assertStyleMatch(
-        {
-          marginBottom: "1px",
-        },
-        wrapper,
-        { modifier: `${StyledIcon}` }
-      );
-      assertStyleMatch({ width: "40px" }, wrapper);
-    });
     it("width matches the style for 'small' button", () => {
-      wrapper = mount(<Button iconType="bin" size="small" />);
+      const wrapper = mount(<Button iconType="bin" size="small" />);
       assertStyleMatch({ width: "32px" }, wrapper);
     });
     it("width matches the style for 'large' button", () => {
-      wrapper = mount(<Button iconType="bin" size="large" />);
+      const wrapper = mount(<Button iconType="bin" size="large" />);
       assertStyleMatch({ width: "48px" }, wrapper);
     });
   });
 
-  describe.each<[SizeOptions, string]>(sizesPadding)(
-    "spacing for %s button size",
-    (size, px) => {
-      testStyledSystemSpacing(
-        (props) => (
-          <Button size={size} {...props}>
-            Test
-          </Button>
-        ),
-        { px, m: "0" }
-      );
-    }
-  );
-
-  describe('when only the "iconPosition" and "iconType" props are passed into the component', () => {
-    it("renders the default props and children to match the snapshot with the Icon before children", () => {
-      wrapper = render(
-        { children: "foo", iconType: "filter", iconPosition: "before" },
-        TestRenderer.create
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it("renders the default props and children to match the snapshot with the Icon after children", () => {
-      wrapper = render(
-        { children: "foo", iconType: "filter", iconPosition: "after" },
-        TestRenderer.create
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    describe.each<ButtonIconPosition>(["before", "after"])(
-      'when position is set to "%s"',
-      (position) => {
-        describe.each<ButtonTypes>(BUTTON_VARIANTS)(
-          "and the button type is %s",
-          (buttonType) => {
-            beforeEach(() => {
-              wrapper = render({
-                children: "foo",
-                iconType: "filter",
-                iconPosition: position,
-                buttonType,
-              }).dive();
-            });
-
-            it("contains an Icon", () => {
-              const assertion =
-                wrapper.find(Icon).exists() &&
-                wrapper.find(Icon).props().type === "filter";
-              expect(assertion).toEqual(true);
-            });
-          }
-        );
-      }
+  it("icon is rendered before text when iconPosition is 'before' and iconType is specified", () => {
+    const wrapper = mount(
+      <Button iconType="filter" iconPosition="before">
+        Filter
+      </Button>
     );
+    const button = wrapper.find("button");
+    expect(button.childAt(0).find(Icon).exists()).toBeTruthy();
+    expect(button.childAt(1).text()).toEqual("Filter");
   });
 
-  describe("When icon type is specified and button has no children", () => {
-    describe.each(BUTTON_VARIANTS)(
-      "and the button type is %s",
-      (buttonType) => {
-        beforeEach(() => {
-          wrapper = render({
-            iconType: "filter",
-            buttonType,
-          }).dive();
-        });
-
-        it("contains an Icon", () => {
-          const assertion =
-            wrapper.find(Icon).exists() &&
-            wrapper.find(Icon).props().type === "filter";
-          expect(assertion).toEqual(true);
-        });
-      }
+  it("icon is rendered after text when iconPosition is 'before' and iconType is specified", () => {
+    const wrapper = mount(
+      <Button iconType="filter" iconPosition="after">
+        Filter
+      </Button>
     );
+    const button = wrapper.find("button");
+    expect(button.childAt(0).text()).toEqual("Filter");
+    expect(button.childAt(1).find(Icon).exists()).toBeTruthy();
   });
 
-  describe("when there are no props passed except children", () => {
-    it('matches the expect styles for a default button with variants "secondary" and "medium"', () => {
-      wrapper = render({ children: "foo" }, TestRenderer.create).toJSON();
+  it("renders with correct border radius", () => {
+    const wrapper = mount(<Button>foo</Button>);
+    assertStyleMatch({ borderRadius: "var(--borderRadius400)" }, wrapper);
+  });
+
+  it("error is thrown when there are no iconType and no children passed", () => {
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    expect(() => mount(<Button />)).toThrow(
+      "Either prop `iconType` must be defined or this node must have children."
+    );
+
+    consoleSpy.mockRestore();
+  });
+
+  it.each([
+    ["primary", "var(--colorsActionDisabled500)", "transparent"],
+    ["secondary", "transparent", "var(--colorsActionDisabled500)"],
+    ["tertiary", "transparent", "transparent"],
+    ["darkBackground", "var(--colorsActionDisabled500)", "transparent"],
+  ] as const)(
+    "has correct disabled styling when buttonType prop is %s and disabled prop is specified",
+    (buttonType, background, borderColor) => {
+      const wrapper = mount(
+        <Button disabled buttonType={buttonType}>
+          foo
+        </Button>
+      );
+
       assertStyleMatch(
         {
-          background: "transparent",
-          borderColor: "var(--colorsActionMajor500)",
-          color: "var(--colorsActionMajor500)",
-          fontSize: "var(--fontSizes100)",
-          minHeight: "40px",
-          borderRadius: "var(--borderRadius400)",
+          background,
+          borderColor,
+          color: "var(--colorsActionMajorYin030)",
         },
         wrapper
       );
-    });
-  });
-
-  describe("when there are no iconType or children passed", () => {
-    it("throws an error", () => {
-      const mockGlobal = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(() => undefined);
-      const errorMessage =
-        "Either prop `iconType` must be defined or this node must have children.";
-
-      expect(() => {
-        render({}, mount);
-      }).toThrow(errorMessage);
-
-      mockGlobal.mockReset();
-    });
-  });
-
-  describe.each(FILTERED_VARIANTS)(
-    'when setting the "buttonType" prop to "%s"',
-    (variant) => {
-      it("matches the expected style", () => {
-        wrapper = render(
-          {
-            children: "foo",
-            disabled: true,
-            buttonType: variant,
-          },
-          TestRenderer.create
-        ).toJSON();
-        assertStyleMatch(
-          {
-            background:
-              variant === "secondary" ||
-              variant === "tertiary" ||
-              variant === "dashed"
-                ? "transparent"
-                : "var(--colorsActionDisabled500)",
-            borderColor:
-              variant === "secondary" || variant === "dashed"
-                ? "var(--colorsActionDisabled500)"
-                : "transparent",
-            color:
-              variant === "dashed"
-                ? "var(--colorsActionMinorYin030)"
-                : "var(--colorsActionMajorYin030)",
-          },
-          wrapper
-        );
-      });
     }
   );
 
   describe("when the destructive prop is passed", () => {
     it("matches the expected destructive style for primary buttons", () => {
-      wrapper = render(
-        {
-          children: "foo",
-          destructive: true,
-          buttonType: "primary",
-        },
-        TestRenderer.create
-      ).toJSON();
+      const wrapper = mount(
+        <Button destructive buttonType="primary">
+          foo
+        </Button>
+      );
 
       assertStyleMatch(
         {
@@ -368,13 +249,11 @@ describe("Button", () => {
     });
 
     it("matches the expected destructive style for secondary buttons", () => {
-      wrapper = render(
-        {
-          children: "foo",
-          destructive: true,
-        },
-        TestRenderer.create
-      ).toJSON();
+      const wrapper = mount(
+        <Button destructive buttonType="secondary">
+          foo
+        </Button>
+      );
 
       assertStyleMatch(
         {
@@ -414,14 +293,11 @@ describe("Button", () => {
   });
 
   it("matches the expected destructive style for tertiary buttons", () => {
-    wrapper = render(
-      {
-        children: "foo",
-        destructive: true,
-        buttonType: "tertiary",
-      },
-      TestRenderer.create
-    ).toJSON();
+    const wrapper = mount(
+      <Button destructive buttonType="tertiary">
+        foo
+      </Button>
+    );
 
     assertStyleMatch(
       {
@@ -460,441 +336,335 @@ describe("Button", () => {
 
   describe('when "noWrap" prop is passed', () => {
     it("renders with whiteSpace: nowrap set and removes flex-flow: wrap", () => {
-      wrapper = mount(<Button noWrap>Button</Button>);
+      const wrapper = mount(<Button noWrap>Button</Button>);
       assertStyleMatch({ whiteSpace: "nowrap", flexFlow: undefined }, wrapper);
     });
   });
 
-  describe('when the "disabled" prop is passed', () => {
-    it('matches the style for the default Button when no "as" and "size" props are passed', () => {
-      wrapper = render(
-        { children: "foo", disabled: true },
-        TestRenderer.create
-      ).toJSON();
+  it("button is disabled when disabled prop is passed", () => {
+    render(<Button disabled>foo</Button>);
+
+    const button = screen.getByRole("button", { name: /foo/ });
+    expect(button).toBeDisabled();
+  });
+
+  it.each([
+    ["small", "32px", "var(--fontSizes100)"],
+    ["medium", "40px", "var(--fontSizes100)"],
+    ["large", "48px", "var(--fontSizes200)"],
+  ] as const)(
+    "renders with correct minimum height and font size when size prop is %s",
+    (size, minHeight, fontSize) => {
+      const wrapper = mount(
+        <Button disabled size={size}>
+          foo
+        </Button>
+      );
+
       assertStyleMatch(
         {
-          background: "transparent",
-          borderColor: "var(--colorsActionDisabled500)",
-          color: "var(--colorsActionMajorYin030)",
-          fontSize: "var(--fontSizes100)",
-          minHeight: "40px",
+          fontSize,
+          minHeight,
         },
         wrapper
       );
-    });
+    }
+  );
 
-    describe.each(sizesHeights)('when a "%s"', (size, height) => {
-      describe.each([FILTERED_VARIANTS])(
-        'and "%s" button is rendered',
-        (variant) => {
-          it("matches the expected style", () => {
-            wrapper = render(
-              {
-                children: "foo",
-                disabled: true,
-                buttonType: variant,
-                size,
-              },
-              TestRenderer.create
-            ).toJSON();
-
-            assertStyleMatch(
-              {
-                background:
-                  variant === "secondary" ||
-                  variant === "tertiary" ||
-                  variant === "dashed"
-                    ? "transparent"
-                    : "var(--colorsActionDisabled500)",
-                borderColor:
-                  variant === "secondary" || variant === "dashed"
-                    ? "var(--colorsActionDisabled500)"
-                    : "transparent",
-                color:
-                  variant === "dashed"
-                    ? "var(--colorsActionMinorYin030)"
-                    : "var(--colorsActionMajorYin030)",
-                fontSize:
-                  size === "large"
-                    ? "var(--fontSizes200)"
-                    : "var(--fontSizes100)",
-                minHeight: height,
-              },
-              wrapper
-            );
-          });
-
-          it("matches the expected disabled style even if destructive", () => {
-            wrapper = render(
-              {
-                children: "foo",
-                destructive: true,
-                disabled: true,
-                buttonType: variant,
-                size,
-              },
-              TestRenderer.create
-            ).toJSON();
-
-            assertStyleMatch(
-              {
-                background:
-                  variant === "secondary" ||
-                  variant === "tertiary" ||
-                  variant === "dashed"
-                    ? "transparent"
-                    : "var(--colorsActionDisabled500)",
-                borderColor:
-                  variant === "secondary" || variant === "dashed"
-                    ? "var(--colorsActionDisabled500)"
-                    : "transparent",
-                color:
-                  variant === "dashed"
-                    ? "var(--colorsActionMinorYin030)"
-                    : "var(--colorsActionMajorYin030)",
-                fontSize:
-                  size === "large"
-                    ? "var(--fontSizes200)"
-                    : "var(--fontSizes100)",
-                minHeight: height,
-              },
-              wrapper
-            );
-          });
-        }
+  it.each([
+    ["primary", "var(--colorsActionDisabled500)", "transparent"],
+    ["secondary", "transparent", "var(--colorsActionDisabled500)"],
+    ["tertiary", "transparent", "transparent"],
+    ["darkBackground", "var(--colorsActionDisabled500)", "transparent"],
+  ] as const)(
+    "for a disabled %s button, disabled styling takes priority even when destructive prop is passed",
+    (buttonType, background, borderColor) => {
+      const wrapper = mount(
+        <Button destructive disabled buttonType={buttonType}>
+          foo
+        </Button>
       );
-    });
-  });
+      assertStyleMatch(
+        {
+          background,
+          borderColor,
+          color: "var(--colorsActionMajorYin030)",
+        },
+        wrapper
+      );
+    }
+  );
 
-  it("matches the applies the expected style to the icon", () => {
-    const renderWrapper = TestRenderer.create(
-      <StyledButton iconType="plus">Test</StyledButton>
-    );
+  it("overrides the height of the button icon when iconType prop is passed", () => {
+    const wrapper = mount(<Button iconType="plus">Test</Button>);
+
     assertStyleMatch(
       {
         height: "20px",
       },
-      renderWrapper.toJSON(),
+      wrapper.find(Button),
       { modifier: `${StyledIcon}` }
     );
   });
 
-  describe("A primary button", () => {
-    const primary = render({
-      name: "Primary Button",
-      buttonType: "primary",
-      onClick: jest.fn(),
-      children: "Primary",
-    }).dive();
-
-    it("renders a primary button", () => {
-      expect(primary.props().name).toEqual("Primary Button");
-      expect(primary.props().buttonType).toEqual("primary");
-      expect(primary.find(StyledButtonMainText).text()).toBe("Primary");
-    });
+  it("renders a primary button with correct semantics", () => {
+    const wrapper = mount(
+      <Button name="Primary Button" buttonType="primary">
+        Primary
+      </Button>
+    );
+    const button = wrapper.find(StyledButton);
+    expect(button.prop("name")).toEqual("Primary Button");
+    expect(button.prop("buttonType")).toEqual("primary");
+    expect(button.find(StyledButtonMainText).text()).toEqual("Primary");
   });
 
-  describe("A secondary button", () => {
-    const secondary = render({
-      name: "Secondary Button",
-      children: "Secondary",
-    }).dive();
-
-    it("renders a secondary button", () => {
-      expect(secondary.props().name).toEqual("Secondary Button");
-      expect(secondary.props().buttonType).toEqual("secondary");
-      expect(secondary.find(StyledButtonMainText).text()).toBe("Secondary");
-    });
+  it("renders a secondary button with correct semantics", () => {
+    const wrapper = mount(
+      <Button name="Secondary Button" buttonType="secondary">
+        Secondary
+      </Button>
+    );
+    const button = wrapper.find(StyledButton);
+    expect(button.prop("name")).toEqual("Secondary Button");
+    expect(button.prop("buttonType")).toEqual("secondary");
+    expect(button.find(StyledButtonMainText).text()).toEqual("Secondary");
   });
 
-  describe("A small button", () => {
-    const small = render({
-      name: "Small Button",
-      size: "small",
-      children: "Small",
-    }).dive();
-
-    it("renders a small button", () => {
-      expect(small.props().name).toEqual("Small Button");
-      expect(small.props().size).toEqual("small");
-      expect(small.find(StyledButtonMainText).text()).toBe("Small");
-    });
+  it("renders a small button with correct semantics", () => {
+    const wrapper = mount(
+      <Button name="Small Button" size="small">
+        Small
+      </Button>
+    );
+    const button = wrapper.find(StyledButton);
+    expect(button.prop("name")).toEqual("Small Button");
+    expect(button.prop("size")).toEqual("small");
+    expect(button.find(StyledButtonMainText).text()).toEqual("Small");
   });
 
-  describe("A large button", () => {
-    const large = render({
-      name: "Large Button",
-      size: "large",
-      children: "Large",
-    }).dive();
-
-    it("renders a large button", () => {
-      expect(large.props().name).toEqual("Large Button");
-      expect(large.props().size).toEqual("large");
-      expect(large.find(StyledButtonMainText).text()).toBe("Large");
-    });
+  it("renders a large button with correct semantics", () => {
+    const wrapper = mount(
+      <Button name="Large Button" size="large">
+        Large
+      </Button>
+    );
+    const button = wrapper.find(StyledButton);
+    expect(button.prop("name")).toEqual("Large Button");
+    expect(button.prop("size")).toEqual("large");
+    expect(button.find(StyledButtonMainText).text()).toEqual("Large");
   });
 
-  describe("A disabled button", () => {
-    const disabled = render({
-      name: "Disabled Button",
-      disabled: true,
-      children: "Disabled",
-    }).dive();
-
-    it("renders a disabled button", () => {
-      expect(disabled.props().name).toEqual("Disabled Button");
-      expect(disabled.props().buttonType).toEqual("secondary");
-      expect(disabled.find(StyledButtonMainText).text()).toBe("Disabled");
-      expect(disabled.props().disabled).toEqual(true);
-    });
+  it("renders a disabled button with correct semantics", () => {
+    const wrapper = mount(
+      <Button name="Disabled Button" disabled>
+        Disabled
+      </Button>
+    );
+    const button = wrapper.find(StyledButton);
+    expect(button.prop("name")).toEqual("Disabled Button");
+    expect(button.prop("buttonType")).toEqual("secondary");
+    expect(button.find(StyledButtonMainText).text()).toEqual("Disabled");
+    expect(button.prop("disabled")).toEqual(true);
   });
 
-  describe("when a subtext prop is passed into the component", () => {
-    it('does not render the subtext if the size prop is not "large"', () => {
-      try {
-        wrapper = render({ children: "foo", subtext: "bar" }).dive();
-
-        expect(wrapper.find('[data-element="subtext"]').exists()).toBe(false);
-      } catch (error) {} // eslint-disable-line no-empty
-    });
-
+  describe("when subtext prop is passed", () => {
     it('renders the subtext if the size prop is "large"', () => {
-      wrapper = render({
-        children: "foo",
-        size: "large",
-        subtext: "bar",
-      }).dive();
+      const wrapper = mount(
+        <Button size="large" subtext="bar">
+          foo
+        </Button>
+      );
 
-      expect(wrapper.find('[data-element="subtext"]').exists()).toBe(true);
+      expect(wrapper.find('[data-element="subtext"]').exists()).toBeTruthy();
     });
 
-    describe.each<SizeOptions>(["small", "medium"])(
-      'when the "subtext" prop is specified and the size prop is set to "%s"',
+    it.each(["small", "medium"] as const)(
+      "throws an error if size prop is %s",
       (size) => {
-        it("throws an error", () => {
-          expect(() => {
-            render({ children: "foo", subtext: "bar", size }).dive();
-          }).toThrowError(
-            "subtext prop has no effect unless the button is large"
-          );
-        });
+        const consoleSpy = jest
+          .spyOn(console, "error")
+          .mockImplementation(() => {});
+
+        expect(() =>
+          mount(
+            <Button subtext="bar" size={size}>
+              foo
+            </Button>
+          )
+        ).toThrow("subtext prop has no effect unless the button is large");
+
+        consoleSpy.mockRestore();
       }
     );
   });
 
-  describe("tags on component", () => {
-    it("includes correct component, element and role data tags", () => {
-      wrapper = shallow(
-        <Button data-element="bar" data-role="baz">
-          Test
+  it("correctly sets data tags", () => {
+    render(
+      <Button data-element="bar" data-role="baz">
+        Test
+      </Button>
+    );
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("data-component", "button");
+    expect(button).toHaveAttribute("data-element", "bar");
+    expect(button).toHaveAttribute("data-role", "baz");
+  });
+
+  it("correctly sets aria-label on button when passed as a prop", () => {
+    render(<Button iconType="filter" aria-label="Filter" />);
+    expect(screen.getByRole("button", { name: /Filter/ })).toHaveAccessibleName(
+      /Filter/
+    );
+  });
+
+  it("sets button's aria-label to be value of iconType prop when aria-label prop isn't passed", () => {
+    render(<Button iconType="bin" />);
+    expect(screen.getByRole("button")).toHaveAccessibleName(/bin/);
+  });
+
+  it("correctly sets aria-labelledby on button when passed as a prop", () => {
+    render(
+      <>
+        <h1 id="add-product">Add product</h1>
+        <Button
+          aria-labelledby="add-product"
+          iconType="add"
+          onClick={() => {}}
+        />
+      </>
+    );
+    expect(screen.getByRole("button")).toHaveAccessibleName(/Add product/);
+  });
+
+  it("correctly sets aria-describedby on button when passed as a prop", () => {
+    render(
+      <>
+        <h1 id="title">Addon A</h1>
+        <Button aria-describedby="title" onClick={() => {}}>
+          Select add-on
         </Button>
-      ).dive();
-
-      rootTagTest(wrapper, "button", "bar", "baz");
-    });
+      </>
+    );
+    expect(screen.getByRole("button")).toHaveAccessibleDescription(/Addon A/);
   });
 
-  describe("aria-label", () => {
-    it("when defined, should be present on the button element", () => {
-      wrapper = shallow(<Button aria-label="bar">foo</Button>).dive();
-
-      const ariaLink = wrapper.find('[aria-label="bar"]');
-      expect(ariaLink.exists()).toBe(true);
-    });
-
-    it("when defined, should be present on the button element, when the button has only an icon", () => {
-      wrapper = shallow(<Button aria-label="foo" iconType="bin" />).dive();
-
-      const ariaLink = wrapper.find('[aria-label="foo"]');
-      expect(ariaLink.exists()).toBe(true);
-    });
-
-    it("when not defined, should default to iconType, when the button has only an icon", () => {
-      wrapper = shallow(<Button iconType="bin" />).dive();
-
-      const ariaLink = wrapper.find('[aria-label="bin"]');
-      expect(ariaLink.exists()).toBe(true);
-    });
+  it("rendered icon is hidden from assistive technologies when iconType prop is passed", () => {
+    const wrapper = mount(<Button iconType="bin">Delete</Button>);
+    expect(wrapper.find(Icon).prop("aria-hidden")).toBeTruthy();
   });
 
-  describe("when specified with an icon", () => {
-    it.each<ButtonProps>([
-      { iconType: "bin", "aria-label": "Message" },
-      { iconType: "bin", children: "Message" },
-    ])("hide icon from assistive technologies", (props) => {
-      wrapper = render(props);
-
-      const iconProps = wrapper.find(Icon).props();
-
-      expect(iconProps["aria-hidden"]).toBe(true);
-    });
+  it("overrides height of icon when iconType is 'services'", () => {
+    const wrapper = mount(
+      <Button iconType="services" size="large">
+        foo
+      </Button>
+    );
+    assertStyleMatch(
+      {
+        height: "6px",
+      },
+      wrapper.find(Button),
+      { modifier: `${StyledIcon}` }
+    );
   });
 
-  describe('when the iconType is "services"', () => {
-    it("applies the expected style to the icon", () => {
-      const buttonWithServiceIcon = render(
-        { children: "foo", iconType: "services", size: "large" },
-        TestRenderer.create
-      );
-      assertStyleMatch(
-        {
-          height: "6px",
-        },
-        buttonWithServiceIcon.toJSON(),
-        { modifier: `${StyledIcon}` }
-      );
-    });
-  });
-
-  describe("when the fullWidth prop is provided", () => {
-    it.each(BUTTON_VARIANTS)(
-      'applies the expected style to the "%s" button',
-      (variant) => {
-        const button = render(
-          {
-            children: "foo",
-            fullWidth: true,
-            buttonType: variant,
-          },
-          TestRenderer.create
-        );
-        assertStyleMatch(
-          {
-            width: "100%",
-          },
-          button.toJSON()
-        );
-      }
+  it("renders with 100% width when fullWidth prop is specified", () => {
+    const wrapper = mount(<Button fullWidth>foo</Button>);
+    assertStyleMatch(
+      {
+        width: "100%",
+      },
+      wrapper.find(Button)
     );
   });
 
   describe("using href prop to render as an anchor", () => {
-    beforeEach(() => {
-      wrapper = mount(<Button href="/">Test</Button>);
-    });
-
     it("should render as an <a> element", () => {
+      const wrapper = mount(<Button href="/">Test</Button>);
       expect(wrapper.find("a").exists()).toEqual(true);
     });
 
-    describe("when space key pressed", () => {
-      it("should click the link", () => {
-        const preventDefaultSpy = jest.fn();
+    it("should click the link when space key pressed", () => {
+      const preventDefaultSpy = jest.fn();
+      const wrapper = mount(<Button href="/">Test</Button>);
 
-        act(() => {
-          wrapper.find(StyledButton).at(0).props().onKeyDown({
-            key: " ",
-            preventDefault: preventDefaultSpy,
-          });
+      act(() => {
+        wrapper.find(StyledButton).at(0).props().onKeyDown({
+          key: " ",
+          preventDefault: preventDefaultSpy,
         });
-
-        wrapper.update();
-
-        expect(preventDefaultSpy).toHaveBeenCalled();
       });
+
+      wrapper.update();
+
+      expect(preventDefaultSpy).toHaveBeenCalled();
     });
 
-    describe("when other key pressed", () => {
-      it("should not click the link", () => {
-        const preventDefaultSpy = jest.fn();
+    it("should not click the link when other key pressed", () => {
+      const preventDefaultSpy = jest.fn();
+      const wrapper = mount(<Button href="/">Test</Button>);
 
-        act(() => {
-          wrapper.find(StyledButton).at(0).props().onKeyDown({
-            key: "ArrowLeft",
-            preventDefault: jest.fn(),
-          });
+      act(() => {
+        wrapper.find(StyledButton).at(0).props().onKeyDown({
+          key: "ArrowLeft",
+          preventDefault: jest.fn(),
         });
-
-        wrapper.update();
-
-        expect(preventDefaultSpy).not.toHaveBeenCalled();
       });
+
+      wrapper.update();
+
+      expect(preventDefaultSpy).not.toHaveBeenCalled();
     });
 
-    describe("with target and rel props", () => {
-      it("should set the correct html attributes", () => {
-        wrapper = mount(
-          <Button href="/" target="_blank" rel="noopener noreferrer">
-            Test
-          </Button>
-        );
+    it("link has correct target and rel attributes set when they are passed as props", () => {
+      const wrapper = mount(
+        <Button href="/" target="_blank" rel="noopener noreferrer">
+          Test
+        </Button>
+      );
 
-        expect(wrapper.find(StyledButton).props().target).toEqual("_blank");
-        expect(wrapper.find(StyledButton).props().rel).toEqual(
-          "noopener noreferrer"
-        );
-      });
+      expect(wrapper.find(StyledButton).props().target).toEqual("_blank");
+      expect(wrapper.find(StyledButton).props().rel).toEqual(
+        "noopener noreferrer"
+      );
     });
   });
 
-  describe("overriding size based padding", () => {
-    const paddingValues = Array.from({ length: 9 }).map((_, px) => [
-      space[px],
-      px,
-    ]);
-    it.each(paddingValues)(
-      "sets the padding to %s when px prop is %d",
-      (result, px) => {
-        wrapper = render({ px, children: "foo" }, mount);
+  it.each(["gradient-white", "gradient-grey"] as const)(
+    "uses correct icon colour when buttonType is %s",
+    (buttonType) => {
+      const wrapper = mount(
+        <Button buttonType={buttonType} iconType="home">
+          foo
+        </Button>
+      );
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMinorYin090)",
+        },
+        wrapper.find(StyledIcon)
+      );
+    }
+  );
 
-        assertStyleMatch(
-          {
-            paddingLeft: result,
-          },
-          wrapper
-        );
-      }
-    );
-  });
+  it.each(["gradient-white", "gradient-grey"] as const)(
+    "uses correct background color on hover when buttonType is %s",
+    (buttonType) => {
+      const wrapper = mount(
+        <Button buttonType={buttonType} iconType="home">
+          foo
+        </Button>
+      );
 
-  it("should set the correct icon colour when the gradient-white buttonType is set", () => {
-    const icon = render(
-      { buttonType: "gradient-white", children: "foo", iconType: "home" },
-      mount
-    ).find(StyledIcon);
-
-    expect(icon.prop("color")).toBe("--colorsActionMinorYin090");
-  });
-
-  it("should have the correct hover styling when buttonType is gradient-white", () => {
-    wrapper = render(
-      { buttonType: "gradient-white", children: "foo", iconType: "home" },
-      mount
-    );
-
-    assertStyleMatch(
-      {
-        background:
-          "linear-gradient(to right,#d6f8df,#d9f2ff,#ede2ff) padding-box,linear-gradient(to right,#00D639,#11AFFF,#8F49FE) border-box",
-      },
-      wrapper.find(StyledButton),
-      { modifier: ":hover" }
-    );
-  });
-
-  it("should set the correct icon colour when the gradient-grey buttonType is set", () => {
-    const icon = render(
-      { buttonType: "gradient-grey", children: "foo", iconType: "home" },
-      mount
-    ).find(StyledIcon);
-
-    expect(icon.prop("color")).toBe("--colorsActionMinorYin090");
-  });
-
-  it("should have the correct hover styling when buttonType is gradient-grey", () => {
-    wrapper = render(
-      { buttonType: "gradient-grey", children: "foo", iconType: "home" },
-      mount
-    );
-
-    assertStyleMatch(
-      {
-        background:
-          "linear-gradient(to right,#d6f8df,#d9f2ff,#ede2ff) padding-box,linear-gradient(to right,#00D639,#11AFFF,#8F49FE) border-box",
-      },
-      wrapper.find(StyledButton),
-      { modifier: ":hover" }
-    );
-  });
+      assertStyleMatch(
+        {
+          background:
+            "linear-gradient(to right,#d6f8df,#d9f2ff,#ede2ff) padding-box,linear-gradient(to right,#00D639,#11AFFF,#8F49FE) border-box",
+        },
+        wrapper.find(StyledButton),
+        { modifier: ":hover" }
+      );
+    }
+  );
 });

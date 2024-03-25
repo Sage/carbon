@@ -2,10 +2,7 @@ import styled, { css } from "styled-components";
 import { CommonInputProps } from "./input.component";
 
 const StyledInput = styled.input<
-  Pick<
-    CommonInputProps,
-    "align" | "disabled" | "readOnly" | "inputBorderRadius"
-  >
+  Pick<CommonInputProps, "align" | "disabled" | "inputBorderRadius">
 >`
   background: transparent;
   border: none;
@@ -38,7 +35,7 @@ const StyledInput = styled.input<
     `}
 
   &::placeholder {
-    color: var(--colorsUtilityYin030);
+    color: var(--colorsUtilityYin055);
   }
 
   ${({ disabled }) =>
@@ -46,12 +43,6 @@ const StyledInput = styled.input<
     css`
       color: var(--colorsUtilityYin030);
       cursor: not-allowed;
-    `}
-
-  ${({ readOnly }) =>
-    readOnly &&
-    css`
-      color: var(--colorsActionMinorYin090);
     `}
 `;
 

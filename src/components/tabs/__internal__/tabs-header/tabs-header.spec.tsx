@@ -32,7 +32,6 @@ describe("TabsHeader", () => {
         display: "flex",
         cursor: "default",
         listStyle: "none",
-        margin: "-3px",
         padding: "3px",
       },
       renderStyles()
@@ -127,12 +126,6 @@ describe("TabsHeader", () => {
 
   describe("custom target styling", () => {
     const wrapper = render({ isInSidebar: true, position: "left" }, mount);
-    assertStyleMatch(
-      {
-        margin: "-3px",
-      },
-      wrapper.find(StyledTabsHeaderList)
-    );
     assertStyleMatch(
       {
         minWidth: "100%",
