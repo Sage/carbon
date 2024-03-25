@@ -10,7 +10,7 @@ const useResizeObserverSpy = jest.spyOn(useResizeObserverModule, "default");
 
 const ConsumerComponent = () => {
   const { submenuMaxHeight } = useContext(FixedNavigationBarContext);
-  return <div data-testid="output">{submenuMaxHeight}</div>;
+  return <div data-role="output">{submenuMaxHeight}</div>;
 };
 
 const mockNavbarElement = { offsetHeight: 40 } as HTMLElement;
