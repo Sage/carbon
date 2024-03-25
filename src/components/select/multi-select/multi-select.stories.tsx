@@ -427,7 +427,7 @@ export const ValidationsStringNewDesign = () => (
         <Box width="296px" key={`${validationType}-${size}`}>
           <MultiSelect
             name="multi"
-            id={`${size} - ${validationType}`}
+            id={`${size}-${validationType}`}
             label={`${size} - ${validationType}`}
             labelInline
             size={size}
@@ -448,7 +448,7 @@ export const ValidationsStringNewDesign = () => (
           </MultiSelect>
           <MultiSelect
             name="multi - readOnly"
-            id={`readOnly - ${size} - ${validationType}`}
+            id={`readOnly-${size}-${validationType}`}
             label={`readOnly - ${size} - ${validationType}`}
             labelInline
             size={size}
