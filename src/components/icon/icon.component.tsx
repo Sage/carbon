@@ -4,7 +4,7 @@ import invariant from "invariant";
 import Tooltip from "../tooltip";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipContext } from "../../__internal__/tooltip-provider";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import StyledIcon, { StyledIconProps } from "./icon.style";
 import { ICON_TOOLTIP_POSITIONS } from "./icon-config";
 import { IconType } from "./icon-type";
@@ -19,7 +19,10 @@ export type LegacyIconTypes =
   | "success"
   | "messages";
 
-export interface IconProps extends Omit<StyledIconProps, "type">, MarginProps {
+export interface IconProps
+  extends Omit<StyledIconProps, "type">,
+    MarginProps,
+    Omit<TagProps, "data-component"> {
   /** Set whether icon should be recognised by assistive technologies */
   "aria-hidden"?: boolean;
   /** Aria label for accessibility purposes */
@@ -70,6 +73,8 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       bgSize,
       className,
       color,
+      "data-element": dataElement,
+      "data-role": dataRole,
       disabled,
       focusable = true,
       fontSize = "small",
@@ -162,8 +167,9 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       bgShape,
       className: className || undefined,
       color,
-      "data-element": iconType,
-      "data-role": "icon",
+      "data-component": "icon",
+      "data-element": dataElement ?? iconType,
+      "data-role": dataRole ?? "icon",
       disabled: disabledFromContext || disabled,
       fontSize,
       hasTooltip,
@@ -174,7 +180,6 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       role,
       tabIndex: computedTabIndex,
       type: iconType,
-      ...tagComponent("icon", rest),
       ...filterStyledSystemMarginProps(rest),
     };
 
