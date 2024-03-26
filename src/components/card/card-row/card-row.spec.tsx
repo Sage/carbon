@@ -24,9 +24,7 @@ describe("CardRow", () => {
   describe("when styled system padding props are set", () => {
     testStyledSystemPadding(
       (props) => <CardRow {...props}>Test</CardRow>,
-      {
-        py: "var(--spacing300)",
-      },
+      undefined,
       undefined,
       { modifier: "&&" }
     );

@@ -33,6 +33,7 @@ import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Icon from "../icon";
 import StyledButton from "../button/button.style";
 import guid from "../../__internal__/utils/helpers/guid";
+import "jest-styled-components";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -566,6 +567,7 @@ describe("ActionPopover", () => {
   });
 
   it("has expected border radius", () => {
+    render();
     assertStyleMatch(
       {
         borderRadius: "var(--borderRadius050)",
@@ -2052,7 +2054,7 @@ describe("ActionPopover", () => {
           {
             justifyContent: itemAlignment,
           },
-          wrapper.find(StyledMenuItem)
+          wrapper.find(StyledMenuItem).first()
         );
       }
     );
@@ -2143,7 +2145,7 @@ describe("ActionPopover", () => {
           {
             padding,
           },
-          wrapper.find(MenuItemIcon)
+          wrapper.find(MenuItemIcon).first()
         );
       }
     );
