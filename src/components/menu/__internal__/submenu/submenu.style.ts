@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
+import StyledScrollableBlock from "../../../menu/scrollable-block/scrollable-block.style";
 import { baseTheme } from "../../../../style/themes";
 import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
+import StyledBox from "../../../box/box.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import StyledSearch from "../../../search/search.style";
 import menuConfigVariants from "../../menu.config";
@@ -24,7 +26,8 @@ interface StyledSubmenuProps
     Pick<SubmenuProps, "variant"> {
   submenuDirection?: string;
   maxHeight?: string;
-  applyFocusRadiusStyling?: boolean;
+  applyFocusRadiusStyling: boolean;
+  applyBorderRadiusToScrollBlock?: boolean;
 }
 
 const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
@@ -62,6 +65,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     inFullscreenView,
     maxHeight,
     applyFocusRadiusStyling,
+    applyBorderRadiusToScrollBlock,
   }) => css`
     ${!inFullscreenView &&
     menuType &&
@@ -115,6 +119,23 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
           border-bottom-left-radius: ${applyFocusRadiusStyling
             ? "var(--borderRadius100)"
             : "var(--borderRadius000)"};
+        }
+      }
+
+      &&&& ${StyledScrollableBlock} {
+        ${StyledBox} {
+          border-bottom-right-radius: var(--borderRadius000);
+          border-bottom-left-radius: ${applyBorderRadiusToScrollBlock
+            ? "var(--borderRadius100)"
+            : "var(--borderRadius000)"};
+
+          ${StyledMenuItem}:last-child ${StyledLink}, ${StyledMenuItem}:last-child a,
+          ${StyledMenuItem}:last-child button {
+            border-bottom-right-radius: var(--borderRadius000);
+            border-bottom-left-radius: ${applyBorderRadiusToScrollBlock
+              ? "var(--borderRadius100)"
+              : "var(--borderRadius000)"};
+          }
         }
       }
     `}

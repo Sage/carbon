@@ -6,6 +6,7 @@ import {
   MenuFullscreen,
   MenuFullscreenProps,
   MenuSegmentTitle,
+  ScrollableBlock,
 } from ".";
 import { MenuType } from "./menu.context";
 import Search from "../search";
@@ -269,7 +270,7 @@ export const MenuFullScreenKeysTest = () => {
 
 export const MenuWithTwoSegments = () => {
   return (
-    <Box margin="0 25px">
+    <Box margin="0 25px" display="flex" flexDirection="row">
       <Menu menuType="black">
         <MenuItem submenu="Menu Item">
           <MenuItem href="#" minWidth="200px">
@@ -289,6 +290,43 @@ export const MenuWithTwoSegments = () => {
             </MenuItem>
           </MenuSegmentTitle>
           <MenuItem href="#">Menu Item 4</MenuItem>
+        </MenuItem>
+      </Menu>
+      <Menu menuType="light">
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <ScrollableBlock height="200px">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </ScrollableBlock>
+        </MenuItem>
+        <MenuItem submenu="Menu Item Four">
+          <MenuItem href="#">Item Submenu One</MenuItem>
+          <MenuItem href="#">Item Submenu Two</MenuItem>
+          <ScrollableBlock variant="alternate" height="200px">
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </ScrollableBlock>
+          <MenuItem href="#">Item Submenu FFS</MenuItem>
         </MenuItem>
       </Menu>
     </Box>
