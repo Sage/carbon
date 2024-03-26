@@ -83,9 +83,9 @@ export interface DialogProps extends ModalProps, TagProps {
   showCloseIcon?: boolean;
   /** Size of dialog, default size is 750px */
   size?: DialogSizes;
-  /** Subtitle displayed at top of dialog */
-  subtitle?: string;
-  /** Title displayed at top of dialog */
+  /** Subtitle displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to subtitle prop. */
+  subtitle?: React.ReactNode;
+  /** Title displayed at top of dialog. Its consumers' responsibility to set a suitable accessible name/description for the Dialog if they pass a node to title prop. */
   title?: React.ReactNode;
   /** The ARIA role to be applied to the Dialog container */
   role?: string;
@@ -270,7 +270,10 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       dialogHeight,
       "aria-labelledby":
         title && typeof title === "string" ? titleId : rest["aria-labelledby"],
-      "aria-describedby": subtitle ? subtitleId : rest["aria-describedby"],
+      "aria-describedby":
+        subtitle && typeof subtitle === "string"
+          ? subtitleId
+          : rest["aria-describedby"],
       "aria-label": rest["aria-label"],
     };
 
