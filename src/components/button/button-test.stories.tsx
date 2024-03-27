@@ -271,12 +271,6 @@ export const NoWrapGradientGreyButtonsStory = () => {
 
 NoWrapGradientGreyButtonsStory.storyName = "noWrap gradient-grey";
 
-export const NoWrapDashedButtonsStory = () => {
-  return <Box>{generateButtonsNoWrapStory("dashed")}</Box>;
-};
-
-NoWrapDashedButtonsStory.storyName = "noWrap dashed";
-
 export const NoWrapDarkBackgroundButtonsStory = () => {
   return <Box>{generateButtonsNoWrapStory("darkBackground")}</Box>;
 };
@@ -531,12 +525,6 @@ export const FullWidthGradientGreyButtonsStory = () => {
 
 FullWidthGradientGreyButtonsStory.storyName = "fullWidth gradient-grey";
 
-export const FullWidthDashedButtonsStory = () => {
-  return <Box>{generateFullWidthButtonsStory("dashed")}</Box>;
-};
-
-FullWidthDashedButtonsStory.storyName = "fullWidth dashed";
-
 export const FullWidthDarkBackgroundButtonsStory = () => {
   return <Box>{generateFullWidthButtonsStory("darkBackground")}</Box>;
 };
@@ -603,18 +591,6 @@ export const GradientGreyButtonIconAfter = () => {
 
 GradientGreyButtonIconAfter.storyName = "gradient-grey icon after";
 
-export const DashedButtonIconBefore = () => {
-  return <Box>{generateButtons("dashed", "before")}</Box>;
-};
-
-DashedButtonIconBefore.storyName = "dashed icon before";
-
-export const DashedButtonIconAfter = () => {
-  return <Box>{generateButtons("dashed", "after")}</Box>;
-};
-
-DashedButtonIconAfter.storyName = "dashed icon after";
-
 export const DarkBackgroundButtonIconBefore = () => {
   return <Box>{generateButtons("darkBackground", "before")}</Box>;
 };
@@ -638,9 +614,6 @@ export const ButtonDifferentTypes = (props: Partial<ButtonProps>) => {
       </Button>
       <Button buttonType="tertiary" {...props}>
         Tertiary
-      </Button>
-      <Button buttonType="dashed" {...props}>
-        Dashed
       </Button>
       <Button buttonType="gradient-white" {...props}>
         Gradient white
@@ -818,61 +791,6 @@ export const DisabledButtonsWithImageChildren = () => (
         </g>
       </svg>
       Tertiary
-    </Button>
-    <Button buttonType="dashed" disabled>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="40"
-        height="40"
-        viewBox="0 0 120 100"
-      >
-        <defs>
-          <filter
-            id="a"
-            width="200%"
-            height="200%"
-            x="-50%"
-            y="-50%"
-            filterUnits="objectBoundingBox"
-          >
-            <feOffset
-              dx="1"
-              dy="4"
-              in="SourceAlpha"
-              result="shadowOffsetOuter1"
-            />
-            <feColorMatrix
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-              in="shadowOffsetOuter1"
-              result="shadowMatrixOuter1"
-            />
-            <feMerge>
-              <feMergeNode in="shadowMatrixOuter1" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        <g
-          fill="none"
-          fillRule="evenodd"
-          filter="url(#a)"
-          transform="translate(26 16)"
-        >
-          <path
-            fill="#255BC7"
-            d="M62.097.05c-1.99.4-41.597 36.6-41.597 36.6l10.15 9.745s31.447-41.57 32.64-43.16c1.196-1.592.797-3.58-1.193-3.184z"
-          />
-          <path
-            fill="#004089"
-            d="M19.738 37.643s-3.245 1.39-4.82 3.545c-1.7 2.328-1.782 6.37-1.782 6.37l6.322 6.594s3.154-.18 6.078-2.08c2.925-1.898 4.318-4.48 4.318-4.48l-10.116-9.95z"
-          />
-          <path
-            fill="#FFAB00"
-            d="M12.58 48.447s-6.61 0-9.388 4.115C.412 56.678 4.976 60.516 0 65c7.563-2.694 11.09 1.55 14.7-.97 3.61-2.52 4.208-8.81 4.208-8.81l-6.327-6.773z"
-          />
-        </g>
-      </svg>
-      Dashed
     </Button>
     <Button buttonType="gradient-white" disabled>
       <svg
@@ -1149,61 +1067,6 @@ export const DisabledButtonsWithImageChildren = () => (
         </g>
       </svg>
       Tertiary
-    </Button>
-    <Button buttonType="dashed" disabled>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="40"
-        height="40"
-        viewBox="0 0 120 100"
-      >
-        <defs>
-          <filter
-            id="a"
-            width="200%"
-            height="200%"
-            x="-50%"
-            y="-50%"
-            filterUnits="objectBoundingBox"
-          >
-            <feOffset
-              dx="1"
-              dy="4"
-              in="SourceAlpha"
-              result="shadowOffsetOuter1"
-            />
-            <feColorMatrix
-              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-              in="shadowOffsetOuter1"
-              result="shadowMatrixOuter1"
-            />
-            <feMerge>
-              <feMergeNode in="shadowMatrixOuter1" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        <g
-          fill="none"
-          fillRule="evenodd"
-          filter="url(#a)"
-          transform="translate(26 16)"
-        >
-          <path
-            fill="#255BC7"
-            d="M62.097.05c-1.99.4-41.597 36.6-41.597 36.6l10.15 9.745s31.447-41.57 32.64-43.16c1.196-1.592.797-3.58-1.193-3.184z"
-          />
-          <path
-            fill="#004089"
-            d="M19.738 37.643s-3.245 1.39-4.82 3.545c-1.7 2.328-1.782 6.37-1.782 6.37l6.322 6.594s3.154-.18 6.078-2.08c2.925-1.898 4.318-4.48 4.318-4.48l-10.116-9.95z"
-          />
-          <path
-            fill="#FFAB00"
-            d="M12.58 48.447s-6.61 0-9.388 4.115C.412 56.678 4.976 60.516 0 65c7.563-2.694 11.09 1.55 14.7-.97 3.61-2.52 4.208-8.81 4.208-8.81l-6.327-6.773z"
-          />
-        </g>
-      </svg>
-      Dashed
     </Button>
     <Button buttonType="gradient-white" disabled>
       <svg

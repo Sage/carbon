@@ -27,11 +27,6 @@ import {
   DarkBackgroundButtonIconAfter,
   DarkBackgroundButtonIconBefore,
   DarkBackgroundButtonNoWrap,
-  DashedButtonDisabled,
-  DashedButtonFullWidth,
-  DashedButtonIconAfter,
-  DashedButtonIconBefore,
-  DashedButtonNoWrap,
   PrimaryButtonDestructive,
   PrimaryButtonDisabled,
   PrimaryButtonFullWidth,
@@ -159,8 +154,6 @@ test.describe("Button component", () => {
 
     await expect(page.getByText("Primary")).toBeDisabled();
 
-    await expect(page.getByText("Dashed")).toBeDisabled();
-
     await expect(page.getByText("Secondary")).toBeDisabled();
 
     await expect(page.getByText("Tertiary")).toBeDisabled();
@@ -174,8 +167,6 @@ test.describe("Button component", () => {
     await mount(<ButtonDifferentTypes />);
 
     await expect(page.getByText("Primary")).not.toBeDisabled();
-
-    await expect(page.getByText("Dashed")).not.toBeDisabled();
 
     await expect(page.getByText("Secondary")).not.toBeDisabled();
 
@@ -448,51 +439,6 @@ test.describe("Accessibility tests for Button", () => {
     page,
   }) => {
     await mount(<SecondaryNoWrap />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for DashedButtonIconAfter example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DashedButtonIconAfter />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for DashedButtonIconBefore example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DashedButtonIconBefore />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for DashedButtonDisabled example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DashedButtonDisabled />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for DashedButtonFullWidth example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DashedButtonFullWidth />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for DashedButtonNoWrap example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<DashedButtonNoWrap />);
 
     await checkAccessibility(page);
   });

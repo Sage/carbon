@@ -156,35 +156,6 @@ export default (isDisabled?: boolean, destructive?: boolean) => ({
         : ""
     }
   `,
-  dashed: `
-    background: transparent;
-    border: 2px dashed var(--colorsActionMinor500);
-    ${makeColors("var(--colorsActionMinor500)")};
-    &:hover {
-      background-color: var(--colorsActionMinor200);
-    }
-
-    ${
-      destructive
-        ? `
-          border-color: var(--colorsSemanticNegative500);
-        `
-        : ""
-    }
-
-    ${
-      isDisabled
-        ? `
-          border-color: var(--colorsActionDisabled500);
-          ${makeColors("var(--colorsActionMinorYin030)")};
-          &:hover {
-            background-color: transparent;
-          }
-          ${disabledImageStyle}
-        `
-        : ""
-    }
-  `,
   darkBackground: `
     background: var(--colorsActionMajorYang100);
     border-color: transparent;
