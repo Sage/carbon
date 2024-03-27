@@ -12,34 +12,10 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledIcon from "../icon/icon.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
 describe("Button", () => {
-  describe("deprecation warnings", () => {
-    afterEach(() => {
-      jest.resetAllMocks();
-    });
-
-    it("should display deprecation warning once when dashed buttonType is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-      mount(
-        <>
-          <Button buttonType="dashed">Button</Button>
-          <Button buttonType="dashed">Button</Button>
-        </>
-      );
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `dashed` variant of the `buttonType` prop for `Button` component is deprecated and will soon be removed."
-      );
-
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-    });
-  });
-
   testStyledSystemSpacing((props) => <Button {...props}>Test</Button>, {
     px: "24px",
     m: "0",

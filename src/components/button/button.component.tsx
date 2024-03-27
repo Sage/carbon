@@ -11,7 +11,6 @@ import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import Logger from "../../__internal__/utils/logger";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import { ButtonBarContext } from "../button-bar/button-bar.component";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
@@ -20,7 +19,6 @@ export type ButtonTypes =
   | "primary"
   | "secondary"
   | "tertiary"
-  | "dashed"
   | "darkBackground"
   | "gradient-grey"
   | "gradient-white";
@@ -181,8 +179,6 @@ RenderChildrenProps) {
   );
 }
 
-let deprecatedDashedButtonWarnTriggered = false;
-
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -231,13 +227,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       invariant(
         size === "large",
         "subtext prop has no effect unless the button is large."
-      );
-    }
-
-    if (!deprecatedDashedButtonWarnTriggered && buttonType === "dashed") {
-      deprecatedDashedButtonWarnTriggered = true;
-      Logger.deprecate(
-        "The `dashed` variant of the `buttonType` prop for `Button` component is deprecated and will soon be removed."
       );
     }
 
