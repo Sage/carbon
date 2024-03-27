@@ -25,6 +25,8 @@ import {
   StyledSelectListTable,
   StyledSelectListTableHeader,
   StyledSelectListTableBody,
+  StyledSelectListContainer,
+  StyledScrollableContainer,
 } from "./select-list.style";
 import Popover from "../../../__internal__/popover";
 import OptionRow from "../option-row/option-row.component";
@@ -32,7 +34,6 @@ import getNextChildByText from "../utils/get-next-child-by-text";
 import getNextIndexByKey from "../utils/get-next-index-by-key";
 import isNavigationKey from "../utils/is-navigation-key";
 import ListActionButton from "../list-action-button";
-import StyledSelectListContainer from "./select-list-container.style";
 import Loader from "../../loader";
 import Option, { OptionProps } from "../option";
 import SelectListContext from "../__internal__/select-list-context";
@@ -608,13 +609,11 @@ const SelectList = React.forwardRef(
       [flipEnabled]
     );
 
-    const loader = () => {
-      return (
-        <StyledSelectLoaderContainer key="loader">
-          <Loader data-role={loaderDataRole} />
-        </StyledSelectLoaderContainer>
-      );
-    };
+    const loader = isLoading ? (
+      <StyledSelectLoaderContainer key="loader">
+        <Loader data-role={loaderDataRole} />
+      </StyledSelectLoaderContainer>
+    ) : undefined;
 
     let selectListContent: React.ReactNode = renderedChildren;
 
@@ -668,22 +667,27 @@ const SelectList = React.forwardRef(
         >
           <StyledSelectListContainer
             data-element="select-list-wrapper"
-            ref={listContainerRef}
-            maxHeight={listMaxHeight + actionButtonHeight.current}
             isLoading={isLoading}
             {...listProps}
           >
-            <StyledSelectList
-              as={multiColumn ? "div" : "ul"}
-              data-element="select-list"
-              {...(multiColumn ? {} : listBoxProps)}
-              ref={listRef}
-              tabIndex={-1}
-              listHeight={multiColumn ? undefined : listHeight}
+            <StyledScrollableContainer
+              ref={listContainerRef}
+              maxHeight={listMaxHeight}
+              data-component="select-list-scrollable-container"
+              hasActionButton={!!listActionButton}
             >
-              {selectListContent}
-            </StyledSelectList>
-            {isLoading && loader()}
+              <StyledSelectList
+                as={multiColumn ? "div" : "ul"}
+                data-element="select-list"
+                {...(multiColumn ? {} : listBoxProps)}
+                ref={listRef}
+                tabIndex={-1}
+                listHeight={multiColumn ? undefined : listHeight}
+              >
+                {selectListContent}
+              </StyledSelectList>
+              {loader}
+            </StyledScrollableContainer>
             {listActionButton && (
               <ListActionButton
                 ref={listActionButtonRef}

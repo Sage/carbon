@@ -41,6 +41,7 @@ import {
   selectInput,
   selectList,
   selectListPosition,
+  selectListScrollableWrapper,
   selectListWrapper,
   selectOption,
   selectOptionByText,
@@ -605,7 +606,7 @@ test.describe("FilterableSelect component", () => {
     );
     await expect(selectOptionByText(page, option)).toHaveCount(0);
     await page.waitForTimeout(2000);
-    await selectListWrapperElement.evaluate((wrapper) => {
+    await selectListScrollableWrapper(page).evaluate((wrapper) => {
       wrapper.scrollBy(0, 500);
     });
     await page.waitForTimeout(250);
@@ -631,15 +632,15 @@ test.describe("FilterableSelect component", () => {
 
     // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
     // won't trigger the bug.
-    const wrapperElement = selectListWrapper(page);
+    const scrollableWrapper = selectListScrollableWrapper(page);
     await dropdownButton(page).click();
-    await wrapperElement.evaluate((wrapper) => wrapper.scrollBy(0, 500));
-    const scrollPositionBeforeLoad = await wrapperElement.evaluate(
+    await scrollableWrapper.evaluate((wrapper) => wrapper.scrollBy(0, 500));
+    const scrollPositionBeforeLoad = await scrollableWrapper.evaluate(
       (element) => element.scrollTop
     );
 
     await selectOptionByText(page, "Lazy Loaded A1").waitFor();
-    const scrollPositionAfterLoad = await wrapperElement.evaluate(
+    const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
       (element) => element.scrollTop
     );
     await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
@@ -744,7 +745,7 @@ test.describe("FilterableSelect component", () => {
     await mount(<FilterableSelectComponent listMaxHeight={maxHeight} />);
 
     await dropdownButton(page).click();
-    const wrapperElement = selectListWrapper(page);
+    const wrapperElement = selectListScrollableWrapper(page);
     await expect(wrapperElement).toHaveCSS("max-height", `${maxHeight}px`);
     await expect(wrapperElement).toBeVisible();
   });
@@ -1319,7 +1320,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await page.waitForTimeout(250);
@@ -1353,7 +1354,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await selectOption(page, positionOfElement("first")).click();
@@ -1384,7 +1385,7 @@ test.describe("Check virtual scrolling", () => {
     await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollTo(0, 750)
     );
     await page.waitForTimeout(250);
@@ -1662,7 +1663,7 @@ test.describe("Test for scroll bug regression", () => {
     await mount(<FilterableSelectComponent />);
     const dropdownButtonElement = dropdownButton(page);
     await dropdownButtonElement.click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await commonDataElementInputPreview(page).press("Escape");
@@ -1901,7 +1902,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     await checkAccessibility(page);
     // wait for content to finish loading before scrolling
     await expect(selectOptionByText(page, "Amber")).toBeVisible();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await checkAccessibility(page, undefined, "scrollable-region-focusable");

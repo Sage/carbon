@@ -21,6 +21,7 @@ import StyledOption from "../select/option/option.style";
 import Form from "../form";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 import I18nProvider from "../i18n-provider";
+import mockDOMRect from "../../__spec_helper__/mock-dom-rect";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -596,6 +597,8 @@ describe("Pager", () => {
       };
 
       beforeEach(() => {
+        mockDOMRect(200, 200, "select-list-scrollable-container");
+
         onPagination = jest.fn();
 
         wrapper = render({

@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { baseTheme } from "../../../style/themes";
+import { SelectListProps } from ".";
 
 interface StyledSelectListProps {
   listHeight?: number;
@@ -99,10 +101,58 @@ const StyledSelectListTableBody = styled.tbody<StyledSelectListProps>`
   height: ${({ listHeight }) => `${listHeight}px`};
 `;
 
+const StyledSelectListContainer = styled.div<
+  Pick<SelectListProps, "isLoading">
+>`
+  background-color: white;
+  box-shadow: var(--boxShadow100);
+  animation: fadeIn 250ms ease-out;
+  position: absolute;
+  z-index: ${({ theme }) => theme.zIndex.popover};
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  border-radius: var(--borderRadius050);
+  ${({ isLoading }) => isLoading && "min-height: 150px"};
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+
+const StyledScrollableContainer = styled.div<{
+  maxHeight: number;
+  hasActionButton: boolean;
+}>`
+  max-height: ${({ maxHeight }) => `${maxHeight}px`};
+  width: 100%;
+  border-top-left-radius: var(--borderRadius050);
+  border-top-right-radius: var(--borderRadius050);
+  overflow-y: auto;
+
+  ${({ hasActionButton }) =>
+    !hasActionButton &&
+    css`
+      border-bottom-left-radius: var(--borderRadius050);
+      border-bottom-right-radius: var(--borderRadius050);
+    `}
+`;
+
+StyledSelectListContainer.defaultProps = {
+  theme: baseTheme,
+};
+
 export {
   StyledSelectList,
   StyledSelectLoaderContainer,
   StyledSelectListTable,
   StyledSelectListTableHeader,
   StyledSelectListTableBody,
+  StyledSelectListContainer,
+  StyledScrollableContainer,
 };
