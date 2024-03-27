@@ -1,7 +1,7 @@
 import React from "react";
 import StyledListActionButtonWrapper from "./list-action-button.style";
 import useLocale from "../../../hooks/__internal__/useLocale";
-import Button, { ButtonProps } from "../../button";
+import Button from "../../button";
 
 export interface ListActionButtonProps {
   listActionButton?: boolean | React.ReactNode;
@@ -37,9 +37,11 @@ const ListActionButton = React.forwardRef(
       }
 
       return React.cloneElement(
-        listActionButton as React.ReactElement<ButtonProps>,
+        listActionButton as React.ReactElement<
+          React.ComponentPropsWithRef<typeof Button>
+        >,
         {
-          forwardRef: ref,
+          ref,
           onClick: onListAction,
         }
       );

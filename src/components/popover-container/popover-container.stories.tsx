@@ -102,7 +102,7 @@ export const RenderProps: ComponentStory<typeof PopoverContainer> = () => (
           aria-label={ariaLabel}
           aria-haspopup={ariaHasPopup}
           aria-expanded={ariaExpanded}
-          forwardRef={ref}
+          ref={ref}
           id={id}
           onClick={onClick}
         >
@@ -118,7 +118,7 @@ export const RenderProps: ComponentStory<typeof PopoverContainer> = () => (
         <Button
           data-element={dataElement}
           aria-label={ariaLabel}
-          forwardRef={ref}
+          ref={ref}
           onClick={onClick}
         >
           Close
@@ -294,7 +294,7 @@ export const Filter: ComponentStory<typeof PopoverContainer> = () => {
               iconPosition="after"
               iconType={!isOpen ? "filter_new" : "close"}
               size="small"
-              forwardRef={ref}
+              ref={ref}
               {...rest}
             >
               Filter
