@@ -6,7 +6,7 @@ const MockFooterContainer = (props: Partial<StickyFooterProps> = {}) => {
   const mockRef = useRef(null);
 
   return (
-    <div data-testid="container" ref={mockRef}>
+    <div data-role="container" ref={mockRef}>
       <StickyFooter containerRef={mockRef} {...props}>
         Some content
       </StickyFooter>

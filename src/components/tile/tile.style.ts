@@ -9,7 +9,10 @@ type StyledTileProps = Pick<
   "borderWidth" | "borderVariant" | "variant" | "width" | "roundness" | "height"
 > & { isHorizontal?: boolean } & SpaceProps;
 
-const getBorderColor = (borderVariant: TileProps["borderVariant"]) => {
+const getBorderColor = (
+  borderVariant: TileProps["borderVariant"],
+  variant: TileProps["variant"]
+) => {
   switch (borderVariant) {
     case "selected":
       return "var(--colorsUtilityYin100)";
@@ -22,7 +25,14 @@ const getBorderColor = (borderVariant: TileProps["borderVariant"]) => {
     case "info":
       return "var(--colorsSemanticInfo500)";
     default:
-      return "var(--colorsUtilityMajor100)";
+      switch (variant) {
+        case "active":
+          return "var(--colorsActionMajor500)";
+        case "grey":
+          return "var(--colorsUtilityMajor200)";
+        default:
+          return "var(--colorsUtilityMajor100)";
+      }
   }
 };
 
@@ -50,7 +60,8 @@ const StyledTile = styled.div<StyledTileProps>`
     ${space}
 
     box-sizing: border-box;
-    border: var(--${borderWidth}) solid ${getBorderColor(borderVariant)};
+    border: var(--${borderWidth}) solid
+      ${getBorderColor(borderVariant, variant)};
     border-radius: ${getBorderRadius(roundness)};
     --tileBorderRadius: ${getBorderRadius(roundness)};
 
@@ -77,13 +88,11 @@ const StyledTile = styled.div<StyledTileProps>`
     ${variant === "active" &&
     css`
       background-color: var(--colorsActionMajor025);
-      border-color: var(--colorsActionMajor500);
     `}
 
     ${variant === "grey" &&
     css`
       background-color: var(--colorsUtilityMajor025);
-      border-color: var(--colorsUtilityMajor200);
     `}
 
     display: flex;

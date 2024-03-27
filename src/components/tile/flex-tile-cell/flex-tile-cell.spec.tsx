@@ -17,7 +17,7 @@ describe("FlexTileCell", () => {
   ));
 
   it("does not render when falsy children are passed", () => {
-    render(<FlexTileCell data-testid="flex-tile-cell">{null}</FlexTileCell>);
+    render(<FlexTileCell data-role="flex-tile-cell">{null}</FlexTileCell>);
 
     expect(screen.queryByTestId("flex-tile-cell")).not.toBeInTheDocument();
   });
@@ -30,11 +30,7 @@ describe("FlexTileCell", () => {
 
   it("has proper data attributes applied", () => {
     render(
-      <FlexTileCell
-        data-testid="flex-tile-cell"
-        data-element="foo"
-        data-role="bar"
-      >
+      <FlexTileCell data-element="foo" data-role="bar">
         <FlexTileDivider />
         Cell Content
       </FlexTileCell>

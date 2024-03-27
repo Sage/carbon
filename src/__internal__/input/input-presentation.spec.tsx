@@ -104,6 +104,28 @@ describe("InputPresentation", () => {
       }
     );
 
+    describe("hideBorders", () => {
+      it("renders correctly without borders when prop is true", () => {
+        assertStyleMatch(
+          {
+            border: "1px solid transparent",
+          },
+          render({ hideBorders: true, children: "Children" }).find(
+            InputPresentationStyle
+          )
+        );
+      });
+
+      it("renders correctly with borders when prop is false", () => {
+        assertStyleMatch(
+          {
+            border: "1px solid var(--colorsUtilityMajor300)",
+          },
+          render({ children: "Children" }).find(InputPresentationStyle)
+        );
+      });
+    });
+
     describe("width", () => {
       it("renders correctly with a custom width", () => {
         assertStyleMatch(

@@ -214,3 +214,49 @@ export const DialogWithStepSequence = (props: Partial<DialogProps>) => {
     </Dialog>
   );
 };
+
+export const DialogComponentFocusableSelectors = (
+  props: Partial<DialogProps>
+) => {
+  const [setIsDialogOpen] = React.useState(false);
+  const [isToastOpen, setIsToastOpen] = React.useState(false);
+  const toastRef = React.useRef(null);
+  const CUSTOM_SELECTOR = "button, .focusable-container input";
+  return (
+    <>
+      <Dialog
+        open
+        onCancel={() => setIsDialogOpen}
+        title="Dialog Title"
+        focusableContainers={[toastRef]}
+        focusableSelectors={CUSTOM_SELECTOR}
+        {...props}
+      >
+        <Box className="focusable-container">
+          <Textbox label="First Name" />
+        </Box>
+        <Box>
+          <Textbox label="Surname" />
+        </Box>
+        <Box className="focusable-container">
+          <Button
+            buttonType="primary"
+            data-element="open-toast"
+            onClick={() => setIsToastOpen(true)}
+          >
+            Show toast
+          </Button>
+        </Box>
+      </Dialog>
+      <Toast
+        open={isToastOpen}
+        onDismiss={() => setIsToastOpen(false)}
+        ref={toastRef}
+        targetPortalId="stacked"
+        data-element="toast"
+      >
+        Toast Message
+      </Toast>
+    </>
+  );
+};

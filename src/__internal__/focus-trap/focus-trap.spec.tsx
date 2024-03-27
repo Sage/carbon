@@ -19,7 +19,6 @@ interface MockComponentProps extends Omit<FocusTrapProps, "wrapperRef"> {
   tabIndex?: number;
   children: React.ReactNode;
   shouldFocusFirstElement?: boolean;
-  dataTestId?: string;
   onKeyDown?: (ev: React.KeyboardEvent) => void;
 }
 
@@ -57,7 +56,6 @@ const MockComponent = ({
   isAnimationComplete,
   tabIndex,
   shouldFocusFirstElement,
-  dataTestId = WRAPPER_ID,
   onKeyDown,
   ...rest
 }: MockComponentProps) => {
@@ -75,7 +73,7 @@ const MockComponent = ({
           isOpen
           focusFirstElement={shouldFocusFirstElement ? firstRef : undefined}
         >
-          <div ref={ref} data-testid={dataTestId} tabIndex={tabIndex}>
+          <div ref={ref} data-role={WRAPPER_ID} tabIndex={tabIndex}>
             {React.Children.map(children, (child) => {
               const focusableChild = child as React.ReactElement;
 
@@ -143,7 +141,7 @@ const WithAdditionalWrapperRefs = () => {
   ];
 
   return (
-    <div data-testid={WRAPPER_ID}>
+    <div data-role={WRAPPER_ID}>
       <button type="button" id="outside1">
         outside focus trap
       </button>
@@ -1063,7 +1061,7 @@ describe("FocusTrap", () => {
             additionalWrapperRefs={[additionalRef]}
             isOpen
           >
-            <div data-testid={WRAPPER_ID} ref={wrapperRef}>
+            <div data-role={WRAPPER_ID} ref={wrapperRef}>
               <button type="button" id="insidewrapper1">
                 {BUTTON_ONE}
               </button>

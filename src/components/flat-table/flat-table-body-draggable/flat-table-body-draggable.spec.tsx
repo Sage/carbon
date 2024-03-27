@@ -26,7 +26,7 @@ describe("FlatTableBodyDraggable", () => {
     test("should be added to the FlatTableBody", () => {
       render(
         <FlatTable>
-          <FlatTableBodyDraggable data-testid="test">
+          <FlatTableBodyDraggable data-role="test">
             <FlatTableRow key={0} id={0}>
               <FlatTableCell>UK</FlatTableCell>
             </FlatTableRow>
@@ -317,20 +317,20 @@ describe("FlatTableBodyDraggable", () => {
     beforeEach(() => {
       render(
         <div>
-          <FlatTable data-testid="table-1">
+          <FlatTable data-role="table-1">
             <FlatTableBodyDraggable>
-              <FlatTableRow expandable key="0" id={0} data-testid="table-1-row">
+              <FlatTableRow expandable key="0" id={0} data-role="table-1-row">
                 <FlatTableCell>Row one</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow expandable key="1" id={1} data-testid="table-1-row">
+              <FlatTableRow expandable key="1" id={1} data-role="table-1-row">
                 <FlatTableCell>Row two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow expandable key="2" id={2} data-testid="table-1-row">
+              <FlatTableRow expandable key="2" id={2} data-role="table-1-row">
                 <FlatTableCell>Row three</FlatTableCell>
               </FlatTableRow>
             </FlatTableBodyDraggable>
           </FlatTable>
-          <FlatTable data-testid="table-2">
+          <FlatTable data-role="table-2">
             <FlatTableBodyDraggable>
               <FlatTableRow expandable key="3" id={3}>
                 <FlatTableCell>Row four</FlatTableCell>

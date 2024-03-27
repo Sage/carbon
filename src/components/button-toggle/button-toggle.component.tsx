@@ -15,6 +15,7 @@ import { InputGroupContext } from "../../__internal__/input-behaviour";
 let deprecateCheckedWarnTriggered = false;
 let deprecateNameWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
+let deprecateGroupedWarnTriggered = false;
 
 export interface ButtonToggleProps extends Partial<StyledButtonToggleProps> {
   /** Prop to specify the aria-label of the component */
@@ -31,7 +32,7 @@ export interface ButtonToggleProps extends Partial<StyledButtonToggleProps> {
   "data-element"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-role"?: string;
-  /** Remove spacing from between buttons. */
+  /** DEPRECATED: Remove spacing from between buttons. */
   grouped?: boolean;
   /** An optional string by which to identify the button in an onChange handler on the parent ButtonToggleGroup. */
   name?: string;
@@ -87,6 +88,13 @@ export const ButtonToggle = ({
     );
   }
 
+  if (grouped && !deprecateGroupedWarnTriggered) {
+    deprecateGroupedWarnTriggered = true;
+    Logger.deprecate(
+      "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed."
+    );
+  }
+
   const pressedPropValue = pressed === undefined ? checked : pressed;
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -105,8 +113,10 @@ export const ButtonToggle = ({
     name: groupName,
     allowDeselect,
     isInGroup,
+    isDisabled,
     firstButton,
     childButtonCallbackRef,
+    hintTextId,
   } = useContext(ButtonToggleGroupContext);
   const callbackRef = (element: HTMLButtonElement | null) => {
     buttonRef.current = element;
@@ -116,19 +126,6 @@ export const ButtonToggle = ({
   };
 
   const inputGuid = useRef(guid());
-
-  let icon;
-
-  if (buttonIcon) {
-    icon = (
-      <ButtonToggleIcon
-        buttonIcon={buttonIcon}
-        buttonIconSize={buttonIconSize}
-        disabled={disabled}
-        hasContent={!!children}
-      />
-    );
-  }
 
   function handleClick(ev: React.MouseEvent<HTMLButtonElement>) {
     if (onClick) {
@@ -189,11 +186,12 @@ export const ButtonToggle = ({
       <StyledButtonToggle
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
+        aria-describedby={hintTextId || undefined}
         aria-pressed={!!isPressed}
         buttonIcon={buttonIcon}
         buttonIconSize={buttonIconSize}
         data-element="button-toggle-button"
-        disabled={disabled}
+        disabled={disabled || isDisabled}
         id={inputGuid.current}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -208,7 +206,14 @@ export const ButtonToggle = ({
         allowDeselect={allowDeselect}
         ref={callbackRef}
       >
-        {icon}
+        {buttonIcon && (
+          <ButtonToggleIcon
+            buttonIcon={buttonIcon}
+            buttonIconSize={buttonIconSize}
+            disabled={disabled}
+            hasContent={!!children}
+          />
+        )}
         {children}
       </StyledButtonToggle>
     </StyledButtonToggleWrapper>

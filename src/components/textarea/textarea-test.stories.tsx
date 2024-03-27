@@ -108,6 +108,11 @@ export default {
         type: "select",
       },
     },
+    hideBorders: {
+      control: {
+        type: "boolean",
+      },
+    },
   },
   args: {
     expandable: false,
@@ -128,6 +133,7 @@ export default {
     adaptiveLabelBreakpoint: undefined,
     required: false,
     borderRadius: "borderRadius050",
+    hideBorders: false,
   },
 };
 

@@ -19,7 +19,7 @@ describe("FlexTileContainer", () => {
 
   it("does not render when falsy children are passed", () => {
     render(
-      <FlexTileContainer data-testid="flex-tile-container">
+      <FlexTileContainer data-role="flex-tile-container">
         {null}
       </FlexTileContainer>
     );

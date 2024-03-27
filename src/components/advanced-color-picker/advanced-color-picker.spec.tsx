@@ -170,7 +170,7 @@ describe("AdvancedColorPicker", () => {
           .find('[data-element="current-color-description"]')
           .first()
           .text()
-      ).toBe(`Current color assigned: orchid`);
+      ).toBe(`Current colour assigned: orchid`);
       wrapper.unmount();
     });
 
@@ -189,7 +189,7 @@ describe("AdvancedColorPicker", () => {
             .find('[data-element="current-color-description"]')
             .first()
             .text()
-        ).toBe(`Current color assigned: ${demoColors[colorIndex].label}`);
+        ).toBe(`Current colour assigned: ${demoColors[colorIndex].label}`);
         wrapper.unmount();
       }
     );

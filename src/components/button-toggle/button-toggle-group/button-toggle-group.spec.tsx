@@ -1,6 +1,7 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { render as rtlRender, screen } from "@testing-library/react";
 import guid from "../../../__internal__/utils/helpers/guid";
 import {
   assertStyleMatch,
@@ -11,17 +12,19 @@ import {
   StyledButtonToggleWrapper,
 } from "../button-toggle.style";
 import { ButtonToggle, ButtonToggleGroup, ButtonToggleGroupProps } from "..";
-import StyledButtonToggleGroup from "./button-toggle-group.style";
+import StyledButtonToggleGroup, {
+  StyledHintText,
+} from "./button-toggle-group.style";
+import FormFieldStyle from "../../../__internal__/form-field/form-field.style";
 import Label from "../../../__internal__/label";
+import Help from "../../../components/help";
 import StyledLabel from "../../../__internal__/label/label.style";
 import FieldHelp from "../../../__internal__/field-help";
 import StyledHelp from "../../help/help.style";
 import Logger from "../../../__internal__/utils/logger";
-
-const mockedGuid = "guid-12345";
+import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 const MockComponent = (props: Partial<ButtonToggleGroupProps> = {}) => (
   <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}} {...props}>
@@ -35,6 +38,12 @@ function render(props: Partial<ButtonToggleGroupProps> = {}) {
 }
 
 describe("ButtonToggleGroup", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+    const mockGuid = guid as jest.MockedFunction<typeof guid>;
+    mockGuid.mockImplementation(() => "guid-12345");
+  });
+
   it("when helpAriaLabel prop is passed, the aria-label on the Help component should be set", () => {
     const text = "foo";
 
@@ -58,19 +67,52 @@ describe("ButtonToggleGroup", () => {
     );
   });
 
+  it("renders component with hint text when inputHint prop is passed", () => {
+    const wrapper = render({ inputHint: "Hint text" });
+
+    expect(wrapper.find(StyledHintText).text()).toBe("Hint text");
+  });
+
+  describe("when disabled prop is passed", () => {
+    const wrapper = render({ disabled: true, inputHint: "Hint text" });
+
+    it("renders component with expected styles", () => {
+      assertStyleMatch(
+        {
+          cursor: "not-allowed",
+          boxShadow: "inset 0px 0px 0px 1px var(--colorsActionDisabled600)",
+        },
+        wrapper.find(StyledButtonToggleGroup)
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorsUtilityYin030)",
+        },
+        wrapper.find(StyledHintText)
+      );
+    });
+
+    it("should render children as disabled", () => {
+      const buttons = wrapper.find(StyledButtonToggle);
+      expect(buttons.at(0).getDOMNode()).toHaveAttribute("disabled");
+      expect(buttons.at(1).getDOMNode()).toHaveAttribute("disabled");
+    });
+  });
+
   describe("accessible name", () => {
     describe("with label provided", () => {
       it("the group container has an aria-labelledby referencing the ID of the label text", () => {
         const wrapper = render({ label: "a label" });
-        expect(wrapper.find(StyledLabel).getDOMNode().getAttribute("id")).toBe(
-          mockedGuid
-        );
+        expect(
+          wrapper.find(StyledLabel).getDOMNode().getAttribute("id")
+        ).toEqual("guid-12345");
         expect(
           wrapper
             .find(StyledButtonToggleGroup)
             .getDOMNode()
             .getAttribute("aria-labelledby")
-        ).toBe(mockedGuid);
+        ).toEqual("guid-12345");
       });
 
       it("the group container has no aria-label attribute", () => {
@@ -117,6 +159,26 @@ describe("ButtonToggleGroup", () => {
             .getAttribute("aria-labelledby")
         ).toBe(null);
       });
+    });
+
+    it("has the accessible description for each toggle button set to the hint text, when inputHint prop is specified", () => {
+      (guid as jest.MockedFunction<typeof guid>)
+        .mockImplementationOnce(() => "guid-1")
+        .mockImplementationOnce(() => "guid-2");
+
+      rtlRender(
+        <MockComponent
+          label="Product selection"
+          inputHint="Select an addon for Product A"
+        />
+      );
+
+      expect(
+        screen.getByRole("button", { name: "Foo" })
+      ).toHaveAccessibleDescription("Select an addon for Product A");
+      expect(
+        screen.getByRole("button", { name: "Bar" })
+      ).toHaveAccessibleDescription("Select an addon for Product A");
     });
   });
 
@@ -255,6 +317,23 @@ describe("ButtonToggleGroup", () => {
         expect(wrapper.find(Label).prop(passedPropName)).toBe(propValue);
       });
     });
+
+    it("should not render labelHelp tooltip when validationRedesignOptIn is true", () => {
+      const wrapper = mount(
+        <CarbonProvider validationRedesignOptIn>
+          <ButtonToggleGroup
+            id="button-toggle-group-id"
+            label="test"
+            labelHelp="test"
+          >
+            <ButtonToggle value="foo">Foo</ButtonToggle>
+            <ButtonToggle value="bar">Bar</ButtonToggle>
+          </ButtonToggleGroup>
+        </CarbonProvider>
+      );
+
+      expect(wrapper.find(Help).exists()).toBe(false);
+    });
   });
 
   describe("FieldHelp", () => {
@@ -287,6 +366,23 @@ describe("ButtonToggleGroup", () => {
           expect(wrapper.find(FieldHelp).prop(propName)).toBe(propValue);
         });
       });
+    });
+
+    it("should not render fieldHelp when validationRedesignOptIn is true", () => {
+      const wrapper = mount(
+        <CarbonProvider validationRedesignOptIn>
+          <ButtonToggleGroup
+            id="button-toggle-group-id"
+            label="test"
+            fieldHelp="test"
+          >
+            <ButtonToggle value="foo">Foo</ButtonToggle>
+            <ButtonToggle value="bar">Bar</ButtonToggle>
+          </ButtonToggleGroup>
+        </CarbonProvider>
+      );
+
+      expect(wrapper.find(FieldHelp).exists()).toBe(false);
     });
   });
 
@@ -445,6 +541,7 @@ describe("ButtonToggleGroup", () => {
   testStyledSystemMargin(
     (props) => <MockComponent {...props} />,
     undefined,
-    (component) => component.find(StyledButtonToggleGroup)
+    (component) => component.find(FormFieldStyle),
+    { modifier: "&&&" }
   );
 });

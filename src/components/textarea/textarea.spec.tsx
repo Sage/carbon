@@ -792,4 +792,33 @@ describe("componentWillUnmount", () => {
 
     consoleSpy.mockRestore();
   });
+
+  describe("hideBorders", () => {
+    it("should render component without borders when prop is true", () => {
+      assertStyleMatch(
+        {
+          border: "1px solid transparent",
+        },
+        mount(<Textarea hideBorders />).find(StyledInputPresentation)
+      );
+    });
+
+    it("should render component without borders when prop is true and disabled is set", () => {
+      assertStyleMatch(
+        {
+          border: "1px solid transparent",
+        },
+        mount(<Textarea hideBorders disabled />).find(StyledInputPresentation)
+      );
+    });
+
+    it("should render component without borders when prop is true and read-only is set", () => {
+      assertStyleMatch(
+        {
+          border: "1px solid transparent",
+        },
+        mount(<Textarea hideBorders readOnly />).find(StyledInputPresentation)
+      );
+    });
+  });
 });

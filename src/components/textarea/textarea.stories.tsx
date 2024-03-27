@@ -5,6 +5,7 @@ import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 import Textarea from ".";
 import I18nProvider from "../i18n-provider";
+import Box from "../box";
 
 export const DefaultStory: ComponentStory<typeof Textarea> = () => {
   const [state, setState] = useState("");
@@ -79,14 +80,14 @@ export const TranslationsCharacterLimitStory: ComponentStory<
       locale={{
         locale: () => "fr-FR",
         characterCount: {
-          tooManyCharacters: (count, formattedCount) =>
+          charactersLeft: (count, formattedCount) =>
             count === 1
               ? `${formattedCount} caractère restant`
               : `${formattedCount} caractères restants`,
-          charactersLeft: (count, formattedCount) =>
+          tooManyCharacters: (count, formattedCount) =>
             count === 1
               ? `${formattedCount} caractère de trop`
-              : `${formattedCount} personnages de trop`,
+              : `${formattedCount} caractères de trop`,
           visuallyHiddenHint: (formattedCount) =>
             `Vous pouvez saisir jusqu'à ${formattedCount} caractères`,
         },
@@ -325,5 +326,29 @@ export const BorderRadiusStory: ComponentStory<typeof Textarea> = () => {
         ]}
       />
     </>
+  );
+};
+
+export const BorderlessExample: ComponentStory<typeof Textarea> = () => {
+  const [state, setState] = useState("");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <Box
+      bg="var(--colorsUtilityMajor040)"
+      height={200}
+      width={800}
+      borderRadius="borderRadius200"
+    >
+      <Textarea
+        label="Borderless Textarea"
+        value={state}
+        onChange={setValue}
+        rows={7}
+        hideBorders
+        m={2}
+      />
+    </Box>
   );
 };

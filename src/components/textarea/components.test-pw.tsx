@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CarbonProvider from "../carbon-provider";
-import I18nProvider from "../i18n-provider";
 import Textarea, { TextareaProps } from ".";
 import Dialog from "../dialog";
 import Form from "../form";
@@ -137,38 +136,6 @@ export const CharacterLimitExample = () => {
       onChange={({ target }) => setValue(target.value)}
       characterLimit={50}
     />
-  );
-};
-
-export const TranslationsCharacterLimitExample = () => {
-  const [value, setValue] = useState("");
-  return (
-    <I18nProvider
-      locale={{
-        locale: () => "fr-FR",
-        characterCount: {
-          tooManyCharacters: (count, formattedCount) =>
-            count === 1
-              ? `${formattedCount} caractère restant`
-              : `${formattedCount} caractères restants`,
-          charactersLeft: (count, formattedCount) =>
-            count === 1
-              ? `${formattedCount} caractère de trop`
-              : `${formattedCount} personnages de trop`,
-          visuallyHiddenHint: (formattedCount) =>
-            `Vous pouvez saisir jusqu'à ${formattedCount} caractères`,
-        },
-      }}
-    >
-      <Textarea
-        label="Textarea"
-        inputHint="Texte de l'indice (facultatif)."
-        expandable
-        value={value}
-        onChange={({ target }) => setValue(target.value)}
-        characterLimit={50}
-      />
-    </I18nProvider>
   );
 };
 

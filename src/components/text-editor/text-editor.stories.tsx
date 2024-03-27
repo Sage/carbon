@@ -106,14 +106,14 @@ export const CharacterCounterTranslations = () => {
       locale={{
         locale: () => "fr-FR",
         characterCount: {
-          tooManyCharacters: (count, formattedCount) =>
+          charactersLeft: (count, formattedCount) =>
             count === 1
               ? `${formattedCount} caractère restant`
               : `${formattedCount} caractères restants`,
-          charactersLeft: (count, formattedCount) =>
+          tooManyCharacters: (count, formattedCount) =>
             count === 1
               ? `${formattedCount} caractère de trop`
-              : `${formattedCount} personnages de trop`,
+              : `${formattedCount} caractères de trop`,
           visuallyHiddenHint: (formattedCount) =>
             `Vous pouvez saisir jusqu'à ${formattedCount} caractères`,
         },
