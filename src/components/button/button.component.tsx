@@ -48,11 +48,6 @@ export interface ButtonProps extends SpaceProps, TagProps {
   disabled?: boolean;
   /** Apply destructive style to the button */
   destructive?: boolean;
-  /** Ref to be forwarded */
-  forwardRef?:
-    | React.RefCallback<HTMLButtonElement>
-    | React.MutableRefObject<HTMLButtonElement | null>
-    | null;
   /** Apply fullWidth style to the button */
   fullWidth?: boolean;
   /** Used to transform button into anchor */
@@ -186,7 +181,6 @@ RenderChildrenProps) {
   );
 }
 
-let deprecatedForwardRefWarnTriggered = false;
 let deprecatedDashedButtonWarnTriggered = false;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -199,7 +193,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       destructive = false,
       disabled = false,
-      forwardRef,
       fullWidth: fullWidthProp = false,
       href,
       iconPosition: iconPositionProp = "before",
@@ -238,13 +231,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       invariant(
         size === "large",
         "subtext prop has no effect unless the button is large."
-      );
-    }
-
-    if (!deprecatedForwardRefWarnTriggered && forwardRef) {
-      deprecatedForwardRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `forwardRef` prop in `Button` component is deprecated and will soon be removed. Please use `ref` instead."
       );
     }
 
@@ -287,12 +273,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const setRefs = useCallback(
       (reference) => {
         setInternalRef(reference);
-        const activeRef = ref || forwardRef;
-        if (!activeRef) return;
-        if (typeof activeRef === "object") activeRef.current = reference;
-        if (typeof activeRef === "function") activeRef(reference);
+        if (!ref) return;
+        if (typeof ref === "object") ref.current = reference;
+        if (typeof ref === "function") ref(reference);
       },
-      [ref, forwardRef]
+      [ref]
     );
 
     const isValidChildren = children !== undefined && children !== false;
@@ -344,23 +329,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-let deprecatedButtonForwardRefWarnTriggered = false;
-
-const ButtonWithForwardRef = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => {
-    if (!deprecatedButtonForwardRefWarnTriggered) {
-      deprecatedButtonForwardRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `ButtonWithForwardRef` component is deprecated and will soon be removed. Please use a basic `Button` component with `ref` instead."
-      );
-    }
-
-    return <Button ref={ref} {...props} />;
-  }
-);
-
-ButtonWithForwardRef.displayName = "Button";
 Button.displayName = "Button";
-
-export { ButtonWithForwardRef };
 export default Button;
