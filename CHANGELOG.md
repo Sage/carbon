@@ -1,3 +1,10 @@
+### [127.0.4](https://github.com/Sage/carbon/compare/v127.0.3...v127.0.4) (2024-03-27)
+
+
+### Bug Fixes
+
+* **select:** remove list action button from scrollable area in select list ([d95770e](https://github.com/Sage/carbon/commit/d95770e9a4be9680c2e846c51afbce61f512fc13)), closes [#6541](https://github.com/Sage/carbon/issues/6541)
+
 ### [127.0.3](https://github.com/Sage/carbon/compare/v127.0.2...v127.0.3) (2024-03-25)
 
 
