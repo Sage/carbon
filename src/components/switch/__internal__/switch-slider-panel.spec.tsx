@@ -2,10 +2,8 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 
 import { ThemeObject } from "../../../style/themes/base";
-import {
-  assertStyleMatch,
-  carbonThemesJestTable,
-} from "../../../__spec_helper__/test-utils";
+import { sageTheme } from "../../../style/themes";
+import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 import StyledLoader from "../../loader/loader.style";
 import StyledLoaderSquare from "../../loader/loader-square.style";
 import SwitchSliderPanel, {
@@ -53,29 +51,26 @@ describe("SwitchSliderPanel", () => {
     });
   });
 
-  describe.each(carbonThemesJestTable)(
-    "when the theme is set to %s",
-    (theme) => {
-      const wrapper = render({ theme }).toJSON();
+  describe("when the theme is set to sageTheme", () => {
+    const wrapper = render({ theme: sageTheme }).toJSON();
 
-      it("applies the correct base styles", () => {
-        assertStyleMatch(
-          {
-            color: "var(--colorsActionMinorYang100)",
-          },
-          wrapper
-        );
-      });
+    it("applies the correct base styles", () => {
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMinorYang100)",
+        },
+        wrapper
+      );
+    });
 
-      it("applies the correct off panel styles", () => {
-        assertStyleMatch(
-          {
-            color: "var(--colorsActionMinor500)",
-          },
-          wrapper,
-          { modifier: '[type="off"]' }
-        );
-      });
-    }
-  );
+    it("applies the correct off panel styles", () => {
+      assertStyleMatch(
+        {
+          color: "var(--colorsActionMinor500)",
+        },
+        wrapper,
+        { modifier: '[type="off"]' }
+      );
+    });
+  });
 });

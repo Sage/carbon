@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { ThemeProvider } from "styled-components";
-import { mintTheme } from "../../style/themes";
+import { sageTheme } from "../../style/themes";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
@@ -23,7 +23,7 @@ const assert = (
   props: TypographyProps
 ) => {
   const wrapper = mount(
-    <ThemeProvider theme={mintTheme}>
+    <ThemeProvider theme={sageTheme}>
       <Typography {...props} />
     </ThemeProvider>
   );
@@ -556,7 +556,7 @@ describe("Typography", () => {
       "break-spaces",
     ])("applies white-space of %s", (prop) => {
       const wrapper = mount(
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <Typography whiteSpace={prop}>FooBar</Typography>
         </ThemeProvider>
       );
@@ -573,7 +573,7 @@ describe("Typography", () => {
       "applies word-wrap of %s",
       (prop) => {
         const wrapper = mount(
-          <ThemeProvider theme={mintTheme}>
+          <ThemeProvider theme={sageTheme}>
             <Typography wordWrap={prop}>FooBar</Typography>
           </ThemeProvider>
         );
@@ -591,7 +591,7 @@ describe("Typography", () => {
       "applies text-align of %s",
       (prop) => {
         const wrapper = mount(
-          <ThemeProvider theme={mintTheme}>
+          <ThemeProvider theme={sageTheme}>
             <Typography textAlign={prop}>FooBar</Typography>
           </ThemeProvider>
         );
@@ -609,7 +609,7 @@ describe("Typography", () => {
       "applies text-overflow of %s",
       (prop) => {
         const wrapper = mount(
-          <ThemeProvider theme={mintTheme}>
+          <ThemeProvider theme={sageTheme}>
             <Typography textOverflow={prop}>FooBar</Typography>
           </ThemeProvider>
         );
@@ -625,7 +625,7 @@ describe("Typography", () => {
 
     it("applies truncation when truncate prop is true", () => {
       const wrapper = mount(
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <Typography truncate>FooBar</Typography>
         </ThemeProvider>
       );
@@ -642,7 +642,7 @@ describe("Typography", () => {
 
     it("sets to visually hidden when screenReaderOnly prop is true", () => {
       const wrapper = mount(
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <Typography screenReaderOnly>FooBar</Typography>
         </ThemeProvider>
       );
@@ -670,7 +670,7 @@ describe("List", () => {
     "renders as a %s",
     (as, listStyleType) => {
       const wrapper = mount(
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <List as={as}>
             <ListItem>Bread</ListItem>
             <ListItem>Milk</ListItem>

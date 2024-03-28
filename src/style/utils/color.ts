@@ -15,7 +15,7 @@ import { ThemeObject } from "../themes/base";
  * We could use a proxy to make those calls directly on the theme however styled-components expects the theme to be a
  * plain object and does not allow us to merge a theme from a ThemeProvider with a theme defined as a defaultProp if
  * both of those have a Proxy.
- * e.g. when the mint theme in the ThemeProvider is merged with the base theme in the defaultProps
+ * e.g. when the none theme in the ThemeProvider is merged with the base theme in the defaultProps
  *
  * The purpose of this function is to intercept any palette colors, we only want styled-system to deal with CSS strings
  * and theme.colors.
