@@ -512,6 +512,7 @@ export const SimpleSelect = React.forwardRef(
       <SelectList
         ref={listboxRef}
         id={selectListId.current}
+        parentID={inputId.current}
         labelId={labelId}
         anchorElement={textboxRef?.parentElement || undefined}
         onSelect={onSelectOption}

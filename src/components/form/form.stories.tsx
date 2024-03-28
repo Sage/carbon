@@ -689,9 +689,9 @@ export const WithLabelsInline: Story = () => (
       labelWidth={30}
       labelId="inline-inputs"
     >
-      <Textbox aria-labelledby="inline-inputs" />
-      <Textbox aria-labelledby="inline-inputs" />
-      <Select aria-labelledby="inline-inputs">
+      <Textbox aria-label="inline input A" />
+      <Textbox aria-label="inline input B" />
+      <Select aria-label="inline select A">
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="1" />
         <Option value="3" text="option 3" key="1" />
@@ -703,9 +703,9 @@ export const WithLabelsInline: Story = () => (
       labelWidth={30}
       labelId="inline-inputs-second"
     >
-      <Textbox aria-labelledby="inline-inputs-second" />
-      <Textbox aria-labelledby="inline-inputs-second" />
-      <Select aria-labelledby="inline-inputs-second">
+      <Textbox aria-label="inline input second A" />
+      <Textbox aria-label="inline input second B" />
+      <Select aria-label="inline select B">
         <Option value="1" text="option 1" key="1" />
         <Option value="2" text="option 2" key="1" />
         <Option value="3" text="option 3" key="1" />

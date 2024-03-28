@@ -62,6 +62,7 @@ export const Default: Story = () => {
       </ActionPopoverItem>
     </ActionPopoverMenu>
   );
+
   return (
     <Box mt={40} height={275}>
       <ActionPopover onOpen={() => {}} onClose={() => {}}>

@@ -279,7 +279,11 @@ export const ActionPopover = ({
         }}
       >
         {isOpen && (
-          <Popover placement={mappedPlacement} reference={buttonRef}>
+          <Popover
+            placement={mappedPlacement}
+            reference={buttonRef}
+            ariaLabelledBy={parentID}
+          >
             <ActionPopoverMenu
               data-component="action-popover"
               ref={menu}
