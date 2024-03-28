@@ -92,7 +92,6 @@ export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
     `;
   }}
   border-radius: var(--borderRadius050);
-  width: 100%;
 
   ${StyledProgressBar}, ${ProgressTrackerInnerBar} {
     border-radius: var(--borderRadius050);
@@ -109,5 +108,6 @@ export const StyledFileUploadStatus = styled.div<StyledFileUploadStatusProps>`
 
   ${LoaderBarInnerBar} {
     background-color: var(--colorsSemanticNeutral500);
+    border-radius: var(--borderRadius050);
   }
 `;
