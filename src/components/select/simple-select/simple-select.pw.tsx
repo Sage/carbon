@@ -32,7 +32,6 @@ import {
   multiColumnsSelectListHeaderColumn,
   multiColumnsSelectListRow,
   multiColumnsSelectListRowAt,
-  selectDataComponent,
   selectElementInput,
   selectInput,
   selectList,
@@ -947,27 +946,6 @@ test.describe("SimpleSelect component", () => {
     });
   });
 
-  ([
-    [true, 2],
-    [false, 1],
-  ] as const).forEach(([state, numberOfChildren]) => {
-    test(`should check the disablePortal prop when ${state}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <div>
-          <SimpleSelectComponent disablePortal={state} />
-        </div>
-      );
-
-      await selectText(page).click();
-      await expect(
-        selectDataComponent(page, "simple").locator("> *")
-      ).toHaveCount(numberOfChildren);
-    });
-  });
-
   test("should have correct hover state of list option", async ({
     mount,
     page,
@@ -1741,20 +1719,6 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
       await selectText(page).click();
       await checkAccessibility(page, undefined, "scrollable-region-focusable");
     });
-  });
-
-  test("should pass accessibility tests with disablePortal prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <div>
-        <SimpleSelectComponent disablePortal />
-      </div>
-    );
-
-    await selectText(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
   test("should pass accessibility tests with long option text", async ({

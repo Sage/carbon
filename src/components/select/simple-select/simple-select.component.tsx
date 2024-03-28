@@ -54,8 +54,6 @@ export interface SimpleSelectProps
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string | Record<string, unknown>;
-  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
-  disablePortal?: boolean;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** When true component will work in multi column mode.
@@ -114,7 +112,6 @@ export const SimpleSelect = React.forwardRef(
       onFocus,
       onKeyDown,
       onBlur,
-      disablePortal = false,
       isLoading,
       listMaxHeight,
       onListScrollBottom,
@@ -521,7 +518,6 @@ export const SimpleSelect = React.forwardRef(
         onMouseDown={handleListMouseDown}
         onSelectListClose={onSelectListClose}
         highlightedValue={selectedValue}
-        disablePortal={disablePortal}
         listMaxHeight={listMaxHeight}
         isLoading={isLoading}
         onListScrollBottom={onListScrollBottom}

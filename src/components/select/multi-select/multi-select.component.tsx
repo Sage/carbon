@@ -53,8 +53,6 @@ export interface MultiSelectProps
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string[] | Record<string, unknown>[];
-  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
-  disablePortal?: boolean;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** When true component will work in multi column mode.
@@ -117,7 +115,6 @@ export const MultiSelect = React.forwardRef(
       openOnFocus = false,
       noResultsMessage,
       placeholder,
-      disablePortal,
       isLoading,
       tableHeader,
       multiColumn,
@@ -645,7 +642,6 @@ export const MultiSelect = React.forwardRef(
         filterText={filterText.trim()}
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
-        disablePortal={disablePortal}
         isLoading={isLoading}
         tableHeader={tableHeader}
         multiColumn={multiColumn}

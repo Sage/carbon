@@ -322,7 +322,6 @@ export const InDialogWithStickyFooter = () => {
             name="simple-disabled-portal"
             id="simple-disabled-portal"
             label="Simple Select - disabled portal"
-            disablePortal
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
@@ -340,7 +339,6 @@ export const InDialogWithStickyFooter = () => {
             name="multi-disabled-portal"
             id="multi-disabled-portal"
             label="Multi Select - disabled portal"
-            disablePortal
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />

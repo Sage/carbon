@@ -35,7 +35,6 @@ import {
   multiColumnsSelectListHeaderColumn,
   multiColumnsSelectListNoResultsMessage,
   multiColumnsSelectListRow,
-  multiSelectDataComponent,
   multiSelectPill,
   multiSelectPillByPosition,
   multiSelectPillByText,
@@ -803,27 +802,6 @@ test.describe("MultiSelect component", () => {
         position
       );
       await expect(listElement).toBeVisible();
-    });
-  });
-
-  ([
-    [true, 2],
-    [false, 1],
-  ] as [boolean, number][]).forEach(([state, numberOfChildren]) => {
-    test(`should check the disablePortal prop when ${state}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <div>
-          <MultiSelectComponent disablePortal={state} />
-        </div>
-      );
-
-      await dropdownButton(page).click();
-      await expect(multiSelectDataComponent(page).locator("> *")).toHaveCount(
-        numberOfChildren
-      );
     });
   });
 
@@ -1866,20 +1844,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
       await dropdownButton(page).click();
       await checkAccessibility(page, undefined, "scrollable-region-focusable");
     });
-  });
-
-  test("should pass accessibility tests with disablePortal prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <div>
-        <MultiSelectComponent disablePortal />
-      </div>
-    );
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
   test("should pass accessibility tests with multiple columns", async ({
