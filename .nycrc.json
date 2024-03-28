@@ -1,0 +1,7 @@
+{
+  "include": [
+    "src/**/*.{component*,style*}"
+  ],
+  "excludeNodeModules": true,
+  "report-dir": "./coverage/pw-coverage"
+}

@@ -37,9 +37,11 @@
     "build:types": "tsc -p tsconfig-build.json --emitDeclarationOnly --outDir ./lib && tsc -p tsconfig-build.json --emitDeclarationOnly --outDir ./esm",
     "prepare": "husky install",
     "test:ct": "playwright test -c playwright-ct.config.ts",
+    "test:foo": "playwright test -c playwright-ct.config.ts -- src/components/button/button.pw.tsx && nyc report --report-dir=./coverage/pw-coverage --reporter=lcov --reporter=text-summary --include='src/**'",
     "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
     "test:ct:report": "npx playwright show-report",
-    "clear-playwright-cache": "rimraf ./playwright/.cache"
+    "clear-playwright-cache": "rimraf ./playwright/.cache",
+    "gen-coverage": "nyc report --reporter=html --report-dir=temp-coverage --temp-dir=temp-coverage"
   },
   "repository": {
     "type": "git",
@@ -161,6 +163,7 @@
     "lint-staged": "^11.2.6",
     "mockdate": "^2.0.5",
     "nock": "^13.3.8",
+    "nyc": "^15.1.0",
     "prettier": "~2.2.0",
     "raf": "^3.4.1",
     "react": "^17.0.2",
@@ -178,6 +181,7 @@
     "typescript-to-proptypes": "^2.2.1",
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
+    "v8-to-istanbul": "^9.2.0",
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
