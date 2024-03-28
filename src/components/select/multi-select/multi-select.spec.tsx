@@ -11,7 +11,9 @@ import {
   simulateDropdownEvent,
 } from "../../../__spec_helper__/select-test-utils";
 import { MultiSelect, Option, MultiSelectProps } from "..";
+import StyledOption from "../option/option.style";
 import Textbox from "../../textbox";
+import MatchingText from "../utils/matching-text.style";
 import SelectList from "../select-list/select-list.component";
 import {
   StyledSelectList,
@@ -38,6 +40,8 @@ function getSelect(props: Partial<MultiSelectProps> = {}) {
       <Option value="opt1" text="red" borderColor="red" fill />
       <Option value="opt2" text="green" borderColor="green" />
       <Option value="opt3" text="blue" />
+      <Option value="opt4" text="yellow" />
+      <Option value="opt5" text="forest green" />
     </MultiSelect>
   );
 }
@@ -783,6 +787,122 @@ describe("MultiSelect", () => {
         });
 
         expect(onOpenFn).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("when the filter text contains whitespace,", () => {
+    describe("which is leading whitespace:", () => {
+      it("the matching option value is correct, and highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "   Y" },
+        });
+        wrapper.update();
+
+        const optionElement = wrapper.find(Option);
+
+        expect(optionElement.prop("text")).toBe("yellow");
+        expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+      });
+
+      it.each(["y", "ye", "yel", "yell", "yello", "yellow"])(
+        "the matching option text is highlighted correctly",
+        (passedValue) => {
+          const wrapper = renderSelect();
+
+          simulateSelectTextboxEvent(wrapper, "change", {
+            target: { value: `   ${passedValue}` },
+          });
+          wrapper.update();
+
+          expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
+        }
+      );
+    });
+
+    describe("which is whitespace within the string:", () => {
+      it("the matching option value is correct, and highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "forest " },
+        });
+        wrapper.update();
+
+        const optionElement = wrapper.find(Option);
+
+        expect(optionElement.prop("text")).toBe("forest green");
+        expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+      });
+
+      it.each(["forest", "forest green"])(
+        "the matching option text is highlighted correctly",
+        (passedValue) => {
+          const wrapper = renderSelect();
+
+          simulateSelectTextboxEvent(wrapper, "change", {
+            target: { value: passedValue },
+          });
+          wrapper.update();
+
+          expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
+        }
+      );
+    });
+
+    describe("which is trailing whitespace", () => {
+      it("the correct matching option value is correct, and highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "yellow   " },
+        });
+        wrapper.update();
+
+        const optionElement = wrapper.find(Option);
+
+        expect(optionElement.prop("text")).toBe("yellow");
+        expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+      });
+
+      it("the matching option text is highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "yellow     " },
+        });
+        wrapper.update();
+
+        expect(wrapper.find(MatchingText).prop("children")).toBe("yellow");
+      });
+    });
+
+    describe("which is leading & trailing whitespace", () => {
+      it("the matching option value is correct, and highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "    yellow   " },
+        });
+        wrapper.update();
+
+        const optionElement = wrapper.find(Option);
+
+        expect(optionElement.prop("text")).toBe("yellow");
+        expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+      });
+
+      it("the matching option text is highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "    yellow   " },
+        });
+        wrapper.update();
+
+        expect(wrapper.find(MatchingText).prop("children")).toBe("yellow");
       });
     });
   });
