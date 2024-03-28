@@ -608,7 +608,7 @@ export const ValidationsStringNewDesign = () => (
         <Box width="296px" key={`${validationType}-${size}`}>
           <FilterableSelect
             name="filterable"
-            id={`${size} - ${validationType}`}
+            id={`${size}-${validationType}`}
             label={`${size} - ${validationType}`}
             labelInline
             size={size}
@@ -629,7 +629,7 @@ export const ValidationsStringNewDesign = () => (
           </FilterableSelect>
           <FilterableSelect
             name="filterable - readOnly"
-            id={`readOnly - ${size} - ${validationType}`}
+            id={`readOnly-${size}-${validationType}`}
             label={`readOnly - ${size} - ${validationType}`}
             labelInline
             size={size}
