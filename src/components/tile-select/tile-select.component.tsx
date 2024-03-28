@@ -211,7 +211,7 @@ const TileSelect = React.forwardRef<HTMLInputElement, TileSelectProps>(
                     <StyledAdornment
                       hasAdditionalInformation={!!additionalInformation}
                     >
-                      {titleAdornment}
+                      {titleAdornment && <div>{titleAdornment}</div>}
                     </StyledAdornment>
                   )}
                 </StyledTitleContainer>

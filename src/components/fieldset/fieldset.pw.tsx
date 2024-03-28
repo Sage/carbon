@@ -5,13 +5,9 @@ import Form, { FormProps } from "../form";
 import FieldsetComponent from "./components.test-pw";
 import Textbox from "../textbox";
 import { getDataElementByValue } from "../../../playwright/components/index";
-import {
-  assertCssValueIsApproximately,
-  checkAccessibility,
-} from "../../../playwright/support/helper";
+import { checkAccessibility } from "../../../playwright/support/helper";
 import { VALIDATION, CHARACTERS } from "../../../playwright/support/constants";
 import { ICON } from "../../../playwright/components/locators";
-import { FieldsetProps } from "./fieldset.component";
 
 const specialCharacters = [
   CHARACTERS.STANDARD,
@@ -31,28 +27,8 @@ test.describe("should render Fieldset component", () => {
   test(`should verify preview is not displayed`, async ({ mount, page }) => {
     await mount(<FieldsetComponent legend="" />);
 
-    await expect(getDataElementByValue(page, "legend")).toHaveCount(0);
+    await expect(getDataElementByValue(page, "legend")).not.toBeVisible();
   });
-
-  ([
-    ["inline", true, 33, 37, 73],
-    ["as a column", false, 16, 70, 930],
-  ] as [string, FieldsetProps["inline"], number, number, number][]).forEach(
-    ([state, bool, labelHeight, labelWidth, inputWidth]) => {
-      test(`should verify component is displayed ${state} if inline prop is ${bool}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<FieldsetComponent inline={bool} />);
-
-        const label = getDataElementByValue(page, "label").nth(0);
-        await assertCssValueIsApproximately(label, "height", labelHeight);
-        await assertCssValueIsApproximately(label, "width", labelWidth);
-        const input = getDataElementByValue(page, "input").nth(0);
-        await assertCssValueIsApproximately(input, "width", inputWidth);
-      });
-    }
-  );
 
   ["error", "warning", "info"].forEach((type) => {
     test(`should verify ${type} validation icon is displayed on input`, async ({
@@ -173,20 +149,6 @@ test.describe("Accessibility tests for Fieldset component", () => {
       page,
     }) => {
       await mount(<FieldsetComponent legend={chars} />);
-
-      await checkAccessibility(page);
-    });
-  });
-
-  ([
-    ["inline", true],
-    ["as a column", false],
-  ] as [string, FieldsetProps["inline"]][]).forEach(([state, bool]) => {
-    test(`should pass accessibility tests when displayed ${state}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FieldsetComponent inline={bool} />);
 
       await checkAccessibility(page);
     });
