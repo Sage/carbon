@@ -62,9 +62,7 @@ GitHub Actions runs unit tests for a Pull Request on creation and every commit p
 
 ## Functional Browser Testing
 
-> **NOTE** - As of 3rd August 2023, we are in the progress of switching test framework for our functional browser tests from [Cypress](https://www.cypress.io/) to [Playwright](https://playwright.dev). The following section refers to our upcoming Playwright setup, but further details regarding our current Cypress setup can be found in [our Cypress docs](../cypress/README.md).
-
-We are planning to use [Playwright](https://playwright.dev) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Playwright, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
+We use the [Playwright](https://playwright.dev) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Playwright, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
 
 Further details on installing Playwright and our configuration for it can be found in our [Getting started with Playwright](../playwright/README.md) guide.
 
