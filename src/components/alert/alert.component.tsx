@@ -6,6 +6,7 @@ export const Alert = ({
   children,
   size = "extra-small",
   topModalOverride,
+  closeButtonDataProps,
   ...rest
 }: DialogProps) => (
   <Dialog
@@ -13,6 +14,7 @@ export const Alert = ({
     role="alertdialog"
     size={size}
     topModalOverride={topModalOverride}
+    closeButtonDataProps={closeButtonDataProps}
     {...rest}
   >
     {children}

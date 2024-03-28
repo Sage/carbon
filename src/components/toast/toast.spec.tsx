@@ -15,6 +15,7 @@ import {
 } from "./toast.style";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import IconButton from "../icon-button";
+import StyledIconButton from "../icon-button/icon-button.style";
 import Button from "../button";
 import ModalManager from "../modal/__internal__/modal-manager";
 import {
@@ -188,7 +189,14 @@ describe("Toast", () => {
       beforeEach(() => {
         onDismiss = jest.fn();
         wrapper = mount(
-          <Toast open onDismiss={onDismiss}>
+          <Toast
+            open
+            onDismiss={onDismiss}
+            closeButtonDataProps={{
+              "data-element": "foo",
+              "data-role": "bar",
+            }}
+          >
             Child
           </Toast>
         );
@@ -199,9 +207,13 @@ describe("Toast", () => {
       });
 
       it("renders close icon", () => {
-        const icon = wrapper.find("[data-element='close']");
+        const icon = wrapper.find("[data-component='close']");
 
         expect(icon.exists()).toBe(true);
+      });
+
+      it("should allow custom data props on close button to be assigned", () => {
+        rootTagTest(wrapper.find(StyledIconButton), "close", "foo", "bar");
       });
 
       it("auto focuses the toast component", () => {

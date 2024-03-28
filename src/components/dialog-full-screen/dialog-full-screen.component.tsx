@@ -12,6 +12,7 @@ import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
+import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export interface DialogFullScreenProps extends ModalProps {
   /** Prop to specify the aria-describedby property of the DialogFullscreen component */
@@ -55,6 +56,8 @@ export interface DialogFullScreenProps extends ModalProps {
   pagesStyling?: boolean;
   /** Determines if the close icon is shown */
   showCloseIcon?: boolean;
+  /** Data tag prop bag for close Button */
+  closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Subtitle displayed at top of dialog */
   subtitle?: string;
   /** Title displayed at top of dialog */
@@ -94,6 +97,7 @@ export const DialogFullScreen = ({
   focusableContainers,
   focusableSelectors,
   topModalOverride,
+  closeButtonDataProps,
   ...rest
 }: DialogFullScreenProps) => {
   const locale = useLocale();
@@ -111,9 +115,12 @@ export const DialogFullScreen = ({
 
     return (
       <IconButton
-        data-element="close"
         aria-label={locale.dialogFullScreen.ariaLabels.close()}
         onClick={onCancel}
+        {...tagComponent("close", {
+          "data-element": "close",
+          ...closeButtonDataProps,
+        })}
       >
         <Icon type="close" />
       </IconButton>

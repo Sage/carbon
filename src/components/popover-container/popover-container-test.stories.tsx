@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Button from "../button";
 import Box from "../box";
-import PopoverContainer from "./popover-container.component";
+import PopoverContainer, {
+  PopoverContainerProps,
+} from "./popover-container.component";
 import { Select, Option } from "../select";
 import { Menu, MenuItem } from "../menu";
 import Heading from "../heading";
@@ -20,8 +22,8 @@ export default {
   },
 };
 
-export const Default = ({ title, open }: { title?: string; open: boolean }) => (
-  <PopoverContainer title={title} open={open} />
+export const Default = ({ ...args }: PopoverContainerProps) => (
+  <PopoverContainer {...args} />
 );
 
 export const WithSelect = () => {
@@ -51,6 +53,7 @@ Default.story = {
   args: {
     title: "Title",
     open: true,
+    closeButtonDataProps: {},
   },
 };
 

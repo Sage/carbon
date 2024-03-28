@@ -81,6 +81,7 @@ DefaultStory.story = {
     showCloseIcon: true,
     size: "extra-small",
     children: "This is an example of an alert",
+    closeButtonDataProps: {},
   },
 };
 

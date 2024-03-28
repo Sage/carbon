@@ -78,6 +78,7 @@ DefaultStory.args = {
   formHeight: "2000px",
   stickyFooter: false,
   disableContentPadding: false,
+  closeButtonDataProps: {},
 };
 
 export const Nested = () => {

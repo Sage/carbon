@@ -93,4 +93,5 @@ Default.args = {
   disableConfirm: false,
   disableCancel: false,
   cancelButtonType: "secondary",
+  closeButtonDataProps: {},
 };
