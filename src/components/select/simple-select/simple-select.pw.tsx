@@ -38,6 +38,7 @@ import {
   selectListCustomChild,
   selectListOptionGroup,
   selectListPosition,
+  selectListScrollableWrapper,
   selectListWrapper,
   selectOption,
   selectOptionByText,
@@ -494,14 +495,14 @@ test.describe("SimpleSelect component", () => {
     );
     await expect(selectOptionByText(page, option)).toHaveCount(0);
     await page.waitForTimeout(2000);
-    await selectListWrapperElement.evaluate((wrapper) => {
+    await selectListScrollableWrapper(page).evaluate((wrapper) => {
       wrapper.scrollBy(0, 500);
     });
     await page.waitForTimeout(250);
     await Promise.all(
       [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible())
     );
-    await expect(await selectOptionByText(page, option)).toBeVisible();
+    await expect(selectOptionByText(page, option)).toBeVisible();
   });
 
   test("infinite scroll example should not cycle back to the start when using down arrow key", async ({
@@ -555,18 +556,18 @@ test.describe("SimpleSelect component", () => {
 
     // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
     // won't trigger the bug.
-    const wrapperElement = selectListWrapper(page);
+    const scrollableWrapper = selectListScrollableWrapper(page);
     await selectText(page).click();
-    await wrapperElement.evaluate((wrapper) => wrapper.scrollBy(0, 500));
-    const scrollPositionBeforeLoad = await wrapperElement.evaluate(
+    await scrollableWrapper.evaluate((wrapper) => wrapper.scrollBy(0, 500));
+    const scrollPositionBeforeLoad = await scrollableWrapper.evaluate(
       (element) => element.scrollTop
     );
 
     await selectOptionByText(page, "Lazy Loaded A1").waitFor();
-    const scrollPositionAfterLoad = await wrapperElement.evaluate(
+    const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
       (element) => element.scrollTop
     );
-    await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
+    expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
   });
 
   test("keyboard navigation should work correctly in multicolumn mode and ensure the selected option is visible", async ({
@@ -836,7 +837,7 @@ test.describe("SimpleSelect component", () => {
     await mount(<SimpleSelectComponent listMaxHeight={maxHeight} />);
 
     await selectText(page).click();
-    const wrapperElement = selectListWrapper(page);
+    const wrapperElement = selectListScrollableWrapper(page);
     await expect(wrapperElement).toHaveCSS("max-height", `${maxHeight}px`);
     await expect(wrapperElement).toBeVisible();
   });
@@ -1104,7 +1105,7 @@ test.describe("Check virtual scrolling", () => {
     await mount(<SimpleSelectWithManyOptionsAndVirtualScrolling />);
 
     await selectText(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollTo(0, 750)
     );
     await page.waitForTimeout(250);
@@ -1337,7 +1338,7 @@ test.describe("Selection confirmed", () => {
     await mount(<SimpleSelectComponent onListScrollBottom={callback} />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await selectOption(page, positionOfElement("first")).click();
@@ -1355,8 +1356,8 @@ test.describe("Test for scroll bug regression", () => {
     await mount(<SimpleSelectComponent />);
     const dropdownButtonElement = dropdownButton(page);
     await dropdownButtonElement.click();
-    await selectListWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollBy(0, 500)
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
+      wrapper.scroll(0, 500)
     );
     await commonDataElementInputPreview(page).press("Escape");
     await dropdownButtonElement.click();
@@ -1583,7 +1584,7 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     await checkAccessibility(page);
     // wait for content to finish loading before scrolling
     await expect(selectOptionByText(page, "Amber")).toBeVisible();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await checkAccessibility(page, undefined, "scrollable-region-focusable");

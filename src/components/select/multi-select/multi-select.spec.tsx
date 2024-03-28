@@ -11,10 +11,15 @@ import {
   simulateDropdownEvent,
 } from "../../../__spec_helper__/select-test-utils";
 import { MultiSelect, Option, MultiSelectProps } from "..";
+import StyledOption from "../option/option.style";
 import Textbox from "../../textbox";
+import MatchingText from "../utils/matching-text.style";
 import SelectList from "../select-list/select-list.component";
-import { StyledSelectList } from "../select-list/select-list.style";
-import StyledSelectListContainer from "../select-list/select-list-container.style";
+import {
+  StyledSelectList,
+  StyledSelectListContainer,
+  StyledScrollableContainer,
+} from "../select-list/select-list.style";
 import Pill from "../../pill";
 import Label from "../../../__internal__/label";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
@@ -22,6 +27,7 @@ import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledInput from "../../../__internal__/input/input.style";
+import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
@@ -34,6 +40,8 @@ function getSelect(props: Partial<MultiSelectProps> = {}) {
       <Option value="opt1" text="red" borderColor="red" fill />
       <Option value="opt2" text="green" borderColor="green" />
       <Option value="opt3" text="blue" />
+      <Option value="opt4" text="yellow" />
+      <Option value="opt5" text="forest green" />
     </MultiSelect>
   );
 }
@@ -63,6 +71,10 @@ describe("MultiSelect", () => {
     }
 
     container = null;
+  });
+
+  beforeEach(() => {
+    mockDOMRect(200, 200, "select-list-scrollable-container");
   });
 
   describe("Deprecation warning for uncontrolled", () => {
@@ -295,7 +307,7 @@ describe("MultiSelect", () => {
       simulateDropdownEvent(wrapper, "click");
       assertStyleMatch(
         { maxHeight: "120px" },
-        wrapper.find(StyledSelectListContainer)
+        wrapper.find(StyledScrollableContainer)
       );
     });
   });
@@ -767,6 +779,122 @@ describe("MultiSelect", () => {
         });
 
         expect(onOpenFn).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("when the filter text contains whitespace,", () => {
+    describe("which is leading whitespace:", () => {
+      it("the matching option value is correct, and highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "   Y" },
+        });
+        wrapper.update();
+
+        const optionElement = wrapper.find(Option);
+
+        expect(optionElement.prop("text")).toBe("yellow");
+        expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+      });
+
+      it.each(["y", "ye", "yel", "yell", "yello", "yellow"])(
+        "the matching option text is highlighted correctly",
+        (passedValue) => {
+          const wrapper = renderSelect();
+
+          simulateSelectTextboxEvent(wrapper, "change", {
+            target: { value: `   ${passedValue}` },
+          });
+          wrapper.update();
+
+          expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
+        }
+      );
+    });
+
+    describe("which is whitespace within the string:", () => {
+      it("the matching option value is correct, and highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "forest " },
+        });
+        wrapper.update();
+
+        const optionElement = wrapper.find(Option);
+
+        expect(optionElement.prop("text")).toBe("forest green");
+        expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+      });
+
+      it.each(["forest", "forest green"])(
+        "the matching option text is highlighted correctly",
+        (passedValue) => {
+          const wrapper = renderSelect();
+
+          simulateSelectTextboxEvent(wrapper, "change", {
+            target: { value: passedValue },
+          });
+          wrapper.update();
+
+          expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
+        }
+      );
+    });
+
+    describe("which is trailing whitespace", () => {
+      it("the correct matching option value is correct, and highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "yellow   " },
+        });
+        wrapper.update();
+
+        const optionElement = wrapper.find(Option);
+
+        expect(optionElement.prop("text")).toBe("yellow");
+        expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+      });
+
+      it("the matching option text is highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "yellow     " },
+        });
+        wrapper.update();
+
+        expect(wrapper.find(MatchingText).prop("children")).toBe("yellow");
+      });
+    });
+
+    describe("which is leading & trailing whitespace", () => {
+      it("the matching option value is correct, and highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "    yellow   " },
+        });
+        wrapper.update();
+
+        const optionElement = wrapper.find(Option);
+
+        expect(optionElement.prop("text")).toBe("yellow");
+        expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+      });
+
+      it("the matching option text is highlighted correctly", () => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: "    yellow   " },
+        });
+        wrapper.update();
+
+        expect(wrapper.find(MatchingText).prop("children")).toBe("yellow");
       });
     });
   });

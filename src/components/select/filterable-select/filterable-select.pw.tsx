@@ -40,6 +40,7 @@ import {
   selectInput,
   selectList,
   selectListPosition,
+  selectListScrollableWrapper,
   selectListWrapper,
   selectOption,
   selectOptionByText,
@@ -552,6 +553,36 @@ test.describe("FilterableSelect component", () => {
     });
   });
 
+  [
+    [" O", "Brown", "Orange", "Yellow"],
+    ["O ", "Brown", "Orange", "Yellow"],
+    [" O ", "Brown", "Orange", "Yellow"],
+  ].forEach(([text, optionValue1, optionValue2, optionValue3]) => {
+    test(`should filter options when "${text}" is typed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectComponent />);
+
+      await commonDataElementInputPreview(page).type(text);
+      await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
+      await expect(selectListWrapper(page)).toBeVisible();
+
+      const option1 = selectOption(page, positionOfElement("first"));
+      const option2 = selectOption(page, positionOfElement("second"));
+      const option3 = selectOption(page, positionOfElement("third"));
+      await expect(option1).toHaveText(optionValue1);
+      await expect(option1).toBeVisible();
+      await expect(option1).toHaveCSS("background-color", "rgb(153, 173, 183)");
+      await expect(option2).toHaveText(optionValue2);
+      await expect(option2).toBeVisible();
+      await expect(option2).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+      await expect(option3).toHaveText(optionValue3);
+      await expect(option3).toBeVisible();
+      await expect(option3).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+    });
+  });
+
   test("should render the lazy loader when the prop is set", async ({
     mount,
     page,
@@ -604,7 +635,7 @@ test.describe("FilterableSelect component", () => {
     );
     await expect(selectOptionByText(page, option)).toHaveCount(0);
     await page.waitForTimeout(2000);
-    await selectListWrapperElement.evaluate((wrapper) => {
+    await selectListScrollableWrapper(page).evaluate((wrapper) => {
       wrapper.scrollBy(0, 500);
     });
     await page.waitForTimeout(250);
@@ -630,15 +661,15 @@ test.describe("FilterableSelect component", () => {
 
     // reopen the list and scroll to initiate the lazy loading. It's important to not use the keyboard here as that
     // won't trigger the bug.
-    const wrapperElement = selectListWrapper(page);
+    const scrollableWrapper = selectListScrollableWrapper(page);
     await dropdownButton(page).click();
-    await wrapperElement.evaluate((wrapper) => wrapper.scrollBy(0, 500));
-    const scrollPositionBeforeLoad = await wrapperElement.evaluate(
+    await scrollableWrapper.evaluate((wrapper) => wrapper.scrollBy(0, 500));
+    const scrollPositionBeforeLoad = await scrollableWrapper.evaluate(
       (element) => element.scrollTop
     );
 
     await selectOptionByText(page, "Lazy Loaded A1").waitFor();
-    const scrollPositionAfterLoad = await wrapperElement.evaluate(
+    const scrollPositionAfterLoad = await scrollableWrapper.evaluate(
       (element) => element.scrollTop
     );
     await expect(scrollPositionAfterLoad).toBe(scrollPositionBeforeLoad);
@@ -743,7 +774,7 @@ test.describe("FilterableSelect component", () => {
     await mount(<FilterableSelectComponent listMaxHeight={maxHeight} />);
 
     await dropdownButton(page).click();
-    const wrapperElement = selectListWrapper(page);
+    const wrapperElement = selectListScrollableWrapper(page);
     await expect(wrapperElement).toHaveCSS("max-height", `${maxHeight}px`);
     await expect(wrapperElement).toBeVisible();
   });
@@ -869,24 +900,28 @@ test.describe("FilterableSelect component", () => {
     await expect(thirdColumnElement).toBeVisible();
   });
 
-  test("should indicate a matched filtered string with bold and underline", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<FilterableSelectMultiColumnsComponent />);
+  ["Do", " Do", "Do ", " Do "].forEach((text) => {
+    test(`should indicate a matched filtered string with bold and underline with entered string "${text}"`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<FilterableSelectMultiColumnsComponent />);
 
-    const text = "Do";
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.click();
-    await expect(inputElement).toBeFocused();
-    await inputElement.type(text);
-    const highlightedValue = boldedAndUnderlinedValue(page, text);
-    await expect(highlightedValue).toHaveCSS(
-      "text-decoration-line",
-      "underline"
-    );
-    await expect(highlightedValue).toHaveCSS("text-decoration-style", "solid");
-    await expect(highlightedValue).toHaveCSS("font-weight", "700");
+      const inputElement = commonDataElementInputPreview(page);
+      await inputElement.click();
+      await expect(inputElement).toBeFocused();
+      await inputElement.type(text);
+      const highlightedValue = boldedAndUnderlinedValue(page, text);
+      await expect(highlightedValue).toHaveCSS(
+        "text-decoration-line",
+        "underline"
+      );
+      await expect(highlightedValue).toHaveCSS(
+        "text-decoration-style",
+        "solid"
+      );
+      await expect(highlightedValue).toHaveCSS("font-weight", "700");
+    });
   });
 
   test("should indicate no results match for entered string", async ({
@@ -1297,7 +1332,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await page.waitForTimeout(250);
@@ -1331,7 +1366,7 @@ test.describe("Check events for FilterableSelect component", () => {
     await mount(<FilterableSelectComponent onListScrollBottom={callback} />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await selectOption(page, positionOfElement("first")).click();
@@ -1362,7 +1397,7 @@ test.describe("Check virtual scrolling", () => {
     await mount(<FilterableSelectWithManyOptionsAndVirtualScrolling />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollTo(0, 750)
     );
     await page.waitForTimeout(250);
@@ -1640,7 +1675,7 @@ test.describe("Test for scroll bug regression", () => {
     await mount(<FilterableSelectComponent />);
     const dropdownButtonElement = dropdownButton(page);
     await dropdownButtonElement.click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await commonDataElementInputPreview(page).press("Escape");
@@ -1879,7 +1914,7 @@ test.describe("Accessibility tests for FilterableSelect component", () => {
     await checkAccessibility(page);
     // wait for content to finish loading before scrolling
     await expect(selectOptionByText(page, "Amber")).toBeVisible();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await checkAccessibility(page, undefined, "scrollable-region-focusable");

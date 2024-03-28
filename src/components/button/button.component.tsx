@@ -311,7 +311,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         buttonType={buttonType}
         disabled={disabled}
         destructive={destructive}
-        role={inSplitButton ? "menuitem" : "button"}
         type={href ? undefined : "button"}
         iconType={iconType}
         size={size}
