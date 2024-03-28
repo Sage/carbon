@@ -124,7 +124,7 @@
     "core-js": "^3.33.3",
     "cross-env": "^5.2.1",
     "css-loader": "^4.3.0",
-    "cypress": "~12.13.0",
+    "cypress": "~13.7.1",
     "cypress-axe": "^1.5.0",
     "cypress-each": "^1.13.3",
     "cypress-plugin-tab": "^1.0.5",
