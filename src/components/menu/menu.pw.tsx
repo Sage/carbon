@@ -2349,7 +2349,7 @@ test.describe(
     }) => {
       await mount(<MenuSegmentTitleComponent />);
 
-      const subMenu = submenu(page).first();
+      const subMenu = submenu(page).nth(1);
       await subMenu.hover();
       const lastMenuItem = submenu(page).locator("a").last();
       await lastMenuItem.focus();

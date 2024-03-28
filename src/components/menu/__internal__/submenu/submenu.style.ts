@@ -27,7 +27,6 @@ interface StyledSubmenuProps
   submenuDirection?: string;
   maxHeight?: string;
   applyFocusRadiusStyling: boolean;
-  applyBorderRadiusToScrollBlock?: boolean;
 }
 
 const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
@@ -65,7 +64,6 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     inFullscreenView,
     maxHeight,
     applyFocusRadiusStyling,
-    applyBorderRadiusToScrollBlock,
   }) => css`
     ${!inFullscreenView &&
     menuType &&
@@ -125,14 +123,14 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       &&&& ${StyledScrollableBlock} {
         ${StyledBox} {
           border-bottom-right-radius: var(--borderRadius000);
-          border-bottom-left-radius: ${applyBorderRadiusToScrollBlock
+          border-bottom-left-radius: ${applyFocusRadiusStyling
             ? "var(--borderRadius100)"
             : "var(--borderRadius000)"};
 
           ${StyledMenuItem}:last-child ${StyledLink}, ${StyledMenuItem}:last-child a,
           ${StyledMenuItem}:last-child button {
             border-bottom-right-radius: var(--borderRadius000);
-            border-bottom-left-radius: ${applyBorderRadiusToScrollBlock
+            border-bottom-left-radius: ${applyFocusRadiusStyling
               ? "var(--borderRadius100)"
               : "var(--borderRadius000)"};
           }
