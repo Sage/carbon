@@ -1,3 +1,20 @@
+## [127.1.0](https://github.com/Sage/carbon/compare/v127.0.4...v127.1.0) (2024-03-28)
+
+
+### Features
+
+* **action-popover:** add aria-label prop ([8d69273](https://github.com/Sage/carbon/commit/8d69273abe90f0ef022e3f078088d1aa1ef4098a))
+* **action-popover:** remove aria-label from menu items that open a submenu ([faf6292](https://github.com/Sage/carbon/commit/faf6292085a4ea62cabd50fddf3897738d7b9738))
+* **action-popover:** remove menu roles and use semantic html ([da74523](https://github.com/Sage/carbon/commit/da7452383393aa98023b07c19758d31636412a3b))
+* **split-button, multi-action-button:** remove menu roles and use semantic html lists ([dfd3a4c](https://github.com/Sage/carbon/commit/dfd3a4c819d18b0710f2f4e13dfcaf3d3f1ef383))
+
+### [127.0.4](https://github.com/Sage/carbon/compare/v127.0.3...v127.0.4) (2024-03-27)
+
+
+### Bug Fixes
+
+* **select:** remove list action button from scrollable area in select list ([d95770e](https://github.com/Sage/carbon/commit/d95770e9a4be9680c2e846c51afbce61f512fc13)), closes [#6541](https://github.com/Sage/carbon/issues/6541)
+
 ### [127.0.3](https://github.com/Sage/carbon/compare/v127.0.2...v127.0.3) (2024-03-25)
 
 

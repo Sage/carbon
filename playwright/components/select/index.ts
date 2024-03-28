@@ -11,6 +11,7 @@ import {
   SELECT_ELEMENT_INPUT,
   FILTERABLE_ADD_BUTTON,
   SELECT_RESET_BUTTON,
+  SELECT_LIST_SCROLLABLE_WRAPPER,
 } from "./locators";
 import { PILL_PREVIEW } from "../pill/locators";
 import { ALERT_DIALOG } from "../dialog/locators";
@@ -88,6 +89,9 @@ export const selectListOptionGroup = (page: Page) =>
 
 export const selectListWrapper = (page: Page) =>
   page.locator(SELECT_LIST_WRAPPER);
+
+export const selectListScrollableWrapper = (page: Page) =>
+  page.locator(SELECT_LIST_SCROLLABLE_WRAPPER);
 
 export const selectElementInput = (page: Page) =>
   page.locator(SELECT_ELEMENT_INPUT);

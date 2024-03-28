@@ -43,6 +43,7 @@ import {
   selectInput,
   selectList,
   selectListPosition,
+  selectListScrollableWrapper,
   selectListWrapper,
   selectOption,
   selectOptionByText,
@@ -1305,7 +1306,7 @@ test.describe("Check virtual scrolling", () => {
     await mount(<MultiSelectWithManyOptionsAndVirtualScrolling />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollTo(0, 750)
     );
     await page.waitForTimeout(250);
@@ -1587,7 +1588,7 @@ test.describe("Test for scroll bug regression", () => {
     await mount(<MultiSelectComponent />);
     const dropdownButtonElement = dropdownButton(page);
     await dropdownButtonElement.click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await commonDataElementInputPreview(page).press("Escape");

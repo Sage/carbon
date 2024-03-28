@@ -6,8 +6,9 @@ import SelectList, { SelectListProps } from "./select-list.component";
 import {
   StyledSelectList,
   StyledSelectListTableHeader,
+  StyledSelectListContainer,
+  StyledScrollableContainer,
 } from "./select-list.style";
-import StyledSelectListContainer from "./select-list-container.style";
 import Option from "../option";
 import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header";
@@ -815,7 +816,7 @@ describe("SelectList", () => {
         }),
         { attachTo: testContainer }
       );
-      listWrapperElement = wrapper.find(StyledSelectListContainer).getDOMNode();
+      listWrapperElement = wrapper.find(StyledScrollableContainer).getDOMNode();
     });
 
     afterEach(() => {
