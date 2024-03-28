@@ -15,7 +15,6 @@ exports[`Link renders as expected 1`] = `
     href="www.foo.com"
     onBlur={[Function]}
     onFocus={[Function]}
-    onKeyDown={[Function]}
   >
     <styled.span>
       test

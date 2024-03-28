@@ -2,7 +2,6 @@ import React, { useContext, useMemo, useState } from "react";
 
 import Icon, { IconType } from "../icon";
 import MenuContext from "../menu/menu.context";
-import Event from "../../__internal__/utils/helpers/events";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
@@ -85,25 +84,6 @@ export const Link = React.forwardRef<
     const [hasFocus, setHasFocus] = useState(false);
     const l = useLocale();
     const { inMenu } = useContext(MenuContext);
-    const handleOnKeyDown = (
-      ev:
-        | React.KeyboardEvent<HTMLAnchorElement>
-        | React.KeyboardEvent<HTMLButtonElement>
-    ) => {
-      if (onKeyDown) {
-        onKeyDown(ev);
-      }
-
-      // return early if there is no onClick or there is a href prop
-      // or the event is not an enter key
-      if (href || (!Event.isEnterKey(ev) && !Event.isSpaceKey(ev))) {
-        return;
-      }
-
-      if (onClick) {
-        onClick(ev);
-      }
-    };
 
     const renderLinkIcon = (currentAlignment = "left") => {
       const hasProperAlignment = icon && iconAlign === currentAlignment;
@@ -131,7 +111,7 @@ export const Link = React.forwardRef<
     }, [rest]);
 
     const componentProps = {
-      onKeyDown: handleOnKeyDown,
+      onKeyDown,
       onMouseDown,
       onClick,
       disabled,

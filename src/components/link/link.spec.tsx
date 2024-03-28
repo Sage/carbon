@@ -265,17 +265,6 @@ describe("Link", () => {
       });
     });
 
-    describe("and a `onClick` prop has been received", () => {
-      it("should trigger `onClick` prop", () => {
-        wrapper.setProps({
-          onClick: onClickFn,
-        });
-        wrapper.find("button").simulate("keydown", { key: "Enter" });
-
-        expect(onClickFn).toHaveBeenCalled();
-      });
-    });
-
     describe("when a key is pressed but no onClick prop received", () => {
       beforeEach(() => {
         wrapper.setProps({

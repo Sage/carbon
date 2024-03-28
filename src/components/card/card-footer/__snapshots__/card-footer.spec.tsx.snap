@@ -170,7 +170,6 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
       href="https://carbon.sage.com/"
       onBlur={[Function]}
       onFocus={[Function]}
-      onKeyDown={[Function]}
     >
       <span
         className="c2 c3"

@@ -46,7 +46,7 @@ export interface PagerNavigationProps {
       | React.KeyboardEvent<HTMLButtonElement>
   ) => void;
   /** onPagination Callback triggered when a change is triggered */
-  onPagination: (pageSize: number, currentPage: number, origin: string) => void;
+  onPagination: (currentPage: number, pageSize: number, origin: string) => void;
   /** Should the `First` and `Last` navigation buttons be shown */
   showFirstAndLastButtons?: boolean;
   /** Should the `Next` and `Previous` navigation buttons be shown */

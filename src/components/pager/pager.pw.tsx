@@ -592,8 +592,7 @@ test.describe("Events test", () => {
       await page.keyboard.press("Tab");
       await page.keyboard.press(key);
 
-      // FE-6199 Enter and Space keys move 2 pages
-      expect(callbackCount).toEqual(2);
+      expect(callbackCount).toEqual(1);
     });
   });
 
@@ -635,8 +634,7 @@ test.describe("Events test", () => {
       await page.keyboard.press("Tab");
       await page.keyboard.press(key);
 
-      // FE-6199 Enter and Space keys move 2 pages
-      expect(callbackCount).toEqual(2);
+      expect(callbackCount).toEqual(1);
     });
   });
 
