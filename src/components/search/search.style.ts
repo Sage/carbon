@@ -12,7 +12,6 @@ interface StyledSearchProps {
   name?: string;
   isFocused?: boolean;
   searchHasValue?: boolean;
-  searchIsActive?: boolean;
   searchWidth?: string;
   maxWidth?: string;
   showSearchButton?: boolean;
@@ -24,7 +23,6 @@ const StyledSearch = styled.div<StyledSearchProps>`
     isFocused,
     searchWidth,
     maxWidth,
-    searchIsActive,
     searchHasValue,
     showSearchButton,
     theme,
@@ -32,54 +30,40 @@ const StyledSearch = styled.div<StyledSearchProps>`
   }) => {
     const darkVariant = variant === "dark";
     const variantColor = darkVariant
-      ? "var(--colorsUtilityMajor200)"
+      ? "var(--colorsUtilityYang080)"
       : "var(--colorsUtilityMajor300)";
 
-    const iconColor =
-      darkVariant &&
-      ((searchHasValue && isFocused) ||
-        (!searchHasValue && isFocused) ||
-        (!isFocused && searchHasValue && showSearchButton));
     return css`
       ${margin}
       width: ${searchWidth ? `${searchWidth}` : "100%"};
       max-width: ${maxWidth ? `${maxWidth}` : "100%"};
-      padding-bottom: 2px;
+      padding-bottom: var(--spacing025);
       background-color: transparent;
-      border-bottom: 2px solid ${variantColor};
       display: inline-flex;
-      font-size: 14px;
+      font-size: var(--fontSize100);
       font-weight: 700;
-      :hover {
-        border-bottom-color: ${darkVariant
-          ? "var(--colorsUtilityMajor100)"
-          : "var(--colorsUtilityMajor400)"};
-        cursor: pointer;
-      }
-      ${(isFocused || searchHasValue) &&
+
+      ${!showSearchButton &&
       css`
-        border-color: transparent;
-        transition: background 0.2s ease;
+        border-bottom: var(--spacing025) solid ${variantColor};
+
         :hover {
-          border-color: transparent;
-        }
-      `}
-      ${isFocused &&
-      !searchIsActive &&
-      css`
-        border-color: transparent;
-      `}
-      ${!isFocused &&
-      searchHasValue &&
-      !showSearchButton &&
-      css`
-        border-bottom: 2px solid ${variantColor};
-        :hover {
-          border-bottom-color: var(--colorsUtilityMajor400);
+          border-bottom-color: ${darkVariant
+            ? "var(--colorsUtilityYang100)"
+            : "var(--colorsUtilityMajor400)"};
           cursor: pointer;
         }
-      `}
 
+        ${(searchHasValue || isFocused) &&
+        css`
+          border-bottom-color: transparent;
+
+          :hover {
+            border-bottom-color: transparent;
+            cursor: default;
+          }
+        `}
+      `}
 
       ${StyledInput} {
         ::-moz-placeholder {
@@ -91,19 +75,17 @@ const StyledSearch = styled.div<StyledSearchProps>`
         }
 
         ${darkVariant &&
-        !isFocused &&
         css`
           ::-moz-placeholder {
-            color: var(--colorsUtilityMajor200);
+            color: var(--colorsUtilityYang080);
             opacity: 1;
           }
           ::placeholder {
-            color: var(--colorsUtilityMajor200);
+            color: var(--colorsUtilityYang080);
           }
         `}
 
         ${darkVariant &&
-        !isFocused &&
         searchHasValue &&
         !showSearchButton &&
         css`
@@ -112,9 +94,41 @@ const StyledSearch = styled.div<StyledSearchProps>`
       }
 
       ${StyledInputPresentation} {
-        background-color: ${searchHasValue || isFocused
-          ? "var(--colorsUtilityYang100)"
-          : "transparent"};
+        [data-element="search"] {
+          height: auto;
+
+          ${!darkVariant &&
+          css`
+            color: var(--colorsUtilityYin065);
+
+            :hover {
+              color: var(--colorsUtilityYin100);
+            }
+          `}
+
+          ${darkVariant &&
+          css`
+            color: var(--colorsUtilityYang080);
+
+            :hover {
+              color: var(--colorsUtilityYang100);
+            }
+          `}
+        }
+
+        ${darkVariant &&
+        !showSearchButton &&
+        css`
+          background-color: transparent;
+          border-color: var(--colorsUtilityYang080);
+        `}
+
+        ${!darkVariant &&
+        css`
+          background-color: ${searchHasValue || isFocused || showSearchButton
+            ? "var(--colorsUtilityYang100)"
+            : "transparent"};
+        `}
 
         ${showSearchButton &&
         css`
@@ -123,21 +137,23 @@ const StyledSearch = styled.div<StyledSearchProps>`
         `}
 
         flex: 1;
-        font-size: 14px;
+        font-size: var(--fontSize100);
         font-weight: 700;
-        padding-bottom: 2px;
+        padding-bottom: var(--spacing025);
         padding-top: 1px;
         cursor: pointer;
+
         ${!isFocused &&
         !searchHasValue &&
+        !showSearchButton &&
         css`
           border: 1px solid transparent;
         `}
+
         ${!isFocused &&
         searchHasValue &&
         !showSearchButton &&
         css`
-          border: 1px solid transparent;
           background-color: ${darkVariant
             ? "transparent"
             : "var(--colorsUtilityYang100)"};
@@ -148,38 +164,28 @@ const StyledSearch = styled.div<StyledSearchProps>`
         flex: 1;
         z-index: ${theme.zIndex.smallOverlay};
       }
+
       ${StyledIcon} {
-        ${darkVariant &&
-        css`
-          ${iconColor &&
+        :not([data-element="search"]) {
+          ${darkVariant &&
+          !showSearchButton &&
           css`
-            color: var(--colorsUtilityMajor400);
+            color: var(--colorsUtilityYang080);
 
             :hover {
-              color: var(--colorsUtilityMajor500);
+              color: var(--colorsUtilityYang100);
             }
           `}
-          ${!iconColor &&
+
+          ${!darkVariant &&
           css`
-            color: var(--colorsUtilityMajor200);
+            color: var(--colorsActionMinor500);
 
             :hover {
-              color: var(--colorsUtilityMajor100);
+              color: var(--colorsActionMinor600);
             }
           `}
-        `}
-
-        ${!darkVariant &&
-        css`
-          color: var(--colorsActionMinor500);
-
-          :hover {
-            color: var(--colorsActionMinor600);
-          }
-        `}
-
-        width: 20px;
-        height: 20px;
+        }
         cursor: pointer;
       }
 

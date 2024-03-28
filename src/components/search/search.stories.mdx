@@ -1,6 +1,7 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 import StyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import Search from ".";
 import * as stories from "./search.stories";
@@ -53,6 +54,20 @@ Please note, if you need to apply your own custom aria-label for the search butt
 
 <Canvas>
   <Story name="with SearchButton" story={stories.WithSearchButton} />
+</Canvas>
+
+You can also override the text of the search button by passing a string value to the `searchButton` prop.
+Please note that any string passed here will take precedence over the locale string value passed via the 
+`searchButtonText` translation key.
+
+<Canvas>
+  <Story name="with SearchButton as string" story={stories.WithSearchButtonPropTextOverride} />
+</Canvas>
+
+You can also use the locale provider to override the button's text via the `searchButtonText` translation key.
+
+<Canvas>
+  <Story name="with SearchButton and locale override" story={stories.WithSearchButtonLocaleOverride} />
 </Canvas>
 
 ### Search without Search Button, default width and colour background
@@ -180,3 +195,19 @@ It is possible to use the `tooltipPosition` to override the default placement of
 ### Search
 
 <StyledSystemProps of={Search} noHeader margin />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](https://carbon.sage.com/?path=/story/documentation-i18n--page).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "search.searchButtonText",
+      description: "The text for search button",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

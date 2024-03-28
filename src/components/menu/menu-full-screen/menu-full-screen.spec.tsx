@@ -13,9 +13,6 @@ import {
   StyledMenuFullscreenHeader,
 } from "./menu-full-screen.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
-import Search from "../../search";
-import StyledSearch from "../../search/search.style";
-import StyledSearchButton from "../../search/search-button.style";
 import {
   assertStyleMatch,
   simulate,
@@ -26,6 +23,8 @@ import { StyledMenuItem } from "../menu.style";
 import menuConfigVariants from "../menu.config";
 import Logger from "../../../__internal__/utils/logger";
 import { StyledSubmenu } from "../__internal__/submenu/submenu.style";
+import StyledMenuItemWrapper from "../menu-item/menu-item.style";
+import { StyledLink } from "../../link/link.style";
 
 // mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -90,33 +89,6 @@ const render = ({
     >
       <TestMenu {...props} />
     </MenuContext.Provider>
-  );
-};
-
-const MockMenuWithSearch = ({
-  isOpen,
-  focusInput,
-}: {
-  isOpen?: boolean;
-  focusInput?: boolean;
-}) => {
-  const ref = React.useRef(null);
-
-  React.useEffect(() => {
-    if (focusInput && ref.current) {
-      (ref.current as HTMLInputElement).focus();
-    }
-  }, [focusInput]);
-
-  return (
-    <MenuFullscreen isOpen={isOpen} onClose={() => {}}>
-      <MenuItem maxWidth="200px">
-        <Search value="" ref={ref} defaultValue="" searchButton />
-      </MenuItem>
-      <MenuItem maxWidth="200px" href="#">
-        Menu Item One
-      </MenuItem>
-    </MenuFullscreen>
   );
 };
 
@@ -248,10 +220,14 @@ describe("MenuFullscreen", () => {
           wrapper.find(StyledMenuFullscreen)
         );
 
-        ["a", "button", "div"].forEach((el) => {
+        [
+          `&& ${StyledLink} > a`,
+          `&& ${StyledLink} > button`,
+          "&& > div",
+        ].forEach((el) => {
           assertStyleMatch(
             {
-              fontSize: "16px",
+              fontSize: "var(--fontSizes200)",
             },
             wrapper.find(StyledMenuFullscreen),
             { modifier: el }
@@ -354,7 +330,8 @@ describe("MenuFullscreen", () => {
           </MenuContext.Provider>
         ),
         { pt: "10px", pb: "10px" },
-        (component) => component.find(StyledMenuItem)
+        (component) => component.find(StyledMenuItem),
+        { modifier: `${StyledMenuItemWrapper}` }
       );
     });
 
@@ -378,7 +355,8 @@ describe("MenuFullscreen", () => {
           </MenuContext.Provider>
         ),
         undefined,
-        (component) => component.find(StyledSubmenu).find(StyledMenuItem)
+        (component) => component.find(StyledSubmenu).find(StyledMenuItem),
+        { modifier: `${StyledMenuItemWrapper}` }
       );
     });
   });
@@ -425,80 +403,6 @@ describe("MenuFullscreen", () => {
       element.dispatchEvent(endEvent);
 
       expect(wrapper.find(StyledMenuFullscreen)).toBeFocused();
-    });
-
-    describe("when pressing tab key without shift", () => {
-      it("does not prevent the browser default behaviour when no Search input with searchButton and no value is rendered", () => {
-        const container = document.createElement("div");
-        container.id = "enzymeContainer";
-        document.body.appendChild(container);
-        const preventDefault = jest.fn();
-        wrapper = mount(<TestMenu />, {
-          attachTo: document.getElementById("enzymeContainer"),
-        });
-        wrapper.setProps({ isOpen: true });
-
-        const element = wrapper.find(StyledMenuFullscreen).getDOMNode();
-        const startEvent = new Event("transitionstart", {
-          bubbles: true,
-          cancelable: true,
-        });
-        const endEvent = new Event("transitionend", {
-          bubbles: true,
-          cancelable: true,
-        });
-        element.dispatchEvent(startEvent);
-        element.dispatchEvent(endEvent);
-
-        wrapper.find(StyledMenuFullscreen).prop("onKeyDown")({
-          key: "Tab",
-          preventDefault,
-        });
-        wrapper.find(StyledMenuFullscreen).prop("onKeyDown")({
-          key: "Tab",
-          preventDefault,
-        });
-        expect(preventDefault).not.toHaveBeenCalled();
-        wrapper.find(StyledMenuFullscreen).prop("onKeyDown")({
-          key: "Tab",
-          preventDefault,
-        });
-        expect(preventDefault).not.toHaveBeenCalled();
-        wrapper.unmount();
-      });
-
-      it("prevents the browser default behaviour when Search input with searchButton and no value rendered", () => {
-        const container = document.createElement("div");
-        container.id = "enzymeContainer";
-        document.body.appendChild(container);
-        const preventDefault = jest.fn();
-        wrapper = mount(<MockMenuWithSearch />, {
-          attachTo: document.getElementById("enzymeContainer"),
-        });
-        wrapper.setProps({ isOpen: true });
-        const element = wrapper.find(StyledMenuFullscreen).getDOMNode();
-        const startEvent = new Event("transitionstart", {
-          bubbles: true,
-          cancelable: true,
-        });
-        const endEvent = new Event("transitionend", {
-          bubbles: true,
-          cancelable: true,
-        });
-        element.dispatchEvent(startEvent);
-        element.dispatchEvent(endEvent);
-        wrapper.setProps({ focusInput: true });
-
-        expect(wrapper.find(StyledSearch).find("input")).toBeFocused();
-        expect(wrapper.find(StyledSearchButton).exists()).toBe(true);
-        wrapper.find(StyledMenuFullscreen).prop("onKeyDown")({
-          key: "Tab",
-          preventDefault,
-        });
-        expect(preventDefault).toHaveBeenCalled();
-        expect(wrapper.find(StyledMenuItem).last().find("a")).toBeFocused();
-        wrapper.unmount();
-      });
     });
   });
 

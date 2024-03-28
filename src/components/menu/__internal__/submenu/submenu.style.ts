@@ -3,7 +3,7 @@ import { baseTheme } from "../../../../style/themes";
 import { StyledLink } from "../../../link/link.style";
 import { StyledMenuItem } from "../../menu.style";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
-import StyledSearch from "../../../search/search.style";
+import StyledIcon from "../../../icon/icon.style";
 import menuConfigVariants from "../../menu.config";
 import { SubmenuProps } from "./submenu.component";
 import { MenuType } from "../../menu.context";
@@ -122,18 +122,18 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       css`
         background-color: ${menuConfigVariants[menuType].submenuItemBackground};
 
-        a:focus,
-        button:focus {
+        > a:focus,
+        > button:focus {
           background-color: ${menuConfigVariants[menuType]
             .submenuItemBackground};
         }
 
-        a:hover,
-        button:hover {
+        > a:hover,
+        > button:hover {
           background-color: transparent;
           color: var(--colorsComponentsMenuYang100);
 
-          [data-component="icon"] {
+          > [data-component="icon"] {
             color: var(--colorsComponentsMenuYang100);
           }
         }
@@ -143,17 +143,26 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
         text-decoration: none;
       }
 
-      ${StyledSearch} span > [data-component="icon"] {
-        color: var(--colorsUtilityMajor200);
+      > ${StyledIcon} {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
+      }
+    }
 
-        &:hover {
-          color: var(--colorsUtilityMajor150);
-        }
+    [data-component="icon"] {
+      line-height: 20px;
+
+      &:before {
+        line-height: unset;
       }
 
-      ${StyledSearch} {
-        :hover {
-          border-bottom-color: var(--colorsUtilityMajor150);
+      span {
+        vertical-align: middle;
+
+        svg {
+          height: 16px;
+          width: 16px;
         }
       }
     }

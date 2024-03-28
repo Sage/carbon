@@ -16,6 +16,7 @@ import {
 import { StyledLink } from "../link/link.style";
 import { MenuProps } from "./menu.component";
 import { baseTheme } from "../../style/themes";
+import StyledMenuItemWrapper from "./menu-item/menu-item.style";
 
 interface StyledMenuProps
   extends Pick<MenuProps, "menuType">,
@@ -94,7 +95,9 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       }
     `}
 
-  ${padding}
+  ${StyledMenuItemWrapper} {
+    ${padding}
+  }
 `;
 
 StyledMenuItem.defaultProps = {

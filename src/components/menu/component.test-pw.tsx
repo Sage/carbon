@@ -355,7 +355,7 @@ export const MenuComponentScrollableParent = (
   const [itemSearch, setItemSearch] = React.useState(items);
   const [searchString, setSearchString] = React.useState("");
 
-  const handleTextChange = (e: { target: { value: any } }) => {
+  const handleTextChange = (e: { target: { value: string } }) => {
     const searchStr = e.target.value;
     setSearchString(searchStr);
     let found;

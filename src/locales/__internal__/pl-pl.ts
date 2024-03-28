@@ -207,6 +207,9 @@ const plPL: Locale = {
   pod: {
     undo: () => "Cofnąć",
   },
+  search: {
+    searchButtonText: () => "Szukaj",
+  },
   select: {
     actionButtonText: () => "Dodaj nowy element",
     placeholder: () => "Proszę wybierz...",

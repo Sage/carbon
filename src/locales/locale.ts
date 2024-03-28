@@ -114,6 +114,9 @@ interface Locale {
   pod: {
     undo: () => string;
   };
+  search: {
+    searchButtonText: () => string;
+  };
   select: {
     actionButtonText: () => string;
     placeholder: () => string;

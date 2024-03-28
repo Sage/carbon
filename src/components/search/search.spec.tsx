@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { mount, ReactWrapper, shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
 import { Input } from "../../__internal__/input";
 import Button from "../button";
-import Search, { SearchProps } from "./search.component";
+import Search, { SearchHandle, SearchProps } from "./search.component";
 import StyledSearchButton from "./search-button.style";
 import {
   assertStyleMatch,
@@ -13,11 +15,12 @@ import StyledTextInput from "../../__internal__/input/input-presentation.style";
 import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledIcon from "../icon/icon.style";
 import Icon from "../icon";
-import TextBox from "../textbox";
+import Textbox from "../textbox";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import Logger from "../../__internal__/utils/logger";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledButton from "../button/button.style";
+import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -67,9 +70,9 @@ describe("Search", () => {
     it("matches the expected styles", () => {
       assertStyleMatch(
         {
-          borderBottom: "2px solid var(--colorsUtilityMajor300)",
+          borderBottom: "var(--spacing025) solid var(--colorsUtilityMajor300)",
           display: "inline-flex",
-          fontSize: "14px",
+          fontSize: "var(--fontSize100)",
           fontWeight: "700",
         },
         renderSearch({ value: "" })
@@ -79,9 +82,9 @@ describe("Search", () => {
     it("applies the default width when the user does not specify a width", () => {
       assertStyleMatch(
         {
-          borderBottom: "2px solid var(--colorsUtilityMajor300)",
+          borderBottom: "var(--spacing025) solid var(--colorsUtilityMajor300)",
           display: "inline-flex",
-          fontSize: "14px",
+          fontSize: "var(--fontSize100)",
           fontWeight: "700",
           width: "100%",
         },
@@ -92,9 +95,9 @@ describe("Search", () => {
     it("applies the correct width specified by the user", () => {
       assertStyleMatch(
         {
-          borderBottom: "2px solid var(--colorsUtilityMajor300)",
+          borderBottom: "var(--spacing025) solid var(--colorsUtilityMajor300)",
           display: "inline-flex",
-          fontSize: "14px",
+          fontSize: "var(--fontSize100)",
           fontWeight: "700",
           width: "400px",
         },
@@ -109,59 +112,33 @@ describe("Search", () => {
 
       assertStyleMatch(
         {
-          borderBottom: "2px solid var(--colorsUtilityMajor300)",
+          borderBottom: "var(--spacing025) solid var(--colorsUtilityMajor300)",
         },
         wrapper
       );
     });
 
-    it("matches the expected styles when variant is dark, the input is not focused and has a value", () => {
+    it("should render the bottom border when variant is dark, the input is not focused and has a value", () => {
       wrapper = renderSearch({ value: "search", variant: "dark" });
 
       assertStyleMatch(
         {
-          borderBottom: "2px solid var(--colorsUtilityMajor200)",
+          borderBottom: "var(--spacing025) solid var(--colorsUtilityYang080)",
           backgroundColor: "transparent",
         },
         wrapper
       );
     });
 
-    it("matches the expected styles when the input is not focused, has a value and search has button", () => {
+    it("should not render the bottom border when the input is not focused, has a value and search has button", () => {
       wrapper = renderSearch({ value: "search", searchButton: true });
 
       assertStyleMatch(
         {
-          borderBottom: "2px solid var(--colorsUtilityMajor300)",
+          borderBottom: undefined,
           backgroundColor: "transparent",
         },
         wrapper
-      );
-    });
-
-    it("matches the expected styles for icon when variant is dark", () => {
-      wrapper = renderSearch({
-        value: "",
-        searchButton: true,
-        id: "Search",
-        name: "Search",
-        variant: "dark",
-      });
-      const icon = wrapper
-        .find(Icon)
-        .findWhere((n) => n.props().type === "search")
-        .hostNodes();
-      act(() => {
-        const input = wrapper.find(Input);
-        input.simulate("focus");
-      });
-      wrapper.update();
-
-      assertStyleMatch(
-        {
-          color: "var(--colorsYin090)",
-        },
-        icon
       );
     });
 
@@ -170,7 +147,7 @@ describe("Search", () => {
 
       assertStyleMatch(
         {
-          fontSize: "14px",
+          fontSize: "var(--fontSize100)",
           fontWeight: "700",
         },
         wrapper,
@@ -206,7 +183,7 @@ describe("Search", () => {
           color: "var(--colorsActionMinor500)",
         },
         wrapper,
-        { modifier: `${StyledIcon}` }
+        { modifier: `${StyledIcon}:not([data-element="search"])` }
       );
 
       assertStyleMatch(
@@ -214,7 +191,7 @@ describe("Search", () => {
           color: "var(--colorsActionMinor600)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:hover` }
+        { modifier: `${StyledIcon}:not([data-element="search"]):hover` }
       );
     });
 
@@ -230,18 +207,18 @@ describe("Search", () => {
 
       assertStyleMatch(
         {
-          color: "var(--colorsUtilityMajor200)",
+          color: "var(--colorsUtilityYang080)",
         },
         wrapper,
-        { modifier: `${StyledIcon}` }
+        { modifier: `${StyledIcon}:not([data-element="search"])` }
       );
 
       assertStyleMatch(
         {
-          color: "var(--colorsUtilityMajor100)",
+          color: "var(--colorsUtilityYang100)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:hover` }
+        { modifier: `${StyledIcon}:not([data-element="search"]):hover` }
       );
     });
 
@@ -263,18 +240,18 @@ describe("Search", () => {
 
       assertStyleMatch(
         {
-          color: "var(--colorsUtilityMajor400)",
+          color: "var(--colorsUtilityYang080)",
         },
         wrapper,
-        { modifier: `${StyledIcon}` }
+        { modifier: `${StyledIcon}:not([data-element="search"])` }
       );
 
       assertStyleMatch(
         {
-          color: "var(--colorsUtilityMajor500)",
+          color: "var(--colorsUtilityYang100)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:hover` }
+        { modifier: `${StyledIcon}:not([data-element="search"]):hover` }
       );
     });
 
@@ -312,25 +289,82 @@ describe("Search", () => {
     });
   });
 
-  describe("When button is true and textbox is active", () => {
-    it("does not render an icon in textbox", () => {
-      wrapper = renderSearch({
-        value: "",
-        searchButton: true,
-        id: "Search",
-        name: "Search",
-      });
-      const icon = wrapper
-        .find(Icon)
-        .findWhere((n) => n.props().type === "search")
-        .hostNodes();
-      act(() => {
-        const input = wrapper.find(Input);
-        input.simulate("focus");
-      });
-      wrapper.update();
-      expect(icon.props().value).toEqual(undefined);
+  it("should not render an icon in textbox when searchButton is passed a truthy boolean value", () => {
+    wrapper = renderSearch({
+      value: "",
+      searchButton: true,
+      id: "Search",
+      name: "Search",
     });
+    const searchButton = wrapper.find(Button);
+    const icon = wrapper
+      .find(Textbox)
+      .find(Icon)
+      .findWhere((n) => n.props().type === "search")
+      .hostNodes();
+    act(() => {
+      const input = wrapper.find(Input);
+      input.simulate("focus");
+    });
+    wrapper.update();
+    expect(searchButton.text()).toBe("Search");
+    expect(icon.exists()).toBe(false);
+  });
+
+  it("should not render an icon in textbox when searchButton is passed a string value", () => {
+    wrapper = renderSearch({
+      value: "",
+      searchButton: "Foo",
+      id: "Search",
+      name: "Search",
+    });
+    const searchButton = wrapper.find(Button);
+    const icon = wrapper
+      .find(Textbox)
+      .find(Icon)
+      .findWhere((n) => n.props().type === "search")
+      .hostNodes();
+    act(() => {
+      const input = wrapper.find(Input);
+      input.simulate("focus");
+    });
+    wrapper.update();
+    expect(searchButton.text()).toBe("Foo");
+    expect(icon.exists()).toBe(false);
+  });
+
+  it("should render an icon in textbox when searchButton is passed a falsy value", () => {
+    wrapper = renderSearch({
+      value: "",
+      searchButton: false,
+      id: "Search",
+      name: "Search",
+    });
+    const searchButton = wrapper.find(Button);
+    const icon = wrapper
+      .find(Textbox)
+      .find(Icon)
+      .findWhere((n) => n.props().type === "search")
+      .hostNodes();
+    act(() => {
+      const input = wrapper.find(Input);
+      input.simulate("focus");
+    });
+    wrapper.update();
+    expect(searchButton.exists()).toBe(false);
+    expect(icon.exists()).toBe(true);
+  });
+
+  it("should allow the search Button text to be overridden via the locale context", () => {
+    wrapper = mount(
+      <I18nProvider
+        locale={{ search: { searchButtonText: () => "text override" } }}
+      >
+        <Search searchButton value="search" onChange={() => {}} />
+      </I18nProvider>
+    );
+    const searchButton = wrapper.find(Button);
+    expect(searchButton.text()).toBe("text override");
   });
 
   describe("supports being an uncontrolled component", () => {
@@ -561,23 +595,6 @@ describe("Search", () => {
     });
   });
 
-  describe("Prop Types", () => {
-    let consoleSpy: jest.SpyInstance;
-
-    beforeEach(() => {
-      consoleSpy = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(() => {});
-    });
-
-    it("validates children prop types", () => {
-      expect(() => mount(<Search value="Foo" threshold={-4} />)).toThrow(
-        "Threshold must be a positive number"
-      );
-      consoleSpy.mockRestore();
-    });
-  });
-
   describe("tags", () => {
     describe("on component", () => {
       const wrapperWithTags = shallow(<Search value="" />);
@@ -594,7 +611,7 @@ describe("Search", () => {
         id: "Search",
         name: "Search",
       });
-      const input = wrapper.find(TextBox);
+      const input = wrapper.find(Textbox);
       expect(input.prop("iconTabIndex")).toEqual(0);
     });
 
@@ -604,7 +621,7 @@ describe("Search", () => {
         id: "Search",
         name: "Search",
       });
-      const input = wrapper.find(TextBox);
+      const input = wrapper.find(Textbox);
       expect(input.prop("iconTabIndex")).toEqual(-1);
     });
   });
@@ -670,49 +687,35 @@ describe("Search", () => {
     });
   });
 
-  describe("refs", () => {
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      const ref = { current: null };
+  describe("passing a ref", () => {
+    const MockComponent = () => {
+      const ref = useRef<SearchHandle>(null);
 
-      wrapper = renderSearch({ inputRef: ref, value: "" });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `Search` component is deprecated and will soon be removed. Please use `ref` instead."
+      return (
+        <div>
+          <button type="button" onClick={() => ref.current?.focus()}>
+            Focus input
+          </button>
+          <Search value="foo" onChange={() => {}} ref={ref} />
+        </div>
       );
+    };
 
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-      loggerSpy.mockRestore();
-    });
+    it("should allow input to be programmatically focused", async () => {
+      render(<MockComponent />);
+      const user = userEvent.setup();
+      const button = screen.getByText("Focus input");
 
-    it("accepts ref as a ref object", () => {
-      const ref = { current: null };
-      wrapper = renderSearch({ ref, value: "" });
+      await user.click(button);
 
-      expect(ref.current).toBe(wrapper.find("input").getDOMNode());
-    });
-
-    it("accepts ref as a ref callback", () => {
-      const ref = jest.fn();
-      wrapper = renderSearch({ ref, value: "" });
-
-      expect(ref).toHaveBeenCalledWith(wrapper.find("input").getDOMNode());
-    });
-
-    it("sets ref to empty after unmount", () => {
-      const ref = { current: null };
-      wrapper = renderSearch({ ref, value: "" });
-
-      wrapper.unmount();
-
-      expect(ref.current).toBe(null);
+      expect(screen.getByDisplayValue("foo")).toHaveFocus();
     });
   });
 
   describe("aria-label", () => {
     it("has a default aria-label passed to Search", () => {
       wrapper = renderSearch({ defaultValue: "foo" });
-      const search = wrapper.find(TextBox);
+      const search = wrapper.find(Textbox);
       expect(search.prop("aria-label")).toEqual("search");
     });
 

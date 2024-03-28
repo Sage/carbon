@@ -9,6 +9,7 @@ import menuConfigVariants from "../menu.config";
 import { MenuFullscreenProps } from "./menu-full-screen.component";
 import { MenuType } from "../menu.context";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
+import { StyledLink } from "../../link/link.style";
 
 interface StyledMenuFullScreenProps
   extends Pick<MenuFullscreenProps, "isOpen" | "startPosition"> {
@@ -28,10 +29,16 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
   width: 100%;
   outline: none;
 
-  a,
-  button,
-  div {
-    font-size: 16px;
+  && {
+    ${StyledLink} {
+      max-width: 100vw;
+    }
+
+    ${StyledLink} > a,
+    ${StyledLink} > button,
+    > div {
+      font-size: var(--fontSizes200);
+    }
   }
 
   ${({ isOpen, menuType, startPosition, theme }) => css`
@@ -39,32 +46,9 @@ const StyledMenuFullscreen = styled.div<StyledMenuFullScreenProps>`
     z-index: ${theme.zIndex.fullScreenModal};
 
     && {
-      ${menuType === "dark" &&
-      css`
-        ${StyledSearch} span > [data-component="icon"] {
-          color: var(--colorsUtilityMajor200);
-
-          &:hover {
-            color: var(--colorsUtilityMajor150);
-          }
-        }
-      `}
-
-      ${menuType === "light" &&
-      css`
-        ${StyledSearch} span > [data-component="icon"] {
-          color: var(--colorsUtilityMajor200);
-
-          &:hover {
-            color: var(--colorsUtilityMajor400);
-          }
-        }
-      `}
-
       ${StyledSearch} {
         ${StyledIcon} {
           display: inline-flex;
-          margin-right: 0;
           bottom: auto;
         }
 

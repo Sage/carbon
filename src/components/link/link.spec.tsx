@@ -42,15 +42,15 @@ describe("Link", () => {
       assertStyleMatch(
         {
           position: "absolute",
-          paddingLeft: "24px",
-          paddingRight: "24px",
+          paddingLeft: "var(--spacing300)",
+          paddingRight: "var(--spacing300)",
           lineHeight: "36px",
-          fontSize: "16px",
+          fontSize: "var(--fontSizes200)",
           left: "-999em",
           color: "var(--colorsUtilityYin090)",
           zIndex: `${baseTheme.zIndex.aboveAll}`,
-          boxShadow: `inset 0 0 0 2px var(--colorsActionMajor500)`,
-          border: `2px solid var(--colorsUtilityYang100)`,
+          boxShadow: `inset 0 0 0 var(--spacing025) var(--colorsActionMajor500)`,
+          border: `var(--spacing025) solid var(--colorsUtilityYang100)`,
         },
         skipLinkWrapper,
         { modifier: "a" }
@@ -58,9 +58,8 @@ describe("Link", () => {
 
       assertStyleMatch(
         {
-          top: "8px",
-          left: "8px",
-          color: "var(--colorsActionMajorYin090)",
+          top: "var(--spacing100)",
+          left: "var(--spacing100)",
         },
         skipLinkWrapper,
         { modifier: "a:focus" }
@@ -75,7 +74,7 @@ describe("Link", () => {
           cursor: "not-allowed",
         },
         renderLink({ disabled: true }),
-        { modifier: "a:hover" }
+        { modifier: "> a:hover" }
       );
     });
 
@@ -149,7 +148,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a > ${StyledIcon}` }
+        { modifier: `> a > ${StyledIcon}` }
       );
     });
 
@@ -162,7 +161,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a > ${StyledIcon}` }
+        { modifier: `> a > ${StyledIcon}` }
       );
     });
 
@@ -177,7 +176,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `a > ${StyledIcon}` }
+        { modifier: `> a > ${StyledIcon}` }
       );
     });
 
@@ -190,7 +189,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor600)",
         },
         wrapper.find(StyledLink),
-        { modifier: `a:hover ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` }
       );
     });
 
@@ -219,7 +218,7 @@ describe("Link", () => {
           textDecoration: "none",
         },
         wrapper.find(StyledLink),
-        { modifier: "a" }
+        { modifier: "> a" }
       );
     });
 
@@ -229,7 +228,7 @@ describe("Link", () => {
           display: "inline",
         },
         wrapper.find(StyledLink),
-        { modifier: `a > ${StyledIcon}` }
+        { modifier: `> a > ${StyledIcon}` }
       );
     });
   });
@@ -348,7 +347,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative500)",
         },
         wrapper,
-        { modifier: "a" }
+        { modifier: "> a" }
       );
 
       assertStyleMatch(
@@ -356,7 +355,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative500)",
         },
         wrapper,
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -364,7 +363,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative600)",
         },
         wrapper,
-        { modifier: "a:hover" }
+        { modifier: "> a:hover" }
       );
 
       assertStyleMatch(
@@ -372,7 +371,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative600)",
         },
         wrapper,
-        { modifier: `a:hover ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -381,7 +380,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "a:focus" }
+        { modifier: "> a:focus" }
       );
 
       assertStyleMatch(
@@ -389,7 +388,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` }
       );
     });
   });
@@ -408,7 +407,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: "a" }
+        { modifier: "> a" }
       );
 
       assertStyleMatch(
@@ -416,7 +415,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -424,7 +423,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor600)",
         },
         wrapper,
-        { modifier: "a:hover" }
+        { modifier: "> a:hover" }
       );
 
       assertStyleMatch(
@@ -432,7 +431,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor600)",
         },
         wrapper,
-        { modifier: `a:hover ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -441,7 +440,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "a:focus" }
+        { modifier: "> a:focus" }
       );
 
       assertStyleMatch(
@@ -449,7 +448,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` }
       );
     });
   });
@@ -467,7 +466,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor350)",
         },
         wrapper,
-        { modifier: "a" }
+        { modifier: "> a" }
       );
 
       assertStyleMatch(
@@ -475,7 +474,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor350)",
         },
         wrapper,
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -483,7 +482,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor450)",
         },
         wrapper,
-        { modifier: "a:hover" }
+        { modifier: "> a:hover" }
       );
 
       assertStyleMatch(
@@ -491,7 +490,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor450)",
         },
         wrapper,
-        { modifier: `a:hover ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -500,7 +499,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "a:focus" }
+        { modifier: "> a:focus" }
       );
 
       assertStyleMatch(
@@ -508,7 +507,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` }
       );
     });
 
@@ -524,7 +523,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYang030)",
         },
         wrapper,
-        { modifier: "a" }
+        { modifier: "> a" }
       );
     });
 
@@ -541,7 +540,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative350)",
         },
         wrapper,
-        { modifier: "a" }
+        { modifier: "> a" }
       );
 
       assertStyleMatch(
@@ -549,7 +548,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative350)",
         },
         wrapper,
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -557,7 +556,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative450)",
         },
         wrapper,
-        { modifier: "a:hover" }
+        { modifier: "> a:hover" }
       );
 
       assertStyleMatch(
@@ -565,7 +564,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative450)",
         },
         wrapper,
-        { modifier: `a:hover ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -574,7 +573,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "a:focus" }
+        { modifier: "> a:focus" }
       );
 
       assertStyleMatch(
@@ -582,7 +581,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` }
       );
     });
 
@@ -599,7 +598,7 @@ describe("Link", () => {
           color: "var(--colorsActionMinor100)",
         },
         wrapper,
-        { modifier: "a" }
+        { modifier: "> a" }
       );
 
       assertStyleMatch(
@@ -607,7 +606,7 @@ describe("Link", () => {
           color: "var(--colorsActionMinor100)",
         },
         wrapper,
-        { modifier: `a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -615,7 +614,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor450)",
         },
         wrapper,
-        { modifier: "a:hover" }
+        { modifier: "> a:hover" }
       );
 
       assertStyleMatch(
@@ -623,7 +622,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor450)",
         },
         wrapper,
-        { modifier: `a:hover ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` }
       );
 
       assertStyleMatch(
@@ -632,7 +631,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "a:focus" }
+        { modifier: "> a:focus" }
       );
 
       assertStyleMatch(
@@ -640,7 +639,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` }
       );
     });
   });
@@ -660,7 +659,9 @@ describe("Link", () => {
         </MenuContext.Provider>
       );
 
-      assertStyleMatch({ display: "inline-block" }, wrapper, { modifier: "a" });
+      assertStyleMatch({ display: "inline-block" }, wrapper, {
+        modifier: "> a",
+      });
     });
 
     it("when not inside a menu, link element has default display", () => {
@@ -670,7 +671,7 @@ describe("Link", () => {
         icon: "home",
       });
 
-      assertStyleMatch({ display: undefined }, wrapper, { modifier: "a" });
+      assertStyleMatch({ display: undefined }, wrapper, { modifier: "> a" });
     });
   });
 });

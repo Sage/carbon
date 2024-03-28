@@ -453,7 +453,9 @@ export const SubmenuWithSearch: ComponentStory<typeof Menu> = () => (
               <MenuItem variant="alternate" p="2px 16px">
                 <Search
                   placeholder="Dark variant"
-                  variant="dark"
+                  variant={
+                    ["dark", "black"].includes(menuType) ? "dark" : "default"
+                  }
                   defaultValue=""
                 />
               </MenuItem>

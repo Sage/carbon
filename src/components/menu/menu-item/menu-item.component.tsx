@@ -151,10 +151,6 @@ export const MenuItem = ({
     ? submenuFocusId === menuItemId.current
     : undefined;
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const inputIcon = useRef<HTMLSpanElement | null>(null);
-  inputIcon.current = ref.current
-    ? ref.current.querySelector("[data-element='input-icon-toggle']")
-    : null;
   inputRef.current = ref.current
     ? ref.current.querySelector("[data-element='input']")
     : null;
@@ -174,6 +170,9 @@ export const MenuItem = ({
   }, [registerItem, unregisterItem]);
 
   useEffect(() => {
+    const inputIcon = ref.current?.querySelector(
+      "[data-element='input-icon-toggle']"
+    );
     if (!openSubmenuId && focusFromSubmenu === undefined && focusFromMenu) {
       /* istanbul ignore else */
       if (focusRef.current) {
@@ -181,7 +180,7 @@ export const MenuItem = ({
       }
     } else if (
       focusFromSubmenu &&
-      !(shiftTabPressed && inputIcon.current?.getAttribute("tabindex") === "0")
+      !(shiftTabPressed && inputIcon?.getAttribute("tabindex") === "0")
     ) {
       /* istanbul ignore else */
       if (focusRef.current) {
@@ -192,7 +191,6 @@ export const MenuItem = ({
     openSubmenuId,
     focusFromMenu,
     focusFromSubmenu,
-    inputIcon,
     shiftTabPressed,
     focusRef,
   ]);
@@ -213,8 +211,12 @@ export const MenuItem = ({
         (ref.current as HTMLElement)?.focus();
       }
 
+      const inputIcon = ref.current?.querySelector(
+        "[data-element='input-icon-toggle']"
+      );
+
       const shouldFocusIcon =
-        inputIcon.current?.getAttribute("tabindex") === "0" &&
+        inputIcon?.getAttribute("tabindex") === "0" &&
         document.activeElement === inputRef.current &&
         inputRef.current?.value;
 
@@ -222,8 +224,7 @@ export const MenuItem = ({
       if (
         Events.isTabKey(event) &&
         ((!Events.isShiftKey(event) && shouldFocusIcon) ||
-          (Events.isShiftKey(event) &&
-            document.activeElement === inputIcon.current))
+          (Events.isShiftKey(event) && document.activeElement === inputIcon))
       ) {
         return;
       }
@@ -232,7 +233,7 @@ export const MenuItem = ({
         handleSubmenuKeyDown(event);
       }
     },
-    [onKeyDown, handleSubmenuKeyDown, inputIcon]
+    [onKeyDown, handleSubmenuKeyDown]
   );
 
   const elementProps = {
