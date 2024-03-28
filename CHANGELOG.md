@@ -1,3 +1,10 @@
+### [127.1.1](https://github.com/Sage/carbon/compare/v127.1.0...v127.1.1) (2024-03-28)
+
+
+### Bug Fixes
+
+* **filterable-select, multi-select:** ensure whitespace is trimmed from the input when filtering ([98a91ef](https://github.com/Sage/carbon/commit/98a91ef38390018b0379420205735a8354d4b6fc)), closes [#6446](https://github.com/Sage/carbon/issues/6446)
+
 ## [127.1.0](https://github.com/Sage/carbon/compare/v127.0.4...v127.1.0) (2024-03-28)
 
 
