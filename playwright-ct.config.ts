@@ -52,7 +52,7 @@ export default defineConfig({
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        testIdAttribute: "data-component",
+        testIdAttribute: "data-role",
         viewport: { width: 1366, height: 768 },
       },
     },

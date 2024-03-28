@@ -2,32 +2,31 @@
 
 ## Contents
 
-- [Testing guide](#testing-guide)
-  - [Contents](#contents)
-  - [Introduction](#introduction)
-  - [Component testing](#component-testing)
-    - [Custom utilities](#custom-utilities)
-    - [Use of Snapshot tests](#use-of-snapshot-tests)
-    - [Continuous Integration (CI)](#continuous-integration-ci)
-  - [Functional Browser Testing](#functional-browser-testing)
-    - [Playwright File Structure](#playwright-file-structure)
-    - [Locators](#locators)
-  - [Visual Testing](#visual-testing)
-    - [Adding new visual tests](#adding-new-visual-tests)
+- [Component testing](#component-testing)
+  - [Enzyme utilities](#enzyme-utilities)
+  - [React Testing Library test id tests](#react-testing-library-test-id-tests)
+  - [Use of Snapshot tests](#use-of-snapshot-tests)
+  - [Continuous Integration (CI)](#continuous-integration-ci)
+- [Browser-based component testing](#browser-based-component-testing)
+  - [Playwright File Structure](#playwright-file-structure)
+  - [Locators](#locators)
+- [Visual Testing](#visual-testing)
 
 ## Introduction
 
-This guide details Carbon's testing setup, common conventions and utilities available to you.
+This guide details Carbon's testing setup, common conventions, and utilities available to you.
 
 ## Component testing
 
-We use the [Jest](https://facebook.github.io/jest/) framework and [Enzyme](https://enzymejs.github.io/enzyme/) library for our component tests. Tests should describe the **behaviour of the components** rather than describe the implementation to keep the tests clean and reliable. All props, branches and paths and each of their conditions need to be tested to meet Carbon's 100% coverage policy.
+> **NOTE**: From March 2024, we're transitioning from Enzyme to [React Testing Library (RTL)](https://testing-library.com/docs/react-testing-library/intro/). Please use RTL where possible when testing new functionality.
 
-### Custom utilities
+We use the [Jest](https://jestjs.io/) framework and [Enzyme](https://enzymejs.github.io/enzyme/) library for our component tests. Tests should describe the **behaviour of the components** rather than describe the implementation to keep the tests clean and reliable. All props, branches, and paths and each of their conditions need to be tested to meet Carbon's 100% coverage policy.
 
-To help with common testing scenarios, we have a number of custom utilities available in `/src/__spec_helper__` that can be imported directly into your tests.
+### Enzyme utilities
 
-For example the `assertStyleMatch` method which asserts if all the expected CSS properties have been applied to a DOM element or React component:
+To help with common testing scenarios, we have several custom utilities available in `/src/__spec_helper__` that can be imported directly into your tests.
+
+For example, the `assertStyleMatch` method asserts if all the expected CSS properties have been applied to a DOM element or React component:
 
 ```tsx
 describe("FlatTableRow", () => {
@@ -45,28 +44,42 @@ describe("FlatTableRow", () => {
 });
 ```
 
+### React Testing Library test id tests
+
+[RTL](https://testing-library.com/docs/react-testing-library/intro/) follows a user-centric testing approach. To encourage this the library provides query functions for locating DOM elements by user-facing attributes like text, ARIA roles, etc.
+
+If you need to use [RTL's `*ByTestId()` query functions](https://testing-library.com/docs/queries/bytestid), we have configured RTL to locate the `data-role` attribute:
+
+```tsx
+<span data-role="icon" data-element="pdf" />
+```
+
+```ts
+const icon = screen.getByTestId("icon");
+await expect(icon).toBeInTheDocument();
+await expect(icon).toHaveAttribute("data-element", "pdf");
+```
+
 ### Use of Snapshot tests
 
-Snapshots are left up to the developer to be used where there is value. If you do want to use them, ensure they are small, focused and effective.
+Snapshots are left up to the developer to be used where there is value. If you do want to use them, ensure they are small, focused, and effective.
 
 > Further information on snapshots can be found on [Jest's official docs](https://jestjs.io/docs/snapshot-testing).
 
 ### Continuous Integration (CI)
 
-GitHub Actions runs unit tests for a Pull Request on creation and every commit push. You can manually run these steps with:
+GitHub Actions runs component tests for a particular Pull Request when it is created and on every commit push. You can manually run these steps with:
 
 1. `npm format` - run prettier to format code under `/src`.
 2. `npm run lint` - run linter on code under `/src`.
 3. `npm run type-check` - run TypeScript compiler to check for type errors.
 4. `npm test` - runs unit tests.
 
-## Functional Browser Testing
+## Browser-based component testing
 
-> **NOTE** - As of 3rd August 2023, we are in the progress of switching test framework for our functional browser tests from [Cypress](https://www.cypress.io/) to [Playwright](https://playwright.dev). The following section refers to our upcoming Playwright setup, but further details regarding our current Cypress setup can be found in [our Cypress docs](../cypress/README.md).
+We use [Playwright](https://playwright.dev) for browser-based component testing. Jest-tested functionality doesn't necessarily need retesting in Playwright unless it adds user-behavior insight.
 
-We are planning to use [Playwright](https://playwright.dev) framework to test component behaviour that requires a browser environment. Functionality which has already been tested via Jest tests does not need to be tested again using Playwright, unless it would be beneficial to test the behaviour in a manner similar to how a user would in a browser.
-
-Further details on installing Playwright and our configuration for it can be found in our [Getting started with Playwright](../playwright/README.md) guide.
+Further details on installing Playwright and our configuration for it can be found in our [Getting Started with Playwright](../playwright/README.md) guide.
 
 ### Playwright File Structure
 
@@ -104,25 +117,54 @@ import { test, expect } from "@playwright/experimental-ct-react17";
 import Button from "./button.component";
 import { buttonComponent } from "../../../playwright/component/button/index";
 
-  test.describe("Check props for Button component", async () => {
-    test("should render Button label when passed to the component", async ({ mount, page }) => {
-      
-      const label = "foobar";
-      
-      await mount(<Button>{label}</Button>);
+test.describe("Check props for Button component", async () => {
+  test("should render Button label when passed to the component", async ({
+    mount,
+    page,
+  }) => {
+    const label = "foobar";
 
-      await expect(buttonComponent(page)).toHaveText(label);
-    });
+    await mount(<Button>{label}</Button>);
+
+    await expect(buttonComponent(page)).toHaveText(label);
   });
+});
 ```
 
 Where `mount` renders the component in the real browser (`chromium`/`webkit`/`firefox`/`opera`) and `buttonComponent` is a _locator_ that returns the DOM element we want to test.
 
 ### Locators
 
-We write dedicated functions to access rendered DOM elements in order to make our tests easier to read. Locators for a component typically follow this structure:
+Playwright offers [built-in locators](https://playwright.dev/docs/locators) to find DOM elements within a rendered component. These locators focus on finding user-facing attributes like text and ARIA roles to encourage the creation of resilient tests.
 
-`index.ts`
+```tsx
+await page.getByLabel("User Name").fill("John");
+
+await page.getByRole("button", { name: "Sign in" }).click();
+
+await expect(page.getByText("Welcome, John!")).toBeVisible();
+```
+
+#### Test id tests
+
+If you need to use [Playwright's `page.getByTestId()` locator](https://playwright.dev/docs/locators#locate-by-test-id), we have configured Playwright to locate the `data-role` attribute:
+
+```tsx
+<span data-role="icon" data-element="pdf" />
+```
+
+```ts
+const icon = page.getByTestId("icon");
+await expect(icon).toBeAttached();
+await expect(icon).toHaveAttribute("data-element", "pdf");
+```
+
+#### Custom locators
+
+We also have custom locators for many of our components. These locators typically follow a specific structure:
+
+`playwright/components/<component-name>/index.ts`
+
 ```ts
 /* in index.ts */
 import type { Page } from "@playwright/test";
@@ -130,16 +172,17 @@ import { BUTTON_DATA_COMPONENT, BUTTON_SUBTEXT } from "./locators";
 
 const buttonComponent = (page: Page) => {
   return page.locator(BUTTON_DATA_COMPONENT);
-}
+};
 
 const buttonSubtext = (page: Page) => {
   return page.locator(BUTTON_SUBTEXT);
-}
+};
 
 export { buttonComponent, buttonSubtext };
 ```
 
-`locators.ts`
+`playwright/components/<component-name>/locators.ts`
+
 ```ts
 /* locators.ts */
 // `data-component` prop is typically reserved for the root element of the component. Whereas `data-element` is for specific elements.
@@ -153,7 +196,7 @@ We use [Chromatic](https://www.chromatic.com/) for flagging any visual regressio
 
 ### Adding new visual tests
 
-Chromatic is set-up to check for regressions in all component stories. Typically components will have the following stories files:
+Chromatic is set up to check for regressions in all component stories. Typically components will have the following story files:
 
 ```none
 .

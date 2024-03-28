@@ -272,7 +272,7 @@ export const VerticalMenuFullScreenCustom = (
 export const VerticalMenuFullScreenBackgroundScrollTest = () => {
   return (
     <Box height="2000px" position="relative">
-      <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+      <Box height="100px" position="absolute" bottom="0px">
         I should not be scrolled into view
       </Box>
       <VerticalMenuFullScreen isOpen onClose={() => {}}>
