@@ -1,3 +1,15 @@
+## [128.0.0](https://github.com/Sage/carbon/compare/v127.1.1...v128.0.0) (2024-03-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **select:** The `disablePortal` prop has been removed from all 3 Select variants. It is no
+longer needed as the component now always behaves as it did before with this prop added.
+
+### Bug Fixes
+
+* **select:** render select list in DOM order rather than in a portal ([5099120](https://github.com/Sage/carbon/commit/50991201124ce1c62ebf2055d2088e704cac2387)), closes [#5171](https://github.com/Sage/carbon/issues/5171)
+
 ### [127.1.1](https://github.com/Sage/carbon/compare/v127.1.0...v127.1.1) (2024-03-28)
 
 
