@@ -94,6 +94,22 @@ export const Required: ComponentStory<typeof InlineInputs> = () => {
 };
 Required.parameters = { controls: { disable: true } };
 
+export const IsOptional: ComponentStory<typeof InlineInputs> = () => {
+  return (
+    <Box p={4}>
+      <InlineInputs
+        label="Inline Inputs"
+        labelId="inline-inputs-optional"
+        isOptional
+      >
+        <Textbox aria-labelledby="inline-inputs-optional" />
+        <Textbox aria-labelledby="inline-inputs-optional" />
+      </InlineInputs>
+    </Box>
+  );
+};
+IsOptional.parameters = { controls: { disable: true } };
+
 export const LabelAlign: ComponentStory<typeof InlineInputs> = () => {
   return (
     <Box>

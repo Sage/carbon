@@ -113,8 +113,27 @@ WithInputHint.args = {
   inputHint: "Hint text (optional).",
 };
 
-export const Required = DefaultStory.bind({});
-Required.args = { required: true };
+export const Required: ComponentStory<typeof Decimal> = () => {
+  const [state, setState] = useState("0.01");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+
+  return (
+    <Decimal label="Required" value={state} onChange={setValue} required />
+  );
+};
+
+export const IsOptional: ComponentStory<typeof Decimal> = () => {
+  const [state, setState] = useState("0.01");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+
+  return (
+    <Decimal label="Optional" value={state} onChange={setValue} isOptional />
+  );
+};
 
 export const LeftAligned = DefaultStory.bind({});
 LeftAligned.args = { align: "left" };

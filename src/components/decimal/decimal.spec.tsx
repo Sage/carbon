@@ -16,6 +16,7 @@ import I18nProvider from "../i18n-provider";
 import Logger from "../../__internal__/utils/logger";
 import StyledInput from "../../__internal__/input/input.style";
 import StyledPrefix from "../textbox/__internal__/prefix.style";
+import { StyledLabelContainer } from "../../__internal__/label/label.style";
 
 // These have been written in a way that we can change our testing library or component implementation with relative
 // ease without having to touch the tests.
@@ -1728,6 +1729,18 @@ describe("Decimal", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
     });
+  });
+
+  it("should add '(optional)' suffix when the isOptional prop is true", () => {
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      enzymeMount(<Decimal label="optional" isOptional />).find(
+        StyledLabelContainer
+      ),
+      { modifier: "::after" }
+    );
   });
 
   describe("when prefix is passed", () => {

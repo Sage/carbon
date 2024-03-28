@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import { act } from "react-dom/test-utils";
 import { mount, ReactWrapper } from "enzyme";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../../__internal__/label/label.style";
 
 import {
   assertStyleMatch,
@@ -21,7 +24,6 @@ import {
   StyledScrollableContainer,
 } from "../select-list/select-list.style";
 import Pill from "../../pill";
-import Label from "../../../__internal__/label";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
@@ -1210,12 +1212,40 @@ describe("MultiSelect", () => {
 
     it("the required prop is passed to the input", () => {
       const input = wrapper.find("input");
-      expect(input.prop("required")).toBe(true);
+      expect(input.getDOMNode()).toHaveAttribute("required", "");
     });
 
-    it("the isRequired prop is passed to the label", () => {
-      const label = wrapper.find(Label);
-      expect(label.prop("isRequired")).toBe(true);
+    it("should add an asterisk after the label text", () => {
+      assertStyleMatch(
+        {
+          content: '"*"',
+          color: "var(--colorsSemanticNegative500)",
+          fontWeight: "var(--fontWeights700)",
+          marginLeft: "var(--spacing050)",
+        },
+        wrapper.find(StyledLabel),
+        { modifier: "::after" }
+      );
+    });
+  });
+
+  describe("isOptional", () => {
+    it("should add '(optional)' suffix when the isOptional prop is true", () => {
+      const propWrapper = mount(
+        <MultiSelect name="testSelect" id="testSelect" isOptional label="label">
+          <Option value="opt1" text="red" borderColor="red" fill />
+          <Option value="opt2" text="green" borderColor="green" />
+          <Option value="opt3" text="blue" />
+        </MultiSelect>
+      );
+
+      assertStyleMatch(
+        {
+          content: '"(optional)"',
+        },
+        propWrapper.find(StyledLabelContainer),
+        { modifier: "::after" }
+      );
     });
   });
 

@@ -108,6 +108,14 @@ describe("rendering with no file uploaded", () => {
     assertStyleMatch({ content: '"*"' }, label, { modifier: "::after" });
   });
 
+  it("accepts an isOptional prop", () => {
+    render(<FileInput label="file input" isOptional onChange={() => {}} />);
+    const label = screen.getByText("file input");
+    assertStyleMatch({ content: '"(optional)"' }, label.parentElement, {
+      modifier: "::after",
+    });
+  });
+
   it("accepts an isVertical prop which removes the CSS max-height", () => {
     render(<FileInput isVertical onChange={() => {}} />);
     const wrapperElement = screen.getByText("or drag and drop your file")

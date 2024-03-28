@@ -19,6 +19,7 @@ import Logger from "../../__internal__/utils/logger";
 import CheckableInput, {
   CommonCheckableInputProps,
 } from "../../__internal__/checkable-input";
+import { StyledLabelContainer } from "../../__internal__/label/label.style";
 
 jest.mock("../../__internal__/utils/logger");
 
@@ -593,6 +594,18 @@ describe("Checkbox", () => {
       const label = wrapper.find(Label);
       expect(label.prop("isRequired")).toBe(true);
     });
+  });
+
+  it("should append '(optional)' content on the label when the isOptional prop is true", () => {
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      mount(<Checkbox value="foo" label="Optional" isOptional />).find(
+        StyledLabelContainer
+      ),
+      { modifier: "::after" }
+    );
   });
 
   describe("labelHelp text", () => {

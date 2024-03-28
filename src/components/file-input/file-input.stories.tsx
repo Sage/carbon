@@ -19,6 +19,10 @@ export const Required: ComponentStory<typeof FileInput> = () => {
   return <FileInput label="File input" required onChange={() => {}} />;
 };
 
+export const IsOptional: ComponentStory<typeof FileInput> = () => {
+  return <FileInput label="File input" isOptional onChange={() => {}} />;
+};
+
 export const IncreasedHeight: ComponentStory<typeof FileInput> = () => {
   return (
     <FileInput

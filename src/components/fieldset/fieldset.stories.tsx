@@ -159,3 +159,37 @@ export const ValidationsBoolean: ComponentStory<typeof Fieldset> = () => (
     ))}
   </>
 );
+
+export const Required: ComponentStory<typeof Fieldset> = () => (
+  <Fieldset legend="Fieldset" required>
+    <Textbox
+      label="First Name"
+      labelInline
+      labelAlign="right"
+      labelWidth={30}
+    />
+    <Textbox label="Last Name" labelInline labelAlign="right" labelWidth={30} />
+    <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
+    <Checkbox label="Checkbox" labelWidth={30} labelSpacing={2} reverse />
+    <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
+    <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
+    <Textbox label="Telephone" labelInline labelAlign="right" labelWidth={30} />
+  </Fieldset>
+);
+
+export const IsOptional: ComponentStory<typeof Fieldset> = () => (
+  <Fieldset legend="Fieldset" isOptional>
+    <Textbox
+      label="First Name"
+      labelInline
+      labelAlign="right"
+      labelWidth={30}
+    />
+    <Textbox label="Last Name" labelInline labelAlign="right" labelWidth={30} />
+    <Textbox label="Address" labelInline labelAlign="right" labelWidth={30} />
+    <Checkbox label="Checkbox" labelWidth={30} labelSpacing={2} reverse />
+    <Textbox label="City" labelInline labelAlign="right" labelWidth={30} />
+    <Textbox label="Country" labelInline labelAlign="right" labelWidth={30} />
+    <Textbox label="Telephone" labelInline labelAlign="right" labelWidth={30} />
+  </Fieldset>
+);

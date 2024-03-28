@@ -70,7 +70,7 @@ export interface FormFieldProps extends CommonFormFieldProps, TagProps {
   fieldHelpInline?: boolean;
   /** Id of the element a label should be bound to */
   id: string;
-  /** [Legacy] Flag to configure component as optional in Form */
+  /** Flag to configure component as optional in Form */
   isOptional?: boolean;
   /** Flag to configure component as mandatory */
   isRequired?: boolean;
@@ -127,6 +127,11 @@ const FormField = ({
     invalidValidationProp === undefined,
     `Prop \`${invalidValidationProp}\` cannot be used in conjunction with \`disabled\`. ` +
       "Use `readOnly` if you require users to see validations with a non-interactive field"
+  );
+
+  invariant(
+    !(isRequired && isOptional),
+    "an input cannot be set to both required and optional at the same time"
   );
 
   const largeScreen = useIsAboveBreakpoint(adaptiveLabelBreakpoint);

@@ -48,6 +48,8 @@ export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
   /** value of the selected RadioButton */
   value?: string;
   /** Overrides the default tooltip position */
@@ -75,6 +77,7 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
     adaptiveLegendBreakpoint,
     adaptiveSpacingBreakpoint,
     required,
+    isOptional,
     tooltipPosition,
   } = props;
 
@@ -120,6 +123,7 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
           legendAlign={legendAlign}
           legendSpacing={legendSpacing}
           isRequired={required}
+          isOptional={isOptional}
           {...tagComponent("radiogroup", props)}
           {...marginProps}
           ml={marginLeft}
@@ -174,6 +178,7 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
             legendAlign={legendAlign}
             legendSpacing={legendSpacing}
             isRequired={required}
+            isOptional={isOptional}
             {...tagComponent("radiogroup", props)}
             {...marginProps}
             ml={marginLeft}
@@ -202,7 +207,6 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
                     error: !!error,
                     warning: !!warning,
                     info: !!info,
-                    required,
                     ...child.props,
                   });
                 })}

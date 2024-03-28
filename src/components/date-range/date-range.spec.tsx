@@ -15,7 +15,9 @@ import StyledDateInput from "../date/date.style";
 import Tooltip from "../tooltip";
 import { FieldLineStyle } from "../../__internal__/form-field/form-field.style";
 import StyledValidationMessage from "../../__internal__/validation-message/validation-message.style";
-import StyledLabel from "../../__internal__/label/label.style";
+import StyledLabel, {
+  StyledLabelContainer,
+} from "../../__internal__/label/label.style";
 import { InputName } from "./date-range.context";
 
 const initialValues = ["10/10/2016", "11/11/2016"];
@@ -824,6 +826,77 @@ describe("StyledDateRange", () => {
           });
         });
       }
+    );
+  });
+
+  it("should set the required attribute on both inputs when prop is true", () => {
+    const dateInputs = mount(
+      <DateRange value={["", ""]} onChange={() => {}} required />
+    ).find("input");
+
+    expect(dateInputs.first().getDOMNode()).toHaveAttribute("required", "");
+    expect(dateInputs.last().getDOMNode()).toHaveAttribute("required", "");
+  });
+
+  it("should set the required styling on both input labels when prop is true", () => {
+    const labels = mount(
+      <DateRange
+        value={["", ""]}
+        onChange={() => {}}
+        required
+        startLabel="Start"
+        endLabel="End"
+      />
+    ).find(StyledLabel);
+
+    assertStyleMatch(
+      {
+        content: '"*"',
+        color: "var(--colorsSemanticNegative500)",
+        fontWeight: "var(--fontWeights700)",
+        marginLeft: "var(--spacing050)",
+      },
+      labels.first(),
+      { modifier: "::after" }
+    );
+
+    assertStyleMatch(
+      {
+        content: '"*"',
+        color: "var(--colorsSemanticNegative500)",
+        fontWeight: "var(--fontWeights700)",
+        marginLeft: "var(--spacing050)",
+      },
+      labels.last(),
+      { modifier: "::after" }
+    );
+  });
+
+  it("should set the isOptional styling on both input labels when prop is true", () => {
+    const labels = mount(
+      <DateRange
+        value={["", ""]}
+        onChange={() => {}}
+        isOptional
+        startLabel="Start"
+        endLabel="End"
+      />
+    ).find(StyledLabelContainer);
+
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      labels.first(),
+      { modifier: "::after" }
+    );
+
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      labels.last(),
+      { modifier: "::after" }
     );
   });
 

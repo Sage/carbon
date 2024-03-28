@@ -104,6 +104,10 @@ export interface DateRangeProps
   validationOnLabel?: boolean;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
+  /** Flag to configure component as mandatory. */
+  required?: boolean;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
 }
 
 export const DateRange = ({
@@ -119,6 +123,8 @@ export const DateRange = ({
   value,
   startRef,
   endRef,
+  required,
+  isOptional,
   ...rest
 }: DateRangeProps) => {
   const l = useLocale();
@@ -328,6 +334,8 @@ export const DateRange = ({
       onKeyDown: (ev: React.KeyboardEvent<HTMLInputElement>) =>
         handleOnKeyDown(ev, propsKey),
       ...props,
+      required,
+      isOptional,
     };
   };
 

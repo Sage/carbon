@@ -36,11 +36,10 @@ const StyledLegendContent = styled.span<StyledLegendContentProps>`
         content: "*";
         line-height: 24px;
         color: var(--colorsSemanticNegative500);
-        font-weight: 700;
-        margin-left: var(--spacing100);
+        font-weight: var(--fontWeights700);
+        margin-left: var(--spacing050);
         position: relative;
         top: 1px;
-        left: -4px;
       }
     `}
 
@@ -49,8 +48,9 @@ const StyledLegendContent = styled.span<StyledLegendContentProps>`
     css`
       ::after {
         content: "(optional)";
-        font-weight: 350; //TODO: (tokens) use token var(--fontWeights400) - FE-6022
-        margin-left: 4px;
+        color: var(--colorsUtilityYin055);
+        font-weight: var(--fontWeights400);
+        margin-left: var(--spacing050);
       }
     `}
 
@@ -76,7 +76,8 @@ const StyledLegend = styled.legend<StyledLegendProps>`
   align-items: center;
   margin-bottom: var(--spacing100);
   padding: 0;
-  font-weight: 600;
+  font-weight: var(--fontWeights700);
+  color: var(--colorsUtilityYin090);
   ${({ inline, width, align, rightPadding }) =>
     inline &&
     css`
