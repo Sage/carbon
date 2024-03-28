@@ -50,7 +50,7 @@ export const ConfirmComponentFocusFirst = () => {
         onConfirm={() => setIsOpenOne(false)}
         onCancel={() => setIsOpenOne(false)}
       >
-        <Button forwardRef={ref} onClick={() => setIsOpenOne(false)}>
+        <Button ref={ref} onClick={() => setIsOpenOne(false)}>
           This should be focused first now
         </Button>
         <Button onClick={() => setIsOpenOne(false)}>Not focused</Button>

@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 
 import Icon from "../icon";
-import Button, { ButtonWithForwardRef } from "./button.component";
+import Button from "./button.component";
 import StyledButton, { StyledButtonMainText } from "./button.style";
 import {
   assertStyleMatch,
@@ -12,67 +12,10 @@ import {
 } from "../../__spec_helper__/test-utils";
 import StyledIcon from "../icon/icon.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
 describe("Button", () => {
-  describe("deprecation warnings", () => {
-    afterEach(() => {
-      jest.resetAllMocks();
-    });
-
-    it("should display deprecation warning once when dashed buttonType is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-      mount(
-        <>
-          <Button buttonType="dashed">Button</Button>
-          <Button buttonType="dashed">Button</Button>
-        </>
-      );
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `dashed` variant of the `buttonType` prop for `Button` component is deprecated and will soon be removed."
-      );
-
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-    });
-
-    it("should display deprecation warning once when ButtonWithForwardRef component is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-      mount(
-        <>
-          <ButtonWithForwardRef>Button</ButtonWithForwardRef>
-          <ButtonWithForwardRef>Button</ButtonWithForwardRef>
-        </>
-      );
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `ButtonWithForwardRef` component is deprecated and will soon be removed. Please use a basic `Button` component with `ref` instead."
-      );
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-    });
-
-    it("should display deprecation warning once when the forwardRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
-
-      const ref = { current: null };
-      mount(
-        <>
-          <Button forwardRef={ref}>Button</Button>
-          <Button forwardRef={ref}>Button</Button>
-        </>
-      );
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `forwardRef` prop in `Button` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-    });
-  });
-
   testStyledSystemSpacing((props) => <Button {...props}>Test</Button>, {
     px: "24px",
     m: "0",
@@ -93,34 +36,32 @@ describe("Button", () => {
     }
   );
 
-  describe.each(["ref", "forwardRef"])("%s", (propName) => {
-    it("accepts ref as a ref object", () => {
-      const ref = { current: null };
-      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
+  it("accepts ref as a ref object", () => {
+    const ref = { current: null };
+    const wrapper = mount(<Button ref={ref}>Button</Button>);
 
-      wrapper.update();
+    wrapper.update();
 
-      expect(ref.current).toBe(wrapper.find(StyledButton).getDOMNode());
-    });
+    expect(ref.current).toBe(wrapper.find(StyledButton).getDOMNode());
+  });
 
-    it("accepts ref as a ref callback", () => {
-      const ref = jest.fn();
-      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
+  it("accepts ref as a ref callback", () => {
+    const ref = jest.fn();
+    const wrapper = mount(<Button ref={ref}>Button</Button>);
 
-      wrapper.update();
+    wrapper.update();
 
-      expect(ref).toHaveBeenCalledWith(wrapper.find(StyledButton).getDOMNode());
-    });
+    expect(ref).toHaveBeenCalledWith(wrapper.find(StyledButton).getDOMNode());
+  });
 
-    it("sets ref to empty after unmount", () => {
-      const ref = { current: null };
-      const wrapper = mount(<Button {...{ [propName]: ref }}>Button</Button>);
+  it("sets ref to empty after unmount", () => {
+    const ref = { current: null };
+    const wrapper = mount(<Button ref={ref}>Button</Button>);
 
-      wrapper.update();
+    wrapper.update();
 
-      wrapper.unmount();
-      expect(ref.current).toBe(null);
-    });
+    wrapper.unmount();
+    expect(ref.current).toBe(null);
   });
 
   it("renders TooltipProvider with correct props when iconTooltipMessage prop is passed", () => {

@@ -33,7 +33,6 @@ const buttonTypes: [
   ["primary", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
   ["secondary", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
   ["tertiary", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
-  ["dashed", "rgb(51, 91, 112)", "rgb(51, 91, 112)"],
   ["darkBackground", "rgb(0, 126, 69)", "rgba(0, 0, 0, 0)"],
 ];
 const disabledStates: [
@@ -638,7 +637,6 @@ test.describe("should check accessibility for Confirm", () => {
     "primary",
     "secondary",
     "tertiary",
-    "dashed",
     "darkBackground",
   ] as ConfirmProps["confirmButtonType"][]).forEach((type) => {
     test(`should check accessibility for confirm button of ${type} type`, async ({
@@ -655,7 +653,6 @@ test.describe("should check accessibility for Confirm", () => {
     "primary",
     "secondary",
     "tertiary",
-    "dashed",
     "darkBackground",
   ] as ConfirmProps["cancelButtonType"][]).forEach((type) => {
     test(`should check accessibility for cancel button of ${type} type`, async ({

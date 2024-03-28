@@ -26,20 +26,10 @@ export interface ConfirmProps
     | "enableBackgroundUI"
     | "disableClose"
   > {
-  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground" */
-  cancelButtonType?:
-    | "primary"
-    | "secondary"
-    | "tertiary"
-    | "dashed"
-    | "darkBackground";
-  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "dashed" | "darkBackground" */
-  confirmButtonType?:
-    | "primary"
-    | "secondary"
-    | "tertiary"
-    | "dashed"
-    | "darkBackground";
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
+  cancelButtonType?: "primary" | "secondary" | "tertiary" | "darkBackground";
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
+  confirmButtonType?: "primary" | "secondary" | "tertiary" | "darkBackground";
   /** Customise the cancel button label */
   cancelLabel?: string;
   /** Customise the confirm button label */

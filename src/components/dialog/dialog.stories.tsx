@@ -237,7 +237,7 @@ export const FocusingADifferentFirstElement: StoryFn = () => {
           height="150px"
         >
           <Button onClick={() => setIsOpenOne(false)}>Not focused</Button>
-          <Button forwardRef={ref} onClick={() => setIsOpenOne(false)}>
+          <Button ref={ref} onClick={() => setIsOpenOne(false)}>
             This should be focused first now
           </Button>
         </Box>
