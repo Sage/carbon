@@ -53,6 +53,8 @@ export interface ActionPopoverProps extends MarginProps {
   renderButton?: (buttonProps: RenderButtonProps) => React.ReactNode;
   /** Boolean to control whether menu should align to right */
   rightAlignMenu?: boolean;
+  /** Prop to specify an aria-label for the component */
+  "aria-label"?: string;
 }
 
 const onOpenDefault = () => {};
@@ -68,6 +70,7 @@ export const ActionPopover = ({
   placement = "bottom",
   horizontalAlignment = "left",
   submenuPosition = "left",
+  "aria-label": ariaLabel,
   ...rest
 }: ActionPopoverProps) => {
   const l = useLocale();
@@ -75,7 +78,7 @@ export const ActionPopover = ({
   const [focusIndex, setFocusIndex] = useState(0);
   const [guid] = useState(createGuid());
   const buttonRef = useRef<HTMLDivElement>(null);
-  const menu = useRef<HTMLDivElement>(null);
+  const menu = useRef<HTMLUListElement>(null);
 
   const itemCount = useMemo(() => {
     return React.Children.toArray(children).filter((child) => {
@@ -221,7 +224,7 @@ export const ActionPopover = ({
         "data-element": "action-popover-button",
         ariaAttributes: {
           "aria-haspopup": "true",
-          "aria-label": l.actionPopover.ariaLabel(),
+          "aria-label": ariaLabel || l.actionPopover.ariaLabel(),
           "aria-controls": menuID,
           "aria-expanded": `${isOpen}`,
         },
@@ -232,7 +235,7 @@ export const ActionPopover = ({
       <StyledButtonIcon
         role="button"
         aria-haspopup="true"
-        aria-label={l.actionPopover.ariaLabel()}
+        aria-label={ariaLabel || l.actionPopover.ariaLabel()}
         aria-controls={menuID}
         aria-expanded={isOpen}
         tabIndex={isOpen ? -1 : 0}
@@ -279,7 +282,6 @@ export const ActionPopover = ({
           <Popover placement={mappedPlacement} reference={buttonRef}>
             <ActionPopoverMenu
               data-component="action-popover"
-              role="menu"
               ref={menu}
               {...menuProps}
             >

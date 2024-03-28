@@ -498,7 +498,7 @@ test.describe("check functionality for ActionPopover component", () => {
     await actionPopoverButton(page).click();
 
     // check download item has 'download' property
-    const downloadItem = page.getByRole("menuitem", { name: "Download" });
+    const downloadItem = page.getByRole("link", { name: "Download" });
     await expect(downloadItem).toHaveAttribute("download", "");
 
     // click download item and wait for download to start
@@ -842,6 +842,14 @@ test.describe("check props for ActionPopover component", () => {
       const itemChevron = await actionPopoverMenuItemChevron(page).first();
       await expect(itemChevron).toHaveAttribute("type", chevronType);
     });
+  });
+
+  test("should render with aria-label prop", async ({ mount, page }) => {
+    await mount(<ActionPopoverWithProps aria-label="test-aria-label" />);
+    await expect(actionPopoverButton(page).nth(0)).toHaveAttribute(
+      "aria-label",
+      "test-aria-label"
+    );
   });
 });
 

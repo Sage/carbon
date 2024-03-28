@@ -384,7 +384,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
     onKeyDown={[Function]}
     onMouseEnter={[Function]}
     onTouchStart={[Function]}
-    role="button"
     size="medium"
     type="button"
   >
