@@ -163,6 +163,9 @@ const plPL: Locale = {
   loader: {
     loading: () => "Ładowanie",
   },
+  loaderSpinner: {
+    loading: () => "Ładowanie...",
+  },
   message: {
     closeButtonAriaLabel: () => "Zamknij",
   },

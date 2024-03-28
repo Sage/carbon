@@ -79,6 +79,9 @@ interface Locale {
   loader: {
     loading: () => string;
   };
+  loaderSpinner: {
+    loading: () => string;
+  };
   message: {
     closeButtonAriaLabel: () => string;
   };

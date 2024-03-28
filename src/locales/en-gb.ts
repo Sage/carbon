@@ -104,6 +104,9 @@ const enGB: Locale = {
   loader: {
     loading: () => "Loading",
   },
+  loaderSpinner: {
+    loading: () => "Loading...",
+  },
   message: {
     closeButtonAriaLabel: () => "Close",
   },
