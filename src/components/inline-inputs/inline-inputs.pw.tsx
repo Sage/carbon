@@ -7,7 +7,7 @@ import {
   Default,
   WithAdaptiveLabelBreakpoint,
   Required,
-} from "../../../src/components/inline-inputs/inline-inputs.stories";
+} from "./components.test-pw";
 import { Default as InlineInputComponent } from "./inline-inputs-test.stories";
 import {
   inlineInputContainer,

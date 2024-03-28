@@ -1,13 +1,15 @@
 import React, { useState, useRef } from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import isChromatic from "../../../.storybook/isChromatic";
+import { allModes } from "../../../.storybook/modes";
 
-import DialogFullScreen from ".";
 import { Accordion } from "../accordion";
 import Box from "../box";
 import Button from "../button";
 import Form from "../form";
 import Textbox from "../textbox";
-import Pill from "../../components/pill";
+import Pill from "../pill";
 import Drawer from "../drawer/drawer.component";
 import { Tabs, Tab } from "../tabs";
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -17,11 +19,41 @@ import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Typography from "../typography";
 import { Dl, Dt, Dd } from "../definition-list";
 import Toast from "../toast";
-import isChromatic from "../../../.storybook/isChromatic";
+
+import DialogFullScreen from ".";
 
 const defaultOpenState = isChromatic();
 
-export const Default = () => {
+const meta: Meta<typeof DialogFullScreen> = {
+  title: "Dialog Full Screen",
+  component: DialogFullScreen,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: {
+      modes: {
+        desktop: allModes.chromatic,
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100%" height={900}>
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof DialogFullScreen>;
+
+export const Default: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -75,9 +107,10 @@ export const Default = () => {
     </>
   );
 };
+Default.storyName = "Default";
 Default.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithComplexExample = () => {
+export const WithComplexExample: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [activeTab, setActiveTab] = useState("tab-1");
   const padding40 = useMediaQuery("(min-width: 1260px)");
@@ -478,8 +511,9 @@ export const WithComplexExample = () => {
     </Box>
   );
 };
+WithComplexExample.storyName = "With Complex Example";
 
-export const WithDisableContentPadding = () => {
+export const WithDisableContentPadding: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -517,9 +551,10 @@ export const WithDisableContentPadding = () => {
     </>
   );
 };
+WithDisableContentPadding.storyName = "With Disable Content Padding";
 WithDisableContentPadding.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithHeaderChildren = () => {
+export const WithHeaderChildren: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
   const verticalMargin = aboveBreakpoint ? "26px" : 0;
@@ -566,9 +601,10 @@ export const WithHeaderChildren = () => {
     </>
   );
 };
+WithHeaderChildren.storyName = "With Header Children";
 WithDisableContentPadding.parameters = { viewports: [500, 1400] };
 
-export const WithHelp = () => {
+export const WithHelp: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -605,8 +641,9 @@ export const WithHelp = () => {
     </>
   );
 };
+WithHelp.storyName = "With Help";
 
-export const WithHideableHeaderChildren = () => {
+export const WithHideableHeaderChildren: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const aboveBreakpoint = useMediaQuery("(min-width: 568px)");
   const verticalMargin = aboveBreakpoint ? "26px" : 0;
@@ -676,11 +713,12 @@ export const WithHideableHeaderChildren = () => {
     </>
   );
 };
+WithHideableHeaderChildren.storyName = "With Hideable Header Children";
 WithHideableHeaderChildren.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const WithBox = () => {
+export const WithBox: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -718,9 +756,10 @@ export const WithBox = () => {
     </>
   );
 };
+WithBox.storyName = "With Box";
 WithBox.parameters = { chromatic: { disableSnapshot: true } };
 
-export const FocusingADifferentFirstElement = () => {
+export const FocusingADifferentFirstElement: Story = () => {
   const [isOpenOne, setIsOpenOne] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const ref = useRef<HTMLButtonElement | null>(null);
@@ -775,11 +814,12 @@ export const FocusingADifferentFirstElement = () => {
     </>
   );
 };
+FocusingADifferentFirstElement.storyName = "Focusing a Different First Element";
 FocusingADifferentFirstElement.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const OtherFocusableContainers = () => {
+export const OtherFocusableContainers: Story = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isToast1Open, setIsToast1Open] = useState(false);
   const [isToast2Open, setIsToast2Open] = useState(false);
@@ -846,6 +886,7 @@ export const OtherFocusableContainers = () => {
     </>
   );
 };
+OtherFocusableContainers.storyName = "Other Focusable Containers";
 OtherFocusableContainers.parameters = { chromatic: { disableSnapshot: true } };
 
 export const TopModalOverride = () => {

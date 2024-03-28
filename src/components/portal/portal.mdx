@@ -1,0 +1,39 @@
+import { Meta, ArgTypes } from "@storybook/addon-docs/blocks";
+
+import PortalStories from "./portal.stories";
+
+<Meta title="Portal" of={PortalStories} />
+
+# Portal
+
+The Portal component allows you to render children into a different part of the DOM, whilst also allowing the use of styling using the Design System's `design-tokens` package.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Usage](#usage)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Portal from "carbon-react/lib/components/portal";
+```
+
+## Usage
+
+This example demonstrates how to render a Portal with a Box component as a child that uses a design-token for the background color.
+
+```javascript
+import Portal from "carbon-react/lib/components/portal";
+import Box from "carbon-react/lib/components/box";
+
+/* ... */
+<Portal>
+  <Box bg="var(--colorsUtilityMajor010)">Portal content</Box>
+</Portal>;
+```
+
+## Props
+
+<ArgTypes of={PortalStories} />

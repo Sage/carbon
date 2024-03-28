@@ -1,0 +1,128 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as CheckboxStories from "./checkbox.stories";
+import * as CheckboxGroupStories from "./checkbox-group/checkbox-group.stories";
+import * as ValidationStories from "./validations.stories";
+
+<Meta title="Checkbox" of={CheckboxStories} />
+
+# Checkbox
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/5937c7-checkbox/b/317d8f"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+- Checkbox provides a way to efficiently select more than one item from a list.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
+```
+
+## Designer Notes
+
+- Disabled or read-only checkboxes might be difficult for a user to distinguish visually, so try to avoid this.
+- Consider ‘smart default’ selections, based on what your user is likely to choose. But, users may well leave the defaults in place, so make sure any consequences are easy to undo, and not harmful.
+- Rather than a checkbox to accept legal terms, consider labelling a button ‘Accept Terms and Continue’ instead.
+
+## Related Components
+
+- Choosing one option from a longer list? [Try Radio Button](https://carbon.sage.com/?path=/docs/radiobutton--default "Radio Button").
+- Choosing one option from a very long list? [Try Select](https://carbon.sage.com/?path=/docs/select--default "Select").
+- Choosing one option from a highly visible range? [Try Button Toggle](https://carbon.sage.com/?path=/docs/button-toggle--default "Button Toggle").
+
+## Examples
+
+### Default
+
+<Canvas of={CheckboxStories.Default} />
+
+### Sizes
+
+<Canvas of={CheckboxStories.Sizes} />
+
+### Disabled
+
+<Canvas of={CheckboxStories.Disabled} />
+
+### Reversed
+
+<Canvas of={CheckboxStories.Reversed} />
+
+### With fieldHelp
+
+<Canvas of={CheckboxStories.WithFieldHelp} />
+
+### With labelHelp
+
+<Canvas of={CheckboxStories.WithLabelHelp} />
+
+### With custom labelWidth
+
+<Canvas of={CheckboxStories.WithCustomLabelWidth} />
+
+### Checkbox Group
+
+<Canvas of={CheckboxStories.CheckboxGroupStory} />
+
+### With inline legend
+
+The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`.
+
+The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
+
+<Canvas of={CheckboxStories.CheckboxGroupWithInlineLegend} />
+
+## Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+
+### New Validations
+
+This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string.
+
+<Canvas of={ValidationStories.NewStringValidation} />
+
+This is an example of `Checkbox` in a `CheckboxGroup` displayed inline.
+
+<Canvas of={ValidationStories.NewInline} />
+
+This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string displayed inline.
+
+<Canvas of={ValidationStories.NewStringValidationInline} />
+
+This is an example of `Checkbox` with validations passed as boolean values.
+
+<Canvas of={ValidationStories.NewBooleanValidation} />
+
+## Props
+
+### Checkbox
+
+<ArgTypes of={CheckboxStories} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
+
+### CheckboxGroup
+
+<ArgTypes of={CheckboxGroupStories} />

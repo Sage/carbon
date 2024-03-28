@@ -1,0 +1,58 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as FieldsetStories from "./fieldset.stories";
+
+<Meta title="Fieldset" of={FieldsetStories} />
+
+# Fieldset
+
+- You can nest any Carbon input into this component.
+- Useful for presenting a series of inputs that are closely related, within a wider Form or Pod (e.g. an address or contact details).
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Fieldset from "carbon-react/lib/components/fieldset";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={FieldsetStories.Default} />
+
+### Fieldset in Form
+
+<Canvas of={FieldsetStories.InFormBasic} />
+
+### `fieldSpacing`
+
+You can manipulate the spacings beetwen `Fieldset` components by passing `fieldSpacing` prop into `Form` component
+
+<Canvas of={FieldsetStories.InFormFieldSpacing} />
+
+### Validations
+
+#### As a string
+
+<Canvas of={FieldsetStories.ValidationsStringComponent} />
+
+#### As a string, displayed on label
+
+<Canvas of={FieldsetStories.ValidationsStringLabel} />
+
+#### As a boolean
+
+<Canvas of={FieldsetStories.ValidationsBoolean} />
+
+## Props
+
+### Fieldset
+
+<ArgTypes of={FieldsetStories} />

@@ -1,0 +1,49 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as PreviewStories from "./preview.stories";
+
+<Meta title="Preview" of={PreviewStories} />
+
+# Preview
+
+Applies a preview loading state animation.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Preview from "carbon-react/lib/components/preview";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={PreviewStories.Default} />
+
+### Preview with Lines
+
+<Canvas of={PreviewStories.WithLines} />
+
+### Preview with Children
+
+<Canvas of={PreviewStories.WithChildren} />
+
+### Preview with Custom Width
+
+<Canvas of={PreviewStories.WithWidth} />
+
+### Preview with Custom Height
+
+<Canvas of={PreviewStories.WithHeight} />
+
+## Props
+
+### Preview
+
+<ArgTypes of={PreviewStories} />

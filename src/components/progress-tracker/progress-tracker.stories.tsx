@@ -1,42 +1,63 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import ProgressTracker from ".";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Box from "../box";
+import ProgressTracker from ".";
 
-export const Default: ComponentStory<typeof ProgressTracker> = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof ProgressTracker> = {
+  title: "Progress Tracker",
+  component: ProgressTracker,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof ProgressTracker>;
+
+export const Default: Story = () => {
   return (
     <Box display="flex" justifyContent="space-around">
       <ProgressTracker progress={50} />
     </Box>
   );
 };
+Default.storyName = "Default";
 
-export const SizeSmall: ComponentStory<typeof ProgressTracker> = () => {
+export const SizeSmall: Story = () => {
   return (
     <Box display="flex" justifyContent="space-around">
       <ProgressTracker size="small" progress={50} showDefaultLabels />
     </Box>
   );
 };
+SizeSmall.storyName = "Size - Small";
 
-export const SizeLarge: ComponentStory<typeof ProgressTracker> = () => {
+export const SizeLarge: Story = () => {
   return (
     <Box display="flex" justifyContent="space-around">
       <ProgressTracker size="large" progress={50} showDefaultLabels />
     </Box>
   );
 };
+SizeLarge.storyName = "Size - Large";
 
-export const CustomBarLength: ComponentStory<typeof ProgressTracker> = () => {
+export const CustomBarLength: Story = () => {
   return (
     <Box display="flex" justifyContent="space-around">
       <ProgressTracker progress={50} length="150px" />
     </Box>
   );
 };
+CustomBarLength.storyName = "Custom Bar Length";
 
-export const ColorVariants: ComponentStory<typeof ProgressTracker> = () => {
+export const ColorVariants: Story = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ProgressTracker progress={15} currentProgressLabel="15%" />
@@ -51,8 +72,9 @@ export const ColorVariants: ComponentStory<typeof ProgressTracker> = () => {
     </Box>
   );
 };
+ColorVariants.storyName = "Color Variants";
 
-export const DefaultLabelValue: ComponentStory<typeof ProgressTracker> = () => {
+export const DefaultLabelValue: Story = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ProgressTracker mt={2} progress={15} currentProgressLabel="15%" />
@@ -67,10 +89,9 @@ export const DefaultLabelValue: ComponentStory<typeof ProgressTracker> = () => {
     </Box>
   );
 };
+DefaultLabelValue.storyName = "Default Label Value";
 
-export const DefaultLabelValueLabelsPositionBottom: ComponentStory<
-  typeof ProgressTracker
-> = () => {
+export const DefaultLabelValueLabelsPositionBottom: Story = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ProgressTracker
@@ -101,10 +122,10 @@ export const DefaultLabelValueLabelsPositionBottom: ComponentStory<
     </Box>
   );
 };
+DefaultLabelValueLabelsPositionBottom.storyName =
+  "Default Label Value - labelsPosition Bottom";
 
-export const DefaultLabelValueLabelsPositionLeft: ComponentStory<
-  typeof ProgressTracker
-> = () => {
+export const DefaultLabelValueLabelsPositionLeft: Story = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ProgressTracker
@@ -139,8 +160,10 @@ export const DefaultLabelValueLabelsPositionLeft: ComponentStory<
     </Box>
   );
 };
+DefaultLabelValueLabelsPositionLeft.storyName =
+  "Default Label Value - labelsPosition Left";
 
-export const CustomLabelValues: ComponentStory<typeof ProgressTracker> = () => {
+export const CustomLabelValues: Story = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ProgressTracker
@@ -165,10 +188,9 @@ export const CustomLabelValues: ComponentStory<typeof ProgressTracker> = () => {
     </Box>
   );
 };
+CustomLabelValues.storyName = "Custom Label Values";
 
-export const DefaultAndCustomLabelValues: ComponentStory<
-  typeof ProgressTracker
-> = () => {
+export const DefaultAndCustomLabelValues: Story = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <ProgressTracker progress={50} currentProgressLabel="50%" />
@@ -194,10 +216,9 @@ export const DefaultAndCustomLabelValues: ComponentStory<
     </Box>
   );
 };
+DefaultAndCustomLabelValues.storyName = "Default and Custom Label Values";
 
-export const AccessibilityExample: ComponentStory<
-  typeof ProgressTracker
-> = () => {
+export const AccessibilityExample: Story = () => {
   return (
     <Box display="flex" justifyContent="space-around">
       <ProgressTracker
@@ -211,13 +232,13 @@ export const AccessibilityExample: ComponentStory<
     </Box>
   );
 };
+AccessibilityExample.storyName = "Accessibility Example";
 
-export const AccessibilityExampleTwo: ComponentStory<
-  typeof ProgressTracker
-> = () => {
+export const AccessibilityExampleTwo: Story = () => {
   return (
     <Box display="flex" justifyContent="space-around">
       <ProgressTracker progress={50} aria-valuemin={111} aria-valuemax={188} />
     </Box>
   );
 };
+AccessibilityExampleTwo.storyName = "Accessibility Example Two";

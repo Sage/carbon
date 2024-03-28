@@ -1,11 +1,10 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import { HooksConfig } from "../../../playwright";
-
 import {
   SageTheme as SageThemeStory,
   MintTheme as MintThemeStory,
-} from "../../../src/components/carbon-provider/carbon-provider.stories";
+} from "./components.test-pw";
 import { AllThemes as AllThemesStory } from "../../../src/components/carbon-provider/carbon-provider-test.stories";
 import Button from "../../../src/components/button";
 import Link from "../../../src/components/link";

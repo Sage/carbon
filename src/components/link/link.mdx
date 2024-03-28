@@ -1,0 +1,136 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as LinkStories from "./link.stories";
+
+<Meta title="Link" of={LinkStories} />
+
+# Link
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/16ff08-link"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Navigates the user to another location.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import `Link` into the project.
+
+```javascript
+import Link from "carbon-react/lib/components/link";
+```
+
+To use Link with a routing library see our documentation on this here: [Usage with routing](../?path=/docs/documentation-usage-with-routing--docs).
+
+## Examples
+
+### Default
+
+By default an anchor element will be rendered.
+
+`target` and `rel` props will be passed down to the anchor element when provided.
+
+<Canvas of={LinkStories.DefaultStory} />
+
+### Disabled
+
+Setting the `disabled` prop to true disables the link.
+
+**Please note**: To disable an anchor, the `href` prop must not be defined.
+
+<Canvas of={LinkStories.WithDisabled} />
+
+### Icon
+
+The `icon` prop allows you to render an icon.
+
+<Canvas of={LinkStories.WithIcon} />
+
+#### Icon Align
+
+The `iconAlign` prop allows you to control if the icon renders to left or right of the Link.
+
+**Please note**: To be used only when the `icon` prop is defined.
+
+<Canvas of={LinkStories.WithIconAlign} />
+
+#### Tooltip
+
+By rendering an icon and providing a string to the `tooltipMessage` prop, a tooltip message can be displayed when hovering over the icon.
+
+**Please note**: To be used only when the `icon` prop is defined.
+
+<Canvas of={LinkStories.WithTooltip} />
+
+### isSkipLink
+
+`Skip Link` is specific use case for the `Link` component, specifically to enhance keyboard accessibility.
+The `Skip Link` has been created to allow users to use keyboard controls to skip over something like a `Menu`.
+It allows a user to jump into the main content without going through the whole `Menu` component, button by button.
+To show how it works, press the TAB key and you will be able to see how `Skip Link` will displays.
+
+<Canvas of={LinkStories.WithIsSkipLink} />
+
+### onClick
+
+A custom `onClick` function can be passed to the Link component to render it as a button instead of an anchor.
+
+**Please note**: using the `onClick` prop with no `href` is bad for accessibility, as the output looks like a link but behaves like an HTML button.
+If the `onClick` performs an on-page action, so you want a genuine button, please consider using the [Button component](../?path=/docs/button--docs) instead so that the styles match the semantics. If the `onClick` function performs navigation, an `href` prop is necessary either instead or in addition, so that an
+HTML `<a>` tag is used instead. See for example our [React Router docs](../?path=/docs/documentation-usage-with-routing--docs), where we use `Link` with `onClick` to
+perform client-side routing, but still provide the `href` to render an HTML link rather than a button.
+
+<Canvas of={LinkStories.WithOnClick} />
+
+### variants
+
+Setting the `variant` prop to either `negative` or `neutral` enables overriding of the `default` styling of the `Link` component.
+
+<Canvas of={LinkStories.Variants} />
+
+### On a dark background
+
+When the `Link` component is rendered on a dark background, the `isDarkBackground` prop can be used to update the colour styling
+to ensure there is enough contrast.
+
+<Canvas of={LinkStories.OnADarkBackground} />
+
+### Link that wraps
+
+Just as with a native HTML anchor element, `Link` components will wrap onto the next line if they contain long text.
+
+<Canvas of={LinkStories.Wrapping} />
+
+## Props
+
+### Link
+
+<ArgTypes of={LinkStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "link.skipLinkLabel",
+      description: "The text to be displayed in skip link",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

@@ -1,0 +1,24 @@
+import { Meta, Canvas } from "@storybook/addon-docs";
+import * as FlatTableThemesStories from "./flat-table-themes.stories";
+
+<Meta title="Flat Table/Color Themes" of={FlatTableThemesStories} />
+
+# Table Header Color Themes
+
+## Examples
+
+### With transparent-white theme
+
+To create a transparent effect for the header, the background-color is set to match a white background
+
+<Canvas of={FlatTableThemesStories.TransparentWhiteTheme} />
+
+### With transparent-base theme
+
+To create a transparent effect for the header, the background-color is set to match the base app background
+
+<Canvas of={FlatTableThemesStories.TransparentBaseTheme} />
+
+### With light theme
+
+<Canvas of={FlatTableThemesStories.LightTheme} />

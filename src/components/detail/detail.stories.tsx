@@ -1,28 +1,50 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
-import Detail from ".";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Card from "../card";
 import { Tile, TileContent } from "../tile";
 import Hr from "../hr";
 import Box from "../box";
 
-export const Default: ComponentStory<typeof Detail> = () => (
+import Detail from ".";
+
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof Detail> = {
+  title: "Detail",
+  component: Detail,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Detail>;
+
+export const Default: Story = () => (
   <Detail>This is where the children will live.</Detail>
 );
+Default.storyName = "Default";
 
-export const DetailWithFootnote: ComponentStory<typeof Detail> = () => (
+export const DetailWithFootnote: Story = () => (
   <Detail footnote="This is a footnote.">
     This is where the children will live.
   </Detail>
 );
+DetailWithFootnote.storyName = "Detail with footnote";
 
-export const DetailWithIcon: ComponentStory<typeof Detail> = () => (
+export const DetailWithIcon: Story = () => (
   <Detail icon="bin" footnote="This is a footnote.">
     This is where the children will live.
   </Detail>
 );
+DetailWithIcon.storyName = "Detail with icon";
 
-export const DetailInsideCard: ComponentStory<typeof Detail> = () => (
+export const DetailInsideCard: Story = () => (
   <Card width="300px">
     <Box pt="16px">
       <Detail>This example of Detail just has children.</Detail>
@@ -41,8 +63,9 @@ export const DetailInsideCard: ComponentStory<typeof Detail> = () => (
     </Box>
   </Card>
 );
+DetailInsideCard.storyName = "Detail inside Card";
 
-export const DetailInsideTile: ComponentStory<typeof Detail> = () => (
+export const DetailInsideTile: Story = () => (
   <Tile width="60%">
     <TileContent pt="16px">
       <Detail>This example of Detail just has children.</Detail>
@@ -59,3 +82,4 @@ export const DetailInsideTile: ComponentStory<typeof Detail> = () => (
     </TileContent>
   </Tile>
 );
+DetailInsideTile.storyName = "Detail inside Tile";

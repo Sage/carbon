@@ -1,10 +1,26 @@
 import React, { useState } from "react";
-import { ComponentStory, StoryFn } from "@storybook/react";
+import { Meta, StoryFn, StoryObj } from "@storybook/react";
 
 import GroupedCharacter, { GroupedCharacterProps, CustomEvent } from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-export const DefaultStory = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof GroupedCharacter> = {
+  title: "Grouped Character",
+  component: GroupedCharacter,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof GroupedCharacter>;
+
+export const DefaultStory: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -21,8 +37,9 @@ export const DefaultStory = () => {
     />
   );
 };
+DefaultStory.storyName = "Default";
 
-export const Sizes = () => {
+export const Sizes: Story = () => {
   const [state, setState] = useState({
     small: "1231231",
     medium: "1231231",
@@ -48,8 +65,9 @@ export const Sizes = () => {
     />
   ));
 };
+Sizes.storyName = "Sizes";
 
-export const AutoFocus = () => {
+export const AutoFocus: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -67,9 +85,10 @@ export const AutoFocus = () => {
     />
   );
 };
+AutoFocus.storyName = "Auto Focus";
 AutoFocus.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Disabled = () => {
+export const Disabled: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -87,9 +106,10 @@ export const Disabled = () => {
     />
   );
 };
+Disabled.storyName = "Disabled";
 Disabled.args = { disabled: true };
 
-export const LabelInline = () => {
+export const LabelInline: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -107,9 +127,10 @@ export const LabelInline = () => {
     />
   );
 };
+LabelInline.storyName = "Label Inline";
 LabelInline.parameters = { chromatic: { disableSnapshot: true } };
 
-export const LabelInputWidth = () => {
+export const LabelInputWidth: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -129,8 +150,27 @@ export const LabelInputWidth = () => {
     />
   );
 };
+LabelInputWidth.storyName = "Label Input Width";
 
-export const FieldHelp = () => {
+export const WithCustomMaxWidth: Story = () => {
+  const [state, setState] = useState("1231231");
+  const setValue = ({ target }: CustomEvent) => {
+    setState(target.value.rawValue);
+  };
+  return (
+    <GroupedCharacter
+      label="GroupedCharacter"
+      value={state}
+      onChange={setValue}
+      groups={[2, 2, 3]}
+      separator="-"
+      maxWidth="50%"
+    />
+  );
+};
+WithCustomMaxWidth.storyName = "With Custom Max Width";
+
+export const FieldHelp: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -148,8 +188,9 @@ export const FieldHelp = () => {
     />
   );
 };
+FieldHelp.storyName = "Field Help";
 
-export const InputHint = () => {
+export const InputHint: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -167,8 +208,9 @@ export const InputHint = () => {
     />
   );
 };
+InputHint.storyName = "Input Hint";
 
-export const LabelHelp = () => {
+export const LabelHelp: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -187,8 +229,9 @@ export const LabelHelp = () => {
     />
   );
 };
+LabelHelp.storyName = "Label Help";
 
-export const Required = () => {
+export const Required: Story = () => {
   const [state, setState] = useState("1231231");
 
   const setValue = ({ target }: CustomEvent) => {
@@ -206,8 +249,9 @@ export const Required = () => {
     />
   );
 };
+Required.storyName = "Required";
 
-export const LabelAlign = () => {
+export const LabelAlign: Story = () => {
   const [state, setState] = useState({
     right: "1231231",
     left: "1231231",
@@ -231,8 +275,9 @@ export const LabelAlign = () => {
     />
   ));
 };
+LabelAlign.storyName = "Label Align";
 
-export const VariousSeparators = () => {
+export const VariousSeparators: Story = () => {
   const [state, setState] = useState({
     ".": "1231231",
     ",": "1231231",
@@ -258,8 +303,9 @@ export const VariousSeparators = () => {
     />
   ));
 };
+VariousSeparators.storyName = "Various Separators";
 
-export const VariousGroups = () => {
+export const VariousGroups: Story = () => {
   const [state, setState] = useState({
     "2-2-3": "1231231",
     "1-2-4": "1231231",
@@ -287,6 +333,7 @@ export const VariousGroups = () => {
     />
   ));
 };
+VariousGroups.storyName = "Various Groups";
 
 export const Validations: StoryFn = (
   args: Partial<GroupedCharacterProps> & { message?: string | boolean }
@@ -330,6 +377,8 @@ export const Validations: StoryFn = (
     </>
   );
 };
+Validations.storyName = "Validations";
+Validations.parameters = { chromatic: { disableSnapshot: true } };
 
 export const ValidationsStringComponent = Validations.bind({});
 ValidationsStringComponent.args = {
@@ -347,7 +396,7 @@ ValidationsBoolean.args = {
   message: true,
 };
 
-export const ValidationsRedesign = () => {
+export const ValidationsRedesign: Story = () => {
   const [state, setState] = useState({
     error: "1231231",
     warning: "1231231",
@@ -391,42 +440,48 @@ export const ValidationsRedesign = () => {
     </CarbonProvider>
   );
 };
+ValidationsRedesign.storyName = "Validations Redesign";
 
-export const ValidationsTooltip: ComponentStory<typeof GroupedCharacter> = (
-  args
-) => {
-  const [state, setState] = useState({
-    error: "1231231",
-    warning: "1231231",
-    info: "1231231",
-  });
+export const ValidationsTooltip: Story = {
+  render: (args: GroupedCharacterProps) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [state, setState] = useState({
+      error: "1231231",
+      warning: "1231231",
+      info: "1231231",
+    });
 
-  const handleChange = (validation: string) => (e: CustomEvent) => {
-    setState({ ...state, [validation]: e.target.value.rawValue });
-  };
+    const handleChange = (validation: string) => (e: CustomEvent) => {
+      setState({ ...state, [validation]: e.target.value.rawValue });
+    };
 
-  return (
-    <>
-      {(["error", "warning", "info"] as const).map((validationType) => (
-        <div key={`${validationType}-string-label`}>
-          <GroupedCharacter
-            label="GroupedCharacter"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-            {...args}
-            groups={[2, 2, 3]}
-            separator="-"
-          />
-        </div>
-      ))}
-    </>
-  );
+    return (
+      <>
+        {(["error", "warning", "info"] as const).map((validationType) => (
+          <div key={`${validationType}-string-label`}>
+            <GroupedCharacter
+              label="GroupedCharacter"
+              value={state[validationType]}
+              onChange={handleChange(validationType)}
+              {...{ [validationType]: "Message" }}
+              mb={2}
+              tooltipPosition="bottom"
+              {...args}
+              groups={[2, 2, 3]}
+              separator="-"
+            />
+          </div>
+        ))}
+      </>
+    );
+  },
+  name: "Validations Tooltip",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
-ValidationsTooltip.parameters = { chromatic: { disableSnapshot: true } };
 
-export const ValidationsTooltipLabel = ValidationsTooltip.bind({});
-ValidationsTooltipLabel.args = { validationOnLabel: true };
-ValidationsTooltipLabel.parameters = { chromatic: { disableSnapshot: true } };
+export const ValidationsTooltipLabel: Story = {
+  ...ValidationsTooltip,
+  args: { ...ValidationsTooltip.args, validationOnLabel: true },
+  name: "Validations Tooltip - Label",
+  parameters: { chromatic: { disableSnapshot: true } },
+};

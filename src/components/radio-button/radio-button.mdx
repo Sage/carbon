@@ -1,0 +1,155 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as RadioButtonGroupStories from "./radio-button-group/radio-button-group.stories";
+import * as RadioButtonStories from "./radio-button.stories";
+
+<Meta title="RadioButton" of={RadioButtonStories} />
+
+# RadioButton/RadioButtonGroup
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/647e16-radio-button"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Used to provide a group of selectable radio buttons.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use these components, import both `RadioButtonGroup` and `RadioButton`, and pass the radio buttons as children of the radio group.
+
+```javascript
+import {
+  RadioButton,
+  RadioButtonGroup,
+} from "carbon-react/lib/components/radio-button";
+```
+
+## Related Components
+
+- Choosing one option from a very long list? [Try Select](/docs/select--default-story "Try Select").
+- Choosing more than one option? [Try Checkbox](/docs/checkbox--default-story "Try Checkbox").
+- Choosing one option from a highly visible small range? [Try Button Toggle](/story/button-toggle--default "Try Button Toggle").
+
+## Examples
+
+### Default
+
+<Canvas of={RadioButtonStories.Default} />
+
+### With legend and labels
+
+A legend can be set for the group, and each radio button can have a label.
+
+<Canvas of={RadioButtonStories.WithLegendAndLabels} />
+
+### With inline legend
+
+The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`.
+
+The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
+
+<Canvas of={RadioButtonStories.WithInlineLegend} />
+
+### With left margin
+
+A `ml` prop can be supplied to align the `RadioButtonGroup` with above and below components. This prop is a CSS string.
+
+<Canvas of={RadioButtonStories.WithLeftMargin} />
+
+### Enable adaptive behaviour
+
+Passing in the `adaptiveLegendBreakpoint` and `adaptiveSpacingBreakpoint` props will enable the adaptive behaviour.
+
+<Canvas of={RadioButtonStories.EnableAdaptiveBehaviour} />
+
+### Different label spacing
+
+The spacing between radio buttons and their labels can be changed with the `labelSpacing` prop. Similarly to the `legendSpacing` prop, this is a number which is multiplied by the base theme spacing constant. It defaults to `1` which is therefore `8px`.
+
+<Canvas of={RadioButtonStories.DifferentLabelSpacing} />
+
+### Inline radio buttons
+
+The radio buttons can be made inline with the `inline` prop.
+
+<Canvas of={RadioButtonStories.InlineRadioButtons} />
+
+### Reverse radio buttons
+
+The radio buttons and labels can be flipped around using the `reverse` prop on each radio button. The same spacing options between the label and radio button as above apply.
+
+<Canvas of={RadioButtonStories.ReverseRadioButtons} />
+
+### Disable radio buttons
+
+The radio buttons and labels can be disabled using the `disabled` prop on each radio button.
+
+**Please Note**: Even though Carbon does support disabled radio buttons, their use is not generally recommended by Design System.
+
+<Canvas of={RadioButtonStories.DisableRadioButtons} />
+
+### With field help
+
+Help text for each input can be added with the `fieldHelp` prop on `RadioButton`. This can be made inline with the `fieldHelpInline` prop.
+
+<Canvas of={RadioButtonStories.WithFieldHelp} />
+
+### With large radio buttons
+
+Passing in `large` for the `size` prop on each radio button will increase the size of the button.
+
+<Canvas of={RadioButtonStories.WithLargeRadioButtons} />
+
+### With custom styled labels
+
+Labels could be customized using the Typography Component
+
+<Canvas of={RadioButtonStories.WithCustomStyledLabels} />
+
+### Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the `RadioButton` component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+Validation status could also be passed to the `RadioButtonGroup` component as a string or boolean.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs#grouped-inputs) documentation page.
+
+This is an example of `RadioButton` with validations passed as boolean values.
+
+<Canvas of={RadioButtonStories.NewValidationDefault} />
+
+This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string.
+
+<Canvas of={RadioButtonStories.NewValidationDefaultGroup} />
+
+This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string displayed inline.
+
+<Canvas of={RadioButtonStories.NewValidationDefaultGroupInline} />
+
+## Props
+
+### RadioButton
+
+<ArgTypes of={RadioButtonStories} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
+
+### RadioButtonGroup
+
+<ArgTypes of={RadioButtonGroupStories} />

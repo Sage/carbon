@@ -7,8 +7,10 @@ import {
   CheckboxComponent,
   CheckboxGroupComponent,
   CheckboxGroupComponentNewValidation,
+  Sizes,
+  Reversed,
+  WithCustomLabelWidth,
 } from "./components.test-pw";
-import { Sizes, Reversed, WithCustomLabelWidth } from "./checkbox.stories";
 import {
   checkboxComponent,
   checkboxRole,

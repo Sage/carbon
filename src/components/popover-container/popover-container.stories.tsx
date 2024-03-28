@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import PopoverContainer from "./popover-container.component";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import Box from "../box";
 import { DraggableContainer, DraggableItem } from "../draggable";
 import { Checkbox } from "../checkbox";
 import Button from "../button";
@@ -9,23 +11,41 @@ import Link from "../link";
 import Pill from "../pill";
 import Badge from "../badge";
 import isChromatic from "../../../.storybook/isChromatic";
-import Box from "../box";
 import { Select, Option } from "../select";
+import PopoverContainer from "./popover-container.component";
+
+const styledSystemProps = generateStyledSystemProps({
+  padding: true,
+});
+
+const meta: Meta<typeof PopoverContainer> = {
+  title: "Popover Container",
+  component: PopoverContainer,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof PopoverContainer>;
 
 const defaultOpenState = isChromatic();
 
-export const Default: ComponentStory<typeof PopoverContainer> = () => (
-  <div style={{ height: 100 }}>
-    <PopoverContainer
-      containerAriaLabel="popover-container"
-      openButtonAriaLabel="open"
-    >
-      Contents
-    </PopoverContainer>
-  </div>
-);
+export const Default: Story = () => {
+  return (
+    <Box height={100}>
+      <PopoverContainer
+        containerAriaLabel="popover-container"
+        openButtonAriaLabel="open"
+      >
+        Contents
+      </PopoverContainer>
+    </Box>
+  );
+};
+Default.storyName = "Default";
 
-export const Title: ComponentStory<typeof PopoverContainer> = () => {
+export const Title: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
@@ -42,8 +62,9 @@ export const Title: ComponentStory<typeof PopoverContainer> = () => {
     </div>
   );
 };
+Title.storyName = "Title";
 
-export const Position: ComponentStory<typeof PopoverContainer> = () => {
+export const Position: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
@@ -61,8 +82,9 @@ export const Position: ComponentStory<typeof PopoverContainer> = () => {
     </div>
   );
 };
+Position.storyName = "Position";
 
-export const CoverButton: ComponentStory<typeof PopoverContainer> = () => {
+export const CoverButton: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
@@ -80,57 +102,61 @@ export const CoverButton: ComponentStory<typeof PopoverContainer> = () => {
     </div>
   );
 };
+CoverButton.storyName = "Cover Button";
 
-export const RenderProps: ComponentStory<typeof PopoverContainer> = () => (
-  <div style={{ height: 250 }}>
-    <PopoverContainer
-      title="Custom Open &amp; Close Button"
-      renderOpenComponent={({
-        isOpen,
-        "data-element": dataElement,
-        onClick,
-        ref,
-        "aria-label": ariaLabel,
-        id,
-        "aria-expanded": ariaExpanded,
-        "aria-haspopup": ariaHasPopup,
-      }) => (
-        <Button
-          iconType={!isOpen ? "filter_new" : "close"}
-          iconPosition="after"
-          data-element={dataElement}
-          aria-label={ariaLabel}
-          aria-haspopup={ariaHasPopup}
-          aria-expanded={ariaExpanded}
-          forwardRef={ref}
-          id={id}
-          onClick={onClick}
-        >
-          Filter
-        </Button>
-      )}
-      renderCloseComponent={({
-        "data-element": dataElement,
-        onClick,
-        ref,
-        "aria-label": ariaLabel,
-      }) => (
-        <Button
-          data-element={dataElement}
-          aria-label={ariaLabel}
-          forwardRef={ref}
-          onClick={onClick}
-        >
-          Close
-        </Button>
-      )}
-    >
-      Content
-    </PopoverContainer>
-  </div>
-);
+export const RenderProps: Story = () => {
+  return (
+    <Box height={250}>
+      <PopoverContainer
+        title="Custom Open &amp; Close Button"
+        renderOpenComponent={({
+          isOpen,
+          "data-element": dataElement,
+          onClick,
+          ref,
+          "aria-label": ariaLabel,
+          id,
+          "aria-expanded": ariaExpanded,
+          "aria-haspopup": ariaHasPopup,
+        }) => (
+          <Button
+            iconType={!isOpen ? "filter_new" : "close"}
+            iconPosition="after"
+            data-element={dataElement}
+            aria-label={ariaLabel}
+            aria-haspopup={ariaHasPopup}
+            aria-expanded={ariaExpanded}
+            forwardRef={ref}
+            id={id}
+            onClick={onClick}
+          >
+            Filter
+          </Button>
+        )}
+        renderCloseComponent={({
+          "data-element": dataElement,
+          onClick,
+          ref,
+          "aria-label": ariaLabel,
+        }) => (
+          <Button
+            data-element={dataElement}
+            aria-label={ariaLabel}
+            forwardRef={ref}
+            onClick={onClick}
+          >
+            Close
+          </Button>
+        )}
+      >
+        Content
+      </PopoverContainer>
+    </Box>
+  );
+};
+RenderProps.storyName = "Render Props";
 
-export const Controlled: ComponentStory<typeof PopoverContainer> = () => {
+export const Controlled: Story = () => {
   const [open, setOpen] = useState(false);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
@@ -152,13 +178,14 @@ export const Controlled: ComponentStory<typeof PopoverContainer> = () => {
     </div>
   );
 };
+Controlled.storyName = "Controlled";
 
-export const Complex: ComponentStory<typeof PopoverContainer> = () => {
+export const Complex: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(false);
   return (
-    <div style={{ height: 330 }}>
+    <Box height={330}>
       <PopoverContainer
         title="Popover Container Title"
         open={open}
@@ -166,10 +193,10 @@ export const Complex: ComponentStory<typeof PopoverContainer> = () => {
         onClose={onClose}
       >
         <Link href="#example">This is example link text</Link>
-        <div style={{ padding: "25px 0 15px 0" }}>
+        <Box p="25px 0 15px 0">
           <Button>Small</Button>
           <Button ml={2}>Compact</Button>
-        </div>
+        </Box>
         <Box mt="4px" mb="4px">
           <Select name="simple" id="simple" label="color" labelInline>
             <Option text="Amber" value="1" />
@@ -200,11 +227,12 @@ export const Complex: ComponentStory<typeof PopoverContainer> = () => {
           </DraggableItem>
         </DraggableContainer>
       </PopoverContainer>
-    </div>
+    </Box>
   );
 };
+Complex.storyName = "Complex";
 
-export const Filter: ComponentStory<typeof PopoverContainer> = () => {
+export const Filter: Story = () => {
   type OptionsType = {
     value: string;
     checked: boolean;
@@ -301,9 +329,7 @@ export const Filter: ComponentStory<typeof PopoverContainer> = () => {
             </Button>
           </Badge>
         )}
-        renderCloseComponent={() => {
-          return <></>;
-        }}
+        renderCloseComponent={undefined}
       >
         {renderCheckboxes()}
         <Button onClick={applyFilters} my={20}>
@@ -314,14 +340,18 @@ export const Filter: ComponentStory<typeof PopoverContainer> = () => {
     </Box>
   );
 };
+Filter.storyName = "Filter";
 
-export const DisableAnimation: ComponentStory<typeof PopoverContainer> = () => (
-  <div style={{ height: 100 }}>
-    <PopoverContainer
-      title="Disabled Animation Popover Container"
-      disableAnimation
-    >
-      Contents
-    </PopoverContainer>
-  </div>
-);
+export const DisableAnimation: Story = () => {
+  return (
+    <Box height={100}>
+      <PopoverContainer
+        title="Disabled Animation Popover Container"
+        disableAnimation
+      >
+        Contents
+      </PopoverContainer>
+    </Box>
+  );
+};
+DisableAnimation.storyName = "Disable Animation";

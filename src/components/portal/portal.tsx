@@ -38,7 +38,7 @@ export interface PortalProps {
   inertOptOut?: boolean;
 }
 
-const Portal = ({
+export const Portal = ({
   children,
   className,
   id,

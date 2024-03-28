@@ -1,0 +1,92 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as LoaderStories from "./loader.stories";
+
+<Meta title="Loader" of={LoaderStories} />
+
+# Loader
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/74be25-loader"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Use the Loader component to let users know a task or loading data is still in progress.
+Showing a Loader helps the user to understand that they should wait, rather than reload the page or abandon a process.
+In general, place a Loader in the centre and middle of the page or container it relates to.
+Like many Design System elements, Loaders are made of square elements. They usually take the accent colour of the product they're in.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import `Loader` into the project.
+
+```javascript
+import Loader from "carbon-react/lib/components/loader";
+```
+
+## Examples
+
+### Default
+
+This example of the Loader component demonstrates how it will appear as default.
+
+<Canvas of={LoaderStories.Default} />
+
+### with gradient variant
+
+This is an example of the Loader component with the `variant` prop set to `gradient`.
+
+<Canvas of={LoaderStories.WithGradientVariant} />
+
+### Small
+
+This is an example of a small Loader component.
+
+<Canvas of={LoaderStories.Small} />
+
+### Large
+
+This is an example of the large Loader component. The larger size is only used when a whole page is loading.
+
+<Canvas of={LoaderStories.Large} />
+
+### Inside Buttons
+
+These examples show a `Loader` nested inside of a `Button` component. To ensure that the correct styling is applied to the `Loader` component when it is nested inside of the `Button` component,
+please remember to pass the `isInsideButton` prop to the `Loader` component.
+
+<Canvas of={LoaderStories.InsideButtons} />
+
+## Props
+
+### Loader
+
+<ArgTypes of={LoaderStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "loader.loading",
+      description:
+        "An accessible name for `Loader`. This will also be used as alternative text to replace the loading animation - if the user requests for minimal motion-based animation (via their OS accessibility settings).",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

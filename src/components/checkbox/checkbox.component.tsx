@@ -8,7 +8,7 @@ import CheckableInput, {
 import CheckboxSvg from "./checkbox-svg.component";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import { CheckboxGroupContext } from "./checkbox-group.component";
+import { CheckboxGroupContext } from "./checkbox-group/checkbox-group.component";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";

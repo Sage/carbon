@@ -1,39 +1,68 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import Portrait from ".";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Box from "../box";
+import Portrait from ".";
 
-export const Default: ComponentStory<typeof Portrait> = () => <Portrait />;
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
-export const Initials: ComponentStory<typeof Portrait> = () => (
-  <Portrait initials="MK" />
-);
+const meta: Meta<typeof Portrait> = {
+  title: "Portrait",
+  component: Portrait,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
 
-export const Src: ComponentStory<typeof Portrait> = () => (
-  <Portrait src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" />
-);
+export default meta;
+type Story = StoryObj<typeof Portrait>;
 
-export const Gravatar: ComponentStory<typeof Portrait> = () => (
-  <Portrait gravatar="chris.barber@sage.com" />
-);
+export const Default: Story = () => {
+  return <Portrait />;
+};
+Default.storyName = "Default";
 
-export const IconType: ComponentStory<typeof Portrait> = () => (
-  <Portrait iconType="image" />
-);
+export const Initials: Story = () => {
+  return <Portrait initials="MK" />;
+};
+Initials.storyName = "Initials";
 
-export const WithTooltip: ComponentStory<typeof Portrait> = () => (
-  <Box margin={8}>
-    <Portrait
-      tooltipMessage="Rebecca Smith"
-      tooltipPosition="bottom"
-      tooltipBgColor="rebeccapurple"
-      src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
-    />
-  </Box>
-);
+export const Src: Story = () => {
+  return (
+    <Portrait src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" />
+  );
+};
+Src.storyName = "Src";
 
-export const Sizes: ComponentStory<typeof Portrait> = () => {
+export const Gravatar: Story = () => {
+  return <Portrait gravatar="chris.barber@sage.com" />;
+};
+Gravatar.storyName = "Gravatar";
+
+export const IconType: Story = () => {
+  return <Portrait iconType="image" />;
+};
+IconType.storyName = "Icon Type";
+
+export const WithTooltip: Story = () => {
+  return (
+    <Box margin={8}>
+      <Portrait
+        tooltipMessage="Rebecca Smith"
+        tooltipPosition="bottom"
+        tooltipBgColor="rebeccapurple"
+        src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
+      />
+    </Box>
+  );
+};
+WithTooltip.storyName = "With Tooltip";
+
+export const Sizes: Story = () => {
   return (
     <Box display="flex" alignItems="baseline">
       {(["XS", "S", "M", "ML", "L", "XL", "XXL"] as const).map((size) => (
@@ -42,8 +71,9 @@ export const Sizes: ComponentStory<typeof Portrait> = () => {
     </Box>
   );
 };
+Sizes.storyName = "Sizes";
 
-export const Shapes: ComponentStory<typeof Portrait> = () => {
+export const Shapes: Story = () => {
   return (
     <>
       {(["circle", "square"] as const).map((shape) => (
@@ -52,19 +82,26 @@ export const Shapes: ComponentStory<typeof Portrait> = () => {
     </>
   );
 };
+Shapes.storyName = "Shapes";
 
-export const DarkBackground: ComponentStory<typeof Portrait> = () => (
-  <>
-    <Portrait darkBackground />
-    <Portrait initials="MK" darkBackground />
-  </>
-);
+export const DarkBackground: Story = () => {
+  return (
+    <>
+      <Portrait darkBackground />
+      <Portrait initials="MK" darkBackground />
+    </>
+  );
+};
+DarkBackground.storyName = "Dark Background";
 
-export const WithMargin: ComponentStory<typeof Portrait> = () => (
-  <Box display="flex" alignItems="baseline">
-    <Portrait m={3} />
-    <Portrait darkBackground m={2} />
-    <Portrait shape="circle" m="25px" />
-    <Portrait size="L" m="30px" />
-  </Box>
-);
+export const WithMargin: Story = () => {
+  return (
+    <Box display="flex" alignItems="baseline">
+      <Portrait m={3} />
+      <Portrait darkBackground m={2} />
+      <Portrait shape="circle" m="25px" />
+      <Portrait size="L" m="30px" />
+    </Box>
+  );
+};
+WithMargin.storyName = "With Margin";

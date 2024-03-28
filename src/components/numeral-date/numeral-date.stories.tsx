@@ -1,17 +1,38 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
-import NumeralDate from ".";
-import Box from "../box";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import CarbonProvider from "../carbon-provider";
+import Box from "../box";
+import NumeralDate from ".";
 
-export const Default: ComponentStory<typeof NumeralDate> = () => (
-  <NumeralDate
-    defaultValue={{ dd: "01", mm: "02", yyyy: "2020" }}
-    label="Default"
-  />
-);
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
-export const Controlled: ComponentStory<typeof NumeralDate> = () => {
+const meta: Meta<typeof NumeralDate> = {
+  title: "Numeral Date",
+  component: NumeralDate,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof NumeralDate>;
+
+export const Default: Story = () => {
+  return (
+    <NumeralDate
+      defaultValue={{ dd: "01", mm: "02", yyyy: "2020" }}
+      label="Default"
+    />
+  );
+};
+Default.storyName = "Default";
+
+export const Controlled: Story = () => {
   const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
 
   return (
@@ -22,21 +43,23 @@ export const Controlled: ComponentStory<typeof NumeralDate> = () => {
     />
   );
 };
+Controlled.storyName = "Controlled";
 
-export const AllowedDateFormats: ComponentStory<typeof NumeralDate> = () => (
-  <>
-    <NumeralDate label="DD/MM/YYYY - default" />
-    <NumeralDate label="MM/DD/YYYY" dateFormat={["mm", "dd", "yyyy"]} />
-    <NumeralDate label="YYYY/MM/DD" dateFormat={["yyyy", "mm", "dd"]} />
-    <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} />
-    <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} />
-    <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} />
-  </>
-);
+export const AllowedDateFormats: Story = () => {
+  return (
+    <>
+      <NumeralDate label="DD/MM/YYYY - default" />
+      <NumeralDate label="MM/DD/YYYY" dateFormat={["mm", "dd", "yyyy"]} />
+      <NumeralDate label="YYYY/MM/DD" dateFormat={["yyyy", "mm", "dd"]} />
+      <NumeralDate label="DD/MM" dateFormat={["dd", "mm"]} />
+      <NumeralDate label="MM/DD" dateFormat={["mm", "dd"]} />
+      <NumeralDate label="MM/YYYY" dateFormat={["mm", "yyyy"]} />
+    </>
+  );
+};
+AllowedDateFormats.storyName = "Allowed Date Formats";
 
-export const InternalValidationError: ComponentStory<
-  typeof NumeralDate
-> = () => {
+export const InternalValidationError: Story = () => {
   const [valueOld, setValueOld] = useState({
     dd: "",
     mm: "",
@@ -67,10 +90,9 @@ export const InternalValidationError: ComponentStory<
     </>
   );
 };
+InternalValidationError.storyName = "Internal Validation Error";
 
-export const InternalValidationWarning: ComponentStory<
-  typeof NumeralDate
-> = () => {
+export const InternalValidationWarning: Story = () => {
   const [valueOld, setValueOld] = useState({ dd: "", mm: "", yyyy: "" });
   const [valueNew, setValueNew] = useState({ dd: "", mm: "", yyyy: "" });
   return (
@@ -93,8 +115,9 @@ export const InternalValidationWarning: ComponentStory<
     </>
   );
 };
+InternalValidationWarning.storyName = "Internal Validation Warning";
 
-export const Validation: ComponentStory<typeof NumeralDate> = () => {
+export const Validation: Story = () => {
   const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
   return (
     <>
@@ -144,8 +167,9 @@ export const Validation: ComponentStory<typeof NumeralDate> = () => {
     </>
   );
 };
+Validation.storyName = "Validation";
 
-export const NewValidation: ComponentStory<typeof NumeralDate> = () => {
+export const NewValidation: Story = () => {
   const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
   return (
     <CarbonProvider validationRedesignOptIn>
@@ -185,8 +209,9 @@ export const NewValidation: ComponentStory<typeof NumeralDate> = () => {
     </CarbonProvider>
   );
 };
+NewValidation.storyName = "New Validation";
 
-export const InlineLabel: ComponentStory<typeof NumeralDate> = () => {
+export const InlineLabel: Story = () => {
   const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
   return (
     <NumeralDate
@@ -199,10 +224,9 @@ export const InlineLabel: ComponentStory<typeof NumeralDate> = () => {
     />
   );
 };
+InlineLabel.storyName = "Inline Label";
 
-export const EnablingAdaptiveBehaviour: ComponentStory<
-  typeof NumeralDate
-> = () => {
+export const EnablingAdaptiveBehaviour: Story = () => {
   const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
   return (
     <NumeralDate
@@ -216,12 +240,12 @@ export const EnablingAdaptiveBehaviour: ComponentStory<
     />
   );
 };
-
+EnablingAdaptiveBehaviour.storyName = "Enabling Adaptive Behaviour";
 EnablingAdaptiveBehaviour.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const WithLabelHelp: ComponentStory<typeof NumeralDate> = () => {
+export const WithLabelHelp: Story = () => {
   const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
   return (
     <NumeralDate
@@ -233,8 +257,9 @@ export const WithLabelHelp: ComponentStory<typeof NumeralDate> = () => {
     />
   );
 };
+WithLabelHelp.storyName = "With Label Help";
 
-export const WithFieldHelp: ComponentStory<typeof NumeralDate> = () => {
+export const WithFieldHelp: Story = () => {
   const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
   return (
     <NumeralDate
@@ -245,23 +270,27 @@ export const WithFieldHelp: ComponentStory<typeof NumeralDate> = () => {
     />
   );
 };
+WithFieldHelp.storyName = "With Field Help";
 
-export const Size: ComponentStory<typeof NumeralDate> = () => (
-  <>
-    <NumeralDate
-      label="Date of Birth"
-      dateFormat={["dd", "mm", "yyyy"]}
-      size="small"
-    />
-    <NumeralDate
-      label="Date of Birth"
-      dateFormat={["dd", "mm", "yyyy"]}
-      size="medium"
-    />
-    <NumeralDate
-      label="Date of Birth"
-      dateFormat={["dd", "mm", "yyyy"]}
-      size="large"
-    />
-  </>
-);
+export const Size: Story = () => {
+  return (
+    <>
+      <NumeralDate
+        label="Date of Birth"
+        dateFormat={["dd", "mm", "yyyy"]}
+        size="small"
+      />
+      <NumeralDate
+        label="Date of Birth"
+        dateFormat={["dd", "mm", "yyyy"]}
+        size="medium"
+      />
+      <NumeralDate
+        label="Date of Birth"
+        dateFormat={["dd", "mm", "yyyy"]}
+        size="large"
+      />
+    </>
+  );
+};
+Size.storyName = "Size";

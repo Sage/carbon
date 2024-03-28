@@ -1,25 +1,44 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useRef } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
 import FileInput, { FileUploadStatusProps } from ".";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-export const Default: ComponentStory<typeof FileInput> = () => {
-  return <FileInput label="File input" onChange={() => {}} />;
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof FileInput> = {
+  title: "File Input",
+  component: FileInput,
+  argTypes: {
+    ...styledSystemProps,
+  },
 };
 
-export const WithInputHint: ComponentStory<typeof FileInput> = () => {
+export default meta;
+type Story = StoryObj<typeof FileInput>;
+
+export const Default: Story = () => {
+  return <FileInput label="File input" onChange={() => {}} />;
+};
+Default.storyName = "Default";
+
+export const WithInputHint: Story = () => {
   return (
     <FileInput label="File input" inputHint="Hint text" onChange={() => {}} />
   );
 };
+WithInputHint.storyName = "With Input Hint";
 
-export const Required: ComponentStory<typeof FileInput> = () => {
+export const Required: Story = () => {
   return <FileInput label="File input" required onChange={() => {}} />;
 };
+Required.storyName = "Required";
 
-export const IncreasedHeight: ComponentStory<typeof FileInput> = () => {
+export const IncreasedHeight: Story = () => {
   return (
     <FileInput
       label="File input"
@@ -29,10 +48,9 @@ export const IncreasedHeight: ComponentStory<typeof FileInput> = () => {
     />
   );
 };
+IncreasedHeight.storyName = "Increased Height";
 
-export const IncreasedWidthResponsive: ComponentStory<
-  typeof FileInput
-> = () => {
+export const IncreasedWidthResponsive: Story = () => {
   const isSmallScreen = useMediaQuery("(max-width: 800px)");
 
   return (
@@ -45,8 +63,9 @@ export const IncreasedWidthResponsive: ComponentStory<
     />
   );
 };
+IncreasedWidthResponsive.storyName = "Increased Width (Responsive)";
 
-export const IncreasedBoth: ComponentStory<typeof FileInput> = () => {
+export const IncreasedBoth: Story = () => {
   return (
     <FileInput
       label="File input"
@@ -57,16 +76,19 @@ export const IncreasedBoth: ComponentStory<typeof FileInput> = () => {
     />
   );
 };
+IncreasedBoth.storyName = "Increased Width and Height";
 
-export const FullWidth: ComponentStory<typeof FileInput> = () => {
+export const FullWidth: Story = () => {
   return <FileInput label="File input" maxWidth="100%" onChange={() => {}} />;
 };
+FullWidth.storyName = "Full Width";
 
-export const Vertical: ComponentStory<typeof FileInput> = () => {
+export const Vertical: Story = () => {
   return <FileInput label="File input" isVertical onChange={() => {}} />;
 };
+Vertical.storyName = "Vertical";
 
-export const Validation: ComponentStory<typeof FileInput> = () => {
+export const Validation: Story = () => {
   return (
     <>
       <FileInput
@@ -86,8 +108,9 @@ export const Validation: ComponentStory<typeof FileInput> = () => {
     </>
   );
 };
+Validation.storyName = "Validation";
 
-export const Accept: ComponentStory<typeof FileInput> = () => {
+export const Accept: Story = () => {
   return (
     <FileInput
       label="Only accepts image files"
@@ -96,8 +119,9 @@ export const Accept: ComponentStory<typeof FileInput> = () => {
     />
   );
 };
+Accept.storyName = "Accept";
 
-export const FileTypeValidation: ComponentStory<typeof FileInput> = () => {
+export const FileTypeValidation: Story = () => {
   const [error, setError] = useState<string | undefined>();
   const onChange = (files: FileList) => {
     let errorMessage;
@@ -118,8 +142,9 @@ export const FileTypeValidation: ComponentStory<typeof FileInput> = () => {
     />
   );
 };
+FileTypeValidation.storyName = "File Type Validation";
 
-export const UploadStatusClient: ComponentStory<typeof FileInput> = () => {
+export const UploadStatusClient: Story = () => {
   const [error, setError] = useState<string | undefined>();
   const [uploadStatus, setUploadStatus] = useState<
     FileUploadStatusProps | undefined
@@ -233,8 +258,9 @@ export const UploadStatusClient: ComponentStory<typeof FileInput> = () => {
     />
   );
 };
+UploadStatusClient.storyName = "Upload Status (Client)";
 
-export const UploadStatusAlternative: ComponentStory<typeof FileInput> = () => {
+export const UploadStatusAlternative: Story = () => {
   const [uploadStatus, setUploadStatus] = useState<
     FileUploadStatusProps | undefined
   >();
@@ -314,8 +340,9 @@ export const UploadStatusAlternative: ComponentStory<typeof FileInput> = () => {
     />
   );
 };
+UploadStatusAlternative.storyName = "Upload Status (Alternative)";
 
-export const UploadStatusNoProgress: ComponentStory<typeof FileInput> = () => {
+export const UploadStatusNoProgress: Story = () => {
   return (
     <FileInput
       uploadStatus={{
@@ -327,3 +354,4 @@ export const UploadStatusNoProgress: ComponentStory<typeof FileInput> = () => {
     />
   );
 };
+UploadStatusNoProgress.storyName = "Upload Status (No Progress)";

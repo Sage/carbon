@@ -8,8 +8,8 @@ import {
 } from "../../__spec_helper__/test-utils";
 import { StyledDl, StyledDt, StyledDd } from "./definition-list.style";
 import Dl, { DlProps } from "./dl.component";
-import Dt from "./dt.component";
-import Dd from "./dd.component";
+import Dt from "./dt/dt.component";
+import Dd from "./dd/dd.component";
 import DlContext, { ElementAlignment } from "./__internal__/dl.context";
 
 type nodeType = "Dl" | "Dt" | "Dd";

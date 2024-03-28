@@ -1,0 +1,78 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as LoaderBarStories from "./loader-bar.stories.tsx";
+
+<Meta title="Loader Bar" of={LoaderBarStories} />
+
+# LoaderBar
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/74be25-loader/b/81df60"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Use the LoaderBar component to let users know a task or loading data is still in progress.
+Showing a LoaderBar helps the user to understand that they should wait, rather than reload the page or abandon a process.
+In general, place a LoaderBar in the centre and middle of the page or container it relates to.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import `LoaderBar` into the project.
+
+```javascript
+import LoaderBar from "carbon-react/lib/components/loader-bar";
+```
+
+## Examples
+
+## Default bar
+
+This example of the LoaderBar component demonstrates how it will appear as default.
+
+<Canvas of={LoaderBarStories.DefaultStory} />
+
+### Small bar
+
+This is an example of a small LoaderBar component.
+
+<Canvas of={LoaderBarStories.SmallStoryLoaderbar} />
+
+### Large bar
+
+This is an example of a large LoaderBar component.
+
+<Canvas of={LoaderBarStories.LargeStoryLoaderbar} />
+
+## Props
+
+### LoaderBar
+
+<ArgTypes of={LoaderBarStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "loader.loading",
+      description:
+        "An accessible name for `LoaderBar`. This will also be used as alternative text to replace the loading animation - if the user requests for minimal motion-based animation (via their OS accessibility settings).",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

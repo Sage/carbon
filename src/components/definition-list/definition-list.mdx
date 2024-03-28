@@ -1,0 +1,75 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as DtStories from "./dt/dt.stories";
+import * as DdStories from "./dd/dd.stories";
+import * as DefinitionListStories from "./definition-list.stories";
+
+<Meta title="Definition List" of={DefinitionListStories} />
+
+# Definition List
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import { Dl, Dt, Dd } from "carbon-react/lib/components/definition-list";
+```
+
+## Related Components
+
+Definition List most of the time is in use with other components. Look at the examples below
+
+- [Tile component with Definition List](/?path=/docs/tile--with-definition-list-default "Tile component with Definition List").
+- [Accordion component with Definition List](/?path=/docs/accordion--with-a-definition-list "Accordion component with Definition List").
+
+## Examples
+
+### Default
+
+<Canvas of={DefinitionListStories.DefaultStory} />
+
+### Action popover and icon support
+
+<Canvas of={DefinitionListStories.ActionPopoverAndIconSupport} />
+
+### Conditional rendering with `<React.Fragment />`
+
+_CAUTION: Direct children of `Dl` can only be `<React.Fragment />`, `Dt` or `Dd`_
+
+<Canvas of={DefinitionListStories.WithConditionalRendering} />
+
+### As a single column
+
+Setting the `asSingleColumn` prop will render the `DefinitionList` as a single column. Please note that the default alignment
+for `Dt` components is `right` so you will likely need to set `dtTextAlign` to `left` to achieve the layout below.
+
+<Canvas of={DefinitionListStories.AsASingleColumn} />
+
+It is also possible to create more complex layouts, like below, using single column `DefinitionList`s with other components
+such as `Typography` and `Hr`.
+
+<Canvas of={DefinitionListStories.MultipleSingleColumnsWithSegments} />
+
+### Responsive Example
+
+<Canvas of={DefinitionListStories.Responsive} />
+
+## Props
+
+### Dl
+
+<ArgTypes of={DefinitionListStories} />
+
+### Dt
+
+<ArgTypes of={DtStories} />
+
+### Dd
+
+<ArgTypes of={DdStories} />

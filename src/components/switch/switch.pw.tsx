@@ -3,10 +3,10 @@ import { test, expect } from "@playwright/experimental-ct-react17";
 import type { HooksConfig } from "../../../playwright/index";
 import Box from "../box";
 import Switch, { SwitchProps } from ".";
-import { WithMargin } from "./switch.stories";
 import {
   SwitchComponent,
   SwitchComponentValidations,
+  WithMargin,
 } from "./components.test-pw";
 import {
   switchDataComponent,

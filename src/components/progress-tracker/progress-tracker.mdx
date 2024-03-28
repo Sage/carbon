@@ -1,0 +1,135 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as ProgressTrackerStories from "./progress-tracker.stories";
+
+<Meta title="Progress Tracker" of={ProgressTrackerStories} />
+
+# ProgressTracker
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/00f4d0-progress-tracker"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Use the `ProgressTracker` component to let users know a task or loading data is still in progress.
+Showing a `ProgressTracker` helps the user to understand that they should wait, rather than reload the page or abandon a process.
+In general, place a `ProgressTracker` in the centre and middle of the page or container it relates to.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Accessibility](#accessibility)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import ProgressTracker from "carbon-react/lib/components/progress-tracker";
+```
+
+## Examples
+
+### Default
+
+This example of the `ProgressTracker` component demonstrates how it will appear as default. Please note by default the
+`progress` is set to `0`, but for the purpose of the demo it has been set to `50`.
+
+<Canvas of={ProgressTrackerStories.Default} />
+
+### Small bar size
+
+This is an example of a small `ProgressTracker` component.
+
+<Canvas of={ProgressTrackerStories.SizeSmall} />
+
+### Large bar size
+
+This is an example of a large `ProgressTracker` component.
+
+<Canvas of={ProgressTrackerStories.SizeLarge} />
+
+### Custom bar length
+
+The length of the bar can be set to any valid css property. This sets the width of a horizontal bar or the height of a vertical bar. The default is "256px".
+
+<Canvas of={ProgressTrackerStories.CustomBarLength} />
+
+### Color variants
+
+This is an example of a `ProgressTracker` component with different colors depending on progress.
+
+<Canvas of={ProgressTrackerStories.ColorVariants} />
+
+### Default label values
+
+This is an example of a `ProgressTracker` component with `showDefaultLabels` set to `true`, which will render the labels as
+percentages.
+
+<Canvas of={ProgressTrackerStories.DefaultLabelValue} />
+
+It is possible to override the default `labelsPosition` to `"bottom"` or `"left"`.
+
+<Canvas of={ProgressTrackerStories.DefaultLabelValueLabelsPositionBottom} />
+
+When positioning the labels to the left, it is possible to use the `LabelWidth` prop to ensure consistent label lengths.
+This can also facilitate comparison between multiple `ProgressTrackers`.
+
+<Canvas of={ProgressTrackerStories.DefaultLabelValueLabelsPositionLeft} />
+
+### Custom label values
+
+This is an example of a `ProgressTracker` component with `currentProgressLabel` and `maxProgressLabel` props.
+
+<Canvas of={ProgressTrackerStories.CustomLabelValues} />
+
+It is also possible to render the component with a mix of default and custom labels by only setting one of the `currentProgressLabel`
+and `maxProgressLabel` props and optionally setting the `showDefaultLabels` prop.
+
+<Canvas of={ProgressTrackerStories.DefaultAndCustomLabelValues} />
+
+## Accessibility
+
+This component has `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-valuetext` props that can be utilised to enhance the experience for a user that requires a screenreader.
+
+For more information on these props, please visit the W3 documentation on `role="progressbar"`. This can be accessed by clicking [here](https://www.w3.org/TR/wai-aria-1.1/#progressbar).
+
+Note that `aria-valuenow` will by default be calculated from the provided values for `aria-valuemin` (which defaults to 0), `aria-valuemax` (which defaults to 100), and `progress`. This
+default can be overridden if you provide this prop explicitly.
+
+### Example 1
+
+<Canvas of={ProgressTrackerStories.AccessibilityExample} />
+
+### Example 2
+
+This example shows the automatic calculation of `aria-valuenow` when not provided (inspect the DOM, or listen using a screenreader, to see the output).
+
+<Canvas of={ProgressTrackerStories.AccessibilityExampleTwo} />
+
+## Props
+
+### ProgressTracker
+
+<ArgTypes of={ProgressTrackerStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "progressTracker.of",
+      description: "The text for the 'of' label. I.e '10% of 100%'",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

@@ -1,15 +1,50 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
-import AdvancedColorPicker from ".";
+import { Meta, StoryObj } from "@storybook/react";
+import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-/* eslint-disable import/prefer-default-export */
-/** Added to avoid default export warning which causes storybook to not display `show code` examples 
-github issue link here https://github.com/storybookjs/storybook/issues/8104#issuecomment-932279083 */
+import Box from "../box";
+import AdvancedColorPicker from ".";
+
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
 const defaultOpenState = isChromatic();
 
-export const Default: ComponentStory<typeof AdvancedColorPicker> = () => {
+const meta: Meta<typeof AdvancedColorPicker> = {
+  title: "Advanced Color Picker",
+  component: AdvancedColorPicker,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: {
+    chromatic: {
+      modes: {
+        desktop: allModes.chromatic,
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100%" height={900}>
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof AdvancedColorPicker>;
+
+export const Default: Story = () => {
   const [open, setOpen] = useState(defaultOpenState);
   const [color, setColor] = useState("orchid");
   const onChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,3 +80,4 @@ export const Default: ComponentStory<typeof AdvancedColorPicker> = () => {
     />
   );
 };
+Default.storyName = "Default";
