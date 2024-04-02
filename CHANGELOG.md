@@ -1,3 +1,10 @@
+## [128.1.0](https://github.com/Sage/carbon/compare/v128.0.0...v128.1.0) (2024-04-02)
+
+
+### Features
+
+* **dialog:** add closeButtonDataProps prop ([b9b3054](https://github.com/Sage/carbon/commit/b9b3054118c6d8bd0c9a7e2866a89cb538a2e80d)), closes [#6603](https://github.com/Sage/carbon/issues/6603)
+
 ## [128.0.0](https://github.com/Sage/carbon/compare/v127.1.1...v128.0.0) (2024-03-28)
 
 
