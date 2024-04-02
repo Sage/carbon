@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import styled from "styled-components";
 
 import {
@@ -10,6 +11,7 @@ import {
   FlatTableRowHeader,
   FlatTableCell,
   FlatTableCheckbox,
+  FlatTableCellProps,
 } from ".";
 import BatchSelection from "../batch-selection";
 import IconButton from "../icon-button";
@@ -52,7 +54,15 @@ type SelectedRowsChildrenOnlySelectableStory = {
 type SelectedRowsChildrenOnlySelectableStoryKey = keyof SelectedRowsChildrenOnlySelectableStory;
 type SubRowsShapeChildrenOnlySelectableStoryKey = keyof SubRowsShapeChildrenOnlySelectableStory;
 
-export const DefaultStory = (args: { pl: string | number }) => {
+const meta: Meta<typeof FlatTable> = {
+  title: "Flat Table/Expandable",
+  component: FlatTable,
+};
+
+export default meta;
+type Story = StoryObj<typeof FlatTable>;
+
+export const DefaultStory: Story = (args: FlatTableCellProps) => {
   const SubRows = [
     <FlatTableRow key="sub-row-1">
       <FlatTableCell {...args}>Child one</FlatTableCell>
@@ -106,25 +116,9 @@ export const DefaultStory = (args: { pl: string | number }) => {
     </FlatTable>
   );
 };
+DefaultStory.storyName = "Default";
 
-DefaultStory.storyName = "default";
-DefaultStory.args = {
-  pl: {
-    options: [0, 1, 2, 3, 4, 5, 6, 7, 8, "25px", "4em", "69px", "6em"],
-    control: {
-      type: "select",
-    },
-  },
-};
-DefaultStory.parameters = {
-  docs: {
-    source: {
-      type: "code",
-    },
-  },
-};
-
-export const KeyboardAccessibleSubRows = () => {
+export const KeyboardAccessibleSubRows: Story = () => {
   const SubRows = [
     <FlatTableRow key="sub-row-1" onClick={() => {}}>
       <FlatTableCell>Child one</FlatTableCell>
@@ -178,11 +172,10 @@ export const KeyboardAccessibleSubRows = () => {
     </FlatTable>
   );
 };
-
-KeyboardAccessibleSubRows.storyName = "keyboard accessible subrows";
+KeyboardAccessibleSubRows.storyName = "Keyboard Accessible SubRows";
 KeyboardAccessibleSubRows.parameters = { chromatic: { disableSnapshot: true } };
 
-export const ExpandableByFirstColumnOnly = () => {
+export const ExpandableByFirstColumnOnly: Story = () => {
   const SubRows = [
     <FlatTableRow key="sub-row-1">
       <FlatTableCell>Child one</FlatTableCell>
@@ -236,13 +229,12 @@ export const ExpandableByFirstColumnOnly = () => {
     </FlatTable>
   );
 };
-
-ExpandableByFirstColumnOnly.storyName = "expandable by first column only";
+ExpandableByFirstColumnOnly.storyName = "Expandable by First Column Only";
 ExpandableByFirstColumnOnly.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const InitiallyExpanded = () => {
+export const InitiallyExpanded: Story = () => {
   const SubRows = [
     <FlatTableRow key="sub-row-1">
       <FlatTableCell>Child one</FlatTableCell>
@@ -296,10 +288,9 @@ export const InitiallyExpanded = () => {
     </FlatTable>
   );
 };
+InitiallyExpanded.storyName = "Initially Expanded";
 
-InitiallyExpanded.storyName = "initially expanded";
-
-export const RowHeaders = () => {
+export const RowHeaders: Story = () => {
   const SubRows = [
     <FlatTableRow key="sub-row-1">
       <FlatTableRowHeader>Child one</FlatTableRowHeader>
@@ -355,10 +346,9 @@ export const RowHeaders = () => {
     </FlatTable>
   );
 };
+RowHeaders.storyName = "Row Headers";
 
-RowHeaders.storyName = "row headers";
-
-export const RowHeadersWithCustomPaddings = () => {
+export const RowHeadersWithCustomPaddings: Story = () => {
   const SubRows = [
     <FlatTableRow key="sub-row-1">
       <FlatTableRowHeader px={8}>Child one</FlatTableRowHeader>
@@ -416,10 +406,9 @@ export const RowHeadersWithCustomPaddings = () => {
     </Box>
   );
 };
+RowHeadersWithCustomPaddings.storyName = "Row Headers with Custom Paddings";
 
-RowHeadersWithCustomPaddings.storyName = "row headers with custom paddings";
-
-export const Paginated = () => {
+export const Paginated: Story = () => {
   const SubRows = [
     <FlatTableRow key="sub-row-1">
       <FlatTableCell>Child one</FlatTableCell>
@@ -595,39 +584,36 @@ export const Paginated = () => {
     setCurrentPage(newPage);
   };
   return (
-    <>
-      <FlatTable
-        footer={
-          <Pager
-            totalRecords={rows.length}
-            showPageSizeSelection
-            pageSize={10}
-            currentPage={currentPage}
-            onPagination={(next, size) => handlePagination(next, size)}
-            pageSizeSelectionOptions={[
-              { id: "10", name: 10 },
-              { id: "15", name: 15 },
-            ]}
-          />
-        }
-      >
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>{renderRows()}</FlatTableBody>
-      </FlatTable>
-    </>
+    <FlatTable
+      footer={
+        <Pager
+          totalRecords={rows.length}
+          showPageSizeSelection
+          pageSize={10}
+          currentPage={currentPage}
+          onPagination={(next, size) => handlePagination(next, size)}
+          pageSizeSelectionOptions={[
+            { id: "10", name: 10 },
+            { id: "15", name: 15 },
+          ]}
+        />
+      }
+    >
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>{renderRows()}</FlatTableBody>
+    </FlatTable>
   );
 };
+Paginated.storyName = "Paginated";
 
-Paginated.storyName = "paginated";
-
-export const BothParentAndChildrenSelectable = () => {
+export const BothParentAndChildrenSelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({
     one: {
@@ -852,11 +838,10 @@ export const BothParentAndChildrenSelectable = () => {
     </>
   );
 };
-
 BothParentAndChildrenSelectable.storyName =
-  "both parent and children selectable";
+  "Both Parent and Children Selectable";
 
-export const ParentOnlySelectable = () => {
+export const ParentOnlySelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState({
     one: false,
@@ -1029,11 +1014,10 @@ export const ParentOnlySelectable = () => {
     </>
   );
 };
-
-ParentOnlySelectable.storyName = "parent only selectable";
+ParentOnlySelectable.storyName = "Parent Only Selectable";
 ParentOnlySelectable.parameters = { chromatic: { disableSnapshot: true } };
 
-export const ChildrenOnlySelectable = () => {
+export const ChildrenOnlySelectable: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [
     selectedRows,
@@ -1250,10 +1234,9 @@ export const ChildrenOnlySelectable = () => {
     </>
   );
 };
+ChildrenOnlySelectable.storyName = "Children Only Selectable";
 
-ChildrenOnlySelectable.storyName = "children only selectable";
-
-export const TruncatedCellContent = () => {
+export const TruncatedCellContent: Story = () => {
   const SubRows = [
     <FlatTableRow key="sub-row-1">
       <FlatTableCell width={60} pr={0} truncate>
@@ -1326,10 +1309,9 @@ export const TruncatedCellContent = () => {
     </FlatTable>
   );
 };
+TruncatedCellContent.storyName = "Truncated Cell Content";
 
-TruncatedCellContent.storyName = "truncated cell content";
-
-export const Controlled = () => {
+export const Controlled: Story = () => {
   const [expanded, setExpanded] = useState(true);
   const SubRows = [
     <FlatTableRow key="sub-row-1">
@@ -1389,11 +1371,10 @@ export const Controlled = () => {
     </>
   );
 };
-
-Controlled.storyName = "controlled";
+Controlled.storyName = "Controlled";
 Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Sizes = () => {
+export const Sizes: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [
     selectedRows,
@@ -1601,5 +1582,4 @@ export const Sizes = () => {
     </Box>
   );
 };
-
-Sizes.storyName = "sizes";
+Sizes.storyName = "Sizes";

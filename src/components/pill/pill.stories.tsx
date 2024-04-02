@@ -1,28 +1,51 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import Pill from ".";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Button from "../button";
 import Box from "../box";
+import Pill from ".";
 
-export const Default: ComponentStory<typeof Pill> = () => (
-  <Box mb={1}>
-    <Pill>default pill</Pill>
-  </Box>
-);
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
-export const Wrapped: ComponentStory<typeof Pill> = () => (
-  <Box mb={1}>
-    <Pill maxWidth="55px" wrapText>
-      Wrapped pill
-    </Pill>
-    <Pill ml={1} maxWidth="55px" wrapText>
-      Hyphe&shy;nated&shy;pill
-    </Pill>
-  </Box>
-);
+const meta: Meta<typeof Pill> = {
+  title: "Pill",
+  component: Pill,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
 
-export const WithRemoveButton: ComponentStory<typeof Pill> = () => {
+export default meta;
+type Story = StoryObj<typeof Pill>;
+
+export const Default: Story = () => {
+  return (
+    <Box mb={1}>
+      <Pill>default pill</Pill>
+    </Box>
+  );
+};
+Default.storyName = "Default";
+
+export const Wrapped: Story = () => {
+  return (
+    <Box mb={1}>
+      <Pill maxWidth="55px" wrapText>
+        Wrapped pill
+      </Pill>
+      <Pill ml={1} maxWidth="55px" wrapText>
+        Hyphe&shy;nated&shy;pill
+      </Pill>
+    </Box>
+  );
+};
+Wrapped.storyName = "Wrapped";
+
+export const WithRemoveButton: Story = () => {
   const [isPillVisible, setIsPillVisible] = useState(true);
   const hidePill = () => setIsPillVisible(false);
   const showPill = () => setIsPillVisible(true);
@@ -33,10 +56,9 @@ export const WithRemoveButton: ComponentStory<typeof Pill> = () => {
     </>
   );
 };
+WithRemoveButton.storyName = "With Remove Button";
 
-export const WithCustomRemoveButtonAriaLabel: ComponentStory<
-  typeof Pill
-> = () => {
+export const WithCustomRemoveButtonAriaLabel: Story = () => {
   const noop = () => {};
   return (
     <>
@@ -49,11 +71,13 @@ export const WithCustomRemoveButtonAriaLabel: ComponentStory<
     </>
   );
 };
+WithCustomRemoveButtonAriaLabel.storyName =
+  "With Custom Remove Button Aria-Label";
 WithCustomRemoveButtonAriaLabel.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const Status: ComponentStory<typeof Pill> = () => {
+export const Status: Story = () => {
   const noop = () => {};
   return (
     <>
@@ -495,8 +519,9 @@ export const Status: ComponentStory<typeof Pill> = () => {
     </>
   );
 };
+Status.storyName = "Status";
 
-export const Tag: ComponentStory<typeof Pill> = () => {
+export const Tag: Story = () => {
   const noop = () => {};
   return (
     <>
@@ -557,8 +582,9 @@ export const Tag: ComponentStory<typeof Pill> = () => {
     </>
   );
 };
+Tag.storyName = "Tag";
 
-export const CustomColors: ComponentStory<typeof Pill> = () => {
+export const CustomColors: Story = () => {
   const noop = () => {};
   return (
     <>
@@ -649,9 +675,10 @@ export const CustomColors: ComponentStory<typeof Pill> = () => {
     </>
   );
 };
+CustomColors.storyName = "Custom Colors";
 CustomColors.parameters = { chromatic: { disableSnapshot: true } };
 
-export const DarkBackground: ComponentStory<typeof Pill> = () => {
+export const DarkBackground: Story = () => {
   const noop = () => {};
   return (
     <>
@@ -847,3 +874,4 @@ export const DarkBackground: ComponentStory<typeof Pill> = () => {
     </>
   );
 };
+DarkBackground.storyName = "Dark Background";

@@ -1,12 +1,44 @@
 import React, { useState } from "react";
-
-import Confirm from ".";
-import Button from "../button";
+import { Meta, StoryObj } from "@storybook/react";
 import isChromatic from "../../../.storybook/isChromatic";
+import { allModes } from "../../../.storybook/modes";
+
+import Box from "../box";
+import Button from "../button";
+import Confirm from ".";
 
 const defaultOpenState = isChromatic();
 
-export const Default = () => {
+const meta: Meta<typeof Confirm> = {
+  title: "Confirm",
+  component: Confirm,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: {
+      modes: {
+        desktop: allModes.chromatic,
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100%" height={900}>
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof Confirm>;
+
+export const Default: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -24,8 +56,9 @@ export const Default = () => {
     </>
   );
 };
+Default.storyName = "Default";
 
-export const DefaultWithCustomDataTags = () => {
+export const DefaultWithCustomDataTags: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -51,8 +84,9 @@ export const DefaultWithCustomDataTags = () => {
     </>
   );
 };
+DefaultWithCustomDataTags.storyName = "Default with Custom Data Tags";
 
-export const SingleAction = () => {
+export const SingleAction: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -68,8 +102,9 @@ export const SingleAction = () => {
     </>
   );
 };
+SingleAction.storyName = "Single Action";
 
-export const CancelButtonDestructive = () => {
+export const CancelButtonDestructive: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -87,8 +122,9 @@ export const CancelButtonDestructive = () => {
     </>
   );
 };
+CancelButtonDestructive.storyName = "Cancel Button Destructive";
 
-export const ConfirmButtonDestructive = () => {
+export const ConfirmButtonDestructive: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -106,8 +142,9 @@ export const ConfirmButtonDestructive = () => {
     </>
   );
 };
+ConfirmButtonDestructive.storyName = "Confirm Button Destructive";
 
-export const DisableConfirm = () => {
+export const DisableConfirm: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -127,8 +164,9 @@ export const DisableConfirm = () => {
     </>
   );
 };
+DisableConfirm.storyName = "Disable Confirm";
 
-export const DisableCancel = () => {
+export const DisableCancel: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -147,8 +185,9 @@ export const DisableCancel = () => {
     </>
   );
 };
+DisableCancel.storyName = "Disable Cancel";
 
-export const CancelButtonType = () => {
+export const CancelButtonType: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -166,8 +205,9 @@ export const CancelButtonType = () => {
     </>
   );
 };
+CancelButtonType.storyName = "Cancel Button Type";
 
-export const ConfirmButtonType = () => {
+export const ConfirmButtonType: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -185,8 +225,9 @@ export const ConfirmButtonType = () => {
     </>
   );
 };
+ConfirmButtonType.storyName = "Confirm Button Type";
 
-export const ButtonsIcons = () => {
+export const ButtonsIcons: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -206,8 +247,9 @@ export const ButtonsIcons = () => {
     </>
   );
 };
+ButtonsIcons.storyName = "Buttons Icons";
 
-export const IsLoadingConfirm = () => {
+export const IsLoadingConfirm: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -225,3 +267,4 @@ export const IsLoadingConfirm = () => {
     </>
   );
 };
+IsLoadingConfirm.storyName = "Is Loading Confirm";

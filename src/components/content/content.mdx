@@ -1,0 +1,48 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ContentStories from "./content.stories.tsx";
+
+<Meta title="Content" of={ContentStories} />
+
+# Content
+
+Text content with simple styles and useful to show simple text content in a common arrangement.
+The Content component shows a title in bold, with plain text content children. Make sure that the colour of all text has a
+contrast ratio of at least 4.5.1, to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html)
+for text less than 19px in size. Webaim have a good online [Contrast Checker](http://webaim.org/resources/contrastchecker/).
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```js
+import Content from "carbon-react/lib/components/content";
+```
+
+## Examples
+
+### Default content
+
+<Canvas of={ContentStories.DefaultStory} />
+
+### Inline content
+
+<Canvas of={ContentStories.InlineContent} />
+
+### Custom title
+
+<Canvas of={ContentStories.CustomTitle} />
+
+### Secondary styling
+
+<Canvas of={ContentStories.SecondaryStyling} />
+
+## Props
+
+### Content
+
+<ArgTypes of={ContentStories} />

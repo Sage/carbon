@@ -1,20 +1,40 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
+
 import {
   EditorState,
   ContentState,
   convertFromHTML,
   convertFromRaw,
 } from "draft-js";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import {
   ActionPopover,
   ActionPopoverDivider,
   ActionPopoverItem,
 } from "../action-popover";
 import LinkPreview from "../link-preview";
+import Box from "../box";
 import Note from "./note.component";
 
-export const Default: ComponentStory<typeof Note> = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof Note> = {
+  title: "Note",
+  component: Note,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Note>;
+
+export const Default: Story = () => {
   const noteContent = EditorState.createWithContent(
     ContentState.createFromText("Here is some plain text content")
   );
@@ -28,8 +48,9 @@ export const Default: ComponentStory<typeof Note> = () => {
     </div>
   );
 };
+Default.storyName = "Default";
 
-export const WithRichText: ComponentStory<typeof Note> = () => {
+export const WithRichText: Story = () => {
   const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
   <ul><li>unordered</li></ul>
   <ol><li>ordered</li></ol></br>
@@ -42,17 +63,18 @@ export const WithRichText: ComponentStory<typeof Note> = () => {
   );
   const noteContent = EditorState.createWithContent(content);
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height={300} width="50%">
       <Note
         noteContent={noteContent}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
-    </div>
+    </Box>
   );
 };
+WithRichText.storyName = "With Rich Text";
 
-export const WithTitle: ComponentStory<typeof Note> = () => {
+export const WithTitle: Story = () => {
   const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
   <ul><li>unordered</li></ul>
   <ol><li>ordered</li></ol></br>
@@ -65,18 +87,19 @@ export const WithTitle: ComponentStory<typeof Note> = () => {
   );
   const noteContent = EditorState.createWithContent(content);
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height={300} width="50%">
       <Note
         title="Here is a Title"
         noteContent={noteContent}
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
-    </div>
+    </Box>
   );
 };
+WithTitle.storyName = "With Title";
 
-export const WithInlineControls: ComponentStory<typeof Note> = () => {
+export const WithInlineControls: Story = () => {
   const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
   <ul><li>unordered</li></ul>
   <ol><li>ordered</li></ol></br>
@@ -96,7 +119,7 @@ export const WithInlineControls: ComponentStory<typeof Note> = () => {
     </ActionPopover>
   );
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height={300} width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -104,11 +127,12 @@ export const WithInlineControls: ComponentStory<typeof Note> = () => {
         name="Lauren Smith"
         createdDate="23 May 2020, 12:08 PM"
       />
-    </div>
+    </Box>
   );
 };
+WithInlineControls.storyName = "With Inline Controls";
 
-export const WithStatus: ComponentStory<typeof Note> = () => {
+export const WithStatus: Story = () => {
   const html = `<p>Lorem ipsum <b>dolor</b> sit amet, <i>consectetuer adipiscing elit.</i> Aenean commodo ligula eget dolor. <b><i>Aenean massa.</i></b></p>
   <ul><li>unordered</li></ul>
   <ol><li>ordered</li></ol></br>
@@ -128,7 +152,7 @@ export const WithStatus: ComponentStory<typeof Note> = () => {
     </ActionPopover>
   );
   return (
-    <div style={{ height: 300, width: "50%" }}>
+    <Box height={300} width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -137,11 +161,12 @@ export const WithStatus: ComponentStory<typeof Note> = () => {
         status={{ text: "Edited", timeStamp: "23 May 2020, 12:08 PM" }}
         noteContent={noteContent}
       />
-    </div>
+    </Box>
   );
 };
+WithStatus.storyName = "With Status";
 
-export const WithPreviews: ComponentStory<typeof Note> = () => {
+export const WithPreviews: Story = () => {
   const json = JSON.stringify({
     blocks: [
       {
@@ -189,7 +214,7 @@ export const WithPreviews: ComponentStory<typeof Note> = () => {
     />,
   ];
   return (
-    <div style={{ width: "50%" }}>
+    <Box width="50%">
       <Note
         title="Here is a Title"
         inlineControl={inlineControl}
@@ -199,16 +224,17 @@ export const WithPreviews: ComponentStory<typeof Note> = () => {
         noteContent={noteContent}
         previews={previews}
       />
-    </div>
+    </Box>
   );
 };
+WithPreviews.storyName = "With Previews";
 
-export const WithMargin: ComponentStory<typeof Note> = () => {
+export const WithMargin: Story = () => {
   const noteContent = EditorState.createWithContent(
     ContentState.createFromText("Here is some plain text content")
   );
   return (
-    <div style={{ width: "50%" }}>
+    <Box width="50%">
       <Note
         name="Lauren Smith"
         noteContent={noteContent}
@@ -239,6 +265,7 @@ export const WithMargin: ComponentStory<typeof Note> = () => {
         createdDate="23 May 2020, 12:08 PM"
         m="32px"
       />
-    </div>
+    </Box>
   );
 };
+WithMargin.storyName = "With Margin";

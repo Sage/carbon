@@ -1,0 +1,216 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as ActionPopoverMenuButtonStories from "./action-popover-menu-button/action-popover-menu-button.stories";
+import * as ActionPopoverItemStories from "./action-popover-item/action-popover-item.stories";
+import * as ActionPopoverMenuStories from "./action-popover-menu/action-popover-menu.stories";
+import * as ActionPopoverStories from "./action-popover.stories";
+
+<Meta title="Action Popover" of={ActionPopoverStories} />
+
+# ActionPopover
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/5722a7-action-popover/b/48b79b"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+ActionPopovers present a handy list of actions the user can perform on a whole table, a specific row within a table, or a tile.
+Click the ellipsis icon to show actions the user can take on a specific table row, for example, emailing the invoice.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+To use action popover, import `ActionPopover` alongside `ActionPopoverItem` and the other components that you would like to use in relation,
+to the action popover.
+
+```javascript
+import {
+  ActionPopover,
+  ActionPopoverDivider,
+  ActionPopoverItem,
+  ActionPopoverMenu,
+  ActionPopoverMenuButton,
+} from "carbon-react/lib/components/action-popover";
+```
+
+## Related Components
+
+- Data entry rather than an action? [Try Select](../?path=/docs/select--docs).
+- Only a single action? [Try Button](../?path=/docs/button--docs).
+- Doesn’t relate to a single table row or tile? [Try SplitButton](../?path=/docs/split-button--docs) or [MultiActionButton](../?path=/docs/multi-action-button--docs).
+
+## Examples
+
+### Default
+
+Story showing most of the functionality of the action popover and what can be achieved by using it
+
+<Canvas of={ActionPopoverStories.Default} />
+
+### With icons
+
+Each item is clickable and represents an action to be taken on a given row.
+
+<Canvas of={ActionPopoverStories.Icons} />
+
+### With disabled item
+
+ActionPopoverItem&apos;s can be disabled. These items are not clickable and can not be navigated to with the keyboard.
+
+<Canvas of={ActionPopoverStories.DisabledItems} />
+
+### With menu right aligned
+
+It is possible to align the Menu to the right of the MenuButton by passing the &quot;rightAlignMenu&quot; to ActionPopover
+
+<Canvas of={ActionPopoverStories.MenuRightAligned} />
+
+### With item content aligned to right
+
+<Canvas of={ActionPopoverStories.ContentAlignedRight} />
+
+### With no icons
+
+Menu items can also be displayed without icons.
+
+<Canvas of={ActionPopoverStories.NoIcons} />
+
+### With custom menu button
+
+It is possible to use the `renderButton` prop to override the default button used to trigger the opening and closing of
+ActionPopoverMenu. Expand the code example below for how to use this.
+
+<Canvas of={ActionPopoverStories.CustomMenuButton} />
+
+### With submenu
+
+A menu item can be passed a sub-menu to add further sub-actions if needed. items with sub-menus will display an chevron
+icons pointing in the direction that the sub-menu will open; by default it will open to the left.
+
+Hovering the mouse cursor over an item will open the sub-menu if it has one and moving the mouse cursor away will
+close it. No action is dispatched on click of the item and the sub-menu is opened by mouse enter and closed on mouse
+leave.
+
+<Canvas of={ActionPopoverStories.Submenu} />
+
+### With submenu positioned to right
+
+Submenu can be positioned on either the left of the right with the use of the `submenuPosition` prop.
+
+<Canvas of={ActionPopoverStories.SubmenuPositionedRight} />
+
+### With disabled submenu
+
+A sub-menu will not open if the item is in a disabled state.
+
+<Canvas of={ActionPopoverStories.DisabledSubmenu} />
+
+### With menu opening above
+
+The menu can also be rendered above the button control by setting using `placement="top"`.
+
+<Canvas of={ActionPopoverStories.MenuOpeningAbove} />
+
+### Keyboard navigation
+
+ActionPopover and ActionPopoverItem have extensive keyboard support. It is possible to open the menu when the
+ActionPopover is focused: pressing either the "enter" or "down" key will open the menu and focus the first item;
+pressing the "up" key when the button is focused will open the menu and focus the last element.
+
+Once the menu is open, it is possible to navigate the items using the "up" and "down" arrow keys. Alpha keys can also
+be used as shortcuts to navigate the items: pressing a-z selects the next item in the list starting with that letter,
+wrapping around to the start if required. Pressing an alpha key which doesn't match any items in the menu list will
+result leave the focus on the current item.
+
+Pressing the "enter" key will trigger the action associated with the currently focused item. Pressing either the "esc"
+or "tab" key will close the menu with no action being triggered and focus the next focusable element. Pressing
+"shift + tab" will close the menu and focus the previously focused element.
+
+<Canvas of={ActionPopoverStories.KeyboardNavigation} />
+
+### Keyboard navigation left aligned submenu
+
+Sub-menus can be accessed via the keyboard as well, when the sub-menu is left aligned it can be opened by navigating to
+the parent item and pressing the "left" key. The same accessible shortcuts described above can then be used to navigate
+the sub-menu. Pressing the "right" key will return focus back to the main menu and close the sub-menu without
+triggering an action.
+
+<Canvas of={ActionPopoverStories.KeyboardNavigationLeftAlignedSubmenu} />
+
+### Keyboard navigation right aligned submenu
+
+When sub-menus aligns to the right hand side, the key shortcuts are switched: pressing the "right" key whilst focus
+is on a item will open a sub-menu if it has one and pressing the "left" key will close it.
+
+<Canvas of={ActionPopoverStories.KeyboardNavigationRightAlignedSubmenu} />
+
+### With additional options
+
+When a row has many actions you may choose to include the primary actions with a dedicated action to for less frequently
+used actions, in this example "manage devices".
+
+<Canvas of={ActionPopoverStories.AdditionalOptions} />
+
+## with download button
+
+<Canvas of={ActionPopoverStories.DownloadButton} />
+
+## in overflow hidden container
+
+<Canvas of={ActionPopoverStories.InOverflowHiddenContainer} />
+
+## In FlatTable with highlightable rows
+
+It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
+
+<Canvas of={ActionPopoverStories.InFlatTable} />
+
+## Action opening a Modal
+
+<Canvas of={ActionPopoverStories.OpeningAModal} />
+
+## Props
+
+### ActionPopover Props
+
+<ArgTypes of={ActionPopoverStories} />
+
+### ActionPopoverMenu Props
+
+<ArgTypes of={ActionPopoverMenuStories} />
+
+### ActionPopoverMenuButton Props
+
+<ArgTypes of={ActionPopoverMenuButtonStories} />
+
+### ActionPopoverItem Props
+
+<ArgTypes of={ActionPopoverItemStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "actionPopover.ariaLabel",
+      description: "The text for the aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

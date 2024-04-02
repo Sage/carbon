@@ -1,0 +1,66 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as CrumbStories from "./crumb/crumb.stories.tsx";
+import * as BreadcrumbsStories from "./breadcrumbs.stories.tsx";
+
+<Meta title="Breadcrumbs" of={BreadcrumbsStories} />
+
+# Breadcrumbs
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/32c1b6-breadcrumbs/b/87b2c7"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Breadcrumbs are a secondary navigation aid that helps users easily understand their location.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use Breadcrumbs component you need to import `Breadcrumbs` and pass an array of `Crumb`s.
+
+```javascript
+import { Breadcrumbs, Crumb } from "carbon-react/lib/components/breadcrumbs";
+```
+
+## Examples
+
+### Breadcrumbs
+
+<Canvas of={BreadcrumbsStories.Default} />
+
+## Props
+
+### Breadcrumbs
+
+<ArgTypes of={BreadcrumbsStories} />
+
+### Crumb
+
+<ArgTypes of={CrumbStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "breadcrumbs.ariaLabel",
+      description: "The text for the aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

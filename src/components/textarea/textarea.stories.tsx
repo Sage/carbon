@@ -1,25 +1,43 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
+import Box from "../box";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import I18nProvider from "../i18n-provider";
 
 import Textarea from ".";
-import I18nProvider from "../i18n-provider";
-import Box from "../box";
 
-export const DefaultStory: ComponentStory<typeof Textarea> = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof Textarea> = {
+  title: "Textarea",
+  component: Textarea,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Textarea>;
+
+export const DefaultStory: Story = () => {
   const [state, setState] = useState("");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
   };
   return <Textarea label="Textarea" value={state} onChange={setValue} />;
 };
+DefaultStory.storyName = "Default";
 
-export const DisabledStory: ComponentStory<typeof Textarea> = () => {
+export const DisabledStory: Story = () => {
   return <Textarea label="Textarea" disabled />;
 };
+DisabledStory.storyName = "Disabled";
 
-export const LabelAlignStory: ComponentStory<typeof Textarea> = () => {
+export const LabelAlignStory: Story = () => {
   return (
     <>
       {(["right", "left"] as const).map((alignment) => (
@@ -34,17 +52,20 @@ export const LabelAlignStory: ComponentStory<typeof Textarea> = () => {
     </>
   );
 };
+LabelAlignStory.storyName = "Label Align";
 
-export const ReadOnlyStory: ComponentStory<typeof Textarea> = () => {
+export const ReadOnlyStory: Story = () => {
   return <Textarea label="Textarea" readOnly />;
 };
+ReadOnlyStory.storyName = "Read Only";
 
-export const AutoFocusStory: ComponentStory<typeof Textarea> = () => {
+export const AutoFocusStory: Story = () => {
   return <Textarea label="Textarea" autoFocus />;
 };
+AutoFocusStory.storyName = "Auto Focus";
 AutoFocusStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const ExpandableStory: ComponentStory<typeof Textarea> = () => {
+export const ExpandableStory: Story = () => {
   const [value, setValue] = useState("");
   return (
     <Textarea
@@ -57,7 +78,7 @@ export const ExpandableStory: ComponentStory<typeof Textarea> = () => {
 };
 ExpandableStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const CharacterLimitStory: ComponentStory<typeof Textarea> = () => {
+export const CharacterLimitStory: Story = () => {
   const [value, setValue] = useState("");
   return (
     <Textarea
@@ -70,10 +91,9 @@ export const CharacterLimitStory: ComponentStory<typeof Textarea> = () => {
     />
   );
 };
+CharacterLimitStory.storyName = "Character Limit";
 
-export const TranslationsCharacterLimitStory: ComponentStory<
-  typeof Textarea
-> = () => {
+export const TranslationsCharacterLimitStory: Story = () => {
   const [value, setValue] = useState("");
   return (
     <I18nProvider
@@ -104,42 +124,50 @@ export const TranslationsCharacterLimitStory: ComponentStory<
     </I18nProvider>
   );
 };
+TranslationsCharacterLimitStory.storyName = "Translations Character Limit";
 
-export const LabelInlineStory: ComponentStory<typeof Textarea> = () => {
+export const LabelInlineStory: Story = () => {
   return <Textarea label="Textarea" labelInline />;
 };
+LabelInlineStory.storyName = "Label Inline";
 
-export const CustomWidthStory: ComponentStory<typeof Textarea> = () => {
+export const CustomWidthStory: Story = () => {
   return (
     <Textarea label="Textarea" labelInline labelWidth={50} inputWidth={50} />
   );
 };
+CustomWidthStory.storyName = "Custom Width";
 
-export const FieldHelpStory: ComponentStory<typeof Textarea> = () => {
+export const FieldHelpStory: Story = () => {
   return <Textarea label="Textarea" fieldHelp="Help" />;
 };
+FieldHelpStory.storyName = "Field Help";
 
-export const MaxWidthStory: ComponentStory<typeof Textarea> = () => {
+export const MaxWidthStory: Story = () => {
   return <Textarea label="Textarea" maxWidth="70%" />;
 };
+MaxWidthStory.storyName = "Max Width";
 
-export const InputHintStory: ComponentStory<typeof Textarea> = () => {
+export const InputHintStory: Story = () => {
   return <Textarea label="Textarea" inputHint="Hint text (optional)." />;
 };
+InputHintStory.storyName = "Input Hint";
 
-export const LabelHelpStory: ComponentStory<typeof Textarea> = () => {
+export const LabelHelpStory: Story = () => {
   return <Textarea label="Textarea" labelHelp="Help" helpAriaLabel="Help" />;
 };
+LabelHelpStory.storyName = "Label Help";
 
-export const RequiredStory: ComponentStory<typeof Textarea> = () => {
+export const RequiredStory: Story = () => {
   return <Textarea label="Textarea" required />;
 };
+RequiredStory.storyName = "Required";
 
-export const ValidationStringStory: ComponentStory<typeof Textarea> = () => {
+export const ValidationStringStory: Story = () => {
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <Box key={`${validationType}-string-component`}>
           <Textarea
             label="Textarea"
             {...{ [validationType]: "Message" }}
@@ -151,39 +179,40 @@ export const ValidationStringStory: ComponentStory<typeof Textarea> = () => {
             {...{ [validationType]: "Message" }}
             mb={2}
           />
-        </div>
+        </Box>
       ))}
     </>
   );
 };
+ValidationStringStory.storyName = "Validations - String - Component";
 
-export const ValidationStringPositionStory: ComponentStory<
-  typeof Textarea
-> = () => {
+export const ValidationStringPositionStory: Story = () => {
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
+        <Box key={`${validationType}-string-component`}>
           <Textarea
             label="Textarea"
             {...{ [validationType]: "Message" }}
             mb={2}
             tooltipPosition="bottom"
           />
-        </div>
+        </Box>
       ))}
     </>
   );
 };
+ValidationStringPositionStory.storyName =
+  "Validations - String - With Tooltip Position Overriden - Component";
 ValidationStringPositionStory.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationLabelStory: ComponentStory<typeof Textarea> = () => {
+export const ValidationLabelStory: Story = () => {
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
+        <Box key={`${validationType}-string-label`}>
           <Textarea
             label="Textarea"
             validationOnLabel
@@ -197,19 +226,18 @@ export const ValidationLabelStory: ComponentStory<typeof Textarea> = () => {
             {...{ [validationType]: "Message" }}
             mb={2}
           />
-        </div>
+        </Box>
       ))}
     </>
   );
 };
+ValidationLabelStory.storyName = "Validations - String - Label";
 
-export const ValidationLabelPositionStory: ComponentStory<
-  typeof Textarea
-> = () => {
+export const ValidationLabelPositionStory: Story = () => {
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-label`}>
+        <Box key={`${validationType}-string-label`}>
           <Textarea
             label="Textarea"
             validationOnLabel
@@ -217,23 +245,22 @@ export const ValidationLabelPositionStory: ComponentStory<
             mb={2}
             tooltipPosition="top"
           />
-        </div>
+        </Box>
       ))}
     </>
   );
 };
+ValidationLabelPositionStory.storyName =
+  "Validations - String - With Tooltip Position Overriden - Label";
 ValidationLabelPositionStory.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const NewDesignValidationStory: ComponentStory<typeof Textarea> = () => {
+export const NewDesignValidationStory: Story = () => {
   return (
     <CarbonProvider validationRedesignOptIn>
       {["error", "warning"].map((validationType) => (
-        <div
-          style={{ width: "296px" }}
-          key={`${validationType}-string-component`}
-        >
+        <Box width={296} key={`${validationType}-string-component`}>
           <Textarea
             label={`${validationType}`}
             inputHint="Hint text (optional)."
@@ -247,17 +274,18 @@ export const NewDesignValidationStory: ComponentStory<typeof Textarea> = () => {
             {...{ [validationType]: "Message" }}
             m={4}
           />
-        </div>
+        </Box>
       ))}
     </CarbonProvider>
   );
 };
+NewDesignValidationStory.storyName = "Validations - String - New Design";
 
-export const ValidationBooleanStory: ComponentStory<typeof Textarea> = () => {
+export const ValidationBooleanStory: Story = () => {
   return (
     <>
       {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-boolean-component`}>
+        <Box key={`${validationType}-boolean-component`}>
           <Textarea label="Textarea" {...{ [validationType]: true }} mb={2} />
           <Textarea
             label="Textarea - readOnly"
@@ -265,13 +293,14 @@ export const ValidationBooleanStory: ComponentStory<typeof Textarea> = () => {
             {...{ [validationType]: true }}
             mb={2}
           />
-        </div>
+        </Box>
       ))}
     </>
   );
 };
+ValidationBooleanStory.storyName = "Validations - Boolean";
 
-export const BorderRadiusStory: ComponentStory<typeof Textarea> = () => {
+export const BorderRadiusStory: Story = () => {
   const [stateOne, setStateOne] = useState("");
   const [stateTwo, setStateTwo] = useState("");
   const [stateThree, setStateThree] = useState("");
@@ -328,8 +357,9 @@ export const BorderRadiusStory: ComponentStory<typeof Textarea> = () => {
     </>
   );
 };
+BorderRadiusStory.storyName = "Border Radius";
 
-export const BorderlessExample: ComponentStory<typeof Textarea> = () => {
+export const BorderlessExample: Story = () => {
   const [state, setState] = useState("");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -352,3 +382,4 @@ export const BorderlessExample: ComponentStory<typeof Textarea> = () => {
     </Box>
   );
 };
+BorderlessExample.storyName = "Borderless Example";

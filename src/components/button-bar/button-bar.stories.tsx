@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import ButtonBar from ".";
 import Button from "../button";
@@ -7,61 +7,87 @@ import ButtonMinor from "../button-minor";
 
 import Icon from "../icon";
 import IconButton from "../icon-button";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-export const buttonBarSizes: ComponentStory<typeof ButtonBar> = () => (
-  <>
-    <ButtonBar size="small" ml={2} mt={2} buttonType="primary">
-      <Button>Small</Button>
-      <Button>Small</Button>
-      <Button>Small</Button>
-    </ButtonBar>
-    <ButtonBar ml={2} mt={2}>
-      <Button>Medium</Button>
-      <Button>Medium</Button>
-      <Button>Medium</Button>
-    </ButtonBar>
-    <ButtonBar size="large" ml={2} mt={2}>
-      <Button>Large</Button>
-      <Button>Large</Button>
-      <Button>Large</Button>
-    </ButtonBar>
-    <ButtonBar size="large" ml={2} mt={2}>
-      <Button subtext="subtext 1">Large</Button>
-      <Button subtext="subtext 2">Large</Button>
-      <Button subtext="subtext 3">Large</Button>
-    </ButtonBar>
-  </>
+const styledSystemProps = generateStyledSystemProps(
+  {
+    spacing: true,
+  },
+  { pt: "1px", pb: "1px", px: "24px" }
 );
 
-export const buttonBarMinorSizes: ComponentStory<typeof ButtonBar> = () => (
-  <>
-    <ButtonBar size="small" ml={2} mt={2} buttonType="primary">
-      <ButtonMinor>Small</ButtonMinor>
-      <ButtonMinor>Small</ButtonMinor>
-      <ButtonMinor>Small</ButtonMinor>
-    </ButtonBar>
+const meta: Meta<typeof ButtonBar> = {
+  title: "Button Bar",
+  component: ButtonBar,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
 
-    <ButtonBar ml={2} mt={2}>
-      <ButtonMinor>Medium</ButtonMinor>
-      <ButtonMinor>Medium</ButtonMinor>
-      <ButtonMinor>Medium</ButtonMinor>
-    </ButtonBar>
+export default meta;
+type Story = StoryObj<typeof ButtonBar>;
 
-    <ButtonBar size="large" ml={2} mt={2}>
-      <ButtonMinor>Large</ButtonMinor>
-      <ButtonMinor>Large</ButtonMinor>
-      <ButtonMinor>Large</ButtonMinor>
-    </ButtonBar>
+export const buttonBarSizes: Story = () => {
+  return (
+    <>
+      <ButtonBar size="small" ml={2} mt={2} buttonType="primary">
+        <Button>Small</Button>
+        <Button>Small</Button>
+        <Button>Small</Button>
+      </ButtonBar>
+      <ButtonBar ml={2} mt={2}>
+        <Button>Medium</Button>
+        <Button>Medium</Button>
+        <Button>Medium</Button>
+      </ButtonBar>
+      <ButtonBar size="large" ml={2} mt={2}>
+        <Button>Large</Button>
+        <Button>Large</Button>
+        <Button>Large</Button>
+      </ButtonBar>
+      <ButtonBar size="large" ml={2} mt={2}>
+        <Button subtext="subtext 1">Large</Button>
+        <Button subtext="subtext 2">Large</Button>
+        <Button subtext="subtext 3">Large</Button>
+      </ButtonBar>
+    </>
+  );
+};
+buttonBarSizes.storyName = "Sizes";
 
-    <ButtonBar size="large" ml={2} mt={2}>
-      <ButtonMinor subtext="subtext 1">Large</ButtonMinor>
-      <ButtonMinor subtext="subtext 2">Large</ButtonMinor>
-      <ButtonMinor subtext="subtext 3">Large</ButtonMinor>
-    </ButtonBar>
-  </>
-);
+export const buttonBarMinorSizes: Story = () => {
+  return (
+    <>
+      <ButtonBar size="small" ml={2} mt={2} buttonType="primary">
+        <ButtonMinor>Small</ButtonMinor>
+        <ButtonMinor>Small</ButtonMinor>
+        <ButtonMinor>Small</ButtonMinor>
+      </ButtonBar>
 
-export const buttonBarIcons: ComponentStory<typeof ButtonBar> = () => {
+      <ButtonBar ml={2} mt={2}>
+        <ButtonMinor>Medium</ButtonMinor>
+        <ButtonMinor>Medium</ButtonMinor>
+        <ButtonMinor>Medium</ButtonMinor>
+      </ButtonBar>
+
+      <ButtonBar size="large" ml={2} mt={2}>
+        <ButtonMinor>Large</ButtonMinor>
+        <ButtonMinor>Large</ButtonMinor>
+        <ButtonMinor>Large</ButtonMinor>
+      </ButtonBar>
+
+      <ButtonBar size="large" ml={2} mt={2}>
+        <ButtonMinor subtext="subtext 1">Large</ButtonMinor>
+        <ButtonMinor subtext="subtext 2">Large</ButtonMinor>
+        <ButtonMinor subtext="subtext 3">Large</ButtonMinor>
+      </ButtonBar>
+    </>
+  );
+};
+buttonBarMinorSizes.storyName = "Minor Sizes";
+
+export const buttonBarIcons: Story = () => {
   const BUTTON_BAR_SIZES = ["small", "medium", "large"] as const;
   const BUTTON_BAR_ICON_POSITIONS = ["before", "after"] as const;
 
@@ -85,8 +111,9 @@ export const buttonBarIcons: ComponentStory<typeof ButtonBar> = () => {
     </>
   );
 };
+buttonBarIcons.storyName = "Icons";
 
-export const buttonBarMinorIcons: ComponentStory<typeof ButtonBar> = () => {
+export const buttonBarMinorIcons: Story = () => {
   const BUTTON_BAR_SIZES = ["small", "medium", "large"] as const;
   const BUTTON_BAR_ICON_POSITIONS = ["before", "after"] as const;
 
@@ -110,8 +137,9 @@ export const buttonBarMinorIcons: ComponentStory<typeof ButtonBar> = () => {
     </>
   );
 };
+buttonBarMinorIcons.storyName = "Minor Icons";
 
-export const buttonBarIconsOnly: ComponentStory<typeof ButtonBar> = () => {
+export const buttonBarIconsOnly: Story = () => {
   const BUTTON_BAR_SIZES = ["small", "medium", "large"] as const;
 
   return (
@@ -126,8 +154,9 @@ export const buttonBarIconsOnly: ComponentStory<typeof ButtonBar> = () => {
     </>
   );
 };
+buttonBarIconsOnly.storyName = "Icons Only";
 
-export const buttonBarMinorIconsOnly: ComponentStory<typeof ButtonBar> = () => {
+export const buttonBarMinorIconsOnly: Story = () => {
   const BUTTON_BAR_SIZES = ["small", "medium", "large"] as const;
 
   return (
@@ -142,57 +171,67 @@ export const buttonBarMinorIconsOnly: ComponentStory<typeof ButtonBar> = () => {
     </>
   );
 };
+buttonBarMinorIconsOnly.storyName = "Minor Icons Only";
 
-export const buttonBarIconButtons: ComponentStory<typeof ButtonBar> = () => (
-  <ButtonBar ml={2} mt={2}>
-    <IconButton onClick={() => {}}>
-      <Icon type="csv" />
-    </IconButton>
-    <IconButton onClick={() => {}}>
-      <Icon type="pdf" />
-    </IconButton>
-    <IconButton onClick={() => {}}>
-      <Icon type="bin" />
-    </IconButton>
-  </ButtonBar>
-);
+export const buttonBarIconButtons: Story = () => {
+  return (
+    <ButtonBar ml={2} mt={2}>
+      <IconButton onClick={() => {}}>
+        <Icon type="csv" />
+      </IconButton>
+      <IconButton onClick={() => {}}>
+        <Icon type="pdf" />
+      </IconButton>
+      <IconButton onClick={() => {}}>
+        <Icon type="bin" />
+      </IconButton>
+    </ButtonBar>
+  );
+};
+buttonBarIconButtons.storyName = "Icon Buttons";
 
-export const buttonBarFullWidth: ComponentStory<typeof ButtonBar> = () => (
-  <>
-    <ButtonBar fullWidth size="small" ml={2} mt={2}>
-      <Button fullWidth>Small full width</Button>
-      <Button>Small full width</Button>
-      <Button>Small full width</Button>
-    </ButtonBar>
-    <ButtonBar fullWidth ml={2} mt={2}>
-      <Button buttonType="primary">Medium full width</Button>
-      <Button>Medium full width</Button>
-      <Button>Medium full width</Button>
-    </ButtonBar>
-    <ButtonBar fullWidth size="large" ml={2} mt={2}>
-      <Button>Large full width</Button>
-      <Button>Large full width</Button>
-      <Button>Large full width</Button>
-    </ButtonBar>
-  </>
-);
+export const buttonBarFullWidth: Story = () => {
+  return (
+    <>
+      <ButtonBar fullWidth size="small" ml={2} mt={2}>
+        <Button fullWidth>Small full width</Button>
+        <Button>Small full width</Button>
+        <Button>Small full width</Button>
+      </ButtonBar>
+      <ButtonBar fullWidth ml={2} mt={2}>
+        <Button buttonType="primary">Medium full width</Button>
+        <Button>Medium full width</Button>
+        <Button>Medium full width</Button>
+      </ButtonBar>
+      <ButtonBar fullWidth size="large" ml={2} mt={2}>
+        <Button>Large full width</Button>
+        <Button>Large full width</Button>
+        <Button>Large full width</Button>
+      </ButtonBar>
+    </>
+  );
+};
+buttonBarFullWidth.storyName = "Full Width";
 
-export const buttonBarMinorFullWidth: ComponentStory<typeof ButtonBar> = () => (
-  <>
-    <ButtonBar fullWidth size="small" ml={2} mt={2}>
-      <ButtonMinor fullWidth>Small full width</ButtonMinor>
-      <ButtonMinor>Small full width</ButtonMinor>
-      <ButtonMinor>Small full width</ButtonMinor>
-    </ButtonBar>
-    <ButtonBar fullWidth ml={2} mt={2}>
-      <ButtonMinor buttonType="primary">Medium full width</ButtonMinor>
-      <ButtonMinor>Medium full width</ButtonMinor>
-      <ButtonMinor>Medium full width</ButtonMinor>
-    </ButtonBar>
-    <ButtonBar fullWidth size="large" ml={2} mt={2}>
-      <ButtonMinor>Large full width</ButtonMinor>
-      <ButtonMinor>Large full width</ButtonMinor>
-      <ButtonMinor>Large full width</ButtonMinor>
-    </ButtonBar>
-  </>
-);
+export const buttonBarMinorFullWidth: Story = () => {
+  return (
+    <>
+      <ButtonBar fullWidth size="small" ml={2} mt={2}>
+        <ButtonMinor fullWidth>Small full width</ButtonMinor>
+        <ButtonMinor>Small full width</ButtonMinor>
+        <ButtonMinor>Small full width</ButtonMinor>
+      </ButtonBar>
+      <ButtonBar fullWidth ml={2} mt={2}>
+        <ButtonMinor buttonType="primary">Medium full width</ButtonMinor>
+        <ButtonMinor>Medium full width</ButtonMinor>
+        <ButtonMinor>Medium full width</ButtonMinor>
+      </ButtonBar>
+      <ButtonBar fullWidth size="large" ml={2} mt={2}>
+        <ButtonMinor>Large full width</ButtonMinor>
+        <ButtonMinor>Large full width</ButtonMinor>
+        <ButtonMinor>Large full width</ButtonMinor>
+      </ButtonBar>
+    </>
+  );
+};
+buttonBarMinorFullWidth.storyName = "Minor Full Width";

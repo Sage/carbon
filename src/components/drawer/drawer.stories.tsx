@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import styled from "styled-components";
 
 import { Checkbox } from "../checkbox";
 import Search from "../search";
-import Drawer from ".";
+import Drawer, { DrawerProps } from ".";
 import Button from "../button";
 import PopoverContainer from "../popover-container";
 import DialogFullScreen from "../dialog-full-screen";
@@ -25,7 +25,16 @@ import Typography from "../typography";
 import Box from "../box";
 import Pager from "../pager";
 
-export const Default: ComponentStory<typeof Drawer> = () => (
+const meta: Meta<typeof Drawer> = {
+  title: "Drawer",
+  component: Drawer,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export default meta;
+type Story = StoryObj<typeof Drawer>;
+
+export const Default: Story = () => (
   <Box height="200px">
     <Drawer
       expandedWidth="40%"
@@ -43,8 +52,9 @@ export const Default: ComponentStory<typeof Drawer> = () => (
     </Drawer>
   </Box>
 );
+Default.storyName = "Default";
 
-export const CustomHeight: ComponentStory<typeof Drawer> = (args) => (
+export const CustomHeight: Story = (args: DrawerProps) => (
   <Drawer
     height="230px"
     defaultExpanded
@@ -61,12 +71,13 @@ export const CustomHeight: ComponentStory<typeof Drawer> = (args) => (
     body content body
   </Drawer>
 );
+CustomHeight.storyName = "Custom Height";
 CustomHeight.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
 };
 
-export const BackgroundColorRed: ComponentStory<typeof Drawer> = (args) => (
+export const BackgroundColorRed: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
       sidebar={
@@ -83,13 +94,14 @@ export const BackgroundColorRed: ComponentStory<typeof Drawer> = (args) => (
     </Drawer>
   </Box>
 );
+BackgroundColorRed.storyName = "Background Color Red";
 BackgroundColorRed.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
   backgroundColor: "#FF0000",
 };
 
-export const BackgroundColorWhite: ComponentStory<typeof Drawer> = (args) => (
+export const BackgroundColorWhite: Story = (args: DrawerProps) => (
   <Box height="200px" backgroundColor="#FF0000">
     <Drawer
       {...args}
@@ -106,15 +118,14 @@ export const BackgroundColorWhite: ComponentStory<typeof Drawer> = (args) => (
     </Drawer>
   </Box>
 );
+BackgroundColorWhite.storyName = "Background Color White";
 BackgroundColorWhite.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
   backgroundColor: "#FFFFFF",
 };
 
-export const BackgroundColorTransparent: ComponentStory<typeof Drawer> = (
-  args
-) => (
+export const BackgroundColorTransparent: Story = (args: DrawerProps) => (
   <Box height="200px" backgroundColor="#FF0000">
     <Drawer
       sidebar={
@@ -131,13 +142,14 @@ export const BackgroundColorTransparent: ComponentStory<typeof Drawer> = (
     </Drawer>
   </Box>
 );
+BackgroundColorTransparent.storyName = "Background Color Transparent";
 BackgroundColorTransparent.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
   backgroundColor: "transparent",
 };
 
-export const Title: ComponentStory<typeof Drawer> = () => (
+export const Title: Story = () => (
   <Box height="200px">
     <Drawer
       expandedWidth="40%"
@@ -156,8 +168,9 @@ export const Title: ComponentStory<typeof Drawer> = () => (
     </Drawer>
   </Box>
 );
+Title.storyName = "Title";
 
-export const WithControls: ComponentStory<typeof Drawer> = (args) => (
+export const WithControls: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
       showControls
@@ -175,12 +188,13 @@ export const WithControls: ComponentStory<typeof Drawer> = (args) => (
     </Drawer>
   </Box>
 );
+WithControls.storyName = "With Controls";
 WithControls.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
 };
 
-export const WithStickyHeader: ComponentStory<typeof Drawer> = () => (
+export const WithStickyHeader: Story = () => (
   <Box height="400px">
     <Drawer
       title={<Typography variant="h2">Drawer title</Typography>}
@@ -253,8 +267,9 @@ export const WithStickyHeader: ComponentStory<typeof Drawer> = () => (
     </Drawer>
   </Box>
 );
+WithStickyHeader.storyName = "With Sticky Header";
 
-export const WithFooter: ComponentStory<typeof Drawer> = () => (
+export const WithFooter: Story = () => (
   <Box height="400px">
     <Drawer
       title={<Typography variant="h2">Drawer title</Typography>}
@@ -335,8 +350,9 @@ export const WithFooter: ComponentStory<typeof Drawer> = () => (
     </Drawer>
   </Box>
 );
+WithFooter.storyName = "With Footer";
 
-export const WithStickyFooter: ComponentStory<typeof Drawer> = () => (
+export const WithStickyFooter: Story = () => (
   <Box height="400px">
     <Drawer
       title={<Typography variant="h2">Drawer title</Typography>}
@@ -418,8 +434,9 @@ export const WithStickyFooter: ComponentStory<typeof Drawer> = () => (
     </Drawer>
   </Box>
 );
+WithStickyFooter.storyName = "With Sticky Footer";
 
-export const CustomSidebar: ComponentStory<typeof Drawer> = (args) => {
+export const CustomSidebar: Story = (args: DrawerProps) => {
   const rows = [
     <FlatTableRow key="0">
       <FlatTableCell>John Doe</FlatTableCell>
@@ -598,12 +615,13 @@ export const CustomSidebar: ComponentStory<typeof Drawer> = (args) => {
     </Box>
   );
 };
+CustomSidebar.storyName = "Custom Sidebar";
 CustomSidebar.args = {
   expandedWidth: "35%",
   animationDuration: "0.5s",
 };
 
-export const CustomContent: ComponentStory<typeof Drawer> = (args) => (
+export const CustomContent: Story = (args: DrawerProps) => (
   <Box height="200px">
     <Drawer
       sidebar={
@@ -704,12 +722,13 @@ export const CustomContent: ComponentStory<typeof Drawer> = (args) => (
     </Drawer>
   </Box>
 );
+CustomContent.storyName = "Custom Content";
 CustomContent.args = {
   expandedWidth: "20%",
   animationDuration: "0.5s",
 };
 
-export const DifferentExpandedWidth: ComponentStory<typeof Drawer> = () => {
+export const DifferentExpandedWidth: Story = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const onChangeHandler = useCallback(() => {
     setIsExpanded(!isExpanded);
@@ -742,8 +761,9 @@ export const DifferentExpandedWidth: ComponentStory<typeof Drawer> = () => {
     </Box>
   );
 };
+DifferentExpandedWidth.storyName = "Different Expanded Width";
 
-export const DifferentAnimationSpeed: ComponentStory<typeof Drawer> = () => {
+export const DifferentAnimationSpeed: Story = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const onChangeHandler = useCallback(() => {
     setIsExpanded(!isExpanded);
@@ -777,8 +797,9 @@ export const DifferentAnimationSpeed: ComponentStory<typeof Drawer> = () => {
     </Box>
   );
 };
+DifferentAnimationSpeed.storyName = "Different Animation Speed";
 
-export const Controlled: ComponentStory<typeof Drawer> = (args) => {
+export const Controlled: Story = (args: DrawerProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const onChangeHandler = useCallback(() => {
     setIsExpanded(!isExpanded);
@@ -812,12 +833,13 @@ export const Controlled: ComponentStory<typeof Drawer> = (args) => {
     </Box>
   );
 };
+Controlled.storyName = "Controlled";
 Controlled.args = {
   expandedWidth: "40%",
   animationDuration: "0.5s",
 };
 
-export const SideViewNavigation: ComponentStory<typeof Drawer> = () => {
+export const SideViewNavigation: Story = () => {
   type dataPropTypes = {
     ColumnA: {
       name: string;
@@ -1015,8 +1037,9 @@ export const SideViewNavigation: ComponentStory<typeof Drawer> = () => {
     </>
   );
 };
+SideViewNavigation.storyName = "Side View Navigation";
 
-export const WithTabControls: ComponentStory<typeof Drawer> = () => {
+export const WithTabControls: Story = () => {
   const [active, setAcitve] = useState("tab-1");
   const [errors, setErrors] = useState({
     one: false,
@@ -1330,3 +1353,4 @@ export const WithTabControls: ComponentStory<typeof Drawer> = () => {
     </Box>
   );
 };
+WithTabControls.storyName = "With Tab Controls";

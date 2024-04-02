@@ -21,13 +21,20 @@ const Dl = ({
   ddTextAlign = "left",
   asSingleColumn = false,
   ...rest
-}: DlProps) => (
-  <StyledDl w={w} data-component="dl" asSingleColumn={asSingleColumn} {...rest}>
-    <DlContext.Provider value={{ asSingleColumn, dtTextAlign, ddTextAlign }}>
-      {children}
-    </DlContext.Provider>
-  </StyledDl>
-);
+}: DlProps) => {
+  return (
+    <StyledDl
+      w={w}
+      data-component="dl"
+      asSingleColumn={asSingleColumn}
+      {...rest}
+    >
+      <DlContext.Provider value={{ asSingleColumn, dtTextAlign, ddTextAlign }}>
+        {children}
+      </DlContext.Provider>
+    </StyledDl>
+  );
+};
 
 Dl.displayName = "Dl";
 export default Dl;

@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
-import Form from ".";
+import { Meta, StoryObj } from "@storybook/react";
+import { allModes } from "../../../.storybook/modes";
+import isChromatic from "../../../.storybook/isChromatic";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
 import Box from "../box";
@@ -13,14 +17,51 @@ import { Select, MultiSelect, Option } from "../select";
 import DialogFullScreen from "../dialog-full-screen";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Checkbox } from "../checkbox";
-import Hr from "../../components/hr";
+import Hr from "../hr";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
-import isChromatic from "../../../.storybook/isChromatic";
 
-const isOpenForChromatic = isChromatic();
+import Form from ".";
 
-export const DefaultWithStickyFooter = () => (
+const styledSystemProps = generateStyledSystemProps({
+  spacing: true,
+});
+
+const defaultOpenState = isChromatic();
+
+const meta: Meta<typeof Form> = {
+  title: "Form",
+  component: Form,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: {
+    controls: { disable: true },
+    chromatic: {
+      modes: {
+        desktop: allModes.chromatic,
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100%" height={900}>
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof Form>;
+
+export const DefaultWithStickyFooter: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -53,12 +94,12 @@ export const DefaultWithStickyFooter = () => (
     <Textbox label="Textbox" />
   </Form>
 );
-
+DefaultWithStickyFooter.storyName = "Default with sticky footer";
 DefaultWithStickyFooter.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithFullWidthButtons = () => (
+export const WithFullWidthButtons: Story = () => (
   <CarbonProvider validationRedesignOptIn>
     <Form
       fullWidthButtons
@@ -98,12 +139,12 @@ export const WithFullWidthButtons = () => (
     </Form>
   </CarbonProvider>
 );
-
+WithFullWidthButtons.storyName = "With Full Width Buttons";
 WithFullWidthButtons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithDifferentSpacing = () => (
+export const WithDifferentSpacing: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -122,8 +163,9 @@ export const WithDifferentSpacing = () => (
     <Textarea label="Textarea with Character Limit" characterLimit={50} />
   </Form>
 );
+WithDifferentSpacing.storyName = "With Different Spacing";
 
-export const OverrideFieldSpacing = () => (
+export const OverrideFieldSpacing: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -141,8 +183,9 @@ export const OverrideFieldSpacing = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+OverrideFieldSpacing.storyName = "Override field spacing";
 
-export const WithErrorsSummary = () => (
+export const WithErrorsSummary: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -158,8 +201,9 @@ export const WithErrorsSummary = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithErrorsSummary.storyName = "With Errors Summary";
 
-export const WithWarningsSummary = () => (
+export const WithWarningsSummary: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -175,8 +219,9 @@ export const WithWarningsSummary = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithWarningsSummary.storyName = "With Warnings Summary";
 
-export const WithBothErrorsAndWarningsSummary = () => (
+export const WithBothErrorsAndWarningsSummary: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -193,8 +238,10 @@ export const WithBothErrorsAndWarningsSummary = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithBothErrorsAndWarningsSummary.storyName =
+  "With Both Errors and Warnings Summary";
 
-export const WithAdditionalButtons = () => (
+export const WithAdditionalButtons: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -222,8 +269,9 @@ export const WithAdditionalButtons = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithAdditionalButtons.storyName = "With Additional Buttons";
 
-export const WithButtonsAlignedToTheLeft = () => (
+export const WithButtonsAlignedToTheLeft: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -252,6 +300,7 @@ export const WithButtonsAlignedToTheLeft = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithButtonsAlignedToTheLeft.storyName = "With Buttons Aligned to the Left";
 
 export const InDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -280,7 +329,7 @@ export const InDialog = () => {
     </>
   );
 };
-
+InDialog.storyName = "In Dialog";
 InDialog.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogWithStickyFooter = () => {
@@ -386,7 +435,7 @@ export const InDialogWithStickyFooter = () => {
     </>
   );
 };
-
+InDialogWithStickyFooter.storyName = "In Dialog with Sticky Footer";
 InDialogWithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreen = () => {
@@ -418,7 +467,7 @@ export const InDialogFullScreen = () => {
     </>
   );
 };
-
+InDialogFullScreen.storyName = "In Dialog Full Screen";
 InDialogFullScreen.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreenWithStickyFooter = () => {
@@ -476,12 +525,13 @@ export const InDialogFullScreenWithStickyFooter = () => {
     </>
   );
 };
-
+InDialogFullScreenWithStickyFooter.storyName =
+  "In Dialog Full Screen with Sticky Footer";
 InDialogFullScreenWithStickyFooter.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const FormAlignmentExample = () => {
+export const FormAlignmentExample: Story = () => {
   const [date, setDate] = useState("04/04/2019");
   return (
     <Form
@@ -622,8 +672,9 @@ export const FormAlignmentExample = () => {
     </Form>
   );
 };
+FormAlignmentExample.storyName = "Form Alignment Example";
 
-export const WithLabelsInline = () => (
+export const WithLabelsInline: Story = () => (
   <Form
     saveButton={
       <Button buttonType="primary" type="submit">
@@ -662,9 +713,10 @@ export const WithLabelsInline = () => (
     </InlineInputs>
   </Form>
 );
+WithLabelsInline.storyName = "With Labels Inline";
 
-export const WithCustomFooterPadding = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+export const WithCustomFooterPadding: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
@@ -693,3 +745,4 @@ export const WithCustomFooterPadding = () => {
     </>
   );
 };
+WithCustomFooterPadding.storyName = "With Custom Footer Padding";

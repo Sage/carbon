@@ -1,0 +1,196 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as TextareaStories from "./textarea.stories";
+
+<Meta title="Textarea" of={TextareaStories} />
+
+# Textarea
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/20f5ea-text-area"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+- Useful for collecting a significant amount of text (e.g. notes about clients, or a short email message).
+- If content in a textarea is read-only, remove the field border so it appears as static text.
+- Use placeholder text to give the user context or examples of what to write.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Textarea from "carbon-react/lib/components/textarea";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={TextareaStories.DefaultStory} />
+
+### Disabled
+
+<Canvas of={TextareaStories.DisabledStory} />
+
+### Label Align
+
+<Canvas of={TextareaStories.LabelAlignStory} />
+
+### ReadOnly
+
+<Canvas of={TextareaStories.ReadOnlyStory} />
+
+### AutoFocus
+
+<Canvas of={TextareaStories.AutoFocusStory} />
+
+### Expandable
+
+<Canvas of={TextareaStories.ExpandableStory} />
+
+### With characterLimit
+
+If you use the `inputHint` prop to provide the user with a hint before the input, please use a full stop `.` at the end,
+as it forces a pause before any other announcements, this well help screen reader users understand the hint fully.
+
+<Canvas of={TextareaStories.CharacterLimitStory} />
+
+### with characterLimit - with translations
+
+Various translations can be applied to both the visually hidden hint message, and the character
+counter below the input.
+
+These translations have been split up to include a number which represents the current character count which
+is over/under the set `characterLimit`. Please see below how this has been achieved with a French translation.
+Include the formatted number count wherever makes sense for the language you're translating too.
+
+<Canvas of={TextareaStories.TranslationsCharacterLimitStory} />
+
+### With labelInline
+
+<Canvas of={TextareaStories.LabelInlineStory} />
+
+### With custom labelWidth and inputWidth
+
+<Canvas of={TextareaStories.CustomWidthStory} />
+
+### With custom maxWidth
+
+<Canvas of={TextareaStories.MaxWidthStory} />
+
+### With fieldHelp
+
+<Canvas of={TextareaStories.FieldHelpStory} />
+
+### With inputHint
+
+When the `inputHint` prop is passed, please use a full stop `.` at the end. This forces a pause
+before any other announcements, this well help screen reader users understand the hint fully.
+
+<Canvas of={TextareaStories.InputHintStory} />
+
+### With labelHelp
+
+<Canvas of={TextareaStories.LabelHelpStory} />
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas of={TextareaStories.RequiredStory} />
+
+#### Customer Border Radius
+
+The `borderRadius` prop accepts either a single design token, or an array of them, that will be applied as the CSS `border-radius` property.
+See [MDN docs](https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius) for examples of how this works with multiple values.
+
+<Canvas of={TextareaStories.BorderRadiusStory} />
+
+#### Borderless Textarea
+
+If you want to remove the borders from the component, you can use the `hideBorders` prop. This will still apply the border styling for validations and also the focus styling to the component.
+
+<Canvas of={TextareaStories.BorderlessExample} />
+
+### Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+
+#### As a string
+
+<Canvas of={TextareaStories.ValidationStringStory} />
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Canvas of={TextareaStories.ValidationStringPositionStory} />
+
+#### As a string, displayed on label
+
+<Canvas of={TextareaStories.ValidationLabelStory} />
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Canvas of={TextareaStories.ValidationLabelPositionStory} />
+
+#### New designs validation
+
+<Canvas of={TextareaStories.NewDesignValidationStory} />
+
+#### As a boolean
+
+<Canvas of={TextareaStories.ValidationBooleanStory} />
+
+## Props
+
+### Textarea
+
+<ArgTypes of={TextareaStories} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "characterCount.tooManyCharacters",
+      description:
+        "The message displayed below the input which will inform" +
+        " users if they have exceeded the set `characterLimit` and how much by." +
+        " This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.charactersLeft",
+      description:
+        "The message displayed below the input which will inform" +
+        " users how many characters they have before they reach or exceed the" +
+        " set `characterLimit`. This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.visuallyHiddenHint",
+      description:
+        "The message which will be read out to screen reader users, informing them" +
+        " of the set `characterLimit`.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

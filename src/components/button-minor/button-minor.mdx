@@ -1,0 +1,130 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ButtonMinorStories from "./button-minor.stories";
+
+<Meta title="Button Minor" of={ButtonMinorStories} />
+
+# Button Minor
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/4121af-button-minor/b/03680d"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component - Button Minor Component
+</a>
+
+- A minor button is a user interface button rather than a primary action button.
+- It is less prominent than a major button.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quickstart
+
+```javascript
+import ButtonMinor from "carbon-react/lib/components/button-minor";
+```
+
+## Examples
+
+### Primary Buttons
+
+For the single most prominent call to action on the page (e.g. Save, Submit, Continue).
+
+<Canvas of={ButtonMinorStories.PrimaryButton} />
+
+Primary buttons can be destructive.
+
+<Canvas of={ButtonMinorStories.PrimaryDestructiveButton} />
+
+Primary buttons can be disabled.
+
+<Canvas of={ButtonMinorStories.PrimaryDisabledButton} />
+
+Primary buttons can have an icon positioned before or after the text.
+
+<Canvas of={ButtonMinorStories.PrimaryIconButton} />
+
+Primary buttons can be `fullWidth`.
+
+<Canvas of={ButtonMinorStories.PrimaryFullWidthButton} />
+
+Primary buttons can be set into `noWrap` mode to prevent text wrapping.
+
+<Canvas of={ButtonMinorStories.PrimaryNoWrapButton} />
+
+### Secondary Buttons
+
+Less prominent, there can be multiple secondary buttons on a page.
+Secondary buttons are transparent, rather than white.
+
+<Canvas of={ButtonMinorStories.SecondaryButton} />
+
+Secondary buttons can be destructive.
+
+<Canvas of={ButtonMinorStories.SecondaryDestructiveButton} />
+Secondary buttons can be disabled.
+
+<Canvas of={ButtonMinorStories.SecondaryDisabledButton} />
+
+Secondary buttons can have an icon positioned before or after the text.
+
+<Canvas of={ButtonMinorStories.SecondaryIconButton} />
+
+Secondary buttons can be `fullWidth`.
+
+<Canvas of={ButtonMinorStories.SecondaryFullWidthButton} />
+
+Secondary buttons can be set into `noWrap` mode to prevent text wrapping.
+
+<Canvas of={ButtonMinorStories.SecondaryNoWrapButton} />
+
+### Tertiary Buttons
+
+Tertiary Buttons or 'ghost' buttons are used for reversing actions, like 'Cancel' or 'Back'.
+
+<Canvas of={ButtonMinorStories.TertiaryButton} />
+
+Tertiary buttons can be destructive.
+
+<Canvas of={ButtonMinorStories.TertiaryDestructiveButton} />
+
+Tertiary buttons can be disabled.
+
+<Canvas of={ButtonMinorStories.TertiaryDisabledButton} />
+
+Tertiary buttons can have an icon positioned before or after the text.
+
+<Canvas of={ButtonMinorStories.TertiaryIconButton} />
+
+Tertiary buttons can be `fullWidth`.
+
+<Canvas of={ButtonMinorStories.TertiaryFullWidthButton} />
+
+Tertiary buttons can be set to `noWrap` mode to prevent text wrapping.
+
+<Canvas of={ButtonMinorStories.TertiaryNoWrapButton} />
+
+### Icon Only Button
+
+Buttons can be rendered with just an icon.
+
+<Canvas of={ButtonMinorStories.IconOnlyButton} />
+
+Icon only buttons can also display a tooltip message when the icon is hovered over. This can be acheived by passing a string to the `iconTooltipMessage` prop.
+
+<Canvas of={ButtonMinorStories.IconOnlyWithTooltipButton} />
+
+## Props
+
+Options shared between all of the above types of buttons. When setting padding we recommend using either the `p`, `py`
+or `px` props to ensure the spacing within the button is applied evenly.
+
+### Button Minor
+
+<ArgTypes of={ButtonMinorStories} />

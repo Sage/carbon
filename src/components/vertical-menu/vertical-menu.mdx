@@ -1,0 +1,111 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as VerticalMenuTriggerStories from "./vertical-menu-trigger/vertical-menu-trigger.stories";
+import * as VerticalMenuFullScreenStories from "./vertical-menu-full-screen/vertical-menu-full-screen.stories";
+import * as VerticalMenuItemStories from "./vertical-menu-item/vertical-menu-item.stories";
+import * as VerticalMenuStories from "./vertical-menu.stories";
+
+<Meta title="VerticalMenu" of={VerticalMenuStories} />
+
+# VerticalMenu
+
+Provides a vertical navigation for an app, which can be used via mouse or keyboard.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import {
+  VerticalMenu,
+  VerticalMenuItem,
+  VerticalMenuFullScreen,
+  VerticalMenuTrigger,
+} from "carbon-react/lib/components/vertical-menu";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={VerticalMenuStories.Default} />
+
+### With custom width and height
+
+<Canvas of={VerticalMenuStories.CustomWidthAndHeight} />
+
+### Adornment
+
+The `adornment` prop of `VerticalMenuItem` component can be used to pass a component that will be rendered on the right hand side of the title.
+This prop also accepts a render function which accepts `isOpen` as a parameter. This can be used to conditionally render an icon based on the open state of the menu.
+
+<Canvas of={VerticalMenuStories.Adornment} />
+
+### Active
+
+Same as `adornment`, the `active` prop of `VerticalMenuItem` component can be used to pass a boolean value to indicate if the menu item is active or not.
+This prop also accepts a render function which accepts `isOpen` as a parameter.
+
+<Canvas of={VerticalMenuStories.Active} />
+
+### Custom item padding
+
+<Canvas of={VerticalMenuStories.CustomItemPadding} />
+
+### Custom item height
+
+<Canvas of={VerticalMenuStories.CustomItemHeight} />
+
+### With custom component
+
+The `component` prop of `VerticalMenuItem` component can be used to pass a custom component.
+It can be used to render the item as a `Link` component from a router library like `react-router`.
+
+<Canvas of={VerticalMenuStories.CustomComponent} />
+
+### Full Screen
+
+This story is best viewed in the `canvas` view and by adjusting the size of the window. The fullscreen menu behaviour will
+trigger when the screen size is smaller than `1200px`. Also take note that in full screen mode the `VerticalMenuItems` are always open.
+The `VerticalMenuTrigger` component is intended to be used to trigger opening the `VerticalMenuFullScreen`.
+
+<Canvas of={VerticalMenuStories.FullScreen} />
+
+## Props
+
+### VerticalMenu
+
+<ArgTypes of={VerticalMenuStories} />
+
+### VerticalMenuItem
+
+<ArgTypes of={VerticalMenuItemStories} />
+
+### VerticalMenuFullScreen
+
+<ArgTypes of={VerticalMenuFullScreenStories} />
+
+### VerticalMenuTrigger
+
+<ArgTypes of={VerticalMenuTriggerStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "verticalMenuFullScreen.ariaLabels.close",
+      description: "The text for the close Icon aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

@@ -1,34 +1,51 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import MultiActionButton, { MultiActionButtonProps } from ".";
 import Button from "../button";
 import Box from "../box";
 import { Accordion } from "../accordion";
 
-export const DefaultStory: ComponentStory<typeof MultiActionButton> = (
-  args
-) => (
-  <MultiActionButton {...args}>
-    <Button href="#">Button 1</Button>
-    <Button>Button 2</Button>
-    <Button>Button 3</Button>
-  </MultiActionButton>
-);
+const styledSystemProps = generateStyledSystemProps({
+  width: true,
+  margin: true,
+});
 
-DefaultStory.args = {
-  text: "Multi Action Button",
+const meta: Meta<typeof MultiActionButton> = {
+  title: "Multi Action Button",
+  component: MultiActionButton,
+  argTypes: {
+    ...styledSystemProps,
+  },
 };
 
-DefaultStory.parameters = { chromatic: { disableSnapshot: true } };
+export default meta;
+type Story = StoryObj<typeof MultiActionButton>;
 
-export const Disabled = DefaultStory.bind({});
-Disabled.args = {
-  text: "Multi Action Button",
-  disabled: true,
+export const DefaultStory: Story = {
+  render: (args: MultiActionButtonProps) => {
+    return (
+      <MultiActionButton {...args}>
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </MultiActionButton>
+    );
+  },
+  args: { text: "Multi Action Button" },
+  name: "Default",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const Sizes = () => {
+export const Disabled: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, text: "Multi Action Button", disabled: true },
+  name: "Disabled",
+};
+
+export const Sizes: Story = () => {
   return (["small", "medium", "large"] as const).map(
     (size: MultiActionButtonProps["size"]) => (
       <Box key={size} mb={3}>
@@ -43,21 +60,24 @@ export const Sizes = () => {
     )
   );
 };
+Sizes.storyName = "Sizes";
 
-export const CustomWidth: ComponentStory<typeof MultiActionButton> = (args) => (
-  <MultiActionButton {...args}>
-    <Button href="#">Button 1</Button>
-    <Button>Button 2</Button>
-    <Button>Button 3</Button>
-  </MultiActionButton>
-);
-
+export const CustomWidth: Story = (args: MultiActionButtonProps) => {
+  return (
+    <MultiActionButton {...args}>
+      <Button href="#">Button 1</Button>
+      <Button>Button 2</Button>
+      <Button>Button 3</Button>
+    </MultiActionButton>
+  );
+};
+CustomWidth.storyName = "Custom Width";
 CustomWidth.args = {
   text: "Multi Action Button",
   width: 0.7,
 };
 
-export const ButtonTypes = () => {
+export const ButtonTypes: Story = () => {
   return (["primary", "secondary", "tertiary"] as const).map(
     (buttonType: MultiActionButtonProps["buttonType"]) => (
       <Box key={buttonType} mb={3}>
@@ -73,8 +93,9 @@ export const ButtonTypes = () => {
     )
   );
 };
+ButtonTypes.storyName = "Button Types";
 
-export const ChildButtonTypes = () => {
+export const ChildButtonTypes: Story = () => {
   return (
     <MultiActionButton text="Multi Action Button">
       <Button>Default button</Button>
@@ -94,10 +115,10 @@ export const ChildButtonTypes = () => {
     </MultiActionButton>
   );
 };
-
+ChildButtonTypes.storyName = "Child Button Types";
 ChildButtonTypes.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Alignment = () => {
+export const Alignment: Story = () => {
   return (["left", "right"] as const).map(
     (align: MultiActionButtonProps["align"]) => (
       <Box key={align} mb={3}>
@@ -113,25 +134,30 @@ export const Alignment = () => {
     )
   );
 };
+Alignment.storyName = "Alignment";
 Alignment.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Subtext = DefaultStory.bind({});
-Subtext.args = {
-  size: "large",
-  text: "Multi Action Button",
-  subtext: "subtext",
-  children: (
-    <>
-      <Button size="large" href="#">
-        Button 1
-      </Button>
-      <Button size="large">Button 2</Button>
-      <Button size="large">Button 3</Button>
-    </>
-  ),
+export const Subtext: Story = {
+  ...DefaultStory,
+  args: {
+    ...DefaultStory.args,
+    size: "large",
+    text: "Multi Action Button",
+    subtext: "subtext",
+    children: (
+      <>
+        <Button size="large" href="#">
+          Button 1
+        </Button>
+        <Button size="large">Button 2</Button>
+        <Button size="large">Button 3</Button>
+      </>
+    ),
+  },
+  name: "Subtext",
 };
 
-export const InOverflowHiddenContainer = () => {
+export const InOverflowHiddenContainer: Story = () => {
   return (
     <Accordion title="Heading">
       <Box p={4}>
@@ -150,33 +176,34 @@ export const InOverflowHiddenContainer = () => {
     </Accordion>
   );
 };
+InOverflowHiddenContainer.storyName = "In Overflow Hidden Container";
 InOverflowHiddenContainer.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const WithChildrenButtonsWithIcons: ComponentStory<
-  typeof MultiActionButton
-> = () => (
-  <>
-    {(["before", "after"] as const).map((iconPosition) => (
-      <MultiActionButton
-        align={iconPosition === "before" ? "left" : "right"}
-        text="Multi Action Button"
-      >
-        <Button iconPosition={iconPosition} iconType="add">
-          Child Button 1
-        </Button>
-        <Button iconPosition={iconPosition} iconType="upload">
-          Child Button 2
-        </Button>
-        <Button iconPosition={iconPosition} iconType="clock">
-          Child Button 3
-        </Button>
-      </MultiActionButton>
-    ))}
-  </>
-);
-
+export const WithChildrenButtonsWithIcons: Story = () => {
+  return (
+    <>
+      {(["before", "after"] as const).map((iconPosition) => (
+        <MultiActionButton
+          align={iconPosition === "before" ? "left" : "right"}
+          text="Multi Action Button"
+        >
+          <Button iconPosition={iconPosition} iconType="add">
+            Child Button 1
+          </Button>
+          <Button iconPosition={iconPosition} iconType="upload">
+            Child Button 2
+          </Button>
+          <Button iconPosition={iconPosition} iconType="clock">
+            Child Button 3
+          </Button>
+        </MultiActionButton>
+      ))}
+    </>
+  );
+};
+WithChildrenButtonsWithIcons.storyName = "With Children Buttons With Icons";
 WithChildrenButtonsWithIcons.parameters = {
   chromatic: { disableSnapshot: true },
 };

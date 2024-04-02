@@ -1,10 +1,22 @@
 import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import styled from "styled-components";
 
-import Toast from ".";
+import isChromatic from "../../../.storybook/isChromatic";
+
+import Box from "../box";
 import Button from "../button";
 import Icon from "../icon";
-import isChromatic from "../../../.storybook/isChromatic";
+import Toast from ".";
+
+const meta: Meta<typeof Toast> = {
+  title: "Toast",
+  component: Toast,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export default meta;
+type Story = StoryObj<typeof Toast>;
 
 const defaultOpenState = isChromatic();
 
@@ -18,7 +30,7 @@ const StyledButton = styled(Button)<{ isOpen: boolean }>`
   border: ${({ isOpen }) => (isOpen ? "2px solid green" : "2px solid blue")};
 `;
 
-export const Default = () => {
+export const Default: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => {
     if (!isOpen) {
@@ -28,7 +40,7 @@ export const Default = () => {
   };
 
   return (
-    <div id="wrapper-default">
+    <Box id="wrapper-default">
       <StyledButton
         id="button-default"
         key="button"
@@ -40,11 +52,12 @@ export const Default = () => {
       <Toast id="toast-default" variant="success" open={isOpen}>
         My message
       </Toast>
-    </div>
+    </Box>
   );
 };
+Default.storyName = "Default";
 
-export const Info = () => {
+export const Info: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => {
     if (!isOpen) {
@@ -54,7 +67,7 @@ export const Info = () => {
   };
 
   return (
-    <div id="wrapper-variant-info">
+    <Box id="wrapper-variant-info">
       <StyledButton
         id="button-variant-info"
         key="button"
@@ -66,11 +79,12 @@ export const Info = () => {
       <Toast variant="info" id="toast-variant-info" open={isOpen}>
         My Info
       </Toast>
-    </div>
+    </Box>
   );
 };
+Info.storyName = "Info";
 
-export const Neutral = () => {
+export const Neutral: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => {
     if (!isOpen) {
@@ -80,7 +94,7 @@ export const Neutral = () => {
   };
 
   return (
-    <div id="wrapper-variant-neutral">
+    <Box id="wrapper-variant-neutral">
       <StyledButton
         id="button-variant-neutral"
         key="button"
@@ -92,11 +106,12 @@ export const Neutral = () => {
       <Toast variant="neutral" id="toast-variant-neutral" open={isOpen}>
         My Neutral Toast
       </Toast>
-    </div>
+    </Box>
   );
 };
+Neutral.storyName = "Neutral";
 
-export const Error = () => {
+export const Error: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => {
     if (!isOpen) {
@@ -106,7 +121,7 @@ export const Error = () => {
   };
 
   return (
-    <div id="wrapper-variant-error">
+    <Box id="wrapper-variant-error">
       <StyledButton
         id="button-variant-error"
         key="button"
@@ -118,11 +133,12 @@ export const Error = () => {
       <Toast variant="error" id="toast-variant-error" open={isOpen}>
         My Info
       </Toast>
-    </div>
+    </Box>
   );
 };
+Error.storyName = "Error";
 
-export const Warning = () => {
+export const Warning: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => {
     if (!isOpen) {
@@ -132,7 +148,7 @@ export const Warning = () => {
   };
 
   return (
-    <div id="wrapper-variant-warning">
+    <Box id="wrapper-variant-warning">
       <StyledButton
         id="button-variant-warning"
         key="button"
@@ -144,11 +160,12 @@ export const Warning = () => {
       <Toast variant="warning" id="toast-variant-warning" open={isOpen}>
         My Info
       </Toast>
-    </div>
+    </Box>
   );
 };
+Warning.storyName = "Warning";
 
-export const Notice = () => {
+export const Notice: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     if (!isOpen) {
@@ -164,7 +181,7 @@ export const Notice = () => {
   };
 
   return (
-    <div id="wrapper-alternative">
+    <Box id="wrapper-alternative">
       <StyledButton
         id="button-alternative"
         key="button"
@@ -181,11 +198,12 @@ export const Notice = () => {
       >
         <Icon type="warning" color="--colorsSemanticNeutralYang100" /> My Info
       </Toast>
-    </div>
+    </Box>
   );
 };
+Notice.storyName = "Notice";
 
-export const Notification = () => {
+export const Notification: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const handleToggle = () => {
     if (!isOpen) {
@@ -195,7 +213,7 @@ export const Notification = () => {
   };
 
   return (
-    <div id="wrapper-notification">
+    <Box id="wrapper-notification">
       <StyledButton
         id="button-notification"
         key="button"
@@ -207,11 +225,12 @@ export const Notification = () => {
       <Toast id="toast-notification" variant="notification" open={isOpen}>
         My message
       </Toast>
-    </div>
+    </Box>
   );
 };
+Notification.storyName = "Notification";
 
-export const LeftAligned = () => {
+export const LeftAligned: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -224,7 +243,7 @@ export const LeftAligned = () => {
   };
 
   return (
-    <div id="wrapper-left-aligned">
+    <Box id="wrapper-left-aligned">
       <StyledButton
         id="button-left-aligned"
         key="button"
@@ -242,11 +261,12 @@ export const LeftAligned = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+LeftAligned.storyName = "Left Aligned";
 
-export const AlignedLeft = () => {
+export const AlignedLeft: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -259,7 +279,7 @@ export const AlignedLeft = () => {
   };
 
   return (
-    <div id="wrapper-left-aligned">
+    <Box id="wrapper-left-aligned">
       <StyledButton
         id="button-left-aligned"
         key="button"
@@ -278,11 +298,12 @@ export const AlignedLeft = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+AlignedLeft.storyName = "Aligned Left";
 
-export const AlignedCenter = () => {
+export const AlignedCenter: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -295,7 +316,7 @@ export const AlignedCenter = () => {
   };
 
   return (
-    <div id="wrapper-center-aligned">
+    <Box id="wrapper-center-aligned">
       <StyledButton
         id="button-center-aligned"
         key="button"
@@ -314,11 +335,12 @@ export const AlignedCenter = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+AlignedCenter.storyName = "Aligned Center";
 
-export const AlignedRight = () => {
+export const AlignedRight: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -331,7 +353,7 @@ export const AlignedRight = () => {
   };
 
   return (
-    <div id="wrapper-right-aligned">
+    <Box id="wrapper-right-aligned">
       <StyledButton
         id="button-right-aligned"
         key="button"
@@ -350,11 +372,12 @@ export const AlignedRight = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+AlignedRight.storyName = "Aligned Right";
 
-export const AlignedYTop = () => {
+export const AlignedYTop: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -367,7 +390,7 @@ export const AlignedYTop = () => {
   };
 
   return (
-    <div id="wrapper-top-alignedY">
+    <Box id="wrapper-top-alignedY">
       <StyledButton
         id="button-top-alignedY"
         key="button"
@@ -385,11 +408,12 @@ export const AlignedYTop = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+AlignedYTop.storyName = "Aligned Y Top";
 
-export const AlignedYCenter = () => {
+export const AlignedYCenter: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -402,7 +426,7 @@ export const AlignedYCenter = () => {
   };
 
   return (
-    <div id="wrapper-center-alignedY">
+    <Box id="wrapper-center-alignedY">
       <StyledButton
         id="button-center-alignedY"
         key="button"
@@ -420,11 +444,12 @@ export const AlignedYCenter = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+AlignedYCenter.storyName = "Aligned Y Center";
 
-export const AlignedYBottom = () => {
+export const AlignedYBottom: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -437,7 +462,7 @@ export const AlignedYBottom = () => {
   };
 
   return (
-    <div id="wrapper-bottom-alignedY">
+    <Box id="wrapper-bottom-alignedY">
       <StyledButton
         id="button-bottom-alignedY"
         key="button"
@@ -455,11 +480,12 @@ export const AlignedYBottom = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+AlignedYBottom.storyName = "Aligned Y Bottom";
 
-export const CustomMaxWidth = () => {
+export const CustomMaxWidth: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     setIsOpen(!isOpen);
@@ -472,7 +498,7 @@ export const CustomMaxWidth = () => {
   };
 
   return (
-    <div id="wrapper-custom-width">
+    <Box id="wrapper-custom-width">
       <StyledButton
         id="button-custom-width"
         key="button"
@@ -494,11 +520,12 @@ export const CustomMaxWidth = () => {
         Animi aperiam atque consectetur error, facilis minima perferendis
         perspiciatis quas quo, soluta voluptatibus?
       </Toast>
-    </div>
+    </Box>
   );
 };
+CustomMaxWidth.storyName = "Custom Max Width";
 
-export const Dismissible = () => {
+export const Dismissible: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
     if (!isOpen) {
@@ -514,7 +541,7 @@ export const Dismissible = () => {
   };
 
   return (
-    <div id="wrapper-dismissible">
+    <Box id="wrapper-dismissible">
       <StyledButton
         id="button-toast-dismissible"
         key="button"
@@ -532,11 +559,12 @@ export const Dismissible = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+Dismissible.storyName = "Dismissible";
 
-export const DismissibleWithTimeout = () => {
+export const DismissibleWithTimeout: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onDismissClick = () => {
@@ -553,7 +581,7 @@ export const DismissibleWithTimeout = () => {
   };
 
   return (
-    <div id="wrapper-dismissible">
+    <Box id="wrapper-dismissible">
       <StyledButton
         id="button-toast-dismissible"
         key="button"
@@ -572,11 +600,12 @@ export const DismissibleWithTimeout = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+DismissibleWithTimeout.storyName = "Dismissible with timeout";
 
-export const DismissibleWithoutAutoFocus = () => {
+export const DismissibleWithoutAutoFocus: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const onDismissClick = () => {
     if (!isOpen) {
@@ -592,7 +621,7 @@ export const DismissibleWithoutAutoFocus = () => {
   };
 
   return (
-    <div id="wrapper-dismissible">
+    <Box id="wrapper-dismissible">
       <StyledButton
         id="button-toast-dismissible"
         key="button"
@@ -611,11 +640,12 @@ export const DismissibleWithoutAutoFocus = () => {
       >
         My text
       </Toast>
-    </div>
+    </Box>
   );
 };
+DismissibleWithoutAutoFocus.storyName = "Dismissible without autoFocus";
 
-export const StackedDelayed = () => {
+export const StackedDelayed: Story = () => {
   const [isOpenA, setIsOpenA] = useState(false);
   const [isOpenB, setIsOpenB] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -649,7 +679,7 @@ export const StackedDelayed = () => {
   };
 
   return (
-    <div id="wrapper-stacked-delayed">
+    <Box id="wrapper-stacked-delayed">
       <StyledButton
         id="button-stacked-delayed"
         key="button"
@@ -679,11 +709,12 @@ export const StackedDelayed = () => {
       >
         My toast B
       </Toast>
-    </div>
+    </Box>
   );
 };
+StackedDelayed.storyName = "Stacked Delayed";
 
-export const Stacked = () => {
+export const Stacked: Story = () => {
   const [isOpenA, setIsOpenA] = useState(false);
   const [isOpenB, setIsOpenB] = useState(false);
   const onDismissClickA = () => {
@@ -707,7 +738,7 @@ export const Stacked = () => {
   };
 
   return (
-    <div id="wrapper-stacked">
+    <Box id="wrapper-stacked">
       <StyledButton
         id="button-stacked"
         key="button"
@@ -736,6 +767,7 @@ export const Stacked = () => {
       >
         My Toast B
       </Toast>
-    </div>
+    </Box>
   );
 };
+Stacked.storyName = "Stacked";

@@ -1,18 +1,37 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import Preview from "./preview.component";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Button from "../button";
+import Preview from "./preview.component";
 
-export const Default: ComponentStory<typeof Preview> = () => (
-  <Preview loading />
-);
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
-export const WithLines: ComponentStory<typeof Preview> = () => (
-  <Preview loading lines={6} />
-);
+const meta: Meta<typeof Preview> = {
+  title: "Preview",
+  component: Preview,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
 
-export const WithChildren: ComponentStory<typeof Preview> = () => {
+export default meta;
+type Story = StoryObj<typeof Preview>;
+
+export const Default: Story = () => {
+  return <Preview loading />;
+};
+Default.storyName = "Default";
+
+export const WithLines: Story = () => {
+  return <Preview loading lines={6} />;
+};
+WithLines.storyName = "With Lines";
+
+export const WithChildren: Story = () => {
   const [isLoading, setIsLoading] = useState(true);
   const handleOnClick = () => {
     setIsLoading(!isLoading);
@@ -28,11 +47,14 @@ export const WithChildren: ComponentStory<typeof Preview> = () => {
     </>
   );
 };
+WithChildren.storyName = "With Children";
 
-export const WithWidth: ComponentStory<typeof Preview> = () => (
-  <Preview loading width="256px" />
-);
+export const WithWidth: Story = () => {
+  return <Preview loading width="256px" />;
+};
+WithWidth.storyName = "With Width";
 
-export const WithHeight: ComponentStory<typeof Preview> = () => (
-  <Preview loading height="256px" />
-);
+export const WithHeight: Story = () => {
+  return <Preview loading height="256px" />;
+};
+WithHeight.storyName = "With Height";

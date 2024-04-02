@@ -20,9 +20,9 @@ interface MockComponentProps {
   initialPageIndex?: number;
 }
 
-function MockComponentWithOneChild({
+const MockComponentWithOneChild = ({
   initialPageIndex,
-}: Pick<MockComponentProps, "initialPageIndex">) {
+}: Pick<MockComponentProps, "initialPageIndex">) => {
   const [pageIndex, setPageIndex] = useState<number | undefined>(
     initialPageIndex
   );
@@ -52,9 +52,9 @@ function MockComponentWithOneChild({
       </Page>
     </Pages>
   );
-}
+};
 
-function MockComponent({ index = 0, initialPageIndex }: MockComponentProps) {
+const MockComponent = ({ index = 0, initialPageIndex }: MockComponentProps) => {
   const [pageIndex, setPageIndex] = useState(index);
   const moveToNextPage = () => setPageIndex(pageIndex + 1);
   const moveToPreviousPage = () => setPageIndex(pageIndex - 1);
@@ -97,7 +97,7 @@ function MockComponent({ index = 0, initialPageIndex }: MockComponentProps) {
       </Page>
     </Pages>
   );
-}
+};
 
 describe("Pages", () => {
   let wrapper: ReactWrapper | ShallowWrapper;

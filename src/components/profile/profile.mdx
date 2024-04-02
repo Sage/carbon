@@ -1,0 +1,69 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ProfileStories from "./profile.stories";
+
+<Meta title="Profile" of={ProfileStories} />
+
+# Profile
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/16fc08-profile"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+- Display information alongside a [Portrait](/components/portrait) component.
+- Useful to represent a person, user, or organisation.
+- Use initials rather than an avatar if you prefer.
+- Works with [Gravatar](http://en.gravatar.com/) as a source of avatars.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Profile from "carbon-react/lib/components/profile";
+```
+
+## Examples
+
+### Default
+
+The `email` prop automatically surfaces the `href` attribute with `mailto:`. This will enable
+users to send a new email within their default email program to the email address.
+
+<Canvas of={ProfileStories.Default} />
+
+### with darkBackground
+
+The `darkBackground` prop can be passed to apply a dark background to `Profile`.
+The `Box` component has been used to apply width, height and roundness.
+
+<Canvas of={ProfileStories.DarkBackground} />
+
+### Src
+
+To use an image, simply pass any valid image URL as a `src` prop.
+
+<Canvas of={ProfileStories.Src} />
+
+### Sizes
+
+<Canvas of={ProfileStories.Sizes} />
+
+### Responsive Example
+
+<Canvas of={ProfileStories.Responsive} />
+
+## Props
+
+### Profile
+
+<ArgTypes of={ProfileStories} />

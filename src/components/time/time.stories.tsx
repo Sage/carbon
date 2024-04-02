@@ -1,13 +1,34 @@
 import React, { useState, useRef } from "react";
-import { ComponentStory } from "@storybook/react";
+import { ArgTypes, Meta, StoryObj } from "@storybook/react";
 
-import { Time } from ".";
-import Box from "../box";
-import { TimeHandle, TimeInputEvent, TimeValue } from "./time.component";
-import Button from "../button";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import I18nProvider from "../i18n-provider";
+import Box from "../box";
+import Button from "../button";
+import {
+  TimeHandle,
+  TimeInputEvent,
+  TimeProps,
+  TimeValue,
+} from "./time.component";
+import { Time } from ".";
 
-export const Default: ComponentStory<typeof Time> = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+}) as Partial<ArgTypes<TimeProps>>;
+
+const meta: Meta<typeof Time> = {
+  title: "Time",
+  component: Time,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Time>;
+
+export const Default: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -23,13 +44,13 @@ export const Default: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+Default.storyName = "Default";
 Default.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const AmPmToggle: ComponentStory<typeof Time> = () => {
+export const AmPmToggle: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -46,13 +67,13 @@ export const AmPmToggle: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+AmPmToggle.storyName = "AM/PM Toggle";
 AmPmToggle.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const InputHint: ComponentStory<typeof Time> = () => {
+export const InputHint: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -73,13 +94,13 @@ export const InputHint: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+InputHint.storyName = "Input Hint";
 InputHint.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const Required: ComponentStory<typeof Time> = () => {
+export const Required: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -95,13 +116,13 @@ export const Required: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+Required.storyName = "Required";
 Required.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const IsOptional: ComponentStory<typeof Time> = () => {
+export const IsOptional: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -117,13 +138,13 @@ export const IsOptional: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+IsOptional.storyName = "Is Optional";
 IsOptional.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const Disabled: ComponentStory<typeof Time> = () => {
+export const Disabled: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -146,13 +167,13 @@ export const Disabled: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+Disabled.storyName = "Disabled";
 Disabled.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const ReadOnly: ComponentStory<typeof Time> = () => {
+export const ReadOnly: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -175,13 +196,13 @@ export const ReadOnly: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+ReadOnly.storyName = "Read Only";
 ReadOnly.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const Sizes: ComponentStory<typeof Time> = () => {
+export const Sizes: Story = () => {
   const [value, setValue] = useState<{
     small: TimeValue;
     medium: TimeValue;
@@ -243,13 +264,13 @@ export const Sizes: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+Sizes.storyName = "Sizes";
 Sizes.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const Validation: ComponentStory<typeof Time> = () => {
+export const Validation: Story = () => {
   const valueInvalidHours: TimeValue = {
     hours: "13",
     minutes: "30",
@@ -318,13 +339,13 @@ export const Validation: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+Validation.storyName = "Validation";
 Validation.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const FocusingInputs: ComponentStory<typeof Time> = () => {
+export const FocusingInputs: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -354,12 +375,12 @@ export const FocusingInputs: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
-Default.parameters = {
+FocusingInputs.storyName = "Focusing Inputs Programmatically";
+FocusingInputs.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const LocaleOverride: ComponentStory<typeof Time> = () => {
+export const LocaleOverride: Story = () => {
   const [value, setValue] = useState<TimeValue>({
     hours: "",
     minutes: "",
@@ -389,7 +410,7 @@ export const LocaleOverride: ComponentStory<typeof Time> = () => {
     </Box>
   );
 };
-
+LocaleOverride.storyName = "Locale Override";
 LocaleOverride.parameters = {
   chromatic: { disableSnapshot: false },
   themeProvider: { chromatic: { theme: "sage" } },

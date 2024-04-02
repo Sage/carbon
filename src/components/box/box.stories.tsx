@@ -1,19 +1,40 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import Box, { BoxProps } from ".";
 import Button from "../button";
 import Typography from "../typography";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-export const Spacing: ComponentStory<typeof Box> = () => {
+const styledSystemProps = generateStyledSystemProps({
+  spacing: true,
+  flexBox: true,
+  grid: true,
+  layout: true,
+  position: true,
+});
+
+const meta: Meta<typeof Box> = {
+  title: "Box",
+  component: Box,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Box>;
+
+export const Spacing: Story = () => {
   return (
     <Box m={3} p={3} bg="secondary">
       <Box height="100px" bg="primary" />
     </Box>
   );
 };
+Spacing.storyName = "Spacing";
 
-export const Position: ComponentStory<typeof Box> = () => {
+export const Position: Story = () => {
   return (
     <Box>
       <Box
@@ -61,8 +82,9 @@ export const Position: ComponentStory<typeof Box> = () => {
     </Box>
   );
 };
+Position.storyName = "Position";
 
-export const Color: ComponentStory<typeof Box> = () => {
+export const Color: Story = () => {
   return (
     <Box m={3} p={3} bg="secondary">
       <Box width="100px" height="100px" bg="primary" color="yellow">
@@ -71,14 +93,16 @@ export const Color: ComponentStory<typeof Box> = () => {
     </Box>
   );
 };
+Color.storyName = "Color";
 
-export const BoxShadow: ComponentStory<typeof Box> = () => {
+export const BoxShadow: Story = () => {
   return (
     <Box m={3} p={3} height="100px" bg="secondary" boxShadow="boxShadow200" />
   );
 };
+BoxShadow.storyName = "Box Shadow";
 
-export const Flex: ComponentStory<typeof Box> = () => {
+export const Flex: Story = () => {
   return (
     <Box>
       <Box
@@ -107,8 +131,9 @@ export const Flex: ComponentStory<typeof Box> = () => {
     </Box>
   );
 };
+Flex.storyName = "Flex";
 
-export const Grid: ComponentStory<typeof Box> = () => {
+export const grid: Story = () => {
   return (
     <Box>
       <Box display="grid" gap={1} gridTemplateColumns="auto auto auto">
@@ -153,8 +178,9 @@ export const Grid: ComponentStory<typeof Box> = () => {
     </Box>
   );
 };
+grid.storyName = "Grid";
 
-export const Gap: ComponentStory<typeof Box> = () => {
+export const Gap: Story = () => {
   return (
     <Box display="flex" flexDirection="column" gap={2}>
       <Box display="flex" columnGap={1}>
@@ -212,8 +238,9 @@ export const Gap: ComponentStory<typeof Box> = () => {
     </Box>
   );
 };
+Gap.storyName = "Gap";
 
-export const Layout: ComponentStory<typeof Box> = () => {
+export const Layout: Story = () => {
   return (
     <Box display="block" size="150px" overflow="hidden">
       <Box
@@ -240,8 +267,9 @@ export const Layout: ComponentStory<typeof Box> = () => {
     </Box>
   );
 };
+Layout.storyName = "Layout";
 
-export const OverflowWrap: ComponentStory<typeof Box> = () => {
+export const OverflowWrap: Story = () => {
   return (
     <div style={{ display: "inline-flex" }}>
       <div
@@ -263,9 +291,10 @@ export const OverflowWrap: ComponentStory<typeof Box> = () => {
     </div>
   );
 };
+OverflowWrap.storyName = "OverflowWrap";
 OverflowWrap.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Scroll: ComponentStory<typeof Box> = () => {
+export const Scroll: Story = () => {
   return (
     <div>
       <Box
@@ -332,31 +361,34 @@ export const Scroll: ComponentStory<typeof Box> = () => {
     </div>
   );
 };
+Scroll.storyName = "Scroll";
 Scroll.parameters = { chromatic: { disableSnapshot: true } };
 
-const radiusTokens: BoxProps["borderRadius"][] = [
-  "borderRadius000",
-  "borderRadius010",
-  "borderRadius025",
-  "borderRadius050",
-  "borderRadius100",
-  "borderRadius200",
-  "borderRadius400",
-  "borderRadiusCircle",
-];
+export const RoundedCorners: Story = () => {
+  const radiusTokens: BoxProps["borderRadius"][] = [
+    "borderRadius000",
+    "borderRadius010",
+    "borderRadius025",
+    "borderRadius050",
+    "borderRadius100",
+    "borderRadius200",
+    "borderRadius400",
+    "borderRadiusCircle",
+  ];
 
-export const RoundedCorners = () => (
-  <Box display="flex" justifyContent="space-between">
-    {radiusTokens.map((token) => (
-      <Box
-        key={`${token}-example`}
-        backgroundColor="primary"
-        height="100px"
-        width="100px"
-        borderRadius={token}
-      />
-    ))}
-  </Box>
-);
-
+  return (
+    <Box display="flex" justifyContent="space-between">
+      {radiusTokens.map((token) => (
+        <Box
+          key={`${token}-example`}
+          backgroundColor="primary"
+          height="100px"
+          width="100px"
+          borderRadius={token}
+        />
+      ))}
+    </Box>
+  );
+};
+RoundedCorners.storyName = "Rounded Corners";
 RoundedCorners.parameters = { chromatic: { disableSnapshot: false } };
