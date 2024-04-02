@@ -36,7 +36,7 @@ describe("Global Header", () => {
     });
 
     it("and logo is a svg element, logo is visible with correct accessible name", () => {
-      const logo = <svg aria-label="Carbon logo" data-testid="carbon-logo" />;
+      const logo = <svg aria-label="Carbon logo" data-role="carbon-logo" />;
       renderer({ logo });
       expect(screen.getByTestId("carbon-logo")).toHaveAccessibleName(
         "Carbon logo"

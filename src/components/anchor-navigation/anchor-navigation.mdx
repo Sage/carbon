@@ -1,0 +1,108 @@
+import { Meta, ArgTypes, Canvas, Story } from "@storybook/blocks";
+
+import * as AnchorNavigationItemStories from "./anchor-navigation-item/anchor-navigation-item.stories";
+import * as AnchorNavigationStories from "./anchor-navigation.stories";
+
+<Meta title="Anchor Navigation" of={AnchorNavigationStories} />
+
+# Anchor Navigation
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/496ff6-anchor-navigation/b/285c84"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Easily navigate through long scrollable content.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use `AnchorNavigation` import `AnchorNavigation`, `AnchorNavigationItem` and `AnchorSectionDivider` from Carbon.
+
+```javascript
+import {
+  AnchorNavigation,
+  AnchorNavigationItem,
+  AnchorSectionDivider,
+} from "carbon-react/lib/components/anchor-navigation";
+```
+
+- Create `refs` which will be used internally in `AnchorNavigation` to measure positions of the elements.
+
+- Pass proper structure of `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop.
+
+- Pass children where elements which are meant to serve as sections have `refs` assigned.
+- Keep in mind that to assign a `ref` to a component it either has to be a `Class` component or it has to be wrapped in `React.forwardRef()` in case of a function component.
+
+- **It is necessary to maintain the same order of navigation items and children when assigning the `refs`**
+
+- **It is necessary to maintain `stickyNavigation` prop structure as shown below**
+
+```javascript
+const MyComponent = () => (
+  const ref1 = React.createRef();
+  const ref2 = React.createRef();
+  const ref3 = React.createRef();
+
+  <AnchorNavigation
+    stickyNavigation={
+      <>
+        <AnchorNavigationItem target={ ref1 }>
+          First
+        </AnchorNavigationItem>
+        <AnchorNavigationItem target={ ref2 }>
+          Second
+        </AnchorNavigationItem>
+        <AnchorNavigationItem target={ ref3 }>
+          Third
+        </AnchorNavigationItem>
+      </>
+    }
+  >
+    <Box ref={ ref1 }>
+      <h2>Section 1</h2>
+    </Box>
+    <AnchorSectionDivider />
+    <Box ref={ ref2 }>
+      <h2>Section 2</h2>
+    </Box>
+    <AnchorSectionDivider />
+    <Box ref={ ref3 }>
+      <h2>Section 3</h2>
+    </Box>
+  </AnchorNavigation>
+);
+```
+
+## Examples
+
+### Default
+
+`AnchorNavigation` can be placed anywhere on the page to help with navigating long scrollable sections.
+
+<Story of={AnchorNavigationStories.DefaultStory} />
+
+### In DialogFullScreen
+
+`AnchorNavigation` can also be used as the content of `DialogFullScreen` component.
+
+<Canvas of={AnchorNavigationStories.InFullScreenDialogStory} />
+
+## Props:
+
+### AnchorNavigation
+
+<ArgTypes of={AnchorNavigationStories} />
+
+### AnchorNavigationItem
+
+<ArgTypes of={AnchorNavigationItemStories} />

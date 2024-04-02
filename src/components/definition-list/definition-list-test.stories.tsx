@@ -1,7 +1,7 @@
 import React from "react";
-import Dl, { DlProps } from "../definition-list/dl.component";
-import Dt from "../definition-list/dt.component";
-import Dd from "../definition-list/dd.component";
+import Dl, { DlProps } from "./dl.component";
+import Dt from "./dt/dt.component";
+import Dd from "./dd/dd.component";
 import { Tile } from "../tile";
 import Icon from "../icon";
 import Pill from "../pill";

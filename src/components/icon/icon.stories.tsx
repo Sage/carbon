@@ -1,61 +1,85 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Icon from ".";
 import Box from "../box";
 
 import { ICONS } from "./icon-config";
 
-export const Default: ComponentStory<typeof Icon> = () => <Icon type="add" />;
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
-export const Disabled: ComponentStory<typeof Icon> = () => (
-  <Icon type="add" disabled />
-);
+const meta: Meta<typeof Icon> = {
+  title: "Icon",
+  component: Icon,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
 
-export const WithTooltip: ComponentStory<typeof Icon> = () => (
-  <div style={{ margin: 60, display: "inline" }}>
-    <Icon
-      mr={8}
-      type="add"
-      tooltipMessage="Hey I'm a default tooltip!"
-      ariaLabel="Icon with tooltip"
-    />
-    <Icon
-      mr={8}
-      type="add"
-      tooltipMessage={
-        <>
-          Hey I&apos;m a <em>custom</em> tooltip!
-        </>
-      }
-      ariaLabel="Icon with tooltip"
-    />
-    <Icon
-      mr={8}
-      type="add"
-      tooltipMessage="Hey I'm a tooltip with a different position!"
-      tooltipPosition="bottom"
-      ariaLabel="Icon with tooltip"
-    />
-    <Icon
-      mr={8}
-      type="add"
-      tooltipMessage="Hey I'm a tooltip with a different color!"
-      tooltipBgColor="lightblue"
-      tooltipFontColor="black"
-      ariaLabel="Icon with tooltip"
-    />
-    <Icon
-      type="add"
-      tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!"
-      tooltipFlipOverrides={["right", "left"]}
-      ariaLabel="Icon with tooltip"
-    />
-  </div>
-);
+export default meta;
+type Story = StoryObj<typeof Icon>;
+
+export const Default: Story = () => {
+  return <Icon type="add" />;
+};
+Default.storyName = "Default";
+
+export const Disabled: Story = () => {
+  return <Icon type="add" disabled />;
+};
+Disabled.storyName = "Disabled";
+
+export const WithTooltip: Story = () => {
+  return (
+    <Box m={60} display="inline">
+      <Icon
+        mr={8}
+        type="add"
+        tooltipMessage="Hey I'm a default tooltip!"
+        ariaLabel="Icon with tooltip"
+      />
+      <Icon
+        mr={8}
+        type="add"
+        tooltipMessage={
+          <>
+            Hey I&apos;m a <em>custom</em> tooltip!
+          </>
+        }
+        ariaLabel="Icon with tooltip"
+      />
+      <Icon
+        mr={8}
+        type="add"
+        tooltipMessage="Hey I'm a tooltip with a different position!"
+        tooltipPosition="bottom"
+        ariaLabel="Icon with tooltip"
+      />
+      <Icon
+        mr={8}
+        type="add"
+        tooltipMessage="Hey I'm a tooltip with a different color!"
+        tooltipBgColor="lightblue"
+        tooltipFontColor="black"
+        ariaLabel="Icon with tooltip"
+      />
+      <Icon
+        type="add"
+        tooltipMessage="Hey I'm a tooltip with flip behaviour overrides!"
+        tooltipFlipOverrides={["right", "left"]}
+        ariaLabel="Icon with tooltip"
+      />
+    </Box>
+  );
+};
+WithTooltip.storyName = "With Tooltip";
 WithTooltip.parameters = { chromatic: { disableSnapshot: true } };
 
-export const VariousFontSizes: ComponentStory<typeof Icon> = () => {
+export const VariousFontSizes: Story = () => {
   return (
     <>
       {(["small", "medium", "large", "extra-large"] as const).map(
@@ -66,8 +90,9 @@ export const VariousFontSizes: ComponentStory<typeof Icon> = () => {
     </>
   );
 };
+VariousFontSizes.storyName = "Various Font Sizes";
 
-export const VariousBgShapes: ComponentStory<typeof Icon> = () => {
+export const VariousBgShapes: Story = () => {
   return (
     <>
       {(["circle", "rounded-rect", "square"] as const).map((bgShape) => (
@@ -76,8 +101,9 @@ export const VariousBgShapes: ComponentStory<typeof Icon> = () => {
     </>
   );
 };
+VariousBgShapes.storyName = "Various Background Shapes";
 
-export const VariousBgSizes: ComponentStory<typeof Icon> = () => {
+export const VariousBgSizes: Story = () => {
   return (
     <>
       {(["small", "medium", "large", "extra-large"] as const).map((bgSize) => (
@@ -86,8 +112,9 @@ export const VariousBgSizes: ComponentStory<typeof Icon> = () => {
     </>
   );
 };
+VariousBgSizes.storyName = "Various Background Sizes";
 
-export const BgSizesAndFontSizes: ComponentStory<typeof Icon> = () => {
+export const BgSizesAndFontSizes: Story = () => {
   return (
     <>
       {(["small", "medium", "large", "extra-large"] as const).map(
@@ -112,8 +139,9 @@ export const BgSizesAndFontSizes: ComponentStory<typeof Icon> = () => {
     </>
   );
 };
+BgSizesAndFontSizes.storyName = "Background Sizes and Font Sizes";
 
-export const CustomColors: ComponentStory<typeof Icon> = () => (
+export const CustomColors: Story = () => (
   <>
     <Box mb={1}>
       <Icon type="add" color="--colorsUtilityYin090" />
@@ -139,23 +167,27 @@ export const CustomColors: ComponentStory<typeof Icon> = () => (
     </Box>
   </>
 );
+CustomColors.storyName = "Custom Colors";
 CustomColors.parameters = {
   info: { disable: true },
   chromatic: { disableSnapshot: true },
 };
 
-export const ListOfIcons: ComponentStory<typeof Icon> = () => (
-  <Box m={2}>
-    {ICONS.sort().map((type) => {
-      return (
-        <Box m={2} key={`icon-${type}`}>
-          <Icon m={2} type={type} fontSize="large" />
-          {type}
-        </Box>
-      );
-    })}
-  </Box>
-);
+export const ListOfIcons: Story = () => {
+  return (
+    <Box m={2}>
+      {ICONS.sort().map((type) => {
+        return (
+          <Box m={2} key={`icon-${type}`}>
+            <Icon m={2} type={type} fontSize="large" />
+            {type}
+          </Box>
+        );
+      })}
+    </Box>
+  );
+};
+ListOfIcons.storyName = "List of Icons";
 ListOfIcons.parameters = {
   info: { disable: true },
   chromatic: { disableSnapshot: true },

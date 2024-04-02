@@ -591,6 +591,12 @@ describe("ActionPopover", () => {
     expect(buttonIcon.prop("aria-label")).toBe("actions");
   });
 
+  it("uses the aria-label prop if provided", () => {
+    render({ "aria-label": "test aria label" });
+    const { buttonIcon } = getElements();
+    expect(buttonIcon.prop("aria-label")).toBe("test aria label");
+  });
+
   it("renders with the menu closed by default", () => {
     render();
     const { menu } = getElements();
@@ -1362,9 +1368,6 @@ describe("ActionPopover", () => {
         expect(wrapperElement.props().onMouseLeave).toEqual(undefined);
         expect(item.find("button").at(0).props()["aria-haspopup"]).toEqual(
           "true"
-        );
-        expect(item.find("button").at(0).props()["aria-label"]).not.toEqual(
-          undefined
         );
         expect(item.find("button").at(0).props()["aria-controls"]).not.toEqual(
           undefined

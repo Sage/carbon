@@ -80,7 +80,7 @@ type StyledButtonChildrenContainerProps = {
   minWidth: number;
 };
 
-const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerProps>`
+const StyledButtonChildrenContainer = styled.ul<StyledButtonChildrenContainerProps>`
   ${({ theme, align, minWidth }) => css`
     background-color: var(--colorsActionMajorYang100);
     min-width: ${minWidth}px;
@@ -88,6 +88,9 @@ const StyledButtonChildrenContainer = styled.div<StyledButtonChildrenContainerPr
     z-index: ${theme.zIndex.popover};
     box-shadow: var(--boxShadow100);
     border-radius: var(--borderRadius100);
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
     ${borderRadiusStyling}
 

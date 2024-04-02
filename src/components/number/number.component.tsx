@@ -1,6 +1,12 @@
 import React, { useRef } from "react";
 import Textbox, { TextboxProps } from "../textbox";
 import Logger from "../../__internal__/utils/logger";
+import {
+  ALIGN_DEFAULT,
+  LABEL_VALIDATION_DEFAULT,
+  LABEL_WIDTH_DEFAULT,
+  SIZE_DEFAULT,
+} from "../textbox/textbox.component";
 
 let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
@@ -19,7 +25,17 @@ function isValidNumber(value: string) {
 
 export const Number = React.forwardRef(
   (
-    { onChange, onKeyDown, value, inputRef, ...rest }: NumberProps,
+    {
+      onChange,
+      onKeyDown,
+      value,
+      inputRef,
+      align = ALIGN_DEFAULT,
+      labelWidth = LABEL_WIDTH_DEFAULT,
+      size = SIZE_DEFAULT,
+      validationOnLabel = LABEL_VALIDATION_DEFAULT,
+      ...rest
+    }: NumberProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const selectionStart = useRef<null | number>(null);
@@ -67,6 +83,10 @@ export const Number = React.forwardRef(
         onKeyDown={handleKeyDown}
         ref={ref}
         inputRef={inputRef}
+        align={align}
+        labelWidth={labelWidth}
+        size={size}
+        validationOnLabel={validationOnLabel}
       />
     );
   }

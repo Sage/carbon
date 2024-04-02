@@ -1,0 +1,210 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as TextEditorStories from "./text-editor.stories";
+
+<Meta title="Text Editor" of={TextEditorStories} />
+
+# Text Editor
+
+The `TextEditor` was created using the `draftjs` framework. It requires consuming projects to install `draftjs` as a
+peer-dependency to enable it to work.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import TextEditor, {
+  EditorState,
+  ContentState,
+} from "carbon-react/lib/components/text-editor";
+```
+
+To use the text editor , import the `TextEditor` and pass the content as as an immutable `EditorState` object.
+
+It can be used as a controlled component where the content of the input is controlled externally, as such both
+`onChange` and `value` props are required. The `labelText` and `labelId` props are also required in order to ensure
+accessibility requirements are met.
+
+## Examples
+
+### Default
+
+In its basic format the `TextEditor` requires three props; `value`, `onChange` and `label` props. The initial
+editorState can be created empty using `EditorState.createEmpty()`, as it is below. It is also possible to render links
+in the input, this can be done by manually typing or pasting a valid url into the editor. Another feature of the
+component is that it supports a wide range of keyboard shortcuts to apply the various styling options: `cmd/ctrl+b`
+toggles `bold`; `cmd/ctrl+i` toggles `italic`; and inputting a `*` or `1.` on a new line will render a
+`unordered-list` or `ordered-list` respectively.
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas of={TextEditorStories.Default} />
+
+### With content
+
+The initial editorState can also be created with content using
+`EditorState.createWithContent(ContentState.createFromText(''))`, as it is below. Other options available for
+populating the content that can be found https://draftjs.org/docs/api-reference-content-state#static-methods.
+It is also possible to initialise the editor with content in other formats, such as `html` or `markdown` through use of
+other packages; using the methods for data conversion provided by `draftjs`
+(https://draftjs.org/docs/api-reference-data-conversion/), enables the parsing of these formats into something the
+editor can expects.
+
+<Canvas of={TextEditorStories.WithContent} />
+
+### With optional Save / Cancel buttons
+
+By passing the `onSave` callback prop it is possible to render the form control buttons as seen below. This callback
+will be executed when the `Save` button is clicked and there is content in the editor input, the button is disabled
+otherwise. Any `onCancel` callback prop passed will be called when the `Cancel` button is clicked.
+
+<Canvas of={TextEditorStories.WithOptionalButtons} />
+
+### With optional character limit
+
+It is possible to override the default value for the character limit via the `characterLimit` prop. Setting this prop
+will prevent any input that would cause the content length to exceed it.
+
+<Canvas of={TextEditorStories.WithOptionalCharacterLimit} />
+
+### Character counter with translations
+
+Various translation keys are available to assist with translating the character counter below the editor into different languages. These keys allow you to amend the messages shown when the counter exceeds or is below the set character limit.
+
+For screen reader users, the designated `characterCount.visuallyHiddenHint` key can be used to override the message that is announced when the user stops typing.
+
+<Canvas of={TextEditorStories.CharacterCounterTranslations} />
+
+### With validation
+
+It is possible apply validation to the `TextEditor` component by passing the desired string message to one of the `error`,
+`warning` or `info` props. When an `error` message is provided the border styling of the editor is updated to indicate
+this status.
+
+<Canvas of={TextEditorStories.WithValidation} />
+
+With use of `template strings` it is possible to pass multiline validation messages to the component.
+
+<Canvas of={TextEditorStories.WithMultilineValidation} />
+
+<Canvas of={TextEditorStories.WithNewValidation} />
+
+### With custom row height
+
+The `rows` prop allows for overriding the default min-height of the `TextEditor`. It accepts any number greater than 2
+which is multiplied by the line-height (21px).
+
+<Canvas of={TextEditorStories.WithCustomRowHeight} />
+
+### With link previews
+
+It is possible to render `EditorLinkPreview`s via the `previews` prop. The `onLinkAdded` prop provides a callback
+that will allow any link added to report the url back to be used to make a call to whatever service or api you want.
+Whilst in the `Editor`, these previews can be deleted by clicking or pressing the enter key, when focused, on the close
+icon. This example has mocked some functionality: previews will display for any link that has a url ending in `.com`,
+`.co.uk`, `.org` or `.net`. See the prop table below for the available props for the `EditorLinkPreview` component.
+
+<Canvas of={TextEditorStories.WithLinkPreviews} />
+
+## Props
+
+### Text Editor
+
+<ArgTypes of={TextEditorStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "textEditor.ariaLabels.bold",
+      type: "func",
+      description:
+        "text to be read out by a screen reader when bold toolbar button is navigated to",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.ariaLabels.italic",
+      type: "func",
+      description:
+        "text to be read out by a screen reader when italic toolbar button is navigated to",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.ariaLabels.bulletList",
+      type: "func",
+      description:
+        "text to be read out by a screen reader when bullet list toolbar button is navigated to",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.ariaLabels.numberList",
+      type: "func",
+      description:
+        "text to be read out by a screen reader when number list toolbar button is navigated to",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.tooltipMessages.bold",
+      type: "func",
+      description: "visible when the user hovers over the bold toolbar button",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.tooltipMessages.italic",
+      type: "func",
+      description:
+        "visible when the user hovers over the italic toolbar button",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.tooltipMessages.bulletList",
+      type: "func",
+      description:
+        "visible when the user hovers over the bullet list toolbar button",
+      returnType: "string",
+    },
+    {
+      name: "textEditor.tooltipMessages.numberList",
+      type: "func",
+      description:
+        "visible when the user hovers over the number list toolbar button",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.tooManyCharacters",
+      description:
+        "The message displayed below the input which will inform" +
+        " users if they have exceeded the set `characterLimit` and how much by." +
+        " This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.charactersLeft",
+      description:
+        "The message displayed below the input which will inform" +
+        " users how many characters they have before they reach  or exceed the" +
+        " set `characterLimit`. This will also be announced to screen readers.",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "characterCount.visuallyHiddenHint",
+      description:
+        "The message which will be read out to screen reader users, informing them" +
+        " of the set `characterLimit`.",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

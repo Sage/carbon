@@ -1,5 +1,6 @@
 // eslint-disable @typescript-eslint/no-unused-vars
 import React, { useState, useCallback, useMemo } from "react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import {
   DuellingPicklist,
@@ -17,11 +18,27 @@ import Box from "../box";
 import Button from "../button";
 import Typography from "../typography";
 import { Default } from "./duelling-picklist-test.stories";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof DuellingPicklist> = {
+  title: "Duelling Picklist",
+  component: DuellingPicklist,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof DuellingPicklist>;
 
 type Item = { key: string; title: string; description: string };
 type AllItems = { [key: string]: Item };
 
-export const AlternativeSearch = () => {
+export const AlternativeSearch: Story = () => {
   const mockData = useMemo(() => {
     const arr = [];
     for (let i = 0; i < 20; i++) {
@@ -167,9 +184,9 @@ export const AlternativeSearch = () => {
     </>
   );
 };
-AlternativeSearch.storyName = "alternative search placement";
+AlternativeSearch.storyName = "Alternative Search Placement";
 
-export const Grouped = () => {
+export const Grouped: Story = () => {
   const allGroups = {
     groupA: "Group A",
     groupB: "Group B",
@@ -259,58 +276,53 @@ export const Grouped = () => {
   };
 
   return (
-    <>
-      <DuellingPicklist
-        leftLabel={`List 1 (${notSelectedItems.length})`}
-        rightLabel={`List 2 (${selectedItems.length})`}
+    <DuellingPicklist
+      leftLabel={`List 1 (${notSelectedItems.length})`}
+      rightLabel={`List 2 (${selectedItems.length})`}
+    >
+      <Picklist
+        placeholder={<PicklistPlaceholder text="Nothing to see here" />}
       >
-        <Picklist
-          placeholder={<PicklistPlaceholder text="Nothing to see here" />}
-        >
-          {Object.entries(allGroups).map(([key, value]) => {
-            const groupItems = notSelectedItems.filter(
-              (item) => item.group === key
-            );
-            return groupItems.length ? (
-              <PicklistGroup
-                key={key}
-                title={<Typography variant="b">{value}</Typography>}
-                type="add"
-                onChange={() => addGroup(key as GroupKey)}
-              >
-                {renderItems(groupItems, "add", onAdd)}
-              </PicklistGroup>
-            ) : null;
-          })}
-        </Picklist>
-        <PicklistDivider />
-        <Picklist
-          placeholder={<PicklistPlaceholder text="Nothing to see here" />}
-        >
-          {Object.entries(allGroups).map(([key, value]) => {
-            const groupItems = selectedItems.filter(
-              (item) => item.group === key
-            );
-            return groupItems.length ? (
-              <PicklistGroup
-                key={key}
-                title={<Typography variant="b">{value}</Typography>}
-                type="remove"
-                onChange={() => removeGroup(key as GroupKey)}
-              >
-                {renderItems(groupItems, "remove", onRemove)}
-              </PicklistGroup>
-            ) : null;
-          })}
-        </Picklist>
-      </DuellingPicklist>
-    </>
+        {Object.entries(allGroups).map(([key, value]) => {
+          const groupItems = notSelectedItems.filter(
+            (item) => item.group === key
+          );
+          return groupItems.length ? (
+            <PicklistGroup
+              key={key}
+              title={<Typography variant="b">{value}</Typography>}
+              type="add"
+              onChange={() => addGroup(key as GroupKey)}
+            >
+              {renderItems(groupItems, "add", onAdd)}
+            </PicklistGroup>
+          ) : null;
+        })}
+      </Picklist>
+      <PicklistDivider />
+      <Picklist
+        placeholder={<PicklistPlaceholder text="Nothing to see here" />}
+      >
+        {Object.entries(allGroups).map(([key, value]) => {
+          const groupItems = selectedItems.filter((item) => item.group === key);
+          return groupItems.length ? (
+            <PicklistGroup
+              key={key}
+              title={<Typography variant="b">{value}</Typography>}
+              type="remove"
+              onChange={() => removeGroup(key as GroupKey)}
+            >
+              {renderItems(groupItems, "remove", onRemove)}
+            </PicklistGroup>
+          ) : null;
+        })}
+      </Picklist>
+    </DuellingPicklist>
   );
 };
+Grouped.storyName = "Grouped";
 
-Grouped.storyName = "grouped";
-
-export const InDialog = () => {
+export const InDialog: Story = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <>
@@ -328,15 +340,14 @@ export const InDialog = () => {
     </>
   );
 };
-
-InDialog.storyName = "in dialog";
+InDialog.storyName = "In Dialog";
 InDialog.parameters = {
   chromatic: {
     disableSnapshot: true,
   },
 };
 
-export const AddItem = () => (
+export const AddItem: Story = () => (
   <ul>
     <PicklistItem type="add" item={1} onChange={() => null}>
       <div style={{ display: "flex", width: "100%" }}>
@@ -349,10 +360,9 @@ export const AddItem = () => (
     </PicklistItem>
   </ul>
 );
+AddItem.storyName = "Add Item";
 
-AddItem.storyName = "add item";
-
-export const RemoveItem = () => (
+export const RemoveItem: Story = () => (
   <ul>
     <PicklistItem type="remove" item={1} onChange={() => null}>
       <div style={{ display: "flex", width: "100%" }}>
@@ -365,10 +375,9 @@ export const RemoveItem = () => (
     </PicklistItem>
   </ul>
 );
+RemoveItem.storyName = "Remove Item";
 
-RemoveItem.storyName = "remove item";
-
-export const Locked = () => (
+export const Locked: Story = () => (
   <ul>
     <PicklistItem type="add" item={1} onChange={() => null} locked>
       <div style={{ display: "flex", width: "100%" }}>
@@ -381,10 +390,9 @@ export const Locked = () => (
     </PicklistItem>
   </ul>
 );
+Locked.storyName = "Locked";
 
-Locked.storyName = "locked";
-
-export const CustomTooltipMessage = () => (
+export const CustomTooltipMessage: Story = () => (
   <ul>
     <PicklistItem
       type="add"
@@ -403,8 +411,7 @@ export const CustomTooltipMessage = () => (
     </PicklistItem>
   </ul>
 );
-
-CustomTooltipMessage.storyName = "custom tooltip message";
+CustomTooltipMessage.storyName = "Custom Tooltip Message";
 CustomTooltipMessage.parameters = {
   chromatic: {
     disableSnapshot: true,

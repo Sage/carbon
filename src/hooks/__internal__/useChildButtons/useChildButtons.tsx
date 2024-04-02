@@ -10,7 +10,7 @@ const useChildButtons = (
   const [minWidth, setMinWidth] = useState(0);
 
   const buttonNode = useRef<HTMLDivElement>(null);
-  const childrenContainer = useRef<HTMLDivElement>(null);
+  const childrenContainer = useRef<HTMLUListElement>(null);
   const focusFirstChildButtonOnOpen = useRef(false);
 
   const hideButtons = useCallback(() => {
@@ -88,8 +88,8 @@ const useChildButtons = (
   }, [toggleButtonRef]);
 
   const wrapperProps = {
-    role: "menu",
     "data-element": "additional-buttons",
+    role: "list",
     onKeyDown: handleKeyDown,
     minWidth,
     ref: childrenContainer,

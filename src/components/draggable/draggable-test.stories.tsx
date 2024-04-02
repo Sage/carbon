@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import DraggableContainer, {
   DraggableContainerProps,
 } from "./draggable-container.component";
-import DraggableItem from "./draggable-item.component";
+import DraggableItem from "./draggable-item/draggable-item.component";
 import { Checkbox } from "../checkbox";
 import Textbox from "../textbox";
 import Box from "../box";

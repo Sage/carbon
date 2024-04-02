@@ -5,8 +5,6 @@ import {
   Default as ButtonMinor,
   ButtonMinorCustom,
   ButtonMinorDifferentTypes,
-} from "./components.test-pw";
-import {
   PrimaryButton,
   PrimaryDestructiveButton,
   PrimaryDisabledButton,
@@ -27,7 +25,7 @@ import {
   TertiaryNoWrapButton,
   IconOnlyButton,
   IconOnlyWithTooltipButton,
-} from "./button-minor.stories";
+} from "./components.test-pw";
 import { buttonMinorComponent } from "../../../playwright/components/button/index";
 import { BUTTON_ICON_POSITIONS } from "../button/button.config";
 import { ICON } from "../../../playwright/components/locators";

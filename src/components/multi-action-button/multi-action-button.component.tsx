@@ -79,13 +79,11 @@ export const MultiActionButton = ({
 
   const renderAdditionalButtons = () => (
     <Popover placement="bottom-end" reference={buttonNode}>
-      <StyledButtonChildrenContainer
-        {...wrapperProps}
-        aria-label={text}
-        align={align}
-      >
+      <StyledButtonChildrenContainer {...wrapperProps} align={align}>
         <SplitButtonContext.Provider value={contextValue}>
-          {children}
+          {React.Children.map(children, (child) => (
+            <li>{child}</li>
+          ))}
         </SplitButtonContext.Provider>
       </StyledButtonChildrenContainer>
     </Popover>

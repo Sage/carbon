@@ -1,3 +1,88 @@
+## [128.0.0](https://github.com/Sage/carbon/compare/v127.1.1...v128.0.0) (2024-03-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* **select:** The `disablePortal` prop has been removed from all 3 Select variants. It is no
+longer needed as the component now always behaves as it did before with this prop added.
+
+### Bug Fixes
+
+* **select:** render select list in DOM order rather than in a portal ([5099120](https://github.com/Sage/carbon/commit/50991201124ce1c62ebf2055d2088e704cac2387)), closes [#5171](https://github.com/Sage/carbon/issues/5171)
+
+### [127.1.1](https://github.com/Sage/carbon/compare/v127.1.0...v127.1.1) (2024-03-28)
+
+
+### Bug Fixes
+
+* **filterable-select, multi-select:** ensure whitespace is trimmed from the input when filtering ([98a91ef](https://github.com/Sage/carbon/commit/98a91ef38390018b0379420205735a8354d4b6fc)), closes [#6446](https://github.com/Sage/carbon/issues/6446)
+
+## [127.1.0](https://github.com/Sage/carbon/compare/v127.0.4...v127.1.0) (2024-03-28)
+
+
+### Features
+
+* **action-popover:** add aria-label prop ([8d69273](https://github.com/Sage/carbon/commit/8d69273abe90f0ef022e3f078088d1aa1ef4098a))
+* **action-popover:** remove aria-label from menu items that open a submenu ([faf6292](https://github.com/Sage/carbon/commit/faf6292085a4ea62cabd50fddf3897738d7b9738))
+* **action-popover:** remove menu roles and use semantic html ([da74523](https://github.com/Sage/carbon/commit/da7452383393aa98023b07c19758d31636412a3b))
+* **split-button, multi-action-button:** remove menu roles and use semantic html lists ([dfd3a4c](https://github.com/Sage/carbon/commit/dfd3a4c819d18b0710f2f4e13dfcaf3d3f1ef383))
+
+### [127.0.4](https://github.com/Sage/carbon/compare/v127.0.3...v127.0.4) (2024-03-27)
+
+
+### Bug Fixes
+
+* **select:** remove list action button from scrollable area in select list ([d95770e](https://github.com/Sage/carbon/commit/d95770e9a4be9680c2e846c51afbce61f512fc13)), closes [#6541](https://github.com/Sage/carbon/issues/6541)
+
+### [127.0.3](https://github.com/Sage/carbon/compare/v127.0.2...v127.0.3) (2024-03-25)
+
+
+### Bug Fixes
+
+* **advanced-color-picker:** address translation inconsistencies ([48d6b2d](https://github.com/Sage/carbon/commit/48d6b2db269d707cee1f48c793003c84afe2e8ea))
+* **password:** address translation inconsistencies ([606100a](https://github.com/Sage/carbon/commit/606100aa793f3a8c3faa8da68fa808a4b1c94c57))
+
+### [127.0.2](https://github.com/Sage/carbon/compare/v127.0.1...v127.0.2) (2024-03-25)
+
+
+### Bug Fixes
+
+* **flat-table:** sort icon color fix ([ddf4d84](https://github.com/Sage/carbon/commit/ddf4d84d1d3ab28776f470e0cd78da9437f4525c)), closes [#6523](https://github.com/Sage/carbon/issues/6523)
+
+### [127.0.1](https://github.com/Sage/carbon/compare/v127.0.0...v127.0.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* **input:** insufficient colour contrast in input placeholder ([cb30557](https://github.com/Sage/carbon/commit/cb30557a84f6b6abf3c69df16717f3074e942c72)), closes [#6587](https://github.com/Sage/carbon/issues/6587)
+
+## [127.0.0](https://github.com/Sage/carbon/compare/v126.10.1...v127.0.0) (2024-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* Carbon components will no longer expose `propTypes` in production builds - any
+functionality that relies on reading the `propTypes` of a component will break
+
+### Build System
+
+* remove proptypes from production bundles ([1929f14](https://github.com/Sage/carbon/commit/1929f14f7fe38d760ab6b51a38c22b53247eeef9))
+
+### [126.10.1](https://github.com/Sage/carbon/compare/v126.10.0...v126.10.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **action-popover:** add preventScroll to the focus method responsible for focusing each menu item ([55a241f](https://github.com/Sage/carbon/commit/55a241fdf472e4f83ae1fb624a19d68b41fbf892)), closes [#6485](https://github.com/Sage/carbon/issues/6485)
+
+## [126.10.0](https://github.com/Sage/carbon/compare/v126.9.1...v126.10.0) (2024-03-13)
+
+
+### Features
+
+* **button-toggle-group:** add support for aria-describedby ([4097833](https://github.com/Sage/carbon/commit/40978336dd36fc647f89838a7ed5410c14d30544))
+* **button, button-minor:** add aria-labelledby and aria-describedby props ([fd017ca](https://github.com/Sage/carbon/commit/fd017ca9e8065c1f1316076f00e27127d324e1ec))
+
 ### [126.9.1](https://github.com/Sage/carbon/compare/v126.9.0...v126.9.1) (2024-02-29)
 
 

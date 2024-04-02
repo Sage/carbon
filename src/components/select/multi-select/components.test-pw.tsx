@@ -381,7 +381,6 @@ export const MultiSelectMaxOptionsComponent = (
     <MultiSelect
       value={selectedPills}
       onChange={onChangeHandler}
-      disablePortal
       openOnFocus
       label="color"
       {...props}
@@ -512,7 +511,6 @@ export const MultiSelectErrorOnChangeNewValidation = () => {
           name="testing"
           value={selectedPills}
           onChange={handleOnChange}
-          disablePortal
           openOnFocus
           label="Test"
           placeholder="FooBar"

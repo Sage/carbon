@@ -1,0 +1,87 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as BoxStories from "./box.stories";
+
+<Meta title="Box" of={BoxStories} />
+
+# Box
+
+Basic component that gives access to a number of styling options. Should be used to achieve more precise layouts when required. Gives access to Spacing, Color, Layout and FlexBox attributes.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import the box component to start using
+
+```javascript
+import Box from "carbon-react/lib/components/box";
+```
+
+## Examples
+
+### Spacing
+
+<Canvas of={BoxStories.Spacing} />
+
+### Position
+
+Please view [this example as a standalone canvas](../?path=/story/box--position) in order to see the `position: fixed` Box.
+
+<Canvas of={BoxStories.Position} />
+
+### Color
+
+<Canvas of={BoxStories.Color} />
+
+### Box Shadow
+
+<Canvas of={BoxStories.BoxShadow} />
+
+### Flex
+
+<Canvas of={BoxStories.Flex} />
+
+### Grid
+
+<Canvas of={BoxStories.grid} />
+
+### Gap
+
+The `Box` component also supports the `gap`, `column-gap` and `row-gap` properties when its `display` property is set to either
+`flex`, `inline-flex`, `grid` or `inline-grid`. See the [prop table](#props) below for more information on the types it accepts. Below is an example of
+how these props can be used.
+
+<Canvas of={BoxStories.Gap} />
+
+### Layout
+
+<Canvas of={BoxStories.Layout} />
+
+## OverflowWrap
+
+Use the `overflowWrap` prop to apply `overflow-wrap: break-word` to the content within the `Box` wrapper.
+
+<Canvas of={BoxStories.OverflowWrap} />
+
+### Scroll
+
+Use the `scrollVariant` prop to indicate which theme scrollbar you would like to display. Use `light` or `dark` values to display as below. This will still require the use of the `overflow` prop and only displays in Chrome or Safari.
+If no `scrollVariant` prop is set then the scroll bar will resort to the browser default.
+
+<Canvas of={BoxStories.Scroll} />
+
+### Rounded corners
+
+Use the `borderRadius` to set the radius on the corners of the `Box`,
+see [prop table](#props) below for more information on the types it accepts
+
+<Canvas of={BoxStories.RoundedCorners} />
+
+## Props
+
+<ArgTypes of={BoxStories} />

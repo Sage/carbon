@@ -5,7 +5,7 @@ import Box from "../box";
 import Pill from "../pill";
 
 export default {
-  title: "VerticalMenu/Test",
+  title: "Vertical Menu/Test",
   includeStories: ["Default"],
   parameters: {
     info: { disable: true },

@@ -14,7 +14,7 @@ import {
   CustomItemPadding,
   CustomItemHeight,
 } from "./components.test-pw";
-import VerticalMenuTrigger from "./vertical-menu-trigger.component";
+import VerticalMenuTrigger from "./vertical-menu-trigger/vertical-menu-trigger.component";
 import {
   checkGoldenOutline,
   assertCssValueIsApproximately,

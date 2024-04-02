@@ -10,6 +10,8 @@ export interface ButtonMinorProps extends ButtonProps {
 
 export const ButtonMinor = ({
   buttonType: buttonTypeProp = "secondary",
+  disabled = false,
+  destructive = false,
   size: sizeProp = "medium",
   iconPosition: iconPositionProp = "before",
   fullWidth: fullWidthProp = false,
@@ -34,6 +36,8 @@ export const ButtonMinor = ({
       fullWidth={fullWidth}
       iconPosition={iconPosition}
       buttonType={buttonType}
+      disabled={disabled}
+      destructive={destructive}
       {...rest}
     />
   );

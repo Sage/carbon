@@ -585,9 +585,7 @@ describe("FlatTable", () => {
 
     it("when table's footer contains a Pager, override Pager's top border styling so it connects to the table", () => {
       rtlRender(
-        <FlatTable
-          footer={<Pager data-testid="pager" onPagination={() => {}} />}
-        >
+        <FlatTable footer={<Pager data-role="pager" onPagination={() => {}} />}>
           <FlatTableHead>
             <FlatTableRow>
               <td>heading one</td>
@@ -613,7 +611,7 @@ describe("FlatTable", () => {
       rtlRender(
         <FlatTable
           hasStickyFooter
-          footer={<Pager data-testid="pager" onPagination={() => {}} />}
+          footer={<Pager data-role="pager" onPagination={() => {}} />}
         >
           <FlatTableHead>
             <FlatTableRow>
@@ -773,11 +771,11 @@ describe("FlatTable", () => {
         rtlRender(
           <FlatTable>
             <FlatTableBody>
-              <FlatTableRow data-testid="one" onClick={() => {}}>
+              <FlatTableRow data-role="one" onClick={() => {}}>
                 <FlatTableCell>one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="two" onClick={() => {}}>
+              <FlatTableRow data-role="two" onClick={() => {}}>
                 <FlatTableCell>three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
@@ -842,19 +840,19 @@ describe("FlatTable", () => {
         rtlRender(
           <FlatTable>
             <FlatTableBody>
-              <FlatTableRow data-testid="one" onClick={() => {}}>
+              <FlatTableRow data-role="one" onClick={() => {}}>
                 <FlatTableCell>one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="two" onClick={() => {}}>
+              <FlatTableRow data-role="two" onClick={() => {}}>
                 <FlatTableCell>three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="three" onClick={() => {}}>
+              <FlatTableRow data-role="three" onClick={() => {}}>
                 <FlatTableCell>five</FlatTableCell>
                 <FlatTableCell>six</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="four" onClick={() => {}}>
+              <FlatTableRow data-role="four" onClick={() => {}}>
                 <FlatTableCell>seven</FlatTableCell>
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
@@ -883,19 +881,19 @@ describe("FlatTable", () => {
         rtlRender(
           <FlatTable>
             <FlatTableBody>
-              <FlatTableRow data-testid="one" onClick={() => {}}>
+              <FlatTableRow data-role="one" onClick={() => {}}>
                 <FlatTableCell>one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="two" onClick={() => {}}>
+              <FlatTableRow data-role="two" onClick={() => {}}>
                 <FlatTableCell>three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="three" onClick={() => {}}>
+              <FlatTableRow data-role="three" onClick={() => {}}>
                 <FlatTableCell>five</FlatTableCell>
                 <FlatTableCell>six</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="four" onClick={() => {}}>
+              <FlatTableRow data-role="four" onClick={() => {}}>
                 <FlatTableCell>seven</FlatTableCell>
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
@@ -924,19 +922,19 @@ describe("FlatTable", () => {
         rtlRender(
           <FlatTable>
             <FlatTableBody>
-              <FlatTableRow data-testid="one" onClick={() => {}}>
+              <FlatTableRow data-role="one" onClick={() => {}}>
                 <FlatTableCell>one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="two" onClick={() => {}}>
+              <FlatTableRow data-role="two" onClick={() => {}}>
                 <FlatTableCell>three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="three" onClick={() => {}}>
+              <FlatTableRow data-role="three" onClick={() => {}}>
                 <FlatTableCell>five</FlatTableCell>
                 <FlatTableCell>six</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="four" onClick={() => {}}>
+              <FlatTableRow data-role="four" onClick={() => {}}>
                 <FlatTableCell>seven</FlatTableCell>
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
@@ -956,19 +954,19 @@ describe("FlatTable", () => {
         rtlRender(
           <FlatTable>
             <FlatTableBody>
-              <FlatTableRow data-testid="one" expandable>
+              <FlatTableRow data-role="one" expandable>
                 <FlatTableCell>one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="two" expandable>
+              <FlatTableRow data-role="two" expandable>
                 <FlatTableCell>three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="three" expandable>
+              <FlatTableRow data-role="three" expandable>
                 <FlatTableCell>five</FlatTableCell>
                 <FlatTableCell>six</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="four" expandable>
+              <FlatTableRow data-role="four" expandable>
                 <FlatTableCell>seven</FlatTableCell>
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
@@ -997,19 +995,19 @@ describe("FlatTable", () => {
         rtlRender(
           <FlatTable>
             <FlatTableBody>
-              <FlatTableRow data-testid="one" expandable>
+              <FlatTableRow data-role="one" expandable>
                 <FlatTableCell>one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="two" expandable>
+              <FlatTableRow data-role="two" expandable>
                 <FlatTableCell>three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="three" expandable>
+              <FlatTableRow data-role="three" expandable>
                 <FlatTableCell>five</FlatTableCell>
                 <FlatTableCell>six</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="four" expandable>
+              <FlatTableRow data-role="four" expandable>
                 <FlatTableCell>seven</FlatTableCell>
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
@@ -1042,7 +1040,7 @@ describe("FlatTable", () => {
                 <FlatTableCheckbox />
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
-              <FlatTableRow data-testid="two" onClick={() => {}}>
+              <FlatTableRow data-role="two" onClick={() => {}}>
                 <FlatTableCell>three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
@@ -1063,7 +1061,7 @@ describe("FlatTable", () => {
         rtlRender(
           <FlatTable>
             <FlatTableBody>
-              <FlatTableRow data-testid="one" onClick={() => {}}>
+              <FlatTableRow data-role="one" onClick={() => {}}>
                 <FlatTableCell>one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
@@ -1091,11 +1089,11 @@ describe("FlatTable", () => {
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="one">one</FlatTableCell>
+                <FlatTableCell data-role="one">one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="two">three</FlatTableCell>
+                <FlatTableCell data-role="two">three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
@@ -1112,11 +1110,11 @@ describe("FlatTable", () => {
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="one">one</FlatTableCell>
+                <FlatTableCell data-role="one">one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow highlighted expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="two">three</FlatTableCell>
+                <FlatTableCell data-role="two">three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
@@ -1133,11 +1131,11 @@ describe("FlatTable", () => {
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="one">one</FlatTableCell>
+                <FlatTableCell data-role="one">one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow selected expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="two">three</FlatTableCell>
+                <FlatTableCell data-role="two">three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
@@ -1154,13 +1152,13 @@ describe("FlatTable", () => {
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableRowHeader data-testid="one" id="one">
+                <FlatTableRowHeader data-role="one" id="one">
                   one
                 </FlatTableRowHeader>
                 <FlatTableCell id="two">two</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableRowHeader data-testid="two" id="three">
+                <FlatTableRowHeader data-role="two" id="three">
                   three
                 </FlatTableRowHeader>
                 <FlatTableCell id="four">four</FlatTableCell>
@@ -1179,13 +1177,13 @@ describe("FlatTable", () => {
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableRowHeader data-testid="one" id="one">
+                <FlatTableRowHeader data-role="one" id="one">
                   one
                 </FlatTableRowHeader>
                 <FlatTableCell id="two">two</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow highlighted expandableArea="firstColumn" expandable>
-                <FlatTableRowHeader data-testid="two" id="three">
+                <FlatTableRowHeader data-role="two" id="three">
                   three
                 </FlatTableRowHeader>
                 <FlatTableCell id="four">four</FlatTableCell>
@@ -1204,13 +1202,13 @@ describe("FlatTable", () => {
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableRowHeader data-testid="one" id="one">
+                <FlatTableRowHeader data-role="one" id="one">
                   one
                 </FlatTableRowHeader>
                 <FlatTableCell id="two">two</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow selected expandableArea="firstColumn" expandable>
-                <FlatTableRowHeader data-testid="two" id="three">
+                <FlatTableRowHeader data-role="two" id="three">
                   three
                 </FlatTableRowHeader>
                 <FlatTableCell id="four">four</FlatTableCell>
@@ -1229,19 +1227,19 @@ describe("FlatTable", () => {
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="one">one</FlatTableCell>
+                <FlatTableCell data-role="one">one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="two">three</FlatTableCell>
+                <FlatTableCell data-role="two">three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="three">five</FlatTableCell>
+                <FlatTableCell data-role="three">five</FlatTableCell>
                 <FlatTableCell>six</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="four">seven</FlatTableCell>
+                <FlatTableCell data-role="four">seven</FlatTableCell>
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>
@@ -1270,19 +1268,19 @@ describe("FlatTable", () => {
           <FlatTable>
             <FlatTableBody>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="one">one</FlatTableCell>
+                <FlatTableCell data-role="one">one</FlatTableCell>
                 <FlatTableCell>two</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="two">three</FlatTableCell>
+                <FlatTableCell data-role="two">three</FlatTableCell>
                 <FlatTableCell>four</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="three">five</FlatTableCell>
+                <FlatTableCell data-role="three">five</FlatTableCell>
                 <FlatTableCell>six</FlatTableCell>
               </FlatTableRow>
               <FlatTableRow expandableArea="firstColumn" expandable>
-                <FlatTableCell data-testid="four">seven</FlatTableCell>
+                <FlatTableCell data-role="four">seven</FlatTableCell>
                 <FlatTableCell>eight</FlatTableCell>
               </FlatTableRow>
             </FlatTableBody>

@@ -18,13 +18,13 @@ describe("TileContent", () => {
   testStyledSystemHeight((props) => <TileContent {...props}>Test</TileContent>);
 
   it("does not render when no children are passed", () => {
-    render(<TileContent data-testid="tile-content" />);
+    render(<TileContent data-role="tile-content" />);
 
     expect(screen.queryByTestId("tile-content")).not.toBeInTheDocument();
   });
 
   it("does not render when falsy children are passed", () => {
-    render(<TileContent data-testid="tile-content">{null}</TileContent>);
+    render(<TileContent data-role="tile-content">{null}</TileContent>);
 
     expect(screen.queryByTestId("tile-content")).not.toBeInTheDocument();
   });
@@ -113,11 +113,7 @@ describe("TileContent", () => {
 
   it("has proper data attributes applied", () => {
     render(
-      <TileContent
-        data-testid="tile-content"
-        data-element="foo"
-        data-role="bar"
-      >
+      <TileContent data-element="foo" data-role="bar">
         Tile Content
       </TileContent>
     );

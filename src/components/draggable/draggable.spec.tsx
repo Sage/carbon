@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils";
 import { Container, render } from "react-dom";
 
 import DraggableContainer from "./draggable-container.component";
-import DraggableItem from "./draggable-item.component";
+import DraggableItem from "./draggable-item/draggable-item.component";
 import { Checkbox } from "../checkbox";
 import {
   assertStyleMatch,
@@ -14,8 +14,8 @@ import {
 import {
   StyledDraggableContainer,
   StyledDraggableItem,
-} from "./draggable-item.style";
-import DropTarget from "./internal/drop-target.component";
+} from "./draggable-item/draggable-item.style";
+import DropTarget from "./__internal__/drop-target.component";
 
 describe("Draggable", () => {
   let wrapper: ReactWrapper;

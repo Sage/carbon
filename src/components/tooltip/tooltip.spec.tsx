@@ -20,7 +20,7 @@ const positions: TooltipPositions[] = ["top", "bottom", "left", "right"];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function render(props: Partial<TooltipProps> = {}) {
-  const children = <div data-testid="tooltip-target">foo</div>;
+  const children = <div data-role="tooltip-target">foo</div>;
   const message = "foo";
 
   return renderRTL(

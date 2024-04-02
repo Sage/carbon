@@ -1,0 +1,221 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as DlStories from "../definition-list/definition-list.stories";
+import * as DtStories from "../definition-list/dt/dt.stories";
+import * as DdStories from "../definition-list/dd/dd.stories";
+import * as FlexTileContainerStories from "./flex-tile-container/flex-tile-container.stories";
+import * as FlexTileCellStories from "./flex-tile-cell/flex-tile-cell.stories";
+import * as TileFooterStories from "./tile-footer/tile-footer.stories";
+import * as TileHeaderStories from "./tile-header/tile-header.stories";
+import * as TileStories from "./tile.stories";
+
+<Meta title="Tile" of={TileStories} />
+
+# Tile
+
+Tiles are containers for static content such as text, and don't contain controls.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import {
+  Tile,
+  TileContent,
+  TileFooter,
+  FlexTileContainer,
+  FlexTileCell,
+} from "carbon-react/lib/components/tile";
+```
+
+## Designer notes
+
+- Tiles should be reserved for static content. If you require a container with controls or interactive content, use the [Card component](../?path=/docs/card--docs) instead.
+
+## Examples
+
+### Default
+
+By default, the Tile component will have a horizontal layout.
+
+<Canvas of={TileStories.DefaultStory} />
+
+### Roundness variants for corners
+
+<Canvas of={TileStories.LargeRoundness} />
+
+<Canvas of={TileStories.SmallRoundness} />
+
+### Vertical
+
+The Tile component can be also have a vertical layout.
+
+<Canvas of={TileStories.Vertical} />
+
+### With TileFooter
+
+<Canvas of={TileStories.WithTileFooter} />
+
+### With TileHeader
+
+<Canvas of={TileStories.WithTileHeader} />
+
+### With Button in TileHeader
+
+<Canvas of={TileStories.WithButtonInTileHeader} />
+
+### With custom widths
+
+The Tile component can also have a custom `width` which accepts either numbers or strings: any decimal between 0 and 1.0
+will be converted into a percentage, any number greater will be be treated as pixels and any valid CSS string will also work.
+Any child wrapped by a Tile component can be passed an optional `width` prop if its interface supports it.
+
+<Canvas of={TileStories.CustomWidths} />
+
+### With custom heights
+
+The Tile component can also have a custom `height` which accepts either numbers or strings: any decimal between 0 and 1.0
+will be converted into a percentage, any number greater will be be treated as pixels and any valid CSS string will also work.
+Any child wrapped by a Tile component can be passed an optional `height` prop if its interface supports it.
+
+<Canvas of={TileStories.CustomHeights} />
+
+### Active Tile
+
+<Canvas of={TileStories.Active} />
+
+### Grey variant
+
+<Canvas of={TileStories.Grey} />
+
+### Custom borders
+
+You can set the `borderVariant` property to alter the border colour as well as the border width with the `borderWidth` property.
+
+<Canvas of={TileStories.CustomBorders} />
+
+### With inline styling
+
+The Tile component can also have inline styling applied to the content.
+
+<Canvas of={TileStories.WithInline} />
+
+### With different padding and margin
+
+<Canvas of={TileStories.WithDifferentPaddingAndMargin} />
+
+### With Definition List
+
+The Definition List component should only be used inside of the Tile component. The purpose of the Definition List component is to mimic
+the same tags used in HTML5 but instead they are React elements.
+
+Please note that Dl, Dd and Dt use our common spacing props.
+
+<Canvas of={TileStories.WithDefinitionListDefault} />
+
+### With Definition List and custom `StyledDtDiv` width
+
+Providing a number value to the `w` prop, sets the width of the `<Dt />` element as a percentage. The remaining percentage is then assigned to `<Dd />` to occupy the available space.
+
+<Canvas of={TileStories.WithDefinitionListAndCustomWidth} />
+
+### With Definition List with custom text alignment
+
+In this example `dtTextAlign` has been provided the string 'left' and `ddTextAlign` has been provided the string 'right'.
+
+<Canvas of={TileStories.WithDefinitionListAndCustomTextAlignment} />
+
+### With Definition List and ActionPopover and Icon support
+
+<Canvas of={TileStories.WithDefinitionListAndActionPopoverAndIconSupport} />
+
+### With Accordion and Definition List
+
+<Canvas of={TileStories.WithAccordion} />
+
+### With Accordion and TileFooter
+
+<Canvas of={TileStories.WithAccordionAndTileFooter} />
+
+### Responsive Tile
+
+To make the content of a tile responsive, use `FlexTileCell` components inside a `FlexTileContainer`.
+The content of a `FlexTileCell` can be what you want.
+
+When the size of the screen is too small to display all the cells on one line, some will be automatically wrapped to a new line.
+If you add a `FlexTileDivider` in each cell, a divider will appear between the lines.
+
+<Canvas of={TileStories.ResponsiveDefaultStory} />
+
+### Responsive Tile with custom gaps
+
+<Canvas of={TileStories.CustomGaps} />
+
+### Responsive Tile with fixed width for cells
+
+With `flexGrow={0}`, the width of each cell will be defined by `flexBasis`. It will not grow or shrink according to the remaining space.
+
+<Canvas of={TileStories.FixedContainers} />
+
+### Responsive Tile with flex width for cells
+
+If `flexGrow` is **not** `0`, the width (= `flexBasis`) of each cell will be a min-width. It will grow to fill the remaining space and shrink until reaching that min-width.
+You can use `maxWidth` to constrain the growth.
+
+<Canvas of={TileStories.FlexContainers} />
+
+### Responsive Tile with proportionate widths
+
+Responsive cells can be set so that they have a proportionate width to other cells in the same tile.
+
+Use this values on `flexGrow`:
+
+- 1: The remaining space in the container will be distributed equally to all cells.
+- 2: That cell will try to take up twice as much of the space than the others.
+- 3: That cell will try to take up thrice as much of the space than the others.
+- ...
+
+<Canvas of={TileStories.ProportionateWidths} />
+
+### Responsive Tile with align content
+
+Use `justifyContent` to place your content inside the width allocated to the cell.
+
+<Canvas of={TileStories.Align} />
+
+### Tile
+
+<ArgTypes of={TileStories} />
+
+### TileFooter
+
+<ArgTypes of={TileFooterStories} />
+
+### TileHeader
+
+<ArgTypes of={TileHeaderStories} />
+
+### Dl
+
+<ArgTypes of={DlStories} />
+
+### Dd
+
+<ArgTypes of={DdStories} />
+
+### Dt
+
+<ArgTypes of={DtStories} />
+
+### FlexTileContainer
+
+<ArgTypes of={FlexTileContainerStories} />
+
+### FlexTileCell
+
+<ArgTypes of={FlexTileCellStories} />

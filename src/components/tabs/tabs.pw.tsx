@@ -14,15 +14,12 @@ import {
   TabsComponentValidationsUnregistering,
   TabsValidationOverride,
   TabsInSidebar,
-} from "./components.test-pw";
-import {
   WithAdditionalTitleSiblings,
   WithAdditionalTitleSiblingsSizeLarge,
   WithCustomLayout,
   WithStringValidationsSummarised,
   Responsive,
-} from "./tabs.stories";
-
+} from "./components.test-pw";
 import {
   getDataElementByValue,
   tooltipPreview,

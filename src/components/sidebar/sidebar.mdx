@@ -1,0 +1,114 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as SidebarStories from "./sidebar.stories.tsx";
+
+<Meta title="Sidebar" of={SidebarStories} />
+
+# Sidebar
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/925533-sidebar"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Sidebar from "carbon-react/lib/components/sidebar";
+```
+
+- Sidebar is positioned on the right hand screen of the window by default. To position the sidebar on the left hand side pass `position='left'` to the component.
+
+- The background behind the sidebar is disabled by default. To allow the user to interact with all the UI pass `enableBackgroundUI={ true }` to the component
+
+## Related Components
+
+- Simple task in context? [Try Dialog](https://carbon.sage.com/?path=/docs/dialog--default-story "Try Dialog").
+- Complex task that needs more space? [Try Dialog Full Screen](https://carbon.sage.com/?path=/docs/dialog-full-screen--default "Try Dialog Full Screen").
+
+## Examples
+
+### Default
+
+<Canvas of={SidebarStories.DefaultStory} />
+
+### Custom padding around content
+
+<Canvas of={SidebarStories.CustomPaddingAroundContent} />
+
+### With header
+
+<Canvas of={SidebarStories.WithHeader} />
+
+### With scroll
+
+If sidebar content does not fit the sidebar, scroll will appear. Default scroll theme is "light".
+
+<Canvas of={SidebarStories.WithScroll} />
+
+### With Typography
+
+<Canvas of={SidebarStories.WithTypography} />
+
+### Allowing other elements to be focused
+
+Using the `focusableContainers` prop allows elements that are not DOM children of the Sidebar to be reachable with the keyboard while the Sidebar is open.
+This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
+(In the example below, try clicking the cancel and/or save buttons and notice how you can navigate across one or both toasts as well as the sidebar using the keyboard.)
+
+<Canvas of={SidebarStories.OtherFocusableContainers} />
+
+### Custom width
+
+It is possible to set a custom width for the `Sidebar` via the `width` [prop](#props).
+Setting this prop will override the preset width value defined via the `size` prop.
+
+<Canvas of={SidebarStories.CustomWidth} />
+
+### With header and footer padding overridden
+
+<Canvas of={SidebarStories.WithHeaderAndFooterPadding} />
+
+### Top modal override
+
+When multiple modals are open on a page Carbon manages the order internally so that the last one mounted in the DOM
+is treated as the top one and the focus trap is set on it. However, this can potentially
+create unexpected issues if the loading of the dialogs isn't synchronous. In order to guarantee that a given
+modal is treated as top set the `topModalOverride` prop. Please note that in the scenario where this prop is
+set on multiple modals, the last one mounted with it will be treated as top.
+
+<Canvas of={SidebarStories.TopModalOverride} />
+
+## Props
+
+### Sidebar
+
+<ArgTypes of={SidebarStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "sidebar.ariaLabels.close",
+      description: "The text for close button aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

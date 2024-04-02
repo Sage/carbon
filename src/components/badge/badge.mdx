@@ -1,0 +1,70 @@
+import { Meta, Canvas } from "@storybook/addon-docs";
+import { ArgTypes } from "@storybook/blocks";
+
+import * as BadgeStories from "./badge.stories";
+
+<Meta title="Badge" of={BadgeStories} />
+
+# Badge
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/112938-badge/b/97debf"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Compact visual indicators that help things in common stand out.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use Badge component you need to import `Badge` and use another component as a child.
+
+```javascript
+import Badge from "carbon-react/lib/components/badge";
+```
+
+## Examples
+
+### Default Badge
+
+<Canvas of={BadgeStories.Default} />
+
+### Badge with counter > 99
+
+Badge doesn't support more than 2 digits
+
+<Canvas of={BadgeStories.WithThreeDigits} />
+
+### Badge with counter 0
+
+If the counter is less than 1 badge will not show itself
+
+<Canvas of={BadgeStories.WithCounterZero} />
+
+### Display Only
+
+To acheive a `display only` version of this component, you can simply not pass an `onClick` function to the component. This means that instead of rendering as a `button` element,
+the component will render as a `span`.
+
+<Canvas of={BadgeStories.DisplayOnly} />
+
+### Custom Color
+
+You can use the `color` prop to override the default color of the component.
+
+<Canvas of={BadgeStories.CustomColor} />
+
+## Props
+
+### Badge
+
+<ArgTypes of={BadgeStories} />

@@ -14,15 +14,15 @@ We love contributions, so thanks for choosing to get involved with the Carbon pr
 
 ## Setting up dev environment
 
-To help you get setup for working on Carbon, we have a [dev environment setup guide](docs/dev-environment-setup.md) with more information.
+To help you get setup for working on Carbon, we have a [dev environment setup guide](contributing/dev-environment-setup.md) with more information.
 
 ## Codebase Overview
 
-More details can be found in our [Codebase Overview](docs/codebase-overview.md) guide.
+More details can be found in our [Codebase Overview](contributing/codebase-overview.md) guide.
 
 ## Testing
 
-More details about how we test can be found in our [Testing Guide](docs/testing-guide.md).
+More details about how we test can be found in our [Testing Guide](contributing/testing-guide.md).
 
 ## Bugs
 

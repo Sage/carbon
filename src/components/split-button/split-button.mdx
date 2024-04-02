@@ -1,0 +1,100 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ButtonStories from "../button/button.stories";
+import * as SplitButtonStories from "./split-button.stories";
+
+<Meta title="Split Button" of={SplitButtonStories} />
+
+# Split Button
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/861289-button-split"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import SplitButton from "carbon-react/lib/components/split-button";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={SplitButtonStories.Default} />
+
+### Disabled
+
+<Canvas of={SplitButtonStories.Disabled} />
+
+### Button types
+
+<Canvas of={SplitButtonStories.ButtonTypes} />
+
+### Child button types
+
+Buttons used as a content of `SplitButton` can be of any type.
+
+<Canvas of={SplitButtonStories.ChildButtonTypes} />
+
+### Sizes
+
+<Canvas of={SplitButtonStories.Sizes} />
+
+### Alignment
+
+<Canvas of={SplitButtonStories.Align} />
+
+### Subtext
+
+Subtext only works when `size` is `large`
+
+<Canvas of={SplitButtonStories.Subtext} />
+
+### With icon
+
+<Canvas of={SplitButtonStories.WithIcon} />
+
+### In overflow: hidden container
+
+<Canvas of={SplitButtonStories.InOverflowHiddenContainer} />
+
+## Props
+
+### SplitButton
+
+<ArgTypes of={SplitButtonStories} />
+
+### Button
+
+<ArgTypes
+  of={ButtonStories}
+  exclude={[
+    "m",
+    "mt",
+    "mb",
+    "my",
+    "mx",
+    "ml",
+    "mr",
+    "p",
+    "py",
+    "px",
+    "pt",
+    "pb",
+    "pl",
+    "pr",
+  ]}
+/>

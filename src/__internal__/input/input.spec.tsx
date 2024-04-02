@@ -60,7 +60,7 @@ describe("Input", () => {
 
     assertStyleMatch(
       {
-        color: "var(--colorsActionMinorYin090)",
+        color: "var(--colorsUtilityYin090)",
       },
       wrapper
     );

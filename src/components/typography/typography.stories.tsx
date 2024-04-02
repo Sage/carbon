@@ -1,9 +1,27 @@
-import React, { Fragment } from "react";
-import { ComponentStory } from "@storybook/react";
+import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import Box from "../box";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Typography, { List, ListItem } from ".";
 
-export const VariantsStory: ComponentStory<typeof Fragment> = () => (
+const styledSystemProps = generateStyledSystemProps({
+  spacing: true,
+});
+
+const meta: Meta<typeof Typography> = {
+  title: "Typography",
+  component: Typography,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Typography>;
+
+export const VariantsStory: Story = () => (
   <>
     <Typography variant="h1-large">Heading Level 1 Large</Typography>
     <Typography variant="h1">Heading Level 1</Typography>
@@ -97,28 +115,30 @@ export const VariantsStory: ComponentStory<typeof Fragment> = () => (
     </List>
   </>
 );
+VariantsStory.storyName = "Variants";
 VariantsStory.parameters = { info: { disable: true } };
 
-export const TruncateStory: ComponentStory<typeof Fragment> = () => (
+export const TruncateStory: Story = () => (
   <>
-    <div style={{ height: "80px", width: "80px", backgroundColor: "yellow" }}>
+    <Box height={80} width={80} backgroundColor="yellow">
       <Typography truncate>
         The is an example of using the truncate prop. This is an example of some
         text with applied.
       </Typography>
-    </div>
-    <div style={{ height: "80px", width: "80px", backgroundColor: "red" }}>
+    </Box>
+    <Box height={80} width={80} backgroundColor="red">
       <Typography truncate variant="b" display="block">
         The is an example of using the truncate prop with an inline element.
         Changing the display type to be a block element allows it to actually
         truncate.
       </Typography>
-    </div>
+    </Box>
   </>
 );
+TruncateStory.storyName = "Truncate";
 TruncateStory.parameters = { info: { disable: true } };
 
-export const ScreenReaderOnlyStory: ComponentStory<typeof Fragment> = () => (
+export const ScreenReaderOnlyStory: Story = () => (
   <>
     <Typography>
       This is regular text, that can be seen, but under it is visually hidden
@@ -129,4 +149,5 @@ export const ScreenReaderOnlyStory: ComponentStory<typeof Fragment> = () => (
     </Typography>
   </>
 );
+ScreenReaderOnlyStory.storyName = "Screen Reader Only";
 ScreenReaderOnlyStory.parameters = { info: { disable: true } };

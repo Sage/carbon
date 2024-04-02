@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import Textbox from "../textbox";
 import Button from "../button";
@@ -11,7 +11,7 @@ import {
   AnchorNavigationItem,
 } from ".";
 
-export default {
+const meta: Meta<typeof AnchorNavigation> = {
   component: AnchorNavigation,
   includeStories: ["DefaultStory", "InFullScreenDialogStory"],
   title: "Anchor Navigation/Test",
@@ -21,7 +21,10 @@ export default {
       disableSnapshot: true,
     },
   },
-} as ComponentMeta<typeof AnchorNavigation>;
+};
+
+export default meta;
+type Story = StoryObj<typeof AnchorNavigation>;
 
 interface ContentProps {
   title: string;
@@ -42,7 +45,7 @@ const Content = ({ title, noTextbox }: ContentProps) => (
   </>
 );
 
-export const DefaultStory: ComponentStory<typeof AnchorNavigation> = () => {
+export const DefaultStory: Story = () => {
   const ref1 = useRef<HTMLDivElement>(null);
   const ref2 = useRef<HTMLDivElement>(null);
   const ref3 = useRef<HTMLDivElement>(null);
@@ -86,9 +89,7 @@ export const DefaultStory: ComponentStory<typeof AnchorNavigation> = () => {
 };
 DefaultStory.storyName = "default";
 
-export const InFullScreenDialogStory: ComponentStory<
-  typeof AnchorNavigation
-> = () => {
+export const InFullScreenDialogStory: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const ref1 = useRef<HTMLDivElement>(null);
   const ref2 = useRef<HTMLDivElement>(null);
