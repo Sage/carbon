@@ -2,10 +2,12 @@ import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 
 import Alert from ".";
+import StyledIconButton from "../icon-button/icon-button.style";
 import guid from "../../__internal__/utils/helpers/guid";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import { StyledDialog } from "../dialog/dialog.style";
 import Logger from "../../__internal__/utils/logger";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
@@ -28,6 +30,10 @@ describe("Alert", () => {
         subtitle="Alert Subtitle"
         data-element="bar"
         data-role="baz"
+        closeButtonDataProps={{
+          "data-element": "foo",
+          "data-role": "bar",
+        }}
       />
     );
   });
@@ -47,5 +53,9 @@ describe("Alert", () => {
       { borderRadius: "var(--borderRadius200)" },
       wrapper.find(StyledDialog)
     );
+  });
+
+  it("should allow custom data props on close button to be assigned", () => {
+    rootTagTest(wrapper.find(StyledIconButton), "close", "foo", "bar");
   });
 });
