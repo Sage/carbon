@@ -1,0 +1,148 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as DialogStories from "./dialog.stories.tsx";
+
+<Meta title="Dialog" of={DialogStories} />
+
+# Dialog
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/497e21-dialog/b/310ef2"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+A dialog box overlaid on top of any page.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Dialog from "carbon-react/lib/components/dialog";
+```
+
+## Related Components
+
+- Complex task that needs more space? [Try Dialog Full Screen](../?path=/docs/dialog-full-screen--docs).
+- Need to refer back to the underlying page? [Try Sidebar](../?path=/docs/sidebar--docs).
+
+## Examples
+
+### Default
+
+<Canvas of={DialogStories.DefaultStory} />
+
+### Editable
+
+When mixing editable and non-editable content, you can use the [Box component](../?path=/docs/box--docs) component to highlight the fields that can be changed.
+
+<Canvas of={DialogStories.Editable} />
+
+### With help
+
+<Canvas of={DialogStories.WithHelp} />
+
+### Overriding the first focused element
+
+By default, when a dialog is opened it will automatically focus the first element within its children that can be focussed.
+However, there are a couple of ways of overriding this default behaviour. The `focusFirstElement` prop accepts a reference
+to the element you wish to focus on open (an example of this can be seen by clicking the first button below). If the element
+you want to focus supports `autoFocus` then the you can override the default behaviour by using the `disableAutoFocus` prop
+and setting the `autoFocus` on the element you wish to be focused instead (click the second button to see an example).
+
+<Canvas of={DialogStories.FocusingADifferentFirstElement} />
+
+### Loading content
+
+For situations where content cannot be rendered immediately, such as content dependent on data from an external API, conditional rendering and the `Loader` component can be used to create a loading pattern:
+
+<Canvas of={DialogStories.LoadingContent} />
+
+Note in the previous example, the first `Textbox` in the loaded content has autofocus, which is recommended so assistive technology users are informed of the updated content.
+
+Alternatively, focus can be programmatically moved back to the `Dialog` if the title or subtitle has been updated as part of a content change. Most screen readers will then announce the new title indicating to users that the dialog has changed:
+
+<Canvas of={DialogStories.UsingHandle} />
+
+To achieve this, a custom ref handle can be forwarded to the `Dialog` component:
+
+```tsx
+const dialogHandle = useRef<DialogHandle>(null);
+return (
+  <Dialog title="Thank you for your feedback" ref={dialogHandle}>
+    Your feedback helps us continually improve our software.
+  </Dialog>
+);
+```
+
+which exposes the `focus()` method of `Dialog`'s root DOM node:
+
+```ts
+dialogHandle.current?.focus();
+```
+
+### Overriding the content padding
+
+Using the `contentPadding` prop will enable the padding of the `Dialog` content to be overridden, the example below has
+set the padding to 0. Please see the [table below](#props) for more information about the values accepted by this prop.
+
+<Canvas of={DialogStories.OverridingContentPadding} />
+
+### Allowing other elements to be focused
+
+Using the `focusableContainers` prop allows elements that are not DOM children of the Dialog to be reachable with the keyboard while the Dialog is open.
+This may occasionally be useful with things like Toasts where they persist on the page until dismissed by clicking a close icon.
+
+<Canvas of={DialogStories.OtherFocusableContainers} />
+
+### Responsive Example
+
+<Canvas of={DialogStories.Responsive} />
+
+### Top modal override
+
+When multiple modals are open on a page Carbon manages the order internally so that the last one mounted in the DOM
+is treated as the top one and the focus trap is set on it. However, this can potentially
+create unexpected issues if the loading of the dialogs isn't synchronous. In order to guarantee that a given
+modal is treated as top set the `topModalOverride` prop. Please note that in the scenario where this prop is
+set on multiple modals, the last one mounted with it will be treated as top.
+
+<Canvas of={DialogStories.TopModalOverride} />
+
+### With grey background
+
+Please note that setting the background color to grey may cause color contrast accessibility issues.
+
+<Canvas of={DialogStories.GreyBackground} />
+
+## Props
+
+### Dialog
+
+<ArgTypes of={DialogStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "dialog.ariaLabels.close",
+      description: "The text for close button aria-label attribute",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

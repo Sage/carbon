@@ -1,4 +1,7 @@
 import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import Box from "../box";
 import {
   FlatTable,
   FlatTableHead,
@@ -7,9 +10,16 @@ import {
   FlatTableHeader,
   FlatTableCell,
 } from ".";
-import Box from "../box";
 
-export const TransparentWhiteTheme = () => {
+const meta: Meta<typeof FlatTable> = {
+  title: "Flat Table/Color Themes",
+  component: FlatTable,
+};
+
+export default meta;
+type Story = StoryObj<typeof FlatTable>;
+
+export const TransparentWhiteTheme: Story = () => {
   return (
     <Box>
       <FlatTable colorTheme="transparent-white">
@@ -52,9 +62,9 @@ export const TransparentWhiteTheme = () => {
   );
 };
 
-TransparentWhiteTheme.storyName = "transparent-white theme";
+TransparentWhiteTheme.storyName = "Transparent White Theme";
 
-export const TransparentBaseTheme = () => {
+export const TransparentBaseTheme: Story = () => {
   return (
     <FlatTable colorTheme="transparent-base">
       <FlatTableHead>
@@ -94,10 +104,9 @@ export const TransparentBaseTheme = () => {
     </FlatTable>
   );
 };
+TransparentBaseTheme.storyName = "Transparent Base Theme";
 
-TransparentBaseTheme.storyName = "transparent-base theme";
-
-export const LightTheme = () => {
+export const LightTheme: Story = () => {
   return (
     <FlatTable colorTheme="light">
       <FlatTableHead>
@@ -138,4 +147,4 @@ export const LightTheme = () => {
   );
 };
 
-LightTheme.storyName = "light theme";
+LightTheme.storyName = "Light Theme";

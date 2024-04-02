@@ -12,7 +12,7 @@ export interface PreviewProps
     MarginProps {
   /** Children content to render in the component. */
   children?: React.ReactNode;
-  /* Provides more control over when in a loading state. */
+  /** Provides more control over when in a loading state. */
   loading?: boolean;
 }
 

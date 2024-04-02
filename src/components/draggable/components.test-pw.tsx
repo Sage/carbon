@@ -1,8 +1,5 @@
 import React from "react";
-import DraggableContainer, {
-  DraggableContainerProps,
-} from "./draggable-container.component";
-import DraggableItem from "./draggable-item.component";
+import { DraggableContainer, DraggableContainerProps, DraggableItem } from ".";
 import { Checkbox } from "../checkbox";
 import Textbox from "../textbox";
 import Box from "../box";

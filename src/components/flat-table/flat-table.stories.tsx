@@ -1,18 +1,6 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
-import {
-  FlatTable,
-  FlatTableHead,
-  FlatTableBody,
-  FlatTableRow,
-  FlatTableHeader,
-  FlatTableRowHeader,
-  FlatTableCell,
-  FlatTableCheckbox,
-  Sort,
-  FlatTableBodyDraggable,
-  FlatTableRowHeaderProps,
-} from ".";
+import { Meta, StoryObj } from "@storybook/react";
+
 import BatchSelection from "../batch-selection";
 import IconButton from "../icon-button";
 import Icon from "../icon";
@@ -25,6 +13,20 @@ import {
 } from "../action-popover";
 import { DrawerSidebarContext } from "../drawer";
 import Box from "../box";
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableHeader,
+  FlatTableRowHeader,
+  FlatTableCell,
+  FlatTableCheckbox,
+  Sort,
+  FlatTableBodyDraggable,
+  FlatTableRowHeaderProps,
+  FlatTableProps,
+} from ".";
 
 type SortType = "ascending" | "descending";
 type SortValue = "client" | "total";
@@ -39,677 +41,266 @@ type SelectedRows = {
 type SelectedRow = keyof SelectedRows;
 type HighlightedRow = "one" | "two" | "three" | "four" | "";
 
-export const DefaultStory: ComponentStory<typeof FlatTable> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>
-          <Box
-            justifyContent="space-between"
-            alignItems="center"
-            display="flex"
-          >
-            Name <Icon type="individual" color="white" />
-          </Box>
-        </FlatTableHeader>
-        <FlatTableHeader>
-          <Box
-            justifyContent="space-between"
-            alignItems="center"
-            display="flex"
-          >
-            Location <Icon type="location" color="white" />
-          </Box>
-        </FlatTableHeader>
-        <FlatTableHeader>
-          <Box
-            justifyContent="space-between"
-            alignItems="center"
-            display="flex"
-          >
-            Relationship Status <Icon type="person_info" color="white" />
-          </Box>
-        </FlatTableHeader>
-        <FlatTableHeader>
-          <Box
-            justifyContent="space-between"
-            alignItems="center"
-            display="flex"
-          >
-            Dependents <Icon type="people" color="white" />
-          </Box>
-        </FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Doe</FlatTableCell>
-        <FlatTableCell>York</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Smith</FlatTableCell>
-        <FlatTableCell>Edinburgh</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Smith</FlatTableCell>
-        <FlatTableCell>Newcastle</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
+const meta: Meta<typeof FlatTable> = {
+  title: "Flat Table",
+  component: FlatTable,
+};
 
-DefaultStory.storyName = "default";
+export default meta;
+type Story = StoryObj<typeof FlatTable>;
 
-export const WithRowHeader: ComponentStory<typeof FlatTable> = () => (
-  <FlatTable width="380px" overflowX="auto">
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>ID Number</FlatTableHeader>
-        <FlatTableRowHeader>Name</FlatTableRowHeader>
-        <FlatTableHeader>Location</FlatTableHeader>
-        <FlatTableHeader>Relationship Status</FlatTableHeader>
-        <FlatTableHeader>Dependents</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell>000001</FlatTableCell>
-        <FlatTableRowHeader>John Doe</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>000002</FlatTableCell>
-        <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
-        <FlatTableCell>York</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>000003</FlatTableCell>
-        <FlatTableRowHeader>John Smith</FlatTableRowHeader>
-        <FlatTableCell>Edinburgh</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>000004</FlatTableCell>
-        <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
-        <FlatTableCell>Newcastle</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithRowHeader.storyName = "with row header";
-WithRowHeader.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithMultipleRowHeaders: ComponentStory<typeof FlatTable> = () => (
-  <FlatTable width="680px" overflowX="auto">
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>Sticky Column</FlatTableHeader>
-        <FlatTableRowHeader>Sticky Column</FlatTableRowHeader>
-        <FlatTableHeader>Scrollable Column</FlatTableHeader>
-        <FlatTableHeader>Scrollable Column</FlatTableHeader>
-        <FlatTableHeader>Scrollable Column</FlatTableHeader>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Column
-        </FlatTableRowHeader>
-        <FlatTableHeader>Sticky Column</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-        <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableCell>Scrollable Content</FlatTableCell>
-        <FlatTableRowHeader stickyAlignment="right">
-          Sticky Content
-        </FlatTableRowHeader>
-        <FlatTableCell>Sticky Content</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithMultipleRowHeaders.storyName = "with multiple row headers";
-
-export const HorizontalScrolling: ComponentStory<typeof FlatTable> = () => (
-  <FlatTable
-    width="380px"
-    overflowX="auto"
-    aria-label="Horizontal scroll table"
-  >
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>Name</FlatTableHeader>
-        <FlatTableHeader>Location</FlatTableHeader>
-        <FlatTableHeader>Relationship Status</FlatTableHeader>
-        <FlatTableHeader>Dependents</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Doe</FlatTableCell>
-        <FlatTableCell>York</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Smith</FlatTableCell>
-        <FlatTableCell>Edinburgh</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Smith</FlatTableCell>
-        <FlatTableCell>Newcastle</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-HorizontalScrolling.storyName = "with horizontal scrolling";
-HorizontalScrolling.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithCustomCellPaddings: ComponentStory<typeof FlatTable> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader px={1} py={2}>
-          Name
-        </FlatTableHeader>
-        <FlatTableHeader px={2} py={2}>
-          Location
-        </FlatTableHeader>
-        <FlatTableHeader px={3} py={2}>
-          Relationship Status
-        </FlatTableHeader>
-        <FlatTableHeader px={4} py={2}>
-          Dependents
-        </FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      {[1, 2, 3, 4].map((key) => (
-        <FlatTableRow key={key}>
-          <FlatTableCell px={key}>John Doe</FlatTableCell>
-          <FlatTableCell pl={key}>London</FlatTableCell>
-          <FlatTableCell p={key}>Single</FlatTableCell>
-          <FlatTableCell pl={key}>5</FlatTableCell>
-        </FlatTableRow>
-      ))}
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithCustomCellPaddings.storyName = "with custom cell paddings";
-
-export const WithCustomColumnWidth: ComponentStory<typeof FlatTable> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader width={80}>Name</FlatTableHeader>
-        <FlatTableHeader>Location</FlatTableHeader>
-        <FlatTableHeader width={200}>Notes</FlatTableHeader>
-        <FlatTableHeader width={40} px={1}>
-          <Icon color="white" type="settings" />
-        </FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      {[1, 2, 3, 4].map((key) => (
-        <FlatTableRow key={key}>
-          <FlatTableCell>John Doe</FlatTableCell>
-          <FlatTableCell>London</FlatTableCell>
-          <FlatTableCell>
-            <Textbox placeholder="Notes for John Doe" size="small" />
-          </FlatTableCell>
-          <FlatTableCell px={1}>
-            <ActionPopover>
-              <ActionPopoverItem onClick={() => {}} icon="graph">
-                Business
-              </ActionPopoverItem>
-              <ActionPopoverItem onClick={() => {}} icon="email">
-                Email Invoice
-              </ActionPopoverItem>
-            </ActionPopover>
-          </FlatTableCell>
-        </FlatTableRow>
-      ))}
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithCustomColumnWidth.storyName = "with custom column width";
-
-export const WithCustomRowBackgroundColor: ComponentStory<
-  typeof FlatTable
-> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableRowHeader>No.</FlatTableRowHeader>
-        <FlatTableHeader />
-        <FlatTableHeader>Name</FlatTableHeader>
-        <FlatTableHeader>Location</FlatTableHeader>
-        <FlatTableHeader>Relationship Status</FlatTableHeader>
-        <FlatTableHeader>Dependents</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow bgColor="#B1D345">
-        <FlatTableRowHeader>1</FlatTableRowHeader>
-        <FlatTableCheckbox ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3" />
-        <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
-        <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
-        <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableRowHeader>2</FlatTableRowHeader>
-        <FlatTableCheckbox ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3" />
-        <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
-        <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
-        <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow bgColor="#B1D345">
-        <FlatTableRowHeader>3</FlatTableRowHeader>
-        <FlatTableCheckbox ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3" />
-        <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
-        <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
-        <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableRowHeader>4</FlatTableRowHeader>
-        <FlatTableCheckbox ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3" />
-        <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
-        <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
-        <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithCustomRowBackgroundColor.storyName = "with custom row background color";
-
-export const WithCustomHorizontalBorderSize: ComponentStory<
-  typeof FlatTable
-> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>Name</FlatTableHeader>
-        <FlatTableHeader>Location</FlatTableHeader>
-        <FlatTableHeader>Relationship Status</FlatTableHeader>
-        <FlatTableHeader>Dependents</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow horizontalBorderSize="medium">
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Doe</FlatTableCell>
-        <FlatTableCell>York</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow horizontalBorderSize="large">
-        <FlatTableCell>John Smith</FlatTableCell>
-        <FlatTableCell>Edinburgh</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Smith</FlatTableCell>
-        <FlatTableCell>Newcastle</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithCustomHorizontalBorderSize.storyName = "with custom horizontal border size";
-
-export const WithCustomHorizontalBorderColor: ComponentStory<
-  typeof FlatTable
-> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>Name</FlatTableHeader>
-        <FlatTableHeader>Location</FlatTableHeader>
-        <FlatTableHeader>Relationship Status</FlatTableHeader>
-        <FlatTableHeader>Dependents</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow horizontalBorderColor="goldTint10">
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow horizontalBorderColor="blue">
-        <FlatTableCell>Jane Doe</FlatTableCell>
-        <FlatTableCell>York</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow horizontalBorderColor="--colorsUtilityYin090">
-        <FlatTableCell>John Smith</FlatTableCell>
-        <FlatTableCell>Edinburgh</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Smith</FlatTableCell>
-        <FlatTableCell>Newcastle</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithCustomHorizontalBorderColor.storyName =
-  "with custom horizontal border color";
-
-export const WithCustomVerticalBorders: ComponentStory<
-  typeof FlatTable
-> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader verticalBorder="small" verticalBorderColor="#335CDC">
-          Name
-        </FlatTableHeader>
-        <FlatTableHeader
-          verticalBorder="medium"
-          verticalBorderColor="goldTint10"
-        >
-          Location
-        </FlatTableHeader>
-        <FlatTableHeader verticalBorder="large">
-          Relationship Status
-        </FlatTableHeader>
-        <FlatTableHeader>Dependents</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell
-          verticalBorder="small"
-          verticalBorderColor="--colorsUtilityYin090"
-        >
-          John Doe
-        </FlatTableCell>
-        <FlatTableCell verticalBorder="medium" verticalBorderColor="goldTint10">
-          London
-        </FlatTableCell>
-        <FlatTableCell verticalBorder="large">Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell
-          verticalBorder="small"
-          verticalBorderColor="--colorsUtilityYin090"
-        >
-          Jane Doe
-        </FlatTableCell>
-        <FlatTableCell verticalBorder="medium" verticalBorderColor="goldTint10">
-          York
-        </FlatTableCell>
-        <FlatTableCell verticalBorder="large">Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell
-          verticalBorder="small"
-          verticalBorderColor="--colorsUtilityYin090"
-        >
-          John Smith
-        </FlatTableCell>
-        <FlatTableCell verticalBorder="medium" verticalBorderColor="goldTint10">
-          Edinburgh
-        </FlatTableCell>
-        <FlatTableCell verticalBorder="large">Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell
-          verticalBorder="small"
-          verticalBorderColor="--colorsUtilityYin090"
-        >
-          Jane Smith
-        </FlatTableCell>
-        <FlatTableCell verticalBorder="medium" verticalBorderColor="goldTint10">
-          Newcastle
-        </FlatTableCell>
-        <FlatTableCell verticalBorder="large">Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithCustomVerticalBorders.storyName = "with custom vertical borders";
-
-export const WithAlternativeHeaderBackground: ComponentStory<
-  typeof FlatTable
-> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader rowspan="2">Name</FlatTableHeader>
-        <FlatTableHeader colspan="2">Location</FlatTableHeader>
-        <FlatTableHeader rowspan="2">Relationship Status</FlatTableHeader>
-        <FlatTableHeader rowspan="2">Dependents</FlatTableHeader>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableHeader alternativeBgColor>City</FlatTableHeader>
-        <FlatTableHeader alternativeBgColor>Country</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>England</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Doe</FlatTableCell>
-        <FlatTableCell>York</FlatTableCell>
-        <FlatTableCell>England</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Smith</FlatTableCell>
-        <FlatTableCell>Edinburgh</FlatTableCell>
-        <FlatTableCell>Scotland</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Smith</FlatTableCell>
-        <FlatTableCell>Newcastle</FlatTableCell>
-        <FlatTableCell>England</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithAlternativeHeaderBackground.storyName =
-  "with alternative header background";
-
-export const WithTruncatedCellContent: ComponentStory<
-  typeof FlatTable
-> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>Name</FlatTableHeader>
-        <FlatTableHeader>Location</FlatTableHeader>
-        <FlatTableHeader>Notes</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      {[1, 2, 3, 4].map((key) => (
-        <FlatTableRow key={key}>
-          <FlatTableCell width={60} pr={0} truncate>
-            John Doe
-          </FlatTableCell>
-          <FlatTableCell width={50} pr={0} truncate title="Alternate Title">
-            London
-          </FlatTableCell>
-          <FlatTableCell>
-            <Textbox size="small" aria-label="textbox" />
-          </FlatTableCell>
-        </FlatTableRow>
-      ))}
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithTruncatedCellContent.storyName = "with truncated cell content";
-
-export const WithStickyHead: ComponentStory<typeof FlatTable> = () => (
-  <Box height="150px">
-    <FlatTable hasStickyHead>
+export const DefaultStory: Story = () => {
+  return (
+    <FlatTable>
       <FlatTableHead>
         <FlatTableRow>
-          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Name <Icon type="individual" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Location <Icon type="location" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Relationship Status <Icon type="person_info" color="white" />
+            </Box>
+          </FlatTableHeader>
+          <FlatTableHeader>
+            <Box
+              justifyContent="space-between"
+              alignItems="center"
+              display="flex"
+            >
+              Dependents <Icon type="people" color="white" />
+            </Box>
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+DefaultStory.storyName = "Default";
+
+export const WithRowHeader: Story = () => {
+  return (
+    <FlatTable width="380px" overflowX="auto">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>ID Number</FlatTableHeader>
+          <FlatTableRowHeader>Name</FlatTableRowHeader>
           <FlatTableHeader>Location</FlatTableHeader>
           <FlatTableHeader>Relationship Status</FlatTableHeader>
           <FlatTableHeader>Dependents</FlatTableHeader>
         </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>000001</FlatTableCell>
+          <FlatTableRowHeader>John Doe</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>000002</FlatTableCell>
+          <FlatTableRowHeader>Jane Doe</FlatTableRowHeader>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>000003</FlatTableCell>
+          <FlatTableRowHeader>John Smith</FlatTableRowHeader>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>000004</FlatTableCell>
+          <FlatTableRowHeader>Jane Smith</FlatTableRowHeader>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithRowHeader.storyName = "With Row Header";
+WithRowHeader.parameters = { chromatic: { disableSnapshot: true } };
+
+export const WithMultipleRowHeaders: Story = () => {
+  return (
+    <FlatTable width="680px" overflowX="auto">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Sticky Column</FlatTableHeader>
+          <FlatTableRowHeader>Sticky Column</FlatTableRowHeader>
+          <FlatTableHeader>Scrollable Column</FlatTableHeader>
+          <FlatTableHeader>Scrollable Column</FlatTableHeader>
+          <FlatTableHeader>Scrollable Column</FlatTableHeader>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Column
+          </FlatTableRowHeader>
+          <FlatTableHeader>Sticky Column</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+          <FlatTableRowHeader>Sticky Content</FlatTableRowHeader>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableCell>Scrollable Content</FlatTableCell>
+          <FlatTableRowHeader stickyAlignment="right">
+            Sticky Content
+          </FlatTableRowHeader>
+          <FlatTableCell>Sticky Content</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithMultipleRowHeaders.storyName = "With Multiple Row Headers";
+
+export const HorizontalScrolling: Story = () => {
+  return (
+    <FlatTable
+      width="380px"
+      overflowX="auto"
+      aria-label="Horizontal scroll table"
+    >
+      <FlatTableHead>
         <FlatTableRow>
           <FlatTableHeader>Name</FlatTableHeader>
           <FlatTableHeader>Location</FlatTableHeader>
@@ -744,121 +335,552 @@ export const WithStickyHead: ComponentStory<typeof FlatTable> = () => (
         </FlatTableRow>
       </FlatTableBody>
     </FlatTable>
-  </Box>
-);
+  );
+};
+HorizontalScrolling.storyName = "With Horizontal Scrolling";
+HorizontalScrolling.parameters = { chromatic: { disableSnapshot: true } };
 
-WithStickyHead.storyName = "with sticky head";
+export const WithCustomCellPaddings: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader px={1} py={2}>
+            Name
+          </FlatTableHeader>
+          <FlatTableHeader px={2} py={2}>
+            Location
+          </FlatTableHeader>
+          <FlatTableHeader px={3} py={2}>
+            Relationship Status
+          </FlatTableHeader>
+          <FlatTableHeader px={4} py={2}>
+            Dependents
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {[1, 2, 3, 4].map((key) => (
+          <FlatTableRow key={key}>
+            <FlatTableCell px={key}>John Doe</FlatTableCell>
+            <FlatTableCell pl={key}>London</FlatTableCell>
+            <FlatTableCell p={key}>Single</FlatTableCell>
+            <FlatTableCell pl={key}>5</FlatTableCell>
+          </FlatTableRow>
+        ))}
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithCustomCellPaddings.storyName = "With Custom Cell Paddings";
+
+export const WithCustomColumnWidth: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader width={80}>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader width={200}>Notes</FlatTableHeader>
+          <FlatTableHeader width={40} px={1}>
+            <Icon color="white" type="settings" />
+          </FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {[1, 2, 3, 4].map((key) => (
+          <FlatTableRow key={key}>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>
+              <Textbox placeholder="Notes for John Doe" size="small" />
+            </FlatTableCell>
+            <FlatTableCell px={1}>
+              <ActionPopover>
+                <ActionPopoverItem onClick={() => {}} icon="graph">
+                  Business
+                </ActionPopoverItem>
+                <ActionPopoverItem onClick={() => {}} icon="email">
+                  Email Invoice
+                </ActionPopoverItem>
+              </ActionPopover>
+            </FlatTableCell>
+          </FlatTableRow>
+        ))}
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithCustomColumnWidth.storyName = "With Custom Column Width";
+
+export const WithCustomRowBackgroundColor: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableRowHeader>No.</FlatTableRowHeader>
+          <FlatTableHeader />
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow bgColor="#B1D345">
+          <FlatTableRowHeader>1</FlatTableRowHeader>
+          <FlatTableCheckbox ariaLabelledBy="ft-row-1-cell-1 ft-row-1-cell-2 ft-row-1-cell-3" />
+          <FlatTableCell id="ft-row-1-cell-1">John Doe</FlatTableCell>
+          <FlatTableCell id="ft-row-1-cell-2">London</FlatTableCell>
+          <FlatTableCell id="ft-row-1-cell-3">Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableRowHeader>2</FlatTableRowHeader>
+          <FlatTableCheckbox ariaLabelledBy="ft-row-2-cell-1 ft-row-2-cell-2 ft-row-2-cell-3" />
+          <FlatTableCell id="ft-row-2-cell-1">Jane Doe</FlatTableCell>
+          <FlatTableCell id="ft-row-2-cell-2">York</FlatTableCell>
+          <FlatTableCell id="ft-row-2-cell-3">Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow bgColor="#B1D345">
+          <FlatTableRowHeader>3</FlatTableRowHeader>
+          <FlatTableCheckbox ariaLabelledBy="ft-row-3-cell-1 ft-row-3-cell-2 ft-row-3-cell-3" />
+          <FlatTableCell id="ft-row-3-cell-1">John Smith</FlatTableCell>
+          <FlatTableCell id="ft-row-3-cell-2">Edinburgh</FlatTableCell>
+          <FlatTableCell id="ft-row-3-cell-3">Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableRowHeader>4</FlatTableRowHeader>
+          <FlatTableCheckbox ariaLabelledBy="ft-row-4-cell-1 ft-row-4-cell-2 ft-row-4-cell-3" />
+          <FlatTableCell id="ft-row-4-cell-1">Jane Smith</FlatTableCell>
+          <FlatTableCell id="ft-row-4-cell-2">Newcastle</FlatTableCell>
+          <FlatTableCell id="ft-row-4-cell-3">Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithCustomRowBackgroundColor.storyName = "With Custom Row Background Color";
+
+export const WithCustomHorizontalBorderSize: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow horizontalBorderSize="medium">
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow horizontalBorderSize="large">
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithCustomHorizontalBorderSize.storyName = "With Custom Horizontal Border Size";
+
+export const WithCustomHorizontalBorderColor: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow horizontalBorderColor="goldTint10">
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow horizontalBorderColor="blue">
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow horizontalBorderColor="--colorsUtilityYin090">
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithCustomHorizontalBorderColor.storyName =
+  "With Custom Horizontal Border Color";
+
+export const WithCustomVerticalBorders: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader verticalBorder="small" verticalBorderColor="#335CDC">
+            Name
+          </FlatTableHeader>
+          <FlatTableHeader
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Location
+          </FlatTableHeader>
+          <FlatTableHeader verticalBorder="large">
+            Relationship Status
+          </FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell
+            verticalBorder="small"
+            verticalBorderColor="--colorsUtilityYin090"
+          >
+            John Doe
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            London
+          </FlatTableCell>
+          <FlatTableCell verticalBorder="large">Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell
+            verticalBorder="small"
+            verticalBorderColor="--colorsUtilityYin090"
+          >
+            Jane Doe
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            York
+          </FlatTableCell>
+          <FlatTableCell verticalBorder="large">Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell
+            verticalBorder="small"
+            verticalBorderColor="--colorsUtilityYin090"
+          >
+            John Smith
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Edinburgh
+          </FlatTableCell>
+          <FlatTableCell verticalBorder="large">Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell
+            verticalBorder="small"
+            verticalBorderColor="--colorsUtilityYin090"
+          >
+            Jane Smith
+          </FlatTableCell>
+          <FlatTableCell
+            verticalBorder="medium"
+            verticalBorderColor="goldTint10"
+          >
+            Newcastle
+          </FlatTableCell>
+          <FlatTableCell verticalBorder="large">Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithCustomVerticalBorders.storyName = "With Custom Vertical Borders";
+
+export const WithAlternativeHeaderBackground: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader rowspan="2">Name</FlatTableHeader>
+          <FlatTableHeader colspan="2">Location</FlatTableHeader>
+          <FlatTableHeader rowspan="2">Relationship Status</FlatTableHeader>
+          <FlatTableHeader rowspan="2">Dependents</FlatTableHeader>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableHeader alternativeBgColor>City</FlatTableHeader>
+          <FlatTableHeader alternativeBgColor>Country</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Scotland</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>England</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithAlternativeHeaderBackground.storyName =
+  "With Alternative Header Background";
+
+export const WithTruncatedCellContent: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Notes</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        {[1, 2, 3, 4].map((key) => (
+          <FlatTableRow key={key}>
+            <FlatTableCell width={60} pr={0} truncate>
+              John Doe
+            </FlatTableCell>
+            <FlatTableCell width={50} pr={0} truncate title="Alternate Title">
+              London
+            </FlatTableCell>
+            <FlatTableCell>
+              <Textbox size="small" aria-label="textbox" />
+            </FlatTableCell>
+          </FlatTableRow>
+        ))}
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithTruncatedCellContent.storyName = "With Truncated Cell Content";
+
+export const WithStickyHead: Story = () => {
+  return (
+    <Box height="150px">
+      <FlatTable hasStickyHead>
+        <FlatTableHead>
+          <FlatTableRow>
+            <FlatTableHeader>Name</FlatTableHeader>
+            <FlatTableHeader>Location</FlatTableHeader>
+            <FlatTableHeader>Relationship Status</FlatTableHeader>
+            <FlatTableHeader>Dependents</FlatTableHeader>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableHeader>Name</FlatTableHeader>
+            <FlatTableHeader>Location</FlatTableHeader>
+            <FlatTableHeader>Relationship Status</FlatTableHeader>
+            <FlatTableHeader>Dependents</FlatTableHeader>
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>
+          <FlatTableRow>
+            <FlatTableCell>John Doe</FlatTableCell>
+            <FlatTableCell>London</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>0</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>Jane Doe</FlatTableCell>
+            <FlatTableCell>York</FlatTableCell>
+            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell>2</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>John Smith</FlatTableCell>
+            <FlatTableCell>Edinburgh</FlatTableCell>
+            <FlatTableCell>Single</FlatTableCell>
+            <FlatTableCell>1</FlatTableCell>
+          </FlatTableRow>
+          <FlatTableRow>
+            <FlatTableCell>Jane Smith</FlatTableCell>
+            <FlatTableCell>Newcastle</FlatTableCell>
+            <FlatTableCell>Married</FlatTableCell>
+            <FlatTableCell>5</FlatTableCell>
+          </FlatTableRow>
+        </FlatTableBody>
+      </FlatTable>
+    </Box>
+  );
+};
+WithStickyHead.storyName = "With Sticky Head";
 WithStickyHead.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithStickyHeadRowSpanAndColspan: ComponentStory<
-  typeof FlatTable
-> = () => (
-  <FlatTable hasStickyHead height="380px" width="310px" overflowX="auto">
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader rowspan={2}>Name</FlatTableHeader>
-        <FlatTableRowHeader rowspan={2}>Code</FlatTableRowHeader>
-        <FlatTableHeader colspan={2}>Jun 21</FlatTableHeader>
-        <FlatTableHeader rowspan={2} />
-        <FlatTableHeader colspan={2}>YTD</FlatTableHeader>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableHeader>Debit</FlatTableHeader>
-        <FlatTableHeader>Credit</FlatTableHeader>
-        <FlatTableHeader>Debit</FlatTableHeader>
-        <FlatTableHeader>Credit</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableRowHeader>000001</FlatTableRowHeader>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
+export const WithStickyHeadRowSpanAndColspan: Story = () => {
+  return (
+    <FlatTable hasStickyHead height="380px" width="310px" overflowX="auto">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader rowspan={2}>Name</FlatTableHeader>
+          <FlatTableRowHeader rowspan={2}>Code</FlatTableRowHeader>
+          <FlatTableHeader colspan={2}>Jun 21</FlatTableHeader>
+          <FlatTableHeader rowspan={2} />
+          <FlatTableHeader colspan={2}>YTD</FlatTableHeader>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableHeader>Debit</FlatTableHeader>
+          <FlatTableHeader>Credit</FlatTableHeader>
+          <FlatTableHeader>Debit</FlatTableHeader>
+          <FlatTableHeader>Credit</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableRowHeader>000001</FlatTableRowHeader>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
 WithStickyHeadRowSpanAndColspan.storyName =
-  "with stickyHead rowspan and colspan";
+  "With StickyHead rowspan and colspan";
 
-export const WithStickyFooter: ComponentStory<typeof FlatTable> = () => {
+export const WithStickyFooter: Story = () => {
   const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
   const rows = [
@@ -987,7 +1009,7 @@ export const WithStickyFooter: ComponentStory<typeof FlatTable> = () => {
   };
 
   return (
-    <div style={{ height: "220px", marginBottom: "16px" }}>
+    <Box height={220} marginBottom={16}>
       <FlatTable
         hasStickyHead
         hasStickyFooter
@@ -1015,16 +1037,13 @@ export const WithStickyFooter: ComponentStory<typeof FlatTable> = () => {
         </FlatTableHead>
         <FlatTableBody>{renderRows()}</FlatTableBody>
       </FlatTable>
-    </div>
+    </Box>
   );
 };
-
-WithStickyFooter.storyName = "with sticky footer";
+WithStickyFooter.storyName = "With Sticky Footer";
 WithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithStickyFooterInsideOfLargerDiv: ComponentStory<
-  typeof FlatTable
-> = () => {
+export const WithStickyFooterInsideOfLargerDiv: Story = () => {
   const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
   const rows = [
@@ -1088,11 +1107,10 @@ export const WithStickyFooterInsideOfLargerDiv: ComponentStory<
     </Box>
   );
 };
-
 WithStickyFooterInsideOfLargerDiv.storyName =
-  "with sticky footer inside of larger div";
+  "With Sticky Footer Inside of Larger Div";
 
-export const WithHasMaxHeight: ComponentStory<typeof FlatTable> = () => {
+export const WithHasMaxHeight: Story = () => {
   const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
   const rows = [
@@ -1155,11 +1173,10 @@ export const WithHasMaxHeight: ComponentStory<typeof FlatTable> = () => {
     </Box>
   );
 };
-
-WithHasMaxHeight.storyName = "with hasMaxHeight";
+WithHasMaxHeight.storyName = "With hasMaxHeight";
 WithHasMaxHeight.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithClickableRows: ComponentStory<typeof FlatTable> = () => {
+export const WithClickableRows: Story = () => {
   return (
     <FlatTable>
       <FlatTableHead>
@@ -1199,178 +1216,181 @@ export const WithClickableRows: ComponentStory<typeof FlatTable> = () => {
     </FlatTable>
   );
 };
-
-WithClickableRows.storyName = "with clickable rows";
+WithClickableRows.storyName = "With Clickable Rows";
 WithClickableRows.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Zebra: ComponentStory<typeof FlatTable> = () => (
-  <FlatTable isZebra>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>Name</FlatTableHeader>
-        <FlatTableHeader>Location</FlatTableHeader>
-        <FlatTableHeader>Relationship Status</FlatTableHeader>
-        <FlatTableHeader>Dependents</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell>John Doe</FlatTableCell>
-        <FlatTableCell>London</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>0</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Doe</FlatTableCell>
-        <FlatTableCell>York</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>2</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>John Smith</FlatTableCell>
-        <FlatTableCell>Edinburgh</FlatTableCell>
-        <FlatTableCell>Single</FlatTableCell>
-        <FlatTableCell>1</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Jane Smith</FlatTableCell>
-        <FlatTableCell>Newcastle</FlatTableCell>
-        <FlatTableCell>Married</FlatTableCell>
-        <FlatTableCell>5</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-Zebra.storyName = "zebra";
-
-export const WithSortingHeaders: ComponentStory<typeof FlatTable> = (args) => {
-  const headDataItems: HeadDataItems = [
-    { name: "client", isActive: true },
-    { name: "total", isActive: false },
-  ];
-  const bodyDataItems: BodyDataItems = [
-    { client: "Jason Atkinson", total: 1349 },
-    { client: "Monty Parker", total: 849 },
-    { client: "Blake Sutton", total: 3840 },
-    { client: "Tyler Webb", total: 280 },
-  ];
-  const [headData, setHeadData] = useState(headDataItems);
-  const [sortType, setSortType] = useState<SortType>("ascending");
-  const [sortValue, setSortValue] = useState<SortValue>("client");
-
-  const sortByNumber = (
-    dataToSort: BodyDataItems,
-    sortByValue: SortValue,
-    type: SortType
-  ) => {
-    const sortedData = dataToSort.sort((a, b) => {
-      if (type === "ascending") {
-        return Number(a[sortByValue]) - Number(b[sortByValue]);
-      }
-      if (type === "descending") {
-        return Number(b[sortByValue]) - Number(a[sortByValue]);
-      }
-      return 0;
-    });
-    return sortedData;
-  };
-
-  const sortByString = (
-    dataToSort: BodyDataItems,
-    sortByValue: SortValue,
-    type: SortType
-  ) => {
-    const sortedData = dataToSort.sort((a, b) => {
-      const nameA = String(a[sortByValue]).toUpperCase();
-      const nameB = String(b[sortByValue]).toUpperCase();
-
-      if (type === "ascending") {
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-      }
-      if (type === "descending") {
-        if (nameA > nameB) {
-          return -1;
-        }
-        if (nameA < nameB) {
-          return 1;
-        }
-      }
-      return 0;
-    });
-    return sortedData;
-  };
-
-  const handleClick = (value: SortValue) => {
-    const tempHeadData = headData;
-    tempHeadData.forEach((item) => {
-      item.isActive = false;
-      if (item.name === value) {
-        item.isActive = !item.isActive;
-      }
-    });
-    setSortValue(value);
-    setSortType(sortType === "ascending" ? "descending" : "ascending");
-    setHeadData([...tempHeadData]);
-  };
-
-  const renderSortedData = (sortByValue: SortValue) => {
-    let sortedData = bodyDataItems;
-    if (typeof bodyDataItems[0][sortByValue] === "string") {
-      sortedData = sortByString(sortedData, sortByValue, sortType);
-    }
-    if (typeof bodyDataItems[0][sortByValue] === "number") {
-      sortedData = sortByNumber(sortedData, sortByValue, sortType);
-    }
-
-    return sortedData.map(({ client, total }) => {
-      return (
-        <FlatTableRow key={client}>
-          <FlatTableCell>{client}</FlatTableCell>
-          <FlatTableCell>{total}</FlatTableCell>
-        </FlatTableRow>
-      );
-    });
-  };
-
+export const Zebra: Story = () => {
   return (
-    <FlatTable {...args}>
+    <FlatTable isZebra>
       <FlatTableHead>
         <FlatTableRow>
-          {headData.map(({ name, isActive }) => {
-            return (
-              <FlatTableHeader key={name}>
-                <Sort
-                  onClick={() => handleClick(name)}
-                  {...(isActive && { sortType })}
-                >
-                  {name}
-                </Sort>
-              </FlatTableHeader>
-            );
-          })}
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
         </FlatTableRow>
       </FlatTableHead>
-      <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>John Doe</FlatTableCell>
+          <FlatTableCell>London</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>0</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Doe</FlatTableCell>
+          <FlatTableCell>York</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>2</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>John Smith</FlatTableCell>
+          <FlatTableCell>Edinburgh</FlatTableCell>
+          <FlatTableCell>Single</FlatTableCell>
+          <FlatTableCell>1</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Jane Smith</FlatTableCell>
+          <FlatTableCell>Newcastle</FlatTableCell>
+          <FlatTableCell>Married</FlatTableCell>
+          <FlatTableCell>5</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
     </FlatTable>
   );
 };
+Zebra.storyName = "Zebra";
 
-WithSortingHeaders.storyName = "with sorting headers";
-WithSortingHeaders.parameters = {
-  docs: {
-    source: {
-      type: "code",
+export const WithSortingHeaders: Story = {
+  render: (args: FlatTableProps) => {
+    const headDataItems: HeadDataItems = [
+      { name: "client", isActive: true },
+      { name: "total", isActive: false },
+    ];
+    const bodyDataItems: BodyDataItems = [
+      { client: "Jason Atkinson", total: 1349 },
+      { client: "Monty Parker", total: 849 },
+      { client: "Blake Sutton", total: 3840 },
+      { client: "Tyler Webb", total: 280 },
+    ];
+    /* eslint-disable react-hooks/rules-of-hooks */
+    const [headData, setHeadData] = useState(headDataItems);
+    const [sortType, setSortType] = useState<SortType>("ascending");
+    const [sortValue, setSortValue] = useState<SortValue>("client");
+    /* eslint-enable react-hooks/rules-of-hooks */
+
+    const sortByNumber = (
+      dataToSort: BodyDataItems,
+      sortByValue: SortValue,
+      type: SortType
+    ) => {
+      const sortedData = dataToSort.sort((a, b) => {
+        if (type === "ascending") {
+          return Number(a[sortByValue]) - Number(b[sortByValue]);
+        }
+        if (type === "descending") {
+          return Number(b[sortByValue]) - Number(a[sortByValue]);
+        }
+        return 0;
+      });
+      return sortedData;
+    };
+
+    const sortByString = (
+      dataToSort: BodyDataItems,
+      sortByValue: SortValue,
+      type: SortType
+    ) => {
+      const sortedData = dataToSort.sort((a, b) => {
+        const nameA = String(a[sortByValue]).toUpperCase();
+        const nameB = String(b[sortByValue]).toUpperCase();
+
+        if (type === "ascending") {
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+        }
+        if (type === "descending") {
+          if (nameA > nameB) {
+            return -1;
+          }
+          if (nameA < nameB) {
+            return 1;
+          }
+        }
+        return 0;
+      });
+      return sortedData;
+    };
+
+    const handleClick = (value: SortValue) => {
+      const tempHeadData = headData;
+      tempHeadData.forEach((item) => {
+        item.isActive = false;
+        if (item.name === value) {
+          item.isActive = !item.isActive;
+        }
+      });
+      setSortValue(value);
+      setSortType(sortType === "ascending" ? "descending" : "ascending");
+      setHeadData([...tempHeadData]);
+    };
+
+    const renderSortedData = (sortByValue: SortValue) => {
+      let sortedData = bodyDataItems;
+      if (typeof bodyDataItems[0][sortByValue] === "string") {
+        sortedData = sortByString(sortedData, sortByValue, sortType);
+      }
+      if (typeof bodyDataItems[0][sortByValue] === "number") {
+        sortedData = sortByNumber(sortedData, sortByValue, sortType);
+      }
+
+      return sortedData.map(({ client, total }) => {
+        return (
+          <FlatTableRow key={client}>
+            <FlatTableCell>{client}</FlatTableCell>
+            <FlatTableCell>{total}</FlatTableCell>
+          </FlatTableRow>
+        );
+      });
+    };
+
+    return (
+      <FlatTable {...args}>
+        <FlatTableHead>
+          <FlatTableRow>
+            {headData.map(({ name, isActive }) => {
+              return (
+                <FlatTableHeader key={name}>
+                  <Sort
+                    onClick={() => handleClick(name)}
+                    {...(isActive && { sortType })}
+                  >
+                    {name}
+                  </Sort>
+                </FlatTableHeader>
+              );
+            })}
+          </FlatTableRow>
+        </FlatTableHead>
+        <FlatTableBody>{renderSortedData(sortValue)}</FlatTableBody>
+      </FlatTable>
+    );
+  },
+  name: "With Sorting Headers",
+  parameters: {
+    docs: {
+      source: {
+        type: "code",
+      },
     },
   },
 };
 
-export const WithColspan: ComponentStory<typeof FlatTable> = () => {
+export const WithColspan: Story = () => {
   return (
     <FlatTable>
       <FlatTableHead>
@@ -1391,39 +1411,39 @@ export const WithColspan: ComponentStory<typeof FlatTable> = () => {
     </FlatTable>
   );
 };
+WithColspan.storyName = "With colspan";
 
-WithColspan.storyName = "with colspan";
+export const WithRowspan: Story = () => {
+  return (
+    <FlatTable>
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Parent Name</FlatTableHeader>
+          <FlatTableHeader>Child Name</FlatTableHeader>
+          <FlatTableHeader>Child Age</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell rowspan="3">Jane Smith</FlatTableCell>
+          <FlatTableCell>Tim Smith</FlatTableCell>
+          <FlatTableCell>8</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Chris Smith</FlatTableCell>
+          <FlatTableCell>8</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>Alice Smith</FlatTableCell>
+          <FlatTableCell>12</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
+  );
+};
+WithRowspan.storyName = "With rowspan";
 
-export const WithRowspan: ComponentStory<typeof FlatTable> = () => (
-  <FlatTable>
-    <FlatTableHead>
-      <FlatTableRow>
-        <FlatTableHeader>Parent Name</FlatTableHeader>
-        <FlatTableHeader>Child Name</FlatTableHeader>
-        <FlatTableHeader>Child Age</FlatTableHeader>
-      </FlatTableRow>
-    </FlatTableHead>
-    <FlatTableBody>
-      <FlatTableRow>
-        <FlatTableCell rowspan="3">Jane Smith</FlatTableCell>
-        <FlatTableCell>Tim Smith</FlatTableCell>
-        <FlatTableCell>8</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Chris Smith</FlatTableCell>
-        <FlatTableCell>8</FlatTableCell>
-      </FlatTableRow>
-      <FlatTableRow>
-        <FlatTableCell>Alice Smith</FlatTableCell>
-        <FlatTableCell>12</FlatTableCell>
-      </FlatTableRow>
-    </FlatTableBody>
-  </FlatTable>
-);
-
-WithRowspan.storyName = "with rowspan";
-
-export const WithSelectableRows: ComponentStory<typeof FlatTable> = () => {
+export const WithSelectableRows: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState<SelectedRows>({
     one: false,
@@ -1540,11 +1560,10 @@ export const WithSelectableRows: ComponentStory<typeof FlatTable> = () => {
     </>
   );
 };
-
-WithSelectableRows.storyName = "selectable rows";
+WithSelectableRows.storyName = "Selectable Rows";
 WithSelectableRows.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithHighlightableRows: ComponentStory<typeof FlatTable> = () => {
+export const WithHighlightableRows: Story = () => {
   const [highlightedRow, setHighlightedRow] = useState("");
 
   const handleHighlightRow = (id: HighlightedRow) => {
@@ -1606,13 +1625,10 @@ export const WithHighlightableRows: ComponentStory<typeof FlatTable> = () => {
     </FlatTable>
   );
 };
-
-WithHighlightableRows.storyName = "highlightable rows";
+WithHighlightableRows.storyName = "Highlightable Rows";
 WithHighlightableRows.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithSelectableAndHighlightableRows: ComponentStory<
-  typeof FlatTable
-> = () => {
+export const WithSelectableAndHighlightableRows: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState<SelectedRows>({
     one: false,
@@ -1754,14 +1770,13 @@ export const WithSelectableAndHighlightableRows: ComponentStory<
     </>
   );
 };
-
 WithSelectableAndHighlightableRows.storyName =
-  "selectable and highlightable rows";
+  "Selectable and Highlightable Rows";
 WithSelectableAndHighlightableRows.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const Paginated: ComponentStory<typeof FlatTable> = () => {
+export const Paginated: Story = () => {
   const [recordsRange, setRecordsRange] = useState({ start: 0, end: 10 });
   const [currentPage, setCurrentPage] = useState(1);
   const rows = [
@@ -1890,41 +1905,36 @@ export const Paginated: ComponentStory<typeof FlatTable> = () => {
   };
 
   return (
-    <>
-      <FlatTable
-        footer={
-          <Pager
-            totalRecords={rows.length}
-            showPageSizeSelection
-            pageSize={10}
-            currentPage={currentPage}
-            onPagination={(next, size) => handlePagination(next, size)}
-            pageSizeSelectionOptions={[
-              { id: "10", name: 10 },
-              { id: "15", name: 15 },
-            ]}
-          />
-        }
-      >
-        <FlatTableHead>
-          <FlatTableRow>
-            <FlatTableHeader>Name</FlatTableHeader>
-            <FlatTableHeader>Location</FlatTableHeader>
-            <FlatTableHeader>Relationship Status</FlatTableHeader>
-            <FlatTableHeader>Dependents</FlatTableHeader>
-          </FlatTableRow>
-        </FlatTableHead>
-        <FlatTableBody>{renderRows()}</FlatTableBody>
-      </FlatTable>
-    </>
+    <FlatTable
+      footer={
+        <Pager
+          totalRecords={rows.length}
+          showPageSizeSelection
+          pageSize={10}
+          currentPage={currentPage}
+          onPagination={(next, size) => handlePagination(next, size)}
+          pageSizeSelectionOptions={[
+            { id: "10", name: 10 },
+            { id: "15", name: 15 },
+          ]}
+        />
+      }
+    >
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Name</FlatTableHeader>
+          <FlatTableHeader>Location</FlatTableHeader>
+          <FlatTableHeader>Relationship Status</FlatTableHeader>
+          <FlatTableHeader>Dependents</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>{renderRows()}</FlatTableBody>
+    </FlatTable>
   );
 };
+Paginated.storyName = "Paginated";
 
-Paginated.storyName = "paginated";
-
-export const PaginatedWithStickyHeader: ComponentStory<
-  typeof FlatTable
-> = () => {
+export const PaginatedWithStickyHeader: Story = () => {
   const [placementUp, setPlacementUp] = useState(true);
   const rows = [
     <FlatTableRow key="0">
@@ -2314,10 +2324,9 @@ export const PaginatedWithStickyHeader: ComponentStory<
     </Box>
   );
 };
+PaginatedWithStickyHeader.storyName = "Paginated with Sticky Header";
 
-PaginatedWithStickyHeader.storyName = "paginated with sticky header";
-
-export const WhenAChildOfSidebar: ComponentStory<typeof FlatTable> = () => {
+export const WhenAChildOfSidebar: Story = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState<SelectedRows>({
     one: false,
@@ -2460,11 +2469,10 @@ export const WhenAChildOfSidebar: ComponentStory<typeof FlatTable> = () => {
     </>
   );
 };
-
-WhenAChildOfSidebar.storyName = "when a child of sidebar";
+WhenAChildOfSidebar.storyName = "When a Child of Sidebar";
 WhenAChildOfSidebar.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Sizes: ComponentStory<typeof FlatTable> = () => {
+export const Sizes: Story = () => {
   const sizes = ["compact", "small", "medium", "large", "extraLarge"] as const;
   return (
     <Box>
@@ -2511,10 +2519,9 @@ export const Sizes: ComponentStory<typeof FlatTable> = () => {
     </Box>
   );
 };
+Sizes.storyName = "Sizes";
 
-Sizes.storyName = "sizes";
-
-export const WithDraggableRows: ComponentStory<typeof FlatTable> = () => {
+export const WithDraggableRows: Story = () => {
   const rows = [
     {
       id: "0",
@@ -2551,10 +2558,9 @@ export const WithDraggableRows: ComponentStory<typeof FlatTable> = () => {
     </FlatTable>
   );
 };
+WithDraggableRows.storyName = "With Draggable Rows";
 
-WithDraggableRows.storyName = "with draggable rows";
-
-export const WrappingRowHeaders: ComponentStory<typeof FlatTable> = () => {
+export const WrappingRowHeaders: Story = () => {
   const FlatTableRowHeaderWrapper = ({
     children,
     ...rest
@@ -2626,6 +2632,5 @@ export const WrappingRowHeaders: ComponentStory<typeof FlatTable> = () => {
     </FlatTable>
   );
 };
-
-WrappingRowHeaders.storyName = "wrapping row headers";
+WrappingRowHeaders.storyName = "Wrapping Row Headers";
 WrappingRowHeaders.parameters = { chromatic: { disableSnapshot: true } };

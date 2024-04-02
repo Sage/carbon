@@ -1,6 +1,7 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
+import { render as rtlRender, screen } from "@testing-library/react";
 import guid from "../../../__internal__/utils/helpers/guid";
 import {
   assertStyleMatch,
@@ -23,10 +24,7 @@ import StyledHelp from "../../help/help.style";
 import Logger from "../../../__internal__/utils/logger";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
-const mockedGuid = "guid-12345";
-
 jest.mock("../../../__internal__/utils/helpers/guid");
-(guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
 const MockComponent = (props: Partial<ButtonToggleGroupProps> = {}) => (
   <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}} {...props}>
@@ -40,6 +38,12 @@ function render(props: Partial<ButtonToggleGroupProps> = {}) {
 }
 
 describe("ButtonToggleGroup", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+    const mockGuid = guid as jest.MockedFunction<typeof guid>;
+    mockGuid.mockImplementation(() => "guid-12345");
+  });
+
   it("when helpAriaLabel prop is passed, the aria-label on the Help component should be set", () => {
     const text = "foo";
 
@@ -100,15 +104,15 @@ describe("ButtonToggleGroup", () => {
     describe("with label provided", () => {
       it("the group container has an aria-labelledby referencing the ID of the label text", () => {
         const wrapper = render({ label: "a label" });
-        expect(wrapper.find(StyledLabel).getDOMNode().getAttribute("id")).toBe(
-          mockedGuid
-        );
+        expect(
+          wrapper.find(StyledLabel).getDOMNode().getAttribute("id")
+        ).toEqual("guid-12345");
         expect(
           wrapper
             .find(StyledButtonToggleGroup)
             .getDOMNode()
             .getAttribute("aria-labelledby")
-        ).toBe(mockedGuid);
+        ).toEqual("guid-12345");
       });
 
       it("the group container has no aria-label attribute", () => {
@@ -155,6 +159,26 @@ describe("ButtonToggleGroup", () => {
             .getAttribute("aria-labelledby")
         ).toBe(null);
       });
+    });
+
+    it("has the accessible description for each toggle button set to the hint text, when inputHint prop is specified", () => {
+      (guid as jest.MockedFunction<typeof guid>)
+        .mockImplementationOnce(() => "guid-1")
+        .mockImplementationOnce(() => "guid-2");
+
+      rtlRender(
+        <MockComponent
+          label="Product selection"
+          inputHint="Select an addon for Product A"
+        />
+      );
+
+      expect(
+        screen.getByRole("button", { name: "Foo" })
+      ).toHaveAccessibleDescription("Select an addon for Product A");
+      expect(
+        screen.getByRole("button", { name: "Bar" })
+      ).toHaveAccessibleDescription("Select an addon for Product A");
     });
   });
 

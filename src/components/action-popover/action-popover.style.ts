@@ -12,10 +12,11 @@ const oldFocusStyling = `
   outline: solid 3px var(--colorsSemanticFocus500);
 `;
 
-const Menu = styled.div`
+const Menu = styled.ul`
   ${({ isOpen }: { isOpen?: boolean }) =>
     isOpen ? "display: block;" : "visibility: hidden;"}
   margin: 0;
+  list-style: none;
   padding: var(--spacing100) 0;
   box-shadow: var(--boxShadow100);
   position: absolute;
@@ -215,11 +216,11 @@ StyledMenuItem.defaultProps = {
   theme: baseTheme,
 };
 
-const StyledMenuItemWrapper = styled.div`
+const StyledMenuItemWrapper = styled.li`
   position: relative;
 `;
 
-const MenuItemDivider = styled.div.attrs({
+const MenuItemDivider = styled.li.attrs({
   "data-element": "action-popover-divider",
 })`
   background-color: var(--colorsUtilityMajor050);

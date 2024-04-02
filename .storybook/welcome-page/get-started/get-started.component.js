@@ -24,7 +24,7 @@ const GetStarted = () => (
       </Button>
       <Button
         buttonType="primary"
-        href="https://carbon.sage.com/?path=/story/getting-started-installation--page"
+        href="https://carbon.sage.com/?path=/docs/getting-started-installation--docs"
         size="large"
         target="_blank"
         ml={2}

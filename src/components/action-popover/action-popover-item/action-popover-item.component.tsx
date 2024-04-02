@@ -18,7 +18,6 @@ import {
 import Events from "../../../__internal__/utils/helpers/events";
 import createGuid from "../../../__internal__/utils/helpers/guid";
 import ActionPopoverContext, { Alignment } from "../action-popover-context";
-import useLocale from "../../../hooks/__internal__/useLocale";
 
 import { IconType } from "../../icon";
 import ActionPopoverMenu, {
@@ -120,7 +119,6 @@ export const ActionPopoverItem = ({
   isASubmenu = false,
   ...rest
 }: ActionPopoverItemProps) => {
-  const l = useLocale();
   const context = useContext(ActionPopoverContext);
 
   invariant(
@@ -147,7 +145,7 @@ export const ActionPopoverItem = ({
   const [isOpen, setOpen] = useState(false);
   const [focusIndex, setFocusIndex] = useState<number>(0);
 
-  const submenuRef = useRef<HTMLDivElement>(null);
+  const submenuRef = useRef<HTMLUListElement>(null);
   const ref = useRef<HTMLButtonElement>(null);
   const mouseEnterTimer = useRef<NodeJS.Timeout | null>(null);
   const mouseLeaveTimer = useRef<NodeJS.Timeout | null>(null);
@@ -215,7 +213,7 @@ export const ActionPopoverItem = ({
   // focuses item on opening of actionPopover submenu
   useEffect(() => {
     if (focusItem) {
-      ref.current?.focus();
+      ref.current?.focus({ preventScroll: true });
     }
   }, [focusItem]);
 
@@ -313,14 +311,13 @@ export const ActionPopoverItem = ({
       },
     }),
     "aria-haspopup": "true",
-    "aria-label": l.actionPopover.ariaLabel(),
     "aria-controls": `ActionPopoverMenu_${guid}`,
     "aria-expanded": isOpen,
   };
 
-  const wrapperDivProps = {
+  const wrapperProps = {
     ...(!disabled && {
-      onMouseEnter: (e: React.MouseEvent<HTMLDivElement>) => {
+      onMouseEnter: (e: React.MouseEvent<HTMLLIElement>) => {
         if (mouseEnterTimer.current) clearTimeout(mouseEnterTimer.current);
 
         setFocusIndex(-1);
@@ -329,7 +326,7 @@ export const ActionPopoverItem = ({
         }, INTERVAL);
         e.stopPropagation();
       },
-      onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
+      onMouseLeave: (e: React.MouseEvent<HTMLLIElement>) => {
         if (mouseLeaveTimer.current) clearTimeout(mouseLeaveTimer.current);
 
         mouseLeaveTimer.current = setTimeout(() => {
@@ -359,14 +356,13 @@ export const ActionPopoverItem = ({
   };
 
   return (
-    <StyledMenuItemWrapper {...(submenu && wrapperDivProps)}>
+    <StyledMenuItemWrapper {...(submenu && wrapperProps)}>
       <div onKeyDown={onKeyDown} role="presentation">
         <StyledMenuItem
           {...rest}
           ref={ref}
           onClick={onClick}
           type="button"
-          role="menuitem"
           tabIndex={0}
           isDisabled={disabled}
           horizontalAlignment={horizontalAlignment}

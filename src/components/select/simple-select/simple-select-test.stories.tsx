@@ -21,7 +21,6 @@ export default {
   },
   argTypes: {
     value: { table: { disable: true }, control: false },
-    disablePortal: { table: { disable: true }, control: false },
     defaultValue: { table: { disable: true }, control: false },
     children: { table: { disable: true }, control: false },
     openOnFocus: { table: { disable: true }, control: false },
@@ -531,7 +530,6 @@ export const SimpleSelectCustomOptionChildrenComponent = (
       name="customOptionChildren"
       id="customOptionChildren"
       defaultValue="4"
-      disablePortal
       label="Pick your favourite color"
       {...props}
     >

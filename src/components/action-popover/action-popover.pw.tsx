@@ -27,28 +27,6 @@ import {
   RenderButtonProps,
 } from "../../../src/components/action-popover";
 import {
-  ActionPopoverComponent,
-  ActionPopoverComponentAdditionalOptions,
-  ActionPopoverComponentContentAlignedRight,
-  ActionPopoverComponentCustomMenuButton,
-  ActionPopoverComponentDisabledItems,
-  ActionPopoverComponentDisabledSubmenu,
-  ActionPopoverComponentDownloadButton,
-  ActionPopoverComponentIcons,
-  ActionPopoverComponentInFlatTable,
-  ActionPopoverComponentInOverflowHiddenContainer,
-  ActionPopoverComponentKeyboardNavigationLeftAlignedSubmenu,
-  ActionPopoverComponentKeyboardNavigationRightAlignedSubmenu,
-  ActionPopoverComponentKeyboardNavigation,
-  ActionPopoverComponentMenuOpeningAbove,
-  ActionPopoverComponentMenuRightAligned,
-  ActionPopoverComponentNoIcons,
-  ActionPopoverComponentOpeningAModal,
-  ActionPopoverComponentSubmenu,
-  ActionPopoverComponentSubmenuPositionedRight,
-  ActionPopoverNestedInDialog,
-} from "../../../src/components/action-popover/action-popover.stories";
-import {
   ActionPopoverCustom,
   ActionPopoverMenuWithProps,
   ActionPopoverPropsComponent,
@@ -67,6 +45,26 @@ import {
   ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled,
   ActionPopoverPropsComponentWithFirstAndLastDisabled,
   ActionPopoverWithDownloadButton,
+  Default,
+  AdditionalOptions,
+  ContentAlignedRight,
+  CustomMenuButton,
+  DisabledItems,
+  DisabledSubmenu,
+  DownloadButton,
+  Icons,
+  InFlatTable,
+  InOverflowHiddenContainer,
+  KeyboardNavigationLeftAlignedSubmenu,
+  KeyboardNavigationRightAlignedSubmenu,
+  KeyboardNavigation,
+  MenuOpeningAbove,
+  MenuRightAligned,
+  NoIcons,
+  OpeningAModal,
+  Submenu,
+  SubmenuPositionedRight,
+  ActionPopoverNestedInDialog,
 } from "../../../src/components/action-popover/components.test-pw";
 
 const keyToTrigger = ["Enter", " ", "End", "ArrowDown", "ArrowUp"] as const;
@@ -183,6 +181,29 @@ test.describe("check functionality for ActionPopover component", () => {
     await focusedElement.press("ArrowLeft");
     await focusedElement.press("End");
     await expect(focusedElement).toContainText("Sub Menu 2");
+  });
+
+  test("should not scroll to the top of the document when first menu item is focused and component is rendered in a tabular parent", async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({
+      width: 700,
+      height: 300,
+    });
+    await mount(<InFlatTable />);
+
+    await page.evaluate(() => window.scrollTo(0, 1000));
+    const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+    await actionPopoverButtonElement.click();
+    const actionPopoverElement = await actionPopover(page).first();
+    await expect(actionPopoverElement).toBeVisible();
+
+    const focusedElement = await page.locator("*:focus");
+    await expect(focusedElement).toContainText("Print");
+
+    const scrollPosition = await page.evaluate(() => window.scrollY);
+    await expect(scrollPosition).not.toBe(0);
   });
 
   test("should close using Tab key", async ({ mount, page }) => {
@@ -475,7 +496,7 @@ test.describe("check functionality for ActionPopover component", () => {
     await actionPopoverButton(page).click();
 
     // check download item has 'download' property
-    const downloadItem = page.getByRole("menuitem", { name: "Download" });
+    const downloadItem = page.getByRole("link", { name: "Download" });
     await expect(downloadItem).toHaveAttribute("download", "");
 
     // click download item and wait for download to start
@@ -819,6 +840,14 @@ test.describe("check props for ActionPopover component", () => {
       const itemChevron = await actionPopoverMenuItemChevron(page).first();
       await expect(itemChevron).toHaveAttribute("type", chevronType);
     });
+  });
+
+  test("should render with aria-label prop", async ({ mount, page }) => {
+    await mount(<ActionPopoverWithProps aria-label="test-aria-label" />);
+    await expect(actionPopoverButton(page).nth(0)).toHaveAttribute(
+      "aria-label",
+      "test-aria-label"
+    );
   });
 });
 
@@ -1356,7 +1385,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponent />);
+    await mount(<Default />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1366,7 +1395,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentIcons />);
+    await mount(<Icons />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1376,7 +1405,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentDisabledItems />);
+    await mount(<DisabledItems />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1386,7 +1415,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentMenuRightAligned />);
+    await mount(<MenuRightAligned />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1396,7 +1425,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentContentAlignedRight />);
+    await mount(<ContentAlignedRight />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1406,7 +1435,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentSubmenuPositionedRight />);
+    await mount(<SubmenuPositionedRight />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1416,7 +1445,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentNoIcons />);
+    await mount(<NoIcons />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1426,7 +1455,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentCustomMenuButton />);
+    await mount(<CustomMenuButton />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1436,7 +1465,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentSubmenu />);
+    await mount(<Submenu />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     const submenuTrigger = await actionPopoverInnerItem(page, 0);
@@ -1448,7 +1477,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentDisabledSubmenu />);
+    await mount(<DisabledSubmenu />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1458,7 +1487,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentMenuOpeningAbove />);
+    await mount(<MenuOpeningAbove />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1468,7 +1497,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentKeyboardNavigation />);
+    await mount(<KeyboardNavigation />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1478,7 +1507,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentKeyboardNavigationLeftAlignedSubmenu />);
+    await mount(<KeyboardNavigationLeftAlignedSubmenu />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     const submenuTrigger = await actionPopoverInnerItem(page, 0);
@@ -1490,9 +1519,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(
-      <ActionPopoverComponentKeyboardNavigationRightAlignedSubmenu />
-    );
+    await mount(<KeyboardNavigationRightAlignedSubmenu />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     const submenuTrigger = await actionPopoverInnerItem(page, 0);
@@ -1504,7 +1531,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentAdditionalOptions />);
+    await mount(<AdditionalOptions />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1514,7 +1541,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentDownloadButton />);
+    await mount(<DownloadButton />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1524,7 +1551,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentInOverflowHiddenContainer />);
+    await mount(<InOverflowHiddenContainer />);
     const accordionIcon = await getDataElementByValue(page, "accordion-icon");
     await accordionIcon.click();
     await checkAccessibility(page);
@@ -1534,7 +1561,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentInFlatTable />);
+    await mount(<InFlatTable />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);
@@ -1544,7 +1571,7 @@ test.describe("Accessibility tests for ActionPopover", () => {
     mount,
     page,
   }) => {
-    await mount(<ActionPopoverComponentOpeningAModal />);
+    await mount(<OpeningAModal />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
     await checkAccessibility(page);

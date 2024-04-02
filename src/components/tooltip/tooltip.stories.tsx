@@ -1,10 +1,21 @@
 import React, { forwardRef, useState } from "react";
-import Tooltip from ".";
+import { Meta, StoryObj } from "@storybook/react";
+
 import Button, { ButtonProps } from "../button";
 import Box from "../box";
 import { TooltipPositions } from "./tooltip.config";
+import Tooltip from ".";
 
-export const Default = () => {
+const meta: Meta<typeof Tooltip> = {
+  title: "Tooltip",
+  component: Tooltip,
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export default meta;
+type Story = StoryObj<typeof Tooltip>;
+
+export const Default: Story = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>
@@ -21,8 +32,9 @@ export const Default = () => {
     </Box>
   );
 };
+Default.storyName = "Default";
 
-export const Controlled = () => {
+export const Controlled: Story = () => {
   const [isVisible, setIsVisible] = useState(false);
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
@@ -45,8 +57,9 @@ export const Controlled = () => {
     </>
   );
 };
+Controlled.storyName = "Controlled";
 
-export const Positioning = () => {
+export const Positioning: Story = () => {
   const [position, setPosition] = useState<TooltipPositions>("top");
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
@@ -72,8 +85,9 @@ export const Positioning = () => {
     </>
   );
 };
+Positioning.storyName = "Positioning";
 
-export const FlipBehaviourOverrides = () => {
+export const FlipBehaviourOverrides: Story = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>
@@ -95,8 +109,9 @@ export const FlipBehaviourOverrides = () => {
     </Box>
   );
 };
+FlipBehaviourOverrides.storyName = "Flip Behaviour Overrides";
 
-export const LargeTooltip = () => {
+export const LargeTooltip: Story = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>
@@ -113,8 +128,9 @@ export const LargeTooltip = () => {
     </Box>
   );
 };
+LargeTooltip.storyName = "Large Tooltip";
 
-export const Types = () => {
+export const Types: Story = () => {
   const [type, setType] = useState<string | undefined>(undefined);
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
@@ -138,8 +154,9 @@ export const Types = () => {
     </>
   );
 };
+Types.storyName = "Types";
 
-export const ColorOverrides = () => {
+export const ColorOverrides: Story = () => {
   const Component = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ children }: ButtonProps, ref) => (
       <Button buttonType="primary" ref={ref}>
@@ -160,3 +177,4 @@ export const ColorOverrides = () => {
     </Box>
   );
 };
+ColorOverrides.storyName = "Color Overrides";

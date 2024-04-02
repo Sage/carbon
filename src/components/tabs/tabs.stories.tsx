@@ -1,13 +1,31 @@
 import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react";
 
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 import useMediaQuery from "../../hooks/useMediaQuery";
-import { Tabs, Tab } from ".";
+
 import { Checkbox } from "../checkbox";
 import Pill from "../pill";
 import Icon from "../icon";
 import Box from "../box";
+import { Tabs, Tab } from ".";
 
-export const DefaultStory = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof Tabs> = {
+  title: "Tabs",
+  component: Tabs,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Tabs>;
+
+export const DefaultStory: Story = () => {
   return (
     <Box p="4px">
       <Tabs align="left" position="top">
@@ -65,8 +83,9 @@ export const DefaultStory = () => {
     </Box>
   );
 };
+DefaultStory.storyName = "Default";
 
-export const PositionedTopAlignedRight = () => {
+export const PositionedTopAlignedRight: Story = () => {
   return (
     <Box p="4px">
       <Tabs align="right" position="top">
@@ -124,8 +143,9 @@ export const PositionedTopAlignedRight = () => {
     </Box>
   );
 };
+PositionedTopAlignedRight.storyName = "Positioned Top Aligned Right";
 
-export const PositionedLeftAndAlignedLeft = () => {
+export const PositionedLeftAndAlignedLeft: Story = () => {
   return (
     <Box p="32px" bg="#f2f5f6">
       <Tabs align="left" position="left">
@@ -185,8 +205,9 @@ export const PositionedLeftAndAlignedLeft = () => {
     </Box>
   );
 };
+PositionedLeftAndAlignedLeft.storyName = "Positioned Left Aligned Left";
 
-export const PositionedLeftAndAlignedRight = () => {
+export const PositionedLeftAndAlignedRight: Story = () => {
   return (
     <Box p="4px">
       <Tabs align="right" position="left">
@@ -244,8 +265,9 @@ export const PositionedLeftAndAlignedRight = () => {
     </Box>
   );
 };
+PositionedLeftAndAlignedRight.storyName = "Positioned Left Aligned Right";
 
-export const WithLinkAsATab = () => {
+export const WithLinkAsATab: Story = () => {
   return (
     <Box p="4px">
       <Tabs selectedTabId="tab-2" align="left" position="top">
@@ -284,8 +306,9 @@ export const WithLinkAsATab = () => {
     </Box>
   );
 };
+WithLinkAsATab.storyName = "With Link as a Tab";
 
-export const WithSpecifiedTabVisible = () => {
+export const WithSpecifiedTabVisible: Story = () => {
   return (
     <Box p="4px">
       <Tabs selectedTabId="tab-2" align="left" position="top">
@@ -343,8 +366,9 @@ export const WithSpecifiedTabVisible = () => {
     </Box>
   );
 };
+WithSpecifiedTabVisible.storyName = "With Specified Tab Visible";
 
-export const WithoutExtendedDividingLine = () => {
+export const WithoutExtendedDividingLine: Story = () => {
   return (
     <Box p="4px">
       <Tabs extendedLine={false} align="left" position="top">
@@ -402,8 +426,9 @@ export const WithoutExtendedDividingLine = () => {
     </Box>
   );
 };
+WithoutExtendedDividingLine.storyName = "Without Extended Dividing Line";
 
-export const WithLargeTabsPositionedTop = () => {
+export const WithLargeTabsPositionedTop: Story = () => {
   return (
     <Box p="4px">
       <Tabs size="large" align="left" position="top">
@@ -461,8 +486,9 @@ export const WithLargeTabsPositionedTop = () => {
     </Box>
   );
 };
+WithLargeTabsPositionedTop.storyName = "With Large Tabs Positioned Top";
 
-export const WithLargeTabsPositionedLeft = () => {
+export const WithLargeTabsPositionedLeft: Story = () => {
   return (
     <Box p="4px">
       <Tabs size="large" align="left" position="left">
@@ -520,8 +546,9 @@ export const WithLargeTabsPositionedLeft = () => {
     </Box>
   );
 };
+WithLargeTabsPositionedLeft.storyName = "With Large Tabs Positioned Left";
 
-export const WithBordersPositionedTop = () => {
+export const WithBordersPositionedTop: Story = () => {
   return (
     <Box p="4px">
       <Tabs borders="on" align="left">
@@ -579,8 +606,9 @@ export const WithBordersPositionedTop = () => {
     </Box>
   );
 };
+WithBordersPositionedTop.storyName = "With Borders Positioned Top";
 
-export const WithNoSidesPositionedTop = () => {
+export const WithNoSidesPositionedTop: Story = () => {
   return (
     <Box p="4px">
       <Tabs borders="no sides" align="left">
@@ -638,8 +666,9 @@ export const WithNoSidesPositionedTop = () => {
     </Box>
   );
 };
+WithNoSidesPositionedTop.storyName = "With No Sides Positioned Top";
 
-export const WithBordersPositionedLeft = () => {
+export const WithBordersPositionedLeft: Story = () => {
   return (
     <Box p="4px">
       <Tabs borders="on" align="left" position="left">
@@ -697,8 +726,9 @@ export const WithBordersPositionedLeft = () => {
     </Box>
   );
 };
+WithBordersPositionedLeft.storyName = "With Borders Positioned Left";
 
-export const WithNoSidesPositionedLeft = () => {
+export const WithNoSidesPositionedLeft: Story = () => {
   return (
     <Box p="4px">
       <Tabs borders="no sides" align="left" position="left">
@@ -756,8 +786,9 @@ export const WithNoSidesPositionedLeft = () => {
     </Box>
   );
 };
+WithNoSidesPositionedLeft.storyName = "With No Sides Positioned Left";
 
-export const WithValidationsPositionedTop = () => {
+export const WithValidationsPositionedTop: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
     two: false,
@@ -856,8 +887,9 @@ export const WithValidationsPositionedTop = () => {
     </Box>
   );
 };
+WithValidationsPositionedTop.storyName = "With Validations Positioned Top";
 
-export const WithValidationsSizedLargePositionedTop = () => {
+export const WithValidationsSizedLargePositionedTop: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
     two: false,
@@ -956,8 +988,10 @@ export const WithValidationsSizedLargePositionedTop = () => {
     </Box>
   );
 };
+WithValidationsSizedLargePositionedTop.storyName =
+  "With Validations Sized Large Positioned Top";
 
-export const WithValidationsPositionedLeft = () => {
+export const WithValidationsPositionedLeft: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
     two: false,
@@ -1056,8 +1090,9 @@ export const WithValidationsPositionedLeft = () => {
     </Box>
   );
 };
+WithValidationsPositionedLeft.storyName = "With Validations Positioned Left";
 
-export const WithValidationsSizedLargePositionedLeft = () => {
+export const WithValidationsSizedLargePositionedLeft: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
     two: false,
@@ -1156,8 +1191,10 @@ export const WithValidationsSizedLargePositionedLeft = () => {
     </Box>
   );
 };
+WithValidationsSizedLargePositionedLeft.storyName =
+  "With Validations Sized Large Positioned Left";
 
-export const WithAdditionalTitleSiblings = () => {
+export const WithAdditionalTitleSiblings: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
     two: false,
@@ -1228,8 +1265,9 @@ export const WithAdditionalTitleSiblings = () => {
     </Box>
   );
 };
+WithAdditionalTitleSiblings.storyName = "With Additional Title Siblings";
 
-export const WithAdditionalTitleSiblingsSizeLarge = () => {
+export const WithAdditionalTitleSiblingsSizeLarge: Story = () => {
   const [errors, setErrors] = useState({
     one: true,
     two: false,
@@ -1300,8 +1338,10 @@ export const WithAdditionalTitleSiblingsSizeLarge = () => {
     </Box>
   );
 };
+WithAdditionalTitleSiblingsSizeLarge.storyName =
+  "With Additional Title Siblings Size Large";
 
-export const WithCustomLayout = () => {
+export const WithCustomLayout: Story = () => {
   const [errors, setErrors] = useState({
     one: false,
     two: false,
@@ -1404,8 +1444,9 @@ export const WithCustomLayout = () => {
     </Box>
   );
 };
+WithCustomLayout.storyName = "With Custom Layout";
 
-export const WithAlternateStyling = () => {
+export const WithAlternateStyling: Story = () => {
   const [errors, setErrors] = useState({
     one: false,
     two: false,
@@ -1460,8 +1501,9 @@ export const WithAlternateStyling = () => {
     </Box>
   );
 };
+WithAlternateStyling.storyName = "With Alternate Styling";
 
-export const WithHeaderWidth = () => {
+export const WithHeaderWidth: Story = () => {
   return (
     <Box p="4px">
       <Tabs headerWidth="400px" align="left" position="left">
@@ -1511,8 +1553,9 @@ export const WithHeaderWidth = () => {
     </Box>
   );
 };
+WithHeaderWidth.storyName = "With Header Width";
 
-export const WithCustomSpacing = () => {
+export const WithCustomSpacing: Story = () => {
   return (
     <Box p="4px">
       <Tabs m={8} align="left" position="top">
@@ -1571,8 +1614,9 @@ export const WithCustomSpacing = () => {
     </Box>
   );
 };
+WithCustomSpacing.storyName = "With Custom Spacing";
 
-export const WithStringValidationsSummarised = () => {
+export const WithStringValidationsSummarised: Story = () => {
   type TabValidations = { one: string | boolean; two: string | boolean };
   const [errors, setErrors] = useState<TabValidations>({
     one: "This is an error",
@@ -1662,12 +1706,13 @@ export const WithStringValidationsSummarised = () => {
     </Box>
   );
 };
-
+WithStringValidationsSummarised.storyName =
+  "With String Validations Summarised";
 WithStringValidationsSummarised.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const Responsive = () => {
+export const Responsive: Story = () => {
   const fullscreenViewBreakPoint = useMediaQuery("(max-width: 900px)");
 
   let position: "top" | "left" = "top";
@@ -1695,3 +1740,4 @@ export const Responsive = () => {
     </Box>
   );
 };
+Responsive.storyName = "Responsive";

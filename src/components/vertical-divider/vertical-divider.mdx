@@ -1,0 +1,88 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as VerticalDividerStories from "./vertical-divider.stories";
+
+<Meta title="VerticalDivider" of={VerticalDividerStories} />
+
+# VerticalDivider
+
+Provides a vertical dividing line to make the adjacent components feel distinctly separate from one another.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use component, import the `VerticalDivider` and set the padding to align it with the other components.
+
+```javascript
+import VerticalDivider from "carbon-react/lib/components/vertical-divider";
+```
+
+## Examples
+
+### Default
+
+By default the VerticalDivider has a height of `100%` and padding of `24px`.
+
+<Canvas of={VerticalDividerStories.Default} />
+
+### In a flex container
+
+It is possible to set a custom height for the component by passing a value to the `h` prop as either a number or a string:
+if passing a number the height will be set in pixels; if passing a string you will need to ensure you provide the measurement unit.
+
+<Canvas of={VerticalDividerStories.InAFlexContainer} />
+
+### In a non-flex container
+
+When using the component in a non-flex container you can set the `displayInline` prop to true (default is false). This will
+add the css attribute `display: inline;` to the component.
+
+<Canvas of={VerticalDividerStories.InANonFlexContainer} />
+
+### With custom spacing and height
+
+The `p` prop allows for the spacing on all sides to be customised. The `pt` and `pb` props set the vertical spacing and
+the `pr` and `pr` props set the horizontal spacing. These props can be number mulitipliers of the base
+theme spacing which is `8px`, or any valid CSS string. The default for the `p` prop is `3` and therefore `24px`.
+
+<Canvas of={VerticalDividerStories.WithCustomSpacingHeight} />
+
+### Tint variants
+
+It is possible to pass a value (any value between `1` and `100`) to the `tint` prop (default is `80`) to adjust the tint
+applied to the slate.
+
+<Canvas of={VerticalDividerStories.WithCustomTint} />
+
+### In a Dialog
+
+<Canvas of={VerticalDividerStories.InADialog} />
+
+### In a Tile
+
+<Canvas of={VerticalDividerStories.InATile} />
+
+### In a grid container
+
+This example is best viewed in the Canvas tab using full-screen mode with device or viewport emulation.
+
+<Canvas of={VerticalDividerStories.InGridContainer} />
+
+### In a table
+
+<Canvas of={VerticalDividerStories.InATable} />
+
+### In a Menu
+
+<Canvas of={VerticalDividerStories.InAMenu} />
+
+## Props
+
+### Vertical Divider
+
+<ArgTypes of={VerticalDividerStories} />

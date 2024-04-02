@@ -21,6 +21,12 @@
     "strict": true,
     "target": "es6"
   },
-  "include": ["./src/global.d.ts", "./src/**/*.ts*"],
-  "exclude": ["./node_modules", "./cypress", "./cypress.config.ts", "./playwright", "./playwright-ct.config.ts"]
+  "include": ["./src/global.d.ts", "./src/**/*.ts*", "./docs/**/*.ts*"],
+  "exclude": [
+    "./node_modules",
+    "./cypress",
+    "./cypress.config.ts",
+    "./playwright",
+    "./playwright-ct.config.ts"
+  ]
 }

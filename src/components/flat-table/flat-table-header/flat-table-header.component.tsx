@@ -29,7 +29,7 @@ export interface FlatTableHeaderProps extends PaddingProps {
 }
 
 export const FlatTableHeader = ({
-  align,
+  align = "left",
   children,
   colspan,
   rowspan,
@@ -67,10 +67,6 @@ export const FlatTableHeader = ({
       <div>{children}</div>
     </StyledFlatTableHeader>
   );
-};
-
-FlatTableHeader.defaultProps = {
-  align: "left",
 };
 
 FlatTableHeader.displayName = "FlatTableHeader";

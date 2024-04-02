@@ -15,7 +15,7 @@ const enGB: Locale = {
   },
   advancedColorPicker: {
     ariaLabel: () => "Change colour",
-    currentColorDescriptionTerm: () => "Current color assigned: ",
+    currentColorDescriptionTerm: () => "Current colour assigned: ",
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
@@ -140,7 +140,7 @@ const enGB: Locale = {
   password: {
     ariaLiveShownMessage: () =>
       "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so.",
-    ariaLiveHiddenMessage: () => "Your Password is currently hidden.",
+    ariaLiveHiddenMessage: () => "Your password is currently hidden.",
   },
   progressTracker: {
     of: () => "of",

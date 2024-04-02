@@ -160,13 +160,11 @@ export const SplitButton = ({
 
     return (
       <Popover placement="bottom-end" reference={buttonNode}>
-        <StyledSplitButtonChildrenContainer
-          {...wrapperProps}
-          aria-label={text}
-          align={align}
-        >
+        <StyledSplitButtonChildrenContainer {...wrapperProps} align={align}>
           <SplitButtonContext.Provider value={contextValue}>
-            {children}
+            {React.Children.map(children, (child) => (
+              <li>{child}</li>
+            ))}
           </SplitButtonContext.Provider>
         </StyledSplitButtonChildrenContainer>
       </Popover>

@@ -34,6 +34,10 @@ export interface ButtonProps extends SpaceProps, TagProps {
    * Defaults to the iconType, when the component has only an icon
    */
   "aria-label"?: string;
+  /** Identifies the element(s) labelling the button. */
+  "aria-labelledby"?: string;
+  /** Identifies the element(s) offering additional information about the button the user might require. */
+  "aria-describedby"?: string;
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "darkBackground" */
   buttonType?: ButtonTypes;
   /** The text the button displays */
@@ -188,26 +192,28 @@ let deprecatedDashedButtonWarnTriggered = false;
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      size: sizeProp = "medium",
-      subtext = "",
-      children,
-      forwardRef,
+      "aria-describedby": ariaDescribedBy,
       "aria-label": ariaLabel,
-      disabled = false,
-      destructive = false,
+      "aria-labelledby": ariaLabelledBy,
       buttonType: buttonTypeProp = "secondary",
-      iconType,
-      iconPosition: iconPositionProp = "before",
+      children,
+      destructive = false,
+      disabled = false,
+      forwardRef,
+      fullWidth: fullWidthProp = false,
       href,
-      m = 0,
-      px,
-      noWrap,
-      target,
-      rel,
+      iconPosition: iconPositionProp = "before",
       iconTooltipMessage,
       iconTooltipPosition,
-      fullWidth: fullWidthProp = false,
+      iconType,
+      m = 0,
+      noWrap,
       onClick,
+      px,
+      rel,
+      size: sizeProp = "medium",
+      subtext = "",
+      target,
       ...rest
     }: ButtonProps,
     ref
@@ -296,6 +302,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-label={
           !isValidChildren && iconType ? ariaLabel || iconType : ariaLabel
         }
+        aria-labelledby={ariaLabelledBy}
+        aria-describedby={ariaDescribedBy}
         as={!disabled && href ? "a" : "button"}
         onKeyDown={href ? handleLinkKeyDown : undefined}
         onClick={inSplitButton ? onChildButtonClick?.(onClick) : onClick}
@@ -303,7 +311,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         buttonType={buttonType}
         disabled={disabled}
         destructive={destructive}
-        role={inSplitButton ? "menuitem" : "button"}
         type={href ? undefined : "button"}
         iconType={iconType}
         size={size}

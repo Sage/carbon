@@ -1,0 +1,120 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as MessageStories from "./message.stories";
+
+<Meta title="Message" of={MessageStories} />
+
+# Message
+
+Presents a static message which stays on screen.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Designer Notes](#designer-notes)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import Message from "carbon-react/lib/components/message";
+```
+
+## Designer Notes
+
+Useful for messages which are longer or more important, where the user needs time to interpret them, or might need to refer back to them during an activity.
+
+Various types are available:
+
+- **Error** - tells the user about a negative outcome that has already happened. Try to focus the message text on the action the user needs to take to be successful, rather than what went wrong.
+- **Info** - gives advice to the user where there’s no risk of a negative outcome.
+- **Success** - indicates that an activity was successful. A good example could also present the user with onward options, such as ‘View a list of items’ or ‘Create another’.
+- **Warning** - warns the user about a potential negative outcome that hasn’t happened yet.
+- **Neutral** - gives context to the user where there’s no risk of a negative outcome.
+- The Transparent configuration is useful if you’d like the message to be more visually subtle, perhaps in a Dialog.
+
+## Related Components
+
+- Longer, time sensitive message that must be dismissed? [Try Toast](https://carbon.sage.com/?path=/docs/toast--default "Toast").
+- Error or warning message that interrupts activity? [Try Alert](https://carbon.sage.com/?path=/docs/alert--default-alert "Alert").
+
+## Examples
+
+### Default
+
+Message variant is `info` by default
+
+<Canvas of={MessageStories.Default} />
+
+### showCloseIcon
+
+When the `showCloseIcon` is `false` the close icon will not be rendered, and padding with be equal on both sides.
+
+<Canvas of={MessageStories.ShowCloseIcon} />
+
+### Neutral
+
+<Canvas of={MessageStories.Neutral} />
+
+### Error
+
+<Canvas of={MessageStories.Error} />
+
+### Success
+
+<Canvas of={MessageStories.Success} />
+
+### Warning
+
+<Canvas of={MessageStories.Warning} />
+
+### Transparent
+
+<Canvas of={MessageStories.Transparent} />
+
+### With rich content
+
+It is also possible to use the `List`, `ListItem` and `Typography` components to render content other than plain text in a `Message`.
+
+<Canvas of={MessageStories.WithRichContent} />
+
+### With margin
+
+Margins can be applied to the `message` component using styled-system.
+To see a full list of available margin props, please visit the props table at the bottom of this page.
+
+[Visit Props Table](#props)
+
+<Canvas of={MessageStories.WithMargin} />
+
+### With focus
+
+Since it is possible to pass a ref to this component, it is also possible to programmatically focus the component.
+
+<Canvas of={MessageStories.WithFocus} />
+
+## Props
+
+### Message
+
+<ArgTypes of={MessageStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "mssage.closeButtonAriaLabel",
+      description: "The text for the aria-label attribute of the close button",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

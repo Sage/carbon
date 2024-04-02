@@ -231,7 +231,7 @@ export const FlatTableStory = ({
 }: FlatTableStoryProps) => {
   const processed = getTableData();
   let onClickFn: OnClick;
-  let rowWithInputs = <></>;
+  let rowWithInputs: React.ReactElement | null = null;
   if (hasClickableRows) {
     onClickFn = action("click") as OnClick;
     rowWithInputs = getRowWithInputs(onClickFn, hasHeaderRow);
@@ -336,10 +336,10 @@ FlatTableStory.args = {
   verticalBorderColor: "",
 };
 
-export const SortableStory = WithSortingHeaders.bind({});
-
-SortableStory.args = {
-  colorTheme: "dark",
+export const SortableStory = {
+  ...WithSortingHeaders,
+  args: { ...WithSortingHeaders.args, colorTheme: "dark" },
+  name: "Sortable",
 };
 
 export const ExpandableWithLink = () => {

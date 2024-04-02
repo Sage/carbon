@@ -10,7 +10,7 @@ import GroupedCharacter, { CustomEvent } from "./grouped-character.component";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 
 export default {
-  title: "GroupedCharacter/Test",
+  title: "Grouped Character/Test",
   includeStories: ["Default", "NewValidation"],
   parameters: {
     info: { disable: true },

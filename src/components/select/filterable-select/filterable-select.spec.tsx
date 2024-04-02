@@ -11,9 +11,14 @@ import {
   simulateDropdownEvent,
 } from "../../../__spec_helper__/select-test-utils";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
+import StyledOption from "../option/option.style";
 import Textbox from "../../textbox";
+import MatchingText from "../utils/matching-text.style";
 import SelectList from "../select-list/select-list.component";
-import StyledSelectListContainer from "../select-list/select-list-container.style";
+import {
+  StyledSelectListContainer,
+  StyledScrollableContainer,
+} from "../select-list/select-list.style";
 import Button from "../../button";
 import Label from "../../../__internal__/label";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";
@@ -21,6 +26,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 import StyledInput from "../../../__internal__/input/input.style";
+import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
@@ -36,16 +42,40 @@ function getSelect(props: Partial<FilterableSelectProps> = {}) {
       <Option value="opt2" text="green" />
       <Option value="opt3" text="blue" />
       <Option value="opt4" text="black" />
+      <Option value="opt5" text="yellow" />
+      <Option value="opt6" text="forest green" />
     </FilterableSelect>
   );
 }
 
 function renderSelect(props = {}, renderer = mount, opts = {}) {
-  return renderer(getSelect(props), opts);
+  return renderer(getSelect(props), {
+    attachTo: document.getElementById("enzymeContainer"),
+    ...opts,
+  });
 }
 
 describe("FilterableSelect", () => {
   let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+  let container: HTMLDivElement | null;
+
+  beforeEach(() => {
+    container = document.createElement("div");
+    container.id = "enzymeContainer";
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    if (container && container.parentNode) {
+      container.parentNode.removeChild(container);
+    }
+
+    container = null;
+  });
+
+  beforeEach(() => {
+    mockDOMRect(200, 200, "select-list-scrollable-container");
+  });
 
   describe("Deprecation warning for uncontrolled", () => {
     beforeEach(() => {
@@ -80,15 +110,12 @@ describe("FilterableSelect", () => {
   });
 
   it("should not throw when non-matching filter text is input and enter key pressed", () => {
-    const testContainer = document.createElement("div");
-    testContainer.id = "enzymeContainer";
-    document.body.appendChild(testContainer);
-    const wrapper = renderSelect({}, mount, { attachTo: testContainer });
+    const wrapper = renderSelect({}, mount, { attachTo: container });
 
     expect(() => {
       act(() => {
         wrapper.find("input").simulate("change", { target: { value: "foo" } });
-        testContainer.dispatchEvent(
+        container?.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: "Enter",
             bubbles: true,
@@ -96,16 +123,12 @@ describe("FilterableSelect", () => {
         );
       });
     }).not.toThrow();
-    document.body.removeChild(testContainer);
   });
 
   it.each(["ArrowDown", "ArrowUp"])(
     "should not throw when non-matching filter text is input and %s pressed",
     (key) => {
-      const testContainer = document.createElement("div");
-      testContainer.id = "enzymeContainer";
-      document.body.appendChild(testContainer);
-      const wrapper = renderSelect({}, mount, { attachTo: testContainer });
+      const wrapper = renderSelect({}, mount, { attachTo: container });
 
       expect(() => {
         act(() => {
@@ -113,7 +136,7 @@ describe("FilterableSelect", () => {
             .find("input")
             .simulate("change", { target: { value: "foo" } });
 
-          testContainer.dispatchEvent(
+          container?.dispatchEvent(
             new KeyboardEvent("keydown", {
               key,
               bubbles: true,
@@ -121,8 +144,6 @@ describe("FilterableSelect", () => {
           );
         });
       }).not.toThrow();
-
-      document.body.removeChild(testContainer);
     }
   );
 
@@ -207,13 +228,12 @@ describe("FilterableSelect", () => {
 
   describe("when listMaxHeight prop is provided", () => {
     it("overrides default list max-height", () => {
-      mount(getSelect());
       const wrapper = renderSelect({ listMaxHeight: 120, openOnFocus: true });
 
       simulateDropdownEvent(wrapper, "click");
       assertStyleMatch(
         { maxHeight: "120px" },
-        wrapper.find(StyledSelectListContainer)
+        wrapper.find(StyledScrollableContainer)
       );
     });
   });
@@ -613,6 +633,200 @@ describe("FilterableSelect", () => {
     });
   });
 
+  describe("when the filter text contains whitespace", () => {
+    it("the input value is trimmed and filled correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   Y" },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(Textbox).prop("formattedValue")).toBe("yellow");
+    });
+
+    it("the input value selection range is set correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   Y" },
+      });
+      wrapper.update();
+
+      const inputElement = wrapper
+        .find("input")
+        .getDOMNode() as HTMLInputElement;
+
+      expect(inputElement.selectionStart).toBe(1);
+      expect(inputElement.selectionEnd).toBe(6);
+    });
+
+    it("the matching option value is correct, and highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   Y" },
+      });
+      wrapper.update();
+
+      const optionElement = wrapper.find(Option);
+
+      expect(optionElement.prop("text")).toBe("yellow");
+      expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+    });
+
+    it.each(["y", "ye", "yel", "yell", "yello", "yellow"])(
+      "the matching option text is highlighted correctly",
+      (passedValue) => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: `   ${passedValue}` },
+        });
+        wrapper.update();
+
+        expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
+      }
+    );
+  });
+
+  describe("when the filter text contains whitespace that is neither leading or trailing", () => {
+    it("the input value is not trimmed, and filled correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "forest " },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(Textbox).prop("formattedValue")).toBe("forest green");
+    });
+
+    it("the input value selection range is set correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "forest " },
+      });
+      wrapper.update();
+
+      const inputElement = wrapper
+        .find("input")
+        .getDOMNode() as HTMLInputElement;
+
+      expect(inputElement.selectionStart).toBe(7);
+      expect(inputElement.selectionEnd).toBe(12);
+    });
+
+    it("the matching option value is correct, and highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "forest " },
+      });
+      wrapper.update();
+
+      const optionElement = wrapper.find(Option);
+
+      expect(optionElement.prop("text")).toBe("forest green");
+      expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+    });
+
+    it.each(["forest", "forest green"])(
+      "the matching option text is highlighted correctly",
+      (passedValue) => {
+        const wrapper = renderSelect();
+
+        simulateSelectTextboxEvent(wrapper, "change", {
+          target: { value: passedValue },
+        });
+        wrapper.update();
+
+        expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
+      }
+    );
+  });
+
+  describe("when the filter text is only whitespace", () => {
+    it("the input still allows only whitespace to be typed", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   " },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(Textbox).prop("formattedValue")).toBe("   ");
+    });
+
+    it("the first option is highlighted as matching in lieu of an input value", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "   " },
+      });
+      wrapper.update();
+
+      expect(
+        wrapper.find(StyledOption).at(0).prop("isHighlighted")
+      ).toBeTruthy();
+    });
+  });
+
+  describe("when the filter text contains trailing whitespace", () => {
+    it("the matching option value is correct, and highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "yellow   " },
+      });
+      wrapper.update();
+
+      const optionElement = wrapper.find(Option);
+
+      expect(optionElement.prop("text")).toBe("yellow");
+      expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+    });
+
+    it("the matching option text is highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "yellow     " },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(MatchingText).prop("children")).toBe("yellow");
+    });
+  });
+
+  describe("when the filter text contains both leading and trailing whitespace", () => {
+    it("the matching option value is correct, and highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "    yellow   " },
+      });
+      wrapper.update();
+
+      const optionElement = wrapper.find(Option);
+
+      expect(optionElement.prop("text")).toBe("yellow");
+      expect(wrapper.find(StyledOption).prop("isHighlighted")).toBeTruthy();
+    });
+
+    it("the matching option text is highlighted correctly", () => {
+      const wrapper = renderSelect();
+
+      simulateSelectTextboxEvent(wrapper, "change", {
+        target: { value: "    yellow   " },
+      });
+      wrapper.update();
+
+      expect(wrapper.find(MatchingText).prop("children")).toBe("yellow");
+    });
+  });
+
   describe("when the onSelect is called in the open SelectList", () => {
     const navigationKeyOptionObject = {
       value: "Foo",
@@ -765,12 +979,9 @@ describe("FilterableSelect", () => {
 
   describe("when an HTML element is clicked when the SelectList is open", () => {
     let wrapper: ReactWrapper;
-    let domNode: HTMLElement;
 
     beforeEach(() => {
-      wrapper = mount(getSelect());
-      domNode = wrapper.getDOMNode();
-      document.body.appendChild(domNode);
+      wrapper = renderSelect();
     });
 
     describe("and that element is the input", () => {
@@ -807,10 +1018,6 @@ describe("FilterableSelect", () => {
         ).not.toBeVisible();
       });
     });
-
-    afterEach(() => {
-      document.body.removeChild(domNode);
-    });
   });
 
   describe("when the onKeyDown prop is passed", () => {
@@ -834,20 +1041,14 @@ describe("FilterableSelect", () => {
 
   describe("when the listActionButton prop is provided", () => {
     let wrapper: ReactWrapper;
-    const testWrapper = document.createElement("div");
     const onListActionFn = jest.fn();
     const mockButton = <Button>mock button</Button>;
 
-    document.body.appendChild(testWrapper);
-
     beforeEach(() => {
-      wrapper = mount(
-        getSelect({
-          listActionButton: mockButton,
-          onListAction: onListActionFn,
-        }),
-        { attachTo: testWrapper }
-      );
+      wrapper = renderSelect({
+        listActionButton: mockButton,
+        onListAction: onListActionFn,
+      });
       simulateDropdownEvent(wrapper, "click");
     });
 
@@ -1052,15 +1253,6 @@ describe("FilterableSelect", () => {
     });
   });
 
-  describe("disablePortal", () => {
-    it("renders SelectList with a disablePortal prop assigned", () => {
-      const wrapper = renderSelect({ disablePortal: true });
-
-      simulateDropdownEvent(wrapper, "click");
-      expect(wrapper.find(SelectList).props().disablePortal).toBe(true);
-    });
-  });
-
   describe('when the "onBlur" prop has been passed and the input has been blurred', () => {
     it("then that prop should be called", () => {
       const onBlurFn = jest.fn();
@@ -1137,13 +1329,7 @@ describe("FilterableSelect", () => {
       });
 
       it("should not reopen the SelectList when a user selects and Option by clicking", () => {
-        const container = document.createElement("div");
-        container.id = "enzymeContainer";
-        document.body.appendChild(container);
-
-        const wrapper = renderSelect({ openOnFocus: true }, mount, {
-          attachTo: document.getElementById("enzymeContainer"),
-        });
+        const wrapper = renderSelect({ openOnFocus: true }, mount);
 
         act(() => {
           wrapper.find("input").simulate("focus");
@@ -1164,8 +1350,6 @@ describe("FilterableSelect", () => {
           .update()
           .find(Option)
           .forEach((option) => expect(option.getDOMNode()).not.toBeVisible());
-
-        container?.parentNode?.removeChild(container);
       });
 
       describe.each(["readOnly", "disabled"])(
@@ -1284,16 +1468,13 @@ describe("FilterableSelect", () => {
   describe("when the onListScrollBottom prop is set", () => {
     const onListScrollBottomFn = jest.fn();
     it("should not be called when an option is clicked", () => {
-      const testContainer = document.createElement("div");
-      testContainer.id = "enzymeContainer";
-      document.body.appendChild(testContainer);
       const wrapper = renderSelect(
         {
           onListScrollBottom: onListScrollBottomFn,
           openOnFocus: true,
         },
         mount,
-        { attachTo: testContainer }
+        { attachTo: container }
       );
 
       act(() => {
@@ -1303,7 +1484,6 @@ describe("FilterableSelect", () => {
       });
       wrapper.find(Option).first().simulate("click");
       expect(onListScrollBottomFn).not.toHaveBeenCalled();
-      document.body.removeChild(testContainer);
     });
   });
 
@@ -1392,7 +1572,7 @@ describe("FilterableSelect", () => {
         target: { value: "red" },
       });
 
-      expect(wrapper.find(Option)).toHaveLength(4);
+      expect(wrapper.find(Option)).toHaveLength(6);
     });
 
     it('hides filtered options when "disableDefaultFiltering" is false', () => {

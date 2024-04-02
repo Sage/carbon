@@ -506,6 +506,11 @@ describe("Confirm", () => {
           "data-element": "bar",
           "data-role": "wiz",
         }}
+        closeButtonDataProps={{
+          "data-element": "foo",
+          "data-role": "bar",
+        }}
+        showCloseIcon
         open
       />
     );
@@ -519,7 +524,10 @@ describe("Confirm", () => {
       .filter('[data-component="confirm"]')
       .at(0);
 
+    const closeButton = wrapper.find('[data-component="close"]').at(0);
+
     rootTagTest(cancelButton, "cancel", "bang", "wallop");
     rootTagTest(confirmButton, "confirm", "bar", "wiz");
+    rootTagTest(closeButton, "close", "foo", "bar");
   });
 });

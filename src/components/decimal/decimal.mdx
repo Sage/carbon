@@ -1,0 +1,151 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as DecimalStories from "./decimal.stories";
+
+<Meta title="Decimal Input" of={DecimalStories} />
+
+# Decimal
+
+Captures a number with a decimal point, or a currency value.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Decimal from "carbon-react/lib/components/decimal";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={DecimalStories.DefaultStory} />
+
+### Sizes
+
+<Canvas of={DecimalStories.Sizes} />
+
+### Disabled
+
+<Canvas of={DecimalStories.Disabled} />
+
+### Prefix
+
+<Canvas of={DecimalStories.Prefix} />
+
+### LabelAlign
+
+<Canvas of={DecimalStories.LabelAlign} />
+
+### ReadOnly
+
+<Canvas of={DecimalStories.ReadOnly} />
+
+### Empty
+
+<Canvas of={DecimalStories.Empty} />
+
+### With custom precision
+
+<Canvas of={DecimalStories.WithCustomPrecision} />
+
+### With labelInline
+
+<Canvas of={DecimalStories.LabelInline} />
+
+### With custom labelWidth and inputWidth
+
+<Canvas of={DecimalStories.WithCustomLabelWidthAndInputWidth} />
+
+### With custom maxWidth
+
+<Canvas of={DecimalStories.WithCustomMaxWidth} />
+
+### With fieldHelp
+
+<Canvas of={DecimalStories.WithFieldHelp} />
+
+### With inputHint
+
+<Canvas of={DecimalStories.WithInputHint} />
+
+### With labelHelp
+
+<Canvas of={DecimalStories.WithLabelHelp} />
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas of={DecimalStories.Required} />
+
+### Left aligned
+
+You can use the `align` prop to choose how the the characters inside the component align.
+In this example, `align` has been assigned the value `left`.
+
+<Canvas of={DecimalStories.LeftAligned} />
+
+### Validations
+
+Validation status can be set by passing `error`, `warning` or `info` prop to the component
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+
+#### As a string
+
+<Canvas of={DecimalStories.ValidationsStringComponent} />
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Canvas of={DecimalStories.ValidationsTooltip} />
+
+#### As a string, displayed on label
+
+<Canvas of={DecimalStories.ValidationsStringLabel} />
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Canvas of={DecimalStories.ValidationsTooltipLabel} />
+
+#### New designs validation
+
+<Canvas of={DecimalStories.ValidationsRedesign} />
+
+#### As a boolean
+
+<Canvas of={DecimalStories.ValidationsBoolean} />
+
+## Props
+
+### Decimal
+
+<ArgTypes of={DecimalStories} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "locale",
+      description: "The locale code to display the correct format",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

@@ -16,22 +16,20 @@ import {
 } from "../../../playwright/support/helper";
 import { Card } from "../../../src/components/card";
 import {
-  DifferentCardFooterPadding,
-  DifferentCardRowPadding,
-  Interactive,
-  LargeSpacing,
-  MoreExamplesOfCardFooter,
-  SmallSpacing,
-  WithWidthProvided,
-  WithCustomBoxShadow,
-  WithCustomHeight,
-  WithDraggable,
-  WithStringAsChild,
-} from "../../../src/components/card/card.stories";
-import {
   CardComponent,
   CardTextAlignment,
   DraggableExample,
+  SmallSpacing,
+  LargeSpacing,
+  WithWidthProvided,
+  WithCustomBoxShadow,
+  WithCustomHeight,
+  DifferentCardFooterPadding,
+  DifferentCardRowPadding,
+  Interactive,
+  MoreExamplesOfCardFooter,
+  WithDraggable,
+  WithStringAsChild,
 } from "../../../src/components/card/components.test-pw";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];

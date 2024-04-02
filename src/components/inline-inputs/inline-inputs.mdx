@@ -1,0 +1,45 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as InlineInputsStories from "./inline-inputs.stories";
+
+<Meta title="Inline Inputs" of={InlineInputsStories} />
+
+# Inline Inputs
+
+Inline inputs allows the user to align multiple inputs.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import InlineInputs from "carbon-react/lib/components/inline-inputs";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={InlineInputsStories.Default} />
+
+## with adaptiveLabelBreakpoint
+
+<Canvas of={InlineInputsStories.WithAdaptiveLabelBreakpoint} />
+
+## required
+
+<Canvas of={InlineInputsStories.Required} />
+
+## labelAlign
+
+<Canvas of={InlineInputsStories.LabelAlign} />
+
+## Props
+
+### InlineInputs
+
+<ArgTypes of={InlineInputsStories} />

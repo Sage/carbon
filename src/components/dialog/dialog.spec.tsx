@@ -23,6 +23,7 @@ import {
   CONTENT_BOTTOM_PADDING,
 } from "./dialog.config";
 import Button from "../button";
+import StyledIconButton from "../icon-button/icon-button.style";
 import Heading from "../heading";
 import {
   assertStyleMatch,
@@ -33,6 +34,7 @@ import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import Help from "../help";
 import CarbonProvider from "../carbon-provider";
 import Logger from "../../__internal__/utils/logger";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -541,6 +543,20 @@ describe("Dialog", () => {
         { paddingRight: "85px" },
         wrapper.find(StyledDialogTitle)
       );
+    });
+
+    it("should allow custom data props on close button to be assigned", () => {
+      const wrapper = enzymeMount(
+        <Dialog
+          open
+          onCancel={() => {}}
+          closeButtonDataProps={{
+            "data-element": "foo",
+            "data-role": "bar",
+          }}
+        />
+      );
+      rootTagTest(wrapper.find(StyledIconButton), "close", "foo", "bar");
     });
   });
 
