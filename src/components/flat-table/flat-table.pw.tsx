@@ -2860,7 +2860,13 @@ test.describe("Prop tests", () => {
     await flatTablePageSelectPrevious(page).locator("button").focus();
     await page.keyboard.press("Space");
     await expect(currentPageInput).toHaveAttribute("value", "1");
-    await expect(flatTableBodyRowByPosition(page, 4)).toBeInViewport();
+    for await (const i of indexes(5)) {
+      if (i < 4) {
+        await expect(flatTableBodyRowByPosition(page, i)).toBeInViewport();
+      } else {
+        await expect(flatTableBodyRowByPosition(page, i)).not.toBeInViewport();
+      }
+    }
   });
 
   test(`should navigate to previous page by clicking Previous link with the Enter key`, async ({
