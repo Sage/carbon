@@ -1,3 +1,10 @@
+### [128.1.1](https://github.com/Sage/carbon/compare/v128.1.0...v128.1.1) (2024-04-02)
+
+
+### Bug Fixes
+
+* **pager:** use activation trigger for onkeydown and onclick ([664a43b](https://github.com/Sage/carbon/commit/664a43b4fb3675dcc8a999ef866192b916f0fcdd)), closes [#6289](https://github.com/Sage/carbon/issues/6289)
+
 ## [128.1.0](https://github.com/Sage/carbon/compare/v128.0.0...v128.1.0) (2024-04-02)
 
 
