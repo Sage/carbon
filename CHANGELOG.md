@@ -1,3 +1,10 @@
+### [128.1.2](https://github.com/Sage/carbon/compare/v128.1.1...v128.1.2) (2024-04-03)
+
+
+### Bug Fixes
+
+* exclude docs/ directory in TS build config ([2d88106](https://github.com/Sage/carbon/commit/2d88106ced3df3eff3ebb8a2a301b8c4f929af5a))
+
 ### [128.1.1](https://github.com/Sage/carbon/compare/v128.1.0...v128.1.1) (2024-04-02)
 
 
