@@ -10,7 +10,7 @@ export interface StyledLabelProps {
 const StyledLabel = styled.label<StyledLabelProps>`
   color: var(--colorsUtilityYin090);
   display: block;
-  font-weight: 600; //TODO: (tokens) use token var(--fontWeights500)
+  font-weight: var(--fontWeights700);
 
   ${({ isRequired }) =>
     isRequired &&
@@ -18,8 +18,8 @@ const StyledLabel = styled.label<StyledLabelProps>`
       ::after {
         content: "*";
         color: var(--colorsSemanticNegative500);
-        font-weight: 700;
-        margin-left: var(--spacing100);
+        font-weight: var(--fontWeights700);
+        margin-left: var(--spacing050);
       }
     `}
 
@@ -74,8 +74,9 @@ export const StyledLabelContainer = styled.div<StyledLabelContainerProps>`
     css`
       ::after {
         content: "(optional)";
-        font-weight: 350; //TODO: (tokens) use token var(--fontWeights400)
-        margin-left: 4px;
+        font-weight: var(--fontWeights400);
+        margin-left: var(--spacing050);
+        color: var(--colorsUtilityYin055);
       }
     `}
 `;

@@ -85,6 +85,10 @@ export interface FilterableSelectProps
   /** Boolean to disable automatic filtering and highlighting of options.
    * This allows custom filtering and option styling to be performed outside of the component when the filter text changes. */
   disableDefaultFiltering?: boolean;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
+  /** Flag to configure component as mandatory */
+  required?: boolean;
 }
 
 export const FilterableSelect = React.forwardRef(
@@ -126,6 +130,8 @@ export const FilterableSelect = React.forwardRef(
       enableVirtualScroll,
       virtualScrollOverscan,
       disableDefaultFiltering = false,
+      isOptional,
+      required,
       ...textboxProps
     }: FilterableSelectProps,
     ref
@@ -629,6 +635,8 @@ export const FilterableSelect = React.forwardRef(
         onMouseDown: handleTextboxMouseDown,
         tooltipPosition,
         inputRef,
+        required,
+        isOptional,
         ...filterOutStyledSystemSpacingProps(textboxProps),
       };
     }

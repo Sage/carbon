@@ -31,6 +31,8 @@ export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   labelSpacing?: 1 | 2;
   /** Flag to configure component as mandatory */
   required?: boolean;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
   /** Overrides the default tooltip */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** When true, Checkboxes are in line */
@@ -49,6 +51,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
     warning,
     info,
     required,
+    isOptional,
     legendInline,
     legendWidth,
     legendAlign,
@@ -71,6 +74,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
           warning={warning}
           info={info}
           isRequired={required}
+          isOptional={isOptional}
           {...tagComponent("checkboxgroup", props)}
           blockGroupBehaviour={!(error || warning)}
           {...filterStyledSystemMarginProps(props)}
@@ -111,6 +115,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
             warning={warning}
             info={info}
             isRequired={required}
+            isOptional={isOptional}
             {...tagComponent("checkboxgroup", props)}
             blockGroupBehaviour={!(error || warning || info)}
             {...filterStyledSystemMarginProps(props)}
