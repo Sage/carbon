@@ -81,6 +81,61 @@ describe("Fieldset", () => {
     });
   });
 
+  it("add an asterisk after the text when the field is mandatory", () => {
+    assertStyleMatch(
+      {
+        content: '"*"',
+        color: "var(--colorsSemanticNegative500)",
+        fontWeight: "var(--fontWeights700)",
+        marginLeft: "var(--spacing100)",
+      },
+      mount(<LegendContainerStyle isRequired />),
+      { modifier: "legend::after" }
+    );
+  });
+
+  it("adds the required attribute to any child inputs when isRequired is true", () => {
+    const wrapper = mount(
+      <Fieldset required>
+        <input />
+        <input />
+      </Fieldset>
+    );
+
+    expect(wrapper.find("input").first().getDOMNode()).toHaveAttribute(
+      "required"
+    );
+    expect(wrapper.find("input").last().getDOMNode()).toHaveAttribute(
+      "required"
+    );
+  });
+
+  it("does not add the required attribute to any child inputs when isRequired is falsy", () => {
+    const wrapper = mount(
+      <Fieldset>
+        <input />
+        <input />
+      </Fieldset>
+    );
+
+    expect(wrapper.find("input").first().getDOMNode()).not.toHaveAttribute(
+      "required"
+    );
+    expect(wrapper.find("input").last().getDOMNode()).not.toHaveAttribute(
+      "required"
+    );
+  });
+
+  it("adds an (optional) after the text when the field is optional", () => {
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      mount(<LegendContainerStyle isOptional />),
+      { modifier: "legend::after" }
+    );
+  });
+
   describe("Fieldset FieldsetContentStyle", () => {
     it("is rendered if supplied", () => {
       const wrapper = render({ inline: true });

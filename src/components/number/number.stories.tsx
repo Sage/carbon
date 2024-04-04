@@ -131,3 +131,13 @@ export const WithLabelHelp: Story = () => {
   );
 };
 WithLabelHelp.storyName = "With Label Help";
+
+export const Required: Story = () => {
+  return <Number label="Number" value="123456" required />;
+};
+Required.storyName = "Required";
+
+export const IsOptional: Story = () => {
+  return <Number label="Number" value="123456" isOptional />;
+};
+IsOptional.storyName = "IsOptional";

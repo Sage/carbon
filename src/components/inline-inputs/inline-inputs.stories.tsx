@@ -119,6 +119,23 @@ export const Required: Story = () => {
 Required.storyName = "Required";
 Required.parameters = { controls: { disable: true } };
 
+export const IsOptional: Story = () => {
+  return (
+    <Box p={4}>
+      <InlineInputs
+        label="Inline Inputs"
+        labelId="inline-inputs-optional"
+        isOptional
+      >
+        <Textbox aria-labelledby="inline-inputs-optional" />
+        <Textbox aria-labelledby="inline-inputs-optional" />
+      </InlineInputs>
+    </Box>
+  );
+};
+IsOptional.storyName = "isoptional;";
+IsOptional.parameters = { controls: { disable: true } };
+
 export const LabelAlign: Story = () => {
   return (
     <Box>

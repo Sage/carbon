@@ -489,3 +489,21 @@ export const NewValidationDefaultGroupInline: Story = () => {
   );
 };
 NewValidationDefaultGroupInline.storyName = "New Validation Group - Inline";
+
+export const Required: Story = () => (
+  <RadioButtonGroup name="radio-group-required" required legend="Required">
+    <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
+    <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
+    <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
+  </RadioButtonGroup>
+);
+Required.storyName = "Required";
+
+export const IsOptional: Story = () => (
+  <RadioButtonGroup name="radio-group-optional" isOptional legend="Optional">
+    <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
+    <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
+    <RadioButton id="radio-3" value="radio3" label="Radio Option 3" />
+  </RadioButtonGroup>
+);
+IsOptional.storyName = "IsOptional";

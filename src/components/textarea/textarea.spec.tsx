@@ -614,6 +614,18 @@ describe("componentWillUnmount", () => {
     });
   });
 
+  it("should set the isOptional styling on both input labels when prop is true", () => {
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      renderTextarea({ isOptional: true, label: "optional" }, mount).find(
+        StyledLabelContainer
+      ),
+      { modifier: "::after" }
+    );
+  });
+
   describe("new validations", () => {
     const renderWithNewValidations = ({ id, error, warning }: TextareaProps) =>
       mount(
