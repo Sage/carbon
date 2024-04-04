@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default styled.button<{ isRed: boolean }>`
-  background-color: ${({ isRed }) => (isRed ? "red" : "magenta")};
+export default styled.button`
+  background-color: red;
   font-size: 20px;
 `;

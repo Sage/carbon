@@ -8,18 +8,16 @@ const Foo = ({
   children: React.ReactNode;
   prop1?: boolean;
 }) => {
+  if (prop1) {
+    return null;
+  }
   const callback1 = () => console.log("clicked, prop1 set");
-  const callback2 = () => console.log("clicked, prop1 not set");
   const handleClick = () => {
-    if (prop1) {
-      callback1();
-    } else {
-      callback2();
-    }
+    callback1();
   };
 
   return (
-    <Btn type="button" isRed={!!prop1} onClick={handleClick}>
+    <Btn type="button" onClick={handleClick}>
       {children}
     </Btn>
   );

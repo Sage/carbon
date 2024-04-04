@@ -37,11 +37,11 @@
     "build:types": "tsc -p tsconfig-build.json --emitDeclarationOnly --outDir ./lib && tsc -p tsconfig-build.json --emitDeclarationOnly --outDir ./esm",
     "prepare": "husky install",
     "test:ct": "playwright test -c playwright-ct.config.ts",
-    "test:foo": "playwright test -c playwright-ct.config.ts -- src/components/button/button.pw.tsx && nyc report --report-dir=./coverage/pw-coverage --reporter=lcov --reporter=text-summary --include='src/**'",
     "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
     "test:ct:report": "npx playwright show-report",
     "clear-playwright-cache": "rimraf ./playwright/.cache",
-    "gen-coverage": "nyc report --reporter=html --report-dir=temp-coverage --temp-dir=temp-coverage"
+    "test:foo": "rimraf ./temp-coverage && playwright test -c playwright-ct.config.ts -- src/components/foo/foo.pw.tsx",
+    "format:coverage": "nyc report --reporter=html --report-dir=temp-coverage --temp-dir=temp-coverage"
   },
   "repository": {
     "type": "git",

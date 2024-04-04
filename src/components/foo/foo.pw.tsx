@@ -5,9 +5,7 @@ import path from "path";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import Foo from "./foo.component";
 
-const { describe } = test;
-
-const currentDirectory = process.cwd();
+const { describe, beforeAll, beforeEach, afterAll, afterEach } = test;
 
 function findSubstringBetween(
   mainString: string,
@@ -20,18 +18,15 @@ function findSubstringBetween(
 }
 
 describe("test run", () => {
-  test("test", async ({ mount, page }) => {
+  beforeEach(async ({ page }) => {
+    // -> think it should be all here and below but it doesn't work
     await Promise.all([
       page.coverage.startJSCoverage(),
       page.coverage.startCSSCoverage(),
     ]);
+  });
 
-    await mount(<Foo>FOOOO</Foo>);
-
-    const foo = page.getByText("FOOOO");
-
-    await expect(foo).toHaveText("FOOOO");
-    await foo.click();
+  afterEach(async ({ page }) => {
     const [jsCoverage, cssCoverage] = await Promise.all([
       page.coverage.stopJSCoverage(),
       page.coverage.stopCSSCoverage(),
@@ -40,7 +35,6 @@ describe("test run", () => {
     const mergedCoverage = [...jsCoverage, ...cssCoverage];
 
     for (const entry of mergedCoverage) {
-      console.log(entry.url);
       let endString;
       const startString = "assets/";
 
@@ -69,12 +63,26 @@ describe("test run", () => {
         }
 
         const filePath = path.join(directory, "coverage.json");
-        // fs.writeFileSync(filePath, JSON.stringify(converted, null, 2))
         fs.writeFileSync(
           filePath,
           JSON.stringify(converter.toIstanbul(), null, 2)
         );
       }
     }
+  });
+
+  test("test with prop 1", async ({ mount, page }) => {
+    await mount(<Foo prop1>FOOOO</Foo>);
+
+    await expect(page.getByText("FOOOO")).toHaveCount(0);
+  });
+
+  test("test with no prop1", async ({ mount, page }) => {
+    await mount(<Foo>FOOOO</Foo>);
+
+    const foo = page.getByText("FOOOO");
+
+    await expect(foo).toHaveText("FOOOO");
+    await foo.click();
   });
 });
