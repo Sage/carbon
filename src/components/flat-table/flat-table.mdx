@@ -178,6 +178,14 @@ By using the `hasMaxHeight` prop you can automatically apply a max-height of 100
 
 <Canvas of={FlatTableStories.WithSortingHeaders} />
 
+### With sorting headers and custom accessible name 
+
+A custom accessible name can be provided to the `<Sort>` component with the `accessibleName` prop. It is recommended 
+that text content of the `<Sort>` component as well as the current `sortType` are included
+in this accessible name.
+
+<Canvas of={FlatTableStories.WithSortingHeadersAndCustomAccessibleName} />
+
 ### With a cell spanning the whole row
 
 <Canvas of={FlatTableStories.WithColspan} />

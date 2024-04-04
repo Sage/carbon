@@ -51,6 +51,14 @@ describe("Sort", () => {
     expect(wrapper.find(Icon).props().type).toBe("sort_down");
   });
 
+  it("should render the correct accessible name when the `accessibleName` prop is passed", () => {
+    const sortType = "ascending";
+    const customAccessibleName = `Sort all accountants below in an ${sortType} order.`;
+    wrapper = renderSort({ accessibleName: customAccessibleName, sortType });
+
+    expect(wrapper.find(Typography).text()).toBe(customAccessibleName);
+  });
+
   it("should render a default accessible name when a child and the `sortType` prop is passed", () => {
     wrapper = mount(<Sort sortType="ascending">Accountants</Sort>);
 
