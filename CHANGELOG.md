@@ -1,3 +1,16 @@
+## [128.3.0](https://github.com/Sage/carbon/compare/v128.2.0...v128.3.0) (2024-04-04)
+
+
+### Features
+
+* **menu-fullscreen:** add translation key 'menuFullscreen.ariaLabels.closeButton' ([4117997](https://github.com/Sage/carbon/commit/4117997f40e2a04d66cbf58bfe07b6c0bb14fe4d))
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** amend typing of onClose prop ([2fb540e](https://github.com/Sage/carbon/commit/2fb540e2d12898ab312a104012923b9189bbae4e))
+* **menu-fullscreen:** ensure menu has aria properties required for dialogs ([7ca7223](https://github.com/Sage/carbon/commit/7ca7223c3119f66392b60209c50f8e49fb25df29))
+
 ## [128.2.0](https://github.com/Sage/carbon/compare/v128.1.2...v128.2.0) (2024-04-04)
 
 
