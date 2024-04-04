@@ -79,6 +79,11 @@ interface Locale {
   loader: {
     loading: () => string;
   };
+  menuFullscreen: {
+    ariaLabels: {
+      closeButton: () => string;
+    };
+  };
   message: {
     closeButtonAriaLabel: () => string;
   };
