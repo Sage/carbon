@@ -4,6 +4,7 @@ import { assertStyleMatch } from "__spec_helper__/test-utils";
 import Sort, { SortProps } from "./sort.component";
 import Icon from "../../icon";
 import StyledIcon from "../../icon/icon.style";
+import Typography from "../../typography";
 import { StyledSort, StyledSpaceHolder } from "./sort.style";
 import { FlatTableThemeContext, FlatTableProps } from "../flat-table.component";
 
@@ -48,6 +49,39 @@ describe("Sort", () => {
     wrapper = renderSort({ sortType: "descending" });
 
     expect(wrapper.find(Icon).props().type).toBe("sort_down");
+  });
+
+  it("should render a default accessible name when a child and the `sortType` prop is passed", () => {
+    wrapper = mount(<Sort sortType="ascending">Accountants</Sort>);
+
+    expect(wrapper.find(Typography).text()).toBe(
+      "Sort all Accountants in an ascending order."
+    );
+  });
+
+  it("should render a default accessible name when just a child is passed", () => {
+    wrapper = mount(<Sort>Accountants</Sort>);
+
+    expect(wrapper.find(Typography).text()).toBe(
+      "Sort all Accountants in an ascending or descending order."
+    );
+  });
+
+  it("should render a default accessible name when just the `sortType` prop is passed", () => {
+    const sortType = "ascending";
+    wrapper = mount(<Sort sortType={sortType} />);
+
+    expect(wrapper.find(Typography).text()).toBe(
+      "Sort all contents in an ascending order."
+    );
+  });
+
+  it("should render a default accessible name when neither a child or the `sortType` prop is passed", () => {
+    wrapper = mount(<Sort />);
+
+    expect(wrapper.find(Typography).text()).toBe(
+      "Sort all contents in an ascending or descending order."
+    );
   });
 
   it("should fire callback if clicked", () => {
