@@ -208,6 +208,11 @@ export const Required: Story = () => {
 };
 Required.storyName = "Required";
 
+export const IsOptional: Story = () => {
+  return <Textbox label="Textbox" value="Textbox" isOptional />;
+};
+IsOptional.storyName = "IsOptional";
+
 export const LabelAlign: Story = () => {
   return (
     <Box>

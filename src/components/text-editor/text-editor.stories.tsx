@@ -58,7 +58,6 @@ export const WithContent: Story = () => {
         }}
         value={value}
         labelText="Text Editor Label"
-        required
       />
     </Box>
   );
@@ -306,7 +305,6 @@ export const WithLinkPreviews: Story = () => {
         }}
         value={value}
         labelText="Text Editor Label"
-        required
         previews={previews.current}
         onLinkAdded={addUrl}
       />
@@ -314,3 +312,46 @@ export const WithLinkPreviews: Story = () => {
   );
 };
 WithLinkPreviews.storyName = "With Link Previews";
+
+export const Required: Story = () => {
+  const [value, setValue] = useState(
+    EditorState.createWithContent(
+      ContentState.createFromText("Some initial content")
+    )
+  );
+  return (
+    <Box padding={1}>
+      <TextEditor
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        value={value}
+        labelText="Text Editor Label"
+        required
+      />
+    </Box>
+  );
+};
+
+Required.storyName = "Required";
+
+export const IsOptional = () => {
+  const [value, setValue] = useState(
+    EditorState.createWithContent(
+      ContentState.createFromText("Some initial content")
+    )
+  );
+  return (
+    <Box padding={1}>
+      <TextEditor
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        value={value}
+        labelText="Text Editor Label"
+        isOptional
+      />
+    </Box>
+  );
+};
+IsOptional.storyName = "IsOptional";

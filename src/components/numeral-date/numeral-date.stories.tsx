@@ -294,3 +294,37 @@ export const Size: Story = () => {
   );
 };
 Size.storyName = "Size";
+
+export const Required: Story = () => {
+  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  return (
+    <NumeralDate
+      name="optional"
+      id="optional"
+      label="Date of Birth"
+      labelAlign="right"
+      labelWidth={30}
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+      required
+    />
+  );
+};
+Required.storyName = "Required";
+
+export const IsOptional: Story = () => {
+  const [value, setValue] = useState({ dd: "", mm: "", yyyy: "" });
+  return (
+    <NumeralDate
+      name="optional"
+      id="optional"
+      label="Date of Birth"
+      labelAlign="right"
+      labelWidth={30}
+      onChange={(e) => setValue(e.target.value)}
+      value={value}
+      isOptional
+    />
+  );
+};
+IsOptional.storyName = "IsOptional";

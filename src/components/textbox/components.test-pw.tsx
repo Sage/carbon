@@ -13,13 +13,7 @@ export const TextboxComponent = (props: Partial<TextboxProps>) => {
     setState(target.value);
   };
   return (
-    <Textbox
-      label="Textbox"
-      isOptional
-      value={state}
-      onChange={setValue}
-      {...props}
-    />
+    <Textbox label="Textbox" value={state} onChange={setValue} {...props} />
   );
 };
 

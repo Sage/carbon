@@ -60,10 +60,13 @@ export const MenuFullScreenStory = ({
 }: MenuFullScreenStoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const onClose = (
-    evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+    ev:
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | KeyboardEvent
   ) => {
     setIsOpen(false);
-    action("close icon clicked")(evt);
+    action("close icon clicked")(ev);
   };
   const handleOpen = () => {
     setIsOpen(true);

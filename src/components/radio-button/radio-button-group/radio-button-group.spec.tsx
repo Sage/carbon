@@ -15,6 +15,7 @@ import { RadioButtonGroupProps } from "./radio-button-group.component";
 import CarbonProvider from "../../carbon-provider";
 import { ErrorBorder } from "../../textbox/textbox.style";
 import Logger from "../../../__internal__/utils/logger";
+import { StyledLegendContent } from "../../../__internal__/fieldset/fieldset.style";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -207,10 +208,10 @@ describe("RadioButtonGroup", () => {
       );
     });
 
-    it("the required prop is passed to the inputs", () => {
+    it("the attribute is set on the inputs when prop is true", () => {
       const inputs = wrapper.find("input");
       inputs.forEach((input) => {
-        expect(input.prop("required")).toBe(true);
+        expect(input.getDOMNode()).toHaveAttribute("required", "");
       });
     });
 
@@ -225,6 +226,26 @@ describe("RadioButtonGroup", () => {
       const fieldset = wrapper.find(Fieldset);
       expect(fieldset.prop("isRequired")).toBe(true);
     });
+  });
+
+  it("should append the expected text to the legend element when the isOptional prop is true", () => {
+    assertStyleMatch(
+      {
+        content: '"(optional)"',
+      },
+      mount(
+        <RadioButtonGroup
+          name="radio"
+          onChange={() => {}}
+          legend="Group Label"
+          isOptional
+        >
+          <RadioButton label="off" value="test" />
+          <RadioButton label="on" value="test" />
+        </RadioButtonGroup>
+      ).find(StyledLegendContent),
+      { modifier: "::after" }
+    );
   });
 
   describe("tooltipPosition", () => {
