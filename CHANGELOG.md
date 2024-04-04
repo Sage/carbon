@@ -1,3 +1,10 @@
+### [128.3.1](https://github.com/Sage/carbon/compare/v128.3.0...v128.3.1) (2024-04-04)
+
+
+### Bug Fixes
+
+* **profile:** ensure ProfileProps extend MarginProps ([8bf062f](https://github.com/Sage/carbon/commit/8bf062f7d01f8a3262605fce382075d8000d5cae)), closes [#6622](https://github.com/Sage/carbon/issues/6622)
+
 ## [128.3.0](https://github.com/Sage/carbon/compare/v128.2.0...v128.3.0) (2024-04-04)
 
 
