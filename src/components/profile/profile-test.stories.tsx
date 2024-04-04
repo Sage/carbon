@@ -18,6 +18,16 @@ export default {
         options: PROFILE_SIZES,
       },
     },
+    mx: {
+      control: {
+        type: "text",
+      },
+    },
+    my: {
+      control: {
+        type: "text",
+      },
+    },
   },
 };
 
@@ -34,6 +44,13 @@ DefaultStory.story = {
     name: "John Smith",
     text: "Some other text about John here",
     src: "",
+    m: "",
+    mt: "",
+    mr: "",
+    mb: "",
+    ml: "",
+    mx: undefined,
+    my: undefined,
   },
 };
 
