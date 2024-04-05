@@ -1,5 +1,6 @@
 import React from "react";
 
+import { MarginProps } from "styled-system";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import {
   ProfileStyle,
@@ -21,7 +22,7 @@ function acronymize(str?: string) {
 
 let useOfNoNameWarnTriggered = false;
 
-export interface ProfileProps {
+export interface ProfileProps extends MarginProps {
   /** [Legacy] A custom class name for the component */
   className?: string;
   /** Custom source URL */

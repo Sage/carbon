@@ -1,4 +1,5 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
 
 import * as ScrollableBlockStories from "./scrollable-block/scrollable-block.stories";
 import * as MenuSegmentTitleStories from "./menu-segment-title/menu-segment-title.stories";
@@ -169,3 +170,19 @@ as such any `maxWidth` value passed will not be set when they are children of `M
 ### MenuFullscreen
 
 <ArgTypes of={MenuFullscreenStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object
+to the [i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "menuFullscreen.ariaLabels.closeButton",
+      description: "Aria label for the MenuFullscreen's close button",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

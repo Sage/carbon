@@ -1,3 +1,30 @@
+## [128.4.0](https://github.com/Sage/carbon/compare/v128.3.1...v128.4.0) (2024-04-05)
+
+
+### Features
+
+* **dialog:** allow subtitle prop to accept a node ([5620e3d](https://github.com/Sage/carbon/commit/5620e3d2443b96ef668a936dde63884df65734e2)), closes [#5844](https://github.com/Sage/carbon/issues/5844)
+
+### [128.3.1](https://github.com/Sage/carbon/compare/v128.3.0...v128.3.1) (2024-04-04)
+
+
+### Bug Fixes
+
+* **profile:** ensure ProfileProps extend MarginProps ([8bf062f](https://github.com/Sage/carbon/commit/8bf062f7d01f8a3262605fce382075d8000d5cae)), closes [#6622](https://github.com/Sage/carbon/issues/6622)
+
+## [128.3.0](https://github.com/Sage/carbon/compare/v128.2.0...v128.3.0) (2024-04-04)
+
+
+### Features
+
+* **menu-fullscreen:** add translation key 'menuFullscreen.ariaLabels.closeButton' ([4117997](https://github.com/Sage/carbon/commit/4117997f40e2a04d66cbf58bfe07b6c0bb14fe4d))
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** amend typing of onClose prop ([2fb540e](https://github.com/Sage/carbon/commit/2fb540e2d12898ab312a104012923b9189bbae4e))
+* **menu-fullscreen:** ensure menu has aria properties required for dialogs ([7ca7223](https://github.com/Sage/carbon/commit/7ca7223c3119f66392b60209c50f8e49fb25df29))
+
 ## [128.2.0](https://github.com/Sage/carbon/compare/v128.1.2...v128.2.0) (2024-04-04)
 
 

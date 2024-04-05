@@ -621,7 +621,7 @@ describe("Dialog", () => {
       });
     });
 
-    describe("when a subtitle is specified", () => {
+    describe("when a subtitle is specified as a string", () => {
       it("then the container should have aria-describedby attribute set to it's subtitle id", () => {
         (guid as jest.MockedFunction<typeof guid>).mockImplementation(
           () => "baz"
@@ -656,6 +656,27 @@ describe("Dialog", () => {
             .first()
             .prop("aria-labelledby")
         ).toBe(titleId);
+      });
+    });
+
+    describe("when the aria-describedby prop is specified", () => {
+      it("then the container should have the same aria-describedby attribute", () => {
+        const subtitleId = "foo";
+
+        const wrapper = enzymeMount(
+          <Dialog
+            aria-describedby={subtitleId}
+            open
+            subtitle={<div id={subtitleId}>Foo</div>}
+          />
+        );
+
+        expect(
+          wrapper
+            .find("[data-element='dialog']")
+            .first()
+            .prop("aria-describedby")
+        ).toBe(subtitleId);
       });
     });
 
