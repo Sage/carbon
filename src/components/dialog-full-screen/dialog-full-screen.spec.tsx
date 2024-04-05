@@ -639,6 +639,30 @@ describe("DialogFullScreen", () => {
       });
     });
 
+    describe("when the aria-describedby prop is specified", () => {
+      it("then the container should have the same aria-describedby attribute", () => {
+        const subtitleId = "foo";
+
+        wrapper = mount(
+          <DialogFullScreen
+            aria-describedby={subtitleId}
+            open
+            onCancel={() => {}}
+            data-role="baz"
+            data-element="bar"
+            subtitle={<div id={subtitleId}>Foo</div>}
+          />
+        );
+
+        expect(
+          wrapper
+            .find("[data-element='dialog-full-screen']")
+            .first()
+            .prop("aria-describedby")
+        ).toBe(subtitleId);
+      });
+    });
+
     describe("when the role prop is specified", () => {
       it("then the container should have the same role attribute", () => {
         const dialogRole = "foo";
