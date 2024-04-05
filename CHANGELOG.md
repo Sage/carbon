@@ -1,3 +1,10 @@
+## [128.4.0](https://github.com/Sage/carbon/compare/v128.3.1...v128.4.0) (2024-04-05)
+
+
+### Features
+
+* **dialog:** allow subtitle prop to accept a node ([5620e3d](https://github.com/Sage/carbon/commit/5620e3d2443b96ef668a936dde63884df65734e2)), closes [#5844](https://github.com/Sage/carbon/issues/5844)
+
 ### [128.3.1](https://github.com/Sage/carbon/compare/v128.3.0...v128.3.1) (2024-04-04)
 
 
