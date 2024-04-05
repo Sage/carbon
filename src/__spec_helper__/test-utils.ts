@@ -25,7 +25,8 @@ const toCSSCase = (str: string) => {
   return str.split("").reduce(humpToDash, "");
 };
 
-const assertStyleMatch = <Props>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const assertStyleMatch: any = <Props>(
   styleSpec: { [key: string]: string | number | undefined },
   component:
     | ReactWrapper<Props>
@@ -92,8 +93,8 @@ const simulate = {
   keydown,
 };
 
-const listFrom = (wrapper: ReactWrapper) => wrapper.find("ul");
-const childrenFrom = (node: ReactWrapper) => node.children();
+const listFrom = (wrapper: ReactWrapper): ReactWrapper => wrapper.find("ul");
+const childrenFrom = (node: ReactWrapper): ReactWrapper => node.children();
 
 const hoverList = (wrapper: ReactWrapper) => (item: number) => {
   childrenFrom(listFrom(wrapper)).at(item).simulate("mouseover");
@@ -101,7 +102,7 @@ const hoverList = (wrapper: ReactWrapper) => (item: number) => {
 
 const simulateEvent = (eventName: string) => (wrapper: ReactWrapper) =>
   wrapper.simulate(eventName);
-const click = simulateEvent("click");
+const click: unknown = simulateEvent("click");
 
 const selectedItemOf = (wrapper: ReactWrapper) =>
   (wrapper.state() as { selectedItem: number }).selectedItem;

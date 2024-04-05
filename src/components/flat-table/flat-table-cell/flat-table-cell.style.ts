@@ -3,7 +3,6 @@ import { PaddingProps, padding } from "styled-system";
 import { FlatTableCellProps } from "./flat-table-cell.component";
 import baseTheme from "../../../style/themes/base";
 import { toColor } from "../../../style/utils/color";
-import StyledIcon from "../../icon/icon.style";
 
 const verticalBorderSizes = {
   small: "1px",
@@ -80,6 +79,10 @@ const StyledFlatTableCell = styled.td<StyledFlatTableCellProps>`
       css`
         border-right-color: ${toColor(theme, verticalBorderColor)};
       `}
+
+      [data-component="icon"]:not([color]) {
+        color: var(--colorsActionMinor500);
+      }
     }
 
     &:first-of-type {
@@ -118,11 +121,6 @@ const StyledCellContent = styled.div<{ expandable?: boolean }>`
       display: flex;
       align-items: center;
       line-height: 1em;
-
-      ${StyledIcon} {
-        width: 16px;
-        height: 16px;
-      }
     `}
 `;
 

@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Icon from "../icon";
-import tagComponent from "../../__internal__/utils/helpers/tags/tags";
+import tagComponent, {
+  TagProps,
+} from "../../__internal__/utils/helpers/tags/tags";
 import {
   StyledToast,
   TypeIcon,
@@ -62,6 +64,8 @@ export interface ToastProps {
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>
   ) => void;
+  /** Data tag prop bag for close Button */
+  closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Time for Toast to remain on screen */
   timeout?: string | number;
   /** Centers the Toast on the screen */
@@ -92,6 +96,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       timeout,
       variant = "success",
       disableAutoFocus,
+      closeButtonDataProps,
       ...restProps
     }: ToastProps,
     ref
@@ -179,9 +184,12 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       return (
         <IconButton
           aria-label={locale.toast.ariaLabels.close()}
-          data-element="close"
           onClick={onDismiss}
           ref={closeIconRef}
+          {...tagComponent("close", {
+            "data-element": "close",
+            ...closeButtonDataProps,
+          })}
         >
           <Icon type="close" />
         </IconButton>

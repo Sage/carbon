@@ -1,13 +1,21 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import Pager, { PagerProps } from ".";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
-export const Default: ComponentStory<typeof Pager> = (args: PagerProps) => (
-  <Pager {...args} />
-);
+const meta: Meta<typeof Pager> = {
+  title: "Pager",
+  component: Pager,
+};
 
+export default meta;
+type Story = StoryObj<typeof Pager>;
+
+export const Default: Story = (args: PagerProps) => {
+  return <Pager {...args} />;
+};
+Default.storyName = "Default";
 Default.args = {
   totalRecords: "100",
   showPageSizeSelection: false,
@@ -19,6 +27,7 @@ Default.args = {
     { id: "50", name: 50 },
     { id: "100", name: 100 },
   ],
+  onPagination: () => {},
 };
 Default.argTypes = {
   pageSize: {
@@ -29,10 +38,10 @@ Default.argTypes = {
   },
 };
 
-export const InteractivePageNumber: ComponentStory<typeof Pager> = (
-  args: PagerProps
-) => <Pager {...args} />;
-
+export const InteractivePageNumber: Story = (args: PagerProps) => {
+  return <Pager {...args} />;
+};
+InteractivePageNumber.storyName = "Interactive Page Number";
 InteractivePageNumber.args = {
   totalRecords: "100",
   interactivePageNumber: false,
@@ -45,8 +54,8 @@ InteractivePageNumber.args = {
     { id: "50", name: 50 },
     { id: "100", name: 100 },
   ],
+  onPagination: () => {},
 };
-
 InteractivePageNumber.argTypes = {
   pageSize: {
     options: [1, 10, 25, 50, 100],
@@ -56,10 +65,10 @@ InteractivePageNumber.argTypes = {
   },
 };
 
-export const HideDisabledElements: ComponentStory<typeof Pager> = (
-  args: PagerProps
-) => <Pager {...args} />;
-
+export const HideDisabledElements: Story = (args: PagerProps) => {
+  return <Pager {...args} />;
+};
+HideDisabledElements.storyName = "Hide Disabled Elements";
 HideDisabledElements.args = {
   totalRecords: "100",
   hideDisabledElements: true,
@@ -72,8 +81,8 @@ HideDisabledElements.args = {
     { id: "50", name: 50 },
     { id: "100", name: 100 },
   ],
+  onPagination: () => {},
 };
-
 HideDisabledElements.argTypes = {
   pageSize: {
     options: [1, 10, 25, 50, 100],
@@ -83,23 +92,27 @@ HideDisabledElements.argTypes = {
   },
 };
 
-export const DisabledPageSize = Default.bind({});
-DisabledPageSize.parameters = { chromatic: { disableSnapshot: true } };
-DisabledPageSize.args = {
-  totalRecords: "100",
-  onPagination: () => {},
+export const DisabledPageSize: Story = {
+  ...Default,
+  args: { ...Default.args, totalRecords: "100", onPagination: () => {} },
+  name: "Disabled Page Size",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const HidingPagerElements = Default.bind({});
-HidingPagerElements.args = {
-  totalRecords: "100",
-  onPagination: () => {},
-  showFirstAndLastButtons: false,
-  showTotalRecords: false,
-  showPageSizeSelection: true,
+export const HidingPagerElements: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    totalRecords: "100",
+    onPagination: () => {},
+    showFirstAndLastButtons: false,
+    showTotalRecords: false,
+    showPageSizeSelection: true,
+  },
+  name: "Hiding Pager Elements",
 };
 
-export const SmartFunctionality = () => {
+export const SmartFunctionality: Story = () => {
   return (
     <>
       <Pager totalRecords={10} onPagination={() => {}} />
@@ -108,45 +121,58 @@ export const SmartFunctionality = () => {
     </>
   );
 };
+SmartFunctionality.storyName = "Smart Functionality";
 
-export const LoadingState = Default.bind({});
-LoadingState.args = {
-  onPagination: () => {},
+export const LoadingState: Story = {
+  ...Default,
+  args: {
+    onPagination: () => {},
+  },
+  name: "Loading State",
 };
 
-export const PageSizeSelectionOptions = Default.bind({});
-PageSizeSelectionOptions.parameters = { chromatic: { disableSnapshot: true } };
-PageSizeSelectionOptions.args = {
-  onPagination: () => {},
-  totalRecords: 100,
-  showPageSizeSelection: true,
-  pageSizeSelectionOptions: [
-    { id: "15", name: 15 },
-    { id: "30", name: 30 },
-    { id: "60", name: 60 },
-  ],
-  pageSize: 15,
+export const PageSizeSelectionOptions: Story = {
+  ...Default,
+  args: {
+    onPagination: () => {},
+    totalRecords: 100,
+    showPageSizeSelection: true,
+    pageSizeSelectionOptions: [
+      { id: "15", name: 15 },
+      { id: "30", name: 30 },
+      { id: "60", name: 60 },
+    ],
+    pageSize: 15,
+  },
+  name: "Page Size Selection Options",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const CurrentPageLastPage = Default.bind({});
-CurrentPageLastPage.parameters = { chromatic: { disableSnapshot: true } };
-CurrentPageLastPage.args = {
-  onPagination: () => {},
-  totalRecords: 100,
-  showPageSizeSelection: true,
-  currentPage: 10,
+export const CurrentPageLastPage: Story = {
+  ...Default,
+  args: {
+    onPagination: () => {},
+    totalRecords: 100,
+    showPageSizeSelection: true,
+    currentPage: 10,
+  },
+  name: "Current Page Last Page",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const CurrentPage = Default.bind({});
-CurrentPage.parameters = { chromatic: { disableSnapshot: true } };
-CurrentPage.args = {
-  onPagination: () => {},
-  totalRecords: 100,
-  showPageSizeSelection: true,
-  currentPage: 5,
+export const CurrentPage: Story = {
+  ...Default,
+  args: {
+    onPagination: () => {},
+    totalRecords: 100,
+    showPageSizeSelection: true,
+    currentPage: 5,
+  },
+  name: "Current Page",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const UsingCustomResponsiveSettings = () => {
+export const UsingCustomResponsiveSettings: Story = () => {
   const query1 = useMediaQuery("(max-width: 1000px)");
   const query2 = useMediaQuery("(max-width: 900px)");
   const query3 = useMediaQuery("(max-width: 800px)");
@@ -208,6 +234,7 @@ export const UsingCustomResponsiveSettings = () => {
     />
   );
 };
+UsingCustomResponsiveSettings.storyName = "Using Custom Responsive Settings";
 UsingCustomResponsiveSettings.parameters = {
   chromatic: { disableSnapshot: true },
 };

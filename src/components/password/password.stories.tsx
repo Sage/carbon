@@ -1,12 +1,32 @@
 import React, { useState } from "react";
-import Password from ".";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Box from "../box/box.component";
 import CarbonProvider from "../carbon-provider";
+import Password from ".";
 
-export const SIZES = ["small", "medium", "large"] as const;
-export const VALIDATIONS = ["error", "warning", "info"] as const;
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
-export const Default = () => {
+const meta: Meta<typeof Password> = {
+  title: "Password",
+  component: Password,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { themeProvider: { chromatic: { theme: "sage" } } },
+};
+
+export default meta;
+type Story = StoryObj<typeof Password>;
+
+const SIZES = ["small", "medium", "large"] as const;
+const VALIDATIONS = ["error", "warning", "info"] as const;
+
+export const Default: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -14,8 +34,9 @@ export const Default = () => {
 
   return <Password label="Password" value={state} onChange={setValue} />;
 };
+Default.storyName = "Default";
 
-export const ForceObscurity = () => {
+export const ForceObscurity: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -30,8 +51,9 @@ export const ForceObscurity = () => {
     />
   );
 };
+ForceObscurity.storyName = "Force Obscurity";
 
-export const InputHint = () => {
+export const InputHint: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -46,8 +68,9 @@ export const InputHint = () => {
     />
   );
 };
+InputHint.storyName = "Input Hint";
 
-export const CharacterCounter = () => {
+export const CharacterCounter: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -62,8 +85,9 @@ export const CharacterCounter = () => {
     />
   );
 };
+CharacterCounter.storyName = "Character Counter";
 
-export const Prefix = () => {
+export const Prefix: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -78,8 +102,9 @@ export const Prefix = () => {
     />
   );
 };
+Prefix.storyName = "Prefix";
 
-export const Sizes = () => {
+export const Sizes: Story = () => {
   const [smallState, setSmallState] = useState("Password");
   const setSmallValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setSmallState(target.value);
@@ -122,8 +147,9 @@ export const Sizes = () => {
     </>
   );
 };
+Sizes.storyName = "Sizes";
 
-export const Margins = () => {
+export const Margins: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -131,8 +157,9 @@ export const Margins = () => {
 
   return <Password m={4} label="Password" value={state} onChange={setValue} />;
 };
+Margins.storyName = "Margins";
 
-export const Disabled = () => {
+export const Disabled: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -142,8 +169,9 @@ export const Disabled = () => {
     <Password disabled label="Password" value={state} onChange={setValue} />
   );
 };
+Disabled.storyName = "Disabled";
 
-export const ReadOnly = () => {
+export const ReadOnly: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -153,8 +181,9 @@ export const ReadOnly = () => {
     <Password readOnly label="Password" value={state} onChange={setValue} />
   );
 };
+ReadOnly.storyName = "Read Only";
 
-export const AutoFocus = () => {
+export const AutoFocus: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -164,10 +193,10 @@ export const AutoFocus = () => {
     <Password autoFocus label="Password" value={state} onChange={setValue} />
   );
 };
-
+AutoFocus.storyName = "Auto Focus";
 AutoFocus.parameters = { chromatic: { disable: true } };
 
-export const WithLabelInline = () => {
+export const WithLabelInline: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -177,10 +206,10 @@ export const WithLabelInline = () => {
     <Password labelInline label="Password" value={state} onChange={setValue} />
   );
 };
-
+WithLabelInline.storyName = "With Label Inline";
 WithLabelInline.parameters = { chromatic: { disable: true } };
 
-export const WithLabelAlign = () => {
+export const WithLabelAlign: Story = () => {
   const [leftAlignState, setLeftAlignState] = useState("Password");
   const setVLeftAlignValue = ({
     target,
@@ -218,8 +247,9 @@ export const WithLabelAlign = () => {
     </>
   );
 };
+WithLabelAlign.storyName = "With Label Align";
 
-export const WithCustomLabelWidthAndInputWidth = () => {
+export const WithCustomLabelWidthAndInputWidth: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -236,8 +266,10 @@ export const WithCustomLabelWidthAndInputWidth = () => {
     />
   );
 };
+WithCustomLabelWidthAndInputWidth.storyName =
+  "With Custom labelWidth and inputWidth";
 
-export const WithCustomMaxWidth = () => {
+export const WithCustomMaxWidth: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -252,8 +284,9 @@ export const WithCustomMaxWidth = () => {
     />
   );
 };
+WithCustomMaxWidth.storyName = "With Custom maxWidth";
 
-export const WithFieldHelp = () => {
+export const WithFieldHelp: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -268,8 +301,9 @@ export const WithFieldHelp = () => {
     />
   );
 };
+WithFieldHelp.storyName = "With fieldHelp";
 
-export const WithLabelHelp = () => {
+export const WithLabelHelp: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -284,8 +318,9 @@ export const WithLabelHelp = () => {
     />
   );
 };
+WithLabelHelp.storyName = "With labelHelp";
 
-export const WithRequired = () => {
+export const WithRequired: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -295,8 +330,9 @@ export const WithRequired = () => {
     <Password required label="Password" value={state} onChange={setValue} />
   );
 };
+WithRequired.storyName = "With Required";
 
-export const ValidationsAsAString = () => {
+export const ValidationsAsAString: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -325,8 +361,9 @@ export const ValidationsAsAString = () => {
     </Box>
   );
 };
+ValidationsAsAString.storyName = "Validations - String - Component";
 
-export const ValidationsAsAStringWithTooltipCustom = () => {
+export const ValidationsAsAStringWithTooltipCustom: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -349,11 +386,13 @@ export const ValidationsAsAStringWithTooltipCustom = () => {
     </Box>
   );
 };
+ValidationsAsAStringWithTooltipCustom.storyName =
+  "Validations - String - With tooltipPosition Overriden - Component";
 ValidationsAsAStringWithTooltipCustom.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationsAsAStringDisplayedOnLabel = () => {
+export const ValidationsAsAStringDisplayedOnLabel: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -384,8 +423,9 @@ export const ValidationsAsAStringDisplayedOnLabel = () => {
     </Box>
   );
 };
+ValidationsAsAStringDisplayedOnLabel.storyName = "Validations - String - Label";
 
-export const NewDesignsValidation = () => {
+export const NewDesignsValidation: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -422,8 +462,9 @@ export const NewDesignsValidation = () => {
     </Box>
   );
 };
+NewDesignsValidation.storyName = "Validations - String - New Design";
 
-export const ValidationsAsAStringWithTooltipDefault = () => {
+export const ValidationsAsAStringWithTooltipDefault: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -447,11 +488,13 @@ export const ValidationsAsAStringWithTooltipDefault = () => {
     </Box>
   );
 };
+ValidationsAsAStringWithTooltipDefault.storyName =
+  "Validations - String - With tooltipPosition overriden - Label";
 ValidationsAsAStringWithTooltipDefault.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationsAsABoolean = () => {
+export const ValidationsAsABoolean: Story = () => {
   const [state, setState] = useState("Password");
   const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setState(target.value);
@@ -480,3 +523,4 @@ export const ValidationsAsABoolean = () => {
     </Box>
   );
 };
+ValidationsAsABoolean.storyName = "Validations - Boolean";

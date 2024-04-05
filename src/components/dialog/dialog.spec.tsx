@@ -23,6 +23,7 @@ import {
   CONTENT_BOTTOM_PADDING,
 } from "./dialog.config";
 import Button from "../button";
+import StyledIconButton from "../icon-button/icon-button.style";
 import Heading from "../heading";
 import {
   assertStyleMatch,
@@ -33,6 +34,7 @@ import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import Help from "../help";
 import CarbonProvider from "../carbon-provider";
 import Logger from "../../__internal__/utils/logger";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -542,6 +544,20 @@ describe("Dialog", () => {
         wrapper.find(StyledDialogTitle)
       );
     });
+
+    it("should allow custom data props on close button to be assigned", () => {
+      const wrapper = enzymeMount(
+        <Dialog
+          open
+          onCancel={() => {}}
+          closeButtonDataProps={{
+            "data-element": "foo",
+            "data-role": "bar",
+          }}
+        />
+      );
+      rootTagTest(wrapper.find(StyledIconButton), "close", "foo", "bar");
+    });
   });
 
   describe("when the Form child has a sticky footer", () => {
@@ -605,7 +621,7 @@ describe("Dialog", () => {
       });
     });
 
-    describe("when a subtitle is specified", () => {
+    describe("when a subtitle is specified as a string", () => {
       it("then the container should have aria-describedby attribute set to it's subtitle id", () => {
         (guid as jest.MockedFunction<typeof guid>).mockImplementation(
           () => "baz"
@@ -640,6 +656,27 @@ describe("Dialog", () => {
             .first()
             .prop("aria-labelledby")
         ).toBe(titleId);
+      });
+    });
+
+    describe("when the aria-describedby prop is specified", () => {
+      it("then the container should have the same aria-describedby attribute", () => {
+        const subtitleId = "foo";
+
+        const wrapper = enzymeMount(
+          <Dialog
+            aria-describedby={subtitleId}
+            open
+            subtitle={<div id={subtitleId}>Foo</div>}
+          />
+        );
+
+        expect(
+          wrapper
+            .find("[data-element='dialog']")
+            .first()
+            .prop("aria-describedby")
+        ).toBe(subtitleId);
       });
     });
 

@@ -1,0 +1,91 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as NavigationBarStories from "./navigation-bar.stories";
+
+<Meta title="Navigation Bar" of={NavigationBarStories} />
+
+# Navigation Bar
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/36c339-navigation-bar"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+This component is used as a wrapper for the Menu component when used as a navigation layout.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import NavigationBar from "carbon-react/lib/components/navigation-bar";
+```
+
+## Examples
+
+### Default - Light Theme
+
+<Canvas of={NavigationBarStories.Default} />
+
+### Dark Theme
+
+<Canvas of={NavigationBarStories.DarkTheme} />
+
+### White Theme
+
+<Canvas of={NavigationBarStories.WhiteTheme} />
+
+### Black Theme
+
+<Canvas of={NavigationBarStories.BlackTheme} />
+
+### Example with menu
+
+<Canvas of={NavigationBarStories.ExampleWithMenu} />
+
+### Loading State
+
+If `isLoading={true}` the children will not be visible
+
+<Canvas of={NavigationBarStories.IsLoading} />
+
+### With custom spacing
+
+The spacing props (see prop table below) accept either a number between 1 and 8 that is then multiplied by `8px` or any
+valid CSS string.
+
+<Canvas of={NavigationBarStories.WithCustomSpacing} />
+
+### Set content max width using Box
+
+<Canvas of={NavigationBarStories.ContentMaxWidthBox} />
+
+### Position
+
+#### Sticky
+
+The `position` prop can be set to `sticky` to make the navigation bar stick to the top or bottom of its nearest scrolling ancestor.
+Then the `orientation` relative to the top/bottom can be offset using the `offset` prop.
+
+<Canvas of={NavigationBarStories.Sticky} />
+
+#### Fixed
+
+The `position` prop can be set to `fixed` to make the navigation bar fix to the viewport. Then the `orientation` relative to the
+top/bottom can be offset using the `offset` prop.
+
+<Canvas of={NavigationBarStories.Fixed} />
+
+## Props
+
+### Navigation Bar
+
+<ArgTypes of={NavigationBarStories} />

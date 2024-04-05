@@ -1,0 +1,289 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as FlatTableHeadStories from "./flat-table-head/flat-table-head.stories";
+import * as FlatTableBodyStories from "./flat-table-body/flat-table-body.stories";
+import * as FlatTableBodyDraggableStories from "./flat-table-body-draggable/flat-table-body-draggable.stories";
+import * as FlatTableRowStories from "./flat-table-row/flat-table-row.stories";
+import * as FlatTableHeaderStories from "./flat-table-header/flat-table-header.stories";
+import * as FlatTableCellStories from "./flat-table-cell/flat-table-cell.stories";
+import * as FlatTableRowHeaderStories from "./flat-table-row-header/flat-table-row-header.stories";
+import * as FlatTableCheckboxStories from "./flat-table-checkbox/flat-table-checkbox.stories";
+import * as SortStories from "./sort/sort.stories";
+import * as FlatTableStories from "./flat-table.stories";
+
+<Meta title="Flat Table" of={FlatTableStories} />
+
+# Flat Table
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/56c2ee-table/b/28fa8b"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Logically structure content in a grid for the user to enter, view, or work with.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import all the necessary components from the flat table folder
+
+```javascript
+import {
+  FlatTable,
+  FlatTableHead,
+  FlatTableBody,
+  FlatTableRow,
+  FlatTableHeader,
+  FlatTableRowHeader,
+  FlatTableCell,
+  FlatTableCheckbox,
+  Sort,
+} from "carbon-react/lib/components/flat-table";
+```
+
+**It is necessary that `FlatTableCell` and `FlatTableHeader` components are a direct children of `FlatTableRow` component.**
+
+This is because `FlatTableRow` iterates through and clones the children applying different props depending on the index of the given child.
+If you need to wrap `FlatTableCell` or `FlatTableHeader` remember to spread all the props directly to these components as shown below:
+
+```javascript
+const FlatTableCellWrapper = ({ customProp, ...rest }) => {
+  // ...
+  // some additional logic
+  // ...
+  return <FlatTableCell {...rest} />;
+};
+```
+
+## Examples
+
+### Default
+
+<Canvas of={FlatTableStories.DefaultStory} />
+
+### With row headers
+
+By default the `FlatTableRowHeader`'s `stickyAlignment` prop is set to `left`.
+Any preceding cells will automatically also be made sticky as seen in the example below.
+
+<Canvas of={FlatTableStories.WithRowHeader} />
+
+### Using row headers to create left and right hand side sticky columns
+
+In order to have right hand side sticky columns you should set the `FlatTableRowHeader` `stickyAlignment` prop to `right`.
+Any columns to following it will also be sticky.
+
+By default the left hand side columns have the prop set to `left`.
+It is important to ensure any left hand side sticky cells are defined in the `table` before the right hand side ones.
+
+<Canvas of={FlatTableStories.WithMultipleRowHeaders} />
+
+### Horizontal scrolling
+
+To allow horizontal scrolling, set the `width` and `overflowX` props as shown below. An `aria-label` should be added to give the table an accessible name.
+
+<Canvas of={FlatTableStories.HorizontalScrolling} />
+
+### With custom cell paddings
+
+Padding can be set on each cell individually by using the spacing props syntax. Check prop tables at the bottom of this document for more information.
+
+<Canvas of={FlatTableStories.WithCustomCellPaddings} />
+
+### With custom column width
+
+Column width can be set by passing number as a `width` prop to the column header or cell component.
+**Column width can't be smaller than the sum of horizontal cell padding and content width.**
+
+<Canvas of={FlatTableStories.WithCustomColumnWidth} />
+
+### With custom row background color
+
+Setting a custom background color will also override hover, highlight and row selection colors.
+
+<Canvas of={FlatTableStories.WithCustomRowBackgroundColor} />
+
+### With custom horizontal border size
+
+<Canvas of={FlatTableStories.WithCustomHorizontalBorderSize} />
+
+### With custom horizontal border color
+
+<Canvas of={FlatTableStories.WithCustomHorizontalBorderColor} />
+
+### With custom vertical borders
+
+<Canvas of={FlatTableStories.WithCustomVerticalBorders} />
+
+### With alternative header background
+
+<Canvas of={FlatTableStories.WithAlternativeHeaderBackground} />
+
+### With truncated cell content
+
+When setting column widths it is also possible to set the content to `truncate`: this will prevent the content from wrapping
+and add ellipsis to any content that overflows the given width. By default the `title` will be set to the children if it
+is a string. However, if the passed children are not a string it is possible to override it by passing in a different
+`title` string.
+
+<Canvas of={FlatTableStories.WithTruncatedCellContent} />
+
+### With stickyHead prop set to true
+
+It is possible to have one or any number of header rows set to sticky.
+
+<Canvas of={FlatTableStories.WithStickyHead} />
+
+### With stickyHead, rowspan and colspan
+
+Is it possible to combine the `stickyHead` prop along with the `rowSpan` and `colspan`props.
+
+<Canvas of={FlatTableStories.WithStickyHeadRowSpanAndColspan} />
+
+### With stickyFooter prop set to true
+
+<Canvas of={FlatTableStories.WithStickyFooter} />
+
+In this example of FlatTable with `stickyFooter`, FlatTable has been placed inside of a `div` with a height
+of `220px`. There is not enough data to fill the flatTable but the style remains consistent and the footer
+remains sticky.
+
+<Canvas of={FlatTableStories.WithStickyFooterInsideOfLargerDiv} />
+
+### With hasMaxHeight
+
+By using the `hasMaxHeight` prop you can automatically apply a max-height of 100% to the FlatTable.
+
+<Canvas of={FlatTableStories.WithHasMaxHeight} />
+
+### With clickable rows
+
+<Canvas of={FlatTableStories.WithClickableRows} />
+
+### With zebra stripes
+
+<Canvas of={FlatTableStories.Zebra} />
+
+### With sorting headers
+
+<Canvas of={FlatTableStories.WithSortingHeaders} />
+
+### With a cell spanning the whole row
+
+<Canvas of={FlatTableStories.WithColspan} />
+
+### With a cell spanning the whole column
+
+<Canvas of={FlatTableStories.WithRowspan} />
+
+### With Selectable Rows
+
+It is possible to use the selected prop on the FlatTableRow to handle the selection of multiple rows of data.
+
+To take an action across multiple table rows, the user can first select relevant rows with their checkboxes, then apply an action at the top left of the table.
+
+If a given action isn’t available for a single selected item, the option appears disabled. A tooltip may explain why.
+
+If a given action is available for some, but not all, selected rows, then the action is performed, but the user is notified.
+
+Where icons are used for batch actions, they have text labels too, or tooltips to make their function clear. There are always confirmation dialogs for destructive actions, or those difficult to undo.
+
+<Canvas of={FlatTableStories.WithSelectableRows} />
+
+### With Highlightable Rows
+
+It is possible to utilise the selected and onClick props on the FlatTableRow to highlight single rows of data.
+
+<Canvas of={FlatTableStories.WithHighlightableRows} />
+
+### With Selectable and Highlightable Rows
+
+It is also possible to integrate selection of multiple rows and the highlighting of single rows.
+
+<Canvas of={FlatTableStories.WithSelectableAndHighlightableRows} />
+
+### With Pagination
+
+If pagination is needed, this can be shown at the bottom of the table.
+
+Balance performance concerns with the convenience of the user being able to see more data - we suggest giving the user the option of showing 25, 50, and 100 table rows before pagination, with a default of 50. Whatever the user selects, make this sticky per user, per table, and between sessions.
+
+<Canvas of={FlatTableStories.Paginated} />
+
+### Paginated with sticky header
+
+When using the `Pager` and a sticky `FlatTableHead` some of the child elements may have style properties that cause the
+overflow to exceed the height of the table. In the example below, the `ActionPopoverMenu` has absolute positioning meaning
+it is accounted for in the overflow. To avoid this it is possible to use the `placement` prop to render the menu on `top`
+of the button control.
+
+<Canvas of={FlatTableStories.PaginatedWithStickyHeader} />
+
+### When a child of Sidebar
+
+<Canvas of={FlatTableStories.WhenAChildOfSidebar} />
+
+## Table Cell Sizes
+
+<Canvas of={FlatTableStories.Sizes} />
+
+## Draggable rows
+
+<Canvas of={FlatTableStories.WithDraggableRows} />
+
+## Wrapping FlatTableRowHeaders
+
+The `FlatTableRow` relies on specific child composition to identify sticky columns. If you need to wrap the `FlatTableRowHeader` you will need to set the `displayName` of the wrapper to `FlatTableRowHeader.displayName`.
+
+<Canvas of={FlatTableStories.WrappingRowHeaders} />
+
+## Props
+
+### FlatTable
+
+<ArgTypes of={FlatTableStories} />
+
+### FlatTableHead
+
+<ArgTypes of={FlatTableHeadStories} />
+
+### FlatTableBody
+
+<ArgTypes of={FlatTableBodyStories} />
+
+### FlatTableBodyDraggable
+
+<ArgTypes of={FlatTableBodyDraggableStories} />
+
+### FlatTableRow
+
+<ArgTypes of={FlatTableRowStories} />
+
+### FlatTableHeader
+
+<ArgTypes of={FlatTableHeaderStories} />
+
+### Sort
+
+<ArgTypes of={SortStories} />
+
+### FlatTableCell
+
+<ArgTypes of={FlatTableCellStories} />
+
+### FlatTableRowHeader
+
+<ArgTypes of={FlatTableRowHeaderStories} />
+
+### FlatTableCheckbox
+
+<ArgTypes of={FlatTableCheckboxStories} />

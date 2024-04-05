@@ -1,8 +1,11 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
+import { assertStyleMatch } from "__spec_helper__/test-utils";
 import Sort, { SortProps } from "./sort.component";
 import Icon from "../../icon";
+import StyledIcon from "../../icon/icon.style";
 import { StyledSort, StyledSpaceHolder } from "./sort.style";
+import { FlatTableThemeContext, FlatTableProps } from "../flat-table.component";
 
 function renderSort(props: SortProps = {}) {
   return mount(<Sort {...props}>Name</Sort>);
@@ -80,4 +83,45 @@ describe("Sort", () => {
 
     expect(wrapper.find(StyledSpaceHolder).exists()).toBe(false);
   });
+
+  it("should render Icon with correct colour when colorTheme is dark", () => {
+    wrapper = mount(
+      <FlatTableThemeContext.Provider
+        value={{ colorTheme: "dark", getTabStopElementId: () => "" }}
+      >
+        <Sort sortType="ascending">Name</Sort>
+      </FlatTableThemeContext.Provider>
+    );
+
+    assertStyleMatch(
+      {
+        color: "var(--colorsActionMinorYang100)",
+      },
+      wrapper.find(StyledIcon)
+    );
+  });
+
+  it.each<FlatTableProps["colorTheme"]>([
+    "light",
+    "transparent-base",
+    "transparent-white",
+  ])(
+    "should render Icon with correct colour when colorTheme is %s",
+    (color) => {
+      wrapper = mount(
+        <FlatTableThemeContext.Provider
+          value={{ colorTheme: color, getTabStopElementId: () => "" }}
+        >
+          <Sort sortType="ascending">Name</Sort>
+        </FlatTableThemeContext.Provider>
+      );
+
+      assertStyleMatch(
+        {
+          color: "var(--colorActionMinor500)",
+        },
+        wrapper.find(StyledIcon)
+      );
+    }
+  );
 });

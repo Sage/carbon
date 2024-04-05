@@ -1,0 +1,133 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as NumeralDateStories from "./numeral-date.stories";
+
+<Meta title="Numeral Date" of={NumeralDateStories} />
+
+# Numeral Date
+
+For dates far from today, use this Numeral Date component. It is advised to use Three inputs consisting of day, month, and year.
+For dates close to today, we advise the use of a standard datepicker. If you require this, please see the "Date Input" component.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+Import `NumeralDate` into the project.
+
+```javascript
+import NumeralDate from "carbon-react/lib/components/numeral-date";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={NumeralDateStories.Default} />
+
+### Controlled
+
+<Canvas of={NumeralDateStories.Controlled} />
+
+### Allowed date formats
+
+<Canvas of={NumeralDateStories.AllowedDateFormats} />
+
+### Validation
+
+<Canvas of={NumeralDateStories.Validation} />
+
+<Canvas of={NumeralDateStories.NewValidation} />
+
+### Internal validation
+
+`NumeralDate` has an optional internal validation mechanism implemented to check if the date partial values are correct.
+To enable `error` internal validation pass `enableInternalError` and to enable `warning` pass `enableInternalWarning`.
+To override default messages translations can be provided with following keys: `numeralDate.day`, `numeralDate.month`, `numeralDate.year`.
+
+#### As error
+
+When using the internal validations as error it is necessary to also provide an external validation to avoid situations where it is possible to submit a form while `NumeralDate` clearly indicates that the date is incorrect.
+
+<Canvas of={NumeralDateStories.InternalValidationError} />
+
+#### As warning
+
+When using the internal validations as warning the external validation is not necessary, in this case internal warnings can be treated as feedback.
+
+<Canvas of={NumeralDateStories.InternalValidationWarning} />
+
+### With inline label
+
+<Canvas of={NumeralDateStories.InlineLabel} />
+
+### Enabling the adaptive behaviour
+
+The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width
+
+<Canvas of={NumeralDateStories.EnablingAdaptiveBehaviour} />
+
+### With label help
+
+<Canvas of={NumeralDateStories.WithLabelHelp} />
+
+### With field help
+
+<Canvas of={NumeralDateStories.WithFieldHelp} />
+
+### Size
+
+You can use the `size` prop to set the size of the field.
+
+<Canvas of={NumeralDateStories.Size} />
+
+### Required
+
+<Canvas of={NumeralDateStories.Required} />
+
+### isOptional
+
+<Canvas of={NumeralDateStories.IsOptional} />
+
+## Props
+
+### NumeralDate
+
+<ArgTypes of={NumeralDateStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "numeralDate.validation.day",
+      description:
+        "The text displayed in the tooltip if the day validation fails",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "numeralDate.validation.month",
+      description:
+        "The text displayed in the tooltip if the month validation fails",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "numeralDate.validation.year",
+      description:
+        "The text displayed in the tooltip if the year validation fails",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

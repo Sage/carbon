@@ -1,23 +1,28 @@
-import React, { useContext, useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 
+import { CSSTransition } from "react-transition-group";
 import {
   StyledMenuFullscreen,
+  StyledMenuModal,
   StyledMenuFullscreenHeader,
 } from "./menu-full-screen.style";
 import { StyledMenuWrapper } from "../menu.style";
 import MenuContext from "../menu.context";
-import FocusTrap from "../../../__internal__/focus-trap";
 import Events from "../../../__internal__/utils/helpers/events";
 import Box from "../../box";
 import IconButton from "../../icon-button";
 import Icon from "../../icon";
 import Portal from "../../portal";
+import FocusTrap from "../../../__internal__/focus-trap";
 import MenuDivider from "../menu-divider/menu-divider.component";
-import tagComponent, {
-  TagProps,
-} from "../../../__internal__/utils/helpers/tags";
+import type { TagProps } from "../../../__internal__/utils/helpers/tags";
+import useLocale from "../../../hooks/__internal__/useLocale";
+import useModalAria from "../../../hooks/__internal__/useModalAria";
+import useModalManager from "../../../hooks/__internal__/useModalManager";
 
-export interface MenuFullscreenProps extends TagProps {
+export interface MenuFullscreenProps extends Omit<TagProps, "data-component"> {
+  /** Accessible name that conveys the purpose of the menu   */
+  "aria-label"?: string;
   /** The child elements to render */
   children?: React.ReactNode;
   /** Sets whether the component is open or closed */
@@ -26,54 +31,58 @@ export interface MenuFullscreenProps extends TagProps {
   startPosition?: "left" | "right";
   /** A callback to be called when the close icon is clicked or enter is pressed when focused */
   onClose: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+    ev:
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | KeyboardEvent
   ) => void;
+  /** Manually override the internal modal stacking order to set this as top */
+  topModalOverride?: boolean;
 }
 
 export const MenuFullscreen = ({
+  "aria-label": ariaLabel = "Fullscreen menu",
+  "data-element": dataElement,
+  "data-role": dataRole,
   children,
-  isOpen,
-  startPosition = "left",
+  isOpen = false,
   onClose,
-  ...rest
+  startPosition = "left",
+  topModalOverride,
 }: MenuFullscreenProps) => {
-  const menuWrapperRef = useRef<HTMLDivElement>(null);
-  const menuContentRef = useRef<HTMLUListElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLUListElement>(null);
+  const isTopModal = useModalAria(modalRef);
   const { menuType } = useContext(MenuContext);
   const isDarkVariant = ["dark", "black"].includes(menuType);
+  const transitionDuration = 200;
+  const locale = useLocale();
 
-  const handleKeyDown = (ev: React.KeyboardEvent<HTMLElement>) => {
-    /* istanbul ignore else */
-    if (Events.isEscKey(ev)) {
-      onClose(ev);
-    }
+  // TODO: Remove this temporary event handler as part of FE-6078
+  const handleFocusedSearchButton = (ev: React.KeyboardEvent<HTMLElement>) => {
+    const search = modalRef.current?.querySelector('[data-component="search"]');
+    const searchInput = search?.querySelector("input");
+    const searchButton = search?.querySelector("button");
 
-    if (Events.isTabKey(ev) && !Events.isShiftKey(ev)) {
-      const search = menuWrapperRef.current?.querySelector(
-        '[data-component="search"'
+    // if there is no value in the search input the button disappears when the input blurs
+    // this means we need to programmatically set focus to the next menu item
+    if (
+      searchButton &&
+      searchInput &&
+      !searchInput.value &&
+      searchInput === document.activeElement
+    ) {
+      ev.preventDefault();
+
+      const elements = Array.from(
+        modalRef.current?.querySelectorAll(
+          "a, input, button"
+        ) as NodeListOf<HTMLElement>
       );
-      const searchInput = search?.querySelector("input");
-      const searchButton = search?.querySelector("button");
 
-      // if there is no value in the search input the button disappears when the input blurs
-      // this means we need to programatically set focus to the next menu item
-      if (
-        searchButton &&
-        searchInput &&
-        !searchInput.value &&
-        searchInput === document.activeElement
-      ) {
-        ev.preventDefault();
-
-        const elements = Array.from(
-          menuWrapperRef.current?.querySelectorAll(
-            "a, input, button"
-          ) as NodeListOf<HTMLElement>
-        );
-
-        const index = elements.indexOf(searchInput);
-        elements[index + 2]?.focus();
-      }
+      const index = elements.indexOf(searchInput);
+      elements[index + 2]?.focus();
     }
   };
 
@@ -93,65 +102,98 @@ export const MenuFullscreen = ({
     })
   );
 
+  const closeModal = useCallback(
+    (ev: KeyboardEvent) => {
+      if (onClose && Events.isEscKey(ev)) {
+        ev.stopImmediatePropagation();
+        onClose(ev);
+      }
+    },
+    [onClose]
+  );
+
+  useModalManager({
+    open: isOpen,
+    closeModal,
+    modalRef: menuRef,
+    topModalOverride,
+  });
+
   return (
-    <li aria-label="menu-fullscreen">
+    <li>
       <Portal>
-        <FocusTrap wrapperRef={menuWrapperRef} isOpen={isOpen}>
+        <CSSTransition
+          nodeRef={menuRef}
+          in={isOpen}
+          timeout={transitionDuration}
+          unmountOnExit
+        >
           <StyledMenuFullscreen
-            ref={menuWrapperRef}
-            isOpen={isOpen}
-            menuType={menuType}
+            ref={menuRef}
             startPosition={startPosition}
-            onKeyDown={handleKeyDown}
-            {...rest}
-            {...tagComponent("menu-fullscreen", rest)}
+            transitionDuration={transitionDuration}
           >
-            <StyledMenuFullscreenHeader
-              isOpen={isOpen}
-              menuType={menuType}
-              startPosition={startPosition}
-            >
-              <IconButton
-                aria-label="menu fullscreen close button"
-                onClick={onClose}
-                data-element="close"
-              >
-                <Icon
-                  type="close"
-                  color={isDarkVariant ? "--colorsYang100" : undefined}
-                />
-              </IconButton>
-            </StyledMenuFullscreenHeader>
-            <Box
-              overflowY="auto"
-              scrollVariant={isDarkVariant ? "dark" : "light"}
-              width="100%"
-              height="calc(100% - 40px)"
-            >
-              <StyledMenuWrapper
-                data-component="menu"
+            <FocusTrap wrapperRef={modalRef} isOpen={isOpen}>
+              <StyledMenuModal
+                aria-label={ariaLabel}
+                aria-modal={isTopModal ? true : undefined}
+                data-component="menu-fullscreen"
+                data-element={dataElement}
+                data-role={dataRole}
                 menuType={menuType}
-                ref={menuContentRef}
-                display="flex"
-                flexDirection="column"
-                role="list"
-                inFullscreenView
+                onKeyDown={(ev) =>
+                  Events.isTabKey(ev) &&
+                  !Events.isShiftKey(ev) &&
+                  handleFocusedSearchButton(ev)
+                }
+                ref={modalRef}
+                role="dialog"
+                tabIndex={-1}
               >
-                <MenuContext.Provider
-                  value={{
-                    inFullscreenView: true,
-                    menuType,
-                    inMenu: true,
-                    openSubmenuId: null,
-                    setOpenSubmenuId: /* istanbul ignore next */ () => {},
-                  }}
+                <StyledMenuFullscreenHeader menuType={menuType}>
+                  <IconButton
+                    aria-label={locale.menuFullscreen.ariaLabels.closeButton()}
+                    onClick={onClose}
+                    data-element="close"
+                  >
+                    <Icon
+                      type="close"
+                      color={isDarkVariant ? "--colorsYang100" : undefined}
+                    />
+                  </IconButton>
+                </StyledMenuFullscreenHeader>
+                <Box
+                  overflowY="auto"
+                  scrollVariant={isDarkVariant ? "dark" : "light"}
+                  width="100%"
+                  height="calc(100% - 40px)"
                 >
-                  {childArray}
-                </MenuContext.Provider>
-              </StyledMenuWrapper>
-            </Box>
+                  <StyledMenuWrapper
+                    data-component="menu"
+                    menuType={menuType}
+                    ref={contentRef}
+                    display="flex"
+                    flexDirection="column"
+                    role="list"
+                    inFullscreenView
+                  >
+                    <MenuContext.Provider
+                      value={{
+                        inFullscreenView: true,
+                        menuType,
+                        inMenu: true,
+                        openSubmenuId: null,
+                        setOpenSubmenuId: /* istanbul ignore next */ () => {},
+                      }}
+                    >
+                      {childArray}
+                    </MenuContext.Provider>
+                  </StyledMenuWrapper>
+                </Box>
+              </StyledMenuModal>
+            </FocusTrap>
           </StyledMenuFullscreen>
-        </FocusTrap>
+        </CSSTransition>
       </Portal>
     </li>
   );

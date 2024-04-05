@@ -1,0 +1,107 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ButtonStories from "../button/button.stories.tsx";
+import * as MultiActionButtonStories from "./multi-action-button.stories.tsx";
+
+<Meta title="Multi Action Button" of={MultiActionButtonStories} />
+
+# Multi Action Button
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/7428b1-button-multi-action/b/18aaff"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import MultiActionButton from "carbon-react/lib/components/multi-action-button";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={MultiActionButtonStories.DefaultStory} />
+
+### Disabled
+
+<Canvas of={MultiActionButtonStories.Disabled} />
+
+### Custom width
+
+Numbers from 0-1 are converted to percentage widths. Numbers greater than 1 are converted to pixel values.
+String values are passed as raw CSS values. `size` prop can still be used to set desired height.
+
+<Canvas of={MultiActionButtonStories.CustomWidth} />
+
+### Button types
+
+<Canvas of={MultiActionButtonStories.ButtonTypes} />
+
+### Child Button types
+
+Buttons used as a content of `MultiActionButton` can be of any type.
+
+<Canvas of={MultiActionButtonStories.ChildButtonTypes} />
+
+### Sizes
+
+<Canvas of={MultiActionButtonStories.Sizes} />
+
+### Alignment
+
+<Canvas of={MultiActionButtonStories.Alignment} />
+
+### Subtext
+
+Subtext only works when `size` is `large`
+
+<Canvas of={MultiActionButtonStories.Subtext} />
+
+## In overflow: hidden container
+
+<Canvas of={MultiActionButtonStories.InOverflowHiddenContainer} />
+
+## When children buttons render icons
+
+<Canvas of={MultiActionButtonStories.WithChildrenButtonsWithIcons} />
+
+## Props
+
+### MultiActionButton
+
+<ArgTypes of={MultiActionButtonStories} />
+
+### Button
+
+<ArgTypes
+  of={ButtonStories}
+  exclude={[
+    "fullWidth",
+    "m",
+    "mt",
+    "mb",
+    "my",
+    "mx",
+    "ml",
+    "mr",
+    "p",
+    "py",
+    "px",
+    "pt",
+    "pb",
+    "pl",
+    "pr",
+  ]}
+/>

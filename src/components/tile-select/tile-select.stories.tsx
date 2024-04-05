@@ -1,14 +1,32 @@
 import React, { useState } from "react";
+import { Meta, StoryObj } from "@storybook/react";
 
-import { TileSelect, TileSelectGroup, TileSelectDeselectEvent } from ".";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import Pill from "../pill";
 import Icon from "../icon";
 import Button from "../button";
 import Box from "../box";
 import Image from "../image";
 import Typography from "../typography";
+import { TileSelect, TileSelectGroup, TileSelectDeselectEvent } from ".";
 
-export const Default = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof TileSelect> = {
+  title: "Tile Select",
+  component: TileSelect,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof TileSelect>;
+
+export const Default: Story = () => {
   const [value, setValue] = useState<string | null>(null);
   return (
     <TileSelectGroup
@@ -69,8 +87,9 @@ export const Default = () => {
     </TileSelectGroup>
   );
 };
+Default.storyName = "Default";
 
-export const WithCustomActionButton = () => {
+export const WithCustomActionButton: Story = () => {
   const [value, setValue] = useState<string | null>(null);
   const [activated, setActivated] = useState(false);
   const [removed, setRemoved] = useState(false);
@@ -145,8 +164,9 @@ export const WithCustomActionButton = () => {
     </TileSelectGroup>
   );
 };
+WithCustomActionButton.storyName = "With Custom Action Button";
 
-export const WithActionButtonAdornment = () => {
+export const WithActionButtonAdornment: Story = () => {
   const [value, setValue] = useState<string | null>(null);
   return (
     <TileSelectGroup
@@ -223,8 +243,9 @@ export const WithActionButtonAdornment = () => {
     </TileSelectGroup>
   );
 };
+WithActionButtonAdornment.storyName = "With Action Button Adornment";
 
-export const MultiSelect = () => {
+export const MultiSelect: Story = () => {
   const [value1, setValue1] = useState(false);
   const [value2, setValue2] = useState(false);
   const [value3, setValue3] = useState(false);
@@ -299,8 +320,9 @@ export const MultiSelect = () => {
     </TileSelectGroup>
   );
 };
+MultiSelect.storyName = "Multi Select";
 
-export const SingleTile = () => {
+export const SingleTile: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
@@ -323,8 +345,9 @@ export const SingleTile = () => {
     />
   );
 };
+SingleTile.storyName = "Single Tile";
 
-export const WithAFooter = () => {
+export const WithAFooter: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
@@ -360,8 +383,9 @@ export const WithAFooter = () => {
     />
   );
 };
+WithAFooter.storyName = "With a Footer";
 
-export const WithAPrefixAdornment = () => {
+export const WithAPrefixAdornment: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
@@ -393,8 +417,9 @@ export const WithAPrefixAdornment = () => {
     />
   );
 };
+WithAPrefixAdornment.storyName = "With a Prefix Adornment";
 
-export const WithAdditionalInformation = () => {
+export const WithAdditionalInformation: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
@@ -430,8 +455,9 @@ export const WithAdditionalInformation = () => {
     />
   );
 };
+WithAdditionalInformation.storyName = "With Additional Information";
 
-export const WithAccordionFooter = () => {
+export const WithAccordionFooter: Story = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [expanded, setExpanded] = useState(true);
   const handleChange = (
@@ -498,8 +524,9 @@ export const WithAccordionFooter = () => {
     />
   );
 };
+WithAccordionFooter.storyName = "With Accordion Footer";
 
-export const WithCustomSpacing = () => {
+export const WithCustomSpacing: Story = () => {
   const [value, setValue] = useState<string | null>(null);
   return (
     <TileSelectGroup
@@ -564,3 +591,4 @@ export const WithCustomSpacing = () => {
     </TileSelectGroup>
   );
 };
+WithCustomSpacing.storyName = "With Custom Spacing";

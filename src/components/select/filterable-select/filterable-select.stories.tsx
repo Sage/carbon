@@ -1,77 +1,105 @@
 import React, { useState, useRef, useMemo, useCallback } from "react";
-import {
-  CustomSelectChangeEvent,
-  FilterableSelect,
-  Option,
-  OptionRow,
-} from "..";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
+
 import Button from "../../button";
 import Dialog from "../../dialog";
 import CarbonProvider from "../../carbon-provider";
 import Box from "../../box";
 import Icon from "../../icon";
 import Typography from "../../typography";
+import {
+  CustomSelectChangeEvent,
+  FilterableSelect,
+  Option,
+  OptionRow,
+} from "..";
 
-export const Default = () => (
-  <FilterableSelect name="simple" id="simple" label="color" labelInline>
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
 
-export const ListPlacement = () => (
-  <FilterableSelect
-    name="simple"
-    id="simple"
-    label="color"
-    labelInline
-    listPlacement="top"
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
+const meta: Meta<typeof FilterableSelect> = {
+  title: "Select/Filterable",
+  component: FilterableSelect,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
 
-export const ListHeight = () => (
-  <FilterableSelect
-    listMaxHeight={2000}
-    name="list height"
-    id="list-height"
-    label="List height"
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
+export default meta;
+type Story = StoryObj<typeof FilterableSelect>;
 
-export const Controlled = () => {
+export const Default: Story = () => {
+  return (
+    <FilterableSelect name="simple" id="simple" label="color" labelInline>
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  );
+};
+Default.storyName = "Default";
+
+export const ListPlacement: Story = () => {
+  return (
+    <FilterableSelect
+      name="simple"
+      id="simple"
+      label="color"
+      labelInline
+      listPlacement="top"
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  );
+};
+ListPlacement.storyName = "List Placement";
+
+export const ListHeight: Story = () => {
+  return (
+    <FilterableSelect
+      listMaxHeight={2000}
+      name="list height"
+      id="list-height"
+      label="List height"
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  );
+};
+ListHeight.storyName = "List Height";
+
+export const Controlled: Story = () => {
   const [value, setValue] = useState("");
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
@@ -106,211 +134,199 @@ export const Controlled = () => {
     </>
   );
 };
-
+Controlled.storyName = "Controlled";
 Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
-export const OpenOnFocus = () => (
-  <FilterableSelect
-    name="openOnFocus"
-    id="openOnFocus"
-    label="color"
-    openOnFocus
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
-
+export const OpenOnFocus: Story = () => {
+  return (
+    <FilterableSelect
+      name="openOnFocus"
+      id="openOnFocus"
+      label="color"
+      openOnFocus
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  );
+};
+OpenOnFocus.storyName = "Open on Focus";
 OpenOnFocus.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Disabled = () => (
-  <FilterableSelect
-    aria-label="disabled"
-    name="disabled"
-    id="disabled"
-    defaultValue="3"
-    disabled
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
+export const Disabled: Story = () => {
+  return (
+    <FilterableSelect
+      aria-label="disabled"
+      name="disabled"
+      id="disabled"
+      defaultValue="3"
+      disabled
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  );
+};
+Disabled.storyName = "Disabled";
 
-export const Readonly = () => (
-  <FilterableSelect
-    aria-label="readonly"
-    name="readonly"
-    id="readonly"
-    defaultValue="4"
-    readOnly
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
+export const Readonly: Story = () => {
+  return (
+    <FilterableSelect
+      aria-label="readonly"
+      name="readonly"
+      id="readonly"
+      defaultValue="4"
+      readOnly
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  );
+};
+Readonly.storyName = "Read Only";
 
-export const WithDisabledPortal = () => (
-  <FilterableSelect
-    disablePortal
-    name="withDisabledPortal"
-    id="withDisabledPortal"
-    label="color"
-    defaultValue="4"
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
-
-WithDisabledPortal.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithMultipleColumns = () => (
-  <FilterableSelect
-    name="withMultipleColumns"
-    id="withMultipleColumns"
-    label="clients"
-    defaultValue="4"
-    multiColumn
-    tableHeader={
-      <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Occupation</th>
-      </tr>
-    }
-  >
-    <OptionRow id="1" value="1" text="John Doe">
-      <td>John</td>
-      <td>Doe</td>
-      <td>Welder</td>
-    </OptionRow>
-    <OptionRow id="2" value="2" text="Joe Vick">
-      <td>Joe</td>
-      <td>Vick</td>
-      <td>Accountant</td>
-    </OptionRow>
-    <OptionRow id="3" value="3" text="Jane Poe">
-      <td>Jane</td>
-      <td>Poe</td>
-      <td>Accountant</td>
-    </OptionRow>
-    <OptionRow id="4" value="4" text="Jill Moe">
-      <td>Jill</td>
-      <td>Moe</td>
-      <td>Engineer</td>
-    </OptionRow>
-    <OptionRow id="5" value="5" text="Bill Zoe">
-      <td>Bill</td>
-      <td>Zoe</td>
-      <td>Astronaut</td>
-    </OptionRow>
-  </FilterableSelect>
-);
-
+export const WithMultipleColumns: Story = () => {
+  return (
+    <FilterableSelect
+      name="withMultipleColumns"
+      id="withMultipleColumns"
+      label="clients"
+      defaultValue="4"
+      multiColumn
+      tableHeader={
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Occupation</th>
+        </tr>
+      }
+    >
+      <OptionRow id="1" value="1" text="John Doe">
+        <td>John</td>
+        <td>Doe</td>
+        <td>Welder</td>
+      </OptionRow>
+      <OptionRow id="2" value="2" text="Joe Vick">
+        <td>Joe</td>
+        <td>Vick</td>
+        <td>Accountant</td>
+      </OptionRow>
+      <OptionRow id="3" value="3" text="Jane Poe">
+        <td>Jane</td>
+        <td>Poe</td>
+        <td>Accountant</td>
+      </OptionRow>
+      <OptionRow id="4" value="4" text="Jill Moe">
+        <td>Jill</td>
+        <td>Moe</td>
+        <td>Engineer</td>
+      </OptionRow>
+      <OptionRow id="5" value="5" text="Bill Zoe">
+        <td>Bill</td>
+        <td>Zoe</td>
+        <td>Astronaut</td>
+      </OptionRow>
+    </FilterableSelect>
+  );
+};
+WithMultipleColumns.storyName = "With Multiple Columns";
 WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithMultipleColumnsAndNested = () => (
-  <FilterableSelect
-    name="withMultipleColumns"
-    id="withMultipleColumns"
-    label="clients"
-    defaultValue="2"
-    multiColumn
-    openOnFocus
-    tableHeader={
-      <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Occupation</th>
-      </tr>
-    }
-    listActionButton={
-      <Button iconType="add" iconPosition="after">
-        Add a New Element
-      </Button>
-    }
-    // eslint-disable-next-line no-console
-    onListAction={() => console.log("Action")}
-  >
-    <OptionRow id="1" value="1" text="John Doe">
-      <td>John</td>
-      <td>Doe</td>
-      <td>
-        <b>test</b>
-      </td>
-    </OptionRow>
-    <OptionRow id="2" value="2" text="Joe Vick">
-      <td>Joe</td>
-      <td>Vick</td>
-      <td>
-        <b>Accountant</b>
-      </td>
-    </OptionRow>
-    <OptionRow id="3" value="3" text="Jane Poe">
-      <td>Jane</td>
-      <td>Poe</td>
-      <td>
-        <b>Accountant</b>
-      </td>
-    </OptionRow>
-    <OptionRow id="4" value="4" text="Jill Moe">
-      <td>Jill</td>
-      <td>Moe</td>
-      <td>
-        <b>Engineer</b>
-      </td>
-    </OptionRow>
-    <OptionRow id="5" value="5" text="Bill Zoe">
-      <td>Bill</td>
-      <td>Zoe</td>
-      <td>
-        <b>Astronaut</b>
-      </td>
-    </OptionRow>
-  </FilterableSelect>
-);
-
+export const WithMultipleColumnsAndNested: Story = () => {
+  return (
+    <FilterableSelect
+      name="withMultipleColumns"
+      id="withMultipleColumns"
+      label="clients"
+      defaultValue="2"
+      multiColumn
+      openOnFocus
+      tableHeader={
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Occupation</th>
+        </tr>
+      }
+      listActionButton={
+        <Button iconType="add" iconPosition="after">
+          Add a New Element
+        </Button>
+      }
+      // eslint-disable-next-line no-console
+      onListAction={() => console.log("Action")}
+    >
+      <OptionRow id="1" value="1" text="John Doe">
+        <td>John</td>
+        <td>Doe</td>
+        <td>
+          <b>test</b>
+        </td>
+      </OptionRow>
+      <OptionRow id="2" value="2" text="Joe Vick">
+        <td>Joe</td>
+        <td>Vick</td>
+        <td>
+          <b>Accountant</b>
+        </td>
+      </OptionRow>
+      <OptionRow id="3" value="3" text="Jane Poe">
+        <td>Jane</td>
+        <td>Poe</td>
+        <td>
+          <b>Accountant</b>
+        </td>
+      </OptionRow>
+      <OptionRow id="4" value="4" text="Jill Moe">
+        <td>Jill</td>
+        <td>Moe</td>
+        <td>
+          <b>Engineer</b>
+        </td>
+      </OptionRow>
+      <OptionRow id="5" value="5" text="Bill Zoe">
+        <td>Bill</td>
+        <td>Zoe</td>
+        <td>
+          <b>Astronaut</b>
+        </td>
+      </OptionRow>
+    </FilterableSelect>
+  );
+};
+WithMultipleColumnsAndNested.storyName = "With Multiple Columns and Nested";
 WithMultipleColumnsAndNested.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const WithActionButton = () => {
+export const WithActionButton: Story = () => {
   const [value, setValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [optionList, setOptionList] = useState([
@@ -360,10 +376,10 @@ export const WithActionButton = () => {
     </>
   );
 };
-
+WithActionButton.storyName = "With Action Button";
 WithActionButton.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithIsLoadingProp = () => {
+export const WithIsLoadingProp: Story = () => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -410,10 +426,10 @@ export const WithIsLoadingProp = () => {
     </>
   );
 };
-
+WithIsLoadingProp.storyName = "With isLoading prop";
 WithIsLoadingProp.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithInfiniteScroll = () => {
+export const WithInfiniteScroll: Story = () => {
   const preventLoading = useRef(false);
   const preventLazyLoading = useRef(false);
   const lazyLoadingCounter = useRef(0);
@@ -496,31 +512,58 @@ export const WithInfiniteScroll = () => {
     </>
   );
 };
-
+WithInfiniteScroll.storyName = "With Infinite Scroll";
 WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithCustomMaxWidth = () => (
-  <FilterableSelect name="simple" id="simple" label="color" maxWidth="50%">
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
-);
+export const WithCustomMaxWidth: Story = () => {
+  return (
+    <FilterableSelect name="simple" id="simple" label="color" maxWidth="50%">
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  );
+};
+WithCustomMaxWidth.storyName = "With Custom Max Width";
 
-export const Required = () => (
+export const Required: Story = () => {
+  return (
+    <FilterableSelect
+      name="required-select"
+      id="required-select"
+      label="Foreground Color"
+      required
+    >
+      <Option text="Amber" value="1" />
+      <Option text="Black" value="2" />
+      <Option text="Blue" value="3" />
+      <Option text="Brown" value="4" />
+      <Option text="Green" value="5" />
+      <Option text="Orange" value="6" />
+      <Option text="Pink" value="7" />
+      <Option text="Purple" value="8" />
+      <Option text="Red" value="9" />
+      <Option text="White" value="10" />
+      <Option text="Yellow" value="11" />
+    </FilterableSelect>
+  );
+};
+Required.storyName = "Required";
+
+export const IsOptional: Story = () => (
   <FilterableSelect
-    name="required-select"
-    id="required-select"
+    name="optional-select"
+    id="optional-select"
     label="Foreground Color"
-    required
+    isOptional
   >
     <Option text="Amber" value="1" />
     <Option text="Black" value="2" />
@@ -535,8 +578,9 @@ export const Required = () => (
     <Option text="Yellow" value="11" />
   </FilterableSelect>
 );
+IsOptional.storyName = "IsOptional";
 
-export const WithObjectAsValue = () => {
+export const WithObjectAsValue: Story = () => {
   const [value, setValue] = useState<Record<string, unknown>>({
     id: "Green",
     value: 5,
@@ -622,64 +666,67 @@ export const WithObjectAsValue = () => {
     </>
   );
 };
-
+WithObjectAsValue.storyName = "With Object as Value";
 WithObjectAsValue.parameters = { chromatic: { disableSnapshot: true } };
 
-export const ValidationsStringNewDesign = () => (
-  <CarbonProvider validationRedesignOptIn>
-    {["error", "warning"].map((validationType) =>
-      (["small", "medium", "large"] as const).map((size) => (
-        <Box width="296px" key={`${validationType}-${size}`}>
-          <FilterableSelect
-            name="filterable"
-            id={`${size} - ${validationType}`}
-            label={`${size} - ${validationType}`}
-            labelInline
-            size={size}
-            {...{ [validationType]: "Message" }}
-            m={4}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </FilterableSelect>
-          <FilterableSelect
-            name="filterable - readOnly"
-            id={`readOnly - ${size} - ${validationType}`}
-            label={`readOnly - ${size} - ${validationType}`}
-            labelInline
-            size={size}
-            {...{ [validationType]: "Message" }}
-            readOnly
-            m={4}
-          >
-            <Option text="Amber" value="1" />
-            <Option text="Black" value="2" />
-            <Option text="Blue" value="3" />
-            <Option text="Brown" value="4" />
-            <Option text="Green" value="5" />
-            <Option text="Orange" value="6" />
-            <Option text="Pink" value="7" />
-            <Option text="Purple" value="8" />
-            <Option text="Red" value="9" />
-            <Option text="White" value="10" />
-            <Option text="Yellow" value="11" />
-          </FilterableSelect>
-        </Box>
-      ))
-    )}
-  </CarbonProvider>
-);
+export const ValidationsStringNewDesign: Story = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      {["error", "warning"].map((validationType) =>
+        (["small", "medium", "large"] as const).map((size) => (
+          <Box width="296px" key={`${validationType}-${size}`}>
+            <FilterableSelect
+              name="filterable"
+              id={`${size} - ${validationType}`}
+              label={`${size} - ${validationType}`}
+              labelInline
+              size={size}
+              {...{ [validationType]: "Message" }}
+              m={4}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </FilterableSelect>
+            <FilterableSelect
+              name="filterable - readOnly"
+              id={`readOnly - ${size} - ${validationType}`}
+              label={`readOnly - ${size} - ${validationType}`}
+              labelInline
+              size={size}
+              {...{ [validationType]: "Message" }}
+              readOnly
+              m={4}
+            >
+              <Option text="Amber" value="1" />
+              <Option text="Black" value="2" />
+              <Option text="Blue" value="3" />
+              <Option text="Brown" value="4" />
+              <Option text="Green" value="5" />
+              <Option text="Orange" value="6" />
+              <Option text="Pink" value="7" />
+              <Option text="Purple" value="8" />
+              <Option text="Red" value="9" />
+              <Option text="White" value="10" />
+              <Option text="Yellow" value="11" />
+            </FilterableSelect>
+          </Box>
+        ))
+      )}
+    </CarbonProvider>
+  );
+};
+ValidationsStringNewDesign.storyName = "Validations String New Design";
 
-export const Virtualised = () => {
+export const Virtualised: Story = () => {
   const colors = [
     "Amber",
     "Black",
@@ -715,8 +762,9 @@ export const Virtualised = () => {
     </FilterableSelect>
   );
 };
+Virtualised.storyName = "Virtualised";
 
-export const SelectionConfirmedStory = () => {
+export const SelectionConfirmedStory: Story = () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
   const [value, setValue] = useState("");
   return (
@@ -754,10 +802,10 @@ export const SelectionConfirmedStory = () => {
     </Box>
   );
 };
-
+SelectionConfirmedStory.storyName = "Selection Confirmed";
 SelectionConfirmedStory.parameters = { chromatic: { disableSnapshot: true } };
 
-export const CustomFilterAndOptionStyle = () => {
+export const CustomFilterAndOptionStyle: Story = () => {
   const [filterText, setFilterText] = useState("");
   const [selectedColor, setSelectedColor] = useState<string | undefined>();
 
@@ -820,7 +868,7 @@ export const CustomFilterAndOptionStyle = () => {
     </Box>
   );
 };
-
+CustomFilterAndOptionStyle.storyName = "Custom Filter and Option Style";
 CustomFilterAndOptionStyle.parameters = {
   chromatic: { disableSnapshot: true },
 };

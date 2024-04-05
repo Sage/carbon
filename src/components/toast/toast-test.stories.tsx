@@ -76,6 +76,7 @@ Default.args = {
   variant: "success",
   isCenter: true,
   scrollablePage: false,
+  closeButtonDataProps: {},
 };
 Default.argTypes = {
   variant: {

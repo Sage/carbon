@@ -35,7 +35,6 @@ import {
   multiColumnsSelectListHeaderColumn,
   multiColumnsSelectListNoResultsMessage,
   multiColumnsSelectListRow,
-  multiSelectDataComponent,
   multiSelectPill,
   multiSelectPillByPosition,
   multiSelectPillByText,
@@ -43,6 +42,7 @@ import {
   selectInput,
   selectList,
   selectListPosition,
+  selectListScrollableWrapper,
   selectListWrapper,
   selectOption,
   selectOptionByText,
@@ -805,27 +805,6 @@ test.describe("MultiSelect component", () => {
     });
   });
 
-  ([
-    [true, 2],
-    [false, 1],
-  ] as [boolean, number][]).forEach(([state, numberOfChildren]) => {
-    test(`should check the disablePortal prop when ${state}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <div>
-          <MultiSelectComponent disablePortal={state} />
-        </div>
-      );
-
-      await dropdownButton(page).click();
-      await expect(multiSelectDataComponent(page).locator("> *")).toHaveCount(
-        numberOfChildren
-      );
-    });
-  });
-
   test("should render list options with multiple columns", async ({
     mount,
     page,
@@ -873,28 +852,8 @@ test.describe("MultiSelect component", () => {
     await expect(thirdColumnElement).toBeVisible();
   });
 
-  test("should indicate a matched filtered string with bold and underline", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MultiSelectMultiColumnsComponent />);
-
-    const text = "Do";
-    const inputElement = commonDataElementInputPreview(page);
-    await inputElement.click();
-    await expect(inputElement).toBeFocused();
-    await inputElement.type(text);
-    const highlightedValue = boldedAndUnderlinedValue(page, text);
-    await expect(highlightedValue).toHaveCSS(
-      "text-decoration-line",
-      "underline"
-    );
-    await expect(highlightedValue).toHaveCSS("text-decoration-style", "solid");
-    await expect(highlightedValue).toHaveCSS("font-weight", "700");
-  });
-
-  ["Xyz", " "].forEach((text) => {
-    test(`should indicate no results match for entered string "${text}"`, async ({
+  ["Do", " Do", "Do ", " Do "].forEach((text) => {
+    test(`should indicate a matched filtered string with bold and underline with entered string "${text}"`, async ({
       mount,
       page,
     }) => {
@@ -904,18 +863,41 @@ test.describe("MultiSelect component", () => {
       await inputElement.click();
       await expect(inputElement).toBeFocused();
       await inputElement.type(text);
-      await expect(selectListWrapper(page)).toBeVisible();
-      const headerElements = multiColumnsSelectListHeader(page);
-      await expect(headerElements).toHaveCount(columns);
-      const assertions = [];
-      for (let i = 0; i < columns; i++) {
-        assertions.push(expect(headerElements.nth(i)).toBeVisible());
-      }
-      await Promise.all(assertions);
-      await expect(
-        multiColumnsSelectListNoResultsMessage(page, text)
-      ).toBeVisible();
+      const highlightedValue = boldedAndUnderlinedValue(page, text);
+      await expect(highlightedValue).toHaveCSS(
+        "text-decoration-line",
+        "underline"
+      );
+      await expect(highlightedValue).toHaveCSS(
+        "text-decoration-style",
+        "solid"
+      );
+      await expect(highlightedValue).toHaveCSS("font-weight", "700");
     });
+  });
+
+  test("should indicate no results match for entered string Xyz", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MultiSelectMultiColumnsComponent />);
+
+    const text = "Xyz";
+    const inputElement = commonDataElementInputPreview(page);
+    await inputElement.click();
+    await expect(inputElement).toBeFocused();
+    await inputElement.type(text);
+    await expect(selectListWrapper(page)).toBeVisible();
+    const headerElements = multiColumnsSelectListHeader(page);
+    await expect(headerElements).toHaveCount(columns);
+    const assertions = [];
+    for (let i = 0; i < columns; i++) {
+      assertions.push(expect(headerElements.nth(i)).toBeVisible());
+    }
+    await Promise.all(assertions);
+    await expect(
+      multiColumnsSelectListNoResultsMessage(page, text)
+    ).toBeVisible();
   });
 
   [
@@ -1302,7 +1284,7 @@ test.describe("Check virtual scrolling", () => {
     await mount(<MultiSelectWithManyOptionsAndVirtualScrolling />);
 
     await dropdownButton(page).click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollTo(0, 750)
     );
     await page.waitForTimeout(250);
@@ -1584,7 +1566,7 @@ test.describe("Test for scroll bug regression", () => {
     await mount(<MultiSelectComponent />);
     const dropdownButtonElement = dropdownButton(page);
     await dropdownButtonElement.click();
-    await selectListWrapper(page).evaluate((wrapper) =>
+    await selectListScrollableWrapper(page).evaluate((wrapper) =>
       wrapper.scrollBy(0, 500)
     );
     await commonDataElementInputPreview(page).press("Escape");
@@ -1862,20 +1844,6 @@ test.describe("Accessibility tests for MultiSelect component", () => {
       await dropdownButton(page).click();
       await checkAccessibility(page, undefined, "scrollable-region-focusable");
     });
-  });
-
-  test("should pass accessibility tests with disablePortal prop", async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <div>
-        <MultiSelectComponent disablePortal />
-      </div>
-    );
-
-    await dropdownButton(page).click();
-    await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
   test("should pass accessibility tests with multiple columns", async ({

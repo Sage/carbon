@@ -1,0 +1,97 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as HeadingStories from "./heading.stories";
+
+<Meta title="Heading" of={HeadingStories} />
+
+# Heading
+
+A standard page or section header, with a range of options, such as a help link presented as an icon, a sub-heading, a 'Back' icon, and visual dividers and separators.
+
+Make sure that the colour of all text has a contrast ratio of at least 4.5.1,
+to meet the [WCAG 2.0 AA standard](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html "WCAG 2.0 AA standard") for text less than 19px in size.
+Webaim have a good online Contrast Checker.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Heading from "carbon-react/lib/components/heading";
+```
+
+## Examples
+
+### Default
+
+<Canvas of={HeadingStories.Default} />
+
+### Heading with headingType
+
+The `headingType` prop sets the HTML heading element which is rendered on the page. It can take values `"h1"` up to `"h5"`.
+
+<Canvas of={HeadingStories.WithHeadingType} />
+
+### Heading without Divider
+
+<Canvas of={HeadingStories.WithoutDivider} />
+
+### Heading with Subheader
+
+<Canvas of={HeadingStories.WithSubheader} />
+
+### Heading with Pill
+
+<Canvas of={HeadingStories.WithPill} />
+
+### Heading with multiple Pills
+
+<Canvas of={HeadingStories.WithMultiplePills} />
+
+### Heading with Pill and Subheader
+
+<Canvas of={HeadingStories.WithPillAndSubheader} />
+
+### Heading with Subheader and Separator
+
+<Canvas of={HeadingStories.WithSubheaderSeperator} />
+
+### Heading with Pill, Subheader and Separator
+
+<Canvas of={HeadingStories.WithPillSubheaderSeperator} />
+
+### Heading with Subheader and Children
+
+<Canvas of={HeadingStories.WithSubheaderChildren} />
+
+### Heading with Children as a Component
+
+In this example, the Heading component has the Tile component and the Definition List component rendered inside.
+
+<Canvas of={HeadingStories.WithChildrenComponent} />
+
+### Heading with Help
+
+<Canvas of={HeadingStories.WithHelp} />
+
+### Heading with Help and Pill
+
+<Canvas of={HeadingStories.WithHelpPill} />
+
+### Heading with Help and Help Link
+
+<Canvas of={HeadingStories.WithHelpLink} />
+
+### Heading with Back Link
+
+<Canvas of={HeadingStories.WithBackLink} />
+
+## Props
+
+### Heading
+
+<ArgTypes of={HeadingStories} />

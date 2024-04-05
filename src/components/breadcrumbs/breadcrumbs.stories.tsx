@@ -1,11 +1,26 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { Breadcrumbs } from ".";
 import { Crumb } from "./crumb";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-// eslint-disable-next-line import/prefer-default-export
-export const DefaultBreadcrumbs: ComponentStory<typeof Breadcrumbs> = () => {
+const styledSystemProps = generateStyledSystemProps({
+  spacing: true,
+});
+
+const meta: Meta<typeof Breadcrumbs> = {
+  title: "Breadcrumbs",
+  component: Breadcrumbs,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Breadcrumbs>;
+
+export const Default: Story = () => {
   return (
     <Breadcrumbs>
       <Crumb href="#">Breadcrumb 1</Crumb>
@@ -17,3 +32,4 @@ export const DefaultBreadcrumbs: ComponentStory<typeof Breadcrumbs> = () => {
     </Breadcrumbs>
   );
 };
+Default.storyName = "Default";

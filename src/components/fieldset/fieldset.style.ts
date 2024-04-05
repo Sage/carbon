@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
@@ -10,6 +10,10 @@ import CheckboxStyle from "../checkbox/checkbox.style";
 export interface StyledFieldsetProps {
   /** When true, legend is placed in line with the children */
   inline?: boolean;
+  /** Flag to configure fields as mandatory. */
+  isRequired?: boolean;
+  /** Flag to configure fields as optional. */
+  isOptional?: boolean;
 }
 
 const FieldsetStyle = styled.fieldset`
@@ -46,9 +50,36 @@ const LegendContainerStyle = styled.div<StyledFieldsetProps>`
 
   legend {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: var(--fontWeights700);
+    color: var(--colorsUtilityYin090);
     line-height: 24px;
     margin-right: 4px;
+
+    ${({ isRequired }) =>
+      isRequired &&
+      css`
+        ::after {
+          content: "*";
+          line-height: 24px;
+          color: var(--colorsSemanticNegative500);
+          font-weight: var(--fontWeights700);
+          margin-left: var(--spacing100);
+          position: relative;
+          top: 1px;
+          left: -4px;
+        }
+      `}
+
+    ${({ isOptional }) =>
+      isOptional &&
+      css`
+        ::after {
+          content: "(optional)";
+          color: var(--colorsUtilityYin055);
+          font-weight: var(--fontWeights400);
+          margin-left: var(--spacing050);
+        }
+      `}
   }
 
   ${ValidationIconStyle} ${StyledIcon}:focus {

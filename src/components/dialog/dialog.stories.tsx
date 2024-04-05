@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
-import { StoryFn } from "@storybook/react";
-import isChromatic from "../../../.storybook/isChromatic";
+import { Meta, StoryObj } from "@storybook/react";
 
-import Dialog from ".";
-import type { DialogHandle } from ".";
+import isChromatic from "../../../.storybook/isChromatic";
+import { allModes } from "../../../.storybook/modes";
 
 import Box from "../box";
 import Button from "../button";
@@ -18,9 +17,42 @@ import Textarea from "../textarea";
 import CarbonProvider from "../carbon-provider";
 import useMediaQuery from "../../hooks/useMediaQuery";
 
+import type { DialogHandle } from ".";
+import Dialog from ".";
+
 const defaultOpenState = isChromatic();
 
-export const DefaultStory: StoryFn = () => {
+const meta: Meta<typeof Dialog> = {
+  title: "Dialog",
+  component: Dialog,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    controls: { disable: true },
+    chromatic: {
+      modes: {
+        desktop: allModes.chromatic,
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100%" height={900}>
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof Dialog>;
+
+export const DefaultStory: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -63,8 +95,9 @@ export const DefaultStory: StoryFn = () => {
     </>
   );
 };
+DefaultStory.storyName = "Default";
 
-export const Editable: StoryFn = () => {
+export const Editable: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const [isDisabled, setIsDisabled] = useState(true);
   const [radioValue, setRadioValue] = useState("1");
@@ -131,9 +164,10 @@ export const Editable: StoryFn = () => {
     </>
   );
 };
+Editable.storyName = "Editable";
 Editable.parameters = { chromatic: { disableSnapshot: true } };
 
-export const WithHelp: StoryFn = () => {
+export const WithHelp: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -171,8 +205,9 @@ export const WithHelp: StoryFn = () => {
     </>
   );
 };
+WithHelp.storyName = "With Help";
 
-export const LoadingContent: StoryFn = () => {
+export const LoadingContent: Story = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(defaultOpenState);
 
@@ -210,9 +245,10 @@ export const LoadingContent: StoryFn = () => {
     </>
   );
 };
+LoadingContent.storyName = "Loading Content";
 LoadingContent.parameters = { chromatic: { disableSnapshot: true } };
 
-export const FocusingADifferentFirstElement: StoryFn = () => {
+export const FocusingADifferentFirstElement: Story = () => {
   const [isOpenOne, setIsOpenOne] = useState(false);
   const [isOpenTwo, setIsOpenTwo] = useState(false);
   const ref = useRef(null);
@@ -267,11 +303,12 @@ export const FocusingADifferentFirstElement: StoryFn = () => {
     </>
   );
 };
+FocusingADifferentFirstElement.storyName = "Focusing a Different First Element";
 FocusingADifferentFirstElement.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const OverridingContentPadding: StoryFn = () => {
+export const OverridingContentPadding: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -315,8 +352,9 @@ export const OverridingContentPadding: StoryFn = () => {
     </>
   );
 };
+OverridingContentPadding.storyName = "Overriding Content Padding";
 
-export const OtherFocusableContainers: StoryFn = () => {
+export const OtherFocusableContainers: Story = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isToast1Open, setIsToast1Open] = useState(false);
   const [isToast2Open, setIsToast2Open] = useState(false);
@@ -382,11 +420,12 @@ export const OtherFocusableContainers: StoryFn = () => {
     </>
   );
 };
+OtherFocusableContainers.storyName = "Other Focusable Containers";
 OtherFocusableContainers.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const Responsive: StoryFn = () => {
+export const Responsive: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   const largeScreen = useMediaQuery("(min-width: 1260px)");
   const mediumScreen = useMediaQuery("(min-width: 960px)");
@@ -434,13 +473,9 @@ export const Responsive: StoryFn = () => {
     </>
   );
 };
-Responsive.parameters = {
-  chromatic: {
-    viewports: [1500, 900],
-  },
-};
+Responsive.storyName = "Responsive";
 
-export const UsingHandle = () => {
+export const UsingHandle: Story = () => {
   const dialogHandle = useRef<DialogHandle>(null);
 
   const [isOpen, setIsOpen] = useState(defaultOpenState);
@@ -482,8 +517,9 @@ export const UsingHandle = () => {
     </CarbonProvider>
   );
 };
+UsingHandle.storyName = "Using Handle";
 
-export const TopModalOverride: StoryFn = () => {
+export const TopModalOverride: Story = () => {
   const [isOpenAll, setIsOpenAll] = useState(defaultOpenState);
   const [isOpenDialog1, setIsOpenDialog1] = useState(true);
   const [isOpenDialog2, setIsOpenDialog2] = useState(true);
@@ -533,10 +569,10 @@ export const TopModalOverride: StoryFn = () => {
     </>
   );
 };
+TopModalOverride.storyName = "Top Modal Override";
 
-export const GreyBackground: StoryFn = () => {
+export const GreyBackground: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
-
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
@@ -579,3 +615,4 @@ export const GreyBackground: StoryFn = () => {
     </>
   );
 };
+GreyBackground.storyName = "Grey Background";

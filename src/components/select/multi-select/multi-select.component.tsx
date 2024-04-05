@@ -53,8 +53,6 @@ export interface MultiSelectProps
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string[] | Record<string, unknown>[];
-  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
-  disablePortal?: boolean;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** When true component will work in multi column mode.
@@ -92,6 +90,8 @@ export interface MultiSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
 }
 
 export const MultiSelect = React.forwardRef(
@@ -117,7 +117,6 @@ export const MultiSelect = React.forwardRef(
       openOnFocus = false,
       noResultsMessage,
       placeholder,
-      disablePortal,
       isLoading,
       tableHeader,
       multiColumn,
@@ -133,6 +132,8 @@ export const MultiSelect = React.forwardRef(
       inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
+      isOptional,
+      required,
       ...textboxProps
     }: MultiSelectProps,
     ref
@@ -628,6 +629,8 @@ export const MultiSelect = React.forwardRef(
         onChange: handleTextboxChange,
         tooltipPosition,
         size,
+        required,
+        isOptional,
         inputRef,
         ...filterOutStyledSystemSpacingProps(textboxProps),
       };
@@ -642,10 +645,9 @@ export const MultiSelect = React.forwardRef(
         onSelect={onSelectOption}
         onSelectListClose={onSelectListClose}
         onMouseDown={handleListMouseDown}
-        filterText={filterText}
+        filterText={filterText.trim()}
         highlightedValue={highlightedValue}
         noResultsMessage={noResultsMessage}
-        disablePortal={disablePortal}
         isLoading={isLoading}
         tableHeader={tableHeader}
         multiColumn={multiColumn}

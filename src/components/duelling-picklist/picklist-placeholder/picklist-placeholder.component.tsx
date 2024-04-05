@@ -7,10 +7,12 @@ export interface PicklistPlaceholderProps {
   text: string;
 }
 
-export const PicklistPlaceholder = ({ text }: PicklistPlaceholderProps) => (
-  <StyledPicklistPlaceholder data-element="picklist-placeholder">
-    {text}
-  </StyledPicklistPlaceholder>
-);
+export const PicklistPlaceholder = ({ text }: PicklistPlaceholderProps) => {
+  return (
+    <StyledPicklistPlaceholder data-element="picklist-placeholder">
+      {text}
+    </StyledPicklistPlaceholder>
+  );
+};
 
 export default PicklistPlaceholder;

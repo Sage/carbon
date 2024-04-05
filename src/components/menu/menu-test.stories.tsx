@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { allModes } from "../../../.storybook/modes";
+import isChromatic from "../../../.storybook/isChromatic";
 import { Menu, MenuItem, MenuFullscreen, MenuFullscreenProps } from ".";
 import { MenuType } from "./menu.context";
 import Search from "../search";
+import Box from "../box";
 import NavigationBar, { NavigationBarProps } from "../navigation-bar";
 import GlobalHeader from "../global-header";
 
-export default {
+const defaultOpenState = isChromatic();
+
+const meta: Meta<typeof Menu> = {
   title: "Menu/Test",
   includeStories: [
     "MenuFullScreenStory",
@@ -19,9 +25,27 @@ export default {
     info: { disable: true },
     chromatic: {
       disableSnapshot: false,
+      modes: {
+        desktop: allModes.chromatic,
+      },
     },
   },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100%" height={900}>
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
 };
+export default meta;
+
 interface MenuFullScreenStoryProps extends MenuFullscreenProps {
   searchVariant?: "default" | "dark";
   menuType: MenuType;
@@ -36,10 +60,13 @@ export const MenuFullScreenStory = ({
 }: MenuFullScreenStoryProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const onClose = (
-    evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+    ev:
+      | React.KeyboardEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>
+      | KeyboardEvent
   ) => {
     setIsOpen(false);
-    action("close icon clicked")(evt);
+    action("close icon clicked")(ev);
   };
   const handleOpen = () => {
     setIsOpen(true);

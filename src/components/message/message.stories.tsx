@@ -1,14 +1,30 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useRef, useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import Message from ".";
 import Button from "../button";
 import Typography, { List, ListItem } from "../typography";
 import Box from "../box";
 import Link from "../link";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-export const Default: ComponentStory<typeof Message> = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof Message> = {
+  title: "Message",
+  component: Message,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Message>;
+
+export const Default: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -19,17 +35,21 @@ export const Default: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+Default.storyName = "Default";
 
-export const ShowCloseIcon: ComponentStory<typeof Message> = () => (
-  <Box width="600px">
-    <Message showCloseIcon={false} open>
-      A longer custom message which now shows the close icon is not rendered and
-      padding is equal on both sides
-    </Message>
-  </Box>
-);
+export const ShowCloseIcon: Story = () => {
+  return (
+    <Box width="600px">
+      <Message showCloseIcon={false} open>
+        A longer custom message which now shows the close icon is not rendered
+        and padding is equal on both sides
+      </Message>
+    </Box>
+  );
+};
+ShowCloseIcon.storyName = "Show Close Icon";
 
-export const Error: ComponentStory<typeof Message> = () => {
+export const Error: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -40,8 +60,9 @@ export const Error: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+Error.storyName = "Error";
 
-export const Success: ComponentStory<typeof Message> = () => {
+export const Success: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -56,8 +77,9 @@ export const Success: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+Success.storyName = "Success";
 
-export const Warning: ComponentStory<typeof Message> = () => {
+export const Warning: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -72,8 +94,9 @@ export const Warning: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+Warning.storyName = "Warning";
 
-export const Neutral: ComponentStory<typeof Message> = () => {
+export const Neutral: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -88,8 +111,9 @@ export const Neutral: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+Neutral.storyName = "Neutral";
 
-export const Transparent: ComponentStory<typeof Message> = () => {
+export const Transparent: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -100,8 +124,9 @@ export const Transparent: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+Transparent.storyName = "Transparent";
 
-export const WithRichContent: ComponentStory<typeof Message> = () => {
+export const WithRichContent: Story = () => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <>
@@ -133,8 +158,9 @@ export const WithRichContent: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+WithRichContent.storyName = "With Rich Content";
 
-export const WithMargin: ComponentStory<typeof Message> = () => {
+export const WithMargin: Story = () => {
   const [isOpen, setIsOpen] = useState({
     MessageOne: true,
     MessageTwo: true,
@@ -186,8 +212,9 @@ export const WithMargin: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+WithMargin.storyName = "With Margin";
 
-export const WithFocus: ComponentStory<typeof Message> = () => {
+export const WithFocus: Story = () => {
   const [isMessageOpen, setIsMessageOpen] = useState(true);
 
   const messageRef: React.Ref<HTMLDivElement> = useRef(null);
@@ -215,3 +242,4 @@ export const WithFocus: ComponentStory<typeof Message> = () => {
     </>
   );
 };
+WithFocus.storyName = "With Focus";

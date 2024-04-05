@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import DateInput, { DateChangeEvent } from "./date.component";
 import Box from "../box";
@@ -7,7 +10,22 @@ import Button from "../button";
 import I18nProvider from "../i18n-provider";
 import { zhCN, de } from "../../locales/date-fns-locales";
 
-export const Default: ComponentStory<typeof DateInput> = () => {
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof DateInput> = {
+  title: "Date Input",
+  component: DateInput,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof DateInput>;
+
+export const Default: Story = () => {
   const [state, setState] = useState("04/04/2019");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -21,10 +39,10 @@ export const Default: ComponentStory<typeof DateInput> = () => {
     />
   );
 };
-
+Default.storyName = "Default";
 Default.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Sizes: ComponentStory<typeof DateInput> = () => {
+export const Sizes: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -44,8 +62,9 @@ export const Sizes: ComponentStory<typeof DateInput> = () => {
     </>
   );
 };
+Sizes.storyName = "Sizes";
 
-export const AutoFocus: ComponentStory<typeof DateInput> = () => {
+export const AutoFocus: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -56,29 +75,31 @@ export const AutoFocus: ComponentStory<typeof DateInput> = () => {
     </div>
   );
 };
-
+AutoFocus.storyName = "Auto Focus";
 AutoFocus.parameters = {
   themeProvider: { chromatic: { fourColumnLayout: true } },
   chromatic: { viewports: [1800] },
 };
 
-export const Disabled: ComponentStory<typeof DateInput> = () => {
+export const Disabled: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
   return <DateInput label="Date" value={state} onChange={setValue} disabled />;
 };
+Disabled.storyName = "Disabled";
 
-export const ReadOnly: ComponentStory<typeof DateInput> = () => {
+export const ReadOnly: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
   return <DateInput label="Date" value={state} onChange={setValue} readOnly />;
 };
+ReadOnly.storyName = "Read Only";
 
-export const Empty: ComponentStory<typeof DateInput> = () => {
+export const Empty: Story = () => {
   const [state, setState] = useState("");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -101,8 +122,9 @@ export const Empty: ComponentStory<typeof DateInput> = () => {
     </>
   );
 };
+Empty.storyName = "Empty";
 
-export const WithLabelInline: ComponentStory<typeof DateInput> = () => {
+export const WithLabelInline: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -117,8 +139,9 @@ export const WithLabelInline: ComponentStory<typeof DateInput> = () => {
     />
   );
 };
+WithLabelInline.storyName = "With Label Inline";
 
-export const WithCustomWidth: ComponentStory<typeof DateInput> = () => {
+export const WithCustomWidth: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -135,8 +158,9 @@ export const WithCustomWidth: ComponentStory<typeof DateInput> = () => {
     />
   );
 };
+WithCustomWidth.storyName = "With Custom Width";
 
-export const WithFieldHelp: ComponentStory<typeof DateInput> = () => {
+export const WithFieldHelp: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -151,8 +175,9 @@ export const WithFieldHelp: ComponentStory<typeof DateInput> = () => {
     />
   );
 };
+WithFieldHelp.storyName = "With Field Help";
 
-export const WithLabelHelp: ComponentStory<typeof DateInput> = () => {
+export const WithLabelHelp: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -168,8 +193,9 @@ export const WithLabelHelp: ComponentStory<typeof DateInput> = () => {
     />
   );
 };
+WithLabelHelp.storyName = "With Label Help";
 
-export const WithDisabledPortal: ComponentStory<typeof DateInput> = () => {
+export const WithDisabledPortal: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -178,20 +204,30 @@ export const WithDisabledPortal: ComponentStory<typeof DateInput> = () => {
     <DateInput label="Date" value={state} onChange={setValue} disablePortal />
   );
 };
-
+WithDisabledPortal.storyName = "With Disabled Portal";
 WithDisabledPortal.parameters = { chromatic: { disableSnapshot: true } };
 
-export const Required: ComponentStory<typeof DateInput> = () => {
+export const Required: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
   };
   return <DateInput label="Date" value={state} onChange={setValue} required />;
 };
+Required.storyName = "Required";
 
-export const ValidationsStringComponent: ComponentStory<
-  typeof DateInput
-> = () => {
+export const IsOptional: Story = () => {
+  const [state, setState] = useState("01/10/2016");
+  const setValue = (ev: DateChangeEvent) => {
+    setState(ev.target.value.formattedValue);
+  };
+  return (
+    <DateInput label="Date" value={state} onChange={setValue} isOptional />
+  );
+};
+IsOptional.storyName = "IsOptional";
+
+export const ValidationsStringComponent: Story = () => {
   const [state1, setState1] = useState("01/10/2016");
   const setValue1 = (ev: DateChangeEvent) => {
     setState1(ev.target.value.formattedValue);
@@ -224,10 +260,9 @@ export const ValidationsStringComponent: ComponentStory<
     </>
   );
 };
+ValidationsStringComponent.storyName = "Validations - String - Component";
 
-export const ValidationsStringWithTooltipPositionOverriddenComponent: ComponentStory<
-  typeof DateInput
-> = () => {
+export const ValidationsStringWithTooltipPositionOverriddenComponent: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -249,12 +284,13 @@ export const ValidationsStringWithTooltipPositionOverriddenComponent: ComponentS
     </>
   );
 };
-
+ValidationsStringWithTooltipPositionOverriddenComponent.storyName =
+  "Validations - String - With Tooltip Position Overridden";
 ValidationsStringWithTooltipPositionOverriddenComponent.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationsStringLabel: ComponentStory<typeof DateInput> = () => {
+export const ValidationsStringLabel: Story = () => {
   const [state1, setState1] = useState("01/10/2016");
   const setValue1 = (ev: DateChangeEvent) => {
     setState1(ev.target.value.formattedValue);
@@ -289,10 +325,9 @@ export const ValidationsStringLabel: ComponentStory<typeof DateInput> = () => {
     </>
   );
 };
+ValidationsStringLabel.storyName = "Validations - String - Label";
 
-export const ValidationsStringWithTooltipPositionOverriddenLabel: ComponentStory<
-  typeof DateInput
-> = () => {
+export const ValidationsStringWithTooltipPositionOverriddenLabel: Story = () => {
   const [state, setState] = useState("01/10/2016");
   const setValue = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -315,14 +350,13 @@ export const ValidationsStringWithTooltipPositionOverriddenLabel: ComponentStory
     </>
   );
 };
-
+ValidationsStringWithTooltipPositionOverriddenLabel.storyName =
+  "Validations - String - With Tooltip Position Overridden";
 ValidationsStringWithTooltipPositionOverriddenLabel.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationsStringNewDesign: ComponentStory<
-  typeof DateInput
-> = () => {
+export const ValidationsStringNewDesign: Story = () => {
   const [state1, setState1] = useState("01/10/2016");
   const setValue1 = (ev: DateChangeEvent) => {
     setState1(ev.target.value.formattedValue);
@@ -364,8 +398,9 @@ export const ValidationsStringNewDesign: ComponentStory<
     </CarbonProvider>
   );
 };
+ValidationsStringNewDesign.storyName = "Validations - String - New Design";
 
-export const ValidationsBoolean: ComponentStory<typeof DateInput> = () => {
+export const ValidationsBoolean: Story = () => {
   const [state1, setState1] = useState("01/10/2016");
   const setValue1 = (ev: DateChangeEvent) => {
     setState1(ev.target.value.formattedValue);
@@ -396,10 +431,9 @@ export const ValidationsBoolean: ComponentStory<typeof DateInput> = () => {
     </>
   );
 };
+ValidationsBoolean.storyName = "Validations - Boolean";
 
-export const ValidationsExampleImplementation: ComponentStory<
-  typeof DateInput
-> = () => {
+export const ValidationsExampleImplementation: Story = () => {
   const [state, setState] = useState("05/04/2022");
   const [validationState, setValidationState] = useState("");
   const handleChange = (ev: DateChangeEvent) => {
@@ -427,14 +461,13 @@ export const ValidationsExampleImplementation: ComponentStory<
     </div>
   );
 };
-
+ValidationsExampleImplementation.storyName =
+  "Validations - Example Implementation";
 ValidationsExampleImplementation.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const LocaleOverrideExampleImplementation: ComponentStory<
-  typeof DateInput
-> = () => {
+export const LocaleOverrideExampleImplementation: Story = () => {
   const [state, setState] = useState("2022-04-05");
   const handleChange = (ev: DateChangeEvent) => {
     setState(ev.target.value.formattedValue);
@@ -484,7 +517,8 @@ export const LocaleOverrideExampleImplementation: ComponentStory<
     </div>
   );
 };
-
+LocaleOverrideExampleImplementation.storyName =
+  "Locale Override - Example Implementation";
 LocaleOverrideExampleImplementation.parameters = {
   chromatic: { disableSnapshot: true },
 };

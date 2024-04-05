@@ -1,0 +1,69 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as AdvancedColorPickerStories from "./advanced-color-picker.stories";
+
+<Meta title="Advanced Color Picker" of={AdvancedColorPickerStories} />
+
+# Advanced Color Picker
+
+Selects a single colour from a defined set.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+To use advanced color picker, import `AdvancedColorPicker`
+
+```javascript
+import AdvancedColorPicker from "carbon-react/lib/components/advanced-color-picker";
+```
+
+## Examples
+
+### Basic usage
+
+Shows how the color picker can be used to select a color from a predefined set.
+
+<Canvas of={AdvancedColorPickerStories.Default} />
+
+## Props
+
+### AdvancedColorPicker
+
+<ArgTypes of={AdvancedColorPickerStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "advancedColorPicker.currentColorDescriptionTerm",
+      description:
+        "The text which specifies the term in the visually hidden color description list",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "advancedColorPicker.currentColorAssigned",
+      description:
+        "The text which specifies the currently selected color in the visually hidden color description list",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "advancedColorPicker.ariaLabel",
+      description:
+        "The text which specifies the aria-label which will be applied to the color picker cell button which opens the component",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

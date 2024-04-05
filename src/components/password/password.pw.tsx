@@ -290,7 +290,7 @@ test.describe("aria-live region checks", () => {
     await mount(<PasswordComponent />);
 
     const hiddenStatus = page.getByRole("status");
-    await expect(hiddenStatus).toHaveText("Your Password is currently hidden.");
+    await expect(hiddenStatus).toHaveText("Your password is currently hidden.");
   });
 
   test("when user clicks to show password, aria-live region should contain the correct shown text", async ({

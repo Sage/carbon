@@ -1,9 +1,29 @@
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import Button from ".";
 import Box from "../box";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-export const PrimaryButton: ComponentStory<typeof Button> = () => {
+const styledSystemProps = generateStyledSystemProps(
+  {
+    spacing: true,
+  },
+  { pt: "1px", pb: "1px", px: "24px" }
+);
+
+const meta: Meta<typeof Button> = {
+  title: "Button",
+  component: Button,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const PrimaryButton: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="primary" size="small" ml={2}>
@@ -18,8 +38,9 @@ export const PrimaryButton: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+PrimaryButton.storyName = "Primary";
 
-export const PrimaryButtonDestructive: ComponentStory<typeof Button> = () => {
+export const PrimaryButtonDestructive: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="primary" destructive size="small" ml={2}>
@@ -34,8 +55,9 @@ export const PrimaryButtonDestructive: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+PrimaryButtonDestructive.storyName = "Primary/Destructive";
 
-export const PrimaryButtonDisabled: ComponentStory<typeof Button> = () => {
+export const PrimaryButtonDisabled: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="primary" disabled size="small" ml={2}>
@@ -50,8 +72,9 @@ export const PrimaryButtonDisabled: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+PrimaryButtonDisabled.storyName = "Primary/Disabled";
 
-export const PrimaryButtonIcon: ComponentStory<typeof Button> = () => {
+export const PrimaryButtonIcon: Story = () => {
   return (
     <Box>
       <Button ml={2} mt={2} buttonType="primary" iconType="print">
@@ -80,8 +103,9 @@ export const PrimaryButtonIcon: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+PrimaryButtonIcon.storyName = "Primary/Icon";
 
-export const PrimaryButtonFullWitdth: ComponentStory<typeof Button> = () => {
+export const PrimaryButtonFullWitdth: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="primary" fullWidth>
@@ -90,8 +114,9 @@ export const PrimaryButtonFullWitdth: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+PrimaryButtonFullWitdth.storyName = "Primary/Full Width";
 
-export const PrimaryButtonNoWrap: ComponentStory<typeof Button> = () => {
+export const PrimaryButtonNoWrap: Story = () => {
   return (
     <Box width="40px">
       <Button ml={2} mt={2} buttonType="primary" noWrap>
@@ -100,8 +125,9 @@ export const PrimaryButtonNoWrap: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+PrimaryButtonNoWrap.storyName = "Primary/No Wrap";
 
-export const SecondaryButton: ComponentStory<typeof Button> = () => {
+export const SecondaryButton: Story = () => {
   return (
     <Box>
       <Button mt={2} size="small" ml={2}>
@@ -116,8 +142,9 @@ export const SecondaryButton: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+SecondaryButton.storyName = "Secondary";
 
-export const SecondaryButtonDestructive: ComponentStory<typeof Button> = () => {
+export const SecondaryButtonDestructive: Story = () => {
   return (
     <Box>
       <Button mt={2} destructive size="small" ml={2}>
@@ -132,8 +159,9 @@ export const SecondaryButtonDestructive: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+SecondaryButtonDestructive.storyName = "Secondary/Destructive";
 
-export const SecondaryButtonDisabled: ComponentStory<typeof Button> = () => {
+export const SecondaryButtonDisabled: Story = () => {
   return (
     <Box>
       <Button mt={2} size="small" disabled ml={2}>
@@ -148,8 +176,9 @@ export const SecondaryButtonDisabled: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+SecondaryButtonDisabled.storyName = "Secondary/Disabled";
 
-export const SecondaryButtonIcon: ComponentStory<typeof Button> = () => {
+export const SecondaryButtonIcon: Story = () => {
   return (
     <Box>
       <Button mt={2} iconType="print" ml={2}>
@@ -164,8 +193,9 @@ export const SecondaryButtonIcon: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+SecondaryButtonIcon.storyName = "Secondary/Icon";
 
-export const SecondaryFullWidth: ComponentStory<typeof Button> = () => {
+export const SecondaryButtonFullWidth: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="secondary" fullWidth>
@@ -174,8 +204,9 @@ export const SecondaryFullWidth: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+SecondaryButtonFullWidth.storyName = "Secondary/Full Width";
 
-export const SecondaryNoWrap: ComponentStory<typeof Button> = () => {
+export const SecondaryButtonNoWrap: Story = () => {
   return (
     <Box width="40px">
       <Button ml={2} mt={2} buttonType="secondary" noWrap>
@@ -184,8 +215,9 @@ export const SecondaryNoWrap: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+SecondaryButtonNoWrap.storyName = "Secondary/No Wrap";
 
-export const TertiaryButton: ComponentStory<typeof Button> = () => {
+export const TertiaryButton: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="tertiary" size="small" ml={2}>
@@ -200,8 +232,9 @@ export const TertiaryButton: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+TertiaryButton.storyName = "Tertiary";
 
-export const TertiaryButtonDestructive: ComponentStory<typeof Button> = () => {
+export const TertiaryButtonDestructive: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="tertiary" destructive size="small" ml={2}>
@@ -216,8 +249,9 @@ export const TertiaryButtonDestructive: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+TertiaryButtonDestructive.storyName = "Tertiary/Destructive";
 
-export const TertiaryButtonDisabled: ComponentStory<typeof Button> = () => {
+export const TertiaryButtonDisabled: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="tertiary" disabled size="small" ml={2}>
@@ -232,8 +266,9 @@ export const TertiaryButtonDisabled: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+TertiaryButtonDisabled.storyName = "Tertiary/Disabled";
 
-export const TertiaryButtonIcon: ComponentStory<typeof Button> = () => {
+export const TertiaryButtonIcon: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="tertiary" iconType="print" ml={2}>
@@ -262,8 +297,9 @@ export const TertiaryButtonIcon: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+TertiaryButtonIcon.storyName = "Tertiary/Icon";
 
-export const TertiaryButtonFullWitdth: ComponentStory<typeof Button> = () => {
+export const TertiaryButtonFullWidth: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="tertiary" fullWidth>
@@ -272,8 +308,9 @@ export const TertiaryButtonFullWitdth: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+TertiaryButtonFullWidth.storyName = "Tertiary/Full Width";
 
-export const TertiaryButtonNoWrap: ComponentStory<typeof Button> = () => {
+export const TertiaryButtonNoWrap: Story = () => {
   return (
     <Box width="40px">
       <Button ml={2} mt={2} buttonType="tertiary" noWrap>
@@ -282,8 +319,9 @@ export const TertiaryButtonNoWrap: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+TertiaryButtonNoWrap.storyName = "Tertiary/No Wrap";
 
-export const DashedButton: ComponentStory<typeof Button> = () => {
+export const DashedButton: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="dashed" size="small">
@@ -298,8 +336,9 @@ export const DashedButton: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+DashedButton.storyName = "Dashed";
 
-export const DashedButtonDisabled: ComponentStory<typeof Button> = () => {
+export const DashedButtonDisabled: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="dashed" disabled size="small">
@@ -314,8 +353,9 @@ export const DashedButtonDisabled: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+DashedButtonDisabled.storyName = "Dashed/Disabled";
 
-export const DashedButtonIcon: ComponentStory<typeof Button> = () => {
+export const DashedButtonIcon: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="dashed" iconType="add" size="small">
@@ -353,8 +393,9 @@ export const DashedButtonIcon: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+DashedButtonIcon.storyName = "Dashed/Icon";
 
-export const DashedButtonFullWidth: ComponentStory<typeof Button> = () => {
+export const DashedButtonFullWidth: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="dashed" fullWidth>
@@ -363,8 +404,9 @@ export const DashedButtonFullWidth: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+DashedButtonFullWidth.storyName = "Dashed/Full Width";
 
-export const DashedButtonNoWrap: ComponentStory<typeof Button> = () => {
+export const DashedButtonNoWrap: Story = () => {
   return (
     <Box width="40px">
       <Button mt={2} buttonType="dashed" noWrap>
@@ -373,8 +415,9 @@ export const DashedButtonNoWrap: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+DashedButtonNoWrap.storyName = "Dashed/No Wrap";
 
-export const DarkBackgroundButton: ComponentStory<typeof Button> = () => {
+export const DarkBackgroundButton: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="darkBackground" size="small">
@@ -389,10 +432,9 @@ export const DarkBackgroundButton: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+DarkBackgroundButton.storyName = "Dark Background";
 
-export const DarkBackgroundButtonDisabled: ComponentStory<
-  typeof Button
-> = () => {
+export const DarkBackgroundButtonDisabled: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="darkBackground" disabled size="small">
@@ -407,8 +449,9 @@ export const DarkBackgroundButtonDisabled: ComponentStory<
     </Box>
   );
 };
+DarkBackgroundButtonDisabled.storyName = "Dark Background/Disabled";
 
-export const DarkBackgroundButtonIcon: ComponentStory<typeof Button> = () => {
+export const DarkBackgroundButtonIcon: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="darkBackground" iconType="add" size="small">
@@ -446,10 +489,9 @@ export const DarkBackgroundButtonIcon: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+DarkBackgroundButtonIcon.storyName = "Dark Background/Icon";
 
-export const DarkBackgroundButtonFullWidth: ComponentStory<
-  typeof Button
-> = () => {
+export const DarkBackgroundButtonFullWidth: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="darkBackground" fullWidth>
@@ -458,8 +500,9 @@ export const DarkBackgroundButtonFullWidth: ComponentStory<
     </Box>
   );
 };
+DarkBackgroundButtonFullWidth.storyName = "Dark Background/Full Width";
 
-export const DarkBackgroundButtonNoWrap: ComponentStory<typeof Button> = () => {
+export const DarkBackgroundButtonNoWrap: Story = () => {
   return (
     <Box width="40px">
       <Button mt={2} buttonType="darkBackground" noWrap>
@@ -468,8 +511,9 @@ export const DarkBackgroundButtonNoWrap: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+DarkBackgroundButtonNoWrap.storyName = "Dark Background/No Wrap";
 
-export const ButtonAsALink: ComponentStory<typeof Button> = () => {
+export const ButtonAsALink: Story = () => {
   return (
     <Box>
       <Button ml={2} mt={2} buttonType="primary" href="/">
@@ -488,8 +532,9 @@ export const ButtonAsALink: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+ButtonAsALink.storyName = "As a Link";
 
-export const ButtonIconOnly: ComponentStory<typeof Button> = () => {
+export const ButtonIconOnly: Story = () => {
   return (
     <Box>
       <Button
@@ -512,8 +557,9 @@ export const ButtonIconOnly: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+ButtonIconOnly.storyName = "Icon Only Button";
 
-export const ButtonIconTooltipMessage: ComponentStory<typeof Button> = () => {
+export const ButtonIconTooltipMessage: Story = () => {
   return (
     <Box>
       <Button
@@ -545,8 +591,9 @@ export const ButtonIconTooltipMessage: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+ButtonIconTooltipMessage.storyName = "Icon Only Button with Tooltip";
 
-export const GradientWhite: ComponentStory<typeof Button> = () => {
+export const GradientWhite: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="gradient-white" size="small" ml={2}>
@@ -561,8 +608,9 @@ export const GradientWhite: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientWhite.storyName = "Gradient/White";
 
-export const GradientWhiteDisabled: ComponentStory<typeof Button> = () => {
+export const GradientWhiteDisabled: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="gradient-white" size="small" ml={2} disabled>
@@ -577,8 +625,9 @@ export const GradientWhiteDisabled: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientWhiteDisabled.storyName = "Gradient/White/Disabled";
 
-export const GradientWhiteIcon: ComponentStory<typeof Button> = () => {
+export const GradientWhiteIcon: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="gradient-white" iconType="print" ml={2}>
@@ -615,8 +664,9 @@ export const GradientWhiteIcon: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientWhiteIcon.storyName = "Gradient/White/Icon";
 
-export const GradientWhiteFullWidth: ComponentStory<typeof Button> = () => {
+export const GradientWhiteFullWidth: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="gradient-white" fullWidth>
@@ -625,8 +675,9 @@ export const GradientWhiteFullWidth: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientWhiteFullWidth.storyName = "Gradient/White/Full Width";
 
-export const GradientWhiteNoWrap: ComponentStory<typeof Button> = () => {
+export const GradientWhiteNoWrap: Story = () => {
   return (
     <Box width="40px">
       <Button ml={2} mt={2} buttonType="gradient-white" noWrap>
@@ -635,8 +686,9 @@ export const GradientWhiteNoWrap: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientWhiteNoWrap.storyName = "Gradient/White/No Wrap";
 
-export const GradientGrey: ComponentStory<typeof Button> = () => {
+export const GradientGrey: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="gradient-grey" size="small" ml={2}>
@@ -651,8 +703,9 @@ export const GradientGrey: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientGrey.storyName = "Gradient/Grey";
 
-export const GradientGreyDisabled: ComponentStory<typeof Button> = () => {
+export const GradientGreyDisabled: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="gradient-grey" size="small" ml={2} disabled>
@@ -667,8 +720,9 @@ export const GradientGreyDisabled: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientGreyDisabled.storyName = "Gradient/Grey/Disabled";
 
-export const GradientGreyIcon: ComponentStory<typeof Button> = () => {
+export const GradientGreyIcon: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="gradient-grey" iconType="print" ml={2}>
@@ -705,8 +759,9 @@ export const GradientGreyIcon: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientGreyIcon.storyName = "Gradient/Grey/Icon";
 
-export const GradientGreyFullWidth: ComponentStory<typeof Button> = () => {
+export const GradientGreyFullWidth: Story = () => {
   return (
     <Box>
       <Button mt={2} buttonType="gradient-grey" fullWidth>
@@ -715,8 +770,9 @@ export const GradientGreyFullWidth: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientGreyFullWidth.storyName = "Gradient/Grey/Full Width";
 
-export const GradientGreyNoWrap: ComponentStory<typeof Button> = () => {
+export const GradientGreyNoWrap: Story = () => {
   return (
     <Box width="40px">
       <Button ml={2} mt={2} buttonType="gradient-grey" noWrap>
@@ -725,3 +781,4 @@ export const GradientGreyNoWrap: ComponentStory<typeof Button> = () => {
     </Box>
   );
 };
+GradientGreyNoWrap.storyName = "Gradient/Grey/No Wrap";

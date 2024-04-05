@@ -4,7 +4,7 @@ Carbon is a [React](https://react.dev/) component library developed by Sage.
 
 ## Getting started
 
-Our [getting started guide](https://carbon.sage.com/?path=/story/getting-started-installation--page) provides instructions on how to install and use the Carbon library.
+Our [getting started guide](https://carbon.sage.com/?path=/docs/getting-started-installation--docs) provides instructions on how to install and use the Carbon library.
 
 ## Examples
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { ComponentStory } from "@storybook/react";
 import NavigationBar, { NavigationBarProps } from ".";
 import { Menu, MenuDivider, MenuItem } from "../menu";
 import Box from "../box";
@@ -12,23 +11,21 @@ export const NavigationBarComponent = ({
   return <NavigationBar {...props}>{isChildren}</NavigationBar>;
 };
 
-export const Default: ComponentStory<typeof NavigationBar> = () => (
-  <NavigationBar>Example content</NavigationBar>
-);
+export const Default = () => <NavigationBar>Example content</NavigationBar>;
 
-export const DarkTheme: ComponentStory<typeof NavigationBar> = () => (
+export const DarkTheme = () => (
   <NavigationBar navigationType="dark">Example content</NavigationBar>
 );
 
-export const WhiteTheme: ComponentStory<typeof NavigationBar> = () => (
+export const WhiteTheme = () => (
   <NavigationBar navigationType="white">Example content</NavigationBar>
 );
 
-export const BlackTheme: ComponentStory<typeof NavigationBar> = () => (
+export const BlackTheme = () => (
   <NavigationBar navigationType="black">Example content</NavigationBar>
 );
 
-export const ExampleWithMenu: ComponentStory<typeof NavigationBar> = () => (
+export const ExampleWithMenu = () => (
   <NavigationBar>
     <Menu>
       <MenuItem href="#">Menu Item One</MenuItem>
@@ -37,7 +34,7 @@ export const ExampleWithMenu: ComponentStory<typeof NavigationBar> = () => (
   </NavigationBar>
 );
 
-export const IsLoading: ComponentStory<typeof NavigationBar> = () => (
+export const IsLoading = () => (
   <NavigationBar isLoading>
     <Menu>
       <MenuItem>Menu Item One</MenuItem>
@@ -46,7 +43,7 @@ export const IsLoading: ComponentStory<typeof NavigationBar> = () => (
   </NavigationBar>
 );
 
-export const WithCustomSpacing: ComponentStory<typeof NavigationBar> = () => (
+export const WithCustomSpacing = () => (
   <NavigationBar py={2} px={7}>
     <Menu>
       <MenuItem href="#">menu item one</MenuItem>
@@ -55,42 +52,37 @@ export const WithCustomSpacing: ComponentStory<typeof NavigationBar> = () => (
   </NavigationBar>
 );
 
-export const ContentMaxWidthBox: ComponentStory<typeof NavigationBar> = () => (
-  <NavigationBar>
-    <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
-      <Menu display="flex" flex="1">
-        <MenuItem flex="1" onClick={() => {}}>
-          Menu Item One
-        </MenuItem>
-        <MenuItem flex="0 0 auto" href="#">
-          Menu Item Two
-        </MenuItem>
-        <MenuItem flex="0 0 auto" submenu="Menu Item Three">
-          <MenuItem href="#">Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-          <MenuDivider />
-          <MenuItem icon="settings" href="#">
-            Item Submenu Three
+export const ContentMaxWidthBox = () => (
+  <div style={{ height: 200 }}>
+    <NavigationBar>
+      <Box display="flex" flex="1" maxWidth="1000px" margin="0 auto">
+        <Menu display="flex" flex="1">
+          <MenuItem flex="1" onClick={() => {}}>
+            Menu Item One
           </MenuItem>
-          <MenuItem href="#">Item Submenu Four</MenuItem>
-        </MenuItem>
-        <MenuItem flex="0 0 auto" submenu="Menu Item Four">
-          <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
-          <MenuItem href="#">Item Submenu Two</MenuItem>
-        </MenuItem>
-      </Menu>
-    </Box>
-  </NavigationBar>
+          <MenuItem flex="0 0 auto" href="#">
+            Menu Item Two
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Three">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuDivider />
+            <MenuItem icon="settings" href="#">
+              Item Submenu Three
+            </MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+          </MenuItem>
+          <MenuItem flex="0 0 auto" submenu="Menu Item Four">
+            <MenuItem onClick={() => {}}>Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+          </MenuItem>
+        </Menu>
+      </Box>
+    </NavigationBar>
+  </div>
 );
-ContentMaxWidthBox.decorators = [
-  (Story) => (
-    <div style={{ height: 200 }}>
-      <Story />
-    </div>
-  ),
-];
 
-export const Sticky: ComponentStory<typeof NavigationBar> = () => (
+export const Sticky = () => (
   <div id="sticky-container" style={{ height: "250px" }}>
     <NavigationBar
       position="sticky"
@@ -155,7 +147,7 @@ export const Sticky: ComponentStory<typeof NavigationBar> = () => (
 );
 Sticky.parameters = { docs: { inlineStories: false, iframeHeight: 250 } };
 
-export const Fixed: ComponentStory<typeof NavigationBar> = () => (
+export const Fixed = () => (
   <div>
     <NavigationBar
       position="fixed"

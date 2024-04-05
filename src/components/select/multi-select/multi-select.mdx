@@ -1,0 +1,160 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../../.storybook/utils/translation-keys-table";
+
+import * as OptionStories from "../option/option.stories";
+import * as SelectTextboxStories from "../select-textbox/select-textbox.stories";
+import * as MultiSelectStories from "./multi-select.stories";
+
+<Meta title="Select/MultiSelect" of={MultiSelectStories} />
+
+# MultiSelect
+
+Select multiple options from the drop-down menu. MultiSelect is a component that allows to choose multiple options from the drop-down list.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import { MultiSelect, Option } from "carbon-react/lib/components/select";
+```
+
+Always insert `Option` Components inside the `MultiSelect`, analogous to the `<select>` and `<option>` HTML Elements.
+
+If you type printable characters in the Textbox, you can filter through the existing options leaving only those that match the text you typed.
+
+## Examples
+
+### Default
+
+<Canvas of={MultiSelectStories.Default} />
+
+### List placement
+
+You can use `listPlacement` prop to set the position of the select list relative to the input element.
+
+<Canvas of={MultiSelectStories.ListPlacement} />
+
+### List height
+
+You can use `listMaxHeight` prop to override default max height value of select list.
+
+<Canvas of={MultiSelectStories.ListHeight} />
+
+### Controlled Usage
+
+<Canvas of={MultiSelectStories.Controlled} />
+
+### Open on focus
+
+<Canvas of={MultiSelectStories.OpenOnFocus} />
+
+### Disabled
+
+<Canvas of={MultiSelectStories.Disabled} />
+
+### Read Only
+
+<Canvas of={MultiSelectStories.Readonly} />
+
+### With multiple columns:
+
+<Canvas of={MultiSelectStories.WithMultipleColumns} />
+
+### Required
+
+You can use the `required` prop to indicate if the field is mandatory.
+
+<Canvas of={MultiSelectStories.Required} />
+
+### Optional
+
+You can use the `isOptional` prop to indicate if the field is mandatory.
+
+<Canvas of={MultiSelectStories.Required} />
+
+### With object as value
+
+Option values could be passed as objects, useful when custom data is associated with an option.
+When the `id` property is set, objects will be compared based on that property (could be used when the list is recreated after an API call).
+If there is no `id` prop specified on an object, then the exact objects will be compared.
+
+<Canvas of={MultiSelectStories.WithObjectAsValue} />
+
+### With isLoading prop
+
+When `isLoading` prop is passed, a loader will be appended at the end of the Select List. That functionality could be used to load the options asynchronously.
+
+<Canvas of={MultiSelectStories.WithIsLoadingProp} />
+
+### Custom colored Pills
+
+It's possible to change the appearance of the selected Pills by using the `borderColor` and `fill` props on `Option` components.
+
+See [Colors](../?path=/docs/documentation-colors--docs) for more information on usable colors
+
+<Canvas of={MultiSelectStories.WithCustomColoredPills} />
+
+### With custom maxWidth
+
+In this example the `maxWidth` prop is 50%.
+
+<Canvas of={MultiSelectStories.WithCustomMaxWidth} />
+
+#### New designs validation
+
+<Canvas of={MultiSelectStories.ValidationsStringNewDesign} />
+
+### Pills with long text strings
+
+By default the Pill text will wrap when it overflows the input width, you can override this by
+setting the `wrapPillText` prop to false.
+
+<Canvas of={MultiSelectStories.PillsWithLongText} />
+
+### Virtual scrolling
+
+The `enableVirtualScroll` prop can be used to enable "virtual scrolling" to only render a few options into the DOM at any one time.
+This allows an unlimited amount of children to be passed with little impact on rendering performance.
+
+By default this will render 5 not-currently-visible options into the DOM on either side of the currently-visible ones - this value can
+be customised if desired using the `virtualScrollOverscan` prop. Higher values will make scrolling smoother but may negatively impact performance.
+
+<Canvas of={MultiSelectStories.Virtualised} />
+
+## Props
+
+### Multi Select
+
+<ArgTypes of={MultiSelectStories} />
+
+Due to the `Textbox` component being used internally by the `MultiSelect` component, most of the `Textbox` props are applicable to `MultiSelect`
+
+<ArgTypes of={SelectTextboxStories} />
+
+**Any other supplied props will be provided to the underlying HTML input element**
+
+### Props of the Option Component
+
+<ArgTypes of={OptionStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "select.placeholder",
+      description: "The text for the input component placeholder",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

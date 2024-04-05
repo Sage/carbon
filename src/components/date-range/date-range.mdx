@@ -1,0 +1,146 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as DateRangeStories from "./date-range.stories";
+
+<Meta title="Date Range" of={DateRangeStories} />
+
+# Date Range
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/4122f0-date-range"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Captures a start and end date.
+
+Used to filter a Table of data according to a start and end date, or to set two dates which are related to each other, for example, a hotel booking.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+- [Translation keys](#translation-keys)
+
+## Quick Start
+
+```javascript
+import DateRange from "carbon-react/lib/components/date-range";
+```
+
+### Default
+
+<Canvas of={DateRangeStories.DefaultStory} />
+
+### LabelsInline
+
+<Canvas of={DateRangeStories.LabelsInline} />
+
+### Validations
+
+Validation status can be set by passing `startError`, `startWarning`, `startInfo`, `endError`, `endWarning` and `endInfo` props to the component.
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+
+#### As a string
+
+<Canvas of={DateRangeStories.ValidationsStringComponent} />
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Canvas
+  of={DateRangeStories.ValidationsStringWithTooltipPositionOverriddenComponent}
+/>
+
+#### As a string, displayed on label
+
+<Canvas of={DateRangeStories.ValidationsStringLabel} />
+
+It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
+
+<Canvas
+  of={DateRangeStories.ValidationsStringWithTooltipPositionOverriddenLabel}
+/>
+
+#### New designs validation
+
+Longer validation strings that would exceed the input width will wrap to a new line. Inputs
+should remain aligned but labels may no longer be when a string wraps. Label text that would
+exceed the input widht will also wrap to a new line.
+
+<Canvas of={DateRangeStories.ValidationsStringNewDesign} />
+
+#### As a boolean
+
+<Canvas of={DateRangeStories.ValidationsBoolean} />
+
+### Allow Empty Value
+
+You can pass prop `allowEmptyValue` to start and end `DateInput` using `startDateProps` and `endDateProps`.
+
+<Canvas of={DateRangeStories.AllowEmptyValue} />
+
+### Required
+
+You can use the `required` prop to indicate if the fields are mandatory.
+
+<Canvas of={DateRangeStories.Required} />
+
+### IsOptional
+
+You can use the `isOptional` prop to indicate if the fields are optional.
+
+<Canvas of={DateRangeStories.IsOptional} />
+
+### Locale override
+
+The examples below illustrates how to override the locale passed into the DateRange component. In this example it has been set up for
+the French locale. Required locales can be imported like so `import { fr } from 'carbon-react/lib/locales/date-fns-locales';`
+
+<Canvas of={DateRangeStories.LocaleOverrideExampleImplementation} />
+
+## Props
+
+### Date Range
+
+<ArgTypes of={DateRangeStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "date.dateFnsLocale",
+      description:
+        "The locale object from date-fns, example of implementation can be found [here](#locale-override)",
+      type: "func",
+      returnType: "date-fns locale object",
+    },
+    {
+      name: "date.ariaLabels.previousMonthButton",
+      description:
+        "Aria label text for the previous month navigation button in the date picker",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "date.ariaLabels.nextMonthButton",
+      description:
+        "Aria label text for the next month navigation button in the date picker",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

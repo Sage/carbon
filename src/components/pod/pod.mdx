@@ -1,0 +1,143 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as PodStories from "./pod.stories.tsx";
+
+<Meta title="Pod" of={PodStories} />
+
+# Pod
+
+Presents content grouped visually together. This can be text, or other components. A good example is a ‘tile’ showing contact information for an individual.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Pod from "carbon-react/lib/components/pod";
+```
+
+## Designer's Notes
+
+- Configure Pod and Fieldset components manually to customise the following:
+
+- The onEdit property shows a standard edit icon, which can be used to show a fieldset. You can choose whether this icon appears inside or outside the pod, and whether it appears only on hover. You can also choose whether clicking only the icon triggers the onEdit property, or clicking anywhere on the pod.
+
+- Choose from various visual options, including padding, borders, and primary, secondary, or tertiary appearance.
+
+- Set the pod to flex to the width of its content, or take up the full width of its container.
+
+## Related Components
+
+- Editing a number of closely related inputs? [Try Fieldset](../?path=/docs/fieldset--docs).
+- Filling in a broad series of inputs? [Try Form](../?path=/docs/form--docs).
+
+## Examples
+
+### Default
+
+<Canvas of={PodStories.Default} />
+
+### with title and subtitle passed as nodes
+
+A node can be passed as both the `title` and `subtitle` props, we recommend using `<Typography>`
+
+<Canvas of={PodStories.WithTitleAndSubtitleNode} />
+
+### Custom height
+
+<Canvas of={PodStories.WithCustomHeight} />
+
+### Even height
+
+If you want to have the same height of the Pods based on the highest one, use `Grid` component to position `Pods`
+and then set `height` prop to `100%` on each `Pod` so that it fills the entire height of `GridItem`
+
+<Canvas of={PodStories.EvenHeightMultiplePods} />
+
+### With subtitle and footer
+
+<Canvas of={PodStories.WithSubtitleAndFooter} />
+
+### Without border
+
+<Canvas of={PodStories.WithoutBorder} />
+
+### With edit button
+
+<Canvas of={PodStories.WithEditButton} />
+
+### With delete button
+
+<Canvas of={PodStories.WithDeleteButton} />
+
+### Soft delete state
+
+<Canvas of={PodStories.SoftDeleteState} />
+
+### With edit button and displayEditButtonOnHover
+
+<Canvas of={PodStories.WithDisplayEditButtonOnHover} />
+
+### With edit button and editContentFullWidth
+
+<Canvas of={PodStories.WithEditContentFullWidth} />
+
+### With internal edit button
+
+<Canvas of={PodStories.WithInternalEditButton} />
+
+### With different variants
+
+<Canvas of={PodStories.WithDifferentVariants} />
+
+### With different sizes
+
+<Canvas of={PodStories.WithDifferentSizes} />
+
+### With different title alignments
+
+<Canvas of={PodStories.WithDifferentTitleAlignments} />
+
+### Address pod
+
+<Canvas of={PodStories.AddressExample} />
+
+## Props
+
+### Pod
+
+<ArgTypes of={PodStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "actions.edit",
+      description: "The text for edit button",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "actions.delete",
+      description: "The text for delete button",
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "pod.undo",
+      description: "The text for undo button",
+      type: "func",
+      returnType: "string",
+    },
+  ]}
+/>

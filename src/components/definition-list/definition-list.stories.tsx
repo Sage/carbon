@@ -1,4 +1,9 @@
 import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
+
+import useMediaQuery from "../../hooks/useMediaQuery";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import { Dl, Dt, Dd } from ".";
 import Icon from "../icon";
 
@@ -6,9 +11,23 @@ import Box from "../box";
 import { ActionPopover, ActionPopoverItem } from "../action-popover";
 import Hr from "../hr";
 import Typography from "../typography";
-import useMediaQuery from "../../hooks/useMediaQuery";
 
-export const DefaultStory = () => (
+const styledSystemProps = generateStyledSystemProps({
+  spacing: true,
+});
+
+const meta: Meta<typeof Dl> = {
+  title: "Definition List",
+  component: Dl,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof Dl>;
+
+export const DefaultStory: Story = () => (
   <Dl>
     <Dt>First</Dt>
     <Dd>Description</Dd>
@@ -18,8 +37,9 @@ export const DefaultStory = () => (
     <Dd>Description</Dd>
   </Dl>
 );
+DefaultStory.storyName = "Default";
 
-export const ActionPopoverAndIconSupport = () => (
+export const ActionPopoverAndIconSupport: Story = () => (
   <Dl>
     <Dt>
       <Box paddingTop="4px">Term example</Box>
@@ -45,8 +65,9 @@ export const ActionPopoverAndIconSupport = () => (
     </Dd>
   </Dl>
 );
+ActionPopoverAndIconSupport.storyName = "Action Popover and Icon Support";
 
-export const WithConditionalRendering = () => (
+export const WithConditionalRendering: Story = () => (
   <Dl>
     <Dt>First</Dt>
     <Dd>Description</Dd>
@@ -60,10 +81,10 @@ export const WithConditionalRendering = () => (
     )}
   </Dl>
 );
-
+WithConditionalRendering.storyName = "With Conditional Rendering";
 WithConditionalRendering.parameters = { chromatic: { disableSnapshot: true } };
 
-export const AsASingleColumn = () => (
+export const AsASingleColumn: Story = () => (
   <Dl w={200} dtTextAlign="left" asSingleColumn>
     <Dt>First</Dt>
     <Dd>Description</Dd>
@@ -78,8 +99,9 @@ export const AsASingleColumn = () => (
     <Dd>Description</Dd>
   </Dl>
 );
+AsASingleColumn.storyName = "As a single column";
 
-export const MultipleSingleColumnsWithSegments = () => (
+export const MultipleSingleColumnsWithSegments: Story = () => (
   <Box width="65%" px={2} pt={4} pb={3}>
     <Box width="90%">
       <Typography color="rgba(0,0,0,0.55)" variant="segment-subheader-alt">
@@ -162,12 +184,13 @@ export const MultipleSingleColumnsWithSegments = () => (
     </Box>
   </Box>
 );
-
+MultipleSingleColumnsWithSegments.storyName =
+  "Multiple single columns with segments";
 MultipleSingleColumnsWithSegments.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const Responsive = () => {
+export const Responsive: Story = () => {
   const smallScreen = useMediaQuery("(max-width: 700px)");
   return (
     <Dl
@@ -189,5 +212,5 @@ export const Responsive = () => {
     </Dl>
   );
 };
-
+Responsive.storyName = "Responsive";
 Responsive.parameters = { chromatic: { viewports: [1200, 500] } };

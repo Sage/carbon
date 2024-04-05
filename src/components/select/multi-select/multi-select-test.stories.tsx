@@ -39,7 +39,6 @@ export const Default = () => {
       onFocus={partialAction("onFocus")}
       onBlur={partialAction("onBlur")}
       onKeyDown={partialAction("onKeyDown")}
-      disablePortal
       openOnFocus
       label="Test"
       placeholder=" "
@@ -440,7 +439,6 @@ export const MultiSelectMaxOptionsComponent = (
     <MultiSelect
       value={selectedPills}
       onChange={onChangeHandler}
-      disablePortal
       openOnFocus
       label="color"
       {...props}
@@ -576,7 +574,6 @@ export const MultiSelectErrorOnChangeNewValidation = () => {
           name="testing"
           value={selectedPills}
           onChange={handleOnChange}
-          disablePortal
           openOnFocus
           label="Test"
           placeholder="FooBar"

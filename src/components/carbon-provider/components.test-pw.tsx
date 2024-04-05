@@ -28,3 +28,19 @@ const AllThemes = () => {
 };
 
 export default AllThemes;
+
+export const SageTheme = () => {
+  return (
+    <CarbonProvider theme={sageTheme}>
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
+  );
+};
+
+export const MintTheme = () => {
+  return (
+    <CarbonProvider theme={mintTheme}>
+      <Button buttonType="primary">Button</Button>
+    </CarbonProvider>
+  );
+};

@@ -1,15 +1,44 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
-import Alert from ".";
-import Button from "../button";
-
+import { Meta, StoryObj } from "@storybook/react";
+import { allModes } from "../../../.storybook/modes";
 import isChromatic from "../../../.storybook/isChromatic";
+
+import Box from "../box";
+import Button from "../button";
+import Alert from ".";
 
 const defaultOpenState = isChromatic();
 
-// Added to avoid default export warning which causes storybook to not display `show code` examples - https://github.com/storybookjs/storybook/issues/8104
-// eslint-disable-next-line import/prefer-default-export
-export const DefaultAlert: ComponentStory<typeof Alert> = () => {
+const meta: Meta<typeof Alert> = {
+  title: "Alert",
+  component: Alert,
+  parameters: {
+    themeProvider: { chromatic: { theme: "sage" } },
+    chromatic: {
+      modes: {
+        desktop: allModes.chromatic,
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100%" height={900}>
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof Alert>;
+
+export const Default: Story = () => {
   const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
@@ -29,3 +58,4 @@ export const DefaultAlert: ComponentStory<typeof Alert> = () => {
     </>
   );
 };
+Default.storyName = "Default";

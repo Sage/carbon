@@ -1,21 +1,42 @@
 import React, { useState } from "react";
-import { ComponentStory, StoryFn } from "@storybook/react";
+import { ArgTypes, Meta, StoryObj } from "@storybook/react";
 
 import Decimal, { DecimalProps, CustomEvent } from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
-export const DefaultStory: ComponentStory<typeof Decimal> = (args) => {
-  const [state, setState] = useState("0.01");
-  const setValue = ({ target }: CustomEvent) => {
-    setState(target.value.rawValue);
-  };
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+}) as Partial<ArgTypes<DecimalProps>>;
 
-  return (
-    <Decimal label="Decimal" value={state} onChange={setValue} {...args} />
-  );
+const meta: Meta<typeof Decimal> = {
+  title: "Decimal Input",
+  component: Decimal,
+  argTypes: {
+    ...styledSystemProps,
+  },
 };
 
-export const Sizes = () => {
+export default meta;
+type Story = StoryObj<typeof Decimal>;
+
+/* TODO: we really need a better of having a reusable default story that can show state
+ * I've checked how it used to be and you couldn't see the state setting at that point either
+ * I've put a message on the Storybook Discord but it's been ignored so will need to chase or ask on git */
+export const DefaultStory: Story = {
+  render: (args: DecimalProps) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [state, setState] = useState("0.01");
+    const setValue = ({ target }: CustomEvent) => {
+      setState(target.value.rawValue);
+    };
+    return <Decimal value={state} onChange={setValue} {...args} />;
+  },
+  args: { label: "Decimal" },
+  name: "Default",
+};
+
+export const Sizes: Story = () => {
   const [state, setState] = useState({
     small: "0.01",
     medium: "0.01",
@@ -37,14 +58,21 @@ export const Sizes = () => {
     />
   ));
 };
+Sizes.storyName = "Sizes";
 
-export const Disabled = DefaultStory.bind({});
-Disabled.args = { disabled: true };
+export const Disabled: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, disabled: true },
+  name: "Disabled",
+};
 
-export const Prefix = DefaultStory.bind({});
-Prefix.args = { prefix: "£", maxWidth: "20%" };
+export const Prefix: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, prefix: "£", maxWidth: "20%" },
+  name: "Prefix",
+};
 
-export const LabelAlign = () => {
+export const LabelAlign: Story = () => {
   const [state, setState] = useState({
     right: "0.01",
     left: "0.01",
@@ -66,14 +94,21 @@ export const LabelAlign = () => {
     />
   ));
 };
+LabelAlign.storyName = "Label Align";
 
-export const ReadOnly = DefaultStory.bind({});
-ReadOnly.args = { readOnly: true };
+export const ReadOnly: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, readOnly: true },
+  name: "Read Only",
+};
 
-export const Empty = DefaultStory.bind({});
-Empty.args = { allowEmptyValue: true };
+export const Empty: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, allowEmptyValue: true },
+  name: "Empty",
+};
 
-export const WithCustomPrecision = () => {
+export const WithCustomPrecision: Story = () => {
   const [state, setState] = useState("0.0001");
   const setValue = ({ target }: CustomEvent) => {
     setState(target.value.rawValue);
@@ -82,101 +117,139 @@ export const WithCustomPrecision = () => {
     <Decimal label="Decimal" value={state} onChange={setValue} precision={4} />
   );
 };
+WithCustomPrecision.storyName = "With Custom Precision";
 
-export const LabelInline = DefaultStory.bind({});
-LabelInline.args = { labelInline: true };
-LabelInline.parameters = { chromatic: { disableSnapshot: true } };
-
-export const WithCustomLabelWidthAndInputWidth = DefaultStory.bind({});
-WithCustomLabelWidthAndInputWidth.args = {
-  labelWidth: 10,
-  inputWidth: 90,
-  labelInline: true,
+export const LabelInline: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, labelInline: true },
+  parameters: { chromatic: { disableSnapshot: true } },
+  name: "Label Inline",
 };
 
-export const WithCustomMaxWidth = DefaultStory.bind({});
-WithCustomMaxWidth.args = {
-  maxWidth: "50%",
+export const WithCustomLabelWidthAndInputWidth: Story = {
+  ...DefaultStory,
+  args: {
+    ...DefaultStory.args,
+    labelWidth: 10,
+    inputWidth: 90,
+    labelInline: true,
+  },
+  name: "With Custom Label Width and Input Width",
 };
 
-export const WithFieldHelp = DefaultStory.bind({});
-WithFieldHelp.args = { fieldHelp: "Help" };
-
-export const WithLabelHelp = DefaultStory.bind({});
-WithLabelHelp.args = {
-  labelHelp: "Help",
-  helpAriaLabel: "Help",
+export const WithCustomMaxWidth: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, maxWidth: "50%" },
+  name: "With Custom Max Width",
 };
 
-export const WithInputHint = DefaultStory.bind({});
-WithInputHint.args = {
-  inputHint: "Hint text (optional).",
+export const WithFieldHelp: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, fieldHelp: "Help" },
+  name: "With Field Help",
 };
 
-export const Required = DefaultStory.bind({});
-Required.args = { required: true };
+export const WithLabelHelp: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, labelHelp: "Help", helpAriaLabel: "Help" },
+  name: "With Label Help",
+};
 
-export const LeftAligned = DefaultStory.bind({});
-LeftAligned.args = { align: "left" };
+export const WithInputHint: Story = {
+  ...DefaultStory,
+  args: {
+    ...DefaultStory.args,
+    inputHint: "Hint text (optional).",
+    helpAriaLabel: "Help",
+  },
+  name: "With Input Hint",
+};
+
+export const Required: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, required: true, helpAriaLabel: "Help" },
+  name: "Required",
+};
+
+export const IsOptional: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, isOptional: true, helpAriaLabel: "Help" },
+  name: "IsOptional",
+};
+
+export const LeftAligned: Story = {
+  ...DefaultStory,
+  args: { ...DefaultStory.args, required: true, align: "left" },
+  name: "Left Aligned",
+};
 
 type Validation = "error" | "warning" | "info";
-
-export const Validations: StoryFn = (
-  args: Partial<DecimalProps> & { message?: string | boolean }
-) => {
-  const [state, setState] = useState({
-    error: "0.01",
-    warning: "0.01",
-    info: "0.01",
-  });
-
-  const handleChange = (validation: Validation) => (e: CustomEvent) => {
-    setState({ ...state, [validation]: e.target.value.rawValue });
-  };
-
-  return (
-    <>
-      {(["error", "warning", "info"] as const).map((validationType) => (
-        <div key={`${validationType}`}>
-          <Decimal
-            label="Decimal"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            {...{ [validationType]: args.message }}
-            mb={2}
-            {...args}
-          />
-          <Decimal
-            label="Decimal - readOnly"
-            value="0.01"
-            readOnly
-            {...{ [validationType]: args.message }}
-            mb={2}
-            {...args}
-          />
-        </div>
-      ))}
-    </>
-  );
+type StoryWithMessage = Story & {
+  args: Partial<DecimalProps> & { message?: string | boolean };
 };
 
-export const ValidationsStringComponent = Validations.bind({});
-ValidationsStringComponent.args = {
-  message: "Message",
+export const Validations: StoryWithMessage = {
+  render: (args: Partial<DecimalProps> & { message?: string | boolean }) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [state, setState] = useState({
+      error: "0.01",
+      warning: "0.01",
+      info: "0.01",
+    });
+
+    const handleChange = (validation: Validation) => (e: CustomEvent) => {
+      setState({ ...state, [validation]: e.target.value.rawValue });
+    };
+
+    return (
+      <>
+        {(["error", "warning", "info"] as const).map((validationType) => (
+          <div key={`${validationType}`}>
+            <Decimal
+              label="Decimal"
+              value={state[validationType]}
+              onChange={handleChange(validationType)}
+              {...{ [validationType]: args.message }}
+              mb={2}
+              {...args}
+            />
+            <Decimal
+              label="Decimal - readOnly"
+              value="0.01"
+              readOnly
+              {...{ [validationType]: args.message }}
+              mb={2}
+              {...args}
+            />
+          </div>
+        ))}
+      </>
+    );
+  },
+  args: { message: "Message" },
+  name: "Validations",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-export const ValidationsStringLabel = Validations.bind({});
-ValidationsStringLabel.args = {
-  message: "Message",
-  validationOnLabel: true,
+export const ValidationsStringComponent: StoryWithMessage = {
+  ...Validations,
+  args: { ...Validations.args, message: "Message" },
+  name: "Validations - String Component",
 };
 
-export const ValidationsBoolean = Validations.bind({});
-ValidationsBoolean.args = {
-  message: true,
+export const ValidationsStringLabel: StoryWithMessage = {
+  ...Validations,
+  args: { ...Validations.args, message: "Message", validationOnLabel: true },
+  name: "Validations - String Label",
 };
 
-export const ValidationsRedesign = () => {
+export const ValidationsBoolean: StoryWithMessage = {
+  ...Validations,
+  args: { ...Validations.args, message: true },
+  name: "Validation - Boolean",
+};
+
+export const ValidationsRedesign: Story = () => {
   const [state, setState] = useState({
     error: "0.01",
     warning: "0.01",
@@ -211,37 +284,46 @@ export const ValidationsRedesign = () => {
     </CarbonProvider>
   );
 };
+ValidationsRedesign.storyName = "Validations - Redesign";
 
-export const ValidationsTooltip: ComponentStory<typeof Decimal> = (args) => {
-  const [state, setState] = useState({
-    error: "0.01",
-    warning: "0.01",
-    info: "0.01",
-  });
-  const handleChange = (validation: Validation) => (e: CustomEvent) => {
-    setState({ ...state, [validation]: e.target.value.rawValue });
-  };
-  return (
-    <>
-      {(["error", "warning", "info"] as const).map((validationType) => (
-        <div key={`${validationType}`}>
-          <Decimal
-            label="Decimal"
-            value={state[validationType]}
-            onChange={handleChange(validationType)}
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="bottom"
-            {...args}
-          />
-        </div>
-      ))}
-    </>
-  );
+export const ValidationsTooltip: Story = {
+  render: (args: DecimalProps = {}) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [state, setState] = useState({
+      error: "0.01",
+      warning: "0.01",
+      info: "0.01",
+    });
+
+    const handleChange = (validation: Validation) => (e: CustomEvent) => {
+      setState({ ...state, [validation]: e.target.value.rawValue });
+    };
+
+    return (
+      <>
+        {(["error", "warning", "info"] as const).map((validationType) => (
+          <div key={`${validationType}`}>
+            <Decimal
+              label="Decimal"
+              value={state[validationType]}
+              onChange={handleChange(validationType)}
+              {...{ [validationType]: "Message" }}
+              mb={2}
+              tooltipPosition="bottom"
+              {...args}
+            />
+          </div>
+        ))}
+      </>
+    );
+  },
+  name: "Validations - Tooltip",
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
-ValidationsTooltip.parameters = { chromatic: { disableSnapshot: true } };
-
-export const ValidationsTooltipLabel = ValidationsTooltip.bind({});
-ValidationsTooltipLabel.args = { validationOnLabel: true };
-ValidationsTooltipLabel.parameters = { chromatic: { disableSnapshot: true } };
+export const ValidationsTooltipLabel: StoryWithMessage = {
+  ...ValidationsTooltip,
+  args: { ...ValidationsTooltip.args, validationOnLabel: true },
+  name: "Validations - Tooltip - Label",
+  parameters: { chromatic: { disableSnapshot: true } },
+};

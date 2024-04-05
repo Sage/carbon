@@ -7,8 +7,8 @@ import {
 } from "./components.test-pw";
 import { UsingBoxToOverrideBackgroundColor } from "./definition-list-test.stories";
 import Dl, { DlProps } from "./dl.component";
-import Dt from "./dt.component";
-import Dd from "./dd.component";
+import Dt from "./dt/dt.component";
+import Dd from "./dd/dd.component";
 import Box from "../box";
 import Icon from "../icon";
 import { getDataElementByValue } from "../../../playwright/components/index";

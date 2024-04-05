@@ -1,11 +1,29 @@
 import React, { useState } from "react";
-import { ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
-import DateRange, { DateRangeChangeEvent } from "./date-range.component";
 import I18nProvider from "../i18n-provider";
 import { fr } from "../../locales/date-fns-locales";
 
-export const DefaultStory: ComponentStory<typeof DateRange> = () => {
+import DateRange, { DateRangeChangeEvent } from "./date-range.component";
+
+const styledSystemProps = generateStyledSystemProps({
+  margin: true,
+});
+
+const meta: Meta<typeof DateRange> = {
+  title: "Date Range",
+  component: DateRange,
+  argTypes: {
+    ...styledSystemProps,
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof DateRange>;
+
+export const DefaultStory: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -23,8 +41,9 @@ export const DefaultStory: ComponentStory<typeof DateRange> = () => {
     />
   );
 };
+DefaultStory.storyName = "Default";
 
-export const LabelsInline: ComponentStory<typeof DateRange> = () => {
+export const LabelsInline: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -43,10 +62,9 @@ export const LabelsInline: ComponentStory<typeof DateRange> = () => {
     />
   );
 };
+LabelsInline.storyName = "Labels Inline";
 
-export const ValidationsStringComponent: ComponentStory<
-  typeof DateRange
-> = () => {
+export const ValidationsStringComponent: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -74,10 +92,9 @@ export const ValidationsStringComponent: ComponentStory<
     </>
   );
 };
+ValidationsStringComponent.storyName = "Validations (string)";
 
-export const ValidationsStringWithTooltipPositionOverriddenComponent: ComponentStory<
-  typeof DateRange
-> = () => {
+export const ValidationsStringWithTooltipPositionOverriddenComponent: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -106,12 +123,13 @@ export const ValidationsStringWithTooltipPositionOverriddenComponent: ComponentS
     </>
   );
 };
-
+ValidationsStringWithTooltipPositionOverriddenComponent.storyName =
+  "Validations (string) with tooltip position overridden";
 ValidationsStringWithTooltipPositionOverriddenComponent.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationsStringLabel: ComponentStory<typeof DateRange> = () => {
+export const ValidationsStringLabel: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -140,10 +158,9 @@ export const ValidationsStringLabel: ComponentStory<typeof DateRange> = () => {
     </>
   );
 };
+ValidationsStringLabel.storyName = "Validations (string) with label";
 
-export const ValidationsStringWithTooltipPositionOverriddenLabel: ComponentStory<
-  typeof DateRange
-> = () => {
+export const ValidationsStringWithTooltipPositionOverriddenLabel: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -173,14 +190,13 @@ export const ValidationsStringWithTooltipPositionOverriddenLabel: ComponentStory
     </>
   );
 };
-
+ValidationsStringWithTooltipPositionOverriddenLabel.storyName =
+  "Validations (string) with label and tooltip position overridden";
 ValidationsStringWithTooltipPositionOverriddenLabel.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const ValidationsStringNewDesign: ComponentStory<
-  typeof DateRange
-> = () => {
+export const ValidationsStringNewDesign: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -214,8 +230,9 @@ export const ValidationsStringNewDesign: ComponentStory<
     </CarbonProvider>
   );
 };
+ValidationsStringNewDesign.storyName = "Validations (string) new design";
 
-export const ValidationsBoolean: ComponentStory<typeof DateRange> = () => {
+export const ValidationsBoolean: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -243,8 +260,9 @@ export const ValidationsBoolean: ComponentStory<typeof DateRange> = () => {
     </>
   );
 };
+ValidationsBoolean.storyName = "Validations (boolean)";
 
-export const AllowEmptyValue: ComponentStory<typeof DateRange> = () => {
+export const AllowEmptyValue: Story = () => {
   const [state, setState] = useState(["", ""]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -268,10 +286,9 @@ export const AllowEmptyValue: ComponentStory<typeof DateRange> = () => {
     />
   );
 };
+AllowEmptyValue.storyName = "Allow Empty Value";
 
-export const LocaleOverrideExampleImplementation: ComponentStory<
-  typeof DateRange
-> = () => {
+export const LocaleOverrideExampleImplementation: Story = () => {
   const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
   const handleChange = (ev: DateRangeChangeEvent) => {
     const newValue = [
@@ -304,7 +321,50 @@ export const LocaleOverrideExampleImplementation: ComponentStory<
     </div>
   );
 };
-
+LocaleOverrideExampleImplementation.storyName =
+  "Locale Override Example Implementation";
 LocaleOverrideExampleImplementation.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const Required: Story = () => {
+  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    const newValue = [
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+  return (
+    <DateRange
+      startLabel="Start"
+      endLabel="End"
+      onChange={handleChange}
+      value={state}
+      required
+    />
+  );
+};
+Required.storyName = "Required";
+
+export const IsOptional: Story = () => {
+  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    const newValue = [
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+  return (
+    <DateRange
+      startLabel="Start"
+      endLabel="End"
+      onChange={handleChange}
+      value={state}
+      isOptional
+    />
+  );
+};
+IsOptional.storyName = "IsOptional";

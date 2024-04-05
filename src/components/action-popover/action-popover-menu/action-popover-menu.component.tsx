@@ -51,10 +51,10 @@ export interface ActionPopoverMenuBaseProps {
 
 export interface ActionPopoverMenuProps
   extends ActionPopoverMenuBaseProps,
-    React.RefAttributes<HTMLDivElement> {}
+    React.RefAttributes<HTMLUListElement> {}
 
 const ActionPopoverMenu = React.forwardRef<
-  HTMLDivElement,
+  HTMLUListElement,
   ActionPopoverMenuBaseProps
 >(
   (
@@ -288,8 +288,8 @@ const ActionPopoverMenu = React.forwardRef<
         onKeyDown={onKeyDown}
         id={menuID}
         aria-labelledby={parentID}
-        role="menu"
         ref={ref}
+        role="list"
         {...rest}
       >
         {clonedChildren}

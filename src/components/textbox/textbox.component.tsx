@@ -25,6 +25,11 @@ import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
 import guid from "../../__internal__/utils/helpers/guid";
 
+export const ALIGN_DEFAULT = "left";
+export const SIZE_DEFAULT = "medium";
+export const LABEL_WIDTH_DEFAULT = 30;
+export const LABEL_VALIDATION_DEFAULT = false;
+
 export interface CommonTextboxProps
   extends ValidationProps,
     MarginProps,
@@ -116,13 +121,13 @@ export interface CommonTextboxProps
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
 }
 
 export interface TextboxProps extends CommonTextboxProps {
   /** Content to be rendered next to the input */
   children?: React.ReactNode;
-  /** [Legacy] Flag to configure component as optional in Form */
-  isOptional?: boolean;
   /** Container for DatePicker or SelectList components */
   positionedChildren?: React.ReactNode;
   /** Character limit of the textarea */
@@ -136,7 +141,7 @@ export const Textbox = React.forwardRef(
   (
     {
       "aria-labelledby": ariaLabelledBy,
-      align = "left",
+      align = ALIGN_DEFAULT,
       autoFocus,
       children,
       disabled,
@@ -156,7 +161,7 @@ export const Textbox = React.forwardRef(
       info,
       name,
       reverse,
-      size = "medium",
+      size = SIZE_DEFAULT,
       value,
       readOnly,
       placeholder,
@@ -172,8 +177,8 @@ export const Textbox = React.forwardRef(
       iconOnClick,
       iconOnMouseDown,
       iconTabIndex,
-      validationOnLabel = false,
-      labelWidth = 30,
+      validationOnLabel = LABEL_VALIDATION_DEFAULT,
+      labelWidth = LABEL_WIDTH_DEFAULT,
       inputWidth,
       maxWidth,
       prefix,

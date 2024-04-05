@@ -1,0 +1,85 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+
+import * as ConfirmStories from "./confirm.stories";
+
+<Meta title="Confirm" of={ConfirmStories} />
+
+# Confirm
+
+Confirms or cancels an action.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Related Components](#related-components)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+```javascript
+import Confirm from "carbon-react/lib/components/confirm";
+```
+
+## Related Components
+
+- Longer message which stays on-screen? [Try Message](https://carbon.sage.com/?path=/docs/message--default "Message").
+- Longer, time sensitive message that must be dismissed? [Try Toast](https://carbon.sage.com/?path=/docs/toast--default "Toast").
+- Error or warning message that interrupts activity? [Try Alert](https://carbon.sage.com/?path=/docs/alert--default-alert "Alert").
+- Simple task in context? [Try Dialog](https://carbon.sage.com/?path=/docs/dialog--default-story "Dialog").
+
+## Examples
+
+### Default
+
+<Canvas of={ConfirmStories.Default} />
+
+### Single action
+
+<Canvas of={ConfirmStories.SingleAction} />
+
+### Destructive cancel button
+
+<Canvas of={ConfirmStories.CancelButtonDestructive} />
+
+### Destructive confirm button
+
+<Canvas of={ConfirmStories.ConfirmButtonDestructive} />
+
+### Disable confirm button
+
+<Canvas of={ConfirmStories.DisableConfirm} />
+
+### Disable cancel button
+
+<Canvas of={ConfirmStories.DisableCancel} />
+
+### Change cancel button type
+
+Allows to set variant which is supported in `<Button />` and it will be applied to the `cancel` button
+
+<Canvas of={ConfirmStories.CancelButtonType} />
+
+### Change confirm button type
+
+Allows to set variant which is supported in `<Button />` and it will be applied to the `confirm` button
+
+<Canvas of={ConfirmStories.ConfirmButtonType} />
+
+### Change buttons icons
+
+<Canvas of={ConfirmStories.ButtonsIcons} />
+
+### Confirm button loading
+
+<Canvas of={ConfirmStories.IsLoadingConfirm} />
+
+### Confirm with Custom Data Tags
+
+<Canvas of={ConfirmStories.DefaultWithCustomDataTags} />
+
+## Props
+
+### Confirm
+
+<ArgTypes of={ConfirmStories} />

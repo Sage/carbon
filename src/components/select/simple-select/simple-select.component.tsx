@@ -54,8 +54,6 @@ export interface SimpleSelectProps
   children: React.ReactNode;
   /** The default selected value(s), when the component is operating in uncontrolled mode */
   defaultValue?: string | Record<string, unknown>;
-  /** Boolean to toggle where SelectList is rendered in relation to the Select Input */
-  disablePortal?: boolean;
   /** If true the loader animation is displayed in the option list */
   isLoading?: boolean;
   /** When true component will work in multi column mode.
@@ -91,6 +89,10 @@ export interface SimpleSelectProps
    * Higher values make for smoother scrolling but may impact performance.
    * Only used if the `enableVirtualScroll` prop is set. */
   virtualScrollOverscan?: number;
+  /** Flag to configure component as optional in Form */
+  isOptional?: boolean;
+  /** Flag to configure component as mandatory */
+  isRequired?: boolean;
 }
 
 export const SimpleSelect = React.forwardRef(
@@ -114,7 +116,6 @@ export const SimpleSelect = React.forwardRef(
       onFocus,
       onKeyDown,
       onBlur,
-      disablePortal = false,
       isLoading,
       listMaxHeight,
       onListScrollBottom,
@@ -129,6 +130,8 @@ export const SimpleSelect = React.forwardRef(
       inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
+      isOptional,
+      required,
       ...props
     }: SimpleSelectProps,
     ref
@@ -506,6 +509,8 @@ export const SimpleSelect = React.forwardRef(
         onKeyDown: handleTextboxKeydown,
         onBlur: handleTextboxBlur,
         tooltipPosition,
+        required,
+        isOptional,
         transparent,
         inputRef,
         ...filterOutStyledSystemSpacingProps(props),
@@ -521,7 +526,6 @@ export const SimpleSelect = React.forwardRef(
         onMouseDown={handleListMouseDown}
         onSelectListClose={onSelectListClose}
         highlightedValue={selectedValue}
-        disablePortal={disablePortal}
         listMaxHeight={listMaxHeight}
         isLoading={isLoading}
         onListScrollBottom={onListScrollBottom}

@@ -28,7 +28,7 @@ import {
   checkAccessibility,
   verifyRequiredAsteriskForLegend,
 } from "../../../playwright/support/helper";
-import { RadioButtonGroupProps } from "../../../src/components/radio-button/radio-button-group.component";
+import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
 import RadioButton, {
   RadioButtonProps,
 } from "../../../src/components/radio-button/radio-button.component";

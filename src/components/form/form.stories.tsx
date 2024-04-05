@@ -1,8 +1,12 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
-import Form from ".";
+import { Meta, StoryObj } from "@storybook/react";
+import { allModes } from "../../../.storybook/modes";
+import isChromatic from "../../../.storybook/isChromatic";
+import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+
+import Form, { RequiredFieldsIndicator } from ".";
 import Button from "../button";
-import { Tab, Tabs } from "../tabs";
 import Box from "../box";
 import Textbox from "../textbox";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -13,14 +17,50 @@ import { Select, MultiSelect, Option } from "../select";
 import DialogFullScreen from "../dialog-full-screen";
 import { RadioButton, RadioButtonGroup } from "../radio-button";
 import { Checkbox } from "../checkbox";
-import Hr from "../../components/hr";
+import Hr from "../hr";
 import Switch from "../switch";
 import InlineInputs from "../inline-inputs";
-import isChromatic from "../../../.storybook/isChromatic";
+import Typography from "../typography";
 
-const isOpenForChromatic = isChromatic();
+const styledSystemProps = generateStyledSystemProps({
+  spacing: true,
+});
 
-export const DefaultWithStickyFooter = () => (
+const defaultOpenState = isChromatic();
+
+const meta: Meta<typeof Form> = {
+  title: "Form",
+  component: Form,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: {
+    controls: { disable: true },
+    chromatic: {
+      modes: {
+        desktop: allModes.chromatic,
+      },
+    },
+  },
+  decorators: [
+    (Story) => (
+      <>
+        {defaultOpenState ? (
+          <Box width="100%" height={900}>
+            <Story />
+          </Box>
+        ) : (
+          <Story />
+        )}
+      </>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof Form>;
+
+export const DefaultWithStickyFooter: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -33,17 +73,6 @@ export const DefaultWithStickyFooter = () => (
     }
     stickyFooter
   >
-    <Tabs mb={2}>
-      <Tab
-        pl="3px"
-        customLayout={
-          <Box mx="16px" my="10px">
-            Tab1
-          </Box>
-        }
-        tabId="tab1"
-      />
-    </Tabs>
     <Textbox label="Textbox" />
     <Textbox label="Textbox" />
     <Textbox label="Textbox" />
@@ -53,12 +82,12 @@ export const DefaultWithStickyFooter = () => (
     <Textbox label="Textbox" />
   </Form>
 );
-
+DefaultWithStickyFooter.storyName = "Default with sticky footer";
 DefaultWithStickyFooter.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithFullWidthButtons = () => (
+export const WithFullWidthButtons: Story = () => (
   <CarbonProvider validationRedesignOptIn>
     <Form
       fullWidthButtons
@@ -77,17 +106,6 @@ export const WithFullWidthButtons = () => (
       errorCount={3}
       warningCount={2}
     >
-      <Tabs mb={2}>
-        <Tab
-          pl="3px"
-          customLayout={
-            <Box mx="16px" my="10px">
-              Tab1
-            </Box>
-          }
-          tabId="tab1"
-        />
-      </Tabs>
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
       <Textbox label="Textbox" />
@@ -98,12 +116,12 @@ export const WithFullWidthButtons = () => (
     </Form>
   </CarbonProvider>
 );
-
+WithFullWidthButtons.storyName = "With Full Width Buttons";
 WithFullWidthButtons.parameters = {
   themeProvider: { chromatic: { theme: "sage" } },
 };
 
-export const WithDifferentSpacing = () => (
+export const WithDifferentSpacing: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -122,8 +140,9 @@ export const WithDifferentSpacing = () => (
     <Textarea label="Textarea with Character Limit" characterLimit={50} />
   </Form>
 );
+WithDifferentSpacing.storyName = "With Different Spacing";
 
-export const OverrideFieldSpacing = () => (
+export const OverrideFieldSpacing: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -141,8 +160,9 @@ export const OverrideFieldSpacing = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+OverrideFieldSpacing.storyName = "Override field spacing";
 
-export const WithErrorsSummary = () => (
+export const WithErrorsSummary: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -158,8 +178,9 @@ export const WithErrorsSummary = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithErrorsSummary.storyName = "With Errors Summary";
 
-export const WithWarningsSummary = () => (
+export const WithWarningsSummary: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -175,8 +196,9 @@ export const WithWarningsSummary = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithWarningsSummary.storyName = "With Warnings Summary";
 
-export const WithBothErrorsAndWarningsSummary = () => (
+export const WithBothErrorsAndWarningsSummary: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -193,8 +215,10 @@ export const WithBothErrorsAndWarningsSummary = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithBothErrorsAndWarningsSummary.storyName =
+  "With Both Errors and Warnings Summary";
 
-export const WithAdditionalButtons = () => (
+export const WithAdditionalButtons: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -222,8 +246,9 @@ export const WithAdditionalButtons = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithAdditionalButtons.storyName = "With Additional Buttons";
 
-export const WithButtonsAlignedToTheLeft = () => (
+export const WithButtonsAlignedToTheLeft: Story = () => (
   <Form
     onSubmit={() => console.log("submit")}
     leftSideButtons={
@@ -252,6 +277,123 @@ export const WithButtonsAlignedToTheLeft = () => (
     <Textbox label="Textbox" />
   </Form>
 );
+WithButtonsAlignedToTheLeft.storyName = "With Buttons Aligned to the Left";
+
+export const WithBothOptionalOrRequired: Story = () => (
+  <Box m={1}>
+    <RequiredFieldsIndicator mb={2}>
+      <Typography variant="b">Fill in all fields marked with</Typography>
+    </RequiredFieldsIndicator>
+    <Form
+      onSubmit={() => console.log("submit")}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+    >
+      <Textbox label="Textbox" isOptional />
+      <Textbox label="Textbox" required />
+      <Select
+        name="simple-optional"
+        id="simple-optional"
+        label="Simple Select"
+        isOptional
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <Select
+        name="simple-required"
+        id="simple-required"
+        label="Simple Select"
+        required
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </Select>
+      <MultiSelect
+        name="multi-optional"
+        id="multi-optional"
+        label="Multi Select"
+        isOptional
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </MultiSelect>
+      <MultiSelect
+        name="multi-required"
+        id="multi-required"
+        label="Multi Select"
+        required
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+      </MultiSelect>
+      <RadioButtonGroup
+        name="radio group optional"
+        onChange={() => console.log("RADIO CHANGE")}
+        legend="RadioGroup"
+        isOptional
+      >
+        <RadioButton
+          id="group-2-input-1"
+          value="group-2-input-1"
+          label="Radio Option 1"
+          labelWidth={10}
+        />
+        <RadioButton
+          id="group-2-input-2"
+          value="group-2-input-2"
+          label="Radio Option 2"
+          labelWidth={10}
+        />
+      </RadioButtonGroup>
+      <RadioButtonGroup
+        name="radio group required"
+        onChange={() => console.log("RADIO CHANGE")}
+        legend="RadioGroup"
+        required
+      >
+        <RadioButton
+          id="group-2-input-1"
+          value="group-2-input-1"
+          label="Radio Option 1"
+          labelWidth={10}
+        />
+        <RadioButton
+          id="group-2-input-2"
+          value="group-2-input-2"
+          label="Radio Option 2"
+          labelWidth={10}
+        />
+      </RadioButtonGroup>
+      <Checkbox
+        name="checkbox"
+        onChange={() => console.log("CHECKBOX OPTIONAL")}
+        label="Checkbox"
+        isOptional
+      />
+      <Checkbox
+        name="checkbox"
+        onChange={() => console.log("CHECKBOX REQUIRED")}
+        label="Checkbox"
+        required
+      />
+    </Form>
+  </Box>
+);
+WithBothOptionalOrRequired.storyName = "WithBothOptionalOrRequired";
+WithBothOptionalOrRequired.parameters = {
+  themeProvider: { chromatic: { theme: "sage" } },
+};
 
 export const InDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -280,7 +422,7 @@ export const InDialog = () => {
     </>
   );
 };
-
+InDialog.storyName = "In Dialog";
 InDialog.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogWithStickyFooter = () => {
@@ -322,7 +464,6 @@ export const InDialogWithStickyFooter = () => {
             name="simple-disabled-portal"
             id="simple-disabled-portal"
             label="Simple Select - disabled portal"
-            disablePortal
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
@@ -340,7 +481,6 @@ export const InDialogWithStickyFooter = () => {
             name="multi-disabled-portal"
             id="multi-disabled-portal"
             label="Multi Select - disabled portal"
-            disablePortal
           >
             <Option text="Amber" value="1" />
             <Option text="Black" value="2" />
@@ -388,7 +528,7 @@ export const InDialogWithStickyFooter = () => {
     </>
   );
 };
-
+InDialogWithStickyFooter.storyName = "In Dialog with Sticky Footer";
 InDialogWithStickyFooter.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreen = () => {
@@ -420,7 +560,7 @@ export const InDialogFullScreen = () => {
     </>
   );
 };
-
+InDialogFullScreen.storyName = "In Dialog Full Screen";
 InDialogFullScreen.parameters = { chromatic: { disableSnapshot: true } };
 
 export const InDialogFullScreenWithStickyFooter = () => {
@@ -478,12 +618,13 @@ export const InDialogFullScreenWithStickyFooter = () => {
     </>
   );
 };
-
+InDialogFullScreenWithStickyFooter.storyName =
+  "In Dialog Full Screen with Sticky Footer";
 InDialogFullScreenWithStickyFooter.parameters = {
   chromatic: { disableSnapshot: true },
 };
 
-export const FormAlignmentExample = () => {
+export const FormAlignmentExample: Story = () => {
   const [date, setDate] = useState("04/04/2019");
   return (
     <Form
@@ -507,7 +648,6 @@ export const FormAlignmentExample = () => {
         labelWidth={10}
         inputWidth={30}
         fieldHelp="This is some help text"
-        isOptional={false}
       />
       <Textbox
         key="input-two"
@@ -624,8 +764,9 @@ export const FormAlignmentExample = () => {
     </Form>
   );
 };
+FormAlignmentExample.storyName = "Form Alignment Example";
 
-export const WithLabelsInline = () => (
+export const WithLabelsInline: Story = () => (
   <Form
     saveButton={
       <Button buttonType="primary" type="submit">
@@ -664,9 +805,10 @@ export const WithLabelsInline = () => (
     </InlineInputs>
   </Form>
 );
+WithLabelsInline.storyName = "With Labels Inline";
 
-export const WithCustomFooterPadding = () => {
-  const [isOpen, setIsOpen] = useState(isOpenForChromatic);
+export const WithCustomFooterPadding: Story = () => {
+  const [isOpen, setIsOpen] = useState(defaultOpenState);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Preview</Button>
@@ -695,3 +837,4 @@ export const WithCustomFooterPadding = () => {
     </>
   );
 };
+WithCustomFooterPadding.storyName = "With Custom Footer Padding";

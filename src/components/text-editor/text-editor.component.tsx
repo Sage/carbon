@@ -76,8 +76,10 @@ export interface TextEditorProps extends MarginProps {
   toolbarElements?: React.ReactNode;
   /** The value of the input, this is an EditorState immutable object */
   value: EditorState;
-  /** Flag to configure component as mandatory */
+  /** Flag to configure component as mandatory. */
   required?: boolean;
+  /** Flag to configure component as optional. */
+  isOptional?: boolean;
   /** Message to be displayed when there is an error */
   error?: string;
   /** Message to be displayed when there is a warning */
@@ -110,6 +112,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
       previews,
       onLinkAdded,
       inputHint,
+      isOptional,
       ...rest
     }: TextEditorProps,
     ref
@@ -123,6 +126,7 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
     const [focusToolbar, setFocusToolbar] = useState(false);
 
     const editorRef = useRef<Editor>(null);
+    const wrapper = useRef<HTMLDivElement>(null);
     const editor = ref || editorRef;
     const contentLength = getContent(value).getPlainText("").length;
     const moveCursor = useRef(contentLength > 0);
@@ -411,11 +415,25 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
       }
     };
 
+    useEffect(() => {
+      if (required) {
+        const editableElement = wrapper.current?.querySelector(
+          "div[contenteditable='true']"
+        );
+        editableElement?.setAttribute("required", "");
+        editableElement?.setAttribute("aria-required", "true");
+      }
+    }, [required]);
+
     return (
       <EditorContext.Provider value={{ onLinkAdded, editMode: true }}>
-        <StyledEditorWrapper {...rest}>
+        <StyledEditorWrapper ref={wrapper} {...rest}>
           <LabelWrapper onClick={() => handleEditorFocus(true)}>
-            <Label labelId={labelId} isRequired={required}>
+            <Label
+              labelId={labelId}
+              isRequired={required}
+              optional={isOptional}
+            >
               {labelText}
             </Label>
           </LabelWrapper>
