@@ -1,3 +1,10 @@
+### [128.4.1](https://github.com/Sage/carbon/compare/v128.4.0...v128.4.1) (2024-04-05)
+
+
+### Bug Fixes
+
+* **text-editor:** ensure the input is focused when toolbar buttons are activated or deactivated ([c7c616c](https://github.com/Sage/carbon/commit/c7c616c7ea037c24613a13949eca5aa49f280301))
+
 ## [128.4.0](https://github.com/Sage/carbon/compare/v128.3.1...v128.4.0) (2024-04-05)
 
 
