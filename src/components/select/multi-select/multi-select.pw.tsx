@@ -816,13 +816,11 @@ test.describe("MultiSelect component", () => {
     const headerElements = multiColumnsSelectListHeader(page);
     await expect(headerElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(headerElements.nth(i)).toBeVisible();
     }
     const bodyElements = multiColumnsSelectListBody(page);
     await expect(bodyElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(bodyElements.nth(i)).toBeVisible();
     }
     await expect(multiColumnsSelectListRow(page)).toHaveCSS(

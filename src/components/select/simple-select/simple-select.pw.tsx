@@ -521,7 +521,6 @@ test.describe("SimpleSelect component", () => {
     const firstOption = selectOptionByText(page, "Amber");
     await firstOption.waitFor();
     for (let i = 0; i < 5; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await inputElement.press("ArrowDown");
     }
     await selectOptionByText(page, "Lazy Loaded A1").waitFor();
@@ -529,13 +528,12 @@ test.describe("SimpleSelect component", () => {
     // run this 10 times to try to catch any intermittent failures
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 3; j++) {
-        // eslint-disable-next-line no-await-in-loop
         await inputElement.press("ArrowDown");
       }
       // wait for new lazy-loaded options to appear
-      // eslint-disable-next-line no-await-in-loop
+
       await page.waitForTimeout(2000);
-      // eslint-disable-next-line no-await-in-loop
+
       await expect(firstOption).not.toBeInViewport();
     }
   });
@@ -579,7 +577,6 @@ test.describe("SimpleSelect component", () => {
     const inputElement = commonDataElementInputPreview(page);
     await inputElement.focus();
     for (let i = 0; i < 3; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await inputElement.press("ArrowDown");
     }
     await expect(getDataElementByValue(page, "input")).toHaveValue("Jill Moe");

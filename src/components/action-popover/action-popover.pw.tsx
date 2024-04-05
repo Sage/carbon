@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop */
 import { expect, test } from "@playwright/experimental-ct-react17";
 import React from "react";
 import { HooksConfig } from "../../../playwright";

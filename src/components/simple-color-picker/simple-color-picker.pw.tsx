@@ -419,14 +419,14 @@ test.describe("Check events for SimpleColorPicker component", () => {
       expectedCount += 1;
       const next = index < colors.length - 1 ? index + 1 : 0;
       const colorInput = simpleColorPickerInput(page, index);
-      // eslint-disable-next-line no-await-in-loop
+
       await colorInput.press("ArrowRight");
       const nextColor = simpleColorPickerInput(page, next);
-      // eslint-disable-next-line no-await-in-loop
+
       await expect(nextColor).toBeFocused();
-      // eslint-disable-next-line no-await-in-loop
+
       await expect(nextColor).toHaveAttribute("value", colors[next].color);
-      // eslint-disable-next-line no-await-in-loop
+
       await expect(callbackCount).toBe(expectedCount);
     }
   });
@@ -446,14 +446,14 @@ test.describe("Check events for SimpleColorPicker component", () => {
       expectedCount += 1;
       const next = index > 0 ? index - 1 : colors.length - 1;
       const colorInput = simpleColorPickerInput(page, index);
-      // eslint-disable-next-line no-await-in-loop
+
       await colorInput.press("ArrowLeft");
       const nextColor = simpleColorPickerInput(page, next);
-      // eslint-disable-next-line no-await-in-loop
+
       await expect(nextColor).toBeFocused();
-      // eslint-disable-next-line no-await-in-loop
+
       await expect(nextColor).toHaveAttribute("value", colors[next].color);
-      // eslint-disable-next-line no-await-in-loop
+
       await expect(callbackCount).toBe(expectedCount);
     }
   });

@@ -864,13 +864,11 @@ test.describe("FilterableSelect component", () => {
     const headerElements = multiColumnsSelectListHeader(page);
     await expect(headerElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(headerElements.nth(i)).toBeVisible();
     }
     const bodyElements = multiColumnsSelectListBody(page);
     await expect(bodyElements).toHaveCount(columns);
     for (let i = 0; i < columns; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await expect(bodyElements.nth(i)).toBeVisible();
     }
     await expect(multiColumnsSelectListRow(page)).toHaveCSS(
@@ -1025,9 +1023,8 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     const inputElement = commonDataElementInputPreview(page);
     for (let i = 0; i < 5; i++) {
-      // eslint-disable-next-line no-await-in-loop
       await inputElement.focus();
-      // eslint-disable-next-line no-await-in-loop
+
       await inputElement.press("ArrowDown");
     }
     await expect(selectOptionByText(page, "Green").nth(0)).toBeInViewport();
