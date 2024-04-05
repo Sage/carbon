@@ -11,7 +11,7 @@ import {
 } from "../src/style/themes";
 import enGB from "../src/locales/en-gb";
 import "../src/style/fonts.css";
-// import Locale from "../src/locales";
+
 import * as dateLocales from "../src/locales/date-fns-locales";
 
 export type HooksConfig = {
