@@ -34,6 +34,7 @@ const longText =
 const longTextAssert =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
+const buttonNames = ["bold", "italic", "bullet-list", "number-list"];
 
 test.describe("Functionality tests", () => {
   test(`should check the counter works properly`, async ({ mount, page }) => {
@@ -46,7 +47,7 @@ test.describe("Functionality tests", () => {
     await expect(textEditorCounter(page)).toHaveText("2,982 characters left");
   });
 
-  ["bold", "italic"].forEach((buttonType) => {
+  buttonNames.slice(0, 2).forEach((buttonType) => {
     test(`should render text using ${buttonType} style`, async ({
       mount,
       page,
@@ -68,7 +69,7 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  ["bullet-list", "number-list"].forEach((buttonType) => {
+  buttonNames.slice(2, 4).forEach((buttonType) => {
     test(`should render text in ${buttonType} style`, async ({
       mount,
       page,
@@ -99,12 +100,7 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  ([
-    ["bold", 0],
-    ["italic", 1],
-    ["bullet-list", 2],
-    ["number-list", 3],
-  ] as [string, number][]).forEach(([buttonType, times]) => {
+  buttonNames.forEach((buttonType, times) => {
     test(`should focus ${buttonType} button using RightArrow keyboard key`, async ({
       mount,
       page,
@@ -122,12 +118,7 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  ([
-    ["bold", 4],
-    ["italic", 3],
-    ["bullet-list", 2],
-    ["number-list", 1],
-  ] as [string, number][]).forEach(([buttonType, times]) => {
+  buttonNames.forEach((buttonType, times) => {
     test(`should focus ${buttonType} button using ArrowLeft keyboard key`, async ({
       mount,
       page,
@@ -137,7 +128,7 @@ test.describe("Functionality tests", () => {
       const textInput = textEditorInput(page);
       await textInput.focus();
       await page.keyboard.press("Tab");
-      for (let i = 0; i < times; i++) {
+      for (let i = 0; i < buttonNames.length - times; i++) {
         await page.keyboard.press("ArrowLeft");
       }
 
@@ -145,12 +136,7 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  ([
-    ["bold", 0],
-    ["italic", 1],
-    ["bullet-list", 2],
-    ["number-list", 3],
-  ] as [string, number][]).forEach(([buttonType, times]) => {
+  buttonNames.forEach((buttonType, times) => {
     test(`should activate ${buttonType} button using Enter keyboard key`, async ({
       mount,
       page,
@@ -172,12 +158,7 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  ([
-    ["bold", 0],
-    ["italic", 1],
-    ["bullet-list", 2],
-    ["number-list", 3],
-  ] as [string, number][]).forEach(([buttonType, times]) => {
+  buttonNames.forEach((buttonType, times) => {
     test(`should activate ${buttonType} button using Space keyboard key`, async ({
       mount,
       page,
@@ -196,6 +177,74 @@ test.describe("Functionality tests", () => {
         "background-color",
         "rgb(0, 50, 76)"
       );
+    });
+  });
+
+  buttonNames.forEach((buttonType, times) => {
+    test(`should focus the input when ${buttonType} is selected/deselected with enter key`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorCustom />);
+
+      const textInput = textEditorInput(page);
+      await textInput.focus();
+      await page.keyboard.press("Tab");
+      for (let i = 0; i < times; i++) {
+        await page.keyboard.press("ArrowRight");
+      }
+      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
+      await page.keyboard.press("Enter");
+      await expect(textInput).toBeFocused();
+      await page.keyboard.press("Tab");
+      for (let i = 0; i < times; i++) {
+        await page.keyboard.press("ArrowRight");
+      }
+      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
+      await page.keyboard.press("Enter");
+      await expect(textInput).toBeFocused();
+    });
+  });
+
+  buttonNames.forEach((buttonType, times) => {
+    test(`should focus the input when ${buttonType} is selected/deselected with space key`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorCustom />);
+
+      const textInput = textEditorInput(page);
+      await textInput.focus();
+      await page.keyboard.press("Tab");
+      for (let i = 0; i < times; i++) {
+        await page.keyboard.press("ArrowRight");
+      }
+      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
+      await page.keyboard.press("Space");
+      await expect(textInput).toBeFocused();
+      await page.keyboard.press("Tab");
+      for (let i = 0; i < times; i++) {
+        await page.keyboard.press("ArrowRight");
+      }
+      await expect(textEditorToolbar(page, buttonType)).toBeFocused();
+      await page.keyboard.press("Space");
+      await expect(textInput).toBeFocused();
+    });
+  });
+
+  buttonNames.forEach((buttonType) => {
+    test(`should focus the input when ${buttonType} is selected/deselected via user clicking`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextEditorCustom />);
+
+      const textInput = textEditorInput(page);
+      const toolbarButton = textEditorToolbar(page, buttonType);
+      await toolbarButton.click();
+      await expect(textInput).toBeFocused();
+      await toolbarButton.click();
+      await expect(textInput).toBeFocused();
     });
   });
 
@@ -257,32 +306,29 @@ test.describe("Functionality tests", () => {
     await expect(textEditorToolbar(page, "bold")).toBeFocused();
   });
 
-  ([
-    ["Bold", 0],
-    ["Italic", 1],
-    ["Bulleted List", 2],
-    ["Numbered List", 3],
-  ] as const).forEach(([tooltipText, buttonNumber]) => {
-    test(`should render with ${tooltipText} button hovered over`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextEditorCustom />);
-
-      const stylingButton = getComponent(
+  (["Bold", "Italic", "Bulleted List", "Numbered List"] as const).forEach(
+    (tooltipText, buttonNumber) => {
+      test(`should render with ${tooltipText} button hovered over`, async ({
+        mount,
         page,
-        "text-editor-toolbar-button"
-      ).nth(buttonNumber);
-      await stylingButton.hover();
-      await expect(stylingButton).toHaveCSS(
-        "background-color",
-        "rgb(204, 214, 219)"
-      );
-      await expect(getDataElementByValue(page, "tooltip")).toHaveText(
-        tooltipText
-      );
-    });
-  });
+      }) => {
+        await mount(<TextEditorCustom />);
+
+        const stylingButton = getComponent(
+          page,
+          "text-editor-toolbar-button"
+        ).nth(buttonNumber);
+        await stylingButton.hover();
+        await expect(stylingButton).toHaveCSS(
+          "background-color",
+          "rgb(204, 214, 219)"
+        );
+        await expect(getDataElementByValue(page, "tooltip")).toHaveText(
+          tooltipText
+        );
+      });
+    }
+  );
 
   test(`should focus optional buttons by tabbing from the input area`, async ({
     mount,
