@@ -237,7 +237,7 @@ test.describe("Prop tests", () => {
       if (showTotal) {
         await expect(pagerSummary(page)).toBeVisible();
       } else {
-        await expect(pagerSummary(page)).not.toBeVisible();
+        await expect(pagerSummary(page)).toBeHidden();
       }
     });
   });
@@ -286,7 +286,7 @@ test.describe("Prop tests", () => {
       if (showCount) {
         await expect(currentPageSection(page).first()).toBeVisible();
       } else {
-        await expect(currentPageSection(page)).not.toBeVisible();
+        await expect(currentPageSection(page)).toBeHidden();
       }
     });
   });
@@ -335,8 +335,8 @@ test.describe("Prop tests", () => {
       );
 
       if (hideElements) {
-        await expect(firstArrow(page)).not.toBeVisible();
-        await expect(previousArrow(page)).not.toBeVisible();
+        await expect(firstArrow(page)).toBeHidden();
+        await expect(previousArrow(page)).toBeHidden();
       } else {
         await expect(firstArrow(page)).toBeVisible();
         await expect(previousArrow(page)).toBeVisible();
@@ -354,8 +354,8 @@ test.describe("Prop tests", () => {
       );
 
       if (hideElements) {
-        await expect(nextArrow(page)).not.toBeVisible();
-        await expect(lastArrow(page)).not.toBeVisible();
+        await expect(nextArrow(page)).toBeHidden();
+        await expect(lastArrow(page)).toBeHidden();
       } else {
         await expect(nextArrow(page)).toBeVisible();
         await expect(lastArrow(page)).toBeVisible();

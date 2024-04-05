@@ -103,9 +103,7 @@ test.describe("NumeralDate component", () => {
   }) => {
     await mount(<NumeralDateComponent labelInline />);
 
-    const labelParent = await getDataElementByValue(page, "label").locator(
-      ".."
-    );
+    const labelParent = getDataElementByValue(page, "label").locator("..");
     await expect(labelParent).toHaveCSS("justify-content", "flex-end");
   });
 
@@ -122,9 +120,7 @@ test.describe("NumeralDate component", () => {
           <NumeralDateComponent labelInline labelAlign={labelAlign} />
         );
 
-        const labelParent = await getDataElementByValue(page, "label").locator(
-          ".."
-        );
+        const labelParent = getDataElementByValue(page, "label").locator("..");
         await expect(labelParent).toHaveCSS(
           "justify-content",
           `flex-${cssValue}`
@@ -235,7 +231,7 @@ test.describe("NumeralDate component", () => {
         />
       );
 
-      const input = await numeralDateInput(page, 2).locator("..");
+      const input = numeralDateInput(page, 2).locator("..");
       await expect(input.locator(ICON)).toHaveAttribute("data-element", type);
     });
   });
@@ -465,7 +461,7 @@ test.describe("NumeralDate component", () => {
 
     await expect(numeralDateInputLabel(page, 0)).toHaveText("Day");
     await expect(numeralDateInputLabel(page, 1)).toHaveText("Month");
-    await expect(numeralDateInputLabel(page, 2)).not.toBeVisible();
+    await expect(numeralDateInputLabel(page, 2)).toBeHidden();
   });
 
   test('should render NumeralDate with `["mm", "dd"]` dateFormat prop', async ({
@@ -476,7 +472,7 @@ test.describe("NumeralDate component", () => {
 
     await expect(numeralDateInputLabel(page, 0)).toHaveText("Month");
     await expect(numeralDateInputLabel(page, 1)).toHaveText("Day");
-    await expect(numeralDateInputLabel(page, 2)).not.toBeVisible();
+    await expect(numeralDateInputLabel(page, 2)).toBeHidden();
   });
 
   test('should render NumeralDate with `["mm", "yyyy"]` dateFormat prop', async ({
@@ -487,7 +483,7 @@ test.describe("NumeralDate component", () => {
 
     await expect(numeralDateInputLabel(page, 0)).toHaveText("Month");
     await expect(numeralDateInputLabel(page, 1)).toHaveText("Year");
-    await expect(numeralDateInputLabel(page, 2)).not.toBeVisible();
+    await expect(numeralDateInputLabel(page, 2)).toBeHidden();
   });
 
   ([
@@ -668,7 +664,7 @@ test.describe("NumeralDate component", () => {
       await checkAccessibility(page);
     });
 
-    test("should pass accessibility tests for NumeralDateControlled component ", async ({
+    test("should pass accessibility tests for NumeralDateControlled component", async ({
       mount,
       page,
     }) => {

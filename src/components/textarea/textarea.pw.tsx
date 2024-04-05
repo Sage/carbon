@@ -312,7 +312,7 @@ test.describe("Props tests for Textarea component", () => {
       page
     );
 
-    await expect(visuallyHiddenCharacterCountElement).not.toBeVisible();
+    await expect(visuallyHiddenCharacterCountElement).toBeHidden();
   });
 
   test("visually hidden hint of 5 should be rendered", async ({
@@ -334,7 +334,7 @@ test.describe("Props tests for Textarea component", () => {
 
     const visuallyHiddenHintElement = visuallyHiddenHint(page);
 
-    await expect(visuallyHiddenHintElement).not.toBeVisible();
+    await expect(visuallyHiddenHintElement).toBeHidden();
   });
 
   ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {

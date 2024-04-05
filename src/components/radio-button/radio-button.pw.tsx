@@ -134,7 +134,7 @@ test.describe("should render RadioButton component", () => {
       if (booleanValue) {
         await expect(radiobuttonElement).toBeDisabled();
       } else {
-        await expect(radiobuttonElement).not.toBeDisabled();
+        await expect(radiobuttonElement).toBeEnabled();
       }
     });
   });
@@ -329,7 +329,7 @@ test.describe("should render RadioButton component", () => {
           reverse={reverseValue}
         />
       );
-      const expectedLabelChild = await radiobuttonComponent(page)
+      const expectedLabelChild = radiobuttonComponent(page)
         .locator("div > div > div > div:not(input + div)")
         .nth(position);
       await expect(expectedLabelChild).toHaveText("Radiobutton Label");
@@ -451,7 +451,7 @@ test.describe("Testing RadioButtonGroup component", () => {
     page,
   }) => {
     await mount(<RadioButtonGroupComponent error />);
-    const radiobuttonSvgElement = await radiobuttonSvg(page).first();
+    const radiobuttonSvgElement = radiobuttonSvg(page).first();
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
       VALIDATION.ERROR
@@ -463,7 +463,7 @@ test.describe("Testing RadioButtonGroup component", () => {
     page,
   }) => {
     await mount(<RadioButtonGroupComponent warning />);
-    const radiobuttonSvgElement = await radiobuttonSvg(page).first();
+    const radiobuttonSvgElement = radiobuttonSvg(page).first();
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
       VALIDATION.WARNING
@@ -475,7 +475,7 @@ test.describe("Testing RadioButtonGroup component", () => {
     page,
   }) => {
     await mount(<RadioButtonGroupComponent info />);
-    const radiobuttonSvgElement = await radiobuttonSvg(page).first();
+    const radiobuttonSvgElement = radiobuttonSvg(page).first();
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
       VALIDATION.INFO

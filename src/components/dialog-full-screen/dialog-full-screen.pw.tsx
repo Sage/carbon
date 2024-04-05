@@ -57,10 +57,10 @@ test.describe("render DialogFullScreen component and check properties", () => {
 
     const closeIcon = getDataElementByValue(page, "close").first();
     const dialogFullScreen = page.getByRole("dialog");
-    await expect(closeIcon).toBeAttached;
-    await expect(dialogFullScreen).toBeAttached;
+    await expect(closeIcon).toBeAttached();
+    await expect(dialogFullScreen).toBeAttached();
     await closeIcon.click();
-    await expect(dialogFullScreen).not.toBeAttached;
+    await expect(dialogFullScreen).not.toBeAttached();
   });
 
   specialCharacters.forEach((title) => {
@@ -114,18 +114,18 @@ test.describe("render DialogFullScreen component and check properties", () => {
     await mount(<DialogFullScreenComponent disableEscKey />);
 
     const dialogFullScreen = page.getByRole("dialog");
-    await expect(dialogFullScreen).toBeAttached;
+    await expect(dialogFullScreen).toBeAttached();
     await page.keyboard.press("Escape");
-    await expect(dialogFullScreen).not.toBeAttached;
+    await expect(dialogFullScreen).not.toBeAttached();
   });
 
   test("should close after pressing Escape button", async ({ mount, page }) => {
     await mount(<DialogFullScreenComponent />);
 
     const dialogFullScreen = page.getByRole("dialog");
-    await expect(dialogFullScreen).toBeAttached;
+    await expect(dialogFullScreen).toBeAttached();
     await page.keyboard.press("Escape");
-    await expect(dialogFullScreen).not.toBeAttached;
+    await expect(dialogFullScreen).not.toBeAttached();
   });
 
   test("should call the cancel action after closing", async ({

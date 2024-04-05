@@ -337,7 +337,7 @@ test.describe("Prop checks for Portrait component", () => {
         await expect(tooltip).toBeVisible();
         await expect(tooltip).toHaveText("foo");
       } else {
-        await expect(tooltip).not.toBeVisible();
+        await expect(tooltip).toBeHidden();
       }
     });
   });

@@ -86,7 +86,7 @@ test.describe("Test props for NavigationBar component", () => {
       const navigation = page.locator(`[data-component="navigation-bar"]`);
 
       if (boolean) {
-        await expect(navigation).not.toBeAttached;
+        await expect(navigation).not.toBeAttached();
       } else {
         await expect(navigation).toBeVisible();
       }

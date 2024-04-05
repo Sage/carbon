@@ -1259,9 +1259,9 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     const closeIcon = closeIconButton(page).first();
     await closeIcon.click();
     const fullScreenMenu1 = fullscreenMenu(page, 0).locator("span");
-    await expect(fullScreenMenu1).not.toBeVisible();
+    await expect(fullScreenMenu1).toBeHidden();
     const fullScreenMenu2 = fullscreenMenu(page, 1).locator("ul").first();
-    await expect(fullScreenMenu2).not.toBeVisible();
+    await expect(fullScreenMenu2).toBeHidden();
     const thisMenu = menu(page).first();
     await expect(thisMenu).toBeVisible();
   });
@@ -1421,7 +1421,7 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
         if (boolVal) {
           await expect(fullScreenMenu).toBeVisible();
         } else {
-          await expect(fullScreenMenu).not.toBeVisible();
+          await expect(fullScreenMenu).toBeHidden();
         }
       });
     }

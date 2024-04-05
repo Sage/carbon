@@ -44,7 +44,7 @@ test.describe("Prop tests for Sidebar component", () => {
       const backgroundUILocatorElement = backgroundUILocator(page);
 
       if (enableBackgroundUIValue) {
-        await expect(backgroundUILocatorElement).not.toBeVisible();
+        await expect(backgroundUILocatorElement).toBeHidden();
       } else {
         await expect(backgroundUILocatorElement).toBeVisible();
       }
@@ -209,7 +209,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     const toastElement = getComponent(page, "toast");
 
-    await expect(toastElement).not.toBeVisible();
+    await expect(toastElement).toBeHidden();
 
     const openToastElement = getDataElementByValue(page, "open-toast");
     await openToastElement.click();
@@ -221,7 +221,7 @@ test.describe("Prop tests for Sidebar component", () => {
       .getByLabel("Close");
     await toastElementCloseButton.click();
 
-    await expect(toastElement).not.toBeVisible();
+    await expect(toastElement).toBeHidden();
   });
 
   test("should render component with first input and button as focusableSelectors", async ({
@@ -256,7 +256,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     const toastElement = getComponent(page, "toast");
 
-    await expect(toastElement).not.toBeVisible();
+    await expect(toastElement).toBeHidden();
 
     const openToastElement = getDataElementByValue(page, "open-toast");
     await openToastElement.click();
@@ -309,7 +309,7 @@ test.describe("Prop tests for Sidebar component", () => {
     const focusedElement = page.locator("*:focus");
     await focusedElement.press("Enter");
 
-    await expect(sidebarPreviewElement).not.toBeVisible();
+    await expect(sidebarPreviewElement).toBeHidden();
 
     await bodyElement.press("Tab");
     const DialogCloseIconButton = getComponent(page, "dialog").locator(

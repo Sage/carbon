@@ -108,7 +108,7 @@ test.describe("Testing Dialog component properties", () => {
   }) => {
     await mount(<DialogComponent showCloseIcon={false} />);
 
-    await expect(page.getByLabel("Close")).not.toBeVisible();
+    await expect(page.getByLabel("Close")).toBeHidden();
   });
 
   test("when showCloseIcon prop is true, clicking close icon closes Dialog", async ({
@@ -122,7 +122,7 @@ test.describe("Testing Dialog component properties", () => {
 
     await page.getByLabel("Close").click();
 
-    await expect(dialog).not.toBeVisible();
+    await expect(dialog).toBeHidden();
   });
 
   test("pressing the Escape key closes Dialog", async ({ mount, page }) => {
@@ -133,7 +133,7 @@ test.describe("Testing Dialog component properties", () => {
 
     await dialog.press("Escape");
 
-    await expect(dialog).not.toBeVisible();
+    await expect(dialog).toBeHidden();
   });
 
   test("when disableEscKey prop is passed, pressing the Escape key does not close Dialog", async ({

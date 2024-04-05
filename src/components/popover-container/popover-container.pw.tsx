@@ -68,7 +68,7 @@ test.describe("Check props of Popover Container component", () => {
       if (openValue) {
         await expect(popoverContainerContentElement).toBeVisible();
       } else {
-        await expect(popoverContainerContentElement).not.toBeVisible();
+        await expect(popoverContainerContentElement).toBeHidden();
       }
     });
   });
@@ -238,7 +238,7 @@ test.describe("Check props of Popover Container component", () => {
 
     const popoverContainerContentElement = popoverContainerContent(page);
 
-    await expect(popoverContainerContentElement).not.toBeVisible();
+    await expect(popoverContainerContentElement).toBeHidden();
   });
 
   test("should render with renderCloseComponent", async ({ mount, page }) => {
@@ -317,7 +317,7 @@ test.describe("Check props of Popover Container component", () => {
       const popoverCloseIconElement = popoverCloseIcon(page);
       await popoverCloseIconElement.press(key);
 
-      await expect(popoverContainerContent(page)).not.toBeVisible();
+      await expect(popoverContainerContent(page)).toBeHidden();
     });
   });
 
@@ -331,7 +331,7 @@ test.describe("Check props of Popover Container component", () => {
     const popoverContainerContentElement = popoverContainerContent(page);
     await popoverContainerContentElement.press("Escape");
 
-    await expect(popoverContainerContentElement).not.toBeVisible();
+    await expect(popoverContainerContentElement).toBeHidden();
   });
 
   test("should not close when an option is selected from Select component inside", async ({
@@ -367,7 +367,7 @@ test.describe("Check props of Popover Container component", () => {
     await page.keyboard.press("ArrowDown");
     await popoverContainerComponent(page).press("Escape");
 
-    await expect(selectListText(page, "green")).not.toBeVisible();
+    await expect(selectListText(page, "green")).toBeHidden();
     await expect(popoverContainerContent(page)).toBeVisible();
   });
 
@@ -383,7 +383,7 @@ test.describe("Check props of Popover Container component", () => {
     await selectTextElement.press("Escape");
     const popoverContainerContentElement = popoverContainerContent(page);
 
-    await expect(popoverContainerContentElement).not.toBeVisible();
+    await expect(popoverContainerContentElement).toBeHidden();
   });
 });
 
@@ -542,7 +542,7 @@ test.describe("Event tests", () => {
     await expect(childButton).toBeFocused();
     await childButton.press("Tab");
     await expect(siblingButton).toBeFocused();
-    await expect(container).not.toBeVisible();
+    await expect(container).toBeHidden();
   });
 
   test("should focus the open button element when user back tabs and first element in the container is focused", async ({
@@ -559,7 +559,7 @@ test.describe("Event tests", () => {
     await expect(closeButton).toBeFocused();
     await closeButton.press("Shift+Tab");
     await expect(openButton).toBeFocused();
-    await expect(container).not.toBeVisible();
+    await expect(container).toBeHidden();
   });
 });
 

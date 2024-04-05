@@ -231,6 +231,7 @@
       "files": ["*.pw.ts*", "*.test-pw.ts*", "playwright/**/*.ts*"],
       "extends": ["plugin:playwright/recommended"],
       "rules": {
+        "playwright/expect-expect": "off",
         "no-return-await": "warn",
         "no-return-assign": "warn",
         "no-await-in-loop": "warn",

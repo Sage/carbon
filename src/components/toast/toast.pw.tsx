@@ -51,7 +51,7 @@ test.describe("Toast component", () => {
 
     await page.keyboard.press("Escape");
 
-    await expect(toastComponent(page)).not.toBeVisible();
+    await expect(toastComponent(page)).toBeHidden();
   });
 
   test("should render with focus", async ({ mount, page }) => {
@@ -138,7 +138,7 @@ test.describe("Toast component", () => {
       if (boolVal) {
         await expect(toastComponent(page)).toBeVisible();
       } else {
-        await expect(toastComponent(page)).not.toBeVisible();
+        await expect(toastComponent(page)).toBeHidden();
       }
     });
   });
@@ -156,7 +156,7 @@ test.describe("Toast component", () => {
 
       await expect(toastComponent(page)).toBeVisible();
       await page.waitForTimeout(waitTime);
-      await expect(toastComponent(page)).not.toBeVisible();
+      await expect(toastComponent(page)).toBeHidden();
     });
   });
 
@@ -244,7 +244,7 @@ test.describe("Toast component", () => {
     const closeIconToast = closeIconButton(page).nth(0);
     await closeIconToast.click();
 
-    await expect(toastComponent(page)).not.toBeVisible();
+    await expect(toastComponent(page)).toBeHidden();
   });
 
   test("should render with expected border radius", async ({ mount, page }) => {

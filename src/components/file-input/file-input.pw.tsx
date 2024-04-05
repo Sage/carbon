@@ -183,7 +183,7 @@ test.describe("FileInput component", () => {
       page,
     }) => {
       await mount(<FileInputComponent inputHint={testVal} />);
-      const inputHintElement = await page.getByText(testVal);
+      const inputHintElement = page.getByText(testVal);
       await expect(inputHintElement).toBeVisible();
     });
   });
@@ -212,7 +212,7 @@ test.describe("FileInput component", () => {
       );
     // TODO: should check token value (--colorsSemanticNegative500), rewrite this when we have the equivalent playwright util merged in
     await expect(borderColor).toBe("rgb(203, 55, 74)");
-    const errorMessage = await page.getByText("error text");
+    const errorMessage = page.getByText("error text");
     await expect(errorMessage).toBeVisible();
     await expect(errorMessage).toHaveCSS("color", "rgb(203, 55, 74)");
   });
@@ -286,7 +286,7 @@ test.describe("with uploadStatus prop", () => {
           uploadStatus={{ ...statusProps, iconType: "pdf" }}
         />
       );
-      const icon = await page.getByTestId("icon");
+      const icon = page.getByTestId("icon");
       await expect(icon).toHaveAttribute("data-element", "pdf");
     });
   });
@@ -297,7 +297,7 @@ test.describe("with uploadStatus prop", () => {
       page,
     }) => {
       await mount(<FileInputComponent uploadStatus={{ ...statusProps }} />);
-      const icon = await page.getByTestId("icon");
+      const icon = page.getByTestId("icon");
       await expect(icon).toHaveAttribute("data-element", "file_generic");
     });
   });
@@ -323,7 +323,7 @@ test.describe("with uploadStatus prop", () => {
         uploadStatus={{ ...uploadingStatusProps, onAction }}
       />
     );
-    const actionButton = await page.getByRole("button", {
+    const actionButton = page.getByRole("button", {
       name: "Cancel upload",
     });
     await expect(actionButton).toBeVisible();
@@ -345,7 +345,7 @@ test.describe("with uploadStatus prop", () => {
     page,
   }) => {
     await mount(<FileInputComponent uploadStatus={uploadingStatusProps} />);
-    const progressBar = await page.getByRole("progressbar");
+    const progressBar = page.getByRole("progressbar");
     await expect(progressBar).toBeVisible();
     await expect(progressBar).toHaveAttribute("aria-valuenow", "30");
   });
@@ -359,7 +359,7 @@ test.describe("with uploadStatus prop", () => {
         uploadStatus={{ ...uploadingStatusProps, progress: undefined }}
       />
     );
-    const loaderBar = await page.getByRole("progressbar");
+    const loaderBar = page.getByRole("progressbar");
     await expect(loaderBar).toBeVisible();
     await expect(await loaderBar.getAttribute("aria-valuenow")).toBeNull();
   });
@@ -385,7 +385,7 @@ test.describe("with uploadStatus prop", () => {
         uploadStatus={{ ...completedStatusProps, onAction }}
       />
     );
-    const actionButton = await page.getByRole("button", {
+    const actionButton = page.getByRole("button", {
       name: "Delete file",
     });
     await expect(actionButton).toBeVisible();
@@ -398,7 +398,7 @@ test.describe("with uploadStatus prop", () => {
     page,
   }) => {
     await mount(<FileInputComponent uploadStatus={completedStatusProps} />);
-    const link = await page.getByRole("link", { name: "foo.pdf" });
+    const link = page.getByRole("link", { name: "foo.pdf" });
     await expect(link).toBeVisible();
     await expect(link).toHaveAttribute("href", "http://carbon.sage.com");
     await expect(link).toHaveAttribute("target", "_blank");
@@ -426,7 +426,7 @@ test.describe("with uploadStatus prop", () => {
     page,
   }) => {
     await mount(<FileInputComponent uploadStatus={previouslyStatusProps} />);
-    const link = await page.getByRole("link", { name: "foo.pdf" });
+    const link = page.getByRole("link", { name: "foo.pdf" });
     await expect(link).toBeVisible();
     await expect(link).toHaveAttribute("href", "http://carbon.sage.com");
     await expect(link).toHaveAttribute("target", "_blank");
@@ -446,7 +446,7 @@ test.describe("with uploadStatus prop", () => {
         uploadStatus={{ ...previouslyStatusProps, onAction }}
       />
     );
-    const actionButton = await page.getByRole("button", {
+    const actionButton = page.getByRole("button", {
       name: "Delete file",
     });
     await expect(actionButton).toBeVisible();
@@ -481,7 +481,7 @@ test.describe("with uploadStatus prop", () => {
     await mount(
       <FileInputComponent uploadStatus={{ ...errorStatusProps, onAction }} />
     );
-    const actionButton = await page.getByRole("button", { name: "Clear" });
+    const actionButton = page.getByRole("button", { name: "Clear" });
     await expect(actionButton).toBeVisible();
     await actionButton.click();
     await expect(clickCount).toBe(1);

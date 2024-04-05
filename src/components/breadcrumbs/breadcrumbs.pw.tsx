@@ -13,7 +13,7 @@ import {
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
-test.describe("should render Breadcrumbs component", async () => {
+test.describe("should render Breadcrumbs component", () => {
   test("should check Breadcrumbs children is set visible", async ({
     mount,
     page,
@@ -163,7 +163,7 @@ test("should not set the onClick or href props when isCurrent is true", async ({
   await expect(crumbToClick.locator("a")).not.toHaveAttribute("href", "/");
 });
 
-test.describe("Accessibility tests for Breadcrumbs component", async () => {
+test.describe("Accessibility tests for Breadcrumbs component", () => {
   test("should pass accessibility tests for Breadcrumbs default story", async ({
     mount,
     page,

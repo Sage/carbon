@@ -76,7 +76,7 @@ const loaderBarColors = [
 ];
 
 buildTestArray(commonColors).forEach(([theme, color]) => {
-  test.describe(`Carbon Provider`, async () => {
+  test.describe(`Carbon Provider`, () => {
     test(`Button component should render with ${theme} theme and verify theme color`, async ({
       mount,
       page,

@@ -90,7 +90,7 @@ test.describe("Tests for Message component properties", () => {
       if (boolVal === true) {
         await expect(messagePreview(page)).toBeVisible();
       } else {
-        await expect(messagePreview(page)).not.toBeVisible();
+        await expect(messagePreview(page)).toBeHidden();
       }
     });
   });
@@ -149,7 +149,7 @@ test.describe("Tests for Message component properties", () => {
           `15px ${paddingVal}px 15px 20px`
         );
       } else {
-        await expect(messageDismissIcon(page)).not.toBeVisible();
+        await expect(messageDismissIcon(page)).toBeHidden();
         await expect(messageContent(page)).toHaveCSS(
           "padding",
           `15px ${paddingVal}px`

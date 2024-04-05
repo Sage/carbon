@@ -115,7 +115,7 @@ test.describe(
 
         const picker = simpleColorPickerInput(page, 7);
         await picker.press(key);
-        await expect(simpleColorPickerComponent(page)).not.toBeVisible();
+        await expect(simpleColorPickerComponent(page)).toBeHidden();
       });
     });
 
@@ -299,7 +299,7 @@ test.describe(
         if (bool) {
           await expect(advancedColorPickerParent(page)).toBeVisible();
         } else {
-          await expect(advancedColorPickerParent(page)).not.toBeVisible();
+          await expect(advancedColorPickerParent(page)).toBeHidden();
         }
       });
     });

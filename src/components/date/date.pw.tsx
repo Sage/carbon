@@ -922,7 +922,7 @@ test.describe("When nested inside of a Dialog component", () => {
     await expect(getDataElementByValue(page, "input")).toBeFocused();
     await expect(dialogElement).toBeVisible();
     await page.keyboard.press("Escape");
-    await expect(dialogElement).not.toBeVisible();
+    await expect(dialogElement).toBeHidden();
   });
 });
 

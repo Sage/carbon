@@ -168,7 +168,7 @@ test.describe("Testing StepSequence component properties", () => {
         const expectedLabelChild = stepSequenceDataComponentItem(page).locator(
           ICON
         );
-        await expect(expectedLabelChild).not.toBeVisible();
+        await expect(expectedLabelChild).toBeHidden();
         await expect(stepSequenceDataComponentItem(page)).toHaveCSS(
           "color",
           color

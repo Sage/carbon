@@ -44,7 +44,7 @@ test.describe("should render Carousel component and check props", () => {
       if (isEnabled) {
         await expect(previousArrowButton(page)).toBeVisible();
       } else {
-        await expect(previousArrowButton(page)).not.toBeVisible();
+        await expect(previousArrowButton(page)).toBeHidden();
       }
     });
   });
@@ -91,11 +91,11 @@ test.describe("should render Carousel component and check props", () => {
       await mount(<CarouselComponent enableSlideSelector={isEnabled} />);
 
       if (isEnabled) {
-        const selector = await slideSelector(page).isVisible();
-        expect(selector).toBeTruthy();
+        const selector = slideSelector(page);
+        await expect(selector).toBeVisible();
       } else {
-        const selector = await slideSelector(page).isVisible();
-        expect(selector).not.toBeTruthy();
+        const selector = slideSelector(page);
+        await expect(selector).toBeHidden();
       }
     });
   });
@@ -110,7 +110,7 @@ test.describe("should render Carousel component and check props", () => {
       if (isEnabled) {
         await expect(nextArrowButton(page)).toBeVisible();
       } else {
-        await expect(nextArrowButton(page)).not.toBeVisible();
+        await expect(nextArrowButton(page)).toBeHidden();
       }
     });
   });
@@ -161,8 +161,8 @@ test.describe("should render Carousel component and check props", () => {
   }) => {
     await mount(<CarouselComponent slideIndex={0} />);
 
-    const prevButton = await previousArrowButton(page).isDisabled();
-    expect(prevButton).toBeTruthy();
+    const prevButton = previousArrowButton(page);
+    await expect(prevButton).toBeDisabled();
   });
 
   test(`should verify right arrow button is disabled on last slide`, async ({
@@ -171,8 +171,8 @@ test.describe("should render Carousel component and check props", () => {
   }) => {
     await mount(<CarouselComponent slideIndex={4} />);
 
-    const nextButton = await nextArrowButton(page).isDisabled();
-    expect(nextButton).toBeTruthy();
+    const nextButton = nextArrowButton(page);
+    await expect(nextButton).toBeDisabled();
   });
 });
 

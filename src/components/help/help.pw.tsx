@@ -121,7 +121,7 @@ test.describe("Testing Help component properties", () => {
       if (boolVal === true) {
         await expect(tooltip).toBeVisible();
       } else {
-        await expect(tooltip).not.toBeVisible();
+        await expect(tooltip).toBeHidden();
       }
     });
   });

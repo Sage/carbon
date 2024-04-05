@@ -259,7 +259,7 @@ test.describe("check props for TileSelect component", () => {
       "tile-select-accordion-content"
     ).locator("..");
 
-    await expect(tileSelectAccordionChildren).not.toBeVisible();
+    await expect(tileSelectAccordionChildren).toBeHidden();
   });
 
   test("should check when accordionExpanded set as true", async ({

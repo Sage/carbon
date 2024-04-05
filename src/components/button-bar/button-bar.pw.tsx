@@ -71,7 +71,7 @@ test.describe("check props for Button-Bar component", () => {
   });
 });
 
-test.describe("accessibility tests", async () => {
+test.describe("accessibility tests", () => {
   [BUTTON_BAR_SIZES[0], BUTTON_BAR_SIZES[1], BUTTON_BAR_SIZES[2]].forEach(
     (size) => {
       test(`should check accessibility for ${size} size for a Button-Bar`, async ({
@@ -128,7 +128,7 @@ test("should verify ButtonBar with wrapped components can be navigated using key
 
 test.describe(
   "when custom Button wrapper components are used as children in ButtonBar",
-  async () => {
+  () => {
     test("Button size is small when the size prop is set to small and passed to ButtonBar", async ({
       mount,
       page,
@@ -185,7 +185,7 @@ test.describe(
   }
 );
 
-test.describe("renders with ButtonMinor children", async () => {
+test.describe("renders with ButtonMinor children", () => {
   const indexes = [0, 1, 2];
 
   test.beforeEach(async ({ mount }) => {

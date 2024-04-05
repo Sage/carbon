@@ -48,7 +48,7 @@ test.describe("should render Badge component", () => {
       page,
     }) => {
       await mount(<BadgeComponent counter={incorrectValue} />);
-      await expect(badgeCounter(page)).not.toBeVisible();
+      await expect(badgeCounter(page)).toBeHidden();
     });
   });
 
@@ -94,7 +94,7 @@ test.describe("should render Badge component", () => {
       "background-color",
       "rgb(255, 255, 255)"
     );
-    await expect(badgeCrossIcon(page)).not.toBeVisible();
+    await expect(badgeCrossIcon(page)).toBeHidden();
   });
 
   test("should call onClick callback when a click event is triggered", async ({

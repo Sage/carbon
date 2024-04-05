@@ -246,7 +246,7 @@ test.describe("FilterableSelect component", () => {
 
     await expect(commonDataElementInputPreview(page)).not.toBeEditable();
     await selectInput(page).click();
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should render icon with read only style", async ({ mount, page }) => {
@@ -411,7 +411,7 @@ test.describe("FilterableSelect component", () => {
     await inputElement.focus();
     await expect(inputElement).toBeFocused();
     await expect(inputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should not open the list with mouse click on input", async ({
@@ -424,7 +424,7 @@ test.describe("FilterableSelect component", () => {
     await inputElement.click();
     await expect(inputElement).toBeFocused();
     await expect(inputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should open the list with mouse click on dropdown button", async ({
@@ -446,7 +446,7 @@ test.describe("FilterableSelect component", () => {
     await dropdownButton(page).click();
     await expect(selectListWrapper(page)).toBeVisible();
     await dropdownButton(page).click();
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   test("should close the list with the Tab key", async ({ mount, page }) => {
@@ -458,7 +458,7 @@ test.describe("FilterableSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await selectInputElement.press("Tab");
     await expect(selectInputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   test("should close the list with the Esc key", async ({ mount, page }) => {
@@ -469,7 +469,7 @@ test.describe("FilterableSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await commonDataElementInputPreview(page).press("Escape");
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   test("should close the list by clicking out of the component", async ({
@@ -483,7 +483,7 @@ test.describe("FilterableSelect component", () => {
     await expect(selectListWrapperElement).toBeVisible();
     await page.locator("body").click({ position: { x: 0, y: 0 } });
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapperElement).not.toBeVisible();
+    await expect(selectListWrapperElement).toBeHidden();
   });
 
   keyToTrigger.forEach((key) => {
@@ -507,7 +507,7 @@ test.describe("FilterableSelect component", () => {
 
     await commonDataElementInputPreview(page).focus();
     await selectInput(page).press("Enter");
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(selectListWrapper(page)).toBeHidden();
   });
 
   ["Amber", "Yellow"].forEach((option) => {
@@ -521,7 +521,7 @@ test.describe("FilterableSelect component", () => {
       await selectOptionByText(page, option).click();
       await expect(getDataElementByValue(page, "input")).toHaveValue(option);
       await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-      await expect(selectListWrapper(page)).not.toBeVisible();
+      await expect(selectListWrapper(page)).toBeHidden();
     });
   });
 
@@ -640,7 +640,7 @@ test.describe("FilterableSelect component", () => {
     });
     await page.waitForTimeout(250);
     await Promise.all(
-      [0, 1, 2].map((i) => expect(loader(page, i)).not.toBeVisible())
+      [0, 1, 2].map((i) => expect(loader(page, i)).toBeHidden())
     );
     await expect(await selectOptionByText(page, option)).toBeVisible();
   });
@@ -689,7 +689,7 @@ test.describe("FilterableSelect component", () => {
     await selectOptionByText(page, option).click();
     await expect(getDataElementByValue(page, "input")).toHaveValue(option);
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "false");
-    await expect(wrapperElement).not.toBeVisible();
+    await expect(wrapperElement).toBeHidden();
     await buttonElement.click();
     await expect(wrapperElement.locator("li")).toHaveCount(count);
   });
@@ -716,7 +716,7 @@ test.describe("FilterableSelect component", () => {
     await expect(selectInput(page)).toHaveAttribute("aria-expanded", "true");
     await expect(wrapperElement).toBeVisible();
     await selectOption(page, positionOfElement("first")).click();
-    await expect(wrapperElement).not.toBeVisible();
+    await expect(wrapperElement).toBeHidden();
   });
 
   test("should open list when openOnFocus set, user selects an option via enter key and then input is blurred then focused again", async ({
@@ -733,7 +733,7 @@ test.describe("FilterableSelect component", () => {
     await expect(wrapperElement).toBeVisible();
     await selectInputElement.press("ArrowDown");
     await selectInputElement.press("Enter");
-    await expect(wrapperElement).not.toBeVisible();
+    await expect(wrapperElement).toBeHidden();
     await inputElement.blur();
     await inputElement.focus();
     await expect(wrapperElement).toBeVisible();
@@ -940,7 +940,7 @@ test.describe("FilterableSelect component", () => {
     await expect(headerElements).toHaveCount(columns);
     const assertions = [];
     for (let i = 0; i < columns; i++) {
-      assertions.push(expect(headerElements.nth(i)).toBeVisible());
+      assertions.push(await expect(headerElements.nth(i)).toBeVisible());
     }
     await Promise.all(assertions);
     await expect(
@@ -960,14 +960,14 @@ test.describe("FilterableSelect component", () => {
     await expect(headerElements).toHaveCount(columns);
     const headerAssertions = [];
     for (let i = 0; i < columns; i++) {
-      headerAssertions.push(expect(headerElements.nth(i)).toBeVisible());
+      headerAssertions.push(await expect(headerElements.nth(i)).toBeVisible());
     }
     await Promise.all(headerAssertions);
     const bodyElements = multiColumnsSelectListBody(page);
     await expect(bodyElements).toHaveCount(columns);
     const bodyAssertions = [];
     for (let i = 0; i < columns; i++) {
-      bodyAssertions.push(expect(bodyElements.nth(i)).toBeVisible());
+      bodyAssertions.push(await expect(bodyElements.nth(i)).toBeVisible());
     }
     await Promise.all(bodyAssertions);
     const addElementButtonElement = filterableSelectAddElementButton(page);
@@ -1446,10 +1446,10 @@ test.describe("When nested inside of a Dialog component", () => {
     const inputElement = commonDataElementInputPreview(page);
     const dialogElement = alertDialogPreview(page);
     await inputElement.press("Escape");
-    await expect(selectList(page)).not.toBeVisible();
+    await expect(selectList(page)).toBeHidden();
     await expect(dialogElement).toBeVisible();
     await inputElement.press("Escape");
-    await expect(dialogElement).not.toBeVisible();
+    await expect(dialogElement).toBeHidden();
   });
 
   test("should not refocus the select textbox when closing it by clicking outside", async ({
@@ -1460,7 +1460,7 @@ test.describe("When nested inside of a Dialog component", () => {
 
     await dropdownButton(page).click();
     await alertDialogPreview(page).click();
-    await expect(selectList(page)).not.toBeVisible();
+    await expect(selectList(page)).toBeHidden();
     await expect(commonDataElementInputPreview(page)).not.toBeFocused();
   });
 
@@ -1491,7 +1491,7 @@ test.describe("Selection confirmed", () => {
     await selectOptionByText(page, "Five").click();
     await expect(
       page.locator('[data-element="confirmed-selection-1"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]')
     ).toBeVisible();
@@ -1499,7 +1499,7 @@ test.describe("Selection confirmed", () => {
     await selectOptionByText(page, "Seven").click();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-7"]')
     ).toBeVisible();
@@ -1526,7 +1526,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-1"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-3"]')
     ).toBeVisible();
@@ -1536,7 +1536,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-3"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]')
     ).toBeVisible();
@@ -1545,7 +1545,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-5"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-6"]')
     ).toBeVisible();
@@ -1572,7 +1572,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-9"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-7"]')
     ).toBeVisible();
@@ -1582,7 +1582,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-7"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-5"]')
     ).toBeVisible();
@@ -1591,7 +1591,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-5"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('[data-element="confirmed-selection-4"]')
     ).toBeVisible();
@@ -1608,7 +1608,7 @@ test.describe("Selection confirmed", () => {
     await inputElement.type("th");
     await expect(
       page.locator('[data-element="confirmed-selection-3"]')
-    ).not.toBeVisible();
+    ).toBeHidden();
     await inputElement.press("Enter");
     await expect(
       page.locator('[data-element="confirmed-selection-3"]')
@@ -1658,7 +1658,7 @@ test("should not select a disabled option when a filter is typed", async ({
   await inputElement.press("Enter");
   await expect(
     page.locator('[data-element="confirmed-selection-2"]')
-  ).not.toBeVisible();
+  ).toBeHidden();
   await inputElement.press("ArrowDown");
   await inputElement.press("Enter");
   await expect(

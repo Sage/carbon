@@ -62,7 +62,7 @@ test.describe("Tooltip component", () => {
   }) => {
     await mount(<TooltipComponent isVisible={false} />);
 
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
   });
 
   (["bottom", "left", "right", "top"] as [
@@ -298,7 +298,7 @@ test.describe("Tooltip component", () => {
   }) => {
     await mount(<UncontrolledTooltipComponent />);
 
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
     const buttonElement = page.getByRole("button");
     await buttonElement.hover();
     await expect(getDataElementByValue(page, "tooltip")).toBeVisible();
@@ -310,12 +310,12 @@ test.describe("Tooltip component", () => {
   }) => {
     await mount(<UncontrolledTooltipComponent />);
 
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
     const buttonElement = page.getByRole("button");
     await buttonElement.hover();
     await expect(getDataElementByValue(page, "tooltip")).toBeVisible();
     await page.mouse.move(100, 100);
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
   });
 
   test(`should show tooltip when target is focused`, async ({
@@ -324,7 +324,7 @@ test.describe("Tooltip component", () => {
   }) => {
     await mount(<UncontrolledTooltipComponent />);
 
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
     const buttonElement = page.getByRole("button");
     await buttonElement.focus();
     await expect(getDataElementByValue(page, "tooltip")).toBeVisible();
@@ -336,12 +336,12 @@ test.describe("Tooltip component", () => {
   }) => {
     await mount(<UncontrolledTooltipComponent />);
 
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
     const buttonElement = page.getByRole("button");
     await buttonElement.focus();
     await expect(getDataElementByValue(page, "tooltip")).toBeVisible();
     await buttonElement.blur();
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
   });
 
   test(`new tooltip target should still trigger tooltip visibility`, async ({
@@ -355,13 +355,13 @@ test.describe("Tooltip component", () => {
     await buttonElement.hover();
     await expect(getDataElementByValue(page, "tooltip")).toBeVisible();
     await page.mouse.move(100, 100);
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
     await page.getByText("Change target").click();
     await expect(buttonElement).toHaveText("Secondary target");
     await buttonElement.hover();
     await expect(getDataElementByValue(page, "tooltip")).toBeVisible();
     await page.mouse.move(100, 100);
-    await expect(getDataElementByValue(page, "tooltip")).not.toBeVisible();
+    await expect(getDataElementByValue(page, "tooltip")).toBeHidden();
   });
 
   test(`should have the expected border radius styling`, async ({
