@@ -19,8 +19,8 @@ type PageSizeOption = {
 };
 
 export interface PagerProps {
-  /** Function called when pager changes (PageSize, Current Page) */
-  onPagination: (pageSize: number, currentPage: number, origin: string) => void;
+  /** Function called when pager changes (Current page, Page size, Origin component) */
+  onPagination: (currentPage: number, pageSize: number, origin: string) => void;
   /** Callback function for next link */
   onNext?: (
     ev:

@@ -26,6 +26,7 @@ import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
 import { Select, Option } from "../select";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 jest.mock("../../hooks/useMediaQuery", () => {
   return {
@@ -186,6 +187,19 @@ describe("PopoverContainer", () => {
     expect(wrapper.find(PopoverContainerContentStyle).props().modifiers).toBe(
       undefined
     );
+  });
+
+  it("should allow custom data props on close button to be assigned", () => {
+    wrapper = render({
+      open: true,
+      closeButtonDataProps: {
+        "data-element": "foo",
+        "data-role": "bar",
+      },
+    });
+    const closeButton = wrapper.find("[data-component='close']").first();
+
+    rootTagTest(closeButton, "close", "foo", "bar");
   });
 
   describe("popover", () => {

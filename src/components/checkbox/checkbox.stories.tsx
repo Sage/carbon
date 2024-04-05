@@ -145,3 +145,61 @@ export const CheckboxGroupWithInlineLegend: Story = () => {
   );
 };
 CheckboxGroupWithInlineLegend.storyName = "CheckboxGroup with inline legend";
+
+export const Required: Story = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <Checkbox
+      label="Checkbox"
+      name="checkbox-required"
+      required
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+    />
+  );
+};
+Required.storyName = "Required";
+
+export const CheckboxGroupRequired: Story = () => (
+  <CheckboxGroup required legend="Checkbox Group">
+    {["One", "Two", "Three"].map((label) => (
+      <Checkbox
+        id={`checkbox-group-required-${label}`}
+        key={`checkbox-group-required-${label}`}
+        name={`checkbox-group-required-${label}`}
+        label={label}
+      />
+    ))}
+  </CheckboxGroup>
+);
+CheckboxGroupRequired.storyName = "CheckboxGroupRequired";
+
+export const IsOptional: Story = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  return (
+    <Checkbox
+      label="Checkbox"
+      name="checkbox-is-optional"
+      isOptional
+      checked={isChecked}
+      onChange={(e) => setIsChecked(e.target.checked)}
+    />
+  );
+};
+IsOptional.storyName = "IsOptional";
+
+export const CheckboxGroupIsOptional: Story = () => (
+  <CheckboxGroup isOptional legend="Checkbox Group">
+    {["One", "Two", "Three"].map((label) => (
+      <Checkbox
+        id={`checkbox-group-is-optional-${label}`}
+        key={`checkbox-group-is-optional-${label}`}
+        name={`checkbox-group-is-optional-${label}`}
+        label={label}
+      />
+    ))}
+  </CheckboxGroup>
+);
+CheckboxGroupIsOptional.storyName = "CheckboxGroupIsOptional";

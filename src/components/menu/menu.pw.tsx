@@ -1266,36 +1266,30 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(thisMenu).toBeVisible();
   });
 
-  test(`should verify that close icon is focused in Menu Fullscreen when focusRedesignOptOut is false`, async ({
+  test(`close icon has correct focus styling when focused and focusRedesignOptOut flag is false`, async ({
     mount,
     page,
   }) => {
     await page.setViewportSize({ width: 1200, height: 800 });
     await mount(<MenuComponentFullScreen />);
 
-    const item = menuItem(page).first();
-    await item.click();
-    const fullscreen = getComponent(page, "menu-fullscreen").first();
-    await waitForAnimationEnd(fullscreen);
+    const openMenuButton = page.getByRole("button", { name: "Menu" }).first();
+    await openMenuButton.click();
+    const dialog = page.getByRole("dialog");
+    await waitForAnimationEnd(dialog);
+
     await page.keyboard.press("Tab");
-    const closeIcon = closeIconButton(page).first();
+
+    const closeIcon = page.getByRole("button", { name: "Close" });
+    await expect(closeIcon).toBeFocused();
     await expect(closeIcon).toHaveCSS(
       "box-shadow",
       "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
     );
     await expect(closeIcon).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
-    const focusedElement = page.locator("*:focus");
-    await expect(focusedElement).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
-    );
-    await expect(focusedElement).toHaveCSS(
-      "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
-    );
   });
 
-  test(`should verify that close icon is focused in Menu Fullscreen when focusRedesignOptOut is true`, async ({
+  test(`close icon has correct focus styling when focused and focusRedesignOptOut flag is true`, async ({
     mount,
     page,
   }) => {
@@ -1304,19 +1298,16 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
       hooksConfig: { focusRedesignOptOut: true },
     });
 
-    const item = menuItem(page).first();
-    await item.click();
-    const fullscreen = getComponent(page, "menu-fullscreen").first();
-    await waitForAnimationEnd(fullscreen);
+    const openMenuButton = page.getByRole("button", { name: "Menu" }).first();
+    await openMenuButton.click();
+    const dialog = page.getByRole("dialog");
+    await waitForAnimationEnd(dialog);
+
     await page.keyboard.press("Tab");
-    const closeIcon = closeIconButton(page).first();
+
+    const closeIcon = page.getByRole("button", { name: "Close" });
+    await expect(closeIcon).toBeFocused();
     await checkGoldenOutline(closeIcon);
-    await page.keyboard.press("Tab");
-    const focusedElement = page.locator("*:focus");
-    await expect(focusedElement).toHaveCSS(
-      "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px inset"
-    );
   });
 
   test(`should verify that inner Menu is available with tabbing and styles are correct`, async ({
@@ -1449,25 +1440,6 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     const button2 = page.getByRole("button").nth(1);
     await expect(button2).toBeFocused();
   });
-
-  ([
-    ["left", -1200, 1200],
-    ["right", 1200, -1200],
-  ] as [MenuFullscreenProps["startPosition"], number, number][]).forEach(
-    ([side, left, right]) => {
-      test(`should render with Menu Fullscreen start position ${side}`, async ({
-        mount,
-        page,
-      }) => {
-        await page.setViewportSize({ width: 1200, height: 800 });
-        await mount(<MenuComponentFullScreen startPosition={side} />);
-
-        const menuFullScreen = getComponent(page, "menu-fullscreen").first();
-        await expect(menuFullScreen).toHaveCSS("left", `${left}px`);
-        await expect(menuFullScreen).toHaveCSS("right", `${right}px`);
-      });
-    }
-  );
 
   test(`should focus the next menu item on tab press when the current item has a Search input with searchButton but no value`, async ({
     mount,

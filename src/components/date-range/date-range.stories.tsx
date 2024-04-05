@@ -326,3 +326,45 @@ LocaleOverrideExampleImplementation.storyName =
 LocaleOverrideExampleImplementation.parameters = {
   chromatic: { disableSnapshot: true },
 };
+
+export const Required: Story = () => {
+  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    const newValue = [
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+  return (
+    <DateRange
+      startLabel="Start"
+      endLabel="End"
+      onChange={handleChange}
+      value={state}
+      required
+    />
+  );
+};
+Required.storyName = "Required";
+
+export const IsOptional: Story = () => {
+  const [state, setState] = useState(["01/10/2016", "30/10/2016"]);
+  const handleChange = (ev: DateRangeChangeEvent) => {
+    const newValue = [
+      ev.target.value[0].formattedValue,
+      ev.target.value[1].formattedValue,
+    ];
+    setState(newValue);
+  };
+  return (
+    <DateRange
+      startLabel="Start"
+      endLabel="End"
+      onChange={handleChange}
+      value={state}
+      isOptional
+    />
+  );
+};
+IsOptional.storyName = "IsOptional";

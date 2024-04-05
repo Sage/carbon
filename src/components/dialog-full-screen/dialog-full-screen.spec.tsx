@@ -18,6 +18,7 @@ import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider";
 import Logger from "../../__internal__/utils/logger";
+import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests
 const loggerSpy = jest.spyOn(Logger, "deprecate");
@@ -365,6 +366,20 @@ describe("DialogFullScreen", () => {
         wrapper.unmount();
       });
     });
+
+    it("should allow custom data props on close button to be assigned", () => {
+      wrapper = mount(
+        <DialogFullScreen
+          open
+          onCancel={() => {}}
+          closeButtonDataProps={{
+            "data-element": "foo",
+            "data-role": "bar",
+          }}
+        />
+      );
+      rootTagTest(wrapper.find(StyledIconButton), "close", "foo", "bar");
+    });
   });
 
   describe("when showCloseIcon is false", () => {
@@ -621,6 +636,30 @@ describe("DialogFullScreen", () => {
         ).toBe(titleId);
 
         wrapper.unmount();
+      });
+    });
+
+    describe("when the aria-describedby prop is specified", () => {
+      it("then the container should have the same aria-describedby attribute", () => {
+        const subtitleId = "foo";
+
+        wrapper = mount(
+          <DialogFullScreen
+            aria-describedby={subtitleId}
+            open
+            onCancel={() => {}}
+            data-role="baz"
+            data-element="bar"
+            subtitle={<div id={subtitleId}>Foo</div>}
+          />
+        );
+
+        expect(
+          wrapper
+            .find("[data-element='dialog-full-screen']")
+            .first()
+            .prop("aria-describedby")
+        ).toBe(subtitleId);
       });
     });
 

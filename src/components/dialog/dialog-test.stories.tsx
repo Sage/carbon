@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { EditorState } from "draft-js";
 
@@ -8,6 +9,7 @@ import { DIALOG_SIZES } from "./dialog.config";
 import Form from "../form";
 import Textbox from "../textbox";
 import Button from "../button";
+import Icon from "../icon";
 import DateInput, { DateChangeEvent } from "../date";
 import { Checkbox } from "../checkbox";
 import { Select, Option } from "../select";
@@ -175,3 +177,41 @@ Default.args = {
   disableEscKey: false,
   stickyFooter: false,
 };
+
+type StoryType = StoryObj<typeof Dialog>;
+
+export const WithTwoDifferentNodes: StoryType = (
+  props: Partial<DialogProps>
+) => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Dialog
+      open={isOpen}
+      title="Example Dialog"
+      subtitle={
+        <>
+          <Icon type="add" />
+          <br />
+          Subtitle line 2
+        </>
+      }
+      showCloseIcon
+      onCancel={() => setIsOpen(false)}
+      {...props}
+    >
+      <Textbox label="Textbox1" value="Textbox1" />
+      <Textbox label="Textbox2" value="Textbox2" />
+      <Textbox label="Textbox3" value="Textbox3" />
+    </Dialog>
+  );
+};
+
+WithTwoDifferentNodes.storyName = "with two different nodes in subtitle";
+WithTwoDifferentNodes.decorators = [
+  (Story) => (
+    <div style={{ height: 400, width: "100%" }}>
+      <Story />
+    </div>
+  ),
+];
+WithTwoDifferentNodes.parameters = { chromatic: { disableSnapshot: false } };

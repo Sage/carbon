@@ -104,6 +104,11 @@ const esES: Locale = {
   loader: {
     loading: () => "Cargando",
   },
+  menuFullscreen: {
+    ariaLabels: {
+      closeButton: () => "Cerrar",
+    },
+  },
   message: {
     closeButtonAriaLabel: () => "Cerrar",
   },

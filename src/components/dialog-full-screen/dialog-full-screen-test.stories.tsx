@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import DialogFullScreen, { DialogFullScreenProps } from ".";
 import Dialog from "../dialog";
 import Button from "../button";
 import Form from "../form";
+import Icon from "../icon";
+import Textbox from "../textbox";
 
 export default {
   title: "Dialog Full Screen/Test",
-  includeStories: ["DefaultStory"],
+  includeStories: ["DefaultStory", "WithTwoDifferentNodes"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -78,6 +81,7 @@ DefaultStory.args = {
   formHeight: "2000px",
   stickyFooter: false,
   disableContentPadding: false,
+  closeButtonDataProps: {},
 };
 
 export const Nested = () => {
@@ -127,3 +131,48 @@ export const Nested = () => {
 };
 
 Nested.storyName = "nested";
+
+type StoryType = StoryObj<typeof DialogFullScreen>;
+
+export const WithTwoDifferentNodes: StoryType = ({
+  ...props
+}: Partial<DialogFullScreenProps>) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const ref = useRef<HTMLButtonElement | null>(null);
+  return (
+    <>
+      <DialogFullScreen
+        focusFirstElement={ref}
+        open={isOpen}
+        showCloseIcon
+        title="Example Dialog Full Screen"
+        subtitle={
+          <>
+            <Icon type="add" />
+            <br />
+            Subtitle line 2
+          </>
+        }
+        onCancel={() => setIsOpen(false)}
+        {...props}
+      >
+        <Textbox label="Textbox1" value="Textbox1" />
+        <Textbox label="Textbox2" value="Textbox2" />
+        <Textbox label="Textbox3" value="Textbox3" />
+      </DialogFullScreen>
+    </>
+  );
+};
+
+WithTwoDifferentNodes.storyName = "with two different nodes in subtitle";
+WithTwoDifferentNodes.decorators = [
+  (Story) => (
+    <div style={{ height: 900, width: "100%" }}>
+      <Story />
+    </div>
+  ),
+];
+WithTwoDifferentNodes.parameters = {
+  layout: "fullscreen",
+  chromatic: { disableSnapshot: false },
+};

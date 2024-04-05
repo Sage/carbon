@@ -1,3 +1,82 @@
+## [128.4.0](https://github.com/Sage/carbon/compare/v128.3.1...v128.4.0) (2024-04-05)
+
+
+### Features
+
+* **dialog:** allow subtitle prop to accept a node ([5620e3d](https://github.com/Sage/carbon/commit/5620e3d2443b96ef668a936dde63884df65734e2)), closes [#5844](https://github.com/Sage/carbon/issues/5844)
+
+### [128.3.1](https://github.com/Sage/carbon/compare/v128.3.0...v128.3.1) (2024-04-04)
+
+
+### Bug Fixes
+
+* **profile:** ensure ProfileProps extend MarginProps ([8bf062f](https://github.com/Sage/carbon/commit/8bf062f7d01f8a3262605fce382075d8000d5cae)), closes [#6622](https://github.com/Sage/carbon/issues/6622)
+
+## [128.3.0](https://github.com/Sage/carbon/compare/v128.2.0...v128.3.0) (2024-04-04)
+
+
+### Features
+
+* **menu-fullscreen:** add translation key 'menuFullscreen.ariaLabels.closeButton' ([4117997](https://github.com/Sage/carbon/commit/4117997f40e2a04d66cbf58bfe07b6c0bb14fe4d))
+
+
+### Bug Fixes
+
+* **menu-fullscreen:** amend typing of onClose prop ([2fb540e](https://github.com/Sage/carbon/commit/2fb540e2d12898ab312a104012923b9189bbae4e))
+* **menu-fullscreen:** ensure menu has aria properties required for dialogs ([7ca7223](https://github.com/Sage/carbon/commit/7ca7223c3119f66392b60209c50f8e49fb25df29))
+
+## [128.2.0](https://github.com/Sage/carbon/compare/v128.1.2...v128.2.0) (2024-04-04)
+
+
+### Features
+
+* **decimal:** add support for isOptional ([1cdde56](https://github.com/Sage/carbon/commit/1cdde56a6dcf89c5b6c0f24011edc348d92ec300))
+* **fieldset:** add support for required and isOptional ([c22c6f3](https://github.com/Sage/carbon/commit/c22c6f31dd509f36e0f527f97662991940c363c7))
+* **file-input:** add support for isOptional ([a622805](https://github.com/Sage/carbon/commit/a6228056254aa50041a2204d433be19f890205d9))
+* **form:** add component to indicate when there is required fields ([f168805](https://github.com/Sage/carbon/commit/f16880552f5e3e750d2872bdd83fce07c9622104))
+* **inline-inputs:** add support for required and isOptional ([a4819e4](https://github.com/Sage/carbon/commit/a4819e4382bf04b3b52af450952f670b1009bbdb))
+* **numeral-date:** add support for isOptional ([e03384b](https://github.com/Sage/carbon/commit/e03384bf38f7fb52b3ca1e2f22b79f2c75990ef5))
+* **radio-button, checkbox, switch:** add support for required and isOptional ([bafa070](https://github.com/Sage/carbon/commit/bafa070847929e8ac317794e552b20c90e745b85))
+* **select:** add support for isOptional ([1c14041](https://github.com/Sage/carbon/commit/1c14041879141246b30885c44ef085880430e11e))
+* **text-editor:** add support for required and isOptional ([6f78219](https://github.com/Sage/carbon/commit/6f78219e7f8ff732e90d10f70afa311fe20b1e0f))
+* **textarea:** add support for isOptional ([2958d46](https://github.com/Sage/carbon/commit/2958d46ba4b5e9284978f44e6af329c3401868eb))
+
+
+### Bug Fixes
+
+* **fieldset, label:** update font weight and colour of label text to use tokens ([f28611d](https://github.com/Sage/carbon/commit/f28611dd726bde5e09152921edf39697c648d9c9))
+* update font weight of required and optional label markers to use tokens ([a63c293](https://github.com/Sage/carbon/commit/a63c293246bf814186cd569bfd56b159334295f4))
+* update spacing for required indicator and colour of optional indicator appended to input labels ([6e5f992](https://github.com/Sage/carbon/commit/6e5f9923156049aec150aa525a4cb8030c227f25))
+
+### [128.1.2](https://github.com/Sage/carbon/compare/v128.1.1...v128.1.2) (2024-04-03)
+
+
+### Bug Fixes
+
+* exclude docs/ directory in TS build config ([2d88106](https://github.com/Sage/carbon/commit/2d88106ced3df3eff3ebb8a2a301b8c4f929af5a))
+
+### [128.1.1](https://github.com/Sage/carbon/compare/v128.1.0...v128.1.1) (2024-04-02)
+
+
+### ⚠ NOTE
+
+**This version was not published. Please use version 128.1.2.**
+
+### Bug Fixes
+
+* **pager:** use activation trigger for onkeydown and onclick ([664a43b](https://github.com/Sage/carbon/commit/664a43b4fb3675dcc8a999ef866192b916f0fcdd)), closes [#6289](https://github.com/Sage/carbon/issues/6289)
+
+## [128.1.0](https://github.com/Sage/carbon/compare/v128.0.0...v128.1.0) (2024-04-02)
+
+
+### ⚠ NOTE
+
+**This version was not published. Please use version 128.1.2.**
+
+### Features
+
+* **dialog:** add closeButtonDataProps prop ([b9b3054](https://github.com/Sage/carbon/commit/b9b3054118c6d8bd0c9a7e2866a89cb538a2e80d)), closes [#6603](https://github.com/Sage/carbon/issues/6603)
+
 ## [128.0.0](https://github.com/Sage/carbon/compare/v127.1.1...v128.0.0) (2024-03-28)
 
 
