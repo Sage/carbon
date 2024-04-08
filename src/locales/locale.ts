@@ -132,12 +132,14 @@ interface Locale {
       close: () => string;
     };
   };
+  sort: {
+    accessibleName: (
+      sortContent?: string,
+      sortType?: "ascending" | "descending"
+    ) => string;
+  };
   splitButton: {
     ariaLabel: () => string;
-  };
-  switch: {
-    on: () => string;
-    off: () => string;
   };
   stepFlow: {
     stepLabel: (currentStep: number, totalSteps: number) => string;
@@ -148,6 +150,10 @@ interface Locale {
       category?: string
     ) => string;
     closeIconAriaLabel?: () => string;
+  };
+  switch: {
+    on: () => string;
+    off: () => string;
   };
   textEditor: {
     tooltipMessages: {

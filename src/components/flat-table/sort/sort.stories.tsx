@@ -20,6 +20,6 @@ type Story = StoryObj<typeof Sort>;
 
 export const Default: Story = {
   args: {
-    children: [],
+    children: "",
   },
 };

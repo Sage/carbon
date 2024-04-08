@@ -166,6 +166,16 @@ const esES: Locale = {
       close: () => "Cerrar",
     },
   },
+  sort: {
+    accessibleName: (sortContent, sortType) =>
+      `Ordenar todo ${sortContent || "contenido"}${
+        sortType
+          ? ` en orden ${
+              sortType === "ascending" ? "ascendente" : "descendente"
+            }.`
+          : " en orden ascendente o descendente."
+      }`,
+  },
   splitButton: {
     ariaLabel: () => "Mostrar más",
   },
