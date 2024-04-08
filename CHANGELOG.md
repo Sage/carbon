@@ -1,3 +1,16 @@
+## [130.0.0](https://github.com/Sage/carbon/compare/v129.0.0...v130.0.0) (2024-04-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sort:** the potential type of false has been removed from the sortType prop. The type for
+the components children has also been changed from a react node to just a string
+
+### Features
+
+* **sort:** add the accessibleName prop to ensure consumers can pass a custom accessible name ([39229b1](https://github.com/Sage/carbon/commit/39229b1fb9aaa6df8f6f61032b01276e604c825d))
+* **sort:** add translation support for the accessible name of the component ([b0f99cb](https://github.com/Sage/carbon/commit/b0f99cbedfa4fb6f560795ab63a3f6a2b2b273bf))
+
 ## [129.0.0](https://github.com/Sage/carbon/compare/v128.4.1...v129.0.0) (2024-04-08)
 
 
