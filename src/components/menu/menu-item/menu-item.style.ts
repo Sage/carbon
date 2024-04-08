@@ -200,8 +200,13 @@ const StyledMenuItemWrapper = styled.a.attrs({
         ${!hasInput && `color: ${menuConfigVariants[menuType].color};`}
       }
 
-      ${StyledIcon} {
-        display: inline-block;
+      ${
+        !inFullscreenView &&
+        css`
+          a > ${StyledIcon}, button > ${StyledIcon} {
+            display: inline-block;
+          }
+        `
       }
     }
 
@@ -395,10 +400,10 @@ const StyledMenuItemWrapper = styled.a.attrs({
       }
 
       && {
-        a:focus,
-        a:hover,
-        button:focus,
-        button:hover {
+        > a:focus,
+        > a:hover,
+        > button:focus,
+        > button:hover {
           background-color: var(--colorsComponentsMenuAutumnStandard600);
           color: var(--colorsComponentsMenuYang100);
 

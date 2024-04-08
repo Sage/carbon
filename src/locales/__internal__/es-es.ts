@@ -153,6 +153,9 @@ const esES: Locale = {
   pod: {
     undo: () => "Deshacer",
   },
+  search: {
+    searchButtonText: () => "Buscar",
+  },
   select: {
     actionButtonText: () => "Añadir un nuevo elemento",
     placeholder: () => "Por favor seleccione...",

@@ -1,3 +1,23 @@
+## [129.0.0](https://github.com/Sage/carbon/compare/v128.4.1...v129.0.0) (2024-04-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **search:** Ref is `SearchHandle` type and only supports calling focus on the input
+* **search:** The `inputRef` is no more
+* **search:** The `threshold` prop has been removed as it no longer does anything in the
+redesigned component
+
+### Features
+
+* **search:** add imperative handle to allow passing a ref and programmatically focus input ([c592372](https://github.com/Sage/carbon/commit/c592372b412bbf0d8b7a51a0ca4321074ae77b01))
+* **search:** search button is rendered at all times when `searchButton` prop is set ([deadf2a](https://github.com/Sage/carbon/commit/deadf2aa111d7e313fd4f6dc1a7e224ac45614f0)), closes [#6581](https://github.com/Sage/carbon/issues/6581)
+
+
+### Bug Fixes
+
+* **search:** deprecate `inputRef` prop ([eae130f](https://github.com/Sage/carbon/commit/eae130f1cbce4590f46ea8e65d58e97ff66f29b2))
+
 ### [128.4.1](https://github.com/Sage/carbon/compare/v128.4.0...v128.4.1) (2024-04-05)
 
 

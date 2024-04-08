@@ -15,9 +15,6 @@ import {
   StyledMenuModal,
 } from "./menu-full-screen.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
-import Search from "../../search";
-import StyledSearch from "../../search/search.style";
-import StyledSearchButton from "../../search/search-button.style";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
@@ -27,6 +24,8 @@ import { baseTheme, sageTheme } from "../../../style/themes";
 import { StyledMenuItem } from "../menu.style";
 import menuConfigVariants from "../menu.config";
 import { StyledSubmenu } from "../__internal__/submenu/submenu.style";
+import StyledMenuItemWrapper from "../menu-item/menu-item.style";
+import { StyledLink } from "../../link/link.style";
 
 const AllTheProviders = ({
   children,
@@ -96,33 +95,6 @@ const TestMenu = ({ isOpen }: Pick<MenuFullscreenProps, "isOpen">) => (
     </MenuItem>
   </MenuFullscreen>
 );
-
-const MockMenuWithSearch = ({
-  isOpen,
-  focusInput,
-}: {
-  isOpen?: boolean;
-  focusInput?: boolean;
-}) => {
-  const ref = React.useRef(null);
-
-  React.useEffect(() => {
-    if (focusInput && ref.current) {
-      (ref.current as HTMLInputElement).focus();
-    }
-  }, [focusInput]);
-
-  return (
-    <MenuFullscreen isOpen={isOpen} onClose={() => {}}>
-      <MenuItem maxWidth="200px">
-        <Search value="" ref={ref} defaultValue="" searchButton />
-      </MenuItem>
-      <MenuItem maxWidth="200px" href="#">
-        Menu Item One
-      </MenuItem>
-    </MenuFullscreen>
-  );
-};
 
 const MockMenuWithFalsyValues = ({ isOpen }: { isOpen?: boolean }) => (
   <MenuFullscreen isOpen={isOpen} onClose={() => {}}>
@@ -238,17 +210,14 @@ describe("MenuFullscreen", () => {
           wrapper.find(StyledMenuFullscreen)
         );
 
-        assertStyleMatch(
-          {
-            backgroundColor: menuConfigVariants[menuType].background,
-          },
-          wrapper.find(StyledMenuModal)
-        );
-
-        ["a", "button", "div"].forEach((el) => {
+        [
+          `&& ${StyledLink} > a`,
+          `&& ${StyledLink} > button`,
+          "&& > div",
+        ].forEach((el) => {
           assertStyleMatch(
             {
-              fontSize: "16px",
+              fontSize: "var(--fontSizes200)",
             },
             wrapper.find(StyledMenuModal),
             { modifier: el }
@@ -325,7 +294,8 @@ describe("MenuFullscreen", () => {
           </MenuContext.Provider>
         ),
         { pt: "10px", pb: "10px" },
-        (component) => component.find(StyledMenuItem)
+        (component) => component.find(StyledMenuItem),
+        { modifier: `${StyledMenuItemWrapper}` }
       );
     });
 
@@ -349,7 +319,8 @@ describe("MenuFullscreen", () => {
           </MenuContext.Provider>
         ),
         undefined,
-        (component) => component.find(StyledSubmenu).find(StyledMenuItem)
+        (component) => component.find(StyledSubmenu).find(StyledMenuItem),
+        { modifier: `${StyledMenuItemWrapper}` }
       );
     });
   });
@@ -412,42 +383,6 @@ describe("MenuFullscreen", () => {
     it("focuses the root container, when menu is opened", () => {
       render(<TestMenu isOpen />);
       expect(screen.getByRole("dialog")).toBeFocused();
-    });
-
-    describe("when pressing tab key without shift", () => {
-      it("does not prevent the browser default behaviour when no Search input with searchButton and no value is rendered", () => {
-        const preventDefault = jest.fn();
-        const wrapper = mount(<TestMenu isOpen />);
-
-        wrapper.find(StyledMenuModal).prop("onKeyDown")({
-          key: "Tab",
-          preventDefault,
-        });
-        wrapper.find(StyledMenuModal).prop("onKeyDown")({
-          key: "Tab",
-          preventDefault,
-        });
-        expect(preventDefault).not.toHaveBeenCalled();
-        wrapper.find(StyledMenuModal).prop("onKeyDown")({
-          key: "Tab",
-          preventDefault,
-        });
-        expect(preventDefault).not.toHaveBeenCalled();
-      });
-
-      it("prevents the browser default behaviour when Search input with searchButton and no value rendered", () => {
-        const preventDefault = jest.fn();
-        const wrapper = mount(<MockMenuWithSearch isOpen focusInput />);
-
-        expect(wrapper.find(StyledSearch).find("input")).toBeFocused();
-        expect(wrapper.find(StyledSearchButton).exists()).toBe(true);
-        wrapper.find(StyledMenuModal).prop("onKeyDown")({
-          key: "Tab",
-          preventDefault,
-        });
-        expect(preventDefault).toHaveBeenCalled();
-        expect(wrapper.find(StyledMenuItem).last().find("a")).toBeFocused();
-      });
     });
   });
 

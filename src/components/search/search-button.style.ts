@@ -16,7 +16,7 @@ const StyledSearchButton = styled.div`
   border-bottom: none;
 
   & ${StyledButton} {
-    background-color: var(--colorsActionMajor500);
+    color: var(--colorsActionMajorYang100);
     border-color: var(--colorsActionMajorTransparent);
     border-bottom-left-radius: var(--borderRadius000);
     border-top-left-radius: var(--borderRadius000);
@@ -24,13 +24,18 @@ const StyledSearchButton = styled.div`
     border-top-right-radius: var(--borderRadius050);
 
     :hover {
-      background: var(--colorsActionMajor600);
       border-color: var(--colorsActionMajorTransparent);
     }
 
-    width: 40px;
+    width: fit-content;
+
+    ${StyledIcon}${StyledIcon} {
+      color: var(--colorsActionMajorYang100);
+    }
+
     margin: 0px 0px;
     padding-bottom: 3px;
+
     :focus {
       z-index: ${({ theme }) => theme.zIndex.smallOverlay};
     }

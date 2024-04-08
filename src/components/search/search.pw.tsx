@@ -84,7 +84,7 @@ test.describe("When focused", () => {
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.type(testDataStandard);
+    await searchDefaultInputElement.fill(testDataStandard);
     const searchButtonElement = searchButton(page);
     await searchButtonElement.click({
       force: true,
@@ -108,7 +108,7 @@ test.describe("When focused", () => {
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.type(testDataStandard);
+    await searchDefaultInputElement.fill(testDataStandard);
     const searchButtonElement = searchButton(page);
     await searchButtonElement.click({
       force: true,
@@ -132,7 +132,7 @@ test.describe("When focused", () => {
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.type(testDataStandard);
+    await searchDefaultInputElement.fill(testDataStandard);
     await searchDefaultInputElement.press("Tab");
     const searchCrossIconElementParent = searchCrossIcon(page).locator("..");
 
@@ -154,7 +154,7 @@ test.describe("When focused", () => {
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.type(testDataStandard);
+    await searchDefaultInputElement.fill(testDataStandard);
     await searchDefaultInputElement.press("Tab");
     const searchCrossIconElementParent = searchCrossIcon(page).locator("..");
 
@@ -246,7 +246,7 @@ test.describe("Prop tests for Search component", () => {
     );
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.type(testDataStandard);
+    await searchDefaultInputElement.fill(testDataStandard);
     const searchButtonElement = searchButton(page);
 
     await expect(searchButtonElement).toHaveAttribute(
@@ -275,6 +275,15 @@ test.describe("Prop tests for Search component", () => {
         await expect(searchFindIconElement).not.toBeInViewport();
       }
     });
+  });
+
+  test("should render Search with button text overridden when searchButton is passed a string value", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<Search searchButton="foo" defaultValue={testDataStandard} />);
+
+    await expect(page.getByText("foo")).toBeVisible();
   });
 
   ([
@@ -346,7 +355,7 @@ test.describe("Prop tests for Search component", () => {
 
 ([
   ["default", "rgb(102, 132, 148)"],
-  ["dark", "rgb(153, 173, 183)"],
+  ["dark", "rgba(255, 255, 255, 0.8)"],
 ] as [SearchProps["variant"], string][]).forEach(
   ([variant, backgroundColor]) => {
     test(`should render Search with variant prop set to ${variant}`, async ({
@@ -378,7 +387,7 @@ test.describe("Prop tests for Search component", () => {
 
 ([
   ["default", "rgb(51, 91, 112)"],
-  ["dark", "rgb(204, 214, 219)"],
+  ["dark", "rgb(255, 255, 255)"],
 ] as [SearchProps["variant"], string][]).forEach(([variant, hoverColor]) => {
   test(`should render Search with variant prop set to ${variant} on hover`, async ({
     mount,
@@ -542,7 +551,7 @@ test.describe("Functionality tests for Search component", () => {
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.type(testDataStandard);
+    await searchDefaultInputElement.fill(testDataStandard);
     const searchButtonElement = searchButton(page);
     await searchButtonElement.click({
       force: true,
@@ -561,13 +570,31 @@ test.describe("Functionality tests for Search component", () => {
 
     const searchDefaultInputElement = searchDefaultInput(page);
     await searchDefaultInputElement.clear();
-    await searchDefaultInputElement.type(testDataStandard);
+    await searchDefaultInputElement.fill(testDataStandard);
     const searchCrossIconElement = searchCrossIcon(page);
     await searchCrossIconElement.click({
       force: true,
     });
 
     await expect(searchDefaultInputElement).toHaveValue("");
+    await expect(searchDefaultInputElement).toBeFocused();
+  });
+
+  test("should clear a Search input after enter key pressed and cross icon is focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SearchComponent />);
+
+    const searchDefaultInputElement = searchDefaultInput(page);
+    await searchDefaultInputElement.clear();
+    await searchDefaultInputElement.fill(testDataStandard);
+    const searchCrossIconElementParent = searchCrossIcon(page).locator("..");
+    await searchCrossIconElementParent.focus();
+    await searchCrossIconElementParent.press("Enter");
+
+    await expect(searchDefaultInputElement).toHaveValue("");
+    await expect(searchDefaultInputElement).toBeFocused();
   });
 });
 
@@ -607,7 +634,7 @@ test.describe("Event tests for Search component", () => {
     );
 
     const searchDefaultInputElement = searchDefaultInput(page);
-    await searchDefaultInputElement.type("1");
+    await searchDefaultInputElement.fill("1");
 
     await expect(callbackCount).toEqual(1);
   });

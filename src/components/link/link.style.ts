@@ -91,14 +91,14 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
       css`
         a {
           position: absolute;
-          padding-left: 24px;
-          padding-right: 24px;
+          padding-left: var(--spacing300);
+          padding-right: var(--spacing300);
           line-height: 36px;
           left: -999em;
           z-index: ${theme.zIndex.aboveAll};
-          box-shadow: inset 0 0 0 2px var(--colorsActionMajor500);
-          border: 2px solid var(--colorsUtilityYang100);
-          font-size: 16px;
+          box-shadow: inset 0 0 0 var(--spacing025) var(--colorsActionMajor500);
+          border: var(--spacing025) solid var(--colorsUtilityYang100);
+          font-size: var(--fontSizes200);
           color: var(--colorsUtilityYin090);
 
           &:hover {
@@ -116,16 +116,16 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
         }
 
         a:focus {
-          top: 8px;
-          left: 8px;
+          top: var(--spacing100);
+          left: var(--spacing100);
         }
       `}
 
       ${!isSkipLink &&
       css`
-        a,
-        button {
-          font-size: 14px;
+        > a,
+        > button {
+          font-size: var(--fontSizes100);
 
           ${!disabled &&
           css`
@@ -137,7 +137,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
             &:hover {
               color: ${hoverColor};
 
-              ${StyledIcon} {
+              > ${StyledIcon} {
                 color: ${hoverColor};
               }
             }
@@ -159,8 +159,8 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
         }
       `}
 
-      a,
-      button {
+      > a,
+      > button {
         text-decoration: ${hasContent ? "underline" : "none"};
         ${isMenuItem && "display: inline-block;"}
 
@@ -206,20 +206,20 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
       !theme.focusRedesignOptOut &&
       hasFocus &&
       css`
-        a,
-        button {
+        > a,
+        > button {
           outline: none;
           text-decoration: none;
           border-bottom-left-radius: var(--borderRadius000);
           border-bottom-right-radius: var(--borderRadius000);
         }
         max-width: fit-content;
-        box-shadow: 0 4px 0 0 var(--colorsUtilityYin090);
+        box-shadow: 0 var(--spacing050) 0 0 var(--colorsUtilityYin090);
         border-bottom-left-radius: var(--borderRadius025);
         border-bottom-right-radius: var(--borderRadius025);
       `}
 
-      button {
+      > button {
         background-color: transparent;
         border: none;
         padding: 0;
