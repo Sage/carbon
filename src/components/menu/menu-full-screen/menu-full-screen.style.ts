@@ -8,6 +8,7 @@ import StyledButton from "../../button/button.style";
 import menuConfigVariants from "../menu.config";
 import { MenuType } from "../menu.context";
 import addFocusStyling from "../../../style/utils/add-focus-styling";
+import { StyledLink } from "../../link/link.style";
 
 const oldFocusStyling = `
 outline: solid 3px var(--colorsSemanticFocus500);
@@ -56,42 +57,25 @@ const StyledMenuModal = styled.div<{ menuType: MenuType }>`
   width: 100vw;
   outline: none;
 
-  a,
-  button,
-  div {
-    font-size: 16px;
+  && {
+    ${StyledLink} {
+      max-width: 100vw;
+    }
+
+    ${StyledLink} > a,
+    ${StyledLink} > button,
+    > div {
+      font-size: var(--fontSizes200);
+    }
   }
 
   ${({ menuType, theme }) => css`
     background-color: ${menuConfigVariants[menuType].background};
 
     && {
-      ${menuType === "dark" &&
-      css`
-        ${StyledSearch} span > [data-component="icon"] {
-          color: var(--colorsUtilityMajor200);
-
-          &:hover {
-            color: var(--colorsUtilityMajor150);
-          }
-        }
-      `}
-
-      ${menuType === "light" &&
-      css`
-        ${StyledSearch} span > [data-component="icon"] {
-          color: var(--colorsUtilityMajor200);
-
-          &:hover {
-            color: var(--colorsUtilityMajor400);
-          }
-        }
-      `}
-
-    ${StyledSearch} {
+      ${StyledSearch} {
         ${StyledIcon} {
           display: inline-flex;
-          margin-right: 0;
           bottom: auto;
         }
 
