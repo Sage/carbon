@@ -231,6 +231,7 @@
       "files": ["*.pw.ts*", "*.test-pw.ts*", "playwright/**/*.ts*"],
       "plugins": ["playwright"],
       "rules": {
+        "playwright/no-focused-test": "error",
         "playwright/valid-title": [
           "warn",
           {
