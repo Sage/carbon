@@ -1,5 +1,7 @@
 import { defineConfig, devices } from "@playwright/experimental-ct-react17";
 import { resolve } from "path";
+import react from "@vitejs/plugin-react";
+import IstanbulPlugin from "vite-plugin-istanbul";
 
 const playwrightDir = resolve(__dirname, "./playwright");
 
@@ -37,6 +39,14 @@ export default defineConfig({
     ctPort: 3100,
     /* Custom config for internal bundler Playwright uses for component tests. See https://playwright.dev/docs/test-components#under-the-hood */
     ctViteConfig: {
+      plugins: [
+        react(),
+        IstanbulPlugin({
+          include: "src/*",
+          exclude: ["node_modules"],
+          extension: [".js", ".ts", ".tsx"],
+        }),
+      ],
       resolve: {
         alias: {
           // Required to load font assets correctly from @sage/design-tokens package
