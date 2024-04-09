@@ -1,3 +1,21 @@
+### [131.0.1](https://github.com/Sage/carbon/compare/v131.0.0...v131.0.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* **select:** objects as value fix ([451d74b](https://github.com/Sage/carbon/commit/451d74bf25a0227cf3f3de04f544eeb2b28cf93f)), closes [#6600](https://github.com/Sage/carbon/issues/6600)
+
+## [131.0.0](https://github.com/Sage/carbon/compare/v130.0.0...v131.0.0) (2024-04-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **fieldset:** The `inline` prop has been removed from the `Fieldset` component.
+
+### Bug Fixes
+
+* **fieldset:** invalid fieldset HTML fix ([8c45cc5](https://github.com/Sage/carbon/commit/8c45cc56ff26f30fe7b525f3c1a60ef69549fc3f))
+
 ## [130.0.0](https://github.com/Sage/carbon/compare/v129.0.0...v130.0.0) (2024-04-08)
 
 

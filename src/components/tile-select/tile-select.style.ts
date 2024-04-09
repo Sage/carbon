@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { margin } from "styled-system";
 import Fieldset from "../fieldset";
 import { Input } from "../../__internal__/input";
-import { LegendContainerStyle } from "../fieldset/fieldset.style";
+import { StyledLegend } from "../fieldset/fieldset.style";
 import StyledIcon from "../icon/icon.style";
 import { baseTheme } from "../../style/themes";
 import addFocusStyling from "../../style/utils/add-focus-styling";
@@ -190,13 +190,11 @@ const StyledTileSelectFieldset = styled(Fieldset)<{
 }>`
   ${margin}
 
-  ${LegendContainerStyle} {
+  ${StyledLegend} {
     margin-bottom: 16px;
-    legend {
-      font-size: 16px;
-      line-height: 16px;
-      margin-left: -2px;
-    }
+    font-size: 16px;
+    line-height: 16px;
+    margin-left: -2px;
   }
   ${({ multiSelect }) =>
     multiSelect &&
