@@ -1,3 +1,10 @@
+### [131.0.1](https://github.com/Sage/carbon/compare/v131.0.0...v131.0.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* **select:** objects as value fix ([451d74b](https://github.com/Sage/carbon/commit/451d74bf25a0227cf3f3de04f544eeb2b28cf93f)), closes [#6600](https://github.com/Sage/carbon/issues/6600)
+
 ## [131.0.0](https://github.com/Sage/carbon/compare/v130.0.0...v131.0.0) (2024-04-09)
 
 
