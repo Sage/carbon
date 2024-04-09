@@ -1,7 +1,14 @@
 import { defineConfig, devices } from "@playwright/experimental-ct-react17";
+import { PlaywrightTestConfig } from "@playwright/test";
 import { resolve } from "path";
 
 const playwrightDir = resolve(__dirname, "./playwright");
+
+const chromiumOptions: PlaywrightTestConfig["use"] = {
+  ...devices["Desktop Chrome"],
+  testIdAttribute: "data-component",
+  viewport: { width: 1366, height: 768 },
+};
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -13,16 +20,9 @@ export default defineConfig({
   snapshotDir: resolve(playwrightDir, "./__snapshots__"),
   /* The output directory for files created during test execution */
   outputDir: resolve(playwrightDir, "./test-results"),
-  /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
-  /* Run tests in files in parallel */
-  fullyParallel: true,
-
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 8 : undefined,
-  // Limit the number of failures on CI to save resources
+  /* Opt out of parallelised workers in CI to prioritise stability and reproducibility. */
+  workers: process.env.CI ? 1 : undefined,
+  /* Limit the number of failures on CI to save resources */
   maxFailures: process.env.CI ? 10 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
@@ -32,27 +32,34 @@ export default defineConfig({
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
-    /* Port to use for Playwright component endpoint. */
-    ctPort: 3100,
     /* Custom config for internal bundler Playwright uses for component tests. See https://playwright.dev/docs/test-components#under-the-hood */
     ctViteConfig: {
       resolve: {
         alias: {
-          // Required to load font assets correctly from @sage/design-tokens package
+          /* Required to load font assets correctly from @sage/design-tokens package */
           "~@sage": resolve(__dirname, "./node_modules/@sage/"),
         },
       },
     },
   },
   testMatch: /.*\.pw\.tsx/,
-  /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-        testIdAttribute: "data-component",
-        viewport: { width: 1366, height: 768 },
+      grepInvert: /@flaky/,
+      use: chromiumOptions,
+      retries: 0,
+    },
+    {
+      name: "flaky tests",
+      grep: /@flaky/,
+      use: chromiumOptions,
+      retries: 2,
+      // Increase test timeout for flaky tests
+      timeout: 60 * 1000,
+      expect: {
+        // Increase assertion timeout for flaky tests
+        timeout: 10 * 1000,
       },
     },
   ],
