@@ -32,7 +32,7 @@ import {
   subtitleElement,
   descElement,
   inputElement,
-  legendStyleComponent,
+  tileGroupDescription,
 } from "../../../playwright/components/tileSelect";
 import { CHARACTERS } from "../../../playwright/support/constants";
 
@@ -391,7 +391,7 @@ test.describe("check props for TileSelectGroup component", () => {
     }) => {
       await mount(<TileSelectGroupComponent description={description} />);
 
-      await expect(legendStyleComponent(page)).toBeVisible();
+      await expect(tileGroupDescription(page)).toHaveText(description);
     });
   });
 
