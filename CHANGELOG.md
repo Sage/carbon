@@ -1,3 +1,11 @@
+## [131.1.0](https://github.com/Sage/carbon/compare/v131.0.1...v131.1.0) (2024-04-10)
+
+
+### Features
+
+* **icon:** added woff2 format of the icon font ([1ebd58f](https://github.com/Sage/carbon/commit/1ebd58f6d82ee5c05cad5277a25c6074112c1ab2))
+* **icon:** updated references of icon font for woff2 ([d2c8c77](https://github.com/Sage/carbon/commit/d2c8c77790094687a94f0b0b6813e8055af332f9))
+
 ### [131.0.1](https://github.com/Sage/carbon/compare/v131.0.0...v131.0.1) (2024-04-09)
 
 
