@@ -264,7 +264,7 @@ const FocusTrap = ({
   const [tabIndex, setTabIndex] = useState<number | undefined>(0);
 
   useEffect(() => {
-    // issue in cypress prevents setting tabIndex to -1, instead tabIndex is set to 0 and removed on blur.
+    // tabIndex is set to 0 and removed on blur.
     if (!isOpen) {
       setTabIndex(0);
     }
