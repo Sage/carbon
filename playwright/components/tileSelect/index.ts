@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import {
   TILE_SELECT_DATA_COMPONENT,
-  TILE_SELECT_LEGEND_STYLE,
+  TILE_SELECT_GROUP_DESCRIPTION,
 } from "./locators";
 
 export const tileSelectDataComponent = (page: Page) => {
@@ -23,6 +23,6 @@ export const subtitleElement = (page: Page) =>
 export const descElement = (page: Page) =>
   tileSelectChildren(page).locator("p");
 
-export const legendStyleComponent = (page: Page) => {
-  return page.locator(TILE_SELECT_LEGEND_STYLE).nth(0);
+export const tileGroupDescription = (page: Page) => {
+  return page.locator(TILE_SELECT_GROUP_DESCRIPTION);
 };
