@@ -59,33 +59,6 @@ export const MenuFullscreen = ({
   const transitionDuration = 200;
   const locale = useLocale();
 
-  // TODO: Remove this temporary event handler as part of FE-6078
-  const handleFocusedSearchButton = (ev: React.KeyboardEvent<HTMLElement>) => {
-    const search = modalRef.current?.querySelector('[data-component="search"]');
-    const searchInput = search?.querySelector("input");
-    const searchButton = search?.querySelector("button");
-
-    // if there is no value in the search input the button disappears when the input blurs
-    // this means we need to programmatically set focus to the next menu item
-    if (
-      searchButton &&
-      searchInput &&
-      !searchInput.value &&
-      searchInput === document.activeElement
-    ) {
-      ev.preventDefault();
-
-      const elements = Array.from(
-        modalRef.current?.querySelectorAll(
-          "a, input, button"
-        ) as NodeListOf<HTMLElement>
-      );
-
-      const index = elements.indexOf(searchInput);
-      elements[index + 2]?.focus();
-    }
-  };
-
   const flattenedChildren = React.Children.toArray(children);
   const childArray = React.Children.toArray(
     flattenedChildren.map((child, index) => {
@@ -141,11 +114,6 @@ export const MenuFullscreen = ({
                 data-element={dataElement}
                 data-role={dataRole}
                 menuType={menuType}
-                onKeyDown={(ev) =>
-                  Events.isTabKey(ev) &&
-                  !Events.isShiftKey(ev) &&
-                  handleFocusedSearchButton(ev)
-                }
                 ref={modalRef}
                 role="dialog"
                 tabIndex={-1}

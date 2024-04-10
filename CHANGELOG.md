@@ -1,3 +1,69 @@
+## [131.1.0](https://github.com/Sage/carbon/compare/v131.0.1...v131.1.0) (2024-04-10)
+
+
+### Features
+
+* **icon:** added woff2 format of the icon font ([1ebd58f](https://github.com/Sage/carbon/commit/1ebd58f6d82ee5c05cad5277a25c6074112c1ab2))
+* **icon:** updated references of icon font for woff2 ([d2c8c77](https://github.com/Sage/carbon/commit/d2c8c77790094687a94f0b0b6813e8055af332f9))
+
+### [131.0.1](https://github.com/Sage/carbon/compare/v131.0.0...v131.0.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* **select:** objects as value fix ([451d74b](https://github.com/Sage/carbon/commit/451d74bf25a0227cf3f3de04f544eeb2b28cf93f)), closes [#6600](https://github.com/Sage/carbon/issues/6600)
+
+## [131.0.0](https://github.com/Sage/carbon/compare/v130.0.0...v131.0.0) (2024-04-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **fieldset:** The `inline` prop has been removed from the `Fieldset` component.
+
+### Bug Fixes
+
+* **fieldset:** invalid fieldset HTML fix ([8c45cc5](https://github.com/Sage/carbon/commit/8c45cc56ff26f30fe7b525f3c1a60ef69549fc3f))
+
+## [130.0.0](https://github.com/Sage/carbon/compare/v129.0.0...v130.0.0) (2024-04-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sort:** the potential type of false has been removed from the sortType prop. The type for
+the components children has also been changed from a react node to just a string
+
+### Features
+
+* **sort:** add the accessibleName prop to ensure consumers can pass a custom accessible name ([39229b1](https://github.com/Sage/carbon/commit/39229b1fb9aaa6df8f6f61032b01276e604c825d))
+* **sort:** add translation support for the accessible name of the component ([b0f99cb](https://github.com/Sage/carbon/commit/b0f99cbedfa4fb6f560795ab63a3f6a2b2b273bf))
+
+## [129.0.0](https://github.com/Sage/carbon/compare/v128.4.1...v129.0.0) (2024-04-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **search:** Ref is `SearchHandle` type and only supports calling focus on the input
+* **search:** The `inputRef` is no more
+* **search:** The `threshold` prop has been removed as it no longer does anything in the
+redesigned component
+
+### Features
+
+* **search:** add imperative handle to allow passing a ref and programmatically focus input ([c592372](https://github.com/Sage/carbon/commit/c592372b412bbf0d8b7a51a0ca4321074ae77b01))
+* **search:** search button is rendered at all times when `searchButton` prop is set ([deadf2a](https://github.com/Sage/carbon/commit/deadf2aa111d7e313fd4f6dc1a7e224ac45614f0)), closes [#6581](https://github.com/Sage/carbon/issues/6581)
+
+
+### Bug Fixes
+
+* **search:** deprecate `inputRef` prop ([eae130f](https://github.com/Sage/carbon/commit/eae130f1cbce4590f46ea8e65d58e97ff66f29b2))
+
+### [128.4.1](https://github.com/Sage/carbon/compare/v128.4.0...v128.4.1) (2024-04-05)
+
+
+### Bug Fixes
+
+* **text-editor:** ensure the input is focused when toolbar buttons are activated or deactivated ([c7c616c](https://github.com/Sage/carbon/commit/c7c616c7ea037c24613a13949eca5aa49f280301))
+
 ## [128.4.0](https://github.com/Sage/carbon/compare/v128.3.1...v128.4.0) (2024-04-05)
 
 

@@ -1546,7 +1546,7 @@ export const FlatTableSortingComponent = (
                 <FlatTableHeader key={name}>
                   <Sort
                     onClick={() => handleClick(name)}
-                    sortType={isActive && sortType}
+                    sortType={isActive ? sortType : undefined}
                   >
                     {name}
                   </Sort>

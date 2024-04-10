@@ -1292,7 +1292,7 @@ describe("Submenu component", () => {
             backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
           },
           wrapper.find(StyledSubmenu),
-          { modifier: `${StyledMenuItemWrapper} ${el}:${pseudo}` }
+          { modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo}` }
         );
       });
 
@@ -1308,7 +1308,7 @@ describe("Submenu component", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledSubmenu),
-            { modifier: `${StyledMenuItemWrapper} ${el}:${pseudo}` }
+            { modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo}` }
           );
         });
 
@@ -1320,7 +1320,7 @@ describe("Submenu component", () => {
             },
             wrapper.find(StyledSubmenu),
             {
-              modifier: `${StyledMenuItemWrapper} ${el}:${pseudo} [data-component="icon"]`,
+              modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo} > [data-component="icon"]`,
             }
           );
         });
@@ -1492,48 +1492,6 @@ describe("Submenu component", () => {
 
       expect(searchInput).toBeFocused();
     });
-
-    it.each<MenuType>(["dark", "black", "light", "white"])(
-      "should render with correct styles for search icon for menuType=%s",
-      (menuType) => {
-        wrapper = renderWithSearch(menuType);
-        openSubmenu(wrapper);
-
-        assertStyleMatch(
-          {
-            borderBottomColor: "var(--colorsUtilityMajor150)",
-          },
-          wrapper.find(StyledSubmenu),
-          {
-            modifier: `
-              ${StyledMenuItemWrapper} ${StyledSearch}:hover
-            `,
-          }
-        );
-        assertStyleMatch(
-          {
-            color: "var(--colorsUtilityMajor200)",
-          },
-          wrapper.find(StyledSubmenu),
-          {
-            modifier: `
-              ${StyledMenuItemWrapper} ${StyledSearch} span > [data-component="icon"]
-            `,
-          }
-        );
-        assertStyleMatch(
-          {
-            color: "var(--colorsUtilityMajor150)",
-          },
-          wrapper.find(StyledSubmenu),
-          {
-            modifier: `
-              ${StyledMenuItemWrapper} ${StyledSearch} span > [data-component="icon"]:hover
-            `,
-          }
-        );
-      }
-    );
 
     it("should be focusable by using down arrow key", () => {
       wrapper = renderWithSearch("dark");

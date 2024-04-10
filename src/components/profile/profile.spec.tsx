@@ -319,7 +319,7 @@ describe("Profile", () => {
           color: "var(--colorsActionMajor500)",
         },
         wrapper.find(ProfileEmailStyle),
-        { modifier: "a" }
+        { modifier: "> a" }
       );
     });
 

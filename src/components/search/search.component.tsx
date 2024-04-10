@@ -1,15 +1,16 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useRef, useImperativeHandle } from "react";
 import invariant from "invariant";
 import { MarginProps } from "styled-system";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledSearch from "./search.style";
-import StyledSearchButton, { StyledButtonIcon } from "./search-button.style";
-import Icon, { IconType } from "../icon";
+import StyledSearchButton from "./search-button.style";
+import Icon from "../icon";
 import Textbox from "../textbox";
 import Button from "../button";
 import { ValidationProps } from "../../__internal__/validations";
 import Logger from "../../__internal__/utils/logger";
+import useLocale from "../../hooks/__internal__/useLocale";
 
 export interface SearchEvent {
   target: {
@@ -28,8 +29,6 @@ export interface SearchProps extends ValidationProps, MarginProps {
   defaultValue?: string;
   /** Prop for `id` */
   id?: string;
-  /** A callback to retrieve the input reference */
-  inputRef?: React.MutableRefObject<HTMLInputElement | null>;
   /** Prop for `name` */
   name?: string;
   /** Prop for `onBlur` events */
@@ -46,8 +45,11 @@ export interface SearchProps extends ValidationProps, MarginProps {
   onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Prop for a placeholder */
   placeholder?: string;
-  /** Prop boolean to state whether the `search` icon renders */
-  searchButton?: boolean;
+  /**
+   * Pass a boolean to render a search Button with default text.
+   * Pass a string to override the text in the search Button
+   * */
+  searchButton?: boolean | string;
   /**
    * Prop for specifying an input width length.
    * Leaving the `searchWidth` prop with no value will default the width to '100%'
@@ -58,8 +60,6 @@ export interface SearchProps extends ValidationProps, MarginProps {
    * Leaving the `maxWidth` prop with no value will default the width to '100%'
    */
   maxWidth?: string;
-  /** Prop for active search threshold. This must be a positive number */
-  threshold?: number;
   /** Prop for `controlled` use */
   value?: string;
   /** Prop to specify the styling of the search component */
@@ -70,10 +70,14 @@ export interface SearchProps extends ValidationProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 
-let deprecateInputRefWarnTriggered = false;
+export type SearchHandle = {
+  /** Programmatically focus on root container of Dialog. */
+  focus: () => void;
+} | null;
+
 let deprecateUncontrolledWarnTriggered = false;
 
-export const Search = React.forwardRef(
+export const Search = React.forwardRef<SearchHandle, SearchProps>(
   (
     {
       defaultValue,
@@ -85,7 +89,6 @@ export const Search = React.forwardRef(
       value,
       id,
       name,
-      threshold = 3,
       searchWidth,
       maxWidth,
       searchButton,
@@ -93,25 +96,30 @@ export const Search = React.forwardRef(
       placeholder,
       variant = "default",
       "aria-label": ariaLabel = "search",
-      inputRef,
       tabIndex,
       error,
       warning,
       info,
       tooltipPosition,
       ...rest
-    }: SearchProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    },
+    ref
   ) => {
     const isControlled = value !== undefined;
     const initialValue = isControlled ? value : defaultValue;
+    const locale = useLocale();
+    const searchRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Search` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
+    useImperativeHandle<SearchHandle, SearchHandle>(
+      ref,
+      () => ({
+        focus() {
+          inputRef.current?.focus();
+        },
+      }),
+      []
+    );
 
     if (!deprecateUncontrolledWarnTriggered && !isControlled) {
       deprecateUncontrolledWarnTriggered = true;
@@ -125,60 +133,12 @@ export const Search = React.forwardRef(
       "This component has no initial value"
     );
 
-    invariant(
-      threshold === undefined ||
-        (typeof threshold === "number" && threshold > 0),
-      "Threshold must be a positive number"
-    );
-
     const [searchValue, setSearchValue] = useState(initialValue);
     const [isFocused, setIsFocused] = useState(false);
-    const [searchIsActive, setSearchIsActive] = useState(
-      initialValue.length >= threshold
-    );
 
-    useEffect(() => {
-      setSearchIsActive(
-        !isControlled
-          ? searchValue.length >= threshold
-          : value.length >= threshold
-      );
-    }, [isControlled, searchValue, threshold, value]);
-
-    const [iconType, iconTabIndex] = useMemo<
-      [IconType | undefined, number]
-    >(() => {
-      const isSearchValueEmpty = !isControlled
-        ? searchValue.length === 0
-        : value.length === 0;
-      const isFocusedOrActive =
-        isFocused ||
-        searchIsActive ||
-        inputRef?.current === document.activeElement;
-
-      if (!isSearchValueEmpty) {
-        return ["cross", 0];
-      }
-
-      if (
-        !isFocusedOrActive ||
-        threshold === 0 ||
-        (!searchButton && isSearchValueEmpty)
-      ) {
-        return ["search", -1];
-      }
-
-      return [undefined, -1];
-    }, [
-      isControlled,
-      searchValue,
-      value,
-      isFocused,
-      searchIsActive,
-      threshold,
-      searchButton,
-      inputRef,
-    ]);
+    const isSearchValueEmpty = !isControlled
+      ? searchValue.length === 0
+      : value.length === 0;
 
     let buttonProps = {};
 
@@ -215,6 +175,7 @@ export const Search = React.forwardRef(
 
     const handleIconClick = () => {
       setSearchValue("");
+
       if (onChange) {
         onChange({
           target: {
@@ -224,6 +185,8 @@ export const Search = React.forwardRef(
           },
         });
       }
+
+      inputRef.current?.focus();
     };
 
     const handleMouseDown = (event: React.MouseEvent<HTMLElement>) => {
@@ -233,6 +196,7 @@ export const Search = React.forwardRef(
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(false);
 
+      /* istanbul ignore else */
       if (onBlur) {
         onBlur(event);
       }
@@ -248,17 +212,22 @@ export const Search = React.forwardRef(
       }
     };
 
-    const isSearchTyped =
-      isFocused || (!isControlled ? !!searchValue.length : !!value.length);
+    const searchButtonText =
+      typeof searchButton === "string"
+        ? searchButton
+        : locale.search.searchButtonText();
+    const searchHasValue = !isControlled
+      ? !!searchValue?.length
+      : !!value?.length;
 
     return (
       <StyledSearch
+        ref={searchRef}
         isFocused={isFocused}
         searchWidth={searchWidth}
         maxWidth={maxWidth}
-        searchIsActive={searchIsActive}
-        searchHasValue={!isControlled ? !!searchValue?.length : !!value?.length}
-        showSearchButton={searchButton}
+        searchHasValue={searchHasValue}
+        showSearchButton={!!searchButton}
         variant={variant}
         mb={0}
         {...filterStyledSystemMarginProps(rest)}
@@ -270,8 +239,8 @@ export const Search = React.forwardRef(
         <Textbox
           placeholder={placeholder}
           value={!isControlled ? searchValue : value}
-          inputIcon={iconType}
-          iconTabIndex={iconTabIndex}
+          inputIcon={!isSearchValueEmpty ? "cross" : undefined}
+          iconTabIndex={!isSearchValueEmpty ? 0 : -1}
           iconOnClick={handleIconClick}
           iconOnMouseDown={handleMouseDown}
           aria-label={ariaLabel}
@@ -279,27 +248,29 @@ export const Search = React.forwardRef(
           onBlur={handleBlur}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          ref={ref || inputRef}
+          ref={inputRef}
           tabIndex={tabIndex}
           error={error}
           warning={warning}
           info={info}
+          leftChildren={
+            !searchButton ? <Icon type="search" ml={1} /> : undefined
+          }
           tooltipPosition={tooltipPosition}
         />
         {searchButton && (
           <StyledSearchButton>
-            {isSearchTyped && (
-              <Button
-                aria-label={searchButtonAriaLabel}
-                size="medium"
-                px="16px"
-                {...buttonProps}
-              >
-                <StyledButtonIcon>
-                  <Icon type="search" />
-                </StyledButtonIcon>
-              </Button>
-            )}
+            <Button
+              aria-label={searchButtonAriaLabel}
+              size="medium"
+              px={2}
+              buttonType="primary"
+              iconPosition="before"
+              iconType="search"
+              {...buttonProps}
+            >
+              {searchButtonText}
+            </Button>
           </StyledSearchButton>
         )}
       </StyledSearch>
