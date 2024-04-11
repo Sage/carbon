@@ -87,11 +87,9 @@ describe("Input", () => {
   );
 
   it("sends the input ref to the inputRef callback", () => {
-    const inputRef = jest.fn();
     const contextInputRef = jest.fn();
 
-    renderMount({ inputRef }, { inputRef: contextInputRef });
-    expect(inputRef).toHaveBeenCalled();
+    renderMount({}, { inputRef: contextInputRef });
     expect(contextInputRef).toHaveBeenCalled();
   });
 

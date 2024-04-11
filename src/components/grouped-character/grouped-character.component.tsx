@@ -48,7 +48,6 @@ export interface GroupedCharacterProps
   value?: string;
 }
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export const GroupedCharacter = React.forwardRef(
@@ -60,7 +59,6 @@ export const GroupedCharacter = React.forwardRef(
       onChange,
       separator: rawSeparator,
       value: externalValue,
-      inputRef,
       ...rest
     }: GroupedCharacterProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -72,13 +70,6 @@ export const GroupedCharacter = React.forwardRef(
     const separator = rawSeparator.substring(0, 1); // Ensure max length is 1
 
     const maxRawLength = groups.reduce(toSum);
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `GroupedCharacter` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     if (!deprecateUncontrolledWarnTriggered && !isControlled) {
       deprecateUncontrolledWarnTriggered = true;
@@ -167,7 +158,6 @@ export const GroupedCharacter = React.forwardRef(
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyPress={handleKeyPress}
-        inputRef={inputRef}
         ref={ref}
       />
     );

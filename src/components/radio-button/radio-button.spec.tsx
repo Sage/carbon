@@ -113,20 +113,6 @@ describe("RadioButton", () => {
     );
   });
 
-  it("should display deprecation warning when the inputRef prop is used", () => {
-    const ref = { current: null };
-
-    const wrapper = mount(<RadioButton inputRef={ref} value="test" />);
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "The `inputRef` prop in `RadioButton` component is deprecated and will soon be removed. Please use `ref` instead."
-    );
-
-    wrapper.setProps({ prop1: true });
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-    loggerSpy.mockRestore();
-  });
-
   describe("when disabled === true", () => {
     describe("default", () => {
       const wrapper = renderRadioButton({ disabled: true });

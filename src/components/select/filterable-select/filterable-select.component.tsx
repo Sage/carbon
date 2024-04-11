@@ -20,7 +20,6 @@ import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibi
 import { CustomSelectChangeEvent } from "../simple-select";
 import { OptionData } from "../simple-select/simple-select.component";
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 const FilterableSelectList = withFilter<SelectListProps>(SelectList);
@@ -126,7 +125,6 @@ export const FilterableSelect = React.forwardRef(
       tooltipPosition,
       listPlacement = "bottom",
       flipEnabled = true,
-      inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
       disableDefaultFiltering = false,
@@ -161,13 +159,6 @@ export const FilterableSelect = React.forwardRef(
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
     const openOnFocusFlagBlock = useRef(false);
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Filterable Select` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     const componentIsUncontrolled =
       !isControlled || (!onChange && defaultValue);
@@ -602,7 +593,7 @@ export const FilterableSelect = React.forwardRef(
       (element) => {
         setTextboxRef(element);
 
-        if (inputRef || !ref) {
+        if (!ref) {
           return;
         }
 
@@ -612,7 +603,7 @@ export const FilterableSelect = React.forwardRef(
           ref.current = element;
         }
       },
-      [ref, inputRef]
+      [ref]
     );
 
     function getTextboxProps() {
@@ -634,7 +625,6 @@ export const FilterableSelect = React.forwardRef(
         onChange: handleTextboxChange,
         onMouseDown: handleTextboxMouseDown,
         tooltipPosition,
-        inputRef,
         required,
         isOptional,
         ...filterOutStyledSystemSpacingProps(textboxProps),

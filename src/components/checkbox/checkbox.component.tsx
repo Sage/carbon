@@ -34,11 +34,8 @@ export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** The value of the checkbox, passed on form submit */
   value?: string;
-  /** A callback to retrieve the input reference (deprecated) */
-  inputRef?: React.Ref<HTMLInputElement>;
 }
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export const Checkbox = React.forwardRef(
@@ -76,7 +73,6 @@ export const Checkbox = React.forwardRef(
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
-      inputRef,
       ...rest
     }: CheckboxProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -93,13 +89,6 @@ export const Checkbox = React.forwardRef(
       warning: contextWarning,
       info: contextInfo,
     } = checkboxGroupContext;
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Checkbox` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
@@ -132,7 +121,7 @@ export const Checkbox = React.forwardRef(
       disabled,
       inputWidth,
       labelWidth,
-      ref: ref || inputRef,
+      ref,
       ...rest,
     };
 

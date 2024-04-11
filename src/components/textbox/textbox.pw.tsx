@@ -20,7 +20,7 @@ import {
 } from "../../../playwright/components";
 import {
   TextboxComponent,
-  TextboxComponentInputRef,
+  TextboxComponentRef,
   TextboxComponentWithLeftChildren,
   TextboxComponentWithPositionedChildren,
   TextboxValidationsAsAStringWithTooltipDefault,
@@ -705,11 +705,11 @@ test.describe("Prop checks for Textbox component", () => {
     });
   });
 
-  test("should render with inputRef prop and focus on input via click on ref", async ({
+  test("should render with ref prop and focus on input via click on ref", async ({
     mount,
     page,
   }) => {
-    await mount(<TextboxComponentInputRef />);
+    await mount(<TextboxComponentRef />);
 
     await getDataComponentByValue(page, "button").click();
 

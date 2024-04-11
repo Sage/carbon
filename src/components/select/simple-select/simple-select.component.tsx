@@ -20,7 +20,6 @@ import Logger from "../../../__internal__/utils/logger";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 type TimerId = ReturnType<typeof setTimeout>;
@@ -127,7 +126,6 @@ export const SimpleSelect = React.forwardRef(
       "data-role": dataRole,
       listPlacement = "bottom",
       flipEnabled = true,
-      inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
       isOptional,
@@ -158,13 +156,6 @@ export const SimpleSelect = React.forwardRef(
       label,
     });
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Simple Select` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     const componentIsUncontrolled =
       !isControlled || (!onChange && defaultValue);
@@ -476,7 +467,7 @@ export const SimpleSelect = React.forwardRef(
       (element) => {
         setTextboxRef(element);
 
-        if (inputRef || !ref) {
+        if (!ref) {
           return;
         }
 
@@ -486,7 +477,7 @@ export const SimpleSelect = React.forwardRef(
           ref.current = element;
         }
       },
-      [ref, inputRef]
+      [ref]
     );
 
     function getTextboxProps() {
@@ -512,7 +503,6 @@ export const SimpleSelect = React.forwardRef(
         required,
         isOptional,
         transparent,
-        inputRef,
         ...filterOutStyledSystemSpacingProps(props),
       };
     }

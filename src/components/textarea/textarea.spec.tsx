@@ -704,21 +704,6 @@ describe("componentWillUnmount", () => {
   });
 
   describe("refs", () => {
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
-      const ref = () => {};
-
-      const wrapper = renderTextarea({ inputRef: ref });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `Textarea` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-      loggerSpy.mockRestore();
-    });
-
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
       const wrapper = renderTextarea({ ref });
