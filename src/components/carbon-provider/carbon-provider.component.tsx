@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider";
 
-import { mintTheme } from "../../style/themes";
+import { sageTheme } from "../../style/themes";
 import type { ThemeObject } from "../../style/themes";
 
 import { TopModalContextProvider } from "./top-modal-context";
@@ -11,7 +11,7 @@ import { TopModalContextProvider } from "./top-modal-context";
 export interface CarbonProviderProps {
   /* Content for the provider to wrap */
   children: React.ReactNode;
-  /** Theme which specifies styles to apply to all child components. Set to `mintTheme` by default for legacy support. */
+  /** Theme which specifies styles to apply to all child components. Set to `sageTheme` by default. */
   theme?: Partial<ThemeObject>;
   /** Feature flag for opting in to the latest validation designs for components that support it.
    *
@@ -33,7 +33,7 @@ export const NewValidationContext = createContext<
 
 export const CarbonProvider = ({
   children,
-  theme = mintTheme,
+  theme = sageTheme,
   validationRedesignOptIn = false,
   roundedCornersOptOut = false,
   focusRedesignOptOut = false,

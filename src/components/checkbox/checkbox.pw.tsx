@@ -746,14 +746,14 @@ test.describe("should render CheckboxGroup component and check props", () => {
     await expect(checkboxGroupElement1).toContainText(
       "Error Message (Fix is required)"
     );
-    await expect(checkboxGroupElement1).toHaveCSS("color", "rgb(199, 56, 79)");
+    await expect(checkboxGroupElement1).toHaveCSS("color", "rgb(203, 55, 74)");
     const checkboxGroupElement2 = checkboxGroup(page)
       .locator("div")
       .nth(1)
       .locator("span");
     await expect(checkboxGroupElement2).toHaveCSS(
       "background-color",
-      "rgb(199, 56, 79)"
+      "rgb(203, 55, 74)"
     );
     await expect(checkboxGroupElement2).toHaveCSS("position", "absolute");
   });
@@ -780,7 +780,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
       .locator("span");
     await expect(checkboxGroupElement2).toHaveCSS(
       "background-color",
-      "rgb(233, 100, 0)"
+      "rgb(239, 103, 0)"
     );
     await expect(checkboxGroupElement2).toHaveCSS("position", "absolute");
   });
