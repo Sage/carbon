@@ -67,10 +67,9 @@ export const FileUploadStatus = ({
       buttonText = locale.fileInput.actions.cancel();
       progressBar =
         (statusProps as StatusUploadingProps).progress === undefined ? (
-          <LoaderBar size="small" />
+          <LoaderBar />
         ) : (
           <ProgressTracker
-            size="small"
             progress={(statusProps as StatusUploadingProps).progress}
             length="100%"
           />

@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "styled-components";
 
-import mintTheme from "../../../style/themes/mint";
+import sageTheme from "../../../style/themes/sage";
 import { VerticalMenuTrigger } from "..";
 import { testStyledSystemPadding } from "../../../__spec_helper__/test-utils";
 import { StyledVerticalMenuItem } from "../vertical-menu.style";
@@ -11,7 +11,7 @@ import { StyledVerticalMenuItem } from "../vertical-menu.style";
 describe("VerticalMenuTrigger", () => {
   testStyledSystemPadding(
     (props) => (
-      <ThemeProvider theme={mintTheme}>
+      <ThemeProvider theme={sageTheme}>
         <VerticalMenuTrigger {...props} onClick={() => {}}>
           Open menu
         </VerticalMenuTrigger>

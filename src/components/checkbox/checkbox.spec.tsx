@@ -8,7 +8,6 @@ import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/c
 import guid from "../../__internal__/utils/helpers/guid";
 import {
   assertStyleMatch,
-  carbonThemesJestTable,
   mockMatchMedia,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
@@ -560,7 +559,7 @@ describe("Checkbox", () => {
     });
   });
 
-  describe.each(carbonThemesJestTable)("when the theme is set to %s", () => {
+  describe("when the theme is set to sageTheme", () => {
     it("sets the appropriate check colour", () => {
       const wrapper = renderCheckbox({ checked: true });
 

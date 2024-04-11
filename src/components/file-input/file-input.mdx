@@ -55,10 +55,9 @@ You can use the `isOptional` prop to indicate if the field is optional.
 
 ### Size variations
 
-By default the component has a width of 256px and height of 40px (not including 12px of padding on each side). This makes both text and button
-render on a single line (as seen in all the examples above).
+By default the component has a width of `280px`. This allows both the text and button to render on a single line (as seen in all the examples above).
 
-You can increase the width and/or height component by setting the `maxHeight` and/or `maxWidth` props. You might need to do this to fit especially long
+You can increase the width and/or height of the component by setting the `maxWidth` and/or `minHeight` props. You might need to do this to fit especially long
 explanatory text, or to match the precise width/height of a particular design. Examples of increasing width and height are shown below:
 
 #### Increased height
@@ -75,27 +74,24 @@ Note that any valid CSS values can be used for these props, and that you can the
 
 <Canvas of={FileInputStories.FullWidth} />
 
-#### Responsive increased width example
+#### Responsive width example
 
-It isn't recommended to increase the `maxWidth` to more than 320px without also increasing the `maxHeight`, as this could lead to the text overflowing the
-container on smaller mobile devices. If you really need to put the text and button on the same row if space allows, you can use the CSS `min` function to
-ensure no horizontal overflow, and the [useMediaQuery hook](../?path=/docs/documentation-hooks-usemediaquery--docs) to set the `maxHeight` conditionally on
-smaller screen-sizes, as illustrated below:
+You can use the CSS `min` function to set the width to grow to fill the available space if the container is wider than `280px`. This is useful for responsive 
+designs where the component should grow to fill the available space. You may also set the `minWidth` prop to allow the component to shrink to a smaller width 
+if the container is narrower than `280px`.
 
-<Canvas of={FileInputStories.IncreasedWidthResponsive} />
+<Canvas of={FileInputStories.ResponsiveWidth} />
 
 #### Vertical layout
 
-One common variation is to have the text vertically stacked below the button, without necessarily increasing the width. This can be achieved by setting the
-`isVertical` boolean prop. Note that this is equivalent to simply removing the default `maxHeight` value and will be overridden if `maxHeight` is explicitly
-provided - so `maxHeight` should not be used in conjunction with `isVertical`. (A sufficiently large `maxHeight` will make the component lay out vertically
-anyway.)
+One common variation is to have the text vertically stacked below the button, which can be achieved by setting the `isVertical` boolean prop to `true`. 
+Note that this will automatically be the case if the button and text no longer fit onto a single line, even if the `isVertical` prop is set to `false`.
 
 <Canvas of={FileInputStories.Vertical} />
 
 ### Validations
 
-Validation status can be set by passing an `error` or prop to the component
+Validation status can be set by passing an `error` or prop to the component.
 
 Passing a string will display a properly colored border and error message.
 

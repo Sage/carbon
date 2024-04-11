@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useRef } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import useMediaQuery from "../../hooks/useMediaQuery";
-
 import FileInput, { FileUploadStatusProps } from ".";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -48,27 +46,25 @@ export const IncreasedHeight: Story = () => {
     <FileInput
       label="File input"
       dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
-      maxHeight="200px"
+      minHeight="200px"
       onChange={() => {}}
     />
   );
 };
 IncreasedHeight.storyName = "Increased Height";
 
-export const IncreasedWidthResponsive: Story = () => {
-  const isSmallScreen = useMediaQuery("(max-width: 800px)");
-
+export const ResponsiveWidth: Story = () => {
   return (
     <FileInput
       label="File input"
       dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
       maxWidth="min(800px, 100%)"
-      maxHeight={isSmallScreen ? "200px" : undefined}
+      minWidth="250px"
       onChange={() => {}}
     />
   );
 };
-IncreasedWidthResponsive.storyName = "Increased Width (Responsive)";
+ResponsiveWidth.storyName = "Responsive Width";
 
 export const IncreasedBoth: Story = () => {
   return (
@@ -76,7 +72,7 @@ export const IncreasedBoth: Story = () => {
       label="File input"
       dragAndDropText="You can drag and drop your file here, if that's the way you prefer to interact with the component."
       maxWidth="500px"
-      maxHeight="200px"
+      minHeight="200px"
       onChange={() => {}}
     />
   );
