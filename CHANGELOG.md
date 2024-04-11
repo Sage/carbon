@@ -1,3 +1,10 @@
+## [132.2.0](https://github.com/Sage/carbon/compare/v132.1.0...v132.2.0) (2024-04-11)
+
+
+### Features
+
+* **loader-spinner:** add new component ([53d9d67](https://github.com/Sage/carbon/commit/53d9d6738f8c5b9c67202268700502f18e29899f))
+
 ## [132.1.0](https://github.com/Sage/carbon/compare/v132.0.0...v132.1.0) (2024-04-11)
 
 
