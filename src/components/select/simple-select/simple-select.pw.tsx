@@ -586,7 +586,24 @@ test.describe("SimpleSelect component", () => {
     await expect(multiColumnsSelectListRowAt(page, 4)).toBeVisible();
   });
 
-  test("should open correct list and select one when an object is already set as a value", async ({
+  test("should have correct option highlighted when select list is opened and value is an object", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleSelectObjectAsValueComponent />);
+
+    const inputElement = getDataElementByValue(page, "input");
+    await expect(inputElement).toHaveValue("Green");
+    await selectText(page).click();
+    const optionElement = selectOptionByText(page, "Green");
+
+    await expect(optionElement).toHaveCSS(
+      "background-color",
+      "rgb(153, 173, 183)"
+    );
+  });
+
+  test("should select another option when one is already selected and the value is an object", async ({
     mount,
     page,
   }) => {

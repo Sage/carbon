@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { mount, shallow } from "enzyme";
-import mintTheme from "../../style/themes/mint";
+import sageTheme from "../../style/themes/sage";
 import Content, { ContentProps } from ".";
 import {
   StyledContent,
@@ -20,7 +20,7 @@ describe("Content", () => {
 
   const renderWrapper = (props?: ContentProps, render = mount) => {
     return render(
-      <ThemeProvider theme={mintTheme}>
+      <ThemeProvider theme={sageTheme}>
         <Content {...props}>Foo</Content>
       </ThemeProvider>
     );

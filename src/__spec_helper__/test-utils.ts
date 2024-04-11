@@ -13,8 +13,6 @@ import {
 import { ReactTestRendererJSON } from "react-test-renderer";
 
 import { space } from "../style/themes/base/base-theme.config";
-
-import { carbonThemeList } from "../style/themes";
 import { mockMatchMedia } from "./mock-match-media";
 
 const isUpper = (char: string) => char.toUpperCase() === char;
@@ -146,11 +144,6 @@ const assertKeyboardTraversal = assertCorrectTraversal(
 const assertHoverTraversal = assertCorrectTraversal((wrapper: ReactWrapper) =>
   hoverList(wrapper)
 )(expect);
-
-const carbonThemesJestTable = carbonThemeList.map((theme) => [
-  theme.name,
-  theme,
-]);
 
 const marginProps = [
   ["m", "margin"],
@@ -630,7 +623,6 @@ export {
   listFrom,
   click,
   simulate,
-  carbonThemesJestTable,
   mockMatchMedia,
   testStyledSystemSpacing,
   testStyledSystemMargin,

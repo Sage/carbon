@@ -7,7 +7,6 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import { carbonThemeList } from "../../style/themes";
 import Portrait, { PortraitSizes } from "./portrait.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
@@ -21,11 +20,10 @@ import profileConfigSizes, { ProfileSize } from "../profile/profile.config";
 import Tooltip from "../tooltip";
 import CarbonProvider from "../carbon-provider";
 import { PORTRAIT_SIZE_PARAMS } from "./portrait.config";
+import { sageTheme } from "../../style/themes";
 
 function renderDLS(element: JSX.Element) {
-  return mount(
-    <ThemeProvider theme={carbonThemeList[0]}>{element}</ThemeProvider>
-  );
+  return mount(<ThemeProvider theme={sageTheme}>{element}</ThemeProvider>);
 }
 
 function renderFindTypeSuccess(
@@ -435,7 +433,7 @@ describe("PortraitComponent", () => {
         size: "XXL",
         initials: "AB",
         darkBackground: false,
-        theme: carbonThemeList[0],
+        theme: sageTheme,
       } as const;
       renderDLS(<Portrait {...props} />);
       renderDLS(<Portrait {...props} darkBackground />);
@@ -589,7 +587,7 @@ describe("PortraitComponent", () => {
     it("includes data tags for component, element and role on Portrait component", () => {
       const wrapper = shallow(
         <Portrait src={imageUrl} data-element="bar" data-role="baz" />,
-        { context: { theme: carbonThemeList[0] } }
+        { context: { theme: sageTheme } }
       );
       rootTagTest(wrapper, "portrait", "bar", "baz");
     });

@@ -1,10 +1,7 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import { HooksConfig } from "../../../playwright";
-import {
-  SageTheme as SageThemeStory,
-  MintTheme as MintThemeStory,
-} from "./components.test-pw";
+import { SageTheme as SageThemeStory } from "./components.test-pw";
 import { AllThemes as AllThemesStory } from "../../../src/components/carbon-provider/carbon-provider-test.stories";
 import Button from "../../../src/components/button";
 import Link from "../../../src/components/link";
@@ -27,7 +24,7 @@ import { stepSequenceDataComponentItem } from "../../../playwright/components/st
 import multiActionButtonComponent from "../../../playwright/components/carbon-provider/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
-const themes = ["mint", "aegean", "noMountedTheme", "sage"];
+const themes = ["noMountedTheme", "sage"];
 
 const buildTestArray = (array: string[]) => {
   return themes.map((theme, i) => [theme, array[i]]);
@@ -40,40 +37,15 @@ const buildTestDataWithTwoArrays = (
   return themes.map((theme, i) => [theme, firstArray[i], secondArray[i]]);
 };
 
-const commonColors = [
-  "rgb(0, 125, 90)",
-  "rgb(0, 115, 194)",
-  "rgb(0, 130, 0)",
-  "rgb(0, 126, 69)",
-];
+const commonColors = ["rgb(0, 130, 0)", "rgb(0, 126, 69)"];
 
-const commonColorsOnHover = [
-  "rgb(0, 96, 70)",
-  "rgb(0, 92, 154)",
-  "rgb(0, 99, 0)",
-  "rgb(0, 103, 56)",
-];
+const commonColorsOnHover = ["rgb(0, 99, 0)", "rgb(0, 103, 56)"];
 
-const multiButtonOnHover = [
-  "rgb(0, 64, 46)",
-  "rgb(0, 68, 114)",
-  "rgb(0, 77, 42)",
-  "rgb(0, 77, 42)",
-];
+const multiButtonOnHover = ["rgb(0, 77, 42)", "rgb(0, 77, 42)"];
 
-const stepSequenceColors = [
-  "rgb(0, 125, 90)",
-  "rgb(0, 115, 194)",
-  "rgb(0, 138, 33)",
-  "rgb(0, 138, 33)",
-];
+const stepSequenceColors = ["rgb(0, 138, 33)", "rgb(0, 138, 33)"];
 
-const loaderBarColors = [
-  "rgb(179, 227, 214)",
-  "rgb(179, 214, 239)",
-  "rgb(179, 224, 179)",
-  "rgb(179, 217, 200)",
-];
+const loaderBarColors = ["rgb(179, 224, 179)", "rgb(179, 217, 200)"];
 
 buildTestArray(commonColors).forEach(([theme, color]) => {
   test.describe(`Carbon Provider`, async () => {
@@ -330,15 +302,6 @@ test.describe("Accessibility tests for Carbon Provider", () => {
     page,
   }) => {
     await mount(<SageThemeStory />);
-
-    await checkAccessibility(page);
-  });
-
-  test("should pass accessibility tests for mint theme example", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<MintThemeStory />);
 
     await checkAccessibility(page);
   });
