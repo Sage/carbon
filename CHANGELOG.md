@@ -1,3 +1,10 @@
+## [132.1.0](https://github.com/Sage/carbon/compare/v132.0.0...v132.1.0) (2024-04-11)
+
+
+### Features
+
+* **file-input:** update default component size and progress/loader bar size ([6957bc3](https://github.com/Sage/carbon/commit/6957bc30a0aa6237eedcd519965096ca325408bf))
+
 ## [132.0.0](https://github.com/Sage/carbon/compare/v131.1.0...v132.0.0) (2024-04-11)
 
 
