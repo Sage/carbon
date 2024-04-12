@@ -58,7 +58,7 @@ export const VersionPicker = () => {
       <WithTooltip
         placement="top"
         trigger="click"
-        closeOnClick
+        closeOnOutsideClick
         tooltip={({ onHide }) => {
           return (
             <TooltipLinkList links={getDisplayedItems(versions, onHide)} />
