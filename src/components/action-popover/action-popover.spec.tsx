@@ -883,9 +883,7 @@ describe("ActionPopover", () => {
         jest.runAllTimers();
         // FIXME: Test pressing Tab moves focus to the next element
         // FIXME: Test pressing Shift+Tab moves focus to the previous element
-        // It's not possible to test this in enzyme because JSDOM does not support user events. It's also not
-        // possible to test it in cypress because cypress uses synthetic events. We should add a test for this when
-        // support for native events is implemented in cypress https://github.com/cypress-io/cypress/issues/311
+        // Create test for this using RTL: FE-6424
       });
 
       it("Pressing Escape focuses the MenuButton and closes the Menu", () => {

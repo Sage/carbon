@@ -35,7 +35,7 @@ const testData = CHARACTERS.STANDARD;
 const keysToTrigger = ["Space", "Enter"] as const;
 
 test.describe("should render Vertical Menu component", () => {
-  test(`should render with aria-label prop set to cypress-standed`, async ({
+  test(`should render with aria-label prop set to playwright-standard`, async ({
     mount,
     page,
   }) => {
@@ -49,7 +49,7 @@ test.describe("should render Vertical Menu component", () => {
     );
   });
 
-  test(`should render with aria-labelledby prop set to cypress-standed`, async ({
+  test(`should render with aria-labelledby prop set to playwright-standard`, async ({
     mount,
     page,
   }) => {
@@ -244,7 +244,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     });
   });
 
-  test(`should render with aria-label prop set to cypress-standed`, async ({
+  test(`should render with aria-label prop set to playwright-standard`, async ({
     mount,
     page,
   }) => {
@@ -260,7 +260,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     );
   });
 
-  test(`should render with aria-labelledby prop set to cypress-standed`, async ({
+  test(`should render with aria-labelledby prop set to playwright-standard`, async ({
     mount,
     page,
   }) => {

@@ -201,21 +201,21 @@ test.describe("Prop tests", () => {
 
   test(`should render with data-element prop`, async ({ mount, page }) => {
     await mount(
-      <SplitButtonList data-element="split-button-cypress-element" />
+      <SplitButtonList data-element="split-button-playwright-element" />
     );
 
     await expect(splitMainButton(page)).toHaveAttribute(
       "data-element",
-      "split-button-cypress-element"
+      "split-button-playwright-element"
     );
   });
 
   test(`should render with data-role prop`, async ({ mount, page }) => {
-    await mount(<SplitButtonList data-role="split-button-cypress-role" />);
+    await mount(<SplitButtonList data-role="split-button-playwright-role" />);
 
     await expect(splitMainButton(page)).toHaveAttribute(
       "data-role",
-      "split-button-cypress-role"
+      "split-button-playwright-role"
     );
   });
 

@@ -35,7 +35,7 @@ import {
 import { CHARACTERS } from "../../../playwright/support/constants";
 
 const specialCharacters = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const testAria = "cypress_aria";
+const testAria = "playwright_aria";
 const mainDialogTitle = "Main Dialog";
 const nestedDialogTitle = "Nested Dialog";
 

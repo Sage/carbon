@@ -8,14 +8,11 @@
 *.ts                     @Sage/carbon-dev
 
 # The Carbon QA team are responsible for reviewing Pull Requests
-# that contain any changes to files within the cypress and 
-# playwright directories or any test files relating to them 
-*.cy.*                   @Sage/carbon-qa
+# that contain any changes to files within the playwright
+# directories or any test files relating to them 
 *.pw.tsx                 @Sage/carbon-qa
 *.test-pw.tsx            @Sage/carbon-qa
-/cypress/                @Sage/carbon-qa
 /playwright/             @Sage/carbon-qa
-cypress.config.ts        @Sage/carbon-qa
 playwright-ct.config.ts  @Sage/carbon-qa
 
 # Codeowners file changes must be approved by a Carbon Admin.

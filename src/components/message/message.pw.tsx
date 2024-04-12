@@ -197,11 +197,7 @@ test.describe("Tests for Message component properties", () => {
     await expect(messagePreview(page)).toHaveCSS("border-radius", "8px");
   });
 
-  // Unable to run this test due to the Message component having a tabIndex of -1.
-  // cypress-plugin-tab does not allow tabbing on elements with an tabIndex of -1,
-  // however this test has been kept incase the bug is ever addressed. https://github.com/kuceb/cypress-plugin-tab/issues/18
-
-  test.skip("should focus icon button when open is true for Message component and tab key is pressed", async ({
+  test("should focus icon button when open is true for Message component and tab key is pressed", async ({
     mount,
     page,
   }) => {

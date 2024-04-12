@@ -15,7 +15,7 @@ import { CHARACTERS } from "../../../playwright/support/constants";
 import { HooksConfig } from "../../../playwright";
 
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
-const testCypress = "test-cypress";
+const testPlaywright = "test-playwright";
 const urlProp = "./carbon-by-sage-logo.png";
 const keysToTrigger = ["Space", "Enter"];
 
@@ -121,12 +121,12 @@ test.describe("check props for Link Preview component", () => {
     page,
   }) => {
     await mount(
-      <LinkPreviewComponentTest image={{ url: urlProp, alt: testCypress }} />
+      <LinkPreviewComponentTest image={{ url: urlProp, alt: testPlaywright }} />
     );
 
     await expect(page.locator("img")).toHaveAttribute("src", urlProp);
 
-    await expect(page.locator("img")).toHaveAttribute("alt", testCypress);
+    await expect(page.locator("img")).toHaveAttribute("alt", testPlaywright);
   });
 
   test("should render Link Preview with url prop", async ({ mount, page }) => {

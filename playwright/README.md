@@ -17,8 +17,6 @@ We are planning to use [Playwright](https://playwright.dev) testing framework fo
 
 ## Running Tests
 
-We are refactoring cypress tests to playwright tests, using `playwright-react17` component framework. There is no need to start Storybook for this kind of integration tests. They include the refactored accessibility tests.
-
 To run the tests locally:
 
 1. Open a new terminal in the root path of the project.
