@@ -12,7 +12,7 @@ import MenuDivider from "../../menu-divider/menu-divider.component";
 import Submenu, { SubmenuProps } from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
-import { mintTheme } from "../../../../style/themes";
+import { sageTheme } from "../../../../style/themes";
 import Search from "../../../search";
 import StyledSearch from "../../../search/search.style";
 import openSubmenu from "../spec-helper";
@@ -1292,7 +1292,7 @@ describe("Submenu component", () => {
             backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
           },
           wrapper.find(StyledSubmenu),
-          { modifier: `${StyledMenuItemWrapper} ${el}:${pseudo}` }
+          { modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo}` }
         );
       });
 
@@ -1308,7 +1308,7 @@ describe("Submenu component", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledSubmenu),
-            { modifier: `${StyledMenuItemWrapper} ${el}:${pseudo}` }
+            { modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo}` }
           );
         });
 
@@ -1320,7 +1320,7 @@ describe("Submenu component", () => {
             },
             wrapper.find(StyledSubmenu),
             {
-              modifier: `${StyledMenuItemWrapper} ${el}:${pseudo} [data-component="icon"]`,
+              modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo} > [data-component="icon"]`,
             }
           );
         });
@@ -1430,7 +1430,7 @@ describe("Submenu component", () => {
   describe("when it has Search as a child", () => {
     const renderWithSearch = (menuType: MenuType, props = {}) => {
       return mount(
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <MenuContext.Provider value={menuContextValues(menuType)}>
             <Submenu title="title" {...props}>
               <MenuItem href="#">Apple</MenuItem>
@@ -1454,7 +1454,7 @@ describe("Submenu component", () => {
 
     const renderWithSearchDefaultValue = (menuType: MenuType, props = {}) => {
       return mount(
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <MenuContext.Provider value={menuContextValues(menuType)}>
             <Submenu title="title" {...props} href="/path">
               <MenuItem>Apple</MenuItem>
@@ -1492,48 +1492,6 @@ describe("Submenu component", () => {
 
       expect(searchInput).toBeFocused();
     });
-
-    it.each<MenuType>(["dark", "black", "light", "white"])(
-      "should render with correct styles for search icon for menuType=%s",
-      (menuType) => {
-        wrapper = renderWithSearch(menuType);
-        openSubmenu(wrapper);
-
-        assertStyleMatch(
-          {
-            borderBottomColor: "var(--colorsUtilityMajor150)",
-          },
-          wrapper.find(StyledSubmenu),
-          {
-            modifier: `
-              ${StyledMenuItemWrapper} ${StyledSearch}:hover
-            `,
-          }
-        );
-        assertStyleMatch(
-          {
-            color: "var(--colorsUtilityMajor200)",
-          },
-          wrapper.find(StyledSubmenu),
-          {
-            modifier: `
-              ${StyledMenuItemWrapper} ${StyledSearch} span > [data-component="icon"]
-            `,
-          }
-        );
-        assertStyleMatch(
-          {
-            color: "var(--colorsUtilityMajor150)",
-          },
-          wrapper.find(StyledSubmenu),
-          {
-            modifier: `
-              ${StyledMenuItemWrapper} ${StyledSearch} span > [data-component="icon"]:hover
-            `,
-          }
-        );
-      }
-    );
 
     it("should be focusable by using down arrow key", () => {
       wrapper = renderWithSearch("dark");
@@ -1598,7 +1556,7 @@ describe("Submenu component", () => {
       ).toBeFocused();
     });
 
-    /* This test is purely to achieve coverage for the else of the `handleKeyDown` 
+    /* This test is purely to achieve coverage for the else of the `handleKeyDown`
     callback function in the menu-item component. */
     it("should not call SubmenuContext.handleKeyDown if Search has a value and is currently focused", () => {
       wrapper = renderWithSearchDefaultValue("dark", { clickToOpen: true });

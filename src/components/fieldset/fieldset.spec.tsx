@@ -2,7 +2,7 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import Fieldset, { FieldsetProps } from "./fieldset.component";
 import Textbox from "../textbox";
-import { LegendContainerStyle, FieldsetContentStyle } from "./fieldset.style";
+import { StyledLegend } from "./fieldset.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
@@ -63,21 +63,11 @@ describe("Fieldset", () => {
   describe("Fieldset Legend", () => {
     it("is rendered if supplied", () => {
       const wrapper = render({ legend: "Legend" });
-      expect(wrapper.find(LegendContainerStyle).exists()).toEqual(true);
+      expect(wrapper.find(StyledLegend).exists()).toEqual(true);
     });
 
     it("is not rendered if omitted", () => {
-      expect(basicWrapper.find(LegendContainerStyle).exists()).toEqual(false);
-    });
-
-    it("applies the correct inline styles", () => {
-      assertStyleMatch(
-        {
-          marginRight: "32px",
-          height: "34px !important",
-        },
-        mount(<LegendContainerStyle inline />)
-      );
+      expect(basicWrapper.find(StyledLegend).exists()).toEqual(false);
     });
   });
 
@@ -89,8 +79,8 @@ describe("Fieldset", () => {
         fontWeight: "var(--fontWeights700)",
         marginLeft: "var(--spacing100)",
       },
-      mount(<LegendContainerStyle isRequired />),
-      { modifier: "legend::after" }
+      mount(<StyledLegend isRequired />),
+      { modifier: "::after" }
     );
   });
 
@@ -131,32 +121,8 @@ describe("Fieldset", () => {
       {
         content: '"(optional)"',
       },
-      mount(<LegendContainerStyle isOptional />),
-      { modifier: "legend::after" }
+      mount(<StyledLegend isOptional />),
+      { modifier: "::after" }
     );
-  });
-
-  describe("Fieldset FieldsetContentStyle", () => {
-    it("is rendered if supplied", () => {
-      const wrapper = render({ inline: true });
-      expect(wrapper.find(FieldsetContentStyle).get(0).props.inline).toEqual(
-        true
-      );
-    });
-
-    it("is not rendered if omitted", () => {
-      expect(
-        basicWrapper.find(FieldsetContentStyle).get(0).props.inline
-      ).toEqual(false);
-    });
-
-    it("applies the correct inline styles", () => {
-      assertStyleMatch(
-        {
-          display: "flex",
-        },
-        mount(<FieldsetContentStyle inline />)
-      );
-    });
   });
 });

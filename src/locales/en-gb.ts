@@ -104,6 +104,9 @@ const enGB: Locale = {
   loader: {
     loading: () => "Loading",
   },
+  loaderSpinner: {
+    loading: () => "Loading...",
+  },
   menuFullscreen: {
     ariaLabels: { closeButton: () => "Close" },
   },
@@ -151,6 +154,9 @@ const enGB: Locale = {
   pod: {
     undo: () => "Undo",
   },
+  search: {
+    searchButtonText: () => "Search",
+  },
   select: {
     actionButtonText: () => "Add New Item",
     placeholder: () => "Please Select...",
@@ -160,6 +166,14 @@ const enGB: Locale = {
     ariaLabels: {
       close: () => "Close",
     },
+  },
+  sort: {
+    accessibleName: (sortContent, sortType) =>
+      `Sort all ${sortContent || "contents"}${
+        sortType
+          ? ` in an ${sortType} order.`
+          : " in an ascending or descending order."
+      }`,
   },
   splitButton: {
     ariaLabel: () => "Show more",

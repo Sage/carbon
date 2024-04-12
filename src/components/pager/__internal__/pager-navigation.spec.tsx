@@ -23,7 +23,7 @@ describe("Pager Navigation", () => {
     setCurrentPage: () => {},
   };
 
-  it("renders the Pager Navigation correctly with the Mint Theme", () => {
+  it("renders the Pager Navigation correctly with the Sage Theme", () => {
     const wrapper = render(props, mount);
 
     assertStyleMatch(

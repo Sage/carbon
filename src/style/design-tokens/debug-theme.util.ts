@@ -1,5 +1,5 @@
 import tokens from "@sage/design-tokens/js/base/common";
-import mint from "../themes/mint";
+import sage from "../themes/sage";
 import { ThemeObject } from "../themes/base";
 
 /**
@@ -51,7 +51,7 @@ const debugTheme = (
   );
 
 export default {
-  ...debugTheme(mint),
+  ...debugTheme(sage),
   compatibility: {
     ...tokens,
   },

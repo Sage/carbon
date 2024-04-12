@@ -2,16 +2,10 @@ import React from "react";
 
 import CarbonProvider from ".";
 import Button from "../button";
-import {
-  sageTheme,
-  mintTheme,
-  aegeanTheme,
-  baseTheme,
-  noTheme,
-} from "../../style/themes";
+import { sageTheme, baseTheme, noTheme } from "../../style/themes";
 
 const AllThemes = () => {
-  const themes = [sageTheme, mintTheme, aegeanTheme, baseTheme, noTheme];
+  const themes = [sageTheme, baseTheme, noTheme];
 
   return (
     <>
@@ -32,14 +26,6 @@ export default AllThemes;
 export const SageTheme = () => {
   return (
     <CarbonProvider theme={sageTheme}>
-      <Button buttonType="primary">Button</Button>
-    </CarbonProvider>
-  );
-};
-
-export const MintTheme = () => {
-  return (
-    <CarbonProvider theme={mintTheme}>
       <Button buttonType="primary">Button</Button>
     </CarbonProvider>
   );

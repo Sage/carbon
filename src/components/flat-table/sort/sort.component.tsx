@@ -1,20 +1,31 @@
 import React, { useRef, useContext } from "react";
 import Event from "../../../__internal__/utils/helpers/events";
+import Typography from "../../typography";
 import { StyledSort, StyledSpaceHolder, StyledSortIcon } from "./sort.style";
 import guid from "../../../__internal__/utils/helpers/guid";
+import useLocale from "../../../hooks/__internal__/useLocale";
 import { FlatTableThemeContext } from "../flat-table.component";
 
 export interface SortProps {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
-  sortType?: "ascending" | "descending" | false;
-  /** Callback fired when the `FlatTableSortHeader` is clicked */
+  sortType?: "ascending" | "descending";
+  /** Callback fired when the component is clicked */
   onClick?: () => void;
-  /** Sets the content of `FlatTableSortHeader` */
-  children?: React.ReactNode;
+  /** Sets the text content of the component */
+  children?: string;
+  /** Sets the accessible name of the component */
+  accessibleName?: string;
 }
 
-export const Sort = ({ children, onClick, sortType }: SortProps) => {
+export const Sort = ({
+  children,
+  onClick,
+  sortType,
+  accessibleName,
+}: SortProps) => {
   const id = useRef(guid());
+  const locale = useLocale();
+
   const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (Event.isEnterOrSpaceKey(e)) {
       e.preventDefault();
@@ -28,10 +39,9 @@ export const Sort = ({ children, onClick, sortType }: SortProps) => {
 
   return (
     <>
-      <span hidden id={id.current}>
-        {children}
-        {sortType ? `, sort type ${sortType}` : ", sortable"}
-      </span>
+      <Typography screenReaderOnly id={id.current}>
+        {accessibleName || locale.sort.accessibleName(children, sortType)}
+      </Typography>
       <StyledSort
         role="button"
         onKeyDown={onKeyDown}

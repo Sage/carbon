@@ -6,6 +6,7 @@ import generateStyledSystemProps from "../../../.storybook/utils/styled-system-p
 import Box from "../box";
 import Button from "../button";
 import Search, { SearchEvent } from ".";
+import I18nProvider from "../i18n-provider/i18n-provider.component";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -52,14 +53,46 @@ Controlled.storyName = "Controlled";
 
 export const WithSearchButton: Story = () => {
   return (
-    <Search
-      defaultValue="Here is some text"
-      searchButton
-      searchButtonAriaLabel="search button aria label"
-    />
+    <Box m={1}>
+      <Search
+        defaultValue="Here is some text"
+        searchButton
+        searchButtonAriaLabel="search button aria label"
+      />
+    </Box>
   );
 };
 WithSearchButton.storyName = "With Search Button";
+
+export const WithSearchButtonPropTextOverride: Story = () => {
+  return (
+    <Box m={1}>
+      <Search
+        defaultValue="Here is some text"
+        searchButton="Find"
+        searchButtonAriaLabel="search button aria label"
+      />
+    </Box>
+  );
+};
+WithSearchButtonPropTextOverride.storyName =
+  "With Search Button text override via prop";
+
+export const WithSearchButtonLocaleOverride: Story = () => {
+  return (
+    <Box m={1}>
+      <I18nProvider locale={{ search: { searchButtonText: () => "Find" } }}>
+        <Search
+          defaultValue="Here is some text"
+          searchButton
+          searchButtonAriaLabel="search button aria label"
+        />
+      </I18nProvider>
+    </Box>
+  );
+};
+WithSearchButtonLocaleOverride.storyName =
+  "With Search Button text override via locale";
 
 export const DefaultWithColourBackground: Story = () => {
   return <Search placeholder="Search..." defaultValue="" />;
@@ -83,11 +116,13 @@ DefaultWithColourBackground.parameters = {
 
 export const WithSearchButtonAndColourBackground: Story = () => {
   return (
-    <Search
-      placeholder="Search..."
-      defaultValue="Here is some text"
-      searchButton
-    />
+    <Box m={1}>
+      <Search
+        placeholder="Search..."
+        defaultValue="Here is some text"
+        searchButton
+      />
+    </Box>
   );
 };
 WithSearchButtonAndColourBackground.storyName =
@@ -115,7 +150,13 @@ CustomWidthUsingPx.storyName = "Custom Width Using Px";
 
 export const WithSearchButtonAndCustomWidthUsingPx: Story = () => {
   return (
-    <Search defaultValue="Here is some text" searchButton searchWidth="375px" />
+    <Box m={1}>
+      <Search
+        defaultValue="Here is some text"
+        searchButton
+        searchWidth="375px"
+      />
+    </Box>
   );
 };
 WithSearchButtonAndCustomWidthUsingPx.storyName =
@@ -128,7 +169,9 @@ CustomWidthUsingPercentage.storyName = "Custom Width Using Percentage";
 
 export const WithSearchButtonAndCustomWidthUsingPercentage: Story = () => {
   return (
-    <Search defaultValue="Here is some text" searchButton searchWidth="70%" />
+    <Box m={1}>
+      <Search defaultValue="Here is some text" searchButton searchWidth="70%" />
+    </Box>
   );
 };
 WithSearchButtonAndCustomWidthUsingPercentage.storyName =
@@ -136,27 +179,22 @@ WithSearchButtonAndCustomWidthUsingPercentage.storyName =
 
 export const WithCustomMaxWidth: Story = () => {
   return (
-    <Search defaultValue="Here is some text" searchButton maxWidth="50%" />
+    <Box m={1}>
+      <Search defaultValue="Here is some text" searchButton maxWidth="50%" />
+    </Box>
   );
 };
 WithCustomMaxWidth.storyName = "With Custom Max Width";
 
 export const WithAltStyling: Story = () => {
   return (
-    <Box width="700px" height="108px">
-      <div
-        style={{
-          padding: "32px",
-          backgroundColor: "#003349",
-        }}
-      >
-        <Search
-          placeholder="Search..."
-          defaultValue="Here is some text"
-          searchButton
-          variant="dark"
-        />
-      </div>
+    <Box width="700px" height="108px" p={4} backgroundColor="#000000">
+      <Search
+        placeholder="Search..."
+        defaultValue="Here is some text"
+        searchButton
+        variant="dark"
+      />
     </Box>
   );
 };

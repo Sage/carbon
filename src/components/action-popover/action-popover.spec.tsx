@@ -8,7 +8,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
 } from "../../__spec_helper__/test-utils";
-import mintTheme from "../../style/themes/mint";
+import sageTheme from "../../style/themes/sage";
 import {
   ActionPopover,
   ActionPopoverDivider,
@@ -490,7 +490,7 @@ describe("ActionPopover", () => {
   });
 
   testStyledSystemMargin((props) => (
-    <ThemeProvider theme={mintTheme}>
+    <ThemeProvider theme={sageTheme}>
       <ActionPopover {...props}>
         <ActionPopoverItem key="1" href="#" download>
           test download

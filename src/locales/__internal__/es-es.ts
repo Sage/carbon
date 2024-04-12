@@ -104,6 +104,9 @@ const esES: Locale = {
   loader: {
     loading: () => "Cargando",
   },
+  loaderSpinner: {
+    loading: () => "Cargando...",
+  },
   menuFullscreen: {
     ariaLabels: {
       closeButton: () => "Cerrar",
@@ -153,6 +156,9 @@ const esES: Locale = {
   pod: {
     undo: () => "Deshacer",
   },
+  search: {
+    searchButtonText: () => "Buscar",
+  },
   select: {
     actionButtonText: () => "Añadir un nuevo elemento",
     placeholder: () => "Por favor seleccione...",
@@ -162,6 +168,16 @@ const esES: Locale = {
     ariaLabels: {
       close: () => "Cerrar",
     },
+  },
+  sort: {
+    accessibleName: (sortContent, sortType) =>
+      `Ordenar todo ${sortContent || "contenido"}${
+        sortType
+          ? ` en orden ${
+              sortType === "ascending" ? "ascendente" : "descendente"
+            }.`
+          : " en orden ascendente o descendente."
+      }`,
   },
   splitButton: {
     ariaLabel: () => "Mostrar más",

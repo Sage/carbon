@@ -1,0 +1,116 @@
+import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
+import * as LoaderSpinnerStories from "./loader-spinner.stories.tsx";
+
+<Meta
+  title="Loader Spinner" of={LoaderSpinnerStories} />
+
+# Loader Spinner
+
+<a
+  target="_blank"
+  href="https://zeroheight.com/2ccf2b601/p/74be25-loader/b/81df60"
+  style={{ color: "#007E45", fontWeight: "bold", textDecoration: "underline" }}
+  rel="noreferrer"
+>
+  Product Design System component
+</a>
+
+Use the loader spinner to help users understand why they are waiting.
+
+Can be used to demonstrate a known or unknown wait time.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Props](#props)
+
+## Quick Start
+
+Import `LoaderSpinner` into the project.
+
+```javascript
+import LoaderSpinner from "carbon-react/lib/components/loader-spinner";
+```
+
+## Examples
+
+### Default
+
+Please see the default render of the component below. If a user prefers reduced motion, only the
+loading label will be displayed.
+
+<Canvas of={LoaderSpinnerStories.Default} />
+
+### Sizes
+
+Please find examples of all spinner sizes below. Ranging from sizes `extra-small` to `extra-large`.
+
+<Canvas of={LoaderSpinnerStories.Sizes} />
+
+### Show Spinner label
+
+When the `showSpinnerLabel` prop is set to `false` no visual label will be rendered underneath the spinner.
+A visually hidden label will still be available for assistive technologies. However, even with `showSpinnerLabel`
+set to `false`, a label will still be rendered if end users have preferred reduced motion.
+
+<Canvas of={LoaderSpinnerStories.ShowSpinnerLabel} />
+
+### Variants
+
+Please find examples of all spinner variants below. Shown against the ligher background are the `action` and `neutral` variants.
+Against the darker background are the `inverse`, `gradient-grey` and `gradient-white` variants.
+
+The `gradient-grey` and `gradient-white` have a slower default animation time than other variants.
+
+<Canvas of={LoaderSpinnerStories.Variants} />
+
+### Label color
+
+Please find an example of a spinner below when the label color has been inverted. This will ensure proper contrast is 
+achieved on the label, when used on a dark background. This is only applied with the `inverse` and `gradient-white` variants.
+
+<Canvas of={LoaderSpinnerStories.LabelColor} />
+
+### Has Motion
+
+When the `hasMotion` prop is set to `false`, the motion will become static, and no animation will trigger.
+
+<Canvas of={LoaderSpinnerStories.HasMotion} />
+
+### Is Tracked
+
+When the `isTracked` prop is set to `true`, the spinner will become tracked, for specific use cases where wait/loading times
+are predictable. The `isTracked` prop cannot be true when the `gradient-grey` or `gradient-white` colors are set.
+
+<Canvas of={LoaderSpinnerStories.IsTracked} />
+
+### Animation time
+
+The `animationTime` prop can also be set to any number, which will extend the animation time to that number in seconds.
+
+<Canvas of={LoaderSpinnerStories.AnimationTime} />
+
+## Props
+
+### LoaderSpinner
+
+<ArgTypes of={LoaderSpinnerStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "loaderSpinner.loading",
+      description: "The spinner label which is shown next to the spinner, or applied to the visually hidden label if rendered.",
+      type: "func",
+      returnType: "string",
+    }
+  ]}
+/>

@@ -187,12 +187,29 @@ const SelectList = React.forwardRef(
       children,
     ]) as React.ReactElement<OptionProps>[];
 
+    // check if object values are equal
+    function shallowEqual(
+      objA: Record<string, unknown>,
+      objB: Record<string, unknown>
+    ) {
+      const keysA = Object.keys(objA);
+
+      return keysA.every((key) => objA[key] === objB[key]);
+    }
+
     const getIndexOfMatch = useCallback(
       (valueToMatch) => {
-        return childrenList.findIndex(
-          (child) =>
+        return childrenList.findIndex((child) => {
+          if (child.props.value && typeof valueToMatch === "object") {
+            return shallowEqual(
+              child.props.value as Record<string, unknown>,
+              valueToMatch
+            );
+          }
+          return (
             React.isValidElement(child) && child.props.value === valueToMatch
-        );
+          );
+        });
       },
       [childrenList]
     );

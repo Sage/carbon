@@ -1454,6 +1454,9 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     const searchInput = searchDefaultInput(page);
     await expect(searchInput).toBeFocused();
     await page.keyboard.press("Tab");
+    const button = searchButton(page);
+    await expect(button).toBeFocused();
+    await page.keyboard.press("Tab");
     const item2 = menuItem(page).last().locator("a");
     await expect(item2).toBeFocused();
   });
@@ -1511,6 +1514,18 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await page.keyboard.press("Tab");
     const item2 = menuItem(page).last().locator("a");
     await expect(item2).toBeFocused();
+  });
+
+  test(`should apply the expected hover styling to the search button`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuFullScreenWithSearchButton searchValue="foo" />);
+
+    const button = searchButton(page);
+    await button.hover();
+
+    await expect(button).toHaveCSS("background-color", "rgb(0, 103, 56)");
   });
 });
 
