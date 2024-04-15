@@ -33,7 +33,7 @@ export const LABEL_VALIDATION_DEFAULT = false;
 export interface CommonTextboxProps
   extends ValidationProps,
     MarginProps,
-    Omit<CommonInputProps, "size"> {
+    Omit<CommonInputProps, "size" | "inputBorderRadius"> {
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
