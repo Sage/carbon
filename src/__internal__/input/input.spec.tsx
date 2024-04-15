@@ -5,6 +5,7 @@ import Input, { InputProps, EnterKeyHintTypes } from "./input.component";
 import StyledInput from "./input.style";
 
 import { InputContext, InputContextProps } from "../input-behaviour";
+import { SelectTextboxContext } from "../../components/select/select-textbox/select-textbox-context";
 
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
@@ -61,6 +62,21 @@ describe("Input", () => {
     assertStyleMatch(
       {
         color: "var(--colorsUtilityYin090)",
+      },
+      wrapper
+    );
+  });
+
+  it("contextually renders with text-overflow: ellipsis", () => {
+    const wrapper = mount(
+      <SelectTextboxContext.Provider value={{ isInputInSelect: true }}>
+        <Input />
+      </SelectTextboxContext.Provider>
+    );
+
+    assertStyleMatch(
+      {
+        textOverflow: "ellipsis",
       },
       wrapper
     );

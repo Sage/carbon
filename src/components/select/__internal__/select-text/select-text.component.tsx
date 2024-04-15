@@ -1,5 +1,8 @@
 import React from "react";
-import StyledSelectText from "./select-text.style";
+import {
+  StyledSelectText,
+  StyledSelectTextChildrenWrapper,
+} from "./select-text.style";
 
 export interface SelectTextProps {
   /** If true the Component will be disabled */
@@ -53,7 +56,9 @@ const SelectText = ({
       transparent={transparent}
       size={size}
     >
-      {hasPlaceholder ? placeholder : formattedValue}
+      <StyledSelectTextChildrenWrapper>
+        {hasPlaceholder ? placeholder : formattedValue}
+      </StyledSelectTextChildrenWrapper>
     </StyledSelectText>
   );
 };
