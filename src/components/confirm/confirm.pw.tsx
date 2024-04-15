@@ -567,7 +567,7 @@ test.describe("should render Confirm component for event tests", () => {
     expect(callbackCount).toBe(1);
   });
 
-  test(`should check onCancel callback when Esc key event is triggered`, async ({
+  test(`should check onCancel callback when Escape key event is triggered`, async ({
     mount,
     page,
   }) => {
@@ -580,7 +580,7 @@ test.describe("should render Confirm component for event tests", () => {
       />
     );
 
-    await page.keyboard.press("Escape");
+    await page.getByRole("alertdialog").press("Escape");
     expect(callbackCount).toBe(1);
   });
 
