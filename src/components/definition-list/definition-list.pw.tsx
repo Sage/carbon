@@ -28,21 +28,21 @@ const alignValue = ["left", "center", "right"];
 const PADDING_RIGHT = 24;
 const VIEWPORT_WIDTH = 1000;
 
-test.describe("check definition list when rendered", () => {
-  test("should verify that display is grid when asSingleColumn prop is not set", async ({
+test.describe("definition list", () => {
+  test("should render contents in a grid layout when asSingleColumn is false", async ({
     mount,
     page,
   }) => {
-    await mount(<DLComponent />);
+    await mount(<DLComponent asSingleColumn={false} />);
 
     const dl = getDataElementByValue(page, "dl");
     await expect(dl).toHaveCSS("display", "grid");
 
-    const dt = getDataElementByValue(page, "dt");
-    await expect(dt.first()).toHaveCSS("grid-column", "1 / auto");
+    const dt = page.getByText("First");
+    await expect(dt).toHaveCSS("grid-column", "1");
 
-    const dd = getDataElementByValue(page, "dd");
-    await expect(dd.first()).toHaveCSS("grid-column", "2 / auto");
+    const dd = page.getByText("Description 1");
+    await expect(dd).toHaveCSS("grid-column", "2");
   });
 
   (alignValue as (DlProps["dtTextAlign"] | undefined)[]).forEach((align) => {
