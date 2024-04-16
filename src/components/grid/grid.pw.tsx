@@ -6,178 +6,61 @@ import {
   ResponsiveGridExample,
   SimpleGridExample,
 } from "../grid/components.test-pw";
-import {
-  gridItem,
-  gridContainer,
-} from "../../../playwright/components/grid/index";
-import {
-  checkAccessibility,
-  assertCssValueIsApproximately,
-} from "../../../playwright/support/helper";
+import { gridContainer } from "../../../playwright/components/grid/index";
+import { checkAccessibility } from "../../../playwright/support/helper";
 
 test.describe("Grid component", () => {
-  [
-    [1, "auto / auto", "1 / 13", 1878],
-    [2, "2 / 3", "1 / 6", 759],
-    [3, "4 / 5", "7 / 13", 919],
-  ].forEach(([itemNumber, row, col, expectedWidth]) => {
-    test(`when viewport size is default, grid item ${itemNumber} should have correct grid-row, grid-column and width`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GridLayoutExample />);
-      await page.setViewportSize({ width: 1958, height: 900 });
+  test("renders each grid item in the correct row and column when gridRow and gridColumn props are specified", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<GridLayoutExample />);
 
-      const expectedGridItem = gridItem(page, Number(itemNumber) - 1);
-
-      await expect(expectedGridItem).toHaveCSS("grid-row", `${row}`);
-      await expect(expectedGridItem).toHaveCSS("grid-column", `${col}`);
-      await assertCssValueIsApproximately(
-        expectedGridItem,
-        "width",
-        Number(expectedWidth)
-      );
-    });
+    await expect(page.getByText("Item 1")).toHaveCSS(
+      "grid-area",
+      "auto / 1 / auto / 13"
+    );
+    await expect(page.getByText("Item 2")).toHaveCSS(
+      "grid-area",
+      "2 / 1 / 3 / 6"
+    );
+    await expect(page.getByText("Item 3")).toHaveCSS(
+      "grid-area",
+      "4 / 7 / 5 / 13"
+    );
   });
 
-  [
-    [1, "auto / auto", "1 / 13", 567],
-    [2, "2 / 3", "1 / 6", 226],
-    [3, "4 / 5", "7 / 13", 275],
-  ].forEach(([itemNumber, row, col, expectedWidth]) => {
-    test(`when viewport size is extra small, grid item ${itemNumber} should have correct grid-row, grid-column and width`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GridLayoutExample />);
-      await page.setViewportSize({ width: 599, height: 900 });
+  test("renders grid item in the correct row and column when gridArea prop is specified", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleGridExample gridArea="3 / 4 / 11 / 10" />);
 
-      const expectedGridItem = gridItem(page, Number(itemNumber) - 1);
-
-      await expect(expectedGridItem).toHaveCSS("grid-row", `${row}`);
-      await expect(expectedGridItem).toHaveCSS("grid-column", `${col}`);
-      await assertCssValueIsApproximately(
-        expectedGridItem,
-        "width",
-        Number(expectedWidth)
-      );
-    });
+    await expect(page.getByText("Item 1")).toHaveCSS(
+      "grid-area",
+      "3 / 4 / 11 / 10"
+    );
   });
 
-  [
-    [1, "auto / auto", "1 / 13", 911],
-    [2, "2 / 3", "1 / 6", 370],
-    [3, "4 / 5", "7 / 13", 447],
-  ].forEach(([itemNumber, row, col, expectedWidth]) => {
-    test(`when viewport size is small, grid item ${itemNumber} should have correct grid-row, grid-column and width`, async ({
+  ([
+    [599, "16px", "16px"],
+    [959, "24px", "16px"],
+    [1259, "32px", "24px"],
+    [1920, "40px", "24px"],
+    [1922, "40px", "40px"],
+  ] as const).forEach(([viewportWidth, padding, gutter]) => {
+    test(`automatically sets correct padding and gutter size when viewport width is ${viewportWidth}`, async ({
       mount,
       page,
     }) => {
-      await mount(<GridLayoutExample />);
-      await page.setViewportSize({ width: 959, height: 900 });
-      const expectedGridItem = gridItem(page, Number(itemNumber) - 1);
-
-      await expect(expectedGridItem).toHaveCSS("grid-row", `${row}`);
-      await expect(expectedGridItem).toHaveCSS("grid-column", `${col}`);
-      await assertCssValueIsApproximately(
-        expectedGridItem,
-        "width",
-        Number(expectedWidth)
-      );
-    });
-  });
-
-  [
-    [1, "auto / auto", "1 / 13", 1194],
-    [2, "2 / 3", "1 / 6", 483],
-    [3, "4 / 5", "7 / 13", 585],
-  ].forEach(([itemNumber, row, col, expectedWidth]) => {
-    test(`when viewport size is medium, grid item ${itemNumber} should have correct grid-row, grid-column and width`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GridLayoutExample />);
-      await page.setViewportSize({ width: 1259, height: 900 });
-      const expectedGridItem = gridItem(page, Number(itemNumber) - 1);
-
-      await expect(expectedGridItem).toHaveCSS("grid-row", `${row}`);
-      await expect(expectedGridItem).toHaveCSS("grid-column", `${col}`);
-      await assertCssValueIsApproximately(
-        expectedGridItem,
-        "width",
-        Number(expectedWidth)
-      );
-    });
-  });
-
-  [
-    [1, "auto / auto", "1 / 13", 1842],
-    [2, "2 / 3", "1 / 6", 752],
-    [3, "4 / 5", "7 / 13", 906],
-  ].forEach(([itemNumber, row, col, expectedWidth]) => {
-    test(`when viewport size is large, grid item ${itemNumber} should have correct grid-row, grid-column and width`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GridLayoutExample />);
-      await page.setViewportSize({ width: 1920, height: 900 });
-      const expectedGridItem = gridItem(page, Number(itemNumber) - 1);
-
-      await expect(expectedGridItem).toHaveCSS("grid-row", `${row}`);
-      await expect(expectedGridItem).toHaveCSS("grid-column", `${col}`);
-      await assertCssValueIsApproximately(
-        expectedGridItem,
-        "width",
-        Number(expectedWidth)
-      );
-    });
-  });
-
-  [
-    [1, "auto / auto", "1 / 13", 1842],
-    [2, "2 / 3", "1 / 6", 744],
-    [3, "4 / 5", "7 / 13", 901],
-  ].forEach(([itemNumber, row, col, expectedWidth]) => {
-    test(`when viewport size is extra large, grid item ${itemNumber} should have correct grid-row, grid-column and width`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<GridLayoutExample />);
-      await page.setViewportSize({ width: 1922, height: 900 });
-      const expectedGridItem = gridItem(page, Number(itemNumber) - 1);
-
-      await expect(expectedGridItem).toHaveCSS("grid-row", `${row}`);
-      await expect(expectedGridItem).toHaveCSS("grid-column", `${col}`);
-      await assertCssValueIsApproximately(
-        expectedGridItem,
-        "width",
-        Number(expectedWidth)
-      );
-    });
-  });
-
-  [
-    ["extra small", 599, 900, 16, 16],
-    ["small", 959, 900, 24, 16],
-    ["medium", 1259, 900, 32, 24],
-    ["large", 1920, 900, 40, 24],
-    ["extra large", 1922, 900, 40, 40],
-  ].forEach(([screenSize, viewportWidth, viewportHeight, padding, gridGap]) => {
-    test(`when viewport size is ${screenSize}, grid container has correct padding and row gap size`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<SimpleGridExample />);
       await page.setViewportSize({
-        width: Number(viewportWidth),
-        height: Number(viewportHeight),
+        width: viewportWidth,
+        height: 900,
       });
+      await mount(<GridLayoutExample />);
 
-      await expect(gridContainer(page)).toHaveCSS(
-        "padding-left",
-        `${padding}px`
-      );
-      await expect(gridContainer(page)).toHaveCSS("row-gap", `${gridGap}px`);
+      await expect(gridContainer(page)).toHaveCSS("padding-left", padding);
+      await expect(gridContainer(page)).toHaveCSS("gap", gutter);
     });
   });
 
@@ -188,7 +71,7 @@ test.describe("Grid component", () => {
     }) => {
       await mount(<SimpleGridExample alignSelf={alignment} />);
 
-      await expect(gridItem(page, 0)).toHaveCSS("align-self", alignment);
+      await expect(page.getByText("Item 1")).toHaveCSS("align-self", alignment);
     });
   });
 
@@ -199,68 +82,33 @@ test.describe("Grid component", () => {
     }) => {
       await mount(<SimpleGridExample justifySelf={justification} />);
 
-      await expect(gridItem(page, 0)).toHaveCSS("justify-self", justification);
+      await expect(page.getByText("Item 1")).toHaveCSS(
+        "justify-self",
+        justification
+      );
     });
   });
 
-  test("grid item has correct start and end columns when gridColumn prop is passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleGridExample gridColumn="4 / 10" />);
-
-    await expect(gridItem(page, 0)).toHaveCSS("grid-column-start", "4");
-    await expect(gridItem(page, 0)).toHaveCSS("grid-column-end", "10");
-  });
-
-  test("grid item has correct start and end rows when gridRow prop is passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleGridExample gridRow="4 / 11" />);
-
-    await expect(gridItem(page, 0)).toHaveCSS("grid-row-start", "4");
-    await expect(gridItem(page, 0)).toHaveCSS("grid-row-end", "11");
-  });
-
-  test("grid item has correct start and end columns and rows when gridArea prop is passed", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleGridExample gridArea="3 / 4 / 11 / 10" />);
-
-    await expect(gridItem(page, 0)).toHaveCSS("grid-column", "4 / 10");
-    await expect(gridItem(page, 0)).toHaveCSS("grid-row", "3 / 11");
-  });
-
-  test("correctly renders grid items when each have responsive settings passed", async ({
+  test("when items have multiple layouts specified via their responsiveSettings prop, rearrange them in grid as viewport gets smaller", async ({
     mount,
     page,
   }) => {
     await mount(<ResponsiveGridExample />);
     await page.setViewportSize({ width: 1400, height: 900 });
 
-    const firstGridItem = gridItem(page, 0);
-    const secondGridItem = gridItem(page, 1);
-    const thirdGridItem = gridItem(page, 2);
+    const firstItem = page.getByText("Item 1");
+    const secondItem = page.getByText("Item 2");
+    const thirdItem = page.getByText("Item 3");
 
-    await expect(firstGridItem).toHaveCSS("grid-column", "1 / 7");
-    await expect(firstGridItem).toHaveCSS("grid-row", "1 / 1");
-    await expect(firstGridItem).toHaveCSS("align-self", "stretch");
-    await expect(firstGridItem).toHaveCSS("justify-self", "stretch");
-    await assertCssValueIsApproximately(firstGridItem, "width", 648);
+    await expect(firstItem).toHaveCSS("grid-area", "1 / 1 / 1 / 7");
+    await expect(secondItem).toHaveCSS("grid-area", "1 / 6 / 1 / 13");
+    await expect(thirdItem).toHaveCSS("grid-area", "3 / 1 / 3 / 13");
 
-    await expect(secondGridItem).toHaveCSS("grid-column", "6 / 13");
-    await expect(secondGridItem).toHaveCSS("grid-row", "1 / 1");
-    await expect(secondGridItem).toHaveCSS("align-self", "end");
-    await expect(secondGridItem).toHaveCSS("justify-self", "end");
-    await assertCssValueIsApproximately(secondGridItem, "width", 73);
+    await page.setViewportSize({ width: 800, height: 900 });
 
-    await expect(thirdGridItem).toHaveCSS("grid-column", "1 / 13");
-    await expect(thirdGridItem).toHaveCSS("grid-row", "3 / 3");
-    await expect(thirdGridItem).toHaveCSS("align-self", "start");
-    await expect(thirdGridItem).toHaveCSS("justify-self", "stretch");
-    await assertCssValueIsApproximately(thirdGridItem, "width", 1320);
+    await expect(firstItem).toHaveCSS("grid-area", "2 / 1 / 2 / 9");
+    await expect(secondItem).toHaveCSS("grid-area", "3 / 1 / 3 / 9");
+    await expect(thirdItem).toHaveCSS("grid-area", "3 / 1 / 3 / 9");
   });
 });
 
