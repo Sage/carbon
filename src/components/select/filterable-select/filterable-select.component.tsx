@@ -202,8 +202,8 @@ export const FilterableSelect = React.forwardRef(
       textToMatch: string,
       list: React.ReactNode
     ) {
-      return (list as React.ReactElement[]).find((child) => {
-        const { text } = child.props;
+      return React.Children.toArray(list).find((child) => {
+        const { text } = (child as React.ReactElement).props;
 
         return text?.toLowerCase().indexOf(textToMatch?.toLowerCase()) !== -1;
       });
@@ -213,7 +213,10 @@ export const FilterableSelect = React.forwardRef(
       (newFilterText: string, isDeleteEvent: boolean) => {
         setSelectedValue((previousValue) => {
           const trimmed = newFilterText.trimStart();
-          const match = findElementWithMatchingText(trimmed, children);
+          const match = findElementWithMatchingText(
+            trimmed,
+            children
+          ) as React.ReactElement;
           const isFilterCleared = isDeleteEvent && !newFilterText.length;
 
           if (!match || isFilterCleared || match.props.disabled) {
