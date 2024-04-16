@@ -12,7 +12,7 @@ export const FLAT_TABLE_SUBROW = '[data-element="flat-table-sub-row"]';
 export const FLAT_TABLE_PAGE_SIZE_SELECT = '[data-element="dropdown"]';
 export const FLAT_TABLE_PAGE_SELECT_LIST =
   '[data-element="select-list-wrapper"]';
-export const PAGE_SELECT = "input";
+export const PAGE_SELECT = '[data-component="simple-select"]';
 export const PAGE_SELECT_INPUT = '[data-element="select-input"] input';
 export const FLAT_TABLE_PAGER = '[data-component="pager"]';
 export const FLAT_TABLE_PAGE_SELECT_NEXT = '[data-element="pager-link-next"]';
