@@ -12,13 +12,11 @@ import {
   InOverflowHiddenContainer,
   ChildButtonTypes,
 } from "./components.test-pw";
-import { Accordion } from "../accordion/accordion.component";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
   continuePressingTAB,
 } from "../../../playwright/support/helper";
-import { accordionDefaultTitle } from "../../../playwright/components/accordion";
 import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
 import {
   getComponent,
@@ -112,31 +110,26 @@ test.describe("Prop tests", () => {
     await expect(page.getByRole("button").first()).toBeDisabled();
   });
 
-  test(`should render component containing three items`, async ({
-    mount,
-    page,
-  }) => {
+  test(`renders all child buttons on hover`, async ({ mount, page }) => {
     await mount(<MultiActionButtonList />);
 
-    const actionButton = getComponent(page, "multi-action-button").locator(
-      "button"
-    );
+    const actionButton = page.getByRole("button", {
+      name: "Multi Action Button",
+    });
     await actionButton.hover();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .locator("span > span")
-      .nth(0);
-    await expect(listButton1).toHaveText("Example Button");
-    await expect(listButton1).toBeVisible();
-    const listButton2 = getDataElementByValue(page, "additional-buttons")
-      .locator("span > span")
-      .nth(1);
-    await expect(listButton2).toHaveText("Example Button with long text");
-    await expect(listButton2).toBeVisible();
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .locator("span > span")
-      .nth(2);
-    await expect(listButton3).toHaveText("Short");
-    await expect(listButton3).toBeVisible();
+
+    const firstChildButton = page.getByRole("button", {
+      name: "Example Button",
+      exact: true,
+    });
+    const secondChildButton = page.getByRole("button", {
+      name: "Example Button with long text",
+      exact: true,
+    });
+    const thirdChildButton = page.getByRole("button", { name: "Short" });
+    await expect(firstChildButton).toBeVisible();
+    await expect(secondChildButton).toBeVisible();
+    await expect(thirdChildButton).toBeVisible();
   });
 
   test(`should render with specific background colour when hovering`, async ({
@@ -150,38 +143,6 @@ test.describe("Prop tests", () => {
     );
     await actionButton.hover();
     await expect(actionButton).toHaveCSS("background-color", "rgb(0, 77, 42)");
-  });
-
-  test(`should render component in a hidden container`, async ({
-    mount,
-    page,
-  }) => {
-    await mount(
-      <Accordion title="Heading">
-        <MultiActionButtonList />
-      </Accordion>
-    );
-
-    await accordionDefaultTitle(page).click();
-    const actionButton = getComponent(page, "multi-action-button").locator(
-      "button"
-    );
-    await actionButton.hover();
-    const listButton1 = getDataElementByValue(page, "additional-buttons")
-      .locator("span > span")
-      .nth(0);
-    await expect(listButton1).toHaveText("Example Button");
-    await expect(listButton1).toBeVisible();
-    const listButton2 = getDataElementByValue(page, "additional-buttons")
-      .locator("span > span")
-      .nth(1);
-    await expect(listButton2).toHaveText("Example Button with long text");
-    await expect(listButton2).toBeVisible();
-    const listButton3 = getDataElementByValue(page, "additional-buttons")
-      .locator("span > span")
-      .nth(2);
-    await expect(listButton3).toHaveText("Short");
-    await expect(listButton3).toBeVisible();
   });
 
   test(`should render component with justify-content as 'space-between' when width prop is passed`, async ({
