@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 
 import { Checkbox, CheckboxProps } from ".";
+import Box from "../box";
 
 export default {
   title: "Checkbox/Test",
-  includeStories: ["Default"],
+  includeStories: ["Default", "WithLongLabel"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -94,4 +95,19 @@ Default.args = {
   ml: "0",
   adaptiveSpacingBreakpoint: undefined,
   required: false,
+};
+
+export const WithLongLabel = ({ label, size, ...args }: CheckboxProps) => {
+  return (
+    <Box padding="25px" width="250px">
+      <Checkbox size={size || "large"} label={label} mb={2} {...args} />
+      <Checkbox label={label} size={size} {...args} />
+    </Box>
+  );
+};
+
+WithLongLabel.storyName = "With long label";
+WithLongLabel.args = {
+  label: "A really long description that will wrap onto the next line.",
+  size: "",
 };

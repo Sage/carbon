@@ -168,6 +168,7 @@ export const NewBooleanValidation: Story = () => {
         key="checkbox-one-error-boolean"
         label="Example checkbox one - Error"
         name="checkbox-one-error-boolean"
+        mb={1}
       />
       <Checkbox
         warning
