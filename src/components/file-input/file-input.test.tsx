@@ -1,61 +1,53 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { rootTagTestRtl } from "../../__internal__/utils/helpers/tags/tags-specs/tags-specs";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 
 import FileInput, { FileUploadStatusProps } from ".";
 
 describe("rendering with no file uploaded", () => {
   it("renders a hidden HTML file input element", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
-    const hiddenInput = screen.queryByLabelText("file input");
+    const hiddenInput = screen.getByLabelText("file input");
     expect(hiddenInput).toBeInTheDocument();
     expect(hiddenInput).not.toBeVisible();
   });
 
   it("renders an HTML button to choose a file to add", () => {
     render(<FileInput onChange={() => {}} />);
-    expect(
-      screen.queryByRole("button", { name: "Select file" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Select file" })).toBeVisible();
   });
 
   it("accepts an accept prop and passes it to the underlying input", () => {
     render(
       <FileInput label="file input" accept="image/*,.pdf" onChange={() => {}} />
     );
-    const hiddenInput = screen.queryByLabelText("file input");
+    const hiddenInput = screen.getByLabelText("file input");
     expect(hiddenInput).toHaveAttribute("accept", "image/*,.pdf");
   });
 
   it("accepts a buttonText prop to change the button text", () => {
     render(<FileInput buttonText="add a file" onChange={() => {}} />);
-    expect(
-      screen.queryByRole("button", { name: "add a file" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "add a file" })).toBeVisible();
   });
 
   it("accepts a dragAndDropText prop to change the main text", () => {
     render(<FileInput dragAndDropText="drop zone" onChange={() => {}} />);
-    expect(screen.queryByText("drop zone")).toBeInTheDocument();
+    expect(screen.getByText("drop zone")).toBeVisible();
   });
 
   it("accepts a label prop and renders it as a visible label", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
     const label = screen.getByText("file input");
-    expect(label).toBeInTheDocument();
     expect(label).toBeVisible();
   });
 
   it("accepts an inputHint prop", () => {
     render(<FileInput inputHint="help" onChange={() => {}} />);
     const hintText = screen.getByText("help");
-    expect(hintText).toBeInTheDocument();
     expect(hintText).toBeVisible();
   });
 
-  it("accepts data tag props", () => {
+  it("renders root container with correct data tag props", () => {
     render(
       <FileInput
         data-element="element-test"
@@ -63,33 +55,26 @@ describe("rendering with no file uploaded", () => {
         onChange={() => {}}
       />
     );
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement?.parentElement?.parentElement
-      ?.parentElement as HTMLElement;
-    rootTagTestRtl(wrapperElement, "file-input", "element-test", "role-test");
+    const rootContainer = screen.getByTestId("role-test");
+    expect(rootContainer).toHaveAttribute("data-component", "file-input");
+    expect(rootContainer).toHaveAttribute("data-element", "element-test");
   });
 
-  it("accepts an error prop as a boolean", () => {
+  it("renders with red, dashed border when error prop is true", () => {
     render(<FileInput error onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement;
-    assertStyleMatch(
-      {
-        border: "var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
-      },
-      wrapperElement
+    const inputArea = screen.getByTestId("file-input-presentation");
+    expect(inputArea).toHaveStyle(
+      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)"
     );
   });
 
-  it("accepts an error prop as a string", () => {
+  it("renders with red, dashed border and error message when error prop is passed as a string", () => {
     render(<FileInput error="error text" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement;
-    assertStyleMatch(
-      {
-        border: "var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
-      },
-      wrapperElement
+
+    const inputArea = screen.getByTestId("file-input-presentation");
+
+    expect(inputArea).toHaveStyle(
+      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)"
     );
     expect(screen.getByText("error text")).toBeVisible();
   });
@@ -98,29 +83,36 @@ describe("rendering with no file uploaded", () => {
     render(
       <FileInput label="file input" name="input-name" onChange={() => {}} />
     );
-    const hiddenInput = screen.queryByLabelText("file input");
+    const hiddenInput = screen.getByLabelText("file input");
     expect(hiddenInput).toHaveAttribute("name", "input-name");
   });
 
-  it("accepts a required prop", () => {
+  it("renders an asterisk next to label when required prop is passed", () => {
     render(<FileInput label="file input" required onChange={() => {}} />);
-    const label = screen.getByText("file input");
-    assertStyleMatch({ content: '"*"' }, label, { modifier: "::after" });
-  });
 
-  it("accepts an isOptional prop", () => {
-    render(<FileInput label="file input" isOptional onChange={() => {}} />);
-    const label = screen.getByText("file input");
-    assertStyleMatch({ content: '"(optional)"' }, label.parentElement, {
+    expect(screen.getByText("file input")).toHaveStyleRule("content", '"*"', {
       modifier: "::after",
     });
   });
 
-  it("accepts an isVertical prop", () => {
+  it("renders a label with optional suffix when isOptional prop is passed", () => {
+    render(<FileInput label="file input" isOptional onChange={() => {}} />);
+
+    expect(screen.getByTestId("label-container")).toHaveStyleRule(
+      "content",
+      '"(optional)"',
+      {
+        modifier: "::after",
+      }
+    );
+  });
+
+  it("renders a root container with flex direction column when isVertical prop is true", () => {
     render(<FileInput isVertical onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
-    assertStyleMatch({ flexDirection: "column" }, wrapperElement);
+
+    expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
+      "flex-direction: column"
+    );
   });
 
   it("accepts a ref object", () => {
@@ -130,8 +122,8 @@ describe("rendering with no file uploaded", () => {
     render(
       <FileInput label="file input" ref={refObject} onChange={() => {}} />
     );
-    const hiddenInput = screen.queryByLabelText("file input");
-    expect(refObject.current).toBe(hiddenInput);
+    const hiddenInput = screen.getByLabelText("file input");
+    expect(refObject.current).toStrictEqual(hiddenInput);
   });
 
   it("accepts a callback ref", () => {
@@ -139,7 +131,7 @@ describe("rendering with no file uploaded", () => {
     render(
       <FileInput label="file input" ref={callbackRef} onChange={() => {}} />
     );
-    const hiddenInput = screen.queryByLabelText("file input");
+    const hiddenInput = screen.getByLabelText("file input");
     expect(callbackRef).toHaveBeenCalledTimes(1);
     expect(callbackRef).toHaveBeenCalledWith(hiddenInput);
   });
@@ -147,40 +139,40 @@ describe("rendering with no file uploaded", () => {
 
 describe("interactions", () => {
   it("clicking the button fires a click on the hidden file input", async () => {
+    const user = userEvent.setup();
     const inputOnClick = jest.spyOn(HTMLInputElement.prototype, "click");
     render(<FileInput onChange={() => {}} />);
-    await userEvent.click(screen.getByRole("button", { name: "Select file" }));
+    await user.click(screen.getByRole("button", { name: "Select file" }));
     expect(inputOnClick).toHaveBeenCalledTimes(1);
   });
 
   it("uploading a file via the hidden input calls the onChange prop with the file as argument", async () => {
+    const user = userEvent.setup();
     const file = new File(["dummy file content"], "foo.txt", {
       type: "text/plain",
     });
     const onChange = jest.fn();
     render(<FileInput label="file input" onChange={onChange} />);
     const hiddenInput = screen.getByLabelText("file input");
-    await userEvent.upload(hiddenInput, file);
+    await user.upload(hiddenInput, file);
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0][0][0]).toBe(file);
   });
 
   // note: these style changes on dragging are better tested with Playwright (and will be too). The tests are here as
   // well in order to achieve coverage - because that's still better than just putting istanbul ignore everywhere.
-
   it("dragging a file onto the page causes the border style of the input area to change", () => {
     const file = new File(["dummy file content"], "foo.txt", {
       type: "text/plain",
     });
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
+
     fireEvent.dragOver(document.body, {
       dataTransfer: { files: [file], types: ["Files"] },
     });
-    assertStyleMatch(
-      { border: "var(--borderWidth200) dashed var(--colorsUtilityMajor400)" },
-      wrapperElement
+
+    expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
+      "border: var(--borderWidth200) dashed var(--colorsUtilityMajor400)"
     );
   });
 
@@ -189,29 +181,25 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" error onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
+
     fireEvent.dragOver(document.body, {
       dataTransfer: { files: [file], types: ["Files"] },
     });
-    assertStyleMatch(
-      {
-        border: "var(--borderWidth200) dashed var(--colorsSemanticNegative600)",
-      },
-      wrapperElement
+
+    expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
+      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative600)"
     );
   });
 
   it("dragging something that isn't a file has no effect", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
+
     fireEvent.dragOver(document.body, {
       dataTransfer: { files: [], types: [] },
     });
-    assertStyleMatch(
-      { border: "var(--borderWidth100) dashed var(--colorsUtilityMajor300)" },
-      wrapperElement
+
+    expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
+      "border: var(--borderWidth100) dashed var(--colorsUtilityMajor300)"
     );
   });
 
@@ -220,15 +208,14 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
-    fireEvent.dragOver(wrapperElement, {
+
+    const inputArea = screen.getByTestId("file-input-presentation");
+
+    fireEvent.dragOver(inputArea, {
       dataTransfer: { files: [file], types: ["Files"] },
     });
-    assertStyleMatch(
-      { background: "var(--colorsUtilityMajor100)" },
-      wrapperElement
-    );
+
+    expect(inputArea).toHaveStyle("background: var(--colorsUtilityMajor100)");
   });
 
   it("dragging a file over the input area and then away causes the background of the input area to return to the default", () => {
@@ -236,31 +223,29 @@ describe("interactions", () => {
       type: "text/plain",
     });
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
-    fireEvent.dragOver(wrapperElement, {
+
+    const inputArea = screen.getByTestId("file-input-presentation");
+
+    fireEvent.dragOver(inputArea, {
       dataTransfer: { files: [file], types: ["Files"] },
     });
-    fireEvent.dragLeave(wrapperElement, {
+    fireEvent.dragLeave(inputArea, {
       dataTransfer: { files: [file], types: ["Files"] },
     });
-    assertStyleMatch(
-      { background: "var(--colorsUtilityYang100)" },
-      wrapperElement
-    );
+
+    expect(inputArea).toHaveStyle("background: var(--colorsUtilityYang100)");
   });
 
   it("dragging something that isn't a file over the input area has no effect", () => {
     render(<FileInput label="file input" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
-    fireEvent.dragOver(wrapperElement, {
+
+    const inputArea = screen.getByTestId("file-input-presentation");
+
+    fireEvent.dragOver(inputArea, {
       dataTransfer: { files: [], types: [] },
     });
-    assertStyleMatch(
-      { background: "var(--colorsUtilityYang100)" },
-      wrapperElement
-    );
+
+    expect(inputArea).toHaveStyle("background: var(--colorsUtilityYang100)");
   });
 
   it("dragging and dropping a file over the input area calls the onChange prop with the dragged file as argument", () => {
@@ -269,9 +254,11 @@ describe("interactions", () => {
     });
     const onChange = jest.fn();
     render(<FileInput label="file input" onChange={onChange} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement as HTMLElement;
-    fireEvent.drop(wrapperElement, { dataTransfer: { files: [file] } });
+
+    const inputArea = screen.getByTestId("file-input-presentation");
+
+    fireEvent.drop(inputArea, { dataTransfer: { files: [file] } });
+
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0][0][0]).toBe(file);
   });
@@ -330,7 +317,7 @@ describe("with uploadStatus prop set", () => {
         onChange={() => {}}
       />
     );
-    expect(screen.queryByRole("progressbar")).toBeInTheDocument();
+    expect(screen.getByRole("progressbar")).toBeVisible();
   });
 
   it("when the status is `completed`, a link is rendered with the status message", () => {
@@ -345,8 +332,8 @@ describe("with uploadStatus prop set", () => {
         onChange={() => {}}
       />
     );
-    expect(screen.queryByRole("link", { name: "foo.pdf" })).toBeInTheDocument();
-    expect(screen.queryByText("File upload status")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "foo.pdf" })).toBeVisible();
+    expect(screen.getByText("File upload status")).toBeVisible();
   });
 
   it("when the status is `previously`, a link is rendered with no message", () => {
@@ -361,7 +348,7 @@ describe("with uploadStatus prop set", () => {
         onChange={() => {}}
       />
     );
-    expect(screen.queryByRole("link", { name: "foo.pdf" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "foo.pdf" })).toBeVisible();
     expect(screen.queryByText("File upload status")).not.toBeInTheDocument();
   });
 
@@ -376,13 +363,11 @@ describe("with uploadStatus prop set", () => {
         onChange={() => {}}
       />
     );
-    const wrapperElement = screen.getByText("File upload status").parentElement
-      ?.parentElement as HTMLElement;
-    assertStyleMatch(
-      {
-        border: "var(--borderWidth200) solid var(--colorsSemanticNegative500)",
-      },
-      wrapperElement
+
+    const fileUploadStatus = screen.getByTestId("file-upload-status");
+
+    expect(fileUploadStatus).toHaveStyle(
+      "border: var(--borderWidth200) solid var(--colorsSemanticNegative500)"
     );
   });
 });

@@ -15,7 +15,7 @@ describe("in uploading state", () => {
         message="my status message"
       />
     );
-    expect(screen.queryByText("my status message")).toBeInTheDocument();
+    expect(screen.getByText("my status message")).toBeVisible();
   });
 
   it("renders the default status message if none is provided", () => {
@@ -27,11 +27,12 @@ describe("in uploading state", () => {
         progress={30}
       />
     );
-    expect(screen.queryByText("File upload status")).toBeInTheDocument();
+    expect(screen.getByText("File upload status")).toBeVisible();
   });
 
   it("renders a button with the cancel text, which performs the onAction function prop on click", async () => {
     const onAction = jest.fn();
+    const user = userEvent.setup();
     render(
       <FileUploadStatus
         status="uploading"
@@ -43,8 +44,7 @@ describe("in uploading state", () => {
     const actionButton = screen.getByRole("button", {
       name: "Cancel upload",
     });
-    expect(actionButton).toBeInTheDocument();
-    await userEvent.click(actionButton);
+    await user.click(actionButton);
     expect(onAction).toHaveBeenCalledTimes(1);
   });
 
@@ -57,7 +57,7 @@ describe("in uploading state", () => {
         progress={30}
       />
     );
-    expect(screen.queryByText("foo.pdf")).toBeInTheDocument();
+    expect(screen.getByText("foo.pdf")).toBeVisible();
     expect(
       screen.queryByRole("link", { name: "foo.pdf" })
     ).not.toBeInTheDocument();
@@ -102,7 +102,7 @@ describe("in completed state", () => {
         message="my status message"
       />
     );
-    expect(screen.queryByText("my status message")).toBeInTheDocument();
+    expect(screen.getByText("my status message")).toBeVisible();
   });
 
   it("renders the default status message if none is provided", () => {
@@ -114,11 +114,12 @@ describe("in completed state", () => {
         onAction={() => {}}
       />
     );
-    expect(screen.queryByText("File upload status")).toBeInTheDocument();
+    expect(screen.getByText("File upload status")).toBeVisible();
   });
 
   it("renders a button with the delete text, which performs the onAction function prop on click", async () => {
     const onAction = jest.fn();
+    const user = userEvent.setup();
     render(
       <FileUploadStatus
         status="completed"
@@ -128,8 +129,7 @@ describe("in completed state", () => {
       />
     );
     const actionButton = screen.getByRole("button", { name: "Delete file" });
-    expect(actionButton).toBeInTheDocument();
-    await userEvent.click(actionButton);
+    await user.click(actionButton);
     expect(onAction).toHaveBeenCalledTimes(1);
   });
 
@@ -198,6 +198,7 @@ describe("in previously state", () => {
 
   it("renders a button with the delete text, which performs the onAction function prop on click", async () => {
     const onAction = jest.fn();
+    const user = userEvent.setup();
     render(
       <FileUploadStatus
         status="previously"
@@ -207,8 +208,7 @@ describe("in previously state", () => {
       />
     );
     const actionButton = screen.getByRole("button", { name: "Delete file" });
-    expect(actionButton).toBeInTheDocument();
-    await userEvent.click(actionButton);
+    await user.click(actionButton);
     expect(onAction).toHaveBeenCalledTimes(1);
   });
 
@@ -235,18 +235,19 @@ describe("in error state", () => {
         message="my status message"
       />
     );
-    expect(screen.queryByText("my status message")).toBeInTheDocument();
+    expect(screen.getByText("my status message")).toBeVisible();
   });
 
   it("renders the default status message if none is provided", () => {
     render(
       <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />
     );
-    expect(screen.queryByText("File upload status")).toBeInTheDocument();
+    expect(screen.getByText("File upload status")).toBeVisible();
   });
 
   it("renders a button with the clear text, which performs the onAction function prop on click", async () => {
     const onAction = jest.fn();
+    const user = userEvent.setup();
     render(
       <FileUploadStatus
         status="error"
@@ -256,8 +257,7 @@ describe("in error state", () => {
       />
     );
     const actionButton = screen.getByRole("button", { name: "Clear" });
-    expect(actionButton).toBeInTheDocument();
-    await userEvent.click(actionButton);
+    await user.click(actionButton);
     expect(onAction).toHaveBeenCalledTimes(1);
   });
 
@@ -265,7 +265,7 @@ describe("in error state", () => {
     render(
       <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />
     );
-    expect(screen.queryByText("foo.pdf")).toBeInTheDocument();
+    expect(screen.getByText("foo.pdf")).toBeVisible();
     expect(
       screen.queryByRole("link", { name: "foo.pdf" })
     ).not.toBeInTheDocument();

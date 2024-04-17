@@ -80,7 +80,7 @@ describe("useFloating", () => {
   });
 
   it("saves floating element original styles and restores them after closing", async () => {
-    const { rerender } = await render(<MockComponent isOpen />);
+    const { rerender } = render(<MockComponent isOpen />);
 
     await waitFor(() => {
       const positionedStyle = window.getComputedStyle(
@@ -115,7 +115,7 @@ describe("useFloating", () => {
       }),
     ];
 
-    const { rerender } = await render(
+    const { rerender } = render(
       <MockComponent isOpen middleware={middleWare} />
     );
 
@@ -123,11 +123,14 @@ describe("useFloating", () => {
       const positionedStyle = window.getComputedStyle(
         screen.getByTestId("floating-element")
       );
-      expect(positionedStyle.width).not.toBe("");
-      expect(positionedStyle.height).not.toBe("");
+      expect(positionedStyle).not.toMatchObject({
+        width: "",
+        height: "",
+      });
     });
 
     rerender(<MockComponent isOpen={false} />);
+
     const originalStyle = window.getComputedStyle(
       screen.getByTestId("floating-element")
     );

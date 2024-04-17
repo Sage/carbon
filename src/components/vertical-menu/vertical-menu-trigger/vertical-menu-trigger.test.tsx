@@ -56,10 +56,8 @@ describe("VerticalMenuTrigger", () => {
 
     const trigger = screen.getByRole("button");
 
-    expect(trigger.getAttribute("data-component")).toEqual(
-      "vertical-menu-trigger"
-    );
-    expect(trigger.getAttribute("data-element")).toEqual("foo");
-    expect(trigger.getAttribute("data-role")).toEqual("bar");
+    expect(trigger).toHaveAttribute("data-component", "vertical-menu-trigger");
+    expect(trigger).toHaveAttribute("data-element", "foo");
+    expect(trigger).toHaveAttribute("data-role", "bar");
   });
 });

@@ -148,6 +148,7 @@ export const Label = ({
 
   return (
     <StyledLabelContainer
+      data-role="label-container"
       align={align}
       inline={inline}
       width={width}

@@ -12,6 +12,7 @@ exports[`Link renders as expected 1`] = `
   variant="default"
 >
   <a
+    data-role="link-anchor"
     href="www.foo.com"
     onBlur={[Function]}
     onFocus={[Function]}

@@ -25,7 +25,7 @@ import useLocale from "../../hooks/__internal__/useLocale";
 export interface FileInputProps
   extends Pick<ValidationProps, "error">,
     Pick<InputProps, "id" | "name" | "required">,
-    TagProps,
+    Omit<TagProps, "data-component">,
     MarginProps {
   /** Which file format(s) to accept. Will be passed to the underlying HTML input.
    * See https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept  */
@@ -195,6 +195,7 @@ export const FileInput = React.forwardRef(
             {...rest}
           />
           <StyledFileInputPresentation
+            data-role="file-input-presentation"
             isDraggedOver={isDraggedOver}
             isDraggingFile={isDraggingFile}
             error={error}

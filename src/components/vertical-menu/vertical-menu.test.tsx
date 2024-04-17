@@ -103,8 +103,8 @@ describe("VerticalMenu", () => {
 
     const menu = screen.getByRole("navigation");
 
-    expect(menu.getAttribute("data-component")).toEqual("vertical-menu");
-    expect(menu.getAttribute("data-element")).toEqual("foo");
-    expect(menu.getAttribute("data-role")).toEqual("bar");
+    expect(menu).toHaveAttribute("data-component", "vertical-menu");
+    expect(menu).toHaveAttribute("data-element", "foo");
+    expect(menu).toHaveAttribute("data-role", "bar");
   });
 });
