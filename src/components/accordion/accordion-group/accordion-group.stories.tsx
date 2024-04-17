@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import generateStyledSystemProps from "../../../../.storybook/utils/styled-system-props";
+import generateStyledSystemProps from "~/.storybook/utils/styled-system-props";
 import AccordionGroup from "./accordion-group.component";
 
 /**

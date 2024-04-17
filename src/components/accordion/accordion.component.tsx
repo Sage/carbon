@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { SpaceProps } from "styled-system";
 
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import createGuid from "../../__internal__/utils/helpers/guid";
-import Events from "../../__internal__/utils/helpers/events";
-import Logger from "../../__internal__/utils/logger";
+import useResizeObserver from "~/src/hooks/__internal__/useResizeObserver";
+import createGuid from "~/src/__internal__/utils/helpers/guid";
+import Events from "~/src/__internal__/utils/helpers/events";
+import Logger from "~/src/__internal__/utils/logger";
 import {
   StyledAccordionContainer,
   StyledAccordionHeadingsContainer,
@@ -16,7 +16,7 @@ import {
   StyledAccordionContent,
   StyledAccordionContainerProps,
 } from "./accordion.style";
-import ValidationIcon from "../../__internal__/validations";
+import ValidationIcon from "~/src/__internal__/validations";
 
 export interface AccordionProps
   extends StyledAccordionContainerProps,

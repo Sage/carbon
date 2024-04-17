@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { space, margin } from "styled-system";
 
-import Icon from "../icon";
-import { baseTheme } from "../../style/themes";
-import ValidationIconStyle from "../../__internal__/validations/validation-icon.style";
-import addFocusStyling from "../../style/utils/add-focus-styling";
+import Icon from "~/src/components/icon";
+import { baseTheme } from "~/src/style/themes";
+import ValidationIconStyle from "~/src/__internal__/validations/validation-icon.style";
+import addFocusStyling from "~/src/style/utils/add-focus-styling";
 
 const StyledAccordionGroup = styled.div`
   ${margin}

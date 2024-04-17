@@ -7,9 +7,9 @@ import {
   assertStyleMatch,
   testStyledSystemSpacing,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Textbox from "../textbox";
+} from "~/src/__spec_helper__/test-utils";
+import useResizeObserver from "~/src/hooks/__internal__/useResizeObserver";
+import Textbox from "~/src/components/textbox";
 import { Accordion } from ".";
 import {
   StyledAccordionContainer,
@@ -22,12 +22,12 @@ import {
   StyledAccordionHeadingsContainer,
 } from "./accordion.style";
 import AccordionGroup from "./accordion-group/accordion-group.component";
-import ValidationIcon from "../../__internal__/validations";
-import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
+import ValidationIcon from "~/src/__internal__/validations";
+import StyledValidationIcon from "~/src/__internal__/validations/validation-icon.style";
 import { AccordionProps } from "./accordion.component";
-import Logger from "../../__internal__/utils/logger";
+import Logger from "~/src/__internal__/utils/logger";
 
-jest.mock("../../hooks/__internal__/useResizeObserver");
+jest.mock("~/src/hooks/__internal__/useResizeObserver");
 type iconAlign = "left" | "right" | undefined;
 
 const mockedUseResizeObserver = useResizeObserver as jest.Mock<() => void>;

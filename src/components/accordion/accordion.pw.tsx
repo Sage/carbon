@@ -6,7 +6,7 @@ import {
   accordionTitleContainer,
   accordionTitleContainerByPosition,
   accordionContent,
-} from "../../../playwright/components/accordion";
+} from "~/playwright/components/accordion";
 import {
   positionOfElement,
   getRotationAngle,
@@ -15,14 +15,14 @@ import {
   getStyle,
   expectEventWasCalledOnce,
   checkAccessibility,
-} from "../../../playwright/support/helper";
-import { getDataElementByValue } from "../../../playwright/components";
+} from "~/playwright/support/helper";
+import { getDataElementByValue } from "~/playwright/components";
 import {
   ACCORDION_ADD_CONTENT,
   ACCORDION_REMOVE_CONTENT,
-} from "../../../playwright/components/accordion/locators";
-import { SIZE, CHARACTERS } from "../../../playwright/support/constants";
-import { HooksConfig } from "../../../playwright";
+} from "~/playwright/components/accordion/locators";
+import { SIZE, CHARACTERS } from "~/playwright/support/constants";
+import { HooksConfig } from "~/playwright";
 
 import {
   AccordionComponent,

@@ -114,6 +114,7 @@
     "axe-core": "^4.8.2",
     "babel-jest": "^26.6.3",
     "babel-plugin-dev-expression": "^0.2.3",
+    "babel-plugin-module-resolver": "^5.0.1",
     "browserslist": "^4.22.1",
     "chromatic": "^6.17.4",
     "commitizen": "^4.3.0",

@@ -1,11 +1,11 @@
 import React from "react";
 import { Accordion, AccordionGroup, AccordionProps } from ".";
-import Textbox from "../textbox";
-import Box from "../box";
-import Button from "../button/button.component";
-import { Checkbox } from "../checkbox";
-import { Dl, Dt, Dd } from "../definition-list";
-import Link from "../link/link.component";
+import Textbox from "~/src/components/textbox";
+import Box from "~/src/components/box";
+import Button from "~/src/components/button";
+import { Checkbox } from "~/src/components/checkbox";
+import { Dl, Dt, Dd } from "~/src/components/definition-list";
+import Link from "~/src/components/link";
 
 export const Grouped = () => (
   <AccordionGroup>

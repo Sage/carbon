@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from "react";
 import { MarginProps } from "styled-system";
 import invariant from "invariant";
 
-import Events from "../../../__internal__/utils/helpers/events";
+import Events from "~/src/__internal__/utils/helpers/events";
 import Accordion, {
   AccordionInternalProps,
   AccordionProps,

@@ -46,5 +46,8 @@
   "transform": {
     "^.+\\.(js|mjs|jsx|ts|tsx)$": "babel-jest",
     "^.+\\.svg$": "<rootDir>/svgTransform.js"
+  },
+  "moduleNameMapper": {
+    "~/(.*)": "<rootDir>/$1"
   }
 }

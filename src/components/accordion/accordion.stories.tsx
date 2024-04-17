@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Accordion, AccordionGroup } from ".";
-import Box from "../box/box.component";
-import Button from "../button/button.component";
-import { Checkbox } from "../checkbox";
-import { Dl, Dt, Dd } from "../definition-list";
-import Link from "../link/link.component";
-import Textbox from "../textbox/textbox.component";
+import Box from "~/src/components/box";
+import Button from "~/src/components/button";
+import { Checkbox } from "~/src/components/checkbox";
+import { Dl, Dt, Dd } from "~/src/components/definition-list";
+import Link from "~/src/components/link";
+import Textbox from "~/src/components/textbox";
 
-import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
+import generateStyledSystemProps from "~/.storybook/utils/styled-system-props";
 
 const errorVal = "error";
 const warningVal = "warning";
