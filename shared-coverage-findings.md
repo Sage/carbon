@@ -1,0 +1,22 @@
+For the purpose of testing this out I created a [Foo component](./src/components/foo) with some very basic functionality and some unit and browser based tests to assert it works as expected. I have ammended the config files for Playwright and jest to allow this component to be tested. I removed most of the additional Carbon components we render in the `beforeMount` hook as part of our Playwright setup, this was because we are getting coverag for those files in the report and I only want to test the dummy files here.
+
+## General findings
+
+Playwright provide [class coverage](https://playwright.dev/docs/api/class-coverage) as part of their API, we can use this to add the tooling to our files. Some caveats exist when using this util: it only collects v8 coverage and only works when tests are run in the chromium browser. In order to handle formatting it to Istanbul we can use a package called [monocart-coverage-reports](https://www.npmjs.com/package/monocart-coverage-reports), which was created by one of the maintainers of the playwright-ct project. This will allow us to generate coverage reports in a range of formats and various file types by passing the coverage data we have collected via the class coverage API.
+
+## How we implement it to collect coverage for our Playwright tests
+
+In order to collect coverage as our Playwright suite is run we need to `extend` the base `test` and add support for `autoTestFixture`s. We need to import `test` from this file in our `.pw.` test files. Here we need to check that the project is chromium based and then start and stop the JS and CSS coverage accordingly and then pass the collated data to MCR to generate the formatted report. I have added an example of how we can do this [here](./src/__spec_helper__/base-test.js). Running `npm run test:ct:coverage` in the terminal will run the PW tests for Foo and genereate a JSON report in the `playwright/coverage` directory. You can run `npm run format:pw:coverage` to genereate an HTML report for this using [nyc](https://www.npmjs.com/package/nyc) and then `open playwright/coverage.index.html` to open the resulting file in your browser.
+
+## How we merge the coverage from Playwright and Jest runners
+
+This is an area that still needs more work. You can use `nyc merge` to merge the separate JSON files into one merged JSON output. You can also use `nyc report` to generate an HTML report directly without merging the separate coverage if that's preferred, associated scripts have been added to try these out easily if you wish.
+
+However, there is still an outstanding issue no matter which approach we take: the paths used for the files by each runner is different: Playwright uses `src/components/foo` whilst jest uses a more absolute path and as such we end up with two entries in the merged output file. We will need to do more work to see if we can consolidate the paths used when the runners genrate their respective coverage files. I have also noticed that when I manually edit the paths to match and then merge them it doesn't generate the expected HTML report, it seems to overwrite at least partially rather than deep merge the two objects, if needs be writing our own here is an option as the JSON files will be formatted the same.
+
+## Quick example of how to test the above in this branch
+
+ - `npm i` to install the new dependencies
+ - `npm test -- foo.spec` to run the unit test for the component, coverage can be found in the hidden `coverage` directory, to view it `cd coverage && ls` will change directory and list the files etc within, you should see a `coverage-final.json` file.
+ - `npm run test:ct:coverage` to run the browser based tests for the component, coverage can be found in `playwright/coverage` using the same approach as above you should see a `coverage.json` file.
+ - `npm run format:merged:coverage` will copy the coverage files into a new `merged-coverage` directory and then generating an HTML report after. It does this by first running the `move:coverage:files` script I have added to copy the JSON files and then runs nyc report over them and adds the generated report into the same directory. The resulting HTML output can be viewed using `open merged-coverage index.html`.

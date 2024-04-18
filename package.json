@@ -6,7 +6,8 @@
     "lib",
     "esm",
     "scripts/check_rfcs/check_rfcs.js",
-    "scripts/check_rfcs/index.js"
+    "scripts/check_rfcs/index.js",
+    "scripts/copy_coverage_files/index.js"
   ],
   "scripts": {
     "start": "node ./scripts/check_node_version.mjs && cross-env storybook dev -p 9001 -c .storybook",
@@ -37,7 +38,13 @@
     "test:ct": "playwright test -c playwright-ct.config.ts",
     "test:ct:ui": "playwright test --ui -c playwright-ct.config.ts",
     "test:ct:report": "npx playwright show-report",
-    "clear-playwright-cache": "rimraf ./playwright/.cache"
+    "clear-playwright-cache": "rimraf ./playwright/.cache",
+    "test:ct:coverage": "rimraf ./playwright/coverage && playwright test -c playwright-ct.config.ts foo.pw",
+    "move:coverage:files": "node ./scripts/copy_coverage_files/index.js",
+    "format:pw:coverage": "nyc report --reporter=html --report-dir=playwright/coverage --temp-dir=playwright/temp-coverage",
+    "format:jest:coverage": "nyc report --reporter=html --report-dir=coverage --temp-dir=coverage",
+    "format:merged:coverage": "npm run move:coverage:files && nyc report --reporter=html --report-dir=merged-coverage --temp-dir=merged-coverage",
+    "merge:coverage": "npm run move:coverage:files && nyc merge merged-coverage merged-coverage/merged-coverage.json"
   },
   "repository": {
     "type": "git",
@@ -152,7 +159,9 @@
     "jsdom-testing-mocks": "^1.11.0",
     "lint-staged": "^11.2.6",
     "mockdate": "^2.0.5",
+    "monocart-coverage-reports": "^2.7.9",
     "nock": "^13.3.8",
+    "nyc": "^15.1.0",
     "prettier": "~2.2.0",
     "raf": "^3.4.1",
     "react": "^17.0.2",

@@ -45,7 +45,7 @@ export default defineConfig({
       },
     },
   },
-  testMatch: /.*\.pw\.tsx/,
+  testMatch: /.*\.pw\.js/,
   /* Configure projects for major browsers */
   projects: [
     {
