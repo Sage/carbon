@@ -35,7 +35,7 @@ const testData = CHARACTERS.STANDARD;
 const keysToTrigger = ["Space", "Enter"] as const;
 
 test.describe("should render Vertical Menu component", () => {
-  test(`should render with aria-label prop set to cypress-standed`, async ({
+  test(`should render with aria-label prop set to playwright-standard`, async ({
     mount,
     page,
   }) => {
@@ -49,7 +49,7 @@ test.describe("should render Vertical Menu component", () => {
     );
   });
 
-  test(`should render with aria-labelledby prop set to cypress-standed`, async ({
+  test(`should render with aria-labelledby prop set to playwright-standard`, async ({
     mount,
     page,
   }) => {
@@ -244,7 +244,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     });
   });
 
-  test(`should render with aria-label prop set to cypress-standed`, async ({
+  test(`should render with aria-label prop set to playwright-standard`, async ({
     mount,
     page,
   }) => {
@@ -260,7 +260,7 @@ test.describe("with beforeEach for VerticalMenuFullScreen", () => {
     );
   });
 
-  test(`should render with aria-labelledby prop set to cypress-standed`, async ({
+  test(`should render with aria-labelledby prop set to playwright-standard`, async ({
     mount,
     page,
   }) => {
@@ -538,7 +538,11 @@ test.describe(
       await page.keyboard.press("Tab");
 
       await expect(closeIconButton(page)).toBeFocused();
-      await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+
+      const offscreenText = page.getByText(
+        "I should not be scrolled into view"
+      );
+      await expect(offscreenText).not.toBeInViewport();
     });
 
     test(`tabbing backward through the menu and back to the start should not make the background scroll to the bottom`, async ({
@@ -552,7 +556,11 @@ test.describe(
       await page.keyboard.press("Shift+Tab");
 
       await expect(closeIconButton(page)).toBeFocused();
-      await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+
+      const offscreenText = page.getByText(
+        "I should not be scrolled into view"
+      );
+      await expect(offscreenText).not.toBeInViewport();
     });
   }
 );

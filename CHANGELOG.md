@@ -1,3 +1,39 @@
+### [132.2.1](https://github.com/Sage/carbon/compare/v132.2.0...v132.2.1) (2024-04-15)
+
+
+### Bug Fixes
+
+* **submenu:** ensure last child in segment title has correct styling ([a6ab6aa](https://github.com/Sage/carbon/commit/a6ab6aa563e25fa4d9cc155b314fc26855601170)), closes [#6488](https://github.com/Sage/carbon/issues/6488)
+
+## [132.2.0](https://github.com/Sage/carbon/compare/v132.1.0...v132.2.0) (2024-04-11)
+
+
+### Features
+
+* **loader-spinner:** add new component ([53d9d67](https://github.com/Sage/carbon/commit/53d9d6738f8c5b9c67202268700502f18e29899f))
+
+## [132.1.0](https://github.com/Sage/carbon/compare/v132.0.0...v132.1.0) (2024-04-11)
+
+
+### Features
+
+* **file-input:** update default component size and progress/loader bar size ([6957bc3](https://github.com/Sage/carbon/commit/6957bc30a0aa6237eedcd519965096ca325408bf))
+
+## [132.0.0](https://github.com/Sage/carbon/compare/v131.1.0...v132.0.0) (2024-04-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **theme:** This change removes the mint theme. Please use the
+'sage' theme instead.
+* **theme:** This change removes the aegean theme. Please use the
+'sage' theme instead.
+
+### Features
+
+* **theme:** remove aegean theme ([ebe0ddb](https://github.com/Sage/carbon/commit/ebe0ddb9981581497ff01603eaf9017d5fc1ecdb))
+* **theme:** remove mint theme ([04f81f8](https://github.com/Sage/carbon/commit/04f81f8e19748761cb88581d6ad1e786424dd6f2))
+
 ## [131.1.0](https://github.com/Sage/carbon/compare/v131.0.1...v131.1.0) (2024-04-10)
 
 

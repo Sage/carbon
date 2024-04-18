@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { shallow, mount, ReactWrapper } from "enzyme";
 
-import mintTheme from "../../style/themes/mint";
+import sageTheme from "../../style/themes/sage";
 import RadioButtonMapper, {
   MappedChildProps,
   RadioButtonMapperProps,
@@ -56,7 +56,7 @@ const Controller = ({
   );
 };
 
-function render(props: Partial<RadioButtonMapperProps>, theme = mintTheme) {
+function render(props: Partial<RadioButtonMapperProps>, theme = sageTheme) {
   const children = buttonValues.map((value, index) => (
     <RadioButton
       id={`rId-${index}`}

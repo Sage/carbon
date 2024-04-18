@@ -190,7 +190,7 @@ describe("Tabs", () => {
     </Tabs>
   ));
 
-  // TODO move this test into cypress when FE-4580 is merged
+  // TODO: move this test into playwright FE-6425
   describe("when children of a Tab update", () => {
     it("does not update the selected tab", () => {
       const MockComponent = ({

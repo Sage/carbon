@@ -2,8 +2,10 @@ import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import { ThemeProvider } from "styled-components";
+import { render as rtlRender, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import { MenuItem } from "../..";
+import { Menu, MenuItem, MenuSegmentTitle } from "../..";
 import MenuContext, { MenuContextProps, MenuType } from "../../menu.context";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu } from "./submenu.style";
@@ -12,7 +14,7 @@ import MenuDivider from "../../menu-divider/menu-divider.component";
 import Submenu, { SubmenuProps } from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
-import { mintTheme } from "../../../../style/themes";
+import { sageTheme } from "../../../../style/themes";
 import Search from "../../../search";
 import StyledSearch from "../../../search/search.style";
 import openSubmenu from "../spec-helper";
@@ -100,13 +102,163 @@ const menuContextValues = (menuType: MenuType): MenuContextProps => ({
   inMenu: true,
 });
 
+// These tests use RTL. They have to be at the top of this file due the use of jest.useFakeTimers() causing the RTL tests to time out.
+// Once we migrate, these tests can be moved back in to the main test block below.
+describe("Border Radius", () => {
+  it("should render the last menu item in the submenu with the correct styles", async () => {
+    rtlRender(
+      <Menu menuType="black">
+        <MenuItem submenu="Menu Item" clickToOpen>
+          <MenuItem href="#" minWidth="200px">
+            Submenu
+          </MenuItem>
+          <MenuSegmentTitle text="segment title 1" variant="alternate">
+            <MenuItem href="#" variant="alternate">
+              Menu Item 1
+            </MenuItem>
+          </MenuSegmentTitle>
+          <MenuSegmentTitle text="segment title 2" variant="alternate">
+            <MenuItem href="#" variant="alternate">
+              Menu Item 2
+            </MenuItem>
+            <MenuItem href="#" variant="alternate">
+              Menu Item 3
+            </MenuItem>
+          </MenuSegmentTitle>
+          <MenuItem href="#">Menu Item 4</MenuItem>
+        </MenuItem>
+      </Menu>
+    );
+
+    const menuItem = screen.getByRole("button", { name: "Menu Item" });
+
+    expect(menuItem).toBeInTheDocument();
+
+    await userEvent.click(menuItem);
+    const menuItemFour = screen.getByRole("link", { name: "Menu Item 4" });
+
+    expect(menuItemFour).toBeInTheDocument();
+
+    await userEvent.click(menuItemFour);
+
+    expect(menuItemFour).toBeInTheDocument();
+    expect(menuItemFour).toHaveStyle({
+      borderBottomRightRadius: "var(--borderRadius100)",
+      borderBottomLeftRadius: "var(--borderRadius100)",
+    });
+  });
+
+  it("should render the scrollable block with the correct styles on the last menu item", async () => {
+    rtlRender(
+      <Menu menuType="black">
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <ScrollableBlock height="200px">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </ScrollableBlock>
+        </MenuItem>
+      </Menu>
+    );
+
+    const menuItem = screen.getByRole("button", { name: "Menu Item Three" });
+
+    expect(menuItem).toBeInTheDocument();
+
+    await userEvent.click(menuItem);
+    const itemSubmenuTwelve = screen.getByRole("link", {
+      name: "Item Submenu Twelve",
+    });
+
+    expect(itemSubmenuTwelve).toBeInTheDocument();
+
+    await userEvent.click(itemSubmenuTwelve);
+
+    expect(itemSubmenuTwelve).toBeInTheDocument();
+    expect(itemSubmenuTwelve).toHaveStyle({
+      borderBottomRightRadius: "var(--borderRadius000)",
+      borderBottomLeftRadius: "var(--borderRadius100)",
+    });
+  });
+
+  it("should render the scrollable block with the correct styles on the last menu item outside the block", async () => {
+    rtlRender(
+      <Menu menuType="black">
+        <MenuItem onClick={() => {}}>Menu Item One</MenuItem>
+        <MenuItem href="#">Menu Item Two</MenuItem>
+        <MenuItem submenu="Menu Item Three">
+          <ScrollableBlock height="200px">
+            <MenuItem href="#">Item Submenu One</MenuItem>
+            <MenuItem href="#">Item Submenu Two</MenuItem>
+            <MenuItem href="#">Item Submenu Three</MenuItem>
+            <MenuItem href="#">Item Submenu Four</MenuItem>
+            <MenuItem href="#">Item Submenu Five</MenuItem>
+            <MenuItem href="#">Item Submenu Six</MenuItem>
+            <MenuItem href="#">Item Submenu Seven</MenuItem>
+            <MenuItem href="#">Item Submenu Eight</MenuItem>
+            <MenuItem href="#">Item Submenu Nine</MenuItem>
+            <MenuItem href="#">Item Submenu Ten</MenuItem>
+            <MenuItem href="#">Item Submenu Eleven</MenuItem>
+            <MenuItem href="#">Item Submenu Twelve</MenuItem>
+          </ScrollableBlock>
+          <MenuItem href="#">Menu Item Last</MenuItem>
+        </MenuItem>
+      </Menu>
+    );
+
+    const menuItem = screen.getByRole("button", { name: "Menu Item Three" });
+
+    expect(menuItem).toBeInTheDocument();
+
+    await userEvent.click(menuItem);
+    const itemSubmenuTwelve = screen.getByRole("link", {
+      name: "Item Submenu Twelve",
+    });
+
+    expect(itemSubmenuTwelve).toBeInTheDocument();
+    await userEvent.click(itemSubmenuTwelve);
+
+    expect(itemSubmenuTwelve).toBeInTheDocument();
+    expect(itemSubmenuTwelve).toHaveStyle({
+      borderBottomRightRadius: "var(--borderRadius000)",
+      borderBottomLeftRadius: "var(--borderRadius000)",
+    });
+
+    const menuItemLast = screen.getByRole("link", { name: "Menu Item Last" });
+
+    expect(menuItemLast).toBeInTheDocument();
+
+    await userEvent.click(menuItemLast);
+
+    expect(menuItemLast).toBeInTheDocument();
+    expect(menuItemLast).toHaveStyle({
+      borderBottomRightRadius: "var(--borderRadius100)",
+      borderBottomLeftRadius: "var(--borderRadius100)",
+    });
+  });
+});
+
 describe("Submenu component", () => {
   const element = document.createElement("div");
   const htmlElement = document.body.appendChild(element);
   const tabKey = new KeyboardEvent("keydown", events.tab);
   let wrapper: ReactWrapper;
 
-  const render = (menuType: MenuType, props: Partial<SubmenuProps> = {}) => {
+  const enzymeRender = (
+    menuType: MenuType,
+    props: Partial<SubmenuProps> = {}
+  ) => {
     return mount(
       <MenuContext.Provider value={menuContextValues(menuType)}>
         <Submenu title="title" {...props}>
@@ -137,20 +289,20 @@ describe("Submenu component", () => {
   });
 
   it("should render the top-level menu item as a button, not a link", () => {
-    wrapper = render("light");
+    wrapper = enzymeRender("light");
     expect(wrapper.find("a").exists()).toEqual(false);
     expect(wrapper.find("button").exists()).toEqual(true);
   });
 
   describe("when closed", () => {
     it("should not render the submenu", () => {
-      wrapper = render("light");
+      wrapper = enzymeRender("light");
       expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
     });
 
     describe("on mouse over", () => {
       it("should open the submenu but not focus the first item", () => {
-        wrapper = render("light");
+        wrapper = enzymeRender("light");
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(false);
         const submenuItem = wrapper
           .find('[data-component="submenu-wrapper"]')
@@ -173,7 +325,7 @@ describe("Submenu component", () => {
 
     describe("on mouse out", () => {
       it("should close the submenu", () => {
-        wrapper = render("light");
+        wrapper = enzymeRender("light");
         openSubmenu(wrapper);
         expect(wrapper.find(StyledSubmenu).exists()).toEqual(true);
         const submenuItem = wrapper
@@ -192,7 +344,7 @@ describe("Submenu component", () => {
 
     describe("when clicked", () => {
       it("should open the submenu", () => {
-        wrapper = render("light");
+        wrapper = enzymeRender("light");
         wrapper.find("button").getDOMNode<HTMLButtonElement>().click();
         wrapper.update();
 
@@ -201,7 +353,7 @@ describe("Submenu component", () => {
 
       it("should execute the onClick callback", () => {
         const mockCallback = jest.fn();
-        wrapper = render("light", { onClick: mockCallback });
+        wrapper = enzymeRender("light", { onClick: mockCallback });
         wrapper.find("button").getDOMNode<HTMLButtonElement>().click();
         wrapper.update();
 
@@ -214,7 +366,10 @@ describe("Submenu component", () => {
 
       beforeEach(() => {
         mockCallback = jest.fn();
-        wrapper = render("light", { clickToOpen: true, onClick: mockCallback });
+        wrapper = enzymeRender("light", {
+          clickToOpen: true,
+          onClick: mockCallback,
+        });
       });
 
       afterEach(() => {
@@ -255,7 +410,7 @@ describe("Submenu component", () => {
       beforeEach(() => {
         mockCallback = jest.fn();
 
-        wrapper = render("light", { onSubmenuOpen: mockCallback });
+        wrapper = enzymeRender("light", { onSubmenuOpen: mockCallback });
       });
 
       afterEach(() => {
@@ -277,7 +432,7 @@ describe("Submenu component", () => {
       beforeEach(() => {
         mockCallback = jest.fn();
 
-        wrapper = render("light", { onSubmenuClose: mockCallback });
+        wrapper = enzymeRender("light", { onSubmenuClose: mockCallback });
       });
 
       afterEach(() => {
@@ -305,7 +460,7 @@ describe("Submenu component", () => {
 
     describe("when href prop set", () => {
       beforeEach(() => {
-        wrapper = render("light", { href: "/path" });
+        wrapper = enzymeRender("light", { href: "/path" });
       });
 
       it("should render the top-level menu item as a link instead of a button", () => {
@@ -421,7 +576,7 @@ describe("Submenu component", () => {
   describe("when open", () => {
     let submenuItem;
     beforeEach(() => {
-      wrapper = render("light");
+      wrapper = enzymeRender("light");
 
       submenuItem = wrapper
         .find('[data-component="submenu-wrapper"]')
@@ -489,6 +644,7 @@ describe("Submenu component", () => {
             submenuDirection="left"
             menuType="light"
             variant="default"
+            applyFocusRadiusStyling={false}
           >
             <MenuItem>Apple</MenuItem>
             <MenuItem>Banana</MenuItem>
@@ -536,12 +692,37 @@ describe("Submenu component", () => {
     );
   });
 
+  describe("Border Radius", () => {
+    it("should have the expected border-radius styling", () => {
+      wrapper = enzymeRender("light");
+
+      act(() => {
+        wrapper.find(StyledMenuItemWrapper).last().at(0).simulate("mouseover");
+      });
+
+      wrapper.update();
+
+      act(() => {
+        wrapper.find(StyledMenuItemWrapper).last().at(0).simulate("click");
+      });
+
+      assertStyleMatch(
+        {
+          borderBottomRightRadius: "var(--borderRadius100)",
+          borderBottomLeftRadius: "var(--borderRadius100)",
+        },
+        wrapper.find(StyledSubmenu),
+        { modifier: `${StyledMenuItem}:last-child button` }
+      );
+    });
+  });
+
   describe("keyboard navigation", () => {
     describe("when closed", () => {
       let submenuItem: ReactWrapper;
 
       beforeEach(() => {
-        wrapper = render("light");
+        wrapper = enzymeRender("light");
         submenuItem = wrapper
           .find('[data-component="submenu-wrapper"]')
           .find("button");
@@ -686,7 +867,7 @@ describe("Submenu component", () => {
 
       describe("when multiple character keys pressed slowly", () => {
         it("should reset the search string and focus the correct item", () => {
-          jest.useFakeTimers();
+          jest.useFakeTimers("legacy");
 
           openSubmenu(wrapper);
 
@@ -732,7 +913,7 @@ describe("Submenu component", () => {
       const onKeyDownFn = jest.fn();
 
       beforeEach(() => {
-        wrapper = render("light", { onKeyDown: onKeyDownFn });
+        wrapper = enzymeRender("light", { onKeyDown: onKeyDownFn });
         submenuItem = wrapper
           .find('[data-component="submenu-wrapper"]')
           .find("button");
@@ -1205,7 +1386,7 @@ describe("Submenu component", () => {
 
       describe("when enter key pressed", () => {
         it("should navigate to href and close submenu", () => {
-          jest.useFakeTimers();
+          jest.useFakeTimers("legacy");
           document.dispatchEvent(tabKey);
           wrapper.update();
 
@@ -1244,8 +1425,8 @@ describe("Submenu component", () => {
     (menuType) => {
       let submenuItem;
 
-      const renderWrapper = (variant: VariantType) => {
-        wrapper = render(menuType, { variant });
+      const enzymeRenderWrapper = (variant: VariantType) => {
+        wrapper = enzymeRender(menuType, { variant });
         submenuItem = wrapper
           .find('[data-component="submenu-wrapper"]')
           .find("button");
@@ -1263,7 +1444,7 @@ describe("Submenu component", () => {
       };
 
       it("should set the correct background color by default", () => {
-        renderWrapper("default");
+        enzymeRenderWrapper("default");
         assertStyleMatch(
           {
             backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
@@ -1273,7 +1454,7 @@ describe("Submenu component", () => {
       });
 
       it("should set the correct background colour for alternate variant", () => {
-        renderWrapper("alternate");
+        enzymeRenderWrapper("alternate");
         assertStyleMatch(
           {
             backgroundColor: menuConfigVariants[menuType].background,
@@ -1286,7 +1467,7 @@ describe("Submenu component", () => {
         ["button", "focus"],
         ["a", "focus"],
       ])("applies the expected styling for %p on %s", (el, pseudo) => {
-        renderWrapper("default");
+        enzymeRenderWrapper("default");
         assertStyleMatch(
           {
             backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
@@ -1301,7 +1482,7 @@ describe("Submenu component", () => {
         ["a", "hover"],
       ])("applies the expected styling for %p on %s", (el, pseudo) => {
         it("renders correct background and color", () => {
-          renderWrapper("default");
+          enzymeRenderWrapper("default");
           assertStyleMatch(
             {
               backgroundColor: "transparent",
@@ -1313,7 +1494,7 @@ describe("Submenu component", () => {
         });
 
         it("renders correct icon color", () => {
-          renderWrapper("default");
+          enzymeRenderWrapper("default");
           assertStyleMatch(
             {
               color: "var(--colorsComponentsMenuYang100)",
@@ -1329,7 +1510,7 @@ describe("Submenu component", () => {
   );
 
   describe("when it has a ScrollableBlock as a child", () => {
-    const renderScrollableBlock = (
+    const enzymeRenderScrollableBlock = (
       menuType: MenuType,
       props = {},
       parent?: React.ReactElement
@@ -1350,7 +1531,7 @@ describe("Submenu component", () => {
     };
 
     it("should render all of the underlying menu items", () => {
-      wrapper = renderScrollableBlock("light");
+      wrapper = enzymeRenderScrollableBlock("light");
       openSubmenu(wrapper);
 
       expect(wrapper.find(MenuItem).length).toEqual(4);
@@ -1358,7 +1539,7 @@ describe("Submenu component", () => {
 
     describe("when the scrollable block has a parent item", () => {
       it("should render all of the underlying menu items", () => {
-        wrapper = renderScrollableBlock(
+        wrapper = enzymeRenderScrollableBlock(
           "light",
           {},
           <Search value="" onChange={() => {}} />
@@ -1370,7 +1551,7 @@ describe("Submenu component", () => {
 
       describe("when shift + tab key pressed", () => {
         it("should focus the previous item", () => {
-          wrapper = renderScrollableBlock(
+          wrapper = enzymeRenderScrollableBlock(
             "light",
             {},
             <Search value="" onChange={() => {}} />
@@ -1428,9 +1609,9 @@ describe("Submenu component", () => {
   });
 
   describe("when it has Search as a child", () => {
-    const renderWithSearch = (menuType: MenuType, props = {}) => {
+    const enzymeRenderWithSearch = (menuType: MenuType, props = {}) => {
       return mount(
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <MenuContext.Provider value={menuContextValues(menuType)}>
             <Submenu title="title" {...props}>
               <MenuItem href="#">Apple</MenuItem>
@@ -1452,9 +1633,12 @@ describe("Submenu component", () => {
 
     const mockSubmenuhandleKeyDown = jest.fn();
 
-    const renderWithSearchDefaultValue = (menuType: MenuType, props = {}) => {
+    const enzymeRenderWithSearchDefaultValue = (
+      menuType: MenuType,
+      props = {}
+    ) => {
       return mount(
-        <ThemeProvider theme={mintTheme}>
+        <ThemeProvider theme={sageTheme}>
           <MenuContext.Provider value={menuContextValues(menuType)}>
             <Submenu title="title" {...props} href="/path">
               <MenuItem>Apple</MenuItem>
@@ -1475,7 +1659,7 @@ describe("Submenu component", () => {
     };
 
     it("should not lose focus when enter key pressed", () => {
-      wrapper = renderWithSearch("dark");
+      wrapper = enzymeRenderWithSearch("dark");
       openSubmenu(wrapper);
 
       const searchInput = wrapper.find(StyledSearch).find("input");
@@ -1494,7 +1678,7 @@ describe("Submenu component", () => {
     });
 
     it("should be focusable by using down arrow key", () => {
-      wrapper = renderWithSearch("dark");
+      wrapper = enzymeRenderWithSearch("dark");
       openSubmenu(wrapper);
       const searchInput = wrapper.find(StyledSearch).find("input");
 
@@ -1511,7 +1695,7 @@ describe("Submenu component", () => {
     });
 
     it("should update when Search is clicked so the expected item is focused when arrow down pressed", () => {
-      wrapper = renderWithSearch("dark");
+      wrapper = enzymeRenderWithSearch("dark");
       openSubmenu(wrapper);
       const searchInput = wrapper.find(StyledSearch).find("input");
 
@@ -1534,7 +1718,7 @@ describe("Submenu component", () => {
     });
 
     it("should update when Search is clicked so the expected item is focused when up arrow pressed", () => {
-      wrapper = renderWithSearch("dark");
+      wrapper = enzymeRenderWithSearch("dark");
       openSubmenu(wrapper);
       const searchInput = wrapper.find(StyledSearch).find("input");
 
@@ -1556,10 +1740,12 @@ describe("Submenu component", () => {
       ).toBeFocused();
     });
 
-    /* This test is purely to achieve coverage for the else of the `handleKeyDown` 
+    /* This test is purely to achieve coverage for the else of the `handleKeyDown`
     callback function in the menu-item component. */
     it("should not call SubmenuContext.handleKeyDown if Search has a value and is currently focused", () => {
-      wrapper = renderWithSearchDefaultValue("dark", { clickToOpen: true });
+      wrapper = enzymeRenderWithSearchDefaultValue("dark", {
+        clickToOpen: true,
+      });
       openSubmenu(wrapper);
 
       act(() => {
@@ -1588,7 +1774,9 @@ describe("Submenu component", () => {
     });
 
     it("should not close the submenu when enter is pressed", () => {
-      wrapper = renderWithSearchDefaultValue("dark", { clickToOpen: true });
+      wrapper = enzymeRenderWithSearchDefaultValue("dark", {
+        clickToOpen: true,
+      });
       openSubmenu(wrapper);
 
       wrapper.update();

@@ -142,14 +142,10 @@
         "project": [
           "./tsconfig.json",
           "./tsconfig-playwright.json",
-          "./cypress/tsconfig.json"
         ]
       },
       "plugins": ["@typescript-eslint"],
-      "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
-      ],
+      "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
       "settings": {
         "mdx/code-blocks": true,
         "react": {
@@ -160,7 +156,7 @@
         "import/named": "off",
         "react/prefer-stateless-function": "off",
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/no-use-before-define": "error",
         "@typescript-eslint/no-empty-function": [
           "error",
           { "allow": ["arrowFunctions"] }
@@ -213,21 +209,6 @@
         "jest/expect-expect": "off",
         "jest-dom/prefer-to-have-attribute": "off",
         "jest/no-alias-methods": "off"
-      }
-    },
-    {
-      "files": ["cypress/**"],
-      "env": {
-        "cypress/globals": true
-      },
-      "globals": {
-        "cypress": true
-      },
-      "plugins": ["cypress"],
-      "extends": ["plugin:cypress/recommended"],
-      "rules": {
-        "cypress/unsafe-to-chain-command": "off",
-        "cypress/no-unnecessary-waiting": "off"
       }
     },
     {

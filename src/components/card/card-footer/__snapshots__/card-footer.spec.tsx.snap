@@ -175,6 +175,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
         className="c2 c3"
         data-component="icon"
         data-element="link"
+        data-role="icon"
         fontSize="small"
         type="link"
       />

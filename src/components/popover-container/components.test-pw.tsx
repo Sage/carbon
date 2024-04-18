@@ -24,7 +24,7 @@ export const PopoverContainerComponent = (
   return (
     <Box height="150px" margin="100px">
       <PopoverContainer
-        title="Cypress is awesome"
+        title="Playwright is awesome"
         containerAriaLabel="popover-container"
         openButtonAriaLabel="open"
         open={isOpen}
@@ -44,7 +44,7 @@ export const PopoverContainerComponentCoverButton = (
   return (
     <Box height="150px" margin="100px">
       <PopoverContainer
-        title="Cypress is awesome"
+        title="Playwright is awesome"
         containerAriaLabel="popover-container"
         openButtonAriaLabel="open"
         open
@@ -420,7 +420,7 @@ export const PopoverContainerFocusOrder = (
   return (
     <Box height="150px" margin="100px">
       <PopoverContainer
-        title="Cypress is awesome"
+        title="Playwright is awesome"
         containerAriaLabel="popover-container"
         openButtonAriaLabel="open"
         open={isOpen}

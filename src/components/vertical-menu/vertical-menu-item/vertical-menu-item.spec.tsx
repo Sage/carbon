@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "styled-components";
 
-import mintTheme from "../../../style/themes/mint";
+import sageTheme from "../../../style/themes/sage";
 import { testStyledSystemPadding } from "../../../__spec_helper__/test-utils";
 import Icon from "../../icon";
 import { StyledVerticalMenuItem } from "../vertical-menu.style";
@@ -30,7 +30,7 @@ describe("VerticalMenuItem", () => {
 
   testStyledSystemPadding(
     (props) => (
-      <ThemeProvider theme={mintTheme}>
+      <ThemeProvider theme={sageTheme}>
         <VerticalMenuItem title="Item1" {...props} />
       </ThemeProvider>
     ),

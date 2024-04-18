@@ -94,7 +94,7 @@ If we were to do so, we would likely want to wrap our components in the `CarbonP
 ```jsx
 const CustomProviders = ({ children }) => {
   return (
-    <CarbonProvider theme="mint">
+    <CarbonProvider theme={sage}>
       <I18nProvider locale={enGB}>{children}</I18nProvider>
     </CarbonProvider>
   );
@@ -140,12 +140,6 @@ It may not be a great development experience switching between writing/maintaini
 ## Sticking with Enzyme
 
 We could simply not do any of this and just continue to use Enzyme. This would obviously require far less initial effort, but the lack of support for React 17+ and questionable future maintainance of the library is inevitably going to cause us more and more problems as time goes on, and it's highly likely that we will have to undergo this conversion when React 18 is released anyway.
-
-## Cypress Unit Testing
-
-The tool we use for e2e testing, Cypress, has utilities for [unit testing](https://go.cypress.io/get-started?item=unit%20tests%20made%20easy&utm_adgroup=130177744717&utm_keyword=unit%20testing&utm_source=google&utm_medium=cpc&utm_campaign=15376239586&utm_term=unit%20testing&hsa_acc=8898574980&hsa_cam=15376239586&hsa_grp=130177744717&hsa_ad=564551372576&hsa_src=g&hsa_tgt=kwd-304023822183&hsa_kw=unit%20testing&hsa_mt=p&hsa_net=adwords&hsa_ver=3&gclid=Cj0KCQiAmKiQBhClARIsAKtSj-lZ4Hcgjnxu0eAYlCevyDw0UbXlJJFd6PdYAFB_8yfkU38y0NWoWt0aAmvOEALw_wcB). This could be a reasonable alternative to using React Testing Library, however it runs tests in an actual browser, rather than using jsdom like Jest does. This is potentially overkill for unit tests, and Cypress is typically used for e2e testing. Cypress is not widely adopted in the React community for unit testing (it may get more popular) and given that we already use it for higher level testing of our components in the browser, it makes more sense to use the widely adopted React Testing Library for unit testing and have the extra layer of confidence in our automated testing by using both.
-
-Cypress is also much slower than using Jest with React Testing Library. We currently have to run our Cypress tests across 20 parallel pipelines to keep the build under 10 minutes. Adding more tests to this would require us to scale even more horizontally to maintain performance, which has several implications including increased GitHub Actions usage.
 
 ## Other React testing utilities
 

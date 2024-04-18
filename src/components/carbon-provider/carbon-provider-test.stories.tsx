@@ -3,13 +3,7 @@ import type { ComponentMeta, StoryFn } from "@storybook/react";
 
 import CarbonProvider from ".";
 import Button from "../button";
-import {
-  sageTheme,
-  mintTheme,
-  aegeanTheme,
-  baseTheme,
-  noTheme,
-} from "../../style/themes";
+import { sageTheme, baseTheme, noTheme } from "../../style/themes";
 
 export default {
   title: "Carbon Provider/Test",
@@ -31,7 +25,7 @@ export default {
 } as ComponentMeta<typeof CarbonProvider>;
 
 export const AllThemes: StoryFn = () => {
-  const themes = [sageTheme, mintTheme, aegeanTheme, baseTheme, noTheme];
+  const themes = [sageTheme, baseTheme, noTheme];
 
   return (
     <>

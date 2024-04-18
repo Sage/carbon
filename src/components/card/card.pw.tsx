@@ -220,11 +220,11 @@ test.describe("Check Card component properties", () => {
     mount,
     page,
   }) => {
-    await mount(<CardComponent data-role="cypress" />);
+    await mount(<CardComponent data-role="playwright" />);
 
     const cardElement = card(page);
 
-    await expect(cardElement).toHaveAttribute("data-role", "cypress");
+    await expect(cardElement).toHaveAttribute("data-role", "playwright");
   });
 
   ([375, 535, 777] as const).forEach((height) => {

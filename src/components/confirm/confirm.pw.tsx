@@ -327,11 +327,11 @@ test.describe("should render Confirm component", () => {
     mount,
     page,
   }) => {
-    await mount(<ConfirmComponent aria-label="cypress-aria" />);
+    await mount(<ConfirmComponent aria-label="playwright-aria" />);
 
     await expect(page.getByRole("alertdialog")).toHaveAttribute(
       "aria-label",
-      "cypress-aria"
+      "playwright-aria"
     );
   });
 

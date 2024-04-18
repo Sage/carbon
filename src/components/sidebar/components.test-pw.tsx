@@ -185,7 +185,7 @@ export const SidebarComponentFocusable = (props: Partial<SidebarProps>) => {
         onDismiss={() => setIsToastOpen(false)}
         ref={toastRef}
         targetPortalId="stacked"
-        data-element="toast"
+        data-role="toast"
       >
         Toast Message
       </Toast>
