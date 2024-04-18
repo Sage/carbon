@@ -59,9 +59,6 @@ export const InsideButtons: Story = () => {
       <Button ml={2} buttonType="secondary" aria-label="Loading">
         <Loader isInsideButton />
       </Button>
-      <Button ml={2} buttonType="dashed" aria-label="Loading">
-        <Loader isInsideButton />
-      </Button>
       <Box id="dark-background" mt={2} p={2} width="fit-content" bg="#000000">
         <Button m={2} buttonType="darkBackground" aria-label="Loading">
           <Loader isInsideButton />

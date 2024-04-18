@@ -126,7 +126,7 @@ export const RenderProps: Story = () => {
             aria-label={ariaLabel}
             aria-haspopup={ariaHasPopup}
             aria-expanded={ariaExpanded}
-            forwardRef={ref}
+            ref={ref}
             id={id}
             onClick={onClick}
           >
@@ -142,7 +142,7 @@ export const RenderProps: Story = () => {
           <Button
             data-element={dataElement}
             aria-label={ariaLabel}
-            forwardRef={ref}
+            ref={ref}
             onClick={onClick}
           >
             Close
@@ -322,7 +322,7 @@ export const Filter: Story = () => {
               iconPosition="after"
               iconType={!isOpen ? "filter_new" : "close"}
               size="small"
-              forwardRef={ref}
+              ref={ref}
               {...rest}
             >
               Filter

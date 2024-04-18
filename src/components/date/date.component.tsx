@@ -27,7 +27,6 @@ import Textbox, { TextboxProps } from "../textbox";
 import DatePicker, { PickerProps } from "./__internal__/date-picker";
 import DateRangeContext, { InputName } from "../date-range/date-range.context";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
-import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import guid from "../../__internal__/utils/helpers/guid";
 
@@ -99,8 +98,6 @@ export interface DateInputProps
   inputName?: InputName;
 }
 
-let deprecateInputRefWarnTriggered = false;
-
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
   (
     {
@@ -126,7 +123,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       size = "medium",
       tooltipPosition,
       value,
-      inputRef,
       inputWidth,
       labelWidth,
       maxWidth,
@@ -155,13 +151,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     );
     const isInitialValue = useRef(true);
     const pickerTabGuardId = useRef(guid());
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `DateInput` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     const computeInvalidRawValue = (inputValue: string) =>
       allowEmptyValue && !inputValue.length ? inputValue : null;
@@ -465,7 +454,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       >
         <Textbox
           {...filterOutStyledSystemSpacingProps(rest)}
-          inputRef={inputRef}
           value={computedValue()}
           onBlur={handleBlur}
           onChange={handleChange}

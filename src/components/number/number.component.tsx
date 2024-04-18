@@ -8,7 +8,6 @@ import {
   SIZE_DEFAULT,
 } from "../textbox/textbox.component";
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export interface NumberProps extends Omit<TextboxProps, "value"> {
@@ -29,7 +28,6 @@ export const Number = React.forwardRef(
       onChange,
       onKeyDown,
       value,
-      inputRef,
       align = ALIGN_DEFAULT,
       labelWidth = LABEL_WIDTH_DEFAULT,
       size = SIZE_DEFAULT,
@@ -40,13 +38,6 @@ export const Number = React.forwardRef(
   ) => {
     const selectionStart = useRef<null | number>(null);
     const selectionEnd = useRef<null | number>(null);
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Number` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
@@ -82,7 +73,6 @@ export const Number = React.forwardRef(
         onChange={handleOnChange}
         onKeyDown={handleKeyDown}
         ref={ref}
-        inputRef={inputRef}
         align={align}
         labelWidth={labelWidth}
         size={size}

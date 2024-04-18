@@ -124,7 +124,6 @@ export interface TextareaProps
   hideBorders?: boolean;
 }
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 let warnBorderRadiusArrayTooLarge = false;
 
@@ -167,7 +166,6 @@ export const Textarea = React.forwardRef(
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
-      inputRef,
       borderRadius,
       hideBorders = false,
       required,
@@ -200,13 +198,6 @@ export const Textarea = React.forwardRef(
       },
       [ref]
     );
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Textarea` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
@@ -350,7 +341,6 @@ export const Textarea = React.forwardRef(
           cols={cols}
           id={id}
           as="textarea"
-          inputRef={inputRef}
           validationIconId={validationRedesignOptIn ? undefined : validationId}
           inputBorderRadius={borderRadius}
           required={required}

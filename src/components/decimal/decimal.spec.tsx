@@ -1616,20 +1616,6 @@ describe("Decimal", () => {
   });
 
   describe("refs", () => {
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      const ref = () => {};
-
-      wrapper = enzymeMount(<Decimal inputRef={ref} />);
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `Decimal` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-    });
-
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
       wrapper = enzymeMount(<Decimal ref={ref} />);

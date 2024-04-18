@@ -271,36 +271,6 @@ describe("MultiSelect", () => {
     });
   });
 
-  describe("when the inputRef function prop is specified", () => {
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      const inputRefFn = jest.fn();
-      const wrapper = renderSelect({ inputRef: inputRefFn });
-
-      expect(loggerSpy.mock.calls).toEqual([
-        [
-          "The `inputRef` prop in `Multi Select` component is deprecated and will soon be removed. Please use `ref` instead.",
-        ],
-        [
-          "The `inputRef` prop in `Textbox` component is deprecated and will soon be removed. Please use `ref` instead.",
-        ],
-      ]);
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      loggerSpy.mockRestore();
-    });
-
-    it("then the input reference should be returned on call", () => {
-      const inputRefFn = jest.fn();
-      const wrapper = renderSelect({ inputRef: inputRefFn });
-
-      expect(inputRefFn).toHaveBeenCalledWith({
-        current: wrapper.find("input").getDOMNode(),
-      });
-    });
-  });
-
   describe("when listMaxHeight prop is provided", () => {
     it("overrides default list max-height", () => {
       mount(getSelect());

@@ -28,10 +28,6 @@ export interface CommonInputProps
   id?: string;
   /** Specify a custom border radius for the input. Any valid border-radius design token, or an array of border-radius design tokens. */
   inputBorderRadius?: BorderRadiusType | BorderRadiusType[];
-  /** A callback to retrieve the input reference */
-  inputRef?: (
-    input: React.RefObject<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
   /** Name of the input */
   name?: string;
   /** Specify a callback triggered on blur */
@@ -101,8 +97,6 @@ const Input = React.forwardRef<
       disabled,
       readOnly,
       autoFocus,
-      // TODO: remove inputRef prop from this component (and props interface) when it has been removed from all exposed input components
-      inputRef,
       onClick,
       onChangeDeferred,
       onChange,
@@ -146,12 +140,6 @@ const Input = React.forwardRef<
       },
       [autoFocus, ref, enterKeyHint]
     );
-
-    useEffect(() => {
-      if (inputRef) {
-        inputRef(input);
-      }
-    }, [input, inputRef]);
 
     useEffect(() => {
       if (context.inputRef) {

@@ -69,7 +69,6 @@ export interface DecimalProps
   locale?: string;
 }
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export const Decimal = React.forwardRef(
@@ -88,19 +87,11 @@ export const Decimal = React.forwardRef(
       allowEmptyValue = false,
       locale,
       value,
-      inputRef,
       ...rest
     }: DecimalProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     const l = useContext(LocaleContext);
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Decimal` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     const getSeparator = useCallback(
       (separatorType) => {
@@ -347,7 +338,6 @@ export const Decimal = React.forwardRef(
           data-component="decimal"
           id={id}
           ref={ref}
-          inputRef={inputRef}
           {...rest}
         />
         <input

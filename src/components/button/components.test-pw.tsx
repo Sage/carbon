@@ -169,10 +169,6 @@ export const NoWrapTertiaryButtonsExample = () => {
   return <Box>{generateButtonsNoWrapExample("tertiary")}</Box>;
 };
 
-export const NoWrapDashedButtonsExample = () => {
-  return <Box>{generateButtonsNoWrapExample("dashed")}</Box>;
-};
-
 export const NoWrapDarkBackgroundButtonsExample = () => {
   return <Box>{generateButtonsNoWrapExample("darkBackground")}</Box>;
 };
@@ -405,10 +401,6 @@ export const FullWidthTertiaryButtonsExample = () => {
   return <Box>{generateFullWidthButtonsExample("tertiary")}</Box>;
 };
 
-export const FullWidthDashedButtonsExample = () => {
-  return <Box>{generateFullWidthButtonsExample("dashed")}</Box>;
-};
-
 export const FullWidthDarkBackgroundButtonsExample = () => {
   return <Box>{generateFullWidthButtonsExample("darkBackground")}</Box>;
 };
@@ -437,14 +429,6 @@ export const TertiaryButtonIconAfter = () => {
   return <Box>{generateButtons("tertiary", "after")}</Box>;
 };
 
-export const DashedButtonIconBefore = () => {
-  return <Box>{generateButtons("dashed", "before")}</Box>;
-};
-
-export const DashedButtonIconAfter = () => {
-  return <Box>{generateButtons("dashed", "after")}</Box>;
-};
-
 export const DarkBackgroundButtonIconBefore = () => {
   return <Box>{generateButtons("darkBackground", "before")}</Box>;
 };
@@ -464,9 +448,6 @@ export const ButtonDifferentTypes = (props: Partial<ButtonProps>) => {
       </Button>
       <Button buttonType="tertiary" data-testid="third-button" {...props}>
         Tertiary
-      </Button>
-      <Button buttonType="dashed" data-testid="fourth-button" {...props}>
-        Dashed
       </Button>
       <Button buttonType="gradient-white" data-testid="fifth-button" {...props}>
         Gradient white
@@ -752,97 +733,6 @@ export const TertiaryButtonNoWrap = () => {
   return (
     <Box>
       <Button ml={2} mt={2} buttonType="tertiary" noWrap>
-        Long button text
-      </Button>
-    </Box>
-  );
-};
-
-export const DashedButton = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="dashed" size="small">
-        Small
-      </Button>
-      <Button mt={2} buttonType="dashed" ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="dashed" size="large" ml={2}>
-        Large
-      </Button>
-    </Box>
-  );
-};
-
-export const DashedButtonDisabled = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="dashed" disabled size="small">
-        Small
-      </Button>
-      <Button mt={2} buttonType="dashed" disabled ml={2}>
-        Medium
-      </Button>
-      <Button mt={2} buttonType="dashed" disabled size="large" ml={2}>
-        Large
-      </Button>
-    </Box>
-  );
-};
-
-export const DashedButtonIcon = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="dashed" iconType="add" size="small">
-        Small
-      </Button>
-      <Button
-        mt={2}
-        buttonType="dashed"
-        iconType="add"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-      <Button
-        mt={2}
-        buttonType="dashed"
-        disabled
-        iconType="add"
-        size="small"
-        ml={2}
-      >
-        Small
-      </Button>
-      <Button
-        mt={2}
-        buttonType="dashed"
-        disabled
-        iconType="add"
-        iconPosition="after"
-        ml={2}
-      >
-        Medium
-      </Button>
-    </Box>
-  );
-};
-
-export const DashedButtonFullWidth = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="dashed" fullWidth>
-        Full Width
-      </Button>
-    </Box>
-  );
-};
-
-export const DashedButtonNoWrap = () => {
-  return (
-    <Box>
-      <Button mt={2} buttonType="dashed" noWrap>
         Long button text
       </Button>
     </Box>

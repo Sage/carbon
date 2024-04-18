@@ -38,11 +38,8 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
-  /** A callback to retrieve the input reference (deprecated) */
-  inputRef?: React.Ref<HTMLInputElement>;
 }
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export const Switch = React.forwardRef(
@@ -76,7 +73,6 @@ export const Switch = React.forwardRef(
       "data-element": dataElement,
       "data-role": dataRole,
       helpAriaLabel,
-      inputRef,
       ...rest
     }: SwitchProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -87,13 +83,6 @@ export const Switch = React.forwardRef(
     const [checkedInternal, setCheckedInternal] = useState(
       defaultChecked || false
     );
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Switch` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
@@ -169,7 +158,7 @@ export const Switch = React.forwardRef(
       role: "switch",
       reverse: !reverse, // switched to preserve backward compatibility
       validationOnLabel: shouldValidationBeOnLabel && !disabled,
-      ref: ref || inputRef,
+      ref,
       ...rest,
     };
 
@@ -208,7 +197,7 @@ export const Switch = React.forwardRef(
       value,
       type: "checkbox",
       role: "switch",
-      ref: ref || inputRef,
+      ref,
       ...rest,
     };
 

@@ -94,19 +94,6 @@ describe("Checkbox", () => {
   describe("refs", () => {
     let wrapper: ReactWrapper;
 
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      const ref = { current: null };
-
-      wrapper = renderCheckbox({ inputRef: ref });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `Checkbox` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-      loggerSpy.mockRestore();
-    });
-
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
       wrapper = renderCheckbox({ ref });

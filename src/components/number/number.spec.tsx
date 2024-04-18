@@ -207,22 +207,6 @@ describe("Number Input", () => {
   });
 
   describe("refs", () => {
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      loggerSpy = jest.spyOn(Logger, "deprecate");
-      const ref = () => {};
-
-      wrapper = renderNumberInput({ inputRef: ref });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `Number` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      loggerSpy.mockRestore();
-    });
-
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
       wrapper = renderNumberInput({ ref });

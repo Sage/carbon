@@ -334,21 +334,6 @@ describe("GroupedCharacter", () => {
   describe("refs", () => {
     let wrapper: ReactWrapper;
 
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      const ref = () => {};
-
-      wrapper = renderGroupedCharacter({ inputRef: ref });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `GroupedCharacter` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      loggerSpy.mockRestore();
-    });
-
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
       wrapper = renderGroupedCharacter({ ref });
