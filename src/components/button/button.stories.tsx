@@ -1,5 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/testing-library";
+
 import Button from ".";
 import Box from "../box";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -686,3 +688,34 @@ export const GradientGreyNoWrap: Story = () => {
   );
 };
 GradientGreyNoWrap.storyName = "Gradient/Grey/No Wrap";
+
+// Play Functions
+export const ButtonClick: Story = {
+  render: () => (
+    <Button mt={2} buttonType="primary" size="small" ml={2}>
+      Small
+    </Button>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.click(ButtonComponent);
+  },
+};
+
+export const ButtonHover: Story = {
+  render: () => (
+    <Button mt={2} buttonType="primary" size="small" ml={2}>
+      Small
+    </Button>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.hover(ButtonComponent);
+  },
+};

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ArgTypes, Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/testing-library";
 
+import { fireEvent } from "@testing-library/react";
 import Decimal, { DecimalProps, CustomEvent } from ".";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
@@ -326,4 +328,15 @@ export const ValidationsTooltipLabel: StoryWithMessage = {
   args: { ...ValidationsTooltip.args, validationOnLabel: true },
   name: "Validations - Tooltip - Label",
   parameters: { chromatic: { disableSnapshot: true } },
+};
+
+// Play Functions
+DefaultStory.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  const inputElement = canvas.getByText("Decimal");
+
+  await userEvent.click(inputElement);
+  await userEvent.clear(inputElement);
+  await userEvent.type(inputElement, "0.02");
 };
