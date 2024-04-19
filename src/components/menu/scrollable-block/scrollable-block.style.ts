@@ -18,6 +18,7 @@ const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
       background-color: ${variant === "default"
         ? menuConfigVariants[menuType].submenuItemBackground
         : menuConfigVariants[menuType].alternate};
+      padding-right: var(--spacing150);
     }
 
     ${StyledBox} {
@@ -29,6 +30,18 @@ const StyledScrollableBlock = styled.li<StyledScrollableBlockProps>`
       ${StyledMenuItem}:last-child button {
         border-bottom-left-radius: var(--borderRadius100);
         border-bottom-right-radius: var(--borderRadius000);
+      }
+
+      scrollbar-color: ${menuConfigVariants[menuType].scrollbarColor};
+
+      &::-webkit-scrollbar {
+        width: var(--sizing150);
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: ${menuConfigVariants[menuType].scrollbarThumb};
+      }
+      &::-webkit-scrollbar-track {
+        background-color: ${menuConfigVariants[menuType].scrollbarTrack};
       }
     }
   `}
