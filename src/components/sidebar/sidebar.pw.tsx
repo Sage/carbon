@@ -373,7 +373,8 @@ test.describe("Check background scroll when tabbing", () => {
     const closeIconButtonElement = closeIconButton(page);
 
     await expect(closeIconButtonElement).toBeFocused();
-    const boxElement = getDataElementByValue(page, "test-box");
+
+    const boxElement = page.getByText("I should not be scrolled into view");
     await expect(boxElement).not.toBeInViewport();
   });
 
@@ -388,7 +389,7 @@ test.describe("Check background scroll when tabbing", () => {
 
     await expect(closeIconButtonElement).toBeFocused();
 
-    const boxElement = getDataElementByValue(page, "test-box");
+    const boxElement = page.getByText("I should not be scrolled into view");
     await expect(boxElement).not.toBeInViewport();
   });
 
@@ -404,7 +405,7 @@ test.describe("Check background scroll when tabbing", () => {
 
     await expect(closeIconButtonElement).toBeFocused();
 
-    const boxElement = getDataElementByValue(page, "test-box");
+    const boxElement = page.getByText("I should not be scrolled into view");
     await expect(boxElement).not.toBeInViewport();
   });
 
@@ -419,7 +420,7 @@ test.describe("Check background scroll when tabbing", () => {
 
     await expect(closeIconButtonElement).toBeFocused();
 
-    const boxElement = getDataElementByValue(page, "test-box");
+    const boxElement = page.getByText("I should not be scrolled into view");
     await expect(boxElement).not.toBeInViewport();
   });
 });

@@ -40,7 +40,6 @@ import {
   // eslint-disable-next-line import/named
   enUS as enUSLocale,
 } from "../../locales/date-fns-locales";
-import Logger from "../../__internal__/utils/logger";
 import StyledButton from "./__internal__/navbar/button.style";
 import StyledLabel, {
   StyledLabelContainer,
@@ -241,7 +240,6 @@ describe("Date", () => {
     allowEmptyValue,
     eventValues = () => {},
     refToBeForwarded,
-    inputRef,
     ...rest
   }: Partial<DateInputProps> & MockComponentProps) => {
     const [val, setVal] = useState(allowEmptyValue ? "" : "02/02/2022");
@@ -261,7 +259,6 @@ describe("Date", () => {
         name="Foo"
         id="Bar"
         ref={refToBeForwarded}
-        inputRef={inputRef}
       />
     );
   };
@@ -307,23 +304,6 @@ describe("Date", () => {
   });
 
   describe("refs", () => {
-    it("should display deprecation warning when the inputRef prop is used", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
-      loggerSpy.mockImplementation(() => {});
-      const ref = () => {};
-
-      wrapper = mount(<MockComponent inputRef={ref} />);
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `inputRef` prop in `DateInput` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      // will be called twice because the prop is passed to Textbox where another deprecation warning is triggered.
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(2);
-      loggerSpy.mockRestore();
-    });
-
     it("accepts ref as a ref object", () => {
       const ref = { current: null };
       wrapper = mount(<MockComponent refToBeForwarded={ref} />);

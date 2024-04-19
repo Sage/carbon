@@ -626,7 +626,9 @@ test.describe("test background scroll when tabbing", () => {
 
     await continuePressingTAB(page, 3);
     await iconIsFocused(page, 0);
-    await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+    await expect(
+      page.getByText("I should not be scrolled into view")
+    ).not.toBeInViewport();
   });
 
   test("tabbing backward through the dialog and back to the start should not make the background scroll to the bottom", async ({
@@ -638,7 +640,9 @@ test.describe("test background scroll when tabbing", () => {
     await page.waitForTimeout(500);
     await continuePressingSHIFTTAB(page, 2);
     await iconIsFocused(page, 0);
-    await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+    await expect(
+      page.getByText("I should not be scrolled into view")
+    ).not.toBeInViewport();
   });
 
   test("tabbing forward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", async ({
@@ -654,7 +658,9 @@ test.describe("test background scroll when tabbing", () => {
     await toastIcon.focus();
     await continuePressingTAB(page, 5);
     await iconIsFocused(page, 0);
-    await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+    await expect(
+      page.getByText("I should not be scrolled into view")
+    ).not.toBeInViewport();
   });
 
   test("tabbing backward through the dialog and other focusable containers back to the start should not make the background scroll to the bottom", async ({
@@ -668,6 +674,8 @@ test.describe("test background scroll when tabbing", () => {
     await page.waitForTimeout(500);
     await continuePressingSHIFTTAB(page, 8);
     await iconIsFocused(page, 0);
-    await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+    await expect(
+      page.getByText("I should not be scrolled into view")
+    ).not.toBeInViewport();
   });
 });

@@ -41,7 +41,7 @@ export const DialogFullScreenComponent = ({
         {...props}
       >
         <Button onClick={() => setIsOpen(false)}>Not focused</Button>
-        <Button forwardRef={ref} onClick={() => setIsOpen(false)}>
+        <Button ref={ref} onClick={() => setIsOpen(false)}>
           This should be focused first now
         </Button>
 
@@ -180,7 +180,7 @@ export const DialogFullScreenBackgroundScrollTestComponent = () => {
     <DialogFullScreen open onCancel={() => {}}>
       <Textbox label="textbox" />
       <Box height="2000px" position="relative">
-        <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+        <Box height="100px" position="absolute" bottom="0px">
           I should not be scrolled into view
         </Box>
       </Box>
@@ -200,7 +200,7 @@ export const DialogFullScreenBackgroundScrollWithOtherFocusableContainers = () =
       >
         <Textbox label="textbox" />
         <Box height="2000px" position="relative">
-          <Box height="100px" id="bottom-box" position="absolute" bottom="0px">
+          <Box height="100px" position="absolute" bottom="0px">
             I should not be scrolled into view
           </Box>
         </Box>
@@ -390,7 +390,7 @@ export const FocusingADifferentFirstElement = () => {
           }}
         >
           <Button onClick={() => setIsOpenOne(false)}>Not focused</Button>
-          <Button forwardRef={ref} onClick={() => setIsOpenOne(false)}>
+          <Button ref={ref} onClick={() => setIsOpenOne(false)}>
             This should be focused first now
           </Button>
         </div>

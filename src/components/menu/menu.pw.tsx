@@ -64,6 +64,7 @@ import {
   MenuDividerComponent,
   InGlobalHeaderStory,
   SubMenuWithVeryLongLabel,
+  MenuSegmentTitleComponentWithAdditionalMenuItem,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
 import { HooksConfig } from "../../../playwright";
@@ -2329,6 +2330,38 @@ test.describe(
       await expect(subMenu2).toHaveCSS("border-radius", "0px 0px 8px 8px");
     });
 
+    test(`should render with the expected border radius styling on the last MenuItem in a segment block`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuSegmentTitleComponent />);
+
+      const subMenu = submenu(page).nth(1);
+      await subMenu.hover();
+      const lastMenuItem = submenu(page).locator("a").last();
+      await lastMenuItem.focus();
+      await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
+    });
+
+    test(`should render with the expected border radius styling on the last MenuItem in a segment block when it is not the last menu item in the whole submenu`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuSegmentTitleComponentWithAdditionalMenuItem />);
+
+      const subMenu = submenu(page).nth(1);
+      await subMenu.hover();
+      const lastMenuItemInLastSegment = page.getByRole("link", {
+        name: "Last Segment Child",
+      });
+      await lastMenuItemInLastSegment.focus();
+      await expect(lastMenuItemInLastSegment).toHaveCSS("border-radius", "0px");
+
+      const lastMenuItem = submenu(page).locator("a").last();
+      await lastMenuItem.focus();
+      await expect(lastMenuItem).toHaveCSS("border-radius", "0px 0px 8px 8px");
+    });
+
     test(`should render with the expected border radius styling on the Submenu Scrollable Block`, async ({
       mount,
       page,
@@ -2356,9 +2389,14 @@ test.describe(
       await mount(<MenuFullScreenBackgroundScrollTest />);
 
       await continuePressingTAB(page, 4);
+
       const closeIcon = closeIconButton(page);
       await expect(closeIcon).toBeFocused();
-      await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+
+      const offscreenText = page.getByText(
+        "I should not be scrolled into view"
+      );
+      await expect(offscreenText).not.toBeInViewport();
     });
 
     test(`should verify that tabbing backward through the menu and back to the start should not make the background scroll to the bottom`, async ({
@@ -2368,9 +2406,14 @@ test.describe(
       await mount(<MenuFullScreenBackgroundScrollTest />);
 
       await continuePressingSHIFTTAB(page, 3);
+
       const closeIcon = closeIconButton(page);
       await expect(closeIcon).toBeFocused();
-      await expect(page.getByTestId("#bottom-box")).not.toBeInViewport();
+
+      const offscreenText = page.getByText(
+        "I should not be scrolled into view"
+      );
+      await expect(offscreenText).not.toBeInViewport();
     });
 
     test(`should render with all the content of a long submenu accessible with the keyboard while remaining visible`, async ({

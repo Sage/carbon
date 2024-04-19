@@ -134,7 +134,6 @@ export interface TextboxProps extends CommonTextboxProps {
   characterLimit?: number;
 }
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 export const Textbox = React.forwardRef(
@@ -165,7 +164,6 @@ export const Textbox = React.forwardRef(
       value,
       readOnly,
       placeholder,
-      inputRef,
       onBlur,
       onClick,
       onFocus,
@@ -207,13 +205,6 @@ export const Textbox = React.forwardRef(
     const { disableErrorBorder } = useContext(NumeralDateContext);
     const computeLabelPropValues = <T,>(prop: T): undefined | T =>
       validationRedesignOptIn ? undefined : prop;
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Textbox` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
@@ -281,7 +272,6 @@ export const Textbox = React.forwardRef(
           deferTimeout={deferTimeout}
           disabled={disabled}
           id={uniqueId}
-          inputRef={inputRef}
           ref={ref}
           name={uniqueName}
           onBlur={onBlur}

@@ -1,3 +1,25 @@
+## [133.0.0](https://github.com/Sage/carbon/compare/v132.2.1...v133.0.0) (2024-04-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **input:** `inputRef` prop has been removed from input components, use `ref` instead.
+* **button:** "dashed" variant has been removed from `buttonType`.
+* **button:** `forwardRef` has been removed, use `ref` instead.
+
+### Miscellaneous Chores
+
+* **button:** remove dashed buttonType ([997cfdc](https://github.com/Sage/carbon/commit/997cfdcb947f1192b01275ec190c0e88822b3aab))
+* **button:** remove forwardRef prop ([c14d300](https://github.com/Sage/carbon/commit/c14d30059621eac684b6f4979181e109d330856e))
+* **input:** remove inputRef prop ([6db6202](https://github.com/Sage/carbon/commit/6db620261d7dcf80d9f61d4a60a9529d2fdfa322))
+
+### [132.2.1](https://github.com/Sage/carbon/compare/v132.2.0...v132.2.1) (2024-04-15)
+
+
+### Bug Fixes
+
+* **submenu:** ensure last child in segment title has correct styling ([a6ab6aa](https://github.com/Sage/carbon/commit/a6ab6aa563e25fa4d9cc155b314fc26855601170)), closes [#6488](https://github.com/Sage/carbon/issues/6488)
+
 ## [132.2.0](https://github.com/Sage/carbon/compare/v132.1.0...v132.2.0) (2024-04-11)
 
 

@@ -30,7 +30,6 @@ import { OptionProps } from "../option";
 import { OptionRowProps } from "../option-row";
 import { CustomSelectChangeEvent } from "../simple-select";
 
-let deprecateInputRefWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 
 const FilterableSelectList = withFilter(SelectList);
@@ -129,7 +128,6 @@ export const MultiSelect = React.forwardRef(
       listMaxHeight,
       flipEnabled = true,
       wrapPillText = true,
-      inputRef,
       enableVirtualScroll,
       virtualScrollOverscan,
       isOptional,
@@ -165,13 +163,6 @@ export const MultiSelect = React.forwardRef(
     const focusTimer = useRef<null | ReturnType<typeof setTimeout>>(null);
 
     const actualValue = isControlled.current ? value : selectedValue;
-
-    if (!deprecateInputRefWarnTriggered && inputRef) {
-      deprecateInputRefWarnTriggered = true;
-      Logger.deprecate(
-        "The `inputRef` prop in `Multi Select` component is deprecated and will soon be removed. Please use `ref` instead."
-      );
-    }
 
     const componentIsUncontrolled =
       !isControlled || (!onChange && defaultValue);
@@ -594,7 +585,7 @@ export const MultiSelect = React.forwardRef(
       (element) => {
         setTextboxRef(element);
 
-        if (inputRef || !ref) {
+        if (!ref) {
           return;
         }
 
@@ -604,7 +595,7 @@ export const MultiSelect = React.forwardRef(
           ref.current = element;
         }
       },
-      [ref, inputRef]
+      [ref]
     );
 
     function getTextboxProps() {
@@ -631,7 +622,6 @@ export const MultiSelect = React.forwardRef(
         size,
         required,
         isOptional,
-        inputRef,
         ...filterOutStyledSystemSpacingProps(textboxProps),
       };
     }

@@ -17,29 +17,19 @@ export const TextboxComponent = (props: Partial<TextboxProps>) => {
   );
 };
 
-export const TextboxComponentInputRef = () => {
-  const ref = useRef(null);
+export const TextboxComponentRef = () => {
+  const ref = useRef<HTMLInputElement | null>(null);
 
   return (
     <Box margin="0 25px">
       <Button
         onClick={() => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          if (ref.current) ref.current.focus();
+          if (ref.current) ref.current?.focus();
         }}
       >
         Focus Textbox
       </Button>
-      <TextboxComponent
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        inputRef={(el: React.ChangeEvent<HTMLInputElement>) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          ref.current = el.current;
-        }}
-      />
+      <Textbox ref={ref} />
     </Box>
   );
 };

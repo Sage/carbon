@@ -8,7 +8,6 @@ export const BUTTON_VARIANTS: ButtonTypes[] = [
   "primary",
   "secondary",
   "tertiary",
-  "dashed",
   "darkBackground",
   "gradient-white",
   "gradient-grey",

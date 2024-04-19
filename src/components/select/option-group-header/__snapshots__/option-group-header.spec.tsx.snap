@@ -126,6 +126,7 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
     className="c1 c2"
     data-component="icon"
     data-element="individual"
+    data-role="icon"
     fontSize="small"
     type="individual"
   />

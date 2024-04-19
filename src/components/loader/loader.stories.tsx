@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import Loader from ".";
 import Button from "../button/button.component";
-import Box from "../box";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -41,33 +40,30 @@ export const Large: Story = () => {
 };
 Large.storyName = "Large";
 
-export const InsideButtons: Story = () => {
+export const InsideButton: Story = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const mimicLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  };
+  const handleButtonClick = () => {
+    mimicLoading();
+  };
+  const buttonContent = isLoading ? <Loader isInsideButton /> : "Click me";
+  const ariaContent = isLoading ? "Loading" : "Click me";
   return (
-    <>
-      <Button buttonType="primary" aria-label="Loading">
-        <Loader isInsideButton />
+    <span aria-live="polite">
+      <Button
+        m={2}
+        buttonType="primary"
+        aria-label={ariaContent}
+        onClick={handleButtonClick}
+      >
+        {buttonContent}
       </Button>
-      <Button ml={2} buttonType="primary" destructive aria-label="Loading">
-        <Loader isInsideButton />
-      </Button>
-      <Button ml={2} destructive aria-label="Loading">
-        <Loader isInsideButton />
-      </Button>
-      <Button ml={2} buttonType="tertiary" aria-label="Loading">
-        <Loader isInsideButton />
-      </Button>
-      <Button ml={2} buttonType="secondary" aria-label="Loading">
-        <Loader isInsideButton />
-      </Button>
-      <Button ml={2} buttonType="dashed" aria-label="Loading">
-        <Loader isInsideButton />
-      </Button>
-      <Box id="dark-background" mt={2} p={2} width="fit-content" bg="#000000">
-        <Button m={2} buttonType="darkBackground" aria-label="Loading">
-          <Loader isInsideButton />
-        </Button>
-      </Box>
-    </>
+    </span>
   );
 };
-InsideButtons.storyName = "Inside Buttons";
+InsideButton.storyName = "Inside Button";

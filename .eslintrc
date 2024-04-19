@@ -145,10 +145,7 @@
         ]
       },
       "plugins": ["@typescript-eslint"],
-      "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
-      ],
+      "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
       "settings": {
         "mdx/code-blocks": true,
         "react": {
@@ -159,7 +156,7 @@
         "import/named": "off",
         "react/prefer-stateless-function": "off",
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/no-use-before-define": "error",
         "@typescript-eslint/no-empty-function": [
           "error",
           { "allow": ["arrowFunctions"] }

@@ -172,6 +172,7 @@ exports[`Option renders properly 1`] = `
       color="--colorsActionMajor500"
       data-component="icon"
       data-element="add"
+      data-role="icon"
       disabled={false}
       fontSize="small"
       type="add"

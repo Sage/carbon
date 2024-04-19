@@ -4,7 +4,7 @@ exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\"
 
 exports[`Portal when id prop is given matches snapshot 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\" id=\\"abc\\"><div class=\\"sc-bdVaJa ibReFo\\"><span>a1</span></div><div class=\\"sc-bdVaJa ibReFo\\"><span>a2</span></div></div>"`;
 
-exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa ibReFo\\"><span class=\\"sc-EHOje iDLBLV\\" data-element=\\"tick\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\" data-component=\\"icon\\"></span></div></div>"`;
+exports[`Portal when using default node then the portal will mount on body 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><div class=\\"sc-bdVaJa ibReFo\\"><span class=\\"sc-EHOje iDLBLV\\" data-component=\\"icon\\" data-element=\\"tick\\" data-role=\\"icon\\" font-size=\\"small\\" tabindex=\\"0\\" type=\\"tick\\"></span></div></div>"`;
 
 exports[`Portal when using default node to match snapshot 1`] = `
 <styled.span
