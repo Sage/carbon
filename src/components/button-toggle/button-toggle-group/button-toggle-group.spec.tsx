@@ -426,7 +426,7 @@ describe("ButtonToggleGroup", () => {
           .at(0)
           .getDOMNode()
           .getAttribute("tabindex")
-      ).toBeNull();
+      ).toBe("0");
       expect(
         wrapper
           .find(StyledButtonToggle)
@@ -460,7 +460,7 @@ describe("ButtonToggleGroup", () => {
           .at(1)
           .getDOMNode()
           .getAttribute("tabindex")
-      ).toBeNull();
+      ).toBe("0");
       expect(
         wrapper
           .find(StyledButtonToggle)

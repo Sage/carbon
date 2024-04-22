@@ -98,6 +98,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       size="medium"
+      tabIndex={0}
     >
       Text
     </button>
@@ -117,6 +118,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       size="medium"
+      tabIndex={0}
     >
       Text
     </button>
