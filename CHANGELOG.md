@@ -1,3 +1,11 @@
+### [133.0.1](https://github.com/Sage/carbon/compare/v133.0.0...v133.0.1) (2024-04-23)
+
+
+### Bug Fixes
+
+* **filterable-select:** ensure no runtime error is triggered when component has a single option ([4926092](https://github.com/Sage/carbon/commit/4926092ec619fc18629cf2ddf8f03e359ceae85c)), closes [#6654](https://github.com/Sage/carbon/issues/6654)
+* **multi-select:** ensure console error is not fired when component has a single option ([1914940](https://github.com/Sage/carbon/commit/19149402b1892d839af5d3233370ed10f0c009cc))
+
 ## [133.0.0](https://github.com/Sage/carbon/compare/v132.2.1...v133.0.0) (2024-04-18)
 
 
