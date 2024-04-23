@@ -537,3 +537,31 @@ export const MultiSelectWithDisabledOption = () => {
     </MultiSelect>
   );
 };
+
+export const SingleOption = () => {
+  const [selectedPills, setSelectedPills] = useState([] as string[]);
+  const handleActivityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedPills((event.target.value as unknown) as string[]);
+    partialAction("onChange")();
+  };
+  return (
+    <MultiSelect
+      name="testing"
+      value={selectedPills}
+      onChange={handleActivityChange}
+      onOpen={partialAction("onOpen")}
+      onClick={partialAction("onClick")}
+      onFilterChange={partialAction("onFilterChange")}
+      onFocus={partialAction("onFocus")}
+      onBlur={partialAction("onBlur")}
+      onKeyDown={partialAction("onKeyDown")}
+      openOnFocus
+      label="Test"
+      placeholder=" "
+    >
+      <Option value="1" text="One" />
+    </MultiSelect>
+  );
+};
+
+SingleOption.storyName = "Single Option";

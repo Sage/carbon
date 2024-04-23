@@ -610,3 +610,23 @@ export const OnChangeWithDeleteStory = () => {
     </>
   );
 };
+
+export const SingleOption = () => (
+  <FilterableSelect
+    name="simple"
+    id="simple"
+    label="color"
+    labelInline
+    onOpen={partialAction("onOpen")}
+    onChange={partialAction("onChange")}
+    onClick={partialAction("onClick")}
+    onFilterChange={partialAction("onFilterChange")}
+    onFocus={partialAction("onFocus")}
+    onBlur={partialAction("onBlur")}
+    onKeyDown={partialAction("onKeyDown")}
+  >
+    <Option text="Amber" value="1" />
+  </FilterableSelect>
+);
+
+SingleOption.storyName = "Single Option";

@@ -79,6 +79,21 @@ describe("MultiSelect", () => {
     mockDOMRect(200, 200, "select-list-scrollable-container");
   });
 
+  it("should not throw an error when component has only one value and a value is typed in the Select Textbox", () => {
+    const wrapper = mount(
+      <MultiSelect name="testSelect" id="testSelect">
+        <Option value="opt1" text="red" />
+      </MultiSelect>
+    );
+
+    expect(wrapper.find(Option).length).toBe(1);
+    expect(() => {
+      act(() => {
+        wrapper.find("input").simulate("change", { target: { value: "v" } });
+      });
+    }).not.toThrow();
+  });
+
   describe("Deprecation warning for uncontrolled", () => {
     beforeEach(() => {
       loggerSpy = jest.spyOn(Logger, "deprecate");

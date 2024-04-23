@@ -231,17 +231,20 @@ export const MultiSelect = React.forwardRef(
       textToMatch: string,
       list: React.ReactNode
     ) {
-      return (list as React.ReactElement[]).find((child) => {
-        const { text } = child.props;
+      return React.Children.toArray(list).find((child) => {
+        const { text } = (child as React.ReactElement).props;
 
-        return text?.toLowerCase().indexOf(textToMatch.toLowerCase()) !== -1;
+        return text?.toLowerCase().indexOf(textToMatch?.toLowerCase()) !== -1;
       });
     }
 
     const handleTextboxChange = useCallback(
       (event) => {
         const newValue = event.target.value;
-        const match = findElementWithMatchingText(newValue, children);
+        const match = findElementWithMatchingText(
+          newValue,
+          children
+        ) as React.ReactElement;
 
         if (match) {
           setHighlightedValue(match.props.value);

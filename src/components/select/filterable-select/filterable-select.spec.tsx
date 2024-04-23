@@ -106,6 +106,21 @@ describe("FilterableSelect", () => {
 
   testStyledSystemMargin((props) => getSelect(props));
 
+  it("should not throw an error when component has only one value and a value is typed in the Select Textbox", () => {
+    const wrapper = mount(
+      <FilterableSelect name="testSelect" id="testSelect">
+        <Option value="opt1" text="red" />
+      </FilterableSelect>
+    );
+
+    expect(wrapper.find(Option).length).toBe(1);
+    expect(() => {
+      act(() => {
+        wrapper.find("input").simulate("change", { target: { value: "r" } });
+      });
+    }).not.toThrow();
+  });
+
   it('the Textbox should have type of "text"', () => {
     const wrapper = renderSelect();
 
