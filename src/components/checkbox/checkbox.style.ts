@@ -132,6 +132,7 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
       svg {
         height: 24px;
         width: 24px;
+        min-width: 24px;
       }
 
       ${StyledFieldHelp} {
