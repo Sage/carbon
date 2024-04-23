@@ -1,3 +1,10 @@
+### [133.0.2](https://github.com/Sage/carbon/compare/v133.0.1...v133.0.2) (2024-04-23)
+
+
+### Bug Fixes
+
+* **checkbox:** fix reduced spacing between label and large checkbox ([1a20aa4](https://github.com/Sage/carbon/commit/1a20aa48be3892c9dcfab6d049e4eb84127cd200)), closes [#6683](https://github.com/Sage/carbon/issues/6683)
+
 ### [133.0.1](https://github.com/Sage/carbon/compare/v133.0.0...v133.0.1) (2024-04-23)
 
 
