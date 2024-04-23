@@ -4,7 +4,6 @@ import { getDataElementByValue } from "../../../playwright/components";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
-  getStyle,
 } from "../../../playwright/support/helper";
 import { BoxProps } from "../../../src/components/box";
 import {
@@ -669,39 +668,26 @@ test.describe("should render Box component", () => {
   });
 
   ([
-    ["light", "rgb(102, 132, 148)", "rgb(242, 245, 246)"],
-    ["dark", "rgb(153, 173, 183)", "rgb(51, 91, 112)"],
-  ] as [BoxProps["scrollVariant"], string, string][]).forEach(
-    ([variant, thumb, track]) => {
-      test(`should verify scrollbar variant is ${variant}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <BoxComponentMulti
-            display="inline-block"
-            size="150px"
-            overflow="auto"
-            scrollVariant={variant}
-            mr="20px"
-          />
-        );
-        const boxLocator = await getDataElementByValue(page, "boxone");
-        const colorValueThumb = await getStyle(
-          boxLocator,
-          "background-color",
-          "-webkit-scrollbar-thumb"
-        );
-        const colorValueTrack = await getStyle(
-          boxLocator,
-          "background-color",
-          "-webkit-scrollbar-track"
-        );
-        await expect(colorValueThumb).toBe(thumb);
-        await expect(colorValueTrack).toBe(track);
-      });
-    }
-  );
+    ["light", "rgb(102, 132, 148) rgb(242, 245, 246)"],
+    ["dark", "rgb(153, 173, 183) rgb(51, 91, 112)"],
+  ] as const).forEach(([variant, scrollbarColor]) => {
+    test(`scrollbar has correct colours when scrollVariant prop is ${variant}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <BoxComponentMulti
+          display="inline-block"
+          size="150px"
+          overflow="auto"
+          scrollVariant={variant}
+          mr="20px"
+        />
+      );
+      const box = page.getByText(/Supercalifrajilisticexpialidocious Word/);
+      await expect(box).toHaveCSS("scrollbar-color", scrollbarColor);
+    });
+  });
 
   (["fixed", "absolute", "static", "sticky", "relative"] as const).forEach(
     (value) => {

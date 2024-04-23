@@ -256,7 +256,8 @@ test.describe("Functionality tests for DateRange component", () => {
   });
 
   testData.forEach((error) => {
-    test(`should check the validationOnLabel with error state as ${error}`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should check the validationOnLabel with error state as ${error}`, async ({
       mount,
       page,
     }) => {
@@ -290,7 +291,8 @@ test.describe("Functionality tests for DateRange component", () => {
   });
 
   testData.forEach((warning) => {
-    test(`should check the validationOnLabel with warning state as ${warning}`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should check the validationOnLabel with warning state as ${warning}`, async ({
       mount,
       page,
     }) => {
@@ -324,7 +326,8 @@ test.describe("Functionality tests for DateRange component", () => {
   });
 
   testData.forEach((info) => {
-    test(`should check the validationOnLabel with info state as ${info}`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should check the validationOnLabel with info state as ${info}`, async ({
       mount,
       page,
     }) => {

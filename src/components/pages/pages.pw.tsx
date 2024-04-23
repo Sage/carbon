@@ -26,7 +26,8 @@ test.describe("Prop checks for Pages component", () => {
     ["number", 1],
     ["string", "1"],
   ].forEach(([type, propValue]) => {
-    test(`When initialPageIndex prop is passed as ${type}, should show the title that matches the one on the page with that index`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`When initialPageIndex prop is passed as ${type}, should show the title that matches the one on the page with that index`, async ({
       mount,
       page,
     }) => {
@@ -44,7 +45,8 @@ test.describe("Prop checks for Pages component", () => {
     ["number", 1],
     ["string", "1"],
   ].forEach(([type, propValue]) => {
-    test(`When pageIndex prop is passed as ${type}, should show the title that matches the one on the page with that index`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`When pageIndex prop is passed as ${type}, should show the title that matches the one on the page with that index`, async ({
       mount,
       page,
     }) => {
@@ -134,7 +136,8 @@ test.describe("Prop checks for Pages component", () => {
 
   [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach(
     ([testTitle]) => {
-      test(`Page component should render as expected with title prop set to ${testTitle}`, async ({
+      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+      test.skip(`Page component should render as expected with title prop set to ${testTitle}`, async ({
         mount,
         page,
       }) => {

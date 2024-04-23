@@ -6,7 +6,11 @@ import DialogFullScreen from "../dialog-full-screen";
 import Sidebar from "../sidebar";
 import Textbox from "../textbox";
 
-export const ConfirmComponent = (props: Partial<ConfirmProps>) => {
+export const ConfirmComponent = ({
+  onConfirm,
+  onCancel,
+  ...rest
+}: Partial<ConfirmProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const ref = useRef(null);
   return (
@@ -17,10 +21,16 @@ export const ConfirmComponent = (props: Partial<ConfirmProps>) => {
         subtitle="Subtitle"
         showCloseIcon
         open={isOpen}
-        onConfirm={() => setIsOpen(false)}
-        onCancel={() => setIsOpen(false)}
+        onConfirm={(ev) => {
+          setIsOpen(false);
+          if (onConfirm) onConfirm(ev);
+        }}
+        onCancel={(ev) => {
+          setIsOpen(false);
+          if (onCancel) onCancel(ev);
+        }}
         focusFirstElement={ref}
-        {...props}
+        {...rest}
       >
         <button data-element="default-focused" type="button">
           default focused

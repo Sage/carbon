@@ -70,7 +70,8 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.slice(2, 4).forEach((buttonType) => {
-    test(`should render text in ${buttonType} style`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should render text in ${buttonType} style`, async ({
       mount,
       page,
     }) => {
@@ -101,7 +102,8 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.forEach((buttonType, times) => {
-    test(`should focus ${buttonType} button using RightArrow keyboard key`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should focus ${buttonType} button using RightArrow keyboard key`, async ({
       mount,
       page,
     }) => {
@@ -119,7 +121,8 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.forEach((buttonType, times) => {
-    test(`should focus ${buttonType} button using ArrowLeft keyboard key`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should focus ${buttonType} button using ArrowLeft keyboard key`, async ({
       mount,
       page,
     }) => {

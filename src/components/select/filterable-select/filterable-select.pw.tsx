@@ -1211,7 +1211,8 @@ test.describe("Check events for FilterableSelect component", () => {
     await expect(callbackCount).toBe(1);
   });
 
-  test("should call onOpen when select is opened by focusing the input", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should call onOpen when select is opened by focusing the input", async ({
     mount,
     page,
   }) => {

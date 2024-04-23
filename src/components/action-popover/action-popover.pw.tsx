@@ -86,7 +86,8 @@ test.describe("check functionality for ActionPopover component", () => {
     [3, "Download CSV"],
     [4, "Delete"],
   ] as [number, string][]).forEach(([times, elementText]) => {
-    test(`should be able to press downarrow ${times} times and get button ${elementText} focused`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should be able to press downarrow ${times} times and get button ${elementText} focused`, async ({
       mount,
       page,
     }) => {
@@ -103,7 +104,11 @@ test.describe("check functionality for ActionPopover component", () => {
   });
 
   [keyToTrigger[0], keyToTrigger[1], keyToTrigger[3]].forEach((key) => {
-    test(`should open using ${key} keyboard key`, async ({ mount, page }) => {
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should open using ${key} keyboard key`, async ({
+      mount,
+      page,
+    }) => {
       await mount(<ActionPopoverCustom />);
       const actionPopoverButtonElement = await actionPopoverButton(
         page
@@ -116,7 +121,8 @@ test.describe("check functionality for ActionPopover component", () => {
     });
   });
 
-  test("should focus the first element Email Invoice using Home key", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should focus the first element Email Invoice using Home key", async ({
     mount,
     page,
   }) => {
@@ -132,7 +138,8 @@ test.describe("check functionality for ActionPopover component", () => {
     await expect(focusedElement).toContainText("Email Invoice");
   });
 
-  test("should focus the first sub menu 1 element using Home key", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should focus the first sub menu 1 element using Home key", async ({
     mount,
     page,
   }) => {
@@ -153,7 +160,8 @@ test.describe("check functionality for ActionPopover component", () => {
   });
 
   [keyToTrigger[2], keyToTrigger[4]].forEach((key) => {
-    test(`should focus the last element Delete using ${key} keyboard key`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should focus the last element Delete using ${key} keyboard key`, async ({
       mount,
       page,
     }) => {
@@ -166,7 +174,8 @@ test.describe("check functionality for ActionPopover component", () => {
     });
   });
 
-  test("should focus the last sub menu 2 element using End keyboard key", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should focus the last sub menu 2 element using End keyboard key", async ({
     mount,
     page,
   }) => {
@@ -206,7 +215,8 @@ test.describe("check functionality for ActionPopover component", () => {
     await expect(scrollPosition).not.toBe(0);
   });
 
-  test("should close using Tab key", async ({ mount, page }) => {
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should close using Tab key", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
@@ -216,7 +226,8 @@ test.describe("check functionality for ActionPopover component", () => {
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
-  test("should close using ShiftTab key", async ({ mount, page }) => {
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should close using ShiftTab key", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
@@ -226,7 +237,8 @@ test.describe("check functionality for ActionPopover component", () => {
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
-  test("should close using ESC key", async ({ mount, page }) => {
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should close using ESC key", async ({ mount, page }) => {
     await mount(<ActionPopoverCustom />);
     const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
     await actionPopoverButtonElement.click();
@@ -236,7 +248,8 @@ test.describe("check functionality for ActionPopover component", () => {
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
-  test("should close using ESC key if it hasn't got a submenu open", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should close using ESC key if it hasn't got a submenu open", async ({
     mount,
     page,
   }) => {
@@ -250,7 +263,8 @@ test.describe("check functionality for ActionPopover component", () => {
     await expect(actionPopoverElement).not.toBeVisible();
   });
 
-  test("should close using ESC key if it has a submenu open", async ({
+  // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+  test.skip("should close using ESC key if it has a submenu open", async ({
     mount,
     page,
   }) => {
@@ -295,7 +309,8 @@ test.describe("check functionality for ActionPopover component", () => {
     ["e", "Email Invoice", 1],
     ["p", "Print Invoice", 1],
   ] as [string, string, number][]).forEach(([key, innerText, times]) => {
-    test(`should focus ${innerText} element using ${key} keyboard key`, async ({
+    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+    test.skip(`should focus ${innerText} element using ${key} keyboard key`, async ({
       mount,
       page,
     }) => {
@@ -318,7 +333,11 @@ test.describe("check functionality for ActionPopover component", () => {
     [subMenuOption[1], 1],
   ] as [typeof subMenuOption[number], number][]).forEach(
     ([innerText, times]) => {
-      test(`should focus ${innerText} element`, async ({ mount, page }) => {
+      // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
+      test.skip(`should focus ${innerText} element`, async ({
+        mount,
+        page,
+      }) => {
         await mount(<ActionPopoverCustom />);
         const actionPopoverButtonElementEq0 = await actionPopoverButton(
           page

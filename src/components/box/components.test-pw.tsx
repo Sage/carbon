@@ -32,8 +32,7 @@ export const BoxComponentMulti = (props: Partial<BoxProps>) => {
           data-element="boxone"
           {...props}
         >
-          {" "}
-          Supercalifrajilisticexpialidocious Word{" "}
+          Supercalifrajilisticexpialidocious Word
         </Box>
         <Box
           width="100px"
@@ -43,8 +42,7 @@ export const BoxComponentMulti = (props: Partial<BoxProps>) => {
           data-element="boxtwo"
           {...props}
         >
-          {" "}
-          Box Two Box Two Box Two Box Two Box Two{" "}
+          Box Two Box Two Box Two Box Two Box Two
         </Box>
         <Box
           width="100px"
@@ -54,8 +52,7 @@ export const BoxComponentMulti = (props: Partial<BoxProps>) => {
           data-element="boxthree"
           {...props}
         >
-          {" "}
-          Box Three Box Three Box Three Box Three{" "}
+          Box Three Box Three Box Three Box Three
         </Box>
       </Box>
     </div>
