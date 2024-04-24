@@ -202,7 +202,9 @@ export const ButtonToggle = ({
         onBlur={handleBlur}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        {...(tabbable ? {} : { tabIndex: -1 })}
+        // In Safari non-text input elements do not gain focus on click. To get around this, we have to apply a tab-index of 0 here.
+        // This is to allow the ButtonToggle component to be focused when it is the first tabbable element.
+        {...(tabbable ? { tabIndex: 0 } : { tabIndex: -1 })}
         allowDeselect={allowDeselect}
         ref={callbackRef}
       >

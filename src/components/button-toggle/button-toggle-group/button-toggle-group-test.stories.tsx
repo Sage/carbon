@@ -29,7 +29,7 @@ export const DefaultStory = () => {
       label="Button Toggle Group test"
       labelHelp="help message"
       helpAriaLabel="Help"
-      fieldHelp="field help mesage"
+      fieldHelp="field help message"
       onChange={onChangeHandler}
       value={value}
     >
