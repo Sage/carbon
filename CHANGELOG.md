@@ -1,3 +1,10 @@
+### [133.0.3](https://github.com/Sage/carbon/compare/v133.0.2...v133.0.3) (2024-04-24)
+
+
+### Bug Fixes
+
+* **button-toggle:** ensure the first button toggle in a group is focusable via mouse click on Safari ([0df7688](https://github.com/Sage/carbon/commit/0df76888641a5da5d2fe8fde6036344111ff55a8))
+
 ### [133.0.2](https://github.com/Sage/carbon/compare/v133.0.1...v133.0.2) (2024-04-23)
 
 
