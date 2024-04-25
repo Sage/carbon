@@ -56,6 +56,27 @@ describe("LoaderSpinner", () => {
   });
 
   describe("when custom props are passed", () => {
+    it("should be visible when the 'spinnerLabel' prop is passed a custom string value", () => {
+      render(<LoaderSpinner spinnerLabel="foo" />);
+      const visibleLabelElement = screen.getByText("foo");
+
+      expect(visibleLabelElement).toBeVisible();
+    });
+
+    it("should override the visible label text when the 'spinnerLabel' prop is passed a custom string value", () => {
+      render(<LoaderSpinner spinnerLabel="foo" />);
+      const wrapperElement = screen.getByRole("status");
+
+      expect(wrapperElement).toHaveTextContent("foo");
+    });
+
+    it("should override the visually hidden label text when the 'spinnerLabel' prop is passed a custom string value", () => {
+      render(<LoaderSpinner spinnerLabel="bar" showSpinnerLabel={false} />);
+      const hiddenLabelElement = screen.getByTestId("hidden-label");
+
+      expect(hiddenLabelElement).toHaveTextContent("bar");
+    });
+
     it("when the 'size' prop is passed as 'extra-small' the component wrapper has a flex-direction of row", () => {
       render(<LoaderSpinner size="extra-small" />);
       const wrapperElement = screen.getByRole("status");
