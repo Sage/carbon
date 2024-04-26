@@ -529,6 +529,36 @@ test.describe("Functional tests", () => {
       await expect(currentPageSection(page).first()).toBeInViewport();
     });
   });
+
+  [1001, 901, 701, 601, 450].forEach((viewportWidth) => {
+    test(`should be able to access the firstArrow button with showPageSizeSelection in focus with ${viewportWidth}px width`, async ({
+      mount,
+      page,
+    }) => {
+      await page.setViewportSize({
+        width: Number(viewportWidth),
+        height: 768,
+      });
+
+      await mount(<PagerComponent showPageSizeSelection />);
+
+      const currentPage = currentPageWrapper(page)
+        .locator("div")
+        .nth(0)
+        .locator("div")
+        .nth(0)
+        .locator("div")
+        .nth(0)
+        .locator("input");
+
+      await expect(currentPage).toHaveAttribute("value", "1");
+      await nextArrow(page).click();
+      await expect(currentPage).toHaveAttribute("value", "2");
+      await pageSelect(page).focus();
+      await firstArrow(page).click();
+      await expect(currentPage).toHaveAttribute("value", "1");
+    });
+  });
 });
 
 test.describe("Events test", () => {
@@ -547,7 +577,7 @@ test.describe("Events test", () => {
       />
     );
 
-    await pageSelect(page).click();
+    await pageSelectElement(page).click();
     const listWrapper = selectListWrapper(page)
       .locator("li")
       .filter({ hasText: "25" });

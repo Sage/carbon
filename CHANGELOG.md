@@ -1,3 +1,17 @@
+### [133.0.5](https://github.com/Sage/carbon/compare/v133.0.4...v133.0.5) (2024-04-25)
+
+
+### Bug Fixes
+
+* **select:** input element extends outside textbox in smaller screens ([1696470](https://github.com/Sage/carbon/commit/1696470360a3035987eaf3f6710d6be09db6f335)), closes [#6490](https://github.com/Sage/carbon/issues/6490)
+
+### [133.0.4](https://github.com/Sage/carbon/compare/v133.0.3...v133.0.4) (2024-04-25)
+
+
+### Bug Fixes
+
+* **select:** option remaining highlighted after clearing value ([1672900](https://github.com/Sage/carbon/commit/1672900a093e27b48f6f84dcc6debb923d971611)), closes [#6669](https://github.com/Sage/carbon/issues/6669)
+
 ### [133.0.3](https://github.com/Sage/carbon/compare/v133.0.2...v133.0.3) (2024-04-24)
 
 

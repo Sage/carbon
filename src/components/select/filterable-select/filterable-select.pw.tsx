@@ -16,6 +16,8 @@ import {
   FilterableSelectNestedInDialog,
   SelectionConfirmed,
   FilterableSelectWithDisabledOption,
+  FilterableSelectControlled,
+  WithObjectAsValue,
 } from "../../../../src/components/select/filterable-select/components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -764,6 +766,50 @@ test.describe("FilterableSelect component", () => {
     await expect(optionElement).toHaveCSS(
       "background-color",
       "rgb(153, 173, 183)"
+    );
+  });
+
+  test("should not highlight previously selected option when value is cleared", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<FilterableSelectControlled />);
+
+    const inputElement = getDataElementByValue(page, "input");
+    await expect(inputElement).toHaveValue("Green");
+
+    const clearValueButton = page.getByRole("button");
+    await clearValueButton.click();
+
+    await expect(inputElement).toHaveValue("");
+    await dropdownButton(page).click();
+
+    const optionElement = selectOptionByText(page, "Green");
+    await expect(optionElement).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)"
+    );
+  });
+
+  test("should not highlight previously selected option when object as value is cleared", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithObjectAsValue />);
+
+    const inputElement = getDataElementByValue(page, "input");
+    await expect(inputElement).toHaveValue("Green");
+
+    const clearValueButton = page.getByRole("button");
+    await clearValueButton.click();
+
+    await expect(inputElement).toHaveValue("");
+    await dropdownButton(page).click();
+
+    const optionElement = selectOptionByText(page, "Green");
+    await expect(optionElement).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)"
     );
   });
 

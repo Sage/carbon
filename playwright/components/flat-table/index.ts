@@ -10,6 +10,7 @@ import {
   FLAT_TABLE_PAGE_SELECT_NEXT,
   FLAT_TABLE_PAGE_SELECT_PREVIOUS,
   FLAT_TABLE_CURRENT_PAGE,
+  PAGE_SELECT,
   PAGE_SELECT_INPUT,
   FLAT_TABLE_WRAPPER,
   FLAT_TABLE_PAGER,
@@ -60,6 +61,7 @@ export const flatTablePageSizeSelect = (page: Page) =>
   page.locator(FLAT_TABLE_PAGE_SIZE_SELECT);
 export const flatTablePageSelectListPosition = (page: Page) =>
   page.locator(FLAT_TABLE_PAGE_SELECT_LIST);
+export const pageSelectElement = (page: Page) => page.locator(PAGE_SELECT);
 export const pageSelectInput = (page: Page) => page.locator(PAGE_SELECT_INPUT);
 export const flatTablePager = (page: Page) => page.locator(FLAT_TABLE_PAGER);
 export const flatTablePageSelectNext = (page: Page) =>
