@@ -1,5 +1,7 @@
 import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { userEvent, within } from "@storybook/testing-library";
 
 import Button, { ButtonProps } from ".";
 import Box from "../box";
@@ -10,6 +12,7 @@ import {
   BUTTON_VARIANTS,
 } from "./button.config";
 import { ButtonIconPosition, ButtonTypes } from "./button.component";
+import styledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 export default {
   title: "Button/Test",
@@ -18,6 +21,7 @@ export default {
     "generateButtons",
     "generateFullWidthButtonsStory",
     "generateButtonsNoWrapStory",
+    "meta",
   ],
   parameters: {
     info: { disable: true },
@@ -1198,4 +1202,47 @@ export const WithExternalLabels = () => (
 );
 WithExternalLabels.parameters = {
   chromatic: { disableSnapshot: true },
+};
+
+// Play Functions
+const meta: Meta<typeof Button> = {
+  title: "Button",
+  component: Button,
+  argTypes: {
+    ...styledSystemProps,
+  },
+  parameters: { chromatic: { disableSnapshot: true } },
+};
+
+export { meta };
+type Story = StoryObj<typeof Button>;
+
+const ButtonDefaultComponent = () => {
+  return (
+    <Button mt={2} ml={2} buttonType="primary" size="small">
+      Small
+    </Button>
+  );
+};
+
+export const ButtonClick: Story = {
+  render: () => <ButtonDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.click(ButtonComponent);
+  },
+};
+
+export const ButtonHover: Story = {
+  render: () => <ButtonDefaultComponent />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const ButtonComponent = canvas.getByRole("button");
+
+    await userEvent.hover(ButtonComponent);
+  },
 };
