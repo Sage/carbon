@@ -1,5 +1,7 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
 import * as DismissibleBoxStories from "./dismissible-box.stories";
 
 <Meta title="Dismissible Box" of={DismissibleBoxStories} />
@@ -49,3 +51,20 @@ It is also possible to override the `width` of the component: by default it will
 ### DismissibleBox
 
 <ArgTypes of={DismissibleBoxStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "dismissibleBox.ariaLabels.close",
+      description:
+        "The text for close button's aria-label attribute.",
+      type: "func",
+      returnType: "string",
+    }
+  ]}
+/>
