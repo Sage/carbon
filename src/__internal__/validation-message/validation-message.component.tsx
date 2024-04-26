@@ -2,13 +2,13 @@ import React from "react";
 import StyledValidationMessage from "./validation-message.style";
 
 export interface ValidationMessageProps {
-  /** Indicate that error has occurred
-  Pass string to display hint with error */
+  /** Indicate that error has occurred.
+  Pass string to display hint with error. */
   error?: boolean | string;
   /** Id of the component, to be used for accessibility purposes */
   validationId?: string;
-  /** Indicate that warning has occurred
-  Pass string to display hint with warning */
+  /** Indicate that warning has occurred.
+  Pass string to display hint with warning. */
   warning?: boolean | string;
 }
 

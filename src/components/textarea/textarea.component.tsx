@@ -48,9 +48,9 @@ export interface TextareaProps
   cols?: number;
   /** If true, the component will be disabled */
   disabled?: boolean;
-  /** Indicate that error has occurred
-  Pass string to display icon, tooltip and red border
-  Pass true boolean to only display red border */
+  /** Indicate that error has occurred.
+  Pass string to display icon, tooltip and red border.
+  Pass true boolean to only display red border. */
   error?: boolean | string;
   /** Allows the Textareas Height to change based on user input */
   expandable?: boolean;
@@ -60,9 +60,9 @@ export interface TextareaProps
   fieldHelp?: React.ReactNode;
   /** Aria label for rendered help component */
   helpAriaLabel?: string;
-  /** Indicate additional information
-  Pass string to display icon, tooltip and blue border
-  Pass true boolean to only display blue border */
+  /** Indicate additional information.
+  Pass string to display icon, tooltip and blue border.
+  Pass true boolean to only display blue border. */
   info?: boolean | string;
   /**
    * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
@@ -114,9 +114,9 @@ export interface TextareaProps
   validationOnLabel?: boolean;
   /** The value of the Textbox */
   value?: string;
-  /** Indicate that warning has occurred
-  Pass string to display icon, tooltip and orange border
-  Pass true boolean to only display orange border */
+  /** Indicate that warning has occurred.
+  Pass string to display icon, tooltip and orange border.
+  Pass true boolean to only display orange border. */
   warning?: boolean | string;
   /** Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. */
   borderRadius?: BorderRadiusType | BorderRadiusType[];

@@ -44,21 +44,21 @@ export interface DateRangeProps
   /** Optional label for endDate field */
   endLabel?: string;
   /**
-   * Indicate that error has occurred on end date
-   * Pass string to display icon, tooltip and red border
-   * Pass true boolean to only display red border
+   * Indicate that error has occurred on end date.
+   * Pass string to display icon, tooltip and red border.
+   * Pass true boolean to only display red border.
    */
   endError?: boolean | string;
   /**
-   * Indicate additional information for end date
-   * Pass string to display icon, tooltip and blue border
-   * Pass true boolean to only display blue border
+   * Indicate additional information for end date.
+   * Pass string to display icon, tooltip and blue border.
+   * Pass true boolean to only display blue border.
    */
   endInfo?: boolean | string;
   /**
-   * Indicate that warning has occurred on end date
-   * Pass string to display icon, tooltip and orange border
-   * Pass true boolean to only display orange border
+   * Indicate that warning has occurred on end date.
+   * Pass string to display icon, tooltip and orange border.
+   * Pass true boolean to only display orange border.
    */
   endWarning?: boolean | string;
   /**
@@ -78,20 +78,20 @@ export interface DateRangeProps
   /** Optional label for startDate field */
   startLabel?: string;
   /**
-   * Indicate that error has occurred on start date
-   * Pass string to display icon, tooltip and red border
-   * Pass true boolean to only display red border
+   * Indicate that error has occurred on start date.
+   * Pass string to display icon, tooltip and red border.
+   * Pass true boolean to only display red border.
    */
   startError?: boolean | string;
   /**
-   * Indicate that warning has occurred on start date
-   * Pass string to display icon, tooltip and orange border
-   * Pass true boolean to only display orange border
+   * Indicate that warning has occurred on start date.
+   * Pass string to display icon, tooltip and orange border.
+   * Pass true boolean to only display orange border.
    */
   startWarning?: boolean | string;
-  /** Indicate additional information for start date
-   * Pass string to display icon, tooltip and blue border
-   * Pass true boolean to only display blue border
+  /** Indicate additional information for start date.
+   * Pass string to display icon, tooltip and blue border.
+   * Pass true boolean to only display blue border.
    */
   startInfo?: boolean | string;
   /**

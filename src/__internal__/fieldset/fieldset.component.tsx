@@ -18,17 +18,17 @@ export interface FieldsetProps extends MarginProps {
   children: React.ReactNode;
   /** The content for the Fieldset Legend */
   legend?: string;
-  /* Indicate that error has occurred
-  Pass string to display icon, tooltip and red border
-  Pass true boolean to only display red border */
+  /* Indicate that error has occurred.
+  Pass string to display icon, tooltip and red border.
+  Pass true boolean to only display red border. */
   error?: boolean | string;
-  /* Indicate that warning has occurred
-  Pass string to display icon, tooltip and orange border
-  Pass true boolean to only display orange border */
+  /* Indicate that warning has occurred.
+  Pass string to display icon, tooltip and orange border.
+  Pass true boolean to only display orange border. */
   warning?: boolean | string;
-  /* Indicate additional information
-  Pass string to display icon, tooltip and blue border
-  Pass true boolean to only display blue border */
+  /* Indicate additional information.
+  Pass string to display icon, tooltip and blue border.
+  Pass true boolean to only display blue border. */
   info?: boolean | string;
   /** When true, legend is placed in line with the children */
   inline?: boolean;

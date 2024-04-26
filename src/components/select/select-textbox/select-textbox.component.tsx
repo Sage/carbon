@@ -57,7 +57,7 @@ export interface FormInputPropTypes
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on focus */
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
-  /** pecify a callback triggered on keuyDown */
+  /** Specify a callback triggered on keyDown */
   onKeyDown?: (ev: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Placeholder string to be displayed in input */
   placeholder?: string;
