@@ -1,5 +1,7 @@
 import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
+import TranslationKeysTable from "../../../.storybook/utils/translation-keys-table";
+
 import * as ConfirmStories from "./confirm.stories";
 
 <Meta title="Confirm" of={ConfirmStories} />
@@ -83,3 +85,28 @@ Allows to set variant which is supported in `<Button />` and it will be applied 
 ### Confirm
 
 <ArgTypes of={ConfirmStories} />
+
+## Translation keys
+
+The following keys are available to override the translations for this component by passing in a custom locale object to the
+[i18nProvider](../?path=/docs/documentation-i18n--docs).
+
+<TranslationKeysTable
+  translationData={[
+    {
+      name: "confirm.no",
+      description:
+        `The text which appears within the "cancel" button.`,
+      type: "func",
+      returnType: "string",
+    },
+    {
+      name: "confirm.yes",
+      description:
+        `The text which appears within the "confirm" button.`,
+      type: "func",
+      returnType: "string",
+    }
+  ]}
+/>
+
