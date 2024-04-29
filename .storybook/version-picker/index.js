@@ -35,19 +35,18 @@ export const VersionPicker = () => {
   const [versions, setVersions] = useState();
   const [currentVersion, setCurrentVersion] = useState("Latest");
 
-  console.log("Verision Picker initialised");
-
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const version = urlParams.get("v");
+    const url = window.location.href;
+    if (url.includes("/v/")) {
+      const startIndex = url.indexOf("/v/");
+      const endIndex = url.indexOf("/", startIndex + 4);
 
-    if (version) {
-      setCurrentVersion(`v${version}`);
+      const urlVersion = url.substring(startIndex + 3, endIndex);
+      setCurrentVersion(`v${urlVersion}`);
     }
 
     const getData = async () => {
       const data = await fetchData();
-      console.log("Retrieved data:", data);
       setVersions(data.versions);
     };
 
