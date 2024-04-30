@@ -585,3 +585,86 @@ export const FilterableSelectWithDisabledOption = () => {
     </>
   );
 };
+
+export const FilterableSelectControlled = () => {
+  const [value, setValue] = useState("5");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+  function clearValue() {
+    setValue("");
+  }
+  return (
+    <>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
+      <FilterableSelect
+        id="controlled"
+        name="controlled"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+    </>
+  );
+};
+
+export const WithObjectAsValue = () => {
+  const optionListValues = useRef([
+    { id: "Amber", value: 1, text: "Amber" },
+    { id: "Black", value: 2, text: "Black" },
+    { id: "Blue", value: 3, text: "Blue" },
+    { id: "Brown", value: 4, text: "Brown" },
+    { id: "Green", value: 5, text: "Green" },
+    { id: "Orange", value: 6, text: "Orange" },
+    { id: "Pink", value: 7, text: "Pink" },
+    { id: "Purple", value: 8, text: "Purple" },
+    { id: "Red", value: 9, text: "Red" },
+    { id: "White", value: 10, text: "White" },
+    { id: "Yellow", value: 11, text: "Yellow" },
+  ]);
+
+  const [value, setValue] = useState<Record<string, unknown>>(
+    optionListValues.current[4]
+  );
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    if (typeof event.target.value === "object") {
+      setValue(event.target.value);
+    }
+  }
+  function clearValue() {
+    setValue({});
+  }
+  return (
+    <>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
+      <FilterableSelect
+        id="with-object"
+        name="with-object"
+        label="color"
+        value={value}
+        onChange={onChangeHandler}
+      >
+        {optionListValues.current.map((option) => (
+          <Option key={option.id} text={option.text} value={option} />
+        ))}
+      </FilterableSelect>
+    </>
+  );
+};

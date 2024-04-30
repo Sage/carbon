@@ -10,6 +10,7 @@ import OptionGroupHeader from "../option-group-header/option-group-header.compon
 import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
+import Button from "../../button";
 import { Select, Option, SimpleSelectProps } from "..";
 
 export const SimpleSelectComponent = (props: Partial<SimpleSelectProps>) => {
@@ -517,5 +518,88 @@ export const SelectWithDynamicallyAddedOption = () => {
         <Option data-role={`option-${opt}`} text={opt} value={opt} key={opt} />
       ))}
     </Select>
+  );
+};
+
+export const SimpleSelectControlled = () => {
+  const [value, setValue] = useState("5");
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+  function clearValue() {
+    setValue("");
+  }
+  return (
+    <>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
+      <Select
+        id="controlled"
+        name="controlled"
+        value={value}
+        onChange={onChangeHandler}
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </>
+  );
+};
+
+export const WithObjectAsValue = () => {
+  const optionListValues = [
+    { id: "Amber", value: 1, text: "Amber" },
+    { id: "Black", value: 2, text: "Black" },
+    { id: "Blue", value: 3, text: "Blue" },
+    { id: "Brown", value: 4, text: "Brown" },
+    { id: "Green", value: 5, text: "Green" },
+    { id: "Orange", value: 6, text: "Orange" },
+    { id: "Pink", value: 7, text: "Pink" },
+    { id: "Purple", value: 8, text: "Purple" },
+    { id: "Red", value: 9, text: "Red" },
+    { id: "White", value: 10, text: "White" },
+    { id: "Yellow", value: 11, text: "Yellow" },
+  ];
+
+  const [value, setValue] = useState<Record<string, unknown>>(
+    optionListValues[4]
+  );
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    if (typeof event.target.value === "object") {
+      setValue(event.target.value);
+    }
+  }
+  function clearValue() {
+    setValue({});
+  }
+  return (
+    <>
+      <Button onClick={clearValue} mb={2}>
+        clear
+      </Button>
+      <Select
+        id="with-object"
+        name="with-object"
+        value={value}
+        onChange={onChangeHandler}
+        label="color"
+      >
+        {optionListValues.map((option) => (
+          <Option key={option.id} text={option.text} value={option} />
+        ))}
+      </Select>
+    </>
   );
 };

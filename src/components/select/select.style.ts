@@ -78,8 +78,9 @@ const StyledSelect = styled.div<StyledSelectProps>`
     css`
       ${StyledInput} {
         position: absolute;
-        width: auto;
+        width: inherit;
         opacity: 0;
+        padding: 0;
       }
     `}
   `}

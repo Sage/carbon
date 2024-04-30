@@ -19,6 +19,11 @@ import Typography from "../typography";
 
 export interface LoaderSpinnerProps extends MarginProps, TagProps {
   /**
+   * Use the spinnerLabel prop to override the default `"Loading..."` label with
+   * any custom string
+   */
+  spinnerLabel?: string;
+  /**
    * The size prop allows a specific size to be set, ranging from
    * `extra-small` to `extra-large`
    */
@@ -49,6 +54,7 @@ export interface LoaderSpinnerProps extends MarginProps, TagProps {
 }
 
 export const LoaderSpinner = ({
+  spinnerLabel,
   size = "medium",
   showSpinnerLabel = true,
   variant = "action",
@@ -65,7 +71,7 @@ export const LoaderSpinner = ({
 
   const isLabelDark = variant !== "inverse" && variant !== "gradient-white";
 
-  const spinnerLabel = (
+  const renderSpinnerLabel = (
     <StyledLabel
       data-role="visible-label"
       variant="span"
@@ -83,7 +89,7 @@ export const LoaderSpinner = ({
         size === "extra-large" ? "var(--sizing300)" : "var(--sizing250)"
       }
     >
-      {locale.loaderSpinner.loading()}
+      {spinnerLabel || locale.loaderSpinner.loading()}
     </StyledLabel>
   );
 
@@ -106,7 +112,7 @@ export const LoaderSpinner = ({
       {...filterStyledSystemMarginProps(rest)}
     >
       {reduceMotion ? (
-        spinnerLabel
+        renderSpinnerLabel
       ) : (
         <>
           <StyledSpinnerCircleSvg
@@ -123,14 +129,14 @@ export const LoaderSpinner = ({
             <circle data-role="inner-arc" />
           </StyledSpinnerCircleSvg>
           {showSpinnerLabel ? (
-            spinnerLabel
+            renderSpinnerLabel
           ) : (
             <Typography
               data-role="hidden-label"
               variant="span"
               screenReaderOnly
             >
-              {locale.loaderSpinner.loading()}
+              {spinnerLabel || locale.loaderSpinner.loading()}
             </Typography>
           )}
         </>
