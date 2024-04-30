@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { ThemeContext } from "styled-components";
 import { MarginProps } from "styled-system";
+import { flip, offset } from "@floating-ui/dom";
 
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Icon, { IconType } from "../icon";
@@ -159,7 +160,16 @@ export const SplitButton = ({
     if (!showAdditionalButtons) return null;
 
     return (
-      <Popover placement="bottom-end" reference={buttonNode}>
+      <Popover
+        placement="bottom-end"
+        reference={buttonNode}
+        middleware={[
+          offset(6),
+          flip({
+            fallbackStrategy: "initialPlacement",
+          }),
+        ]}
+      >
         <StyledSplitButtonChildrenContainer {...wrapperProps} align={align}>
           <SplitButtonContext.Provider value={contextValue}>
             {React.Children.map(children, (child) => (
