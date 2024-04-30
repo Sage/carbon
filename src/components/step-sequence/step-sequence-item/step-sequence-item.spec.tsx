@@ -17,12 +17,12 @@ const orientations = ["horizontal", "vertical"] as const;
 describe("StepSequenceItem", () => {
   const render = (
     props: Partial<StepSequenceItemProps & StepSequenceProps>,
-    renderer = mount
+    renderer = mount,
   ) =>
     renderer(
       <StepSequenceItem indicator="1" {...props}>
         Item
-      </StepSequenceItem>
+      </StepSequenceItem>,
     );
 
   const defaultProps = {
@@ -49,9 +49,9 @@ describe("StepSequenceItem", () => {
             [border]: "var(--sizing025) dashed var(--colorsUtilityYin055)",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
-      }
+      },
     );
   });
 
@@ -72,7 +72,7 @@ describe("StepSequenceItem", () => {
           {
             color: "var(--colorsBaseTheme,var(--colorsSemanticPositive500))",
           },
-          wrapper
+          wrapper,
         );
 
         assertStyleMatch(
@@ -82,9 +82,9 @@ describe("StepSequenceItem", () => {
             [borderStyle]: "solid",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
-      }
+      },
     );
 
     it("renders the tick item", () => {
@@ -101,10 +101,10 @@ describe("StepSequenceItem", () => {
         status: "complete",
       });
       expect(wrapper.find(StyledStepSequenceItemHiddenLabel).exists()).toBe(
-        true
+        true,
       );
       expect(wrapper.find(StyledStepSequenceItemHiddenLabel).text()).toEqual(
-        "HiddenComplete"
+        "HiddenComplete",
       );
     });
   });
@@ -126,7 +126,7 @@ describe("StepSequenceItem", () => {
           {
             color: "var(--colorsUtilityYin090)",
           },
-          wrapper
+          wrapper,
         );
 
         assertStyleMatch(
@@ -135,9 +135,9 @@ describe("StepSequenceItem", () => {
             [borderStyle]: "solid",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
-      }
+      },
     );
 
     it("renders the hidden label", () => {
@@ -146,10 +146,10 @@ describe("StepSequenceItem", () => {
         status: "current",
       });
       expect(wrapper.find(StyledStepSequenceItemHiddenLabel).exists()).toBe(
-        true
+        true,
       );
       expect(wrapper.find(StyledStepSequenceItemHiddenLabel).text()).toEqual(
-        "HiddenCurrent"
+        "HiddenCurrent",
       );
     });
 
@@ -160,7 +160,7 @@ describe("StepSequenceItem", () => {
           hideIndicator: true,
         });
         expect(wrapper.find(StyledStepSequenceItemIndicator).exists()).toBe(
-          false
+          false,
         );
       });
     });

@@ -18,7 +18,7 @@ describe("Image", () => {
 
   it("renders an `img` element when a value is passed via the `src` prop", () => {
     const wrapper = mount(
-      <Image src="foo.jpg" alt="foo" backgroundImage="url('foo.jpg')" />
+      <Image src="foo.jpg" alt="foo" backgroundImage="url('foo.jpg')" />,
     );
 
     expect(wrapper.find("img").exists()).toBeTruthy();
@@ -61,7 +61,7 @@ describe("Image", () => {
         mount(
           <Image src="foo.jpg" alt="foo">
             foo
-          </Image>
+          </Image>,
         );
       }).toThrow(errorMessage);
     });
@@ -95,17 +95,17 @@ describe("Image", () => {
             alt="foo"
             backgroundImage="url('foo.jpg')"
             position={positionValue}
-          />
+          />,
         );
 
         assertStyleMatch(
           {
             position: positionValue,
           },
-          wrapper.find(StyledImage)
+          wrapper.find(StyledImage),
         );
       });
-    }
+    },
   );
 
   describe("when top prop is passed", () => {
@@ -118,16 +118,16 @@ describe("Image", () => {
             alt="foo"
             backgroundImage="url('foo.jpg')"
             top={topValue}
-          />
+          />,
         );
 
         assertStyleMatch(
           {
             top: topValue,
           },
-          wrapper.find(StyledImage)
+          wrapper.find(StyledImage),
         );
-      }
+      },
     );
   });
 
@@ -141,16 +141,16 @@ describe("Image", () => {
             alt="foo"
             backgroundImage="url('foo.jpg')"
             right={rightValue}
-          />
+          />,
         );
 
         assertStyleMatch(
           {
             right: rightValue,
           },
-          wrapper.find(StyledImage)
+          wrapper.find(StyledImage),
         );
-      }
+      },
     );
   });
 
@@ -164,16 +164,16 @@ describe("Image", () => {
             alt="foo"
             backgroundImage="url('foo.jpg')"
             bottom={bottomValue}
-          />
+          />,
         );
 
         assertStyleMatch(
           {
             bottom: bottomValue,
           },
-          wrapper.find(StyledImage)
+          wrapper.find(StyledImage),
         );
-      }
+      },
     );
   });
 
@@ -187,16 +187,16 @@ describe("Image", () => {
             alt="foo"
             backgroundImage="url('foo.jpg')"
             left={leftValue}
-          />
+          />,
         );
 
         assertStyleMatch(
           {
             left: leftValue,
           },
-          wrapper.find(StyledImage)
+          wrapper.find(StyledImage),
         );
-      }
+      },
     );
   });
 });

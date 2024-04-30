@@ -16,7 +16,7 @@ const render = (props: Omit<PicklistItemProps, "children">, optOut = false) => {
       <FocusContext.Provider value={{ elementToFocus: {}, setElementToFocus }}>
         <PicklistItem {...props}>Item content</PicklistItem>
       </FocusContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 };
 
@@ -57,7 +57,7 @@ describe("PicklistItem component", () => {
           item: 1,
           locked: true,
         },
-        true
+        true,
       );
 
       assertStyleMatch(
@@ -65,7 +65,7 @@ describe("PicklistItem component", () => {
           outline: "2px solid var(--colorsSemanticFocus500)",
         },
         wrapper.find(StyledIcon),
-        { modifier: ":focus" }
+        { modifier: ":focus" },
       );
     });
 
@@ -84,7 +84,7 @@ describe("PicklistItem component", () => {
           outline: "transparent 3px solid",
         },
         wrapper.find(StyledIcon),
-        { modifier: ":focus" }
+        { modifier: ":focus" },
       );
     });
   });
@@ -145,8 +145,8 @@ describe("PicklistItem component", () => {
         borderRadius: "var(--borderRadius100)",
       },
       render({ type: "remove", onChange: () => {}, item: 1 }).find(
-        StyledPicklistItem
-      )
+        StyledPicklistItem,
+      ),
     );
   });
 });

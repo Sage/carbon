@@ -17,13 +17,13 @@ describe("FlatTableCell", () => {
             <FlatTableCell width={40} />
           </tr>
         </tbody>
-      </table>
+      </table>,
     );
     assertStyleMatch(
       {
         width: "40px",
       },
-      wrapper.find(StyledFlatTableCell)
+      wrapper.find(StyledFlatTableCell),
     );
 
     assertStyleMatch(
@@ -31,7 +31,7 @@ describe("FlatTableCell", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableCell),
-      { modifier: "&&&& > div" }
+      { modifier: "&&&& > div" },
     );
   });
 
@@ -44,11 +44,11 @@ describe("FlatTableCell", () => {
               <FlatTableCell data-role="test">Foo</FlatTableCell>
             </tr>
           </tbody>
-        </table>
+        </table>,
       );
 
       expect(wrapper.find(StyledFlatTableCell).props()["data-role"]).toEqual(
-        "test"
+        "test",
       );
     });
   });
@@ -63,7 +63,7 @@ describe("FlatTableCell", () => {
               <FlatTableCell truncate>Foo</FlatTableCell>
             </tr>
           </tbody>
-        </table>
+        </table>,
       );
     });
 
@@ -75,7 +75,7 @@ describe("FlatTableCell", () => {
           whiteSpace: "nowrap",
         },
         wrapper.find(StyledFlatTableCell),
-        { modifier: "&&&& > div" }
+        { modifier: "&&&& > div" },
       );
     });
 
@@ -94,7 +94,7 @@ describe("FlatTableCell", () => {
                 </FlatTableCell>
               </tr>
             </tbody>
-          </table>
+          </table>,
         );
         expect(wrapper.find("div").props().title).toEqual("Bar");
       });
@@ -120,17 +120,17 @@ describe("FlatTableCell", () => {
                 </FlatTableCell>
               </tr>
             </tbody>
-          </table>
+          </table>,
         );
         assertStyleMatch(
           {
             borderRight: expectedValue,
           },
           wrapper,
-          { modifier: "&&&&" }
+          { modifier: "&&&&" },
         );
       });
-    }
+    },
   );
 
   describe.each([
@@ -151,17 +151,17 @@ describe("FlatTableCell", () => {
                 </FlatTableCell>
               </tr>
             </tbody>
-          </table>
+          </table>,
         );
         assertStyleMatch(
           {
             borderRightColor: expectedValue,
           },
           wrapper,
-          { modifier: "&&&&" }
+          { modifier: "&&&&" },
         );
       });
-    }
+    },
   );
 
   describe("styled system", () => {
@@ -177,7 +177,7 @@ describe("FlatTableCell", () => {
       ),
       {},
       undefined,
-      { modifier: "&&&& > div" }
+      { modifier: "&&&& > div" },
     );
   });
 });

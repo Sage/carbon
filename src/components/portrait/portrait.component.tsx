@@ -88,7 +88,7 @@ const Portrait = ({
   invariant(
     !(src && gravatar),
     "The `src` prop cannot be used in conjunction with the `gravatar` prop." +
-      " Please use one or the other."
+      " Please use one or the other.",
   );
 
   useEffect(() => {

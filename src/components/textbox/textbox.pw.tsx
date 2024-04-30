@@ -50,29 +50,29 @@ const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const keysToTrigger = ["Enter", "Space"] as const;
 
 test.describe("Prop checks for Textbox component", () => {
-  ([
-    [SIZE.SMALL, "32px", "--sizing400"],
-    [SIZE.MEDIUM, "40px", "--sizing500"],
-    [SIZE.LARGE, "48px", "--sizing600"],
-  ] as [TextboxProps["size"], string, string][]).forEach(
-    ([size, height, token]) => {
-      test(`should render with ${size} size and ${height} height when size prop is ${size}`, async ({
-        mount,
+  (
+    [
+      [SIZE.SMALL, "32px", "--sizing400"],
+      [SIZE.MEDIUM, "40px", "--sizing500"],
+      [SIZE.LARGE, "48px", "--sizing600"],
+    ] as [TextboxProps["size"], string, string][]
+  ).forEach(([size, height, token]) => {
+    test(`should render with ${size} size and ${height} height when size prop is ${size}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextboxComponent size={size} />);
+
+      await expect(textbox(page)).toHaveCSS("min-height", height);
+
+      const tokenValues = await getDesignTokensByCssProperty(
         page,
-      }) => {
-        await mount(<TextboxComponent size={size} />);
-
-        await expect(textbox(page)).toHaveCSS("min-height", height);
-
-        const tokenValues = await getDesignTokensByCssProperty(
-          page,
-          textbox(page),
-          "min-height"
-        );
-        expect(tokenValues[0]).toBe(token);
-      });
-    }
-  );
+        textbox(page),
+        "min-height",
+      );
+      expect(tokenValues[0]).toBe(token);
+    });
+  });
 
   [
     ["background", "--colorsUtilityYang100"],
@@ -87,7 +87,7 @@ test.describe("Prop checks for Textbox component", () => {
       const tokenValues = await getDesignTokensByCssProperty(
         page,
         textbox(page),
-        cssProp
+        cssProp,
       );
       expect(tokenValues[0]).toBe(token);
     });
@@ -106,7 +106,7 @@ test.describe("Prop checks for Textbox component", () => {
     await mount(<TextboxComponent data-component={CHARACTERS.STANDARD} />);
 
     await expect(
-      getDataComponentByValue(page, CHARACTERS.STANDARD)
+      getDataComponentByValue(page, CHARACTERS.STANDARD),
     ).toBeVisible();
   });
 
@@ -114,7 +114,7 @@ test.describe("Prop checks for Textbox component", () => {
     await mount(<TextboxComponent data-element={CHARACTERS.STANDARD} />);
 
     await expect(
-      getDataElementByValue(page, CHARACTERS.STANDARD)
+      getDataElementByValue(page, CHARACTERS.STANDARD),
     ).toBeVisible();
   });
 
@@ -150,25 +150,25 @@ test.describe("Prop checks for Textbox component", () => {
     await expect(labelParent).toHaveCSS("justify-content", "flex-end");
   });
 
-  ([
-    ["left", "start"],
-    ["right", "end"],
-  ] as [TextboxProps["labelAlign"], string][]).forEach(
-    ([labelAlign, cssValue]) => {
-      test(`should render with ${labelAlign} labelAlign prop`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TextboxComponent labelInline labelAlign={labelAlign} />);
+  (
+    [
+      ["left", "start"],
+      ["right", "end"],
+    ] as [TextboxProps["labelAlign"], string][]
+  ).forEach(([labelAlign, cssValue]) => {
+    test(`should render with ${labelAlign} labelAlign prop`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextboxComponent labelInline labelAlign={labelAlign} />);
 
-        const labelParent = getDataElementByValue(page, "label").locator("..");
-        await expect(labelParent).toHaveCSS(
-          "justify-content",
-          `flex-${cssValue}`
-        );
-      });
-    }
-  );
+      const labelParent = getDataElementByValue(page, "label").locator("..");
+      await expect(labelParent).toHaveCSS(
+        "justify-content",
+        `flex-${cssValue}`,
+      );
+    });
+  });
 
   testData.forEach((labelHelp) => {
     test(`should render with labelHelp prop ${labelHelp}`, async ({
@@ -184,33 +184,35 @@ test.describe("Prop checks for Textbox component", () => {
     });
   });
 
-  ([
-    [1, "8px"],
-    [2, "16px"],
-  ] as [TextboxProps["labelSpacing"], string][]).forEach(
-    ([spacing, padding]) => {
-      test(`should render with labelSpacing prop ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TextboxComponent labelInline labelSpacing={spacing} />);
+  (
+    [
+      [1, "8px"],
+      [2, "16px"],
+    ] as [TextboxProps["labelSpacing"], string][]
+  ).forEach(([spacing, padding]) => {
+    test(`should render with labelSpacing prop ${spacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextboxComponent labelInline labelSpacing={spacing} />);
 
-        const labelParent = getDataElementByValue(page, "label").locator("..");
-        await expect(labelParent).toHaveCSS("padding-right", padding);
-      });
-    }
-  );
+      const labelParent = getDataElementByValue(page, "label").locator("..");
+      await expect(labelParent).toHaveCSS("padding-right", padding);
+    });
+  });
 
-  ([
-    [10, 90, 135, 1229],
-    [30, 70, 409, 956],
-    [80, 20, 1092, 273],
-  ] as [
-    TextboxProps["labelWidth"],
-    TextboxProps["inputWidth"],
-    number,
-    number
-  ][]).forEach(([labelVal, inputVal, labelRatio, inputRatio]) => {
+  (
+    [
+      [10, 90, 135, 1229],
+      [30, 70, 409, 956],
+      [80, 20, 1092, 273],
+    ] as [
+      TextboxProps["labelWidth"],
+      TextboxProps["inputWidth"],
+      number,
+      number,
+    ][]
+  ).forEach(([labelVal, inputVal, labelRatio, inputRatio]) => {
     test(`should render with correct ratios when inputWidth prop is ${inputVal} and labelWidth prop is ${labelVal}`, async ({
       mount,
       page,
@@ -220,7 +222,7 @@ test.describe("Prop checks for Textbox component", () => {
           labelInline
           labelWidth={labelVal}
           inputWidth={inputVal}
-        />
+        />,
       );
 
       const labelParent = getDataElementByValue(page, "label").locator("..");
@@ -251,77 +253,77 @@ test.describe("Prop checks for Textbox component", () => {
     });
   });
 
-  ([
-    [4, "with", "is"],
-    ["", "without", "is not"],
-  ] as [TextboxProps["characterLimit"], string, string][]).forEach(
-    ([characterLimitVal, renderStatus, characterLimitStatus]) => {
-      test(`should render ${renderStatus} a character count when the characterLimit prop ${characterLimitStatus} passed`, async ({
-        mount,
+  (
+    [
+      [4, "with", "is"],
+      ["", "without", "is not"],
+    ] as [TextboxProps["characterLimit"], string, string][]
+  ).forEach(([characterLimitVal, renderStatus, characterLimitStatus]) => {
+    test(`should render ${renderStatus} a character count when the characterLimit prop ${characterLimitStatus} passed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextboxComponent characterLimit={characterLimitVal} />);
+
+      const characterCount = getDataElementByValue(page, "character-count");
+
+      if (renderStatus === "with") {
+        await expect(characterCount).toHaveCount(1);
+      } else {
+        await expect(characterCount).toHaveCount(0);
+      }
+    });
+  });
+
+  (
+    [
+      [4, "with", "is"],
+      ["", "without", "is not"],
+    ] as [TextboxProps["characterLimit"], string, string][]
+  ).forEach(([characterLimitVal, renderStatus, characterLimitStatus]) => {
+    test(`should render ${renderStatus} a visually hidden character count when the characterLimit prop ${characterLimitStatus} passed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextboxComponent characterLimit={characterLimitVal} />);
+
+      const visuallyHiddenCharacterCount = getDataElementByValue(
         page,
-      }) => {
-        await mount(<TextboxComponent characterLimit={characterLimitVal} />);
+        "visually-hidden-character-count",
+      );
 
-        const characterCount = getDataElementByValue(page, "character-count");
+      if (renderStatus === "with") {
+        await expect(visuallyHiddenCharacterCount).toHaveCount(1);
+      } else {
+        await expect(visuallyHiddenCharacterCount).toHaveCount(0);
+      }
+    });
+  });
 
-        if (renderStatus === "with") {
-          await expect(characterCount).toHaveCount(1);
-        } else {
-          await expect(characterCount).toHaveCount(0);
-        }
-      });
-    }
-  );
+  (
+    [
+      [4, "with", "is"],
+      ["", "without", "is not"],
+    ] as [TextboxProps["characterLimit"], string, string][]
+  ).forEach(([characterLimitVal, renderStatus, characterLimitStatus]) => {
+    test(`should render ${renderStatus} a visually hidden character count hint when the characterLimit prop ${characterLimitStatus} passed`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TextboxComponent characterLimit={characterLimitVal} />);
 
-  ([
-    [4, "with", "is"],
-    ["", "without", "is not"],
-  ] as [TextboxProps["characterLimit"], string, string][]).forEach(
-    ([characterLimitVal, renderStatus, characterLimitStatus]) => {
-      test(`should render ${renderStatus} a visually hidden character count when the characterLimit prop ${characterLimitStatus} passed`, async ({
-        mount,
+      const visuallyHiddenCharacterCountHint = getDataElementByValue(
         page,
-      }) => {
-        await mount(<TextboxComponent characterLimit={characterLimitVal} />);
+        "visually-hidden-hint",
+      );
 
-        const visuallyHiddenCharacterCount = getDataElementByValue(
-          page,
-          "visually-hidden-character-count"
-        );
-
-        if (renderStatus === "with") {
-          await expect(visuallyHiddenCharacterCount).toHaveCount(1);
-        } else {
-          await expect(visuallyHiddenCharacterCount).toHaveCount(0);
-        }
-      });
-    }
-  );
-
-  ([
-    [4, "with", "is"],
-    ["", "without", "is not"],
-  ] as [TextboxProps["characterLimit"], string, string][]).forEach(
-    ([characterLimitVal, renderStatus, characterLimitStatus]) => {
-      test(`should render ${renderStatus} a visually hidden character count hint when the characterLimit prop ${characterLimitStatus} passed`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TextboxComponent characterLimit={characterLimitVal} />);
-
-        const visuallyHiddenCharacterCountHint = getDataElementByValue(
-          page,
-          "visually-hidden-hint"
-        );
-
-        if (renderStatus === "with") {
-          await expect(visuallyHiddenCharacterCountHint).toHaveCount(1);
-        } else {
-          await expect(visuallyHiddenCharacterCountHint).toHaveCount(0);
-        }
-      });
-    }
-  );
+      if (renderStatus === "with") {
+        await expect(visuallyHiddenCharacterCountHint).toHaveCount(1);
+      } else {
+        await expect(visuallyHiddenCharacterCountHint).toHaveCount(0);
+      }
+    });
+  });
 
   ["10%", "30%", "50%", "80%", "100%"].forEach((maxWidth) => {
     test(`should render with ${maxWidth} max-width`, async ({
@@ -368,19 +370,19 @@ test.describe("Prop checks for Textbox component", () => {
 
       if (inputValue.length > limit) {
         await expect(characterLimit(page)).toHaveText(
-          `${inputValue.length - limit} ${overCharacters} too many`
+          `${inputValue.length - limit} ${overCharacters} too many`,
         );
         await expect(characterLimit(page)).toHaveCSS(
           "color",
-          "rgb(203, 55, 74)"
+          "rgb(203, 55, 74)",
         );
       } else {
         await expect(characterLimit(page)).toHaveText(
-          `${limit - inputValue.length} ${underCharacters} left`
+          `${limit - inputValue.length} ${underCharacters} left`,
         );
         await expect(characterLimit(page)).toHaveCSS(
           "color",
-          "rgba(0, 0, 0, 0.55)"
+          "rgba(0, 0, 0, 0.55)",
         );
       }
     });
@@ -391,7 +393,7 @@ test.describe("Prop checks for Textbox component", () => {
 
     await expect(textboxInput(page)).toHaveAttribute(
       "name",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -422,7 +424,7 @@ test.describe("Prop checks for Textbox component", () => {
 
       await expect(textboxInput(page)).toHaveAttribute(
         "placeholder",
-        placeholder
+        placeholder,
       );
     });
   });
@@ -438,11 +440,11 @@ test.describe("Prop checks for Textbox component", () => {
     await expect(textboxInput(page)).toBeFocused();
     await expect(textbox(page)).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(textbox(page)).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -486,12 +488,12 @@ test.describe("Prop checks for Textbox component", () => {
           labelInline
           labelAlign="right"
           {...{ [type]: "Message" }}
-        />
+        />,
       );
 
       await expect(textbox(page).locator(ICON)).toHaveAttribute(
         "data-element",
-        type
+        type,
       );
     });
   });
@@ -507,7 +509,7 @@ test.describe("Prop checks for Textbox component", () => {
           labelAlign="right"
           validationOnLabel
           {...{ [type]: "Message" }}
-        />
+        />,
       );
 
       const labelParent = getDataElementByValue(page, "label").locator("..");
@@ -517,14 +519,16 @@ test.describe("Prop checks for Textbox component", () => {
     });
   });
 
-  ([
-    [VALIDATION.ERROR, "error", true],
-    [VALIDATION.WARNING, "warning", true],
-    [VALIDATION.INFO, "info", true],
-    ["rgb(102, 132, 148)", "error", false],
-    ["rgb(102, 132, 148)", "warning", false],
-    ["rgb(102, 132, 148)", "info", false],
-  ] as [string, string, boolean][]).forEach(([borderColor, type, bool]) => {
+  (
+    [
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      [VALIDATION.INFO, "info", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+      ["rgb(102, 132, 148)", "info", false],
+    ] as [string, string, boolean][]
+  ).forEach(([borderColor, type, bool]) => {
     test(`should render with ${borderColor} input border when validation type ${type} is ${bool}`, async ({
       mount,
       page,
@@ -534,7 +538,7 @@ test.describe("Prop checks for Textbox component", () => {
           labelInline
           labelAlign="right"
           {...{ [type]: bool }}
-        />
+        />,
       );
 
       await expect(textbox(page)).toHaveCSS("border-bottom-color", borderColor);
@@ -585,26 +589,26 @@ test.describe("Prop checks for Textbox component", () => {
     await expect(textboxParent.locator("button")).toBeVisible();
   });
 
-  ([
-    ["flex", 399],
-    ["flex", 400],
-    ["block", 401],
-  ] as [string, TextboxProps["adaptiveLabelBreakpoint"]][]).forEach(
-    ([displayValue, breakpoint]) => {
-      test(`should render with ${displayValue} label alignment when the adaptiveLabelBreakpoint prop is ${breakpoint} with a set viewport of 400`, async ({
-        mount,
-        page,
-      }) => {
-        await page.setViewportSize({ width: 400, height: 300 });
-        await mount(<TextboxComponent adaptiveLabelBreakpoint={breakpoint} />);
+  (
+    [
+      ["flex", 399],
+      ["flex", 400],
+      ["block", 401],
+    ] as [string, TextboxProps["adaptiveLabelBreakpoint"]][]
+  ).forEach(([displayValue, breakpoint]) => {
+    test(`should render with ${displayValue} label alignment when the adaptiveLabelBreakpoint prop is ${breakpoint} with a set viewport of 400`, async ({
+      mount,
+      page,
+    }) => {
+      await page.setViewportSize({ width: 400, height: 300 });
+      await mount(<TextboxComponent adaptiveLabelBreakpoint={breakpoint} />);
 
-        const labelParentParent = getDataElementByValue(page, "label")
-          .locator("..")
-          .locator("..");
-        await expect(labelParentParent).toHaveCSS("display", displayValue);
-      });
-    }
-  );
+      const labelParentParent = getDataElementByValue(page, "label")
+        .locator("..")
+        .locator("..");
+      await expect(labelParentParent).toHaveCSS("display", displayValue);
+    });
+  });
 
   test("should render with labelId prop", async ({ mount, page }) => {
     await mount(<TextboxComponent id={CHARACTERS.STANDARD} />);
@@ -631,7 +635,7 @@ test.describe("Prop checks for Textbox component", () => {
 
     await expect(textboxInput(page)).toHaveAttribute(
       "value",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -652,12 +656,9 @@ test.describe("Prop checks for Textbox component", () => {
     await expect(inputIcon).toHaveAttribute("tabindex", "25");
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as TextboxProps["tooltipPosition"][]).forEach((position) => {
+  (
+    ["top", "bottom", "left", "right"] as TextboxProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should render with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -668,7 +669,7 @@ test.describe("Prop checks for Textbox component", () => {
             error={CHARACTERS.STANDARD}
             tooltipPosition={position}
           />
-        </Box>
+        </Box>,
       );
 
       await getDataElementByValue(page, "error").hover();
@@ -676,7 +677,7 @@ test.describe("Prop checks for Textbox component", () => {
       await expect(tooltipPreview(page)).toHaveText(CHARACTERS.STANDARD);
       await expect(tooltipPreview(page)).toHaveAttribute(
         "data-placement",
-        position as string
+        position as string,
       );
     });
   });
@@ -686,7 +687,7 @@ test.describe("Prop checks for Textbox component", () => {
       <TextboxComponent
         labelHelp="fieldHelp"
         helpAriaLabel={CHARACTERS.STANDARD}
-      />
+      />,
     );
 
     const help = getDataComponentByValue(page, "help");
@@ -742,7 +743,7 @@ test.describe("Event checks", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await textboxInput(page).type(inputValue);
@@ -760,7 +761,7 @@ test.describe("Event checks", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await textboxInput(page).click();
@@ -782,7 +783,7 @@ test.describe("Event checks", () => {
           }}
           disabled={propName === "disabled"}
           readOnly={propName === "readOnly"}
-        />
+        />,
       );
 
       await textboxInput(page).dispatchEvent("click");
@@ -802,7 +803,7 @@ test.describe("Event checks", () => {
           }}
           disabled={propName === "disabled"}
           readOnly={propName === "readOnly"}
-        />
+        />,
       );
 
       await textboxInput(page).dispatchEvent("mousedown");
@@ -823,7 +824,7 @@ test.describe("Event checks", () => {
           inputIcon="add"
           disabled={propName === "disabled"}
           readOnly={propName === "readOnly"}
-        />
+        />,
       );
 
       await getDataComponentByValue(page, "icon").click({ button: "left" });
@@ -844,7 +845,7 @@ test.describe("Event checks", () => {
           inputIcon="add"
           disabled={propName === "disabled"}
           readOnly={propName === "readOnly"}
-        />
+        />,
       );
 
       await getDataComponentByValue(page, "icon").click();
@@ -863,7 +864,7 @@ test.describe("Event checks", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await textboxInput(page).click();
@@ -881,7 +882,7 @@ test.describe("Event checks", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await textboxInput(page).focus();
@@ -899,7 +900,7 @@ test.describe("Event checks", () => {
         onMouseDown={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await textboxInput(page).dispatchEvent("mousedown");
@@ -918,7 +919,7 @@ test.describe("Event checks", () => {
           callbackCount += 1;
         }}
         inputIcon="add"
-      />
+      />,
     );
 
     await getDataComponentByValue(page, "icon").click({ button: "left" });
@@ -937,7 +938,7 @@ test.describe("Event checks", () => {
           callbackCount += 1;
         }}
         inputIcon="add"
-      />
+      />,
     );
 
     await getDataComponentByValue(page, "icon").click();
@@ -958,7 +959,7 @@ test.describe("Event checks", () => {
             callbackCount += 1;
           }}
           iconTabIndex={0}
-        />
+        />,
       );
 
       await getDataElementByValue(page, "input-icon-toggle").press(key);
@@ -978,7 +979,7 @@ test.describe("Event checks", () => {
           onKeyDown={() => {
             callbackCount += 1;
           }}
-        />
+        />,
       );
 
       await textboxInput(page).press(key);
@@ -1150,7 +1151,7 @@ test.describe("Accessibility tests for Textbox component", () => {
     page,
   }) => {
     await mount(
-      <TextboxComponent labelInline labelWidth={73} inputWidth={27} />
+      <TextboxComponent labelInline labelWidth={73} inputWidth={27} />,
     );
 
     await checkAccessibility(page);

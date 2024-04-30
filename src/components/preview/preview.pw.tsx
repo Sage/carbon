@@ -29,7 +29,7 @@ test.describe("check Preview component properties", () => {
       await assertCssValueIsApproximately(
         previewComponent(page),
         "height",
-        height
+        height,
       );
     });
   });
@@ -44,7 +44,7 @@ test.describe("check Preview component properties", () => {
       await assertCssValueIsApproximately(
         previewComponent(page),
         "width",
-        width
+        width,
       );
     });
   });

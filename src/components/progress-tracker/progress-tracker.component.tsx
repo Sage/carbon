@@ -106,7 +106,7 @@ const ProgressTracker = ({
 
     const displayedCurrentProgressLabel = label(
       currentProgressLabel,
-      `${progress}%`
+      `${progress}%`,
     );
 
     const displayedMaxProgressLabel = label(maxProgressLabel, "100%");

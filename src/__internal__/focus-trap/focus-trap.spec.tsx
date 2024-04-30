@@ -99,7 +99,7 @@ const MockComponent = ({
 };
 
 const MockComponentWithCustomSelector = (
-  props: Partial<MockComponentProps>
+  props: Partial<MockComponentProps>,
 ) => (
   <MockComponent {...props} focusableSelectors="button.focusable-button">
     <button type="button" className="focusable-button">
@@ -212,13 +212,13 @@ describe("FocusTrap", () => {
   describe("triggerRefocusFlag", () => {
     it("refocuses the last element that had focus within the trap when flag is set", () => {
       const { rerender } = render(
-        mockComponentToRender({ autoFocus: false, triggerRefocusFlag: false })
+        mockComponentToRender({ autoFocus: false, triggerRefocusFlag: false }),
       );
       focusElement(screen.getByText(BUTTON_TWO));
       screen.getByText(BUTTON_TWO).blur();
       expect(screen.getByText(BUTTON_TWO)).not.toHaveFocus();
       rerender(
-        mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true })
+        mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true }),
       );
       expect(screen.getByText(BUTTON_TWO)).toHaveFocus();
     });
@@ -229,27 +229,27 @@ describe("FocusTrap", () => {
           autoFocus: false,
           triggerRefocusFlag: false,
           tabIndex: -1,
-        })
+        }),
       );
       rerender(
         mockComponentToRender({
           autoFocus: false,
           triggerRefocusFlag: true,
           tabIndex: -1,
-        })
+        }),
       );
       expect(screen.getByTestId(WRAPPER_ID)).toHaveFocus();
     });
 
     it("refocuses the container within the trap when flag is set, if the wrapper has no tabindex", () => {
       const { rerender } = render(
-        mockComponentToRender({ autoFocus: false, triggerRefocusFlag: false })
+        mockComponentToRender({ autoFocus: false, triggerRefocusFlag: false }),
       );
       // need to blur the wrapper to remove the tabindex
       fireEvent.blur(screen.getByTestId(WRAPPER_ID));
 
       rerender(
-        mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true })
+        mockComponentToRender({ autoFocus: false, triggerRefocusFlag: true }),
       );
       expect(screen.getByText(BUTTON_ONE)).toHaveFocus();
     });
@@ -261,7 +261,7 @@ describe("FocusTrap", () => {
           <button type="button" id="disable-on-focus">
             {BUTTON_TWO}
           </button>
-        </MockComponent>
+        </MockComponent>,
       );
       focusElement(screen.getByText(BUTTON_TWO));
       rerender(
@@ -270,7 +270,7 @@ describe("FocusTrap", () => {
           <button type="button" id="disable-on-focus">
             {BUTTON_TWO}
           </button>
-        </MockComponent>
+        </MockComponent>,
       );
       expect(screen.getByTestId(WRAPPER_ID)).toHaveFocus();
     });
@@ -331,7 +331,7 @@ describe("FocusTrap", () => {
       expect(bespokeFn).toHaveBeenCalledWith(
         expect.objectContaining({ key: "Tab", type: "keydown" }),
         screen.getByRole("button", { name: BUTTON_ONE }),
-        screen.getByRole("button", { name: BUTTON_TWO })
+        screen.getByRole("button", { name: BUTTON_TWO }),
       );
     });
 
@@ -344,7 +344,7 @@ describe("FocusTrap", () => {
           type: "keydown",
         }),
         screen.getByRole("button", { name: BUTTON_ONE }),
-        screen.getByRole("button", { name: BUTTON_TWO })
+        screen.getByRole("button", { name: BUTTON_TWO }),
       );
     });
   });
@@ -420,7 +420,7 @@ describe("FocusTrap", () => {
             <button type="button" disabled>
               Disabled button two
             </button>
-          </MockComponent>
+          </MockComponent>,
         );
       });
 
@@ -451,7 +451,7 @@ describe("FocusTrap", () => {
           </RadioButtonGroup>
           <button type="button">{BUTTON_ONE}</button>
           <button type="button">{BUTTON_TWO}</button>
-        </MockComponent>
+        </MockComponent>,
       );
     });
 
@@ -516,18 +516,18 @@ describe("FocusTrap", () => {
           </RadioButtonGroup>
           <button type="button">{BUTTON_ONE}</button>
           <button type="button">{BUTTON_TWO}</button>
-        </MockComponent>
+        </MockComponent>,
       );
     });
 
     describe("when focus on first radio button of second group shift-tab pressed", () => {
       it("should focus the selected button of the first group", async () => {
         focusElement(
-          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_TWO}`)
+          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_TWO}`),
         );
         await shiftTabPress();
         expect(
-          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_ONE}`)
+          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_ONE}`),
         ).toHaveFocus();
       });
     });
@@ -535,11 +535,11 @@ describe("FocusTrap", () => {
     describe("when focus on second radio button of second group shift-tab pressed", () => {
       it("should focus the selected button of the first group", async () => {
         focusElement(
-          screen.getByLabelText(`${RADIO_LABEL_TWO}-${RADIO_GROUP_TWO}`)
+          screen.getByLabelText(`${RADIO_LABEL_TWO}-${RADIO_GROUP_TWO}`),
         );
         await shiftTabPress();
         expect(
-          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_ONE}`)
+          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_ONE}`),
         ).toHaveFocus();
       });
     });
@@ -589,18 +589,18 @@ describe("FocusTrap", () => {
           </RadioButtonGroup>
           <button type="button">{BUTTON_ONE}</button>
           <button type="button">{BUTTON_TWO}</button>
-        </MockComponent>
+        </MockComponent>,
       );
     });
 
     describe("when focus on first radio button of second group shift-tab pressed", () => {
       it("should focus the selected button of the first group", async () => {
         focusElement(
-          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_TWO}`)
+          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_TWO}`),
         );
         await shiftTabPress();
         expect(
-          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_ONE}`)
+          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_ONE}`),
         ).toHaveFocus();
       });
     });
@@ -608,11 +608,11 @@ describe("FocusTrap", () => {
     describe("when focus on second radio button of second group shift-tab pressed", () => {
       it("should focus the selected button of the first group", async () => {
         focusElement(
-          screen.getByLabelText(`${RADIO_LABEL_TWO}-${RADIO_GROUP_TWO}`)
+          screen.getByLabelText(`${RADIO_LABEL_TWO}-${RADIO_GROUP_TWO}`),
         );
         await shiftTabPress();
         expect(
-          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_ONE}`)
+          screen.getByLabelText(`${RADIO_LABEL_ONE}-${RADIO_GROUP_ONE}`),
         ).toHaveFocus();
       });
     });
@@ -635,7 +635,7 @@ describe("FocusTrap", () => {
             <RadioButton value="1" label={RADIO_LABEL_ONE} size="large" />
             <RadioButton value="2" label={RADIO_LABEL_TWO} size="large" />
           </RadioButtonGroup>
-        </MockComponent>
+        </MockComponent>,
       );
     });
 
@@ -673,7 +673,7 @@ describe("FocusTrap", () => {
             <RadioButton value="2" label={RADIO_LABEL_TWO} size="large" />
           </RadioButtonGroup>
           <button type="button">{BUTTON_TWO}</button>
-        </MockComponent>
+        </MockComponent>,
       );
     });
 
@@ -742,7 +742,7 @@ describe("FocusTrap", () => {
             <RadioButton value="2" label={RADIO_LABEL_TWO} size="large" />
           </RadioButtonGroup>
           <button type="button">{BUTTON_TWO}</button>
-        </MockComponent>
+        </MockComponent>,
       );
     });
 
@@ -783,7 +783,7 @@ describe("FocusTrap", () => {
       render(
         mockComponentToRender({
           children: <button type="button">{BUTTON_ONE}</button>,
-        })
+        }),
       );
       focusElement(screen.getByText(BUTTON_ONE));
     });
@@ -812,7 +812,7 @@ describe("FocusTrap", () => {
             </>
           ),
           focusableSelectors: "button.focusable-button",
-        })
+        }),
       );
       focusElement(screen.getByText(BUTTON_TWO));
     });
@@ -843,7 +843,7 @@ describe("FocusTrap", () => {
             <RadioButton value="1" label={RADIO_LABEL_ONE} size="large" />
             <RadioButton value="2" label={RADIO_LABEL_TWO} size="large" />
           </RadioButtonGroup>
-        </MockComponent>
+        </MockComponent>,
       );
       focusElement(screen.getByLabelText(RADIO_LABEL_ONE));
     });
@@ -875,7 +875,7 @@ describe("FocusTrap", () => {
             <RadioButton value="2" label={RADIO_LABEL_TWO} size="large" />
           </RadioButtonGroup>
           <button type="button">{BUTTON_ONE}</button>
-        </MockComponent>
+        </MockComponent>,
       );
     });
 
@@ -899,7 +899,7 @@ describe("FocusTrap", () => {
             <FocusTrap wrapperRef={wrapperRef}>
               <div id="myComponent">Content</div>
             </FocusTrap>
-          </ModalContext.Provider>
+          </ModalContext.Provider>,
         );
       }).not.toThrow();
     });
@@ -1018,7 +1018,7 @@ describe("FocusTrap", () => {
             </>
           ),
           focusableSelectors: ".focusable",
-        })
+        }),
       );
       expect(screen.getByTestId(WRAPPER_ID)).toHaveFocus();
       await tabPress();
@@ -1071,7 +1071,7 @@ describe("FocusTrap", () => {
             </div>
           </FocusTrap>
           <ChangingChild />
-        </ModalContext.Provider>
+        </ModalContext.Provider>,
       );
       const additionalButton = screen.getByText(ADDITIONAL_BUTTON);
 
@@ -1124,7 +1124,7 @@ describe("FocusTrap", () => {
             <button type="button">{BUTTON_THREE}</button>
             <button type="button">{BUTTON_FOUR}</button>
           </MockComponent>
-        </>
+        </>,
       );
 
       focusElement(screen.getByText(BUTTON_ONE));
@@ -1157,7 +1157,7 @@ describe("FocusTrap", () => {
               {BUTTON_SIX}
             </button>
           </MockComponent>
-        </>
+        </>,
       );
 
       focusElement(screen.getByText(BUTTON_ONE));
@@ -1186,8 +1186,9 @@ describe("FocusTrap", () => {
             type="button"
             ref={buttonRef}
             onFocus={() => {
-              (buttonRef.current
-                ?.nextElementSibling as HTMLButtonElement)?.focus();
+              (
+                buttonRef.current?.nextElementSibling as HTMLButtonElement
+              )?.focus();
             }}
           >
             Click to focus next element
@@ -1204,7 +1205,7 @@ describe("FocusTrap", () => {
             {BUTTON_THREE}
           </button>
           <button type="button">{BUTTON_FOUR}</button>
-        </MockComponent>
+        </MockComponent>,
       );
 
       await tabPress();
@@ -1233,7 +1234,7 @@ describe("FocusTrap", () => {
           <button type="button" tabIndex={-1}>
             {BUTTON_THREE}
           </button>
-        </MockComponent>
+        </MockComponent>,
       );
 
       focusElement(screen.getByText(BUTTON_THREE));
@@ -1251,7 +1252,7 @@ describe("FocusTrap", () => {
           </button>
           <button type="button">{BUTTON_TWO}</button>
           <button type="button">{BUTTON_THREE}</button>
-        </MockComponent>
+        </MockComponent>,
       );
 
       focusElement(screen.getByText(BUTTON_ONE));
@@ -1374,7 +1375,7 @@ describe("FocusTrap", () => {
           <Option value="1" text="one" />
         </Select>
         <Checkbox label="Do not autofocus me" autoFocus />
-      </MockComponent>
+      </MockComponent>,
     );
 
     expect(screen.getByRole("combobox")).toHaveFocus();
@@ -1387,7 +1388,7 @@ describe("FocusTrap", () => {
           <Option value="1" text="one" />
         </Select>
         <Checkbox label="Do not autofocus me" autoFocus />
-      </MockComponent>
+      </MockComponent>,
     );
 
     expect(screen.getByRole("combobox")).toHaveFocus();
@@ -1405,7 +1406,7 @@ describe("FocusTrap", () => {
           </Select>
         ),
         shouldFocusFirstElement: true,
-      })
+      }),
     );
 
     expect(screen.getByText(FIRST_ELEMENT)).toHaveFocus();

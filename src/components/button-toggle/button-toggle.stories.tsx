@@ -47,7 +47,7 @@ export const Controlled: Story = () => {
   const [value, setValue] = useState("bar");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string
+    selectedValue?: string,
   ) {
     setValue(selectedValue as string);
   }
@@ -72,7 +72,7 @@ export const AriaLabel: Story = () => {
   const [value, setValue] = useState("bar");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string
+    selectedValue?: string,
   ) {
     setValue(selectedValue as string);
   }
@@ -116,7 +116,7 @@ export const AllowDeselection: Story = () => {
   const [value, setValue] = useState("bar");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
-    selectedValue?: string
+    selectedValue?: string,
   ) {
     setValue(selectedValue as string);
   }

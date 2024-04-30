@@ -47,9 +47,9 @@ describe("Box", () => {
         {
           overflowWrap: overflowValue,
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   it.each<ScrollVariant>(["light", "dark"])(
@@ -62,7 +62,7 @@ describe("Box", () => {
           width: "8px",
         },
         wrapper,
-        { modifier: "::-webkit-scrollbar" }
+        { modifier: "::-webkit-scrollbar" },
       );
 
       assertStyleMatch(
@@ -70,7 +70,7 @@ describe("Box", () => {
           backgroundColor: boxConfig[scrollVariant].track,
         },
         wrapper,
-        { modifier: "::-webkit-scrollbar-track" }
+        { modifier: "::-webkit-scrollbar-track" },
       );
 
       assertStyleMatch(
@@ -78,9 +78,9 @@ describe("Box", () => {
           backgroundColor: boxConfig[scrollVariant].thumb,
         },
         wrapper,
-        { modifier: "::-webkit-scrollbar-thumb" }
+        { modifier: "::-webkit-scrollbar-thumb" },
       );
-    }
+    },
   );
 
   it.each<BoxSizing>(["content-box", "border-box"])(
@@ -89,7 +89,7 @@ describe("Box", () => {
       const wrapper = mount(<Box boxSizing={boxSizing} />);
 
       assertStyleMatch({ boxSizing }, wrapper);
-    }
+    },
   );
 
   it.each<Gap>([...GAP_VALUES, "20px", "20%", "20px 20%"])(
@@ -98,7 +98,7 @@ describe("Box", () => {
       const wrapper = mount(<Box display="flex" gap={gapValue} />);
       const gap = getGapValue(gapValue);
       assertStyleMatch({ gap }, wrapper);
-    }
+    },
   );
 
   it.each<Gap>([...GAP_VALUES, "20px", "20%"])(
@@ -107,7 +107,7 @@ describe("Box", () => {
       const wrapper = mount(<Box display="flex" rowGap={gapValue} />);
       const rowGap = getGapValue(gapValue);
       assertStyleMatch({ rowGap }, wrapper);
-    }
+    },
   );
 
   it.each<Gap>([...GAP_VALUES, "20px", "20%"])(
@@ -116,7 +116,7 @@ describe("Box", () => {
       const wrapper = mount(<Box display="flex" columnGap={gapValue} />);
       const columnGap = getGapValue(gapValue);
       assertStyleMatch({ columnGap }, wrapper);
-    }
+    },
   );
 
   it("has styles applied when boxShadow is set", () => {
@@ -125,7 +125,7 @@ describe("Box", () => {
       {
         boxShadow: "var(--boxShadow100)",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -137,9 +137,9 @@ describe("Box", () => {
         {
           zIndex: "1",
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   it.each<BoxProps["position"]>(["absolute", "relative"])(
@@ -150,9 +150,9 @@ describe("Box", () => {
         {
           zIndex: undefined,
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   it.each<BoxProps["borderRadius"]>([
@@ -170,8 +170,8 @@ describe("Box", () => {
         {
           borderRadius: `var(--${borderRadius})`,
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 });

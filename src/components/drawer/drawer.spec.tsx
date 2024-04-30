@@ -118,7 +118,7 @@ describe("Drawer", () => {
       const drawer = wrapper.find(Drawer);
 
       expect(drawer?.getDOMNode().getAttribute("data-component")).toBe(
-        dataAttr
+        dataAttr,
       );
     });
 
@@ -131,7 +131,7 @@ describe("Drawer", () => {
           opacity: "0",
           overflowY: undefined,
         },
-        wrapper.find(StyledDrawerSidebar)
+        wrapper.find(StyledDrawerSidebar),
       );
     });
 
@@ -145,7 +145,7 @@ describe("Drawer", () => {
           flex: "1 1 0%",
           overflowY: "auto",
         },
-        wrapper.find(StyledDrawerSidebar)
+        wrapper.find(StyledDrawerSidebar),
       );
     });
 
@@ -157,7 +157,7 @@ describe("Drawer", () => {
             minWidth: "var(--sizing500)",
             width: "var(--sizing500)",
           },
-          wrapper.find(StyledDrawerContent)
+          wrapper.find(StyledDrawerContent),
         );
       });
 
@@ -169,7 +169,7 @@ describe("Drawer", () => {
               backgroundColor: "var(--colorsUtilityMajor040)",
               borderRight: "1px solid var(--colorsUtilityMajor075)",
             },
-            wrapper.find(StyledDrawerContent)
+            wrapper.find(StyledDrawerContent),
           );
         });
       });
@@ -182,7 +182,7 @@ describe("Drawer", () => {
             flex: "1",
             overflow: "auto",
           },
-          children
+          children,
         );
       });
     });
@@ -190,7 +190,7 @@ describe("Drawer", () => {
     describe("Control Button", () => {
       it("renders with correct styles", () => {
         const snapshot = TestRenderer.create(
-          <StyledSidebarToggleButton />
+          <StyledSidebarToggleButton />,
         ).toJSON();
         expect(snapshot).toMatchSnapshot();
       });
@@ -208,7 +208,7 @@ describe("Drawer", () => {
           width: expandedWidth,
         },
         content.childAt(0),
-        { modifier: "&.open" }
+        { modifier: "&.open" },
       );
     });
 
@@ -222,7 +222,7 @@ describe("Drawer", () => {
           {
             height: "100%",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -236,7 +236,7 @@ describe("Drawer", () => {
           {
             height: "50%",
           },
-          wrapper
+          wrapper,
         );
       });
     });
@@ -259,7 +259,7 @@ describe("Drawer", () => {
           {
             padding: "var(--spacing300) var(--spacing500)",
           },
-          title
+          title,
         );
       });
     });
@@ -354,7 +354,7 @@ describe("Drawer", () => {
               top: "0",
               borderBottom: "var(--sizing010) solid #ccd6db",
             },
-            wrapper.find(StyledSidebarHeader)
+            wrapper.find(StyledSidebarHeader),
           );
         });
       });
@@ -374,7 +374,7 @@ describe("Drawer", () => {
               top: "0",
               borderBottom: undefined,
             },
-            wrapper.find(StyledSidebarHeader)
+            wrapper.find(StyledSidebarHeader),
           );
         });
       });
@@ -388,7 +388,7 @@ describe("Drawer", () => {
           });
 
           expect(wrapper.find(StickyFooter).props().disableSticky).toEqual(
-            true
+            true,
           );
         });
       });
@@ -401,7 +401,7 @@ describe("Drawer", () => {
           });
 
           expect(wrapper.find(StickyFooter).props().disableSticky).toEqual(
-            false
+            false,
           );
         });
       });
@@ -427,7 +427,7 @@ describe("Drawer", () => {
           wrapper.update();
         }).toThrow(
           "Drawer should not switch from uncontrolled to controlled (or vice versa). Decide between" +
-            " using a controlled or uncontrolled Drawer element for the lifetime of the component"
+            " using a controlled or uncontrolled Drawer element for the lifetime of the component",
         );
       });
     });
@@ -443,7 +443,7 @@ describe("Drawer", () => {
           width: "40%",
         },
         content.childAt(0),
-        { modifier: "&.open" }
+        { modifier: "&.open" },
       );
     });
 
@@ -465,7 +465,7 @@ describe("Drawer", () => {
           width: undefined,
         },
         content.childAt(0),
-        { modifier: "&.closed" }
+        { modifier: "&.closed" },
       );
     });
 
@@ -485,7 +485,7 @@ describe("Drawer", () => {
           width: "40%",
         },
         content.childAt(0),
-        { modifier: "&.open" }
+        { modifier: "&.open" },
       );
       expect(onChange).toHaveBeenCalledTimes(1);
     });
@@ -528,7 +528,7 @@ describe("Drawer", () => {
       const content = wrapper.find(StyledDrawerContent);
 
       expect(content.childAt(0).prop("animationDuration")).toBe(
-        animationDuration
+        animationDuration,
       );
     });
 
@@ -544,7 +544,7 @@ describe("Drawer", () => {
       const content = wrapper.find(StyledDrawerContent);
 
       expect(content.childAt(0).prop("animationDuration")).toBe(
-        animationDuration
+        animationDuration,
       );
     });
 
@@ -560,7 +560,7 @@ describe("Drawer", () => {
       const content = wrapper.find(StyledDrawerContent);
 
       expect(content.childAt(0).prop("animationDuration")).toBe(
-        animationDuration
+        animationDuration,
       );
     });
 
@@ -576,7 +576,7 @@ describe("Drawer", () => {
       const content = wrapper.find(StyledDrawerContent);
 
       expect(content.childAt(0).prop("animationDuration")).toBe(
-        animationDuration
+        animationDuration,
       );
     });
 
@@ -589,7 +589,7 @@ describe("Drawer", () => {
         {
           backgroundColor: color,
         },
-        content.childAt(0)
+        content.childAt(0),
       );
     });
 
@@ -602,7 +602,7 @@ describe("Drawer", () => {
         {
           backgroundColor: color,
         },
-        content.childAt(0)
+        content.childAt(0),
       );
     });
 
@@ -642,7 +642,7 @@ describe("Drawer", () => {
           jest.runAllTimers();
         });
         expect(
-          wrapper.update().find(StyledDrawerSidebar).prop("isExpanded")
+          wrapper.update().find(StyledDrawerSidebar).prop("isExpanded"),
         ).toEqual(true);
       });
 
@@ -667,7 +667,7 @@ describe("Drawer", () => {
         });
 
         expect(
-          wrapper.update().find(StyledDrawerSidebar).prop("isExpanded")
+          wrapper.update().find(StyledDrawerSidebar).prop("isExpanded"),
         ).toEqual(false);
       });
 
@@ -701,7 +701,7 @@ describe("Drawer", () => {
           wrapper.update();
         }).toThrow(
           "Drawer should not switch from uncontrolled to controlled (or vice versa). Decide between" +
-            " using a controlled or uncontrolled Drawer element for the lifetime of the component"
+            " using a controlled or uncontrolled Drawer element for the lifetime of the component",
         );
       });
     });
@@ -712,7 +712,7 @@ describe("Drawer", () => {
       {
         borderRadius: "var(--borderRadius050)",
       },
-      renderDrawer({ showControls: true }).find(StyledSidebarToggleButton)
+      renderDrawer({ showControls: true }).find(StyledSidebarToggleButton),
     );
   });
 });

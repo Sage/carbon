@@ -28,13 +28,13 @@ test.describe("Testing StepSequence component properties", () => {
 
       await expect(stepSequenceDataComponent(page)).toHaveAttribute(
         "orientation",
-        orientation
+        orientation,
       );
 
       if (orientation === "vertical") {
         await expect(stepSequenceDataComponent(page)).toHaveCSS(
           "flex-direction",
-          "column"
+          "column",
         );
       }
     });
@@ -47,7 +47,7 @@ test.describe("Testing StepSequence component properties", () => {
     await mount(<StepSequenceItemCustom />);
 
     await expect(
-      stepSequenceDataComponentItem(page).locator("span").nth(1)
+      stepSequenceDataComponentItem(page).locator("span").nth(1),
     ).toHaveText("Name");
   });
 
@@ -57,7 +57,7 @@ test.describe("Testing StepSequence component properties", () => {
       page,
     }) => {
       await mount(
-        <StepSequenceItemCustom status="incomplete" indicator={indicator} />
+        <StepSequenceItemCustom status="incomplete" indicator={indicator} />,
       );
       const expectedLabelChild = stepSequenceDataComponentItem(page)
         .locator("span > span")
@@ -74,34 +74,31 @@ test.describe("Testing StepSequence component properties", () => {
       await mount(<StepSequenceItemCustom aria-label={ariaLabel} />);
       await expect(stepSequenceDataComponentItem(page)).toHaveAttribute(
         "aria-label",
-        ariaLabel
+        ariaLabel,
       );
     });
   });
 
-  ([
-    ["complete", "rgb(0, 138, 33)"],
-    ["current", "rgba(0, 0, 0, 0.9)"],
-    ["incomplete", "rgba(0, 0, 0, 0.55)"],
-  ] as [StepSequenceItemProps["status"], string][]).forEach(
-    ([status, color]) => {
-      test(`should check status is set to ${status}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<StepSequenceItemCustom status={status} />);
-        await expect(stepSequenceDataComponentItem(page)).toHaveCSS(
-          "color",
-          color
-        );
+  (
+    [
+      ["complete", "rgb(0, 138, 33)"],
+      ["current", "rgba(0, 0, 0, 0.9)"],
+      ["incomplete", "rgba(0, 0, 0, 0.55)"],
+    ] as [StepSequenceItemProps["status"], string][]
+  ).forEach(([status, color]) => {
+    test(`should check status is set to ${status}`, async ({ mount, page }) => {
+      await mount(<StepSequenceItemCustom status={status} />);
+      await expect(stepSequenceDataComponentItem(page)).toHaveCSS(
+        "color",
+        color,
+      );
 
-        const expectedLabelChild = stepSequenceDataComponentItem(page)
-          .locator("span > span")
-          .nth(0);
-        await expect(expectedLabelChild).toHaveCSS("color", color);
-      });
-    }
-  );
+      const expectedLabelChild = stepSequenceDataComponentItem(page)
+        .locator("span > span")
+        .nth(0);
+      await expect(expectedLabelChild).toHaveCSS("color", color);
+    });
+  });
 
   testData.forEach((hiddenCompleteLabel) => {
     test(`should check hiddenCompleteLabel is set to ${hiddenCompleteLabel}`, async ({
@@ -112,7 +109,7 @@ test.describe("Testing StepSequence component properties", () => {
         <StepSequenceItemCustom
           status="complete"
           hiddenCompleteLabel={hiddenCompleteLabel}
-        />
+        />,
       );
 
       const expectedLabelChild = stepSequenceDataComponentItem(page)
@@ -131,7 +128,7 @@ test.describe("Testing StepSequence component properties", () => {
         <StepSequenceItemCustom
           status="current"
           hiddenCurrentLabel={hiddenCurrentLabel}
-        />
+        />,
       );
       const expectedLabelChild = stepSequenceDataComponentItem(page)
         .locator("span")
@@ -145,37 +142,35 @@ test.describe("Testing StepSequence component properties", () => {
     page,
   }) => {
     await mount(<StepSequenceItemCustom status="complete" hideIndicator />);
-    const expectedLabelChild = stepSequenceDataComponentItem(page).locator(
-      ICON
-    );
+    const expectedLabelChild =
+      stepSequenceDataComponentItem(page).locator(ICON);
     await expect(expectedLabelChild).toBeVisible();
     await expect(stepSequenceDataComponentItem(page)).toHaveCSS(
       "color",
-      "rgb(0, 138, 33)"
+      "rgb(0, 138, 33)",
     );
   });
 
-  ([
-    ["current", "rgba(0, 0, 0, 0.9)"],
-    ["incomplete", "rgba(0, 0, 0, 0.55)"],
-  ] as [StepSequenceItemProps["status"], string][]).forEach(
-    ([status, color]) => {
-      test(`should check hideIndicator prop when status is set to ${status}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<StepSequenceItemCustom status={status} hideIndicator />);
-        const expectedLabelChild = stepSequenceDataComponentItem(page).locator(
-          ICON
-        );
-        await expect(expectedLabelChild).not.toBeVisible();
-        await expect(stepSequenceDataComponentItem(page)).toHaveCSS(
-          "color",
-          color
-        );
-      });
-    }
-  );
+  (
+    [
+      ["current", "rgba(0, 0, 0, 0.9)"],
+      ["incomplete", "rgba(0, 0, 0, 0.55)"],
+    ] as [StepSequenceItemProps["status"], string][]
+  ).forEach(([status, color]) => {
+    test(`should check hideIndicator prop when status is set to ${status}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<StepSequenceItemCustom status={status} hideIndicator />);
+      const expectedLabelChild =
+        stepSequenceDataComponentItem(page).locator(ICON);
+      await expect(expectedLabelChild).not.toBeVisible();
+      await expect(stepSequenceDataComponentItem(page)).toHaveCSS(
+        "color",
+        color,
+      );
+    });
+  });
 });
 
 test.describe("Accessibility tests for StepSequence component", () => {
@@ -205,7 +200,7 @@ test.describe("Accessibility tests for StepSequence component", () => {
       page,
     }) => {
       await mount(
-        <StepSequenceItemCustom status="incomplete" indicator={indicator} />
+        <StepSequenceItemCustom status="incomplete" indicator={indicator} />,
       );
       await checkAccessibility(page);
     });
@@ -221,11 +216,9 @@ test.describe("Accessibility tests for StepSequence component", () => {
     });
   });
 
-  ([
-    "complete",
-    "current",
-    "incomplete",
-  ] as StepSequenceItemProps["status"][]).forEach((status) => {
+  (
+    ["complete", "current", "incomplete"] as StepSequenceItemProps["status"][]
+  ).forEach((status) => {
     test(`should check status is set to ${status}`, async ({ mount, page }) => {
       await mount(<StepSequenceItemCustom status={status} />);
       await checkAccessibility(page);
@@ -241,7 +234,7 @@ test.describe("Accessibility tests for StepSequence component", () => {
         <StepSequenceItemCustom
           status="complete"
           hiddenCompleteLabel={hiddenCompleteLabel}
-        />
+        />,
       );
       await checkAccessibility(page);
     });
@@ -256,17 +249,15 @@ test.describe("Accessibility tests for StepSequence component", () => {
         <StepSequenceItemCustom
           status="complete"
           hiddenCurrentLabel={hiddenCurrentLabel}
-        />
+        />,
       );
       await checkAccessibility(page);
     });
   });
 
-  ([
-    "complete",
-    "current",
-    "incomplete",
-  ] as StepSequenceItemProps["status"][]).forEach((status) => {
+  (
+    ["complete", "current", "incomplete"] as StepSequenceItemProps["status"][]
+  ).forEach((status) => {
     test(`should check hideIndicator prop when status is set to ${status}`, async ({
       mount,
       page,

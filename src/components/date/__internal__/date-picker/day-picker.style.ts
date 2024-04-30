@@ -317,13 +317,17 @@ const StyledDayPicker = styled.div`
     }
   }
 
-  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(
+      .DayPicker-Day--outside
+    ) {
     background-color: var(--colorsActionMajor500);
     color: var(--colorsUtilityYang100);
     border-radius: var(--borderRadius400);
   }
 
-  .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  .DayPicker-Day--selected.DayPicker-Day--disabled:not(
+      .DayPicker-Day--outside
+    ) {
     background-color: var(--colorsActionMajor500);
     color: var(--colorsUtilityYang100);
   }

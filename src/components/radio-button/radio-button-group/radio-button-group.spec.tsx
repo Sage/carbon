@@ -44,7 +44,7 @@ function renderRadioButtonGroup({
       {...props}
     >
       {children}
-    </RadioButtonGroup>
+    </RadioButtonGroup>,
   );
 }
 
@@ -72,7 +72,7 @@ function renderRadioButtonGroupWithNewValidation({
       >
         {children}
       </RadioButtonGroup>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 }
 
@@ -165,7 +165,7 @@ describe("RadioButtonGroup", () => {
         {
           display: "flex",
         },
-        mount(<RadioButtonGroupStyle inline />)
+        mount(<RadioButtonGroupStyle inline />),
       );
     });
   });
@@ -179,10 +179,10 @@ describe("RadioButtonGroup", () => {
           .find(RadioButton)
           .forEach((node) =>
             expect(node.props()[type as "error" | "warning" | "info"]).toBe(
-              true
-            )
+              true,
+            ),
           );
-      }
+      },
     );
 
     it("blocks the group behaviour if no validation set on group", () => {
@@ -204,7 +204,7 @@ describe("RadioButtonGroup", () => {
         >
           <RadioButton label="off" value="test" />
           <RadioButton label="on" value="test" />
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       );
     });
 
@@ -242,9 +242,9 @@ describe("RadioButtonGroup", () => {
         >
           <RadioButton label="off" value="test" />
           <RadioButton label="on" value="test" />
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       ).find(StyledLegendContent),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -277,7 +277,7 @@ describe("RadioButtonGroup", () => {
             "foo",
             <RadioButton key="radio2" name="bar" value="bar" />,
           ]}
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       );
 
       expect(radioGroup.find(RadioButton).at(0).props().checked).toBe(true);
@@ -299,7 +299,7 @@ describe("RadioButtonGroup", () => {
           bottom: "0px",
           top: "0px",
         },
-        wrapper.find(ErrorBorder)
+        wrapper.find(ErrorBorder),
       );
     });
 
@@ -315,7 +315,7 @@ describe("RadioButtonGroup", () => {
           bottom: "0px",
           top: "0px",
         },
-        wrapper.find(ErrorBorder)
+        wrapper.find(ErrorBorder),
       );
     });
 
@@ -334,7 +334,7 @@ describe("RadioButtonGroup", () => {
           bottom: "10px",
           top: "0px",
         },
-        wrapper.find(ErrorBorder)
+        wrapper.find(ErrorBorder),
       );
     });
 
@@ -351,7 +351,7 @@ describe("RadioButtonGroup", () => {
           color: "var(--colorsUtilityYin055)",
           fontSize: "14px",
         },
-        wrapper.find(StyledHintText)
+        wrapper.find(StyledHintText),
       );
     });
 
@@ -376,7 +376,7 @@ describe("RadioButtonGroup", () => {
               <RadioButton key="radio2" name="bar" value="bar" />,
             ]}
           </RadioButtonGroup>
-        </CarbonProvider>
+        </CarbonProvider>,
       );
       expect(wrapper.find(RadioButton).at(0).exists()).toBe(true);
     });

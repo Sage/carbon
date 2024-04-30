@@ -81,12 +81,12 @@ describe("Badge", () => {
   describe("Accessibility", () => {
     const ariaLabelText = "Generic aria message";
     const wrapper = mount(
-      renderComponent({ counter: 9, "aria-label": ariaLabelText })
+      renderComponent({ counter: 9, "aria-label": ariaLabelText }),
     );
 
     it("should have the relevant aria-label when aria-label is specified", () => {
       expect(wrapper.find(Badge).first().prop("aria-label")).toBe(
-        ariaLabelText
+        ariaLabelText,
       );
     });
   });
@@ -98,7 +98,7 @@ describe("Badge", () => {
         {
           cursor: `default`,
         },
-        wrapper.find(StyledBadge)
+        wrapper.find(StyledBadge),
       );
     });
     it("should apply correct border radius for counter", () => {
@@ -107,7 +107,7 @@ describe("Badge", () => {
         {
           borderRadius: "var(--borderRadiusCircle)",
         },
-        wrapper.find(StyledBadge)
+        wrapper.find(StyledBadge),
       );
     });
 
@@ -118,7 +118,7 @@ describe("Badge", () => {
           borderColor: "var(--colorsActionMajor500)",
           color: "var(--colorsActionMajor500)",
         },
-        wrapper.find(StyledBadge)
+        wrapper.find(StyledBadge),
       );
     });
 
@@ -128,14 +128,14 @@ describe("Badge", () => {
           counter: 9,
           onClick: () => {},
           color: "--colorsSemanticNegative500",
-        })
+        }),
       );
       assertStyleMatch(
         {
           borderColor: "var(--colorsSemanticNegative500)",
           color: "var(--colorsSemanticNegative500)",
         },
-        wrapper.find(StyledBadge)
+        wrapper.find(StyledBadge),
       );
     });
   });

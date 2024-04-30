@@ -37,7 +37,7 @@ export interface FocusTrapProps {
   bespokeTrap?: (
     ev: KeyboardEvent,
     firstElement?: HTMLElement,
-    lastElement?: HTMLElement
+    lastElement?: HTMLElement,
   ) => void;
   /** optional selector to identify the focusable elements, if not provided a default selector is used */
   focusableSelectors?: string;
@@ -63,10 +63,8 @@ const FocusTrap = ({
   const [currentFocusedElement, setCurrentFocusedElement] = useState<
     HTMLElement | undefined
   >();
-  const {
-    isAnimationComplete = true,
-    triggerRefocusFlag,
-  } = useContext<ModalContextProps>(ModalContext);
+  const { isAnimationComplete = true, triggerRefocusFlag } =
+    useContext<ModalContextProps>(ModalContext);
 
   const { topModal } = useContext(TopModalContext);
   // we ensure that isTopModal is true if there is no TopModalContext, so that consumers who have not
@@ -79,17 +77,17 @@ const FocusTrap = ({
       additionalWrapperRefs?.length
         ? [wrapperRef, ...additionalWrapperRefs]
         : [wrapperRef],
-    [additionalWrapperRefs, wrapperRef]
+    [additionalWrapperRefs, wrapperRef],
   );
 
   const onTabGuardTopFocus = useMemo(
     () => onTabGuardFocus(trapWrappers, focusableSelectors, "top"),
-    [focusableSelectors, trapWrappers]
+    [focusableSelectors, trapWrappers],
   );
 
   const onTabGuardBottomFocus = useMemo(
     () => onTabGuardFocus(trapWrappers, focusableSelectors, "bottom"),
-    [focusableSelectors, trapWrappers]
+    [focusableSelectors, trapWrappers],
   );
 
   useEffect(() => {
@@ -100,7 +98,7 @@ const FocusTrap = ({
         // istanbul ignore else
         if (
           !containerElement.previousElementSibling?.matches(
-            `[data-element=${TAB_GUARD_TOP}]`
+            `[data-element=${TAB_GUARD_TOP}]`,
           )
         ) {
           const topTabGuard = document.createElement("div");
@@ -112,7 +110,7 @@ const FocusTrap = ({
         // istanbul ignore else
         if (
           !containerElement.nextElementSibling?.matches(
-            `[data-element=${TAB_GUARD_BOTTOM}]`
+            `[data-element=${TAB_GUARD_BOTTOM}]`,
           )
         ) {
           const bottomTabGuard = document.createElement("div");
@@ -150,14 +148,14 @@ const FocusTrap = ({
         if (ref.current) {
           elements.push(
             ...Array.from(ref.current.querySelectorAll(selector)).filter(
-              (el) => Number((el as HTMLElement).tabIndex) !== -1
-            )
+              (el) => Number((el as HTMLElement).tabIndex) !== -1,
+            ),
           );
         }
       });
       return elements as HTMLElement[];
     },
-    [trapWrappers]
+    [trapWrappers],
   );
 
   useEffect(() => {
@@ -167,7 +165,7 @@ const FocusTrap = ({
           ? focusFirstElement.current
           : focusFirstElement;
       const autoFocusedElement = getFocusableElements(
-        defaultFocusableSelectors
+        defaultFocusableSelectors,
       ).find((el) => el.getAttribute("data-has-autofocus") === "true");
       const elementToFocus =
         (candidateFirstElement as HTMLElement) ||
@@ -199,7 +197,7 @@ const FocusTrap = ({
         focusableElements,
         document.activeElement === wrapperRef.current,
         focusableSelectors,
-        bespokeTrap
+        bespokeTrap,
       );
     };
 
@@ -219,10 +217,10 @@ const FocusTrap = ({
 
   const updateCurrentFocusedElement = useCallback(() => {
     const focusableElements = getFocusableElements(
-      focusableSelectors || defaultFocusableSelectors
+      focusableSelectors || defaultFocusableSelectors,
     );
     const element = focusableElements?.find(
-      (el) => el === document.activeElement
+      (el) => el === document.activeElement,
     );
 
     if (element) {
@@ -241,7 +239,7 @@ const FocusTrap = ({
       setElementFocus(wrapperRef.current);
     } else {
       const focusableElements = getFocusableElements(
-        focusableSelectors || defaultFocusableSelectors
+        focusableSelectors || defaultFocusableSelectors,
       );
       /* istanbul ignore else */
       if (focusableElements.length) {
@@ -287,7 +285,7 @@ const FocusTrap = ({
     const focusableChild = child as React.ReactElement;
     return React.cloneElement(
       focusableChild,
-      focusProps(focusableChild?.props?.tabIndex === undefined)
+      focusProps(focusableChild?.props?.tabIndex === undefined),
     );
   });
 

@@ -116,10 +116,10 @@ const result = (format: string, value = "01-01-2022") =>
   value.replace(/-/g, separator(format));
 
 const yearValuesLessThan69 = Array.from({ length: 68 }).map((_, i) =>
-  i < 9 ? `0${i + 1}` : `${i + 1}`
+  i < 9 ? `0${i + 1}` : `${i + 1}`,
 );
 const yearValuesGreaterThan69 = Array.from({ length: 30 }).map(
-  (_, i) => `${i + 1 + 69}`
+  (_, i) => `${i + 1 + 69}`,
 );
 
 describe("utils", () => {
@@ -149,7 +149,7 @@ describe("utils", () => {
       "parses %s string to valid date for %s format",
       (format, value) => {
         expect(isDateValid(parseDate(format, value))).toBe(true);
-      }
+      },
     );
 
     it("returns false when passed invalid date string", () => {
@@ -203,7 +203,7 @@ describe("utils", () => {
       "returns the expected ISO formatted string when %s format and %s reference date is passed in",
       (formatString, referenceDate, expected) => {
         expect(formatToISO(formatString, referenceDate)).toEqual(expected);
-      }
+      },
     );
 
     it("returns null if an invalid reference date is passed in", () => {
@@ -276,9 +276,9 @@ describe("utils", () => {
           "returns expected output when format is `%s` and reference date is `%s`",
           (format, referenceDate, expected) => {
             expect(additionalYears(format, referenceDate)).toEqual(expected);
-          }
+          },
         );
-      }
+      },
     );
 
     describe.each(yearValuesGreaterThan69)(
@@ -315,9 +315,9 @@ describe("utils", () => {
           "returns expected output when format is `%s` and reference date is `%s`",
           (format, referenceDate, expected) => {
             expect(additionalYears(format, referenceDate)).toEqual(expected);
-          }
+          },
         );
-      }
+      },
     );
   });
 
@@ -339,12 +339,12 @@ describe("utils", () => {
       (format, value, formatResult, valueResult) => {
         const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
           value,
-          formats
+          formats,
         );
 
         expect(matchedFormat).toEqual(formatResult);
         expect(matchedValue).toEqual(valueResult);
-      }
+      },
     );
 
     it.each([
@@ -364,12 +364,12 @@ describe("utils", () => {
       (format, value, formatResult, valueResult) => {
         const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
           value,
-          formats
+          formats,
         );
 
         expect(matchedFormat).toEqual(formatResult);
         expect(matchedValue).toEqual(valueResult);
-      }
+      },
     );
 
     it.each([
@@ -385,12 +385,12 @@ describe("utils", () => {
       (format, value, formatResult, valueResult) => {
         const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
           value,
-          formats
+          formats,
         );
 
         expect(matchedFormat).toEqual(formatResult);
         expect(matchedValue).toEqual(valueResult);
-      }
+      },
     );
 
     it.each([
@@ -406,12 +406,12 @@ describe("utils", () => {
       (format, value, formatResult, valueResult) => {
         const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
           value,
-          formats
+          formats,
         );
 
         expect(matchedFormat).toEqual(formatResult);
         expect(matchedValue).toEqual(valueResult);
-      }
+      },
     );
   });
 
@@ -468,7 +468,7 @@ describe("utils", () => {
       "returns false when invalid ISO string %s passed",
       (value) => {
         expect(checkISOFormatAndLength(value)).toEqual(false);
-      }
+      },
     );
   });
 });

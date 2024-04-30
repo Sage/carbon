@@ -5,7 +5,7 @@ import useDebounce from "../useDebounce";
 
 const useCharacterCount = (
   value = "",
-  characterLimit?: number
+  characterLimit?: number,
 ): [JSX.Element | null, string | undefined] => {
   const isCharacterLimitValid =
     typeof characterLimit === "number" && !Number.isNaN(characterLimit);

@@ -47,10 +47,10 @@ describe("useFloating", () => {
 
     render(<MockComponent isOpen strategy="fixed" placement="top" />);
     expect(computePositionSpy.mock.calls[0][0]).toBe(
-      screen.getByTestId("reference-element")
+      screen.getByTestId("reference-element"),
     );
     expect(computePositionSpy.mock.calls[0][1]).toBe(
-      screen.getByTestId("floating-element")
+      screen.getByTestId("floating-element"),
     );
     expect(computePositionSpy.mock.calls[0][2]).toMatchObject({
       strategy: "fixed",
@@ -64,10 +64,10 @@ describe("useFloating", () => {
     const { rerender } = render(<MockComponent isOpen />);
 
     expect(autoUpdateSpy.mock.calls[0][0]).toBe(
-      screen.getByTestId("reference-element")
+      screen.getByTestId("reference-element"),
     );
     expect(autoUpdateSpy.mock.calls[0][1]).toBe(
-      screen.getByTestId("floating-element")
+      screen.getByTestId("floating-element"),
     );
     expect(autoUpdateSpy.mock.calls[0][3]).toMatchObject({
       animationFrame: undefined,
@@ -84,7 +84,7 @@ describe("useFloating", () => {
 
     await waitFor(() => {
       const positionedStyle = window.getComputedStyle(
-        screen.getByTestId("floating-element")
+        screen.getByTestId("floating-element"),
       );
       expect(positionedStyle).toMatchObject({
         position: "absolute",
@@ -95,7 +95,7 @@ describe("useFloating", () => {
 
     rerender(<MockComponent isOpen={false} />);
     const originalStyle = window.getComputedStyle(
-      screen.getByTestId("floating-element")
+      screen.getByTestId("floating-element"),
     );
 
     expect(originalStyle).toMatchObject({
@@ -116,12 +116,12 @@ describe("useFloating", () => {
     ];
 
     const { rerender } = await render(
-      <MockComponent isOpen middleware={middleWare} />
+      <MockComponent isOpen middleware={middleWare} />,
     );
 
     await waitFor(() => {
       const positionedStyle = window.getComputedStyle(
-        screen.getByTestId("floating-element")
+        screen.getByTestId("floating-element"),
       );
       expect(positionedStyle.width).not.toBe("");
       expect(positionedStyle.height).not.toBe("");
@@ -129,7 +129,7 @@ describe("useFloating", () => {
 
     rerender(<MockComponent isOpen={false} />);
     const originalStyle = window.getComputedStyle(
-      screen.getByTestId("floating-element")
+      screen.getByTestId("floating-element"),
     );
 
     expect(originalStyle.height).toBe("");
@@ -138,20 +138,20 @@ describe("useFloating", () => {
 
   it("adds data-floating-placement attribute to the floating element", async () => {
     const { rerender } = render(
-      <MockComponent isOpen strategy="fixed" placement="top" />
+      <MockComponent isOpen strategy="fixed" placement="top" />,
     );
 
     await waitFor(() => {
       expect(screen.getByTestId("floating-element")).toHaveAttribute(
         "data-floating-placement",
-        "top"
+        "top",
       );
     });
 
     rerender(<MockComponent strategy="fixed" placement="top" />);
 
     expect(screen.getByTestId("floating-element")).not.toHaveAttribute(
-      "data-floating-placement"
+      "data-floating-placement",
     );
   });
 });

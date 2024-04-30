@@ -31,7 +31,7 @@ const AnchorNavigationItem = React.forwardRef<
       tabIndex,
       isSelected,
     }: AnchorNavigationItemProps,
-    ref
+    ref,
   ) => (
     <StyledNavigationItem isSelected={isSelected}>
       <a
@@ -45,7 +45,7 @@ const AnchorNavigationItem = React.forwardRef<
         {children}
       </a>
     </StyledNavigationItem>
-  )
+  ),
 );
 
 AnchorNavigationItem.displayName = "AnchorNavigationItem";

@@ -32,7 +32,7 @@ describe("Detail", () => {
 
     it("renders with custom classes", () => {
       expect(wrapper.find(StyledDetail).props().className).toContain(
-        "carbon-detail foo"
+        "carbon-detail foo",
       );
     });
   });
@@ -61,7 +61,7 @@ describe("Detail", () => {
     it("should give the content a margin left", () => {
       assertStyleMatch(
         { marginLeft: "26px" },
-        wrapper.find(StyledDetailContent)
+        wrapper.find(StyledDetailContent),
       );
     });
 
@@ -70,14 +70,14 @@ describe("Detail", () => {
         wrapper = mount(
           <Detail icon="settings" footnote="extra info">
             foo
-          </Detail>
+          </Detail>,
         );
       });
 
       it("should give the footnote a margin left", () => {
         assertStyleMatch(
           { marginLeft: "26px" },
-          wrapper.find(StyledDetailFootnote)
+          wrapper.find(StyledDetailFootnote),
         );
       });
     });

@@ -10,7 +10,7 @@ describe("Global Header", () => {
   it("should be visible with correct accessible name", () => {
     renderer();
     expect(screen.getByRole("navigation")).toHaveAccessibleName(
-      "Global Header"
+      "Global Header",
     );
   });
 
@@ -39,7 +39,7 @@ describe("Global Header", () => {
       const logo = <svg aria-label="Carbon logo" data-role="carbon-logo" />;
       renderer({ logo });
       expect(screen.getByTestId("carbon-logo")).toHaveAccessibleName(
-        "Carbon logo"
+        "Carbon logo",
       );
     });
   });

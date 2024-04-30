@@ -27,7 +27,7 @@ describe("Title", () => {
   const render = (
     menuType: MenuType,
     variant?: VariantType,
-    as?: MenuTitleProps["as"]
+    as?: MenuTitleProps["as"],
   ) => {
     return mount(
       <MenuContext.Provider value={menuContextValues(menuType)}>
@@ -38,7 +38,7 @@ describe("Title", () => {
             </MenuSegmentTitle>
           </MenuItem>
         </ul>
-      </MenuContext.Provider>
+      </MenuContext.Provider>,
     );
   };
 
@@ -66,7 +66,7 @@ describe("Title", () => {
       expect(title.getDOMNode().tagName).toBe(tagName?.toUpperCase());
       expect(segmentList.getDOMNode().tagName).toBe("UL");
       expect(segmentList.find("li").text()).toBe("bar");
-    }
+    },
   );
 
   describe.each<MenuType>(["light", "white", "dark", "black"])(
@@ -86,7 +86,7 @@ describe("Title", () => {
             cursor: "default",
             color: menuConfigVariants[menuType].title,
           },
-          wrapper.find(StyledTitle)
+          wrapper.find(StyledTitle),
         );
       });
 
@@ -98,10 +98,10 @@ describe("Title", () => {
           {
             backgroundColor: menuConfigVariants[menuType].alternate,
           },
-          wrapper.find(StyledTitle)
+          wrapper.find(StyledTitle),
         );
       });
-    }
+    },
   );
 
   describe("tags on component", () => {
@@ -109,11 +109,11 @@ describe("Title", () => {
       wrapper = mount(
         <MenuSegmentTitle text="foo" data-element="bar" data-role="baz">
           <li>bar</li>
-        </MenuSegmentTitle>
+        </MenuSegmentTitle>,
       ).find(StyledTitle);
 
       expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
-        "menu-segment-title"
+        "menu-segment-title",
       );
 
       expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");

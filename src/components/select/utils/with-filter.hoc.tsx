@@ -17,7 +17,7 @@ const filterOptions = (option: React.ReactElement, filterText: string) => {
 
 const filterOptionRows = (
   optionRow: React.ReactElement,
-  filterText: string
+  filterText: string,
 ) => {
   const cells = React.Children.toArray(optionRow.props.children);
 
@@ -64,7 +64,7 @@ const filterChildren = (filterText: string) => (children: React.ReactNode) => {
 
 function addHighlightedContent(
   filteredElements: React.ReactNode,
-  filterText: string
+  filterText: string,
 ) {
   return React.Children.map(filteredElements, (child) => {
     let highlightedContent;
@@ -106,7 +106,7 @@ export interface FilteredComponentProps extends WrappedComponentProps {
 
 /** Filters wrapped component children based on provided filter text and highlights matching content */
 const withFilter = <T extends WrappedComponentProps>(
-  WrappedComponent: React.ComponentType<T>
+  WrappedComponent: React.ComponentType<T>,
 ) => {
   const FilteredComponent = React.forwardRef(
     (
@@ -119,7 +119,7 @@ const withFilter = <T extends WrappedComponentProps>(
         tableHeader,
         ...props
       }: FilteredComponentProps & T,
-      forwardedRef: React.ForwardedRef<HTMLDivElement>
+      forwardedRef: React.ForwardedRef<HTMLDivElement>,
     ) => {
       const l = useLocale();
 
@@ -135,7 +135,7 @@ const withFilter = <T extends WrappedComponentProps>(
             if (multiColumn) {
               const colSpan = React.isValidElement(tableHeader)
                 ? /* istanbul ignore next */ React.Children.count(
-                    tableHeader?.props?.children
+                    tableHeader?.props?.children,
                   )
                 : 1;
               return (
@@ -179,7 +179,7 @@ const withFilter = <T extends WrappedComponentProps>(
           {getFilteredChildren()}
         </WrappedComponent>
       );
-    }
+    },
   );
 
   FilteredComponent.displayName = "FilteredComponent";

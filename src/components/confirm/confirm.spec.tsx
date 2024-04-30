@@ -56,7 +56,7 @@ describe("Confirm", () => {
         subtitle="Confirm Subtitle"
         data-element="bar"
         data-role="baz"
-      />
+      />,
     );
   });
 
@@ -88,7 +88,7 @@ describe("Confirm", () => {
           subtitle="Confirm Subtitle"
           data-element="bar"
           data-role="baz"
-        />
+        />,
       );
     });
 
@@ -125,7 +125,7 @@ describe("Confirm", () => {
             onConfirm={() => {}}
             open
             onCancel={onCancelFn}
-          />
+          />,
         );
       });
 
@@ -146,7 +146,7 @@ describe("Confirm", () => {
             onConfirm={() => {}}
             open
             onCancel={onCancelFn}
-          />
+          />,
         );
 
         assertStyleMatch(
@@ -154,7 +154,7 @@ describe("Confirm", () => {
             color: "var(--colorsActionMinorYin030)",
           },
           wrapper.find(StyledIconButton),
-          { modifier: `${StyledIcon}` }
+          { modifier: `${StyledIcon}` },
         );
       });
     });
@@ -175,7 +175,7 @@ describe("Confirm", () => {
           onConfirm={() => {}}
           open
           disableCancel
-        />
+        />,
       );
 
       expect(wrapper.find(IconButton).props().disabled).toBe(true);
@@ -186,10 +186,10 @@ describe("Confirm", () => {
 
       it("returns default values", () => {
         expect(
-          wrapper.find("[data-element='cancel']").hostNodes().text()
+          wrapper.find("[data-element='cancel']").hostNodes().text(),
         ).toEqual("No");
         expect(
-          wrapper.find("[data-element='confirm']").hostNodes().text()
+          wrapper.find("[data-element='confirm']").hostNodes().text(),
         ).toEqual("Yes");
       });
     });
@@ -203,7 +203,7 @@ describe("Confirm", () => {
             onConfirm={onConfirm}
             confirmLabel="Delete"
             cancelLabel="Cancel"
-          />
+          />,
         );
       });
 
@@ -227,7 +227,7 @@ describe("Confirm", () => {
             onCancel={onCancel}
             iconType="warning"
             title="foo"
-          />
+          />,
         );
 
         const titleId = wrapper.find(Heading).prop("titleId");
@@ -237,7 +237,7 @@ describe("Confirm", () => {
           wrapper
             .find("[data-element='dialog']")
             .first()
-            .prop("aria-labelledby")
+            .prop("aria-labelledby"),
         ).toBe("guid-123");
       });
     });
@@ -251,7 +251,7 @@ describe("Confirm", () => {
             onCancel={onCancel}
             iconType="warning"
             subtitle="baz"
-          />
+          />,
         );
 
         const subtitleId = wrapper.find(Heading).prop("subtitleId");
@@ -261,7 +261,7 @@ describe("Confirm", () => {
           wrapper
             .find("[data-element='dialog']")
             .first()
-            .prop("aria-describedby")
+            .prop("aria-describedby"),
         ).toBe("guid-123");
       });
     });
@@ -274,7 +274,7 @@ describe("Confirm", () => {
         {
           marginTop: "48px",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -289,7 +289,7 @@ describe("Confirm", () => {
           title="Confirm title"
           iconType="error"
           showCloseIcon={false}
-        />
+        />,
       );
       const iconError = wrapper.find(StyledConfirmHeading).at(0);
       expect(iconError.find(Icon).props().type).toBe("error");
@@ -301,7 +301,7 @@ describe("Confirm", () => {
           color: "var(--colorsSemanticNegative500)",
         },
         mount(<StyledConfirmHeading type="error" />),
-        { modifier: `${StyledIcon}` }
+        { modifier: `${StyledIcon}` },
       );
     });
 
@@ -316,7 +316,7 @@ describe("Confirm", () => {
           title="Confirm title"
           iconType="warning"
           showCloseIcon={false}
-        />
+        />,
       );
       const iconError = wrapper.find(StyledConfirmHeading).at(0);
       expect(iconError.find(Icon).props().type).toBe("warning");
@@ -328,7 +328,7 @@ describe("Confirm", () => {
           color: "var(--colorsSemanticCaution500)",
         },
         mount(<StyledConfirmHeading type="warning" />),
-        { modifier: `${StyledIcon}` }
+        { modifier: `${StyledIcon}` },
       );
     });
 
@@ -341,7 +341,7 @@ describe("Confirm", () => {
           confirmLabel="Delete"
           cancelLabel="Cancel"
           confirmButtonDestructive
-        />
+        />,
       );
 
       const confirmButton = wrapper
@@ -361,7 +361,7 @@ describe("Confirm", () => {
           confirmLabel="Delete"
           cancelLabel="Cancel"
           cancelButtonDestructive
-        />
+        />,
       );
 
       const cancelButton = wrapper
@@ -379,7 +379,7 @@ describe("Confirm", () => {
           onCancel={() => {}}
           onConfirm={() => {}}
           open
-        />
+        />,
       );
       const button = wrapper
         .find(Button)
@@ -396,7 +396,7 @@ describe("Confirm", () => {
           onCancel={() => {}}
           onConfirm={() => {}}
           open
-        />
+        />,
       );
       const button = wrapper
         .find(Button)
@@ -413,7 +413,7 @@ describe("Confirm", () => {
           onCancel={() => {}}
           onConfirm={() => {}}
           open
-        />
+        />,
       );
       const button = wrapper
         .find(Button)
@@ -430,7 +430,7 @@ describe("Confirm", () => {
           onCancel={() => {}}
           onConfirm={() => {}}
           open
-        />
+        />,
       );
       const button = wrapper
         .find(Button)
@@ -450,7 +450,7 @@ describe("Confirm", () => {
             onCancel={() => {}}
             onConfirm={() => {}}
             open
-          />
+          />,
         );
         const button = wrapper
           .find(Button)
@@ -458,7 +458,7 @@ describe("Confirm", () => {
           .at(0);
 
         expect(button.props().iconPosition).toBe(position);
-      }
+      },
     );
 
     it.each(buttonIconPositions)(
@@ -471,7 +471,7 @@ describe("Confirm", () => {
             onCancel={() => {}}
             onConfirm={() => {}}
             open
-          />
+          />,
         );
         const button = wrapper
           .find(Button)
@@ -479,7 +479,7 @@ describe("Confirm", () => {
           .at(0);
 
         expect(button.props().iconPosition).toBe(position);
-      }
+      },
     );
   });
 
@@ -487,8 +487,8 @@ describe("Confirm", () => {
     assertStyleMatch(
       { borderRadius: "var(--borderRadius200)" },
       mount(<Confirm onCancel={() => {}} onConfirm={() => {}} open />).find(
-        StyledDialog
-      )
+        StyledDialog,
+      ),
     );
   });
 
@@ -512,7 +512,7 @@ describe("Confirm", () => {
         }}
         showCloseIcon
         open
-      />
+      />,
     );
     const cancelButton = wrapper
       .find(Button)

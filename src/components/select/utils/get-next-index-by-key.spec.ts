@@ -49,7 +49,7 @@ describe("getNextIndexByKey", () => {
     describe("and the last argument is set to true", () => {
       it("then the last index should be returned", () => {
         expect(getNextIndexByKey(downKey, lastIndex, lastIndex, true)).toBe(
-          lastIndex
+          lastIndex,
         );
       });
     });
@@ -69,7 +69,7 @@ describe("getNextIndexByKey", () => {
     describe("when no index is currently selected", () => {
       it("then the index should be returned that is 1 page before the end", () => {
         expect(getNextIndexByKey(pageUpKey, -1, lastIndex)).toBe(
-          lastIndex + 1 - PAGE_SIZE
+          lastIndex + 1 - PAGE_SIZE,
         );
       });
     });
@@ -83,7 +83,7 @@ describe("getNextIndexByKey", () => {
     describe("when the current index is within page size of the end", () => {
       it("then the last index should be returned", () => {
         expect(getNextIndexByKey(pageDownKey, lastIndex - 2, lastIndex)).toBe(
-          lastIndex
+          lastIndex,
         );
       });
     });
@@ -91,7 +91,7 @@ describe("getNextIndexByKey", () => {
     describe("when no index is currently selected", () => {
       it("then the index should be returned that is 1 page from the start", () => {
         expect(getNextIndexByKey(pageDownKey, -1, lastIndex)).toBe(
-          PAGE_SIZE - 1
+          PAGE_SIZE - 1,
         );
       });
     });

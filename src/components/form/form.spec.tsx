@@ -75,9 +75,9 @@ describe("Form", () => {
             marginBottom: "var(--spacing000)",
           },
           wrapper,
-          { modifier: `${sc} ${StyledFormField}` }
+          { modifier: `${sc} ${StyledFormField}` },
         );
-      }
+      },
     );
   });
 
@@ -89,7 +89,7 @@ describe("Form", () => {
         {
           height: "100px",
         },
-        wrapper.find(StyledForm)
+        wrapper.find(StyledForm),
       );
     });
   });
@@ -119,7 +119,7 @@ describe("Form", () => {
               <Textbox onChange={() => {}} />
               <Textbox onChange={() => {}} />
             </InlineInputs>
-          </Form>
+          </Form>,
         );
 
         const result = {
@@ -135,7 +135,7 @@ describe("Form", () => {
 
         assertStyleMatch(
           result,
-          wrapper.find(RadioButtonGroup).find(StyledFieldset)
+          wrapper.find(RadioButtonGroup).find(StyledFieldset),
         );
 
         assertStyleMatch(result, wrapper.find(StyledSelect));
@@ -144,7 +144,7 @@ describe("Form", () => {
         assertStyleMatch(
           { marginBottom: "var(--spacing000)", marginTop: "var(--spacing000)" },
           wrapper.find(StyledSelect).find(StyledFormField),
-          { modifier: "&&&" }
+          { modifier: "&&&" },
         );
 
         assertStyleMatch(result, wrapper.find(FieldsetStyle));
@@ -152,7 +152,7 @@ describe("Form", () => {
         // does not apply form spacing to the composed input as well
         assertStyleMatch(
           { marginBottom: undefined },
-          wrapper.find(FieldsetStyle).find(StyledSelect)
+          wrapper.find(FieldsetStyle).find(StyledSelect),
         );
 
         assertStyleMatch(result, wrapper.find(StyledInlineInputs));
@@ -181,7 +181,7 @@ describe("Form", () => {
               <Textbox onChange={() => {}} />
               <Textbox onChange={() => {}} />
             </InlineInputs>
-          </Form>
+          </Form>,
         );
 
         const result = {
@@ -199,7 +199,7 @@ describe("Form", () => {
 
         assertStyleMatch(
           result,
-          wrapper.find(RadioButtonGroup).find(StyledFieldset)
+          wrapper.find(RadioButtonGroup).find(StyledFieldset),
         );
 
         assertStyleMatch(result, wrapper.find(StyledSelect));
@@ -208,7 +208,7 @@ describe("Form", () => {
 
         assertStyleMatch(result, wrapper.find(StyledInlineInputs));
       });
-    }
+    },
   );
 
   describe("when stickyFooter prop is true", () => {
@@ -227,7 +227,7 @@ describe("Form", () => {
           position: "sticky",
           bottom: "0",
         },
-        wrapper.find(StyledFormFooter)
+        wrapper.find(StyledFormFooter),
       );
 
       assertStyleMatch(
@@ -235,7 +235,7 @@ describe("Form", () => {
           overflowY: "inherit",
           flex: "1",
         },
-        wrapper.find(StyledFormContent)
+        wrapper.find(StyledFormContent),
       );
 
       assertStyleMatch(
@@ -244,7 +244,7 @@ describe("Form", () => {
           flexDirection: "column",
           position: "relative",
         },
-        wrapper.find(StyledForm)
+        wrapper.find(StyledForm),
       );
     };
 
@@ -257,7 +257,7 @@ describe("Form", () => {
               Save
             </Button>
           }
-        />
+        />,
       );
 
       assertThatFooterIsSticky();
@@ -296,17 +296,17 @@ describe("Form", () => {
           >
             <div style={{ height: 300 }}>Content</div>
           </Form>
-        </Dialog>
+        </Dialog>,
       );
 
       expect(wrapper.find("[data-element='form-content']")).toHaveStyleRule(
         "overflow-y",
-        "auto"
+        "auto",
       );
 
       expect(wrapper.find(StyledForm)).toHaveStyleRule(
         "max-height",
-        "calc(100vh - 216px)"
+        "calc(100vh - 216px)",
       );
     });
   });
@@ -332,40 +332,41 @@ describe("Form", () => {
           leftSideButtons={leftSideButtons}
           saveButton={saveButton}
           rightSideButtons={rightSideButtons}
-        />
+        />,
       );
     });
 
     it("renders buttons passed as the leftSideButtons prop", () => {
       expect(
-        wrapper.find(StyledFormFooter).childAt(0).is(StyledLeftButtons)
+        wrapper.find(StyledFormFooter).childAt(0).is(StyledLeftButtons),
       ).toBe(true);
       expect(
-        wrapper.find(StyledLeftButtons).find(Button).at(0).props().id
+        wrapper.find(StyledLeftButtons).find(Button).at(0).props().id,
       ).toBe("myLeftButton1");
       expect(
-        wrapper.find(StyledLeftButtons).find(Button).at(1).props().id
+        wrapper.find(StyledLeftButtons).find(Button).at(1).props().id,
       ).toBe("myLeftButton2");
     });
 
     it("renders button passed as the saveButton prop wrapped by the Form Summary", () => {
       expect(wrapper.find(StyledFormFooter).childAt(1).is(FormSummary)).toBe(
-        true
+        true,
       );
       expect(
-        wrapper.find(StyledFormFooter).find(FormSummary).find(Button).props().id
+        wrapper.find(StyledFormFooter).find(FormSummary).find(Button).props()
+          .id,
       ).toBe("mySaveButton");
     });
 
     it("renders buttons passed as the rightSideButtons prop", () => {
       expect(
-        wrapper.find(StyledFormFooter).childAt(2).is(StyledRightButtons)
+        wrapper.find(StyledFormFooter).childAt(2).is(StyledRightButtons),
       ).toBe(true);
       expect(
-        wrapper.find(StyledRightButtons).find(Button).at(0).props().id
+        wrapper.find(StyledRightButtons).find(Button).at(0).props().id,
       ).toBe("myRightButton1");
       expect(
-        wrapper.find(StyledRightButtons).find(Button).at(1).props().id
+        wrapper.find(StyledRightButtons).find(Button).at(1).props().id,
       ).toBe("myRightButton2");
     });
   });
@@ -377,7 +378,7 @@ describe("Form", () => {
         {
           flexGrow: "1",
         },
-        wrapper.find(StyledRightButtons)
+        wrapper.find(StyledRightButtons),
       );
     });
 
@@ -387,7 +388,7 @@ describe("Form", () => {
         {
           flexGrow: "1",
         },
-        wrapper.find(StyledLeftButtons)
+        wrapper.find(StyledLeftButtons),
       );
     });
 
@@ -404,7 +405,7 @@ describe("Form", () => {
         {
           justifyContent: "flex-end",
         },
-        wrapper.find(StyledFormFooter)
+        wrapper.find(StyledFormFooter),
       );
     });
 
@@ -421,14 +422,14 @@ describe("Form", () => {
         {
           backgroundColor: "var(--colorsUtilityMajor025)",
         },
-        wrapper.find(StyledFormSummary)
+        wrapper.find(StyledFormSummary),
       );
       wrapper.setProps({ errorCount: 1 });
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsUtilityMajor025)",
         },
-        wrapper.find(StyledFormSummary)
+        wrapper.find(StyledFormSummary),
       );
     });
   });
@@ -442,7 +443,7 @@ describe("Form", () => {
               Save
             </Button>
           }
-        />
+        />,
       );
     });
 
@@ -451,7 +452,7 @@ describe("Form", () => {
 
       wrapper.setProps({ saveButton });
       expect(wrapper.find(FormSummary).find(Button).props().id).toBe(
-        "mySaveButton"
+        "mySaveButton",
       );
     });
 
@@ -467,7 +468,7 @@ describe("Form", () => {
           {
             color: "var(--colorsSemanticNegative600)",
           },
-          errorSummary
+          errorSummary,
         );
       });
     });
@@ -484,7 +485,7 @@ describe("Form", () => {
           {
             color: "var(--colorsSemanticCaution650)",
           },
-          warningSummary
+          warningSummary,
         );
       });
     });
@@ -499,7 +500,7 @@ describe("Form", () => {
           {
             color: "var(--colorsSemanticNegative600)",
           },
-          errorSummary
+          errorSummary,
         );
       });
 
@@ -512,7 +513,7 @@ describe("Form", () => {
           {
             color: "var(--colorsSemanticCaution650)",
           },
-          warningSummary
+          warningSummary,
         );
       });
     });
@@ -530,27 +531,27 @@ describe("Form", () => {
           errPrefix,
           errMessage,
           warnPrefix,
-          warnMessage
+          warnMessage,
           // eslint-disable-next-line max-params
         ) => {
           wrapper.setProps({ errorCount, warningCount });
 
           expect(wrapper.find(StyledMessagePrefix).at(0).text()).toBe(
-            errPrefix
+            errPrefix,
           );
 
           expect(wrapper.find(StyledInternalSummary).at(0).text()).toBe(
-            errMessage
+            errMessage,
           );
 
           expect(wrapper.find(StyledMessagePrefix).at(1).text()).toBe(
-            warnPrefix
+            warnPrefix,
           );
 
           expect(wrapper.find(StyledInternalSummary).at(1).text()).toBe(
-            warnMessage
+            warnMessage,
           );
-        }
+        },
       );
     });
 
@@ -566,7 +567,7 @@ describe("Form", () => {
           expect(wrapper.find(StyledMessagePrefix).text()).toBe(errPrefix);
 
           expect(wrapper.find(StyledInternalSummary).text()).toBe(errMessage);
-        }
+        },
       );
     });
 
@@ -582,7 +583,7 @@ describe("Form", () => {
           expect(wrapper.find(StyledMessagePrefix).text()).toBe(warnPrefix);
 
           expect(wrapper.find(StyledInternalSummary).text()).toBe(warnMessage);
-        }
+        },
       );
     });
 
@@ -601,7 +602,7 @@ describe("Form", () => {
         saveButton={<div />}
         errorCount={1}
         warningCount={1}
-      />
+      />,
     );
 
     it("include correct component, element and role data tags on form element", () => {
@@ -613,16 +614,16 @@ describe("Form", () => {
 
     it("include correct data-element tags on elements", () => {
       expect(tagWrapper.find(StyledFormFooter).prop("data-element")).toBe(
-        "form-footer"
+        "form-footer",
       );
       expect(tagWrapper.find(StyledFormSummary).prop("data-element")).toBe(
-        "form-summary"
+        "form-summary",
       );
       expect(
-        tagWrapper.find(StyledInternalSummary).at(0).prop("data-element")
+        tagWrapper.find(StyledInternalSummary).at(0).prop("data-element"),
       ).toBe("errors");
       expect(
-        tagWrapper.find(StyledInternalSummary).at(1).prop("data-element")
+        tagWrapper.find(StyledInternalSummary).at(1).prop("data-element"),
       ).toBe("warnings");
     });
   });
@@ -656,7 +657,7 @@ describe("Form", () => {
           }
           errorCount={2}
           warningCount={3}
-        />
+        />,
       );
     });
 
@@ -674,7 +675,7 @@ describe("Form", () => {
           position: "sticky",
           bottom: "0",
         },
-        wrapper.find(StyledFormFooter)
+        wrapper.find(StyledFormFooter),
       );
     });
 
@@ -683,7 +684,7 @@ describe("Form", () => {
         {
           marginRight: "0px",
         },
-        wrapper.find(StyledLeftButtons)
+        wrapper.find(StyledLeftButtons),
       );
     });
 
@@ -692,7 +693,7 @@ describe("Form", () => {
         {
           marginLeft: "0px",
         },
-        wrapper.find(StyledRightButtons)
+        wrapper.find(StyledRightButtons),
       );
     });
 
@@ -702,7 +703,7 @@ describe("Form", () => {
           width: "100%",
           display: "flex",
         },
-        wrapper.find(StyledFullWidthButtons)
+        wrapper.find(StyledFullWidthButtons),
       );
     });
 
@@ -714,7 +715,7 @@ describe("Form", () => {
           width: "100%",
           justifyContent: "flex-start",
         },
-        wrapper.find(StyledFormSummary)
+        wrapper.find(StyledFormSummary),
       );
     });
 
@@ -730,10 +731,10 @@ describe("Form", () => {
           }
           errorCount={2}
           warningCount={3}
-        />
+        />,
       );
       expect(wrapper.find(StyledFormFooter).props().stickyFooter).toEqual(
-        false
+        false,
       );
     });
   });
@@ -747,7 +748,7 @@ describe("Form", () => {
         />
       ),
       undefined,
-      (component) => component.find(StyledFormFooter)
+      (component) => component.find(StyledFormFooter),
     );
 
     it("sets the 'padded' class on the footer", () => {
@@ -755,7 +756,7 @@ describe("Form", () => {
         <Form
           saveButton={<button type="submit">Save</button>}
           footerPadding={{ p: 0 }}
-        />
+        />,
       ).find(StyledFormFooter);
 
       expect(footer.hasClass("padded")).toBe(true);

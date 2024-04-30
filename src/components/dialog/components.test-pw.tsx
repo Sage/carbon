@@ -41,7 +41,7 @@ export const DialogComponent = (props: Partial<DialogProps>) => {
 };
 
 export const DialogWithFirstFocusableElement = (
-  props: Partial<DialogProps>
+  props: Partial<DialogProps>,
 ) => {
   const ref = useRef<HTMLButtonElement>(null);
 
@@ -227,7 +227,7 @@ export const DialogWithStepSequence = (props: Partial<DialogProps>) => {
 };
 
 export const DialogComponentFocusableSelectors = (
-  props: Partial<DialogProps>
+  props: Partial<DialogProps>,
 ) => {
   const [setIsDialogOpen] = React.useState(false);
   const [isToastOpen, setIsToastOpen] = React.useState(false);

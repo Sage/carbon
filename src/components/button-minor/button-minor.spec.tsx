@@ -76,17 +76,17 @@ describe("Button Minor", () => {
     (size, padding) => {
       const wrapper = mount(<ButtonMinor size={size}>Foo</ButtonMinor>);
       assertStyleMatch({ padding }, wrapper);
-    }
+    },
   );
 
   it.each(minorColors)(
     "renders with correct styling when buttonType is %s",
     (buttonType, styles) => {
       const wrapper = mount(
-        <ButtonMinor buttonType={buttonType}>Foo</ButtonMinor>
+        <ButtonMinor buttonType={buttonType}>Foo</ButtonMinor>,
       );
       assertStyleMatch({ ...styles }, wrapper);
-    }
+    },
   );
 
   it("with icon and text children, icon's position is undefined", () => {
@@ -96,7 +96,7 @@ describe("Button Minor", () => {
         position: undefined,
       },
       wrapper,
-      { modifier: `${StyledIcon}` }
+      { modifier: `${StyledIcon}` },
     );
   });
 
@@ -107,7 +107,7 @@ describe("Button Minor", () => {
         position: "absolute",
       },
       wrapper,
-      { modifier: `${StyledIcon}` }
+      { modifier: `${StyledIcon}` },
     );
   });
 
@@ -118,7 +118,7 @@ describe("Button Minor", () => {
         background: "transparent",
         color: "var(--colorsSemanticNegative500)",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -129,7 +129,7 @@ describe("Button Minor", () => {
         background: "transparent",
         color: "var(--colorsActionMajorYin030)",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -138,7 +138,7 @@ describe("Button Minor", () => {
       {
         borderRadius: "var(--borderRadius050)",
       },
-      mount(<ButtonMinor>foo</ButtonMinor>)
+      mount(<ButtonMinor>foo</ButtonMinor>),
     );
   });
 });
@@ -149,7 +149,7 @@ describe("when the fullWidth prop is provided for Button Minor component", () =>
     () => {
       const buttonMinorComp = mount(<ButtonMinor fullWidth>foo</ButtonMinor>);
       expect(buttonMinorComp.props().fullWidth).toBeDefined();
-    }
+    },
   );
 });
 
@@ -158,30 +158,30 @@ describe("when the iconPosition prop and iconType are being passed to Button Min
     "renders the default props and children with the iconPosition prop set to before",
     (size, expectedPadding) => {
       const wrapper = mount(
-        <ButtonMinor size={size} iconPosition="before" iconType="bin" />
+        <ButtonMinor size={size} iconPosition="before" iconType="bin" />,
       );
       assertStyleMatch(
         {
           padding: expectedPadding,
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   it.each(minorSizesPadding)(
     "renders the default props and children with the iconPosition prop set to after",
     (size, expectedPadding) => {
       const wrapper = mount(
-        <ButtonMinor size={size} iconPosition="after" iconType="bin" />
+        <ButtonMinor size={size} iconPosition="after" iconType="bin" />,
       );
       assertStyleMatch(
         {
           padding: expectedPadding,
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   it.each(minorSizesPadding)(
@@ -192,8 +192,8 @@ describe("when the iconPosition prop and iconType are being passed to Button Min
         {
           width: "100%",
         },
-        buttonMinorComp
+        buttonMinorComp,
       );
-    }
+    },
   );
 });

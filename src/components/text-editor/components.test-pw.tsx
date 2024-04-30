@@ -61,7 +61,7 @@ export const TextEditorCustom = ({
 
 export const TextEditorCustomValidation = (props: Partial<TextEditorProps>) => {
   const [value, setValue] = React.useState(
-    EditorState.createWithContent(ContentState.createFromText("Add content"))
+    EditorState.createWithContent(ContentState.createFromText("Add content")),
   );
   const limit = 16;
   const contentLength = value.getCurrentContent().getPlainText().length;
@@ -92,7 +92,7 @@ export const TextEditorCustomValidation = (props: Partial<TextEditorProps>) => {
 
 export const TextEditorNewValidation = () => {
   const [value, setValue] = useState(
-    EditorState.createWithContent(ContentState.createFromText("Add content"))
+    EditorState.createWithContent(ContentState.createFromText("Add content")),
   );
   const limit = 16;
   const contentLength = value.getCurrentContent().getPlainText().length;

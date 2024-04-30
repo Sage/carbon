@@ -114,7 +114,7 @@ const mount = () => {
       <GridItem responsiveSettings={[item31500, item3900, item31300]}>
         3
       </GridItem>
-    </GridContainer>
+    </GridContainer>,
   );
 };
 
@@ -136,7 +136,7 @@ describe("Grid", () => {
           padding: "40px",
           gridGap: "40px",
         },
-        elem
+        elem,
       );
     });
 
@@ -150,14 +150,14 @@ describe("Grid", () => {
               <GridItem>1</GridItem>
               <GridItem>2</GridItem>
               <GridItem>3</GridItem>
-            </GridContainer>
+            </GridContainer>,
           );
 
           assertStyleMatch({ [propName]: "15px" }, wrapper, {
             media: "screen",
           });
         });
-      }
+      },
     );
 
     describe.each(gridContainerProps)(
@@ -169,14 +169,14 @@ describe("Grid", () => {
               <GridItem>1</GridItem>
               <GridItem>2</GridItem>
               <GridItem>3</GridItem>
-            </GridContainer>
+            </GridContainer>,
           );
 
           assertStyleMatch({ [propName]: propValue }, wrapper, {
             media: "screen",
           });
         });
-      }
+      },
     );
   });
 
@@ -196,8 +196,8 @@ describe("Grid", () => {
             <GridItem responsiveSettings={[item31500, item3900, item31300]}>
               3
             </GridItem>
-          </GridContainer>
-        )
+          </GridContainer>,
+        ),
       ).toMatchSnapshot();
     });
 
@@ -214,8 +214,8 @@ describe("Grid", () => {
             <GridItem alignSelf="start" justifySelf="right">
               1
             </GridItem>
-          </GridContainer>
-        )
+          </GridContainer>,
+        ),
       ).toMatchSnapshot();
     });
 
@@ -230,7 +230,7 @@ describe("Grid", () => {
             <GridItem pb="15px">5</GridItem>
             <GridItem px="15px">6</GridItem>
             <GridItem py="15px">7</GridItem>
-          </GridContainer>
+          </GridContainer>,
         );
 
         assertStyleMatch({ padding: "15px" }, wrapper.find(GridItem).first());
@@ -239,13 +239,13 @@ describe("Grid", () => {
 
         assertStyleMatch(
           { paddingRight: "15px" },
-          wrapper.find(GridItem).at(2)
+          wrapper.find(GridItem).at(2),
         );
         assertStyleMatch({ paddingTop: "15px" }, wrapper.find(GridItem).at(3));
 
         assertStyleMatch(
           { paddingBottom: "15px" },
-          wrapper.find(GridItem).at(4)
+          wrapper.find(GridItem).at(4),
         );
 
         assertStyleMatch(
@@ -253,7 +253,7 @@ describe("Grid", () => {
             paddingLeft: "15px",
             paddingRight: "15px",
           },
-          wrapper.find(GridItem).at(5)
+          wrapper.find(GridItem).at(5),
         );
 
         assertStyleMatch(
@@ -261,7 +261,7 @@ describe("Grid", () => {
             paddingTop: "15px",
             paddingBottom: "15px",
           },
-          wrapper.find(GridItem).at(6)
+          wrapper.find(GridItem).at(6),
         );
       });
     });
@@ -287,37 +287,37 @@ describe("Grid", () => {
               <GridItem responsiveSettings={[{ pb: prop, maxWidth: "1500px" }]}>
                 5
               </GridItem>
-            </GridContainer>
+            </GridContainer>,
           );
 
           assertStyleMatch(
             { padding: getSpacing(prop) },
             wrapper.find(GridItem).first(),
-            { media: "screen and (max-width:1500px)" }
+            { media: "screen and (max-width:1500px)" },
           );
 
           assertStyleMatch(
             { paddingLeft: getSpacing(prop) },
             wrapper.find(GridItem).at(1),
-            { media: "screen and (max-width:1500px)" }
+            { media: "screen and (max-width:1500px)" },
           );
 
           assertStyleMatch(
             { paddingRight: getSpacing(prop) },
             wrapper.find(GridItem).at(2),
-            { media: "screen and (max-width:1500px)" }
+            { media: "screen and (max-width:1500px)" },
           );
 
           assertStyleMatch(
             { paddingTop: getSpacing(prop) },
             wrapper.find(GridItem).at(3),
-            { media: "screen and (max-width:1500px)" }
+            { media: "screen and (max-width:1500px)" },
           );
 
           assertStyleMatch(
             { paddingBottom: getSpacing(prop) },
             wrapper.find(GridItem).at(4),
-            { media: "screen and (max-width:1500px)" }
+            { media: "screen and (max-width:1500px)" },
           );
         });
       });
@@ -332,15 +332,15 @@ describe("Grid", () => {
               <GridItem {...{ [propName]: propValue }}>1</GridItem>
               <GridItem>2</GridItem>
               <GridItem>3</GridItem>
-            </GridContainer>
+            </GridContainer>,
           );
 
           assertStyleMatch(
             { [propName]: propValue },
-            wrapper.find(GridItem).at(0)
+            wrapper.find(GridItem).at(0),
           );
         });
-      }
+      },
     );
   });
 });

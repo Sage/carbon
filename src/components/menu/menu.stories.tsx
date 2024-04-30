@@ -654,7 +654,7 @@ export const FullscreenViewStory: Story = () => {
   const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
   const responsiveMenuItems = (
     startPosition: "left" | "right",
-    menu: MenuType
+    menu: MenuType,
   ) => {
     if (fullscreenViewBreakPoint) {
       return [
@@ -718,7 +718,7 @@ export const FullscreenViewStory: Story = () => {
           <Menu menuType={menuType}>
             {React.Children.map(
               responsiveMenuItems("left", menuType),
-              (items) => items
+              (items) => items,
             )}
           </Menu>
         </Box>

@@ -40,20 +40,20 @@ test.describe("Styling tests", () => {
     await mainButton(page).focus();
     await expect(mainButton(page)).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(mainButton(page)).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     await splitToggleButton(page).focus();
     await expect(splitToggleButton(page)).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(splitToggleButton(page)).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -68,35 +68,35 @@ test.describe("Styling tests", () => {
     await mainButton(page).focus();
     await expect(mainButton(page)).toHaveCSS(
       "border",
-      "3px solid rgb(255, 188, 25)"
+      "3px solid rgb(255, 188, 25)",
     );
     await splitToggleButton(page).focus();
     await expect(splitToggleButton(page)).toHaveCSS(
       "border",
-      "3px solid rgb(255, 188, 25)"
+      "3px solid rgb(255, 188, 25)",
     );
   });
 
-  ([
-    ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
-    ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
-  ] as [SplitButtonProps["buttonType"], string, string, string][]).forEach(
-    ([buttonType, backgroundColor, color, borderColor]) => {
-      test(`should render ${buttonType} SplitButton with ${backgroundColor} background color, ${color} color and ${borderColor} border color`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<SplitButtonList buttonType={buttonType} />);
+  (
+    [
+      ["primary", "rgb(0, 126, 69)", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
+      ["secondary", "rgba(0, 0, 0, 0)", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
+    ] as [SplitButtonProps["buttonType"], string, string, string][]
+  ).forEach(([buttonType, backgroundColor, color, borderColor]) => {
+    test(`should render ${buttonType} SplitButton with ${backgroundColor} background color, ${color} color and ${borderColor} border color`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SplitButtonList buttonType={buttonType} />);
 
-        await expect(mainButton(page)).toHaveCSS(
-          "background-color",
-          backgroundColor
-        );
-        await expect(mainButton(page)).toHaveCSS("color", color);
-        await expect(mainButton(page)).toHaveCSS("border-color", borderColor);
-      });
-    }
-  );
+      await expect(mainButton(page)).toHaveCSS(
+        "background-color",
+        backgroundColor,
+      );
+      await expect(mainButton(page)).toHaveCSS("color", color);
+      await expect(mainButton(page)).toHaveCSS("border-color", borderColor);
+    });
+  });
 
   test(`should render with the expected border radius on main and toggle buttons`, async ({
     mount,
@@ -106,11 +106,11 @@ test.describe("Styling tests", () => {
 
     await expect(mainButton(page)).toHaveCSS(
       "border-radius",
-      "32px 0px 0px 32px"
+      "32px 0px 0px 32px",
     );
     await expect(splitToggleButton(page)).toHaveCSS(
       "border-radius",
-      "0px 32px 32px 0px"
+      "0px 32px 32px 0px",
     );
   });
 
@@ -123,16 +123,16 @@ test.describe("Styling tests", () => {
     await splitToggleButton(page).nth(0).click();
     await expect(additionalButtonsContainer(page)).toHaveCSS(
       "border-radius",
-      "8px"
+      "8px",
     );
     await expect(additionalButton(page, 0)).toHaveCSS(
       "border-radius",
-      "8px 8px 0px 0px"
+      "8px 8px 0px 0px",
     );
     await expect(additionalButton(page, 1)).toHaveCSS("border-radius", "0px");
     await expect(additionalButton(page, 2)).toHaveCSS(
       "border-radius",
-      "0px 0px 8px 8px"
+      "0px 0px 8px 8px",
     );
   });
 
@@ -145,22 +145,22 @@ test.describe("Styling tests", () => {
         <Button href="#">Button 1</Button>
         <Button>Button 2</Button>
         <Button href="#">Button 3</Button>
-      </SplitButton>
+      </SplitButton>,
     );
 
     await splitToggleButton(page).nth(0).click();
     await expect(additionalButtonsContainer(page)).toHaveCSS(
       "border-radius",
-      "8px"
+      "8px",
     );
     await expect(
-      additionalButtonsContainer(page).locator("a").nth(0)
+      additionalButtonsContainer(page).locator("a").nth(0),
     ).toHaveCSS("border-radius", "8px 8px 0px 0px");
     await expect(
-      additionalButtonsContainer(page).locator("button").nth(0)
+      additionalButtonsContainer(page).locator("button").nth(0),
     ).toHaveCSS("border-radius", "0px");
     await expect(
-      additionalButtonsContainer(page).locator("a").nth(1)
+      additionalButtonsContainer(page).locator("a").nth(1),
     ).toHaveCSS("border-radius", "0px 0px 8px 8px");
   });
 
@@ -171,7 +171,7 @@ test.describe("Styling tests", () => {
     await mount(
       <SplitButton text="default text">
         <Button>Button 1</Button>
-      </SplitButton>
+      </SplitButton>,
     );
 
     await splitToggleButton(page).nth(0).click();
@@ -201,12 +201,12 @@ test.describe("Prop tests", () => {
 
   test(`should render with data-element prop`, async ({ mount, page }) => {
     await mount(
-      <SplitButtonList data-element="split-button-playwright-element" />
+      <SplitButtonList data-element="split-button-playwright-element" />,
     );
 
     await expect(splitMainButton(page)).toHaveAttribute(
       "data-element",
-      "split-button-playwright-element"
+      "split-button-playwright-element",
     );
   });
 
@@ -215,7 +215,7 @@ test.describe("Prop tests", () => {
 
     await expect(splitMainButton(page)).toHaveAttribute(
       "data-role",
-      "split-button-playwright-role"
+      "split-button-playwright-role",
     );
   });
 
@@ -228,7 +228,7 @@ test.describe("Prop tests", () => {
 
       await expect(splitMainButton(page)).toHaveCSS(
         `margin-${alignment}`,
-        "0px"
+        "0px",
       );
     });
   });
@@ -241,25 +241,25 @@ test.describe("Prop tests", () => {
     await expect(splitMainButton(page).locator("button").nth(1)).toBeDisabled();
   });
 
-  ([
-    ["after", "left"],
-    ["before", "right"],
-  ] as [SplitButtonProps["iconPosition"], string][]).forEach(
-    ([iconPosition, margin]) => {
-      test(`should render with icon position ${iconPosition}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <SplitButtonList iconType="add" iconPosition={iconPosition}>
-            IconPosition
-          </SplitButtonList>
-        );
+  (
+    [
+      ["after", "left"],
+      ["before", "right"],
+    ] as [SplitButtonProps["iconPosition"], string][]
+  ).forEach(([iconPosition, margin]) => {
+    test(`should render with icon position ${iconPosition}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SplitButtonList iconType="add" iconPosition={iconPosition}>
+          IconPosition
+        </SplitButtonList>,
+      );
 
-        await expect(icon(page).first()).toHaveCSS(`margin-${margin}`, "8px");
-      });
-    }
-  );
+      await expect(icon(page).first()).toHaveCSS(`margin-${margin}`, "8px");
+    });
+  });
 });
 
 test.describe("Events tests", () => {
@@ -273,7 +273,7 @@ test.describe("Events tests", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await splitMainButtonDataComponent(page, 0).click();
@@ -294,7 +294,7 @@ test.describe("Functional tests", () => {
     await expect(additionalButton(page, 2)).toBeVisible();
     await expect(splitToggleButton(page)).toHaveAttribute(
       "aria-expanded",
-      "true"
+      "true",
     );
   });
 
@@ -305,7 +305,7 @@ test.describe("Functional tests", () => {
     await mount(
       <Accordion title="Heading">
         <SplitButtonList />
-      </Accordion>
+      </Accordion>,
     );
 
     await accordionDefaultTitle(page).click();
@@ -315,7 +315,7 @@ test.describe("Functional tests", () => {
     await expect(additionalButton(page, 2)).toBeVisible();
     await expect(splitToggleButton(page)).toHaveAttribute(
       "aria-expanded",
-      "true"
+      "true",
     );
   });
 
@@ -326,7 +326,7 @@ test.describe("Functional tests", () => {
     await mount(
       <Accordion title="Heading">
         <SplitButtonList />
-      </Accordion>
+      </Accordion>,
     );
 
     await accordionDefaultTitle(page).press("Enter");
@@ -336,7 +336,7 @@ test.describe("Functional tests", () => {
     await expect(additionalButton(page, 2)).toBeVisible();
     await expect(splitToggleButton(page)).toHaveAttribute(
       "aria-expanded",
-      "true"
+      "true",
     );
   });
 
@@ -767,7 +767,7 @@ test.describe("Accessibility tests", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   (["primary", "secondary"] as SplitButtonProps["buttonType"][]).forEach(
@@ -781,7 +781,7 @@ test.describe("Accessibility tests", () => {
         await splitToggleButton(page).nth(0).click();
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   (["primary", "secondary"] as SplitButtonProps["buttonType"][]).forEach(
@@ -796,7 +796,7 @@ test.describe("Accessibility tests", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   (["primary", "secondary"] as SplitButtonProps["buttonType"][]).forEach(
@@ -811,7 +811,7 @@ test.describe("Accessibility tests", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   (["small", "medium", "large"] as SplitButtonProps["size"][]).forEach(
@@ -824,7 +824,7 @@ test.describe("Accessibility tests", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   (["left", "right"] as SplitButtonProps["align"][]).forEach((alignment) => {
@@ -858,12 +858,12 @@ test.describe("Accessibility tests", () => {
         await mount(
           <SplitButtonList iconType="add" iconPosition={iconPosition}>
             IconPosition
-          </SplitButtonList>
+          </SplitButtonList>,
         );
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   test(`should pass accessibility tests for component in hidden container`, async ({
@@ -879,7 +879,7 @@ test.describe("Accessibility tests", () => {
             <Button size="large">Button 3</Button>
           </SplitButton>
         </Box>
-      </Accordion>
+      </Accordion>,
     );
 
     await accordionDefaultTitle(page).click();

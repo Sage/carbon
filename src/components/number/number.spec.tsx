@@ -11,7 +11,7 @@ import StyledInput from "../../__internal__/input/input.style";
 jest.mock("../../__internal__/utils/logger");
 
 function renderNumberInput(
-  props: NumberProps & React.RefAttributes<HTMLInputElement>
+  props: NumberProps & React.RefAttributes<HTMLInputElement>,
 ) {
   return mount(<Number {...props} />);
 }
@@ -19,7 +19,7 @@ function renderNumberInput(
 function setTextSelection(
   wrapper: ReactWrapper,
   selectionStart: number,
-  selectionEnd: number
+  selectionEnd: number,
 ) {
   wrapper
     .find("input")
@@ -55,7 +55,7 @@ describe("Number Input", () => {
       mount(<Number />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -129,16 +129,16 @@ describe("Number Input", () => {
         describe("and when the value prop is defined", () => {
           it("input value is the same as in the prop", () => {
             expect(input.getDOMNode<HTMLInputElement>().value).toEqual(
-              defaultInputValue
+              defaultInputValue,
             );
           });
 
           it("input's selection start and end are the same as set in the component", () => {
             expect(input.getDOMNode<HTMLInputElement>().selectionStart).toBe(
-              selectionStart
+              selectionStart,
             );
             expect(input.getDOMNode<HTMLInputElement>().selectionEnd).toBe(
-              selectionEnd
+              selectionEnd,
             );
           });
         });
@@ -191,7 +191,7 @@ describe("Number Input", () => {
         {
           maxWidth: "67%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
 
@@ -201,7 +201,7 @@ describe("Number Input", () => {
         {
           maxWidth: "100%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
   });
@@ -236,7 +236,7 @@ describe("Number Input", () => {
       {
         borderRadius: "var(--borderRadius050)",
       },
-      mount(<Number />).find(StyledInput)
+      mount(<Number />).find(StyledInput),
     );
   });
 });

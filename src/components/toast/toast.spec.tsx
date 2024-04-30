@@ -28,7 +28,7 @@ jest.mock("../../__internal__/utils/logger");
 
 describe("Toast", () => {
   (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-    () => "guid-12345"
+    () => "guid-12345",
   );
 
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe("Toast", () => {
         wrapper = mount(
           <Toast isCenter onDismiss={() => {}}>
             foobar
-          </Toast>
+          </Toast>,
         );
       });
 
@@ -62,7 +62,7 @@ describe("Toast", () => {
         expect(ModalManager.addModal).toHaveBeenCalledWith(
           toast,
           undefined,
-          true
+          true,
         );
       });
     });
@@ -94,7 +94,7 @@ describe("Toast", () => {
           onDismiss={() => {}}
         >
           foobar
-        </Toast>
+        </Toast>,
       );
       expect(wrapper).toBeTruthy();
       expect(wrapper.prop("open")).toEqual(false);
@@ -141,7 +141,7 @@ describe("Toast", () => {
             justifyContent: "center",
             display: "flex",
           },
-          wrapper
+          wrapper,
         );
       });
     });
@@ -150,7 +150,7 @@ describe("Toast", () => {
       wrapper = mount(
         <Toast open variant="info" className="custom">
           foobar
-        </Toast>
+        </Toast>,
       );
       const icon = wrapper.find("[data-element='close']");
 
@@ -163,7 +163,7 @@ describe("Toast", () => {
       wrapper = shallow(
         <Toast open className="exampleClass">
           Child
-        </Toast>
+        </Toast>,
       );
       expect(wrapper.find(".exampleClass")).toHaveLength(1);
     });
@@ -173,7 +173,7 @@ describe("Toast", () => {
       wrapper = shallow(
         <Toast open id={toastId}>
           Child
-        </Toast>
+        </Toast>,
       );
       expect(wrapper.find('[data-component="toast"]').prop("id")).toBe(toastId);
     });
@@ -198,7 +198,7 @@ describe("Toast", () => {
             }}
           >
             Child
-          </Toast>
+          </Toast>,
         );
       });
 
@@ -249,7 +249,7 @@ describe("Toast", () => {
         wrapper.unmount();
         wrapper = mount(
           <WrapperComponent onDismiss={onDismiss} open={false} />,
-          { attachTo: htmlElement }
+          { attachTo: htmlElement },
         );
         const button = wrapper.find("#buttonId").first();
         (button.getDOMNode() as HTMLButtonElement).focus();
@@ -277,7 +277,7 @@ describe("Toast", () => {
         wrapper.unmount();
         wrapper = mount(
           <WrapperComponent onDismiss={onDismiss} open={false} />,
-          { attachTo: htmlElement }
+          { attachTo: htmlElement },
         );
 
         wrapper.setProps({ open: true });
@@ -335,7 +335,7 @@ describe("Toast", () => {
           wrapper = mount(
             <Toast open onDismiss={onDismiss} disableAutoFocus>
               Child
-            </Toast>
+            </Toast>,
           );
           const toast = wrapper.find(StyledToast);
           expect(toast.getDOMNode().hasAttribute("tabIndex")).toBe(false);
@@ -360,7 +360,7 @@ describe("Toast", () => {
               open={false}
               disableAutoFocus
             />,
-            { attachTo: htmlElement }
+            { attachTo: htmlElement },
           );
 
           wrapper.setProps({ open: true });
@@ -383,14 +383,14 @@ describe("Toast", () => {
         wrapper = shallow(
           <Toast data-element="bar" data-role="baz">
             Child
-          </Toast>
+          </Toast>,
         );
 
         rootTagTest(
           wrapper.find('[data-component="toast"]'),
           "toast",
           "bar",
-          "baz"
+          "baz",
         );
       });
     });
@@ -399,7 +399,7 @@ describe("Toast", () => {
       wrapper = mount(
         <Toast open onDismiss={() => {}}>
           Child
-        </Toast>
+        </Toast>,
       );
       elementsTagTest(wrapper.find(IconButton).first().find("span"), ["close"]);
       wrapper.unmount();
@@ -427,7 +427,7 @@ describe("Toast", () => {
       wrapper = mount(
         <Toast onDismiss={onDismissFn} open variant="notice">
           foo
-        </Toast>
+        </Toast>,
       );
     });
 
@@ -461,7 +461,7 @@ describe("Toast", () => {
       const wrapper = mount(
         <Toast open variant={variant}>
           foo
-        </Toast>
+        </Toast>,
       );
       expect(wrapper.find(TypeIcon).exists()).toBe(true);
       expect(wrapper.find(Icon).prop("type")).toBe(icon);
@@ -473,7 +473,7 @@ describe("Toast", () => {
       mount(
         <Toast isCenter onDismiss={() => {}} ref={(ref) => ref}>
           foobar
-        </Toast>
+        </Toast>,
       );
     }).not.toThrow();
   });
@@ -484,7 +484,7 @@ describe("Toast", () => {
     const wrapper = mount(
       <Toast isCenter onDismiss={() => {}} ref={ref}>
         foobar
-      </Toast>
+      </Toast>,
     );
 
     expect(ref.current).toBe(wrapper.find(ToastWrapper).getDOMNode());
@@ -511,14 +511,14 @@ describe("StyledToast", () => {
         position: "relative",
         marginRight: "30px",
       },
-      wrapper
+      wrapper,
     );
 
     assertStyleMatch(
       {
         borderRadius: "var(--borderRadius100)",
       },
-      wrapper.find(StyledToast)
+      wrapper.find(StyledToast),
     );
   });
 
@@ -535,7 +535,7 @@ describe("StyledToast", () => {
       wrapper = mount(
         <Toast open onDismiss={onDismissFn}>
           Child
-        </Toast>
+        </Toast>,
       );
     });
 
@@ -582,7 +582,7 @@ describe("TestContentStyle", () => {
         padding: "8px 16px 8px 16px",
         whiteSpace: "pre-wrap",
       },
-      wrapper
+      wrapper,
     );
   });
 });
@@ -600,12 +600,12 @@ describe("Align horizontal", () => {
       wrapper = mount(
         <Toast align={alignValue} open>
           FooBar
-        </Toast>
+        </Toast>,
       );
 
       expect(wrapper.find(StyledPortal).props().align).toBe(alignValue);
       expect(wrapper.find(ToastWrapper).props().align).toBe(alignValue);
-    }
+    },
   );
 });
 
@@ -622,17 +622,17 @@ describe("Align vertical", () => {
       wrapper = mount(
         <Toast alignY={alignYValue} open>
           FooBar
-        </Toast>
+        </Toast>,
       );
       expect(wrapper.find(StyledPortal).props().alignY).toBe(alignYValue);
-    }
+    },
   );
 
   it("when isNotice is set and alignY is set to top, should render with the correct style", () => {
     wrapper = mount(
       <Toast variant="notice" alignY="top" open>
         Foo
-      </Toast>
+      </Toast>,
     );
     assertStyleMatch({ marginTop: "0" }, wrapper.find(StyledToast));
   });
@@ -649,7 +649,7 @@ describe("Align vertical and horizontal", () => {
     wrapper = mount(
       <Toast align="left" alignY="center" open>
         FooBar
-      </Toast>
+      </Toast>,
     );
     expect(wrapper.find(StyledPortal).props().align).toBe("left");
     expect(wrapper.find(StyledPortal).props().alignY).toBe("center");
@@ -663,7 +663,7 @@ describe("Notification variant", () => {
     wrapper = mount(
       <Toast variant="notification" open>
         FooBar
-      </Toast>
+      </Toast>,
     );
   });
 
@@ -704,11 +704,11 @@ describe("Deprecation warning", () => {
         <Toast variant="error" isCenter>
           Toast 2
         </Toast>
-      </>
+      </>,
     );
 
     expect(loggerSpy).toHaveBeenCalledWith(
-      "isCenter prop in Toast is being deprecated in favour of the align prop."
+      "isCenter prop in Toast is being deprecated in favour of the align prop.",
     );
 
     expect(loggerSpy).toHaveBeenCalledTimes(1);

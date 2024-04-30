@@ -40,7 +40,7 @@ describe("SettingsRow", () => {
     wrapper = shallow(
       <SettingsRow className={name} title={title}>
         {children}
-      </SettingsRow>
+      </SettingsRow>,
     );
 
     it("renders a Heading with a title and separator but no divider", () => {
@@ -54,7 +54,7 @@ describe("SettingsRow", () => {
 
     it("renders children in the input column", () => {
       expect(
-        wrapper.find(StyledSettingsRowInput).contains(children)
+        wrapper.find(StyledSettingsRowInput).contains(children),
       ).toBeTruthy();
     });
 
@@ -67,7 +67,7 @@ describe("SettingsRow", () => {
             borderBottom: "1px solid var(--colorsUtilityMajor050)",
             paddingBottom: "30px",
           },
-          wrapper.find(StyledSettingsRow)
+          wrapper.find(StyledSettingsRow),
         );
       });
     });
@@ -77,7 +77,7 @@ describe("SettingsRow", () => {
 
       beforeEach(() => {
         wrapper = shallow(
-          <SettingsRow title={title} description={description} />
+          <SettingsRow title={title} description={description} />,
         );
         head = wrapper.find(Heading);
       });
@@ -102,18 +102,18 @@ describe("SettingsRow", () => {
               description={description}
             >
               Content for settings
-            </SettingsRow>
+            </SettingsRow>,
           );
 
           expect(wrapper.find(headingType).text()).toBe(title);
-        }
+        },
       );
     });
 
     describe("when title is not provided", () => {
       it("does not render a header", () => {
         wrapper = shallow(
-          <SettingsRow className={name}>{children}</SettingsRow>
+          <SettingsRow className={name}>{children}</SettingsRow>,
         );
 
         expect(wrapper.find(Heading).length).toEqual(0);

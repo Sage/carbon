@@ -4,7 +4,7 @@ export type FocusContextType = {
   setElementToFocus: (
     itemIndex?: number,
     listIndex?: number,
-    groupIndex?: number
+    groupIndex?: number,
   ) => void;
   elementToFocus: {
     itemIndex?: number;

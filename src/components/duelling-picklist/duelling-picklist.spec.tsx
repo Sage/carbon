@@ -128,7 +128,7 @@ describe("DuellingPicklist", () => {
             </PicklistItem>
           ))}
         </Picklist>
-      </DuellingPicklist>
+      </DuellingPicklist>,
     );
   };
 
@@ -184,7 +184,7 @@ describe("DuellingPicklist", () => {
           ))}
         </Picklist>
       </DuellingPicklist>,
-      { attachTo: document.getElementById("enzymeContainer") }
+      { attachTo: document.getElementById("enzymeContainer") },
     );
   };
 
@@ -192,19 +192,18 @@ describe("DuellingPicklist", () => {
   const MockComponent = ({ grouped }: { grouped?: boolean }) => {
     const [notSelectedListItems, setNotSelectedItems] = useState([0, 1, 2]);
     const [selectedListItems, setSelectedItems] = useState([3, 4, 5]);
-    const [notSelectedListGroups, setNotSelectedGroups] = useState(
-      notSelectedGroups
-    );
+    const [notSelectedListGroups, setNotSelectedGroups] =
+      useState(notSelectedGroups);
     const [selectedListGroups, setSelectedGroups] = useState(selectedGroups);
 
     const addItem = (item: PicklistItemProps["item"]) => {
       const index = notSelectedListItems.findIndex(
-        (listItem) => listItem === item
+        (listItem) => listItem === item,
       );
       const selectedItem = notSelectedListItems[index];
       const tempNotSelectedItems = notSelectedListItems.splice(
         index,
-        index + 1
+        index + 1,
       );
 
       setNotSelectedItems([...tempNotSelectedItems]);
@@ -213,7 +212,7 @@ describe("DuellingPicklist", () => {
 
     const removeItem = (item: PicklistItemProps["item"]) => {
       const index = selectedListItems.findIndex(
-        (listItem) => listItem === item
+        (listItem) => listItem === item,
       );
       const notSelectedItem = selectedListItems[index];
       const tempSelectedItems = selectedListItems.splice(index, index + 1);
@@ -390,7 +389,7 @@ describe("DuellingPicklist", () => {
           pointerEvents: "none",
           userSelect: "none",
         },
-        wrapper.find(StyledDuellingPicklistOverlay)
+        wrapper.find(StyledDuellingPicklistOverlay),
       );
 
       render({ disabled: false });
@@ -401,19 +400,19 @@ describe("DuellingPicklist", () => {
           pointerEvents: undefined,
           userSelect: undefined,
         },
-        wrapper.find(StyledDuellingPicklistOverlay)
+        wrapper.find(StyledDuellingPicklistOverlay),
       );
     });
 
     it("PicklistItem with type add has no animation", () => {
       expect(
-        wrapper.find(Picklist).at(0).find(CSSTransition).at(0).props().enter
+        wrapper.find(Picklist).at(0).find(CSSTransition).at(0).props().enter,
       ).toBe(false);
     });
 
     it("PicklistItem with type remove has animation", () => {
       expect(
-        wrapper.find(Picklist).at(1).find(CSSTransition).at(0).props().enter
+        wrapper.find(Picklist).at(1).find(CSSTransition).at(0).props().enter,
       ).toBe(undefined);
     });
 
@@ -423,7 +422,7 @@ describe("DuellingPicklist", () => {
           marginRight: "16px",
           marginLeft: "16px",
         },
-        wrapper.find(StyledPicklistDivider)
+        wrapper.find(StyledPicklistDivider),
       );
     });
 
@@ -436,7 +435,7 @@ describe("DuellingPicklist", () => {
             padding: "8px 8px 8px 8px",
             margin: "0",
           },
-          wrapper.find(StyledPicklist).at(0)
+          wrapper.find(StyledPicklist).at(0),
         );
 
         assertStyleMatch(
@@ -444,7 +443,7 @@ describe("DuellingPicklist", () => {
             padding: "8px 8px 8px 8px",
             margin: "0",
           },
-          wrapper.find(StyledPicklist).at(1)
+          wrapper.find(StyledPicklist).at(1),
         );
 
         assertStyleMatch(
@@ -454,7 +453,7 @@ describe("DuellingPicklist", () => {
           wrapper.find(StyledPicklist).at(1),
           {
             modifier: `& + ${StyledPicklist}`,
-          }
+          },
         );
       });
     });
@@ -494,7 +493,7 @@ describe("DuellingPicklist", () => {
           .at(0)
           .find(StyledPicklistItem)
           .at(2)
-          .find(StyledButton)
+          .find(StyledButton),
       ).toBeFocused();
     });
 
@@ -513,7 +512,7 @@ describe("DuellingPicklist", () => {
           .at(0)
           .find(StyledPicklistItem)
           .at(0)
-          .find(StyledButton)
+          .find(StyledButton),
       ).toBeFocused();
     });
 
@@ -525,7 +524,7 @@ describe("DuellingPicklist", () => {
         .onKeyDown({ key: "a", preventDefault: () => {} });
 
       expect(
-        wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(0)
+        wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(0),
       ).not.toBeFocused();
     });
 
@@ -541,7 +540,7 @@ describe("DuellingPicklist", () => {
       });
 
       expect(
-        wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(0)
+        wrapper.find(Picklist).at(0).find(StyledPicklistItem).at(0),
       ).not.toBeFocused();
     });
 
@@ -581,7 +580,7 @@ describe("DuellingPicklist", () => {
           key: "1",
           title: "content 1",
         });
-      }
+      },
     );
 
     it("renders custom empty placeholder when no Picklist child provided", () => {
@@ -595,21 +594,25 @@ describe("DuellingPicklist", () => {
         placeholder: <PicklistPlaceholder text="Empty" />,
       });
       expect(
-        wrapper.find(Picklist).at(1).find(PicklistPlaceholder).contains("Empty")
+        wrapper
+          .find(Picklist)
+          .at(1)
+          .find(PicklistPlaceholder)
+          .contains("Empty"),
       ).toBe(true);
     });
 
     it("renders left label when leftLabel prop is provided", () => {
       render({ leftLabel: "Left Label" });
       expect(
-        wrapper.find(DuellingPicklist).find(StyledLabel).at(0).props().children
+        wrapper.find(DuellingPicklist).find(StyledLabel).at(0).props().children,
       ).toBe("Left Label");
     });
 
     it("renders right label when rightLabel prop is provided", () => {
       render({ rightLabel: "Right Label" });
       expect(
-        wrapper.find(DuellingPicklist).find(StyledLabel).at(1).props().children
+        wrapper.find(DuellingPicklist).find(StyledLabel).at(1).props().children,
       ).toBe("Right Label");
     });
 
@@ -621,7 +624,7 @@ describe("DuellingPicklist", () => {
           .find(DuellingPicklist)
           .find(StyledControl)
           .at(0)
-          .find(ControlComp)
+          .find(ControlComp),
       ).toHaveLength(1);
     });
 
@@ -633,7 +636,7 @@ describe("DuellingPicklist", () => {
           .find(DuellingPicklist)
           .find(StyledControl)
           .at(1)
-          .find(ControlComp)
+          .find(ControlComp),
       ).toHaveLength(1);
     });
   });
@@ -644,7 +647,7 @@ describe("DuellingPicklist", () => {
         mount(
           <DuellingPicklist>
             <Picklist>invalid</Picklist>
-          </DuellingPicklist>
+          </DuellingPicklist>,
         );
       }).not.toThrow();
     });
@@ -689,7 +692,7 @@ describe("DuellingPicklist", () => {
             .at(0)
             .find(StyledPicklistItem)
             .at(1)
-            .find(StyledButton)
+            .find(StyledButton),
         ).toBeFocused();
       });
 
@@ -716,9 +719,9 @@ describe("DuellingPicklist", () => {
               .at(result)
               .find(StyledPicklistItem)
               .at(0)
-              .find(StyledButton)
+              .find(StyledButton),
           ).toBeFocused();
-        }
+        },
       );
 
       it.each([
@@ -745,9 +748,9 @@ describe("DuellingPicklist", () => {
               .at(result)
               .find(StyledPicklistItem)
               .first()
-              .find(StyledButton)
+              .find(StyledButton),
           ).toBeFocused();
-        }
+        },
       );
     });
 
@@ -789,7 +792,7 @@ describe("DuellingPicklist", () => {
             .at(0)
             .find(PicklistGroup)
             .at(0)
-            .find(StyledGroupButton)
+            .find(StyledGroupButton),
         ).toBeFocused();
 
         act(() => {
@@ -809,7 +812,7 @@ describe("DuellingPicklist", () => {
             .at(1)
             .find(PicklistGroup)
             .at(0)
-            .find(StyledGroupButton)
+            .find(StyledGroupButton),
         ).toBeFocused();
       });
 
@@ -836,9 +839,9 @@ describe("DuellingPicklist", () => {
               .at(result)
               .find(PicklistGroup)
               .at(0)
-              .find(StyledGroupButton)
+              .find(StyledGroupButton),
           ).toBeFocused();
-        }
+        },
       );
 
       it.each([
@@ -865,9 +868,9 @@ describe("DuellingPicklist", () => {
               .at(result)
               .find(StyledPicklistGroup)
               .first()
-              .find(StyledGroupButton)
+              .find(StyledGroupButton),
           ).toBeFocused();
-        }
+        },
       );
     });
   });

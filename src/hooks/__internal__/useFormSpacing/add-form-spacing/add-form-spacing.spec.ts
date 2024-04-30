@@ -17,7 +17,7 @@ describe("addFormSpacing", () => {
         mb: "5px",
         mt: 0,
       });
-    }
+    },
   );
 
   it.each(["mt", "marginTop"])(
@@ -27,7 +27,7 @@ describe("addFormSpacing", () => {
         [marginProp]: "10px",
         mb: "5px",
       });
-    }
+    },
   );
 
   it.each(["mb", "marginBottom"])(
@@ -37,7 +37,7 @@ describe("addFormSpacing", () => {
         [marginProp]: "10px",
         mt: 0,
       });
-    }
+    },
   );
 
   it.each(["my", "marginY", "m", "margin"])(
@@ -46,6 +46,6 @@ describe("addFormSpacing", () => {
       expect(addFormSpacing({ [marginProp]: "10px" }, "5px")).toEqual({
         [marginProp]: "10px",
       });
-    }
+    },
   );
 });

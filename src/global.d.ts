@@ -7,7 +7,7 @@ declare global {
   interface Window {
     __CARBON_INTERNALS_MODAL_LIST?: ModalList;
     __CARBON_INTERNALS_MODAL_SETTER_LIST?: ((
-      topModal: HTMLElement | null
+      topModal: HTMLElement | null,
     ) => void)[];
     __CARBON_INTERNALS_SCROLL_BLOCKERS?: {
       components: {

@@ -17,7 +17,7 @@ type nodeType = "Dl" | "Dt" | "Dd";
 const renderWrapper = (
   id: nodeType,
   props: Partial<DlProps> = {},
-  render = mount
+  render = mount,
 ) => {
   const { asSingleColumn } = props;
 
@@ -39,7 +39,7 @@ const renderWrapper = (
   };
 
   return render(
-    <ThemeProvider theme={sageTheme}>{definitionObject[id]}</ThemeProvider>
+    <ThemeProvider theme={sageTheme}>{definitionObject[id]}</ThemeProvider>,
   );
 };
 
@@ -67,7 +67,7 @@ describe("DefinitionList", () => {
       ),
       undefined,
       (component: ReactWrapper) =>
-        (component.find(Dt) as unknown) as ReactWrapper
+        component.find(Dt) as unknown as ReactWrapper,
     );
   });
 
@@ -82,7 +82,7 @@ describe("DefinitionList", () => {
         </ThemeProvider>
       ),
       undefined,
-      (component) => (component.find(Dd) as unknown) as ReactWrapper
+      (component) => component.find(Dd) as unknown as ReactWrapper,
     );
   });
 
@@ -96,7 +96,7 @@ describe("DefinitionList", () => {
             <Dt>Title inside of React Fragment</Dt>
             <Dd>Description inside of React Fragment</Dd>
           </>
-        </Dl>
+        </Dl>,
       );
 
       expect(wrapper.find(Dt).length).toEqual(2);
@@ -127,7 +127,7 @@ describe("DefinitionList", () => {
                 <Dd>3rd Description</Dd>
               </>
             )}
-          </Dl>
+          </Dl>,
         );
 
         expect(wrapper.find(Dt).length).toEqual(2);
@@ -158,9 +158,9 @@ describe("DefinitionList", () => {
                     <Dt>{x.definition}</Dt>
                     <Dd>{x.description}</Dd>
                   </React.Fragment>
-                )
+                ),
             )}
-          </Dl>
+          </Dl>,
         );
 
         expect(wrapper.find(Dt).length).toEqual(2);
@@ -181,7 +181,7 @@ describe("DefinitionList", () => {
           gridTemplateRows: "auto",
           gridTemplateColumns: "50% auto",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -193,7 +193,7 @@ describe("DefinitionList", () => {
           fontWeight: "700",
           color: "var(--colorsUtilityYin090)",
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -201,7 +201,7 @@ describe("DefinitionList", () => {
           paddingRight: "var(--spacing300)",
           marginBottom: "var(--spacing200)",
         },
-        wrapper.find(StyledDt)
+        wrapper.find(StyledDt),
       );
     });
 
@@ -215,7 +215,7 @@ describe("DefinitionList", () => {
           marginBottom: "var(--spacing200)",
           marginLeft: "0px",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -225,7 +225,7 @@ describe("DefinitionList", () => {
         {
           gridTemplateColumns: "45% auto",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -236,7 +236,7 @@ describe("DefinitionList", () => {
           paddingRight: "var(--spacing200)",
           marginBottom: "var(--spacing100)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -246,7 +246,7 @@ describe("DefinitionList", () => {
         {
           marginBottom: "var(--spacing100)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -261,7 +261,7 @@ describe("DefinitionList", () => {
             renderWrapper("Dl", {
               dtTextAlign: align,
               ddTextAlign: align,
-            }).find(StyledDt)
+            }).find(StyledDt),
           );
         });
 
@@ -273,10 +273,10 @@ describe("DefinitionList", () => {
             renderWrapper("Dl", {
               dtTextAlign: align,
               ddTextAlign: align,
-            }).find(StyledDd)
+            }).find(StyledDd),
           );
         });
-      }
+      },
     );
   });
 
@@ -288,7 +288,7 @@ describe("DefinitionList", () => {
         {
           lineHeight: "21px",
         },
-        wrapper.find(StyledDl)
+        wrapper.find(StyledDl),
       );
     });
 
@@ -300,7 +300,7 @@ describe("DefinitionList", () => {
           marginBottom: undefined,
           paddingRight: undefined,
         },
-        wrapper.find(StyledDt)
+        wrapper.find(StyledDt),
       );
     });
 
@@ -312,7 +312,7 @@ describe("DefinitionList", () => {
           marginBottom: "var(--spacing300)",
           paddingRight: "var(--spacing500)",
         },
-        wrapper.find(StyledDt)
+        wrapper.find(StyledDt),
       );
     });
   });

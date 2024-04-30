@@ -13,15 +13,17 @@ import {
 } from "../../../src/components/draggable/components.test-pw";
 
 test.describe("Check functionality for Draggable component", () => {
-  ([
-    ["One", 0],
-    ["One", 1],
-    ["One", 2],
-    ["One", 3],
-    ["Two", 2],
-    ["Three", 0],
-    ["Four", 1],
-  ] as const).forEach(([record, destinationId]) => {
+  (
+    [
+      ["One", 0],
+      ["One", 1],
+      ["One", 2],
+      ["One", 3],
+      ["Two", 2],
+      ["Three", 0],
+      ["Four", 1],
+    ] as const
+  ).forEach(([record, destinationId]) => {
     test(`should drag Draggable Label ${record} to position ${destinationId}`, async ({
       mount,
       page,
@@ -29,16 +31,14 @@ test.describe("Check functionality for Draggable component", () => {
       await mount(<DraggableCustom />);
 
       const draggableItemElementRecord = draggableItem(page, record);
-      const draggableItemByPositionElementDestinationId = draggableItemByPosition(
-        page,
-        destinationId
-      );
+      const draggableItemByPositionElementDestinationId =
+        draggableItemByPosition(page, destinationId);
       await draggableItemElementRecord.dragTo(
-        draggableItemByPositionElementDestinationId
+        draggableItemByPositionElementDestinationId,
       );
 
       await expect(draggableItemByPositionElementDestinationId).toContainText(
-        record
+        record,
       );
     });
   });

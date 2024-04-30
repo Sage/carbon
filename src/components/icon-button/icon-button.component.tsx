@@ -25,7 +25,7 @@ export interface IconButtonProps extends SpaceProps {
   onAction?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Set the button to disabled */
   disabled?: boolean;
@@ -33,7 +33,7 @@ export interface IconButtonProps extends SpaceProps {
   onClick?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 }
 
@@ -49,18 +49,18 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       disabled,
       ...rest
     }: IconButtonProps,
-    ref
+    ref,
   ) => {
     if (!onActionButtonWarnTriggered && onAction) {
       onActionButtonWarnTriggered = true;
       Logger.deprecate(
-        "The `onAction` callback for the `IconButton` component is deprecated and will soon be removed. Please use `onClick` instead"
+        "The `onAction` callback for the `IconButton` component is deprecated and will soon be removed. Please use `onClick` instead",
       );
     }
 
     invariant(
       !(onClick && onAction),
-      "onClick and onAction have both been set, please use onClick as onAction will soon be deprecated"
+      "onClick and onAction have both been set, please use onClick as onAction will soon be deprecated",
     );
 
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
@@ -68,9 +68,9 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     const context = useContext(ButtonBarContext);
     const ariaLabelValue = Object.keys(context).length
       ? ariaLabel ||
-        (internalRef?.querySelector(
-          "[data-component='icon']"
-        ) as Element)?.getAttribute("type") ||
+        (
+          internalRef?.querySelector("[data-component='icon']") as Element
+        )?.getAttribute("type") ||
         undefined
       : ariaLabel;
 
@@ -94,7 +94,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         if (typeof ref === "object") ref.current = reference;
         if (typeof ref === "function") ref(reference);
       },
-      [ref]
+      [ref],
     );
 
     return (
@@ -116,7 +116,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         </TooltipProvider>
       </StyledIconButton>
     );
-  }
+  },
 );
 
 IconButton.displayName = "IconButton";

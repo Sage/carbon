@@ -38,12 +38,12 @@ const AnchorNavigation = ({
 }: AnchorNavigationProps): JSX.Element => {
   invariant(
     isFragment(stickyNavigation),
-    "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment."
+    "`stickyNavigation` prop in `AnchorNavigation` should be a React Fragment.",
   );
 
   const hasCorrectItemStructure = useMemo(() => {
     const incorrectChild = React.Children.toArray(
-      stickyNavigation.props.children
+      stickyNavigation.props.children,
     ).find((child: React.ReactNode) => {
       return (
         !React.isValidElement(child) ||
@@ -57,7 +57,7 @@ const AnchorNavigation = ({
 
   invariant(
     hasCorrectItemStructure,
-    `\`stickyNavigation\` prop in \`AnchorNavigation\` should be a React Fragment that only contains children of type \`${AnchorNavigationItem.displayName}\``
+    `\`stickyNavigation\` prop in \`AnchorNavigation\` should be a React Fragment that only contains children of type \`${AnchorNavigationItem.displayName}\``,
   );
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -69,9 +69,9 @@ const AnchorNavigation = ({
         child: React.ReactElement<
           AnchorNavigationItemProps,
           typeof AnchorNavigationItem
-        >
-      ) => child.props.target
-    )
+        >,
+      ) => child.props.target,
+    ),
   );
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -94,7 +94,7 @@ const AnchorNavigation = ({
       ])
       .filter(
         (offsetWithIndex): offsetWithIndex is [number, number] =>
-          offsetWithIndex[1] !== undefined
+          offsetWithIndex[1] !== undefined,
       );
 
     const { top: navTopOffset } = navigationRef.current.getBoundingClientRect();
@@ -109,7 +109,7 @@ const AnchorNavigation = ({
           ? index
           : currentTopIndex;
       },
-      offsetsWithIndexes[0][0]
+      offsetsWithIndexes[0][0],
     );
 
     setSelectedIndex(indexOfSmallestNegativeTopOffset);
@@ -128,11 +128,11 @@ const AnchorNavigation = ({
             /* istanbul ignore next */ () => {
               isUserScroll.current = true;
             },
-            SCROLL_THROTTLE + 50
+            SCROLL_THROTTLE + 50,
           );
         }
       }, SCROLL_THROTTLE),
-    [setSelectedAnchorBasedOnScroll]
+    [setSelectedAnchorBasedOnScroll],
   );
 
   useEffect(() => {
@@ -179,7 +179,7 @@ const AnchorNavigation = ({
 
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
-    index: number
+    index: number,
   ): void => {
     event.preventDefault();
     scrollToSection(index);
@@ -187,7 +187,7 @@ const AnchorNavigation = ({
 
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLAnchorElement>,
-    index: number
+    index: number,
   ): void => {
     if (Event.isEnterKey(event)) {
       scrollToSection(index);
@@ -208,7 +208,7 @@ const AnchorNavigation = ({
               handleClick(event, index),
             onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) =>
               handleKeyDown(event, index),
-          })
+          }),
         )}
       </StyledNavigation>
       <StyledContent>{children}</StyledContent>

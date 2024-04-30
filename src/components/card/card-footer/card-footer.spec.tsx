@@ -15,7 +15,7 @@ describe("CardFooter", () => {
         <Link icon="link" href="https://carbon.sage.com/">
           View Stripe Dashboard
         </Link>
-      </CardFooter>
+      </CardFooter>,
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -25,7 +25,7 @@ describe("CardFooter", () => {
     const tree = TestRenderer.create(
       <CardFooter>
         <div id="non-interactive">View Stripe Dashboard</div>
-      </CardFooter>
+      </CardFooter>,
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -35,14 +35,14 @@ describe("CardFooter", () => {
     const cardFooter = mount(
       <CardFooter variant="transparent">
         <div id="non-interactive">View Stripe Dashboard</div>
-      </CardFooter>
+      </CardFooter>,
     );
 
     assertStyleMatch(
       {
         backgroundColor: "transparent",
       },
-      cardFooter.find(StyledCardFooter)
+      cardFooter.find(StyledCardFooter),
     );
   });
 
@@ -66,10 +66,10 @@ describe("CardFooter", () => {
             }}
           >
             <CardFooter>foo</CardFooter>
-          </CardContext.Provider>
-        ).find(StyledCardFooter)
+          </CardContext.Provider>,
+        ).find(StyledCardFooter),
       );
-    }
+    },
   );
 
   it("has the expected data attributes", () => {
@@ -77,21 +77,21 @@ describe("CardFooter", () => {
       mount(
         <CardFooter>
           <div />
-        </CardFooter>
+        </CardFooter>,
       ).find(StyledCardFooter),
       "card-footer",
-      "card-footer"
+      "card-footer",
     );
 
     rootTagTest(
       mount(
         <CardFooter data-element="foo" data-role="bar">
           <div />
-        </CardFooter>
+        </CardFooter>,
       ).find(StyledCardFooter),
       "card-footer",
       "foo",
-      "bar"
+      "bar",
     );
   });
 });

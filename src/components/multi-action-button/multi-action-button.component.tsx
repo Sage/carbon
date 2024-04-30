@@ -55,7 +55,7 @@ export const MultiActionButton = ({
   const handleInsideClick = useClickAwayListener(hideButtons);
 
   const handleClick = (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => {
     showButtons();
     handleInsideClick();

@@ -30,13 +30,13 @@ describe("InputIconToggle", () => {
             align: tooltipAlign,
             useValidationIcon: true,
             error: "Message",
-          })
+          }),
         );
 
         expect(wrapper.find(ValidationIcon).props().tooltipPosition).toBe(
-          tooltipPosition
+          tooltipPosition,
         );
-      }
+      },
     );
   });
 
@@ -49,7 +49,7 @@ describe("InputIconToggle", () => {
             renderInputIconToggle({
               [validationProp]: "Message",
               useValidationIcon: true,
-            })
+            }),
           );
           const validationIcon = wrapper.find(ValidationIcon);
           expect(validationIcon.exists()).toBe(true);
@@ -62,7 +62,7 @@ describe("InputIconToggle", () => {
                 [validationProp]: "Message",
                 useValidationIcon: true,
                 disabled: true,
-              })
+              }),
             );
             expect(wrapper.find(ValidationIcon).exists()).toBe(false);
             expect(wrapper.find(Icon).exists()).toBe(true);
@@ -76,7 +76,7 @@ describe("InputIconToggle", () => {
                 [validationProp]: "Message",
                 useValidationIcon: true,
                 readOnly: true,
-              })
+              }),
             );
             expect(wrapper.find(ValidationIcon).exists()).toBe(true);
             expect(wrapper.find(Icon).exists()).toBe(false);
@@ -93,7 +93,7 @@ describe("InputIconToggle", () => {
               inputIcon: "dropdown",
               [validationProp]: "",
               useValidationIcon: true,
-            })
+            }),
           );
         });
 
@@ -116,7 +116,7 @@ describe("InputIconToggle", () => {
               inputIcon: "dropdown",
               [validationProp]: true,
               useValidationIcon: true,
-            })
+            }),
           );
         });
 
@@ -137,19 +137,19 @@ describe("InputIconToggle", () => {
               inputIcon: "dropdown",
               [validationProp]: "Message",
               useValidationIcon: false,
-            })
+            }),
           );
           expect(wrapper.find(ValidationIcon).exists()).toBe(false);
           expect(wrapper.find(Icon).props().type).toBe("dropdown");
         });
       });
-    }
+    },
   );
 
   describe("renders input icon", () => {
     it("when disabled prop is true", () => {
       const wrapper = mount(
-        renderInputIconToggle({ inputIcon: "dropdown", disabled: true })
+        renderInputIconToggle({ inputIcon: "dropdown", disabled: true }),
       );
       expect(wrapper.find(Icon).exists()).toBe(true);
       expect(wrapper.find(Icon).prop("disabled")).toBe(true);
@@ -157,12 +157,12 @@ describe("InputIconToggle", () => {
         {
           cursor: "not-allowed",
         },
-        wrapper.find(InputIconToggleStyle)
+        wrapper.find(InputIconToggleStyle),
       );
     });
     it("when readOnly prop is true", () => {
       const wrapper = mount(
-        renderInputIconToggle({ inputIcon: "dropdown", readOnly: true })
+        renderInputIconToggle({ inputIcon: "dropdown", readOnly: true }),
       );
 
       expect(wrapper.find(Icon).exists()).toBe(true);
@@ -171,7 +171,7 @@ describe("InputIconToggle", () => {
         {
           cursor: "default",
         },
-        wrapper.find(InputIconToggleStyle)
+        wrapper.find(InputIconToggleStyle),
       );
     });
   });
@@ -189,8 +189,8 @@ describe("InputIconToggle", () => {
         mount(
           renderInputIconToggle({
             size: iconSize as InputIconToggleProps["size"],
-          })
-        )
+          }),
+        ),
       );
     });
   });
@@ -203,14 +203,14 @@ describe("InputIconToggle", () => {
       "prevents default when pressing `%s` and onClick is set",
       (keyname, key) => {
         const wrapper = mount(
-          renderInputIconToggle({ inputIcon: "dropdown", onClick: () => {} })
+          renderInputIconToggle({ inputIcon: "dropdown", onClick: () => {} }),
         );
         const event = { key, preventDefault: jest.fn() };
         act(() => {
           wrapper.simulate("keydown", event);
         });
         expect(event.preventDefault).toHaveBeenCalled();
-      }
+      },
     );
 
     it("does not prevent default if onClick is not set", () => {
@@ -232,7 +232,7 @@ describe("InputIconToggle", () => {
             error: "error",
             onFocus: mockOnFocus,
             useValidationIcon: true,
-          })
+          }),
         );
         act(() => {
           wrapper.find(ValidationIconStyle).props().onFocus();
@@ -247,7 +247,7 @@ describe("InputIconToggle", () => {
             error: "error",
             onBlur: mockOnBlur,
             useValidationIcon: true,
-          })
+          }),
         );
         act(() => {
           wrapper.find(ValidationIconStyle).props().onBlur();
@@ -260,7 +260,10 @@ describe("InputIconToggle", () => {
       it("onFocus", () => {
         const mockOnFocus = jest.fn();
         const wrapper = mount(
-          renderInputIconToggle({ inputIcon: "dropdown", onFocus: mockOnFocus })
+          renderInputIconToggle({
+            inputIcon: "dropdown",
+            onFocus: mockOnFocus,
+          }),
         );
         act(() => {
           wrapper.find(InputIconToggleStyle).props().onFocus();
@@ -271,7 +274,7 @@ describe("InputIconToggle", () => {
       it("onBlur", () => {
         const mockOnBlur = jest.fn();
         const wrapper = mount(
-          renderInputIconToggle({ inputIcon: "dropdown", onBlur: mockOnBlur })
+          renderInputIconToggle({ inputIcon: "dropdown", onBlur: mockOnBlur }),
         );
         act(() => {
           wrapper.find(InputIconToggleStyle).props().onBlur();
@@ -288,11 +291,11 @@ describe("InputIconToggle", () => {
             error: "Error",
             validationIconId,
             useValidationIcon: true,
-          })
+          }),
         );
 
         expect(wrapper.find(ValidationIcon).props().tooltipId).toBe(
-          validationIconId
+          validationIconId,
         );
       });
     });

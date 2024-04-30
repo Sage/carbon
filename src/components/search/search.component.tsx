@@ -103,7 +103,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
       tooltipPosition,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const isControlled = value !== undefined;
     const initialValue = isControlled ? value : defaultValue;
@@ -118,19 +118,19 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
           inputRef.current?.focus();
         },
       }),
-      []
+      [],
     );
 
     if (!deprecateUncontrolledWarnTriggered && !isControlled) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Search` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
     invariant(
       typeof initialValue === "string",
-      "This component has no initial value"
+      "This component has no initial value",
     );
 
     const [searchValue, setSearchValue] = useState(initialValue);
@@ -275,7 +275,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
         )}
       </StyledSearch>
     );
-  }
+  },
 );
 
 Search.displayName = "Search";

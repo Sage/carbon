@@ -182,7 +182,7 @@ export const DraggableExample = () => {
       prevState.map((card) => ({
         ...card,
         column: card.id === id ? column : card.column,
-      }))
+      })),
     );
   };
   const returnColumnItems = (column: string) =>
@@ -903,7 +903,7 @@ export const WithDraggable = () => {
         prevState.map((card) => ({
           ...card,
           column: card.id === id ? column : card.column,
-        }))
+        })),
       );
     };
 

@@ -43,18 +43,18 @@ import StyledValidationMessage from "../../__internal__/validation-message/valid
 
 jest.mock("../../__internal__/utils/helpers/browser-type-check");
 (isSafari as jest.MockedFunction<typeof isSafari>).mockImplementation(
-  () => false
+  () => false,
 );
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 const createContent = (text?: string) => {
   if (text) {
     return TextEditorState.createWithContent(
-      TextEditorContentState.createFromText(text)
+      TextEditorContentState.createFromText(text),
     );
   }
   return TextEditorState.createEmpty();
@@ -62,7 +62,7 @@ const createContent = (text?: string) => {
 
 const addToEditorState = (
   text: string,
-  { editorState }: { editorState: EditorState }
+  { editorState }: { editorState: EditorState },
 ) => {
   const contentState = editorState.getCurrentContent();
   const selection = contentState.getSelectionAfter();
@@ -70,7 +70,7 @@ const addToEditorState = (
   return TextEditorState.push(
     editorState,
     Modifier.insertText(contentState, selection, text),
-    "insert-fragment"
+    "insert-fragment",
   );
 };
 
@@ -98,7 +98,7 @@ const injectContentBlock = (value: EditorState, blockType: BlockType) => {
   return TextEditorState.push(
     value,
     newContentState as ContentState,
-    "change-block-type"
+    "change-block-type",
   );
 };
 
@@ -119,7 +119,7 @@ const render = (
   props: Partial<TextEditorProps> = {},
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   renderer: any = mount,
-  validationRedesignOptIn = false
+  validationRedesignOptIn = false,
 ) =>
   renderer(
     <CarbonProvider validationRedesignOptIn={validationRedesignOptIn}>
@@ -127,7 +127,7 @@ const render = (
     </CarbonProvider>,
     {
       attachTo: document.getElementById("enzymeContainer"),
-    }
+    },
   );
 
 describe("TextEditor", () => {
@@ -156,7 +156,7 @@ describe("TextEditor", () => {
           outline: "1px solid var(--colorsUtilityMajor200)",
           borderRadius: "var(--borderRadius050)",
         },
-        wrapper.find(StyledEditorContainer)
+        wrapper.find(StyledEditorContainer),
       );
 
       assertStyleMatch(
@@ -167,7 +167,7 @@ describe("TextEditor", () => {
           margin: "4px",
         },
         wrapper.find(StyledEditorContainer),
-        { modifier: "div.DraftEditor-root" }
+        { modifier: "div.DraftEditor-root" },
       );
 
       assertStyleMatch(
@@ -178,7 +178,7 @@ describe("TextEditor", () => {
           padding: "14px 8px",
         },
         wrapper.find(StyledEditorContainer),
-        { modifier: "div.public-DraftEditor-content" }
+        { modifier: "div.public-DraftEditor-content" },
       );
     });
 
@@ -191,9 +191,9 @@ describe("TextEditor", () => {
           {
             minHeight: `${rows * 21}px`,
           },
-          wrapper.find(StyledEditorContainer)
+          wrapper.find(StyledEditorContainer),
         );
-      }
+      },
     );
   });
 
@@ -276,7 +276,7 @@ describe("TextEditor", () => {
             });
           });
           styles.forEach((style) => expect(hasInlineStyle(style)).toBeFalsy());
-        }
+        },
       );
 
       it("persists inline styles even when the editor loses focus and has selection", () => {
@@ -457,7 +457,7 @@ describe("TextEditor", () => {
             expect(hasBlockStyle(activeStyle)).toBeFalsy();
             activeStyle = assertedStyle;
           });
-        }
+        },
       );
 
       it.each([
@@ -480,10 +480,10 @@ describe("TextEditor", () => {
             wrapper.update();
           });
           (["BOLD", "ITALIC"] as const).forEach((style) =>
-            expect(hasInlineStyle(style)).toBeTruthy()
+            expect(hasInlineStyle(style)).toBeTruthy(),
           );
           expect(hasBlockStyle(block)).toBeTruthy();
-        }
+        },
       );
     });
 
@@ -515,7 +515,7 @@ describe("TextEditor", () => {
       it("does nothing when an invalid command received", () => {
         act(() => {
           expect(
-            getEditor().props().handleKeyCommand?.("foo", getEditorState(), 0)
+            getEditor().props().handleKeyCommand?.("foo", getEditorState(), 0),
           ).toEqual("not-handled");
         });
         act(() => {
@@ -575,7 +575,7 @@ describe("TextEditor", () => {
             expect(hasBlockStyle(block)).toBeFalsy();
             expect(hasBlockStyle("unstyled")).toBeTruthy();
           }
-        }
+        },
       );
 
       it.each([
@@ -602,7 +602,7 @@ describe("TextEditor", () => {
               expect(
                 getEditor()
                   .props()
-                  .handleBeforeInput?.(".", getEditorState(), 0)
+                  .handleBeforeInput?.(".", getEditorState(), 0),
               ).toEqual("not-handled");
             });
           } else {
@@ -617,11 +617,11 @@ describe("TextEditor", () => {
               expect(
                 getEditor()
                   .props()
-                  .handleBeforeInput?.("*", getEditorState(), 0)
+                  .handleBeforeInput?.("*", getEditorState(), 0),
               ).toEqual("not-handled");
             });
           }
-        }
+        },
       );
     });
 
@@ -667,7 +667,7 @@ describe("TextEditor", () => {
         });
         expect(wrapper.find(Toolbar).props().canFocus).toEqual(true);
         setTimeout(() =>
-          expect(wrapper.find(ToolbarButton).at(0).getDOMNode()).toBeFocused()
+          expect(wrapper.find(ToolbarButton).at(0).getDOMNode()).toBeFocused(),
         );
       });
     });
@@ -760,7 +760,7 @@ describe("TextEditor", () => {
             getEditorParent()
               .props()
               .onChange(
-                injectContentBlock(getEditorParent().props().value, style)
+                injectContentBlock(getEditorParent().props().value, style),
               );
           });
           act(() => {
@@ -771,14 +771,14 @@ describe("TextEditor", () => {
             expect(
               getEditor()
                 .props()
-                .handleKeyCommand?.(command, getEditorState(), 0)
+                .handleKeyCommand?.(command, getEditorState(), 0),
             ).toEqual("not-handled");
           });
           act(() => {
             wrapper.update();
           });
           expect(hasBlockStyle(style)).toBeTruthy();
-        }
+        },
       );
 
       it.each([["unordered-list-item"], ["ordered-list-item"]] as const)(
@@ -788,14 +788,14 @@ describe("TextEditor", () => {
             getEditorParent()
               .props()
               .onChange(
-                injectContentBlock(getEditorParent().props().value, style)
+                injectContentBlock(getEditorParent().props().value, style),
               );
           });
           act(() => {
             wrapper.update();
           });
           expect(hasBlockStyle(style)).toBeTruthy();
-        }
+        },
       );
     });
 
@@ -824,7 +824,7 @@ describe("TextEditor", () => {
             wrapper.update();
           });
           expect(getEditor().find(EditorLink).exists()).toBeTruthy();
-        }
+        },
       );
 
       it.each([
@@ -845,7 +845,7 @@ describe("TextEditor", () => {
             wrapper.update();
           });
           expect(getEditor().find(EditorLink)).toHaveLength(count);
-        }
+        },
       );
 
       it.each([
@@ -870,7 +870,7 @@ describe("TextEditor", () => {
             wrapper.update();
           });
           expect(getEditor().find(EditorLink).exists()).toBeFalsy();
-        }
+        },
       );
     });
 
@@ -882,7 +882,7 @@ describe("TextEditor", () => {
           expect(
             editor
               .props()
-              .handleKeyCommand?.("split-block", getEditorState(), 0)
+              .handleKeyCommand?.("split-block", getEditorState(), 0),
           ).toEqual("handled");
         });
       });
@@ -892,7 +892,9 @@ describe("TextEditor", () => {
         const editor = wrapper.find(Editor);
         act(() => {
           expect(
-            editor.props().handlePastedText?.("ab", undefined, getEditorState())
+            editor
+              .props()
+              .handlePastedText?.("ab", undefined, getEditorState()),
           ).toEqual("not-handled");
         });
       });
@@ -904,7 +906,7 @@ describe("TextEditor", () => {
           expect(
             editor
               .props()
-              .handlePastedText?.("abc", undefined, getEditorState())
+              .handlePastedText?.("abc", undefined, getEditorState()),
           ).toEqual("handled");
         });
       });
@@ -914,7 +916,7 @@ describe("TextEditor", () => {
         const editor = wrapper.find(Editor);
         act(() => {
           expect(
-            editor.props().handleBeforeInput?.("*", getEditorState(), 0)
+            editor.props().handleBeforeInput?.("*", getEditorState(), 0),
           ).toEqual("handled");
         });
       });
@@ -924,7 +926,7 @@ describe("TextEditor", () => {
         const editor = wrapper.find(Editor);
         act(() => {
           expect(
-            editor.props().handleBeforeInput?.("*", getEditorState(), 0)
+            editor.props().handleBeforeInput?.("*", getEditorState(), 0),
           ).toEqual("handled");
         });
       });
@@ -957,9 +959,9 @@ describe("TextEditor", () => {
         expect(
           render({ [msg]: msg })
             .find(ValidationIcon)
-            .exists()
+            .exists(),
         ).toBe(true);
-      }
+      },
     );
   });
 
@@ -968,7 +970,7 @@ describe("TextEditor", () => {
       {
         outline: "2px solid var(--colorsSemanticNegative500)",
       },
-      render({ error: "error" }).find(StyledEditorContainer)
+      render({ error: "error" }).find(StyledEditorContainer),
     );
   });
 
@@ -989,7 +991,7 @@ describe("TextEditor", () => {
         boxShadow:
           "0px 0px 0px var(--borderWidth300) var(--colorsSemanticFocus500),0px 0px 0px var(--borderWidth600) var(--colorsUtilityYin090)",
       },
-      wrapper.find(StyledEditorOutline)
+      wrapper.find(StyledEditorOutline),
     );
   });
 
@@ -1001,17 +1003,17 @@ describe("TextEditor", () => {
         expect(wrapper.find(ValidationIcon).exists()).toBe(false);
         expect(wrapper.find(ErrorBorder).exists()).toBe(true);
         expect(wrapper.find(StyledValidationMessage).text()).toBe(msg);
-      }
+      },
     );
 
     it('passes id to the "aria-describedby" of the editor element when there is an error', () => {
       wrapper = render({ error: "bar" }, mount, true);
 
       expect(wrapper.find(Editor).prop("ariaDescribedBy")).toBe(
-        "guid-12345-validation guid-12345"
+        "guid-12345-validation guid-12345",
       );
       expect(wrapper.find(Editor).prop("ariaLabelledBy")).toBe(
-        "guid-12345-label"
+        "guid-12345-label",
       );
     });
 
@@ -1019,10 +1021,10 @@ describe("TextEditor", () => {
       wrapper = render({ warning: "bar" }, mount, true);
 
       expect(wrapper.find(Editor).prop("ariaDescribedBy")).toBe(
-        "guid-12345-validation guid-12345"
+        "guid-12345-validation guid-12345",
       );
       expect(wrapper.find(Editor).prop("ariaLabelledBy")).toBe(
-        "guid-12345-label"
+        "guid-12345-label",
       );
     });
   });
@@ -1037,10 +1039,10 @@ describe("TextEditor", () => {
       wrapper = render({ error: "bar", inputHint: "foo" }, mount, true);
 
       expect(wrapper.find(Editor).prop("ariaDescribedBy")).toBe(
-        "guid-12345-validation guid-12345-hint guid-12345"
+        "guid-12345-validation guid-12345-hint guid-12345",
       );
       expect(wrapper.find(Editor).prop("ariaLabelledBy")).toBe(
-        "guid-12345-label"
+        "guid-12345-label",
       );
     });
 
@@ -1048,10 +1050,10 @@ describe("TextEditor", () => {
       wrapper = render({ warning: "bar", inputHint: "foo" }, mount, true);
 
       expect(wrapper.find(Editor).prop("ariaDescribedBy")).toBe(
-        "guid-12345-validation guid-12345-hint guid-12345"
+        "guid-12345-validation guid-12345-hint guid-12345",
       );
       expect(wrapper.find(Editor).prop("ariaLabelledBy")).toBe(
-        "guid-12345-label"
+        "guid-12345-label",
       );
     });
   });
@@ -1081,7 +1083,7 @@ describe("TextEditor", () => {
         render({ rows: 1 });
 
         expect(consoleSpy).toHaveBeenCalledWith(
-          "Prop rows must be a number value that is 2 or greater to override the min-height of the `EditorWithRowsError`"
+          "Prop rows must be a number value that is 2 or greater to override the min-height of the `EditorWithRowsError`",
         );
       });
     });
@@ -1172,21 +1174,21 @@ describe("TextEditor", () => {
     const focusRedesignWrapper = mount(
       <ThemeProvider theme={{ focusRedesignOptOut: true }}>
         <StyledEditorOutline isFocused />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     assertStyleMatch(
       {
         outline: "3px solid var(--colorsSemanticFocus500)",
       },
-      focusRedesignWrapper
+      focusRedesignWrapper,
     );
 
     assertStyleMatch(
       {
         outlineOffset: "1px",
       },
-      focusRedesignWrapper.find("div")
+      focusRedesignWrapper.find("div"),
     );
   });
 
@@ -1194,21 +1196,21 @@ describe("TextEditor", () => {
     const focusRedesignWrapper = mount(
       <ThemeProvider theme={{ focusRedesignOptOut: true }}>
         <StyledEditorOutline isFocused hasError />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     assertStyleMatch(
       {
         outline: "3px solid var(--colorsSemanticFocus500)",
       },
-      focusRedesignWrapper
+      focusRedesignWrapper,
     );
 
     assertStyleMatch(
       {
         outlineOffset: "2px",
       },
-      focusRedesignWrapper.find("div")
+      focusRedesignWrapper.find("div"),
     );
   });
 });

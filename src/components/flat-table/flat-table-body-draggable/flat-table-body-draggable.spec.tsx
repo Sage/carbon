@@ -34,7 +34,7 @@ describe("FlatTableBodyDraggable", () => {
               <FlatTableCell>Germany</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
-        </FlatTable>
+        </FlatTable>,
       );
 
       expect(screen.getByTestId("test")).toBeTruthy();
@@ -56,13 +56,13 @@ describe("FlatTableBodyDraggable", () => {
               <FlatTableCell>Row three</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
-        </FlatTable>
+        </FlatTable>,
       );
     });
 
     test("on initial render the rows are in the correct order", () => {
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row one", "Row two", "Row three"]);
     });
 
@@ -77,7 +77,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(dropTarget);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row two", "Row three", "Row one"]);
     });
 
@@ -92,7 +92,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(window);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row one", "Row two", "Row three"]);
     });
 
@@ -118,7 +118,7 @@ describe("FlatTableBodyDraggable", () => {
         {
           cursor: "grabbing",
         },
-        screen.getByTestId("flat-table-body-draggable")
+        screen.getByTestId("flat-table-body-draggable"),
       );
     });
 
@@ -132,7 +132,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(elementToDrag);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row one", "Row two", "Row three"]);
     });
 
@@ -147,7 +147,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(dropTarget);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row three", "Row one", "Row two"]);
     });
   });
@@ -176,13 +176,13 @@ describe("FlatTableBodyDraggable", () => {
               <FlatTableCell>Row three</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
-        </FlatTable>
+        </FlatTable>,
       );
     });
 
     test("on initial render the rows are in the correct order", () => {
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row one", "Row two", "Row three"]);
     });
 
@@ -197,7 +197,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(dropTarget);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row two", "Row three", "Row one"]);
     });
 
@@ -208,7 +208,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.dragStart(elementToDrag);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row one", "Row two", "Row three"]);
     });
 
@@ -222,7 +222,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(elementToDrag);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row one", "Row two", "Row three"]);
     });
 
@@ -237,7 +237,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(dropTarget);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row three", "Row one", "Row two"]);
     });
   });
@@ -257,7 +257,7 @@ describe("FlatTableBodyDraggable", () => {
               <FlatTableCell>Row three</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
-        </FlatTable>
+        </FlatTable>,
       );
 
       rerender(
@@ -273,11 +273,11 @@ describe("FlatTableBodyDraggable", () => {
               <FlatTableCell>Row six</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
-        </FlatTable>
+        </FlatTable>,
       );
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual(["Row four", "Row five", "Row six"]);
     });
   });
@@ -299,7 +299,7 @@ describe("FlatTableBodyDraggable", () => {
               <FlatTableCell>Row three</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
-        </FlatTable>
+        </FlatTable>,
       );
       const tableRows = screen.getAllByRole("row");
       const elementToDrag = tableRows[0];
@@ -343,7 +343,7 @@ describe("FlatTableBodyDraggable", () => {
               </FlatTableRow>
             </FlatTableBodyDraggable>
           </FlatTable>
-        </div>
+        </div>,
       );
     });
 
@@ -358,7 +358,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(dropTarget);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual([
         "Row two",
         "Row three",
@@ -380,7 +380,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(dropTarget);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual([
         "Row one",
         "Row two",
@@ -402,7 +402,7 @@ describe("FlatTableBodyDraggable", () => {
       fireEvent.drop(dropTarget);
 
       expect(
-        screen.getAllByRole("row").map((cell) => cell.textContent)
+        screen.getAllByRole("row").map((cell) => cell.textContent),
       ).toEqual([
         "Row one",
         "Row two",

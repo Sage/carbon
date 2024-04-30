@@ -4,7 +4,7 @@ import isExpectedValue from "./is-expected-value";
 
 export default function isExpectedOption(
   element: React.ReactElement,
-  expectedValue?: string | Record<string, unknown> | null
+  expectedValue?: string | Record<string, unknown> | null,
 ) {
   if (element.type !== Option && element.type !== OptionRow) {
     return false;

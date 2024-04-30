@@ -27,10 +27,10 @@ describe("FlatTableHead", () => {
               <FlatTableHeader>Children</FlatTableHeader>
             </FlatTableRow>
           </FlatTableHead>
-        </FlatTable>
+        </FlatTable>,
       );
       expect(wrapper.find(StyledFlatTableHead).props()["data-role"]).toEqual(
-        "test"
+        "test",
       );
     });
 
@@ -45,11 +45,11 @@ describe("FlatTableHead", () => {
               <FlatTableHeader>Children</FlatTableHeader>
             </FlatTableRow>
           </FlatTableHead>
-        </FlatTable>
+        </FlatTable>,
       );
 
       expect(wrapper.find(StyledFlatTableHead).props()["data-role"]).toEqual(
-        "test"
+        "test",
       );
     });
   });

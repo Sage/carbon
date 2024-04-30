@@ -56,7 +56,7 @@ interface Locale {
       formSummary: (
         errors: number,
         warnings: number,
-        type: string
+        type: string,
       ) => [string, string] | null;
     };
   };
@@ -138,7 +138,7 @@ interface Locale {
   sort: {
     accessibleName: (
       sortContent?: string,
-      sortType?: "ascending" | "descending"
+      sortType?: "ascending" | "descending",
     ) => string;
   };
   splitButton: {
@@ -150,7 +150,7 @@ interface Locale {
       title: string,
       currentStep: number,
       totalSteps: number,
-      category?: string
+      category?: string,
     ) => string;
     closeIconAriaLabel?: () => string;
   };

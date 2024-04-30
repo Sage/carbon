@@ -26,11 +26,11 @@ describe("ProgressTracker", () => {
 
   const originalOffsetHeight = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,
-    "offsetHeight"
+    "offsetHeight",
   ) as PropertyDescriptor;
   const originalOffsetWidth = Object.getOwnPropertyDescriptor(
     HTMLElement.prototype,
-    "offsetWidth"
+    "offsetWidth",
   ) as PropertyDescriptor;
 
   beforeAll(() => {
@@ -48,12 +48,12 @@ describe("ProgressTracker", () => {
     Object.defineProperty(
       HTMLElement.prototype,
       "offsetHeight",
-      originalOffsetHeight
+      originalOffsetHeight,
     );
     Object.defineProperty(
       HTMLElement.prototype,
       "offsetWidth",
-      originalOffsetWidth
+      originalOffsetWidth,
     );
   });
 
@@ -74,9 +74,9 @@ describe("ProgressTracker", () => {
           {
             width,
           },
-          wrapper.find(StyledProgressTracker)
+          wrapper.find(StyledProgressTracker),
         );
-      }
+      },
     );
   });
 
@@ -96,7 +96,7 @@ describe("ProgressTracker", () => {
         {
           width: "calc(256px * 0.5)",
         },
-        wrapper.find(InnerBar)
+        wrapper.find(InnerBar),
       );
     });
   });
@@ -113,14 +113,14 @@ describe("ProgressTracker", () => {
           whiteSpace: "nowrap",
           width: "256px",
         },
-        wrapper.find(ProgressTracker)
+        wrapper.find(ProgressTracker),
       );
 
       assertStyleMatch(
         {
           borderRadius: "var(--borderRadius400)",
         },
-        wrapper.find(StyledProgressBar)
+        wrapper.find(StyledProgressBar),
       );
     });
 
@@ -132,7 +132,7 @@ describe("ProgressTracker", () => {
           height: "var(--sizing100)",
           borderRadius: "var(--borderRadius400)",
         },
-        wrapper.find(InnerBar)
+        wrapper.find(InnerBar),
       );
     });
 
@@ -142,7 +142,7 @@ describe("ProgressTracker", () => {
         {
           backgroundColor: "var(--colorsSemanticNegative500)",
         },
-        wrapper.find(InnerBar)
+        wrapper.find(InnerBar),
       );
     });
 
@@ -150,21 +150,21 @@ describe("ProgressTracker", () => {
       wrapper = mount(
         <CarbonProvider roundedCornersOptOut>
           <ProgressTracker progress={100} />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
       assertStyleMatch(
         {
           borderRadius: "25px",
         },
-        wrapper.find(StyledProgressBar)
+        wrapper.find(StyledProgressBar),
       );
 
       assertStyleMatch(
         {
           borderRadius: "25px",
         },
-        wrapper.find(InnerBar)
+        wrapper.find(InnerBar),
       );
     });
   });
@@ -172,7 +172,7 @@ describe("ProgressTracker", () => {
   describe("when size is set to small", () => {
     beforeEach(() => {
       wrapper = mount(
-        <ProgressTracker size="small" progress={50} showDefaultLabels />
+        <ProgressTracker size="small" progress={50} showDefaultLabels />,
       );
     });
 
@@ -186,7 +186,7 @@ describe("ProgressTracker", () => {
           width: "calc(256px * 0.5)",
           height: "var(--sizing050)",
         },
-        wrapper.find(InnerBar)
+        wrapper.find(InnerBar),
       );
     });
 
@@ -195,7 +195,7 @@ describe("ProgressTracker", () => {
         {
           fontSize: "var(--fontSizes100)",
         },
-        wrapper.find(StyledValuesLabel)
+        wrapper.find(StyledValuesLabel),
       );
     });
   });
@@ -203,7 +203,7 @@ describe("ProgressTracker", () => {
   describe("when size is set to large", () => {
     beforeEach(() => {
       wrapper = mount(
-        <ProgressTracker size="large" progress={50} showDefaultLabels />
+        <ProgressTracker size="large" progress={50} showDefaultLabels />,
       );
     });
 
@@ -213,7 +213,7 @@ describe("ProgressTracker", () => {
           width: "100%",
           height: "var(--sizing200)",
         },
-        wrapper.find(StyledProgressBar)
+        wrapper.find(StyledProgressBar),
       );
     });
 
@@ -223,7 +223,7 @@ describe("ProgressTracker", () => {
           width: "calc(256px * 0.5)",
           height: "var(--sizing200)",
         },
-        wrapper.find(InnerBar)
+        wrapper.find(InnerBar),
       );
     });
 
@@ -232,7 +232,7 @@ describe("ProgressTracker", () => {
         {
           fontSize: "var(--fontSizes200)",
         },
-        wrapper.find(StyledValuesLabel)
+        wrapper.find(StyledValuesLabel),
       );
     });
   });
@@ -240,7 +240,7 @@ describe("ProgressTracker", () => {
   describe("when description is provided", () => {
     it("renders description as expected", () => {
       wrapper = mount(
-        <ProgressTracker showDefaultLabels description="description" />
+        <ProgressTracker showDefaultLabels description="description" />,
       );
       expect(wrapper.find(StyledDescription).text()).toEqual("description");
     });
@@ -251,7 +251,7 @@ describe("ProgressTracker", () => {
       wrapper = mount(<InnerBar progress={100} />);
       assertStyleMatch(
         { backgroundColor: "var(--colorsSemanticPositive500)" },
-        wrapper.find(InnerBar)
+        wrapper.find(InnerBar),
       );
     });
 
@@ -259,7 +259,7 @@ describe("ProgressTracker", () => {
       wrapper = mount(<ProgressTracker progress={100} />);
       assertStyleMatch(
         { border: "1px solid var(--colorsSemanticPositive500)" },
-        wrapper.find(StyledProgressBar)
+        wrapper.find(StyledProgressBar),
       );
     });
 
@@ -267,7 +267,7 @@ describe("ProgressTracker", () => {
       wrapper = mount(<ProgressTracker progress={99} />);
       assertStyleMatch(
         { border: "1px solid var(--colorsSemanticNeutral500)" },
-        wrapper.find(StyledProgressBar)
+        wrapper.find(StyledProgressBar),
       );
     });
   });
@@ -283,10 +283,10 @@ describe("labels", () => {
         currentProgressLabel="foo"
         maxProgressLabel="bar"
         customValuePreposition="baz"
-      />
+      />,
     );
     expect(wrapper.find(StyledValuesLabel).find("span").at(2).text()).toEqual(
-      "baz"
+      "baz",
     );
   });
 
@@ -296,10 +296,10 @@ describe("labels", () => {
         progress={50}
         currentProgressLabel="foo"
         maxProgressLabel="bar"
-      />
+      />,
     );
     expect(
-      wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
+      wrapper.find(StyledValuesLabel).find(StyledValue).first().text(),
     ).toEqual("foo");
   });
 
@@ -309,10 +309,10 @@ describe("labels", () => {
         progress={50}
         currentProgressLabel="foo"
         maxProgressLabel="bar"
-      />
+      />,
     );
     expect(
-      wrapper.find(StyledValuesLabel).find(StyledValue).last().text()
+      wrapper.find(StyledValuesLabel).find(StyledValue).last().text(),
     ).toEqual("bar");
   });
 
@@ -321,11 +321,11 @@ describe("labels", () => {
       wrapper = mount(<ProgressTracker progress={50} showDefaultLabels />);
 
       expect(
-        wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
+        wrapper.find(StyledValuesLabel).find(StyledValue).first().text(),
       ).toEqual("50%");
 
       expect(
-        wrapper.find(StyledValuesLabel).find(StyledValue).last().text()
+        wrapper.find(StyledValuesLabel).find(StyledValue).last().text(),
       ).toEqual("100%");
     });
   });
@@ -333,11 +333,11 @@ describe("labels", () => {
   describe("when showDefaultLabels is not set", () => {
     it("only shows the currentProgressLabel that has a value", () => {
       wrapper = mount(
-        <ProgressTracker progress={50} currentProgressLabel="foo" />
+        <ProgressTracker progress={50} currentProgressLabel="foo" />,
       );
 
       expect(
-        wrapper.find(StyledValuesLabel).find(StyledValue).first().text()
+        wrapper.find(StyledValuesLabel).find(StyledValue).first().text(),
       ).toEqual("foo");
 
       expect(wrapper.find(StyledValuesLabel).find(StyledValue).length).toBe(1);
@@ -353,14 +353,18 @@ describe("labels", () => {
   describe("when labelsPosition is set", () => {
     it("renders labels above the progress bar", () => {
       wrapper = mount(
-        <ProgressTracker progress={50} showDefaultLabels labelsPosition="top" />
+        <ProgressTracker
+          progress={50}
+          showDefaultLabels
+          labelsPosition="top"
+        />,
       );
 
       assertStyleMatch(
         {
           marginBottom: "var(--spacing100)",
         },
-        wrapper.find(StyledValuesLabel)
+        wrapper.find(StyledValuesLabel),
       );
     });
 
@@ -370,14 +374,14 @@ describe("labels", () => {
           progress={50}
           showDefaultLabels
           labelsPosition="bottom"
-        />
+        />,
       );
 
       assertStyleMatch(
         {
           marginTop: "var(--spacing100)",
         },
-        wrapper.find(StyledValuesLabel)
+        wrapper.find(StyledValuesLabel),
       );
     });
 
@@ -387,21 +391,21 @@ describe("labels", () => {
           progress={50}
           showDefaultLabels
           labelsPosition="left"
-        />
+        />,
       );
 
       assertStyleMatch(
         {
           marginRight: "var(--spacing100)",
         },
-        wrapper.find(StyledValuesLabel)
+        wrapper.find(StyledValuesLabel),
       );
 
       assertStyleMatch(
         {
           alignItems: "center",
         },
-        wrapper.find(StyledProgressTracker)
+        wrapper.find(StyledProgressTracker),
       );
     });
   });
@@ -414,14 +418,14 @@ describe("labels", () => {
           showDefaultLabels
           labelsPosition="left"
           labelWidth="45px"
-        />
+        />,
       );
 
       assertStyleMatch(
         {
           width: "45px",
         },
-        wrapper.find(StyledValuesLabel)
+        wrapper.find(StyledValuesLabel),
       );
     });
   });
@@ -433,7 +437,7 @@ it("applies the correct background colour when it is in progress", () => {
     {
       backgroundColor: "var(--colorsSemanticNeutral500)",
     },
-    wrapper.find(InnerBar)
+    wrapper.find(InnerBar),
   );
 });
 
@@ -449,7 +453,7 @@ describe("Accessibility", () => {
         aria-valuenow={10}
         aria-valuemax={100}
         aria-valuetext="Bar"
-      />
+      />,
     );
   });
 

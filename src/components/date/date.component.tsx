@@ -129,7 +129,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       inputName,
       ...rest
     }: DateInputProps,
-    ref
+    ref,
   ) => {
     const wrapperRef = useRef(null);
     const parentRef = useRef(null);
@@ -139,15 +139,16 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const focusedViaPicker = useRef(false);
     const l = useLocale();
     const { dateFnsLocale } = l.date;
-    const { format, formats } = useMemo(() => getFormatData(dateFnsLocale()), [
-      dateFnsLocale,
-    ]);
+    const { format, formats } = useMemo(
+      () => getFormatData(dateFnsLocale()),
+      [dateFnsLocale],
+    );
     const { inputRefMap, setInputRefMap } = useContext(DateRangeContext);
     const [open, setOpen] = useState(false);
     const [selectedDays, setSelectedDays] = useState(
       checkISOFormatAndLength(value)
         ? parseISODate(value)
-        : parseDate(format, value)
+        : parseDate(format, value),
     );
     const isInitialValue = useRef(true);
     const pickerTabGuardId = useRef(guid());
@@ -160,7 +161,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
       const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
         ev.target.value,
-        formats
+        formats,
       );
 
       const formattedValueString =
@@ -198,7 +199,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const handleClickInside = useClickAwayListener(
       handleClickAway,
-      "mousedown"
+      "mousedown",
     );
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
@@ -213,7 +214,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
     const handleDayClick = (
       day: Date,
-      ev: React.MouseEvent<HTMLDivElement>
+      ev: React.MouseEvent<HTMLDivElement>,
     ) => {
       setSelectedDays(day);
       onChange(
@@ -223,7 +224,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
             ...ev.target,
             value: formattedValue(format, day),
           },
-        })
+        }),
       );
       focusInput();
       setOpen(false);
@@ -244,7 +245,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           : value;
         const [, matchedValue] = findMatchedFormatAndValue(
           currentValue,
-          formats
+          formats,
         );
 
         if (formattedValue(format, selectedDays) !== matchedValue) {
@@ -300,7 +301,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           ev.stopPropagation();
         }
       },
-      [open]
+      [open],
     );
 
     const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
@@ -313,16 +314,18 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           setOpen(false);
         } else if (!disablePortal) {
           ev.preventDefault();
-          (document?.querySelector(
-            `[id="${pickerTabGuardId.current}"]`
-          ) as HTMLElement)?.focus();
+          (
+            document?.querySelector(
+              `[id="${pickerTabGuardId.current}"]`,
+            ) as HTMLElement
+          )?.focus();
         }
         alreadyFocused.current = false;
       }
     };
 
     const handleClick = (
-      ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+      ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) => {
       if (onClick) {
         onClick(ev);
@@ -379,13 +382,13 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           });
         }
       },
-      [inputName, inputRefMap, setInputRefMap, ref]
+      [inputName, inputRefMap, setInputRefMap, ref],
     );
 
     useEffect(() => {
       const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
         value,
-        formats
+        formats,
       );
 
       if (
@@ -394,7 +397,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         isDateValid(parseDate(matchedFormat, matchedValue))
       ) {
         setSelectedDays(
-          parseDate(...additionalYears(matchedFormat, matchedValue))
+          parseDate(...additionalYears(matchedFormat, matchedValue)),
         );
       } else if (checkISOFormatAndLength(value) && isInitialValue.current) {
         setSelectedDays(parseISODate(value));
@@ -425,11 +428,11 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
 
         const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
           replaceSeparators(),
-          formats
+          formats,
         );
         return formattedValue(
           format,
-          parseDate(...additionalYears(matchedFormat, matchedValue))
+          parseDate(...additionalYears(matchedFormat, matchedValue)),
         );
       }
 
@@ -494,7 +497,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         />
       </StyledDateInput>
     );
-  }
+  },
 );
 
 DateInput.displayName = "DateInput";

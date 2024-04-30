@@ -26,11 +26,11 @@ describe("IconButton component", () => {
       mount(
         <IconButton aria-label="icon-button" onAction={() => {}}>
           <Icon type="home" />
-        </IconButton>
+        </IconButton>,
       );
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "The `onAction` callback for the `IconButton` component is deprecated and will soon be removed. Please use `onClick` instead"
+        "The `onAction` callback for the `IconButton` component is deprecated and will soon be removed. Please use `onClick` instead",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -58,10 +58,10 @@ describe("IconButton component", () => {
             onClick={() => {}}
           >
             <Icon type="home" />
-          </IconButton>
+          </IconButton>,
         );
       }).toThrow(
-        "onClick and onAction have both been set, please use onClick as onAction will soon be deprecated"
+        "onClick and onAction have both been set, please use onClick as onAction will soon be deprecated",
       );
     });
   });
@@ -73,7 +73,7 @@ describe("IconButton component", () => {
       wrapper = mount(
         <IconButton onClick={() => {}} ref={ref}>
           <Icon type="home" tooltipMessage="foo" />
-        </IconButton>
+        </IconButton>,
       );
 
       wrapper.update();
@@ -86,13 +86,13 @@ describe("IconButton component", () => {
       wrapper = mount(
         <IconButton onClick={() => {}} ref={ref}>
           <Icon type="home" tooltipMessage="foo" />
-        </IconButton>
+        </IconButton>,
       );
 
       wrapper.update();
 
       expect(ref).toHaveBeenCalledWith(
-        wrapper.find(StyledIconButton).getDOMNode()
+        wrapper.find(StyledIconButton).getDOMNode(),
       );
     });
 
@@ -101,7 +101,7 @@ describe("IconButton component", () => {
       wrapper = mount(
         <IconButton onClick={() => {}} ref={ref}>
           <Icon type="home" tooltipMessage="foo" />
-        </IconButton>
+        </IconButton>,
       );
 
       wrapper.update();
@@ -117,7 +117,7 @@ describe("IconButton component", () => {
       wrapper = mount(
         <IconButton onClick={() => {}} disabled>
           <Icon type="home" tooltipMessage="foo" />
-        </IconButton>
+        </IconButton>,
       );
 
       const props = wrapper.find(TooltipProvider).props();
@@ -134,7 +134,7 @@ describe("IconButton component", () => {
       wrapper = mount(
         <Message variant="info" onDismiss={onDismiss}>
           Message
-        </Message>
+        </Message>,
       );
     });
 
@@ -147,7 +147,7 @@ describe("IconButton component", () => {
         ),
         { p: 0 },
         undefined,
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
 
@@ -156,7 +156,7 @@ describe("IconButton component", () => {
         {
           borderRadius: "var(--borderRadius050)",
         },
-        wrapper.find(IconButton)
+        wrapper.find(IconButton),
       );
     });
 
@@ -165,7 +165,7 @@ describe("IconButton component", () => {
         wrapper = mount(
           <IconButton onClick={() => {}} disabled>
             <Icon type="home" />
-          </IconButton>
+          </IconButton>,
         );
 
         assertStyleMatch(
@@ -173,7 +173,7 @@ describe("IconButton component", () => {
             cursor: "not-allowed",
           },
           wrapper.find(StyledIconButton),
-          { modifier: "&:hover" }
+          { modifier: "&:hover" },
         );
       });
     });
@@ -220,7 +220,7 @@ describe("IconButton component", () => {
         wrapper = mount(
           <IconButton aria-label="icon-button" onClick={onClickFn}>
             <Icon type="home" />
-          </IconButton>
+          </IconButton>,
         );
 
         wrapper.simulate("click");
@@ -234,7 +234,7 @@ describe("IconButton component", () => {
       wrapper = mount(
         <IconButton onClick={() => {}}>
           <Icon type="home" tooltipMessage="foo" />
-        </IconButton>
+        </IconButton>,
       );
     });
 
@@ -258,7 +258,7 @@ describe("IconButton component", () => {
             onClick={() => {}}
           >
             <Icon type="home" tooltipMessage="foo" />
-          </IconButton>
+          </IconButton>,
         );
       });
 
@@ -294,7 +294,7 @@ describe("IconButton component", () => {
         wrapper = mount(
           <IconButton disabled onClick={() => {}}>
             <Icon type="home" tooltipMessage="foo" />
-          </IconButton>
+          </IconButton>,
         );
       });
 
@@ -304,31 +304,31 @@ describe("IconButton component", () => {
             backgroundColor: "transparent",
           },
           wrapper,
-          { modifier: `${StyledIcon}` }
+          { modifier: `${StyledIcon}` },
         );
       });
 
       it("should not set the onFocus prop and not show the tooltip on focus of the button", () => {
         expect(wrapper.find(StyledIconButton).prop("onFocus")).toEqual(
-          undefined
+          undefined,
         );
       });
 
       it("should not set the onMouseEnter prop and not should show the tooltip on hover of the button", () => {
         expect(wrapper.find(StyledIconButton).prop("onMouseEnter")).toEqual(
-          undefined
+          undefined,
         );
       });
 
       it("should not set the onBlur prop", () => {
         expect(wrapper.find(StyledIconButton).prop("onBlur")).toEqual(
-          undefined
+          undefined,
         );
       });
 
       it("should not set the onMouseLeave prop", () => {
         expect(wrapper.find(StyledIconButton).prop("onMouseLeave")).toEqual(
-          undefined
+          undefined,
         );
       });
     });

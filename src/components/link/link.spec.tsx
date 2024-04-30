@@ -23,7 +23,7 @@ describe("Link", () => {
 
   it("renders as expected", () => {
     expect(
-      noThemeSnapshot(shallow(<Link href="www.foo.com">test</Link>))
+      noThemeSnapshot(shallow(<Link href="www.foo.com">test</Link>)),
     ).toMatchSnapshot();
   });
 
@@ -31,7 +31,7 @@ describe("Link", () => {
     const skipLinkWrapper = mount(
       <Link href="#test" isSkipLink>
         Test Content
-      </Link>
+      </Link>,
     );
 
     it("should render `Skip to main content` text inside of Link", () => {
@@ -53,7 +53,7 @@ describe("Link", () => {
           border: `var(--spacing025) solid var(--colorsUtilityYang100)`,
         },
         skipLinkWrapper,
-        { modifier: "a" }
+        { modifier: "a" },
       );
 
       assertStyleMatch(
@@ -62,7 +62,7 @@ describe("Link", () => {
           left: "var(--spacing100)",
         },
         skipLinkWrapper,
-        { modifier: "a:focus" }
+        { modifier: "a:focus" },
       );
     });
   });
@@ -74,7 +74,7 @@ describe("Link", () => {
           cursor: "not-allowed",
         },
         renderLink({ disabled: true }),
-        { modifier: "> a:hover" }
+        { modifier: "> a:hover" },
       );
     });
 
@@ -148,7 +148,7 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `> a > ${StyledIcon}` }
+        { modifier: `> a > ${StyledIcon}` },
       );
     });
 
@@ -161,13 +161,13 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `> a > ${StyledIcon}` }
+        { modifier: `> a > ${StyledIcon}` },
       );
     });
 
     it("should render an `Icon` on the right with no margin when no children", () => {
       wrapper = mount(
-        <Link iconAlign="right" icon="home" href="www.sage.com" />
+        <Link iconAlign="right" icon="home" href="www.sage.com" />,
       );
       assertStyleMatch(
         {
@@ -176,20 +176,20 @@ describe("Link", () => {
           position: "relative",
         },
         wrapper.find(StyledLink),
-        { modifier: `> a > ${StyledIcon}` }
+        { modifier: `> a > ${StyledIcon}` },
       );
     });
 
     it("should apply correct colour to icon on hover", () => {
       wrapper = mount(
-        <Link iconAlign="right" icon="home" href="www.sage.com" />
+        <Link iconAlign="right" icon="home" href="www.sage.com" />,
       );
       assertStyleMatch(
         {
           color: "var(--colorsActionMajor600)",
         },
         wrapper.find(StyledLink),
-        { modifier: `> a:hover > ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` },
       );
     });
 
@@ -200,7 +200,7 @@ describe("Link", () => {
           icon="home"
           href="www.sage.com"
           tooltipMessage="foo"
-        />
+        />,
       );
 
       expect(wrapper.find(Tooltip).exists()).toBeTruthy();
@@ -218,7 +218,7 @@ describe("Link", () => {
           textDecoration: "none",
         },
         wrapper.find(StyledLink),
-        { modifier: "> a" }
+        { modifier: "> a" },
       );
     });
 
@@ -228,7 +228,7 @@ describe("Link", () => {
           display: "inline",
         },
         wrapper.find(StyledLink),
-        { modifier: `> a > ${StyledIcon}` }
+        { modifier: `> a > ${StyledIcon}` },
       );
     });
   });
@@ -336,7 +336,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative500)",
         },
         wrapper,
-        { modifier: "> a" }
+        { modifier: "> a" },
       );
 
       assertStyleMatch(
@@ -344,7 +344,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative500)",
         },
         wrapper,
-        { modifier: `> a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -352,7 +352,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative600)",
         },
         wrapper,
-        { modifier: "> a:hover" }
+        { modifier: "> a:hover" },
       );
 
       assertStyleMatch(
@@ -360,7 +360,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative600)",
         },
         wrapper,
-        { modifier: `> a:hover > ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -369,7 +369,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "> a:focus" }
+        { modifier: "> a:focus" },
       );
 
       assertStyleMatch(
@@ -377,7 +377,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `> a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` },
       );
     });
   });
@@ -396,7 +396,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: "> a" }
+        { modifier: "> a" },
       );
 
       assertStyleMatch(
@@ -404,7 +404,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `> a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -412,7 +412,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor600)",
         },
         wrapper,
-        { modifier: "> a:hover" }
+        { modifier: "> a:hover" },
       );
 
       assertStyleMatch(
@@ -420,7 +420,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor600)",
         },
         wrapper,
-        { modifier: `> a:hover > ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -429,7 +429,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "> a:focus" }
+        { modifier: "> a:focus" },
       );
 
       assertStyleMatch(
@@ -437,7 +437,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `> a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` },
       );
     });
   });
@@ -455,7 +455,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor350)",
         },
         wrapper,
-        { modifier: "> a" }
+        { modifier: "> a" },
       );
 
       assertStyleMatch(
@@ -463,7 +463,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor350)",
         },
         wrapper,
-        { modifier: `> a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -471,7 +471,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor450)",
         },
         wrapper,
-        { modifier: "> a:hover" }
+        { modifier: "> a:hover" },
       );
 
       assertStyleMatch(
@@ -479,7 +479,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor450)",
         },
         wrapper,
-        { modifier: `> a:hover > ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -488,7 +488,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "> a:focus" }
+        { modifier: "> a:focus" },
       );
 
       assertStyleMatch(
@@ -496,7 +496,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `> a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` },
       );
     });
 
@@ -512,7 +512,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYang030)",
         },
         wrapper,
-        { modifier: "> a" }
+        { modifier: "> a" },
       );
     });
 
@@ -529,7 +529,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative350)",
         },
         wrapper,
-        { modifier: "> a" }
+        { modifier: "> a" },
       );
 
       assertStyleMatch(
@@ -537,7 +537,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative350)",
         },
         wrapper,
-        { modifier: `> a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -545,7 +545,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative450)",
         },
         wrapper,
-        { modifier: "> a:hover" }
+        { modifier: "> a:hover" },
       );
 
       assertStyleMatch(
@@ -553,7 +553,7 @@ describe("Link", () => {
           color: "var(--colorsSemanticNegative450)",
         },
         wrapper,
-        { modifier: `> a:hover > ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -562,7 +562,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "> a:focus" }
+        { modifier: "> a:focus" },
       );
 
       assertStyleMatch(
@@ -570,7 +570,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `> a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` },
       );
     });
 
@@ -587,7 +587,7 @@ describe("Link", () => {
           color: "var(--colorsActionMinor100)",
         },
         wrapper,
-        { modifier: "> a" }
+        { modifier: "> a" },
       );
 
       assertStyleMatch(
@@ -595,7 +595,7 @@ describe("Link", () => {
           color: "var(--colorsActionMinor100)",
         },
         wrapper,
-        { modifier: `> a ${StyledIcon}` }
+        { modifier: `> a ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -603,7 +603,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor450)",
         },
         wrapper,
-        { modifier: "> a:hover" }
+        { modifier: "> a:hover" },
       );
 
       assertStyleMatch(
@@ -611,7 +611,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajor450)",
         },
         wrapper,
-        { modifier: `> a:hover > ${StyledIcon}` }
+        { modifier: `> a:hover > ${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -620,7 +620,7 @@ describe("Link", () => {
           backgroundColor: "var(--colorsSemanticFocus250)",
         },
         wrapper,
-        { modifier: "> a:focus" }
+        { modifier: "> a:focus" },
       );
 
       assertStyleMatch(
@@ -628,7 +628,7 @@ describe("Link", () => {
           color: "var(--colorsActionMajorYin090)",
         },
         wrapper,
-        { modifier: `> a:focus ${StyledIcon}` }
+        { modifier: `> a:focus ${StyledIcon}` },
       );
     });
   });
@@ -645,7 +645,7 @@ describe("Link", () => {
           }}
         >
           <Link href="foo.com" />
-        </MenuContext.Provider>
+        </MenuContext.Provider>,
       );
 
       assertStyleMatch({ display: "inline-block" }, wrapper, {

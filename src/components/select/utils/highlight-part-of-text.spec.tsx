@@ -28,7 +28,7 @@ describe("highlightPartOfText", () => {
       const partToBeHighlighted = "def";
 
       const wrapper = shallow(
-        <div>{highlightPartOfText(text, partToBeHighlighted)}</div>
+        <div>{highlightPartOfText(text, partToBeHighlighted)}</div>,
       );
 
       expect(wrapper.find(MatchingText).exists()).toBe(true);
@@ -42,7 +42,7 @@ describe("highlightPartOfText", () => {
       const partToBeHighlighted = "def";
 
       const wrapper = shallow(
-        <div>{highlightPartOfText(text, partToBeHighlighted)}</div>
+        <div>{highlightPartOfText(text, partToBeHighlighted)}</div>,
       );
 
       expect(wrapper.find(MatchingText)).toHaveLength(3);
@@ -60,7 +60,7 @@ describe("highlightPartOfText", () => {
         const partToBeHighlighted = "xyz";
 
         const wrapper = shallow(
-          <div>{highlightPartOfText(wrappedText, partToBeHighlighted)}</div>
+          <div>{highlightPartOfText(wrappedText, partToBeHighlighted)}</div>,
         );
 
         expect(wrapper.find(MatchingText).exists()).toBe(false);
@@ -75,7 +75,7 @@ describe("highlightPartOfText", () => {
         const partToBeHighlighted = "";
 
         const wrapper = shallow(
-          <div>{highlightPartOfText(wrappedText, partToBeHighlighted)}</div>
+          <div>{highlightPartOfText(wrappedText, partToBeHighlighted)}</div>,
         );
 
         expect(wrapper.find(MatchingText).exists()).toBe(false);
@@ -90,7 +90,7 @@ describe("highlightPartOfText", () => {
         const partToBeHighlighted = "def";
 
         const wrapper = shallow(
-          <div>{highlightPartOfText(wrappedText, partToBeHighlighted)}</div>
+          <div>{highlightPartOfText(wrappedText, partToBeHighlighted)}</div>,
         );
 
         expect(wrapper.find(MatchingText).exists()).toBe(true);
@@ -105,18 +105,18 @@ describe("highlightPartOfText", () => {
         const partToBeHighlighted = "def";
 
         const wrapper = shallow(
-          <div>{highlightPartOfText(wrappedText, partToBeHighlighted)}</div>
+          <div>{highlightPartOfText(wrappedText, partToBeHighlighted)}</div>,
         );
 
         expect(wrapper.find(MatchingText)).toHaveLength(3);
         expect(wrapper.find(MatchingText).at(0).text()).toBe(
-          partToBeHighlighted
+          partToBeHighlighted,
         );
         expect(wrapper.find(MatchingText).at(1).text()).toBe(
-          partToBeHighlighted
+          partToBeHighlighted,
         );
         expect(wrapper.find(MatchingText).at(2).text()).toBe(
-          partToBeHighlighted
+          partToBeHighlighted,
         );
       });
     });

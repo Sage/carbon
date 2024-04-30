@@ -35,7 +35,7 @@ describe("ScrollableBlock", () => {
     menuType: MenuType,
     props: Partial<ScrollableBlockProps> = {},
     blockIndex?: number,
-    focusIndex?: number
+    focusIndex?: number,
   ) => {
     return mount(
       <MenuContext.Provider
@@ -58,7 +58,7 @@ describe("ScrollableBlock", () => {
           </ScrollableBlock>
         </SubmenuContext.Provider>
       </MenuContext.Provider>,
-      { attachTo: container }
+      { attachTo: container },
     );
   };
 
@@ -94,7 +94,7 @@ describe("ScrollableBlock", () => {
             backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
           },
           wrapper,
-          { modifier: `&& ${StyledMenuItemWrapper}` }
+          { modifier: `&& ${StyledMenuItemWrapper}` },
         );
       });
 
@@ -107,7 +107,7 @@ describe("ScrollableBlock", () => {
               backgroundColor: menuConfigVariants[menuType].alternate,
             },
             wrapper,
-            { modifier: `&& ${StyledMenuItemWrapper}` }
+            { modifier: `&& ${StyledMenuItemWrapper}` },
           );
         });
       });
@@ -118,7 +118,7 @@ describe("ScrollableBlock", () => {
             borderRadius: "var(--borderRadius000)",
           },
           render(menuType, { variant: "default" }),
-          { modifier: `${StyledBox}` }
+          { modifier: `${StyledBox}` },
         );
       });
 
@@ -137,11 +137,11 @@ describe("ScrollableBlock", () => {
             (wrapper = render(menuType, { variant: "default" })),
             {
               modifier: `${StyledBox} ${StyledMenuItem}:last-child ${modifier}`,
-            }
+            },
           );
-        }
+        },
       );
-    }
+    },
   );
 
   describe("parent prop", () => {
@@ -174,9 +174,9 @@ describe("ScrollableBlock", () => {
             backgroundColor: menuConfigVariants.light[expectedColor],
           },
           parentMenuItem,
-          { modifier: "&&&&" }
+          { modifier: "&&&&" },
         );
-      }
+      },
     );
   });
 
@@ -191,28 +191,28 @@ describe("ScrollableBlock", () => {
             <MenuItem href="#">Carrot</MenuItem>
             <MenuItem href="#">Broccoli</MenuItem>
           </ScrollableBlock>
-        </ul>
+        </ul>,
       );
 
       expect(
         wrapper
           .find(StyledScrollableBlock)
           .getDOMNode()
-          .getAttribute("data-component")
+          .getAttribute("data-component"),
       ).toEqual("submenu-scrollable-block");
 
       expect(
         wrapper
           .find(StyledScrollableBlock)
           .getDOMNode()
-          .getAttribute("data-element")
+          .getAttribute("data-element"),
       ).toEqual("bar");
 
       expect(
         wrapper
           .find(StyledScrollableBlock)
           .getDOMNode()
-          .getAttribute("data-role")
+          .getAttribute("data-role"),
       ).toEqual("baz");
     });
   });

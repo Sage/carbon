@@ -19,7 +19,7 @@ describe("useFormSpacing", () => {
     render(
       <FormSpacingProvider marginBottom="10px">
         <MockComponent />
-      </FormSpacingProvider>
+      </FormSpacingProvider>,
     );
     expect(screen.getByText("foo")).toHaveStyle({
       marginBottom: "10px",
@@ -31,7 +31,7 @@ describe("useFormSpacing", () => {
     render(
       <FormSpacingProvider marginBottom="10px">
         <MockComponent mx="10px" />
-      </FormSpacingProvider>
+      </FormSpacingProvider>,
     );
     expect(screen.getByText("foo")).toHaveStyle({
       marginBottom: "10px",
@@ -45,7 +45,7 @@ describe("useFormSpacing", () => {
     render(
       <FormSpacingProvider marginBottom="10px">
         <MockComponent my="5px" />
-      </FormSpacingProvider>
+      </FormSpacingProvider>,
     );
     expect(screen.getByText("foo")).toHaveStyle({
       marginBottom: "5px",
@@ -57,7 +57,7 @@ describe("useFormSpacing", () => {
     render(
       <FormSpacingProvider marginBottom="10px">
         <MockComponent m="5px" />
-      </FormSpacingProvider>
+      </FormSpacingProvider>,
     );
     expect(screen.getByText("foo")).toHaveStyle({
       marginBottom: "5px",
@@ -69,7 +69,7 @@ describe("useFormSpacing", () => {
     render(
       <FormSpacingProvider marginBottom="10px">
         <MockComponent mt="5px" />
-      </FormSpacingProvider>
+      </FormSpacingProvider>,
     );
     expect(screen.getByText("foo")).toHaveStyle({
       marginBottom: "10px",
@@ -81,7 +81,7 @@ describe("useFormSpacing", () => {
     render(
       <FormSpacingProvider marginBottom="10px">
         <MockComponent mb="5px" />
-      </FormSpacingProvider>
+      </FormSpacingProvider>,
     );
     expect(screen.getByText("foo")).toHaveStyle({
       marginBottom: "5px",

@@ -18,7 +18,7 @@ describe("Crumb", () => {
     render(
       <Crumb href="foo" isCurrent>
         {LINK_TEXT}
-      </Crumb>
+      </Crumb>,
     );
 
     const anchor = screen.getByText(LINK_TEXT).closest("a");
@@ -37,7 +37,7 @@ describe("Crumb", () => {
     render(
       <Crumb href="#" onClick={handleClickFn}>
         {LINK_TEXT}
-      </Crumb>
+      </Crumb>,
     );
 
     const link = screen.getByText(LINK_TEXT);
@@ -52,7 +52,7 @@ describe("Crumb", () => {
     render(
       <Crumb href="#" onClick={handleClickFn} isCurrent>
         {LINK_TEXT}
-      </Crumb>
+      </Crumb>,
     );
     const link = screen.getByText(LINK_TEXT);
     await userEvent.click(link);

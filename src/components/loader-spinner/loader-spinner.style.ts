@@ -34,14 +34,13 @@ export const StyledSpinnerWrapper = styled.div<
 export const StyledLabel = styled(Typography)<
   Required<Pick<LoaderSpinnerProps, "size">>
 >`
-  ${({ size }) =>
-    css`
-      display: flex;
-      justify-content: center;
-      ${size !== "extra-small" &&
-      `width: ${LOADER_SPINNER_SIZE_PARAMS[size].wrapperDimensions}px`};
-      ${size === "extra-small" && `margin-left: var(--spacing100)`};
-    `}
+  ${({ size }) => css`
+    display: flex;
+    justify-content: center;
+    ${size !== "extra-small" &&
+    `width: ${LOADER_SPINNER_SIZE_PARAMS[size].wrapperDimensions}px`};
+    ${size === "extra-small" && `margin-left: var(--spacing100)`};
+  `}
 `;
 
 interface StyledSpinnerCircleSvgProps

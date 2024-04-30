@@ -26,7 +26,7 @@ export const StepSequence = ({
     deprecateWarnTriggered = true;
     Logger.deprecate(
       "The `StepSequence` component is deprecated and will soon be removed," +
-        " please use the `StepFlow` component instead."
+        " please use the `StepFlow` component instead.",
     );
   }
   return (

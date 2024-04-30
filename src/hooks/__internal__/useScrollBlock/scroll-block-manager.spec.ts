@@ -13,7 +13,7 @@ describe("ScrollBlockManager", () => {
 
     it("global variable window.__CARBON_INTERNALS_SCROLL_BLOCKERS should have this component added", () => {
       expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS?.components[id1]).toBe(
-        true
+        true,
       );
     });
   });
@@ -97,7 +97,7 @@ describe("ScrollBlockManager", () => {
 
       scrollBlockManager.saveRestoreValuesCallback(callback);
       expect(window.__CARBON_INTERNALS_SCROLL_BLOCKERS?.restoreValues).toBe(
-        callback
+        callback,
       );
 
       expect(scrollBlockManager.getRestoreValuesCallback()).toBe(callback);

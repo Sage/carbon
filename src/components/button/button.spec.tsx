@@ -31,9 +31,9 @@ describe("Button", () => {
       const wrapper = mount(<Button size={size}>Test</Button>);
       assertStyleMatch(
         { paddingLeft: padding, paddingRight: padding },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   it("accepts ref as a ref object", () => {
@@ -70,7 +70,7 @@ describe("Button", () => {
         iconType="bin"
         iconTooltipMessage="This is a tooltip"
         aria-label="Delete"
-      />
+      />,
     );
 
     const props = wrapper.find(TooltipProvider).props();
@@ -104,7 +104,7 @@ describe("Button", () => {
     const wrapper = mount(
       <Button iconType="filter" iconPosition="before">
         Filter
-      </Button>
+      </Button>,
     );
     const button = wrapper.find("button");
     expect(button.childAt(0).find(Icon).exists()).toBeTruthy();
@@ -115,7 +115,7 @@ describe("Button", () => {
     const wrapper = mount(
       <Button iconType="filter" iconPosition="after">
         Filter
-      </Button>
+      </Button>,
     );
     const button = wrapper.find("button");
     expect(button.childAt(0).text()).toEqual("Filter");
@@ -133,7 +133,7 @@ describe("Button", () => {
       .mockImplementation(() => {});
 
     expect(() => mount(<Button />)).toThrow(
-      "Either prop `iconType` must be defined or this node must have children."
+      "Either prop `iconType` must be defined or this node must have children.",
     );
 
     consoleSpy.mockRestore();
@@ -150,7 +150,7 @@ describe("Button", () => {
       const wrapper = mount(
         <Button disabled buttonType={buttonType}>
           foo
-        </Button>
+        </Button>,
       );
 
       assertStyleMatch(
@@ -159,9 +159,9 @@ describe("Button", () => {
           borderColor,
           color: "var(--colorsActionMajorYin030)",
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   describe("when the destructive prop is passed", () => {
@@ -169,7 +169,7 @@ describe("Button", () => {
       const wrapper = mount(
         <Button destructive buttonType="primary">
           foo
-        </Button>
+        </Button>,
       );
 
       assertStyleMatch(
@@ -177,7 +177,7 @@ describe("Button", () => {
           background: "var(--colorsSemanticNegative500)",
           color: "var(--colorsSemanticNegativeYang100)",
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -185,7 +185,7 @@ describe("Button", () => {
           background: "var(--colorsSemanticNegative600)",
         },
         wrapper,
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
     });
 
@@ -193,7 +193,7 @@ describe("Button", () => {
       const wrapper = mount(
         <Button destructive buttonType="secondary">
           foo
-        </Button>
+        </Button>,
       );
 
       assertStyleMatch(
@@ -202,7 +202,7 @@ describe("Button", () => {
           borderColor: "var(--colorsSemanticNegative500)",
           color: "var(--colorsSemanticNegative500)",
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -210,7 +210,7 @@ describe("Button", () => {
           color: "var(--colorsSemanticNegative500)",
         },
         wrapper,
-        { modifier: `${StyledIcon}` }
+        { modifier: `${StyledIcon}` },
       );
 
       assertStyleMatch(
@@ -220,7 +220,7 @@ describe("Button", () => {
           color: "var(--colorsSemanticNegativeYang100)",
         },
         wrapper,
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
 
       assertStyleMatch(
@@ -228,7 +228,7 @@ describe("Button", () => {
           color: "var(--colorsSemanticNegativeYang100)",
         },
         wrapper,
-        { modifier: `:hover ${StyledIcon}` }
+        { modifier: `:hover ${StyledIcon}` },
       );
     });
   });
@@ -237,7 +237,7 @@ describe("Button", () => {
     const wrapper = mount(
       <Button destructive buttonType="tertiary">
         foo
-      </Button>
+      </Button>,
     );
 
     assertStyleMatch(
@@ -246,7 +246,7 @@ describe("Button", () => {
         borderColor: "transparent",
         color: "var(--colorsSemanticNegative500)",
       },
-      wrapper
+      wrapper,
     );
 
     assertStyleMatch(
@@ -254,7 +254,7 @@ describe("Button", () => {
         color: "var(--colorsSemanticNegative500)",
       },
       wrapper,
-      { modifier: `${StyledIcon}` }
+      { modifier: `${StyledIcon}` },
     );
 
     assertStyleMatch(
@@ -263,7 +263,7 @@ describe("Button", () => {
         background: "var(--colorsSemanticNegative600)",
       },
       wrapper,
-      { modifier: ":hover" }
+      { modifier: ":hover" },
     );
 
     assertStyleMatch(
@@ -271,7 +271,7 @@ describe("Button", () => {
         color: "var(--colorsSemanticNegativeYang100)",
       },
       wrapper,
-      { modifier: `:hover ${StyledIcon}` }
+      { modifier: `:hover ${StyledIcon}` },
     );
   });
 
@@ -299,7 +299,7 @@ describe("Button", () => {
       const wrapper = mount(
         <Button disabled size={size}>
           foo
-        </Button>
+        </Button>,
       );
 
       assertStyleMatch(
@@ -307,9 +307,9 @@ describe("Button", () => {
           fontSize,
           minHeight,
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   it.each([
@@ -323,7 +323,7 @@ describe("Button", () => {
       const wrapper = mount(
         <Button destructive disabled buttonType={buttonType}>
           foo
-        </Button>
+        </Button>,
       );
       assertStyleMatch(
         {
@@ -331,9 +331,9 @@ describe("Button", () => {
           borderColor,
           color: "var(--colorsActionMajorYin030)",
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 
   it("overrides the height of the button icon when iconType prop is passed", () => {
@@ -344,7 +344,7 @@ describe("Button", () => {
         height: "20px",
       },
       wrapper.find(Button),
-      { modifier: `${StyledIcon}` }
+      { modifier: `${StyledIcon}` },
     );
   });
 
@@ -352,7 +352,7 @@ describe("Button", () => {
     const wrapper = mount(
       <Button name="Primary Button" buttonType="primary">
         Primary
-      </Button>
+      </Button>,
     );
     const button = wrapper.find(StyledButton);
     expect(button.prop("name")).toEqual("Primary Button");
@@ -364,7 +364,7 @@ describe("Button", () => {
     const wrapper = mount(
       <Button name="Secondary Button" buttonType="secondary">
         Secondary
-      </Button>
+      </Button>,
     );
     const button = wrapper.find(StyledButton);
     expect(button.prop("name")).toEqual("Secondary Button");
@@ -376,7 +376,7 @@ describe("Button", () => {
     const wrapper = mount(
       <Button name="Small Button" size="small">
         Small
-      </Button>
+      </Button>,
     );
     const button = wrapper.find(StyledButton);
     expect(button.prop("name")).toEqual("Small Button");
@@ -388,7 +388,7 @@ describe("Button", () => {
     const wrapper = mount(
       <Button name="Large Button" size="large">
         Large
-      </Button>
+      </Button>,
     );
     const button = wrapper.find(StyledButton);
     expect(button.prop("name")).toEqual("Large Button");
@@ -400,7 +400,7 @@ describe("Button", () => {
     const wrapper = mount(
       <Button name="Disabled Button" disabled>
         Disabled
-      </Button>
+      </Button>,
     );
     const button = wrapper.find(StyledButton);
     expect(button.prop("name")).toEqual("Disabled Button");
@@ -414,7 +414,7 @@ describe("Button", () => {
       const wrapper = mount(
         <Button size="large" subtext="bar">
           foo
-        </Button>
+        </Button>,
       );
 
       expect(wrapper.find('[data-element="subtext"]').exists()).toBeTruthy();
@@ -431,12 +431,12 @@ describe("Button", () => {
           mount(
             <Button subtext="bar" size={size}>
               foo
-            </Button>
-          )
+            </Button>,
+          ),
         ).toThrow("subtext prop has no effect unless the button is large");
 
         consoleSpy.mockRestore();
-      }
+      },
     );
   });
 
@@ -444,7 +444,7 @@ describe("Button", () => {
     render(
       <Button data-element="bar" data-role="baz">
         Test
-      </Button>
+      </Button>,
     );
     const button = screen.getByRole("button");
     expect(button).toHaveAttribute("data-component", "button");
@@ -455,7 +455,7 @@ describe("Button", () => {
   it("correctly sets aria-label on button when passed as a prop", () => {
     render(<Button iconType="filter" aria-label="Filter" />);
     expect(screen.getByRole("button", { name: /Filter/ })).toHaveAccessibleName(
-      /Filter/
+      /Filter/,
     );
   });
 
@@ -473,7 +473,7 @@ describe("Button", () => {
           iconType="add"
           onClick={() => {}}
         />
-      </>
+      </>,
     );
     expect(screen.getByRole("button")).toHaveAccessibleName(/Add product/);
   });
@@ -485,7 +485,7 @@ describe("Button", () => {
         <Button aria-describedby="title" onClick={() => {}}>
           Select add-on
         </Button>
-      </>
+      </>,
     );
     expect(screen.getByRole("button")).toHaveAccessibleDescription(/Addon A/);
   });
@@ -499,14 +499,14 @@ describe("Button", () => {
     const wrapper = mount(
       <Button iconType="services" size="large">
         foo
-      </Button>
+      </Button>,
     );
     assertStyleMatch(
       {
         height: "6px",
       },
       wrapper.find(Button),
-      { modifier: `${StyledIcon}` }
+      { modifier: `${StyledIcon}` },
     );
   });
 
@@ -516,7 +516,7 @@ describe("Button", () => {
       {
         width: "100%",
       },
-      wrapper.find(Button)
+      wrapper.find(Button),
     );
   });
 
@@ -562,12 +562,12 @@ describe("Button", () => {
       const wrapper = mount(
         <Button href="/" target="_blank" rel="noopener noreferrer">
           Test
-        </Button>
+        </Button>,
       );
 
       expect(wrapper.find(StyledButton).props().target).toEqual("_blank");
       expect(wrapper.find(StyledButton).props().rel).toEqual(
-        "noopener noreferrer"
+        "noopener noreferrer",
       );
     });
   });
@@ -578,15 +578,15 @@ describe("Button", () => {
       const wrapper = mount(
         <Button buttonType={buttonType} iconType="home">
           foo
-        </Button>
+        </Button>,
       );
       assertStyleMatch(
         {
           color: "var(--colorsActionMinorYin090)",
         },
-        wrapper.find(StyledIcon)
+        wrapper.find(StyledIcon),
       );
-    }
+    },
   );
 
   it.each(["gradient-white", "gradient-grey"] as const)(
@@ -595,7 +595,7 @@ describe("Button", () => {
       const wrapper = mount(
         <Button buttonType={buttonType} iconType="home">
           foo
-        </Button>
+        </Button>,
       );
 
       assertStyleMatch(
@@ -604,8 +604,8 @@ describe("Button", () => {
             "linear-gradient(to right,#d6f8df,#d9f2ff,#ede2ff) padding-box,linear-gradient(to right,#00D639,#11AFFF,#8F49FE) border-box",
         },
         wrapper.find(StyledButton),
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
-    }
+    },
   );
 });

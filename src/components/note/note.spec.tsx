@@ -55,7 +55,7 @@ describe("Note", () => {
           width: "100%",
           borderRadius: "var(--borderRadius100)",
         },
-        wrapper
+        wrapper,
       );
 
       const content = wrapper.find(StyledNoteContent);
@@ -65,7 +65,7 @@ describe("Note", () => {
           position: "relative",
           width: "100%",
         },
-        content
+        content,
       );
 
       assertStyleMatch(
@@ -73,7 +73,7 @@ describe("Note", () => {
           borderTop: "solid 1px var(--colorsUtilityMajor050)",
         },
         content,
-        { modifier: ":last-of-type:not(:first-of-type)" }
+        { modifier: ":last-of-type:not(:first-of-type)" },
       );
 
       const main = wrapper.find(StyledNoteMain);
@@ -84,7 +84,7 @@ describe("Note", () => {
           justifyContent: "space-between",
           paddingBottom: "var(--spacing300)",
         },
-        main
+        main,
       );
     });
 
@@ -93,7 +93,7 @@ describe("Note", () => {
         {
           width: "75%",
         },
-        renderNote({ width: 75 })
+        renderNote({ width: 75 }),
       );
     });
   });
@@ -115,7 +115,7 @@ describe("Note", () => {
           lineHeight: "21px",
           paddingBottom: "16px",
         },
-        wrapper.find(StyledTitle)
+        wrapper.find(StyledTitle),
       );
 
       expect(wrapper.find(StyledTitle).exists()).toBeTruthy();
@@ -141,7 +141,7 @@ describe("Note", () => {
           display: "inline-block",
           minWidth: "fit-content",
         },
-        wrapper.find(StyledInlineControl)
+        wrapper.find(StyledInlineControl),
       );
 
       expect(wrapper.find(StyledInlineControl).exists()).toBeTruthy();
@@ -161,7 +161,7 @@ describe("Note", () => {
           marginBottom: "calc(-1 * var(--spacing100))",
           flexWrap: "wrap",
         },
-        wrapper.find(StyledFooter)
+        wrapper.find(StyledFooter),
       );
 
       assertStyleMatch(
@@ -170,7 +170,7 @@ describe("Note", () => {
           fontWeight: "bold",
           marginTop: "var(--spacing200)",
         },
-        wrapper.find(StyledFooterContent)
+        wrapper.find(StyledFooterContent),
       );
 
       assertStyleMatch(
@@ -178,7 +178,7 @@ describe("Note", () => {
           fontSize: "14px",
         },
         wrapper.find(StyledFooterContent),
-        { modifier: ":first-of-type" }
+        { modifier: ":first-of-type" },
       );
 
       assertStyleMatch(
@@ -188,7 +188,7 @@ describe("Note", () => {
           marginLeft: "var(--spacing200)",
         },
         wrapper.find(StyledFooterContent),
-        { modifier: ":nth-of-type(2)" }
+        { modifier: ":nth-of-type(2)" },
       );
 
       assertStyleMatch(
@@ -199,7 +199,7 @@ describe("Note", () => {
           marginLeft: "var(--spacing300)",
         },
         wrapper.find(StyledFooterContent),
-        { modifier: ":last-of-type:not(:nth-of-type(2))" }
+        { modifier: ":last-of-type:not(:nth-of-type(2))" },
       );
     });
 
@@ -211,7 +211,7 @@ describe("Note", () => {
           fontWeight: "bold",
           marginTop: "var(--spacing200)",
         },
-        wrapper.find(StyledFooterContent)
+        wrapper.find(StyledFooterContent),
       );
 
       assertStyleMatch(
@@ -220,7 +220,7 @@ describe("Note", () => {
           color: "var(--colorsUtilityYin065)",
         },
         wrapper.find(StyledFooterContent),
-        { modifier: ":first-of-type" }
+        { modifier: ":first-of-type" },
       );
 
       assertStyleMatch(
@@ -231,7 +231,7 @@ describe("Note", () => {
           marginLeft: "var(--spacing300)",
         },
         wrapper.find(StyledFooterContent),
-        { modifier: ":last-of-type:not(:first-of-type)" }
+        { modifier: ":last-of-type:not(:first-of-type)" },
       );
     });
 

@@ -24,7 +24,7 @@ export interface DismissibleBoxProps
   onClose: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Use this prop to override the default width. Numbers from 0-1 are converted to percentage widths. Numbers greater
    * than 1 are converted to pixel values. String values are passed as raw CSS values. And arrays are converted to

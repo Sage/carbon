@@ -172,7 +172,7 @@ export const Textarea = React.forwardRef(
       isOptional,
       ...rest
     }: TextareaProps,
-    ref: React.ForwardedRef<HTMLTextAreaElement>
+    ref: React.ForwardedRef<HTMLTextAreaElement>,
   ) => {
     const { validationRedesignOptIn } = useContext(NewValidationContext);
     const computeLabelPropValues = <T,>(prop: T): undefined | T =>
@@ -196,13 +196,13 @@ export const Textarea = React.forwardRef(
           ref(inputElement);
         }
       },
-      [ref]
+      [ref],
     );
 
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -213,7 +213,7 @@ export const Textarea = React.forwardRef(
     ) {
       // eslint-disable-next-line no-console
       console.warn(
-        "The `borderRadius` prop in `Textarea` component only supports up to 4 values."
+        "The `borderRadius` prop in `Textarea` component only supports up to 4 values.",
       );
       warnBorderRadiusArrayTooLarge = true;
     }
@@ -239,7 +239,7 @@ export const Textarea = React.forwardRef(
         // Set the height so all content is shown
         textarea.style.height = `${Math.max(
           textarea.scrollHeight,
-          minHeight.current
+          minHeight.current,
         )}px`;
 
         if (scrollElement && scrollPosition) {
@@ -248,24 +248,20 @@ export const Textarea = React.forwardRef(
       }
     };
 
-    const {
-      labelId,
-      validationId,
-      fieldHelpId,
-      ariaDescribedBy,
-    } = useInputAccessibility({
-      id,
-      validationRedesignOptIn,
-      error,
-      warning,
-      info,
-      label,
-      fieldHelp,
-    });
+    const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
+      useInputAccessibility({
+        id,
+        validationRedesignOptIn,
+        error,
+        warning,
+        info,
+        label,
+        fieldHelp,
+      });
 
     const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       value,
-      characterLimit
+      characterLimit,
     );
 
     useEffect(() => {
@@ -424,7 +420,7 @@ export const Textarea = React.forwardRef(
         </InputBehaviour>
       </TooltipProvider>
     );
-  }
+  },
 );
 
 Textarea.displayName = "Textarea";

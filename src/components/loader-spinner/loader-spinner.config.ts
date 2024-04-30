@@ -6,7 +6,7 @@ const LOADER_SPINNER_VARIANTS = [
   "gradient-white",
 ] as const;
 
-type LoaderSpinnerVariants = typeof LOADER_SPINNER_VARIANTS[number];
+type LoaderSpinnerVariants = (typeof LOADER_SPINNER_VARIANTS)[number];
 
 const LOADER_SPINNER_SIZES = [
   "extra-small",
@@ -16,7 +16,7 @@ const LOADER_SPINNER_SIZES = [
   "extra-large",
 ] as const;
 
-type LoaderSpinnerSizes = typeof LOADER_SPINNER_SIZES[number];
+type LoaderSpinnerSizes = (typeof LOADER_SPINNER_SIZES)[number];
 
 type LoaderSpinnerSizeParams = Record<
   LoaderSpinnerSizes,

@@ -71,7 +71,7 @@ describe("Preview", () => {
         {
           ...customSizes,
         },
-        wrapper.find(PreviewPlaceholder)
+        wrapper.find(PreviewPlaceholder),
       );
     });
   });
@@ -89,7 +89,7 @@ describe("Preview", () => {
         {
           borderRadius: "var(--borderRadius050)",
         },
-        wrapper.find(PreviewPlaceholder)
+        wrapper.find(PreviewPlaceholder),
       );
     });
   });

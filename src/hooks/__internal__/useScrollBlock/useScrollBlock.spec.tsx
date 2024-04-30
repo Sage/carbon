@@ -57,7 +57,7 @@ describe("implementation tests", () => {
   it("saves a restoreValues callback", () => {
     const saveRestoreValuesCallbackSpy = jest.spyOn(
       ScrollBlockManager.prototype,
-      "saveRestoreValuesCallback"
+      "saveRestoreValuesCallback",
     );
     const wrapper = mount(<TestComponent />);
     expect(saveRestoreValuesCallbackSpy).toHaveBeenCalled();
@@ -76,11 +76,11 @@ describe("implementation tests", () => {
         .mockImplementation(() => restoreValuesMock);
       saveRestoreValuesCallbackSpy = jest.spyOn(
         ScrollBlockManager.prototype,
-        "saveRestoreValuesCallback"
+        "saveRestoreValuesCallback",
       );
       getOriginalValuesSpy = jest.spyOn(
         ScrollBlockManager.prototype,
-        "getOriginalValues"
+        "getOriginalValues",
       );
     });
 
@@ -109,7 +109,7 @@ describe("implementation tests", () => {
     it("getOriginalValues is invoked", () => {
       const getOriginalValuesSpy = jest.spyOn(
         ScrollBlockManager.prototype,
-        "getOriginalValues"
+        "getOriginalValues",
       );
       const wrapper = mount(<TestComponent />);
       if (window.__CARBON_INTERNALS_SCROLL_BLOCKERS) {

@@ -240,8 +240,7 @@ export const ValidationStringLabelTooltip: StoryWithValidation = {
     validationOnLabel: true,
     tooltipPosition: "top",
   },
-  name:
-    "Single Switch - String Validation - validationOnLabel - Tooltip Position Overriden",
+  name: "Single Switch - String Validation - validationOnLabel - Tooltip Position Overriden",
   parameters: { chromatic: { disableSnapshot: true } },
 };
 

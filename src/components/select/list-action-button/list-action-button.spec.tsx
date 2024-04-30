@@ -7,7 +7,7 @@ import Button from "../../button";
 function renderListActionButton(
   props: Partial<ListActionButtonProps>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderer: any = shallow
+  renderer: any = shallow,
 ) {
   const componentProps = { ...props };
   if (!componentProps.onListAction) {
@@ -15,7 +15,7 @@ function renderListActionButton(
   }
 
   return renderer(
-    <ListActionButton {...(componentProps as ListActionButtonProps)} />
+    <ListActionButton {...(componentProps as ListActionButtonProps)} />,
   );
 }
 

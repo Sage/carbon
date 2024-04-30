@@ -23,7 +23,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 const sizes = ["small", "medium", "large"] as const;
@@ -41,24 +41,7 @@ const render = (
   mainProps = {},
   childButtons: React.ReactNode = singleButton,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderer: any = shallow
-) => {
-  return renderer(
-    <SplitButton
-      {...mainProps}
-      text="Split button"
-      data-element="bar"
-      data-role="baz"
-    >
-      {childButtons}
-    </SplitButton>
-  );
-};
-
-const renderAttached = (
-  mainProps = {},
-  childButtons: React.ReactNode = singleButton,
-  renderer = mount
+  renderer: any = shallow,
 ) => {
   return renderer(
     <SplitButton
@@ -69,7 +52,24 @@ const renderAttached = (
     >
       {childButtons}
     </SplitButton>,
-    { attachTo: document.getElementById("enzymeContainer") }
+  );
+};
+
+const renderAttached = (
+  mainProps = {},
+  childButtons: React.ReactNode = singleButton,
+  renderer = mount,
+) => {
+  return renderer(
+    <SplitButton
+      {...mainProps}
+      text="Split button"
+      data-element="bar"
+      data-role="baz"
+    >
+      {childButtons}
+    </SplitButton>,
+    { attachTo: document.getElementById("enzymeContainer") },
   );
 };
 
@@ -77,7 +77,7 @@ const renderWithTheme = (
   mainProps: { carbonTheme?: Partial<ThemeObject> } = {},
   childButtons = singleButton,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderer: any = shallow
+  renderer: any = shallow,
 ) => {
   return renderer(
     <ThemeProvider theme={mainProps.carbonTheme}>
@@ -89,7 +89,7 @@ const renderWithTheme = (
       >
         {childButtons}
       </SplitButton>
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 };
 
@@ -102,7 +102,7 @@ const renderWithNoChildren = (mainProps = {}, renderer = shallow) => {
       data-role="baz"
     >
       {singleButton}
-    </SplitButton>
+    </SplitButton>,
   );
 };
 
@@ -154,7 +154,7 @@ describe("SplitButton", () => {
 
     it("does not render additional buttons", () => {
       expect(wrapper.find("[data-element='additional-buttons']").exists()).toBe(
-        false
+        false,
       );
     });
 
@@ -166,8 +166,8 @@ describe("SplitButton", () => {
             color="#008200"
             disabled={false}
             bg="transparent"
-          />
-        )
+          />,
+        ),
       ).toBeTruthy();
     });
   });
@@ -179,14 +179,14 @@ describe("SplitButton", () => {
 
     it("has correct default aria-label", () => {
       expect(wrapper.find(StyledSplitButtonToggle).prop("aria-label")).toBe(
-        "Show more"
+        "Show more",
       );
     });
 
     it("renders custom aria-label when 'aria-label' is passed", () => {
       wrapper = render({ "aria-label": "Show more options" });
       expect(wrapper.find(StyledSplitButtonToggle).prop("aria-label")).toBe(
-        "Show more options"
+        "Show more options",
       );
     });
   });
@@ -196,7 +196,7 @@ describe("SplitButton", () => {
       wrapper = render({ id: "customId" });
 
       expect(wrapper.find({ "data-element": "main-button" }).prop("id")).toBe(
-        "customId"
+        "customId",
       );
     });
   });
@@ -248,7 +248,7 @@ describe("SplitButton", () => {
           minWidth={20}
         >
           <StyledButton>Foo</StyledButton>
-        </StyledSplitButtonChildrenContainer>
+        </StyledSplitButtonChildrenContainer>,
       );
     });
 
@@ -263,7 +263,7 @@ describe("SplitButton", () => {
         {
           position: "relative",
         },
-        wrapper.find(StyledSplitButtonToggle)
+        wrapper.find(StyledSplitButtonToggle),
       );
     });
 
@@ -288,7 +288,7 @@ describe("SplitButton", () => {
             minWidth={20}
           >
             {children}
-          </StyledSplitButtonChildrenContainer>
+          </StyledSplitButtonChildrenContainer>,
         );
 
         const expectedStyle = buildSizeConfig(size);
@@ -299,7 +299,7 @@ describe("SplitButton", () => {
               fontSize: expectedStyle.fontSize,
             },
             themedWrapper,
-            { modifier: `${StyledButton}` }
+            { modifier: `${StyledButton}` },
           );
 
           assertStyleMatch(
@@ -308,7 +308,7 @@ describe("SplitButton", () => {
               paddingLeft: expectedStyle.padding,
               paddingRight: expectedStyle.padding,
             },
-            TestRenderer.create(children[index]).toJSON()
+            TestRenderer.create(children[index]).toJSON(),
           );
         }
       });
@@ -323,7 +323,7 @@ describe("SplitButton", () => {
             text: "mainButton",
           },
           <Button>Second Button</Button>,
-          mount
+          mount,
         );
         toggle = wrapper.find(StyledSplitButtonToggle);
       });
@@ -332,7 +332,7 @@ describe("SplitButton", () => {
         toggle.simulate("mouseenter");
 
         expect(
-          wrapper.find("[data-element='additional-buttons']").exists()
+          wrapper.find("[data-element='additional-buttons']").exists(),
         ).toBe(true);
       });
 
@@ -342,7 +342,7 @@ describe("SplitButton", () => {
         toggle.simulate("mouseenter");
 
         expect(
-          wrapper.find("[data-element='additional-buttons']").exists()
+          wrapper.find("[data-element='additional-buttons']").exists(),
         ).toBe(false);
       });
 
@@ -355,7 +355,7 @@ describe("SplitButton", () => {
             background: "transparent",
             color: "var(--colorsActionMajorYin030)",
           },
-          toggle
+          toggle,
         );
       });
 
@@ -377,7 +377,7 @@ describe("SplitButton", () => {
         toggle.simulate("mouseenter");
 
         expect(
-          wrapper.find("[data-element='additional-buttons']").exists()
+          wrapper.find("[data-element='additional-buttons']").exists(),
         ).toBe(true);
 
         act(() => {
@@ -385,7 +385,7 @@ describe("SplitButton", () => {
         });
 
         expect(
-          wrapper.update().find("[data-element='additional-buttons']").exists()
+          wrapper.update().find("[data-element='additional-buttons']").exists(),
         ).toBe(false);
       });
 
@@ -401,7 +401,7 @@ describe("SplitButton", () => {
             text: "mainButton",
           },
           <Button>Second Button</Button>,
-          mount
+          mount,
         );
         toggle = wrapper.find(StyledSplitButtonToggle);
       });
@@ -410,7 +410,7 @@ describe("SplitButton", () => {
         toggle.simulate("click");
 
         expect(
-          wrapper.find("[data-element='additional-buttons']").exists()
+          wrapper.find("[data-element='additional-buttons']").exists(),
         ).toBe(true);
       });
 
@@ -420,7 +420,7 @@ describe("SplitButton", () => {
         toggle.simulate("click");
 
         expect(
-          wrapper.find("[data-element='additional-buttons']").exists()
+          wrapper.find("[data-element='additional-buttons']").exists(),
         ).toBe(false);
       });
 
@@ -442,7 +442,7 @@ describe("SplitButton", () => {
           >
             <Button onClick={handleSecondButton}>Second Button</Button>
             <Button>Noop button</Button>
-          </SplitButton>
+          </SplitButton>,
         );
 
         toggle = wrapper.find(StyledSplitButtonToggle);
@@ -472,7 +472,7 @@ describe("SplitButton", () => {
         wrapper.update();
 
         expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(
-          false
+          false,
         );
         toggle.simulate("focus");
       });
@@ -503,7 +503,7 @@ describe("SplitButton", () => {
       document.body.appendChild(domWrapper);
       wrapper = mount(
         <SplitButton text="Split button">{singleButton}</SplitButton>,
-        { attachTo: domWrapper }
+        { attachTo: domWrapper },
       );
 
       act(() => {
@@ -519,7 +519,7 @@ describe("SplitButton", () => {
     describe("on the Menu element", () => {
       it("then the Menu should not be closed", () => {
         expect(
-          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
         ).toBe(true);
 
         act(() => {
@@ -532,7 +532,7 @@ describe("SplitButton", () => {
         wrapper.update();
 
         expect(
-          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
         ).toBe(true);
       });
     });
@@ -540,7 +540,7 @@ describe("SplitButton", () => {
     describe("on an external element", () => {
       it("then the Menu should be closed", () => {
         expect(
-          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
         ).toBe(true);
 
         act(() => {
@@ -548,7 +548,7 @@ describe("SplitButton", () => {
         });
 
         expect(
-          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
         ).toBe(false);
       });
     });
@@ -575,7 +575,7 @@ describe("SplitButton", () => {
         toggle.simulate("mouseenter");
 
         expect(wrapper.find({ "data-element": element }).exists()).toBe(true);
-      }
+      },
     );
 
     afterEach(() => {
@@ -625,7 +625,7 @@ describe("SplitButton", () => {
             .find("button")
             .at(0);
           expect(firstButton.getDOMNode()).toBe(document.activeElement);
-        }
+        },
       );
 
       it("does not open additional buttons if opened already - coverage", () => {
@@ -654,25 +654,25 @@ describe("SplitButton", () => {
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         expect(
-          additionalButtons.at(additionalButtons.length - 1).getDOMNode()
+          additionalButtons.at(additionalButtons.length - 1).getDOMNode(),
         ).toStrictEqual(document.activeElement);
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
         expect(
-          additionalButtons.at(additionalButtons.length - 2).getDOMNode()
+          additionalButtons.at(additionalButtons.length - 2).getDOMNode(),
         ).toStrictEqual(document.activeElement);
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
         expect(additionalButtons.at(0).getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
       });
     });
@@ -687,19 +687,19 @@ describe("SplitButton", () => {
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         expect(
-          additionalButtons.at(additionalButtons.length - 2).getDOMNode()
+          additionalButtons.at(additionalButtons.length - 2).getDOMNode(),
         ).toStrictEqual(document.activeElement);
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         expect(
-          additionalButtons.at(additionalButtons.length - 1).getDOMNode()
+          additionalButtons.at(additionalButtons.length - 1).getDOMNode(),
         ).toStrictEqual(document.activeElement);
         wrapper
           .find(StyledSplitButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         expect(
-          additionalButtons.at(additionalButtons.length - 1).getDOMNode()
+          additionalButtons.at(additionalButtons.length - 1).getDOMNode(),
         ).toStrictEqual(document.activeElement);
       });
     });
@@ -720,7 +720,7 @@ describe("SplitButton", () => {
           metaKey: modifier === "metaKey",
         });
         expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
       });
     });
@@ -742,7 +742,7 @@ describe("SplitButton", () => {
           metaKey: modifier === "metaKey",
         });
         expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
       });
     });
@@ -755,7 +755,7 @@ describe("SplitButton", () => {
 
         additionalButtons.first().simulate("keydown", { key: "Tab" });
         expect(
-          additionalButtons.at(additionalButtons.length - 2).getDOMNode()
+          additionalButtons.at(additionalButtons.length - 2).getDOMNode(),
         ).toStrictEqual(document.activeElement);
 
         additionalButtons
@@ -763,7 +763,7 @@ describe("SplitButton", () => {
           .simulate("keydown", { key: "Tab" });
 
         expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
 
         act(() => {
@@ -772,7 +772,7 @@ describe("SplitButton", () => {
         });
 
         expect(
-          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
         ).toBeFalsy();
       });
     });
@@ -789,7 +789,7 @@ describe("SplitButton", () => {
           .simulate("keydown", { key: "Tab", shiftKey: true });
 
         expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
 
         act(() => {
@@ -800,7 +800,7 @@ describe("SplitButton", () => {
         });
 
         expect(
-          wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+          wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
         ).toBeFalsy();
 
         expect(toggle.getDOMNode()).toStrictEqual(document.activeElement);
@@ -823,7 +823,7 @@ describe("SplitButton", () => {
         wrapper.find(StyledSplitButton).simulate("mouseleave");
 
         expect(wrapper.find(additionalButtonsSelector).exists()).toStrictEqual(
-          true
+          true,
         );
       });
     });
@@ -836,7 +836,7 @@ describe("SplitButton", () => {
         });
 
         expect(wrapper.update().find(additionalButtonsSelector).exists()).toBe(
-          false
+          false,
         );
       });
     });
@@ -857,7 +857,7 @@ describe("SplitButton", () => {
           <Button>First</Button>
           <Button>Second</Button>
         </SplitButton>,
-        { attachTo: document.getElementById("enzymeContainer") }
+        { attachTo: document.getElementById("enzymeContainer") },
       );
     });
 
@@ -871,16 +871,16 @@ describe("SplitButton", () => {
       openAdditionalButtons(wrapper);
 
       expect(
-        wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
       ).toBeTruthy();
       act(() => {
         container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
-        wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
       ).toBeFalsy();
       expect(wrapper.find(StyledSplitButtonToggle).getDOMNode()).toStrictEqual(
-        document.activeElement
+        document.activeElement,
       );
     });
 
@@ -889,13 +889,13 @@ describe("SplitButton", () => {
 
       toggleButton.simulate("mouseEnter");
       expect(
-        wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
       ).toBeTruthy();
       act(() => {
         container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
-        wrapper.update().find(StyledSplitButtonChildrenContainer).exists()
+        wrapper.update().find(StyledSplitButtonChildrenContainer).exists(),
       ).toBeFalsy();
     });
   });
@@ -903,14 +903,14 @@ describe("SplitButton", () => {
   it("should set proper width of ButtonContainer", () => {
     const getBoundingClientRectMock = jest
       .spyOn(Element.prototype, "getBoundingClientRect")
-      .mockImplementation(() => ({ width: 200 } as DOMRect));
+      .mockImplementation(() => ({ width: 200 }) as DOMRect);
 
     wrapper = render({}, singleButton, mount);
     openAdditionalButtons(wrapper);
 
     assertStyleMatch(
       { minWidth: `${0.75 * 200}px` },
-      wrapper.find(StyledSplitButtonChildrenContainer)
+      wrapper.find(StyledSplitButtonChildrenContainer),
     );
 
     getBoundingClientRectMock.mockClear();
@@ -923,14 +923,14 @@ describe("SplitButton", () => {
       wrapper = mount(
         <SplitButton text="foo">
           <Button>bar</Button>
-        </SplitButton>
+        </SplitButton>,
       );
 
       assertStyleMatch(
         {
           borderRadius: "var(--borderRadius400)",
         },
-        wrapper.find(StyledSplitButton).find(StyledButton).last()
+        wrapper.find(StyledSplitButton).find(StyledButton).last(),
       );
 
       assertStyleMatch(
@@ -938,7 +938,7 @@ describe("SplitButton", () => {
           borderTopLeftRadius: "var(--borderRadius000)",
           borderBottomLeftRadius: "var(--borderRadius000)",
         },
-        wrapper.find(StyledSplitButtonToggle)
+        wrapper.find(StyledSplitButtonToggle),
       );
     });
 
@@ -946,14 +946,14 @@ describe("SplitButton", () => {
       wrapper = mount(
         <SplitButton text="foo">
           <Button>bar</Button>
-        </SplitButton>
+        </SplitButton>,
       );
 
       assertStyleMatch(
         {
           borderRadius: "var(--borderRadius400)",
         },
-        wrapper.find(StyledSplitButton).find(StyledButton).first()
+        wrapper.find(StyledSplitButton).find(StyledButton).first(),
       );
 
       assertStyleMatch(
@@ -962,7 +962,7 @@ describe("SplitButton", () => {
           borderBottomRightRadius: "var(--borderRadius000)",
         },
         wrapper,
-        { modifier: `${StyledButton}:first-of-type` }
+        { modifier: `${StyledButton}:first-of-type` },
       );
     });
   });

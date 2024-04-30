@@ -33,7 +33,7 @@ describe("FlexTileCell", () => {
       <FlexTileCell data-element="foo" data-role="bar">
         <FlexTileDivider />
         Cell Content
-      </FlexTileCell>
+      </FlexTileCell>,
     );
     const element = screen.getByText("Cell Content");
     rootTagTestRtl(element, "flex-tile-cell", "foo", "bar");

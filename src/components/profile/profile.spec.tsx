@@ -57,7 +57,7 @@ describe("Profile", () => {
         <>
           <Profile email="john@doe.com" />
           <Profile text="Some other text about John here" />
-        </>
+        </>,
       );
 
       expect(loggerSpy).toHaveBeenCalledWith(warningMessage);
@@ -84,7 +84,7 @@ describe("Profile", () => {
       it("calculates the correct initial when only a name is provided", () => {
         instance = shallow(<Profile name="John Doe" />);
         expect(instance.find(ProfileAvatarStyle).props().initials).toEqual(
-          "JD"
+          "JD",
         );
       });
 
@@ -96,9 +96,9 @@ describe("Profile", () => {
         (name, initials) => {
           instance = shallow(<Profile name={name} />);
           expect(instance.find(ProfileAvatarStyle).props().initials).toEqual(
-            initials
+            initials,
           );
-        }
+        },
       );
 
       it.each([
@@ -110,9 +110,9 @@ describe("Profile", () => {
         (name) => {
           instance = shallow(<Profile name={name} />);
           expect(instance.find(ProfileAvatarStyle).props().initials).toEqual(
-            "JDD"
+            "JDD",
           );
-        }
+        },
       );
 
       it("returns an empty initials string if no name is provided", () => {
@@ -145,7 +145,7 @@ describe("Profile", () => {
       it("renders email with a mailto href", () => {
         instance.setProps({ name: "John Doe", email: "john@doe.com" });
         expect(instance.find(ProfileEmailStyle).prop("href")).toBe(
-          "mailto: john@doe.com"
+          "mailto: john@doe.com",
         );
       });
 
@@ -155,7 +155,7 @@ describe("Profile", () => {
           text: "Some other text about John here",
         });
         expect(instance.find(ProfileTextStyle).text()).toEqual(
-          "Some other text about John here"
+          "Some other text about John here",
         );
       });
 
@@ -174,7 +174,7 @@ describe("Profile", () => {
         name="John Doe"
         email="john@doe.com"
         text="Some other text about John here"
-      />
+      />,
     );
 
     it("applies expected styles to Profile container", () => {
@@ -185,7 +185,7 @@ describe("Profile", () => {
           display: "flex",
           flexDirection: "row",
         },
-        wrapper.find(ProfileStyle)
+        wrapper.find(ProfileStyle),
       );
     });
 
@@ -195,7 +195,7 @@ describe("Profile", () => {
           flexShrink: "0",
         },
         wrapper.find(ProfileStyle),
-        { modifier: `${StyledPortraitContainer}` }
+        { modifier: `${StyledPortraitContainer}` },
       );
     });
 
@@ -204,7 +204,7 @@ describe("Profile", () => {
         {
           fontWeight: "bold",
         },
-        wrapper.find(ProfileNameStyle)
+        wrapper.find(ProfileNameStyle),
       );
     });
 
@@ -216,7 +216,7 @@ describe("Profile", () => {
           flexDirection: "column",
           justifyContent: "center",
         },
-        wrapper.find(ProfileDetailsStyle)
+        wrapper.find(ProfileDetailsStyle),
       );
     });
   });
@@ -230,7 +230,7 @@ describe("Profile", () => {
           email="john@doe.com"
           text="Some other text about John here"
           size={size}
-        />
+        />,
       );
 
       it.each([profileConfigSizes[size].nameSize])(
@@ -240,9 +240,9 @@ describe("Profile", () => {
             {
               fontSize,
             },
-            wrapper.find(ProfileNameStyle)
+            wrapper.find(ProfileNameStyle),
           );
-        }
+        },
       );
 
       it.each([profileConfigSizes[size].emailSize])(
@@ -253,9 +253,9 @@ describe("Profile", () => {
               fontSize,
             },
             wrapper.find(ProfileEmailStyle),
-            { modifier: "a" }
+            { modifier: "a" },
           );
-        }
+        },
       );
 
       it.each([profileConfigSizes[size].emailSize])(
@@ -265,9 +265,9 @@ describe("Profile", () => {
             {
               fontSize,
             },
-            wrapper.find(ProfileTextStyle)
+            wrapper.find(ProfileTextStyle),
           );
-        }
+        },
       );
 
       it.each([profileConfigSizes[size].lineHeight])(
@@ -277,9 +277,9 @@ describe("Profile", () => {
             {
               lineHeight,
             },
-            wrapper.find(ProfileDetailsStyle)
+            wrapper.find(ProfileDetailsStyle),
           );
-        }
+        },
       );
 
       it.each([profileConfigSizes[size].marginLeft])(
@@ -289,11 +289,11 @@ describe("Profile", () => {
             {
               marginLeft,
             },
-            wrapper.find(ProfileDetailsStyle)
+            wrapper.find(ProfileDetailsStyle),
           );
-        }
+        },
       );
-    }
+    },
   );
 
   describe("colour checks", () => {
@@ -303,7 +303,7 @@ describe("Profile", () => {
           name="John Doe"
           email="john@doe.com"
           text="Some other text about John here"
-        />
+        />,
       );
 
       assertStyleMatch(
@@ -311,7 +311,7 @@ describe("Profile", () => {
           color: "var(--colorsUtilityYin090)",
           backgroundColor: "transparent",
         },
-        wrapper.find(ProfileStyle)
+        wrapper.find(ProfileStyle),
       );
 
       assertStyleMatch(
@@ -319,7 +319,7 @@ describe("Profile", () => {
           color: "var(--colorsActionMajor500)",
         },
         wrapper.find(ProfileEmailStyle),
-        { modifier: "> a" }
+        { modifier: "> a" },
       );
     });
 
@@ -330,7 +330,7 @@ describe("Profile", () => {
           email="john@doe.com"
           text="Some other text about John here"
           darkBackground
-        />
+        />,
       );
 
       assertStyleMatch(
@@ -338,7 +338,7 @@ describe("Profile", () => {
           color: "var(--colorsUtilityReadOnly600)",
           backgroundColor: "var(--colorsUtilityYin090)",
         },
-        wrapper.find(ProfileStyle)
+        wrapper.find(ProfileStyle),
       );
 
       assertStyleMatch(
@@ -346,7 +346,7 @@ describe("Profile", () => {
           color: "var(--colorsActionMajor350)",
         },
         wrapper.find(ProfileEmailStyle),
-        { modifier: "a" }
+        { modifier: "a" },
       );
     });
   });
@@ -359,7 +359,7 @@ describe("Profile", () => {
           data-role="baz"
           email="bun"
           name="John Doe"
-        />
+        />,
       );
 
       it("include correct component, element and role data tags", () => {
@@ -381,10 +381,10 @@ describe("Profile", () => {
           src="https://example.com/example.jpg"
           email="john@doe.com"
           name="John Doe"
-        />
+        />,
       );
       expect(wrapper.find(ProfileAvatarStyle).props()["data-element"]).toEqual(
-        "user-image"
+        "user-image",
       );
     });
 
@@ -396,7 +396,7 @@ describe("Profile", () => {
           email="john@doe.com"
           name="John Doe"
           alt="John V Doe"
-        />
+        />,
       );
       expect(wrapper.find(StyledCustomImg).prop("alt")).toBe("John V Doe");
     });
@@ -407,7 +407,7 @@ describe("Profile", () => {
           src="https://example.com/example.jpg"
           email="john@doe.com"
           name="John Doe"
-        />
+        />,
       );
       expect(wrapper.find(StyledCustomImg).prop("alt")).toEqual("John Doe");
     });
@@ -422,7 +422,7 @@ describe("Profile", () => {
 
     it("should render a gravatar if passed email matches gravatar account", () => {
       const wrapper = mount(
-        <Profile email={gravatarEmail} name="Chris Barber" />
+        <Profile email={gravatarEmail} name="Chris Barber" />,
       );
 
       expect(wrapper.find("img").prop("src")).toEqual(expectedSrc);
@@ -434,7 +434,7 @@ describe("Profile", () => {
           email="chris.barber@sage.com"
           name="Chris Barber"
           alt="Mr Chris Barber"
-        />
+        />,
       );
 
       expect(wrapper.find("img").prop("alt")).toEqual("Mr Chris Barber");
@@ -442,7 +442,7 @@ describe("Profile", () => {
 
     it("alt text on user image should be the name passed if no alt prop is provided", () => {
       const wrapper = mount(
-        <Profile email="chris.barber@sage.com" name="Chris Barber" />
+        <Profile email="chris.barber@sage.com" name="Chris Barber" />,
       );
 
       expect(wrapper.find("img").prop("alt")).toEqual("Chris Barber");

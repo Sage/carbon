@@ -19,7 +19,7 @@ const render = (props = {}, renderer = mount) => {
   return renderer(
     <ToolbarButton {...defaultProps} {...props}>
       foo
-    </ToolbarButton>
+    </ToolbarButton>,
   );
 };
 
@@ -39,7 +39,7 @@ describe("ToolbarButton", () => {
           borderRadius: "var(--borderRadius100)",
           cursor: "pointer",
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -47,7 +47,7 @@ describe("ToolbarButton", () => {
           backgroundColor: "var(--colorsActionMinor200)",
         },
         wrapper,
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
     });
 
@@ -56,7 +56,7 @@ describe("ToolbarButton", () => {
         {
           backgroundColor: "var(--colorsActionMinor600)",
         },
-        render({ activated: true })
+        render({ activated: true }),
       );
     });
   });

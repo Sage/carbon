@@ -45,7 +45,7 @@ describe("Menu", () => {
     wrapper = mount(
       <Menu>
         <MenuItem href="#">test element</MenuItem>
-      </Menu>
+      </Menu>,
     );
   });
 
@@ -62,7 +62,7 @@ describe("Menu", () => {
         backgroundColor: menuConfigVariants.light.background,
       },
       wrapper.find(StyledMenuWrapper),
-      { modifier: `${StyledVerticalWrapper}` }
+      { modifier: `${StyledVerticalWrapper}` },
     );
   });
 
@@ -77,7 +77,7 @@ describe("Menu", () => {
         wrapper = mount(
           <Menu menuType={menuType}>
             <VerticalDivider />
-          </Menu>
+          </Menu>,
         );
 
         assertStyleMatch(
@@ -85,16 +85,16 @@ describe("Menu", () => {
             backgroundColor: menuConfigVariants[menuType].background,
           },
           wrapper.find(StyledMenuWrapper),
-          { modifier: `${StyledVerticalWrapper}` }
+          { modifier: `${StyledVerticalWrapper}` },
         );
-      }
+      },
     );
 
     it('applies the expected styling when menuType is "dark"', () => {
       wrapper = mount(
         <Menu menuType="dark">
           <VerticalDivider />
-        </Menu>
+        </Menu>,
       );
 
       assertStyleMatch(
@@ -105,7 +105,7 @@ describe("Menu", () => {
           verticalAlign: "bottom",
         },
         wrapper.find(StyledMenuWrapper),
-        { modifier: `${StyledVerticalWrapper}` }
+        { modifier: `${StyledVerticalWrapper}` },
       );
 
       assertStyleMatch(
@@ -114,7 +114,7 @@ describe("Menu", () => {
           top: "-1px",
         },
         wrapper.find(StyledMenuWrapper),
-        { modifier: `${StyledVerticalWrapper} ${StyledDivider}` }
+        { modifier: `${StyledVerticalWrapper} ${StyledDivider}` },
       );
     });
   });
@@ -136,7 +136,7 @@ describe("Menu", () => {
             <MenuItem href="#">test element two</MenuItem>
           </MenuItem>
         </Menu>,
-        { attachTo: container }
+        { attachTo: container },
       );
     };
 
@@ -167,7 +167,7 @@ describe("Menu", () => {
           .focus();
 
         expect(
-          menuWrapper.find(StyledMenuItemWrapper).at(0).find("a")
+          menuWrapper.find(StyledMenuItemWrapper).at(0).find("a"),
         ).toBeFocused();
 
         act(() => {
@@ -177,7 +177,7 @@ describe("Menu", () => {
         menuWrapper.update();
 
         expect(
-          menuWrapper.find(StyledMenuItemWrapper).at(2).find("button")
+          menuWrapper.find(StyledMenuItemWrapper).at(2).find("button"),
         ).toBeFocused();
       });
     });
@@ -189,7 +189,7 @@ describe("Menu", () => {
         <Menu menuType="dark">
           {true && <MenuItem>One</MenuItem>}
           {false && <MenuItem>Two</MenuItem>}
-        </Menu>
+        </Menu>,
       );
 
       expect(wrapper.find(MenuItem).length).toEqual(1);
@@ -209,7 +209,7 @@ describe("Menu", () => {
             <MenuItem href="#">submenu 2 item 1</MenuItem>
             <MenuItem href="#">submenu 2 item 2</MenuItem>
           </MenuItem>
-        </Menu>
+        </Menu>,
       );
 
       openSubmenu(wrapper, 0);
@@ -237,7 +237,7 @@ describe("Menu", () => {
               <MenuItem href="#">submenu 1 item 2</MenuItem>
             </MenuItem>
           </Menu>,
-          { attachTo: htmlElement }
+          { attachTo: htmlElement },
         );
 
         const menuItem = wrapper
@@ -262,9 +262,9 @@ describe("Menu", () => {
         wrapper.update();
 
         expect(
-          wrapper.find(StyledMenuItemWrapper).at(1).find("a")
+          wrapper.find(StyledMenuItemWrapper).at(1).find("a"),
         ).toBeFocused();
-      }
+      },
     );
   });
 
@@ -303,11 +303,11 @@ describe("Menu", () => {
       wrapper = mount(
         <Menu data-element="bar" data-role="baz">
           <MenuItem>Foo</MenuItem>
-        </Menu>
+        </Menu>,
       ).find(StyledMenuWrapper);
 
       expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
-        "menu"
+        "menu",
       );
 
       expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");

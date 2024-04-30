@@ -56,7 +56,7 @@ function assertAbsolutePositioning(
     bottom?: string;
     left?: string;
     right?: string;
-  }
+  },
 ) {
   assertStyleMatch({ position: "absolute", ...offsets }, target);
   assertStyleMatch({ position: "relative" }, parent);
@@ -117,7 +117,7 @@ describe("Pod", () => {
         });
 
         expect(wrapper.find(variantType).text()).toBe(title);
-      }
+      },
     );
 
     it("renders subtitle when subtitle prop is also passed", () => {
@@ -134,7 +134,7 @@ describe("Pod", () => {
         });
 
         expect(wrapper.find(variantType).text()).toBe(subtitle);
-      }
+      },
     );
 
     it("renders header with correct right margin, when internalEditButton prop is passed and alignTitle is `right`", () => {
@@ -160,7 +160,7 @@ describe("Pod", () => {
       const wrapper = render({ footer, variant: "tile" });
       assertStyleMatch(
         { borderTop: `1px solid var(--colorsUtilityMajor100)` },
-        wrapper.find(StyledFooter)
+        wrapper.find(StyledFooter),
       );
     });
 
@@ -173,7 +173,7 @@ describe("Pod", () => {
       const wrapper = render({ footer, softDelete: true });
       assertStyleMatch(
         { color: "var(--colorsUtilityYin055)" },
-        wrapper.find(StyledFooter)
+        wrapper.find(StyledFooter),
       );
     });
   });
@@ -189,7 +189,7 @@ describe("Pod", () => {
       const wrapper = render({ variant });
       assertStyleMatch(
         { backgroundColor: variantColors[variant].pod },
-        wrapper.find(StyledBlock)
+        wrapper.find(StyledBlock),
       );
     });
 
@@ -198,7 +198,7 @@ describe("Pod", () => {
       assertStyleMatch(
         { backgroundColor: variantColors[variant].button },
         wrapper.find(StyledDeleteButton),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
 
@@ -207,7 +207,7 @@ describe("Pod", () => {
       assertStyleMatch(
         { backgroundColor: variantColors[variant].button },
         wrapper.find(StyledEditAction),
-        { modifier: `&&` }
+        { modifier: `&&` },
       );
     });
 
@@ -216,7 +216,7 @@ describe("Pod", () => {
       assertStyleMatch(
         { backgroundColor: variantColors[variant].button },
         wrapper.find(StyledUndoButton),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
   });
@@ -225,7 +225,7 @@ describe("Pod", () => {
     const wrapper = render({ variant: "tile" });
     assertStyleMatch(
       { boxShadow: "0 2px 3px 0 rgba(2,18,36,0.2)" },
-      wrapper.find(StyledBlock)
+      wrapper.find(StyledBlock),
     );
   });
 
@@ -237,19 +237,19 @@ describe("Pod", () => {
     (border, value) => {
       const wrapper = render({ border });
       assertStyleMatch({ border: value }, wrapper.find(StyledBlock));
-    }
+    },
   );
 
   it("when softDelete prop is set, renders correct styles", () => {
     const wrapper = render({ softDelete: true });
     assertStyleMatch(
       { backgroundColor: "var(--colorsActionDisabled500)" },
-      wrapper.find(StyledBlock)
+      wrapper.find(StyledBlock),
     );
     assertStyleMatch(
       { color: "var(--colorsUtilityYin065)" },
       wrapper.find(StyledBlock),
-      { modifier: "& > *" }
+      { modifier: "& > *" },
     );
   });
 
@@ -259,7 +259,7 @@ describe("Pod", () => {
       assertStyleMatch(
         { color: "var(--colorsSemanticNegative500)" },
         wrapper.find(StyledDeleteButton),
-        { modifier: `&& ${StyledIcon}` }
+        { modifier: `&& ${StyledIcon}` },
       );
     });
 
@@ -275,7 +275,7 @@ describe("Pod", () => {
       assertAbsolutePositioning(
         wrapper.find(StyledActionsContainer),
         wrapper.find(StyledPod),
-        { top: "2px", right: "2px" }
+        { top: "2px", right: "2px" },
       );
       assertStyleMatch(
         {
@@ -283,7 +283,7 @@ describe("Pod", () => {
           background: "var(--colorsActionMajorTransparent)",
         },
         wrapper.find(StyledDeleteButton),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
 
@@ -299,18 +299,18 @@ describe("Pod", () => {
         assertStyleMatch(
           { backgroundColor: "var(--colorsSemanticNegative600)" },
           wrapper.find(StyledDeleteButton),
-          { modifier: "&&" }
+          { modifier: "&&" },
         );
         assertStyleMatch(
           { color: "var(--colorsActionMajorYang100)" },
           wrapper.find(StyledDeleteButton),
-          { modifier: `&& ${StyledIcon}` }
+          { modifier: `&& ${StyledIcon}` },
         );
         assertStyleMatch(
           { backgroundColor: "var(--colorsUtilityMajor075)" },
-          wrapper.find(StyledBlock)
+          wrapper.find(StyledBlock),
         );
-      }
+      },
     );
 
     it("when button is focused, render focus border around button and pod", () => {
@@ -320,11 +320,11 @@ describe("Pod", () => {
       assertStyleMatch(
         { outline: "3px solid var(--colorsSemanticFocus500)" },
         wrapper.find(StyledDeleteButton),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
       assertStyleMatch(
         { outline: "3px solid var(--colorsSemanticFocus500)" },
-        wrapper.find(StyledBlock)
+        wrapper.find(StyledBlock),
       );
     });
 
@@ -342,18 +342,18 @@ describe("Pod", () => {
         assertStyleMatch(
           { backgroundColor: variantColors[variant].button },
           deleteButton,
-          { modifier: "&&" }
+          { modifier: "&&" },
         );
         assertStyleMatch(
           { color: "var(--colorsSemanticNegative500)" },
           deleteButton,
-          { modifier: `&& ${StyledIcon}` }
+          { modifier: `&& ${StyledIcon}` },
         );
         assertStyleMatch(
           { backgroundColor: variantColors[variant].pod },
-          wrapper.find(StyledBlock)
+          wrapper.find(StyledBlock),
         );
-      }
+      },
     );
 
     it("clicking on delete button invokes onDelete event handler", () => {
@@ -384,7 +384,7 @@ describe("Pod", () => {
       assertStyleMatch(
         { color: "var(--colorsActionMajor500)" },
         wrapper.find(StyledEditAction),
-        { modifier: `&& ${StyledIcon}` }
+        { modifier: `&& ${StyledIcon}` },
       );
     });
 
@@ -400,18 +400,18 @@ describe("Pod", () => {
         assertStyleMatch(
           { backgroundColor: "var(--colorsActionMajor600)" },
           wrapper.find(StyledEditAction),
-          { modifier: "&&" }
+          { modifier: "&&" },
         );
         assertStyleMatch(
           { color: "var(--colorsActionMajorYang100)" },
           wrapper.find(StyledEditAction),
-          { modifier: `&& ${StyledIcon}` }
+          { modifier: `&& ${StyledIcon}` },
         );
         assertStyleMatch(
           { backgroundColor: "var(--colorsUtilityMajor075)" },
-          wrapper.find(StyledBlock)
+          wrapper.find(StyledBlock),
         );
-      }
+      },
     );
 
     it.each([
@@ -428,16 +428,16 @@ describe("Pod", () => {
         assertStyleMatch(
           { backgroundColor: variantColors[variant].button },
           editButton,
-          { modifier: "&&" }
+          { modifier: "&&" },
         );
         assertStyleMatch({ color: "var(--colorsActionMajor500)" }, editButton, {
           modifier: `&& ${StyledIcon}`,
         });
         assertStyleMatch(
           { backgroundColor: variantColors[variant].pod },
-          wrapper.find(StyledBlock)
+          wrapper.find(StyledBlock),
         );
-      }
+      },
     );
 
     it("and border prop is false, render button without borders", () => {
@@ -456,7 +456,7 @@ describe("Pod", () => {
       assertAbsolutePositioning(
         wrapper.find(StyledActionsContainer),
         wrapper.find(StyledPod),
-        { top: "2px", right: "2px" }
+        { top: "2px", right: "2px" },
       );
       assertStyleMatch(
         {
@@ -464,7 +464,7 @@ describe("Pod", () => {
           background: "var(--colorsActionMajorTransparent)",
         },
         wrapper.find(StyledEditAction),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
 
@@ -514,9 +514,9 @@ describe("Pod", () => {
             wrapper.find('button[data-element="edit"]').simulate(event);
             assertStyleMatch(
               { backgroundColor: "var(--colorsActionMajor600)" },
-              wrapper.find(StyledBlock)
+              wrapper.find(StyledBlock),
             );
-          }
+          },
         );
 
         it.each([
@@ -535,9 +535,9 @@ describe("Pod", () => {
             wrapper.find('button[data-element="edit"]').simulate(event);
             assertStyleMatch(
               { backgroundColor: variantColors[variant].pod },
-              wrapper.find(StyledBlock)
+              wrapper.find(StyledBlock),
             );
-          }
+          },
         );
 
         it("clicking on the pod invokes onEdit when it is an event handler", () => {
@@ -572,7 +572,7 @@ describe("Pod", () => {
           wrapper.find(StyledBlock).simulate("keydown", { key: "a" });
           expect(onEdit).not.toHaveBeenCalled();
         });
-      }
+      },
     );
   });
 
@@ -582,7 +582,7 @@ describe("Pod", () => {
       assertStyleMatch(
         { color: "var(--colorsActionMajor500)" },
         wrapper.find(StyledUndoButton),
-        { modifier: `&& ${StyledIcon}` }
+        { modifier: `&& ${StyledIcon}` },
       );
     });
 
@@ -598,18 +598,18 @@ describe("Pod", () => {
         assertStyleMatch(
           { backgroundColor: "var(--colorsActionMajor600)" },
           wrapper.find(StyledUndoButton),
-          { modifier: "&&" }
+          { modifier: "&&" },
         );
         assertStyleMatch(
           { color: "var(--colorsActionMajorYang100)" },
           wrapper.find(StyledUndoButton),
-          { modifier: `&& ${StyledIcon}` }
+          { modifier: `&& ${StyledIcon}` },
         );
         assertStyleMatch(
           { backgroundColor: "var(--colorsActionDisabled500)" },
-          wrapper.find(StyledBlock)
+          wrapper.find(StyledBlock),
         );
-      }
+      },
     );
 
     it("when button is focused, render focus border around button", () => {
@@ -619,7 +619,7 @@ describe("Pod", () => {
       assertStyleMatch(
         { outline: "3px solid var(--colorsSemanticFocus500)" },
         wrapper.find(StyledUndoButton),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
 
@@ -637,12 +637,12 @@ describe("Pod", () => {
         assertStyleMatch(
           { backgroundColor: variantColors[variant].button },
           undoButton,
-          { modifier: "&&" }
+          { modifier: "&&" },
         );
         assertStyleMatch({ color: "var(--colorsActionMajor500)" }, undoButton, {
           modifier: `&& ${StyledIcon}`,
         });
-      }
+      },
     );
 
     it("and border prop is false, render button without borders", () => {
@@ -666,7 +666,7 @@ describe("Pod", () => {
       assertAbsolutePositioning(
         wrapper.find(StyledActionsContainer),
         wrapper.find(StyledPod),
-        { top: "2px", right: "2px" }
+        { top: "2px", right: "2px" },
       );
     });
 
@@ -702,7 +702,7 @@ describe("Pod", () => {
       wrapper.find(StyledEditAction).simulate("focus");
       assertStyleMatch(
         { backgroundColor: "var(--colorsUtilityMajorTransparent)" },
-        wrapper.find(StyledBlock)
+        wrapper.find(StyledBlock),
       );
     });
 
@@ -725,7 +725,7 @@ describe("Pod", () => {
         {
           borderRadius: "var(--borderRadius100)",
         },
-        wrapper.find(StyledBlock)
+        wrapper.find(StyledBlock),
       );
 
       assertStyleMatch(
@@ -733,7 +733,7 @@ describe("Pod", () => {
           borderRadius: "var(--borderRadius100)",
         },
         wrapper.find(StyledEditAction),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
 
       assertStyleMatch(
@@ -741,7 +741,7 @@ describe("Pod", () => {
           borderRadius: "var(--borderRadius100)",
         },
         wrapper.find(StyledDeleteButton),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
 
@@ -753,7 +753,7 @@ describe("Pod", () => {
           borderRadius: "var(--borderRadius100)",
         },
         wrapper.find(StyledUndoButton),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
   });

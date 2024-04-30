@@ -57,7 +57,7 @@ export const StepSequenceComponent = ({ ...props }) => {
 };
 
 export const StepSequenceItemCustom = (
-  props: Partial<StepSequenceItemProps>
+  props: Partial<StepSequenceItemProps>,
 ) => {
   return (
     <StepSequence>

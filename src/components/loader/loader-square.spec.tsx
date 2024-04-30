@@ -28,7 +28,7 @@ describe("Loader square", () => {
         marginRight: "8px",
         borderRadius: "var(--borderRadiusCircle)",
       },
-      wrapper.find(StyledLoaderSquare).at(index)
+      wrapper.find(StyledLoaderSquare).at(index),
     );
   });
 
@@ -40,7 +40,7 @@ describe("Loader square", () => {
         {
           backgroundColor: "#13A038",
         },
-        wrapper.find(StyledLoaderSquare).at(0)
+        wrapper.find(StyledLoaderSquare).at(0),
       );
     });
 
@@ -51,7 +51,7 @@ describe("Loader square", () => {
         {
           backgroundColor: "#0092DB",
         },
-        wrapper.find(StyledLoaderSquare).at(1)
+        wrapper.find(StyledLoaderSquare).at(1),
       );
     });
 
@@ -62,7 +62,7 @@ describe("Loader square", () => {
         {
           backgroundColor: "#8F49FE",
         },
-        wrapper.find(StyledLoaderSquare).at(2)
+        wrapper.find(StyledLoaderSquare).at(2),
       );
     });
   });
@@ -74,7 +74,7 @@ describe("Loader square", () => {
         {
           backgroundColor: "var(--colorsUtilityYang100)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -85,7 +85,7 @@ describe("Loader square", () => {
           {
             backgroundColor: "var(--colorsSemanticNeutral500)",
           },
-          wrapper
+          wrapper,
         );
       });
     });
@@ -100,7 +100,7 @@ describe("Loader square", () => {
           width: "20px",
           marginRight: "8px",
         },
-        wrapper
+        wrapper,
       );
     });
   });
@@ -114,7 +114,7 @@ describe("Loader square", () => {
           width: "16px",
           marginRight: "8px",
         },
-        wrapper
+        wrapper,
       );
     });
   });
@@ -128,8 +128,8 @@ describe("Loader square", () => {
         mount(
           <CarbonProvider roundedCornersOptOut>
             <StyledLoaderSquare />
-          </CarbonProvider>
-        ).find(StyledLoaderSquare)
+          </CarbonProvider>,
+        ).find(StyledLoaderSquare),
       );
     });
 
@@ -141,8 +141,8 @@ describe("Loader square", () => {
         mount(
           <CarbonProvider>
             <StyledLoaderSquare />
-          </CarbonProvider>
-        ).find(StyledLoaderSquare)
+          </CarbonProvider>,
+        ).find(StyledLoaderSquare),
       );
     });
   });

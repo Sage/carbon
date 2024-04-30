@@ -30,7 +30,7 @@ describe("useLocale custom hook", () => {
         }}
       >
         <TestComponent />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(wrapper.find("span").text()).toEqual("test");

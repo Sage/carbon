@@ -68,7 +68,7 @@ function renderI18n({
   return mount(
     <I18nProvider locale={locale}>
       <MockComponent open {...props} setOpen={() => {}} />
-    </I18nProvider>
+    </I18nProvider>,
   );
 }
 
@@ -107,7 +107,7 @@ describe("DatePicker", () => {
         prop containing an object with "before" property`, () => {
       const disabledDays = [{ before: getZonedDate(firstDate) }];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(
-        disabledDays
+        disabledDays,
       );
     });
   });
@@ -143,7 +143,7 @@ describe("DatePicker", () => {
         prop containing an object with "after" property`, () => {
       const disabledDays = [{ after: getZonedDate(secondDate) }];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(
-        disabledDays
+        disabledDays,
       );
     });
   });
@@ -160,7 +160,7 @@ describe("DatePicker", () => {
         { after: getZonedDate(secondDate) },
       ];
       expect(wrapper.find(DayPicker).props().disabledDays).toEqual(
-        disabledDays
+        disabledDays,
       );
     });
   });
@@ -182,7 +182,7 @@ describe("DatePicker", () => {
           wrapper.find(DayPicker).prop("onDayClick")?.(
             date,
             { today: undefined, outside: undefined },
-            mockEvent
+            mockEvent,
           );
         });
 
@@ -199,7 +199,7 @@ describe("DatePicker", () => {
           wrapper.find(DayPicker).prop("onDayClick")?.(
             date,
             { disabled: true, today: undefined, outside: undefined },
-            mockEvent
+            mockEvent,
           );
         });
         expect(onDayClickFn).not.toHaveBeenCalled();
@@ -253,7 +253,7 @@ describe("StyledDayPicker", () => {
         acc.short.push(
           translations[l].localize
             ?.day(d, { width: "abbreviated" })
-            .substring(0, 3)
+            .substring(0, 3),
         );
 
         return acc;
@@ -308,7 +308,7 @@ describe("StyledDayPicker", () => {
 
           expect(title).toEqual(long?.[i]);
           expect(children).toEqual(
-            locale === "de-DE" ? long?.[i].substring(0, 2) : short?.[i]
+            locale === "de-DE" ? long?.[i].substring(0, 2) : short?.[i],
           );
         });
       });
@@ -321,7 +321,7 @@ describe("StyledDayPicker", () => {
 
         const { months } = wrapper.find(DayPicker).props();
         expect(
-          monthsArray(locale).every((month, i) => month === months?.[i])
+          monthsArray(locale).every((month, i) => month === months?.[i]),
         ).toEqual(true);
       });
     });

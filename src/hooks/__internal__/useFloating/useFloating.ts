@@ -71,7 +71,7 @@ const useFloating = ({
 
           floatingElement.setAttribute(
             "data-floating-placement",
-            currentPlacement
+            currentPlacement,
           );
         });
       };

@@ -44,7 +44,7 @@ describe("resize observer", () => {
       });
 
     wrapper = mount(
-      <TestComponent callback={callbackProp} disabled={disabled} />
+      <TestComponent callback={callbackProp} disabled={disabled} />,
     );
   };
 
@@ -62,7 +62,7 @@ describe("resize observer", () => {
 
     it("observes element on mount", () => {
       expect(observeMock).toHaveBeenCalledWith(
-        wrapper.find("#observed-node").getDOMNode()
+        wrapper.find("#observed-node").getDOMNode(),
       );
     });
 

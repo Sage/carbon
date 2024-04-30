@@ -2,7 +2,7 @@ import { ReactWrapper, ShallowWrapper } from "enzyme";
 
 const elementsTagTest = (
   wrapper: ReactWrapper | ShallowWrapper,
-  elements: string[]
+  elements: string[],
 ) => {
   elements.forEach((element) => {
     it(`include 'data-element="${element}"'`, () => {
@@ -15,7 +15,7 @@ const rootTagTest = (
   rootNode: ReactWrapper | ShallowWrapper,
   comp: string,
   elem?: string,
-  role?: string
+  role?: string,
 ) => {
   expect(rootNode.prop("data-component")).toEqual(comp);
   expect(rootNode.prop("data-element")).toEqual(elem);
@@ -26,7 +26,7 @@ const rootTagTestRtl = (
   rootNode: HTMLElement,
   comp: string,
   elem?: string,
-  role?: string
+  role?: string,
 ) => {
   expect(rootNode).toHaveAttribute("data-component", comp);
   expect(rootNode).toHaveAttribute("data-element", elem);

@@ -25,14 +25,14 @@ function renderRadioButton(
   buttonProps = {},
   validations = {},
   theme = sageTheme,
-  renderer = mount
+  renderer = mount,
 ) {
   return renderer(
     <ThemeProvider theme={theme}>
       <RadioButtonGroup name="radio-button-group" {...validations}>
         <RadioButton value="test" {...buttonProps} />
       </RadioButtonGroup>
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 }
 
@@ -69,11 +69,11 @@ describe("RadioButton", () => {
       mount(
         <RadioButtonGroup name="radio-button-group">
           <RadioButton value="test" />
-        </RadioButtonGroup>
+        </RadioButtonGroup>,
       );
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Radio Button` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -90,7 +90,7 @@ describe("RadioButton", () => {
         "You should probably use the label prop instead.";
 
       expect(() => renderRadioButton({ children: "someChildren" })).toThrow(
-        expected
+        expected,
       );
 
       consoleSpy.mockRestore();
@@ -109,7 +109,7 @@ describe("RadioButton", () => {
     const wrapper = mount(<WrapperComponent />);
 
     expect(mockRef?.current).toBe(
-      wrapper.find(HiddenCheckableInputStyle).getDOMNode()
+      wrapper.find(HiddenCheckableInputStyle).getDOMNode(),
     );
   });
 
@@ -126,7 +126,7 @@ describe("RadioButton", () => {
         assertStyleMatch(
           { fill: "var(--colorsUtilityDisabled400)" },
           getRadioButton(wrapper),
-          { modifier: "circle" }
+          { modifier: "circle" },
         );
       });
 
@@ -136,7 +136,7 @@ describe("RadioButton", () => {
           getRadioButton(wrapper),
           {
             modifier: `${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`,
-          }
+          },
         );
       });
     });
@@ -177,7 +177,7 @@ describe("RadioButton", () => {
     describe("and reverse === true", () => {
       describe("default", () => {
         const wrapper = getRadioButton(
-          renderRadioButton({ reverse: true, size: "large" })
+          renderRadioButton({ reverse: true, size: "large" }),
         );
 
         it("applies the correct FieldHelp styles", () => {
@@ -212,7 +212,7 @@ describe("RadioButton", () => {
             border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
           },
           wrapper.find(RadioButton).at(0),
-          { modifier: "svg" }
+          { modifier: "svg" },
         );
       });
     });
@@ -226,7 +226,7 @@ describe("RadioButton", () => {
             border: `${borderWidth}px solid ${borderColorsByValidationTypes[type]}`,
           },
           wrapper.find(RadioButton).at(0),
-          { modifier: "svg" }
+          { modifier: "svg" },
         );
       });
     });
@@ -240,7 +240,7 @@ describe("RadioButton", () => {
           label="foo"
           error="message"
           tooltipPosition="bottom"
-        />
+        />,
       )
         .find(Tooltip)
         .props();
@@ -255,7 +255,7 @@ describe("RadioButton", () => {
         marginLeft: "32px",
       },
       mount(<RadioButtonStyle inline />),
-      { modifier: "&:not(:first-of-type)" }
+      { modifier: "&:not(:first-of-type)" },
     );
   });
 
@@ -269,7 +269,7 @@ describe("RadioButton", () => {
           label={text}
           labelHelp={text}
           helpAriaLabel={text}
-        />
+        />,
       )
         .find(StyledHelp)
         .props();
@@ -286,7 +286,7 @@ describe("RadioButton", () => {
         borderRadius: "var(--borderRadiusCircle)",
       },
       wrapper,
-      { modifier: `${StyledCheckableInputSvgWrapper}` }
+      { modifier: `${StyledCheckableInputSvgWrapper}` },
     );
 
     assertStyleMatch(
@@ -294,7 +294,7 @@ describe("RadioButton", () => {
         borderRadius: "var(--borderRadiusCircle)",
       },
       wrapper,
-      { modifier: "svg" }
+      { modifier: "svg" },
     );
   });
 });

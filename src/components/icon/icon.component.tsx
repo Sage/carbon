@@ -93,25 +93,25 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       role,
       ...rest
     }: IconProps,
-    ref
+    ref,
   ): JSX.Element => {
     const flipBehaviourCheck =
       Array.isArray(tooltipFlipOverrides) &&
       tooltipFlipOverrides.every((override) =>
-        ICON_TOOLTIP_POSITIONS.includes(override)
+        ICON_TOOLTIP_POSITIONS.includes(override),
       );
 
     if (!deprecatedExtraSmallBgSizeTriggered && bgSize === "extra-small") {
       deprecatedExtraSmallBgSizeTriggered = true;
       Logger.deprecate(
-        "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed."
+        "The `extra-small` variant of the `bgSize` prop for `Icon` component has been deprecated and will soon be removed.",
       );
     }
 
     if (tooltipFlipOverrides) {
       invariant(
         flipBehaviourCheck,
-        `The tooltipFlipOverrides prop supplied to \`Icon\` must be an array containing some or all of ["top", "bottom", "left", "right"].`
+        `The tooltipFlipOverrides prop supplied to \`Icon\` must be an array containing some or all of ["top", "bottom", "left", "right"].`,
       );
     }
 
@@ -211,7 +211,7 @@ const Icon = React.forwardRef<HTMLSpanElement, IconProps>(
       );
     }
     return <StyledIcon {...styledIconProps} />;
-  }
+  },
 );
 
 Icon.displayName = "Icon";

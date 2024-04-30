@@ -71,7 +71,7 @@ export const MenuFullScreenStory = ({
     ev:
       | React.KeyboardEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLButtonElement>
-      | KeyboardEvent
+      | KeyboardEvent,
   ) => {
     setIsOpen(false);
     action("close icon clicked")(ev);

@@ -20,7 +20,7 @@ jest.mock("../../__internal__/utils/logger");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 function renderButtonToggle(props: Partial<ButtonToggleProps> = {}) {
@@ -28,25 +28,25 @@ function renderButtonToggle(props: Partial<ButtonToggleProps> = {}) {
 }
 
 function renderButtonToggleWithTheme(
-  props: Partial<ButtonToggleProps & { theme: ThemeObject }> = {}
+  props: Partial<ButtonToggleProps & { theme: ThemeObject }> = {},
 ) {
   const { theme, ...componentProps } = props;
 
   return mount(
     <ThemeProvider theme={theme}>
       <ButtonToggle {...componentProps}>Button</ButtonToggle>
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 }
 
 function renderButtonToggleWithContext(
   props: Partial<ButtonToggleProps> = {},
-  inputGroupContextValue = {}
+  inputGroupContextValue = {},
 ) {
   return mount(
     <InputGroupContext.Provider value={inputGroupContextValue}>
       <ButtonToggle {...props}>Button</ButtonToggle>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 }
 
@@ -70,7 +70,7 @@ describe("ButtonToggle", () => {
       renderButtonToggle();
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -80,7 +80,7 @@ describe("ButtonToggle", () => {
       const wrapper = renderButtonToggle({ checked: true });
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "The `checked` prop in `ButtonToggle` component is deprecated and will soon be removed. Please use `pressed` instead."
+        "The `checked` prop in `ButtonToggle` component is deprecated and will soon be removed. Please use `pressed` instead.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -94,7 +94,7 @@ describe("ButtonToggle", () => {
 
       expect(loggerSpy).toHaveBeenCalledWith(
         `The \`name\` prop in \`ButtonToggle\` component is deprecated and will soon be removed. It does not provide any functionality
-      since the component can no longer be used in an uncontrolled fashion.`
+      since the component can no longer be used in an uncontrolled fashion.`,
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -107,7 +107,7 @@ describe("ButtonToggle", () => {
       const wrapper = renderButtonToggle({ grouped: true });
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed."
+        "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -154,7 +154,7 @@ describe("ButtonToggle", () => {
         wrapper
           .find(StyledButtonToggle)
           .getDOMNode()
-          .getAttribute("aria-pressed")
+          .getAttribute("aria-pressed"),
       ).toBe("false");
 
       wrapper.setProps({ pressed: true });
@@ -162,7 +162,7 @@ describe("ButtonToggle", () => {
         wrapper
           .find(StyledButtonToggle)
           .getDOMNode()
-          .getAttribute("aria-pressed")
+          .getAttribute("aria-pressed"),
       ).toBe("true");
 
       wrapper.setProps({ pressed: false });
@@ -170,7 +170,7 @@ describe("ButtonToggle", () => {
         wrapper
           .find(StyledButtonToggle)
           .getDOMNode()
-          .getAttribute("aria-pressed")
+          .getAttribute("aria-pressed"),
       ).toBe("false");
     });
   });
@@ -211,7 +211,7 @@ describe("ButtonToggle", () => {
           onFocus: groupContextOnFocus,
           onMouseEnter: groupContextOnMouseEnter,
           onMouseLeave: groupContextOnMouseLeave,
-        }
+        },
       );
     });
 
@@ -299,7 +299,7 @@ describe("ButtonToggle", () => {
               padding: `0 ${paddingLargeIconConfig[size]}px`,
               fontSize: `${fontSizeConfig[size]}px`,
             },
-            wrapper.find(StyledButtonToggle)
+            wrapper.find(StyledButtonToggle),
           );
         });
 
@@ -314,10 +314,10 @@ describe("ButtonToggle", () => {
               padding: `0 ${paddingConfig[size]}px`,
               fontSize: `${fontSizeConfig[size]}px`,
             },
-            wrapper.find(StyledButtonToggle)
+            wrapper.find(StyledButtonToggle),
           );
         });
-      }
+      },
     );
 
     it("renders correctly when disabled", () => {
@@ -329,7 +329,7 @@ describe("ButtonToggle", () => {
           color: "var(--colorsActionMinorYin030)",
         },
         wrapper.find(StyledButtonToggle),
-        { modifier: "&" }
+        { modifier: "&" },
       );
 
       assertStyleMatch(
@@ -338,7 +338,7 @@ describe("ButtonToggle", () => {
           color: "var(--colorsActionMinorYang100)",
         },
         wrapper.find(StyledButtonToggle),
-        { modifier: '&[aria-pressed="true"]' }
+        { modifier: '&[aria-pressed="true"]' },
       );
     });
 
@@ -351,7 +351,7 @@ describe("ButtonToggle", () => {
         {
           marginRight: "8px",
         },
-        wrapper.find(StyledButtonToggleIcon)
+        wrapper.find(StyledButtonToggleIcon),
       );
     });
 
@@ -364,7 +364,7 @@ describe("ButtonToggle", () => {
         <div>
           <ButtonToggle {...props} />
           <ButtonToggle {...props} />
-        </div>
+        </div>,
       );
       // Uses snapshot as jest/enzyme doesn't support :first-of-type
       expect(wrapper).toMatchSnapshot();
@@ -388,12 +388,12 @@ describe("ButtonToggle", () => {
       const wrapper = mount(
         <ButtonToggleGroup id="group" allowDeselect>
           <ButtonToggle>Button</ButtonToggle>
-        </ButtonToggleGroup>
+        </ButtonToggleGroup>,
       );
       assertStyleMatch(
         { cursor: undefined },
         wrapper.find(StyledButtonToggle),
-        { modifier: '&[aria-pressed="true"]' }
+        { modifier: '&[aria-pressed="true"]' },
       );
     });
   });
@@ -423,9 +423,9 @@ describe("ButtonToggle", () => {
         borderRadius: "var(--borderRadius050)",
       },
       mount(<ButtonToggle>toggle</ButtonToggle>).find(
-        StyledButtonToggleWrapper
+        StyledButtonToggleWrapper,
       ),
-      { modifier: `&&&& ${StyledButtonToggle}` }
+      { modifier: `&&&& ${StyledButtonToggle}` },
     );
   });
 });

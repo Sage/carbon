@@ -11,12 +11,12 @@ import Logger from "../../../../__internal__/utils/logger";
 const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const getMockEvent = (key: string, which?: number) => {
-  return ({
+  return {
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
     key,
     which,
-  } as unknown) as React.KeyboardEvent;
+  } as unknown as React.KeyboardEvent;
 };
 
 describe("Menu keyboard navigation", () => {
@@ -44,14 +44,14 @@ describe("Menu keyboard navigation", () => {
           <span>Rhubarb</span> <Box>and</Box> Ginger
         </MenuItem>
         <li data-element="not-item">Not a menu item</li>
-      </ul>
+      </ul>,
     );
   });
   const focusableItems = () =>
     Array.from(
       document.querySelectorAll(
-        `[data-component='not-item'], [data-component='${MENU_ITEM}'], [data-element='not-item']`
-      )
+        `[data-component='not-item'], [data-component='${MENU_ITEM}'], [data-element='not-item']`,
+      ),
     );
 
   const getItem = (index: number) =>
@@ -107,7 +107,7 @@ describe("Menu keyboard navigation", () => {
       it("should return undefined", () => {
         const result = menuKeyboardNavigation(
           getMockEvent("shift"),
-          focusableItems()
+          focusableItems(),
         );
         expect(result).toEqual(undefined);
       });
@@ -117,7 +117,7 @@ describe("Menu keyboard navigation", () => {
       it("should return the first index", () => {
         const result = menuKeyboardNavigation(
           getMockEvent("Home", 36),
-          focusableItems()
+          focusableItems(),
         );
         expect(result).toEqual(0);
       });
@@ -127,7 +127,7 @@ describe("Menu keyboard navigation", () => {
       it("should return the last index", () => {
         const result = menuKeyboardNavigation(
           getMockEvent("End", 35),
-          focusableItems()
+          focusableItems(),
         );
         expect(result).toEqual(8);
       });
@@ -137,7 +137,7 @@ describe("Menu keyboard navigation", () => {
       it("should return undefined", () => {
         const result = menuKeyboardNavigation(
           getMockEvent("c", 67),
-          focusableItems()
+          focusableItems(),
         );
         expect(result).toEqual(undefined);
       });
@@ -148,7 +148,7 @@ describe("Menu keyboard navigation", () => {
       it("should return undefined", () => {
         const result = menuKeyboardNavigation(
           getMockEvent("Tab", 9),
-          focusableItems()
+          focusableItems(),
         );
         expect(result).toEqual(undefined);
       });

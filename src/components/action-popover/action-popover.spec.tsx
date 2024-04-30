@@ -36,7 +36,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 jest.useFakeTimers();
 
@@ -105,7 +105,7 @@ describe("ActionPopover", () => {
         <input id="before" />
         <ActionPopover {...defaultProps} {...props} />
         <input id="after" />
-      </>
+      </>,
     );
   }
 
@@ -173,13 +173,13 @@ describe("ActionPopover", () => {
         <input id="before" />
         <ActionPopover {...defaultProps} {...props} />
         <input id="after" />
-      </>
+      </>,
     );
   }
 
   function renderActionPopoverWithNoIconsOrSubmenus(
     props = {},
-    renderer = mount
+    renderer = mount,
   ) {
     const defaultProps = {
       children: [
@@ -216,13 +216,13 @@ describe("ActionPopover", () => {
         <input id="before" />
         <ActionPopover {...defaultProps} {...props} />
         <input id="after" />
-      </>
+      </>,
     );
   }
 
   function renderActionPopoverWithSomeSubmenusAndNoIcons(
     props = {},
-    renderer = mount
+    renderer = mount,
   ) {
     const submenu = (
       <ActionPopoverMenu>
@@ -270,13 +270,13 @@ describe("ActionPopover", () => {
         <input id="before" />
         <ActionPopover {...defaultProps} {...props} />
         <input id="after" />
-      </>
+      </>,
     );
   }
 
   function renderActionPopoverWithSubmenusAndSomeIcons(
     props = {},
-    renderer = mount
+    renderer = mount,
   ) {
     const submenu = (
       <ActionPopoverMenu>
@@ -339,7 +339,7 @@ describe("ActionPopover", () => {
         <input id="before" />
         <ActionPopover {...defaultProps} {...props} />
         <input id="after" />
-      </>
+      </>,
     );
   }
 
@@ -405,13 +405,13 @@ describe("ActionPopover", () => {
         <input id="before" />
         <ActionPopover {...defaultProps} {...props} />
         <input id="after" />
-      </>
+      </>,
     );
   }
 
   function renderActionPopoverWithMultipleDisabledItems(
     props = {},
-    renderer = mount
+    renderer = mount,
   ) {
     const defaultProps = {
       children: [
@@ -448,7 +448,7 @@ describe("ActionPopover", () => {
         <input id="before" />
         <ActionPopover {...defaultProps} {...props} />
         <input id="after" />
-      </>
+      </>,
     );
   }
 
@@ -510,7 +510,7 @@ describe("ActionPopover", () => {
           <ActionPopoverItem key="1" onClick={jest.fn()} href="#" download>
             test download
           </ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       openMenu();
@@ -524,7 +524,7 @@ describe("ActionPopover", () => {
           <ActionPopoverItem key="1" href="#" download>
             test download
           </ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       act(() => {
@@ -570,7 +570,7 @@ describe("ActionPopover", () => {
       {
         borderRadius: "var(--borderRadius050)",
       },
-      wrapper.find(StyledButtonIcon)
+      wrapper.find(StyledButtonIcon),
     );
   });
 
@@ -581,7 +581,7 @@ describe("ActionPopover", () => {
     rootTagTest(menubutton, "action-popover-wrapper");
     rootTagTest(menu, "action-popover");
     expect(divider.getDOMNode().getAttribute("data-element")).toBe(
-      "action-popover-divider"
+      "action-popover-divider",
     );
   });
 
@@ -625,12 +625,12 @@ describe("ActionPopover", () => {
           <ActionPopover
             placement={placement}
             rightAlignMenu={rightAlignMenu}
-          />
+          />,
         );
 
         myWrapper.find(MenuButton).simulate("click");
         expect(myWrapper.find(Popover).props().placement).toBe(result);
-      }
+      },
     );
   });
 
@@ -693,7 +693,7 @@ describe("ActionPopover", () => {
           {
             display: "block",
           },
-          menu
+          menu,
         );
         expect(onClose).not.toHaveBeenCalled();
       });
@@ -723,7 +723,7 @@ describe("ActionPopover", () => {
           {
             display: "block",
           },
-          menu
+          menu,
         );
         expect(onOpen).toHaveBeenCalledTimes(1);
       });
@@ -772,7 +772,7 @@ describe("ActionPopover", () => {
               detail: {
                 enzymeTestingTarget: items.at(1).getDOMNode(),
               },
-            })
+            }),
           );
         });
 
@@ -791,7 +791,7 @@ describe("ActionPopover", () => {
               detail: {
                 enzymeTestingTarget: document.body,
               },
-            })
+            }),
           );
         });
 
@@ -818,7 +818,7 @@ describe("ActionPopover", () => {
           const { menu } = getElements();
           expect(menu.exists()).toBe(true);
           expect(onOpen).toHaveBeenCalledTimes(1);
-        }
+        },
       );
 
       it.each(["ArrowDown", "Space", "Enter"] as const)(
@@ -831,7 +831,7 @@ describe("ActionPopover", () => {
 
           const { items } = getElements();
           expect(items.at(1).find(StyledMenuItem)).toBeFocused();
-        }
+        },
       );
 
       it("Pressing UpArrow selects the last focusable item", () => {
@@ -916,20 +916,20 @@ describe("ActionPopover", () => {
             expect(items.at(1).find(StyledMenuItem)).toBeFocused();
 
             simulate.keydown.pressArrowDown(
-              items.at(1).find(StyledMenuItem).at(0)
+              items.at(1).find(StyledMenuItem).at(0),
             );
             jest.runAllTimers();
             expect(items.at(2).find(StyledMenuItem)).toBeFocused();
             jest.runAllTimers();
 
             simulate.keydown.pressArrowDown(
-              items.at(2).find(StyledMenuItem).at(0)
+              items.at(2).find(StyledMenuItem).at(0),
             );
             jest.runAllTimers();
             expect(items.at(3).find(StyledMenuItem)).toBeFocused();
 
             simulate.keydown.pressArrowDown(
-              items.at(3).find(StyledMenuItem).at(0)
+              items.at(3).find(StyledMenuItem).at(0),
             );
             jest.runAllTimers();
             // we're checking that we cannot focus the first disabled item
@@ -940,7 +940,7 @@ describe("ActionPopover", () => {
                 .at(0)
                 .find(StyledMenuItem)
                 .getDOMNode()
-                .getAttribute("aria-disabled")
+                .getAttribute("aria-disabled"),
             ).toBe("true");
           },
         ],
@@ -954,7 +954,7 @@ describe("ActionPopover", () => {
             expect(items.last().find(StyledMenuItem)).toBeFocused();
 
             simulate.keydown.pressArrowDown(
-              items.last().find(StyledMenuItem).at(0)
+              items.last().find(StyledMenuItem).at(0),
             );
             jest.runAllTimers();
             expect(items.at(1).find(StyledMenuItem)).toBeFocused();
@@ -966,28 +966,28 @@ describe("ActionPopover", () => {
           "",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
             simulate.keydown.pressArrowDown(
-              items.at(1).find(StyledMenuItem).at(0)
+              items.at(1).find(StyledMenuItem).at(0),
             );
             simulate.keydown.pressArrowDown(
-              items.at(2).find(StyledMenuItem).at(0)
+              items.at(2).find(StyledMenuItem).at(0),
             );
 
             simulate.keydown.pressArrowUp(
-              items.at(3).find(StyledMenuItem).at(0)
+              items.at(3).find(StyledMenuItem).at(0),
             );
             jest.runAllTimers();
 
             expect(items.at(2).find(StyledMenuItem)).toBeFocused();
 
             simulate.keydown.pressArrowUp(
-              items.at(2).find(StyledMenuItem).at(0)
+              items.at(2).find(StyledMenuItem).at(0),
             );
             jest.runAllTimers();
 
             expect(items.at(1).find(StyledMenuItem)).toBeFocused();
 
             simulate.keydown.pressArrowUp(
-              items.at(1).find(StyledMenuItem).at(0)
+              items.at(1).find(StyledMenuItem).at(0),
             );
             jest.runAllTimers();
             expect(items.at(3).find(StyledMenuItem)).toBeFocused();
@@ -1000,7 +1000,7 @@ describe("ActionPopover", () => {
           "if the focus is on the first focusable item",
           (items: ReactWrapper<ActionPopoverItemProps>) => {
             simulate.keydown.pressArrowUp(
-              items.at(1).find(StyledMenuItem).at(0)
+              items.at(1).find(StyledMenuItem).at(0),
             );
             jest.runAllTimers();
             expect(items.last().find(StyledMenuItem)).toBeFocused();
@@ -1034,7 +1034,7 @@ describe("ActionPopover", () => {
           const { items } = getElements();
 
           mutator(items);
-        }
+        },
       );
 
       it("Pressing Space does nothing", () => {
@@ -1077,7 +1077,7 @@ describe("ActionPopover", () => {
             .at(0)
             .find(StyledMenuItem)
             .getDOMNode()
-            .getAttribute("aria-disabled")
+            .getAttribute("aria-disabled"),
         ).toBe("true");
 
         // does nothing when there are no matches
@@ -1110,11 +1110,11 @@ describe("ActionPopover", () => {
           <ActionPopoverItem onClick={() => {}}>Item</ActionPopoverItem>
           Invalid children
           <p>invalid children</p>
-        </ActionPopover>
+        </ActionPopover>,
       );
     }).toThrow(
       "ActionPopover only accepts children of type `ActionPopoverItem`" +
-        " and `ActionPopoverDivider`."
+        " and `ActionPopoverDivider`.",
     );
 
     globalConsoleSpy.mockRestore();
@@ -1133,7 +1133,7 @@ describe("ActionPopover", () => {
           {
             left: "-5px",
           },
-          submenuIcon
+          submenuIcon,
         );
         expect(submenuIcon.props().type).toEqual("chevron_left_thick");
       });
@@ -1225,7 +1225,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).toBeFocused();
         });
       });
@@ -1250,7 +1250,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).not.toBeFocused();
           expect(item.find(StyledMenuItem).at(0).getDOMNode()).toBeFocused();
         });
@@ -1277,7 +1277,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).toBeFocused();
         });
       });
@@ -1314,7 +1314,7 @@ describe("ActionPopover", () => {
           {
             visibility: "hidden",
           },
-          submenu
+          submenu,
         );
         expect(submenu.props().isOpen).toEqual(false);
       });
@@ -1337,7 +1337,7 @@ describe("ActionPopover", () => {
           {
             visibility: "hidden",
           },
-          submenu
+          submenu,
         );
         expect(submenu.props().isOpen).toEqual(false);
       });
@@ -1353,7 +1353,7 @@ describe("ActionPopover", () => {
             >
               Foo
             </ActionPopoverItem>
-          </ActionPopover>
+          </ActionPopover>,
         );
 
         tempWrapper.find(MenuButton).simulate("click");
@@ -1365,13 +1365,13 @@ describe("ActionPopover", () => {
         expect(wrapperElement.props().onMouseEnter).toEqual(undefined);
         expect(wrapperElement.props().onMouseLeave).toEqual(undefined);
         expect(item.find("button").at(0).props()["aria-haspopup"]).toEqual(
-          "true"
+          "true",
         );
         expect(item.find("button").at(0).props()["aria-controls"]).not.toEqual(
-          undefined
+          undefined,
         );
         expect(item.find("button").at(0).props()["aria-expanded"]).toEqual(
-          false
+          false,
         );
       });
 
@@ -1487,7 +1487,7 @@ describe("ActionPopover", () => {
                 Sub Menu 1
               </ActionPopoverItem>
             </ActionPopoverMenu>
-          </ActionPopoverContext.Provider>
+          </ActionPopoverContext.Provider>,
         ).find(ActionPopoverItem);
 
         expect(item).not.toBeFocused();
@@ -1495,7 +1495,7 @@ describe("ActionPopover", () => {
           {
             outline: undefined,
           },
-          item
+          item,
         );
       });
     });
@@ -1506,7 +1506,7 @@ describe("ActionPopover", () => {
         // Mock the parent boundingRect
         getBoundingClientRectSpy = jest.spyOn(
           Element.prototype,
-          "getBoundingClientRect"
+          "getBoundingClientRect",
         );
         Element.prototype.getBoundingClientRect = jest
           .fn()
@@ -1534,7 +1534,7 @@ describe("ActionPopover", () => {
           {
             right: "-5px",
           },
-          submenuIcon
+          submenuIcon,
         );
         expect(submenuIcon.props().type).toEqual("chevron_right_thick");
       });
@@ -1557,7 +1557,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).toBeFocused();
         });
       });
@@ -1580,7 +1580,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).not.toBeFocused();
           expect(item.find(StyledMenuItem).at(0).getDOMNode()).toBeFocused();
         });
@@ -1601,7 +1601,7 @@ describe("ActionPopover", () => {
           {
             right: "-5px",
           },
-          submenuIcon
+          submenuIcon,
         );
         expect(submenuIcon.props().type).toEqual("chevron_right_thick");
       });
@@ -1624,7 +1624,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).toBeFocused();
         });
       });
@@ -1647,7 +1647,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).not.toBeFocused();
           expect(item.find(StyledMenuItem).at(0).getDOMNode()).toBeFocused();
         });
@@ -1660,7 +1660,7 @@ describe("ActionPopover", () => {
         // Mock the parent boundingRect
         getBoundingClientRectSpy = jest.spyOn(
           Element.prototype,
-          "getBoundingClientRect"
+          "getBoundingClientRect",
         );
         Element.prototype.getBoundingClientRect = jest
           .fn()
@@ -1689,7 +1689,7 @@ describe("ActionPopover", () => {
           {
             left: "-5px",
           },
-          submenuIcon
+          submenuIcon,
         );
         expect(submenuIcon.props().type).toEqual("chevron_left_thick");
       });
@@ -1712,7 +1712,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).toBeFocused();
         });
       });
@@ -1735,7 +1735,7 @@ describe("ActionPopover", () => {
               .at(0)
               .find(StyledMenuItem)
               .at(0)
-              .getDOMNode()
+              .getDOMNode(),
           ).not.toBeFocused();
           expect(item.find(StyledMenuItem).at(0).getDOMNode()).toBeFocused();
         });
@@ -1757,13 +1757,13 @@ describe("ActionPopover", () => {
             >
               item
             </ActionPopoverItem>
-          </ActionPopover>
+          </ActionPopover>,
         );
 
         tempWrapper.find(MenuButton).simulate("click");
         jest.runAllTimers();
       }).toThrow(
-        "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`"
+        "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`",
       );
 
       globalConsoleSpy.mockRestore();
@@ -1792,11 +1792,11 @@ describe("ActionPopover", () => {
               Invalid
               <p>Invalid</p>
             </ActionPopoverMenu>
-          </ActionPopoverContext.Provider>
+          </ActionPopoverContext.Provider>,
         );
       }).toThrow(
         "ActionPopoverMenu only accepts children of type `ActionPopoverItem`" +
-          " and `ActionPopoverDivider`."
+          " and `ActionPopoverDivider`.",
       );
 
       globalConsoleSpy.mockRestore();
@@ -1809,7 +1809,7 @@ describe("ActionPopover", () => {
       // Mock the parent boundingRect
       getBoundingClientRectSpy = jest.spyOn(
         Element.prototype,
-        "getBoundingClientRect"
+        "getBoundingClientRect",
       );
       Element.prototype.getBoundingClientRect = jest
         .fn()
@@ -1837,7 +1837,7 @@ describe("ActionPopover", () => {
           >
             foo
           </ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
     });
 
@@ -1851,7 +1851,7 @@ describe("ActionPopover", () => {
       const item = wrapper.find(ActionPopoverItem).at(0);
 
       expect(item.find(ActionPopoverMenu).props().style?.bottom).toEqual(
-        "calc(-1 * var(--spacing100))"
+        "calc(-1 * var(--spacing100))",
       );
     });
   });
@@ -1873,14 +1873,14 @@ describe("ActionPopover", () => {
           )}
         >
           <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       ).find(ActionPopover);
 
       const menuButton = popover.find(ActionPopoverMenuButton);
       expect(menuButton.exists()).toBeTruthy();
       expect(menuButton.props().tabIndex).toEqual(0);
       expect(menuButton.props()["data-element"]).toEqual(
-        "action-popover-button"
+        "action-popover-button",
       );
 
       assertStyleMatch(
@@ -1889,7 +1889,7 @@ describe("ActionPopover", () => {
           width: "100%",
         },
         menuButton,
-        { modifier: `${StyledButton}` }
+        { modifier: `${StyledButton}` },
       );
     });
 
@@ -1909,7 +1909,7 @@ describe("ActionPopover", () => {
           )}
         >
           <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       openMenu();
@@ -1939,9 +1939,9 @@ describe("ActionPopover", () => {
             paddingLeft: "var(--spacing100)",
             paddingRight: "var(--spacing100)",
           },
-          wrapper.find(StyledMenuItemInnerText).at(0)
+          wrapper.find(StyledMenuItemInnerText).at(0),
         );
-      }
+      },
     );
 
     it.each([
@@ -1960,9 +1960,9 @@ describe("ActionPopover", () => {
             paddingLeft,
             paddingRight,
           },
-          wrapper.find(StyledMenuItemInnerText).at(0)
+          wrapper.find(StyledMenuItemInnerText).at(0),
         );
-      }
+      },
     );
 
     it.each([
@@ -1981,9 +1981,9 @@ describe("ActionPopover", () => {
             paddingLeft,
             paddingRight,
           },
-          wrapper.find(StyledMenuItemInnerText).at(0)
+          wrapper.find(StyledMenuItemInnerText).at(0),
         );
-      }
+      },
     );
 
     it.each([
@@ -2002,9 +2002,9 @@ describe("ActionPopover", () => {
             paddingLeft,
             paddingRight,
           },
-          wrapper.find(StyledMenuItemInnerText).at(0)
+          wrapper.find(StyledMenuItemInnerText).at(0),
         );
-      }
+      },
     );
 
     it.each([
@@ -2034,9 +2034,9 @@ describe("ActionPopover", () => {
             paddingLeft: "var(--spacing000)",
             paddingRight: "var(--spacing000)",
           },
-          disabledSubmenuItem.find(StyledMenuItemInnerText)
+          disabledSubmenuItem.find(StyledMenuItemInnerText),
         );
-      }
+      },
     );
   });
 
@@ -2053,9 +2053,9 @@ describe("ActionPopover", () => {
           {
             justifyContent: itemAlignment,
           },
-          wrapper.find(StyledMenuItem)
+          wrapper.find(StyledMenuItem),
         );
-      }
+      },
     );
 
     it.each([
@@ -2071,9 +2071,9 @@ describe("ActionPopover", () => {
           {
             justifyContent: itemAlignment,
           },
-          wrapper.find(StyledMenuItem).at(index)
+          wrapper.find(StyledMenuItem).at(index),
         );
-      }
+      },
     );
 
     it.each([
@@ -2092,9 +2092,9 @@ describe("ActionPopover", () => {
           {
             justifyContent: "space-between",
           },
-          wrapper.find(StyledMenuItem).at(index)
+          wrapper.find(StyledMenuItem).at(index),
         );
-      }
+      },
     );
   });
 
@@ -2107,7 +2107,7 @@ describe("ActionPopover", () => {
           padding:
             "var(--spacing100) var(--spacing100) var(--spacing100) var(--spacing100)",
         },
-        wrapper.find(MenuItemIcon).at(1)
+        wrapper.find(MenuItemIcon).at(1),
       );
     });
 
@@ -2144,9 +2144,9 @@ describe("ActionPopover", () => {
           {
             padding,
           },
-          wrapper.find(MenuItemIcon)
+          wrapper.find(MenuItemIcon),
         );
-      }
+      },
     );
   });
 

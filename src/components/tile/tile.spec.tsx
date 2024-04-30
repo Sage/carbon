@@ -17,7 +17,7 @@ function renderTile(props: TileProps) {
     <Tile {...props}>
       <TileContent key="one">Child 1</TileContent>
       <TileContent>Child 2</TileContent>
-    </Tile>
+    </Tile>,
   );
 }
 
@@ -59,7 +59,7 @@ describe("Tile", () => {
             backgroundColor: "var(--colorsUtilityYang100)",
             border: "var(--borderWidth100) solid var(--colorsUtilityMajor100)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -77,7 +77,7 @@ describe("Tile", () => {
             backgroundColor: "var(--colorsActionMajor025)",
             border: "var(--borderWidth100) solid var(--colorsActionMajor500)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -89,7 +89,7 @@ describe("Tile", () => {
             backgroundColor: "var(--colorsUtilityMajor025)",
             border: "var(--borderWidth100) solid var(--colorsUtilityMajor200)",
           },
-          wrapper
+          wrapper,
         );
       });
     });
@@ -110,9 +110,9 @@ describe("Tile", () => {
             {
               border: `var(--borderWidth100) solid var(--${borderVariantToken})`,
             },
-            wrapper
+            wrapper,
           );
-        }
+        },
       );
 
       it.each<TileProps["borderWidth"]>([
@@ -130,9 +130,9 @@ describe("Tile", () => {
             {
               border: `var(--${borderWidth}) solid var(--colorsUtilityMajor100)`,
             },
-            wrapper
+            wrapper,
           );
-        }
+        },
       );
     });
 
@@ -173,14 +173,14 @@ describe("Tile", () => {
       }
 
       assertStyleMatch({ borderRadius: result }, wrapper);
-    }
+    },
   );
 
   it("has proper data attributes applied to elements", () => {
     const wrapper = mount(
       <Tile data-element="foo" data-role="bar">
         content
-      </Tile>
+      </Tile>,
     );
     rootTagTest(wrapper.find(StyledTile), "tile", "foo", "bar");
   });

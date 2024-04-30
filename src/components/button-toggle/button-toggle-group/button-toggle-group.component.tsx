@@ -63,7 +63,7 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   onChange?: (
     ev: React.MouseEvent<HTMLButtonElement>,
     value?: string,
-    name?: string
+    name?: string,
   ) => void;
   /** Determines which child button is selected when the component is used as a controlled component */
   value?: string;
@@ -87,7 +87,7 @@ type ButtonToggleGroupContextType = {
   onChange?: (
     ev: React.MouseEvent<HTMLButtonElement>,
     value?: string,
-    name?: string
+    name?: string,
   ) => void;
   name?: string;
   allowDeselect?: boolean;
@@ -103,16 +103,15 @@ let deprecateNameWarnTriggered = false;
 
 const BUTTON_TOGGLE_SELECTOR = '[data-element="button-toggle-button"]';
 
-export const ButtonToggleGroupContext = createContext<ButtonToggleGroupContextType>(
-  {
+export const ButtonToggleGroupContext =
+  createContext<ButtonToggleGroupContextType>({
     onButtonClick: /* istanbul ignore next */ () => {},
     handleKeyDown: /* istanbul ignore next */ () => {},
     pressedButtonValue: undefined,
     allowDeselect: false,
     isInGroup: false,
     isDisabled: false,
-  }
-);
+  });
 
 const ButtonToggleGroup = ({
   children,
@@ -148,14 +147,14 @@ const ButtonToggleGroup = ({
           (child.type as React.FunctionComponent).displayName !==
             ButtonToggle.displayName
         );
-      }
+      },
     );
     return !incorrectChild;
   }, [children]);
 
   invariant(
     hasCorrectItemStructure,
-    `\`ButtonToggleGroup\` only accepts children of type \`${ButtonToggle.displayName}\``
+    `\`ButtonToggleGroup\` only accepts children of type \`${ButtonToggle.displayName}\``,
   );
 
   const labelId = useRef(guid());
@@ -169,7 +168,7 @@ const ButtonToggleGroup = ({
     deprecateNameWarnTriggered = true;
     Logger.deprecate(
       `The \`name\` prop in \`ButtonToggleGroup\` component is deprecated and will soon be removed. It does not provide any functionality
-      since the component can no longer be used in an uncontrolled fashion.`
+      since the component can no longer be used in an uncontrolled fashion.`,
     );
   }
 
@@ -198,7 +197,7 @@ const ButtonToggleGroup = ({
       return;
     }
     const focusedIndex = Array.from(innerButtons).indexOf(
-      document.activeElement
+      document.activeElement,
     );
     let nextElement;
     if (Events.isLeftKey(ev)) {

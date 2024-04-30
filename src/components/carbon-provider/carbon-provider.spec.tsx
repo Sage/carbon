@@ -19,7 +19,7 @@ describe("CarbonProvider", () => {
 
   it("renders with the passed theme", () => {
     const wrapper = shallow(
-      <CarbonProvider theme={sageTheme}>children</CarbonProvider>
+      <CarbonProvider theme={sageTheme}>children</CarbonProvider>,
     );
 
     expect(wrapper.find(ThemeProvider).prop("theme")).toStrictEqual({

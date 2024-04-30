@@ -21,7 +21,7 @@ function render(props = {}, renderer: any = shallow) {
   return renderer(
     <MultiActionButton text="Test" {...props}>
       <Button>Test</Button>
-    </MultiActionButton>
+    </MultiActionButton>,
   );
 }
 
@@ -73,7 +73,7 @@ describe("MultiActionButton", () => {
           <Button>First</Button>
           <Button>Second</Button>
         </MultiActionButton>,
-        { attachTo: document.getElementById("enzymeContainer") }
+        { attachTo: document.getElementById("enzymeContainer") },
       );
       mainButton = wrapper.find(StyledMultiActionButton).find(Button).first();
       openAdditionalButtons(mainButton);
@@ -123,7 +123,7 @@ describe("MultiActionButton", () => {
             .at(0)
             .getDOMNode();
           expect(firstButton).toStrictEqual(document.activeElement);
-        }
+        },
       );
 
       it("does not open additional buttons if opened already - coverage", () => {
@@ -146,20 +146,20 @@ describe("MultiActionButton", () => {
           .find(Button);
 
         expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         // focus should not loop back to start of button list
         expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
       });
     });
@@ -174,20 +174,20 @@ describe("MultiActionButton", () => {
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowDown" });
         expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
         expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
         wrapper
           .find(StyledButtonChildrenContainer)
           .simulate("keydown", { key: "ArrowUp" });
         // focus should not loop back to end of button list
         expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
       });
     });
@@ -208,7 +208,7 @@ describe("MultiActionButton", () => {
           metaKey: modifier === "metaKey",
         });
         expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
       });
     });
@@ -230,7 +230,7 @@ describe("MultiActionButton", () => {
           metaKey: modifier === "metaKey",
         });
         expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
       });
     });
@@ -244,7 +244,7 @@ describe("MultiActionButton", () => {
         additionalButtons.first().simulate("keydown", { key: "Tab" });
 
         expect(additionalButtons.last().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
 
         act(() => {
@@ -253,7 +253,7 @@ describe("MultiActionButton", () => {
         });
 
         expect(
-          wrapper.update().find(StyledButtonChildrenContainer).exists()
+          wrapper.update().find(StyledButtonChildrenContainer).exists(),
         ).toBeFalsy();
       });
     });
@@ -270,7 +270,7 @@ describe("MultiActionButton", () => {
           .simulate("keydown", { key: "Tab", shiftKey: true });
 
         expect(additionalButtons.first().getDOMNode()).toStrictEqual(
-          document.activeElement
+          document.activeElement,
         );
 
         act(() => {
@@ -281,7 +281,7 @@ describe("MultiActionButton", () => {
         });
 
         expect(
-          wrapper.update().find(StyledButtonChildrenContainer).exists()
+          wrapper.update().find(StyledButtonChildrenContainer).exists(),
         ).toBeFalsy();
 
         expect(mainButton.getDOMNode()).toStrictEqual(document.activeElement);
@@ -304,7 +304,7 @@ describe("MultiActionButton", () => {
         wrapper.find(StyledMultiActionButton).simulate("mouseleave");
 
         expect(wrapper.find(additionalButtonsSelector).exists()).toStrictEqual(
-          true
+          true,
         );
       });
     });
@@ -321,7 +321,7 @@ describe("MultiActionButton", () => {
           <Button>First</Button>
           <Button>Second</Button>
         </MultiActionButton>,
-        { attachTo: document.getElementById("enzymeContainer") }
+        { attachTo: document.getElementById("enzymeContainer") },
       );
     });
 
@@ -333,19 +333,19 @@ describe("MultiActionButton", () => {
 
     it("hides the additional children buttons when key pressed and one is focused", () => {
       openAdditionalButtons(
-        wrapper.find(StyledMultiActionButton).find(Button).first()
+        wrapper.find(StyledMultiActionButton).find(Button).first(),
       );
       expect(
-        wrapper.update().find(StyledButtonChildrenContainer).exists()
+        wrapper.update().find(StyledButtonChildrenContainer).exists(),
       ).toBeTruthy();
       act(() => {
         container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
-        wrapper.update().find(StyledButtonChildrenContainer).exists()
+        wrapper.update().find(StyledButtonChildrenContainer).exists(),
       ).toBeFalsy();
       expect(
-        wrapper.find(StyledMultiActionButton).find(Button).first().getDOMNode()
+        wrapper.find(StyledMultiActionButton).find(Button).first().getDOMNode(),
       ).toStrictEqual(document.activeElement);
     });
 
@@ -356,13 +356,13 @@ describe("MultiActionButton", () => {
         .first();
       mainButton.simulate("mouseenter");
       expect(
-        wrapper.update().find(StyledButtonChildrenContainer).exists()
+        wrapper.update().find(StyledButtonChildrenContainer).exists(),
       ).toBeTruthy();
       act(() => {
         container?.dispatchEvent(escapeKeyUpEvent);
       });
       expect(
-        wrapper.update().find(StyledButtonChildrenContainer).exists()
+        wrapper.update().find(StyledButtonChildrenContainer).exists(),
       ).toBeFalsy();
     });
   });
@@ -382,7 +382,7 @@ describe("MultiActionButton", () => {
           wrapper.find(multiActionButtonSelector),
           "multi-action-button",
           "bar",
-          "baz"
+          "baz",
         );
       });
     });
@@ -398,7 +398,7 @@ describe("MultiActionButton", () => {
         wrapper = render({ id: "customId" });
 
         expect(
-          wrapper.find({ "data-element": "toggle-button" }).prop("id")
+          wrapper.find({ "data-element": "toggle-button" }).prop("id"),
         ).toBe("customId");
       });
     });
@@ -421,7 +421,7 @@ describe("MultiActionButton", () => {
         wrapper = mount(
           <MultiActionButton text="Test">
             <span className="span-element" />
-          </MultiActionButton>
+          </MultiActionButton>,
         );
         openAdditionalButtons(wrapper);
 
@@ -438,12 +438,12 @@ describe("MultiActionButton", () => {
             wrapper = mount(
               <MultiActionButton buttonType={type} text="Test">
                 <span className="span-element" />
-              </MultiActionButton>
+              </MultiActionButton>,
             );
             expect(wrapper.find(Button).first().prop("buttonType")).toEqual(
-              type
+              type,
             );
-          }
+          },
         );
       });
 
@@ -465,7 +465,7 @@ describe("MultiActionButton", () => {
             borderColor: "var(--colorsActionMajor700)",
           },
           wrapper,
-          { modifier: `& > ${StyledButton}` }
+          { modifier: `& > ${StyledButton}` },
         );
       });
 
@@ -475,7 +475,7 @@ describe("MultiActionButton", () => {
             color: "var(--colorsActionMajorYang100)",
           },
           wrapper,
-          { modifier: `& > ${StyledButton} ${StyledIcon}` }
+          { modifier: `& > ${StyledButton} ${StyledIcon}` },
         );
       });
     });
@@ -486,7 +486,7 @@ describe("MultiActionButton", () => {
 
         expect(
           wrapper.find(StyledMultiActionButton).find(Button).props()
-            .onMouseEnter
+            .onMouseEnter,
         ).toEqual(undefined);
       });
     });
@@ -501,7 +501,7 @@ describe("MultiActionButton", () => {
           <MultiActionButton text="Test" onClick={handleMainButton}>
             <Button onClick={handleSecondButton}>Test</Button>
             <Button>Test 2</Button>
-          </MultiActionButton>
+          </MultiActionButton>,
         );
 
         mainButton = wrapper.find(StyledMultiActionButton).find(Button).first();
@@ -530,7 +530,7 @@ describe("MultiActionButton", () => {
         wrapper.update();
 
         expect(
-          wrapper.update().find(StyledButtonChildrenContainer).exists()
+          wrapper.update().find(StyledButtonChildrenContainer).exists(),
         ).toBe(false);
         openAdditionalButtons(mainButton);
       });
@@ -564,7 +564,7 @@ describe("MultiActionButton", () => {
           <MultiActionButton text="Main button">
             <Button>Foo</Button>
           </MultiActionButton>,
-          { attachTo: container }
+          { attachTo: container },
         );
 
         openAdditionalButtons(wrapper);
@@ -581,7 +581,7 @@ describe("MultiActionButton", () => {
       describe("on the Menu element", () => {
         it("then the Menu should not be closed", () => {
           expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
-            true
+            true,
           );
 
           act(() => {
@@ -594,7 +594,7 @@ describe("MultiActionButton", () => {
           jest.runAllTimers();
           wrapper.update();
           expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
-            true
+            true,
           );
         });
       });
@@ -602,7 +602,7 @@ describe("MultiActionButton", () => {
       describe("on an external element", () => {
         it("then the Menu should be closed", () => {
           expect(wrapper.find(StyledButtonChildrenContainer).exists()).toBe(
-            true
+            true,
           );
 
           act(() => {
@@ -611,7 +611,7 @@ describe("MultiActionButton", () => {
           });
 
           expect(
-            wrapper.update().find(StyledButtonChildrenContainer).exists()
+            wrapper.update().find(StyledButtonChildrenContainer).exists(),
           ).toBe(false);
         });
       });
@@ -623,7 +623,7 @@ describe("MultiActionButton", () => {
       wrapper = render();
       expect(wrapper.find(Button).first().props().iconType).toEqual("dropdown");
       expect(wrapper.find(Button).first().props().iconPosition).toEqual(
-        "after"
+        "after",
       );
     });
   });
@@ -640,7 +640,7 @@ describe("MultiActionButton", () => {
           textAlign: "right",
         },
         wrapper.find(StyledButtonChildrenContainer),
-        { modifier: `${StyledButton}` }
+        { modifier: `${StyledButton}` },
       );
     });
   });
@@ -648,7 +648,7 @@ describe("MultiActionButton", () => {
   it("should set proper width of ButtonContainer", () => {
     const getBoundingClientRectMock = jest
       .spyOn(Element.prototype, "getBoundingClientRect")
-      .mockImplementation(() => ({ width: 200 } as DOMRect));
+      .mockImplementation(() => ({ width: 200 }) as DOMRect);
 
     wrapper = render({}, mount);
 
@@ -656,7 +656,7 @@ describe("MultiActionButton", () => {
 
     assertStyleMatch(
       { minWidth: "200px" },
-      wrapper.find(StyledButtonChildrenContainer)
+      wrapper.find(StyledButtonChildrenContainer),
     );
 
     getBoundingClientRectMock.mockClear();
@@ -670,7 +670,7 @@ describe("MultiActionButton", () => {
         <MultiActionButton text="text">
           <Button>Click</Button>
           Some string
-        </MultiActionButton>
+        </MultiActionButton>,
       );
       const mainButton = tempWrapper
         .find(StyledMultiActionButton)
@@ -692,7 +692,7 @@ describe("MultiActionButton", () => {
           justifyContent: "space-between",
         },
         wrapper.find(StyledMultiActionButton),
-        { modifier: `${StyledButton}` }
+        { modifier: `${StyledButton}` },
       );
     });
 
@@ -704,7 +704,7 @@ describe("MultiActionButton", () => {
           width: "100%",
         },
         wrapper.find(StyledMultiActionButton),
-        { modifier: `${StyledButton}` }
+        { modifier: `${StyledButton}` },
       );
     });
   });
@@ -714,14 +714,14 @@ describe("MultiActionButton", () => {
       wrapper = mount(
         <MultiActionButton text="foo">
           <Button>bar</Button>
-        </MultiActionButton>
+        </MultiActionButton>,
       );
 
       assertStyleMatch(
         {
           borderRadius: "var(--borderRadius400)",
         },
-        wrapper.find(StyledMultiActionButton).find(StyledButton)
+        wrapper.find(StyledMultiActionButton).find(StyledButton),
       );
     });
   });

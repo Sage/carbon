@@ -49,12 +49,14 @@ test.describe("should render Carousel component and check props", () => {
     });
   });
 
-  ([
-    ["1", 0, "Slide 1"],
-    ["2", 1, "Full clickable slide"],
-    ["3", 2, "Slide 3"],
-    ["4", 3, "Slide 4"],
-  ] as [string, number, string][]).forEach(([index, indexSlide, title]) => {
+  (
+    [
+      ["1", 0, "Slide 1"],
+      ["2", 1, "Full clickable slide"],
+      ["3", 2, "Slide 3"],
+      ["4", 3, "Slide 4"],
+    ] as [string, number, string][]
+  ).forEach(([index, indexSlide, title]) => {
     test(`when left arrow is clicked to slide ${index} from slide ${indexSlide} title should be ${title}`, async ({
       mount,
       page,
@@ -66,12 +68,14 @@ test.describe("should render Carousel component and check props", () => {
     });
   });
 
-  ([
-    ["0", 1, "Full clickable slide"],
-    ["1", 2, "Slide 3"],
-    ["2", 3, "Slide 4"],
-    ["3", 4, "Slide 5"],
-  ] as [string, number, string][]).forEach(([index, indexSlide, title]) => {
+  (
+    [
+      ["0", 1, "Full clickable slide"],
+      ["1", 2, "Slide 3"],
+      ["2", 3, "Slide 4"],
+      ["3", 4, "Slide 5"],
+    ] as [string, number, string][]
+  ).forEach(([index, indexSlide, title]) => {
     test(`when right arrow is clicked from slide ${index} to slide ${indexSlide} title should be ${title}`, async ({
       mount,
       page,
@@ -115,13 +119,15 @@ test.describe("should render Carousel component and check props", () => {
     });
   });
 
-  ([
-    [0, "Slide 1"],
-    [1, "Full clickable slide"],
-    [2, "Slide 3"],
-    [3, "Slide 4"],
-    [4, "Slide 5"],
-  ] as [number, string][]).forEach(([index, title]) => {
+  (
+    [
+      [0, "Slide 1"],
+      [1, "Full clickable slide"],
+      [2, "Slide 3"],
+      [3, "Slide 4"],
+      [4, "Slide 5"],
+    ] as [number, string][]
+  ).forEach(([index, title]) => {
     test(`should set initial slide to ${index}`, async ({ mount, page }) => {
       await mount(<CarouselComponent initialSlideIndex={index} />);
 
@@ -129,13 +135,15 @@ test.describe("should render Carousel component and check props", () => {
     });
   });
 
-  ([
-    [0, "Slide 1"],
-    [1, "Full clickable slide"],
-    [2, "Slide 3"],
-    [3, "Slide 4"],
-    [4, "Slide 5"],
-  ] as [number, string][]).forEach(([index, title]) => {
+  (
+    [
+      [0, "Slide 1"],
+      [1, "Full clickable slide"],
+      [2, "Slide 3"],
+      [3, "Slide 4"],
+      [4, "Slide 5"],
+    ] as [number, string][]
+  ).forEach(([index, title]) => {
     test(`should verify slide ${index} title is ${title}`, async ({
       mount,
       page,
@@ -187,7 +195,7 @@ test.describe("check events for Carousel component", () => {
         onSlideChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const nextButton = nextArrowButton(page);
@@ -206,7 +214,7 @@ test.describe("check events for Carousel component", () => {
         onSlideChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const prevButton = previousArrowButton(page);
@@ -226,83 +234,77 @@ test.describe("should check accessibility for Carousel component", () => {
   });
 });
 
-test.describe(
-  "verify focus outline and rounded corners on Carousel component",
-  () => {
-    test("the arrow buttons should have expected styling when opt out flag is true", async ({
-      mount,
-      page,
-    }) => {
-      await mount<HooksConfig>(<CarouselComponent open />, {
-        hooksConfig: {
-          focusRedesignOptOut: true,
-        },
-      });
-
-      const nextButton = nextArrowButton(page);
-      await nextButton.focus();
-      await expect(nextArrowButton(page)).toHaveCSS(
-        "outline",
-        "rgb(255, 188, 25) solid 2px"
-      );
-
-      await nextArrowButton(page).click();
-
-      const prevButton = previousArrowButton(page);
-      await prevButton.focus();
-      await expect(previousArrowButton(page)).toHaveCSS(
-        "outline",
-        "rgb(255, 188, 25) solid 2px"
-      );
+test.describe("verify focus outline and rounded corners on Carousel component", () => {
+  test("the arrow buttons should have expected styling when opt out flag is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount<HooksConfig>(<CarouselComponent open />, {
+      hooksConfig: {
+        focusRedesignOptOut: true,
+      },
     });
 
-    test("the arrow buttons should have expected styling when opt out flag is false", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<CarouselComponent />);
+    const nextButton = nextArrowButton(page);
+    await nextButton.focus();
+    await expect(nextArrowButton(page)).toHaveCSS(
+      "outline",
+      "rgb(255, 188, 25) solid 2px",
+    );
 
-      const nextButton = nextArrowButton(page);
-      await nextButton.focus();
-      await expect(nextArrowButton(page)).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
-      );
-      await expect(nextArrowButton(page)).toHaveCSS(
-        "outline",
-        "rgba(0, 0, 0, 0) solid 3px"
-      );
+    await nextArrowButton(page).click();
 
-      await nextArrowButton(page).click();
+    const prevButton = previousArrowButton(page);
+    await prevButton.focus();
+    await expect(previousArrowButton(page)).toHaveCSS(
+      "outline",
+      "rgb(255, 188, 25) solid 2px",
+    );
+  });
 
-      const prevButton = previousArrowButton(page);
-      await prevButton.focus();
-      await expect(previousArrowButton(page)).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
-      );
-      await expect(previousArrowButton(page)).toHaveCSS(
-        "outline",
-        "rgba(0, 0, 0, 0) solid 3px"
-      );
-    });
+  test("the arrow buttons should have expected styling when opt out flag is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<CarouselComponent />);
 
-    test("should have the expected border radius styling", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<CarouselComponent />);
+    const nextButton = nextArrowButton(page);
+    await nextButton.focus();
+    await expect(nextArrowButton(page)).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(nextArrowButton(page)).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
 
-      await expect(nextArrowButton(page)).toHaveCSS("border-radius", "32px");
-      await expect(previousArrowButton(page)).toHaveCSS(
-        "border-radius",
-        "32px"
-      );
-      await expect(slide(page, 0)).toHaveCSS("border-radius", "16px");
-      await expect(slide(page, 1)).toHaveCSS("border-radius", "16px");
-      await expect(slide(page, 2)).toHaveCSS("border-radius", "16px");
-      await expect(slide(page, 3)).toHaveCSS("border-radius", "16px");
-      await expect(slide(page, 4)).toHaveCSS("border-radius", "16px");
-    });
-  }
-);
+    await nextArrowButton(page).click();
+
+    const prevButton = previousArrowButton(page);
+    await prevButton.focus();
+    await expect(previousArrowButton(page)).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(previousArrowButton(page)).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+  });
+
+  test("should have the expected border radius styling", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<CarouselComponent />);
+
+    await expect(nextArrowButton(page)).toHaveCSS("border-radius", "32px");
+    await expect(previousArrowButton(page)).toHaveCSS("border-radius", "32px");
+    await expect(slide(page, 0)).toHaveCSS("border-radius", "16px");
+    await expect(slide(page, 1)).toHaveCSS("border-radius", "16px");
+    await expect(slide(page, 2)).toHaveCSS("border-radius", "16px");
+    await expect(slide(page, 3)).toHaveCSS("border-radius", "16px");
+    await expect(slide(page, 4)).toHaveCSS("border-radius", "16px");
+  });
+});

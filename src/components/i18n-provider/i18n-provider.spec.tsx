@@ -14,7 +14,7 @@ describe("I18nProvider", () => {
     const wrapper = mount(
       <I18nProvider>
         <TestComponent />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(wrapper.text()).toBe("en-GB-Delete-Edit");
@@ -29,7 +29,7 @@ describe("I18nProvider", () => {
         }}
       >
         <TestComponent />
-      </I18nProvider>
+      </I18nProvider>,
     );
 
     expect(wrapper.text()).toBe("fr-FR-Effacer-Edit");

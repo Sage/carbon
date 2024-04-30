@@ -62,12 +62,12 @@ export const Carousel = ({
   if (!deprecateWarnTriggered) {
     deprecateWarnTriggered = true;
     Logger.deprecate(
-      "The Carousel component is deprecated and will soon be removed."
+      "The Carousel component is deprecated and will soon be removed.",
     );
   }
 
   const [selectedSlideIndex, setSelectedSlideIndex] = useState(
-    Number(slideIndex) || Number(initialSlideIndex)
+    Number(slideIndex) || Number(initialSlideIndex),
   );
   const transitionDirection = useRef(NEXT);
   const lastSlideIndexProp = useRef(slideIndex);
@@ -75,7 +75,7 @@ export const Carousel = ({
 
   const numOfSlides = useMemo(() => {
     return React.Children.toArray(children).filter((child) =>
-      React.isValidElement(child)
+      React.isValidElement(child),
     ).length;
   }, [children]);
 
@@ -87,7 +87,7 @@ export const Carousel = ({
         onSlideChange(newIndex, transitionDirection.current);
       }
     },
-    [onSlideChange]
+    [onSlideChange],
   );
 
   useEffect(() => {
@@ -152,7 +152,7 @@ export const Carousel = ({
             data-element="selector-label"
             htmlFor={`carousel-slide-${i}-${id}`}
           />
-        </CarouselSelectorInputWrapperStyle>
+        </CarouselSelectorInputWrapperStyle>,
       );
     }
 

@@ -64,7 +64,7 @@ test.describe("should render Breadcrumbs component", async () => {
       await mount(<DefaultCrumb isCurrent={isCurrent} />);
       await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
         expectedAttribute,
-        expectedValue
+        expectedValue,
       );
     });
   });
@@ -76,7 +76,7 @@ test.describe("should render Breadcrumbs component", async () => {
     await mount(<DefaultCrumb href={CHARACTERS.STANDARD} />);
     await expect(crumbAtIndex(page, 0).locator("a")).toHaveAttribute(
       "href",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 });
@@ -90,11 +90,11 @@ test("when Crumb's isCurrent prop is true, Crumb divider should not exist", asyn
   const crumbElement = crumbAtIndex(page, 0);
   await expect(crumbElement.locator("a")).toHaveAttribute(
     "aria-current",
-    "page"
+    "page",
   );
   await expect(crumbElement.locator("span").nth(1)).toHaveCSS(
     "color",
-    "rgba(0, 0, 0, 0.9)"
+    "rgba(0, 0, 0, 0.9)",
   );
 });
 
@@ -108,11 +108,11 @@ test("when Crumb's isCurrent prop is false, Crumb divider should be visible", as
   await expect(crumbElement.locator("a")).toHaveAttribute("href", "#");
   await expect(crumbElement.locator("span").nth(1)).toHaveCSS(
     "color",
-    "rgb(0, 126, 69)"
+    "rgb(0, 126, 69)",
   );
   await expect(crumbElement.locator("span").nth(2)).toHaveCSS(
     "color",
-    "rgba(0, 0, 0, 0.55)"
+    "rgba(0, 0, 0, 0.55)",
   );
 });
 
@@ -129,7 +129,7 @@ test("should call the onClick callback when clicked", async ({
         // @ts-ignore
         messages.push(data);
       }}
-    />
+    />,
   );
 
   const crumbToClick = crumbAtIndex(page, 0);
@@ -153,7 +153,7 @@ test("should not set the onClick or href props when isCurrent is true", async ({
         messages.push(data);
       }}
       isCurrent
-    />
+    />,
   );
 
   const crumbToClick = crumbAtIndex(page, 0);

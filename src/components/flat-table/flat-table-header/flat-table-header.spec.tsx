@@ -17,13 +17,13 @@ describe("FlatTableHeader", () => {
             <FlatTableHeader width={40} />
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     assertStyleMatch(
       {
         width: "40px",
       },
-      wrapper.find(StyledFlatTableHeader)
+      wrapper.find(StyledFlatTableHeader),
     );
 
     assertStyleMatch(
@@ -31,7 +31,7 @@ describe("FlatTableHeader", () => {
         width: "40px",
       },
       wrapper.find(StyledFlatTableHeader),
-      { modifier: "&&& > div" }
+      { modifier: "&&& > div" },
     );
   });
 
@@ -44,10 +44,10 @@ describe("FlatTableHeader", () => {
               <FlatTableHeader data-role="test" />
             </tr>
           </thead>
-        </table>
+        </table>,
       );
       expect(wrapper.find(StyledFlatTableHeader).props()["data-role"]).toEqual(
-        "test"
+        "test",
       );
     });
   });
@@ -72,7 +72,7 @@ describe("FlatTableHeader", () => {
                 </tr>
               </thead>
             </table>
-          </FlatTableThemeContext.Provider>
+          </FlatTableThemeContext.Provider>,
         );
 
         assertStyleMatch(
@@ -80,9 +80,9 @@ describe("FlatTableHeader", () => {
             backgroundColor: getAlternativeBackgroundColor(colorTheme),
           },
           wrapper.find(StyledFlatTableHeader),
-          { modifier: "&&&" }
+          { modifier: "&&&" },
         );
-      }
+      },
     );
   });
 
@@ -103,17 +103,17 @@ describe("FlatTableHeader", () => {
                 <FlatTableHeader verticalBorder={verticalBorder} />
               </tr>
             </thead>
-          </table>
+          </table>,
         );
         assertStyleMatch(
           {
             borderRightWidth: expectedValue,
           },
           wrapper,
-          { modifier: "&&&" }
+          { modifier: "&&&" },
         );
       });
-    }
+    },
   );
 
   describe.each(["red", "#ffffff", "--colorsUtilityMajor550"])(
@@ -129,17 +129,17 @@ describe("FlatTableHeader", () => {
                 <FlatTableHeader verticalBorderColor={verticalBorderColor} />
               </tr>
             </thead>
-          </table>
+          </table>,
         );
         assertStyleMatch(
           {
             borderRightColor: verticalBorderColor,
           },
           wrapper,
-          { modifier: "&&&" }
+          { modifier: "&&&" },
         );
       });
-    }
+    },
   );
 
   describe("when colspan and rowSpan are passed", () => {
@@ -154,7 +154,7 @@ describe("FlatTableHeader", () => {
               <FlatTableHeader rowspan={2}>Children</FlatTableHeader>
             </tr>
           </thead>
-        </table>
+        </table>,
       );
 
       expect(wrapper.find(StyledFlatTableHeader).at(0).prop("colSpan")).toBe(2);

@@ -77,11 +77,10 @@ export const LabelAlign: Story = () => {
     right: "0.01",
     left: "0.01",
   });
-  const handleChange = (alignment: DecimalProps["labelAlign"]) => (
-    e: CustomEvent
-  ) => {
-    setState({ ...state, [alignment || "left"]: e.target.value.rawValue });
-  };
+  const handleChange =
+    (alignment: DecimalProps["labelAlign"]) => (e: CustomEvent) => {
+      setState({ ...state, [alignment || "left"]: e.target.value.rawValue });
+    };
   return (["right", "left"] as const).map((alignment) => (
     <Decimal
       label="Decimal"
@@ -279,7 +278,7 @@ export const ValidationsRedesign: Story = () => {
               m={4}
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

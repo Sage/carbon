@@ -55,7 +55,7 @@ export const MenuComponent = (props: Partial<MenuProps> & MenuDividerProps) => {
 };
 
 export const MenuComponentScrollable = (
-  props: Partial<ScrollableBlockProps>
+  props: Partial<ScrollableBlockProps>,
 ) => {
   return (
     <Box mb={150}>
@@ -162,7 +162,7 @@ export const MenuWithChildrenUpdating = () => {
 };
 
 export const MenuComponentFullScreen = (
-  props: Partial<MenuFullscreenProps>
+  props: Partial<MenuFullscreenProps>,
 ) => {
   const [menuOpen, setMenuOpen] = useState({
     light: false,
@@ -173,7 +173,7 @@ export const MenuComponentFullScreen = (
   const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
   const responsiveMenuItems = (
     startPosition: "left" | "right",
-    menu: MenuType
+    menu: MenuType,
   ) => {
     if (fullscreenViewBreakPoint) {
       return [
@@ -238,7 +238,7 @@ export const MenuComponentFullScreen = (
           <Menu menuType={menuType}>
             {React.Children.map(
               responsiveMenuItems("left", menuType),
-              (items) => items
+              (items) => items,
             )}
           </Menu>
         </div>
@@ -262,7 +262,7 @@ export const MenuFullScreenBackgroundScrollTest = () => {
 };
 
 export const MenuComponentItems = (
-  props: MenuWithChildren & MenuDividerProps
+  props: MenuWithChildren & MenuDividerProps,
 ) => {
   return (
     <Box mb={150}>
@@ -349,7 +349,7 @@ export const MenuFullScreenWithSearchButton = ({
 );
 
 export const MenuComponentScrollableParent = (
-  props: Partial<ScrollableBlockProps>
+  props: Partial<ScrollableBlockProps>,
 ) => {
   const items = ["apple", "banana", "carrot", "grapefruit", "melon", "orange"];
   const [itemSearch, setItemSearch] = React.useState(items);
@@ -491,7 +491,7 @@ export const MenuSegmentTitleComponent = (props: Partial<MenuTitleProps>) => {
 };
 
 export const MenuSegmentTitleComponentWithAdditionalMenuItem = (
-  props: Partial<MenuTitleProps>
+  props: Partial<MenuTitleProps>,
 ) => {
   return (
     <Box mb={150}>

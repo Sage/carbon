@@ -25,7 +25,7 @@ export interface OptionGroupHeaderProps extends TagProps {
 const OptionGroupHeader = React.forwardRef(
   (
     { label, icon, style, id, ...rest }: OptionGroupHeaderProps,
-    ref: React.ForwardedRef<HTMLDivElement>
+    ref: React.ForwardedRef<HTMLDivElement>,
   ) => {
     const internalIdRef = useRef(id || guid());
 
@@ -40,7 +40,7 @@ const OptionGroupHeader = React.forwardRef(
         <h4>{label}</h4>
       </StyledOptionGroupHeader>
     );
-  }
+  },
 );
 
 OptionGroupHeader.displayName = "OptionGroupHeader";

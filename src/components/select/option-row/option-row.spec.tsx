@@ -7,7 +7,7 @@ import SelectListContext from "../__internal__/select-list-context";
 function renderOptionRow(
   props: Omit<OptionRowProps, "id" | "children">,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderer: any = shallow
+  renderer: any = shallow,
 ) {
   return renderer(
     <table>
@@ -16,7 +16,7 @@ function renderOptionRow(
           <td>foo</td>
         </OptionRow>
       </tbody>
-    </table>
+    </table>,
   );
 }
 
@@ -31,7 +31,7 @@ describe("OptionRow", () => {
       const props = { value: "1", text: "foo", isHighlighted: true };
       expect(renderOptionRow(props, mount)).toHaveStyleRule(
         "background-color",
-        "var(--colorsUtilityMajor200)"
+        "var(--colorsUtilityMajor200)",
       );
     });
   });
@@ -48,11 +48,11 @@ describe("OptionRow", () => {
       const props = { value: "1", text: "foo", disabled: true };
       expect(renderOptionRow(props, mount)).toHaveStyleRule(
         "color",
-        "var(--colorsUtilityYin030)"
+        "var(--colorsUtilityYin030)",
       );
       expect(renderOptionRow(props, mount)).toHaveStyleRule(
         "cursor",
-        "not-allowed"
+        "not-allowed",
       );
     });
 
@@ -60,7 +60,7 @@ describe("OptionRow", () => {
       const props = { value: "1", text: "foo", disabled: true };
       const wrapper = renderOptionRow(props, mount);
       expect(
-        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-disabled")
+        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-disabled"),
       ).toBe("true");
     });
 
@@ -91,10 +91,10 @@ describe("OptionRow", () => {
               </OptionRow>
             </SelectListContext.Provider>
           </tbody>
-        </table>
+        </table>,
       );
       expect(
-        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-selected")
+        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-selected"),
       ).toBe("true");
       wrapper.unmount();
     });
@@ -113,10 +113,10 @@ describe("OptionRow", () => {
               </OptionRow>
             </SelectListContext.Provider>
           </tbody>
-        </table>
+        </table>,
       );
       expect(
-        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-selected")
+        wrapper.find(OptionRow).getDOMNode().getAttribute("aria-selected"),
       ).toBe("false");
       wrapper.unmount();
     });
@@ -128,7 +128,7 @@ describe("OptionRow", () => {
       expect(renderOptionRow(props, mount)).toHaveStyleRule(
         "background-color",
         "var(--colorsUtilityMajor100)",
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
     });
   });
@@ -163,17 +163,17 @@ describe("OptionRow", () => {
               <td>qux</td>
             </OptionRow>
           </tbody>
-        </table>
+        </table>,
       );
 
       expect(
-        wrapper.find(OptionRow).getDOMNode().getAttribute("data-component")
+        wrapper.find(OptionRow).getDOMNode().getAttribute("data-component"),
       ).toEqual("foo");
       expect(
-        wrapper.find(OptionRow).getDOMNode().getAttribute("data-element")
+        wrapper.find(OptionRow).getDOMNode().getAttribute("data-element"),
       ).toEqual("bar");
       expect(
-        wrapper.find(OptionRow).getDOMNode().getAttribute("data-role")
+        wrapper.find(OptionRow).getDOMNode().getAttribute("data-role"),
       ).toEqual("baz");
     });
   });

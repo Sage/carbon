@@ -29,7 +29,7 @@ import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterFor
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 
 const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
-type PaddingValues = typeof PADDING_VALUES[number];
+type PaddingValues = (typeof PADDING_VALUES)[number];
 
 export interface ContentPaddingInterface {
   p?: PaddingValues;
@@ -65,7 +65,7 @@ export interface DialogProps extends ModalProps, TagProps {
   bespokeFocusTrap?: (
     ev: KeyboardEvent,
     firstElement?: HTMLElement,
-    lastElement?: HTMLElement
+    lastElement?: HTMLElement,
   ) => void;
   /** Optional reference to an element meant to be focused on open */
   focusFirstElement?: CustomRefObject<HTMLElement> | HTMLElement | null;
@@ -77,7 +77,7 @@ export interface DialogProps extends ModalProps, TagProps {
   help?: string;
   /** A custom close event handler */
   onCancel?: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Determines if the close icon is shown */
   showCloseIcon?: boolean;
@@ -131,7 +131,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       closeButtonDataProps,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const locale = useLocale();
 
@@ -152,7 +152,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           containerRef.current?.focus();
         },
       }),
-      []
+      [],
     );
 
     const centerDialog = useCallback(() => {
@@ -161,10 +161,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         return;
       }
 
-      const {
-        width: dialogWidth,
-        height: dialogHeight,
-      } = containerRef.current.getBoundingClientRect();
+      const { width: dialogWidth, height: dialogHeight } =
+        containerRef.current.getBoundingClientRect();
 
       let midPointY = window.innerHeight / 2;
       let midPointX = window.innerWidth / 2;
@@ -342,7 +340,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         </FocusTrap>
       </Modal>
     );
-  }
+  },
 );
 
 export default Dialog;

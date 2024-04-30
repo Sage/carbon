@@ -35,11 +35,11 @@ describe("OptionGroupHeader", () => {
           data-component="foo"
           data-element="bar"
           data-role="baz"
-        />
+        />,
       );
 
       expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
-        "foo"
+        "foo",
       );
       expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
       expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");

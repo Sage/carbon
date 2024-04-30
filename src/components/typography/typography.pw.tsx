@@ -35,7 +35,7 @@ const VARIANT_TYPES = [
   "ol",
 ] as const;
 
-type VariantTypes = typeof VARIANT_TYPES[number];
+type VariantTypes = (typeof VARIANT_TYPES)[number];
 
 const getAs = (variant: VariantTypes) => {
   switch (variant) {
@@ -168,7 +168,7 @@ test.describe("should check Typography component properties", () => {
       page,
     }) => {
       await mount(
-        <Typography variant={variant}>{testDataStandard}</Typography>
+        <Typography variant={variant}>{testDataStandard}</Typography>,
       );
 
       const typographyElement = page.locator(getAs(variant));
@@ -182,7 +182,7 @@ test.describe("should check Typography component properties", () => {
       page,
     }) => {
       await mount(
-        <Typography variant={variant}>{testDataStandard}</Typography>
+        <Typography variant={variant}>{testDataStandard}</Typography>,
       );
 
       const fontSize = getSize(variant);
@@ -198,7 +198,7 @@ test.describe("should check Typography component properties", () => {
       page,
     }) => {
       await mount(
-        <Typography variant={variant}>{testDataStandard}</Typography>
+        <Typography variant={variant}>{testDataStandard}</Typography>,
       );
 
       const lineHeight = getLineHeight(variant);
@@ -214,7 +214,7 @@ test.describe("should check Typography component properties", () => {
       page,
     }) => {
       await mount(
-        <Typography variant={variant}>{testDataStandard}</Typography>
+        <Typography variant={variant}>{testDataStandard}</Typography>,
       );
 
       const fontWeight = getWeight(variant);
@@ -230,7 +230,7 @@ test.describe("should check Typography component properties", () => {
       page,
     }) => {
       await mount(
-        <Typography variant={variant}>{testDataStandard}</Typography>
+        <Typography variant={variant}>{testDataStandard}</Typography>,
       );
 
       const textTransform = getTransform(variant);
@@ -238,7 +238,7 @@ test.describe("should check Typography component properties", () => {
 
       await expect(typographyElement).toHaveCSS(
         "text-transform",
-        textTransform
+        textTransform,
       );
     });
   });
@@ -249,7 +249,7 @@ test.describe("should check Typography component properties", () => {
       page,
     }) => {
       await mount(
-        <Typography variant={variant}>{testDataStandard}</Typography>
+        <Typography variant={variant}>{testDataStandard}</Typography>,
       );
 
       const textDecorationLine = getDecoration(variant);
@@ -257,7 +257,7 @@ test.describe("should check Typography component properties", () => {
 
       await expect(typographyElement).toHaveCSS(
         "text-decoration-line",
-        textDecorationLine
+        textDecorationLine,
       );
     });
   });
@@ -268,7 +268,7 @@ test.describe("should check Typography component properties", () => {
       page,
     }) => {
       await mount(
-        <Typography variant={variant}>{testDataStandard}</Typography>
+        <Typography variant={variant}>{testDataStandard}</Typography>,
       );
 
       const textDecorationLine = getDecoration(variant);
@@ -276,7 +276,7 @@ test.describe("should check Typography component properties", () => {
 
       await expect(typographyElement).toHaveCSS(
         "text-decoration-line",
-        textDecorationLine
+        textDecorationLine,
       );
     });
   });
@@ -309,7 +309,7 @@ test.describe("should check Typography component properties", () => {
           <Typography variant="h1" truncate={truncate}>
             {testDataStandard}
           </Typography>
-        </div>
+        </div>,
       );
 
       const typographyElement = page.locator("h1");
@@ -319,7 +319,7 @@ test.describe("should check Typography component properties", () => {
       } else {
         await expect(typographyElement).not.toHaveCSS(
           "text-overflow",
-          "ellipsis"
+          "ellipsis",
         );
       }
     });
@@ -333,7 +333,7 @@ test.describe("should check Typography component properties", () => {
       await mount(
         <Typography variant="h1" textAlign={textAlignment}>
           {testDataStandard}
-        </Typography>
+        </Typography>,
       );
 
       const typographyElement = page.locator("h1");
@@ -349,7 +349,7 @@ test.describe("should check Typography component properties", () => {
     await mount(
       <Typography variant="h1" screenReaderOnly>
         {testDataStandard}
-      </Typography>
+      </Typography>,
     );
 
     const typographyElement = page.locator("h1");
@@ -357,7 +357,7 @@ test.describe("should check Typography component properties", () => {
     await expect(typographyElement).toHaveText(testDataStandard);
     await expect(typographyElement).toHaveCSS(
       "border",
-      "0px none rgba(0, 0, 0, 0.9)"
+      "0px none rgba(0, 0, 0, 0.9)",
     );
     await expect(typographyElement).toHaveCSS("height", "1px");
     await expect(typographyElement).toHaveCSS("margin", "-1px");

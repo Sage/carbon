@@ -195,7 +195,7 @@ export const WithObjectAsValue: Story = () => {
   ];
 
   const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4]
+    optionListValues[4],
   );
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -649,7 +649,7 @@ export const ValidationsStringNewDesign: Story = () => {
               <Option text="Yellow" value="11" />
             </Select>
           </Box>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

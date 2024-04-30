@@ -48,7 +48,7 @@ describe("Sidebar", () => {
         <Textbox onChange={() => {}} />
         <Textbox onChange={() => {}} />
         <Textbox onChange={() => {}} />
-      </Sidebar>
+      </Sidebar>,
     );
   });
 
@@ -61,11 +61,11 @@ describe("Sidebar", () => {
               <Button>Button</Button>
               <Button>Button</Button>
             </Sidebar>
-          </CarbonProvider>
+          </CarbonProvider>,
         );
 
         expect(
-          wrapper.find(StyledSidebar).getDOMNode().getAttribute("aria-modal")
+          wrapper.find(StyledSidebar).getDOMNode().getAttribute("aria-modal"),
         ).toBe("true");
 
         wrapper.unmount();
@@ -76,7 +76,7 @@ describe("Sidebar", () => {
       it("sets all the correct classes", () => {
         wrapper = mount(<Sidebar open={false} onCancel={spy} />);
         expect(wrapper.find('div[data-component="sidebar"]').text()).toEqual(
-          ""
+          "",
         );
       });
 
@@ -90,7 +90,7 @@ describe("Sidebar", () => {
               top: "25px",
             },
             wrapper.find(StyledSidebar),
-            { modifier: `> ${StyledIconButton}:first-of-type` }
+            { modifier: `> ${StyledIconButton}:first-of-type` },
           );
         });
       });
@@ -106,7 +106,7 @@ describe("Sidebar", () => {
           <Sidebar open onCancel={jest.fn}>
             <button type="button">test content</button>
           </Sidebar>,
-          { attachTo: element }
+          { attachTo: element },
         );
 
         jest.runAllTimers();
@@ -128,10 +128,10 @@ describe("Sidebar", () => {
             size="small"
             position="left"
             onCancel={spy}
-          />
+          />,
         );
         expect(
-          wrapper.find('[data-element="modal-background"]').length
+          wrapper.find('[data-element="modal-background"]').length,
         ).toEqual(0);
       });
 
@@ -142,11 +142,11 @@ describe("Sidebar", () => {
               <Button>Button</Button>
               <Button>Button</Button>
             </Sidebar>
-          </CarbonProvider>
+          </CarbonProvider>,
         );
 
         expect(
-          wrapper.find(StyledSidebar).getDOMNode().getAttribute("aria-modal")
+          wrapper.find(StyledSidebar).getDOMNode().getAttribute("aria-modal"),
         ).toBe("false");
 
         wrapper.unmount();
@@ -173,19 +173,19 @@ describe("Sidebar", () => {
 
       it("when a header is provided, the container has an aria-labeledby attribute set to it's header's id", () => {
         (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-          () => "guid-12345"
+          () => "guid-12345",
         );
 
         wrapper = mount(<Sidebar open header="test header" />);
         expect(
-          wrapper.find(StyledSidebar).first().prop("aria-labelledby")
+          wrapper.find(StyledSidebar).first().prop("aria-labelledby"),
         ).toBe("guid-12345");
       });
 
       it("when no header is provided, the container has an aria-labeledby attribute set to the prop provided", () => {
         wrapper = mount(<Sidebar open aria-labelledby="my-id" />);
         expect(
-          wrapper.find(StyledSidebar).first().prop("aria-labelledby")
+          wrapper.find(StyledSidebar).first().prop("aria-labelledby"),
         ).toBe("my-id");
       });
     });
@@ -214,7 +214,7 @@ describe("Sidebar", () => {
 describe("StyledSidebar", () => {
   describe("when prop size is passed to the component and position is set to right", () => {
     const wrapper = mount(
-      <StyledSidebar size="extra-small" position="right" />
+      <StyledSidebar size="extra-small" position="right" />,
     );
 
     it("should render correct style", () => {
@@ -226,7 +226,7 @@ describe("StyledSidebar", () => {
           display: "flex",
           flexDirection: "column",
         },
-        wrapper
+        wrapper,
       );
     });
   });
@@ -240,7 +240,7 @@ describe("StyledSidebar", () => {
           boxShadow: "var(--boxShadow300)",
           left: "0",
         },
-        wrapper
+        wrapper,
       );
     });
   });
@@ -268,7 +268,7 @@ describe("StyledSidebar", () => {
     const wrapper = mount(
       <Sidebar open ref={ref}>
         test content
-      </Sidebar>
+      </Sidebar>,
     );
 
     wrapper.update();
@@ -281,7 +281,7 @@ describe("StyledSidebar", () => {
     const wrapper = mount(
       <Sidebar open ref={ref}>
         test content
-      </Sidebar>
+      </Sidebar>,
     );
 
     wrapper.update();
@@ -296,7 +296,7 @@ describe("StyledSidebar", () => {
       const wrapper = mount(
         <Sidebar open>
           <Form stickyFooter />
-        </Sidebar>
+        </Sidebar>,
       );
 
       expect(wrapper.find(Box)).not.toHaveStyleRule("overflow");
@@ -308,7 +308,7 @@ describe("StyledSidebar", () => {
       const wrapper = mount(
         <Sidebar open>
           <Form />
-        </Sidebar>
+        </Sidebar>,
       );
 
       expect(wrapper.find(Box)).toHaveStyleRule("overflow", "auto");
@@ -328,6 +328,6 @@ describe("Sidebar content", () => {
       pb: "var(--spacing400)",
       px: "var(--spacing400)",
     },
-    (component) => component.find("[data-element='sidebar-content']")
+    (component) => component.find("[data-element='sidebar-content']"),
   );
 });

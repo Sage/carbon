@@ -40,7 +40,7 @@ describe("Modal", () => {
       wrapper = mount(<Modal open onCancel={onCancel} />);
       expect(addEventListenerSpy).toHaveBeenCalledWith(
         "keyup",
-        expect.any(Function)
+        expect.any(Function),
       );
     });
 
@@ -83,7 +83,7 @@ describe("Modal", () => {
     describe("when enableBackgroundUI is false", () => {
       it("renders background overlay", () => {
         wrapper = mount(
-          <Modal onCancel={() => {}} open enableBackgroundUI={false} />
+          <Modal onCancel={() => {}} open enableBackgroundUI={false} />,
         );
         expect(wrapper.find(StyledModalBackground).exists()).toBe(true);
         wrapper.unmount();
@@ -170,7 +170,7 @@ describe("Modal", () => {
         {
           zIndex: "7000",
         },
-        (wrapper = mount(<Modal open topModalOverride />).find(StyledModal))
+        (wrapper = mount(<Modal open topModalOverride />).find(StyledModal)),
       );
     });
   });

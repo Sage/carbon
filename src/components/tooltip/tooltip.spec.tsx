@@ -26,7 +26,7 @@ function render(props: Partial<TooltipProps> = {}) {
   return renderRTL(
     <Tooltip {...props} message={message || props.message}>
       {props.children || children}
-    </Tooltip>
+    </Tooltip>,
   );
 }
 
@@ -167,7 +167,7 @@ describe("Tooltip", () => {
       const isTopOrBottom = (position: TooltipPositions) =>
         ["top", "bottom"].includes(position);
       const offsets = (
-        position: TooltipPositions
+        position: TooltipPositions,
       ): Record<InputSizes, number> => ({
         small: 5,
         medium: isTopOrBottom(position) ? 6 : 8,
@@ -194,12 +194,12 @@ describe("Tooltip", () => {
             expect(
               middleware?.options({
                 placement: position,
-              })
+              }),
             ).toMatchObject({
               mainAxis: offsets(position)[size],
             });
             useFloatingSpy.mockRestore();
-          }
+          },
         );
       });
     });
@@ -231,8 +231,9 @@ describe("Tooltip", () => {
         ["bottom", "top"],
         ["left", "right"],
       ])("applies correct position", (floatingUiPlacement, arrowPlacement) => {
-        const originalUseFloating = jest.requireActual("@floating-ui/react-dom")
-          .useFloating;
+        const originalUseFloating = jest.requireActual(
+          "@floating-ui/react-dom",
+        ).useFloating;
         const useFloatingSpy = jest
           .spyOn(floatingUi, "useFloating")
           .mockImplementation((props) => {
@@ -288,7 +289,7 @@ describe("Tooltip", () => {
       renderRTL(
         <Tooltip message="foo" isVisible ref={testRef}>
           <span>Test tooltip</span>
-        </Tooltip>
+        </Tooltip>,
       );
 
       expect(testRef.current).toEqual(screen.getByRole("tooltip"));
@@ -299,7 +300,7 @@ describe("Tooltip", () => {
       renderRTL(
         <Tooltip message="foo" isVisible ref={testCallbackRef}>
           <span>Test tooltip</span>
-        </Tooltip>
+        </Tooltip>,
       );
 
       expect(testCallbackRef).toHaveBeenCalledWith(screen.getByRole("tooltip"));

@@ -27,7 +27,7 @@ describe("VerticalDivider", () => {
             borderLeft: `1px solid ${baseTheme.palette.slateTint(80)}`,
             display: "inherit",
           },
-          render().find(StyledDivider)
+          render().find(StyledDivider),
         );
       });
     });
@@ -39,7 +39,7 @@ describe("VerticalDivider", () => {
           {
             height: "100px",
           },
-          wrapper.find(StyledVerticalWrapper)
+          wrapper.find(StyledVerticalWrapper),
         );
       });
 
@@ -49,7 +49,7 @@ describe("VerticalDivider", () => {
           {
             height: "100%",
           },
-          wrapper.find(StyledVerticalWrapper)
+          wrapper.find(StyledVerticalWrapper),
         );
       });
 
@@ -59,7 +59,7 @@ describe("VerticalDivider", () => {
           {
             display: "inline",
           },
-          wrapper.find(StyledVerticalWrapper)
+          wrapper.find(StyledVerticalWrapper),
         );
       });
 
@@ -71,9 +71,9 @@ describe("VerticalDivider", () => {
             {
               borderLeft: `1px solid ${baseTheme.palette.slateTint(tint)}`,
             },
-            wrapper.find(StyledDivider)
+            wrapper.find(StyledDivider),
           );
-        }
+        },
       );
     });
   });
@@ -81,7 +81,7 @@ describe("VerticalDivider", () => {
   describe("tags", () => {
     it("root has the expected data-component", () => {
       expect(
-        render().find(StyledVerticalWrapper).prop("data-component")
+        render().find(StyledVerticalWrapper).prop("data-component"),
       ).toEqual("vertical-divider");
     });
   });
@@ -97,7 +97,7 @@ describe("VerticalDivider", () => {
         }}
       >
         <VerticalDivider />
-      </MenuContext.Provider>
+      </MenuContext.Provider>,
     )
       .find(StyledVerticalWrapper)
       .props();

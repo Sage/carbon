@@ -50,7 +50,7 @@ const AllTheProviders = ({
 
 const mount = (ui: React.ReactElement, menuType?: MenuType) => {
   return enzymeMount(
-    <AllTheProviders menuType={menuType}>{ui}</AllTheProviders>
+    <AllTheProviders menuType={menuType}>{ui}</AllTheProviders>,
   );
 };
 
@@ -154,7 +154,7 @@ describe("MenuFullscreen", () => {
     render(
       <MenuFullscreen onClose={() => {}}>
         <MenuItem href="#">Item one</MenuItem>
-      </MenuFullscreen>
+      </MenuFullscreen>,
     );
     expect(screen.queryByRole("dialog")).toBeNull();
   });
@@ -190,7 +190,7 @@ describe("MenuFullscreen", () => {
         {
           maxWidth: undefined,
         },
-        item
+        item,
       );
     });
   });
@@ -207,7 +207,7 @@ describe("MenuFullscreen", () => {
             bottom: "0",
             zIndex: `${baseTheme.zIndex.fullScreenModal}`,
           },
-          wrapper.find(StyledMenuFullscreen)
+          wrapper.find(StyledMenuFullscreen),
         );
 
         [
@@ -220,7 +220,7 @@ describe("MenuFullscreen", () => {
               fontSize: "var(--fontSizes200)",
             },
             wrapper.find(StyledMenuModal),
-            { modifier: el }
+            { modifier: el },
           );
         });
 
@@ -232,7 +232,7 @@ describe("MenuFullscreen", () => {
             top: "8px",
           },
           wrapper.find(StyledMenuFullscreenHeader),
-          { modifier: `${StyledIconButton}` }
+          { modifier: `${StyledIconButton}` },
         );
 
         assertStyleMatch(
@@ -240,9 +240,9 @@ describe("MenuFullscreen", () => {
             paddingTop: "var(--spacing200)",
             paddingBottom: "var(--spacing200)",
           },
-          wrapper.find(StyledMenuItem)
+          wrapper.find(StyledMenuItem),
         );
-      }
+      },
     );
 
     describe.each<MenuType>(["light", "white", "dark", "black"])(
@@ -255,7 +255,7 @@ describe("MenuFullscreen", () => {
               backgroundColor:
                 menuConfigVariants[menuType].submenuItemBackground,
             },
-            wrapper.find(StyledMenuFullscreenHeader)
+            wrapper.find(StyledMenuFullscreenHeader),
           );
         });
 
@@ -272,10 +272,10 @@ describe("MenuFullscreen", () => {
             {
               color: iconColors[menuType],
             },
-            wrapper.find(StyledIcon)
+            wrapper.find(StyledIcon),
           );
         });
-      }
+      },
     );
 
     describe("menu item padding", () => {
@@ -295,7 +295,7 @@ describe("MenuFullscreen", () => {
         ),
         { pt: "10px", pb: "10px" },
         (component) => component.find(StyledMenuItem),
-        { modifier: `${StyledMenuItemWrapper}` }
+        { modifier: `${StyledMenuItemWrapper}` },
       );
     });
 
@@ -320,7 +320,7 @@ describe("MenuFullscreen", () => {
         ),
         undefined,
         (component) => component.find(StyledSubmenu).find(StyledMenuItem),
-        { modifier: `${StyledMenuItemWrapper}` }
+        { modifier: `${StyledMenuItemWrapper}` },
       );
     });
   });
@@ -331,7 +331,7 @@ describe("MenuFullscreen", () => {
       const wrapper = mount(
         <MenuFullscreen isOpen onClose={onClose}>
           <MenuItem href="#">Item 1</MenuItem>
-        </MenuFullscreen>
+        </MenuFullscreen>,
       );
 
       wrapper.find("button[aria-label='Close']").simulate("click");
@@ -344,7 +344,7 @@ describe("MenuFullscreen", () => {
       render(
         <MenuFullscreen isOpen onClose={onClose}>
           <MenuItem href="#">Item 1</MenuItem>
-        </MenuFullscreen>
+        </MenuFullscreen>,
       );
       await user.keyboard("[Escape]");
 
@@ -357,7 +357,7 @@ describe("MenuFullscreen", () => {
       render(
         <MenuFullscreen isOpen onClose={onClose}>
           <MenuItem href="#">Item 1</MenuItem>
-        </MenuFullscreen>
+        </MenuFullscreen>,
       );
       await user.keyboard("[Enter]");
 
@@ -371,7 +371,7 @@ describe("MenuFullscreen", () => {
       const wrapper = mount(
         <MenuFullscreen isOpen onClose={() => {}}>
           <MenuItem onClick={onClick}>Menu Item One</MenuItem>
-        </MenuFullscreen>
+        </MenuFullscreen>,
       );
       const menuItem = wrapper.find(MenuItem).find("button");
       menuItem.simulate("click");
@@ -421,7 +421,7 @@ describe("MenuFullscreen", () => {
       wrapper.update();
 
       expect(wrapper.find(MenuItem).at(6).getDOMNode().textContent).toContain(
-        "count 2"
+        "count 2",
       );
       jest.useRealTimers();
     });

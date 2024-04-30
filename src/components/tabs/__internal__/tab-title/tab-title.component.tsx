@@ -45,10 +45,10 @@ export interface TabTitleProps {
   align?: "left" | "right";
   customLayout?: React.ReactNode;
   onClick: (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
   onKeyDown: (
-    ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
 }
 
@@ -84,7 +84,7 @@ const TabTitle = React.forwardRef(
       tabIndex,
       ...tabTitleProps
     }: TabTitleProps,
-    ref: React.ForwardedRef<HTMLElement>
+    ref: React.ForwardedRef<HTMLElement>,
   ) => {
     const isHref = !!href;
     const hasAlternateStyling = alternateStyling || isInSidebar;
@@ -107,7 +107,7 @@ const TabTitle = React.forwardRef(
     };
 
     const handleKeyDown = (
-      ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>
+      ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
       ev.stopPropagation();
 
@@ -119,7 +119,7 @@ const TabTitle = React.forwardRef(
     };
 
     const handleClick = (
-      ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+      ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
     ) => {
       ev.preventDefault();
 
@@ -289,7 +289,7 @@ const TabTitle = React.forwardRef(
         </TabTitleContext.Provider>
       </TooltipProvider>
     );
-  }
+  },
 );
 
 TabTitle.displayName = "TabTitle";

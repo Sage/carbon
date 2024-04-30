@@ -127,7 +127,7 @@ describe("Border Radius", () => {
           </MenuSegmentTitle>
           <MenuItem href="#">Menu Item 4</MenuItem>
         </MenuItem>
-      </Menu>
+      </Menu>,
     );
 
     const menuItem = screen.getByRole("button", { name: "Menu Item" });
@@ -169,7 +169,7 @@ describe("Border Radius", () => {
             <MenuItem href="#">Item Submenu Twelve</MenuItem>
           </ScrollableBlock>
         </MenuItem>
-      </Menu>
+      </Menu>,
     );
 
     const menuItem = screen.getByRole("button", { name: "Menu Item Three" });
@@ -214,7 +214,7 @@ describe("Border Radius", () => {
           </ScrollableBlock>
           <MenuItem href="#">Menu Item Last</MenuItem>
         </MenuItem>
-      </Menu>
+      </Menu>,
     );
 
     const menuItem = screen.getByRole("button", { name: "Menu Item Three" });
@@ -257,7 +257,7 @@ describe("Submenu component", () => {
 
   const enzymeRender = (
     menuType: MenuType,
-    props: Partial<SubmenuProps> = {}
+    props: Partial<SubmenuProps> = {},
   ) => {
     return mount(
       <MenuContext.Provider value={menuContextValues(menuType)}>
@@ -269,7 +269,7 @@ describe("Submenu component", () => {
           <MenuItem href="#">Broccoli</MenuItem>
         </Submenu>
       </MenuContext.Provider>,
-      { attachTo: htmlElement }
+      { attachTo: htmlElement },
     );
   };
 
@@ -318,7 +318,7 @@ describe("Submenu component", () => {
             .find(StyledSubmenu)
             .find(StyledMenuItemWrapper)
             .at(0)
-            .find("a")
+            .find("a"),
         ).not.toBeFocused();
       });
     });
@@ -382,7 +382,7 @@ describe("Submenu component", () => {
 
           expect(
             wrapper.find('[data-component="submenu-wrapper"]').at(0).props()
-              .onMouseOver
+              .onMouseOver,
           ).toEqual(undefined);
         });
       });
@@ -481,7 +481,7 @@ describe("Submenu component", () => {
           openSubmenu(wrapper);
 
           expect(
-            wrapper.find('[data-component="submenu-wrapper"]').find("a").at(0)
+            wrapper.find('[data-component="submenu-wrapper"]').find("a").at(0),
           ).toBeFocused();
         });
 
@@ -501,9 +501,9 @@ describe("Submenu component", () => {
             wrapper.update();
 
             expect(
-              wrapper.find(StyledMenuItemWrapper).at(1).find("a")
+              wrapper.find(StyledMenuItemWrapper).at(1).find("a"),
             ).toBeFocused();
-          }
+          },
         );
 
         it("should close the submenu when enter is pressed", () => {
@@ -550,7 +550,7 @@ describe("Submenu component", () => {
             wrapper
               .find('[data-component="submenu-wrapper"]')
               .find("button")
-              .at(1)
+              .at(1),
           );
         });
 
@@ -627,7 +627,7 @@ describe("Submenu component", () => {
               detail: {
                 enzymeTestingTarget: document.body,
               },
-            })
+            }),
           );
         });
 
@@ -652,14 +652,14 @@ describe("Submenu component", () => {
             <MenuItem>Carrot</MenuItem>
             <MenuItem>Broccoli</MenuItem>
           </StyledSubmenu>
-        </MenuContext.Provider>
+        </MenuContext.Provider>,
       );
 
       assertStyleMatch(
         {
           right: "0",
         },
-        tempWrapper.find(StyledSubmenu)
+        tempWrapper.find(StyledSubmenu),
       );
     });
 
@@ -669,7 +669,7 @@ describe("Submenu component", () => {
           borderBottomRightRadius: "var(--borderRadius100)",
           borderBottomLeftRadius: "var(--borderRadius100)",
         },
-        wrapper.find(StyledSubmenu)
+        wrapper.find(StyledSubmenu),
       );
 
       assertStyleMatch({}, wrapper.find(StyledSubmenu), {
@@ -686,9 +686,9 @@ describe("Submenu component", () => {
             borderBottomLeftRadius: "var(--borderRadius100)",
           },
           wrapper.find(StyledSubmenu),
-          { modifier: `${StyledMenuItem}:last-child ${modifier}` }
+          { modifier: `${StyledMenuItem}:last-child ${modifier}` },
         );
-      }
+      },
     );
   });
 
@@ -712,7 +712,7 @@ describe("Submenu component", () => {
           borderBottomLeftRadius: "var(--borderRadius100)",
         },
         wrapper.find(StyledSubmenu),
-        { modifier: `${StyledMenuItem}:last-child button` }
+        { modifier: `${StyledMenuItem}:last-child button` },
       );
     });
   });
@@ -748,7 +748,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(0)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -773,7 +773,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(0)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -798,7 +798,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(0)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -823,7 +823,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(0)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -860,7 +860,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(3)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -902,7 +902,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(2)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -956,9 +956,9 @@ describe("Submenu component", () => {
             wrapper.update();
 
             expect(
-              wrapper.find(StyledMenuItemWrapper).at(3).find("a")
+              wrapper.find(StyledMenuItemWrapper).at(3).find("a"),
             ).toBeFocused();
-          }
+          },
         );
 
         it.each(["shiftTab", "arrowUp"] as const)(
@@ -990,9 +990,9 @@ describe("Submenu component", () => {
                 .find(StyledSubmenu)
                 .find(StyledMenuItemWrapper)
                 .at(0)
-                .find("a")
+                .find("a"),
             ).toBeFocused();
-          }
+          },
         );
       });
 
@@ -1004,7 +1004,7 @@ describe("Submenu component", () => {
                 .find(StyledSubmenu)
                 .find(StyledMenuItemWrapper)
                 .at(0)
-                .find("a")
+                .find("a"),
             ).toBeFocused();
 
             act(() => {
@@ -1023,7 +1023,7 @@ describe("Submenu component", () => {
                 .find(StyledSubmenu)
                 .find(StyledMenuItemWrapper)
                 .at(1)
-                .find("a")
+                .find("a"),
             ).toBeFocused();
           });
         });
@@ -1054,7 +1054,7 @@ describe("Submenu component", () => {
                 .find(StyledSubmenu)
                 .find(StyledMenuItemWrapper)
                 .at(3)
-                .find("a")
+                .find("a"),
             ).toBeFocused();
           });
         });
@@ -1078,7 +1078,7 @@ describe("Submenu component", () => {
                   .find(StyledSubmenu)
                   .find(StyledMenuItemWrapper)
                   .at(1)
-                  .find("a")
+                  .find("a"),
               ).toBeFocused();
 
               act(() => {
@@ -1095,9 +1095,9 @@ describe("Submenu component", () => {
                   .find(StyledSubmenu)
                   .find(StyledMenuItemWrapper)
                   .at(2)
-                  .find("a")
+                  .find("a"),
               ).toBeFocused();
-            }
+            },
           );
         });
       });
@@ -1110,7 +1110,7 @@ describe("Submenu component", () => {
                 .find(StyledSubmenu)
                 .find(StyledMenuItemWrapper)
                 .at(0)
-                .find("a")
+                .find("a"),
             ).toBeFocused();
 
             act(() => {
@@ -1127,7 +1127,7 @@ describe("Submenu component", () => {
                 .find(StyledSubmenu)
                 .find(StyledMenuItemWrapper)
                 .at(0)
-                .find("a")
+                .find("a"),
             ).toBeFocused();
           });
         });
@@ -1158,7 +1158,7 @@ describe("Submenu component", () => {
                 .find(StyledSubmenu)
                 .find(StyledMenuItemWrapper)
                 .at(2)
-                .find("a")
+                .find("a"),
             ).toBeFocused();
           });
         });
@@ -1181,7 +1181,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(3)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
 
           act(() => {
@@ -1199,7 +1199,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(0)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -1221,7 +1221,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(3)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -1253,7 +1253,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(1)
-              .find("a")
+              .find("a"),
           );
         });
 
@@ -1311,7 +1311,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(2)
-              .find("a")
+              .find("a"),
           );
         });
 
@@ -1349,7 +1349,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(2)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
 
@@ -1379,7 +1379,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(2)
-              .find("a")
+              .find("a"),
           ).toBeFocused();
         });
       });
@@ -1395,7 +1395,7 @@ describe("Submenu component", () => {
               .find(StyledSubmenu)
               .find(StyledMenuItemWrapper)
               .at(1)
-              .find("a")
+              .find("a"),
           );
 
           act(() => {
@@ -1449,7 +1449,7 @@ describe("Submenu component", () => {
           {
             backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
           },
-          wrapper.find(StyledSubmenu)
+          wrapper.find(StyledSubmenu),
         );
       });
 
@@ -1459,7 +1459,7 @@ describe("Submenu component", () => {
           {
             backgroundColor: menuConfigVariants[menuType].background,
           },
-          wrapper.find(StyledSubmenu)
+          wrapper.find(StyledSubmenu),
         );
       });
 
@@ -1473,7 +1473,7 @@ describe("Submenu component", () => {
             backgroundColor: menuConfigVariants[menuType].submenuItemBackground,
           },
           wrapper.find(StyledSubmenu),
-          { modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo}` }
+          { modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo}` },
         );
       });
 
@@ -1489,7 +1489,7 @@ describe("Submenu component", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledSubmenu),
-            { modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo}` }
+            { modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo}` },
           );
         });
 
@@ -1502,18 +1502,18 @@ describe("Submenu component", () => {
             wrapper.find(StyledSubmenu),
             {
               modifier: `${StyledMenuItemWrapper} > ${el}:${pseudo} > [data-component="icon"]`,
-            }
+            },
           );
         });
       });
-    }
+    },
   );
 
   describe("when it has a ScrollableBlock as a child", () => {
     const enzymeRenderScrollableBlock = (
       menuType: MenuType,
       props = {},
-      parent?: React.ReactElement
+      parent?: React.ReactElement,
     ) => {
       return mount(
         <MenuContext.Provider value={menuContextValues(menuType)}>
@@ -1526,7 +1526,7 @@ describe("Submenu component", () => {
             </ScrollableBlock>
           </Submenu>
         </MenuContext.Provider>,
-        { attachTo: htmlElement }
+        { attachTo: htmlElement },
       );
     };
 
@@ -1542,7 +1542,7 @@ describe("Submenu component", () => {
         wrapper = enzymeRenderScrollableBlock(
           "light",
           {},
-          <Search value="" onChange={() => {}} />
+          <Search value="" onChange={() => {}} />,
         );
         openSubmenu(wrapper);
 
@@ -1554,7 +1554,7 @@ describe("Submenu component", () => {
           wrapper = enzymeRenderScrollableBlock(
             "light",
             {},
-            <Search value="" onChange={() => {}} />
+            <Search value="" onChange={() => {}} />,
           );
           openSubmenu(wrapper);
 
@@ -1595,14 +1595,14 @@ describe("Submenu component", () => {
                 <MenuItem>Broccoli</MenuItem>
               </ScrollableBlock>
             </Submenu>
-          </MenuContext.Provider>
+          </MenuContext.Provider>,
         );
 
         openSubmenu(wrapper);
         const outerSubmenu = wrapper.find(StyledSubmenu);
 
         expect(outerSubmenu.getDOMNode().getAttribute("role")).toBe(
-          "presentation"
+          "presentation",
         );
       });
     });
@@ -1627,7 +1627,7 @@ describe("Submenu component", () => {
             </Submenu>
           </MenuContext.Provider>
         </ThemeProvider>,
-        { attachTo: htmlElement }
+        { attachTo: htmlElement },
       );
     };
 
@@ -1635,7 +1635,7 @@ describe("Submenu component", () => {
 
     const enzymeRenderWithSearchDefaultValue = (
       menuType: MenuType,
-      props = {}
+      props = {},
     ) => {
       return mount(
         <ThemeProvider theme={sageTheme}>
@@ -1654,7 +1654,7 @@ describe("Submenu component", () => {
             </Submenu>
           </MenuContext.Provider>
         </ThemeProvider>,
-        { attachTo: htmlElement }
+        { attachTo: htmlElement },
       );
     };
 
@@ -1713,7 +1713,7 @@ describe("Submenu component", () => {
       });
 
       expect(
-        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(2).find("a")
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(2).find("a"),
       ).toBeFocused();
     });
 
@@ -1736,7 +1736,7 @@ describe("Submenu component", () => {
       });
 
       expect(
-        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(0).find("a")
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(0).find("a"),
       ).toBeFocused();
     });
 
@@ -1822,7 +1822,7 @@ describe("Submenu component", () => {
       expect(wrapper.find(StyledSubmenu).find(StyledMenuItem).length).toBe(4);
 
       expect(
-        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(0).find("a")
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(0).find("a"),
       ).toBeFocused();
 
       act(() => {
@@ -1838,7 +1838,7 @@ describe("Submenu component", () => {
       wrapper.update();
 
       expect(
-        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(1).find("a")
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(1).find("a"),
       ).toBeFocused();
 
       act(() => {
@@ -1854,7 +1854,7 @@ describe("Submenu component", () => {
       wrapper.update();
 
       expect(
-        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(2).find("a")
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(2).find("a"),
       ).toBeFocused();
 
       act(() => {
@@ -1870,7 +1870,7 @@ describe("Submenu component", () => {
       wrapper.update();
 
       expect(
-        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(3).find("a")
+        wrapper.find(StyledSubmenu).find(StyledMenuItemWrapper).at(3).find("a"),
       ).toBeFocused();
     });
   });
@@ -1882,7 +1882,7 @@ describe("Submenu component", () => {
 
       const originalOffsetHeight = Object.getOwnPropertyDescriptor(
         HTMLElement.prototype,
-        "offsetHeight"
+        "offsetHeight",
       ) as PropertyDescriptor;
 
       Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -1904,7 +1904,7 @@ describe("Submenu component", () => {
             <MenuItem href="#">Item 9</MenuItem>
             <MenuItem href="#">Item 10</MenuItem>
           </Submenu>
-        </GlobalHeader>
+        </GlobalHeader>,
       );
       openSubmenu(wrapper);
 
@@ -1913,13 +1913,13 @@ describe("Submenu component", () => {
           overflowY: "auto",
           maxHeight: `calc(100vh - ${MOCK_HEIGHT}px - 0px)`,
         },
-        wrapper.find(StyledSubmenu)
+        wrapper.find(StyledSubmenu),
       );
 
       Object.defineProperty(
         HTMLElement.prototype,
         "offsetHeight",
-        originalOffsetHeight
+        originalOffsetHeight,
       );
     });
   });

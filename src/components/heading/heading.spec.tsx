@@ -59,18 +59,18 @@ describe("Heading", () => {
       "HTML heading element is correct when headingType is %s",
       (headingType) => {
         const wrapper = mount(
-          <Heading headingType={headingType} title="foo" />
+          <Heading headingType={headingType} title="foo" />,
         );
 
         expect(wrapper.find(headingType).text()).toBe("foo");
-      }
+      },
     );
   });
 
   describe("when the help prop is provided", () => {
     it("renders a help component", () => {
       const wrapper = mount(
-        <Heading title="Test" help="bar" helpLink="/bar" />
+        <Heading title="Test" help="bar" helpLink="/bar" />,
       );
       const help = wrapper.find(Help);
 
@@ -84,7 +84,7 @@ describe("Heading", () => {
 
     beforeEach(() => {
       wrapper = mount(
-        <Heading title="foo" subheader="subheader" backLink={backLink} />
+        <Heading title="foo" subheader="subheader" backLink={backLink} />,
       );
     });
 
@@ -112,7 +112,7 @@ describe("Heading", () => {
           display: "grid",
           gridTemplateColumns: "min-content auto",
         },
-        wrapper.find(StyledHeader)
+        wrapper.find(StyledHeader),
       );
     });
 
@@ -121,7 +121,7 @@ describe("Heading", () => {
         {
           gridColumn: "2",
         },
-        wrapper.find(StyledSubHeader)
+        wrapper.find(StyledSubHeader),
       );
     });
   });
@@ -144,7 +144,7 @@ describe("Heading", () => {
           marginTop: "5px",
           gridRow: "2",
         },
-        wrapper.find(StyledSubHeader)
+        wrapper.find(StyledSubHeader),
       );
     });
   });
@@ -157,7 +157,7 @@ describe("Heading", () => {
             test
           </Page>
         </DefaultPages>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     const link = wrapper.find(Link);
@@ -168,7 +168,7 @@ describe("Heading", () => {
         outline: `3px solid var(--colorsSemanticFocus500)`,
       },
       link,
-      { modifier: `button:focus` }
+      { modifier: `button:focus` },
     );
   });
 
@@ -185,21 +185,21 @@ describe("Heading", () => {
   describe("renders title with margin", () => {
     it("if pills provided", () => {
       const wrapper = mount(
-        <Heading title="Test" pills={<Pill>Pill</Pill>} />
+        <Heading title="Test" pills={<Pill>Pill</Pill>} />,
       ).find(StyledHeadingTitle);
       assertStyleMatch({ marginRight: "16px" }, wrapper);
     });
 
     it("if help provided", () => {
       const wrapper = mount(<Heading title="Test" help="Help" />).find(
-        StyledHeadingTitle
+        StyledHeadingTitle,
       );
       assertStyleMatch({ marginRight: "16px" }, wrapper);
     });
 
     it("if pills and help provided", () => {
       const wrapper = mount(
-        <Heading title="Test" help="Help" pills={<Pill>Pill</Pill>} />
+        <Heading title="Test" help="Help" pills={<Pill>Pill</Pill>} />,
       ).find(StyledHeadingTitle);
       assertStyleMatch({ marginRight: "16px" }, wrapper);
     });
@@ -281,7 +281,7 @@ describe("Heading", () => {
           gridRow: "3",
           marginTop: "0px",
         },
-        wrapper.find(StyledSubHeader)
+        wrapper.find(StyledSubHeader),
       );
     });
   });
@@ -289,7 +289,7 @@ describe("Heading", () => {
   describe("tags", () => {
     describe("on component", () => {
       const wrapper = shallow(
-        <Heading title="Test" data-element="bar" data-role="baz" />
+        <Heading title="Test" data-element="bar" data-role="baz" />,
       );
 
       it("include correct component, element and role data tags", () => {
@@ -306,7 +306,7 @@ describe("Heading", () => {
           subheader="Sub Title"
           title="Test"
           pills={<Pill>Test</Pill>}
-        />
+        />,
       );
 
       elementsTagTest(wrapper, ["help", "subtitle", "title", "pills"]);

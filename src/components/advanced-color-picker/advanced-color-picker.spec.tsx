@@ -117,7 +117,7 @@ describe("AdvancedColorPicker", () => {
       render({ ...requiredProps });
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Advanced Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
       expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
@@ -154,7 +154,7 @@ describe("AdvancedColorPicker", () => {
           wrapper.update();
           expect(wrapper.find(Dialog).prop("open")).toBe(expectedResult);
         });
-      }
+      },
     );
   });
 
@@ -163,13 +163,13 @@ describe("AdvancedColorPicker", () => {
 
     it("description is correct when no color is selected - uses currentColor instead", () => {
       wrapper = mount(
-        <AdvancedColorPicker {...requiredProps} selectedColor="orchid" />
+        <AdvancedColorPicker {...requiredProps} selectedColor="orchid" />,
       );
       expect(
         wrapper
           .find('[data-element="current-color-description"]')
           .first()
-          .text()
+          .text(),
       ).toBe(`Current colour assigned: orchid`);
       wrapper.unmount();
     });
@@ -188,10 +188,10 @@ describe("AdvancedColorPicker", () => {
           wrapper
             .find('[data-element="current-color-description"]')
             .first()
-            .text()
+            .text(),
         ).toBe(`Current colour assigned: ${demoColors[colorIndex].label}`);
         wrapper.unmount();
-      }
+      },
     );
   });
 
@@ -199,7 +199,10 @@ describe("AdvancedColorPicker", () => {
     it("should have the color prop set to defaultColor", () => {
       const wrapper = render({ ...requiredProps });
       expect(
-        wrapper.find('[data-element="color-picker-cell"]').first().prop("color")
+        wrapper
+          .find('[data-element="color-picker-cell"]')
+          .first()
+          .prop("color"),
       ).toBe(defaultColor);
       wrapper.unmount();
     });
@@ -210,7 +213,7 @@ describe("AdvancedColorPicker", () => {
         wrapper
           .find('[data-element="color-picker-cell"]')
           .first()
-          .prop("aria-label")
+          .prop("aria-label"),
       ).toBe("Change colour");
       wrapper.unmount();
     });
@@ -223,7 +226,7 @@ describe("AdvancedColorPicker", () => {
           wrapper
             .find('[data-element="color-picker-cell"]')
             .first()
-            .prop("color")
+            .prop("color"),
         ).toBe(selectedColor);
         wrapper.unmount();
       });
@@ -314,7 +317,7 @@ describe("AdvancedColorPicker", () => {
 
     it("then that button should be changed to be the active element", () => {
       expect(document.activeElement?.getAttribute("value")).toBe(
-        wrapper.find(SimpleColor).at(8).prop("value")
+        wrapper.find(SimpleColor).at(8).prop("value"),
       );
     });
 
@@ -342,7 +345,7 @@ describe("AdvancedColorPicker", () => {
 
     it("then the color in the preview should match that color", () => {
       expect(wrapper.find(StyledAdvancedColorPickerPreview).prop("color")).toBe(
-        wrapper.find(SimpleColor).at(1).prop("value")
+        wrapper.find(SimpleColor).at(1).prop("value"),
       );
     });
   });
@@ -415,7 +418,7 @@ describe("AdvancedColorPicker", () => {
 
           expect(wrapper.find(Dialog).prop("open")).toBe(expectedResult);
         });
-      }
+      },
     );
   });
 
@@ -479,7 +482,7 @@ describe("AdvancedColorPicker", () => {
 
     assertStyleMatch(
       { borderRadius: "var(--borderRadius050)" },
-      wrapper.find(StyledAdvancedColorPickerPreview)
+      wrapper.find(StyledAdvancedColorPickerPreview),
     );
   });
 });

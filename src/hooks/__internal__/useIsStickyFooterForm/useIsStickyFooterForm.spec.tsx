@@ -25,7 +25,7 @@ describe("useIsStickyFooterForm", () => {
     render(
       <MockComponent>
         <Form />
-      </MockComponent>
+      </MockComponent>,
     );
     expect(screen.getByText(BUTTON_TEXT)).not.toBeDisabled();
   });
@@ -34,7 +34,7 @@ describe("useIsStickyFooterForm", () => {
     render(
       <MockComponent>
         <Form stickyFooter />
-      </MockComponent>
+      </MockComponent>,
     );
     expect(screen.getByText(BUTTON_TEXT)).toBeDisabled();
   });

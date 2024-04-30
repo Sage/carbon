@@ -46,7 +46,7 @@ export interface HeadingProps extends MarginProps, TagProps {
           | React.MouseEvent<HTMLAnchorElement>
           | React.MouseEvent<HTMLButtonElement>
           | React.KeyboardEvent<HTMLAnchorElement>
-          | React.KeyboardEvent<HTMLButtonElement>
+          | React.KeyboardEvent<HTMLButtonElement>,
       ) => void);
   /** Adds a divider below the heading and the content. */
   divider?: boolean;

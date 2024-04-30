@@ -44,7 +44,7 @@ describe("Password Input", () => {
         {
           borderRadius: "var(--borderRadius050)",
         },
-        mount(<Password onChange={() => {}} />).find(StyledInput)
+        mount(<Password onChange={() => {}} />).find(StyledInput),
       );
     });
   });
@@ -145,13 +145,13 @@ describe("Password Input", () => {
 
     it("buttonType attribute is correct", () => {
       expect(wrapper.find(StyledButtonMinor).prop("buttonType")).toBe(
-        "tertiary"
+        "tertiary",
       );
     });
 
     it("iconPosition attribute is correct", () => {
       expect(wrapper.find(StyledButtonMinor).prop("iconPosition")).toBe(
-        "before"
+        "before",
       );
     });
 
@@ -172,7 +172,7 @@ describe("Password Input", () => {
 
     it("default aria-label text should be 'Show password'", () => {
       expect(wrapper.find(StyledButtonMinor).prop("aria-label")).toBe(
-        "Show password"
+        "Show password",
       );
     });
 
@@ -181,7 +181,7 @@ describe("Password Input", () => {
         wrapper.find(StyledButtonMinor).simulate("click", mockEvent);
       });
       expect(wrapper.find(StyledButtonMinor).prop("aria-label")).toBe(
-        "Hide password"
+        "Hide password",
       );
     });
 
@@ -208,7 +208,7 @@ describe("Password Input", () => {
           background: "transparent",
           color: "var(--colorsActionMinor500)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -220,7 +220,7 @@ describe("Password Input", () => {
           color: "var(--colorsActionMinor500)",
         },
         wrapper,
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
     });
   });
@@ -229,7 +229,7 @@ describe("Password Input", () => {
     it("default aria-live region text should be correct", () => {
       wrapper = renderPasswordInput({});
       expect(wrapper.find(HiddenAriaLive).text()).toBe(
-        "Your password is currently hidden."
+        "Your password is currently hidden.",
       );
     });
 
@@ -238,7 +238,7 @@ describe("Password Input", () => {
         wrapper.find(StyledButtonMinor).simulate("click", mockEvent);
       });
       expect(wrapper.find(HiddenAriaLive).text()).toBe(
-        "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so."
+        "Your password has been shown. Focus on the password input to have it read to you, if it is safe to do so.",
       );
     });
 
@@ -253,7 +253,7 @@ describe("Password Input", () => {
           position: "absolute",
           width: "1px",
         },
-        wrapper.find(HiddenAriaLive)
+        wrapper.find(HiddenAriaLive),
       );
     });
   });

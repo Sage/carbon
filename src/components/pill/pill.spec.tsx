@@ -37,7 +37,7 @@ describe("Pill", () => {
       {
         whiteSpace: "nowrap",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -52,7 +52,7 @@ describe("Pill", () => {
         renderPillComponent({
           children: "My Text",
           colorVariant: "neutralWhite",
-        })
+        }),
       );
 
       expect(loggerSpy).toHaveBeenCalledWith(warningMessage);
@@ -67,7 +67,7 @@ describe("Pill", () => {
       wrapper = mount(
         renderPillComponent({
           children: "My Text",
-        })
+        }),
       );
       pill = wrapper.find(StyledPill);
     });
@@ -91,13 +91,13 @@ describe("Pill", () => {
           children: "My Text",
           onDelete: () => {},
           ariaLabelOfRemoveButton: customRemoveButtonAriaLabel,
-        })
+        }),
       );
     });
 
     it("renders with the given children", () => {
       expect(wrapper.find(IconButton).prop("aria-label")).toEqual(
-        customRemoveButtonAriaLabel
+        customRemoveButtonAriaLabel,
       );
     });
   });
@@ -110,7 +110,7 @@ describe("Pill", () => {
 
       beforeEach(() => {
         wrapper = mount(
-          renderPillComponent({ onDelete: spy, children: "My Text" })
+          renderPillComponent({ onDelete: spy, children: "My Text" }),
         );
       });
 
@@ -139,7 +139,7 @@ describe("Pill", () => {
         renderPillComponent({
           children: "My Text",
           onClick: spy,
-        })
+        }),
       );
       const pill = wrapper.find(StyledPill);
 
@@ -154,7 +154,7 @@ describe("Pill", () => {
         "data-element": "bar",
         "data-role": "baz",
         children: "My Text",
-      })
+      }),
     );
 
     it("includes correct component, element and role data tags", () => {
@@ -178,14 +178,14 @@ describe("Pill", () => {
               borderColor: color,
               fill: true,
               children: "My Text",
-            })
+            }),
           );
           assertStyleMatch(
             {
               border: `2px solid ${toColor(baseTheme, color)}`,
               backgroundColor: toColor(baseTheme, color),
             },
-            wrapper
+            wrapper,
           );
         });
 
@@ -195,14 +195,14 @@ describe("Pill", () => {
               borderColor: color,
               onDelete: () => {},
               children: "My Text",
-            })
+            }),
           );
           assertStyleMatch(
             {
               backgroundColor: shade(0.2, toColor(baseTheme, color)),
             },
             wrapper,
-            { modifier: "button:hover" }
+            { modifier: "button:hover" },
           );
 
           assertStyleMatch(
@@ -210,10 +210,10 @@ describe("Pill", () => {
               backgroundColor: shade(0.2, toColor(baseTheme, color)),
             },
             wrapper,
-            { modifier: "button:focus" }
+            { modifier: "button:focus" },
           );
         });
-      }
+      },
     );
 
     const wrongColors = ["rgb(0,0)", "#ff", "test"];
@@ -243,15 +243,15 @@ describe("Pill", () => {
           const wrapper = mount(
             <Pill borderColor={color} fill onDelete={() => {}}>
               My Text
-            </Pill>
+            </Pill>,
           );
           assertStyleMatch(
             {
               color: result,
             },
-            wrapper
+            wrapper,
           );
-        }
+        },
       );
     });
   });
@@ -264,7 +264,7 @@ describe("Pill", () => {
           describe("when the component size is small", () => {
             it("matches the expected styles for a small pill", () => {
               const wrapper = mount(
-                renderPillComponent({ children: "My Text", size: "S" })
+                renderPillComponent({ children: "My Text", size: "S" }),
               );
               assertStyleMatch(
                 {
@@ -273,7 +273,7 @@ describe("Pill", () => {
                   lineHeight: "16px",
                   padding: "0 8px",
                 },
-                wrapper
+                wrapper,
               );
             });
           });
@@ -281,7 +281,7 @@ describe("Pill", () => {
           describe("when the component size is medium", () => {
             it("matches the expected styles for a medium pill", () => {
               const wrapper = mount(
-                renderPillComponent({ children: "My Text", size: "M" })
+                renderPillComponent({ children: "My Text", size: "M" }),
               );
               assertStyleMatch(
                 {
@@ -290,7 +290,7 @@ describe("Pill", () => {
                   lineHeight: "20px",
                   padding: "0 8px",
                 },
-                wrapper
+                wrapper,
               );
             });
           });
@@ -298,7 +298,7 @@ describe("Pill", () => {
           describe("when the component size is large", () => {
             it("matches the expected styles for a large pill", () => {
               const wrapper = mount(
-                renderPillComponent({ children: "My Text", size: "L" })
+                renderPillComponent({ children: "My Text", size: "L" }),
               );
               assertStyleMatch(
                 {
@@ -307,7 +307,7 @@ describe("Pill", () => {
                   lineHeight: "24px",
                   padding: "0 8px",
                 },
-                wrapper
+                wrapper,
               );
             });
           });
@@ -315,7 +315,7 @@ describe("Pill", () => {
           describe("when the component size is extra large", () => {
             it("matches the expected styles for an extra large pill", () => {
               const wrapper = mount(
-                renderPillComponent({ children: "My Text", size: "XL" })
+                renderPillComponent({ children: "My Text", size: "XL" }),
               );
               assertStyleMatch(
                 {
@@ -324,7 +324,7 @@ describe("Pill", () => {
                   lineHeight: "28px",
                   padding: "0 12px",
                 },
-                wrapper
+                wrapper,
               );
             });
           });
@@ -337,7 +337,7 @@ describe("Pill", () => {
                 renderPillComponent({
                   children: "My Text",
                   theme,
-                })
+                }),
               );
               assertStyleMatch(
                 {
@@ -346,7 +346,7 @@ describe("Pill", () => {
                   padding: "0 8px",
                   textAlign: "center",
                 },
-                wrapper
+                wrapper,
               );
             });
 
@@ -357,13 +357,13 @@ describe("Pill", () => {
                     children: "My Text",
                     onDelete: jest.fn(),
                     theme,
-                  })
+                  }),
                 );
                 assertStyleMatch(
                   {
                     padding: "0 28px 0 8px",
                   },
-                  wrapper
+                  wrapper,
                 );
 
                 assertStyleMatch(
@@ -371,7 +371,7 @@ describe("Pill", () => {
                     borderRadius: "var(--borderRadius000)",
                   },
                   wrapper,
-                  { modifier: "button" }
+                  { modifier: "button" },
                 );
 
                 assertStyleMatch(
@@ -380,7 +380,7 @@ describe("Pill", () => {
                       "var(--borderRadius000) var(--borderRadius025) var(--borderRadius025) var(--borderRadius000)",
                   },
                   wrapper,
-                  { modifier: "button:focus" }
+                  { modifier: "button:focus" },
                 );
               });
 
@@ -395,7 +395,7 @@ describe("Pill", () => {
                       pillRole,
                       fill: true,
                       theme,
-                    })
+                    }),
                   );
 
                   it(`matches the expected filled styling for ${style}`, () => {
@@ -404,7 +404,7 @@ describe("Pill", () => {
                         backgroundColor: styleSet[style].varietyColor,
                         color: styleSet[style].content,
                       },
-                      fillWrapper
+                      fillWrapper,
                     );
                   });
                 });
@@ -419,7 +419,7 @@ describe("Pill", () => {
                       pillRole,
                       fill: true,
                       theme,
-                    })
+                    }),
                   );
 
                   it(`matches the expected filled styling for ${style}`, () => {
@@ -428,7 +428,7 @@ describe("Pill", () => {
                         backgroundColor: styleSet[style].varietyColor,
                         color: styleSet[style].content,
                       },
-                      fillWrapper
+                      fillWrapper,
                     );
                   });
                 });
@@ -442,7 +442,7 @@ describe("Pill", () => {
                       onDelete: jest.fn(),
                       size: "S",
                       theme,
-                    })
+                    }),
                   );
                   assertStyleMatch(
                     {
@@ -452,7 +452,7 @@ describe("Pill", () => {
                       lineHeight: "16px",
                       borderRadius: "var(--borderRadius025)",
                     },
-                    wrapper
+                    wrapper,
                   );
                 });
               });
@@ -465,7 +465,7 @@ describe("Pill", () => {
                       onDelete: jest.fn(),
                       size: "M",
                       theme,
-                    })
+                    }),
                   );
                   assertStyleMatch(
                     {
@@ -476,7 +476,7 @@ describe("Pill", () => {
                       height: "auto",
                       lineHeight: "20px",
                     },
-                    wrapper
+                    wrapper,
                   );
                 });
               });
@@ -489,7 +489,7 @@ describe("Pill", () => {
                       onDelete: jest.fn(),
                       size: "L",
                       theme,
-                    })
+                    }),
                   );
                   assertStyleMatch(
                     {
@@ -500,7 +500,7 @@ describe("Pill", () => {
                       height: "auto",
                       lineHeight: "24px",
                     },
-                    wrapper
+                    wrapper,
                   );
                 });
               });
@@ -513,7 +513,7 @@ describe("Pill", () => {
                       onDelete: jest.fn(),
                       size: "XL",
                       theme,
-                    })
+                    }),
                   );
                   assertStyleMatch(
                     {
@@ -524,7 +524,7 @@ describe("Pill", () => {
                       height: "auto",
                       lineHeight: "28px",
                     },
-                    wrapper
+                    wrapper,
                   );
                 });
               });
@@ -540,7 +540,7 @@ describe("Pill", () => {
                       colorVariant: style as keyof PillProps["colorVariant"],
                       theme,
                       pillRole,
-                    })
+                    }),
                   );
 
                   it(`matches the expected styling for ${style}`, () => {
@@ -548,7 +548,7 @@ describe("Pill", () => {
                       {
                         border: `2px solid ${styleSet[style].varietyColor}`,
                       },
-                      wrapper
+                      wrapper,
                     );
                   });
                 });
@@ -561,7 +561,7 @@ describe("Pill", () => {
                       fill: true,
                       theme,
                       pillRole,
-                    })
+                    }),
                   );
 
                   it(`matches the expected filled styling for ${style}`, () => {
@@ -569,11 +569,11 @@ describe("Pill", () => {
                       {
                         backgroundColor: styleSet[style].varietyColor,
                       },
-                      fillWrapper
+                      fillWrapper,
                     );
                   });
                 });
-              }
+              },
             );
           });
 
@@ -591,7 +591,7 @@ describe("Pill", () => {
                     pillRole,
                     fill: true,
                     theme,
-                  })
+                  }),
                 );
 
                 it(`matches the expected filled styling for ${style}`, () => {
@@ -599,7 +599,7 @@ describe("Pill", () => {
                     {
                       backgroundColor: styleSet[style].varietyColor,
                     },
-                    fillWrapper
+                    fillWrapper,
                   );
                 });
               });
@@ -617,11 +617,12 @@ describe("Pill", () => {
                   const wrapper = mount(
                     renderPillComponent({
                       children: "My Text",
-                      colorVariant: colorVariant as keyof PillProps["colorVariant"],
+                      colorVariant:
+                        colorVariant as keyof PillProps["colorVariant"],
                       theme,
                       pillRole,
                       isDarkBackground: true,
-                    })
+                    }),
                   );
 
                   assertStyleMatch(
@@ -629,7 +630,7 @@ describe("Pill", () => {
                       border: `2px solid ${styleSet[colorVariant].varietyColor}`,
                       color: "var(--colorsUtilityYang100)",
                     },
-                    wrapper
+                    wrapper,
                   );
                 });
 
@@ -637,13 +638,14 @@ describe("Pill", () => {
                   const wrapper = mount(
                     renderPillComponent({
                       children: "My Text",
-                      colorVariant: colorVariant as keyof PillProps["colorVariant"],
+                      colorVariant:
+                        colorVariant as keyof PillProps["colorVariant"],
                       onDelete: jest.fn(),
                       theme,
                       pillRole,
                       isDarkBackground: true,
                       fill: false,
-                    })
+                    }),
                   );
 
                   assertStyleMatch(
@@ -651,7 +653,7 @@ describe("Pill", () => {
                       color: "var(--colorsUtilityYang100)",
                     },
                     wrapper.find(StyledPill),
-                    { modifier: `button ${StyledIcon}` }
+                    { modifier: `button ${StyledIcon}` },
                   );
                 });
 
@@ -659,22 +661,23 @@ describe("Pill", () => {
                   const wrapper = mount(
                     renderPillComponent({
                       children: "My Text",
-                      colorVariant: colorVariant as keyof PillProps["colorVariant"],
+                      colorVariant:
+                        colorVariant as keyof PillProps["colorVariant"],
                       fill: true,
                       theme,
                       pillRole,
                       isDarkBackground: true,
-                    })
+                    }),
                   );
 
                   assertStyleMatch(
                     {
                       backgroundColor: styleSet[colorVariant].varietyColor,
                     },
-                    wrapper
+                    wrapper,
                   );
                 });
-              }
+              },
             );
 
             describe("when the pill style is set as neutralWhite", () => {
@@ -687,7 +690,7 @@ describe("Pill", () => {
                     theme,
                     pillRole,
                     isDarkBackground: true,
-                  })
+                  }),
                 );
 
                 assertStyleMatch(
@@ -695,7 +698,7 @@ describe("Pill", () => {
                     backgroundColor: "var(--colorsSemanticNeutralYang100)",
                     color: "var(--colorsSemanticNeutral500)",
                   },
-                  wrapper
+                  wrapper,
                 );
               });
 
@@ -709,7 +712,7 @@ describe("Pill", () => {
                     theme,
                     pillRole,
                     isDarkBackground: true,
-                  })
+                  }),
                 );
 
                 assertStyleMatch(
@@ -717,13 +720,13 @@ describe("Pill", () => {
                     color: "var(--colorsSemanticNeutral500)",
                   },
                   wrapper.find(StyledPill),
-                  { modifier: `button ${StyledIcon}` }
+                  { modifier: `button ${StyledIcon}` },
                 );
               });
             });
           });
         });
-      }
+      },
     );
   });
 
@@ -734,7 +737,7 @@ describe("Pill", () => {
           wrapText: true,
           maxWidth: "40px",
           children: "My Text",
-        })
+        }),
       );
 
       assertStyleMatch(
@@ -743,7 +746,7 @@ describe("Pill", () => {
           whiteSpace: "break-spaces",
           hyphens: "auto",
         },
-        wrapper.find(StyledPill)
+        wrapper.find(StyledPill),
       );
     });
 
@@ -762,7 +765,7 @@ describe("Pill", () => {
                 children: "My Text",
                 size,
               })}
-            </CarbonProvider>
+            </CarbonProvider>,
           ).find(StyledPill);
 
           assertStyleMatch({ borderRadius: borderRadiusSpan }, wrapper);
@@ -770,7 +773,7 @@ describe("Pill", () => {
           assertStyleMatch({ borderRadius: borderRadiusButton }, wrapper, {
             modifier: "button",
           });
-        }
+        },
       );
     });
   });

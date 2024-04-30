@@ -9,9 +9,9 @@ export default (children?: React.ReactNode) => {
           React.isValidElement(child) &&
           (child.type as React.FunctionComponent)?.displayName ===
             Form.displayName &&
-          child.props.stickyFooter
+          child.props.stickyFooter,
       ),
-    [children]
+    [children],
   );
 
   return isStickyFooterForm;

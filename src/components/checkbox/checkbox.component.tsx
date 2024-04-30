@@ -75,7 +75,7 @@ export const Checkbox = React.forwardRef(
       helpAriaLabel,
       ...rest
     }: CheckboxProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
@@ -93,7 +93,7 @@ export const Checkbox = React.forwardRef(
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -171,7 +171,7 @@ export const Checkbox = React.forwardRef(
         )}
       </>
     );
-  }
+  },
 );
 
 Checkbox.displayName = "Checkbox";

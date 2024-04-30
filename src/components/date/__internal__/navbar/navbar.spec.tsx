@@ -22,7 +22,7 @@ describe("Navbar", () => {
           onPreviousClick={onPreviousClick}
           onNextClick={onNextClick}
           className="custom-class"
-        />
+        />,
       );
     });
 
@@ -48,7 +48,7 @@ describe("Navbar", () => {
           onPreviousClick={onPreviousClick}
           onNextClick={onNextClick}
           className="custom-class"
-        />
+        />,
       );
 
       const prevButton = wrapper.find(StyledButton).at(0).getDOMNode();
@@ -69,7 +69,7 @@ describe("Navbar", () => {
             onPreviousClick={onPreviousClick}
             onNextClick={onNextClick}
             className="custom-class"
-          />
+          />,
         );
 
         const prevButton = wrapper.find(StyledButton).at(0);
@@ -82,7 +82,7 @@ describe("Navbar", () => {
 
         expect(stopPropagation).toHaveBeenCalled();
         expect(preventDefault).toHaveBeenCalled();
-      }
+      },
     );
 
     it.each(arrowKeys)(
@@ -96,7 +96,7 @@ describe("Navbar", () => {
             onPreviousClick={onPreviousClick}
             onNextClick={onNextClick}
             className="custom-class"
-          />
+          />,
         );
 
         const nextButton = wrapper.find(StyledButton).at(1);
@@ -109,7 +109,7 @@ describe("Navbar", () => {
 
         expect(stopPropagation).toHaveBeenCalled();
         expect(preventDefault).toHaveBeenCalled();
-      }
+      },
     );
 
     it.each(actionKeys)(
@@ -123,7 +123,7 @@ describe("Navbar", () => {
             onPreviousClick={onPreviousClick}
             onNextClick={onNextClick}
             className="custom-class"
-          />
+          />,
         );
 
         const prevButton = wrapper.find(StyledButton).at(0);
@@ -136,7 +136,7 @@ describe("Navbar", () => {
 
         expect(stopPropagation).not.toHaveBeenCalled();
         expect(preventDefault).not.toHaveBeenCalled();
-      }
+      },
     );
 
     it.each(actionKeys)(
@@ -150,7 +150,7 @@ describe("Navbar", () => {
             onPreviousClick={onPreviousClick}
             onNextClick={onNextClick}
             className="custom-class"
-          />
+          />,
         );
 
         const nextButton = wrapper.find(StyledButton).at(1);
@@ -163,14 +163,14 @@ describe("Navbar", () => {
 
         expect(stopPropagation).not.toHaveBeenCalled();
         expect(preventDefault).not.toHaveBeenCalled();
-      }
+      },
     );
   });
 
   describe("Navbar Button", () => {
     const render = (props: NavbarProps = {}) => {
       return TestRenderer.create(
-        <StyledButton {...props}>sample children</StyledButton>
+        <StyledButton {...props}>sample children</StyledButton>,
       );
     };
 

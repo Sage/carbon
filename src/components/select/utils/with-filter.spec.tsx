@@ -10,7 +10,7 @@ const FilterableList = withFilter(({ children }: FilteredComponentProps) => (
 
 function renderFilteredOptions(
   props: FilteredComponentProps,
-  renderer = mount
+  renderer = mount,
 ) {
   return renderer(
     <FilterableList {...props}>
@@ -20,7 +20,7 @@ function renderFilteredOptions(
       <Option text="black" id="3" value="3" />
       <Option text="purple" id="4" value="4" />
       <Option text="brown" id="5" value="5" />
-    </FilterableList>
+    </FilterableList>,
   );
 }
 
@@ -32,7 +32,7 @@ const FilterableTable = withFilter(({ children }: FilteredComponentProps) => (
 
 function renderFilteredOptionRows(
   props: FilteredComponentProps,
-  renderer = mount
+  renderer = mount,
 ) {
   return renderer(
     <FilterableTable multiColumn {...props}>
@@ -64,7 +64,7 @@ function renderFilteredOptionRows(
         <td>Brown</td>
         <td>Dark</td>
       </OptionRow>
-    </FilterableTable>
+    </FilterableTable>,
   );
 }
 
@@ -77,7 +77,7 @@ function renderOtherChildren(props: FilteredComponentProps, renderer = mount) {
       <Option text="black" value="black" />
       <Option text="purple" value="purple" />
       <Option text="brown" value="brown" />
-    </FilterableList>
+    </FilterableList>,
   );
 }
 
@@ -92,13 +92,13 @@ describe("withFilter", () => {
         const element = renderer === renderFilteredOptions ? "ul" : "tbody";
 
         expect(
-          wrapper.find(`${element}[data-element="select-list"]`).children()
+          wrapper.find(`${element}[data-element="select-list"]`).children(),
         ).toHaveLength(1);
         expect(
           wrapper
             .find(`${element}[data-element="select-list"]`)
             .children()
-            .text()
+            .text(),
         ).toBe(text);
       });
     });
@@ -112,21 +112,21 @@ describe("withFilter", () => {
         const element = renderer === renderFilteredOptions ? "ul" : "tbody";
 
         expect(
-          wrapper.find(`${element}[data-element="select-list"]`).children()
+          wrapper.find(`${element}[data-element="select-list"]`).children(),
         ).toHaveLength(2);
         expect(
           wrapper
             .find(`${element}[data-element="select-list"]`)
             .children()
             .at(0)
-            .text()
+            .text(),
         ).toBe(texts[0]);
         expect(
           wrapper
             .find(`${element}[data-element="select-list"]`)
             .children()
             .at(1)
-            .text()
+            .text(),
         ).toBe(texts[1]);
       });
     });
@@ -145,7 +145,7 @@ describe("withFilter", () => {
 
           expect(children).toHaveLength(1);
           expect(children.at(0).text()).toBe(`No results for "${filterText}"`);
-        }
+        },
       );
 
       describe("when a custom message has been specified in noResultsMessage prop", () => {
@@ -165,7 +165,7 @@ describe("withFilter", () => {
 
             expect(children).toHaveLength(1);
             expect(children.at(0).text()).toBe(customMessage);
-          }
+          },
         );
       });
     });
@@ -179,9 +179,9 @@ describe("withFilter", () => {
         const element = renderer === renderFilteredOptions ? "ul" : "tbody";
 
         expect(
-          wrapper.find(`${element}[data-element="select-list"]`).children()
+          wrapper.find(`${element}[data-element="select-list"]`).children(),
         ).toHaveLength(6);
-      }
+      },
     );
   });
 

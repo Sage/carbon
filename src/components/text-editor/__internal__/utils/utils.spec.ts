@@ -17,13 +17,13 @@ describe("computeBlockType", () => {
 
   it('returns "ordered-list-item" as default when char is "." and type is not "ordered-list-item"', () => {
     expect(computeBlockType(".", "unordered-list-item")).toEqual(
-      "ordered-list-item"
+      "ordered-list-item",
     );
   });
 
   it('returns "unordered-list-item" as default when char is "*" and type is not "unordered-list-item"', () => {
     expect(computeBlockType("*", "ordered-list-item")).toEqual(
-      "unordered-list-item"
+      "unordered-list-item",
     );
   });
 });
@@ -38,7 +38,7 @@ describe("resetBlockType", () => {
         .getBlocksAsArray();
       expect(blocks.length).toEqual(1);
       blocks.forEach((block) => expect(block.getType()).toEqual(type));
-    }
+    },
   );
 
   it("returns editorState with default unstyled block when no type provided", () => {
@@ -76,7 +76,7 @@ describe("getSelectedLength", () => {
       ContentState.createFromBlockArray(newBlockMap.toArray())
         .set("selectionBefore", content.getSelectionBefore())
         .set("selectionAfter", content.getSelectionAfter()) as ContentState,
-      "insert-fragment"
+      "insert-fragment",
     );
   };
 
@@ -87,7 +87,7 @@ describe("getSelectedLength", () => {
 
   it("returns 0 when the selection is collapsed", () => {
     const editorState = EditorState.createWithContent(
-      ContentState.createFromText("foo")
+      ContentState.createFromText("foo"),
     );
     const { anchorKey, focusKey } = currentSelectionInfo(editorState);
     const newValue = EditorState.acceptSelection(
@@ -99,14 +99,14 @@ describe("getSelectedLength", () => {
         focusKey,
         isBackward: false,
         hasFocus: false,
-      })
+      }),
     );
     expect(getSelectedLength(newValue)).toEqual(0);
   });
 
   it("returns the difference between the anchor and focus offsets if there is only one block of content", () => {
     const editorState = EditorState.createWithContent(
-      ContentState.createFromText("foo")
+      ContentState.createFromText("foo"),
     );
     const { anchorKey, focusKey } = currentSelectionInfo(editorState);
     const newValue = EditorState.acceptSelection(
@@ -118,18 +118,17 @@ describe("getSelectedLength", () => {
         focusKey,
         isBackward: false,
         hasFocus: false,
-      })
+      }),
     );
     expect(getSelectedLength(newValue)).toEqual(1);
   });
 
   it("returns the difference between the anchor and focus offsets plus any initial content", () => {
     const editorState = makeBlock(
-      EditorState.createWithContent(ContentState.createFromText("foo"))
+      EditorState.createWithContent(ContentState.createFromText("foo")),
     );
-    const { anchorKey, focusKey, focusOffset } = currentSelectionInfo(
-      editorState
-    );
+    const { anchorKey, focusKey, focusOffset } =
+      currentSelectionInfo(editorState);
     const newValue = EditorState.acceptSelection(
       editorState,
       editorState.getSelection().merge({
@@ -139,19 +138,18 @@ describe("getSelectedLength", () => {
         focusKey,
         isBackward: false,
         hasFocus: false,
-      })
+      }),
     );
     expect(getSelectedLength(newValue)).toEqual(7);
   });
 
   it("returns the difference between the anchor and focus offsets plus the other blocks", () => {
     let editorState = makeBlock(
-      EditorState.createWithContent(ContentState.createFromText("foo"))
+      EditorState.createWithContent(ContentState.createFromText("foo")),
     );
     editorState = makeBlock(editorState);
-    const { anchorKey, focusKey, focusOffset } = currentSelectionInfo(
-      editorState
-    );
+    const { anchorKey, focusKey, focusOffset } =
+      currentSelectionInfo(editorState);
 
     const newValue = EditorState.acceptSelection(
       editorState,
@@ -162,7 +160,7 @@ describe("getSelectedLength", () => {
         focusKey,
         isBackward: false,
         hasFocus: false,
-      })
+      }),
     );
     expect(getSelectedLength(newValue)).toEqual(11);
   });

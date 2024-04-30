@@ -45,7 +45,7 @@ function renderFlatTableRow(props = {}) {
           <FlatTableCell>cell2</FlatTableCell>
         </FlatTableRow>
       </tbody>
-    </table>
+    </table>,
   );
 }
 
@@ -60,7 +60,7 @@ function renderRowWithContext(props = {}) {
           </FlatTableRow>
         </tbody>
       </table>
-    </DrawerSidebarContext.Provider>
+    </DrawerSidebarContext.Provider>,
   );
 }
 
@@ -70,7 +70,7 @@ describe("FlatTableRow", () => {
       const wrapper = renderFlatTableRow({ "data-role": "test" });
 
       expect(wrapper.find(StyledFlatTableRow).props()["data-role"]).toEqual(
-        "test"
+        "test",
       );
     });
   });
@@ -93,7 +93,7 @@ describe("FlatTableRow", () => {
 
     it("then the component should have isRowInteractive prop set to true", () => {
       expect(wrapper.find(StyledFlatTableRow).prop("isRowInteractive")).toBe(
-        true
+        true,
       );
     });
 
@@ -107,7 +107,7 @@ describe("FlatTableRow", () => {
           backgroundColor: "var(--colorsUtilityMajor025)",
         },
         wrapper,
-        { modifier: `:hover ${StyledFlatTableCell}` }
+        { modifier: `:hover ${StyledFlatTableCell}` },
       );
     });
 
@@ -117,7 +117,7 @@ describe("FlatTableRow", () => {
           backgroundColor: "var(--colorsUtilityMajor025)",
         },
         wrapper,
-        { modifier: `:hover ${StyledFlatTableRowHeader}` }
+        { modifier: `:hover ${StyledFlatTableRowHeader}` },
       );
     });
 
@@ -156,7 +156,7 @@ describe("FlatTableRow", () => {
 
     it("then the component should have isRowInteractive prop undefined", () => {
       expect(wrapper.find(StyledFlatTableRow).prop("isRowInteractive")).toBe(
-        undefined
+        undefined,
       );
     });
   });
@@ -172,7 +172,7 @@ describe("FlatTableRow", () => {
           backgroundColor: "var(--colorsUtilityMajor075)",
         },
         wrapper,
-        { modifier: `${StyledFlatTableCell}` }
+        { modifier: `${StyledFlatTableCell}` },
       );
     });
 
@@ -188,7 +188,7 @@ describe("FlatTableRow", () => {
             backgroundColor: "var(--colorsUtilityMajor075)",
           },
           wrapper,
-          { modifier: `:hover ${StyledFlatTableCell}` }
+          { modifier: `:hover ${StyledFlatTableCell}` },
         );
       });
     });
@@ -211,7 +211,7 @@ describe("FlatTableRow", () => {
             backgroundColor: customColor,
           },
           wrapper,
-          { modifier: `${element}` }
+          { modifier: `${element}` },
         );
       });
 
@@ -228,7 +228,7 @@ describe("FlatTableRow", () => {
             backgroundColor: customColor,
           },
           wrapper,
-          { modifier: `:hover ${StyledFlatTableCell}` }
+          { modifier: `:hover ${StyledFlatTableCell}` },
         );
       });
     });
@@ -246,7 +246,7 @@ describe("FlatTableRow", () => {
           backgroundColor: "var(--colorsUtilityMajor050)",
         },
         wrapper,
-        { modifier: `${StyledFlatTableCell}` }
+        { modifier: `${StyledFlatTableCell}` },
       );
     });
 
@@ -260,7 +260,7 @@ describe("FlatTableRow", () => {
           backgroundColor: "var(--colorsUtilityMajor050)",
         },
         wrapper,
-        { modifier: `${StyledFlatTableRowHeader}` }
+        { modifier: `${StyledFlatTableRowHeader}` },
       );
     });
 
@@ -278,7 +278,7 @@ describe("FlatTableRow", () => {
             backgroundColor: customColor,
           },
           wrapper,
-          { modifier: `${StyledFlatTableCell}` }
+          { modifier: `${StyledFlatTableCell}` },
         );
       });
 
@@ -295,7 +295,7 @@ describe("FlatTableRow", () => {
             backgroundColor: customColor,
           },
           wrapper,
-          { modifier: `:hover ${StyledFlatTableCell}` }
+          { modifier: `:hover ${StyledFlatTableCell}` },
         );
       });
     });
@@ -313,7 +313,7 @@ describe("FlatTableRow", () => {
             backgroundColor: "var(--colorsUtilityMajor075)",
           },
           wrapper,
-          { modifier: `:hover ${StyledFlatTableCell}` }
+          { modifier: `:hover ${StyledFlatTableCell}` },
         );
       });
 
@@ -332,7 +332,7 @@ describe("FlatTableRow", () => {
               backgroundColor: customColor,
             },
             wrapper,
-            { modifier: `${StyledFlatTableCell}` }
+            { modifier: `${StyledFlatTableCell}` },
           );
         });
       });
@@ -353,7 +353,7 @@ describe("FlatTableRow", () => {
           backgroundColor: "var(--colorsUtilityMajor040)",
         },
         wrapper,
-        { modifier: `${el}` }
+        { modifier: `${el}` },
       );
 
       const modifierString =
@@ -365,7 +365,7 @@ describe("FlatTableRow", () => {
             backgroundColor: "var(--colorsUtilityMajor075)",
           },
           wrapper,
-          { modifier: `:hover ${modifierString}` }
+          { modifier: `:hover ${modifierString}` },
         );
       }
 
@@ -375,7 +375,7 @@ describe("FlatTableRow", () => {
             borderRight: "1px solid var(--colorsUtilityMajor100)",
           },
           wrapper,
-          { modifier: `${el}` }
+          { modifier: `${el}` },
         );
       }
     });
@@ -387,7 +387,7 @@ describe("FlatTableRow", () => {
           borderLeft: "none",
         },
         wrapper,
-        { modifier: "td:first-of-type" }
+        { modifier: "td:first-of-type" },
       );
     });
 
@@ -398,7 +398,7 @@ describe("FlatTableRow", () => {
           borderRight: "none",
         },
         wrapper,
-        { modifier: "td:last-of-type" }
+        { modifier: "td:last-of-type" },
       );
     });
 
@@ -418,7 +418,7 @@ describe("FlatTableRow", () => {
               backgroundColor: "var(--colorsUtilityMajor150)",
             },
             wrapper,
-            { modifier: `${el}` }
+            { modifier: `${el}` },
           );
         }
 
@@ -430,7 +430,7 @@ describe("FlatTableRow", () => {
             backgroundColor: "var(--colorsUtilityMajor150)",
           },
           wrapper,
-          { modifier: `:hover ${modifierString}` }
+          { modifier: `:hover ${modifierString}` },
         );
       });
     });
@@ -452,7 +452,7 @@ describe("FlatTableRow", () => {
               backgroundColor: "var(--colorsUtilityMajor100)",
             },
             wrapper,
-            { modifier: `${el}` }
+            { modifier: `${el}` },
           );
         }
 
@@ -464,7 +464,7 @@ describe("FlatTableRow", () => {
             backgroundColor: "var(--colorsUtilityMajor100)",
           },
           wrapper,
-          { modifier: `:hover ${modifierString}` }
+          { modifier: `:hover ${modifierString}` },
         );
       });
 
@@ -487,7 +487,7 @@ describe("FlatTableRow", () => {
                 backgroundColor: "var(--colorsUtilityMajor150)",
               },
               wrapper,
-              { modifier: `${el}` }
+              { modifier: `${el}` },
             );
           }
 
@@ -499,7 +499,7 @@ describe("FlatTableRow", () => {
               backgroundColor: "var(--colorsUtilityMajor150)",
             },
             wrapper,
-            { modifier: `:hover ${modifierString}` }
+            { modifier: `:hover ${modifierString}` },
           );
         });
       });
@@ -517,7 +517,7 @@ describe("FlatTableRow", () => {
                 {false && <FlatTableCell>cell2</FlatTableCell>}
               </FlatTableRow>
             </tbody>
-          </table>
+          </table>,
         );
 
         expect(wrapper.find(FlatTableCell).length).toEqual(1);
@@ -534,7 +534,7 @@ describe("FlatTableRow", () => {
                 {true && <FlatTableCell>cell2</FlatTableCell>}
               </FlatTableRow>
             </tbody>
-          </table>
+          </table>,
         );
 
         expect(wrapper.find(FlatTableCell).length).toEqual(2);
@@ -554,14 +554,14 @@ describe("FlatTableRow", () => {
                 {false && <FlatTableRowHeader>test 3</FlatTableRowHeader>}
               </FlatTableRow>
             </tbody>
-          </table>
+          </table>,
         );
 
         assertStyleMatch(
           {
             position: undefined,
           },
-          wrapper.find(StyledFlatTableCell).at(0)
+          wrapper.find(StyledFlatTableCell).at(0),
         );
       });
     });
@@ -579,42 +579,42 @@ describe("FlatTableRow", () => {
               <FlatTableCell>test 5</FlatTableCell>
             </FlatTableRow>
           </thead>
-        </table>
+        </table>,
       );
 
       assertStyleMatch(
         {
           position: "sticky",
         },
-        wrapper.find(StyledFlatTableHeader).at(0)
+        wrapper.find(StyledFlatTableHeader).at(0),
       );
 
       assertStyleMatch(
         {
           position: "sticky",
         },
-        wrapper.find(StyledFlatTableCell).at(0)
+        wrapper.find(StyledFlatTableCell).at(0),
       );
 
       assertStyleMatch(
         {
           position: "sticky",
         },
-        wrapper.find(StyledFlatTableCheckbox)
+        wrapper.find(StyledFlatTableCheckbox),
       );
 
       assertStyleMatch(
         {
           position: undefined,
         },
-        wrapper.find(StyledFlatTableHeader).at(1)
+        wrapper.find(StyledFlatTableHeader).at(1),
       );
 
       assertStyleMatch(
         {
           position: undefined,
         },
-        wrapper.find(StyledFlatTableCell).at(1)
+        wrapper.find(StyledFlatTableCell).at(1),
       );
     });
 
@@ -634,42 +634,42 @@ describe("FlatTableRow", () => {
                 <FlatTableCell>test 5</FlatTableCell>
               </FlatTableRow>
             </thead>
-          </table>
+          </table>,
         );
 
         assertStyleMatch(
           {
             position: undefined,
           },
-          wrapper.find(StyledFlatTableHeader).at(0)
+          wrapper.find(StyledFlatTableHeader).at(0),
         );
 
         assertStyleMatch(
           {
             position: undefined,
           },
-          wrapper.find(StyledFlatTableCell).at(0)
+          wrapper.find(StyledFlatTableCell).at(0),
         );
 
         assertStyleMatch(
           {
             position: "sticky",
           },
-          wrapper.find(StyledFlatTableCheckbox)
+          wrapper.find(StyledFlatTableCheckbox),
         );
 
         assertStyleMatch(
           {
             position: "sticky",
           },
-          wrapper.find(StyledFlatTableHeader).at(1)
+          wrapper.find(StyledFlatTableHeader).at(1),
         );
 
         assertStyleMatch(
           {
             position: "sticky",
           },
-          wrapper.find(StyledFlatTableCell).at(1)
+          wrapper.find(StyledFlatTableCell).at(1),
         );
       });
     });
@@ -698,7 +698,7 @@ describe("FlatTableRow", () => {
                 <FlatTableCell>test 5</FlatTableCell>
               </FlatTableRow>
             </thead>
-          </table>
+          </table>,
         );
       }).toThrow(errorMessage);
 
@@ -718,7 +718,7 @@ describe("FlatTableRow", () => {
               <FlatTableCell>test 5</FlatTableCell>
             </FlatTableRow>
           </thead>
-        </table>
+        </table>,
       );
 
       assertStyleMatch(
@@ -726,7 +726,7 @@ describe("FlatTableRow", () => {
           borderRight: "2px solid var(--colorsUtilityMajor100)",
         },
         wrapper,
-        { modifier: `${StyledFlatTableRowHeader}:nth-child(4)` }
+        { modifier: `${StyledFlatTableRowHeader}:nth-child(4)` },
       );
     });
   });
@@ -757,7 +757,7 @@ describe("FlatTableRow", () => {
         wrapper.find(FlatTableRow),
         {
           modifier: `${StyledFlatTableCell}:first-child > div ${StyledIcon}[type="chevron_down_thick"]:first-of-type`,
-        }
+        },
       );
     });
 
@@ -824,7 +824,7 @@ describe("FlatTableRow", () => {
           });
 
           expect(wrapper.find(StyledFlatTableRow).prop("tabIndex")).toBe(
-            undefined
+            undefined,
           );
         });
       });
@@ -888,7 +888,7 @@ describe("FlatTableRow", () => {
               </FlatTableRow>
             </tbody>
           </table>,
-          { attachTo: htmlElement }
+          { attachTo: htmlElement },
         );
       });
 
@@ -960,7 +960,7 @@ describe("FlatTableRow", () => {
                 <FlatTableCell>cell2</FlatTableCell>
               </FlatTableRow>
             </tbody>
-          </table>
+          </table>,
         );
 
         expect(
@@ -969,7 +969,7 @@ describe("FlatTableRow", () => {
             .at(0)
             .find(StyledFlatTableCell)
             .find(StyledIcon)
-            .exists()
+            .exists(),
         ).toEqual(true);
       });
     });
@@ -1034,7 +1034,7 @@ describe("FlatTableRow", () => {
                 </FlatTableRow>
               </tbody>
             </table>,
-            { attachTo: htmlElement }
+            { attachTo: htmlElement },
           );
         });
 
@@ -1046,12 +1046,14 @@ describe("FlatTableRow", () => {
           it("should toggle the open/close state of the row", () => {
             expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
 
-            (wrapper
-              .find(StyledFlatTableRow)
-              .at(0)
-              .find("td")
-              .at(0)
-              .getDOMNode() as HTMLElement).focus();
+            (
+              wrapper
+                .find(StyledFlatTableRow)
+                .at(0)
+                .find("td")
+                .at(0)
+                .getDOMNode() as HTMLElement
+            ).focus();
 
             act(() => {
               wrapper
@@ -1087,12 +1089,14 @@ describe("FlatTableRow", () => {
           it("should toggle not the open/close state of the row", () => {
             expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
 
-            (wrapper
-              .find(StyledFlatTableRow)
-              .at(0)
-              .find("td")
-              .at(0)
-              .getDOMNode() as HTMLElement).focus();
+            (
+              wrapper
+                .find(StyledFlatTableRow)
+                .at(0)
+                .find("td")
+                .at(0)
+                .getDOMNode() as HTMLElement
+            ).focus();
 
             act(() => {
               wrapper
@@ -1196,13 +1200,12 @@ describe("FlatTableRow", () => {
               </FlatTableRow>
             </tbody>
           </table>,
-          { attachTo: htmlElement }
+          { attachTo: htmlElement },
         );
 
-        (wrapper
-          .find(StyledFlatTableRow)
-          .at(0)
-          .getDOMNode() as HTMLElement).focus();
+        (
+          wrapper.find(StyledFlatTableRow).at(0).getDOMNode() as HTMLElement
+        ).focus();
 
         act(() => {
           wrapper
@@ -1238,12 +1241,14 @@ describe("FlatTableRow", () => {
 
         expect(wrapper.find(StyledFlatTableRow).length).toEqual(1);
 
-        (wrapper
-          .find(StyledFlatTableRow)
-          .at(0)
-          .find("td")
-          .at(0)
-          .getDOMNode() as HTMLElement).focus();
+        (
+          wrapper
+            .find(StyledFlatTableRow)
+            .at(0)
+            .find("td")
+            .at(0)
+            .getDOMNode() as HTMLElement
+        ).focus();
 
         act(() => {
           wrapper
@@ -1294,10 +1299,10 @@ describe("FlatTableRow", () => {
               borderBottom: expectedValue,
             },
             wrapper,
-            { modifier: `${StyledFlatTableCell}` }
+            { modifier: `${StyledFlatTableCell}` },
           );
         });
-      }
+      },
     );
 
     describe.each([
@@ -1319,10 +1324,10 @@ describe("FlatTableRow", () => {
               borderBottomColor: expectedValue,
             },
             wrapper,
-            { modifier: `${StyledFlatTableCell}` }
+            { modifier: `${StyledFlatTableCell}` },
           );
         });
-      }
+      },
     );
 
     describe("when a right sticky column is rendered with no left sticky column", () => {
@@ -1338,14 +1343,14 @@ describe("FlatTableRow", () => {
                 </FlatTableRowHeader>
               </FlatTableRow>
             </thead>
-          </table>
+          </table>,
         );
         assertStyleMatch(
           {
             borderLeft: "2px solid var(--colorsUtilityMajor100)",
           },
           wrapper,
-          { modifier: `${StyledFlatTableRowHeader}:nth-child(3)` }
+          { modifier: `${StyledFlatTableRowHeader}:nth-child(3)` },
         );
       });
     });
@@ -1364,7 +1369,7 @@ describe("FlatTableRow", () => {
                 </FlatTableRow>
               </tbody>
             </table>
-          </FlatTableThemeContext.Provider>
+          </FlatTableThemeContext.Provider>,
         );
 
         assertStyleMatch(
@@ -1374,7 +1379,7 @@ describe("FlatTableRow", () => {
           wrapper.find(StyledFlatTableRow).at(1),
           {
             modifier: `${StyledFlatTableCheckbox} + ${StyledFlatTableCell} > div`,
-          }
+          },
         );
       });
     });
@@ -1408,7 +1413,7 @@ describe("FlatTableRow", () => {
                 </FlatTableCell>
               </FlatTableRow>
             </thead>
-          </table>
+          </table>,
         );
 
         const row = wrapper.find(StyledFlatTableRow);
@@ -1419,7 +1424,7 @@ describe("FlatTableRow", () => {
             height: "200px",
           },
           row,
-          { modifier: `:focus:after` }
+          { modifier: `:focus:after` },
         );
       });
     });
@@ -1496,7 +1501,7 @@ describe("FlatTableRow", () => {
               <FlatTableCell>test 5</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
-        </table>
+        </table>,
       );
 
       wrapper.update();
@@ -1505,28 +1510,28 @@ describe("FlatTableRow", () => {
         {
           position: "sticky",
         },
-        wrapper.find(StyledFlatTableHeader).at(0)
+        wrapper.find(StyledFlatTableHeader).at(0),
       );
 
       assertStyleMatch(
         {
           position: "sticky",
         },
-        wrapper.find(StyledFlatTableCell).at(0)
+        wrapper.find(StyledFlatTableCell).at(0),
       );
 
       assertStyleMatch(
         {
           position: "sticky",
         },
-        wrapper.find(StyledFlatTableCheckbox)
+        wrapper.find(StyledFlatTableCheckbox),
       );
 
       assertStyleMatch(
         {
           position: undefined,
         },
-        wrapper.find(StyledFlatTableHeader).at(1)
+        wrapper.find(StyledFlatTableHeader).at(1),
       );
     });
 
@@ -1635,7 +1640,7 @@ describe("FlatTableRow", () => {
               <FlatTableCell>test 5</FlatTableCell>
             </FlatTableRow>
           </FlatTableBodyDraggable>
-        </table>
+        </table>,
       );
 
       const cell = wrapper.find("td").at(0);
@@ -1649,7 +1654,7 @@ describe("FlatTableRow", () => {
         {
           position: undefined,
         },
-        wrapper.find(StyledFlatTableHeader).at(1)
+        wrapper.find(StyledFlatTableHeader).at(1),
       );
     });
 
@@ -1670,14 +1675,14 @@ describe("FlatTableRow", () => {
               <FlatTableCell>Test</FlatTableCell>
             </StyledFlatTableRow>
           </tbody>
-        </table>
+        </table>,
       );
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsUtilityMajor150)",
         },
         wrapper,
-        { modifier: `${StyledFlatTableCell}` }
+        { modifier: `${StyledFlatTableCell}` },
       );
     });
 
@@ -1699,14 +1704,14 @@ describe("FlatTableRow", () => {
               <FlatTableCell>Test</FlatTableCell>
             </StyledFlatTableRow>
           </tbody>
-        </table>
+        </table>,
       );
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsUtilityMajor200)",
         },
         wrapper,
-        { modifier: `${StyledFlatTableCell}` }
+        { modifier: `${StyledFlatTableCell}` },
       );
     });
 
@@ -1786,7 +1791,7 @@ describe("FlatTableRow", () => {
               <FlatTableCell>Foo</FlatTableCell>
             </FlatTableRow>
           </thead>
-        </table>
+        </table>,
       )
         .find(StyledFlatTableRow)
         .prop("lhsRowHeaderIndex");
@@ -1805,7 +1810,7 @@ describe("FlatTableRow", () => {
               <FlatTableCheckbox />
             </FlatTableRow>
           </tbody>
-        </table>
+        </table>,
       );
 
       expect(wrapper.find(StyledFlatTableRow).prop("firstCellIndex")).toBe(0);
@@ -1822,11 +1827,11 @@ describe("FlatTableRow", () => {
               <FlatTableRowHeader>I have an ID</FlatTableRowHeader>
             </FlatTableRow>
           </tbody>
-        </table>
+        </table>,
       );
 
       expect(wrapper.find(StyledFlatTableRowHeader).prop("leftPositon")).toBe(
-        undefined
+        undefined,
       );
     });
   });

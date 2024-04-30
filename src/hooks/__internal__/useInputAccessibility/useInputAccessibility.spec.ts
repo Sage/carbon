@@ -34,11 +34,11 @@ describe("useInputAccessibility", () => {
           fieldHelp,
           error,
           validationRedesignOptIn: true,
-        })
+        }),
       ).toEqual(
         expect.objectContaining({
           ariaDescribedBy: `${id}-field-help ${id}-validation`,
-        })
+        }),
       );
     });
   });
@@ -50,7 +50,7 @@ describe("useInputAccessibility", () => {
         expect(useInputAccessibility({ id, [key]: key })).toEqual(
           expect.objectContaining({
             validationId: `${id}-validation`,
-          })
+          }),
         );
       });
 
@@ -58,7 +58,7 @@ describe("useInputAccessibility", () => {
         expect(useInputAccessibility({ id, [key]: key })).toEqual(
           expect.objectContaining({
             ariaDescribedBy: undefined,
-          })
+          }),
         );
       });
 
@@ -69,14 +69,14 @@ describe("useInputAccessibility", () => {
               id,
               [key]: key,
               validationRedesignOptIn: true,
-            })
+            }),
           ).toEqual(
             expect.objectContaining({
               ariaDescribedBy: `${id}-validation`,
-            })
+            }),
           );
         });
       });
-    }
+    },
   );
 });

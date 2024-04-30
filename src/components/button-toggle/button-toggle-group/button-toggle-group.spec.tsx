@@ -63,7 +63,7 @@ describe("ButtonToggleGroup", () => {
       {
         width: "48%",
       },
-      wrapper.find(StyledButtonToggleGroup)
+      wrapper.find(StyledButtonToggleGroup),
     );
   });
 
@@ -82,14 +82,14 @@ describe("ButtonToggleGroup", () => {
           cursor: "not-allowed",
           boxShadow: "inset 0px 0px 0px 1px var(--colorsActionDisabled600)",
         },
-        wrapper.find(StyledButtonToggleGroup)
+        wrapper.find(StyledButtonToggleGroup),
       );
 
       assertStyleMatch(
         {
           color: "var(--colorsUtilityYin030)",
         },
-        wrapper.find(StyledHintText)
+        wrapper.find(StyledHintText),
       );
     });
 
@@ -105,13 +105,13 @@ describe("ButtonToggleGroup", () => {
       it("the group container has an aria-labelledby referencing the ID of the label text", () => {
         const wrapper = render({ label: "a label" });
         expect(
-          wrapper.find(StyledLabel).getDOMNode().getAttribute("id")
+          wrapper.find(StyledLabel).getDOMNode().getAttribute("id"),
         ).toEqual("guid-12345");
         expect(
           wrapper
             .find(StyledButtonToggleGroup)
             .getDOMNode()
-            .getAttribute("aria-labelledby")
+            .getAttribute("aria-labelledby"),
         ).toEqual("guid-12345");
       });
 
@@ -121,7 +121,7 @@ describe("ButtonToggleGroup", () => {
           wrapper
             .find(StyledButtonToggleGroup)
             .getDOMNode()
-            .getAttribute("aria-label")
+            .getAttribute("aria-label"),
         ).toBe(null);
       });
 
@@ -134,7 +134,7 @@ describe("ButtonToggleGroup", () => {
           wrapper
             .find(StyledButtonToggleGroup)
             .getDOMNode()
-            .getAttribute("aria-label")
+            .getAttribute("aria-label"),
         ).toBe(null);
       });
     });
@@ -146,7 +146,7 @@ describe("ButtonToggleGroup", () => {
           wrapper
             .find(StyledButtonToggleGroup)
             .getDOMNode()
-            .getAttribute("aria-label")
+            .getAttribute("aria-label"),
         ).toBe("an aria label");
       });
 
@@ -156,7 +156,7 @@ describe("ButtonToggleGroup", () => {
           wrapper
             .find(StyledButtonToggleGroup)
             .getDOMNode()
-            .getAttribute("aria-labelledby")
+            .getAttribute("aria-labelledby"),
         ).toBe(null);
       });
     });
@@ -170,14 +170,14 @@ describe("ButtonToggleGroup", () => {
         <MockComponent
           label="Product selection"
           inputHint="Select an addon for Product A"
-        />
+        />,
       );
 
       expect(
-        screen.getByRole("button", { name: "Foo" })
+        screen.getByRole("button", { name: "Foo" }),
       ).toHaveAccessibleDescription("Select an addon for Product A");
       expect(
-        screen.getByRole("button", { name: "Bar" })
+        screen.getByRole("button", { name: "Bar" }),
       ).toHaveAccessibleDescription("Select an addon for Product A");
     });
   });
@@ -190,7 +190,7 @@ describe("ButtonToggleGroup", () => {
           flex: "auto",
         },
         wrapper.find(StyledButtonToggleGroup),
-        { modifier: `${StyledButtonToggleWrapper}` }
+        { modifier: `${StyledButtonToggleWrapper}` },
       );
     });
   });
@@ -202,7 +202,7 @@ describe("ButtonToggleGroup", () => {
         width: "100%",
       },
       wrapper.find(StyledButtonToggleGroup),
-      { modifier: `${StyledButtonToggle}` }
+      { modifier: `${StyledButtonToggle}` },
     );
   });
 
@@ -222,7 +222,7 @@ describe("ButtonToggleGroup", () => {
           <ButtonToggleGroup id="id">
             <InvalidComponent />
             <InvalidComponent />
-          </ButtonToggleGroup>
+          </ButtonToggleGroup>,
         );
       }).toThrow();
       consoleSpy.mockRestore();
@@ -235,7 +235,7 @@ describe("ButtonToggleGroup", () => {
             {null}
             {false}
             {undefined}
-          </ButtonToggleGroup>
+          </ButtonToggleGroup>,
         );
       }).not.toThrow();
     });
@@ -249,7 +249,7 @@ describe("ButtonToggleGroup", () => {
 
     expect(loggerSpy).toHaveBeenCalledWith(
       `The \`name\` prop in \`ButtonToggleGroup\` component is deprecated and will soon be removed. It does not provide any functionality
-      since the component can no longer be used in an uncontrolled fashion.`
+      since the component can no longer be used in an uncontrolled fashion.`,
     );
 
     expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -329,7 +329,7 @@ describe("ButtonToggleGroup", () => {
             <ButtonToggle value="foo">Foo</ButtonToggle>
             <ButtonToggle value="bar">Bar</ButtonToggle>
           </ButtonToggleGroup>
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
       expect(wrapper.find(Help).exists()).toBe(false);
@@ -379,7 +379,7 @@ describe("ButtonToggleGroup", () => {
             <ButtonToggle value="foo">Foo</ButtonToggle>
             <ButtonToggle value="bar">Bar</ButtonToggle>
           </ButtonToggleGroup>
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
       expect(wrapper.find(FieldHelp).exists()).toBe(false);
@@ -401,7 +401,7 @@ describe("ButtonToggleGroup", () => {
           <ButtonToggle value="bar">Bar</ButtonToggle>
           <ButtonToggle value="baz">Baz</ButtonToggle>
         </ButtonToggleGroup>,
-        { attachTo: document.getElementById("enzymeContainer") }
+        { attachTo: document.getElementById("enzymeContainer") },
       );
       act(() => {
         jest.runAllTimers();
@@ -425,21 +425,21 @@ describe("ButtonToggleGroup", () => {
           .find(StyledButtonToggle)
           .at(0)
           .getDOMNode()
-          .getAttribute("tabindex")
+          .getAttribute("tabindex"),
       ).toBe("0");
       expect(
         wrapper
           .find(StyledButtonToggle)
           .at(1)
           .getDOMNode()
-          .getAttribute("tabindex")
+          .getAttribute("tabindex"),
       ).toBe("-1");
       expect(
         wrapper
           .find(StyledButtonToggle)
           .at(2)
           .getDOMNode()
-          .getAttribute("tabindex")
+          .getAttribute("tabindex"),
       ).toBe("-1");
     });
 
@@ -452,30 +452,29 @@ describe("ButtonToggleGroup", () => {
           .find(StyledButtonToggle)
           .at(0)
           .getDOMNode()
-          .getAttribute("tabindex")
+          .getAttribute("tabindex"),
       ).toBe("-1");
       expect(
         wrapper
           .find(StyledButtonToggle)
           .at(1)
           .getDOMNode()
-          .getAttribute("tabindex")
+          .getAttribute("tabindex"),
       ).toBe("0");
       expect(
         wrapper
           .find(StyledButtonToggle)
           .at(2)
           .getDOMNode()
-          .getAttribute("tabindex")
+          .getAttribute("tabindex"),
       ).toBe("-1");
     });
 
     it("left arrow key focuses the previous button", () => {
       act(() => {
-        (wrapper
-          .find("button")
-          .at(1)
-          .getDOMNode() as HTMLButtonElement).focus();
+        (
+          wrapper.find("button").at(1).getDOMNode() as HTMLButtonElement
+        ).focus();
       });
       wrapper
         .find(StyledButtonToggle)
@@ -486,10 +485,9 @@ describe("ButtonToggleGroup", () => {
 
     it("left arrow key focuses the last button when the first is focused", () => {
       act(() => {
-        (wrapper
-          .find("button")
-          .at(0)
-          .getDOMNode() as HTMLButtonElement).focus();
+        (
+          wrapper.find("button").at(0).getDOMNode() as HTMLButtonElement
+        ).focus();
       });
       wrapper
         .find(StyledButtonToggle)
@@ -500,10 +498,9 @@ describe("ButtonToggleGroup", () => {
 
     it("right arrow key focuses the next button", () => {
       act(() => {
-        (wrapper
-          .find("button")
-          .at(1)
-          .getDOMNode() as HTMLButtonElement).focus();
+        (
+          wrapper.find("button").at(1).getDOMNode() as HTMLButtonElement
+        ).focus();
       });
       wrapper
         .find(StyledButtonToggle)
@@ -514,10 +511,9 @@ describe("ButtonToggleGroup", () => {
 
     it("right arrow key focuses the first button when the last is focused", () => {
       act(() => {
-        (wrapper
-          .find("button")
-          .at(2)
-          .getDOMNode() as HTMLButtonElement).focus();
+        (
+          wrapper.find("button").at(2).getDOMNode() as HTMLButtonElement
+        ).focus();
       });
       wrapper
         .find(StyledButtonToggle)
@@ -528,10 +524,9 @@ describe("ButtonToggleGroup", () => {
 
     it("pressing a non arrow key doesn't change focus", () => {
       act(() => {
-        (wrapper
-          .find("button")
-          .at(1)
-          .getDOMNode() as HTMLButtonElement).focus();
+        (
+          wrapper.find("button").at(1).getDOMNode() as HTMLButtonElement
+        ).focus();
       });
       wrapper.find(StyledButtonToggle).at(1).simulate("keydown", { key: "a" });
       expect(wrapper.find(StyledButtonToggle).at(1)).toBeFocused();
@@ -542,6 +537,6 @@ describe("ButtonToggleGroup", () => {
     (props) => <MockComponent {...props} />,
     undefined,
     (component) => component.find(FormFieldStyle),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 });

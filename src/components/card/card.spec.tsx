@@ -30,7 +30,7 @@ describe("Card", () => {
       render({ "data-element": "foo", "data-role": "bar" }).find(StyledCard),
       "card",
       "foo",
-      "bar"
+      "bar",
     );
   });
 
@@ -56,11 +56,11 @@ describe("Card", () => {
       const wrapper = mount(
         <Card spacing={spacing} footer={<CardFooter>Footer</CardFooter>}>
           <CardRow>Row</CardRow>
-        </Card>
+        </Card>,
       );
       expect(wrapper.find(StyledCardRow).prop("spacing")).toBe(spacing);
       expect(wrapper.find(StyledCardFooter).prop("spacing")).toBe(spacing);
-    }
+    },
   );
 
   it.each<Exclude<CardProps["spacing"], undefined>>([
@@ -73,7 +73,7 @@ describe("Card", () => {
       const wrapper = mount(
         <Card spacing={spacing}>
           <CardRow>Row</CardRow>
-        </Card>
+        </Card>,
       );
 
       assertStyleMatch(
@@ -81,9 +81,9 @@ describe("Card", () => {
           padding: paddingSizes[spacing],
           margin: marginSizes[spacing],
         },
-        wrapper.find(StyledCardContent)
+        wrapper.find(StyledCardContent),
       );
-    }
+    },
   );
 
   it("renders with box shadow style when boxShadow is set", () => {
@@ -92,7 +92,7 @@ describe("Card", () => {
       {
         boxShadow: "var(--boxShadow400)",
       },
-      wrapper.find(StyledCard)
+      wrapper.find(StyledCard),
     );
   });
 
@@ -108,7 +108,7 @@ describe("Card", () => {
         {
           borderRadius: radius,
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -118,9 +118,9 @@ describe("Card", () => {
           borderBottomLeftRadius: radius,
           borderBottomRightRadius: radius,
         },
-        wrapper.find(StyledCardContent)
+        wrapper.find(StyledCardContent),
       );
-    }
+    },
   );
 
   it.each<CardProps["roundness"]>(["default", "large"])(
@@ -138,7 +138,7 @@ describe("Card", () => {
         {
           borderRadius: radius,
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -148,9 +148,9 @@ describe("Card", () => {
           borderBottomLeftRadius: undefined,
           borderBottomRightRadius: undefined,
         },
-        wrapper.find(StyledCardContent)
+        wrapper.find(StyledCardContent),
       );
-    }
+    },
   );
 
   describe("when spacing prop is not set, styled-system props are used", () => {
@@ -158,7 +158,7 @@ describe("Card", () => {
       const wrapper = mount(
         <Card>
           <CardRow>foobar</CardRow>
-        </Card>
+        </Card>,
       );
 
       assertStyleMatch(
@@ -166,7 +166,7 @@ describe("Card", () => {
           paddingTop: "var(--spacing000)",
         },
         wrapper.find(StyledCardRow),
-        { modifier: ":only-of-type" }
+        { modifier: ":only-of-type" },
       );
     });
 
@@ -175,7 +175,7 @@ describe("Card", () => {
         <Card>
           <CardRow>row 1</CardRow>
           <CardRow>row 2</CardRow>
-        </Card>
+        </Card>,
       );
 
       assertStyleMatch(
@@ -184,7 +184,7 @@ describe("Card", () => {
           paddingBottom: "var(--spacing000)",
         },
         wrapper.find(StyledCardRow),
-        { modifier: ":first-of-type:not(:only-of-type)" }
+        { modifier: ":first-of-type:not(:only-of-type)" },
       );
     });
 
@@ -192,7 +192,7 @@ describe("Card", () => {
       const wrapper = mount(
         <Card>
           <CardFooter>foobar</CardFooter>
-        </Card>
+        </Card>,
       );
 
       expect(wrapper.find(CardFooter).prop("py")).toBeUndefined();
@@ -231,7 +231,7 @@ describe("Card", () => {
         interactiveElement.simulate("keydown", { key });
 
         expect(onClick).not.toHaveBeenCalled();
-      }
+      },
     );
 
     it("should not call the callback when a draggable card is clicked", () => {
@@ -257,7 +257,7 @@ describe("Card", () => {
         {
           cursor: "pointer",
         },
-        wrapper.find(StyledCardContent)
+        wrapper.find(StyledCardContent),
       );
     });
 
@@ -271,7 +271,7 @@ describe("Card", () => {
           boxShadow: "var(--boxShadow100)",
         },
         wrapper.find(StyledCard),
-        { modifier: `&${selector}` }
+        { modifier: `&${selector}` },
       );
     });
 
@@ -290,9 +290,9 @@ describe("Card", () => {
             boxShadow: "var(--boxShadow200)",
           },
           wrapper.find(StyledCard),
-          { modifier: `&${selector}` }
+          { modifier: `&${selector}` },
         );
-      }
+      },
     );
   });
 
@@ -328,9 +328,9 @@ describe("Card", () => {
         {
           width,
         },
-        wrapper.find(StyledCard)
+        wrapper.find(StyledCard),
       );
-    }
+    },
   );
 
   it("underlying element for Card should have data-element and data-role attributes when provided", () => {
@@ -341,10 +341,10 @@ describe("Card", () => {
       "data-role": dataRole,
     });
     expect(
-      wrapper.find("div[data-component='card']").prop("data-element")
+      wrapper.find("div[data-component='card']").prop("data-element"),
     ).toBe(dataElement);
     expect(wrapper.find("div[data-component='card']").prop("data-role")).toBe(
-      dataRole
+      dataRole,
     );
   });
 
@@ -362,11 +362,11 @@ describe("Card", () => {
         <Card {...props}>
           <CardRow>foo</CardRow>
           <CardFooter>foo</CardFooter>
-        </Card>
+        </Card>,
       );
 
       expect(consoleSpy).toHaveBeenCalled();
       consoleSpy.mockReset();
-    }
+    },
   );
 });

@@ -10,18 +10,18 @@ describe("FlexTileContainer", () => {
     "has styles applied when column-gap is set to %s",
     (gapValue) => {
       const wrapper = mount(
-        <FlexTileContainer columnGap={gapValue}>content</FlexTileContainer>
+        <FlexTileContainer columnGap={gapValue}>content</FlexTileContainer>,
       );
       const columnGap = getGapValue(gapValue);
       assertStyleMatch({ columnGap }, wrapper);
-    }
+    },
   );
 
   it("does not render when falsy children are passed", () => {
     render(
       <FlexTileContainer data-role="flex-tile-container">
         {null}
-      </FlexTileContainer>
+      </FlexTileContainer>,
     );
 
     expect(screen.queryByTestId("flex-tile-container")).not.toBeInTheDocument();

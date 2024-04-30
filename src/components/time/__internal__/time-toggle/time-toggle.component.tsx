@@ -42,7 +42,7 @@ const Toggle = ({
         onChange(selectedButtonValue as ToggleValue);
       }
     },
-    [toggleValue, onChange]
+    [toggleValue, onChange],
   );
 
   return (

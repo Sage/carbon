@@ -53,7 +53,7 @@ describe("TileContent", () => {
             <TileContent>Tile Content 2</TileContent>
             <TileContent>Tile Content 3</TileContent>
           </TileContext.Provider>
-        </>
+        </>,
       );
 
       expect(screen.getByText("Tile Content 1")).toHaveStyle({
@@ -70,7 +70,7 @@ describe("TileContent", () => {
         "padding-left": leftValue,
         "padding-right": "0px",
       });
-    }
+    },
   );
 
   it.each([
@@ -91,7 +91,7 @@ describe("TileContent", () => {
             <TileContent>Tile Content 2</TileContent>
             <TileContent>Tile Content 3</TileContent>
           </TileContext.Provider>
-        </>
+        </>,
       );
 
       expect(screen.getByText("Tile Content 1")).toHaveStyle({
@@ -108,14 +108,14 @@ describe("TileContent", () => {
         "padding-top": topValue,
         "padding-bottom": "0px",
       });
-    }
+    },
   );
 
   it("has proper data attributes applied", () => {
     render(
       <TileContent data-element="foo" data-role="bar">
         Tile Content
-      </TileContent>
+      </TileContent>,
     );
     const element = screen.getByText("Tile Content");
     rootTagTestRtl(element, "tile-content", "foo", "bar");

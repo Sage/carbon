@@ -21,7 +21,7 @@ const SECTION_VISIBILITY_OFFSET = 200;
 
 const expectNavigationItemToBeSelected = (
   index: number,
-  wrapper: ReactWrapper
+  wrapper: ReactWrapper,
 ) =>
   assertStyleMatch(
     {
@@ -29,7 +29,7 @@ const expectNavigationItemToBeSelected = (
       borderLeftColor: "var(--colorsActionMajor500)",
     },
     wrapper.find(StyledNavigationItem).at(index),
-    { modifier: "a" }
+    { modifier: "a" },
   );
 
 interface ContentProps {
@@ -45,7 +45,7 @@ const Content = React.forwardRef<HTMLDivElement, ContentProps>(
         <h2>{title}</h2>
       </div>
     </>
-  )
+  ),
 );
 Content.displayName = "Content";
 
@@ -98,7 +98,7 @@ describe("AnchorNavigation", () => {
         <AnchorSectionDivider />
         <Content ref={ref5} title="Fifth section" />
       </AnchorNavigation>,
-      { attachTo: document.getElementById("enzymeContainer") }
+      { attachTo: document.getElementById("enzymeContainer") },
     );
   };
 
@@ -123,14 +123,14 @@ describe("AnchorNavigation", () => {
       wrapper
         .find(StyledAnchorNavigation)
         .getDOMNode()
-        .getAttribute("data-component")
+        .getAttribute("data-component"),
     ).toBe("anchor-navigation");
     expect(
-      wrapper.find(StyledNavigation).getDOMNode().getAttribute("data-element")
+      wrapper.find(StyledNavigation).getDOMNode().getAttribute("data-element"),
     ).toBe("anchor-sticky-navigation");
     wrapper.find(`${StyledNavigationItem} a`).forEach((navItem) => {
       expect(navItem.getDOMNode().getAttribute("data-element")).toBe(
-        "anchor-navigation-item"
+        "anchor-navigation-item",
       );
     });
   });
@@ -150,7 +150,7 @@ describe("AnchorNavigation", () => {
       });
       wrapper.update();
       expectNavigationItemToBeSelected(index, wrapper);
-    }
+    },
   );
 
   it("when navigation item is clicked, focus on the target section container", () => {
@@ -185,7 +185,7 @@ describe("AnchorNavigation", () => {
         });
 
         expect(wrapper.find(Content).at(index)).toBeFocused();
-      }
+      },
     );
 
     it("does not alter the tabindex of the container if it was already focusable", () => {
@@ -197,7 +197,7 @@ describe("AnchorNavigation", () => {
         .simulate("keydown", { preventDefault, key: "Enter" });
 
       expect(
-        wrapper.find(Content).at(0).getDOMNode().getAttribute("tabindex")
+        wrapper.find(Content).at(0).getDOMNode().getAttribute("tabindex"),
       ).toBe("0");
     });
   });
@@ -205,7 +205,7 @@ describe("AnchorNavigation", () => {
   // coverage filler
   it("does nothing if key other than tab or enter is pressed", () => {
     simulate.keydown.pressArrowRight(
-      wrapper.find(`${StyledNavigationItem} a`).at(0)
+      wrapper.find(`${StyledNavigationItem} a`).at(0),
     );
   });
 
@@ -231,7 +231,8 @@ describe("AnchorNavigation", () => {
           jest
             .spyOn(ref.current, "getBoundingClientRect")
             .mockImplementation(
-              () => ({ top: topEdgeOffsets[index] - scrollPosition } as DOMRect)
+              () =>
+                ({ top: topEdgeOffsets[index] - scrollPosition }) as DOMRect,
             );
         }
       });
@@ -239,10 +240,10 @@ describe("AnchorNavigation", () => {
       jest
         .spyOn(
           wrapper.find(StyledNavigation).getDOMNode(),
-          "getBoundingClientRect"
+          "getBoundingClientRect",
         )
         .mockImplementation(
-          () => ({ top: SECTION_VISIBILITY_OFFSET } as DOMRect)
+          () => ({ top: SECTION_VISIBILITY_OFFSET }) as DOMRect,
         );
 
       act(() => {
@@ -250,14 +251,14 @@ describe("AnchorNavigation", () => {
       });
       wrapper.update();
       expectNavigationItemToBeSelected(selectedAnchorIndex, wrapper);
-    }
+    },
   );
 
   it("cleans up event listeners after unmounting", () => {
     const addEventListenerSpy = jest.spyOn(window, "removeEventListener");
     wrapper.unmount();
     expect(
-      addEventListenerSpy.mock.calls.filter((call) => call[0] === "scroll")
+      addEventListenerSpy.mock.calls.filter((call) => call[0] === "scroll"),
     ).toHaveLength(1);
   });
 
@@ -285,7 +286,7 @@ describe("AnchorNavigation", () => {
                 <p>Invalid children</p>
               </>
             }
-          />
+          />,
         );
       }).toThrow(error);
     });
@@ -302,7 +303,7 @@ describe("AnchorNavigation", () => {
                 <AnchorNavigationItem>First</AnchorNavigationItem>
               </div>
             }
-          />
+          />,
         );
       }).toThrow(error);
     });
@@ -314,7 +315,7 @@ describe("AnchorNavigation", () => {
         backgroundColor: "var(--colorsActionMinor100)",
       },
       wrapper.find(StyledNavigationItem).at(1),
-      { modifier: "a:hover" }
+      { modifier: "a:hover" },
     );
   });
 
@@ -324,7 +325,7 @@ describe("AnchorNavigation", () => {
       undefined,
       {
         modifier: "a:hover",
-      }
+      },
     );
   });
 
@@ -335,7 +336,7 @@ describe("AnchorNavigation", () => {
         borderBottomRightRadius: "var(--borderRadius100)",
       },
       wrapper.find(StyledNavigationItem),
-      { modifier: "a" }
+      { modifier: "a" },
     );
   });
 });

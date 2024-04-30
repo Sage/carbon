@@ -85,7 +85,7 @@ const Modal = ({
         onCancel(ev);
       }
     },
-    [disableClose, disableEscKey, onCancel]
+    [disableClose, disableEscKey, onCancel],
   );
 
   useModalManager({

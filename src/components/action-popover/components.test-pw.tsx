@@ -500,7 +500,7 @@ export const ActionPopoverMenuWithProps = ({ ...props }) => {
 };
 
 export const ActionPopoverPropsComponent = (
-  props: Partial<ActionPopoverProps>
+  props: Partial<ActionPopoverProps>,
 ) => {
   return (
     <ActionPopover {...props}>
@@ -511,7 +511,7 @@ export const ActionPopoverPropsComponent = (
 };
 
 export const ActionPopoverPropsComponentWithFirstAndLastDisabled = (
-  props: Partial<ActionPopoverProps>
+  props: Partial<ActionPopoverProps>,
 ) => {
   return (
     <ActionPopover {...props}>
@@ -527,7 +527,7 @@ export const ActionPopoverPropsComponentWithFirstAndLastDisabled = (
 };
 
 export const ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled = (
-  props: Partial<ActionPopoverProps>
+  props: Partial<ActionPopoverProps>,
 ) => {
   return (
     <ActionPopover {...props}>
@@ -543,7 +543,7 @@ export const ActionPopoverPropsComponentWithOnlyFirstAndLastNotDisabled = (
 };
 
 export const ActionPopoverPropsComponentWithOnlyFirstDisabled = (
-  props: Partial<ActionPopoverProps>
+  props: Partial<ActionPopoverProps>,
 ) => {
   return (
     <ActionPopover {...props}>
@@ -559,7 +559,7 @@ export const ActionPopoverPropsComponentWithOnlyFirstDisabled = (
 };
 
 export const ActionPopoverPropsComponentWithOnlyLastDisabled = (
-  props: Partial<ActionPopoverProps>
+  props: Partial<ActionPopoverProps>,
 ) => {
   return (
     <ActionPopover {...props}>
@@ -575,7 +575,7 @@ export const ActionPopoverPropsComponentWithOnlyLastDisabled = (
 };
 
 export const ActionPopoverPropsComponentWithSomeDisabled = (
-  props: Partial<ActionPopoverProps>
+  props: Partial<ActionPopoverProps>,
 ) => {
   return (
     <ActionPopover {...props}>
@@ -591,7 +591,7 @@ export const ActionPopoverPropsComponentWithSomeDisabled = (
 };
 
 export const ActionPopoverPropsComponentAllDisabled = (
-  props: Partial<ActionPopoverProps>
+  props: Partial<ActionPopoverProps>,
 ) => {
   return (
     <ActionPopover {...props}>

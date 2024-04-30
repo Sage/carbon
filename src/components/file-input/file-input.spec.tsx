@@ -17,13 +17,17 @@ describe("rendering with no file uploaded", () => {
   it("renders an HTML button to choose a file to add", () => {
     render(<FileInput onChange={() => {}} />);
     expect(
-      screen.queryByRole("button", { name: "Select file" })
+      screen.queryByRole("button", { name: "Select file" }),
     ).toBeInTheDocument();
   });
 
   it("accepts an accept prop and passes it to the underlying input", () => {
     render(
-      <FileInput label="file input" accept="image/*,.pdf" onChange={() => {}} />
+      <FileInput
+        label="file input"
+        accept="image/*,.pdf"
+        onChange={() => {}}
+      />,
     );
     const hiddenInput = screen.queryByLabelText("file input");
     expect(hiddenInput).toHaveAttribute("accept", "image/*,.pdf");
@@ -32,7 +36,7 @@ describe("rendering with no file uploaded", () => {
   it("accepts a buttonText prop to change the button text", () => {
     render(<FileInput buttonText="add a file" onChange={() => {}} />);
     expect(
-      screen.queryByRole("button", { name: "add a file" })
+      screen.queryByRole("button", { name: "add a file" }),
     ).toBeInTheDocument();
   });
 
@@ -61,7 +65,7 @@ describe("rendering with no file uploaded", () => {
         data-element="element-test"
         data-role="role-test"
         onChange={() => {}}
-      />
+      />,
     );
     const wrapperElement = screen.getByText("or drag and drop your file")
       .parentElement?.parentElement?.parentElement
@@ -71,32 +75,34 @@ describe("rendering with no file uploaded", () => {
 
   it("accepts an error prop as a boolean", () => {
     render(<FileInput error onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement;
+    const wrapperElement = screen.getByText(
+      "or drag and drop your file",
+    ).parentElement;
     assertStyleMatch(
       {
         border: "var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
       },
-      wrapperElement
+      wrapperElement,
     );
   });
 
   it("accepts an error prop as a string", () => {
     render(<FileInput error="error text" onChange={() => {}} />);
-    const wrapperElement = screen.getByText("or drag and drop your file")
-      .parentElement;
+    const wrapperElement = screen.getByText(
+      "or drag and drop your file",
+    ).parentElement;
     assertStyleMatch(
       {
         border: "var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
       },
-      wrapperElement
+      wrapperElement,
     );
     expect(screen.getByText("error text")).toBeVisible();
   });
 
   it("accepts a name prop and passes it to the underlying input", () => {
     render(
-      <FileInput label="file input" name="input-name" onChange={() => {}} />
+      <FileInput label="file input" name="input-name" onChange={() => {}} />,
     );
     const hiddenInput = screen.queryByLabelText("file input");
     expect(hiddenInput).toHaveAttribute("name", "input-name");
@@ -128,7 +134,7 @@ describe("rendering with no file uploaded", () => {
       current: null,
     };
     render(
-      <FileInput label="file input" ref={refObject} onChange={() => {}} />
+      <FileInput label="file input" ref={refObject} onChange={() => {}} />,
     );
     const hiddenInput = screen.queryByLabelText("file input");
     expect(refObject.current).toBe(hiddenInput);
@@ -137,7 +143,7 @@ describe("rendering with no file uploaded", () => {
   it("accepts a callback ref", () => {
     const callbackRef = jest.fn();
     render(
-      <FileInput label="file input" ref={callbackRef} onChange={() => {}} />
+      <FileInput label="file input" ref={callbackRef} onChange={() => {}} />,
     );
     const hiddenInput = screen.queryByLabelText("file input");
     expect(callbackRef).toHaveBeenCalledTimes(1);
@@ -180,7 +186,7 @@ describe("interactions", () => {
     });
     assertStyleMatch(
       { border: "var(--borderWidth200) dashed var(--colorsUtilityMajor400)" },
-      wrapperElement
+      wrapperElement,
     );
   });
 
@@ -198,7 +204,7 @@ describe("interactions", () => {
       {
         border: "var(--borderWidth200) dashed var(--colorsSemanticNegative600)",
       },
-      wrapperElement
+      wrapperElement,
     );
   });
 
@@ -211,7 +217,7 @@ describe("interactions", () => {
     });
     assertStyleMatch(
       { border: "var(--borderWidth100) dashed var(--colorsUtilityMajor300)" },
-      wrapperElement
+      wrapperElement,
     );
   });
 
@@ -227,7 +233,7 @@ describe("interactions", () => {
     });
     assertStyleMatch(
       { background: "var(--colorsUtilityMajor100)" },
-      wrapperElement
+      wrapperElement,
     );
   });
 
@@ -246,7 +252,7 @@ describe("interactions", () => {
     });
     assertStyleMatch(
       { background: "var(--colorsUtilityYang100)" },
-      wrapperElement
+      wrapperElement,
     );
   });
 
@@ -259,7 +265,7 @@ describe("interactions", () => {
     });
     assertStyleMatch(
       { background: "var(--colorsUtilityYang100)" },
-      wrapperElement
+      wrapperElement,
     );
   });
 
@@ -309,13 +315,13 @@ describe("with uploadStatus prop set", () => {
           label="file input"
           uploadStatus={statusProps}
           onChange={() => {}}
-        />
+        />,
       );
       const hiddenInput = screen.queryByLabelText("file input");
       const button = screen.queryByRole("button", { name: "Select file" });
       expect(hiddenInput).not.toBeInTheDocument();
       expect(button).not.toBeInTheDocument();
-    }
+    },
   );
 
   it("when the status is `uploading`, a progress bar or loader bar is rendered", () => {
@@ -328,7 +334,7 @@ describe("with uploadStatus prop set", () => {
           progress: 30,
         }}
         onChange={() => {}}
-      />
+      />,
     );
     expect(screen.queryByRole("progressbar")).toBeInTheDocument();
   });
@@ -343,7 +349,7 @@ describe("with uploadStatus prop set", () => {
           href: "http://carbon.sage.com",
         }}
         onChange={() => {}}
-      />
+      />,
     );
     expect(screen.queryByRole("link", { name: "foo.pdf" })).toBeInTheDocument();
     expect(screen.queryByText("File upload status")).toBeInTheDocument();
@@ -359,7 +365,7 @@ describe("with uploadStatus prop set", () => {
           href: "http://carbon.sage.com",
         }}
         onChange={() => {}}
-      />
+      />,
     );
     expect(screen.queryByRole("link", { name: "foo.pdf" })).toBeInTheDocument();
     expect(screen.queryByText("File upload status")).not.toBeInTheDocument();
@@ -374,7 +380,7 @@ describe("with uploadStatus prop set", () => {
           onAction: () => {},
         }}
         onChange={() => {}}
-      />
+      />,
     );
     const wrapperElement = screen.getByText("File upload status").parentElement
       ?.parentElement as HTMLElement;
@@ -382,7 +388,7 @@ describe("with uploadStatus prop set", () => {
       {
         border: "var(--borderWidth200) solid var(--colorsSemanticNegative500)",
       },
-      wrapperElement
+      wrapperElement,
     );
   });
 });

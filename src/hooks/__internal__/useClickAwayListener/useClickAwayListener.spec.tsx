@@ -42,7 +42,7 @@ describe("useClickAwayListener", () => {
       <MockComponent
         handleClickAway={handleClickAway}
         eventTypeId="mousedown"
-      />
+      />,
     );
     fireEvent.mouseDown(document);
     expect(handleClickAway).toHaveBeenCalled();
@@ -54,7 +54,7 @@ describe("useClickAwayListener", () => {
       <MockComponent
         handleClickAway={handleClickAway}
         eventTypeId="mousedown"
-      />
+      />,
     );
     fireEvent.mouseDown(screen.getByTestId("target-element"));
     expect(handleClickAway).not.toHaveBeenCalled();

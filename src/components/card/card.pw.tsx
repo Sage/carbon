@@ -48,10 +48,10 @@ test.describe("Check Card component styling", () => {
 
         await expect(footerCard(page)).toHaveCSS(
           "border-radius",
-          `0px 0px ${borderRadius} ${borderRadius}`
+          `0px 0px ${borderRadius} ${borderRadius}`,
         );
       });
-    }
+    },
   );
 
   [{ onClick: () => {} }, { href: "foo" }].forEach((props) => {
@@ -69,14 +69,14 @@ test.describe("Check Card component styling", () => {
       await expect(cardContentElement).toHaveCSS("cursor", "pointer");
       await expect(cardElement).toHaveCSS(
         "box-shadow",
-        "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px"
+        "rgba(0, 20, 30, 0.2) 0px 5px 5px 0px, rgba(0, 20, 30, 0.1) 0px 10px 10px 0px",
       );
 
       await cardContentElement.focus();
 
       await expect(cardContentElement).toHaveCSS(
         "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
       );
     });
 
@@ -89,7 +89,7 @@ test.describe("Check Card component styling", () => {
           boxShadow="boxShadow400"
           hoverBoxShadow="boxShadow200"
           {...props}
-        />
+        />,
       );
 
       const cardElement = card(page);
@@ -97,7 +97,7 @@ test.describe("Check Card component styling", () => {
 
       await expect(cardElement).toHaveCSS(
         "box-shadow",
-        "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px"
+        "rgba(0, 20, 30, 0.04) 0px 10px 40px 0px, rgba(0, 20, 30, 0.1) 0px 50px 80px 0px",
       );
       await cardElement.hover();
       await cardElement.waitFor();
@@ -105,7 +105,7 @@ test.describe("Check Card component styling", () => {
       await expect(cardContentElement).toHaveCSS("cursor", "pointer");
       await expect(cardElement).toHaveCSS(
         "box-shadow",
-        "rgba(0, 20, 30, 0.2) 0px 10px 20px 0px, rgba(0, 20, 30, 0.1) 0px 20px 40px 0px"
+        "rgba(0, 20, 30, 0.2) 0px 10px 20px 0px, rgba(0, 20, 30, 0.1) 0px 20px 40px 0px",
       );
     });
   });
@@ -141,13 +141,13 @@ test.describe("Check Card component properties", () => {
       await assertCssValueIsApproximately(
         cardElement,
         "padding-left",
-        paddings
+        paddings,
       );
 
       await assertCssValueIsApproximately(
         cardElement,
         "padding-right",
-        paddings
+        paddings,
       );
     });
   });
@@ -175,11 +175,13 @@ test.describe("Check Card component properties", () => {
     });
   });
 
-  ([
-    [1, 2, 2, 2],
-    [3, 1, 4, 0],
-    [4, 2, 2, 2],
-  ] as const).forEach(
+  (
+    [
+      [1, 2, 2, 2],
+      [3, 1, 4, 0],
+      [4, 2, 2, 2],
+    ] as const
+  ).forEach(
     ([
       draggableCardItem,
       columnName,
@@ -193,13 +195,13 @@ test.describe("Check Card component properties", () => {
         await mount(<DraggableExample />);
 
         await draggableCard(page, draggableCardItem - 1).dragTo(
-          draggableContainer(page, columnName)
+          draggableContainer(page, columnName),
         );
 
         await expect(
           draggableContainer(page, columnName).locator(
-            `[data-element="draggable-card-${draggableCardItem - 1}"]`
-          )
+            `[data-element="draggable-card-${draggableCardItem - 1}"]`,
+          ),
         ).toBeVisible();
 
         const resultForColumnOne = await draggableContainer(page, 1)
@@ -213,7 +215,7 @@ test.describe("Check Card component properties", () => {
 
         await expect(resultForColumnTwo).toEqual(countOfSecondColumn);
       });
-    }
+    },
   );
 
   test("should check that the expected dataRole is set on the component", async ({
@@ -250,7 +252,7 @@ test.describe("Check Card component properties", () => {
         onClick={() => {
           setClickCounter += 1;
         }}
-      />
+      />,
     );
 
     const cardElement = card(page);

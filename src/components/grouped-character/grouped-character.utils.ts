@@ -8,6 +8,6 @@ export const generateGroups = (groups: number[], rawValue: string) => {
 
       return toAdd ? [...acc, toAdd] : acc;
     },
-    []
+    [],
   );
 };

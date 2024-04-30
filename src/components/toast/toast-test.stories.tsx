@@ -31,7 +31,7 @@ export const Default = ({
     ev?:
       | KeyboardEvent
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     setIsOpen(!isOpen);
     action("click")(ev);

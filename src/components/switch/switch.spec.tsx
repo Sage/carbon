@@ -56,22 +56,22 @@ const wrappingComponent = (props: I18nProviderProps) => (
 function render(
   props?: SwitchProps & { ref?: React.ForwardedRef<HTMLInputElement> },
   renderer = mount,
-  params?: MountRendererProps
+  params?: MountRendererProps,
 ) {
   return renderer(
     <Switch name="my-switch" value="test" onChange={() => {}} {...props} />,
-    params
+    params,
   );
 }
 
 function renderWithCarbonProvider(
   props?: SwitchProps & { ref?: React.ForwardedRef<HTMLInputElement> },
-  renderer = mount
+  renderer = mount,
 ) {
   return renderer(
     <CarbonProvider validationRedesignOptIn>
       <Switch name="my-switch" value="test" onChange={() => {}} {...props} />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 }
 
@@ -95,7 +95,7 @@ describe("Switch", () => {
       mount(<Switch name="my-switch" defaultValue="test" />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Switch` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -150,7 +150,7 @@ describe("Switch", () => {
       const wrapper = render({ onChange: onChangeMock }, mount);
       act(() => {
         wrapper.find(CheckableInput).prop("onChange")?.(
-          event as React.ChangeEvent<HTMLInputElement>
+          event as React.ChangeEvent<HTMLInputElement>,
         );
       });
       expect(onChangeMock).toHaveBeenCalledWith(event);
@@ -186,7 +186,7 @@ describe("Switch", () => {
       const wrapper = render({ checked: false, onChange: onChangeMock }, mount);
       act(() => {
         wrapper.find(CheckableInput).prop("onChange")?.(
-          event as React.ChangeEvent<HTMLInputElement>
+          event as React.ChangeEvent<HTMLInputElement>,
         );
       });
       expect(onChangeMock).toHaveBeenCalledWith(event);
@@ -220,7 +220,7 @@ describe("Switch", () => {
             wrapper,
             {
               modifier: `${StyledLabelContainer}`,
-            }
+            },
           );
         });
       });
@@ -240,7 +240,7 @@ describe("Switch", () => {
             wrapper,
             {
               modifier: `${FieldHelpStyle}`,
-            }
+            },
           );
         });
       });
@@ -260,7 +260,7 @@ describe("Switch", () => {
             wrapper,
             {
               modifier: `${FieldHelpStyle}`,
-            }
+            },
           );
         });
       });
@@ -277,7 +277,7 @@ describe("Switch", () => {
           wrapper,
           {
             modifier: `${FieldHelpStyle}`,
-          }
+          },
         );
       });
     });
@@ -292,7 +292,7 @@ describe("Switch", () => {
           wrapper,
           {
             modifier: `${StyledLabelContainer}`,
-          }
+          },
         );
       });
 
@@ -305,7 +305,7 @@ describe("Switch", () => {
           wrapper,
           {
             modifier: `${FieldHelpStyle}`,
-          }
+          },
         );
       });
 
@@ -322,12 +322,12 @@ describe("Switch", () => {
                 labelInline: true,
                 adaptiveLabelBreakpoint: 1000,
               },
-              mount
+              mount,
             );
 
             expect(wrapper.find(SwitchStyle).props().labelInline).toEqual(true);
             expect(wrapper.find(CheckableInput).props().labelInline).toEqual(
-              true
+              true,
             );
           });
         });
@@ -344,14 +344,14 @@ describe("Switch", () => {
                 labelInline: true,
                 adaptiveLabelBreakpoint: 1000,
               },
-              mount
+              mount,
             );
 
             expect(wrapper.find(SwitchStyle).props().labelInline).toEqual(
-              false
+              false,
             );
             expect(wrapper.find(CheckableInput).props().labelInline).toEqual(
-              false
+              false,
             );
           });
         });
@@ -372,7 +372,7 @@ describe("Switch", () => {
           wrapper,
           {
             modifier: `${StyledCheckableInput}`,
-          }
+          },
         );
       });
 
@@ -384,7 +384,7 @@ describe("Switch", () => {
           wrapper,
           {
             modifier: `${StyledLabelContainer}`,
-          }
+          },
         );
       });
 
@@ -396,7 +396,7 @@ describe("Switch", () => {
           wrapper,
           {
             modifier: `${FieldHelpStyle}`,
-          }
+          },
         );
       });
     });
@@ -442,7 +442,7 @@ describe("Switch", () => {
             wrapper,
             {
               modifier: `${StyledLabelContainer}`,
-            }
+            },
           );
         });
 
@@ -461,7 +461,7 @@ describe("Switch", () => {
               wrapper,
               {
                 modifier: `${FieldHelpStyle}`,
-              }
+              },
             );
           });
         });
@@ -475,7 +475,7 @@ describe("Switch", () => {
         label: "My Label",
         labelHelp: "Please help me?",
       },
-      mount
+      mount,
     );
     const validationTypes = ["error", "warning"] as const;
 
@@ -498,7 +498,7 @@ describe("Switch", () => {
           wrapper
             .find(StyledSwitchSlider)
             .find(StyledValidationIcon)
-            .prop("validationType")
+            .prop("validationType"),
         ).toEqual(type);
       });
 
@@ -511,7 +511,7 @@ describe("Switch", () => {
           wrapper
             .find(StyledLabelContainer)
             .find(StyledValidationIcon)
-            .prop("validationType")
+            .prop("validationType"),
         ).toEqual(type);
       });
 
@@ -523,7 +523,7 @@ describe("Switch", () => {
           {
             borderColor: statusColor[type],
           },
-          wrapper.find(StyledSwitchSlider)
+          wrapper.find(StyledSwitchSlider),
         );
       });
     });
@@ -547,20 +547,20 @@ describe("Switch", () => {
             {
               borderColor: statusColor[type],
             },
-            wrapper.find(StyledSwitchSlider)
+            wrapper.find(StyledSwitchSlider),
           );
         });
-      }
+      },
     );
 
     it("forces validation icon to be displayed on label when labelInline = true and reverse = false", () => {
       wrapper.setProps({ error: "Error", labelInline: true, reverse: false });
 
       expect(
-        wrapper.find(StyledLabelContainer).find(StyledValidationIcon).exists()
+        wrapper.find(StyledLabelContainer).find(StyledValidationIcon).exists(),
       ).toEqual(true);
       expect(
-        wrapper.find(StyledSwitchSlider).find(StyledValidationIcon).exists()
+        wrapper.find(StyledSwitchSlider).find(StyledValidationIcon).exists(),
       ).toEqual(false);
     });
   });
@@ -588,7 +588,7 @@ describe("Switch", () => {
               ? "var(--colorsSemanticCaution500)"
               : "var(--colorsSemanticNegative500)",
         },
-        wrapper.find(ErrorBorder)
+        wrapper.find(ErrorBorder),
       );
     });
 
@@ -603,7 +603,7 @@ describe("Switch", () => {
         {
           marginBottom: `var(--spacing000)`,
         },
-        wrapper.find(Box)
+        wrapper.find(Box),
       );
     });
 
@@ -617,7 +617,7 @@ describe("Switch", () => {
         {
           marginBottom: `var(--spacing100)`,
         },
-        wrapper.find(Box)
+        wrapper.find(Box),
       );
     });
 
@@ -631,7 +631,7 @@ describe("Switch", () => {
         {
           marginBottom: `var(--spacing000)`,
         },
-        wrapper.find(Box)
+        wrapper.find(Box),
       );
     });
 
@@ -644,7 +644,7 @@ describe("Switch", () => {
         {
           marginBottom: `var(--spacing100)`,
         },
-        wrapper.find(Box)
+        wrapper.find(Box),
       );
     });
   });
@@ -661,11 +661,11 @@ describe("Switch", () => {
             id: "mock-input",
             loading: true,
             [validation]: true,
-          })
+          }),
         ).not.toThrow();
 
         consoleSpy.mockRestore();
-      }
+      },
     );
   });
 
@@ -677,7 +677,7 @@ describe("Switch", () => {
           labelHelp: "Please help me?",
           tooltipPosition: "top",
         },
-        mount
+        mount,
       )
         .find(Tooltip)
         .props();
@@ -693,7 +693,7 @@ describe("Switch", () => {
           tooltipPosition: "top",
           validationOnLabel: true,
         },
-        mount
+        mount,
       )
         .find(Tooltip)
         .props();
@@ -707,7 +707,7 @@ describe("Switch", () => {
       const text = "foo";
       const wrapper = render(
         { label: "foo", labelHelp: text, helpAriaLabel: text },
-        mount
+        mount,
       );
       const help = wrapper.find(StyledHelp);
 
@@ -739,9 +739,9 @@ describe("Switch", () => {
         content: '"(optional)"',
       },
       render({ isOptional: true, label: "Optional" }, mount).find(
-        StyledLabelContainer
+        StyledLabelContainer,
       ),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 

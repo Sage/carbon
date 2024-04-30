@@ -41,9 +41,9 @@ describe("useCharacterCount", () => {
           limitMinusValue
             ? `${characterLimit - mockValue.length} ${underCharacters} left`
             : `${mockValue.length - characterLimit} ${overCharacters} too many`
-        }`
+        }`,
       );
-    }
+    },
   );
 
   it("does not return a counter", () => {
@@ -74,7 +74,7 @@ describe("Debounce tests", () => {
     });
 
     expect(wrapper.update().find(VisuallyHiddenCharacterCount).text()).toBe(
-      "2 characters left"
+      "2 characters left",
     );
   });
 
@@ -90,7 +90,7 @@ describe("Debounce tests", () => {
     });
 
     expect(wrapper.update().find(VisuallyHiddenCharacterCount).text()).toBe(
-      "5 characters left"
+      "5 characters left",
     );
   });
 });

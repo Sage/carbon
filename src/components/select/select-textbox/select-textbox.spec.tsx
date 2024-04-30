@@ -58,7 +58,7 @@ describe("SelectTextbox", () => {
         call.middleware?.[0]?.options?.({
           rects,
           placement: "bottom",
-        })
+        }),
       ).toEqual({ mainAxis: -40 });
     });
   });
@@ -78,7 +78,7 @@ describe("SelectTextbox", () => {
     it("then that prop should be called", () => {
       const onFocusFn = jest.fn();
       const wrapper = mount(
-        <SelectTextbox onChange={() => {}} onFocus={onFocusFn} />
+        <SelectTextbox onChange={() => {}} onFocus={onFocusFn} />,
       );
 
       wrapper.find("input").simulate("focus");
@@ -90,7 +90,7 @@ describe("SelectTextbox", () => {
     it("then that prop should be called", () => {
       const onBlurFn = jest.fn();
       const wrapper = mount(
-        <SelectTextbox onChange={() => {}} onBlur={onBlurFn} />
+        <SelectTextbox onChange={() => {}} onBlur={onBlurFn} />,
       );
 
       wrapper.find("input").simulate("blur");
@@ -101,10 +101,10 @@ describe("SelectTextbox", () => {
   describe("when a descendent of FilterableSelect or MultiSelect", () => {
     it("do not render button-like span overlay in the textbox", () => {
       const wrapper = mount(
-        <SelectTextbox onChange={() => {}} hasTextCursor />
+        <SelectTextbox onChange={() => {}} hasTextCursor />,
       );
       expect(wrapper.find("span[data-element='select-text']").exists()).toBe(
-        false
+        false,
       );
     });
 
@@ -115,7 +115,7 @@ describe("SelectTextbox", () => {
           onChange={() => {}}
           hasTextCursor
           placeholder={placeholder}
-        />
+        />,
       );
       expect(wrapper.find("input").prop("placeholder")).toBe(placeholder);
     });
@@ -126,16 +126,16 @@ describe("SelectTextbox", () => {
           onChange={() => {}}
           hasTextCursor
           placeholder={undefined}
-        />
+        />,
       );
       expect(wrapper.find("input").prop("placeholder")).toBe(
-        Translation.select.placeholder()
+        Translation.select.placeholder(),
       );
     });
 
     it('the input element should be of type "text"', () => {
       const wrapper = mount(
-        <SelectTextbox onChange={() => {}} hasTextCursor />
+        <SelectTextbox onChange={() => {}} hasTextCursor />,
       );
       expect(wrapper.find("input").prop("type")).toBe("text");
     });
@@ -144,7 +144,7 @@ describe("SelectTextbox", () => {
   describe("when a descendent of SimpleSelect", () => {
     it("renders span overlay in the textbox, that is hidden from screen readers", () => {
       const wrapper = mount(
-        <SelectTextbox onChange={() => {}} hasTextCursor={undefined} />
+        <SelectTextbox onChange={() => {}} hasTextCursor={undefined} />,
       );
       const selectText = wrapper.find("span[data-element='select-text']");
       expect(selectText.exists()).toBe(true);
@@ -158,19 +158,19 @@ describe("SelectTextbox", () => {
           onChange={() => {}}
           hasTextCursor={undefined}
           placeholder={placeholder}
-        />
+        />,
       );
       expect(wrapper.find("span[data-element='select-text']").text()).toBe(
-        placeholder
+        placeholder,
       );
     });
 
     it("and placeholder prop is not passed, span overlaying textbox uses locale default value as placeholder text", () => {
       const wrapper = mount(
-        <SelectTextbox onChange={() => {}} hasTextCursor={undefined} />
+        <SelectTextbox onChange={() => {}} hasTextCursor={undefined} />,
       );
       expect(wrapper.find("span[data-element='select-text']").text()).toBe(
-        Translation.select.placeholder()
+        Translation.select.placeholder(),
       );
     });
   });
@@ -185,7 +185,7 @@ describe("SelectTextbox", () => {
     it("the ariaLabel prop value should be passed down to the aria-label prop in the Textbox", () => {
       const mockAriaLabel = "foo";
       const wrapper = mount(
-        <SelectTextbox onChange={() => {}} ariaLabel="foo" />
+        <SelectTextbox onChange={() => {}} ariaLabel="foo" />,
       );
       const ariaLabel = wrapper.find(Textbox).prop("aria-label");
       expect(ariaLabel).toBe(mockAriaLabel);
@@ -207,7 +207,7 @@ describe("SelectTextbox", () => {
                 ariaLabelledby={mockAriaLabelledBy}
                 hasTextCursor
                 labelId={mockLabelId}
-              />
+              />,
             );
             const ariaLabelledBy = wrapper
               .find(Textbox)
@@ -226,28 +226,28 @@ describe("SelectTextbox", () => {
                   ariaLabelledby={mockAriaLabelledBy}
                   hasTextCursor
                   labelId={mockLabelId}
-                />
+                />,
               );
               const ariaLabelledBy = wrapper
                 .find(Textbox)
                 .prop("aria-labelledby");
 
               expect(ariaLabelledBy).toEqual(
-                expect.stringContaining(mockAriaLabelledBy || mockLabelId)
+                expect.stringContaining(mockAriaLabelledBy || mockLabelId),
               );
               expect(ariaLabelledBy).toEqual(
-                expect.stringContaining(mockAccessibilityLabelId)
+                expect.stringContaining(mockAccessibilityLabelId),
               );
             });
           });
         });
-      }
+      },
     );
 
     describe("when the ariaLabel prop is set without ariaLabelledBy", () => {
       it("then the aria-labelledby prop of the Textbox should be undefined", () => {
         const wrapper = mount(
-          <SelectTextbox onChange={() => {}} ariaLabel="bar" />
+          <SelectTextbox onChange={() => {}} ariaLabel="bar" />,
         );
         const ariaLabelledBy = wrapper.find(Textbox).prop("aria-labelledby");
 

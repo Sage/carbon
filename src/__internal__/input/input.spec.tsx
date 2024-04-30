@@ -51,7 +51,7 @@ describe("Input", () => {
       {
         textAlign: "right",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -62,7 +62,7 @@ describe("Input", () => {
       {
         color: "var(--colorsUtilityYin090)",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -81,9 +81,9 @@ describe("Input", () => {
 
       expect(wrapper.find("input").getDOMNode()).toHaveAttribute(
         "enterkeyhint",
-        keyHints
+        keyHints,
       );
-    }
+    },
   );
 
   it("sends the input ref to the inputRef callback", () => {
@@ -104,7 +104,7 @@ describe("Input", () => {
     const onBlurContext = jest.fn();
     const wrapper = renderMount(
       { onBlur: onBlurProp },
-      { onBlur: onBlurContext }
+      { onBlur: onBlurContext },
     );
     wrapper.find("input").simulate("blur");
     expect(onBlurProp).toHaveBeenCalled();
@@ -155,7 +155,7 @@ describe("Input", () => {
     const onFocusContext = jest.fn();
     const wrapper = renderMount(
       { onFocus: onFocusProp },
-      { onFocus: onFocusContext }
+      { onFocus: onFocusContext },
     );
     wrapper.find("input").simulate("focus");
     expect(onFocusProp).toHaveBeenCalled();
@@ -165,7 +165,7 @@ describe("Input", () => {
   it("focuses the input element if `autoFocus` prop passed", () => {
     const wrapper = renderMount({ autoFocus: true });
     expect(
-      wrapper.find("input").getDOMNode() === document.activeElement
+      wrapper.find("input").getDOMNode() === document.activeElement,
     ).toEqual(true);
   });
 
@@ -178,7 +178,8 @@ describe("Input", () => {
       jest.useFakeTimers();
       const wrapper = renderMount({ value });
       const inputComponent = wrapper.find('input[type="text"]');
-      const inputElement = (inputComponent.instance() as unknown) as HTMLInputElement;
+      const inputElement =
+        inputComponent.instance() as unknown as HTMLInputElement;
       jest.spyOn(inputElement, "setSelectionRange");
       inputElement.selectionStart = leftPos;
       inputElement.selectionEnd = rightPos;
@@ -216,7 +217,8 @@ describe("Input", () => {
       jest.useFakeTimers();
       const wrapper = renderMount({ type: "radio" });
       const inputComponent = wrapper.find('input[type="radio"]');
-      const inputElement = (inputComponent.instance() as unknown) as HTMLInputElement;
+      const inputElement =
+        inputComponent.instance() as unknown as HTMLInputElement;
       jest.spyOn(inputElement, "setSelectionRange");
       inputComponent.simulate("focus");
       jest.runAllTimers();
@@ -234,7 +236,7 @@ describe("Input", () => {
       const wrapper = renderMount();
       wrapper.find("input").simulate("click");
       expect(wrapper.find(StyledInput).getDOMNode()).toBe(
-        document.activeElement
+        document.activeElement,
       );
     });
 

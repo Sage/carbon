@@ -49,7 +49,7 @@ describe("Loader", () => {
     it("when custom aria-label is passed, set accessible name to its value", () => {
       const wrapper = mount(<Loader aria-label="Still loading" />);
       expect(wrapper.find(StyledLoader).prop("aria-label")).toBe(
-        "Still loading"
+        "Still loading",
       );
     });
   });

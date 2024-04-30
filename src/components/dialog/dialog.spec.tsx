@@ -49,7 +49,7 @@ const useResizeObserverMock = useResizeObserver as jest.MockedFunction<
 function enzymeMount(ui: React.ReactElement, document = globalThis.document) {
   if (document.body.innerHTML.length >= 1) {
     throw new Error(
-      "Found DOM to be non-empty before mounting. Please make sure to call cleanup() after each test."
+      "Found DOM to be non-empty before mounting. Please make sure to call cleanup() after each test.",
     );
   }
 
@@ -62,11 +62,11 @@ function enzymeMount(ui: React.ReactElement, document = globalThis.document) {
 function render(
   ui: React.ReactElement,
   options?: RTLRenderOptions,
-  document = globalThis.document
+  document = globalThis.document,
 ) {
   if (document.body.innerHTML.length >= 1) {
     throw new Error(
-      "Found DOM to be non-empty before rendering. Please make sure to call cleanup() after each test."
+      "Found DOM to be non-empty before rendering. Please make sure to call cleanup() after each test.",
     );
   }
 
@@ -113,11 +113,11 @@ describe("Dialog", () => {
       enzymeMount(
         <Dialog open>
           <div />
-        </Dialog>
+        </Dialog>,
       );
 
       expect(
-        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize"),
       ).toHaveLength(1);
     });
 
@@ -125,11 +125,11 @@ describe("Dialog", () => {
       enzymeMount(
         <Dialog open={false}>
           <div />
-        </Dialog>
+        </Dialog>,
       );
 
       expect(
-        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize"),
       ).toHaveLength(0);
     });
 
@@ -137,12 +137,14 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(
         <Dialog open>
           <div />
-        </Dialog>
+        </Dialog>,
       );
       wrapper.unmount();
 
       expect(
-        removeEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+        removeEventListenerSpy.mock.calls.filter(
+          (call) => call[0] === "resize",
+        ),
       ).toHaveLength(1);
     });
 
@@ -150,12 +152,14 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(
         <Dialog open={false}>
           <div />
-        </Dialog>
+        </Dialog>,
       );
       wrapper.unmount();
 
       expect(
-        removeEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+        removeEventListenerSpy.mock.calls.filter(
+          (call) => call[0] === "resize",
+        ),
       ).toHaveLength(0);
     });
 
@@ -163,13 +167,13 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(
         <Dialog open={false}>
           <div />
-        </Dialog>
+        </Dialog>,
       );
 
       wrapper.setProps({ open: true });
 
       expect(
-        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+        addEventListenerSpy.mock.calls.filter((call) => call[0] === "resize"),
       ).toHaveLength(1);
     });
 
@@ -177,12 +181,14 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(
         <Dialog open>
           <div />
-        </Dialog>
+        </Dialog>,
       );
 
       wrapper.setProps({ open: false });
       expect(
-        removeEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+        removeEventListenerSpy.mock.calls.filter(
+          (call) => call[0] === "resize",
+        ),
       ).toHaveLength(1);
     });
   });
@@ -199,7 +205,7 @@ describe("Dialog", () => {
         >
           {undefined}
           Hello world
-        </Dialog>
+        </Dialog>,
       );
     }).not.toThrow();
   });
@@ -223,10 +229,10 @@ describe("Dialog", () => {
         const wrapper = enzymeMount(
           <Dialog open>
             <div />
-          </Dialog>
+          </Dialog>,
         );
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top,
         ).toEqual("150px");
       });
 
@@ -234,7 +240,7 @@ describe("Dialog", () => {
         const wrapper = enzymeMount(
           <Dialog open>
             <div />
-          </Dialog>
+          </Dialog>,
         );
 
         getBoundingClientRectMock = jest
@@ -243,7 +249,7 @@ describe("Dialog", () => {
             () =>
               ({
                 height: 100,
-              } as DOMRect)
+              }) as DOMRect,
           );
 
         act(() => {
@@ -253,7 +259,7 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top,
         ).toEqual("100px");
       });
     });
@@ -266,17 +272,17 @@ describe("Dialog", () => {
             () =>
               ({
                 height: 261,
-              } as DOMRect)
+              }) as DOMRect,
           );
 
         const wrapper = enzymeMount(
           <Dialog open>
             <div />
-          </Dialog>
+          </Dialog>,
         );
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top,
         ).toEqual("20px");
       });
 
@@ -284,7 +290,7 @@ describe("Dialog", () => {
         const wrapper = enzymeMount(
           <Dialog open>
             <div />
-          </Dialog>
+          </Dialog>,
         );
 
         getBoundingClientRectMock = jest
@@ -293,7 +299,7 @@ describe("Dialog", () => {
             () =>
               ({
                 height: 261,
-              } as DOMRect)
+              }) as DOMRect,
           );
 
         act(() => {
@@ -303,7 +309,7 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.top,
         ).toEqual("20px");
       });
     });
@@ -316,17 +322,17 @@ describe("Dialog", () => {
             () =>
               ({
                 width: 361,
-              } as DOMRect)
+              }) as DOMRect,
           );
 
         const wrapper = enzymeMount(
           <Dialog open>
             <div />
-          </Dialog>
+          </Dialog>,
         );
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left,
         ).toEqual("0px");
       });
 
@@ -334,7 +340,7 @@ describe("Dialog", () => {
         const wrapper = enzymeMount(
           <Dialog open>
             <div />
-          </Dialog>
+          </Dialog>,
         );
 
         getBoundingClientRectMock = jest
@@ -343,7 +349,7 @@ describe("Dialog", () => {
             () =>
               ({
                 width: 361,
-              } as DOMRect)
+              }) as DOMRect,
           );
 
         act(() => {
@@ -353,7 +359,7 @@ describe("Dialog", () => {
         });
 
         expect(
-          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left
+          (wrapper.find(StyledDialog).getDOMNode() as HTMLElement).style.left,
         ).toEqual("0px");
       });
     });
@@ -368,10 +374,10 @@ describe("Dialog", () => {
             open
             title="Dialog title"
             subtitle="Dialog subtitle"
-          />
+          />,
         );
         expect(wrapper.find(Heading).prop("subheader")).toEqual(
-          "Dialog subtitle"
+          "Dialog subtitle",
         );
         expect(wrapper.find(Heading).prop("title")).toEqual("Dialog title");
       });
@@ -387,11 +393,11 @@ describe("Dialog", () => {
         );
 
         const wrapper = enzymeMount(
-          <Dialog onCancel={onCancel} open title={<TitleComponent />} />
+          <Dialog onCancel={onCancel} open title={<TitleComponent />} />,
         );
 
         expect(
-          wrapper.find(StyledDialogTitle).find(TitleComponent).exists()
+          wrapper.find(StyledDialogTitle).find(TitleComponent).exists(),
         ).toBe(true);
         expect(wrapper.find(Heading).exists()).toBe(false);
       });
@@ -408,7 +414,7 @@ describe("Dialog", () => {
     describe("when help prop is passed", () => {
       it("should render Help component", () => {
         const wrapper = enzymeMount(
-          <Dialog open title="This is test title" help="this is help text" />
+          <Dialog open title="This is test title" help="this is help text" />,
         );
 
         expect(wrapper.find(Help).exists()).toBe(true);
@@ -459,7 +465,7 @@ describe("Dialog", () => {
     describe("when dialog is closed", () => {
       it("only renders a parent div with mainClasses attached", () => {
         const wrapper = enzymeMount(
-          <Dialog open={false} onCancel={onCancel} />
+          <Dialog open={false} onCancel={onCancel} />,
         );
 
         expect(wrapper.find(".carbon-dialog").at(0).length).toEqual(1);
@@ -474,10 +480,10 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(<Dialog onCancel={() => {}} open />);
 
       expect(
-        wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').length
+        wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').length,
       ).toEqual(0);
       expect(
-        wrapper.find('[aria-labelledby="carbon-dialog-title"]').length
+        wrapper.find('[aria-labelledby="carbon-dialog-title"]').length,
       ).toEqual(0);
     });
   });
@@ -497,11 +503,11 @@ describe("Dialog", () => {
           <Button>Button</Button>
           <Button>Button</Button>
         </Dialog>
-      </CarbonProvider>
+      </CarbonProvider>,
     );
 
     expect(
-      wrapper.find(StyledDialog).getDOMNode().getAttribute("aria-modal")
+      wrapper.find(StyledDialog).getDOMNode().getAttribute("aria-modal"),
     ).toBe("true");
   });
 
@@ -509,13 +515,13 @@ describe("Dialog", () => {
     const wrapper = enzymeMount(
       <Dialog open title="My dialog" subtitle="subtitle">
         Content
-      </Dialog>
+      </Dialog>,
     );
     assertStyleMatch(
       {
         maxHeight: "calc(100vh - 20px)",
       },
-      wrapper.find(StyledDialog)
+      wrapper.find(StyledDialog),
     );
   });
 
@@ -529,10 +535,10 @@ describe("Dialog", () => {
           {
             height: "400px",
           },
-          wrapper.find(StyledDialog)
+          wrapper.find(StyledDialog),
         );
       });
-    }
+    },
   );
 
   describe("when showCloseIcon prop is true", () => {
@@ -541,7 +547,7 @@ describe("Dialog", () => {
 
       assertStyleMatch(
         { paddingRight: "85px" },
-        wrapper.find(StyledDialogTitle)
+        wrapper.find(StyledDialogTitle),
       );
     });
 
@@ -554,7 +560,7 @@ describe("Dialog", () => {
             "data-element": "foo",
             "data-role": "bar",
           }}
-        />
+        />,
       );
       rootTagTest(wrapper.find(StyledIconButton), "close", "foo", "bar");
     });
@@ -565,11 +571,11 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(
         <Dialog open>
           <Form stickyFooter />
-        </Dialog>
+        </Dialog>,
       );
 
       expect(wrapper.find(StyledDialogContent)).not.toHaveStyleRule(
-        "overflow-y"
+        "overflow-y",
       );
     });
   });
@@ -579,12 +585,12 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(
         <Dialog open>
           <Form />
-        </Dialog>
+        </Dialog>,
       );
 
       expect(wrapper.find(StyledDialogContent)).toHaveStyleRule(
         "overflow-y",
-        "auto"
+        "auto",
       );
     });
   });
@@ -594,7 +600,7 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(
         <Dialog open disableAutoFocus>
           <input data-role="test-input" type="text" />
-        </Dialog>
+        </Dialog>,
       );
 
       const firstFocusableElement = wrapper
@@ -608,7 +614,7 @@ describe("Dialog", () => {
     describe("when a title is specified as string", () => {
       it("then the container should have aria-labelledby attribute set to it's title id", () => {
         (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-          () => "foo"
+          () => "foo",
         );
         const wrapper = enzymeMount(<Dialog open title="Test" />);
 
@@ -616,7 +622,7 @@ describe("Dialog", () => {
           wrapper
             .find("[data-element='dialog']")
             .first()
-            .prop("aria-labelledby")
+            .prop("aria-labelledby"),
         ).toBe("foo");
       });
     });
@@ -624,7 +630,7 @@ describe("Dialog", () => {
     describe("when a subtitle is specified as a string", () => {
       it("then the container should have aria-describedby attribute set to it's subtitle id", () => {
         (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-          () => "baz"
+          () => "baz",
         );
 
         const wrapper = enzymeMount(<Dialog open subtitle="Test" />);
@@ -633,7 +639,7 @@ describe("Dialog", () => {
           wrapper
             .find("[data-element='dialog']")
             .first()
-            .prop("aria-describedby")
+            .prop("aria-describedby"),
         ).toBe("baz");
       });
     });
@@ -647,14 +653,14 @@ describe("Dialog", () => {
             aria-labelledby={titleId}
             open
             title={<div id={titleId}>Foo</div>}
-          />
+          />,
         );
 
         expect(
           wrapper
             .find("[data-element='dialog']")
             .first()
-            .prop("aria-labelledby")
+            .prop("aria-labelledby"),
         ).toBe(titleId);
       });
     });
@@ -668,14 +674,14 @@ describe("Dialog", () => {
             aria-describedby={subtitleId}
             open
             subtitle={<div id={subtitleId}>Foo</div>}
-          />
+          />,
         );
 
         expect(
           wrapper
             .find("[data-element='dialog']")
             .first()
-            .prop("aria-describedby")
+            .prop("aria-describedby"),
         ).toBe(subtitleId);
       });
     });
@@ -685,7 +691,7 @@ describe("Dialog", () => {
         const dialogRole = "foo";
         const wrapper = enzymeMount(<Dialog open role={dialogRole} />);
         expect(
-          wrapper.find("[data-element='dialog']").first().prop("role")
+          wrapper.find("[data-element='dialog']").first().prop("role"),
         ).toBe(dialogRole);
       });
     });
@@ -695,7 +701,7 @@ describe("Dialog", () => {
         const label = "foo";
         const wrapper = enzymeMount(<Dialog open aria-label={label} />);
         expect(
-          wrapper.find("[data-element='dialog']").first().prop("aria-label")
+          wrapper.find("[data-element='dialog']").first().prop("aria-label"),
         ).toBe(label);
       });
     });
@@ -725,7 +731,7 @@ describe("Dialog", () => {
       value: number | undefined,
       position: "top" | "bottom" | "left" | "right",
       prop: "py" | "px" | "p",
-      isMargin?: boolean
+      isMargin?: boolean,
     ) => {
       if (
         value === undefined ||
@@ -743,7 +749,7 @@ describe("Dialog", () => {
     const getDialogContentPadding = (
       value: number | undefined,
       isMatch: boolean,
-      allSides?: boolean
+      allSides?: boolean,
     ) => {
       if (value === undefined || !isMatch) {
         return allSides
@@ -780,7 +786,7 @@ describe("Dialog", () => {
                   paddingRight: getFormSpacing(value, "right", prop),
                 },
                 wrapper.find(StyledDialog),
-                { modifier: `${StyledFormContent}.sticky` }
+                { modifier: `${StyledFormContent}.sticky` },
               );
 
               const width =
@@ -796,7 +802,7 @@ describe("Dialog", () => {
                   width: `calc(100% + (${width} + ${width}))`,
                 },
                 wrapper.find(StyledDialog),
-                { modifier: `${StyledFormFooter}.sticky` }
+                { modifier: `${StyledFormFooter}.sticky` },
               );
             });
 
@@ -811,7 +817,7 @@ describe("Dialog", () => {
                   paddingTop: getDialogContentPadding(value, prop === "py"),
                   paddingBottom: getDialogContentPadding(value, prop === "py"),
                 },
-                wrapper.find(StyledDialogContent)
+                wrapper.find(StyledDialogContent),
               );
 
               assertStyleMatch(
@@ -821,12 +827,12 @@ describe("Dialog", () => {
                       ? "0"
                       : `${CONTENT_TOP_PADDING}px`,
                 },
-                wrapper.find(StyledDialogInnerContent)
+                wrapper.find(StyledDialogInnerContent),
               );
             });
-          }
+          },
         );
-      }
+      },
     );
   });
 
@@ -834,14 +840,14 @@ describe("Dialog", () => {
     const wrapper = enzymeMount(
       <Dialog open title="My dialog" subtitle="subtitle">
         Content
-      </Dialog>
+      </Dialog>,
     );
 
     assertStyleMatch(
       {
         borderRadius: "var(--borderRadius200)",
       },
-      wrapper.find(StyledDialog)
+      wrapper.find(StyledDialog),
     );
 
     assertStyleMatch(
@@ -850,7 +856,7 @@ describe("Dialog", () => {
         borderBottomLeftRadius: "var(--borderRadius200)",
       },
       wrapper.find(StyledDialog),
-      { modifier: `${StyledFormFooter}.sticky` }
+      { modifier: `${StyledFormFooter}.sticky` },
     );
   });
 
@@ -862,7 +868,7 @@ describe("Dialog", () => {
         {
           backgroundColor: "var(--colorsUtilityYang100)",
         },
-        wrapper.find(StyledDialog)
+        wrapper.find(StyledDialog),
       );
     });
 
@@ -870,14 +876,14 @@ describe("Dialog", () => {
       const wrapper = enzymeMount(
         <Dialog open greyBackground>
           Content
-        </Dialog>
+        </Dialog>,
       );
 
       assertStyleMatch(
         {
           backgroundColor: "var(--colorsUtilityMajor025)",
         },
-        wrapper.find(StyledDialog)
+        wrapper.find(StyledDialog),
       );
     });
   });

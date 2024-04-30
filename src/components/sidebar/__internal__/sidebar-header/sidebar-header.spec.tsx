@@ -20,21 +20,21 @@ describe("Sidebar Header", () => {
       const wrapper = shallow(
         <SidebarHeader id="id">
           <Textbox />
-        </SidebarHeader>
+        </SidebarHeader>,
       );
       expect(wrapper.find(Textbox)).toBeTruthy();
     });
 
     it("should apply the expected styles when closeIcon is rendered", () => {
       const wrapper = mount(
-        <SidebarHeader id="id" closeIcon={<span>mock close icon</span>} />
+        <SidebarHeader id="id" closeIcon={<span>mock close icon</span>} />,
       );
       assertStyleMatch(
         {
           display: "flex",
           justifyContent: "space-between",
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -44,7 +44,7 @@ describe("Sidebar Header", () => {
           right: "25px",
         },
         wrapper,
-        { modifier: `> ${StyledIconButton}:first-of-type` }
+        { modifier: `> ${StyledIconButton}:first-of-type` },
       );
     });
   });
@@ -61,7 +61,7 @@ describe("StyledSidebarHeader", () => {
         width: "100%",
         color: "var(--colorsActionMinorYin090)",
       },
-      wrapper.find("div")
+      wrapper.find("div"),
     );
   });
 });

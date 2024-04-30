@@ -48,7 +48,7 @@ export const DefaultStory = () => (
 DefaultStory.storyName = "default";
 
 export const FilterableSelectComponent = (
-  props: Partial<FilterableSelectProps>
+  props: Partial<FilterableSelectProps>,
 ) => {
   const [value, setValue] = useState("");
 
@@ -86,7 +86,7 @@ export const FilterableSelectComponent = (
 };
 
 export const FilterableSelectWithLazyLoadingComponent = (
-  props: Partial<FilterableSelectProps>
+  props: Partial<FilterableSelectProps>,
 ) => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState("black");
@@ -134,7 +134,7 @@ export const FilterableSelectWithLazyLoadingComponent = (
 };
 
 export const FilterableSelectLazyLoadTwiceComponent = (
-  props: Partial<FilterableSelectProps>
+  props: Partial<FilterableSelectProps>,
 ) => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState("");
@@ -185,7 +185,7 @@ export const FilterableSelectLazyLoadTwiceComponent = (
 };
 
 export const FilterableSelectWithInfiniteScrollComponent = (
-  props: Partial<FilterableSelectProps>
+  props: Partial<FilterableSelectProps>,
 ) => {
   const preventLoading = useRef(false);
   const preventLazyLoading = useRef(false);
@@ -271,7 +271,7 @@ export const FilterableSelectWithInfiniteScrollComponent = (
 };
 
 export const FilterableSelectObjectAsValueComponent = (
-  props: Partial<FilterableSelectProps>
+  props: Partial<FilterableSelectProps>,
 ) => {
   const optionListValues = [
     { id: "Amber", value: 1, text: "Amber" },
@@ -288,11 +288,11 @@ export const FilterableSelectObjectAsValueComponent = (
   ];
 
   const [value, setValue] = useState<Record<string, unknown>>(
-    optionListValues[4]
+    optionListValues[4],
   );
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as Record<string, unknown>);
+    setValue(event.target.value as unknown as Record<string, unknown>);
   }
   return (
     <FilterableSelect
@@ -309,7 +309,7 @@ export const FilterableSelectObjectAsValueComponent = (
 };
 
 export const FilterableSelectMultiColumnsComponent = (
-  props: Partial<FilterableSelectProps>
+  props: Partial<FilterableSelectProps>,
 ) => {
   return (
     <FilterableSelect
@@ -361,7 +361,7 @@ export const FilterableSelectMultiColumnsComponent = (
 };
 
 export const FilterableSelectMultiColumnsNestedComponent = (
-  props: Partial<FilterableSelectProps>
+  props: Partial<FilterableSelectProps>,
 ) => {
   return (
     <FilterableSelect
@@ -499,7 +499,7 @@ export const FilterableSelectOnChangeEventComponent = ({
 };
 
 export const FilterableSelectListActionEventComponent = (
-  props: Partial<FilterableSelectProps>
+  props: Partial<FilterableSelectProps>,
 ) => {
   const [value, setValue] = useState("");
 

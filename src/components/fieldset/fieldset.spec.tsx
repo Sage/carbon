@@ -14,7 +14,7 @@ function render(props: FieldsetProps = {}, renderer: any = shallow) {
   return renderer(
     <Fieldset {...props}>
       <Textbox onChange={() => {}} />
-    </Fieldset>
+    </Fieldset>,
   );
 }
 
@@ -57,7 +57,7 @@ describe("Fieldset", () => {
     (props, style) => {
       const wrapper = render({ legend: "Legend", ...props }, mount);
       expect(wrapper.getDOMNode()).toHaveStyle(style);
-    }
+    },
   );
 
   describe("Fieldset Legend", () => {
@@ -80,7 +80,7 @@ describe("Fieldset", () => {
         marginLeft: "var(--spacing100)",
       },
       mount(<StyledLegend isRequired />),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -89,14 +89,14 @@ describe("Fieldset", () => {
       <Fieldset required>
         <input />
         <input />
-      </Fieldset>
+      </Fieldset>,
     );
 
     expect(wrapper.find("input").first().getDOMNode()).toHaveAttribute(
-      "required"
+      "required",
     );
     expect(wrapper.find("input").last().getDOMNode()).toHaveAttribute(
-      "required"
+      "required",
     );
   });
 
@@ -105,14 +105,14 @@ describe("Fieldset", () => {
       <Fieldset>
         <input />
         <input />
-      </Fieldset>
+      </Fieldset>,
     );
 
     expect(wrapper.find("input").first().getDOMNode()).not.toHaveAttribute(
-      "required"
+      "required",
     );
     expect(wrapper.find("input").last().getDOMNode()).not.toHaveAttribute(
-      "required"
+      "required",
     );
   });
 
@@ -122,7 +122,7 @@ describe("Fieldset", () => {
         content: '"(optional)"',
       },
       mount(<StyledLegend isOptional />),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 });

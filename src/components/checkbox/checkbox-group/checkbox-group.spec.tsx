@@ -23,7 +23,7 @@ const checkboxValues = ["required", "optional"];
 function renderCheckboxGroup(
   props: Partial<CheckboxGroupProps>,
   childProps = {},
-  renderer = mount
+  renderer = mount,
 ) {
   const children = checkboxValues.map((value) => (
     <Checkbox
@@ -39,14 +39,14 @@ function renderCheckboxGroup(
   return renderer(
     <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
       {children}
-    </CheckboxGroup>
+    </CheckboxGroup>,
   );
 }
 
 function renderCheckboxGroupWithCarbonProvider(
   props: Partial<CheckboxGroupProps>,
   childProps = {},
-  renderer = mount
+  renderer = mount,
 ) {
   const children = checkboxValues.map((value) => (
     <Checkbox
@@ -64,7 +64,7 @@ function renderCheckboxGroupWithCarbonProvider(
       <CheckboxGroup legend="Test CheckboxGroup Label" {...props}>
         {children}
       </CheckboxGroup>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 }
 
@@ -110,10 +110,10 @@ describe("CheckboxGroup", () => {
             [propName]: propValue,
           } as Partial<CheckboxGroupProps>)
             .find("Fieldset")
-            .prop(expectedPropName || propName)
+            .prop(expectedPropName || propName),
         ).toBe(propValue);
       });
-    }
+    },
   );
 
   it("should have a margin set to 0 on every Checkbox FormField", () => {
@@ -124,7 +124,7 @@ describe("CheckboxGroup", () => {
         margin: "0",
       },
       wrapper.find(StyledCheckboxGroup),
-      { modifier: `&& ${StyledFormField}` }
+      { modifier: `&& ${StyledFormField}` },
     );
   });
 
@@ -136,7 +136,7 @@ describe("CheckboxGroup", () => {
         paddingTop: "4px",
       },
       wrapper.find(StyledCheckboxGroup),
-      { modifier: `${StyledCheckbox}:first-child` }
+      { modifier: `${StyledCheckbox}:first-child` },
     );
   });
 
@@ -155,7 +155,7 @@ describe("CheckboxGroup", () => {
         wrapper
           .find(StyledCheckbox)
           .forEach((node) => expect(node.props()[type]).toBe(true));
-      }
+      },
     );
   });
 
@@ -168,7 +168,7 @@ describe("CheckboxGroup", () => {
     it("should override the default value", () => {
       const wrapper = renderCheckboxGroup(
         { legend: "foo", error: "message", tooltipPosition: "bottom" },
-        mount
+        mount,
       );
       const { position } = wrapper.find(Tooltip).props();
 
@@ -190,7 +190,7 @@ describe("CheckboxGroup", () => {
           bottom: "0px",
           top: "0px",
         },
-        wrapper.find(ErrorBorder)
+        wrapper.find(ErrorBorder),
       );
     });
 
@@ -203,7 +203,7 @@ describe("CheckboxGroup", () => {
         {
           flexDirection: "row",
         },
-        wrapper.find(StyledCheckboxGroup)
+        wrapper.find(StyledCheckboxGroup),
       );
     });
 
@@ -219,7 +219,7 @@ describe("CheckboxGroup", () => {
           bottom: "0px",
           top: "0px",
         },
-        wrapper.find(ErrorBorder)
+        wrapper.find(ErrorBorder),
       );
     });
 
@@ -236,7 +236,7 @@ describe("CheckboxGroup", () => {
           color: "var(--colorsUtilityYin055)",
           fontSize: "14px",
         },
-        wrapper.find(StyledHintText)
+        wrapper.find(StyledHintText),
       );
     });
   });

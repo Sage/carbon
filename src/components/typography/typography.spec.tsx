@@ -20,12 +20,12 @@ interface AssertStyleMatchProps {
 
 const assert = (
   { as, ...css }: AssertStyleMatchProps,
-  props: TypographyProps
+  props: TypographyProps,
 ) => {
   const wrapper = mount(
     <ThemeProvider theme={sageTheme}>
       <Typography {...props} />
-    </ThemeProvider>
+    </ThemeProvider>,
   );
   if (as) {
     expect(wrapper.find(as).length).toBe(1);
@@ -80,7 +80,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "h1-large" }
+        { variant: "h1-large" },
       );
     });
 
@@ -99,7 +99,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "h1" }
+        { variant: "h1" },
       );
     });
 
@@ -118,7 +118,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "h2" }
+        { variant: "h2" },
       );
     });
 
@@ -137,7 +137,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "h3" }
+        { variant: "h3" },
       );
     });
 
@@ -156,7 +156,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "h4" }
+        { variant: "h4" },
       );
     });
 
@@ -175,7 +175,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "h5" }
+        { variant: "h5" },
       );
     });
 
@@ -194,7 +194,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "segment-header" }
+        { variant: "segment-header" },
       );
     });
 
@@ -213,7 +213,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "segment-header-small" }
+        { variant: "segment-header-small" },
       );
     });
 
@@ -232,7 +232,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "segment-subheader" }
+        { variant: "segment-subheader" },
       );
     });
 
@@ -251,7 +251,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "segment-subheader-alt" }
+        { variant: "segment-subheader-alt" },
       );
     });
 
@@ -270,7 +270,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "small" }
+        { variant: "small" },
       );
     });
 
@@ -289,7 +289,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "big" }
+        { variant: "big" },
       );
     });
 
@@ -308,7 +308,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "sup" }
+        { variant: "sup" },
       );
     });
 
@@ -327,7 +327,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "sub" }
+        { variant: "sub" },
       );
     });
 
@@ -346,7 +346,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "strong" }
+        { variant: "strong" },
       );
     });
 
@@ -365,7 +365,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "b" }
+        { variant: "b" },
       );
     });
 
@@ -384,7 +384,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "em" }
+        { variant: "em" },
       );
     });
     it("applies span styling", () => {
@@ -402,7 +402,7 @@ describe("Typography", () => {
           padding: "0",
           margin: "0",
         },
-        { variant: "span" }
+        { variant: "span" },
       );
     });
   });
@@ -413,7 +413,7 @@ describe("Typography", () => {
         {
           as: "span",
         },
-        { variant: "p", as: "span" }
+        { variant: "p", as: "span" },
       );
     });
 
@@ -422,7 +422,7 @@ describe("Typography", () => {
         {
           fontSize: "99px",
         },
-        { variant: "p", fontSize: "99px" }
+        { variant: "p", fontSize: "99px" },
       );
     });
 
@@ -431,7 +431,7 @@ describe("Typography", () => {
         {
           fontWeight: "900",
         },
-        { variant: "p", fontWeight: "900" }
+        { variant: "p", fontWeight: "900" },
       );
     });
 
@@ -440,7 +440,7 @@ describe("Typography", () => {
         {
           textTransform: "uppercase",
         },
-        { variant: "p", textTransform: "uppercase" }
+        { variant: "p", textTransform: "uppercase" },
       );
     });
 
@@ -449,7 +449,7 @@ describe("Typography", () => {
         {
           textDecoration: "underline",
         },
-        { variant: "p", textDecoration: "underline" }
+        { variant: "p", textDecoration: "underline" },
       );
     });
 
@@ -458,7 +458,7 @@ describe("Typography", () => {
         {
           lineHeight: "50px",
         },
-        { variant: "p", lineHeight: "50px" }
+        { variant: "p", lineHeight: "50px" },
       );
     });
 
@@ -467,7 +467,7 @@ describe("Typography", () => {
         {
           display: "block",
         },
-        { variant: "p", display: "block" }
+        { variant: "p", display: "block" },
       );
     });
 
@@ -476,7 +476,7 @@ describe("Typography", () => {
         {
           opacity: "10%",
         },
-        { variant: "p", opacity: "10%" }
+        { variant: "p", opacity: "10%" },
       );
     });
 
@@ -490,7 +490,7 @@ describe("Typography", () => {
           {
             [css]: "#FFB500",
           },
-          { variant: "p", [prop]: "gold" }
+          { variant: "p", [prop]: "gold" },
         );
       });
 
@@ -499,7 +499,7 @@ describe("Typography", () => {
           {
             [css]: "#007D5A",
           },
-          { variant: "p", [prop]: "primary" }
+          { variant: "p", [prop]: "primary" },
         );
       });
 
@@ -508,7 +508,7 @@ describe("Typography", () => {
           {
             [css]: "#61E961",
           },
-          { variant: "p", [prop]: "brilliantGreenTint38" }
+          { variant: "p", [prop]: "brilliantGreenTint38" },
         );
       });
 
@@ -517,7 +517,7 @@ describe("Typography", () => {
           {
             [css]: "rgba(0,0,0,0.10)",
           },
-          { variant: "p", [prop]: "blackOpacity10" }
+          { variant: "p", [prop]: "blackOpacity10" },
         );
       });
 
@@ -526,7 +526,7 @@ describe("Typography", () => {
           {
             [css]: "rgba(255,255,255,0.10)",
           },
-          { variant: "p", [prop]: "whiteOpacity10" }
+          { variant: "p", [prop]: "whiteOpacity10" },
         );
       });
 
@@ -535,14 +535,14 @@ describe("Typography", () => {
           {
             [css]: "blue",
           },
-          { variant: "p", [prop]: "blue" }
+          { variant: "p", [prop]: "blue" },
         );
 
         assert(
           {
             [css]: "#eee",
           },
-          { variant: "p", [prop]: "#eee" }
+          { variant: "p", [prop]: "#eee" },
         );
       });
     });
@@ -558,14 +558,14 @@ describe("Typography", () => {
       const wrapper = mount(
         <ThemeProvider theme={sageTheme}>
           <Typography whiteSpace={prop}>FooBar</Typography>
-        </ThemeProvider>
+        </ThemeProvider>,
       );
 
       assertStyleMatch(
         {
           whiteSpace: prop,
         },
-        wrapper.find(Typography)
+        wrapper.find(Typography),
       );
     });
 
@@ -575,16 +575,16 @@ describe("Typography", () => {
         const wrapper = mount(
           <ThemeProvider theme={sageTheme}>
             <Typography wordWrap={prop}>FooBar</Typography>
-          </ThemeProvider>
+          </ThemeProvider>,
         );
 
         assertStyleMatch(
           {
             wordWrap: prop,
           },
-          wrapper.find(Typography)
+          wrapper.find(Typography),
         );
-      }
+      },
     );
 
     it.each(["left", "right", "center", "justify", "initial", "inherit"])(
@@ -593,16 +593,16 @@ describe("Typography", () => {
         const wrapper = mount(
           <ThemeProvider theme={sageTheme}>
             <Typography textAlign={prop}>FooBar</Typography>
-          </ThemeProvider>
+          </ThemeProvider>,
         );
 
         assertStyleMatch(
           {
             textAlign: prop,
           },
-          wrapper.find(Typography)
+          wrapper.find(Typography),
         );
-      }
+      },
     );
 
     it.each(["clip", "ellipsis", "string", "initial", "inherit"])(
@@ -611,23 +611,23 @@ describe("Typography", () => {
         const wrapper = mount(
           <ThemeProvider theme={sageTheme}>
             <Typography textOverflow={prop}>FooBar</Typography>
-          </ThemeProvider>
+          </ThemeProvider>,
         );
 
         assertStyleMatch(
           {
             textOverflow: prop,
           },
-          wrapper.find(Typography)
+          wrapper.find(Typography),
         );
-      }
+      },
     );
 
     it("applies truncation when truncate prop is true", () => {
       const wrapper = mount(
         <ThemeProvider theme={sageTheme}>
           <Typography truncate>FooBar</Typography>
-        </ThemeProvider>
+        </ThemeProvider>,
       );
 
       assertStyleMatch(
@@ -636,7 +636,7 @@ describe("Typography", () => {
           overflow: "hidden",
           textOverflow: "ellipsis",
         },
-        wrapper.find(Typography)
+        wrapper.find(Typography),
       );
     });
 
@@ -644,7 +644,7 @@ describe("Typography", () => {
       const wrapper = mount(
         <ThemeProvider theme={sageTheme}>
           <Typography screenReaderOnly>FooBar</Typography>
-        </ThemeProvider>
+        </ThemeProvider>,
       );
       assertStyleMatch(
         {
@@ -657,7 +657,7 @@ describe("Typography", () => {
           width: "1px",
           whiteSpace: "nowrap",
         },
-        wrapper.find(Typography)
+        wrapper.find(Typography),
       );
     });
   });
@@ -676,7 +676,7 @@ describe("List", () => {
             <ListItem>Milk</ListItem>
             <ListItem>Sugar</ListItem>
           </List>
-        </ThemeProvider>
+        </ThemeProvider>,
       );
 
       const ul = wrapper.find(as);
@@ -685,7 +685,7 @@ describe("List", () => {
           ...pStyling,
           listStyleType,
         },
-        ul
+        ul,
       );
 
       const listItems = wrapper.find("li");
@@ -697,10 +697,10 @@ describe("List", () => {
             ...pStyling,
             margin: "0 0 8px 16px",
           },
-          listItem
+          listItem,
         );
       });
-    }
+    },
   );
 
   testStyledSystemSpacing((props) => <List {...props} />);

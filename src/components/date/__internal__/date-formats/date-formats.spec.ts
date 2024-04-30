@@ -507,7 +507,7 @@ describe.each([...euLocales, ...naLocales, ...cnLocales] as const)(
 
       expect(
         expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
-          formats.length === expectedFormats.length
+          formats.length === expectedFormats.length,
       ).toEqual(true);
     });
 
@@ -524,10 +524,10 @@ describe.each([...euLocales, ...naLocales, ...cnLocales] as const)(
 
       expect(
         expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
-          formats.length === expectedFormats.length
+          formats.length === expectedFormats.length,
       ).toEqual(true);
 
       expect(format).toEqual(formatMap["en-GB"]);
     });
-  }
+  },
 );

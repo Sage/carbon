@@ -1,7 +1,7 @@
 import { FlatTableProps } from "..";
 
 const getAlternativeBackgroundColor = (
-  colorTheme: FlatTableProps["colorTheme"]
+  colorTheme: FlatTableProps["colorTheme"],
 ) => {
   switch (colorTheme) {
     case "light":

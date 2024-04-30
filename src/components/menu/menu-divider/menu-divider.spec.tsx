@@ -26,14 +26,14 @@ describe("MenuDivider", () => {
         <MenuItem submenu="Item One">
           <MenuDivider />
         </MenuItem>
-      </MenuContext.Provider>
+      </MenuContext.Provider>,
     );
   };
 
   it('should render data-component to be "menu-divider"', () => {
     wrapper = shallow(<MenuDivider />);
     expect(wrapper.find(StyledDivider).prop("data-component")).toBe(
-      "menu-divider"
+      "menu-divider",
     );
   });
 
@@ -55,9 +55,9 @@ describe("MenuDivider", () => {
           backgroundColor: menuConfigVariants[menuType].divider,
           cursor: "default",
         },
-        wrapper.find(StyledDivider)
+        wrapper.find(StyledDivider),
       );
-    }
+    },
   );
 
   it('should have correct styles for "default" size', () => {
@@ -68,7 +68,7 @@ describe("MenuDivider", () => {
         margin: "0px 16px",
         height: "1px",
       },
-      wrapper.find(StyledDivider)
+      wrapper.find(StyledDivider),
     );
   });
 
@@ -80,18 +80,18 @@ describe("MenuDivider", () => {
         height: "4px",
         margin: "0px",
       },
-      wrapper.find(StyledDivider)
+      wrapper.find(StyledDivider),
     );
   });
 
   describe("tags on component", () => {
     it("includes correct component, element and role data tags", () => {
       wrapper = mount(<MenuDivider data-element="bar" data-role="baz" />).find(
-        StyledDivider
+        StyledDivider,
       );
 
       expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
-        "menu-divider"
+        "menu-divider",
       );
 
       expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");

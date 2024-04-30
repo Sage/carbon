@@ -33,7 +33,7 @@ describe("Hr", () => {
         {
           marginTop: "var(--spacing700)",
         },
-        wrapper.find(StyledHr)
+        wrapper.find(StyledHr),
       );
     });
 
@@ -44,7 +44,7 @@ describe("Hr", () => {
         {
           marginBottom: "var(--spacing700)",
         },
-        wrapper.find(StyledHr)
+        wrapper.find(StyledHr),
       );
     });
 
@@ -55,7 +55,7 @@ describe("Hr", () => {
         {
           marginLeft: "100px",
         },
-        wrapper.find(StyledHr)
+        wrapper.find(StyledHr),
       );
     });
 
@@ -66,7 +66,7 @@ describe("Hr", () => {
         {
           marginRight: "100px",
         },
-        wrapper.find(StyledHr)
+        wrapper.find(StyledHr),
       );
     });
   });

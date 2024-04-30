@@ -75,7 +75,7 @@ describe("NumeralDate", () => {
     return mount(
       <CarbonProvider validationRedesignOptIn>
         <NumeralDate {...defaultProps} {...props} />
-      </CarbonProvider>
+      </CarbonProvider>,
     );
   };
 
@@ -83,7 +83,7 @@ describe("NumeralDate", () => {
     (props) => <NumeralDate {...props} />,
     undefined,
     (component) => component.find(FormFieldStyle),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 
   beforeEach(() => {
@@ -110,7 +110,7 @@ describe("NumeralDate", () => {
       renderWrapper({});
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Numeral Date` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -168,7 +168,7 @@ describe("NumeralDate", () => {
         wrapper.setProps({ value: { dd: "02", mm: "01", yyyy: "2020" } });
       }).toThrow(
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-          "Decide between using a controlled or uncontrolled input element for the lifetime of the component"
+          "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
       );
     });
 
@@ -178,7 +178,7 @@ describe("NumeralDate", () => {
         wrapper.setProps({ value: undefined });
       }).toThrow(
         "Input elements should not switch from uncontrolled to controlled (or vice versa). " +
-          "Decide between using a controlled or uncontrolled input element for the lifetime of the component"
+          "Decide between using a controlled or uncontrolled input element for the lifetime of the component",
       );
     });
   });
@@ -216,7 +216,7 @@ describe("NumeralDate", () => {
           fontSize: "14px",
           fontWeight: "400",
         },
-        renderWrapper().find(StyledNumeralDate)
+        renderWrapper().find(StyledNumeralDate),
       );
     });
   });
@@ -242,7 +242,7 @@ describe("NumeralDate", () => {
             warning: true,
             info: true,
           });
-        }
+        },
       );
 
       it("passes validation strings to the last textbox", () => {
@@ -284,11 +284,11 @@ describe("NumeralDate", () => {
           const dateTextboxes = wrapper.find(Textbox);
 
           expect(
-            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType],
           ).toBe(
-            isValid ? "" : "Day should be a number within a 1-31 range.\n"
+            isValid ? "" : "Day should be a number within a 1-31 range.\n",
           );
-        }
+        },
       );
 
       it.each(["13", "14", "15"])(
@@ -310,9 +310,9 @@ describe("NumeralDate", () => {
           const dateTextboxes = wrapper.find(Textbox);
 
           expect(
-            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType],
           ).toBe("Month should be a number within a 1-12 range.\n");
-        }
+        },
       );
 
       it.each([
@@ -340,11 +340,11 @@ describe("NumeralDate", () => {
           const dateTextboxes = wrapper.find(Textbox);
 
           expect(
-            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType],
           ).toBe(
-            isValid ? "" : "Month should be a number within a 1-12 range.\n"
+            isValid ? "" : "Month should be a number within a 1-12 range.\n",
           );
-        }
+        },
       );
 
       it.each([
@@ -370,11 +370,13 @@ describe("NumeralDate", () => {
 
           const dateTextboxes = wrapper.find(Textbox);
           expect(
-            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType],
           ).toBe(
-            isValid ? "" : "Year should be a number within a 1800-2200 range.\n"
+            isValid
+              ? ""
+              : "Year should be a number within a 1800-2200 range.\n",
           );
-        }
+        },
       );
 
       describe.each<[ValidDateFormat, string]>([
@@ -408,10 +410,12 @@ describe("NumeralDate", () => {
             const dateTextboxes = wrapper.find(Textbox);
 
             expect(
-              dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+              dateTextboxes.at(dateTextboxes.length - 1).props()[
+                validationType
+              ],
             ).toBe(expectedMessage);
           });
-        }
+        },
       );
 
       it.each([
@@ -447,9 +451,9 @@ describe("NumeralDate", () => {
           const dateTextboxes = wrapper.find(Textbox);
 
           expect(
-            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType],
           ).toBe("");
-        }
+        },
       );
 
       it.each([
@@ -485,11 +489,11 @@ describe("NumeralDate", () => {
           const dateTextboxes = wrapper.find(Textbox);
 
           expect(
-            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType],
           ).toBe(
-            `Day in ${monthName} should be a number within 1-${daysInMonth}.\n`
+            `Day in ${monthName} should be a number within 1-${daysInMonth}.\n`,
           );
-        }
+        },
       );
 
       it.each([
@@ -519,9 +523,9 @@ describe("NumeralDate", () => {
           const dateTextboxes = wrapper.find(Textbox);
 
           expect(
-            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType]
+            dateTextboxes.at(dateTextboxes.length - 1).props()[validationType],
           ).toBe("");
-        }
+        },
       );
     });
   });
@@ -645,7 +649,7 @@ describe("NumeralDate", () => {
   describe("tags", () => {
     describe("on component", () => {
       const wrapperWithTags = shallow(
-        <NumeralDate value={{ dd: "12", mm: "", yyyy: "" }} />
+        <NumeralDate value={{ dd: "12", mm: "", yyyy: "" }} />,
       );
       it("include correct component, element and role data tags", () => {
         rootTagTest(wrapperWithTags.find(StyledNumeralDate), "numeral-date");
@@ -659,7 +663,7 @@ describe("NumeralDate", () => {
         value={{ dd: "12", mm: "", yyyy: "" }}
         isOptional
         label="text"
-      />
+      />,
     );
 
     assertStyleMatch(
@@ -669,7 +673,7 @@ describe("NumeralDate", () => {
         marginLeft: "var(--spacing050)",
       },
       propWrapper.find(StyledLabelContainer),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -698,7 +702,7 @@ describe("NumeralDate", () => {
           marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabel),
-        { modifier: "::after" }
+        { modifier: "::after" },
       );
     });
   });
@@ -713,7 +717,7 @@ describe("NumeralDate", () => {
           label={text}
           labelHelp={text}
           helpAriaLabel={text}
-        />
+        />,
       )
         .find(StyledHelp)
         .props();
@@ -778,7 +782,7 @@ describe("NumeralDate", () => {
         });
 
         expect(ref).toHaveBeenCalledWith(
-          wrapper.find("input").at(0).getDOMNode()
+          wrapper.find("input").at(0).getDOMNode(),
         );
       });
 
@@ -814,7 +818,7 @@ describe("NumeralDate", () => {
         });
 
         expect(ref).toHaveBeenCalledWith(
-          wrapper.find("input").at(1).getDOMNode()
+          wrapper.find("input").at(1).getDOMNode(),
         );
       });
 
@@ -850,7 +854,7 @@ describe("NumeralDate", () => {
         });
 
         expect(ref).toHaveBeenCalledWith(
-          wrapper.find("input").at(2).getDOMNode()
+          wrapper.find("input").at(2).getDOMNode(),
         );
       });
 

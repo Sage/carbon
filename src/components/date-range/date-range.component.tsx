@@ -129,9 +129,10 @@ export const DateRange = ({
 }: DateRangeProps) => {
   const l = useLocale();
   const { dateFnsLocale } = l.date;
-  const { format } = useMemo(() => getFormatData(dateFnsLocale()), [
-    dateFnsLocale,
-  ]);
+  const { format } = useMemo(
+    () => getFormatData(dateFnsLocale()),
+    [dateFnsLocale],
+  );
   const inlineLabelWidth = 40;
   const [lastChangedDate, setLastChangedDate] = useState("");
 
@@ -143,7 +144,7 @@ export const DateRange = ({
 
       return valueString;
     },
-    [format]
+    [format],
   );
 
   const getStartDate = useCallback(() => {
@@ -241,7 +242,7 @@ export const DateRange = ({
         },
       };
     },
-    [endDateValue, id, name, startDateValue]
+    [endDateValue, id, name, startDateValue],
   );
 
   const handleOnChange = (changedDate: InputName, ev: DateChangeEvent) => {
@@ -299,7 +300,7 @@ export const DateRange = ({
 
   const handleOnKeyDown = (
     ev: React.KeyboardEvent<HTMLInputElement>,
-    activeInput: InputName
+    activeInput: InputName,
   ) => {
     if (Events.isTabKey(ev) && Events.isShiftKey(ev) && inputRefMap?.start) {
       inputRefMap.start.isBlurBlocked.current = !(activeInput === "start");

@@ -32,16 +32,16 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
   const getButtonChildren = useCallback(
     () =>
       document.querySelectorAll<HTMLButtonElement>(
-        `[data-role="${containerID}"] button`
+        `[data-role="${containerID}"] button`,
       ),
-    []
+    [],
   );
 
   const handleKeyDown = useMenuKeyboardNavigation(
     mainRef,
     getButtonChildren,
     hideCb,
-    true
+    true,
   );
 
   return (
@@ -77,7 +77,7 @@ describe("useMenuKeyboardNavigation", () => {
       metaKey: modifier === "metaKey",
     });
     expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
   });
 
@@ -97,9 +97,9 @@ describe("useMenuKeyboardNavigation", () => {
         metaKey: modifier === "metaKey",
       });
       expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-        document.activeElement
+        document.activeElement,
       );
-    }
+    },
   );
 
   it("pressing ArrowDown key focuses the next child in the list and does not loop when last one is reached", () => {
@@ -108,19 +108,19 @@ describe("useMenuKeyboardNavigation", () => {
 
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
     expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
     expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
     expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
     expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
   });
 
@@ -129,19 +129,19 @@ describe("useMenuKeyboardNavigation", () => {
     render(<MockComponent hideCb={hideCb} />);
     screen.getByText(`${childButtonID}-2`).focus();
     expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
     expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
     expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
     expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
   });
 
@@ -151,21 +151,21 @@ describe("useMenuKeyboardNavigation", () => {
 
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
     expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
     expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
     expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
     jest.runAllTimers();
     expect(hideCb).toHaveBeenCalled();
     expect(screen.getByTestId(nextDOMElementID)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
   });
 
@@ -174,21 +174,21 @@ describe("useMenuKeyboardNavigation", () => {
     render(<MockComponent hideCb={hideCb} />);
     screen.getByText(`${childButtonID}-2`).focus();
     expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), {
       key: "Tab",
       shiftKey: true,
     });
     expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), {
       key: "Tab",
       shiftKey: true,
     });
     expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
     fireEvent.keyDown(screen.getByTestId(containerID), {
       key: "Tab",
@@ -196,7 +196,7 @@ describe("useMenuKeyboardNavigation", () => {
     });
     expect(hideCb).toHaveBeenCalled();
     expect(screen.getByTestId(mainButtonID)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
   });
 
@@ -206,7 +206,7 @@ describe("useMenuKeyboardNavigation", () => {
     fireEvent.keyUp(screen.getByTestId(containerID), { key: "Escape" });
     expect(hideCb).toHaveBeenCalled();
     expect(screen.getByTestId(mainButtonID)).toStrictEqual(
-      document.activeElement
+      document.activeElement,
     );
   });
 

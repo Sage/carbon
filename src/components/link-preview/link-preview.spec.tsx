@@ -39,7 +39,7 @@ describe("LinkPreview", () => {
           color: "var(--colorsUtilityYin090)",
           borderRadius: "var(--borderRadius100)",
         },
-        wrapper.find(StyledLinkPreview)
+        wrapper.find(StyledLinkPreview),
       );
 
       assertStyleMatch(
@@ -47,7 +47,7 @@ describe("LinkPreview", () => {
           flexGrow: "1",
           padding: "16px",
         },
-        wrapper.find(StyledPreviewWrapper)
+        wrapper.find(StyledPreviewWrapper),
       );
 
       assertStyleMatch(
@@ -55,7 +55,7 @@ describe("LinkPreview", () => {
           marginTop: "8px",
         },
         wrapper.find(StyledPreviewWrapper),
-        { modifier: `${StyledPreviewPlaceholder}:first-of-type` }
+        { modifier: `${StyledPreviewPlaceholder}:first-of-type` },
       );
 
       assertStyleMatch(
@@ -63,7 +63,7 @@ describe("LinkPreview", () => {
           marginTop: "16px",
         },
         wrapper.find(StyledPreviewWrapper),
-        { modifier: `${StyledPreviewPlaceholder}:not(:first-of-type)` }
+        { modifier: `${StyledPreviewPlaceholder}:not(:first-of-type)` },
       );
 
       assertStyleMatch(
@@ -71,7 +71,7 @@ describe("LinkPreview", () => {
           borderBottomLeftRadius: "var(--borderRadius100)",
           borderTopLeftRadius: "var(--borderRadius100)",
         },
-        wrapper.find(StyledPlaceHolder)
+        wrapper.find(StyledPlaceHolder),
       );
     });
 
@@ -82,7 +82,7 @@ describe("LinkPreview", () => {
         {
           padding: "16px",
         },
-        wrapper.find(StyledCloseIconWrapper)
+        wrapper.find(StyledCloseIconWrapper),
       );
     });
 
@@ -95,7 +95,7 @@ describe("LinkPreview", () => {
           backgroundColor: "var(--colorsUtilityMajor100)",
         },
         wrapper.find(StyledLinkPreview),
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
 
       assertStyleMatch(
@@ -105,7 +105,7 @@ describe("LinkPreview", () => {
           height: "100%",
         },
         wrapper.find(StyledPreviewWrapper),
-        { modifier: `${StyledPreview}` }
+        { modifier: `${StyledPreview}` },
       );
 
       assertStyleMatch(
@@ -116,14 +116,14 @@ describe("LinkPreview", () => {
           fontSize: "14px",
           lineHeight: "21px",
         },
-        wrapper.find(StyledTitle)
+        wrapper.find(StyledTitle),
       );
 
       assertStyleMatch(
         {
           flexGrow: "1",
         },
-        wrapper.find(StyledDescription)
+        wrapper.find(StyledDescription),
       );
 
       assertStyleMatch(
@@ -136,7 +136,7 @@ describe("LinkPreview", () => {
           lineHeight: "21px",
         },
         wrapper.find(StyledDescription),
-        { modifier: "> div" }
+        { modifier: "> div" },
       );
 
       assertStyleMatch(
@@ -148,7 +148,7 @@ describe("LinkPreview", () => {
           lineHeight: "21px",
           color: "var(--colorsUtilityMajor400)",
         },
-        wrapper.find(StyledUrl)
+        wrapper.find(StyledUrl),
       );
     });
   });
@@ -191,10 +191,10 @@ describe("LinkPreview", () => {
 
       expect(wrapper.find(StyledLinkPreview).prop("href")).toEqual(expectedUrl);
       expect(wrapper.find(StyledLinkPreview).prop("target")).toEqual(
-        expectedTarget
+        expectedTarget,
       );
       expect(wrapper.find(StyledLinkPreview).prop("tabIndex")).toEqual(
-        expectedTabIndex
+        expectedTabIndex,
       );
     });
   });

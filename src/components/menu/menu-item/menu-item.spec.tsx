@@ -55,7 +55,7 @@ describe("MenuItem", () => {
 
   const renderMenuContext = (
     props: Partial<MenuItemProps> = {},
-    additionalContextValues: Partial<MenuContextProps> = {}
+    additionalContextValues: Partial<MenuContextProps> = {},
   ) => {
     return mount(
       <MenuContext.Provider
@@ -65,7 +65,7 @@ describe("MenuItem", () => {
           Item One
         </MenuItem>
       </MenuContext.Provider>,
-      { attachTo: container }
+      { attachTo: container },
     );
   };
 
@@ -77,14 +77,14 @@ describe("MenuItem", () => {
             Item One
           </MenuItem>
         </SubmenuContext.Provider>
-      </MenuContext.Provider>
+      </MenuContext.Provider>,
     );
   };
 
   testStyledSystemPadding(
     (props) => <MenuItem {...props}>Foo</MenuItem>,
     {},
-    (component) => component.find(StyledMenuItemWrapper)
+    (component) => component.find(StyledMenuItemWrapper),
   );
 
   beforeEach(() => {
@@ -113,7 +113,7 @@ describe("MenuItem", () => {
     wrapper = shallow(<MenuItem href="#">Item One</MenuItem>);
 
     expect(wrapper.find(StyledMenuItemWrapper).props().className).toBe(
-      "carbon-menu-item--has-link"
+      "carbon-menu-item--has-link",
     );
   });
 
@@ -136,7 +136,7 @@ describe("MenuItem", () => {
           verticalAlign: "bottom",
         },
         wrapper.find(StyledMenuItemWrapper),
-        { modifier: "&&& button" }
+        { modifier: "&&& button" },
       );
     });
   });
@@ -148,14 +148,14 @@ describe("MenuItem", () => {
         wrapper = mount(
           <MenuContext.Provider value={{ ...menuContextValues, menuType }}>
             <MenuItem>Item one</MenuItem>
-          </MenuContext.Provider>
+          </MenuContext.Provider>,
         );
 
         assertStyleMatch(
           {
             backgroundColor: menuConfigVariants[menuType].background,
           },
-          wrapper.find(StyledMenuItemWrapper)
+          wrapper.find(StyledMenuItemWrapper),
         );
       });
 
@@ -168,13 +168,15 @@ describe("MenuItem", () => {
           wrapper = mount(
             <MenuContext.Provider value={{ ...menuContextValues, menuType }}>
               <MenuItem>Item one</MenuItem>
-            </MenuContext.Provider>
+            </MenuContext.Provider>,
           );
 
-          expect(
-            wrapper.find(StyledMenuItemWrapper)
-          ).not.toHaveStyleRule("padding", "0 16px", { modifier: element });
-        }
+          expect(wrapper.find(StyledMenuItemWrapper)).not.toHaveStyleRule(
+            "padding",
+            "0 16px",
+            { modifier: element },
+          );
+        },
       );
 
       it("applies the expected styling overrides when an IconButton is rendered as a child", () => {
@@ -185,7 +187,7 @@ describe("MenuItem", () => {
                 <Icon type="home" />
               </IconButton>
             </MenuItem>
-          </MenuContext.Provider>
+          </MenuContext.Provider>,
         );
 
         assertStyleMatch(
@@ -194,7 +196,7 @@ describe("MenuItem", () => {
             marginRight: "0",
           },
           wrapper.find(StyledMenuItemWrapper),
-          { modifier: `${StyledIconButton} > span` }
+          { modifier: `${StyledIconButton} > span` },
         );
 
         assertStyleMatch(
@@ -202,7 +204,7 @@ describe("MenuItem", () => {
             outline: "none",
           },
           wrapper.find(StyledMenuItemWrapper),
-          { modifier: `${StyledIconButton}:focus` }
+          { modifier: `${StyledIconButton}:focus` },
         );
 
         assertStyleMatch(
@@ -210,7 +212,7 @@ describe("MenuItem", () => {
             color: menuConfigVariants[menuType].color,
           },
           wrapper.find(StyledMenuItemWrapper),
-          { modifier: `${StyledIconButton}:focus [data-component="icon"]` }
+          { modifier: `${StyledIconButton}:focus [data-component="icon"]` },
         );
       });
 
@@ -221,7 +223,7 @@ describe("MenuItem", () => {
         wrapper = mount(
           <MenuContext.Provider value={{ ...menuContextValues, menuType }}>
             <MenuItem>Item one</MenuItem>
-          </MenuContext.Provider>
+          </MenuContext.Provider>,
         );
 
         assertStyleMatch(
@@ -230,7 +232,7 @@ describe("MenuItem", () => {
             color: menuConfigVariants[menuType].color,
           },
           wrapper.find(StyledMenuItemWrapper),
-          { modifier: `&& ${element}:${pseudo}` }
+          { modifier: `&& ${element}:${pseudo}` },
         );
       });
 
@@ -242,7 +244,7 @@ describe("MenuItem", () => {
           wrapper = mount(
             <MenuContext.Provider value={{ ...menuContextValues, menuType }}>
               <MenuItem>Item one</MenuItem>
-            </MenuContext.Provider>
+            </MenuContext.Provider>,
           );
         });
 
@@ -253,7 +255,7 @@ describe("MenuItem", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: `&&& ${element}:${pseudo}` }
+            { modifier: `&&& ${element}:${pseudo}` },
           );
         });
 
@@ -265,7 +267,7 @@ describe("MenuItem", () => {
             wrapper.find(StyledMenuItemWrapper),
             {
               modifier: `&&& ${element}:${pseudo} [data-component="icon"]`,
-            }
+            },
           );
         });
       });
@@ -275,7 +277,7 @@ describe("MenuItem", () => {
           wrapper = mount(
             <MenuContext.Provider value={{ ...menuContextValues, menuType }}>
               <MenuItem selected>Item one</MenuItem>
-            </MenuContext.Provider>
+            </MenuContext.Provider>,
           );
         });
 
@@ -284,7 +286,7 @@ describe("MenuItem", () => {
             {
               backgroundColor: menuConfigVariants[menuType].selected,
             },
-            wrapper.find(StyledMenuItemWrapper)
+            wrapper.find(StyledMenuItemWrapper),
           );
         });
 
@@ -298,7 +300,7 @@ describe("MenuItem", () => {
               color: "var(--colorsComponentsMenuYang100)",
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: `&&& ${element}:${pseudo}` }
+            { modifier: `&&& ${element}:${pseudo}` },
           );
         });
 
@@ -311,11 +313,11 @@ describe("MenuItem", () => {
               backgroundColor: menuConfigVariants[menuType].selected,
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: `${element}:${pseudo}` }
+            { modifier: `${element}:${pseudo}` },
           );
         });
       });
-    }
+    },
   );
 
   describe("submenu", () => {
@@ -323,7 +325,7 @@ describe("MenuItem", () => {
       wrapper = mount(
         <MenuItem submenu="Item submenu title">
           <MenuItem>Submenu Item One</MenuItem>
-        </MenuItem>
+        </MenuItem>,
       );
 
       expect(wrapper.find(Submenu).exists()).toBe(true);
@@ -339,7 +341,7 @@ describe("MenuItem", () => {
       wrapper = shallow(
         <MenuItem submenu="submenu">
           <MenuItem>Item one</MenuItem>
-        </MenuItem>
+        </MenuItem>,
       );
 
       expect(wrapper.find(Submenu).props().submenuDirection).toBe("right");
@@ -354,13 +356,13 @@ describe("MenuItem", () => {
               <MenuItem submenu="submenu">
                 <MenuItem>Item one</MenuItem>
               </MenuItem>
-            </MenuContext.Provider>
+            </MenuContext.Provider>,
           );
           assertStyleMatch(
             {
               backgroundColor: menuConfigVariants[menuType].submenuBackground,
             },
-            wrapper.find(StyledMenuItemWrapper)
+            wrapper.find(StyledMenuItemWrapper),
           );
         });
 
@@ -376,7 +378,7 @@ describe("MenuItem", () => {
                 <MenuItem submenu="submenu">
                   <MenuItem>Item one</MenuItem>
                 </MenuItem>
-              </MenuContext.Provider>
+              </MenuContext.Provider>,
             );
           });
           const styles = {
@@ -393,7 +395,7 @@ describe("MenuItem", () => {
                 color: styles[`${pseudo}Color` as keyof typeof styles],
               },
               wrapper.find(StyledMenuItemWrapper),
-              { modifier: `${element}:${pseudo}` }
+              { modifier: `${element}:${pseudo}` },
             );
           });
 
@@ -403,7 +405,7 @@ describe("MenuItem", () => {
                 color: styles[`${pseudo}Color` as keyof typeof styles],
               },
               wrapper.find(StyledMenuItemWrapper),
-              { modifier: `${element}:${pseudo} [data-component="icon"]` }
+              { modifier: `${element}:${pseudo} [data-component="icon"]` },
             );
           });
         });
@@ -415,7 +417,7 @@ describe("MenuItem", () => {
                 <MenuItem submenu="submenu" selected>
                   <MenuItem>Item one</MenuItem>
                 </MenuItem>
-              </MenuContext.Provider>
+              </MenuContext.Provider>,
             );
           });
 
@@ -424,7 +426,7 @@ describe("MenuItem", () => {
               {
                 backgroundColor: menuConfigVariants[menuType].submenuSelected,
               },
-              wrapper.find(StyledMenuItemWrapper)
+              wrapper.find(StyledMenuItemWrapper),
             );
           });
 
@@ -444,7 +446,7 @@ describe("MenuItem", () => {
                 backgroundColor: background[pseudo as keyof typeof background],
               },
               wrapper.find(StyledMenuItemWrapper),
-              { modifier: `${element}:${pseudo}` }
+              { modifier: `${element}:${pseudo}` },
             );
           });
         });
@@ -453,7 +455,7 @@ describe("MenuItem", () => {
           wrapper = mount(
             <MenuContext.Provider value={{ ...menuContextValues, menuType }}>
               <MenuItem variant="alternate">Item one</MenuItem>
-            </MenuContext.Provider>
+            </MenuContext.Provider>,
           );
 
           assertStyleMatch(
@@ -461,7 +463,7 @@ describe("MenuItem", () => {
               backgroundColor: menuConfigVariants[menuType].alternate,
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: `&&&` }
+            { modifier: `&&&` },
           );
         });
 
@@ -476,7 +478,7 @@ describe("MenuItem", () => {
             wrapper = mount(
               <MenuContext.Provider value={{ ...menuContextValues, menuType }}>
                 <MenuItem variant="alternate">Item one</MenuItem>
-              </MenuContext.Provider>
+              </MenuContext.Provider>,
             );
             const background = {
               focus: menuConfigVariants[menuType].alternate,
@@ -488,9 +490,9 @@ describe("MenuItem", () => {
                 backgroundColor: background[pseudo as keyof typeof background],
               },
               wrapper.find(StyledMenuItemWrapper),
-              { modifier: `&&& ${element}:${pseudo}` }
+              { modifier: `&&& ${element}:${pseudo}` },
             );
-          }
+          },
         );
 
         it("should render correct styles if an onClick is provided", () => {
@@ -499,7 +501,7 @@ describe("MenuItem", () => {
               value={{ ...menuContextValues, menuType: "dark" }}
             >
               <MenuItem onClick={() => {}}>Item one</MenuItem>
-            </MenuContext.Provider>
+            </MenuContext.Provider>,
           );
 
           assertStyleMatch(
@@ -510,10 +512,10 @@ describe("MenuItem", () => {
               margin: "0px",
             },
             wrapper.find(StyledMenuItemWrapper),
-            { modifier: "button" }
+            { modifier: "button" },
           );
         });
-      }
+      },
     );
 
     describe("with onSubmenuOpen prop set", () => {
@@ -527,11 +529,11 @@ describe("MenuItem", () => {
             <MenuItem submenu="submenu" onSubmenuOpen={mockCallback}>
               <MenuItem>Item one</MenuItem>
             </MenuItem>
-          </MenuContext.Provider>
+          </MenuContext.Provider>,
         );
 
         expect(wrapper.find(Submenu).props().onSubmenuOpen).toEqual(
-          mockCallback
+          mockCallback,
         );
       });
     });
@@ -547,11 +549,11 @@ describe("MenuItem", () => {
             <MenuItem submenu="submenu" onSubmenuClose={mockCallback}>
               <MenuItem>Item one</MenuItem>
             </MenuItem>
-          </MenuContext.Provider>
+          </MenuContext.Provider>,
         );
 
         expect(wrapper.find(Submenu).props().onSubmenuClose).toEqual(
-          mockCallback
+          mockCallback,
         );
       });
     });
@@ -566,7 +568,7 @@ describe("MenuItem", () => {
               <MenuItem submenu="submenu">
                 <MenuItem>Item one</MenuItem>
               </MenuItem>
-            </MenuContext.Provider>
+            </MenuContext.Provider>,
           );
 
           expect(wrapper.find(Submenu).props().showDropdownArrow).toEqual(true);
@@ -582,11 +584,11 @@ describe("MenuItem", () => {
               <MenuItem submenu="submenu" showDropdownArrow={false}>
                 <MenuItem>Item one</MenuItem>
               </MenuItem>
-            </MenuContext.Provider>
+            </MenuContext.Provider>,
           );
 
           expect(wrapper.find(Submenu).props().showDropdownArrow).toEqual(
-            false
+            false,
           );
         });
       });
@@ -601,13 +603,13 @@ describe("MenuItem", () => {
             <MenuItem maxWidth="100px" submenu="submenu title">
               <MenuItem>Item one</MenuItem>
             </MenuItem>
-          </MenuContext.Provider>
+          </MenuContext.Provider>,
         );
       });
 
       it("should add a title attribute with the full title", () => {
         expect(wrapper.find(StyledMenuItem).at(0).props().title).toEqual(
-          "submenu title"
+          "submenu title",
         );
       });
 
@@ -621,7 +623,7 @@ describe("MenuItem", () => {
             verticalAlign: "bottom",
           },
           wrapper.find(StyledMenuItemWrapper),
-          { modifier: "&&& button" }
+          { modifier: "&&& button" },
         );
       });
 
@@ -637,7 +639,7 @@ describe("MenuItem", () => {
             <MenuItem maxWidth="100px" submenu="submenu title">
               <MenuItem maxWidth="100px">Item one</MenuItem>
             </MenuItem>
-          </MenuContext.Provider>
+          </MenuContext.Provider>,
         ).find(StyledMenuItem);
 
         items.forEach((item) => {
@@ -714,7 +716,7 @@ describe("MenuItem", () => {
             {true && <MenuItem>One</MenuItem>}
             {false && <MenuItem>Two</MenuItem>}
           </MenuItem>
-        </MenuContext.Provider>
+        </MenuContext.Provider>,
       );
 
       expect(wrapper.find(MenuItem).find(MenuItem).length).toEqual(1);
@@ -732,7 +734,7 @@ describe("MenuItem", () => {
       wrapper = mount(
         <MenuItem icon="settings" submenu ariaLabel="Settings">
           <MenuItem icon="home" ariaLabel="Home" />
-        </MenuItem>
+        </MenuItem>,
       );
 
       expect(wrapper.find(StyledIcon).exists()).toBe(true);
@@ -742,7 +744,7 @@ describe("MenuItem", () => {
       wrapper = mount(
         <MenuItem icon="settings" submenu="Settings" ariaLabel="Settings">
           <MenuItem icon="home" ariaLabel="Home" />
-        </MenuItem>
+        </MenuItem>,
       );
 
       expect(wrapper.find(StyledIcon).exists()).toBe(true);
@@ -762,7 +764,7 @@ describe("MenuItem", () => {
       expect(() => {
         mount(<MenuItem icon="settings" />);
       }).toThrow(
-        "If no text is provided an `ariaLabel` should be given to facilitate accessibility."
+        "If no text is provided an `ariaLabel` should be given to facilitate accessibility.",
       );
       consoleSpy.mockRestore();
     });
@@ -775,7 +777,7 @@ describe("MenuItem", () => {
       expect(() => {
         mount(<MenuItem ariaLabel="a" />);
       }).toThrow(
-        "Either prop `icon` must be defined or this node must have `children`."
+        "Either prop `icon` must be defined or this node must have `children`.",
       );
       consoleSpy.mockRestore();
     });
@@ -789,7 +791,7 @@ describe("MenuItem", () => {
     wrapper = mount(
       <MenuItem href={href} target={target} rel={rel}>
         Foo
-      </MenuItem>
+      </MenuItem>,
     );
     const anchor = wrapper.find("a").getDOMNode();
     expect(anchor.getAttribute("href")).toBe(href);
@@ -802,11 +804,11 @@ describe("MenuItem", () => {
       wrapper = mount(
         <MenuItem data-element="bar" data-role="baz">
           foo
-        </MenuItem>
+        </MenuItem>,
       ).find(StyledMenuItem);
 
       expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
-        "menu-item"
+        "menu-item",
       );
 
       expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");

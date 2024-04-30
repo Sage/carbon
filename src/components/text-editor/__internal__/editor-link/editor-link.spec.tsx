@@ -11,12 +11,12 @@ const Component = ({ text }: { text?: string }) => <div>{text}</div>;
 
 const render = (
   props: EditorLinkProps = { children: [<Component key="key" />] },
-  editMode = true
+  editMode = true,
 ) => {
   return mount(
     <EditorContext.Provider value={{ onLinkAdded, editMode }}>
       <EditorLink {...props} />
-    </EditorContext.Provider>
+    </EditorContext.Provider>,
   );
 };
 
@@ -32,7 +32,7 @@ describe("EditorLink", () => {
         entityKey: "bar",
         children: [<Component key="foo" text="foo" />],
       },
-      false
+      false,
     );
 
     expect(wrapper.find(Link).props().href).toEqual("https://bar");
@@ -45,7 +45,7 @@ describe("EditorLink", () => {
         entityKey: "bar",
         children: [<Component key="foo" text="foo" />],
       },
-      false
+      false,
     );
 
     expect(wrapper.find(Link).props().href).toEqual("https://foo");
@@ -62,7 +62,7 @@ describe("EditorLink", () => {
         contentState,
         children: [<Component key="foo" text="foo" />],
       },
-      false
+      false,
     );
 
     expect(wrapper.find(Link).props().href).toEqual("https://foo");
@@ -75,7 +75,7 @@ describe("EditorLink", () => {
         entityKey: "bar",
         children: [<Component key="foo" text="http://foo" />],
       },
-      false
+      false,
     );
 
     expect(wrapper.find(Link).props().href).toEqual("http://foo");
@@ -109,7 +109,7 @@ describe("EditorLink", () => {
           entityKey: "bar",
           children: [<Component key="foo" text="http://foo" />],
         },
-        false
+        false,
       );
 
       expect(wrapper.find(Link).props().href).toEqual("http://foo");

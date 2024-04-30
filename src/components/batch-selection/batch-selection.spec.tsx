@@ -12,14 +12,14 @@ import StyledIconButton from "../icon-button/icon-button.style";
 function renderBatchSelection(
   props: Omit<BatchSelectionProps, "children">,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  renderer: any = mount
+  renderer: any = mount,
 ) {
   return renderer(
     <BatchSelection {...props}>
       <IconButton onClick={() => {}}>
         <Icon type="edit" />
       </IconButton>
-    </BatchSelection>
+    </BatchSelection>,
   );
 }
 
@@ -38,7 +38,7 @@ describe("BatchSelection component", () => {
           color: "var(--colorsUtilityYang100)",
           borderRadius: "var(--borderRadius100)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -48,7 +48,7 @@ describe("BatchSelection component", () => {
           color: "var(--colorsActionMajorYang100)",
         },
         wrapper,
-        { modifier: `${StyledIcon}` }
+        { modifier: `${StyledIcon}` },
       );
     });
   });
@@ -64,7 +64,7 @@ describe("BatchSelection component", () => {
           backgroundColor: "var(--colorsUtilityMajor150)",
           borderRadius: "var(--borderRadius100)",
         },
-        wrapper
+        wrapper,
       );
     });
   });
@@ -81,7 +81,7 @@ describe("BatchSelection component", () => {
           boxShadow: "var(--boxShadow100)",
           borderRadius: "var(--borderRadius100)",
         },
-        wrapper
+        wrapper,
       );
     });
   });
@@ -97,7 +97,7 @@ describe("BatchSelection component", () => {
           color: "var(--colorsUtilityYin030)",
           cursor: "not-allowed",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -108,7 +108,7 @@ describe("BatchSelection component", () => {
           pointerEvents: "none",
         },
         wrapper,
-        { modifier: `${StyledIconButton}` }
+        { modifier: `${StyledIconButton}` },
       );
     });
 
@@ -118,7 +118,7 @@ describe("BatchSelection component", () => {
           color: "var(--colorsActionMajorYin030)",
         },
         wrapper,
-        { modifier: `${StyledIconButton} ${StyledIcon}` }
+        { modifier: `${StyledIconButton} ${StyledIcon}` },
       );
     });
   });

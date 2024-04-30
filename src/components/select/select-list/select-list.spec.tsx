@@ -237,7 +237,7 @@ function renderSelectList(props = {}, renderer = mount, enzymeOptions = {}) {
 function renderOptionRowSelectList(
   props = {},
   renderer = mount,
-  enzymeOptions = {}
+  enzymeOptions = {},
 ) {
   return renderer(getOptionRowSelectList(props), enzymeOptions);
 }
@@ -253,7 +253,7 @@ function renderSelectListWithObjects(props = {}, renderer = mount) {
 function renderWithVirtualScroll(
   totalItems: number,
   enableVirtualScroll: boolean,
-  overscan?: number
+  overscan?: number,
 ) {
   const options = Array(totalItems)
     .fill(undefined)
@@ -300,7 +300,7 @@ function renderWithVirtualScrollAndGroupHeaders() {
           value={`${index}`}
           text={`Option ${index - Math.floor(index / 11)}`}
         />
-      )
+      ),
     );
 
   const SelectListWithManyOptions = () => {
@@ -334,7 +334,7 @@ describe("SelectList", () => {
         () =>
           ({
             height: 40,
-          } as DOMRect)
+          }) as DOMRect,
       );
   });
 
@@ -362,7 +362,7 @@ describe("SelectList", () => {
             onSelect: onSelectFn,
             filterText: "",
           }),
-          { attachTo: testContainer }
+          { attachTo: testContainer },
         );
       });
 
@@ -536,13 +536,13 @@ describe("SelectList", () => {
       it("does not highlight any option if the other key is pressed", () => {
         act(() => {
           testContainer.dispatchEvent(
-            new KeyboardEvent("keydown", { key: "b", bubbles: true })
+            new KeyboardEvent("keydown", { key: "b", bubbles: true }),
           );
         });
 
         expect(onSelectFn).not.toHaveBeenCalled();
       });
-    }
+    },
   );
 
   describe("when an Option is disabled", () => {
@@ -559,7 +559,7 @@ describe("SelectList", () => {
           onSelect: onSelectFn,
           filterText: "",
         }),
-        { attachTo: testContainer }
+        { attachTo: testContainer },
       );
     });
 
@@ -649,7 +649,7 @@ describe("SelectList", () => {
       const wrapper = listRenderer({ onSelect });
 
       expect(wrapper.find(optionType).first().prop("isHighlighted")).toBe(
-        false
+        false,
       );
     });
 
@@ -681,7 +681,7 @@ describe("SelectList", () => {
 
         expect(wrapper.find(optionType).at(1)).toHaveStyleRule(
           "background-color",
-          "var(--colorsUtilityMajor200)"
+          "var(--colorsUtilityMajor200)",
         );
       });
 
@@ -697,7 +697,7 @@ describe("SelectList", () => {
             });
         });
       });
-    }
+    },
   );
 
   describe("when the anchor element is provided", () => {
@@ -777,7 +777,7 @@ describe("SelectList", () => {
       });
       expect(wrapper.find(Loader).exists()).toBe(true);
       expect(wrapper.find(Loader).prop("data-role")).toEqual(
-        "select-list-loader"
+        "select-list-loader",
       );
     });
 
@@ -811,7 +811,7 @@ describe("SelectList", () => {
 
         assertStyleMatch(
           { minHeight: "150px" },
-          wrapper.find(StyledSelectListContainer)
+          wrapper.find(StyledSelectListContainer),
         );
 
         wrapper.unmount();
@@ -850,10 +850,10 @@ describe("SelectList", () => {
             wrapper
               .find(multiColumn ? OptionRow : Option)
               .first()
-              .prop("hidden")
+              .prop("hidden"),
           ).toBe(true);
         });
-      }
+      },
     );
   });
 
@@ -873,7 +873,7 @@ describe("SelectList", () => {
           onListScrollBottom: onListScrollBottomFn,
           onListAction: () => {},
         }),
-        { attachTo: testContainer }
+        { attachTo: testContainer },
       );
       listWrapperElement = wrapper.find(StyledScrollableContainer).getDOMNode();
     });
@@ -953,7 +953,7 @@ describe("SelectList", () => {
             onSelect: onSelectFn,
           },
           mount,
-          { attachTo: testContainer }
+          { attachTo: testContainer },
         );
       });
 
@@ -967,10 +967,12 @@ describe("SelectList", () => {
 
       it("then the focus function should have been called on the ListActionButton", () => {
         onFocusFn.mockClear();
-        (wrapper
-          .find(ListActionButton)
-          .find("button")
-          .getDOMNode() as HTMLButtonElement).focus = onFocusFn;
+        (
+          wrapper
+            .find(ListActionButton)
+            .find("button")
+            .getDOMNode() as HTMLButtonElement
+        ).focus = onFocusFn;
         act(() => {
           testContainer.dispatchEvent(tabKeyDownEvent);
         });
@@ -980,10 +982,12 @@ describe("SelectList", () => {
       describe("with the ListActionButton already focused", () => {
         it("then the onSelect function prop should have been called with expected value", () => {
           onSelectFn.mockClear();
-          (wrapper
-            .find(ListActionButton)
-            .find("button")
-            .getDOMNode() as HTMLButtonElement).focus();
+          (
+            wrapper
+              .find(ListActionButton)
+              .find("button")
+              .getDOMNode() as HTMLButtonElement
+          ).focus();
 
           act(() => {
             testContainer.dispatchEvent(tabKeyDownEvent);
@@ -1018,7 +1022,7 @@ describe("SelectList", () => {
         const wrapper = renderSelectList({ listPlacement });
 
         expect(wrapper.find(Popover).prop("placement")).toBe(listPlacement);
-      }
+      },
     );
   });
 
@@ -1083,11 +1087,11 @@ describe("SelectList", () => {
   describe("multiColumn mode", () => {
     const originalOffsetWidth = Object.getOwnPropertyDescriptor(
       HTMLElement.prototype,
-      "offsetWidth"
+      "offsetWidth",
     );
     const originalClientWidth = Object.getOwnPropertyDescriptor(
       HTMLElement.prototype,
-      "clientWidth"
+      "clientWidth",
     );
 
     afterAll(() => {
@@ -1095,7 +1099,7 @@ describe("SelectList", () => {
         Object.defineProperty(
           HTMLElement.prototype,
           "offsetWidth",
-          originalOffsetWidth
+          originalOffsetWidth,
         );
       }
 
@@ -1103,7 +1107,7 @@ describe("SelectList", () => {
         Object.defineProperty(
           HTMLElement.prototype,
           "clientWidth",
-          originalClientWidth
+          originalClientWidth,
         );
       }
     });
@@ -1126,7 +1130,7 @@ describe("SelectList", () => {
         wrapper.find(StyledSelectListTableHeader),
         {
           modifier: "tr",
-        }
+        },
       );
     });
   });
@@ -1248,7 +1252,7 @@ describe("SelectList", () => {
         domNode = wrapper.find(optionType).at(0).getDOMNode();
         expect(domNode.getAttribute("id")).toBe(mockedGuid);
       });
-    }
+    },
   );
 
   describe("IDs are stable over the component's lifecycle", () => {

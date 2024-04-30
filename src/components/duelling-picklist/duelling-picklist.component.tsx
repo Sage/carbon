@@ -50,7 +50,7 @@ export const DuellingPicklist = ({
   const addElementToFocus = (
     itemIndex?: number,
     listIndex?: number,
-    groupIndex?: number
+    groupIndex?: number,
   ) => {
     setElementToFocus({ itemIndex, listIndex, groupIndex });
   };

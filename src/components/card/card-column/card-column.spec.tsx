@@ -20,7 +20,7 @@ describe("CardColumn", () => {
     const wrapper = mount(
       <CardColumn align={align}>
         <div />
-      </CardColumn>
+      </CardColumn>,
     );
 
     assertStyleMatch({ textAlign: align }, wrapper.find(StyledCardColumn));
@@ -31,21 +31,21 @@ describe("CardColumn", () => {
       mount(
         <CardColumn>
           <div />
-        </CardColumn>
+        </CardColumn>,
       ).find(StyledCardColumn),
       "card-column",
-      "card-column"
+      "card-column",
     );
 
     rootTagTest(
       mount(
         <CardColumn data-element="foo" data-role="bar">
           <div />
-        </CardColumn>
+        </CardColumn>,
       ).find(StyledCardColumn),
       "card-column",
       "foo",
-      "bar"
+      "bar",
     );
   });
 });

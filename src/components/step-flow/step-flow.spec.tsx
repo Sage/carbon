@@ -32,7 +32,7 @@ describe("Step Flow component", () => {
 
   function calculateStepStateIndexes(
     totalSteps: number,
-    currentStepParam: number
+    currentStepParam: number,
   ) {
     let currentStep = currentStepParam;
 
@@ -49,7 +49,7 @@ describe("Step Flow component", () => {
   describe("prop checks", () => {
     it("when the 'category' prop is passed, the correct element and text renders", () => {
       render(
-        <StepFlow title="foo" currentStep={5} totalSteps={6} category="bar" />
+        <StepFlow title="foo" currentStep={5} totalSteps={6} category="bar" />,
       );
 
       expect(screen.getByText("bar")).toBeInTheDocument();
@@ -57,7 +57,7 @@ describe("Step Flow component", () => {
 
     it("when the 'title' prop is passed, the correct element and text renders", () => {
       render(
-        <StepFlow title="baz" currentStep={5} totalSteps={6} category="bar" />
+        <StepFlow title="baz" currentStep={5} totalSteps={6} category="bar" />,
       );
 
       expect(screen.getByText("baz")).toBeInTheDocument();
@@ -65,11 +65,11 @@ describe("Step Flow component", () => {
 
     it("when the 'titleVariant' prop is not passed, the variant is h1 by default", () => {
       const { container } = render(
-        <StepFlow title="this title is a h1" currentStep={5} totalSteps={6} />
+        <StepFlow title="this title is a h1" currentStep={5} totalSteps={6} />,
       );
 
       expect(container.querySelector("h1")).toHaveTextContent(
-        "this title is a h1"
+        "this title is a h1",
       );
     });
 
@@ -83,11 +83,11 @@ describe("Step Flow component", () => {
             currentStep={5}
             totalSteps={6}
             titleVariant={headingLevel}
-          />
+          />,
         );
 
         expect(container.querySelector(headingLevel)).toBeInTheDocument();
-      }
+      },
     );
 
     it("when the 'showProgressIndicator' prop is true, the correct element renders", () => {
@@ -97,10 +97,10 @@ describe("Step Flow component", () => {
           currentStep={5}
           totalSteps={6}
           showProgressIndicator
-        />
+        />,
       );
       expect(
-        container.querySelector('[data-element="progress-indicator"]')
+        container.querySelector('[data-element="progress-indicator"]'),
       ).toBeInTheDocument();
     });
 
@@ -115,13 +115,13 @@ describe("Step Flow component", () => {
               currentStep,
               titleTabIndex: 0,
             }}
-          />
+          />,
         );
 
         expect(
-          container.querySelector('[data-element="step-label"]')
+          container.querySelector('[data-element="step-label"]'),
         ).toHaveTextContent(`${currentStep} of ${totalSteps}`);
-      }
+      },
     );
 
     it.each(generateCurrentStepOverTotalStepsVariations())(
@@ -135,13 +135,13 @@ describe("Step Flow component", () => {
               currentStep,
               titleTabIndex: 0,
             }}
-          />
+          />,
         );
 
         expect(
-          container.querySelector('[data-element="step-label"]')
+          container.querySelector('[data-element="step-label"]'),
         ).toHaveTextContent(`${totalSteps} of ${totalSteps}`);
-      }
+      },
     );
 
     it.each(generateLimitedVariations())(
@@ -159,15 +159,17 @@ describe("Step Flow component", () => {
               currentStep,
               titleTabIndex: 0,
             }}
-          />
+          />,
         );
 
         expect(
-          container.querySelector('[data-element="visually-hidden-title-text"]')
+          container.querySelector(
+            '[data-element="visually-hidden-title-text"]',
+          ),
         ).toHaveTextContent(
-          `${category}. ${title}. Step ${currentStep} of ${totalSteps}.`
+          `${category}. ${title}. Step ${currentStep} of ${totalSteps}.`,
         );
-      }
+      },
     );
 
     it.each(generateCurrentStepOverTotalStepsVariations())(
@@ -185,15 +187,17 @@ describe("Step Flow component", () => {
               currentStep,
               titleTabIndex: 0,
             }}
-          />
+          />,
         );
 
         expect(
-          container.querySelector('[data-element="visually-hidden-title-text"]')
+          container.querySelector(
+            '[data-element="visually-hidden-title-text"]',
+          ),
         ).toHaveTextContent(
-          `${category}. ${title}. Step ${totalSteps} of ${totalSteps}.`
+          `${category}. ${title}. Step ${totalSteps} of ${totalSteps}.`,
         );
-      }
+      },
     );
 
     it("when the 'showCloseIcon' prop is true, the correct element renders", () => {
@@ -205,7 +209,7 @@ describe("Step Flow component", () => {
             currentStep: 1,
             showCloseIcon: true,
           }}
-        />
+        />,
       );
 
       expect(screen.getByLabelText("Close")).toBeInTheDocument();
@@ -224,11 +228,12 @@ describe("Step Flow component", () => {
               currentStep,
               showProgressIndicator: true,
             }}
-          />
+          />,
         );
 
-        const count = container.querySelectorAll('[data-state="in-progress"]')
-          .length;
+        const count = container.querySelectorAll(
+          '[data-state="in-progress"]',
+        ).length;
         expect(count).toBe(1);
       });
 
@@ -241,14 +246,15 @@ describe("Step Flow component", () => {
               currentStep,
               showProgressIndicator: true,
             }}
-          />
+          />,
         );
 
-        const count = container.querySelectorAll('[data-state="is-completed"]')
-          .length;
+        const count = container.querySelectorAll(
+          '[data-state="is-completed"]',
+        ).length;
         const currentCount = calculateStepStateIndexes(
           totalSteps,
-          currentStep
+          currentStep,
         )[0];
 
         expect(count).toBe(currentCount);
@@ -263,19 +269,20 @@ describe("Step Flow component", () => {
               currentStep,
               showProgressIndicator: true,
             }}
-          />
+          />,
         );
 
-        const count = container.querySelectorAll('[data-state="not-completed"]')
-          .length;
+        const count = container.querySelectorAll(
+          '[data-state="not-completed"]',
+        ).length;
         const currentCount = calculateStepStateIndexes(
           totalSteps,
-          currentStep
+          currentStep,
         )[1];
 
         expect(count).toBe(currentCount);
       });
-    }
+    },
   );
 
   describe.each(generateCurrentStepOverTotalStepsVariations())(
@@ -290,11 +297,12 @@ describe("Step Flow component", () => {
               currentStep,
               showProgressIndicator: true,
             }}
-          />
+          />,
         );
 
-        const count = container.querySelectorAll('[data-state="in-progress"]')
-          .length;
+        const count = container.querySelectorAll(
+          '[data-state="in-progress"]',
+        ).length;
         expect(count).toBe(1);
       });
 
@@ -307,14 +315,15 @@ describe("Step Flow component", () => {
               currentStep,
               showProgressIndicator: true,
             }}
-          />
+          />,
         );
 
-        const count = container.querySelectorAll('[data-state="is-completed"]')
-          .length;
+        const count = container.querySelectorAll(
+          '[data-state="is-completed"]',
+        ).length;
         const currentCount = calculateStepStateIndexes(
           totalSteps,
-          currentStep
+          currentStep,
         )[0];
 
         expect(count).toBe(currentCount);
@@ -329,15 +338,16 @@ describe("Step Flow component", () => {
               currentStep,
               showProgressIndicator: true,
             }}
-          />
+          />,
         );
 
-        const count = container.querySelectorAll('[data-state="not-completed"]')
-          .length;
+        const count = container.querySelectorAll(
+          '[data-state="not-completed"]',
+        ).length;
 
         expect(count).toBe(0);
       });
-    }
+    },
   );
 
   describe("when ref handle is passed to StepFlow", () => {
@@ -367,7 +377,7 @@ describe("Step Flow component", () => {
       await user.click(button);
 
       expect(
-        container.querySelector('[data-element="title-text-wrapper"]')
+        container.querySelector('[data-element="title-text-wrapper"]'),
       ).toHaveFocus();
     });
   });
@@ -389,7 +399,7 @@ describe("Step Flow component", () => {
     beforeEach(() => {
       loggerSpy = jest.spyOn(console, "warn");
       instance = render(
-        <StepFlow currentStep={4} totalSteps={1} title="foo" ref={mockRef} />
+        <StepFlow currentStep={4} totalSteps={1} title="foo" ref={mockRef} />,
       );
     });
 
@@ -405,7 +415,7 @@ describe("Step Flow component", () => {
 
     it("validates a warning is logged in the console once when currentStep is higher than totalSteps", () => {
       render(
-        <StepFlow currentStep={4} totalSteps={1} title="foo" ref={mockRef} />
+        <StepFlow currentStep={4} totalSteps={1} title="foo" ref={mockRef} />,
       );
 
       expect(loggerSpy).toHaveBeenCalledWith(currentStepWarnMessage);

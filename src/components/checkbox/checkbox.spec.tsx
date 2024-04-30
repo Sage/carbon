@@ -24,7 +24,7 @@ jest.mock("../../__internal__/utils/logger");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 const validationTypes = ["error", "warning", "info"];
@@ -32,7 +32,7 @@ const validationTypes = ["error", "warning", "info"];
 function renderCheckbox(
   props: CheckboxProps & { ref?: React.ForwardedRef<HTMLInputElement> },
   renderer = mount,
-  options = {}
+  options = {},
 ) {
   return renderer(
     <Checkbox
@@ -41,12 +41,12 @@ function renderCheckbox(
       value="test"
       {...props}
     />,
-    options
+    options,
   );
 }
 
 function getValidationBorderColor(
-  validationType: typeof validationTypes[number]
+  validationType: (typeof validationTypes)[number],
 ) {
   switch (validationType) {
     case "error":
@@ -80,7 +80,7 @@ describe("Checkbox", () => {
       mount(<Checkbox name="my-checkbox" />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Checkbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -155,7 +155,7 @@ describe("Checkbox", () => {
             modifier: `
               ${StyledCheckableInputSvgWrapper}
             `,
-          }
+          },
         );
       });
 
@@ -169,7 +169,7 @@ describe("Checkbox", () => {
             modifier: `
               ${StyledCheckableInputSvgWrapper}
             `,
-          }
+          },
         );
       });
 
@@ -183,7 +183,7 @@ describe("Checkbox", () => {
             modifier: `
               ${FieldHelpStyle}
             `,
-          }
+          },
         );
       });
 
@@ -200,7 +200,7 @@ describe("Checkbox", () => {
               modifier: `
                 ${FieldHelpStyle}
               `,
-            }
+            },
           );
         });
       });
@@ -219,7 +219,7 @@ describe("Checkbox", () => {
             modifier: `
               ${FieldHelpStyle}
             `,
-          }
+          },
         );
       });
     });
@@ -237,7 +237,7 @@ describe("Checkbox", () => {
             modifier: `
               ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path
             `,
-          }
+          },
         );
       });
 
@@ -254,7 +254,7 @@ describe("Checkbox", () => {
               modifier: `
                 ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path
               `,
-            }
+            },
           );
         });
       });
@@ -270,7 +270,7 @@ describe("Checkbox", () => {
             border: `1px solid var(--colorsUtilityDisabled600)`,
           },
           wrapper,
-          { modifier: "svg" }
+          { modifier: "svg" },
         );
       });
 
@@ -280,7 +280,7 @@ describe("Checkbox", () => {
             fill: "var(--colorsUtilityDisabled400)",
           },
           wrapper,
-          { modifier: "svg path" }
+          { modifier: "svg path" },
         );
       });
 
@@ -322,7 +322,7 @@ describe("Checkbox", () => {
                 adaptiveSpacingBreakpoint: 1000,
                 ml: "10%",
               },
-              mount
+              mount,
             );
 
             assertStyleMatch({ marginLeft: "10%" }, wrapper);
@@ -341,7 +341,7 @@ describe("Checkbox", () => {
                 adaptiveSpacingBreakpoint: 1000,
                 ml: "10%",
               },
-              mount
+              mount,
             );
 
             assertStyleMatch({ marginLeft: "0" }, wrapper);
@@ -364,11 +364,11 @@ describe("Checkbox", () => {
           assertStyleMatch(
             {
               border: `${borderWidth}px solid ${getValidationBorderColor(
-                type
+                type,
               )}`,
             },
             wrapper,
-            { modifier: "svg" }
+            { modifier: "svg" },
           );
         });
       });
@@ -380,11 +380,11 @@ describe("Checkbox", () => {
           assertStyleMatch(
             {
               border: `${borderWidth}px solid ${getValidationBorderColor(
-                type
+                type,
               )}`,
             },
             wrapper,
-            { modifier: "svg" }
+            { modifier: "svg" },
           );
         });
       });
@@ -400,7 +400,7 @@ describe("Checkbox", () => {
               border: `2px solid var(--colorsSemanticNegative500)`,
             },
             wrapper,
-            { modifier: "svg" }
+            { modifier: "svg" },
           );
         });
       });
@@ -416,7 +416,7 @@ describe("Checkbox", () => {
               border: `1px solid var(--colorsSemanticCaution500)`,
             },
             wrapper,
-            { modifier: "svg" }
+            { modifier: "svg" },
           );
         });
       });
@@ -432,7 +432,7 @@ describe("Checkbox", () => {
               border: `1px solid var(--colorsSemanticInfo500)`,
             },
             wrapper,
-            { modifier: "svg" }
+            { modifier: "svg" },
           );
         });
       });
@@ -464,7 +464,7 @@ describe("Checkbox", () => {
               modifier: `
                 ${FieldHelpStyle}
               `,
-            }
+            },
           );
         });
       });
@@ -482,7 +482,7 @@ describe("Checkbox", () => {
               modifier: `
                 ${FieldHelpStyle}
               `,
-            }
+            },
           );
         });
       });
@@ -502,7 +502,7 @@ describe("Checkbox", () => {
               modifier: `
                 ${FieldHelpStyle}
               `,
-            }
+            },
           );
         });
       });
@@ -523,7 +523,7 @@ describe("Checkbox", () => {
               modifier: `
                 ${StyledCheckableInput}
               `,
-            }
+            },
           );
         });
       });
@@ -541,7 +541,7 @@ describe("Checkbox", () => {
           modifier: `
             ${FieldHelpStyle}
           `,
-        }
+        },
       );
     });
   });
@@ -559,7 +559,7 @@ describe("Checkbox", () => {
           modifier: `
             ${HiddenCheckableInputStyle}:checked ~ ${StyledCheckableInputSvgWrapper} svg path
           `,
-        }
+        },
       );
     });
   });
@@ -588,9 +588,9 @@ describe("Checkbox", () => {
         content: '"(optional)"',
       },
       mount(<Checkbox value="foo" label="Optional" isOptional />).find(
-        StyledLabelContainer
+        StyledLabelContainer,
       ),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -609,7 +609,7 @@ describe("Checkbox", () => {
       const text = "foo";
       const wrapper = renderCheckbox(
         { label: "foo", labelHelp: text, helpAriaLabel: text },
-        mount
+        mount,
       );
       const help = wrapper.find(StyledHelp);
 
@@ -630,7 +630,7 @@ describe("Checkbox", () => {
     it("should override the default value", () => {
       const wrapper = renderCheckbox(
         { label: "foo", error: "message", tooltipPosition: "bottom" },
-        mount
+        mount,
       );
       const { position } = wrapper.find(Tooltip).props();
 
@@ -650,7 +650,7 @@ describe("Checkbox", () => {
           })`,
         },
         wrapper,
-        { modifier: `${StyledCheckableInput}` }
+        { modifier: `${StyledCheckableInput}` },
       );
 
       assertStyleMatch(
@@ -660,7 +660,7 @@ describe("Checkbox", () => {
           })`,
         },
         wrapper,
-        { modifier: `${StyledCheckableInput}` }
+        { modifier: `${StyledCheckableInput}` },
       );
 
       assertStyleMatch(
@@ -670,7 +670,7 @@ describe("Checkbox", () => {
           })`,
         },
         wrapper,
-        { modifier: `${StyledCheckableInputSvgWrapper}` }
+        { modifier: `${StyledCheckableInputSvgWrapper}` },
       );
 
       assertStyleMatch(
@@ -680,8 +680,8 @@ describe("Checkbox", () => {
           })`,
         },
         wrapper,
-        { modifier: "svg" }
+        { modifier: "svg" },
       );
-    }
+    },
   );
 });

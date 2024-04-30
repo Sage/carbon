@@ -11,7 +11,7 @@ import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 // mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests
@@ -34,7 +34,7 @@ describe("Alert", () => {
           "data-element": "foo",
           "data-role": "bar",
         }}
-      />
+      />,
     );
   });
 
@@ -51,7 +51,7 @@ describe("Alert", () => {
   it("has the expected border radius styling", () => {
     assertStyleMatch(
       { borderRadius: "var(--borderRadius200)" },
-      wrapper.find(StyledDialog)
+      wrapper.find(StyledDialog),
     );
   });
 

@@ -11,7 +11,7 @@ import SwitchSliderPanel, {
 } from "./switch-slider-panel.style";
 
 function render(
-  props?: SwitchSliderPanelProps & { theme?: string | Partial<ThemeObject> }
+  props?: SwitchSliderPanelProps & { theme?: string | Partial<ThemeObject> },
 ) {
   return TestRenderer.create(<SwitchSliderPanel {...props} />);
 }
@@ -32,7 +32,7 @@ describe("SwitchSliderPanel", () => {
           render({ isLoading: true }).toJSON(),
           {
             modifier: `${StyledLoader}`,
-          }
+          },
         );
       });
 
@@ -45,7 +45,7 @@ describe("SwitchSliderPanel", () => {
           render({ isLoading: true, size: "large" }).toJSON(),
           {
             modifier: `${StyledLoader} ${StyledLoaderSquare}`,
-          }
+          },
         );
       });
     });
@@ -59,7 +59,7 @@ describe("SwitchSliderPanel", () => {
         {
           color: "var(--colorsActionMinorYang100)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -69,7 +69,7 @@ describe("SwitchSliderPanel", () => {
           color: "var(--colorsActionMinor500)",
         },
         wrapper,
-        { modifier: '[type="off"]' }
+        { modifier: '[type="off"]' },
       );
     });
   });

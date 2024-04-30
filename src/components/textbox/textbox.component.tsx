@@ -65,7 +65,7 @@ export interface CommonTextboxProps
   inputIcon?: IconType;
   /** Optional handler for click event on Textbox icon */
   iconOnClick?: (
-    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => void;
   /** Optional handler for mouse down event on Textbox icon */
   iconOnMouseDown?: (ev: React.MouseEvent<HTMLElement>) => void;
@@ -101,7 +101,7 @@ export interface CommonTextboxProps
   onChangeDeferred?: () => void;
   /** Specify a callback triggered on click */
   onClick?: (
-    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    ev: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => void;
   /** Event handler for the focus event */
   onFocus?: (ev: React.FocusEvent<HTMLInputElement>) => void;
@@ -191,7 +191,7 @@ export const Textbox = React.forwardRef(
       helpAriaLabel,
       ...props
     }: TextboxProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const characterCountValue = typeof value === "string" ? value : "";
 
@@ -199,7 +199,7 @@ export const Textbox = React.forwardRef(
 
     const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       characterCountValue,
-      characterLimit
+      characterLimit,
     );
     const { validationRedesignOptIn } = useContext(NewValidationContext);
     const { disableErrorBorder } = useContext(NumeralDateContext);
@@ -209,24 +209,20 @@ export const Textbox = React.forwardRef(
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
-    const {
-      labelId,
-      validationId,
-      fieldHelpId,
-      ariaDescribedBy,
-    } = useInputAccessibility({
-      id: uniqueId,
-      validationRedesignOptIn,
-      error,
-      warning,
-      info,
-      label,
-      fieldHelp,
-    });
+    const { labelId, validationId, fieldHelpId, ariaDescribedBy } =
+      useInputAccessibility({
+        id: uniqueId,
+        validationRedesignOptIn,
+        error,
+        warning,
+        info,
+        label,
+        fieldHelp,
+      });
 
     const hintId = useRef(guid());
     const inputHintId = inputHint ? hintId.current : undefined;
@@ -367,7 +363,7 @@ export const Textbox = React.forwardRef(
         </InputBehaviour>
       </TooltipProvider>
     );
-  }
+  },
 );
 
 Textbox.displayName = "Textbox";

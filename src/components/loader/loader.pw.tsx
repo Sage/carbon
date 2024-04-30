@@ -50,7 +50,7 @@ test.describe("check props for Loader component test", () => {
         const marginRightVal = await getStyle(loaderNth(index), "margin-right");
         const animationDelayVal = await getStyle(
           loaderNth(index),
-          "animation-delay"
+          "animation-delay",
         );
         return [heightVal, widthVal, marginRightVal, animationDelayVal];
       };
@@ -117,7 +117,7 @@ test.describe("check props for Loader component test", () => {
 
     await expect(loader(page, 0).locator("..")).toHaveAttribute(
       "aria-label",
-      "playwright-aria"
+      "playwright-aria",
     );
   });
 
@@ -177,7 +177,7 @@ test.describe("check props for Loader component test", () => {
     const focusStyle = await getStyle(loaderInsideButton(page), "box-shadow");
 
     expect(focusStyle).toEqual(
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 

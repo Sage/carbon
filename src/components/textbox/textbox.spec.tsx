@@ -33,7 +33,7 @@ const mockedGuid = "mocked-guid";
 jest.mock("../../__internal__/utils/helpers/guid");
 
 (createGuid as jest.MockedFunction<typeof createGuid>).mockReturnValue(
-  mockedGuid
+  mockedGuid,
 );
 
 describe("Textbox", () => {
@@ -56,7 +56,7 @@ describe("Textbox", () => {
       <Textbox name="my-textbox" defaultValue="test" />;
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Textbox` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -67,7 +67,7 @@ describe("Textbox", () => {
     (props) => <Textbox {...props} />,
     undefined,
     (component) => component.find(FormFieldStyle),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 
   describe(`when the characterLimit prop is passed`, () => {
@@ -75,7 +75,7 @@ describe("Textbox", () => {
       const valueString = "foo";
       const limitMinusValue = characterLimit - valueString.length >= 0;
       const wrapper = mount(
-        <Textbox value={valueString} characterLimit={characterLimit} />
+        <Textbox value={valueString} characterLimit={characterLimit} />,
       );
       const underCharacters =
         characterLimit - valueString.length === 1 ? "character" : "characters";
@@ -89,7 +89,7 @@ describe("Textbox", () => {
             : `${
                 valueString.length - characterLimit
               } ${overCharacters} too many`
-        }`
+        }`,
       );
     });
 
@@ -101,7 +101,7 @@ describe("Textbox", () => {
     it("that visually hidden hint id should be referenced in inputs aria-described by", () => {
       const wrapper = mount(<Textbox value="foo" characterLimit={73} />);
       expect(wrapper.find("input").prop("aria-describedby")).toContain(
-        mockedGuid
+        mockedGuid,
       );
     });
   });
@@ -139,7 +139,7 @@ describe("Textbox", () => {
         {
           color: "var(--colorsSemanticNegative500)",
         },
-        wrapper.find(StyledCharacterCount)
+        wrapper.find(StyledCharacterCount),
       );
     });
   });
@@ -162,7 +162,7 @@ describe("Textbox", () => {
     (props: Partial<TextboxProps>) => {
       const wrapper = mount(<Textbox value="test string" {...props} />);
       expect(wrapper.find(InputPresentation).props().hasIcon).toBe(true);
-    }
+    },
   );
 
   it("supports a separate onClick handler passing for the icon", () => {
@@ -177,7 +177,7 @@ describe("Textbox", () => {
         iconOnClick={iconOnClick}
       >
         normal children
-      </Textbox>
+      </Textbox>,
     );
     const icon = wrapper.find(InputIconToggle);
     icon.simulate("click");
@@ -200,9 +200,9 @@ describe("Textbox", () => {
 
       expect(wrapper.find("input").getDOMNode()).toHaveAttribute(
         "enterkeyhint",
-        keyHints
+        keyHints,
       );
-    }
+    },
   );
 
   it.each(["disabled", "readOnly"])(
@@ -221,13 +221,13 @@ describe("Textbox", () => {
           readOnly={propName === "readOnly"}
         >
           normal children
-        </Textbox>
+        </Textbox>,
       );
       const icon = wrapper.find(InputIconToggle);
       icon.simulate("click");
       expect(iconOnClick).not.toHaveBeenCalled();
       expect(onClick).not.toHaveBeenCalled();
-    }
+    },
   );
 
   it.each(["disabled", "readOnly"])(
@@ -246,13 +246,13 @@ describe("Textbox", () => {
           readOnly={propName === "readOnly"}
         >
           normal children
-        </Textbox>
+        </Textbox>,
       );
       const icon = wrapper.find(InputIconToggle);
       icon.simulate("click");
       expect(iconOnMouseDown).not.toHaveBeenCalled();
       expect(onMouseDown).not.toHaveBeenCalled();
-    }
+    },
   );
 
   it.each(["disabled", "readOnly"])(
@@ -269,12 +269,12 @@ describe("Textbox", () => {
           readOnly={propName === "readOnly"}
         >
           normal children
-        </Textbox>
+        </Textbox>,
       );
       const icon = wrapper.find(InputIconToggle);
       icon.simulate("click");
       expect(onClick).not.toHaveBeenCalled();
-    }
+    },
   );
 
   it.each(["disabled", "readOnly"])(
@@ -291,12 +291,12 @@ describe("Textbox", () => {
           readOnly={propName === "readOnly"}
         >
           normal children
-        </Textbox>
+        </Textbox>,
       );
       const icon = wrapper.find(InputIconToggle);
       icon.simulate("click");
       expect(onMouseDown).not.toHaveBeenCalled();
-    }
+    },
   );
 
   describe("validation icon", () => {
@@ -305,26 +305,30 @@ describe("Textbox", () => {
       "when %s prop passed as string render proper validation icon by the input",
       (type) => {
         const wrapper = mount(
-          <Textbox label="Label" {...{ [type]: "Message" }} />
+          <Textbox label="Label" {...{ [type]: "Message" }} />,
         );
         expect(
-          wrapper.find(InputPresentation).find(StyledValidationIcon).exists()
+          wrapper.find(InputPresentation).find(StyledValidationIcon).exists(),
         ).toBe(true);
         expect(wrapper.find(InputPresentation).props().hasIcon).toBe(true);
-      }
+      },
     );
     it.each(validationTypes)(
       `when %s prop passed as string and validationOnLabel
      as true render proper validation icon on the label`,
       (type) => {
         const wrapper = mount(
-          <Textbox label="Label" {...{ [type]: "Message" }} validationOnLabel />
+          <Textbox
+            label="Label"
+            {...{ [type]: "Message" }}
+            validationOnLabel
+          />,
         );
         expect(
-          wrapper.find(FormField).find(StyledValidationIcon).exists()
+          wrapper.find(FormField).find(StyledValidationIcon).exists(),
         ).toBe(true);
         expect(wrapper.find(InputPresentation).props().hasIcon).toBe(false);
-      }
+      },
     );
 
     describe("overriding the tooltip position", () => {
@@ -344,13 +348,13 @@ describe("Textbox", () => {
               error="Message"
               validationOnLabel={onLabel}
               tooltipPosition={tooltipPosition}
-            />
+            />,
           );
 
           const { position } = wrapper.find(Tooltip).props();
 
           expect(position).toEqual(tooltipPosition);
-        }
+        },
       );
     });
   });
@@ -366,13 +370,13 @@ describe("Textbox", () => {
     it("when the align prop is 'right' then 'flex-direction' should be 'row'", () => {
       const prefixValue = "bar";
       const wrapper = mount(
-        <Textbox value="foo" prefix={prefixValue} align="right" />
+        <Textbox value="foo" prefix={prefixValue} align="right" />,
       );
       assertStyleMatch(
         {
           flexDirection: "row",
         },
-        wrapper.find(InputPresentationStyle)
+        wrapper.find(InputPresentationStyle),
       );
     });
   });
@@ -400,7 +404,7 @@ describe("Textbox", () => {
       const Component = () => <div />;
       const wrapper = mount(<Textbox positionedChildren={<Component />} />);
       expect(
-        wrapper.find(InputPresentation).props().positionedChildren
+        wrapper.find(InputPresentation).props().positionedChildren,
       ).toEqual(<Component />);
     });
   });
@@ -415,7 +419,7 @@ describe("Textbox", () => {
             label={text}
             labelHelp={text}
             helpAriaLabel={text}
-          />
+          />,
         );
 
         expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(text);
@@ -445,16 +449,16 @@ describe("Textbox", () => {
           "with %s prop set as a string and the input focused",
           (validationType) => {
             const wrapper = mount(
-              <Textbox {...commonProps} {...{ [validationType]: "test" }} />
+              <Textbox {...commonProps} {...{ [validationType]: "test" }} />,
             );
             wrapper.find("input").simulate("focus");
 
             it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
               expect(wrapper.find("input").prop("aria-describedby")).toContain(
-                `${id}-validation`
+                `${id}-validation`,
               );
             });
-          }
+          },
         );
 
         describe("and fieldHelp props are present", () => {
@@ -462,7 +466,7 @@ describe("Textbox", () => {
             const wrapper = mount(<Textbox {...commonProps} fieldHelp="baz" />);
 
             expect(wrapper.find("input").prop("aria-describedby")).toContain(
-              `${id}-field-help`
+              `${id}-field-help`,
             );
           });
 
@@ -470,7 +474,7 @@ describe("Textbox", () => {
             const wrapper = mount(<Textbox {...commonProps} fieldHelp="baz" />);
 
             expect(wrapper.find(FormField).prop("fieldHelpId")).toBe(
-              `${id}-field-help`
+              `${id}-field-help`,
             );
           });
 
@@ -482,20 +486,20 @@ describe("Textbox", () => {
                   {...commonProps}
                   fieldHelp="baz"
                   {...{ [validationType]: "test" }}
-                />
+                />,
               );
               wrapper.find("input").simulate("focus");
 
               it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
                 expect(
-                  wrapper.find("input").prop("aria-describedby")
+                  wrapper.find("input").prop("aria-describedby"),
                 ).toContain(`${id}-field-help`);
 
                 expect(
-                  wrapper.find("input").prop("aria-describedby")
+                  wrapper.find("input").prop("aria-describedby"),
                 ).toContain(`${id}-validation`);
               });
-            }
+            },
           );
         });
       });
@@ -516,7 +520,7 @@ describe("Textbox", () => {
     it("should render a valid 'aria-describedby' on input", () => {
       const wrapper = mount(<Textbox inputHint="baz" />);
       expect(wrapper.find("input").prop("aria-describedby")).toContain(
-        mockedGuid
+        mockedGuid,
       );
     });
 
@@ -524,7 +528,7 @@ describe("Textbox", () => {
       const wrapper = mount(
         <CarbonProvider validationRedesignOptIn>
           <Textbox labelHelp="labelHelp" inputHint="inputHint" error="foo" />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
       expect(wrapper.find(StyledHintText).text()).toBe("inputHint");
     });
@@ -538,7 +542,7 @@ describe("Textbox", () => {
         {
           maxWidth: "67%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
 
@@ -549,7 +553,7 @@ describe("Textbox", () => {
         {
           maxWidth: "100%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
   });
@@ -576,7 +580,7 @@ describe("Textbox", () => {
             labelWidth={100}
             reverse
           />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
     it('the id of the validation text should be added to "aria-describedby" in the input', () => {
@@ -584,7 +588,7 @@ describe("Textbox", () => {
       const wrapper = renderWithNewValidations({ id: mockId, error: "bar" });
 
       expect(wrapper.find("input").prop("aria-describedby")).toContain(
-        `${mockId}-validation`
+        `${mockId}-validation`,
       );
     });
 
@@ -606,7 +610,7 @@ describe("Textbox", () => {
       it("is visible when the prop is passed", () => {
         const wrapper = renderWithNewValidations({});
         expect(wrapper.find(StyledHintText).text()).toEqual(
-          "Example hint text"
+          "Example hint text",
         );
       });
 
@@ -620,7 +624,7 @@ describe("Textbox", () => {
             marginBottom: "8px",
             color: "var(--colorsUtilityYin055)",
           },
-          wrapper.find(StyledHintText)
+          wrapper.find(StyledHintText),
         );
       });
     });
@@ -645,7 +649,7 @@ describe("Textbox", () => {
       {
         borderRadius: "var(--borderRadius050)",
       },
-      mount(<Textbox />).find(StyledInput)
+      mount(<Textbox />).find(StyledInput),
     );
   });
 });

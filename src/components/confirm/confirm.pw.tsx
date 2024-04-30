@@ -28,7 +28,7 @@ const heights: [number, string][] = [
 const buttonTypes: [
   ConfirmProps["confirmButtonType"] | ConfirmProps["cancelButtonType"],
   string,
-  string
+  string,
 ][] = [
   ["primary", "rgb(255, 255, 255)", "rgba(0, 0, 0, 0)"],
   ["secondary", "rgb(0, 126, 69)", "rgb(0, 126, 69)"],
@@ -37,7 +37,7 @@ const buttonTypes: [
 ];
 const disabledStates: [
   ConfirmProps["disableCancel"] | ConfirmProps["disableConfirm"],
-  string
+  string,
 ][] = [
   [true, "disabled"],
   [false, "enabled"],
@@ -86,7 +86,7 @@ test.describe("should render Confirm component", () => {
 
       await expect(page.getByText(titleText)).toHaveAttribute(
         "data-element",
-        "title"
+        "title",
       );
     });
   });
@@ -100,7 +100,7 @@ test.describe("should render Confirm component", () => {
 
       await expect(page.getByText(subTitleText)).toHaveAttribute(
         "data-element",
-        "subtitle"
+        "subtitle",
       );
     });
   });
@@ -124,20 +124,22 @@ test.describe("should render Confirm component", () => {
       await assertCssValueIsApproximately(
         page.getByRole("alertdialog"),
         "height",
-        resultHeight
+        resultHeight,
       );
     });
   });
 
-  ([
-    [SIZE.EXTRASMALL, 300],
-    [SIZE.SMALL, 380],
-    [SIZE.MEDIUMSMALL, 540],
-    [SIZE.MEDIUM, 750],
-    [SIZE.MEDIUMLARGE, 850],
-    [SIZE.LARGE, 960],
-    [SIZE.EXTRALARGE, 1080],
-  ] as [ConfirmProps["size"], number][]).forEach(([sizeName, size]) => {
+  (
+    [
+      [SIZE.EXTRASMALL, 300],
+      [SIZE.SMALL, 380],
+      [SIZE.MEDIUMSMALL, 540],
+      [SIZE.MEDIUM, 750],
+      [SIZE.MEDIUMLARGE, 850],
+      [SIZE.LARGE, 960],
+      [SIZE.EXTRALARGE, 1080],
+    ] as [ConfirmProps["size"], number][]
+  ).forEach(([sizeName, size]) => {
     test(`should check confirm size is ${sizeName} with width of ${size}px`, async ({
       mount,
       page,
@@ -147,15 +149,17 @@ test.describe("should render Confirm component", () => {
       await assertCssValueIsApproximately(
         page.getByRole("alertdialog"),
         "width",
-        size
+        size,
       );
     });
   });
 
-  ([
-    ["error", "error"],
-    ["warning", "warning"],
-  ] as [ConfirmProps["iconType"], string][]).forEach(([iconType, element]) => {
+  (
+    [
+      ["error", "error"],
+      ["warning", "warning"],
+    ] as [ConfirmProps["iconType"], string][]
+  ).forEach(([iconType, element]) => {
     test(`should check confirm has ${iconType} icon`, async ({
       mount,
       page,
@@ -331,7 +335,7 @@ test.describe("should render Confirm component", () => {
 
     await expect(page.getByRole("alertdialog")).toHaveAttribute(
       "aria-label",
-      "playwright-aria"
+      "playwright-aria",
     );
   });
 
@@ -340,7 +344,7 @@ test.describe("should render Confirm component", () => {
 
     await expect(getDataElementByValue(page, "save")).toHaveAttribute(
       "type",
-      "save"
+      "save",
     );
   });
 
@@ -349,7 +353,7 @@ test.describe("should render Confirm component", () => {
 
     await expect(getDataElementByValue(page, "bin")).toHaveAttribute(
       "type",
-      "bin"
+      "bin",
     );
   });
 
@@ -364,12 +368,12 @@ test.describe("should render Confirm component", () => {
         onConfirm={() => {
           ("");
         }}
-      />
+      />,
     );
 
     await expect(page.getByRole("alertdialog")).toHaveAttribute(
       "aria-labelledby",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -384,12 +388,12 @@ test.describe("should render Confirm component", () => {
         onConfirm={() => {
           ("");
         }}
-      />
+      />,
     );
 
     await expect(page.getByRole("alertdialog")).toHaveAttribute(
       "aria-describedby",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -402,7 +406,7 @@ test.describe("should render Confirm component", () => {
         <ConfirmComponent
           cancelButtonIconType="bin"
           cancelButtonIconPosition={position}
-        />
+        />,
       );
 
       if (position === "before") {
@@ -431,7 +435,7 @@ test.describe("should render Confirm component", () => {
         <ConfirmComponent
           confirmButtonIconType="add"
           confirmButtonIconPosition={position}
-        />
+        />,
       );
 
       if (position === "before") {
@@ -475,11 +479,11 @@ test.describe("should render Confirm component", () => {
     const focusedButton = page.getByRole("button").first();
     await expect(focusedButton).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(focusedButton).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -493,7 +497,7 @@ test.describe("should render Confirm component", () => {
 
     await expect(page.getByRole("button").first()).not.toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
   });
 
@@ -514,7 +518,7 @@ test.describe("should render Confirm component", () => {
           "data-role": "wiz",
         }}
         open
-      />
+      />,
     );
 
     const cancelButton = getDataElementByValue(page, "bang");
@@ -541,7 +545,7 @@ test.describe("should render Confirm component for event tests", () => {
         onCancel={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const button = page.getByRole("button").filter({ hasText: "No" });
@@ -559,7 +563,7 @@ test.describe("should render Confirm component for event tests", () => {
         onConfirm={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const button = page.getByRole("button").filter({ hasText: "Yes" });
@@ -577,7 +581,7 @@ test.describe("should render Confirm component for event tests", () => {
         onCancel={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await page.getByRole("alertdialog").press("Escape");
@@ -633,12 +637,14 @@ test.describe("should render Confirm component for event tests", () => {
 });
 
 test.describe("should check accessibility for Confirm", () => {
-  ([
-    "primary",
-    "secondary",
-    "tertiary",
-    "darkBackground",
-  ] as ConfirmProps["confirmButtonType"][]).forEach((type) => {
+  (
+    [
+      "primary",
+      "secondary",
+      "tertiary",
+      "darkBackground",
+    ] as ConfirmProps["confirmButtonType"][]
+  ).forEach((type) => {
     test(`should check accessibility for confirm button of ${type} type`, async ({
       mount,
       page,
@@ -649,12 +655,14 @@ test.describe("should check accessibility for Confirm", () => {
     });
   });
 
-  ([
-    "primary",
-    "secondary",
-    "tertiary",
-    "darkBackground",
-  ] as ConfirmProps["cancelButtonType"][]).forEach((type) => {
+  (
+    [
+      "primary",
+      "secondary",
+      "tertiary",
+      "darkBackground",
+    ] as ConfirmProps["cancelButtonType"][]
+  ).forEach((type) => {
     test(`should check accessibility for cancel button of ${type} type`, async ({
       mount,
       page,
@@ -768,7 +776,7 @@ test.describe("should check accessibility for Confirm", () => {
         <ConfirmComponent
           cancelButtonIconType="bin"
           cancelButtonIconPosition={position}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -784,7 +792,7 @@ test.describe("should check accessibility for Confirm", () => {
         <ConfirmComponent
           confirmButtonIconType="add"
           confirmButtonIconPosition={position}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -863,15 +871,17 @@ test.describe("should check accessibility for Confirm", () => {
     });
   });
 
-  ([
-    [SIZE.EXTRASMALL, 300],
-    [SIZE.SMALL, 380],
-    [SIZE.MEDIUMSMALL, 540],
-    [SIZE.MEDIUM, 750],
-    [SIZE.MEDIUMLARGE, 850],
-    [SIZE.LARGE, 960],
-    [SIZE.EXTRALARGE, 1080],
-  ] as [ConfirmProps["size"], number][]).forEach(([sizeName, size]) => {
+  (
+    [
+      [SIZE.EXTRASMALL, 300],
+      [SIZE.SMALL, 380],
+      [SIZE.MEDIUMSMALL, 540],
+      [SIZE.MEDIUM, 750],
+      [SIZE.MEDIUMLARGE, 850],
+      [SIZE.LARGE, 960],
+      [SIZE.EXTRALARGE, 1080],
+    ] as [ConfirmProps["size"], number][]
+  ).forEach(([sizeName, size]) => {
     test(`should check accessibility when size is ${sizeName} with width of ${size}px`, async ({
       mount,
       page,
@@ -939,6 +949,6 @@ test(`should have the expected border radius styling`, async ({
 
   await expect(page.getByRole("alertdialog")).toHaveCSS(
     "border-radius",
-    "16px"
+    "16px",
   );
 });

@@ -57,7 +57,7 @@ describe("Fieldset", () => {
     (props, style) => {
       wrapper = render({ legend: "Legend", ...props });
       expect(wrapper.getDOMNode()).toHaveStyle(style);
-    }
+    },
   );
 
   it("renders passed on children", () => {
@@ -72,7 +72,7 @@ describe("Fieldset", () => {
         {
           marginLeft: "10%",
         },
-        wrapper.find(StyledFieldset)
+        wrapper.find(StyledFieldset),
       );
     });
   });
@@ -84,7 +84,7 @@ describe("Fieldset", () => {
         {
           marginBottom: "var(--spacing200)",
         },
-        wrapper.find(StyledFieldset)
+        wrapper.find(StyledFieldset),
       );
     });
   });
@@ -110,7 +110,7 @@ describe("Fieldset", () => {
             justifyContent: "flex-end",
             paddingRight: "var(--spacing200)",
           },
-          wrapper.find(StyledLegend)
+          wrapper.find(StyledLegend),
         );
       });
 
@@ -120,7 +120,7 @@ describe("Fieldset", () => {
           {
             width: "10%",
           },
-          wrapper.find(StyledLegend)
+          wrapper.find(StyledLegend),
         );
       });
 
@@ -134,7 +134,7 @@ describe("Fieldset", () => {
           {
             justifyContent: "flex-end",
           },
-          wrapper.find(StyledLegend)
+          wrapper.find(StyledLegend),
         );
       });
 
@@ -144,7 +144,7 @@ describe("Fieldset", () => {
           {
             paddingRight: "var(--spacing100)",
           },
-          wrapper.find(StyledLegend)
+          wrapper.find(StyledLegend),
         );
       });
 
@@ -159,7 +159,7 @@ describe("Fieldset", () => {
             {
               justifyContent: "flex-start",
             },
-            wrapper.find(StyledLegend)
+            wrapper.find(StyledLegend),
           );
         });
       });
@@ -175,7 +175,7 @@ describe("Fieldset", () => {
 
         expect(icon.props()[validationType]).toEqual("Message");
       });
-    }
+    },
   );
 
   it("add an asterisk after the text when the field is mandatory", () => {
@@ -187,7 +187,7 @@ describe("Fieldset", () => {
         marginLeft: "var(--spacing050)",
       },
       mount(<StyledLegendContent isRequired />),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -196,14 +196,14 @@ describe("Fieldset", () => {
       <Fieldset isRequired>
         <input />
         <input />
-      </Fieldset>
+      </Fieldset>,
     );
 
     expect(wrapper.find("input").first().getDOMNode()).toHaveAttribute(
-      "required"
+      "required",
     );
     expect(wrapper.find("input").last().getDOMNode()).toHaveAttribute(
-      "required"
+      "required",
     );
   });
 
@@ -212,14 +212,14 @@ describe("Fieldset", () => {
       <Fieldset>
         <input />
         <input />
-      </Fieldset>
+      </Fieldset>,
     );
 
     expect(wrapper.find("input").first().getDOMNode()).not.toHaveAttribute(
-      "required"
+      "required",
     );
     expect(wrapper.find("input").last().getDOMNode()).not.toHaveAttribute(
-      "required"
+      "required",
     );
   });
 });

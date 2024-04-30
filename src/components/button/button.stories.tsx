@@ -8,7 +8,7 @@ const styledSystemProps = generateStyledSystemProps(
   {
     spacing: true,
   },
-  { pt: "1px", pb: "1px", px: "24px" }
+  { pt: "1px", pb: "1px", px: "24px" },
 );
 
 const meta: Meta<typeof Button> = {

@@ -14,14 +14,14 @@ const renderButtonBar = (
   text?: string,
   numberOfBtns = 1,
   props = {},
-  btnProps = {}
+  btnProps = {},
 ) => {
   const buttons = [];
   for (let i = 0; i < numberOfBtns; i++) {
     buttons.push(
       <Button key={String(i)} {...btnProps}>
         {text}
-      </Button>
+      </Button>,
     );
   }
   return mount(<ButtonBar {...props}>{buttons}</ButtonBar>);
@@ -33,7 +33,7 @@ const renderButtonWithIconBar = (icons: IconType[], props = {}) => {
     buttons.push(
       <IconButton key={String(buttons.length)} onClick={() => {}}>
         <Icon type={icon} />
-      </IconButton>
+      </IconButton>,
     );
   }
   return mount(<ButtonBar {...props}>{buttons}</ButtonBar>);
@@ -74,7 +74,7 @@ describe("Button Bar", () => {
           borderRadius: "var(--borderRadius000)",
         },
         wrapper,
-        { modifier: "button:not(:first-child):not(:last-child)" }
+        { modifier: "button:not(:first-child):not(:last-child)" },
       );
 
       assertStyleMatch(
@@ -83,7 +83,7 @@ describe("Button Bar", () => {
           borderBottomRightRadius: "var(--borderRadius000)",
         },
         wrapper,
-        { modifier: "button:first-child:not(:last-child)" }
+        { modifier: "button:first-child:not(:last-child)" },
       );
 
       assertStyleMatch(
@@ -92,7 +92,7 @@ describe("Button Bar", () => {
           borderBottomLeftRadius: "var(--borderRadius000)",
         },
         wrapper,
-        { modifier: "button:last-child:not(:first-child)" }
+        { modifier: "button:last-child:not(:first-child)" },
       );
     });
   });
@@ -161,7 +161,7 @@ describe("Button Bar", () => {
         "After",
         1,
         { iconPosition: "after" },
-        { iconType: "filter" }
+        { iconType: "filter" },
       );
       const assertion =
         wrapper.find(Icon).exists() &&
@@ -179,7 +179,7 @@ describe("Button Bar", () => {
           <IconButton onClick={() => {}}>
             <Icon type="csv" />
           </IconButton>
-        </ButtonBar>
+        </ButtonBar>,
       );
       const assertion =
         wrapper.find(Icon).exists() &&
@@ -199,7 +199,7 @@ describe("Button Bar", () => {
           <IconButton onClick={() => undefined}>
             <Icon type="csv" />
           </IconButton>
-        </ButtonBar>
+        </ButtonBar>,
       );
 
       const iconButton = wrapper.find(StyledIconButton);
@@ -213,7 +213,7 @@ describe("Button Bar", () => {
           <IconButton aria-label="foobar" onClick={() => undefined}>
             <Icon type="csv" />
           </IconButton>
-        </ButtonBar>
+        </ButtonBar>,
       );
 
       const iconButton = wrapper.find(StyledIconButton);
@@ -246,14 +246,14 @@ describe("Button Bar", () => {
             <IconButton onClick={() => undefined}>
               <Icon type="csv" />
             </IconButton>
-          </ButtonBar>
+          </ButtonBar>,
         );
 
         const button = wrapper.find(StyledButton).at(0);
         expect(button.props().fullWidth).toEqual(true);
         expect(button.props().size).toEqual("small");
         expect(button.props().iconPosition).toEqual("before");
-      }
+      },
     );
   });
 });
@@ -266,12 +266,12 @@ describe("with different button props", () => {
         <Button buttonType="tertiary" fullWidth>
           tertiary
         </Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
     wrapper
       .find(StyledButton)
       .forEach((button) =>
-        expect(button.props().buttonType).toEqual("secondary")
+        expect(button.props().buttonType).toEqual("secondary"),
       );
   });
 
@@ -287,7 +287,7 @@ describe("with different button props", () => {
         <Button size="small">Small</Button>
         <Button size="medium">Medium</Button>
         <Button size="large">Large</Button>
-      </ButtonBar>
+      </ButtonBar>,
     );
     wrapper
       .find(StyledButton)
@@ -309,7 +309,7 @@ describe("with different button props", () => {
       "Sub",
       1,
       { size: "large" },
-      { subtext: "subtext" }
+      { subtext: "subtext" },
     );
     expect(wrapper.containsMatchingElement(<span>subtext</span>)).toBeTruthy();
   });
@@ -323,7 +323,7 @@ describe("with different button props", () => {
           <ButtonMinor buttonType="primary">Click me</ButtonMinor>
           <ButtonMinor buttonType="secondary">Click me</ButtonMinor>
           <ButtonMinor buttonType="tertiary">Click me</ButtonMinor>
-        </ButtonBar>
+        </ButtonBar>,
       );
     });
 
@@ -331,7 +331,7 @@ describe("with different button props", () => {
       const buttons = wrapper.find(StyledButtonMinor);
 
       buttons.forEach((button) =>
-        expect(button.prop("buttonType")).toBe("secondary")
+        expect(button.prop("buttonType")).toBe("secondary"),
       );
     });
   });

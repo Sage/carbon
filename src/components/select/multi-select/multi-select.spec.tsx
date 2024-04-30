@@ -83,7 +83,7 @@ describe("MultiSelect", () => {
     const wrapper = mount(
       <MultiSelect name="testSelect" id="testSelect">
         <Option value="opt1" text="red" />
-      </MultiSelect>
+      </MultiSelect>,
     );
 
     expect(wrapper.find(Option).length).toBe(1);
@@ -111,7 +111,7 @@ describe("MultiSelect", () => {
       renderSelect({ defaultValue: ["opt2", "opt1"] });
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Multi Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -124,7 +124,7 @@ describe("MultiSelect", () => {
     const placeholder = "foobaz";
     const wrapper = renderSelect({ placeholder });
     expect(
-      wrapper.find("input[data-element='input']").prop("placeholder")
+      wrapper.find("input[data-element='input']").prop("placeholder"),
     ).toBe(placeholder);
   });
 
@@ -137,7 +137,7 @@ describe("MultiSelect", () => {
         new KeyboardEvent("keydown", {
           key: "Enter",
           bubbles: true,
-        })
+        }),
       );
     });
 
@@ -159,11 +159,11 @@ describe("MultiSelect", () => {
             new KeyboardEvent("keydown", {
               key,
               bubbles: true,
-            })
+            }),
           );
         });
       }).not.toThrow();
-    }
+    },
   );
 
   describe("when an HTML element is clicked", () => {
@@ -177,7 +177,7 @@ describe("MultiSelect", () => {
       it("then the SelectList should be open", () => {
         simulateSelectTextboxEvent(wrapper, "focus");
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         act(() => {
           wrapper
@@ -186,7 +186,7 @@ describe("MultiSelect", () => {
             .dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
       });
     });
@@ -195,13 +195,13 @@ describe("MultiSelect", () => {
       it("then the SelectList should be closed", () => {
         simulateSelectTextboxEvent(wrapper, "focus");
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         act(() => {
           document.dispatchEvent(new MouseEvent("click", { bubbles: true }));
         });
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).not.toBeVisible();
       });
     });
@@ -233,7 +233,7 @@ describe("MultiSelect", () => {
 
     it("then a label id based on randomly generated id should be passed to the SelectList component", () => {
       expect(wrapper.find(SelectList).prop("labelId")).toBe(
-        `${mockedGuid}-label`
+        `${mockedGuid}-label`,
       );
     });
 
@@ -294,7 +294,7 @@ describe("MultiSelect", () => {
       simulateDropdownEvent(wrapper, "click");
       assertStyleMatch(
         { maxHeight: "120px" },
-        wrapper.find(StyledScrollableContainer)
+        wrapper.find(StyledScrollableContainer),
       );
     });
   });
@@ -306,9 +306,9 @@ describe("MultiSelect", () => {
 
       simulateDropdownEvent(wrapper, "click");
       expect(wrapper.find(SelectList).prop("listPlacement")).toBe(
-        listPlacement
+        listPlacement,
       );
-    }
+    },
   );
 
   it("the flipEnabled prop should be passed", () => {
@@ -332,7 +332,7 @@ describe("MultiSelect", () => {
         position: "relative",
       },
       wrapper,
-      { modifier: `${InputPresentationStyle}` }
+      { modifier: `${InputPresentationStyle}` },
     );
   });
 
@@ -411,7 +411,7 @@ describe("MultiSelect", () => {
     it("the SelectList should not be rendered", () => {
       simulateSelectTextboxEvent(wrapper, "focus");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).not.toBeVisible();
     });
 
@@ -421,7 +421,7 @@ describe("MultiSelect", () => {
         it("the SelectList should be rendered", () => {
           simulateSelectTextboxEvent(wrapper, "keydown", { key });
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).toBeVisible();
         });
 
@@ -430,18 +430,18 @@ describe("MultiSelect", () => {
             wrapper.setProps({ readOnly: true });
             simulateSelectTextboxEvent(wrapper, "keydown", { key });
             expect(
-              wrapper.find(StyledSelectListContainer).getDOMNode()
+              wrapper.find(StyledSelectListContainer).getDOMNode(),
             ).not.toBeVisible();
           });
         });
-      }
+      },
     );
 
     describe('and the "Enter" key has been pressed', () => {
       it("the SelectList should not be rendered", () => {
         simulateSelectTextboxEvent(wrapper, "keydown", { key: "Enter" });
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).not.toBeVisible();
       });
 
@@ -450,7 +450,7 @@ describe("MultiSelect", () => {
           wrapper.setProps({ readOnly: true });
           simulateSelectTextboxEvent(wrapper, "keydown", { key: "Enter" });
           expect(
-            wrapper.find(StyledSelectListContainer).getDOMNode()
+            wrapper.find(StyledSelectListContainer).getDOMNode(),
           ).not.toBeVisible();
         });
       });
@@ -471,7 +471,7 @@ describe("MultiSelect", () => {
       expect(onKeyDownFn).toHaveBeenCalledWith(
         expect.objectContaining({
           ...expectedEventObject,
-        })
+        }),
       );
     });
   });
@@ -541,7 +541,7 @@ describe("MultiSelect", () => {
           expect(wrapper.find(Pill)).toHaveLength(2);
         });
       });
-    }
+    },
   );
 
   describe('when the "onDelete" prop has been called on a pill', () => {
@@ -570,7 +570,7 @@ describe("MultiSelect", () => {
 
         expect(wrapper.find(Pill).at(0).props().onDelete).toBe(undefined);
       });
-    }
+    },
   );
 
   describe("when the Textbox Input is clicked", () => {
@@ -579,7 +579,7 @@ describe("MultiSelect", () => {
 
       simulateSelectTextboxEvent(wrapper, "click");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).not.toBeVisible();
     });
 
@@ -621,7 +621,7 @@ describe("MultiSelect", () => {
 
       simulateDropdownEvent(wrapper, "click");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).toBeVisible();
     });
 
@@ -631,7 +631,7 @@ describe("MultiSelect", () => {
         simulateDropdownEvent(wrapper, "click");
         simulateDropdownEvent(wrapper, "click");
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).not.toBeVisible();
       });
     });
@@ -664,7 +664,7 @@ describe("MultiSelect", () => {
 
         simulateSelectTextboxEvent(wrapper, "focus");
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
       });
 
@@ -677,10 +677,10 @@ describe("MultiSelect", () => {
 
             simulateSelectTextboxEvent(wrapper, "focus");
             expect(
-              wrapper.find(StyledSelectListContainer).getDOMNode()
+              wrapper.find(StyledSelectListContainer).getDOMNode(),
             ).not.toBeVisible();
           });
-        }
+        },
       );
 
       describe('with the "onFocus" prop passed', () => {
@@ -715,7 +715,7 @@ describe("MultiSelect", () => {
             simulateSelectTextboxEvent(wrapper, "focus");
             onOpenFn.mockReset();
             expect(
-              wrapper.find(StyledSelectListContainer).getDOMNode()
+              wrapper.find(StyledSelectListContainer).getDOMNode(),
             ).toBeVisible();
             wrapper.find("input").simulate("focus");
             expect(onOpenFn).not.toHaveBeenCalled();
@@ -797,7 +797,7 @@ describe("MultiSelect", () => {
           wrapper.update();
 
           expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
-        }
+        },
       );
     });
 
@@ -827,7 +827,7 @@ describe("MultiSelect", () => {
           wrapper.update();
 
           expect(wrapper.find(MatchingText).prop("children")).toBe(passedValue);
-        }
+        },
       );
     });
 
@@ -916,13 +916,13 @@ describe("MultiSelect", () => {
 
       simulateSelectTextboxEvent(wrapper, "focus");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).toBeVisible();
       act(() => {
         wrapper.find(SelectList).prop("onSelect")(mockOptionObject);
       });
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).toBeVisible();
     });
 
@@ -955,13 +955,13 @@ describe("MultiSelect", () => {
           onChangeFn.mockReset();
           act(() => {
             wrapper.find(SelectList).prop("onSelect")(
-              mockNavigationKeyOptionObject
+              mockNavigationKeyOptionObject,
             );
           });
 
           wrapper.update();
           expect(wrapper.find(SelectList).prop("highlightedValue")).toBe(
-            mockNavigationKeyOptionObject.value
+            mockNavigationKeyOptionObject.value,
           );
         });
 
@@ -977,7 +977,7 @@ describe("MultiSelect", () => {
           onChangeFn.mockReset();
           act(() => {
             wrapper.find(SelectList).prop("onSelect")(
-              mockNavigationKeyOptionObject
+              mockNavigationKeyOptionObject,
             );
           });
           expect(onChangeFn).not.toHaveBeenCalled();
@@ -995,7 +995,7 @@ describe("MultiSelect", () => {
         wrapper.find(Option).first().simulate("click");
       });
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).toBeVisible();
     });
 
@@ -1029,7 +1029,7 @@ describe("MultiSelect", () => {
               <Option value={{ id: "id1", value: "opt1" }} text="red" />
               <Option value={{ id: "id2", value: "opt2" }} text="green" />
               <Option value={{ id: "id3", value: "opt3" }} text="blue" />
-            </MultiSelect>
+            </MultiSelect>,
           );
 
           simulateSelectTextboxEvent(wrapper, "focus");
@@ -1090,13 +1090,13 @@ describe("MultiSelect", () => {
 
       simulateSelectTextboxEvent(wrapper, "focus");
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).toBeVisible();
       act(() => {
         wrapper.find(SelectList).prop("onSelectListClose")();
       });
       expect(
-        wrapper.find(StyledSelectListContainer).getDOMNode()
+        wrapper.find(StyledSelectListContainer).getDOMNode(),
       ).not.toBeVisible();
     });
   });
@@ -1125,7 +1125,7 @@ describe("MultiSelect", () => {
 
         simulateDropdownEvent(wrapper, "click");
         expect(
-          wrapper.find(StyledSelectListContainer).getDOMNode()
+          wrapper.find(StyledSelectListContainer).getDOMNode(),
         ).toBeVisible();
         act(() => {
           wrapper.find(SelectList).prop("onSelect")(clickOptionObject);
@@ -1153,7 +1153,7 @@ describe("MultiSelect", () => {
           simulateSelectTextboxEvent(wrapper, "keydown", keyDownEventObject);
           expect(onChangeFn).toHaveBeenCalledWith(expectedObject);
         });
-      }
+      },
     );
   });
 
@@ -1209,7 +1209,7 @@ describe("MultiSelect", () => {
           marginLeft: "var(--spacing050)",
         },
         wrapper.find(StyledLabel),
-        { modifier: "::after" }
+        { modifier: "::after" },
       );
     });
   });
@@ -1221,7 +1221,7 @@ describe("MultiSelect", () => {
           <Option value="opt1" text="red" borderColor="red" fill />
           <Option value="opt2" text="green" borderColor="green" />
           <Option value="opt3" text="blue" />
-        </MultiSelect>
+        </MultiSelect>,
       );
 
       assertStyleMatch(
@@ -1229,7 +1229,7 @@ describe("MultiSelect", () => {
           content: '"(optional)"',
         },
         propWrapper.find(StyledLabelContainer),
-        { modifier: "::after" }
+        { modifier: "::after" },
       );
     });
   });
@@ -1304,11 +1304,11 @@ describe("aria-selected attribute for options", () => {
       simulateDropdownEvent(wrapper, "click");
 
       expect(
-        wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected")
+        wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected"),
       ).toBe("true");
 
       expect(
-        wrapper.find(Option).at(1).getDOMNode().getAttribute("aria-selected")
+        wrapper.find(Option).at(1).getDOMNode().getAttribute("aria-selected"),
       ).toBe("true");
     });
 
@@ -1316,7 +1316,7 @@ describe("aria-selected attribute for options", () => {
       simulateDropdownEvent(wrapper, "click");
 
       expect(
-        wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected")
+        wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected"),
       ).toBe("false");
     });
   });
@@ -1333,17 +1333,17 @@ describe("aria-selected attribute for options", () => {
 
     it("the selected options have aria-selected=true", () => {
       expect(
-        wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected")
+        wrapper.find(Option).at(0).getDOMNode().getAttribute("aria-selected"),
       ).toBe("true");
 
       expect(
-        wrapper.find(Option).at(1).getDOMNode().getAttribute("aria-selected")
+        wrapper.find(Option).at(1).getDOMNode().getAttribute("aria-selected"),
       ).toBe("true");
     });
 
     it("the not selected options have aria-selected=false", () => {
       expect(
-        wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected")
+        wrapper.find(Option).at(2).getDOMNode().getAttribute("aria-selected"),
       ).toBe("false");
     });
   });
@@ -1352,12 +1352,12 @@ describe("aria-selected attribute for options", () => {
     wrapper = renderSelect({});
     assertStyleMatch(
       { borderRadius: "var(--borderRadius050)" },
-      wrapper.find(StyledInput)
+      wrapper.find(StyledInput),
     );
 
     assertStyleMatch(
       { borderRadius: "var(--borderRadius050)" },
-      wrapper.find(StyledSelectListContainer)
+      wrapper.find(StyledSelectListContainer),
     );
   });
 });
@@ -1375,7 +1375,7 @@ describe("when maxWidth is passed", () => {
       {
         maxWidth: "67%",
       },
-      wrapper.find(InputPresentation)
+      wrapper.find(InputPresentation),
     );
   });
 
@@ -1386,7 +1386,7 @@ describe("when maxWidth is passed", () => {
       {
         maxWidth: "100%",
       },
-      wrapper.find(InputPresentation)
+      wrapper.find(InputPresentation),
     );
   });
 });

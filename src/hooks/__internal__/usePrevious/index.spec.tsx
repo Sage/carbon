@@ -30,17 +30,17 @@ describe("usePrevious", () => {
   it("when value changes, return the previous value", () => {
     const wrapper = render({ value: "foo" });
     expect(wrapper.find("[data-element='current']").prop("data-value")).toBe(
-      "foo"
+      "foo",
     );
 
     wrapper.setProps({ value: "bar" });
 
     expect(wrapper.find("[data-element='current']").prop("data-value")).toBe(
-      "bar"
+      "bar",
     );
 
     expect(wrapper.find("[data-element='previous']").prop("data-value")).toBe(
-      "foo"
+      "foo",
     );
   });
 });

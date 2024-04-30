@@ -19,12 +19,12 @@ function render(props?: Partial<SwitchSliderProps>) {
 function renderWithTheme(
   props: Partial<SwitchSliderProps>,
   theme?: string | Partial<ThemeObject>,
-  renderer = TestRenderer.create
+  renderer = TestRenderer.create,
 ) {
   return renderer(
     <ThemeProvider theme={theme}>
       <SwitchSlider {...props} />
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 }
 
@@ -49,7 +49,7 @@ describe("SwitchSlider", () => {
 
       describe("when checked=true", () => {
         const panels = render({ checked: true }).root.findAllByType(
-          SwitchSliderPanel
+          SwitchSliderPanel,
         );
 
         it('renders the text "ON" in the panel', () => {
@@ -63,7 +63,7 @@ describe("SwitchSlider", () => {
 
       describe("when loading=true", () => {
         const panels = render({ loading: true }).root.findAllByType(
-          SwitchSliderPanel
+          SwitchSliderPanel,
         );
 
         it("renders a Loader in the first panel", () => {
@@ -84,7 +84,7 @@ describe("SwitchSlider", () => {
           {
             backgroundColor: "var(--colorsActionMinor500)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -94,7 +94,7 @@ describe("SwitchSlider", () => {
             transform: "translateX(36px)",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
       });
     });
@@ -107,7 +107,7 @@ describe("SwitchSlider", () => {
           {
             borderColor: "var(--colorsActionDisabled600)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -117,7 +117,7 @@ describe("SwitchSlider", () => {
             backgroundColor: "var(--colorsActionDisabled600)",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
       });
 
@@ -129,7 +129,7 @@ describe("SwitchSlider", () => {
           wrapper,
           {
             modifier: `${SwitchSliderPanel}`,
-          }
+          },
         );
       });
     });
@@ -145,7 +145,7 @@ describe("SwitchSlider", () => {
           wrapper,
           {
             modifier: `${SwitchSliderPanel}`,
-          }
+          },
         );
       });
     });
@@ -161,7 +161,7 @@ describe("SwitchSlider", () => {
               width: "32px",
             },
             wrapper,
-            { modifier: "::before" }
+            { modifier: "::before" },
           );
         });
       });
@@ -175,7 +175,7 @@ describe("SwitchSlider", () => {
               transform: "translateX(38px)",
             },
             wrapper,
-            { modifier: "::before" }
+            { modifier: "::before" },
           );
         });
       });
@@ -191,7 +191,7 @@ describe("SwitchSlider", () => {
           {
             borderColor: "var(--colorsActionMinor400)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -201,7 +201,7 @@ describe("SwitchSlider", () => {
             backgroundColor: "var(--colorsActionMinor400)",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
       });
     });
@@ -214,7 +214,7 @@ describe("SwitchSlider", () => {
           {
             backgroundColor: "var(--colorsActionMinor500)",
           },
-          wrapper
+          wrapper,
         );
       });
     });
@@ -227,7 +227,7 @@ describe("SwitchSlider", () => {
           {
             borderColor: "var(--colorsActionDisabled600)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -239,7 +239,7 @@ describe("SwitchSlider", () => {
           wrapper,
           {
             modifier: `${SwitchSliderPanel}`,
-          }
+          },
         );
       });
     });
@@ -247,7 +247,7 @@ describe("SwitchSlider", () => {
     describe("when checked=true && disabled=true", () => {
       const wrapper = renderWithTheme(
         { checked: true, disabled: true },
-        sageTheme
+        sageTheme,
       ).toJSON();
 
       it("applies the correct base styles", () => {
@@ -255,7 +255,7 @@ describe("SwitchSlider", () => {
           {
             backgroundColor: "var(--colorsActionDisabled500)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -267,7 +267,7 @@ describe("SwitchSlider", () => {
           wrapper,
           {
             modifier: `${SwitchSliderPanel}`,
-          }
+          },
         );
       });
     });
@@ -282,9 +282,9 @@ describe("SwitchSlider", () => {
           {
             borderRadius: "var(--borderRadius400)",
           },
-          wrapper
+          wrapper,
         );
-      }
+      },
     );
 
     it.each<SwitchSliderProps["size"]>(["small", "large"])(
@@ -293,15 +293,15 @@ describe("SwitchSlider", () => {
         const wrapper = mount(
           <CarbonProvider roundedCornersOptOut>
             <SwitchSlider size={size} />
-          </CarbonProvider>
+          </CarbonProvider>,
         );
         assertStyleMatch(
           {
             borderRadius: size === "large" ? "30px" : "90px",
           },
-          wrapper.find(StyledSwitchSlider)
+          wrapper.find(StyledSwitchSlider),
         );
-      }
+      },
     );
   });
 });

@@ -30,7 +30,7 @@ export interface RenderOpenProps {
   isOpen?: boolean;
   "data-element"?: string;
   onClick: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
   ) => void;
   ref: React.RefObject<HTMLButtonElement>;
   "aria-label"?: string;
@@ -69,7 +69,7 @@ export interface RenderCloseProps {
   "data-element"?: string;
   tabIndex: number;
   onClick: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
   ) => void;
   ref: React.RefObject<HTMLButtonElement>;
   "aria-label": string;
@@ -119,13 +119,16 @@ export interface PopoverContainerProps extends PaddingProps {
   title?: string;
   /** Callback fires when close icon clicked */
   onClose?: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement> | Event
+    ev:
+      | React.KeyboardEvent<HTMLElement>
+      | React.MouseEvent<HTMLElement>
+      | Event,
   ) => void;
   /** if `true` the popover-container is open */
   open?: boolean;
   /** Callback fires when open component is clicked */
   onOpen?: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
   ) => void;
   /** if `true` the popover-container will cover open button */
   shouldCoverButton?: boolean;
@@ -185,7 +188,7 @@ export const PopoverContainer = ({
   const isOpen = isControlled ? open : isOpenInternal;
 
   const reduceMotion = !useMediaQuery(
-    "screen and (prefers-reduced-motion: no-preference)"
+    "screen and (prefers-reduced-motion: no-preference)",
   );
 
   const closePopover = useCallback(
@@ -193,7 +196,7 @@ export const PopoverContainer = ({
       ev:
         | React.MouseEvent<HTMLElement>
         | React.KeyboardEvent<HTMLElement>
-        | KeyboardEvent
+        | KeyboardEvent,
     ) => {
       if (!isControlled) {
         setIsOpenInternal(false);
@@ -205,7 +208,7 @@ export const PopoverContainer = ({
         openButtonRef.current.focus();
       }
     },
-    [isControlled, isOpen, onClose]
+    [isControlled, isOpen, onClose],
   );
 
   const handleEscKey = useCallback(
@@ -222,7 +225,7 @@ export const PopoverContainer = ({
         closePopover(ev);
       }
     },
-    [closePopover]
+    [closePopover],
   );
 
   useEffect(() => {
@@ -234,7 +237,7 @@ export const PopoverContainer = ({
   }, [handleEscKey]);
 
   const handleOpenButtonClick = (
-    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => {
     if (!isControlled) setIsOpenInternal(!isOpen);
 
@@ -245,7 +248,7 @@ export const PopoverContainer = ({
   };
 
   const handleCloseButtonClick = (
-    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+    e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
   ) => {
     closePopover(e);
   };
@@ -253,7 +256,7 @@ export const PopoverContainer = ({
   useFocusPortalContent(
     shouldCoverButton ? undefined : popoverContentNodeRef,
     shouldCoverButton ? undefined : openButtonRef,
-    closePopover
+    closePopover,
   );
 
   const renderOpenComponentProps = {

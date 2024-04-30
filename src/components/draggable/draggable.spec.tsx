@@ -24,7 +24,7 @@ describe("Draggable", () => {
 
   const getDraggableItems = (mountNode: Element | null) => {
     const draggableItems = mountNode?.querySelectorAll(
-      'div[data-element="draggable"]'
+      'div[data-element="draggable"]',
     );
     return draggableItems ? Array.from(draggableItems) : [];
   };
@@ -43,7 +43,7 @@ describe("Draggable", () => {
         <DraggableItem key="2" id={2}>
           simple content
         </DraggableItem>
-      </DraggableContainer>
+      </DraggableContainer>,
     );
   });
 
@@ -63,7 +63,7 @@ describe("Draggable", () => {
       </DraggableContainer>
     ),
     undefined,
-    (component) => component.find(StyledDraggableContainer)
+    (component) => component.find(StyledDraggableContainer),
   );
 
   testStyledSystemPadding(
@@ -75,7 +75,7 @@ describe("Draggable", () => {
       </DraggableContainer>
     ),
     { py: "8px" },
-    (component) => component.find(StyledDraggableItem)
+    (component) => component.find(StyledDraggableItem),
   );
 
   it("should return an array with id's", () => {
@@ -100,7 +100,7 @@ describe("Draggable", () => {
           {null}
           {undefined}
           {false}
-        </DraggableContainer>
+        </DraggableContainer>,
       );
     }).not.toThrow();
   });
@@ -131,7 +131,7 @@ describe("Draggable", () => {
       {
         opacity: "0",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -183,20 +183,20 @@ describe("Draggable", () => {
       const endingNode = draggableItems[2];
       act(() => {
         startingNode.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 }),
         );
 
         endingNode.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 }),
         );
 
         endingNode.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 }),
         );
       });
 
       expect(
-        getDraggableItems(container1).map((cell) => cell?.textContent)
+        getDraggableItems(container1).map((cell) => cell?.textContent),
       ).toEqual(["Item 2", "Item 3", "Item 1"]);
     });
 
@@ -208,20 +208,20 @@ describe("Draggable", () => {
       const endingNode = draggableItems[2];
       act(() => {
         startingNode.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 }),
         );
 
         endingNode.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 }),
         );
 
         endingNode.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 }),
         );
       });
 
       expect(
-        getDraggableItems(container2).map((cell) => cell?.textContent)
+        getDraggableItems(container2).map((cell) => cell?.textContent),
       ).toEqual(["Item 5", "Item 6", "Item 4"]);
     });
 
@@ -231,20 +231,20 @@ describe("Draggable", () => {
       const endingNode = draggableItems[4];
       act(() => {
         startingNode.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 }),
         );
 
         endingNode.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 }),
         );
 
         endingNode.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 }),
         );
       });
 
       expect(
-        getDraggableItems(mountNode).map((cell) => cell?.textContent)
+        getDraggableItems(mountNode).map((cell) => cell?.textContent),
       ).toEqual(["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]);
     });
   });
@@ -310,15 +310,15 @@ describe("Draggable Checkbox", () => {
       const endingNode1 = tableCells1[2];
       act(() => {
         startingNode1.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 }),
         );
 
         endingNode1.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 }),
         );
 
         endingNode1.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 }),
         );
       });
 
@@ -336,15 +336,15 @@ describe("Draggable Checkbox", () => {
       expect(getOrder).not.toHaveBeenCalled();
       act(() => {
         startingNode1.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 }),
         );
 
         endingNode1.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 1 })
+          createBubbledEvent("dragover", { clientX: 0, clientY: 1 }),
         );
 
         endingNode1.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 1 })
+          createBubbledEvent("drop", { clientX: 0, clientY: 1 }),
         );
       });
 
@@ -357,7 +357,7 @@ describe("Draggable Checkbox", () => {
 
       act(() => {
         startingNode1.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 }),
         );
       });
 
@@ -374,15 +374,15 @@ describe("Draggable Checkbox", () => {
 
       act(() => {
         startingNode1.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 })
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 0 }),
         );
 
         startingNode1.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 0 })
+          createBubbledEvent("dragover", { clientX: 0, clientY: 0 }),
         );
 
         startingNode1.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 0 })
+          createBubbledEvent("drop", { clientX: 0, clientY: 0 }),
         );
       });
 
@@ -399,7 +399,7 @@ describe("Draggable Checkbox", () => {
       const endingNode2 = tableCells2[1];
       if (startingNode2) {
         const draggableElement = startingNode2.closest(
-          'div[data-element="draggable"]'
+          'div[data-element="draggable"]',
         );
         if (draggableElement) {
           draggableElement.getBoundingClientRect = () =>
@@ -412,19 +412,19 @@ describe("Draggable Checkbox", () => {
               width: 0,
               x: 0,
               y: 0,
-            } as DOMRect);
+            }) as DOMRect;
         }
       }
 
       act(() => {
         startingNode2.dispatchEvent(
-          createBubbledEvent("dragstart", { clientX: 0, clientY: 20 })
+          createBubbledEvent("dragstart", { clientX: 0, clientY: 20 }),
         );
         endingNode2.dispatchEvent(
-          createBubbledEvent("dragover", { clientX: 0, clientY: 10 })
+          createBubbledEvent("dragover", { clientX: 0, clientY: 10 }),
         );
         endingNode2.dispatchEvent(
-          createBubbledEvent("drop", { clientX: 0, clientY: 10 })
+          createBubbledEvent("drop", { clientX: 0, clientY: 10 }),
         );
       });
 
@@ -454,7 +454,7 @@ describe("Invariant", () => {
     expect(() => {
       mount(<DraggableContainer>foo</DraggableContainer>);
     }).toThrow(
-      "`DraggableContainer` only accepts children of type `DraggableItem`."
+      "`DraggableContainer` only accepts children of type `DraggableItem`.",
     );
   });
 });

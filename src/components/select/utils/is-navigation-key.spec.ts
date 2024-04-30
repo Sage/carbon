@@ -6,7 +6,7 @@ describe("isNavigationKey", () => {
       "%s is counted as a navigation key",
       (key) => {
         expect(isNavigationKey(key)).toBe(true);
-      }
+      },
     );
   });
 
@@ -15,7 +15,7 @@ describe("isNavigationKey", () => {
       "%s is not counted as a navigation key",
       (key) => {
         expect(isNavigationKey(key)).toBe(false);
-      }
+      },
     );
   });
 
@@ -24,7 +24,7 @@ describe("isNavigationKey", () => {
       "%s is not counted as a navigation key",
       (key) => {
         expect(isNavigationKey(key)).toBe(false);
-      }
+      },
     );
   });
 });

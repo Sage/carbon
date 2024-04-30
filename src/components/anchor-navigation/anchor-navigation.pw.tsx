@@ -31,7 +31,7 @@ test.describe("Should render AnchorNavigation component", () => {
 
       await anchorNavigationStickyNavigation(page, sectionIndex).click();
       await expect(
-        anchorNavigationStickyMainPage(page, sectionName)
+        anchorNavigationStickyMainPage(page, sectionName),
       ).toBeVisible();
     });
   });
@@ -49,7 +49,7 @@ test.describe("Should render AnchorNavigation component", () => {
       await anchorNavigationStickyNavigation(page, sectionIndex).click();
       await anchorNavigationStickyMainPage(page, sectionName).focus();
       await expect(
-        anchorNavigationStickyMainPage(page, sectionName)
+        anchorNavigationStickyMainPage(page, sectionName),
       ).toBeVisible();
     });
   });
@@ -68,7 +68,7 @@ test.describe("When focused", () => {
 
     await expect(anchorNavigationItem(page, 0)).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 
@@ -83,12 +83,12 @@ test.describe("When focused", () => {
     await anchorNavItem.focus();
     await expect(anchorNavItem).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
 
     await expect(anchorNavItem).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 });
@@ -102,23 +102,23 @@ test.describe("Rounded corners", () => {
 
     await expect(anchorNavigationItem(page, 0)).toHaveCSS(
       "border-radius",
-      "0px 8px 8px 0px"
+      "0px 8px 8px 0px",
     );
     await expect(anchorNavigationItem(page, 1)).toHaveCSS(
       "border-radius",
-      "0px 8px 8px 0px"
+      "0px 8px 8px 0px",
     );
     await expect(anchorNavigationItem(page, 2)).toHaveCSS(
       "border-radius",
-      "0px 8px 8px 0px"
+      "0px 8px 8px 0px",
     );
     await expect(anchorNavigationItem(page, 3)).toHaveCSS(
       "border-radius",
-      "0px 8px 8px 0px"
+      "0px 8px 8px 0px",
     );
     await expect(anchorNavigationItem(page, 4)).toHaveCSS(
       "border-radius",
-      "0px 8px 8px 0px"
+      "0px 8px 8px 0px",
     );
   });
 });

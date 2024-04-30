@@ -32,12 +32,12 @@ describe("StepSequence", () => {
             Item
           </StepSequenceItem>
         </StepSequence>
-      </>
+      </>,
     );
 
     expect(loggerSpy).toHaveBeenCalledTimes(1);
     expect(loggerSpy).toHaveBeenCalledWith(
-      "The `StepSequence` component is deprecated and will soon be removed, please use the `StepFlow` component instead."
+      "The `StepSequence` component is deprecated and will soon be removed, please use the `StepFlow` component instead.",
     );
 
     loggerSpy.mockRestore();
@@ -54,7 +54,7 @@ describe("StepSequence", () => {
         >
           Item
         </StepSequenceItem>
-      </StepSequence>
+      </StepSequence>,
     );
 
   it("renders correctly", () => {

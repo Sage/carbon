@@ -31,7 +31,7 @@ function render(props?: StyledCheckableInputWrapperProps) {
 describe("CheckableInput", () => {
   function mountInput(props?: Partial<CheckableInputProps>) {
     return mount(
-      <CheckableInput type="text" value="" onChange={() => null} {...props} />
+      <CheckableInput type="text" value="" onChange={() => null} {...props} />,
     );
   }
 
@@ -105,16 +105,18 @@ describe("CheckableInput", () => {
 
             it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
               expect(
-                wrapper.find(HiddenCheckableInputStyle).prop("aria-describedby")
+                wrapper
+                  .find(HiddenCheckableInputStyle)
+                  .prop("aria-describedby"),
               ).toBe(`${id}-validation`);
             });
 
             it("then the id of the validation tooltip should be passed in validationIconId prop to FormField", () => {
               expect(wrapper.find(FormField).prop("validationIconId")).toBe(
-                `${id}-validation`
+                `${id}-validation`,
               );
             });
-          }
+          },
         );
 
         describe("and fieldHelp props are present", () => {
@@ -125,7 +127,7 @@ describe("CheckableInput", () => {
             });
 
             expect(
-              wrapper.find(HiddenCheckableInputStyle).prop("aria-describedby")
+              wrapper.find(HiddenCheckableInputStyle).prop("aria-describedby"),
             ).toBe(`${id}-field-help`);
           });
 
@@ -136,7 +138,7 @@ describe("CheckableInput", () => {
             });
 
             expect(wrapper.find(FormField).prop("fieldHelpId")).toBe(
-              `${id}-field-help`
+              `${id}-field-help`,
             );
           });
 
@@ -152,10 +154,10 @@ describe("CheckableInput", () => {
 
               it('then the id of the validation tooltip should be added to "aria-describedby" in the input', () => {
                 expect(wrapper.find("input").prop("aria-describedby")).toBe(
-                  `${id}-field-help ${id}-validation`
+                  `${id}-field-help ${id}-validation`,
                 );
               });
-            }
+            },
           );
         });
       });
@@ -177,7 +179,7 @@ describe("StyledCheckableInputWrapper", () => {
         wrapper,
         {
           modifier: `${FieldLineStyle}`,
-        }
+        },
       );
     });
 
@@ -189,7 +191,7 @@ describe("StyledCheckableInputWrapper", () => {
         wrapper,
         {
           modifier: `${StyledLabelContainer}`,
-        }
+        },
       );
     });
 
@@ -202,7 +204,7 @@ describe("StyledCheckableInputWrapper", () => {
         wrapper,
         {
           modifier: `${StyledLabelContainer} ${StyledHelp}`,
-        }
+        },
       );
     });
 
@@ -225,7 +227,7 @@ describe("StyledCheckableInputWrapper", () => {
         wrapper,
         {
           modifier: `${LabelStyle}:${state}`,
-        }
+        },
       );
     });
 
@@ -240,9 +242,9 @@ describe("StyledCheckableInputWrapper", () => {
           wrapper,
           {
             modifier: `${HiddenCheckableInputStyle}:${state}`,
-          }
+          },
         );
-      }
+      },
     );
   });
 
@@ -260,7 +262,7 @@ describe("StyledCheckableInputWrapper", () => {
         wrapper,
         {
           modifier: `${FieldHelpStyle}`,
-        }
+        },
       );
     });
   });
@@ -277,7 +279,7 @@ describe("StyledCheckableInputWrapper", () => {
           wrapper,
           {
             modifier: `${StyledCheckableInput}`,
-          }
+          },
         );
       });
     });
@@ -294,7 +296,7 @@ describe("StyledCheckableInputWrapper", () => {
         wrapper,
         {
           modifier: `${StyledLabelContainer}`,
-        }
+        },
       );
     });
   });

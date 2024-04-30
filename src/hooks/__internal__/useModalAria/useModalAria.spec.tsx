@@ -102,7 +102,7 @@ describe("useModalAria", () => {
       render(
         <CarbonProvider>
           <ModalComponent openButtonText="open" closeButtonText="close" />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
     });
 
@@ -125,7 +125,7 @@ describe("useModalAria", () => {
       await userEvent.click(screen.getByRole("button", { name: "open" }));
       expect(screen.queryByRole("dialog")).toHaveAttribute(
         "aria-modal",
-        "true"
+        "true",
       );
     });
   });
@@ -135,20 +135,20 @@ describe("useModalAria", () => {
       render(
         <CarbonProvider>
           <NestedModals />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
     });
 
     describe("before opening the first dialog", () => {
       it("the first open button is in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 1" })
+          screen.queryByRole("button", { name: "Open modal 1" }),
         ).not.toBeNull();
       });
 
       it("the second open button is not in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 2" })
+          screen.queryByRole("button", { name: "Open modal 2" }),
         ).toBeNull();
       });
     });
@@ -156,25 +156,25 @@ describe("useModalAria", () => {
     describe("after opening the first dialog but before opening the second", () => {
       beforeEach(async () => {
         await userEvent.click(
-          screen.getByRole("button", { name: "Open modal 1" })
+          screen.getByRole("button", { name: "Open modal 1" }),
         );
       });
 
       it("the first open button is not in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 1" })
+          screen.queryByRole("button", { name: "Open modal 1" }),
         ).toBeNull();
       });
 
       it("the second open button is in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 2" })
+          screen.queryByRole("button", { name: "Open modal 2" }),
         ).not.toBeNull();
       });
 
       it("the first dialog has the aria-modal attribute", () => {
         expect(
-          screen.queryByRole("dialog", { name: "dialog 1" })
+          screen.queryByRole("dialog", { name: "dialog 1" }),
         ).toHaveAttribute("aria-modal", "true");
       });
     });
@@ -182,34 +182,34 @@ describe("useModalAria", () => {
     describe("after opening both dialogs", () => {
       beforeEach(async () => {
         await userEvent.click(
-          screen.getByRole("button", { name: "Open modal 1" })
+          screen.getByRole("button", { name: "Open modal 1" }),
         );
         await userEvent.click(
-          screen.getByRole("button", { name: "Open modal 2" })
+          screen.getByRole("button", { name: "Open modal 2" }),
         );
       });
 
       it("the first open button is not in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 1" })
+          screen.queryByRole("button", { name: "Open modal 1" }),
         ).toBeNull();
       });
 
       it("the second open button is not in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 2" })
+          screen.queryByRole("button", { name: "Open modal 2" }),
         ).toBeNull();
       });
 
       it("the first dialog does not have the aria-modal attribute", () => {
         expect(
-          screen.queryByRole("dialog", { name: "dialog 1" })
+          screen.queryByRole("dialog", { name: "dialog 1" }),
         ).toHaveAttribute("aria-modal", "false");
       });
 
       it("the second dialog has the aria-modal attribute", () => {
         expect(
-          screen.queryByRole("dialog", { name: "dialog 2" })
+          screen.queryByRole("dialog", { name: "dialog 2" }),
         ).toHaveAttribute("aria-modal", "true");
       });
     });
@@ -217,31 +217,31 @@ describe("useModalAria", () => {
     describe("after opening both dialogs then closing the inner one", () => {
       beforeEach(async () => {
         await userEvent.click(
-          screen.getByRole("button", { name: "Open modal 1" })
+          screen.getByRole("button", { name: "Open modal 1" }),
         );
         await userEvent.click(
-          screen.getByRole("button", { name: "Open modal 2" })
+          screen.getByRole("button", { name: "Open modal 2" }),
         );
         await userEvent.click(
-          screen.getByRole("button", { name: "Close modal 2" })
+          screen.getByRole("button", { name: "Close modal 2" }),
         );
       });
 
       it("the first open button is not in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 1" })
+          screen.queryByRole("button", { name: "Open modal 1" }),
         ).toBeNull();
       });
 
       it("the second open button is in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 2" })
+          screen.queryByRole("button", { name: "Open modal 2" }),
         ).not.toBeNull();
       });
 
       it("the first dialog has the aria-modal attribute", () => {
         expect(
-          screen.queryByRole("dialog", { name: "dialog 1" })
+          screen.queryByRole("dialog", { name: "dialog 1" }),
         ).toHaveAttribute("aria-modal", "true");
       });
     });
@@ -249,30 +249,30 @@ describe("useModalAria", () => {
     describe("after opening both dialogs and then closing them", () => {
       beforeEach(async () => {
         await userEvent.click(
-          screen.getByRole("button", { name: "Open modal 1" })
+          screen.getByRole("button", { name: "Open modal 1" }),
         );
         await userEvent.click(
-          screen.getByRole("button", { name: "Open modal 2" })
+          screen.getByRole("button", { name: "Open modal 2" }),
         );
         await userEvent.click(
-          screen.getByRole("button", { name: "Close modal 2" })
+          screen.getByRole("button", { name: "Close modal 2" }),
         );
         await userEvent.click(
-          screen.getByRole("button", { name: "Close modal 1" })
+          screen.getByRole("button", { name: "Close modal 1" }),
         );
       });
 
       it("the first open button is in the accessibility tree", () => {
         expect(
-          screen.queryByRole("button", { name: "Open modal 1" })
+          screen.queryByRole("button", { name: "Open modal 1" }),
         ).not.toBeNull();
       });
 
       it("the second open button is not in the accessibility tree", async () => {
         await waitFor(() =>
           expect(
-            screen.queryByRole("button", { name: "Open modal 2" })
-          ).toBeNull()
+            screen.queryByRole("button", { name: "Open modal 2" }),
+          ).toBeNull(),
         );
       });
     });
@@ -289,7 +289,7 @@ describe("useModalAria", () => {
           /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
           /* @ts-ignore:next-line */}
           <div data-role="old-inert" inert="foo" />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
     });
 
@@ -297,11 +297,11 @@ describe("useModalAria", () => {
       await userEvent.click(screen.getByRole("button", { name: "open" }));
       await waitFor(() =>
         expect(
-          screen.getByTestId("old-aria-hidden").getAttribute("aria-hidden")
-        ).toBe("true")
+          screen.getByTestId("old-aria-hidden").getAttribute("aria-hidden"),
+        ).toBe("true"),
       );
       await waitFor(() =>
-        expect(screen.getByTestId("old-inert").getAttribute("inert")).toBe("")
+        expect(screen.getByTestId("old-inert").getAttribute("inert")).toBe(""),
       );
     });
 
@@ -310,13 +310,13 @@ describe("useModalAria", () => {
       await userEvent.click(screen.getByRole("button", { name: "close" }));
       await waitFor(() =>
         expect(
-          screen.getByTestId("old-aria-hidden").getAttribute("aria-hidden")
-        ).toBe("false")
+          screen.getByTestId("old-aria-hidden").getAttribute("aria-hidden"),
+        ).toBe("false"),
       );
       await waitFor(() =>
         expect(screen.getByTestId("old-inert").getAttribute("inert")).toBe(
-          "foo"
-        )
+          "foo",
+        ),
       );
     });
   });
@@ -326,12 +326,12 @@ describe("useModalAria", () => {
       render(
         <CarbonProvider>
           <ModalWithButtonInPortal />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
       await userEvent.click(screen.getByRole("button", { name: "open modal" }));
       expect(
-        screen.queryByRole("button", { name: "button inside portal" })
+        screen.queryByRole("button", { name: "button inside portal" }),
       ).toBeNull();
     });
 
@@ -339,12 +339,12 @@ describe("useModalAria", () => {
       render(
         <CarbonProvider>
           <ModalWithButtonInPortal inertOptOut />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
       await userEvent.click(screen.getByRole("button", { name: "open modal" }));
       expect(
-        screen.queryByRole("button", { name: "button inside portal" })
+        screen.queryByRole("button", { name: "button inside portal" }),
       ).not.toBeNull();
     });
   });

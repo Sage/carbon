@@ -30,7 +30,7 @@ export const Preview = ({
 
     for (let i = 1; i <= lines; i++) {
       placeholders.push(
-        <PreviewPlaceholder key={i} index={i} lines={lines} {...props} />
+        <PreviewPlaceholder key={i} index={i} lines={lines} {...props} />,
       );
     }
 

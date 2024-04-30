@@ -72,28 +72,28 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  ([
-    ["left", "start"],
-    ["right", "end"],
-  ] as [DateInputProps["labelAlign"], string][]).forEach(
-    ([labelAlign, cssValue]) => {
-      test(`should check the label align is set to ${labelAlign}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <DateInputCustom
-            labelAlign={labelAlign}
-            labelHelp="labelHelp"
-            labelInline
-          />
-        );
+  (
+    [
+      ["left", "start"],
+      ["right", "end"],
+    ] as [DateInputProps["labelAlign"], string][]
+  ).forEach(([labelAlign, cssValue]) => {
+    test(`should check the label align is set to ${labelAlign}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <DateInputCustom
+          labelAlign={labelAlign}
+          labelHelp="labelHelp"
+          labelInline
+        />,
+      );
 
-        const label = getDataElementByValue(page, "label").locator("..");
-        await expect(label).toHaveCSS("justify-content", `flex-${cssValue}`);
-      });
-    }
-  );
+      const label = getDataElementByValue(page, "label").locator("..");
+      await expect(label).toHaveCSS("justify-content", `flex-${cssValue}`);
+    });
+  });
 
   test(`should check the minDate prop`, async ({ mount, page }) => {
     await mount(<DateInputCustom minDate="2030-04-04" />);
@@ -202,7 +202,7 @@ test.describe("Functionality tests", () => {
       const wrapperParent = dayPickerWrapper(page).locator("..").locator("..");
       await expect(wrapperParent).toHaveAttribute(
         "data-floating-placement",
-        `${position}-start`
+        `${position}-start`,
       );
       await expect(wrapperParent).toBeVisible();
     });
@@ -243,7 +243,7 @@ test.describe("Functionality tests", () => {
       const inputParent = getDataElementByValue(page, "input").locator("..");
       await inputParent.click();
       const rightArrow = getDataElementByValue(page, "chevron_right").locator(
-        ".."
+        "..",
       );
       await rightArrow.focus();
       await rightArrow.press(key);
@@ -262,7 +262,7 @@ test.describe("Functionality tests", () => {
       const inputParent = getDataElementByValue(page, "input").locator("..");
       await inputParent.click();
       const rightArrow = getDataElementByValue(page, "chevron_left").locator(
-        ".."
+        "..",
       );
       await rightArrow.focus();
       await rightArrow.press(key);
@@ -286,7 +286,7 @@ test.describe("Functionality tests", () => {
     await expect(arrowLeft).toBeFocused();
     await page.keyboard.press("Tab");
     const arrowRight = getDataElementByValue(page, "chevron_right").locator(
-      ".."
+      "..",
     );
     await expect(arrowRight).toBeFocused();
     await page.keyboard.press("Tab");
@@ -309,7 +309,7 @@ test.describe("Functionality tests", () => {
     await expect(arrowLeft).toBeFocused();
     await page.keyboard.press("Tab");
     const arrowRight = getDataElementByValue(page, "chevron_right").locator(
-      ".."
+      "..",
     );
     await expect(arrowRight).toBeFocused();
     await page.keyboard.press("Tab");
@@ -539,7 +539,7 @@ test.describe("Functionality tests", () => {
       await expect(focusedElement).toBeFocused();
       await page.keyboard.press(key);
       await expect(getDataElementByValue(page, "input")).toHaveValue(
-        "30/04/2022"
+        "30/04/2022",
       );
     });
   });
@@ -641,26 +641,26 @@ test.describe("Functionality tests", () => {
     });
   });
 
-  ([
-    [SIZE.SMALL, 29, 30.5],
-    [SIZE.MEDIUM, 37, 38.5],
-    [SIZE.LARGE, 45, 46.5],
-  ] as [DateInputProps["size"], number, number][]).forEach(
-    ([size, minValue, maxValue]) => {
-      test(`should check the ${size} size of the DateInput`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<DateInputCustom size={size} />);
+  (
+    [
+      [SIZE.SMALL, 29, 30.5],
+      [SIZE.MEDIUM, 37, 38.5],
+      [SIZE.LARGE, 45, 46.5],
+    ] as [DateInputProps["size"], number, number][]
+  ).forEach(([size, minValue, maxValue]) => {
+    test(`should check the ${size} size of the DateInput`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<DateInputCustom size={size} />);
 
-        const input = getDataElementByValue(page, "input");
-        await input.click();
-        const val = await getStyle(input, "height");
-        expect(parseInt(val)).toBeGreaterThanOrEqual(minValue);
-        expect(parseInt(val)).toBeLessThanOrEqual(maxValue);
-      });
-    }
-  );
+      const input = getDataElementByValue(page, "input");
+      await input.click();
+      const val = await getStyle(input, "height");
+      expect(parseInt(val)).toBeGreaterThanOrEqual(minValue);
+      expect(parseInt(val)).toBeLessThanOrEqual(maxValue);
+    });
+  });
 
   [
     [10, 90, 135, 1229],
@@ -672,7 +672,7 @@ test.describe("Functionality tests", () => {
       page,
     }) => {
       await mount(
-        <DateInputCustom labelInline labelWidth={label} inputWidth={input} />
+        <DateInputCustom labelInline labelWidth={label} inputWidth={input} />,
       );
 
       const labelElement = getDataElementByValue(page, "label").locator("..");
@@ -788,7 +788,7 @@ test.describe("Functionality tests", () => {
       await mount(
         <Confirm open height="60px" onConfirm={() => {}}>
           <DateInputCustom disablePortal={state} />
-        </Confirm>
+        </Confirm>,
       );
 
       const input = getDataElementByValue(page, "input");
@@ -860,45 +860,45 @@ test.describe("Functionality tests", () => {
     const inputParent = getDataElementByValue(page, "input").locator("..");
     await expect(inputParent).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(inputParent).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     const dayPicker1 = page.getByLabel("Sun 1 May 2022");
     await dayPicker1.focus();
     await expect(dayPicker1).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
     );
     await expect(dayPicker1).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
     const dayPicker2 = page.getByLabel("Mon 2 May 2022");
     await dayPicker2.focus();
     await expect(dayPicker2).toHaveCSS(
       "box-shadow",
-      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset"
+      "rgba(0, 0, 0, 0.9) 0px 0px 0px 3px inset, rgb(255, 188, 25) 0px 0px 0px 6px inset",
     );
     await expect(dayPicker2).toHaveCSS("outline", "rgba(0, 0, 0, 0) solid 3px");
     const dayPickerNavButton1 = page.getByLabel("Previous month");
     await dayPickerNavButton1.focus();
     await expect(dayPickerNavButton1).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(dayPickerNavButton1).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
     const dayPickerNavButton2 = page.getByLabel("Next month");
     await dayPickerNavButton2.focus();
     await expect(dayPickerNavButton2).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(dayPickerNavButton2).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 });
@@ -938,7 +938,7 @@ test.describe("Events tests", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const input = getDataElementByValue(page, "input");
@@ -956,7 +956,7 @@ test.describe("Events tests", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const input = getDataElementByValue(page, "input");
@@ -964,178 +964,176 @@ test.describe("Events tests", () => {
     expect(callbackCount).toBe(1);
   });
 
-  ([
-    ["en-US", "05/12/2022", "enUS"],
-    ["en-CA", "05/12/2022", "enCA"],
-    ["en-ZA", "12/05/2022", "enZA"],
-    ["de", "12.05.2022", "de"],
-    ["es-ES", "12/05/2022", "es"],
-    ["fr-FR", "12/05/2022", "fr"],
-    ["fr-CA", "12/05/2022", "frCA"],
-    ["zh-CN", "2022/05/12", "zhCN"],
-    ["pl-PL", "12.05.2022", "pl"],
-    ["bg-BG", "12.05.2022", "bg"],
-    ["zh-HK", "12/05/2022", "zhHK"],
-    ["hu-HU", "2022. 05. 12.", "hu"],
-    ["fi-FI", "12.05.2022", "fi"],
-    ["de-AT", "12.05.2022", "deAT"],
-    ["ko-KR", "2022. 05. 12.", "ko"],
-    ["ar-EG", "12/05/2022", "arEG"],
-    ["hi-HI", "12/05/2022", "hi"],
-    ["sl-SI", "12. 05. 2022", "sl"],
-    ["lv", "12.05.2022.", "lv"],
-  ] as const).forEach(
-    ([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
-      test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after selecting date`, async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount<HooksConfig>(
-          <DateWithLocales
-            onChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-          {
-            hooksConfig: { localeName: dateFnsLocaleKey },
-          }
-        );
+  (
+    [
+      ["en-US", "05/12/2022", "enUS"],
+      ["en-CA", "05/12/2022", "enCA"],
+      ["en-ZA", "12/05/2022", "enZA"],
+      ["de", "12.05.2022", "de"],
+      ["es-ES", "12/05/2022", "es"],
+      ["fr-FR", "12/05/2022", "fr"],
+      ["fr-CA", "12/05/2022", "frCA"],
+      ["zh-CN", "2022/05/12", "zhCN"],
+      ["pl-PL", "12.05.2022", "pl"],
+      ["bg-BG", "12.05.2022", "bg"],
+      ["zh-HK", "12/05/2022", "zhHK"],
+      ["hu-HU", "2022. 05. 12.", "hu"],
+      ["fi-FI", "12.05.2022", "fi"],
+      ["de-AT", "12.05.2022", "deAT"],
+      ["ko-KR", "2022. 05. 12.", "ko"],
+      ["ar-EG", "12/05/2022", "arEG"],
+      ["hi-HI", "12/05/2022", "hi"],
+      ["sl-SI", "12. 05. 2022", "sl"],
+      ["lv", "12.05.2022.", "lv"],
+    ] as const
+  ).forEach(([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
+    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after selecting date`, async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      await mount<HooksConfig>(
+        <DateWithLocales
+          onChange={() => {
+            callbackCount += 1;
+          }}
+        />,
+        {
+          hooksConfig: { localeName: dateFnsLocaleKey },
+        },
+      );
 
-        const getDatetoEnter = () => {
-          if (["en-US", "en-CA"].includes(localeValue))
-            return MMDDYYYY_DATE_TO_ENTER;
-          if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-            return YYYYMMDD_DATE_TO_ENTER;
-          return DDMMYYY_DATE_TO_ENTER;
-        };
+      const getDatetoEnter = () => {
+        if (["en-US", "en-CA"].includes(localeValue))
+          return MMDDYYYY_DATE_TO_ENTER;
+        if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
+          return YYYYMMDD_DATE_TO_ENTER;
+        return DDMMYYY_DATE_TO_ENTER;
+      };
 
-        const input = getDataElementByValue(page, "input");
-        await input.fill(getDatetoEnter());
-        await input.click();
+      const input = getDataElementByValue(page, "input");
+      await input.fill(getDatetoEnter());
+      await input.click();
 
-        const pickerByText = page
-          .getByRole("gridcell")
-          .filter({ hasText: "12" });
-        await pickerByText.click();
-        await expect(input).toHaveValue(formattedValueParam);
+      const pickerByText = page.getByRole("gridcell").filter({ hasText: "12" });
+      await pickerByText.click();
+      await expect(input).toHaveValue(formattedValueParam);
 
-        expect(callbackCount).toBe(3);
-      });
-    }
-  );
+      expect(callbackCount).toBe(3);
+    });
+  });
 
-  ([
-    ["en-US", "05/27/2022", "enUS"],
-    ["en-CA", "05/27/2022", "enCA"],
-    ["en-ZA", "27/05/2022", "enZA"],
-    ["de", "27.05.2022", "de"],
-    ["es-ES", "27/05/2022", "es"],
-    ["fr-FR", "27/05/2022", "fr"],
-    ["fr-CA", "27/05/2022", "frCA"],
-    ["zh-CN", "2022/05/27", "zhCN"],
-    ["pl-PL", "27.05.2022", "pl"],
-    ["bg-BG", "27.05.2022", "bg"],
-    ["zh-HK", "27/05/2022", "zhHK"],
-    ["hu-HU", "2022. 05. 27.", "hu"],
-    ["fi-FI", "27.05.2022", "fi"],
-    ["de-AT", "27.05.2022", "deAT"],
-    ["ko-KR", "2022. 05. 27.", "ko"],
-    ["ar-EG", "27/05/2022", "arEG"],
-    ["hi-HI", "27/05/2022", "hi"],
-    ["sl-SI", "27. 05. 2022", "sl"],
-    ["lv", "27.05.2022.", "lv"],
-  ] as const).forEach(
-    ([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
-      test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after typing the date`, async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount<HooksConfig>(
-          <DateWithLocales
-            onChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-          {
-            hooksConfig: { localeName: dateFnsLocaleKey },
-          }
-        );
+  (
+    [
+      ["en-US", "05/27/2022", "enUS"],
+      ["en-CA", "05/27/2022", "enCA"],
+      ["en-ZA", "27/05/2022", "enZA"],
+      ["de", "27.05.2022", "de"],
+      ["es-ES", "27/05/2022", "es"],
+      ["fr-FR", "27/05/2022", "fr"],
+      ["fr-CA", "27/05/2022", "frCA"],
+      ["zh-CN", "2022/05/27", "zhCN"],
+      ["pl-PL", "27.05.2022", "pl"],
+      ["bg-BG", "27.05.2022", "bg"],
+      ["zh-HK", "27/05/2022", "zhHK"],
+      ["hu-HU", "2022. 05. 27.", "hu"],
+      ["fi-FI", "27.05.2022", "fi"],
+      ["de-AT", "27.05.2022", "deAT"],
+      ["ko-KR", "2022. 05. 27.", "ko"],
+      ["ar-EG", "27/05/2022", "arEG"],
+      ["hi-HI", "27/05/2022", "hi"],
+      ["sl-SI", "27. 05. 2022", "sl"],
+      ["lv", "27.05.2022.", "lv"],
+    ] as const
+  ).forEach(([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
+    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after typing the date`, async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      await mount<HooksConfig>(
+        <DateWithLocales
+          onChange={() => {
+            callbackCount += 1;
+          }}
+        />,
+        {
+          hooksConfig: { localeName: dateFnsLocaleKey },
+        },
+      );
 
-        const getDatetoEnter = () => {
-          if (["en-US", "en-CA"].includes(localeValue))
-            return MMDDYYYY_DATE_TO_ENTER;
-          if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-            return YYYYMMDD_DATE_TO_ENTER;
-          return DDMMYYY_DATE_TO_ENTER;
-        };
+      const getDatetoEnter = () => {
+        if (["en-US", "en-CA"].includes(localeValue))
+          return MMDDYYYY_DATE_TO_ENTER;
+        if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
+          return YYYYMMDD_DATE_TO_ENTER;
+        return DDMMYYY_DATE_TO_ENTER;
+      };
 
-        const input = getDataElementByValue(page, "input");
-        await input.fill(getDatetoEnter());
-        await input.blur();
-        await expect(input).toHaveValue(formattedValueParam);
+      const input = getDataElementByValue(page, "input");
+      await input.fill(getDatetoEnter());
+      await input.blur();
+      await expect(input).toHaveValue(formattedValueParam);
 
-        expect(callbackCount).toBe(2);
-      });
-    }
-  );
+      expect(callbackCount).toBe(2);
+    });
+  });
 
-  ([
-    ["en-US", "07/01/2022", "enUS"],
-    ["en-CA", "07/01/2022", "enCA"],
-    ["en-ZA", "01/07/2022", "enZA"],
-    ["de", "01.07.2022", "de"],
-    ["es-ES", "01/07/2022", "es"],
-    ["fr-FR", "01/07/2022", "fr"],
-    ["fr-CA", "01/07/2022", "frCA"],
-    ["zh-CN", "2022/07/01", "zhCN"],
-    ["pl-PL", "01.07.2022", "pl"],
-    ["bg-BG", "01.07.2022", "bg"],
-    ["zh-HK", "01/07/2022", "zhHK"],
-    ["hu-HU", "2022. 07. 01.", "hu"],
-    ["fi-FI", "01.07.2022", "fi"],
-    ["de-AT", "01.07.2022", "deAT"],
-    ["ko-KR", "2022. 07. 01.", "ko"],
-    ["ar-EG", "01/07/2022", "arEG"],
-    ["hi-HI", "01/07/2022", "hi"],
-    ["sl-SI", "01. 07. 2022", "sl"],
-    ["lv", "01.07.2022.", "lv"],
-  ] as const).forEach(
-    ([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
-      test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after typing short date`, async ({
-        mount,
-        page,
-      }) => {
-        let callbackCount = 0;
-        await mount<HooksConfig>(
-          <DateWithLocales
-            onChange={() => {
-              callbackCount += 1;
-            }}
-          />,
-          {
-            hooksConfig: { localeName: dateFnsLocaleKey },
-          }
-        );
+  (
+    [
+      ["en-US", "07/01/2022", "enUS"],
+      ["en-CA", "07/01/2022", "enCA"],
+      ["en-ZA", "01/07/2022", "enZA"],
+      ["de", "01.07.2022", "de"],
+      ["es-ES", "01/07/2022", "es"],
+      ["fr-FR", "01/07/2022", "fr"],
+      ["fr-CA", "01/07/2022", "frCA"],
+      ["zh-CN", "2022/07/01", "zhCN"],
+      ["pl-PL", "01.07.2022", "pl"],
+      ["bg-BG", "01.07.2022", "bg"],
+      ["zh-HK", "01/07/2022", "zhHK"],
+      ["hu-HU", "2022. 07. 01.", "hu"],
+      ["fi-FI", "01.07.2022", "fi"],
+      ["de-AT", "01.07.2022", "deAT"],
+      ["ko-KR", "2022. 07. 01.", "ko"],
+      ["ar-EG", "01/07/2022", "arEG"],
+      ["hi-HI", "01/07/2022", "hi"],
+      ["sl-SI", "01. 07. 2022", "sl"],
+      ["lv", "01.07.2022.", "lv"],
+    ] as const
+  ).forEach(([localeValue, formattedValueParam, dateFnsLocaleKey]) => {
+    test(`should use ${localeValue} locale and change the formattedValue to ${formattedValueParam} after typing short date`, async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      await mount<HooksConfig>(
+        <DateWithLocales
+          onChange={() => {
+            callbackCount += 1;
+          }}
+        />,
+        {
+          hooksConfig: { localeName: dateFnsLocaleKey },
+        },
+      );
 
-        const getDatetoEnter = () => {
-          if (["en-US", "en-CA"].includes(localeValue))
-            return MMDDYYYY_DATE_TO_ENTER_SHORT;
-          if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
-            return YYYYMMDD_DATE_TO_ENTER_SHORT;
-          return DDMMYYY_DATE_TO_ENTER_SHORT;
-        };
+      const getDatetoEnter = () => {
+        if (["en-US", "en-CA"].includes(localeValue))
+          return MMDDYYYY_DATE_TO_ENTER_SHORT;
+        if (["zh-CN", "hu-HU", "ko-KR"].includes(localeValue))
+          return YYYYMMDD_DATE_TO_ENTER_SHORT;
+        return DDMMYYY_DATE_TO_ENTER_SHORT;
+      };
 
-        const input = getDataElementByValue(page, "input");
-        await input.fill(getDatetoEnter());
-        await input.blur();
-        await expect(input).toHaveValue(formattedValueParam);
+      const input = getDataElementByValue(page, "input");
+      await input.fill(getDatetoEnter());
+      await input.blur();
+      await expect(input).toHaveValue(formattedValueParam);
 
-        expect(callbackCount).toBe(2);
-      });
-    }
-  );
+      expect(callbackCount).toBe(2);
+    });
+  });
 
   test(`should call onBlur callback when a blur event is triggered`, async ({
     mount,
@@ -1147,7 +1145,7 @@ test.describe("Events tests", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const input = getDataElementByValue(page, "input");
@@ -1168,7 +1166,7 @@ test.describe("Events tests", () => {
           callbackCount += 1;
         }}
         allowEmptyValue
-      />
+      />,
     );
 
     const input = getDataElementByValue(page, "input");
@@ -1190,7 +1188,7 @@ test.describe("Events tests", () => {
           callbackCount += 1;
         }}
         allowEmptyValue
-      />
+      />,
     );
 
     const input = getDataElementByValue(page, "input");
@@ -1224,7 +1222,7 @@ test.describe("Accessibility tests", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   test(`should check accessibility for component with autoFocus prop`, async ({
@@ -1287,12 +1285,12 @@ test.describe("Accessibility tests", () => {
             labelAlign={labelAlign}
             labelHelp="labelHelp"
             labelInline
-          />
+          />,
         );
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   test(`should check accessibility for component with required prop`, async ({
@@ -1315,7 +1313,7 @@ test.describe("Accessibility tests", () => {
           labelAlign="right"
           validationOnLabel
           {...{ [type]: "Message" }}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -1332,7 +1330,7 @@ test.describe("Accessibility tests", () => {
           labelInline
           labelAlign="right"
           {...{ [type]: "Message" }}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -1349,7 +1347,11 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <DateInputCustom labelInline labelAlign="right" {...{ [type]: bool }} />
+        <DateInputCustom
+          labelInline
+          labelAlign="right"
+          {...{ [type]: bool }}
+        />,
       );
 
       await checkAccessibility(page);

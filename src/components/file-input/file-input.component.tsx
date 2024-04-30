@@ -83,7 +83,7 @@ export const FileInput = React.forwardRef(
       uploadStatus = [],
       ...rest
     }: FileInputProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const locale = useLocale();
     const textOnButton = buttonText || locale.fileInput.selectFile();
@@ -242,7 +242,7 @@ export const FileInput = React.forwardRef(
         </FormField>
       </InputBehaviour>
     );
-  }
+  },
 );
 
 FileInput.displayName = "FileInput";

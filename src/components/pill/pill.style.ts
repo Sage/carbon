@@ -71,7 +71,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         buttonFocusColor = shade(0.2, getColorValue(pillColor));
         contentColor = meetsContrastGuidelines(
           getColorValue(pillColor),
-          theme.compatibility.colorsUtilityYin090
+          theme.compatibility.colorsUtilityYin090,
         ).AAA
           ? "var(--colorsUtilityYin090)"
           : "var(--colorsUtilityYang100)";

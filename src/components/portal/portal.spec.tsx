@@ -34,12 +34,12 @@ describe("Portal", () => {
       rootWrapper = mount(
         <PortalContext.Provider value={{ renderInRoot: true }}>
           <Portal>{childContent}</Portal>
-        </PortalContext.Provider>
+        </PortalContext.Provider>,
       );
 
       expect(
         rootDiv.getElementsByClassName("carbon-portal")[0].childNodes[0]
-          .textContent
+          .textContent,
       ).toBe(childContent);
     });
   });
@@ -49,7 +49,7 @@ describe("Portal", () => {
       wrapper = mount(
         <Portal>
           <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
-        </Portal>
+        </Portal>,
       );
     });
 
@@ -71,11 +71,11 @@ describe("Portal", () => {
       const wrapper2 = mount(
         <Portal>
           <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
-        </Portal>
+        </Portal>,
       );
 
       expect(
-        document.body.getElementsByClassName("carbon-portal").length
+        document.body.getElementsByClassName("carbon-portal").length,
       ).toEqual(2);
       wrapper2.unmount();
     });
@@ -85,7 +85,7 @@ describe("Portal", () => {
       const wrapper2 = mount(
         <Portal>
           <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
-        </Portal>
+        </Portal>,
       );
       wrapper2.unmount();
       expect(document.body.innerHTML).toEqual("");
@@ -95,7 +95,7 @@ describe("Portal", () => {
       const wrapper2 = shallow(
         <Portal>
           <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
-        </Portal>
+        </Portal>,
       );
       expect(wrapper2).toMatchSnapshot();
     });
@@ -116,7 +116,7 @@ describe("Portal", () => {
         wrapper = mount(
           <Portal>
             <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
-          </Portal>
+          </Portal>,
         );
       });
 
@@ -160,7 +160,7 @@ describe("Portal", () => {
         wrapper = mount(
           <Portal onReposition={repositionCb}>
             <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
-          </Portal>
+          </Portal>,
         );
       });
 
@@ -171,7 +171,7 @@ describe("Portal", () => {
       it('will add window "resize" listener', () => {
         expect(window.addEventListener).toHaveBeenCalledWith(
           "resize",
-          repositionCb
+          repositionCb,
         );
       });
 
@@ -179,7 +179,7 @@ describe("Portal", () => {
         wrapper.unmount();
         expect(window.removeEventListener).toHaveBeenCalledWith(
           "resize",
-          repositionCb
+          repositionCb,
         );
       });
 
@@ -193,7 +193,7 @@ describe("Portal", () => {
     mount(
       <Portal>
         <p>john</p>
-      </Portal>
+      </Portal>,
     );
 
     expect(document.body.innerHTML).toMatchSnapshot();
@@ -213,7 +213,7 @@ describe("Portal", () => {
       wrapper = mount(
         <Portal onReposition={repositionCb}>
           <Icon tooltipMessage="Test" tooltipPosition="top" type="tick" />
-        </Portal>
+        </Portal>,
       );
     });
 
@@ -225,11 +225,11 @@ describe("Portal", () => {
       wrapper.setProps({ onReposition: repositionCbNew });
       expect(window.removeEventListener).toHaveBeenCalledWith(
         "resize",
-        repositionCb
+        repositionCb,
       );
       expect(window.addEventListener).toHaveBeenCalledWith(
         "resize",
-        repositionCbNew
+        repositionCbNew,
       );
     });
   });
@@ -248,7 +248,7 @@ describe("Portal", () => {
           <Portal id={id}>
             <span>a2</span>
           </Portal>
-        </div>
+        </div>,
       );
     });
 
@@ -274,11 +274,11 @@ describe("Portal", () => {
       wrapper = mount(
         <Portal>
           <div id="test" />
-        </Portal>
+        </Portal>,
       );
 
       const carbonScopedTokensProvider = wrapper.find(
-        CarbonScopedTokensProvider
+        CarbonScopedTokensProvider,
       );
 
       expect(carbonScopedTokensProvider.find("#test").exists()).toBe(true);

@@ -36,12 +36,12 @@ describe("Carousel", () => {
         <>
           <Carousel />
           <Carousel />
-        </>
+        </>,
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
       expect(loggerSpy).toHaveBeenCalledWith(
-        "The Carousel component is deprecated and will soon be removed."
+        "The Carousel component is deprecated and will soon be removed.",
       );
 
       loggerSpy.mockRestore();
@@ -79,7 +79,7 @@ describe("Carousel", () => {
           });
 
           expect(wrapper.find("button[data-element='previous']").exists()).toBe(
-            false
+            false,
           );
         });
       });
@@ -99,7 +99,7 @@ describe("Carousel", () => {
 
       it("then the button should be disabled", () => {
         expect(
-          wrapper.find("button[data-element='previous']").props().disabled
+          wrapper.find("button[data-element='previous']").props().disabled,
         ).toBe(true);
       });
 
@@ -137,7 +137,7 @@ describe("Carousel", () => {
           });
 
           expect(wrapper.find("button[data-element='next']").exists()).toBe(
-            false
+            false,
           );
         });
       });
@@ -154,7 +154,7 @@ describe("Carousel", () => {
 
       it("then the button should be disabled", () => {
         expect(
-          wrapper.find("button[data-element='next']").props().disabled
+          wrapper.find("button[data-element='next']").props().disabled,
         ).toBe(true);
       });
 
@@ -172,7 +172,7 @@ describe("Carousel", () => {
       });
 
       expect(
-        wrapper.find("input[data-element='selector-input']").exists()
+        wrapper.find("input[data-element='selector-input']").exists(),
       ).toBe(false);
     });
   });
@@ -214,10 +214,10 @@ describe("Carousel", () => {
       const wrapper = renderCarousel({ children: <Slide /> });
 
       expect(
-        wrapper.find("button[data-element='previous']").props().disabled
+        wrapper.find("button[data-element='previous']").props().disabled,
       ).toBe(true);
       expect(wrapper.find("button[data-element='next']").props().disabled).toBe(
-        true
+        true,
       );
     });
   });
@@ -264,7 +264,7 @@ describe("Carousel", () => {
       const wrapper = shallow(
         <Carousel data-element="bar" data-role="baz" initialSlideIndex={0}>
           <Slide />
-        </Carousel>
+        </Carousel>,
       );
 
       it("include correct component, element and role data tags", () => {
@@ -276,7 +276,7 @@ describe("Carousel", () => {
       const wrapper = mount(
         <Carousel initialSlideIndex={0}>
           <Slide data-element="slide" />
-        </Carousel>
+        </Carousel>,
       );
 
       it("should has expected data elements", () => {
@@ -294,7 +294,7 @@ describe("CarouselPreviousButtonWrapperStyle", () => {
       {
         marginTop: "-32.5px",
       },
-      wrapper
+      wrapper,
     );
   });
 });
@@ -310,7 +310,7 @@ describe("CarouselButtonStyle", () => {
         height: "40px",
         borderRadius: "var(--borderRadius400)",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -321,7 +321,7 @@ describe("CarouselButtonStyle", () => {
       {
         marginRight: "8px",
       },
-      wrapper
+      wrapper,
     );
   });
 });
@@ -337,7 +337,7 @@ describe("CarouselSelectorWrapperStyle", () => {
         marginTop: "25px",
         textAlign: "center",
       },
-      wrapper
+      wrapper,
     );
   });
 });
@@ -355,7 +355,7 @@ describe("CarouselSliderWrapper", () => {
         position: "relative",
         left: "-70%",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -370,9 +370,9 @@ describe("CarouselSliderWrapper", () => {
           opacity: "1",
         },
         wrapper,
-        { modifier: `${SlideStyle}:nth-of-type(${elementIndex + 1})` }
+        { modifier: `${SlideStyle}:nth-of-type(${elementIndex + 1})` },
       );
-    }
+    },
   );
 });
 
@@ -389,7 +389,7 @@ describe("CarouselSelectorLabelStyle", () => {
         height: "10px",
         margin: "0px 4px",
       },
-      wrapper
+      wrapper,
     );
   });
 });
@@ -404,7 +404,7 @@ describe("CarouselSelectorInputWrapperStyle", () => {
       {
         display: "inline-block",
       },
-      wrapper
+      wrapper,
     );
   });
 });
@@ -422,7 +422,7 @@ describe("SlideStyle", () => {
         borderRadius: "var(--borderRadius200)",
         overflow: "hidden",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -434,7 +434,7 @@ describe("SlideStyle", () => {
         cursor: "pointer",
       },
       wrapper,
-      { modifier: ":hover" }
+      { modifier: ":hover" },
     );
   });
 });
@@ -445,7 +445,7 @@ it("coverage filler for else path", () => {
       <Slide />
       <Slide />
       <Slide />
-    </Carousel>
+    </Carousel>,
   );
 
   wrapper.find("button[data-element='next']").first().simulate("click");

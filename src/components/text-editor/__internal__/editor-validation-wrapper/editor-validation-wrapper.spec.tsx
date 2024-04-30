@@ -22,7 +22,7 @@ describe("EditorValidationWrapper", () => {
         float: "right",
         alignItems: "center",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -35,7 +35,7 @@ describe("EditorValidationWrapper", () => {
       expect(
         render({ ...msg })
           .find(ValidationIcon)
-          .exists()
+          .exists(),
       ).toEqual(true);
     });
   });

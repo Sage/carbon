@@ -58,15 +58,12 @@ const InputPresentation = ({
   size = "medium",
   warning,
 }: InputPresentationProps): JSX.Element => {
-  const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } = useContext(
-    InputContext
-  );
+  const { hasFocus, onMouseDown, onMouseEnter, onMouseLeave } =
+    useContext(InputContext);
   const { validationRedesignOptIn } = useContext(NewValidationContext);
 
-  const {
-    onMouseEnter: onGroupMouseEnter,
-    onMouseLeave: onGroupMouseLeave,
-  } = useContext(InputGroupContext);
+  const { onMouseEnter: onGroupMouseEnter, onMouseLeave: onGroupMouseLeave } =
+    useContext(InputGroupContext);
 
   const handleMouseEnter = () => {
     if (onMouseEnter) onMouseEnter();

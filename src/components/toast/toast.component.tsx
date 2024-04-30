@@ -62,7 +62,7 @@ export interface ToastProps {
     ev?:
       | KeyboardEvent
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
   /** Data tag prop bag for close Button */
   closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
@@ -99,7 +99,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       closeButtonDataProps,
       ...restProps
     }: ToastProps,
-    ref
+    ref,
   ) => {
     const isNotice = variant === "notice";
     const isNotification = variant === "notification";
@@ -122,7 +122,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     if (isCenter !== undefined && !isDeprecationWarningTriggered) {
       isDeprecationWarningTriggered = true;
       Logger.deprecate(
-        `isCenter prop in ${Toast.displayName} is being deprecated in favour of the align prop.`
+        `isCenter prop in ${Toast.displayName} is being deprecated in favour of the align prop.`,
       );
     }
 
@@ -133,7 +133,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
           onDismiss(ev);
         }
       },
-      [onDismiss]
+      [onDismiss],
     );
 
     useModalManager({
@@ -159,7 +159,8 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         if (open) {
           // setTimeout needed as otherwise this runs before the ref is populated
           setTimeout(() => {
-            focusedElementBeforeOpening.current = document.activeElement as HTMLElement | null;
+            focusedElementBeforeOpening.current =
+              document.activeElement as HTMLElement | null;
             toastContentNodeRef.current?.focus();
           }, 0);
         } else if (focusedElementBeforeOpening.current) {
@@ -272,7 +273,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         </ToastWrapper>
       </StyledPortal>
     );
-  }
+  },
 );
 
 Toast.displayName = "Toast";

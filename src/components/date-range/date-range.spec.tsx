@@ -33,13 +33,13 @@ function renderDateRange(props: Partial<DateRangeProps> = {}) {
     <DateRange value={initialValues} onChange={() => {}} {...props} />,
     {
       attachTo: document.getElementById("enzymeContainer"),
-    }
+    },
   );
 }
 
 function simulateFocusOnInput(
   container: ReactWrapper | null,
-  dateId: InputName
+  dateId: InputName,
 ) {
   const input = container?.find("input").at(dateId === "start" ? 0 : 1);
 
@@ -48,7 +48,7 @@ function simulateFocusOnInput(
 
 function simulateBlurOnInput(
   container: ReactWrapper | null,
-  dateId: InputName
+  dateId: InputName,
 ) {
   const input = container?.find("input").at(dateId === "start" ? 0 : 1);
 
@@ -415,7 +415,7 @@ describe("DateRange", () => {
         wrapper.update();
         act(() => {
           wrapper?.find(DateInput)?.at(0)?.prop("onKeyDown")?.(
-            (tabKey as unknown) as React.KeyboardEvent<HTMLInputElement>
+            tabKey as unknown as React.KeyboardEvent<HTMLInputElement>,
           );
         });
         wrapper.update();
@@ -435,7 +435,7 @@ describe("DateRange", () => {
             ?.at(0)
             ?.props()
             .onKeyDown?.(
-              (shiftTabKey as unknown) as React.KeyboardEvent<HTMLInputElement>
+              shiftTabKey as unknown as React.KeyboardEvent<HTMLInputElement>,
             );
         });
         wrapper.update();
@@ -451,7 +451,7 @@ describe("DateRange", () => {
         wrapper.update();
         act(() => {
           wrapper?.find(DateInput)?.at(0)?.prop("onKeyDown")?.(
-            (randomKey as unknown) as React.KeyboardEvent<HTMLInputElement>
+            randomKey as unknown as React.KeyboardEvent<HTMLInputElement>,
           );
         }); // for coverage
         wrapper.update();
@@ -469,7 +469,7 @@ describe("DateRange", () => {
         wrapper.update();
         act(() => {
           wrapper?.find(DateInput)?.at(1)?.prop("onKeyDown")?.(
-            (tabKey as unknown) as React.KeyboardEvent<HTMLInputElement>
+            tabKey as unknown as React.KeyboardEvent<HTMLInputElement>,
           );
         });
         wrapper.update();
@@ -485,7 +485,7 @@ describe("DateRange", () => {
         wrapper.update();
         act(() => {
           wrapper?.find(DateInput)?.at(1)?.prop("onKeyDown")?.(
-            (shiftTabKey as unknown) as React.KeyboardEvent<HTMLInputElement>
+            shiftTabKey as unknown as React.KeyboardEvent<HTMLInputElement>,
           );
         });
         wrapper.update();
@@ -499,7 +499,7 @@ describe("DateRange", () => {
   describe("startValue", () => {
     it("sets the value prop on the first input", () => {
       expect(wrapper.find(DateInput).first().prop("value")).toEqual(
-        "10/10/2016"
+        "10/10/2016",
       );
     });
   });
@@ -507,7 +507,7 @@ describe("DateRange", () => {
   describe("endValue", () => {
     it("sets the value prop on the last input", () => {
       expect(wrapper.find(DateInput).last().prop("value")).toEqual(
-        "11/11/2016"
+        "11/11/2016",
       );
     });
   });
@@ -516,13 +516,13 @@ describe("DateRange", () => {
     it("closes the other datepicker", () => {
       simulateFocusOnInput(wrapper, "end");
       expect(
-        wrapper.update().find(DateInput).last().find(DayPicker).exists()
+        wrapper.update().find(DateInput).last().find(DayPicker).exists(),
       ).toBeTruthy();
 
       simulateFocusOnInput(wrapper, "start");
 
       expect(
-        wrapper.update().find(DateInput).last().find(DayPicker).exists()
+        wrapper.update().find(DateInput).last().find(DayPicker).exists(),
       ).toBeFalsy();
     });
   });
@@ -531,12 +531,12 @@ describe("DateRange", () => {
     it("closes the other datepicker", () => {
       simulateFocusOnInput(wrapper, "start");
       expect(
-        wrapper.update().find(DateInput).first().find(DayPicker).exists()
+        wrapper.update().find(DateInput).first().find(DayPicker).exists(),
       ).toBeTruthy();
 
       simulateFocusOnInput(wrapper, "end");
       expect(
-        wrapper.update().find(DateInput).first().find(DayPicker).exists()
+        wrapper.update().find(DateInput).first().find(DayPicker).exists(),
       ).toBeFalsy();
     });
   });
@@ -649,10 +649,10 @@ describe("DateRange", () => {
       });
 
       expect(wrapper.find(DateInput).at(0).props().className).toEqual(
-        "custom-start-class"
+        "custom-start-class",
       );
       expect(wrapper.find(DateInput).at(1).props().className).toEqual(
-        "custom-end-class"
+        "custom-end-class",
       );
     });
   });
@@ -670,13 +670,13 @@ describe("DateRange", () => {
 
       it(`include 'data-element="start-date"'`, () => {
         expect(
-          wrapper.find('DateInput[data-element="start-date"]').exists()
+          wrapper.find('DateInput[data-element="start-date"]').exists(),
         ).toBeTruthy();
       });
 
       it(`include 'data-element="end-date"'`, () => {
         expect(
-          wrapper.find('DateInput[data-element="end-date"]').exists()
+          wrapper.find('DateInput[data-element="end-date"]').exists(),
         ).toBeTruthy();
       });
     });
@@ -696,7 +696,7 @@ describe("DateRange", () => {
         wrapper = renderDateRange({ startRef: ref });
 
         expect(ref).toHaveBeenCalledWith(
-          wrapper.find("input").at(0).getDOMNode()
+          wrapper.find("input").at(0).getDOMNode(),
         );
       });
 
@@ -723,7 +723,7 @@ describe("DateRange", () => {
         wrapper = renderDateRange({ endRef: ref });
 
         expect(ref).toHaveBeenCalledWith(
-          wrapper.find("input").at(1).getDOMNode()
+          wrapper.find("input").at(1).getDOMNode(),
         );
       });
 
@@ -751,7 +751,7 @@ describe("StyledDateRange", () => {
     const wrapper = mount(
       <StyledDateRange labelsInline>
         <StyledDateInput />
-      </StyledDateRange>
+      </StyledDateRange>,
     );
 
     assertStyleMatch({ verticalAlign: "top" }, wrapper, {
@@ -763,7 +763,7 @@ describe("StyledDateRange", () => {
     const wrapper = mount(
       <StyledDateRange>
         <StyledDateInput />
-      </StyledDateRange>
+      </StyledDateRange>,
     );
 
     assertStyleMatch({ verticalAlign: "bottom" }, wrapper, {
@@ -811,7 +811,7 @@ describe("StyledDateRange", () => {
             onChange={() => {}}
             startDateProps={{ size }}
             endDateProps={{ size }}
-          />
+          />,
         ).find(DateInput);
 
         dateInputs.forEach((dateInput) => {
@@ -825,13 +825,13 @@ describe("StyledDateRange", () => {
             modifier: `${StyledLabel}`,
           });
         });
-      }
+      },
     );
   });
 
   it("should set the required attribute on both inputs when prop is true", () => {
     const dateInputs = mount(
-      <DateRange value={["", ""]} onChange={() => {}} required />
+      <DateRange value={["", ""]} onChange={() => {}} required />,
     ).find("input");
 
     expect(dateInputs.first().getDOMNode()).toHaveAttribute("required", "");
@@ -846,7 +846,7 @@ describe("StyledDateRange", () => {
         required
         startLabel="Start"
         endLabel="End"
-      />
+      />,
     ).find(StyledLabel);
 
     assertStyleMatch(
@@ -857,7 +857,7 @@ describe("StyledDateRange", () => {
         marginLeft: "var(--spacing050)",
       },
       labels.first(),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
 
     assertStyleMatch(
@@ -868,7 +868,7 @@ describe("StyledDateRange", () => {
         marginLeft: "var(--spacing050)",
       },
       labels.last(),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -880,7 +880,7 @@ describe("StyledDateRange", () => {
         isOptional
         startLabel="Start"
         endLabel="End"
-      />
+      />,
     ).find(StyledLabelContainer);
 
     assertStyleMatch(
@@ -888,7 +888,7 @@ describe("StyledDateRange", () => {
         content: '"(optional)"',
       },
       labels.first(),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
 
     assertStyleMatch(
@@ -896,7 +896,7 @@ describe("StyledDateRange", () => {
         content: '"(optional)"',
       },
       labels.last(),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -908,7 +908,7 @@ describe("StyledDateRange", () => {
           onChange={() => {}}
           data-element="bar"
           data-role="baz"
-        />
+        />,
       ).find(StyledDateRange);
       rootTagTest(wrapper, "date-range", "bar", "baz");
     });

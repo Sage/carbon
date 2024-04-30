@@ -14,7 +14,7 @@ export const gridPropertyNames = [
 ];
 
 export default function filterStyledSystemGridProps(
-  originalObject: Record<string, unknown> | GridProps
+  originalObject: Record<string, unknown> | GridProps,
 ): GridProps {
   return filterObjectProperties(originalObject, gridPropertyNames);
 }

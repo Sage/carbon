@@ -14,7 +14,8 @@ const floatingMiddleware = [
   })),
   sizeMiddleware({
     apply({ rects, elements }) {
-      (elements.reference as HTMLElement).style.height = `${rects.floating.height}px`;
+      (elements.reference as HTMLElement).style.height =
+        `${rects.floating.height}px`;
       elements.floating.style.width = `${rects.reference.width}px`;
     },
   }),
@@ -51,7 +52,7 @@ export interface FormInputPropTypes
   onBlur?: (ev: React.FocusEvent<HTMLInputElement>) => void;
   /** Specify a callback triggered on change */
   onChange?: (
-    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>
+    ev: CustomSelectChangeEvent | React.ChangeEvent<HTMLInputElement>,
   ) => void;
   /** Specify a callback triggered on click */
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
@@ -136,20 +137,20 @@ const SelectTextbox = React.forwardRef(
       onKeyDown,
       ...restProps
     }: SelectTextboxProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const reference = useMemo(
       () => ({
         current: textboxRef?.parentElement?.parentElement || null,
       }),
-      [textboxRef]
+      [textboxRef],
     );
 
     const floating = useMemo(
       () => ({
         current: textboxRef?.parentElement || null,
       }),
-      [textboxRef]
+      [textboxRef],
     );
 
     useFloating({
@@ -164,7 +165,7 @@ const SelectTextbox = React.forwardRef(
     const l = useLocale();
 
     function handleTextboxClick(
-      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) {
       onClick?.(event as React.MouseEvent<HTMLInputElement>);
     }
@@ -247,7 +248,7 @@ const SelectTextbox = React.forwardRef(
         )}
       </Textbox>
     );
-  }
+  },
 );
 
 SelectTextbox.displayName = "SelectTextbox";

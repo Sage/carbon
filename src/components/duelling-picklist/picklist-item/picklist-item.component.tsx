@@ -55,7 +55,7 @@ export const PicklistItem = React.forwardRef<
       isLastItem,
       ...transitionGroupProps
     }: PicklistItemProps,
-    ref
+    ref,
   ) => {
     const { setElementToFocus } = useContext(FocusContext);
     const picklistItemNodeRef = useRef<HTMLLIElement | null>(null);
@@ -97,7 +97,7 @@ export const PicklistItem = React.forwardRef<
           updateFocusElement();
         }
       },
-      [onChange, item, updateFocusElement]
+      [onChange, item, updateFocusElement],
     );
 
     return (
@@ -134,7 +134,7 @@ export const PicklistItem = React.forwardRef<
         </StyledPicklistItem>
       </CSSTransition>
     );
-  }
+  },
 );
 
 PicklistItem.displayName = "PicklistItem";

@@ -34,7 +34,7 @@ const mockedGuid = "guid-12345";
 
 function renderTextarea(
   props?: TextareaProps & React.RefAttributes<HTMLTextAreaElement>,
-  renderer = mount
+  renderer = mount,
 ) {
   return renderer(<Textarea name="textarea" {...props} />);
 }
@@ -61,7 +61,7 @@ describe("Textarea", () => {
       <Textarea name="my-textarea" defaultValue="test" />;
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Textarea` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -127,7 +127,7 @@ describe("Textarea", () => {
         ...props,
       });
       expect(wrapper.find(StyledTextarea).props().hasIcon).toBe(true);
-    }
+    },
   );
 
   it.each([
@@ -145,9 +145,9 @@ describe("Textarea", () => {
 
       expect(wrapper.find("textarea").getDOMNode()).toHaveAttribute(
         "enterkeyhint",
-        keyHints
+        keyHints,
       );
-    }
+    },
   );
 
   describe.each(validationTypes)(
@@ -159,7 +159,7 @@ describe("Textarea", () => {
           [validationProp]: "Message",
         });
         expect(
-          wrapper.find(InputPresentation).find(ValidationIcon).exists()
+          wrapper.find(InputPresentation).find(ValidationIcon).exists(),
         ).toBe(true);
       });
 
@@ -171,7 +171,7 @@ describe("Textarea", () => {
           tooltipPosition: "bottom",
         });
         expect(
-          wrapper.find(InputPresentation).find(Tooltip).props().position
+          wrapper.find(InputPresentation).find(Tooltip).props().position,
         ).toEqual("bottom");
       });
 
@@ -195,10 +195,10 @@ describe("Textarea", () => {
         });
         expect(
           wrapper.find(Label).find(ValidationIcon).find(Tooltip).props()
-            .position
+            .position,
         ).toEqual("bottom");
       });
-    }
+    },
   );
 
   describe.each(validationTypes)(
@@ -211,7 +211,7 @@ describe("Textarea", () => {
         });
         expect(wrapper.find(ValidationIcon).exists()).toBe(false);
       });
-    }
+    },
   );
 
   describe("helpAriaLabel", () => {
@@ -219,7 +219,7 @@ describe("Textarea", () => {
       const text = "foo";
       wrapper = renderTextarea(
         { label: "foo", labelHelp: text, helpAriaLabel: text },
-        mount
+        mount,
       );
       const help = wrapper.find(StyledHelp);
 
@@ -237,7 +237,7 @@ describe("Textarea", () => {
             label={text}
             labelHelp={text}
             helpAriaLabel={text}
-          />
+          />,
         );
 
         expect(wrapper.find(StyledHelp).prop("aria-label")).toEqual(text);
@@ -258,16 +258,16 @@ describe("Textarea", () => {
           "with %s prop set as a string and the textarea element focused",
           (validationType) => {
             const textarea = mount(
-              <Textarea {...commonProps} {...{ [validationType]: "test" }} />
+              <Textarea {...commonProps} {...{ [validationType]: "test" }} />,
             );
             textarea.find("textarea").simulate("focus");
 
             it('then the id of the validation tooltip should be added to "aria-describedby" in the textarea element', () => {
               expect(
-                textarea.find("textarea").prop("aria-describedby")
+                textarea.find("textarea").prop("aria-describedby"),
               ).toContain(`${id}-validation`);
             });
-          }
+          },
         );
 
         describe("and inputHint props are present", () => {
@@ -284,7 +284,7 @@ describe("Textarea", () => {
           it("should render a valid 'aria-describedby' on input", () => {
             wrapper = mount(<Textarea inputHint="baz" />);
             expect(wrapper.find("textarea").prop("aria-describedby")).toContain(
-              mockedGuid
+              mockedGuid,
             );
           });
 
@@ -296,7 +296,7 @@ describe("Textarea", () => {
                   inputHint="inputHint"
                   error="foo"
                 />
-              </CarbonProvider>
+              </CarbonProvider>,
             );
             expect(wrapper.find(StyledHintText).text()).toBe("inputHint");
           });
@@ -305,20 +305,20 @@ describe("Textarea", () => {
         describe("and fieldHelp props are present", () => {
           it("should render a valid 'aria-describedby'", () => {
             const textarea = mount(
-              <Textarea {...commonProps} fieldHelp="baz" />
+              <Textarea {...commonProps} fieldHelp="baz" />,
             );
 
             expect(
-              textarea.find("textarea").prop("aria-describedby")
+              textarea.find("textarea").prop("aria-describedby"),
             ).toContain(`${id}-field-help`);
           });
 
           it("should pass fieldHelpId to FormField", () => {
             const textarea = mount(
-              <Textarea {...commonProps} fieldHelp="baz" />
+              <Textarea {...commonProps} fieldHelp="baz" />,
             );
             expect(textarea.find(FormField).prop("fieldHelpId")).toBe(
-              `${id}-field-help`
+              `${id}-field-help`,
             );
           });
 
@@ -330,19 +330,19 @@ describe("Textarea", () => {
                   {...commonProps}
                   fieldHelp="baz"
                   {...{ [validationType]: "test" }}
-                />
+                />,
               );
               textarea.find("textarea").simulate("focus");
 
               it('then the id of the validation tooltip should be added to "aria-describedby" in the textarea element', () => {
                 expect(
-                  textarea.find("textarea").prop("aria-describedby")
+                  textarea.find("textarea").prop("aria-describedby"),
                 ).toContain(`${id}-field-help`);
                 expect(
-                  textarea.find("textarea").prop("aria-describedby")
+                  textarea.find("textarea").prop("aria-describedby"),
                 ).toContain(`${id}-validation`);
               });
-            }
+            },
           );
         });
       });
@@ -354,7 +354,7 @@ describe("Textarea", () => {
       const valueString = "foo";
       const limitMinusValue = characterLimit - valueString.length >= 0;
       wrapper = mount(
-        <Textarea value={valueString} characterLimit={characterLimit} />
+        <Textarea value={valueString} characterLimit={characterLimit} />,
       );
       const underCharacters =
         characterLimit - valueString.length === 1 ? "character" : "characters";
@@ -368,7 +368,7 @@ describe("Textarea", () => {
             : `${
                 valueString.length - characterLimit
               } ${overCharacters} too many`
-        }`
+        }`,
       );
     });
 
@@ -380,7 +380,7 @@ describe("Textarea", () => {
     it("that visually hidden hint id should be referenced in inputs aria-described by", () => {
       wrapper = mount(<Textarea value="foo" characterLimit={73} />);
       expect(wrapper.find("textarea").prop("aria-describedby")).toContain(
-        mockedGuid
+        mockedGuid,
       );
     });
   });
@@ -461,7 +461,7 @@ describe("Textarea", () => {
           alignItems: "flex-start",
         },
         wrapper,
-        { modifier: `${StyledLabelContainer}` }
+        { modifier: `${StyledLabelContainer}` },
       );
     });
   });
@@ -488,7 +488,7 @@ describe("Textarea", () => {
         {
           maxWidth: "67%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
 
@@ -498,7 +498,7 @@ describe("Textarea", () => {
         {
           maxWidth: "100%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
   });
@@ -526,14 +526,14 @@ describe("componentWillUnmount", () => {
         cols={10}
         rows={10}
         characterLimit={100}
-      />
+      />,
     );
 
     it("removes the event listener from the window", () => {
       tmpWrapper.unmount();
       expect(removeEventListenerSpy).toHaveBeenCalledWith(
         "resize",
-        expect.any(Function)
+        expect.any(Function),
       );
     });
 
@@ -557,7 +557,7 @@ describe("componentWillUnmount", () => {
                 rows={10}
               />
             </div>
-          </div>
+          </div>,
         );
 
         const scrollWrapper = wrapper.find("#scroll-wrapper").getDOMNode();
@@ -585,13 +585,15 @@ describe("componentWillUnmount", () => {
         label="Label"
         cols={10}
         rows={10}
-      />
+      />,
     );
 
     it("does not remove event listener from the window", () => {
       tmpWrapper.unmount();
       expect(
-        removeEventListenerSpy.mock.calls.filter((call) => call[0] === "resize")
+        removeEventListenerSpy.mock.calls.filter(
+          (call) => call[0] === "resize",
+        ),
       ).toHaveLength(0);
     });
   });
@@ -620,9 +622,9 @@ describe("componentWillUnmount", () => {
         content: '"(optional)"',
       },
       renderTextarea({ isOptional: true, label: "optional" }, mount).find(
-        StyledLabelContainer
+        StyledLabelContainer,
       ),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -639,7 +641,7 @@ describe("componentWillUnmount", () => {
             labelInline
             labelWidth={100}
           />
-        </CarbonProvider>
+        </CarbonProvider>,
       );
 
     it('the id of the validation text should be added to "aria-describedby" in the textarea element', () => {
@@ -647,7 +649,7 @@ describe("componentWillUnmount", () => {
       const wrapper = renderWithNewValidations({ id: mockId, error: "bar" });
 
       expect(wrapper.find("textarea").prop("aria-describedby")).toContain(
-        `${mockId}-validation`
+        `${mockId}-validation`,
       );
     });
 
@@ -669,7 +671,7 @@ describe("componentWillUnmount", () => {
       it("is visible when the prop is passed", () => {
         const wrapper = renderWithNewValidations({});
         expect(wrapper.find(StyledHintText).text()).toEqual(
-          "Example hint text"
+          "Example hint text",
         );
       });
 
@@ -683,7 +685,7 @@ describe("componentWillUnmount", () => {
             marginBottom: "8px",
             color: "var(--colorsUtilityYin055)",
           },
-          wrapper.find(StyledHintText)
+          wrapper.find(StyledHintText),
         );
       });
     });
@@ -733,7 +735,7 @@ describe("componentWillUnmount", () => {
       {
         borderRadius: "var(--borderRadius050)",
       },
-      mount(<Textarea />).find(StyledInputPresentation)
+      mount(<Textarea />).find(StyledInputPresentation),
     );
   });
 
@@ -743,8 +745,8 @@ describe("componentWillUnmount", () => {
         borderRadius: "var(--borderRadius200)",
       },
       mount(<Textarea borderRadius="borderRadius200" />).find(
-        StyledInputPresentation
-      )
+        StyledInputPresentation,
+      ),
     );
   });
 
@@ -762,8 +764,8 @@ describe("componentWillUnmount", () => {
             "borderRadius200",
             "borderRadius400",
           ]}
-        />
-      ).find(StyledInputPresentation)
+        />,
+      ).find(StyledInputPresentation),
     );
   });
 
@@ -780,11 +782,11 @@ describe("componentWillUnmount", () => {
           "borderRadius400",
           "borderRadius050",
         ]}
-      />
+      />,
     );
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      "The `borderRadius` prop in `Textarea` component only supports up to 4 values."
+      "The `borderRadius` prop in `Textarea` component only supports up to 4 values.",
     );
 
     consoleSpy.mockRestore();
@@ -796,7 +798,7 @@ describe("componentWillUnmount", () => {
         {
           border: "1px solid transparent",
         },
-        mount(<Textarea hideBorders />).find(StyledInputPresentation)
+        mount(<Textarea hideBorders />).find(StyledInputPresentation),
       );
     });
 
@@ -805,7 +807,7 @@ describe("componentWillUnmount", () => {
         {
           border: "1px solid transparent",
         },
-        mount(<Textarea hideBorders disabled />).find(StyledInputPresentation)
+        mount(<Textarea hideBorders disabled />).find(StyledInputPresentation),
       );
     });
 
@@ -814,7 +816,7 @@ describe("componentWillUnmount", () => {
         {
           border: "1px solid transparent",
         },
-        mount(<Textarea hideBorders readOnly />).find(StyledInputPresentation)
+        mount(<Textarea hideBorders readOnly />).find(StyledInputPresentation),
       );
     });
   });

@@ -11,7 +11,7 @@ const render = (props = {}) => {
   return mount(
     <StatusWithTooltip {...defaultProps} {...props}>
       foo
-    </StatusWithTooltip>
+    </StatusWithTooltip>,
   );
 };
 
@@ -24,7 +24,7 @@ describe("ContentWithTooltip", () => {
           left: "-4px",
           position: "relative",
         },
-        wrapper.find(StyledStatusIconWrapper)
+        wrapper.find(StyledStatusIconWrapper),
       );
 
       assertStyleMatch(
@@ -33,7 +33,7 @@ describe("ContentWithTooltip", () => {
           marginRight: "-6px",
         },
         wrapper.find(StyledStatusIconWrapper),
-        { modifier: ":before" }
+        { modifier: ":before" },
       );
     });
   });

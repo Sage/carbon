@@ -152,7 +152,7 @@ function simulateMouseDownOnPicker(wrapper: ReactWrapper) {
     input
       .getDOMNode()
       .dispatchEvent(
-        new MouseEvent("mousedown", { ...mockEvent, bubbles: true })
+        new MouseEvent("mousedown", { ...mockEvent, bubbles: true }),
       );
   });
 }
@@ -160,7 +160,7 @@ function simulateMouseDownOnPicker(wrapper: ReactWrapper) {
 function simulateOnKeyUp(
   wrapper: ReactWrapper,
   key: string,
-  shiftKey?: boolean
+  shiftKey?: boolean,
 ) {
   const keyUpParams = { key, shiftKey };
   const input = wrapper.find("input");
@@ -173,7 +173,7 @@ function simulateOnKeyUp(
 function simulateOnKeyDown(
   wrapper: ReactWrapper,
   key: string,
-  shiftKey?: boolean
+  shiftKey?: boolean,
 ) {
   const keyDownParams = { key, shiftKey };
   const input = wrapper.find("input");
@@ -214,10 +214,10 @@ function getValidInputValues(values: string[]) {
     (arr: string[], formatString: string) => [
       ...arr,
       ...["", ".", ",", "-", "/"].map((char) =>
-        formatString.replace(/ /g, char)
+        formatString.replace(/ /g, char),
       ),
     ],
-    []
+    [],
   );
 }
 
@@ -277,7 +277,7 @@ describe("Date", () => {
         assertStyleMatch(
           { width: expectedValue },
           mount(<StyledDateInput size={size} />),
-          { modifier: `& ${StyledInputPresentation}` }
+          { modifier: `& ${StyledInputPresentation}` },
         );
       });
 
@@ -286,7 +286,7 @@ describe("Date", () => {
           assertStyleMatch(
             { width: undefined },
             mount(<StyledDateInput size={size} inputWidth={50} />),
-            { modifier: `& ${StyledInputPresentation}` }
+            { modifier: `& ${StyledInputPresentation}` },
           );
         });
       });
@@ -296,7 +296,7 @@ describe("Date", () => {
           assertStyleMatch(
             { width: undefined },
             mount(<StyledDateInput size={size} maxWidth="300px" />),
-            { modifier: `& ${StyledInputPresentation}` }
+            { modifier: `& ${StyledInputPresentation}` },
           );
         });
       });
@@ -385,7 +385,7 @@ describe("Date", () => {
         simulateFocusOnInput(wrapper);
         expect(onFocusFn).not.toHaveBeenCalled();
         expect(wrapper.update().find(DayPicker).exists()).not.toBe(true);
-      }
+      },
     );
   });
 
@@ -451,7 +451,7 @@ describe("Date", () => {
         simulateBlurOnInput(wrapper);
         expect(onBlurFn).not.toHaveBeenCalled();
         expect(onChangeFn).not.toHaveBeenCalled();
-      }
+      },
     );
 
     it("does not call onBlur when the input is click and DateRangeContext is detected", () => {
@@ -470,7 +470,7 @@ describe("Date", () => {
             onChange={onChangeFn || jest.fn}
             onBlur={onBlurFn || jest.fn}
           />
-        </DateRangeContext.Provider>
+        </DateRangeContext.Provider>,
       );
       simulateMouseDownOnInput(wrapper);
       simulateBlurOnInput(wrapper);
@@ -481,7 +481,7 @@ describe("Date", () => {
       it("emits rawValue as the expected ISO string when year is `69`", () => {
         const eventValuesFn = jest.fn();
         wrapper = mount(
-          <MockComponent eventValues={eventValuesFn} value="12.12.69" />
+          <MockComponent eventValues={eventValuesFn} value="12.12.69" />,
         );
         simulateBlurOnInput(wrapper);
         expect(eventValuesFn).toBeCalledWith({
@@ -493,7 +493,7 @@ describe("Date", () => {
       it("emits rawValue as the expected ISO string when year is `20`", () => {
         const eventValuesFn = jest.fn();
         wrapper = mount(
-          <MockComponent eventValues={eventValuesFn} value="12.12.20" />
+          <MockComponent eventValues={eventValuesFn} value="12.12.20" />,
         );
         simulateBlurOnInput(wrapper);
         expect(eventValuesFn).toBeCalledWith({
@@ -648,7 +648,7 @@ describe("Date", () => {
           wrapper = render({ [param]: true });
           simulateMouseDownOnInput(wrapper);
           expect(wrapper.update().find(DayPicker).exists()).toBe(false);
-        }
+        },
       );
 
       it.each(["disabled", "readOnly"])(
@@ -658,7 +658,7 @@ describe("Date", () => {
           simulateClickOnInput(wrapper);
           expect(onClickFn).not.toHaveBeenCalled();
           expect(wrapper.update().find(DayPicker).exists()).toBe(false);
-        }
+        },
       );
     });
 
@@ -696,7 +696,7 @@ describe("Date", () => {
           simulateClickOnInput(wrapper);
           expect(onClickFn).not.toHaveBeenCalled();
           expect(wrapper.update().find(DayPicker).exists()).toBe(false);
-        }
+        },
       );
     });
 
@@ -708,7 +708,7 @@ describe("Date", () => {
 
         act(() => {
           document.dispatchEvent(
-            new MouseEvent("mousedown", { bubbles: true })
+            new MouseEvent("mousedown", { bubbles: true }),
           );
         });
 
@@ -751,14 +751,14 @@ describe("Date", () => {
   describe("initial value as ISO format", () => {
     describe.each(
       (Object.keys(locales) as (keyof typeof locales)[]).filter(
-        (l) => !["en-CA", "en-US"].includes(l)
-      )
+        (l) => !["en-CA", "en-US"].includes(l),
+      ),
     )("for non-NA locale %s", (localeKey) => {
       it("formats to the expected", () => {
         wrapper = mount(
           <I18nProvider locale={locales[localeKey]}>
             <DateInput value="2012-03-01" onChange={jest.fn} />
-          </I18nProvider>
+          </I18nProvider>,
         );
         const output = localeKey === "de" ? "01.03.2012" : "01/03/2012";
 
@@ -768,14 +768,14 @@ describe("Date", () => {
 
     describe.each(
       (Object.keys(locales) as (keyof typeof locales)[]).filter((l) =>
-        ["en-CA", "en-US"].includes(l)
-      )
+        ["en-CA", "en-US"].includes(l),
+      ),
     )("for NA locale %s", (localeKey) => {
       it("formats to the expected", () => {
         wrapper = mount(
           <I18nProvider locale={locales[localeKey]}>
             <DateInput value="2012-03-01" onChange={jest.fn} />
-          </I18nProvider>
+          </I18nProvider>,
         );
         const output = "03/01/2012";
 
@@ -804,14 +804,14 @@ describe("Date", () => {
         wrapper = mount(<MockComponent />);
         simulateFocusOnInput(wrapper);
         expect(wrapper.update().find(DatePicker).props().selectedDays).toEqual(
-          new Date("02/02/2022")
+          new Date("02/02/2022"),
         );
 
         wrapper
           .find("input")
           .simulate("change", { target: { value: mockValue } });
         expect(wrapper.update().find(DatePicker).props().selectedDays).toBe(
-          undefined
+          undefined,
         );
       });
     });
@@ -881,7 +881,7 @@ describe("Date", () => {
                 rawValue: "2021-01-01",
               },
             },
-          })
+          }),
         );
       });
 
@@ -903,7 +903,7 @@ describe("Date", () => {
               .onDayClick?.(
                 mockDate,
                 { ...mockDayModifiers, disabled: true },
-                mockEvent
+                mockEvent,
               );
           });
         });
@@ -936,7 +936,7 @@ describe("Date", () => {
           wrapper = mount(
             <I18nProvider locale={locales[localeKey]}>
               <MockComponent />
-            </I18nProvider>
+            </I18nProvider>,
           );
         });
 
@@ -950,9 +950,9 @@ describe("Date", () => {
             const expectedValue = `01${separator}01${separator}2021`;
 
             expect(wrapper.update().find("input").prop("value")).toEqual(
-              expectedValue
+              expectedValue,
             );
-          }
+          },
         );
 
         it.each([
@@ -971,11 +971,11 @@ describe("Date", () => {
           const { separator } = locales[localeKey as keyof typeof locales];
           const expectedValue = `01${separator}01${separator}19${value.substring(
             value.length - 2,
-            value.length
+            value.length,
           )}`;
 
           expect(wrapper.update().find("input").prop("value")).toEqual(
-            expectedValue
+            expectedValue,
           );
         });
 
@@ -990,7 +990,7 @@ describe("Date", () => {
             simulateBlurOnInput(wrapper);
 
             expect(wrapper.update().find("input").prop("value")).toEqual(
-              result
+              result,
             );
           });
         });
@@ -1005,17 +1005,17 @@ describe("Date", () => {
               const result = localeKey === "de" ? `29.02.${year}` : value;
               wrapper.find("input").simulate("change", { target: { value } });
               expect(wrapper.update().find("input").prop("value")).toEqual(
-                value
+                value,
               );
               simulateBlurOnInput(wrapper);
 
               expect(wrapper.update().find("input").prop("value")).toEqual(
-                result
+                result,
               );
-            }
+            },
           );
         });
-      }
+      },
     );
   });
 
@@ -1023,7 +1023,7 @@ describe("Date", () => {
     it("emits rawValue as an empty string onBlur", () => {
       const eventValuesFn = jest.fn();
       wrapper = mount(
-        <MockComponent eventValues={eventValuesFn} allowEmptyValue />
+        <MockComponent eventValues={eventValuesFn} allowEmptyValue />,
       );
 
       simulateBlurOnInput(wrapper);
@@ -1096,7 +1096,7 @@ describe("Date", () => {
 
         expect(validationIcon.exists()).toBe(true);
         expect(validationProp).toEqual("foo");
-      }
+      },
     );
 
     it.each<keyof ValidationProps>(["error", "warning", "info"])(
@@ -1118,11 +1118,11 @@ describe("Date", () => {
           {
             borderColor: matchedStyle[validation],
           },
-          wrapper.find(StyledInputPresentation)
+          wrapper.find(StyledInputPresentation),
         );
         expect(validationProp).toEqual("foo");
         expect(wrapper.find(Textbox).props().inputIcon).toBe("calendar");
-      }
+      },
     );
 
     it.each<keyof ValidationProps>(["error", "warning", "info"])(
@@ -1143,9 +1143,9 @@ describe("Date", () => {
           {
             borderColor: matchedStyle[validation],
           },
-          wrapper.find(StyledInputPresentation)
+          wrapper.find(StyledInputPresentation),
         );
-      }
+      },
     );
   });
 
@@ -1171,14 +1171,14 @@ describe("Date", () => {
 
       expect(wrapper.update().find(DayPicker).exists()).toBe(true);
       expect(wrapper.find(DatePicker).props().inputElement.current).toBe(
-        wrapper.find(StyledInputPresentation).getDOMNode()
+        wrapper.find(StyledInputPresentation).getDOMNode(),
       );
     });
   });
 
   it("should set the required attribute on the input when prop is true", () => {
     expect(
-      render({ label: "required", required: true }).find("input").getDOMNode()
+      render({ label: "required", required: true }).find("input").getDOMNode(),
     ).toHaveAttribute("required", "");
   });
 
@@ -1191,7 +1191,7 @@ describe("Date", () => {
         marginLeft: "var(--spacing050)",
       },
       render({ label: "required", required: true }).find(StyledLabel),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -1201,9 +1201,9 @@ describe("Date", () => {
         content: '"(optional)"',
       },
       render({ label: "isOptional", isOptional: true }).find(
-        StyledLabelContainer
+        StyledLabelContainer,
       ),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 });

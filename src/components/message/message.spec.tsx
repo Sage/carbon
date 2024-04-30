@@ -44,7 +44,7 @@ describe("Message", () => {
         alignContent: "center",
         borderRadius: "var(--borderRadius100)",
       },
-      mount(<Message>Message</Message>)
+      mount(<Message>Message</Message>),
     );
   });
 
@@ -82,7 +82,7 @@ describe("Message", () => {
         {
           border: "none",
         },
-        wrapper.find(MessageStyle)
+        wrapper.find(MessageStyle),
       );
     });
   });
@@ -95,9 +95,9 @@ describe("Message", () => {
             {
               border: `1px solid ${messageVariants[messageType]}`,
             },
-            mount(<Message variant={messageType}>Message</Message>)
+            mount(<Message variant={messageType}>Message</Message>),
           );
-        }
+        },
       );
     });
   });
@@ -111,7 +111,7 @@ describe("Message", () => {
       wrapper = shallow(
         <Message variant="info" onDismiss={onDismissCallback}>
           Message
-        </Message>
+        </Message>,
       );
     });
 
@@ -144,7 +144,7 @@ describe("Message", () => {
       wrapper = shallow(
         <Message variant="info" onDismiss={onDismissCallback} showCloseIcon>
           Message
-        </Message>
+        </Message>,
       );
     });
 
@@ -191,7 +191,7 @@ describe("Message", () => {
           <Message onDismiss={jest.fn()}>Message</Message>,
           {
             wrappingComponent,
-          }
+          },
         );
 
         expect(getCloseButtonLabel(wrapper)).toBe("test");
@@ -210,7 +210,7 @@ describe("Message", () => {
       const wrapper = mount(
         <Message onDismiss={() => {}} ref={ref}>
           foobar
-        </Message>
+        </Message>,
       );
 
       const message = wrapper.find(MessageStyle);
@@ -225,7 +225,7 @@ describe("Message", () => {
         const wrapper = mount(
           <Message onDismiss={() => {}} ref={testCallbackRef}>
             foobar
-          </Message>
+          </Message>,
         );
 
         const message = wrapper.find(MessageStyle);

@@ -23,15 +23,15 @@ import ValidationIcon, {
 } from "../../__internal__/validations";
 
 const mockTarget = (tabid: string) =>
-  (({ dataset: { tabid } } as unknown) as HTMLElement);
+  ({ dataset: { tabid } }) as unknown as HTMLElement;
 const mockEvent = (type: string, tabId: string) =>
-  (({ type, target: mockTarget(tabId) } as unknown) as React.MouseEvent<
+  ({ type, target: mockTarget(tabId) }) as unknown as React.MouseEvent<
     HTMLButtonElement | HTMLAnchorElement
-  >);
+  >;
 
 function render(
   props: Partial<TabsProps> = {},
-  mountOptions: MountRendererProps = {}
+  mountOptions: MountRendererProps = {},
 ) {
   return mount(
     <Tabs {...props}>
@@ -63,7 +63,7 @@ function render(
         TabContent
       </Tab>
     </Tabs>,
-    mountOptions
+    mountOptions,
   );
 }
 
@@ -212,7 +212,7 @@ describe("Tabs", () => {
         );
       };
       const wrapper = mount(
-        <MockComponent selectedTabId="uniqueid2" updateChild={false} />
+        <MockComponent selectedTabId="uniqueid2" updateChild={false} />,
       );
 
       expect(wrapper.find(StyledTab).last().prop("isTabSelected")).toBe(true);
@@ -220,7 +220,7 @@ describe("Tabs", () => {
       wrapper.setProps({ updateChild: true });
 
       expect(
-        wrapper.update().find(StyledTab).last().prop("isTabSelected")
+        wrapper.update().find(StyledTab).last().prop("isTabSelected"),
       ).toBe(true);
     });
   });
@@ -240,7 +240,7 @@ describe("Tabs", () => {
               />
               <Textbox error="error" onChange={() => {}} />
             </Tab>
-          </Tabs>
+          </Tabs>,
         );
       }).not.toThrow();
     });
@@ -256,7 +256,7 @@ describe("Tabs", () => {
               <Tab title="Tab Title 1" tabId="uniqueid1">
                 TabContent
               </Tab>
-            </Tabs>
+            </Tabs>,
           );
 
           assertStyleMatch(
@@ -266,7 +266,7 @@ describe("Tabs", () => {
             wrapper,
             {
               modifier: `${StyledTabsHeaderWrapper}`,
-            }
+            },
           );
 
           assertStyleMatch(
@@ -276,10 +276,10 @@ describe("Tabs", () => {
             wrapper,
             {
               modifier: `${StyledTab}`,
-            }
+            },
           );
         });
-      }
+      },
     );
   });
 
@@ -294,11 +294,11 @@ describe("Tabs", () => {
           <Tab title="Tab Title 1" tabId="uniqueid1">
             TabContent
           </Tab>
-        </Tabs>
+        </Tabs>,
       );
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left"
+        "Invalid usage of prop headerWidth in Tabs. The headerWidth can be used only if position is set to left",
       );
 
       consoleSpy.mockRestore();
@@ -320,7 +320,7 @@ describe("Tabs", () => {
           display: "flex",
           width: "100%",
         },
-        wrapper
+        wrapper,
       );
     });
   });
@@ -368,7 +368,7 @@ describe("Tabs", () => {
               <div id="baz" />
               <div id="bax" />
             </Tab>
-          </Tabs>
+          </Tabs>,
         ).find(Tab);
 
         expect(tab).toHaveLength(1);
@@ -384,12 +384,12 @@ describe("Tabs", () => {
             [`${validation}s`]: { one: true },
           };
           const tabTitle = mount(
-            <MockWrapper {...validationProp} renderHiddenTabs={false} />
+            <MockWrapper {...validationProp} renderHiddenTabs={false} />,
           ).find(TabTitle);
 
           expect(tabTitle.at(0).props()[validation]).toEqual(true);
           expect(tabTitle.at(1).props()[validation]).toEqual(false);
-        }
+        },
       );
     });
 
@@ -427,7 +427,7 @@ describe("Tabs", () => {
               <div id="baz" />
               <div id="bax" />
             </Tab>
-          </Tabs>
+          </Tabs>,
         ).find(Tab);
 
         expect(tabs).toHaveLength(3);
@@ -499,25 +499,24 @@ describe("Tabs", () => {
         { selectedTabId: "uniqueid1" },
         {
           attachTo: document.querySelector("#container") as HTMLElement,
-        }
+        },
       );
 
       act(() => {
-        (wrapper
-          .find(StyledTabTitleButton)
-          .at(0)
-          .getDOMNode() as HTMLElement).focus();
+        (
+          wrapper.find(StyledTabTitleButton).at(0).getDOMNode() as HTMLElement
+        ).focus();
       });
 
       expect(document.activeElement).toBe(
-        wrapper.find(StyledTabTitleButton).at(0).getDOMNode()
+        wrapper.find(StyledTabTitleButton).at(0).getDOMNode(),
       );
 
       wrapper.setProps({ selectedTabId: "uniqueid2" });
       wrapper.update();
 
       expect(document.activeElement).not.toBe(
-        wrapper.find(StyledTabTitleButton).at(0).getDOMNode()
+        wrapper.find(StyledTabTitleButton).at(0).getDOMNode(),
       );
 
       wrapper.detach();
@@ -576,7 +575,7 @@ describe("Tabs", () => {
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
           expect(getTabNode(newIndex)).toEqual(document.activeElement);
-        }
+        },
       );
 
       it.each([0, 2, 1])(
@@ -589,7 +588,7 @@ describe("Tabs", () => {
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
           expect(getTabNode(newIndex)).toEqual(document.activeElement);
-        }
+        },
       );
     });
 
@@ -604,7 +603,7 @@ describe("Tabs", () => {
           wrapper.update();
           const newIndex = index === 2 ? 0 : index + 1;
           expect(getTabNode(newIndex)).toEqual(document.activeElement);
-        }
+        },
       );
 
       it.each([0, 2, 1])(
@@ -617,7 +616,7 @@ describe("Tabs", () => {
           wrapper.update();
           const newIndex = index === 0 ? 2 : index - 1;
           expect(getTabNode(newIndex)).toEqual(document.activeElement);
-        }
+        },
       );
     });
 
@@ -633,7 +632,7 @@ describe("Tabs", () => {
         });
         wrapper.update();
         expect(wrapper.find(Tab).at(index).props().isTabSelected).toEqual(true);
-      }
+      },
     );
 
     it.each([0, 1, 2])("does nothing if key is not an arrow key", (index) => {
@@ -684,7 +683,7 @@ describe("Tabs", () => {
         </DrawerSidebarContext.Provider>,
         {
           attachTo: document.getElementById("enzymeContainer"),
-        }
+        },
       );
     });
 
@@ -708,9 +707,9 @@ describe("Tabs", () => {
         const newIndex = index === 2 ? 0 : index + 1;
 
         expect(
-          wrapper.find(StyledTabTitleButton).at(newIndex).getDOMNode()
+          wrapper.find(StyledTabTitleButton).at(newIndex).getDOMNode(),
         ).toBeFocused();
-      }
+      },
     );
 
     it.each([0, 1, 2])(
@@ -723,9 +722,9 @@ describe("Tabs", () => {
         const newIndex = index === 0 ? 2 : index - 1;
 
         expect(
-          wrapper.find(StyledTabTitleButton).at(newIndex).getDOMNode()
+          wrapper.find(StyledTabTitleButton).at(newIndex).getDOMNode(),
         ).toBeFocused();
-      }
+      },
     );
   });
 });
@@ -743,7 +742,7 @@ describe("With one Tab", () => {
         >
           <div />
         </Tab>
-      </Tabs>
+      </Tabs>,
     ).find(Tab);
 
     expect(tab.props().isTabSelected).toEqual(true);
@@ -755,7 +754,7 @@ describe("With one Tab", () => {
 describe("Validation", () => {
   const updateProps = (
     wrapper: ReactWrapper<MockWrapperProps>,
-    props: MockWrapperProps
+    props: MockWrapperProps,
   ) => {
     wrapper.setProps({
       errors: { ...wrapper.props().errors, ...props.errors },
@@ -775,7 +774,7 @@ describe("Validation", () => {
 
     it('sets "tabHasError" to true when a Tab has errors', () => {
       const tabTitle = mount(<MockWrapper errors={{ one: true }} />).find(
-        TabTitle
+        TabTitle,
       );
 
       expect(tabTitle.at(0).props().error).toEqual(true);
@@ -784,7 +783,7 @@ describe("Validation", () => {
 
     it('sets "tabHasError" to true for any Tab that has an error', () => {
       const tabTitle = mount(
-        <MockWrapper errors={{ one: true, three: true }} />
+        <MockWrapper errors={{ one: true, three: true }} />,
       ).find(TabTitle);
 
       expect(tabTitle.at(0).props().error).toEqual(true);
@@ -793,7 +792,7 @@ describe("Validation", () => {
 
     it('maintains "tabHasError" status when Tab children update', () => {
       const wrapper = mount(
-        <MockWrapper errors={{ one: true, three: true }} />
+        <MockWrapper errors={{ one: true, three: true }} />,
       );
       updateProps(wrapper, { errors: { two: true, three: false } });
       let tabTitle = wrapper.find(TabTitle);
@@ -810,7 +809,7 @@ describe("Validation", () => {
           errors={{ one: true, three: true }}
           warnings={{ one: true, three: true }}
           infos={{ one: true, three: true }}
-        />
+        />,
       ).find(TabTitle);
 
       expect(tabTitle.at(0).props().error).toEqual(true);
@@ -832,7 +831,7 @@ describe("Validation", () => {
 
     it('does not set "tabHasWarning" when "tabHasError" is true', () => {
       const tabTitle = mount(
-        <MockWrapper errors={{ one: true }} warnings={{ one: true }} />
+        <MockWrapper errors={{ one: true }} warnings={{ one: true }} />,
       ).find(TabTitle);
 
       expect(tabTitle.at(0).props().error).toEqual(true);
@@ -843,7 +842,7 @@ describe("Validation", () => {
   describe("When a Tab child has a warning and no errors", () => {
     it('sets "tabHasWarning" is true and "tabHasError" is falsy', () => {
       const tabTitle = mount(<MockWrapper warnings={{ one: true }} />).find(
-        TabTitle
+        TabTitle,
       );
 
       expect(tabTitle.at(0).props().warning).toEqual(true);
@@ -852,7 +851,7 @@ describe("Validation", () => {
 
     it('sets "tabHasWarning" for each Tab that has warning and "tabHasError" is falsy', () => {
       const tabTitle = mount(
-        <MockWrapper warnings={{ one: true, three: true }} />
+        <MockWrapper warnings={{ one: true, three: true }} />,
       ).find(TabTitle);
 
       expect(tabTitle.at(0).props().warning).toEqual(true);
@@ -861,7 +860,7 @@ describe("Validation", () => {
 
     it('maintains "tabHasWarning" status when Tab children update', () => {
       const wrapper = mount(
-        <MockWrapper warnings={{ one: true, three: true }} />
+        <MockWrapper warnings={{ one: true, three: true }} />,
       );
       updateProps(wrapper, { warnings: { two: true, three: false } });
       let tabTitle = wrapper.find(TabTitle);
@@ -876,7 +875,7 @@ describe("Validation", () => {
   describe("When a Tab child has an info and no errors or warnings", () => {
     it('sets "tabHasWarning" is true and "tabHasError" is falsy', () => {
       const tabTitle = mount(<MockWrapper infos={{ one: true }} />).find(
-        TabTitle
+        TabTitle,
       );
 
       expect(tabTitle.at(0).props().info).toEqual(true);
@@ -885,7 +884,7 @@ describe("Validation", () => {
 
     it('sets "tabHasInfo" for each Tab that has info and "tabHasError" and "tabHasWarning" are falsy', () => {
       const tabTitle = mount(
-        <MockWrapper infos={{ one: true, three: true }} />
+        <MockWrapper infos={{ one: true, three: true }} />,
       ).find(TabTitle);
 
       expect(tabTitle.at(0).props().info).toEqual(true);
@@ -919,7 +918,7 @@ describe("Validation", () => {
               TabContent
             </Tab>
           </Tabs>
-        </DrawerSidebarContext.Provider>
+        </DrawerSidebarContext.Provider>,
       );
       act(() => {
         wrapper.find(TabTitle).props().onClick(mockEvent("click", "uniqueid1"));
@@ -937,7 +936,7 @@ describe("Validation", () => {
             uniqueid1: { error: true },
             uniqueid2: { error: false },
           }}
-        />
+        />,
       ).find(TabTitle);
 
       expect(tabTitle.at(0).props().error).toEqual(true);
@@ -952,7 +951,7 @@ describe("Validation", () => {
             uniqueid1: { warning: true },
             uniqueid2: { warning: false },
           }}
-        />
+        />,
       ).find(TabTitle);
 
       expect(tabTitle.at(0).props().warning).toEqual(true);
@@ -967,7 +966,7 @@ describe("Validation", () => {
             uniqueid1: { info: true },
             uniqueid2: { info: false },
           }}
-        />
+        />,
       ).find(TabTitle);
 
       expect(tabTitle.at(0).props().info).toEqual(true);
@@ -1046,28 +1045,25 @@ describe("Validation", () => {
     };
 
     it("is consistent when navigating with the arrow keys and the composition of the children changes", () => {
-      (wrapper
-        .find(StyledTabTitleButton)
-        .first()
-        .getDOMNode() as HTMLElement).focus();
+      (
+        wrapper.find(StyledTabTitleButton).first().getDOMNode() as HTMLElement
+      ).focus();
 
       runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
       toggleChildren();
 
-      (wrapper
-        .find(StyledTabTitleButton)
-        .first()
-        .getDOMNode() as HTMLElement).focus();
+      (
+        wrapper.find(StyledTabTitleButton).first().getDOMNode() as HTMLElement
+      ).focus();
 
       runFocusExpectations("pressArrowLeft", [0, 2, 1, 0, 2]);
 
       toggleChildren();
 
-      (wrapper
-        .find(StyledTabTitleButton)
-        .first()
-        .getDOMNode() as HTMLElement).focus();
+      (
+        wrapper.find(StyledTabTitleButton).first().getDOMNode() as HTMLElement
+      ).focus();
 
       runFocusExpectations("pressArrowRight", [0, 1, 2, 0]);
     });
@@ -1085,7 +1081,7 @@ describe("tags", () => {
           warningMessage=""
           infoMessage=""
         />
-      </Tabs>
+      </Tabs>,
     ).find(StyledTabs);
 
     it("include correct component, element and role data tags", () => {
@@ -1106,7 +1102,7 @@ describe("tags", () => {
         >
           Content for Tab 1
         </Tab>
-      </Tabs>
+      </Tabs>,
     );
     expect(wrapper.find(TabTitle).prop("data-role")).toEqual(dataRole);
   });
@@ -1150,7 +1146,7 @@ describe("tags", () => {
         wrapper.setProps({ show: false });
         wrapper.update();
         expect(wrapper.update().find(ValidationIcon).exists()).toBe(false);
-      }
+      },
     );
   });
 
@@ -1177,13 +1173,13 @@ describe("tags", () => {
                 {...{ [validation]: validation }}
               />
             </Tab>
-          </Tabs>
+          </Tabs>,
         )
           .find(TabTitle)
           .prop(`${validation}Message`);
 
         expect(message).toEqual(
-          `• ${validation}\n• ${validation}\n• ${validation}`
+          `• ${validation}\n• ${validation}\n• ${validation}`,
         );
       });
 
@@ -1207,7 +1203,7 @@ describe("tags", () => {
                 {...{ [validation]: true }}
               />
             </Tab>
-          </Tabs>
+          </Tabs>,
         )
           .find(TabTitle)
           .prop(`${validation}Message`);
@@ -1225,7 +1221,7 @@ describe("tags", () => {
                 {...{ [validation]: validation }}
               />
             </Tab>
-          </Tabs>
+          </Tabs>,
         )
           .find(TabTitle)
           .prop(`${validation}Message`);
@@ -1257,13 +1253,13 @@ describe("tags", () => {
                 {...{ [validation]: true }}
               />
             </Tab>
-          </Tabs>
+          </Tabs>,
         )
           .find(TabTitle)
           .prop(`${validation}Message`);
 
         expect(message).toEqual(`${validation} message`);
       });
-    }
+    },
   );
 });

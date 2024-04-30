@@ -24,7 +24,7 @@ describe("StickyFooter component", () => {
         padding: "var(--spacing200) var(--spacing400)",
         boxSizing: "border-box",
       });
-    }
+    },
   );
 
   describe("scroll behaviour", () => {

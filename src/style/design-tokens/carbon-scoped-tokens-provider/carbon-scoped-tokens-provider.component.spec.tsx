@@ -16,7 +16,7 @@ describe("CarbonScopedTokensProvider", () => {
         <ThemeProvider theme={sageTheme}>
           <CarbonScopedTokensProvider />
         </ThemeProvider>
-      </>
+      </>,
     );
 
     expect(document.styleSheets[0].cssRules).toMatchSnapshot();

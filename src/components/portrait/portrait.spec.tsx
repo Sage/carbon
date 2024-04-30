@@ -29,7 +29,7 @@ function renderDLS(element: JSX.Element) {
 function renderFindTypeSuccess(
   element: JSX.Element,
   type: EnzymePropSelector,
-  expectedProps: Record<string, unknown>
+  expectedProps: Record<string, unknown>,
 ) {
   expect(renderDLS(element).find(type).props()).toMatchObject(expectedProps);
 }
@@ -44,7 +44,7 @@ describe("PortraitComponent", () => {
   describe("Portrait styles", () => {
     it("applies expected styles to Portrait container", () => {
       const wrapper = mount(
-        <Portrait shape="circle" initials="AB" darkBackground={false} />
+        <Portrait shape="circle" initials="AB" darkBackground={false} />,
       );
 
       assertStyleMatch(
@@ -53,13 +53,13 @@ describe("PortraitComponent", () => {
           border: "1px solid var(--colorsUtilityReadOnly600)",
           display: "inline-block",
         },
-        wrapper.find(StyledPortraitContainer)
+        wrapper.find(StyledPortraitContainer),
       );
     });
 
     it("applies expected styles to Portrait with initials", () => {
       const wrapper = mount(
-        <Portrait shape="circle" initials="AB" darkBackground={false} />
+        <Portrait shape="circle" initials="AB" darkBackground={false} />,
       );
 
       assertStyleMatch(
@@ -72,7 +72,7 @@ describe("PortraitComponent", () => {
           height: "inherit",
           width: "inherit",
         },
-        wrapper.find(StyledPortraitInitials)
+        wrapper.find(StyledPortraitInitials),
       );
     });
 
@@ -82,7 +82,7 @@ describe("PortraitComponent", () => {
           shape="circle"
           src="https://example.com/example.jpg"
           darkBackground={false}
-        />
+        />,
       );
 
       assertStyleMatch(
@@ -90,7 +90,7 @@ describe("PortraitComponent", () => {
           height: "inherit",
           width: "inherit",
         },
-        wrapper.find(StyledCustomImg)
+        wrapper.find(StyledCustomImg),
       );
     });
 
@@ -100,7 +100,7 @@ describe("PortraitComponent", () => {
           shape="circle"
           gravatar="chris.barber@sage.com"
           darkBackground={false}
-        />
+        />,
       );
 
       assertStyleMatch(
@@ -108,13 +108,13 @@ describe("PortraitComponent", () => {
           width: "inherit",
           height: "inherit",
         },
-        wrapper.find(StyledPortraitGravatar)
+        wrapper.find(StyledPortraitGravatar),
       );
     });
 
     it("applies expected styling to Portrait with icon", () => {
       const wrapper = mount(
-        <Portrait shape="square" darkBackground={false} iconType="image" />
+        <Portrait shape="square" darkBackground={false} iconType="image" />,
       );
 
       assertStyleMatch(
@@ -124,7 +124,7 @@ describe("PortraitComponent", () => {
           width: "inherit",
         },
         wrapper.find(StyledIcon),
-        { modifier: "&&" }
+        { modifier: "&&" },
       );
     });
   });
@@ -142,9 +142,9 @@ describe("PortraitComponent", () => {
               fontSize: `${iconDimensions}px`,
             },
             wrapper.find(StyledIcon),
-            { modifier: "&&::before" }
+            { modifier: "&&::before" },
           );
-        }
+        },
       );
 
       it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
@@ -154,9 +154,9 @@ describe("PortraitComponent", () => {
             {
               width: `${dimensions}px`,
             },
-            wrapper.find(StyledPortraitContainer)
+            wrapper.find(StyledPortraitContainer),
           );
-        }
+        },
       );
 
       it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
@@ -166,11 +166,11 @@ describe("PortraitComponent", () => {
             {
               height: `${dimensions}px`,
             },
-            wrapper.find(StyledPortraitContainer)
+            wrapper.find(StyledPortraitContainer),
           );
-        }
+        },
       );
-    }
+    },
   );
 
   describe.each(["XS", "S", "M", "ML", "L", "XL", "XXL"] as ProfileSize[])(
@@ -185,9 +185,9 @@ describe("PortraitComponent", () => {
             {
               fontSize: initialSize,
             },
-            wrapper.find(StyledPortraitInitials)
+            wrapper.find(StyledPortraitInitials),
           );
-        }
+        },
       );
 
       it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
@@ -197,9 +197,9 @@ describe("PortraitComponent", () => {
             {
               width: `${dimensions}px`,
             },
-            wrapper.find(StyledPortraitContainer)
+            wrapper.find(StyledPortraitContainer),
           );
-        }
+        },
       );
 
       it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
@@ -209,18 +209,18 @@ describe("PortraitComponent", () => {
             {
               height: `${dimensions}px`,
             },
-            wrapper.find(StyledPortraitContainer)
+            wrapper.find(StyledPortraitContainer),
           );
-        }
+        },
       );
-    }
+    },
   );
 
   describe.each(["XS", "S", "M", "ML", "L", "XL", "XXL"] as PortraitSizes[])(
     "size style checks - with src",
     (size) => {
       const wrapper = mount(
-        <Portrait src="https://example.com/example.jpg" size={size} />
+        <Portrait src="https://example.com/example.jpg" size={size} />,
       );
 
       it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
@@ -230,9 +230,9 @@ describe("PortraitComponent", () => {
             {
               width: `${dimensions}px`,
             },
-            wrapper.find(StyledPortraitContainer)
+            wrapper.find(StyledPortraitContainer),
           );
-        }
+        },
       );
 
       it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
@@ -242,18 +242,18 @@ describe("PortraitComponent", () => {
             {
               height: `${dimensions}px`,
             },
-            wrapper.find(StyledPortraitContainer)
+            wrapper.find(StyledPortraitContainer),
           );
-        }
+        },
       );
-    }
+    },
   );
 
   describe.each(["XS", "S", "M", "ML", "L", "XL", "XXL"] as PortraitSizes[])(
     "size style checks - with gravatar",
     (size) => {
       const wrapper = mount(
-        <Portrait gravatar="chris.barber@sage.com" size={size} />
+        <Portrait gravatar="chris.barber@sage.com" size={size} />,
       );
 
       it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
@@ -263,9 +263,9 @@ describe("PortraitComponent", () => {
             {
               width: `${dimensions}px`,
             },
-            wrapper.find(StyledPortraitContainer)
+            wrapper.find(StyledPortraitContainer),
           );
-        }
+        },
       );
 
       it.each([PORTRAIT_SIZE_PARAMS[size].dimensions])(
@@ -275,11 +275,11 @@ describe("PortraitComponent", () => {
             {
               height: `${dimensions}px`,
             },
-            wrapper.find(StyledPortraitContainer)
+            wrapper.find(StyledPortraitContainer),
           );
-        }
+        },
       );
-    }
+    },
   );
 
   describe("colour checks - initials", () => {
@@ -291,7 +291,7 @@ describe("PortraitComponent", () => {
           color: "var(--colorsUtilityYin090)",
           backgroundColor: "var(--colorsUtilityReadOnly400)",
         },
-        wrapper.find(StyledPortraitContainer)
+        wrapper.find(StyledPortraitContainer),
       );
     });
 
@@ -303,7 +303,7 @@ describe("PortraitComponent", () => {
           color: "var(--colorsUtilityReadOnly600)",
           backgroundColor: "var(--colorsUtilityYin090)",
         },
-        wrapper.find(StyledPortraitContainer)
+        wrapper.find(StyledPortraitContainer),
       );
     });
   });
@@ -317,7 +317,7 @@ describe("PortraitComponent", () => {
           color: "var(--colorsUtilityYin090)",
           backgroundColor: "var(--colorsUtilityReadOnly400)",
         },
-        wrapper.find(StyledPortraitContainer)
+        wrapper.find(StyledPortraitContainer),
       );
     });
 
@@ -329,7 +329,7 @@ describe("PortraitComponent", () => {
           color: "var(--colorsUtilityReadOnly600)",
           backgroundColor: "var(--colorsUtilityYin090)",
         },
-        wrapper.find(StyledPortraitContainer)
+        wrapper.find(StyledPortraitContainer),
       );
     });
   });
@@ -340,19 +340,19 @@ describe("PortraitComponent", () => {
 
     it("renders icon when not supplied with Gravatar or src or initials", () => {
       const wrapper = mount(
-        <Portrait size="XXL" shape="square" darkBackground={false} />
+        <Portrait size="XXL" shape="square" darkBackground={false} />,
       );
       expect(wrapper.find(StyledIcon).props()).toEqual(
-        expect.objectContaining({ type: "individual", size: "XXL" })
+        expect.objectContaining({ type: "individual", size: "XXL" }),
       );
     });
 
     it("renders specified icon when not supplied with Gravatar, src or initials", () => {
       const wrapper = mount(
-        <Portrait size="XXL" shape="square" darkBackground iconType="image" />
+        <Portrait size="XXL" shape="square" darkBackground iconType="image" />,
       );
       expect(wrapper.find(StyledIcon).props()).toEqual(
-        expect.objectContaining({ type: "image", size: "XXL" })
+        expect.objectContaining({ type: "image", size: "XXL" }),
       );
     });
 
@@ -366,7 +366,7 @@ describe("PortraitComponent", () => {
 
     it("doesn't render icon when supplied with src and initials", () => {
       testFail(
-        <Portrait src="https://example.com/example.jpg" initials="AB" />
+        <Portrait src="https://example.com/example.jpg" initials="AB" />,
       );
     });
 
@@ -384,7 +384,7 @@ describe("PortraitComponent", () => {
             shape="square"
             darkBackground={false}
             onClick={onClickFn}
-          />
+          />,
         );
 
         wrapper.simulate("click");
@@ -394,11 +394,11 @@ describe("PortraitComponent", () => {
       it("check if has cursor pointer", () => {
         const onClickFn = jest.fn();
         const wrapper = mount(
-          <Portrait size="L" darkBackground={false} onClick={onClickFn} />
+          <Portrait size="L" darkBackground={false} onClick={onClickFn} />,
         );
         assertStyleMatch(
           { cursor: "pointer" },
-          wrapper.find(StyledPortraitContainer)
+          wrapper.find(StyledPortraitContainer),
         );
       });
     });
@@ -455,7 +455,7 @@ describe("PortraitComponent", () => {
         const wrapper = mount(<Portrait initials="AB" onClick={onClickFn} />);
         assertStyleMatch(
           { cursor: "pointer" },
-          wrapper.find(StyledPortraitContainer)
+          wrapper.find(StyledPortraitContainer),
         );
       });
     });
@@ -485,7 +485,7 @@ describe("PortraitComponent", () => {
         const onClickFn = jest.fn();
 
         const wrapper = shallow(
-          <Portrait gravatar={gravatarEmail} alt="foo" onClick={onClickFn} />
+          <Portrait gravatar={gravatarEmail} alt="foo" onClick={onClickFn} />,
         );
 
         wrapper.simulate("click");
@@ -495,11 +495,11 @@ describe("PortraitComponent", () => {
       it("check if has cursor pointer", () => {
         const onClickFn = jest.fn();
         const wrapper = mount(
-          <Portrait gravatar={gravatarEmail} alt="foo" onClick={onClickFn} />
+          <Portrait gravatar={gravatarEmail} alt="foo" onClick={onClickFn} />,
         );
         assertStyleMatch(
           { cursor: "pointer" },
-          wrapper.find(StyledPortraitContainer)
+          wrapper.find(StyledPortraitContainer),
         );
       });
     });
@@ -510,7 +510,7 @@ describe("PortraitComponent", () => {
 
     const testSuccess = (
       element: JSX.Element,
-      expectedProps: Record<string, unknown>
+      expectedProps: Record<string, unknown>,
     ) => renderFindTypeSuccess(element, StyledCustomImg, expectedProps);
 
     it("renders avatar when supplied with src but no Gravatar", () => {
@@ -542,7 +542,7 @@ describe("PortraitComponent", () => {
         const onClickFn = jest.fn();
 
         const wrapper = shallow(
-          <Portrait src={imageUrl} alt="foo" onClick={onClickFn} />
+          <Portrait src={imageUrl} alt="foo" onClick={onClickFn} />,
         );
         wrapper.simulate("click");
         expect(onClickFn).toHaveBeenCalledTimes(1);
@@ -551,11 +551,11 @@ describe("PortraitComponent", () => {
       it("check if has cursor pointer", () => {
         const onClickFn = jest.fn();
         const wrapper = mount(
-          <Portrait src={imageUrl} alt="foo" onClick={onClickFn} />
+          <Portrait src={imageUrl} alt="foo" onClick={onClickFn} />,
         );
         assertStyleMatch(
           { cursor: "pointer" },
-          wrapper.find(StyledPortraitContainer)
+          wrapper.find(StyledPortraitContainer),
         );
       });
     });
@@ -566,7 +566,7 @@ describe("PortraitComponent", () => {
       const wrapper = mount(<Portrait gravatar="example@example.com" />);
       expect(wrapper.find(StyledPortraitGravatar).exists()).toBeTruthy();
       ReactTestUtils.Simulate.error(
-        wrapper.find(StyledPortraitGravatar).getDOMNode()
+        wrapper.find(StyledPortraitGravatar).getDOMNode(),
       ); // Triggers `onError` of <StyledPortraitGravatar>
       wrapper.update();
       expect(wrapper.find(StyledPortraitGravatar).exists()).toBeFalsy();
@@ -587,7 +587,7 @@ describe("PortraitComponent", () => {
     it("includes data tags for component, element and role on Portrait component", () => {
       const wrapper = shallow(
         <Portrait src={imageUrl} data-element="bar" data-role="baz" />,
-        { context: { theme: sageTheme } }
+        { context: { theme: sageTheme } },
       );
       rootTagTest(wrapper, "portrait", "bar", "baz");
     });
@@ -595,14 +595,14 @@ describe("PortraitComponent", () => {
     it("includes user-image tag on internal elements when there is an image", () => {
       const rendered = renderDLS(<Portrait src={imageUrl} />);
       expect(
-        rendered.find({ "data-element": "user-image" }).length
+        rendered.find({ "data-element": "user-image" }).length,
       ).toBeGreaterThan(0);
     });
   });
 
   it("renders a `Tooltip` if tooltipMessage is passed", () => {
     const wrapper = shallow(
-      <Portrait initials="AB" tooltipMessage="message" />
+      <Portrait initials="AB" tooltipMessage="message" />,
     );
 
     expect(wrapper.find(Tooltip).exists()).toBeTruthy();
@@ -615,10 +615,10 @@ describe("PortraitComponent", () => {
 
       expect(() =>
         shallow(
-          <Portrait src="https://example.com/example.jpg" gravatar="baz" />
-        )
+          <Portrait src="https://example.com/example.jpg" gravatar="baz" />,
+        ),
       ).toThrow(
-        "The `src` prop cannot be used in conjunction with the `gravatar` prop. Please use one or the other."
+        "The `src` prop cannot be used in conjunction with the `gravatar` prop. Please use one or the other.",
       );
 
       consoleSpy.mockRestore();
@@ -629,7 +629,7 @@ describe("PortraitComponent", () => {
       consoleSpy.mockImplementation(() => {});
 
       expect(() =>
-        shallow(<Portrait src="https://example.com/example.jpg" />)
+        shallow(<Portrait src="https://example.com/example.jpg" />),
       ).not.toThrow();
 
       consoleSpy.mockRestore();
@@ -650,7 +650,7 @@ describe("PortraitComponent", () => {
       const shape = mount(
         <CarbonProvider roundedCornersOptOut>
           <Portrait initials="AB" tooltipMessage="message" />
-        </CarbonProvider>
+        </CarbonProvider>,
       )
         .find(StyledPortraitContainer)
         .prop("shape");
@@ -662,7 +662,7 @@ describe("PortraitComponent", () => {
       const shape = mount(
         <CarbonProvider>
           <Portrait initials="AB" tooltipMessage="message" />
-        </CarbonProvider>
+        </CarbonProvider>,
       )
         .find(StyledPortraitContainer)
         .prop("shape");

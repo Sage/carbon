@@ -22,10 +22,10 @@ const mountComponent = (props: GroupedCharacterProps) =>
 
 function renderGroupedCharacter(
   props: Partial<GroupedCharacterProps> & React.RefAttributes<HTMLInputElement>,
-  renderer = mount
+  renderer = mount,
 ) {
   return renderer(
-    <GroupedCharacter groups={[2, 2, 3]} separator="-" {...props} />
+    <GroupedCharacter groups={[2, 2, 3]} separator="-" {...props} />,
   );
 }
 
@@ -39,7 +39,7 @@ describe("GroupedCharacter", () => {
     (props) => <GroupedCharacter groups={[2, 2, 3]} separator="-" {...props} />,
     undefined,
     (wrapper) => wrapper.find(FormFieldStyle),
-    { modifier: "&&&" }
+    { modifier: "&&&" },
   );
 
   let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
@@ -61,7 +61,7 @@ describe("GroupedCharacter", () => {
       mount(<GroupedCharacter groups={[2, 2, 3]} separator="-" />);
 
       expect(loggerSpy).toHaveBeenCalledWith(
-        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Grouped Character` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
 
       expect(loggerSpy).toHaveBeenCalledTimes(1);
@@ -192,17 +192,16 @@ describe("GroupedCharacter", () => {
   });
 
   describe("keydown events", () => {
-    const setCursorOn = (node: ReactWrapper, setSelectionRange: jest.Mock) => (
-      selectionEnd: number,
-      value: string
-    ) =>
-      node.simulate("change", {
-        target: { selectionEnd, value, setSelectionRange },
-      });
+    const setCursorOn =
+      (node: ReactWrapper, setSelectionRange: jest.Mock) =>
+      (selectionEnd: number, value: string) =>
+        node.simulate("change", {
+          target: { selectionEnd, value, setSelectionRange },
+        });
 
-    const assertSelectionRangeCalled = (selectionFn: jest.Mock) => (
-      position: number
-    ) => expect(selectionFn).toHaveBeenCalledWith(position, position);
+    const assertSelectionRangeCalled =
+      (selectionFn: jest.Mock) => (position: number) =>
+        expect(selectionFn).toHaveBeenCalledWith(position, position);
 
     let setInputCursorTo: (selectionEnd: number, value: string) => void;
     let assertInputCursorAt: (position: number) => void;
@@ -301,9 +300,9 @@ describe("GroupedCharacter", () => {
           separator={separator}
           label="optional"
           isOptional
-        />
+        />,
       ).find(StyledLabelContainer),
-      { modifier: "::after" }
+      { modifier: "::after" },
     );
   });
 
@@ -315,7 +314,7 @@ describe("GroupedCharacter", () => {
         {
           maxWidth: "67%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
 
@@ -326,7 +325,7 @@ describe("GroupedCharacter", () => {
         {
           maxWidth: "100%",
         },
-        wrapper.find(InputPresentation)
+        wrapper.find(InputPresentation),
       );
     });
   });
@@ -364,8 +363,8 @@ describe("GroupedCharacter", () => {
         borderRadius: "var(--borderRadius050)",
       },
       mount(<GroupedCharacter groups={[2, 2, 3]} separator="-" />).find(
-        StyledInput
-      )
+        StyledInput,
+      ),
     );
   });
 });

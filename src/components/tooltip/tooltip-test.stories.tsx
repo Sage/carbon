@@ -132,7 +132,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     >
       {children}
     </button>
-  )
+  ),
 );
 Button.displayName = "Tooltip";
 
@@ -146,6 +146,6 @@ const SecondaryButton = forwardRef<HTMLButtonElement, ButtonProps>(
     >
       {children}
     </button>
-  )
+  ),
 );
 SecondaryButton.displayName = "Tooltip";

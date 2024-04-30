@@ -43,7 +43,7 @@ export interface NoteProps extends MarginProps {
 
 function hasExpectedDisplayName(
   child: React.ReactElement,
-  displayName: string
+  displayName: string,
 ) {
   return (child.type as React.FunctionComponent).displayName === displayName;
 }
@@ -69,7 +69,7 @@ export const Note = ({
     !inlineControl ||
       (React.isValidElement(inlineControl) &&
         inlineControl.type === ActionPopover),
-    "<Note> inlineControl must be an instance of <ActionPopover>"
+    "<Note> inlineControl must be an instance of <ActionPopover>",
   );
 
   const renderStatus = () => {
@@ -109,9 +109,9 @@ export const Note = ({
             hasExpectedDisplayName(preview, LinkPreview.displayName)
               ? React.cloneElement<LinkPreviewProps>(
                   preview as React.ReactElement<LinkPreviewProps>,
-                  { as: "a", onClose: undefined }
+                  { as: "a", onClose: undefined },
                 )
-              : preview
+              : preview,
           )}
         </StyledNoteContent>
 
