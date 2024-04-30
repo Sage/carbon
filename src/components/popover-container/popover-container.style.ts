@@ -41,6 +41,7 @@ function animationToRender({
 const PopoverContainerWrapperStyle = styled.div`
   position: relative;
   display: inline-block;
+  width: 100%;
 `;
 
 const PopoverContainerHeaderStyle = styled.div`
