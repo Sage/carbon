@@ -47,7 +47,6 @@ export const MultiActionButton = ({
     showButtons,
     hideButtons,
     buttonNode,
-    hideButtonsIfTriggerNotFocused,
     handleToggleButtonKeyDown,
     wrapperProps,
     contextValue,
@@ -74,7 +73,6 @@ export const MultiActionButton = ({
     buttonType,
     size,
     subtext,
-    ...(!disabled && { onMouseEnter: showButtons }),
     ...filterOutStyledSystemSpacingProps(rest),
   };
 
@@ -103,7 +101,6 @@ export const MultiActionButton = ({
 
   return (
     <StyledMultiActionButton
-      onMouseLeave={hideButtonsIfTriggerNotFocused}
       ref={buttonNode}
       data-component="multi-action-button"
       data-element={dataElement}

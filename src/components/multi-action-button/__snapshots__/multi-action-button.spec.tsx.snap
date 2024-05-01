@@ -370,7 +370,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 <div
   className="c0"
   data-component="multi-action-button"
-  onMouseLeave={[Function]}
 >
   <button
     aria-expanded={false}
@@ -382,7 +381,6 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
     draggable={false}
     onClick={[Function]}
     onKeyDown={[Function]}
-    onMouseEnter={[Function]}
     onTouchStart={[Function]}
     size="medium"
     type="button"
