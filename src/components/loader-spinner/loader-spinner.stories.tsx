@@ -25,6 +25,14 @@ type Story = StoryObj<typeof LoaderSpinner>;
 export const Default: Story = () => <LoaderSpinner />;
 Default.storyName = "Default";
 
+export const OverrideSpinnerLabel: Story = () => (
+  <Box display="flex">
+    <LoaderSpinner mx="3" spinnerLabel="Processing..." variant="action" />
+    <LoaderSpinner mx="3" spinnerLabel="Saving..." variant="neutral" />
+  </Box>
+);
+OverrideSpinnerLabel.storyName = "Override Spinner Label";
+
 export const Sizes: Story = () => {
   return (
     <Box display="flex" alignItems="baseline">

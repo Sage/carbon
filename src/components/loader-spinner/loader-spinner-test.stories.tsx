@@ -16,6 +16,11 @@ export default {
     },
   },
   argTypes: {
+    spinnerLabel: {
+      control: {
+        type: "text",
+      },
+    },
     size: {
       options: LOADER_SPINNER_SIZES,
       control: {

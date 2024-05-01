@@ -1,3 +1,17 @@
+### [133.1.1](https://github.com/Sage/carbon/compare/v133.1.0...v133.1.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* **popover-container:** allow fullWidth button to be rendered as renderOpenComponent ([dbbbe2d](https://github.com/Sage/carbon/commit/dbbbe2d2767223d616e5172e544054a66720528c)), closes [#5784](https://github.com/Sage/carbon/issues/5784)
+
+## [133.1.0](https://github.com/Sage/carbon/compare/v133.0.5...v133.1.0) (2024-04-26)
+
+
+### Features
+
+* **loader-spinner:** add spinnerLabel prop to override the default loading label with custom text ([60b7209](https://github.com/Sage/carbon/commit/60b720946418c75a43463d1daaa2cd01ab63df47)), closes [#6694](https://github.com/Sage/carbon/issues/6694)
+
 ### [133.0.5](https://github.com/Sage/carbon/compare/v133.0.4...v133.0.5) (2024-04-25)
 
 

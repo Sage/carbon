@@ -36,13 +36,11 @@ export const VersionPicker = () => {
   const [currentVersion, setCurrentVersion] = useState("Latest");
 
   useEffect(() => {
-    const url = window.location.href;
-    if (url.includes("/v/")) {
-      const startIndex = url.indexOf("/v/");
-      const endIndex = url.indexOf("/", startIndex + 4);
+    const urlParams = new URLSearchParams(window.location.search);
+    const version = urlParams.get("v");
 
-      const urlVersion = url.substring(startIndex + 3, endIndex);
-      setCurrentVersion(`v${urlVersion}`);
+    if (version) {
+      setCurrentVersion(`v${version}`);
     }
 
     const getData = async () => {
@@ -58,7 +56,7 @@ export const VersionPicker = () => {
       <WithTooltip
         placement="top"
         trigger="click"
-        closeOnClick
+        closeOnOutsideClick
         tooltip={({ onHide }) => {
           return (
             <TooltipLinkList links={getDisplayedItems(versions, onHide)} />
