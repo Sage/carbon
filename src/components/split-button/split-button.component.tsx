@@ -78,16 +78,15 @@ export const SplitButton = ({
     showButtons,
     hideButtons,
     buttonNode,
-    hideButtonsIfTriggerNotFocused,
     handleToggleButtonKeyDown,
     wrapperProps,
     contextValue,
   } = useChildButtons(toggleButton, CONTENT_WIDTH_RATIO);
 
   const mainButtonProps = {
-    onMouseEnter: hideButtonsIfTriggerNotFocused,
-    onFocus: hideButtonsIfTriggerNotFocused,
-    onTouchStart: hideButtonsIfTriggerNotFocused,
+    onMouseEnter: hideButtons,
+    onFocus: hideButtons,
+    onTouchStart: hideButtons,
     iconPosition,
     buttonType,
     disabled,
@@ -105,9 +104,9 @@ export const SplitButton = ({
     displayed: showAdditionalButtons,
     onTouchStart: showButtons,
     onKeyDown: handleToggleButtonKeyDown,
+    onClick: showButtons,
     buttonType,
     size,
-    ...(!disabled && { onMouseEnter: showButtons, onClick: showButtons }),
   };
 
   function componentTags() {
@@ -186,7 +185,6 @@ export const SplitButton = ({
 
   return (
     <StyledSplitButton
-      onMouseLeave={hideButtonsIfTriggerNotFocused}
       onClick={handleClick}
       ref={buttonNode}
       {...componentTags()}
