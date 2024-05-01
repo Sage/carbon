@@ -3,7 +3,6 @@ import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import TypeIconStyle from "components/message/type-icon/type-icon.style";
 import Icon from "components/icon";
-import Logger from "../../__internal__/utils/logger";
 import guid from "../../__internal__/utils/helpers/guid";
 import Toast, { ToastProps } from "./toast.component";
 import {
@@ -120,27 +119,6 @@ describe("Toast", () => {
 
   describe("when toast is open", () => {
     let wrapper: ShallowWrapper | ReactWrapper;
-
-    describe("with prop isCenter", () => {
-      afterEach(() => {
-        wrapper.unmount();
-      });
-
-      it("should render Toast in the center of the document", () => {
-        wrapper = mount(<ToastWrapper isCenter />);
-
-        assertStyleMatch(
-          {
-            position: "relative",
-            width: "auto",
-            height: "auto",
-            justifyContent: "center",
-            display: "flex",
-          },
-          wrapper
-        );
-      });
-    });
 
     it("does not render close icon", () => {
       wrapper = mount(
@@ -467,7 +445,7 @@ describe("Toast", () => {
   it("does not throw when ref is a function", () => {
     expect(() => {
       mount(
-        <Toast isCenter onDismiss={() => {}} ref={(ref) => ref}>
+        <Toast onDismiss={() => {}} ref={(ref) => ref}>
           foobar
         </Toast>
       );
@@ -478,7 +456,7 @@ describe("Toast", () => {
     const ref = { current: null };
 
     const wrapper = mount(
-      <Toast isCenter onDismiss={() => {}} ref={ref}>
+      <Toast onDismiss={() => {}} ref={ref}>
         foobar
       </Toast>
     );
@@ -684,40 +662,5 @@ describe("Notification variant", () => {
 
   it("should render with correct variant type", () => {
     expect(wrapper.find(TypeIconStyle).prop("variant")).toBe("info");
-  });
-});
-
-describe("Deprecation warning", () => {
-  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
-
-  beforeEach(() => {
-    loggerSpy = jest.spyOn(Logger, "deprecate");
-  });
-
-  afterEach(() => {
-    loggerSpy.mockRestore();
-  });
-
-  afterAll(() => {
-    loggerSpy.mockClear();
-  });
-
-  it("should render correct deprecation message only once", () => {
-    mount(
-      <>
-        <Toast variant="success" isCenter>
-          Toast 1
-        </Toast>
-        <Toast variant="error" isCenter>
-          Toast 2
-        </Toast>
-      </>
-    );
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      "isCenter prop in Toast is being deprecated in favour of the align prop."
-    );
-
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
   });
 });
