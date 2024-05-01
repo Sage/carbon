@@ -83,12 +83,12 @@ let isDeprecationWarningTriggered = false;
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {
-      align,
+      align = "center",
       alignY,
       children,
       className,
       id,
-      isCenter = true,
+      isCenter,
       maxWidth,
       onDismiss,
       open = true,

@@ -46,11 +46,7 @@ describe("Toast", () => {
 
     describe("when component mounts", () => {
       beforeEach(() => {
-        wrapper = mount(
-          <Toast isCenter onDismiss={() => {}}>
-            foobar
-          </Toast>
-        );
+        wrapper = mount(<Toast onDismiss={() => {}}>foobar</Toast>);
       });
 
       afterEach(() => {
@@ -605,6 +601,17 @@ describe("Align horizontal", () => {
 
       expect(wrapper.find(StyledPortal).props().align).toBe(alignValue);
       expect(wrapper.find(ToastWrapper).props().align).toBe(alignValue);
+
+      assertStyleMatch(
+        {
+          position: "relative",
+          width: "auto",
+          height: "auto",
+          justifyContent: alignValue,
+          display: "flex",
+        },
+        wrapper.find(ToastWrapper)
+      );
     }
   );
 });
