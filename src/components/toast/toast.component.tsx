@@ -227,11 +227,18 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             })}
           >
             {!isNotice && (
-              <TypeIcon variant={isNotification ? "info" : variant}>
+              <TypeIcon
+                variant={isNotification ? "info" : variant}
+                data-role="toast-type-icon"
+              >
                 <Icon type={toastIcon} />
               </TypeIcon>
             )}
-            <StyledToastContent isNotice={isNotice} isDismiss={!!onDismiss}>
+            <StyledToastContent
+              isNotice={isNotice}
+              isDismiss={!!onDismiss}
+              data-role="toast-content"
+            >
               {children}
             </StyledToastContent>
             {renderCloseIcon()}
@@ -247,7 +254,12 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         alignY={alignY}
         isNotice={isNotice}
       >
-        <ToastWrapper align={align} ref={refToPass} isNotice={isNotice}>
+        <ToastWrapper
+          align={align}
+          ref={refToPass}
+          isNotice={isNotice}
+          data-role="toast-wrapper"
+        >
           <TransitionGroup>{renderToastContent()}</TransitionGroup>
         </ToastWrapper>
       </StyledPortal>
