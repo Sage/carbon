@@ -1,3 +1,10 @@
+## [133.2.0](https://github.com/Sage/carbon/compare/v133.1.1...v133.2.0) (2024-05-02)
+
+
+### Features
+
+* **icon:** 3 new icons added and tick update ([eec42ec](https://github.com/Sage/carbon/commit/eec42ec04bd8d80c546e0b931ae8790b5ff3cfd1))
+
 ### [133.1.1](https://github.com/Sage/carbon/compare/v133.1.0...v133.1.1) (2024-04-30)
 
 
