@@ -1,3 +1,17 @@
+## [134.0.0](https://github.com/Sage/carbon/compare/v133.2.0...v134.0.0) (2024-05-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* Carbon no longer re-exports the `date-fns` locales.
+Consuming projects need to import the locales directly from `date-fns`.
+
+closes: SBS-84395
+
+### Bug Fixes
+
+* ensure tree-shaking works with date-fns package ([ed4ba2f](https://github.com/Sage/carbon/commit/ed4ba2f677b5542ec30be527a0cbf0d585ef2bd9))
+
 ## [133.2.0](https://github.com/Sage/carbon/compare/v133.1.1...v133.2.0) (2024-05-02)
 
 
