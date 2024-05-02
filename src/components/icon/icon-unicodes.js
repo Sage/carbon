@@ -257,6 +257,9 @@ const misc = {
   like_no: "\\f058",
   minimise: "\\f062",
   pin: "\\f064",
+  biometric: "\\f067",
+  import: "\\f066",
+  export: "\\f065",
 };
 
 const legacyNames = {
