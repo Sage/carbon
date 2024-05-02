@@ -1,3 +1,10 @@
+### [133.1.1](https://github.com/Sage/carbon/compare/v133.1.0...v133.1.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* **popover-container:** allow fullWidth button to be rendered as renderOpenComponent ([dbbbe2d](https://github.com/Sage/carbon/commit/dbbbe2d2767223d616e5172e544054a66720528c)), closes [#5784](https://github.com/Sage/carbon/issues/5784)
+
 ## [133.1.0](https://github.com/Sage/carbon/compare/v133.0.5...v133.1.0) (2024-04-26)
 
 

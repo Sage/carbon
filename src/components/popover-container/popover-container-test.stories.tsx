@@ -13,7 +13,13 @@ import Icon from "../icon";
 
 export default {
   title: "Popover Container/Test",
-  includeStories: ["Default", "WithSelect", "InAScrollableBlock", "InSideMenu"],
+  includeStories: [
+    "Default",
+    "WithSelect",
+    "InAScrollableBlock",
+    "InSideMenu",
+    "WithFullWidthButton",
+  ],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -25,6 +31,15 @@ export default {
 export const Default = ({ ...args }: PopoverContainerProps) => (
   <PopoverContainer {...args} />
 );
+
+Default.story = {
+  name: "default",
+  args: {
+    title: "Title",
+    open: true,
+    closeButtonDataProps: {},
+  },
+};
 
 export const WithSelect = () => {
   return (
@@ -46,15 +61,6 @@ export const WithSelect = () => {
 
 WithSelect.story = {
   name: "with select",
-};
-
-Default.story = {
-  name: "default",
-  args: {
-    title: "Title",
-    open: true,
-    closeButtonDataProps: {},
-  },
 };
 
 export const InAScrollableBlock = () => {
@@ -135,5 +141,26 @@ export const InSideMenu = () => {
         </PopoverContainer>
       </MenuItem>
     </Menu>
+  );
+};
+
+export const WithFullWidthButton = () => {
+  return (
+    <PopoverContainer
+      title="This is the title"
+      renderOpenComponent={({ ref, ...rest }) => (
+        <Button
+          iconPosition="after"
+          iconType="filter_new"
+          fullWidth
+          ref={ref}
+          {...rest}
+        >
+          Filter
+        </Button>
+      )}
+    >
+      Content
+    </PopoverContainer>
   );
 };
