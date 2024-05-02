@@ -33,68 +33,74 @@ type Story = StoryObj<typeof FilterableSelect>;
 
 export const Default: Story = () => {
   return (
-    <FilterableSelect name="simple" id="simple" label="color" labelInline>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </FilterableSelect>
+    <Box height={220}>
+      <FilterableSelect name="simple" id="simple" label="color" labelInline>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+    </Box>
   );
 };
 Default.storyName = "Default";
 
 export const ListPlacement: Story = () => {
   return (
-    <FilterableSelect
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-      listPlacement="top"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </FilterableSelect>
+    <Box height={220} alignContent="end">
+      <FilterableSelect
+        name="simple"
+        id="simple"
+        label="color"
+        labelInline
+        listPlacement="top"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+    </Box>
   );
 };
 ListPlacement.storyName = "List Placement";
 
 export const ListHeight: Story = () => {
   return (
-    <FilterableSelect
-      listMaxHeight={2000}
-      name="list height"
-      id="list-height"
-      label="List height"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </FilterableSelect>
+    <Box height={500}>
+      <FilterableSelect
+        listMaxHeight={2000}
+        name="list height"
+        id="list-height"
+        label="List height"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+    </Box>
   );
 };
 ListHeight.storyName = "List Height";
@@ -108,7 +114,7 @@ export const Controlled: Story = () => {
     setValue("");
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearValue} mb={2}>
         clear
       </Button>
@@ -131,7 +137,7 @@ export const Controlled: Story = () => {
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </FilterableSelect>
-    </>
+    </Box>
   );
 };
 Controlled.storyName = "Controlled";
@@ -139,24 +145,26 @@ Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus: Story = () => {
   return (
-    <FilterableSelect
-      name="openOnFocus"
-      id="openOnFocus"
-      label="color"
-      openOnFocus
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </FilterableSelect>
+    <Box height={250}>
+      <FilterableSelect
+        name="openOnFocus"
+        id="openOnFocus"
+        label="color"
+        openOnFocus
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+    </Box>
   );
 };
 OpenOnFocus.storyName = "Open on Focus";
@@ -214,46 +222,48 @@ Readonly.storyName = "Read Only";
 
 export const WithMultipleColumns: Story = () => {
   return (
-    <FilterableSelect
-      name="withMultipleColumns"
-      id="withMultipleColumns"
-      label="clients"
-      defaultValue="4"
-      multiColumn
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-    >
-      <OptionRow id="1" value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow id="2" value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="3" value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="4" value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow id="5" value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </FilterableSelect>
+    <Box height={250}>
+      <FilterableSelect
+        name="withMultipleColumns"
+        id="withMultipleColumns"
+        label="clients"
+        defaultValue="4"
+        multiColumn
+        tableHeader={
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Occupation</th>
+          </tr>
+        }
+      >
+        <OptionRow id="1" value="1" text="John Doe">
+          <td>John</td>
+          <td>Doe</td>
+          <td>Welder</td>
+        </OptionRow>
+        <OptionRow id="2" value="2" text="Joe Vick">
+          <td>Joe</td>
+          <td>Vick</td>
+          <td>Accountant</td>
+        </OptionRow>
+        <OptionRow id="3" value="3" text="Jane Poe">
+          <td>Jane</td>
+          <td>Poe</td>
+          <td>Accountant</td>
+        </OptionRow>
+        <OptionRow id="4" value="4" text="Jill Moe">
+          <td>Jill</td>
+          <td>Moe</td>
+          <td>Engineer</td>
+        </OptionRow>
+        <OptionRow id="5" value="5" text="Bill Zoe">
+          <td>Bill</td>
+          <td>Zoe</td>
+          <td>Astronaut</td>
+        </OptionRow>
+      </FilterableSelect>
+    </Box>
   );
 };
 WithMultipleColumns.storyName = "With Multiple Columns";
@@ -261,64 +271,66 @@ WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMultipleColumnsAndNested: Story = () => {
   return (
-    <FilterableSelect
-      name="withMultipleColumns"
-      id="withMultipleColumns"
-      label="clients"
-      defaultValue="2"
-      multiColumn
-      openOnFocus
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-      listActionButton={
-        <Button iconType="add" iconPosition="after">
-          Add a New Element
-        </Button>
-      }
-      // eslint-disable-next-line no-console
-      onListAction={() => console.log("Action")}
-    >
-      <OptionRow id="1" value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>
-          <b>test</b>
-        </td>
-      </OptionRow>
-      <OptionRow id="2" value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>
-          <b>Accountant</b>
-        </td>
-      </OptionRow>
-      <OptionRow id="3" value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>
-          <b>Accountant</b>
-        </td>
-      </OptionRow>
-      <OptionRow id="4" value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>
-          <b>Engineer</b>
-        </td>
-      </OptionRow>
-      <OptionRow id="5" value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>
-          <b>Astronaut</b>
-        </td>
-      </OptionRow>
-    </FilterableSelect>
+    <Box height={300}>
+      <FilterableSelect
+        name="withMultipleColumns"
+        id="withMultipleColumns"
+        label="clients"
+        defaultValue="2"
+        multiColumn
+        openOnFocus
+        tableHeader={
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Occupation</th>
+          </tr>
+        }
+        listActionButton={
+          <Button iconType="add" iconPosition="after">
+            Add a New Element
+          </Button>
+        }
+        // eslint-disable-next-line no-console
+        onListAction={() => console.log("Action")}
+      >
+        <OptionRow id="1" value="1" text="John Doe">
+          <td>John</td>
+          <td>Doe</td>
+          <td>
+            <b>test</b>
+          </td>
+        </OptionRow>
+        <OptionRow id="2" value="2" text="Joe Vick">
+          <td>Joe</td>
+          <td>Vick</td>
+          <td>
+            <b>Accountant</b>
+          </td>
+        </OptionRow>
+        <OptionRow id="3" value="3" text="Jane Poe">
+          <td>Jane</td>
+          <td>Poe</td>
+          <td>
+            <b>Accountant</b>
+          </td>
+        </OptionRow>
+        <OptionRow id="4" value="4" text="Jill Moe">
+          <td>Jill</td>
+          <td>Moe</td>
+          <td>
+            <b>Engineer</b>
+          </td>
+        </OptionRow>
+        <OptionRow id="5" value="5" text="Bill Zoe">
+          <td>Bill</td>
+          <td>Zoe</td>
+          <td>
+            <b>Astronaut</b>
+          </td>
+        </OptionRow>
+      </FilterableSelect>
+    </Box>
   );
 };
 WithMultipleColumnsAndNested.storyName = "With Multiple Columns and Nested";
@@ -350,7 +362,7 @@ export const WithActionButton: Story = () => {
     setValue(`val${counter}`);
   }
   return (
-    <>
+    <Box height={300}>
       <FilterableSelect
         name="action"
         id="action"
@@ -373,7 +385,7 @@ export const WithActionButton: Story = () => {
       >
         <Button onClick={addNew}>Add new</Button>
       </Dialog>
-    </>
+    </Box>
   );
 };
 WithActionButton.storyName = "With Action Button";
@@ -408,7 +420,7 @@ export const WithIsLoadingProp: Story = () => {
     preventLoading.current = false;
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearData} mb={2}>
         reset
       </Button>
@@ -423,7 +435,7 @@ export const WithIsLoadingProp: Story = () => {
       >
         {optionList}
       </FilterableSelect>
-    </>
+    </Box>
   );
 };
 WithIsLoadingProp.storyName = "With isLoading prop";
@@ -493,7 +505,7 @@ export const WithInfiniteScroll: Story = () => {
     preventLoading.current = false;
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearData} mb={2}>
         reset
       </Button>
@@ -509,7 +521,7 @@ export const WithInfiniteScroll: Story = () => {
       >
         {optionList}
       </FilterableSelect>
-    </>
+    </Box>
   );
 };
 WithInfiniteScroll.storyName = "With Infinite Scroll";
@@ -517,30 +529,58 @@ WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomMaxWidth: Story = () => {
   return (
-    <FilterableSelect name="simple" id="simple" label="color" maxWidth="50%">
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </FilterableSelect>
+    <Box height={250}>
+      <FilterableSelect name="simple" id="simple" label="color" maxWidth="50%">
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+    </Box>
   );
 };
 WithCustomMaxWidth.storyName = "With Custom Max Width";
 
 export const Required: Story = () => {
   return (
+    <Box height={250}>
+      <FilterableSelect
+        name="required-select"
+        id="required-select"
+        label="Foreground Color"
+        required
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </FilterableSelect>
+    </Box>
+  );
+};
+Required.storyName = "Required";
+
+export const IsOptional: Story = () => (
+  <Box height={250}>
     <FilterableSelect
-      name="required-select"
-      id="required-select"
+      name="optional-select"
+      id="optional-select"
       label="Foreground Color"
-      required
+      isOptional
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
@@ -554,29 +594,7 @@ export const Required: Story = () => {
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
     </FilterableSelect>
-  );
-};
-Required.storyName = "Required";
-
-export const IsOptional: Story = () => (
-  <FilterableSelect
-    name="optional-select"
-    id="optional-select"
-    label="Foreground Color"
-    isOptional
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </FilterableSelect>
+  </Box>
 );
 IsOptional.storyName = "IsOptional";
 
@@ -608,7 +626,7 @@ export const WithObjectAsValue: Story = () => {
     setValue({});
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearValue} mb={2}>
         clear
       </Button>
@@ -623,7 +641,7 @@ export const WithObjectAsValue: Story = () => {
           <Option key={option.id} text={option.text} value={option} />
         ))}
       </FilterableSelect>
-    </>
+    </Box>
   );
 };
 WithObjectAsValue.storyName = "With Object as Value";
@@ -710,16 +728,18 @@ export const Virtualised: Story = () => {
       />
     ));
   return (
-    <FilterableSelect
-      name="virtualised"
-      id="virtualised"
-      label="choose an option"
-      labelInline
-      enableVirtualScroll
-      virtualScrollOverscan={20}
-    >
-      {options}
-    </FilterableSelect>
+    <Box height={220}>
+      <FilterableSelect
+        name="virtualised"
+        id="virtualised"
+        label="choose an option"
+        labelInline
+        enableVirtualScroll
+        virtualScrollOverscan={20}
+      >
+        {options}
+      </FilterableSelect>
+    </Box>
   );
 };
 Virtualised.storyName = "Virtualised";
@@ -728,7 +748,7 @@ export const SelectionConfirmedStory: Story = () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
   const [value, setValue] = useState("");
   return (
-    <Box p={1}>
+    <Box height={280}>
       <Typography variant="strong">
         Selection Confirmed:{" "}
         {selectionConfirmed ? (
@@ -801,7 +821,7 @@ export const CustomFilterAndOptionStyle: Story = () => {
   }, []);
 
   return (
-    <Box p={1}>
+    <Box height={280}>
       <Typography variant="strong" mb={2} display="block">
         Selected Color:{" "}
         {selectedColor ? (
