@@ -189,24 +189,26 @@
     },
     {
       "files": ["*.spec.*"],
-      "env": {
-        "jasmine": true
-      },
       "globals": {
         "jest": false,
         "test": false
       },
       "plugins": ["jest"],
-      "extends": [
-        "plugin:jest/recommended"
-        // TODO: Uncomment after transition to RTL has started
-        // "plugin:jest-dom/recommended",
-      ],
+      "extends": ["plugin:jest/recommended"],
       "rules": {
         "jest/expect-expect": "off",
         "jest-dom/prefer-to-have-attribute": "off",
         "jest/no-alias-methods": "off"
       }
+    },
+    {
+      "files": ["*.test.*"],
+      "plugins": ["jest", "testing-library", "jest-dom"],
+      "extends": [
+        "plugin:jest/recommended",
+        "plugin:testing-library/react",
+        "plugin:jest-dom/recommended"
+      ]
     },
     {
       "files": ["*.pw.ts*", "*.test-pw.ts*", "playwright/**/*.ts*"],
