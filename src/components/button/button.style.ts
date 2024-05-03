@@ -34,11 +34,12 @@ function stylingForIconOnly(size?: SizeOptions) {
 function stylingForType({
   iconOnly,
   disabled,
-  buttonType = "secondary",
+  buttonType,
   size,
   destructive,
-}: Pick<ButtonProps, "disabled" | "buttonType" | "size" | "destructive"> & {
+}: Pick<ButtonProps, "disabled" | "size" | "destructive"> & {
   iconOnly?: boolean;
+  buttonType: Required<ButtonProps>["buttonType"];
 }) {
   return css`
     ${buttonTypes(disabled, destructive)[buttonType]};
@@ -66,8 +67,9 @@ function stylingForType({
 }
 
 type StyledButtonProps = SpaceProps &
-  ButtonProps & {
+  Omit<ButtonProps, "buttonType"> & {
     iconOnly?: boolean;
+    buttonType: Required<ButtonProps>["buttonType"];
   };
 
 const oldFocusStyling = "outline: solid 3px var(--colorsSemanticFocus500);";
