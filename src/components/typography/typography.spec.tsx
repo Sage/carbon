@@ -587,6 +587,24 @@ describe("Typography", () => {
       }
     );
 
+    it.each(["normal", "break-all", "keep-all", "break-word", "auto-phrase"])(
+      "applies word-break of %s",
+      (prop) => {
+        const wrapper = mount(
+          <ThemeProvider theme={sageTheme}>
+            <Typography wordBreak={prop}>FooBar</Typography>
+          </ThemeProvider>
+        );
+
+        assertStyleMatch(
+          {
+            wordBreak: prop,
+          },
+          wrapper.find(Typography)
+        );
+      }
+    );
+
     it.each(["left", "right", "center", "justify", "initial", "inherit"])(
       "applies text-align of %s",
       (prop) => {
