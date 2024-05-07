@@ -87,7 +87,7 @@ test.describe("Prop tests", () => {
 
   (["left", "right"] as MultiActionButtonProps["align"][]).forEach(
     (alignment) => {
-      test(`should render with button aligned to the ${alignment}`, async ({
+      test(`should render with button text aligned to the ${alignment}`, async ({
         mount,
         page,
       }) => {
@@ -100,6 +100,27 @@ test.describe("Prop tests", () => {
             .getByRole("button")
             .first()
         ).toHaveCSS("justify-content", alignment as string);
+      });
+    }
+  );
+
+  ([
+    ["left", 200],
+    ["right", 153],
+  ] as [MultiActionButtonProps["position"], number][]).forEach(
+    ([position, value]) => {
+      test(`should render with menu position to the ${position}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<MultiActionButtonList ml="200px" position={position} />);
+
+        const actionButton = getComponent(page, "multi-action-button");
+        await actionButton.click();
+        const listContainer = getDataElementByValue(page, "additional-buttons");
+        await expect(listContainer).toHaveCSS("position", "absolute");
+        await assertCssValueIsApproximately(listContainer, "top", 45);
+        await assertCssValueIsApproximately(listContainer, "left", value);
       });
     }
   );

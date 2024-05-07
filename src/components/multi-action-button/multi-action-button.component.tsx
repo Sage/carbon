@@ -28,6 +28,7 @@ export interface MultiActionButtonProps
 
 export const MultiActionButton = ({
   align = "left",
+  position = "left",
   disabled,
   buttonType,
   size,
@@ -78,7 +79,11 @@ export const MultiActionButton = ({
 
   const renderAdditionalButtons = () => (
     <Popover
-      placement="bottom-end"
+      placement={
+        position === "left"
+          ? "bottom-start"
+          : /* istanbul ignore next */ "bottom-end"
+      }
       reference={buttonNode}
       middleware={[
         offset(6),
