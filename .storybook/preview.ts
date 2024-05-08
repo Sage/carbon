@@ -80,6 +80,7 @@ export const globalTypes = {
         { value: "en-GB", right: "🇬🇧", title: "English" },
         { value: "de-DE", right: "🇩🇪", title: "Deutsch" },
         { value: "en-CA", right: "🇨🇦", title: "English - Canada" },
+        { value: "en-US", right: "🇺🇸", title: "English - United States" },
       ],
     },
   },
