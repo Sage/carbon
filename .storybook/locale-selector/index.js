@@ -1,11 +1,11 @@
 import React from "react";
 
 import I18nProvider from "../../src/components/i18n-provider";
-import { enGB, deDE, enCA, enUS, esES } from "../../src/locales";
+import { enGB, deDE, enCA, enUS, esES, frFR } from "../../src/locales";
 
 export const withLocaleSelector = (Story, context) => {
   const selectedLocale =
-    [enGB, deDE, enCA, enUS, esES].find(
+    [enGB, deDE, enCA, enUS, esES, frFR].find(
       ({ locale }) => locale() === context.globals.locale
     ) || enGB;
 

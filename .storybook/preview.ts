@@ -82,6 +82,7 @@ export const globalTypes = {
         { value: "en-CA", right: "🇨🇦", title: "English - Canada" },
         { value: "en-US", right: "🇺🇸", title: "English - United States" },
         { value: "es-ES", right: "🇪🇸", title: "Español" },
+        { value: "fr-FR", right: "🇫🇷", title: "Français" },
       ],
     },
   },
