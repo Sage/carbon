@@ -257,7 +257,7 @@ export const SimpleSelect = React.forwardRef(
           return;
         }
 
-        if (key === "Enter" || key === " " || isNavigationKey(key)) {
+        if (key === " " || isNavigationKey(key)) {
           event.preventDefault();
 
           setOpenState((isAlreadyOpen) => {
