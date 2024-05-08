@@ -43,16 +43,19 @@ export interface SplitButtonProps
   iconPosition?: "before" | "after";
   /** Defines an Icon type within the button */
   iconType?: IconType;
-  /** The size of the buttons in the SplitButton. */
+  /** The size of the buttons. */
   size?: "small" | "medium" | "large";
   /** Second text child, renders under main text, only when size is "large" */
   subtext?: string;
-  /** The text to be displayed in the SplitButton. */
+  /** The text to be displayed in the main button. */
   text: string;
+  /** Sets rendering position of menu */
+  position?: "left" | "right";
 }
 
 export const SplitButton = ({
   align = "left",
+  position = "right",
   buttonType = "secondary",
   children,
   disabled = false,
@@ -160,7 +163,11 @@ export const SplitButton = ({
 
     return (
       <Popover
-        placement="bottom-end"
+        placement={
+          position === "left"
+            ? /* istanbul ignore next */ "bottom-start"
+            : "bottom-end"
+        }
         reference={buttonNode}
         middleware={[
           offset(6),

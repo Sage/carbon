@@ -366,6 +366,36 @@ describe("The SplitButton component", () => {
     });
   });
 
+  it("should render additional button text with align set to 'left'", async () => {
+    const user = userEvent.setup();
+    render(
+      <SplitButton text="Main" align="left">
+        <Button>Single Button</Button>
+      </SplitButton>
+    );
+
+    await user.click(screen.getByRole("button", { name: "Show more" }));
+    const childButton = await screen.findByRole("button", {
+      name: "Single Button",
+    });
+    expect(childButton).toHaveStyle({ textAlign: "left" });
+  });
+
+  it("should render additional button text with align set to 'right'", async () => {
+    const user = userEvent.setup();
+    render(
+      <SplitButton text="Main" align="right">
+        <Button>Single Button</Button>
+      </SplitButton>
+    );
+
+    await user.click(screen.getByRole("button", { name: "Show more" }));
+    const childButton = await screen.findByRole("button", {
+      name: "Single Button",
+    });
+    expect(childButton).toHaveStyle({ textAlign: "right" });
+  });
+
   it("should render the child buttons when a click event detected on toggle button", async () => {
     const user = userEvent.setup();
     render(
