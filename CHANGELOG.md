@@ -1,3 +1,10 @@
+### [134.0.2](https://github.com/Sage/carbon/compare/v134.0.1...v134.0.2) (2024-05-08)
+
+
+### Bug Fixes
+
+* **link:** ensure styling overrides apply to open button when popover-container renders in menu ([4b9ea02](https://github.com/Sage/carbon/commit/4b9ea02d7294ec3b25679174dd5ad8a3388088c8)), closes [#6725](https://github.com/Sage/carbon/issues/6725)
+
 ### [134.0.1](https://github.com/Sage/carbon/compare/v134.0.0...v134.0.1) (2024-05-08)
 
 
