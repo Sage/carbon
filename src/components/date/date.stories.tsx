@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { zhCN, de } from "date-fns/locale";
 
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
@@ -8,7 +9,6 @@ import DateInput, { DateChangeEvent } from "./date.component";
 import Box from "../box";
 import Button from "../button";
 import I18nProvider from "../i18n-provider";
-import { zhCN, de } from "../../locales/date-fns-locales";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,

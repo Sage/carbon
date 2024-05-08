@@ -70,6 +70,7 @@ import {
   flatTablePager,
   flatTablePageSizeSelect,
   flatTablePageSelectListPosition,
+  pageSelectElement,
   pageSelectInput,
   flatTablePageSelectNext,
   flatTablePageSelectPrevious,
@@ -2703,7 +2704,7 @@ test.describe("Prop tests", () => {
       const tableBodyRows = flatTableBodyRows(page);
       await expect(tableBodyRows).toHaveCount(5);
       await expect(flatTableBodyRows(page).first()).toBeInViewport();
-      await pageSelectInput(page).click();
+      await pageSelectElement(page).click();
       await flatTablePageSelectListPosition(page)
         .locator("li")
         .nth(option)

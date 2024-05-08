@@ -26,6 +26,7 @@ Can be used to demonstrate a known or unknown wait time.
 - [Quick Start](#quick-start)
 - [Examples](#examples)
 - [Props](#props)
+- [Translation keys](#translation-keys)
 
 ## Quick Start
 
@@ -43,6 +44,13 @@ Please see the default render of the component below. If a user prefers reduced 
 loading label will be displayed.
 
 <Canvas of={LoaderSpinnerStories.Default} />
+
+### Override Spinner label 
+
+Please find an example of the `spinnerLabel` prop used below, any string can be passed to the prop to override
+the default `"Loading..."` label. 
+
+<Canvas of={LoaderSpinnerStories.OverrideSpinnerLabel} />
 
 ### Sizes
 

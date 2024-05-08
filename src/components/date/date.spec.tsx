@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 import { ReactWrapper, mount } from "enzyme";
 import { act } from "react-dom/test-utils";
-import { parse } from "date-fns/fp";
-
+import parse from "date-fns/fp/parse";
+import {
+  de as deLocale,
+  es as esLocale,
+  enCA as enCALocale,
+  enGB as enGBLocale,
+  enZA as enZALocale,
+  fr as frLocale,
+  frCA as frCALocale,
+  enUS as enUSLocale,
+} from "date-fns/locale";
 import DayPicker from "react-day-picker";
 import {
   testStyledSystemMargin,
@@ -22,24 +31,6 @@ import ValidationIcon, {
   ValidationProps,
 } from "../../__internal__/validations";
 import DateRangeContext from "../date-range/date-range.context";
-import {
-  // eslint-disable-next-line import/named
-  de as deLocale,
-  // eslint-disable-next-line import/named
-  es as esLocale,
-  // eslint-disable-next-line import/named
-  enCA as enCALocale,
-  // eslint-disable-next-line import/named
-  enGB as enGBLocale,
-  // eslint-disable-next-line import/named
-  enZA as enZALocale,
-  // eslint-disable-next-line import/named
-  fr as frLocale,
-  // eslint-disable-next-line import/named
-  frCA as frCALocale,
-  // eslint-disable-next-line import/named
-  enUS as enUSLocale,
-} from "../../locales/date-fns-locales";
 import StyledButton from "./__internal__/navbar/button.style";
 import StyledLabel, {
   StyledLabelContainer,
