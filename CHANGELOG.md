@@ -1,3 +1,10 @@
+### [134.0.1](https://github.com/Sage/carbon/compare/v134.0.0...v134.0.1) (2024-05-08)
+
+
+### Bug Fixes
+
+* **simple-select:** prevent select list from opening via enter key when component is focused ([aade7da](https://github.com/Sage/carbon/commit/aade7dac7dad70e92596127b028d9e5f5e123857))
+
 ## [134.0.0](https://github.com/Sage/carbon/compare/v133.2.0...v134.0.0) (2024-05-02)
 
 
