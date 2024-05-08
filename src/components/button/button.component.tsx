@@ -84,6 +84,12 @@ export interface ButtonProps extends SpaceProps, TagProps {
   target?: string;
   /** HTML rel attribute */
   rel?: string;
+  /**
+   * @private
+   * @internal
+   * Set a class name on the button element
+   */
+  className?: string;
 }
 
 interface RenderChildrenProps
