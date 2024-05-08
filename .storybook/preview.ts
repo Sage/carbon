@@ -76,7 +76,10 @@ export const globalTypes = {
     toolbar: {
       title: "Locale",
       icon: "globe",
-      items: [{ value: "en-GB", right: "🇬🇧", title: "English" }],
+      items: [
+        { value: "en-GB", right: "🇬🇧", title: "English" },
+        { value: "de-DE", right: "🇩🇪", title: "Deutsch" },
+      ],
     },
   },
   roundedCorners: {
