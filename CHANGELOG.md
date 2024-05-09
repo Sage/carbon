@@ -1,3 +1,10 @@
+### [134.0.4](https://github.com/Sage/carbon/compare/v134.0.3...v134.0.4) (2024-05-09)
+
+
+### Bug Fixes
+
+* **typography:** textOverflow prop has no effect when the truncate prop is set ([ee95a2b](https://github.com/Sage/carbon/commit/ee95a2ba35a626023b4dd2c5cfd6f9df6db70d03)), closes [#6098](https://github.com/Sage/carbon/issues/6098)
+
 ### [134.0.3](https://github.com/Sage/carbon/compare/v134.0.2...v134.0.3) (2024-05-09)
 
 
