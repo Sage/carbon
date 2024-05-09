@@ -34,73 +34,54 @@ type Story = StoryObj<typeof SimpleSelect>;
 
 export const Default: Story = () => {
   return (
-    <Select name="simple" id="simple" label="color" labelInline>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
+    <Box height={220}>
+      <Select name="simple" id="simple" label="color" labelInline>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 Default.storyName = "Default";
 
 export const Required: Story = () => {
   return (
-    <Select
-      name="required-select"
-      id="required-select"
-      label="Foreground Color"
-      required
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
+    <Box height={250}>
+      <Select
+        name="required-select"
+        id="required-select"
+        label="Foreground Color"
+        required
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 Required.storyName = "Required";
 
 export const IsOptional = () => (
-  <Select name="optional" id="optional" label="Foreground Color" isOptional>
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </Select>
-);
-IsOptional.storyName = "IsOptional";
-
-export const ListPlacement: Story = () => {
-  return (
-    <Select
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-      listPlacement="top"
-    >
+  <Box height={250}>
+    <Select name="optional" id="optional" label="Foreground Color" isOptional>
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />
       <Option text="Blue" value="3" />
@@ -113,30 +94,59 @@ export const ListPlacement: Story = () => {
       <Option text="White" value="10" />
       <Option text="Yellow" value="11" />
     </Select>
+  </Box>
+);
+IsOptional.storyName = "IsOptional";
+
+export const ListPlacement: Story = () => {
+  return (
+    <Box height={200} alignContent="end">
+      <Select
+        name="simple"
+        id="simple"
+        label="color"
+        labelInline
+        listPlacement="top"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 ListPlacement.storyName = "List Placement";
 
 export const ListHeight: Story = () => {
   return (
-    <Select
-      listMaxHeight={2000}
-      name="list height"
-      id="list-height"
-      label="List height"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
+    <Box height={500}>
+      <Select
+        listMaxHeight={2000}
+        name="list height"
+        id="list-height"
+        label="List height"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 ListHeight.storyName = "List Height";
@@ -150,7 +160,7 @@ export const Controlled: Story = () => {
     setValue("");
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearValue} mb={2}>
         clear
       </Button>
@@ -173,7 +183,7 @@ export const Controlled: Story = () => {
         <Option text="White" value="10" />
         <Option text="Yellow" value="11" />
       </Select>
-    </>
+    </Box>
   );
 };
 Controlled.storyName = "Controlled";
@@ -207,7 +217,7 @@ export const WithObjectAsValue: Story = () => {
     setValue({});
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearValue} mb={2}>
         clear
       </Button>
@@ -222,7 +232,7 @@ export const WithObjectAsValue: Story = () => {
           <Option key={option.id} text={option.text} value={option} />
         ))}
       </Select>
-    </>
+    </Box>
   );
 };
 WithObjectAsValue.storyName = "With Object as Value";
@@ -230,19 +240,21 @@ WithObjectAsValue.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomMaxWidth: Story = () => {
   return (
-    <Select name="simple" id="simple" label="color" maxWidth="100%">
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
+    <Box height={250}>
+      <Select name="simple" id="simple" label="color" maxWidth="100%">
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 WithCustomMaxWidth.storyName = "With Custom Max Width";
@@ -278,7 +290,7 @@ export const WithIsLoadingProp: Story = () => {
     preventLoading.current = false;
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearData} mb={2}>
         reset
       </Button>
@@ -293,7 +305,7 @@ export const WithIsLoadingProp: Story = () => {
       >
         {optionList}
       </Select>
-    </>
+    </Box>
   );
 };
 WithIsLoadingProp.storyName = "With isLoading prop";
@@ -363,7 +375,7 @@ export const WithInfiniteScroll: Story = () => {
     preventLoading.current = false;
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearData} mb={2}>
         reset
       </Button>
@@ -379,7 +391,7 @@ export const WithInfiniteScroll: Story = () => {
       >
         {optionList}
       </Select>
-    </>
+    </Box>
   );
 };
 WithInfiniteScroll.storyName = "With infinite scroll";
@@ -387,19 +399,21 @@ WithInfiniteScroll.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus: Story = () => {
   return (
-    <Select name="openOnFocus" id="openOnFocus" openOnFocus label="color">
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
+    <Box height={250}>
+      <Select name="openOnFocus" id="openOnFocus" openOnFocus label="color">
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 OpenOnFocus.storyName = "Open on Focus";
@@ -457,47 +471,51 @@ Readonly.storyName = "Readonly";
 
 export const Transparent: Story = () => {
   return (
-    <Select
-      name="transparent"
-      id="transparent"
-      defaultValue="4"
-      transparent
-      label="color"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
+    <Box height={250}>
+      <Select
+        name="transparent"
+        id="transparent"
+        defaultValue="4"
+        transparent
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 Transparent.storyName = "Transparent";
 
 export const CustomOptionChildren: Story = () => {
   return (
-    <Select
-      name="customOptionChildren"
-      id="customOptionChildren"
-      defaultValue="4"
-      label="Pick your favourite color"
-    >
-      <Option text="Orange" value="1">
-        <Icon type="favourite" color="orange" mr={1} /> Orange
-      </Option>
-      <Option text="Black" value="2">
-        <Icon type="favourite" color="black" mr={1} /> Black
-      </Option>
-      <Option text="Blue" value="3">
-        <Icon type="favourite" color="blue" mr={1} /> Blue
-      </Option>
-    </Select>
+    <Box height={220}>
+      <Select
+        name="customOptionChildren"
+        id="customOptionChildren"
+        defaultValue="4"
+        label="Pick your favourite color"
+      >
+        <Option text="Orange" value="1">
+          <Icon type="favourite" color="orange" mr={1} /> Orange
+        </Option>
+        <Option text="Black" value="2">
+          <Icon type="favourite" color="black" mr={1} /> Black
+        </Option>
+        <Option text="Blue" value="3">
+          <Icon type="favourite" color="blue" mr={1} /> Blue
+        </Option>
+      </Select>
+    </Box>
   );
 };
 CustomOptionChildren.storyName = "Custom Option Children";
@@ -505,46 +523,48 @@ CustomOptionChildren.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithMultipleColumns: Story = () => {
   return (
-    <Select
-      name="withMultipleColumns"
-      id="withMultipleColumns"
-      multiColumn
-      defaultValue="2"
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-      label="With multiple columns"
-    >
-      <OptionRow id="1" value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow id="2" value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="3" value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="4" value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow id="5" value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </Select>
+    <Box height={250}>
+      <Select
+        name="withMultipleColumns"
+        id="withMultipleColumns"
+        multiColumn
+        defaultValue="2"
+        tableHeader={
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Occupation</th>
+          </tr>
+        }
+        label="With multiple columns"
+      >
+        <OptionRow id="1" value="1" text="John Doe">
+          <td>John</td>
+          <td>Doe</td>
+          <td>Welder</td>
+        </OptionRow>
+        <OptionRow id="2" value="2" text="Joe Vick">
+          <td>Joe</td>
+          <td>Vick</td>
+          <td>Accountant</td>
+        </OptionRow>
+        <OptionRow id="3" value="3" text="Jane Poe">
+          <td>Jane</td>
+          <td>Poe</td>
+          <td>Accountant</td>
+        </OptionRow>
+        <OptionRow id="4" value="4" text="Jill Moe">
+          <td>Jill</td>
+          <td>Moe</td>
+          <td>Engineer</td>
+        </OptionRow>
+        <OptionRow id="5" value="5" text="Bill Zoe">
+          <td>Bill</td>
+          <td>Zoe</td>
+          <td>Astronaut</td>
+        </OptionRow>
+      </Select>
+    </Box>
   );
 };
 WithMultipleColumns.storyName = "With Multiple Columns";
@@ -552,22 +572,24 @@ WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OptionGroups: Story = () => {
   return (
-    <Select name="optGroups" id="optGroups" label="color">
-      <OptionGroupHeader label="Group one" icon="individual" />
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <OptionGroupHeader label="Group two" icon="shop" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <OptionGroupHeader label="Group three" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
+    <Box height={250}>
+      <Select name="optGroups" id="optGroups" label="color">
+        <OptionGroupHeader label="Group one" icon="individual" />
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <OptionGroupHeader label="Group two" icon="shop" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <OptionGroupHeader label="Group three" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 OptionGroups.storyName = "Option Groups";
@@ -575,25 +597,27 @@ OptionGroups.parameters = { chromatic: { disableSnapshot: true } };
 
 export const EnablingAdaptiveBehaviour: Story = () => {
   return (
-    <Select
-      name="adaptive"
-      id="adaptive"
-      label="color"
-      defaultValue="4"
-      adaptiveLabelBreakpoint={960}
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </Select>
+    <Box height={220}>
+      <Select
+        name="adaptive"
+        id="adaptive"
+        label="color"
+        defaultValue="4"
+        adaptiveLabelBreakpoint={960}
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </Select>
+    </Box>
   );
 };
 EnablingAdaptiveBehaviour.storyName = "Enabling Adaptive Behaviour";
@@ -658,60 +682,64 @@ ValidationsStringNewDesign.storyName = "Validations String New Design";
 
 export const Virtualised: Story = () => {
   return (
-    <Select
-      name="virtualised"
-      id="virtualised"
-      label="choose an option"
-      labelInline
-      enableVirtualScroll
-      virtualScrollOverscan={20}
-    >
-      {Array(10000)
-        .fill(undefined)
-        .map((_, index) => (
-          <Option
-            key={`option-${index + 1}`}
-            value={`${index}`}
-            text={`Option ${index + 1}`}
-          />
-        ))}
-    </Select>
+    <Box height={220}>
+      <Select
+        name="virtualised"
+        id="virtualised"
+        label="choose an option"
+        labelInline
+        enableVirtualScroll
+        virtualScrollOverscan={20}
+      >
+        {Array(10000)
+          .fill(undefined)
+          .map((_, index) => (
+            <Option
+              key={`option-${index + 1}`}
+              value={`${index}`}
+              text={`Option ${index + 1}`}
+            />
+          ))}
+      </Select>
+    </Box>
   );
 };
 Virtualised.storyName = "Virtualised";
 
 export const WithMultipleColumnsAndVirtualisation: Story = () => {
   return (
-    <Select
-      name="withMultipleColumnsAndVirtualisation"
-      id="withMultipleColumnsAndVirtualisation"
-      label="choose an option"
-      multiColumn
-      defaultValue="2"
-      enableVirtualScroll
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-    >
-      {Array(500)
-        .fill(undefined)
-        .map((_, index) => (
-          <OptionRow
-            key={`option-${index + 1}`}
-            id={`option-row-${index}`}
-            value={`${index}`}
-            text={`Option ${index + 1}`}
-          >
-            <td>{`John ${index + 1}`}</td>
-            <td>{`Doe ${index + 1}`}</td>
-            <td>{`Welder ${index + 1}`}</td>
-          </OptionRow>
-        ))}
-    </Select>
+    <Box height={250}>
+      <Select
+        name="withMultipleColumnsAndVirtualisation"
+        id="withMultipleColumnsAndVirtualisation"
+        label="choose an option"
+        multiColumn
+        defaultValue="2"
+        enableVirtualScroll
+        tableHeader={
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Occupation</th>
+          </tr>
+        }
+      >
+        {Array(500)
+          .fill(undefined)
+          .map((_, index) => (
+            <OptionRow
+              key={`option-${index + 1}`}
+              id={`option-row-${index}`}
+              value={`${index}`}
+              text={`Option ${index + 1}`}
+            >
+              <td>{`John ${index + 1}`}</td>
+              <td>{`Doe ${index + 1}`}</td>
+              <td>{`Welder ${index + 1}`}</td>
+            </OptionRow>
+          ))}
+      </Select>
+    </Box>
   );
 };
 WithMultipleColumnsAndVirtualisation.storyName =
@@ -724,7 +752,7 @@ WithMultipleColumnsAndVirtualisation.parameters = {
 export const SelectionConfirmedStory: Story = () => {
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
   return (
-    <Box p={1}>
+    <Box height={280}>
       <Typography variant="strong">
         Selection Confirmed:{" "}
         {selectionConfirmed ? (
@@ -774,16 +802,23 @@ export const SelectWithDynamicallyAddedOption: Story = () => {
     setCurrentOption(e.target.value);
   };
   return (
-    <Select
-      label="Choose your option"
-      data-role="selector"
-      onChange={handleChange}
-      value={currentOption || ""}
-    >
-      {optionsList.map((opt) => (
-        <Option data-role={`option-${opt}`} text={opt} value={opt} key={opt} />
-      ))}
-    </Select>
+    <Box height={200}>
+      <Select
+        label="Choose your option"
+        data-role="selector"
+        onChange={handleChange}
+        value={currentOption || ""}
+      >
+        {optionsList.map((opt) => (
+          <Option
+            data-role={`option-${opt}`}
+            text={opt}
+            value={opt}
+            key={opt}
+          />
+        ))}
+      </Select>
+    </Box>
   );
 };
 SelectWithDynamicallyAddedOption.storyName = "Dynamically Adding Options";

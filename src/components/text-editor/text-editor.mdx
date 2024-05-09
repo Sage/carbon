@@ -32,6 +32,11 @@ It can be used as a controlled component where the content of the input is contr
 `onChange` and `value` props are required. The `labelText` and `labelId` props are also required in order to ensure
 accessibility requirements are met.
 
+In order to capture any changes to the editor's state that may not be reflected in any content being added/removed, 
+`onChange` is called whenever the editor container is focused or blurred. This allows it to capture things like when 
+the content has been highlighted to apply an inline style (Bold/Italic).
+
+
 ## Examples
 
 ### Default

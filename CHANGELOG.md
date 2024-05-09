@@ -1,3 +1,52 @@
+### [134.0.3](https://github.com/Sage/carbon/compare/v134.0.2...v134.0.3) (2024-05-09)
+
+
+### Bug Fixes
+
+* **loader-spinner:** allow components label to extend longer than the svg wrapper ([bd87c52](https://github.com/Sage/carbon/commit/bd87c52547e959bf06a24f2f4e127386b1e6b7b1)), closes [#6702](https://github.com/Sage/carbon/issues/6702)
+
+### [134.0.2](https://github.com/Sage/carbon/compare/v134.0.1...v134.0.2) (2024-05-08)
+
+
+### Bug Fixes
+
+* **link:** ensure styling overrides apply to open button when popover-container renders in menu ([4b9ea02](https://github.com/Sage/carbon/commit/4b9ea02d7294ec3b25679174dd5ad8a3388088c8)), closes [#6725](https://github.com/Sage/carbon/issues/6725)
+
+### [134.0.1](https://github.com/Sage/carbon/compare/v134.0.0...v134.0.1) (2024-05-08)
+
+
+### Bug Fixes
+
+* **simple-select:** prevent select list from opening via enter key when component is focused ([aade7da](https://github.com/Sage/carbon/commit/aade7dac7dad70e92596127b028d9e5f5e123857))
+
+## [134.0.0](https://github.com/Sage/carbon/compare/v133.2.0...v134.0.0) (2024-05-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* Carbon no longer re-exports the `date-fns` locales.
+Consuming projects need to import the locales directly from `date-fns`.
+
+closes: SBS-84395
+
+### Bug Fixes
+
+* ensure tree-shaking works with date-fns package ([ed4ba2f](https://github.com/Sage/carbon/commit/ed4ba2f677b5542ec30be527a0cbf0d585ef2bd9))
+
+## [133.2.0](https://github.com/Sage/carbon/compare/v133.1.1...v133.2.0) (2024-05-02)
+
+
+### Features
+
+* **icon:** 3 new icons added and tick update ([eec42ec](https://github.com/Sage/carbon/commit/eec42ec04bd8d80c546e0b931ae8790b5ff3cfd1))
+
+### [133.1.1](https://github.com/Sage/carbon/compare/v133.1.0...v133.1.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* **popover-container:** allow fullWidth button to be rendered as renderOpenComponent ([dbbbe2d](https://github.com/Sage/carbon/commit/dbbbe2d2767223d616e5172e544054a66720528c)), closes [#5784](https://github.com/Sage/carbon/issues/5784)
+
 ## [133.1.0](https://github.com/Sage/carbon/compare/v133.0.5...v133.1.0) (2024-04-26)
 
 

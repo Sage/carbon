@@ -25,68 +25,74 @@ type Story = StoryObj<typeof MultiSelect>;
 
 export const Default: Story = () => {
   return (
-    <MultiSelect name="simple" id="simple" label="color" labelInline>
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <Box height={220}>
+      <MultiSelect name="simple" id="simple" label="color" labelInline>
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
   );
 };
 Default.storyName = "Default";
 
 export const ListPlacement: Story = () => {
   return (
-    <MultiSelect
-      name="simple"
-      id="simple"
-      label="color"
-      labelInline
-      listPlacement="top"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <Box height={200} alignContent="end">
+      <MultiSelect
+        name="simple"
+        id="simple"
+        label="color"
+        labelInline
+        listPlacement="top"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
   );
 };
 ListPlacement.storyName = "List Placement";
 
 export const ListHeight: Story = () => {
   return (
-    <MultiSelect
-      listMaxHeight={2000}
-      name="list height"
-      id="list-height"
-      label="List height"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <Box height={500}>
+      <MultiSelect
+        listMaxHeight={2000}
+        name="list height"
+        id="list-height"
+        label="List height"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
   );
 };
 ListHeight.storyName = "List Height";
@@ -97,25 +103,27 @@ export const Controlled: Story = () => {
     setValue((event.target.value as unknown) as string[]);
   }
   return (
-    <MultiSelect
-      id="controlled"
-      name="controlled"
-      value={value}
-      onChange={onChangeHandler}
-      label="color"
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <Box height={250}>
+      <MultiSelect
+        id="controlled"
+        name="controlled"
+        value={value}
+        onChange={onChangeHandler}
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
   );
 };
 Controlled.storyName = "Controlled";
@@ -123,19 +131,26 @@ Controlled.parameters = { chromatic: { disableSnapshot: true } };
 
 export const OpenOnFocus: Story = () => {
   return (
-    <MultiSelect name="openOnFocus" id="openOnFocus" openOnFocus label="color">
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <Box height={250}>
+      <MultiSelect
+        name="openOnFocus"
+        id="openOnFocus"
+        openOnFocus
+        label="color"
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
   );
 };
 OpenOnFocus.storyName = "Open on Focus";
@@ -193,45 +208,47 @@ Readonly.storyName = "Read Only";
 
 export const WithMultipleColumns: Story = () => {
   return (
-    <MultiSelect
-      name="withMultipleColumns"
-      id="withMultipleColumns"
-      multiColumn
-      tableHeader={
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Occupation</th>
-        </tr>
-      }
-      label="With multiple columns"
-    >
-      <OptionRow id="1" value="1" text="John Doe">
-        <td>John</td>
-        <td>Doe</td>
-        <td>Welder</td>
-      </OptionRow>
-      <OptionRow id="2" value="2" text="Joe Vick">
-        <td>Joe</td>
-        <td>Vick</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="3" value="3" text="Jane Poe">
-        <td>Jane</td>
-        <td>Poe</td>
-        <td>Accountant</td>
-      </OptionRow>
-      <OptionRow id="4" value="4" text="Jill Moe">
-        <td>Jill</td>
-        <td>Moe</td>
-        <td>Engineer</td>
-      </OptionRow>
-      <OptionRow id="5" value="5" text="Bill Zoe">
-        <td>Bill</td>
-        <td>Zoe</td>
-        <td>Astronaut</td>
-      </OptionRow>
-    </MultiSelect>
+    <Box height={250}>
+      <MultiSelect
+        name="withMultipleColumns"
+        id="withMultipleColumns"
+        multiColumn
+        tableHeader={
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Occupation</th>
+          </tr>
+        }
+        label="With multiple columns"
+      >
+        <OptionRow id="1" value="1" text="John Doe">
+          <td>John</td>
+          <td>Doe</td>
+          <td>Welder</td>
+        </OptionRow>
+        <OptionRow id="2" value="2" text="Joe Vick">
+          <td>Joe</td>
+          <td>Vick</td>
+          <td>Accountant</td>
+        </OptionRow>
+        <OptionRow id="3" value="3" text="Jane Poe">
+          <td>Jane</td>
+          <td>Poe</td>
+          <td>Accountant</td>
+        </OptionRow>
+        <OptionRow id="4" value="4" text="Jill Moe">
+          <td>Jill</td>
+          <td>Moe</td>
+          <td>Engineer</td>
+        </OptionRow>
+        <OptionRow id="5" value="5" text="Bill Zoe">
+          <td>Bill</td>
+          <td>Zoe</td>
+          <td>Astronaut</td>
+        </OptionRow>
+      </MultiSelect>
+    </Box>
   );
 };
 WithMultipleColumns.storyName = "With Multiple Columns";
@@ -239,48 +256,54 @@ WithMultipleColumns.parameters = { chromatic: { disableSnapshot: true } };
 
 export const Required: Story = () => {
   return (
-    <MultiSelect
-      name="required-select"
-      id="required-select"
-      label="Foreground Color"
-      required
-    >
-      <Option text="Amber" value="1" />
-      <Option text="Black" value="2" />
-      <Option text="Blue" value="3" />
-      <Option text="Brown" value="4" />
-      <Option text="Green" value="5" />
-      <Option text="Orange" value="6" />
-      <Option text="Pink" value="7" />
-      <Option text="Purple" value="8" />
-      <Option text="Red" value="9" />
-      <Option text="White" value="10" />
-      <Option text="Yellow" value="11" />
-    </MultiSelect>
+    <Box height={250}>
+      <MultiSelect
+        name="required-select"
+        id="required-select"
+        label="Foreground Color"
+        required
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
   );
 };
 Required.storyName = "Required";
 
-export const IsOptional: Story = () => (
-  <MultiSelect
-    name="optional-select"
-    id="optional-select"
-    label="Foreground Color"
-    isOptional
-  >
-    <Option text="Amber" value="1" />
-    <Option text="Black" value="2" />
-    <Option text="Blue" value="3" />
-    <Option text="Brown" value="4" />
-    <Option text="Green" value="5" />
-    <Option text="Orange" value="6" />
-    <Option text="Pink" value="7" />
-    <Option text="Purple" value="8" />
-    <Option text="Red" value="9" />
-    <Option text="White" value="10" />
-    <Option text="Yellow" value="11" />
-  </MultiSelect>
-);
+export const IsOptional: Story = () => {
+  return (
+    <Box height={250}>
+      <MultiSelect
+        name="optional-select"
+        id="optional-select"
+        label="Foreground Color"
+        isOptional
+      >
+        <Option text="Amber" value="1" />
+        <Option text="Black" value="2" />
+        <Option text="Blue" value="3" />
+        <Option text="Brown" value="4" />
+        <Option text="Green" value="5" />
+        <Option text="Orange" value="6" />
+        <Option text="Pink" value="7" />
+        <Option text="Purple" value="8" />
+        <Option text="Red" value="9" />
+        <Option text="White" value="10" />
+        <Option text="Yellow" value="11" />
+      </MultiSelect>
+    </Box>
+  );
+};
 IsOptional.storyName = "IsOptional";
 
 export const WithObjectAsValue: Story = () => {
@@ -311,7 +334,7 @@ export const WithObjectAsValue: Story = () => {
     setValue([]);
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearValue} mb={2}>
         clear
       </Button>
@@ -326,7 +349,7 @@ export const WithObjectAsValue: Story = () => {
           <Option key={option.id} text={option.text} value={option} />
         ))}
       </MultiSelect>
-    </>
+    </Box>
   );
 };
 WithObjectAsValue.storyName = "With Object as Value";
@@ -361,7 +384,7 @@ export const WithIsLoadingProp: Story = () => {
     preventLoading.current = false;
   }
   return (
-    <>
+    <Box height={300}>
       <Button onClick={clearData} mb={2}>
         reset
       </Button>
@@ -378,7 +401,7 @@ export const WithIsLoadingProp: Story = () => {
       >
         {optionList}
       </MultiSelect>
-    </>
+    </Box>
   );
 };
 WithIsLoadingProp.storyName = "With isLoading prop";
@@ -386,43 +409,47 @@ WithIsLoadingProp.parameters = { chromatic: { disableSnapshot: true } };
 
 export const WithCustomColoredPills: Story = () => {
   return (
-    <MultiSelect
-      name="simple"
-      id="simple"
-      label="color"
-      defaultValue={["1", "3"]}
-    >
-      <Option text="Amber" value="1" borderColor="#FFBF00" fill />
-      <Option text="Black" value="2" borderColor="blackOpacity65" fill />
-      <Option text="Blue" value="3" borderColor="productBlue" />
-      <Option text="Brown" value="4" borderColor="brown" fill />
-      <Option text="Green" value="5" borderColor="productGreen" />
-      <Option text="Orange" value="6" borderColor="orange" />
-      <Option text="Pink" value="7" borderColor="pink" />
-      <Option text="Purple" value="8" borderColor="purple" />
-      <Option text="Red" value="9" borderColor="red" fill />
-      <Option text="White" value="10" borderColor="white" />
-      <Option text="Yellow" value="11" borderColor="yellow" fill />
-    </MultiSelect>
+    <Box height={250}>
+      <MultiSelect
+        name="simple"
+        id="simple"
+        label="color"
+        defaultValue={["1", "3"]}
+      >
+        <Option text="Amber" value="1" borderColor="#FFBF00" fill />
+        <Option text="Black" value="2" borderColor="blackOpacity65" fill />
+        <Option text="Blue" value="3" borderColor="productBlue" />
+        <Option text="Brown" value="4" borderColor="brown" fill />
+        <Option text="Green" value="5" borderColor="productGreen" />
+        <Option text="Orange" value="6" borderColor="orange" />
+        <Option text="Pink" value="7" borderColor="pink" />
+        <Option text="Purple" value="8" borderColor="purple" />
+        <Option text="Red" value="9" borderColor="red" fill />
+        <Option text="White" value="10" borderColor="white" />
+        <Option text="Yellow" value="11" borderColor="yellow" fill />
+      </MultiSelect>
+    </Box>
   );
 };
 WithCustomColoredPills.storyName = "With Custom Colored Pills";
 
 export const WithCustomMaxWidth: Story = () => {
   return (
-    <MultiSelect name="simple" id="simple" maxWidth="50%" label="color">
-      <Option text="Amber" value="1" borderColor="#FFBF00" fill />
-      <Option text="Black" value="2" borderColor="blackOpacity65" fill />
-      <Option text="Blue" value="3" borderColor="productBlue" />
-      <Option text="Brown" value="4" borderColor="brown" fill />
-      <Option text="Green" value="5" borderColor="productGreen" />
-      <Option text="Orange" value="6" borderColor="orange" />
-      <Option text="Pink" value="7" borderColor="pink" />
-      <Option text="Purple" value="8" borderColor="purple" />
-      <Option text="Red" value="9" borderColor="red" fill />
-      <Option text="White" value="10" borderColor="white" />
-      <Option text="Yellow" value="11" borderColor="yellow" fill />
-    </MultiSelect>
+    <Box height={250}>
+      <MultiSelect name="simple" id="simple" maxWidth="50%" label="color">
+        <Option text="Amber" value="1" borderColor="#FFBF00" fill />
+        <Option text="Black" value="2" borderColor="blackOpacity65" fill />
+        <Option text="Blue" value="3" borderColor="productBlue" />
+        <Option text="Brown" value="4" borderColor="brown" fill />
+        <Option text="Green" value="5" borderColor="productGreen" />
+        <Option text="Orange" value="6" borderColor="orange" />
+        <Option text="Pink" value="7" borderColor="pink" />
+        <Option text="Purple" value="8" borderColor="purple" />
+        <Option text="Red" value="9" borderColor="red" fill />
+        <Option text="White" value="10" borderColor="white" />
+        <Option text="Yellow" value="11" borderColor="yellow" fill />
+      </MultiSelect>
+    </Box>
   );
 };
 WithCustomMaxWidth.storyName = "With Custom Max Width";
@@ -486,7 +513,7 @@ ValidationsStringNewDesign.storyName = "Validations String New Design";
 
 export const PillsWithLongText: Story = () => {
   return (
-    <Box maxWidth="200px">
+    <Box height={250} maxWidth="200px">
       <MultiSelect
         name="long-pill-text-wrapped"
         id="long-pill-text-wrapped"
@@ -529,16 +556,18 @@ export const Virtualised: Story = () => {
       />
     ));
   return (
-    <MultiSelect
-      name="virtualised"
-      id="virtualised"
-      label="choose an option"
-      labelInline
-      enableVirtualScroll
-      virtualScrollOverscan={20}
-    >
-      {options}
-    </MultiSelect>
+    <Box height={220}>
+      <MultiSelect
+        name="virtualised"
+        id="virtualised"
+        label="choose an option"
+        labelInline
+        enableVirtualScroll
+        virtualScrollOverscan={20}
+      >
+        {options}
+      </MultiSelect>
+    </Box>
   );
 };
 Virtualised.storyName = "Virtualised";

@@ -70,8 +70,7 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.slice(2, 4).forEach((buttonType) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should render text in ${buttonType} style`, async ({
+    test(`should render text in ${buttonType} style`, async ({
       mount,
       page,
     }) => {
@@ -102,8 +101,7 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.forEach((buttonType, times) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should focus ${buttonType} button using RightArrow keyboard key`, async ({
+    test(`should focus ${buttonType} button using RightArrow keyboard key`, async ({
       mount,
       page,
     }) => {
@@ -121,8 +119,7 @@ test.describe("Functionality tests", () => {
   });
 
   buttonNames.forEach((buttonType, times) => {
-    // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
-    test.skip(`should focus ${buttonType} button using ArrowLeft keyboard key`, async ({
+    test(`should focus ${buttonType} button using ArrowLeft keyboard key`, async ({
       mount,
       page,
     }) => {
@@ -548,8 +545,11 @@ test.describe("Prop tests", () => {
 });
 
 test.describe("Events tests", () => {
-  // created an issue FE-5139 to fix this
-  test.skip(`should call onChange callback when a type event is triggered`, async ({
+  // draft-js calls onChange whenever the focus state changes as it needs to poll
+  // for any changes to the EditorState that may not have resulted in the plain text
+  // of the content updating but that the state has still changed.
+  // For example a user has highlighted some text to apply inline styles.
+  test(`should call onChange callback when a type event is triggered`, async ({
     mount,
     page,
   }) => {
@@ -562,9 +562,9 @@ test.describe("Events tests", () => {
       />
     );
 
-    await textEditorInput(page).type("t");
+    await textEditorInput(page).fill("t");
 
-    expect(callbackCount).toBe(1);
+    expect(callbackCount).toBeGreaterThanOrEqual(1);
   });
 
   test(`should call onLinkAdded callback when a valid url is detected by TextEditor`, async ({

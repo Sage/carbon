@@ -100,14 +100,11 @@ describe("LoaderSpinner", () => {
     );
 
     it.each(sizes)(
-      "when the 'size' prop is passed as `%s` the svg circle wrapper has the correct dimensions",
+      "when the 'size' prop is passed as `%s` the svg circle wrapper has the correct height",
       (spinnerSizes) => {
         render(<LoaderSpinner size={spinnerSizes} />);
         const svgCircleElement = screen.getByRole("presentation");
 
-        expect(svgCircleElement).toHaveStyle(
-          `width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-        );
         expect(svgCircleElement).toHaveStyle(
           `height: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
         );
@@ -115,14 +112,11 @@ describe("LoaderSpinner", () => {
     );
 
     it.each(sizes)(
-      "when the 'size' prop is passed as `%s` the svg circle wrapper has the correct minimum dimensions",
+      "when the 'size' prop is passed as `%s` the svg circle wrapper has the correct minimum height",
       (spinnerSizes) => {
         render(<LoaderSpinner size={spinnerSizes} />);
         const svgCircleElement = screen.getByRole("presentation");
 
-        expect(svgCircleElement).toHaveStyle(
-          `min-width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-        );
         expect(svgCircleElement).toHaveStyle(
           `min-height: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
         );
@@ -168,14 +162,14 @@ describe("LoaderSpinner", () => {
       "large",
       "extra-large",
     ] as LoaderSpinnerSizes[])(
-      "when the 'size' prop is passed as `%s` the label has the correct width",
+      "when the 'size' prop is passed as `%s` the label has the correct margin-top",
       (spinnerSizes) => {
         render(<LoaderSpinner size={spinnerSizes} />);
         const visibleLabelElement = screen.getByTestId("visible-label");
 
-        expect(visibleLabelElement).toHaveStyle(
-          `width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-        );
+        expect(visibleLabelElement).toHaveStyle({
+          marginTop: `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].labelMarginTop}px`,
+        });
       }
     );
 
