@@ -1,3 +1,10 @@
+### [134.0.3](https://github.com/Sage/carbon/compare/v134.0.2...v134.0.3) (2024-05-09)
+
+
+### Bug Fixes
+
+* **loader-spinner:** allow components label to extend longer than the svg wrapper ([bd87c52](https://github.com/Sage/carbon/commit/bd87c52547e959bf06a24f2f4e127386b1e6b7b1)), closes [#6702](https://github.com/Sage/carbon/issues/6702)
+
 ### [134.0.2](https://github.com/Sage/carbon/compare/v134.0.1...v134.0.2) (2024-05-08)
 
 
