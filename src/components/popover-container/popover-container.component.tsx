@@ -143,14 +143,18 @@ export interface PopoverContainerProps extends PaddingProps {
   disableAnimation?: boolean;
 }
 
-const popoverMiddleware = [
-  offset(({ rects }) => ({
-    mainAxis: -rects.reference.height,
-  })),
-  flip({
-    fallbackStrategy: "initialPlacement",
-  }),
-];
+function getPopoverMiddleware(shouldCoverButton: boolean) {
+  return [
+    offset(
+      shouldCoverButton
+        ? ({ rects }) => ({ mainAxis: -rects.reference.height })
+        : 6
+    ),
+    flip({
+      fallbackStrategy: "initialPlacement",
+    }),
+  ];
+}
 
 export const PopoverContainer = ({
   children,
@@ -357,7 +361,7 @@ export const PopoverContainer = ({
               popoverStrategy={
                 disableAnimation || reduceMotion ? "fixed" : "absolute"
               }
-              {...(shouldCoverButton && { middleware: popoverMiddleware })}
+              middleware={getPopoverMiddleware(shouldCoverButton)}
               childRefOverride={popoverContentNodeRef}
             >
               {childrenToRender(state)}

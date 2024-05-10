@@ -82,11 +82,6 @@ const useChildButtons = (
     toggleButtonRef.current?.focus();
   };
 
-  const hideButtonsIfTriggerNotFocused = useCallback(() => {
-    if (toggleButtonRef.current === document.activeElement) return;
-    setShowAdditionalButtons(false);
-  }, [toggleButtonRef]);
-
   const wrapperProps = {
     "data-element": "additional-buttons",
     role: "list",
@@ -101,7 +96,6 @@ const useChildButtons = (
     showButtons,
     hideButtons,
     buttonNode,
-    hideButtonsIfTriggerNotFocused,
     handleToggleButtonKeyDown,
     wrapperProps,
     contextValue,
