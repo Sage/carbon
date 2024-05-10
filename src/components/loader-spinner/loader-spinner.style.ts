@@ -38,9 +38,10 @@ export const StyledLabel = styled(Typography)<
     css`
       display: flex;
       justify-content: center;
-      ${size !== "extra-small" &&
-      `width: ${LOADER_SPINNER_SIZE_PARAMS[size].wrapperDimensions}px`};
-      ${size === "extra-small" && `margin-left: var(--spacing100)`};
+      text-align: center;
+      ${size === "extra-small"
+        ? "margin-left: var(--spacing100)"
+        : `margin-top: ${LOADER_SPINNER_SIZE_PARAMS[size].labelMarginTop}px`};
     `}
 `;
 
@@ -64,9 +65,7 @@ export const StyledSpinnerCircleSvg = styled.svg<StyledSpinnerCircleSvgProps>`
     return (
       size &&
       css`
-        width: ${dimensions};
         height: ${dimensions};
-        min-width: ${dimensions};
         min-height: ${dimensions};
 
         circle[data-role="outer-arc"] {

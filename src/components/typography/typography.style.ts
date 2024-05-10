@@ -178,7 +178,7 @@ const StyledTypography = styled.span.attrs(
     white-space: ${truncate ? "nowrap" : whiteSpace};
     word-wrap: ${wordWrap};
     text-align: ${textAlign};
-    text-overflow: ${truncate ? "ellipsis" : textOverflow};
+    text-overflow: ${textOverflow || (truncate && "ellipsis")};
     ${truncate &&
     css`
       overflow: hidden;

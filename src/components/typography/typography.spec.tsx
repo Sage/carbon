@@ -606,16 +606,20 @@ describe("Typography", () => {
     );
 
     it.each(["clip", "ellipsis", "string", "initial", "inherit"])(
-      "applies text-overflow of %s",
+      "applies text-overflow of %s when text is truncated",
       (prop) => {
         const wrapper = mount(
           <ThemeProvider theme={sageTheme}>
-            <Typography textOverflow={prop}>FooBar</Typography>
+            <Typography truncate textOverflow={prop}>
+              FooBar
+            </Typography>
           </ThemeProvider>
         );
 
         assertStyleMatch(
           {
+            whiteSpace: "nowrap",
+            overflow: "hidden",
             textOverflow: prop,
           },
           wrapper.find(Typography)
