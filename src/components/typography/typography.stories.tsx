@@ -120,17 +120,21 @@ VariantsStory.parameters = { info: { disable: true } };
 
 export const TruncateStory: Story = () => (
   <>
-    <Box height={80} width={80} backgroundColor="yellow">
+    <Box height={80} width={350} backgroundColor="yellow">
       <Typography truncate>
-        The is an example of using the truncate prop. This is an example of some
-        text with applied.
+        The is an example of using the truncate prop with a block element.
       </Typography>
     </Box>
-    <Box height={80} width={80} backgroundColor="red">
+    <Box height={80} width={350} backgroundColor="red">
       <Typography truncate variant="b" display="block">
         The is an example of using the truncate prop with an inline element.
         Changing the display type to be a block element allows it to actually
         truncate.
+      </Typography>
+    </Box>
+    <Box height={80} width={350} backgroundColor="lightblue">
+      <Typography truncate textOverflow="clip">
+        The is an example of using the truncate prop with custom text-overflow.
       </Typography>
     </Box>
   </>

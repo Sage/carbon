@@ -22,8 +22,25 @@ const meta: Meta<typeof LoaderSpinner> = {
 export default meta;
 type Story = StoryObj<typeof LoaderSpinner>;
 
-export const Default: Story = () => <LoaderSpinner />;
+export const Default: Story = () => (
+  <Box display="flex">
+    <LoaderSpinner />
+  </Box>
+);
 Default.storyName = "Default";
+
+export const OverrideSpinnerLabel: Story = () => (
+  <Box display="flex">
+    <LoaderSpinner mx="3" spinnerLabel="Processing..." variant="action" />
+    <LoaderSpinner mx="3" spinnerLabel="Saving..." variant="neutral" />
+    <LoaderSpinner
+      mx="3"
+      spinnerLabel="Loading... This can take a few seconds... Or a few minutes..."
+      variant="action"
+    />
+  </Box>
+);
+OverrideSpinnerLabel.storyName = "Override Spinner Label";
 
 export const Sizes: Story = () => {
   return (
@@ -37,7 +54,9 @@ export const Sizes: Story = () => {
 Sizes.storyName = "Sizes";
 
 export const ShowSpinnerLabel: Story = () => (
-  <LoaderSpinner showSpinnerLabel={false} />
+  <Box display="flex">
+    <LoaderSpinner showSpinnerLabel={false} />
+  </Box>
 );
 ShowSpinnerLabel.storyName = "Show Spinner Label";
 
@@ -74,7 +93,11 @@ export const HasMotion: Story = () => (
 );
 HasMotion.storyName = "Has Motion";
 
-export const IsTracked: Story = () => <LoaderSpinner isTracked />;
+export const IsTracked: Story = () => (
+  <Box display="flex">
+    <LoaderSpinner isTracked />
+  </Box>
+);
 IsTracked.storyName = "Is Tracked";
 
 export const AnimationTime: Story = () => (

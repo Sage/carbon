@@ -17,6 +17,26 @@ import {
 } from "./loader-spinner.config";
 
 test.describe("Prop checks for Loader Spinner component", () => {
+  test("when the 'spinnerLabel' prop is passed a custom string value it overrides the default visible label", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<LoaderSpinnerComponent spinnerLabel="foo" />);
+
+    await expect(loaderSpinnerVisibleLabel(page)).toHaveText("foo");
+  });
+
+  test("when the 'spinnerLabel' prop is passed a custom string value it overrides the visually hidden label", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <LoaderSpinnerComponent spinnerLabel="bar" showSpinnerLabel={false} />
+    );
+
+    await expect(loaderSpinnerHiddenLabel(page)).toHaveText("bar");
+  });
+
   test("when the 'size' prop is passed as 'extra-small' the component wrapper has a flex-direction of row", async ({
     mount,
     page,
@@ -43,7 +63,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
   );
 
   sizes.forEach((spinnerSizes) => {
-    test(`when the 'size' prop is passed as '${spinnerSizes}' the svg circle wrapper has the correct dimensions`, async ({
+    test(`when the 'size' prop is passed as '${spinnerSizes}' the svg circle wrapper has the correct height`, async ({
       mount,
       page,
     }) => {
@@ -53,15 +73,11 @@ test.describe("Prop checks for Loader Spinner component", () => {
         "height",
         `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
       );
-      await expect(loaderSpinnerSvg(page)).toHaveCSS(
-        "width",
-        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-      );
     });
   });
 
   sizes.forEach((spinnerSizes) => {
-    test(`when the 'size' prop is passed as '${spinnerSizes}' the svg circle wrapper has the correct minimum dimensions`, async ({
+    test(`when the 'size' prop is passed as '${spinnerSizes}' the svg circle wrapper has the correct minimum height`, async ({
       mount,
       page,
     }) => {
@@ -69,10 +85,6 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerSvg(page)).toHaveCSS(
         "min-height",
-        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-      );
-      await expect(loaderSpinnerSvg(page)).toHaveCSS(
-        "min-width",
         `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
       );
     });
@@ -120,15 +132,15 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
   (["small", "medium", "large", "extra-large"] as const).forEach(
     (spinnerSizes) => {
-      test(`when the 'size' prop is passed as '${spinnerSizes}' the label has the correct width`, async ({
+      test(`when the 'size' prop is passed as '${spinnerSizes}' the label has the correct margin-top`, async ({
         mount,
         page,
       }) => {
         await mount(<LoaderSpinnerComponent size={spinnerSizes} />);
 
         await expect(loaderSpinnerVisibleLabel(page)).toHaveCSS(
-          "width",
-          `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
+          "margin-top",
+          `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].labelMarginTop}px`
         );
       });
     }

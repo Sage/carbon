@@ -70,6 +70,7 @@ import {
   flatTablePager,
   flatTablePageSizeSelect,
   flatTablePageSelectListPosition,
+  pageSelectElement,
   pageSelectInput,
   flatTablePageSelectNext,
   flatTablePageSelectPrevious,
@@ -2703,7 +2704,7 @@ test.describe("Prop tests", () => {
       const tableBodyRows = flatTableBodyRows(page);
       await expect(tableBodyRows).toHaveCount(5);
       await expect(flatTableBodyRows(page).first()).toBeInViewport();
-      await pageSelectInput(page).click();
+      await pageSelectElement(page).click();
       await flatTablePageSelectListPosition(page)
         .locator("li")
         .nth(option)
@@ -2716,29 +2717,6 @@ test.describe("Prop tests", () => {
 
   [...itemsPerPage].forEach(([numberOfItems, option]) => {
     test(`should open Show Items selector with the Spacebar and select ${numberOfItems} items per page`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<FlatTablePagerStickyHeaderComponent />);
-
-      const tableBodyRows = flatTableBodyRows(page);
-      await expect(tableBodyRows).toHaveCount(5);
-      await expect(flatTableBodyRows(page).first()).toBeInViewport();
-      await pageSelectInput(page).focus();
-      await page.keyboard.press("Space");
-      await flatTablePageSelectListPosition(page)
-        .locator("li")
-        .nth(option)
-        .click();
-      await expect(tableBodyRows).toHaveCount(numberOfItems);
-      await expect(flatTableBodyRows(page).first()).toBeInViewport();
-      await expect(pageSelectInput(page)).toHaveValue(numberOfItems.toString());
-    });
-  });
-
-  // Skipped because of FE-6381 - Enter key does not open Pager dropdowns in Flat-table.
-  [...itemsPerPage].forEach(([numberOfItems, option]) => {
-    test.skip(`should open Show Items selector with the Enter key and select ${numberOfItems} items per page`, async ({
       mount,
       page,
     }) => {

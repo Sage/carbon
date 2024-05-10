@@ -267,6 +267,7 @@ export const Search = React.forwardRef<SearchHandle, SearchProps>(
               buttonType="primary"
               iconPosition="before"
               iconType="search"
+              className="search-button"
               {...buttonProps}
             >
               {searchButtonText}

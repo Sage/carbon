@@ -56,6 +56,27 @@ describe("LoaderSpinner", () => {
   });
 
   describe("when custom props are passed", () => {
+    it("should be visible when the 'spinnerLabel' prop is passed a custom string value", () => {
+      render(<LoaderSpinner spinnerLabel="foo" />);
+      const visibleLabelElement = screen.getByText("foo");
+
+      expect(visibleLabelElement).toBeVisible();
+    });
+
+    it("should override the visible label text when the 'spinnerLabel' prop is passed a custom string value", () => {
+      render(<LoaderSpinner spinnerLabel="foo" />);
+      const wrapperElement = screen.getByRole("status");
+
+      expect(wrapperElement).toHaveTextContent("foo");
+    });
+
+    it("should override the visually hidden label text when the 'spinnerLabel' prop is passed a custom string value", () => {
+      render(<LoaderSpinner spinnerLabel="bar" showSpinnerLabel={false} />);
+      const hiddenLabelElement = screen.getByTestId("hidden-label");
+
+      expect(hiddenLabelElement).toHaveTextContent("bar");
+    });
+
     it("when the 'size' prop is passed as 'extra-small' the component wrapper has a flex-direction of row", () => {
       render(<LoaderSpinner size="extra-small" />);
       const wrapperElement = screen.getByRole("status");
@@ -79,14 +100,11 @@ describe("LoaderSpinner", () => {
     );
 
     it.each(sizes)(
-      "when the 'size' prop is passed as `%s` the svg circle wrapper has the correct dimensions",
+      "when the 'size' prop is passed as `%s` the svg circle wrapper has the correct height",
       (spinnerSizes) => {
         render(<LoaderSpinner size={spinnerSizes} />);
         const svgCircleElement = screen.getByRole("presentation");
 
-        expect(svgCircleElement).toHaveStyle(
-          `width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-        );
         expect(svgCircleElement).toHaveStyle(
           `height: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
         );
@@ -94,14 +112,11 @@ describe("LoaderSpinner", () => {
     );
 
     it.each(sizes)(
-      "when the 'size' prop is passed as `%s` the svg circle wrapper has the correct minimum dimensions",
+      "when the 'size' prop is passed as `%s` the svg circle wrapper has the correct minimum height",
       (spinnerSizes) => {
         render(<LoaderSpinner size={spinnerSizes} />);
         const svgCircleElement = screen.getByRole("presentation");
 
-        expect(svgCircleElement).toHaveStyle(
-          `min-width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-        );
         expect(svgCircleElement).toHaveStyle(
           `min-height: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
         );
@@ -147,14 +162,14 @@ describe("LoaderSpinner", () => {
       "large",
       "extra-large",
     ] as LoaderSpinnerSizes[])(
-      "when the 'size' prop is passed as `%s` the label has the correct width",
+      "when the 'size' prop is passed as `%s` the label has the correct margin-top",
       (spinnerSizes) => {
         render(<LoaderSpinner size={spinnerSizes} />);
         const visibleLabelElement = screen.getByTestId("visible-label");
 
-        expect(visibleLabelElement).toHaveStyle(
-          `width: ${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-        );
+        expect(visibleLabelElement).toHaveStyle({
+          marginTop: `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].labelMarginTop}px`,
+        });
       }
     );
 

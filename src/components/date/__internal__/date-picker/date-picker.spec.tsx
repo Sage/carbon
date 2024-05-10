@@ -5,23 +5,15 @@ import { mount, ReactWrapper } from "enzyme";
 import DayPicker from "react-day-picker";
 import { utcToZonedTime } from "date-fns-tz";
 import {
-  // eslint-disable-next-line import/named
   de as deLocale,
-  // eslint-disable-next-line import/named
   es as esLocale,
-  // eslint-disable-next-line import/named
   enCA as enCALocale,
-  // eslint-disable-next-line import/named
   enGB as enGBLocale,
-  // eslint-disable-next-line import/named
   enZA as enZALocale,
-  // eslint-disable-next-line import/named
   fr as frLocale,
-  // eslint-disable-next-line import/named
   frCA as frCALocale,
-  // eslint-disable-next-line import/named
   enUS as enUSLocale,
-} from "../../../../locales/date-fns-locales";
+} from "date-fns/locale";
 import Locale from "../../../../locales/locale";
 import DatePicker, { DatePickerProps } from "./date-picker.component";
 import StyledDayPicker from "./day-picker.style";

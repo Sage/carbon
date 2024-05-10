@@ -562,7 +562,13 @@ const SelectList = React.forwardRef(
     }, [childrenList, filterText, getIndexOfMatch, virtualizer]);
 
     useEffect(() => {
-      if (!highlightedValue) {
+      // remove the current selected option if the value is cleared
+      // this prevents it from remaining highlighted when the list is re-opened
+      if (
+        (!highlightedValue || Object.keys(highlightedValue).length === 0) &&
+        !isOpen
+      ) {
+        setCurrentOptionsListIndex(-1);
         return;
       }
       const indexOfMatch = getIndexOfMatch(highlightedValue);
@@ -572,7 +578,7 @@ const SelectList = React.forwardRef(
       }
 
       setCurrentOptionsListIndex(indexOfMatch);
-    }, [getIndexOfMatch, highlightedValue]);
+    }, [getIndexOfMatch, highlightedValue, isOpen]);
 
     // ensure that the currently-selected option is always visible immediately after
     // it has been changed

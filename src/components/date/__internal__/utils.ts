@@ -1,5 +1,5 @@
-import { format, formatISO, isMatch, parse, parseISO } from "date-fns/fp";
 import { Modifier } from "react-day-picker";
+import { format, formatISO, isMatch, parse, parseISO } from "./date-fns-fp";
 
 const DATE_STRING_LENGTH = 10;
 const THRESHOLD_FOR_ADDITIONAL_YEARS = 69;
