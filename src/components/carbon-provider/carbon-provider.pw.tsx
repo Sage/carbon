@@ -41,8 +41,6 @@ const commonColors = ["rgb(0, 130, 0)", "rgb(0, 126, 69)"];
 
 const commonColorsOnHover = ["rgb(0, 99, 0)", "rgb(0, 103, 56)"];
 
-const multiButtonOnHover = ["rgb(0, 77, 42)", "rgb(0, 77, 42)"];
-
 const stepSequenceColors = ["rgb(0, 138, 33)", "rgb(0, 138, 33)"];
 
 const loaderBarColors = ["rgb(179, 224, 179)", "rgb(179, 217, 200)"];
@@ -219,7 +217,7 @@ test.describe("Hover styling", () => {
     );
   });
 
-  buildTestArray(multiButtonOnHover).forEach(([theme, color]) => {
+  buildTestArray(commonColorsOnHover).forEach(([theme, color]) => {
     test.describe(
       `should render components with ${theme} theme onHover`,
       () => {

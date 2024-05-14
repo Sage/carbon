@@ -1,3 +1,45 @@
+## [134.1.0](https://github.com/Sage/carbon/compare/v134.0.4...v134.1.0) (2024-05-10)
+
+
+### Features
+
+* **multi-action-button:** remove open menu on hover ([56d79ba](https://github.com/Sage/carbon/commit/56d79ba2955401781757970d627415fea3ea272e))
+* **split-button:** remove open menu on hover ([8a2822d](https://github.com/Sage/carbon/commit/8a2822da6ea587c976faadc55420b53b5333aeb5))
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** popup menu covers the trigger button focus border ([d4f6155](https://github.com/Sage/carbon/commit/d4f615547a437fc8d3fbc2be2ab1ac0ee8a198a4))
+* **popover-container:** popup menu covers trigger button focus border ([c9ec79a](https://github.com/Sage/carbon/commit/c9ec79a05c5e036b84235b83c5f2ad4f7cea84f5))
+
+### [134.0.4](https://github.com/Sage/carbon/compare/v134.0.3...v134.0.4) (2024-05-09)
+
+
+### Bug Fixes
+
+* **typography:** textOverflow prop has no effect when the truncate prop is set ([ee95a2b](https://github.com/Sage/carbon/commit/ee95a2ba35a626023b4dd2c5cfd6f9df6db70d03)), closes [#6098](https://github.com/Sage/carbon/issues/6098)
+
+### [134.0.3](https://github.com/Sage/carbon/compare/v134.0.2...v134.0.3) (2024-05-09)
+
+
+### Bug Fixes
+
+* **loader-spinner:** allow components label to extend longer than the svg wrapper ([bd87c52](https://github.com/Sage/carbon/commit/bd87c52547e959bf06a24f2f4e127386b1e6b7b1)), closes [#6702](https://github.com/Sage/carbon/issues/6702)
+
+### [134.0.2](https://github.com/Sage/carbon/compare/v134.0.1...v134.0.2) (2024-05-08)
+
+
+### Bug Fixes
+
+* **link:** ensure styling overrides apply to open button when popover-container renders in menu ([4b9ea02](https://github.com/Sage/carbon/commit/4b9ea02d7294ec3b25679174dd5ad8a3388088c8)), closes [#6725](https://github.com/Sage/carbon/issues/6725)
+
+### [134.0.1](https://github.com/Sage/carbon/compare/v134.0.0...v134.0.1) (2024-05-08)
+
+
+### Bug Fixes
+
+* **simple-select:** prevent select list from opening via enter key when component is focused ([aade7da](https://github.com/Sage/carbon/commit/aade7dac7dad70e92596127b028d9e5f5e123857))
+
 ## [134.0.0](https://github.com/Sage/carbon/compare/v133.2.0...v134.0.0) (2024-05-02)
 
 

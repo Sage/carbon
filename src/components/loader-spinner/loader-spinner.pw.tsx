@@ -63,7 +63,7 @@ test.describe("Prop checks for Loader Spinner component", () => {
   );
 
   sizes.forEach((spinnerSizes) => {
-    test(`when the 'size' prop is passed as '${spinnerSizes}' the svg circle wrapper has the correct dimensions`, async ({
+    test(`when the 'size' prop is passed as '${spinnerSizes}' the svg circle wrapper has the correct height`, async ({
       mount,
       page,
     }) => {
@@ -73,15 +73,11 @@ test.describe("Prop checks for Loader Spinner component", () => {
         "height",
         `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
       );
-      await expect(loaderSpinnerSvg(page)).toHaveCSS(
-        "width",
-        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-      );
     });
   });
 
   sizes.forEach((spinnerSizes) => {
-    test(`when the 'size' prop is passed as '${spinnerSizes}' the svg circle wrapper has the correct minimum dimensions`, async ({
+    test(`when the 'size' prop is passed as '${spinnerSizes}' the svg circle wrapper has the correct minimum height`, async ({
       mount,
       page,
     }) => {
@@ -89,10 +85,6 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
       await expect(loaderSpinnerSvg(page)).toHaveCSS(
         "min-height",
-        `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
-      );
-      await expect(loaderSpinnerSvg(page)).toHaveCSS(
-        "min-width",
         `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
       );
     });
@@ -140,15 +132,15 @@ test.describe("Prop checks for Loader Spinner component", () => {
 
   (["small", "medium", "large", "extra-large"] as const).forEach(
     (spinnerSizes) => {
-      test(`when the 'size' prop is passed as '${spinnerSizes}' the label has the correct width`, async ({
+      test(`when the 'size' prop is passed as '${spinnerSizes}' the label has the correct margin-top`, async ({
         mount,
         page,
       }) => {
         await mount(<LoaderSpinnerComponent size={spinnerSizes} />);
 
         await expect(loaderSpinnerVisibleLabel(page)).toHaveCSS(
-          "width",
-          `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].wrapperDimensions}px`
+          "margin-top",
+          `${LOADER_SPINNER_SIZE_PARAMS[spinnerSizes].labelMarginTop}px`
         );
       });
     }

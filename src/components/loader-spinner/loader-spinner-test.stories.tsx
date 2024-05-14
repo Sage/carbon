@@ -57,7 +57,7 @@ export default {
 };
 
 export const Default = (props: Partial<LoaderSpinnerProps>) => (
-  <Box p={3} backgroundColor="darkgrey" width="200px" height="200px">
+  <Box p={3} backgroundColor="darkgrey" width="100%" height="200px">
     <LoaderSpinner {...props} />
   </Box>
 );

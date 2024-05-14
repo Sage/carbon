@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import baseTheme from "../../style/themes/base";
 import StyledIcon from "../icon/icon.style";
+import StyledButton from "../button/button.style";
 
 type Variants = "default" | "negative" | "neutral";
 export interface StyledLinkProps {
@@ -219,7 +220,7 @@ const StyledLink = styled.span<StyledLinkProps & PrivateStyledLinkProps>`
         border-bottom-right-radius: var(--borderRadius025);
       `}
 
-      > button {
+      > button, ${StyledButton}:not(.search-button) {
         background-color: transparent;
         border: none;
         padding: 0;

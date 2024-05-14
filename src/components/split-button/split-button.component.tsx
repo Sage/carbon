@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { ThemeContext } from "styled-components";
 import { MarginProps } from "styled-system";
+import { flip, offset } from "@floating-ui/dom";
 
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import Icon, { IconType } from "../icon";
@@ -77,16 +78,15 @@ export const SplitButton = ({
     showButtons,
     hideButtons,
     buttonNode,
-    hideButtonsIfTriggerNotFocused,
     handleToggleButtonKeyDown,
     wrapperProps,
     contextValue,
   } = useChildButtons(toggleButton, CONTENT_WIDTH_RATIO);
 
   const mainButtonProps = {
-    onMouseEnter: hideButtonsIfTriggerNotFocused,
-    onFocus: hideButtonsIfTriggerNotFocused,
-    onTouchStart: hideButtonsIfTriggerNotFocused,
+    onMouseEnter: hideButtons,
+    onFocus: hideButtons,
+    onTouchStart: hideButtons,
     iconPosition,
     buttonType,
     disabled,
@@ -104,9 +104,9 @@ export const SplitButton = ({
     displayed: showAdditionalButtons,
     onTouchStart: showButtons,
     onKeyDown: handleToggleButtonKeyDown,
+    onClick: showButtons,
     buttonType,
     size,
-    ...(!disabled && { onMouseEnter: showButtons, onClick: showButtons }),
   };
 
   function componentTags() {
@@ -159,7 +159,16 @@ export const SplitButton = ({
     if (!showAdditionalButtons) return null;
 
     return (
-      <Popover placement="bottom-end" reference={buttonNode}>
+      <Popover
+        placement="bottom-end"
+        reference={buttonNode}
+        middleware={[
+          offset(6),
+          flip({
+            fallbackStrategy: "initialPlacement",
+          }),
+        ]}
+      >
         <StyledSplitButtonChildrenContainer {...wrapperProps} align={align}>
           <SplitButtonContext.Provider value={contextValue}>
             {React.Children.map(children, (child) => (
@@ -176,7 +185,6 @@ export const SplitButton = ({
 
   return (
     <StyledSplitButton
-      onMouseLeave={hideButtonsIfTriggerNotFocused}
       onClick={handleClick}
       ref={buttonNode}
       {...componentTags()}
