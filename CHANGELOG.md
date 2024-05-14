@@ -1,3 +1,10 @@
+### [134.1.1](https://github.com/Sage/carbon/compare/v134.1.0...v134.1.1) (2024-05-14)
+
+
+### Bug Fixes
+
+* **filterable-select, simple-select:** ensure an ellipsis is shown during text overflow ([3eb5364](https://github.com/Sage/carbon/commit/3eb5364ed71a166fa9b1840db72d9bf80dc5fed8)), closes [#6641](https://github.com/Sage/carbon/issues/6641)
+
 ## [134.1.0](https://github.com/Sage/carbon/compare/v134.0.4...v134.1.0) (2024-05-10)
 
 
