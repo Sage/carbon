@@ -110,28 +110,6 @@ test.describe("Prop tests", () => {
     await expect(page.getByRole("button").first()).toBeDisabled();
   });
 
-  test(`renders all child buttons on hover`, async ({ mount, page }) => {
-    await mount(<MultiActionButtonList />);
-
-    const actionButton = page.getByRole("button", {
-      name: "Multi Action Button",
-    });
-    await actionButton.hover();
-
-    const firstChildButton = page.getByRole("button", {
-      name: "Example Button",
-      exact: true,
-    });
-    const secondChildButton = page.getByRole("button", {
-      name: "Example Button with long text",
-      exact: true,
-    });
-    const thirdChildButton = page.getByRole("button", { name: "Short" });
-    await expect(firstChildButton).toBeVisible();
-    await expect(secondChildButton).toBeVisible();
-    await expect(thirdChildButton).toBeVisible();
-  });
-
   test(`should render with specific background colour when hovering`, async ({
     mount,
     page,
@@ -142,7 +120,7 @@ test.describe("Prop tests", () => {
       "button"
     );
     await actionButton.hover();
-    await expect(actionButton).toHaveCSS("background-color", "rgb(0, 77, 42)");
+    await expect(actionButton).toHaveCSS("background-color", "rgb(0, 103, 56)");
   });
 
   test(`should render component with justify-content as 'space-between' when width prop is passed`, async ({
@@ -240,7 +218,7 @@ test.describe("Functional tests", () => {
     const actionButton = getComponent(page, "multi-action-button").locator(
       "button"
     );
-    await actionButton.hover();
+    await actionButton.click();
     const listButton1 = getDataElementByValue(page, "additional-buttons")
       .locator("span > span")
       .nth(0);
@@ -937,7 +915,7 @@ test.describe(
       await mount(<MultiActionButtonList />);
 
       const actionButton = page.getByRole("button");
-      await actionButton.hover();
+      await actionButton.click();
       const listContainer = getDataElementByValue(page, "additional-buttons");
       await expect(listContainer).toHaveCSS("border-radius", "8px");
       const listButton1 = getDataElementByValue(page, "additional-buttons")
@@ -961,7 +939,7 @@ test.describe(
       await mount(<MultiActionWithHrefChildren />);
 
       const actionButton = page.getByRole("button");
-      await actionButton.hover();
+      await actionButton.click();
       const listButton1 = getDataElementByValue(page, "additional-buttons")
         .getByRole("listitem")
         .nth(0)
@@ -989,7 +967,7 @@ test.describe(
       await mount(<MultiActionButtonWithOneChild />);
 
       const actionButton = page.getByRole("button");
-      await actionButton.hover();
+      await actionButton.click();
       const listButton1 = getDataElementByValue(page, "additional-buttons")
         .getByRole("button")
         .nth(0);

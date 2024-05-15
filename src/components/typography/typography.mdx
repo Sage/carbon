@@ -35,7 +35,9 @@ It's also possible to create ordered and unordered lists using the `List`, `List
 
 ## Example of truncate
 
-The `truncate` prop is a boolean prop that automatically applies the styles required to truncate a piece of text.
+The `truncate` prop is a boolean prop that automatically applies  `overflow: hidden` and `white-space: nowrap`, which are the styles required to truncate a piece of text.
+
+By default, this prop will truncate the text with an ellipsis, but you can also pass the `textOverflow` prop to override this behaviour. 
 
 This prop will only work with block level elements, so ensure `display="block"` or similar is set to enable this functionality.
 

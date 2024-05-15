@@ -1,30 +1,119 @@
 import React from "react";
-import Typography, { List, ListItem } from ".";
+import Typography, { TypographyProps, List, ListItem } from ".";
+import { VARIANT_TYPES } from "./typography.component";
 
 export default {
   title: "Typography/Test",
-  includeStories: ["Default"],
+  includeStories: ["Default", "ListComponent"],
   parameters: {
     info: { disable: true },
     chromatic: {
       disableSnapshot: true,
     },
   },
+  argTypes: {
+    variant: {
+      options: VARIANT_TYPES,
+      control: {
+        type: "select",
+      },
+    },
+    fontSize: {
+      control: {
+        type: "text",
+      },
+    },
+    fontWeight: {
+      control: {
+        type: "text",
+      },
+    },
+    lineHeight: {
+      control: {
+        type: "text",
+      },
+    },
+    textTransform: {
+      control: {
+        type: "text",
+      },
+    },
+    textDecoration: {
+      control: {
+        type: "text",
+      },
+    },
+    display: {
+      control: {
+        type: "text",
+      },
+    },
+    listStyleType: {
+      control: {
+        type: "text",
+      },
+    },
+    whiteSpace: {
+      control: {
+        type: "text",
+      },
+    },
+    wordWrap: {
+      control: {
+        type: "text",
+      },
+    },
+    textAlign: {
+      control: {
+        type: "text",
+      },
+    },
+    textOverflow: {
+      control: {
+        type: "text",
+      },
+    },
+    truncate: {
+      control: {
+        type: "boolean",
+      },
+    },
+    color: {
+      control: {
+        type: "text",
+      },
+    },
+    backgroundColor: {
+      control: {
+        type: "text",
+      },
+    },
+    bg: {
+      control: {
+        type: "text",
+      },
+    },
+    opacity: {
+      control: {
+        type: "text",
+      },
+    },
+  },
 };
 
-export const Default = ({ ...props }) => {
-  return (
-    <Typography {...props} variant="b">
-      Some text
-    </Typography>
-  );
+export const Default = ({ children, ...args }: TypographyProps) => {
+  return <Typography {...args}>{children}</Typography>;
 };
 Default.storyName = "default";
+Default.args = {
+  children: "Some text",
+  variant: "b",
+};
 
-export const ListComponent = ({ ...props }) => {
+export const ListComponent = ({ as, ...args }: TypographyProps) => {
   return (
-    <List {...props}>
-      <ListItem>
+    <List as={as}>
+      <ListItem {...args}>
         Milk <Typography variant="b">2L</Typography>{" "}
         <Typography variant="em">Skimmed</Typography>
       </ListItem>
@@ -38,3 +127,14 @@ export const ListComponent = ({ ...props }) => {
   );
 };
 ListComponent.storyName = "list component";
+ListComponent.args = {
+  as: "ul",
+};
+ListComponent.argTypes = {
+  as: {
+    options: ["ul", "ol"],
+    control: {
+      type: "select",
+    },
+  },
+};

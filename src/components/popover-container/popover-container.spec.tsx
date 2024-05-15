@@ -211,6 +211,12 @@ describe("PopoverContainer", () => {
       ).toBe(true);
     });
 
+    it("should have the correct offset when shouldCoverButton is false", () => {
+      wrapper = render({ shouldCoverButton: false, open: true });
+
+      expect(wrapper.find(Popover).props().middleware?.[0]?.options).toBe(6);
+    });
+
     it("should have the correct offset when shouldCoverButton is set to true", () => {
       wrapper = render({ shouldCoverButton: true, open: true });
 

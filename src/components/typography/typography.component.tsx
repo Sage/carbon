@@ -7,7 +7,7 @@ import {
 } from "../../style/utils";
 import StyledTypography from "./typography.style";
 
-const VARIANT_TYPES = [
+export const VARIANT_TYPES = [
   "h1-large",
   "h1",
   "h2",
