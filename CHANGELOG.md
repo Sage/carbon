@@ -1,3 +1,10 @@
+### [134.1.2](https://github.com/Sage/carbon/compare/v134.1.1...v134.1.2) (2024-05-15)
+
+
+### Bug Fixes
+
+* **action-popover:** submenu is left aligned in the 'with submenu aligned right' story ([6e17163](https://github.com/Sage/carbon/commit/6e171631f0ed654837fc85b7611eb383c397788c)), closes [#6000](https://github.com/Sage/carbon/issues/6000)
+
 ### [134.1.1](https://github.com/Sage/carbon/compare/v134.1.0...v134.1.1) (2024-05-14)
 
 
