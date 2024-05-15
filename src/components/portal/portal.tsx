@@ -91,6 +91,7 @@ export const Portal = ({
       node = document.createElement("div");
       node.classList.add(portalClassName);
       node.setAttribute("data-portal-exit", uniqueId);
+      node.setAttribute("data-role", "carbon-portal-exit");
       if (id !== undefined) {
         node.setAttribute("id", id);
       }

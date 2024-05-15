@@ -1,3 +1,31 @@
+## [135.0.0](https://github.com/Sage/carbon/compare/v134.2.0...v135.0.0) (2024-05-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **step-sequence:** `StepSequence` and `StepSequenceItem` have been removed `StepFlow` should be
+used instead
+* **carousel:** The `Carousel` component no longer exists in Carbon
+* **toast:** Deprecated `isCenter` prop has been removed
+
+### Bug Fixes
+
+* **toast:** remove default value on isCenter prop, add default value of "center" to align prop ([1fc80cd](https://github.com/Sage/carbon/commit/1fc80cdf30ad9b1700dc54195a65b34d6ea32f0e))
+* **toast:** remove the isCenter prop ([a803f0e](https://github.com/Sage/carbon/commit/a803f0eaa66fc89111d6216a69de90c16428f9c5))
+
+
+### Miscellaneous Chores
+
+* **carousel:** remove component ([7a2bea3](https://github.com/Sage/carbon/commit/7a2bea39f2a4869a6bf59cdc72993e892d0a271e))
+* **step-sequence:** remove component ([915a0d8](https://github.com/Sage/carbon/commit/915a0d815a80955e65a2c80630c28cb39c876938))
+
+## [134.2.0](https://github.com/Sage/carbon/compare/v134.1.2...v134.2.0) (2024-05-15)
+
+
+### Features
+
+* **typography:** add support for wordBreak property ([d257da5](https://github.com/Sage/carbon/commit/d257da5002d0a587edf5e0bd230cf1dd2863c714))
+
 ### [134.1.2](https://github.com/Sage/carbon/compare/v134.1.1...v134.1.2) (2024-05-15)
 
 
