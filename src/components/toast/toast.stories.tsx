@@ -230,42 +230,6 @@ export const Notification: Story = () => {
 };
 Notification.storyName = "Notification";
 
-export const LeftAligned: Story = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const onDismissClick = () => {
-    setIsOpen(!isOpen);
-  };
-  const handleToggle = () => {
-    if (!isOpen) {
-      window.scrollTo(0, 0);
-    }
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <Box id="wrapper-left-aligned">
-      <StyledButton
-        id="button-left-aligned"
-        key="button"
-        onClick={handleToggle}
-        isOpen={isOpen}
-      >
-        Toggle - Preview is: {isOpen ? "ON" : "OFF"}
-      </StyledButton>
-      <Toast
-        variant="warning"
-        id="toast-left-aligned"
-        open={isOpen}
-        onDismiss={onDismissClick}
-        isCenter={false}
-      >
-        My text
-      </Toast>
-    </Box>
-  );
-};
-LeftAligned.storyName = "Left Aligned";
-
 export const AlignedLeft: Story = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onDismissClick = () => {
@@ -294,7 +258,6 @@ export const AlignedLeft: Story = () => {
         id="toast-left-aligned"
         open={isOpen}
         onDismiss={onDismissClick}
-        isCenter={false}
       >
         My text
       </Toast>
@@ -331,7 +294,6 @@ export const AlignedCenter: Story = () => {
         id="toast-center-aligned"
         open={isOpen}
         onDismiss={onDismissClick}
-        isCenter={false}
       >
         My text
       </Toast>
@@ -368,7 +330,6 @@ export const AlignedRight: Story = () => {
         id="toast-right-aligned"
         open={isOpen}
         onDismiss={onDismissClick}
-        isCenter={false}
       >
         My text
       </Toast>
@@ -512,7 +473,6 @@ export const CustomMaxWidth: Story = () => {
         id="toast-custom-width"
         open={isOpen}
         onDismiss={onDismissClick}
-        isCenter
         maxWidth="550px"
       >
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
@@ -555,7 +515,6 @@ export const Dismissible: Story = () => {
         id="toast-dismissible"
         open={isOpen}
         onDismiss={onDismissClick}
-        isCenter
       >
         My text
       </Toast>
@@ -595,7 +554,6 @@ export const DismissibleWithTimeout: Story = () => {
         id="toast-dismissible"
         open={isOpen}
         onDismiss={onDismissClick}
-        isCenter
         timeout={2000}
       >
         My text
@@ -635,7 +593,6 @@ export const DismissibleWithoutAutoFocus: Story = () => {
         id="toast-dismissible"
         open={isOpen}
         onDismiss={onDismissClick}
-        isCenter
         disableAutoFocus
       >
         My text
@@ -694,7 +651,6 @@ export const StackedDelayed: Story = () => {
         variant="warning"
         open={isOpenA}
         onDismiss={onDismissClickA}
-        isCenter
         targetPortalId="stacked-delay"
       >
         My toast A
@@ -704,7 +660,6 @@ export const StackedDelayed: Story = () => {
         variant="error"
         open={isOpenB}
         onDismiss={onDismissClickB}
-        isCenter
         targetPortalId="stacked-delay"
       >
         My toast B
@@ -752,7 +707,6 @@ export const Stacked: Story = () => {
         variant="success"
         open={isOpenA}
         onDismiss={onDismissClickA}
-        isCenter
         targetPortalId="stacked"
       >
         My Toast A
@@ -762,7 +716,6 @@ export const Stacked: Story = () => {
         variant="warning"
         open={isOpenB}
         onDismiss={onDismissClickB}
-        isCenter
         targetPortalId="stacked"
       >
         My Toast B

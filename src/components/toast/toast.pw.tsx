@@ -69,20 +69,6 @@ test.describe("Toast component", () => {
     await expect(toastComponent(page)).not.toBeFocused();
   });
 
-  ([
-    [true, "0px"],
-    [false, "30px"],
-  ] as [boolean, string][]).forEach(([isCenter, margin]) => {
-    test(`should render with isCenter prop set to ${isCenter}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<ToastComponent isCenter={isCenter} />);
-
-      await expect(toastComponent(page)).toHaveCSS("margin-right", margin);
-    });
-  });
-
   test("should render with className prop", async ({ mount, page }) => {
     await mount(<ToastComponent className={testData} />);
 
@@ -209,7 +195,7 @@ test.describe("Toast component", () => {
       mount,
       page,
     }) => {
-      await mount(<ToastComponent align={align} isCenter={false} />);
+      await mount(<ToastComponent align={align} />);
 
       await expect(toastComponent(page).locator("..").locator("..")).toHaveCSS(
         "justify-content",
