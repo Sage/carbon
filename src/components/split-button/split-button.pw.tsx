@@ -12,7 +12,10 @@ import SplitButton, { SplitButtonProps } from ".";
 import Button from "../button";
 import Box from "../box";
 import { buttonSubtextPreview } from "../../../playwright/components/button";
-import { checkAccessibility } from "../../../playwright/support/helper";
+import {
+  checkAccessibility,
+  getStyle,
+} from "../../../playwright/support/helper";
 import { icon, getDataElementByValue } from "../../../playwright/components";
 import {
   splitToggleButton,
@@ -162,6 +165,30 @@ test.describe("Styling tests", () => {
     await expect(
       additionalButtonsContainer(page).locator("a").nth(1)
     ).toHaveCSS("border-radius", "0px 0px 8px 8px");
+  });
+
+  test("should render with additional buttons min-width computed based on the component's width", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <SplitButtonList size="large">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButtonList>
+    );
+
+    await splitToggleButton(page).nth(0).click();
+
+    const transformValue = await getStyle(
+      additionalButtonsContainer(page),
+      "min-width"
+    );
+    const transformValueAsNumber = +transformValue.replace("px", "");
+
+    expect(transformValueAsNumber).toBeLessThan(156);
+    expect(transformValueAsNumber).toBeGreaterThan(154);
   });
 
   test(`should render with the expected border radius when there is only on one child button`, async ({

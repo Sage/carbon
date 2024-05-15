@@ -1,3 +1,24 @@
+## [134.2.0](https://github.com/Sage/carbon/compare/v134.1.2...v134.2.0) (2024-05-15)
+
+
+### Features
+
+* **typography:** add support for wordBreak property ([d257da5](https://github.com/Sage/carbon/commit/d257da5002d0a587edf5e0bd230cf1dd2863c714))
+
+### [134.1.2](https://github.com/Sage/carbon/compare/v134.1.1...v134.1.2) (2024-05-15)
+
+
+### Bug Fixes
+
+* **action-popover:** submenu is left aligned in the 'with submenu aligned right' story ([6e17163](https://github.com/Sage/carbon/commit/6e171631f0ed654837fc85b7611eb383c397788c)), closes [#6000](https://github.com/Sage/carbon/issues/6000)
+
+### [134.1.1](https://github.com/Sage/carbon/compare/v134.1.0...v134.1.1) (2024-05-14)
+
+
+### Bug Fixes
+
+* **filterable-select, simple-select:** ensure an ellipsis is shown during text overflow ([3eb5364](https://github.com/Sage/carbon/commit/3eb5364ed71a166fa9b1840db72d9bf80dc5fed8)), closes [#6641](https://github.com/Sage/carbon/issues/6641)
+
 ## [134.1.0](https://github.com/Sage/carbon/compare/v134.0.4...v134.1.0) (2024-05-10)
 
 
