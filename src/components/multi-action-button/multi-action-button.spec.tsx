@@ -287,27 +287,6 @@ describe("MultiActionButton", () => {
         expect(mainButton.getDOMNode()).toStrictEqual(document.activeElement);
       });
     });
-
-    describe("and mouse leaves the main Button", () => {
-      it("then the additional buttons menu should remain open", () => {
-        const additionalButtons = wrapper
-          .find(additionalButtonsSelector)
-          .find(Button);
-
-        additionalButtons
-          .first()
-          .simulate("keydown", { key: "Tab", shiftKey: true });
-        jest.runAllTimers();
-
-        mainButton.simulate("mouseenter");
-
-        wrapper.find(StyledMultiActionButton).simulate("mouseleave");
-
-        expect(wrapper.find(additionalButtonsSelector).exists()).toStrictEqual(
-          true
-        );
-      });
-    });
   });
 
   describe("when the esc key is pressed", () => {
@@ -331,7 +310,7 @@ describe("MultiActionButton", () => {
       container = null;
     });
 
-    it("hides the additional children buttons when key pressed and one is focused", () => {
+    it("hides the additional children buttons and sets the focus on the button", () => {
       openAdditionalButtons(
         wrapper.find(StyledMultiActionButton).find(Button).first()
       );
@@ -347,23 +326,6 @@ describe("MultiActionButton", () => {
       expect(
         wrapper.find(StyledMultiActionButton).find(Button).first().getDOMNode()
       ).toStrictEqual(document.activeElement);
-    });
-
-    it("hides the additional children buttons when key pressed and focus is not on the list buttons", () => {
-      const mainButton = wrapper
-        .find(StyledMultiActionButton)
-        .find(Button)
-        .first();
-      mainButton.simulate("mouseenter");
-      expect(
-        wrapper.update().find(StyledButtonChildrenContainer).exists()
-      ).toBeTruthy();
-      act(() => {
-        container?.dispatchEvent(escapeKeyUpEvent);
-      });
-      expect(
-        wrapper.update().find(StyledButtonChildrenContainer).exists()
-      ).toBeFalsy();
     });
   });
 
@@ -512,7 +474,7 @@ describe("MultiActionButton", () => {
       });
 
       it("the handler should be called on the clicked button", () => {
-        mainButton.simulate("mouseenter");
+        mainButton.simulate("click");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
           .find(Button);
@@ -521,7 +483,7 @@ describe("MultiActionButton", () => {
       });
 
       it("the menu should close", () => {
-        mainButton.simulate("mouseenter");
+        mainButton.simulate("click");
         const button = wrapper
           .find('[data-element="additional-buttons"]')
           .find(Button);
@@ -537,7 +499,7 @@ describe("MultiActionButton", () => {
 
       it("does not throw error when button does not have an onclick prop", () => {
         expect(() => {
-          mainButton.simulate("mouseenter");
+          mainButton.simulate("click");
 
           const button = wrapper
             .find('[data-element="additional-buttons"]')

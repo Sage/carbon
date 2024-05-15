@@ -1,3 +1,24 @@
+### [134.1.1](https://github.com/Sage/carbon/compare/v134.1.0...v134.1.1) (2024-05-14)
+
+
+### Bug Fixes
+
+* **filterable-select, simple-select:** ensure an ellipsis is shown during text overflow ([3eb5364](https://github.com/Sage/carbon/commit/3eb5364ed71a166fa9b1840db72d9bf80dc5fed8)), closes [#6641](https://github.com/Sage/carbon/issues/6641)
+
+## [134.1.0](https://github.com/Sage/carbon/compare/v134.0.4...v134.1.0) (2024-05-10)
+
+
+### Features
+
+* **multi-action-button:** remove open menu on hover ([56d79ba](https://github.com/Sage/carbon/commit/56d79ba2955401781757970d627415fea3ea272e))
+* **split-button:** remove open menu on hover ([8a2822d](https://github.com/Sage/carbon/commit/8a2822da6ea587c976faadc55420b53b5333aeb5))
+
+
+### Bug Fixes
+
+* **multi-action-button, split-button:** popup menu covers the trigger button focus border ([d4f6155](https://github.com/Sage/carbon/commit/d4f615547a437fc8d3fbc2be2ab1ac0ee8a198a4))
+* **popover-container:** popup menu covers trigger button focus border ([c9ec79a](https://github.com/Sage/carbon/commit/c9ec79a05c5e036b84235b83c5f2ad4f7cea84f5))
+
 ### [134.0.4](https://github.com/Sage/carbon/compare/v134.0.3...v134.0.4) (2024-05-09)
 
 

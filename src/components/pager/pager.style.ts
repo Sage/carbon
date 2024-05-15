@@ -5,7 +5,7 @@ import StyledInput from "../../__internal__/input/input.style";
 import StyledInputPresentation from "../../__internal__/input/input-presentation.style";
 import StyledFormField from "../../__internal__/form-field/form-field.style";
 import InputIconToggleStyle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
-import StyledSelectText from "../select/__internal__/select-text/select-text.style";
+import { StyledSelectText } from "../select/__internal__/select-text/select-text.style";
 import Link from "../link";
 
 interface StyledPagerProps {

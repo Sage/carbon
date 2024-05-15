@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { WidthProps } from "styled-system";
+import { flip, offset } from "@floating-ui/dom";
 
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import { SplitButtonProps } from "../split-button";
@@ -46,7 +47,6 @@ export const MultiActionButton = ({
     showButtons,
     hideButtons,
     buttonNode,
-    hideButtonsIfTriggerNotFocused,
     handleToggleButtonKeyDown,
     wrapperProps,
     contextValue,
@@ -73,12 +73,20 @@ export const MultiActionButton = ({
     buttonType,
     size,
     subtext,
-    ...(!disabled && { onMouseEnter: showButtons }),
     ...filterOutStyledSystemSpacingProps(rest),
   };
 
   const renderAdditionalButtons = () => (
-    <Popover placement="bottom-end" reference={buttonNode}>
+    <Popover
+      placement="bottom-end"
+      reference={buttonNode}
+      middleware={[
+        offset(6),
+        flip({
+          fallbackStrategy: "initialPlacement",
+        }),
+      ]}
+    >
       <StyledButtonChildrenContainer {...wrapperProps} align={align}>
         <SplitButtonContext.Provider value={contextValue}>
           {React.Children.map(children, (child) => (
@@ -93,7 +101,6 @@ export const MultiActionButton = ({
 
   return (
     <StyledMultiActionButton
-      onMouseLeave={hideButtonsIfTriggerNotFocused}
       ref={buttonNode}
       data-component="multi-action-button"
       data-element={dataElement}

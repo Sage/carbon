@@ -2,6 +2,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
 import SelectText, { SelectTextProps } from ".";
+import { StyledSelectTextChildrenWrapper } from "./select-text.style";
 
 function renderSelectText(props: SelectTextProps = {}) {
   return mount(<SelectText {...props} />);
@@ -27,6 +28,20 @@ describe("SelectText", () => {
     const placeholder = "foobaz";
     const wrapper = renderSelectText({ placeholder });
     expect(wrapper.text()).toBe(placeholder);
+  });
+
+  it("should have proper styling applied to the children wrapper to ensure truncation is displayed", () => {
+    const wrapper = renderSelectText({});
+
+    assertStyleMatch(
+      {
+        display: "block",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+      },
+      wrapper.find(StyledSelectTextChildrenWrapper)
+    );
   });
 
   it("should have proper styling when disabled", () => {
@@ -65,7 +80,6 @@ describe("SelectText", () => {
       {
         textAlign: "right",
         fontWeight: "900",
-        flexDirection: "row-reverse",
       },
       wrapper
     );

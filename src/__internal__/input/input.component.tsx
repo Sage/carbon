@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useRef, useCallback } from "react";
 import StyledInput from "./input.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import { BorderRadiusType } from "../../components/box/box.component";
+import { SelectTextboxContext } from "../../components/select/select-textbox/select-textbox-context";
 
 export type EnterKeyHintTypes =
   | "enter"
@@ -115,6 +116,7 @@ const Input = React.forwardRef<
   ): JSX.Element => {
     const context = useContext(InputContext);
     const groupContext = useContext(InputGroupContext);
+    const { isInputInSelect } = useContext(SelectTextboxContext);
     const deferredTimeout = useRef<null | ReturnType<typeof setTimeout>>(null);
     let input = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
 
@@ -225,6 +227,7 @@ const Input = React.forwardRef<
     return (
       <StyledInput
         {...rest}
+        isInputInSelect={isInputInSelect}
         data-has-autofocus={autoFocus ? true : undefined}
         aria-describedby={combinedDescription}
         aria-labelledby={ariaLabelledBy}

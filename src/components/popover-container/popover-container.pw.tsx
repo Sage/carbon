@@ -71,8 +71,8 @@ test.describe("Check props of Popover Container component", () => {
   });
 
   ([
-    ["left", 125, 670, 566, 345],
-    ["right", 125, 345, 566, 670],
+    ["left", 131, 670, 560, 345],
+    ["right", 131, 345, 560, 670],
   ] as [
     PopoverContainerProps["position"],
     number,
@@ -124,8 +124,8 @@ test.describe("Check props of Popover Container component", () => {
   });
 
   ([
-    ["left", 115, 685, 578, 335],
-    ["right", 115, 335, 578, 685],
+    ["left", 121, 685, 572, 335],
+    ["right", 121, 335, 572, 685],
   ] as [
     PopoverContainerProps["position"],
     number,
@@ -261,7 +261,7 @@ test.describe("Check props of Popover Container component", () => {
 
   ([
     [true, 102, 178],
-    [false, 126, 202],
+    [false, 132, 208],
   ] as const).forEach(([coverButton, yAndTopValueMin, bottomValueMin]) => {
     test(`should render with shouldCoverButton prop set to ${coverButton}`, async ({
       mount,
