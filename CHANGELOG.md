@@ -1,3 +1,10 @@
+## [134.2.0](https://github.com/Sage/carbon/compare/v134.1.2...v134.2.0) (2024-05-15)
+
+
+### Features
+
+* **typography:** add support for wordBreak property ([d257da5](https://github.com/Sage/carbon/commit/d257da5002d0a587edf5e0bd230cf1dd2863c714))
+
 ### [134.1.2](https://github.com/Sage/carbon/compare/v134.1.1...v134.1.2) (2024-05-15)
 
 
