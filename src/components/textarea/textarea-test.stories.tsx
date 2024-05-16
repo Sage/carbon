@@ -25,14 +25,6 @@ export default {
         type: "select",
       },
     },
-    cols: {
-      control: {
-        min: 0,
-        max: 100,
-        step: 1,
-        type: "range",
-      },
-    },
     rows: {
       control: {
         min: 0,
@@ -116,7 +108,6 @@ export default {
   },
   args: {
     expandable: false,
-    cols: 0,
     rows: 0,
     disabled: false,
     autoFocus: false,

@@ -523,7 +523,6 @@ describe("componentWillUnmount", () => {
         onChange={jest.fn()}
         label="Label"
         expandable
-        cols={10}
         rows={10}
         characterLimit={100}
       />
@@ -583,7 +582,6 @@ describe("componentWillUnmount", () => {
         value="foo"
         onChange={jest.fn()}
         label="Label"
-        cols={10}
         rows={10}
       />
     );
