@@ -436,7 +436,7 @@ KeyboardNavigationLeftAlignedSubmenu.storyName =
 export const KeyboardNavigationRightAlignedSubmenu: Story = () => {
   return (
     <Box height={250}>
-      <ActionPopover>
+      <ActionPopover ml={0} rightAlignMenu submenuPosition="right">
         <ActionPopoverItem
           icon="csv"
           onClick={() => {}}

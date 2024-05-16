@@ -645,3 +645,29 @@ export const SimpleSelectWithDisabledOption = () => {
     </Select>
   );
 };
+
+export const SimpleSelectWithTruncatedText = () => {
+  const longValueText =
+    "Like a lot of intelligent animals, most crows are quite social." +
+    "For instance, American crows spend most of the year living in pairs or small family groups." +
+    "During the winter months, they will congregate with hundreds or even thousands of their peers to sleep together at night.";
+  const [value, setValue] = useState("1");
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <Select
+      name="testing"
+      value={value}
+      onChange={onChangeHandler}
+      openOnFocus
+      label="Test"
+      maxWidth="70%"
+    >
+      <Option value="1" text={longValueText} />
+      <Option value="2" text={longValueText} />
+    </Select>
+  );
+};

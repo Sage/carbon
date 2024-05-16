@@ -15,10 +15,7 @@ const StyledSelectText = styled.span<StyledSelectTextProps>`
     flex-grow: 1;
     font-size: 14px;
     height: auto;
-    overflow: hidden;
     outline: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     width: 30px;
     z-index: 1;
     padding-left: ${sizes[size].horizontalPadding};
@@ -53,4 +50,11 @@ const StyledSelectText = styled.span<StyledSelectTextProps>`
   `}
 `;
 
-export default StyledSelectText;
+const StyledSelectTextChildrenWrapper = styled.span`
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export { StyledSelectText, StyledSelectTextChildrenWrapper };

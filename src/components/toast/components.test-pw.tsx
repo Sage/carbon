@@ -59,39 +59,39 @@ export const ToastAllAlign = ({
 }: Partial<ToastProps>) => {
   return (
     <>
-      <Toast align="left" alignY="top" isCenter={false} open {...props}>
+      <Toast align="left" alignY="top" open {...props}>
         {children}
       </Toast>
 
-      <Toast align="center" alignY="top" isCenter={false} open {...props}>
+      <Toast align="center" alignY="top" open {...props}>
         {children}
       </Toast>
 
-      <Toast align="right" alignY="top" isCenter={false} open {...props}>
+      <Toast align="right" alignY="top" open {...props}>
         {children}
       </Toast>
 
-      <Toast align="left" alignY="center" isCenter={false} open {...props}>
+      <Toast align="left" alignY="center" open {...props}>
         {children}
       </Toast>
 
-      <Toast align="center" alignY="center" isCenter={false} open {...props}>
+      <Toast align="center" alignY="center" open {...props}>
         {children}
       </Toast>
 
-      <Toast align="right" alignY="center" isCenter={false} open {...props}>
+      <Toast align="right" alignY="center" open {...props}>
         {children}
       </Toast>
 
-      <Toast align="left" alignY="bottom" isCenter={false} open {...props}>
+      <Toast align="left" alignY="bottom" open {...props}>
         {children}
       </Toast>
 
-      <Toast align="center" alignY="bottom" isCenter={false} open {...props}>
+      <Toast align="center" alignY="bottom" open {...props}>
         {children}
       </Toast>
 
-      <Toast align="right" alignY="bottom" isCenter={false} open {...props}>
+      <Toast align="right" alignY="bottom" open {...props}>
         {children}
       </Toast>
     </>
