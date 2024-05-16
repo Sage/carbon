@@ -79,7 +79,19 @@ Default.args = {
 };
 Default.argTypes = {
   variant: {
-    options: TOAST_COLORS,
+    options: [...TOAST_COLORS, "notice"],
+    control: {
+      type: "select",
+    },
+  },
+  align: {
+    options: ["left", "center", "right"],
+    control: {
+      type: "select",
+    },
+  },
+  alignY: {
+    options: ["top", "center", "bottom"],
     control: {
       type: "select",
     },

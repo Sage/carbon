@@ -227,7 +227,7 @@ describe("Toast component", () => {
     expect(screen.getByTestId("toast")).toHaveAttribute("id", "exampleId");
   });
 
-  it("shoud render any child content passed via the `children` prop", () => {
+  it("should render any child content passed via the `children` prop", () => {
     render(
       <Toast open data-role="toast">
         <span>foobar</span>
@@ -441,7 +441,7 @@ describe("Toast component", () => {
     const toast = screen.getByTestId("toast");
 
     expect(toast).toHaveStyle({
-      "margin-top": "0",
+      margin: "0px 0px 0px auto",
     });
   });
 
@@ -461,27 +461,7 @@ describe("Toast component", () => {
     const toast = screen.getByTestId("toast");
 
     expect(toast).toHaveStyle({
-      "margin-bottom": "0",
-    });
-  });
-
-  it("should render with correct styling when `variant` prop is not set to 'notice' and `alignY` prop is set to 'bottom'", () => {
-    render(
-      <Toast
-        open
-        variant="neutral"
-        alignY="bottom"
-        data-role="toast"
-        onDismiss={() => {}}
-      >
-        foobar
-      </Toast>
-    );
-
-    const toast = screen.getByTestId("toast");
-
-    expect(toast).toHaveStyle({
-      "margin-bottom": "30px",
+      margin: "0px 0px 0px auto",
     });
   });
 
@@ -566,7 +546,7 @@ describe("Toast component", () => {
     expect(ref.current).toBe(screen.getByTestId("toast-wrapper"));
   });
 
-  it("should have the expected styling when `align` prop is 'right'", () => {
+  it("should render with expected styling when `align` prop is 'right'", () => {
     render(
       <Toast open align="right" data-role="toast">
         foobar
@@ -582,7 +562,7 @@ describe("Toast component", () => {
     });
   });
 
-  it("should have the expected styling when `align` prop is 'center'", () => {
+  it("should render with expected styling when `align` prop is 'center'", () => {
     render(
       <Toast open align="center" data-role="toast">
         foobar
@@ -598,7 +578,7 @@ describe("Toast component", () => {
     });
   });
 
-  it("should have the expected styling when `align` prop is 'left'", () => {
+  it("should render with expected styling when `align` prop is 'left'", () => {
     render(
       <Toast open align="left" data-role="toast">
         foobar
@@ -614,7 +594,37 @@ describe("Toast component", () => {
     });
   });
 
-  it("should have the expected styling when `alignY` prop is 'center' and `align` prop is 'left'", () => {
+  it("should render with expected styling when `alignY` prop is set to 'top'", () => {
+    render(
+      <Toast alignY="top" data-role="toast">
+        foobar
+      </Toast>
+    );
+
+    const toast = screen.getByTestId("toast");
+
+    expect(toast).toHaveStyle({
+      "margin-top": "30px",
+      "margin-bottom": "0",
+    });
+  });
+
+  it("should render with expected styling when `alignY` prop is set to 'bottom'", () => {
+    render(
+      <Toast alignY="bottom" data-role="toast">
+        foobar
+      </Toast>
+    );
+
+    const toast = screen.getByTestId("toast");
+
+    expect(toast).toHaveStyle({
+      "margin-top": "0",
+      "margin-bottom": "30px",
+    });
+  });
+
+  it("should render with expected styling when `alignY` prop is 'center' and `align` prop is 'left'", () => {
     render(
       <Toast alignY="center" align="left" data-role="toast">
         foobar
@@ -627,7 +637,7 @@ describe("Toast component", () => {
     });
   });
 
-  it("should have the expected styling when `alignY` prop is 'center' and `align` prop is not 'left'", () => {
+  it("should render with expected styling when `alignY` prop is 'center' and `align` prop is not 'left'", () => {
     render(
       <Toast alignY="center" data-role="toast">
         foobar
