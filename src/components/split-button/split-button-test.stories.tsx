@@ -8,6 +8,7 @@ import {
   SPLIT_BUTTON_ICON_POSITIONS,
   SPLIT_BUTTON_SIZES,
   SPLIT_BUTTON_THEMES,
+  SPLIT_BUTTON_POSITIONS,
 } from "./split-button.config";
 import SplitButton, { SplitButtonProps } from "./split-button.component";
 
@@ -46,6 +47,12 @@ export default {
     },
     align: {
       options: SPLIT_BUTTON_ALIGNMENTS,
+      control: {
+        type: "select",
+      },
+    },
+    position: {
+      options: SPLIT_BUTTON_POSITIONS,
       control: {
         type: "select",
       },

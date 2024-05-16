@@ -4,10 +4,12 @@ import MultiActionButton, {
   MultiActionButtonProps,
 } from "./multi-action-button.component";
 import Button from "../button";
+import Box from "../box";
 import {
   MULTI_ACTION_BUTTON_ALIGNMENTS,
   MULTI_ACTION_BUTTON_SIZES,
   MULTI_ACTION_BUTTON_THEMES,
+  MULTI_ACTION_BUTTON_POSITIONS,
 } from "./multi-action-button.config";
 
 export default {
@@ -38,6 +40,12 @@ export default {
         type: "select",
       },
     },
+    position: {
+      options: MULTI_ACTION_BUTTON_POSITIONS,
+      control: {
+        type: "select",
+      },
+    },
   },
 };
 
@@ -54,17 +62,19 @@ export const MultiActionButtonStory = ({
   subtext,
   ...args
 }: MultiActionButtonStoryArgs) => (
-  <MultiActionButton
-    buttonType={buttonType}
-    text={text}
-    subtext={subtext}
-    onClick={action("click")}
-    {...args}
-  >
-    <Button {...args}>Example Button</Button>
-    <Button {...args}>Example Button with long text</Button>
-    <Button {...args}>Short</Button>
-  </MultiActionButton>
+  <Box height={400} mt={100} ml={100}>
+    <MultiActionButton
+      buttonType={buttonType}
+      text={text}
+      subtext={subtext}
+      onClick={action("click")}
+      {...args}
+    >
+      <Button {...args}>Example Button</Button>
+      <Button {...args}>Example Button with long text</Button>
+      <Button {...args}>Short</Button>
+    </MultiActionButton>
+  </Box>
 );
 
 MultiActionButtonStory.story = {
@@ -74,6 +84,7 @@ MultiActionButtonStory.story = {
     buttonType: "secondary",
     size: "medium",
     subtext: "",
-    text: "Example Multi Action Button",
+    text: "Multi Action Button",
+    position: "left",
   },
 };
