@@ -517,6 +517,7 @@ const Submenu = React.forwardRef<
     return (
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
+        data-role="submenu-wrapper"
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
         isSubmenuOpen={submenuOpen}
