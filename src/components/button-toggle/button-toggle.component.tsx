@@ -12,7 +12,6 @@ import ButtonToggleIcon from "./button-toggle-icon.component";
 import Logger from "../../__internal__/utils/logger";
 import { InputGroupContext } from "../../__internal__/input-behaviour";
 
-let deprecateCheckedWarnTriggered = false;
 let deprecateNameWarnTriggered = false;
 let deprecateUncontrolledWarnTriggered = false;
 let deprecateGroupedWarnTriggered = false;
@@ -22,8 +21,6 @@ export interface ButtonToggleProps extends Partial<StyledButtonToggleProps> {
   "aria-label"?: string;
   /** Prop to specify the aria-labelledby property of the component */
   "aria-labelledby"?: string;
-  /** DEPRECATED: A synonym for pressed, to keep backwards compatibility. */
-  checked?: boolean;
   /** Text to display for the button. */
   children?: React.ReactNode;
   /** Identifier used for testing purposes, applied to the root element of the component. */
@@ -53,7 +50,6 @@ export const ButtonToggle = ({
   "aria-labelledby": ariaLabelledBy,
   buttonIcon,
   buttonIconSize = "small",
-  checked,
   children,
   "data-component": dataComponent,
   "data-element": dataElement,
@@ -73,13 +69,6 @@ export const ButtonToggle = ({
     "Either prop `buttonIcon` must be defined, or this node must have children"
   );
 
-  if (checked !== undefined && !deprecateCheckedWarnTriggered) {
-    deprecateCheckedWarnTriggered = true;
-    Logger.deprecate(
-      "The `checked` prop in `ButtonToggle` component is deprecated and will soon be removed. Please use `pressed` instead."
-    );
-  }
-
   if (name && !deprecateNameWarnTriggered) {
     deprecateNameWarnTriggered = true;
     Logger.deprecate(
@@ -94,8 +83,6 @@ export const ButtonToggle = ({
       "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed."
     );
   }
-
-  const pressedPropValue = pressed === undefined ? checked : pressed;
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -168,7 +155,7 @@ export const ButtonToggle = ({
     }
   }
 
-  const isPressed = isInGroup ? pressedButtonValue === value : pressedPropValue;
+  const isPressed = isInGroup ? pressedButtonValue === value : pressed;
   const isFirstButton = buttonRef.current === firstButton;
 
   // if we're in a ButtonToggleGroup, only one button should be tabbable - the pressed button if there is one, or
