@@ -13,8 +13,9 @@ import Button from "../button";
 import Box from "../box";
 import { buttonSubtextPreview } from "../../../playwright/components/button";
 import {
-  checkAccessibility,
   getStyle,
+  assertCssValueIsApproximately,
+  checkAccessibility,
 } from "../../../playwright/support/helper";
 import { icon, getDataElementByValue } from "../../../playwright/components";
 import {
@@ -253,12 +254,33 @@ test.describe("Prop tests", () => {
     }) => {
       await mount(<SplitButtonList align={alignment} />);
 
-      await expect(splitMainButton(page)).toHaveCSS(
-        `margin-${alignment}`,
-        "0px"
+      await getDataElementByValue(page, "dropdown").click();
+      await expect(additionalButton(page, 1)).toHaveCSS(
+        "justify-content",
+        alignment as string
       );
     });
   });
+
+  ([
+    ["left", 200],
+    ["right", 242],
+  ] as [SplitButtonProps["position"], number][]).forEach(
+    ([position, value]) => {
+      test(`should render with menu position to the ${position}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(<SplitButtonList ml="200px" position={position} />);
+
+        await getDataElementByValue(page, "dropdown").click();
+        const listContainer = additionalButtonsContainer(page);
+        await expect(listContainer).toHaveCSS("position", "absolute");
+        await assertCssValueIsApproximately(listContainer, "top", 45);
+        await assertCssValueIsApproximately(listContainer, "left", value);
+      });
+    }
+  );
 
   test(`should render with component disabled`, async ({ mount, page }) => {
     await mount(<SplitButtonList disabled />);

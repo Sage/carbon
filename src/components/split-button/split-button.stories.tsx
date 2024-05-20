@@ -123,6 +123,26 @@ export const Align: Story = () => {
 Align.storyName = "Align";
 Align.parameters = { chromatic: { disableSnapshot: true } };
 
+export const Position: Story = () => {
+  return (
+    <Box display="flex" justifyContent="space-around">
+      <SplitButton position="left" text="Left position">
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+
+      <SplitButton position="right" text="Right position">
+        <Button href="#">Button 1</Button>
+        <Button>Button 2</Button>
+        <Button>Button 3</Button>
+      </SplitButton>
+    </Box>
+  );
+};
+Position.storyName = "Position";
+Position.parameters = { chromatic: { disableSnapshot: true } };
+
 export const Subtext: Story = () => {
   return (
     <SplitButton size="large" subtext="subtext" text="Split button">

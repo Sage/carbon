@@ -1,3 +1,11 @@
+## [135.1.0](https://github.com/Sage/carbon/compare/v135.0.0...v135.1.0) (2024-05-16)
+
+
+### Features
+
+* **multi-action-button:** add position prop ([0a152b5](https://github.com/Sage/carbon/commit/0a152b55a810b419fd5c81091094250e6ccc96e2)), closes [#6705](https://github.com/Sage/carbon/issues/6705)
+* **split-button:** add position prop ([716bed3](https://github.com/Sage/carbon/commit/716bed3dbd671ededcd9da4b96a8c96160558569))
+
 ## [135.0.0](https://github.com/Sage/carbon/compare/v134.2.0...v135.0.0) (2024-05-15)
 
 
