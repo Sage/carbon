@@ -1,19 +1,18 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { GAP_VALUES, Gap, getGapValue } from "style/utils/box-gap";
-import { mount } from "enzyme";
 import FlexTileContainer from "./flex-tile-container.component";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
 
 describe("FlexTileContainer", () => {
   it.each<Gap>([...GAP_VALUES, "20px", "20%"])(
-    "has styles applied when column-gap is set to %s",
+    "renders with correct column gap when columnGap prop is %s",
     (gapValue) => {
-      const wrapper = mount(
+      render(
         <FlexTileContainer columnGap={gapValue}>content</FlexTileContainer>
       );
-      const columnGap = getGapValue(gapValue);
-      assertStyleMatch({ columnGap }, wrapper);
+      expect(screen.getByText("content")).toHaveStyle({
+        columnGap: getGapValue(gapValue),
+      });
     }
   );
 
@@ -30,6 +29,6 @@ describe("FlexTileContainer", () => {
   it("renders when children are passed", () => {
     render(<FlexTileContainer>Tile Content</FlexTileContainer>);
 
-    expect(screen.getByText("Tile Content")).toBeInTheDocument();
+    expect(screen.getByText("Tile Content")).toBeVisible();
   });
 });

@@ -31,6 +31,8 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
 
   const getButtonChildren = useCallback(
     () =>
+      // DOM query is part of the mock component's implementation, and is not used by tests to find elements.
+      // eslint-disable-next-line testing-library/no-node-access
       document.querySelectorAll<HTMLButtonElement>(
         `[data-role="${containerID}"] button`
       ),
@@ -76,9 +78,7 @@ describe("useMenuKeyboardNavigation", () => {
       ctrlKey: modifier === "ctrlKey",
       metaKey: modifier === "metaKey",
     });
-    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-2`)).toHaveFocus();
   });
 
   it.each([
@@ -96,9 +96,7 @@ describe("useMenuKeyboardNavigation", () => {
         ctrlKey: modifier === "ctrlKey",
         metaKey: modifier === "metaKey",
       });
-      expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-        document.activeElement
-      );
+      expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
     }
   );
 
@@ -107,42 +105,26 @@ describe("useMenuKeyboardNavigation", () => {
     render(<MockComponent hideCb={hideCb} />);
 
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
-    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
-    expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-1`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
-    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-2`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowDown" });
-    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-2`)).toHaveFocus();
   });
 
   it("pressing ArrowUp key focuses the previous child in the list and does not loop when first one is reached", () => {
     const hideCb = jest.fn();
     render(<MockComponent hideCb={hideCb} />);
     screen.getByText(`${childButtonID}-2`).focus();
-    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-2`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
-    expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-1`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
-    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "ArrowUp" });
-    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
   });
 
   it("pressing Tab key focuses the next child in the list, closes the list when the last one is reached and focuses the next element in the DOM", () => {
@@ -150,54 +132,38 @@ describe("useMenuKeyboardNavigation", () => {
     render(<MockComponent hideCb={hideCb} />);
 
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-1`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
-    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-2`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), { key: "Tab" });
     jest.runAllTimers();
     expect(hideCb).toHaveBeenCalled();
-    expect(screen.getByTestId(nextDOMElementID)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByTestId(nextDOMElementID)).toHaveFocus();
   });
 
   it("pressing Shift + Tab key focuses the previous child in the list, closes the list when the first one is reached and focuses the main button", () => {
     const hideCb = jest.fn();
     render(<MockComponent hideCb={hideCb} />);
     screen.getByText(`${childButtonID}-2`).focus();
-    expect(screen.getByText(`${childButtonID}-2`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-2`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), {
       key: "Tab",
       shiftKey: true,
     });
-    expect(screen.getByText(`${childButtonID}-1`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-1`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), {
       key: "Tab",
       shiftKey: true,
     });
-    expect(screen.getByText(`${childButtonID}-0`)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByText(`${childButtonID}-0`)).toHaveFocus();
     fireEvent.keyDown(screen.getByTestId(containerID), {
       key: "Tab",
       shiftKey: true,
     });
     expect(hideCb).toHaveBeenCalled();
-    expect(screen.getByTestId(mainButtonID)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByTestId(mainButtonID)).toHaveFocus();
   });
 
   it("pressing Escape key calls the hide callback and focuses the main button", () => {
@@ -205,9 +171,7 @@ describe("useMenuKeyboardNavigation", () => {
     render(<MockComponent hideCb={hideCb} />);
     fireEvent.keyUp(screen.getByTestId(containerID), { key: "Escape" });
     expect(hideCb).toHaveBeenCalled();
-    expect(screen.getByTestId(mainButtonID)).toStrictEqual(
-      document.activeElement
-    );
+    expect(screen.getByTestId(mainButtonID)).toHaveFocus();
   });
 
   it("pressing Enter key does not trigger prevent default", () => {

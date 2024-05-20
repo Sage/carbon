@@ -1,12 +1,7 @@
 import React from "react";
 import * as floatingUi from "@floating-ui/react-dom";
 
-import {
-  render as renderRTL,
-  screen,
-  fireEvent,
-  waitFor,
-} from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
 import Tooltip, { TooltipProps, InputSizes } from "./tooltip.component";
 import { TooltipPositions } from "./tooltip.config";
@@ -16,16 +11,10 @@ const mockedGuid = "guid-12345";
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(() => mockedGuid);
 
-const positions: TooltipPositions[] = ["top", "bottom", "left", "right"];
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function render(props: Partial<TooltipProps> = {}) {
-  const children = <div data-role="tooltip-target">foo</div>;
-  const message = "foo";
-
-  return renderRTL(
-    <Tooltip {...props} message={message || props.message}>
-      {props.children || children}
+function renderTooltip(props: Partial<TooltipProps> = {}) {
+  return render(
+    <Tooltip {...props} message={props.message || "foo"}>
+      {props.children || <div data-role="tooltip-target">Target</div>}
     </Tooltip>
   );
 }
@@ -33,13 +22,13 @@ function render(props: Partial<TooltipProps> = {}) {
 describe("Tooltip", () => {
   describe("controlled", () => {
     it("matches snapshot when isVisible is true", () => {
-      const { container } = render({ isVisible: true });
+      const { container } = renderTooltip({ isVisible: true });
 
       expect(container).toMatchSnapshot();
     });
 
     it("matches snapshot when isVisible is false", () => {
-      const { container } = render({ isVisible: false });
+      const { container } = renderTooltip({ isVisible: false });
 
       expect(container).toMatchSnapshot();
     });
@@ -47,18 +36,18 @@ describe("Tooltip", () => {
 
   describe("uncontrolled", () => {
     it("shows tooltip with delay when tooltip target is hovered", async () => {
-      render();
-      const tooltipTarget = screen.getByTestId("tooltip-target");
+      renderTooltip();
+      const tooltipTarget = screen.getByText("Target");
       fireEvent.mouseEnter(tooltipTarget);
 
       await waitFor(() => {
-        expect(screen.getByRole("tooltip")).toBeInTheDocument();
+        expect(screen.getByRole("tooltip")).toBeVisible();
       });
     });
 
     it("hides tooltip after mouse leaves the tooltip target", async () => {
-      render();
-      const tooltipTarget = screen.getByTestId("tooltip-target");
+      renderTooltip();
+      const tooltipTarget = screen.getByText("Target");
       fireEvent.mouseEnter(tooltipTarget);
       fireEvent.mouseLeave(tooltipTarget);
 
@@ -68,16 +57,16 @@ describe("Tooltip", () => {
     });
 
     it("shows tooltip when tooltip target is focused", () => {
-      render();
-      const tooltipTarget = screen.getByTestId("tooltip-target");
+      renderTooltip();
+      const tooltipTarget = screen.getByText("Target");
       fireEvent.focus(tooltipTarget);
 
-      expect(screen.getByRole("tooltip")).toBeInTheDocument();
+      expect(screen.getByRole("tooltip")).toBeVisible();
     });
 
     it("hides tooltip when tooltip target is blurred", () => {
-      render();
-      const tooltipTarget = screen.getByTestId("tooltip-target");
+      renderTooltip();
+      const tooltipTarget = screen.getByText("Target");
       fireEvent.focus(tooltipTarget);
       fireEvent.blur(tooltipTarget);
 
@@ -89,7 +78,7 @@ describe("Tooltip", () => {
     describe("TooltipWrapper", () => {
       describe("default", () => {
         it("applies the default styles", () => {
-          render({ isVisible: true });
+          renderTooltip({ isVisible: true });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
             bottom: "auto",
@@ -112,7 +101,7 @@ describe("Tooltip", () => {
         });
 
         it("applies the correct styles when size is 'large'", () => {
-          render({ isVisible: true, size: "large" });
+          renderTooltip({ isVisible: true, size: "large" });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
             fontSize: "16px",
@@ -120,7 +109,7 @@ describe("Tooltip", () => {
         });
 
         it("applies the correct styles  type === 'error'", () => {
-          render({ isVisible: true, type: "error" });
+          renderTooltip({ isVisible: true, type: "error" });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
             backgroundColor: "var(--colorsSemanticNegative500)",
@@ -130,31 +119,31 @@ describe("Tooltip", () => {
 
       describe("color props", () => {
         it("overrides default background when a valid css string is passed via 'bgColor'", () => {
-          render({ isVisible: true, bgColor: "pink" });
+          renderTooltip({ isVisible: true, bgColor: "pink" });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
             backgroundColor: "pink",
           });
 
-          expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+          expect(screen.getByTestId("tooltip-pointer")).toHaveStyle({
             backgroundColor: "pink",
           });
         });
 
         it("overrides the type prop if background color passed via 'bgColor'", () => {
-          render({ isVisible: true, type: "error", bgColor: "pink" });
+          renderTooltip({ isVisible: true, type: "error", bgColor: "pink" });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
             backgroundColor: "pink",
           });
 
-          expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+          expect(screen.getByTestId("tooltip-pointer")).toHaveStyle({
             backgroundColor: "pink",
           });
         });
 
         it("overrides default font color when a valid css string is passed via 'fontColor'", () => {
-          render({ isVisible: true, fontColor: "pink" });
+          renderTooltip({ isVisible: true, fontColor: "pink" });
 
           expect(screen.getByRole("tooltip")).toHaveStyle({
             color: "pink",
@@ -174,41 +163,44 @@ describe("Tooltip", () => {
         large: isTopOrBottom(position) ? 10 : 12,
       });
 
-      describe.each(positions)("and position is %s", (position) => {
-        it.each<InputSizes>(["small", "medium", "large"])(
-          "sets the offset as expected when size is %s",
-          (size) => {
-            const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
-            render({
-              isVisible: true,
-              position,
-              isPartOfInput: true,
-              inputSize: size,
-            });
+      describe.each(["top", "bottom", "left", "right"] as const)(
+        "and position is %s",
+        (position) => {
+          it.each<InputSizes>(["small", "medium", "large"])(
+            "sets the offset as expected when size is %s",
+            (size) => {
+              const useFloatingSpy = jest.spyOn(floatingUi, "useFloating");
+              renderTooltip({
+                isVisible: true,
+                position,
+                isPartOfInput: true,
+                inputSize: size,
+              });
 
-            let middleware;
-            if (useFloatingSpy.mock.calls[0][0]?.middleware?.[0]) {
-              middleware = useFloatingSpy.mock.calls[0][0]?.middleware?.[0];
+              let middleware;
+              if (useFloatingSpy.mock.calls[0][0]?.middleware?.[0]) {
+                middleware = useFloatingSpy.mock.calls[0][0]?.middleware?.[0];
+              }
+
+              expect(
+                middleware?.options({
+                  placement: position,
+                })
+              ).toMatchObject({
+                mainAxis: offsets(position)[size],
+              });
+              useFloatingSpy.mockRestore();
             }
-
-            expect(
-              middleware?.options({
-                placement: position,
-              })
-            ).toMatchObject({
-              mainAxis: offsets(position)[size],
-            });
-            useFloatingSpy.mockRestore();
-          }
-        );
-      });
+          );
+        }
+      );
     });
 
     describe("TooltipPointer", () => {
       it("applies the correct styles", () => {
-        render({ isVisible: true });
+        renderTooltip({ isVisible: true });
 
-        expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+        expect(screen.getByTestId("tooltip-pointer")).toHaveStyle({
           zIndex: "6000",
           position: "absolute",
           width: "12px",
@@ -218,9 +210,9 @@ describe("Tooltip", () => {
       });
 
       it("applies the correct styles when type === 'error'", () => {
-        render({ isVisible: true, type: "error" });
+        renderTooltip({ isVisible: true, type: "error" });
 
-        expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+        expect(screen.getByTestId("tooltip-pointer")).toHaveStyle({
           background: "var(--colorsSemanticNegative500)",
         });
       });
@@ -242,9 +234,9 @@ describe("Tooltip", () => {
             };
           });
 
-        render({ isVisible: true });
+        renderTooltip({ isVisible: true });
 
-        expect(screen.getByRole("tooltip").children[0]).toHaveStyle({
+        expect(screen.getByTestId("tooltip-pointer")).toHaveStyle({
           [arrowPlacement]: "-6px",
         });
 
@@ -254,30 +246,28 @@ describe("Tooltip", () => {
   });
 
   describe("flipOverrides", () => {
-    let mockGlobal: jest.SpyInstance;
+    let consoleSpy: jest.SpyInstance;
 
     beforeEach(() => {
-      mockGlobal = jest
+      consoleSpy = jest
         .spyOn(global.console, "error")
         .mockImplementation(() => undefined);
     });
 
     afterEach(() => {
-      mockGlobal.mockReset();
+      consoleSpy.mockReset();
     });
 
     it("does not throw an error if a valid array is passed", () => {
-      render({ flipOverrides: ["top", "bottom"] });
+      renderTooltip({ flipOverrides: ["top", "bottom"] });
 
-      // eslint-disable-next-line no-console
-      expect(console.error).not.toHaveBeenCalled();
+      expect(consoleSpy).not.toHaveBeenCalled();
     });
 
     it("throws an error if a invalid array is passed", () => {
       expect(() => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore:next-line
-        render({ flipOverrides: ["foo", "bar"] });
+        // @ts-expect-error checking error when invalid prop passed
+        renderTooltip({ flipOverrides: ["foo", "bar"] });
       }).toThrow();
     });
   });
@@ -285,7 +275,7 @@ describe("Tooltip", () => {
   describe("Ref forwarding", () => {
     it("should forward a ref object correctly", () => {
       const testRef = { current: null };
-      renderRTL(
+      render(
         <Tooltip message="foo" isVisible ref={testRef}>
           <span>Test tooltip</span>
         </Tooltip>
@@ -296,7 +286,7 @@ describe("Tooltip", () => {
 
     it("should forward a callback ref correctly", () => {
       const testCallbackRef = jest.fn();
-      renderRTL(
+      render(
         <Tooltip message="foo" isVisible ref={testCallbackRef}>
           <span>Test tooltip</span>
         </Tooltip>

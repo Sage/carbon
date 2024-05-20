@@ -8,7 +8,6 @@ import {
   testStyledSystemWidth,
 } from "../../../__spec_helper__/test-utils";
 import TileContext from "../__internal__/tile-context";
-import { rootTagTestRtl } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("TileContent", () => {
   testStyledSystemSpacing((props) => (
@@ -32,7 +31,7 @@ describe("TileContent", () => {
   it("renders when children are passed", () => {
     render(<TileContent>Tile Content</TileContent>);
 
-    expect(screen.getByText("Tile Content")).toBeInTheDocument();
+    expect(screen.getByText("Tile Content")).toBeVisible();
   });
 
   it.each([
@@ -118,6 +117,8 @@ describe("TileContent", () => {
       </TileContent>
     );
     const element = screen.getByText("Tile Content");
-    rootTagTestRtl(element, "tile-content", "foo", "bar");
+    expect(element).toHaveAttribute("data-component", "tile-content");
+    expect(element).toHaveAttribute("data-element", "foo");
+    expect(element).toHaveAttribute("data-role", "bar");
   });
 });

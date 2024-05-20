@@ -5,7 +5,6 @@ import {
   testStyledSystemFlexBox,
   testStyledSystemPadding,
 } from "../../../__spec_helper__/test-utils";
-import { rootTagTestRtl } from "../../../__internal__/utils/helpers/tags/tags-specs";
 import FlexTileDivider from "../flex-tile-divider";
 
 describe("FlexTileCell", () => {
@@ -25,7 +24,7 @@ describe("FlexTileCell", () => {
   it("renders when children are passed", () => {
     render(<FlexTileCell>Cell Content</FlexTileCell>);
 
-    expect(screen.getByText("Cell Content")).toBeInTheDocument();
+    expect(screen.getByText("Cell Content")).toBeVisible();
   });
 
   it("has proper data attributes applied", () => {
@@ -36,6 +35,8 @@ describe("FlexTileCell", () => {
       </FlexTileCell>
     );
     const element = screen.getByText("Cell Content");
-    rootTagTestRtl(element, "flex-tile-cell", "foo", "bar");
+    expect(element).toHaveAttribute("data-component", "flex-tile-cell");
+    expect(element).toHaveAttribute("data-element", "foo");
+    expect(element).toHaveAttribute("data-role", "bar");
   });
 });
