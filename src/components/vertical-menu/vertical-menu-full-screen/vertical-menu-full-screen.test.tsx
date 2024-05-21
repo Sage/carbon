@@ -113,7 +113,7 @@ describe("VerticalMenuFullScreen", () => {
 
     const menu = screen.queryByRole("navigation");
 
-    expect(menu).toBeNull();
+    expect(menu).not.toBeInTheDocument();
   });
 
   it("should override the scrollbar styling", () => {
@@ -190,10 +190,8 @@ describe("VerticalMenuFullScreen", () => {
 
     const menu = screen.getByRole("navigation");
 
-    expect(menu.getAttribute("data-component")).toEqual(
-      "vertical-menu-full-screen"
-    );
-    expect(menu.getAttribute("data-element")).toEqual("foo");
-    expect(menu.getAttribute("data-role")).toEqual("bar");
+    expect(menu).toHaveAttribute("data-component", "vertical-menu-full-screen");
+    expect(menu).toHaveAttribute("data-element", "foo");
+    expect(menu).toHaveAttribute("data-role", "bar");
   });
 });

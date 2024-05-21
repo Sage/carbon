@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Time, TimeHandle } from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
@@ -10,7 +10,6 @@ import {
   fontSizeConfig,
 } from "../button-toggle/button-toggle.style";
 import I18nProvider from "../i18n-provider";
-import { rootTagTestRtl } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 const localeMock = {
   time: {
@@ -53,6 +52,9 @@ const MockComponent = ({
 };
 
 describe("Time component", () => {
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
+
   testStyledSystemMargin((props) => (
     <Time value={{ hours: "", minutes: "" }} onChange={() => {}} {...props} />
   ));
@@ -60,8 +62,12 @@ describe("Time component", () => {
   it("should not display the AM/PM toggle by default", () => {
     render(<Time value={{ hours: "", minutes: "" }} onChange={() => {}} />);
 
-    expect(screen.queryByText("AM")).not.toBeInTheDocument();
-    expect(screen.queryByText("PM")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "AM" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "PM" })
+    ).not.toBeInTheDocument();
   });
 
   it("should display the AM/PM toggle and highlight the first button when toggleValue prop is `AM`", () => {
@@ -72,13 +78,11 @@ describe("Time component", () => {
       />
     );
 
-    const amToggle = screen.queryByText("AM");
-    const pmToggle = screen.queryByText("PM");
+    const amToggle = screen.getByRole("button", { name: "AM", pressed: true });
+    const pmToggle = screen.getByRole("button", { name: "PM", pressed: false });
 
-    expect(amToggle).toBeInTheDocument();
-    expect(amToggle).toHaveAttribute("aria-pressed", "true");
-    expect(pmToggle).toBeInTheDocument();
-    expect(pmToggle).toHaveAttribute("aria-pressed", "false");
+    expect(amToggle).toBeVisible();
+    expect(pmToggle).toBeVisible();
   });
 
   it("should display the AM/PM toggle and highlight the second button when toggleValue prop is `PM`", () => {
@@ -89,13 +93,11 @@ describe("Time component", () => {
       />
     );
 
-    const amToggle = screen.queryByText("AM");
-    const pmToggle = screen.queryByText("PM");
+    const amToggle = screen.getByRole("button", { name: "AM", pressed: false });
+    const pmToggle = screen.getByRole("button", { name: "PM", pressed: true });
 
-    expect(amToggle).toBeInTheDocument();
-    expect(amToggle).toHaveAttribute("aria-pressed", "false");
-    expect(pmToggle).toBeInTheDocument();
-    expect(pmToggle).toHaveAttribute("aria-pressed", "true");
+    expect(amToggle).toBeVisible();
+    expect(pmToggle).toBeVisible();
   });
 
   it("should render the input hint text when prop is set", () => {
@@ -107,20 +109,20 @@ describe("Time component", () => {
       />
     );
 
-    expect(screen.queryByText("hint text")).toBeInTheDocument();
+    expect(screen.getByText("hint text")).toBeVisible();
   });
 
   it("should focus the relevant input when the associated label is clicked", async () => {
     render(<Time value={{ hours: "12", minutes: "30" }} onChange={() => {}} />);
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await user.click(screen.getByText("Hrs."));
 
-    expect(screen.getByDisplayValue("12")).toBeFocused();
+    expect(screen.getByDisplayValue("12")).toHaveFocus();
 
     await user.click(screen.getByText("Mins."));
 
-    expect(screen.getByDisplayValue("30")).toBeFocused();
+    expect(screen.getByDisplayValue("30")).toHaveFocus();
   });
 
   it("should focus each input in the expected order when user is tabbing", async () => {
@@ -131,24 +133,22 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
-    await act(async () => {
-      await user.tab();
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime,
+      delay: null,
     });
 
-    expect(screen.getByDisplayValue("12")).toBeFocused();
+    await user.tab();
 
-    await act(async () => {
-      await user.tab();
-    });
+    expect(screen.getByDisplayValue("12")).toHaveFocus();
 
-    expect(screen.getByDisplayValue("30")).toBeFocused();
+    await user.tab();
 
-    await act(async () => {
-      await user.tab();
-    });
+    expect(screen.getByDisplayValue("30")).toHaveFocus();
 
-    expect(screen.queryByText("AM")).toBeFocused();
+    await user.tab();
+
+    expect(screen.getByRole("button", { name: "AM" })).toHaveFocus();
   });
 
   it("should focus each input in the expected order when user is shift tabbing", async () => {
@@ -159,31 +159,26 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime,
+      delay: null,
+    });
     const hrsInput = screen.getByDisplayValue("12");
     const minsInput = screen.getByDisplayValue("30");
-    const amToggle = screen.queryByText("AM");
+    const amToggle = screen.getByRole("button", { name: "AM" });
 
-    act(() => {
-      amToggle?.focus();
-    });
+    amToggle.focus();
 
-    expect(amToggle).toHaveFocus();
+    await user.tab({ shift: true });
 
-    await act(async () => {
-      await user.tab({ shift: true });
-    });
+    expect(minsInput).toHaveFocus();
 
-    expect(minsInput).toBeFocused();
+    await user.tab({ shift: true });
 
-    await act(async () => {
-      await user.tab({ shift: true });
-    });
-
-    expect(hrsInput).toBeFocused();
+    expect(hrsInput).toHaveFocus();
   });
 
-  it("should render a legend with any passed label text", () => {
+  it("should verify fieldset uses visible legend text as its accessible name", () => {
     render(
       <Time
         value={{ hours: "12", minutes: "30" }}
@@ -192,10 +187,10 @@ describe("Time component", () => {
       />
     );
 
-    const legend = screen.queryByText("Time");
-
-    expect(legend).toBeInTheDocument();
-    expect(legend?.parentElement?.tagName).toBe("LEGEND");
+    const fieldset = screen.getByRole("group");
+    expect(fieldset).toHaveAccessibleName("Time");
+    const legend = within(fieldset).getByText("Time");
+    expect(legend).toBeVisible();
   });
 
   it("should apply the `medium` `size` styling to inputs and toggles by default", () => {
@@ -210,8 +205,8 @@ describe("Time component", () => {
       "presentation"
     );
     const { height, horizontalPadding } = inputSizes.medium;
-    const amToggle = screen.queryByText("AM");
-    const pmToggle = screen.queryByText("PM");
+    const amToggle = screen.getByRole("button", { name: "AM" });
+    const pmToggle = screen.getByRole("button", { name: "PM" });
 
     expect(hrsInputPresentation).toHaveStyle({
       "min-height": height,
@@ -248,8 +243,8 @@ describe("Time component", () => {
         "presentation"
       );
       const { height, horizontalPadding } = inputSizes[size];
-      const amToggle = screen.queryByText("AM");
-      const pmToggle = screen.queryByText("PM");
+      const amToggle = screen.getByRole("button", { name: "AM" });
+      const pmToggle = screen.getByRole("button", { name: "PM" });
 
       expect(hrsInputPresentation).toHaveStyle({
         "min-height": height,
@@ -273,7 +268,7 @@ describe("Time component", () => {
   );
 
   it("should apply the custom id on the hours input when `hoursInputProps` has an `id` set", () => {
-    const { container } = render(
+    render(
       <Time
         value={{ hours: "12", minutes: "30" }}
         onChange={() => {}}
@@ -281,11 +276,12 @@ describe("Time component", () => {
       />
     );
 
-    expect(container.querySelector("[id='foo']")).toBeInTheDocument();
+    const hoursInput = screen.getByDisplayValue("12");
+    expect(hoursInput).toHaveAttribute("id", "foo");
   });
 
   it("should apply the custom id on the minutes input when `minutesInputProps` has an `id` set", () => {
-    const { container } = render(
+    render(
       <Time
         value={{ hours: "12", minutes: "30" }}
         onChange={() => {}}
@@ -293,7 +289,8 @@ describe("Time component", () => {
       />
     );
 
-    expect(container.querySelector("[id='foo']")).toBeInTheDocument();
+    const minutesInput = screen.getByDisplayValue("30");
+    expect(minutesInput).toHaveAttribute("id", "foo");
   });
 
   it("should call onChange when a user types in the hours input and toggle is rendered", async () => {
@@ -307,12 +304,13 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
-
-    await act(async () => {
-      await user.tab();
-      await user.keyboard(`{1}`);
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime,
+      delay: null,
     });
+
+    const hoursInput = screen.getByLabelText("Hrs.");
+    await user.type(hoursInput, "1");
 
     expect(onChangeMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -336,7 +334,7 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await user.tab();
     await user.keyboard(`{1}`);
 
@@ -362,13 +360,13 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
-
-    await act(async () => {
-      await user.tab();
-      await user.tab();
-      await user.keyboard(`{1}`);
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime,
+      delay: null,
     });
+
+    const minutesInput = screen.getByLabelText("Mins.");
+    await user.type(minutesInput, "1");
 
     expect(onChangeMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -392,7 +390,7 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await user.tab();
     await user.tab();
     await user.keyboard(`{1}`);
@@ -410,6 +408,10 @@ describe("Time component", () => {
 
   it("should call onChange when a user clicks the toggle that is not currently selected", async () => {
     const onChangeMock = jest.fn();
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime,
+      delay: null,
+    });
     render(
       <Time
         value={{ hours: "", minutes: "", period: "AM" }}
@@ -419,11 +421,9 @@ describe("Time component", () => {
       />
     );
 
-    const pmToggle = await screen.findByText("PM");
+    const pmToggle = screen.getByRole("button", { name: "PM" });
 
-    await act(async () => {
-      await userEvent.click(pmToggle);
-    });
+    await user.click(pmToggle);
 
     expect(onChangeMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -438,6 +438,10 @@ describe("Time component", () => {
 
   it("should not call onChange when a user clicks the toggle that is currently selected", async () => {
     const onChangeMock = jest.fn();
+    const user = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime,
+      delay: null,
+    });
     render(
       <Time
         value={{ hours: "", minutes: "", period: "AM" }}
@@ -447,11 +451,9 @@ describe("Time component", () => {
       />
     );
 
-    const amToggle = await screen.findByText("AM");
+    const amToggle = screen.getByRole("button", { name: "AM" });
 
-    await act(async () => {
-      await userEvent.click(amToggle);
-    });
+    await user.click(amToggle);
 
     expect(onChangeMock).not.toHaveBeenCalled();
   });
@@ -466,7 +468,7 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     screen.getByDisplayValue("12").focus();
     await user.tab({ shift: true });
@@ -484,7 +486,7 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     screen.getByDisplayValue("12").focus();
     await user.tab();
@@ -502,7 +504,7 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     screen.getByDisplayValue("12").focus();
     await user.tab();
@@ -520,7 +522,7 @@ describe("Time component", () => {
       />
     );
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     screen.getByDisplayValue("12").focus();
     await user.tab({ shift: true });
@@ -537,7 +539,7 @@ describe("Time component", () => {
       />
     );
 
-    expect(screen.getByText("There is an error")).toBeInTheDocument();
+    expect(screen.getByText("There is an error")).toBeVisible();
   });
 
   it("should render the validation message text when the minutes input has an error passed a string value", () => {
@@ -549,7 +551,7 @@ describe("Time component", () => {
       />
     );
 
-    expect(screen.getByText("There is an error")).toBeInTheDocument();
+    expect(screen.getByText("There is an error")).toBeVisible();
   });
 
   it("should render the validation message text when both the hours and minutes inputs have errors passed as string values", () => {
@@ -566,7 +568,7 @@ describe("Time component", () => {
       screen.getByText(
         "There is an error in hours input. There is an error in minutes input."
       )
-    ).toBeInTheDocument();
+    ).toBeVisible();
   });
 
   it("should render the expected input styling when the hours input has an error passed as a truthy boolean value", () => {
@@ -648,7 +650,7 @@ describe("Time component", () => {
       />
     );
 
-    expect(screen.getByText("There is an warning")).toBeInTheDocument();
+    expect(screen.getByText("There is an warning")).toBeVisible();
   });
 
   it("should render the validation message text when the minutes input has a warning passed as a string value", () => {
@@ -660,7 +662,7 @@ describe("Time component", () => {
       />
     );
 
-    expect(screen.getByText("There is an warning")).toBeInTheDocument();
+    expect(screen.getByText("There is an warning")).toBeVisible();
   });
 
   it("should render the validation message text when both the hours and minutes inputs have warnings passed as string values", () => {
@@ -677,7 +679,7 @@ describe("Time component", () => {
       screen.getByText(
         "There is an warning in hours input. There is an warning in minutes input."
       )
-    ).toBeInTheDocument();
+    ).toBeVisible();
   });
 
   it("should render the expected input styling when the hours input has a warning passed as a truthy boolean value", () => {
@@ -754,8 +756,8 @@ describe("Time component", () => {
       />
     );
 
-    expect(screen.getByDisplayValue("12")).toHaveAttribute("required");
-    expect(screen.getByDisplayValue("30")).toHaveAttribute("required");
+    expect(screen.getByDisplayValue("12")).toBeRequired();
+    expect(screen.getByDisplayValue("30")).toBeRequired();
   });
 
   it("should append the optional text on the label when isOptional prop is set", () => {
@@ -768,7 +770,8 @@ describe("Time component", () => {
       />
     );
 
-    expect(screen.queryByText("Label")).toHaveStyleRule(
+    // use jest-styled-component's assertion as workaround for the pseudo element not being accessible
+    expect(screen.getByText("Label")).toHaveStyleRule(
       "content",
       '"(optional)"',
       { modifier: "::after" }
@@ -784,10 +787,10 @@ describe("Time component", () => {
       />
     );
 
-    expect(screen.queryByText("Hrs.")).toBeInTheDocument();
-    expect(screen.queryByText("Mins.")).toBeInTheDocument();
-    expect(screen.queryByText("AM")).toBeInTheDocument();
-    expect(screen.queryByText("PM")).toBeInTheDocument();
+    expect(screen.getByText("Hrs.")).toBeVisible();
+    expect(screen.getByText("Mins.")).toBeVisible();
+    expect(screen.getByText("AM")).toBeVisible();
+    expect(screen.getByText("PM")).toBeVisible();
   });
 
   it("should render with the overridden translations if provided", () => {
@@ -801,12 +804,12 @@ describe("Time component", () => {
       </I18nProvider>
     );
 
-    expect(screen.queryByText("foo-label")).toBeInTheDocument();
-    expect(screen.queryByText("bar-label")).toBeInTheDocument();
-    expect(screen.queryByText("foo-toggle")).toBeInTheDocument();
-    expect(screen.queryByText("bar-toggle")).toBeInTheDocument();
-    expect(screen.queryByLabelText("foo-aria-label")).toBeInTheDocument();
-    expect(screen.queryByLabelText("bar-aria-label")).toBeInTheDocument();
+    expect(screen.getByText("foo-label")).toBeVisible();
+    expect(screen.getByText("bar-label")).toBeVisible();
+    expect(screen.getByText("foo-toggle")).toBeVisible();
+    expect(screen.getByText("bar-toggle")).toBeVisible();
+    expect(screen.getByLabelText("foo-aria-label")).toBeVisible();
+    expect(screen.getByLabelText("bar-aria-label")).toBeVisible();
   });
 
   it("should render the labels for the hours and minutes inputs if provided instead of the translations", () => {
@@ -822,14 +825,14 @@ describe("Time component", () => {
       </I18nProvider>
     );
 
-    expect(screen.queryByText("hours prop string")).toBeInTheDocument();
-    expect(screen.queryByText("minutes prop string")).toBeInTheDocument();
+    expect(screen.getByText("hours prop string")).toBeVisible();
+    expect(screen.getByText("minutes prop string")).toBeVisible();
   });
 
   it("should call the exposed `focusHoursInput` and focus the hours input", async () => {
     render(<MockComponent focusTarget="hours" />);
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     const button = screen.getByText("Focus input");
 
     await user.click(button);
@@ -840,7 +843,7 @@ describe("Time component", () => {
   it("calling the exposed `focusMinutesInput` and focus the minutes input", async () => {
     render(<MockComponent focusTarget="minutes" />);
 
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     const button = screen.getByText("Focus input");
 
     await user.click(button);
@@ -850,8 +853,10 @@ describe("Time component", () => {
 
   it.each(["disabled", "readOnly"])(
     "should not call onChange when `%s` prop is set and toggle is clicked",
+
     async (prop) => {
       const onChangeMock = jest.fn();
+      const user = userEvent.setup({ delay: null });
       render(
         <Time
           value={{ hours: "", minutes: "", period: "AM" }}
@@ -860,11 +865,9 @@ describe("Time component", () => {
         />
       );
 
-      const pmToggle = await screen.findByText("PM");
+      const pmToggle = screen.getByRole("button", { name: "PM" });
 
-      await act(async () => {
-        await userEvent.click(pmToggle);
-      });
+      await user.click(pmToggle);
 
       expect(onChangeMock).not.toHaveBeenCalled();
     }
@@ -911,9 +914,9 @@ describe("Time component", () => {
       />
     );
 
-    const hintText = screen.queryByText("hint");
-    const hrsLabel = screen.queryByText("Hrs.");
-    const minsLabel = screen.queryByText("Mins.");
+    const hintText = screen.getByText("hint");
+    const hrsLabel = screen.getByText("Hrs.");
+    const minsLabel = screen.getByText("Mins.");
 
     expect(hintText).toHaveStyle({
       color: "var(--colorsUtilityYin055)",
@@ -937,60 +940,79 @@ describe("Time component", () => {
       />
     );
 
-    rootTagTestRtl(screen.getByRole("group"), "time", "foo", "bar");
+    const fieldset = screen.getByRole("group", { name: "label" });
+    expect(fieldset).toHaveAttribute("data-component", "time");
+    expect(fieldset).toHaveAttribute("data-element", "foo");
+    expect(fieldset).toHaveAttribute("data-role", "bar");
   });
 
-  it("should apply the custom `data-` attributes on the inputs when they are passed via `hoursInputProps` and `minutesInputProps`", () => {
-    const { container } = render(
+  it("should apply the custom `data-` attributes on the input wrappers when they are passed via `hoursInputProps` and `minutesInputProps`", () => {
+    render(
       <Time
         value={{ hours: "", minutes: "" }}
         onChange={() => {}}
-        hoursInputProps={{ "data-element": "foo", "data-role": "bar" }}
-        minutesInputProps={{ "data-element": "foo", "data-role": "bar" }}
-      />
-    );
-
-    const hours = container.querySelector(
-      '[data-component="hours"]'
-    ) as HTMLElement;
-    const minutes = container.querySelector(
-      '[data-component="minutes"]'
-    ) as HTMLElement;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    rootTagTestRtl(hours!, "hours", "foo", "bar");
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    rootTagTestRtl(minutes!, "minutes", "foo", "bar");
-  });
-
-  it("should apply the custom `data-` attributes on the toggle component elements when they are passed via `toggleProps`", () => {
-    const { container } = render(
-      <Time
-        value={{ hours: "", minutes: "", period: "AM" }}
-        onChange={() => {}}
-        toggleProps={{
-          wrapperProps: { "data-element": "foo", "data-role": "bar" },
-          amToggleProps: { "data-element": "foo", "data-role": "bar" },
-          pmToggleProps: { "data-element": "foo", "data-role": "bar" },
+        hoursInputProps={{
+          "data-element": "foo",
+          "data-role": "hours-input-wrapper",
+        }}
+        minutesInputProps={{
+          "data-element": "foo",
+          "data-role": "minutes-input-wrapper",
         }}
       />
     );
 
-    const toggleGroup = container.querySelector(
-      '[data-component="time-button-toggle-group"]'
-    ) as HTMLElement;
-    const amToggle = container.querySelector(
-      '[data-component="am-button-toggle"]'
-    ) as HTMLElement;
-    const pmToggle = container.querySelector(
-      '[data-component="pm-button-toggle"]'
-    ) as HTMLElement;
+    const hoursWrapper = screen.getByTestId("hours-input-wrapper");
+    const minutesWrapper = screen.getByTestId("minutes-input-wrapper");
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    rootTagTestRtl(toggleGroup!, "time-button-toggle-group", "foo", "bar");
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    rootTagTestRtl(amToggle!, "am-button-toggle", "foo", "bar");
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    rootTagTestRtl(pmToggle!, "pm-button-toggle", "foo", "bar");
+    expect(hoursWrapper).toHaveAttribute("data-component", "hours");
+    expect(hoursWrapper).toHaveAttribute("data-element", "foo");
+
+    expect(minutesWrapper).toHaveAttribute("data-component", "minutes");
+    expect(minutesWrapper).toHaveAttribute("data-element", "foo");
+  });
+
+  it("should apply the custom `data-` attributes on the toggle component wrappers when they are passed via `toggleProps`", () => {
+    render(
+      <Time
+        value={{ hours: "", minutes: "", period: "AM" }}
+        label="Time"
+        onChange={() => {}}
+        toggleProps={{
+          wrapperProps: { "data-element": "foo", "data-role": "bar" },
+          amToggleProps: {
+            "data-element": "foo",
+            "data-role": "am-button-wrapper",
+          },
+          pmToggleProps: {
+            "data-element": "foo",
+            "data-role": "pm-button-wrapper",
+          },
+        }}
+      />
+    );
+
+    const fieldset = screen.getByRole("group", { name: "Time" });
+    const toggleButtonGroup = within(fieldset).getByRole("group");
+    expect(toggleButtonGroup).toHaveAttribute(
+      "data-component",
+      "time-button-toggle-group"
+    );
+    expect(toggleButtonGroup).toHaveAttribute("data-element", "foo");
+    expect(toggleButtonGroup).toHaveAttribute("data-role", "bar");
+
+    const amButtonWrapper = screen.getByTestId("am-button-wrapper");
+    expect(amButtonWrapper).toHaveAttribute(
+      "data-component",
+      "am-button-toggle"
+    );
+    expect(amButtonWrapper).toHaveAttribute("data-element", "foo");
+
+    const pmButtonWrapper = screen.getByTestId("pm-button-wrapper");
+    expect(pmButtonWrapper).toHaveAttribute(
+      "data-component",
+      "pm-button-toggle"
+    );
+    expect(pmButtonWrapper).toHaveAttribute("data-element", "foo");
   });
 });

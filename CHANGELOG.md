@@ -1,3 +1,10 @@
+### [135.1.1](https://github.com/Sage/carbon/compare/v135.1.0...v135.1.1) (2024-05-20)
+
+
+### Bug Fixes
+
+* **toast:** margin-top on notice variant prevents elements being clicked ([1732886](https://github.com/Sage/carbon/commit/173288609effca75ae07c3e04ec30df35a250643)), closes [#6730](https://github.com/Sage/carbon/issues/6730)
+
 ## [135.1.0](https://github.com/Sage/carbon/compare/v135.0.0...v135.1.0) (2024-05-16)
 
 

@@ -17,14 +17,12 @@ import SubmenuContext, {
 import { StyledMenuItem } from "../menu.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { IconType } from "../../icon";
-import tagComponent, {
-  TagProps,
-} from "../../../__internal__/utils/helpers/tags";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
 
 export type VariantType = "default" | "alternate";
 
 interface MenuItemBaseProps
-  extends TagProps,
+  extends Omit<TagProps, "data-component">,
     LayoutProps,
     FlexboxProps,
     PaddingProps {
@@ -70,8 +68,6 @@ interface MenuItemBaseProps
     for other MenuItems inside the block
    */
   overrideColor?: boolean;
-  /** @private @ignore */
-  "data-component"?: string;
   /** When set the submenu opens by click instead of hover */
   clickToOpen?: boolean;
   /** Sets the maxWidth of the MenuItem */
@@ -115,6 +111,8 @@ export const MenuItem = ({
   overrideColor,
   rel,
   as,
+  "data-element": dataElement,
+  "data-role": dataRole,
   ...rest
 }: MenuWithChildren | MenuWithIcon) => {
   invariant(
@@ -261,7 +259,9 @@ export const MenuItem = ({
   if (submenu) {
     return (
       <StyledMenuItem
-        {...tagComponent("menu-item", rest)}
+        data-component="menu-item"
+        data-element={dataElement}
+        data-role={dataRole}
         menuType={menuType}
         title={getTitle(submenu)}
         maxWidth={itemMaxWidth}
@@ -294,7 +294,9 @@ export const MenuItem = ({
 
   return (
     <StyledMenuItem
-      {...tagComponent("menu-item", rest)}
+      data-component="menu-item"
+      data-element={dataElement}
+      data-role={dataRole}
       menuType={menuType}
       inSubmenu={!!handleSubmenuKeyDown}
       title={getTitle(children)}

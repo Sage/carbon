@@ -3,27 +3,24 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Crumb from "./crumb.component";
 
-const LINK_TEXT = "Link text";
-
 describe("Crumb", () => {
   it("passes href to the anchor element isCurrent is false", () => {
-    render(<Crumb href="foo">{LINK_TEXT}</Crumb>);
+    render(<Crumb href="foo">Link text</Crumb>);
 
-    const link = screen.getByText(LINK_TEXT);
-    expect(link).toBeInTheDocument();
-    expect(link.closest("a")).toHaveAttribute("href", "foo");
+    const link = screen.getByRole("link", { name: "Link text" });
+
+    expect(link).toHaveAttribute("href", "foo");
   });
 
   it("does not pass href to the anchor element when isCurrent is true", () => {
     render(
-      <Crumb href="foo" isCurrent>
-        {LINK_TEXT}
+      <Crumb href="foo" data-role="crumb" isCurrent>
+        Link text
       </Crumb>
     );
 
-    const anchor = screen.getByText(LINK_TEXT).closest("a");
+    const anchor = screen.getByTestId("link-anchor");
     expect(anchor).not.toHaveAttribute("href", "foo");
-
     expect(anchor).toHaveStyle({
       color: "var(--colorsYin055)",
       textDecoration: "none",
@@ -33,14 +30,13 @@ describe("Crumb", () => {
 
   it("calls the handleClick callback if one is passed and isCurrent is false", async () => {
     const handleClickFn = jest.fn();
-
     render(
       <Crumb href="#" onClick={handleClickFn}>
-        {LINK_TEXT}
+        Link text
       </Crumb>
     );
 
-    const link = screen.getByText(LINK_TEXT);
+    const link = screen.getByRole("link", { name: "Link text" });
     await userEvent.click(link);
 
     expect(handleClickFn).toHaveBeenCalledTimes(1);
@@ -48,13 +44,13 @@ describe("Crumb", () => {
 
   it("does not call the handleClick callback if one is passed and isCurrent is true", async () => {
     const handleClickFn = jest.fn();
-
     render(
       <Crumb href="#" onClick={handleClickFn} isCurrent>
-        {LINK_TEXT}
+        Link text
       </Crumb>
     );
-    const link = screen.getByText(LINK_TEXT);
+
+    const link = screen.getByText("Link text");
     await userEvent.click(link);
 
     expect(handleClickFn).toHaveBeenCalledTimes(0);

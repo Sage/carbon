@@ -121,7 +121,7 @@ const StyledToast = styled.div<ToastStyleProps>`
 
     box-shadow: ${boxShadow};
     line-height: 22px;
-    margin-top: ${(alignY === "top" && isNotice) || alignY === "center"
+    margin-top: ${isNotice || alignY === "center" || alignY === "bottom"
       ? "0"
       : "30px"};
     margin-bottom: ${alignY === "bottom" && !isNotice ? "30px" : "0"};

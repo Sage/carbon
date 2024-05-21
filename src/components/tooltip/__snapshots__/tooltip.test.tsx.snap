@@ -5,7 +5,7 @@ exports[`Tooltip controlled matches snapshot when isVisible is false 1`] = `
   <div
     data-role="tooltip-target"
   >
-    foo
+    Target
   </div>
 </div>
 `;
@@ -21,7 +21,7 @@ exports[`Tooltip controlled matches snapshot when isVisible is true 1`] = `
   <div
     data-role="tooltip-target"
   >
-    foo
+    Target
   </div>
   <span
     class="c0"

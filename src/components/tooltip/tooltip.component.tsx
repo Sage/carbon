@@ -286,6 +286,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
                 type={type}
                 ref={arrowReference}
                 data-element="tooltip-pointer"
+                data-role="tooltip-pointer"
                 bgColor={bgColor}
                 style={arrowStyle}
               />
