@@ -76,20 +76,6 @@ describe("ButtonToggle", () => {
       expect(loggerSpy).toHaveBeenCalledTimes(1);
     });
 
-    it("should display a deprecation warning for the name prop which is triggered only once", () => {
-      const wrapper = renderButtonToggle({ name: "foo" });
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        `The \`name\` prop in \`ButtonToggle\` component is deprecated and will soon be removed. It does not provide any functionality
-      since the component can no longer be used in an uncontrolled fashion.`
-      );
-
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-      wrapper.setProps({ prop1: true });
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-    });
-
     it("should display a deprecation warning for the grouped prop which is triggered only once", () => {
       const wrapper = renderButtonToggle({ grouped: true });
 

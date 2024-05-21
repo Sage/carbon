@@ -19,22 +19,12 @@ import { ButtonToggle } from "..";
 import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
-import Logger from "../../../__internal__/utils/logger";
 import Events from "../../../__internal__/utils/helpers/events";
 import { NewValidationContext } from "../../carbon-provider/carbon-provider.component";
-
-export interface CustomEvent {
-  target: {
-    name?: string;
-    value?: string;
-  };
-}
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Unique id for the root element of the component */
   id: string;
-  /** Specifies the name prop to be applied to each button in the group */
-  name?: string;
   /** Toggle buttons to be rendered. Only accepts children of type ButtonToggle */
   children?: React.ReactNode;
   /** aria-label for the group wrapper. Required for accessibility when no text label is provided */
@@ -60,11 +50,7 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** If true all ButtonToggle children will flex to the full width of the ButtonToggleGroup parent */
   fullWidth?: boolean;
   /** Callback triggered by pressing one of the child buttons. Use with controlled components to set the value prop to the value argument */
-  onChange?: (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    value?: string,
-    name?: string
-  ) => void;
+  onChange?: (ev: React.MouseEvent<HTMLButtonElement>, value?: string) => void;
   /** Determines which child button is selected when the component is used as a controlled component */
   value?: string;
   /** [Legacy] Aria label for rendered help component */
@@ -84,12 +70,7 @@ type ButtonToggleGroupContextType = {
   onButtonClick: (value: string) => void;
   handleKeyDown: (ev: React.KeyboardEvent<HTMLButtonElement>) => void;
   pressedButtonValue?: string;
-  onChange?: (
-    ev: React.MouseEvent<HTMLButtonElement>,
-    value?: string,
-    name?: string
-  ) => void;
-  name?: string;
+  onChange?: (ev: React.MouseEvent<HTMLButtonElement>, value?: string) => void;
   allowDeselect?: boolean;
   isInGroup: boolean;
   isDisabled?: boolean;
@@ -98,8 +79,6 @@ type ButtonToggleGroupContextType = {
   /** Identifier for the hint text, if it exists, that is rendered by ButtonToggleGroup */
   hintTextId?: string;
 };
-
-let deprecateNameWarnTriggered = false;
 
 const BUTTON_TOGGLE_SELECTOR = '[data-element="button-toggle-button"]';
 
@@ -127,7 +106,6 @@ const ButtonToggleGroup = ({
   fullWidth,
   labelInline,
   labelWidth,
-  name,
   onChange,
   value,
   "data-component": dataComponent = "button-toggle-group",
@@ -164,14 +142,6 @@ const ButtonToggleGroup = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const [pressedButtonValue, setPressedButtonValue] = useState<string>();
-
-  if (name && !deprecateNameWarnTriggered) {
-    deprecateNameWarnTriggered = true;
-    Logger.deprecate(
-      `The \`name\` prop in \`ButtonToggleGroup\` component is deprecated and will soon be removed. It does not provide any functionality
-      since the component can no longer be used in an uncontrolled fashion.`
-    );
-  }
 
   const { validationRedesignOptIn } = useContext(NewValidationContext);
   const computeLabelPropValues = <T,>(prop: T): undefined | T =>
@@ -260,7 +230,6 @@ const ButtonToggleGroup = ({
               handleKeyDown,
               pressedButtonValue: value || pressedButtonValue,
               onChange,
-              name,
               allowDeselect,
               isInGroup: true,
               isDisabled: disabled,

@@ -21,7 +21,6 @@ import Help from "../../../components/help";
 import StyledLabel from "../../../__internal__/label/label.style";
 import FieldHelp from "../../../__internal__/field-help";
 import StyledHelp from "../../help/help.style";
-import Logger from "../../../__internal__/utils/logger";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 jest.mock("../../../__internal__/utils/helpers/guid");
@@ -241,59 +240,19 @@ describe("ButtonToggleGroup", () => {
     });
   });
 
-  it("there is a deprecation warning for the name prop which is triggered only once", () => {
-    const loggerSpy = jest
-      .spyOn(Logger, "deprecate")
-      .mockImplementation(() => {});
-    const wrapper = render({ name: "foo" });
-
-    expect(loggerSpy).toHaveBeenCalledWith(
-      `The \`name\` prop in \`ButtonToggleGroup\` component is deprecated and will soon be removed. It does not provide any functionality
-      since the component can no longer be used in an uncontrolled fashion.`
-    );
-
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-    wrapper.setProps({ prop1: true });
-    expect(loggerSpy).toHaveBeenCalledTimes(1);
-
-    loggerSpy.mockReset();
-  });
-
-  it("when onChange event handler is passed, then it should be called with the correct name and value when a toggle button is clicked", () => {
+  it("when onChange event handler is passed, then it should be called with the correct value when a toggle button is clicked", () => {
     const onChangeFn = jest.fn();
     const wrapper = render({
       onChange: onChangeFn,
-      name: "button-toggle-group",
     });
     wrapper.find(ButtonToggle).first().find("button").simulate("click");
     expect(onChangeFn.mock.calls[0][1]).toBe("foo");
-    expect(onChangeFn.mock.calls[0][2]).toBe("button-toggle-group");
-  });
-
-  it("when onChange event handler is passed, then it should be called with the name of the specific ButtonToggle that is clicked", () => {
-    const onChangeFn = jest.fn();
-    const Component = () => (
-      <ButtonToggleGroup id="button-toggle-group-id" onChange={onChangeFn}>
-        <ButtonToggle value="foo" name="foo-btn-name">
-          Foo
-        </ButtonToggle>
-        <ButtonToggle value="bar" name="bar-btn-name">
-          Bar
-        </ButtonToggle>
-      </ButtonToggleGroup>
-    );
-    const wrapper = mount(<Component />);
-    wrapper.find(ButtonToggle).first().find("button").simulate("click");
-    expect(onChangeFn.mock.calls[0][1]).toBe("foo");
-    expect(onChangeFn.mock.calls[0][2]).toBe("foo-btn-name");
   });
 
   it("when allowDeselect prop is passed, onChange should be called with null value when the currently-pressed button is clicked", () => {
     const onChangeFn = jest.fn();
     const wrapper = render({
       onChange: onChangeFn,
-      name: "button-toggle-group",
       allowDeselect: true,
       value: "foo",
     });
