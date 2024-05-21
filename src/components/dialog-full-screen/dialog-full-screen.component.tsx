@@ -10,7 +10,6 @@ import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
-import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
 
@@ -106,7 +105,6 @@ export const DialogFullScreen = ({
   const headingRef = useRef(null);
   const { current: titleId } = useRef(createGuid());
   const { current: subtitleId } = useRef(createGuid());
-  const hasStickyFooter = useIsStickyFooterForm(children);
 
   const isTopModal = useModalAria(dialogRef);
 
@@ -192,7 +190,6 @@ export const DialogFullScreen = ({
             data-element="content"
             ref={contentRef}
             disableContentPadding={disableContentPadding}
-            hasStickyFooter={hasStickyFooter}
           >
             {children}
           </StyledContent>
