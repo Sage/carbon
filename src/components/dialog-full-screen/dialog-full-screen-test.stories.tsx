@@ -10,81 +10,85 @@ import Textbox from "../textbox";
 
 export default {
   title: "Dialog Full Screen/Test",
-  includeStories: ["DefaultStory", "WithTwoDifferentNodes"],
-  parameters: {
-    info: { disable: true },
-    chromatic: {
-      disableSnapshot: true,
-    },
+  component: DialogFullScreen,
+  parameters: { themeProvider: { chromatic: { theme: "sage" } } },
+};
+
+type StoryType = StoryObj<typeof DialogFullScreen>;
+
+export const Default: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return <DialogFullScreen {...rest}>{children}</DialogFullScreen>;
   },
+  args: {
+    children: "Content",
+    open: true,
+    title: "Example Dialog",
+    subtitle: "Example Subtitle",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ height: 900, width: "100%" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
-interface DefaultProps extends Partial<DialogFullScreenProps> {
-  stickyFooter?: boolean;
-  formHeight?: number;
-}
-
-export const DefaultStory = ({
-  stickyFooter,
-  formHeight,
-  children,
-  title,
-  subtitle,
-  ...args
-}: DefaultProps) => {
-  const [isOpen, setIsOpen] = useState(true);
-
-  const handleCancel = () => {
-    setIsOpen(false);
-    action("cancel")();
-  };
-
-  const handleOpen = () => {
-    setIsOpen(true);
-    action("open")();
-  };
-
-  return (
-    <>
-      <Button onClick={handleOpen}>Open Dialog</Button>
-      <DialogFullScreen
-        onCancel={handleCancel}
-        open={isOpen}
-        title={title}
-        subtitle={subtitle}
-        {...args}
+export const WithStickyForm: StoryType = {
+  render: (args) => {
+    const DialogForm = () => (
+      <Form
+        stickyFooter
+        leftSideButtons={<Button onClick={() => {}}>Cancel</Button>}
+        saveButton={
+          <Button buttonType="primary" type="submit">
+            Save
+          </Button>
+        }
+        onSubmit={(ev) => {
+          ev.preventDefault();
+        }}
       >
-        <Form
-          stickyFooter={stickyFooter}
-          leftSideButtons={<Button onClick={handleCancel}>Cancel</Button>}
-          saveButton={
-            <Button buttonType="primary" type="submit">
-              Save
-            </Button>
-          }
-        >
-          {children || ""}
-          <div style={{ height: formHeight }} />
-        </Form>
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+        <Textbox label="Textbox" onChange={() => {}} />
+      </Form>
+    );
+
+    return (
+      <DialogFullScreen {...args}>
+        <DialogForm />
       </DialogFullScreen>
-    </>
-  );
+    );
+  },
+  args: {
+    open: true,
+    title: "Example Dialog",
+    subtitle: "I have a sticky form!",
+    showCloseIcon: true,
+    onCancel: () => {},
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ height: 900, width: "100%" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
-DefaultStory.storyName = "default";
-DefaultStory.args = {
-  title: "Example Dialog",
-  subtitle: "Example Subtitle",
-  children: "Text Content",
-  disableEscKey: false,
-  showCloseIcon: true,
-  formHeight: "2000px",
-  stickyFooter: false,
-  disableContentPadding: false,
-  closeButtonDataProps: {},
-};
-
-export const Nested = () => {
+export const Nested: StoryType = () => {
   const [mainDialogOpen, setMainDialogOpen] = useState(false);
 
   const [nestedDialogOpen, setNestedDialogOpen] = useState(false);
@@ -131,8 +135,11 @@ export const Nested = () => {
 };
 
 Nested.storyName = "nested";
-
-type StoryType = StoryObj<typeof DialogFullScreen>;
+Nested.parameters = {
+  chromatic: {
+    disableSnapshot: true,
+  },
+};
 
 export const WithTwoDifferentNodes: StoryType = ({
   ...props
@@ -174,5 +181,4 @@ WithTwoDifferentNodes.decorators = [
 ];
 WithTwoDifferentNodes.parameters = {
   layout: "fullscreen",
-  chromatic: { disableSnapshot: false },
 };
