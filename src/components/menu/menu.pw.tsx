@@ -64,6 +64,7 @@ import {
   MenuDividerComponent,
   InGlobalHeaderStory,
   SubMenuWithVeryLongLabel,
+  MenuComponentScrollableWithSearch,
   MenuSegmentTitleComponentWithAdditionalMenuItem,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
@@ -2387,6 +2388,53 @@ test.describe(
         "0px 0px 0px 8px"
       );
       const scrollableItem = scrollBlock(page).locator("a").last();
+      await expect(scrollableItem).toHaveCSS(
+        "border-radius",
+        "0px 0px 0px 8px"
+      );
+    });
+
+    test(`renders last MenuItem in a scrollable block without rounded corner, if there is no overflow in the block`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollableWithSearch />);
+
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const searchInput = searchDefaultInput(page);
+      await searchInput.fill("app");
+      const scrollableBlock = scrollBlock(page);
+
+      await expect(scrollableBlock).toHaveCSS(
+        "border-radius",
+        "0px 0px 0px 8px"
+      );
+
+      const scrollableItem = scrollBlock(page).locator("a").last();
+
+      await expect(scrollableItem).toHaveCSS("border-radius", "0px");
+    });
+
+    test(`renders last MenuItem in a scrollable block with rounded corner, if there is overflow within the block`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollableWithSearch />);
+
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const searchInput = searchDefaultInput(page);
+      await searchInput.fill("r");
+      const scrollableBlock = scrollBlock(page);
+
+      await expect(scrollableBlock).toHaveCSS(
+        "border-radius",
+        "0px 0px 0px 8px"
+      );
+
+      const scrollableItem = scrollBlock(page).locator("a").last();
+
       await expect(scrollableItem).toHaveCSS(
         "border-radius",
         "0px 0px 0px 8px"
