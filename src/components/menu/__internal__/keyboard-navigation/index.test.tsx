@@ -36,105 +36,90 @@ const MockMenu = () => (
   </ul>
 );
 
-describe("Menu keyboard navigation", () => {
-  beforeAll(() => loggerSpy.mockImplementation(() => {}));
+beforeAll(() => loggerSpy.mockImplementation(() => {}));
 
-  afterAll(() => loggerSpy.mockRestore());
+afterAll(() => loggerSpy.mockRestore());
 
-  describe("via character keys", () => {
-    it("returns undefined when an empty string is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = characterNavigation("", focusableItems);
-      expect(result).toBeUndefined();
-    });
+test("should not match any item and return undefined when user enters no search string (empty string is passed in)", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = characterNavigation("", focusableItems);
+  expect(result).toBeUndefined();
+});
 
-    // E.g. none of the items start with this letter
-    it("returns undefined when an irreleveant character is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = characterNavigation("h", focusableItems);
-      expect(result).toBeUndefined();
-    });
+// E.g. none of the items start with this letter
+test("should not match any item and return undefined when user enters a non-matching character", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = characterNavigation("h", focusableItems);
+  expect(result).toBeUndefined();
+});
 
-    it("returns correct element when a character key is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = characterNavigation("b", focusableItems);
-      expect(result).toEqual(screen.getByTestId("banana"));
-    });
+test("should return correct element when when user enters a matching character key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = characterNavigation("b", focusableItems);
+  expect(result).toEqual(screen.getByTestId("banana"));
+});
 
-    it("returns correct element when menu contains other nodes", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = characterNavigation("r", focusableItems);
-      expect(result).toEqual(screen.getByTestId("rhubarb-and-ginger"));
-    });
+test("should return correct element when menu contains other nodes and user enters a matching key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = characterNavigation("r", focusableItems);
+  expect(result).toEqual(screen.getByTestId("rhubarb-and-ginger"));
+});
 
-    it("returns first matching element when there are multiple items starting with the same letter", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = characterNavigation("b", focusableItems);
-      expect(result).toEqual(screen.getByTestId("banana"));
-    });
+test("should return first matching element when there are multiple items starting with the same letter and user enters a mtching key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = characterNavigation("b", focusableItems);
+  expect(result).toEqual(screen.getByTestId("banana"));
+});
 
-    it("returns the correct element when the starting letter of a submenu is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = characterNavigation("s", focusableItems);
-      expect(result).toEqual(screen.getByTestId("submenu"));
-    });
-  });
+test("should return the correct submenu parent item when user enters a matching key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = characterNavigation("s", focusableItems);
+  expect(result).toEqual(screen.getByTestId("submenu"));
+});
 
-  describe("via navigation keys", () => {
-    it("returns undefined when an invalid key event is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = menuKeyboardNavigation(
-        getMockEvent("shift"),
-        focusableItems
-      );
-      expect(result).toBeUndefined();
-    });
+test("should not match any item and return undefined when user enters an invalid navigation key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = menuKeyboardNavigation(getMockEvent("shift"), focusableItems);
+  expect(result).toBeUndefined();
+});
 
-    it("returns first index when Home key event is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = menuKeyboardNavigation(
-        getMockEvent("Home", 36),
-        focusableItems
-      );
-      expect(result).toEqual(0);
-    });
+test("should return the index of the first item when user presses Home key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = menuKeyboardNavigation(
+    getMockEvent("Home", 36),
+    focusableItems
+  );
+  expect(result).toEqual(0);
+});
 
-    it("returns last index when the End key event is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = menuKeyboardNavigation(
-        getMockEvent("End", 35),
-        focusableItems
-      );
-      expect(result).toEqual(8);
-    });
+test("should return indexx for the last item when user presses End key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = menuKeyboardNavigation(
+    getMockEvent("End", 35),
+    focusableItems
+  );
+  expect(result).toEqual(8);
+});
 
-    it("returns undefined when an alphabetic key event is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = menuKeyboardNavigation(
-        getMockEvent("c", 67),
-        focusableItems
-      );
-      expect(result).toBeUndefined();
-    });
+test("should not match any item and return undefined when user enters a non-navigation key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = menuKeyboardNavigation(getMockEvent("c", 67), focusableItems);
+  expect(result).toBeUndefined();
+});
 
-    it("returns undefined when Tab key event is passed in", () => {
-      render(<MockMenu />);
-      const focusableItems = screen.getAllByRole("listitem");
-      const result = menuKeyboardNavigation(
-        getMockEvent("Tab", 9),
-        focusableItems
-      );
-      expect(result).toBeUndefined();
-    });
-  });
+test("should not match any item and return undefined when user presses Tab key", () => {
+  render(<MockMenu />);
+  const focusableItems = screen.getAllByRole("listitem");
+  const result = menuKeyboardNavigation(getMockEvent("Tab", 9), focusableItems);
+  expect(result).toBeUndefined();
 });
