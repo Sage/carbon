@@ -12,7 +12,6 @@ import FormField from "../../../__internal__/form-field";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledButtonToggleGroup, {
-  StyledButtonToggleGroupWrapper,
   StyledHintText,
 } from "./button-toggle-group.style";
 import { ButtonToggle } from "..";
@@ -243,27 +242,24 @@ const ButtonToggleGroup = ({
                 {inputHint}
               </StyledHintText>
             )}
-            <StyledButtonToggleGroupWrapper
-              labelInline={labelInline}
+            <StyledButtonToggleGroup
               ref={wrapperRef}
+              {...(label
+                ? { "aria-labelledby": labelId.current }
+                : { "aria-label": ariaLabel })}
+              labelInline={labelInline}
+              inputWidth={inputWidth}
+              fullWidth={fullWidth}
+              role="group"
+              data-component={dataComponent}
+              data-role={dataRole}
+              data-element={dataElement}
+              id={id}
+              className={className}
+              disabled={disabled}
             >
-              <StyledButtonToggleGroup
-                {...(label
-                  ? { "aria-labelledby": labelId.current }
-                  : { "aria-label": ariaLabel })}
-                inputWidth={inputWidth}
-                fullWidth={fullWidth}
-                role="group"
-                data-component={dataComponent}
-                data-role={dataRole}
-                data-element={dataElement}
-                id={id}
-                className={className}
-                disabled={disabled}
-              >
-                {children}
-              </StyledButtonToggleGroup>
-            </StyledButtonToggleGroupWrapper>
+              {children}
+            </StyledButtonToggleGroup>
           </ButtonToggleGroupContext.Provider>
         </FormField>
       </InputGroupBehaviour>

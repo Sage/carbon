@@ -10,12 +10,7 @@ import { ButtonToggleGroupProps } from ".";
 
 type StyledButtonToggleGroupProps = Pick<
   ButtonToggleGroupProps,
-  "inputWidth" | "fullWidth" | "disabled"
->;
-
-type StyledButtonToggleGroupWrapperProps = Pick<
-  ButtonToggleGroupProps,
-  "labelInline"
+  "inputWidth" | "fullWidth" | "disabled" | "labelInline"
 >;
 
 const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
@@ -28,7 +23,7 @@ const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
   gap: 4px;
   width: fit-content;
   height: fit-content;
-  flex-wrap: wrap;
+  flex-wrap: ${({ labelInline }) => (labelInline ? "nowrap" : "wrap")};
 
   ${({ disabled }) =>
     disabled &&
@@ -53,17 +48,6 @@ const StyledButtonToggleGroup = styled.div<StyledButtonToggleGroupProps>`
     inputWidth &&
     css`
       width: ${`${inputWidth}%`};
-    `}
-`;
-
-export const StyledButtonToggleGroupWrapper = styled.div<StyledButtonToggleGroupWrapperProps>`
-  ${({ labelInline }) =>
-    labelInline &&
-    css`
-      display: flex;
-      ${StyledButtonToggleGroup} {
-        flex-wrap: nowrap;
-      }
     `}
 `;
 
