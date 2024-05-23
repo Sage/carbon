@@ -25,6 +25,7 @@ const ButtonToggleIcon = ({
   <StyledButtonToggleIcon
     buttonIconSize={buttonIconSize}
     hasContent={hasContent}
+    data-role="button-toggle-icon"
   >
     <Icon
       aria-hidden
