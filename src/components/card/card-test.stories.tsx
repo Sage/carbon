@@ -12,7 +12,7 @@ import Box from "../box";
 
 export default {
   title: "Card/Test",
-  includeStories: ["DefaultStory"],
+  includeStories: ["DefaultStory", "CustomHeight"],
   component: Card,
   parameters: {
     docs: {
@@ -275,5 +275,80 @@ export const CardTextAlignment = ({ ...props }) => {
         </CardColumn>
       </CardRow>
     </Card>
+  );
+};
+
+export const CustomHeight = () => {
+  return (
+    <>
+      <Card
+        height="500px"
+        onClick={() => {}}
+        footer={
+          <CardFooter>
+            <CardColumn>
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </CardColumn>
+          </CardFooter>
+        }
+      >
+        <CardRow>
+          <CardColumn align="left">
+            <Heading title="Heading" divider={false} />
+            <Typography fontSize="16px" m={0}>
+              Additional text
+            </Typography>
+          </CardColumn>
+          <CardColumn align="right">
+            <Icon type="image" />
+          </CardColumn>
+        </CardRow>
+        <CardRow>
+          <CardColumn>
+            <Typography fontSize="16px" m={0} fontWeight="bold">
+              Body text
+            </Typography>
+            <Heading title="More text" divider={false} />
+            <Typography>Even more text</Typography>
+          </CardColumn>
+        </CardRow>
+      </Card>
+      <Card
+        height="500px"
+        href="#"
+        footer={
+          <CardFooter>
+            <CardColumn>
+              <Link icon="link" href="https://carbon.sage.com/">
+                Footer link
+              </Link>
+            </CardColumn>
+          </CardFooter>
+        }
+      >
+        <CardRow>
+          <CardColumn align="left">
+            <Heading title="Heading" divider={false} />
+            <Typography fontSize="16px" m={0}>
+              Additional text
+            </Typography>
+          </CardColumn>
+          <CardColumn align="right">
+            <Icon type="image" />
+          </CardColumn>
+        </CardRow>
+        <CardRow>
+          <CardColumn>
+            <Typography fontSize="16px" m={0} fontWeight="bold">
+              Body text
+            </Typography>
+            <Heading title="More text" divider={false} />
+            <Typography>Even more text</Typography>
+          </CardColumn>
+        </CardRow>
+      </Card>
+    </>
   );
 };
