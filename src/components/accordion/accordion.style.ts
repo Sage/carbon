@@ -27,7 +27,7 @@ const StyledAccordionContainer = styled.div<StyledAccordionContainerProps>`
   ${space}
   display: flex;
   align-items: ${({ buttonHeading, variant }) =>
-    buttonHeading || variant === "subtle" ? "flex-start" : "stretch"};
+    (!buttonHeading || variant !== "subtle") && "stretch"};
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
@@ -187,6 +187,7 @@ const StyledAccordionTitleContainer = styled.div<StyledAccordionTitleContainerPr
       color: var(--colorsActionMajor500);
       padding: var(--spacing025);
       margin-bottom: ${isExpanded && "var(--spacing200)"};
+      width: fit-content;
 
       ${StyledAccordionIcon} {
         color: var(--colorsActionMajor500);
@@ -285,18 +286,18 @@ const StyledAccordionContent = styled.div<StyledAccordionContentProps>`
   padding-top: var(--spacing100);
   overflow: hidden;
 
-  ${({ disableContentPadding }) =>
-    disableContentPadding &&
-    css`
-      padding: 0;
-    `}
-
   ${({ variant }) =>
     variant === "subtle" &&
     css`
       margin-left: var(--spacing150);
       padding: var(--spacing100) var(--spacing200) var(--spacing300);
       border-left: 2px solid var(--colorsUtilityMajor100);
+    `}
+
+  ${({ disableContentPadding }) =>
+    disableContentPadding &&
+    css`
+      padding: 0;
     `}
 `;
 
