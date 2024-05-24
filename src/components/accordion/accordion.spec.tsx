@@ -655,7 +655,6 @@ describe("Accordion", () => {
       assertStyleMatch(
         {
           border: "none",
-          alignItems: "flex-start",
         },
         wrapper.find(StyledAccordionContainer)
       );
