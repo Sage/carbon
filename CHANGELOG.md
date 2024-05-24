@@ -1,3 +1,10 @@
+### [135.1.3](https://github.com/Sage/carbon/compare/v135.1.2...v135.1.3) (2024-05-24)
+
+
+### Bug Fixes
+
+* **accordion:** ensure disableContentPadding works with subtle variant ([8a6d5f8](https://github.com/Sage/carbon/commit/8a6d5f8ba90c45b9ae281c5ccda6a4095ff00a18)), closes [#6723](https://github.com/Sage/carbon/issues/6723)
+
 ### [135.1.2](https://github.com/Sage/carbon/compare/v135.1.1...v135.1.2) (2024-05-22)
 
 
