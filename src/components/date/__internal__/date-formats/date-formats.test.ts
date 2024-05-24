@@ -497,10 +497,23 @@ const getExpectedFormatForLocale = (locale: string) => {
   return euFormats;
 };
 
-describe.each([...euLocales, ...naLocales, ...cnLocales] as const)(
-  "getFormatData for `%s` returns",
+test("should default to en-GB locale if no locale code string passed to `getFormatData`", () => {
+  const { formats, format } = getFormatData({ code: undefined });
+
+  const expectedFormats = getExpectedFormatForLocale("en-GB");
+
+  expect(
+    expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
+      formats.length === expectedFormats.length
+  ).toEqual(true);
+
+  expect(format).toEqual(formatMap["en-GB"]);
+});
+
+describe.each(euLocales)(
+  "when EU locales are passed to `getFormatData`",
   (locale: string) => {
-    it("the expected formats", () => {
+    test(`should return the expected object shape for ${locale} locale`, () => {
       const { formats } = getFormatData({ code: locale });
 
       const expectedFormats = getExpectedFormatForLocale(locale);
@@ -510,24 +523,37 @@ describe.each([...euLocales, ...naLocales, ...cnLocales] as const)(
           formats.length === expectedFormats.length
       ).toEqual(true);
     });
+  }
+);
 
-    it("the expected format", () => {
-      const { format } = getFormatData({ code: locale });
+describe.each(naLocales)(
+  "when NA locales are passed to `getFormatData`",
+  (locale: string) => {
+    test(`should return the expected object shape for ${locale} locale`, () => {
+      const { formats } = getFormatData({ code: locale });
 
-      expect(format).toEqual(formatMap[locale]);
-    });
-
-    it("defaults to en-GB locale if no locale code string passed", () => {
-      const { formats, format } = getFormatData({ code: undefined });
-
-      const expectedFormats = getExpectedFormatForLocale("en-GB");
+      const expectedFormats = getExpectedFormatForLocale(locale);
 
       expect(
         expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
           formats.length === expectedFormats.length
       ).toEqual(true);
+    });
+  }
+);
 
-      expect(format).toEqual(formatMap["en-GB"]);
+describe.each(cnLocales)(
+  "when CN locales are passed to `getFormatData`",
+  (locale: string) => {
+    test(`should return the expected object shape for ${locale} locale`, () => {
+      const { formats } = getFormatData({ code: locale });
+
+      const expectedFormats = getExpectedFormatForLocale(locale);
+
+      expect(
+        expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
+          formats.length === expectedFormats.length
+      ).toEqual(true);
     });
   }
 );
