@@ -27,6 +27,7 @@ interface StyledSubmenuProps
   submenuDirection?: string;
   maxHeight?: string;
   applyFocusRadiusStyling: boolean;
+  applyFocusRadiusStylingToLastItem: boolean;
 }
 
 const StyledSubmenuWrapper = styled.div<StyledSubmenuWrapperProps>`
@@ -64,6 +65,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
     inFullscreenView,
     maxHeight,
     applyFocusRadiusStyling,
+    applyFocusRadiusStylingToLastItem,
   }) => css`
     ${!inFullscreenView &&
     menuType &&
@@ -111,10 +113,10 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
         border-bottom-left-radius: var(--borderRadius000);
 
         :focus {
-          border-bottom-right-radius: ${applyFocusRadiusStyling
+          border-bottom-right-radius: ${applyFocusRadiusStylingToLastItem
             ? "var(--borderRadius100)"
             : "var(--borderRadius000)"};
-          border-bottom-left-radius: ${applyFocusRadiusStyling
+          border-bottom-left-radius: ${applyFocusRadiusStylingToLastItem
             ? "var(--borderRadius100)"
             : "var(--borderRadius000)"};
         }
@@ -130,7 +132,7 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
           ${StyledMenuItem}:last-child ${StyledLink}, ${StyledMenuItem}:last-child a,
           ${StyledMenuItem}:last-child button {
             border-bottom-right-radius: var(--borderRadius000);
-            border-bottom-left-radius: ${applyFocusRadiusStyling
+            border-bottom-left-radius: ${applyFocusRadiusStylingToLastItem
               ? "var(--borderRadius100)"
               : "var(--borderRadius000)"};
           }

@@ -1,3 +1,17 @@
+### [135.1.3](https://github.com/Sage/carbon/compare/v135.1.2...v135.1.3) (2024-05-24)
+
+
+### Bug Fixes
+
+* **accordion:** ensure disableContentPadding works with subtle variant ([8a6d5f8](https://github.com/Sage/carbon/commit/8a6d5f8ba90c45b9ae281c5ccda6a4095ff00a18)), closes [#6723](https://github.com/Sage/carbon/issues/6723)
+
+### [135.1.2](https://github.com/Sage/carbon/compare/v135.1.1...v135.1.2) (2024-05-22)
+
+
+### Bug Fixes
+
+* **scrollable-block:** ensure border-styling is applied when appropriate to do so ([14b0b21](https://github.com/Sage/carbon/commit/14b0b21c1a8d013e59089e783dcdef1c838cbe46))
+
 ### [135.1.1](https://github.com/Sage/carbon/compare/v135.1.0...v135.1.1) (2024-05-20)
 
 

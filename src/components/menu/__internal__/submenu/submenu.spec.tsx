@@ -645,6 +645,7 @@ describe("Submenu component", () => {
             menuType="light"
             variant="default"
             applyFocusRadiusStyling={false}
+            applyFocusRadiusStylingToLastItem={false}
           >
             <MenuItem>Apple</MenuItem>
             <MenuItem>Banana</MenuItem>
