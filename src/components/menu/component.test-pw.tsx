@@ -301,6 +301,104 @@ export const MenuComponentFullScreen = (
   );
 };
 
+export const MenuComponentFullScreenWithLongSubmenuText = (
+  props: Partial<MenuFullscreenProps>
+) => {
+  const [menuOpen, setMenuOpen] = useState({
+    light: false,
+    dark: false,
+    white: false,
+    black: false,
+  });
+  const fullscreenViewBreakPoint = useMediaQuery("(max-width: 1200px)");
+  const responsiveMenuItems = (
+    startPosition: "left" | "right",
+    menu: MenuType
+  ) => {
+    if (fullscreenViewBreakPoint) {
+      return [
+        <MenuItem
+          key="fullscreen-menu-item-1"
+          onClick={() => setMenuOpen((state) => ({ ...state, [menu]: true }))}
+        >
+          Menu
+        </MenuItem>,
+        <MenuFullscreen
+          key="fullscreen-menu-1"
+          startPosition={startPosition}
+          isOpen={menuOpen[menu]}
+          onClose={() => setMenuOpen((state) => ({ ...state, [menu]: false }))}
+          {...props}
+        >
+          <MenuItem href="#">Menu Item One</MenuItem>
+          <MenuItem
+            onClick={() => {}}
+            submenu="Menu item with a really long topic where the text should not be truncated but instead it should be wrapped"
+          >
+            <MenuItem href="#">
+              Submenu item with a really long topic where the text should not be
+              truncated but instead it should be wrapped
+            </MenuItem>
+            <MenuItem href="#">Submenu Item Two</MenuItem>
+          </MenuItem>
+          <MenuItem href="#">Menu Item Three</MenuItem>
+          <MenuItem href="#">Menu Item Four</MenuItem>
+          <MenuItem submenu="Menu Item Five">
+            <MenuItem href="#">Submenu Item One</MenuItem>
+            <MenuItem href="#">Submenu Item Two</MenuItem>
+          </MenuItem>
+          <MenuItem href="#">Menu Item Six</MenuItem>
+        </MenuFullscreen>,
+      ];
+    }
+    return [
+      <MenuItem key="default-menu-item-1" href="#">
+        Menu Item One
+      </MenuItem>,
+      <MenuItem
+        key="default-menu-item-2"
+        submenu="Menu item with a really long topic where the text should not be truncated but instead it should be wrapped"
+      >
+        <MenuItem href="#">
+          Submenu item with a really long topic where the text should not be
+          truncated but instead it should be wrapped
+        </MenuItem>
+        <MenuItem href="#">Submenu Item Two</MenuItem>
+      </MenuItem>,
+      <MenuItem key="default-menu-item-3" href="#">
+        Menu Item Three
+      </MenuItem>,
+      <MenuItem key="default-menu-item-4" href="#">
+        Menu Item Four
+      </MenuItem>,
+      <MenuItem key="default-menu-item-5" submenu="Menu Item Five">
+        <MenuItem href="#">Submenu Item One</MenuItem>
+        <MenuItem href="#">Submenu Item Two</MenuItem>
+      </MenuItem>,
+      <MenuItem key="default-menu-item-6" href="#">
+        Menu Item Six
+      </MenuItem>,
+    ];
+  };
+  return (
+    <Box>
+      {menuTypes.map((menuType) => (
+        <div key={menuType}>
+          <Typography variant="h4" textTransform="capitalize" my={2}>
+            {menuType}
+          </Typography>
+          <Menu menuType={menuType}>
+            {React.Children.map(
+              responsiveMenuItems("left", menuType),
+              (items) => items
+            )}
+          </Menu>
+        </div>
+      ))}
+    </Box>
+  );
+};
+
 export const MenuFullScreenBackgroundScrollTest = () => {
   return (
     <Box height="2000px" position="relative">

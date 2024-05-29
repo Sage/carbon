@@ -92,6 +92,8 @@ const StyledMenuItem = styled.li<StyledMenuItemProps>`
       [data-component="submenu-wrapper"] > ${StyledLink} {
         width: 100%;
         box-sizing: border-box;
+        height: auto;
+        white-space: normal;
       }
     `}
 

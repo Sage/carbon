@@ -158,6 +158,12 @@ const StyledSubmenu = styled.ul<StyledSubmenuProps>`
       white-space: nowrap;
       cursor: pointer;
 
+      ${inFullscreenView &&
+      css`
+        white-space: normal;
+        height: auto;
+      `}
+
       ${!inFullscreenView &&
       menuType &&
       css`
