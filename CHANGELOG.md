@@ -1,3 +1,10 @@
+### [136.0.1](https://github.com/Sage/carbon/compare/v136.0.0...v136.0.1) (2024-05-29)
+
+
+### Bug Fixes
+
+* **card:** ensure that focus outline wraps all card content when `height` prop is set ([5b73495](https://github.com/Sage/carbon/commit/5b734956bb949e41d1aea818a3afb5ec66c08dc7)), closes [#6741](https://github.com/Sage/carbon/issues/6741)
+
 ## [136.0.0](https://github.com/Sage/carbon/compare/v135.1.3...v136.0.0) (2024-05-24)
 
 
