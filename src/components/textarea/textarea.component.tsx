@@ -44,8 +44,6 @@ export interface TextareaProps
   characterLimit?: number;
   /** Type of the icon that will be rendered next to the input */
   children?: React.ReactNode;
-  /** The visible width of the text control, in average character widths */
-  cols?: number;
   /** If true, the component will be disabled */
   disabled?: boolean;
   /** Indicate that error has occurred
@@ -104,10 +102,6 @@ export interface TextareaProps
   isOptional?: boolean;
   /** The number of visible text lines for the control */
   rows?: number;
-  /** One of type of size to apply to the textarea */
-  size?: "small" | "medium" | "large";
-  /** Message to be displayed in a Tooltip when the user hovers over the help icon */
-  tooltipMessage?: string;
   /** Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** When true, validation icon will be placed on label instead of being placed on the input */
@@ -135,7 +129,6 @@ export const Textarea = React.forwardRef(
       inputHint,
       fieldHelp,
       label,
-      size,
       children,
       characterLimit,
       onChange,
@@ -154,7 +147,6 @@ export const Textarea = React.forwardRef(
       placeholder,
       expandable = false,
       rows,
-      cols,
       validationOnLabel = false,
       adaptiveLabelBreakpoint,
       inputWidth,
@@ -312,7 +304,6 @@ export const Textarea = React.forwardRef(
 
     const input = (
       <InputPresentation
-        size={size}
         disabled={disabled}
         readOnly={readOnly}
         inputWidth={
@@ -338,7 +329,6 @@ export const Textarea = React.forwardRef(
           readOnly={readOnly}
           placeholder={disabled ? "" : placeholder}
           rows={rows}
-          cols={cols}
           id={id}
           as="textarea"
           validationIconId={validationRedesignOptIn ? undefined : validationId}
@@ -351,7 +341,6 @@ export const Textarea = React.forwardRef(
           disabled={disabled}
           readOnly={readOnly}
           inputIcon={inputIcon}
-          size={size}
           error={error}
           warning={warning}
           info={info}

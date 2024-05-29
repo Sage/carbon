@@ -7,28 +7,6 @@ import { Checkbox } from "../checkbox";
 import { Dl, Dt, Dd } from "../definition-list";
 import Link from "../link/link.component";
 
-export const Grouped = () => (
-  <AccordionGroup>
-    <Accordion title="First Accordion">
-      <Box p={2}>
-        <Textbox label="Textbox in an Accordion" />
-      </Box>
-    </Accordion>
-    <Accordion title="Second Accordion">
-      <Box p={2}>
-        <Textbox label="Textbox in an Accordion" />
-      </Box>
-    </Accordion>
-    <Accordion title="Third Accordion">
-      <Box p={2}>
-        <div>Content</div>
-        <div>Content</div>
-        <div>Content</div>
-      </Box>
-    </Accordion>
-  </AccordionGroup>
-);
-
 const errorVal = "error";
 const warningVal = "warning";
 const infoVal = "info";

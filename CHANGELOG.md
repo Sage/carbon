@@ -1,3 +1,22 @@
+## [136.0.0](https://github.com/Sage/carbon/compare/v135.1.3...v136.0.0) (2024-05-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea:** removed cols, size and tooltipMessage props from the TextArea
+component as they were no longer doing anything
+
+### Features
+
+* **textarea:** remove redundant props ([21a701c](https://github.com/Sage/carbon/commit/21a701c281ac8a3c2a63fa3bec8f0a0e001aa9bf)), closes [#6107](https://github.com/Sage/carbon/issues/6107)
+
+### [135.1.3](https://github.com/Sage/carbon/compare/v135.1.2...v135.1.3) (2024-05-24)
+
+
+### Bug Fixes
+
+* **accordion:** ensure disableContentPadding works with subtle variant ([8a6d5f8](https://github.com/Sage/carbon/commit/8a6d5f8ba90c45b9ae281c5ccda6a4095ff00a18)), closes [#6723](https://github.com/Sage/carbon/issues/6723)
+
 ### [135.1.2](https://github.com/Sage/carbon/compare/v135.1.1...v135.1.2) (2024-05-22)
 
 
