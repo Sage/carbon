@@ -109,6 +109,9 @@ const StyledCardContent = styled.div.attrs(
     interactive &&
     css`
       cursor: pointer;
+      display: inline-flex;
+      flex-direction: column;
+      height: 100%;
 
       ${!theme.focusRedesignOptOut &&
       css`
@@ -119,6 +122,7 @@ const StyledCardContent = styled.div.attrs(
       `}
     `}
 
+  align-items: stretch;
   outline: none;
   text-decoration: none;
   background-color: inherit;
