@@ -27,6 +27,7 @@ export const Hr = ({
   return (
     <StyledHr
       data-component="hr"
+      data-role="hr"
       ml={marginLeft}
       mr={marginRight}
       mt={rest.mt || 3}
