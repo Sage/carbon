@@ -79,8 +79,8 @@ export const DatePicker = ({
   setOpen,
   pickerTabGuardId,
 }: DatePickerProps) => {
-  const l = useLocale();
-  const { localize, options } = l.date.dateFnsLocale();
+  const locale = useLocale();
+  const { localize, options } = locale.date.dateFnsLocale();
   const { weekStartsOn } = options || /* istanbul ignore next */ {};
   const monthsLong = useMemo(
     () =>
@@ -102,7 +102,7 @@ export const DatePicker = ({
     [localize]
   );
   const weekdaysShort = useMemo(() => {
-    const isGivenLocale = (str: string) => l.locale().includes(str);
+    const isGivenLocale = (str: string) => locale.locale().includes(str);
     return Array.from({ length: 7 }).map((_, i) =>
       localize
         ?.day(
@@ -113,7 +113,7 @@ export const DatePicker = ({
         )
         .substring(0, isGivenLocale("de") ? 2 : 3)
     );
-  }, [l, localize]);
+  }, [locale, localize]);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -269,7 +269,7 @@ export const DatePicker = ({
           fixedWeeks
           initialMonth={selectedDays || undefined}
           disabledDays={getDisabledDays(minDate, maxDate)}
-          locale={l.locale()}
+          locale={locale.locale()}
           localeUtils={localeUtils}
           onDayKeyDown={handleOnDayKeyDown}
           {...pickerProps}
