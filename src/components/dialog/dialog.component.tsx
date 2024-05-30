@@ -322,8 +322,9 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           >
             {dialogTitle()}
             {closeIcon()}
-            <StyledDialogContent {...contentPadding}>
+            <StyledDialogContent {...contentPadding} data-role="dialog-content">
               <StyledDialogInnerContent
+                data-role="dialog-inner-content"
                 ref={innerContentRef}
                 {...contentPadding}
               >
