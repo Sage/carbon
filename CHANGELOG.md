@@ -1,3 +1,10 @@
+### [136.0.2](https://github.com/Sage/carbon/compare/v136.0.1...v136.0.2) (2024-05-30)
+
+
+### Bug Fixes
+
+* **icon-button:** allow aria-label prop to be applied and then default to icon type ([fdac494](https://github.com/Sage/carbon/commit/fdac494cdb95cb5ac2a7390dc5474d9c190b428b))
+
 ### [136.0.1](https://github.com/Sage/carbon/compare/v136.0.0...v136.0.1) (2024-05-29)
 
 
