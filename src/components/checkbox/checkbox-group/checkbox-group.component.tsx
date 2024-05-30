@@ -87,6 +87,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
             )}
             <StyledCheckboxGroup
               data-component="checkbox-group"
+              data-role="checkbox-group"
               legendInline={legendInline}
               inline={inline}
             >
@@ -122,6 +123,7 @@ export const CheckboxGroup = (props: CheckboxGroupProps) => {
           >
             <StyledCheckboxGroup
               data-component="checkbox-group"
+              data-role="checkbox-group"
               legendInline={legendInline}
             >
               <CheckboxGroupContext.Provider
