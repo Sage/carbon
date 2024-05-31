@@ -20,3 +20,4 @@ storybook-static/
 playwright/test-results
 playwright/test-report
 playwright/.cache
+*storybook.log
