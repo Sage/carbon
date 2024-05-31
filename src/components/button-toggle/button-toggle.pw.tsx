@@ -1,6 +1,6 @@
 import React from "react";
 import sinon from "sinon";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import { ButtonToggle, ButtonToggleGroupProps, ButtonToggleProps } from ".";
 import {
   ButtonToggleComponent,

@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import { IconProps } from "components/icon";
 import { IconComponent, IconTooltipComponent } from "./component.test-pw";
 import {

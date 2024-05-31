@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import { HooksConfig } from "../../../playwright";
 import { SageTheme as SageThemeStory } from "./components.test-pw";
 import { AllThemes as AllThemesStory } from "../../../src/components/carbon-provider/carbon-provider-test.stories";

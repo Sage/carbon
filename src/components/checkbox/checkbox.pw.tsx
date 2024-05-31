@@ -1,5 +1,5 @@
 import React from "react";
-import { test, expect } from "@playwright/experimental-ct-react17";
+import { test, expect } from "@playwright/experimental-ct-react";
 import { CommonCheckableInputProps } from "__internal__/checkable-input/checkable-input.component";
 import Box from "../box";
 import { Checkbox, CheckboxProps, CheckboxGroupProps } from ".";
