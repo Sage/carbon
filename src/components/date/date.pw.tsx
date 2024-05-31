@@ -10,7 +10,11 @@ import {
   DateInputInsideDialog,
 } from "./components.test-pw";
 import { DateInputProps } from ".";
-import { getDataElementByValue } from "../../../playwright/components";
+import {
+  getDataElementByValue,
+  icon,
+  tooltipPreview,
+} from "../../../playwright/components";
 import {
   verifyRequiredAsteriskForLabel,
   assertCssValueIsApproximately,
@@ -900,6 +904,31 @@ test.describe("Functionality tests", () => {
       "outline",
       "rgba(0, 0, 0, 0) solid 3px"
     );
+  });
+
+  (["top", "bottom", "left", "right"] as const).forEach((position) => {
+    test(`should check the tooltipPosition is set to ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <DateInputCustom
+          m={9}
+          tooltipPosition={position}
+          error="Error message"
+        />
+      );
+
+      const iconElement = icon(page);
+      await iconElement.nth(0).hover();
+
+      await expect(tooltipPreview(page)).toHaveAttribute(
+        "data-placement",
+        position
+      );
+
+      await page.hover("body"); // hover on body to close the tooltip
+    });
   });
 });
 

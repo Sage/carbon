@@ -155,6 +155,7 @@ export const ValidationIcon = ({
         inputSize={size}
         id={iconId}
         focusable={tabIndex !== -1}
+        data-role={`icon-${validationType}`}
       />
     </ValidationIconStyle>
   );
