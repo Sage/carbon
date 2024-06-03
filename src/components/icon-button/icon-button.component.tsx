@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback } from "react";
 import { SpaceProps } from "styled-system";
 import invariant from "invariant";
 import Events from "../../__internal__/utils/helpers/events";
 import StyledIconButton from "./icon-button.style";
 import { IconProps } from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import { ButtonBarContext } from "../button-bar/button-bar.component";
 import Logger from "../../__internal__/utils/logger";
 
 export interface IconButtonProps extends SpaceProps {
@@ -64,15 +63,12 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     );
 
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
-
-    const context = useContext(ButtonBarContext);
-    const ariaLabelValue = Object.keys(context).length
-      ? ariaLabel ||
-        (internalRef?.querySelector(
-          "[data-component='icon']"
-        ) as Element)?.getAttribute("type") ||
-        undefined
-      : ariaLabel;
+    const ariaLabelValue =
+      ariaLabel ||
+      (internalRef?.querySelector(
+        "[data-component='icon']"
+      ) as Element)?.getAttribute("type") ||
+      "";
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
       if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {

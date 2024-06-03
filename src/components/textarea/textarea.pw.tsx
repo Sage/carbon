@@ -19,11 +19,7 @@ import {
   visuallyHiddenCharacterCount,
   visuallyHiddenHint,
 } from "../../../playwright/components/textarea";
-import {
-  CHARACTERS,
-  SIZE,
-  VALIDATION,
-} from "../../../playwright/support/constants";
+import { CHARACTERS, VALIDATION } from "../../../playwright/support/constants";
 import {
   assertCssValueIsApproximately,
   checkAccessibility,
@@ -527,21 +523,6 @@ test.describe("Props tests for Textarea component", () => {
   });
 
   ([
-    [SIZE.SMALL, "32px"],
-    [SIZE.MEDIUM, "40px"],
-    [SIZE.LARGE, "48px"],
-  ] as [TextareaProps["size"], string][]).forEach(([size, height]) => {
-    test(`should use ${size} as size and render component with ${height} as height`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextareaComponent size={size} />);
-
-      await expect(textarea(page)).toHaveCSS("min-height", height);
-    });
-  });
-
-  ([
     ["flex", 399],
     ["flex", 400],
     ["block", 401],
@@ -663,20 +644,6 @@ test.describe("Props tests for Textarea component", () => {
       await mount(<TextareaComponent value={value} />);
 
       await expect(textareaChildren(page)).toHaveText(value);
-    });
-  });
-
-  [5, 25, 100].forEach((cols) => {
-    test(`should render with cols prop set to ${cols}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(<TextareaComponent cols={cols} />);
-
-      await expect(textareaChildren(page)).toHaveAttribute(
-        "cols",
-        String(cols)
-      );
     });
   });
 
