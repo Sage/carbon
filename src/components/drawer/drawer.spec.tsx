@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
 import { act } from "react-dom/test-utils";
 import { mount, ReactWrapper, shallow } from "enzyme";
@@ -615,7 +613,6 @@ describe("Drawer", () => {
     });
 
     describe("by an external control", () => {
-      // eslint-disable-next-line react/prop-types
       const MockComponent = ({ expanded = false }) => {
         const [isExpanded, setIsExpanded] = React.useState(expanded);
         return (

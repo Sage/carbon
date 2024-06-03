@@ -14,7 +14,7 @@
     "test": "jest --config=./jest.config.json",
     "test-update": "jest --config=./jest.config.json --updateSnapshot",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",
-    "lint": "eslint ./src ./playwright",
+    "lint": "eslint ./src ./playwright --report-unused-disable-directives",
     "build": "node ./scripts/build.js",
     "copy-files": "node ./scripts/copy-files.js",
     "precompile": "npm run type-check && npm run clean-lib && npm run build && npm run build:types && npm run copy-files",

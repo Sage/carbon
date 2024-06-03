@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-disabled-tests */
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import type { Locator } from "@playwright/test";

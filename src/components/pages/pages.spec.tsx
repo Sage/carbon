@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { shallow, mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";

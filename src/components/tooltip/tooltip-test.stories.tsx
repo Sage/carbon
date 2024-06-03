@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { forwardRef, useState } from "react";
 import Tooltip from ".";
 import { TOOLTIP_POSITIONS, TooltipPositions } from "./tooltip.config";

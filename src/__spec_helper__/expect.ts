@@ -29,7 +29,6 @@ expect.extend({
       });
 
       return `${hint}\n\n${
-        // eslint-disable-next-line multiline-ternary
         diffString && diffString.includes("- Expect")
           ? `Difference:\n\n${diffString}`
           : `Expected: ${this.utils.printExpected(

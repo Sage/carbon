@@ -295,7 +295,6 @@ export const MultiSelect = React.forwardRef(
         if (isDeleteKey && (filterText === "" || textValue === "")) {
           removeSelectedValue(-1);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       },
       [onKeyDown, readOnly, filterText, textValue, setOpen, removeSelectedValue]
     );

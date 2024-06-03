@@ -139,7 +139,6 @@ export const ButtonToggleGroupComponent = ({ ...props }) => {
 };
 
 export const ButtonToggleComponent = ({
-  // eslint-disable-next-line react/prop-types
   children = "This is an example of an alert",
   ...props
 }: ButtonToggleProps) => {

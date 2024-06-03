@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-restricted-imports
 import { color as styledColor } from "styled-system";
 import tokens from "@sage/design-tokens/js/base/common";
 import { ThemeObject } from "../themes/base";

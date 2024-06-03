@@ -188,7 +188,6 @@ describe("DuellingPicklist", () => {
     );
   };
 
-  // eslint-disable-next-line react/prop-types
   const MockComponent = ({ grouped }: { grouped?: boolean }) => {
     const [notSelectedListItems, setNotSelectedItems] = useState([0, 1, 2]);
     const [selectedListItems, setSelectedItems] = useState([3, 4, 5]);

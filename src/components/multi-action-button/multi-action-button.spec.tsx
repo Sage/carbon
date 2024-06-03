@@ -217,7 +217,6 @@ describe("MultiActionButton", () => {
       ["End", "End", ""],
       ["Ctrl + ArrowDown", "ArrowDown", "ctrlKey"],
       ["Meta + ArrowDown", "ArrowDown", "metaKey"],
-      // eslint-disable-next-line
     ])("when %s key is pressed", (_, key, modifier) => {
       it("focuses the last button", () => {
         const additionalButtons = wrapper

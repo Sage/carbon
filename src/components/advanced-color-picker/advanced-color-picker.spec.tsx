@@ -328,7 +328,6 @@ describe("AdvancedColorPicker", () => {
   });
 
   describe("when the component value is controlled, and a color is selected", () => {
-    // eslint-disable-next-line react/prop-types
     let wrapper: ReactWrapper;
 
     beforeEach(() => {

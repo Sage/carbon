@@ -1,6 +1,3 @@
-/* eslint-disable jest/no-conditional-expect */
-/* eslint-disable jest/no-identical-title */
-/* eslint-disable jest/no-export */
 import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
 import { sprintf } from "sprintf-js";
 import {

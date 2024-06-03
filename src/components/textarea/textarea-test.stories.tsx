@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import Textarea, { TextareaProps } from ".";
 import Dialog from "../dialog";

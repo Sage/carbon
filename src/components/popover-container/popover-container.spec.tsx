@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { forwardRef } from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
@@ -420,7 +419,7 @@ describe("PopoverContainer", () => {
         document.body.appendChild(container);
         wrapper = renderAttached({
           title: "render props",
-          // eslint-disable-next-line react/display-name
+
           renderOpenComponent: ({
             tabIndex,
             "data-element": dataElement,
@@ -493,7 +492,7 @@ describe("PopoverContainer", () => {
       it("should not be focused if `ref` is not provided", () => {
         wrapper = render({
           title: "render props",
-          // eslint-disable-next-line react/display-name
+
           renderOpenComponent: ({
             tabIndex,
             "data-element": dataElement,

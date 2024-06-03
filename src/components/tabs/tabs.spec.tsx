@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useContext } from "react";
 import { mount, shallow, MountRendererProps, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
