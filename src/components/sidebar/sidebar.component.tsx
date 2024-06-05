@@ -1,17 +1,17 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useMemo } from "react";
 import { PaddingProps, WidthProps } from "styled-system";
 
 import Modal, { ModalProps } from "../modal";
 import StyledSidebar from "./sidebar.style";
 import IconButton from "../icon-button";
 import Icon from "../icon";
+import { FormProps } from "../form";
 import FocusTrap from "../../__internal__/focus-trap";
 import SidebarHeader from "./__internal__/sidebar-header";
 import Box from "../box";
 import createGuid from "../../__internal__/utils/helpers/guid";
 import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
-import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 
@@ -122,7 +122,14 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
   ) => {
     const locale = useLocale();
     const { current: headerId } = useRef<string>(createGuid());
-    const hasStickyFooter = useIsStickyFooterForm(children);
+    const hasStickyFooter = useMemo(
+      () =>
+        React.Children.toArray(children).some(
+          (child) =>
+            React.isValidElement<FormProps>(child) && child.props.stickyFooter
+        ),
+      [children]
+    );
 
     const sidebarRef = useRef<HTMLDivElement | null>(null);
 

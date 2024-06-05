@@ -25,7 +25,6 @@ import FocusTrap, { CustomRefObject } from "../../__internal__/focus-trap";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import useLocale from "../../hooks/__internal__/useLocale";
-import useIsStickyFooterForm from "../../hooks/__internal__/useIsStickyFooterForm";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
 
 const PADDING_VALUES = [0, 1, 2, 3, 4, 5, 6, 7, 8] as const;
@@ -141,7 +140,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
     const listenersAdded = useRef(false);
     const { current: titleId } = useRef(createGuid());
     const { current: subtitleId } = useRef(createGuid());
-    const hasStickyFooter = useIsStickyFooterForm(children);
 
     const isTopModal = useModalAria(containerRef);
 
@@ -327,10 +325,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           >
             {dialogTitle()}
             {closeIcon()}
-            <StyledDialogContent
-              {...contentPadding}
-              hasStickyFooter={hasStickyFooter}
-            >
+            <StyledDialogContent {...contentPadding}>
               <StyledDialogInnerContent
                 ref={innerContentRef}
                 {...contentPadding}
