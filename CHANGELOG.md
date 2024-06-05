@@ -1,3 +1,10 @@
+### [136.0.3](https://github.com/Sage/carbon/compare/v136.0.2...v136.0.3) (2024-06-05)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** prevent horizontal overflow due to a child Form with a sticky footer ([4fea1d5](https://github.com/Sage/carbon/commit/4fea1d5582a83b0916dd9973ab647032d075b71c)), closes [#6719](https://github.com/Sage/carbon/issues/6719)
+
 ### [136.0.2](https://github.com/Sage/carbon/compare/v136.0.1...v136.0.2) (2024-05-30)
 
 
