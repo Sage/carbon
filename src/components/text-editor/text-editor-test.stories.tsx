@@ -57,7 +57,7 @@ export default {
 export const Default = ({ onChange, ...props }: Partial<TextEditorProps>) => {
   const [value, setValue] = useState(EditorState.createEmpty());
   return (
-    <div style={{ padding: "4px" }}>
+    <Box p={1}>
       <TextEditor
         onChange={(newValue) => {
           if (onChange) {
@@ -69,7 +69,7 @@ export const Default = ({ onChange, ...props }: Partial<TextEditorProps>) => {
         labelText="Text Editor Label"
         {...props}
       />
-    </div>
+    </Box>
   );
 };
 
