@@ -1,3 +1,10 @@
+### [136.0.4](https://github.com/Sage/carbon/compare/v136.0.3...v136.0.4) (2024-06-06)
+
+
+### Bug Fixes
+
+* **text-editor:** content overflows in small viewports ([c985d5d](https://github.com/Sage/carbon/commit/c985d5d81ec2ccbe520ca65006978a9efd73fe0a)), closes [#6707](https://github.com/Sage/carbon/issues/6707)
+
 ### [136.0.3](https://github.com/Sage/carbon/compare/v136.0.2...v136.0.3) (2024-06-05)
 
 
