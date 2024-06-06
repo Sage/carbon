@@ -60,7 +60,7 @@ test.describe("Check Card component styling", () => {
       mount,
       page,
     }) => {
-      await mount(<CardComponent {...props} />);
+      await mount(<WithCustomHeight {...props} />);
 
       const cardElement = card(page);
       const cardContentElement = cardContent(page);
@@ -78,6 +78,8 @@ test.describe("Check Card component styling", () => {
         "box-shadow",
         "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
       );
+
+      await expect(cardContentElement).toHaveCSS("height", "500px");
     });
 
     test(`should match the expected styling when ${key} is passed with custom boxShadow and hoverBoxShadow props`, async ({

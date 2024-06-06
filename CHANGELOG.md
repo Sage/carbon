@@ -1,3 +1,43 @@
+### [136.0.3](https://github.com/Sage/carbon/compare/v136.0.2...v136.0.3) (2024-06-05)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** prevent horizontal overflow due to a child Form with a sticky footer ([4fea1d5](https://github.com/Sage/carbon/commit/4fea1d5582a83b0916dd9973ab647032d075b71c)), closes [#6719](https://github.com/Sage/carbon/issues/6719)
+
+### [136.0.2](https://github.com/Sage/carbon/compare/v136.0.1...v136.0.2) (2024-05-30)
+
+
+### Bug Fixes
+
+* **icon-button:** allow aria-label prop to be applied and then default to icon type ([fdac494](https://github.com/Sage/carbon/commit/fdac494cdb95cb5ac2a7390dc5474d9c190b428b))
+
+### [136.0.1](https://github.com/Sage/carbon/compare/v136.0.0...v136.0.1) (2024-05-29)
+
+
+### Bug Fixes
+
+* **card:** ensure that focus outline wraps all card content when `height` prop is set ([5b73495](https://github.com/Sage/carbon/commit/5b734956bb949e41d1aea818a3afb5ec66c08dc7)), closes [#6741](https://github.com/Sage/carbon/issues/6741)
+
+## [136.0.0](https://github.com/Sage/carbon/compare/v135.1.3...v136.0.0) (2024-05-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **textarea:** removed cols, size and tooltipMessage props from the TextArea
+component as they were no longer doing anything
+
+### Features
+
+* **textarea:** remove redundant props ([21a701c](https://github.com/Sage/carbon/commit/21a701c281ac8a3c2a63fa3bec8f0a0e001aa9bf)), closes [#6107](https://github.com/Sage/carbon/issues/6107)
+
+### [135.1.3](https://github.com/Sage/carbon/compare/v135.1.2...v135.1.3) (2024-05-24)
+
+
+### Bug Fixes
+
+* **accordion:** ensure disableContentPadding works with subtle variant ([8a6d5f8](https://github.com/Sage/carbon/commit/8a6d5f8ba90c45b9ae281c5ccda6a4095ff00a18)), closes [#6723](https://github.com/Sage/carbon/issues/6723)
+
 ### [135.1.2](https://github.com/Sage/carbon/compare/v135.1.1...v135.1.2) (2024-05-22)
 
 
