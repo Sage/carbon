@@ -1,3 +1,24 @@
+## [137.0.0](https://github.com/Sage/carbon/compare/v136.0.4...v137.0.0) (2024-06-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **en-gb:** Changes the named export of the en-gb locale from EnGb to enGB
+
+### Features
+
+* add support for the de-DE locale ([ff4fbe4](https://github.com/Sage/carbon/commit/ff4fbe439195809c3f3aa8e836b6f8b491848362))
+* add support for the en-CA locale ([d6c5529](https://github.com/Sage/carbon/commit/d6c55295edc6deec98a9c885cf204075e680b027))
+* add support for the en-US locale ([9802dd1](https://github.com/Sage/carbon/commit/9802dd110587db1b4ff1a2157ecdf6a553ce87dc))
+* add support for the es-ES locale ([9296a18](https://github.com/Sage/carbon/commit/9296a1867b6fcaefc12389ea04836e0348ef7aae))
+* add support for the fr-CA locale ([d88ba34](https://github.com/Sage/carbon/commit/d88ba34c55087311bd9c8b1bbab2664cfc453040))
+* add support for the fr-FR locale ([32e72eb](https://github.com/Sage/carbon/commit/32e72ebd7d3c440967e0bd17d5d037d360585cb4))
+
+
+### Miscellaneous Chores
+
+* **en-gb:** change named export from EnGb to enGB ([1191ac5](https://github.com/Sage/carbon/commit/1191ac50f0dd4b8f0c1364084338fb1774fca10f))
+
 ### [136.0.4](https://github.com/Sage/carbon/compare/v136.0.3...v136.0.4) (2024-06-06)
 
 
