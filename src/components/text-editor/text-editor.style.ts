@@ -29,7 +29,6 @@ const StyledEditorContainer = styled.div<{
     div.DraftEditor-root {
       min-height: inherit;
       height: 100%;
-      min-width: 290px;
       margin: 4px;
     }
 
@@ -37,7 +36,6 @@ const StyledEditorContainer = styled.div<{
     div.public-DraftEditor-content {
       min-height: inherit;
       height: 100%;
-      min-width: 290px;
       background-color: var(--colorsUtilityYang100);
       line-height: ${lineHeight}px;
 

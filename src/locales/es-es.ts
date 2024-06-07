@@ -1,50 +1,50 @@
-import esDateLocale from "date-fns/locale/es";
-import Locale from "../locale";
+import esESDateLocale from "date-fns/locale/es";
+import Locale from "./locale";
 
 const isSingular = (count: string | number): boolean =>
   (typeof count === "string" ? parseInt(count) : count) === 1;
 
-const esES: Locale = {
+const esES: Partial<Locale> = {
   locale: () => "es-ES",
   actions: {
     edit: () => "Editar",
-    delete: () => "Borrar",
+    delete: () => "Eliminar",
   },
   actionPopover: {
     ariaLabel: () => "acciones",
   },
   advancedColorPicker: {
     ariaLabel: () => "Cambiar color",
-    currentColorDescriptionTerm: () => "Color asignado: ",
+    currentColorDescriptionTerm: () => "Color aplicado:",
     currentColorAssigned: (currentColor) => currentColor,
   },
   batchSelection: {
-    selected: (count) => `${count} seleccionados`,
+    selected: (count) => `Registros seleccionados: ${count}`,
   },
   breadcrumbs: {
     ariaLabel: () => "ruta de navegación",
   },
   confirm: {
     no: () => "No",
-    yes: () => "Si",
+    yes: () => "Sí",
   },
   characterCount: {
     tooManyCharacters: (count, formattedCount) =>
       count === 1
-        ? `${formattedCount} carácter de más`
-        : `${formattedCount} caracteres de más`,
+        ? `Hay ${formattedCount} carácter de más.`
+        : `Hay ${formattedCount} caracteres de más.`,
     charactersLeft: (count, formattedCount) =>
       count === 1
-        ? `${formattedCount} carácter restante`
-        : `${formattedCount} caracteres restantes`,
+        ? `Queda ${formattedCount} carácter.`
+        : `Quedan ${formattedCount} caracteres.`,
     visuallyHiddenHint: (formattedCount) =>
-      `Puede introducir hasta ${formattedCount} caracteres`,
+      `Puedes introducir hasta ${formattedCount} caracteres.`,
   },
   date: {
-    dateFnsLocale: () => esDateLocale,
+    dateFnsLocale: () => esESDateLocale,
     ariaLabels: {
       previousMonthButton: () => "Mes anterior",
-      nextMonthButton: () => "Próximo mes",
+      nextMonthButton: () => "Mes siguiente",
     },
   },
   dialog: {
@@ -68,9 +68,7 @@ const esES: Locale = {
         /* istanbul ignore next */
         (errors, warnings, type) => {
           const errorPlural = isSingular(errors) ? "error" : "errores";
-          const warningPlural = isSingular(warnings)
-            ? "advertencia"
-            : "advertencias";
+          const warningPlural = isSingular(warnings) ? "aviso" : "avisos";
 
           if (errors && warnings && type === "warning") {
             return ["y", `${warnings} ${warningPlural}`];
@@ -86,31 +84,29 @@ const esES: Locale = {
     },
   },
   fileInput: {
-    dragAndDrop: () => "o arrastre y suelte su arichivo aquí",
-    selectFile: () => "Seleccionar archivo",
-    fileUploadStatus: () => "Estado de carga del archivo",
+    dragAndDrop: () => "También los puedes arrastrar hasta aquí.",
+    selectFile: () => "Selecciona un archivo",
+    fileUploadStatus: () => "Estado de subida de ficheros",
     actions: {
-      cancel: () => "Cancelar carga",
-      clear: () => "Quitar",
-      delete: () => "Borrar archivo",
+      cancel: () => "Cancelar subida",
+      clear: () => "Borrar",
+      delete: () => "Eliminar",
     },
   },
   heading: {
-    backLinkAriaLabel: () => "Atrás",
+    backLinkAriaLabel: () => "Volver",
   },
   link: {
-    skipLinkLabel: () => "Saltar al contenido principal",
+    skipLinkLabel: () => "Ir al contenido principal",
   },
   loader: {
-    loading: () => "Cargando",
+    loading: () => "Cargando...",
   },
   loaderSpinner: {
     loading: () => "Cargando...",
   },
   menuFullscreen: {
-    ariaLabels: {
-      closeButton: () => "Cerrar",
-    },
+    ariaLabels: { closeButton: () => "Cerrar" },
   },
   message: {
     closeButtonAriaLabel: () => "Cerrar",
@@ -119,12 +115,12 @@ const esES: Locale = {
     validation: {
       day: (month, daysInMonth) => {
         if (month && daysInMonth) {
-          return `El día en ${month} debe ser un número entre 1-${daysInMonth}.`;
+          return `El día del mes ${month} debe ser un número comprendido entre 1 y ${daysInMonth}.`;
         }
-        return "El día debe ser un número entre 1-31.";
+        return "El día debe ser un número comprendido entre 1 y 31.";
       },
-      month: () => "El mes debe ser un número entre 1-12.",
-      year: () => "El año debe ser un número entre 1800-2200.",
+      month: () => "El mes debe ser un número comprendido entre 1 y 12.",
+      year: () => "El año debe ser un número comprendido entre 1800 y 2200.",
     },
     labels: {
       day: () => "Día",
@@ -147,8 +143,8 @@ const esES: Locale = {
   },
   password: {
     ariaLiveShownMessage: () =>
-      "Se ha mostrado su contraseña. Enfoque el campo de contraseña para que sea leida, si es seguro hacerlo.",
-    ariaLiveHiddenMessage: () => "Su contraseña esta oculta.",
+      "Tu contraseña se muestra en pantalla. Si estás en un entorno seguro, coloca el cursor sobre ella para que se te lea en voz alta.",
+    ariaLiveHiddenMessage: () => "La contraseña está oculta.",
   },
   progressTracker: {
     of: () => "de",
@@ -160,9 +156,9 @@ const esES: Locale = {
     searchButtonText: () => "Buscar",
   },
   select: {
-    actionButtonText: () => "Añadir un nuevo elemento",
-    placeholder: () => "Por favor seleccione...",
-    noResultsForTerm: (term) => `No hay resultados para "${term}"`,
+    actionButtonText: () => "Añadir elemento",
+    placeholder: () => "Seleccionar...",
+    noResultsForTerm: (term) => `No hay resultados para ${term}.`,
   },
   sidebar: {
     ariaLabels: {
@@ -171,12 +167,12 @@ const esES: Locale = {
   },
   sort: {
     accessibleName: (sortContent, sortType) =>
-      `Ordenar todo ${sortContent || "contenido"}${
+      `Ordenar todos los contenidos ${sortContent && `de tipo ${sortContent}`}${
         sortType
-          ? ` en orden ${
+          ? ` según orden ${
               sortType === "ascending" ? "ascendente" : "descendente"
             }.`
-          : " en orden ascendente o descendente."
+          : " según orden ascendente o descendente."
       }`,
   },
   splitButton: {
@@ -192,31 +188,31 @@ const esES: Locale = {
     closeIconAriaLabel: () => "Cerrar",
   },
   switch: {
-    on: () => "ON",
-    off: () => "OFF",
+    on: () => "SÍ",
+    off: () => "NO",
   },
   textEditor: {
     tooltipMessages: {
       bold: () => "Negrita",
-      italic: () => "Itálica",
+      italic: () => "Cursiva",
       bulletList: () => "Lista con viñetas",
       numberList: () => "Lista numerada",
     },
     ariaLabels: {
       bold: () => "negrita",
-      italic: () => "itálica",
-      bulletList: () => "lista con viñetas",
-      numberList: () => "lista numerada",
+      italic: () => "cursiva",
+      bulletList: () => "lista-con-viñetas",
+      numberList: () => "lista-numerada",
     },
   },
   tileSelect: {
     deselect: () => "Deseleccionar",
   },
   time: {
-    amText: () => "AM",
-    pmText: () => "PM",
-    hoursLabelText: () => "Hrs.",
-    minutesLabelText: () => "Mins.",
+    amText: () => "a. m.",
+    pmText: () => "p. m.",
+    hoursLabelText: () => "h",
+    minutesLabelText: () => "min",
     hoursAriaLabelText: () => "Horas",
     minutesAriaLabelText: () => "Minutos",
   },

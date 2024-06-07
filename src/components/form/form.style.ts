@@ -18,6 +18,7 @@ export const StyledFormContent = styled.div<StyledFormContentProps>`
   ${({ stickyFooter, isInModal }) => css`
     ${stickyFooter &&
     css`
+      /* Take responsibility for handling overflow away from parent modal */
       overflow-y: ${isInModal ? "auto" : "inherit"};
       flex: 1;
     `}
