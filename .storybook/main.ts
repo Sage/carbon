@@ -30,14 +30,7 @@ module.exports = {
     "@storybook/addon-viewport",
   ],
   staticDirs: ["../.assets", "../logo"],
-  webpackFinal: async (config, { configType }) => {
-    config.resolve = {
-      alias: {
-        helpers: path.resolve(__dirname, "__helpers__/"),
-      },
-      extensions: [".js", ".tsx", ".ts"],
-    };
-
+  webpackFinal: async (config) => {
     // Finds the rule for woff2 files and modifies the file-loader to preserve the original filenames to allow us to preload them
     const fontRuleIndex = config.module.rules.findIndex((rule) =>
       rule.test.toString().includes("woff2")
