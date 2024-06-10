@@ -1,5 +1,7 @@
-const path = require("path");
-const glob = require("glob");
+import path from "path";
+import glob from "glob";
+import { StorybookConfig } from "@storybook/react-webpack5";
+
 const projectRoot = path.resolve(__dirname, "../");
 const ignoreTests = process.env.IGNORE_TESTS === "true";
 const isChromatic = !ignoreTests;
@@ -9,7 +11,8 @@ const getStories = () =>
       ignore: `${projectRoot}/src/**/*-test.stories.@(js|jsx|ts|tsx)`,
     }),
   });
-module.exports = {
+
+const config: StorybookConfig = {
   stories: [
     "./welcome-page/welcome.stories.js",
     "../docs/*.mdx",
@@ -30,23 +33,22 @@ module.exports = {
     "@storybook/addon-viewport",
   ],
   staticDirs: ["../.assets", "../logo"],
-  webpackFinal: async (config) => {
-    // Finds the rule for woff2 files and modifies the file-loader to preserve the original filenames to allow us to preload them
-    const fontRuleIndex = config.module.rules.findIndex((rule) =>
-      rule.test.toString().includes("woff2")
-    );
-    if (fontRuleIndex !== -1) {
-      config.module.rules[fontRuleIndex] = {
-        test: /\.(woff(2)?|eot|ttf|otf|svg|png)$/,
-        type: "asset/resource",
-        generator: {
-          filename: "static/media/[name][ext]",
+  webpackFinal: async (config) => ({
+    ...config,
+    module: {
+      ...config?.module,
+      rules: [
+        ...(config?.module?.rules ?? []),
+        {
+          test: /\.(woff(2)?|eot|ttf|otf|svg|png)$/,
+          type: "asset/resource",
+          generator: {
+            filename: "static/media/[name][ext]",
+          },
         },
-      };
-    }
-
-    return config;
-  },
+      ],
+    },
+  }),
   ...(isChromatic && {
     previewHead: (head) => `
       ${head}
@@ -65,3 +67,5 @@ module.exports = {
     autodocs: true,
   },
 };
+
+export default config;
