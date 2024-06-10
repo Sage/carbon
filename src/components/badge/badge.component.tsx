@@ -26,8 +26,8 @@ export const Badge = ({
   color = "--colorsActionMajor500",
   onClick,
 }: BadgeProps) => {
-  const shouldDisplayCounter = counter > 0;
-  const counterToDisplay = counter > 99 ? 99 : counter;
+  const shouldDisplayCounter = +counter > 0;
+  const counterToDisplay = +counter > 99 ? 99 : counter;
 
   const renderCorrectBadge = () => {
     const props = onClick
@@ -41,7 +41,12 @@ export const Badge = ({
 
     if (shouldDisplayCounter) {
       return (
-        <StyledBadge data-component="badge" color={color} {...props}>
+        <StyledBadge
+          data-role="badge"
+          data-component="badge"
+          color={color}
+          {...props}
+        >
           {onClick && (
             <StyledCrossIcon data-element="badge-cross-icon" type="cross" />
           )}

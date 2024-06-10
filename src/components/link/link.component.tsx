@@ -148,6 +148,7 @@ export const Link = React.forwardRef<
               ...(placeholderTabIndex &&
                 href === undefined &&
                 !onClick && { tabIndex: -1 }),
+              "data-role": "link-anchor",
             },
         <>
           {renderLinkIcon()}

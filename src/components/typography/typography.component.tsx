@@ -7,7 +7,7 @@ import {
 } from "../../style/utils";
 import StyledTypography from "./typography.style";
 
-const VARIANT_TYPES = [
+export const VARIANT_TYPES = [
   "h1-large",
   "h1",
   "h2",
@@ -56,6 +56,8 @@ export interface TypographyProps extends SpaceProps, TagProps {
   listStyleType?: string;
   /** Override the white-space */
   whiteSpace?: string;
+  /** Override the word-break */
+  wordBreak?: string;
   /** Override the word-wrap */
   wordWrap?: string;
   /** Override the text-align */
@@ -100,6 +102,7 @@ export const Typography = ({
   display,
   listStyleType,
   whiteSpace,
+  wordBreak,
   wordWrap,
   textAlign,
   textOverflow,
@@ -129,6 +132,7 @@ export const Typography = ({
       listStyleType={listStyleType}
       whiteSpace={whiteSpace}
       wordWrap={wordWrap}
+      wordBreak={wordBreak}
       textAlign={textAlign}
       textOverflow={textOverflow}
       truncate={truncate}

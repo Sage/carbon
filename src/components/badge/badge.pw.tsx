@@ -64,7 +64,7 @@ test.describe("should render Badge component", () => {
     await expect(badgeCrossIcon(page)).toBeVisible();
   });
 
-  test("badge should display correct background colour when hovered over with customColor prop passed", async ({
+  test("badge should display correct background colour when hovered over with color prop passed", async ({
     mount,
     page,
   }) => {
@@ -147,7 +147,7 @@ test.describe("should render Badge component", () => {
     mount,
     page,
   }) => {
-    await mount(<BadgeComponent onClick={() => {}} />);
+    await mount(<BadgeComponent counter={9} onClick={() => {}} />);
     await checkAccessibility(page);
   });
 });

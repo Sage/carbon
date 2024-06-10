@@ -9,19 +9,12 @@ import { MessageVariant } from "../message/message.component";
 const StyledPortal = styled(Portal)<{
   align?: "left" | "center" | "right";
   alignY?: "top" | "center" | "bottom";
-  isCenter?: boolean;
   isNotice?: boolean;
 }>`
-  ${({ theme, isCenter, isNotice, align, alignY }) => css`
+  ${({ theme, isNotice, align, alignY }) => css`
     position: fixed;
     top: 0;
     z-index: ${theme.zIndex.notification};
-
-    ${isCenter &&
-    css`
-      margin-left: 50%;
-      transform: translateX(-50%);
-    `}
 
     ${align === "left" &&
     css`
@@ -91,7 +84,6 @@ type ToastStyleProps = {
   align?: "left" | "center" | "right";
   alignY?: "top" | "center" | "bottom";
   maxWidth?: string;
-  isCenter?: boolean;
   isNotice?: boolean;
   isNotification?: boolean;
   variant: ToastVariants;
@@ -108,15 +100,7 @@ const iconPositionStyles = css`
 `;
 
 const StyledToast = styled.div<ToastStyleProps>`
-  ${({
-    maxWidth,
-    isCenter,
-    align,
-    isNotification,
-    alignY,
-    isNotice,
-    variant,
-  }) => css`
+  ${({ maxWidth, align, isNotification, alignY, isNotice, variant }) => css`
     position: relative;
     display: flex;
     justify-content: flex-start;
@@ -137,14 +121,14 @@ const StyledToast = styled.div<ToastStyleProps>`
 
     box-shadow: ${boxShadow};
     line-height: 22px;
-    margin-top: ${(alignY === "top" && isNotice) || alignY === "center"
+    margin-top: ${isNotice || alignY === "center" || alignY === "bottom"
       ? "0"
       : "30px"};
     margin-bottom: ${alignY === "bottom" && !isNotice ? "30px" : "0"};
     max-width: ${!maxWidth ? "300px" : maxWidth};
     position: relative;
-    margin-right: ${isCenter || align === "right" ? "auto" : "30px"};
-    margin-left: ${isCenter || align === "left" ? "auto" : "30px"};
+    margin-right: ${align === "center" || align === "right" ? "auto" : "30px"};
+    margin-left: ${align === "center" || align === "left" ? "auto" : "30px"};
 
     ${isNotification &&
     css`
@@ -164,8 +148,8 @@ const StyledToast = styled.div<ToastStyleProps>`
   &${animationName}-appear${animationName}-appear-active,
     &${animationName}-enter${animationName}-enter-active {
     opacity: 1;
-    transform: ${({ isCenter }) =>
-      isCenter ? " scale(1) translateY(0)" : "scale(1)"};
+    transform: ${({ align }) =>
+      align === "center" ? " scale(1) translateY(0)" : "scale(1)"};
     transition: all 300ms cubic-bezier(0.25, 0.25, 0, 1.5);
   }
 
@@ -248,7 +232,6 @@ const StyledToastContent = styled.div<{
 
 const ToastWrapper = styled.div<{
   align?: "left" | "center" | "right";
-  isCenter?: boolean;
   isNotice?: boolean;
 }>`
   ${({ align }) =>
@@ -258,16 +241,6 @@ const ToastWrapper = styled.div<{
       width: auto;
       height: auto;
       justify-content: ${align};
-      display: flex;
-    `}
-
-  ${({ isCenter }) =>
-    isCenter &&
-    css`
-      position: relative;
-      width: auto;
-      height: auto;
-      justify-content: center;
       display: flex;
     `}
 

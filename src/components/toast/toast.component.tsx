@@ -16,7 +16,6 @@ import IconButton from "../icon-button";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalManager from "../../hooks/__internal__/useModalManager";
-import Logger from "../../__internal__/utils/logger";
 
 type ToastVariants =
   | "error"
@@ -68,8 +67,6 @@ export interface ToastProps {
   closeButtonDataProps?: Pick<TagProps, "data-role" | "data-element">;
   /** Time for Toast to remain on screen */
   timeout?: string | number;
-  /** Centers the Toast on the screen */
-  isCenter?: boolean;
   /** Target Portal ID where the Toast will render */
   targetPortalId?: string;
   /** Maximum toast width */
@@ -78,17 +75,14 @@ export interface ToastProps {
   disableAutoFocus?: boolean;
 }
 
-let isDeprecationWarningTriggered = false;
-
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
   (
     {
-      align,
+      align = "center",
       alignY,
       children,
       className,
       id,
-      isCenter = true,
       maxWidth,
       onDismiss,
       open = true,
@@ -117,13 +111,6 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     let refToPass = toastRef;
     if (ref && typeof ref === "object" && "current" in ref) {
       refToPass = ref;
-    }
-
-    if (isCenter !== undefined && !isDeprecationWarningTriggered) {
-      isDeprecationWarningTriggered = true;
-      Logger.deprecate(
-        `isCenter prop in ${Toast.displayName} is being deprecated in favour of the align prop.`
-      );
     }
 
     const dismissToast = useCallback(
@@ -230,7 +217,6 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             isNotification={isNotification}
             className={className}
             {...tagComponent(restProps["data-component"] || "toast", restProps)}
-            isCenter={isCenter}
             variant={toastVariant}
             id={id}
             maxWidth={maxWidth}
@@ -241,11 +227,18 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
             })}
           >
             {!isNotice && (
-              <TypeIcon variant={isNotification ? "info" : variant}>
+              <TypeIcon
+                variant={isNotification ? "info" : variant}
+                data-role="toast-type-icon"
+              >
                 <Icon type={toastIcon} />
               </TypeIcon>
             )}
-            <StyledToastContent isNotice={isNotice} isDismiss={!!onDismiss}>
+            <StyledToastContent
+              isNotice={isNotice}
+              isDismiss={!!onDismiss}
+              data-role="toast-content"
+            >
               {children}
             </StyledToastContent>
             {renderCloseIcon()}
@@ -259,14 +252,13 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
         id={targetPortalId}
         align={align}
         alignY={alignY}
-        isCenter={isCenter}
         isNotice={isNotice}
       >
         <ToastWrapper
           align={align}
-          isCenter={isCenter}
           ref={refToPass}
           isNotice={isNotice}
+          data-role="toast-wrapper"
         >
           <TransitionGroup>{renderToastContent()}</TransitionGroup>
         </ToastWrapper>

@@ -74,13 +74,24 @@ Default.args = {
   children: "My text",
   timeout: 0,
   variant: "success",
-  isCenter: true,
   scrollablePage: false,
   closeButtonDataProps: {},
 };
 Default.argTypes = {
   variant: {
-    options: TOAST_COLORS,
+    options: [...TOAST_COLORS, "notice"],
+    control: {
+      type: "select",
+    },
+  },
+  align: {
+    options: ["left", "center", "right"],
+    control: {
+      type: "select",
+    },
+  },
+  alignY: {
+    options: ["top", "center", "bottom"],
     control: {
       type: "select",
     },
@@ -148,7 +159,7 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
         open={isOpen}
         onDismiss={onDismissClick}
         targetPortalId="visual-left-aligned"
-        isCenter={false}
+        align="left"
         {...args}
       >
         {children}
@@ -157,7 +168,7 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
         variant="info"
         targetPortalId="visual-left-aligned"
         open={isOpen}
-        isCenter={false}
+        align="left"
         {...args}
       >
         {children}
@@ -165,8 +176,8 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
       <Toast
         variant="error"
         targetPortalId="visual-left-aligned"
-        isCenter={false}
         open={isOpen}
+        align="left"
         onDismiss={onDismissClick}
       >
         My Error
@@ -174,16 +185,16 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
       <Toast
         variant="error"
         targetPortalId="visual-left-aligned"
-        isCenter={false}
         open={isOpen}
+        align="left"
       >
         My Error
       </Toast>
       <Toast
         variant="warning"
         targetPortalId="visual-left-aligned"
-        isCenter={false}
         open={isOpen}
+        align="left"
         onDismiss={onDismissClick}
       >
         My Warning
@@ -191,16 +202,16 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
       <Toast
         variant="warning"
         targetPortalId="visual-left-aligned"
-        isCenter={false}
         open={isOpen}
+        align="left"
       >
         My Warning
       </Toast>
       <Toast
         variant="success"
         targetPortalId="visual-left-aligned"
-        isCenter={false}
         open={isOpen}
+        align="left"
         onDismiss={onDismissClick}
       >
         My Success
@@ -208,8 +219,80 @@ export const Visual = ({ children, ...args }: Partial<ToastProps>) => {
       <Toast
         variant="success"
         targetPortalId="visual-left-aligned"
-        isCenter={false}
         open={isOpen}
+        align="left"
+      >
+        My Success
+      </Toast>
+      {/* right-aligned examples */}
+      <Toast
+        variant="info"
+        id="toast-quick-start"
+        open={isOpen}
+        onDismiss={onDismissClick}
+        targetPortalId="visual-right-aligned"
+        align="right"
+        {...args}
+      >
+        {children}
+      </Toast>
+      <Toast
+        variant="info"
+        targetPortalId="visual-right-aligned"
+        open={isOpen}
+        align="right"
+        {...args}
+      >
+        {children}
+      </Toast>
+      <Toast
+        variant="error"
+        targetPortalId="visual-right-aligned"
+        open={isOpen}
+        align="right"
+        onDismiss={onDismissClick}
+      >
+        My Error
+      </Toast>
+      <Toast
+        variant="error"
+        targetPortalId="visual-right-aligned"
+        open={isOpen}
+        align="right"
+      >
+        My Error
+      </Toast>
+      <Toast
+        variant="warning"
+        targetPortalId="visual-right-aligned"
+        open={isOpen}
+        align="right"
+        onDismiss={onDismissClick}
+      >
+        My Warning
+      </Toast>
+      <Toast
+        variant="warning"
+        targetPortalId="visual-right-aligned"
+        open={isOpen}
+        align="right"
+      >
+        My Warning
+      </Toast>
+      <Toast
+        variant="success"
+        targetPortalId="visual-right-aligned"
+        open={isOpen}
+        align="right"
+        onDismiss={onDismissClick}
+      >
+        My Success
+      </Toast>
+      <Toast
+        variant="success"
+        targetPortalId="visual-right-aligned"
+        open={isOpen}
+        align="right"
       >
         My Success
       </Toast>
@@ -247,16 +330,10 @@ export const TopAndBottom = () => {
       <Button id="button" key="button" onClick={handleOpen}>
         Open Toasts
       </Button>
-      <Toast id="toast-a" variant="success" open={isOpen} isCenter alignY="top">
+      <Toast id="toast-a" variant="success" open={isOpen} alignY="top">
         My Toast A
       </Toast>
-      <Toast
-        id="toast-b"
-        variant="warning"
-        open={isOpen}
-        isCenter
-        alignY="bottom"
-      >
+      <Toast id="toast-b" variant="warning" open={isOpen} alignY="bottom">
         My Toast B
       </Toast>
     </>

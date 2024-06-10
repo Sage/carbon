@@ -114,6 +114,10 @@ const Submenu = React.forwardRef<
     const [submenuItemIds, setSubmenuItemIds] = useState<(string | null)[]>([]);
     const [characterString, setCharacterString] = useState("");
     const [applyFocusRadius, setApplyFocusRadius] = useState<boolean>(false);
+    const [
+      applyFocusRadiusToLastItem,
+      setApplyFocusRadiusToLastItem,
+    ] = useState<boolean>(false);
     const shiftTabPressed = useRef(false);
     const focusFirstMenuItemOnOpen = useRef(false);
 
@@ -192,6 +196,12 @@ const Submenu = React.forwardRef<
         // Get the last segment block
         const lastSegmentBlock = ulElements.pop();
 
+        // Check if the last segment block is a scrollable block
+        const isLastSegmentBlockScrollableBlock = Boolean(
+          lastSegmentBlock?.parentElement?.dataset.component ===
+            SCROLLABLE_BLOCK
+        );
+
         // Get all the menu items from the last segment block
         const segmentBlockMenuItems = Array.from(
           lastSegmentBlock?.querySelectorAll("[data-component='menu-item']") ||
@@ -200,18 +210,36 @@ const Submenu = React.forwardRef<
 
         // Get the last menu item in the last segment block
         const lastMenuItemInSegmentBlock = segmentBlockMenuItems.pop();
+
+        // Check to see if the last menu item in the last segment block is visible
+        let isLastMenuItemInSegmentBlockVisible = false;
+        if (lastMenuItemInSegmentBlock && lastSegmentBlock) {
+          isLastMenuItemInSegmentBlockVisible =
+            lastMenuItemInSegmentBlock.getBoundingClientRect().bottom <
+            lastSegmentBlock.getBoundingClientRect().bottom;
+        }
+
         // Check if the last item in the segment block is the same as the last MenuItem in the submenu
         const menuItemsMatch =
           !!lastMenuItemInSegmentBlock &&
           lastMenuItemInSegmentBlock === lastMenuItem;
 
+        // Applies the focus radius to the StyledBox of the StyledScrollableBlock
         setApplyFocusRadius(menuItemsMatch);
+
+        // Applies border radius to the last item in the segment block
+        setApplyFocusRadiusToLastItem(
+          (menuItemsMatch && !isLastSegmentBlockScrollableBlock) ||
+            (menuItemsMatch &&
+              isLastSegmentBlockScrollableBlock &&
+              !isLastMenuItemInSegmentBlockVisible)
+        );
       };
 
       if (submenuOpen && submenuRef) {
         handleBorderRadiusStyling();
       }
-    }, [submenuOpen, submenuRef]);
+    }, [submenuOpen, submenuRef, numberOfChildren]);
 
     useEffect(() => {
       if (submenuOpen && onSubmenuOpen) {
@@ -470,6 +498,7 @@ const Submenu = React.forwardRef<
             inFullscreenView={inFullscreenView}
             ref={setSubmenuRef}
             applyFocusRadiusStyling={false}
+            applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
           >
             <SubmenuContext.Provider
               value={{
@@ -524,6 +553,7 @@ const Submenu = React.forwardRef<
             role={blockIndex === 0 ? "presentation" : "list"}
             maxHeight={submenuMaxHeight}
             applyFocusRadiusStyling={applyFocusRadius}
+            applyFocusRadiusStylingToLastItem={applyFocusRadiusToLastItem}
           >
             <SubmenuContext.Provider
               value={{

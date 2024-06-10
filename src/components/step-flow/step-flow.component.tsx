@@ -110,6 +110,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
         <StyledProgressIndicator
           key={step}
           aria-hidden="true"
+          data-role="progress-indicator"
           data-element="progress-indicator"
           isCompleted={step < validatedCurrentStep}
           isInProgress={step === validatedCurrentStep}
@@ -146,6 +147,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
 
     const stepFlowTitle = (
       <StyledTitleFocusWrapper
+        data-role="title-text-wrapper"
         data-element="title-text-wrapper"
         tabIndex={-1}
         ref={titleRef}
@@ -215,7 +217,10 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
         {showProgressIndicator ? (
           <StyledStepLabelAndProgress>
             {stepFlowLabel}
-            <StyledProgressIndicatorBar data-element="progress-indicator-bar">
+            <StyledProgressIndicatorBar
+              data-element="progress-indicator-bar"
+              data-role="progress-indicator-bar"
+            >
               {progressIndicators}
             </StyledProgressIndicatorBar>
           </StyledStepLabelAndProgress>

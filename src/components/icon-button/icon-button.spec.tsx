@@ -112,6 +112,28 @@ describe("IconButton component", () => {
     });
   });
 
+  describe("aria-labels", () => {
+    it("allows a custom aria-label to be passed", () => {
+      wrapper = mount(
+        <IconButton aria-label="foo">
+          <Icon type="home" />
+        </IconButton>
+      );
+
+      expect(wrapper.find(StyledIconButton).prop("aria-label")).toBe("foo");
+    });
+
+    it("defaults to the passed icon type when no aria-label is passed", () => {
+      wrapper = mount(
+        <IconButton>
+          <Icon type="home" />
+        </IconButton>
+      );
+
+      expect(wrapper.find(StyledIconButton).prop("aria-label")).toBe("home");
+    });
+  });
+
   describe("tooltip", () => {
     it("renders TooltipProvider with correct props", () => {
       wrapper = mount(

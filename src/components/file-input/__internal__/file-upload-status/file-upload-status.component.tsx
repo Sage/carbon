@@ -122,7 +122,10 @@ export const FileUploadStatus = ({
       </StyledFileUploadStatusRow>
     ) : null;
   return (
-    <StyledFileUploadStatus hasError={status === "error"}>
+    <StyledFileUploadStatus
+      data-role="file-upload-status"
+      hasError={status === "error"}
+    >
       {mainRow}
       {secondRow}
       {progressBar}

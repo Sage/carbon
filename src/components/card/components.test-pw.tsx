@@ -334,8 +334,8 @@ export const WithWidthProvided = () => (
   </Card>
 );
 
-export const WithCustomHeight = () => (
-  <Card height="500px">
+export const WithCustomHeight = (props: Partial<CardProps>) => (
+  <Card height="500px" {...props}>
     <CardRow>
       <CardColumn align="left">
         <Heading title="Stripe - [account name]" divider={false} />

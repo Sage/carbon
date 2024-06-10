@@ -587,6 +587,24 @@ describe("Typography", () => {
       }
     );
 
+    it.each(["normal", "break-all", "keep-all", "break-word", "auto-phrase"])(
+      "applies word-break of %s",
+      (prop) => {
+        const wrapper = mount(
+          <ThemeProvider theme={sageTheme}>
+            <Typography wordBreak={prop}>FooBar</Typography>
+          </ThemeProvider>
+        );
+
+        assertStyleMatch(
+          {
+            wordBreak: prop,
+          },
+          wrapper.find(Typography)
+        );
+      }
+    );
+
     it.each(["left", "right", "center", "justify", "initial", "inherit"])(
       "applies text-align of %s",
       (prop) => {
@@ -606,16 +624,20 @@ describe("Typography", () => {
     );
 
     it.each(["clip", "ellipsis", "string", "initial", "inherit"])(
-      "applies text-overflow of %s",
+      "applies text-overflow of %s when text is truncated",
       (prop) => {
         const wrapper = mount(
           <ThemeProvider theme={sageTheme}>
-            <Typography textOverflow={prop}>FooBar</Typography>
+            <Typography truncate textOverflow={prop}>
+              FooBar
+            </Typography>
           </ThemeProvider>
         );
 
         assertStyleMatch(
           {
+            whiteSpace: "nowrap",
+            overflow: "hidden",
             textOverflow: prop,
           },
           wrapper.find(Typography)

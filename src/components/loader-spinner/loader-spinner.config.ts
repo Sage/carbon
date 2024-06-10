@@ -23,15 +23,20 @@ type LoaderSpinnerSizeParams = Record<
   {
     wrapperDimensions: number;
     strokeWidth: number;
+    labelMarginTop?: number;
   }
 >;
 
 const LOADER_SPINNER_SIZE_PARAMS: LoaderSpinnerSizeParams = {
   "extra-small": { wrapperDimensions: 20, strokeWidth: 4 },
-  small: { wrapperDimensions: 32, strokeWidth: 4 },
-  medium: { wrapperDimensions: 56, strokeWidth: 3.3 },
-  large: { wrapperDimensions: 80, strokeWidth: 3.7 },
-  "extra-large": { wrapperDimensions: 104, strokeWidth: 3.7 },
+  small: { wrapperDimensions: 32, strokeWidth: 4, labelMarginTop: 12 },
+  medium: { wrapperDimensions: 56, strokeWidth: 3.3, labelMarginTop: 16 },
+  large: { wrapperDimensions: 80, strokeWidth: 3.7, labelMarginTop: 22 },
+  "extra-large": {
+    wrapperDimensions: 104,
+    strokeWidth: 3.7,
+    labelMarginTop: 26,
+  },
 };
 
 export type { LoaderSpinnerSizes, LoaderSpinnerVariants };

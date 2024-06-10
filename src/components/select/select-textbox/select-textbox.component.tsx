@@ -7,6 +7,7 @@ import SelectText from "../__internal__/select-text";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import { ValidationProps } from "../../../__internal__/validations";
 import { CustomSelectChangeEvent } from "../simple-select/simple-select.component";
+import { SelectTextboxContext } from "./select-textbox-context";
 
 const floatingMiddleware = [
   offset(({ rects }) => ({
@@ -217,35 +218,37 @@ const SelectTextbox = React.forwardRef(
       (Array.isArray(selectedValue) && typeof selectedValue[0] === "string");
 
     return (
-      <Textbox
-        aria-label={ariaLabel}
-        data-element="select-input"
-        inputIcon="dropdown"
-        autoComplete="off"
-        size={size}
-        onChange={onChange}
-        value={
-          hasStringValue ? (selectedValue as string | string[]) : undefined
-        }
-        placeholder={
-          hasTextCursor ? placeholder || l.select.placeholder() : undefined
-        }
-        {...inputAriaAttributes}
-        {...textboxProps}
-        my={0} // prevents any form spacing being applied
-      >
-        {!hasTextCursor && (
-          <SelectText
-            transparent={transparent}
-            placeholder={placeholder || l.select.placeholder()}
-            onClick={disabled || readOnly ? undefined : handleTextboxClick}
-            disabled={disabled}
-            readOnly={readOnly}
-            size={size}
-            {...restProps}
-          />
-        )}
-      </Textbox>
+      <SelectTextboxContext.Provider value={{ isInputInSelect: true }}>
+        <Textbox
+          aria-label={ariaLabel}
+          data-element="select-input"
+          inputIcon="dropdown"
+          autoComplete="off"
+          size={size}
+          onChange={onChange}
+          value={
+            hasStringValue ? (selectedValue as string | string[]) : undefined
+          }
+          placeholder={
+            hasTextCursor ? placeholder || l.select.placeholder() : undefined
+          }
+          {...inputAriaAttributes}
+          {...textboxProps}
+          my={0} // prevents any form spacing being applied
+        >
+          {!hasTextCursor && (
+            <SelectText
+              transparent={transparent}
+              placeholder={placeholder || l.select.placeholder()}
+              onClick={disabled || readOnly ? undefined : handleTextboxClick}
+              disabled={disabled}
+              readOnly={readOnly}
+              size={size}
+              {...restProps}
+            />
+          )}
+        </Textbox>
+      </SelectTextboxContext.Provider>
     );
   }
 );

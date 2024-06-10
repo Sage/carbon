@@ -41,6 +41,7 @@ import {
 - Pass proper structure of `AnchorNavigationItem`'s with assigned `refs` to `stickyNavigation` prop.
 
 - Pass children where elements which are meant to serve as sections have `refs` assigned.
+
 - Keep in mind that to assign a `ref` to a component it either has to be a `Class` component or it has to be wrapped in `React.forwardRef()` in case of a function component.
 
 - **It is necessary to maintain the same order of navigation items and children when assigning the `refs`**
@@ -49,9 +50,9 @@ import {
 
 ```javascript
 const MyComponent = () => (
-  const ref1 = React.createRef();
-  const ref2 = React.createRef();
-  const ref3 = React.createRef();
+  const ref1 = React.useRef();
+  const ref2 = React.useRef();
+  const ref3 = React.useRef();
 
   <AnchorNavigation
     stickyNavigation={

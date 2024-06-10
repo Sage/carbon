@@ -10,7 +10,6 @@ import LoaderBar from "../../../src/components/loader-bar";
 import MultiActionButton from "../../../src/components/multi-action-button";
 import Pill from "../../../src/components/pill";
 import SplitButton from "../../../src/components/split-button";
-import StepSequenceItem from "../../../src/components/step-sequence/step-sequence-item";
 import { Tabs, Tab } from "../../../src/components/tabs";
 
 import { buttonDataComponent } from "../../../playwright/components/button/index";
@@ -20,7 +19,6 @@ import {
   loaderComponent,
 } from "../../../playwright/components/themes/index";
 import { pillPreview } from "../../../playwright/components/index";
-import { stepSequenceDataComponentItem } from "../../../playwright/components/step-sequence/index";
 import multiActionButtonComponent from "../../../playwright/components/carbon-provider/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
 
@@ -40,10 +38,6 @@ const buildTestDataWithTwoArrays = (
 const commonColors = ["rgb(0, 130, 0)", "rgb(0, 126, 69)"];
 
 const commonColorsOnHover = ["rgb(0, 99, 0)", "rgb(0, 103, 56)"];
-
-const multiButtonOnHover = ["rgb(0, 77, 42)", "rgb(0, 77, 42)"];
-
-const stepSequenceColors = ["rgb(0, 138, 33)", "rgb(0, 138, 33)"];
 
 const loaderBarColors = ["rgb(179, 224, 179)", "rgb(179, 217, 200)"];
 
@@ -219,7 +213,7 @@ test.describe("Hover styling", () => {
     );
   });
 
-  buildTestArray(multiButtonOnHover).forEach(([theme, color]) => {
+  buildTestArray(commonColorsOnHover).forEach(([theme, color]) => {
     test.describe(
       `should render components with ${theme} theme onHover`,
       () => {
@@ -272,29 +266,6 @@ buildTestDataWithTwoArrays(loaderBarColors, commonColors).forEach(
     });
   }
 );
-
-buildTestArray(stepSequenceColors).forEach(([theme, color]) => {
-  test.describe(`should render components with ${theme} theme`, () => {
-    test("StepSequence component and verify theme color", async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <StepSequenceItem indicator="1" status="complete">
-          Name
-        </StepSequenceItem>,
-        {
-          hooksConfig: { theme: `${theme}` },
-        }
-      );
-
-      await expect(stepSequenceDataComponentItem(page)).toHaveCSS(
-        "color",
-        color
-      );
-    });
-  });
-});
 
 test.describe("Accessibility tests for Carbon Provider", () => {
   test("should pass accessibility tests for sage theme example", async ({

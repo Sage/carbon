@@ -397,7 +397,6 @@ describe("SimpleSelect", () => {
     });
 
     describe.each([
-      "Enter",
       "ArrowDown",
       "ArrowUp",
       "Home",

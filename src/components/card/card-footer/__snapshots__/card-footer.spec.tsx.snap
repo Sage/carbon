@@ -149,7 +149,8 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   color: var(--colorsActionMajorYin090);
 }
 
-.c1 > button {
+.c1 > button,
+.c1 .sc-fjdhpX:not(.search-button) {
   background-color: transparent;
   border: none;
   padding: 0;
@@ -167,6 +168,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
     disabled={false}
   >
     <a
+      data-role="link-anchor"
       href="https://carbon.sage.com/"
       onBlur={[Function]}
       onFocus={[Function]}

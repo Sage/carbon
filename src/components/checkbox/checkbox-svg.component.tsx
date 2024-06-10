@@ -3,7 +3,13 @@ import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/c
 
 const CheckboxSvg = () => (
   <StyledCheckableInputSvgWrapper>
-    <svg focusable="false" width="12" height="10" viewBox="0 0 12 10">
+    <svg
+      data-role="checkable-svg"
+      focusable="false"
+      width="12"
+      height="10"
+      viewBox="0 0 12 10"
+    >
       <path
         d={
           "M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, " +

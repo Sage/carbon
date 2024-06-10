@@ -137,9 +137,6 @@ const StyledCheckbox = styled.div<StyledCheckboxProps>`
 
       ${StyledFieldHelp} {
         margin-left: 24px;
-        padding-left: ${labelSpacing === 1
-          ? "var(--spacing100)"
-          : "var(--spacing200)"};
       }
 
       ${fieldHelpInline &&
