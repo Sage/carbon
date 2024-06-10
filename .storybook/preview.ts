@@ -5,7 +5,6 @@ import withPortalProvider from "./with-portal-provider";
 import sageStorybookTheme from "./sage-storybook-theme";
 
 import "../src/style/fonts.css";
-import "./style/story-root.css";
 import isChromatic from "./isChromatic";
 import { Preview } from "@storybook/react";
 
