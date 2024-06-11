@@ -8,6 +8,7 @@ import Box from "../../box";
 import Icon from "../../icon";
 import Dialog from "../../dialog";
 import { Select, Option, SimpleSelectProps } from "..";
+import OptionGroup from "../option-group";
 
 export default {
   component: Select,
@@ -668,6 +669,19 @@ export const SimpleSelectWithTruncatedText = () => {
     >
       <Option value="1" text={longValueText} />
       <Option value="2" text={longValueText} />
+    </Select>
+  );
+};
+
+export const SelectWithOptionGroup = () => {
+  return (
+    <Select name="optGroups" id="optGroups" label="color">
+      <OptionGroup label="Group Option Label">
+        <Option text="Amber" value="2" />
+        <Option text="Black" value="3" />
+        <Option text="Blue" value="4" />
+        <Option text="Brown" value="5" />
+      </OptionGroup>
     </Select>
   );
 };

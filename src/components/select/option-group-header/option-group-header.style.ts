@@ -5,23 +5,15 @@ const StyledOptionGroupHeader = styled.div`
   box-sizing: border-box;
   position: absolute;
   height: 40px;
-  padding-left: 16px;
-  padding-top: 16px;
+  padding-left: var(--spacing200);
+  padding-top: var(--spacing200);
   display: flex;
+  flex-direction: row;
   align-items: center;
   width: 100%;
 
-  h4 {
-    font-size: 12px;
-    text-transform: uppercase;
-    line-height: 18px;
-    text-align: left;
-    margin: 0;
-    color: var(--colorsUtilityYin055);
-  }
-
   ${StyledIcon} {
-    margin-right: 4px;
+    margin-right: var(--spacing050);
     margin-left: -5px;
     color: var(--colorsUtilityYin055);
 
@@ -31,4 +23,14 @@ const StyledOptionGroupHeader = styled.div`
   }
 `;
 
-export default StyledOptionGroupHeader;
+const StyledOptionGroupHeaderLabel = styled.span`
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 18px;
+  text-align: left;
+  margin: var(--spacing000);
+  color: var(--colorsUtilityYin055);
+`;
+
+export { StyledOptionGroupHeader, StyledOptionGroupHeaderLabel };

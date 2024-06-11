@@ -5,12 +5,15 @@ exports[`OptionGroupHeader renders properly 1`] = `
   box-sizing: border-box;
   position: absolute;
   height: 40px;
-  padding-left: 16px;
-  padding-top: 16px;
+  padding-left: var(--spacing200);
+  padding-top: var(--spacing200);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -18,22 +21,23 @@ exports[`OptionGroupHeader renders properly 1`] = `
   width: 100%;
 }
 
-.c0 h4 {
-  font-size: 12px;
-  text-transform: uppercase;
-  line-height: 18px;
-  text-align: left;
-  margin: 0;
-  color: var(--colorsUtilityYin055);
-}
-
-.c0 .c1 {
-  margin-right: 4px;
+.c0 .c2 {
+  margin-right: var(--spacing050);
   margin-left: -5px;
   color: var(--colorsUtilityYin055);
 }
 
-.c0 .c1:hover {
+.c0 .c2:hover {
+  color: var(--colorsUtilityYin055);
+}
+
+.c1 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 18px;
+  text-align: left;
+  margin: var(--spacing000);
   color: var(--colorsUtilityYin055);
 }
 
@@ -41,9 +45,11 @@ exports[`OptionGroupHeader renders properly 1`] = `
   className="c0"
   id="guid-12345"
 >
-  <h4>
+  <span
+    className="c1"
+  >
     Heading
-  </h4>
+  </span>
 </div>
 `;
 
@@ -86,12 +92,15 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
   box-sizing: border-box;
   position: absolute;
   height: 40px;
-  padding-left: 16px;
-  padding-top: 16px;
+  padding-left: var(--spacing200);
+  padding-top: var(--spacing200);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -99,22 +108,23 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
   width: 100%;
 }
 
-.c0 h4 {
-  font-size: 12px;
-  text-transform: uppercase;
-  line-height: 18px;
-  text-align: left;
-  margin: 0;
-  color: var(--colorsUtilityYin055);
-}
-
 .c0 .c1 {
-  margin-right: 4px;
+  margin-right: var(--spacing050);
   margin-left: -5px;
   color: var(--colorsUtilityYin055);
 }
 
 .c0 .c1:hover {
+  color: var(--colorsUtilityYin055);
+}
+
+.c3 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 18px;
+  text-align: left;
+  margin: var(--spacing000);
   color: var(--colorsUtilityYin055);
 }
 
@@ -130,8 +140,10 @@ exports[`OptionGroupHeader when icon prop is set then it should display the icon
     fontSize="small"
     type="individual"
   />
-  <h4>
+  <span
+    className="c3"
+  >
     Heading
-  </h4>
+  </span>
 </div>
 `;

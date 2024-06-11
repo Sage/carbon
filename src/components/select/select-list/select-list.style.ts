@@ -18,7 +18,8 @@ const StyledSelectList = styled.ul<StyledSelectListProps>`
     padding: 0;
     position: relative;
     width: 100%;
-    ${listHeight === undefined ? "" : `height: ${listHeight}px;`}
+    /* ${listHeight === undefined ? "" : `height: ${listHeight}px;`} */
+    height: 200px;
   `}
 `;
 

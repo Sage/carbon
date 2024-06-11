@@ -37,6 +37,8 @@ import ListActionButton from "../list-action-button";
 import Loader from "../../loader";
 import Option, { OptionProps } from "../option";
 import SelectListContext from "../__internal__/select-list-context";
+import OptionGroup from "../option-group/option-group.component";
+import optionGroup from "../option-group";
 
 export interface SelectListProps {
   /** The ID for the parent <div> */
@@ -279,17 +281,21 @@ const SelectList = React.forwardRef(
         childrenList.filter(
           (child) =>
             React.isValidElement(child) &&
-            (child.type === Option || child.type === OptionRow)
+            (child.type === Option ||
+              child.type === OptionRow ||
+              child.type === optionGroup) // add OptionGroup and displayName
         ),
       [childrenList]
     );
+
+    console.log("option-children-list in SelectList: ", optionChildrenList);
 
     const { measureElement } = virtualizer;
 
     const measureCallback = (element: HTMLElement) => {
       // need a guard to prevent crash with too many rerenders when closing the list
       if (isOpen) {
-        measureElement(element);
+        measureElement(element); // seems to always return undefined? lol.
       }
     };
 
@@ -325,6 +331,23 @@ const SelectList = React.forwardRef(
           },
           "data-index": index,
         };
+
+        console.log(newProps);
+        // swap out for display name
+        if (child.type === OptionGroup) {
+          const groupedChildren = React.Children.map(
+            child.props.children,
+            (c) => React.isValidElement(c) && React.cloneElement(c, newProps)
+          );
+
+          // might need to pass ref and style here to get the list layout working
+          return React.cloneElement(child, {
+            children: groupedChildren,
+            style: {
+              transform: `translateY(${start}px)`,
+            },
+          });
+        }
 
         return React.cloneElement(child, newProps);
       });

@@ -2,7 +2,10 @@ import React, { useRef } from "react";
 import { CSSProperties } from "styled-components";
 import { TagProps } from "__internal__/utils/helpers/tags";
 import guid from "../../../__internal__/utils/helpers/guid";
-import StyledOptionGroupHeader from "./option-group-header.style";
+import {
+  StyledOptionGroupHeaderLabel,
+  StyledOptionGroupHeader,
+} from "./option-group-header.style";
 import Icon, { IconProps } from "../../icon";
 
 export interface OptionGroupHeaderProps extends TagProps {
@@ -37,7 +40,9 @@ const OptionGroupHeader = React.forwardRef(
         ref={ref}
       >
         {icon && <Icon type={icon} />}
-        <h4>{label}</h4>
+        <StyledOptionGroupHeaderLabel as="h2">
+          {label}
+        </StyledOptionGroupHeaderLabel>
       </StyledOptionGroupHeader>
     );
   }
