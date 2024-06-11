@@ -1,3 +1,17 @@
+## [138.0.0](https://github.com/Sage/carbon/compare/v137.0.0...v138.0.0) (2024-06-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button-toggle, button-toggle-group:** `name` prop has been removed, `onChange` prop type as also been updated as a
+result.
+* **button-toggle:** `checked` prop has been removed, `pressed` should be used instead.
+
+### Miscellaneous Chores
+
+* **button-toggle, button-toggle-group:** remove name prop ([1b812fa](https://github.com/Sage/carbon/commit/1b812fad68328697c941f03418e8161577eedd3a))
+* **button-toggle:** remove checked prop ([974f337](https://github.com/Sage/carbon/commit/974f33712bb01028da2f07f08604fc69260a801e))
+
 ## [137.0.0](https://github.com/Sage/carbon/compare/v136.0.4...v137.0.0) (2024-06-07)
 
 
