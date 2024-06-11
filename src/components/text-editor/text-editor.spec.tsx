@@ -163,7 +163,6 @@ describe("TextEditor", () => {
         {
           minHeight: "inherit",
           height: "100%",
-          minWidth: "290px",
           margin: "4px",
         },
         wrapper.find(StyledEditorContainer),
@@ -174,7 +173,6 @@ describe("TextEditor", () => {
         {
           minHeight: "inherit",
           height: "100%",
-          minWidth: "290px",
           padding: "14px 8px",
         },
         wrapper.find(StyledEditorContainer),

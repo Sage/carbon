@@ -145,17 +145,17 @@ const StyledDialogTitle = styled.div<StyledDialogTitleProps>`
   }
 `;
 
-const StyledDialogContent = styled.div<
-  ContentPaddingInterface & { hasStickyFooter: boolean }
->`
+const StyledDialogContent = styled.div<ContentPaddingInterface>`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  ${({ hasStickyFooter }) =>
-    !hasStickyFooter &&
-    css`
-      overflow-y: auto;
-    `}
+  overflow-y: auto;
+
+  /* Delegate handling overflow to child form if it has a sticky footer */
+  &:has(${StyledFormContent}.sticky) {
+    overflow-y: inherit;
+  }
+
   width: 100%;
   flex: 1;
   padding: 0px ${HORIZONTAL_PADDING}px ${CONTENT_BOTTOM_PADDING}px;
