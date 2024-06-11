@@ -1,3 +1,10 @@
+### [138.0.1](https://github.com/Sage/carbon/compare/v138.0.0...v138.0.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* component MenuFullScreen and MenuItem not truncating topic ([c939148](https://github.com/Sage/carbon/commit/c93914878f5310b8ed9117ceec3b192207e891a6)), closes [#6666](https://github.com/Sage/carbon/issues/6666)
+
 ## [138.0.0](https://github.com/Sage/carbon/compare/v137.0.0...v138.0.0) (2024-06-11)
 
 
