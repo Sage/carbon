@@ -186,6 +186,14 @@ const StyledMenuItemWrapper = styled.a.attrs({
       height: 40px;
       margin: 0px;
       text-align: left;
+
+      ${
+        inFullscreenView &&
+        css`
+          height: auto;
+          white-space: normal;
+        `
+      }
     }
 
     &&& {
