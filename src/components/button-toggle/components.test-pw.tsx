@@ -14,7 +14,6 @@ export const ButtonToggleComponent = ({
   return (
     <Box>
       <ButtonToggle
-        name="button-toggle-one"
         onBlur={function noRefCheck() {
           ("");
         }}
@@ -26,7 +25,6 @@ export const ButtonToggleComponent = ({
         {children}
       </ButtonToggle>
       <ButtonToggle
-        name="button-toggle-two"
         onBlur={function noRefCheck() {
           ("");
         }}
@@ -38,7 +36,6 @@ export const ButtonToggleComponent = ({
         Second
       </ButtonToggle>
       <ButtonToggle
-        name="button-toggle-three"
         onBlur={function noRefCheck() {
           ("");
         }}
@@ -59,7 +56,6 @@ export const ButtonToggleGroupComponent = (
   <Box margin={4} display="flex" flexWrap="nowrap">
     <ButtonToggleGroup
       id="button-toggle-group-id"
-      name="button-toggle-group-default"
       label="Grouped example"
       labelHelp="help message"
       helpAriaLabel="Help"
@@ -110,7 +106,6 @@ export const WithOutsideButtons = () => {
       </button>
       <ButtonToggleGroup
         id="button-toggle-group"
-        name="button-toggle-group"
         label="Button Toggle Group test"
       >
         <ButtonToggle value="foo">Foo</ButtonToggle>
@@ -129,7 +124,6 @@ export const ButtonToggleGroupComponentGroupedChildren = ({ ...props }) => {
     <Box>
       <ButtonToggleGroup
         id="button-toggle-group-default-id"
-        name="button-toggle-group-default"
         label="Default example"
         labelHelp="help message"
         helpAriaLabel="Help"

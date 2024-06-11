@@ -141,7 +141,7 @@ AllowDeselection.storyName = "Allow Deselection";
 
 export const DefaultSmallIcon: Story = () => {
   return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+    <Box margin={4} width="300px" display="flex" flexWrap="nowrap">
       <ButtonToggleGroup id="button-toggle-group-id" label="Small icon example">
         <ButtonToggle value="foo" buttonIcon="add">
           Add
@@ -211,7 +211,7 @@ Small.storyName = "Small";
 
 export const SmallSmallIcon: Story = () => {
   return (
-    <Box margin={4} width="250px" display="flex" flexWrap="nowrap">
+    <Box margin={4} width="300px" display="flex" flexWrap="nowrap">
       <ButtonToggleGroup
         id="button-toggle-group-id"
         label="Small with small icon example"
