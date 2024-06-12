@@ -1,5 +1,6 @@
 import path from "path";
 import glob from "glob";
+import remarkGfm from "remark-gfm";
 import { StorybookConfig } from "@storybook/react-webpack5";
 
 const projectRoot = path.resolve(__dirname, "../");
@@ -13,6 +14,7 @@ const getStories = () =>
   });
 
 const config: StorybookConfig = {
+  framework: "@storybook/react-webpack5",
   stories: [
     "./welcome-page/welcome.stories.js",
     "../docs/*.mdx",
@@ -26,11 +28,19 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-actions",
     "@storybook/addon-controls",
-    "@storybook/addon-docs",
-    "@storybook/addon-links",
-    "@storybook/addon-mdx-gfm",
+    {
+      name: "@storybook/addon-docs",
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
+    "@storybook/addon-webpack5-compiler-swc",
   ],
   staticDirs: ["../.assets", "../logo"],
   webpackFinal: async (config) => ({
@@ -59,12 +69,9 @@ const config: StorybookConfig = {
       <meta name="robots" content="noindex">
   `,
   }),
-  framework: {
-    name: "@storybook/react-webpack5",
-    options: {},
-  },
-  docs: {
-    autodocs: true,
+  typescript: {
+    check: false,
+    reactDocgen: "react-docgen-typescript",
   },
 };
 

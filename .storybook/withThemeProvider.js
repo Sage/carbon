@@ -1,4 +1,4 @@
-import { makeDecorator } from "@storybook/addons";
+import { makeDecorator } from "@storybook/preview-api";
 import isChromatic from "./isChromatic";
 import React from "react";
 import styled from "styled-components";
@@ -40,7 +40,6 @@ const withThemeProvider = makeDecorator({
   name: "withThemeProvider",
   parameterName: "themeProvider",
   skipIfNoParametersOrOptions: false,
-  allowDeprecatedUsage: false,
   wrapper: (
     Story,
     context,
