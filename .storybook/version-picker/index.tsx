@@ -3,16 +3,18 @@ import {
   IconButton,
   WithTooltip,
   TooltipLinkList,
+  TooltipLinkListLink,
 } from "@storybook/components";
 import compareBuild from "semver/functions/compare-build";
 
 import { TOOL_ID } from "./constants";
 import fetchData from "./fetch-data";
 
-const semverSort = (list) => list.sort((a, b) => compareBuild(b.id, a.id));
-
-const getDisplayedItems = (versions, onClick) => {
-  let formattedVersions = [];
+const getDisplayedItems = (
+  versions: Record<string, string>,
+  onClick: TooltipLinkListLink["onClick"]
+) => {
+  let formattedVersions: TooltipLinkListLink[] = [];
 
   for (const [key, value] of Object.entries(versions)) {
     formattedVersions.push({
@@ -25,14 +27,17 @@ const getDisplayedItems = (versions, onClick) => {
     });
   }
 
-  semverSort(formattedVersions);
+  formattedVersions.sort((a, b) => compareBuild(b.id, a.id));
+
   formattedVersions[0].title = `${formattedVersions[0].title} (latest)`;
 
   return formattedVersions;
 };
 
 export const VersionPicker = () => {
-  const [versions, setVersions] = useState();
+  const [versions, setVersions] = useState<Record<string, string> | undefined>(
+    undefined
+  );
   const [currentVersion, setCurrentVersion] = useState("Latest");
 
   useEffect(() => {

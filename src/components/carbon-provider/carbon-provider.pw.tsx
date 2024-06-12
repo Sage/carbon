@@ -2,7 +2,6 @@ import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import { HooksConfig } from "../../../playwright";
 import { SageTheme as SageThemeStory } from "./components.test-pw";
-import { AllThemes as AllThemesStory } from "../../../src/components/carbon-provider/carbon-provider-test.stories";
 import Button from "../../../src/components/button";
 import Link from "../../../src/components/link";
 import Loader from "../../../src/components/loader";
@@ -21,6 +20,7 @@ import {
 import { pillPreview } from "../../../playwright/components/index";
 import multiActionButtonComponent from "../../../playwright/components/carbon-provider/index";
 import { checkAccessibility } from "../../../playwright/support/helper";
+import AllThemes from "./components.pw";
 
 const themes = ["noMountedTheme", "sage"];
 
@@ -281,7 +281,7 @@ test.describe("Accessibility tests for Carbon Provider", () => {
     mount,
     page,
   }) => {
-    await mount(<AllThemesStory />);
+    await mount(<AllThemes />);
 
     await checkAccessibility(page);
   });

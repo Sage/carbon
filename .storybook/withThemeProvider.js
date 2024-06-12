@@ -1,6 +1,6 @@
 import { makeDecorator } from "@storybook/addons";
 import isChromatic from "./isChromatic";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import CarbonProvider from "../src/components/carbon-provider";
 import sageDebugTheme from "../src/style/design-tokens/debug-theme.util";
@@ -58,40 +58,6 @@ const withThemeProvider = makeDecorator({
 
     // Disable transitions
     config.disabled = isChromaticBuild;
-
-    const shouldLoadFonts = isChromatic() && document.fonts;
-    const [loading, setLoading] = useState(shouldLoadFonts);
-
-    useEffect(() => {
-      if (!shouldLoadFonts) {
-        return;
-      }
-
-      const fonts = [
-        "400 1em Sage UI",
-        "700 1em Sage UI",
-        "900 1em Sage UI",
-        "1em CarbonIcons",
-      ];
-
-      // These fonts are pre-loaded but we want to wait until they're finished loading
-      Promise.all(fonts.map((fontName) => document.fonts.load(fontName))).then(
-        (results) => {
-          const firstError = results.findIndex((r) => r.length === 0);
-          if (firstError >= 0) {
-            setLoading(() => {
-              throw new Error(`Font "${fonts[firstError]}" failed to load.`);
-            });
-          } else {
-            setLoading(false);
-          }
-        }
-      );
-    }, []);
-
-    if (loading) {
-      return null;
-    }
 
     if (isChromaticBuild && !chromaticTheme) {
       const Wrapper = fourColumnLayout ? FourColumnLayout : React.Fragment;

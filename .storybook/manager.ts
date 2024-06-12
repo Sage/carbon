@@ -1,6 +1,6 @@
 import { addons } from "@storybook/manager-api";
 import { types } from "@storybook/addons";
-import sageTheme from "./sageTheme";
+import sageTheme from "./sage-docs-theme";
 import { ADDON_ID, TOOL_ID } from "./version-picker/constants";
 import { VersionPicker } from "./version-picker";
 import { API_PreparedIndexEntry, API_StatusObject } from "@storybook/types";
