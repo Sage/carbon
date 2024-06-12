@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta } from "@storybook/react";
+import { Meta } from "@storybook/react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Card, CardRow, CardFooter, CardColumn, CardProps } from ".";
@@ -30,7 +30,7 @@ export default {
     onClick: { table: { disable: true } },
     footer: { table: { disable: true } },
   },
-} as ComponentMeta<typeof Card>;
+} as Meta<typeof Card>;
 
 export const DefaultStory = (
   args: Omit<CardProps, "onClick" | "children" | "footer">

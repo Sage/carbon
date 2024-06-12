@@ -1,11 +1,11 @@
 import React from "react";
-import type { ComponentMeta, StoryFn } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
 import CarbonProvider from ".";
 import Button from "../button";
 import { sageTheme, baseTheme, noTheme } from "../../style/themes";
 
-export default {
+const meta: Meta<typeof CarbonProvider> = {
   title: "Carbon Provider/Test",
   component: CarbonProvider,
   argTypes: {
@@ -22,22 +22,27 @@ export default {
   parameters: {
     themeProvider: { chromatic: { theme: "sage" } },
   },
-} as ComponentMeta<typeof CarbonProvider>;
-
-export const AllThemes: StoryFn = () => {
-  const themes = [sageTheme, baseTheme, noTheme];
-
-  return (
-    <>
-      {themes.map((theme) => (
-        <React.Fragment key={theme.name}>
-          <h3>{theme.name}</h3>
-          <CarbonProvider theme={theme}>
-            <Button buttonType="primary">Button</Button>
-          </CarbonProvider>
-        </React.Fragment>
-      ))}
-    </>
-  );
 };
-AllThemes.storyName = "all themes";
+
+export default meta;
+type Story = StoryObj<typeof CarbonProvider>;
+
+export const AllThemes: Story = {
+  render: () => {
+    const themes = [sageTheme, baseTheme, noTheme];
+
+    return (
+      <>
+        {themes.map((theme) => (
+          <React.Fragment key={theme.name}>
+            <h3>{theme.name}</h3>
+            <CarbonProvider theme={theme}>
+              <Button buttonType="primary">Button</Button>
+            </CarbonProvider>
+          </React.Fragment>
+        ))}
+      </>
+    );
+  },
+  name: "all themes",
+};

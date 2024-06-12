@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from "react";
-import { ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
 import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
 import { RadioButtonProps } from "./radio-button.component";
@@ -22,7 +22,7 @@ export default {
   },
 };
 
-export const Required: ComponentStory<typeof RadioButton> = () => (
+export const Required: StoryFn<typeof RadioButton> = () => (
   <RadioButtonGroup name="required" legend="Radio group legend" required>
     <RadioButton id="radio-1" value="radio1" label="Radio Option 1" />
     <RadioButton id="radio-2" value="radio2" label="Radio Option 2" />
@@ -32,9 +32,7 @@ export const Required: ComponentStory<typeof RadioButton> = () => (
 
 Required.storyName = "required";
 
-export const WithValidationsOnButtons: ComponentStory<
-  typeof RadioButton
-> = () => (
+export const WithValidationsOnButtons: StoryFn<typeof RadioButton> = () => (
   <RadioButtonGroup
     name="validations-on-buttons-group"
     onChange={() => console.log("change")}
@@ -64,9 +62,7 @@ export const WithValidationsOnButtons: ComponentStory<
 
 WithValidationsOnButtons.storyName = "with validations on RadioButton";
 
-export const WithValidationsOnRadioGroup: ComponentStory<
-  typeof RadioButton
-> = () => (
+export const WithValidationsOnRadioGroup: StoryFn<typeof RadioButton> = () => (
   <RadioButtonGroup
     name="validations-on-group"
     onChange={() => console.log("change")}
@@ -93,7 +89,7 @@ export const WithValidationsOnRadioGroup: ComponentStory<
 
 WithValidationsOnRadioGroup.storyName = "with validations on RadioGroup";
 
-export const WithTooltipPosition: ComponentStory<typeof RadioButton> = () => (
+export const WithTooltipPosition: StoryFn<typeof RadioButton> = () => (
   <RadioButtonGroup
     name="tooltip-position"
     onChange={() => console.log("change")}
@@ -111,7 +107,7 @@ export const WithTooltipPosition: ComponentStory<typeof RadioButton> = () => (
 
 WithTooltipPosition.storyName = "with tooltip position";
 
-export const WithTooltipPositionOnRadioGroup: ComponentStory<
+export const WithTooltipPositionOnRadioGroup: StoryFn<
   typeof RadioButton
 > = () => (
   <RadioButtonGroup

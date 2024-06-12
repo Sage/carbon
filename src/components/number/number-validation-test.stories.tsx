@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta } from "@storybook/react";
+import { Meta } from "@storybook/react";
 
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
 import Number, { NumberProps } from "./number.component";
@@ -21,7 +21,7 @@ export default {
     },
     ...commonTextboxArgTypes(),
   },
-} as ComponentMeta<typeof Number>;
+} as Meta<typeof Number>;
 
 export const StringValidation = () => (
   <>
