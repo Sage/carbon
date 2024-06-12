@@ -87,6 +87,7 @@ const InputIconToggle = ({
         data-element="input-icon-toggle"
         disabled={disabled}
         readOnly={readOnly}
+        data-role="input-icon-toggle"
       >
         <Icon disabled={disabled || readOnly} type={type} />
       </InputIconToggleStyle>

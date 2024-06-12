@@ -388,11 +388,6 @@ const Submenu = React.forwardRef<
                 the browser navigates to the specified href of the menu-item. */
               setTimeout(() => closeSubmenu(), 0);
             }
-
-            if (href && Events.isEnterKey(event)) {
-              closeSubmenu();
-              return;
-            }
           }
 
           if (nextIndex !== index) {
@@ -517,6 +512,7 @@ const Submenu = React.forwardRef<
     return (
       <StyledSubmenuWrapper
         data-component="submenu-wrapper"
+        data-role="submenu-wrapper"
         onMouseOver={!clickToOpen ? () => openSubmenu() : undefined}
         onMouseLeave={() => closeSubmenu()}
         isSubmenuOpen={submenuOpen}
