@@ -26,17 +26,17 @@ export interface SwitchProps extends CommonCheckableInputProps, MarginProps {
   adaptiveLabelBreakpoint?: number;
   /** Set the default value of the Switch if component is meant to be used as uncontrolled */
   defaultChecked?: boolean;
-  /** When true label is inline */
+  /** [Legacy] When true label is inline */
   labelInline?: boolean;
   /** Triggers loading animation */
   loading?: boolean;
-  /** When true, validation icon will be placed on label instead of being placed on the input */
+  /** [Legacy] When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** The value of the switch, passed on form submit */
   value?: string;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Aria label for rendered help component */
+  /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
 }
 

@@ -46,21 +46,25 @@ export interface TextareaProps
   children?: React.ReactNode;
   /** If true, the component will be disabled */
   disabled?: boolean;
-  /** Indicate that error has occurred
-  Pass string to display icon, tooltip and red border
-  Pass true boolean to only display red border */
+  /**
+   * Indicate that error has occurred.
+   * Pass string to display icon, tooltip and red border.
+   * Pass true boolean to only display red border.
+   */
   error?: boolean | string;
   /** Allows the Textareas Height to change based on user input */
   expandable?: boolean;
   /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /** Help content to be displayed under an input */
+  /** [Legacy] Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
-  /** Aria label for rendered help component */
+  /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
-  /** Indicate additional information
-  Pass string to display icon, tooltip and blue border
-  Pass true boolean to only display blue border */
+  /**
+   * [Legacy] Indicate additional information.
+   * Pass string to display icon, tooltip and blue border.
+   * Pass true boolean to only display blue border.
+   */
   info?: boolean | string;
   /**
    * <a href="https://brand.sage.com/d/NdbrveWvNheA/foundations#/icons/icons" target="_blank">List of supported icons</a>
@@ -68,7 +72,7 @@ export interface TextareaProps
    * Icon to display inside of the Textarea
    */
   inputIcon?: IconType;
-  /** Width of an input in percentage. Works only when labelInline is true */
+  /** [Legacy] Width of an input in percentage. Works only when labelInline is true */
   inputWidth?: number;
   /**
    * Prop for specifying the max width of the input.
@@ -77,18 +81,19 @@ export interface TextareaProps
   maxWidth?: string;
   /** The content of the label for the input */
   label?: string;
-  /** Inline label alignment */
+  /** [Legacy] Inline label alignment */
   labelAlign?: "left" | "right";
-  /** [Legacy] Text applied to label help tooltip. When opted into new design validations
+  /**
+   * [Legacy] Text applied to label help tooltip. When opted into new design validations
    * it will render as a hint above the input, unless an `inputHint`
    * prop is also passed
    */
   labelHelp?: React.ReactNode;
-  /** When true, label is placed in line an input */
+  /** [Legacy] When true, label is placed in line an input */
   labelInline?: boolean;
-  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
-  /** Width of a label in percentage. Works only when labelInline is true */
+  /** [Legacy] Width of a label in percentage. Works only when labelInline is true */
   labelWidth?: number;
   /** Name of the input */
   name?: string;
@@ -102,15 +107,17 @@ export interface TextareaProps
   isOptional?: boolean;
   /** The number of visible text lines for the control */
   rows?: number;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** When true, validation icon will be placed on label instead of being placed on the input */
+  /** [Legacy] When true, validation icon will be placed on label instead of being placed on the input */
   validationOnLabel?: boolean;
   /** The value of the Textbox */
   value?: string;
-  /** Indicate that warning has occurred
-  Pass string to display icon, tooltip and orange border
-  Pass true boolean to only display orange border */
+  /**
+   * Indicate that warning has occurred.
+   * Pass string to display icon, tooltip and orange border.
+   * Pass true boolean to only display orange border.
+   */
   warning?: boolean | string;
   /** Specify a custom border radius for the component. Any valid border-radius design token, or an array of border-radius design tokens. */
   borderRadius?: BorderRadiusType | BorderRadiusType[];

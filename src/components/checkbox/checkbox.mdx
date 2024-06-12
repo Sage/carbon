@@ -69,6 +69,8 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 ### With labelHelp
 
+**Note:** The `legendHelp` tooltip will be rendered as hint text if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
+
 <Canvas of={CheckboxStories.WithLabelHelp} />
 
 ### With custom labelWidth
@@ -81,29 +83,28 @@ import { Checkbox, CheckboxGroup } from "carbon-react/lib/components/checkbox";
 
 ### With inline legend
 
-The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`.
+The legend can be made inline by passing the `legendInline` prop to `CheckboxGroup`. Its width can be changed with the `legendWidth` prop and its text alignment with `legendAlign`.
 
-The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
+The spacing between the legend and the checkboxes can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, 
+so therefore `8px` or `16px`. The default is `2` for this prop.
+
+**Note:** The `legendInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
 
 <Canvas of={CheckboxStories.CheckboxGroupWithInlineLegend} />
 
 ## Validations
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
 
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
-
-### New Validations
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 This is an example of `Checkbox` in a `CheckboxGroup` with validations passed as a string.
 
+**Note:** The `legendHelp` tooltip will be rendered as "Hint text".
+
 <Canvas of={ValidationStories.NewStringValidation} />
 
-This is an example of `Checkbox` in a `CheckboxGroup` displayed inline.
+This is an example of `Checkbox` in a `CheckboxGroup` displayed inline using the `inline` prop. 
 
 <Canvas of={ValidationStories.NewInline} />
 

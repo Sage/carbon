@@ -464,7 +464,6 @@ export const ValidationsStringNewDesign: Story = () => {
               name="multi"
               id={`${size}-${validationType}`}
               label={`${size} - ${validationType}`}
-              labelInline
               size={size}
               {...{ [validationType]: "Message" }}
               m={4}
@@ -485,7 +484,6 @@ export const ValidationsStringNewDesign: Story = () => {
               name="multi - readOnly"
               id={`readOnly-${size}-${validationType}`}
               label={`readOnly - ${size} - ${validationType}`}
-              labelInline
               size={size}
               {...{ [validationType]: "Message" }}
               readOnly

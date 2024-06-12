@@ -58,7 +58,10 @@ A legend can be set for the group, and each radio button can have a label.
 
 The legend can be made inline. Its width can be changed with the `legendWidth` prop, its text alignment with `legendAlign`.
 
-The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, so therefore `8px` or `16px`. The default is `2` for this prop.
+The spacing between the legend and the radio buttons can be changed with the `legendSpacing` prop, this can be `1` or `2`, which is multiplied by the base theme spacing constant of `8px`, 
+so therefore `8px` or `16px`. The default is `2` for this prop.
+
+**Note:** The `legendInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
 
 <Canvas of={RadioButtonStories.WithInlineLegend} />
 
@@ -132,27 +135,23 @@ You can use the `IsOptional` prop to indicate if the fields are optional.
 
 ### Validations
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the `RadioButton` component
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
 
-Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
-
-Passing a boolean to these props will display only a properly colored border.
-
-Validation status could also be passed to the `RadioButtonGroup` component as a string or boolean.
-
-For more information check our [Validations](../?path=/docs/documentation-validations--docs#grouped-inputs) documentation page.
-
-This is an example of `RadioButton` with validations passed as boolean values.
-
-<Canvas of={RadioButtonStories.NewValidationDefault} />
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string.
+
+**Note:** The `legendHelp` tooltip will be rendered as "Hint text".
 
 <Canvas of={RadioButtonStories.NewValidationDefaultGroup} />
 
 This is an example of `RadioButton` in a `RadioButtonGroup` with validations passed as a string displayed inline.
 
 <Canvas of={RadioButtonStories.NewValidationDefaultGroupInline} />
+
+This is an example of `RadioButton` with validations passed as boolean values.
+
+<Canvas of={RadioButtonStories.NewValidationDefault} />
 
 ## Props
 

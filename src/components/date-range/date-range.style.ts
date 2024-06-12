@@ -6,7 +6,7 @@ import { StyledInputPresentationContainer } from "../../__internal__/input/input
 import baseTheme from "../../style/themes/base";
 
 export interface StyledDateRangeProps {
-  /** Display labels inline */
+  /** [Legacy] Display labels inline */
   labelsInline?: boolean;
 }
 const StyledDateRange = styled.div<StyledDateRangeProps>`

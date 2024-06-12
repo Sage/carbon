@@ -83,6 +83,8 @@ You can use the `isOptional` prop to indicate if the field is optional.
 
 ### With labelInline
 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+
 <Canvas of={SwitchStories.WithLabelInline} name="With labelInline" />
 
 ### With fieldHelp
@@ -90,6 +92,8 @@ You can use the `isOptional` prop to indicate if the field is optional.
 <Canvas of={SwitchStories.WithFieldHelp} name="with fieldHelp" />
 
 ### With labelHelp
+
+**Note:** The `legendHelp` tooltip will be rendered as hint text if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
 
 <Canvas of={SwitchStories.WithLabelHelp} name="with labelHelp" />
 
@@ -104,13 +108,13 @@ please visit the props table at the bottom of this page.
 
 ### Validations
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component
+Validation status can be set by passing `error`, `warning` or `info` prop to the component.
 
 Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
 
 Passing a boolean to these props will display only a properly colored border.
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 #### As a string
 
@@ -148,6 +152,10 @@ It is possible to use the `tooltipPosition` to override the default placement of
 />
 
 ### New Validation
+
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+**Note:** The `legendHelp` tooltip will be rendered as "Hint text".
 
 <Canvas
   of={SwitchStories.NewValidationString}
