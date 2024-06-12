@@ -13,13 +13,11 @@ export interface CarbonProviderProps {
   children: React.ReactNode;
   /** Theme which specifies styles to apply to all child components. Set to `sageTheme` by default. */
   theme?: Partial<ThemeObject>;
-  /** Feature flag for opting in to the latest validation designs for components that support it.
+  /** Feature flag for opting in to the new validation redesign for components that support it.
    *
    * NOTE - Will eventually be set to `true` by default in the future. */
   validationRedesignOptIn?: boolean;
-  /** Feature flag for opting out of styling components to have rounded corners.
-   *
-   * NOTE - Will eventually be set to `false` by default in the future. */
+  /** Feature flag for opting out of styling components to have rounded corners. */
   roundedCornersOptOut?: boolean;
   focusRedesignOptOut?: boolean;
 }
