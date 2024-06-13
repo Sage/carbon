@@ -28,6 +28,8 @@ const meta: Meta<typeof Menu> = {
     "InNavigationBarStory",
     "MenuFullScreenKeysTest",
     "MenuWithTwoSegments",
+    "MenuFullScreenWithLargeMenuItems",
+    "MenuComponentFullScreenWithLongSubmenuText",
   ],
   parameters: {
     info: { disable: true },
@@ -115,6 +117,24 @@ export const MenuFullScreenStory = ({
           <MenuItem href="#">Submenu Item Two</MenuItem>
         </MenuItem>
         <MenuItem href="#">Menu Item Six</MenuItem>
+        <MenuItem onClick={() => {}}>
+          Menu item as button with a really long topic where the text should not
+          be truncated but instead it should be wrapped
+        </MenuItem>
+        <MenuItem href="#">
+          Menu item as link with a really long topic where the text should not
+          be truncated but instead it should be wrapped
+        </MenuItem>
+        <MenuItem submenu="Menu item with submenu and with a really long topic where the text should not be truncated but instead it should be wrapped">
+          <MenuItem href="#">
+            Submenu item as link with a really long topic where the text should
+            not be truncated but instead it should be wrapped
+          </MenuItem>
+          <MenuItem onClick={() => {}}>
+            Submenu item as button with a really long topic where the text
+            should not be truncated but instead it should be wrapped
+          </MenuItem>
+        </MenuItem>
       </MenuFullscreen>
     </Menu>
   );

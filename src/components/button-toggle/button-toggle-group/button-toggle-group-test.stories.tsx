@@ -25,7 +25,6 @@ export const DefaultStory = () => {
   return (
     <ButtonToggleGroup
       id="button-toggle-group"
-      name="button-toggle-group"
       label="Button Toggle Group test"
       labelHelp="help message"
       helpAriaLabel="Help"
@@ -47,7 +46,6 @@ export const ButtonToggleGroupComponent = ({ ...props }) => {
     <div>
       <ButtonToggleGroup
         id="button-toggle-group-default-id"
-        name="button-toggle-group-default"
         label="Default example"
         labelHelp="help message"
         helpAriaLabel="Help"
@@ -87,7 +85,6 @@ export const WithOutsideButtons = () => {
       </button>
       <ButtonToggleGroup
         id="button-toggle-group"
-        name="button-toggle-group"
         label="Button Toggle Group test"
         onChange={onChangeHandler}
         value={value}
@@ -108,7 +105,6 @@ export const ButtonToggleGroupComponentGroupedChildren = ({ ...props }) => {
     <div>
       <ButtonToggleGroup
         id="button-toggle-group-default-id"
-        name="button-toggle-group-default"
         label="Default example"
         labelHelp="help message"
         helpAriaLabel="Help"

@@ -1,3 +1,59 @@
+### [138.0.1](https://github.com/Sage/carbon/compare/v138.0.0...v138.0.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* component MenuFullScreen and MenuItem not truncating topic ([c939148](https://github.com/Sage/carbon/commit/c93914878f5310b8ed9117ceec3b192207e891a6)), closes [#6666](https://github.com/Sage/carbon/issues/6666)
+
+## [138.0.0](https://github.com/Sage/carbon/compare/v137.0.0...v138.0.0) (2024-06-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button-toggle, button-toggle-group:** `name` prop has been removed, `onChange` prop type as also been updated as a
+result.
+* **button-toggle:** `checked` prop has been removed, `pressed` should be used instead.
+
+### Miscellaneous Chores
+
+* **button-toggle, button-toggle-group:** remove name prop ([1b812fa](https://github.com/Sage/carbon/commit/1b812fad68328697c941f03418e8161577eedd3a))
+* **button-toggle:** remove checked prop ([974f337](https://github.com/Sage/carbon/commit/974f33712bb01028da2f07f08604fc69260a801e))
+
+## [137.0.0](https://github.com/Sage/carbon/compare/v136.0.4...v137.0.0) (2024-06-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **en-gb:** Changes the named export of the en-gb locale from EnGb to enGB
+
+### Features
+
+* add support for the de-DE locale ([ff4fbe4](https://github.com/Sage/carbon/commit/ff4fbe439195809c3f3aa8e836b6f8b491848362))
+* add support for the en-CA locale ([d6c5529](https://github.com/Sage/carbon/commit/d6c55295edc6deec98a9c885cf204075e680b027))
+* add support for the en-US locale ([9802dd1](https://github.com/Sage/carbon/commit/9802dd110587db1b4ff1a2157ecdf6a553ce87dc))
+* add support for the es-ES locale ([9296a18](https://github.com/Sage/carbon/commit/9296a1867b6fcaefc12389ea04836e0348ef7aae))
+* add support for the fr-CA locale ([d88ba34](https://github.com/Sage/carbon/commit/d88ba34c55087311bd9c8b1bbab2664cfc453040))
+* add support for the fr-FR locale ([32e72eb](https://github.com/Sage/carbon/commit/32e72ebd7d3c440967e0bd17d5d037d360585cb4))
+
+
+### Miscellaneous Chores
+
+* **en-gb:** change named export from EnGb to enGB ([1191ac5](https://github.com/Sage/carbon/commit/1191ac50f0dd4b8f0c1364084338fb1774fca10f))
+
+### [136.0.4](https://github.com/Sage/carbon/compare/v136.0.3...v136.0.4) (2024-06-06)
+
+
+### Bug Fixes
+
+* **text-editor:** content overflows in small viewports ([c985d5d](https://github.com/Sage/carbon/commit/c985d5d81ec2ccbe520ca65006978a9efd73fe0a)), closes [#6707](https://github.com/Sage/carbon/issues/6707)
+
+### [136.0.3](https://github.com/Sage/carbon/compare/v136.0.2...v136.0.3) (2024-06-05)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** prevent horizontal overflow due to a child Form with a sticky footer ([4fea1d5](https://github.com/Sage/carbon/commit/4fea1d5582a83b0916dd9973ab647032d075b71c)), closes [#6719](https://github.com/Sage/carbon/issues/6719)
+
 ### [136.0.2](https://github.com/Sage/carbon/compare/v136.0.1...v136.0.2) (2024-05-30)
 
 

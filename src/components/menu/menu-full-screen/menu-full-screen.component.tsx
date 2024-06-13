@@ -66,7 +66,7 @@ export const MenuFullscreen = ({
         return (
           <>
             {child}
-            <MenuDivider />
+            <MenuDivider data-role="divider" />
           </>
         );
       }
@@ -77,6 +77,7 @@ export const MenuFullscreen = ({
 
   const closeModal = useCallback(
     (ev: KeyboardEvent) => {
+      /* istanbul ignore else */
       if (onClose && Events.isEscKey(ev)) {
         ev.stopImmediatePropagation();
         onClose(ev);
