@@ -6,6 +6,7 @@ import styleConfig from "./pill.style.config";
 import { baseTheme } from "../../style/themes";
 import { ThemeObject } from "../../style/themes/base/base-theme.config";
 import StyledIcon from "../icon/icon.style";
+import StyledIconButton from "../icon-button/icon-button.style";
 import { toColor } from "../../style/utils/color";
 import getColorValue from "../../style/utils/get-color-value";
 
@@ -76,7 +77,9 @@ const StyledPill = styled.span<AllStyledPillProps>`
       }
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.error(e);
+      console.error(
+        `Error: [Pill] - Could not parse the string '${borderColor}', please provide the color as a string in hex, rgb, rgba, hsl or hsla notation.`
+      );
     }
 
     return css`
@@ -174,7 +177,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
 
       ${isDeletable &&
       css`
-        button {
+        ${StyledIconButton} {
           -webkit-appearance: none;
           ${!theme.roundedCornersOptOut &&
           css`
@@ -242,7 +245,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         css`
           padding: 0 22px 0 8px;
 
-          button {
+          ${StyledIconButton} {
             padding: 0;
             line-height: 16px;
 
@@ -264,7 +267,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         css`
           padding: 0 28px 0 8px;
 
-          button {
+          ${StyledIconButton} {
             width: 24px;
             padding: 0;
             line-height: 15px;
@@ -280,7 +283,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         css`
           padding: 0 32px 0 8px;
 
-          button {
+          ${StyledIconButton} {
             width: 28px;
             padding: 0;
             line-height: 16px;
@@ -296,7 +299,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
         css`
           padding: 0 36px 0 12px;
 
-          button {
+          ${StyledIconButton} {
             width: 32px;
             padding: 0;
             line-height: 18px;
