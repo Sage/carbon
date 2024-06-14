@@ -1,3 +1,10 @@
+## [138.1.0](https://github.com/Sage/carbon/compare/v138.0.2...v138.1.0) (2024-06-14)
+
+
+### Features
+
+* **button-minor:** add forward ref to component ([8816286](https://github.com/Sage/carbon/commit/88162866493fd62fe92c6a4eaf52801d3ff384b5))
+
 ### [138.0.2](https://github.com/Sage/carbon/compare/v138.0.1...v138.0.2) (2024-06-13)
 
 
