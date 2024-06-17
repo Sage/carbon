@@ -66,6 +66,8 @@ be used to set the input value like in the example below, although the component
 
 ### With labelInline
 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+
 <Canvas of={DateStories.WithLabelInline} />
 
 ### With custom width
@@ -98,13 +100,13 @@ You can use the `isOptional` prop to indicate if the field is optional.
 
 ### Validations
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component
+Validation status can be set by passing `error`, `warning` or `info` prop to the component.
 
 Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
 
 Passing a boolean to these props will display only a properly colored border.
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 #### As a string
 
@@ -124,13 +126,15 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 <Canvas of={DateStories.ValidationsStringWithTooltipPositionOverriddenLabel} />
 
-#### New designs validation
-
-<Canvas of={DateStories.ValidationsStringNewDesign} />
-
 #### As a boolean
 
 <Canvas of={DateStories.ValidationsBoolean} />
+
+#### New designs validation
+
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+<Canvas of={DateStories.ValidationsStringNewDesign} />
 
 #### Example implementation
 

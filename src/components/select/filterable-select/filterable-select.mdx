@@ -118,7 +118,13 @@ If there is no `id` prop specified on an object, then the exact objects will be 
 
 <Canvas of={FilterableSelectStories.WithObjectAsValue} />
 
-#### New designs validation
+### New Validation Designs
+
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
 
 <Canvas of={FilterableSelectStories.ValidationsStringNewDesign} />
 

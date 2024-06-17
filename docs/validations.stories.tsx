@@ -4,6 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import Textbox from "../src/components/textbox";
 import DateRange from "../src/components/date-range";
 import { RadioButton, RadioButtonGroup } from "../src/components/radio-button";
+import CarbonProvider from "../src/components/carbon-provider";
 
 /**
  * This file is used primarily as a means to generate the props table.
@@ -118,3 +119,46 @@ export const GroupedRequired: StoryObj = () => {
   );
 };
 GroupedRequired.storyName = "Grouped Required";
+
+export const ValidationRedesign: StoryObj = () => {
+  return (
+    <CarbonProvider validationRedesignOptIn>
+      <Textbox
+        label="Textbox label"
+        inputHint="Hint text"
+        value="value"
+        error="Error Message (Fix is required)"
+      />
+
+      <Textbox
+        label="Textbox label"
+        inputHint="Hint text"
+        value="value"
+        warning="Warning Message (Fix is optional)"
+      />
+
+      <RadioButtonGroup
+        legend="Radio Button Group legend"
+        legendHelp="Legend help"
+        name="errorRadioGroup"
+        error="Error Message (Fix is required)"
+        mt={2}
+      >
+        <RadioButton id="error-1" value="radio1" label="Radio Option 1" />
+        <RadioButton id="error-2" value="radio2" label="Radio Option 2" />
+      </RadioButtonGroup>
+
+      <RadioButtonGroup
+        legend="Radio Button Group legend"
+        legendHelp="Legend help"
+        name="warningRadioGroup"
+        warning="Warning Message (Fix is optional)"
+        mt={2}
+      >
+        <RadioButton id="warning-1" value="radio1" label="Radio Option 1" />
+        <RadioButton id="warning-2" value="radio2" label="Radio Option 2" />
+      </RadioButtonGroup>
+    </CarbonProvider>
+  );
+};
+ValidationRedesign.storyName = "Validation Redesign";

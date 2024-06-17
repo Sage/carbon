@@ -41,7 +41,21 @@ import NumeralDate from "carbon-react/lib/components/numeral-date";
 
 ### Validation
 
+Validation status can be set by passing `error`, `warning` or `info` prop to the component.
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+
 <Canvas of={NumeralDateStories.Validation} />
+
+#### New designs validation
+
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+**Note:** The `legendHelp` tooltip will be rendered as "Hint text".
 
 <Canvas of={NumeralDateStories.NewValidation} />
 
@@ -65,6 +79,8 @@ When using the internal validations as warning the external validation is not ne
 
 ### With inline label
 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+
 <Canvas of={NumeralDateStories.InlineLabel} />
 
 ### Enabling the adaptive behaviour
@@ -74,6 +90,8 @@ The inline label can change to be top aligned at a breakpoint. Enable this by pa
 <Canvas of={NumeralDateStories.EnablingAdaptiveBehaviour} />
 
 ### With label help
+
+**Note:** The `legendHelp` tooltip will be rendered as hint text if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
 
 <Canvas of={NumeralDateStories.WithLabelHelp} />
 

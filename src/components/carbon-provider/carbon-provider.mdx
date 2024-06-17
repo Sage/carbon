@@ -11,10 +11,11 @@ A React context provider that supplies global settings such as theme styling and
 ## Contents
 
 - [Quick Start](#quick-start)
-- [Examples](#examples)
+- [Setting Themes](#setting-themes)
+- [Validation Redesign](#validation-redesign)
 - [Props](#props)
 
-## Quickstart
+## Quick Start
 
 You can import the provider and any intended themes like so:
 
@@ -48,6 +49,18 @@ Setting the theme to `sageTheme` in `CarbonProvider` loads the design tokens in 
 ```
 
 For a full list of supported tokens, see the [Sage's Design System documentation on design tokens](https://zeroheight.com/2ccf2b601/p/217e24-design-tokens/b/46fb17) for more details.
+
+## Validation Redesign
+
+Carbon is in the process of implementing a new validation design to our components. To opt into the new validation pattern set the `validationRedeisgnOptIn` flag to true in the CarbonProvider.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
+
+```tsx
+<CarbonProvider validationRedesignOptIn>
+  <MyApp />
+</CarbonProvider>
+```
 
 ## Props
 
