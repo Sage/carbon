@@ -11,6 +11,7 @@ import { NewValidationContext } from "../../carbon-provider/carbon-provider.comp
 import ValidationMessage from "../../../__internal__/validation-message/validation-message.component";
 import Box from "../../box";
 import { ErrorBorder } from "../../textbox/textbox.style";
+import CheckboxGroupContext from "./__internal__/checkbox-group.context";
 
 export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   /** The content for the CheckboxGroup Legend */
@@ -41,8 +42,6 @@ export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   /** When true, Checkboxes are in line */
   inline?: boolean;
 }
-
-export const CheckboxGroupContext = React.createContext<ValidationProps>({});
 
 export const CheckboxGroup = (props: CheckboxGroupProps) => {
   const { validationRedesignOptIn } = useContext(NewValidationContext);
