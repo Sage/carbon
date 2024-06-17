@@ -657,7 +657,6 @@ InFlatTable.storyName = "In Flat Table";
 
 export const OpeningAModal: Story = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Box>
@@ -670,8 +669,7 @@ export const OpeningAModal: Story = () => {
         >
           <ActionPopoverItem
             onClick={() => {
-              setIsOpen(!isOpen);
-              setIsConfirmOpen(isConfirmOpen);
+              setIsConfirmOpen(!isConfirmOpen);
             }}
           >
             Open Confirm Dialog
