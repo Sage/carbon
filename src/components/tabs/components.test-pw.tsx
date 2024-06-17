@@ -6,7 +6,7 @@ import Box from "../box";
 import Icon from "../icon";
 import Pill from "../pill";
 
-import { DrawerSidebarContext } from "../drawer";
+import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
 export const TabsComponent = (
   props: Partial<TabsProps> & Partial<TabProps>

@@ -11,7 +11,7 @@ import { TableBorderSize } from "..";
 
 import Event from "../../../__internal__/utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
-import { DrawerSidebarContext } from "../../drawer";
+import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableRowHeader from "../flat-table-row-header";
 import FlatTableRowDraggable, {
   FlatTableRowDraggableProps,

@@ -30,7 +30,7 @@ import {
   StyledFlatTableFooter,
   StyledTableContainer,
 } from "./flat-table.style";
-import { DrawerSidebarContext } from "../drawer";
+import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import cellSizes from "./cell-sizes.style";

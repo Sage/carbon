@@ -10,7 +10,7 @@ import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-ro
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
-import { DrawerSidebarContext } from "../../drawer";
+import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableCheckbox from "../flat-table-checkbox";
 import StyledIcon from "../../icon/icon.style";
 import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.component";

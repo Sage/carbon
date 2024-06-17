@@ -7,7 +7,7 @@ import {
   StyledFlatTableFooter,
   StyledTableContainer,
 } from "./flat-table.style";
-import { DrawerSidebarContext } from "../drawer";
+import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Events from "../../__internal__/utils/helpers/events/events";
 
 export interface FlatTableProps extends MarginProps {
