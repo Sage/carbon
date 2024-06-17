@@ -5,7 +5,7 @@ import {
   filterStyledSystemPaddingProps,
 } from "../../../style/utils";
 import StyledCardFooter from "./card-footer.style";
-import CardContext, { CardContextProps } from "../__internal__/card-context";
+import CardContext, { CardContextProps } from "../__internal__/card.context";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";

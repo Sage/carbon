@@ -5,7 +5,7 @@ import CardFooter, { CardFooterProps } from ".";
 import StyledCardFooter from "./card-footer.style";
 import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import Link from "../../link";
-import CardContext from "../__internal__/card-context";
+import CardContext from "../__internal__/card.context";
 import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("CardFooter", () => {

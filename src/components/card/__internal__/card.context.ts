@@ -1,5 +1,5 @@
 import React from "react";
-import { CardSpacing } from "../../card.config";
+import { CardSpacing } from "../card.config";
 
 export interface CardContextProps {
   /** Sets the level of roundness of the corners, "default" is 8px and "large" is 16px */
