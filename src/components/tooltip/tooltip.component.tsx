@@ -270,6 +270,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement | null, TooltipProps>(
           <Portal>
             <StyledTooltip
               data-element="tooltip"
+              data-role="tooltip"
               role="tooltip"
               tabIndex={-1}
               type={type}
