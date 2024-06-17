@@ -30,7 +30,7 @@ import StyledHelp from "../help/help.style";
 import ValidationIcon, {
   ValidationProps,
 } from "../../__internal__/validations";
-import DateRangeContext from "../date-range/date-range.context";
+import DateRangeContext from "../date-range/__internal__/date-range.context";
 import StyledButton from "./__internal__/navbar/button.style";
 import StyledLabel, {
   StyledLabelContainer,

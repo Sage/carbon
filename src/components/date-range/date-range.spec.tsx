@@ -18,7 +18,7 @@ import StyledValidationMessage from "../../__internal__/validation-message/valid
 import StyledLabel, {
   StyledLabelContainer,
 } from "../../__internal__/label/label.style";
-import { InputName } from "./date-range.context";
+import { InputName } from "./__internal__/date-range.context";
 
 const initialValues = ["10/10/2016", "11/11/2016"];
 const updatedValues = ["12/12/2012", "13/12/2012"];
