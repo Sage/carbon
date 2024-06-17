@@ -36,16 +36,6 @@ interface AllStyledPillProps extends StyledPillProps {
   pillRole: "tag" | "status";
 }
 
-function addStyleToPillIcon(fontSize: string) {
-  return `
-    ${StyledIcon} {
-      &:before {
-        font-size: ${fontSize};
-      }
-    }
-  `;
-}
-
 const StyledPill = styled.span<AllStyledPillProps>`
   ${margin}
   ${({
@@ -104,15 +94,18 @@ const StyledPill = styled.span<AllStyledPillProps>`
         border-radius: var(--borderRadius025);
       `}
       height: auto;
+
       ${!wrapText &&
       css`
         white-space: nowrap;
       `}
+
       ${wrapText &&
       css`
         white-space: break-spaces;
         hyphens: auto;
       `}
+
       color: ${contentColor};
 
       ${inFill &&
@@ -132,14 +125,11 @@ const StyledPill = styled.span<AllStyledPillProps>`
         min-height: 16px;
         line-height: 16px;
         font-size: 12px;
+        padding: 0 8px;
 
         ${theme.roundedCornersOptOut &&
         css`
           border-radius: 12px;
-
-          button {
-            border-radius: 0 10px 10px 0;
-          }
         `}
       `}
 
@@ -148,14 +138,11 @@ const StyledPill = styled.span<AllStyledPillProps>`
         min-height: 20px;
         line-height: 20px;
         font-size: 14px;
+        padding: 0 8px;
 
         ${theme.roundedCornersOptOut &&
         css`
           border-radius: 12px;
-
-          button {
-            border-radius: 0 10px 10px 0;
-          }
         `}
       `}
 
@@ -164,14 +151,11 @@ const StyledPill = styled.span<AllStyledPillProps>`
         min-height: 24px;
         line-height: 24px;
         font-size: 14px;
+        padding: 0 8px;
 
         ${theme.roundedCornersOptOut &&
         css`
           border-radius: 13px;
-
-          button {
-            border-radius: 0 11px 11px 0;
-          }
         `}
       `}
 
@@ -180,14 +164,11 @@ const StyledPill = styled.span<AllStyledPillProps>`
         min-height: 28px;
         line-height: 28px;
         font-size: 16px;
+        padding: 0 12px;
 
         ${theme.roundedCornersOptOut &&
         css`
           border-radius: 15px;
-
-          button {
-            border-radius: 0 12px 12px 0;
-          }
         `}
       `}
 
@@ -224,12 +205,10 @@ const StyledPill = styled.span<AllStyledPillProps>`
                 var(--borderRadius025) var(--borderRadius000);
             `}
 
-            & {
-              color: ${contentColor};
-            }
             ::-moz-focus-inner {
               border: 0;
             }
+
             ${StyledIcon} {
               color: ${contentColor};
             }
@@ -239,6 +218,7 @@ const StyledPill = styled.span<AllStyledPillProps>`
             background-color: ${buttonFocusColor};
             color: ${contentColor};
             cursor: pointer;
+
             ${StyledIcon} {
               color: ${contentColor};
             }
@@ -249,20 +229,13 @@ const StyledPill = styled.span<AllStyledPillProps>`
             width: unset;
             color: ${contentColor};
 
-            &:hover,
-            &:focus {
-              color: ${contentColor};
-            }
-          }
-
-          ${!inFill &&
-          css`
-            ${StyledIcon} {
+            ${!inFill &&
+            css`
               color: ${!isDarkBackground
                 ? "var(--colorsUtilityYin090)"
                 : "var(--colorsUtilityYang100)"};
-            }
-          `}
+            `}
+          }
         }
 
         ${size === "S" &&
@@ -272,8 +245,18 @@ const StyledPill = styled.span<AllStyledPillProps>`
           button {
             padding: 0;
             line-height: 16px;
-            top: -2px;
-            ${addStyleToPillIcon("16px")}
+
+            ${StyledIcon} {
+              top: -2px;
+              &:before {
+                font-size: 16px;
+              }
+            }
+
+            ${theme.roundedCornersOptOut &&
+            css`
+              border-radius: 0 10px 10px 0;
+            `}
           }
         `}
 
@@ -285,6 +268,11 @@ const StyledPill = styled.span<AllStyledPillProps>`
             width: 24px;
             padding: 0;
             line-height: 15px;
+
+            ${theme.roundedCornersOptOut &&
+            css`
+              border-radius: 0 10px 10px 0;
+            `}
           }
         `}
 
@@ -296,6 +284,11 @@ const StyledPill = styled.span<AllStyledPillProps>`
             width: 28px;
             padding: 0;
             line-height: 16px;
+
+            ${theme.roundedCornersOptOut &&
+            css`
+              border-radius: 0 11px 11px 0;
+            `}
           }
         `}
 
@@ -307,48 +300,11 @@ const StyledPill = styled.span<AllStyledPillProps>`
             width: 32px;
             padding: 0;
             line-height: 18px;
-          }
-        `}
-      `}
 
-      ${!isDeletable &&
-      css`
-        ${size === "S" &&
-        css`
-          padding: 0 8px;
-
-          button {
-            padding: 0;
-          }
-        `}
-
-        ${size === "M" &&
-        css`
-          padding: 0 8px;
-
-          button {
-            width: 24px;
-            padding: 0;
-          }
-        `}
-
-        ${size === "L" &&
-        css`
-          padding: 0 8px;
-
-          button {
-            width: 28px;
-            padding: 0;
-          }
-        `}
-
-        ${size === "XL" &&
-        css`
-          padding: 0 12px;
-
-          button {
-            width: 32px;
-            padding: 0;
+            ${theme.roundedCornersOptOut &&
+            css`
+              border-radius: 0 12px 12px 0;
+            `}
           }
         `}
       `}

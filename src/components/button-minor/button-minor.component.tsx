@@ -8,40 +8,49 @@ export interface ButtonMinorProps extends ButtonProps {
   isInPassword?: boolean;
 }
 
-export const ButtonMinor = ({
-  buttonType: buttonTypeProp = "secondary",
-  disabled = false,
-  destructive = false,
-  size: sizeProp = "medium",
-  iconPosition: iconPositionProp = "before",
-  fullWidth: fullWidthProp = false,
-  ...rest
-}: ButtonMinorProps) => {
-  const {
-    buttonType: buttonTypeContext,
-    size: sizeContext,
-    iconPosition: iconPositionContext,
-    fullWidth: fullWidthContext,
-  } = useContext(ButtonBarContext);
+export const ButtonMinor = React.forwardRef<
+  HTMLButtonElement,
+  ButtonMinorProps
+>(
+  (
+    {
+      buttonType: buttonTypeProp = "secondary",
+      disabled = false,
+      destructive = false,
+      size: sizeProp = "medium",
+      iconPosition: iconPositionProp = "before",
+      fullWidth: fullWidthProp = false,
+      ...rest
+    }: ButtonMinorProps,
+    ref
+  ) => {
+    const {
+      buttonType: buttonTypeContext,
+      size: sizeContext,
+      iconPosition: iconPositionContext,
+      fullWidth: fullWidthContext,
+    } = useContext(ButtonBarContext);
 
-  const buttonType = buttonTypeContext || buttonTypeProp;
-  const size = sizeContext || sizeProp;
-  const iconPosition = iconPositionContext || iconPositionProp;
-  const fullWidth = fullWidthContext || fullWidthProp;
+    const buttonType = buttonTypeContext || buttonTypeProp;
+    const size = sizeContext || sizeProp;
+    const iconPosition = iconPositionContext || iconPositionProp;
+    const fullWidth = fullWidthContext || fullWidthProp;
 
-  return (
-    <StyledButtonMinor
-      data-component="button-minor"
-      size={size}
-      fullWidth={fullWidth}
-      iconPosition={iconPosition}
-      buttonType={buttonType}
-      disabled={disabled}
-      destructive={destructive}
-      {...rest}
-    />
-  );
-};
+    return (
+      <StyledButtonMinor
+        ref={ref}
+        data-component="button-minor"
+        size={size}
+        fullWidth={fullWidth}
+        iconPosition={iconPosition}
+        buttonType={buttonType}
+        disabled={disabled}
+        destructive={destructive}
+        {...rest}
+      />
+    );
+  }
+);
 
 ButtonMinor.displayName = "ButtonMinor";
 
