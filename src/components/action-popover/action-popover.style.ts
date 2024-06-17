@@ -4,7 +4,6 @@ import { margin } from "styled-system";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import StyledButton from "../button/button.style";
-import { isSafari } from "../../__internal__/utils/helpers/browser-type-check";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 import baseTheme from "../../style/themes/base";
 
@@ -305,10 +304,6 @@ const SubMenuItemIcon = styled(ButtonIcon)`
     ${type === "chevron_right_thick" &&
     css`
       right: -5px;
-      ${isSafari(navigator) &&
-      css`
-        top: var(--sizing100);
-      `}
     `}
   `}
 `;
