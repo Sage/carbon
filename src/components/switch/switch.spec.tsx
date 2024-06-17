@@ -14,7 +14,7 @@ import {
   assertStyleMatch,
   mockMatchMedia,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import SwitchSliderPanel from "./__internal__/switch-slider-panel.style";
 import SwitchStyle, { ErrorBorder } from "./switch.style";

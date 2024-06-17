@@ -3,7 +3,7 @@ import TestRenderer from "react-test-renderer";
 
 import { ThemeObject } from "../../../style/themes/base";
 import { sageTheme } from "../../../style/themes";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import StyledLoader from "../../loader/loader.style";
 import StyledLoaderSquare from "../../loader/loader-square.style";
 import SwitchSliderPanel, {

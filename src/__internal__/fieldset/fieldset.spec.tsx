@@ -10,7 +10,7 @@ import {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 
 import ValidationIcon from "../validations/validation-icon.component";
 

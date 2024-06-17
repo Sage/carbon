@@ -3,8 +3,8 @@ import { mount, ReactWrapper, MountRendererProps } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import guid from "../../__internal__/utils/helpers/guid";
-import { simulateSelectTextboxEvent } from "../../__spec_helper__/select-test-utils";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { simulateSelectTextboxEvent } from "../../__spec_helper__/__internal__/select-test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import Pager, { PagerProps } from "./pager.component";
 import { Select } from "../select";
 import SelectList from "../select/select-list/select-list.component";

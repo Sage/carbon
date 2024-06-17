@@ -8,11 +8,11 @@ import StyledLabel, {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import {
   simulateSelectTextboxEvent,
   simulateDropdownEvent,
-} from "../../../__spec_helper__/select-test-utils";
+} from "../../../__spec_helper__/__internal__/select-test-utils";
 import { Select as SimpleSelect, Option, SimpleSelectProps } from "..";
 import Textbox from "../../textbox";
 import SelectList from "../select-list/select-list.component";

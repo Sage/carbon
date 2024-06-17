@@ -12,8 +12,8 @@ import {
 } from "styled-system";
 import { ReactTestRendererJSON } from "react-test-renderer";
 
-import { space } from "../style/themes/base/base-theme.config";
-import { mockMatchMedia } from "./mock-match-media";
+import { space } from "../../style/themes/base/base-theme.config";
+import { mockMatchMedia } from "../mock-match-media";
 
 const isUpper = (char: string) => char.toUpperCase() === char;
 const humpToDash = (acc: string, char: string) =>

@@ -6,8 +6,8 @@ import { StyledLegend } from "./fieldset.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
-import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
+} from "../../__spec_helper__/__internal__/test-utils";
+import { noThemeSnapshot } from "../../__spec_helper__/__internal__/enzyme-snapshot-helper";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function render(props: FieldsetProps = {}, renderer: any = shallow) {

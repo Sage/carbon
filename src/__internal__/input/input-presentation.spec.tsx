@@ -9,7 +9,7 @@ import InputPresentationStyle, {
 } from "./input-presentation.style";
 import StyledInput from "./input.style";
 import sizes from "./input-sizes.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
 

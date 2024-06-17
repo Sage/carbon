@@ -2,7 +2,7 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import MessageContent from "./message-content.component";
 import MessageContentStyle from "./message-content.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 
 describe("MessageContent", () => {
   describe("when rendered", () => {

@@ -9,7 +9,7 @@ import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledDateRange from "./date-range.style";
 import StyledDateInput from "../date/date.style";
 import Tooltip from "../tooltip";

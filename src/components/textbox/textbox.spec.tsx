@@ -5,7 +5,7 @@ import InputIconToggle from "../../__internal__/input-icon-toggle";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import { Input, EnterKeyHintTypes } from "../../__internal__/input";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import InputPresentationStyle from "../../__internal__/input/input-presentation.style";

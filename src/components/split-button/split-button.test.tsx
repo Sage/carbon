@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import SplitButton from "./split-button.component";
 import Button from "../button";
 import { SizeOptions } from "../button/button.component";
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import I18nProvider from "../i18n-provider";
 
 jest.mock("../../__internal__/utils/helpers/guid", () => () => "guid-12345");

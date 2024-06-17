@@ -3,7 +3,7 @@ import { mount, ReactWrapper } from "enzyme";
 import Number, { NumberProps } from "./number.component";
 import Textbox from "../textbox";
 import Label from "../../__internal__/label";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import InputPresentation from "../../__internal__/input/input-presentation.component";
 import Logger from "../../__internal__/utils/logger";
 import StyledInput from "../../__internal__/input/input.style";

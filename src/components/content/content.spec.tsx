@@ -12,7 +12,7 @@ import {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 
 describe("Content", () => {

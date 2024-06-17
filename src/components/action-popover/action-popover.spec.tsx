@@ -7,7 +7,7 @@ import {
   simulate,
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import sageTheme from "../../style/themes/sage";
 import {
   ActionPopover,

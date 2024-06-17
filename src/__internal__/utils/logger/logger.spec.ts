@@ -1,5 +1,5 @@
 import Logger from ".";
-import { expectConsoleOutput } from "../../../__spec_helper__/test-utils";
+import { expectConsoleOutput } from "../../../__spec_helper__/__internal__/test-utils";
 
 const message = "Hello World!";
 

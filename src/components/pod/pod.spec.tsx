@@ -18,7 +18,7 @@ import StyledIcon from "../icon/icon.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Typography, { VariantTypes } from "../typography/typography.component";
 
 const variantColors = {

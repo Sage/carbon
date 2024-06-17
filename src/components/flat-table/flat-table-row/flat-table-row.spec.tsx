@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import FlatTableRow, { FlatTableRowProps } from "./flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import StyledFlatTableRow from "./flat-table-row.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-row-header.style";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";

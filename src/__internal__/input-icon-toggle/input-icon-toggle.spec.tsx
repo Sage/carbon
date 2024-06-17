@@ -2,7 +2,7 @@ import React from "react";
 import { shallow, mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import ValidationIconStyle from "../validations/validation-icon.style";
 import ValidationIcon from "../validations/validation-icon.component";
 import Icon, { IconType } from "../../components/icon";

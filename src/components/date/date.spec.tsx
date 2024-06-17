@@ -16,7 +16,7 @@ import DayPicker from "react-day-picker";
 import {
   testStyledSystemMargin,
   assertStyleMatch,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import DateInput, { DateInputProps } from "./date.component";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import DatePicker from "./__internal__/date-picker";

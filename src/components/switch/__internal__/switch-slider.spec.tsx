@@ -3,7 +3,7 @@ import TestRenderer from "react-test-renderer";
 import { ThemeProvider } from "styled-components";
 import { mount } from "enzyme";
 
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import Loader from "../../loader/loader.component";
 import SwitchSlider, { SwitchSliderProps } from "./switch-slider.component";
 import SwitchSliderPanel from "./switch-slider-panel.style";

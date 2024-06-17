@@ -6,7 +6,7 @@ import {
   testStyledSystemHeight,
   testStyledSystemSpacing,
   testStyledSystemWidth,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import TileContext from "../__internal__/tile-context";
 
 describe("TileContent", () => {

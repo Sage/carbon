@@ -8,7 +8,7 @@ import {
   assertStyleMatch,
   mockMatchMedia,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledLabel, {
   StyledLabelContainer,
 } from "../../__internal__/label/label.style";

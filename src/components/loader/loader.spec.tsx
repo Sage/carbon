@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Loader from ".";
 import StyledLoader from "./loader.style";
 import StyledLoaderSquare from "./loader-square.style";

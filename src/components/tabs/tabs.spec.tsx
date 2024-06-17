@@ -13,7 +13,7 @@ import {
   assertStyleMatch,
   simulate,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import { StyledTabsHeaderWrapper } from "./__internal__/tabs-header/tabs-header.style";
 import { DrawerSidebarContext } from "../drawer";
 import Textbox from "../textbox";

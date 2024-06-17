@@ -8,7 +8,7 @@ import { TabContext } from "../../components/tabs/tab";
 import {
   assertStyleMatch,
   mockMatchMedia,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 
 const setError = jest.fn();
 const setWarning = jest.fn();

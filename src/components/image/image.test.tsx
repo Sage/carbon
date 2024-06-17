@@ -5,7 +5,7 @@ import {
   testStyledSystemLayout,
   testStyledSystemBackground,
   testStyledSystemPadding,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Image from "./image.component";
 
 testStyledSystemMargin((props) => <Image {...props} />);

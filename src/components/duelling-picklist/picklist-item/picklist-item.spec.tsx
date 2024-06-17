@@ -5,7 +5,7 @@ import PicklistItem, { PicklistItemProps } from "./picklist-item.component";
 import { StyledButton, StyledPicklistItem } from "./picklist-item.style";
 import StyledIcon from "../../icon/icon.style";
 import FocusContext from "../duelling-picklist.context";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 
 const setElementToFocus = jest.fn();

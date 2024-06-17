@@ -14,7 +14,7 @@ import OptionRow from "../option-row/option-row.component";
 import OptionGroupHeader from "../option-group-header";
 import ListActionButton from "../list-action-button";
 import Loader from "../../loader";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import Popover from "../../../__internal__/popover";
 import * as guidModule from "../../../__internal__/utils/helpers/guid";
 import StyledOption from "../option/option.style";

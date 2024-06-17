@@ -7,7 +7,7 @@ import CarbonProvider from "../carbon-provider";
 import {
   mockMatchMedia,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 
 test("should display a deprecation warning for uncontrolled behaviour which is triggered only once", () => {
   const loggerSpy = jest

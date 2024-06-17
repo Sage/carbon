@@ -6,7 +6,7 @@ import { Menu, MenuItem } from ".";
 import {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 
 testStyledSystemLayout((props) => <Menu {...props}>Foo</Menu>);
 testStyledSystemFlexBox((props) => <Menu {...props}>Foo</Menu>);

@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import ValidationMessage from ".";
 import StyledValidationMessage from "./validation-message.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import { ValidationMessageProps } from "./validation-message.component";
 
 const render = (props: ValidationMessageProps) =>

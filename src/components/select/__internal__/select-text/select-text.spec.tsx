@@ -1,6 +1,6 @@
 import { mount } from "enzyme";
 import React from "react";
-import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../../__spec_helper__/__internal__/test-utils";
 import SelectText, { SelectTextProps } from ".";
 import { StyledSelectTextChildrenWrapper } from "./select-text.style";
 

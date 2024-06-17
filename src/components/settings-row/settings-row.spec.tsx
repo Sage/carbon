@@ -10,7 +10,7 @@ import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 // mock Logger.deprecate so that Typography (used for the alert dialog's heading) doesn't trigger a warning while running the tests

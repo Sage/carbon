@@ -4,7 +4,7 @@ import { mount, ReactWrapper } from "enzyme";
 import Modal from "./modal.component";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 import useScrollBlock from "../../hooks/__internal__/useScrollBlock";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 
 jest.mock("../../hooks/__internal__/useScrollBlock");
 const allowScroll = jest.fn();

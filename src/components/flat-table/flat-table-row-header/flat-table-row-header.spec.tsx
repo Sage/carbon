@@ -8,7 +8,7 @@ import FlatTableRowHeader, {
 import {
   assertStyleMatch,
   testStyledSystemPadding,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import StyledIcon from "../../icon/icon.style";
 import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
 

@@ -28,7 +28,7 @@ import Heading from "../heading";
 import {
   assertStyleMatch,
   getDefaultValue,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Form from "../form";
 import { StyledFormContent, StyledFormFooter } from "../form/form.style";
 import Help from "../help";

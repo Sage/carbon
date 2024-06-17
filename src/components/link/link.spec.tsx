@@ -1,8 +1,8 @@
 import React from "react";
 import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
-import { noThemeSnapshot } from "../../__spec_helper__/enzyme-snapshot-helper";
+import { noThemeSnapshot } from "../../__spec_helper__/__internal__/enzyme-snapshot-helper";
 import Link from "./link.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import { StyledLink } from "./link.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";

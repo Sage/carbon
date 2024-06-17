@@ -13,7 +13,7 @@ import { StyledLegend } from "../../__internal__/fieldset/fieldset.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledValidationIcon from "../../__internal__/validations/validation-icon.style";
 import Fieldset from "../../__internal__/fieldset";
 import Logger from "../../__internal__/utils/logger";

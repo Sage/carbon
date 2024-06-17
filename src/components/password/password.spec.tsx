@@ -2,7 +2,7 @@ import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 import Password, { PasswordProps } from "./password.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import { HiddenAriaLive } from "./password.style";
 import StyledButtonMinor from "../button-minor/button-minor.style";
 import Label from "../../__internal__/label";

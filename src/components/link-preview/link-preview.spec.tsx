@@ -16,7 +16,7 @@ import Placeholder, {
   StyledPlaceHolder,
 } from "./__internal__/placeholder.component";
 import StyledIconButton from "../icon-button/icon-button.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 
 const render = (props = {}) => {
   return mount(<LinkPreview {...props} />);

@@ -2,7 +2,7 @@ import * as React from "react";
 import { mount } from "enzyme";
 
 import useIsAboveBreakpoint from ".";
-import { mockMatchMedia } from "../../../__spec_helper__/test-utils";
+import { mockMatchMedia } from "../../../__spec_helper__/__internal__/test-utils";
 
 describe("useIsAboveBreakpoint custom hook", () => {
   describe("when query does not match", () => {

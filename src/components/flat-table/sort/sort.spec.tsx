@@ -1,6 +1,6 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
-import { assertStyleMatch } from "__spec_helper__/test-utils";
+import { assertStyleMatch } from "__spec_helper__/__internal__/test-utils";
 import Sort, { SortProps } from "./sort.component";
 import Icon from "../../icon";
 import StyledIcon from "../../icon/icon.style";

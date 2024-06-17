@@ -4,7 +4,7 @@ import FlatTableHeader, {
   FlatTableHeaderProps,
 } from "./flat-table-header.component";
 import StyledFlatTableHeader from "./flat-table-header.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import { FlatTableThemeContext, FlatTableProps } from "../flat-table.component";
 import getAlternativeBackgroundColor from "./flat-table-header-utils";
 

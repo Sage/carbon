@@ -7,7 +7,7 @@ import StyledInput from "./input.style";
 import { InputContext, InputContextProps } from "../input-behaviour";
 import { SelectTextboxContext } from "../../components/select/select-textbox/select-textbox-context";
 
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 
 describe("Input", () => {
   let container: HTMLDivElement | null;
