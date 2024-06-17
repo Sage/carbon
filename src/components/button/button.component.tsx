@@ -12,7 +12,7 @@ import tagComponent, {
 } from "../../__internal__/utils/helpers/tags/tags";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { TooltipPositions } from "../tooltip/tooltip.config";
-import { ButtonBarContext } from "../button-bar/button-bar.component";
+import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
 
 export type ButtonTypes =
