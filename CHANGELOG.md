@@ -1,3 +1,10 @@
+## [138.2.0](https://github.com/Sage/carbon/compare/v138.1.1...v138.2.0) (2024-06-18)
+
+
+### Features
+
+* **select-list:** ensure virtualised Select list container always has at least 1 pixel of height ([99bdeaf](https://github.com/Sage/carbon/commit/99bdeafd632fd3b97aef18b4bc22b07847d62723))
+
 ### [138.1.1](https://github.com/Sage/carbon/compare/v138.1.0...v138.1.1) (2024-06-18)
 
 
