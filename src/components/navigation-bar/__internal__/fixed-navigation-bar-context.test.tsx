@@ -4,7 +4,7 @@ import FixedNavigationBarContext, {
   FixedNavigationBarContextProvider,
   FixedNavigationBarContextProviderProps,
 } from "./fixed-navigation-bar.context";
-import * as useResizeObserverModule from "../../hooks/__internal__/useResizeObserver/useResizeObserver";
+import * as useResizeObserverModule from "../../../hooks/__internal__/useResizeObserver/useResizeObserver";
 
 const useResizeObserverSpy = jest.spyOn(useResizeObserverModule, "default");
 

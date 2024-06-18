@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { PaddingProps, FlexboxProps } from "styled-system";
 import StyledNavigationBar from "./navigation-bar.style";
-import { FixedNavigationBarContextProvider } from "./fixed-navigation-bar.context";
+import { FixedNavigationBarContextProvider } from "./__internal__/fixed-navigation-bar.context";
 
 export type Position = "sticky" | "fixed";
 export type Orientation = "top" | "bottom";

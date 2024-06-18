@@ -24,7 +24,7 @@ import {
 } from "../locators";
 import { VariantType } from "../../menu-item";
 import useStableCallback from "../../../../hooks/__internal__/useStableCallback/useStableCallback";
-import FixedNavigationBarContext from "../../../navigation-bar/fixed-navigation-bar.context";
+import FixedNavigationBarContext from "../../../navigation-bar/__internal__/fixed-navigation-bar.context";
 
 export interface SubmenuProps {
   /** Children elements */

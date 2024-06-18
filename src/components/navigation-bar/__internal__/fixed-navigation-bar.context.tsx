@@ -1,6 +1,6 @@
 import React, { createContext, useState, useCallback, useEffect } from "react";
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver/useResizeObserver";
-import { NavigationBarProps } from ".";
+import useResizeObserver from "../../../hooks/__internal__/useResizeObserver/useResizeObserver";
+import { NavigationBarProps } from "..";
 
 type FixedNavigationBarContextProps = {
   submenuMaxHeight?: string;
