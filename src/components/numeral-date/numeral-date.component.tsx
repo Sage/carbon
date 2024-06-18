@@ -91,7 +91,7 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   enableInternalError?: boolean;
   /** When true, enables the internal warnings to be displayed */
   enableInternalWarning?: boolean;
-  /** Help content to be displayed under an input */
+  /** [Legacy] Help content to be displayed under an input */
   fieldHelp?: React.ReactNode;
   /** `id` for events */
   id?: string;
@@ -99,15 +99,18 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   name?: string;
   /** Label */
   label?: string;
-  /** Label alignment. Works only when labelInline is true */
+  /** [Legacy] Label alignment. Works only when labelInline is true */
   labelAlign?: "left" | "right";
-  /** Text applied to label help tooltip */
+  /**
+   * Text applied to label help tooltip, will be rendered as
+   * hint text when `validationRedesignOptIn` is true.
+   */
   labelHelp?: React.ReactNode;
-  /** When true, label is placed in line with an input */
+  /** [Legacy] When true, label is placed in line with an input */
   labelInline?: boolean;
-  /** Label width */
+  /** [Legacy] Label width */
   labelWidth?: number;
-  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
   /** Blur event handler */
   onBlur?: (ev: NumeralDateEvent<DateType>) => void;
@@ -117,11 +120,11 @@ export interface NumeralDateProps<DateType extends NumeralDateObject = FullDate>
   required?: boolean;
   /** Size of an input */
   size?: "small" | "medium" | "large";
-  /** When true, validation icons will be placed on labels instead of being placed on the inputs */
+  /** [Legacy] When true, validation icons will be placed on labels instead of being placed on the inputs */
   validationOnLabel?: boolean;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Aria label for rendered help component */
+  /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
   /**
    * A React ref to pass to the input corresponding to the day

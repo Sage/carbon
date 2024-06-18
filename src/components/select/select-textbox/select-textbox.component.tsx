@@ -28,7 +28,7 @@ export interface FormInputPropTypes
   adaptiveLabelBreakpoint?: number;
   /** Prop to specify the aria-label attribute of the component input */
   ariaLabel?: string;
-  /** Prop to specify the aria-labeledby property of the component input */
+  /** Prop to specify the aria-labelledby property of the component input */
   ariaLabelledby?: string;
   /** If true the Component will be focused when rendered */
   autoFocus?: boolean;
@@ -40,11 +40,11 @@ export interface FormInputPropTypes
   inputWidth?: number;
   /** Label content */
   label?: string;
-  /** A message that the Help component will display */
+  /** [Legacy] A message that the Help component will display */
   labelHelp?: React.ReactNode;
-  /** When true label is inline */
+  /** [Legacy] When true label is inline */
   labelInline?: boolean;
-  /** Label width */
+  /** [Legacy] Label width */
   labelWidth?: number;
   /** Name attribute of the input element */
   name?: string;

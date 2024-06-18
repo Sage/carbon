@@ -84,7 +84,7 @@ export interface TextEditorProps extends MarginProps {
   error?: string;
   /** Message to be displayed when there is a warning */
   warning?: string;
-  /** Message to be displayed when there is an info */
+  /** [Legacy] Message to be displayed when there is an info */
   info?: string;
   /** Number greater than 2 multiplied by line-height (21px) to override the default min-height of the editor */
   rows?: number;

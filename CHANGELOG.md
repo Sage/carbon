@@ -1,3 +1,45 @@
+### [138.1.1](https://github.com/Sage/carbon/compare/v138.1.0...v138.1.1) (2024-06-18)
+
+
+### Bug Fixes
+
+* **menu:** ensure scrollbars meet colour contrast guidelines ([98244cd](https://github.com/Sage/carbon/commit/98244cd29099c48600d84e88b4181e0f28463743))
+
+## [138.1.0](https://github.com/Sage/carbon/compare/v138.0.2...v138.1.0) (2024-06-14)
+
+
+### Features
+
+* **button-minor:** add forward ref to component ([8816286](https://github.com/Sage/carbon/commit/88162866493fd62fe92c6a4eaf52801d3ff384b5))
+
+### [138.0.2](https://github.com/Sage/carbon/compare/v138.0.1...v138.0.2) (2024-06-13)
+
+
+### Bug Fixes
+
+* **pill:** fix button background position on hover for small pill ([f690834](https://github.com/Sage/carbon/commit/f69083463489b2e25bfe00dde080aeff681251b1))
+
+### [138.0.1](https://github.com/Sage/carbon/compare/v138.0.0...v138.0.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* component MenuFullScreen and MenuItem not truncating topic ([c939148](https://github.com/Sage/carbon/commit/c93914878f5310b8ed9117ceec3b192207e891a6)), closes [#6666](https://github.com/Sage/carbon/issues/6666)
+
+## [138.0.0](https://github.com/Sage/carbon/compare/v137.0.0...v138.0.0) (2024-06-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **button-toggle, button-toggle-group:** `name` prop has been removed, `onChange` prop type as also been updated as a
+result.
+* **button-toggle:** `checked` prop has been removed, `pressed` should be used instead.
+
+### Miscellaneous Chores
+
+* **button-toggle, button-toggle-group:** remove name prop ([1b812fa](https://github.com/Sage/carbon/commit/1b812fad68328697c941f03418e8161577eedd3a))
+* **button-toggle:** remove checked prop ([974f337](https://github.com/Sage/carbon/commit/974f33712bb01028da2f07f08604fc69260a801e))
+
 ## [137.0.0](https://github.com/Sage/carbon/compare/v136.0.4...v137.0.0) (2024-06-07)
 
 

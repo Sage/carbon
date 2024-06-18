@@ -55,6 +55,7 @@ export const ScrollableBlock = ({
           variant={parentVariant}
           p="2px 16px"
           as="div"
+          data-role="scrollable-block-parent-menu-item"
         >
           {parent}
         </MenuItem>

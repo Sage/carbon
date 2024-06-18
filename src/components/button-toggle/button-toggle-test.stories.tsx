@@ -47,7 +47,6 @@ export const DefaultStory = ({ ...args }) => {
   return (
     <ButtonToggleGroup
       id="button-toggle-group"
-      name="button-toggle-group"
       label="Button Toggle Group test"
       inputHint="Hint Text"
       onChange={onChangeHandler}
@@ -64,7 +63,6 @@ export const DefaultStory = ({ ...args }) => {
 export const WithoutGroup = (args: Partial<ButtonToggleProps>) => (
   <div>
     <ButtonToggle
-      name="new-button-toggle"
       key="button-toggle-1"
       onFocus={() => action("onFocus")("foo")}
       onBlur={() => action("onBlur")("foo")}
@@ -73,7 +71,6 @@ export const WithoutGroup = (args: Partial<ButtonToggleProps>) => (
       Foo
     </ButtonToggle>
     <ButtonToggle
-      name="new-button-toggle"
       key="button-toggle-2"
       onFocus={() => action("onFocus")("bar")}
       onBlur={() => action("onBlur")("bar")}
@@ -82,7 +79,6 @@ export const WithoutGroup = (args: Partial<ButtonToggleProps>) => (
       Bar
     </ButtonToggle>
     <ButtonToggle
-      name="new-button-toggle"
       key="button-toggle-3"
       onFocus={() => action("onFocus")("baz")}
       onBlur={() => action("onBlur")("baz")}
@@ -114,7 +110,6 @@ export const ButtonToggleGroupComponent = ({ ...props }) => {
     <div>
       <ButtonToggleGroup
         id="button-toggle-group-default-id"
-        name="button-toggle-group-default"
         label="Default example"
         labelHelp="help message"
         helpAriaLabel="Help"
@@ -146,7 +141,6 @@ export const ButtonToggleComponent = ({
   return (
     <div>
       <ButtonToggle
-        name="button-toggle-one"
         onBlur={function noRefCheck() {
           ("");
         }}
@@ -158,7 +152,6 @@ export const ButtonToggleComponent = ({
         {children}
       </ButtonToggle>
       <ButtonToggle
-        name="button-toggle-two"
         onBlur={function noRefCheck() {
           ("");
         }}
@@ -170,7 +163,6 @@ export const ButtonToggleComponent = ({
         Second
       </ButtonToggle>
       <ButtonToggle
-        name="button-toggle-three"
         onBlur={function noRefCheck() {
           ("");
         }}

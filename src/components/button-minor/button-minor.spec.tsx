@@ -9,6 +9,7 @@ import {
 import StyledIcon from "../icon/icon.style";
 import ButtonMinor from "./button-minor.component";
 import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import StyledButtonMinor from "./button-minor.style";
 
 const render = (props: ButtonProps, renderer: typeof shallow = shallow) => {
   return renderer(<ButtonMinor {...props} />);
@@ -196,4 +197,34 @@ describe("when the iconPosition prop and iconType are being passed to Button Min
       );
     }
   );
+
+  it("accepts ref as a ref object", () => {
+    const ref = { current: null };
+    const wrapper = mount(<ButtonMinor ref={ref}>ButtonMinor</ButtonMinor>);
+
+    wrapper.update();
+
+    expect(ref.current).toBe(wrapper.find(StyledButtonMinor).getDOMNode());
+  });
+
+  it("accepts ref as a ref callback", () => {
+    const ref = jest.fn();
+    const wrapper = mount(<ButtonMinor ref={ref}>ButtonMinor</ButtonMinor>);
+
+    wrapper.update();
+
+    expect(ref).toHaveBeenCalledWith(
+      wrapper.find(StyledButtonMinor).getDOMNode()
+    );
+  });
+
+  it("sets ref to empty after unmount", () => {
+    const ref = { current: null };
+    const wrapper = mount(<ButtonMinor ref={ref}>ButtonMinor</ButtonMinor>);
+
+    wrapper.update();
+
+    wrapper.unmount();
+    expect(ref.current).toBe(null);
+  });
 });

@@ -66,6 +66,7 @@ import {
   SubMenuWithVeryLongLabel,
   MenuComponentScrollableWithSearch,
   MenuSegmentTitleComponentWithAdditionalMenuItem,
+  MenuComponentFullScreenWithLongSubmenuText,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
 import { HooksConfig } from "../../../playwright";
@@ -1399,6 +1400,76 @@ test.describe("Prop tests for Menu Fullscreen component", () => {
     await expect(fullMenuItem).toBeFocused();
   });
 
+  test(`when the menu item contains a very long text, the text is wrapped`, async ({
+    mount,
+    page,
+  }) => {
+    await page.setViewportSize({ width: 300, height: 800 });
+    await mount(<MenuComponentFullScreenWithLongSubmenuText />);
+
+    const item = menuItem(page).first();
+    await item.click();
+    const fullscreen = getComponent(page, "menu-fullscreen").first();
+    await waitForAnimationEnd(fullscreen);
+
+    const fullSubmenuItem = fullscreenMenu(page, 3)
+      .locator("li")
+      .locator("a")
+      .first();
+
+    const fullSubmenuItemTextWrap = await fullSubmenuItem.evaluate(
+      (element) => {
+        const style = window.getComputedStyle(element);
+        return style.getPropertyValue("text-wrap");
+      }
+    );
+
+    const fullSubmenuItemHeight = await fullSubmenuItem.evaluate((element) => {
+      const style = window.getComputedStyle(element);
+      return style.getPropertyValue("height");
+    });
+
+    expect(fullSubmenuItemTextWrap).toEqual("wrap");
+    expect(fullSubmenuItemHeight).not.toEqual("40px");
+
+    const fullMenuItemWrapper = fullscreenMenu(page, 3).first();
+
+    const fullMenuItemWrapperTextWrap = await fullMenuItemWrapper.evaluate(
+      (element) => {
+        const style = window.getComputedStyle(element);
+        return style.getPropertyValue("text-wrap");
+      }
+    );
+
+    const fullMenuItemWrapperHeight = await fullMenuItemWrapper.evaluate(
+      (element) => {
+        const style = window.getComputedStyle(element);
+        return style.getPropertyValue("height");
+      }
+    );
+
+    expect(fullMenuItemWrapperTextWrap).toEqual("wrap");
+    expect(fullMenuItemWrapperHeight).not.toEqual("40px");
+
+    const fullMenuItem = fullscreenMenu(page, 3)
+      .locator("span")
+      .locator("button")
+      .first();
+
+    const fullMenuItemTextWrap = await fullMenuItem.evaluate((element) => {
+      const style = window.getComputedStyle(element);
+      return style.getPropertyValue("text-wrap");
+    });
+
+    const fullMenuItemHeight = await fullMenuItem.evaluate((element) => {
+      const style = window.getComputedStyle(element);
+      return style.getPropertyValue("height");
+    });
+
+    expect(fullMenuItemTextWrap).toEqual("wrap");
+    expect(fullMenuItemHeight).not.toEqual("40px");
+  });
+
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip(`should verify that inner Menu without link is NOT available when tabbing in Fullscreen Menu`, async ({
     mount,
@@ -2438,6 +2509,66 @@ test.describe(
       await expect(scrollableItem).toHaveCSS(
         "border-radius",
         "0px 0px 0px 8px"
+      );
+    });
+
+    test("should apply the expected styling to the scrollbar when menuType is white", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable />);
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const scrollableBlock = scrollBlock(page).first();
+
+      await expect(scrollableBlock).toHaveCSS(
+        "scrollbar-color",
+        "rgb(89, 122, 139) rgb(242, 245, 246)"
+      );
+    });
+
+    test("should apply the expected styling to the scrollbar when menuType is light", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable />);
+      const subMenu = submenu(page).nth(2);
+      await subMenu.hover();
+      const scrollableBlock = scrollBlock(page).first();
+
+      await expect(scrollableBlock).toHaveCSS(
+        "scrollbar-color",
+        "rgb(89, 122, 139) rgb(242, 245, 246)"
+      );
+    });
+
+    test("should apply the expected styling to the scrollbar when menuType is dark", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable />);
+      const subMenu = submenu(page).nth(5);
+      await subMenu.hover();
+      const scrollableBlock = scrollBlock(page).first();
+
+      await expect(scrollableBlock).toHaveCSS(
+        "scrollbar-color",
+        "rgb(89, 122, 139) rgb(242, 245, 246)"
+      );
+    });
+
+    test("should apply the expected styling to the scrollbar when menuType is black", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable />);
+      const subMenu = submenu(page).nth(6);
+      await subMenu.hover();
+      const scrollableBlock = scrollBlock(page).first();
+
+      await expect(scrollableBlock).toHaveCSS(
+        "scrollbar-color",
+        "rgb(204, 204, 204) rgb(128, 128, 128)"
       );
     });
 

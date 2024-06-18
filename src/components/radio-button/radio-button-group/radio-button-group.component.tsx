@@ -24,21 +24,24 @@ export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   adaptiveSpacingBreakpoint?: number;
   /** The RadioButton objects to be rendered in the group */
   children: React.ReactNode;
-  /** When true, RadioButtons are in line */
+  /** When true, RadioButtons children are in line */
   inline?: boolean;
   /** Spacing between labels and radio buttons, given number will be multiplied by base spacing unit (8) */
   labelSpacing?: 1 | 2;
   /** The content for the RadioGroup Legend */
   legend?: string;
-  /** The content for the hint text of the RadioGroup Legend */
+  /**
+   * The content for the RadioButtonGroup Legend Help tooltip,
+   * will be rendered as hint text when `validationRedesignOptIn` is true.
+   */
   legendHelp?: string;
-  /** Text alignment of legend when inline */
+  /** [Legacy] Text alignment of legend when inline */
   legendAlign?: "left" | "right";
-  /** When true, legend is placed in line with the radiobuttons */
+  /** [Legacy] When true, legend is placed in line with the RadioButtons */
   legendInline?: boolean;
-  /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
+  /** [Legacy] Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
-  /** Percentage width of legend (only when legend is inline)  */
+  /** [Legacy] Percentage width of legend (only when legend is inline)  */
   legendWidth?: number;
   /** Specifies the name prop to be applied to each button in the group */
   name: string;
@@ -52,7 +55,7 @@ export interface RadioButtonGroupProps extends ValidationProps, MarginProps {
   isOptional?: boolean;
   /** value of the selected RadioButton */
   value?: string;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
 }
 

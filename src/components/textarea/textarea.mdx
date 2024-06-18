@@ -43,10 +43,6 @@ import Textarea from "carbon-react/lib/components/textarea";
 
 <Canvas of={TextareaStories.DisabledStory} />
 
-### Label Align
-
-<Canvas of={TextareaStories.LabelAlignStory} />
-
 ### ReadOnly
 
 <Canvas of={TextareaStories.ReadOnlyStory} />
@@ -79,7 +75,13 @@ Include the formatted number count wherever makes sense for the language you're 
 
 ### With labelInline
 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+
 <Canvas of={TextareaStories.LabelInlineStory} />
+
+### Label Align
+
+<Canvas of={TextareaStories.LabelAlignStory} />
 
 ### With custom labelWidth and inputWidth
 
@@ -131,13 +133,13 @@ If you want to remove the borders from the component, you can use the `hideBorde
 
 ### Validations
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component
+Validation status can be set by passing `error`, `warning` or `info` prop to the component.
 
 Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
 
 Passing a boolean to these props will display only a properly colored border.
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 #### As a string
 
@@ -155,13 +157,15 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 <Canvas of={TextareaStories.ValidationLabelPositionStory} />
 
-#### New designs validation
-
-<Canvas of={TextareaStories.NewDesignValidationStory} />
-
 #### As a boolean
 
 <Canvas of={TextareaStories.ValidationBooleanStory} />
+
+#### New designs validation
+
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+<Canvas of={TextareaStories.NewDesignValidationStory} />
 
 ## Props
 

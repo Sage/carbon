@@ -156,11 +156,14 @@ export const MenuItem = ({
 
   useEffect(() => {
     const id = menuItemId.current;
+
+    /* istanbul ignore else */
     if (registerItem) {
       registerItem(id);
     }
 
     return () => {
+      /* istanbul ignore else */
       if (unregisterItem) {
         unregisterItem(id);
       }
@@ -309,6 +312,7 @@ export const MenuItem = ({
     >
       <StyledMenuItemWrapper
         menuType={menuType}
+        data-role="menu-item-wrapper"
         {...elementProps}
         ariaLabel={ariaLabel}
         maxWidth={maxWidth}

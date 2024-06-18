@@ -39,6 +39,8 @@ import DateRange from "carbon-react/lib/components/date-range";
 
 ### LabelsInline
 
+**Note:** The `labelsInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+
 <Canvas of={DateRangeStories.LabelsInline} />
 
 ### Validations
@@ -49,7 +51,7 @@ Passing a string to these props will display a properly colored border along wit
 
 Passing a boolean to these props will display only a properly colored border.
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 #### As a string
 
@@ -71,17 +73,17 @@ It is possible to use the `tooltipPosition` to override the default placement of
   of={DateRangeStories.ValidationsStringWithTooltipPositionOverriddenLabel}
 />
 
-#### New designs validation
-
-Longer validation strings that would exceed the input width will wrap to a new line. Inputs
-should remain aligned but labels may no longer be when a string wraps. Label text that would
-exceed the input widht will also wrap to a new line.
-
-<Canvas of={DateRangeStories.ValidationsStringNewDesign} />
-
 #### As a boolean
 
 <Canvas of={DateRangeStories.ValidationsBoolean} />
+
+#### New designs validation
+
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+Labels and validation strings that exceed the width of the input will wrap to a new line - inputs will remain aligned, however this may cause text to be misaligned.
+
+<Canvas of={DateRangeStories.ValidationsStringNewDesign} />
 
 ### Allow Empty Value
 

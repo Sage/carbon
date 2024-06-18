@@ -761,6 +761,7 @@ describe("Pill", () => {
               {renderPillComponent({
                 children: "My Text",
                 size,
+                onDelete: jest.fn(),
               })}
             </CarbonProvider>
           ).find(StyledPill);
