@@ -228,7 +228,14 @@ const SelectList = React.forwardRef(
       }
     }
 
-    const listHeight = virtualizer.getTotalSize();
+    const totalSize = virtualizer.getTotalSize();
+    // virtualizer.getTotalSize() returns the total size in pixels for the virtualized items. If nothing is loaded,
+    // then the list height is set to 0 (line 21 of src/components/select/select-list/select-list.style.ts) as
+    // the method always returns a number and never undefined, it seems.
+    // https://github.com/TanStack/virtual/commit/e43e03e500588b2da36f184ecaba2b8e5a506596 suggests that items are
+    // never returned regardless if the container height it 0, so the below line ensures that a container of at
+    // least 1px is always available to render into.
+    const listHeight = totalSize === 0 ? 1 : totalSize;
 
     useEffect(() => {
       if (isOpen) {
