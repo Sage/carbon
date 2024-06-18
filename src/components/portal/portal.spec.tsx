@@ -1,7 +1,8 @@
 import React from "react";
 import { mount, shallow, ReactWrapper } from "enzyme";
 import ReactDOM from "react-dom";
-import Portal, { PortalContext } from "./portal";
+import Portal from "./portal";
+import PortalContext from "./__internal__/portal.context";
 import Icon from "../icon";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 

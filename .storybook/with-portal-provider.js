@@ -1,4 +1,4 @@
-import { PortalContext } from "../src/components/portal/portal";
+import PortalContext from "../src/components/portal/__internal__/portal.context";
 import isChromatic from "./isChromatic";
 
 export const withPortalProvider = (Story, context) => {

@@ -5,12 +5,7 @@ import styled, { css } from "styled-components";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider/carbon-scoped-tokens-provider.component";
 import StyledPortalEntrance from "./portal.style";
-
-interface PortalContextProps {
-  renderInRoot?: boolean;
-}
-
-export const PortalContext = React.createContext<PortalContextProps>({});
+import PortalContext from "./__internal__/portal.context";
 
 const Container = styled.div`
   ${({ theme }) => css`
