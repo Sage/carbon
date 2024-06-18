@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import MenuDivider from "./menu-divider.component";
 import MenuItem from "../menu-item/menu-item.component";
-import MenuContext, { MenuType } from "../menu.context";
+import MenuContext, { MenuType } from "../__internal__/menu.context";
 import menuConfigVariants from "../menu.config";
 
 const menuContextValues = (menuType: MenuType) => ({

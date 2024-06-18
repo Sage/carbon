@@ -3,7 +3,7 @@ import { render, screen, within } from "@testing-library/react";
 
 import ScrollableBlock from ".";
 import MenuItem from "../menu-item";
-import MenuContext from "../menu.context";
+import MenuContext from "../__internal__/menu.context";
 import menuConfigVariants from "../menu.config";
 import SubmenuContext from "../__internal__/submenu/submenu.context";
 import Search from "../../search";

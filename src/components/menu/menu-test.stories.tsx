@@ -11,7 +11,7 @@ import {
   MenuSegmentTitle,
   ScrollableBlock,
 } from ".";
-import { MenuType } from "./menu.context";
+import { MenuType } from "./__internal__/menu.context";
 import Search from "../search";
 import Box from "../box";
 import NavigationBar, { NavigationBarProps } from "../navigation-bar";

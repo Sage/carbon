@@ -3,7 +3,10 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import MenuSegmentTitle from "./menu-segment-title.component";
-import MenuContext, { MenuContextProps, MenuType } from "../menu.context";
+import MenuContext, {
+  MenuContextProps,
+  MenuType,
+} from "../__internal__/menu.context";
 import { MenuItem } from "..";
 import menuConfigVariants from "../menu.config";
 

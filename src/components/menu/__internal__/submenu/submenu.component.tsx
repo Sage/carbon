@@ -11,7 +11,7 @@ import { MaxWidthProps } from "styled-system";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
 import Events from "../../../../__internal__/utils/helpers/events";
-import MenuContext from "../../menu.context";
+import MenuContext from "../menu.context";
 import { characterNavigation } from "../keyboard-navigation";
 import SubmenuContext from "./submenu.context";
 import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";

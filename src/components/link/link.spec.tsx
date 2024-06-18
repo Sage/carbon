@@ -7,7 +7,7 @@ import { StyledLink } from "./link.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import Tooltip from "../tooltip";
-import MenuContext from "../menu/menu.context";
+import MenuContext from "../menu/__internal__/menu.context";
 import { baseTheme } from "../../style/themes";
 
 function renderLink(props = {}, renderer = mount) {
