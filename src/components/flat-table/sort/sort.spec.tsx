@@ -6,7 +6,8 @@ import Icon from "../../icon";
 import StyledIcon from "../../icon/icon.style";
 import Typography from "../../typography";
 import { StyledSort, StyledSpaceHolder } from "./sort.style";
-import { FlatTableThemeContext, FlatTableProps } from "../flat-table.component";
+import { FlatTableProps } from "../flat-table.component";
+import FlatTableContext from "../__internal__/flat-table.context";
 
 function renderSort(props: SortProps = {}) {
   return mount(<Sort {...props}>Name</Sort>);
@@ -128,11 +129,11 @@ describe("Sort", () => {
 
   it("should render Icon with correct colour when colorTheme is dark", () => {
     wrapper = mount(
-      <FlatTableThemeContext.Provider
+      <FlatTableContext.Provider
         value={{ colorTheme: "dark", getTabStopElementId: () => "" }}
       >
         <Sort sortType="ascending">Name</Sort>
-      </FlatTableThemeContext.Provider>
+      </FlatTableContext.Provider>
     );
 
     assertStyleMatch(
@@ -151,11 +152,11 @@ describe("Sort", () => {
     "should render Icon with correct colour when colorTheme is %s",
     (color) => {
       wrapper = mount(
-        <FlatTableThemeContext.Provider
+        <FlatTableContext.Provider
           value={{ colorTheme: color, getTabStopElementId: () => "" }}
         >
           <Sort sortType="ascending">Name</Sort>
-        </FlatTableThemeContext.Provider>
+        </FlatTableContext.Provider>
       );
 
       assertStyleMatch(

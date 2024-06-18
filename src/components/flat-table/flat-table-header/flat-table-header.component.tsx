@@ -3,7 +3,7 @@ import { PaddingProps } from "styled-system";
 import { TableBorderSize, TableCellAlign } from "..";
 
 import StyledFlatTableHeader from "./flat-table-header.style";
-import { FlatTableThemeContext } from "../flat-table.component";
+import FlatTableContext from "../__internal__/flat-table.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useTableCell from "../__internal__/use-table-cell";
 
@@ -41,7 +41,7 @@ export const FlatTableHeader = ({
 }: FlatTableHeaderProps) => {
   const ref = useRef<HTMLTableCellElement>(null);
   const internalId = useRef(id || guid());
-  const { colorTheme } = useContext(FlatTableThemeContext);
+  const { colorTheme } = useContext(FlatTableContext);
   const { leftPosition, rightPosition, makeCellSticky } = useTableCell(
     internalId.current
   );
