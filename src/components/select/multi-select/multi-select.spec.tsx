@@ -16,13 +16,13 @@ import {
 import { MultiSelect, Option, MultiSelectProps } from "..";
 import StyledOption from "../option/option.style";
 import Textbox from "../../textbox";
-import MatchingText from "../utils/matching-text.style";
-import SelectList from "../select-list/select-list.component";
+import MatchingText from "../__internal__/utils/matching-text.style";
+import SelectList from "../__internal__/select-list/select-list.component";
 import {
   StyledSelectList,
   StyledSelectListContainer,
   StyledScrollableContainer,
-} from "../select-list/select-list.style";
+} from "../__internal__/select-list/select-list.style";
 import Pill from "../../pill";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";

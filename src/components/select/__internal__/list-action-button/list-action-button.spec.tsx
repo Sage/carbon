@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount, ShallowWrapper } from "enzyme";
 import ListActionButton, { ListActionButtonProps } from ".";
-import Button from "../../button";
+import Button from "../../../button";
 
 function renderListActionButton(
   props: Partial<ListActionButtonProps>,

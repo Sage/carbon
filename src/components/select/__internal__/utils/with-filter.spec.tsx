@@ -1,8 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
 import withFilter, { FilteredComponentProps } from "./with-filter.hoc";
-import Option from "../option";
-import OptionRow from "../option-row/option-row.component";
+import Option from "../../option";
+import OptionRow from "../../option-row/option-row.component";
 
 const FilterableList = withFilter(({ children }: FilteredComponentProps) => (
   <ul data-element="select-list">{children}</ul>

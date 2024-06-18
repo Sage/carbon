@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { baseTheme } from "../../../style/themes";
+import { baseTheme } from "../../../../style/themes";
 import { SelectListProps } from ".";
 
 interface StyledSelectListProps {

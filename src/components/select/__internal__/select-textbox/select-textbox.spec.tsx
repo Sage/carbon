@@ -3,13 +3,13 @@ import { mount } from "enzyme";
 import { act } from "react-dom/test-utils";
 
 import SelectTextbox, { SelectTextboxProps } from ".";
-import Textbox from "../../textbox";
+import Textbox from "../../../textbox";
 import InputPresentationStyle, {
   StyledInputPresentationContainer,
-} from "../../../__internal__/input/input-presentation.style";
-import * as guidModule from "../../../__internal__/utils/helpers/guid";
-import Translation from "../../../locales/en-gb";
-import * as useFloatingModule from "../../../hooks/__internal__/useFloating/useFloating";
+} from "../../../../__internal__/input/input-presentation.style";
+import * as guidModule from "../../../../__internal__/utils/helpers/guid";
+import Translation from "../../../../locales/en-gb";
+import * as useFloatingModule from "../../../../hooks/__internal__/useFloating/useFloating";
 
 const useFloatingSpy = jest.spyOn(useFloatingModule, "default");
 const guidSpy = jest.spyOn(guidModule, "default");

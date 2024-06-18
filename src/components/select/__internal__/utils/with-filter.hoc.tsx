@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
-import useLocale from "../../../hooks/__internal__/useLocale";
-import StyledOptionRow from "../option-row/option-row.style";
-import StyledOption from "../option/option.style";
-import Option, { OptionProps } from "../option";
-import OptionRow, { OptionRowProps } from "../option-row/option-row.component";
+import useLocale from "../../../../hooks/__internal__/useLocale";
+import StyledOptionRow from "../../option-row/option-row.style";
+import StyledOption from "../../option/option.style";
+import Option, { OptionProps } from "../../option";
+import OptionRow, {
+  OptionRowProps,
+} from "../../option-row/option-row.component";
 import highlightPartOfText from "./highlight-part-of-text";
 
 const filterOptions = (option: React.ReactElement, filterText: string) => {

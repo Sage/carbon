@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import getNextChildByText from "./get-next-child-by-text";
-import Option from "../option";
+import Option from "../../option";
 
 function renderList(renderer = mount) {
   return renderer(

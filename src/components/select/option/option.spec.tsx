@@ -2,7 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import Option, { OptionProps } from ".";
-import SelectListContext from "../__internal__/select-list-context";
+import SelectListContext from "../__internal__/select-list/select-list.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 
 const mockedGuid = "guid-12345";

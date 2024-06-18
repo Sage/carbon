@@ -16,9 +16,9 @@ import {
 } from "@tanstack/react-virtual";
 import findLastIndex from "lodash/findLastIndex";
 
-import usePrevious from "../../../hooks/__internal__/usePrevious";
-import useScrollBlock from "../../../hooks/__internal__/useScrollBlock";
-import useModalManager from "../../../hooks/__internal__/useModalManager";
+import usePrevious from "../../../../hooks/__internal__/usePrevious";
+import useScrollBlock from "../../../../hooks/__internal__/useScrollBlock";
+import useModalManager from "../../../../hooks/__internal__/useModalManager";
 import {
   StyledSelectList,
   StyledSelectLoaderContainer,
@@ -28,15 +28,15 @@ import {
   StyledSelectListContainer,
   StyledScrollableContainer,
 } from "./select-list.style";
-import Popover from "../../../__internal__/popover";
-import OptionRow from "../option-row/option-row.component";
+import Popover from "../../../../__internal__/popover";
+import OptionRow from "../../option-row/option-row.component";
 import getNextChildByText from "../utils/get-next-child-by-text";
 import getNextIndexByKey from "../utils/get-next-index-by-key";
 import isNavigationKey from "../utils/is-navigation-key";
 import ListActionButton from "../list-action-button";
-import Loader from "../../loader";
-import Option, { OptionProps } from "../option";
-import SelectListContext from "../__internal__/select-list-context";
+import Loader from "../../../loader";
+import Option, { OptionProps } from "../../option";
+import SelectListContext from "./select-list.context";
 
 export interface SelectListProps {
   /** The ID for the parent <div> */

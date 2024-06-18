@@ -1,5 +1,5 @@
-import Option from "../option";
-import OptionRow from "../option-row/option-row.component";
+import Option from "../../option";
+import OptionRow from "../../option-row/option-row.component";
 import isExpectedValue from "./is-expected-value";
 
 export default function isExpectedOption(

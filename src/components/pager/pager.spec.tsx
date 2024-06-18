@@ -7,7 +7,7 @@ import { simulateSelectTextboxEvent } from "../../__spec_helper__/__internal__/s
 import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import Pager, { PagerProps } from "./pager.component";
 import { Select } from "../select";
-import SelectList from "../select/select-list/select-list.component";
+import SelectList from "../select/__internal__/select-list/select-list.component";
 import {
   StyledPagerLink,
   StyledPagerNavInner,

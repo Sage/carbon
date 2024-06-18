@@ -9,17 +9,17 @@ import {
   StyledSelectListContainer,
   StyledScrollableContainer,
 } from "./select-list.style";
-import Option from "../option";
-import OptionRow from "../option-row/option-row.component";
-import OptionGroupHeader from "../option-group-header";
+import Option from "../../option";
+import OptionRow from "../../option-row/option-row.component";
+import OptionGroupHeader from "../../option-group-header";
 import ListActionButton from "../list-action-button";
-import Loader from "../../loader";
-import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
-import Popover from "../../../__internal__/popover";
-import * as guidModule from "../../../__internal__/utils/helpers/guid";
-import StyledOption from "../option/option.style";
-import StyledOptionRow from "../option-row/option-row.style";
-import StyledOptionGroupHeader from "../option-group-header/option-group-header.style";
+import Loader from "../../../loader";
+import { assertStyleMatch } from "../../../../__spec_helper__/__internal__/test-utils";
+import Popover from "../../../../__internal__/popover";
+import * as guidModule from "../../../../__internal__/utils/helpers/guid";
+import StyledOption from "../../option/option.style";
+import StyledOptionRow from "../../option-row/option-row.style";
+import StyledOptionGroupHeader from "../../option-group-header/option-group-header.style";
 
 const mockedGuid = "guid-12345";
 const guidSpy = jest.spyOn(guidModule, "default");

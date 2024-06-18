@@ -1,7 +1,7 @@
 import React from "react";
 import StyledListActionButtonWrapper from "./list-action-button.style";
-import useLocale from "../../../hooks/__internal__/useLocale";
-import Button from "../../button";
+import useLocale from "../../../../hooks/__internal__/useLocale";
+import Button from "../../../button";
 
 export interface ListActionButtonProps {
   listActionButton?: boolean | React.ReactNode;

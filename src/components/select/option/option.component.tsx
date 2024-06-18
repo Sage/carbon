@@ -2,7 +2,7 @@ import React, { useContext, useRef } from "react";
 import guid from "../../../__internal__/utils/helpers/guid";
 import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import StyledOption from "./option.style";
-import SelectListContext from "../__internal__/select-list-context";
+import SelectListContext from "../__internal__/select-list/select-list.context";
 
 export interface OptionProps
   extends Omit<
