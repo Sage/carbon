@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
+import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row.context";
 import FlatTableContext from "./flat-table.context";
 
 export default (id: string) => {

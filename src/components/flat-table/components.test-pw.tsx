@@ -30,7 +30,7 @@ import ActionPopoverItem from "../action-popover/action-popover-item/action-popo
 import ActionPopoverMenu from "../action-popover/action-popover-menu/action-popover-menu.component";
 import Link from "../link";
 import { CHARACTERS } from "../../../playwright/support/constants";
-import { FlatTableRowContextProps } from "./flat-table-row/__internal__/flat-table-row-context";
+import { FlatTableRowContextProps } from "./flat-table-row/__internal__/flat-table-row.context";
 
 type SortType = "ascending" | "descending";
 type SortValue = "client" | "total";
