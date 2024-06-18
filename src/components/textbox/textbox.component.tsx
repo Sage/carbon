@@ -20,7 +20,7 @@ import useInputAccessibility from "../../hooks/__internal__/useInputAccessibilit
 import { ErrorBorder, StyledHintText } from "./textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
-import NumeralDateContext from "../numeral-date/numeral-date-context";
+import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";
 import guid from "../../__internal__/utils/helpers/guid";

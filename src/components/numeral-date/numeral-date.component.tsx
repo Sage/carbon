@@ -17,7 +17,7 @@ import FormField from "../../__internal__/form-field";
 import { InputGroupBehaviour } from "../../__internal__/input-behaviour";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
-import NumeralDateContext from "./numeral-date-context";
+import NumeralDateContext from "./__internal__/numeral-date.context";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import Logger from "../../__internal__/utils/logger";
 import Locale from "../../locales/locale";
