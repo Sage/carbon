@@ -1,3 +1,10 @@
+### [138.1.1](https://github.com/Sage/carbon/compare/v138.1.0...v138.1.1) (2024-06-18)
+
+
+### Bug Fixes
+
+* **menu:** ensure scrollbars meet colour contrast guidelines ([98244cd](https://github.com/Sage/carbon/commit/98244cd29099c48600d84e88b4181e0f28463743))
+
 ## [138.1.0](https://github.com/Sage/carbon/compare/v138.0.2...v138.1.0) (2024-06-14)
 
 
