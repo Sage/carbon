@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import PicklistGroup, { PicklistGroupProps } from "./picklist-group.component";
 import PicklistItem from "../picklist-item/picklist-item.component";
 import { StyledGroupButton } from "./picklist-group.style";
-import FocusContext from "../duelling-picklist.context";
+import FocusContext from "../__internal__/duelling-picklist.context";
 import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import { StyledButton } from "../picklist-item/picklist-item.style";
 

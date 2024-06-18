@@ -13,7 +13,7 @@ import {
   StyledPicklistGroup,
   StyledGroupButton,
 } from "./picklist-group.style";
-import FocusContext from "../duelling-picklist.context";
+import FocusContext from "../__internal__/duelling-picklist.context";
 import Events from "../../../__internal__/utils/helpers/events";
 
 export interface PicklistGroupProps {
