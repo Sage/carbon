@@ -1,2 +1,2 @@
-export { default, ModalContext } from "./modal.component";
-export type { ModalProps, ModalContextProps } from "./modal.component";
+export { default } from "./modal.component";
+export type { ModalProps } from "./modal.component";

@@ -12,7 +12,7 @@ import { act } from "react-dom/test-utils";
 
 import FocusTrap, { FocusTrapProps } from "./focus-trap.component";
 import { RadioButton, RadioButtonGroup } from "../../components/radio-button";
-import { ModalContext } from "../../components/modal/modal.component";
+import ModalContext from "../../components/modal/__internal__/modal.context";
 import TopModalContext from "../../components/carbon-provider/top-modal-context";
 import { Option, Select } from "../../components/select";
 import { Checkbox } from "../../components/checkbox";

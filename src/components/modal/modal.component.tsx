@@ -7,14 +7,7 @@ import Events from "../../__internal__/utils/helpers/events";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-
-export interface ModalContextProps {
-  isInModal?: boolean;
-  isAnimationComplete?: boolean;
-  triggerRefocusFlag?: boolean;
-}
-
-export const ModalContext = React.createContext<ModalContextProps>({});
+import ModalContext from "./__internal__/modal.context";
 
 export interface ModalProps extends TagProps {
   /** Custom class name  */
