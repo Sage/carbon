@@ -17,7 +17,7 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from "./index";
-import ActionPopoverContext from "./action-popover-context";
+import ActionPopoverContext from "./__internal__/action-popover.context";
 import {
   MenuButton,
   Menu,
