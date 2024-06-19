@@ -15,8 +15,8 @@ export default {
     size: {
       control: {
         type: "select",
-        options: PROFILE_SIZES,
       },
+      options: PROFILE_SIZES,
     },
     mx: {
       control: {
