@@ -14,7 +14,7 @@ import {
 import StatusIcon from "./__internal__/status-icon";
 import { ActionPopover } from "../action-popover";
 import { getDecoratedValue } from "../text-editor/__internal__/utils";
-import { EditorContext } from "../text-editor/text-editor.component";
+import EditorContext from "../text-editor/__internal__/editor.context";
 import LinkPreview, { LinkPreviewProps } from "../link-preview";
 
 export interface NoteProps extends MarginProps {

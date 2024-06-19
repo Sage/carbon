@@ -56,14 +56,10 @@ import ValidationMessage from "../../__internal__/validation-message";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
 import Box from "../box";
 import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
+import EditorContext from "./__internal__/editor.context";
 
 const NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const INLINE_STYLES = [BOLD, ITALIC] as const;
-
-export const EditorContext = React.createContext<{
-  onLinkAdded?: (url: string) => void;
-  editMode?: boolean;
-}>({});
 
 export interface TextEditorProps extends MarginProps {
   /** The maximum characters that the input will accept */
