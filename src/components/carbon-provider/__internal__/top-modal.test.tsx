@@ -1,13 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { TopModalContextProvider } from "./top-modal-context";
+import TopModalProvider from "./top-modal-provider.component";
 
 const MockComponent = ({ providerOpen }: { providerOpen: boolean }) => (
-  <>
-    {providerOpen && (
-      <TopModalContextProvider>some children</TopModalContextProvider>
-    )}
-  </>
+  <>{providerOpen && <TopModalProvider>some children</TopModalProvider>}</>
 );
 
 describe("TopModalContextProvider", () => {

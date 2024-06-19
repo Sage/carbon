@@ -19,7 +19,7 @@ import useCharacterCount from "../../hooks/__internal__/useCharacterCount";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
 import { ErrorBorder, StyledHintText } from "./textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
-import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import NumeralDateContext from "../numeral-date/__internal__/numeral-date.context";
 import Box from "../box";
 import Logger from "../../__internal__/utils/logger";

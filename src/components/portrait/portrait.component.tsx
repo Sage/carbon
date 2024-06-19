@@ -15,7 +15,7 @@ import {
   StyledPortraitGravatar,
 } from "./portrait.style";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import { NewValidationContext as RoundedCornersOptOutContext } from "../carbon-provider/carbon-provider.component";
+import RoundedCornersOptOutContext from "../carbon-provider/__internal__/new-validation.context";
 
 export type PortraitShapes = "circle" | "square";
 

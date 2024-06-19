@@ -4,7 +4,7 @@ import InputPresentationStyle, {
   StyledInputPresentationContainer,
 } from "./input-presentation.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
-import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
+import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 import { ValidationProps } from "../validations";
 
 export type Sizes = "small" | "medium" | "large";

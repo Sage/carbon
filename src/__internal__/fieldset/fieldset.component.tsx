@@ -7,7 +7,7 @@ import {
   StyledLegendContent,
 } from "./fieldset.style";
 import ValidationIcon from "../validations/validation-icon.component";
-import { NewValidationContext } from "../../components/carbon-provider/carbon-provider.component";
+import NewValidationContext from "../../components/carbon-provider/__internal__/new-validation.context";
 import { InputGroupBehaviour, InputGroupContext } from "../input-behaviour";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 

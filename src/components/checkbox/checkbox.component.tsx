@@ -11,7 +11,7 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import CheckboxGroupContext from "./checkbox-group/__internal__/checkbox-group.context";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
-import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 
 export interface CheckboxProps extends CommonCheckableInputProps, MarginProps {
   /** Breakpoint for adaptive spacing (left margin changes to 0). Enables the adaptive behaviour when set */

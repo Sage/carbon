@@ -50,7 +50,7 @@ import {
   BlockType,
 } from "./types";
 import { LinkPreviewProps } from "../link-preview";
-import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";

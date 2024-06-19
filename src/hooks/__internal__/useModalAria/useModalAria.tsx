@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import TopModalContext from "../../../components/carbon-provider/top-modal-context";
+import TopModalContext from "../../../components/carbon-provider/__internal__/top-modal.context";
 
 export default function useModalAria(
   containerRef: React.RefObject<HTMLDivElement>

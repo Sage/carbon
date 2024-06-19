@@ -13,7 +13,7 @@ import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 import Events from "../../../__internal__/utils/helpers/events";
-import { NewValidationContext } from "../../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {

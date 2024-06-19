@@ -3,7 +3,7 @@ import { MarginProps } from "styled-system";
 
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import { FieldsetStyle, StyledLegend } from "./fieldset.style";
-import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import FormSpacingProvider from "../../__internal__/form-spacing-provider";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 
