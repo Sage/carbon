@@ -2,8 +2,7 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import enGB from "../../locales/en-gb";
-import { StepFlow } from "./index";
-import { StepFlowHandle, Steps } from "./step-flow.component";
+import { StepFlow, StepFlowHandle, Steps } from ".";
 import Button from "../button";
 import I18nProvider from "../i18n-provider";
 

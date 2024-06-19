@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
 import Button from "../button";
 import Box from "../box";
-import { StepFlow, StepFlowProps } from ".";
-import { StepFlowHandle } from "./step-flow.component";
+import { StepFlow, StepFlowProps, StepFlowHandle } from ".";
 
 export const StepFlowComponent = (props: Partial<StepFlowProps>) => (
   <StepFlow title="foo" currentStep={1} totalSteps={8} {...props} />

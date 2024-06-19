@@ -9,7 +9,7 @@ import {
   StepFlowComponentWithRefAndButtons,
 } from "./components.test-pw";
 
-import { Steps } from "./step-flow.component";
+import { Steps } from ".";
 
 import {
   stepFlowProgressIndicator,

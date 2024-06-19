@@ -10,8 +10,7 @@ import Dialog from "../dialog";
 import Typography from "../typography";
 import Textarea from "../textarea";
 
-import { Steps, StepFlowHandle } from "./step-flow.component";
-import { StepFlow } from ".";
+import { StepFlow, StepFlowHandle, Steps } from ".";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
