@@ -14,7 +14,9 @@ import FormFieldStyle, { FieldLineStyle } from "./form-field.style";
 import Label, { LabelProps } from "../label";
 import FieldHelp from "../field-help";
 import tagComponent, { TagProps } from "../utils/helpers/tags/tags";
-import { TabContext, TabContextProps } from "../../components/tabs/tab";
+import TabContext, {
+  TabContextProps,
+} from "../../components/tabs/tab/__internal__/tab.context";
 import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint";
 import { IconType } from "../../components/icon";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";

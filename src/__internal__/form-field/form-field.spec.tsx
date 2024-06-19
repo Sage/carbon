@@ -4,7 +4,7 @@ import FormField, { FormFieldProps } from "./form-field.component";
 import FieldHelp from "../field-help";
 import { FieldLineStyle } from "./form-field.style";
 import Label from "../label";
-import { TabContext } from "../../components/tabs/tab";
+import TabContext from "../../components/tabs/tab/__internal__/tab.context";
 import {
   assertStyleMatch,
   mockMatchMedia,

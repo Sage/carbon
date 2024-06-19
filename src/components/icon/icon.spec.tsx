@@ -24,7 +24,7 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import getColorValue from "../../style/utils/get-color-value";
 import { IconType } from "./icon-type";
 import { TooltipPositions } from "../tooltip/tooltip.config";
-import { TabTitleContext } from "../tabs/__internal__/tab-title/tab-title.component";
+import TabTitleContext from "../tabs/__internal__/tab-title/tab-title.context";
 import Logger from "../../__internal__/utils/logger";
 
 interface MismatchedPairs {
