@@ -6,7 +6,7 @@ import tagComponent, {
 
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import { IconType } from "../../icon";
-import VerticalMenuFullScreenContext from "../vertical-menu-full-screen/vertical-menu-full-screen.context";
+import VerticalMenuFullScreenContext from "../vertical-menu-full-screen/__internal__/vertical-menu-full-screen.context";
 import {
   StyledVerticalMenuItem,
   StyledTitle,
@@ -15,10 +15,7 @@ import {
   StyledChevronIcon,
   StyledTitleIcon,
 } from "../vertical-menu.style";
-
-const MenuItemContext = React.createContext({
-  level: 0,
-});
+import MenuItemContext from "./__internal__/menu-item.context";
 
 export interface VerticalMenuItemProps<T = React.ElementType>
   extends PaddingProps,
