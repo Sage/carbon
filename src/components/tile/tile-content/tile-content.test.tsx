@@ -7,7 +7,7 @@ import {
   testStyledSystemSpacing,
   testStyledSystemWidth,
 } from "../../../__spec_helper__/__internal__/test-utils";
-import TileContext from "../__internal__/tile-context";
+import TileContext from "../__internal__/tile.context";
 
 describe("TileContent", () => {
   testStyledSystemSpacing((props) => (
