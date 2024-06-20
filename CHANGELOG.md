@@ -1,3 +1,10 @@
+### [138.2.1](https://github.com/Sage/carbon/compare/v138.2.0...v138.2.1) (2024-06-20)
+
+
+### Bug Fixes
+
+* **action-popover:** right arrow in menu item with submenu not aligned with text in safari ([3884642](https://github.com/Sage/carbon/commit/388464237431635dd9c957d9529ea8ef73ad38d4))
+
 ## [138.2.0](https://github.com/Sage/carbon/compare/v138.1.1...v138.2.0) (2024-06-18)
 
 
