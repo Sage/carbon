@@ -12,6 +12,9 @@ export default {
     alternate: "var(--colorsComponentsMenuSpringChildAlt500)",
     alternateHover: "var(--colorsComponentsMenuSpringChildAlt600)",
     divider: "var(--colorsComponentsMenuSpringChild400)",
+    scrollbarThumb: "#597a8b",
+    scrollbarTrack: "#f2f5f6",
+    scrollbarColor: "#597a8b #f2f5f6",
   },
   dark: {
     background: "var(--colorsComponentsMenuAutumnStandard500)",
@@ -26,6 +29,9 @@ export default {
     alternate: "var(--colorsComponentsMenuAutumnChildAlt500)",
     alternateHover: "var(--colorsComponentsMenuAutumnChildAlt600)",
     divider: "var(--colorsComponentsMenuAutumnChild400)",
+    scrollbarThumb: "#597a8b",
+    scrollbarTrack: "#f2f5f6",
+    scrollbarColor: "#597a8b #f2f5f6",
   },
   black: {
     background: "var(--colorsComponentsMenuWinterStandard500)",
@@ -40,6 +46,9 @@ export default {
     alternate: "var(--colorsComponentsMenuWinterChildAlt500)",
     alternateHover: "var(--colorsComponentsMenuWinterChildAlt600)",
     divider: "var(--colorsComponentsMenuWinterChild400)",
+    scrollbarThumb: "#CCCCCC",
+    scrollbarTrack: "#808080",
+    scrollbarColor: "#CCCCCC #808080",
   },
   white: {
     background: "var(--colorsComponentsMenuSummerStandard500)",
@@ -54,5 +63,8 @@ export default {
     alternate: "var(--colorsComponentsMenuSummerChildAlt500)",
     alternateHover: "var(--colorsComponentsMenuSummerChildAlt600)",
     divider: "var(--colorsComponentsMenuSummerChild400)",
+    scrollbarThumb: "#597a8b",
+    scrollbarTrack: "#f2f5f6",
+    scrollbarColor: "#597a8b #f2f5f6",
   },
 };

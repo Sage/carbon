@@ -2512,6 +2512,66 @@ test.describe(
       );
     });
 
+    test("should apply the expected styling to the scrollbar when menuType is white", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable />);
+      const subMenu = submenu(page).first();
+      await subMenu.hover();
+      const scrollableBlock = scrollBlock(page).first();
+
+      await expect(scrollableBlock).toHaveCSS(
+        "scrollbar-color",
+        "rgb(89, 122, 139) rgb(242, 245, 246)"
+      );
+    });
+
+    test("should apply the expected styling to the scrollbar when menuType is light", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable />);
+      const subMenu = submenu(page).nth(2);
+      await subMenu.hover();
+      const scrollableBlock = scrollBlock(page).first();
+
+      await expect(scrollableBlock).toHaveCSS(
+        "scrollbar-color",
+        "rgb(89, 122, 139) rgb(242, 245, 246)"
+      );
+    });
+
+    test("should apply the expected styling to the scrollbar when menuType is dark", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable />);
+      const subMenu = submenu(page).nth(5);
+      await subMenu.hover();
+      const scrollableBlock = scrollBlock(page).first();
+
+      await expect(scrollableBlock).toHaveCSS(
+        "scrollbar-color",
+        "rgb(89, 122, 139) rgb(242, 245, 246)"
+      );
+    });
+
+    test("should apply the expected styling to the scrollbar when menuType is black", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuComponentScrollable />);
+      const subMenu = submenu(page).nth(6);
+      await subMenu.hover();
+      const scrollableBlock = scrollBlock(page).first();
+
+      await expect(scrollableBlock).toHaveCSS(
+        "scrollbar-color",
+        "rgb(204, 204, 204) rgb(128, 128, 128)"
+      );
+    });
+
     test(`should verify that tabbing forward through the menu and back to the start should not make the background scroll to the bottom`, async ({
       mount,
       page,
