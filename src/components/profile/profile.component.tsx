@@ -96,17 +96,21 @@ export const Profile = ({
           <ProfileNameStyle size={size} data-element="name">
             {name}
           </ProfileNameStyle>
-          <ProfileEmailStyle
-            href={`mailto: ${email}`}
-            size={size}
-            darkBackground={darkBackground}
-            data-element="email"
-          >
-            {email}
-          </ProfileEmailStyle>
-          <ProfileTextStyle size={size} data-element="text">
-            {text}
-          </ProfileTextStyle>
+          {email && (
+            <ProfileEmailStyle
+              href={`mailto: ${email}`}
+              size={size}
+              darkBackground={darkBackground}
+              data-element="email"
+            >
+              {email}
+            </ProfileEmailStyle>
+          )}
+          {text && (
+            <ProfileTextStyle size={size} data-element="text">
+              {text}
+            </ProfileTextStyle>
+          )}
         </ProfileDetailsStyle>
       );
     return null;

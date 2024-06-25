@@ -291,6 +291,15 @@ test.describe("should check Accessibility tests for Profile component", () => {
     });
   });
 
+  test("should pass accessibility tests when no email prop is passed", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<ProfileComponent email="" />);
+
+    await checkAccessibility(page);
+  });
+
   test("should pass accessibility tests with dark background variant", async ({
     mount,
     page,
