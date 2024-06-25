@@ -1,3 +1,24 @@
+### [138.2.1](https://github.com/Sage/carbon/compare/v138.2.0...v138.2.1) (2024-06-20)
+
+
+### Bug Fixes
+
+* **action-popover:** right arrow in menu item with submenu not aligned with text in safari ([3884642](https://github.com/Sage/carbon/commit/388464237431635dd9c957d9529ea8ef73ad38d4))
+
+## [138.2.0](https://github.com/Sage/carbon/compare/v138.1.1...v138.2.0) (2024-06-18)
+
+
+### Features
+
+* **select-list:** ensure virtualised Select list container always has at least 1 pixel of height ([99bdeaf](https://github.com/Sage/carbon/commit/99bdeafd632fd3b97aef18b4bc22b07847d62723))
+
+### [138.1.1](https://github.com/Sage/carbon/compare/v138.1.0...v138.1.1) (2024-06-18)
+
+
+### Bug Fixes
+
+* **menu:** ensure scrollbars meet colour contrast guidelines ([98244cd](https://github.com/Sage/carbon/commit/98244cd29099c48600d84e88b4181e0f28463743))
+
 ## [138.1.0](https://github.com/Sage/carbon/compare/v138.0.2...v138.1.0) (2024-06-14)
 
 

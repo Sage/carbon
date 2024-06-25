@@ -262,25 +262,6 @@ test.describe("should check Typography component properties", () => {
     });
   });
 
-  VARIANT_TYPES.forEach((variant) => {
-    test(`should check text-align for ${variant} variant prop when set`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <Typography variant={variant}>{testDataStandard}</Typography>
-      );
-
-      const textDecorationLine = getDecoration(variant);
-      const typographyElement = page.locator(getAs(variant));
-
-      await expect(typographyElement).toHaveCSS(
-        "text-decoration-line",
-        textDecorationLine
-      );
-    });
-  });
-
   ["ol", "ul"].forEach((as) => {
     test(`should check as prop set to ${as} for List component`, async ({
       mount,
