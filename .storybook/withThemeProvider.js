@@ -69,8 +69,8 @@ const withThemeProvider = makeDecorator({
 
       const fonts = [
         "400 1em Sage UI",
+        "500 1em Sage UI",
         "700 1em Sage UI",
-        "900 1em Sage UI",
         "1em CarbonIcons",
       ];
 
