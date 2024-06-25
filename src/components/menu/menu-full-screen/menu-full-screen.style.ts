@@ -95,13 +95,21 @@ const StyledMenuModal = styled.div<{ menuType: MenuType }>`
         }
       }
     }
-  `}
 
-  ${StyledBox} {
-    &::-webkit-scrollbar {
-      width: 16px;
+    ${StyledBox} {
+      scrollbar-color: ${menuConfigVariants[menuType].scrollbarColor};
+
+      &::-webkit-scrollbar {
+        width: var(--sizing150);
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: ${menuConfigVariants[menuType].scrollbarThumb};
+      }
+      &::-webkit-scrollbar-track {
+        background-color: ${menuConfigVariants[menuType].scrollbarTrack};
+      }
     }
-  }
+  `}
 `;
 
 const StyledMenuFullscreenHeader = styled.div<{
