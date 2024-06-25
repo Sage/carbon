@@ -1,3 +1,10 @@
+### [138.2.2](https://github.com/Sage/carbon/compare/v138.2.1...v138.2.2) (2024-06-25)
+
+
+### Bug Fixes
+
+* **profile:** accessibility violation when no email is provided ([77523e8](https://github.com/Sage/carbon/commit/77523e8770716aa88e86f930e38ecb152888527f)), closes [#6754](https://github.com/Sage/carbon/issues/6754)
+
 ### [138.2.1](https://github.com/Sage/carbon/compare/v138.2.0...v138.2.1) (2024-06-20)
 
 
