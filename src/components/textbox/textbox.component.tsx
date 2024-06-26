@@ -48,7 +48,7 @@ export interface CommonTextboxProps
   deferTimeout?: number;
   /** A hint string rendered before the input but after the label. Intended to describe the purpose or content of the input. */
   inputHint?: string;
-  /** Help content to be displayed under an input */
+  /** [Legacy] Help content to be displayed under an input. */
   fieldHelp?: React.ReactNode;
   /**
    * An optional alternative for props.value, this is useful if the
@@ -82,18 +82,19 @@ export interface CommonTextboxProps
   leftChildren?: React.ReactNode;
   /** Label content */
   label?: string;
-  /** Inline label alignment */
+  /** [Legacy] Inline label alignment */
   labelAlign?: "left" | "right";
-  /** [Legacy] Text applied to label help tooltip. When opted into new design validations
+  /**
+   * [Legacy] Text applied to label help tooltip. When opted into new design validations
    * it will render as a hint above the input, unless an `inputHint`
-   * prop is also passed
+   * prop is also passed.
    */
   labelHelp?: React.ReactNode;
-  /** When true label is inline */
+  /** [Legacy] When true label is inline. */
   labelInline?: boolean;
-  /** Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8) */
+  /** [Legacy] Spacing between label and a field for inline label, given number will be multiplied by base spacing unit (8). */
   labelSpacing?: 1 | 2;
-  /** Label width */
+  /** [Legacy] Label width. */
   labelWidth?: number;
   /** Specify a callback triggered on change */
   onChange?: (ev: React.ChangeEvent<HTMLInputElement>) => void;
@@ -115,11 +116,11 @@ export interface CommonTextboxProps
   reverse?: boolean;
   /** Size of an input */
   size?: "small" | "medium" | "large";
-  /** When true, validation icon will be placed on label instead of being placed on the input */
+  /** [Legacy] When true, validation icon will be placed on label instead of being placed on the input. */
   validationOnLabel?: boolean;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position. */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Aria label for rendered help component */
+  /** [Legacy] Aria label for rendered help component. */
   helpAriaLabel?: string;
   /** Flag to configure component as optional. */
   isOptional?: boolean;

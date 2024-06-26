@@ -86,17 +86,25 @@ For screen reader users, the designated `characterCount.visuallyHiddenHint` key 
 
 <Canvas of={TextEditorStories.CharacterCounterTranslations} />
 
-### With validation
+### Validation
 
-It is possible apply validation to the `TextEditor` component by passing the desired string message to one of the `error`,
-`warning` or `info` props. When an `error` message is provided the border styling of the editor is updated to indicate
-this status.
+Validation status can be set by passing `error`, `warning` or `info` prop to the component.
+
+Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
+
+Passing a boolean to these props will display only a properly colored border.
+
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 <Canvas of={TextEditorStories.WithValidation} />
 
 With use of `template strings` it is possible to pass multiline validation messages to the component.
 
 <Canvas of={TextEditorStories.WithMultilineValidation} />
+
+#### New designs validation
+
+The following examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
 
 <Canvas of={TextEditorStories.WithNewValidation} />
 

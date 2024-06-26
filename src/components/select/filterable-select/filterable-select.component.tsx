@@ -28,7 +28,7 @@ export interface FilterableSelectProps
   extends Omit<FormInputPropTypes, "defaultValue" | "value"> {
   /** Prop to specify the aria-label attribute of the component input */
   "aria-label"?: string;
-  /** Prop to specify the aria-labeledby property of the component input */
+  /** Prop to specify the aria-labelledby property of the component input */
   "aria-labelledby"?: string;
   /** Identifier used for testing purposes, applied to the root element of the component. */
   "data-component"?: string;
@@ -66,7 +66,7 @@ export interface FilterableSelectProps
   tableHeader?: React.ReactNode;
   /** The selected value(s), when the component is operating in controlled mode */
   value?: string | Record<string, unknown>;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** Maximum list height - defaults to 180 */
   listMaxHeight?: number;

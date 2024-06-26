@@ -89,7 +89,13 @@ Include the formatted number count wherever makes sense for the language you're 
 
 ### With labelInline
 
+**Note:** The `labelInline` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true. 
+
 <Canvas of={TextboxStories.WithLabelInline} />
+
+### LabelAlign
+
+<Canvas of={TextboxStories.LabelAlign} />
 
 ### With custom labelWidth and inputWidth
 
@@ -126,19 +132,15 @@ You can use the `isOptional` prop to indicate if the field is mandatory.
 
 <Canvas of={TextboxStories.IsOptional} />
 
-### LabelAlign
-
-<Canvas of={TextboxStories.LabelAlign} />
-
 ### Validations
 
-Validation status can be set by passing `error`, `warning` or `info` prop to the component
+Validation status can be set by passing `error`, `warning` or `info` prop to the component.
 
 Passing a string to these props will display a properly colored border along with a validation icon and tooltip - string value will be displayed as the tooltip message.
 
 Passing a boolean to these props will display only a properly colored border.
 
-For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page
+For more information check our [Validations](../?path=/docs/documentation-validations--docs) documentation page.
 
 #### As a string
 
@@ -152,10 +154,6 @@ It is possible to use the `tooltipPosition` to override the default placement of
 
 <Canvas of={TextboxStories.ValidationsAsAStringDisplayedOnLabel} />
 
-#### New designs validation
-
-<Canvas of={TextboxStories.NewDesignsValidation} />
-
 It is possible to use the `tooltipPosition` to override the default placement of tooltips rendered as part of this component.
 
 <Canvas of={TextboxStories.ValidationsAsAStringWithTooltipDefault} />
@@ -163,6 +161,12 @@ It is possible to use the `tooltipPosition` to override the default placement of
 #### As a boolean
 
 <Canvas of={TextboxStories.ValidationsAsABoolean} />
+
+#### New designs validation
+
+The folowing examples use the new validation pattern that is available by setting the `validationRedesignOptIn` flag on the `CarbonProvider` to true.
+
+<Canvas of={TextboxStories.NewDesignsValidation} />
 
 ## Props
 

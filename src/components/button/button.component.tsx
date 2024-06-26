@@ -158,7 +158,7 @@ RenderChildrenProps) {
             {children}
           </StyledButtonMainText>
           {size === "large" && (
-            <StyledButtonSubtext data-element="subtext">
+            <StyledButtonSubtext data-element="subtext" data-role="subtext">
               {subtext}
             </StyledButtonSubtext>
           )}

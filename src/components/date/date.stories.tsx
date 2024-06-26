@@ -377,7 +377,6 @@ export const ValidationsStringNewDesign: Story = () => {
               label={`${size} - ${validationType}`}
               value={state1}
               onChange={setValue1}
-              validationOnLabel
               size={size}
               {...{ [validationType]: "Message" }}
               m={4}
@@ -386,7 +385,6 @@ export const ValidationsStringNewDesign: Story = () => {
               label={`readOnly - ${size} - ${validationType}`}
               value={state2}
               onChange={setValue2}
-              validationOnLabel
               size={size}
               readOnly
               {...{ [validationType]: "Message" }}

@@ -15,15 +15,18 @@ import { ErrorBorder } from "../../textbox/textbox.style";
 export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   /** The content for the CheckboxGroup Legend */
   legend?: string;
-  /** The content for the CheckboxGroup Legend Help text  */
+  /**
+   * The content for the CheckboxGroup Help tooltip,
+   * will be rendered as hint text when `validationRedesignOptIn` is true.
+   */
   legendHelp?: string;
-  /** When true, legend is placed inline with the checkboxes */
+  /** [Legacy] When true, legend is placed inline with the checkboxes */
   legendInline?: boolean;
-  /** Percentage width of legend (only when legend is inline)  */
+  /** [Legacy] Percentage width of legend (only when legend is inline)  */
   legendWidth?: number;
-  /** Text alignment of legend when inline */
+  /** [Legacy] Text alignment of legend when inline */
   legendAlign?: "left" | "right";
-  /** Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
+  /** [Legacy] Spacing between legend and field for inline legend, number multiplied by base spacing unit (8) */
   legendSpacing?: 1 | 2;
   /** The Checkboxes to be rendered in the group */
   children: React.ReactNode;
@@ -33,7 +36,7 @@ export interface CheckboxGroupProps extends ValidationProps, MarginProps {
   required?: boolean;
   /** Flag to configure component as optional. */
   isOptional?: boolean;
-  /** Overrides the default tooltip */
+  /** [Legacy] Overrides the default tooltip */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
   /** When true, Checkboxes are in line */
   inline?: boolean;
