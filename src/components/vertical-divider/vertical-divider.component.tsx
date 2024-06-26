@@ -131,6 +131,7 @@ export const VerticalDivider = ({
   return (
     <StyledVerticalWrapper
       data-component="vertical-divider"
+      data-role="vertical-divider"
       p={props.p || 3}
       height={h || height}
       displayInline={displayInline}
@@ -138,7 +139,7 @@ export const VerticalDivider = ({
       as={inMenu ? "li" : "div"}
       aria-hidden={!!inMenu}
     >
-      <StyledDivider tint={tint} />
+      <StyledDivider data-role="divider" tint={tint} />
     </StyledVerticalWrapper>
   );
 };
