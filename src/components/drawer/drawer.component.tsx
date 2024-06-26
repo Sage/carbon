@@ -14,12 +14,13 @@ import {
   StyledSidebarTitle,
 } from "./drawer.style";
 import StickyFooter from "../../__internal__/sticky-footer";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
 export interface DrawerSidebarContextProps {
   isInSidebar: boolean;
 }
 
-export interface DrawerProps {
+export interface DrawerProps extends Omit<TagProps, "data-component"> {
   /** Duration of a animation */
   animationDuration?: string;
   /** Specify an aria-label for the Drawer component */
@@ -59,6 +60,9 @@ const DrawerSidebarContext = React.createContext<
 >({});
 
 export const Drawer = ({
+  "aria-label": ariaLabel,
+  "data-element": dataElement,
+  "data-role": dataRole = "drawer",
   defaultExpanded = true,
   expanded,
   onChange,
@@ -73,7 +77,6 @@ export const Drawer = ({
   height = "100%",
   stickyHeader,
   stickyFooter,
-  ...rest
 }: DrawerProps) => {
   const drawerSidebarContentRef = useRef<HTMLDivElement | null>(null);
   const scrollableContentRef = useRef<HTMLDivElement | null>(null);
@@ -206,7 +209,13 @@ export const Drawer = ({
   };
 
   return (
-    <StyledDrawerWrapper data-component="drawer" height={height} {...rest}>
+    <StyledDrawerWrapper
+      aria-label={ariaLabel}
+      data-component="drawer"
+      data-element={dataElement}
+      data-role={dataRole}
+      height={height}
+    >
       <StyledDrawerContent
         expandedWidth={expandedWidth}
         animationDuration={animationDuration}
@@ -214,9 +223,13 @@ export const Drawer = ({
         ref={drawerSidebarContentRef}
         backgroundColor={backgroundColor}
         data-element="drawer-content"
+        data-role="drawer-content"
       >
         {stickyHeader && (
-          <StyledSidebarHeader isExpanded={isExpanded}>
+          <StyledSidebarHeader
+            data-role="drawer-sidebar-header"
+            isExpanded={isExpanded}
+          >
             {title && <StyledSidebarTitle>{title}</StyledSidebarTitle>}
             {getControls()}
           </StyledSidebarHeader>
