@@ -562,6 +562,47 @@ test.skip("setting the topModalOverride prop should ensure the Dialog is rendere
   await expect(dialogFullscreenClose).toBeFocused();
 });
 
+test("dialog is centred in the viewport", async ({ mount, page }) => {
+  await page.setViewportSize({ width: 1024, height: 768 });
+  await mount(<DialogComponent />);
+
+  const dialog = page.getByRole("dialog");
+  const boundingBox = await dialog.boundingBox();
+  const viewportSize = page.viewportSize();
+
+  if (!boundingBox) throw new Error("Dialog not found or visible.");
+  if (!viewportSize) throw new Error("Unable to retrieve viewport size.");
+
+  const expectedXPosition = (viewportSize.width - boundingBox.width) / 2;
+  const expectedYPosition = (viewportSize.height - boundingBox.height) / 2;
+
+  expect(boundingBox.x).toBeCloseTo(expectedXPosition);
+  expect(boundingBox.y).toBeCloseTo(expectedYPosition);
+});
+
+test("dialog re-centres itself in the viewport, when viewport size changes", async ({
+  mount,
+  page,
+}) => {
+  await page.setViewportSize({ width: 1024, height: 768 });
+  await mount(<DialogComponent />);
+
+  await page.setViewportSize({ width: 800, height: 600 });
+
+  const dialog = page.getByRole("dialog");
+  const boundingBox = await dialog.boundingBox();
+  const viewportSize = page.viewportSize();
+
+  if (!boundingBox) throw new Error("Dialog not found or visible.");
+  if (!viewportSize) throw new Error("Unable to retrieve viewport size.");
+
+  const expectedXPosition = (viewportSize.width - boundingBox.width) / 2;
+  const expectedYPosition = (viewportSize.height - boundingBox.height) / 2;
+
+  expect(boundingBox.x).toBeCloseTo(expectedXPosition);
+  expect(boundingBox.y).toBeCloseTo(expectedYPosition);
+});
+
 test.describe(
   "Accessibility tests for playwright mock components and storybook stories",
   () => {

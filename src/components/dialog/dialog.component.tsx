@@ -36,7 +36,9 @@ export interface ContentPaddingInterface {
   px?: PaddingValues;
 }
 
-export interface DialogProps extends ModalProps, TagProps {
+export interface DialogProps
+  extends ModalProps,
+    Omit<TagProps, "data-component"> {
   /** Custom class name  */
   className?: string;
   /** Prop to specify the aria-describedby property of the Dialog component */
@@ -107,6 +109,8 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
   (
     {
       className,
+      "data-element": dataElement = "dialog",
+      "data-role": dataRole,
       children,
       open,
       height,
@@ -281,12 +285,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
       "aria-label": rest["aria-label"],
     };
 
-    const componentTags = {
-      "data-component": rest["data-component"] || "dialog",
-      "data-element": rest["data-element"],
-      "data-role": rest["data-role"],
-    };
-
     return (
       <Modal
         open={open}
@@ -295,7 +293,6 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
         disableClose={disableClose}
         className={className ? `${className} carbon-dialog` : "carbon-dialog"}
         topModalOverride={topModalOverride}
-        {...componentTags}
       >
         <FocusTrap
           autoFocus={!disableAutoFocus}
@@ -307,13 +304,13 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           additionalWrapperRefs={focusableContainers}
         >
           <StyledDialog
+            data-component="dialog"
+            data-element={dataElement}
+            data-role={dataRole}
             aria-modal={isTopModal ? true : undefined}
             ref={containerRef}
             topMargin={TOP_MARGIN}
             {...dialogProps}
-            data-component="dialog"
-            data-element="dialog"
-            data-role={rest["data-role"]}
             role={role}
             tabIndex={-1}
             {...contentPadding}
@@ -325,8 +322,9 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           >
             {dialogTitle()}
             {closeIcon()}
-            <StyledDialogContent {...contentPadding}>
+            <StyledDialogContent {...contentPadding} data-role="dialog-content">
               <StyledDialogInnerContent
+                data-role="dialog-inner-content"
                 ref={innerContentRef}
                 {...contentPadding}
               >
