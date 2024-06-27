@@ -1,3 +1,16 @@
+## [140.0.0](https://github.com/Sage/carbon/compare/v139.0.0...v140.0.0) (2024-06-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **dialog:** Removed `data-component` prop
+* **dialog:** Custom `data-element` and `data-role` tags are now placed on the
+main dialog element when provided
+
+### Bug Fixes
+
+* **dialog:** ensure data tag props are set on the correct internal element ([fba4db0](https://github.com/Sage/carbon/commit/fba4db0cfc92ba90371dbd812407fc9c34899bc4))
+
 ## [139.0.0](https://github.com/Sage/carbon/compare/v138.2.2...v139.0.0) (2024-06-27)
 
 
