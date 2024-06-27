@@ -1,7 +1,7 @@
 import React, { useContext, useMemo, useState } from "react";
 
 import Icon, { IconType } from "../icon";
-import MenuContext from "../menu/menu.context";
+import MenuContext from "../menu/__internal__/menu.context";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";

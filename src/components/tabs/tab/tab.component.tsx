@@ -2,12 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { PaddingProps } from "styled-system";
 import StyledTab from "./tab.style";
 import tagComponent from "../../../__internal__/utils/helpers/tags/tags";
-
-export interface TabContextProps {
-  setError?: (childId: string, error?: boolean | string) => void;
-  setWarning?: (childId: string, warning?: boolean | string) => void;
-  setInfo?: (childId: string, info?: boolean | string) => void;
-}
+import TabContext from "./__internal__/tab.context";
 
 export interface TabProps extends PaddingProps {
   title?: string;
@@ -54,8 +49,6 @@ export interface TabProps extends PaddingProps {
   /** @private @ignore */
   updateInfos?: (id: string, infos: Record<string, string | boolean>) => void;
 }
-
-const TabContext = React.createContext<TabContextProps>({});
 
 export const Tab = ({
   ariaLabelledby,
@@ -134,5 +127,4 @@ export const Tab = ({
   );
 };
 
-export { TabContext };
 export default Tab;

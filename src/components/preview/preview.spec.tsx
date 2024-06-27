@@ -4,7 +4,7 @@ import Preview, { PreviewProps } from ".";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import PreviewPlaceholder from "./__internal__/preview-placeholder.component";
 
 const render = (props: PreviewProps) => {

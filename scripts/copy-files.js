@@ -7,11 +7,13 @@ const packagePath = process.cwd();
 const cjsPath = path.join(packagePath, "./lib");
 const esmPath = path.join(packagePath, "./esm");
 const srcPath = path.join(packagePath, "./src");
+const specHelperInternalPath = "__spec_helper__/__internal__";
 
 async function createPackages({ from, to }) {
   const packageDirectories = glob
     .sync("**/*/index.{js,ts,tsx}", { cwd: from })
-    .map(path.dirname);
+    .map(path.dirname)
+    .filter((p) => !p.includes(specHelperInternalPath));
 
   await Promise.all(
     packageDirectories.map(async (packageDirectory) => {

@@ -15,10 +15,7 @@ import {
 } from "./drawer.style";
 import StickyFooter from "../../__internal__/sticky-footer";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
-
-export interface DrawerSidebarContextProps {
-  isInSidebar: boolean;
-}
+import DrawerSidebarContext from "./__internal__/drawer-sidebar.context";
 
 export interface DrawerProps extends Omit<TagProps, "data-component"> {
   /** Duration of a animation */
@@ -54,10 +51,6 @@ export interface DrawerProps extends Omit<TagProps, "data-component"> {
   /** Makes the footer of the drawer sticky. Footer prop must also be set. */
   stickyFooter?: boolean;
 }
-
-const DrawerSidebarContext = React.createContext<
-  Partial<DrawerSidebarContextProps>
->({});
 
 export const Drawer = ({
   "aria-label": ariaLabel,

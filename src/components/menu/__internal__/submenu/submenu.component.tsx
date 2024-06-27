@@ -11,7 +11,7 @@ import { MaxWidthProps } from "styled-system";
 import StyledMenuItemWrapper from "../../menu-item/menu-item.style";
 import { StyledSubmenu, StyledSubmenuWrapper } from "./submenu.style";
 import Events from "../../../../__internal__/utils/helpers/events";
-import MenuContext from "../../menu.context";
+import MenuContext from "../menu.context";
 import { characterNavigation } from "../keyboard-navigation";
 import SubmenuContext from "./submenu.context";
 import useClickAwayListener from "../../../../hooks/__internal__/useClickAwayListener";
@@ -24,7 +24,7 @@ import {
 } from "../locators";
 import { VariantType } from "../../menu-item";
 import useStableCallback from "../../../../hooks/__internal__/useStableCallback/useStableCallback";
-import FixedNavigationBarContext from "../../../navigation-bar/fixed-navigation-bar.context";
+import FixedNavigationBarContext from "../../../navigation-bar/__internal__/fixed-navigation-bar.context";
 
 export interface SubmenuProps {
   /** Children elements */

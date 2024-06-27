@@ -7,8 +7,9 @@ import {
   StyledFlatTableFooter,
   StyledTableContainer,
 } from "./flat-table.style";
-import { DrawerSidebarContext } from "../drawer";
+import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Events from "../../__internal__/utils/helpers/events/events";
+import FlatTableContext from "./__internal__/flat-table.context";
 
 export interface FlatTableProps extends MarginProps {
   /** The HTML id of the element that contains a description of this table. */
@@ -40,15 +41,6 @@ export interface FlatTableProps extends MarginProps {
   /** Width of the table. Any valid CSS string */
   width?: string;
 }
-
-export interface FlatTableThemeContextProps
-  extends Pick<FlatTableProps, "colorTheme" | "size"> {
-  getTabStopElementId: () => string;
-}
-
-export const FlatTableThemeContext = React.createContext<FlatTableThemeContextProps>(
-  { getTabStopElementId: () => "" }
-);
 
 const FOCUSABLE_ROW_AND_CELL_QUERY =
   "tbody tr[tabindex], tbody tr td[tabindex], tbody tr th[tabindex]";
@@ -268,7 +260,7 @@ export const FlatTable = ({
           {...tableStylingProps}
         >
           {caption ? <caption>{caption}</caption> : null}
-          <FlatTableThemeContext.Provider
+          <FlatTableContext.Provider
             value={{
               colorTheme,
               size,
@@ -276,7 +268,7 @@ export const FlatTable = ({
             }}
           >
             {children}
-          </FlatTableThemeContext.Provider>
+          </FlatTableContext.Provider>
         </StyledFlatTable>
       </StyledTableContainer>
       {footer && (

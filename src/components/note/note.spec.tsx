@@ -17,7 +17,7 @@ import LinkPreview from "../link-preview";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 
 function renderNote(props = {}) {
   const defaultProps = {

@@ -8,7 +8,7 @@ import StyledIconButton from "../../../icon-button/icon-button.style";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
-} from "../../../../__spec_helper__/test-utils";
+} from "../../../../__spec_helper__/__internal__/test-utils";
 
 describe("Sidebar Header", () => {
   testStyledSystemPadding((props) => <SidebarHeader id="foo" {...props} />, {

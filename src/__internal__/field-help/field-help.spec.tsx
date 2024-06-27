@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import FieldHelp, { FieldHelpProps } from "./field-help.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 
 function render(props?: FieldHelpProps) {
   return mount(<FieldHelp {...props}>help text</FieldHelp>);

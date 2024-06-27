@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import MenuContext from "../menu.context";
+import MenuContext from "../__internal__/menu.context";
 import MenuItem, { VariantType } from "../menu-item";
 import StyledScrollableBlock from "./scrollable-block.style";
 import Box from "../../box";

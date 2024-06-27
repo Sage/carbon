@@ -11,10 +11,7 @@ import ValidationIcon from "../../../../__internal__/validations/validation-icon
 import Icon from "../../../icon";
 import Events from "../../../../__internal__/utils/helpers/events";
 import { TooltipProvider } from "../../../../__internal__/tooltip-provider";
-
-interface TabTitleContextProps {
-  isInTab?: boolean;
-}
+import TabTitleContext from "./tab-title.context";
 
 export interface TabTitleProps {
   /** Identifier used for testing purposes */
@@ -51,8 +48,6 @@ export interface TabTitleProps {
     ev: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>
   ) => void;
 }
-
-export const TabTitleContext = React.createContext<TabTitleContextProps>({});
 
 const TabTitle = React.forwardRef(
   (

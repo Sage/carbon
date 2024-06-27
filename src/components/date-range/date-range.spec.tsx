@@ -9,7 +9,7 @@ import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledDateRange from "./date-range.style";
 import StyledDateInput from "../date/date.style";
 import Tooltip from "../tooltip";
@@ -18,7 +18,7 @@ import StyledValidationMessage from "../../__internal__/validation-message/valid
 import StyledLabel, {
   StyledLabelContainer,
 } from "../../__internal__/label/label.style";
-import { InputName } from "./date-range.context";
+import { InputName } from "./__internal__/date-range.context";
 
 const initialValues = ["10/10/2016", "11/11/2016"];
 const updatedValues = ["12/12/2012", "13/12/2012"];

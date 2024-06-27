@@ -26,6 +26,7 @@ async function run(bundle) {
     "**/*.d.ts",
     "**/*.pw.tsx",
     "**/*.test-pw.tsx",
+    "src/__spec_helper__/__internal__/**",
   ];
 
   const outDir = path.resolve(

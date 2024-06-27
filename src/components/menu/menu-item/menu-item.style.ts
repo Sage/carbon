@@ -4,7 +4,7 @@ import { StyledLink } from "../../link/link.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import menuConfigVariants from "../menu.config";
-import { MenuType } from "../menu.context";
+import { MenuType } from "../__internal__/menu.context";
 import { MenuWithChildren } from "./menu-item.component";
 import Link from "../../link";
 import addFocusStyling from "../../../style/utils/add-focus-styling";

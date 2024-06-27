@@ -13,7 +13,9 @@ import ActionPopoverItem, {
   ActionPopoverItemProps,
 } from "../action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "../action-popover-divider/action-popover-divider.component";
-import ActionPopoverContext, { Alignment } from "../action-popover-context";
+import ActionPopoverContext, {
+  Alignment,
+} from "../__internal__/action-popover.context";
 
 export interface ActionPopoverMenuBaseProps {
   /** Children for the menu */

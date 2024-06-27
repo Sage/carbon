@@ -11,7 +11,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import { StyledAdvancedColorPickerPreview } from "./advanced-color-picker.style";
 import Logger from "../../__internal__/utils/logger";
 

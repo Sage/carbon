@@ -9,7 +9,7 @@ import invariant from "invariant";
 import { filterStyledSystemPaddingProps } from "../../../style/utils";
 import StyledMenuItemWrapper from "./menu-item.style";
 import Events from "../../../__internal__/utils/helpers/events";
-import MenuContext, { MenuContextProps } from "../menu.context";
+import MenuContext, { MenuContextProps } from "../__internal__/menu.context";
 import Submenu from "../__internal__/submenu/submenu.component";
 import SubmenuContext, {
   SubmenuContextProps,

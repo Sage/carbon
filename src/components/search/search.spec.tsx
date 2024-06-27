@@ -10,7 +10,7 @@ import StyledSearchButton from "./search-button.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledTextInput from "../../__internal__/input/input-presentation.style";
 import StyledInputIconToggle from "../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import StyledIcon from "../icon/icon.style";

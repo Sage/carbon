@@ -5,18 +5,18 @@ import { act } from "react-dom/test-utils";
 import FlatTableRow, { FlatTableRowProps } from "./flat-table-row.component";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 import StyledFlatTableRow from "./flat-table-row.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import { StyledFlatTableRowHeader } from "../flat-table-row-header/flat-table-row-header.style";
 import { StyledFlatTableCell } from "../flat-table-cell/flat-table-cell.style";
 import StyledFlatTableHeader from "../flat-table-header/flat-table-header.style";
 import StyledFlatTableCheckbox from "../flat-table-checkbox/flat-table-checkbox.style";
-import { DrawerSidebarContext } from "../../drawer";
+import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableCheckbox from "../flat-table-checkbox";
 import StyledIcon from "../../icon/icon.style";
 import FlatTableRowHeader from "../flat-table-row-header/flat-table-row-header.component";
 import FlatTableHeader from "../flat-table-header/flat-table-header.component";
 import { FlatTableBodyDraggable } from "..";
-import { FlatTableThemeContext } from "../flat-table.component";
+import FlatTableContext from "../__internal__/flat-table.context";
 import Box from "../../box";
 import * as browserTypeCheck from "../../../__internal__/utils/helpers/browser-type-check";
 
@@ -1353,7 +1353,7 @@ describe("FlatTableRow", () => {
     describe("when the size of the table is 'compact'", () => {
       it("should add the correct padding to child row cells", () => {
         const wrapper = mount(
-          <FlatTableThemeContext.Provider
+          <FlatTableContext.Provider
             value={{ size: "compact", getTabStopElementId: () => "" }}
           >
             <table>
@@ -1364,7 +1364,7 @@ describe("FlatTableRow", () => {
                 </FlatTableRow>
               </tbody>
             </table>
-          </FlatTableThemeContext.Provider>
+          </FlatTableContext.Provider>
         );
 
         assertStyleMatch(

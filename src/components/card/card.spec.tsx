@@ -6,7 +6,7 @@ import { Card, CardProps, CardRow, CardFooter } from ".";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Icon from "../icon";
 import {
   StyledCard,

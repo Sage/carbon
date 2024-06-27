@@ -20,7 +20,7 @@ import DateRangeContext, {
   DateRangeContextProps,
   InputName,
   SetInputRefMapValue,
-} from "./date-range.context";
+} from "./__internal__/date-range.context";
 
 interface DateInputValue {
   formattedValue: string;

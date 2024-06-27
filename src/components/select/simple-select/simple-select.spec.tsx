@@ -8,25 +8,25 @@ import StyledLabel, {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import {
   simulateSelectTextboxEvent,
   simulateDropdownEvent,
-} from "../../../__spec_helper__/select-test-utils";
+} from "../../../__spec_helper__/__internal__/select-test-utils";
 import { Select as SimpleSelect, Option, SimpleSelectProps } from "..";
 import Textbox from "../../textbox";
-import SelectList from "../select-list/select-list.component";
+import SelectList from "../__internal__/select-list/select-list.component";
 import {
   StyledSelectListContainer,
   StyledScrollableContainer,
-} from "../select-list/select-list.style";
+} from "../__internal__/select-list/select-list.style";
 import InputIconToggleStyle from "../../../__internal__/input-icon-toggle/input-icon-toggle.style";
 import InputPresentationStyle from "../../../__internal__/input/input-presentation.style";
 import { InputPresentation } from "../../../__internal__/input";
 import Logger from "../../../__internal__/utils/logger";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledInput from "../../../__internal__/input/input.style";
-import SelectTextbox from "../select-textbox";
+import SelectTextbox from "../__internal__/select-textbox";
 import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { StyledTitle, StyledSegmentChildren } from "./menu-segment-title.style";
-import MenuContext from "../menu.context";
+import MenuContext from "../__internal__/menu.context";
 import { StyledMenuItem } from "../menu.style";
 import { VariantType } from "../menu-item";
 import tagComponent, {

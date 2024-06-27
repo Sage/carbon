@@ -14,7 +14,7 @@ import { ThemeProvider } from "styled-components";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import TextEditor, {
   TextEditorContentState,
   TextEditorProps,

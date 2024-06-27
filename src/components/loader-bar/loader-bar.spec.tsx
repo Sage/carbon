@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import StyledLoaderBar, { StyledLoader, InnerBar } from "./loader-bar.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import LoaderBar from "./loader-bar.component";
 import useMediaQuery from "../../hooks/useMediaQuery";
 

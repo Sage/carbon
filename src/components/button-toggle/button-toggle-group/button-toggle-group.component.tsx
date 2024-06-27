@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useMemo,
-  useState,
-  useRef,
-  useContext,
-} from "react";
+import React, { useMemo, useState, useRef, useContext } from "react";
 import invariant from "invariant";
 
 import { MarginProps } from "styled-system";
@@ -19,7 +13,8 @@ import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { InputGroupBehaviour } from "../../../__internal__/input-behaviour";
 import Events from "../../../__internal__/utils/helpers/events";
-import { NewValidationContext } from "../../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
+import ButtonToggleGroupContext from "./__internal__/button-toggle-group.context";
 
 export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   /** Unique id for the root element of the component */
@@ -65,32 +60,7 @@ export interface ButtonToggleGroupProps extends MarginProps, TagProps {
   className?: string;
 }
 
-type ButtonToggleGroupContextType = {
-  onButtonClick: (value: string) => void;
-  handleKeyDown: (ev: React.KeyboardEvent<HTMLButtonElement>) => void;
-  pressedButtonValue?: string;
-  onChange?: (ev: React.MouseEvent<HTMLButtonElement>, value?: string) => void;
-  allowDeselect?: boolean;
-  isInGroup: boolean;
-  isDisabled?: boolean;
-  firstButton?: HTMLButtonElement;
-  childButtonCallbackRef?: (button: HTMLButtonElement | null) => void;
-  /** Identifier for the hint text, if it exists, that is rendered by ButtonToggleGroup */
-  hintTextId?: string;
-};
-
 const BUTTON_TOGGLE_SELECTOR = '[data-element="button-toggle-button"]';
-
-export const ButtonToggleGroupContext = createContext<ButtonToggleGroupContextType>(
-  {
-    onButtonClick: /* istanbul ignore next */ () => {},
-    handleKeyDown: /* istanbul ignore next */ () => {},
-    pressedButtonValue: undefined,
-    allowDeselect: false,
-    isInGroup: false,
-    isDisabled: false,
-  }
-);
 
 const ButtonToggleGroup = ({
   children,

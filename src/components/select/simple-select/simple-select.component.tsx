@@ -10,12 +10,14 @@ import { Side } from "@floating-ui/dom";
 
 import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
 import StyledSelect from "../select.style";
-import SelectTextbox, { FormInputPropTypes } from "../select-textbox";
-import SelectList from "../select-list/select-list.component";
+import SelectTextbox, {
+  FormInputPropTypes,
+} from "../__internal__/select-textbox";
+import SelectList from "../__internal__/select-list/select-list.component";
 import guid from "../../../__internal__/utils/helpers/guid";
-import getNextChildByText from "../utils/get-next-child-by-text";
-import isExpectedOption from "../utils/is-expected-option";
-import isNavigationKey from "../utils/is-navigation-key";
+import getNextChildByText from "../__internal__/utils/get-next-child-by-text";
+import isExpectedOption from "../__internal__/utils/is-expected-option";
+import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";

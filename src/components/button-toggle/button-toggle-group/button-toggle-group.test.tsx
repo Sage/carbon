@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ButtonToggle, ButtonToggleGroup } from "..";
 import CarbonProvider from "../../carbon-provider/carbon-provider.component";
-import { testStyledSystemMargin } from "../../../__spec_helper__/test-utils";
+import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import FormFieldStyle from "../../../__internal__/form-field/form-field.style";
 
 // TODO FE-6647 - Investigate act() warning for userEvent tests

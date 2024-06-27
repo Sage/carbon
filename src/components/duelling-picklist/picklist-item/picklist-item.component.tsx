@@ -6,7 +6,7 @@ import {
   StyledButton,
   StyledLockIcon,
 } from "./picklist-item.style";
-import FocusContext from "../duelling-picklist.context";
+import FocusContext from "../__internal__/duelling-picklist.context";
 import Events from "../../../__internal__/utils/helpers/events";
 
 type Item = Record<string, unknown> | string | number;

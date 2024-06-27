@@ -16,7 +16,7 @@ import DayPicker from "react-day-picker";
 import {
   testStyledSystemMargin,
   assertStyleMatch,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import DateInput, { DateInputProps } from "./date.component";
 import InputIconToggle from "../../__internal__/input-icon-toggle";
 import DatePicker from "./__internal__/date-picker";
@@ -30,7 +30,7 @@ import StyledHelp from "../help/help.style";
 import ValidationIcon, {
   ValidationProps,
 } from "../../__internal__/validations";
-import DateRangeContext from "../date-range/date-range.context";
+import DateRangeContext from "../date-range/__internal__/date-range.context";
 import StyledButton from "./__internal__/navbar/button.style";
 import StyledLabel, {
   StyledLabelContainer,

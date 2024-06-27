@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import menuConfigVariants from "../menu.config";
 import { VariantType } from "../menu-item";
-import { MenuType } from "../menu.context";
+import { MenuType } from "../__internal__/menu.context";
 
 interface StyledTitleProps {
   variant?: VariantType;

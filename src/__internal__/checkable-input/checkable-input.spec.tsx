@@ -2,7 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { mount } from "enzyme";
 
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import CheckableInput, { CheckableInputProps } from ".";
 import FieldHelpStyle from "../field-help/field-help.style";
 import { FieldLineStyle } from "../form-field/form-field.style";

@@ -5,7 +5,7 @@ import sageTheme from "../../style/themes/sage";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import { StyledDl, StyledDt, StyledDd } from "./definition-list.style";
 import Dl, { DlProps } from "./dl.component";
 import Dt from "./dt/dt.component";

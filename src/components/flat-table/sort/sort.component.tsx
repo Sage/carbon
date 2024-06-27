@@ -4,7 +4,7 @@ import Typography from "../../typography";
 import { StyledSort, StyledSpaceHolder, StyledSortIcon } from "./sort.style";
 import guid from "../../../__internal__/utils/helpers/guid";
 import useLocale from "../../../hooks/__internal__/useLocale";
-import { FlatTableThemeContext } from "../flat-table.component";
+import FlatTableContext from "../__internal__/flat-table.context";
 
 export interface SortProps {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
@@ -35,7 +35,7 @@ export const Sort = ({
     return null;
   };
 
-  const { colorTheme } = useContext(FlatTableThemeContext);
+  const { colorTheme } = useContext(FlatTableContext);
 
   return (
     <>

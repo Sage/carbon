@@ -9,7 +9,7 @@ import {
   testStyledSystemFlexBox,
   testStyledSystemGrid,
   testStyledSystemPosition,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Box from "./box.component";
 
 testStyledSystemSpacing((props) => <Box {...props} />);

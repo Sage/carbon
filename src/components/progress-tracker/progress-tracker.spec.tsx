@@ -12,7 +12,7 @@ import {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import ProgressTracker from "./progress-tracker.component";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";

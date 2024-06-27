@@ -7,9 +7,9 @@ import {
   testStyledSystemLayout,
   testStyledSystemFlexBox,
   testStyledSystemPadding,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import StyledMenuItemWrapper from "./menu-item.style";
-import MenuContext, { MenuContextProps } from "../menu.context";
+import MenuContext, { MenuContextProps } from "../__internal__/menu.context";
 import Icon from "../../icon/icon.component";
 import menuConfigVariants from "../menu.config";
 import IconButton from "../../icon-button";

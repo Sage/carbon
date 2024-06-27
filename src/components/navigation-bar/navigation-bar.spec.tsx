@@ -8,7 +8,7 @@ import {
   assertStyleMatch,
   testStyledSystemPadding,
   testStyledSystemFlexBox,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledNavigationBar from "./navigation-bar.style";
 
 describe("NavigationBar", () => {

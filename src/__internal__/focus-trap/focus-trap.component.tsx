@@ -13,12 +13,11 @@ import {
   onTabGuardFocus,
   trapFunction,
 } from "./focus-trap-utils";
-import {
-  ModalContext,
+import ModalContext, {
   ModalContextProps,
-} from "../../components/modal/modal.component";
+} from "../../components/modal/__internal__/modal.context";
 import usePrevious from "../../hooks/__internal__/usePrevious";
-import TopModalContext from "../../components/carbon-provider/top-modal-context";
+import TopModalContext from "../../components/carbon-provider/__internal__/top-modal.context";
 
 export const TAB_GUARD_TOP = "tab-guard-top";
 export const TAB_GUARD_BOTTOM = "tab-guard-bottom";

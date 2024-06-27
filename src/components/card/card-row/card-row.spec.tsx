@@ -4,10 +4,10 @@ import CardRow from "./card-row.component";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 import StyledCardRow from "./card-row.style";
-import CardContext, { CardContextProps } from "../__internal__/card-context";
+import CardContext, { CardContextProps } from "../__internal__/card.context";
 
 describe("CardRow", () => {
   it("renders children correctly", () => {

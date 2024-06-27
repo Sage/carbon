@@ -5,7 +5,7 @@ import { mount, ReactWrapper } from "enzyme";
 import {
   simulate,
   assertStyleMatch,
-} from "../../../../__spec_helper__/test-utils";
+} from "../../../../__spec_helper__/__internal__/test-utils";
 import Toolbar, { ToolbarProps } from "./toolbar.component";
 import {
   StyledEditorStyleControls,

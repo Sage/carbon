@@ -11,7 +11,9 @@ import {
   StyledControl,
 } from "./duelling-picklist.style";
 import { Picklist, PicklistProps } from "./picklist/picklist.component";
-import FocusContext, { FocusContextType } from "./duelling-picklist.context";
+import FocusContext, {
+  FocusContextType,
+} from "./__internal__/duelling-picklist.context";
 
 export interface DuellingPicklistProps extends MarginProps {
   /**

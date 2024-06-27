@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { SpaceProps } from "styled-system";
 import StyledTileContent from "./tile-content.style";
-import TileContext from "../__internal__/tile-context";
+import TileContext from "../__internal__/tile.context";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";

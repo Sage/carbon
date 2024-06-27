@@ -3,7 +3,7 @@ import { LayoutProps, FlexboxProps } from "styled-system";
 
 import { StyledMenuWrapper } from "./menu.style";
 import tagComponent, { TagProps } from "../../__internal__/utils/helpers/tags";
-import MenuContext, { MenuType } from "./menu.context";
+import MenuContext, { MenuType } from "./__internal__/menu.context";
 import { menuKeyboardNavigation } from "./__internal__/keyboard-navigation";
 import { MENU_ITEM_CHILDREN_LOCATOR } from "./__internal__/locators";
 

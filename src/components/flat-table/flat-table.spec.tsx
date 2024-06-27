@@ -19,7 +19,7 @@ import FlatTableRowHeader from "./flat-table-row-header/flat-table-row-header.co
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledFlatTableHeader from "./flat-table-header/flat-table-header.style";
 import StyledFlatTableHead from "./flat-table-head/flat-table-head.style";
 import { StyledFlatTableRowHeader } from "./flat-table-row-header/flat-table-row-header.style";
@@ -30,7 +30,7 @@ import {
   StyledFlatTableFooter,
   StyledTableContainer,
 } from "./flat-table.style";
-import { DrawerSidebarContext } from "../drawer";
+import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import { StyledFlatTableCell } from "./flat-table-cell/flat-table-cell.style";
 import StyledFlatTableRow from "./flat-table-row/flat-table-row.style";
 import cellSizes from "./cell-sizes.style";

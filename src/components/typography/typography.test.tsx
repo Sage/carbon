@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Typography, { List, ListItem } from ".";
-import { testStyledSystemSpacing } from "../../__spec_helper__/test-utils";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
 test("should render with variant as 'p' by default", () => {
   render(<Typography>Test</Typography>);

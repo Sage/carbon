@@ -31,7 +31,7 @@ import StyledIcon from "../icon/icon.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Logger from "../../__internal__/utils/logger";
 
 // mock Logger.deprecate so that no console warnings occur while running the tests

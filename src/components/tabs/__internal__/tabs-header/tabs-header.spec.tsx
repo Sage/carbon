@@ -9,7 +9,7 @@ import {
   StyledTabsBottomBorder,
 } from "./tabs-header.style";
 import TabTitle from "../tab-title/tab-title.component";
-import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../../__spec_helper__/__internal__/test-utils";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function render(props: Partial<TabHeaderProps> = {}, renderer: any = shallow) {

@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useRef, useCallback } from "react";
 import StyledInput from "./input.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import { BorderRadiusType } from "../../components/box/box.component";
-import { SelectTextboxContext } from "../../components/select/select-textbox/select-textbox-context";
+import { SelectTextboxContext } from "../../components/select/__internal__/select-textbox/select-textbox.context";
 
 export type EnterKeyHintTypes =
   | "enter"

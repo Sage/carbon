@@ -10,7 +10,7 @@ import {
   assertStyleMatch,
   testStyledSystemMargin,
   testStyledSystemPadding,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import {
   StyledDraggableContainer,
   StyledDraggableItem,

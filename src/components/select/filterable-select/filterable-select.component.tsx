@@ -4,15 +4,17 @@ import { Side } from "@floating-ui/dom";
 
 import { ButtonProps } from "../../button";
 import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
-import SelectTextbox, { FormInputPropTypes } from "../select-textbox";
+import SelectTextbox, {
+  FormInputPropTypes,
+} from "../__internal__/select-textbox";
 import guid from "../../../__internal__/utils/helpers/guid";
-import withFilter from "../utils/with-filter.hoc";
+import withFilter from "../__internal__/utils/with-filter.hoc";
 import StyledSelect from "../select.style";
 import SelectList, {
   SelectListProps,
-} from "../select-list/select-list.component";
-import isExpectedOption from "../utils/is-expected-option";
-import isNavigationKey from "../utils/is-navigation-key";
+} from "../__internal__/select-list/select-list.component";
+import isExpectedOption from "../__internal__/utils/is-expected-option";
+import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
