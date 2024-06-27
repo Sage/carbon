@@ -139,8 +139,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const alreadyFocused = useRef(false);
     const isBlurBlocked = useRef(false);
     const focusedViaPicker = useRef(false);
-    const l = useLocale();
-    const { dateFnsLocale } = l.date;
+    const locale = useLocale();
+    const { dateFnsLocale } = locale.date;
     const { format, formats } = useMemo(() => getFormatData(dateFnsLocale()), [
       dateFnsLocale,
     ]);

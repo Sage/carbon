@@ -1,4 +1,6 @@
 import React from "react";
+import { render, screen, within, act as actRtl } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { mount, ReactWrapper } from "enzyme";
 import { act } from "react-dom/test-utils";
 
@@ -913,4 +915,40 @@ describe("StyledDateRange", () => {
       rootTagTest(wrapper, "date-range", "bar", "baz");
     });
   });
+});
+
+// needed for coverage in date component, will be refactored as part of FE-6567
+test("should not call `onBlur` when the user clicks on the start input and then the end input", async () => {
+  const user = userEvent.setup();
+  const onBlur = jest.fn();
+  render(
+    <DateRange
+      value={["", ""]}
+      startDateProps={{
+        label: "start",
+        "data-role": "start-date",
+        disablePortal: true,
+      }}
+      endDateProps={{
+        label: "end",
+        "data-role": "end-date",
+        disablePortal: true,
+      }}
+      onChange={() => {}}
+      onBlur={onBlur}
+    />
+  );
+  const date1 = screen.getByTestId("start-date");
+  const date2 = screen.getByTestId("end-date");
+  const input1 = screen.getByRole("textbox", { name: "start" });
+  const input2 = screen.getByRole("textbox", { name: "end" });
+  await user.click(input2);
+
+  expect(within(date2).getByRole("grid")).toBeVisible();
+  expect(within(date1).queryByRole("grid")).not.toBeInTheDocument();
+  await actRtl(async () => {
+    await user.click(input1);
+  });
+  expect(within(date1).getByRole("grid")).toBeVisible();
+  expect(within(date2).queryByRole("grid")).not.toBeInTheDocument();
 });
