@@ -1,3 +1,66 @@
+## [139.0.0](https://github.com/Sage/carbon/compare/v138.2.2...v139.0.0) (2024-06-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **action-popover:** `ActionPopoverContext is now in an internal directory
+* **carbon-provider:** contexts have been moved to an internal directory
+* **vertical-menu:** moves `VerticalMenuFullScreenContext`and `MenuItemContext` into
+internal directories
+* **text-editor:** moves `EditorContext` into an internal directory
+* **tab:** moves `TabContext` and `TabTitleContext` to internal directory
+* **sidebar:** The context is no longer exposed as part of the public interface of `Sidebar`
+* **select:** `SelectList`, `ListActionButton`, `SelectTextbox` and utils
+have been moved to `__internal__` directory
+* **portal:** The context is no longer exposed as part of the public
+interface of `Portal`
+* **numeral-date:** The context is no longer exposed as part of the public interface
+of `NumeralDate`
+* **flat-table:** The context is no longer exposed as part of the public
+interface of `FlatTableHead`
+* **navigation-bar:** The context is no longer exposed as part of the public
+interface of `NavigationBar`
+* **modal:** The context is no longer exposed as part of the public interface of `Modal`
+* **menu:** The context is no longer exposed as part of the public interface of `Menu`
+* **flat-table:** The context is no longer exposed as part of the public interface
+of `FlatTable`
+* **duelling-picklist:** The context is no longer exposed as part of the public interface of
+`DuellingPicklist`
+* **drawer:** The context is no longer exposed as part of the public interface of `Drawer`
+* **date-range:** The context is no longer exposed as part of the public interface of `DateRange`
+* **checkbox-group:** The context is no longer exposed as part of the public interface of `CheckboxGroup`
+* **button-toggle-group:** The context is no longer exposed as part of the public interface of `ButtonBar`
+* **button-bar:** The context is no longer exposed as part of the public interface of `ButtonBar`
+* **spec_helper:** Majority of `spec_helper` functions are now private
+
+### Build System
+
+* **spec_helper:** move private spec helpers to internal directory and ignore them in build script ([f5e351d](https://github.com/Sage/carbon/commit/f5e351d2178f76000cc85e69736ac932fee8e022))
+
+
+### Code Refactoring
+
+* **action-popover:** move context to an internal directory ([95ddb3b](https://github.com/Sage/carbon/commit/95ddb3b14c2da80b040cace876c0bd1e0c203bf7))
+* **button-bar:** move context into an internal directory ([a595244](https://github.com/Sage/carbon/commit/a5952447224a23b506c1bc0c94dffcae692b1653))
+* **button-toggle-group:** move context into an internal directory ([2154dff](https://github.com/Sage/carbon/commit/2154dff0574d46030c8a6ad1e6eac21fafcc5571))
+* **carbon-provider:** move contexts into an internal directory ([725f8fe](https://github.com/Sage/carbon/commit/725f8fee72098f14713356f4e849d3bba2817379))
+* **checkbox-group:** move context into an internal directory ([816ddcb](https://github.com/Sage/carbon/commit/816ddcbf2fdd11e5ae4ed96f9b9a817aff1678c2))
+* **date-range:** move context into an internal directory ([2e678a6](https://github.com/Sage/carbon/commit/2e678a6220e247c122cecf641858c41168d2bb7a))
+* **drawer:** move context into an internal directory ([96909c6](https://github.com/Sage/carbon/commit/96909c6cd8586d7df10d6fa72433d0ef968e6f82))
+* **duelling-picklist:** move context into an internal directory ([88bf483](https://github.com/Sage/carbon/commit/88bf483d45bfe9bd3493ab680554c5c247410382))
+* **flat-table:** move context into an internal directory ([ab9bfed](https://github.com/Sage/carbon/commit/ab9bfed0908737af069a310950b95ea31c88ea50))
+* **flat-table:** move context into an internal directory ([442d414](https://github.com/Sage/carbon/commit/442d4146aec6a860d52a7ee36256d706ab1158b8))
+* **menu:** move context into an internal directory ([6585a93](https://github.com/Sage/carbon/commit/6585a93c3d06d82823816ac12b1c4798f5fb7621))
+* **modal:** move context into an internal directory ([f442020](https://github.com/Sage/carbon/commit/f44202049eb8c0eb61a67944a9921b095a17dc3e))
+* **navigation-bar:** move context into an internal directory ([db5e40c](https://github.com/Sage/carbon/commit/db5e40cc015c0cc158ab43873ead15282d365a3c))
+* **numeral-date:** move context into an internal directory ([65a1ef4](https://github.com/Sage/carbon/commit/65a1ef4ce3881f9ea37a23a86ce340263003556d))
+* **portal:** move context into an internal directory ([3e1d3ce](https://github.com/Sage/carbon/commit/3e1d3ce563fd748762905a59024a0faebba77208))
+* **select:** move sub-components and utils into internal directory ([ededad1](https://github.com/Sage/carbon/commit/ededad1414f13bdd438adf342129b0ecaa315051))
+* **sidebar:** move context into an internal directory ([579907f](https://github.com/Sage/carbon/commit/579907f8a258495cd4fbe1442358c946e4b5011f))
+* **tab:** move context into an internal directory ([ae0c0d8](https://github.com/Sage/carbon/commit/ae0c0d8cf50a14c3cc7d3d526db92259beade2ce))
+* **text-editor:** move context into an internal directory ([d5ffbbb](https://github.com/Sage/carbon/commit/d5ffbbbdda4358bc83b7f311a847e9ad6c14047d))
+* **vertical-menu:** move context into an internal directory ([aaa95ef](https://github.com/Sage/carbon/commit/aaa95efd54a4b795b9aa09b4f92dfd49e897171a))
+
 ### [138.2.2](https://github.com/Sage/carbon/compare/v138.2.1...v138.2.2) (2024-06-25)
 
 
