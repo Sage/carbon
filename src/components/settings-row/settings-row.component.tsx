@@ -52,6 +52,7 @@ export const SettingsRow = ({
     <StyledSettingsRow
       className={className}
       hasDivider={divider}
+      data-role="settings-row"
       {...tagComponent("settings-row", rest)}
       m={0}
       {...filterStyledSystemMarginProps(rest)}
