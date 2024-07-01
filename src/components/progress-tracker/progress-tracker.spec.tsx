@@ -207,11 +207,11 @@ describe("ProgressTracker", () => {
       );
     });
 
-    it("applies proper width and height to outer bar", () => {
+    it("applies proper width and min-height to outer bar", () => {
       assertStyleMatch(
         {
           width: "100%",
-          height: "var(--sizing200)",
+          minHeight: "fit-content",
         },
         wrapper.find(StyledProgressBar)
       );
