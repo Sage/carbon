@@ -11,19 +11,22 @@ import {
   StyledDescription,
 } from "./progress-tracker.style";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
+import Logger from "../../__internal__/utils/logger";
+
+let deprecatedAriaTagsWarnTriggered = false;
 
 export interface ProgressTrackerProps extends MarginProps {
-  /** Specifies an aria label to the component */
+  /** (Deprecated) Specifies an aria label to the component */
   "aria-label"?: string;
-  /** Specifies the aria describedby for the component */
+  /** (Deprecated) Specifies the aria describedby for the component */
   "aria-describedby"?: string;
-  /** The value of progress to be read out to the user. */
+  /** (Deprecated) The value of progress to be read out to the user. */
   "aria-valuenow"?: number;
-  /** The minimum value of the progress tracker */
+  /** (Deprecated) The minimum value of the progress tracker */
   "aria-valuemin"?: number;
-  /** The maximum value of the progress tracker */
+  /** (Deprecated) The maximum value of the progress tracker */
   "aria-valuemax"?: number;
-  /** Prop to define the human readable text alternative of aria-valuenow
+  /** (Deprecated) Prop to define the human readable text alternative of aria-valuenow
    * if aria-valuenow is not a number
    */
   "aria-valuetext"?: string;
@@ -55,11 +58,11 @@ export interface ProgressTrackerProps extends MarginProps {
 }
 
 const ProgressTracker = ({
-  "aria-label": ariaLabel = "progress tracker",
+  "aria-label": ariaLabel,
   "aria-describedby": ariaDescribedBy,
   "aria-valuenow": ariaValueNow,
-  "aria-valuemin": ariaValueMin = 0,
-  "aria-valuemax": ariaValueMax = 100,
+  "aria-valuemin": ariaValueMin,
+  "aria-valuemax": ariaValueMax,
   "aria-valuetext": ariaValueText,
   size = "medium",
   length = "256px",
@@ -74,6 +77,21 @@ const ProgressTracker = ({
   labelWidth,
   ...rest
 }: ProgressTrackerProps) => {
+  if (
+    (ariaLabel ||
+      ariaDescribedBy ||
+      ariaValueNow ||
+      ariaValueMax ||
+      ariaValueMin ||
+      ariaValueText) &&
+    !deprecatedAriaTagsWarnTriggered
+  ) {
+    deprecatedAriaTagsWarnTriggered = true;
+    Logger.deprecate(
+      "The 'aria-' attribute props in `ProgressTracker` have been deprecated and will soon be removed."
+    );
+  }
+
   const l = useLocale();
   const barRef = useRef<HTMLDivElement>(null);
   const [barLength, setBarLength] = useState("0px");
@@ -143,8 +161,9 @@ const ProgressTracker = ({
     );
   };
 
-  const defaultValueNow =
-    ariaValueMin + ((ariaValueMax - ariaValueMin) * progress) / 100;
+  const valueMin = ariaValueMin === undefined ? 0 : ariaValueMin;
+  const valueMax = ariaValueMax === undefined ? 100 : ariaValueMax;
+  const defaultValueNow = valueMin + ((valueMax - valueMin) * progress) / 100;
 
   return (
     <StyledProgressTracker
@@ -152,7 +171,7 @@ const ProgressTracker = ({
       {...rest}
       {...tagComponent("progress-bar", rest)}
       role="progressbar"
-      aria-label={ariaLabel}
+      aria-label={ariaLabel || "progress tracker"}
       aria-describedby={ariaDescribedBy}
       aria-valuenow={
         ariaValueNow === undefined ? defaultValueNow : ariaValueNow
