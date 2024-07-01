@@ -8,7 +8,7 @@ import {
   StyledTickIcon,
 } from "./simple-color.style";
 import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
 import guid from "../../../__internal__/utils/helpers/guid";
 
 const mockedGuid = "guid-12345";

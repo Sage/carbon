@@ -13,7 +13,7 @@ import {
   StyledList,
   StyledVerticalMenuFullScreen,
 } from "../vertical-menu.style";
-import VerticalMenuFullScreenContext from "../vertical-menu-full-screen/vertical-menu-full-screen.context";
+import VerticalMenuFullScreenContext from "./__internal__/vertical-menu-full-screen.context";
 import Events from "../../../__internal__/utils/helpers/events/events";
 
 export interface VerticalMenuFullScreenProps extends TagProps {

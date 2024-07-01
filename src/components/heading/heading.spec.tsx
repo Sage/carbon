@@ -17,7 +17,7 @@ import {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import DefaultPages from "../pages/pages.component";
 import Page from "../pages/page/page.component";
 import Hr from "../hr";

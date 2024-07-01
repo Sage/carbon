@@ -9,19 +9,21 @@ import invariant from "invariant";
 import { Side } from "@floating-ui/dom";
 
 import { filterOutStyledSystemSpacingProps } from "../../../style/utils";
-import SelectTextbox, { FormInputPropTypes } from "../select-textbox";
+import SelectTextbox, {
+  FormInputPropTypes,
+} from "../__internal__/select-textbox";
 import guid from "../../../__internal__/utils/helpers/guid";
-import withFilter from "../utils/with-filter.hoc";
-import SelectList from "../select-list/select-list.component";
+import withFilter from "../__internal__/utils/with-filter.hoc";
+import SelectList from "../__internal__/select-list/select-list.component";
 import {
   StyledSelectPillContainer,
   StyledSelectMultiSelect,
   StyledAccessibilityLabelContainer,
 } from "./multi-select.style";
 import Pill, { PillProps } from "../../pill";
-import isExpectedOption from "../utils/is-expected-option";
-import isExpectedValue from "../utils/is-expected-value";
-import isNavigationKey from "../utils/is-navigation-key";
+import isExpectedOption from "../__internal__/utils/is-expected-option";
+import isExpectedValue from "../__internal__/utils/is-expected-value";
+import isNavigationKey from "../__internal__/utils/is-navigation-key";
 import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";

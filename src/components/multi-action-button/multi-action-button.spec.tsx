@@ -12,7 +12,7 @@ import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledButton from "../button/button.style";
 import StyledIcon from "../icon/icon.style";
 

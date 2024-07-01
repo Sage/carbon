@@ -21,7 +21,7 @@ import PopoverContainer, {
 import {
   assertStyleMatch,
   testStyledSystemPadding,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Icon from "../icon";
 import guid from "../../__internal__/utils/helpers/guid";
 import { Select, Option } from "../select";

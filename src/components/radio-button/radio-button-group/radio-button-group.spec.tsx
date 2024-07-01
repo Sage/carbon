@@ -3,7 +3,7 @@ import { mount, ReactWrapper } from "enzyme";
 import {
   assertStyleMatch,
   mockMatchMedia,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import { RadioButton, RadioButtonGroup } from "..";
 import RadioButtonGroupStyle, {
   StyledHintText,

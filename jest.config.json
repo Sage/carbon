@@ -3,8 +3,8 @@
   "setupFiles": ["raf/polyfill", "<rootDir>/enzyme.config.js"],
   "testEnvironment": "jsdom",
   "setupFilesAfterEnv": [
-    "<rootDir>/src/__spec_helper__/index.ts",
-    "<rootDir>/src/__spec_helper__/expect.ts",
+    "<rootDir>/src/__spec_helper__/__internal__/index.ts",
+    "<rootDir>/src/__spec_helper__/__internal__/expect.ts",
     "@testing-library/jest-dom",
     "jest-canvas-mock"
   ],

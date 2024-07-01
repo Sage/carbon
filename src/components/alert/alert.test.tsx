@@ -22,9 +22,9 @@ test("include correct component, element and role data tags", () => {
 
   expect(alert).toBeInTheDocument();
   expect(alert).toHaveAttribute("data-role", "baz");
-  // TODO FE-6670 - During this piece of work, change these values from "dialog" to "alert".
+  expect(alert).toHaveAttribute("data-element", "bar");
+  // TODO FE-6670 - During this piece of work, change value from "dialog" to "alert".
   expect(alert).toHaveAttribute("data-component", "dialog");
-  expect(alert).toHaveAttribute("data-element", "dialog");
 });
 
 test("has the expected border radius styling", () => {

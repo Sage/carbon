@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import StatusWithTooltip from "./status-icon.component";
 import StyledStatusIconWrapper from "./status-icon.style";
-import { assertStyleMatch } from "../../../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../../../__spec_helper__/__internal__/test-utils";
 
 const render = (props = {}) => {
   const defaultProps = {

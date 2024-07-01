@@ -3,7 +3,7 @@ import { CSSProperties } from "styled-components";
 import { TagProps } from "__internal__/utils/helpers/tags";
 import guid from "../../../__internal__/utils/helpers/guid";
 import StyledOptionRow from "./option-row.style";
-import SelectListContext from "../__internal__/select-list-context";
+import SelectListContext from "../__internal__/select-list/select-list.context";
 
 export interface OptionRowProps extends TagProps {
   /** The option's visible text, displayed within <Textbox> of <Select> */

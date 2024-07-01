@@ -4,11 +4,11 @@ import FormField, { FormFieldProps } from "./form-field.component";
 import FieldHelp from "../field-help";
 import { FieldLineStyle } from "./form-field.style";
 import Label from "../label";
-import { TabContext } from "../../components/tabs/tab";
+import TabContext from "../../components/tabs/tab/__internal__/tab.context";
 import {
   assertStyleMatch,
   mockMatchMedia,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 
 const setError = jest.fn();
 const setWarning = jest.fn();

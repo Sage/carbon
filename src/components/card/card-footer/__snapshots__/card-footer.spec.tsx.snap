@@ -150,7 +150,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
 }
 
 .c1 > button,
-.c1 .sc-fjdhpX:not(.search-button) {
+.c1 .sc-dnqmqq:not(.search-button) {
   background-color: transparent;
   border: none;
   padding: 0;

@@ -14,7 +14,7 @@ import {
   assertStyleMatch,
   testStyledSystemPadding,
   testStyledSystemWidth,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import Button from "../button";
 import CarbonProvider from "../carbon-provider";

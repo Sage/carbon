@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import StyledButtonMinor from "./button-minor.style";
 import { ButtonProps } from "../button";
-import { ButtonBarContext } from "../button-bar/button-bar.component";
+import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 
 export interface ButtonMinorProps extends ButtonProps {
   /** @private @ignore */

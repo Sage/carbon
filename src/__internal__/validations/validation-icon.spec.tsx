@@ -6,7 +6,7 @@ import ValidationIcon from "./validation-icon.component";
 import ValidationIconStyle from "./validation-icon.style";
 import { InputContext, InputGroupContext } from "../input-behaviour";
 import Tooltip from "../../components/tooltip";
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import Icon from "../../components/icon/icon.component";
 
 function renderWithInputContext(

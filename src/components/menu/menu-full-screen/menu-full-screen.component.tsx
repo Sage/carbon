@@ -7,7 +7,7 @@ import {
   StyledMenuFullscreenHeader,
 } from "./menu-full-screen.style";
 import { StyledMenuWrapper } from "../menu.style";
-import MenuContext from "../menu.context";
+import MenuContext from "../__internal__/menu.context";
 import Events from "../../../__internal__/utils/helpers/events";
 import Box from "../../box";
 import IconButton from "../../icon-button";

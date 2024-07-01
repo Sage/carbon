@@ -7,16 +7,9 @@ import Events from "../../__internal__/utils/helpers/events";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 import { StyledModal, StyledModalBackground } from "./modal.style";
 import { TagProps } from "../../__internal__/utils/helpers/tags";
+import ModalContext from "./__internal__/modal.context";
 
-export interface ModalContextProps {
-  isInModal?: boolean;
-  isAnimationComplete?: boolean;
-  triggerRefocusFlag?: boolean;
-}
-
-export const ModalContext = React.createContext<ModalContextProps>({});
-
-export interface ModalProps extends TagProps {
+export interface ModalProps extends Omit<TagProps, "data-component"> {
   /** Custom class name  */
   className?: string;
   /** Modal content */
@@ -41,6 +34,8 @@ export interface ModalProps extends TagProps {
 
 const Modal = ({
   children,
+  "data-element": dataElement,
+  "data-role": dataRole = "modal",
   open,
   onCancel,
   disableEscKey = false,
@@ -115,6 +110,9 @@ const Modal = ({
   return (
     <Portal>
       <StyledModal
+        data-component="modal"
+        data-element={dataElement}
+        data-role={dataRole}
         data-state={open ? "open" : "closed"}
         transitionName="modal"
         transitionTime={timeout}

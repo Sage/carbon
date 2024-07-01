@@ -25,7 +25,9 @@ import getFormatData from "./__internal__/date-formats";
 import StyledDateInput from "./date.style";
 import Textbox, { TextboxProps } from "../textbox";
 import DatePicker, { PickerProps } from "./__internal__/date-picker";
-import DateRangeContext, { InputName } from "../date-range/date-range.context";
+import DateRangeContext, {
+  InputName,
+} from "../date-range/__internal__/date-range.context";
 import useClickAwayListener from "../../hooks/__internal__/useClickAwayListener";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -137,8 +139,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const alreadyFocused = useRef(false);
     const isBlurBlocked = useRef(false);
     const focusedViaPicker = useRef(false);
-    const l = useLocale();
-    const { dateFnsLocale } = l.date;
+    const locale = useLocale();
+    const { dateFnsLocale } = locale.date;
     const { format, formats } = useMemo(() => getFormatData(dateFnsLocale()), [
       dateFnsLocale,
     ]);

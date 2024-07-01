@@ -2,7 +2,7 @@ import React from "react";
 import { mount as enzymeMount } from "enzyme";
 import TestRenderer from "react-test-renderer";
 
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import { GridContainer, GridItem } from ".";
 import { getSpacing } from "./grid-item/grid-item.style";
 

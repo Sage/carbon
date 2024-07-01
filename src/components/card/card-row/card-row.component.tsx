@@ -5,7 +5,7 @@ import StyledCardRow from "./card-row.style";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags/tags";
-import CardContext from "../__internal__/card-context";
+import CardContext from "../__internal__/card.context";
 import guid from "../../../__internal__/utils/helpers/guid";
 
 export interface CardRowProps

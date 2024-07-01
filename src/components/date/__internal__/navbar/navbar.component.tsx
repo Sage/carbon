@@ -32,7 +32,7 @@ export const Navbar = ({
   };
 
   return (
-    <StyledNavbar className={className}>
+    <StyledNavbar className={className} data-role="date-navbar">
       <StyledButton
         aria-label={previousMonthButton()}
         onClick={() => onPreviousClick?.()}

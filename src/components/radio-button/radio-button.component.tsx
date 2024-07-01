@@ -7,7 +7,7 @@ import CheckableInput from "../../__internal__/checkable-input/checkable-input.c
 import RadioButtonSvg from "./radio-button-svg.component";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 
 interface InternalRadioButtonProps {
   inline?: boolean;

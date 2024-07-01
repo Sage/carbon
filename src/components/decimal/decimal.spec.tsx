@@ -8,7 +8,7 @@ import Decimal, { DecimalProps, CustomEvent } from "./decimal.component";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Textbox from "../textbox/textbox.component";
 import Label from "../../__internal__/label";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";

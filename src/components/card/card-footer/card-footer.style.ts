@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { space, SpaceProps } from "styled-system";
 import StyledCardColumn from "../card-column/card-column.style";
-import { CardContextProps } from "../__internal__/card-context";
+import { CardContextProps } from "../__internal__/card.context";
 import { CardFooterProps } from "./card-footer.component";
 
 const marginSizes = {

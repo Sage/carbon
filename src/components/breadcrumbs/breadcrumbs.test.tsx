@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
 import Breadcrumbs from "./breadcrumbs.component";
 import Crumb from "./crumb/crumb.component";
-import { testStyledSystemSpacing } from "../../__spec_helper__/test-utils";
+import { testStyledSystemSpacing } from "../../__spec_helper__/__internal__/test-utils";
 
 describe("Breadcrumbs", () => {
   testStyledSystemSpacing((props) => (

@@ -4,9 +4,10 @@ import FlatTableHeader, {
   FlatTableHeaderProps,
 } from "./flat-table-header.component";
 import StyledFlatTableHeader from "./flat-table-header.style";
-import { assertStyleMatch } from "../../../__spec_helper__/test-utils";
-import { FlatTableThemeContext, FlatTableProps } from "../flat-table.component";
+import { assertStyleMatch } from "../../../__spec_helper__/__internal__/test-utils";
+import { FlatTableProps } from "../flat-table.component";
 import getAlternativeBackgroundColor from "./flat-table-header-utils";
+import FlatTableContext from "../__internal__/flat-table.context";
 
 describe("FlatTableHeader", () => {
   it("renders with proper width style rule when width prop is passed", () => {
@@ -62,7 +63,7 @@ describe("FlatTableHeader", () => {
       'overrides the header "background-color" with correspond color for %s themeColor"',
       (colorTheme) => {
         const wrapper = mount(
-          <FlatTableThemeContext.Provider
+          <FlatTableContext.Provider
             value={{ colorTheme, getTabStopElementId: () => "" }}
           >
             <table>
@@ -72,7 +73,7 @@ describe("FlatTableHeader", () => {
                 </tr>
               </thead>
             </table>
-          </FlatTableThemeContext.Provider>
+          </FlatTableContext.Provider>
         );
 
         assertStyleMatch(

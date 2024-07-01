@@ -8,8 +8,8 @@ import {
 } from "../button/button.component";
 import StyledIcon from "../icon/icon.style";
 import ButtonMinor from "./button-minor.component";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
 import StyledButtonMinor from "./button-minor.style";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 
 const render = (props: ButtonProps, renderer: typeof shallow = shallow) => {
   return renderer(<ButtonMinor {...props} />);

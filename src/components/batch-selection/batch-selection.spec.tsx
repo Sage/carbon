@@ -2,7 +2,7 @@ import React from "react";
 import { mount, ReactWrapper, ShallowWrapper } from "enzyme";
 
 import BatchSelection, { BatchSelectionProps } from ".";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 
 import Icon from "../icon";
 import IconButton from "../icon-button";

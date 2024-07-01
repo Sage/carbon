@@ -6,7 +6,7 @@ import {
   StyledButtonToggleProps,
 } from "./button-toggle.style";
 import guid from "../../__internal__/utils/helpers/guid";
-import { ButtonToggleGroupContext } from "./button-toggle-group/button-toggle-group.component";
+import ButtonToggleGroupContext from "./button-toggle-group/__internal__/button-toggle-group.context";
 import ButtonToggleIcon from "./button-toggle-icon.component";
 
 import Logger from "../../__internal__/utils/logger";

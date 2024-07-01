@@ -17,7 +17,7 @@ import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import StyledTabs from "./tabs.style";
 import TabsHeader from "./__internal__/tabs-header";
 import TabTitle from "./__internal__/tab-title";
-import { DrawerSidebarContext } from "../drawer";
+import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 
 export interface TabsProps extends MarginProps {
   /** @ignore @private */

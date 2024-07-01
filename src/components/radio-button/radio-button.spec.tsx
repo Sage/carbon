@@ -6,7 +6,7 @@ import FieldHelpStyle from "../../__internal__/field-help/field-help.style";
 import HiddenCheckableInputStyle from "../../__internal__/checkable-input/hidden-checkable-input.style";
 import { StyledCheckableInput } from "../../__internal__/checkable-input/checkable-input.style";
 import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/checkable-input-svg-wrapper.style";
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import sageTheme from "../../style/themes/sage";
 import RadioButtonStyle from "./radio-button.style";

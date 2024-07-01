@@ -14,7 +14,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 import StyledTextarea, { MIN_HEIGHT } from "./textarea.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import useInputAccessibility from "../../hooks/__internal__/useInputAccessibility";
-import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import { ErrorBorder, StyledHintText } from "../textbox/textbox.style";
 import ValidationMessage from "../../__internal__/validation-message";
 import Box from "../box";

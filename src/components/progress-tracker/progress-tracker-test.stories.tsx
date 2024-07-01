@@ -1,11 +1,17 @@
 import React from "react";
 import ProgressTracker, { ProgressTrackerProps } from ".";
 import { PROGRESS_TRACKER_SIZES } from "./progress-tracker.config";
+import {
+  FlexTileCell,
+  FlexTileContainer,
+  FlexTileDivider,
+  Tile,
+} from "../tile";
 
 export default {
   component: ProgressTracker,
   title: "Progress Tracker/Test",
-  includeStories: ["Default", "LeftLabelWithLabelWidth"],
+  includeStories: ["Default", "LeftLabelWithLabelWidth", "InsideFlexTile"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -90,4 +96,27 @@ LeftLabelWithLabelWidth.parameters = {
 
 export const ProgressTrackerComponent = (props: ProgressTrackerProps) => {
   return <ProgressTracker progress={50} showDefaultLabels {...props} />;
+};
+
+export const InsideFlexTile = () => {
+  return (
+    <Tile m={0} py={0}>
+      <FlexTileContainer>
+        <FlexTileCell py={2}>
+          <FlexTileDivider />
+          <ProgressTracker
+            length="100%"
+            progress={50}
+            currentProgressLabel="Step 3"
+            maxProgressLabel="5"
+          />
+        </FlexTileCell>
+      </FlexTileContainer>
+    </Tile>
+  );
+};
+
+InsideFlexTile.storyName = "inside flex tile";
+InsideFlexTile.parameters = {
+  themeProvider: { chromatic: { disableSnapshot: false } },
 };

@@ -7,7 +7,7 @@ import Message from "../message";
 import {
   assertStyleMatch,
   testStyledSystemSpacing,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import StyledIconButton from "./icon-button.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";

@@ -48,6 +48,22 @@ test.describe("check props for Link component", () => {
     await expect(buttonElement).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
   });
 
+  test("when `disabled` prop is true and component is hovered over, it should apply the expected cursor", async ({
+    mount,
+    page,
+  }) => {
+    await mount(
+      <LinkComponent disabled href="#">
+        Test Content
+      </LinkComponent>
+    );
+
+    const linkElement = linkChildren(page);
+    await linkElement.hover();
+
+    await expect(linkElement).toHaveCSS("cursor", "not-allowed");
+  });
+
   test("should render with icon prop", async ({ mount, page }) => {
     await mount(<LinkComponent icon="add" />);
 
@@ -180,6 +196,19 @@ test.describe("check props for Link component", () => {
     await expect(skipLinkElement).toHaveCSS("font-size", "16px");
     await expect(skipLinkElement).toHaveCSS("padding-left", "24px");
     await expect(skipLinkElement).toHaveCSS("padding-right", "24px");
+  });
+
+  test("should apply correct focus styling to skip link", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<LinkComponent isSkipLink />);
+
+    await page.keyboard.press("Tab");
+    const skipLinkElement = skipLink(page);
+    await expect(skipLinkElement).toBeVisible();
+    await expect(skipLinkElement).toHaveCSS("top", "8px");
+    await expect(skipLinkElement).toHaveCSS("left", "8px");
   });
 
   ([

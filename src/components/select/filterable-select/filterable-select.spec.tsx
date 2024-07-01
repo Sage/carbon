@@ -8,20 +8,20 @@ import StyledLabel, {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import {
   simulateSelectTextboxEvent,
   simulateDropdownEvent,
-} from "../../../__spec_helper__/select-test-utils";
+} from "../../../__spec_helper__/__internal__/select-test-utils";
 import { FilterableSelect, Option, FilterableSelectProps } from "..";
 import StyledOption from "../option/option.style";
 import Textbox from "../../textbox";
-import MatchingText from "../utils/matching-text.style";
-import SelectList from "../select-list/select-list.component";
+import MatchingText from "../__internal__/utils/matching-text.style";
+import SelectList from "../__internal__/select-list/select-list.component";
 import {
   StyledSelectListContainer,
   StyledScrollableContainer,
-} from "../select-list/select-list.style";
+} from "../__internal__/select-list/select-list.style";
 import Button from "../../button";
 import Label from "../../../__internal__/label";
 import InputIconToggle from "../../../__internal__/input-icon-toggle";

@@ -10,7 +10,7 @@ import useIsAboveBreakpoint from "../../hooks/__internal__/useIsAboveBreakpoint"
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import Logger from "../../__internal__/utils/logger";
 import useFormSpacing from "../../hooks/__internal__/useFormSpacing";
-import { NewValidationContext } from "../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../carbon-provider/__internal__/new-validation.context";
 import ValidationMessage from "../../__internal__/validation-message/validation-message.component";
 import Box from "../box";
 import Label from "../../__internal__/label";

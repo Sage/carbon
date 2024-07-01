@@ -12,7 +12,7 @@ import {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import ProgressTracker from "./progress-tracker.component";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -227,11 +227,11 @@ describe("ProgressTracker", () => {
       );
     });
 
-    it("applies proper width and height to outer bar", () => {
+    it("applies proper width and min-height to outer bar", () => {
       assertStyleMatch(
         {
           width: "100%",
-          height: "var(--sizing200)",
+          minHeight: "fit-content",
         },
         wrapper.find(StyledProgressBar)
       );

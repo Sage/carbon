@@ -6,7 +6,7 @@ import MD5 from "crypto-js/md5";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import Portrait, { PortraitSizes } from "./portrait.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import {

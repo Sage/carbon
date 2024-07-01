@@ -7,7 +7,7 @@ import StyledTab, { StyledTabProps } from "./tab.style";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 
 const updateErrors = jest.fn();
 const updateWarnings = jest.fn();

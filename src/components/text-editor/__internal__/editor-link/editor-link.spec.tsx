@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import { ContentState } from "draft-js";
 import EditorLink, { EditorLinkProps } from "./editor-link.component";
 import Link from "../../../link";
-import { EditorContext } from "../../text-editor.component";
+import EditorContext from "../../__internal__/editor.context";
 
 const onLinkAdded = jest.fn();
 

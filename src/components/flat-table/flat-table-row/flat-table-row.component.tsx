@@ -11,17 +11,17 @@ import { TableBorderSize } from "..";
 
 import Event from "../../../__internal__/utils/helpers/events";
 import StyledFlatTableRow from "./flat-table-row.style";
-import { DrawerSidebarContext } from "../../drawer";
+import DrawerSidebarContext from "../../drawer/__internal__/drawer-sidebar.context";
 import FlatTableRowHeader from "../flat-table-row-header";
 import FlatTableRowDraggable, {
   FlatTableRowDraggableProps,
 } from "./__internal__/flat-table-row-draggable.component";
-import { FlatTableThemeContext } from "../flat-table.component";
+import FlatTableContext from "../__internal__/flat-table.context";
 import guid from "../../../__internal__/utils/helpers/guid";
-import FlatTableRowContext from "./__internal__/flat-table-row-context";
+import FlatTableRowContext from "./__internal__/flat-table-row.context";
 import SubRowProvider, { SubRowContext } from "./__internal__/sub-row-provider";
 import { buildPositionMap } from "../__internal__";
-import { FlatTableHeadContext } from "../flat-table-head/flat-table-head.component";
+import FlatTableHeadContext from "../flat-table-head/__internal__/flat-table-head.context";
 
 export interface FlatTableRowProps {
   /** Overrides default cell color, provide design token, any color from palette or any valid css color value. */
@@ -189,7 +189,7 @@ export const FlatTableRow = React.forwardRef<
     );
 
     const { colorTheme, size, getTabStopElementId } = useContext(
-      FlatTableThemeContext
+      FlatTableContext
     );
     const { isInSidebar } = useContext(DrawerSidebarContext);
     const { stickyOffsets } = useContext(FlatTableHeadContext);

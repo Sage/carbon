@@ -6,7 +6,7 @@ import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
 import guid from "../../../__internal__/utils/helpers/guid";
-import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row-context";
+import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row.context";
 
 export interface FlatTableCheckboxProps extends TagProps {
   /** Prop to polymorphically render either a 'th' or 'td' element */

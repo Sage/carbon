@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MarginProps } from "styled-system";
 import * as DesignTokens from "@sage/design-tokens/js/base/common";
 import { filterStyledSystemMarginProps } from "../../style/utils";
-import CardContext, { CardContextProps } from "./__internal__/card-context";
+import CardContext, { CardContextProps } from "./__internal__/card.context";
 import { StyledCard, StyledCardContent } from "./card.style";
 import Icon from "../icon";
 import tagComponent, {

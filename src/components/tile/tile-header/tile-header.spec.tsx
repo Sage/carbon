@@ -4,7 +4,7 @@ import TileHeader, { TileHeaderProps } from ".";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 import StyledTileHeader from "./tile-header.style";
 import { rootTagTest } from "../../../__internal__/utils/helpers/tags/tags-specs";
 

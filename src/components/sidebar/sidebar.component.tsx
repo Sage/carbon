@@ -14,17 +14,12 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import { filterStyledSystemPaddingProps } from "../../style/utils";
 import { TagProps } from "../../__internal__/utils/helpers/tags/tags";
 import useModalAria from "../../hooks/__internal__/useModalAria/useModalAria";
+import SidebarContext from "./__internal__/sidebar.context";
 
 // TODO FE-5408 will investigate why React.RefObject<T> produces a failed prop type when current = null
 type CustomRefObject<T> = {
   current?: T | null;
 };
-
-export interface SidebarContextProps {
-  isInSidebar?: boolean;
-}
-
-export const SidebarContext = React.createContext<SidebarContextProps>({});
 
 export interface SidebarProps
   extends PaddingProps,

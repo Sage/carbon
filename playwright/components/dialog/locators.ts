@@ -1,5 +1,5 @@
 // component preview locators
-export const ALERT_DIALOG = '[data-element="dialog"]';
+export const ALERT_DIALOG = '[data-component="dialog"]';
 export const DIALOG_FULL_SCREEN = '[data-element="dialog-full-screen"]';
 export const DIALOG_TITLE = '[data-element="title"]';
 export const DIALOG_SUBTITLE = '[data-element="subtitle"]';

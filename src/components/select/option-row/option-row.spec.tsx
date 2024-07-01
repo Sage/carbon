@@ -2,7 +2,7 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
 import OptionRow, { OptionRowProps } from "./option-row.component";
-import SelectListContext from "../__internal__/select-list-context";
+import SelectListContext from "../__internal__/select-list/select-list.context";
 
 function renderOptionRow(
   props: Omit<OptionRowProps, "id" | "children">,

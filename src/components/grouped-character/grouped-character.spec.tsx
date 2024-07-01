@@ -7,7 +7,7 @@ import GroupedCharacter, {
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import Label from "../../__internal__/label";
 import { InputPresentation } from "../../__internal__/input";

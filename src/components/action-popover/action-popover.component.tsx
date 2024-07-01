@@ -20,7 +20,9 @@ import useLocale from "../../hooks/__internal__/useLocale";
 import ActionPopoverMenu from "./action-popover-menu/action-popover-menu.component";
 import ActionPopoverItem from "./action-popover-item/action-popover-item.component";
 import ActionPopoverDivider from "./action-popover-divider/action-popover-divider.component";
-import ActionPopoverContext, { Alignment } from "./action-popover-context";
+import ActionPopoverContext, {
+  Alignment,
+} from "./__internal__/action-popover.context";
 import useModalManager from "../../hooks/__internal__/useModalManager";
 
 export interface RenderButtonProps {

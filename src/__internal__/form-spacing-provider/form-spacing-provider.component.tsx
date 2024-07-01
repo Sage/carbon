@@ -2,7 +2,7 @@ import React from "react";
 import {
   FormSpacingContext,
   FormSpacingContextProps,
-} from "./form-spacing-context";
+} from "./form-spacing.context";
 
 interface FormSpacingProviderProps extends FormSpacingContextProps {
   children: React.ReactNode;

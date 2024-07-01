@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import { MenuItem } from "..";
 import MenuFullscreen from ".";
-import MenuContext from "../menu.context";
+import MenuContext from "../__internal__/menu.context";
 
 import CarbonProvider from "../../carbon-provider";
 import { sageTheme } from "../../../style/themes";

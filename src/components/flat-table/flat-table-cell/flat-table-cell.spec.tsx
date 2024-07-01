@@ -6,7 +6,7 @@ import FlatTableCell, { FlatTableCellProps } from "./flat-table-cell.component";
 import {
   assertStyleMatch,
   testStyledSystemPadding,
-} from "../../../__spec_helper__/test-utils";
+} from "../../../__spec_helper__/__internal__/test-utils";
 
 describe("FlatTableCell", () => {
   it("renders with proper width style rule when width prop is passed", () => {

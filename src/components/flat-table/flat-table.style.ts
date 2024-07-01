@@ -10,7 +10,7 @@ import cellSizes from "./cell-sizes.style";
 import StyledBox from "../box/box.style";
 import { StyledPagerContainer } from "../pager/pager.style";
 import { FlatTableProps } from "./flat-table.component";
-import { DrawerSidebarContextProps } from "../drawer";
+import { DrawerSidebarContextProps } from "../drawer/__internal__/drawer-sidebar.context";
 import addFocusStyling from "../../style/utils/add-focus-styling";
 
 const HEADER_OVERLAY_INCREMENT = 3;

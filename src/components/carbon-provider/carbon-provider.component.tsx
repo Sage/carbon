@@ -1,33 +1,21 @@
-import React, { createContext, useContext } from "react";
+import React, { useContext } from "react";
 import { ThemeProvider } from "styled-components";
 
 import CarbonScopedTokensProvider from "../../style/design-tokens/carbon-scoped-tokens-provider";
 
 import { sageTheme } from "../../style/themes";
 import type { ThemeObject } from "../../style/themes";
+import NewValidationContext, {
+  NewValidationContextProps,
+} from "./__internal__/new-validation.context";
+import TopModalProvider from "./__internal__/top-modal-provider.component";
 
-import { TopModalContextProvider } from "./top-modal-context";
-
-export interface CarbonProviderProps {
+export interface CarbonProviderProps extends NewValidationContextProps {
   /* Content for the provider to wrap */
   children: React.ReactNode;
   /** Theme which specifies styles to apply to all child components. Set to `sageTheme` by default. */
   theme?: Partial<ThemeObject>;
-  /** Feature flag for opting in to the new validation redesign for components that support it.
-   *
-   * NOTE - Will eventually be set to `true` by default in the future. */
-  validationRedesignOptIn?: boolean;
-  /** Feature flag for opting out of styling components to have rounded corners. */
-  roundedCornersOptOut?: boolean;
-  focusRedesignOptOut?: boolean;
 }
-
-export const NewValidationContext = createContext<
-  Pick<
-    CarbonProviderProps,
-    "validationRedesignOptIn" | "roundedCornersOptOut" | "focusRedesignOptOut"
-  >
->({});
 
 export const CarbonProvider = ({
   children,
@@ -60,7 +48,7 @@ export const CarbonProvider = ({
             roundedCornersOptOut: roundedCornersOptOutValue,
           }}
         >
-          <TopModalContextProvider>{children}</TopModalContextProvider>
+          <TopModalProvider>{children}</TopModalProvider>
         </NewValidationContext.Provider>
       </CarbonScopedTokensProvider>
     </ThemeProvider>

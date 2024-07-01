@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import {
   mockMatchMedia,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 
 import Hr from "./hr.component";
 import CarbonProvider from "../carbon-provider";

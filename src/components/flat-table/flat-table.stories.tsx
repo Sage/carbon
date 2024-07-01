@@ -11,7 +11,7 @@ import {
   ActionPopoverItem,
   ActionPopoverMenu,
 } from "../action-popover";
-import { DrawerSidebarContext } from "../drawer";
+import DrawerSidebarContext from "../drawer/__internal__/drawer-sidebar.context";
 import Box from "../box";
 import {
   FlatTable,

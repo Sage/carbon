@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { ContentState } from "draft-js";
 import StyledLink from "./editor-link.style";
-import { EditorContext } from "../../text-editor.component";
+import EditorContext from "../../__internal__/editor.context";
 
 export interface EditorLinkProps {
   children: React.ReactElement[];

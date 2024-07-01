@@ -17,7 +17,9 @@ import {
 } from "../action-popover.style";
 import Events from "../../../__internal__/utils/helpers/events";
 import createGuid from "../../../__internal__/utils/helpers/guid";
-import ActionPopoverContext, { Alignment } from "../action-popover-context";
+import ActionPopoverContext, {
+  Alignment,
+} from "../__internal__/action-popover.context";
 
 import { IconType } from "../../icon";
 import ActionPopoverMenu, {

@@ -9,6 +9,7 @@
     "src/**/*.spec.*",
     "src/**/*.test.*",
     "./src/**/*.pw.ts*",
-    "./src/**/*.test-pw.ts*"
+    "./src/**/*.test-pw.ts*",
+    "./src/__spec_helper__/__internal__/**"
   ]
 }

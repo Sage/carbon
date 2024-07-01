@@ -7,7 +7,7 @@ import {
   simulate,
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import sageTheme from "../../style/themes/sage";
 import {
   ActionPopover,
@@ -17,7 +17,7 @@ import {
   ActionPopoverMenu,
   ActionPopoverMenuButton,
 } from "./index";
-import ActionPopoverContext from "./action-popover-context";
+import ActionPopoverContext from "./__internal__/action-popover.context";
 import {
   MenuButton,
   Menu,

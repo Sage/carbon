@@ -6,7 +6,7 @@ import Help, { HelpProps } from "./help.component";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";
 import StyledHelp from "./help.style";
 import Tooltip from "../tooltip";
-import { testStyledSystemMargin } from "../../__spec_helper__/test-utils";
+import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 
 function renderHelp(props: HelpProps = {}) {
   const { children } = props;

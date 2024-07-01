@@ -2,9 +2,9 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import FixedNavigationBarContext from "components/navigation-bar/fixed-navigation-bar.context";
+import FixedNavigationBarContext from "components/navigation-bar/__internal__/fixed-navigation-bar.context";
 import { Menu, MenuItem, MenuSegmentTitle } from "../..";
-import MenuContext, { MenuContextProps } from "../../menu.context";
+import MenuContext, { MenuContextProps } from "../menu.context";
 import Submenu from "./submenu.component";
 import ScrollableBlock from "../../scrollable-block";
 

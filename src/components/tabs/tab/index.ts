@@ -1,2 +1,2 @@
-export { default, TabContext } from "./tab.component";
-export type { TabProps, TabContextProps } from "./tab.component";
+export { default } from "./tab.component";
+export type { TabProps } from "./tab.component";

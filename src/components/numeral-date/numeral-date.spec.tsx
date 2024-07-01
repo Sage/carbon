@@ -15,7 +15,7 @@ import { StyledNumeralDate } from "./numeral-date.style";
 import {
   assertStyleMatch,
   testStyledSystemMargin,
-} from "../../__spec_helper__/test-utils";
+} from "../../__spec_helper__/__internal__/test-utils";
 import FormFieldStyle from "../../__internal__/form-field/form-field.style";
 import FormField from "../../__internal__/form-field";
 import { rootTagTest } from "../../__internal__/utils/helpers/tags/tags-specs";

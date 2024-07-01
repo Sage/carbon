@@ -11,7 +11,7 @@ import { filterStyledSystemMarginProps } from "../../../style/utils";
 import { TooltipProvider } from "../../../__internal__/tooltip-provider";
 import { ValidationProps } from "../../../__internal__/validations";
 import Logger from "../../../__internal__/utils/logger";
-import { NewValidationContext } from "../../carbon-provider/carbon-provider.component";
+import NewValidationContext from "../../carbon-provider/__internal__/new-validation.context";
 import ValidationMessage from "../../../__internal__/validation-message/validation-message.component";
 import Box from "../../box";
 import { ErrorBorder } from "../../textbox/textbox.style";

@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { ThemeProvider } from "styled-components";
 
 import sageTheme from "../../../style/themes/sage";
-import { testStyledSystemPadding } from "../../../__spec_helper__/test-utils";
+import { testStyledSystemPadding } from "../../../__spec_helper__/__internal__/test-utils";
 import Icon from "../../icon";
 import { StyledVerticalMenuItem } from "../vertical-menu.style";
 import { VerticalMenuItem, VerticalMenuFullScreen } from "..";

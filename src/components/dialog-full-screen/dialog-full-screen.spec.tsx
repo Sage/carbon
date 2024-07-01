@@ -14,7 +14,7 @@ import { StyledHeader, StyledHeading } from "../heading/heading.style";
 import Help from "../help";
 import Form from "../form";
 
-import { assertStyleMatch } from "../../__spec_helper__/test-utils";
+import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 import guid from "../../__internal__/utils/helpers/guid";
 import CarbonProvider from "../carbon-provider";
 import Logger from "../../__internal__/utils/logger";
