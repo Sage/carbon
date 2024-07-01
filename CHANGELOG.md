@@ -1,3 +1,10 @@
+## [140.1.0](https://github.com/Sage/carbon/compare/v140.0.1...v140.1.0) (2024-07-01)
+
+
+### Features
+
+* **progress-tracker:** deprecate aria- attribute props ([9403d08](https://github.com/Sage/carbon/commit/9403d08d5db10342ccd5d39ac54d9a794a571a46))
+
 ### [140.0.1](https://github.com/Sage/carbon/compare/v140.0.0...v140.0.1) (2024-07-01)
 
 
