@@ -16,6 +16,7 @@ import {
 import ProgressTracker from "./progress-tracker.component";
 import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
+import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../hooks/__internal__/useResizeObserver");
 
@@ -58,6 +59,25 @@ describe("ProgressTracker", () => {
   });
 
   testStyledSystemMargin((props) => <ProgressTracker {...props} />);
+
+  it("should display aria- attribute props deprecation warning once", () => {
+    const loggerSpy = jest.spyOn(Logger, "deprecate");
+    wrapper = mount(
+      <ProgressTracker
+        progress={50}
+        aria-valuemin={100}
+        aria-valuenow={150}
+        aria-valuemax={200}
+        aria-valuetext="$150"
+      />
+    );
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The 'aria-' attribute props in `ProgressTracker` have been deprecated and will soon be removed."
+    );
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+    loggerSpy.mockRestore();
+  });
 
   it("renders component as expected", () => {
     wrapper = mount(<ProgressTracker />);
