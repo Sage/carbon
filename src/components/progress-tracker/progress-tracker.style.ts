@@ -59,12 +59,13 @@ const StyledProgressBar = styled.span<
     position: relative;
     background-color: var(--colorsSemanticNeutral200);
     border: 1px solid ${getBorderColour({ progress, error })};
-    border-radius: ${theme.roundedCornersOptOut
-      ? "25px"
-      : "var(--borderRadius400)"};
+    border-radius: ${
+      theme.roundedCornersOptOut ? "25px" : "var(--borderRadius400)"
+    };
     overflow-x: hidden;
-    height: ${getHeight(size)};
-    width: 100%;
+    width: 100%
+    min-height: fit-content;
+    box-sizing: border-box;
   `}
 `;
 

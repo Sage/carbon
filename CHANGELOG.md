@@ -1,3 +1,17 @@
+## [140.1.0](https://github.com/Sage/carbon/compare/v140.0.1...v140.1.0) (2024-07-01)
+
+
+### Features
+
+* **progress-tracker:** deprecate aria- attribute props ([9403d08](https://github.com/Sage/carbon/commit/9403d08d5db10342ccd5d39ac54d9a794a571a46))
+
+### [140.0.1](https://github.com/Sage/carbon/compare/v140.0.0...v140.0.1) (2024-07-01)
+
+
+### Bug Fixes
+
+* **progress-tracker:** apply box sizing of border box to the inner styled bar ([06e7379](https://github.com/Sage/carbon/commit/06e7379132d4b8c9b8c67052567804d802e087a0)), closes [#6779](https://github.com/Sage/carbon/issues/6779)
+
 ## [140.0.0](https://github.com/Sage/carbon/compare/v139.0.0...v140.0.0) (2024-06-27)
 
 
