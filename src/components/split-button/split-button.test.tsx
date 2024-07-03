@@ -461,7 +461,7 @@ test("should render the child buttons when a ' ' (space) keydown event detected 
   expect(childButton).toBeVisible();
 });
 
-test("should not hide the additional buttons when already open and 'Enter' key pressed with toggle focuesd", async () => {
+test("should not hide the additional buttons when already open and 'Enter' key pressed with toggle focused", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
@@ -480,7 +480,7 @@ test("should not hide the additional buttons when already open and 'Enter' key p
   expect(childButton).toBeVisible();
 });
 
-test("should not hide the additional buttons when already open and ' ' (space) key pressed with toggle focuesd", async () => {
+test("should not hide the additional buttons when already open and ' ' (space) key pressed with toggle focused", async () => {
   const user = userEvent.setup();
   render(
     <SplitButton text="Main">
