@@ -188,6 +188,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         {!header && closeIcon()}
         <Box
           data-element="sidebar-content"
+          data-role="sidebar-content"
           pt="var(--spacing300)"
           pb="var(--spacing400)"
           px="var(--spacing400)"
