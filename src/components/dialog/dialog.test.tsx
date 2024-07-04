@@ -164,11 +164,6 @@ describe("closing behaviour", () => {
     const user = userEvent.setup();
     render(<MockApp onCancel={onCancel} />, { wrapper: AllTheProviders });
 
-    /**
-     * TODO: FE-6647 Pressing Escape triggers an effect that calls MockApp's setOpen, leading to an additional re-render that isn’t wrapped in act().
-     * To investigate if we could eliminate any effects causing unnecessary re-renders.
-     * See https://react.dev/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state
-     */
     await user.keyboard("{Escape}");
     await waitForElementToBeRemoved(() => screen.queryByRole("dialog"));
 
