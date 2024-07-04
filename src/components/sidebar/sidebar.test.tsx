@@ -276,6 +276,14 @@ test("calls a forwarded ref callback on render with sidebar element as argument"
   expect(ref).toHaveBeenNthCalledWith(1, screen.getByRole("dialog"));
 });
 
+test("sidebar element has correct data-* tags when provided", () => {
+  render(<Sidebar open data-element="foo" data-role="bar" />);
+
+  const sidebar = screen.getByRole("dialog");
+  expect(sidebar).toHaveAttribute("data-element", "foo");
+  expect(sidebar).toHaveAttribute("data-role", "bar");
+});
+
 test("ensures overflowing content is scrollable", () => {
   render(<Sidebar open />);
 
