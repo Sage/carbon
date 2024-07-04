@@ -16,6 +16,10 @@ import {
   HELP_ICON_PREVIEW,
   BACKGROUND_UI_LOCATOR,
   COMMON_INPUT_PREFIX,
+  VISUALLY_HIDDEN_CHARACTER_COUNT,
+  VISUALLY_HIDDEN_HINT,
+  CHARACTER_COUNT,
+  CHARACTER_LIMIT,
 } from "./locators";
 
 export const icon = (page: Page) => {
@@ -85,6 +89,17 @@ export const label = (page: Page) => {
 export const characterLimit = (page: Page) => {
   return page.locator(COMMON_INPUT_CHARACTER_LIMIT);
 };
+
+export const visuallyHiddenCharacterCount = (page: Page) =>
+  page.locator(VISUALLY_HIDDEN_CHARACTER_COUNT);
+
+export const visuallyHiddenHint = (page: Page) =>
+  page.locator(VISUALLY_HIDDEN_HINT);
+
+export const characterCount = (page: Page) => page.locator(CHARACTER_COUNT);
+
+export const characterLimitDefaultTextarea = (page: Page) =>
+  page.locator(CHARACTER_LIMIT);
 
 export const legendSpan = (page: Page) => {
   return page.locator("legend > span");

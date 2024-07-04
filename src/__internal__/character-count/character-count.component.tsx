@@ -9,6 +9,7 @@ import {
 import useLocale from "../../hooks/__internal__/useLocale";
 
 interface CharacterCountProps {
+  ariaLive?: "off" | "polite";
   value: number;
   debouncedValue?: number;
   limit: number;
@@ -18,6 +19,7 @@ interface CharacterCountProps {
 }
 
 const CharacterCount = ({
+  ariaLive = "off",
   value,
   debouncedValue = value,
   limit,
@@ -61,7 +63,8 @@ const CharacterCount = ({
       </StyledCharacterCount>
       <VisuallyHiddenCharacterCount
         data-element="visually-hidden-character-count"
-        aria-live="polite"
+        data-role="visually-hidden-character-count"
+        aria-live={ariaLive}
       >
         {!isDebouncedOverLimit
           ? l.characterCount.charactersLeft(

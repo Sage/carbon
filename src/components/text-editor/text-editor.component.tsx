@@ -141,7 +141,8 @@ export const TextEditor = React.forwardRef<Editor, TextEditorProps>(
 
     const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       getContent(value).getPlainText(""),
-      characterLimit
+      characterLimit,
+      isFocused ? "polite" : "off"
     );
 
     const combinedAriaDescribedBy = [

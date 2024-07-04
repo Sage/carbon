@@ -4,20 +4,20 @@ import React from "react";
 
 import { HooksConfig } from "../../../playwright";
 import {
+  characterCount,
   fieldHelpPreview,
   getComponent,
   getDataElementByValue,
   getDataRoleByValue,
   getElement,
   tooltipPreview,
+  visuallyHiddenCharacterCount,
+  visuallyHiddenHint,
 } from "../../../playwright/components";
 import { ICON } from "../../../playwright/components/locators";
 import {
-  characterCount,
   textarea,
   textareaChildren,
-  visuallyHiddenCharacterCount,
-  visuallyHiddenHint,
 } from "../../../playwright/components/textarea";
 import { CHARACTERS, VALIDATION } from "../../../playwright/support/constants";
 import {
@@ -31,6 +31,7 @@ import Box from "../box";
 import {
   AutoFocusExample,
   CharacterLimitExample,
+  CharacterLimitExampleWithButton,
   CustomWidthExample,
   Default,
   DisabledExample,
@@ -1046,4 +1047,26 @@ test("should not change the scroll position of a scrollable container when typin
   const scrollTop = await formContentElement.evaluate((el) => el.scrollTop);
 
   expect(scrollTop).toBeGreaterThan(1000);
+});
+
+test("should set aria-live attribute on Character Count to `polite` when component is focused and then change back to `off` when component is blurred", async ({
+  mount,
+  page,
+}) => {
+  await mount(<CharacterLimitExampleWithButton />);
+
+  const CharacterCountElement = visuallyHiddenCharacterCount(page);
+  const textareaElement = textareaChildren(page);
+  const buttonElement = page.getByRole("button");
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "off");
+
+  await textareaElement.focus();
+  await textareaElement.fill("Foo");
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "polite");
+
+  await buttonElement.click();
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "off");
 });
