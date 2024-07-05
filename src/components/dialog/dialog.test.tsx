@@ -11,19 +11,23 @@ import CarbonProvider from "../carbon-provider";
 import Form from "../form";
 import Dialog, { DialogHandle, DialogProps } from ".";
 
-const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
-  <CarbonProvider validationRedesignOptIn>{children}</CarbonProvider>
-);
+beforeEach(() => jest.useFakeTimers());
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
 
 test("dialog element has aria-modal attribute set to true when open", () => {
-  render(<Dialog open title="My dialog" />, { wrapper: AllTheProviders });
+  render(
+    <CarbonProvider>
+      <Dialog open title="My dialog" />
+    </CarbonProvider>
+  );
   expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
 });
 
 test("title is displayed as a level 1 heading when title prop is passed", async () => {
-  render(<Dialog open title="My dialog" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" />);
 
   const dialog = screen.getByRole("dialog", { name: /My dialog/i });
   const heading = within(dialog).getByRole("heading", {
@@ -35,9 +39,7 @@ test("title is displayed as a level 1 heading when title prop is passed", async 
 });
 
 test("subtitle is displayed when subtitle prop is passed", async () => {
-  render(<Dialog open title="My dialog" subtitle="My subtitle" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" subtitle="My subtitle" />);
 
   const dialog = screen.getByRole("dialog", { description: /My subtitle/i });
 
@@ -45,9 +47,7 @@ test("subtitle is displayed when subtitle prop is passed", async () => {
 });
 
 test("custom title is displayed when title prop is a React element", () => {
-  render(<Dialog open title={<h1>Custom title</h1>} />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title={<h1>Custom title</h1>} />);
 
   const heading = screen.getByRole("heading", {
     name: /Custom title/i,
@@ -69,9 +69,7 @@ test("custom subtitle is displayed when subtitle prop is a React element", () =>
 });
 
 test("aria-label prop is used as dialog's accessible name, when passed and title isn't", () => {
-  render(<Dialog open aria-label="foobar" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open aria-label="foobar" />);
   expect(screen.getByRole("dialog")).toHaveAccessibleName("foobar");
 });
 
@@ -81,8 +79,7 @@ test("aria-labelledby prop is used as dialog's accessible name when passed", () 
       open
       title={<h1 id="title-id">Custom title</h1>}
       aria-labelledby="title-id"
-    />,
-    { wrapper: AllTheProviders }
+    />
   );
   expect(screen.getByRole("dialog")).toHaveAccessibleName("Custom title");
 });
@@ -94,8 +91,7 @@ test("aria-describedby prop is used as dialog's accessible description when pass
       title="My dialog"
       subtitle={<h2 id="subtitle-id">Custom subtitle</h2>}
       aria-describedby="subtitle-id"
-    />,
-    { wrapper: AllTheProviders }
+    />
   );
   expect(screen.getByRole("dialog")).toHaveAccessibleDescription(
     "Custom subtitle"
@@ -103,9 +99,7 @@ test("aria-describedby prop is used as dialog's accessible description when pass
 });
 
 test("help icon is displayed when help prop is passed", () => {
-  render(<Dialog open title="My dialog" help="Help text" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" help="Help text" />);
 
   const help = screen.getByLabelText("help");
 
@@ -113,9 +107,7 @@ test("help icon is displayed when help prop is passed", () => {
 });
 
 test("close button is displayed when onCancel prop is passed", () => {
-  render(<Dialog open title="My dialog" onCancel={() => {}} />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" onCancel={() => {}} />);
 
   const closeButton = screen.getByRole("button", { name: /Close/i });
 
@@ -146,11 +138,13 @@ describe("closing behaviour", () => {
 
   test("when close button is clicked, dialog closes and onCancel callback is executed", async () => {
     const onCancel = jest.fn();
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-    render(<MockApp onCancel={onCancel} />, {
-      wrapper: AllTheProviders,
-    });
+    render(
+      <CarbonProvider>
+        <MockApp onCancel={onCancel} />
+      </CarbonProvider>
+    );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
     await user.click(closeButton);
@@ -161,8 +155,12 @@ describe("closing behaviour", () => {
 
   test("when Escape key is pressed, dialog closes and onCancel callback is executed", async () => {
     const onCancel = jest.fn();
-    const user = userEvent.setup();
-    render(<MockApp onCancel={onCancel} />, { wrapper: AllTheProviders });
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <CarbonProvider>
+        <MockApp onCancel={onCancel} />
+      </CarbonProvider>
+    );
 
     await user.keyboard("{Escape}");
     await waitForElementToBeRemoved(() => screen.queryByRole("dialog"));
@@ -172,10 +170,12 @@ describe("closing behaviour", () => {
 
   test("when close button is focused and the Enter key is pressed, dialog closes and onCancel callback is executed", async () => {
     const onCancel = jest.fn();
-    const user = userEvent.setup();
-    render(<MockApp onCancel={onCancel} />, {
-      wrapper: AllTheProviders,
-    });
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <CarbonProvider>
+        <MockApp onCancel={onCancel} />
+      </CarbonProvider>
+    );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
     closeButton.focus();
@@ -187,10 +187,12 @@ describe("closing behaviour", () => {
 
   test("when close button is focused and the Space key is pressed, dialog closes and onCancel callback is executed", async () => {
     const onCancel = jest.fn();
-    const user = userEvent.setup();
-    render(<MockApp onCancel={onCancel} />, {
-      wrapper: AllTheProviders,
-    });
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    render(
+      <CarbonProvider>
+        <MockApp onCancel={onCancel} />
+      </CarbonProvider>
+    );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
     closeButton.focus();
@@ -202,11 +204,13 @@ describe("closing behaviour", () => {
 
   test("when close button is focused and a non-Space/Enter key is pressed, dialog stays open and onCancel is not executed", async () => {
     const onCancel = jest.fn();
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-    render(<MockApp onCancel={onCancel} />, {
-      wrapper: AllTheProviders,
-    });
+    render(
+      <CarbonProvider>
+        <MockApp onCancel={onCancel} />
+      </CarbonProvider>
+    );
 
     const closeButton = screen.getByRole("button", { name: /Close/i });
     closeButton.focus();
@@ -227,9 +231,13 @@ test("root container is refocused when the focus method of the component's ref h
       </Dialog>
     );
   };
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  render(
+    <CarbonProvider>
+      <MockApp />
+    </CarbonProvider>
+  );
 
-  const user = userEvent.setup();
-  render(<MockApp />, { wrapper: AllTheProviders });
   const button = screen.getByRole("button", { name: /Refocus dialog/i });
   button.focus();
 
@@ -240,10 +248,11 @@ test("root container is refocused when the focus method of the component's ref h
 
 test("first focusable element is not focused when disableAutoFocus prop is passed", () => {
   render(
-    <Dialog open title="My dialog" disableAutoFocus>
-      <button type="button">Focus me</button>
-    </Dialog>,
-    { wrapper: AllTheProviders }
+    <CarbonProvider>
+      <Dialog open title="My dialog" disableAutoFocus>
+        <button type="button">Focus me</button>
+      </Dialog>
+    </CarbonProvider>
   );
 
   const button = screen.getByRole("button", { name: /Focus me/i });
@@ -251,25 +260,19 @@ test("first focusable element is not focused when disableAutoFocus prop is passe
 });
 
 test("height prop controls the dialog's height", () => {
-  render(<Dialog open title="My dialog" height="500px" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" height="500px" />);
   expect(screen.getByRole("dialog")).toHaveStyle({ height: "500px" });
 });
 
 test("dialog has correct max-height", () => {
-  render(<Dialog open title="My dialog" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" />);
   expect(screen.getByRole("dialog")).toHaveStyle({
     maxHeight: "calc(100vh - 20px)",
   });
 });
 
 test("dialog element has correct data-* props", () => {
-  render(<Dialog open title="My dialog" data-element="foo" data-role="bar" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" data-element="foo" data-role="bar" />);
 
   const dialog = screen.getByRole("dialog", { name: /My dialog/i });
 
@@ -297,9 +300,7 @@ test("close button has correct data-* props, when the closeButtonDataProps prop 
 });
 
 test("renders with grey background when greyBackground prop is passed", () => {
-  render(<Dialog open title="My dialog" greyBackground />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" greyBackground />);
   expect(screen.getByRole("dialog")).toHaveStyle({
     backgroundColor: "var(--colorsUtilityMajor025)",
   });
@@ -319,9 +320,7 @@ test("does not apply vertical overflow styling to the content container when it 
 });
 
 test("dialog is wrapped in a container, which has the correct class names set, when className prop is passed", () => {
-  render(<Dialog open title="My dialog" className="special-dialog" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" className="special-dialog" />);
 
   const modalWrapper = screen.getByTestId("modal");
   const dialog = within(modalWrapper).getByRole("dialog", {
@@ -339,9 +338,7 @@ test("dialog does not position itself any closer than 20px from the top of the v
     .spyOn(Element.prototype, "getBoundingClientRect")
     .mockReturnValue({ height: 361 } as DOMRect);
 
-  render(<Dialog open title="My dialog" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" />);
 
   const dialog = screen.getByRole("dialog");
 
@@ -358,9 +355,7 @@ test("dialog does not position itself such that it goes off the left edge of the
     .spyOn(Element.prototype, "getBoundingClientRect")
     .mockReturnValue({ width: 301 } as DOMRect);
 
-  render(<Dialog open title="My dialog" />, {
-    wrapper: AllTheProviders,
-  });
+  render(<Dialog open title="My dialog" />);
 
   const dialog = screen.getByRole("dialog");
 
@@ -382,4 +377,33 @@ test("no padding is rendered around dialog content, when zero padding is specifi
 
   expect(content).toHaveStyle({ padding: "var(--spacing000)" });
   expect(innerContent).toHaveStyle({ paddingTop: "0px" });
+});
+
+test("background scroll remains disabled when returning to outer dialog after closing inner dialog", async () => {
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+  const MockApp = () => {
+    const [open, setOpen] = React.useState(true);
+    return (
+      <Dialog open title="Outer dialog">
+        <Dialog
+          open={open}
+          topModalOverride
+          title="Inner dialog"
+          onCancel={() => setOpen(false)}
+        />
+      </Dialog>
+    );
+  };
+
+  render(
+    <CarbonProvider>
+      <MockApp />
+    </CarbonProvider>
+  );
+  expect(screen.getByRole("dialog")).toHaveAccessibleName("Inner dialog");
+
+  await user.click(screen.getByRole("button", { name: /Close/i }));
+
+  expect(screen.getByRole("dialog")).toHaveAccessibleName("Outer dialog");
+  expect(document.body).toHaveStyle("overflow: hidden");
 });
