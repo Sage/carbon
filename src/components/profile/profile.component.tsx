@@ -100,6 +100,7 @@ export const Profile = ({
             <ProfileEmailStyle
               href={`mailto: ${email}`}
               size={size}
+              data-role="email-link"
               darkBackground={darkBackground}
               data-element="email"
             >
