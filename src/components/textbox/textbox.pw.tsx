@@ -17,6 +17,7 @@ import {
   getDataRoleByValue,
   tooltipPreview,
   characterLimit,
+  visuallyHiddenCharacterCount,
 } from "../../../playwright/components";
 import {
   TextboxComponent,
@@ -29,6 +30,7 @@ import {
   TextboxValidationsAsAStringWithTooltipCustom,
   TextboxValidationsAsAStringDisplayedOnLabel,
   TextboxNewDesignsValidation,
+  TextboxComponentWithCharacterLimit,
 } from "./components.test-pw";
 import {
   textbox,
@@ -284,15 +286,10 @@ test.describe("Prop checks for Textbox component", () => {
       }) => {
         await mount(<TextboxComponent characterLimit={characterLimitVal} />);
 
-        const visuallyHiddenCharacterCount = getDataElementByValue(
-          page,
-          "visually-hidden-character-count"
-        );
-
         if (renderStatus === "with") {
-          await expect(visuallyHiddenCharacterCount).toHaveCount(1);
+          await expect(visuallyHiddenCharacterCount(page)).toHaveCount(1);
         } else {
-          await expect(visuallyHiddenCharacterCount).toHaveCount(0);
+          await expect(visuallyHiddenCharacterCount(page)).toHaveCount(0);
         }
       });
     }
@@ -1191,4 +1188,26 @@ test.describe("Accessibility tests for Textbox component", () => {
 
     await checkAccessibility(page);
   });
+});
+
+test("should set aria-live attribute on Character Count to `polite` when component is focused and then change back to `off` when component is blurred", async ({
+  mount,
+  page,
+}) => {
+  await mount(<TextboxComponentWithCharacterLimit />);
+
+  const CharacterCountElement = visuallyHiddenCharacterCount(page);
+  const textboxElement = textboxInput(page);
+  const buttonElement = page.getByRole("button");
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "off");
+
+  await textboxElement.focus();
+  await textboxElement.fill("Foo");
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "polite");
+
+  await buttonElement.click();
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "off");
 });

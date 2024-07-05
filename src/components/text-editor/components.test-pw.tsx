@@ -116,3 +116,49 @@ export const TextEditorNewValidation = () => {
     </CarbonProvider>
   );
 };
+
+export const TextEditorCharacterCount = ({
+  onChange,
+  onLinkAdded,
+}: Partial<TextEditorProps>) => {
+  const [value, setValue] = React.useState(createContent());
+  const ref = React.useRef(null);
+
+  return (
+    <div
+      style={{
+        padding: "4px",
+      }}
+    >
+      <TextEditor
+        onChange={(newValue) => {
+          if (onChange) {
+            onChange(newValue);
+          }
+          setValue(newValue);
+        }}
+        value={value}
+        ref={ref}
+        labelText="Text Editor Label"
+        onLinkAdded={onLinkAdded}
+        toolbarElements={[
+          <Button key="cancel button" buttonType="tertiary" onClick={() => {}}>
+            Cancel
+          </Button>,
+          <Button
+            key="save button"
+            buttonType="primary"
+            type="button"
+            onClick={() => {}}
+          >
+            Save
+          </Button>,
+        ]}
+        characterLimit={69}
+      />
+      <button type="button" onClick={() => {}}>
+        Click Me
+      </button>
+    </div>
+  );
+};

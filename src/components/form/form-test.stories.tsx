@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
-import React from "react";
+import React, { useState } from "react";
+
+import TextEditor, { EditorState } from "../text-editor";
 import Form from ".";
 import Button from "../button";
 import { Tab, Tabs } from "../tabs";
@@ -21,6 +23,7 @@ import NumeralDate from "../numeral-date";
 import Hr from "../hr";
 import InlineInputs from "../inline-inputs";
 import Pager from "../pager";
+import Password from "../password";
 
 export default {
   title: "Form/Test",
@@ -367,3 +370,87 @@ export const DefaultWithPager = () => (
 );
 
 DefaultWithPager.storyName = "default with pager";
+
+export const MockFormForAriaLiveDemo = () => {
+  const [textareaValue, setTextareaValue] = useState("");
+  const [textboxValue, setTextboxValue] = useState("");
+  const [textEditorValue, setTextEditorValue] = useState(
+    EditorState.createEmpty()
+  );
+  const [passwordValue, setPasswordValue] = useState("");
+
+  const resetValues = () => {
+    setTextareaValue("");
+    setTextboxValue("");
+    setTextEditorValue(EditorState.createEmpty());
+    setPasswordValue("");
+  };
+
+  const handleSubmit = (event: { preventDefault: () => void }) => {
+    event?.preventDefault(); // prevents the page from changing
+    console.log("Form has been submitted");
+    resetValues();
+  };
+
+  return (
+    <Form
+      fieldSpacing={0}
+      onSubmit={handleSubmit}
+      leftSideButtons={
+        <Button onClick={() => console.log("cancel")}>Cancel</Button>
+      }
+      saveButton={
+        <Button buttonType="primary" type="submit">
+          Save
+        </Button>
+      }
+      stickyFooter
+    >
+      <Textarea
+        mt={2}
+        label="Textarea"
+        value={textareaValue}
+        characterLimit={100}
+        onChange={(newValue: {
+          target: { value: React.SetStateAction<string> };
+        }) => {
+          setTextareaValue(newValue.target.value);
+        }}
+      />
+      <Textbox
+        mt={5}
+        label="Textbox"
+        value={textboxValue}
+        characterLimit={69}
+        onChange={(newValue: {
+          target: { value: React.SetStateAction<string> };
+        }) => {
+          setTextboxValue(newValue.target.value);
+        }}
+      />
+      <TextEditor
+        mt={5}
+        onChange={(newValue) => {
+          setTextEditorValue(newValue);
+        }}
+        value={textEditorValue}
+        labelText="Text Editor Label"
+        characterLimit={100}
+      />
+      <Password
+        mt={5}
+        mb={2}
+        label="Password"
+        characterLimit={20}
+        value={passwordValue}
+        onChange={(newValue: {
+          target: { value: React.SetStateAction<string> };
+        }) => {
+          setPasswordValue(newValue.target.value);
+        }}
+      />
+    </Form>
+  );
+};
+
+MockFormForAriaLiveDemo.storyName = "Mock form for aria live demo";
