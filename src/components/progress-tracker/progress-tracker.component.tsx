@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React from "react";
 import { MarginProps } from "styled-system";
 import useLocale from "../../hooks/__internal__/useLocale";
 import tagComponent from "../../__internal__/utils/helpers/tags";
@@ -10,38 +10,18 @@ import {
   StyledValue,
   StyledDescription,
 } from "./progress-tracker.style";
-import useResizeObserver from "../../hooks/__internal__/useResizeObserver";
-import Logger from "../../__internal__/utils/logger";
-
-let deprecatedAriaTagsWarnTriggered = false;
 
 export interface ProgressTrackerProps extends MarginProps {
-  /** (Deprecated) Specifies an aria label to the component */
-  "aria-label"?: string;
-  /** (Deprecated) Specifies the aria describedby for the component */
-  "aria-describedby"?: string;
-  /** (Deprecated) The value of progress to be read out to the user. */
-  "aria-valuenow"?: number;
-  /** (Deprecated) The minimum value of the progress tracker */
-  "aria-valuemin"?: number;
-  /** (Deprecated) The maximum value of the progress tracker */
-  "aria-valuemax"?: number;
-  /** (Deprecated) Prop to define the human readable text alternative of aria-valuenow
-   * if aria-valuenow is not a number
-   */
-  "aria-valuetext"?: string;
   /** Size of the progress bar. */
   size?: "small" | "medium" | "large";
   /** Length of the component, any valid css string. */
   length?: string;
   /** Current progress (percentage). */
   progress?: number;
-  /** If error occurs. */
+  /** Flag to control error state. */
   error?: boolean;
-  /** Flag to control whether the default value labels (as percentages) should be rendered. */
-  description?: string;
   /** Value to add a description to the label */
-  showDefaultLabels?: boolean;
+  description?: string;
   /** Value to display as current progress. */
   currentProgressLabel?: string;
   /** Value to display as the maximum progress limit. */
@@ -50,26 +30,18 @@ export interface ProgressTrackerProps extends MarginProps {
   customValuePreposition?: string;
   /**
    * The position the value label are rendered in.
-   * Top/bottom apply to horizontal and left applies to vertical orientation.
    */
   labelsPosition?: "top" | "bottom" | "left";
-  /** Label width */
+  /** Label width when position is "left" */
   labelWidth?: string;
 }
 
 const ProgressTracker = ({
-  "aria-label": ariaLabel,
-  "aria-describedby": ariaDescribedBy,
-  "aria-valuenow": ariaValueNow,
-  "aria-valuemin": ariaValueMin,
-  "aria-valuemax": ariaValueMax,
-  "aria-valuetext": ariaValueText,
   size = "medium",
   length = "256px",
   error = false,
   progress = 0,
   description,
-  showDefaultLabels = false,
   currentProgressLabel,
   customValuePreposition,
   maxProgressLabel,
@@ -77,57 +49,19 @@ const ProgressTracker = ({
   labelWidth,
   ...rest
 }: ProgressTrackerProps) => {
-  if (
-    (ariaLabel ||
-      ariaDescribedBy ||
-      ariaValueNow ||
-      ariaValueMax ||
-      ariaValueMin ||
-      ariaValueText) &&
-    !deprecatedAriaTagsWarnTriggered
-  ) {
-    deprecatedAriaTagsWarnTriggered = true;
-    Logger.deprecate(
-      "The 'aria-' attribute props in `ProgressTracker` have been deprecated and will soon be removed."
-    );
-  }
-
   const l = useLocale();
-  const barRef = useRef<HTMLDivElement>(null);
-  const [barLength, setBarLength] = useState("0px");
   const prefixLabels = labelsPosition !== "bottom";
 
-  const updateBarLength = useCallback(() => {
-    setBarLength(`${barRef.current?.offsetWidth}px`);
-  }, []);
-
-  useLayoutEffect(() => {
-    updateBarLength();
-  }, [updateBarLength]);
-
-  useResizeObserver(barRef, () => {
-    updateBarLength();
-  });
-
   const renderValueLabels = () => {
-    if (!showDefaultLabels && !currentProgressLabel) {
-      return null;
+    let displayedCurrentProgressLabel, displayedMaxProgressLabel;
+
+    if (currentProgressLabel) {
+      displayedCurrentProgressLabel = currentProgressLabel;
+      displayedMaxProgressLabel = maxProgressLabel || undefined;
+    } else {
+      displayedCurrentProgressLabel = `${progress}%`;
+      displayedMaxProgressLabel = "100%";
     }
-
-    const label = (value?: string, defaultValue?: string) => {
-      if (value) {
-        return value;
-      }
-
-      return showDefaultLabels ? defaultValue : undefined;
-    };
-
-    const displayedCurrentProgressLabel = label(
-      currentProgressLabel,
-      `${progress}%`
-    );
-
-    const displayedMaxProgressLabel = label(maxProgressLabel, "100%");
 
     return (
       <StyledValuesLabel
@@ -135,11 +69,9 @@ const ProgressTracker = ({
         size={size}
         labelWidth={labelWidth}
       >
-        {displayedCurrentProgressLabel && (
-          <StyledValue data-element="current-progress-label">
-            {displayedCurrentProgressLabel}
-          </StyledValue>
-        )}
+        <StyledValue data-element="current-progress-label">
+          {displayedCurrentProgressLabel}
+        </StyledValue>
 
         {displayedMaxProgressLabel && (
           <>
@@ -161,37 +93,19 @@ const ProgressTracker = ({
     );
   };
 
-  const valueMin = ariaValueMin === undefined ? 0 : ariaValueMin;
-  const valueMax = ariaValueMax === undefined ? 100 : ariaValueMax;
-  const defaultValueNow = valueMin + ((valueMax - valueMin) * progress) / 100;
-
   return (
     <StyledProgressTracker
       length={length}
       {...rest}
       {...tagComponent("progress-bar", rest)}
-      role="progressbar"
-      aria-label={ariaLabel || "progress tracker"}
-      aria-describedby={ariaDescribedBy}
-      aria-valuenow={
-        ariaValueNow === undefined ? defaultValueNow : ariaValueNow
-      }
-      aria-valuemin={ariaValueMin}
-      aria-valuemax={ariaValueMax}
-      aria-valuetext={ariaValueText}
       labelsPosition={labelsPosition}
     >
       {prefixLabels && renderValueLabels()}
-      <StyledProgressBar
-        size={size}
-        ref={barRef}
-        progress={progress}
-        error={error}
-      >
+      <StyledProgressBar progress={progress} error={error} aria-hidden="true">
         <InnerBar
           data-element="inner-bar"
+          data-role="inner-bar"
           size={size}
-          length={barLength}
           progress={progress}
           error={error}
         />
