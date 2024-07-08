@@ -206,3 +206,23 @@ export const TextboxNewDesignsValidation = () => {
     </Box>
   );
 };
+
+export const TextboxComponentWithCharacterLimit = () => {
+  const [state, setState] = useState("Textbox");
+  const setValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setState(target.value);
+  };
+  return (
+    <>
+      <Textbox
+        label="Textbox"
+        value={state}
+        onChange={setValue}
+        characterLimit={69}
+      />
+      <button type="button" onClick={() => {}}>
+        Click Me
+      </button>
+    </>
+  );
+};

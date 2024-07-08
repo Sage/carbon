@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SpaceProps } from "styled-system";
-import { MenuContext } from "../menu/menu.component";
+import MenuContext from "../menu/__internal__/menu.context";
 import { StyledVerticalWrapper, StyledDivider } from "./vertical-divider.style";
 
 type TintRange =
