@@ -138,19 +138,8 @@ const SelectTextbox = React.forwardRef(
     }
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
-      if (disabled || readOnly) {
-        return;
-      }
-
-      if (onFocus) {
-        onFocus(event);
-      }
-    }
-
-    function handleTextboxBlur(event: React.FocusEvent<HTMLInputElement>) {
-      if (onBlur) {
-        onBlur(event);
-      }
+      if (disabled || readOnly) return;
+      onFocus?.(event);
     }
 
     const textboxProps = {
@@ -161,7 +150,7 @@ const SelectTextbox = React.forwardRef(
       isOptional,
       onClick: handleTextboxClick,
       onFocus: handleTextboxFocus,
-      onBlur: handleTextboxBlur,
+      onBlur,
       labelId,
       type: "text",
       ref,
@@ -189,6 +178,7 @@ const SelectTextbox = React.forwardRef(
         <Textbox
           aria-label={ariaLabel}
           data-element="select-input"
+          data-role="select-textbox"
           inputIcon="dropdown"
           autoComplete="off"
           size={size}

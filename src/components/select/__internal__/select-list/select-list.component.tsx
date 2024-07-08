@@ -77,8 +77,6 @@ export interface SelectListProps {
   tableHeader?: React.ReactNode;
   /** When true component will work in multi column mode, children should consist of OptionRow components in this mode */
   multiColumn?: boolean;
-  /** Data role for loader component */
-  loaderDataRole?: string;
   /** Placement of the select list relative to the input element */
   listPlacement?: Side;
   /** Use the opposite list placement if the set placement does not fit */
@@ -121,7 +119,6 @@ const SelectList = React.forwardRef(
       onListScrollBottom,
       multiColumn,
       tableHeader,
-      loaderDataRole,
       listPlacement = "bottom",
       flipEnabled = true,
       isOpen,
@@ -634,7 +631,7 @@ const SelectList = React.forwardRef(
 
     const loader = isLoading ? (
       <StyledSelectLoaderContainer key="loader">
-        <Loader data-role={loaderDataRole} />
+        <Loader />
       </StyledSelectLoaderContainer>
     ) : undefined;
 
@@ -690,6 +687,7 @@ const SelectList = React.forwardRef(
         >
           <StyledSelectListContainer
             data-element="select-list-wrapper"
+            data-role="select-list-wrapper"
             isLoading={isLoading}
             {...listProps}
           >
@@ -697,6 +695,7 @@ const SelectList = React.forwardRef(
               ref={listContainerRef}
               maxHeight={listMaxHeight}
               data-component="select-list-scrollable-container"
+              data-role="select-list-scrollable-container"
               hasActionButton={!!listActionButton}
             >
               <StyledSelectList
