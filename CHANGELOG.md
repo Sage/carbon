@@ -1,3 +1,10 @@
+## [140.2.0](https://github.com/Sage/carbon/compare/v140.1.1...v140.2.0) (2024-07-09)
+
+
+### Features
+
+* **portrait, profile:** deprecate the gravatar prop ([bb22e16](https://github.com/Sage/carbon/commit/bb22e169e4d3241658ba31be12ace5043d1e8494))
+
 ### [140.1.1](https://github.com/Sage/carbon/compare/v140.1.0...v140.1.1) (2024-07-04)
 
 
