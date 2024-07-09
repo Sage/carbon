@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MD5 from "crypto-js/md5";
+import Logger from "../../__internal__/utils/logger";
 import Portrait from ".";
 import { testStyledSystemMargin } from "../../__spec_helper__/__internal__/test-utils";
 import CarbonProvider from "../carbon-provider";
@@ -40,6 +41,31 @@ test("renders with a gravatar image, if a valid email is passed via the `gravata
   const img = screen.getByRole("img");
   expect(img).toBeVisible();
   expect(img).toHaveAttribute("src", src);
+});
+
+test("logs a deprecation warning once when the `gravatar` prop is passed, and a gravatar loads", () => {
+  const loggerSpy = jest
+    .spyOn(Logger, "deprecate")
+    .mockImplementation(() => {});
+
+  render(
+    <>
+      <Portrait gravatar="chris.barber@sage.com" />
+      <Portrait gravatar="chris.barber@sage.com" />
+    </>
+  );
+
+  const portraits = screen.getAllByRole("img");
+
+  portraits.forEach((portrait) => {
+    fireEvent.load(portrait);
+  });
+
+  expect(loggerSpy).toHaveBeenCalledWith(
+    "The `gravatar` prop has been deprecated and will soon be removed."
+  );
+  expect(loggerSpy).toHaveBeenCalledTimes(1);
+  loggerSpy.mockRestore();
 });
 
 test("if a valid gravatar email is not found and an onError event is triggered, the default individual icon is rendered", async () => {

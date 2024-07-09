@@ -31,7 +31,7 @@ export interface ProfileProps extends MarginProps {
   alt?: string;
   /** Define the name to display. */
   name?: string;
-  /** Define the email to use (will check Gravatar for image). */
+  /** Define the email to use. */
   email?: string;
   /** Define read-only text to display. */
   text?: string;
