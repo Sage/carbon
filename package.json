@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "140.1.0",
+  "version": "140.2.0",
   "description": "A library of reusable React components for easily building user interfaces.",
   "files": [
     "lib",
@@ -88,6 +88,7 @@
     "@storybook/react": "^7.6.4",
     "@storybook/react-webpack5": "^7.6.4",
     "@storybook/theming": "^7.6.4",
+    "@testing-library/dom": "^9.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
@@ -202,7 +203,8 @@
     "styled-system": "^5.1.5"
   },
   "overrides": {
-    "playwright-core": "$@playwright/experimental-ct-react17"
+    "playwright-core": "$@playwright/experimental-ct-react17",
+    "@testing-library/dom": "$@testing-library/dom"
   },
   "config": {
     "commitizen": {

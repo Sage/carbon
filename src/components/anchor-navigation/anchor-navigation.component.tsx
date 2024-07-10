@@ -9,6 +9,7 @@ import { isFragment } from "react-is";
 import invariant from "invariant";
 import throttle from "lodash/throttle";
 
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 import { defaultFocusableSelectors } from "../../__internal__/focus-trap/focus-trap-utils";
 import Event from "../../__internal__/utils/helpers/events";
 import {
@@ -20,7 +21,8 @@ import AnchorNavigationItem, {
   AnchorNavigationItemProps,
 } from "./anchor-navigation-item/anchor-navigation-item.component";
 
-export interface AnchorNavigationProps {
+export interface AnchorNavigationProps
+  extends Omit<TagProps, "data-component"> {
   /** Child elements */
   children?: React.ReactNode;
   /** The AnchorNavigationItems components to be rendered in the sticky navigation.
@@ -35,6 +37,8 @@ const SCROLL_THROTTLE = 100;
 const AnchorNavigation = ({
   children,
   stickyNavigation,
+  "data-element": dataElement,
+  "data-role": dataRole,
 }: AnchorNavigationProps): JSX.Element => {
   invariant(
     isFragment(stickyNavigation),
@@ -118,18 +122,16 @@ const AnchorNavigation = ({
   const scrollHandler = useMemo(
     () =>
       throttle(() => {
+        /* istanbul ignore else */
         if (isUserScroll.current) {
           setSelectedAnchorBasedOnScroll();
         } else {
           if (isUserScrollTimer.current !== undefined) {
             window.clearTimeout(isUserScrollTimer.current);
           }
-          isUserScrollTimer.current = setTimeout(
-            /* istanbul ignore next */ () => {
-              isUserScroll.current = true;
-            },
-            SCROLL_THROTTLE + 50
-          );
+          isUserScrollTimer.current = setTimeout(() => {
+            isUserScroll.current = true;
+          }, SCROLL_THROTTLE + 50);
         }
       }, SCROLL_THROTTLE),
     [setSelectedAnchorBasedOnScroll]
@@ -195,7 +197,12 @@ const AnchorNavigation = ({
   };
 
   return (
-    <StyledAnchorNavigation ref={contentRef} data-component="anchor-navigation">
+    <StyledAnchorNavigation
+      ref={contentRef}
+      data-component="anchor-navigation"
+      data-element={dataElement}
+      data-role={dataRole}
+    >
       <StyledNavigation
         ref={navigationRef}
         data-element="anchor-sticky-navigation"

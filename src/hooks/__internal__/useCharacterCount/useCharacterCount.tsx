@@ -5,7 +5,8 @@ import useDebounce from "../useDebounce";
 
 const useCharacterCount = (
   value = "",
-  characterLimit?: number
+  characterLimit?: number,
+  characterCountAriaLive?: "off" | "polite"
 ): [JSX.Element | null, string | undefined] => {
   const isCharacterLimitValid =
     typeof characterLimit === "number" && !Number.isNaN(characterLimit);
@@ -41,6 +42,7 @@ const useCharacterCount = (
   return [
     isCharacterLimitValid ? (
       <CharacterCount
+        ariaLive={characterCountAriaLive}
         isOverLimit={isOverLimit}
         isDebouncedOverLimit={isDebouncedOverLimit}
         value={value.length}

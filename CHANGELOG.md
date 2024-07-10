@@ -1,3 +1,17 @@
+## [140.2.0](https://github.com/Sage/carbon/compare/v140.1.1...v140.2.0) (2024-07-09)
+
+
+### Features
+
+* **portrait, profile:** deprecate the gravatar prop ([bb22e16](https://github.com/Sage/carbon/commit/bb22e169e4d3241658ba31be12ace5043d1e8494))
+
+### [140.1.1](https://github.com/Sage/carbon/compare/v140.1.0...v140.1.1) (2024-07-04)
+
+
+### Bug Fixes
+
+* **character-count:** prevent screen reader announcing value when submitting a form ([17ff11f](https://github.com/Sage/carbon/commit/17ff11fedff78093d0a671f30f5786c01fd55798)), closes [#6181](https://github.com/Sage/carbon/issues/6181)
+
 ## [140.1.0](https://github.com/Sage/carbon/compare/v140.0.1...v140.1.0) (2024-07-01)
 
 
