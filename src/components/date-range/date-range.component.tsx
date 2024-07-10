@@ -40,7 +40,7 @@ export interface DateRangeProps
     MarginProps,
     TagProps {
   /** Props for the child end Date component */
-  endDateProps?: Partial<DateInputProps>;
+  endDateProps?: Omit<Partial<DateInputProps>, "required">;
   /** Optional label for endDate field */
   endLabel?: string;
   /**
@@ -74,7 +74,7 @@ export interface DateRangeProps
   /** Specify a callback triggered on blur */
   onBlur?: (ev: DateRangeChangeEvent) => void;
   /** Props for the child start Date component */
-  startDateProps?: Partial<DateInputProps>;
+  startDateProps?: Omit<Partial<DateInputProps>, "required">;
   /** Optional label for startDate field */
   startLabel?: string;
   /**
