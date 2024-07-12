@@ -1,3 +1,23 @@
+## [141.0.0](https://github.com/Sage/carbon/compare/v140.2.0...v141.0.0) (2024-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** Removed support for consuming `MenuContext`
+* **icon-button:** Remove onAction prop in favour of onClick
+* **sidebar:** Custom `data-element` and `data-role` tags are now placed on
+the main sidebar element that has a dialog role
+
+### Bug Fixes
+
+* **menu:** remove export for internal context ([4cf8852](https://github.com/Sage/carbon/commit/4cf88527aa60282f99284700b96f8534b6b27590))
+* **sidebar:** ensure data tag props are set on the correct internal element ([e5465b7](https://github.com/Sage/carbon/commit/e5465b71ec9dec5a2ff210316fcd77b136ee5c8b))
+
+
+### Code Refactoring
+
+* **icon-button:** remove deprecated onAction prop ([22dff44](https://github.com/Sage/carbon/commit/22dff445ec3b5c54a76146e42605d85dc7557745))
+
 ## [140.2.0](https://github.com/Sage/carbon/compare/v140.1.1...v140.2.0) (2024-07-09)
 
 
