@@ -14,7 +14,13 @@ interface DropItemProps {
   originalIndex: number;
 }
 
-const DropTarget = ({ children, getOrder, ...rest }: DropTargetProps) => {
+const DropTarget = ({
+  "data-element": dataElement,
+  "data-role": dataRole,
+  children,
+  getOrder,
+  ...rest
+}: DropTargetProps) => {
   const [, drop] = useDrop({
     accept: "draggableItem",
     drop(item: DropItemProps) {
@@ -26,7 +32,13 @@ const DropTarget = ({ children, getOrder, ...rest }: DropTargetProps) => {
   });
 
   return (
-    <StyledDraggableContainer ref={drop} {...rest}>
+    <StyledDraggableContainer
+      ref={drop}
+      data-component="draggable-container"
+      data-element={dataElement}
+      data-role={dataRole}
+      {...rest}
+    >
       {children}
     </StyledDraggableContainer>
   );
