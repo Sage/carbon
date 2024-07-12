@@ -228,6 +228,7 @@ const SelectTextbox = React.forwardRef(
         <Textbox
           aria-label={ariaLabel}
           data-element="select-input"
+          data-role="select-textbox"
           inputIcon="dropdown"
           autoComplete="off"
           size={size}
