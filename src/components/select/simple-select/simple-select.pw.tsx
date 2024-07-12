@@ -357,28 +357,48 @@ test.describe("SimpleSelect component", () => {
     ).toHaveCSS("max-width", "100%");
   });
 
-  test("should open the list with mouse click on Select input", async ({
-    mount,
-    page,
-  }) => {
+  test("opens dropdown list when input is clicked", async ({ mount, page }) => {
     await mount(<SimpleSelectComponent />);
 
-    await selectText(page).click();
-    await expect(commonDataElementInputPreview(page)).toHaveAttribute(
-      "aria-expanded",
-      "true"
-    );
-    await expect(selectListWrapper(page)).toBeVisible();
+    await page.getByText("Please Select...").click();
+
+    const combobox = page.getByRole("combobox", { name: "simple select" });
+    await expect(combobox).toHaveAttribute("aria-expanded", "true");
+
+    const dropdownList = page.getByRole("listbox");
+    await expect(dropdownList).toBeVisible();
   });
 
-  test("should open the list with mouse click on dropdown button", async ({
+  test("opens dropdown list when dropdown icon is clicked", async ({
     mount,
     page,
   }) => {
     await mount(<SimpleSelectComponent />);
 
-    await dropdownButton(page).click();
-    await expect(selectListWrapper(page)).toBeVisible();
+    const dropdownIcon = page.getByTestId("icon");
+    await dropdownIcon.click();
+
+    const dropdownList = page.getByRole("listbox");
+    await expect(dropdownList).toBeVisible();
+  });
+
+  test("dropdown list appears beneath input when it is clicked", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<SimpleSelectComponent />);
+
+    await page.getByText("Please select...").click();
+
+    const combobox = await page
+      .getByRole("combobox", { name: "simple select" })
+      .boundingBox();
+    const dropdownList = await page.getByRole("listbox").boundingBox();
+
+    if (!combobox) throw new Error("Combobox not found or visible.");
+    if (!dropdownList) throw new Error("Dropdown list not found or visible.");
+
+    expect(combobox.y).toBeLessThan(dropdownList.y);
   });
 
   test("should close the list with the Tab key", async ({ mount, page }) => {
