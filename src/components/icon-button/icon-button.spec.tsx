@@ -12,59 +12,12 @@ import StyledIconButton from "./icon-button.style";
 import Icon from "../icon";
 import StyledIcon from "../icon/icon.style";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import Logger from "../../__internal__/utils/logger";
 
 jest.mock("../../__internal__/utils/logger");
 
 describe("IconButton component", () => {
   let wrapper: ReactWrapper;
   let onDismiss: jest.Mock;
-
-  describe("deprecation warning", () => {
-    it("should display deprecation warning when the onAction is passed to the component is used once", () => {
-      const loggerSpy = jest.spyOn(Logger, "deprecate");
-      mount(
-        <IconButton aria-label="icon-button" onAction={() => {}}>
-          <Icon type="home" />
-        </IconButton>
-      );
-
-      expect(loggerSpy).toHaveBeenCalledWith(
-        "The `onAction` callback for the `IconButton` component is deprecated and will soon be removed. Please use `onClick` instead"
-      );
-
-      expect(loggerSpy).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe("invariant", () => {
-    let consoleSpy: jest.SpyInstance;
-    beforeEach(() => {
-      consoleSpy = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(() => undefined);
-    });
-
-    afterEach(() => {
-      consoleSpy.mockReset();
-    });
-
-    it("throws when onAction & onClick are both used", () => {
-      expect(() => {
-        wrapper = mount(
-          <IconButton
-            aria-label="icon-button"
-            onAction={() => {}}
-            onClick={() => {}}
-          >
-            <Icon type="home" />
-          </IconButton>
-        );
-      }).toThrow(
-        "onClick and onAction have both been set, please use onClick as onAction will soon be deprecated"
-      );
-    });
-  });
 
   describe("refs", () => {
     it("accepts ref as a ref object", () => {
