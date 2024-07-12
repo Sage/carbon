@@ -159,6 +159,30 @@ test("sets the correct height when 'services' is passed to the 'buttonType' prop
   expect(icon).toHaveStyle("height: 6px");
 });
 
+/* Styling test for coverage */
+test("sets the correct dimensions when button is icon only and 'size' is 'small'", () => {
+  render(<Button size="small" iconType="bin" />);
+
+  const button = screen.getByRole("button");
+
+  expect(button).toHaveStyle({
+    width: "32px",
+    minHeight: "32px",
+  });
+});
+
+/* Styling test for coverage */
+test("sets the correct dimensions when button is icon only and 'size' is 'large'", () => {
+  render(<Button size="large" iconType="bin" />);
+
+  const button = screen.getByRole("button");
+
+  expect(button).toHaveStyle({
+    width: "48px",
+    minHeight: "48px",
+  });
+});
+
 test("sets the 'name' attribute correctly when a custom value is passed to the 'name' prop", () => {
   render(<Button name="foo">bar</Button>);
 
