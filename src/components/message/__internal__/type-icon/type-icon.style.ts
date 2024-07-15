@@ -12,9 +12,7 @@ const messageVariants = {
 };
 
 type TypeIconStyleProps = {
-  /** set background to be invisible */
   transparent?: boolean;
-  /** set type of message based on new DLS standard */
   variant: MessageVariant;
 };
 
