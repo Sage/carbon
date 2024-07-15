@@ -618,6 +618,24 @@ describe("NumeralDate", () => {
       expect(preventDefaultMock).not.toHaveBeenCalled();
     });
 
+    it("allows Enter key presses", () => {
+      const input = wrapper.find("input").at(0);
+      const event = { key: "Enter", preventDefault: preventDefaultMock };
+      act(() => {
+        input.simulate("keydown", event);
+      });
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+    });
+
+    it("allows Tab key presses", () => {
+      const input = wrapper.find("input").at(0);
+      const event = { key: "Tab", preventDefault: preventDefaultMock };
+      act(() => {
+        input.simulate("keydown", event);
+      });
+      expect(preventDefaultMock).not.toHaveBeenCalled();
+    });
+
     it.each([["a"], ["/"]])("does not allow non-numeric characters", (key) => {
       const input = wrapper.find("input").at(0);
       const event = { key: key[0], preventDefault: preventDefaultMock };
