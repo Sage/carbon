@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { MessageVariant } from "../message.component";
+import { MessageVariant } from "../../message.component";
 
 const messageVariants = {
   error: "var(--colorsSemanticNegative500)",
