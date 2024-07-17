@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { act } from "react-dom/test-utils";
 import { mount, ReactWrapper } from "enzyme";
 
@@ -6,8 +6,6 @@ import SelectList, { SelectListProps } from "./select-list.component";
 import {
   StyledSelectList,
   StyledSelectListTableHeader,
-  StyledSelectListContainer,
-  StyledScrollableContainer,
 } from "./select-list.style";
 import Option from "../../option";
 import OptionRow from "../../option-row/option-row.component";
@@ -25,16 +23,8 @@ const mockedGuid = "guid-12345";
 const guidSpy = jest.spyOn(guidModule, "default");
 guidSpy.mockImplementation(() => "guid-12345");
 
-const escapeKeyUpEvent = new KeyboardEvent("keyup", {
-  key: "Escape",
-  bubbles: true,
-});
 const tabKeyDownEvent = new KeyboardEvent("keydown", {
   key: "Tab",
-  bubbles: true,
-});
-const enterKeyDownEvent = new KeyboardEvent("keydown", {
-  key: "Enter",
   bubbles: true,
 });
 const downKeyDownEvent = new KeyboardEvent("keydown", {
@@ -51,10 +41,6 @@ const homeKeyDownEvent = new KeyboardEvent("keydown", {
 });
 const endKeyDownEvent = new KeyboardEvent("keydown", {
   key: "End",
-  bubbles: true,
-});
-const spaceKeyUpEvent = new KeyboardEvent("keyup", {
-  key: "Space",
   bubbles: true,
 });
 
@@ -142,94 +128,6 @@ function getGroupedSelectList(props: Partial<SelectListProps>) {
   return <WrapperComponent />;
 }
 
-function getLoadingSelectList(props: Partial<SelectListProps>) {
-  const defaultProps = {
-    onSelect: () => {},
-    onSelectListClose: () => {},
-    isOpen: true,
-  };
-
-  const WrapperComponent = ({
-    isLoading,
-    ...wrapperProps
-  }: Partial<SelectListProps>) => {
-    const mockRef = useRef(null);
-    const children = isLoading
-      ? []
-      : [
-          <Option key="red" value="opt1" text="red" />,
-          <Option key="green" value="opt2" text="green" />,
-          <Option key="blue" value="opt3" text="blue" />,
-        ];
-
-    return (
-      <SelectList ref={mockRef} {...defaultProps} {...wrapperProps}>
-        {children}
-      </SelectList>
-    );
-  };
-
-  return <WrapperComponent {...props} />;
-}
-
-function getSelectListWithDisabledOption(props: Partial<SelectListProps>) {
-  const defaultProps = {
-    onSelect: () => {},
-    onSelectListClose: () => {},
-    isOpen: true,
-    id: props.id,
-  };
-
-  const WrapperComponent = (wrapperProps: Partial<SelectListProps>) => {
-    const mockRef = useRef(null);
-
-    return (
-      <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
-        <Option id={defaultProps.id} value="opt1" text="red" />
-        <Option id={defaultProps.id} value="opt2" text="green" disabled />
-        <Option id={defaultProps.id} value="opt3" text="blue" />
-      </SelectList>
-    );
-  };
-
-  return <WrapperComponent />;
-}
-
-function getSelectListWithObjectAsValues(props: Partial<SelectListProps>) {
-  const defaultProps = {
-    onSelect: () => {},
-    onSelectListClose: () => {},
-    isOpen: true,
-    id: props.id,
-  };
-
-  const WrapperComponent = (wrapperProps: Partial<SelectListProps>) => {
-    const mockRef = useRef(null);
-
-    return (
-      <SelectList ref={mockRef} {...defaultProps} {...props} {...wrapperProps}>
-        <Option
-          id={defaultProps.id}
-          value={{ id: "red", value: 1 }}
-          text="red"
-        />
-        <Option
-          id={defaultProps.id}
-          value={{ id: "green", value: 2 }}
-          text="green"
-        />
-        <Option
-          id={defaultProps.id}
-          value={{ id: "blue", value: 3 }}
-          text="blue"
-        />
-      </SelectList>
-    );
-  };
-
-  return <WrapperComponent />;
-}
-
 function renderSelectList(props = {}, renderer = mount, enzymeOptions = {}) {
   return renderer(getSelectList(props), enzymeOptions);
 }
@@ -244,44 +142,6 @@ function renderOptionRowSelectList(
 
 function renderGroupedSelectList(props = {}, renderer = mount) {
   return renderer(getGroupedSelectList(props));
-}
-
-function renderSelectListWithObjects(props = {}, renderer = mount) {
-  return renderer(getSelectListWithObjectAsValues(props));
-}
-
-function renderWithVirtualScroll(
-  totalItems: number,
-  enableVirtualScroll: boolean,
-  overscan?: number
-) {
-  const options = Array(totalItems)
-    .fill(undefined)
-    .map((_, index) => (
-      <Option
-        key={`option-${index + 1}`}
-        value={`${index}`}
-        text={`Option ${index + 1}`}
-      />
-    ));
-  const SelectListWithManyOptions = (props: Partial<SelectListProps>) => {
-    const mockRef = useRef(null);
-
-    return (
-      <SelectList
-        ref={mockRef}
-        isOpen
-        enableVirtualScroll={enableVirtualScroll}
-        virtualScrollOverscan={overscan}
-        onSelect={() => {}}
-        onSelectListClose={() => {}}
-        {...props}
-      >
-        {options}
-      </SelectList>
-    );
-  };
-  return mount(<SelectListWithManyOptions />);
 }
 
 function renderWithVirtualScrollAndGroupHeaders() {
@@ -342,364 +202,7 @@ describe("SelectList", () => {
     boundingClientRectSpy.mockRestore();
   });
 
-  describe.each([getSelectList, getOptionRowSelectList])(
-    "when a key is pressed",
-    (listGetter) => {
-      let wrapper: ReactWrapper;
-      const testContainer = document.createElement("div");
-      const onSelectListCloseFn = jest.fn();
-      const onSelectFn = jest.fn();
-
-      testContainer.id = "enzymeContainer";
-      document.body.appendChild(testContainer);
-
-      beforeEach(() => {
-        onSelectFn.mockReset();
-        onSelectListCloseFn.mockReset();
-        wrapper = mount(
-          listGetter({
-            onSelectListClose: onSelectListCloseFn,
-            onSelect: onSelectFn,
-            filterText: "",
-          }),
-          { attachTo: testContainer }
-        );
-      });
-
-      afterEach(() => {
-        wrapper.detach();
-      });
-
-      afterAll(() => {
-        document.body.removeChild(testContainer);
-      });
-
-      describe.each([
-        ["Escape", escapeKeyUpEvent],
-        ["Tab", tabKeyDownEvent],
-        ["Enter", enterKeyDownEvent],
-      ])("and it's the %s key", (_, keyEvent) => {
-        it("then the onSelectListClose prop should be called", () => {
-          testContainer.dispatchEvent(keyEvent);
-          expect(onSelectListCloseFn).toHaveBeenCalled();
-        });
-      });
-
-      describe("and it's a Space key", () => {
-        it("then the onSelectListClose prop should not be called", () => {
-          testContainer.dispatchEvent(spaceKeyUpEvent);
-          expect(onSelectListCloseFn).not.toHaveBeenCalled();
-        });
-      });
-
-      describe("and it's the Enter key", () => {
-        it("then should call a preventDefault function", () => {
-          const spy = jest.spyOn(enterKeyDownEvent, "preventDefault");
-          testContainer.dispatchEvent(enterKeyDownEvent);
-
-          expect(spy).toHaveBeenCalled();
-        });
-
-        describe("with an option highlighted", () => {
-          it("then the onSelect prop should be called with expected data", () => {
-            wrapper.setProps({ highlightedValue: "opt3" });
-            testContainer.dispatchEvent(enterKeyDownEvent);
-
-            expect(onSelectFn).toHaveBeenCalledWith({
-              id: mockedGuid,
-              selectionType: "enterKey",
-              text: "blue",
-              value: "opt3",
-              selectionConfirmed: true,
-            });
-          });
-        });
-      });
-
-      describe("and it's the Down key", () => {
-        describe("with no option highlighted", () => {
-          it("then the onSelect prop should be called with expected data", () => {
-            act(() => {
-              testContainer.dispatchEvent(downKeyDownEvent);
-            });
-
-            expect(onSelectFn).toHaveBeenCalledWith({
-              id: mockedGuid,
-              selectionType: "navigationKey",
-              text: "red",
-              value: "opt1",
-              selectionConfirmed: false,
-            });
-          });
-        });
-
-        describe("with the last option already highlighted", () => {
-          it("then the onSelect prop should be called with expected data", () => {
-            wrapper.setProps({ highlightedValue: "opt3" });
-
-            act(() => {
-              testContainer.dispatchEvent(downKeyDownEvent);
-            });
-
-            expect(onSelectFn).toHaveBeenCalledWith({
-              id: mockedGuid,
-              selectionType: "navigationKey",
-              text: "red",
-              value: "opt1",
-              selectionConfirmed: false,
-            });
-          });
-
-          describe("and isLoading prop set to true", () => {
-            it("then the onSelect prop should not have been called", () => {
-              wrapper.setProps({ highlightedValue: "opt3", isLoading: true });
-
-              act(() => {
-                testContainer.dispatchEvent(downKeyDownEvent);
-                testContainer.dispatchEvent(downKeyDownEvent);
-              });
-
-              expect(onSelectFn).not.toHaveBeenCalled();
-            });
-          });
-        });
-      });
-
-      describe("and it's the Up key", () => {
-        describe("with no option highlighted", () => {
-          it("then the onSelect prop should be called with expected data", () => {
-            act(() => {
-              testContainer.dispatchEvent(upKeyDownEvent);
-            });
-
-            expect(onSelectFn).toHaveBeenCalledWith({
-              id: mockedGuid,
-              selectionType: "navigationKey",
-              text: "blue",
-              value: "opt3",
-              selectionConfirmed: false,
-            });
-          });
-        });
-
-        describe("with the first option already highlighted", () => {
-          it("then the onSelect prop should be called with expected data", () => {
-            wrapper.setProps({ highlightedValue: "opt1" });
-
-            act(() => {
-              testContainer.dispatchEvent(upKeyDownEvent);
-            });
-
-            expect(onSelectFn).toHaveBeenCalledWith({
-              id: mockedGuid,
-              selectionType: "navigationKey",
-              text: "blue",
-              value: "opt3",
-              selectionConfirmed: false,
-            });
-          });
-        });
-      });
-
-      describe("and it's the Home key", () => {
-        it("then the onSelect prop should be called with expected data", () => {
-          act(() => {
-            testContainer.dispatchEvent(homeKeyDownEvent);
-          });
-
-          expect(onSelectFn).toHaveBeenCalledWith({
-            id: mockedGuid,
-            selectionType: "navigationKey",
-            text: "red",
-            value: "opt1",
-            selectionConfirmed: false,
-          });
-        });
-      });
-
-      describe("and it's the End key", () => {
-        it("then the onSelect prop should be called with expected data", () => {
-          act(() => {
-            testContainer.dispatchEvent(endKeyDownEvent);
-          });
-
-          expect(onSelectFn).toHaveBeenCalledWith({
-            id: mockedGuid,
-            selectionType: "navigationKey",
-            text: "blue",
-            value: "opt3",
-            selectionConfirmed: false,
-          });
-        });
-      });
-
-      it("does not highlight any option if the other key is pressed", () => {
-        act(() => {
-          testContainer.dispatchEvent(
-            new KeyboardEvent("keydown", { key: "b", bubbles: true })
-          );
-        });
-
-        expect(onSelectFn).not.toHaveBeenCalled();
-      });
-    }
-  );
-
-  describe("when an Option is disabled", () => {
-    let wrapper: ReactWrapper;
-    const testContainer = document.createElement("div");
-    const onSelectFn = jest.fn();
-
-    document.body.appendChild(testContainer);
-
-    beforeEach(() => {
-      onSelectFn.mockReset();
-      wrapper = mount(
-        getSelectListWithDisabledOption({
-          onSelect: onSelectFn,
-          filterText: "",
-        }),
-        { attachTo: testContainer }
-      );
-    });
-
-    afterEach(() => {
-      wrapper.detach();
-    });
-
-    afterAll(() => {
-      document.body.removeChild(testContainer);
-    });
-
-    describe("and the Enter key is pressed with the disabled option highlighted", () => {
-      it("then the onSelect prop should not be called", () => {
-        wrapper.setProps({ highlightedValue: "opt2" });
-
-        act(() => {
-          testContainer.dispatchEvent(enterKeyDownEvent);
-        });
-
-        expect(onSelectFn).not.toHaveBeenCalled();
-      });
-    });
-
-    describe("and the Down key is pressed", () => {
-      it("then the onSelect prop should be called with expected data", () => {
-        wrapper.setProps({ highlightedValue: "opt1" });
-
-        act(() => {
-          testContainer.dispatchEvent(downKeyDownEvent);
-        });
-
-        expect(onSelectFn).toHaveBeenCalledWith({
-          id: mockedGuid,
-          selectionType: "navigationKey",
-          text: "blue",
-          value: "opt3",
-          selectionConfirmed: false,
-        });
-      });
-    });
-
-    describe("and the Up key is pressed", () => {
-      it("then the onSelect prop should be called with expected data", () => {
-        wrapper.setProps({ highlightedValue: "opt3" });
-
-        act(() => {
-          testContainer.dispatchEvent(upKeyDownEvent);
-        });
-
-        expect(onSelectFn).toHaveBeenCalledWith({
-          id: mockedGuid,
-          selectionType: "navigationKey",
-          text: "red",
-          value: "opt1",
-          selectionConfirmed: false,
-        });
-      });
-    });
-  });
-
-  describe("when Option values are objects", () => {
-    it("should call the onSelect prop with expected data when an option is clicked", () => {
-      const onSelect = jest.fn();
-      const wrapper = renderSelectListWithObjects({
-        highlightedValue: { id: "green", value: 2 },
-        onSelect,
-      });
-
-      wrapper.find(StyledOption).first().simulate("click");
-
-      expect(onSelect).toHaveBeenCalledWith({
-        id: mockedGuid,
-        selectionType: "click",
-        text: "red",
-        value: { id: "red", value: 1 },
-        selectionConfirmed: true,
-      });
-    });
-  });
-
-  describe.each([
-    ["Option", renderSelectList, StyledOption],
-    ["OptionRow", renderOptionRowSelectList, StyledOptionRow],
-  ])("when %s is rendered", (component, listRenderer, optionType) => {
-    it('then Options should have additional "isHighlighted" prop', () => {
-      const onSelect = jest.fn();
-      const wrapper = listRenderer({ onSelect });
-
-      expect(wrapper.find(optionType).first().prop("isHighlighted")).toBe(
-        false
-      );
-    });
-
-    describe("and the first option has been clicked", () => {
-      it('then the "onSelect" prop should have been called with option data and "selectionType" as "click"', () => {
-        const onSelect = jest.fn();
-        const wrapper = listRenderer({ onSelect });
-
-        wrapper.find(optionType).first().simulate("click");
-        expect(onSelect).toHaveBeenCalledWith({
-          id: mockedGuid,
-          selectionType: "click",
-          text: "red",
-          value: "opt1",
-          selectionConfirmed: true,
-        });
-      });
-    });
-  });
-
-  describe.each([
-    ["Option", renderSelectList, StyledOption],
-    ["OptionRow", renderOptionRowSelectList, StyledOptionRow],
-  ])(
-    "when the filterText is provided in a list of %s components",
-    (component, listRenderer, optionType) => {
-      it("then the first element with text that is matching the filter should be highlighted", () => {
-        const wrapper = listRenderer({ filterText: "g" });
-
-        expect(wrapper.find(optionType).at(1)).toHaveStyleRule(
-          "background-color",
-          "var(--colorsUtilityMajor200)"
-        );
-      });
-
-      describe("and it does not match the text of any option", () => {
-        it('then Options should have the "isHighlighted" prop set to "false"', () => {
-          const wrapper = listRenderer({ filterText: "x" });
-
-          wrapper
-            .update()
-            .find(optionType)
-            .forEach((option) => {
-              expect(option.prop("isHighlighted")).toBe(false);
-            });
-        });
-      });
-    }
-  );
-
+  // TODO: Difficulty migrating this test due to use of SelectTextbox ref leading to TS errors
   describe("when the anchor element is provided", () => {
     let wrapper: ReactWrapper;
     const testContainer = document.createElement("div");
@@ -742,80 +245,13 @@ describe("SelectList", () => {
     });
   });
 
-  describe("when the options list is empty and a highlightedValue is passed", () => {
-    let wrapper: ReactWrapper;
-    const renderWrapper = () => {
-      const emptySelect = getLoadingSelectList({
-        highlightedValue: "opt2",
-        isLoading: true,
-      });
-      wrapper = mount(emptySelect);
-    };
-
-    afterEach(() => {
-      wrapper.unmount();
-    });
-
-    it("should not crash", () => {
-      expect(renderWrapper).not.toThrow();
-    });
-
-    it("should highlight the correct value if the children are later updated", () => {
-      renderWrapper();
-      wrapper.setProps({ isLoading: false });
-      wrapper.update();
-      expect(wrapper.find(StyledOption).at(1).props().isHighlighted).toBe(true);
-    });
-  });
-
   describe("when the isLoading prop is provided", () => {
-    it("then a Loader Component should be rendered", () => {
-      const wrapper = renderSelectList({
-        isLoading: true,
-        onListAction: () => {},
-        loaderDataRole: "select-list-loader",
-      });
-      expect(wrapper.find(Loader).exists()).toBe(true);
-      expect(wrapper.find(Loader).prop("data-role")).toEqual(
-        "select-list-loader"
-      );
-    });
-
     it("and is in multiColumn mode, then a Loader Component should be rendered", () => {
       const wrapper = renderOptionRowSelectList({
         isLoading: true,
         onListAction: () => {},
       });
       expect(wrapper.find(Loader).exists()).toBe(true);
-    });
-
-    describe("with empty option list", () => {
-      it("then the height of the dropdown should be 150px", () => {
-        const EmptySelect = () => {
-          const [options] = useState([]);
-          const ref = useRef(null);
-
-          return (
-            <SelectList
-              onSelect={() => {}}
-              onSelectListClose={() => {}}
-              isLoading
-              isOpen
-              ref={ref}
-            >
-              {options}
-            </SelectList>
-          );
-        };
-        const wrapper = mount(<EmptySelect />);
-
-        assertStyleMatch(
-          { minHeight: "150px" },
-          wrapper.find(StyledSelectListContainer)
-        );
-
-        wrapper.unmount();
-      });
     });
 
     describe.each([true, false])(
@@ -855,72 +291,6 @@ describe("SelectList", () => {
         });
       }
     );
-  });
-
-  describe("when the onListScrollBottom prop is provided", () => {
-    const testContainer = document.createElement("div");
-    const onListScrollBottomFn = jest.fn();
-    let wrapper: ReactWrapper;
-    let listWrapperElement: HTMLElement;
-
-    testContainer.id = "enzymeContainer";
-    document.body.appendChild(testContainer);
-
-    beforeEach(() => {
-      onListScrollBottomFn.mockReset();
-      wrapper = mount(
-        getSelectList({
-          onListScrollBottom: onListScrollBottomFn,
-          onListAction: () => {},
-        }),
-        { attachTo: testContainer }
-      );
-      listWrapperElement = wrapper.find(StyledScrollableContainer).getDOMNode();
-    });
-
-    afterEach(() => {
-      wrapper.detach();
-    });
-
-    afterAll(() => {
-      document.body.removeChild(testContainer);
-    });
-
-    it("should have been called when the element is scrolled to the bottom", () => {
-      jest
-        .spyOn(listWrapperElement, "scrollHeight", "get")
-        .mockImplementation(() => 100);
-      jest
-        .spyOn(listWrapperElement, "scrollTop", "get")
-        .mockImplementation(() => 60);
-      jest
-        .spyOn(listWrapperElement, "clientHeight", "get")
-        .mockImplementation(() => 40);
-
-      act(() => {
-        listWrapperElement.dispatchEvent(new Event("scroll"));
-      });
-
-      expect(onListScrollBottomFn).toHaveBeenCalled();
-    });
-
-    it("should not have been called when the element is scrolled but does not reach the bottom", () => {
-      jest
-        .spyOn(listWrapperElement, "scrollHeight", "get")
-        .mockImplementation(() => 100);
-      jest
-        .spyOn(listWrapperElement, "scrollTop", "get")
-        .mockImplementation(() => 50);
-      jest
-        .spyOn(listWrapperElement, "clientHeight", "get")
-        .mockImplementation(() => 40);
-
-      act(() => {
-        listWrapperElement.dispatchEvent(new Event("scroll"));
-      });
-
-      expect(onListScrollBottomFn).not.toHaveBeenCalled();
-    });
   });
 
   describe("when the listActionButton prop is provided", () => {
@@ -1182,45 +552,6 @@ describe("SelectList", () => {
         expect(groupHeader.getAttribute("aria-setsize")).toBe(null);
         expect(groupHeader.getAttribute("aria-posinset")).toBe(null);
       });
-    });
-  });
-
-  describe("virtual scrolling", () => {
-    let wrapper: ReactWrapper;
-
-    afterEach(() => {
-      wrapper.unmount();
-    });
-
-    it("when enableVirtualScroll prop is not set, all options are rendered", () => {
-      wrapper = renderWithVirtualScroll(200, false, undefined);
-      const optionChildren = wrapper.find(Option);
-      expect(optionChildren.length).toBe(200);
-    });
-
-    it("when enableVirtualScroll and virtualScrollOverscan props are both set, only the specified number of options are rendered", () => {
-      wrapper = renderWithVirtualScroll(10000, true, 20);
-      const optionChildren = wrapper.find(Option);
-      // can't predict the exact number rendered as the 20 is a buffer either side of the visible ones
-      // - so just check the total is between 20 and 30
-      expect(optionChildren.length).toBeGreaterThanOrEqual(20);
-      expect(optionChildren.length).toBeLessThan(30);
-    });
-
-    it("when enableVirtualScroll prop is set and virtualScrollOverscan is not, the overscan defaults to 5", () => {
-      wrapper = renderWithVirtualScroll(10000, true, undefined);
-      const optionChildren = wrapper.find(Option);
-      // can't predict the exact number rendered as the 5 is a buffer either side of the visible ones
-      // - so just check the total is between 5 and 10
-      expect(optionChildren.length).toBeGreaterThanOrEqual(5);
-      expect(optionChildren.length).toBeLessThan(10);
-    });
-
-    it("when an option is selected, it is always in the DOM even when out of view", () => {
-      wrapper = renderWithVirtualScroll(10000, true, 20);
-      wrapper.setProps({ highlightedValue: "7500" });
-      wrapper.update();
-      expect(wrapper.find({ value: "7500" }).exists()).toBe(true);
     });
   });
 

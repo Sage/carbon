@@ -694,6 +694,7 @@ const SelectList = React.forwardRef(
         >
           <StyledSelectListContainer
             data-element="select-list-wrapper"
+            data-role="select-list-wrapper"
             isLoading={isLoading}
             {...listProps}
           >
@@ -701,6 +702,7 @@ const SelectList = React.forwardRef(
               ref={listContainerRef}
               maxHeight={listMaxHeight}
               data-component="select-list-scrollable-container"
+              data-role="select-list-scrollable-container"
               hasActionButton={!!listActionButton}
             >
               <StyledSelectList

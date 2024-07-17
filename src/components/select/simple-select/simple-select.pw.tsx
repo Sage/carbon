@@ -11,7 +11,7 @@ import {
   SimpleSelectGroupComponent,
   SimpleSelectWithLongWrappingTextComponent,
   SimpleSelectEventsComponent,
-  SimpleSelectWithManyOptionsAndVirtualScrolling,
+  WithVirtualScrolling,
   SimpleSelectNestedInDialog,
   SelectWithOptionGroupHeader,
   SelectionConfirmed,
@@ -1168,37 +1168,76 @@ test.describe("Check events for SimpleSelect component", () => {
 });
 
 test.describe("Check virtual scrolling", () => {
-  test("renders only an appropriate number of options into the DOM when first opened", async ({
-    mount,
-    page,
-  }) => {
-    await mount(<SimpleSelectWithManyOptionsAndVirtualScrolling />);
+  test("does not render all virtualised options", async ({ mount, page }) => {
+    await mount(<WithVirtualScrolling />);
 
-    await selectText(page).click();
-    await expect(selectOptionByText(page, "Option 1.")).toBeInViewport();
-    const option10 = selectOptionByText(page, "Option 10.");
-    await expect(option10).toHaveCount(1);
-    await expect(option10).not.toBeInViewport();
-    await expect(selectOptionByText(page, "Option 30.")).toHaveCount(0);
+    await page.getByText("Please Select...").click();
+
+    await expect(
+      page.getByRole("option", { name: "Option 1", exact: true })
+    ).toBeInViewport();
+
+    await expect(
+      page.getByRole("option", { name: "Option 50" })
+    ).not.toBeAttached();
   });
 
-  test("changes the rendered options when you scroll down", async ({
+  test("changes rendered options as dropdown list is scrolled", async ({
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
-    await selectText(page).click();
-    await selectListScrollableWrapper(page).evaluate((wrapper) =>
-      wrapper.scrollTo(0, 750)
-    );
-    await page.waitForTimeout(250);
-    await expect(selectOptionByText(page, "Option 1.")).toHaveCount(0);
-    await expect(selectOptionByText(page, "Option 20.")).toBeInViewport();
-    const option30 = selectOptionByText(page, "Option 30.");
-    await expect(option30).toHaveCount(1);
-    await expect(option30).not.toBeInViewport();
-    await expect(selectOptionByText(page, "Option 40.")).toHaveCount(0);
+    await page.getByText("Please Select...").click();
+
+    const firstOption = page.getByRole("option", {
+      name: "Option 1",
+      exact: true,
+    });
+    const lastOption = page.getByRole("option", {
+      name: "Option 20",
+      exact: true,
+    });
+
+    await expect(firstOption).toBeAttached();
+    await expect(lastOption).not.toBeAttached();
+
+    // scroll to the bottom of dropdown list
+    await page
+      .getByTestId("select-list-scrollable-container")
+      .evaluate((element) => {
+        element.scrollBy(0, element.scrollHeight);
+      });
+
+    await expect(firstOption).not.toBeAttached();
+    await expect(lastOption).toBeAttached();
+  });
+
+  test("a selected option stays rendered even when out of view", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<WithVirtualScrolling />);
+
+    // open list and select first option
+    await page.getByText("Please Select...").click();
+    const firstOption = page.getByRole("option", {
+      name: "Option 1",
+      exact: true,
+    });
+    await firstOption.click();
+
+    // reopen list
+    await page.getByTestId("select-text").click();
+
+    // scroll to the bottom of dropdown list
+    await page
+      .getByTestId("select-list-scrollable-container")
+      .evaluate((element) => {
+        element.scrollBy(0, element.scrollHeight);
+      });
+
+    await expect(firstOption).toBeAttached();
   });
 });
 
@@ -1819,9 +1858,9 @@ test.describe("Accessibility tests for SimpleSelect component", () => {
     mount,
     page,
   }) => {
-    await mount(<SimpleSelectWithManyOptionsAndVirtualScrolling />);
+    await mount(<WithVirtualScrolling />);
 
-    await selectText(page).click();
+    await page.getByText("Please Select...").click();
     await checkAccessibility(page, undefined, "scrollable-region-focusable");
   });
 
