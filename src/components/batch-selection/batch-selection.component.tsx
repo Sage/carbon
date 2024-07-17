@@ -5,6 +5,7 @@ import {
   StyledBatchSelection,
   StyledSelectionCount,
 } from "./batch-selection.style";
+import BatchSelectionContext from "./__internal__/batch-selection.context";
 
 export interface BatchSelectionProps {
   /** Content to be rendered after selected count */
@@ -20,7 +21,7 @@ export interface BatchSelectionProps {
 }
 
 export const BatchSelection = ({
-  disabled,
+  disabled = false,
   children,
   colorTheme = "transparent",
   selectedCount,
@@ -38,7 +39,11 @@ export const BatchSelection = ({
       <StyledSelectionCount data-element="selection-count">
         {l.batchSelection.selected(selectedCount)}
       </StyledSelectionCount>
-      {children}
+      <BatchSelectionContext.Provider
+        value={{ batchSelectionDisabled: disabled }}
+      >
+        {children}
+      </BatchSelectionContext.Provider>
     </StyledBatchSelection>
   );
 };
