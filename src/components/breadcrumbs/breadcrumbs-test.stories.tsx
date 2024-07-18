@@ -4,7 +4,7 @@ import { Crumb, CrumbProps } from "./crumb";
 
 export default {
   title: "Breadcrumbs/Test",
-  includeStories: ["DefaultCrumb"],
+  includeStories: ["DefaultCrumb", "WhenFocusedCrumbBecomesCurrent"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -48,5 +48,22 @@ export const DefaultCrumb = (props: Partial<CrumbProps>) => {
   );
 };
 
+export const WhenFocusedCrumbBecomesCurrent = () => {
+  const [current, setCurrent] = React.useState(false);
+
+  return (
+    <>
+      <Breadcrumbs>
+        <Crumb href="#bar" onClick={() => setCurrent(true)} isCurrent={current}>
+          Crumb{current ? "" : " not"} current
+        </Crumb>
+      </Breadcrumbs>
+
+      <div id="bar">Container</div>
+    </>
+  );
+};
+
 Default.storyName = "default";
 DefaultCrumb.storyName = "single crumb";
+WhenFocusedCrumbBecomesCurrent.storyName = "when focused crumb becomes current";
