@@ -1,3 +1,37 @@
+### [141.0.2](https://github.com/Sage/carbon/compare/v141.0.1...v141.0.2) (2024-07-19)
+
+
+### Bug Fixes
+
+* **file-input:** ensure that long file names are truncated correctly ([e4986a0](https://github.com/Sage/carbon/commit/e4986a0ba91fa5c977a18019c0aa8297b9ce3afc))
+
+### [141.0.1](https://github.com/Sage/carbon/compare/v141.0.0...v141.0.1) (2024-07-18)
+
+
+### Bug Fixes
+
+* **link:** ensure focus styles are removed when underlying element loses focus ([0c68b5e](https://github.com/Sage/carbon/commit/0c68b5eb45f79f8a24089057557646a394fdb548)), closes [#6808](https://github.com/Sage/carbon/issues/6808) [#6688](https://github.com/Sage/carbon/issues/6688)
+
+## [141.0.0](https://github.com/Sage/carbon/compare/v140.2.0...v141.0.0) (2024-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **menu:** Removed support for consuming `MenuContext`
+* **icon-button:** Remove onAction prop in favour of onClick
+* **sidebar:** Custom `data-element` and `data-role` tags are now placed on
+the main sidebar element that has a dialog role
+
+### Bug Fixes
+
+* **menu:** remove export for internal context ([4cf8852](https://github.com/Sage/carbon/commit/4cf88527aa60282f99284700b96f8534b6b27590))
+* **sidebar:** ensure data tag props are set on the correct internal element ([e5465b7](https://github.com/Sage/carbon/commit/e5465b71ec9dec5a2ff210316fcd77b136ee5c8b))
+
+
+### Code Refactoring
+
+* **icon-button:** remove deprecated onAction prop ([22dff44](https://github.com/Sage/carbon/commit/22dff445ec3b5c54a76146e42605d85dc7557745))
+
 ## [140.2.0](https://github.com/Sage/carbon/compare/v140.1.1...v140.2.0) (2024-07-09)
 
 
