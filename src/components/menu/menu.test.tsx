@@ -1,5 +1,5 @@
 import React from "react";
-import { screen, render, act } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Menu, MenuItem } from ".";
@@ -163,18 +163,15 @@ test("should close any open submenus when a new submenu is opened", async () => 
   );
   const firstSubmenuItem = screen.getByRole("button", { name: "submenu 1" });
   const secondSubmenuItem = screen.getByRole("button", { name: "submenu 2" });
-  await act(async () => {
-    await user.click(firstSubmenuItem);
-  });
+
+  await user.click(firstSubmenuItem);
 
   expect(screen.getByRole("link", { name: "submenu 1 item 1" })).toBeVisible();
   expect(
     screen.queryByRole("link", { name: "submenu 2 item 2" })
   ).not.toBeInTheDocument();
 
-  await act(async () => {
-    await user.click(secondSubmenuItem);
-  });
+  await user.click(secondSubmenuItem);
 
   expect(
     screen.queryByRole("link", { name: "submenu 1 item 1" })
@@ -199,9 +196,9 @@ test("should support menu items unmounting", async () => {
   render(<MockMenu />);
 
   expect(screen.getAllByRole("button").length).toBe(2);
-  await act(async () => {
-    await user.click(screen.getByRole("button", { name: "test element 1" }));
-  });
+
+  await user.click(screen.getByRole("button", { name: "test element 1" }));
+
   expect(screen.getAllByRole("button").length).toBe(1);
 });
 

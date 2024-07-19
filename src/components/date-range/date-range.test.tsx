@@ -1,5 +1,5 @@
 import React from "react";
-import { render, act, screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import DateRange, { DateRangeChangeEvent } from "./date-range.component";
@@ -409,12 +409,9 @@ test("should not call `onBlur` callback when focus moves from 'start' to 'end' i
       onBlur={onBlur}
     />
   );
-  await act(async () => {
-    await user.click(screen.getByRole("textbox", { name: "start" }));
-  });
-  await act(async () => {
-    await user.click(screen.getByRole("textbox", { name: "end" }));
-  });
+
+  await user.click(screen.getByRole("textbox", { name: "start" }));
+  await user.click(screen.getByRole("textbox", { name: "end" }));
 
   expect(onBlur).not.toHaveBeenCalled();
 });
@@ -432,12 +429,9 @@ test("should not call `onBlur` callback when focus moves from 'end' to 'start' i
       onBlur={onBlur}
     />
   );
-  await act(async () => {
-    await user.click(screen.getByRole("textbox", { name: "end" }));
-  });
-  await act(async () => {
-    await user.click(screen.getByRole("textbox", { name: "start" }));
-  });
+
+  await user.click(screen.getByRole("textbox", { name: "end" }));
+  await user.click(screen.getByRole("textbox", { name: "start" }));
 
   expect(onBlur).not.toHaveBeenCalled();
 });
@@ -666,16 +660,13 @@ test("should close the open 'start' picker when the user moves focus to the `end
   );
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
-  await act(async () => {
-    await user.click(screen.getByRole("textbox", { name: "start" }));
-  });
+
+  await user.click(screen.getByRole("textbox", { name: "start" }));
 
   expect(within(startDate).getByRole("grid")).toBeVisible();
   expect(within(endDate).queryByRole("grid")).not.toBeInTheDocument();
 
-  await act(async () => {
-    await user.click(screen.getByRole("textbox", { name: "end" }));
-  });
+  await user.click(screen.getByRole("textbox", { name: "end" }));
 
   expect(within(endDate).getByRole("grid")).toBeVisible();
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
@@ -695,16 +686,13 @@ test("should close the open 'end' picker when the user moves focus to the `start
   );
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
-  await act(async () => {
-    await user.click(screen.getByRole("textbox", { name: "end" }));
-  });
+
+  await user.click(screen.getByRole("textbox", { name: "end" }));
 
   expect(within(endDate).getByRole("grid")).toBeVisible();
   expect(within(startDate).queryByRole("grid")).not.toBeInTheDocument();
 
-  await act(async () => {
-    await user.click(screen.getByRole("textbox", { name: "start" }));
-  });
+  await user.click(screen.getByRole("textbox", { name: "start" }));
 
   expect(within(startDate).getByRole("grid")).toBeVisible();
   expect(within(endDate).queryByRole("grid")).not.toBeInTheDocument();

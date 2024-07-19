@@ -7,6 +7,8 @@ import Button from "../button";
 import Form from "../form";
 import Icon from "../icon";
 import Textbox from "../textbox";
+import Box from "../box";
+import { StepFlow } from "../step-flow";
 
 export default {
   title: "Dialog Full Screen/Test",
@@ -140,6 +142,38 @@ Nested.parameters = {
     disableSnapshot: true,
   },
 };
+
+export const WithStepFlowInHeader: StoryType = {
+  render: (args) => {
+    const { children, ...rest } = args;
+    return <DialogFullScreen {...rest}>{children}</DialogFullScreen>;
+  },
+  args: {
+    children: "Content",
+    open: true,
+    title: (
+      <Box maxWidth="750px" width="100%" data-testid="test">
+        <StepFlow
+          category="category"
+          title="title"
+          currentStep={1}
+          totalSteps={6}
+          showProgressIndicator
+        />
+      </Box>
+    ),
+    showCloseIcon: false,
+    onCancel: () => {},
+  },
+  decorators: [
+    (Story) => (
+      <Box height="900px" width="100%">
+        <Story />
+      </Box>
+    ),
+  ],
+};
+WithStepFlowInHeader.storyName = "with StepFlow in header";
 
 export const WithTwoDifferentNodes: StoryType = ({
   ...props

@@ -15,7 +15,7 @@ export const StyledFileLinkContainer = styled.div`
   color: var(--colorsActionMajorYin090);
   display: flex;
   align-items: center;
-  overflow-x: clip;
+  overflow-x: hidden;
   overflow-y: visible;
   padding-right: var(--spacing150);
 
