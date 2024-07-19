@@ -1,3 +1,10 @@
+### [141.0.1](https://github.com/Sage/carbon/compare/v141.0.0...v141.0.1) (2024-07-18)
+
+
+### Bug Fixes
+
+* **link:** ensure focus styles are removed when underlying element loses focus ([0c68b5e](https://github.com/Sage/carbon/commit/0c68b5eb45f79f8a24089057557646a394fdb548)), closes [#6808](https://github.com/Sage/carbon/issues/6808) [#6688](https://github.com/Sage/carbon/issues/6688)
+
 ## [141.0.0](https://github.com/Sage/carbon/compare/v140.2.0...v141.0.0) (2024-07-12)
 
 
