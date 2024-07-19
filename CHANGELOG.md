@@ -1,3 +1,10 @@
+### [141.0.5](https://github.com/Sage/carbon/compare/v141.0.4...v141.0.5) (2024-07-19)
+
+
+### Bug Fixes
+
+* **alert:** fix data-component for alert component ([8f8530f](https://github.com/Sage/carbon/commit/8f8530f7d42b8c701fc10c865835629db6e0e0a9))
+
 ### [141.0.4](https://github.com/Sage/carbon/compare/v141.0.3...v141.0.4) (2024-07-19)
 
 
