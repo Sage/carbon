@@ -1,3 +1,10 @@
+### [141.0.3](https://github.com/Sage/carbon/compare/v141.0.2...v141.0.3) (2024-07-19)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** fix flex title layout ([73c41e7](https://github.com/Sage/carbon/commit/73c41e795bcf468362bf111e5f0e1a319e2187d9)), closes [#6740](https://github.com/Sage/carbon/issues/6740)
+
 ### [141.0.2](https://github.com/Sage/carbon/compare/v141.0.1...v141.0.2) (2024-07-19)
 
 
