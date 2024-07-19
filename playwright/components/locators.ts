@@ -19,8 +19,12 @@ export const BUTTON = 'button[type="button"]';
 export const COMMON_INPUT_PREFIX = '[data-element="textbox-prefix"]';
 export const COMMON_INPUT_CHARACTER_LIMIT =
   'div[data-element="character-count"]';
+export const VISUALLY_HIDDEN_CHARACTER_COUNT =
+  'div[data-element="visually-hidden-character-count"]';
+export const VISUALLY_HIDDEN_HINT = 'div[data-element="visually-hidden-hint"]';
+export const CHARACTER_COUNT = 'div[data-element="character-count"]';
+export const CHARACTER_LIMIT = 'div[data-element="character-limit"]';
 export const PORTAL = ".carbon-portal";
 export const LEGEND = "legend";
 export const STICKY_FOOTER = '[data-component="sticky-footer"]';
 export const PILL_CLOSE_ICON = '[data-element="close"]';
-export const CHARACTER_COUNT = 'div[data-element="character-count"]';

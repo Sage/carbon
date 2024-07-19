@@ -49,6 +49,7 @@ exports[`InputPresentation renders presentational div and context provider for i
 
 <div
   className="c0"
+  data-role="input-presentation-container"
 >
   <div
     className="c1"

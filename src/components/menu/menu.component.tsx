@@ -80,5 +80,4 @@ export const Menu = ({ menuType = "light", children, ...rest }: MenuProps) => {
   );
 };
 
-export { MenuContext };
 export default Menu;

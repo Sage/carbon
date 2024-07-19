@@ -109,6 +109,7 @@ export const Heading = ({
     return (
       <StyledSubHeader
         data-element="subtitle"
+        data-role="subtitle"
         id={subtitleId}
         hasBackLink={!!backLink}
         hasSeparator={separator}
@@ -154,7 +155,7 @@ export const Heading = ({
           {(help || helpLink) && getHelp()}
           {pills && getPills()}
         </StyledHeaderContent>
-        {separator && <StyledSeparator />}
+        {separator && <StyledSeparator data-role="heading-separator" />}
         {subheader && getSubheader()}
       </StyledHeader>
       {divider && <StyledDivider data-element="divider" />}

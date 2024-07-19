@@ -38,11 +38,6 @@ export const Src: Story = () => {
 };
 Src.storyName = "Src";
 
-export const Gravatar: Story = () => {
-  return <Portrait gravatar="chris.barber@sage.com" />;
-};
-Gravatar.storyName = "Gravatar";
-
 export const IconType: Story = () => {
   return <Portrait iconType="image" />;
 };

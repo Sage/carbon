@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, screen, act, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { MenuItem } from "..";
@@ -664,9 +664,7 @@ describe("when MenuItem has a submenu", () => {
     );
     const submenuParentItem = screen.getByRole("link", { name: "Item One" });
     await user.click(submenuParentItem);
-    await act(async () => {
-      await user.unhover(submenuParentItem);
-    });
+    await user.unhover(submenuParentItem);
     await user.keyboard("{arrowdown}");
     await user.keyboard("{arrowdown}");
     const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
@@ -687,9 +685,7 @@ describe("when MenuItem has a submenu", () => {
     );
     const submenuParentItem = screen.getByRole("link", { name: "Item One" });
     await user.click(submenuParentItem);
-    await act(async () => {
-      await user.unhover(submenuParentItem);
-    });
+    await user.unhover(submenuParentItem);
     await user.keyboard("{arrowup}");
     await user.keyboard("{arrowup}");
     const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
@@ -710,9 +706,7 @@ describe("when MenuItem has a submenu", () => {
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     await user.click(submenuParentItem);
-    await act(async () => {
-      await user.unhover(submenuParentItem);
-    });
+    await user.unhover(submenuParentItem);
     await user.keyboard("{arrowdown}");
     const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
 
@@ -732,9 +726,7 @@ describe("when MenuItem has a submenu", () => {
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     await user.click(submenuParentItem);
-    await act(async () => {
-      await user.unhover(submenuParentItem);
-    });
+    await user.unhover(submenuParentItem);
     await user.keyboard("{arrowup}");
     const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
 
@@ -754,9 +746,7 @@ describe("when MenuItem has a submenu", () => {
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     await user.click(submenuParentItem);
-    await act(async () => {
-      await user.unhover(submenuParentItem);
-    });
+    await user.unhover(submenuParentItem);
     await user.keyboard("{arrowdown}");
     const submenuItem = screen.getByRole("link", { name: "Submenu Item One" });
 
@@ -776,9 +766,7 @@ describe("when MenuItem has a submenu", () => {
     );
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     await user.click(submenuParentItem);
-    await act(async () => {
-      await user.unhover(submenuParentItem);
-    });
+    await user.unhover(submenuParentItem);
     await user.keyboard("{arrowleft}");
     const submenuItem = screen.queryByRole("link", {
       name: "Submenu Item One",
@@ -821,9 +809,7 @@ describe("when MenuItem has a submenu", () => {
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     submenuParentItem.focus();
     await user.keyboard("{arrowdown}");
-    await act(async () => {
-      await user.keyboard("{Escape}");
-    });
+    await user.keyboard("{Escape}");
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(submenuParentItem).toHaveFocus();
@@ -846,9 +832,7 @@ describe("when MenuItem has a submenu", () => {
     submenuParentItem.focus();
     await user.keyboard("{arrowdown}");
     await user.keyboard("{arrowdown}");
-    await act(async () => {
-      await user.keyboard("{Enter}");
-    });
+    await user.keyboard("{Enter}");
 
     expect(screen.getByRole("list")).toBeVisible();
   });
@@ -870,9 +854,7 @@ describe("when MenuItem has a submenu", () => {
     const submenuParentItem = screen.getByRole("button", { name: "Item One" });
     submenuParentItem.focus();
     await user.keyboard("{arrowdown}");
-    await act(async () => {
-      await user.keyboard("{Enter}");
-    });
+    await user.keyboard("{Enter}");
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     jest.useRealTimers();

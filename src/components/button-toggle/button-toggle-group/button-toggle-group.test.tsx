@@ -6,8 +6,6 @@ import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 import { testStyledSystemMargin } from "../../../__spec_helper__/__internal__/test-utils";
 import FormFieldStyle from "../../../__internal__/form-field/form-field.style";
 
-// TODO FE-6647 - Investigate act() warning for userEvent tests
-
 test("should render with provided children", () => {
   render(
     <ButtonToggleGroup id="button-toggle-group-id" onChange={() => {}}>
