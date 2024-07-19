@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useContext, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useContext,
+  useCallback,
+  useState,
+} from "react";
 import { MarginProps } from "styled-system";
 
 import { IconType } from "../icon";
@@ -139,6 +145,8 @@ export const Textarea = React.forwardRef(
       children,
       characterLimit,
       onChange,
+      onFocus,
+      onBlur,
       disabled = false,
       labelInline,
       labelAlign,
@@ -197,6 +205,24 @@ export const Textarea = React.forwardRef(
       },
       [ref]
     );
+
+    const [characterCountAriaLive, setCharacterCountAriaLive] = useState<
+      "off" | "polite"
+    >("off");
+
+    // This block of code has been covered in a Playwright test.
+    // istanbul ignore next
+    const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
+      if (characterLimit) setCharacterCountAriaLive("polite");
+      onFocus?.(ev);
+    };
+
+    // This block of code has been covered in a Playwright test.
+    // istanbul ignore next
+    const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+      if (characterLimit) setCharacterCountAriaLive("off");
+      onBlur?.(ev);
+    };
 
     if (!deprecateUncontrolledWarnTriggered && !onChange) {
       deprecateUncontrolledWarnTriggered = true;
@@ -264,7 +290,8 @@ export const Textarea = React.forwardRef(
 
     const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       value,
-      characterLimit
+      characterLimit,
+      characterCountAriaLive
     );
 
     useEffect(() => {
@@ -332,6 +359,8 @@ export const Textarea = React.forwardRef(
           value={value}
           ref={callbackRef}
           onChange={onChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           disabled={disabled}
           readOnly={readOnly}
           placeholder={disabled ? "" : placeholder}

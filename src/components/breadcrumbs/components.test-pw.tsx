@@ -25,4 +25,23 @@ const DefaultCrumb = (props: Partial<CrumbProps>) => {
   );
 };
 
-export { Default, DefaultCrumb };
+const FocusedCrumbBecomesCurrent = ({ hasHref = false }) => {
+  const [current, setCurrent] = React.useState(false);
+
+  return (
+    <>
+      <Breadcrumbs>
+        <Crumb
+          href={hasHref ? "#foo" : undefined}
+          onClick={() => setCurrent(true)}
+          isCurrent={current}
+        >
+          foo
+        </Crumb>
+      </Breadcrumbs>
+      {hasHref && <div id="foo">foo</div>}
+    </>
+  );
+};
+
+export { Default, DefaultCrumb, FocusedCrumbBecomesCurrent };

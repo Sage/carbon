@@ -140,6 +140,25 @@ export const CharacterLimitExample = () => {
   );
 };
 
+export const CharacterLimitExampleWithButton = () => {
+  const [value, setValue] = useState("");
+  return (
+    <>
+      <Textarea
+        label="Textarea"
+        inputHint="Hint text (optional)."
+        expandable
+        value={value}
+        onChange={({ target }) => setValue(target.value)}
+        characterLimit={50}
+      />
+      <button type="button" onClick={() => {}}>
+        Click Me
+      </button>
+    </>
+  );
+};
+
 export const LabelInlineExample = () => {
   return <Textarea label="Textarea" labelInline />;
 };
