@@ -1,3 +1,10 @@
+### [141.0.4](https://github.com/Sage/carbon/compare/v141.0.3...v141.0.4) (2024-07-19)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure hover styling does not overlap focus outlines ([1e673b3](https://github.com/Sage/carbon/commit/1e673b3b4cccb7169ac80768122699d0d238a61b)), closes [#6781](https://github.com/Sage/carbon/issues/6781)
+
 ### [141.0.3](https://github.com/Sage/carbon/compare/v141.0.2...v141.0.3) (2024-07-19)
 
 
