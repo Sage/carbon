@@ -1,3 +1,10 @@
+### [141.0.2](https://github.com/Sage/carbon/compare/v141.0.1...v141.0.2) (2024-07-19)
+
+
+### Bug Fixes
+
+* **file-input:** ensure that long file names are truncated correctly ([e4986a0](https://github.com/Sage/carbon/commit/e4986a0ba91fa5c977a18019c0aa8297b9ce3afc))
+
 ### [141.0.1](https://github.com/Sage/carbon/compare/v141.0.0...v141.0.1) (2024-07-18)
 
 
