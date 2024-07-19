@@ -2,7 +2,9 @@ import React, { useRef } from "react";
 import { mount, ReactWrapper } from "enzyme";
 import Modal from "../modal";
 import FullScreenHeading from "../../__internal__/full-screen-heading";
-import StyledFullScreenHeading from "../../__internal__/full-screen-heading/full-screen-heading.style";
+import StyledFullScreenHeading, {
+  StyledHeaderContainer,
+} from "../../__internal__/full-screen-heading/full-screen-heading.style";
 import StyledDialogFullScreen from "./dialog-full-screen.style";
 import DialogFullScreen from "./dialog-full-screen.component";
 import StyledContent from "./content.style";
@@ -341,6 +343,29 @@ describe("DialogFullScreen", () => {
         );
 
         expect(wrapper.find(Help).exists()).toBe(true);
+
+        wrapper.unmount();
+      });
+    });
+
+    describe("when the component is rendered", () => {
+      it("the title container min width should be 100%", () => {
+        wrapper = mount(
+          <DialogFullScreen
+            open
+            title="This is test title"
+            help="this is help text"
+          />
+        );
+
+        const headerContainer = wrapper.find(StyledHeaderContainer);
+
+        assertStyleMatch(
+          {
+            minWidth: "100%",
+          },
+          headerContainer
+        );
 
         wrapper.unmount();
       });
