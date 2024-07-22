@@ -36,9 +36,7 @@ export interface ContentPaddingInterface {
   px?: PaddingValues;
 }
 
-export interface DialogProps
-  extends ModalProps,
-    Omit<TagProps, "data-component"> {
+export interface DialogProps extends ModalProps, TagProps {
   /** Custom class name  */
   className?: string;
   /** Prop to specify the aria-describedby property of the Dialog component */
@@ -109,6 +107,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
   (
     {
       className,
+      "data-component": dataComponent = "dialog",
       "data-element": dataElement = "dialog",
       "data-role": dataRole,
       children,
@@ -304,7 +303,7 @@ export const Dialog = forwardRef<DialogHandle, DialogProps>(
           additionalWrapperRefs={focusableContainers}
         >
           <StyledDialog
-            data-component="dialog"
+            data-component={dataComponent}
             data-element={dataElement}
             data-role={dataRole}
             aria-modal={isTopModal ? true : undefined}
