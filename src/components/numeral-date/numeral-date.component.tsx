@@ -317,6 +317,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     const isValidKey =
       Events.isNumberKey(event) ||
       Events.isTabKey(event) ||
+      Events.isEnterKey(event) ||
       event.key === "Delete" ||
       event.key === "Backspace";
 

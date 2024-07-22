@@ -1,3 +1,10 @@
+### [141.0.6](https://github.com/Sage/carbon/compare/v141.0.5...v141.0.6) (2024-07-22)
+
+
+### Bug Fixes
+
+* **numeral-date:** ensure that enter key triggers default behaviour ([7c2f997](https://github.com/Sage/carbon/commit/7c2f99705cee55dd6ed000965e7f304c27c79273)), closes [#6832](https://github.com/Sage/carbon/issues/6832)
+
 ### [141.0.5](https://github.com/Sage/carbon/compare/v141.0.4...v141.0.5) (2024-07-19)
 
 
