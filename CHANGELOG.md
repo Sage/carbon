@@ -1,3 +1,38 @@
+### [141.0.5](https://github.com/Sage/carbon/compare/v141.0.4...v141.0.5) (2024-07-19)
+
+
+### Bug Fixes
+
+* **alert:** fix data-component for alert component ([8f8530f](https://github.com/Sage/carbon/commit/8f8530f7d42b8c701fc10c865835629db6e0e0a9))
+
+### [141.0.4](https://github.com/Sage/carbon/compare/v141.0.3...v141.0.4) (2024-07-19)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure hover styling does not overlap focus outlines ([1e673b3](https://github.com/Sage/carbon/commit/1e673b3b4cccb7169ac80768122699d0d238a61b)), closes [#6781](https://github.com/Sage/carbon/issues/6781)
+
+### [141.0.3](https://github.com/Sage/carbon/compare/v141.0.2...v141.0.3) (2024-07-19)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** fix flex title layout ([73c41e7](https://github.com/Sage/carbon/commit/73c41e795bcf468362bf111e5f0e1a319e2187d9)), closes [#6740](https://github.com/Sage/carbon/issues/6740)
+
+### [141.0.2](https://github.com/Sage/carbon/compare/v141.0.1...v141.0.2) (2024-07-19)
+
+
+### Bug Fixes
+
+* **file-input:** ensure that long file names are truncated correctly ([e4986a0](https://github.com/Sage/carbon/commit/e4986a0ba91fa5c977a18019c0aa8297b9ce3afc))
+
+### [141.0.1](https://github.com/Sage/carbon/compare/v141.0.0...v141.0.1) (2024-07-18)
+
+
+### Bug Fixes
+
+* **link:** ensure focus styles are removed when underlying element loses focus ([0c68b5e](https://github.com/Sage/carbon/commit/0c68b5eb45f79f8a24089057557646a394fdb548)), closes [#6808](https://github.com/Sage/carbon/issues/6808) [#6688](https://github.com/Sage/carbon/issues/6688)
+
 ## [141.0.0](https://github.com/Sage/carbon/compare/v140.2.0...v141.0.0) (2024-07-12)
 
 
