@@ -409,3 +409,14 @@ test.describe("Accessibility tests for AdvancedColorPicker component", () => {
     await checkAccessibility(page);
   });
 });
+
+test("color picker preview should have the expected border radius styling", async ({
+  mount,
+  page,
+}) => {
+  await mount(<AdvancedColorPickerCustom />);
+  await expect(advancedColorPickerPreview(page)).toHaveCSS(
+    "border-radius",
+    "4px"
+  );
+});
