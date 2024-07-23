@@ -22,7 +22,6 @@ jobs:
     strategy:
       matrix:
         node: ["18.x", "20.x"]
-        shard: [1, 2, 3, 4]
 
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +30,4 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm ci
       - run: |
-          npm test -- --ci --maxWorkers=4 --shard=${{ matrix.shard }} --colors
-
-        env:
-          CONTAINER: ${{ matrix.shard }}
+          npm test -- --ci --maxWorkers=4 --colors
