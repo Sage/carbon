@@ -404,24 +404,27 @@ test("passes the aria-labelledby prop down to the input", () => {
 
 test.each(validationTypes)(
   'when id is present, %s prop is set as a string and the input is focused, the id of the validation tooltip is added to "aria-describedby" in the input',
-  (validationType) => {
+  async (validationType) => {
     render(<Textbox label="bar" id="foo" {...{ [validationType]: "test" }} />);
     const input = screen.getByRole("textbox");
     input.focus();
 
-    expect(screen.getByRole("tooltip")).toHaveAttribute("id", "foo-validation");
+    expect(await screen.findByRole("tooltip")).toHaveAttribute(
+      "id",
+      "foo-validation"
+    );
     expect(input).toHaveAttribute("aria-describedby", "foo-validation");
   }
 );
 
 test.each(validationTypes)(
   "when id is not present, %s prop is set as a string and the input is focused, the id of the validation tooltip is added to 'aria-describedby' in the input",
-  (validationType) => {
+  async (validationType) => {
     render(<Textbox label="bar" {...{ [validationType]: "test" }} />);
     const input = screen.getByRole("textbox");
     input.focus();
 
-    expect(screen.getByRole("tooltip")).toHaveAttribute(
+    expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
       `${mockedGuid}-validation`
     );
@@ -457,7 +460,7 @@ test("when fieldHelp is present and id is not present, the id of the field help 
 
 test.each(validationTypes)(
   'when id is present, %s prop is set as a string, fieldHelp is present and the input is focused, the ids of both the validation tooltip are added to "aria-describedby" in the input',
-  (validationType) => {
+  async (validationType) => {
     render(
       <Textbox
         label="bar"
@@ -469,7 +472,10 @@ test.each(validationTypes)(
     const input = screen.getByRole("textbox");
     input.focus();
 
-    expect(screen.getByRole("tooltip")).toHaveAttribute("id", "foo-validation");
+    expect(await screen.findByRole("tooltip")).toHaveAttribute(
+      "id",
+      "foo-validation"
+    );
     expect(screen.getByText("baz")).toHaveAttribute("id", "foo-field-help");
     expect(input).toHaveAttribute(
       "aria-describedby",
@@ -480,14 +486,14 @@ test.each(validationTypes)(
 
 test.each(validationTypes)(
   'when id is not present, %s prop is set as a string, fieldHelp is present and the input is focused, the ids of both the validation tooltip are added to "aria-describedby" in the input',
-  (validationType) => {
+  async (validationType) => {
     render(
       <Textbox label="bar" fieldHelp="baz" {...{ [validationType]: "test" }} />
     );
     const input = screen.getByRole("textbox");
     input.focus();
 
-    expect(screen.getByRole("tooltip")).toHaveAttribute(
+    expect(await screen.findByRole("tooltip")).toHaveAttribute(
       "id",
       `${mockedGuid}-validation`
     );
