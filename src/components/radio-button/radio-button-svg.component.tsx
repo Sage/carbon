@@ -4,7 +4,7 @@ import StyledCheckableInputSvgWrapper from "../../__internal__/checkable-input/c
 const RadioButtonSvg = () => {
   return (
     <StyledCheckableInputSvgWrapper>
-      <svg focusable="false" viewBox="0 0 15 15">
+      <svg data-role="radio-svg" focusable="false" viewBox="0 0 15 15">
         <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <circle
             className="radio-button-check"
