@@ -16,10 +16,6 @@ import StyledDayPicker from "./day-picker.style";
 import Events from "../../../../__internal__/utils/helpers/events";
 import { defaultFocusableSelectors } from "../../../../__internal__/focus-trap/focus-trap-utils";
 
-type CustomRefObject<T> = {
-  current?: T | null;
-};
-
 /** there is an issue with typescript-to-proptypes package that means we need to override these types */
 interface Modifiers {
   today: NonNullable<Modifier> | NonNullable<Modifier>[];
@@ -44,7 +40,7 @@ export interface DatePickerProps {
   /** Pass any props that match the DayPickerProps interface to override default behaviors */
   pickerProps?: PickerProps;
   /** Element that the DatePicker will be displayed under */
-  inputElement: CustomRefObject<HTMLElement>;
+  inputElement: React.RefObject<HTMLElement>;
   /** Currently selected date */
   selectedDays?: Date;
   /** Callback to handle mousedown event on picker container */
