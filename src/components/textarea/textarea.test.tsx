@@ -197,11 +197,11 @@ test("should set the aria-label on the Help component to the value of the helpAr
   expect(screen.getByRole("button")).toHaveAttribute("aria-label", "baz");
 });
 
-test("should set the Help component's text content to the value of the labelHelp prop", () => {
+test("should set the Help component's text content to the value of the labelHelp prop", async () => {
   render(<Textarea label="foo" labelHelp="bar" helpAriaLabel="baz" />);
 
   screen.getByRole("button").focus();
-  expect(screen.getByRole("tooltip", { name: "bar" })).toBeVisible();
+  expect(await screen.findByRole("tooltip", { name: "bar" })).toBeVisible();
 });
 
 test.each(["info", "warning", "error"])(

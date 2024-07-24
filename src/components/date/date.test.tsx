@@ -583,7 +583,7 @@ test("should render the help icon when the `labelHelp` prop is passed and displa
   const helpIcon = screen.getByRole("button", { name: "help" });
   await user.hover(helpIcon);
 
-  expect(screen.getByRole("tooltip")).toHaveTextContent("help text");
+  expect(await screen.findByRole("tooltip")).toHaveTextContent("help text");
 });
 
 test("should render the input with the expected required attribute when the `required` prop is true", () => {
@@ -1201,7 +1201,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "true");
     expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "error message"
+    );
   });
 
   test("should render tooltip and validation icon when `validationOnLabel` is set and `error` is passed a string value and the user hovers the mouse over the input", async () => {
@@ -1220,7 +1222,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     const input = screen.getByRole("textbox");
     await user.hover(input);
 
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "error message"
+    );
   });
 
   test("should render tooltip and validation icon when `validationOnLabel` is set and `error` is passed a string value and the user hovers the mouse over the label", async () => {
@@ -1239,7 +1243,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     const label = screen.getByText("label");
     await user.hover(label);
 
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "error message"
+    );
   });
 
   test("should not render tooltip or validation icon when `error` is passed a boolean value", async () => {
@@ -1275,7 +1281,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "false");
     expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("warning message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "warning message"
+    );
   });
 
   test("should not render tooltip or validation icon when `warning` is passed a boolean value", async () => {
@@ -1311,7 +1319,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "false");
     expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("info message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "info message"
+    );
   });
 
   test("should not render tooltip or validation icon when `info` is passed a boolean value", async () => {
