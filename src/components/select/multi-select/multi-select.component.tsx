@@ -93,7 +93,7 @@ export interface MultiSelectProps
   isOptional?: boolean;
 }
 
-export const MultiSelect = React.forwardRef(
+export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
   (
     {
       "aria-label": ariaLabel,
@@ -133,7 +133,7 @@ export const MultiSelect = React.forwardRef(
       isOptional,
       required,
       ...textboxProps
-    }: MultiSelectProps,
+    },
     ref
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState();
@@ -606,14 +606,13 @@ export const MultiSelect = React.forwardRef(
       setFilterText("");
     }, []);
 
-    const assignInput = useCallback(
+    const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
       (element) => {
+        if (!element) return;
+
         setTextboxRef(element);
 
-        if (!ref) {
-          return;
-        }
-
+        if (!ref) return;
         if (typeof ref === "function") {
           ref(element);
         } else {
@@ -632,7 +631,6 @@ export const MultiSelect = React.forwardRef(
         readOnly,
         placeholder: placeholderOverride,
         leftChildren: mapValuesToPills,
-        ref: assignInput,
         formattedValue: textValue,
         selectedValue: actualValue,
         onClick: handleTextboxClick,
@@ -702,6 +700,7 @@ export const MultiSelect = React.forwardRef(
           </StyledAccessibilityLabelContainer>
 
           <SelectTextbox
+            ref={assignInput}
             accessibilityLabelId={accessibilityLabelId.current}
             activeDescendantId={activeDescendantId}
             aria-controls={selectListId.current}
@@ -710,7 +709,6 @@ export const MultiSelect = React.forwardRef(
             hasTextCursor
             isOpen={isOpen}
             labelId={labelId}
-            textboxRef={textboxRef}
             {...getTextboxProps()}
           />
         </div>
