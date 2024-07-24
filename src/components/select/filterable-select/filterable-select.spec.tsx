@@ -1202,7 +1202,7 @@ describe("FilterableSelect", () => {
 
   describe("when parent re-renders", () => {
     const WrapperComponent = () => {
-      const mockRef = useRef();
+      const mockRef = useRef<HTMLInputElement>(null);
 
       return (
         <div>
