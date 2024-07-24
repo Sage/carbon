@@ -1,10 +1,5 @@
-import React, { useMemo } from "react";
-import { offset, size as sizeMiddleware } from "@floating-ui/dom";
+import React from "react";
 
-import useFloating from "../../../../hooks/__internal__/useFloating";
-import Textbox, { CommonTextboxProps } from "../../../textbox";
-import useLocale from "../../../../hooks/__internal__/useLocale";
-import { ValidationProps } from "../../../../__internal__/validations";
 import { CustomSelectChangeEvent } from "../../simple-select/simple-select.component";
 import { SelectTextboxContext } from "./select-textbox.context";
 import {
@@ -12,17 +7,9 @@ import {
   StyledSelectTextChildrenWrapper,
 } from "./select-textbox.style";
 
-const floatingMiddleware = [
-  offset(({ rects }) => ({
-    mainAxis: -rects.reference.height,
-  })),
-  sizeMiddleware({
-    apply({ rects, elements }) {
-      (elements.reference as HTMLElement).style.height = `${rects.floating.height}px`;
-      elements.floating.style.width = `${rects.reference.width}px`;
-    },
-  }),
-];
+import Textbox, { CommonTextboxProps } from "../../../textbox";
+import useLocale from "../../../../hooks/__internal__/useLocale";
+import { ValidationProps } from "../../../../__internal__/validations";
 
 export interface FormInputPropTypes
   extends ValidationProps,
@@ -105,8 +92,6 @@ export interface SelectTextboxProps extends FormInputPropTypes {
     | string[]
     | Record<string, unknown>[];
   /** @private @ignore */
-  textboxRef?: HTMLInputElement | null;
-  /** @private @ignore */
   transparent?: boolean;
   /** @private @ignore */
   activeDescendantId?: string;
@@ -134,7 +119,6 @@ const SelectTextbox = React.forwardRef(
       selectedValue,
       required,
       isOptional,
-      textboxRef,
       hasTextCursor,
       transparent = false,
       activeDescendantId,
@@ -143,29 +127,6 @@ const SelectTextbox = React.forwardRef(
     }: SelectTextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
-    const reference = useMemo(
-      () => ({
-        current: textboxRef?.parentElement?.parentElement || null,
-      }),
-      [textboxRef]
-    );
-
-    const floating = useMemo(
-      () => ({
-        current: textboxRef?.parentElement || null,
-      }),
-      [textboxRef]
-    );
-
-    useFloating({
-      isOpen,
-      reference,
-      floating,
-      strategy: "fixed",
-      animationFrame: true,
-      middleware: floatingMiddleware,
-    });
-
     const l = useLocale();
     const placeholder = customPlaceholder || l.select.placeholder();
     const showPlaceholder = !disabled && !readOnly && !formattedValue;

@@ -96,7 +96,10 @@ export interface SimpleSelectProps
   isRequired?: boolean;
 }
 
-export const SimpleSelect = React.forwardRef(
+export const SimpleSelect = React.forwardRef<
+  HTMLInputElement,
+  SimpleSelectProps
+>(
   (
     {
       "aria-label": ariaLabel,
@@ -133,7 +136,7 @@ export const SimpleSelect = React.forwardRef(
       isOptional,
       required,
       ...props
-    }: SimpleSelectProps,
+    },
     ref
   ) => {
     const selectListId = useRef(guid());
@@ -465,14 +468,13 @@ export const SimpleSelect = React.forwardRef(
       setOpenState(false);
     }, []);
 
-    const assignInput = useCallback(
+    const assignInput = useCallback<React.RefCallback<HTMLInputElement>>(
       (element) => {
+        if (!element) return;
+
         setTextboxRef(element);
 
-        if (!ref) {
-          return;
-        }
-
+        if (!ref) return;
         if (typeof ref === "function") {
           ref(element);
         } else {
@@ -488,7 +490,6 @@ export const SimpleSelect = React.forwardRef(
         name,
         disabled,
         readOnly,
-        ref: assignInput,
         selectedValue,
         formattedValue: textValue,
         onClick: handleTextboxClick,
@@ -549,12 +550,12 @@ export const SimpleSelect = React.forwardRef(
       >
         <div ref={containerRef}>
           <SelectTextbox
+            ref={assignInput}
             ariaLabel={ariaLabel}
             aria-controls={selectListId.current}
             activeDescendantId={activeDescendantId}
             ariaLabelledby={ariaLabelledby}
             isOpen={isOpen}
-            textboxRef={textboxRef}
             {...getTextboxProps()}
           />
         </div>

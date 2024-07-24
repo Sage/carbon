@@ -307,10 +307,6 @@ const SelectList = React.forwardRef(
       .map(({ index, start }) => {
         const child = childrenList[index];
 
-        if (!React.isValidElement(child)) {
-          return child;
-        }
-
         const optionChildIndex = optionChildrenList.indexOf(child);
         const isOption = optionChildIndex > -1;
 

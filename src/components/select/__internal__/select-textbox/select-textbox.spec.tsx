@@ -1,68 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { mount } from "enzyme";
-import { act } from "react-dom/test-utils";
 
-import SelectTextbox, { SelectTextboxProps } from ".";
+import SelectTextbox from ".";
 import Textbox from "../../../textbox";
-import InputPresentationStyle, {
-  StyledInputPresentationContainer,
-} from "../../../../__internal__/input/input-presentation.style";
 import * as guidModule from "../../../../__internal__/utils/helpers/guid";
 import Translation from "../../../../locales/en-gb";
-import * as useFloatingModule from "../../../../hooks/__internal__/useFloating/useFloating";
 
-const useFloatingSpy = jest.spyOn(useFloatingModule, "default");
 const guidSpy = jest.spyOn(guidModule, "default");
 guidSpy.mockImplementation(() => "guid-12345");
 
-const Component = (props: Partial<SelectTextboxProps>) => {
-  const [textboxRef, setTextboxRef] = useState<HTMLInputElement | null>(null);
-
-  function assignInput(input: HTMLInputElement | null) {
-    setTextboxRef(input);
-  }
-
-  return (
-    <SelectTextbox
-      onChange={() => {}}
-      textboxRef={textboxRef}
-      ref={assignInput}
-      {...props}
-    />
-  );
-};
-
 describe("SelectTextbox", () => {
-  describe("useFloating", () => {
-    it("calls useFloating with proper argument", () => {
-      useFloatingSpy.mockClear();
-      const wrapper = mount(<Component isOpen />);
-      act(() => {
-        wrapper.update();
-      });
-      const call = useFloatingSpy.mock.calls[1][0];
-
-      expect(call.isOpen).toBe(true);
-      expect(call.reference).toEqual({
-        current: wrapper.find(StyledInputPresentationContainer).getDOMNode(),
-      });
-      expect(call.floating).toEqual({
-        current: wrapper.find(InputPresentationStyle).getDOMNode(),
-      });
-      expect(call.animationFrame).toBe(true);
-      expect(call.strategy).toBe("fixed");
-
-      const rects = { reference: { height: 40, width: 0, y: 0, x: 0 } };
-
-      expect(
-        call.middleware?.[0]?.options?.({
-          rects,
-          placement: "bottom",
-        })
-      ).toEqual({ mainAxis: -40 });
-    });
-  });
-
   describe("when rendered", () => {
     it("should contain a Textbox with expected props", () => {
       const wrapper = mount(<SelectTextbox onChange={() => {}} />);
