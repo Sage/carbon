@@ -1,3 +1,10 @@
+### [141.0.7](https://github.com/Sage/carbon/compare/v141.0.6...v141.0.7) (2024-07-25)
+
+
+### Bug Fixes
+
+* **button-toggle:** long text overflows button and update large icon padding ([265ff49](https://github.com/Sage/carbon/commit/265ff4992492341f550684a79e37986eb1c06de7)), closes [#6799](https://github.com/Sage/carbon/issues/6799)
+
 ### [141.0.6](https://github.com/Sage/carbon/compare/v141.0.5...v141.0.6) (2024-07-22)
 
 
