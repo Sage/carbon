@@ -1,3 +1,10 @@
+### [141.0.8](https://github.com/Sage/carbon/compare/v141.0.7...v141.0.8) (2024-07-25)
+
+
+### Bug Fixes
+
+* **popover-container:** popover position re-renders with controlled multiselect ([2783ace](https://github.com/Sage/carbon/commit/2783aceed1b13b5bdaee9cc7ec87ab8fea118b94)), closes [#6793](https://github.com/Sage/carbon/issues/6793)
+
 ### [141.0.7](https://github.com/Sage/carbon/compare/v141.0.6...v141.0.7) (2024-07-25)
 
 
