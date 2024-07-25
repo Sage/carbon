@@ -565,3 +565,36 @@ export const SingleOption = () => {
 };
 
 SingleOption.storyName = "Single Option";
+
+const optionListValues = [
+  {
+    id: "Amber",
+    value: 1,
+    text: "Black",
+  },
+  {
+    id: "Black",
+    value: 2,
+    text: "Black",
+  },
+  {
+    id: "Blue",
+    value: 3,
+    text: "Blue",
+  },
+];
+
+export const OptionsWithSameName = () => {
+  return (
+    <MultiSelect
+      name="multi-options-with-same-name"
+      id="multi-options-with-same-name"
+      label="multi options with same name"
+    >
+      {optionListValues.map((option) => (
+        <Option key={option.id} text={option.text} value={option} />
+      ))}
+    </MultiSelect>
+  );
+};
+OptionsWithSameName.storyName = "Options with same name";
