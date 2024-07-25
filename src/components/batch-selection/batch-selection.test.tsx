@@ -8,9 +8,38 @@ import Icon from "../icon";
 import IconButton from "../icon-button";
 import Link from "../link";
 
+test("Renders with children", () => {
+  render(
+    <BatchSelection selectedCount={0}>
+      <IconButton>
+        <Icon type="edit" />
+      </IconButton>
+    </BatchSelection>
+  );
+
+  const iconButton = screen.getByRole("button", { name: "edit" });
+
+  expect(iconButton).toBeVisible();
+  expect(iconButton).toBeEnabled();
+});
+
+test("Renders as hidden when the `hidden` prop is true", () => {
+  render(
+    <BatchSelection selectedCount={0} hidden>
+      <IconButton>
+        <Icon type="bin" />
+      </IconButton>
+    </BatchSelection>
+  );
+
+  const batchSelection = screen.getByTestId("batch-selection");
+
+  expect(batchSelection).not.toBeVisible();
+});
+
 test("`IconButton` children should be automatically disabled via context", () => {
   render(
-    <BatchSelection selectedCount={0} disabled>
+    <BatchSelection colorTheme="dark" selectedCount={0} disabled>
       <IconButton>
         <Icon type="edit" />
       </IconButton>
@@ -24,7 +53,7 @@ test("`IconButton` children should be automatically disabled via context", () =>
 
 test("`Button` children should be automatically disabled via context", () => {
   render(
-    <BatchSelection selectedCount={0} disabled>
+    <BatchSelection colorTheme="light" selectedCount={0} disabled>
       <Button iconType="edit" />
     </BatchSelection>
   );
@@ -36,7 +65,7 @@ test("`Button` children should be automatically disabled via context", () => {
 
 test("`ButtonMinor` children should be automatically disabled via context", () => {
   render(
-    <BatchSelection selectedCount={0} disabled>
+    <BatchSelection colorTheme="white" selectedCount={0} disabled>
       <ButtonMinor iconType="edit" />
     </BatchSelection>
   );

@@ -33,6 +33,7 @@ export const BatchSelection = ({
     <StyledBatchSelection
       colorTheme={colorTheme}
       data-component="batch-selection"
+      data-role="batch-selection"
       disabled={disabled}
       hidden={hidden}
     >
