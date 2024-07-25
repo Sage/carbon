@@ -211,3 +211,15 @@ export const TooltipPosition = () => {
 };
 
 TooltipPosition.storyName = "tooltip position";
+
+export const InForm = () => {
+  return (
+    <form>
+      <NumeralDate dateFormat={["dd", "mm", "yyyy"]} label="Label" />
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+
+InForm.storyName = "in form";

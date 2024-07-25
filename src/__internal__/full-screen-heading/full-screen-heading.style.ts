@@ -11,6 +11,7 @@ export interface StyledFullScreenHeadingProps {
 export const StyledHeaderContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  min-width: 100%;
 `;
 
 const StyledFullScreenHeading = styled.div<StyledFullScreenHeadingProps>`

@@ -31,9 +31,9 @@ const heightLargeIconConfig = {
 };
 
 const paddingLargeIconConfig = {
-  small: 24,
-  medium: 40,
-  large: 48,
+  small: "var(--spacing100)",
+  medium: "var(--spacing100) var(--spacing150) var(--spacing000)",
+  large: "var(--spacing100) var(--spacing300)",
 };
 
 const StyledButtonToggleContentWrapper = styled.div`
@@ -74,16 +74,18 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
   font-weight: 700;
   background-color: transparent;
   cursor: pointer;
-  text-align: start;
+  text-align: center;
   color: var(--colorsActionMinor500);
   border: none;
 
   ${StyledIcon} {
     color: var(--colorsActionMinor500);
+    height: var(--sizing250);
+    width: var(--sizing250);
   }
 
   ${({ size }) => css`
-    height: ${heightConfig[size]}px;
+    min-height: ${heightConfig[size]}px;
     padding: 0 ${paddingConfig[size]}px;
     font-size: ${fontSizeConfig[size]}px;
   `}
@@ -92,8 +94,8 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
     buttonIcon &&
     buttonIconSize === "large" &&
     css`
-      height: ${heightLargeIconConfig[size]}px;
-      padding: 0 ${paddingLargeIconConfig[size]}px;
+      min-height: ${heightLargeIconConfig[size]}px;
+      padding: ${paddingLargeIconConfig[size]};
       flex-direction: column;
     `}  
     
@@ -149,11 +151,6 @@ const StyledButtonToggle = styled.button<StyledButtonToggleProps>`
     `}
 `;
 
-const iconFontSizes = {
-  smallIcon: 20,
-  largeIcon: 32,
-};
-
 export interface StyledButtonToggleIconProps {
   /** Sets the size of the buttonIcon (eg. large) */
   buttonIconSize?: ButtonToggleIconSizes;
@@ -166,17 +163,20 @@ const StyledButtonToggleIcon = styled.div<StyledButtonToggleIconProps>`
     buttonIconSize === "large" &&
     css`
       margin-right: 0;
+
       ${StyledIcon} {
         margin-left: 0;
         margin-right: 0;
         margin-bottom: 8px;
-        height: ${`${iconFontSizes.largeIcon}px`};
-        width: ${`${iconFontSizes.largeIcon}px`};
+        height: var(--sizing400);
+        width: var(--sizing400);
       }
+
       ${StyledIcon}::before {
-        font-size: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
-        line-height: ${`${iconFontSizes[`${buttonIconSize}Icon`]}px`};
+        font-size: var(--sizing400);
+        line-height: var(--sizing400);
       }
+
       .carbon-icon__svg--credit-card-slash {
         margin-left: 6px;
       }

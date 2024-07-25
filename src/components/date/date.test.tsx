@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen, act, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   enGB as enGBLocale,
@@ -268,9 +268,7 @@ test("should call `onBlur` and `onChange` callbacks when the user clicks away fr
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
   expect(onChange).toHaveBeenCalled();
@@ -285,9 +283,7 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
   expect(onChange).not.toHaveBeenCalled();
@@ -307,9 +303,7 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
   expect(onChange).not.toHaveBeenCalled();
@@ -330,9 +324,7 @@ test("should not call `onBlur` or `onChange` callbacks when user clicks away fro
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onBlur).not.toHaveBeenCalled();
   expect(onChange).not.toHaveBeenCalled();
@@ -347,9 +339,7 @@ test("should not call `onBlur` when the user clicks on the input and then the in
   const input = screen.getByRole("textbox");
   const icon = screen.getByTestId("input-icon-toggle");
   await user.click(input);
-  await act(async () => {
-    await user.click(icon);
-  });
+  await user.click(icon);
 
   expect(onBlur).not.toHaveBeenCalled();
 });
@@ -361,9 +351,7 @@ test("should call `onChange` callback with expected values when user clicks away
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.type(input, "12.12.69");
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onChange).toHaveBeenCalledWith({
     formattedValue: "12/12/1969",
@@ -379,9 +367,7 @@ test("should call `onChange` callback with expected values when user clicks away
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.type(input, "12.12.20");
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onChange).toHaveBeenCalledWith({
     formattedValue: "12/12/2020",
@@ -397,9 +383,7 @@ test("should call `onChange` callback with expected values when user clicks away
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.type(input, "12.12.00");
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onChange).toHaveBeenCalledWith({
     formattedValue: "12/12/2000",
@@ -421,9 +405,7 @@ test("should call `onChange` callback when user clears the input and clicks away
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.clear(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onChange).toHaveBeenCalledWith({
     formattedValue: "",
@@ -473,9 +455,7 @@ test("should close the open picker when a user presses the 'Escape' key", async 
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.keyboard("{Escape}");
-  });
+  await user.keyboard("{Escape}");
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
@@ -486,9 +466,7 @@ test("should close the open picker when the user presses the 'Escape' key and fo
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.tab();
-  await act(async () => {
-    await user.keyboard("{Escape}");
-  });
+  await user.keyboard("{Escape}");
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
@@ -533,9 +511,7 @@ test("should close the picker when the user presses shift + tab and the input is
   await user.click(input);
 
   expect(screen.getByRole("grid")).toBeVisible();
-  await act(async () => {
-    await user.tab({ shift: true });
-  });
+  await user.tab({ shift: true });
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
@@ -547,9 +523,7 @@ test("should close the picker when the user presses shift + tab and the previous
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
-  await act(async () => {
-    await user.tab({ shift: true });
-  });
+  await user.tab({ shift: true });
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
@@ -562,9 +536,7 @@ test("should not close the picker when the user presses shift + tab and neither 
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Next month" })).toHaveFocus();
-  await act(async () => {
-    await user.tab({ shift: true });
-  });
+  await user.tab({ shift: true });
   expect(screen.getByRole("grid")).toBeVisible();
 });
 
@@ -611,7 +583,7 @@ test("should render the help icon when the `labelHelp` prop is passed and displa
   const helpIcon = screen.getByRole("button", { name: "help" });
   await user.hover(helpIcon);
 
-  expect(screen.getByRole("tooltip")).toHaveTextContent("help text");
+  expect(await screen.findByRole("tooltip")).toHaveTextContent("help text");
 });
 
 test("should render the input with the expected required attribute when the `required` prop is true", () => {
@@ -1229,7 +1201,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "true");
     expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "error message"
+    );
   });
 
   test("should render tooltip and validation icon when `validationOnLabel` is set and `error` is passed a string value and the user hovers the mouse over the input", async () => {
@@ -1248,7 +1222,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     const input = screen.getByRole("textbox");
     await user.hover(input);
 
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "error message"
+    );
   });
 
   test("should render tooltip and validation icon when `validationOnLabel` is set and `error` is passed a string value and the user hovers the mouse over the label", async () => {
@@ -1267,7 +1243,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
     const label = screen.getByText("label");
     await user.hover(label);
 
-    expect(screen.getByRole("tooltip")).toHaveTextContent("error message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "error message"
+    );
   });
 
   test("should not render tooltip or validation icon when `error` is passed a boolean value", async () => {
@@ -1303,7 +1281,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "false");
     expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("warning message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "warning message"
+    );
   });
 
   test("should not render tooltip or validation icon when `warning` is passed a boolean value", async () => {
@@ -1339,7 +1319,9 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
 
     expect(input).toHaveAttribute("aria-invalid", "false");
     expect(icon).toBeInTheDocument();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("info message");
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "info message"
+    );
   });
 
   test("should not render tooltip or validation icon when `info` is passed a boolean value", async () => {
