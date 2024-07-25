@@ -1,3 +1,10 @@
+## [141.1.0](https://github.com/Sage/carbon/compare/v141.0.8...v141.1.0) (2024-07-25)
+
+
+### Features
+
+* **option-group-header:** add support for children to be passed to component ([9629f93](https://github.com/Sage/carbon/commit/9629f9388328626caab6ffad6f90694aa02eadd9)), closes [#6823](https://github.com/Sage/carbon/issues/6823)
+
 ### [141.0.8](https://github.com/Sage/carbon/compare/v141.0.7...v141.0.8) (2024-07-25)
 
 
