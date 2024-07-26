@@ -1,3 +1,10 @@
+### [141.1.1](https://github.com/Sage/carbon/compare/v141.1.0...v141.1.1) (2024-07-26)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** focus border partially covered in expanded rows ([d97caa8](https://github.com/Sage/carbon/commit/d97caa8ef195b485948b45a5f373731d477ad973)), closes [#6561](https://github.com/Sage/carbon/issues/6561)
+
 ## [141.1.0](https://github.com/Sage/carbon/compare/v141.0.8...v141.1.0) (2024-07-25)
 
 
