@@ -1,3 +1,66 @@
+### [141.1.1](https://github.com/Sage/carbon/compare/v141.1.0...v141.1.1) (2024-07-26)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** focus border partially covered in expanded rows ([d97caa8](https://github.com/Sage/carbon/commit/d97caa8ef195b485948b45a5f373731d477ad973)), closes [#6561](https://github.com/Sage/carbon/issues/6561)
+
+## [141.1.0](https://github.com/Sage/carbon/compare/v141.0.8...v141.1.0) (2024-07-25)
+
+
+### Features
+
+* **option-group-header:** add support for children to be passed to component ([9629f93](https://github.com/Sage/carbon/commit/9629f9388328626caab6ffad6f90694aa02eadd9)), closes [#6823](https://github.com/Sage/carbon/issues/6823)
+
+### [141.0.8](https://github.com/Sage/carbon/compare/v141.0.7...v141.0.8) (2024-07-25)
+
+
+### Bug Fixes
+
+* **popover-container:** popover position re-renders with controlled multiselect ([2783ace](https://github.com/Sage/carbon/commit/2783aceed1b13b5bdaee9cc7ec87ab8fea118b94)), closes [#6793](https://github.com/Sage/carbon/issues/6793)
+
+### [141.0.7](https://github.com/Sage/carbon/compare/v141.0.6...v141.0.7) (2024-07-25)
+
+
+### Bug Fixes
+
+* **button-toggle:** long text overflows button and update large icon padding ([265ff49](https://github.com/Sage/carbon/commit/265ff4992492341f550684a79e37986eb1c06de7)), closes [#6799](https://github.com/Sage/carbon/issues/6799)
+
+### [141.0.6](https://github.com/Sage/carbon/compare/v141.0.5...v141.0.6) (2024-07-22)
+
+
+### Bug Fixes
+
+* **numeral-date:** ensure that enter key triggers default behaviour ([7c2f997](https://github.com/Sage/carbon/commit/7c2f99705cee55dd6ed000965e7f304c27c79273)), closes [#6832](https://github.com/Sage/carbon/issues/6832)
+
+### [141.0.5](https://github.com/Sage/carbon/compare/v141.0.4...v141.0.5) (2024-07-19)
+
+
+### Bug Fixes
+
+* **alert:** fix data-component for alert component ([8f8530f](https://github.com/Sage/carbon/commit/8f8530f7d42b8c701fc10c865835629db6e0e0a9))
+
+### [141.0.4](https://github.com/Sage/carbon/compare/v141.0.3...v141.0.4) (2024-07-19)
+
+
+### Bug Fixes
+
+* **menu-item:** ensure hover styling does not overlap focus outlines ([1e673b3](https://github.com/Sage/carbon/commit/1e673b3b4cccb7169ac80768122699d0d238a61b)), closes [#6781](https://github.com/Sage/carbon/issues/6781)
+
+### [141.0.3](https://github.com/Sage/carbon/compare/v141.0.2...v141.0.3) (2024-07-19)
+
+
+### Bug Fixes
+
+* **dialog-full-screen:** fix flex title layout ([73c41e7](https://github.com/Sage/carbon/commit/73c41e795bcf468362bf111e5f0e1a319e2187d9)), closes [#6740](https://github.com/Sage/carbon/issues/6740)
+
+### [141.0.2](https://github.com/Sage/carbon/compare/v141.0.1...v141.0.2) (2024-07-19)
+
+
+### Bug Fixes
+
+* **file-input:** ensure that long file names are truncated correctly ([e4986a0](https://github.com/Sage/carbon/commit/e4986a0ba91fa5c977a18019c0aa8297b9ce3afc))
+
 ### [141.0.1](https://github.com/Sage/carbon/compare/v141.0.0...v141.0.1) (2024-07-18)
 
 

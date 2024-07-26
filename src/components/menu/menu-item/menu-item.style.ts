@@ -57,12 +57,11 @@ const StyledMenuItemWrapper = styled.a.attrs({
     asDiv,
     hasInput,
   }) => css`
-    ${
-      !inFullscreenView &&
-      css`
-        ${padding}
-      `
-    }
+    ${!inFullscreenView &&
+    css`
+      ${padding}
+    `}
+
     display: inline-block;
     font-size: 14px;
     font-weight: 700;
@@ -75,87 +74,86 @@ const StyledMenuItemWrapper = styled.a.attrs({
       cursor: pointer;
     }
 
-      a:focus,
-      button:focus {
-        ${({ theme }) =>
-          `${
-            !theme.focusRedesignOptOut
-              ? addFocusStyling(true)
-              : /* istanbul ignore next */ oldFocusStyling
-          }`}
+    a:focus,
+    button:focus {
+      ${({ theme }) =>
+        `${
+          !theme.focusRedesignOptOut
+            ? addFocusStyling(true)
+            : /* istanbul ignore next */ oldFocusStyling
+        }
+      `}
+    }
+
+    a button:not(.search-button) {
+      position: relative;
+      top: -1px;
+    }
+
+    ${!overrideColor &&
+    css`
+      background-color: ${menuConfigVariants[menuType].background};
+    `}
+
+    ${overrideColor &&
+    css`
+      &&&& {
+        background-color: ${variant === "alternate"
+          ? menuConfigVariants[menuType].alternate
+          : menuConfigVariants[menuType].submenuItemBackground};
       }
-    }
+    `}
 
-    ${
-      !overrideColor &&
-      css`
-        background-color: ${menuConfigVariants[menuType].background};
-      `
-    }
+    ${!inFullscreenView &&
+    css`
+      max-width: inherit;
 
-    ${
-      overrideColor &&
-      css`
-        &&&& {
-          background-color: ${variant === "alternate"
-            ? menuConfigVariants[menuType].alternate
-            : menuConfigVariants[menuType].submenuItemBackground};
+      && {
+        a:focus,
+        button:focus {
+          background-color: ${menuConfigVariants[menuType].background};
+          color: ${menuConfigVariants[menuType].color};
+          z-index: 1;
+          position: relative;
         }
-      `
-    }
+      }
 
-    ${
-      !inFullscreenView &&
-      css`
-        max-width: inherit;
-
-        && {
-          a:focus,
-          button:focus {
-            background-color: ${menuConfigVariants[menuType].background};
-            color: ${menuConfigVariants[menuType].color};
-            z-index: 1;
-            position: relative;
-          }
+      &&& {
+        a,
+        button {
+          ${maxWidth &&
+          css`
+            box-sizing: border-box;
+            max-width: inherit;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            vertical-align: bottom;
+          `}
+          height: 40px;
         }
 
-        &&& {
-          a,
-          button {
-            ${maxWidth &&
-            css`
-              box-sizing: border-box;
-              max-width: inherit;
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
-              vertical-align: bottom;
-            `}
-          }
+        a:hover,
+        button:hover {
+          ${!asDiv &&
+          css`
+            background-color: var(--colorsComponentsMenuAutumnStandard600);
+            color: var(--colorsComponentsMenuYang100);
 
-          a:hover,
-          button:hover {
-            ${!asDiv &&
-            css`
-              background-color: var(--colorsComponentsMenuAutumnStandard600);
+            [data-component="icon"] {
               color: var(--colorsComponentsMenuYang100);
-
-              [data-component="icon"] {
-                color: var(--colorsComponentsMenuYang100);
-              }
-            `}
-
-            ::before {
-              border-top-color: var(--colorsComponentsMenuYang100);
             }
+          `}
+
+          ::before {
+            border-top-color: var(--colorsComponentsMenuYang100);
           }
         }
-      `
-    }
+      }
+    `}
 
-    ${
-      asPassiveItem
-        ? `
+    ${asPassiveItem
+      ? `
         ${StyledIconButton} {
           > span {
             display: inline-flex;
@@ -170,15 +168,14 @@ const StyledMenuItemWrapper = styled.a.attrs({
           }
         }
       `
-        : `
+      : `
         a,
         ${StyledLink} a,
         button,
         ${StyledLink} button {
           padding: 0 16px;
         }
-      `
-    }
+      `}
 
     button,
     ${StyledLink} button {
@@ -187,13 +184,11 @@ const StyledMenuItemWrapper = styled.a.attrs({
       margin: 0px;
       text-align: left;
 
-      ${
-        inFullscreenView &&
-        css`
-          height: auto;
-          white-space: normal;
-        `
-      }
+      ${inFullscreenView &&
+      css`
+        height: auto;
+        white-space: normal;
+      `}
     }
 
     &&& {
@@ -208,158 +203,146 @@ const StyledMenuItemWrapper = styled.a.attrs({
         ${!hasInput && `color: ${menuConfigVariants[menuType].color};`}
       }
 
-      ${
-        !inFullscreenView &&
-        css`
-          a > ${StyledIcon}, button > ${StyledIcon} {
-            display: inline-block;
-          }
-        `
-      }
+      ${!inFullscreenView &&
+      css`
+        a > ${StyledIcon}, button > ${StyledIcon} {
+          display: inline-block;
+        }
+      `}
     }
 
-    ${
-      selected &&
-      css`
+    ${selected &&
+    css`
+      background-color: ${menuConfigVariants[menuType].selected};
+
+      a:focus,
+      button:focus {
         background-color: ${menuConfigVariants[menuType].selected};
+      }
+
+      a:hover,
+      button:hover {
+        background-color: var(--colorsComponentsMenuAutumnStandard600);
+      }
+    `}
+
+    ${variant === "alternate" &&
+    !inFullscreenView &&
+    css`
+      &&& {
+        background-color: ${menuConfigVariants[menuType].alternate};
+      }
+
+      &&& a:focus,
+      &&& button:focus {
+        background-color: ${menuConfigVariants[menuType].alternate};
+      }
+
+      ${!hasInput &&
+      css`
+        &&& a:hover,
+        &&& button:hover {
+          background-color: ${menuConfigVariants[menuType].alternateHover};
+        }
+      `}
+    `}
+
+    ${isOpen &&
+    css`
+      a,
+      button {
+        background-color: ${menuConfigVariants[menuType].submenuItemBackground};
+        color: ${menuConfigVariants[menuType].color};
+      }
+    `}
+
+    ${hasSubmenu &&
+    css`
+      background-color: ${menuConfigVariants[menuType].submenuBackground};
+
+      a:focus,
+      button:focus {
+        background-color: ${menuConfigVariants[menuType].submenuBackground};
+        color: ${menuConfigVariants[menuType].color};
+
+        [data-component="icon"] {
+          color: ${menuConfigVariants[menuType].color};
+        }
+
+        ${clickToOpen &&
+        isOpen &&
+        css`
+          background-color: ${menuConfigVariants[menuType]
+            .submenuOpenedBackground};
+        `}
+      }
+
+      a:hover,
+      button:hover {
+        background-color: ${menuConfigVariants[menuType]
+          .submenuOpenedBackground};
+        color: var(--colorsComponentsMenuYang100);
+
+        ${!(href || clickToOpen) &&
+        css`
+          cursor: default;
+          background-color: ${menuConfigVariants[menuType]
+            .submenuItemBackground};
+          color: ${menuConfigVariants[menuType].color};
+        `}
+
+        [data-component="icon"] {
+          color: ${menuConfigVariants[menuType].color};
+        }
+      }
+
+      ${selected &&
+      css`
+        background-color: ${menuConfigVariants[menuType].submenuSelected};
 
         a:focus,
         button:focus {
-          background-color: ${menuConfigVariants[menuType].selected};
+          background-color: ${menuConfigVariants[menuType].submenuSelected};
         }
 
         a:hover,
         button:hover {
           background-color: var(--colorsComponentsMenuAutumnStandard600);
-        }
-      `
-    }
-
-    ${
-      variant === "alternate" &&
-      !inFullscreenView &&
-      css`
-        &&& {
-          background-color: ${menuConfigVariants[menuType].alternate};
-        }
-
-        &&& a:focus,
-        &&& button:focus {
-          background-color: ${menuConfigVariants[menuType].alternate};
-        }
-
-        ${!hasInput &&
-        css`
-          &&& a:hover,
-          &&& button:hover {
-            background-color: ${menuConfigVariants[menuType].alternateHover};
-          }
-        `}
-      `
-    }
-
-    ${
-      isOpen &&
-      css`
-        a,
-        button {
-          background-color: ${menuConfigVariants[menuType]
-            .submenuItemBackground};
-          color: ${menuConfigVariants[menuType].color};
-        }
-      `
-    }
-
-    ${
-      hasSubmenu &&
-      css`
-        background-color: ${menuConfigVariants[menuType].submenuBackground};
-
-        a:focus,
-        button:focus {
-          background-color: ${menuConfigVariants[menuType].submenuBackground};
-          color: ${menuConfigVariants[menuType].color};
-
-          [data-component="icon"] {
-            color: ${menuConfigVariants[menuType].color};
-          }
-
-          ${clickToOpen &&
-          isOpen &&
-          css`
-            background-color: ${menuConfigVariants[menuType]
-              .submenuOpenedBackground};
-          `}
-        }
-
-        a:hover,
-        button:hover {
-          background-color: ${menuConfigVariants[menuType]
-            .submenuOpenedBackground};
           color: var(--colorsComponentsMenuYang100);
+        }
+      `}
 
-          ${!(href || clickToOpen) &&
-          css`
-            cursor: default;
-            background-color: ${menuConfigVariants[menuType]
-              .submenuItemBackground};
-            color: ${menuConfigVariants[menuType].color};
-          `}
-
-          [data-component="icon"] {
-            color: ${menuConfigVariants[menuType].color};
-          }
+      ${showDropdownArrow &&
+      css`
+        > a,
+        > button:not(${StyledIconButton}) {
+          padding-right: 32px;
         }
 
-        ${selected &&
-        css`
-          background-color: ${menuConfigVariants[menuType].submenuSelected};
+        a::before,
+        button::before {
+          display: block;
+          margin-top: -2px;
+          pointer-events: none;
+          position: absolute;
+          right: 16px;
+          top: 50%;
+          z-index: 2;
+          content: "";
+          width: 0;
+          height: 0;
+          border-width: 5px 4px 4px;
+          border-style: solid;
+          border-top-color: initial;
+          border-right-color: transparent;
+          border-bottom-color: transparent;
+          border-left-color: transparent;
+        }
+      `}
+    `}
 
-          a:focus,
-          button:focus {
-            background-color: ${menuConfigVariants[menuType].submenuSelected};
-          }
-
-          a:hover,
-          button:hover {
-            background-color: var(--colorsComponentsMenuAutumnStandard600);
-            color: var(--colorsComponentsMenuYang100);
-          }
-        `}
-
-        ${showDropdownArrow &&
-        css`
-          > a,
-          > button:not(${StyledIconButton}) {
-            padding-right: 32px;
-          }
-
-          a::before,
-          button::before {
-            display: block;
-            margin-top: -2px;
-            pointer-events: none;
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            z-index: 2;
-            content: "";
-            width: 0;
-            height: 0;
-            border-width: 5px 4px 4px;
-            border-style: solid;
-            border-top-color: initial;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            border-left-color: transparent;
-          }
-        `}
-      `
-    }
-
-    ${
-      inFullscreenView &&
-      css`
+    ${inFullscreenView &&
+    css`
       ${
         asDiv &&
         css`
@@ -426,8 +409,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
           }
         }
       }
-    `
-    }
+    `}
   `}
 `;
 

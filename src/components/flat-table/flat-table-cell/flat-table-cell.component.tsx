@@ -59,7 +59,12 @@ export const FlatTableCell = ({
     isInHighlightedRow,
     isInSelectedRow,
     tabIndex,
+    bringToFront,
   } = useTableCell(internalId.current);
+
+  const handleOnFocus = (ev: React.FocusEvent<HTMLElement>) => {
+    bringToFront(ev, "TD");
+  };
 
   return (
     <StyledFlatTableCell
@@ -82,6 +87,7 @@ export const FlatTableCell = ({
       data-highlighted={isInHighlightedRow && isExpandableCell}
       {...rest}
       id={internalId.current}
+      onFocus={handleOnFocus}
     >
       <StyledCellContent
         title={
