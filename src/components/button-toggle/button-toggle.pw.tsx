@@ -227,22 +227,25 @@ test.describe("Prop tests", () => {
   });
 
   ([
-    [SIZE.SMALL, 24],
-    [SIZE.MEDIUM, 32],
-    [SIZE.LARGE, 40],
-  ] as [ButtonToggleProps["size"], number][]).forEach(([size, height]) => {
-    test(`should render with height ${height} when size prop is ${size}`, async ({
-      mount,
-      page,
-    }) => {
-      await mount(
-        <ButtonToggleComponent size={size}> {size}</ButtonToggleComponent>
-      );
+    [SIZE.SMALL, 24, 8],
+    [SIZE.MEDIUM, 32, 8],
+    [SIZE.LARGE, 40, 12],
+  ] as [ButtonToggleProps["size"], number, number][]).forEach(
+    ([size, height, padding]) => {
+      test(`should render button with height ${height} and padding ${padding} when size is ${size}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <ButtonToggleComponent size={size}>{size}</ButtonToggleComponent>
+        );
 
-      const buttonPreview = buttonTogglePreview(page).nth(0);
-      await assertCssValueIsApproximately(buttonPreview, "height", height);
-    });
-  });
+        const firstButton = buttonToggleButton(page).nth(0);
+        await expect(firstButton).toHaveCSS("min-height", `${height}px`);
+        await expect(firstButton).toHaveCSS("padding", `0px ${padding}px`);
+      });
+    }
+  );
 
   (["add", "share", "tick"] as const).forEach((type) => {
     test(`should render with ${type} icon`, async ({ mount, page }) => {
@@ -258,24 +261,53 @@ test.describe("Prop tests", () => {
   });
 
   ([
-    [SIZE.SMALL, "small"],
-    [SIZE.LARGE, "large"],
-  ] as [ButtonToggleProps["buttonIconSize"], string][]).forEach(
-    ([iconSize, actualSize]) => {
-      test(`should render with icon size ${iconSize}`, async ({
+    [SIZE.SMALL, 72, "8px"],
+    [SIZE.MEDIUM, 88, "8px 12px 0px"],
+    [SIZE.LARGE, 120, "8px 24px"],
+  ] as [ButtonToggleProps["size"], number, string][]).forEach(
+    ([size, height, padding]) => {
+      test(`should render button with height ${height} and padding ${padding} when size is ${size} and buttonIconSize is large`, async ({
         mount,
         page,
       }) => {
         await mount(
-          <ButtonToggleComponent buttonIcon="tick" buttonIconSize={iconSize}>
-            {" "}
-            {iconSize}
+          <ButtonToggleComponent
+            buttonIcon="tick"
+            buttonIconSize="large"
+            size={size}
+          >
+            {size}
           </ButtonToggleComponent>
         );
 
-        const buttonIcon = icon(page).nth(0);
-        await expect(buttonIcon).toHaveAttribute("font-size", actualSize);
-        await expect(buttonIcon).toHaveAttribute("type", "tick");
+        const firstButton = buttonToggleButton(page).nth(0);
+        await expect(firstButton).toHaveCSS("min-height", `${height}px`);
+        await expect(firstButton).toHaveCSS("padding", `${padding}`);
+      });
+    }
+  );
+
+  ([
+    [SIZE.SMALL, 20],
+    [SIZE.LARGE, 32],
+  ] as [ButtonToggleProps["buttonIconSize"], number][]).forEach(
+    ([buttonIconSize, value]) => {
+      test(`should render icon with height and width ${value} when buttonIconSize is ${buttonIconSize}`, async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <ButtonToggleComponent
+            buttonIcon="tick"
+            buttonIconSize={buttonIconSize}
+          >
+            {buttonIconSize}
+          </ButtonToggleComponent>
+        );
+
+        const firstIcon = icon(page).nth(0);
+        await expect(firstIcon).toHaveCSS("height", `${value}px`);
+        await expect(firstIcon).toHaveCSS("width", `${value}px`);
       });
     }
   );

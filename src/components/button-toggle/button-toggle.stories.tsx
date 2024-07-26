@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-
+import isChromatic from "../../../.storybook/isChromatic";
 import { ButtonToggle, ButtonToggleGroup } from ".";
 import Box from "../box";
 
@@ -12,6 +12,8 @@ const meta: Meta<typeof ButtonToggle> = {
 
 export default meta;
 type Story = StoryObj<typeof ButtonToggle>;
+
+const inChromatic = isChromatic();
 
 export const Default: Story = () => {
   return (
@@ -378,11 +380,12 @@ export const DisabledGroup: Story = () => (
 DisabledGroup.storyName = "Disabled Group";
 
 export const WrappedButtons: Story = () => (
-  <Box width="350px" display="flex" flexWrap="nowrap">
+  <Box width={inChromatic ? "175px" : "375px"} display="flex" flexWrap="nowrap">
     <ButtonToggleGroup
       m={4}
       id="button-toggle-group-wrapped-id"
       label="Wrapped Group"
+      fullWidth
     >
       <ButtonToggle value="add" buttonIcon="add">
         Add

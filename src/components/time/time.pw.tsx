@@ -90,7 +90,7 @@ test.describe("Time component", () => {
     });
   });
 
-  test("should render with required attribute set on inputs and `*` after legened element", async ({
+  test("should render with required attribute set on inputs and `*` after legend element", async ({
     mount,
     page,
   }) => {
