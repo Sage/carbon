@@ -100,7 +100,7 @@ test.describe("Tile component", () => {
   tileOrientations.forEach(([orientation, height]) => {
     test(`check ${orientation} orientation`, async ({ mount, page }) => {
       await mount(
-        <TileComponent orientation={orientation} data-element="tile" />
+        <TileComponent orientation={orientation} data-element="tile" />,
       );
 
       const tile = getDataElementByValue(page, "tile");
@@ -114,7 +114,7 @@ test.describe("Tile component", () => {
       page,
     }) => {
       await mount(
-        <TileComponent width={widthInPercentage} data-element="tile" />
+        <TileComponent width={widthInPercentage} data-element="tile" />,
       );
 
       const tile = getDataElementByValue(page, "tile");
@@ -125,7 +125,7 @@ test.describe("Tile component", () => {
   tileHeights.forEach(([heightInPercentage, heightInPixel]) => {
     test(`check height as ${heightInPercentage}`, async ({ mount, page }) => {
       await mount(
-        <TileComponent height={heightInPercentage} data-element="tile" />
+        <TileComponent height={heightInPercentage} data-element="tile" />,
       );
 
       const tile = getDataElementByValue(page, "tile");
@@ -184,7 +184,7 @@ test.describe("Tile component", () => {
   tileFooterVariants.forEach(([variant, backGroundColor, borderTopColor]) => {
     test(`check Tile Footer variant as ${variant}`, async ({ mount, page }) => {
       await mount(
-        <TileFooterComponent variant={variant} data-element="tile-footer" />
+        <TileFooterComponent variant={variant} data-element="tile-footer" />,
       );
 
       const footer = getDataElementByValue(page, "tile-footer");
@@ -194,7 +194,7 @@ test.describe("Tile component", () => {
         "1px",
         "border-top",
         "solid",
-        borderTopColor
+        borderTopColor,
       );
     });
   });
@@ -207,7 +207,7 @@ test.describe("Tile component", () => {
       await mount(
         <TileFooterComponent data-element="tile-footer">
           {children}
-        </TileFooterComponent>
+        </TileFooterComponent>,
       );
 
       const footer = getDataElementByValue(page, "tile-footer");
@@ -222,7 +222,7 @@ test.describe("Tile component", () => {
         page,
       }) => {
         await mount(
-          <TileHeaderComponent variant={variant} data-element="tile-header" />
+          <TileHeaderComponent variant={variant} data-element="tile-header" />,
         );
 
         const header = getDataElementByValue(page, "tile-header");
@@ -232,10 +232,10 @@ test.describe("Tile component", () => {
           "1px",
           "border-bottom",
           "solid",
-          borderBottomColor
+          borderBottomColor,
         );
       });
-    }
+    },
   );
 
   characters.forEach((children) => {
@@ -246,7 +246,7 @@ test.describe("Tile component", () => {
       await mount(
         <TileHeaderComponent data-element="tile-header">
           {children}
-        </TileHeaderComponent>
+        </TileHeaderComponent>,
       );
 
       const header = getDataElementByValue(page, "tile-header");
@@ -269,7 +269,7 @@ test.describe("Tile component", () => {
       page,
     }) => {
       await mount(
-        <TileComponent data-element="tile" borderVariant={borderVariant} />
+        <TileComponent data-element="tile" borderVariant={borderVariant} />,
       );
 
       const tile = getDataElementByValue(page, "tile");
@@ -290,7 +290,7 @@ test.describe("Tile component", () => {
               data-element="tile"
               borderVariant={borderVariant}
               variant={variant}
-            />
+            />,
           );
 
           const tile = getDataElementByValue(page, "tile");
@@ -302,7 +302,7 @@ test.describe("Tile component", () => {
   borderWidths.forEach(([borderWidth, pixelWidth]) => {
     test(`check border width as ${borderWidth}`, async ({ mount, page }) => {
       await mount(
-        <TileComponent data-element="tile" borderWidth={borderWidth} />
+        <TileComponent data-element="tile" borderWidth={borderWidth} />,
       );
 
       const tile = getDataElementByValue(page, "tile");
@@ -342,7 +342,7 @@ test.describe("Tile component", () => {
 
     const tileContentCount = await getDataElementByValue(
       page,
-      "tile-content"
+      "tile-content",
     ).count();
     expect(tileContentCount).toEqual(1);
   });
@@ -357,7 +357,7 @@ test.describe("Tile component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS].forEach((children) => {
@@ -382,14 +382,16 @@ test.describe("Tile component", () => {
     });
   });
 
-  ([
-    "default",
-    "selected",
-    "positive",
-    "negative",
-    "caution",
-    "info",
-  ] as TileProps["borderVariant"][]).forEach((borderVariant) => {
+  (
+    [
+      "default",
+      "selected",
+      "positive",
+      "negative",
+      "caution",
+      "info",
+    ] as TileProps["borderVariant"][]
+  ).forEach((borderVariant) => {
     test(`should check Accessibility for border variant as ${borderVariant}`, async ({
       page,
       mount,
@@ -407,18 +409,20 @@ test.describe("Tile component", () => {
       await checkAccessibility(page);
     });
 
-    ([
-      [1, "8px"],
-      [2, "16px"],
-      [3, "24px"],
-    ] as [number, string][]).forEach(([value, gapText]) => {
+    (
+      [
+        [1, "8px"],
+        [2, "16px"],
+        [3, "24px"],
+      ] as [number, string][]
+    ).forEach(([value, gapText]) => {
       test(`should verify columnGap is ${value}`, async ({ mount, page }) => {
         await mount(
-          <FlexTileContainer columnGap={value}>content</FlexTileContainer>
+          <FlexTileContainer columnGap={value}>content</FlexTileContainer>,
         );
         const containerElement = await getDataComponentByValue(
           page,
-          "flex-tile-container"
+          "flex-tile-container",
         );
         await expect(containerElement).toHaveCSS("column-gap", gapText);
       });

@@ -67,7 +67,7 @@ test.describe("Button component", () => {
       await mount(
         <Button size="large" subtext={subtext}>
           foo
-        </Button>
+        </Button>,
       );
 
       await expect(buttonSubtextPreview(page)).toHaveText(subtext);
@@ -84,7 +84,7 @@ test.describe("Button component", () => {
           iconType="bin"
           iconTooltipMessage={tooltipMessage}
           aria-label="bin"
-        />
+        />,
       );
 
       await page.getByRole("button").locator(ICON).hover({ force: true });
@@ -100,7 +100,7 @@ test.describe("Button component", () => {
     await mount(
       <Button iconType="add" iconPosition="after">
         IconPosition
-      </Button>
+      </Button>,
     );
 
     await expect(icon(page)).toHaveCSS("margin-left", "8px");
@@ -113,7 +113,7 @@ test.describe("Button component", () => {
     await mount(
       <Button iconType="add" iconPosition="before">
         IconPosition
-      </Button>
+      </Button>,
     );
 
     await expect(icon(page)).toHaveCSS("margin-right", "8px");
@@ -125,29 +125,29 @@ test.describe("Button component", () => {
     await expect(buttonDataComponent(page)).toHaveCSS("width", "1366px");
   });
 
-  ([
-    [true, "nowrap"],
-    [false, "normal"],
-  ] as [ButtonProps["noWrap"], string][]).forEach(
-    ([booleanValue, cssValue]) => {
-      test(`should render the Button text with noWrap prop ${booleanValue}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <Button noWrap={Boolean(booleanValue)}>
-            {" "}
-            Long long long long long text{" "}
-          </Button>
-        );
+  (
+    [
+      [true, "nowrap"],
+      [false, "normal"],
+    ] as [ButtonProps["noWrap"], string][]
+  ).forEach(([booleanValue, cssValue]) => {
+    test(`should render the Button text with noWrap prop ${booleanValue}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <Button noWrap={Boolean(booleanValue)}>
+          {" "}
+          Long long long long long text{" "}
+        </Button>,
+      );
 
-        await expect(buttonDataComponent(page)).toHaveCSS(
-          "white-space",
-          `${cssValue}`
-        );
-      });
-    }
-  );
+      await expect(buttonDataComponent(page)).toHaveCSS(
+        "white-space",
+        `${cssValue}`,
+      );
+    });
+  });
 
   test("should check Button is disabled", async ({ mount, page }) => {
     await mount(<ButtonDifferentTypes disabled />);
@@ -191,7 +191,7 @@ test.describe("Check events for Button component", () => {
         }}
       >
         Foo
-      </Button>
+      </Button>,
     );
 
     const buttonComponent = page.getByRole("button");
@@ -211,7 +211,7 @@ test.describe("Check events for Button component", () => {
         }}
       >
         Foo
-      </Button>
+      </Button>,
     );
 
     const buttonComponent = page.getByRole("button");
@@ -233,7 +233,7 @@ test.describe("Check events for Button component", () => {
         }}
       >
         Foo
-      </Button>
+      </Button>,
     );
 
     const buttonComponent = page.getByRole("button");
@@ -253,7 +253,7 @@ test.describe("Check events for Button component", () => {
         }}
       >
         Foo
-      </Button>
+      </Button>,
     );
 
     const buttonComponent = page.getByRole("button");
@@ -271,11 +271,11 @@ test.describe("When focused", () => {
     await buttonDataComponent(page).focus();
     await expect(buttonDataComponent(page)).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(buttonDataComponent(page)).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -289,7 +289,7 @@ test.describe("When focused", () => {
     await buttonDataComponent(page).focus();
     await expect(buttonDataComponent(page)).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 });
@@ -329,7 +329,7 @@ test.describe("Accessibility tests for Button", () => {
     page,
   }) => {
     await mount(
-      <ButtonAsASiblingExample>{CHARACTERS.STANDARD}</ButtonAsASiblingExample>
+      <ButtonAsASiblingExample>{CHARACTERS.STANDARD}</ButtonAsASiblingExample>,
     );
 
     await checkAccessibility(page);
@@ -556,7 +556,7 @@ test.describe("Accessibility tests for Button", () => {
     page,
   }) => {
     await mount(
-      <Button buttonType="primary" iconType="bin" aria-label="bin-icon" />
+      <Button buttonType="primary" iconType="bin" aria-label="bin-icon" />,
     );
 
     await checkAccessibility(page);
@@ -587,7 +587,7 @@ test.describe("Accessibility tests for Button", () => {
     await mount(
       <Button buttonType="gradient-white" iconType="home">
         Foo
-      </Button>
+      </Button>,
     );
 
     await checkAccessibility(page);
@@ -609,7 +609,7 @@ test.describe("Accessibility tests for Button", () => {
     await mount(
       <Button buttonType="gradient-grey" iconType="home">
         Foo
-      </Button>
+      </Button>,
     );
 
     await checkAccessibility(page);

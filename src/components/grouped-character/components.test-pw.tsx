@@ -33,7 +33,7 @@ export const GroupedCharacterComponent = ({
 };
 
 export const Validations = (
-  args: Partial<GroupedCharacterProps> & { message?: string | boolean }
+  args: Partial<GroupedCharacterProps> & { message?: string | boolean },
 ) => {
   const [state, setState] = useState({
     error: "1231231",
@@ -76,7 +76,7 @@ export const Validations = (
 };
 
 export const ValidationsStringComponent = (
-  args: Partial<GroupedCharacterProps> & { message?: string | boolean }
+  args: Partial<GroupedCharacterProps> & { message?: string | boolean },
 ) => {
   const [state, setState] = useState({
     error: "1231231",
@@ -119,7 +119,7 @@ export const ValidationsStringComponent = (
 };
 
 export const ValidationsStringLabel = (
-  args: Partial<GroupedCharacterProps> & { message?: string | boolean }
+  args: Partial<GroupedCharacterProps> & { message?: string | boolean },
 ) => {
   const [state, setState] = useState({
     error: "1231231",
@@ -164,7 +164,7 @@ export const ValidationsStringLabel = (
 };
 
 export const ValidationsBoolean = (
-  args: Partial<GroupedCharacterProps> & { message?: string | boolean }
+  args: Partial<GroupedCharacterProps> & { message?: string | boolean },
 ) => {
   const [state, setState] = useState({
     error: "1231231",
@@ -245,7 +245,7 @@ export const ValidationsRedesign = () => {
               m={4}
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

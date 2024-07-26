@@ -18,14 +18,14 @@ describe("VerticalMenuTrigger", () => {
       </ThemeProvider>
     ),
     undefined,
-    (component) => component.find(StyledVerticalMenuItem)
+    (component) => component.find(StyledVerticalMenuItem),
   );
 
   it("should render proper height when height prop is passed", () => {
     render(
       <VerticalMenuTrigger height="100px" onClick={() => {}}>
         Open menu
-      </VerticalMenuTrigger>
+      </VerticalMenuTrigger>,
     );
     expect(screen.getByRole("button")).toHaveStyle({
       minHeight: "100px",
@@ -36,7 +36,7 @@ describe("VerticalMenuTrigger", () => {
     const user = userEvent.setup();
     const onClick = jest.fn();
     render(
-      <VerticalMenuTrigger onClick={onClick}>Open menu</VerticalMenuTrigger>
+      <VerticalMenuTrigger onClick={onClick}>Open menu</VerticalMenuTrigger>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -51,7 +51,7 @@ describe("VerticalMenuTrigger", () => {
         onClick={() => {}}
       >
         Open Menu
-      </VerticalMenuTrigger>
+      </VerticalMenuTrigger>,
     );
 
     const trigger = screen.getByRole("button");

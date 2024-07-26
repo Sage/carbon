@@ -30,14 +30,14 @@ export interface OptionGroupHeaderProps extends TagProps {
 const OptionGroupHeader = React.forwardRef(
   (
     { label, icon, style, id, children, ...rest }: OptionGroupHeaderProps,
-    ref: React.ForwardedRef<HTMLDivElement>
+    ref: React.ForwardedRef<HTMLDivElement>,
   ) => {
     const internalIdRef = useRef(id || guid());
 
     if (!(children || label)) {
       // eslint-disable-next-line no-console
       console.warn(
-        "OptionGroupHeader requires either a label or children to be provided"
+        "OptionGroupHeader requires either a label or children to be provided",
       );
     }
 
@@ -56,7 +56,7 @@ const OptionGroupHeader = React.forwardRef(
         )}
       </StyledOptionGroupHeader>
     );
-  }
+  },
 );
 
 OptionGroupHeader.displayName = "OptionGroupHeader";

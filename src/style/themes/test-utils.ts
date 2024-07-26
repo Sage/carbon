@@ -5,7 +5,7 @@ const isObject = (obj: Record<string, unknown>) => {
 // eslint-disable-next-line import/prefer-default-export
 export const assertIsSubset = (
   obj: Record<string, unknown>,
-  comparison: Record<string, unknown>
+  comparison: Record<string, unknown>,
 ) => {
   if (!isObject(obj)) {
     // no further nesting
@@ -22,7 +22,7 @@ export const assertIsSubset = (
     // repeat for nested objects
     assertIsSubset(
       obj[key] as Record<string, unknown>,
-      comparison[key] as Record<string, unknown>
+      comparison[key] as Record<string, unknown>,
     );
   });
 };

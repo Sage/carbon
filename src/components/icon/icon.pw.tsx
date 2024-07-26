@@ -24,7 +24,7 @@ test.describe("should check Icon component properties", () => {
       const iconLocator = page.getByTestId("icon");
       await expect(iconLocator).toHaveAttribute(
         "aria-hidden",
-        boolVal.toString()
+        boolVal.toString(),
       );
     });
   });
@@ -136,13 +136,15 @@ test.describe("should check Icon component properties", () => {
         await iconLocator.click();
         await expect(iconLocator).toHaveAttribute("type", iconType);
       });
-    }
+    },
   );
 
-  ([
-    [true, "rgba(0, 0, 0, 0.3)"],
-    [false, "rgba(0, 0, 0, 0.9)"],
-  ] as [IconProps["disabled"], string][]).forEach(([boolVal, color]) => {
+  (
+    [
+      [true, "rgba(0, 0, 0, 0.3)"],
+      [false, "rgba(0, 0, 0, 0.9)"],
+    ] as [IconProps["disabled"], string][]
+  ).forEach(([boolVal, color]) => {
     test(`should check icon color when disabled prop is set as ${boolVal}`, async ({
       mount,
       page,
@@ -175,31 +177,33 @@ test.describe("should check Icon component properties", () => {
     });
   });
 
-  ([
-    [SIZE.SMALL, 24],
-    [SIZE.MEDIUM, 32],
-    [SIZE.LARGE, 40],
-    [SIZE.EXTRALARGE, 56],
-  ] as [IconProps["fontSize"], number][]).forEach(
-    ([fontSize, heightAndWidth]) => {
-      test(`should check height and width as ${heightAndWidth} when fontSize is set as ${fontSize}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<IconComponent fontSize={fontSize} />);
+  (
+    [
+      [SIZE.SMALL, 24],
+      [SIZE.MEDIUM, 32],
+      [SIZE.LARGE, 40],
+      [SIZE.EXTRALARGE, 56],
+    ] as [IconProps["fontSize"], number][]
+  ).forEach(([fontSize, heightAndWidth]) => {
+    test(`should check height and width as ${heightAndWidth} when fontSize is set as ${fontSize}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<IconComponent fontSize={fontSize} />);
 
-        const iconLocator = page.getByTestId("icon");
-        await expect(iconLocator).toHaveCSS("height", `${heightAndWidth}px`);
-        await expect(iconLocator).toHaveCSS("width", `${heightAndWidth}px`);
-      });
-    }
-  );
+      const iconLocator = page.getByTestId("icon");
+      await expect(iconLocator).toHaveCSS("height", `${heightAndWidth}px`);
+      await expect(iconLocator).toHaveCSS("width", `${heightAndWidth}px`);
+    });
+  });
 
-  ([
-    ["circle", 50],
-    ["rounded-rect", 20],
-    ["square", 0],
-  ] as [IconProps["bgShape"], number][]).forEach(([bgShape, radius]) => {
+  (
+    [
+      ["circle", 50],
+      ["rounded-rect", 20],
+      ["square", 0],
+    ] as [IconProps["bgShape"], number][]
+  ).forEach(([bgShape, radius]) => {
     test(`should check bgShape as ${bgShape} when radius is set as ${radius}`, async ({
       mount,
       page,
@@ -209,29 +213,31 @@ test.describe("should check Icon component properties", () => {
       const iconLocator = page.getByTestId("icon");
       await expect(iconLocator).toHaveCSS(
         "border-bottom-left-radius",
-        `${radius}%`
+        `${radius}%`,
       );
       await expect(iconLocator).toHaveCSS(
         "border-bottom-right-radius",
-        `${radius}%`
+        `${radius}%`,
       );
       await expect(iconLocator).toHaveCSS(
         "border-top-left-radius",
-        `${radius}%`
+        `${radius}%`,
       );
       await expect(iconLocator).toHaveCSS(
         "border-top-right-radius",
-        `${radius}%`
+        `${radius}%`,
       );
     });
   });
 
-  ([
-    [SIZE.SMALL, 24],
-    [SIZE.MEDIUM, 32],
-    [SIZE.LARGE, 40],
-    [SIZE.EXTRALARGE, 56],
-  ] as [IconProps["bgSize"], number][]).forEach(([size, heightAndWidth]) => {
+  (
+    [
+      [SIZE.SMALL, 24],
+      [SIZE.MEDIUM, 32],
+      [SIZE.LARGE, 40],
+      [SIZE.EXTRALARGE, 56],
+    ] as [IconProps["bgSize"], number][]
+  ).forEach(([size, heightAndWidth]) => {
     test(`should check bgSize as ${size} when height and width is set as ${heightAndWidth}`, async ({
       mount,
       page,
@@ -244,24 +250,26 @@ test.describe("should check Icon component properties", () => {
     });
   });
 
-  ([
-    [["left"], "left", "bottom", 0, 0],
-    [["top"], "top", "bottom", 0, 0],
-    [["left"], "left", "top", 0, 120],
-    [["bottom"], "bottom", "top", 0, 120],
-    [["bottom"], "bottom", "left", 0, 120],
-    [["bottom"], "bottom", "right", 0, 120],
-    [["top"], "top", "left", 0, 0],
-    [["top"], "top", "right", 0, 0],
-    [["right"], "right", "bottom", 700, 0],
-    [["right"], "right", "top", 700, 120],
-  ] as [
-    IconProps["tooltipFlipOverrides"],
-    string,
-    IconProps["tooltipPosition"],
-    number,
-    number
-  ][]).forEach(
+  (
+    [
+      [["left"], "left", "bottom", 0, 0],
+      [["top"], "top", "bottom", 0, 0],
+      [["left"], "left", "top", 0, 120],
+      [["bottom"], "bottom", "top", 0, 120],
+      [["bottom"], "bottom", "left", 0, 120],
+      [["bottom"], "bottom", "right", 0, 120],
+      [["top"], "top", "left", 0, 0],
+      [["top"], "top", "right", 0, 0],
+      [["right"], "right", "bottom", 700, 0],
+      [["right"], "right", "top", 700, 120],
+    ] as [
+      IconProps["tooltipFlipOverrides"],
+      string,
+      IconProps["tooltipPosition"],
+      number,
+      number,
+    ][]
+  ).forEach(
     ([
       flipPosition,
       expectedPosition,
@@ -279,23 +287,23 @@ test.describe("should check Icon component properties", () => {
               tooltipFlipOverrides={flipPosition}
               tooltipPosition={tooltipPosition}
             />
-          </div>
+          </div>,
         );
 
         await page.setViewportSize({ width: 700, height: 120 });
 
         await page.evaluate(
           ([horizontal, vertical]) => window.scrollTo(horizontal, vertical),
-          [horizontalPos, verticalPos]
+          [horizontalPos, verticalPos],
         );
 
         const tooltip = getDataElementByValue(page, "tooltip");
         await expect(tooltip).toHaveAttribute(
           "data-placement",
-          expectedPosition
+          expectedPosition,
         );
       });
-    }
+    },
   );
 });
 
@@ -344,12 +352,9 @@ test.describe("should check accessibility for Icon component", () => {
     });
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as IconProps["tooltipPosition"][]).forEach((tooltipPosition) => {
+  (
+    ["top", "bottom", "left", "right"] as IconProps["tooltipPosition"][]
+  ).forEach((tooltipPosition) => {
     test(`should pass accessibility tests when tooltip position is set as ${tooltipPosition}`, async ({
       mount,
       page,
@@ -427,7 +432,7 @@ test.describe("should check accessibility for Icon component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [true, false].forEach((boolVal) => {
@@ -484,7 +489,7 @@ test.describe("should check accessibility for Icon component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [SIZE.SMALL, SIZE.MEDIUM, SIZE.LARGE, SIZE.EXTRALARGE].forEach((size) => {
@@ -498,22 +503,24 @@ test.describe("should check accessibility for Icon component", () => {
     });
   });
 
-  ([
-    [["left"], "left", "bottom"],
-    [["top"], "top", "bottom"],
-    [["left"], "left", "top"],
-    [["bottom"], "bottom", "top"],
-    [["bottom"], "bottom", "left"],
-    [["bottom"], "bottom", "right"],
-    [["top"], "top", "left"],
-    [["top"], "top", "right"],
-    [["right"], "right", "bottom"],
-    [["right"], "right", "top"],
-  ] as [
-    IconProps["tooltipFlipOverrides"],
-    string,
-    IconProps["tooltipPosition"]
-  ][]).forEach(([flipPosition, expectedPosition, tooltipPosition]) => {
+  (
+    [
+      [["left"], "left", "bottom"],
+      [["top"], "top", "bottom"],
+      [["left"], "left", "top"],
+      [["bottom"], "bottom", "top"],
+      [["bottom"], "bottom", "left"],
+      [["bottom"], "bottom", "right"],
+      [["top"], "top", "left"],
+      [["top"], "top", "right"],
+      [["right"], "right", "bottom"],
+      [["right"], "right", "top"],
+    ] as [
+      IconProps["tooltipFlipOverrides"],
+      string,
+      IconProps["tooltipPosition"],
+    ][]
+  ).forEach(([flipPosition, expectedPosition, tooltipPosition]) => {
     test(`should pass accessibility tests when tooltip position is ${expectedPosition} rather than ${tooltipPosition} when flip position is ${flipPosition} after scrolling`, async ({
       mount,
       page,
@@ -524,7 +531,7 @@ test.describe("should check accessibility for Icon component", () => {
             tooltipFlipOverrides={flipPosition}
             tooltipPosition={tooltipPosition}
           />
-        </div>
+        </div>,
       );
 
       const iconLocator = page.getByTestId("icon");

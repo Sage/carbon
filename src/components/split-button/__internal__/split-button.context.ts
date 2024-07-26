@@ -5,7 +5,7 @@ export interface SplitButtonContextProps {
   onChildButtonClick?: (
     childOnClick?: React.MouseEventHandler<
       HTMLButtonElement | HTMLAnchorElement
-    >
+    >,
   ) =>
     | React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
     | undefined;

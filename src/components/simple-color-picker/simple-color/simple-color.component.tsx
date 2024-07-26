@@ -74,7 +74,7 @@ export const SimpleColor = React.forwardRef<HTMLInputElement, SimpleColorProps>(
         </StyledColorSampleBox>
       </StyledSimpleColor>
     );
-  }
+  },
 );
 
 SimpleColor.displayName = "SimpleColor";

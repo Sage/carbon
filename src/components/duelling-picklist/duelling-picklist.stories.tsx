@@ -75,7 +75,7 @@ export const AlternativeSearch: Story = () => {
       const { [item.key]: removed2, ...rest2 } = notSelectedSearch;
       setNotSelectedSearch(rest2);
     },
-    [notSelectedItems, notSelectedSearch, selectedItems]
+    [notSelectedItems, notSelectedSearch, selectedItems],
   );
 
   const onRemove = useCallback(
@@ -93,7 +93,7 @@ export const AlternativeSearch: Story = () => {
       notSelectedSearch,
       searchQuery,
       selectedItems,
-    ]
+    ],
   );
 
   const handleSearch = useCallback(
@@ -107,17 +107,17 @@ export const AlternativeSearch: Story = () => {
           }
           return items;
         },
-        {} as AllItems
+        {} as AllItems,
       );
       setNotSelectedSearch(tempNotSelectedItems);
     },
-    [notSelectedItems]
+    [notSelectedItems],
   );
 
   const renderItems = (
     list: AllItems,
     type: PicklistItemProps["type"],
-    handler: PicklistItemProps["onChange"]
+    handler: PicklistItemProps["onChange"],
   ) =>
     order.reduce((items, key) => {
       const item = list[key];
@@ -134,7 +134,7 @@ export const AlternativeSearch: Story = () => {
                 <p style={{ margin: 0 }}>{item.description}</p>
               </div>
             </div>
-          </PicklistItem>
+          </PicklistItem>,
         );
       }
       return items;
@@ -171,7 +171,7 @@ export const AlternativeSearch: Story = () => {
           {renderItems(
             isSearchMode ? notSelectedSearch : notSelectedItems,
             "add",
-            onAdd
+            onAdd,
           )}
         </Picklist>
         <Picklist
@@ -217,7 +217,7 @@ export const Grouped: Story = () => {
         ...notSelectedItems.filter((i) => i.key !== item.key),
       ]);
     },
-    [notSelectedItems, selectedItems]
+    [notSelectedItems, selectedItems],
   );
 
   const onRemove = useCallback(
@@ -225,20 +225,20 @@ export const Grouped: Story = () => {
       setNotSelectedItems([...notSelectedItems, item]);
       setSelectedItems([...selectedItems.filter((i) => i.key !== item.key)]);
     },
-    [notSelectedItems, selectedItems]
+    [notSelectedItems, selectedItems],
   );
 
   const addGroup = useCallback(
     (group: GroupKey) => {
       const groupItems = notSelectedItems.filter(
-        (item) => item.group === group
+        (item) => item.group === group,
       );
       setNotSelectedItems([
         ...notSelectedItems.filter((item) => item.group !== group),
       ]);
       setSelectedItems([...selectedItems, ...groupItems]);
     },
-    [notSelectedItems, selectedItems]
+    [notSelectedItems, selectedItems],
   );
 
   const removeGroup = useCallback(
@@ -250,13 +250,13 @@ export const Grouped: Story = () => {
       ]);
       setNotSelectedItems([...notSelectedItems, ...groupItems]);
     },
-    [notSelectedItems, selectedItems]
+    [notSelectedItems, selectedItems],
   );
 
   const renderItems = (
     list: MockData,
     type: PicklistItemProps["type"],
-    handler: PicklistItemProps["onChange"]
+    handler: PicklistItemProps["onChange"],
   ) => {
     if (!list) return null;
 
@@ -285,7 +285,7 @@ export const Grouped: Story = () => {
       >
         {Object.entries(allGroups).map(([key, value]) => {
           const groupItems = notSelectedItems.filter(
-            (item) => item.group === key
+            (item) => item.group === key,
           );
           return groupItems.length ? (
             <PicklistGroup

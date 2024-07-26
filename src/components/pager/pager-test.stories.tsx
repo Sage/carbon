@@ -31,35 +31,35 @@ export const Default = ({ totalRecords, ...args }: Partial<PagerProps>) => {
   const handlePagination = (
     pageSize: number,
     currentPage: number,
-    origin: string
+    origin: string,
   ) => {
     action("onPagination")(pageSize, currentPage, origin);
   };
   const handleOnNext = (
     e:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     action("onNext")(e);
   };
   const handleOnPrevious = (
     e:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     action("onPrevious")(e);
   };
   const handleOnFirst = (
     e:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     action("onFirst")(e);
   };
   const handleOnLast = (
     e:
       | React.MouseEvent<HTMLButtonElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     action("onLast")(e);
   };

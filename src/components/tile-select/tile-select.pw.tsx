@@ -51,11 +51,11 @@ test.describe("check Focus Outline & Border Radius", () => {
 
     await expect(focusedElement).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(focusedElement).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -75,7 +75,7 @@ test.describe("check Focus Outline & Border Radius", () => {
 
     await expect(focusedElement).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 });
@@ -131,7 +131,7 @@ test.describe("check props for TileSelect component", () => {
 
     const tileSelectGroupDescription = getDataElementByValue(
       page,
-      "tile-select-group-description"
+      "tile-select-group-description",
     );
 
     await expect(tileSelectGroupDescription).toBeVisible();
@@ -145,16 +145,18 @@ test.describe("check props for TileSelect component", () => {
 
     const tileSelectGroupDescription = getDataElementByValue(
       page,
-      "tile-select-group-description"
+      "tile-select-group-description",
     );
 
     await expect(tileSelectGroupDescription).toHaveCount(0);
   });
 
-  ([
-    [false, "rgba(0, 0, 0, 0.9)"],
-    [true, "rgba(0, 0, 0, 0.3)"],
-  ] as [boolean, string][]).forEach(([disabled, borderColor]) => {
+  (
+    [
+      [false, "rgba(0, 0, 0, 0.9)"],
+      [true, "rgba(0, 0, 0, 0.3)"],
+    ] as [boolean, string][]
+  ).forEach(([disabled, borderColor]) => {
     test(`should check when disabled prop is set as ${disabled}`, async ({
       mount,
       page,
@@ -256,7 +258,7 @@ test.describe("check props for TileSelect component", () => {
 
     const tileSelectAccordionChildren = getElement(
       page,
-      "tile-select-accordion-content"
+      "tile-select-accordion-content",
     ).locator("..");
 
     await expect(tileSelectAccordionChildren).not.toBeVisible();
@@ -270,7 +272,7 @@ test.describe("check props for TileSelect component", () => {
 
     const tileSelectAccordionChildren = getElement(
       page,
-      "tile-select-accordion-content"
+      "tile-select-accordion-content",
     ).locator("..");
 
     await expect(tileSelectAccordionChildren).toBeVisible();
@@ -285,7 +287,7 @@ test.describe("check props for TileSelect component", () => {
 
       const tileSelectAccordionChildren = getElement(
         page,
-        "tile-select-accordion-content"
+        "tile-select-accordion-content",
       );
 
       await expect(tileSelectAccordionChildren).toHaveText(accordionContent);
@@ -320,26 +322,26 @@ test.describe("check props for MultiTileSelect component", () => {
 
     await expect(multiSelectInputElement0).toHaveAttribute(
       "aria-checked",
-      "true"
+      "true",
     );
     const multiSelectInputElement1 = inputElement(page).nth(1);
     await multiSelectInputElement1.click();
 
     await expect(multiSelectInputElement1).toHaveAttribute(
       "aria-checked",
-      "true"
+      "true",
     );
     const multiSelectInputElement2 = inputElement(page).nth(2);
 
     await expect(multiSelectInputElement2).toHaveAttribute(
       "aria-checked",
-      "false"
+      "false",
     );
     const multiSelectInputElement3 = inputElement(page).nth(3);
 
     await expect(multiSelectInputElement3).toHaveAttribute(
       "aria-checked",
-      "false"
+      "false",
     );
   });
 
@@ -444,7 +446,7 @@ test.describe("should render TileSelect component and check events", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const onChangeElement = inputElement(page).first();
@@ -462,7 +464,7 @@ test.describe("should render TileSelect component and check events", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const blurElement = inputElement(page).first();
@@ -481,7 +483,7 @@ test.describe("should render TileSelect component and check events", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const onFocusElement = inputElement(page);
@@ -499,7 +501,7 @@ test.describe("should render TileSelect component and check events", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const onChangeElement = inputElement(page).first();
@@ -517,7 +519,7 @@ test.describe("should render TileSelect component and check events", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const blurElement = inputElement(page).first();

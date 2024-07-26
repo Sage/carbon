@@ -15,7 +15,7 @@ describe("tagComponent", () => {
         tagComponent("my-component", {
           "data-element": "my-component",
           "data-role": "contacts",
-        })
+        }),
       ).toEqual({
         "data-component": "my-component",
         "data-element": "my-component",

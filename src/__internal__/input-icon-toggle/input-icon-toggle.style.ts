@@ -14,7 +14,7 @@ export interface InputIconToggleStyleProps extends ValidationProps {
   onClick?: (
     event:
       | React.MouseEvent<HTMLSpanElement>
-      | React.KeyboardEvent<HTMLSpanElement>
+      | React.KeyboardEvent<HTMLSpanElement>,
   ) => void;
 }
 
@@ -28,7 +28,7 @@ const InputIconToggleStyle = styled.span.attrs(
 
       return event;
     },
-  })
+  }),
 )<InputIconToggleStyleProps & { tabIndex?: number }>`
   align-items: center;
   cursor: pointer;

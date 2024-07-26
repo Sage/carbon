@@ -11,14 +11,14 @@ import Icon from "../../components/icon/icon.component";
 
 function renderWithInputContext(
   inputContextValue = {},
-  inputGroupContextValue = {}
+  inputGroupContextValue = {},
 ) {
   return mount(
     <InputContext.Provider value={inputContextValue}>
       <InputGroupContext.Provider value={inputGroupContextValue}>
         <ValidationIcon error="Message" />
       </InputGroupContext.Provider>
-    </InputContext.Provider>
+    </InputContext.Provider>,
   );
 }
 
@@ -36,9 +36,9 @@ describe("ValidationIcon", () => {
     (validation, iconType) => {
       const wrapper = mount(<ValidationIcon {...validation} />);
       expect(wrapper.find(ValidationIconStyle).prop("validationType")).toEqual(
-        iconType
+        iconType,
       );
-    }
+    },
   );
 
   it.each([[{ error: true }], [{ warning: true }], [{ info: true }]])(
@@ -46,7 +46,7 @@ describe("ValidationIcon", () => {
     (validation) => {
       const wrapper = mount(<ValidationIcon {...validation} />);
       expect(wrapper.find(ValidationIconStyle).exists()).toBe(false);
-    }
+    },
   );
 
   it('tooltips "position" prop should be "right"', () => {
@@ -62,21 +62,21 @@ describe("ValidationIcon", () => {
 
   it("shows the tooltip if input context has mouse over", () => {
     const tooltip = renderWithInputContext({ hasMouseOver: true }).find(
-      Tooltip
+      Tooltip,
     );
     expect(tooltip.props().isVisible).toEqual(true);
   });
 
   it("shows the tooltip if input group context has focus", () => {
     const tooltip = renderWithInputContext({}, { hasFocus: true }).find(
-      Tooltip
+      Tooltip,
     );
     expect(tooltip.props().isVisible).toEqual(true);
   });
 
   it("shows the tooltip if input group context has mouse over", () => {
     const tooltip = renderWithInputContext({}, { hasMouseOver: true }).find(
-      Tooltip
+      Tooltip,
     );
     expect(tooltip.props().isVisible).toEqual(true);
   });
@@ -110,7 +110,7 @@ describe("ValidationIcon", () => {
   it("passes tooltipId to the Tooltip component", () => {
     const tooltipId = "tooltip-id";
     const wrapper = mount(
-      <ValidationIcon tooltipId={tooltipId} error="Message" />
+      <ValidationIcon tooltipId={tooltipId} error="Message" />,
     );
     expect(wrapper.find(Tooltip).props().id).toEqual(tooltipId);
   });
@@ -120,7 +120,7 @@ describe("ValidationIcon", () => {
       it("onFocus", () => {
         const mockOnFocus = jest.fn();
         const wrapper = mount(
-          <ValidationIcon error="Message" onFocus={mockOnFocus} />
+          <ValidationIcon error="Message" onFocus={mockOnFocus} />,
         );
         act(() => {
           wrapper.find(ValidationIconStyle).props().onFocus();
@@ -131,7 +131,7 @@ describe("ValidationIcon", () => {
       it("onBlur", () => {
         const mockOnBlur = jest.fn();
         const wrapper = mount(
-          <ValidationIcon error="Message" onBlur={mockOnBlur} />
+          <ValidationIcon error="Message" onBlur={mockOnBlur} />,
         );
         act(() => {
           wrapper.find(ValidationIconStyle).props().onBlur();
@@ -156,7 +156,7 @@ describe("ValidationIcon", () => {
           isPartOfInput
           tooltipFlipOverrides={["left", "top"]}
           error="Message"
-        />
+        />,
       );
       expect(wrapper.find(Tooltip).props().flipOverrides).toEqual([
         "left",
@@ -178,7 +178,7 @@ describe("ValidationIcon", () => {
             // @ts-ignore:next-line
             tooltipFlipOverrides="top"
             error="Message"
-          />
+          />,
         );
       }).toThrow(errorMessage);
 
@@ -199,7 +199,7 @@ describe("ValidationIcon", () => {
             // @ts-ignore:next-line
             tooltipFlipOverrides={["top", "foo"]}
             error="Message"
-          />
+          />,
         );
       }).toThrow(errorMessage);
 
@@ -229,7 +229,7 @@ describe("ValidationIcon", () => {
 
     it("then aria-describedby prop on the Icon component should have the same value as it's tooltipId prop", () => {
       expect(wrapper.find(Icon).prop("aria-describedby")).toBe(
-        wrapper.find(Icon).prop("tooltipId")
+        wrapper.find(Icon).prop("tooltipId"),
       );
     });
   });

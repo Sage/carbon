@@ -29,7 +29,7 @@ const buildTestArray = (array: string[]) => {
 
 const buildTestDataWithTwoArrays = (
   firstArray: string[],
-  secondArray: string[]
+  secondArray: string[],
 ) => {
   return themes.map((theme, i) => [theme, firstArray[i], secondArray[i]]);
 };
@@ -65,7 +65,7 @@ buildTestArray(commonColors).forEach(([theme, color]) => {
         >
           This is a link
         </Link>,
-        { hooksConfig: { theme: `${theme}` } }
+        { hooksConfig: { theme: `${theme}` } },
       );
 
       await expect(linkComponent(page)).toHaveCSS("color", color);
@@ -79,7 +79,7 @@ buildTestArray(commonColors).forEach(([theme, color]) => {
 
       await expect(loaderComponent(page).nth(0)).toHaveCSS(
         "background-color",
-        color
+        color,
       );
     });
 
@@ -93,7 +93,7 @@ buildTestArray(commonColors).forEach(([theme, color]) => {
           <Button>Button 2</Button>
           <Button>Button 3</Button>
         </MultiActionButton>,
-        { hooksConfig: { theme: `${theme}` } }
+        { hooksConfig: { theme: `${theme}` } },
       );
 
       await expect(buttonDataComponent(page)).toHaveCSS("color", color);
@@ -119,7 +119,7 @@ buildTestArray(commonColors).forEach(([theme, color]) => {
           <Button>Button 2</Button>
           <Button>Button 3</Button>
         </SplitButton>,
-        { hooksConfig: { theme: `${theme}` } }
+        { hooksConfig: { theme: `${theme}` } },
       );
 
       await expect(buttonDataComponent(page)).toHaveCSS("color", color);
@@ -136,15 +136,15 @@ buildTestArray(commonColors).forEach(([theme, color]) => {
             Content for tab 1
           </Tab>
         </Tabs>,
-        { hooksConfig: { theme: `${theme}` } }
+        { hooksConfig: { theme: `${theme}` } },
       );
 
       const tabTitleSelectedIndicator = page.locator(
-        '[data-element="tab-selected-indicator"]'
+        '[data-element="tab-selected-indicator"]',
       );
       await expect(tabTitleSelectedIndicator).toHaveCSS(
         "box-shadow",
-        `${color} 0px -4px 0px 0px inset`
+        `${color} 0px -4px 0px 0px inset`,
       );
     });
   });
@@ -152,92 +152,83 @@ buildTestArray(commonColors).forEach(([theme, color]) => {
 
 test.describe("Hover styling", () => {
   buildTestArray(commonColorsOnHover).forEach(([theme, color]) => {
-    test.describe(
-      `should render components with ${theme} theme onHover`,
-      () => {
-        test("Button component and verify theme color", async ({
-          mount,
-          page,
-        }) => {
-          await mount(<Button>Small</Button>, {
-            hooksConfig: { theme: `${theme}` },
-          });
-
-          await buttonDataComponent(page).hover();
-          await expect(buttonDataComponent(page)).toHaveCSS(
-            "background-color",
-            color
-          );
+    test.describe(`should render components with ${theme} theme onHover`, () => {
+      test("Button component and verify theme color", async ({
+        mount,
+        page,
+      }) => {
+        await mount(<Button>Small</Button>, {
+          hooksConfig: { theme: `${theme}` },
         });
 
-        test("Link component and verify theme color", async ({
-          mount,
-          page,
-        }) => {
-          await mount(
-            <Link
-              href="https://carbon.sage.com"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              This is a link
-            </Link>,
-            { hooksConfig: { theme: `${theme}` } }
-          );
+        await buttonDataComponent(page).hover();
+        await expect(buttonDataComponent(page)).toHaveCSS(
+          "background-color",
+          color,
+        );
+      });
 
-          await linkComponent(page).hover();
-          await expect(linkComponent(page)).toHaveCSS("color", color);
-        });
+      test("Link component and verify theme color", async ({ mount, page }) => {
+        await mount(
+          <Link
+            href="https://carbon.sage.com"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            This is a link
+          </Link>,
+          { hooksConfig: { theme: `${theme}` } },
+        );
 
-        test("SplitButton component and verify theme color", async ({
-          mount,
-          page,
-        }) => {
-          await mount(
-            <SplitButton text="Split button">
-              <Button>Button 1</Button>
-              <Button>Button 2</Button>
-              <Button>Button 3</Button>
-            </SplitButton>,
-            { hooksConfig: { theme: `${theme}` } }
-          );
+        await linkComponent(page).hover();
+        await expect(linkComponent(page)).toHaveCSS("color", color);
+      });
 
-          const toggleButton = page.locator('[data-element="toggle-button"]');
+      test("SplitButton component and verify theme color", async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <SplitButton text="Split button">
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </SplitButton>,
+          { hooksConfig: { theme: `${theme}` } },
+        );
 
-          await toggleButton.hover();
+        const toggleButton = page.locator('[data-element="toggle-button"]');
 
-          await expect(toggleButton).toHaveCSS("background-color", color);
-        });
-      }
-    );
+        await toggleButton.hover();
+
+        await expect(toggleButton).toHaveCSS("background-color", color);
+      });
+    });
   });
 
   buildTestArray(commonColorsOnHover).forEach(([theme, color]) => {
-    test.describe(
-      `should render components with ${theme} theme onHover`,
-      () => {
-        test("MultiActionButton component and verify theme color", async ({
-          mount,
-          page,
-        }) => {
-          await mount(
-            <MultiActionButton text="Multi Action Button">
-              <Button href="#">Button 1</Button>
-              <Button>Button 2</Button>
-              <Button>Button 3</Button>
-            </MultiActionButton>,
-            {
-              hooksConfig: { theme: `${theme}` },
-            }
-          );
+    test.describe(`should render components with ${theme} theme onHover`, () => {
+      test("MultiActionButton component and verify theme color", async ({
+        mount,
+        page,
+      }) => {
+        await mount(
+          <MultiActionButton text="Multi Action Button">
+            <Button href="#">Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+          </MultiActionButton>,
+          {
+            hooksConfig: { theme: `${theme}` },
+          },
+        );
 
-          await multiActionButtonComponent(page).locator("button").hover();
-          await expect(
-            multiActionButtonComponent(page).locator("button")
-          ).toHaveCSS("background-color", color);
-        });
-      }
-    );
+        await multiActionButtonComponent(page).locator("button").hover();
+        await expect(
+          multiActionButtonComponent(page).locator("button"),
+        ).toHaveCSS("background-color", color);
+      });
+    });
   });
 });
 
@@ -254,16 +245,16 @@ buildTestDataWithTwoArrays(loaderBarColors, commonColors).forEach(
 
         await expect(loaderBarComponent(page).locator("> div")).toHaveCSS(
           "background-color",
-          loaderBarColor
+          loaderBarColor,
         );
 
         await expect(loaderBarComponent(page).locator("div > *")).toHaveCSS(
           "background-color",
-          color
+          color,
         );
       });
     });
-  }
+  },
 );
 
 test.describe("Accessibility tests for Carbon Provider", () => {

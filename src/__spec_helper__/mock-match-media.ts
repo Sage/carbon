@@ -24,7 +24,7 @@ export const setupMatchMediaMock = () => {
 export const mockMatchMedia = (matches: boolean) => {
   if (!mocked) {
     throw new Error(
-      "window.matchMedia has not been mocked. Did you call setupMatchMediaMock()?"
+      "window.matchMedia has not been mocked. Did you call setupMatchMediaMock()?",
     );
   }
   _matches = matches;

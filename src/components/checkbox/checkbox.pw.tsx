@@ -46,51 +46,48 @@ import { HooksConfig } from "../../../playwright";
 const testData = [CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS];
 const boolVals = [true, false];
 
-test.describe(
-  "should render Checkbox component and check focus outline",
-  () => {
-    test("should have the expected styling when the focusRedesignOptOut is false", async ({
-      mount,
-      page,
-    }) => {
-      await mount(<CheckboxComponent data-component={CHARACTERS.STANDARD} />);
+test.describe("should render Checkbox component and check focus outline", () => {
+  test("should have the expected styling when the focusRedesignOptOut is false", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<CheckboxComponent data-component={CHARACTERS.STANDARD} />);
 
-      const checkboxElement = checkboxRole(page);
-      await checkboxElement.focus();
-      const focusedElement = checkboxRole(page).locator("..").locator("div");
-      await expect(focusedElement).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
-      );
-      await expect(focusedElement).toHaveCSS(
-        "outline",
-        "rgba(0, 0, 0, 0) solid 3px"
-      );
-    });
+    const checkboxElement = checkboxRole(page);
+    await checkboxElement.focus();
+    const focusedElement = checkboxRole(page).locator("..").locator("div");
+    await expect(focusedElement).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
+    );
+    await expect(focusedElement).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px",
+    );
+  });
 
-    test("should have the expected styling when the focusRedesignOptOut is true", async ({
-      mount,
-      page,
-    }) => {
-      await mount<HooksConfig>(
-        <CheckboxComponent data-component={CHARACTERS.STANDARD} />,
-        {
-          hooksConfig: {
-            focusRedesignOptOut: true,
-          },
-        }
-      );
+  test("should have the expected styling when the focusRedesignOptOut is true", async ({
+    mount,
+    page,
+  }) => {
+    await mount<HooksConfig>(
+      <CheckboxComponent data-component={CHARACTERS.STANDARD} />,
+      {
+        hooksConfig: {
+          focusRedesignOptOut: true,
+        },
+      },
+    );
 
-      const checkboxElement = checkboxRole(page);
-      await checkboxElement.focus();
-      const focusedElement = checkboxRole(page).locator("..").locator("div");
-      await expect(focusedElement).toHaveCSS(
-        "box-shadow",
-        "rgb(255, 188, 25) 0px 0px 0px 3px"
-      );
-    });
-  }
-);
+    const checkboxElement = checkboxRole(page);
+    await checkboxElement.focus();
+    const focusedElement = checkboxRole(page).locator("..").locator("div");
+    await expect(focusedElement).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px",
+    );
+  });
+});
 
 test.describe("should render Checkbox component and check props", () => {
   test(`should render with data-component set to ${CHARACTERS.STANDARD}`, async ({
@@ -102,7 +99,7 @@ test.describe("should render Checkbox component and check props", () => {
     const checkbox = getComponent(page, CHARACTERS.STANDARD);
     await expect(checkbox).toHaveAttribute(
       "data-component",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -166,7 +163,7 @@ test.describe("should render Checkbox component and check props", () => {
 
   test("should render with inline fieldHelp", async ({ mount, page }) => {
     await mount(
-      <CheckboxComponent fieldHelp="Inline fieldhelp" fieldHelpInline />
+      <CheckboxComponent fieldHelp="Inline fieldhelp" fieldHelpInline />,
     );
 
     const inlineFieldHelp = checkboxInlineFieldHelp(page);
@@ -179,7 +176,7 @@ test.describe("should render Checkbox component and check props", () => {
         label="Label For CheckBox"
         labelHelp="Label Help"
         helpAriaLabel="This text provides more information for the label"
-      />
+      />,
     );
 
     const checkboxIconElement = checkboxIcon(page);
@@ -187,7 +184,7 @@ test.describe("should render Checkbox component and check props", () => {
     const checkboxHelpElement = checkboxHelpIcon(page);
     await expect(checkboxHelpElement).toHaveAttribute(
       "aria-label",
-      "This text provides more information for the label"
+      "This text provides more information for the label",
     );
   });
 
@@ -230,44 +227,37 @@ test.describe("should render Checkbox component and check props", () => {
     await expect(checkboxElement).toHaveValue("checkboxvalue");
   });
 
-  ([
-    [SIZE.SMALL, 16],
-    [SIZE.LARGE, 24],
-  ] as [CommonCheckableInputProps["size"], number][]).forEach(
-    ([size, sizeInPx]) => {
-      test(`should render with size set to ${size}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<CheckboxComponent size={size} />);
+  (
+    [
+      [SIZE.SMALL, 16],
+      [SIZE.LARGE, 24],
+    ] as [CommonCheckableInputProps["size"], number][]
+  ).forEach(([size, sizeInPx]) => {
+    test(`should render with size set to ${size}`, async ({ mount, page }) => {
+      await mount(<CheckboxComponent size={size} />);
 
-        const checkboxElement = checkboxRole(page);
-        await assertCssValueIsApproximately(
-          checkboxElement,
-          "height",
-          sizeInPx
-        );
-        await assertCssValueIsApproximately(checkboxElement, "width", sizeInPx);
-      });
-    }
-  );
+      const checkboxElement = checkboxRole(page);
+      await assertCssValueIsApproximately(checkboxElement, "height", sizeInPx);
+      await assertCssValueIsApproximately(checkboxElement, "width", sizeInPx);
+    });
+  });
 
-  ([
-    [1, "8px"],
-    [2, "16px"],
-  ] as [CommonCheckableInputProps["labelSpacing"], string][]).forEach(
-    ([spacing, padding]) => {
-      test(`should check labelSpacing set to ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<CheckboxComponent labelSpacing={spacing} />);
+  (
+    [
+      [1, "8px"],
+      [2, "16px"],
+    ] as [CommonCheckableInputProps["labelSpacing"], string][]
+  ).forEach(([spacing, padding]) => {
+    test(`should check labelSpacing set to ${spacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<CheckboxComponent labelSpacing={spacing} />);
 
-        const labelParent = checkboxLabel(page).locator("..");
-        await expect(labelParent).toHaveCSS("padding-left", padding);
-      });
-    }
-  );
+      const labelParent = checkboxLabel(page).locator("..");
+      await expect(labelParent).toHaveCSS("padding-left", padding);
+    });
+  });
 
   [
     [10, 90, 135, 1229],
@@ -283,7 +273,7 @@ test.describe("should render Checkbox component and check props", () => {
           labelInline
           labelWidth={labelWidth}
           inputWidth={inputWidth}
-        />
+        />,
       );
 
       const labelParent = checkboxLabel(page).locator("..");
@@ -340,7 +330,7 @@ test.describe("should render Checkbox component and check props", () => {
     const checkboxIconElement = checkboxIcon(page);
     await expect(checkboxIconElement).toHaveAttribute(
       "data-element",
-      "warning"
+      "warning",
     );
   });
 
@@ -351,40 +341,37 @@ test.describe("should render Checkbox component and check props", () => {
     await expect(checkboxIconElement).toHaveAttribute("data-element", "info");
   });
 
-  ([
-    [true, 0],
-    [false, 1],
-  ] as [CheckboxProps["reverse"], number][]).forEach(
-    ([reverseValue, position]) => {
-      test(`should render Checkbox with reverse prop set to ${reverseValue}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <CheckboxComponent label="Checkbox Label" reverse={reverseValue} />
-        );
+  (
+    [
+      [true, 0],
+      [false, 1],
+    ] as [CheckboxProps["reverse"], number][]
+  ).forEach(([reverseValue, position]) => {
+    test(`should render Checkbox with reverse prop set to ${reverseValue}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <CheckboxComponent label="Checkbox Label" reverse={reverseValue} />,
+      );
 
-        if (reverseValue) {
-          const checkboxElement = checkboxComponent(page)
-            .locator("div:nth-child(1) > div > div:nth-child(1)")
-            .nth(position);
-          await expect(checkboxElement).toHaveText("Checkbox Label");
-        } else {
-          const checkboxElement = checkboxComponent(page)
-            .locator("div:nth-child(1) > div > div:nth-child(2)")
-            .nth(position);
-          await expect(checkboxElement).toHaveText("Checkbox Label");
-        }
-      });
-    }
-  );
+      if (reverseValue) {
+        const checkboxElement = checkboxComponent(page)
+          .locator("div:nth-child(1) > div > div:nth-child(1)")
+          .nth(position);
+        await expect(checkboxElement).toHaveText("Checkbox Label");
+      } else {
+        const checkboxElement = checkboxComponent(page)
+          .locator("div:nth-child(1) > div > div:nth-child(2)")
+          .nth(position);
+        await expect(checkboxElement).toHaveText("Checkbox Label");
+      }
+    });
+  });
 
-  ([
-    "bottom",
-    "left",
-    "right",
-    "top",
-  ] as CheckboxProps["tooltipPosition"][]).forEach((position) => {
+  (
+    ["bottom", "left", "right", "top"] as CheckboxProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should render CheckboxComponent component with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -395,7 +382,7 @@ test.describe("should render Checkbox component and check props", () => {
             labelHelp="Tooltip info"
             tooltipPosition={position}
           />
-        </Box>
+        </Box>,
       );
 
       const checkboxIconElement = checkboxIcon(page);
@@ -404,7 +391,7 @@ test.describe("should render Checkbox component and check props", () => {
       await expect(tooltipElement).toHaveText("Tooltip info");
       await expect(tooltipElement).toHaveAttribute(
         "data-placement",
-        `${position}`
+        `${position}`,
       );
     });
   });
@@ -430,7 +417,7 @@ test.describe("should render Checkbox component and check props", () => {
       const boxSvg = checkboxSvg(page);
       await expect(boxSvg).toHaveCSS(
         "border-radius",
-        size === "small" ? "2px" : "4px"
+        size === "small" ? "2px" : "4px",
       );
     });
   });
@@ -447,7 +434,7 @@ test.describe("should render CheckBox component and check events", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const checkboxElement = checkboxRole(page);
@@ -466,7 +453,7 @@ test.describe("should render CheckBox component and check events", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const checkboxElement = checkboxRole(page);
@@ -485,7 +472,7 @@ test.describe("should render CheckBox component and check events", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const checkboxElement = checkboxRole(page);
@@ -503,7 +490,7 @@ test.describe("should render CheckBox component and check events", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const checkboxElement = checkboxRole(page);
@@ -521,7 +508,7 @@ test.describe("should render CheckBox component and check events", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const checkboxElement = checkboxRole(page);
@@ -603,32 +590,29 @@ test.describe("should render CheckboxGroup component and check props", () => {
     await expect(validationMessage).toHaveAttribute("data-element", "info");
   });
 
-  ([
-    ["left", "flex-start"],
-    ["right", "flex-end"],
-  ] as [CheckboxGroupProps["legendAlign"], string][]).forEach(
-    ([position, assertion]) => {
-      test(`should render CheckboxGroup component with inline legend aligned to ${position}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <CheckboxGroupComponent
-            legend="CheckBox Legend"
-            legendWidth={20}
-            legendAlign={position}
-            legendInline
-          />
-        );
+  (
+    [
+      ["left", "flex-start"],
+      ["right", "flex-end"],
+    ] as [CheckboxGroupProps["legendAlign"], string][]
+  ).forEach(([position, assertion]) => {
+    test(`should render CheckboxGroup component with inline legend aligned to ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <CheckboxGroupComponent
+          legend="CheckBox Legend"
+          legendWidth={20}
+          legendAlign={position}
+          legendInline
+        />,
+      );
 
-        const groupLegendElement = checkboxgroupLegend(page);
-        await expect(groupLegendElement).toHaveCSS(
-          "justify-content",
-          assertion
-        );
-      });
-    }
-  );
+      const groupLegendElement = checkboxgroupLegend(page);
+      await expect(groupLegendElement).toHaveCSS("justify-content", assertion);
+    });
+  });
 
   [20, 40].forEach((width) => {
     test(`should render CheckboxGroup component with inline legend width set to ${width}`, async ({
@@ -640,7 +624,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
           legend="CheckBox Legend"
           legendWidth={width}
           legendInline
-        />
+        />,
       );
 
       const groupLegendElement = checkboxgroupLegend(page);
@@ -660,43 +644,45 @@ test.describe("should render CheckboxGroup component and check props", () => {
           name="checkbox_id-three"
           label="Checkbox 3"
         />
-      </CheckboxGroupComponent>
+      </CheckboxGroupComponent>,
     );
 
     const checkboxGroupElement = checkboxGroup(page);
     await expect(checkboxGroupElement).toContainText("Checkbox 3");
   });
 
-  ([
-    [1, "8px"],
-    [2, "16px"],
-  ] as [CheckboxGroupProps["legendSpacing"], string][]).forEach(
-    ([spacing, padding]) => {
-      test(`should render CheckboxGroup component with legendSpacing set to ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <CheckboxGroupComponent
-            legend="AVeryVeryLongLegend"
-            legendSpacing={spacing}
-            legendWidth={10}
-            legendInline
-          />
-        );
+  (
+    [
+      [1, "8px"],
+      [2, "16px"],
+    ] as [CheckboxGroupProps["legendSpacing"], string][]
+  ).forEach(([spacing, padding]) => {
+    test(`should render CheckboxGroup component with legendSpacing set to ${spacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <CheckboxGroupComponent
+          legend="AVeryVeryLongLegend"
+          legendSpacing={spacing}
+          legendWidth={10}
+          legendInline
+        />,
+      );
 
-        const groupLegendElement = checkboxgroupLegend(page);
-        await expect(groupLegendElement).toHaveCSS("padding-right", padding);
-      });
-    }
-  );
+      const groupLegendElement = checkboxgroupLegend(page);
+      await expect(groupLegendElement).toHaveCSS("padding-right", padding);
+    });
+  });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as CheckboxGroupProps["tooltipPosition"][]).forEach((position) => {
+  (
+    [
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as CheckboxGroupProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should render CheckboxGroupComponent component with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -706,7 +692,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
           legend="Checkbox Legend"
           error="Something is wrong"
           tooltipPosition={position}
-        />
+        />,
       );
 
       const checkboxIconElement = checkboxGroupIcon(page);
@@ -715,7 +701,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
       await expect(tooltipElement).toHaveText("Something is wrong");
       await expect(tooltipElement).toHaveAttribute(
         "data-placement",
-        `${position}`
+        `${position}`,
       );
     });
   });
@@ -725,7 +711,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
     page,
   }) => {
     await mount(
-      <CheckboxGroupComponent legend="Required CheckboxGroup" required />
+      <CheckboxGroupComponent legend="Required CheckboxGroup" required />,
     );
 
     await verifyRequiredAsteriskForLegend(page);
@@ -736,7 +722,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
     page,
   }) => {
     await mount(
-      <CheckboxGroupComponentNewValidation error="Error Message (Fix is required)" />
+      <CheckboxGroupComponentNewValidation error="Error Message (Fix is required)" />,
     );
 
     const checkboxGroupElement1 = checkboxGroup(page)
@@ -744,7 +730,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
       .nth(1)
       .locator("p");
     await expect(checkboxGroupElement1).toContainText(
-      "Error Message (Fix is required)"
+      "Error Message (Fix is required)",
     );
     await expect(checkboxGroupElement1).toHaveCSS("color", "rgb(203, 55, 74)");
     const checkboxGroupElement2 = checkboxGroup(page)
@@ -753,7 +739,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
       .locator("span");
     await expect(checkboxGroupElement2).toHaveCSS(
       "background-color",
-      "rgb(203, 55, 74)"
+      "rgb(203, 55, 74)",
     );
     await expect(checkboxGroupElement2).toHaveCSS("position", "absolute");
   });
@@ -763,7 +749,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
     page,
   }) => {
     await mount(
-      <CheckboxGroupComponentNewValidation warning="Warning Message (Fix is optional)" />
+      <CheckboxGroupComponentNewValidation warning="Warning Message (Fix is optional)" />,
     );
 
     const checkboxGroupElement1 = checkboxGroup(page)
@@ -771,7 +757,7 @@ test.describe("should render CheckboxGroup component and check props", () => {
       .nth(1)
       .locator("p");
     await expect(checkboxGroupElement1).toContainText(
-      "Warning Message (Fix is optional)"
+      "Warning Message (Fix is optional)",
     );
     await expect(checkboxGroupElement1).toHaveCSS("color", "rgb(191, 82, 0)");
     const checkboxGroupElement2 = checkboxGroup(page)
@@ -780,21 +766,23 @@ test.describe("should render CheckboxGroup component and check props", () => {
       .locator("span");
     await expect(checkboxGroupElement2).toHaveCSS(
       "background-color",
-      "rgb(239, 103, 0)"
+      "rgb(239, 103, 0)",
     );
     await expect(checkboxGroupElement2).toHaveCSS("position", "absolute");
   });
 
-  ([
-    [true, "row"],
-    [false, "column"],
-  ] as [CheckboxGroupProps["inline"], string][]).forEach(([bool, flex]) => {
+  (
+    [
+      [true, "row"],
+      [false, "column"],
+    ] as [CheckboxGroupProps["inline"], string][]
+  ).forEach(([bool, flex]) => {
     test(`should render CheckboxGroup component with new validation and inline prop set to ${bool}`, async ({
       mount,
       page,
     }) => {
       await mount(
-        <CheckboxGroupComponentNewValidation required inline={bool} />
+        <CheckboxGroupComponentNewValidation required inline={bool} />,
       );
 
       const groupFlexElement = checkboxGroupFlex(page);
@@ -829,7 +817,7 @@ test.describe("should check accessibility for Checkbox component", () => {
     page,
   }) => {
     await mount(
-      <CheckboxComponent fieldHelp="Inline fieldhelp" fieldHelpInline />
+      <CheckboxComponent fieldHelp="Inline fieldhelp" fieldHelpInline />,
     );
 
     await checkAccessibility(page);
@@ -840,7 +828,7 @@ test.describe("should check accessibility for Checkbox component", () => {
     page,
   }) => {
     await mount(
-      <CheckboxComponent label="Label For CheckBox" labelHelp="Label Help" />
+      <CheckboxComponent label="Label For CheckBox" labelHelp="Label Help" />,
     );
 
     const checkboxIconElement = checkboxIcon(page);
@@ -913,12 +901,9 @@ test.describe("should check accessibility for Checkbox component", () => {
     await checkAccessibility(page);
   });
 
-  ([
-    "bottom",
-    "left",
-    "right",
-    "top",
-  ] as CheckboxProps["tooltipPosition"][]).forEach((position) => {
+  (
+    ["bottom", "left", "right", "top"] as CheckboxProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should render CheckboxComponent component with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -929,7 +914,7 @@ test.describe("should check accessibility for Checkbox component", () => {
             labelHelp="Tooltip info"
             tooltipPosition={position}
           />
-        </Box>
+        </Box>,
       );
 
       const checkboxIconElement = checkboxIcon(page);
@@ -978,7 +963,7 @@ test.describe("should check accessibility for Checkbox Group component", () => {
     page,
   }) => {
     await mount(
-      <CheckboxGroupComponent legend={CHARACTERS.SPECIALCHARACTERS} />
+      <CheckboxGroupComponent legend={CHARACTERS.SPECIALCHARACTERS} />,
     );
 
     await checkAccessibility(page);
@@ -996,12 +981,12 @@ test.describe("should check accessibility for Checkbox Group component", () => {
             legendWidth={20}
             legendAlign={position}
             legendInline
-          />
+          />,
         );
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   [20, 40].forEach((width) => {
@@ -1014,7 +999,7 @@ test.describe("should check accessibility for Checkbox Group component", () => {
           legend="CheckBox Legend"
           legendWidth={width}
           legendInline
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -1032,7 +1017,7 @@ test.describe("should check accessibility for Checkbox Group component", () => {
           legendSpacing={spacing}
           legendWidth={10}
           legendInline
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -1044,18 +1029,20 @@ test.describe("should check accessibility for Checkbox Group component", () => {
     page,
   }) => {
     await mount(
-      <CheckboxGroupComponent legend="Required CheckboxGroup" required />
+      <CheckboxGroupComponent legend="Required CheckboxGroup" required />,
     );
 
     await checkAccessibility(page);
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as CheckboxGroupProps["tooltipPosition"][]).forEach((position) => {
+  (
+    [
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ] as CheckboxGroupProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should pass accessibility tests with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -1065,7 +1052,7 @@ test.describe("should check accessibility for Checkbox Group component", () => {
           legend="Checkbox Legend"
           error="Something is wrong"
           tooltipPosition={position}
-        />
+        />,
       );
 
       const checkboxIconElement = checkboxGroupIcon(page);

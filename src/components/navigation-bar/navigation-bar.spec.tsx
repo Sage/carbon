@@ -18,7 +18,7 @@ describe("NavigationBar", () => {
     (props) => <NavigationBar {...props}>test content</NavigationBar>,
     undefined,
     undefined,
-    { modifier: "&&" }
+    { modifier: "&&" },
   );
 
   testStyledSystemFlexBox((props) => (
@@ -29,7 +29,7 @@ describe("NavigationBar", () => {
     wrapper = shallow(
       <NavigationBar>
         <div>test content</div>
-      </NavigationBar>
+      </NavigationBar>,
     );
 
     expect(wrapper.find("div").text()).toBe("test content");
@@ -39,7 +39,7 @@ describe("NavigationBar", () => {
     wrapper = shallow(
       <NavigationBar isLoading>
         <div>test content</div>
-      </NavigationBar>
+      </NavigationBar>,
     );
 
     expect(wrapper.find("div").exists()).toBe(false);
@@ -49,11 +49,11 @@ describe("NavigationBar", () => {
     wrapper = shallow(
       <NavigationBar>
         <div>test content</div>
-      </NavigationBar>
+      </NavigationBar>,
     );
 
     expect(wrapper.find(StyledNavigationBar).prop("data-component")).toBe(
-      "navigation-bar"
+      "navigation-bar",
     );
   });
 
@@ -61,11 +61,11 @@ describe("NavigationBar", () => {
     wrapper = shallow(
       <NavigationBar ariaLabel="my aria label">
         <div>test content</div>
-      </NavigationBar>
+      </NavigationBar>,
     );
 
     expect(wrapper.find(StyledNavigationBar).prop("aria-label")).toBe(
-      "my aria label"
+      "my aria label",
     );
   });
 
@@ -73,11 +73,11 @@ describe("NavigationBar", () => {
     wrapper = shallow(
       <NavigationBar>
         <div>test content</div>
-      </NavigationBar>
+      </NavigationBar>,
     );
 
     expect(wrapper.find(StyledNavigationBar).props().navigationType).toBe(
-      "light"
+      "light",
     );
   });
 
@@ -85,7 +85,7 @@ describe("NavigationBar", () => {
     wrapper = mount(
       <StyledNavigationBar navigationType="light">
         <div>test content</div>
-      </StyledNavigationBar>
+      </StyledNavigationBar>,
     );
 
     assertStyleMatch(
@@ -96,7 +96,7 @@ describe("NavigationBar", () => {
           "var(--borderWidth100) solid var(--colorsComponentsMenuSpringChildAlt500)",
         zIndex: "2998",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -104,7 +104,7 @@ describe("NavigationBar", () => {
     wrapper = mount(
       <StyledNavigationBar navigationType="dark">
         <div>test content</div>
-      </StyledNavigationBar>
+      </StyledNavigationBar>,
     );
 
     assertStyleMatch(
@@ -113,7 +113,7 @@ describe("NavigationBar", () => {
         color: "var(--colorsComponentsMenuYang100)",
         zIndex: "2998",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -121,7 +121,7 @@ describe("NavigationBar", () => {
     wrapper = mount(
       <StyledNavigationBar navigationType="white">
         <div>test content</div>
-      </StyledNavigationBar>
+      </StyledNavigationBar>,
     );
 
     assertStyleMatch(
@@ -131,7 +131,7 @@ describe("NavigationBar", () => {
           "var(--borderWidth100) solid var(--colorsComponentsMenuSummerChildAlt500)",
         zIndex: "2998",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -139,7 +139,7 @@ describe("NavigationBar", () => {
     wrapper = mount(
       <StyledNavigationBar navigationType="black">
         <div>test content</div>
-      </StyledNavigationBar>
+      </StyledNavigationBar>,
     );
 
     assertStyleMatch(
@@ -148,7 +148,7 @@ describe("NavigationBar", () => {
         color: "var(--colorsComponentsMenuYang100)",
         zIndex: "2998",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -160,7 +160,7 @@ describe("NavigationBar", () => {
     wrapper = mount(
       <StyledNavigationBar>
         <div>test content</div>
-      </StyledNavigationBar>
+      </StyledNavigationBar>,
     );
 
     assertStyleMatch(
@@ -168,7 +168,7 @@ describe("NavigationBar", () => {
         padding: value,
       },
       wrapper,
-      { media: query }
+      { media: query },
     );
   });
 
@@ -191,7 +191,7 @@ describe("NavigationBar", () => {
           offset={offset}
         >
           <div>test content</div>
-        </NavigationBar>
+        </NavigationBar>,
       );
       assertStyleMatch(
         {
@@ -202,8 +202,8 @@ describe("NavigationBar", () => {
             boxSizing: "border-box",
           }),
         },
-        wrapper
+        wrapper,
       );
-    }
+    },
   );
 });

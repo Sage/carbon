@@ -54,7 +54,7 @@ test.describe("Tabs component", () => {
 
       await expect(tabContentById(page, id)).toBeVisible();
       await expect(tabContentById(page, id)).toHaveText(
-        `Content for tab ${id}`
+        `Content for tab ${id}`,
       );
     });
   });
@@ -67,7 +67,7 @@ test.describe("Tabs component", () => {
 
     await expect(tabById(page, 1)).toHaveAttribute(
       "href",
-      "https://carbon.sage.com/"
+      "https://carbon.sage.com/",
     );
     await expect(tabById(page, 1)).toHaveAttribute("target", "_blank");
   });
@@ -93,71 +93,70 @@ test.describe("Tabs component", () => {
 
       await expect(tabContentById(page, id)).toBeVisible();
       await expect(tabContentById(page, id)).toHaveText(
-        `Content for tab ${id}`
+        `Content for tab ${id}`,
       );
     });
   });
 
-  ([
-    ["right", "right", "flex-end"],
-    ["left", "start", "normal"],
-  ] as [TabsProps["align"], string, string][]).forEach(
-    ([align, textAlign, justifyContent]) => {
-      test(`should render Tabs with align prop set to ${align}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent align={align} />);
+  (
+    [
+      ["right", "right", "flex-end"],
+      ["left", "start", "normal"],
+    ] as [TabsProps["align"], string, string][]
+  ).forEach(([align, textAlign, justifyContent]) => {
+    test(`should render Tabs with align prop set to ${align}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent align={align} />);
 
-        await expect(tabList(page)).toHaveCSS("text-align", textAlign);
-        await expect(tabList(page)).toHaveCSS(
-          "justify-content",
-          justifyContent
-        );
-      });
-    }
-  );
+      await expect(tabList(page)).toHaveCSS("text-align", textAlign);
+      await expect(tabList(page)).toHaveCSS("justify-content", justifyContent);
+    });
+  });
 
-  ([
-    ["top", "row", 40],
-    ["left", "column", 200],
-  ] as [TabsProps["position"], string, number][]).forEach(
-    ([pos, flex, height]) => {
-      test(`should render Tabs with position prop set to ${pos}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent position={pos} />);
+  (
+    [
+      ["top", "row", 40],
+      ["left", "column", 200],
+    ] as [TabsProps["position"], string, number][]
+  ).forEach(([pos, flex, height]) => {
+    test(`should render Tabs with position prop set to ${pos}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent position={pos} />);
 
-        const tabParent = tabById(page, 1).locator("..");
+      const tabParent = tabById(page, 1).locator("..");
 
-        await expect(tabParent).toHaveCSS("flex-direction", flex);
-        await assertCssValueIsApproximately(tabParent, "height", height);
-      });
-    }
-  );
+      await expect(tabParent).toHaveCSS("flex-direction", flex);
+      await assertCssValueIsApproximately(tabParent, "height", height);
+    });
+  });
 
-  ([
-    ["default", 40, 67],
-    ["large", 48, 88],
-  ] as [TabsProps["size"], number, number][]).forEach(
-    ([size, height, width]) => {
-      test(`should render Tabs with size prop set to ${size}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent size={size} />);
+  (
+    [
+      ["default", 40, 67],
+      ["large", 48, 88],
+    ] as [TabsProps["size"], number, number][]
+  ).forEach(([size, height, width]) => {
+    test(`should render Tabs with size prop set to ${size}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent size={size} />);
 
-        await assertCssValueIsApproximately(tabById(page, 1), "height", height);
-        await assertCssValueIsApproximately(tabById(page, 1), "width", width);
-      });
-    }
-  );
+      await assertCssValueIsApproximately(tabById(page, 1), "height", height);
+      await assertCssValueIsApproximately(tabById(page, 1), "width", width);
+    });
+  });
 
-  ([
-    [true, 1358],
-    [false, 340],
-  ] as [boolean, number][]).forEach(([bool, width]) => {
+  (
+    [
+      [true, 1358],
+      [false, 340],
+    ] as [boolean, number][]
+  ).forEach(([bool, width]) => {
     test(`should render Tabs with extendedLine prop set to ${bool}`, async ({
       mount,
       page,
@@ -170,79 +169,79 @@ test.describe("Tabs component", () => {
     });
   });
 
-  ([
-    ["off", "none", "none", "none", "none"],
-    ["on", "solid", "none", "solid", "solid"],
-    ["no sides", "solid", "none", "none", "none"],
-  ] as [TabsProps["borders"], string, string, string, string][]).forEach(
-    ([state, top, bottom, right, left]) => {
-      test(`should render Tabs with borders prop set to ${state} when positioned on top`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent borders={state} />);
+  (
+    [
+      ["off", "none", "none", "none", "none"],
+      ["on", "solid", "none", "solid", "solid"],
+      ["no sides", "solid", "none", "none", "none"],
+    ] as [TabsProps["borders"], string, string, string, string][]
+  ).forEach(([state, top, bottom, right, left]) => {
+    test(`should render Tabs with borders prop set to ${state} when positioned on top`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent borders={state} />);
 
-        const tabText = page.getByText("Tab 1", { exact: true });
+      const tabText = page.getByText("Tab 1", { exact: true });
 
-        await expect(tabText).toHaveCSS("border-top-style", top);
-        await expect(tabText).toHaveCSS("border-bottom-style", bottom);
-        await expect(tabText).toHaveCSS("border-right-style", right);
-        await expect(tabText).toHaveCSS("border-left-style", left);
-      });
-    }
-  );
+      await expect(tabText).toHaveCSS("border-top-style", top);
+      await expect(tabText).toHaveCSS("border-bottom-style", bottom);
+      await expect(tabText).toHaveCSS("border-right-style", right);
+      await expect(tabText).toHaveCSS("border-left-style", left);
+    });
+  });
 
-  ([
-    ["off", "none", "none", "none", "none"],
-    ["on", "solid", "solid", "none", "solid"],
-    ["no sides", "solid", "solid", "none", "none"],
-  ] as [TabsProps["borders"], string, string, string, string][]).forEach(
-    ([state, top, bottom, right, left]) => {
-      test(`should render Tabs with borders prop set to ${state} when positioned to the left`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent position="left" borders={state} />);
+  (
+    [
+      ["off", "none", "none", "none", "none"],
+      ["on", "solid", "solid", "none", "solid"],
+      ["no sides", "solid", "solid", "none", "none"],
+    ] as [TabsProps["borders"], string, string, string, string][]
+  ).forEach(([state, top, bottom, right, left]) => {
+    test(`should render Tabs with borders prop set to ${state} when positioned to the left`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent position="left" borders={state} />);
 
-        const tabText = page.getByText("Tab 1", { exact: true });
+      const tabText = page.getByText("Tab 1", { exact: true });
 
-        await expect(tabText).toHaveCSS("border-top-style", top);
-        await expect(tabText).toHaveCSS("border-bottom-style", bottom);
-        await expect(tabText).toHaveCSS("border-right-style", right);
-        await expect(tabText).toHaveCSS("border-left-style", left);
-      });
-    }
-  );
+      await expect(tabText).toHaveCSS("border-top-style", top);
+      await expect(tabText).toHaveCSS("border-bottom-style", bottom);
+      await expect(tabText).toHaveCSS("border-right-style", right);
+      await expect(tabText).toHaveCSS("border-left-style", left);
+    });
+  });
 
   test("should render Tabs header with correct width set by headerWidth prop", async ({
     mount,
     page,
   }) => {
     await mount(
-      <TabsComponent headerWidth="440px" align="left" position="left" />
+      <TabsComponent headerWidth="440px" align="left" position="left" />,
     );
 
     await expect(tabList(page).locator("..")).toHaveCSS("width", "440px");
   });
 
-  ([
-    ["default", "rgb(255, 255, 255)"],
-    ["alternate", "rgb(204, 214, 219)"],
-  ] as [TabsProps["variant"], string][]).forEach(
-    ([variant, backgroundColor]) => {
-      test(`should render Tabs with variant prop set to ${variant}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<TabsComponent variant={variant} />);
+  (
+    [
+      ["default", "rgb(255, 255, 255)"],
+      ["alternate", "rgb(204, 214, 219)"],
+    ] as [TabsProps["variant"], string][]
+  ).forEach(([variant, backgroundColor]) => {
+    test(`should render Tabs with variant prop set to ${variant}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<TabsComponent variant={variant} />);
 
-        await expect(tabById(page, 1)).toHaveCSS(
-          "background-color",
-          backgroundColor
-        );
-      });
-    }
-  );
+      await expect(tabById(page, 1)).toHaveCSS(
+        "background-color",
+        backgroundColor,
+      );
+    });
+  });
 
   specialCharacters.forEach(([text]) => {
     test(`should render Tabs with title prop set to ${text}`, async ({
@@ -259,7 +258,7 @@ test.describe("Tabs component", () => {
     await mount(<TabsComponent tabId={specialCharacters[0]} />);
 
     await expect(getDataElementByValue(page, "select-tab").nth(0)).toHaveId(
-      `${specialCharacters[0]}-tab`
+      `${specialCharacters[0]}-tab`,
     );
   });
 
@@ -280,31 +279,33 @@ test.describe("Tabs component", () => {
     await expect(pill).toHaveText("12");
   });
 
-  ([
-    ["before", 1, "left"],
-    ["after", 3, "right"],
-  ] as [TabProps["titlePosition"], number, string][]).forEach(
-    ([pos, id, style]) => {
-      test(`should render Tabs with titlePosition prop set to ${pos}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<WithAdditionalTitleSiblings />);
+  (
+    [
+      ["before", 1, "left"],
+      ["after", 3, "right"],
+    ] as [TabProps["titlePosition"], number, string][]
+  ).forEach(([pos, id, style]) => {
+    test(`should render Tabs with titlePosition prop set to ${pos}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<WithAdditionalTitleSiblings />);
 
-        const layoutWrapper = tabById(page, id)
-          .locator(PILL_PREVIEW)
-          .locator("..");
+      const layoutWrapper = tabById(page, id)
+        .locator(PILL_PREVIEW)
+        .locator("..");
 
-        await expect(layoutWrapper).toHaveCSS(style, "8px");
-      });
-    }
-  );
+      await expect(layoutWrapper).toHaveCSS(style, "8px");
+    });
+  });
 
-  ([
-    [1, validationTypes[0]],
-    [2, validationTypes[1]],
-    [3, validationTypes[2]],
-  ] as [number, string][]).forEach(([id, validation]) => {
+  (
+    [
+      [1, validationTypes[0]],
+      [2, validationTypes[1]],
+      [3, validationTypes[2]],
+    ] as [number, string][]
+  ).forEach(([id, validation]) => {
     test(`should render Tab ${id} with ${validation}`, async ({
       mount,
       page,
@@ -313,16 +314,18 @@ test.describe("Tabs component", () => {
 
       await expect(tabById(page, id).locator(ICON)).toHaveAttribute(
         "type",
-        validation
+        validation,
       );
     });
   });
 
-  ([
-    [1, validationTypes[0]],
-    [2, validationTypes[1]],
-    [3, validationTypes[2]],
-  ] as [number, string][]).forEach(([id, validation]) => {
+  (
+    [
+      [1, validationTypes[0]],
+      [2, validationTypes[1]],
+      [3, validationTypes[2]],
+    ] as [number, string][]
+  ).forEach(([id, validation]) => {
     test(`should display ${validation} message when hovering over Tab ${id}`, async ({
       mount,
       page,
@@ -341,7 +344,7 @@ test.describe("Tabs component", () => {
       page,
     }) => {
       await mount(
-        <TabsComponentValidationsUnregistering validationType={validation} />
+        <TabsComponentValidationsUnregistering validationType={validation} />,
       );
 
       const icon = tabById(page, 1).locator(ICON);
@@ -361,7 +364,7 @@ test.describe("Tabs component", () => {
     await expect(tabById(page, 1).locator(ICON)).not.toBeVisible();
     await expect(page.getByText("Tab 1", { exact: true })).toHaveCSS(
       "outline-color",
-      "rgba(0, 0, 0, 0.9)"
+      "rgba(0, 0, 0, 0.9)",
     );
   });
 
@@ -425,10 +428,12 @@ test.describe("Tabs component", () => {
     await expect(tabTitleById(page, 1)).toBeFocused();
   });
 
-  ([
-    ["top", "8px 8px 0px 0px"],
-    ["left", "8px 0px 0px 8px"],
-  ] as [TabsProps["position"], string][]).forEach(([pos, borderRadius]) => {
+  (
+    [
+      ["top", "8px 8px 0px 0px"],
+      ["left", "8px 0px 0px 8px"],
+    ] as [TabsProps["position"], string][]
+  ).forEach(([pos, borderRadius]) => {
     test(`should render Tabs with expected border radius when position is ${pos}`, async ({
       mount,
       page,
@@ -456,7 +461,7 @@ test.describe("Tabs component", () => {
             onTabChange={() => {
               callbackCount += 1;
             }}
-          />
+          />,
         );
 
         await tabById(page, 2).click();
@@ -473,7 +478,7 @@ test.describe("Tabs component", () => {
             onTabChange={() => {
               callbackCount += 1;
             }}
-          />
+          />,
         );
 
         await tabById(page, 2).press("Enter");
@@ -494,7 +499,7 @@ test.describe("Tabs component", () => {
             onTabChange={() => {
               callbackCount += 1;
             }}
-          />
+          />,
         );
 
         await tabById(page, 2).click();
@@ -512,7 +517,7 @@ test.describe("Tabs component", () => {
             onTabChange={() => {
               callbackCount += 1;
             }}
-          />
+          />,
         );
 
         await tabById(page, 2).press("Enter");
@@ -532,7 +537,7 @@ test.describe("Tabs component", () => {
             onTabChange={() => {
               callbackCount += 1;
             }}
-          />
+          />,
         );
 
         await tabById(page, 2).click();
@@ -549,7 +554,7 @@ test.describe("Tabs component", () => {
             onTabChange={() => {
               callbackCount += 1;
             }}
-          />
+          />,
         );
 
         await tabById(page, 2).press("Enter");
@@ -753,7 +758,7 @@ test.describe("Tabs component", () => {
       page,
     }) => {
       await mount(
-        <TabsComponent headerWidth="400px" align="left" position="left" />
+        <TabsComponent headerWidth="400px" align="left" position="left" />,
       );
 
       await checkAccessibility(page);
@@ -814,7 +819,7 @@ test.describe("Tabs component", () => {
         await tabById(page, id).focus();
         await expect(tabById(page, id)).toHaveCSS(
           "box-shadow",
-          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+          "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
         );
       });
     });

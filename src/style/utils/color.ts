@@ -68,7 +68,7 @@ export default ({
     bg || backgroundColor
       ? toColor(
           rest.theme as ThemeObject,
-          (bg as string) || (backgroundColor as string)
+          (bg as string) || (backgroundColor as string),
         )
       : undefined;
 

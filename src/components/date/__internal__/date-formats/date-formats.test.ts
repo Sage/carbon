@@ -504,7 +504,7 @@ test("should default to en-GB locale if no locale code string passed to `getForm
 
   expect(
     expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
-      formats.length === expectedFormats.length
+      formats.length === expectedFormats.length,
   ).toEqual(true);
 
   expect(format).toEqual(formatMap["en-GB"]);
@@ -520,10 +520,10 @@ describe.each(euLocales)(
 
       expect(
         expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
-          formats.length === expectedFormats.length
+          formats.length === expectedFormats.length,
       ).toEqual(true);
     });
-  }
+  },
 );
 
 describe.each(naLocales)(
@@ -536,10 +536,10 @@ describe.each(naLocales)(
 
       expect(
         expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
-          formats.length === expectedFormats.length
+          formats.length === expectedFormats.length,
       ).toEqual(true);
     });
-  }
+  },
 );
 
 describe.each(cnLocales)(
@@ -552,8 +552,8 @@ describe.each(cnLocales)(
 
       expect(
         expectedFormats.every((formatStr) => formats.includes(formatStr)) &&
-          formats.length === expectedFormats.length
+          formats.length === expectedFormats.length,
       ).toEqual(true);
     });
-  }
+  },
 );

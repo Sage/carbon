@@ -36,7 +36,7 @@ export const Preview = ({
           index={i}
           lines={lines}
           {...props}
-        />
+        />,
       );
     }
 

@@ -25,7 +25,7 @@ export interface IconButtonProps extends SpaceProps {
   onClick?: (
     e:
       | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 }
 
@@ -38,16 +38,16 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       disabled = false,
       ...rest
     }: IconButtonProps,
-    ref
+    ref,
   ) => {
     const { batchSelectionDisabled } = useContext(BatchSelectionContext);
     const isDisabled = disabled || batchSelectionDisabled;
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
     const ariaLabelValue =
       ariaLabel ||
-      (internalRef?.querySelector(
-        "[data-component='icon']"
-      ) as Element)?.getAttribute("type") ||
+      (
+        internalRef?.querySelector("[data-component='icon']") as Element
+      )?.getAttribute("type") ||
       "";
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -64,7 +64,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         if (typeof ref === "object") ref.current = reference;
         if (typeof ref === "function") ref(reference);
       },
-      [ref]
+      [ref],
     );
 
     return (
@@ -86,7 +86,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         </TooltipProvider>
       </StyledIconButton>
     );
-  }
+  },
 );
 
 IconButton.displayName = "IconButton";

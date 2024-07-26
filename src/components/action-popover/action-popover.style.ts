@@ -29,7 +29,7 @@ function getPaddingValues(
   childHasSubmenu?: boolean,
   childHasIcon?: boolean,
   hasIcon?: boolean,
-  hasSubmenu?: boolean
+  hasSubmenu?: boolean,
 ) {
   // computing padding for "inner text" element of a menu item.
   // childHasSubmenu - ANY sibling (including itself?) has the 'submenu' prop
@@ -53,7 +53,7 @@ function getIconPaddingValues(
   horizontalAlignment?: "left" | "right",
   submenuPosition?: "left" | "right",
   siblingsHaveIconAndSubmenu?: boolean,
-  isASubmenu?: boolean
+  isASubmenu?: boolean,
 ) {
   const sameAlignment =
     (horizontalAlignment === "left" && submenuPosition === "left") ||
@@ -110,7 +110,7 @@ const StyledMenuItemInnerText = styled.div<
         childHasSubmenu,
         childHasIcon,
         hasIcon,
-        hasSubmenu
+        hasSubmenu,
       )};
     `}
 
@@ -122,7 +122,7 @@ const StyledMenuItemInnerText = styled.div<
         childHasSubmenu,
         childHasIcon,
         hasIcon,
-        hasSubmenu
+        hasSubmenu,
       )};
     `}
   `}
@@ -132,28 +132,32 @@ const StyledMenuItemOuterContainer = styled.div`
   display: inherit;
 `;
 const StyledMenuItem = styled.button<Omit<StyledMenuItemProps, "variant">>`
-  ${({ horizontalAlignment, submenuPosition, childHasSubmenu, hasSubmenu }) =>
-    css`
-      justify-content: ${horizontalAlignment === "left"
-        ? "flex-start"
-        : "flex-end"};
+  ${({
+    horizontalAlignment,
+    submenuPosition,
+    childHasSubmenu,
+    hasSubmenu,
+  }) => css`
+    justify-content: ${horizontalAlignment === "left"
+      ? "flex-start"
+      : "flex-end"};
 
-      ${horizontalAlignment === "left" &&
-      submenuPosition === "right" &&
+    ${horizontalAlignment === "left" &&
+    submenuPosition === "right" &&
+    css`
+      justify-content: space-between;
+    `}
+
+    ${horizontalAlignment === "right" &&
+    submenuPosition === "left" &&
+    css`
+      ${childHasSubmenu &&
+      hasSubmenu &&
       css`
         justify-content: space-between;
       `}
-
-      ${horizontalAlignment === "right" &&
-      submenuPosition === "left" &&
-      css`
-        ${childHasSubmenu &&
-        hasSubmenu &&
-        css`
-          justify-content: space-between;
-        `}
-      `}
     `}
+  `}
 
   text-decoration: none;
   background-color: var(--colorsActionMajorYang100);
@@ -281,7 +285,7 @@ const MenuItemIcon = styled(Icon)<Omit<StyledMenuItemProps, "isDisabled">>`
         horizontalAlignment,
         submenuPosition,
         childHasIcon && childHasSubmenu && hasIcon && !hasSubmenu,
-        isASubmenu
+        isASubmenu,
       )}
       var(--spacing100)
       ${getIconPaddingValues(
@@ -289,7 +293,7 @@ const MenuItemIcon = styled(Icon)<Omit<StyledMenuItemProps, "isDisabled">>`
         horizontalAlignment,
         submenuPosition,
         childHasIcon && childHasSubmenu && hasIcon && !hasSubmenu,
-        isASubmenu
+        isASubmenu,
       )};
     color: var(--colorsUtilityYin065);
   `}

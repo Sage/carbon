@@ -25,7 +25,7 @@ import mockDOMRect from "../../__spec_helper__/mock-dom-rect";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 const isSingular = (count: string | number) =>
@@ -169,7 +169,7 @@ describe("Pager", () => {
         {
           visibility: "hidden",
         },
-        wrapper.find(StyledPagerLink).first()
+        wrapper.find(StyledPagerLink).first(),
       );
     });
 
@@ -180,7 +180,7 @@ describe("Pager", () => {
         {
           visibility: "hidden",
         },
-        wrapper.find(StyledPagerLink).at(2)
+        wrapper.find(StyledPagerLink).at(2),
       );
     });
 
@@ -191,14 +191,14 @@ describe("Pager", () => {
         {
           visibility: undefined,
         },
-        wrapper.find(StyledPagerLink).first()
+        wrapper.find(StyledPagerLink).first(),
       );
 
       assertStyleMatch(
         {
           visibility: undefined,
         },
-        wrapper.find(StyledPagerLink).at(2)
+        wrapper.find(StyledPagerLink).at(2),
       );
     });
 
@@ -215,9 +215,9 @@ describe("Pager", () => {
           currentPage: pageIndex,
         });
         expect(wrapper.find(StyledPagerNavLabel).text()).toBe(
-          `Page ${pageIndex} of 10`
+          `Page ${pageIndex} of 10`,
         );
-      }
+      },
     );
 
     it("when interactivePageNumber is false, pager nav label is rendered with correct styling", () => {
@@ -228,7 +228,7 @@ describe("Pager", () => {
           padding: "9px 12px",
           margin: "4px 0",
         },
-        wrapper.find(StyledPagerNavLabel)
+        wrapper.find(StyledPagerNavLabel),
       );
     });
 
@@ -349,16 +349,16 @@ describe("Pager", () => {
       wrapper = render({ ...props, onPagination: () => true });
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
-          ?.textContent
+          ?.textContent,
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("label").first().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("label").first().text(),
       );
       expect(wrapper.find(StyledPagerSizeOptionsInner).exists()).toBeTruthy();
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
-          ?.textContent
+          ?.textContent,
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("div").last().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("div").last().text(),
       );
     });
 
@@ -370,14 +370,14 @@ describe("Pager", () => {
       });
 
       expect(
-        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild,
       ).toEqual(wrapper.find(StyledSelectContainer).getDOMNode());
 
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
-          ?.textContent
+          ?.textContent,
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("label").last().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("label").last().text(),
       );
     });
 
@@ -389,12 +389,12 @@ describe("Pager", () => {
       });
       expect(
         wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().firstChild
-          ?.textContent
+          ?.textContent,
       ).toEqual(
-        wrapper.find(StyledPagerSizeOptionsInner).find("label").first().text()
+        wrapper.find(StyledPagerSizeOptionsInner).find("label").first().text(),
       );
       expect(
-        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild
+        wrapper.find(StyledPagerSizeOptionsInner).getDOMNode().lastChild,
       ).toEqual(wrapper.find(StyledSelectContainer).getDOMNode());
     });
 
@@ -425,7 +425,7 @@ describe("Pager", () => {
 
         expect(selectLabel.getAttribute("for")).toBe(selectInput.id);
         expect(selectInput.getAttribute("aria-label")).toBe(null);
-      }
+      },
     );
 
     it("renders the select with an aria-label when both 'showPageSizeLabelBefore' and 'showPageSizeLabelAfter' are false", () => {
@@ -478,11 +478,11 @@ describe("Pager", () => {
       (call) => {
         const navLinks = wrapper.find(StyledPagerLink);
         const element = navLinks.find(
-          `[data-element="pager-link-${call}"] button`
+          `[data-element="pager-link-${call}"] button`,
         );
         element.simulate("click");
         expect(callbacks[call]).toHaveBeenCalledTimes(1);
-      }
+      },
     );
   });
 
@@ -502,11 +502,11 @@ describe("Pager", () => {
       const pager = wrapper.find(Pager);
       const navLinks = pager.find(StyledPagerLink);
       const element = navLinks.find(
-        `[data-element="pager-link-${call}"] button`
+        `[data-element="pager-link-${call}"] button`,
       );
       element.simulate("click");
       expect(
-        wrapper.find('[data-element="current-page"]').first().prop("value")
+        wrapper.find('[data-element="current-page"]').first().prop("value"),
       ).toBe(currentPage);
     });
   });
@@ -541,14 +541,18 @@ describe("Pager", () => {
       it("records", () => {
         expect(
           getRecords(
-            render({ ...props, pageSize: "100" }, { wrappingComponent })
-          )
+            render({ ...props, pageSize: "100" }, { wrappingComponent }),
+          ),
         ).toBe("100 articles");
         expect(
-          getRecords(render({ ...props, pageSize: "1" }, { wrappingComponent }))
+          getRecords(
+            render({ ...props, pageSize: "1" }, { wrappingComponent }),
+          ),
         ).toBe("1 article");
         expect(
-          getRecords(render({ ...props, pageSize: "0" }, { wrappingComponent }))
+          getRecords(
+            render({ ...props, pageSize: "0" }, { wrappingComponent }),
+          ),
         ).toBe("0 articles");
       });
     });
@@ -571,7 +575,7 @@ describe("Pager", () => {
             border: "1px solid var(--colorsUtilityMajor100)",
             borderRadius: "var(--borderRadius100)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -582,7 +586,7 @@ describe("Pager", () => {
           {
             backgroundColor: "var(--colorsUtilityMajor040)",
           },
-          wrapper
+          wrapper,
         );
       });
     });
@@ -651,10 +655,10 @@ describe("Pager", () => {
           wrapper
             .find(Select)
             .props()
-            .onKeyDown?.(({
+            .onKeyDown?.({
               key: "Enter",
               target: selectOptions,
-            } as unknown) as React.KeyboardEvent<HTMLInputElement>);
+            } as unknown as React.KeyboardEvent<HTMLInputElement>);
         });
 
         act(() => {
@@ -669,10 +673,10 @@ describe("Pager", () => {
           wrapper
             .find(Select)
             .props()
-            .onKeyDown?.(({
+            .onKeyDown?.({
               key: "a",
               target: selectOptions,
-            } as unknown) as React.KeyboardEvent<HTMLInputElement>);
+            } as unknown as React.KeyboardEvent<HTMLInputElement>);
         });
 
         expect(onPagination).not.toHaveBeenCalledWith();
@@ -691,12 +695,12 @@ describe("Pager", () => {
             showPageCount
             onPagination={() => {}}
           />
-        </Form>
+        </Form>,
       );
       assertStyleMatch(
         { marginBottom: "0" },
         wrapper.find(StyledPagerNavInner),
-        { modifier: `&& ${StyledFormField}` }
+        { modifier: `&& ${StyledFormField}` },
       );
     });
   });

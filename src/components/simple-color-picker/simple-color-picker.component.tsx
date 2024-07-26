@@ -97,23 +97,23 @@ export const SimpleColorPicker = React.forwardRef<
 
   invariant(
     hasProperChildren,
-    `SimpleColorPicker accepts only children of type \`${SimpleColor.displayName}\`.`
+    `SimpleColorPicker accepts only children of type \`${SimpleColor.displayName}\`.`,
   );
 
   const filteredChildren = useMemo(
     () =>
       React.Children.toArray(children).filter((child) =>
-        React.isValidElement(child)
+        React.isValidElement(child),
       ) as React.FunctionComponentElement<
         SimpleColorProps & RefAttributes<HTMLInputElement>
       >[],
-    [children]
+    [children],
   );
 
   const internalRef = useRef<HTMLDivElement | null>(null);
   const [blurBlocked, setIsBlurBlocked] = useState(isBlurBlocked);
   const [focusedElement, setFocusedElement] = useState<EventTarget | null>(
-    null
+    null,
   );
   const itemsPerRow = Math.floor(+maxWidth / +childWidth);
   const rowCount = Math.ceil(filteredChildren?.length / itemsPerRow);
@@ -181,7 +181,7 @@ export const SimpleColorPicker = React.forwardRef<
         return target.getAttribute("value") === element.props.value;
       });
     },
-    [navigationGrid]
+    [navigationGrid],
   );
 
   const onKeyDownHandler = useCallback(
@@ -235,7 +235,7 @@ export const SimpleColorPicker = React.forwardRef<
         item?.click();
       }
     },
-    [onKeyDown, navigationGrid, getElementPosition]
+    [onKeyDown, navigationGrid, getElementPosition],
   );
 
   const handleClickOutside = (ev: MouseEvent | KeyboardEvent) => {
@@ -294,7 +294,7 @@ export const SimpleColorPicker = React.forwardRef<
   if (!deprecateUncontrolledWarnTriggered && !onChange) {
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
-      "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
   }
 

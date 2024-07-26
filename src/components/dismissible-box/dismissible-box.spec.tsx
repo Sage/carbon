@@ -21,7 +21,7 @@ const renderDismissibleBox = ({
   mount(
     <DismissibleBox {...rest} onClose={onCloseMock}>
       {children}
-    </DismissibleBox>
+    </DismissibleBox>,
   );
 
 describe("DismissibleBox", () => {
@@ -49,7 +49,7 @@ describe("DismissibleBox", () => {
           backgroundColor: "#FFFFFF",
           borderRadius: "var(--borderRadius100)",
         },
-        wrapper
+        wrapper,
       );
 
       assertStyleMatch(
@@ -57,7 +57,7 @@ describe("DismissibleBox", () => {
           color: "var(--colorsActionMinor600)",
         },
         wrapper,
-        { modifier: `${StyledIcon}:hover` }
+        { modifier: `${StyledIcon}:hover` },
       );
     });
 
@@ -75,7 +75,7 @@ describe("DismissibleBox", () => {
           justifyContent: "space-between",
           backgroundColor: "var(--colorsUtilityMajor050)",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -84,7 +84,7 @@ describe("DismissibleBox", () => {
         {
           width: "650px",
         },
-        renderDismissibleBox({ width: "650px" })
+        renderDismissibleBox({ width: "650px" }),
       );
     });
 
@@ -96,7 +96,7 @@ describe("DismissibleBox", () => {
           border: "1px solid var(--colorsUtilityMajor100)",
           boxShadow: undefined,
         },
-        wrapper
+        wrapper,
       );
     });
   });
@@ -106,7 +106,7 @@ describe("DismissibleBox", () => {
       renderDismissibleBox({}).find(IconButton).simulate("click");
 
       expect(onCloseMock).toHaveBeenCalledWith(
-        expect.objectContaining({ type: "click" })
+        expect.objectContaining({ type: "click" }),
       );
     });
 
@@ -118,7 +118,7 @@ describe("DismissibleBox", () => {
             "data-element": "bang",
             "data-role": "wallop",
           }}
-        />
+        />,
       );
 
       const closeButton = wrapper.find('[data-component="close-button"]').at(0);

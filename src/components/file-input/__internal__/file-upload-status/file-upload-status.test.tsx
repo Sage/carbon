@@ -13,7 +13,7 @@ describe("in uploading state", () => {
         onAction={() => {}}
         progress={30}
         message="my status message"
-      />
+      />,
     );
     expect(screen.getByText("my status message")).toBeVisible();
   });
@@ -25,7 +25,7 @@ describe("in uploading state", () => {
         filename="foo.pdf"
         onAction={() => {}}
         progress={30}
-      />
+      />,
     );
     expect(screen.getByText("File upload status")).toBeVisible();
   });
@@ -39,7 +39,7 @@ describe("in uploading state", () => {
         filename="foo.pdf"
         onAction={onAction}
         progress={30}
-      />
+      />,
     );
     const actionButton = screen.getByRole("button", {
       name: "Cancel upload",
@@ -55,11 +55,11 @@ describe("in uploading state", () => {
         filename="foo.pdf"
         onAction={() => {}}
         progress={30}
-      />
+      />,
     );
     expect(screen.getByText("foo.pdf")).toBeVisible();
     expect(
-      screen.queryByRole("link", { name: "foo.pdf" })
+      screen.queryByRole("link", { name: "foo.pdf" }),
     ).not.toBeInTheDocument();
   });
 
@@ -70,7 +70,7 @@ describe("in uploading state", () => {
         filename="foo.pdf"
         onAction={() => {}}
         progress={30}
-      />
+      />,
     );
     const progressBar = screen.queryByRole("progressbar");
     expect(progressBar).toBeInTheDocument();
@@ -83,7 +83,7 @@ describe("in uploading state", () => {
         status="uploading"
         filename="foo.pdf"
         onAction={() => {}}
-      />
+      />,
     );
     const progressBar = screen.queryByRole("progressbar");
     expect(progressBar).toBeInTheDocument();
@@ -100,7 +100,7 @@ describe("in completed state", () => {
         href="http://carbon.sage.com"
         onAction={() => {}}
         message="my status message"
-      />
+      />,
     );
     expect(screen.getByText("my status message")).toBeVisible();
   });
@@ -112,7 +112,7 @@ describe("in completed state", () => {
         filename="foo.pdf"
         href="http://carbon.sage.com"
         onAction={() => {}}
-      />
+      />,
     );
     expect(screen.getByText("File upload status")).toBeVisible();
   });
@@ -126,7 +126,7 @@ describe("in completed state", () => {
         filename="foo.pdf"
         href="http://carbon.sage.com"
         onAction={onAction}
-      />
+      />,
     );
     const actionButton = screen.getByRole("button", { name: "Delete file" });
     await user.click(actionButton);
@@ -142,7 +142,7 @@ describe("in completed state", () => {
         target="_blank"
         rel="noreferrer"
         onAction={() => {}}
-      />
+      />,
     );
     const link = screen.queryByRole("link", { name: "foo.pdf" });
     expect(link).toBeInTheDocument();
@@ -158,7 +158,7 @@ describe("in completed state", () => {
         filename="foo.pdf"
         href="http://carbon.sage.com"
         onAction={() => {}}
-      />
+      />,
     );
     expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
   });
@@ -173,7 +173,7 @@ describe("in previously state", () => {
         href="http://carbon.sage.com"
         onAction={() => {}}
         message="my status message"
-      />
+      />,
     );
     expect(screen.queryByText("my status message")).not.toBeInTheDocument();
   });
@@ -187,7 +187,7 @@ describe("in previously state", () => {
         target="_blank"
         rel="noreferrer"
         onAction={() => {}}
-      />
+      />,
     );
     const link = screen.queryByRole("link", { name: "foo.pdf" });
     expect(link).toBeInTheDocument();
@@ -205,7 +205,7 @@ describe("in previously state", () => {
         filename="foo.pdf"
         href="http://carbon.sage.com"
         onAction={onAction}
-      />
+      />,
     );
     const actionButton = screen.getByRole("button", { name: "Delete file" });
     await user.click(actionButton);
@@ -219,7 +219,7 @@ describe("in previously state", () => {
         filename="foo.pdf"
         href="http://carbon.sage.com"
         onAction={() => {}}
-      />
+      />,
     );
     expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
   });
@@ -233,14 +233,18 @@ describe("in error state", () => {
         filename="foo.pdf"
         onAction={() => {}}
         message="my status message"
-      />
+      />,
     );
     expect(screen.getByText("my status message")).toBeVisible();
   });
 
   it("renders the default status message if none is provided", () => {
     render(
-      <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />
+      <FileUploadStatus
+        status="error"
+        filename="foo.pdf"
+        onAction={() => {}}
+      />,
     );
     expect(screen.getByText("File upload status")).toBeVisible();
   });
@@ -254,7 +258,7 @@ describe("in error state", () => {
         filename="foo.pdf"
         onAction={onAction}
         message="my status message"
-      />
+      />,
     );
     const actionButton = screen.getByRole("button", { name: "Clear" });
     await user.click(actionButton);
@@ -263,17 +267,25 @@ describe("in error state", () => {
 
   it("renders the file name, but not as a link", () => {
     render(
-      <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />
+      <FileUploadStatus
+        status="error"
+        filename="foo.pdf"
+        onAction={() => {}}
+      />,
     );
     expect(screen.getByText("foo.pdf")).toBeVisible();
     expect(
-      screen.queryByRole("link", { name: "foo.pdf" })
+      screen.queryByRole("link", { name: "foo.pdf" }),
     ).not.toBeInTheDocument();
   });
 
   it("does not render a progress bar", () => {
     render(
-      <FileUploadStatus status="error" filename="foo.pdf" onAction={() => {}} />
+      <FileUploadStatus
+        status="error"
+        filename="foo.pdf"
+        onAction={() => {}}
+      />,
     );
     expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
   });

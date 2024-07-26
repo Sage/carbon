@@ -18,7 +18,7 @@ describe("FieldHelp", () => {
         marginTop: "8px",
         whiteSpace: "pre-wrap",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -33,7 +33,7 @@ describe("FieldHelp", () => {
           marginLeft: "30%",
           paddingLeft: "0",
         },
-        wrapper
+        wrapper,
       );
     });
 
@@ -48,7 +48,7 @@ describe("FieldHelp", () => {
           marginLeft: "50%",
           paddingLeft: "0",
         },
-        wrapper
+        wrapper,
       );
     });
   });

@@ -32,7 +32,7 @@ test("should render with expected styles when `buttonType` is 'primary'", () => 
   expect(button).toHaveStyleRule("background", "var(--colorsActionMinor500)");
   expect(button).toHaveStyleRule(
     "border-color",
-    "var(--colorsActionMinorTransparent)"
+    "var(--colorsActionMinorTransparent)",
   );
   expect(button).toHaveStyleRule("color", "var(--colorsActionMinorYang100)");
 });
@@ -81,7 +81,7 @@ test("should render with expected styles when `size` is 'small'", () => {
   expect(button).toHaveStyleRule("min-height", "var(--sizing400)");
   expect(button).toHaveStyleRule(
     "padding",
-    "var(--spacing000) var(--spacing100) var(--spacing000) var(--spacing100)"
+    "var(--spacing000) var(--spacing100) var(--spacing000) var(--spacing100)",
   );
 });
 

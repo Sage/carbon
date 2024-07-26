@@ -11,7 +11,7 @@ export const DateInputCustom = ({
   ...props
 }: Partial<CommonTextboxArgs> & Partial<DateInputProps>) => {
   const [state, setState] = React.useState(
-    value?.length !== undefined ? value : "01/05/2022"
+    value?.length !== undefined ? value : "01/05/2022",
   );
 
   const handleOnChange = (ev: DateChangeEvent) => {
@@ -77,7 +77,7 @@ export const DateInputValidationNewDesign = () => {
               m={4}
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );
@@ -90,7 +90,7 @@ export const DateInputWithButton = ({
   ...props
 }: Partial<CommonTextboxArgs> & Partial<DateInputProps>) => {
   const [state, setState] = React.useState(
-    value?.length !== undefined ? value : "01/05/2022"
+    value?.length !== undefined ? value : "01/05/2022",
   );
 
   const handleOnChange = (ev: DateChangeEvent) => {
@@ -161,7 +161,7 @@ export const DateInputInsideDialog = ({
 }: Partial<CommonTextboxArgs> & Partial<DateInputProps>) => {
   const [isOpen, setIsOpen] = useState(true);
   const [state, setState] = React.useState(
-    value?.length !== undefined ? value : "01/05/2022"
+    value?.length !== undefined ? value : "01/05/2022",
   );
 
   const handleOnChange = (ev: DateChangeEvent) => {

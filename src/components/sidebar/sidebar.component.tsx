@@ -57,13 +57,13 @@ export interface SidebarProps
   bespokeFocusTrap?: (
     ev: KeyboardEvent,
     firstElement?: HTMLElement,
-    lastElement?: HTMLElement
+    lastElement?: HTMLElement,
   ) => void;
   /** Node that will be used as sidebar header. */
   header?: React.ReactNode;
   /** A custom close event handler */
   onCancel?: (
-    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>
+    ev: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>,
   ) => void;
   /** Sets the open state of the modal */
   open: boolean;
@@ -115,7 +115,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       topModalOverride,
       ...rest
     }: SidebarProps,
-    ref
+    ref,
   ) => {
     const locale = useLocale();
     const { current: headerId } = useRef<string>(createGuid());
@@ -123,9 +123,9 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       () =>
         React.Children.toArray(children).some(
           (child) =>
-            React.isValidElement<FormProps>(child) && child.props.stickyFooter
+            React.isValidElement<FormProps>(child) && child.props.stickyFooter,
         ),
-      [children]
+      [children],
     );
 
     const sidebarRef = useRef<HTMLDivElement | null>(null);
@@ -137,7 +137,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         if (typeof ref === "object") ref.current = reference;
         if (typeof ref === "function") ref(reference);
       },
-      [ref]
+      [ref],
     );
 
     const isTopModal = useModalAria(sidebarRef);
@@ -227,7 +227,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         )}
       </Modal>
     );
-  }
+  },
 );
 
 Sidebar.displayName = "Sidebar";

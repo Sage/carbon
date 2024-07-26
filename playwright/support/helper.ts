@@ -16,18 +16,18 @@ const CLOSED_MODAL = '[data-state="closed"]';
 export const getStyle = async (
   locator: Locator,
   cssProp: string,
-  pseudoElement?: string
+  pseudoElement?: string,
 ): Promise<string> => {
   return locator.evaluate(
     (el, [property, pseudo]) =>
       window.getComputedStyle(el, pseudo).getPropertyValue(property as string),
-    [cssProp, pseudoElement]
+    [cssProp, pseudoElement],
   );
 };
 
 export const waitForAnimationEnd = (locator: Locator) =>
   locator.evaluate((element) =>
-    Promise.all(element.getAnimations().map((animation) => animation.finished))
+    Promise.all(element.getAnimations().map((animation) => animation.finished)),
   );
 
 /**
@@ -88,7 +88,7 @@ export const checkCSSOutline = async (
   outlinePixelWidth = "2px",
   cssProp: OutlineType = "outline",
   style = "solid",
-  color = ""
+  color = "",
 ) => {
   const outlineWidth = await getStyle(element, `${cssProp}-width`);
   const outlineColor = await getStyle(element, `${cssProp}-color`);
@@ -109,14 +109,14 @@ export const checkCSSOutline = async (
 export const checkGoldenOutline = async (
   element: Locator,
   outlinePixelWidth = "3px",
-  outline: OutlineType = "outline"
+  outline: OutlineType = "outline",
 ) => {
   await checkCSSOutline(
     element,
     outlinePixelWidth,
     outline,
     "solid",
-    "rgb(255, 188, 25)"
+    "rgb(255, 188, 25)",
   );
 };
 
@@ -126,7 +126,7 @@ export const checkElementIsInDOM = async (page: Page, locatorStr: string) => {
 
 export const checkElementIsNotInDOM = async (
   page: Page,
-  locatorStr: string
+  locatorStr: string,
 ) => {
   expect(await page.$$(locatorStr)).toHaveLength(0);
 };
@@ -149,7 +149,7 @@ export const checkDialogIsNotInDOM = async (page: Page) => {
  */
 export const expectEventWasCalledOnce = async (
   callbackData: string[],
-  eventName: string
+  eventName: string,
 ) => {
   const count = JSON.stringify(callbackData.length);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -181,11 +181,11 @@ export const expectEventWasNotCalled = async (callbackData: string[]) => {
  */
 export const containsClass = async (
   locatorFunc: Locator,
-  className: string
+  className: string,
 ) => {
   const escapedClassName = className.replace(
     /[-[\]{}()*+?.,\\^$|#\s]/g,
-    "\\$&"
+    "\\$&",
   );
 
   const classNameRegEx = new RegExp(escapedClassName);
@@ -231,7 +231,7 @@ export function getRotationAngle(cssTransformString: string) {
 export const assertCssValueIsApproximately = async (
   element: Locator,
   cssProp: string,
-  value: number
+  value: number,
 ) => {
   const val = await getStyle(element, cssProp);
   expect(parseInt(val)).toBeGreaterThanOrEqual(value - 2);
@@ -255,9 +255,7 @@ const keys = {
   pageup: { key: "PageUp", keyCode: 33, which: 33 },
 };
 
-export function keyCode(
-  type: keyof typeof keys
-): {
+export function keyCode(type: keyof typeof keys): {
   key: string;
   keyCode: number;
   which: number;
@@ -271,14 +269,14 @@ const verifyRequiredAsterisk = async (locator: Locator) => {
   // use getComputedStyle to read the pseudo selector
   // and read the value of the `content` CSS property
   const contentValue = await locator.evaluate((el) =>
-    window.getComputedStyle(el, "after").getPropertyValue("content")
+    window.getComputedStyle(el, "after").getPropertyValue("content"),
   );
   await expect(contentValue).toBe('"*"');
 };
 
 export const verifyRequiredAsteriskForLabel = (
   page: Page,
-  locator?: Locator
+  locator?: Locator,
 ) => {
   if (locator) {
     return verifyRequiredAsterisk(locator);
@@ -293,7 +291,7 @@ export const verifyRequiredAsteriskForLegend = (page: Page) =>
  * Verifies whether an object exists while not visible to the user. */
 export const isInViewport = async (page: Page, locator: Locator) => {
   const rect = await locator.evaluate((element) =>
-    element.getBoundingClientRect()
+    element.getBoundingClientRect(),
   );
   const bottom = await page.evaluate(async () => {
     const { documentElement } = window.document;
@@ -306,7 +304,7 @@ export const isInViewport = async (page: Page, locator: Locator) => {
 export const getDesignTokensByCssProperty = async (
   page: Page,
   locator: Locator,
-  cssProperty: string
+  cssProperty: string,
 ) => {
   const element = await locator.elementHandle();
   const tokens: string[] = await page.evaluate(
@@ -341,7 +339,7 @@ export const getDesignTokensByCssProperty = async (
       }
       return tokenNames;
     },
-    [element, cssProperty]
+    [element, cssProperty],
   );
   if (tokens.length === 0) {
     // eslint-disable-next-line no-console
@@ -373,7 +371,7 @@ export const continuePressingSHIFTTAB = async (page: Page, count: number) => {
 export const checkElementBorderColours = async (
   page: Page,
   element: Locator,
-  color: string
+  color: string,
 ) => {
   await expect(element).toHaveCSS("border-bottom-color", color);
   await expect(element).toHaveCSS("border-left-color", color);
@@ -390,6 +388,6 @@ export const waitForElementFocus = async (page: Page, locator: Locator) => {
   const focusedElement = await locator.elementHandle();
   await page.waitForFunction(
     (element) => document.activeElement === element,
-    focusedElement
+    focusedElement,
   );
 };

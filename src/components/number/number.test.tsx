@@ -106,7 +106,7 @@ test("logs a deprecation warning when uncontrolled", () => {
   render(<Number />);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Number` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
 

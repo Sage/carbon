@@ -68,10 +68,8 @@ const parsePadding = (paddingString: string) => {
 };
 
 const calculatePadding = (props: PaddingProps): Partial<PaddingValues> => {
-  const {
-    padding,
-    ...individualPaddingProperties
-  }: Partial<PaddingValues> = paddingFn(props);
+  const { padding, ...individualPaddingProperties }: Partial<PaddingValues> =
+    paddingFn(props);
   const result = padding ? parsePadding(padding) : {};
   Object.assign(result, individualPaddingProperties);
   return result;
@@ -89,14 +87,10 @@ export const calculateWidthValue = (props: PaddingProps) => {
 export const calculateFormSpacingValues = (
   props: PaddingProps,
   isFormContent: boolean,
-  containerComponent: ContainerComponent = "dialog"
+  containerComponent: ContainerComponent = "dialog",
 ) => {
-  const {
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-  } = calculatePadding(props);
+  const { paddingTop, paddingBottom, paddingLeft, paddingRight } =
+    calculatePadding(props);
 
   const isSidebar = containerComponent === "sidebar";
 

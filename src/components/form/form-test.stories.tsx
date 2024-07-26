@@ -375,7 +375,7 @@ export const MockFormForAriaLiveDemo = () => {
   const [textareaValue, setTextareaValue] = useState("");
   const [textboxValue, setTextboxValue] = useState("");
   const [textEditorValue, setTextEditorValue] = useState(
-    EditorState.createEmpty()
+    EditorState.createEmpty(),
   );
   const [passwordValue, setPasswordValue] = useState("");
 

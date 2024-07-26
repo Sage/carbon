@@ -29,7 +29,7 @@ const useModalManager = ({
         closeModal(ev);
       }
     },
-    [modalRef, closeModal]
+    [modalRef, closeModal],
   );
 
   const addListener = useCallback(() => {
@@ -72,7 +72,7 @@ const useModalManager = ({
         modalRegistered.current = true;
       }
     },
-    [setTriggerRefocusFlag, topModalOverride]
+    [setTriggerRefocusFlag, topModalOverride],
   );
 
   const unregisterModal = useCallback(
@@ -83,7 +83,7 @@ const useModalManager = ({
         modalRegistered.current = false;
       }
     },
-    [triggerRefocusOnClose]
+    [triggerRefocusOnClose],
   );
 
   useEffect(() => {

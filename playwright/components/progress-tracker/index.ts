@@ -23,7 +23,7 @@ export const progressTrackerMaxVal = (page: Page) =>
 
 export const progressTrackerCustomValuePreposition = (page: Page) =>
   progressTrackerComponent(page).locator(
-    PROGRESS_TRACKER_CUSTOM_VALUE_PREPOSITION
+    PROGRESS_TRACKER_CUSTOM_VALUE_PREPOSITION,
   );
 
 export const progressTrackerDescription = (page: Page) =>

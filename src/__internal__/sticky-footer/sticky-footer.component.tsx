@@ -43,7 +43,7 @@ const StickyFooter = ({
 
       setIsSticky(!fullyScrolled);
     }, SCROLL_THROTTLE),
-    [containerRef]
+    [containerRef],
   );
 
   useEffect(() => {

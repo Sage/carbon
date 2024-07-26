@@ -12,7 +12,7 @@ describe("LabelWrapper", () => {
     wrapper = shallow(
       <LabelWrapper onClick={clickFn}>
         <Label>Test Children</Label>
-      </LabelWrapper>
+      </LabelWrapper>,
     );
   });
 

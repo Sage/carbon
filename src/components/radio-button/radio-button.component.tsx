@@ -67,7 +67,7 @@ export const RadioButton = React.forwardRef<
       helpAriaLabel,
       ...props
     }: RadioButtonProps & InternalRadioButtonProps,
-    ref
+    ref,
   ) => {
     const { validationRedesignOptIn } = useContext(NewValidationContext);
 
@@ -82,7 +82,7 @@ export const RadioButton = React.forwardRef<
         // trigger focus, as Safari doesn't focus radioButtons on click by default
         event.target.focus();
       },
-      [onChange]
+      [onChange],
     );
 
     const validationProps = {
@@ -130,7 +130,7 @@ export const RadioButton = React.forwardRef<
     invariant(
       !props.children,
       "This component is meant to be used as a self-closing tag. " +
-        "You should probably use the label prop instead."
+        "You should probably use the label prop instead.",
     );
 
     const componentToRender = (
@@ -167,7 +167,7 @@ export const RadioButton = React.forwardRef<
         )}
       </>
     );
-  }
+  },
 );
 
 RadioButton.displayName = "RadioButton";

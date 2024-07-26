@@ -46,11 +46,10 @@ export const Sizes: Story = () => {
     large: "1231231",
   });
 
-  const handleChange = (size: "small" | "medium" | "large") => (
-    e: CustomEvent
-  ) => {
-    setState({ ...state, [size]: e.target.value.rawValue });
-  };
+  const handleChange =
+    (size: "small" | "medium" | "large") => (e: CustomEvent) => {
+      setState({ ...state, [size]: e.target.value.rawValue });
+    };
 
   return (["small", "medium", "large"] as const).map((size) => (
     <GroupedCharacter
@@ -356,7 +355,7 @@ export const VariousGroups: Story = () => {
 VariousGroups.storyName = "Various Groups";
 
 export const Validations: StoryFn = (
-  args: Partial<GroupedCharacterProps> & { message?: string | boolean }
+  args: Partial<GroupedCharacterProps> & { message?: string | boolean },
 ) => {
   const [state, setState] = useState({
     error: "1231231",
@@ -455,7 +454,7 @@ export const ValidationsRedesign: Story = () => {
               m={4}
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

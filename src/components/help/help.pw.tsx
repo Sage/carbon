@@ -36,11 +36,11 @@ test.describe("when focused", () => {
     await elementLocator.focus();
     await expect(helpComponent(page).locator("span")).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
     await expect(helpComponent(page).locator("span")).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -56,7 +56,7 @@ test.describe("when focused", () => {
     await elementLocator.focus();
     await expect(helpComponent(page).locator("span")).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 2px"
+      "rgb(255, 188, 25) solid 2px",
     );
   });
 });
@@ -68,7 +68,7 @@ test.describe("Testing Help component properties", () => {
 
       await expect(helpComponent(page)).toHaveAttribute(
         "aria-label",
-        ariaLabel
+        ariaLabel,
       );
     });
   });
@@ -114,7 +114,9 @@ test.describe("Testing Help component properties", () => {
       page,
     }) => {
       await mount(
-        <HelpComponentTest isFocused={boolVal}>{tooltipText}</HelpComponentTest>
+        <HelpComponentTest isFocused={boolVal}>
+          {tooltipText}
+        </HelpComponentTest>,
       );
 
       const tooltip = getDataElementByValue(page, "tooltip");
@@ -144,7 +146,7 @@ test.describe("Testing Help component properties", () => {
       await mount(
         <HelpComponentTest tooltipBgColor={color} isFocused>
           {tooltipText}
-        </HelpComponentTest>
+        </HelpComponentTest>,
       );
 
       const tooltip = getDataElementByValue(page, "tooltip");
@@ -160,7 +162,7 @@ test.describe("Testing Help component properties", () => {
       await mount(
         <HelpComponentTest tooltipFontColor={color} isFocused>
           {tooltipText}
-        </HelpComponentTest>
+        </HelpComponentTest>,
       );
 
       const tooltip = getDataElementByValue(page, "tooltip");
@@ -180,14 +182,14 @@ test.describe("Testing Help component properties", () => {
             <Help tooltipFlipOverrides={[position]} isFocused>
               {`This tooltip is positioned ${position}`}
             </Help>
-          </Box>
+          </Box>,
         );
 
         await page.evaluate(() => window.scrollTo(50, 50));
         const tooltip = getDataElementByValue(page, "tooltip");
         await expect(tooltip).toHaveAttribute("data-placement", position);
       });
-    }
+    },
   );
 
   testData.forEach((tooltipId) => {
@@ -195,7 +197,7 @@ test.describe("Testing Help component properties", () => {
       await mount(
         <HelpComponentTest tooltipId={tooltipId} isFocused>
           {tooltipText}
-        </HelpComponentTest>
+        </HelpComponentTest>,
       );
 
       const tooltip = getDataElementByValue(page, "tooltip");
@@ -203,12 +205,9 @@ test.describe("Testing Help component properties", () => {
     });
   });
 
-  (["top", "bottom", "left", "right"] as [
-    "top",
-    "bottom",
-    "left",
-    "right"
-  ]).forEach((tooltipPosition) => {
+  (
+    ["top", "bottom", "left", "right"] as ["top", "bottom", "left", "right"]
+  ).forEach((tooltipPosition) => {
     test(`should render with tooltip positioned ${tooltipPosition}`, async ({
       mount,
       page,
@@ -216,7 +215,7 @@ test.describe("Testing Help component properties", () => {
       await mount(
         <HelpComponentTest tooltipPosition={tooltipPosition} isFocused>
           {`This tooltip is positioned ${tooltipPosition}`}
-        </HelpComponentTest>
+        </HelpComponentTest>,
       );
 
       await expect(helpComponent(page)).toBeVisible();
@@ -226,12 +225,14 @@ test.describe("Testing Help component properties", () => {
     });
   });
 
-  (["error", "add", "minus", "settings"] as [
-    "error",
-    "add",
-    "minus",
-    "settings"
-  ]).forEach((iconType) => {
+  (
+    ["error", "add", "minus", "settings"] as [
+      "error",
+      "add",
+      "minus",
+      "settings",
+    ]
+  ).forEach((iconType) => {
     test(`should render with iconType prop passed as ${iconType}`, async ({
       mount,
       page,
@@ -293,7 +294,7 @@ test.describe("Accessibility tests for Help component", () => {
 
   test(`should check when isFocused prop is false`, async ({ mount, page }) => {
     await mount(
-      <HelpComponentTest isFocused={false}>{tooltipText}</HelpComponentTest>
+      <HelpComponentTest isFocused={false}>{tooltipText}</HelpComponentTest>,
     );
 
     await checkAccessibility(page);
@@ -304,7 +305,7 @@ test.describe("Accessibility tests for Help component", () => {
       await mount(
         <HelpComponentTest tooltipBgColor={color} isFocused>
           {tooltipText}
-        </HelpComponentTest>
+        </HelpComponentTest>,
       );
 
       // color-contrast ignored until we can investigate and fix FE-6245
@@ -320,7 +321,7 @@ test.describe("Accessibility tests for Help component", () => {
       await mount(
         <HelpComponentTest tooltipFontColor={color} isFocused>
           {tooltipText}
-        </HelpComponentTest>
+        </HelpComponentTest>,
       );
 
       // color-contrast ignored until we can investigate and fix FE-6245
@@ -340,13 +341,13 @@ test.describe("Accessibility tests for Help component", () => {
             <Help tooltipFlipOverrides={[position]} isFocused>
               {`This tooltip is positioned ${position}`}
             </Help>
-          </Box>
+          </Box>,
         );
 
         // color-contrast ignored until we can investigate and fix FE-6245
         await checkAccessibility(page, undefined, "color-contrast");
       });
-    }
+    },
   );
 
   testData.forEach((tooltipId) => {
@@ -354,7 +355,7 @@ test.describe("Accessibility tests for Help component", () => {
       await mount(
         <HelpComponentTest tooltipId={tooltipId} isFocused>
           {tooltipText}
-        </HelpComponentTest>
+        </HelpComponentTest>,
       );
 
       await helpComponent(page).hover();
@@ -362,12 +363,9 @@ test.describe("Accessibility tests for Help component", () => {
     });
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as HelpProps["tooltipPosition"][]).forEach((tooltipPosition) => {
+  (
+    ["top", "bottom", "left", "right"] as HelpProps["tooltipPosition"][]
+  ).forEach((tooltipPosition) => {
     test(`should render with tooltip positioned ${tooltipPosition}`, async ({
       mount,
       page,
@@ -375,7 +373,7 @@ test.describe("Accessibility tests for Help component", () => {
       await mount(
         <HelpComponentTest tooltipPosition={tooltipPosition} isFocused>
           {`This tooltip is positioned ${tooltipPosition}`}
-        </HelpComponentTest>
+        </HelpComponentTest>,
       );
 
       // color-contrast ignored until we can investigate and fix FE-6245
@@ -393,6 +391,6 @@ test.describe("Accessibility tests for Help component", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 });

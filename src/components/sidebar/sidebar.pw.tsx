@@ -38,7 +38,7 @@ test.describe("Prop tests for Sidebar component", () => {
       page,
     }) => {
       await mount(
-        <SidebarComponent enableBackgroundUI={enableBackgroundUIValue} />
+        <SidebarComponent enableBackgroundUI={enableBackgroundUIValue} />,
       );
 
       const backgroundUILocatorElement = backgroundUILocator(page);
@@ -51,32 +51,25 @@ test.describe("Prop tests for Sidebar component", () => {
     });
   });
 
-  ([
-    ["left", 0, 852],
-    ["right", 852, 0],
-  ] as [SidebarProps["position"], number, number][]).forEach(
-    ([position, left, right]) => {
-      test(`check component position is ${position}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<SidebarComponent position={position} />);
+  (
+    [
+      ["left", 0, 852],
+      ["right", 852, 0],
+    ] as [SidebarProps["position"], number, number][]
+  ).forEach(([position, left, right]) => {
+    test(`check component position is ${position}`, async ({ mount, page }) => {
+      await mount(<SidebarComponent position={position} />);
 
-        const sidebarPreviewElement = sidebarPreview(page);
+      const sidebarPreviewElement = sidebarPreview(page);
 
-        await assertCssValueIsApproximately(
-          sidebarPreviewElement,
-          "left",
-          left
-        );
-        await assertCssValueIsApproximately(
-          sidebarPreviewElement,
-          "right",
-          right
-        );
-      });
-    }
-  );
+      await assertCssValueIsApproximately(sidebarPreviewElement, "left", left);
+      await assertCssValueIsApproximately(
+        sidebarPreviewElement,
+        "right",
+        right,
+      );
+    });
+  });
 
   test("check component has expected aria-describedby", async ({
     mount,
@@ -86,7 +79,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     await expect(sidebarPreview(page)).toHaveAttribute(
       "aria-describedby",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -95,7 +88,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     await expect(sidebarPreview(page)).toHaveAttribute(
       "aria-label",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -107,7 +100,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     await expect(sidebarPreview(page)).toHaveAttribute(
       "aria-labelledby",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -120,7 +113,7 @@ test.describe("Prop tests for Sidebar component", () => {
       await assertCssValueIsApproximately(
         sidebarPreview(page),
         "width",
-        parseInt(width)
+        parseInt(width),
       );
     });
   });
@@ -141,7 +134,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     await expect(sidebarPreview(page)).toHaveAttribute(
       "role",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -150,7 +143,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     await expect(sidebarComponent(page)).toHaveAttribute(
       "data-element",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -159,7 +152,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     await expect(sidebarComponent(page)).toHaveAttribute(
       "data-role",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -170,7 +163,7 @@ test.describe("Prop tests for Sidebar component", () => {
       page,
     }) => {
       await mount(
-        <SidebarComponentWithOnCancel disableEscKey={disableEscKeyValue} />
+        <SidebarComponentWithOnCancel disableEscKey={disableEscKeyValue} />,
       );
 
       const sidebarPreviewElement = sidebarPreview(page);
@@ -280,7 +273,7 @@ test.describe("Prop tests for Sidebar component", () => {
         onCancel={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     const closeIconButtonElement = closeIconButton(page);
@@ -302,9 +295,8 @@ test.describe("Prop tests for Sidebar component", () => {
 
     const bodyElement = page.locator("body");
     await bodyElement.press("Tab");
-    const sidebarPreviewCloseIconButton = sidebarPreview(page).locator(
-      CLOSE_ICON_BUTTON
-    );
+    const sidebarPreviewCloseIconButton =
+      sidebarPreview(page).locator(CLOSE_ICON_BUTTON);
 
     await expect(sidebarPreviewCloseIconButton).toBeFocused();
 
@@ -315,7 +307,7 @@ test.describe("Prop tests for Sidebar component", () => {
 
     await bodyElement.press("Tab");
     const DialogCloseIconButton = getComponent(page, "dialog").locator(
-      CLOSE_ICON_BUTTON
+      CLOSE_ICON_BUTTON,
     );
 
     await expect(DialogCloseIconButton).toBeFocused();

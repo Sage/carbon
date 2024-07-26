@@ -23,7 +23,7 @@ export const Breadcrumbs = React.forwardRef<HTMLElement, BreadcrumbsProps>(
         <ol>{children}</ol>
       </StyledBreadcrumbs>
     );
-  }
+  },
 );
 
 Breadcrumbs.displayName = "Breadcrumbs";

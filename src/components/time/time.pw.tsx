@@ -28,7 +28,7 @@ test.describe("Time component", () => {
     await mount(<TimeComponent data-element={CHARACTERS.STANDARD} />);
 
     await expect(
-      getDataElementByValue(page, CHARACTERS.STANDARD)
+      getDataElementByValue(page, CHARACTERS.STANDARD),
     ).toBeVisible();
   });
 
@@ -98,13 +98,13 @@ test.describe("Time component", () => {
 
     await verifyRequiredAsteriskForLabel(
       page,
-      getDataElementByValue(page, "legend").locator("span")
+      getDataElementByValue(page, "legend").locator("span"),
     );
     await expect(
-      getDataComponentByValue(page, "hours").locator("input")
+      getDataComponentByValue(page, "hours").locator("input"),
     ).toHaveAttribute("required", "");
     await expect(
-      getDataComponentByValue(page, "minutes").locator("input")
+      getDataComponentByValue(page, "minutes").locator("input"),
     ).toHaveAttribute("required", "");
   });
 
@@ -116,7 +116,7 @@ test.describe("Time component", () => {
 
     await expect(getDataComponentByValue(page, "time")).toHaveAttribute(
       "name",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -128,15 +128,15 @@ test.describe("Time component", () => {
 
     const hoursInput = getDataComponentByValue(page, "hours").locator("input");
     const minutesInput = getDataComponentByValue(page, "minutes").locator(
-      "input"
+      "input",
     );
     const amToggleButton = getDataComponentByValue(
       page,
-      "am-button-toggle"
+      "am-button-toggle",
     ).locator("button");
     const pmToggleButton = getDataComponentByValue(
       page,
-      "pm-button-toggle"
+      "pm-button-toggle",
     ).locator("button");
 
     await expect(hoursInput).toBeDisabled();
@@ -153,15 +153,15 @@ test.describe("Time component", () => {
 
     const hoursInput = getDataComponentByValue(page, "hours").locator("input");
     const minutesInput = getDataComponentByValue(page, "minutes").locator(
-      "input"
+      "input",
     );
     const amToggleButton = getDataComponentByValue(
       page,
-      "am-button-toggle"
+      "am-button-toggle",
     ).locator("button");
     const pmToggleButton = getDataComponentByValue(
       page,
-      "pm-button-toggle"
+      "pm-button-toggle",
     ).locator("button");
 
     await expect(hoursInput).not.toBeEditable();
@@ -183,7 +183,7 @@ test.describe("Time component", () => {
     const inputValue = "1";
     const hoursInput = getDataComponentByValue(page, "hours").locator("input");
     const minutesInput = getDataComponentByValue(page, "minutes").locator(
-      "input"
+      "input",
     );
 
     await hoursInput.fill(inputValue);
@@ -206,7 +206,7 @@ test.describe("Time component", () => {
 
     const hoursInput = getDataComponentByValue(page, "hours").locator("input");
     const minutesInput = getDataComponentByValue(page, "minutes").locator(
-      "input"
+      "input",
     );
 
     await hoursInput.focus();
@@ -230,7 +230,7 @@ test.describe("Time component", () => {
 
     const hoursInput = getDataComponentByValue(page, "hours").locator("input");
     const minutesInput = getDataComponentByValue(page, "minutes").locator(
-      "input"
+      "input",
     );
 
     await minutesInput.focus();
@@ -242,12 +242,14 @@ test.describe("Time component", () => {
     expect(count).toBe(1);
   });
 
-  ([
-    [VALIDATION.ERROR, "error", true],
-    [VALIDATION.WARNING, "warning", true],
-    ["rgb(102, 132, 148)", "error", false],
-    ["rgb(102, 132, 148)", "warning", false],
-  ] as [string, string, boolean][]).forEach(([borderColor, type, bool]) => {
+  (
+    [
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+    ] as [string, string, boolean][]
+  ).forEach(([borderColor, type, bool]) => {
     test(`should render hours input with ${borderColor} border when ${type} is ${bool}`, async ({
       mount,
       page,
@@ -258,7 +260,7 @@ test.describe("Time component", () => {
           value={{ hours: "", minutes: "" }}
           onChange={() => {}}
           {...{ hoursInputProps: { [type]: bool } }}
-        />
+        />,
       );
 
       const hoursInputPresentation = page
@@ -268,29 +270,31 @@ test.describe("Time component", () => {
 
       await expect(hoursInputPresentation).toHaveCSS(
         "border-top-color",
-        borderColor
+        borderColor,
       );
       await expect(hoursInputPresentation).toHaveCSS(
         "border-bottom-color",
-        borderColor
+        borderColor,
       );
       await expect(hoursInputPresentation).toHaveCSS(
         "border-left-color",
-        borderColor
+        borderColor,
       );
       await expect(hoursInputPresentation).toHaveCSS(
         "border-right-color",
-        borderColor
+        borderColor,
       );
     });
   });
 
-  ([
-    [VALIDATION.ERROR, "error", true],
-    [VALIDATION.WARNING, "warning", true],
-    ["rgb(102, 132, 148)", "error", false],
-    ["rgb(102, 132, 148)", "warning", false],
-  ] as [string, string, boolean][]).forEach(([borderColor, type, bool]) => {
+  (
+    [
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+    ] as [string, string, boolean][]
+  ).forEach(([borderColor, type, bool]) => {
     test(`should render minutes input with ${borderColor} border when ${type} is ${bool}`, async ({
       mount,
       page,
@@ -301,7 +305,7 @@ test.describe("Time component", () => {
           value={{ hours: "", minutes: "" }}
           onChange={() => {}}
           {...{ minutesInputProps: { [type]: bool } }}
-        />
+        />,
       );
 
       const minutesInputPresentation = page
@@ -311,29 +315,31 @@ test.describe("Time component", () => {
 
       await expect(minutesInputPresentation).toHaveCSS(
         "border-top-color",
-        borderColor
+        borderColor,
       );
       await expect(minutesInputPresentation).toHaveCSS(
         "border-bottom-color",
-        borderColor
+        borderColor,
       );
       await expect(minutesInputPresentation).toHaveCSS(
         "border-left-color",
-        borderColor
+        borderColor,
       );
       await expect(minutesInputPresentation).toHaveCSS(
         "border-right-color",
-        borderColor
+        borderColor,
       );
     });
   });
 
-  ([
-    [VALIDATION.ERROR, "error", true],
-    [VALIDATION.WARNING, "warning", true],
-    ["rgb(102, 132, 148)", "error", false],
-    ["rgb(102, 132, 148)", "warning", false],
-  ] as [string, string, boolean][]).forEach(([borderColor, type, bool]) => {
+  (
+    [
+      [VALIDATION.ERROR, "error", true],
+      [VALIDATION.WARNING, "warning", true],
+      ["rgb(102, 132, 148)", "error", false],
+      ["rgb(102, 132, 148)", "warning", false],
+    ] as [string, string, boolean][]
+  ).forEach(([borderColor, type, bool]) => {
     test(`should render both inputs with ${borderColor} border when ${type} is ${bool}`, async ({
       mount,
       page,
@@ -351,7 +357,7 @@ test.describe("Time component", () => {
             hoursInputProps: { warning: bool },
             minutesInputProps: { warning: bool },
           })}
-        />
+        />,
       );
 
       const hoursInputPresentation = page
@@ -365,44 +371,46 @@ test.describe("Time component", () => {
 
       await expect(hoursInputPresentation).toHaveCSS(
         "border-top-color",
-        borderColor
+        borderColor,
       );
       await expect(hoursInputPresentation).toHaveCSS(
         "border-bottom-color",
-        borderColor
+        borderColor,
       );
       await expect(hoursInputPresentation).toHaveCSS(
         "border-left-color",
-        borderColor
+        borderColor,
       );
       await expect(hoursInputPresentation).toHaveCSS(
         "border-right-color",
-        borderColor
+        borderColor,
       );
       await expect(minutesInputPresentation).toHaveCSS(
         "border-top-color",
-        borderColor
+        borderColor,
       );
       await expect(minutesInputPresentation).toHaveCSS(
         "border-bottom-color",
-        borderColor
+        borderColor,
       );
       await expect(minutesInputPresentation).toHaveCSS(
         "border-left-color",
-        borderColor
+        borderColor,
       );
       await expect(minutesInputPresentation).toHaveCSS(
         "border-right-color",
-        borderColor
+        borderColor,
       );
     });
   });
 
-  ([
-    [SIZE.SMALL, 30],
-    [SIZE.MEDIUM, 38],
-    [SIZE.LARGE, 46],
-  ] as [TimeProps["size"], number][]).forEach(([size, height]) => {
+  (
+    [
+      [SIZE.SMALL, 30],
+      [SIZE.MEDIUM, 38],
+      [SIZE.LARGE, 46],
+    ] as [TimeProps["size"], number][]
+  ).forEach(([size, height]) => {
     test(`should render the inputs and toggles with height of ${height}px when size is ${size}`, async ({
       mount,
       page,
@@ -413,14 +421,14 @@ test.describe("Time component", () => {
           value={{ hours: "", minutes: "", period: "AM" }}
           onChange={() => {}}
           size={size}
-        />
+        />,
       );
 
       const hoursInput = page.locator("input").first();
       const minutesInput = page.locator("input").last();
       const toggleButtons = getDataComponentByValue(
         page,
-        "time-button-toggle-group"
+        "time-button-toggle-group",
       ).first();
 
       await assertCssValueIsApproximately(hoursInput, "height", height);
@@ -436,7 +444,7 @@ test.describe("Time component", () => {
           label="label"
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -449,7 +457,7 @@ test.describe("Time component", () => {
           label="label"
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -462,7 +470,7 @@ test.describe("Time component", () => {
           label="label"
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -478,7 +486,7 @@ test.describe("Time component", () => {
           inputHint="input hint"
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -495,7 +503,7 @@ test.describe("Time component", () => {
           minutesInputProps={{ error: "error" }}
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -512,7 +520,7 @@ test.describe("Time component", () => {
           minutesInputProps={{ warning: "warning" }}
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -528,7 +536,7 @@ test.describe("Time component", () => {
           hoursInputProps={{ error: "error" }}
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -544,7 +552,7 @@ test.describe("Time component", () => {
           minutesInputProps={{ error: "error" }}
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -560,7 +568,7 @@ test.describe("Time component", () => {
           hoursInputProps={{ warning: "warning" }}
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -576,7 +584,7 @@ test.describe("Time component", () => {
           minutesInputProps={{ warning: "warning" }}
           value={{ hours: "12", minutes: "30" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -591,7 +599,7 @@ test.describe("Time component", () => {
           label="label"
           value={{ hours: "12", minutes: "30", period: "AM" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -608,7 +616,7 @@ test.describe("Time component", () => {
           label="label"
           value={{ hours: "12", minutes: "30", period: "AM" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page, undefined, "color-contrast");
@@ -624,7 +632,7 @@ test.describe("Time component", () => {
           label="label"
           value={{ hours: "12", minutes: "30", period: "AM" }}
           onChange={() => {}}
-        />
+        />,
       );
 
       await checkAccessibility(page);

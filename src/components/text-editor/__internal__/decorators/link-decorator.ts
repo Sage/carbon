@@ -6,7 +6,7 @@ type StrategyCallback = (start: number, end: number) => void;
 function findWithRegex(
   regex: RegExp,
   contentBlock: ContentBlock,
-  callback: StrategyCallback
+  callback: StrategyCallback,
 ) {
   const text = contentBlock.getText();
   let matchArr;
@@ -29,7 +29,7 @@ function findWithRegex(
 
 const linkStrategy = (
   contentBlock: ContentBlock,
-  callback: StrategyCallback
+  callback: StrategyCallback,
 ) => {
   const combineRegex = (...regex: RegExp[]) =>
     new RegExp(regex.map((r) => r.source).join(""), "g");
@@ -40,7 +40,7 @@ const linkStrategy = (
     /([\w-]+\.)+\w+/, // domain
     /(:\d+)?/, // port
     /(\/[\w#!:.?+=&%@!-/]+)?/, // paths, queries, fragments
-    /\b/
+    /\b/,
   );
 
   findWithRegex(urlRegex, contentBlock, callback);

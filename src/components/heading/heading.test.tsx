@@ -12,7 +12,7 @@ test("renders with custom data tags", () => {
       data-role="heading"
       data-component="heading"
       data-element="heading"
-    />
+    />,
   );
 
   const headingWrapper = screen.getByTestId("heading");
@@ -78,12 +78,12 @@ test.each([
 
     const heading = screen.getByRole("heading", { level });
     expect(heading).toBeVisible();
-  }
+  },
 );
 
 test("renders with custom help text, via the `help` prop", async () => {
   render(
-    <Heading title="foo" help="help text" helpAriaLabel="help-aria-label" />
+    <Heading title="foo" help="help text" helpAriaLabel="help-aria-label" />,
   );
 
   const user = userEvent.setup();
@@ -104,13 +104,13 @@ test("renders with a custom help text link, via the `helpLink` prop", () => {
       help="help text"
       helpAriaLabel="help-aria-label"
       helpLink="https://www.warnerbros.com/movies/heat"
-    />
+    />,
   );
 
   const helpIconLink = screen.getByRole("link", { name: "help-aria-label" });
   expect(helpIconLink).toHaveAttribute(
     "href",
-    "https://www.warnerbros.com/movies/heat"
+    "https://www.warnerbros.com/movies/heat",
   );
 });
 
@@ -121,7 +121,7 @@ test("renders with an 'aria-label' attribute on the help, via the `aria-label` p
       help="help text"
       helpAriaLabel="help-aria-label"
       helpLink="https://www.warnerbros.com/movies/heat"
-    />
+    />,
   );
 
   const helpIconLink = screen.getByRole("link", { name: "help-aria-label" });
@@ -130,19 +130,19 @@ test("renders with an 'aria-label' attribute on the help, via the `aria-label` p
 
 test("renders a back link, when the `backLink` prop is a string", () => {
   render(
-    <Heading title="foo" backLink="https://www.warnerbros.com/movies/heat" />
+    <Heading title="foo" backLink="https://www.warnerbros.com/movies/heat" />,
   );
 
   const backLink = screen.getByRole("link", { name: "Back" });
   expect(backLink).toHaveAttribute(
     "href",
-    "https://www.warnerbros.com/movies/heat"
+    "https://www.warnerbros.com/movies/heat",
   );
 });
 
 test("focuses the back link on mousedown", () => {
   render(
-    <Heading title="foo" backLink="https://www.warnerbros.com/movies/heat" />
+    <Heading title="foo" backLink="https://www.warnerbros.com/movies/heat" />,
   );
 
   const backLink = screen.getByRole("link", { name: "Back" });
@@ -206,7 +206,7 @@ test("alters the grid-column property on the subtitle node, when a back link/but
       title="foo"
       subheader="bar"
       backLink="https://www.warnerbros.com/movies/heat"
-    />
+    />,
   );
 
   const subtitle = screen.getByTestId("subtitle");
@@ -219,7 +219,7 @@ test("alters the outline property on the back link/button, when the back link is
   render(
     <CarbonProvider focusRedesignOptOut>
       <Heading title="foo" backLink="https://www.warnerbros.com/movies/heat" />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const backLink = screen.getByTestId("heading-back-button");
@@ -228,6 +228,6 @@ test("alters the outline property on the back link/button, when the back link is
   expect(backLink).toHaveStyleRule(
     "outline",
     "3px solid var(--colorsSemanticFocus500)",
-    { modifier: "button:focus" }
+    { modifier: "button:focus" },
   );
 });

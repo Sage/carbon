@@ -48,7 +48,7 @@ test.describe("check props for Note component", () => {
       await mount(
         <Box width="250px">
           <NoteComponent width={width} />
-        </Box>
+        </Box>,
       );
 
       const widthVal = await getStyle(noteComponent(page), "width");
@@ -107,7 +107,7 @@ test.describe("check props for Note component", () => {
             text: value,
             timeStamp: `${CHARACTERS.STANDARD}`,
           }}
-        />
+        />,
       );
 
       await noteStatus(page).hover();
@@ -149,7 +149,7 @@ test.describe("check action events for Note component", () => {
         onLinkAdded={() => {
           hasOnLinkAddedBeenCalledCount += 1;
         }}
-      />
+      />,
     );
 
     await expect(page.getByText("https://carbon.s")).toBeAttached();
@@ -233,7 +233,7 @@ test.describe("Accessibility tests for Note component", () => {
             text: value,
             timeStamp: `${CHARACTERS.STANDARD}`,
           }}
-        />
+        />,
       );
 
       await checkAccessibility(page);

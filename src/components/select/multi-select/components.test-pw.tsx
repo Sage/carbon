@@ -14,7 +14,7 @@ import CarbonProvider from "../../carbon-provider/carbon-provider.component";
 export const MultiSelectComponent = (props: Partial<MultiSelectProps>) => {
   const [value, setValue] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as string[]);
+    setValue(event.target.value as unknown as string[]);
   }
   return (
     <MultiSelect
@@ -46,7 +46,7 @@ export const MultiSelectComponent = (props: Partial<MultiSelectProps>) => {
 };
 
 export const MultiSelectDefaultValueComponent = (
-  props: Partial<MultiSelectProps>
+  props: Partial<MultiSelectProps>,
 ) => {
   return (
     <MultiSelect label="color" labelInline {...props}>
@@ -66,11 +66,11 @@ export const MultiSelectDefaultValueComponent = (
 };
 
 export const MultiSelectLongPillComponent = (
-  props: Partial<MultiSelectProps>
+  props: Partial<MultiSelectProps>,
 ) => {
   const [value, setValue] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as string[]);
+    setValue(event.target.value as unknown as string[]);
   }
   return (
     <div
@@ -102,7 +102,7 @@ export const MultiSelectLongPillComponent = (
 };
 
 export const MultiSelectWithLazyLoadingComponent = (
-  props: Partial<MultiSelectProps>
+  props: Partial<MultiSelectProps>,
 ) => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState<string[]>([]);
@@ -116,7 +116,7 @@ export const MultiSelectWithLazyLoadingComponent = (
   ];
   const [optionList, setOptionList] = useState<React.ReactElement[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as string[]);
+    setValue(event.target.value as unknown as string[]);
   }
   function loadList() {
     if (preventLoading.current) {
@@ -144,7 +144,7 @@ export const MultiSelectWithLazyLoadingComponent = (
 };
 
 export const MultiSelectLazyLoadTwiceComponent = (
-  props: Partial<MultiSelectProps>
+  props: Partial<MultiSelectProps>,
 ) => {
   const preventLoading = useRef(false);
   const [value, setValue] = useState<string[]>([]);
@@ -182,7 +182,7 @@ export const MultiSelectLazyLoadTwiceComponent = (
         label="color"
         value={value}
         onChange={(event) =>
-          setValue((event.target.value as unknown) as string[])
+          setValue(event.target.value as unknown as string[])
         }
         onOpen={() => loadList()}
         isLoading={isLoading}
@@ -195,7 +195,7 @@ export const MultiSelectLazyLoadTwiceComponent = (
 };
 
 export const MultiSelectObjectAsValueComponent = (
-  props: Partial<MultiSelectProps>
+  props: Partial<MultiSelectProps>,
 ) => {
   const optionListValues = [
     { id: "Amber", value: 1, text: "Amber" },
@@ -216,7 +216,7 @@ export const MultiSelectObjectAsValueComponent = (
   ]);
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    setValue((event.target.value as unknown) as Record<string, unknown>[]);
+    setValue(event.target.value as unknown as Record<string, unknown>[]);
   }
   return (
     <MultiSelect
@@ -233,7 +233,7 @@ export const MultiSelectObjectAsValueComponent = (
 };
 
 export const MultiSelectMultiColumnsComponent = (
-  props: Partial<MultiSelectProps>
+  props: Partial<MultiSelectProps>,
 ) => {
   return (
     <MultiSelect
@@ -285,13 +285,13 @@ export const MultiSelectMultiColumnsComponent = (
 };
 
 export const MultiSelectMaxOptionsComponent = (
-  props: Partial<MultiSelectProps>
+  props: Partial<MultiSelectProps>,
 ) => {
   const maxSelectionsAllowed = 2;
   const [selectedPills, setSelectedPills] = useState<string[]>([]);
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.value.length <= maxSelectionsAllowed) {
-      setSelectedPills((event.target.value as unknown) as string[]);
+      setSelectedPills(event.target.value as unknown as string[]);
     }
   }
   return (
@@ -323,7 +323,7 @@ export const MultiSelectOnFilterChangeEventComponent = ({
 }: Partial<MultiSelectProps>) => {
   const [state, setState] = useState<string[]>([]);
   const setValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState((event.target.value as unknown) as string[]);
+    setState(event.target.value as unknown as string[]);
     if (onChange) {
       onChange(event);
     }
@@ -346,7 +346,7 @@ export const MultiSelectOnFilterChangeEventComponent = ({
 };
 
 export const MultiSelectCustomColorComponent = (
-  props: Partial<MultiSelectProps>
+  props: Partial<MultiSelectProps>,
 ) => {
   return (
     <MultiSelect label="color" labelInline defaultValue={["1", "3"]} {...props}>
@@ -414,7 +414,7 @@ export const MultiSelectErrorOnChangeNewValidation = () => {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length < 3) {
       setShowError(false);
-      setSelectedPills((event.target.value as unknown) as string[]);
+      setSelectedPills(event.target.value as unknown as string[]);
     } else {
       setShowError(true);
     }
@@ -454,9 +454,9 @@ export const SelectionConfirmed = () => {
   const [value, setValue] = useState<string[]>([]);
   const [confirmedSelections, setConfirmedSelections] = useState<string[]>([]);
   const handleChange = (event: CustomSelectChangeEvent) => {
-    setValue((event.target.value as unknown) as string[]);
+    setValue(event.target.value as unknown as string[]);
     if (event.selectionConfirmed) {
-      setConfirmedSelections((event.target.value as unknown) as string[]);
+      setConfirmedSelections(event.target.value as unknown as string[]);
     }
   };
   return (
@@ -494,9 +494,9 @@ export const MultiSelectWithDisabledOption = () => {
   const [confirmedSelections, setConfirmedSelections] = useState<string[]>([]);
 
   const handleChange = (event: CustomSelectChangeEvent) => {
-    setValue((event.target.value as unknown) as string[]);
+    setValue(event.target.value as unknown as string[]);
     if (event.selectionConfirmed) {
-      setConfirmedSelections((event.target.value as unknown) as string[]);
+      setConfirmedSelections(event.target.value as unknown as string[]);
     }
   };
   return (

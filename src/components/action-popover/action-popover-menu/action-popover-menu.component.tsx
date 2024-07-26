@@ -73,18 +73,18 @@ const ActionPopoverMenu = React.forwardRef<
       isASubmenu,
       ...rest
     }: ActionPopoverMenuBaseProps,
-    ref
+    ref,
   ) => {
     const context = useContext(ActionPopoverContext);
     invariant(
       context,
-      "ActionPopoverMenu must be used within an ActionPopover component"
+      "ActionPopoverMenu must be used within an ActionPopover component",
     );
     const { focusButton, submenuPosition } = context;
 
     invariant(
       setOpen && setFocusIndex && typeof focusIndex !== "undefined",
-      "ActionPopoverMenu must be used within an ActionPopover or ActionPopoverItem component"
+      "ActionPopoverMenu must be used within an ActionPopover or ActionPopoverItem component",
     );
 
     const hasProperChildren = useMemo(() => {
@@ -100,7 +100,7 @@ const ActionPopoverMenu = React.forwardRef<
             (child.type as React.FunctionComponent).displayName !==
               ActionPopoverDivider.displayName
           );
-        }
+        },
       );
 
       return !incorrectChild;
@@ -109,7 +109,7 @@ const ActionPopoverMenu = React.forwardRef<
     invariant(
       hasProperChildren,
       `ActionPopoverMenu only accepts children of type \`${ActionPopoverItem.displayName}\`` +
-        ` and \`${ActionPopoverDivider.displayName}\`.`
+        ` and \`${ActionPopoverDivider.displayName}\`.`,
     );
 
     const items = useMemo(() => {
@@ -125,11 +125,11 @@ const ActionPopoverMenu = React.forwardRef<
         // istanbul ignore else
         return React.isValidElement(item) && item.props.disabled;
       },
-      [items]
+      [items],
     );
 
     const firstFocusableItem = items.findIndex(
-      (_, index) => !isItemDisabled(index)
+      (_, index) => !isItemDisabled(index),
     );
 
     // FIX-ME: FE-6248
@@ -237,15 +237,13 @@ const ActionPopoverMenu = React.forwardRef<
         setFocusIndex,
         firstFocusableItem,
         lastFocusableItem,
-      ]
+      ],
     );
 
     const [childHasSubmenu, setChildHasSubmenu] = useState(false);
     const [childHasIcon, setChildHasIcon] = useState(false);
-    const [
-      currentSubmenuPosition,
-      setCurrentSubmenuPosition,
-    ] = useState<Alignment>(submenuPosition);
+    const [currentSubmenuPosition, setCurrentSubmenuPosition] =
+      useState<Alignment>(submenuPosition);
 
     const clonedChildren = useMemo(() => {
       let index = 0;
@@ -265,7 +263,7 @@ const ActionPopoverMenu = React.forwardRef<
               currentSubmenuPosition,
               setCurrentSubmenuPosition,
               isASubmenu,
-            }
+            },
           );
         }
 
@@ -297,7 +295,7 @@ const ActionPopoverMenu = React.forwardRef<
         {clonedChildren}
       </Menu>
     );
-  }
+  },
 );
 
 ActionPopoverMenu.displayName = "ActionPopoverMenu";

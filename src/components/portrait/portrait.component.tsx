@@ -91,13 +91,13 @@ const Portrait = ({
   invariant(
     !(src && gravatar),
     "The `src` prop cannot be used in conjunction with the `gravatar` prop." +
-      " Please use one or the other."
+      " Please use one or the other.",
   );
 
   const logGravatarDeprecationWarning = () => {
     deprecatedGravatarWarnTriggered = true;
     Logger.deprecate(
-      "The `gravatar` prop has been deprecated and will soon be removed."
+      "The `gravatar` prop has been deprecated and will soon be removed.",
     );
   };
 
