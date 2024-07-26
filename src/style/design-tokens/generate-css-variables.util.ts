@@ -11,7 +11,7 @@ import { ThemeObject } from "../themes/base";
 
 export default (
   theme: ThemeObject | Record<string, string>,
-  roundedCornersOptOut?: boolean
+  roundedCornersOptOut?: boolean,
 ): string =>
   Object.entries(theme)
     .map(([key, value]) => {

@@ -33,7 +33,7 @@ describe("Option", () => {
       const props = { value: "1", text: "foo", isHighlighted: true };
       expect(renderOption(props, mount)).toHaveStyleRule(
         "background-color",
-        "var(--colorsUtilityMajor200)"
+        "var(--colorsUtilityMajor200)",
       );
     });
   });
@@ -50,11 +50,11 @@ describe("Option", () => {
       const props = { value: "1", text: "foo", disabled: true };
       expect(renderOption(props, mount)).toHaveStyleRule(
         "color",
-        "var(--colorsUtilityYin030)"
+        "var(--colorsUtilityYin030)",
       );
       expect(renderOption(props, mount)).toHaveStyleRule(
         "cursor",
-        "not-allowed"
+        "not-allowed",
       );
     });
 
@@ -80,7 +80,7 @@ describe("Option", () => {
       expect(renderOption(props, mount)).toHaveStyleRule(
         "background-color",
         "var(--colorsUtilityMajor100)",
-        { modifier: ":hover" }
+        { modifier: ":hover" },
       );
     });
   });
@@ -90,7 +90,7 @@ describe("Option", () => {
       const wrapper = mount(
         <SelectListContext.Provider value={{ multiselectValues: ["1"] }}>
           <Option value="1" text="foo" />
-        </SelectListContext.Provider>
+        </SelectListContext.Provider>,
       );
       expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("true");
     });
@@ -101,7 +101,7 @@ describe("Option", () => {
       const wrapper = mount(
         <SelectListContext.Provider value={{ multiselectValues: ["1", "2"] }}>
           <Option value="3" text="foo" />
-        </SelectListContext.Provider>
+        </SelectListContext.Provider>,
       );
       expect(wrapper.getDOMNode().getAttribute("aria-selected")).toBe("false");
     });
@@ -131,11 +131,11 @@ describe("Option", () => {
           data-component="foo"
           data-element="bar"
           data-role="baz"
-        />
+        />,
       );
 
       expect(wrapper.getDOMNode().getAttribute("data-component")).toEqual(
-        "foo"
+        "foo",
       );
       expect(wrapper.getDOMNode().getAttribute("data-element")).toEqual("bar");
       expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");

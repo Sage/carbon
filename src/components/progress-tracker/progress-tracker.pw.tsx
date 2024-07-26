@@ -33,7 +33,7 @@ test.describe("Check props for ProgressTracker component", () => {
       await assertCssValueIsApproximately(
         progressTrackerLineElement,
         "height",
-        value
+        value,
       );
     });
   });
@@ -49,7 +49,7 @@ test.describe("Check props for ProgressTracker component", () => {
       await assertCssValueIsApproximately(
         progressTrackerComponentElement,
         "width",
-        length
+        length,
       );
     });
   });
@@ -73,7 +73,7 @@ test.describe("Check props for ProgressTracker component", () => {
       );
       await expect(progressTrackerLineElement).toHaveCSS(
         "background-color",
-        color
+        color,
       );
     });
   });
@@ -84,18 +84,17 @@ test.describe("Check props for ProgressTracker component", () => {
     const progressTrackerLineElement = progressTrackerLine(page);
     await expect(progressTrackerLineElement).toHaveCSS(
       "background-color",
-      "rgb(203, 55, 74)"
+      "rgb(203, 55, 74)",
     );
 
-    const progressTrackerLineElementParent = progressTrackerLine(page).locator(
-      ".."
-    );
+    const progressTrackerLineElementParent =
+      progressTrackerLine(page).locator("..");
     await checkCSSOutline(
       progressTrackerLineElementParent,
       "1px",
       "border",
       "solid",
-      "rgb(203, 55, 74)"
+      "rgb(203, 55, 74)",
     );
   });
 
@@ -108,15 +107,15 @@ test.describe("Check props for ProgressTracker component", () => {
         await mount(
           <ProgressTrackerComponent
             currentProgressLabel={currentProgressLabel}
-          />
+          />,
         );
 
         const progressTrackerMinValElement = progressTrackerMinVal(page);
         await expect(progressTrackerMinValElement).toHaveText(
-          currentProgressLabel
+          currentProgressLabel,
         );
       });
-    }
+    },
   );
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
@@ -135,7 +134,7 @@ test.describe("Check props for ProgressTracker component", () => {
         const progressTrackerMaxValElement = progressTrackerMaxVal(page);
         await expect(progressTrackerMaxValElement).toHaveText(maxProgressLabel);
       });
-    }
+    },
   );
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
@@ -150,14 +149,13 @@ test.describe("Check props for ProgressTracker component", () => {
           />
         );
 
-        const progressTrackerCustomValuePrepositionElement = progressTrackerCustomValuePreposition(
-          page
-        );
+        const progressTrackerCustomValuePrepositionElement =
+          progressTrackerCustomValuePreposition(page);
         await expect(progressTrackerCustomValuePrepositionElement).toHaveText(
-          customValuePreposition
+          customValuePreposition,
         );
       });
-    }
+    },
   );
 
   const getYValue = (locator: Locator) =>
@@ -178,7 +176,7 @@ test.describe("Check props for ProgressTracker component", () => {
     await expect(currentValueLabel).toBeVisible(); // assert label is visible before checking bounding box
     await expect(trackerLine).toBeVisible(); // assert tracker line is visible before checking bounding box
     expect(await getYValue(currentValueLabel)).toBeLessThan(
-      await getYValue(trackerLine)
+      await getYValue(trackerLine),
     );
   });
 
@@ -194,7 +192,7 @@ test.describe("Check props for ProgressTracker component", () => {
     await expect(currentValueLabel).toBeVisible(); // assert label is visible before checking bounding box
     await expect(trackerLine).toBeVisible(); // assert tracker line is visible before checking bounding box
     expect(await getYValue(currentValueLabel)).toBeGreaterThan(
-      await getYValue(trackerLine)
+      await getYValue(trackerLine),
     );
   });
 
@@ -211,7 +209,7 @@ test.describe("Check props for ProgressTracker component", () => {
     await expect(trackerLine).toBeVisible(); // assert tracker line is visible before checking bounding box
 
     expect(await getXValue(currentValueLabel)).toBeLessThan(
-      await getXValue(trackerLine)
+      await getXValue(trackerLine),
     );
   });
 
@@ -223,23 +221,21 @@ test.describe("Check props for ProgressTracker component", () => {
       }) => {
         await mount(<ProgressTrackerComponent description={description} />);
 
-        const progressTrackerDescriptionElement = progressTrackerDescription(
-          page
-        );
+        const progressTrackerDescriptionElement =
+          progressTrackerDescription(page);
         await expect(progressTrackerDescriptionElement).toHaveText(description);
       });
-    }
+    },
   );
 
   test("has the expected border radius styling", async ({ mount, page }) => {
     await mount(<ProgressTrackerComponent progress={35} />);
 
-    const progressTrackerLineElementParent = progressTrackerLine(page).locator(
-      ".."
-    );
+    const progressTrackerLineElementParent =
+      progressTrackerLine(page).locator("..");
     await expect(progressTrackerLineElementParent).toHaveCSS(
       "border-radius",
-      "32px"
+      "32px",
     );
     const progressTrackerLineElement = progressTrackerLine(page);
     await expect(progressTrackerLineElement).toHaveCSS("border-radius", "32px");
@@ -301,12 +297,12 @@ test.describe("Accessibility tests", () => {
         await mount(
           <ProgressTrackerComponent
             currentProgressLabel={currentProgressLabel}
-          />
+          />,
         );
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
@@ -316,12 +312,12 @@ test.describe("Accessibility tests", () => {
         page,
       }) => {
         await mount(
-          <ProgressTrackerComponent maxProgressLabel={maxProgressLabel} />
+          <ProgressTrackerComponent maxProgressLabel={maxProgressLabel} />,
         );
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
   ([CHARACTERS.DIACRITICS, CHARACTERS.SPECIALCHARACTERS] as const).forEach(
@@ -338,14 +334,12 @@ test.describe("Accessibility tests", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 
-  ([
-    "top",
-    "bottom",
-    "left",
-  ] as ProgressTrackerProps["labelsPosition"][]).forEach((labelsPosition) => {
+  (
+    ["top", "bottom", "left"] as ProgressTrackerProps["labelsPosition"][]
+  ).forEach((labelsPosition) => {
     test(`should check the accessibility when component is rendered with labelsPosition is set to ${labelsPosition}`, async ({
       mount,
       page,
@@ -366,6 +360,6 @@ test.describe("Accessibility tests", () => {
 
         await checkAccessibility(page);
       });
-    }
+    },
   );
 });

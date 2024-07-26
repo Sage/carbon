@@ -33,7 +33,7 @@ describe("Pager Navigation", () => {
         justifyContent: "center",
         alignItems: "center",
       },
-      wrapper.find(PagerNavigation)
+      wrapper.find(PagerNavigation),
     );
 
     assertStyleMatch(
@@ -46,7 +46,7 @@ describe("Pager Navigation", () => {
       wrapper.find(PagerNavigation),
       {
         modifier: `&& ${StyledInputPresentation}`,
-      }
+      },
     );
 
     assertStyleMatch(
@@ -57,7 +57,7 @@ describe("Pager Navigation", () => {
       wrapper.find(PagerNavigation),
       {
         modifier: `&& ${StyledInputPresentation} ${StyledInput}`,
-      }
+      },
     );
   });
 
@@ -73,7 +73,7 @@ describe("Pager Navigation", () => {
           onFirst,
           setCurrentPage: () => {},
         },
-        mount
+        mount,
       );
       const navLinks = wrapper.find(StyledPagerLink);
       const first = navLinks.first();
@@ -91,7 +91,7 @@ describe("Pager Navigation", () => {
           currentPage: 10,
           setCurrentPage,
         },
-        mount
+        mount,
       );
 
       const input = wrapper.find("input");
@@ -107,7 +107,7 @@ describe("Pager Navigation", () => {
           currentPage: 7,
           setCurrentPage,
         },
-        mount
+        mount,
       );
 
       const input = wrapper.find("input");
@@ -123,7 +123,7 @@ describe("Pager Navigation", () => {
           currentPage: 7,
           setCurrentPage,
         },
-        mount
+        mount,
       );
 
       const input = wrapper.find("input");
@@ -139,7 +139,7 @@ describe("Pager Navigation", () => {
           currentPage: 7,
           setCurrentPage,
         },
-        mount
+        mount,
       );
 
       const input = wrapper.find("input");
@@ -157,7 +157,7 @@ describe("Pager Navigation", () => {
           setCurrentPage: () => {},
           pageCount: 0,
         },
-        mount
+        mount,
       );
 
       const input = wrapper.find("input");
@@ -178,7 +178,7 @@ describe("Pager Navigation", () => {
           pageCount: 3,
           showPageCount: false,
         },
-        mount
+        mount,
       );
 
       const navButtons = wrapper.find("button");
@@ -195,7 +195,7 @@ describe("Pager Navigation", () => {
           pageCount: 3,
           showFirstAndLastButtons: false,
         },
-        mount
+        mount,
       );
 
       const navButtons = wrapper.find("button");
@@ -213,7 +213,7 @@ describe("Pager Navigation", () => {
           pageCount: 3,
           showPreviousAndNextButtons: false,
         },
-        mount
+        mount,
       );
 
       const navButtons = wrapper.find("button");

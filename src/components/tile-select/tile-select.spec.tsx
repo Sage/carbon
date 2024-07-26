@@ -59,19 +59,19 @@ describe("TileSelect", () => {
   let wrapper: ReactWrapper;
 
   const render = (
-    props?: TileSelectProps & React.RefAttributes<HTMLInputElement>
+    props?: TileSelectProps & React.RefAttributes<HTMLInputElement>,
   ) => {
     wrapper = mount(<TileSelect {...props} />);
   };
 
   const renderWithTitleSelectGroup = (
-    props?: Partial<TileSelectGroupProps>
+    props?: Partial<TileSelectGroupProps>,
   ) => {
     wrapper = mount(
       <TileSelectGroup name="tile-select-group" {...props}>
         <TileSelect />
         <TileSelect />
-      </TileSelectGroup>
+      </TileSelectGroup>,
     );
   };
 
@@ -95,7 +95,7 @@ describe("TileSelect", () => {
   it("renders deselect button when TileSelect is checked", () => {
     render({ checked: true });
     expect(wrapper.find(StyledDeselectWrapper).find(Button).exists()).toBe(
-      true
+      true,
     );
   });
 
@@ -108,7 +108,7 @@ describe("TileSelect", () => {
       name: "name",
     });
     wrapper.find(StyledDeselectWrapper).find(Button).prop("onClick")?.(
-      {} as React.MouseEvent<HTMLButtonElement>
+      {} as React.MouseEvent<HTMLButtonElement>,
     );
     expect(onChangeMock).toHaveBeenCalledWith({
       target: {
@@ -158,7 +158,7 @@ describe("TileSelect", () => {
     expect(wrapper.find(StyledTitleContainer).find("h3").exists()).toBeFalsy();
     expect(wrapper.find(StyledTitle).prop("as")).toBe("div");
     expect(wrapper.find(StyledTitle).prop("children")).toStrictEqual(
-      <h1>Title</h1>
+      <h1>Title</h1>,
     );
   });
 
@@ -173,7 +173,7 @@ describe("TileSelect", () => {
     expect(wrapper.find(StyledTitleContainer).find("h4").exists()).toBeFalsy();
     expect(wrapper.find(StyledSubtitle).prop("as")).toBe("div");
     expect(wrapper.find(StyledSubtitle).prop("children")).toStrictEqual(
-      <h2>Sub Title</h2>
+      <h2>Sub Title</h2>,
     );
   });
 
@@ -187,7 +187,7 @@ describe("TileSelect", () => {
     render({ description: "description" });
     expect(wrapper.find(StyledDescription).prop("as")).toBe(undefined);
     expect(wrapper.find(StyledDescription).prop("children")).toBe(
-      "description"
+      "description",
     );
   });
 
@@ -195,7 +195,7 @@ describe("TileSelect", () => {
     render({ description: <strong>description</strong> });
     expect(wrapper.find(StyledDescription).prop("as")).toBe("div");
     expect(wrapper.find(StyledDescription).prop("children")).toStrictEqual(
-      <strong>description</strong>
+      <strong>description</strong>,
     );
   });
 
@@ -203,7 +203,7 @@ describe("TileSelect", () => {
     renderWithTitleSelectGroup({ description: "description" });
     expect(wrapper.find(StyledGroupDescription).prop("as")).toBe(undefined);
     expect(wrapper.find(StyledGroupDescription).prop("children")).toBe(
-      "description"
+      "description",
     );
   });
 
@@ -219,7 +219,7 @@ describe("TileSelect", () => {
         {
           background: "var(--colorsActionMajor025)",
         },
-        wrapper.find(StyledTileSelect)
+        wrapper.find(StyledTileSelect),
       );
 
       assertStyleMatch(
@@ -227,7 +227,7 @@ describe("TileSelect", () => {
           borderColor: "var(--colorsActionMajor500)",
           zIndex: "10",
         },
-        wrapper.find(StyledFocusWrapper)
+        wrapper.find(StyledFocusWrapper),
       );
     });
 
@@ -238,7 +238,7 @@ describe("TileSelect", () => {
         {
           background: "var(--colorsActionMinorYang100)",
         },
-        wrapper.find(StyledTileSelect)
+        wrapper.find(StyledTileSelect),
       );
 
       [StyledTitle, StyledSubtitle, StyledDescription].forEach((Component) => {
@@ -247,7 +247,7 @@ describe("TileSelect", () => {
             color: "var(--colorsActionMinorYin030)",
           },
           wrapper.find(StyledTileSelect),
-          { modifier: ` ${Component}` }
+          { modifier: ` ${Component}` },
         );
       });
 
@@ -256,7 +256,7 @@ describe("TileSelect", () => {
           opacity: "0.3",
         },
         wrapper.find(StyledTileSelect),
-        { modifier: ` ${StyledAdornment} *` }
+        { modifier: ` ${StyledAdornment} *` },
       );
 
       assertStyleMatch(
@@ -264,7 +264,7 @@ describe("TileSelect", () => {
           opacity: "0.3",
         },
         wrapper.find(`[data-element="prefix-adornment"]`),
-        {}
+        {},
       );
     });
 
@@ -274,7 +274,7 @@ describe("TileSelect", () => {
           background: "var(--colorsActionMinor050)",
         },
         wrapper.find(StyledTileSelectContainer),
-        { modifier: `&:hover ${StyledTileSelect}` }
+        { modifier: `&:hover ${StyledTileSelect}` },
       );
     });
 
@@ -286,7 +286,7 @@ describe("TileSelect", () => {
           flexWrap: "wrap",
           marginRight: "16px",
         },
-        wrapper.find(StyledTitleContainer)
+        wrapper.find(StyledTitleContainer),
       );
     });
   });
@@ -296,7 +296,7 @@ describe("TileSelect", () => {
       const onChangeMock = jest.fn();
 
       const CustomActionButton: TileSelectProps["customActionButton"] = (
-        onClick
+        onClick,
       ) => <Button onClick={onClick}>Foo</Button>;
 
       render({
@@ -307,11 +307,11 @@ describe("TileSelect", () => {
         customActionButton: CustomActionButton,
       });
       wrapper.find(StyledDeselectWrapper).find(Button).prop("onClick")?.(
-        {} as React.MouseEvent<HTMLButtonElement>
+        {} as React.MouseEvent<HTMLButtonElement>,
       );
 
       expect(wrapper.find(StyledDeselectWrapper).find(Button).text()).toEqual(
-        "Foo"
+        "Foo",
       );
       expect(onChangeMock).toHaveBeenCalledWith({
         target: {
@@ -336,13 +336,13 @@ describe("TileSelect", () => {
       });
 
       expect(
-        wrapper.find(StyledDeselectWrapper).find(Button).exists()
+        wrapper.find(StyledDeselectWrapper).find(Button).exists(),
       ).toBeTruthy();
       expect(
-        wrapper.find(StyledDeselectWrapper).find(Button).props().children
+        wrapper.find(StyledDeselectWrapper).find(Button).props().children,
       ).toEqual("Deselect");
       expect(
-        wrapper.find(StyledDeselectWrapper).find(Icon).exists()
+        wrapper.find(StyledDeselectWrapper).find(Icon).exists(),
       ).toBeTruthy();
 
       assertStyleMatch(
@@ -352,7 +352,7 @@ describe("TileSelect", () => {
           alignItems: "baseline",
           minHeight: "var(--sizing400)",
         },
-        wrapper.find(StyledDeselectWrapper)
+        wrapper.find(StyledDeselectWrapper),
       );
 
       assertStyleMatch(
@@ -360,7 +360,7 @@ describe("TileSelect", () => {
           top: "2px",
         },
         wrapper.find(StyledDeselectWrapper),
-        { modifier: `${StyledIcon}` }
+        { modifier: `${StyledIcon}` },
       );
     });
   });
@@ -382,10 +382,10 @@ describe("TileSelect", () => {
 
     it("renders the component at the bottom of the tile", () => {
       expect(
-        wrapper.find(StyledFooterWrapper).find(Icon).exists()
+        wrapper.find(StyledFooterWrapper).find(Icon).exists(),
       ).toBeTruthy();
       expect(
-        wrapper.find(StyledFooterWrapper).find(Button).exists()
+        wrapper.find(StyledFooterWrapper).find(Button).exists(),
       ).toBeTruthy();
 
       assertStyleMatch(
@@ -394,7 +394,7 @@ describe("TileSelect", () => {
           position: "relative",
           zIndex: "200",
         },
-        wrapper.find(StyledFooterWrapper)
+        wrapper.find(StyledFooterWrapper),
       );
     });
   });
@@ -433,7 +433,7 @@ describe("TileSelect", () => {
         {
           marginBottom: "4px",
         },
-        wrapper.find(StyledAdornment)
+        wrapper.find(StyledAdornment),
       );
     });
   });
@@ -444,7 +444,7 @@ describe("TileSelect", () => {
 
       const AccordionControl: TileSelectProps["accordionControl"] = (
         controlId,
-        contentId
+        contentId,
       ) => (
         <Button aria-controls={contentId} id={controlId}>
           Foo
@@ -468,7 +468,7 @@ describe("TileSelect", () => {
           zIndex: "200",
           left: "-12px",
         },
-        wrapper.find(StyledAccordionFooterWrapper)
+        wrapper.find(StyledAccordionFooterWrapper),
       );
 
       assertStyleMatch(
@@ -476,7 +476,7 @@ describe("TileSelect", () => {
           transform: "rotate(-90deg)",
         },
         wrapper.find(StyledAccordionFooterWrapper),
-        { modifier: 'span[data-element="chevron_down"]' }
+        { modifier: 'span[data-element="chevron_down"]' },
       );
     });
   });
@@ -526,7 +526,7 @@ describe("TileSelectGroup", () => {
             value={value}
           />
         ))}
-      </TileSelectGroup>
+      </TileSelectGroup>,
     );
   };
 
@@ -559,7 +559,7 @@ describe("TileSelectGroup", () => {
           marginBottom: "8px",
         },
         wrapper.find(StyledTileSelectFieldset),
-        { modifier: `${StyledTileSelectContainer}` }
+        { modifier: `${StyledTileSelectContainer}` },
       );
     });
   });
@@ -570,14 +570,14 @@ describe("TileSelectGroup", () => {
 
       wrapper.find(StyledTileSelectInput).first().simulate("focus");
       expect(wrapper.find(StyledFocusWrapper).first().prop("hasFocus")).toEqual(
-        true
+        true,
       );
 
       wrapper.setProps({ disabled: true });
       wrapper.update();
 
       expect(wrapper.find(StyledFocusWrapper).first().prop("hasFocus")).toEqual(
-        false
+        false,
       );
     });
   });
@@ -592,7 +592,7 @@ describe("TileSelectGroup", () => {
         mount(
           <TileSelectGroup name="TileSelectGroup" legend="Radio Tile Group">
             string
-          </TileSelectGroup>
+          </TileSelectGroup>,
         );
       }).not.toThrow();
 
@@ -606,7 +606,7 @@ describe("TileSelectGroup", () => {
         borderRadius: "var(--borderRadius100)",
         overflow: "hidden",
       },
-      wrapper.find(StyledFocusWrapper)
+      wrapper.find(StyledFocusWrapper),
     );
   });
 });

@@ -64,7 +64,7 @@ const StyledImage = styled.div.attrs(
     right,
     bottom,
     left,
-  })
+  }),
 )<StyledImageProps>`
   ${margin}
   ${layout}

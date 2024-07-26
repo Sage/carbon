@@ -30,12 +30,12 @@ test.describe("VerticalDivider component", () => {
 
         await expect(verticalDividerComponent(page)).toHaveCSS(
           "height",
-          pixelCssString
+          pixelCssString,
         );
 
         await expect(verticalDividerComponent(page)).toHaveAttribute(
           "height",
-          pixelCssString
+          pixelCssString,
         );
       });
 
@@ -49,12 +49,12 @@ test.describe("VerticalDivider component", () => {
 
         await expect(verticalDividerComponent(page)).toHaveCSS(
           "height",
-          pixelCssString
+          pixelCssString,
         );
 
         await expect(verticalDividerComponent(page)).toHaveAttribute(
           "height",
-          pixelVal.toString()
+          pixelVal.toString(),
         );
       });
     });
@@ -66,7 +66,7 @@ test.describe("VerticalDivider component", () => {
 
       await expect(verticalDividerComponent(page).locator("div")).toHaveCSS(
         "border-left-color",
-        color
+        color,
       );
     });
   });
@@ -81,67 +81,64 @@ test.describe("VerticalDivider component", () => {
       if (boolVal) {
         await expect(verticalDividerComponent(page)).toHaveCSS(
           "display",
-          "inline"
+          "inline",
         );
       } else {
         await expect(verticalDividerComponent(page)).not.toHaveCSS(
           "display",
-          "inline"
+          "inline",
         );
       }
     });
   });
 });
 
-test.describe(
-  "should render VerticalDivider component and check accessibility issues",
-  () => {
-    height.forEach((propName) => {
-      pixels.forEach((pixelVal) => {
-        test(`should pass accessibility checks when the ${propName} prop is passed as a string and set to ${pixelVal}px`, async ({
-          mount,
-          page,
-        }) => {
-          const props = { [propName]: `${pixelVal}px` };
-
-          await mount(<VerticalDividerComponent {...props} />);
-
-          await checkAccessibility(page);
-        });
-
-        test(`should pass accessibility checks when the ${propName} prop is passed as a number and set to ${pixelVal}`, async ({
-          mount,
-          page,
-        }) => {
-          const props = { [propName]: pixelVal };
-
-          await mount(<VerticalDividerComponent {...props} />);
-
-          await checkAccessibility(page);
-        });
-      });
-    });
-
-    tintData.forEach(([tint]) => {
-      test(`should pass accessibility checks when the tint prop is set to ${tint}`, async ({
+test.describe("should render VerticalDivider component and check accessibility issues", () => {
+  height.forEach((propName) => {
+    pixels.forEach((pixelVal) => {
+      test(`should pass accessibility checks when the ${propName} prop is passed as a string and set to ${pixelVal}px`, async ({
         mount,
         page,
       }) => {
-        await mount(<VerticalDividerComponent tint={tint} />);
+        const props = { [propName]: `${pixelVal}px` };
+
+        await mount(<VerticalDividerComponent {...props} />);
+
+        await checkAccessibility(page);
+      });
+
+      test(`should pass accessibility checks when the ${propName} prop is passed as a number and set to ${pixelVal}`, async ({
+        mount,
+        page,
+      }) => {
+        const props = { [propName]: pixelVal };
+
+        await mount(<VerticalDividerComponent {...props} />);
 
         await checkAccessibility(page);
       });
     });
+  });
 
-    displayInlineVal.forEach((boolVal) => {
-      test(`should pass accessibility checks when the displayInline prop is ${boolVal}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<VerticalDividerComponent displayInline={boolVal} />);
+  tintData.forEach(([tint]) => {
+    test(`should pass accessibility checks when the tint prop is set to ${tint}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<VerticalDividerComponent tint={tint} />);
 
-        await checkAccessibility(page);
-      });
+      await checkAccessibility(page);
     });
-  }
-);
+  });
+
+  displayInlineVal.forEach((boolVal) => {
+    test(`should pass accessibility checks when the displayInline prop is ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<VerticalDividerComponent displayInline={boolVal} />);
+
+      await checkAccessibility(page);
+    });
+  });
+});

@@ -60,7 +60,7 @@ test.describe("should render RadioButton component", () => {
     const component = await getComponent(page, CHARACTERS.STANDARD);
     await expect(component).toHaveAttribute(
       "data-component",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -69,7 +69,7 @@ test.describe("should render RadioButton component", () => {
     const radiobuttonElement = await radiobuttonComponent(page);
     await expect(radiobuttonElement).toHaveAttribute(
       "data-element",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -78,7 +78,7 @@ test.describe("should render RadioButton component", () => {
     const radiobuttonElement = await radiobuttonComponent(page);
     await expect(radiobuttonElement).toHaveAttribute(
       "data-role",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -118,7 +118,7 @@ test.describe("should render RadioButton component", () => {
 
   test("should render with inline fieldHelp", async ({ mount, page }) => {
     await mount(
-      <RadioButtonComponent fieldHelp="Inline fieldhelp" fieldHelpInline />
+      <RadioButtonComponent fieldHelp="Inline fieldhelp" fieldHelpInline />,
     );
     const fieldHelpElement = await radiobuttonInlineFieldHelp(page);
     await expect(fieldHelpElement).toHaveText("Inline fieldhelp");
@@ -150,7 +150,7 @@ test.describe("should render RadioButton component", () => {
     const radiobuttonElement = await radiobuttonRole(page);
     await expect(radiobuttonElement).toHaveAttribute(
       "name",
-      "radiobutton name"
+      "radiobutton name",
     );
   });
 
@@ -159,55 +159,52 @@ test.describe("should render RadioButton component", () => {
     const radiobuttonRoleElement = await radiobuttonRole(page);
     await expect(radiobuttonRoleElement).toHaveAttribute(
       "value",
-      "radiobuttonvalue"
+      "radiobuttonvalue",
     );
   });
 
-  ([
-    [SIZE.SMALL, 16],
-    [SIZE.LARGE, 24],
-  ] as [RadioButtonProps["size"], number][]).forEach(
-    ([size, heightAndWidth]) => {
-      test(`should render with size set to ${size}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<RadioButtonComponent size={size} />);
-        const radiobuttonElement = await radiobuttonRole(page);
-        await assertCssValueIsApproximately(
-          radiobuttonElement,
-          "height",
-          heightAndWidth
-        );
-        await assertCssValueIsApproximately(
-          radiobuttonElement,
-          "width",
-          heightAndWidth
-        );
-      });
-    }
-  );
+  (
+    [
+      [SIZE.SMALL, 16],
+      [SIZE.LARGE, 24],
+    ] as [RadioButtonProps["size"], number][]
+  ).forEach(([size, heightAndWidth]) => {
+    test(`should render with size set to ${size}`, async ({ mount, page }) => {
+      await mount(<RadioButtonComponent size={size} />);
+      const radiobuttonElement = await radiobuttonRole(page);
+      await assertCssValueIsApproximately(
+        radiobuttonElement,
+        "height",
+        heightAndWidth,
+      );
+      await assertCssValueIsApproximately(
+        radiobuttonElement,
+        "width",
+        heightAndWidth,
+      );
+    });
+  });
 
-  ([
-    [1, "8px"],
-    [2, "16px"],
-  ] as [RadioButtonProps["labelSpacing"], string][]).forEach(
-    ([spacing, padding]) => {
-      test(`should render with ${spacing} as labelSpacing`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<RadioButtonComponent labelSpacing={spacing} />);
-        const radiobuttonLabelElement = await radiobuttonLabel(page);
-        const cssPaddingLeft = await radiobuttonLabelElement.evaluate((el) =>
-          window
-            .getComputedStyle(el.parentElement as HTMLElement)
-            .getPropertyValue("padding-left")
-        );
-        await expect(cssPaddingLeft).toBe(padding);
-      });
-    }
-  );
+  (
+    [
+      [1, "8px"],
+      [2, "16px"],
+    ] as [RadioButtonProps["labelSpacing"], string][]
+  ).forEach(([spacing, padding]) => {
+    test(`should render with ${spacing} as labelSpacing`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<RadioButtonComponent labelSpacing={spacing} />);
+      const radiobuttonLabelElement = await radiobuttonLabel(page);
+      const cssPaddingLeft = await radiobuttonLabelElement.evaluate((el) =>
+        window
+          .getComputedStyle(el.parentElement as HTMLElement)
+          .getPropertyValue("padding-left"),
+      );
+      await expect(cssPaddingLeft).toBe(padding);
+    });
+  });
 
   [100, 75, 50, 25, 10].forEach((labelWidth) => {
     test(`should render using ${labelWidth} as labelWidth with correct width`, async ({
@@ -219,7 +216,7 @@ test.describe("should render RadioButton component", () => {
           labelWidth={labelWidth}
           reverse
           inputWidth={labelWidth === 100 ? undefined : 10}
-        />
+        />,
       );
 
       // if labelWidth is 100% it will still need to allow for input width of 16px
@@ -231,7 +228,7 @@ test.describe("should render RadioButton component", () => {
       const cssWidth = await radiobuttonLabelElement.evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("width")
+          .getPropertyValue("width"),
       );
       await expect(cssWidth).toBe(`${parentWidth}px`);
     });
@@ -243,7 +240,11 @@ test.describe("should render RadioButton component", () => {
       page,
     }) => {
       await mount(
-        <RadioButtonComponent labelWidth={10} reverse inputWidth={inputWidth} />
+        <RadioButtonComponent
+          labelWidth={10}
+          reverse
+          inputWidth={inputWidth}
+        />,
       );
 
       // if inputWidth is 100% it will still need to allow for label container width of 32px + 8px
@@ -255,7 +256,7 @@ test.describe("should render RadioButton component", () => {
       const cssWidth = await radiobuttonElement.evaluate((el) =>
         window
           .getComputedStyle(el.parentElement as HTMLElement)
-          .getPropertyValue("width")
+          .getPropertyValue("width"),
       );
       await expect(cssWidth).toBe(`${parentWidth}px`);
     });
@@ -272,7 +273,7 @@ test.describe("should render RadioButton component", () => {
     const radiobuttonSvgElement = await radiobuttonSvg(page);
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
-      VALIDATION.ERROR
+      VALIDATION.ERROR,
     );
   });
 
@@ -281,7 +282,7 @@ test.describe("should render RadioButton component", () => {
     const radiobuttonSvgElement = await radiobuttonSvg(page);
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
-      VALIDATION.WARNING
+      VALIDATION.WARNING,
     );
   });
 
@@ -290,7 +291,7 @@ test.describe("should render RadioButton component", () => {
     const radiobuttonSvgElement = await radiobuttonSvg(page);
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
-      VALIDATION.INFO
+      VALIDATION.INFO,
     );
   });
 
@@ -305,7 +306,7 @@ test.describe("should render RadioButton component", () => {
     const radiobuttonWarningIcon = await radiobuttonIcon(page);
     await expect(radiobuttonWarningIcon).toHaveAttribute(
       "data-element",
-      "warning"
+      "warning",
     );
   });
 
@@ -315,10 +316,12 @@ test.describe("should render RadioButton component", () => {
     await expect(radiobuttonInfoIcon).toHaveAttribute("data-element", "info");
   });
 
-  ([
-    [true, 0],
-    [false, 1],
-  ] as [boolean, number][]).forEach(([reverseValue, position]) => {
+  (
+    [
+      [true, 0],
+      [false, 1],
+    ] as [boolean, number][]
+  ).forEach(([reverseValue, position]) => {
     test(`should render with reverse prop set to ${reverseValue}`, async ({
       mount,
       page,
@@ -327,7 +330,7 @@ test.describe("should render RadioButton component", () => {
         <RadioButtonComponent
           label="Radiobutton Label"
           reverse={reverseValue}
-        />
+        />,
       );
       const expectedLabelChild = await radiobuttonComponent(page)
         .locator("div > div > div > div:not(input + div)")
@@ -345,7 +348,7 @@ test.describe("should render RadioButton component", () => {
         <RadioButtonComponent
           labelHelp="Tooltip info"
           tooltipPosition={position}
-        />
+        />,
       );
       const radiobuttonIconElement = await radiobuttonIcon(page);
       await radiobuttonIconElement.hover();
@@ -454,7 +457,7 @@ test.describe("Testing RadioButtonGroup component", () => {
     const radiobuttonSvgElement = await radiobuttonSvg(page).first();
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
-      VALIDATION.ERROR
+      VALIDATION.ERROR,
     );
   });
 
@@ -466,7 +469,7 @@ test.describe("Testing RadioButtonGroup component", () => {
     const radiobuttonSvgElement = await radiobuttonSvg(page).first();
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
-      VALIDATION.WARNING
+      VALIDATION.WARNING,
     );
   });
 
@@ -478,7 +481,7 @@ test.describe("Testing RadioButtonGroup component", () => {
     const radiobuttonSvgElement = await radiobuttonSvg(page).first();
     await expect(radiobuttonSvgElement).toHaveCSS(
       "border-bottom-color",
-      VALIDATION.INFO
+      VALIDATION.INFO,
     );
   });
 
@@ -490,7 +493,7 @@ test.describe("Testing RadioButtonGroup component", () => {
     const radiobuttonGroupErrorIcon = await radiobuttonGroupIcon(page);
     await expect(radiobuttonGroupErrorIcon).toHaveAttribute(
       "data-element",
-      "error"
+      "error",
     );
   });
 
@@ -502,7 +505,7 @@ test.describe("Testing RadioButtonGroup component", () => {
     const radiobuttonGroupWarningIcon = await radiobuttonGroupIcon(page);
     await expect(radiobuttonGroupWarningIcon).toHaveAttribute(
       "data-element",
-      "warning"
+      "warning",
     );
   });
 
@@ -514,36 +517,34 @@ test.describe("Testing RadioButtonGroup component", () => {
     const radiobuttonGroupInfoIcon = await radiobuttonGroupIcon(page);
     await expect(radiobuttonGroupInfoIcon).toHaveAttribute(
       "data-element",
-      "info"
+      "info",
     );
   });
 
-  ([
-    ["left", "start"],
-    ["right", "end"],
-  ] as [RadioButtonGroupProps["legendAlign"], string][]).forEach(
-    ([position, assertion]) => {
-      test(`should render RadioButtonGroup component with inline legend aligned to ${position}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <RadioButtonGroupComponent
-            legendWidth={20}
-            legendAlign={position}
-            legendInline
-          />
-        );
-        const radiobuttonGroupLegendElement = await radiobuttonGroupLegend(
-          page
-        );
-        await expect(radiobuttonGroupLegendElement).toHaveCSS(
-          "justify-content",
-          `flex-${assertion}`
-        );
-      });
-    }
-  );
+  (
+    [
+      ["left", "start"],
+      ["right", "end"],
+    ] as [RadioButtonGroupProps["legendAlign"], string][]
+  ).forEach(([position, assertion]) => {
+    test(`should render RadioButtonGroup component with inline legend aligned to ${position}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <RadioButtonGroupComponent
+          legendWidth={20}
+          legendAlign={position}
+          legendInline
+        />,
+      );
+      const radiobuttonGroupLegendElement = await radiobuttonGroupLegend(page);
+      await expect(radiobuttonGroupLegendElement).toHaveCSS(
+        "justify-content",
+        `flex-${assertion}`,
+      );
+    });
+  });
 
   [20, 40].forEach((width) => {
     test(`should render RadioButtonGroup component with inline legend width set to ${width}`, async ({
@@ -551,12 +552,12 @@ test.describe("Testing RadioButtonGroup component", () => {
       page,
     }) => {
       await mount(
-        <RadioButtonGroupComponent legendWidth={width} legendInline />
+        <RadioButtonGroupComponent legendWidth={width} legendInline />,
       );
       const radiobuttonGroupLegendElement = await radiobuttonGroupLegend(page);
       await expect(radiobuttonGroupLegendElement).toHaveAttribute(
         "width",
-        String(width)
+        String(width),
       );
     });
   });
@@ -568,38 +569,36 @@ test.describe("Testing RadioButtonGroup component", () => {
     await mount(
       <RadioButtonGroupComponent>
         <RadioButton id="radio-4" value="radio4" label="Don't Know" />
-      </RadioButtonGroupComponent>
+      </RadioButtonGroupComponent>,
     );
     const radiobuttonGroupElement = await radiobuttonGroup(page);
     await expect(radiobuttonGroupElement).toContainText("Don't Know");
   });
 
-  ([
-    [1, "8px"],
-    [2, "16px"],
-  ] as [RadioButtonGroupProps["legendSpacing"], string][]).forEach(
-    ([spacing, padding]) => {
-      test(`should render RadioButtonGroup component with legendSpacing set to ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <RadioButtonGroupComponent
-            legendSpacing={spacing}
-            legendWidth={10}
-            legendInline
-          />
-        );
-        const radiobuttonGroupLegendElement = await radiobuttonGroupLegend(
-          page
-        );
-        await expect(radiobuttonGroupLegendElement).toHaveCSS(
-          "padding-right",
-          padding
-        );
-      });
-    }
-  );
+  (
+    [
+      [1, "8px"],
+      [2, "16px"],
+    ] as [RadioButtonGroupProps["legendSpacing"], string][]
+  ).forEach(([spacing, padding]) => {
+    test(`should render RadioButtonGroup component with legendSpacing set to ${spacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <RadioButtonGroupComponent
+          legendSpacing={spacing}
+          legendWidth={10}
+          legendInline
+        />,
+      );
+      const radiobuttonGroupLegendElement = await radiobuttonGroupLegend(page);
+      await expect(radiobuttonGroupLegendElement).toHaveCSS(
+        "padding-right",
+        padding,
+      );
+    });
+  });
 
   (["top", "bottom", "left", "right"] as const).forEach((position) => {
     test(`should render RadioButtonGroup component with tooltip positioned to the ${position}`, async ({
@@ -610,7 +609,7 @@ test.describe("Testing RadioButtonGroup component", () => {
         <RadioButtonGroupComponent
           error="Something is wrong"
           tooltipPosition={position}
-        />
+        />,
       );
       const radiobuttonGroupIconElement = await radiobuttonGroupIcon(page);
       await radiobuttonGroupIconElement.hover();
@@ -618,7 +617,7 @@ test.describe("Testing RadioButtonGroup component", () => {
       await expect(tooltipPreviewElement).toHaveText("Something is wrong");
       await expect(tooltipPreviewElement).toHaveAttribute(
         "data-placement",
-        position
+        position,
       );
     });
   });
@@ -649,11 +648,13 @@ test.describe("Testing RadioButtonGroup component", () => {
     await expect(thirdRadiobuttonElement).toHaveCSS("margin-left", "32px");
   });
 
-  ([
-    [399, "left"],
-    [400, "left"],
-    [401, "none"],
-  ] as const).forEach(([breakpoint, float]) => {
+  (
+    [
+      [399, "left"],
+      [400, "left"],
+      [401, "none"],
+    ] as const
+  ).forEach(([breakpoint, float]) => {
     test(`should check RadioButtonGroup legend is ${breakpoint} with adaptiveLabelBreakpoint ${float} and viewport 400`, async ({
       mount,
       page,
@@ -663,7 +664,7 @@ test.describe("Testing RadioButtonGroup component", () => {
         <RadioButtonGroupComponent
           adaptiveLegendBreakpoint={breakpoint}
           adaptiveSpacingBreakpoint={breakpoint}
-        />
+        />,
       );
       const radiobuttonGroupLegendElement = await radiobuttonGroupLegend(page);
       await expect(radiobuttonGroupLegendElement).toHaveCSS("float", float);

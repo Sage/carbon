@@ -13,7 +13,7 @@ describe("CharacterCount", () => {
 
   beforeEach(() => {
     wrapper = mount(
-      <CharacterCount value={5} limit={10} isOverLimit={false} />
+      <CharacterCount value={5} limit={10} isOverLimit={false} />,
     );
   });
 
@@ -27,31 +27,31 @@ describe("CharacterCount", () => {
           marginBottom: "var(--spacing050)",
           color: "var(--colorsUtilityYin055)",
         },
-        wrapper.find(StyledCharacterCount)
+        wrapper.find(StyledCharacterCount),
       );
     });
 
     it("character counter has aria-hidden attribute", () => {
       expect(wrapper.find(StyledCharacterCount).prop("aria-hidden")).toBe(
-        "true"
+        "true",
       );
     });
 
     it("character counter has correct count", () => {
       expect(wrapper.find(StyledCharacterCount).text()).toBe(
-        "5 characters left"
+        "5 characters left",
       );
     });
 
     it("visually hidden character counter has aria-live='off'", () => {
       expect(wrapper.find(VisuallyHiddenCharacterCount).prop("aria-live")).toBe(
-        "off"
+        "off",
       );
     });
 
     it("visually hidden character counter has the same count message as visual character counter", () => {
       expect(wrapper.find(VisuallyHiddenCharacterCount).text()).toBe(
-        "5 characters left"
+        "5 characters left",
       );
     });
 
@@ -67,13 +67,13 @@ describe("CharacterCount", () => {
           width: "1px",
           whiteSpace: "nowrap",
         },
-        wrapper.find(VisuallyHiddenCharacterCount)
+        wrapper.find(VisuallyHiddenCharacterCount),
       );
     });
 
     it("visually hidden hint has correct message based on 'characterLimit", () => {
       expect(wrapper.find(VisuallyHiddenHint).text()).toBe(
-        "You can enter up to 10 characters"
+        "You can enter up to 10 characters",
       );
     });
 
@@ -89,7 +89,7 @@ describe("CharacterCount", () => {
           width: "1px",
           whiteSpace: "nowrap",
         },
-        wrapper.find(VisuallyHiddenHint)
+        wrapper.find(VisuallyHiddenHint),
       );
     });
   });
@@ -102,14 +102,14 @@ describe("CharacterCount", () => {
           fontWeight: "var(--fontWeights700)",
           color: "var(--colorsSemanticNegative500)",
         },
-        wrapper.find(StyledCharacterCount)
+        wrapper.find(StyledCharacterCount),
       );
     });
 
     it("character count string should be correct", () => {
       wrapper = mount(<CharacterCount value={4} limit={3} isOverLimit />);
       expect(wrapper.find(StyledCharacterCount).text()).toBe(
-        "1 character too many"
+        "1 character too many",
       );
     });
   });
@@ -117,10 +117,10 @@ describe("CharacterCount", () => {
   describe("when isOverLimit prop is false", () => {
     it("character count string should be correct", () => {
       wrapper = mount(
-        <CharacterCount value={2} limit={3} isOverLimit={false} />
+        <CharacterCount value={2} limit={3} isOverLimit={false} />,
       );
       expect(wrapper.find(StyledCharacterCount).text()).toBe(
-        "1 character left"
+        "1 character left",
       );
     });
   });

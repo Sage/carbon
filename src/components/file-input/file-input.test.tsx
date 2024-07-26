@@ -19,7 +19,11 @@ describe("rendering with no file uploaded", () => {
 
   it("accepts an accept prop and passes it to the underlying input", () => {
     render(
-      <FileInput label="file input" accept="image/*,.pdf" onChange={() => {}} />
+      <FileInput
+        label="file input"
+        accept="image/*,.pdf"
+        onChange={() => {}}
+      />,
     );
     const hiddenInput = screen.getByLabelText("file input");
     expect(hiddenInput).toHaveAttribute("accept", "image/*,.pdf");
@@ -53,7 +57,7 @@ describe("rendering with no file uploaded", () => {
         data-element="element-test"
         data-role="role-test"
         onChange={() => {}}
-      />
+      />,
     );
     const rootContainer = screen.getByTestId("role-test");
     expect(rootContainer).toHaveAttribute("data-component", "file-input");
@@ -64,7 +68,7 @@ describe("rendering with no file uploaded", () => {
     render(<FileInput error onChange={() => {}} />);
     const inputArea = screen.getByTestId("file-input-presentation");
     expect(inputArea).toHaveStyle(
-      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)"
+      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
     );
   });
 
@@ -74,14 +78,14 @@ describe("rendering with no file uploaded", () => {
     const inputArea = screen.getByTestId("file-input-presentation");
 
     expect(inputArea).toHaveStyle(
-      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)"
+      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative500)",
     );
     expect(screen.getByText("error text")).toBeVisible();
   });
 
   it("accepts a name prop and passes it to the underlying input", () => {
     render(
-      <FileInput label="file input" name="input-name" onChange={() => {}} />
+      <FileInput label="file input" name="input-name" onChange={() => {}} />,
     );
     const hiddenInput = screen.getByLabelText("file input");
     expect(hiddenInput).toHaveAttribute("name", "input-name");
@@ -103,7 +107,7 @@ describe("rendering with no file uploaded", () => {
       '"(optional)"',
       {
         modifier: "::after",
-      }
+      },
     );
   });
 
@@ -111,7 +115,7 @@ describe("rendering with no file uploaded", () => {
     render(<FileInput isVertical onChange={() => {}} />);
 
     expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
-      "flex-direction: column"
+      "flex-direction: column",
     );
   });
 
@@ -120,7 +124,7 @@ describe("rendering with no file uploaded", () => {
       current: null,
     };
     render(
-      <FileInput label="file input" ref={refObject} onChange={() => {}} />
+      <FileInput label="file input" ref={refObject} onChange={() => {}} />,
     );
     const hiddenInput = screen.getByLabelText("file input");
     expect(refObject.current).toStrictEqual(hiddenInput);
@@ -129,7 +133,7 @@ describe("rendering with no file uploaded", () => {
   it("accepts a callback ref", () => {
     const callbackRef = jest.fn();
     render(
-      <FileInput label="file input" ref={callbackRef} onChange={() => {}} />
+      <FileInput label="file input" ref={callbackRef} onChange={() => {}} />,
     );
     const hiddenInput = screen.getByLabelText("file input");
     expect(callbackRef).toHaveBeenCalledTimes(1);
@@ -172,7 +176,7 @@ describe("interactions", () => {
     });
 
     expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
-      "border: var(--borderWidth200) dashed var(--colorsUtilityMajor400)"
+      "border: var(--borderWidth200) dashed var(--colorsUtilityMajor400)",
     );
   });
 
@@ -187,7 +191,7 @@ describe("interactions", () => {
     });
 
     expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
-      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative600)"
+      "border: var(--borderWidth200) dashed var(--colorsSemanticNegative600)",
     );
   });
 
@@ -199,7 +203,7 @@ describe("interactions", () => {
     });
 
     expect(screen.getByTestId("file-input-presentation")).toHaveStyle(
-      "border: var(--borderWidth100) dashed var(--colorsUtilityMajor300)"
+      "border: var(--borderWidth100) dashed var(--colorsUtilityMajor300)",
     );
   });
 
@@ -296,13 +300,13 @@ describe("with uploadStatus prop set", () => {
           label="file input"
           uploadStatus={statusProps}
           onChange={() => {}}
-        />
+        />,
       );
       const hiddenInput = screen.queryByLabelText("file input");
       const button = screen.queryByRole("button", { name: "Select file" });
       expect(hiddenInput).not.toBeInTheDocument();
       expect(button).not.toBeInTheDocument();
-    }
+    },
   );
 
   it("when the status is `uploading` and progress is set, a progress tracker is rendered", () => {
@@ -315,7 +319,7 @@ describe("with uploadStatus prop set", () => {
           progress: 30,
         }}
         onChange={() => {}}
-      />
+      />,
     );
     expect(screen.getByTestId("progress-tracker-bar")).toBeVisible();
     expect(screen.getByTestId("inner-bar")).toHaveStyle({ width: "30%" });
@@ -331,7 +335,7 @@ describe("with uploadStatus prop set", () => {
           href: "http://carbon.sage.com",
         }}
         onChange={() => {}}
-      />
+      />,
     );
     expect(screen.getByRole("link", { name: "foo.pdf" })).toBeVisible();
     expect(screen.getByText("File upload status")).toBeVisible();
@@ -347,7 +351,7 @@ describe("with uploadStatus prop set", () => {
           href: "http://carbon.sage.com",
         }}
         onChange={() => {}}
-      />
+      />,
     );
     expect(screen.getByRole("link", { name: "foo.pdf" })).toBeVisible();
     expect(screen.queryByText("File upload status")).not.toBeInTheDocument();
@@ -362,13 +366,13 @@ describe("with uploadStatus prop set", () => {
           onAction: () => {},
         }}
         onChange={() => {}}
-      />
+      />,
     );
 
     const fileUploadStatus = screen.getByTestId("file-upload-status");
 
     expect(fileUploadStatus).toHaveStyle(
-      "border: var(--borderWidth200) solid var(--colorsSemanticNegative500)"
+      "border: var(--borderWidth200) solid var(--colorsSemanticNegative500)",
     );
   });
 });

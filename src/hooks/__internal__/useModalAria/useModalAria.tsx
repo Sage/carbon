@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import TopModalContext from "../../../components/carbon-provider/__internal__/top-modal.context";
 
 export default function useModalAria(
-  containerRef: React.RefObject<HTMLDivElement>
+  containerRef: React.RefObject<HTMLDivElement>,
 ) {
   const { topModal } = useContext(TopModalContext);
   const isTopModal = topModal?.contains(containerRef.current);
@@ -62,7 +62,7 @@ export default function useModalAria(
           } else {
             element.setAttribute("inert", inert);
           }
-        }
+        },
       );
   }, [topModal, isTopModal]);
 

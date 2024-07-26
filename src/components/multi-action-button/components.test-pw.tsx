@@ -8,7 +8,7 @@ import Box from "../box";
 import { Accordion } from "../accordion";
 
 export const MultiActionButtonList = (
-  props: Partial<MultiActionButtonProps>
+  props: Partial<MultiActionButtonProps>,
 ) => {
   return (
     <Box>
@@ -60,7 +60,7 @@ export const WithWrapper = (props: Partial<MultiActionButtonProps>) => (
   </MultiActionButton>
 );
 export const WithWrapperTwoButtons = (
-  props: Partial<MultiActionButtonProps>
+  props: Partial<MultiActionButtonProps>,
 ) => (
   <Box>
     <MultiActionButton text="Multi Action Button" {...props}>
@@ -77,7 +77,7 @@ export const WithWrapperTwoButtons = (
 );
 
 export const MultiActionTwoButtons = (
-  props: Partial<MultiActionButtonProps>
+  props: Partial<MultiActionButtonProps>,
 ) => {
   return (
     <Box>

@@ -12,7 +12,7 @@ test("should render with required props", () => {
     <Note
       createdDate="23 May 2020, 12:08 PM"
       noteContent={EditorState.createEmpty()}
-    />
+    />,
   );
 
   expect(screen.getByText("23 May 2020, 12:08 PM")).toBeVisible();
@@ -24,7 +24,7 @@ test("should render with provided `title` prop", () => {
       createdDate="23 May 2020, 12:08 PM"
       noteContent={EditorState.createEmpty()}
       title="Title"
-    />
+    />,
   );
 
   expect(screen.getByRole("banner")).toHaveTextContent("Title");
@@ -36,7 +36,7 @@ test("should render with provided `name` prop", () => {
       createdDate="23 May 2020, 12:08 PM"
       noteContent={EditorState.createEmpty()}
       name="Carbon"
-    />
+    />,
   );
 
   expect(screen.getByText("Carbon")).toBeVisible();
@@ -52,7 +52,7 @@ test("should render tooltip containing status `timeStamp` when status `text` is 
         text: "Edited",
         timeStamp: "23 May 2020, 12:10 PM",
       }}
-    />
+    />,
   );
 
   const statusText = screen.getByText("Edited");
@@ -76,7 +76,7 @@ test("should render LinkPreviews when passed via the `previews` prop as an array
       createdDate="23 May 2020, 12:08 PM"
       noteContent={EditorState.createEmpty()}
       previews={previews}
-    />
+    />,
   );
 
   const links = screen.getAllByRole("link");
@@ -97,7 +97,7 @@ test("should render LinkPreviews when passed via the `previews` prop as a node",
       createdDate="23 May 2020, 12:08 PM"
       noteContent={EditorState.createEmpty()}
       previews={previews}
-    />
+    />,
   );
 
   const links = screen.getAllByRole("link");
@@ -119,7 +119,7 @@ test("should render with `ActionPopover` when passed via the `inlineControl` pro
       createdDate="23 May 2020, 12:08 PM"
       noteContent={EditorState.createEmpty()}
       inlineControl={inlineControl}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("button", { name: "actions" }));
@@ -136,8 +136,8 @@ test("should throw when `inlineControls` is not an instance of `ActionPopover`",
         createdDate="23 May 2020, 12:08 PM"
         noteContent={EditorState.createEmpty()}
         inlineControl={<button type="button">A Button</button>}
-      />
-    )
+      />,
+    ),
   ).toThrow("<Note> inlineControl must be an instance of <ActionPopover>");
   spy.mockRestore();
 });
@@ -150,8 +150,8 @@ test("should throw when width is 0", () => {
         createdDate="23 May 2020, 12:08 PM"
         noteContent={EditorState.createEmpty()}
         width={0}
-      />
-    )
+      />,
+    ),
   ).toThrow("<Note> width must be greater than 0");
   spy.mockRestore();
 });

@@ -28,7 +28,7 @@ describe("CardRow", () => {
         py: "var(--spacing300)",
       },
       undefined,
-      { modifier: "&&" }
+      { modifier: "&&" },
     );
   });
 
@@ -44,16 +44,16 @@ describe("CardRow", () => {
           <CardRow>
             <div />
           </CardRow>
-        </CardContext.Provider>
+        </CardContext.Provider>,
       );
       assertStyleMatch(
         {
           paddingTop: expected,
           paddingBottom: expected,
         },
-        wrapper.find(CardRow)
+        wrapper.find(CardRow),
       );
-    }
+    },
   );
 
   it("should have expected data attributes", () => {
@@ -61,21 +61,21 @@ describe("CardRow", () => {
       mount(
         <CardRow>
           <div />
-        </CardRow>
+        </CardRow>,
       ).find(StyledCardRow),
       "card-row",
-      "card-row"
+      "card-row",
     );
 
     rootTagTest(
       mount(
         <CardRow data-element="foo" data-role="bar">
           <div />
-        </CardRow>
+        </CardRow>,
       ).find(StyledCardRow),
       "card-row",
       "foo",
-      "bar"
+      "bar",
     );
   });
 });

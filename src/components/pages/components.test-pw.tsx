@@ -48,7 +48,7 @@ export const DefaultStory = ({
       | React.MouseEvent<HTMLAnchorElement>
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     setIsDisabled(true);
     setTimeout(() => {
@@ -107,13 +107,13 @@ export const DefaultStory = ({
 };
 
 export const PagesComponent = (
-  props: Partial<PageStoryProps> & Partial<PagesProps>
+  props: Partial<PageStoryProps> & Partial<PagesProps>,
 ) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pageIndex, setPageIndex] = useState(
     Number(props.initialPageIndex)
       ? Number(props.initialPageIndex)
-      : undefined || 0
+      : undefined || 0,
   );
   const [isDisabled, setIsDisabled] = React.useState(false);
 
@@ -143,7 +143,7 @@ export const PagesComponent = (
       | React.MouseEvent<HTMLAnchorElement>
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => {
     setIsDisabled(true);
     setTimeout(() => {

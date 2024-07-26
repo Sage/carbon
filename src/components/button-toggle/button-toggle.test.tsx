@@ -12,7 +12,7 @@ test("should display a deprecation warning for uncontrolled behaviour which is t
   render(<ButtonToggle>Button</ButtonToggle>);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1);
   loggerSpy.mockRestore();
@@ -25,7 +25,7 @@ test("should display a deprecation warning for the `grouped` prop which is trigg
   render(<ButtonToggle grouped>Button</ButtonToggle>);
 
   expect(loggerSpy).toHaveBeenCalledWith(
-    "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed."
+    "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed.",
   );
   expect(loggerSpy).toHaveBeenCalledTimes(1); // total two times to account for uncontrolled behaviour warning
   loggerSpy.mockRestore();
@@ -65,7 +65,7 @@ test("should call `onFocus` passed via InputGroupContext when the button is focu
   render(
     <InputGroupContext.Provider value={{ onFocus: contextOnFocus }}>
       <ButtonToggle>Button</ButtonToggle>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -78,7 +78,7 @@ test("should call `onBlur` passed via InputGroupContext when the button is blurr
   render(
     <InputGroupContext.Provider value={{ onBlur: contextOnBlur }}>
       <ButtonToggle>Button</ButtonToggle>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -92,7 +92,7 @@ test("should call `onMouseEnter` passed via InputGroupContext when the button is
   render(
     <InputGroupContext.Provider value={{ onMouseEnter: contextOnMouseEnter }}>
       <ButtonToggle>Button</ButtonToggle>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   await user.hover(screen.getByRole("button"));
@@ -105,7 +105,7 @@ test("should call `onMouseLeave` passed via InputGroupContext when the button is
   render(
     <InputGroupContext.Provider value={{ onMouseLeave: contextOnMouseLeave }}>
       <ButtonToggle>Button</ButtonToggle>
-    </InputGroupContext.Provider>
+    </InputGroupContext.Provider>,
   );
 
   await user.hover(screen.getByRole("button"));
@@ -130,7 +130,7 @@ test("should render disabled button with expected styles when pressed is set", (
   render(
     <ButtonToggle disabled pressed>
       Button
-    </ButtonToggle>
+    </ButtonToggle>,
   );
 
   expect(screen.getByRole("button")).toBeDisabled();
@@ -152,7 +152,7 @@ test("should render with expected styles when buttonIcon is set and buttonIconSi
   render(
     <ButtonToggle buttonIcon="add" buttonIconSize="large">
       Button
-    </ButtonToggle>
+    </ButtonToggle>,
   );
 
   expect(screen.getByTestId("button-toggle-icon")).toHaveStyle({
@@ -173,7 +173,7 @@ test("should throw an error when neither children or a `buttonIcon` is provided"
   const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
   expect(() => render(<ButtonToggle />)).toThrow(
-    "Either prop `buttonIcon` must be defined, or this node must have children"
+    "Either prop `buttonIcon` must be defined, or this node must have children",
   );
 
   consoleSpy.mockRestore();

@@ -13,7 +13,7 @@ const styledSystemProps = generateStyledSystemProps(
   {
     spacing: true,
   },
-  { pt: "1px", pb: "1px", px: "24px" }
+  { pt: "1px", pb: "1px", px: "24px" },
 );
 
 const meta: Meta<typeof ButtonBar> = {
@@ -106,7 +106,7 @@ export const buttonBarIcons: Story = () => {
             <Button iconType="pdf">{iconPosition}</Button>
             <Button iconType="delete">{iconPosition}</Button>
           </ButtonBar>
-        ))
+        )),
       )}
     </>
   );
@@ -132,7 +132,7 @@ export const buttonBarMinorIcons: Story = () => {
             <ButtonMinor iconType="pdf">{iconPosition}</ButtonMinor>
             <ButtonMinor iconType="delete">{iconPosition}</ButtonMinor>
           </ButtonBar>
-        ))
+        )),
       )}
     </>
   );

@@ -24,7 +24,7 @@ function renderWithTheme(
   return mount(
     <ThemeProvider theme={theme}>
       <SwitchSlider {...props} />
-    </ThemeProvider>
+    </ThemeProvider>,
   );
 }
 
@@ -80,7 +80,7 @@ describe("SwitchSlider", () => {
           {
             backgroundColor: "var(--colorsActionMinor500)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -90,7 +90,7 @@ describe("SwitchSlider", () => {
             marginLeft: "calc( 100% - var(--spacing300) )",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
       });
     });
@@ -103,7 +103,7 @@ describe("SwitchSlider", () => {
           {
             borderColor: "var(--colorsActionDisabled600)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -113,7 +113,7 @@ describe("SwitchSlider", () => {
             backgroundColor: "var(--colorsActionDisabled600)",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
       });
 
@@ -125,7 +125,7 @@ describe("SwitchSlider", () => {
           wrapper,
           {
             modifier: `${SwitchSliderPanel}`,
-          }
+          },
         );
       });
     });
@@ -143,7 +143,7 @@ describe("SwitchSlider", () => {
           wrapper,
           {
             modifier: `${SwitchSliderPanel}`,
-          }
+          },
         );
       });
     });
@@ -159,7 +159,7 @@ describe("SwitchSlider", () => {
               width: "var(--spacing400)",
             },
             wrapper,
-            { modifier: "::before" }
+            { modifier: "::before" },
           );
         });
       });
@@ -175,7 +175,7 @@ describe("SwitchSlider", () => {
               marginLeft: "calc( 100% - var(--spacing500) )",
             },
             wrapper,
-            { modifier: "::before" }
+            { modifier: "::before" },
           );
         });
       });
@@ -191,7 +191,7 @@ describe("SwitchSlider", () => {
           {
             borderColor: "var(--colorsActionMinor400)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -201,7 +201,7 @@ describe("SwitchSlider", () => {
             backgroundColor: "var(--colorsActionMinor400)",
           },
           wrapper,
-          { modifier: "::before" }
+          { modifier: "::before" },
         );
       });
     });
@@ -216,7 +216,7 @@ describe("SwitchSlider", () => {
           {
             backgroundColor: "var(--colorsActionMinor500)",
           },
-          wrapper
+          wrapper,
         );
       });
     });
@@ -231,7 +231,7 @@ describe("SwitchSlider", () => {
           {
             borderColor: "var(--colorsActionDisabled600)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -243,7 +243,7 @@ describe("SwitchSlider", () => {
           wrapper,
           {
             modifier: `${SwitchSliderPanel}`,
-          }
+          },
         );
       });
     });
@@ -259,7 +259,7 @@ describe("SwitchSlider", () => {
           {
             backgroundColor: "var(--colorsActionDisabled500)",
           },
-          wrapper
+          wrapper,
         );
       });
 
@@ -271,7 +271,7 @@ describe("SwitchSlider", () => {
           wrapper,
           {
             modifier: `${SwitchSliderPanel}`,
-          }
+          },
         );
       });
     });
@@ -286,9 +286,9 @@ describe("SwitchSlider", () => {
           {
             borderRadius: "var(--borderRadius400)",
           },
-          wrapper
+          wrapper,
         );
-      }
+      },
     );
 
     it.each<SwitchSliderProps["size"]>(["small", "large"])(
@@ -297,15 +297,15 @@ describe("SwitchSlider", () => {
         const wrapper = mount(
           <CarbonProvider roundedCornersOptOut>
             <SwitchSlider size={size} />
-          </CarbonProvider>
+          </CarbonProvider>,
         );
         assertStyleMatch(
           {
             borderRadius: size === "large" ? "30px" : "90px",
           },
-          wrapper.find(StyledSwitchSlider)
+          wrapper.find(StyledSwitchSlider),
         );
-      }
+      },
     );
   });
 });

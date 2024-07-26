@@ -21,7 +21,7 @@ describe("Breadcrumbs", () => {
         <Crumb href="#" isCurrent>
           Breadcrumb
         </Crumb>
-      </Breadcrumbs>
+      </Breadcrumbs>,
     );
 
     const crumbElement = screen.getAllByText("Breadcrumb");

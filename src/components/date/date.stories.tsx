@@ -262,28 +262,29 @@ export const ValidationsStringComponent: Story = () => {
 };
 ValidationsStringComponent.storyName = "Validations - String - Component";
 
-export const ValidationsStringWithTooltipPositionOverriddenComponent: Story = () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
+export const ValidationsStringWithTooltipPositionOverriddenComponent: Story =
+  () => {
+    const [state, setState] = useState("01/10/2016");
+    const setValue = (ev: DateChangeEvent) => {
+      setState(ev.target.value.formattedValue);
+    };
+    return (
+      <>
+        {["error", "warning", "info"].map((validationType) => (
+          <div key={`${validationType}-string-component`}>
+            <DateInput
+              label="Date"
+              value={state}
+              onChange={setValue}
+              {...{ [validationType]: "Message" }}
+              mb={2}
+              tooltipPosition="top"
+            />
+          </div>
+        ))}
+      </>
+    );
   };
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <DateInput
-            label="Date"
-            value={state}
-            onChange={setValue}
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="top"
-          />
-        </div>
-      ))}
-    </>
-  );
-};
 ValidationsStringWithTooltipPositionOverriddenComponent.storyName =
   "Validations - String - With Tooltip Position Overridden";
 ValidationsStringWithTooltipPositionOverriddenComponent.parameters = {
@@ -327,29 +328,30 @@ export const ValidationsStringLabel: Story = () => {
 };
 ValidationsStringLabel.storyName = "Validations - String - Label";
 
-export const ValidationsStringWithTooltipPositionOverriddenLabel: Story = () => {
-  const [state, setState] = useState("01/10/2016");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
+export const ValidationsStringWithTooltipPositionOverriddenLabel: Story =
+  () => {
+    const [state, setState] = useState("01/10/2016");
+    const setValue = (ev: DateChangeEvent) => {
+      setState(ev.target.value.formattedValue);
+    };
+    return (
+      <>
+        {["error", "warning", "info"].map((validationType) => (
+          <div key={`${validationType}-string-component`}>
+            <DateInput
+              label="Date"
+              value={state}
+              onChange={setValue}
+              validationOnLabel
+              {...{ [validationType]: "Message" }}
+              mb={2}
+              tooltipPosition="top"
+            />
+          </div>
+        ))}
+      </>
+    );
   };
-  return (
-    <>
-      {["error", "warning", "info"].map((validationType) => (
-        <div key={`${validationType}-string-component`}>
-          <DateInput
-            label="Date"
-            value={state}
-            onChange={setValue}
-            validationOnLabel
-            {...{ [validationType]: "Message" }}
-            mb={2}
-            tooltipPosition="top"
-          />
-        </div>
-      ))}
-    </>
-  );
-};
 ValidationsStringWithTooltipPositionOverriddenLabel.storyName =
   "Validations - String - With Tooltip Position Overridden";
 ValidationsStringWithTooltipPositionOverriddenLabel.parameters = {
@@ -391,7 +393,7 @@ export const ValidationsStringNewDesign: Story = () => {
               m={4}
             />
           </div>
-        ))
+        )),
       )}
     </CarbonProvider>
   );

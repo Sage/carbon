@@ -97,23 +97,19 @@ const CheckableInput = React.forwardRef(
       warning,
       ...props
     }: CheckableInputProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    ref: React.ForwardedRef<HTMLInputElement>,
   ) => {
     const { current: id } = useRef(inputId || guid());
 
-    const {
-      labelId,
-      fieldHelpId,
-      validationId,
-      ariaDescribedBy,
-    } = useInputAccessibility({
-      id,
-      error,
-      warning,
-      info,
-      label,
-      fieldHelp,
-    });
+    const { labelId, fieldHelpId, validationId, ariaDescribedBy } =
+      useInputAccessibility({
+        id,
+        error,
+        warning,
+        info,
+        label,
+        fieldHelp,
+      });
 
     const formFieldProps: FormFieldProps = {
       disabled,
@@ -179,7 +175,7 @@ const CheckableInput = React.forwardRef(
         </InputBehaviour>
       </StyledCheckableInputWrapper>
     );
-  }
+  },
 );
 
 CheckableInput.displayName = "CheckableInput";

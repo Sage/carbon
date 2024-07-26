@@ -28,14 +28,14 @@ test("should update the input values to match the 'en-GB' locale's format when i
       endLabel="end"
       value={["2016-10-10", "2016-11-11"]}
       onChange={() => {}}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
-    "10/10/2016"
+    "10/10/2016",
   );
   expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
-    "11/11/2016"
+    "11/11/2016",
   );
 });
 
@@ -48,7 +48,7 @@ test("should not update the input values to match the 'en-GB' locale's format wh
       onChange={() => {}}
       startDateProps={{ allowEmptyValue: true }}
       endDateProps={{ allowEmptyValue: true }}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "start" })).toHaveValue("");
@@ -66,7 +66,7 @@ test("should call the `onChange` callback with the expected values when the 'sta
       onChange={onChange}
       id="foo"
       name="bar"
-    />
+    />,
   );
   await user.type(screen.getByRole("textbox", { name: "start" }), "15/10/2016");
 
@@ -93,7 +93,7 @@ test("should call the `onChange` callback with the expected values when the 'end
       onChange={onChange}
       id="foo"
       name="bar"
-    />
+    />,
   );
   await user.type(screen.getByRole("textbox", { name: "end" }), "15/10/2016");
 
@@ -121,7 +121,7 @@ test("should call the `onChange` callback with the expected values when the 'sta
       id="foo"
       name="bar"
       startDateProps={{ allowEmptyValue: true }}
-    />
+    />,
   );
   await user.clear(screen.getByRole("textbox", { name: "start" }));
 
@@ -148,7 +148,7 @@ test("should call the `onChange` callback with the expected values when the 'sta
       onChange={onChange}
       id="foo"
       name="bar"
-    />
+    />,
   );
   await user.clear(screen.getByRole("textbox", { name: "start" }));
 
@@ -176,7 +176,7 @@ test("should call the `onChange` callback with the expected values when the 'end
       id="foo"
       name="bar"
       endDateProps={{ allowEmptyValue: true }}
-    />
+    />,
   );
   await user.clear(screen.getByRole("textbox", { name: "end" }));
 
@@ -203,7 +203,7 @@ test("should call the `onChange` callback with the expected values when the 'end
       onChange={onChange}
       id="foo"
       name="bar"
-    />
+    />,
   );
   await user.clear(screen.getByRole("textbox", { name: "end" }));
 
@@ -230,7 +230,7 @@ test("should call the `onChange` callback with the expected values when the 'sta
       onChange={onChange}
       id="foo"
       name="bar"
-    />
+    />,
   );
   await user.type(screen.getByRole("textbox", { name: "start" }), "foo");
 
@@ -257,7 +257,7 @@ test("should call the `onChange` callback with the expected values when the 'end
       onChange={onChange}
       id="foo"
       name="bar"
-    />
+    />,
   );
   await user.type(screen.getByRole("textbox", { name: "end" }), "foo");
 
@@ -414,7 +414,7 @@ test("should not call `onBlur` callback when focus moves from 'start' to 'end' i
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("textbox", { name: "start" }));
@@ -434,7 +434,7 @@ test("should not call `onBlur` callback when focus moves from 'end' to 'start' i
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
-    />
+    />,
   );
 
   await user.click(screen.getByRole("textbox", { name: "end" }));
@@ -454,7 +454,7 @@ test("should call `onBlur` callback with expected values when user types a value
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
-    />
+    />,
   );
   await user.type(screen.getByRole("textbox", { name: "start" }), "15/10/2016");
   await user.tab({ shift: true });
@@ -480,7 +480,7 @@ test("should call `onBlur` callback with expected values when user types a value
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
-    />
+    />,
   );
   await user.type(screen.getByRole("textbox", { name: "end" }), "15/10/2016");
   await user.tab();
@@ -507,7 +507,7 @@ test("should call `onBlur` callback with expected values when user clears the 's
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
       startDateProps={{ allowEmptyValue: true }}
-    />
+    />,
   );
   await user.clear(screen.getByRole("textbox", { name: "start" }));
   await user.tab({ shift: true });
@@ -534,7 +534,7 @@ test("should call `onBlur` callback with expected values when user clears the 'e
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
       endDateProps={{ allowEmptyValue: true }}
-    />
+    />,
   );
   await user.clear(screen.getByRole("textbox", { name: "end" }));
   await user.tab();
@@ -560,7 +560,7 @@ test("should call `onBlur` callback with expected values when user clears the 's
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
-    />
+    />,
   );
   await user.clear(screen.getByRole("textbox", { name: "start" }));
   await user.tab({ shift: true });
@@ -586,7 +586,7 @@ test("should call `onBlur` callback with expected values when user clears the 'e
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
-    />
+    />,
   );
   await user.clear(screen.getByRole("textbox", { name: "end" }));
   await user.tab();
@@ -612,7 +612,7 @@ test("should call `onBlur` callback with expected values when user enters invali
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
-    />
+    />,
   );
   await user.type(screen.getByRole("textbox", { name: "start" }), "foo");
   await user.tab({ shift: true });
@@ -638,7 +638,7 @@ test("should call `onBlur` callback with expected values when user enters invali
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       onBlur={onBlur}
-    />
+    />,
   );
   await user.type(screen.getByRole("textbox", { name: "end" }), "foo");
   await user.tab();
@@ -663,7 +663,7 @@ test("should close the open 'start' picker when the user moves focus to the `end
       onChange={() => {}}
       startDateProps={{ disablePortal: true, "data-role": "start" }}
       endDateProps={{ disablePortal: true, "data-role": "end" }}
-    />
+    />,
   );
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
@@ -689,7 +689,7 @@ test("should close the open 'end' picker when the user moves focus to the `start
       onChange={() => {}}
       startDateProps={{ disablePortal: true, "data-role": "start" }}
       endDateProps={{ disablePortal: true, "data-role": "end" }}
-    />
+    />,
   );
   const startDate = screen.getByTestId("start");
   const endDate = screen.getByTestId("end");
@@ -713,7 +713,7 @@ test("should set the `disabled` attribute on the 'start' input when the prop is 
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       startDateProps={{ disabled: true }}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "start" })).toBeDisabled();
@@ -727,7 +727,7 @@ test("should set the `disabled` attribute on the 'end' input when the prop is se
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       endDateProps={{ disabled: true }}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "end" })).toBeDisabled();
@@ -741,11 +741,11 @@ test("should set the `readOnly` attribute on the 'start' input when the prop is 
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       startDateProps={{ readOnly: true }}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "start" })).toHaveAttribute(
-    "readonly"
+    "readonly",
   );
 });
 
@@ -757,11 +757,11 @@ test("should set the `readOnly` attribute on the 'end' input when the prop is se
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       endDateProps={{ readOnly: true }}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "end" })).toHaveAttribute(
-    "readonly"
+    "readonly",
   );
 });
 
@@ -773,7 +773,7 @@ test("should set the `required` attribute on both inputs when the prop is set", 
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       required
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "start" })).toBeRequired();
@@ -788,14 +788,14 @@ test("should override the `value` on the 'start' input when the prop is set on `
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       startDateProps={{ value: "01/01/2001" }}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
-    "01/01/2001"
+    "01/01/2001",
   );
   expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
-    "11/11/2016"
+    "11/11/2016",
   );
 });
 
@@ -807,14 +807,14 @@ test("should override the `value` on the 'end' input when the prop is set on `en
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       endDateProps={{ value: "01/01/2001" }}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "start" })).toHaveValue(
-    "10/10/2016"
+    "10/10/2016",
   );
   expect(screen.getByRole("textbox", { name: "end" })).toHaveValue(
-    "01/01/2001"
+    "01/01/2001",
   );
 });
 
@@ -827,7 +827,7 @@ test("should support passing custom class names via `startDateProps` and `endDat
       value={["10/10/2016", "11/11/2016"]}
       startDateProps={{ className: "foo" }}
       endDateProps={{ className: "bar" }}
-    />
+    />,
   );
 
   expect(screen.getByRole("textbox", { name: "start" })).toHaveClass("foo");
@@ -843,7 +843,7 @@ test("should support rendering the component with `data-` tags", () => {
       value={["10/10/2016", "11/11/2016"]}
       data-element="foo"
       data-role="bar"
-    />
+    />,
   );
   const dateRange = screen.getByTestId("bar");
 
@@ -860,12 +860,12 @@ test("should set the `data-element` attribute internally on each individual date
       value={["10/10/2016", "11/11/2016"]}
       startDateProps={{ "data-role": "start" }}
       endDateProps={{ "data-role": "end" }}
-    />
+    />,
   );
 
   expect(screen.getByTestId("start")).toHaveAttribute(
     "data-element",
-    "start-date"
+    "start-date",
   );
   expect(screen.getByTestId("end")).toHaveAttribute("data-element", "end-date");
 });
@@ -879,7 +879,7 @@ test("should support ref as an object on the 'start' input", () => {
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       startRef={ref}
-    />
+    />,
   );
 
   expect(ref.current).toBe(screen.getByRole("textbox", { name: "start" }));
@@ -894,11 +894,11 @@ test("should support ref as a callback on the 'start' input", () => {
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       startRef={ref}
-    />
+    />,
   );
 
   expect(ref).toHaveBeenCalledWith(
-    screen.getByRole("textbox", { name: "start" })
+    screen.getByRole("textbox", { name: "start" }),
   );
 });
 
@@ -911,7 +911,7 @@ test("should set the ref on the 'start' input to null after the component is unm
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       startRef={ref}
-    />
+    />,
   );
   unmount();
 
@@ -927,7 +927,7 @@ test("should support ref as an object on the 'end' input", () => {
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       endRef={ref}
-    />
+    />,
   );
 
   expect(ref.current).toBe(screen.getByRole("textbox", { name: "end" }));
@@ -942,11 +942,11 @@ test("should support ref as a callback on the 'end' input", () => {
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       endRef={ref}
-    />
+    />,
   );
 
   expect(ref).toHaveBeenCalledWith(
-    screen.getByRole("textbox", { name: "end" })
+    screen.getByRole("textbox", { name: "end" }),
   );
 });
 
@@ -959,7 +959,7 @@ test("should set the ref on the 'end' input to null after the component is unmou
       endLabel="end"
       value={["10/10/2016", "11/11/2016"]}
       endRef={ref}
-    />
+    />,
   );
   unmount();
 
@@ -978,7 +978,7 @@ test("should only display the start input tooltip when the user hovers over it a
         startError="start error"
         endError="end error"
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const start = screen.getByRole("textbox", { name: "start" });
@@ -1007,7 +1007,7 @@ test("should only display the end input tooltip when the user hovers over it and
         startError="start error"
         endError="end error"
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   const end = screen.getByRole("textbox", { name: "end" });
@@ -1037,7 +1037,7 @@ test("should display the error message for both inputs when strings are passed t
         startDateProps={{ "data-role": "start" }}
         endDateProps={{ "data-role": "end" }}
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const start = screen.getByTestId("start");
   const end = screen.getByTestId("end");
@@ -1059,7 +1059,7 @@ test("should not display the error message for both inputs when booleans are pas
         startDateProps={{ "data-role": "start" }}
         endDateProps={{ "data-role": "end" }}
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const start = screen.getByTestId("start");
   const end = screen.getByTestId("end");
@@ -1081,7 +1081,7 @@ test("should display the warning message for both inputs when strings are passed
         startDateProps={{ "data-role": "start" }}
         endDateProps={{ "data-role": "end" }}
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const start = screen.getByTestId("start");
   const end = screen.getByTestId("end");
@@ -1103,7 +1103,7 @@ test("should not display the warning message for both inputs when booleans are p
         startDateProps={{ "data-role": "start" }}
         endDateProps={{ "data-role": "end" }}
       />
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const start = screen.getByTestId("start");
   const end = screen.getByTestId("end");
@@ -1122,7 +1122,7 @@ test("should have the expected styling when the `labelsInline` prop is set", () 
       labelsInline
       startDateProps={{ "data-role": "start" }}
       endDateProps={{ "data-role": "end" }}
-    />
+    />,
   );
 
   expect(screen.getByTestId("start")).toHaveStyle("vertical-align: top");

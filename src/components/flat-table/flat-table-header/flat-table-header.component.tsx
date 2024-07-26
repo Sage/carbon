@@ -43,7 +43,7 @@ export const FlatTableHeader = ({
   const internalId = useRef(id || guid());
   const { colorTheme } = useContext(FlatTableContext);
   const { leftPosition, rightPosition, makeCellSticky } = useTableCell(
-    internalId.current
+    internalId.current,
   );
 
   return (

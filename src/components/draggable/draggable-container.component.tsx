@@ -15,7 +15,7 @@ export interface DraggableContainerProps
   /** Callback fired when order is changed */
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],
-    movedItemId?: string | number | undefined
+    movedItemId?: string | number | undefined,
   ) => void;
   /**
    * The content of the component
@@ -33,7 +33,7 @@ const DraggableContainer = ({
   ...rest
 }: DraggableContainerProps): JSX.Element => {
   const [draggableItems, setDraggableItems] = useState(
-    React.Children.toArray(children)
+    React.Children.toArray(children),
   );
 
   const hasProperChildren = useMemo(
@@ -42,15 +42,15 @@ const DraggableContainer = ({
         (child) =>
           React.isValidElement(child) &&
           (child.type as React.FunctionComponent).displayName ===
-            DraggableItem.displayName
+            DraggableItem.displayName,
       ),
-    [children]
+    [children],
   );
 
   // `<DraggableItem />` is required to make `Draggable` work
   invariant(
     hasProperChildren,
-    `\`${DraggableContainer.displayName}\` only accepts children of type \`${DraggableItem.displayName}\`.`
+    `\`${DraggableContainer.displayName}\` only accepts children of type \`${DraggableItem.displayName}\`.`,
   );
 
   const isFirstRender = useRef(true);
@@ -92,7 +92,7 @@ const DraggableContainer = ({
     }
 
     const draggableItemIds = draggableItems.map(
-      (draggableItem) => (draggableItem as { props: { id: string } }).props.id
+      (draggableItem) => (draggableItem as { props: { id: string } }).props.id,
     );
 
     getOrder(draggableItemIds, item);
@@ -118,7 +118,7 @@ const DraggableContainer = ({
                 findItem,
                 moveItem,
               },
-              [item.props.children]
+              [item.props.children],
             )
           );
         })}

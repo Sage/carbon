@@ -1,3 +1,4 @@
+
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import { AdvancedColorPickerCustom } from "./components.test-pw";

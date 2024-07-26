@@ -193,36 +193,35 @@ const StyledButtonToggleWrapper = styled.div<StyledButtonToggleWrapperProps>`
   display: inline-block;
   vertical-align: middle;
 
-  ${({ grouped }) =>
+  ${({ grouped }) => css`
+    ${!grouped &&
     css`
-      ${!grouped &&
-      css`
-        &&&& {
-          ${StyledButtonToggle} {
-            border-radius: var(--borderRadius050);
-          }
+      &&&& {
+        ${StyledButtonToggle} {
+          border-radius: var(--borderRadius050);
         }
-      `}
-
-      ${grouped &&
-      css`
-        &&&& {
-          :first-of-type {
-            ${StyledButtonToggle} {
-              border-top-left-radius: var(--borderRadius050);
-              border-bottom-left-radius: var(--borderRadius050);
-            }
-          }
-
-          :last-of-type {
-            ${StyledButtonToggle} {
-              border-top-right-radius: var(--borderRadius050);
-              border-bottom-right-radius: var(--borderRadius050);
-            }
-          }
-        }
-      `}
+      }
     `}
+
+    ${grouped &&
+    css`
+      &&&& {
+        :first-of-type {
+          ${StyledButtonToggle} {
+            border-top-left-radius: var(--borderRadius050);
+            border-bottom-left-radius: var(--borderRadius050);
+          }
+        }
+
+        :last-of-type {
+          ${StyledButtonToggle} {
+            border-top-right-radius: var(--borderRadius050);
+            border-bottom-right-radius: var(--borderRadius050);
+          }
+        }
+      }
+    `}
+  `}
 
   ${({ grouped }) =>
     grouped &&

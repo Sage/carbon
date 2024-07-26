@@ -9,8 +9,7 @@ type ActionPopoverContextType = {
   isOpenPopover: boolean;
 };
 
-const ActionPopoverContext = React.createContext<ActionPopoverContextType | null>(
-  null
-);
+const ActionPopoverContext =
+  React.createContext<ActionPopoverContextType | null>(null);
 
 export default ActionPopoverContext;

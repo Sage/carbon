@@ -95,14 +95,14 @@ const ButtonToggleGroup = ({
           (child.type as React.FunctionComponent).displayName !==
             ButtonToggle.displayName
         );
-      }
+      },
     );
     return !incorrectChild;
   }, [children]);
 
   invariant(
     hasCorrectItemStructure,
-    `\`ButtonToggleGroup\` only accepts children of type \`${ButtonToggle.displayName}\``
+    `\`ButtonToggleGroup\` only accepts children of type \`${ButtonToggle.displayName}\``,
   );
 
   const labelId = useRef(guid());
@@ -137,7 +137,7 @@ const ButtonToggleGroup = ({
       return;
     }
     const focusedIndex = Array.from(innerButtons).indexOf(
-      document.activeElement
+      document.activeElement,
     );
     let nextElement;
     if (Events.isLeftKey(ev)) {

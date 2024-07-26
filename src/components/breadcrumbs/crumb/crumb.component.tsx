@@ -45,7 +45,7 @@ const Crumb = React.forwardRef<HTMLLinkElement, CrumbProps>(
       </StyledCrumb>
       {!isCurrent && <Divider />}
     </li>
-  )
+  ),
 );
 
 Crumb.displayName = "Crumb";

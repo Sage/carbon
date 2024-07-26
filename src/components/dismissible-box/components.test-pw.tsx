@@ -61,7 +61,7 @@ export const DefaultDarkVariant = (props: Partial<DismissibleBoxProps>) => {
 };
 
 export const WithNoLeftBorderHighlight = (
-  props: Partial<DismissibleBoxProps>
+  props: Partial<DismissibleBoxProps>,
 ) => {
   return (
     <Box p={2}>

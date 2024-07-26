@@ -22,7 +22,7 @@ function render(props?: SimpleColorProps) {
 describe("ColorOption", () => {
   it("contains input and color sample box", () => {
     const wrapper = shallow(
-      <SimpleColor name="color-picker" value="#0073C2" />
+      <SimpleColor name="color-picker" value="#0073C2" />,
     );
     expect(wrapper.children()).toHaveLength(2);
     expect(wrapper.find(StyledSimpleColorInput).exists()).toBeTruthy();
@@ -32,7 +32,7 @@ describe("ColorOption", () => {
   describe("tags on component", () => {
     it("include correct component, element and role data tags", () => {
       const wrapper = shallow(
-        <SimpleColor data-element="bar" data-role="baz" value="#0073C2" />
+        <SimpleColor data-element="bar" data-role="baz" value="#0073C2" />,
       );
       rootTagTest(wrapper, "simple-color", "bar", "baz");
     });
@@ -53,7 +53,7 @@ describe("ColorOption", () => {
       {
         backgroundColor: "#0073c2",
       },
-      wrapper.find(StyledColorSampleBox)
+      wrapper.find(StyledColorSampleBox),
     );
   });
 
@@ -66,7 +66,7 @@ describe("ColorOption", () => {
         backgroundSize: "14px 14px",
         backgroundPosition: "-2px -2px",
       },
-      wrapper.find(StyledColorSampleBox)
+      wrapper.find(StyledColorSampleBox),
     );
   });
 
@@ -77,7 +77,7 @@ describe("ColorOption", () => {
         color: "var(--colorsUtilityYang100)",
       },
       wrapper.find(StyledTickIcon),
-      { modifier: "::before" }
+      { modifier: "::before" },
     );
   });
 
@@ -88,7 +88,7 @@ describe("ColorOption", () => {
         color: "var(--colorsUtilityYin090)",
       },
       wrapper.find(StyledTickIcon),
-      { modifier: "::before" }
+      { modifier: "::before" },
     );
   });
 

@@ -87,23 +87,20 @@ export const ValidationIcon = ({
   const flipBehaviourCheck =
     Array.isArray(tooltipFlipOverrides) &&
     tooltipFlipOverrides.every((override) =>
-      ["bottom", "left", "right", "top"].includes(override)
+      ["bottom", "left", "right", "top"].includes(override),
     );
 
   if (tooltipFlipOverrides) {
     invariant(
       flipBehaviourCheck,
-      `The tooltipFlipOverrides prop supplied to ValidationIcon must be an array containing some or all of ["top", "bottom", "left", "right"].`
+      `The tooltipFlipOverrides prop supplied to ValidationIcon must be an array containing some or all of ["top", "bottom", "left", "right"].`,
     );
   }
 
-  const { hasFocus, hasMouseOver } = useContext<InputContextProps>(
-    InputContext
-  );
-  const {
-    hasFocus: groupHasFocus,
-    hasMouseOver: groupHasMouseOver,
-  } = useContext<InputContextProps>(InputGroupContext);
+  const { hasFocus, hasMouseOver } =
+    useContext<InputContextProps>(InputContext);
+  const { hasFocus: groupHasFocus, hasMouseOver: groupHasMouseOver } =
+    useContext<InputContextProps>(InputGroupContext);
   const [triggeredByIcon, setTriggeredByIcon] = useState(false);
 
   const validationType = getValidationType({ error, warning, info });

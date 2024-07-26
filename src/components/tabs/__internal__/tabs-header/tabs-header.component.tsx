@@ -55,7 +55,7 @@ const TabsHeader = ({
   }
 
   const handleScroll = (
-    e: React.UIEvent<HTMLDivElement> & { target: HTMLDivElement }
+    e: React.UIEvent<HTMLDivElement> & { target: HTMLDivElement },
   ) => {
     const { scrollLeft } = e.target;
     const scrollRight = getScrollRight(e.target);

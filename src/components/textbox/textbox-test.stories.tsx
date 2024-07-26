@@ -7,7 +7,7 @@ import { ICONS } from "../icon/icon-config";
 export const getCommonTextboxArgs = (
   isNewValidation = false,
   autoFocusDefault = false,
-  disabledDefault = false
+  disabledDefault = false,
 ) => {
   return {
     disabled: disabledDefault,
@@ -43,7 +43,7 @@ export interface CommonTextboxArgs {
 }
 
 export const getCommonTextboxArgsWithSpecialCaracters = (
-  args: CommonTextboxArgs
+  args: CommonTextboxArgs,
 ) => {
   const { prefix, fieldHelp, label, labelHelp, placeholder } = args;
   return {

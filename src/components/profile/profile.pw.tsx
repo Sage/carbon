@@ -83,7 +83,7 @@ test.describe("Prop checks for Profile component", () => {
       page,
     }) => {
       await mount(
-        <EmptyProfileComponent name="John Doe" text={text} src={testImage} />
+        <EmptyProfileComponent name="John Doe" text={text} src={testImage} />,
       );
 
       await expect(textPreview(page)).toHaveText(text);
@@ -101,7 +101,7 @@ test.describe("Prop checks for Profile component", () => {
 
       await expect(detailsPreview(page)).toHaveCSS(
         "margin-left",
-        configMarginLeftValues
+        configMarginLeftValues,
       );
     });
   });
@@ -117,7 +117,7 @@ test.describe("Prop checks for Profile component", () => {
 
       await expect(detailsPreview(page)).toHaveCSS(
         "line-height",
-        configLineHeightValues
+        configLineHeightValues,
       );
     });
   });
@@ -132,7 +132,7 @@ test.describe("Prop checks for Profile component", () => {
       const fontSizeTokens = await getDesignTokensByCssProperty(
         page,
         namePreview(page),
-        "font-size"
+        "font-size",
       );
       const configFontSizeTokens = profileConfigSizes[size].nameSize;
 
@@ -150,13 +150,13 @@ test.describe("Prop checks for Profile component", () => {
           name="John Doe"
           email="john@doe.com"
           size={size}
-        />
+        />,
       );
 
       const fontSizeTokens = await getDesignTokensByCssProperty(
         page,
         emailPreview(page),
-        "font-size"
+        "font-size",
       );
       const configSizeTokens = profileConfigSizes[size].emailSize;
 
@@ -174,13 +174,13 @@ test.describe("Prop checks for Profile component", () => {
           name="John Doe"
           text="Some text about John here"
           size={size}
-        />
+        />,
       );
 
       const fontSizeTokens = await getDesignTokensByCssProperty(
         page,
         textPreview(page),
-        "font-size"
+        "font-size",
       );
       const configSizeTokens = profileConfigSizes[size].emailSize;
 
@@ -188,51 +188,51 @@ test.describe("Prop checks for Profile component", () => {
     });
   });
 
-  ([
-    ["without", false, "rgba(0, 0, 0, 0)", ""],
-    ["with", true, "rgba(0, 0, 0, 0.9)", "--colorsUtilityYin090"],
-  ] as [string, boolean, string, string][]).forEach(
-    ([renderState, boolVal, color, tokenVal]) => {
-      test(`should render ${renderState} dark background variant and correct background colour, when darkBackground prop is ${boolVal}`, async ({
-        mount,
+  (
+    [
+      ["without", false, "rgba(0, 0, 0, 0)", ""],
+      ["with", true, "rgba(0, 0, 0, 0.9)", "--colorsUtilityYin090"],
+    ] as [string, boolean, string, string][]
+  ).forEach(([renderState, boolVal, color, tokenVal]) => {
+    test(`should render ${renderState} dark background variant and correct background colour, when darkBackground prop is ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ProfileComponent darkBackground={boolVal} />);
+
+      const backgroundColorTokens = await getDesignTokensByCssProperty(
         page,
-      }) => {
-        await mount(<ProfileComponent darkBackground={boolVal} />);
+        profilePreview(page),
+        "background-color",
+      );
 
-        const backgroundColorTokens = await getDesignTokensByCssProperty(
-          page,
-          profilePreview(page),
-          "background-color"
-        );
+      expect(backgroundColorTokens.toString()).toBe(tokenVal);
+      await expect(profilePreview(page)).toHaveCSS("background-color", color);
+    });
+  });
 
-        expect(backgroundColorTokens.toString()).toBe(tokenVal);
-        await expect(profilePreview(page)).toHaveCSS("background-color", color);
-      });
-    }
-  );
+  (
+    [
+      ["without", false, "rgba(0, 0, 0, 0.9)", "--colorsUtilityYin090"],
+      ["with", true, "rgb(204, 214, 219)", "--colorsUtilityReadOnly600"],
+    ] as [string, boolean, string, string][]
+  ).forEach(([renderState, boolVal, color, tokenVal]) => {
+    test(`should render ${renderState} dark background variant and correct colour, when darkBackground prop is ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ProfileComponent darkBackground={boolVal} />);
 
-  ([
-    ["without", false, "rgba(0, 0, 0, 0.9)", "--colorsUtilityYin090"],
-    ["with", true, "rgb(204, 214, 219)", "--colorsUtilityReadOnly600"],
-  ] as [string, boolean, string, string][]).forEach(
-    ([renderState, boolVal, color, tokenVal]) => {
-      test(`should render ${renderState} dark background variant and correct colour, when darkBackground prop is ${boolVal}`, async ({
-        mount,
+      const colorTokens = await getDesignTokensByCssProperty(
         page,
-      }) => {
-        await mount(<ProfileComponent darkBackground={boolVal} />);
+        profilePreview(page),
+        "color",
+      );
 
-        const colorTokens = await getDesignTokensByCssProperty(
-          page,
-          profilePreview(page),
-          "color"
-        );
-
-        expect(colorTokens.toString()).toBe(tokenVal);
-        await expect(profilePreview(page)).toHaveCSS("color", color);
-      });
-    }
-  );
+      expect(colorTokens.toString()).toBe(tokenVal);
+      await expect(profilePreview(page)).toHaveCSS("color", color);
+    });
+  });
 
   imageURLs.forEach((url) => {
     test(`should render with src prop passed as ${url}`, async ({

@@ -6,14 +6,14 @@ import Button from "../../../button";
 export interface ListActionButtonProps {
   listActionButton?: boolean | React.ReactNode;
   onListAction?: (
-    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ev: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
   ) => void;
 }
 
 const ListActionButton = React.forwardRef(
   (
     { listActionButton, onListAction }: ListActionButtonProps,
-    ref: React.ForwardedRef<HTMLButtonElement>
+    ref: React.ForwardedRef<HTMLButtonElement>,
   ) => {
     const l = useLocale();
 
@@ -43,7 +43,7 @@ const ListActionButton = React.forwardRef(
         {
           ref,
           onClick: onListAction,
-        }
+        },
       );
     }
 
@@ -52,7 +52,7 @@ const ListActionButton = React.forwardRef(
         {renderListActionButton()}
       </StyledListActionButtonWrapper>
     );
-  }
+  },
 );
 
 ListActionButton.displayName = "ListActionButton";

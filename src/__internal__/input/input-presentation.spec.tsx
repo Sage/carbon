@@ -21,7 +21,7 @@ function renderWithContext(
   props = {},
   inputGroupContextValue = {},
   inputContextValue = {},
-  validationRedesignOptIn = false
+  validationRedesignOptIn = false,
 ) {
   return mount(
     <NewValidationContext.Provider value={{ validationRedesignOptIn }}>
@@ -30,14 +30,14 @@ function renderWithContext(
           <InputPresentation {...props}>sample children</InputPresentation>
         </InputContext.Provider>
       </InputGroupContext.Provider>
-    </NewValidationContext.Provider>
+    </NewValidationContext.Provider>,
   );
 }
 
 describe("InputPresentation", () => {
   it("renders presentational div and context provider for its children", () => {
     expect(
-      TestRenderer.create(<InputPresentation>Children</InputPresentation>)
+      TestRenderer.create(<InputPresentation>Children</InputPresentation>),
     ).toMatchSnapshot();
   });
 
@@ -48,7 +48,7 @@ describe("InputPresentation", () => {
       shallow(<InputPresentation {...props} />)
         .find(StyledInputPresentationContainer)
         .childAt(0)
-        .get(0)
+        .get(0),
     ).toEqual(<Component />);
   });
 
@@ -58,14 +58,14 @@ describe("InputPresentation", () => {
       (size) => {
         it(`has the right style for ${size}-sized inputs`, () => {
           const inputPresentation = render({ size, children: "Children" }).find(
-            InputPresentationStyle
+            InputPresentationStyle,
           );
 
           assertStyleMatch(
             {
               minHeight: sizes[size].height,
             },
-            inputPresentation
+            inputPresentation,
           );
 
           assertStyleMatch(
@@ -75,10 +75,10 @@ describe("InputPresentation", () => {
             inputPresentation,
             {
               modifier: `${StyledInput}`,
-            }
+            },
           );
         });
-      }
+      },
     );
 
     describe.each(["left", "right"])(
@@ -98,10 +98,10 @@ describe("InputPresentation", () => {
             inputPresentation,
             {
               modifier: `${StyledInput}`,
-            }
+            },
           );
         });
-      }
+      },
     );
 
     describe("hideBorders", () => {
@@ -111,8 +111,8 @@ describe("InputPresentation", () => {
             border: "1px solid transparent",
           },
           render({ hideBorders: true, children: "Children" }).find(
-            InputPresentationStyle
-          )
+            InputPresentationStyle,
+          ),
         );
       });
 
@@ -121,7 +121,7 @@ describe("InputPresentation", () => {
           {
             border: "1px solid var(--colorsUtilityMajor300)",
           },
-          render({ children: "Children" }).find(InputPresentationStyle)
+          render({ children: "Children" }).find(InputPresentationStyle),
         );
       });
     });
@@ -132,7 +132,7 @@ describe("InputPresentation", () => {
           {
             flex: "0 0 54%",
           },
-          render({ inputWidth: 54, children: "Children" })
+          render({ inputWidth: 54, children: "Children" }),
         );
       });
     });
@@ -143,7 +143,7 @@ describe("InputPresentation", () => {
           {
             maxWidth: "54%",
           },
-          render({ maxWidth: "54%", children: "Children" })
+          render({ maxWidth: "54%", children: "Children" }),
         );
       });
 
@@ -152,7 +152,7 @@ describe("InputPresentation", () => {
           {
             maxWidth: "100%",
           },
-          render({ maxWidth: "", children: "Children" })
+          render({ maxWidth: "", children: "Children" }),
         );
       });
     });
@@ -171,8 +171,8 @@ describe("InputPresentation", () => {
             boxShadow: state === "error" ? boxShadow : undefined,
           },
           render({ [state]: true, children: "Children" }).find(
-            InputPresentationStyle
-          )
+            InputPresentationStyle,
+          ),
         );
       });
     });
@@ -190,7 +190,9 @@ describe("InputPresentation", () => {
             borderColor: `${token} !important`,
             boxShadow: state === "error" ? boxShadow : undefined,
           },
-          renderWithContext({ [state]: "Message" }).find(InputPresentationStyle)
+          renderWithContext({ [state]: "Message" }).find(
+            InputPresentationStyle,
+          ),
         );
       });
     });
@@ -210,8 +212,8 @@ describe("InputPresentation", () => {
               boxShadow: state === "error" ? boxShadow : undefined,
             },
             renderWithContext({ [state]: true }, {}, {}, true).find(
-              InputPresentationStyle
-            )
+              InputPresentationStyle,
+            ),
           );
         });
       });
@@ -230,8 +232,8 @@ describe("InputPresentation", () => {
               boxShadow: state === "error" ? boxShadow : undefined,
             },
             renderWithContext({ [state]: "Message" }, {}, {}, true).find(
-              InputPresentationStyle
-            )
+              InputPresentationStyle,
+            ),
           );
         });
       });
@@ -242,8 +244,8 @@ describe("InputPresentation", () => {
         assertStyleMatch(
           { flexDirection: "row-reverse" },
           render({ align: "right", children: "Children" }).find(
-            InputPresentationStyle
-          )
+            InputPresentationStyle,
+          ),
         );
       });
     });
@@ -257,8 +259,8 @@ describe("InputPresentation", () => {
             cursor: "not-allowed",
           },
           render({ disabled: true, children: "Children" }).find(
-            InputPresentationStyle
-          )
+            InputPresentationStyle,
+          ),
         );
       });
     });
@@ -271,8 +273,8 @@ describe("InputPresentation", () => {
             borderColor: "var(--colorsUtilityReadOnly600)",
           },
           render({ readOnly: true, children: "Children" }).find(
-            InputPresentationStyle
-          )
+            InputPresentationStyle,
+          ),
         );
       });
     });
@@ -303,7 +305,7 @@ describe("InputPresentation", () => {
         {
           onMouseEnter: contextOnMouseEnter,
           onMouseLeave: contextOnMouseLeave,
-        }
+        },
       );
     });
 

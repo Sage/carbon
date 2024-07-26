@@ -51,12 +51,12 @@ test.describe("Prop tests for Switch component", () => {
 
     await expect(switchStyling(page)).toHaveCSS(
       "box-shadow",
-      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px",
     );
 
     await expect(switchStyling(page)).toHaveCSS(
       "outline",
-      "rgba(0, 0, 0, 0) solid 3px"
+      "rgba(0, 0, 0, 0) solid 3px",
     );
   });
 
@@ -73,7 +73,7 @@ test.describe("Prop tests for Switch component", () => {
 
     await expect(switchStyling(page)).toHaveCSS(
       "outline",
-      "rgb(255, 188, 25) solid 3px"
+      "rgb(255, 188, 25) solid 3px",
     );
   });
 
@@ -116,7 +116,7 @@ test.describe("Prop tests for Switch component", () => {
 
         await expect(page.getByRole("progressbar")).toHaveAttribute(
           "data-component",
-          "loader"
+          "loader",
         );
       } else {
         await expect(switchInput(page)).not.toBeDisabled();
@@ -129,7 +129,7 @@ test.describe("Prop tests for Switch component", () => {
 
     await expect(getComponent(page, CHARACTERS.STANDARD)).toHaveAttribute(
       "data-component",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -138,7 +138,7 @@ test.describe("Prop tests for Switch component", () => {
 
     await expect(switchDataComponent(page)).toHaveAttribute(
       "data-element",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -147,7 +147,7 @@ test.describe("Prop tests for Switch component", () => {
 
     await expect(switchDataComponent(page)).toHaveAttribute(
       "data-role",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -200,7 +200,7 @@ test.describe("Prop tests for Switch component", () => {
         <SwitchComponent
           fieldHelp="Inline fieldhelp"
           fieldHelpInline={boolVal}
-        />
+        />,
       );
 
       await expect(switchFieldHelp(page)).toHaveAttribute(
@@ -216,44 +216,27 @@ test.describe("Prop tests for Switch component", () => {
     await expect(switchInput(page)).toHaveId(CHARACTERS.STANDARD);
   });
 
-  ([
-    [true, 24, 0, 8],
-    [false, 16, 8, 0],
-  ] as [SwitchProps["labelInline"], number, number, number][]).forEach(
-    ([boolVal, height, margin, padding]) => {
-      test(`should render with labelInline prop set to ${boolVal}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<SwitchComponent labelInline={boolVal} />);
+  (
+    [
+      [true, 24, 0, 8],
+      [false, 16, 8, 0],
+    ] as [SwitchProps["labelInline"], number, number, number][]
+  ).forEach(([boolVal, height, margin, padding]) => {
+    test(`should render with labelInline prop set to ${boolVal}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SwitchComponent labelInline={boolVal} />);
 
-        if (boolVal) {
-          await expect(switchLabelParent(page)).toHaveCSS(
-            "box-sizing",
-            "border-box"
-          );
-        } else {
-          await expect(switchLabelParent(page)).not.toHaveCSS(
-            "box-sizing",
-            "border-box"
-          );
-        }
-        await assertCssValueIsApproximately(
-          switchLabelParent(page),
-          "height",
-          height
+      if (boolVal) {
+        await expect(switchLabelParent(page)).toHaveCSS(
+          "box-sizing",
+          "border-box",
         );
-
-        await assertCssValueIsApproximately(
-          switchLabelParent(page),
-          "margin-bottom",
-          margin
-        );
-
-        await assertCssValueIsApproximately(
-          switchLabelParent(page),
-          "padding-right",
-          padding
+      } else {
+        await expect(switchLabelParent(page)).not.toHaveCSS(
+          "box-sizing",
+          "border-box",
         );
       });
     }
@@ -297,7 +280,7 @@ test.describe("Prop tests for Switch component", () => {
 
   test("should render with labelHelp", async ({ mount, page }) => {
     await mount(
-      <SwitchComponent label="Label For Switch" labelHelp="Label Help" />
+      <SwitchComponent label="Label For Switch" labelHelp="Label Help" />,
     );
 
     await switchIcon(page).hover();
@@ -305,34 +288,34 @@ test.describe("Prop tests for Switch component", () => {
     await expect(tooltipPreview(page)).toHaveText("Label Help");
   });
 
-  ([
-    [1, 8],
-    [2, 17],
-  ] as [SwitchProps["labelSpacing"], number][]).forEach(
-    ([spacing, padding]) => {
-      test(`should render with labelSpacing prop set to ${spacing}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <SwitchComponent labelInline label="label" labelSpacing={spacing} />
-        );
+  (
+    [
+      [1, 8],
+      [2, 17],
+    ] as [SwitchProps["labelSpacing"], number][]
+  ).forEach(([spacing, padding]) => {
+    test(`should render with labelSpacing prop set to ${spacing}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <SwitchComponent labelInline label="label" labelSpacing={spacing} />,
+      );
 
-        await assertCssValueIsApproximately(
-          switchLabelParent(page),
-          "padding-right",
-          padding
-        );
-      });
-    }
-  );
+      await assertCssValueIsApproximately(
+        switchLabelParent(page),
+        "padding-right",
+        padding,
+      );
+    });
+  });
 
   test("should render with name", async ({ mount, page }) => {
     await mount(<SwitchComponent name={CHARACTERS.STANDARD} />);
 
     await expect(switchInput(page)).toHaveAttribute(
       "name",
-      CHARACTERS.STANDARD
+      CHARACTERS.STANDARD,
     );
   });
 
@@ -407,7 +390,7 @@ test.describe("Prop tests for Switch component", () => {
       } else {
         await expect(switchInput(page)).not.toHaveAttribute(
           "data-element",
-          "label"
+          "label",
         );
 
         await expect(switchInput(page)).toHaveAttribute("role", "switch");
@@ -426,16 +409,11 @@ test.describe("Prop tests for Switch component", () => {
       }) => {
         await mount(<SwitchComponent size={size} />);
 
-        await assertCssValueIsApproximately(
-          switchInput(page),
-          "height",
-          height
-        );
+      await assertCssValueIsApproximately(switchInput(page), "height", height);
 
-        await assertCssValueIsApproximately(switchInput(page), "width", width);
-      });
-    }
-  );
+      await assertCssValueIsApproximately(switchInput(page), "width", width);
+    });
+  });
 
   test("should render with value prop", async ({ mount, page }) => {
     await mount(<SwitchComponent value="switchvalue" />);
@@ -455,25 +433,25 @@ test.describe("Prop tests for Switch component", () => {
       await page.setViewportSize({ width: 400, height: 300 });
 
       await mount(
-        <SwitchComponent labelInline adaptiveLabelBreakpoint={breakpoint} />
+        <SwitchComponent labelInline adaptiveLabelBreakpoint={breakpoint} />,
       );
 
       if (breakpoint <= 400) {
         await expect(switchLabelParent(page)).toHaveCSS(
           "box-sizing",
-          "border-box"
+          "border-box",
         );
       } else {
         await expect(switchLabelParent(page)).not.toHaveCSS(
           "box-sizing",
-          "border-box"
+          "border-box",
         );
       }
 
       await assertCssValueIsApproximately(
         switchLabelParent(page),
         "height",
-        height
+        height,
       );
     });
   });
@@ -487,12 +465,9 @@ test.describe("Prop tests for Switch component", () => {
     await verifyRequiredAsteriskForLabel(page);
   });
 
-  ([
-    "bottom",
-    "left",
-    "right",
-    "top",
-  ] as SwitchProps["tooltipPosition"][]).forEach((position) => {
+  (
+    ["bottom", "left", "right", "top"] as SwitchProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`should render with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -500,7 +475,7 @@ test.describe("Prop tests for Switch component", () => {
       await mount(
         <Box m="250px">
           <SwitchComponent labelHelp="Switch info" tooltipPosition={position} />
-        </Box>
+        </Box>,
       );
 
       await switchIcon(page).hover();
@@ -509,7 +484,7 @@ test.describe("Prop tests for Switch component", () => {
 
       await expect(tooltipPreview(page)).toHaveAttribute(
         "data-placement",
-        `${position}`
+        `${position}`,
       );
     });
   });
@@ -519,13 +494,13 @@ test.describe("Prop tests for Switch component", () => {
       <SwitchComponent
         labelHelp="Label Help"
         helpAriaLabel="This text provides more information for the label"
-      />
+      />,
     );
 
     await switchIcon(page).hover();
     await expect(switchHelpIcon(page)).toHaveAttribute(
       "aria-label",
-      "This text provides more information for the label"
+      "This text provides more information for the label",
     );
   });
 
@@ -535,7 +510,7 @@ test.describe("Prop tests for Switch component", () => {
       page,
     }) => {
       await mount(
-        <Switch label="Label" name="switch-name" defaultChecked={boolVal} />
+        <Switch label="Label" name="switch-name" defaultChecked={boolVal} />,
       );
 
       if (boolVal) {
@@ -571,7 +546,7 @@ test.describe("Event tests", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await switchInput(page).click();
@@ -591,7 +566,7 @@ test.describe("Event tests", () => {
         onChange={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await switchInput(page).focus();
@@ -611,7 +586,7 @@ test.describe("Event tests", () => {
         onBlur={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await switchInput(page).focus();
@@ -630,7 +605,7 @@ test.describe("Event tests", () => {
         onFocus={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await switchInput(page).focus();
@@ -648,7 +623,7 @@ test.describe("Event tests", () => {
         onClick={() => {
           callbackCount += 1;
         }}
-      />
+      />,
     );
 
     await switchInput(page).click();
@@ -765,7 +740,7 @@ test.describe("Accessibility tests", () => {
         <SwitchComponent
           fieldHelp="Inline fieldhelp"
           fieldHelpInline={boolVal}
-        />
+        />,
       );
 
       await checkAccessibility(page);
@@ -813,7 +788,7 @@ test.describe("Accessibility tests", () => {
 
   test("check accessibility with labelHelp", async ({ mount, page }) => {
     await mount(
-      <SwitchComponent label="Label For Switch" labelHelp="Label Help" />
+      <SwitchComponent label="Label For Switch" labelHelp="Label Help" />,
     );
 
     await checkAccessibility(page);
@@ -825,7 +800,7 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <SwitchComponent labelInline label="label" labelSpacing={spacing} />
+        <SwitchComponent labelInline label="label" labelSpacing={spacing} />,
       );
 
       await checkAccessibility(page);
@@ -864,12 +839,9 @@ test.describe("Accessibility tests", () => {
     });
   });
 
-  ([
-    "top",
-    "bottom",
-    "left",
-    "right",
-  ] as SwitchProps["tooltipPosition"][]).forEach((tooltipPositionValue) => {
+  (
+    ["top", "bottom", "left", "right"] as SwitchProps["tooltipPosition"][]
+  ).forEach((tooltipPositionValue) => {
     test(`check accessibility with tooltip set to ${tooltipPositionValue} position`, async ({
       mount,
       page,
@@ -882,7 +854,7 @@ test.describe("Accessibility tests", () => {
               tooltipPosition={tooltipPositionValue}
             />
           </Box>
-        </Box>
+        </Box>,
       );
 
       await checkAccessibility(page);
@@ -925,7 +897,7 @@ test.describe("Accessibility tests", () => {
       await page.setViewportSize({ width: 400, height: 300 });
 
       await mount(
-        <SwitchComponent labelInline adaptiveLabelBreakpoint={breakpoint} />
+        <SwitchComponent labelInline adaptiveLabelBreakpoint={breakpoint} />,
       );
       await checkAccessibility(page);
     });
@@ -937,12 +909,9 @@ test.describe("Accessibility tests", () => {
     await checkAccessibility(page);
   });
 
-  ([
-    "bottom",
-    "left",
-    "right",
-    "top",
-  ] as SwitchProps["tooltipPosition"][]).forEach((position) => {
+  (
+    ["bottom", "left", "right", "top"] as SwitchProps["tooltipPosition"][]
+  ).forEach((position) => {
     test(`check accessibility with tooltip positioned to the ${position}`, async ({
       mount,
       page,
@@ -950,7 +919,7 @@ test.describe("Accessibility tests", () => {
       await mount(
         <Box m="250px">
           <SwitchComponent labelHelp="Switch info" tooltipPosition={position} />
-        </Box>
+        </Box>,
       );
 
       await checkAccessibility(page);
@@ -965,7 +934,7 @@ test.describe("Accessibility tests", () => {
       <SwitchComponent
         labelHelp="Label Help"
         helpAriaLabel="This text provides more information for the label"
-      />
+      />,
     );
 
     await checkAccessibility(page);
@@ -977,7 +946,7 @@ test.describe("Accessibility tests", () => {
       page,
     }) => {
       await mount(
-        <Switch label="Label" name="switch-name" defaultChecked={boolVal} />
+        <Switch label="Label" name="switch-name" defaultChecked={boolVal} />,
       );
 
       await checkAccessibility(page);

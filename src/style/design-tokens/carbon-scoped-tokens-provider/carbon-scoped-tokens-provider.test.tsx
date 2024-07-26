@@ -16,7 +16,7 @@ describe("CarbonScopedTokensProvider", () => {
         <ThemeProvider theme={sageTheme}>
           <CarbonScopedTokensProvider />
         </ThemeProvider>
-      </>
+      </>,
     );
 
     // Collect all the CSS stylesheets content for snapshot testing

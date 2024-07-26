@@ -10,12 +10,12 @@ import Logger from "../../../../__internal__/utils/logger";
 const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 const getMockEvent = (key: string, which?: number) => {
-  return ({
+  return {
     preventDefault: jest.fn(),
     stopPropagation: jest.fn(),
     key,
     which,
-  } as unknown) as React.KeyboardEvent;
+  } as unknown as React.KeyboardEvent;
 };
 
 const MockMenu = () => (
@@ -95,7 +95,7 @@ test("should return the index of the first item when user presses Home key", () 
   const focusableItems = screen.getAllByRole("listitem");
   const result = menuKeyboardNavigation(
     getMockEvent("Home", 36),
-    focusableItems
+    focusableItems,
   );
   expect(result).toEqual(0);
 });
@@ -105,7 +105,7 @@ test("should return indexx for the last item when user presses End key", () => {
   const focusableItems = screen.getAllByRole("listitem");
   const result = menuKeyboardNavigation(
     getMockEvent("End", 35),
-    focusableItems
+    focusableItems,
   );
   expect(result).toEqual(8);
 });

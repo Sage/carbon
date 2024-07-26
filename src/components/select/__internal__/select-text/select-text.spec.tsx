@@ -13,7 +13,7 @@ describe("SelectText", () => {
     const wrapper = renderSelectText();
 
     expect(
-      wrapper.find("span[data-element='select-text']").prop("aria-hidden")
+      wrapper.find("span[data-element='select-text']").prop("aria-hidden"),
     ).toBe(true);
   });
 
@@ -40,7 +40,7 @@ describe("SelectText", () => {
         overflow: "hidden",
         textOverflow: "ellipsis",
       },
-      wrapper.find(StyledSelectTextChildrenWrapper)
+      wrapper.find(StyledSelectTextChildrenWrapper),
     );
   });
 
@@ -53,7 +53,7 @@ describe("SelectText", () => {
         color: "var(--colorsUtilityYin030)",
         textShadow: "none",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -66,7 +66,7 @@ describe("SelectText", () => {
         color: "var(--colorsUtilityYin065)",
         textShadow: "none",
       },
-      wrapper
+      wrapper,
     );
   });
 
@@ -81,7 +81,7 @@ describe("SelectText", () => {
         textAlign: "right",
         fontWeight: "900",
       },
-      wrapper
+      wrapper,
     );
   });
 });

@@ -43,7 +43,7 @@ export const TileSelectComponent = ({
 };
 
 export const MultiTileSelectGroupComponent = (
-  props: Partial<TileSelectGroupProps>
+  props: Partial<TileSelectGroupProps>,
 ) => {
   const [value1, setValue1] = React.useState(false);
   const [value2, setValue2] = React.useState(false);
@@ -114,12 +114,12 @@ export const MultiTileSelectGroupComponent = (
 };
 
 export const AccordionTileSelectComponent = (
-  props: Partial<TileSelectProps>
+  props: Partial<TileSelectProps>,
 ) => {
   const [isChecked, setIsChecked] = React.useState(false);
   const [expanded, setExpanded] = React.useState(true);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -174,7 +174,7 @@ export const AccordionTileSelectComponent = (
 };
 
 export const TileSelectGroupComponent = (
-  props: Partial<TileSelectGroupProps>
+  props: Partial<TileSelectGroupProps>,
 ) => {
   const [value, setValue] = React.useState(false);
   return (
@@ -183,7 +183,7 @@ export const TileSelectGroupComponent = (
       legend="Tile Select"
       description="Pick one of the available options"
       onChange={(
-        e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+        e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
       ) => setValue(e.target.checked)}
       {...props}
     >
@@ -196,7 +196,7 @@ export const TileSelectGroupComponent = (
         description="Short and descriptive description"
         checked={value}
         onChange={(
-          e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+          e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
         ) => setValue(e.target.checked)}
       />
       <TileSelect
@@ -208,7 +208,7 @@ export const TileSelectGroupComponent = (
         description="Short and descriptive description1"
         checked={value}
         onChange={(
-          e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+          e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
         ) => setValue(e.target.checked)}
       />
     </TileSelectGroup>
@@ -218,7 +218,7 @@ export const TileSelectGroupComponent = (
 export const PrefixAdornmentComponent = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -251,7 +251,7 @@ export const PrefixAdornmentComponent = () => {
 export const WithTitleAdornment = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -280,7 +280,7 @@ export const WithTitleAdornment = () => {
 export const SingleTile = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -304,7 +304,7 @@ export const SingleTile = () => {
 export const WithAFooter = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -341,7 +341,7 @@ export const WithAFooter = () => {
 export const WithAdditionalInformation = () => {
   const [isChecked, setIsChecked] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);
@@ -379,7 +379,7 @@ export const WithAccordionFooter = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [expanded, setExpanded] = useState(true);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent
+    e: React.ChangeEvent<HTMLInputElement> | TileSelectDeselectEvent,
   ) => {
     const { value } = e.target;
     setIsChecked(value !== null);

@@ -32,7 +32,7 @@ describe("FlexTileCell", () => {
       <FlexTileCell data-element="foo" data-role="bar">
         <FlexTileDivider />
         Cell Content
-      </FlexTileCell>
+      </FlexTileCell>,
     );
     const element = screen.getByText("Cell Content");
     expect(element).toHaveAttribute("data-component", "flex-tile-cell");

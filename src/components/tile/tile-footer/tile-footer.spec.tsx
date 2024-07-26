@@ -28,16 +28,16 @@ describe("TileFooter", () => {
           background,
           borderTop: `1px solid ${borderTopColor}`,
         },
-        wrapper.find(StyledTileFooter)
+        wrapper.find(StyledTileFooter),
       );
-    }
+    },
   );
 
   it("has proper data attributes applied to elements", () => {
     wrapper = mount(
       <TileFooter data-element="foo" data-role="bar">
         content
-      </TileFooter>
+      </TileFooter>,
     );
     rootTagTest(wrapper.find(StyledTileFooter), "tile-footer", "foo", "bar");
   });

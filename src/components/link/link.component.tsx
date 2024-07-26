@@ -18,19 +18,19 @@ export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
       | React.MouseEvent<HTMLAnchorElement>
       | React.MouseEvent<HTMLButtonElement>
       | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Function called when a key is pressed. */
   onKeyDown?: (
     ev:
       | React.KeyboardEvent<HTMLAnchorElement>
-      | React.KeyboardEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) => void;
   /** Function called when a mouse down event triggers. */
   onMouseDown?: (
     ev:
       | React.MouseEvent<HTMLAnchorElement>
-      | React.MouseEvent<HTMLButtonElement>
+      | React.MouseEvent<HTMLButtonElement>,
   ) => void;
 
   /** A message to display as a tooltip to the link. */
@@ -80,7 +80,7 @@ export const Link = React.forwardRef<
       removeAriaLabelOnIcon,
       ...rest
     }: LinkProps,
-    ref
+    ref,
   ) => {
     const [hasFocus, setHasFocus] = useState(false);
     const l = useLocale();
@@ -161,7 +161,7 @@ export const Link = React.forwardRef<
           </StyledContent>
 
           {renderLinkIcon("right")}
-        </>
+        </>,
       );
     };
 
@@ -188,7 +188,7 @@ export const Link = React.forwardRef<
         {createLinkBasedOnType()}
       </StyledLink>
     );
-  }
+  },
 );
 
 Link.displayName = "Link";

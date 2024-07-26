@@ -134,7 +134,7 @@ export const FilterableSelect = React.forwardRef(
       required,
       ...textboxProps
     }: FilterableSelectProps,
-    ref
+    ref,
   ) => {
     const [activeDescendantId, setActiveDescendantId] = useState<string>();
     const selectListId = useRef(guid());
@@ -168,7 +168,7 @@ export const FilterableSelect = React.forwardRef(
     if (!deprecateUncontrolledWarnTriggered && componentIsUncontrolled) {
       deprecateUncontrolledWarnTriggered = true;
       Logger.deprecate(
-        "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+        "Uncontrolled behaviour in `Filterable Select` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
       );
     }
 
@@ -185,24 +185,24 @@ export const FilterableSelect = React.forwardRef(
 
         return customEvent as CustomSelectChangeEvent;
       },
-      [name, id]
+      [name, id],
     );
 
     const triggerChange = useCallback(
       (
         newValue: string | Record<string, unknown>,
-        selectionConfirmed: boolean
+        selectionConfirmed: boolean,
       ) => {
         if (onChange) {
           onChange(createCustomEvent(newValue, selectionConfirmed));
         }
       },
-      [onChange, createCustomEvent]
+      [onChange, createCustomEvent],
     );
 
     function findElementWithMatchingText(
       textToMatch: string,
-      list: React.ReactNode
+      list: React.ReactNode,
     ) {
       return React.Children.toArray(list).find((child) => {
         const { text } = (child as React.ReactElement).props;
@@ -217,7 +217,7 @@ export const FilterableSelect = React.forwardRef(
           const trimmed = newFilterText.trimStart();
           const match = findElementWithMatchingText(
             trimmed,
-            children
+            children,
           ) as React.ReactElement;
           const isFilterCleared = isDeleteEvent && !newFilterText.length;
 
@@ -256,16 +256,16 @@ export const FilterableSelect = React.forwardRef(
           return match.props.value;
         });
       },
-      [children, triggerChange]
+      [children, triggerChange],
     );
 
     const setMatchingText = useCallback(
       (newValue, isClosing = false) => {
-        const matchingOption = (React.Children.toArray(
-          children
-        ) as React.ReactElement[]).find(
+        const matchingOption = (
+          React.Children.toArray(children) as React.ReactElement[]
+        ).find(
           (child) =>
-            React.isValidElement(child) && isExpectedOption(child, newValue)
+            React.isValidElement(child) && isExpectedOption(child, newValue),
         );
 
         if (!matchingOption || matchingOption.props.text === undefined) {
@@ -279,7 +279,7 @@ export const FilterableSelect = React.forwardRef(
           setTextValue(matchingOption.props.text);
         }
       },
-      [children, filterText]
+      [children, filterText],
     );
 
     const handleTextboxChange = useCallback(
@@ -294,7 +294,7 @@ export const FilterableSelect = React.forwardRef(
         setFilterText(newValue);
         setOpen(true);
       },
-      [updateValues]
+      [updateValues],
     );
 
     const fillLastFilterCharacter = useCallback(
@@ -310,7 +310,7 @@ export const FilterableSelect = React.forwardRef(
           return previousFilterText;
         });
       },
-      [textValue]
+      [textValue],
     );
 
     const handleTextboxKeydown = useCallback(
@@ -332,7 +332,7 @@ export const FilterableSelect = React.forwardRef(
 
         fillLastFilterCharacter(key);
       },
-      [fillLastFilterCharacter, onKeyDown, readOnly]
+      [fillLastFilterCharacter, onKeyDown, readOnly],
     );
 
     const valueToUse = isControlled.current ? value : selectedValue;
@@ -351,7 +351,7 @@ export const FilterableSelect = React.forwardRef(
           setOpen(false);
         }
       },
-      [setMatchingText, valueToUse]
+      [setMatchingText, valueToUse],
     );
 
     useEffect(() => {
@@ -363,11 +363,11 @@ export const FilterableSelect = React.forwardRef(
 
       invariant(
         isControlled.current === (value !== undefined),
-        modeSwitchedMessage
+        modeSwitchedMessage,
       );
       invariant(
         !isControlled.current || (isControlled.current && onChange),
-        onChangeMissingMessage
+        onChangeMissingMessage,
       );
       if (isControlled.current) {
         setSelectedValue((prevValue) => {
@@ -407,7 +407,7 @@ export const FilterableSelect = React.forwardRef(
 
       invariant(
         !hasListActionButton || (hasListActionButton && onListAction),
-        onListActionMissingMessage
+        onListActionMissingMessage,
       );
     }, [listActionButton, onListAction]);
 
@@ -420,7 +420,7 @@ export const FilterableSelect = React.forwardRef(
     }, [value, children]);
 
     const onFilterChange = useStableCallback(
-      onFilterChangeProp as (filterTextArg: unknown) => void
+      onFilterChangeProp as (filterTextArg: unknown) => void,
     );
     const isFirstRender = useRef(true);
     useEffect(() => {
@@ -495,7 +495,7 @@ export const FilterableSelect = React.forwardRef(
           openOnFocusFlagBlock.current = false;
         }
       },
-      [textboxRef, triggerChange, openOnFocus]
+      [textboxRef, triggerChange, openOnFocus],
     );
 
     const onSelectListClose = useCallback(() => {
@@ -514,7 +514,7 @@ export const FilterableSelect = React.forwardRef(
     }
 
     function handleDropdownIconClick(
-      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
+      event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
     ) {
       isMouseDownReported.current = false;
 
@@ -610,7 +610,7 @@ export const FilterableSelect = React.forwardRef(
           ref.current = element;
         }
       },
-      [ref]
+      [ref],
     );
 
     function getTextboxProps() {
@@ -701,7 +701,7 @@ export const FilterableSelect = React.forwardRef(
         {selectList}
       </StyledSelect>
     );
-  }
+  },
 );
 
 export default FilterableSelect;

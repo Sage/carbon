@@ -62,13 +62,13 @@ export const ButtonToggle = ({
 }: ButtonToggleProps) => {
   invariant(
     !!(children || buttonIcon),
-    "Either prop `buttonIcon` must be defined, or this node must have children"
+    "Either prop `buttonIcon` must be defined, or this node must have children",
   );
 
   if (grouped && !deprecateGroupedWarnTriggered) {
     deprecateGroupedWarnTriggered = true;
     Logger.deprecate(
-      "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed."
+      "The `grouped` prop in `ButtonToggle` component is deprecated and will soon be removed. Spacing between buttons is no longer no removed.",
     );
   }
 
@@ -120,7 +120,7 @@ export const ButtonToggle = ({
   if (!deprecateUncontrolledWarnTriggered && !onChange) {
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
-      "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+      "Uncontrolled behaviour in `Button Toggle` is deprecated and support will soon be removed. Please make sure all your inputs are controlled.",
     );
   }
 

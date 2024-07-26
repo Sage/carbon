@@ -24,7 +24,7 @@ test("should not render the menu when `isOpen` is falsy", () => {
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -48,7 +48,7 @@ test("should have the expected `data-` tags when menu is open", () => {
           onClose={() => {}}
         />
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const menu = screen.getByRole("dialog");
 
@@ -70,7 +70,7 @@ test("should have the expected ARIA properties when menu is open", () => {
       >
         <MenuFullscreen isOpen onClose={() => {}} aria-label="My menu" />
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const menu = screen.getByRole("dialog");
 
@@ -124,7 +124,7 @@ test("should render the children with the expected divider elements added", () =
           </MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getAllByRole("link")).toHaveLength(10);
@@ -178,7 +178,7 @@ test("should set any `maxWidth` values passed to items to undefined", () => {
           </MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const items = screen.getAllByRole("listitem");
 
@@ -202,7 +202,7 @@ test("should apply the expected color to the close icon when `menuType` is 'ligh
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const closeButton = screen.getByRole("button", { name: "Close" });
   const closeButtonIcon = within(closeButton).getByTestId("icon");
@@ -227,7 +227,7 @@ test("should apply the expected color to the close icon when `menuType` is 'dark
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const closeButton = screen.getByRole("button", { name: "Close" });
   const closeButtonIcon = within(closeButton).getByTestId("icon");
@@ -252,7 +252,7 @@ test("should apply the expected color to the close icon when `menuType` is 'whit
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const closeButton = screen.getByRole("button", { name: "Close" });
   const closeButtonIcon = within(closeButton).getByTestId("icon");
@@ -277,7 +277,7 @@ test("should apply the expected color to the close icon when `menuType` is 'blac
           <MenuItem href="#">Item one</MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   const closeButton = screen.getByRole("button", { name: "Close" });
   const closeButtonIcon = within(closeButton).getByTestId("icon");
@@ -304,7 +304,7 @@ test("should call the passed `onClose` callback when the close button is clicked
           <MenuItem href="#">Item 1</MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   await user.click(screen.getByRole("button", { name: "Close" }));
 
@@ -328,7 +328,7 @@ test("should call the passed `onClose` callback when the 'Escape' key is pressed
           <MenuItem href="#">Item 1</MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   await user.keyboard("{Escape}");
 
@@ -354,7 +354,7 @@ test("should call the passed `onClick` callback when the menu item is clicked", 
           </MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   await user.click(screen.getByRole("link"));
 
@@ -380,7 +380,7 @@ test("should call the passed `onClick` callback when the submenu item is clicked
           </MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
   await user.click(screen.getByRole("link", { name: "Submenu" }));
 
@@ -404,7 +404,7 @@ test("should focus the root container, when menu is opened", () => {
           </MenuItem>
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.getByRole("dialog")).toBeFocused();
@@ -426,7 +426,7 @@ test("should not render a divider when menu contains a falsy values", () => {
           {false && <MenuItem href="#">Product Item One</MenuItem>}
         </MenuFullscreen>
       </MenuContext.Provider>
-    </CarbonProvider>
+    </CarbonProvider>,
   );
 
   expect(screen.queryByTestId("divider")).not.toBeInTheDocument();

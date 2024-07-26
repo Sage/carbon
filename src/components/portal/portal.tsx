@@ -127,7 +127,7 @@ export const Portal = ({
         <CarbonScopedTokensProvider>
           {portalContent}
         </CarbonScopedTokensProvider>,
-        getPortalContainer()
+        getPortalContainer(),
       )}
     </StyledPortalEntrance>
   );

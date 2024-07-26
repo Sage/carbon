@@ -27,7 +27,7 @@ type RoundedCornersOptOut = boolean;
 
 const getDimentions = (
   size: StyledLoaderSquareProps["size"],
-  roundedCornersOptOut: RoundedCornersOptOut
+  roundedCornersOptOut: RoundedCornersOptOut,
 ) => {
   let width;
   let marginRight;
