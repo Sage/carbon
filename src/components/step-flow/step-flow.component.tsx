@@ -9,21 +9,24 @@ import {
   StyledStepLabelAndProgress,
   StyledProgressIndicatorBar,
   StyledProgressIndicator,
-  StyledTitleFocusWrapper,
 } from "./step-flow.style";
 import tagComponent, {
   TagProps,
 } from "../../__internal__/utils/helpers/tags/tags";
 import Typography from "../typography";
 import useLocale from "../../hooks/__internal__/useLocale";
+import StepFlowContext from "./__internal__/step-flow.context";
+import StepFlowTitle from "./step-flow-title/step-flow-title.component";
 
 export type Steps = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export interface StepFlowProps extends MarginProps, TagProps {
   /** A category for the user journey.  */
   category?: string;
-  /** The title of the current step.  */
-  title: string;
+  /** The title of the current step, this can be a string or a valid React node
+   * which contains the `<StepFlowTitle />` component as a descendant.
+   */
+  title: React.ReactNode;
   /** Set the variant of the internal 'Typography' component which contains the title.
    * However, despite the chosen variant the styling will always be overridden.
    */
@@ -57,7 +60,7 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
     {
       category,
       title,
-      titleVariant,
+      titleVariant = "h1",
       totalSteps,
       currentStep,
       showProgressIndicator = false,
@@ -146,37 +149,21 @@ export const StepFlow = forwardRef<StepFlowHandle, StepFlowProps>(
     );
 
     const stepFlowTitle = (
-      <StyledTitleFocusWrapper
-        data-role="title-text-wrapper"
-        data-element="title-text-wrapper"
-        tabIndex={-1}
-        ref={titleRef}
+      <StepFlowContext.Provider
+        value={{
+          validatedCurrentStep,
+          totalSteps,
+          titleVariant,
+          category,
+          titleRef,
+        }}
       >
-        <Typography variant={titleVariant || "h1"} data-element="title-text">
-          <Typography
-            fontWeight="900"
-            fontSize="var(--fontSizes600)"
-            lineHeight="var(--sizing375)"
-            variant="span"
-            aria-hidden="true"
-            data-element="visible-title-text"
-          >
-            {title}
-          </Typography>
-          <Typography
-            variant="span"
-            data-element="visually-hidden-title-text"
-            screenReaderOnly
-          >
-            {locale.stepFlow.screenReaderOnlyTitle(
-              title,
-              validatedCurrentStep,
-              totalSteps,
-              category
-            )}
-          </Typography>
-        </Typography>
-      </StyledTitleFocusWrapper>
+        {typeof title === "string" ? (
+          <StepFlowTitle titleString={title} />
+        ) : (
+          title
+        )}
+      </StepFlowContext.Provider>
     );
 
     const stepFlowLabel = (
