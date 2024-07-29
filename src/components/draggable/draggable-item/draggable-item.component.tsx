@@ -83,6 +83,7 @@ const DraggableItem = ({
   return (
     <StyledDraggableItem
       data-element="draggable"
+      data-role="draggable-item"
       isDragging={isDragging}
       ref={(node) => drag(drop(node))}
       py={py}

@@ -99,6 +99,7 @@ const Modal = ({
       <StyledModalBackground
         ref={backgroundNodeRef}
         data-element="modal-background"
+        data-role="modal-background"
         transitionName="modal-background"
         transitionTime={timeout}
       />

@@ -1,6 +1,7 @@
 import React from "react";
 import { mount, ReactWrapper } from "enzyme";
 
+import { render as rtlRender, screen } from "@testing-library/react";
 import { StyledFlatTableRowHeader } from "./flat-table-row-header.style";
 import FlatTableRowHeader, {
   FlatTableRowHeaderProps,
@@ -11,6 +12,11 @@ import {
 } from "../../../__spec_helper__/__internal__/test-utils";
 import StyledIcon from "../../icon/icon.style";
 import FlatTableRowContext from "../flat-table-row/__internal__/flat-table-row.context";
+import FlatTable from "../flat-table.component";
+import FlatTableBody from "../flat-table-body/flat-table-body.component";
+import FlatTableRow from "../flat-table-row/flat-table-row.component";
+import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
+import Button from "../../button/button.component";
 
 describe("FlatTableRowHeader", () => {
   testStyledSystemPadding(
@@ -321,6 +327,97 @@ describe("FlatTableRowHeader", () => {
         );
       }
     );
+
+    it("increases the z-index of the sticky TH or TD if content is focused and they are part of a FlatTableBody", () => {
+      rtlRender(
+        <FlatTable>
+          <FlatTableBody>
+            <FlatTableRow>
+              <FlatTableCell data-role="cell">
+                <Button>cell button</Button>
+              </FlatTableCell>
+              <FlatTableRowHeader
+                data-role="header-one"
+                stickyAlignment="left"
+                p={0}
+              >
+                <Button>header one button</Button>
+              </FlatTableRowHeader>
+              <FlatTableCell>text content</FlatTableCell>
+            </FlatTableRow>
+            <FlatTableRow>
+              <FlatTableCell>text content</FlatTableCell>
+              <FlatTableRowHeader
+                data-role="header-two"
+                stickyAlignment="left"
+                p={0}
+              >
+                <Button>header two button</Button>
+              </FlatTableRowHeader>
+              <FlatTableCell>text content</FlatTableCell>
+            </FlatTableRow>
+          </FlatTableBody>
+        </FlatTable>
+      );
+
+      const headerOne = screen.getByTestId("header-one");
+      const headerOneButton = screen.getByRole("button", {
+        name: "header one button",
+      });
+
+      const headerTwo = screen.getByTestId("header-two");
+      const headerTwoButton = screen.getByRole("button", {
+        name: "header two button",
+      });
+
+      const cell = screen.getByTestId("cell");
+      const cellButton = screen.getByRole("button", { name: "cell button" });
+
+      headerOneButton.focus();
+
+      expect(cell).not.toHaveClass("bringToFront");
+      expect(headerOne).toHaveClass("bringToFront");
+      expect(headerTwo).not.toHaveClass("bringToFront");
+
+      headerTwoButton.focus();
+
+      expect(cell).not.toHaveClass("bringToFront");
+      expect(headerOne).not.toHaveClass("bringToFront");
+      expect(headerTwo).toHaveClass("bringToFront");
+
+      cellButton.focus();
+
+      expect(cell).toHaveClass("bringToFront");
+      expect(headerOne).not.toHaveClass("bringToFront");
+      expect(headerTwo).not.toHaveClass("bringToFront");
+    });
+
+    it("does not increase the z-index of the sticky TH or TD if they are not part of a FlatTableBody", () => {
+      rtlRender(
+        <FlatTableRow>
+          <FlatTableCell data-role="cell">
+            <Button>cell button</Button>
+          </FlatTableCell>
+          <FlatTableRowHeader
+            data-role="header-one"
+            stickyAlignment="left"
+            p={0}
+          >
+            <Button>header one button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+      );
+
+      const headerOne = screen.getByTestId("header-one");
+      const headerOneButton = screen.getByRole("button", {
+        name: "header one button",
+      });
+
+      headerOneButton.focus();
+
+      expect(headerOne).not.toHaveClass("bringToFront");
+    });
   });
 
   describe.each([

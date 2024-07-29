@@ -161,3 +161,28 @@ export const PasswordNewDesignsValidation = () => {
     </Box>
   );
 };
+
+export const PasswordComponentWithCharacterCount = ({
+  onChange,
+}: PasswordProps) => {
+  const [state, setState] = useState("test");
+  const setValue = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setState(ev.target.value);
+    if (onChange) {
+      onChange(ev);
+    }
+  };
+  return (
+    <>
+      <Password
+        label="Password"
+        value={state}
+        onChange={setValue}
+        characterLimit={69}
+      />
+      <button type="button" onClick={() => {}}>
+        Click Me
+      </button>
+    </>
+  );
+};

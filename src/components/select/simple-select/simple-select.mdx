@@ -127,6 +127,12 @@ This prop will be called every time a user scrolls to the bottom of the list.
 
 <Canvas of={SimpleSelectStories.OptionGroups} />
 
+It is also possible to use the `children` prop to pass a composed layout to the 
+`OptionGroupHeader`. It should be noted it will override any values passed to the 
+`icon` and `label` props.
+
+<Canvas of={SimpleSelectStories.OptionGroupsWithComposedChildren} />
+
 ### Enabling the adaptive behaviour
 
 The inline label can change to be top aligned at a breakpoint. Enable this by passing in a number to the `adaptiveLabelBreakpoint` prop. This corresponds to a px screen width

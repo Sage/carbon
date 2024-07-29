@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { MarginProps } from "styled-system";
 import MD5 from "crypto-js/md5";
 import invariant from "invariant";
+import Logger from "../../__internal__/utils/logger";
 
 import { IconType } from "../icon";
 import Tooltip from "../tooltip";
@@ -21,8 +22,10 @@ export type PortraitShapes = "circle" | "square";
 
 export type PortraitSizes = "XS" | "S" | "M" | "ML" | "L" | "XL" | "XXL";
 
+let deprecatedGravatarWarnTriggered = false;
+
 export interface PortraitProps extends MarginProps {
-  /** An email address registered with Gravatar. */
+  /** (Deprecated) An email address registered with Gravatar. */
   gravatar?: string;
   /** A custom image URL. */
   src?: string;
@@ -91,6 +94,13 @@ const Portrait = ({
       " Please use one or the other."
   );
 
+  const logGravatarDeprecationWarning = () => {
+    deprecatedGravatarWarnTriggered = true;
+    Logger.deprecate(
+      "The `gravatar` prop has been deprecated and will soon be removed."
+    );
+  };
+
   useEffect(() => {
     setExternalError(false);
   }, [gravatar, src]);
@@ -134,6 +144,9 @@ const Portrait = ({
         <StyledPortraitGravatar
           src={gravatarSrc()}
           alt={alt || name || ""}
+          onLoad={() =>
+            !deprecatedGravatarWarnTriggered && logGravatarDeprecationWarning()
+          }
           onError={() => setExternalError(true)}
         />
       );

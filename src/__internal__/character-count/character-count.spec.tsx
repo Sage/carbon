@@ -43,9 +43,9 @@ describe("CharacterCount", () => {
       );
     });
 
-    it("visually hidden character counter has aria-live='polite'", () => {
+    it("visually hidden character counter has aria-live='off'", () => {
       expect(wrapper.find(VisuallyHiddenCharacterCount).prop("aria-live")).toBe(
-        "polite"
+        "off"
       );
     });
 

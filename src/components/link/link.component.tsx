@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import Icon, { IconType } from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
@@ -161,6 +161,12 @@ export const Link = React.forwardRef<
         </>
       );
     };
+
+    useEffect(() => {
+      if (disabled || !(href || onClick)) {
+        setHasFocus(false);
+      }
+    }, [disabled, href, onClick]);
 
     return (
       <StyledLink
