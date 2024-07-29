@@ -1,3 +1,10 @@
+## [141.2.0](https://github.com/Sage/carbon/compare/v141.1.1...v141.2.0) (2024-07-29)
+
+
+### Features
+
+* **step-flow:** allow component title to be compositional ([4d5d808](https://github.com/Sage/carbon/commit/4d5d808982e1557a7b0f2c964e302a7c30715cb6)), closes [#6732](https://github.com/Sage/carbon/issues/6732)
+
 ### [141.1.1](https://github.com/Sage/carbon/compare/v141.1.0...v141.1.1) (2024-07-26)
 
 
