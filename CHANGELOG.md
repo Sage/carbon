@@ -1,3 +1,10 @@
+### [141.2.1](https://github.com/Sage/carbon/compare/v141.2.0...v141.2.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* **flat-table:** flat table contents visible behind sticky header/footer ([4f84514](https://github.com/Sage/carbon/commit/4f845144d3f44376529bf8c2d706179a59b63534))
+
 ## [141.2.0](https://github.com/Sage/carbon/compare/v141.1.1...v141.2.0) (2024-07-29)
 
 
