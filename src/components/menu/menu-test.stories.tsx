@@ -184,7 +184,7 @@ export const AsLinkWithAlternateVariant = () => {
           renderOpenComponent={() => (
             <Box data-role="gblnav-notificationui-bell">
               <Button aria-label="Notifications">
-                <Box px={2}>
+                <Box alignItems="center" display="flex" px={2}>
                   <Icon type="alert" />
                   notifications
                 </Box>

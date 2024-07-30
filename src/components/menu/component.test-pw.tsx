@@ -805,3 +805,22 @@ export const MenuItemWithPopoverContainerChild = () => {
     </Menu>
   );
 };
+
+export const SubmenuMaxWidth = () => (
+  <Menu>
+    <MenuItem
+      maxWidth="240px"
+      submenuMaxWidth="300px"
+      submenu="This is a very long menu item title "
+    >
+      <MenuItem href="#">Item Submenu One</MenuItem>
+      <MenuSegmentTitle text="segment title that should wrap when it will overflow">
+        <MenuItem href="#">Item Two</MenuItem>
+        <MenuItem href="#">
+          This is a longer text string that will wrap when it will overflow the
+          width of the submenu container
+        </MenuItem>
+      </MenuSegmentTitle>
+    </MenuItem>
+  </Menu>
+);
