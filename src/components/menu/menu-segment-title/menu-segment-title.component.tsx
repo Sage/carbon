@@ -6,6 +6,7 @@ import { VariantType } from "../menu-item";
 import tagComponent, {
   TagProps,
 } from "../../../__internal__/utils/helpers/tags";
+import SubmenuContext from "../__internal__/submenu/submenu.context";
 
 const AS_VALUES = ["h2", "h3", "h4", "h5", "h6"] as const;
 
@@ -25,6 +26,7 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
     ref
   ) => {
     const menuContext = useContext(MenuContext);
+    const { submenuHasMaxWidth } = useContext(SubmenuContext);
 
     return (
       <StyledMenuItem inSubmenu>
@@ -34,6 +36,7 @@ const MenuSegmentTitle = React.forwardRef<HTMLDivElement, MenuTitleProps>(
           menuType={menuContext.menuType}
           ref={ref}
           variant={variant}
+          shouldWrap={submenuHasMaxWidth}
         >
           {text}
         </StyledTitle>

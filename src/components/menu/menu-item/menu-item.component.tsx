@@ -70,13 +70,19 @@ interface MenuItemBaseProps
   overrideColor?: boolean;
   /** When set the submenu opens by click instead of hover */
   clickToOpen?: boolean;
-  /** Sets the maxWidth of the MenuItem */
+  /**
+   * Sets the maxWidth of the MenuItem, setting this on a non-submenu
+   * item will truncate any text/content that may overflow
+   * */
   maxWidth?: MaxWidthProps["maxWidth"];
   /**
    * @private @ignore
    * Renders MenuItem as a div element
    * */
   as?: "div";
+
+  /** Sets the max-width of the submenu container element, accepts any valid CSS string */
+  submenuMaxWidth?: string;
 }
 
 export interface MenuWithChildren extends MenuItemBaseProps {
@@ -93,6 +99,7 @@ export interface MenuWithIcon extends MenuItemBaseProps {
 
 export const MenuItem = ({
   submenu,
+  submenuMaxWidth,
   children,
   href,
   onClick,
@@ -153,6 +160,9 @@ export const MenuItem = ({
     ? ref.current.querySelector("[data-element='input']")
     : null;
   const focusRef = inputRef.current ? inputRef : ref;
+  const hasIcon = useCallback(() => {
+    return !!icon || !!ref.current?.querySelector("[data-component='icon']");
+  }, [icon]);
 
   useEffect(() => {
     const id = menuItemId.current;
@@ -284,6 +294,8 @@ export const MenuItem = ({
           ariaLabel={ariaLabel}
           onSubmenuOpen={onSubmenuOpen}
           onSubmenuClose={onSubmenuClose}
+          submenuMaxWidth={submenuMaxWidth}
+          hasIcon={hasIcon()}
           {...elementProps}
           {...rest}
         >
@@ -322,6 +334,7 @@ export const MenuItem = ({
         {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}
+        hasIcon={hasIcon()}
       >
         {children}
       </StyledMenuItemWrapper>

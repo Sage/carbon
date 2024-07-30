@@ -6,20 +6,22 @@ import { MenuType } from "../__internal__/menu.context";
 interface StyledTitleProps {
   variant?: VariantType;
   menuType: MenuType;
+  shouldWrap?: boolean;
 }
 
 const StyledTitle = styled.h2<StyledTitleProps>`
-  ${({ menuType, variant }) => css`
+  ${({ menuType, variant, shouldWrap }) => css`
     margin: 0px;
     padding: 16px 16px 8px;
     font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
-    line-height: 12px;
+    line-height: 14px;
     cursor: default;
     color: ${menuConfigVariants[menuType].title};
     ${variant === "alternate" &&
     `background-color: ${menuConfigVariants[menuType].alternate};`}
+    white-space: ${shouldWrap ? "normal" : "nowrap"};
   `}
 `;
 

@@ -68,6 +68,7 @@ import {
   MenuSegmentTitleComponentWithAdditionalMenuItem,
   MenuComponentFullScreenWithLongSubmenuText,
   MenuItemWithPopoverContainerChild,
+  SubmenuMaxWidth,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
 import { HooksConfig } from "../../../playwright";
@@ -2244,6 +2245,30 @@ test.describe("Accessibility tests for Menu component", () => {
   });
 });
 
+test(`should verify that submenu item text wraps when it would overflow the container and submenuMaxWidth is set`, async ({
+  mount,
+  page,
+}) => {
+  await mount(<SubmenuMaxWidth />);
+
+  const submenuElement = submenu(page).first();
+  await submenuElement.hover();
+  const lastItem = lastSubmenuElement(page, "li");
+  const submenuBlockElement = submenuBlock(page).first();
+
+  const cssSubmenuMaxWidth = await submenuBlockElement.evaluate((el) =>
+    window.getComputedStyle(el).getPropertyValue("max-width")
+  );
+  const [cssItemHeight, cssItemWidth] = await lastItem.evaluate((el) => [
+    window.getComputedStyle(el).getPropertyValue("height"),
+    window.getComputedStyle(el).getPropertyValue("width"),
+  ]);
+
+  expect(parseInt(cssSubmenuMaxWidth)).toBe(300);
+  expect(parseInt(cssItemWidth)).toBe(300);
+  expect(parseInt(cssItemHeight)).toBeGreaterThan(40);
+});
+
 test.describe("Accessibility tests for Menu Fullscreen component", () => {
   // TODO: Skipped due to flaky focus behaviour. To review in FE-6428
   test.skip(`should pass accessibility tests for Menu Fullscreen`, async ({
@@ -2667,8 +2692,7 @@ test.describe(
       const buttonChild = menuItemAnchor.locator("button");
 
       await expect(menuItemAnchor).toHaveCSS("height", "40px");
-      await expect(buttonChild).toHaveCSS("position", "relative");
-      await expect(buttonChild).toHaveCSS("top", "-1px");
+      await expect(buttonChild).toHaveCSS("height", "40px");
     });
   }
 );
