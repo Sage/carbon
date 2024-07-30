@@ -648,7 +648,6 @@ export const MultiSelect = React.forwardRef<HTMLInputElement, MultiSelectProps>(
         listPlacement={listPlacement}
         listMaxHeight={listMaxHeight}
         flipEnabled={flipEnabled}
-        loaderDataRole="multi-select-list-loader"
         multiselectValues={actualValue}
         isOpen={isOpen}
         enableVirtualScroll={enableVirtualScroll}

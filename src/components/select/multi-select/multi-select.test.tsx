@@ -44,3 +44,30 @@ test("initially renders combobox with custom placeholder when placeholder prop i
     "Select a colour"
   );
 });
+
+test("combobox has correct accessible name when label prop is provided", () => {
+  render(
+    <MultiSelect label="Colour" onChange={() => {}} value={[]}>
+      <Option text="Amber" value="1" />
+    </MultiSelect>
+  );
+
+  expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
+});
+
+test("combobox has correct accessible name when aria-labelledby prop is provided", () => {
+  render(
+    <>
+      <h2 id="my-select-heading">My Select</h2>
+      <MultiSelect
+        aria-labelledby="my-select-heading"
+        onChange={() => {}}
+        value={[]}
+      >
+        <Option text="Amber" value="1" />
+      </MultiSelect>
+    </>
+  );
+
+  expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
+});
