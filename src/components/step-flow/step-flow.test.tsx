@@ -2,8 +2,7 @@ import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import enGB from "../../locales/en-gb";
-import { StepFlow } from "./index";
-import { StepFlowHandle, Steps } from "./step-flow.component";
+import { StepFlow, StepFlowHandle, StepFlowTitle, Steps } from ".";
 import Button from "../button";
 import I18nProvider from "../i18n-provider";
 
@@ -62,7 +61,7 @@ describe("Step Flow component", () => {
     expect(screen.getByText("bar")).toBeVisible();
   });
 
-  it("when the 'title' prop is passed, the correct element and text renders", () => {
+  it("when the 'title' prop is passed as a string, the correct element and text renders", () => {
     render(
       <StepFlow
         title="baz"
@@ -74,6 +73,25 @@ describe("Step Flow component", () => {
     );
 
     expect(screen.getByText("baz")).toBeVisible();
+  });
+
+  it("when the 'title' prop is passed via the `StepFlowTitle` sub component, the correct element and text renders", () => {
+    const stepFlowNode = (
+      <>
+        <StepFlowTitle titleString="node" />
+      </>
+    );
+    render(
+      <StepFlow
+        title={stepFlowNode}
+        currentStep={5}
+        totalSteps={6}
+        category="bar"
+        ref={() => {}}
+      />
+    );
+
+    expect(screen.getByText("node")).toBeVisible();
   });
 
   it("renders level one heading when the 'titleVariant' prop is not passed", () => {
@@ -403,8 +421,8 @@ describe("Step Flow component", () => {
     }
   );
 
-  describe("when ref handle is passed to StepFlow", () => {
-    it("calling exposed focus method refocuses on StepFlow's root container", async () => {
+  describe("when ref handle is passed", () => {
+    it("calling exposed focus method when the `title` prop is a string, refocuses on StepFlow's root container", async () => {
       const MockComponent = () => {
         const stepFlowHandle = React.useRef<StepFlowHandle>(null);
 
@@ -415,6 +433,44 @@ describe("Step Flow component", () => {
               currentStep={1}
               ref={stepFlowHandle}
               title="foo"
+            />
+            <Button onClick={() => stepFlowHandle.current?.focus()}>
+              Press me to refocus on Dialog
+            </Button>
+          </div>
+        );
+      };
+
+      const user = userEvent.setup();
+      render(<MockComponent />);
+      const button = screen.getByRole("button", {
+        name: "Press me to refocus on Dialog",
+      });
+
+      await user.click(button);
+
+      expect(screen.getByTestId("title-text-wrapper")).toHaveFocus();
+    });
+
+    it("calling exposed focus method when the `title` prop is a node with the `StepFlowTitle` as a descendant, refocuses on StepFlow's root container", async () => {
+      const MockComponent = () => {
+        const stepFlowHandle = React.useRef<StepFlowHandle>(null);
+
+        const titleNode = (
+          <>
+            <>
+              <StepFlowTitle titleString="title" />
+            </>
+          </>
+        );
+
+        return (
+          <div>
+            <StepFlow
+              totalSteps={5}
+              currentStep={1}
+              ref={stepFlowHandle}
+              title={titleNode}
             />
             <Button onClick={() => stepFlowHandle.current?.focus()}>
               Press me to refocus on Dialog
@@ -446,6 +502,7 @@ describe("Step Flow component", () => {
     const noRefWarnMessage =
       "[WARNING] A `ref` should be provided to ensure focus is programmatically focused back to a title div," +
       " this ensures screen reader users are informed regarding any changes and can navigate back down the page.";
+
     const mockRef = { current: null };
 
     beforeEach(() => {

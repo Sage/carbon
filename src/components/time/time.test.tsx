@@ -217,12 +217,12 @@ describe("Time component", () => {
       padding: horizontalPadding,
     });
     expect(amToggle).toHaveStyle({
-      height: `${heightConfig.medium}px`,
+      minHeight: `${heightConfig.medium}px`,
       padding: `0 ${paddingConfig.medium}px`,
       "font-size": `${fontSizeConfig.medium}px`,
     });
     expect(pmToggle).toHaveStyle({
-      height: `${heightConfig.medium}px`,
+      minHeight: `${heightConfig.medium}px`,
       padding: `0 ${paddingConfig.medium}px`,
       "font-size": `${fontSizeConfig.medium}px`,
     });
@@ -255,12 +255,12 @@ describe("Time component", () => {
         padding: horizontalPadding,
       });
       expect(amToggle).toHaveStyle({
-        height: `${heightConfig[size]}px`,
+        minHeight: `${heightConfig[size]}px`,
         padding: `0 ${paddingConfig[size]}px`,
         "font-size": `${fontSizeConfig[size]}px`,
       });
       expect(pmToggle).toHaveStyle({
-        height: `${heightConfig[size]}px`,
+        minHeight: `${heightConfig[size]}px`,
         padding: `0 ${paddingConfig[size]}px`,
         "font-size": `${fontSizeConfig[size]}px`,
       });

@@ -1,6 +1,7 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
 import { shallow, mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import OptionGroupHeader, { OptionGroupHeaderProps } from ".";
 import guid from "../../../__internal__/utils/helpers/guid";
 
@@ -45,4 +46,28 @@ describe("OptionGroupHeader", () => {
       expect(wrapper.getDOMNode().getAttribute("data-role")).toEqual("baz");
     });
   });
+});
+
+test("should not render the icon or label text when children are provided", () => {
+  render(
+    <OptionGroupHeader label="foo" icon="shop">
+      <h2>bar</h2>
+    </OptionGroupHeader>
+  );
+
+  expect(screen.getByRole("heading", { name: "bar", level: 2 })).toBeVisible();
+  expect(
+    screen.queryByRole("heading", { name: "foo", level: 4 })
+  ).not.toBeInTheDocument();
+  expect(screen.queryByTestId("icon")).not.toBeInTheDocument();
+});
+
+test("should trigger a console warning when no label or children are provided", () => {
+  const spy = jest.spyOn(console, "warn").mockImplementation(() => {});
+  render(<OptionGroupHeader />);
+
+  expect(spy).toHaveBeenCalledWith(
+    "OptionGroupHeader requires either a label or children to be provided"
+  );
+  spy.mockRestore();
 });

@@ -14,6 +14,7 @@ import {
   FlatTableRowHeaderProps,
   FlatTableCellProps,
 } from ".";
+import Button from "../../../src/components/button";
 import Box from "../../../src/components/box";
 import Link from "../../../src/components/link";
 import guid from "../../__internal__/utils/helpers/guid";
@@ -22,6 +23,8 @@ import { WithSortingHeaders } from "./flat-table.stories";
 import Heading from "../../../src/components/heading";
 import Pager from "../../../src/components/pager";
 import Drawer from "../../../src/components/drawer";
+import Textbox from "../textbox/textbox.component";
+import DateInput from "../date/date.component";
 
 export default {
   title: "Flat Table/Test",
@@ -32,7 +35,7 @@ export default {
     "SubRowsAsAComponentStory",
     "FlatTableSizeFocus",
     "FlatTableInsideDrawer",
-    "TableInBox",
+    "FlatRowHeaderWithNoPaddingAndButtons",
   ],
   parameters: {
     info: { disable: true },
@@ -606,5 +609,183 @@ export const FlatTableInsideDrawer = () => {
     >
       <div />
     </Drawer>
+  );
+};
+export const FlatRowHeaderWithNoPaddingAndButtons = () => {
+  const SubRows = [
+    <FlatTableRow key="sub-row-1">
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableRowHeader p={0} stickyAlignment="left">
+        <Button>Button</Button>
+      </FlatTableRowHeader>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>
+        <Textbox label="" labelInline labelAlign="right" />
+      </FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableRowHeader p={0} stickyAlignment="right">
+        subrow content
+      </FlatTableRowHeader>
+      <FlatTableCell>subrow content</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="sub-row-2">
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableRowHeader p={0} stickyAlignment="left">
+        subrow content
+      </FlatTableRowHeader>
+      <FlatTableCell>
+        <Button>Button</Button>
+      </FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>
+        <Textbox label="" labelInline labelAlign="right" />
+      </FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableRowHeader p={0} stickyAlignment="right">
+        subrow content
+      </FlatTableRowHeader>
+      <FlatTableCell>subrow content</FlatTableCell>
+    </FlatTableRow>,
+  ];
+  return (
+    <FlatTable width="800px" overflowX="auto">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Sticky TD</FlatTableHeader>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            Sticky TH
+          </FlatTableRowHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            Sticky TH
+          </FlatTableRowHeader>
+          <FlatTableHeader>Sticky TD</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>
+            <Textbox label="" labelInline labelAlign="right" />
+          </FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>
+            <DateInput
+              error=""
+              fieldHelp=""
+              helpAriaLabel=""
+              inputWidth={70}
+              label=""
+              labelHelp=""
+              labelWidth={30}
+              maxDate=""
+              minDate=""
+              mt={0}
+              name="dateinput"
+              onBlur={() => {}}
+              onChange={() => {}}
+              onClick={() => {}}
+              onKeyDown={() => {}}
+              prefix=""
+              size="medium"
+              value="2019-04-04"
+              warning=""
+            />
+          </FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>
+            <Textbox label="" labelInline labelAlign="right" />
+          </FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>
+            <Button>Button</Button>
+          </FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>
+            <Textbox label="" labelInline labelAlign="right" />
+          </FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>
+            <Textbox label="" labelInline labelAlign="right" />
+          </FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
   );
 };

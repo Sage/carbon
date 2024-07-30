@@ -82,6 +82,7 @@ const InputPresentation = ({
     <StyledInputPresentationContainer
       inputWidth={inputWidth}
       maxWidth={maxWidth}
+      data-role="input-presentation-container"
     >
       {positionedChildren}
       <InputPresentationStyle

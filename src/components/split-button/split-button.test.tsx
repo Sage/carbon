@@ -1,5 +1,5 @@
 import React from "react";
-import { act, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SplitButton from "./split-button.component";
 import Button from "../button";
@@ -635,9 +635,7 @@ test("should hide the additional buttons when a click event detected outside the
   const childButton = screen.getByRole("button", { name: "Single Button" });
 
   expect(childButton).toBeVisible();
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
@@ -658,9 +656,7 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
   });
 
   expect(button1).toBeVisible();
-  await act(async () => {
-    await user.keyboard("{Escape}");
-  });
+  await user.keyboard("{Escape}");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
@@ -679,9 +675,7 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
   });
 
   expect(button1).toBeVisible();
-  await act(async () => {
-    await user.keyboard("{Escape}");
-  });
+  await user.keyboard("{Escape}");
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
 
@@ -742,9 +736,8 @@ test("should call the relevant 'onClick' callback and hide the additional button
   await user.click(toggle);
   const child = await screen.findByRole("button", { name: "Child Button" });
 
-  await act(async () => {
-    await user.click(child);
-  });
+  await user.click(child);
+
   expect(onClickOnChildMock).toHaveBeenCalled();
   expect(onClickMock).not.toHaveBeenCalled();
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
@@ -767,9 +760,8 @@ test("should hide the additional buttons when the main button is clicked", async
 
   expect(childButton).toBeVisible();
 
-  await act(async () => {
-    await user.click(main);
-  });
+  await user.click(main);
+
   expect(childButton).not.toBeInTheDocument();
 });
 
@@ -919,9 +911,7 @@ test("should support navigating the additional buttons via tab key and hide the 
   expect(button2).toHaveFocus();
   await user.tab();
   expect(button3).toHaveFocus();
-  await act(async () => {
-    await user.tab();
-  });
+  await user.tab();
 
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
@@ -956,9 +946,8 @@ test("should support navigating the additional buttons via shift+tab key, hide t
   expect(button2).toHaveFocus();
   await user.tab({ shift: true });
   expect(button1).toHaveFocus();
-  await act(async () => {
-    await user.tab({ shift: true });
-  });
+  await user.tab({ shift: true });
+
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
   expect(toggle).toHaveFocus();
 });

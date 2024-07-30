@@ -14,9 +14,12 @@ function highlightPartOfText(
     return text;
   }
 
-  const precedingText = text.substr(0, indexOfFirstMatch);
-  const matchingText = text.substr(indexOfFirstMatch, partToHighlight.length);
-  const followingText = text.substr(
+  const precedingText = text.slice(0, indexOfFirstMatch);
+  const matchingText = text.slice(
+    indexOfFirstMatch,
+    indexOfFirstMatch + partToHighlight.length
+  );
+  const followingText = text.slice(
     indexOfFirstMatch + partToHighlight.length,
     text.length
   );
@@ -29,7 +32,9 @@ function highlightPartOfText(
 
   const newValue = [
     <span key="preceding">{precedingText}</span>,
-    <MatchingText key="match">{matchingText}</MatchingText>,
+    <MatchingText key="match" data-role="matching-text">
+      {matchingText}
+    </MatchingText>,
     <span key="following">{followingTextNode}</span>,
   ];
 
