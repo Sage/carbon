@@ -657,7 +657,6 @@ export const FilterableSelect = React.forwardRef<
       onListScrollBottom,
       tableHeader,
       multiColumn,
-      loaderDataRole: "filterable-select-list-loader",
       listPlacement,
       flipEnabled,
       isOpen,

@@ -46,3 +46,40 @@ test("renders text overlay with custom placeholder when placeholder prop is pass
     "Select a colour"
   );
 });
+
+test("combobox has correct accessible name when label prop is provided", () => {
+  render(
+    <SimpleSelect label="Colour" onChange={() => {}} value="">
+      <Option text="Amber" value="1" />
+    </SimpleSelect>
+  );
+
+  expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
+});
+
+test("combobox has correct accessible name when aria-label prop is provided", () => {
+  render(
+    <SimpleSelect aria-label="Colour" onChange={() => {}} value="">
+      <Option text="Amber" value="1" />
+    </SimpleSelect>
+  );
+
+  expect(screen.getByRole("combobox")).toHaveAccessibleName("Colour");
+});
+
+test("combobox has correct accessible name when aria-labelledby prop is provided", () => {
+  render(
+    <>
+      <h2 id="my-select-heading">My Select</h2>
+      <SimpleSelect
+        aria-labelledby="my-select-heading"
+        onChange={() => {}}
+        value=""
+      >
+        <Option text="Amber" value="1" />
+      </SimpleSelect>
+    </>
+  );
+
+  expect(screen.getByRole("combobox")).toHaveAccessibleName("My Select");
+});

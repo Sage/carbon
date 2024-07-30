@@ -524,7 +524,6 @@ export const SimpleSelect = React.forwardRef<
         onListScrollBottom={onListScrollBottom}
         tableHeader={tableHeader}
         multiColumn={multiColumn}
-        loaderDataRole="simple-select-list-loader"
         listPlacement={listPlacement}
         flipEnabled={flipEnabled}
         isOpen={isOpen}
