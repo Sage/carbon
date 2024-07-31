@@ -1,3 +1,10 @@
+## [141.3.0](https://github.com/Sage/carbon/compare/v141.2.1...v141.3.0) (2024-07-31)
+
+
+### Features
+
+* **toast:** improve component screen reader behaviour ([5e945e3](https://github.com/Sage/carbon/commit/5e945e3003202867bc3962a68a8423db64ae2c57)), closes [#6729](https://github.com/Sage/carbon/issues/6729)
+
 ### [141.2.1](https://github.com/Sage/carbon/compare/v141.2.0...v141.2.1) (2024-07-30)
 
 
