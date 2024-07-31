@@ -19,6 +19,9 @@ import GlobalHeader from "../global-header";
 import Box from "../box/box.component";
 import Typography from "../typography/typography.component";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import Button from "../button";
+import PopoverContainer from "../popover-container";
+import Icon from "../icon";
 
 const menuTypes: MenuType[] = ["white", "light", "dark", "black"];
 
@@ -769,5 +772,36 @@ export const SubMenuWithVeryLongLabel = () => {
         </MenuItem>
       </Menu>
     </Box>
+  );
+};
+
+export const MenuItemWithPopoverContainerChild = () => {
+  return (
+    <Menu menuType="black">
+      <MenuItem>
+        <PopoverContainer
+          disableAnimation
+          containerAriaLabel="notifications"
+          closeButtonAriaLabel="closeContainerAriaLabel"
+          position="left"
+          shouldCoverButton
+          onOpen={() => {}}
+          onClose={() => {}}
+          open={false}
+          renderOpenComponent={({ ref, onClick }) => (
+            <Box data-role="gblnav-notificationui-bell">
+              <Button aria-label="Notifications" ref={ref} onClick={onClick}>
+                <Box alignItems="center" display="flex" px={2}>
+                  <Icon type="alert" />
+                  notifications
+                </Box>
+              </Button>
+            </Box>
+          )}
+        >
+          Content
+        </PopoverContainer>
+      </MenuItem>
+    </Menu>
   );
 };

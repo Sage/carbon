@@ -107,6 +107,7 @@ const Fieldset = ({
                 rightPadding={legendSpacing}
                 {...legendMargin}
                 data-element="legend"
+                data-role="legend"
               >
                 <StyledLegendContent
                   isRequired={isRequired}

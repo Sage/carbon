@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from "react";
 import { PaddingProps } from "styled-system";
 import { Transition, TransitionStatus } from "react-transition-group";
 import { flip, offset } from "@floating-ui/dom";
@@ -143,17 +149,20 @@ export interface PopoverContainerProps extends PaddingProps {
   disableAnimation?: boolean;
 }
 
-function getPopoverMiddleware(shouldCoverButton: boolean) {
-  return [
-    offset(
-      shouldCoverButton
-        ? ({ rects }) => ({ mainAxis: -rects.reference.height })
-        : 6
-    ),
-    flip({
-      fallbackStrategy: "initialPlacement",
-    }),
-  ];
+function usePopoverMiddleware(shouldCoverButton: boolean) {
+  return useMemo(
+    () => [
+      offset(
+        shouldCoverButton
+          ? ({ rects }) => ({ mainAxis: -rects.reference.height })
+          : 6
+      ),
+      flip({
+        fallbackStrategy: "initialPlacement",
+      }),
+    ],
+    [shouldCoverButton]
+  );
 }
 
 export const PopoverContainer = ({
@@ -191,6 +200,8 @@ export const PopoverContainer = ({
   const reduceMotion = !useMediaQuery(
     "screen and (prefers-reduced-motion: no-preference)"
   );
+
+  const popoverMiddleware = usePopoverMiddleware(shouldCoverButton);
 
   const closePopover = useCallback(
     (
@@ -361,7 +372,7 @@ export const PopoverContainer = ({
               popoverStrategy={
                 disableAnimation || reduceMotion ? "fixed" : "absolute"
               }
-              middleware={getPopoverMiddleware(shouldCoverButton)}
+              middleware={popoverMiddleware}
               childRefOverride={popoverContentNodeRef}
             >
               {childrenToRender(state)}

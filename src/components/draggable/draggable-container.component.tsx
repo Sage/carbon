@@ -7,8 +7,11 @@ import invariant from "invariant";
 import { filterStyledSystemMarginProps } from "../../style/utils";
 import DraggableItem from "./draggable-item/draggable-item.component";
 import DropTarget from "./__internal__/drop-target.component";
+import { TagProps } from "../../__internal__/utils/helpers/tags";
 
-export interface DraggableContainerProps extends MarginProps {
+export interface DraggableContainerProps
+  extends MarginProps,
+    Omit<TagProps, "data-component"> {
   /** Callback fired when order is changed */
   getOrder?: (
     draggableItemIds?: (string | number | undefined)[],
@@ -23,6 +26,8 @@ export interface DraggableContainerProps extends MarginProps {
 }
 
 const DraggableContainer = ({
+  "data-element": dataElement,
+  "data-role": dataRole = "draggable-container",
   children,
   getOrder,
   ...rest
@@ -71,6 +76,8 @@ const DraggableContainer = ({
 
   const moveItem = (id: string, atIndex: number) => {
     const { draggableItem, index } = findItem(id);
+
+    // istanbul ignore if
     if (!draggableItem) return;
 
     const copyOfDraggableItems = [...draggableItems];
@@ -95,7 +102,12 @@ const DraggableContainer = ({
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <DropTarget getOrder={getItemsId} {...marginProps}>
+      <DropTarget
+        data-element={dataElement}
+        data-role={dataRole}
+        getOrder={getItemsId}
+        {...marginProps}
+      >
         {draggableItems.map((item) => {
           return (
             React.isValidElement(item) &&

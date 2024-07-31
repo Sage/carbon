@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, screen, act, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {
   enGB as enGBLocale,
@@ -66,6 +66,18 @@ const MockComponent = ({
     />
   );
 };
+
+// temporatrily running timers on every spec as we have issues
+// around how slow the tests that open the calendar are.
+// FE-6724 raised to investigate and implement a better solution
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
 
 test("should render the presentation element with expected width when no `size` prop is passed", () => {
   render(<DateInput label="label" onChange={() => {}} value="" />);
@@ -174,7 +186,7 @@ test("should open the picker and call the `onFocus` callback if one passed when 
 });
 
 test("should open the picker and call the `onClick` and `onFocus` callbacks if passed when the user clicks on the input", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onFocus = jest.fn();
   const onClick = jest.fn();
   render(
@@ -195,7 +207,7 @@ test("should open the picker and call the `onClick` and `onFocus` callbacks if p
 });
 
 test("should open the picker and call the `onClick` callback if passed when the user clicks on the input icon", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onClick = jest.fn();
   render(
     <DateInput label="label" onChange={() => {}} value="" onClick={onClick} />
@@ -208,7 +220,7 @@ test("should open the picker and call the `onClick` callback if passed when the 
 });
 
 test("should close the picker if it is open and the user clicks on the input icon", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput label="label" onChange={() => {}} value="" />);
   const icon = screen.getByTestId("input-icon-toggle");
   await user.click(icon);
@@ -217,7 +229,7 @@ test("should close the picker if it is open and the user clicks on the input ico
 });
 
 test("should not trigger a focus event when the user clicks on the input and `disabled` prop is set", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onFocus = jest.fn();
   render(
     <DateInput
@@ -236,7 +248,7 @@ test("should not trigger a focus event when the user clicks on the input and `di
 });
 
 test("should not trigger a focus event when the user clicks on the input and `readOnly` prop is set", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onFocus = jest.fn();
   render(
     <DateInput
@@ -255,7 +267,7 @@ test("should not trigger a focus event when the user clicks on the input and `re
 });
 
 test("should call `onBlur` and `onChange` callbacks when the user clicks away from the input and the value is a valid format", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
@@ -268,16 +280,14 @@ test("should call `onBlur` and `onChange` callbacks when the user clicks away fr
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
   expect(onChange).toHaveBeenCalled();
 });
 
 test("should call `onBlur` but not `onChange` callbacks when the user clicks away from the input and the value is not a valid format", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
@@ -285,16 +295,14 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
   expect(onChange).not.toHaveBeenCalled();
 });
 
 test("should call `onBlur` but not `onChange` callbacks when the user clicks away from the input and the value has not been updated since initial render", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
@@ -307,16 +315,14 @@ test("should call `onBlur` but not `onChange` callbacks when the user clicks awa
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onBlur).toHaveBeenCalled();
   expect(onChange).not.toHaveBeenCalled();
 });
 
 test("should not call `onBlur` or `onChange` callbacks when user clicks away from the input and the `readOnly` prop is set", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onBlur = jest.fn();
   const onChange = jest.fn();
   render(
@@ -330,16 +336,14 @@ test("should not call `onBlur` or `onChange` callbacks when user clicks away fro
   );
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onBlur).not.toHaveBeenCalled();
   expect(onChange).not.toHaveBeenCalled();
 });
 
 test("should not call `onBlur` when the user clicks on the input and then the input icon", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onBlur = jest.fn();
   render(
     <DateInput label="label" onChange={() => {}} onBlur={onBlur} value="" />
@@ -347,23 +351,19 @@ test("should not call `onBlur` when the user clicks on the input and then the in
   const input = screen.getByRole("textbox");
   const icon = screen.getByTestId("input-icon-toggle");
   await user.click(input);
-  await act(async () => {
-    await user.click(icon);
-  });
+  await user.click(icon);
 
   expect(onBlur).not.toHaveBeenCalled();
 });
 
 test("should call `onChange` callback with expected values when user clicks away from the input and the value has a year with two digits between '69' and '99'", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.type(input, "12.12.69");
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onChange).toHaveBeenCalledWith({
     formattedValue: "12/12/1969",
@@ -373,15 +373,13 @@ test("should call `onChange` callback with expected values when user clicks away
 });
 
 test("should call `onChange` callback with expected values when user clicks away from the input and the value has a year with two digits not between '69' and '99'", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.type(input, "12.12.20");
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onChange).toHaveBeenCalledWith({
     formattedValue: "12/12/2020",
@@ -391,15 +389,13 @@ test("should call `onChange` callback with expected values when user clicks away
 });
 
 test("should call `onChange` callback with expected values when user clicks away from the input and the value has a year of '00'", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.type(input, "12.12.00");
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onChange).toHaveBeenCalledWith({
     formattedValue: "12/12/2000",
@@ -409,7 +405,7 @@ test("should call `onChange` callback with expected values when user clicks away
 });
 
 test("should call `onChange` callback when user clears the input and clicks away with `allowEmptyValue` prop set", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(
     <MockComponent
@@ -421,9 +417,7 @@ test("should call `onChange` callback when user clears the input and clicks away
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.clear(input);
-  await act(async () => {
-    await user.click(document.body);
-  });
+  await user.click(document.body);
 
   expect(onChange).toHaveBeenCalledWith({
     formattedValue: "",
@@ -433,7 +427,7 @@ test("should call `onChange` callback when user clears the input and clicks away
 });
 
 test("should not close the picker or call the `onChange` and `onBlur` callbacks when the user clicks inside of the picker but not on a day element", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   const onBlur = jest.fn();
   render(<DateInput onChange={onChange} onBlur={onBlur} value="04/04/2019" />);
@@ -448,7 +442,7 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
 });
 
 test("should not close the picker or call the `onChange` and `onBlur` callbacks when the user clicks on a disabled day", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   const onBlur = jest.fn();
   render(
@@ -469,32 +463,28 @@ test("should not close the picker or call the `onChange` and `onBlur` callbacks 
 });
 
 test("should close the open picker when a user presses the 'Escape' key", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
-  await act(async () => {
-    await user.keyboard("{Escape}");
-  });
+  await user.keyboard("{Escape}");
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
 test("should close the open picker when the user presses the 'Escape' key and focus is within the picker", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.tab();
-  await act(async () => {
-    await user.keyboard("{Escape}");
-  });
+  await user.keyboard("{Escape}");
 
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
 test("should call `onKeyDown` callback when the user types and the input is focused", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onKeyDown = jest.fn();
   render(<DateInput onChange={() => {}} value="" onKeyDown={onKeyDown} />);
   const input = screen.getByRole("textbox");
@@ -505,7 +495,7 @@ test("should call `onKeyDown` callback when the user types and the input is focu
 });
 
 test("should keep the picker open and move focus to the previous month button when the user presses tab and the input is focused", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -516,7 +506,7 @@ test("should keep the picker open and move focus to the previous month button wh
 });
 
 test("should keep the picker open and move focus to the previous month button when the user presses tab and the input is focused and `disablePortal` is set", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" disablePortal />);
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -527,34 +517,30 @@ test("should keep the picker open and move focus to the previous month button wh
 });
 
 test("should close the picker when the user presses shift + tab and the input is focused and the picker is open", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
 
   expect(screen.getByRole("grid")).toBeVisible();
-  await act(async () => {
-    await user.tab({ shift: true });
-  });
+  await user.tab({ shift: true });
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
 test("should close the picker when the user presses shift + tab and the previous month button is focused", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Previous month" })).toHaveFocus();
-  await act(async () => {
-    await user.tab({ shift: true });
-  });
+  await user.tab({ shift: true });
   expect(screen.queryByRole("grid")).not.toBeInTheDocument();
 });
 
 test("should not close the picker when the user presses shift + tab and neither the input or previous month button are focused", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -562,14 +548,12 @@ test("should not close the picker when the user presses shift + tab and neither 
   await user.tab();
 
   expect(screen.getByRole("button", { name: "Next month" })).toHaveFocus();
-  await act(async () => {
-    await user.tab({ shift: true });
-  });
+  await user.tab({ shift: true });
   expect(screen.getByRole("grid")).toBeVisible();
 });
 
 test("should focus the next button and then the selected day element when the user presses tab and close the picker with a subsequent tab press", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput onChange={() => {}} value="04/04/2019" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -587,7 +571,7 @@ test("should focus the next button and then the selected day element when the us
 });
 
 test("should close the picker, update the value and refocus the input element when the user clicks a day element", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<MockComponent initialValue="04/04/2019" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -599,7 +583,7 @@ test("should close the picker, update the value and refocus the input element wh
 });
 
 test("should render the help icon when the `labelHelp` prop is passed and display tooltip when user hovers mouse over icon", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <DateInput
       label="label"
@@ -622,7 +606,7 @@ test("should render the input with the expected required attribute when the `req
 });
 
 test("should render the picker as a descendant of the main presentation element when `disablePortal` is true", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <DateInput label="label" onChange={() => {}} value="" disablePortal />
   );
@@ -635,7 +619,7 @@ test("should render the picker as a descendant of the main presentation element 
 });
 
 test("should not render the picker as a descendant of the main presentation element when `disablePortal` is false", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(<DateInput label="label" onChange={() => {}} value="" />);
   const input = screen.getByRole("textbox");
   await user.click(input);
@@ -658,7 +642,7 @@ describe("when the `locale` is undefined", () => {
   });
 
   test("should update the input value to match 'en-GB' expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider>
         <MockComponent initialValue="04 04 2019" />
@@ -674,7 +658,7 @@ describe("when the `locale` is undefined", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match expected 'en-GB' format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider>
           <MockComponent initialValue="" />
@@ -707,7 +691,7 @@ describe("when the `locale` is 'en-GB''", () => {
   });
 
   test("should update the input value to match the expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider
         locale={{
@@ -728,7 +712,7 @@ describe("when the `locale` is 'en-GB''", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match the expected format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider
           locale={{
@@ -766,7 +750,7 @@ describe("when the `locale` is 'de-DE'", () => {
   });
 
   test("should update the input value to match the expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider
         locale={{
@@ -787,7 +771,7 @@ describe("when the `locale` is 'de-DE'", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match the expected format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider
           locale={{
@@ -825,7 +809,7 @@ describe("when the `locale` is 'es'", () => {
   });
 
   test("should update the input value to match the expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider
         locale={{
@@ -846,7 +830,7 @@ describe("when the `locale` is 'es'", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match the expected format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider
           locale={{
@@ -884,7 +868,7 @@ describe("when the `locale` is 'en-ZA'", () => {
   });
 
   test("should update the input value to match the expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider
         locale={{
@@ -905,7 +889,7 @@ describe("when the `locale` is 'en-ZA'", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match the expected format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider
           locale={{
@@ -943,7 +927,7 @@ describe("when the `locale` is 'fr-FR'", () => {
   });
 
   test("should update the input value to match the expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider
         locale={{
@@ -964,7 +948,7 @@ describe("when the `locale` is 'fr-FR'", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match the expected format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider
           locale={{
@@ -1002,7 +986,7 @@ describe("when the `locale` is 'fr-CA'", () => {
   });
 
   test("should update the input value to match the expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider
         locale={{
@@ -1023,7 +1007,7 @@ describe("when the `locale` is 'fr-CA'", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match the expected format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider
           locale={{
@@ -1061,7 +1045,7 @@ describe("when the `locale` is 'en-CA'", () => {
   });
 
   test("should update the input value to match the expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider
         locale={{
@@ -1082,7 +1066,7 @@ describe("when the `locale` is 'en-CA'", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match the expected format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider
           locale={{
@@ -1120,7 +1104,7 @@ describe("when the `locale` is 'en-US'", () => {
   });
 
   test("should update the input value to match the expected format when initial `value` has a different valid format and the input is blurred", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <I18nProvider
         locale={{
@@ -1141,7 +1125,7 @@ describe("when the `locale` is 'en-US'", () => {
   test.each(VALID_INPUT_STRINGS)(
     "should update the input value to match the expected format when the user types '%s' and the input is blurred",
     async (inputString) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <I18nProvider
           locale={{
@@ -1163,7 +1147,7 @@ describe("when the `locale` is 'en-US'", () => {
 });
 
 test("should update the input value and call `onChange` with expected parameters when the user types a string with a valid leap year and the input is blurred", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
@@ -1179,7 +1163,7 @@ test("should update the input value and call `onChange` with expected parameters
 });
 
 test("should call `onChange` with expected parameters but not update the input value when the user types a string with an invalid leap year and the input is blurred", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
@@ -1195,7 +1179,7 @@ test("should call `onChange` with expected parameters but not update the input v
 });
 
 test("should call `onChange` with expected parameters but not update the input value when the user types an invalid string and the input is blurred", async () => {
-  const user = userEvent.setup();
+  const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   const onChange = jest.fn();
   render(<MockComponent onChange={onChange} initialValue="" />);
   const input = screen.getByRole("textbox");
@@ -1212,7 +1196,7 @@ test("should call `onChange` with expected parameters but not update the input v
 
 describe("when the `validationRedesignOptIn` prop is falsy", () => {
   test("should render tooltip and validation icon when `error` is passed a string value and the user hovers the mouse over the input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <DateInput
@@ -1233,7 +1217,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
   });
 
   test("should render tooltip and validation icon when `validationOnLabel` is set and `error` is passed a string value and the user hovers the mouse over the input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <DateInput
@@ -1252,7 +1236,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
   });
 
   test("should render tooltip and validation icon when `validationOnLabel` is set and `error` is passed a string value and the user hovers the mouse over the label", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <DateInput
@@ -1271,7 +1255,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
   });
 
   test("should not render tooltip or validation icon when `error` is passed a boolean value", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <DateInput label="label" onChange={() => {}} value="" error />
@@ -1286,7 +1270,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
   });
 
   test("should render tooltip and validation icon when an `warning` is passed a string value and the user hovers the mouse over the input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <DateInput
@@ -1307,7 +1291,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
   });
 
   test("should not render tooltip or validation icon when `warning` is passed a boolean value", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <DateInput label="label" onChange={() => {}} value="" warning />
@@ -1322,7 +1306,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
   });
 
   test("should render tooltip and validation icon when an `info` is passed a string value and the user hovers the mouse over the input", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <DateInput
@@ -1343,7 +1327,7 @@ describe("when the `validationRedesignOptIn` prop is falsy", () => {
   });
 
   test("should not render tooltip or validation icon when `info` is passed a boolean value", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     render(
       <CarbonProvider>
         <DateInput label="label" onChange={() => {}} value="" info />

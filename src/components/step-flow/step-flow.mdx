@@ -33,7 +33,7 @@ Use a step flow to help a user complete tasks in a specific order, based on thei
 ## Quick Start
 
 ```js
-import StepFlow from "carbon-react/lib/components/step-flow";
+import { StepFlow, StepFlowTitle, StepFlowHandle, Steps } from "carbon-react/lib/components/step-flow";
 ```
 
 ## Examples
@@ -45,6 +45,28 @@ An example of how this can be achieved is provided in the **Example implementati
 ### Default
 
 <Canvas of={StepFlowStories.DefaultStory} />
+
+### Step Flow Title node
+
+To allow a compositional approach, the `title` prop accepts a node. This can be used to compose custom content to be passed as the title of the `StepFlow` component.
+However, it is important to note that it is recommended that the `StepFlowTitle` sub component should be a descendant of the passed node.
+
+<Canvas of={StepFlowStories.TitleNodeStory} />
+
+### Step Flow Title node with a screen reader only title
+
+The `screenReaderOnlyTitle` prop can be used to pass a custom screen reader only title. This is useful for providing screen reader users with all of the necessary information or context
+which may not be available visually.
+
+<Canvas of={StepFlowStories.TitleNodeStoryWithScreenReaderOnlyTitle} />
+
+Please see below an example of what this look like in the DOM.
+
+```jsx
+<span data-element="visually-hidden-title-text">
+  Step Title with a pointer image. Step 1 of 3.
+</span>
+```
 
 ### with category
 
@@ -118,14 +140,9 @@ stepFlowHandle.current?.focus();
 
 This will ensure that screen reader users are not only made aware of any changes to information, but can then also navigate down the page from the `StepFlow` component as they see fit.
 
-### Example implementation with translations
+### Example implementation with title node
 
-Various translations can be applied to both the step label, screen reader only title and close icon aria-label.
-
-When providing the screen reader only title the `title`, `category` (if provided), `currentStep` and `totalSteps`, have all been passed to ensure screen reader users have all of the same information
-as users who can see the component. Please see below how this has been achieved with a French translation.
-
-<Canvas of={StepFlowStories.ExampleImplementationWithTranslations} />
+<Canvas of={StepFlowStories.ExampleImplementationWithTitleNode} />
 
 ## Props
 
@@ -163,3 +180,4 @@ The following keys are available to override the translations for this component
     },
   ]}
 />
+

@@ -28,7 +28,7 @@ const alertDialog = (page: Page) => {
 };
 
 const alertChildren = (page: Page) => {
-  return page.locator('[data-component="dialog"] div:nth-of-type(2) div');
+  return page.locator('[data-component="alert"] div:nth-of-type(2) div');
 };
 
 export {
