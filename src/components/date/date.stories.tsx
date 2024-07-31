@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { zhCN, de } from "date-fns/locale";
 
+import styled from "styled-components";
 import generateStyledSystemProps from "../../../.storybook/utils/styled-system-props";
 
 import CarbonProvider from "../carbon-provider/carbon-provider.component";
@@ -26,28 +27,18 @@ const meta: Meta<typeof DateInput> = {
 export default meta;
 type Story = StoryObj<typeof DateInput>;
 
+const TabStop = styled.div`
+  height: 0px;
+  position: absolute;
+  :focus {
+    outline: none;
+  }
+`;
+
 export const Default: Story = () => {
   const [date, setDate] = useState("01/01/24");
   const [date2, setDate2] = useState("01/01/24");
   const [showDialog, setShowDialog] = useState(false);
-  const [open, setOpen] = useState<boolean | undefined>(undefined);
-
-  // this fixes the issue of the picker being open when the input blurs and
-  // the dialog is shown. However, what if they user presses tab to navigate into
-  // the picker? This will close it and open the dialog.
-
-  useEffect(() => {
-    if (showDialog) {
-      setOpen(false);
-    }
-  }, [showDialog]);
-
-  useEffect(() => {
-    // if we don't set open to undefined, the picker needs to be controlled throughtout
-    if (open === false) {
-      setOpen(undefined);
-    }
-  }, [open]);
 
   return (
     <Box
@@ -62,19 +53,33 @@ export const Default: Story = () => {
       <DateInput
         onChange={(e) => setDate(e.target.value.formattedValue)}
         value={date}
-        onBlur={() => {
+        onComponentFullBlur={() => {
           setShowDialog(true);
         }}
-        isOpen={open}
       />
-
+      <TabStop
+        tabIndex={0}
+        onFocus={() => {
+          setShowDialog(true);
+        }}
+      />
       <DateInput
         onChange={(e) => setDate2(e.target.value.formattedValue)}
         value={date2}
-        onBlur={() => setShowDialog(true)}
-        isOpen={open}
+        onComponentFullBlur={() => setShowDialog(true)}
       />
-      <Confirm open={showDialog} onConfirm={() => setShowDialog(false)}>
+      <TabStop
+        tabIndex={0}
+        onFocus={() => {
+          setShowDialog(true);
+        }}
+      />
+      <Confirm
+        open={showDialog}
+        onConfirm={() => {
+          setShowDialog(false);
+        }}
+      >
         potato
       </Confirm>
     </Box>

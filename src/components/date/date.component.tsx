@@ -99,7 +99,7 @@ export interface DateInputProps
    * */
   inputName?: InputName;
 
-  isOpen?: boolean;
+  onComponentFullBlur?: () => void;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -131,7 +131,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       labelWidth,
       maxWidth,
       inputName,
-      isOpen,
+      onComponentFullBlur,
       ...rest
     }: DateInputProps,
     ref
@@ -277,6 +277,10 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       if (onBlur) {
         onBlur(event);
       }
+
+      if (!open) {
+        onComponentFullBlur?.();
+      }
     };
 
     const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
@@ -388,13 +392,6 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     );
 
     useEffect(() => {
-      // if we don't check this then they have to control the picker state throughout
-      if (isOpen !== undefined) {
-        setOpen(isOpen);
-      }
-    }, [isOpen]);
-
-    useEffect(() => {
       const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
         value,
         formats
@@ -503,6 +500,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           open={open}
           setOpen={setOpen}
           pickerTabGuardId={pickerTabGuardId.current}
+          onComponentFullBlur={onComponentFullBlur}
         />
       </StyledDateInput>
     );

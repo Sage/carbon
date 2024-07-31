@@ -57,6 +57,7 @@ export interface DatePickerProps {
   setOpen: (isOpen: boolean) => void;
   /** Id passed to tab guard element */
   pickerTabGuardId?: string;
+  onComponentFullBlur?: () => void;
 }
 
 const popoverMiddleware = [
@@ -78,6 +79,7 @@ export const DatePicker = ({
   open,
   setOpen,
   pickerTabGuardId,
+  onComponentFullBlur,
 }: DatePickerProps) => {
   const locale = useLocale();
   const { localize, options } = locale.date.dateFnsLocale();
@@ -220,6 +222,26 @@ export const DatePicker = ({
     `${weekdaysShort[date.getDay()]} ${date.getDate()} ${
       monthsShort[date.getMonth()]
     } ${date.getFullYear()}`;
+
+  const isFirstRender = useRef(true);
+  const onComponentFullBlurRef = useRef(onComponentFullBlur);
+  const input = useRef(inputElement.current?.querySelector("input"));
+  onComponentFullBlurRef.current = onComponentFullBlur;
+  input.current = inputElement.current?.querySelector("input");
+
+  useEffect(() => {
+    if (
+      !open &&
+      !isFirstRender.current &&
+      input.current !== document.activeElement
+    ) {
+      onComponentFullBlurRef.current?.();
+    }
+
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+    }
+  }, [open]);
 
   if (!open) {
     return null;
