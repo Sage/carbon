@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { zhCN, de } from "date-fns/locale";
 
@@ -9,6 +9,7 @@ import DateInput, { DateChangeEvent } from "./date.component";
 import Box from "../box";
 import Button from "../button";
 import I18nProvider from "../i18n-provider";
+import Confirm from "../confirm";
 
 const styledSystemProps = generateStyledSystemProps({
   margin: true,
@@ -26,17 +27,57 @@ export default meta;
 type Story = StoryObj<typeof DateInput>;
 
 export const Default: Story = () => {
-  const [state, setState] = useState("04/04/2019");
-  const setValue = (ev: DateChangeEvent) => {
-    setState(ev.target.value.formattedValue);
-  };
+  const [date, setDate] = useState("01/01/24");
+  const [date2, setDate2] = useState("01/01/24");
+  const [showDialog, setShowDialog] = useState(false);
+  const [open, setOpen] = useState<boolean | undefined>(undefined);
+
+  // this fixes the issue of the picker being open when the input blurs and
+  // the dialog is shown. However, what if they user presses tab to navigate into
+  // the picker? This will close it and open the dialog.
+
+  useEffect(() => {
+    if (showDialog) {
+      setOpen(false);
+    }
+  }, [showDialog]);
+
+  useEffect(() => {
+    // if we don't set open to undefined, the picker needs to be controlled throughtout
+    if (open === false) {
+      setOpen(undefined);
+    }
+  }, [open]);
+
   return (
-    <DateInput
-      label="Date"
-      name="date-input"
-      value={state}
-      onChange={setValue}
-    />
+    <Box
+      padding="25px"
+      display="flex"
+      flexDirection="column"
+      gap="var(--spacing200)"
+      minWidth="320px"
+      maxWidth="1024px"
+      boxSizing="border-box"
+    >
+      <DateInput
+        onChange={(e) => setDate(e.target.value.formattedValue)}
+        value={date}
+        onBlur={() => {
+          setShowDialog(true);
+        }}
+        isOpen={open}
+      />
+
+      <DateInput
+        onChange={(e) => setDate2(e.target.value.formattedValue)}
+        value={date2}
+        onBlur={() => setShowDialog(true)}
+        isOpen={open}
+      />
+      <Confirm open={showDialog} onConfirm={() => setShowDialog(false)}>
+        potato
+      </Confirm>
+    </Box>
   );
 };
 Default.storyName = "Default";

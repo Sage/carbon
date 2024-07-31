@@ -98,6 +98,8 @@ export interface DateInputProps
    * Name passed from DateRange to allow it to know which input is updating
    * */
   inputName?: InputName;
+
+  isOpen?: boolean;
 }
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -129,6 +131,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       labelWidth,
       maxWidth,
       inputName,
+      isOpen,
       ...rest
     }: DateInputProps,
     ref
@@ -383,6 +386,13 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       },
       [inputName, inputRefMap, setInputRefMap, ref]
     );
+
+    useEffect(() => {
+      // if we don't check this then they have to control the picker state throughout
+      if (isOpen !== undefined) {
+        setOpen(isOpen);
+      }
+    }, [isOpen]);
 
     useEffect(() => {
       const [matchedFormat, matchedValue] = findMatchedFormatAndValue(
