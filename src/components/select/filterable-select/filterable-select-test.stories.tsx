@@ -515,6 +515,7 @@ export const FilterableSelectListActionEventComponent = (
           Add a New Element
         </Button>
       }
+      onListAction={() => {}}
     >
       <Option text="Amber" value="1" />
       <Option text="Black" value="2" />

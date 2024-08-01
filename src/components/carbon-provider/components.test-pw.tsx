@@ -4,7 +4,7 @@ import CarbonProvider from ".";
 import Button from "../button";
 import { sageTheme, baseTheme, noTheme } from "../../style/themes";
 
-const AllThemes = () => {
+export const AllThemes = () => {
   const themes = [sageTheme, baseTheme, noTheme];
 
   return (
@@ -20,8 +20,6 @@ const AllThemes = () => {
     </>
   );
 };
-
-export default AllThemes;
 
 export const SageTheme = () => {
   return (
