@@ -57,7 +57,10 @@ export interface StyledIconInternalProps {
   theme?: ThemeObject;
 }
 
-function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
+function adjustIconBgSize(
+  fontSize: FontSize = "small",
+  bgSize: BgSize = fontSize
+) {
   const sizeValues: Record<BgSize | FontSize, number> = {
     "extra-small": 1,
     small: 2,
@@ -66,22 +69,18 @@ function adjustIconBgSize(fontSize?: FontSize, bgSize?: BgSize) {
     "extra-large": 5,
   };
 
-  if (fontSize && bgSize) {
-    const fontSizeValue = sizeValues[fontSize];
-    const bgSizeValue = sizeValues[bgSize];
+  const fontSizeValue = sizeValues[fontSize];
+  const bgSizeValue = sizeValues[bgSize];
 
-    if (bgSizeValue < fontSizeValue) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`
-      );
-      return iconConfig.backgroundSize[fontSize];
-    }
-
-    return iconConfig.backgroundSize[bgSize];
+  if (bgSizeValue < fontSizeValue) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[WARNING - Icon] The "${bgSize}" \`bgSize\` is smaller than "${fontSize}" \`fontSize\`, the \`bgSize\` has been auto adjusted to a larger size.`
+    );
+    return iconConfig.backgroundSize[fontSize];
   }
 
-  return bgSize ? iconConfig.backgroundSize[bgSize] : undefined;
+  return iconConfig.backgroundSize[bgSize];
 }
 
 const oldFocusStyling = "outline: 2px solid var(--colorsSemanticFocus500);";
