@@ -7,7 +7,10 @@ import {
   ToastWhenOtherModalRenders,
   ToastAllAlign,
 } from "./components.test-pw";
-import toastComponent from "../../../playwright/components/toast/index";
+import {
+  toastComponent,
+  toastContent,
+} from "../../../playwright/components/toast/index";
 import { alertDialogPreview } from "../../../playwright/components/dialog";
 import { TOAST_COLORS } from "./toast.config";
 
@@ -42,7 +45,7 @@ test.describe("Toast component", () => {
     }) => {
       await mount(<ToastComponent>{children}</ToastComponent>);
 
-      await expect(toastComponent(page)).toHaveText(children);
+      await expect(toastContent(page)).toHaveText(children);
     });
   });
 

@@ -220,6 +220,12 @@ const esES: Partial<Locale> = {
     ariaLabels: {
       close: () => "Cerrar",
     },
+    error: () => "",
+    info: () => "",
+    success: () => "",
+    warning: () => "",
+    neutral: () => "",
+    notification: () => "",
   },
   verticalMenuFullScreen: {
     ariaLabels: {

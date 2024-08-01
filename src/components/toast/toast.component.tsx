@@ -16,6 +16,8 @@ import IconButton from "../icon-button";
 import Events from "../../__internal__/utils/helpers/events";
 import useLocale from "../../hooks/__internal__/useLocale";
 import useModalManager from "../../hooks/__internal__/useModalManager";
+import guid from "../../__internal__/utils/helpers/guid";
+import Typography from "../typography";
 
 type ToastVariants =
   | "error"
@@ -46,7 +48,7 @@ export interface ToastProps {
   alignY?: AlignYOptions;
   /** The rendered children of the component. */
   children: React.ReactNode;
-  /** Customizes the appearance in the DLS theme */
+  /** Sets Toast variant */
   variant?: ToastVariants;
   /** Custom className */
   className?: string;
@@ -98,6 +100,8 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     const isNotice = variant === "notice";
     const isNotification = variant === "notification";
     const locale = useLocale();
+    const toastIconId = useRef(guid());
+    const toastContentId = useRef(guid());
 
     const toastRef = useRef<HTMLDivElement | null>(null);
     const timer = useRef<null | ReturnType<typeof setTimeout>>(null);
@@ -166,8 +170,6 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
     }, []);
 
     function renderCloseIcon() {
-      if (!onDismiss) return null;
-
       return (
         <IconButton
           aria-label={locale.toast.ariaLabels.close()}
@@ -232,16 +234,20 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
                 data-role="toast-type-icon"
               >
                 <Icon type={toastIcon} />
+                <Typography screenReaderOnly id={toastIconId.current}>
+                  {locale.toast[variant]()}
+                </Typography>
               </TypeIcon>
             )}
             <StyledToastContent
               isNotice={isNotice}
               isDismiss={!!onDismiss}
               data-role="toast-content"
+              id={toastContentId.current}
             >
               {children}
             </StyledToastContent>
-            {renderCloseIcon()}
+            {onDismiss && renderCloseIcon()}
           </StyledToast>
         </CSSTransition>
       );
@@ -259,6 +265,10 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
           ref={refToPass}
           isNotice={isNotice}
           data-role="toast-wrapper"
+          role="region"
+          aria-labelledby={`${!isNotice && toastIconId.current} ${
+            toastContentId.current
+          }`}
         >
           <TransitionGroup>{renderToastContent()}</TransitionGroup>
         </ToastWrapper>

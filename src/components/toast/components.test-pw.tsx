@@ -53,46 +53,43 @@ export const ToastWhenOtherModalRenders = ({
   );
 };
 
-export const ToastAllAlign = ({
-  children = "Toast",
-  ...props
-}: Partial<ToastProps>) => {
+export const ToastAllAlign = ({ ...props }: Partial<ToastProps>) => {
   return (
     <>
       <Toast align="left" alignY="top" open {...props}>
-        {children}
+        Toast 1
       </Toast>
 
       <Toast align="center" alignY="top" open {...props}>
-        {children}
+        Toast 2
       </Toast>
 
       <Toast align="right" alignY="top" open {...props}>
-        {children}
+        Toast 3
       </Toast>
 
       <Toast align="left" alignY="center" open {...props}>
-        {children}
+        Toast 4
       </Toast>
 
       <Toast align="center" alignY="center" open {...props}>
-        {children}
+        Toast 5
       </Toast>
 
       <Toast align="right" alignY="center" open {...props}>
-        {children}
+        Toast 6
       </Toast>
 
       <Toast align="left" alignY="bottom" open {...props}>
-        {children}
+        Toast 7
       </Toast>
 
       <Toast align="center" alignY="bottom" open {...props}>
-        {children}
+        Toast 8
       </Toast>
 
       <Toast align="right" alignY="bottom" open {...props}>
-        {children}
+        Toast 9
       </Toast>
     </>
   );

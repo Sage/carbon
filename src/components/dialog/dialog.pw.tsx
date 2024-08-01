@@ -20,7 +20,7 @@ import {
   Responsive,
   UsingHandle,
 } from "./components.test-pw";
-import toastComponent from "../../../playwright/components/toast";
+import { toastComponent } from "../../../playwright/components/toast";
 import {
   checkAccessibility,
   getStyle,

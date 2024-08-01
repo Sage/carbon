@@ -1,3 +1,17 @@
+### [141.3.1](https://github.com/Sage/carbon/compare/v141.3.0...v141.3.1) (2024-08-01)
+
+
+### Bug Fixes
+
+* **heading:** the heading separator incorrectly has 1px black colour at the leftmost position ([b31fb1e](https://github.com/Sage/carbon/commit/b31fb1ea7ef0b59c87e885d61e8ec622ff1a0fa3))
+
+## [141.3.0](https://github.com/Sage/carbon/compare/v141.2.1...v141.3.0) (2024-07-31)
+
+
+### Features
+
+* **toast:** improve component screen reader behaviour ([5e945e3](https://github.com/Sage/carbon/commit/5e945e3003202867bc3962a68a8423db64ae2c57)), closes [#6729](https://github.com/Sage/carbon/issues/6729)
+
 ### [141.2.1](https://github.com/Sage/carbon/compare/v141.2.0...v141.2.1) (2024-07-30)
 
 

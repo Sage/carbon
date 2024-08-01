@@ -1,6 +1,10 @@
 import type { Page } from "@playwright/test";
+import { TOAST_COMPONENT, TOAST_CONTENT } from "./locators";
 
-// element locators for Toast component
-const toastComponent = (page: Page) => page.locator("[data-component='toast']");
+export const toastComponent = (page: Page) => {
+  return page.locator(TOAST_COMPONENT);
+};
 
-export default toastComponent;
+export const toastContent = (page: Page) => {
+  return page.locator(TOAST_CONTENT);
+};

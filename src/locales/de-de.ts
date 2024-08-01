@@ -214,6 +214,12 @@ const deDE: Partial<Locale> = {
     ariaLabels: {
       close: () => "Schließen",
     },
+    error: () => "",
+    info: () => "",
+    success: () => "",
+    warning: () => "",
+    neutral: () => "",
+    notification: () => "",
   },
   verticalMenuFullScreen: {
     ariaLabels: {

@@ -142,7 +142,9 @@ const StyledHeadingIcon = styled(Icon)`
 `;
 
 const StyledSeparator = styled.hr`
-  border-top: 2px solid var(--colorsUtilityMajor100);
+  border-top: 2px;
+  border-style: solid;
+  border-color: var(--colorsUtilityMajor100);
   margin: 10px 0 8px;
   text-align: left;
   width: 50px;

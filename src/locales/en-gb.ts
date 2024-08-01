@@ -220,6 +220,12 @@ const enGB: Locale = {
     ariaLabels: {
       close: () => "Close",
     },
+    error: () => "Error",
+    info: () => "Information",
+    success: () => "Success",
+    warning: () => "Warning",
+    neutral: () => "Information",
+    notification: () => "Notification",
   },
   verticalMenuFullScreen: {
     ariaLabels: {

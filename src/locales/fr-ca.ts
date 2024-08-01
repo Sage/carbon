@@ -222,6 +222,12 @@ const frCA: Partial<Locale> = {
     ariaLabels: {
       close: () => "Fermer",
     },
+    error: () => "",
+    info: () => "",
+    success: () => "",
+    warning: () => "",
+    neutral: () => "",
+    notification: () => "",
   },
   verticalMenuFullScreen: {
     ariaLabels: {
