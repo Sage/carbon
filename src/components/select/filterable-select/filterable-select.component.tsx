@@ -509,6 +509,8 @@ export const FilterableSelect = React.forwardRef(
       if (onClick) {
         onClick(event);
       }
+
+      setOpen(true);
     }
 
     function handleDropdownIconClick(

@@ -427,7 +427,7 @@ test.describe("MultiSelect component", () => {
     await expect(selectListWrapper(page)).not.toBeVisible();
   });
 
-  test("should not open the list with mouse click on input", async ({
+  test("should open the list with mouse click on input", async ({
     mount,
     page,
   }) => {
@@ -436,8 +436,8 @@ test.describe("MultiSelect component", () => {
     const inputElement = commonDataElementInputPreview(page);
     await inputElement.click();
     await expect(inputElement).toBeFocused();
-    await expect(inputElement).toHaveAttribute("aria-expanded", "false");
-    await expect(selectListWrapper(page)).not.toBeVisible();
+    await expect(inputElement).toHaveAttribute("aria-expanded", "true");
+    await expect(selectListWrapper(page)).toBeVisible();
   });
 
   test("should open the list with mouse click on dropdown button", async ({
