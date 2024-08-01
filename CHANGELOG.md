@@ -1,3 +1,10 @@
+## [141.4.0](https://github.com/Sage/carbon/compare/v141.3.1...v141.4.0) (2024-08-01)
+
+
+### Features
+
+* **search:** add `triggerOnClear` prop to allow clicking `cross` icon to trigger `onClick` ([a77afe5](https://github.com/Sage/carbon/commit/a77afe55bf47f9b52befa3356c3affc755651b29)), closes [#6768](https://github.com/Sage/carbon/issues/6768)
+
 ### [141.3.1](https://github.com/Sage/carbon/compare/v141.3.0...v141.3.1) (2024-08-01)
 
 
