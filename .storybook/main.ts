@@ -1,8 +1,5 @@
-import path from "path";
-import glob from "glob";
-import remarkGfm from "remark-gfm";
-import { StorybookConfig } from "@storybook/react-webpack5";
-
+const path = require("path");
+const glob = require("glob");
 const projectRoot = path.resolve(__dirname, "../");
 const ignoreTests = process.env.IGNORE_TESTS === "true";
 const isChromatic = !ignoreTests;
@@ -12,9 +9,7 @@ const getStories = () =>
       ignore: `${projectRoot}/src/**/*-test.stories.@(js|jsx|ts|tsx)`,
     }),
   });
-
-const config: StorybookConfig = {
-  framework: "@storybook/react-webpack5",
+module.exports = {
   stories: [
     "./welcome-page/welcome.stories.js",
     "../docs/*.mdx",
@@ -28,37 +23,37 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-actions",
     "@storybook/addon-controls",
-    {
-      name: "@storybook/addon-docs",
-      options: {
-        mdxPluginOptions: {
-          mdxCompileOptions: {
-            remarkPlugins: [remarkGfm],
-          },
-        },
-      },
-    },
+    "@storybook/addon-docs",
+    "@storybook/addon-links",
+    "@storybook/addon-mdx-gfm",
     "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
-    "@storybook/addon-webpack5-compiler-swc",
   ],
   staticDirs: ["../.assets", "../logo"],
-  webpackFinal: async (config) => ({
-    ...config,
-    module: {
-      ...config?.module,
-      rules: [
-        ...(config?.module?.rules ?? []),
-        {
-          test: /\.(woff(2)?|eot|ttf|otf|svg|png)$/,
-          type: "asset/resource",
-          generator: {
-            filename: "static/media/[name][ext]",
-          },
+  webpackFinal: async (config, { configType }) => {
+    config.resolve = {
+      alias: {
+        helpers: path.resolve(__dirname, "__helpers__/"),
+      },
+      extensions: [".js", ".tsx", ".ts"],
+    };
+
+    // Finds the rule for woff2 files and modifies the file-loader to preserve the original filenames to allow us to preload them
+    const fontRuleIndex = config.module.rules.findIndex((rule) =>
+      rule.test.toString().includes("woff2")
+    );
+    if (fontRuleIndex !== -1) {
+      config.module.rules[fontRuleIndex] = {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|png)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "static/media/[name][ext]",
         },
-      ],
-    },
-  }),
+      };
+    }
+
+    return config;
+  },
   ...(isChromatic && {
     previewHead: (head) => `
       ${head}
@@ -69,10 +64,11 @@ const config: StorybookConfig = {
       <meta name="robots" content="noindex">
   `,
   }),
-  typescript: {
-    check: false,
-    reactDocgen: "react-docgen-typescript",
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+  docs: {
+    autodocs: true,
   },
 };
-
-export default config;

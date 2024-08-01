@@ -64,7 +64,7 @@ Exports in the `index.ts` file should follow this template:
 ```ts
 // If component is sole export of *.component file, export it as default
 export { default } from "./textbox.component";
-export { type TextboxProps } from "./textbox.component";
+export { type TextboxProps } from "./textbox.component"; 
 
 // If component should come with subcomponents - export all as named exports
 export { default as Select } from "./select.component";
@@ -78,7 +78,7 @@ export { type OptionProps } from "./option/option.component";
 
 ## Documenting with Storybook
 
-We use [Storybook](https://storybook.js.org/) for our documentation - which uses example _"stories"_ to demo how our components can be used with certain props or how a particular layout can be achieved. Alongside demoing component behaviour, we also use stories for automated visual testing using [Chromatic](https://www.chromatic.com/), so we require stories to be written for all our components.
+We use [Storybook](https://storybook.js.org/) for our documentation - which uses example *"stories"* to demo how our components can be used with certain props or how a particular layout can be achieved. Alongside demoing component behaviour, we also use stories for automated visual testing using [Chromatic](https://www.chromatic.com/), so we require stories to be written for all our components.
 
 > If you are new to Storybook, we recommend first reading their [official docs](https://storybook.js.org/docs/react/get-started/introduction), particularly this section on [how to write stories](https://storybook.js.org/docs/react/writing-stories/introduction#how-to-write-stories), so you are familiar with the following patterns.
 
@@ -87,46 +87,35 @@ New stories should be written in TypeScript as a `<component>.stories.tsx` file 
 ```tsx
 // in button.stories.tsx
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { ComponentStory } from "@storybook/react";
 
 import Button from ".";
 
-const meta: Meta<typeof Button> = {
-  title: "Button",
-  component: Button,
-};
+export const PrimaryButton: ComponentStory<typeof Button> = () => (
+  <Button variant="primary">Click me!</Button>
+);
 
-export default meta;
-type Story = StoryObj<typeof Button>;
-
-export const PrimaryButton: Story = {
-  args: {
-    variant: "primary",
-    children: "Click me!",
-  },
-};
-
-export const SecondaryButton: Story = {
-  args: {
-    variant: "secondary",
-    children: "Click me!",
-  },
-};
+export const SecondaryButton: ComponentStory<typeof Button> = () => (
+  <Button variant="secondary">Click me!</Button>
+);
 ```
 
-For creating the component docs pages you see on [carbon.sage.com](https://carbon.sage.com), these should be written separately in the [MDX](https://storybook.js.org/docs/react/writing-docs/mdx) format as a `<component>.mdx` file. This allows us to decouple our documentation from our story code. We then import our previously written TypeScript stories from `<component>.stories.tsx` into this new file, which Storybook uses to build our official docs for the component.
+For creating the component docs pages you see on [carbon.sage.com](https://carbon.sage.com), these should be written separately in the [MDX](https://storybook.js.org/docs/react/writing-docs/mdx) format as a `<component>.stories.mdx` file. This allows us to decouple our documentation from our story code. We then import our previously written TypeScript stories from `<component>.stories.tsx` into this new file, which Storybook uses to build our official docs for the component.
 
 This would typically look like the following:
 
-```none
-/* in button.mdx... */
-
+```markdown
+<!-- in button.stories.mdx -->
 import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 import Button from ".";
-import * as ButtonStories from "./button.stories.tsx";
+import * as stories from "./button.stories.tsx";
 
-<Meta of={ButtonStories} />
+<!-- Metadata for Storybook -->
+<Meta
+  title="Button"
+  component={Button}
+/>
 
 # Button
 
@@ -150,8 +139,11 @@ This is an example of a secondary `Button` which has slightly different styling:
 
 ## Props
 
-<ArgTypes of={ButtonStories} />
+<!-- Show props table which details all available props for the component -->
+<ArgsTable noHeader of={Button}>
 ```
+
+> The above pattern is officially known as [**CSF stories with MDX docs**](https://github.com/storybookjs/storybook/blob/master/addons/docs/docs/recipes.md#csf-stories-with-mdx-docs) by Storybook.
 
 ## Linting
 

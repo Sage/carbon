@@ -5,13 +5,17 @@ export default {
   title: "Welcome",
   component: Welcome,
   parameters: {
+    docs: {
+      page: null,
+    },
+    options: {
+      showPanel: false,
+    },
     chromatic: {
       disableSnapshot: true,
     },
-    layout: "fullscreen",
+    viewMode: "canvas",
   },
 };
 
-export const WelcomePage = {
-  render: () => <Welcome />,
-};
+export const WelcomePage = () => <Welcome />;

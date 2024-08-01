@@ -1,7 +1,8 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import { HooksConfig } from "../../../playwright";
-import { SageTheme as SageThemeStory, AllThemes } from "./components.test-pw";
+import { SageTheme as SageThemeStory } from "./components.test-pw";
+import { AllThemes as AllThemesStory } from "../../../src/components/carbon-provider/carbon-provider-test.stories";
 import Button from "../../../src/components/button";
 import Link from "../../../src/components/link";
 import Loader from "../../../src/components/loader";
@@ -280,7 +281,7 @@ test.describe("Accessibility tests for Carbon Provider", () => {
     mount,
     page,
   }) => {
-    await mount(<AllThemes />);
+    await mount(<AllThemesStory />);
 
     await checkAccessibility(page);
   });
