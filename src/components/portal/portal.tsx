@@ -119,7 +119,10 @@ export const Portal = ({
   );
 
   return (
-    <StyledPortalEntrance data-portal-entrance={uniqueId}>
+    <StyledPortalEntrance
+      data-role="data-portal-entrance"
+      data-portal-entrance={uniqueId}
+    >
       {ReactDOM.createPortal(
         <CarbonScopedTokensProvider>
           {portalContent}
