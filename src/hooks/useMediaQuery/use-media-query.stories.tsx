@@ -7,6 +7,7 @@ import useMediaQuery from "./useMediaQuery";
  */
 
 const meta: Meta<typeof useMediaQuery> = {
+  title: "Documentation/Hooks/useMediaQuery",
   tags: ["hideInSidebar"],
   argTypes: {
     query: {

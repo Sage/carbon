@@ -7,6 +7,7 @@ import Portal from "./portal";
  */
 
 const meta: Meta<typeof Portal> = {
+  title: "Portal",
   component: Portal,
   tags: ["hideInSidebar"],
   parameters: {

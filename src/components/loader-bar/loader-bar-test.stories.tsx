@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryFn } from "@storybook/react";
+import { ComponentStory } from "@storybook/react";
 import LoaderBar, { LoaderBarProps } from ".";
 import { LOADER_BAR_SIZES } from "./loader-bar.config";
 import Box from "../box";
@@ -30,7 +30,7 @@ export const DefaultStory = ({ ...args }: LoaderBarProps) => {
 
 DefaultStory.storyName = "default";
 
-export const LoaderBarWithMinHeight: StoryFn<typeof LoaderBar> = () => {
+export const LoaderBarWithMinHeight: ComponentStory<typeof LoaderBar> = () => {
   return (
     <Box p={3}>
       <Box backgroundColor="#e0e0e0" minHeight="50px">

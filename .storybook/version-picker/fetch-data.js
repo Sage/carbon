@@ -1,15 +1,11 @@
-interface Metadata {
-  versions: Record<string, string>;
-}
-
 const fetchData = async () => {
   const response = await fetch(
     "https://carbon.sage.com/metadata/metadata.json"
   );
 
-  const metadata: Metadata = await response.json();
+  const versions = await response.json();
 
-  return metadata;
+  return versions;
 };
 
 export default fetchData;

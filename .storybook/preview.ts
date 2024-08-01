@@ -1,12 +1,11 @@
 import withGlobalStyles from "./with-global-styles";
+import { withLocaleSelector } from "./locale-selector";
 import { withThemeProvider, globalThemeProvider } from "./withThemeProvider";
-import withLocaleSelector from "./with-locale-selector";
-import withPortalProvider from "./with-portal-provider";
-import sageStorybookTheme from "./sage-storybook-theme";
+import { withPortalProvider } from "./with-portal-provider";
+import sageStorybookTheme from "./sageStorybookTheme";
 
 import "../src/style/fonts.css";
-import isChromatic from "./isChromatic";
-import { Preview } from "@storybook/react";
+import "./style/story-root.css";
 
 const customViewports = {
   extraSmall: {
@@ -46,7 +45,7 @@ const customViewports = {
   },
 };
 
-const parameters = {
+export const parameters = {
   docs: { canvas: { layout: "padded" }, theme: sageStorybookTheme },
   a11y: {
     // axe-core optionsParameter (https://github.com/dequelabs/axe-core/blob/develop/doc/API.md#options-parameter)
@@ -65,10 +64,11 @@ const parameters = {
   },
   chromatic: { disableSnapshot: false },
   viewport: { viewports: customViewports },
+  actions: { argTypesRegex: "^on[A-Z].*" },
   viewMode: process.env.STORYBOOK_VIEW_MODE,
 };
 
-const globalTypes = {
+export const globalTypes = {
   locale: {
     name: "Locale",
     description: "Internationalization locale",
@@ -116,28 +116,9 @@ const globalTypes = {
   ...globalThemeProvider,
 };
 
-const decorators = [
+export const decorators = [
   withGlobalStyles,
   withThemeProvider,
   withLocaleSelector,
   withPortalProvider,
 ];
-
-const loaders =
-  isChromatic() && document.fonts
-    ? [
-        // Wait for fonts to be ready before rendering the story
-        async () => ({
-          fonts: await document.fonts.ready,
-        }),
-      ]
-    : [];
-
-const preview: Preview = {
-  parameters,
-  decorators,
-  globalTypes,
-  loaders,
-};
-
-export default preview;
