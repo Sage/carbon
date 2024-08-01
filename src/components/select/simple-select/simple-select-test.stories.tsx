@@ -671,3 +671,151 @@ export const SimpleSelectWithTruncatedText = () => {
     </Select>
   );
 };
+
+export const TransparentExamples = () => {
+  return (
+    <>
+      <Box height={250} width={150}>
+        <Select
+          name="transparent"
+          id="transparent"
+          defaultValue="4"
+          transparent
+          label="color - size=`small`"
+          size="small"
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+      </Box>
+
+      <Box height={250} width={150}>
+        <Select
+          name="transparent"
+          id="transparent"
+          defaultValue="4"
+          transparent
+          label="color - size=`medium`(default)"
+          size="medium"
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+      </Box>
+
+      <Box height={250} width={150}>
+        <Select
+          name="transparent"
+          id="transparent"
+          defaultValue="4"
+          transparent
+          label="color - size=`large`"
+          size="large"
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+      </Box>
+
+      <Box height={250} width={150}>
+        <Select
+          name="transparent"
+          id="transparent"
+          defaultValue="4"
+          transparent
+          label="color - size=`small`"
+          size="small"
+          disabled
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+      </Box>
+
+      <Box height={250} width={150}>
+        <Select
+          name="transparent"
+          id="transparent"
+          defaultValue="4"
+          transparent
+          label="color - size=`medium`(default)"
+          size="medium"
+          disabled
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+      </Box>
+
+      <Box height={250} width={150}>
+        <Select
+          name="transparent"
+          id="transparent"
+          defaultValue="4"
+          transparent
+          label="color - size=`large`"
+          size="large"
+          disabled
+        >
+          <Option text="Amber" value="1" />
+          <Option text="Black" value="2" />
+          <Option text="Blue" value="3" />
+          <Option text="Brown" value="4" />
+          <Option text="Green" value="5" />
+          <Option text="Orange" value="6" />
+          <Option text="Pink" value="7" />
+          <Option text="Purple" value="8" />
+          <Option text="Red" value="9" />
+          <Option text="White" value="10" />
+          <Option text="Yellow" value="11" />
+        </Select>
+      </Box>
+    </>
+  );
+};
+TransparentExamples.storyName = "Transparent Examples";

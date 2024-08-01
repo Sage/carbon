@@ -22,9 +22,8 @@ const StyledSelectText = styled.span<StyledSelectTextProps>`
 
     ${transparent &&
     css`
-      font-weight: 900;
-      text-align: right;
-      flex-direction: row-reverse;
+      font-weight: 700;
+      font-size: ${size === "large" ? "16px" : "14px"};
     `}
 
     ${hasPlaceholder &&
