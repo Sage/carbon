@@ -65,6 +65,7 @@ export const FlatTableRowHeader = ({
     tabIndex,
     isInHighlightedRow,
     isInSelectedRow,
+    bringToFront,
   } = useTableCell(internalId.current);
 
   const handleOnClick = useCallback(
@@ -73,6 +74,10 @@ export const FlatTableRowHeader = ({
     },
     [isExpandableCell, onClick]
   );
+
+  const handleOnFocus = (ev: React.FocusEvent<HTMLElement>) => {
+    bringToFront(ev, "TH");
+  };
 
   const handleOnKeyDown = useCallback(
     (ev: React.KeyboardEvent<HTMLElement>) => {
@@ -109,6 +114,7 @@ export const FlatTableRowHeader = ({
       data-highlighted={isInHighlightedRow && isExpandableCell}
       {...rest}
       id={internalId.current}
+      onFocus={handleOnFocus}
     >
       <StyledFlatTableRowHeaderContent
         title={

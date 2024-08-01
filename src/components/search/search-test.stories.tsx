@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
+import Pill from "../pill/pill.component";
 import Search, { SearchProps } from ".";
 import { SearchEvent } from "./search.component";
 
 export default {
   title: "Search/Test",
-  includeStories: ["Default"],
+  includeStories: ["Default", "FilterOnClear"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -80,3 +81,38 @@ export const SearchComponent = (props: SearchProps) => {
     />
   );
 };
+
+export const FilterOnClear = () => {
+  const [value, setValue] = useState("");
+  const textArray = ["test value 1", "test value 2", "test value 3"];
+  const [filteredText, setFilteredText] = useState(textArray);
+
+  const updateFilteredElements = (searchValue: string) => {
+    if (searchValue === "") {
+      setFilteredText(textArray);
+    } else {
+      setFilteredText(textArray.filter((text) => text.includes(searchValue)));
+    }
+  };
+  return (
+    <>
+      <Search
+        id="test"
+        name="test"
+        placeholder="Search..."
+        triggerOnClear
+        onClick={(e) => updateFilteredElements(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+      />
+
+      <div>
+        {filteredText.map((text) => (
+          <Pill key={text}>{text}</Pill>
+        ))}
+      </div>
+    </>
+  );
+};
+FilterOnClear.storyName = "Filter on clear";

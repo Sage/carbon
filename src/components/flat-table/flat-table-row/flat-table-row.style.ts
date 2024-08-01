@@ -26,10 +26,12 @@ const firstColumnOldFocusStyling = `
   outline-offset: -1px;
 `;
 
-const newFocusStyling = `
-  ${addFocusStyling(true)}
-  z-index: 1000;
-`;
+const newFocusStyling = (theme: ThemeObject) => {
+  return `
+    ${addFocusStyling(true)}
+    z-index: ${theme.zIndex.overlay + 5};
+  `;
+};
 
 const getLeftStickyStyling = (index: number, themeOptOut: boolean) =>
   index === 0 &&
@@ -266,7 +268,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
             top: 0;
             bottom: 0px;
             ${!theme.focusRedesignOptOut
-              ? newFocusStyling
+              ? newFocusStyling(theme)
               : /* istanbul ignore next */ oldFocusStyling}
             pointer-events: none;
           }
@@ -306,7 +308,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
                 border: none;
                 content: "";
                 height: ${rowHeight}px;
-                ${newFocusStyling}
+                ${newFocusStyling(theme)}
               }
             `}
           `}
@@ -357,7 +359,7 @@ const StyledFlatTableRow = styled.tr<StyledFlatTableRowProps>`
 
           :focus {
             ${!theme.focusRedesignOptOut
-              ? newFocusStyling
+              ? newFocusStyling(theme)
               : /* istanbul ignore next */ firstColumnOldFocusStyling}
           }
 

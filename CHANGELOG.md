@@ -1,3 +1,52 @@
+## [141.4.0](https://github.com/Sage/carbon/compare/v141.3.1...v141.4.0) (2024-08-01)
+
+
+### Features
+
+* **search:** add `triggerOnClear` prop to allow clicking `cross` icon to trigger `onClick` ([a77afe5](https://github.com/Sage/carbon/commit/a77afe55bf47f9b52befa3356c3affc755651b29)), closes [#6768](https://github.com/Sage/carbon/issues/6768)
+
+### [141.3.1](https://github.com/Sage/carbon/compare/v141.3.0...v141.3.1) (2024-08-01)
+
+
+### Bug Fixes
+
+* **heading:** the heading separator incorrectly has 1px black colour at the leftmost position ([b31fb1e](https://github.com/Sage/carbon/commit/b31fb1ea7ef0b59c87e885d61e8ec622ff1a0fa3))
+
+## [141.3.0](https://github.com/Sage/carbon/compare/v141.2.1...v141.3.0) (2024-07-31)
+
+
+### Features
+
+* **toast:** improve component screen reader behaviour ([5e945e3](https://github.com/Sage/carbon/commit/5e945e3003202867bc3962a68a8423db64ae2c57)), closes [#6729](https://github.com/Sage/carbon/issues/6729)
+
+### [141.2.1](https://github.com/Sage/carbon/compare/v141.2.0...v141.2.1) (2024-07-30)
+
+
+### Bug Fixes
+
+* **flat-table:** flat table contents visible behind sticky header/footer ([4f84514](https://github.com/Sage/carbon/commit/4f845144d3f44376529bf8c2d706179a59b63534))
+
+## [141.2.0](https://github.com/Sage/carbon/compare/v141.1.1...v141.2.0) (2024-07-29)
+
+
+### Features
+
+* **step-flow:** allow component title to be compositional ([4d5d808](https://github.com/Sage/carbon/commit/4d5d808982e1557a7b0f2c964e302a7c30715cb6)), closes [#6732](https://github.com/Sage/carbon/issues/6732)
+
+### [141.1.1](https://github.com/Sage/carbon/compare/v141.1.0...v141.1.1) (2024-07-26)
+
+
+### Bug Fixes
+
+* **flat-table-row-header:** focus border partially covered in expanded rows ([d97caa8](https://github.com/Sage/carbon/commit/d97caa8ef195b485948b45a5f373731d477ad973)), closes [#6561](https://github.com/Sage/carbon/issues/6561)
+
+## [141.1.0](https://github.com/Sage/carbon/compare/v141.0.8...v141.1.0) (2024-07-25)
+
+
+### Features
+
+* **option-group-header:** add support for children to be passed to component ([9629f93](https://github.com/Sage/carbon/commit/9629f9388328626caab6ffad6f90694aa02eadd9)), closes [#6823](https://github.com/Sage/carbon/issues/6823)
+
 ### [141.0.8](https://github.com/Sage/carbon/compare/v141.0.7...v141.0.8) (2024-07-25)
 
 
