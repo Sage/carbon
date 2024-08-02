@@ -1965,10 +1965,7 @@ export const FlatTableAllSubrowSelectableComponent = () => {
 
   return (
     <>
-      <BatchSelection
-        disabled={selectedCount === 0}
-        selectedCount={selectedCount}
-      >
+      <BatchSelection selectedCount={selectedCount}>
         <IconButton aria-label="download as csv" onClick={() => {}}>
           <Icon type="csv" />
         </IconButton>
