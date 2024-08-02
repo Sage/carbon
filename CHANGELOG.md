@@ -1,3 +1,10 @@
+### [141.4.2](https://github.com/Sage/carbon/compare/v141.4.1...v141.4.2) (2024-08-02)
+
+
+### Bug Fixes
+
+* **batch-selection:** ensure all button children are disabled when inside a disabled BatchSelection ([9ab48ab](https://github.com/Sage/carbon/commit/9ab48ab4ecf948f5016333098640b6449465916c))
+
 ### [141.4.1](https://github.com/Sage/carbon/compare/v141.4.0...v141.4.1) (2024-08-02)
 
 
