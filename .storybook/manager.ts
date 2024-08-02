@@ -1,12 +1,10 @@
 import { addons } from "@storybook/manager-api";
-import sageTheme from "./sageTheme";
+import sageTheme from "./sage-docs-theme";
 import { API_PreparedIndexEntry, API_StatusObject } from "@storybook/types";
 
 addons.setConfig({
   theme: sageTheme,
   panelPosition: "bottom",
-  showNav: true,
-  showPanel: true,
   sidebar: {
     filters: {
       patterns: (

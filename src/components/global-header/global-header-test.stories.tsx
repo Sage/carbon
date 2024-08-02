@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import GlobalHeader from "./global-header.component";
 import { Menu, MenuItem } from "../menu";
@@ -19,9 +19,9 @@ export default {
       iframeHeight: 200,
     },
   },
-} as ComponentMeta<typeof GlobalHeader>;
+} as Meta<typeof GlobalHeader>;
 
-export const MenuWithIconOnlyButtonsStory: ComponentStory<
+export const MenuWithIconOnlyButtonsStory: StoryFn<
   typeof GlobalHeader
 > = () => {
   return (
