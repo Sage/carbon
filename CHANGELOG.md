@@ -1,3 +1,10 @@
+### [141.4.1](https://github.com/Sage/carbon/compare/v141.4.0...v141.4.1) (2024-08-02)
+
+
+### Reverts
+
+* Revert "chore(storybook): disable version picker addon" ([4a3269a](https://github.com/Sage/carbon/commit/4a3269a0ba37eff8779fbbf145401b8be05e065e))
+
 ## [141.4.0](https://github.com/Sage/carbon/compare/v141.3.1...v141.4.0) (2024-08-01)
 
 
