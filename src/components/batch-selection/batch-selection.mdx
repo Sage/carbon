@@ -5,7 +5,7 @@ import TranslationKeysTable from "../../../.storybook/utils/translation-keys-tab
 import * as IconButtonStories from "../icon-button/icon-button.stories";
 import * as BatchSelectionStories from "./batch-selection.stories";
 
-<Meta title="Batch Selection" of={BatchSelectionStories} />
+<Meta of={BatchSelectionStories} />
 
 # Batch Selection
 
@@ -24,7 +24,10 @@ To use Batch Selection, import the `BatchSelection`, pass Icon Buttons with acti
 
 ```javascript
 import BatchSelection from "carbon-react/lib/components/batch-selection";
+import Button from "carbon-react/lib/components/button";
+import ButtonMinor from "carbon-react/lib/components/button-minor";
 import IconButton from "carbon-react/lib/components/icon-button";
+import Link from "carbon-react/lib/components/link";
 ```
 
 ## Examples
@@ -46,6 +49,8 @@ import IconButton from "carbon-react/lib/components/icon-button";
 <Canvas of={BatchSelectionStories.White} />
 
 ### Disabled
+
+All Carbon components passed as children that can render as a button will be automatically disabled when the `disabled` prop is true.
 
 <Canvas of={BatchSelectionStories.Disabled} />
 

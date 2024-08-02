@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import StyledButtonMinor from "./button-minor.style";
 import { ButtonProps } from "../button";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
+import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
 export interface ButtonMinorProps extends ButtonProps {
   /** @private @ignore */
@@ -30,11 +31,13 @@ export const ButtonMinor = React.forwardRef<
       iconPosition: iconPositionContext,
       fullWidth: fullWidthContext,
     } = useContext(ButtonBarContext);
+    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
 
     const buttonType = buttonTypeContext || buttonTypeProp;
     const size = sizeContext || sizeProp;
     const iconPosition = iconPositionContext || iconPositionProp;
     const fullWidth = fullWidthContext || fullWidthProp;
+    const isDisabled = disabled || batchSelectionDisabled;
 
     return (
       <StyledButtonMinor
@@ -44,7 +47,7 @@ export const ButtonMinor = React.forwardRef<
         fullWidth={fullWidth}
         iconPosition={iconPosition}
         buttonType={buttonType}
-        disabled={disabled}
+        disabled={isDisabled}
         destructive={destructive}
         {...rest}
       />

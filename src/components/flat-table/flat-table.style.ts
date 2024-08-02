@@ -284,6 +284,14 @@ const StyledFlatTableWrapper = styled(StyledBox)<StyledFlatTableWrapperProps>`
     z-index: ${({ theme }) => theme.zIndex.overlay};
   }
 
+  tbody
+    ${StyledFlatTableRowHeader}.bringToFront,
+    ${StyledFlatTableCell}.bringToFront,
+    tbody
+    ${StyledFlatTableCheckbox}.bringToFront {
+    z-index: ${({ theme }) => theme.zIndex.overlay + 5};
+  }
+
   ${({ footer }) =>
     footer &&
     css`

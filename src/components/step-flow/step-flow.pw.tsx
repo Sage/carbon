@@ -6,10 +6,12 @@ import {
 } from "../../../playwright/support/helper";
 import {
   StepFlowComponent,
+  StepFlowComponentWithStepFlowTitleNode,
   StepFlowComponentWithRefAndButtons,
+  StepFlowComponentWithRefAndButtonsAndStepFlowTitleNode,
 } from "./components.test-pw";
 
-import { Steps } from "./step-flow.component";
+import { StepFlowTitle, Steps } from ".";
 
 import {
   stepFlowProgressIndicator,
@@ -58,6 +60,23 @@ test.describe("Prop checks for StepFlow component", () => {
     }) => {
       await mount(
         <StepFlowComponent title="foo" titleVariant={titleVariants} />
+      );
+
+      await expect(page.locator(titleVariants)).toContainText("foo");
+    });
+  });
+
+  (["h1", "h2"] as const).forEach((titleVariants) => {
+    test(`should render with the titleVariant prop passed to the 'StepFlowTitle' sub component, when the prop's value is ${titleVariants}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <StepFlowComponent
+          title={
+            <StepFlowTitle titleString="foo" titleVariant={titleVariants} />
+          }
+        />
       );
 
       await expect(page.locator(titleVariants)).toContainText("foo");
@@ -237,9 +256,30 @@ test.describe("Ref checks for StepFlow component", () => {
 
     await expect(stepFlowTitleTextWrapper(page)).toBeFocused();
   });
+
+  test("should focus on title DOM element when a focus ref is passed, and a node is passed to `title` with the `StepFlowTitle` as a descendant", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<StepFlowComponentWithRefAndButtonsAndStepFlowTitleNode />);
+
+    await expect(stepFlowTitleTextWrapper(page)).not.toBeFocused();
+    await button(page).nth(1).click();
+
+    await expect(stepFlowTitleTextWrapper(page)).toBeFocused();
+  });
 });
 
 test.describe("Accessibility tests for StepFlow component", () => {
+  test("should pass accessibility checks when a node is passed to`title` with the `StepFlowTile` as a descendant", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<StepFlowComponentWithStepFlowTitleNode />);
+
+    await checkAccessibility(page);
+  });
+
   test("should pass accessibility checks when component is rendered with required props", async ({
     mount,
     page,
@@ -254,6 +294,15 @@ test.describe("Accessibility tests for StepFlow component", () => {
     page,
   }) => {
     await mount(<StepFlowComponentWithRefAndButtons />);
+
+    await checkAccessibility(page);
+  });
+
+  test("should pass accessibility checks when component is rendered with a ref and buttons and a node is passed to `title` with the `StepFlowTile` as a descendant", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<StepFlowComponentWithRefAndButtonsAndStepFlowTitleNode />);
 
     await checkAccessibility(page);
   });
