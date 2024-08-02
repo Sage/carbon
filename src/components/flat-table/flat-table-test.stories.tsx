@@ -14,11 +14,17 @@ import {
   FlatTableRowHeaderProps,
   FlatTableCellProps,
 } from ".";
+import Button from "../../../src/components/button";
 import Box from "../../../src/components/box";
 import Link from "../../../src/components/link";
 import guid from "../../__internal__/utils/helpers/guid";
 import { FLAT_TABLE_THEMES } from "./flat-table.config";
 import { WithSortingHeaders } from "./flat-table.stories";
+import Heading from "../../../src/components/heading";
+import Pager from "../../../src/components/pager";
+import Drawer from "../../../src/components/drawer";
+import Textbox from "../textbox/textbox.component";
+import DateInput from "../date/date.component";
 
 export default {
   title: "Flat Table/Test",
@@ -28,6 +34,8 @@ export default {
     "SortableStory",
     "SubRowsAsAComponentStory",
     "FlatTableSizeFocus",
+    "FlatTableInsideDrawer",
+    "FlatRowHeaderWithNoPaddingAndButtons",
   ],
   parameters: {
     info: { disable: true },
@@ -494,5 +502,290 @@ export const FlatTableSizeFocus = () => {
         </FlatTableBody>
       </FlatTable>
     </Box>
+  );
+};
+
+export const FlatTableInsideDrawer = () => {
+  return (
+    <Drawer
+      height="calc(100vh - 122px)"
+      expandedWidth="640px"
+      animationDuration="0s"
+      expanded
+      sidebar={
+        <Box
+          height="100%"
+          display="flex"
+          flexDirection="column"
+          overflow="hidden"
+        >
+          <Box mx={5} mb={3} mt={3}>
+            <Heading divider={false} title="Title title" mb={2} />
+          </Box>
+          <Box flex={1} overflowY="auto" padding={4}>
+            <FlatTable
+              hasStickyHead
+              hasStickyFooter
+              colorTheme="transparent-base"
+              height="100%"
+              footer={
+                <Pager
+                  currentPage="1"
+                  onFirst={() => {}}
+                  onLast={() => {}}
+                  onNext={() => {}}
+                  onPagination={() => {}}
+                  onPrevious={() => {}}
+                  pageSizeSelectionOptions={[
+                    {
+                      id: "1",
+                      name: 1,
+                    },
+                    {
+                      id: "10",
+                      name: 10,
+                    },
+                    {
+                      id: "25",
+                      name: 25,
+                    },
+                    {
+                      id: "50",
+                      name: 50,
+                    },
+                    {
+                      id: "100",
+                      name: 100,
+                    },
+                  ]}
+                  totalRecords="100"
+                />
+              }
+            >
+              <FlatTableHead>
+                <FlatTableRow>
+                  <FlatTableHeader pl={5}>Name</FlatTableHeader>
+                  <FlatTableHeader>Location</FlatTableHeader>
+                  <FlatTableHeader>Relationship Status</FlatTableHeader>
+                  <FlatTableHeader>Dependents</FlatTableHeader>
+                </FlatTableRow>
+              </FlatTableHead>
+              <FlatTableBody>
+                {new Array(25)
+                  .fill("")
+                  .map((_, index) => index)
+                  .map((key) => {
+                    return (
+                      <FlatTableRow
+                        key={key}
+                        expandable
+                        subRows={[
+                          <FlatTableRow key="sub-row-1">
+                            <FlatTableCell>Child one</FlatTableCell>
+                            <FlatTableCell>York</FlatTableCell>
+                            <FlatTableCell>Single</FlatTableCell>
+                            <FlatTableCell>2</FlatTableCell>
+                          </FlatTableRow>,
+                          <FlatTableRow key="sub-row-2">
+                            <FlatTableCell>Child two</FlatTableCell>
+                            <FlatTableCell>Edinburgh</FlatTableCell>
+                            <FlatTableCell>Single</FlatTableCell>
+                            <FlatTableCell>1</FlatTableCell>
+                          </FlatTableRow>,
+                        ]}
+                      >
+                        <FlatTableCell>John Doe</FlatTableCell>
+                        <FlatTableCell>London</FlatTableCell>
+                        <FlatTableCell>Single</FlatTableCell>
+                        <FlatTableCell>0</FlatTableCell>
+                      </FlatTableRow>
+                    );
+                  })}
+              </FlatTableBody>
+            </FlatTable>
+          </Box>
+        </Box>
+      }
+    >
+      <div />
+    </Drawer>
+  );
+};
+export const FlatRowHeaderWithNoPaddingAndButtons = () => {
+  const SubRows = [
+    <FlatTableRow key="sub-row-1">
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableRowHeader p={0} stickyAlignment="left">
+        <Button>Button</Button>
+      </FlatTableRowHeader>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>
+        <Textbox label="" labelInline labelAlign="right" />
+      </FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableRowHeader p={0} stickyAlignment="right">
+        subrow content
+      </FlatTableRowHeader>
+      <FlatTableCell>subrow content</FlatTableCell>
+    </FlatTableRow>,
+    <FlatTableRow key="sub-row-2">
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableRowHeader p={0} stickyAlignment="left">
+        subrow content
+      </FlatTableRowHeader>
+      <FlatTableCell>
+        <Button>Button</Button>
+      </FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>
+        <Textbox label="" labelInline labelAlign="right" />
+      </FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableCell>subrow content</FlatTableCell>
+      <FlatTableRowHeader p={0} stickyAlignment="right">
+        subrow content
+      </FlatTableRowHeader>
+      <FlatTableCell>subrow content</FlatTableCell>
+    </FlatTableRow>,
+  ];
+  return (
+    <FlatTable width="800px" overflowX="auto">
+      <FlatTableHead>
+        <FlatTableRow>
+          <FlatTableHeader>Sticky TD</FlatTableHeader>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            Sticky TH
+          </FlatTableRowHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableHeader>Column</FlatTableHeader>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            Sticky TH
+          </FlatTableRowHeader>
+          <FlatTableHeader>Sticky TD</FlatTableHeader>
+        </FlatTableRow>
+      </FlatTableHead>
+      <FlatTableBody>
+        <FlatTableRow>
+          <FlatTableCell>
+            <Textbox label="" labelInline labelAlign="right" />
+          </FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableCell>text content </FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>
+            <DateInput
+              error=""
+              fieldHelp=""
+              helpAriaLabel=""
+              inputWidth={70}
+              label=""
+              labelHelp=""
+              labelWidth={30}
+              maxDate=""
+              minDate=""
+              mt={0}
+              name="dateinput"
+              onBlur={() => {}}
+              onChange={() => {}}
+              onClick={() => {}}
+              onKeyDown={() => {}}
+              prefix=""
+              size="medium"
+              value="2019-04-04"
+              warning=""
+            />
+          </FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>
+            <Textbox label="" labelInline labelAlign="right" />
+          </FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>
+            <Button>Button</Button>
+          </FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>
+            <Textbox label="" labelInline labelAlign="right" />
+          </FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>
+            <Textbox label="" labelInline labelAlign="right" />
+          </FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+        <FlatTableRow expandable subRows={SubRows}>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="left">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableCell>text content</FlatTableCell>
+          <FlatTableRowHeader p={0} stickyAlignment="right">
+            <Button>Button</Button>
+          </FlatTableRowHeader>
+          <FlatTableCell>text content</FlatTableCell>
+        </FlatTableRow>
+      </FlatTableBody>
+    </FlatTable>
   );
 };

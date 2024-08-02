@@ -41,8 +41,8 @@ export const actionPopoverMenuItemInnerText = (page: Page) =>
 export const actionPopoverMenuItemChevron = (page: Page) =>
   page.locator(ACTION_POPOVER_MENU_ITEM_CHEVRON);
 
-export const actionPopoverSubmenuByIndex = (page: Page) =>
-  page.locator(ACTION_POPOVER_SUBMENU).nth(1);
+export const actionPopoverSubmenuByIndex = (page: Page, index: number) =>
+  page.locator(ACTION_POPOVER_SUBMENU).nth(index);
 
 export const actionPopoverWrapper = (page: Page) =>
   page.locator(ACTION_POPOVER_WRAPPER);

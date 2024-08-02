@@ -31,6 +31,11 @@ function getPaddingValues(
   hasIcon?: boolean,
   hasSubmenu?: boolean
 ) {
+  // computing padding for "inner text" element of a menu item.
+  // childHasSubmenu - ANY sibling (including itself?) has the 'submenu' prop
+  // childHasIcon - ANY sibling (including itself?) has the 'icon' prop
+  // hasIcon - has the 'icon' prop
+  // hasSubmenu - has the 'submenu' prop
   if (!childHasIcon && childHasSubmenu && !hasIcon && !hasSubmenu) {
     return "var(--spacing400)";
   }
