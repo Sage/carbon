@@ -1,3 +1,10 @@
+### [141.4.3](https://github.com/Sage/carbon/compare/v141.4.2...v141.4.3) (2024-08-02)
+
+
+### Bug Fixes
+
+* **multi-select:** ensure unique keys when options passed object values with duplicate text property ([5c3fd8c](https://github.com/Sage/carbon/commit/5c3fd8ce86cea9a49cdc9b5a78a28dd364901a58)), closes [#6843](https://github.com/Sage/carbon/issues/6843)
+
 ### [141.4.2](https://github.com/Sage/carbon/compare/v141.4.1...v141.4.2) (2024-08-02)
 
 
