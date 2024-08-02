@@ -542,7 +542,7 @@ describe("SimpleColorPicker", () => {
 
     describe("handleOnMouseDown", () => {
       describe('if a SimpleColor receives "mousedown, blur"', () => {
-        it("SimpleColorPicker calls onBlur", () => {
+        it("should not call onBlur", () => {
           const firstSCinput = wrapper
             .find(SimpleColor)
             .first()
@@ -551,12 +551,12 @@ describe("SimpleColorPicker", () => {
           firstSCinput.simulate("mousedown");
           fireDocumentMousedown();
           firstSCinput.simulate("blur");
-          expect(onBlur).toHaveBeenCalledTimes(1);
+          expect(onBlur).not.toHaveBeenCalled();
         });
       });
 
       describe('if a SimpleColor receives "mousedown, mousedown, blur"', () => {
-        it("SimpleColorPicker calls onBlur", () => {
+        it("should not call onBlur", () => {
           const firstSCinput = wrapper
             .find(SimpleColor)
             .first()
@@ -566,12 +566,12 @@ describe("SimpleColorPicker", () => {
           firstSCinput.simulate("mousedown");
           fireDocumentMousedown();
           firstSCinput.simulate("blur");
-          expect(onBlur).toHaveBeenCalledTimes(1);
+          expect(onBlur).not.toHaveBeenCalled();
         });
       });
 
       describe("if a mousedown is received by first SimpleColor and then second SimpleColor", () => {
-        it("SimpleColorPicker calls onBlur", () => {
+        it("should not call onBlur", () => {
           const firstSCinput = wrapper
             .find(SimpleColor)
             .first()
@@ -586,7 +586,7 @@ describe("SimpleColorPicker", () => {
           lastSCinput.simulate("mousedown");
           fireDocumentMousedown();
           firstSCinput.simulate("blur");
-          expect(onBlur).toHaveBeenCalledTimes(1);
+          expect(onBlur).not.toHaveBeenCalled();
         });
       });
     });
@@ -625,12 +625,12 @@ describe("SimpleColorPicker", () => {
               .find("input")
               .first()
               .simulate("blur");
-            expect(onBlur).toHaveBeenCalledTimes(1);
+            expect(onBlur).not.toHaveBeenCalled();
           });
         });
 
         describe("when blur is blocked", () => {
-          it("calls onBlur on blur event", () => {
+          it("does not call onBlur on blur event", () => {
             wrapper = render({ isBlurBlocked: true, onBlur });
             wrapper
               .find(SimpleColor)

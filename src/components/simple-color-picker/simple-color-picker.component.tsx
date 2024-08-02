@@ -260,9 +260,15 @@ export const SimpleColorPicker = React.forwardRef<
   const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
     ev.preventDefault();
 
-    if (!blurBlocked && onBlur) {
-      onBlur(ev);
-    }
+    setTimeout(() => {
+      const hasBlurred = !gridItemRefs?.current?.find(
+        (colorRef) => colorRef === document.activeElement
+      );
+      /* istanbul ignore else */
+      if (onBlur && hasBlurred && !blurBlocked) {
+        onBlur(ev);
+      }
+    }, 5);
   };
 
   const handleOnMouseDown = (ev: React.MouseEvent<HTMLElement>) => {

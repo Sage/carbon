@@ -377,7 +377,7 @@ test.describe(
       expect(callbackCount).toBe(1);
     });
 
-    test("should call onBlur callback when a blur event is triggered", async ({
+    test("should not call onBlur callback when a blur event is triggered on another color", async ({
       mount,
       page,
     }) => {
@@ -394,6 +394,25 @@ test.describe(
       await elementToFocus.focus();
       const elementToBlur = simpleColorPickerInput(page, 7);
       await elementToBlur.blur();
+      expect(callbackCount).toBe(0);
+    });
+
+    test("should call onBlur callback when a blur event is triggered", async ({
+      mount,
+      page,
+    }) => {
+      let callbackCount = 0;
+      await mount(
+        <AdvancedColorPickerCustom
+          onBlur={() => {
+            callbackCount += 1;
+          }}
+        />
+      );
+
+      const elementToFocus = simpleColorPickerInput(page, 7);
+      await elementToFocus.focus();
+      await page.locator("body").click({ position: { x: 0, y: 0 } });
       expect(callbackCount).toBe(1);
     });
   }
