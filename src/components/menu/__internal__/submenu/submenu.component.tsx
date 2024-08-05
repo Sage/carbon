@@ -480,7 +480,7 @@ const Submenu = React.forwardRef<
             menuType={menuType}
             ref={ref}
             href={href}
-            variant={variant}
+            menuItemVariant={variant}
             inFullscreenView={inFullscreenView}
             asDiv={asPassiveItem}
           >
@@ -526,7 +526,7 @@ const Submenu = React.forwardRef<
           ref={ref}
           icon={icon}
           tabIndex={-1}
-          variant={variant}
+          menuItemVariant={variant}
           isOpen={submenuOpen}
           hasSubmenu
           showDropdownArrow={showDropdownArrow}
