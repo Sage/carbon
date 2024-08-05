@@ -778,3 +778,35 @@ describe("SimpleColorPicker", () => {
     });
   });
 });
+
+describe("isBlurBlocked deprecation warning", () => {
+  let loggerSpy: jest.SpyInstance<void, [message: string]> | jest.Mock;
+
+  beforeEach(() => {
+    loggerSpy = jest.spyOn(Logger, "deprecate");
+  });
+
+  afterEach(() => {
+    loggerSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    loggerSpy.mockClear();
+  });
+
+  it("should display the expected deprecation warning once", () => {
+    mount(
+      <SimpleColorPicker
+        legend="SimpleColorPicker Legend"
+        name="test"
+        isBlurBlocked
+      />
+    );
+
+    expect(loggerSpy).toHaveBeenCalledWith(
+      "The 'isBlurBlocked' prop in SimpleColorPicker is deprecated and support will soon be removed."
+    );
+
+    expect(loggerSpy).toHaveBeenCalledTimes(1);
+  });
+});
