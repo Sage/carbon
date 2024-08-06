@@ -32,7 +32,6 @@ interface StyledMenuItemWrapperProps
   ariaLabel?: string;
   asDiv?: boolean;
   hasInput?: boolean;
-  hasIcon?: boolean;
 }
 
 const oldFocusStyling = `
@@ -57,7 +56,6 @@ const StyledMenuItemWrapper = styled.a.attrs({
     asPassiveItem,
     asDiv,
     hasInput,
-    hasIcon,
   }) => css`
     ${!inFullscreenView &&
     css`
@@ -88,16 +86,15 @@ const StyledMenuItemWrapper = styled.a.attrs({
       `}
     }
 
-    ${hasIcon &&
-    !maxWidth &&
+    ${!maxWidth &&
     css`
-      ${StyledContent} {
+      :has([data-component="icon"]) ${StyledContent} {
         position: relative;
         top: -2px;
       }
     `}
 
-    ${StyledContent} {
+    :has([data-element="input"]) ${StyledContent} {
       width: 100%;
     }
 
@@ -191,11 +188,11 @@ const StyledMenuItemWrapper = styled.a.attrs({
         button,
         ${StyledLink} button {
        
-        padding: ${
-          inFullscreenView
-            ? "0px 16px"
-            : `${hasIcon ? "9px 16px 7px" : "11px 16px 12px"}`
-        };
+          padding: ${inFullscreenView ? "0px 16px" : "11px 16px 12px"};
+
+          :has([data-component="icon"]) {
+            padding: 9px 16px 7px;
+          }
         }
       `}
 

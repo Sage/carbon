@@ -2256,16 +2256,12 @@ test(`should verify that submenu item text wraps when it would overflow the cont
   const lastItem = lastSubmenuElement(page, "li");
   const submenuBlockElement = submenuBlock(page).first();
 
-  const cssSubmenuMaxWidth = await submenuBlockElement.evaluate((el) =>
-    window.getComputedStyle(el).getPropertyValue("max-width")
+  const cssItemHeight = await lastItem.evaluate((el) =>
+    window.getComputedStyle(el).getPropertyValue("height")
   );
-  const [cssItemHeight, cssItemWidth] = await lastItem.evaluate((el) => [
-    window.getComputedStyle(el).getPropertyValue("height"),
-    window.getComputedStyle(el).getPropertyValue("width"),
-  ]);
 
-  expect(parseInt(cssSubmenuMaxWidth)).toBe(300);
-  expect(parseInt(cssItemWidth)).toBe(300);
+  await expect(submenuBlockElement).toHaveCSS("max-width", "300px");
+  await expect(lastItem).toHaveCSS("width", "300px");
   expect(parseInt(cssItemHeight)).toBeGreaterThan(40);
 });
 

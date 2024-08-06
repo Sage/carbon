@@ -160,9 +160,6 @@ export const MenuItem = ({
     ? ref.current.querySelector("[data-element='input']")
     : null;
   const focusRef = inputRef.current ? inputRef : ref;
-  const hasIcon = useCallback(() => {
-    return !!icon || !!ref.current?.querySelector("[data-component='icon']");
-  }, [icon]);
 
   useEffect(() => {
     const id = menuItemId.current;
@@ -295,7 +292,6 @@ export const MenuItem = ({
           onSubmenuOpen={onSubmenuOpen}
           onSubmenuClose={onSubmenuClose}
           submenuMaxWidth={submenuMaxWidth}
-          hasIcon={hasIcon()}
           {...elementProps}
           {...rest}
         >
@@ -334,7 +330,6 @@ export const MenuItem = ({
         {...paddingProps}
         asDiv={hasInput || as === "div"}
         hasInput={hasInput}
-        hasIcon={hasIcon()}
       >
         {children}
       </StyledMenuItemWrapper>
