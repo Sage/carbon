@@ -56,9 +56,12 @@ export const Loader = ({
         <>
           {["#13A038", "#0092DB", "#8F49FE"].map((color) => (
             <StyledLoaderSquare
+              data-role="loader-square"
               key={color}
               backgroundColor={
-                variant === "gradient" ? color : "var(--colorsActionMajor500)"
+                variant === "gradient"
+                  ? /* istanbul ignore next */ color
+                  : "var(--colorsActionMajor500)"
               }
               {...loaderSquareProps}
             />

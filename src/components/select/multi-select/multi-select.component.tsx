@@ -28,8 +28,6 @@ import Logger from "../../../__internal__/utils/logger";
 import useStableCallback from "../../../hooks/__internal__/useStableCallback";
 import useFormSpacing from "../../../hooks/__internal__/useFormSpacing";
 import useInputAccessibility from "../../../hooks/__internal__/useInputAccessibility/useInputAccessibility";
-import { OptionProps } from "../option";
-import { OptionRowProps } from "../option-row";
 import { CustomSelectChangeEvent } from "../simple-select";
 
 let deprecateUncontrolledWarnTriggered = false;
@@ -345,6 +343,7 @@ export const MultiSelect = React.forwardRef(
 
     const mapValuesToPills = useMemo(() => {
       const canDelete = !disabled && !readOnly;
+      let matchingOptionValue: string;
 
       if (!actualValue?.length) {
         return "";
@@ -364,6 +363,11 @@ export const MultiSelect = React.forwardRef(
 
         /* istanbul ignore else */
         if (React.isValidElement(matchingOption)) {
+          matchingOptionValue =
+            matchingOption?.props.value?.value !== undefined
+              ? matchingOption?.props.value?.value
+              : matchingOption?.props.value;
+
           pillProps = {
             title: matchingOption.props.text,
             fill: matchingOption.props.fill,
@@ -373,10 +377,7 @@ export const MultiSelect = React.forwardRef(
 
         const title = pillProps.title || /* istanbul ignore next */ "";
         const key =
-          title +
-          ((React.isValidElement(matchingOption) &&
-            (matchingOption.props as OptionProps | OptionRowProps).value) ||
-            /* istanbul ignore next */ index);
+          title + matchingOptionValue || /* istanbul ignore next */ index;
 
         return (
           <StyledSelectPillContainer key={key}>
