@@ -298,3 +298,26 @@ export const ValidationsBoolean: Story = () => {
   );
 };
 ValidationsBoolean.storyName = "Validations - Boolean";
+
+export const WhenCrossIconClicked: Story = () => {
+  const [value, setValue] = useState("");
+  return (
+    <>
+      <Search
+        id="test"
+        name="test"
+        placeholder="Search..."
+        triggerOnClear
+        // eslint-disable-next-line no-console
+        onClick={(e) => console.log("clicked", e)}
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        searchButton
+      />
+    </>
+  );
+};
+WhenCrossIconClicked.storyName = "When cross icon clicked";
+WhenCrossIconClicked.parameters = {
+  chromatic: { disableSnapshot: true },
+};

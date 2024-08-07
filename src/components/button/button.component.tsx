@@ -14,6 +14,7 @@ import { TooltipProvider } from "../../__internal__/tooltip-provider";
 import { TooltipPositions } from "../tooltip/tooltip.config";
 import ButtonBarContext from "../button-bar/__internal__/button-bar.context";
 import SplitButtonContext from "../split-button/__internal__/split-button.context";
+import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
 export type ButtonTypes =
   | "primary"
@@ -219,11 +220,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       iconPosition: iconPositionContext,
       fullWidth: fullWidthContext,
     } = useContext(ButtonBarContext);
+    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
 
     const buttonType = buttonTypeContext || buttonTypeProp;
     const size = sizeContext || sizeProp;
     const iconPosition = iconPositionContext || iconPositionProp;
     const fullWidth = fullWidthContext || fullWidthProp;
+    const isDisabled = disabled || batchSelectionDisabled;
 
     invariant(
       children !== undefined || !!iconType,
@@ -284,12 +287,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         }
         aria-labelledby={ariaLabelledBy}
         aria-describedby={ariaDescribedBy}
-        as={!disabled && href ? "a" : "button"}
+        as={!isDisabled && href ? "a" : "button"}
         onKeyDown={href ? handleLinkKeyDown : undefined}
         onClick={inSplitButton ? onChildButtonClick?.(onClick) : onClick}
         draggable={false}
         buttonType={buttonType}
-        disabled={disabled}
+        disabled={isDisabled}
         destructive={destructive}
         type={href ? undefined : "button"}
         iconType={iconType}
@@ -313,7 +316,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           size,
           subtext,
           children,
-          disabled,
+          disabled: isDisabled,
           buttonType,
           iconTooltipMessage,
           iconTooltipPosition,

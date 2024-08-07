@@ -221,9 +221,7 @@ export const FlatTable = ({
       hasStickyHead={hasStickyHead}
       colorTheme={colorTheme}
       minHeight={minHeight}
-      overflowY={
-        !isInSidebar && (hasStickyHead || hasStickyFooter) ? "auto" : undefined
-      }
+      overflowY={hasStickyHead || hasStickyFooter ? "auto" : undefined}
       height={addDefaultHeight && !hasMaxHeight ? "99%" : height}
       maxHeight={hasMaxHeight ? "100%" : undefined}
       display="flex"

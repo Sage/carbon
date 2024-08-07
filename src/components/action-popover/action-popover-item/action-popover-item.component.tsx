@@ -153,6 +153,7 @@ export const ActionPopoverItem = ({
   const mouseLeaveTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    /* istanbul ignore if - doesn't seem to actually run as the child item is unmounted before the context updates */
     if (!isOpenPopover) {
       setOpen(false);
     }
@@ -195,7 +196,10 @@ export const ActionPopoverItem = ({
       const leftAlignedSubmenu = currentSubmenuPosition === "left";
       const leftValue = leftAlignedSubmenu ? -submenuWidth : "auto";
       const rightValue = leftAlignedSubmenu ? "auto" : -submenuWidth;
-      const yPositionName = placement === "top" ? "bottom" : "top";
+      const yPositionName =
+        placement === "top"
+          ? /* istanbul ignore next - tested in Playwright */ "bottom"
+          : "top";
 
       return {
         left: leftValue,

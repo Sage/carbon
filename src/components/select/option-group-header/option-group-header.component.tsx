@@ -12,7 +12,7 @@ export interface OptionGroupHeaderProps extends TagProps {
    */
   id?: string;
   /** Heading text */
-  label: string;
+  label?: string;
   /** Any valid Carbon icon name */
   icon?: IconProps["type"];
   /**
@@ -20,14 +20,26 @@ export interface OptionGroupHeaderProps extends TagProps {
    * @ignore
    * object containing CSS styles to be passed to the underlying DOM element */
   style?: CSSProperties;
+  /**
+   * Content to be rendered inside the OptionGroupHeader.
+   * When the `children` prop is passed it will take precedence over the `label` and
+   * `icon` props meaning they will not be rendered */
+  children?: React.ReactNode;
 }
 
 const OptionGroupHeader = React.forwardRef(
   (
-    { label, icon, style, id, ...rest }: OptionGroupHeaderProps,
+    { label, icon, style, id, children, ...rest }: OptionGroupHeaderProps,
     ref: React.ForwardedRef<HTMLDivElement>
   ) => {
     const internalIdRef = useRef(id || guid());
+
+    if (!(children || label)) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "OptionGroupHeader requires either a label or children to be provided"
+      );
+    }
 
     return (
       <StyledOptionGroupHeader
@@ -36,8 +48,12 @@ const OptionGroupHeader = React.forwardRef(
         {...rest}
         ref={ref}
       >
-        {icon && <Icon type={icon} />}
-        <h4>{label}</h4>
+        {children || (
+          <>
+            {icon && <Icon type={icon} />}
+            <h4>{label}</h4>
+          </>
+        )}
       </StyledOptionGroupHeader>
     );
   }

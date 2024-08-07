@@ -17,6 +17,7 @@ import {
   MultiSelectErrorOnChangeNewValidation,
   SelectionConfirmed,
   MultiSelectWithDisabledOption,
+  OptionsWithSameName,
 } from "../../../../src/components/select/multi-select/components.test-pw";
 import {
   commonDataElementInputPreview,
@@ -1129,6 +1130,26 @@ test.describe("MultiSelect component", () => {
 
     await expect(selectInput(page)).toHaveCSS("border-radius", "4px");
     await expect(selectListWrapper(page)).toHaveCSS("border-radius", "4px");
+  });
+
+  test("should delete options with when user clicks the close icon within a pill and there are options with same text", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<OptionsWithSameName />);
+    await dropdownButton(page).click();
+
+    await selectOption(page, 2).click();
+    await selectOption(page, 0).click();
+    await selectOption(page, 1).click();
+
+    await expect(multiSelectPillByText(page, "Blue")).toHaveCount(1);
+    await expect(multiSelectPillByText(page, "Black")).toHaveCount(2);
+
+    await pillCloseIcon(page).nth(0).click();
+
+    await expect(multiSelectPillByText(page, "Blue")).toHaveCount(0);
+    await expect(multiSelectPillByText(page, "Black")).toHaveCount(2);
   });
 });
 

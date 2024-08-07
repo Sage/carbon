@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { SpaceProps } from "styled-system";
 import Events from "../../__internal__/utils/helpers/events";
 import StyledIconButton from "./icon-button.style";
 import { IconProps } from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
+import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
 export interface IconButtonProps extends SpaceProps {
   /** Prop to specify the aria-label of the icon-button component */
@@ -34,11 +35,13 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       "aria-label": ariaLabel,
       onClick,
       children,
-      disabled,
+      disabled = false,
       ...rest
     }: IconButtonProps,
     ref
   ) => {
+    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
+    const isDisabled = disabled || batchSelectionDisabled;
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
     const ariaLabelValue =
       ariaLabel ||
@@ -72,10 +75,10 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         onKeyDown={handleKeyDown}
         onClick={onClick}
         ref={setRefs}
-        disabled={disabled}
+        disabled={isDisabled}
       >
         <TooltipProvider
-          disabled={disabled}
+          disabled={isDisabled}
           focusable={false}
           target={internalRef}
         >

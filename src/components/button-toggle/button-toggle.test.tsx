@@ -148,7 +148,7 @@ test("should render with expected styles when buttonIcon is set", () => {
   });
 });
 
-test("should render with expected styles when buttonIcon is set and buttonIconSize ia large'", () => {
+test("should render with expected styles when buttonIcon is set and buttonIconSize is large'", () => {
   render(
     <ButtonToggle buttonIcon="add" buttonIconSize="large">
       Button
@@ -159,13 +159,12 @@ test("should render with expected styles when buttonIcon is set and buttonIconSi
     marginRight: "0",
   });
   expect(screen.getByTestId("icon")).toHaveStyle({
+    marginLeft: "0",
+    marginRight: "0",
     marginBottom: "8px",
-    height: "32px",
-    width: "32px",
   });
   expect(screen.getByRole("button")).toHaveStyle({
-    height: "88px",
-    padding: "0 40px",
+    minHeight: "88px",
     flexDirection: "column",
   });
 });

@@ -89,7 +89,7 @@ const generateStyledSystemMarginProps = (
         table: {
           category: "Styled System Props",
           subcategory: "Margin",
-          defaultValue: defaults.m && { summary: defaults.m },
+          defaultValue: { summary: defaults.m?.toString() ?? undefined },
           type: { summary: "number | string" },
         },
       },
@@ -103,7 +103,7 @@ const generateStyledSystemMarginProps = (
         table: {
           category: "Styled System Props",
           subcategory: "Margin",
-          defaultValue: defaults.mt && { summary: defaults.mt },
+          defaultValue: { summary: defaults.mt?.toString() ?? undefined },
           type: { summary: "number | string" },
         },
       },
@@ -117,7 +117,7 @@ const generateStyledSystemMarginProps = (
         table: {
           category: "Styled System Props",
           subcategory: "Margin",
-          defaultValue: defaults.mr && { summary: defaults.mr },
+          defaultValue: { summary: defaults.mr?.toString() ?? undefined },
           type: { summary: "number | string" },
         },
       },
@@ -131,7 +131,7 @@ const generateStyledSystemMarginProps = (
         table: {
           category: "Styled System Props",
           subcategory: "Margin",
-          defaultValue: defaults.mb && { summary: defaults.mb },
+          defaultValue: { summary: defaults.mb?.toString() ?? undefined },
           type: { summary: "number | string" },
         },
       },
@@ -145,7 +145,7 @@ const generateStyledSystemMarginProps = (
         table: {
           category: "Styled System Props",
           subcategory: "Margin",
-          defaultValue: defaults.ml && { summary: defaults.ml },
+          defaultValue: { summary: defaults.ml?.toString() ?? undefined },
           type: { summary: "number | string" },
         },
       },
@@ -159,7 +159,7 @@ const generateStyledSystemMarginProps = (
         table: {
           category: "Styled System Props",
           subcategory: "Margin",
-          defaultValue: defaults.mx && { summary: defaults.mx },
+          defaultValue: { summary: defaults.mx?.toString() ?? undefined },
           type: { summary: "number | string" },
         },
       },
@@ -173,7 +173,7 @@ const generateStyledSystemMarginProps = (
         table: {
           category: "Styled System Props",
           subcategory: "Margin",
-          defaultValue: defaults.my && { summary: defaults.my },
+          defaultValue: { summary: defaults.my?.toString() ?? undefined },
           type: { summary: "number | string" },
         },
       },

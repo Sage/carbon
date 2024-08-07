@@ -20,7 +20,7 @@ const StyledBatchSelection = styled.div<
     ${hidden && "opacity: 0;"}
 
     ${StyledIcon} {
-      color: var(--colorsActionMajorYin065);
+      ${!disabled && `color: var(--colorsActionMajorYin065);`}
       &:focus {
         ${({ theme }) =>
           `${
@@ -59,12 +59,15 @@ const StyledBatchSelection = styled.div<
     }
 
     ${StyledIconButton}:hover {
-      background-color: var(--colorsActionMajor500);
+      ${!disabled &&
+      `
+    background-color: var(--colorsActionMajor500);
       border-radius: var(--borderRadius100);
 
       ${StyledIcon} {
         color: var(--colorsActionMajorYang100);
       }
+    `}
     }
 
     ${StyledIconButton}:focus {
@@ -83,15 +86,6 @@ const StyledBatchSelection = styled.div<
       background: transparent;
       color: var(--colorsUtilityYin030);
       cursor: not-allowed;
-
-      ${StyledIconButton} {
-        background: transparent;
-        pointer-events: none;
-
-        ${StyledIcon} {
-          color: var(--colorsActionMajorYin030);
-        }
-      }
     `}
   `}
 `;
