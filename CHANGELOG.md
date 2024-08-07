@@ -1,3 +1,10 @@
+### [141.4.4](https://github.com/Sage/carbon/compare/v141.4.3...v141.4.4) (2024-08-07)
+
+
+### Bug Fixes
+
+* **switch:** visual overflow with longer translation strings ([baf21b1](https://github.com/Sage/carbon/commit/baf21b12065973406b05722cd0dd27a644160f88))
+
 ### [141.4.3](https://github.com/Sage/carbon/compare/v141.4.2...v141.4.3) (2024-08-02)
 
 
