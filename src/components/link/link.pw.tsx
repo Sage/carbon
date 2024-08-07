@@ -191,11 +191,15 @@ test.describe("check props for Link component", () => {
     await expect(skipLinkElement).toBeVisible();
     await expect(skipLinkElement).toHaveCSS(
       "background-color",
-      "rgb(255, 255, 255)"
+      "rgb(255, 188, 25)"
     );
-    await expect(skipLinkElement).toHaveCSS("font-size", "16px");
+    await expect(skipLinkElement).toHaveCSS("font-size", "14px");
     await expect(skipLinkElement).toHaveCSS("padding-left", "24px");
     await expect(skipLinkElement).toHaveCSS("padding-right", "24px");
+    await expect(skipLinkElement).toHaveCSS(
+      "box-shadow",
+      "rgba(0, 20, 30, 0.1) 0px 10px 30px 0px, rgba(0, 20, 30, 0.1) 0px 30px 60px 0px"
+    );
   });
 
   test("should apply correct focus styling to skip link", async ({
@@ -208,7 +212,13 @@ test.describe("check props for Link component", () => {
     const skipLinkElement = skipLink(page);
     await expect(skipLinkElement).toBeVisible();
     await expect(skipLinkElement).toHaveCSS("top", "8px");
-    await expect(skipLinkElement).toHaveCSS("left", "8px");
+    await expect(skipLinkElement).toHaveCSS("left", "0px");
+    await expect(skipLinkElement).toHaveCSS(
+      "text-decoration",
+      "underline 4px solid rgb(0, 0, 0)"
+    );
+    await expect(skipLinkElement).toHaveCSS("text-decoration-thickness", "4px");
+    await expect(skipLinkElement).toHaveCSS("text-underline-offset", "3px");
   });
 
   ([
