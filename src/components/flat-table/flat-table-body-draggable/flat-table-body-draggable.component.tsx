@@ -2,11 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import StyledIcon from "../../icon/icon.style";
 import StyledFlatTableBodyDraggable from "./flat-table-body-draggable.style";
 import FlatTableCell from "../flat-table-cell/flat-table-cell.component";
 
-export interface FlatTableBodyDraggableProps {
+export interface FlatTableBodyDraggableProps
+  extends Omit<TagProps, "data-component"> {
   /** Array of FlatTableRow. */
   children: React.ReactNode;
   /** Callback fired when order is changed */
@@ -33,6 +35,7 @@ const DropTarget = ({
 
   return (
     <StyledFlatTableBodyDraggable
+      data-component="flat-table-body-draggable"
       data-role="flat-table-body-draggable"
       ref={drop}
       isDragging={isDragging}
