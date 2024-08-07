@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import StyledFlatTableHead from "./flat-table-head.style";
 import { buildPositionMap } from "../__internal__";
 import FlatTableHeadContext from "./__internal__/flat-table-head.context";
 
-export interface FlatTableHeadProps {
+export interface FlatTableHeadProps extends Omit<TagProps, "data-component"> {
   /** Array of FlatTableRow. */
   children: React.ReactNode;
 }
@@ -28,7 +29,7 @@ export const FlatTableHead = ({ children, ...rest }: FlatTableHeadProps) => {
   }, [children]);
 
   return (
-    <StyledFlatTableHead ref={ref} {...rest}>
+    <StyledFlatTableHead ref={ref} data-component="flat-table-head" {...rest}>
       <FlatTableHeadContext.Provider value={{ stickyOffsets }}>
         {children}
       </FlatTableHeadContext.Provider>
