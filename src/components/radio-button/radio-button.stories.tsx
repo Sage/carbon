@@ -385,6 +385,7 @@ export const NewValidationDefaultGroup: Story = () => {
           legendHelp="Hint Text"
           name="error-validations-group"
           error="Error Message (Fix is required)"
+          required
         >
           <RadioButton
             id="radio-one-1"
@@ -409,6 +410,7 @@ export const NewValidationDefaultGroup: Story = () => {
           legendHelp="Hint Text"
           name="warning-validations-group"
           warning="Warning Message (Fix is optional)"
+          required
         >
           <RadioButton
             id="radio-two-1"

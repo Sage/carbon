@@ -52,6 +52,8 @@ import {
 
 A legend can be set for the group, and each radio button can have a label.
 
+**Note**: The `labelHelp` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
+
 <Canvas of={RadioButtonStories.WithLegendAndLabels} />
 
 ### With inline legend
@@ -106,6 +108,8 @@ The radio buttons and labels can be disabled using the `disabled` prop on each r
 ### With field help
 
 Help text for each input can be added with the `fieldHelp` prop on `RadioButton`. This can be made inline with the `fieldHelpInline` prop.
+
+**Note**: The `fieldHelp` prop is not supported if the `validationRedesignOptIn` flag on the `CarbonProvider` is true.
 
 <Canvas of={RadioButtonStories.WithFieldHelp} />
 

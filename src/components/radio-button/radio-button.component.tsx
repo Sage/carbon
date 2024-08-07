@@ -26,9 +26,9 @@ export interface RadioButtonProps
   onClick?: (ev: React.MouseEvent<HTMLInputElement>) => void;
   /** the value of the Radio Button, passed on form submit */
   value: string;
-  /** Overrides the default tooltip position */
+  /** [Legacy] Overrides the default tooltip position */
   tooltipPosition?: "top" | "bottom" | "left" | "right";
-  /** Aria label for rendered help component */
+  /** [Legacy] Aria label for rendered help component */
   helpAriaLabel?: string;
 }
 
@@ -86,17 +86,17 @@ export const RadioButton = React.forwardRef<
     );
 
     const validationProps = {
-      disabled,
-      inputWidth,
       error,
       warning,
-      info,
+      ...(validationRedesignOptIn ? { validationOnLabel: false } : { info }),
     };
 
     const commonProps = {
       ...validationProps,
       fieldHelpInline,
       labelSpacing,
+      labelHelp,
+      fieldHelp,
     };
 
     const inputProps = {
@@ -105,7 +105,6 @@ export const RadioButton = React.forwardRef<
         : { ...commonProps }),
       autoFocus,
       checked,
-      fieldHelp,
       name,
       onChange: handleChange,
       onBlur,
@@ -113,7 +112,8 @@ export const RadioButton = React.forwardRef<
       labelInline: true,
       labelWidth,
       label,
-      labelHelp,
+      disabled,
+      inputWidth,
       id,
       value,
       type: "radio",
@@ -142,9 +142,11 @@ export const RadioButton = React.forwardRef<
         inline={inline}
         reverse={reverse}
         size={size}
+        disabled={disabled}
+        inputWidth={inputWidth}
         {...(validationRedesignOptIn
           ? { ...validationProps }
-          : { ...commonProps, fieldHelp })}
+          : { ...commonProps })}
         {...marginProps}
       >
         <CheckableInput {...inputProps}>
