@@ -1,4 +1,5 @@
 import React, { useRef, useContext } from "react";
+import { TagProps } from "../../../__internal__/utils/helpers/tags";
 import Event from "../../../__internal__/utils/helpers/events";
 import Typography from "../../typography";
 import { StyledSort, StyledSpaceHolder, StyledSortIcon } from "./sort.style";
@@ -6,7 +7,7 @@ import guid from "../../../__internal__/utils/helpers/guid";
 import useLocale from "../../../hooks/__internal__/useLocale";
 import FlatTableContext from "../__internal__/flat-table.context";
 
-export interface SortProps {
+export interface SortProps extends Omit<TagProps, "data-component"> {
   /** if `asc` it will show `sort_up` icon, if `desc` it will show `sort_down` */
   sortType?: "ascending" | "descending";
   /** Callback fired when the component is clicked */
@@ -22,6 +23,8 @@ export const Sort = ({
   onClick,
   sortType,
   accessibleName,
+  "data-element": dataElement,
+  "data-role": dataRole,
 }: SortProps) => {
   const id = useRef(guid());
   const locale = useLocale();
@@ -49,6 +52,9 @@ export const Sort = ({
         onClick={onClick}
         sortType={sortType}
         aria-labelledby={id.current}
+        data-component="sort"
+        data-element={dataElement}
+        data-role={dataRole}
       >
         {children}
         {sortType && (
@@ -62,7 +68,7 @@ export const Sort = ({
           />
         )}
       </StyledSort>
-      {!sortType && <StyledSpaceHolder />}
+      {!sortType && <StyledSpaceHolder data-role="sort-placeholder" />}
     </>
   );
 };
