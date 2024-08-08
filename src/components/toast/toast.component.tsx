@@ -132,6 +132,7 @@ export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
       closeModal: dismissToast,
       modalRef: refToPass,
       topModalOverride: true,
+      disableAutoFocus,
     });
 
     useEffect(() => {

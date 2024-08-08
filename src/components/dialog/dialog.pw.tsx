@@ -19,6 +19,7 @@ import {
   OtherFocusableContainers,
   Responsive,
   UsingHandle,
+  TopModalOverrideWithCallToAction,
 } from "./components.test-pw";
 import { toastComponent } from "../../../playwright/components/toast";
 import {
@@ -247,6 +248,40 @@ test.describe("Testing Dialog component properties", () => {
     await expect(
       page.getByRole("button").filter({ hasText: "Press me" })
     ).toBeFocused();
+  });
+
+  test("when Dialog is opened and then closed, the call to action element should be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<DefaultStory />);
+
+    const button = page.getByRole("button").filter({ hasText: "Open Dialog" });
+    await button.click();
+    const closeButton = page.getByLabel("Close");
+    await closeButton.click();
+    await expect(button).toBeFocused();
+  });
+
+  test("when multiple Dialogs are opened and then closed, the original call to action element should still be focused", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<TopModalOverrideWithCallToAction />);
+
+    const button = page.getByRole("button").filter({ hasText: "Open dialogs" });
+    await button.click();
+    const closeButton1 = page
+      .getByLabel("I rendered second")
+      .getByLabel("Close");
+    await closeButton1.click();
+    const closeButton2 = page
+      .getByLabel("I rendered first")
+      .getByLabel("Close");
+    await closeButton2.click();
+    const closeButton3 = page.getByLabel("I rendered last").getByLabel("Close");
+    await closeButton3.click();
+    await expect(button).toBeFocused();
   });
 
   test("when disableAutoFocus prop is passed, the first focusable element should not be focused", async ({

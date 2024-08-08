@@ -281,9 +281,10 @@ describe("AdvancedColorPicker", () => {
       it("then the focus should be switched to the close button", () => {
         const { dialogCloseButton, defaultSimpleColor } = getElements(wrapper);
 
-        expect(document.activeElement).toBe(defaultSimpleColor);
+        console.log(document.activeElement);
+        expect(document.activeElement).toStrictEqual(defaultSimpleColor);
         document.dispatchEvent(tabKey);
-        expect(document.activeElement).toBe(dialogCloseButton);
+        expect(document.activeElement).toStrictEqual(dialogCloseButton);
       });
     });
   });

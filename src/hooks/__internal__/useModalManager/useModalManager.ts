@@ -8,6 +8,7 @@ type UseModalManagerArgs = {
   setTriggerRefocusFlag?: (flag: boolean) => void;
   triggerRefocusOnClose?: boolean;
   topModalOverride?: boolean;
+  disableAutoFocus?: boolean;
 };
 
 const useModalManager = ({
@@ -17,9 +18,11 @@ const useModalManager = ({
   setTriggerRefocusFlag,
   triggerRefocusOnClose = true,
   topModalOverride = false,
+  disableAutoFocus = false,
 }: UseModalManagerArgs) => {
   const listenerAdded = useRef(false);
   const modalRegistered = useRef(false);
+  const lastFocusedElement = useRef<HTMLElement | null>(null);
 
   const handleClose = useCallback(
     (ev: KeyboardEvent) => {
@@ -67,6 +70,9 @@ const useModalManager = ({
     (ref: HTMLElement | null) => {
       /* istanbul ignore else */
       if (!modalRegistered.current) {
+        if (!lastFocusedElement.current) {
+          lastFocusedElement.current = document.activeElement as HTMLElement;
+        }
         ModalManager.addModal(ref, setTriggerRefocusFlag, topModalOverride);
 
         modalRegistered.current = true;
@@ -79,6 +85,13 @@ const useModalManager = ({
     (ref: HTMLElement | null) => {
       if (modalRegistered.current) {
         ModalManager.removeModal(ref, triggerRefocusOnClose);
+
+        if (triggerRefocusOnClose && !disableAutoFocus) {
+          setTimeout(() => {
+            // focuses the last active element before the modal was opened
+            lastFocusedElement.current?.focus();
+          }, 0);
+        }
 
         modalRegistered.current = false;
       }
