@@ -345,3 +345,43 @@ test("should apply expected `data-` attributes", () => {
   expect(screen.getByText("foo")).toHaveAttribute("data-element", "bar");
   expect(screen.getByText("foo")).toHaveAttribute("data-role", "baz");
 });
+
+test("should not wrap when the submenu parent has no max-width set", async () => {
+  const user = userEvent.setup();
+  render(
+    <MenuContext.Provider value={menuContextValues("light")}>
+      <ul>
+        <MenuItem submenu="Item One">
+          <MenuSegmentTitle text="Title">
+            <li>bar</li>
+          </MenuSegmentTitle>
+        </MenuItem>
+      </ul>
+    </MenuContext.Provider>
+  );
+  await user.click(screen.getByText("Item One"));
+
+  expect(
+    await screen.findByRole("heading", { level: 2, name: "Title" })
+  ).toHaveStyle("white-space: nowrap");
+});
+
+test("should wrap when the submenu parent has a max-width set", async () => {
+  const user = userEvent.setup();
+  render(
+    <MenuContext.Provider value={menuContextValues("light")}>
+      <ul>
+        <MenuItem submenuMaxWidth="200px" submenu="Item One">
+          <MenuSegmentTitle text="Title">
+            <li>bar</li>
+          </MenuSegmentTitle>
+        </MenuItem>
+      </ul>
+    </MenuContext.Provider>
+  );
+  await user.click(screen.getByText("Item One"));
+
+  expect(
+    await screen.findByRole("heading", { level: 2, name: "Title" })
+  ).toHaveStyle("white-space: normal");
+});

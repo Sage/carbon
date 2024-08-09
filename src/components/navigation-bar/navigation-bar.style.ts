@@ -25,7 +25,6 @@ const StyledNavigationBar = styled.nav<StyledNavigationBarProps>`
   display: flex;
   align-items: center;
   padding: 0 40px;
-  line-height: 40px;
 
   & > * {
     box-sizing: border-box;

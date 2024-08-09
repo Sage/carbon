@@ -26,7 +26,6 @@ interface StyledMenuProps
 }
 
 const StyledMenuWrapper = styled.ul<StyledMenuProps>`
-  line-height: 40px;
   list-style: none;
   margin: 0;
   padding: 0;

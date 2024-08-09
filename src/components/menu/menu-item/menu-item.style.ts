@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { padding, PaddingProps } from "styled-system";
-import { StyledLink } from "../../link/link.style";
+import { StyledContent, StyledLink } from "../../link/link.style";
 import StyledIcon from "../../icon/icon.style";
 import StyledIconButton from "../../icon-button/icon-button.style";
 import menuConfigVariants from "../menu.config";
@@ -62,10 +62,11 @@ const StyledMenuItemWrapper = styled.a.attrs({
       ${padding}
     `}
 
-    display: inline-block;
+    display: flex;
+    align-items: center;
     font-size: 14px;
     font-weight: 700;
-    height: 40px;
+    min-height: 40px;
     position: relative;
     box-shadow: none;
 
@@ -85,9 +86,16 @@ const StyledMenuItemWrapper = styled.a.attrs({
       `}
     }
 
-    a button:not(.search-button) {
-      position: relative;
-      top: -1px;
+    ${!maxWidth &&
+    css`
+      :has([data-component="icon"]) ${StyledContent} {
+        position: relative;
+        top: -2px;
+      }
+    `}
+
+    :has([data-element="input"]) ${StyledContent} {
+      width: 100%;
     }
 
     ${!overrideColor &&
@@ -107,6 +115,12 @@ const StyledMenuItemWrapper = styled.a.attrs({
     ${!inFullscreenView &&
     css`
       max-width: inherit;
+
+      > a,
+      > button {
+        display: flex;
+        align-items: center;
+      }
 
       && {
         a:focus,
@@ -129,8 +143,8 @@ const StyledMenuItemWrapper = styled.a.attrs({
             overflow: hidden;
             white-space: nowrap;
             vertical-align: bottom;
+            display: block;
           `}
-          height: 40px;
         }
 
         a:hover,
@@ -173,13 +187,17 @@ const StyledMenuItemWrapper = styled.a.attrs({
         ${StyledLink} a,
         button,
         ${StyledLink} button {
-          padding: 0 16px;
+       
+          padding: ${inFullscreenView ? "0px 16px" : "11px 16px 12px"};
+
+          :has([data-component="icon"]) {
+            padding: 9px 16px 7px;
+          }
         }
       `}
 
     button,
     ${StyledLink} button {
-      line-height: 40px;
       height: 40px;
       margin: 0px;
       text-align: left;
@@ -374,6 +392,12 @@ const StyledMenuItemWrapper = styled.a.attrs({
             background: transparent;
           }
         `
+      }
+
+      
+      > a, > button {
+       min-height: 40px;
+       line-height: 40px;
       }
 
       a,
