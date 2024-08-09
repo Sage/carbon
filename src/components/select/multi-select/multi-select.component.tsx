@@ -455,6 +455,16 @@ export const MultiSelect = React.forwardRef(
       if (onClick) {
         onClick(event);
       }
+
+      if (isOpen) {
+        setFilterText("");
+        setOpenState(false);
+        return;
+      }
+
+      onOpen?.();
+
+      setOpenState(true);
     }
 
     function handleDropdownIconClick(

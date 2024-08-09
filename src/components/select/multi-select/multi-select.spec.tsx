@@ -574,13 +574,13 @@ describe("MultiSelect", () => {
   );
 
   describe("when the Textbox Input is clicked", () => {
-    it("the SelectList should not be rendered", () => {
+    it("the SelectList should be rendered", () => {
       const wrapper = renderSelect();
 
       simulateSelectTextboxEvent(wrapper, "click");
       expect(
         wrapper.find(StyledSelectListContainer).getDOMNode()
-      ).not.toBeVisible();
+      ).toBeVisible();
     });
 
     describe('and the "onClick" prop is passed', () => {
@@ -594,12 +594,27 @@ describe("MultiSelect", () => {
     });
 
     describe('and the "onOpen" prop is passed', () => {
-      it("then that prop should not be called", () => {
+      it("then that prop should be called", () => {
         const onOpenFn = jest.fn();
         const wrapper = renderSelect({ onOpen: onOpenFn });
 
         simulateSelectTextboxEvent(wrapper, "click");
-        expect(onOpenFn).not.toHaveBeenCalled();
+        expect(onOpenFn).toHaveBeenCalled();
+      });
+
+      describe("and with the SelectList already open", () => {
+        it("then that prop should not have been called", () => {
+          const onOpenFn = jest.fn();
+          const wrapper = renderSelect({ onOpen: onOpenFn });
+
+          simulateSelectTextboxEvent(wrapper, "click");
+          onOpenFn.mockReset();
+          expect(
+            wrapper.find(StyledSelectListContainer).getDOMNode()
+          ).toBeVisible();
+          simulateSelectTextboxEvent(wrapper, "click");
+          expect(onOpenFn).not.toHaveBeenCalled();
+        });
       });
 
       describe("and the focus triggered by mouseDown on the input", () => {
