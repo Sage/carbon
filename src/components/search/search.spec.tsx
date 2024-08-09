@@ -755,7 +755,7 @@ test("should call `onClick` when it and `triggerOnClear` props are passed and th
       searchButton
       name="foo"
       id="bar"
-    />
+    />,
   );
   const inputIcon = screen.getByTestId("input-icon-toggle");
   await user.click(inputIcon);
@@ -773,7 +773,7 @@ test("should not call `onClick` when prop is passed and the user clicks the cros
   const onClick = jest.fn();
   const user = userEvent.setup();
   render(
-    <Search value="foo" onClick={onClick} onChange={() => {}} searchButton />
+    <Search value="foo" onClick={onClick} onChange={() => {}} searchButton />,
   );
   const inputIcon = screen.getByTestId("input-icon-toggle");
   await user.click(inputIcon);

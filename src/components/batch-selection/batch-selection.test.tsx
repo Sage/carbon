@@ -14,7 +14,7 @@ test("Renders with children", () => {
       <IconButton>
         <Icon type="edit" />
       </IconButton>
-    </BatchSelection>
+    </BatchSelection>,
   );
 
   const iconButton = screen.getByRole("button", { name: "edit" });
@@ -29,7 +29,7 @@ test("Renders as hidden when the `hidden` prop is true", () => {
       <IconButton>
         <Icon type="bin" />
       </IconButton>
-    </BatchSelection>
+    </BatchSelection>,
   );
 
   const batchSelection = screen.getByTestId("batch-selection");
@@ -43,7 +43,7 @@ test("`IconButton` children should be automatically disabled via context", () =>
       <IconButton>
         <Icon type="edit" />
       </IconButton>
-    </BatchSelection>
+    </BatchSelection>,
   );
 
   const iconButton = screen.getByRole("button", { name: "edit" });
@@ -55,7 +55,7 @@ test("`Button` children should be automatically disabled via context", () => {
   render(
     <BatchSelection colorTheme="light" selectedCount={0} disabled>
       <Button iconType="edit" />
-    </BatchSelection>
+    </BatchSelection>,
   );
 
   const button = screen.getByRole("button", { name: "edit" });
@@ -67,7 +67,7 @@ test("`ButtonMinor` children should be automatically disabled via context", () =
   render(
     <BatchSelection colorTheme="white" selectedCount={0} disabled>
       <ButtonMinor iconType="edit" />
-    </BatchSelection>
+    </BatchSelection>,
   );
 
   const minorButton = screen.getByRole("button", { name: "edit" });
@@ -79,7 +79,7 @@ test("`Link` children should be automatically disabled via context", () => {
   render(
     <BatchSelection selectedCount={0} disabled>
       <Link>Link as an anchor</Link>
-    </BatchSelection>
+    </BatchSelection>,
   );
 
   const link = screen.getByTestId("link-anchor");
@@ -95,7 +95,7 @@ test("`Link` children rendered as a button should be automatically disabled via 
   render(
     <BatchSelection selectedCount={0} disabled>
       <Link onClick={() => {}}>Link as a button</Link>
-    </BatchSelection>
+    </BatchSelection>,
   );
 
   const linkButton = screen.getByRole("button", {

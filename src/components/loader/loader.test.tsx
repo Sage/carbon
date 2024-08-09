@@ -43,7 +43,7 @@ describe("when the user allows animations", () => {
     render(<Loader aria-label="Still loading" />);
 
     expect(screen.getByRole("progressbar")).toHaveAccessibleName(
-      "Still loading"
+      "Still loading",
     );
   });
 });

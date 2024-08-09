@@ -19,7 +19,7 @@ import guid from "../../__internal__/utils/helpers/guid";
 
 jest.mock("../../__internal__/utils/helpers/guid");
 (guid as jest.MockedFunction<typeof guid>).mockImplementation(
-  () => "guid-12345"
+  () => "guid-12345",
 );
 
 beforeAll(() => {
@@ -53,7 +53,7 @@ describe("if download prop and href prop are provided", () => {
         <ActionPopoverItem href="#" download>
           test download
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -69,7 +69,7 @@ describe("if download prop and href prop are provided", () => {
         <ActionPopoverItem href="#" download>
           test download
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -85,12 +85,12 @@ test("displays the vertical ellipsis icon as the menu button", () => {
   render(
     <ActionPopover>
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
   expect(screen.getByTestId("icon")).toHaveStyleRule(
     "content",
     `"${iconUnicodes.ellipsis_vertical}"`,
-    { modifier: "&::before" }
+    { modifier: "&::before" },
   );
 });
 
@@ -102,18 +102,18 @@ test("has proper data attributes applied to elements", async () => {
       <ActionPopoverItem>example item 1</ActionPopoverItem>
       <ActionPopoverDivider />
       <ActionPopoverItem>example item 2</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
 
   expect(screen.getByTestId("action-popover-wrapper")).toHaveAttribute(
     "data-component",
-    "action-popover-wrapper"
+    "action-popover-wrapper",
   );
   expect(screen.getByRole("list")).toHaveAttribute(
     "data-component",
-    "action-popover"
+    "action-popover",
   );
   const divider = screen.getAllByRole("listitem")[1];
   expect(divider).toHaveAttribute("data-element", "action-popover-divider");
@@ -123,7 +123,7 @@ test("has a default aria-label", () => {
   render(
     <ActionPopover>
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
   expect(screen.getByRole("button")).toHaveAccessibleName("actions");
 });
@@ -132,7 +132,7 @@ test("uses the aria-label prop if provided", () => {
   render(
     <ActionPopover aria-label="test aria label">
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
   expect(screen.getByRole("button")).toHaveAccessibleName("test aria label");
 });
@@ -141,7 +141,7 @@ test("renders with the menu closed by default", () => {
   render(
     <ActionPopover>
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
 });
@@ -159,20 +159,20 @@ test.each<["top" | "bottom", boolean, string]>([
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
     render(
-      <ActionPopover placement={placement} rightAlignMenu={rightAlignMenu} />
+      <ActionPopover placement={placement} rightAlignMenu={rightAlignMenu} />,
     );
 
     await user.click(screen.getByRole("button"));
 
     const placements = computePositionSpy.mock.calls.map(
-      (call) => call[2]?.placement
+      (call) => call[2]?.placement,
     );
 
     expect(placements.length).toBeGreaterThan(0);
     expect(placements.every((p) => p === result)).toBe(true);
 
     computePositionSpy.mockRestore();
-  }
+  },
 );
 
 test("clicking a menu item calls its onClick handler", async () => {
@@ -187,7 +187,7 @@ test("clicking a menu item calls its onClick handler", async () => {
       <ActionPopoverItem icon="print" onClick={() => onClick("print")}>
         Print Invoice
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -208,7 +208,7 @@ test("pressing enter on a menu item calls its onClick handler", async () => {
       <ActionPopoverItem icon="print" onClick={() => onClick("print")}>
         Print Invoice
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -225,7 +225,7 @@ test("clicking a menu item closes the menu", async () => {
     <ActionPopover>
       <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
       <ActionPopoverItem icon="print">Print Invoice</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -241,7 +241,7 @@ test("pressing enter on a menu item closes the menu", async () => {
     <ActionPopover>
       <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
       <ActionPopoverItem icon="print">Print Invoice</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -258,7 +258,7 @@ test("clicking a menu item focuses the menu button", async () => {
     <ActionPopover>
       <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
       <ActionPopoverItem icon="print">Print Invoice</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -274,7 +274,7 @@ test("pressing enter on a menu item focuses the menu button", async () => {
     <ActionPopover>
       <ActionPopoverItem icon="email">Email Invoice</ActionPopoverItem>
       <ActionPopoverItem icon="print">Print Invoice</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -296,7 +296,7 @@ test("clicking a disabled menu item does not call its onClick handler", async ()
       <ActionPopoverItem icon="print" onClick={() => onClick("print")} disabled>
         Print Invoice
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -317,7 +317,7 @@ test("pressing enter on a disabled menu item does not call its onClick handler",
       <ActionPopoverItem icon="print" onClick={() => onClick("print")} disabled>
         Print Invoice
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -336,7 +336,7 @@ test("clicking a disabled menu item does not close the menu", async () => {
       <ActionPopoverItem icon="print" disabled>
         Print Invoice
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -354,7 +354,7 @@ test("pressing enter on a disabled menu item does not close the menu", async () 
       <ActionPopoverItem icon="print" disabled>
         Print Invoice
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -373,7 +373,7 @@ test("clicking a disabled menu item does not focus the menu button", async () =>
       <ActionPopoverItem icon="print" disabled>
         Print Invoice
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -391,7 +391,7 @@ test("pressing enter on a disabled menu item does not focus the menu button", as
       <ActionPopoverItem icon="print" disabled>
         Print Invoice
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -409,7 +409,7 @@ test("clicking the menu button calls the onOpen prop", async () => {
   render(
     <ActionPopover onOpen={onOpen}>
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -428,7 +428,7 @@ test("clicking the menu button stops any further event propagation", async () =>
       <ActionPopover>
         <ActionPopoverItem>example item</ActionPopoverItem>
       </ActionPopover>
-    </div>
+    </div>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -443,7 +443,7 @@ test("clicking the menu button focuses the first focusable element", async () =>
     <ActionPopover>
       <ActionPopoverItem disabled>shouldn't be focused</ActionPopoverItem>
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -459,7 +459,7 @@ test("clicking the menu button with the menu open closes the menu and calls the 
   render(
     <ActionPopover onClose={onClose}>
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   const menuButton = screen.getByRole("button");
@@ -478,7 +478,7 @@ test("clicking inside the component does not close the menu", async () => {
     <ActionPopover>
       <ActionPopoverItem disabled>disabled item</ActionPopoverItem>
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -495,7 +495,7 @@ test("clicking elsewhere on the document closes the menu", async () => {
     <ActionPopover>
       <ActionPopoverItem disabled>disabled item</ActionPopoverItem>
       <ActionPopoverItem>example item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -515,7 +515,7 @@ test.each(["ArrowDown", "Space", "Enter", "ArrowUp"] as const)(
       <ActionPopover onOpen={onOpen}>
         <ActionPopoverItem>example item 1</ActionPopoverItem>
         <ActionPopoverItem>example item 2</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     screen.getByRole("button").focus();
@@ -524,7 +524,7 @@ test.each(["ArrowDown", "Space", "Enter", "ArrowUp"] as const)(
 
     expect(screen.getByRole("list")).toBeVisible();
     expect(onOpen).toHaveBeenCalledTimes(1);
-  }
+  },
 );
 
 test.each(["ArrowDown", "Space", "Enter"] as const)(
@@ -536,7 +536,7 @@ test.each(["ArrowDown", "Space", "Enter"] as const)(
       <ActionPopover>
         <ActionPopoverItem>example item 1</ActionPopoverItem>
         <ActionPopoverItem>example item 2</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     screen.getByRole("button").focus();
@@ -544,9 +544,9 @@ test.each(["ArrowDown", "Space", "Enter"] as const)(
     await user.keyboard(userEventKeyCode);
 
     expect(
-      screen.getByRole("button", { name: "example item 1" })
+      screen.getByRole("button", { name: "example item 1" }),
     ).toBeFocused();
-  }
+  },
 );
 
 // test left in, but skipped, pending investigation/decision on https://github.com/Sage/carbon/issues/6826
@@ -558,7 +558,7 @@ test.skip("pressing ArrowUp key when focused on the menu button selects the last
     <ActionPopover>
       <ActionPopoverItem>example item 1</ActionPopoverItem>
       <ActionPopoverItem>example item 2</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   screen.getByRole("button").focus();
@@ -581,7 +581,7 @@ test.each([
       <ActionPopover onClose={onClose}>
         <ActionPopoverItem>example item 1</ActionPopoverItem>
         <ActionPopoverItem>example item 2</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     screen.getByRole("button").focus();
@@ -592,7 +592,7 @@ test.each([
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(onClose).toHaveBeenCalledTimes(1);
     // TODO - add test for correct element being focused if functionality is fixed (see FE-6424)
-  }
+  },
 );
 
 test("pressing Escape when focused on a menu item focuses the MenuButton and closes the Menu", async () => {
@@ -602,7 +602,7 @@ test("pressing Escape when focused on a menu item focuses the MenuButton and clo
     <ActionPopover>
       <ActionPopoverItem>example item 1</ActionPopoverItem>
       <ActionPopoverItem>example item 2</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   screen.getByRole("button").focus();
@@ -621,7 +621,7 @@ test("pressing the Down Arrow key when the menu is open focuses the next item an
       <ActionPopoverItem>example item 1</ActionPopoverItem>
       <ActionPopoverItem>example item 2</ActionPopoverItem>
       <ActionPopoverItem>example item 3</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -645,7 +645,7 @@ test("pressing the Up Arrow key when the menu is open focuses the previous item 
       <ActionPopoverItem>example item 1</ActionPopoverItem>
       <ActionPopoverItem>example item 2</ActionPopoverItem>
       <ActionPopoverItem>example item 3</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -670,7 +670,7 @@ test("pressing the Home key when the menu is open focuses the first item, no mat
       <ActionPopoverItem>example item 2</ActionPopoverItem>
       <ActionPopoverItem>example item 3</ActionPopoverItem>
       <ActionPopoverItem>example item 4</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -704,7 +704,7 @@ test("pressing the End key when the menu is open focuses the last item, no matte
       <ActionPopoverItem>example item 2</ActionPopoverItem>
       <ActionPopoverItem>example item 3</ActionPopoverItem>
       <ActionPopoverItem>example item 4</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -733,7 +733,7 @@ test("pressing Space when the menu is open does nothing", async () => {
       <ActionPopoverItem>example item 1</ActionPopoverItem>
       <ActionPopoverItem>example item 2</ActionPopoverItem>
       <ActionPopoverItem>example item 3</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -758,7 +758,7 @@ test("pressing an alphabet character when the menu is open selects the next sele
       <ActionPopoverItem disabled>Disabled</ActionPopoverItem>
       <ActionPopoverDivider key="divider" />
       <ActionPopoverItem>Download CSV</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
   await user.click(screen.getByRole("button"));
 
@@ -787,7 +787,7 @@ test("pressing a non-printable character key when the menu is open does nothing"
       <ActionPopoverItem>first item</ActionPopoverItem>
       <ActionPopoverItem>F - shouldn't work</ActionPopoverItem>
       <ActionPopoverItem>F1 - shouldn't work</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await user.click(screen.getByRole("button"));
@@ -812,11 +812,11 @@ test("an error is thrown, with appropriate error message, if invalid children ar
         <ActionPopoverItem onClick={() => {}}>Item</ActionPopoverItem>
         Invalid children
         <p>invalid children</p>
-      </ActionPopover>
+      </ActionPopover>,
     );
   }).toThrow(
     "ActionPopover only accepts children of type `ActionPopoverItem`" +
-      " and `ActionPopoverDivider`."
+      " and `ActionPopoverDivider`.",
   );
 
   globalConsoleSpy.mockRestore();
@@ -840,7 +840,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -852,7 +852,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     expect(submenuIcon).toHaveStyleRule(
       "content",
       `"${iconUnicodes.chevron_left_thick}"`,
-      { modifier: "&::before" }
+      { modifier: "&::before" },
     );
     expect(submenuIcon).toHaveStyle({ left: "-5px" });
   });
@@ -874,18 +874,18 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
 
     // move mouse over the item with the submenu
     await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
 
     act(() => {
@@ -893,7 +893,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     });
 
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
   });
 
@@ -917,7 +917,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -925,15 +925,15 @@ describe("when an item has a submenu with default (left) alignment", () => {
     const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
 
     await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
     expect(clearTimeoutSpy).not.toHaveBeenCalled();
     // need to move the pointer away from the element before moving it back, otherwise mouseEnter won't be triggered a second time
     await user.unhover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
     await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
 
     expect(clearTimeoutSpy).toHaveBeenCalled();
@@ -957,20 +957,20 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
 
     await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
     act(() => {
       jest.runAllTimers();
     });
 
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
 
     await user.hover(screen.getByRole("button", { name: "example item 2" }));
@@ -979,7 +979,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     });
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
   });
 
@@ -1003,7 +1003,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1011,18 +1011,18 @@ describe("when an item has a submenu with default (left) alignment", () => {
     const clearTimeoutSpy = jest.spyOn(window, "clearTimeout");
 
     await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
     await user.unhover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
     expect(clearTimeoutSpy).not.toHaveBeenCalled();
     // need to enter and leave a second time
     await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
     await user.unhover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
 
     // need to check for 2 calls, as one will have been due to the cleartimeout of the double mouse-enter
@@ -1049,7 +1049,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1079,7 +1079,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1092,13 +1092,13 @@ describe("when an item has a submenu with default (left) alignment", () => {
     await user.keyboard("{ArrowLeft}");
 
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
 
     await user.keyboard("{ArrowRight}");
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
     expect(parentItem).toBeFocused();
   });
@@ -1120,7 +1120,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1129,16 +1129,16 @@ describe("when an item has a submenu with default (left) alignment", () => {
     await user.keyboard("{ArrowLeft}");
 
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
 
     await user.keyboard("z");
 
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeFocused();
   });
 
@@ -1159,7 +1159,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1189,12 +1189,12 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
     await user.click(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
 
     await user.click(screen.getByRole("button", { name: "submenu item 1" }));
@@ -1220,7 +1220,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1228,7 +1228,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
 
     await user.keyboard("{ArrowLeft}");
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeFocused();
 
     await user.keyboard("{Escape}");
@@ -1254,17 +1254,17 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
 
     await user.hover(
-      screen.getByRole("button", { name: "example item with submenu" })
+      screen.getByRole("button", { name: "example item with submenu" }),
     );
 
     act(() => {
@@ -1272,7 +1272,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     });
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
   });
 
@@ -1294,7 +1294,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1303,7 +1303,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     await user.keyboard("{ArrowLeft}");
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
   });
 
@@ -1325,7 +1325,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1334,7 +1334,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
     await user.keyboard("{Enter}");
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
   });
 
@@ -1355,7 +1355,7 @@ describe("when an item has a submenu with default (left) alignment", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1365,10 +1365,10 @@ describe("when an item has a submenu with default (left) alignment", () => {
 
     await user.click(screen.getByRole("button", { name: "submenu item 1" }));
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeFocused();
   });
 });
@@ -1378,7 +1378,7 @@ describe("when there isn't enough space on the screen to render a submenu on the
   beforeEach(() => {
     getBoundingClientRectSpy = jest.spyOn(
       Element.prototype,
-      "getBoundingClientRect"
+      "getBoundingClientRect",
     );
     getBoundingClientRectSpy.mockImplementation(() => ({
       left: "-100",
@@ -1408,7 +1408,7 @@ describe("when there isn't enough space on the screen to render a submenu on the
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1420,7 +1420,7 @@ describe("when there isn't enough space on the screen to render a submenu on the
     expect(submenuIcon).toHaveStyleRule(
       "content",
       `"${iconUnicodes.chevron_right_thick}"`,
-      { modifier: "&::before" }
+      { modifier: "&::before" },
     );
     expect(submenuIcon).toHaveStyle({ right: "-5px" });
   });
@@ -1442,7 +1442,7 @@ describe("when there isn't enough space on the screen to render a submenu on the
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1472,7 +1472,7 @@ describe("when there isn't enough space on the screen to render a submenu on the
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1485,13 +1485,13 @@ describe("when there isn't enough space on the screen to render a submenu on the
     await user.keyboard("{ArrowRight}");
 
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
 
     await user.keyboard("{ArrowLeft}");
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
     expect(parentItem).toBeFocused();
   });
@@ -1515,7 +1515,7 @@ describe("when the submenuPosition prop is set to 'right'", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1527,7 +1527,7 @@ describe("when the submenuPosition prop is set to 'right'", () => {
     expect(submenuIcon).toHaveStyleRule(
       "content",
       `"${iconUnicodes.chevron_right_thick}"`,
-      { modifier: "&::before" }
+      { modifier: "&::before" },
     );
     expect(submenuIcon).toHaveStyle({ right: "-5px" });
   });
@@ -1549,7 +1549,7 @@ describe("when the submenuPosition prop is set to 'right'", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1579,7 +1579,7 @@ describe("when the submenuPosition prop is set to 'right'", () => {
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1592,13 +1592,13 @@ describe("when the submenuPosition prop is set to 'right'", () => {
     await user.keyboard("{ArrowRight}");
 
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
 
     await user.keyboard("{ArrowLeft}");
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
     expect(parentItem).toBeFocused();
   });
@@ -1609,7 +1609,7 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
   beforeEach(() => {
     getBoundingClientRectSpy = jest.spyOn(
       Element.prototype,
-      "getBoundingClientRect"
+      "getBoundingClientRect",
     );
     getBoundingClientRectSpy.mockImplementation(() => ({
       left: "auto",
@@ -1639,7 +1639,7 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1651,7 +1651,7 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
     expect(submenuIcon).toHaveStyleRule(
       "content",
       `"${iconUnicodes.chevron_left_thick}"`,
-      { modifier: "&::before" }
+      { modifier: "&::before" },
     );
     expect(submenuIcon).toHaveStyle({ left: "-5px" });
   });
@@ -1673,7 +1673,7 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1703,7 +1703,7 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
         >
           example item with submenu
         </ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -1716,13 +1716,13 @@ describe("when the submenuPosition prop is set to 'right' and there isn't enough
     await user.keyboard("{ArrowLeft}");
 
     expect(
-      screen.getByRole("button", { name: "submenu item 1" })
+      screen.getByRole("button", { name: "submenu item 1" }),
     ).toBeVisible();
 
     await user.keyboard("{ArrowRight}");
 
     expect(
-      screen.queryByRole("button", { name: "submenu item 1" })
+      screen.queryByRole("button", { name: "submenu item 1" }),
     ).not.toBeInTheDocument();
     expect(parentItem).toBeFocused();
   });
@@ -1738,14 +1738,14 @@ test("an error is thrown, with appropriate error message, if an invalid element 
   render(
     <ActionPopover>
       <ActionPopoverItem submenu={<p>foo</p>}>item</ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await expect(() => {
     // error should only be actually thrown when the Popover menu, with invalid submenu, is rendered
     return user.click(screen.getByRole("button"));
   }).rejects.toThrow(
-    "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`"
+    "ActionPopoverItem only accepts submenu of type `ActionPopoverMenu`",
   );
 
   globalConsoleSpy.mockRestore();
@@ -1765,7 +1765,7 @@ test("an error is thrown, with appropriate error message, if a submenu has incor
       >
         item
       </ActionPopoverItem>
-    </ActionPopover>
+    </ActionPopover>,
   );
 
   await expect(() => {
@@ -1773,7 +1773,7 @@ test("an error is thrown, with appropriate error message, if a submenu has incor
     return user.click(screen.getByRole("button"));
   }).rejects.toThrow(
     "ActionPopoverMenu only accepts children of type `ActionPopoverItem`" +
-      " and `ActionPopoverDivider`."
+      " and `ActionPopoverDivider`.",
   );
 
   globalConsoleSpy.mockRestore();
@@ -1797,7 +1797,7 @@ describe("when the renderButton prop is passed", () => {
         )}
       >
         <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     const menuButton = screen.getByRole("button");
@@ -1827,7 +1827,7 @@ describe("when the renderButton prop is passed", () => {
         )}
       >
         <ActionPopoverItem onClick={jest.fn()}>foo</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     const menuButton = screen.getByRole("button");
@@ -1851,18 +1851,18 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
         <ActionPopoverItem>example item 4</ActionPopoverItem>
         <ActionPopoverItem>example item 5</ActionPopoverItem>
         <ActionPopoverItem disabled>example item 6</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
 
     expect(
-      screen.getByRole("button", { name: "example item 1" })
+      screen.getByRole("button", { name: "example item 1" }),
     ).toBeFocused();
     await user.keyboard("{ArrowDown}");
 
     expect(
-      screen.getByRole("button", { name: "example item 4" })
+      screen.getByRole("button", { name: "example item 4" }),
     ).toBeFocused();
   });
 
@@ -1877,22 +1877,22 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
         <ActionPopoverItem>example item 4</ActionPopoverItem>
         <ActionPopoverItem>example item 5</ActionPopoverItem>
         <ActionPopoverItem disabled>example item 6</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
 
     expect(
-      screen.getByRole("button", { name: "example item 1" })
+      screen.getByRole("button", { name: "example item 1" }),
     ).toBeFocused();
     await user.keyboard("{ArrowDown}");
     expect(
-      screen.getByRole("button", { name: "example item 4" })
+      screen.getByRole("button", { name: "example item 4" }),
     ).toBeFocused();
     await user.keyboard("{ArrowUp}");
 
     expect(
-      screen.getByRole("button", { name: "example item 1" })
+      screen.getByRole("button", { name: "example item 1" }),
     ).toBeFocused();
   });
 
@@ -1907,26 +1907,26 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
         <ActionPopoverItem>example item 4</ActionPopoverItem>
         <ActionPopoverItem>example item 5</ActionPopoverItem>
         <ActionPopoverItem disabled>example item 6</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
 
     expect(
-      screen.getByRole("button", { name: "example item 2" })
+      screen.getByRole("button", { name: "example item 2" }),
     ).toBeFocused();
     await user.keyboard("{ArrowDown}");
     expect(
-      screen.getByRole("button", { name: "example item 4" })
+      screen.getByRole("button", { name: "example item 4" }),
     ).toBeFocused();
     await user.keyboard("{ArrowDown}");
     expect(
-      screen.getByRole("button", { name: "example item 5" })
+      screen.getByRole("button", { name: "example item 5" }),
     ).toBeFocused();
     await user.keyboard("{Home}");
 
     expect(
-      screen.getByRole("button", { name: "example item 2" })
+      screen.getByRole("button", { name: "example item 2" }),
     ).toBeFocused();
   });
 
@@ -1941,18 +1941,18 @@ describe("When ActionPopoverMenu contains multiple disabled items", () => {
         <ActionPopoverItem>example item 4</ActionPopoverItem>
         <ActionPopoverItem>example item 5</ActionPopoverItem>
         <ActionPopoverItem disabled>example item 6</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
 
     expect(
-      screen.getByRole("button", { name: "example item 2" })
+      screen.getByRole("button", { name: "example item 2" }),
     ).toBeFocused();
     await user.keyboard("{End}");
 
     expect(
-      screen.getByRole("button", { name: "example item 5" })
+      screen.getByRole("button", { name: "example item 5" }),
     ).toBeFocused();
   });
 });
@@ -1979,26 +1979,31 @@ describe("padding checks on 'StyledMenuItemInnerText'", () => {
           <ActionPopoverItem>example item 2</ActionPopoverItem>
           <ActionPopoverItem>example item 3</ActionPopoverItem>
           <ActionPopoverItem>example item 4</ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       await user.click(screen.getByRole("button"));
 
       expect(screen.getByText("example item 1")).toHaveStyleRule(
         "padding-left",
-        "var(--spacing100)"
+        "var(--spacing100)",
       );
       expect(screen.getByText("example item 1")).toHaveStyleRule(
         "padding-right",
-        "var(--spacing100)"
+        "var(--spacing100)",
       );
-    }
+    },
   );
 
   it.each([
     ["var(--spacing400)", "var(--spacing100)", "left", "left"],
     ["var(--spacing100)", "var(--spacing400)", "right", "right"],
-  ] as [string, string, ActionPopoverProps["horizontalAlignment"], ActionPopoverProps["submenuPosition"]][])(
+  ] as [
+    string,
+    string,
+    ActionPopoverProps["horizontalAlignment"],
+    ActionPopoverProps["submenuPosition"],
+  ][])(
     "should render a menu item with no icon or submenu with padding-left as %s and padding-right as %s when horizontalAlignment is %s, submenuPosition is %s and some other menu items have a submenu",
     async (paddingLeft, paddingRight, alignment, position) => {
       const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -2030,26 +2035,31 @@ describe("padding checks on 'StyledMenuItemInnerText'", () => {
           >
             example item 4
           </ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       await user.click(screen.getByRole("button"));
 
       expect(screen.getByText("example item 1")).toHaveStyleRule(
         "padding-left",
-        paddingLeft
+        paddingLeft,
       );
       expect(screen.getByText("example item 1")).toHaveStyleRule(
         "padding-right",
-        paddingRight
+        paddingRight,
       );
-    }
+    },
   );
 
   it.each([
     ["var(--spacing600)", "var(--spacing100)", "left", "left"],
     ["var(--spacing100)", "var(--spacing600)", "right", "right"],
-  ] as [string, string, ActionPopoverProps["horizontalAlignment"], ActionPopoverProps["submenuPosition"]][])(
+  ] as [
+    string,
+    string,
+    ActionPopoverProps["horizontalAlignment"],
+    ActionPopoverProps["submenuPosition"],
+  ][])(
     "should render a menu item with a submenu but no icon with padding-left as %s and padding-right as %s when horizontalAlignment is %s, submenuPosition is %s and some other menu items have an icon",
     async (paddingLeft, paddingRight, alignment, position) => {
       const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -2081,26 +2091,31 @@ describe("padding checks on 'StyledMenuItemInnerText'", () => {
           >
             example item 4
           </ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       await user.click(screen.getByRole("button"));
 
       expect(screen.getByText("example item 1")).toHaveStyleRule(
         "padding-left",
-        paddingLeft
+        paddingLeft,
       );
       expect(screen.getByText("example item 1")).toHaveStyleRule(
         "padding-right",
-        paddingRight
+        paddingRight,
       );
-    }
+    },
   );
 
   it.each([
     ["var(--spacing900)", "var(--spacing100)", "left", "left"],
     ["var(--spacing100)", "var(--spacing900)", "right", "right"],
-  ] as [string, string, ActionPopoverProps["horizontalAlignment"], ActionPopoverProps["submenuPosition"]][])(
+  ] as [
+    string,
+    string,
+    ActionPopoverProps["horizontalAlignment"],
+    ActionPopoverProps["submenuPosition"],
+  ][])(
     "should render a menu item with no icon or submenu with padding-left as %s and padding-right as %s when horizontalAlignment is %s submenuPosition is %s and both icons and submenus exist elsewhere in the menu",
     async (paddingLeft, paddingRight, alignment, position) => {
       const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
@@ -2132,20 +2147,20 @@ describe("padding checks on 'StyledMenuItemInnerText'", () => {
           >
             example item 4
           </ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       await user.click(screen.getByRole("button"));
 
       expect(screen.getByText("example item 1")).toHaveStyleRule(
         "padding-left",
-        paddingLeft
+        paddingLeft,
       );
       expect(screen.getByText("example item 1")).toHaveStyleRule(
         "padding-right",
-        paddingRight
+        paddingRight,
       );
-    }
+    },
   );
 
   it.each([
@@ -2176,20 +2191,20 @@ describe("padding checks on 'StyledMenuItemInnerText'", () => {
           </ActionPopoverItem>
           <ActionPopoverItem>example item 3</ActionPopoverItem>
           <ActionPopoverItem>example item 4</ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       await user.click(screen.getByRole("button"));
 
       expect(screen.getByText("submenu item 1")).toHaveStyleRule(
         "padding-left",
-        "var(--spacing000)"
+        "var(--spacing000)",
       );
       expect(screen.getByText("submenu item 1")).toHaveStyleRule(
         "padding-right",
-        "var(--spacing000)"
+        "var(--spacing000)",
       );
-    }
+    },
   );
 });
 
@@ -2213,15 +2228,15 @@ describe("justify-content checks on 'StyledMenuItem'", () => {
           <ActionPopoverItem>example item 2</ActionPopoverItem>
           <ActionPopoverItem>example item 3</ActionPopoverItem>
           <ActionPopoverItem>example item 4</ActionPopoverItem>
-        </ActionPopover>
+        </ActionPopover>,
       );
 
       await user.click(screen.getByRole("button"));
 
       expect(
-        screen.getByRole("button", { name: "example item 1" })
+        screen.getByRole("button", { name: "example item 1" }),
       ).toHaveStyle({ justifyContent });
-    }
+    },
   );
 
   it("renders menu with justify-content space-between when horizontalAlignment is left, submenuPosition is right and any menu item has a submenu", async () => {
@@ -2242,7 +2257,7 @@ describe("justify-content checks on 'StyledMenuItem'", () => {
         <ActionPopoverItem>example item 2</ActionPopoverItem>
         <ActionPopoverItem>example item 3</ActionPopoverItem>
         <ActionPopoverItem>example item 4</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));
@@ -2273,7 +2288,7 @@ describe("justify-content checks on 'StyledMenuItem'", () => {
         <ActionPopoverItem>example item 2</ActionPopoverItem>
         <ActionPopoverItem>example item 3</ActionPopoverItem>
         <ActionPopoverItem>example item 4</ActionPopoverItem>
-      </ActionPopover>
+      </ActionPopover>,
     );
 
     await user.click(screen.getByRole("button"));

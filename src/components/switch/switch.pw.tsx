@@ -205,7 +205,7 @@ test.describe("Prop tests for Switch component", () => {
 
       await expect(switchFieldHelp(page)).toHaveAttribute(
         "data-element",
-        "help"
+        "help",
       );
     });
   });
@@ -238,45 +238,45 @@ test.describe("Prop tests for Switch component", () => {
           "box-sizing",
           "border-box",
         );
-      });
-    }
-  );
+      }
+    });
+  });
 
-  ([
-    [10, 130],
-    [30, 390],
-    [80, 1041],
-  ] as [SwitchProps["labelWidth"], number][]).forEach(
-    ([labelWidth, labelRatio]) => {
-      test(`should render with labelWidth prop set to ${labelWidth} and with correct label width ratio`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<SwitchComponent labelWidth={labelWidth} />);
+  (
+    [
+      [10, 130],
+      [30, 390],
+      [80, 1041],
+    ] as [SwitchProps["labelWidth"], number][]
+  ).forEach(([labelWidth, labelRatio]) => {
+    test(`should render with labelWidth prop set to ${labelWidth} and with correct label width ratio`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SwitchComponent labelWidth={labelWidth} />);
 
-        const label = switchLabelParent(page);
-        await assertCssValueIsApproximately(label, "width", labelRatio);
-      });
-    }
-  );
+      const label = switchLabelParent(page);
+      await assertCssValueIsApproximately(label, "width", labelRatio);
+    });
+  });
 
-  ([
-    [90, 1171],
-    [70, 911],
-    [20, 260],
-  ] as [SwitchProps["inputWidth"], number][]).forEach(
-    ([inputWidth, inputRatio]) => {
-      test(`should render with inputWidth prop set to ${inputWidth} and with correct input width ratio`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<SwitchComponent labelInline inputWidth={inputWidth} />);
+  (
+    [
+      [90, 1171],
+      [70, 911],
+      [20, 260],
+    ] as [SwitchProps["inputWidth"], number][]
+  ).forEach(([inputWidth, inputRatio]) => {
+    test(`should render with inputWidth prop set to ${inputWidth} and with correct input width ratio`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<SwitchComponent labelInline inputWidth={inputWidth} />);
 
-        const input = switchStyling(page);
-        await assertCssValueIsApproximately(input, "width", inputRatio);
-      });
-    }
-  );
+      const input = switchStyling(page);
+      await assertCssValueIsApproximately(input, "width", inputRatio);
+    });
+  });
 
   test("should render with labelHelp", async ({ mount, page }) => {
     await mount(
@@ -398,16 +398,14 @@ test.describe("Prop tests for Switch component", () => {
     });
   });
 
-  ([
-    [SIZE.SMALL, 65, 24],
-    [SIZE.LARGE, 83, 44],
-  ] as [SwitchProps["size"], number, number][]).forEach(
-    ([size, width, height]) => {
-      test(`should render with size set to ${size}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<SwitchComponent size={size} />);
+  (
+    [
+      [SIZE.SMALL, 65, 24],
+      [SIZE.LARGE, 83, 44],
+    ] as [SwitchProps["size"], number, number][]
+  ).forEach(([size, width, height]) => {
+    test(`should render with size set to ${size}`, async ({ mount, page }) => {
+      await mount(<SwitchComponent size={size} />);
 
       await assertCssValueIsApproximately(switchInput(page), "height", height);
 
@@ -516,12 +514,12 @@ test.describe("Prop tests for Switch component", () => {
       if (boolVal) {
         await expect(switchStyling(page).locator("div")).toHaveAttribute(
           "type",
-          "on"
+          "on",
         );
       } else {
         await expect(switchStyling(page).locator("div")).toHaveAttribute(
           "type",
-          "off"
+          "off",
         );
       }
     });
