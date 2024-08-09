@@ -420,35 +420,33 @@ test.describe("check functionality for ActionPopover component", () => {
       await actionPopoverButtonElement.click();
       for (let i = 0; i < 2; i++) {
         const focusedElement = await page.locator("*:focus");
-        await focusedElement.press("ArrowLeft");
-        if (shouldPressDownArrow) {
-          await focusedElement.press("ArrowDown");
-        }
-        await focusedElement.press("ArrowRight");
-        const submenu = await actionPopoverSubmenuByIndex(page, 1);
-        await expect(submenu).not.toBeVisible();
-      });
-    }
-  );
+        await focusedElement.press("ArrowDown");
+      }
+      const focusedElement = await page.locator("*:focus");
+      await focusedElement.press("ArrowLeft");
+      if (shouldPressDownArrow) {
+        await focusedElement.press("ArrowDown");
+      }
+      await focusedElement.press("ArrowRight");
+      const submenu = await actionPopoverSubmenuByIndex(page, 1);
+      await expect(submenu).not.toBeVisible();
+    });
+  });
 
-  ([
-    [subMenuOption[0], false],
-    [subMenuOption[1], true],
-  ] as [typeof subMenuOption[number], boolean][]).forEach(
-    ([name, shouldPressDownArrow]) => {
-      test(`should close ${name} and ActionPopover after press Esc keyboard key`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(<ActionPopoverCustom />);
-        const actionPopoverButtonElement = await actionPopoverButton(page).nth(
-          0
-        );
-        await actionPopoverButtonElement.click();
-        for (let i = 0; i < 2; i++) {
-          const focusedElement = await page.locator("*:focus");
-          await focusedElement.press("ArrowDown");
-        }
+  (
+    [
+      [subMenuOption[0], false],
+      [subMenuOption[1], true],
+    ] as [(typeof subMenuOption)[number], boolean][]
+  ).forEach(([name, shouldPressDownArrow]) => {
+    test(`should close ${name} and ActionPopover after press Esc keyboard key`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(<ActionPopoverCustom />);
+      const actionPopoverButtonElement = await actionPopoverButton(page).nth(0);
+      await actionPopoverButtonElement.click();
+      for (let i = 0; i < 2; i++) {
         const focusedElement = await page.locator("*:focus");
         await focusedElement.press("ArrowDown");
       }
@@ -888,7 +886,7 @@ test.describe("check props for ActionPopover component", () => {
 
     await expect(actionPopoverSubmenuByIndex(page, 0)).toHaveCSS(
       "bottom",
-      "-8px"
+      "-8px",
     ); // result of calc(-1 * var(--spacing100))
   });
 

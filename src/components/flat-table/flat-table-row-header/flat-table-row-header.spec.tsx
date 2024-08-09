@@ -357,7 +357,7 @@ describe("FlatTableRowHeader", () => {
               <FlatTableCell>text content</FlatTableCell>
             </FlatTableRow>
           </FlatTableBody>
-        </FlatTable>
+        </FlatTable>,
       );
 
       const headerOne = screen.getByTestId("header-one");
@@ -406,7 +406,7 @@ describe("FlatTableRowHeader", () => {
             <Button>header one button</Button>
           </FlatTableRowHeader>
           <FlatTableCell>text content</FlatTableCell>
-        </FlatTableRow>
+        </FlatTableRow>,
       );
 
       const headerOne = screen.getByTestId("header-one");

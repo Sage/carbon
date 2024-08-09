@@ -21,7 +21,7 @@ describe("CarbonScopedTokensProvider", () => {
 
     // Collect all the CSS stylesheets content for snapshot testing
     const cssRules = Array.from(document.styleSheets).flatMap((sheet) =>
-      Array.from(sheet.cssRules).map((rule) => rule.cssText)
+      Array.from(sheet.cssRules).map((rule) => rule.cssText),
     );
     expect(cssRules).toMatchSnapshot();
   });

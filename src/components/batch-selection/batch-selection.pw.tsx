@@ -93,13 +93,15 @@ test.describe("check BatchSelection component properties", () => {
     await expect(link).not.toBeFocused();
   });
 
-  ([
-    [0, "IconButton"],
-    [1, "Button"],
-    [2, "ButtonMinor"],
-    [3, "Link"],
-    [4, "LinkButton"],
-  ] as [number, string][]).forEach(([iconIndex, supportedChildren]) => {
+  (
+    [
+      [0, "IconButton"],
+      [1, "Button"],
+      [2, "ButtonMinor"],
+      [3, "Link"],
+      [4, "LinkButton"],
+    ] as [number, string][]
+  ).forEach(([iconIndex, supportedChildren]) => {
     test(`${supportedChildren}'s icon color matches disabled styling in a disabled BatchSelection`, async ({
       mount,
       page,
@@ -150,29 +152,29 @@ test.describe("check BatchSelection component properties", () => {
     await expect(link).toHaveCSS("color", "rgba(0, 0, 0, 0.3)");
   });
 
-  ([
-    [BATCH_SELECTION_COLOR[0], "rgb(0, 50, 76)"],
-    [BATCH_SELECTION_COLOR[1], "rgb(179, 194, 201)"],
-    [BATCH_SELECTION_COLOR[2], "rgb(255, 255, 255)"],
-    [BATCH_SELECTION_COLOR[3], "rgba(0, 0, 0, 0)"],
-  ] as [BatchSelectionProps["colorTheme"], string][]).forEach(
-    ([colorTheme, backgroundColor]) => {
-      test(`check background color is ${backgroundColor} when colorTheme is ${colorTheme}`, async ({
-        mount,
-        page,
-      }) => {
-        await mount(
-          <BatchSelectionComponent colorTheme={colorTheme} selectedCount={0} />
-        );
+  (
+    [
+      [BATCH_SELECTION_COLOR[0], "rgb(0, 50, 76)"],
+      [BATCH_SELECTION_COLOR[1], "rgb(179, 194, 201)"],
+      [BATCH_SELECTION_COLOR[2], "rgb(255, 255, 255)"],
+      [BATCH_SELECTION_COLOR[3], "rgba(0, 0, 0, 0)"],
+    ] as [BatchSelectionProps["colorTheme"], string][]
+  ).forEach(([colorTheme, backgroundColor]) => {
+    test(`check background color is ${backgroundColor} when colorTheme is ${colorTheme}`, async ({
+      mount,
+      page,
+    }) => {
+      await mount(
+        <BatchSelectionComponent colorTheme={colorTheme} selectedCount={0} />,
+      );
 
-        const batchSelection = getComponent(page, "batch-selection");
-        await expect(batchSelection).toHaveCSS(
-          "background-color",
-          backgroundColor
-        );
-      });
-    }
-  );
+      const batchSelection = getComponent(page, "batch-selection");
+      await expect(batchSelection).toHaveCSS(
+        "background-color",
+        backgroundColor,
+      );
+    });
+  });
 });
 
 test.describe("check BatchSelection buttons are focused", () => {

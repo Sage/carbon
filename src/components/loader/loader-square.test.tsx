@@ -66,15 +66,15 @@ test("when inside button, the expected white background colour is applied", () =
   const loaderSquares = screen.getAllByTestId("loader-square");
 
   expect(loaderSquares[0]).toHaveStyleRule(
-    "backgroundColor: var(--colorsUtilityYang100)"
+    "backgroundColor: var(--colorsUtilityYang100)",
   );
 
   expect(loaderSquares[1]).toHaveStyleRule(
-    "backgroundColor: var(--colorsUtilityYang100)"
+    "backgroundColor: var(--colorsUtilityYang100)",
   );
 
   expect(loaderSquares[2]).toHaveStyleRule(
-    "backgroundColor: var(--colorsUtilityYang100)"
+    "backgroundColor: var(--colorsUtilityYang100)",
   );
 });
 
@@ -85,14 +85,14 @@ test("when inside button and `isActive` prop is false, the expected background c
   const loaderSquares = screen.getAllByTestId("loader-square");
 
   expect(loaderSquares[0]).toHaveStyleRule(
-    "backgroundColor: var(--colorsSemanticNeutral500)"
+    "backgroundColor: var(--colorsSemanticNeutral500)",
   );
 
   expect(loaderSquares[1]).toHaveStyleRule(
-    "backgroundColor: var(--colorsSemanticNeutral500)"
+    "backgroundColor: var(--colorsSemanticNeutral500)",
   );
 
   expect(loaderSquares[2]).toHaveStyleRule(
-    "backgroundColor: var(--colorsSemanticNeutral500)"
+    "backgroundColor: var(--colorsSemanticNeutral500)",
   );
 });

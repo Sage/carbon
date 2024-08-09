@@ -88,7 +88,7 @@ describe("Step Flow component", () => {
         totalSteps={6}
         category="bar"
         ref={() => {}}
-      />
+      />,
     );
 
     expect(screen.getByText("node")).toBeVisible();

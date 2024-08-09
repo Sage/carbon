@@ -76,7 +76,7 @@ test.describe("Prop checks for StepFlow component", () => {
           title={
             <StepFlowTitle titleString="foo" titleVariant={titleVariants} />
           }
-        />
+        />,
       );
 
       await expect(page.locator(titleVariants)).toContainText("foo");
