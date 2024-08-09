@@ -169,6 +169,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
   >
     <a
       data-role="link-anchor"
+      disabled={false}
       href="https://carbon.sage.com/"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -178,6 +179,7 @@ exports[`CardFooter matches expected styling when it contains non-interactive co
         data-component="icon"
         data-element="link"
         data-role="icon"
+        disabled={false}
         fontSize="small"
         type="link"
       />

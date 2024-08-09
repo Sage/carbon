@@ -317,6 +317,7 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
     const isValidKey =
       Events.isNumberKey(event) ||
       Events.isTabKey(event) ||
+      Events.isEnterKey(event) ||
       event.key === "Delete" ||
       event.key === "Backspace";
 
@@ -481,7 +482,11 @@ export const NumeralDate = <DateType extends NumeralDateObject = FullDate>({
                       }
                     >
                       <FormSpacingProvider marginBottom={undefined}>
-                        <Typography mb="4px" id={labelId}>
+                        <Typography
+                          mb="4px"
+                          id={labelId}
+                          data-role="numeral-date-input-text"
+                        >
                           {getDateLabel(datePart, locale)}
                         </Typography>
                         <Textbox

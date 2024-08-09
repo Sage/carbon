@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { ButtonToggle, ButtonToggleGroup, ButtonToggleProps } from ".";
+import Box from "../box";
 
 export default {
   title: "Button Toggle/Test",
-  includeStories: ["DefaultStory", "WithoutGroup"],
+  includeStories: ["DefaultStory", "WithoutGroup", "LargeIconWithLongText"],
   parameters: {
     info: { disable: true },
     chromatic: {
@@ -32,10 +33,34 @@ export default {
         type: "boolean",
       },
     },
+    size: {
+      options: ["small", "medium", "large"],
+      control: {
+        type: "select",
+      },
+    },
+    buttonIcon: {
+      options: ["", "add", "edit", "delete"],
+      control: {
+        type: "select",
+      },
+    },
+    buttonIconSize: {
+      options: ["small", "large"],
+      control: {
+        type: "select",
+      },
+    },
   },
 };
 
-export const DefaultStory = ({ ...args }) => {
+export const DefaultStory = ({
+  children,
+  size,
+  buttonIcon,
+  buttonIconSize,
+  ...args
+}: Partial<ButtonToggleProps>) => {
   const [value, setValue] = useState<string | undefined>("");
   function onChangeHandler(
     event: React.MouseEvent<HTMLButtonElement>,
@@ -53,11 +78,41 @@ export const DefaultStory = ({ ...args }) => {
       value={value}
       {...args}
     >
-      <ButtonToggle value="foo">Foo</ButtonToggle>
-      <ButtonToggle value="bar">Bar</ButtonToggle>
-      <ButtonToggle value="baz">Baz</ButtonToggle>
+      <ButtonToggle
+        value="foo"
+        size={size}
+        buttonIcon={buttonIcon}
+        buttonIconSize={buttonIconSize}
+      >
+        {children}
+      </ButtonToggle>
+      <ButtonToggle
+        value="bar"
+        size={size}
+        buttonIcon={buttonIcon}
+        buttonIconSize={buttonIconSize}
+      >
+        Bar
+      </ButtonToggle>
+      <ButtonToggle
+        value="baz"
+        size={size}
+        buttonIcon={buttonIcon}
+        buttonIconSize={buttonIconSize}
+      >
+        Baz
+      </ButtonToggle>
     </ButtonToggleGroup>
   );
+};
+
+DefaultStory.story = {
+  args: {
+    children: "Foo",
+    size: "medium",
+    buttonIcon: "",
+    buttonIconSize: "",
+  },
 };
 
 export const WithoutGroup = (args: Partial<ButtonToggleProps>) => (
@@ -105,74 +160,38 @@ WithoutGroup.argTypes = {
   },
 };
 
-export const ButtonToggleGroupComponent = ({ ...props }) => {
+export const LargeIconWithLongText = () => {
   return (
-    <div>
-      <ButtonToggleGroup
-        id="button-toggle-group-default-id"
-        label="Default example"
-        labelHelp="help message"
-        helpAriaLabel="Help"
-        fieldHelp="field help message"
-        onChange={function noRefCheck() {
-          ("");
-        }}
-        {...props}
-      >
-        <ButtonToggle key="foo" value="foo">
-          Foo
+    <Box width="135px">
+      <ButtonToggleGroup id="button-toggle-group" fullWidth>
+        <ButtonToggle
+          value="foo"
+          size="large"
+          buttonIcon="add"
+          buttonIconSize="large"
+        >
+          First button with long text
         </ButtonToggle>
-        <ButtonToggle key="bar" value="bar">
+        <ButtonToggle
+          value="bar"
+          size="large"
+          buttonIcon="add"
+          buttonIconSize="large"
+        >
           Bar
         </ButtonToggle>
-        <ButtonToggle key="baz" value="baz">
+        <ButtonToggle
+          value="baz"
+          size="large"
+          buttonIcon="add"
+          buttonIconSize="large"
+        >
           Baz
         </ButtonToggle>
       </ButtonToggleGroup>
-    </div>
+    </Box>
   );
 };
-
-export const ButtonToggleComponent = ({
-  // eslint-disable-next-line react/prop-types
-  children = "This is an example of an alert",
-  ...props
-}: ButtonToggleProps) => {
-  return (
-    <div>
-      <ButtonToggle
-        onBlur={function noRefCheck() {
-          ("");
-        }}
-        onFocus={function noRefCheck() {
-          ("");
-        }}
-        {...props}
-      >
-        {children}
-      </ButtonToggle>
-      <ButtonToggle
-        onBlur={function noRefCheck() {
-          ("");
-        }}
-        onFocus={function noRefCheck() {
-          ("");
-        }}
-        {...props}
-      >
-        Second
-      </ButtonToggle>
-      <ButtonToggle
-        onBlur={function noRefCheck() {
-          ("");
-        }}
-        onFocus={function noRefCheck() {
-          ("");
-        }}
-        {...props}
-      >
-        Third
-      </ButtonToggle>
-    </div>
-  );
+LargeIconWithLongText.parameters = {
+  chromatic: { disableSnapshot: false },
 };

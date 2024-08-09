@@ -129,10 +129,36 @@ export const WithFieldHelp: Story = () => {
         label="With fieldHelp"
         fieldHelp="This text provides help for the input."
       />
+      <br />
       <Switch
         label="With inline fieldHelp"
+        labelInline
         fieldHelp="This text provides help for the input."
         fieldHelpInline
+      />
+      <br />
+      <Switch
+        label="With fieldHelp and labelHelp"
+        labelInline
+        labelHelp="labelHelp"
+        fieldHelp="This text provides help for the input."
+      />
+      <br />
+      <Switch
+        label="With inline fieldHelp and labelHelp"
+        labelInline
+        labelHelp="labelHelp"
+        fieldHelp="This text provides help for the input."
+        fieldHelpInline
+      />
+      <br />
+      <Switch
+        label="With inline fieldHelp and labelHelp not reversed"
+        labelInline
+        labelHelp="labelHelp"
+        fieldHelp="This text provides help for the input."
+        fieldHelpInline
+        reverse={false}
       />
     </>
   );

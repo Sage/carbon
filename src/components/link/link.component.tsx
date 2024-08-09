@@ -1,10 +1,11 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import Icon, { IconType } from "../icon";
 import MenuContext from "../menu/__internal__/menu.context";
 import { StyledLink, StyledContent, StyledLinkProps } from "./link.style";
 import tagComponent from "../../__internal__/utils/helpers/tags/tags";
 import useLocale from "../../hooks/__internal__/useLocale";
+import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
 export interface LinkProps extends StyledLinkProps, React.AriaAttributes {
   /** An href for an anchor tag. */
@@ -84,6 +85,8 @@ export const Link = React.forwardRef<
     const [hasFocus, setHasFocus] = useState(false);
     const l = useLocale();
     const { inMenu } = useContext(MenuContext);
+    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
+    const isDisabled = disabled || batchSelectionDisabled;
 
     const renderLinkIcon = (currentAlignment = "left") => {
       const hasProperAlignment = icon && iconAlign === currentAlignment;
@@ -91,7 +94,7 @@ export const Link = React.forwardRef<
       return hasProperAlignment ? (
         <Icon
           type={icon}
-          disabled={disabled}
+          disabled={isDisabled}
           ariaLabel={removeAriaLabelOnIcon ? undefined : ariaLabel}
           tooltipMessage={tooltipMessage}
           tooltipPosition={tooltipPosition}
@@ -114,7 +117,7 @@ export const Link = React.forwardRef<
       onKeyDown,
       onMouseDown,
       onClick,
-      disabled,
+      disabled: isDisabled,
       target,
       ref,
       href,
@@ -162,10 +165,16 @@ export const Link = React.forwardRef<
       );
     };
 
+    useEffect(() => {
+      if (disabled || !(href || onClick)) {
+        setHasFocus(false);
+      }
+    }, [disabled, href, onClick]);
+
     return (
       <StyledLink
         isSkipLink={isSkipLink}
-        disabled={disabled}
+        disabled={isDisabled}
         className={className}
         iconAlign={iconAlign}
         hasContent={Boolean(children)}

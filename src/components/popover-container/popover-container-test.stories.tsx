@@ -4,7 +4,7 @@ import Box from "../box";
 import PopoverContainer, {
   PopoverContainerProps,
 } from "./popover-container.component";
-import { Select, Option } from "../select";
+import { Select, MultiSelect, Option } from "../select";
 import { Menu, MenuItem, MenuSegmentTitle } from "../menu";
 import Heading from "../heading";
 import Typography from "../typography";
@@ -17,6 +17,7 @@ export default {
   includeStories: [
     "Default",
     "WithSelect",
+    "WithMultiSelect",
     "InAScrollableBlock",
     "InsideMenu",
     "InsideMenuWithOpenButton",
@@ -63,6 +64,33 @@ export const WithSelect = () => {
 
 WithSelect.story = {
   name: "with select",
+};
+
+export const WithMultiSelect = () => {
+  const [value, setValue] = useState<string[]>([]);
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    setValue((event.target.value as unknown) as string[]);
+  }
+
+  return (
+    <Box ml={5} mt={5}>
+      <PopoverContainer title="multiSelect example">
+        <MultiSelect
+          label="my multiselect"
+          value={value}
+          onChange={onChangeHandler}
+        >
+          <Option value="red" text="red" />
+          <Option value="green" text="green" />
+          <Option value="blue" text="blue" />
+        </MultiSelect>
+      </PopoverContainer>
+    </Box>
+  );
+};
+
+WithSelect.story = {
+  name: "with multiSelect",
 };
 
 export const InAScrollableBlock = () => {

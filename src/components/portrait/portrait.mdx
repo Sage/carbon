@@ -2,7 +2,7 @@ import { Meta, ArgTypes, Canvas } from "@storybook/blocks";
 
 import * as PortraitStories from "./portrait.stories";
 
-<Meta title="Portrait" of={PortraitStories} />
+<Meta of={PortraitStories} />
 
 # Portrait
 
@@ -17,7 +17,6 @@ import * as PortraitStories from "./portrait.stories";
 
 - Useful to represent a person, user, or organisation.
 - Use initials rather than an avatar if you prefer.
-- Works with [Gravatar](http://en.gravatar.com/) as a source of avatars.
 
 ## Contents
 
@@ -49,15 +48,9 @@ To use an image, simply pass any valid image URL as a `src` prop.
 
 <Canvas of={PortraitStories.Src} />
 
-### Gravatar
-
-Portrait also supports `gravatar`, to use it simply pass your email address registered with Gravatar as a `gravatar` prop.
-
-<Canvas of={PortraitStories.Gravatar} />
-
 ### IconType
 
-Portrait also supports the declaration of a icon to fallback on when `src`, `gravatar` and `initials` are falsy.
+Portrait also supports the declaration of a icon to fallback on when `src` or `initials` are falsy.
 
 <Canvas of={PortraitStories.IconType} />
 

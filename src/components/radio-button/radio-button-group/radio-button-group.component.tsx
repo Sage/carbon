@@ -136,7 +136,11 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
           <Box position="relative">
             <ValidationMessage error={error} warning={warning} />
             {(error || warning) && (
-              <ErrorBorder inline={inline} warning={!!(!error && warning)} />
+              <ErrorBorder
+                data-role="radio-error-border"
+                inline={inline}
+                warning={!!(!error && warning)}
+              />
             )}
             <RadioButtonGroupStyle
               data-component="radio-button-group"

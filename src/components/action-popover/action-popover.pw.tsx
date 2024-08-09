@@ -429,7 +429,7 @@ test.describe("check functionality for ActionPopover component", () => {
           await focusedElement.press("ArrowDown");
         }
         await focusedElement.press("ArrowRight");
-        const submenu = await actionPopoverSubmenuByIndex(page);
+        const submenu = await actionPopoverSubmenuByIndex(page, 1);
         await expect(submenu).not.toBeVisible();
       });
     }
@@ -859,6 +859,20 @@ test.describe("check props for ActionPopover component", () => {
       const itemChevron = await actionPopoverMenuItemChevron(page).first();
       await expect(itemChevron).toHaveAttribute("type", chevronType);
     });
+  });
+
+  test("should render with submenu opening above when placement prop set to 'top'", async ({
+    mount,
+    page,
+  }) => {
+    await mount(<MenuOpeningAbove />);
+    await actionPopoverButton(page).nth(0).click();
+    await actionPopoverInnerItem(page, 0).hover();
+
+    await expect(actionPopoverSubmenuByIndex(page, 0)).toHaveCSS(
+      "bottom",
+      "-8px"
+    ); // result of calc(-1 * var(--spacing100))
   });
 
   test("should render with aria-label prop", async ({ mount, page }) => {

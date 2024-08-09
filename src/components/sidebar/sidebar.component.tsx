@@ -23,7 +23,7 @@ type CustomRefObject<T> = {
 
 export interface SidebarProps
   extends PaddingProps,
-    TagProps,
+    Omit<TagProps, "data-component">,
     WidthProps,
     Pick<ModalProps, "topModalOverride"> {
   /** Prop to specify the aria-describedby property of the component */
@@ -94,6 +94,8 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       "aria-describedby": ariaDescribedBy,
       "aria-label": ariaLabel,
       "aria-labelledby": ariaLabelledBy,
+      "data-element": dataElement = "sidebar",
+      "data-role": dataRole,
       open,
       bespokeFocusTrap,
       disableAutoFocus = false,
@@ -153,12 +155,6 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
       );
     };
 
-    const componentTags = {
-      "data-component": "sidebar",
-      "data-element": rest["data-element"],
-      "data-role": rest["data-role"],
-    };
-
     const sidebar = (
       <StyledSidebar
         aria-modal={!enableBackgroundUI && isTopModal}
@@ -167,10 +163,12 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         aria-labelledby={
           !ariaLabelledBy && !ariaLabel ? headerId : ariaLabelledBy
         }
+        data-component="sidebar"
+        data-element={dataElement}
+        data-role={dataRole}
         ref={setRefs}
         position={position}
         size={size}
-        data-element="sidebar"
         onCancel={onCancel}
         role={role}
         {...filterStyledSystemPaddingProps(rest)}
@@ -188,6 +186,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         {!header && closeIcon()}
         <Box
           data-element="sidebar-content"
+          data-role="sidebar-content"
           pt="var(--spacing300)"
           pb="var(--spacing400)"
           px="var(--spacing400)"
@@ -210,7 +209,6 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
         disableEscKey={disableEscKey}
         enableBackgroundUI={enableBackgroundUI}
         topModalOverride={topModalOverride}
-        {...componentTags}
       >
         {enableBackgroundUI ? (
           sidebar

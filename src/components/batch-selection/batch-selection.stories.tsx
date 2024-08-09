@@ -5,6 +5,7 @@ import BatchSelection from ".";
 import IconButton from "../icon-button";
 import Icon from "../icon";
 import Button from "../button";
+import Link from "../link";
 
 const meta: Meta<typeof BatchSelection> = {
   title: "Batch Selection",
@@ -97,6 +98,13 @@ export const Disabled: Story = () => {
       <IconButton onClick={() => {}}>
         <Icon type="pdf" />
       </IconButton>
+      <Button iconType="home" mr="3px">
+        Button
+      </Button>
+      <Link icon="admin">This is a link</Link>
+      <Link icon="admin" onClick={() => {}}>
+        This is actually a button but looks like a link
+      </Link>
     </BatchSelection>
   );
 };

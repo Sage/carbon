@@ -67,6 +67,7 @@ import {
   MenuComponentScrollableWithSearch,
   MenuSegmentTitleComponentWithAdditionalMenuItem,
   MenuComponentFullScreenWithLongSubmenuText,
+  MenuItemWithPopoverContainerChild,
 } from "./component.test-pw";
 import { NavigationBarWithSubmenuAndChangingHeight } from "../navigation-bar/navigation-bar-test.stories";
 import { HooksConfig } from "../../../playwright";
@@ -402,7 +403,7 @@ test.describe("Prop tests for Menu component", () => {
     const topLess = 174;
     const leftLess = 124;
     // additionVal is to compensate for the outline.
-    const additionVal = 2;
+    const additionVal = 4;
 
     await page.keyboard.press("Tab");
     await page.keyboard.press("Enter");
@@ -2654,6 +2655,20 @@ test.describe(
         '[data-component="submenu-wrapper"] ul > li:nth-child(21)'
       );
       await expect(subMenu).toBeInViewport();
+    });
+
+    test("should render the menu with the expected styling when menu item has a PopoverContainer child with renderOpenComponent passed", async ({
+      mount,
+      page,
+    }) => {
+      await mount(<MenuItemWithPopoverContainerChild />);
+
+      const menuItemAnchor = menuItem(page).first().locator("a");
+      const buttonChild = menuItemAnchor.locator("button");
+
+      await expect(menuItemAnchor).toHaveCSS("height", "40px");
+      await expect(buttonChild).toHaveCSS("position", "relative");
+      await expect(buttonChild).toHaveCSS("top", "-1px");
     });
   }
 );

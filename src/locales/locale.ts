@@ -187,6 +187,12 @@ interface Locale {
     ariaLabels: {
       close: () => string;
     };
+    error: () => string;
+    info: () => string;
+    success: () => string;
+    warning: () => string;
+    neutral: () => string;
+    notification: () => string;
   };
   verticalMenuFullScreen: {
     ariaLabels: {

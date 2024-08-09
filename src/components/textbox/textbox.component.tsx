@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { MarginProps } from "styled-system";
 
 import { filterStyledSystemMarginProps } from "../../style/utils";
@@ -198,9 +198,28 @@ export const Textbox = React.forwardRef(
 
     const [uniqueId, uniqueName] = useUniqueId(id, name);
 
+    const [characterCountAriaLive, setCharacterCountAriaLive] = useState<
+      "off" | "polite"
+    >("off");
+
+    // This block of code has been covered in a Playwright test.
+    // istanbul ignore next
+    const handleFocus = (ev: React.FocusEvent<HTMLInputElement>) => {
+      if (characterLimit) setCharacterCountAriaLive("polite");
+      onFocus?.(ev);
+    };
+
+    // This block of code has been covered in a Playwright test.
+    // istanbul ignore next
+    const handleBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
+      if (characterLimit) setCharacterCountAriaLive("off");
+      onBlur?.(ev);
+    };
+
     const [characterCount, visuallyHiddenHintId] = useCharacterCount(
       characterCountValue,
-      characterLimit
+      characterLimit,
+      characterCountAriaLive
     );
     const { validationRedesignOptIn } = useContext(NewValidationContext);
     const { disableErrorBorder } = useContext(NumeralDateContext);
@@ -275,11 +294,11 @@ export const Textbox = React.forwardRef(
           id={uniqueId}
           ref={ref}
           name={uniqueName}
-          onBlur={onBlur}
+          onBlur={handleBlur}
           onChange={onChange}
           onChangeDeferred={onChangeDeferred}
           onClick={disabled || readOnly ? undefined : onClick}
-          onFocus={onFocus}
+          onFocus={handleFocus}
           onMouseDown={disabled || readOnly ? undefined : onMouseDown}
           placeholder={disabled || readOnly ? "" : placeholder}
           readOnly={readOnly}

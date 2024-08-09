@@ -97,6 +97,7 @@ export const Heading = ({
         // this event allows an element to be focusable on click event on IE
         aria-label={l.heading.backLinkAriaLabel()}
         data-element="back"
+        data-role="heading-back-button"
         onMouseDown={(e) => e.currentTarget.focus()}
         {...backButtonProps}
       >
@@ -109,6 +110,7 @@ export const Heading = ({
     return (
       <StyledSubHeader
         data-element="subtitle"
+        data-role="subtitle"
         id={subtitleId}
         hasBackLink={!!backLink}
         hasSeparator={separator}
@@ -120,7 +122,12 @@ export const Heading = ({
 
   const getPills = () => {
     return (
-      <StyledHeadingPills data-element="pills">{pills}</StyledHeadingPills>
+      <StyledHeadingPills
+        data-element="pills"
+        data-role="heading-pills-container"
+      >
+        {pills}
+      </StyledHeadingPills>
     );
   };
 
@@ -154,10 +161,12 @@ export const Heading = ({
           {(help || helpLink) && getHelp()}
           {pills && getPills()}
         </StyledHeaderContent>
-        {separator && <StyledSeparator />}
+        {separator && <StyledSeparator data-role="heading-separator" />}
         {subheader && getSubheader()}
       </StyledHeader>
-      {divider && <StyledDivider data-element="divider" />}
+      {divider && (
+        <StyledDivider data-element="divider" data-role="heading-divider" />
+      )}
       {children}
     </StyledHeading>
   ) : null;

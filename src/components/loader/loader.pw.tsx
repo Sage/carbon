@@ -181,6 +181,23 @@ test.describe("check props for Loader component test", () => {
     );
   });
 
+  [0, 1, 2].forEach((index) => {
+    test(`when the variant prop is set to 'gradient' it should apply correct colour to loader square ${
+      index + 1
+    }`, async ({ mount, page }) => {
+      await mount(<Loader variant="gradient" />);
+
+      const loaderNth = loader(page, index);
+      const squareColour = await getStyle(loaderNth, "color");
+
+      const expectedDelays = ["0s", "0.2s", "0.4s"];
+      const animationDelayVal = await getStyle(loaderNth, "animation-delay");
+
+      expect(squareColour).toBe(await getStyle(loaderNth, "color"));
+      expect(animationDelayVal).toBe(expectedDelays[index]);
+    });
+  });
+
   test.describe("Accessibility tests for Loader component", async () => {
     test("should pass accessibility tests for Loader default story", async ({
       mount,

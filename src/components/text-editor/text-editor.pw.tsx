@@ -2,6 +2,7 @@
 import React from "react";
 import { test, expect } from "@playwright/experimental-ct-react17";
 import {
+  TextEditorCharacterCount,
   TextEditorCustom,
   TextEditorCustomValidation,
   TextEditorNewValidation,
@@ -17,6 +18,7 @@ import {
 import {
   getComponent,
   getDataElementByValue,
+  visuallyHiddenCharacterCount,
 } from "../../../playwright/components";
 import {
   checkGoldenOutline,
@@ -764,4 +766,26 @@ test.describe("Accessibility tests", () => {
 
     await checkAccessibility(page);
   });
+});
+
+test("should set aria-live attribute on Character Count to `polite` when component is focused and then change back to `off` when component is blurred", async ({
+  mount,
+  page,
+}) => {
+  await mount(<TextEditorCharacterCount />);
+
+  const CharacterCountElement = visuallyHiddenCharacterCount(page);
+  const textEditorInputElement = textEditorInput(page);
+  const buttonElement = page.getByRole("button", { name: "Click Me" });
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "off");
+
+  await textEditorInputElement.focus();
+  await textEditorInputElement.fill("Foo");
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "polite");
+
+  await buttonElement.click();
+
+  await expect(CharacterCountElement).toHaveAttribute("aria-live", "off");
 });

@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { SpaceProps } from "styled-system";
-import invariant from "invariant";
 import Events from "../../__internal__/utils/helpers/events";
 import StyledIconButton from "./icon-button.style";
 import { IconProps } from "../icon";
 import { TooltipProvider } from "../../__internal__/tooltip-provider";
-import Logger from "../../__internal__/utils/logger";
+import BatchSelectionContext from "../batch-selection/__internal__/batch-selection.context";
 
 export interface IconButtonProps extends SpaceProps {
   /** Prop to specify the aria-label of the icon-button component */
@@ -20,12 +19,6 @@ export interface IconButtonProps extends SpaceProps {
   onMouseEnter?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
   /** Callback triggered on mouse leave */
   onMouseLeave?: (ev: React.MouseEvent<HTMLButtonElement>) => void;
-  /** [DEPRECATED - use `onClick` instead] Action callback */
-  onAction?: (
-    e:
-      | React.KeyboardEvent<HTMLButtonElement>
-      | React.MouseEvent<HTMLButtonElement>
-  ) => void;
   /** Set the button to disabled */
   disabled?: boolean;
   /** Callback triggered on click */
@@ -36,32 +29,19 @@ export interface IconButtonProps extends SpaceProps {
   ) => void;
 }
 
-let onActionButtonWarnTriggered = false;
-
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
     {
       "aria-label": ariaLabel,
-      onAction,
       onClick,
       children,
-      disabled,
+      disabled = false,
       ...rest
     }: IconButtonProps,
     ref
   ) => {
-    if (!onActionButtonWarnTriggered && onAction) {
-      onActionButtonWarnTriggered = true;
-      Logger.deprecate(
-        "The `onAction` callback for the `IconButton` component is deprecated and will soon be removed. Please use `onClick` instead"
-      );
-    }
-
-    invariant(
-      !(onClick && onAction),
-      "onClick and onAction have both been set, please use onClick as onAction will soon be deprecated"
-    );
-
+    const { batchSelectionDisabled } = useContext(BatchSelectionContext);
+    const isDisabled = disabled || batchSelectionDisabled;
     const [internalRef, setInternalRef] = useState<HTMLButtonElement>();
     const ariaLabelValue =
       ariaLabel ||
@@ -73,14 +53,8 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
       if (Events.isEnterKey(e) || Events.isSpaceKey(e)) {
         e.preventDefault();
-        onAction?.(e);
         onClick?.(e);
       }
-    };
-
-    const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      onAction?.(e);
-      onClick?.(e);
     };
 
     const setRefs = useCallback(
@@ -99,12 +73,12 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         {...rest}
         aria-label={ariaLabelValue}
         onKeyDown={handleKeyDown}
-        onClick={handleOnClick}
+        onClick={onClick}
         ref={setRefs}
-        disabled={disabled}
+        disabled={isDisabled}
       >
         <TooltipProvider
-          disabled={disabled}
+          disabled={isDisabled}
           focusable={false}
           target={internalRef}
         >
