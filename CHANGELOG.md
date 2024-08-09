@@ -1,3 +1,23 @@
+## [142.0.0](https://github.com/Sage/carbon/compare/v141.4.4...v142.0.0) (2024-08-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **message:** `MessageContent` and `TypeIcon` subcomponents have been moved to an `__internal__`
+directory
+* **progress-tracker:** Aria attribute and `showDefaultLabel` props have been removed from
+`ProgressTracker`. This component can no longer be used without labels, default labels will
+now always be displayed if no valid `currentProgressLabel` is provided.
+
+### Features
+
+* **progress-tracker:** remove aria- attribute and showDefaultLabel  props ([8edfd4c](https://github.com/Sage/carbon/commit/8edfd4c0e67b166f7e4fcf9a60b821826b92b349)), closes [#6755](https://github.com/Sage/carbon/issues/6755)
+
+
+### Miscellaneous Chores
+
+* **message:** move subcomponents into an internal directory ([4f602c2](https://github.com/Sage/carbon/commit/4f602c275ee5f2ae7f816aac9b0124bfd5ffe526))
+
 ### [141.4.4](https://github.com/Sage/carbon/compare/v141.4.3...v141.4.4) (2024-08-07)
 
 
