@@ -8,14 +8,12 @@ import {
   Placement,
 } from "@floating-ui/dom";
 
-type CustomRefObject<T> = {
-  current?: T | null;
-};
-
 export interface UseFloatingProps {
   isOpen?: boolean;
-  reference: CustomRefObject<HTMLElement | null>;
-  floating: React.RefObject<HTMLElement | null>;
+  /** A React ref of the element to anchor the floating element to */
+  reference: React.RefObject<HTMLElement>;
+  /** A React ref of the floating element  */
+  floating: React.RefObject<HTMLElement>;
   strategy?: Strategy;
   middleware?: Middleware[];
   placement?: Placement;

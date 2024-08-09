@@ -1,25 +1,15 @@
-import React, { useMemo } from "react";
-import { offset, size as sizeMiddleware } from "@floating-ui/dom";
+import React from "react";
 
-import useFloating from "../../../../hooks/__internal__/useFloating";
-import Textbox, { CommonTextboxProps } from "../../../textbox";
-import SelectText from "../select-text";
-import useLocale from "../../../../hooks/__internal__/useLocale";
-import { ValidationProps } from "../../../../__internal__/validations";
 import { CustomSelectChangeEvent } from "../../simple-select/simple-select.component";
 import { SelectTextboxContext } from "./select-textbox.context";
+import {
+  StyledSelectText,
+  StyledSelectTextChildrenWrapper,
+} from "./select-textbox.style";
 
-const floatingMiddleware = [
-  offset(({ rects }) => ({
-    mainAxis: -rects.reference.height,
-  })),
-  sizeMiddleware({
-    apply({ rects, elements }) {
-      (elements.reference as HTMLElement).style.height = `${rects.floating.height}px`;
-      elements.floating.style.width = `${rects.reference.width}px`;
-    },
-  }),
-];
+import Textbox, { CommonTextboxProps } from "../../../textbox";
+import useLocale from "../../../../hooks/__internal__/useLocale";
+import { ValidationProps } from "../../../../__internal__/validations";
 
 export interface FormInputPropTypes
   extends ValidationProps,
@@ -102,8 +92,6 @@ export interface SelectTextboxProps extends FormInputPropTypes {
     | string[]
     | Record<string, unknown>[];
   /** @private @ignore */
-  textboxRef?: HTMLInputElement | null;
-  /** @private @ignore */
   transparent?: boolean;
   /** @private @ignore */
   activeDescendantId?: string;
@@ -117,52 +105,31 @@ const SelectTextbox = React.forwardRef(
       accessibilityLabelId,
       labelId,
       "aria-controls": ariaControls,
-      disabled,
+      disabled = false,
       isOpen,
       id,
-      readOnly,
-      placeholder,
+      readOnly = false,
+      placeholder: customPlaceholder,
       size = "medium",
       onClick,
       onFocus,
       onBlur,
       onChange,
+      formattedValue = "",
       selectedValue,
       required,
       isOptional,
-      textboxRef,
       hasTextCursor,
-      transparent,
+      transparent = false,
       activeDescendantId,
       onKeyDown,
       ...restProps
     }: SelectTextboxProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
-    const reference = useMemo(
-      () => ({
-        current: textboxRef?.parentElement?.parentElement || null,
-      }),
-      [textboxRef]
-    );
-
-    const floating = useMemo(
-      () => ({
-        current: textboxRef?.parentElement || null,
-      }),
-      [textboxRef]
-    );
-
-    useFloating({
-      isOpen,
-      reference,
-      floating,
-      strategy: "fixed",
-      animationFrame: true,
-      middleware: floatingMiddleware,
-    });
-
     const l = useLocale();
+    const placeholder = customPlaceholder || l.select.placeholder();
+    const showPlaceholder = !disabled && !readOnly && !formattedValue;
 
     function handleTextboxClick(
       event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>
@@ -171,19 +138,8 @@ const SelectTextbox = React.forwardRef(
     }
 
     function handleTextboxFocus(event: React.FocusEvent<HTMLInputElement>) {
-      if (disabled || readOnly) {
-        return;
-      }
-
-      if (onFocus) {
-        onFocus(event);
-      }
-    }
-
-    function handleTextboxBlur(event: React.FocusEvent<HTMLInputElement>) {
-      if (onBlur) {
-        onBlur(event);
-      }
+      if (disabled || readOnly) return;
+      onFocus?.(event);
     }
 
     const textboxProps = {
@@ -194,7 +150,7 @@ const SelectTextbox = React.forwardRef(
       isOptional,
       onClick: handleTextboxClick,
       onFocus: handleTextboxFocus,
-      onBlur: handleTextboxBlur,
+      onBlur,
       labelId,
       type: "text",
       ref,
@@ -222,30 +178,37 @@ const SelectTextbox = React.forwardRef(
         <Textbox
           aria-label={ariaLabel}
           data-element="select-input"
+          data-role="select-textbox"
           inputIcon="dropdown"
           autoComplete="off"
           size={size}
           onChange={onChange}
+          formattedValue={formattedValue}
           value={
             hasStringValue ? (selectedValue as string | string[]) : undefined
           }
-          placeholder={
-            hasTextCursor ? placeholder || l.select.placeholder() : undefined
-          }
+          placeholder={hasTextCursor ? placeholder : undefined}
           {...inputAriaAttributes}
           {...textboxProps}
           my={0} // prevents any form spacing being applied
         >
           {!hasTextCursor && (
-            <SelectText
-              transparent={transparent}
-              placeholder={placeholder || l.select.placeholder()}
-              onClick={disabled || readOnly ? undefined : handleTextboxClick}
+            <StyledSelectText
+              aria-hidden
+              data-element="select-text"
+              data-role="select-text"
               disabled={disabled}
+              hasPlaceholder={showPlaceholder}
+              onClick={disabled || readOnly ? undefined : handleTextboxClick}
               readOnly={readOnly}
+              transparent={transparent}
               size={size}
               {...restProps}
-            />
+            >
+              <StyledSelectTextChildrenWrapper>
+                {showPlaceholder ? placeholder : formattedValue}
+              </StyledSelectTextChildrenWrapper>
+            </StyledSelectText>
           )}
         </Textbox>
       </SelectTextboxContext.Provider>
