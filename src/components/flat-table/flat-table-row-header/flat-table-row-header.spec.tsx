@@ -393,6 +393,8 @@ describe("FlatTableRowHeader", () => {
     });
 
     it("does not increase the z-index of the sticky TH or TD if they are not part of a FlatTableBody", () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
+
       rtlRender(
         <FlatTableRow>
           <FlatTableCell data-role="cell">
@@ -417,6 +419,7 @@ describe("FlatTableRowHeader", () => {
       headerOneButton.focus();
 
       expect(headerOne).not.toHaveClass("bringToFront");
+      jest.restoreAllMocks();
     });
   });
 

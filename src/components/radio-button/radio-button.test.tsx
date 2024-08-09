@@ -156,7 +156,7 @@ test("renders with a help tooltip if `labelHelp` is provided", async () => {
   const helpIcon = screen.getByRole("button", { name: "help" });
   await user.hover(helpIcon);
 
-  const helpTooltip = screen.getByRole("tooltip", { name: "labelHelp" });
+  const helpTooltip = await screen.findByRole("tooltip", { name: "labelHelp" });
 
   expect(helpTooltip).toBeVisible();
 });

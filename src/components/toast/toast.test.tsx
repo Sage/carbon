@@ -57,6 +57,7 @@ describe("Toast component", () => {
   });
 
   afterEach(() => {
+    jest.runOnlyPendingTimers();
     jest.useRealTimers();
   });
 

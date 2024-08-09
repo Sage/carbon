@@ -139,8 +139,13 @@ const WithAdditionalWrapperRefs = () => {
 };
 
 describe("FocusTrap", () => {
-  beforeEach(() => jest.useFakeTimers());
-  afterEach(() => jest.useRealTimers());
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
 
   describe("triggerRefocusFlag", () => {
     it("refocuses the last element that had focus within the trap when flag is set", () => {

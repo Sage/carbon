@@ -33,7 +33,6 @@ import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/logger");
-jest.useFakeTimers();
 jest.mock("../../../__internal__/utils/helpers/guid");
 
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
@@ -63,12 +62,17 @@ describe("FilterableSelect", () => {
   let container: HTMLDivElement | null;
 
   beforeEach(() => {
+    jest.useFakeTimers();
+
     container = document.createElement("div");
     container.id = "enzymeContainer";
     document.body.appendChild(container);
   });
 
   afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+
     if (container && container.parentNode) {
       container.parentNode.removeChild(container);
     }

@@ -22,16 +22,13 @@ jest.mock("../../__internal__/utils/helpers/guid");
   () => "guid-12345"
 );
 
-beforeAll(() => {
+beforeEach(() => {
   jest.useFakeTimers();
 });
 
-afterAll(() => {
-  jest.useRealTimers();
-});
-
 afterEach(() => {
-  jest.runAllTimers();
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
 });
 
 testStyledSystemMargin((props) => (

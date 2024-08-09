@@ -67,6 +67,7 @@ describe("Character count updates with debounce", () => {
   beforeEach(() => jest.useFakeTimers());
 
   afterEach(() => {
+    jest.runOnlyPendingTimers();
     jest.useRealTimers();
   });
 

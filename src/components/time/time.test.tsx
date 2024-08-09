@@ -52,8 +52,13 @@ const MockComponent = ({
 };
 
 describe("Time component", () => {
-  beforeEach(() => jest.useFakeTimers());
-  afterEach(() => jest.useRealTimers());
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
 
   testStyledSystemMargin((props) => (
     <Time value={{ hours: "", minutes: "" }} onChange={() => {}} {...props} />

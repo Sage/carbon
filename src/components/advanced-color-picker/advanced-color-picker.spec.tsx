@@ -252,38 +252,46 @@ describe("AdvancedColorPicker", () => {
   });
 
   describe("when dialog is open", () => {
-    jest.useFakeTimers();
-    let wrapper: ReactWrapper;
-
     beforeEach(() => {
-      wrapper = renderInDocument({ ...requiredProps, open: true });
-      jest.runAllTimers();
+      jest.useFakeTimers();
     });
 
     afterEach(() => {
-      if (wrapper) {
-        wrapper.unmount();
-      }
+      jest.runOnlyPendingTimers();
+      jest.useRealTimers();
     });
 
     describe("and shift tab keys are pressed, with close button being focused", () => {
       it("then the focus should be switched to the selected color input", () => {
+        const wrapper = renderInDocument({ ...requiredProps, open: true });
+
+        jest.runAllTimers();
+
         const { dialogCloseButton, defaultSimpleColor } = getElements(wrapper);
 
         dialogCloseButton?.focus();
         expect(document.activeElement).toBe(dialogCloseButton);
+
         document.dispatchEvent(shiftTabKey);
         expect(document.activeElement).toBe(defaultSimpleColor);
+
+        wrapper.unmount();
       });
     });
 
     describe("and tab key is pressed, with selected color input being focused", () => {
       it("then the focus should be switched to the close button", () => {
-        const { dialogCloseButton, defaultSimpleColor } = getElements(wrapper);
+        const wrapper = renderInDocument({ ...requiredProps, open: true });
 
+        jest.runAllTimers();
+
+        const { dialogCloseButton, defaultSimpleColor } = getElements(wrapper);
         expect(document.activeElement).toBe(defaultSimpleColor);
+
         document.dispatchEvent(tabKey);
         expect(document.activeElement).toBe(dialogCloseButton);
+
+        wrapper.unmount();
       });
     });
   });

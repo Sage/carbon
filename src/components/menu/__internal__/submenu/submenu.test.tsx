@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import FixedNavigationBarContext from "components/navigation-bar/__internal__/fixed-navigation-bar.context";
@@ -332,7 +332,7 @@ test("should support focusing elements via the user typing a search string", asy
 });
 
 test("should reset the search string and focus the correct item when multiple character keys are pressed slowly", async () => {
-  jest.useFakeTimers("legacy");
+  jest.useFakeTimers();
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
   render(
     <MenuContext.Provider value={menuContextValues}>
@@ -348,7 +348,11 @@ test("should reset the search string and focus the correct item when multiple ch
   const menuItem = screen.getByRole("button", { name: "title" });
   await user.click(menuItem);
   await user.keyboard("b");
-  jest.runAllTimers();
+
+  act(() => {
+    jest.runAllTimers();
+  });
+
   await user.keyboard("o");
 
   expect(screen.getByRole("link", { name: "Orange" })).toHaveFocus();

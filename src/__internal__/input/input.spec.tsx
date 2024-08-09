@@ -9,6 +9,15 @@ import { SelectTextboxContext } from "../../components/select/__internal__/selec
 
 import { assertStyleMatch } from "../../__spec_helper__/__internal__/test-utils";
 
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
 describe("Input", () => {
   let container: HTMLDivElement | null;
   beforeEach(() => {
@@ -139,13 +148,15 @@ describe("Input", () => {
       it("the prop is triggered after 750 ms", () => {
         const onChangeDeferredProp = jest.fn();
         const wrapper = renderMount({ onChangeDeferred: onChangeDeferredProp });
-        jest.useFakeTimers();
         wrapper.find("input").simulate("change");
+
         jest.advanceTimersByTime(500);
+
         expect(onChangeDeferredProp).not.toHaveBeenCalled();
+
         jest.advanceTimersByTime(750);
+
         expect(onChangeDeferredProp).toHaveBeenCalled();
-        wrapper.find("input").simulate("change");
       });
     });
     describe("with deferTimeout prop", () => {
@@ -156,11 +167,14 @@ describe("Input", () => {
           onChangeDeferred: onChangeDeferredProp,
           deferTimeout,
         });
-        jest.useFakeTimers();
         wrapper.find("input").simulate("change");
+
         jest.advanceTimersByTime(50);
+
         expect(onChangeDeferredProp).not.toHaveBeenCalled();
+
         jest.advanceTimersByTime(100);
+
         expect(onChangeDeferredProp).toHaveBeenCalled();
       });
     });
@@ -186,20 +200,18 @@ describe("Input", () => {
   });
 
   describe("select text on focus", () => {
-    afterEach(() => {
-      jest.useRealTimers();
-    });
-
     const focusWith = (value: string, leftPos: number, rightPos: number) => {
-      jest.useFakeTimers();
       const wrapper = renderMount({ value });
       const inputComponent = wrapper.find('input[type="text"]');
       const inputElement = (inputComponent.instance() as unknown) as HTMLInputElement;
       jest.spyOn(inputElement, "setSelectionRange");
+
       inputElement.selectionStart = leftPos;
       inputElement.selectionEnd = rightPos;
       (inputComponent.getDOMNode() as HTMLInputElement).focus();
+
       jest.runAllTimers();
+
       return inputElement;
     };
 
@@ -219,23 +231,22 @@ describe("Input", () => {
     });
 
     it("should not break when unmounted right after receiving focus", () => {
-      jest.useFakeTimers();
       const wrapper = renderMount();
       wrapper.find("input").simulate("focus");
       wrapper.unmount();
-      jest.runAllTimers();
     });
   });
 
   describe("when input type is different than text", () => {
     const focus = () => {
-      jest.useFakeTimers();
       const wrapper = renderMount({ type: "radio" });
       const inputComponent = wrapper.find('input[type="radio"]');
       const inputElement = (inputComponent.instance() as unknown) as HTMLInputElement;
       jest.spyOn(inputElement, "setSelectionRange");
       inputComponent.simulate("focus");
+
       jest.runAllTimers();
+
       return inputElement;
     };
 

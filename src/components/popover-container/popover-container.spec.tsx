@@ -65,16 +65,16 @@ describe("PopoverContainer", () => {
   let wrapper: ReactWrapper;
   let onOpenFn: jest.Mock | undefined, onCloseFn: jest.Mock | undefined;
 
-  beforeAll(() => {
-    jest.useFakeTimers();
-  });
-
   beforeEach(() => {
+    jest.useFakeTimers();
+
     wrapper = render();
   });
 
   afterEach(() => {
     jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+
     onOpenFn?.mockClear();
     onCloseFn?.mockClear();
     wrapper.unmount();

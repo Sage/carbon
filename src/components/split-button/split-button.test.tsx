@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SplitButton from "./split-button.component";
 import Button from "../button";
@@ -71,12 +71,14 @@ test("should render with the main, toggle and child buttons visible when require
     </SplitButton>
   );
 
-  const toggle = await screen.findByRole("button", { name: "Show more" });
+  const toggle = screen.getByRole("button", { name: "Show more" });
   await user.click(toggle);
 
   expect(screen.getByRole("button", { name: "Main" })).toBeVisible();
   expect(toggle).toBeVisible();
-  expect(screen.getByRole("button", { name: "Single Button" })).toBeVisible();
+  expect(
+    await screen.findByRole("button", { name: "Single Button" })
+  ).toBeVisible();
 });
 
 test("should render with the main, toggle and multiple child buttons visible when required props passed and toggle is clicked", async () => {
@@ -338,6 +340,7 @@ test("should render non-Carbon Button children", async () => {
   render(<SplitButton text="Main">{spanElement}</SplitButton>);
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
+
   expect(await screen.findByText("span-element")).toBeInTheDocument();
 });
 
@@ -374,10 +377,12 @@ test("should render additional button text with align set to 'left'", async () =
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-  expect(childButton).toHaveStyle({ textAlign: "left" });
+
+  expect(
+    await screen.findByRole("button", {
+      name: "Single Button",
+    })
+  ).toHaveStyle({ textAlign: "left" });
 });
 
 test("should render additional button text with align set to 'right'", async () => {
@@ -389,10 +394,12 @@ test("should render additional button text with align set to 'right'", async () 
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
-  expect(childButton).toHaveStyle({ textAlign: "right" });
+
+  expect(
+    await screen.findByRole("button", {
+      name: "Single Button",
+    })
+  ).toHaveStyle({ textAlign: "right" });
 });
 
 test("should render the child buttons when a click event detected on toggle button", async () => {
@@ -404,11 +411,12 @@ test("should render the child buttons when a click event detected on toggle butt
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = await screen.findByRole("button", {
-    name: "Single Button",
-  });
 
-  expect(childButton).toBeVisible();
+  expect(
+    await screen.findByRole("button", {
+      name: "Single Button",
+    })
+  ).toBeVisible();
 });
 
 test("should not render the child buttons when a click event detected on toggle button and 'disabled' prop set", async () => {
@@ -420,9 +428,10 @@ test("should not render the child buttons when a click event detected on toggle 
   );
 
   await user.click(screen.getByRole("button", { name: "Show more" }));
-  const childButton = screen.queryByRole("button", { name: "Single Button" });
 
-  expect(childButton).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("button", { name: "Single Button" })
+  ).not.toBeInTheDocument();
 });
 
 test("should render the child buttons when a 'Enter' keydown event detected and toggle button is focused", async () => {
@@ -471,11 +480,12 @@ test("should not hide the additional buttons when already open and 'Enter' key p
 
   const toggle = screen.getByRole("button", { name: "Show more" });
   await user.click(toggle);
+
   const childButton = await screen.findByRole("button", {
     name: "Single Button",
   });
-
   expect(childButton).toBeVisible();
+
   await user.keyboard("{Enter}");
   expect(childButton).toBeVisible();
 });
@@ -490,11 +500,12 @@ test("should not hide the additional buttons when already open and ' ' (space) k
 
   const toggle = screen.getByRole("button", { name: "Show more" });
   await user.click(toggle);
+
   const childButton = await screen.findByRole("button", {
     name: "Single Button",
   });
-
   expect(childButton).toBeVisible();
+
   await user.keyboard(" ");
   expect(childButton).toBeVisible();
 });
@@ -631,12 +642,20 @@ test("should hide the additional buttons when a click event detected outside the
   );
 
   const toggle = screen.getByRole("button", { name: "Show more" });
-  await user.click(toggle);
-  const childButton = screen.getByRole("button", { name: "Single Button" });
 
-  expect(childButton).toBeVisible();
+  await user.click(toggle);
+
+  expect(
+    await screen.findByRole("button", {
+      name: "Single Button",
+    })
+  ).toBeVisible();
+
   await user.click(document.body);
-  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
 });
 
 test("should hide the additional buttons when a 'Escape' keydown event detected and focus is within component", async () => {
@@ -654,10 +673,13 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
   const button1 = await screen.findByRole("button", {
     name: "Single Button",
   });
-
   expect(button1).toBeVisible();
+
   await user.keyboard("{Escape}");
-  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
 });
 
 test("should hide the additional buttons when a 'Escape' keydown event detected and focus is not within component", async () => {
@@ -670,13 +692,17 @@ test("should hide the additional buttons when a 'Escape' keydown event detected 
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
   await user.click(toggle);
+
   const button1 = await screen.findByRole("button", {
     name: "Single Button",
   });
-
   expect(button1).toBeVisible();
+
   await user.keyboard("{Escape}");
-  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
 });
 
 test("should render with the correct styles when 'align' prop is 'right'", async () => {
@@ -734,13 +760,15 @@ test("should call the relevant 'onClick' callback and hide the additional button
 
   const toggle = await screen.findByRole("button", { name: "Show more" });
   await user.click(toggle);
-  const child = await screen.findByRole("button", { name: "Child Button" });
 
+  const child = await screen.findByRole("button", { name: "Child Button" });
   await user.click(child);
 
   expect(onClickOnChildMock).toHaveBeenCalled();
   expect(onClickMock).not.toHaveBeenCalled();
-  expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  await waitFor(() => {
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
 });
 
 test("should hide the additional buttons when the main button is clicked", async () => {
@@ -751,16 +779,14 @@ test("should hide the additional buttons when the main button is clicked", async
     </SplitButton>
   );
 
-  const toggle = screen.getByRole("button", { name: "Show more" });
-  const main = screen.getByRole("button", { name: "Main" });
-  await user.click(toggle);
+  await user.click(screen.getByRole("button", { name: "Show more" }));
+
   const childButton = await screen.findByRole("button", {
     name: "Single Button",
   });
-
   expect(childButton).toBeVisible();
 
-  await user.click(main);
+  await user.click(screen.getByRole("button", { name: "Main" }));
 
   expect(childButton).not.toBeInTheDocument();
 });

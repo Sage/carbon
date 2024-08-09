@@ -31,7 +31,6 @@ import mockDOMRect from "../../../__spec_helper__/mock-dom-rect";
 
 const mockedGuid = "mocked-guid";
 jest.mock("../../../__internal__/utils/helpers/guid");
-jest.useFakeTimers();
 (guid as jest.MockedFunction<typeof guid>).mockReturnValue(mockedGuid);
 
 function getSelect(props: Partial<SimpleSelectProps> = {}) {
@@ -75,12 +74,17 @@ describe("SimpleSelect", () => {
   let container: HTMLDivElement | null;
 
   beforeEach(() => {
+    jest.useFakeTimers();
+
     container = document.createElement("div");
     container.id = "enzymeContainer";
     document.body.appendChild(container);
   });
 
   afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+
     if (container && container.parentNode) {
       container.parentNode.removeChild(container);
     }

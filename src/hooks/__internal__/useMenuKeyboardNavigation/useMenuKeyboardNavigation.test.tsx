@@ -11,8 +11,6 @@ interface MockComponentProps {
   hideCb: () => void;
 }
 
-jest.useFakeTimers();
-
 const MockComponent = ({ hideCb }: MockComponentProps) => {
   const mainRef = useRef<HTMLButtonElement>(null);
   const refs = [
@@ -64,6 +62,16 @@ const MockComponent = ({ hideCb }: MockComponentProps) => {
     </>
   );
 };
+
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
 describe("useMenuKeyboardNavigation", () => {
   it.each([
     ["End", "End", ""],

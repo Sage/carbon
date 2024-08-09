@@ -47,17 +47,23 @@ describe("Form", () => {
 
   beforeEach(() => {
     jest.useFakeTimers();
-    wrapper = mount(<Form />);
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   testStyledSystemSpacing((props) => <Form {...props} />);
 
   it("allows custom classes to be added to the Form", () => {
+    wrapper = mount(<Form />);
     wrapper.setProps({ className: "foo" });
     expect(wrapper.find(StyledForm).hasClass("foo")).toBeTruthy();
   });
 
   it("does not render the StyledFormFooter container by default", () => {
+    wrapper = mount(<Form />);
     expect(wrapper.find(StyledFormFooter).exists()).toBeFalsy();
   });
 
@@ -372,6 +378,7 @@ describe("Form", () => {
 
   describe("styles", () => {
     it('applies flex-grow: 1 to right side buttons when buttonAlignment prop is "left"', () => {
+      wrapper = mount(<Form />);
       wrapper.setProps({ buttonAlignment: "left", rightSideButtons: <div /> });
       assertStyleMatch(
         {
@@ -382,6 +389,7 @@ describe("Form", () => {
     });
 
     it('applies flex-grow: 1 to left side buttons when buttonAlignment prop is "right"', () => {
+      wrapper = mount(<Form />);
       wrapper.setProps({ buttonAlignment: "right", leftSideButtons: <div /> });
       assertStyleMatch(
         {
@@ -392,6 +400,7 @@ describe("Form", () => {
     });
 
     it('align all buttons to right when buttonAlignment prop is "right"', () => {
+      wrapper = mount(<Form />);
       wrapper.setProps({
         buttonAlignment: "right",
         saveButton: (
@@ -409,6 +418,7 @@ describe("Form", () => {
     });
 
     it("form summary has proper background when errorCount or warningCount are passed", () => {
+      wrapper = mount(<Form />);
       wrapper.setProps({
         warningCount: 1,
         saveButton: (
@@ -628,6 +638,7 @@ describe("Form", () => {
   });
 
   it("sets novalidate on the form", () => {
+    wrapper = mount(<Form />);
     expect(wrapper.find("form").prop("noValidate")).toBe(true);
     wrapper.setProps({ noValidate: false });
     expect(wrapper.find("form").prop("noValidate")).toBe(false);

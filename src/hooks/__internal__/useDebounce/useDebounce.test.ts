@@ -6,7 +6,8 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  jest.clearAllTimers();
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
   jest.clearAllMocks();
 });
 

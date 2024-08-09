@@ -30,7 +30,14 @@ function renderGroupedCharacter(
 }
 
 describe("GroupedCharacter", () => {
-  jest.useFakeTimers();
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
   const basicGroupConfig = [2, 2, 4];
   const separator = "-";
   const valueString = "12345678";

@@ -25,7 +25,11 @@ export function simulateSelectTextboxEvent(
     });
     resizeObserver.resize();
   });
-  if (eventType === "focus") jest.runOnlyPendingTimers();
+  if (eventType === "focus") {
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
+  }
   container.update();
 }
 

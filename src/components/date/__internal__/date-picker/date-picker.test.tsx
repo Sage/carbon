@@ -1,16 +1,15 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {
-  enGB as enGBLocale,
-  de as deLocale,
-  es as esLocale,
-  enCA as enCALocale,
-  enZA as enZALocale,
-  fr as frLocale,
-  frCA as frCALocale,
-  enUS as enUSLocale,
-} from "date-fns/locale";
+
+import enGBLocale from "date-fns/locale/en-GB";
+import deLocale from "date-fns/locale/de";
+import esLocale from "date-fns/locale/es";
+import enCALocale from "date-fns/locale/en-CA";
+import enZALocale from "date-fns/locale/en-ZA";
+import frLocale from "date-fns/locale/fr";
+import frCALocale from "date-fns/locale/fr-CA";
+import enUSLocale from "date-fns/locale/en-US";
 
 import DatePicker, { DatePickerProps } from "./date-picker.component";
 import I18nProvider from "../../../i18n-provider";

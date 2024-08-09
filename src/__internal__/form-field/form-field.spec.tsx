@@ -204,6 +204,8 @@ describe("FormField", () => {
 
   describe("invariant", () => {
     it("should throw when isOptional and isRequired props are both true", () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
+
       expect(() => {
         render({
           id: "mock-input",
@@ -213,6 +215,8 @@ describe("FormField", () => {
       }).toThrowError(
         "an input cannot be set to both required and optional at the same time"
       );
+
+      jest.restoreAllMocks();
     });
 
     it("should not throw when isRequired prop is true and isOptional is false", () => {

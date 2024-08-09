@@ -27,6 +27,15 @@ const loggerSpy = jest.spyOn(Logger, "deprecate");
 
 jest.mock("../../__internal__/utils/helpers/guid");
 
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.runOnlyPendingTimers();
+  jest.useRealTimers();
+});
+
 describe("DialogFullScreen", () => {
   (guid as jest.MockedFunction<typeof guid>).mockImplementation(
     () => "guid-12345"
@@ -129,7 +138,6 @@ describe("DialogFullScreen", () => {
   });
 
   describe("autoFocus", () => {
-    jest.useFakeTimers();
     it("should focus the dialog container by default", () => {
       wrapper = mount(
         <DialogFullScreen open>
@@ -165,7 +173,6 @@ describe("DialogFullScreen", () => {
 
   describe("focusFirstElement", () => {
     it("should focus on the element passes as focusFirstElement prop", () => {
-      jest.useFakeTimers();
       const Component = () => {
         const secondInputRef = useRef<HTMLInputElement | null>(null);
         return (
@@ -230,39 +237,32 @@ describe("DialogFullScreen", () => {
   });
 
   describe("onOpening", () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
+    it("sets overflow hidden to the body", () => {
       wrapper = mount(<DialogFullScreen open={false} />);
+
       wrapper.setProps({ open: true });
       jest.runAllTimers();
-    });
 
-    afterEach(() => {
-      jest.useRealTimers();
-      wrapper.unmount();
-    });
-
-    it("sets overflow hidden to the body", () => {
       expect(window.document.body.style.overflow).toBe("hidden");
+
+      wrapper.unmount();
     });
   });
 
   describe("onClosing", () => {
-    beforeEach(() => {
-      wrapper = mount(<DialogFullScreen open={false} />);
-    });
-
-    afterEach(() => {
-      wrapper.unmount();
-    });
-
     it("recovers an original overflow", () => {
+      wrapper = mount(<DialogFullScreen open={false} />);
+
       window.document.body.style.overflow = "auto";
       expect(window.document.body.style.overflow).toBe("auto");
+
       wrapper.setProps({ open: true });
       expect(window.document.body.style.overflow).toBe("hidden");
+
       wrapper.setProps({ open: false });
       expect(window.document.body.style.overflow).toBe("auto");
+
+      wrapper.unmount();
     });
   });
 

@@ -13,6 +13,7 @@
     "start:debug-theme": "cross-env STORYBOOK_DEBUG_THEME=true npm run start",
     "test": "jest --config=./jest.config.json",
     "test-update": "jest --config=./jest.config.json --updateSnapshot",
+    "test-debug": "npm test -- --clearCache && node --inspect-brk --expose-gc ./node_modules/.bin/jest --config=./jest.config.json --no-cache",
     "format": "prettier --write './{src,playwright}/**/*.{js,jsx,ts,tsx}'",
     "lint": "eslint ./src ./playwright",
     "build": "node ./scripts/build.js",
