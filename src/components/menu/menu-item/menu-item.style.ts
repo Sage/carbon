@@ -14,7 +14,6 @@ interface StyledMenuItemWrapperProps
   extends Pick<
       MenuWithChildren,
       | "href"
-      | "variant"
       | "showDropdownArrow"
       | "overrideColor"
       | "clickToOpen"
@@ -32,6 +31,7 @@ interface StyledMenuItemWrapperProps
   ariaLabel?: string;
   asDiv?: boolean;
   hasInput?: boolean;
+  menuItemVariant?: Pick<MenuWithChildren, "variant">["variant"];
 }
 
 const oldFocusStyling = `
@@ -46,7 +46,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
     selected,
     hasSubmenu,
     isOpen,
-    variant,
+    menuItemVariant,
     showDropdownArrow,
     href,
     clickToOpen,
@@ -98,7 +98,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
     ${overrideColor &&
     css`
       &&&& {
-        background-color: ${variant === "alternate"
+        background-color: ${menuItemVariant === "alternate"
           ? menuConfigVariants[menuType].alternate
           : menuConfigVariants[menuType].submenuItemBackground};
       }
@@ -226,7 +226,7 @@ const StyledMenuItemWrapper = styled.a.attrs({
       }
     `}
 
-    ${variant === "alternate" &&
+    ${menuItemVariant === "alternate" &&
     !inFullscreenView &&
     css`
       &&& {

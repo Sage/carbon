@@ -246,7 +246,6 @@ export const MenuItem = ({
     icon,
     removeAriaLabelOnIcon: true,
     selected,
-    variant,
     onKeyDown: !inFullscreenView ? handleKeyDown : undefined,
     overrideColor,
     ref,
@@ -285,6 +284,7 @@ export const MenuItem = ({
           onSubmenuOpen={onSubmenuOpen}
           onSubmenuClose={onSubmenuClose}
           {...elementProps}
+          variant={variant}
           {...rest}
         >
           {children}
@@ -314,6 +314,7 @@ export const MenuItem = ({
         menuType={menuType}
         data-role="menu-item-wrapper"
         {...elementProps}
+        menuItemVariant={variant}
         ariaLabel={ariaLabel}
         maxWidth={maxWidth}
         inFullscreenView={inFullscreenView}
