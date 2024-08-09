@@ -105,6 +105,11 @@ export default {
         type: "boolean",
       },
     },
+    minHeight: {
+      control: {
+        type: "number",
+      },
+    },
   },
   args: {
     expandable: false,

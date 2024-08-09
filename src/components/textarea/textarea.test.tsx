@@ -86,6 +86,22 @@ test.each([
   }
 );
 
+test("should have default min-height of 64px if no minHeight is specified", () => {
+  render(<Textarea value="Initial content" />);
+
+  const textarea = screen.getByRole("textbox");
+
+  expect(textarea).toHaveStyle({ "min-height": `64px` });
+});
+
+test("should apply the corect min-height if minHeight is specified", () => {
+  render(<Textarea minHeight={200} value="Initial content" />);
+
+  const textarea = screen.getByRole("textbox");
+
+  expect(textarea).toHaveStyle({ "min-height": "200px" });
+});
+
 test.each([
   "enter",
   "done",
