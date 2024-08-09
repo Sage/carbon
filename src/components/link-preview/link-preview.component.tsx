@@ -76,6 +76,7 @@ export const LinkPreview = ({
 
   return (
     <StyledLinkPreview
+      data-role="link-preview"
       as={loadingState ? "div" : as}
       tabIndex={loadingState || as === "div" ? -1 : 0}
       {...linkProps}
