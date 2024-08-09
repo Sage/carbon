@@ -1,17 +1,15 @@
 import React from "react";
 
 import TypeIconStyle from "./type-icon.style";
-import Icon from "../../icon";
-import { MessageVariant } from "../message.component";
+import Icon from "../../../icon";
+import { MessageVariant } from "../../message.component";
 
 export interface TypeIconProps {
-  /** set background to be invisible */
   transparent?: boolean;
-  /** set type of message based on new DLS standard */
-  variant?: MessageVariant;
+  variant: MessageVariant;
 }
 
-const TypeIcon = ({ variant = "info", transparent = false }: TypeIconProps) => {
+const TypeIcon = ({ variant, transparent }: TypeIconProps) => {
   function iconToRender() {
     if (variant === "neutral") return "info";
     if (variant === "success") return "tick_circle";

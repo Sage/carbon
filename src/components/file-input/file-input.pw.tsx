@@ -13,6 +13,7 @@ import {
 import {
   checkAccessibility,
   verifyRequiredAsteriskForLabel,
+  assertCssValueIsApproximately,
 } from "../../../playwright/support/helper";
 import { CHARACTERS } from "../../../playwright/support/constants";
 import { FileUploadStatusProps } from ".";
@@ -351,9 +352,14 @@ test.describe("with uploadStatus prop", () => {
     page,
   }) => {
     await mount(<FileInputComponent uploadStatus={uploadingStatusProps} />);
-    const progressBar = await page.getByRole("progressbar");
-    await expect(progressBar).toBeVisible();
-    await expect(progressBar).toHaveAttribute("aria-valuenow", "30");
+
+    const progressTrackerBar = page.locator(
+      '[data-element="progress-tracker-bar"]'
+    );
+    const innerBar = page.locator('[data-element="inner-bar"]');
+
+    await expect(progressTrackerBar).toBeVisible();
+    await assertCssValueIsApproximately(innerBar, "width", 83);
   });
 
   test("in the uploading state with no progress, it renders a loader par with no aria-valuenow", async ({
