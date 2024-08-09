@@ -296,4 +296,25 @@ describe("when `validationRedesignOptIn` flag is true", () => {
     expect(screen.getAllByRole("radio")).toHaveLength(2);
     expect(screen.getByText("foo")).toBeVisible();
   });
+
+  test("should not render labelHelp and fieldHelp on children", () => {
+    render(
+      <CarbonProvider validationRedesignOptIn>
+        <RadioButtonGroup name="group" legend="legend">
+          <RadioButton
+            key="radio1"
+            value="radio1"
+            label="Radio Button 1"
+            labelHelp="labelHelp"
+            fieldHelp="fieldHelp"
+          />
+        </RadioButtonGroup>
+      </CarbonProvider>
+    );
+
+    expect(
+      screen.queryByRole("button", { name: "help" })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("fieldHelp")).not.toBeInTheDocument();
+  });
 });

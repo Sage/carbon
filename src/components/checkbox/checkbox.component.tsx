@@ -97,6 +97,15 @@ export const Checkbox = React.forwardRef(
       );
     }
 
+    const commonProps = {
+      fieldHelpInline,
+      labelSpacing,
+      labelHelp,
+      fieldHelp,
+    };
+
+    const isInGroup = Object.keys(checkboxGroupContext).length !== 0;
+
     const inputProps = {
       ariaLabelledBy,
       onClick,
@@ -110,19 +119,16 @@ export const Checkbox = React.forwardRef(
       type: "checkbox",
       name,
       reverse: !reverse,
-      fieldHelp,
       autoFocus,
-      labelHelp,
-      labelSpacing,
       required,
       isOptional,
-      fieldHelpInline,
       checked,
       disabled,
       inputWidth,
       labelWidth,
       ref,
       ...rest,
+      ...(isInGroup && validationRedesignOptIn ? {} : { ...commonProps }),
     };
 
     const validationProps = {

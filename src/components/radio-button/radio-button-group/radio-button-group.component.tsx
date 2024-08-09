@@ -165,7 +165,6 @@ export const RadioButtonGroup = (props: RadioButtonGroupProps) => {
                     error: !!error,
                     warning: !!warning,
                     info: !!info,
-                    required,
                     ...child.props,
                   });
                 })}

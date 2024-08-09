@@ -4,6 +4,7 @@ import { StoryFn } from "@storybook/react";
 import { RadioButtonGroup, RadioButton } from ".";
 import { RadioButtonGroupProps } from "./radio-button-group/radio-button-group.component";
 import { RadioButtonProps } from "./radio-button.component";
+import CarbonProvider from "../carbon-provider";
 
 export default {
   title: "Radio Button/Test",
@@ -13,6 +14,8 @@ export default {
     "WithValidationsOnRadioGroup",
     "WithTooltipPosition",
     "WithTooltipPositionOnRadioGroup",
+    "WithNewValidation",
+    "WithNewValidationGroup",
   ],
   parameters: {
     info: { disable: true },
@@ -138,52 +141,50 @@ export const WithTooltipPositionOnRadioGroup: StoryFn<
 WithTooltipPositionOnRadioGroup.storyName =
   "with tooltip position on RadioGroup";
 
-const radioContainerWidth = 400;
-
-export const RadioButtonComponent = (props: Partial<RadioButtonProps>) => {
-  const [isChecked, setIsChecked] = React.useState(false);
+export const WithNewValidation = (props: Partial<RadioButtonProps>) => {
   return (
-    <div
-      style={{
-        marginTop: "64px",
-        marginLeft: "64px",
-        width: radioContainerWidth,
-      }}
-    >
+    <CarbonProvider validationRedesignOptIn>
       <RadioButton
         id="radio-1"
         value="radio1"
         label="Radiobutton 1"
-        checked={isChecked}
-        onChange={(e) => setIsChecked(e.target.checked)}
         {...props}
       />
-    </div>
+    </CarbonProvider>
   );
 };
 
-export const RadioButtonGroupComponent = ({
-  children,
+WithNewValidation.args = {
+  error: "Error message",
+  warning: "",
+  fieldHelp: "",
+  labelHelp: "",
+  required: false,
+  checked: false,
+};
+
+export const WithNewValidationGroup = ({
   ...props
 }: Partial<RadioButtonGroupProps>) => {
   return (
-    <div
-      style={{
-        marginTop: "64px",
-        marginLeft: "64px",
-      }}
-    >
+    <CarbonProvider validationRedesignOptIn>
       <RadioButtonGroup
-        name="radiobuttongroup"
+        name="radio-button-group"
         legend="Radio group legend"
         {...props}
       >
         <RadioButton id="radio-1" value="radio1" label="Yes" />
         <RadioButton id="radio-2" value="radio2" label="No" />
         <RadioButton id="radio-3" value="radio3" label="Maybe" />
-
-        {children}
       </RadioButtonGroup>
-    </div>
+    </CarbonProvider>
   );
+};
+
+WithNewValidationGroup.args = {
+  error: "Error message",
+  warning: "",
+  legendHelp: "Legend help text",
+  legendInline: false,
+  required: true,
 };
