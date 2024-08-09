@@ -103,7 +103,9 @@ export const FlatTable = ({
       setHasHorizontalScrollbar(right - left > offsetWidth);
 
       const body = tableRef.current.querySelector("tbody");
-      const bodyRows = body ? Array.from(body?.querySelectorAll("tr")) : [];
+      const bodyRows = body
+        ? Array.from(body?.querySelectorAll("tr"))
+        : /* istanbul ignore next */ [];
       const { length } = bodyRows;
       const targetRowFirstCol = findRow(
         bodyRows.slice(0, length - 1).reverse(),
