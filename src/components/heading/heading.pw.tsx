@@ -121,6 +121,26 @@ test.describe("Heading component", () => {
     });
   });
 
+  test(`should render with the correct focus styling when a string is passed to the back link`, async ({
+    mount,
+    page,
+  }) => {
+    await mount(<HeadingComponent backLink="https://carbon.sage.com/" />);
+
+    const linkWrapper = await link(page);
+    const backLinkAnchor = await linkWrapper.locator("a");
+    await backLinkAnchor.focus();
+    await expect(backLinkAnchor).toHaveCSS(
+      "box-shadow",
+      "rgb(255, 188, 25) 0px 0px 0px 3px, rgba(0, 0, 0, 0.9) 0px 0px 0px 6px"
+    );
+    await expect(backLinkAnchor).toHaveCSS(
+      "outline",
+      "rgba(0, 0, 0, 0) solid 3px"
+    );
+    await expect(linkWrapper).toHaveCSS("box-shadow", "none");
+  });
+
   specialCharacters.forEach((characterVals) => {
     test(`should render with ${characterVals} passed as helpAriaLabel`, async ({
       mount,
