@@ -191,9 +191,9 @@ test.describe("check props for Link component", () => {
     await expect(skipLinkElement).toBeVisible();
     await expect(skipLinkElement).toHaveCSS(
       "background-color",
-      "rgb(255, 255, 255)"
+      "rgb(255, 188, 25)"
     );
-    await expect(skipLinkElement).toHaveCSS("font-size", "16px");
+    await expect(skipLinkElement).toHaveCSS("font-size", "14px");
     await expect(skipLinkElement).toHaveCSS("padding-left", "24px");
     await expect(skipLinkElement).toHaveCSS("padding-right", "24px");
   });
@@ -208,7 +208,13 @@ test.describe("check props for Link component", () => {
     const skipLinkElement = skipLink(page);
     await expect(skipLinkElement).toBeVisible();
     await expect(skipLinkElement).toHaveCSS("top", "8px");
-    await expect(skipLinkElement).toHaveCSS("left", "8px");
+    await expect(skipLinkElement).toHaveCSS("left", "0px");
+    await expect(skipLinkElement).toHaveCSS(
+      "text-decoration",
+      "underline 4px solid rgb(0, 0, 0)"
+    );
+    await expect(skipLinkElement).toHaveCSS("text-decoration-thickness", "4px");
+    await expect(skipLinkElement).toHaveCSS("text-underline-offset", "3px");
   });
 
   ([

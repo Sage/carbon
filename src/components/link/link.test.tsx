@@ -6,41 +6,15 @@ import userEvent from "@testing-library/user-event";
 
 import Link from "./link.component";
 import MenuContext from "../menu/__internal__/menu.context";
-import { baseTheme } from "../../style/themes";
 
-describe("If `isSkipLink` provided", () => {
-  it("should render `Skip to main content` text inside of Link", () => {
-    render(
-      <Link href="#test" isSkipLink>
-        Test Content
-      </Link>
-    );
+test("should render `Skip to main content` text inside of Link when `isSkipLink` prop is provided", () => {
+  render(
+    <Link href="#test" isSkipLink>
+      Test Content
+    </Link>
+  );
 
-    expect(screen.getByText("Skip to main content")).toBeInTheDocument();
-  });
-
-  it("should render correct styling", () => {
-    render(
-      <Link href="#test" isSkipLink>
-        Test Content
-      </Link>
-    );
-
-    const linkElement = screen.getByTestId("link-anchor");
-
-    expect(linkElement).toHaveStyle({
-      position: "absolute",
-      paddingLeft: "var(--spacing300)",
-      paddingRight: "var(--spacing300)",
-      lineHeight: "36px",
-      fontSize: "var(--fontSizes200)",
-      left: "-999em",
-      color: "var(--colorsUtilityYin090)",
-      zIndex: `${baseTheme.zIndex.aboveAll}`,
-      boxShadow: "inset 0 0 0 var(--spacing025) var(--colorsActionMajor500)",
-      border: "var(--spacing025) solid var(--colorsUtilityYang100)",
-    });
-  });
+  expect(screen.getByText("Skip to main content")).toBeInTheDocument();
 });
 
 test("should not call the onClick function when `disabled` prop is true and clicked", async () => {
