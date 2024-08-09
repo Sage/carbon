@@ -23,6 +23,7 @@ import { ValidationProps } from "../../__internal__/validations";
 import Logger from "../../__internal__/utils/logger";
 
 let deprecateUncontrolledWarnTriggered = false;
+const isBlurBlockedDeprecateWarnTriggered = false;
 
 export interface SimpleColorPickerProps extends ValidationProps, MarginProps {
   /** The SimpleColor components to be rendered in the group */
@@ -260,9 +261,15 @@ export const SimpleColorPicker = React.forwardRef<
   const handleOnBlur = (ev: React.FocusEvent<HTMLInputElement>) => {
     ev.preventDefault();
 
-    if (!blurBlocked && onBlur) {
-      onBlur(ev);
-    }
+    setTimeout(() => {
+      const hasBlurred = !gridItemRefs?.current?.find(
+        (colorRef) => colorRef === document.activeElement
+      );
+      /* istanbul ignore else */
+      if (onBlur && hasBlurred && !blurBlocked) {
+        onBlur(ev);
+      }
+    }, 5);
   };
 
   const handleOnMouseDown = (ev: React.MouseEvent<HTMLElement>) => {
@@ -295,6 +302,13 @@ export const SimpleColorPicker = React.forwardRef<
     deprecateUncontrolledWarnTriggered = true;
     Logger.deprecate(
       "Uncontrolled behaviour in `Simple Color Picker` is deprecated and support will soon be removed. Please make sure all your inputs are controlled."
+    );
+  }
+
+  if (!isBlurBlockedDeprecateWarnTriggered && isBlurBlocked) {
+    deprecateUncontrolledWarnTriggered = true;
+    Logger.deprecate(
+      `The 'isBlurBlocked' prop in ${SimpleColorPicker.displayName} is deprecated and support will soon be removed.`
     );
   }
 
